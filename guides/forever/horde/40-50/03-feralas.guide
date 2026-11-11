@@ -9,8 +9,7 @@ next forever/horde/40-50/04-tanaris
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Errand for Apothecary Zinge (232), Cortello's Riddle (626).
-# Left out: Continued Threat (1428).
+# Added here: Errand for Apothecary Zinge (232), Cortello's Riddle (626), Continued Threat (1428).
 
 step Zeppelin to Undercity
   zone Durotar
@@ -19,11 +18,12 @@ step Zeppelin to Undercity
 step Apothecary Zinge
   zone Undercity
   accept 232
-  turnin 232
+  turnin 232                            -- Alessandro Luca
   accept 238
+  turnin 728                            -- Keeper Bel'dugur, on the way back to Zinge
   turnin 238
   accept 243
-  turnin 728
+  collect 8523                          -- the Field Testing Kit from these errands: keep it, Tanaris Field Sampling hands it back in Gadgetzan
 
 # ---------------------------------------------------------------- The Undercity
 
@@ -50,11 +50,21 @@ step Fly to Stonard
   fly "Stonard"
   zone Swamp of Sorrows
 
+step Stonard
+  tip Coming from Stranglethorn, you carry these already. Starting here: Dar stands inside Stonard's great hall and Fel'zerul on its top floor.
+  accept 698                            -- Dar, inside
+  accept 1430                           -- Dar, inside
+  accept 1424                           -- Fel'zerul, on the top floor
+
 step A Soggy Scroll
   when onquest 624
   tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
   turnin 624
   accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, later in this guide
+
+step Sawtooth crocolisks
+  tip The crocolisks wallow in the pools around Galen's old camp, just north of Stonard, on the way back east; about one in four drops a flank.
+  collect 6169 quest 698.1
 
 # ---------------------------------------------------------------- Pool of Tears and the coast
 
@@ -90,6 +100,16 @@ step Misty Reed Post
   turnin 1426                           -- Katar
   accept 1427
   turnin 1427                           -- Tok'Kar
+  accept 1428                           -- Katar
+
+step Continued Threat
+  tip The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both.
+  kill 750 quest 1428.1
+  kill 751 quest 1428.2
+  kill 752 quest 1428.3
+
+step Misty Reed Post
+  turnin 1428                           -- Katar
 
 step Stonard
   turnin 1424                           -- Fel'zerul, on the top floor
@@ -123,7 +143,8 @@ step Brackenwall Village
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
-  goto 31.1,66.1 "Dustwallow Marsh"
+  when onquest 625
+  goto 31.1,66.1 "The Musty Scroll"
 
 step The Musty Scroll
   when onquest 625
@@ -159,6 +180,13 @@ step Onyxia's eggs
   goto 53.4,74.7 "Dragon caves"
   interact 20359 quest 1172.1
 
+step Level 45.37
+  when !group 1173
+  when level<45.37
+  tip Overlord Mok'Morokk's challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the Wyrmbog's northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
+  goto 37.5,68.3 map 1445 "Firemane Scout"
+  level 45.37 grind 4329               -- grind on Firemane Scout
+
 step Brackenwall Village
   tip Ride back north to Brackenwall.
   turnin 1172                           -- Draz'Zilb, below ground
@@ -167,16 +195,9 @@ step Challenge Overlord Mok'Morokk
   when group 1173
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Challenge Overlord Mok'Morokk needs a group of 3. Skip it if you are alone: the route has you grind the XP back.
   tip Overlord Mok'Morokk is elite: grouping up is advised. Beat him down until he gives up, then report to Draz'Zilb.
-  accept 1173 optional                  -- Overlord Mok'Morokk
-  complete 1173 optional
-  turnin 1173 optional                  -- Draz'Zilb, below ground
-
-step Level 45.41
-  when !group 1173
-  when level<45.41
-  tip If you skipped Challenge Overlord Mok'Morokk, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
-  goto 37.5,68.3 map 1445 "Firemane Scout"
-  level 45.41                          -- grind on Firemane Scout
+  accept 1173                           -- Overlord Mok'Morokk
+  complete 1173
+  turnin 1173                           -- Draz'Zilb, below ground
 
 step Fly to Camp Mojache
   zone Dustwallow Marsh
@@ -205,7 +226,7 @@ step Zorbin Fandazzle
 
 step Rogue Vale screechers
   tip Rogue Vale opens just north of Zorbin's dock. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body and kill the spirit that rises.
-  use 10699 "Yeh'kinya's Bramble" @45.0,38.0
+  use 10699 "Yeh'kinya's Bramble" quest 3520.1 @45.0,38.0
   kill 8612 quest 3520.1
 
 step The Forgotten Coast: kill these as you meet them

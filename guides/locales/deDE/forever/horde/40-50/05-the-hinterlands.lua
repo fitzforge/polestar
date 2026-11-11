@@ -12,11 +12,13 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 3: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "{npc:7801}s Lager",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Reite von {area:272} nach Nordosten ins {area:47} und auf der Straße nach Osten; {npc:7801} lagert auf dem Hügel südlich der {area:350} der Elfen.",
+
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Reite von {area:272} nach Nordosten ins {zone:1425} und auf der Straße nach Osten; {npc:7801} lagert auf dem Hügel südlich der {area:350} der Elfen.",
 
 	-- Step 4: Highvale
 	["Highvale"] = "Hochtal",
@@ -28,8 +30,8 @@ return {
 	["Underwater"] = "",
 
 	-- Step 6: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Folge den Straßen nach Osten durch das {area:47} zum Trolldorf an der Ostküste.",
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "Folge den Straßen nach Osten durch das {zone:1425} zum Trolldorf an der Ostküste.",
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -38,14 +40,16 @@ return {
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "",
-	-- {npc:2491} Whiskey Slim
-	["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "Die großen Schildkröten kriechen über die Strände nördlich des Dorfs. Die Portweinflaschen von {npc:2491} liegen auch an diesen Stränden, aber seine Quest ist nicht auf dieser Route. Ein Schnappkiefer kann selten das Notsignal von OOX-09/HL fallen lassen: Behalte es.",
+	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "",
+	-- {object:2068} Pupellyverbos Port
+	["{object:2068}, on the beaches"] = "",
 	-- {item:8704} OOX-09/HL Distress Beacon
 	["{item:8704}, a rare drop"] = "{item:8704}, eine seltene Beute",
 
 	-- Step 10: The Overlook Cliffs: kill these as you meet them
-	-- {npc:7977} Gammerita
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	-- {npc:7977} Gammerita · {area:307} The Overlook Cliffs
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "Das sind Elitegegner: Eine Gruppe ist empfehlenswert, such dir Leute dafür. {npc:7977} ist eine Elite der Stufe 48: Die meisten Klassen schaffen sie auf Stufe 50 allein, aber vielleicht brauchst du Hilfe. Lass sie aus, wenn du allein bist: Die Route lässt dich die Erfahrung wieder hereingrinden.\n{npc:7977} läuft am Ufer unterhalb der {area:307} entlang, vom Pfeil nach Süden bis etwa 75,66 und nach Norden bis etwa 82,52: Wenn sie nicht am Pfeil ist, folge dem Ufer.",
 
 	-- Step 11: Rin'ji's Secret
 	-- {area:307} The Overlook Cliffs
@@ -140,25 +144,40 @@ return {
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "",
 
-	-- Step 33: The bloodmages
+	-- Step 33: Fallen Hero of the Horde
+	-- {zone:1419} Blasted Lands
+	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "",
+
+	-- Step 35: Fallen Hero of the Horde
+	-- {npc:7623} Dispatch Commander Ruag · {area:75} Stonard · {zone:1419} Blasted Lands
+	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "",
+
+	-- Step 36: The bloodmages
 	["The bloodmages"] = "Die Blutmagier",
 	-- {area:75} Stonard · {zone:1419} Blasted Lands
 	["Ride west out of {area:75} and south through the canyon into the {zone:1419}; the two bloodmages stand by the road just inside."] = "Reite nach Westen aus {area:75} und nach Süden durch die Schlucht in die {zone:1419}; die beiden Blutmagier stehen gleich dahinter an der Straße.",
 
-	-- Step 34: Serpent's Coil: kill these as you meet them
+	-- Step 37: Serpent's Coil: kill these as you meet them
 	-- {area:1440} Serpent's Coil
 	["{area:1440}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
 	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 35: The bloodmages
+	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "Reite zurück nach Norden zu den Blutmagiern.",
 	["Their follow-ups ask for the same parts again for a buff item and pay no experience: leave them."] = "Ihre Folgequests wollen dieselben Teile noch einmal für einen Buffgegenstand und geben keine Erfahrung: Lass sie liegen.",
+
+	-- Step 39: Stonard
+	-- {area:75} Stonard
+	["Ride back north through the canyon to {area:75}."] = "",
+	-- {npc:7643} Bengor · {npc:950} Swamp Talker
+	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "Östlich der Straße wühlen Aschmähneneber und Suhlamane an den Hängen neben den Rotsteinbasilisken. Halte dich von den Höllenebern der Stufe 52 weiter südlich fern.",
 	-- ["Fly to the {area:1497}"] = "Flieg nach {area:1497}",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Folge den Straßen nach Osten durch das {area:47} zum Trolldorf an der Ostküste.",
 	-- ["From {area:1446}'s flight master."] = "Vom Flugmeister am {area:1446}.",
 	-- ["Grind to 48"] = "Bis 48 grinden",
 	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "Malkors Schädel liegt auf einem Haufen unterhalb der Ruinen der Vilebranch, Malkors Knochen auf einem Haufen am Fuß von {area:354}. Die Gefäße mit besudeltem Blut stehen auf den unteren Terrassen, und {npc:14757} wird oben festgehalten. Bleib auf den Wegen: Die Trolle drinnen sind Elite.",
@@ -167,12 +186,14 @@ return {
 	-- ["Only if you are not level 48 yet."] = "Nur wenn du noch nicht Stufe 48 bist.",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "Nur mit dem Notsignal: Der Roboter sitzt an der Quelle des Flusses westlich vom {area:351}. Eskortiere ihn nach Osten zum Ufer hinter den {area:307}; seine Belohnung wartet bei Oglethorpe in {area:35}.",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "Reite nach Norden zurück nach {area:75} und flieg nach {area:1497}.",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Reite von {area:272} nach Nordosten ins {area:47} und auf der Straße nach Osten; {npc:7801} lagert auf dem Hügel südlich der {area:350} der Elfen.",
 	-- ["Saltwater Snapjaws"] = "Salzwasserschnappkiefer",
 	-- ["Silvermane Howlers"] = "Silbermähnenheuler",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "Im Südwesten streifen die Silbermähnenheuler durch die Hügel östlich der Dörfer der Witherbark.",
 	-- ["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way."] = "Die Elfen des Hochtals lagern um {area:350}. Verbrenne den Bericht, die Notizen und die Aufzeichnungen in ihren Lagern. {npc:7780} wird in der Jagdhütte festgehalten: Führ ihn hinaus und wehr unterwegs den Hinterhalt ab.",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "Die Silbermähnenpirscher, Wilden Eulenbestien und Klingenschnabelhimmelsfürsten teilen sich die Hügel zwischen den Tempeln und {area:351}. Benutze {item:9618} an den Eulenbestien, die du tötest. Die Himmelsfürsten lassen auch Lange elegante Federn fallen: Behalte zehn für {npc:14738}s zweite Nachricht.",
 	-- ["The Vilebranch temples"] = "Die Tempel der Vilebranch",
+	-- ["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "Die großen Schildkröten kriechen über die Strände nördlich des Dorfs. Die Portweinflaschen von {npc:2491} liegen auch an diesen Stränden, aber seine Quest ist nicht auf dieser Route. Ein Schnappkiefer kann selten das Notsignal von OOX-09/HL fallen lassen: Behalte es.",
 	-- ["The central hills"] = "Die zentralen Hügel",
 	-- ["The eastern slopes"] = "Die östlichen Hänge",
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "Die fünf Quests teilen sich dieselben Teile: Sammle alle auf einem Durchgang. Westlich der Straße teilen sich {npc:5982}-Geier, Verhungernde Kicherfänge, Skorpokstecher und Todesaugen-Basilisken die Hügel.",

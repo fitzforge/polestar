@@ -8,9 +8,9 @@
 return {
 	-- Step 2: Darkshire
 	-- {npc:6790} Innkeeper Trelayne
-	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}，Scarlet Raven Tavern",
+	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}，血鸦旅店",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "{npc:840}在城镇北侧入口附近巡逻；他会在{area:42}走动，请在地图标示的圆圈内寻找",
 
 	-- Step 3: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
@@ -29,41 +29,41 @@ return {
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "夜行邪齿狼人和{npc:511}",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul · {spell:8282} Curse of Blood
-	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "",
+	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "最强的狼人出没于{area:42}南侧、{area:121}以西和以南的树林。{npc:511}藏在墓地旁的小墓穴内。\n注意：{spell:8282}持续 10 分钟，使你每次受到的物理伤害增加 13 点。\n注意：洞外部分狼人会成群站立，其中一个营地有四只。可在洞口旁高地逐个拉怪，避免引来额外敌人。",
 	-- {item:1946} Mary's Looking Glass
-	["{item:1946}; inside"] = "",
+	["{item:1946}; inside"] = "{item:1946}：在屋内",
 
 	-- Step 8: Darkshire
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}：在屋内",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "",
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}在{npc:633}房屋附近的屋内",
 
 	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
-	["{area:93}: kill these as you meet them"] = "",
+	["{area:93}: kill these as you meet them"] = "{area:93}：沿途击杀以下目标",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "从{area:42}向西南前往食人魔山。{object:119}在入口处的营地里，有Splinter Fist食人魔看守。",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "仅当{npc:272273}掉落了{quest:96138}时：右键点击它",
-	["Below ground"] = "",
+	["Below ground"] = "在地下",
 
 	-- Step 10: Defias Strongbox
-	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
-	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亚营地位于{area:10}西南部，{area:94}南边，靠近{zone:1436}边界。保险箱在帐篷之间。",
+	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
+	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亚营地位于{zone:1431}西南部，{area:94}南边，靠近{zone:1436}边界。保险箱在帐篷之间。",
 	-- {item:5947} Defias Docket
-	["{item:5947}; inside"] = "",
+	["{item:5947}; inside"] = "{item:5947}：在屋内",
 
 	-- Step 12: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}：沿途击杀以下目标",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
-	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
+	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "瘟疫食尸鬼在{area:492}北半部游荡。精英{npc:522}会在墓地间巡逻：远离他。\n骷髅袭击者、骷髅医师和骷髅看守占据墓地西部，就在{npc:311}营地的东面。\n小心：地下墓穴里的骷髅十分密集，很容易引到额外的怪物。",
 
 	-- Step 13: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
-	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
+	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "坟墓在墓地西北角的骷髅之间，前往{npc:311}时顺路经过。此任务和下一步都只需对话，去找{area:42}的{npc:268}和指挥官阿尔泰娅：28级即可接35级任务，但无需战斗。",
 
 	-- Step 14: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
@@ -80,20 +80,20 @@ return {
 	["{npc:268}, in the house behind the town hall"] = "{npc:268}，在市政厅后面的房子里",
 	["Wait a moment, then speak with her again"] = "稍等片刻，然后再次与她交谈",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "{npc:840}在{area:42}巡逻，请在地图标示的圆圈内寻找",
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "交给{zone:1453}的{npc:482}，在下一份指南中",
 
 	-- Step 16: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "",
+	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}的房子在镇子东端，前往飞行管理员时会经过。",
 	["Inside"] = "在里面",
 
 	-- Step 17: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "飞往{area:150}",
 	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	["{area:42} flight master"] = "{area:42}的飞行管理员",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Menethil"] = "回到米奈希尔",
@@ -124,6 +124,7 @@ return {
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "沿道路向西骑行；隐士的小屋在{area:492}东北方。",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "骷髅袭击者、骷髅医师和骷髅看守占据墓地西部，就在{npc:311}营地东边。",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "从米奈希尔的码头乘船前往{zone:1445}的{area:513}。",
+	-- ["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亚营地位于{area:10}西南部，{area:94}南边，靠近{zone:1436}边界。保险箱在帐篷之间。",
 	-- ["The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "龙喉兽人在挖掘场东边扎营。龙喉袭击者和龙喉沼泽行者携带龙喉战旗。",
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "瘟疫食尸鬼在{area:492}北半部游荡。精英{npc:522}在墓地间徘徊：离他远点。",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "船长在沉船甲板上走动；他的保险箱在货舱里。",

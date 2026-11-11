@@ -61,10 +61,22 @@ fn valid_cohort(c: &str) -> bool {
 	c.len() == 16 && c.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
 }
 
+/// The player the quorum counts for a session of `contributor` whose header carries `cohort`.
+fn voter_of(cohort: Option<&str>, contributor: &str) -> String {
+	match cohort.filter(|c| valid_cohort(c)) {
+		Some(c) => format!("cohort:{c}"),
+		None => contributor.to_string(),
+	}
+}
+
+fn contributor_of(rec: &V) -> String {
+	rec.get("contributor").as_str().filter(|c| !c.is_empty()).unwrap_or(LOCAL).to_string()
+}
+
 impl Recording {
 	/// Who recorded the session (`local` for schema 1 and the maintainer's own imports).
 	pub fn contributor(&self) -> String {
-		self.rec.get("contributor").as_str().filter(|c| !c.is_empty()).unwrap_or(LOCAL).to_string()
+		contributor_of(&self.rec)
 	}
 
 	/// The player the quorum counts: `cohort:<id>` for a pulled session whose header carries the
@@ -72,10 +84,7 @@ impl Recording {
 	/// one), else the contributor (`local`, `sent-*`, `anon-*`, and contributors pulled before the
 	/// server exported cohorts).
 	pub fn voter(&self) -> String {
-		match self.rec.get("cohort").as_str().filter(|c| valid_cohort(c)) {
-			Some(c) => format!("cohort:{c}"),
-			None => self.contributor(),
-		}
+		voter_of(self.rec.get("cohort").as_str(), &self.contributor())
 	}
 
 	/// Whether the session's names are English (schema 1 sessions carry no locale and are).
@@ -112,6 +121,50 @@ pub struct Establish {
 
 pub const ESTABLISH: Establish = Establish { min_days: 3.0, min_chunks: 20.0, min_upload_days: 3.0, min_pos: 10.0, min_kills: 5.0 };
 
+/// What [`establish_heads`] reads of a session: its header and how many positions and kills it
+/// recorded. `forge record learn` keeps only this of a session once its events are read.
+#[derive(Clone, Debug, Default)]
+pub struct Head {
+	pub contributor: String,
+	/// The server's cohort (16 hex digits), after [`establish_heads`] the contributor's one.
+	pub cohort: Option<String>,
+	pub received: Option<f64>,
+	pub since: Option<f64>,
+	pub chunks: Option<f64>,
+	pub upload_days: Option<f64>,
+	pub pos: f64,
+	pub kills: f64,
+}
+
+impl Head {
+	pub fn of(rec: &V) -> Head {
+		let num = |k: &str| rec.get(k).as_num().filter(|n| n.is_finite() && *n > 0.0);
+		let mut h = Head {
+			contributor: contributor_of(rec),
+			cohort: rec.get("cohort").as_str().filter(|c| valid_cohort(c)).map(str::to_string),
+			received: num("received"),
+			since: num("contributorSince"),
+			chunks: num("contributorChunks"),
+			upload_days: num("uploadDays"),
+			pos: 0.0,
+			kills: 0.0,
+		};
+		for ev in rec.get("events").items() {
+			match ev.get("e").as_str() {
+				Some("pos") => h.pos += 1.0,
+				Some("kill") => h.kills += 1.0,
+				_ => {}
+			}
+		}
+		h
+	}
+
+	/// [`Recording::voter`] of the session.
+	pub fn voter(&self) -> String {
+		voter_of(self.cohort.as_deref(), &self.contributor)
+	}
+}
+
 /// What a contributor's sessions say about it.
 struct Play {
 	since: f64,
@@ -125,19 +178,19 @@ struct Play {
 /// One cohort per contributor: the one its most recently received session carries, written into
 /// every session of it, so a contributor whose sessions were pulled before and after a cohort
 /// change (or before cohorts existed) is one player.
-fn resolve_cohorts(recs: &[Recording]) {
+fn resolve_cohorts(heads: &mut [Head]) {
 	let mut best: FxHashMap<String, (f64, String)> = FxHashMap::default();
-	for r in recs {
-		let Some(c) = r.rec.get("cohort").as_str().filter(|c| valid_cohort(c)).map(str::to_string) else { continue };
-		let at = r.rec.get("received").as_num().filter(|n| n.is_finite()).unwrap_or(f64::NEG_INFINITY);
-		let e = best.entry(r.contributor()).or_insert((f64::NEG_INFINITY, c.clone()));
+	for h in heads.iter() {
+		let Some(c) = h.cohort.clone() else { continue };
+		let at = h.received.unwrap_or(f64::NEG_INFINITY);
+		let e = best.entry(h.contributor.clone()).or_insert((f64::NEG_INFINITY, c.clone()));
 		if at >= e.0 {
 			*e = (at, c);
 		}
 	}
-	for r in recs {
-		if let Some((_, c)) = best.get(&r.contributor()) {
-			r.rec.set("cohort", c.as_str());
+	for h in heads.iter_mut() {
+		if let Some((_, c)) = best.get(&h.contributor) {
+			h.cohort = Some(c.clone());
 		}
 	}
 }
@@ -153,30 +206,37 @@ fn resolve_cohorts(recs: &[Recording]) {
 /// ([`resolve_cohorts`]); a player ([`Recording::voter`]) counts when any of its contributors is
 /// established, and every session of it is marked alike.
 pub fn establish(recs: &mut [Recording], e: Establish) {
-	resolve_cohorts(recs);
-	let mut by: FxHashMap<String, Play> = FxHashMap::default();
-	for r in recs.iter() {
-		let num = |k: &str| r.rec.get(k).as_num().filter(|n| n.is_finite() && *n > 0.0);
-		let s = by.entry(r.contributor()).or_insert_with(|| Play { since: f64::INFINITY, newest: f64::NEG_INFINITY, chunks: 0.0, upload_days: 0.0, pos: 0.0, kills: 0.0 });
-		if let Some(x) = num("contributorSince") {
+	let mut heads: Vec<Head> = recs.iter().map(|r| Head::of(&r.rec)).collect();
+	let counts = establish_heads(&mut heads, e);
+	for ((r, h), c) in recs.iter_mut().zip(&heads).zip(counts) {
+		if let Some(cohort) = &h.cohort {
+			r.rec.set("cohort", cohort.as_str());
+		}
+		r.counts = c;
+	}
+}
+
+/// [`establish`] over sessions' headers: resolves each contributor's cohort in place and says, per
+/// session, whether its player counts.
+pub fn establish_heads(heads: &mut [Head], e: Establish) -> Vec<bool> {
+	resolve_cohorts(heads);
+	let mut by: FxHashMap<&str, Play> = FxHashMap::default();
+	for h in heads.iter() {
+		let s = by.entry(&h.contributor).or_insert_with(|| Play { since: f64::INFINITY, newest: f64::NEG_INFINITY, chunks: 0.0, upload_days: 0.0, pos: 0.0, kills: 0.0 });
+		if let Some(x) = h.since {
 			s.since = s.since.min(x);
 		}
-		if let Some(x) = num("received") {
+		if let Some(x) = h.received {
 			s.newest = s.newest.max(x);
 		}
-		if let Some(x) = num("contributorChunks") {
+		if let Some(x) = h.chunks {
 			s.chunks = s.chunks.max(x);
 		}
-		if let Some(x) = num("uploadDays") {
+		if let Some(x) = h.upload_days {
 			s.upload_days = s.upload_days.max(x);
 		}
-		for ev in r.rec.get("events").items() {
-			match ev.get("e").as_str() {
-				Some("pos") => s.pos += 1.0,
-				Some("kill") => s.kills += 1.0,
-				_ => {}
-			}
-		}
+		s.pos += h.pos;
+		s.kills += h.kills;
 	}
 	let established = |c: &str| {
 		vouched(c)
@@ -186,13 +246,45 @@ pub fn establish(recs: &mut [Recording], e: Establish) {
 					.is_some_and(|p| p.newest - p.since >= e.min_days * 86400.0 && p.chunks >= e.min_chunks && p.upload_days >= e.min_upload_days && p.pos >= e.min_pos && p.kills >= e.min_kills))
 	};
 	let mut voters: FxHashMap<String, bool> = FxHashMap::default();
-	for r in recs.iter() {
-		let ok = established(&r.contributor());
-		*voters.entry(r.voter()).or_default() |= ok;
+	for h in heads.iter() {
+		let ok = established(&h.contributor);
+		*voters.entry(h.voter()).or_default() |= ok;
 	}
-	for r in recs.iter_mut() {
-		r.counts = voters[&r.voter()];
-	}
+	heads.iter().map(|h| voters[&h.voter()]).collect()
+}
+
+/// What a recordings folder's config.json sets.
+pub struct Config {
+	/// Contributors that never count (`exclude`: the maintainer's audit).
+	pub exclude: FxHashSet<String>,
+	/// Sessions of older builds are left out (`minBuild`).
+	pub min_build: Option<f64>,
+	pub establish: Establish,
+	/// `minVoters`.
+	pub min_voters: usize,
+}
+
+/// `dir`'s config.json (the defaults when it has none).
+pub fn read_config(dir: &Path) -> Result<Config, String> {
+	let text = match std::fs::read_to_string(dir.join("config.json")) {
+		Ok(t) => t,
+		Err(_) => return Ok(Config { exclude: FxHashSet::default(), min_build: None, establish: ESTABLISH, min_voters: MIN_VOTERS }),
+	};
+	let c = parse_json(&text).map_err(|e| format!("recordings config.json: {e}"))?;
+	let at_least_0 = |k: &str, d: f64| c.get(k).as_num().filter(|n| n.is_finite() && *n >= 0.0).unwrap_or(d);
+	let d = ESTABLISH;
+	Ok(Config {
+		exclude: c.get("exclude").items().iter().filter_map(|x| x.as_str().map(str::to_string)).collect(),
+		min_build: c.get("minBuild").as_num().filter(|n| n.is_finite()),
+		establish: Establish {
+			min_days: at_least_0("minContributorDays", d.min_days),
+			min_chunks: at_least_0("minContributorChunks", d.min_chunks),
+			min_upload_days: at_least_0("minContributorUploadDays", d.min_upload_days),
+			min_pos: at_least_0("minContributorPos", d.min_pos),
+			min_kills: at_least_0("minContributorKills", d.min_kills),
+		},
+		min_voters: c.get("minVoters").as_num().filter(|n| n.is_finite() && *n >= 1.0).map_or(MIN_VOTERS, |n| n as usize),
+	})
 }
 
 /// data/recordings/*.json (schema 1 or 2; `config.json` and dot files are not sessions), less the
@@ -204,27 +296,7 @@ pub fn read_recordings(dir: &Path) -> Result<Recordings, String> {
 	let Ok(rd) = std::fs::read_dir(dir) else { return Ok(Recordings { list: Vec::new(), min_voters: MIN_VOTERS }) };
 	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
 	files.sort_by(|a, b| cmp_utf16(a, b));
-	let mut exclude: FxHashSet<String> = FxHashSet::default();
-	let (min_build, est, min_voters) = match std::fs::read_to_string(dir.join("config.json")) {
-		Ok(text) => {
-			let c = parse_json(&text).map_err(|e| format!("recordings config.json: {e}"))?;
-			exclude = c.get("exclude").items().iter().filter_map(|x| x.as_str().map(str::to_string)).collect();
-			let at_least_0 = |k: &str, d: f64| c.get(k).as_num().filter(|n| n.is_finite() && *n >= 0.0).unwrap_or(d);
-			let d = ESTABLISH;
-			(
-				c.get("minBuild").as_num().filter(|n| n.is_finite()),
-				Establish {
-					min_days: at_least_0("minContributorDays", d.min_days),
-					min_chunks: at_least_0("minContributorChunks", d.min_chunks),
-					min_upload_days: at_least_0("minContributorUploadDays", d.min_upload_days),
-					min_pos: at_least_0("minContributorPos", d.min_pos),
-					min_kills: at_least_0("minContributorKills", d.min_kills),
-				},
-				c.get("minVoters").as_num().filter(|n| n.is_finite() && *n >= 1.0).map_or(MIN_VOTERS, |n| n as usize),
-			)
-		}
-		Err(_) => (None, ESTABLISH, MIN_VOTERS),
-	};
+	let Config { exclude, min_build, establish: est, min_voters } = read_config(dir)?;
 	let mut out = Vec::new();
 	for file in files {
 		let text = std::fs::read_to_string(dir.join(&file)).map_err(|e| format!("recording {file}: {e}"))?;
@@ -258,7 +330,7 @@ pub fn revision(recs: &[Recording]) -> String {
 	h.finalize().iter().map(|b| format!("{b:02x}")).collect::<String>()[..16].to_string()
 }
 
-fn pos_int(v: &V) -> Option<i64> {
+pub(crate) fn pos_int(v: &V) -> Option<i64> {
 	let n = v.num();
 	(n.is_finite() && n.fract() == 0.0 && n > 0.0).then_some(n as i64)
 }
@@ -339,7 +411,7 @@ fn add_source(rec: &V, tag: &str) {
 
 /// Tags a field recordings set or confirmed: `recorder:<field>` on trusted evidence (implied by a
 /// record only recordings have, `recorder`), else `recorder-gap:<field>`.
-fn tag_field(rec: &V, field: &str, trusted: bool) {
+pub(crate) fn tag_field(rec: &V, field: &str, trusted: bool) {
 	if trusted && has_str(&rec.get("source"), "recorder") {
 		return;
 	}
@@ -1678,7 +1750,7 @@ fn credited(o: &V) -> Vec<i64> {
 
 /// Whether a line the game lists as `line` (none: a line it revealed later) can be a data
 /// objective of `kind`.
-fn fits(line: Option<&str>, kind: &str) -> bool {
+pub(crate) fn fits(line: Option<&str>, kind: &str) -> bool {
 	match line {
 		None => true,
 		Some("monster") => matches!(kind, "kill" | "talk"),
@@ -1837,7 +1909,7 @@ fn resolve_xp(q: &V, list: &[(&'static str, i64, Option<i64>, usize)], contribut
 }
 
 /// The median: the middle value, or the mean of the two middle ones; NaN for none.
-fn median(mut v: Vec<f64>) -> f64 {
+pub(crate) fn median(mut v: Vec<f64>) -> f64 {
 	if v.is_empty() {
 		return f64::NAN;
 	}
@@ -2083,7 +2155,16 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 						ov.item_entry(id, &ev.get("itemName"));
 					}
 					if let (Some(q), Some(oi)) = (qid, pos_int(&ev.get("oi"))) {
-						if db.quests.has(&q.to_string()) {
+						// A loot tied to an item objective counts only when the quest's data has no
+						// item objectives or names that item among them: recordings tied the wrong
+						// item to about a fifth of their objective ticks (a window read after fast
+						// loot had taken the quest item, so a lone other drop took its tick).
+						let item_ids: Vec<f64> = if &*e == "loot" {
+							db.quests.get(&q.to_string()).get("objectives").items().iter().filter(|o| o.get("type").as_str() == Some("item")).filter_map(|o| o.get("id").as_num()).collect()
+						} else {
+							Vec::new()
+						};
+						if db.quests.has(&q.to_string()) && (item_ids.is_empty() || item_ids.contains(&(id as f64))) {
 							let s = ov.slot(q, oi);
 							s.id.vote(V::Num(id as f64), &who);
 							s.kind.vote(V::str(if &*e == "kill" { "kill" } else { "item" }), &who);
@@ -2838,6 +2919,16 @@ mod tests {
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
 		t.apply(&from(&[A], &request));
 		assert_eq!(j(&t.quest("93927").get("objectives")), r#"[{"type":"item","id":254871,"count":1,"text":"Bloody Note"},{"type":"kill","id":256966,"count":null,"text":"Skypriest Aanders"}]"#);
+		// Goretusk Liver Pie in French, accepted before the recording started (no `objectives`
+		// record): three players' liver ticks tied to the Boar Intestines lying beside the liver fast
+		// loot had taken. The intestines are no item of the quest: no vote, so no objective of theirs
+		// is added.
+		const PIE: &str = r#"{"22":{"id":22,"title":"Goretusk Liver Pie","races":null,"objectives":[{"type":"item","id":723,"count":8,"text":"Goretusk Liver"}],"source":["questie-forever"]}}"#;
+		let pie: Vec<String> = vec![r#"{"t":9,"e":"loot","item":3172,"q":22,"oi":1}"#.into(), r#"{"t":9,"e":"progress","q":22,"oi":1,"cur":1,"max":8,"type":"item"}"#.into()];
+		let t = Tables::new(PIE, TIMES_NPCS, "{}");
+		t.apply(&[A, B, C].iter().enumerate().map(|(i, c)| session(&format!("s{i}"), c, "frFR", &pie)).collect::<Vec<_>>());
+		let ids: Vec<String> = t.quest("22").get("objectives").items().iter().map(|o| j(&o.get("id"))).collect();
+		assert_eq!(ids, ["723"]);
 		// A trainer's lesson or a skill raised by crafting beside him is no talk, even where and as
 		// his window opened (Camping 101: Tomas's line ticks as you learn cooking in his training
 		// window, or as a craft right after talking to him raises the skill).

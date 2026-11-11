@@ -23,6 +23,8 @@ why Opens Ravenholdt Manor, the hidden rogue house in the Alterac hills, and Myr
 #   35s, 35s and 70s with 300 rep.
 # - Syndicate Emblems (6701): the Ravenholdt Guards' repeatable reputation
 #   turn-in, 100 rep each (Ravenholdt reputation must be Neutral or better).
+#   Handed in straight from a guard's window and never in the log, so a
+#   `turnin direct` with a plain collect (#1699 sweep).
 # Sources: Forever's Rogue class quest list (data/local/quest-audit/) and
 # Forever's quest pages (page snapshot) for the quests, texts, reputation and
 # money; quests.json, npcs.json, objects.json and items.json for the givers,
@@ -76,8 +78,7 @@ step Lord Tomas
 step Myrokos Silentform
   zone Alterac Mountains
   turnin 96779                                -- Myrokos Silentform
-  accept 6701 optional                        -- Ravenholdt Guard: Syndicate Emblems, repeatable
-  turnin 6701 optional                        -- one emblem each time, 100 reputation
+  turnin 6701 direct optional                 -- Ravenholdt Guard: one emblem each time, 100 reputation
 
 # ---------------------------------------------------------------- Myrokos's mid-30s jobs
 

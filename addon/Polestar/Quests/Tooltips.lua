@@ -31,6 +31,12 @@ local function addLine(tt, left, right, lc, rc)
 	ns.Hooks.AddLine(tt, left, right, lc.r, lc.g, lc.b, rc.r, rc.g, rc.b)
 end
 
+-- The "New in Forever" mark after a quest's name (NewQuests.Mark), else "".
+local function mark(q)
+	local NQ = ns.NewQuests
+	return NQ and NQ.Mark(q) or ""
+end
+
 local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 	if not list then return 0 end
 	local qc, dim, ok = Q.Color("quest"), Q.Color("textDim"), Q.Color("success")
@@ -45,7 +51,7 @@ local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 		elseif not isSelf and o.name then
 			what = o.name .. " " .. what
 		end
-		addLine(tt, (e.title or ("Quest " .. o.q)) .. ":", what, qc, (o.done or e.ready) and ok or dim)
+		addLine(tt, (e.title or ("Quest " .. o.q)) .. mark(o.q) .. ":", what, qc, (o.done or e.ready) and ok or dim)
 		added = added + 1
 	end
 	return added
@@ -59,7 +65,7 @@ local function addStartLines(tt, itemID)
 	for i = 1, #list do
 		local q = list[i]
 		if not ns.Compat.IsQuestCompleted(q) and not ns.Compat.IsOnQuest(q) then
-			addLine(tt, L["Starts a quest"] .. ":", Q.GetQuestTitle(q) or tostring(q), qc, tc)
+			addLine(tt, L["Starts a quest"] .. ":", (Q.GetQuestTitle(q) or tostring(q)) .. mark(q), qc, tc)
 			added = added + 1
 		end
 	end
@@ -122,7 +128,7 @@ local function addAheadLines(tt, itemID)
 	for i = 1, #list do
 		local e = list[i]
 		local have = ns.Compat.GetItemCount and ns.Compat.GetItemCount(itemID) or 0
-		addLine(tt, (Q.GetQuestTitle(e.q) or tostring(e.q)) .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), qc, dim)
+		addLine(tt, (Q.GetQuestTitle(e.q) or tostring(e.q)) .. mark(e.q) .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), qc, dim)
 	end
 	return #list
 end
@@ -469,10 +475,12 @@ local function release(unit)
 	pool[#pool + 1] = f
 end
 
+-- While Polestar is hidden the plates are still tracked but carry no icon:
+-- POLESTAR_HIDDEN puts the icons back on the plates shown then.
 local function updatePlate(unit)
 	local npc = plateUnits[unit]
 	local need, o = false, nil
-	if npc and platesOn() then need, o = needsKill(npc) end
+	if npc and platesOn() and not ns.Hidden() then need, o = needsKill(npc) end
 	if not need then
 		release(unit)
 		return
@@ -596,3 +604,4 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.nameplateIconSide" or path == "qol" or path == "" then replaceIcons() end
 	if path == "qol.nameplateIcons" or path == "qol.questTooltips" or path == "qol.questDB" or path == "qol" or path == "" then refreshAll() end
 end)
+ns.On("POLESTAR_HIDDEN", refreshPlates)

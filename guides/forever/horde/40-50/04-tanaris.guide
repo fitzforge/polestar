@@ -2,7 +2,7 @@
 guide forever/horde/40-50/04-tanaris
 title Tanaris & Searing Gorge
 faction Horde
-levels 47-48
+levels 46-48
 zone Tanaris
 next forever/horde/40-50/05-the-hinterlands
 
@@ -12,7 +12,7 @@ next forever/horde/40-50/05-the-hinterlands
 
 step Feralas
   zone Feralas
-  goto 75.4,44.3 "Feralas"
+  goto 75.4,44.3 "Camp Mojache"
 
 step Fly to Gadgetzan
   zone Feralas
@@ -20,16 +20,27 @@ step Fly to Gadgetzan
   fly "Gadgetzan"
   zone Tanaris
 
+step Gadgetzan
+  zone Tanaris
+  tip The flight lands beside Tran'rek. Take the town's quests before riding west to Sandsorrow Watch.
+  accept 3362                           -- Tran'rek, beside the wind rider master
+  accept 5863                           -- Andi Lynn
+  turnin 243
+  accept 379
+  sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
+  accept 2605                           -- Marin Noggenfogger
+
 step Tanaris
   zone Tanaris
-  goto 39.0,29.0 "Tanaris"
+  goto 39.0,29.0 "Sandsorrow Watch"
 
 step Sandsorrow Watch
   tip West of Gadgetzan, use the Untapped Dowsing Widget beside the water hole in the troll camp.
   use 8584 quest 992.1 @39.0,29.2 map 1446
   collect 8585 quest 992.1 @39.0,29.2
 
-step Gadgetzan
+step Senior Surveyor Fizzledowser
+  tip Back east to Fizzledowser on the west side of Gadgetzan; Marvon is south from there.
   turnin 992                            -- Senior Surveyor Fizzledowser
   accept 82
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
@@ -43,7 +54,7 @@ step Gadgetzan
 # Scrimshank's gear (OOX-17/TN if you found its beacon) -> hearth Gadgetzan
 # -> (Hunters and Shamans: fly Orgrimmar to train; Druids: Thunder Bluff) ->
 # fly Ratchet -> boat to Booty Bay -> fly Kargath -> the Grimesilt Dig
-# Site -> Thorium Point (flight path) -> Kalaran Windblade and the Cauldron
+# Site -> Thorium Point (flight path) -> Velarok Windblade and the Cauldron
 # -> the Slag Pit -> the lava spiders -> the Lookouts -> Thorium Point,
 # where the next guide flies on to Stonard.
 #
@@ -72,7 +83,9 @@ step Gadgetzan
 #
 # Accepted here, finished later on the route: Sprinkle's Secret Ingredient
 # (2641: the Violet Tragan grows in the Hinterlands), Rise of the Silithid
-# (32, Orgrimmar around 50).
+# (32, Orgrimmar around 50), Return to Apothecary Zinge (864, the Undercity
+# around 52), The Super Egg-O-Matic (2741: the egg in southern Feralas and the
+# hand-in at Gadgetzan, both at the end of forever/horde/40-50/06-azshara).
 #
 # Class training: Hunters and Shamans fly from Gadgetzan to Orgrimmar, and
 # Druids to Thunder Bluff, at about 47, before Ratchet: the next training
@@ -82,18 +95,6 @@ step Gadgetzan
 # Left out: Into the Field (243: no longer accepted on this route), Ledger
 # from Tanaris (4450: the export never hands it in), Broken Alliances (782),
 # see above.
-
-# ---------------------------------------------------------------- Gadgetzan
-
-step Gadgetzan
-  zone Tanaris
-  accept 3362                           -- Tran'rek, beside the wind rider master
-  accept 5863                           -- Andi Lynn
-  sethome "Gadgetzan"
-  turnin 243
-  accept 379
-  sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
-  accept 2605                           -- Marin Noggenfogger
 
 step Marvon Rivetseeker
   tip West along the road south; Marvon camps by the ruins at the Broken Pillar. Put on his Gahz'ridian Detector: it shows the buried ornaments, here and around the Dunemaul Compound.
@@ -137,6 +138,7 @@ step Slake That Thirst
 step Gadgetzan
   turnin 5863                           -- Andi Lynn
   turnin 379
+  note Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, so use it on the way back north from Scrimshank's hive.
 
 step Gadgetzan
   turnin 2605                           -- Marin Noggenfogger
@@ -163,7 +165,16 @@ step OOX-17/TN
   accept 648 optional
   complete 648 optional
 
+step Tanaris Field Sampling
+  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.
+  accept 654                            -- Use the Model 4711-FTZ Power Source
+  collect 9441 quest 654.2 @50.2,31.6 map 1446
+  collect 9440 quest 654.1 @49.4,31.0 map 1446
+  collect 9438 quest 654.3 @53.2,31.2 map 1446
+
 step Gadgetzan
+  turnin 654                            -- Chief Engineer Bilgewhizzle
+  accept 864                            -- for Apothecary Zinge in the Undercity, around level 52
   turnin 10                             -- Senior Surveyor Fizzledowser
   accept 110
   turnin 110                            -- Alchemist Pestlezugg, inside
@@ -181,7 +192,7 @@ step Into Searing Gorge
 
 step Searing Gorge
   zone Searing Gorge
-  goto 65.6,62.2 "Searing Gorge"
+  goto 65.6,62.2 "The Grimesilt Dig Site"
 
 # ---------------------------------------------------------------- To the Searing Gorge
 
@@ -195,9 +206,9 @@ step The Grimesilt Dig Site
 
 step Searing Gorge
   zone Searing Gorge
-  goto 37.7,26.5 "Searing Gorge"
+  goto 37.7,26.5 "Thorium Point"
 
-# ---------------------------------------------------------------- Thorium Point and Kalaran
+# ---------------------------------------------------------------- Thorium Point and Velarok
 
 step Thorium Point
   tip Ride north-west across the gorge; Thorium Point is the scaffolded camp in the north-west.
@@ -211,26 +222,26 @@ step Thorium Point
 
 step The Cauldron's slavers and golems
   zone Searing Gorge
-  tip Ride south from Thorium Point into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran.
+  tip Ride south from Thorium Point into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok.
   kill 5846 quest 7729.1
   kill 5844 quest 7729.2
   kill 5854 quest 7723.1
 
-step Kalaran Windblade
-  tip Kalaran stands alone south of Thorium Point, at the edge of the Cauldron. Listen to his story.
+step Velarok Windblade
+  tip Velarok stands alone south of Thorium Point, at the edge of the Cauldron. Listen to his story.
   accept 3441
 
 step Divine Retribution
-  kill 8479 quest 3441.1 @39.1,39.0 map 1427
+  talk 8479 quest 3441.1 @39.1,39.0 map 1427
 
-step Kalaran Windblade
+step Velarok Windblade
   turnin 3441
   accept 3442
 
 # ---------------------------------------------------------------- The rest of the gorge
 step Searing Gorge: kill these as you meet them
   zone Searing Gorge
-  tip Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the Grimesilt Outhouse Key: keep it.
+  tip Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the Grimesilt Outhouse Key: keep it.
   tip The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.
   tip The Slag Pit opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.
   tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee.
@@ -240,23 +251,23 @@ step Searing Gorge: kill these as you meet them
   kill 5858 quest 7724.1
   kill 9318 quest 7727.1              -- Below ground
 
+step Velarok Windblade
+  turnin 3442
+  accept 3443
+
 step Thorium Point
-  tip Ride back north to Thorium Point.
+  tip Ride back north to Thorium Point, just past Velarok.
   turnin 7729
   turnin 7727
   turnin 7724
   turnin 7723                           -- Hansel Heavyhands
-
-step Kalaran Windblade
-  turnin 3442
-  accept 3443
 
 step The Steamsmiths' furnaces
   tip The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a Thorium Plated Dagger, one in ten the Smithing Tuyere. Slaves, Slavers and Taskmasters carry daggers too.
   collect 10551 quest 3443.1
   collect 18959 quest 7728.1
 
-step Kalaran Windblade
+step Velarok Windblade
   turnin 3443
   note His next request needs the Symbol of Ragnaros from elite cultists: leave it.
 

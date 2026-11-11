@@ -40,7 +40,7 @@ local SOUND_EVERY = 5
 local soundAt = -math.huge
 
 local f
-local shownKey -- "<step>:<goal>" of the line the toast shows
+local shownKey -- the `appeared` serial of the line the toast shows (it stays when another step's copy of the objective takes the line over)
 local seen = 0 -- the newest line's `appeared` chimed for (Engine serials only grow)
 local token = 0 -- the current show; a timer or fade of an older one does nothing
 
@@ -50,7 +50,7 @@ local function shownIndex()
 	local E = ns.Engine
 	local list = E and E.GetWhileHereList and E.GetWhileHereList() or {}
 	for i, v in ipairs(list) do
-		if v.step .. ":" .. v.index == shownKey then return i end
+		if shownKey and v.appeared == shownKey then return i end
 	end
 	return 1
 end
@@ -63,13 +63,13 @@ local function windowShows()
 end
 
 local function text(v)
-	local s = v.hereText or ""
+	local s = UI.HereText(v)
 	if v.yards then s = s .. "  \194\183  " .. ns.FormatDistance(v.yards, DIST) end
 	return s
 end
 
 local function build()
-	f = CreateFrame("Button", "PolestarWhileHereToast", UIParent)
+	f = CreateFrame("Button", "PolestarWhileHereToast", ns.UIParent)
 	f:SetSize(WIDTH, HEIGHT)
 	f:SetFrameStrata("HIGH")
 	f:SetClampedToScreen(true)
@@ -145,14 +145,14 @@ function T.Hide()
 	end)
 end
 
--- The chime for a new line, unless off or one played less than SOUND_EVERY
--- seconds ago. True when it played.
+-- The chime for a new line, unless off, Polestar is hidden or one played
+-- less than SOUND_EVERY seconds ago. True when it played.
 function T.Chime()
-	if not (ns.Get("behavior.whileHereSound") and PlaySoundFile) then return false end
+	if not (ns.Get("behavior.whileHereSound") and PlaySoundFile) or ns.Hidden() then return false end
 	local now = GetTime()
 	if now - soundAt < SOUND_EVERY then return false end
 	soundAt = now
-	PlaySoundFile(SOUND, "SFX")
+	ns.PlaySoundFile(SOUND, "SFX")
 	return true
 end
 
@@ -166,7 +166,7 @@ ns.On("WHILE_HERE_CHANGED", function()
 	local new, cur = nil, nil
 	for _, v in ipairs(list) do
 		if (v.appeared or 0) > seen and (not new or v.appeared > new.appeared) then new = v end
-		if v.step .. ":" .. v.index == shownKey then cur = v end
+		if shownKey and v.appeared == shownKey then cur = v end
 	end
 	if not new then
 		if cur then
@@ -180,7 +180,16 @@ ns.On("WHILE_HERE_CHANGED", function()
 	seen = new.appeared
 	if not ns.IsLoggedIn() then return end
 	T.Chime()
-	if windowShows() then return end
-	shownKey = new.step .. ":" .. new.index
+	-- Hidden, Polestar keeps no toast for later: the window's panel lists the line when it is back.
+	if windowShows() or ns.Hidden() then return end
+	shownKey = new.appeared
 	T.Show(new)
+end)
+
+-- Hiding Polestar takes the toast down at once.
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if not (hidden and f and f:IsShown()) then return end
+	token = token + 1
+	shownKey = nil
+	f:Hide()
 end)

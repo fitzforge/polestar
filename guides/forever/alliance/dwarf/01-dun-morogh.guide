@@ -3,7 +3,7 @@ guide forever/alliance/dwarf/01-dun-morogh
 title Dun Morogh
 faction Alliance
 race Dwarf
-levels 1-12
+levels 1-14
 zone Dun Morogh
 next forever/alliance/02-westfall
 
@@ -117,6 +117,11 @@ step Grelin Whitebeard
   turnin 218
   accept 282
 
+step Branstock Khalder
+  only Priest
+  tip Anvilmar is on the way north from Grelin's camp to the tunnel: Branstock Khalder, the priest trainer inside, sends priests of level 5 to Maxan Anvol in Kharanos.
+  accept 5626                                 -- Branstock Khalder, inside Anvilmar
+
 step Call of Earth
   only Shaman
   tip Back to Teo Hammerstorm in Anvilmar. He gives you the Earth Sapta: take the rubble-marked path that climbs west from the south of the valley to the Spirit Stone on the ridge, drink the Sapta beside it and speak to the Minor Manifestation of Earth, then bring its Rough Quartz back to Teo.
@@ -142,12 +147,33 @@ step Kharanos
   accept 98322                                -- Senir Whitebeard
 
 step The Great Outdoors
-  tip Sit by Eric's campfire (type /sit) and wait for the buff.
+  tip Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with Tognus Flintfire and First Aid with Thamner Pol in Kharanos, mining and engineering at Steelgrill's Depot.
   turnin 96628                                -- Eric Brighthammer: The Adventurer
   accept 96608                                -- Eric Brighthammer
   complete 96608
   turnin 96608
   accept 96629
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 96044                                -- Eric Brighthammer: for Tognus Flintfire, in the cellar west of the distillery
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 96047                                -- Eric Brighthammer: for Thamner Pol in the Thunderbrew Distillery
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 96046                                -- Eric Brighthammer: for Yarr Hammerstone at Steelgrill's Depot
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  accept 96058                                -- Eric Brighthammer: for Bronk Guzzlegear at Steelgrill's Depot
+
+step Tognus Flintfire
+  when onquest 96044
+  complete 96044 @45.34,51.94                 -- talk to the trainer
+  turnin 96044                                -- Tognus Flintfire, below ground
 
 step Kharanos
   accept 98321                                -- Tognus Flintfire, below ground
@@ -157,7 +183,14 @@ step Kharanos
   accept 384                                  -- Ragnar Thunderbrew
   turnin 2160                                 -- Tannok Frosthammer, inside
   accept 99158                                -- Maxan Anvol, upstairs
+  turnin 5626 only Priest                     -- Maxan Anvol, upstairs
+  accept 5625 only Priest                     -- Maxan Anvol: heal Mountaineer Dolf south of Kharanos
   train class                                 -- Last: some classes' trainers stand outside
+
+step Thamner Pol
+  when onquest 96047
+  complete 96047 @47.18,52.61                 -- talk to the trainer
+  turnin 96047                                -- Thamner Pol, inside the distillery
 
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot below the Ironforge road.
@@ -165,6 +198,16 @@ step Steelgrill's Depot
   accept 313                                  -- Pilot Stonegear
   turnin 400                                  -- Beldin Steelgrill
   accept 5541                                 -- Loslor Rudge, beside him
+
+step Yarr Hammerstone
+  when onquest 96046
+  complete 96046 @50.01,50.31                 -- talk to the trainer
+  turnin 96046                                -- Yarr Hammerstone, at the depot
+
+step Bronk Guzzlegear
+  when onquest 96058
+  complete 96058 @50.18,50.38                 -- talk to the trainer
+  turnin 96058                                -- Bronk Guzzlegear, beside Yarr
 
 # ---------------------------------------------------------------- The Grizzled Den
 
@@ -201,6 +244,11 @@ step Dun Morogh: kill these as you meet them
   collect 2886 quest 384.1                    -- Crag Boar Rib
   collect 769 quest 317.1                     -- Chunk of Boar Meat
 
+step Mountaineer Dolf
+  only Priest
+  tip Mountaineer Dolf kneels wounded on the ridge between two low walls just south of Kharanos, across the road from the hunter pet trainer, on the walk back from Rumbleshot's camp. Cast Lesser Heal (Rank 2) on him, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count.
+  kill 12427 quest 5625.1 "Heal and fortify Mountaineer Dolf"
+
 step Kharanos
   tip Senir stands by Eric's campfire in front of the Thunderbrew Distillery; Tognus Flintfire is in the cellar west of it.
   turnin 98323                                -- Senir Whitebeard
@@ -214,6 +262,7 @@ step Thunderbrew Distillery
   complete 96629 @47.7,52.3
   turnin 96629                                -- Gremlock Pilsnor
   turnin 384                                  -- Ragnar Thunderbrew
+  turnin 5625 reward 16605 only Priest        -- Maxan Anvol, upstairs: Friar's Robes of the Light
   sethome "Thunderbrew Distillery"    -- Upstairs
 
 step Kharanos and the depot
@@ -240,7 +289,7 @@ step Brewnall Village
 step Frostmane Hold
   tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for Rejold. Kill Headhunters at its mouth and walk through to its far end.
   kill 1123 quest 287                         -- Frostmane Headhunter, below ground
-  goto 22.8,52.1 "Frostmane Hold"
+  goto 21.3,54.2 "Frostmane Hold"
   complete 287
 
 step Gnomeregan: kill these as you meet them
@@ -302,7 +351,8 @@ step Kharanos
   accept 6064 only Hunter                     -- Grif Wildheart, at the smithy
   level 10 only Shaman
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
-  accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priestess Laurena in Stormwind takes it
+  level 10 only Priest
+  accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priest Rohan in Ironforge takes it
 
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot: the whole east of Dun Morogh is one sweep from here.
@@ -354,7 +404,7 @@ step Father Gavin
 step Dun Morogh
   only Hunter
   zone Dun Morogh
-  goto 45.8,53.0 "Dun Morogh"
+  goto 45.8,53.0 "Kharanos"
 
 step Taming the Beast
   zone Dun Morogh
@@ -429,8 +479,8 @@ step Gol'Bolar Quarry
   turnin 95214                                -- Quarrymaster Thesten
 
 step Gol'Bolar Quarry
-  when onquest 95217
-  turnin 95217 optional                       -- Frast Dokner
+  when complete 95217
+  turnin 95217                                -- Frast Dokner
 
 step Earthseer Farsen
   turnin 96390
@@ -465,7 +515,7 @@ step Bruegs Kindleborn
 step Loch Modan
   only Shaman
   zone Loch Modan
-  goto 32.2,66.0 "Loch Modan"
+  goto 32.2,66.0 "Braldir Ashmantle"
 
 step Braldir Ashmantle
   only Shaman
@@ -487,7 +537,7 @@ step The Fire Spirit Stone
   tip Braldir gives you the Fire Sapta. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the Minor Manifestation of Fire, then place its Glowing Ember in the Brazier of the Dormant Flame, atop the Shrine of Eternal Flame.
   turnin 94466                                -- Braldir Ashmantle
   accept 94467
-  use 6636 @31.9,64.5                         -- Fire Sapta, beside the Spirit Stone
+  use 6636 quest 94467.1 @31.9,64.5           -- Fire Sapta, beside the Spirit Stone
   collect 6655 quest 94467.1 @31.9,64.5       -- Glowing Ember: Minor Manifestation of Fire
   turnin 94467 @31.9,64.5                     -- Brazier of the Dormant Flame
   accept 94468 @31.9,64.5
@@ -532,9 +582,9 @@ step Back to the tunnel post
 step Thelsamar
   zone Loch Modan
   tip North up the road to Thelsamar. Mountaineer Kadrell walks the road through town, Vidra Hearthstove stands outside the Stoutlager Inn, Brock Stoneseeker on the east side of town; Thorgrum Borrelson keeps the gryphons.
-  turnin 414                                  -- Mountaineer Kadrell
-  accept 416
-  accept 1339
+  turnin 414 @33.8,48.3                       -- Mountaineer Kadrell
+  accept 416 @33.8,48.3
+  accept 1339 @33.8,48.3
   accept 418                                  -- Vidra Hearthstove
   accept 6387                                 -- Brock Stoneseeker
   turnin 6387                                 -- Thorgrum Borrelson, the gryphon master
@@ -563,8 +613,8 @@ step Back to the Algaz Station
 
 step Thelsamar
   zone Loch Modan
-  tip South down the road to Thelsamar, finishing the ears, meat and ichor on the way.
-  turnin 416                                  -- Mountaineer Kadrell
+  tip South down the road to Thelsamar, finishing the ears, meat and ichor on the way. Mountaineer Kadrell walks the road through town.
+  turnin 416 @33.8,48.3                       -- Mountaineer Kadrell
   turnin 418                                  -- Vidra Hearthstove
   fly "Ironforge"
 
@@ -636,6 +686,7 @@ step The Mystic Ward
   only Paladin,Priest,Mage
   zone Ironforge
   tip The paladin, priest and mage trainers are in the Hall of Mysteries, in the Mystic Ward.
+  turnin 5637 only Priest,Dwarf               -- High Priest Rohan: Desperate Prayer
   train class only Paladin,Priest,Mage
 
 step The High Seat
@@ -687,7 +738,7 @@ step Tram to Stormwind
   zone Ironforge
   tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end.
   accept 6661 @78.0,51.4                      -- Monty, on the Ironforge platform
-  kill 13016 x5 quest 6661.1 @78.0,51.4       -- Deeprun Rat: use the Rat Catcher's Flute
+  kill 13016 x5 quest 6661.1 @78.0,51.4 "Catch Deeprun Rat" -- Deeprun Rat: use the Rat Catcher's Flute
   turnin 6661 @78.0,51.4                      -- Monty
   accept 6662 @78.0,51.4
 
@@ -736,7 +787,7 @@ step Woo Ping
 step Defensive Stance
   only Warrior
   zone Stormwind City
-  tip From Westfall, walk to Stormwind; the tram from Ironforge arrives in the Dwarven District. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.
+  tip Ilsa Corbin trains warriors in Old Town, near Osric's shop; the tram from Ironforge arrives in the Dwarven District, north of it. Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.
   accept 1638 npc 5480                        -- Ilsa Corbin
   turnin 1638                                 -- Harry Burlguard
   accept 1639
@@ -754,12 +805,6 @@ step Woo Ping
   when !skill "Two-Handed Swords" 1
   tip While you're here: learn Two-Handed Swords from Woo Ping (Trade District, 10 silver); two-handers level a Warrior fastest.
   train 11867                         -- Woo Ping
-
-step Desperate Prayer
-  only Dwarf,Priest
-  zone Stormwind City
-  tip High Priestess Laurena is in the Cathedral of Light.
-  turnin 5637                                 -- High Priestess Laurena: Desperate Prayer
 
 step Woo Ping
   only Priest,Dwarf

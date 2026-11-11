@@ -9,11 +9,12 @@ next forever/horde/40-50/03-feralas
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: A Threat in Feralas (2981).
+# Added here: A Threat in Feralas (2981), News for Fizzle (1137), Keeping Pace (1190), Zamek's Distraction (1191),
+# Rizzle's Schematics (1194).
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
-  goto 46.1,54.7 "Swamp of Sorrows"
+  goto 46.1,54.7 "Stonard"
 
 step Fly to Grom'gol
   zone Swamp of Sorrows
@@ -27,7 +28,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 51.5,45.6 "Orgrimmar"
+  goto 51.5,45.6 "The middle of Orgrimmar"
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 33-38, levels 42.5-44: Tanaris, Feralas, then the way back east.
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
@@ -143,7 +144,7 @@ step Mulgore
   only Tauren
   zone Mulgore
   when level>=40
-  goto 46.8,62.0 "Mulgore" live
+  goto 46.8,62.0 "Bloodhoof Village" live
 
 step Riding at 40
   only Tauren
@@ -170,10 +171,11 @@ step Fly to Freewind Post
 
 step Ratchet for the Felsteed
   only Warlock
-  zone The Barrens
+  zone Orgrimmar
   tip Fly from Orgrimmar to Ratchet; Strahad Farsan stands on the hill above the docks.
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Ratchet"
+  zone The Barrens
   turnin 3631                           -- Strahad Farsan
   accept 4490
   turnin 4490
@@ -200,9 +202,22 @@ step Fly to Freewind Post
   fly "Freewind Post"
   zone Thousand Needles
 
-step Tanaris
+step Mirage Raceway
+  zone Thousand Needles
+  tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
+  turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
+  accept 1190                           -- Pozzik
+  turnin 1183                           -- Pozzik: the Fuel Regulator Blueprints from Baron Revilgaz, if you carry them
+  accept 1186
+  turnin 1186                           -- Razzeric, beside Pozzik
+  turnin 1191 direct
+  turnin 1190                           -- Rizzle's Unguarded Plans
+  accept 1194
+  turnin 1194                           -- Pozzik
+
+step To Gadgetzan
   zone Tanaris
-  goto 50.2,27.5 "Tanaris"
+  goto 50.2,27.5 "Gadgetzan"
 
 step Gadgetzan
   zone Tanaris
@@ -228,7 +243,6 @@ step Gadgetzan
   turnin 1690                           -- Chief Engineer Bilgewhizzle
   accept 1691
   turnin 1707                           -- Spigot Operator Luglunket
-  accept 1878
 
 # ---------------------------------------------------------------- Steamwheedle Port
 
@@ -240,6 +254,7 @@ step Steamwheedle Port
   accept 8366                           -- Security Chief Bilgewhizzle, inside
   turnin 2872                           -- Stoley, inside
   accept 2873
+  accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
 
 step Lost Rigger Cove: kill these as you meet them
   zone Tanaris
@@ -272,10 +287,9 @@ step Steamwheedle Port
   accept 2874                           -- for Booty Bay, around level 50
   turnin 2875                           -- Security Chief Bilgewhizzle, inside
   turnin 8366
-  accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
 
 step Gadgetzan
-  turnin 1878
+  turnin 1878 direct
   turnin 2781                           -- Chief Engineer Bilgewhizzle
   turnin 1691                           -- Chief Engineer Bilgewhizzle
   vendor nearest
@@ -288,7 +302,7 @@ step Fly to Freewind Post
 
 step Feralas
   zone Feralas
-  goto 75.7,44.3 "Feralas"
+  goto 75.7,44.3 "Camp Mojache"
 
 step Camp Mojache
   zone Feralas
@@ -326,7 +340,7 @@ step Camp Mojache
   turnin 2862                           -- Hadoken Swiftstrider
   accept 2863                           -- Alpha Strike: one hour from now
   turnin 2975                           -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
-  turnin 2978 optional
+  turnin 2978
   accept 2979
   accept 2980
   turnin 2987                           -- Orwin Gizzmick
@@ -396,7 +410,7 @@ step Camp Mojache
   accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
   accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar
   turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
-  turnin 2979 optional -- Rok Orhan
+  turnin 2979                           -- Rok Orhan
   accept 3002                           -- for Orgrimmar, around level 45
 
 step Fly to Orgrimmar
@@ -409,15 +423,15 @@ step Fly to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  tip Fly to Orgrimmar. The Droffers brothers run their shop in the Drag.
-  accept 649                            -- Dran Droffers
-  turnin 649                            -- Malton Droffers
-  accept 650                            -- for the Hinterlands, around level 48
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  tip Valley of Honor, then the Cleft of Shadow and the Valley of Spirits.
+  tip Fly to Orgrimmar. From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
   accept 3122
-  turnin 7732                           -- Zilzibin Drumlore, Valley of Spirits
+  turnin 7732                           -- Zilzibin Drumlore, the Drag
+  accept 649                            -- Dran Droffers, the Drag
+  turnin 649                            -- Malton Droffers
+  accept 650                            -- for the Hinterlands, around level 48
+  turnin 2976                           -- Belgrom Rockmaul, Valley of Honor
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Orgrimmar
   zone Orgrimmar

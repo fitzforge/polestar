@@ -20,22 +20,22 @@ next forever/alliance/04-redridge-mountains
 # played right after Darkshore; the 27-29 Wetlands, Ironforge and Stormwind quests are in
 # 06-wetlands, after Duskwood. Ashenvale runs by quest level: Astranaar, Lake Falathim and
 # Stonetalon (19-22) first, then the east loop and Ilkrud and the Zoram Strand (24-25).
+# Group quest: Gerenzo's Orders (1090, `when group 1090`, #1370): Piznik's five-minute defence in the Windshear
+# Mine (quest level 22) was lost solo at 23 and 25 in players' recordings; grouped players finished it from 23.
 
 # ---------------------------------------------------------------- Darkshore
 
 step Kerlonian Evershade
   zone Darkshore
-  tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest, open his chest for the Horn of Awakening, use it to wake him and lead him south along the road into Ashenvale to Liladris Moonriver at Maestra's Post; blow the horn again whenever he falls asleep.
-  tip Careful: Scripted ambushes of three mobs each attack along the road: furbolgs on the Darkshore stretch and undead nearer Maestra's Post.
-  goto 44.4,76.4 "Grove of the Ancients"
+  tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest: it gives you the Horn of Awakening. Use the horn to wake him and lead him south along the road to his bag at the southern edge of Darkshore; blow it again whenever he falls asleep. Then go on to Liladris Moonriver at Maestra's Post.
+  tip Careful: Scripted ambushes of three mobs each attack along the road.
   accept 5321                                 -- Kerlonian Evershade
-  collect 13536 quest 5321.1                  -- Kerlonian's Chest, beside him
   goto 44.4,76.4 "Kerlonian Evershade"
-  note Escort Kerlonian to Maestra's Post in Ashenvale.
+  note Escort Kerlonian south along the road to his bag at the southern edge of Darkshore, then go on to Liladris at Maestra's Post.
 
 step Ashenvale
   zone Ashenvale
-  goto 26.2,38.7 "Ashenvale"
+  goto 26.2,38.7 "Maestra's Post"
 
 # ---------------------------------------------------------------- Maestra's Post
 
@@ -67,7 +67,7 @@ step Astranaar
   accept 1070                             -- Sentinel Thenysil
   sethome "Astranaar"
   accept 991                              -- Raene Wolfrunner, in the inn
-  turnin 990 only Druid                   -- Raene Wolfrunner: Trek to Ashenvale, from Auberdine (others take it on the next Ashenvale visit)
+  turnin 990                              -- Raene Wolfrunner: Trek to Ashenvale, from Auberdine
   accept 1054
   turnin 1020                             -- Pelturas Whitemoon, inside
   accept 1033
@@ -101,14 +101,15 @@ step Astranaar
 
 step Stonetalon Mountains
   zone Stonetalon Mountains
-  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag, by the Windshear Mine.
-  goto 71.9,60.0 "Stonetalon Mountains"
+  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag, north of the Windshear Mine.
+  goto 76.5,45.5 "Windshear Crag"
 
 step Piznik
-  tip Piznik mines in the Windshear Mine at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines.
-  tip Careful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended.
+  when group 1090
+  tip Piznik's defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.
+  tip Piznik mines at the bottom of the Windshear Mine at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails.
   accept 1090                         -- Below ground
-  complete 1090
+  complete 1090 @71.87,60.0           -- Keep Piznik alive while he mines, below ground
   turnin 1090
   accept 1092
 
@@ -120,11 +121,16 @@ step Windshear Crag
   turnin 1085                             -- Gaxim Rustfizzle
   accept 1071
 
+step Ziz Fizziks: Gerenzo's Orders
+  zone Stonetalon Mountains
+  when group 1090
+  tip His hut stands just north of Kaela and Gaxim.
+  turnin 1092                             -- Ziz Fizziks, inside
+
 step Ziz Fizziks
   zone Stonetalon Mountains
   tip His hut stands just north of Kaela and Gaxim.
-  turnin 1092                             -- Ziz Fizziks, inside
-  accept 1093
+  accept 1093                             -- Ziz Fizziks, inside
 
 step Windshear Crag: kill these as you meet them
   zone Stonetalon Mountains
@@ -162,7 +168,7 @@ step Mystral Lake
   tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake; Alonso camps on its west shore. Befouled Water Elementals wade in the lake between them.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
-  collect 5455 quest 1016 @46.6,69.6      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
+  collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
   turnin 1016
 
 step The Foulweald
@@ -181,10 +187,17 @@ step Dal Bloodclaw
   tip Careful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone.
   collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
 
+step Astranaar
+  tip South from Dal Bloodclaw's camp, Astranaar is on the way west: Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.
+  turnin 1025                             -- Raene Wolfrunner
+  turnin 1054                             -- Raene Wolfrunner
+  turnin 1034                             -- Pelturas Whitemoon, inside
+  vendor nearest
+
 # ---------------------------------------------------------------- West: Ilkrud and the Zoram Strand
 
 step Ilkrud Magthrull
-  tip From Dal Bloodclaw's camp head south-west past Astranaar (its hand-ins wait for the way back) to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.
+  tip From Astranaar head south-west to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.
   collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
 
 step The Zoram Strand
@@ -210,12 +223,8 @@ step Maestra's Post
   accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
 
 step Astranaar
-  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside.
+  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.
   turnin 1008                         -- Shindrell Swiftfire
-  turnin 1025                             -- Raene Wolfrunner
-  turnin 1054                             -- Raene Wolfrunner
-  turnin 1034                             -- Pelturas Whitemoon, inside
-  vendor nearest
 
 # ---------------------------------------------------------------- Menethil Harbor
 
@@ -306,7 +315,7 @@ step Ironbeard's Tomb
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
 
 step Menethil
-  tip Back west along the road into Menethil: Tarrel Rockweaver by the road in, Sida and Caitlin Grassman at the inn, Valstag Ironjaw in the keep, James Halloran on the west side by the docks, Karl Boran on the pier north of the inn.
+  tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road into Menethil: Tarrel Rockweaver by the road in at the north gate, Sida and Caitlin Grassman at the inn, Valstag Ironjaw in the keep, James Halloran on the west side by the docks, Karl Boran on the pier north of the inn.
   turnin 306                              -- Tarrel Rockweaver
   turnin 470                              -- Sida
   turnin 98282                            -- Caitlin Grassman, inside
@@ -362,13 +371,17 @@ step Tram to Stormwind
 
 # ---------------------------------------------------------------- Stormwind
 
+step Baros Alexston
+  zone Stormwind City
+  when onquest 97914
+  tip The tram comes in at the Dwarven District; walk west to the Cathedral Square: Baros Alexston stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)
+  turnin 97914                            -- Baros Alexston: Thundris' letter from Auberdine
+  accept 97926 optional                   -- For Thundris Windweaver, back in Auberdine (06-wetlands)
+
 step Cathedral Square
   zone Stormwind City
-  tip The tram comes in at the Dwarven District; walk west to the Cathedral Square. Baros Alexston stands at its east side, High Priestess Laurena in the Cathedral of Light.
-  turnin 97914                            -- Baros Alexston: Thundris' letter from Auberdine
-  accept 97926 optional                   -- Only once Expanding Horizons is handed in: for Thundris Windweaver, back in Auberdine (06-wetlands)
-  accept 5676 only Human,Priest           -- High Priestess Laurena
-  turnin 5676 only Human,Priest           -- Arcane Feedback
+  tip The tram comes in at the Dwarven District; walk west to the Cathedral Square. High Priestess Laurena is in the Cathedral of Light.
+  turnin 5676 direct only Human,Priest -- Arcane Feedback
   accept 5645 only Dwarf,Priest           -- High Priestess Laurena: High Priest Rohan in Ironforge takes it, later
   accept 94819 npc 376 only Gnome,Priest  -- High Priestess Laurena: High Priestess Mims in Ironforge takes it, later
   accept 5673 only NightElf,Priest        -- High Priestess Laurena: Priestess Alathea in Darnassus takes it, later

@@ -45,6 +45,8 @@ enum F {
 	Hex,
 	/// A game constant's name (`ERR_QUEST_NEED_PREREQS`): 1 to 64 of `A-Z`, `0-9`, `_`, required.
 	Const,
+	/// A uiMapID: a whole number from 1 to below [`MAX_MAP_ID`], required.
+	Map,
 	/// Three fields: map x y (all empty, or uiMapID > 0 and coordinates 0..=10000).
 	P,
 	/// `;`-separated items of `:`-separated parts; empty = no items.
@@ -128,7 +130,8 @@ kinds! {
 	Objectives "objectives" ["q": F::U, "list": F::L(&[Part::W, Part::OU, Part::Name(MAX_TITLE)])],
 	Progress "progress" ["q": F::U, "index": F::U, "cur": F::U, "max": F::U, "P": F::P],
 	Complete "complete" ["q": F::U],
-	Turnin "turnin" ["q": F::U, "npcKind": NK, "npcId": F::OU, "P": F::P, "level": F::OU, "xp": F::OU, "money": F::OU, "chosenItem": F::OU],
+	// `money` is negative for a quest that costs money to hand in (the game's signed reward-or-cost).
+	Turnin "turnin" ["q": F::U, "npcKind": NK, "npcId": F::OU, "P": F::P, "level": F::OU, "xp": F::OU, "money": F::OI, "chosenItem": F::OU],
 	Abandon "abandon" ["q": F::U],
 	Fail "fail" ["q": F::U, "P": F::P],
 	Gossip "gossip" ["npcKind": NK, "npcId": F::OU, "P": F::P, "optionId": F::OU, "optionText": F::Text],
@@ -142,10 +145,20 @@ kinds! {
 	Loot "loot" ["srcKind": NK, "srcId": F::OU, "P": F::P, "gather": F::Tok(&["h", "m", "s", "f", ""]), "items": ITEMS, "wanted": ITEMS],
 	Gather "gather" ["objectId": F::U, "P": F::P, "how": F::Tok(&["h", "m", "f", "l"]), "skillLineId": F::OU, "rank": F::OU],
 	Unit "unit" ["npcId": F::U, "level": F::OI, "cls": CLS, "react": F::Tok(&["h", "n", "f", ""]), "P": F::P, "src": F::Tok(&["p", "t", "m", ""])],
+	// Explorer mode (`/psrec explore`): a creature's spawn seen, without a kill.
+	Unitx "unitx" ["npcId": F::U, "spawnUid": F::Hex, "P": F::P],
 	Rare "rare" ["npcId": F::U, "level": F::OI, "cls": CLS, "P": F::P, "src": F::Word],
 	Treasure "treasure" ["objectId": F::OU, "P": F::P],
 	Enter "enter" ["instanceId": F::U, "instanceType": F::Word, "difficulty": F::OU, "P": F::P],
 	Encounter "encounter" ["encounterId": F::U, "ok": BOOL, "difficulty": F::OU, "size": F::OU],
+	// Explorer mode: the inside of an instance (its uiMapID and floor), an encounter's start, the
+	// quest log's map points (`P` is the quest's point, not the player's), the subzone an NPC's
+	// window opened in, and a world object opened.
+	Imap "imap" ["instanceId": F::U, "uiMapId": F::Map, "groupId": F::OU, "floor": F::OU],
+	Engage "engage" ["encounterId": F::U, "difficulty": F::OU, "size": F::OU],
+	Poi "poi" ["q": F::U, "done": BOOL, "P": F::P],
+	Where "where" ["npcKind": NK, "npcId": F::OU, "subzoneText": F::Name(MAX_PLACE), "indoors": BOOL],
+	Open "open" ["spellId": F::U, "P": F::P, "targetKind": NK, "targetId": F::OU],
 	Trainer "trainer" ["npcId": F::OU, "P": F::P, "services": F::L(&[Part::U, Part::U, Part::U, Part::Tok(&["a", "u", "k"]), Part::T])],
 	Vendor "vendor" ["npcId": F::OU, "P": F::P, "items": F::L(&[Part::U, Part::U, Part::U, Part::I])],
 	Flightmaster "flightmaster" ["npcId": F::OU, "P": F::P, "node": F::OU, "known": IDS],
@@ -371,6 +384,74 @@ fn check_name(s: &str, max: usize) -> Result<(), String> {
 	Ok(())
 }
 
+/// Whether a name (quest title, objective, zone) is one the data build may ship as it is.
+fn shippable(s: &str, max: usize) -> bool {
+	!s.contains('|') && s.chars().count() <= max
+}
+
+/// A name with the game's grammar escape taken out: `|4singular:plural;` removed (where the
+/// Recorder made `:` and `;` spaces, it runs to the end of the name), no-break spaces made spaces,
+/// the objective count the escape followed (`0/8`) dropped and the ends trimmed, as the Recorder
+/// itself does since 0.3.6 (`Quests.lua`). The frFR client writes kill objectives as `%1$s :
+/// %2$d/%3$d |4personnage tué:personnages tués;`, which Recorder 0.3.5 sent as
+/// `Rôdeur  0/8 |4personnage tué personnages tués ` (`Rôdeur`). None when the name has no `|4`.
+fn strip_grammar_escape(s: &str) -> Option<String> {
+	if !s.contains("|4") {
+		return None;
+	}
+	let mut out = String::with_capacity(s.len());
+	let mut rest = s;
+	while let Some(at) = rest.find("|4") {
+		out.push_str(&rest[..at]);
+		let after = &rest[at + 2..];
+		let end = after.find(['|', ';']).unwrap_or(after.len());
+		rest = after[end..].strip_prefix(';').unwrap_or(&after[end..]);
+	}
+	out.push_str(rest);
+	let out = out.replace('\u{a0}', " ");
+	let mut name = out.trim_end();
+	// The count before the escape: digits, `/`, digits, after a space or a colon.
+	if let Some((head, max)) = name.rsplit_once('/') {
+		let cur = head.trim_end().trim_end_matches(|c: char| c.is_ascii_digit());
+		if !max.trim().is_empty() && max.trim().bytes().all(|b| b.is_ascii_digit()) && cur.len() < head.trim_end().len() && (cur.is_empty() || cur.ends_with([' ', ':'])) {
+			name = cur.trim_end().trim_end_matches(':').trim_end();
+		}
+	}
+	Some(name.trim_start().to_string())
+}
+
+/// Empties the names ([`F::Name`] fields, [`Part::Name`] list parts) the data build could not ship:
+/// one still carrying a `|` once the grammar escape is taken out ([`strip_grammar_escape`]), or an
+/// overlong one. The record and its chunk are kept; only that name is lost. A name with a control
+/// character is left as it is, for [`check_name`] to reject.
+fn clear_unshippable_names(v: &mut String, ty: F) {
+	let fix = |n: &str, max: usize| -> Option<String> {
+		if shippable(n, max) || check_text(n).is_err() {
+			return None;
+		}
+		Some(strip_grammar_escape(n).filter(|s| shippable(s, max)).unwrap_or_default())
+	};
+	match ty {
+		F::Name(max) => {
+			if let Some(n) = fix(v, max) {
+				*v = n;
+			}
+		}
+		F::L(parts) => {
+			let Some((p, max)) = parts.iter().enumerate().find_map(|(i, part)| if let Part::Name(max) = part { Some((i, *max)) } else { None }) else { return };
+			if !v.split(';').any(|item| item.split(':').nth(p).is_some_and(|n| fix(n, max).is_some())) {
+				return;
+			}
+			let items: Vec<String> = v
+				.split(';')
+				.map(|item| item.split(':').enumerate().map(|(i, part)| if i == p { fix(part, max).unwrap_or_else(|| part.to_string()) } else { part.to_string() }).collect::<Vec<_>>().join(":"))
+				.collect();
+			*v = items.join(";");
+		}
+		_ => {}
+	}
+}
+
 fn check_part(p: &str, ty: Part) -> Result<(), String> {
 	let ok = match ty {
 		Part::U => is_uint(p),
@@ -409,7 +490,7 @@ fn check_list(s: &str, parts: &[Part]) -> Result<(), String> {
 
 fn optional(ty: F) -> bool {
 	match ty {
-		F::U | F::Id | F::Hex | F::Const => false,
+		F::U | F::Id | F::Hex | F::Const | F::Map => false,
 		F::Tok(list) => list.contains(&""),
 		_ => true,
 	}
@@ -429,6 +510,7 @@ fn check_field(v: &str, ty: F) -> Result<(), String> {
 		F::Flags(set) => v.chars().all(|c| set.contains(c)) && v.len() <= set.len(),
 		F::Hex => (1..=16).contains(&v.len()) && v.bytes().all(|b| b.is_ascii_digit() || (b'A'..=b'F').contains(&b)),
 		F::Const => (1..=64).contains(&v.len()) && v.bytes().all(|b| b.is_ascii_uppercase() || b.is_ascii_digit() || b == b'_'),
+		F::Map => is_uint(v) && v.parse::<u64>().is_ok_and(|m| m > 0 && m < MAX_MAP_ID),
 		F::L(parts) => return check_list(v, parts),
 		F::P => unreachable!(),
 	};
@@ -456,7 +538,8 @@ fn check_pos(map: &str, x: &str, y: &str) -> Result<(), String> {
 }
 
 /// Validates one record's fields (after `dt`) against its kind; pads missing trailing optional
-/// fields with empty strings.
+/// fields with empty strings and empties the names the data build could not ship
+/// ([`clear_unshippable_names`]).
 fn validate(kind: Kind, fields: &mut Vec<String>) -> Result<(), String> {
 	let width = kind.width();
 	if fields.len() > width {
@@ -474,6 +557,7 @@ fn validate(kind: Kind, fields: &mut Vec<String>) -> Result<(), String> {
 		if i >= given && !optional(*ty) {
 			return Err(format!("field {name}: missing"));
 		}
+		clear_unshippable_names(&mut fields[i], *ty);
 		check_field(&fields[i], *ty).map_err(|e| format!("field {name}: {e}"))?;
 		i += 1;
 	}
@@ -596,6 +680,52 @@ mod tests {
 	}
 
 	#[test]
+	fn a_turnin_that_costs_money_records_a_negative_money() {
+		// QUEST_TURNED_IN's moneyReward is negative for a quest the player pays to hand in: Grime-
+		// Encrusted Ring (2945) costs 3 silver at the Sparklematic 5200 (object 142487) inside
+		// Gnomeregan, so no position. A 0.3.5 player's chunks holding such a turn-in were rejected
+		// whole for "field money: bad value '-300'".
+		let c = chunk("turnin\t412\t2945\to\t142487\t\t\t\t31\t2700\t-300\t\n").unwrap();
+		let r = &c.records[0];
+		assert_eq!((r.int("q"), r.get("npcKind"), r.int("npcId"), r.int("xp"), r.int("money"), r.pos()), (Some(2945), "o", Some(142487), Some(2700), Some(-300), None));
+		assert!(chunk("turnin\t0\t2945\to\t142487\t\t\t\t31\t2700\t-\t").is_err(), "a sign alone is no number");
+		assert!(chunk("turnin\t0\t2945\to\t142487\t\t\t\t31\t-5\t0\t").is_err(), "XP is never negative");
+	}
+
+	#[test]
+	fn decodes_the_explorer_kinds() {
+		// What `/psrec explore` adds (docs/RECORDING.md "Explorer mode"); each a kind of its own, so an
+		// older reader skips them and keeps the chunk.
+		let c = chunk(concat!(
+			"unitx\t1\t261306\t000043F59F\t2521\t4512\t6633\n",
+			"imap\t2\t2943\t2681\t512\t1\n",
+			"engage\t3\t3301\t1\t5\n",
+			"poi\t4\t90012\t0\t2521\t4400\t6100\n",
+			"where\t5\tc\t261306\tThe Drowned Chapel\t1\n",
+			"open\t6\t3365\t2521\t4520\t6640\to\t500123\n",
+			"open\t7\t3365\t2521\t4520\t6640\t\t\n",
+		))
+		.unwrap();
+		assert_eq!(c.skipped_unknown, 0);
+		let k: Vec<Kind> = c.records.iter().map(|r| r.kind).collect();
+		assert_eq!(k, [Kind::Unitx, Kind::Imap, Kind::Engage, Kind::Poi, Kind::Where, Kind::Open, Kind::Open]);
+		let r = &c.records;
+		assert_eq!((r[0].int("npcId"), r[0].get("spawnUid"), r[0].pos()), (Some(261306), "000043F59F", Some(Pos { map: 2521, x: 4512, y: 6633 })));
+		assert_eq!((r[1].int("instanceId"), r[1].int("uiMapId"), r[1].int("groupId"), r[1].int("floor")), (Some(2943), Some(2681), Some(512), Some(1)));
+		assert_eq!((r[2].int("encounterId"), r[2].int("difficulty"), r[2].int("size")), (Some(3301), Some(1), Some(5)));
+		assert_eq!((r[3].int("q"), r[3].get("done"), r[3].pos()), (Some(90012), "0", Some(Pos { map: 2521, x: 4400, y: 6100 })));
+		assert_eq!((r[4].get("npcKind"), r[4].int("npcId"), r[4].get("subzoneText"), r[4].get("indoors")), ("c", Some(261306), "The Drowned Chapel", "1"));
+		assert_eq!((r[5].int("spellId"), r[5].get("targetKind"), r[5].int("targetId")), (Some(3365), "o", Some(500123)));
+		assert_eq!(r[6].int("targetId"), None);
+		// A subzone name the data build could not ship is emptied, the record kept.
+		assert_eq!(chunk("where\t0\tc\t1\tThe |cffff0000Chapel|r\t0").unwrap().records[0].get("subzoneText"), "");
+		// uiMapIDs below 100,000, as in `P`.
+		assert!(chunk("imap\t0\t2943\t99999").is_ok());
+		assert!(chunk("imap\t0\t2943\t100000").is_err());
+		assert!(chunk("imap\t0\t2943\t0").is_err());
+	}
+
+	#[test]
 	fn rejects_each_malformed_kind() {
 		// One malformed example per kind: the whole chunk is rejected.
 		let bad = [
@@ -650,6 +780,12 @@ mod tests {
 			"craft\t0\t",
 			"achieve\t0\t1.5",
 			"step\t0\tg\t1\tjump",
+			"unitx\t0\t1501\t43f59f",
+			"imap\t0\t2943",
+			"engage\t0\t",
+			"poi\t0\t364\t2",
+			"where\t0\tq\t1",
+			"open\t0\t3365\t1420\t1\t1\tz",
 		];
 		let mut kinds: Vec<&str> = Vec::new();
 		for b in bad {
@@ -667,25 +803,49 @@ mod tests {
 	}
 
 	#[test]
-	fn names_the_data_build_ships_are_checked() {
-		// Titles, objectives and zone names: no `|`, no control characters, 255 (100 for zones)
-		// characters at most; the whole chunk is rejected, as the server does.
+	fn names_the_data_build_could_not_ship_are_emptied_and_the_chunk_kept() {
+		// Titles, objectives and zone names: no `|`, 255 (100 for zones) characters at most. One
+		// that breaks this loses the name; the record and its chunk are kept.
 		let title = "\u{e9}".repeat(MAX_TITLE);
-		assert!(chunk(&format!("text\t0\t364\t{title}")).is_ok());
-		for bad in [
-			format!("text\t0\t364\t{title}x"),
-			"text\t0\t364\tThe |cffff0000Damned|r".into(),
-			"text\t0\t364\tThe\u{1}Damned".into(),
-			"objectives\t0\t364\tmonster:10:Scourge |Hwarrior|h slain".into(),
-			format!("objectives\t0\t364\tmonster:10:{}", "x".repeat(MAX_TITLE + 1)),
-			format!("zone\t0\t1420\t5\t5\t{}", "x".repeat(MAX_PLACE + 1)),
-			"zone\t0\t1420\t5\t5\tDeathknell|r".into(),
-			"mark\t0\t\t\t\tnote\u{7}".into(),
+		assert_eq!(chunk(&format!("text\t0\t364\t{title}")).unwrap().records[0].get("title"), title);
+		for (line, field) in [
+			(format!("text\t0\t364\t{title}x\tKill them."), "title"),
+			("text\t0\t364\tThe |cffff0000Damned|r\tKill them.".into(), "title"),
+			(format!("zone\t0\t1420\t5\t5\t{}", "x".repeat(MAX_PLACE + 1)), "zoneText"),
+			("zone\t0\t1420\t5\t5\tDeathknell|r".into(), "zoneText"),
 		] {
-			assert!(chunk(&bad).is_err(), "{bad}");
+			let c = chunk(&line).unwrap_or_else(|e| panic!("{line}: {e}"));
+			assert_eq!(c.records[0].get(field), "", "{line}");
+		}
+		assert_eq!(chunk("text\t0\t364\tThe |cffff0000Damned|r\tKill them.").unwrap().records[0].get("objectiveText"), "Kill them.");
+		// What Polestar Recorder 0.3.5 writes for frFR kill objectives: the client's "%1$s :
+		// %2$d/%3$d |4personnage tué:personnages tués;" with `:` and `;` made spaces. Every frFR
+		// chunk holding one was rejected whole before #1369, and its name emptied after: the escape
+		// and the count are taken out instead, as the Recorder does since 0.3.6.
+		for (sent, name) in [
+			("R\u{f4}deur\u{a0}  0/8 |4personnage tu\u{e9} personnages tu\u{e9}s ", "R\u{f4}deur"),
+			("Jeune loup\u{a0}  3/10 |4personnage tu\u{e9} personnages tu\u{e9}s ", "Jeune loup"),
+			("Jeune Broche-tripes\u{a0}  12/12 |4personnage tu\u{e9} personnages tu\u{e9}s ", "Jeune Broche-tripes"),
+			("Fourrageur murloc\u{a0}  0/1 |4personnage tu\u{e9} personnages tu\u{e9}s", "Fourrageur murloc"),
+		] {
+			let c = chunk(&format!("objectives\t20\t52\tmonster:8:{sent};item:1:Patte de r\u{f4}deur\u{a0}")).unwrap();
+			assert_eq!(c.records[0].list("list"), vec![vec!["monster", "8", name], vec!["item", "1", "Patte de r\u{f4}deur\u{a0}"]], "{sent}");
+		}
+		// The escape as the client writes it (a title or zone field keeps `:` and `;`), with the
+		// text after it kept; a name still carrying another escape loses it whole.
+		let title = |t: &str| chunk(&format!("text\t0\t52\t{t}")).unwrap().records[0].get("title").to_string();
+		assert_eq!(title("Rôdeur\u{a0}: 0/8 |4personnage tué:personnages tués;"), "Rôdeur");
+		assert_eq!(title("Les |4loup:loups; de la frontière"), "Les  de la frontière");
+		assert_eq!(title("Rôdeur |4personnage tué:personnages tués;|r"), "");
+		// Names without the escape are kept as they are (no-break spaces too).
+		assert_eq!(title("Rats capturés\u{a0}"), "Rats capturés\u{a0}");
+		assert_eq!(chunk(&format!("objectives\t0\t364\tmonster:10:{}", "x".repeat(MAX_TITLE + 1))).unwrap().records[0].get("list"), "monster:10:");
+		// Control characters still make the record malformed, names or not.
+		for bad in ["text\t0\t364\tThe\u{1}Damned", "objectives\t0\t364\tmonster:10:Scourge\u{1}|H slain", "mark\t0\t\t\t\tnote\u{7}"] {
+			assert!(chunk(bad).is_err(), "{bad}");
 		}
 		// Free text keeps `|`: it ships nowhere.
-		assert!(chunk("mark\t0\t\t\t\ta | b").is_ok());
+		assert_eq!(chunk("mark\t0\t\t\t\ta | b").unwrap().records[0].get("text"), "a | b");
 	}
 
 	#[test]

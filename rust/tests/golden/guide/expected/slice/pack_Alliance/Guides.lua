@@ -72,7 +72,7 @@ do
 						{ t = "turnin", quest = 33, title = "Wolves Across the Border", npc = 196, npcName = "Eagan Peltskinner", map = 1429, x = 48.9, y = 40.2, z = 81, f = "e" },
 						{ t = "turnin", quest = 5261, title = "Eagan Peltskinner", npc = 196, npcName = "Eagan Peltskinner", map = 1429, x = 48.9, y = 40.2, z = 81, f = "e" },
 						{ t = "accept", quest = 18, title = "Brotherhood of Thieves", npc = 823, npcName = "Deputy Willem", minLevel = 2, qlvl = 4, pre = { 783 }, preTitles = { [783] = "A Threat Within" }, map = 1429, x = 48.2, y = 42.9, z = 83.4, f = "e", note = "{npc:823}, back at the Abbey steps" },
-						{ t = "train", class = true, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -124,7 +124,7 @@ do
 						{ t = "turnin", quest = 3103, title = "Hallowed Letter", npc = 375, npcName = "Priestess Anetta", map = 1429, x = 49.8, y = 39.5, z = 82.1, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:375}, the priest trainer" },
 						{ t = "turnin", quest = 3104, title = "Glyphic Letter", npc = 198, npcName = "Khelden Bremen", map = 1429, x = 49.7, y = 39.4, z = 89.5, f = "e", only = { classes = { "MAGE" } }, note = "{npc:198}, the mage trainer, inside the Abbey" },
 						{ t = "turnin", quest = 3105, title = "Tainted Letter", npc = 459, npcName = "Drusilla La Salle", map = 1429, x = 49.9, y = 42.6, z = 80.8, f = "e", only = { classes = { "WARLOCK" } }, note = "{npc:459}, outside the Abbey" },
-						{ t = "train", class = true, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[11], candidateRecords[10], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[11], candidateRecords[10], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -197,7 +197,7 @@ do
 						{ t = "turnin", quest = 91758, optional = true, note = "Tordrin Sternblade" },
 						{ t = "accept", quest = 91772, optional = true, note = "his kobold tracker shows the kobolds to click on the road to {area:87}" },
 						{ t = "accept", quest = 2158, title = "Rest and Relaxation", npc = 6774, npcName = "Falkhaan Isenstrider", minLevel = 1, qlvl = 5, map = 1429, x = 45.6, y = 47.7, z = 88.4, f = "e", note = "{npc:6774}, by the stables south of the Abbey" },
-						{ t = "train", class = true, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[7], candidateRecords[8], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[7], candidateRecords[8], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -267,7 +267,7 @@ do
 						{ t = "turnin", quest = 96626, note = "Tomas" },
 						{ t = "turnin", quest = 99129, note = "{npc:241}" },
 						{ t = "accept", quest = 99130 },
-						{ t = "train", class = true, candidates = { candidateRecords[11], candidateRecords[9], candidateRecords[10], candidateRecords[12], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[11], candidateRecords[9], candidateRecords[10], candidateRecords[12], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -375,14 +375,14 @@ do
 						{ t = "accept", quest = 61, title = "Shipment to Stormwind", npc = 253, npcName = "William Pestle", minLevel = 3, qlvl = 7, pre = { 60 }, preTitles = { [60] = "Kobold Candles" }, map = 1429, x = 43.3, y = 65.7, z = 57, f = "e", note = "{npc:279} in {zone:1453} takes it (02-westfall)" },
 						{ t = "turnin", quest = 107, title = "Note to William", npc = 253, npcName = "William Pestle", map = 1429, x = 43.3, y = 65.7, z = 57, f = "e" },
 						{ t = "accept", quest = 112, title = "Collecting Kelp", npc = 253, npcName = "William Pestle", minLevel = 5, qlvl = 7, pre = { 107 }, preTitles = { [107] = "Note to William" }, map = 1429, x = 43.3, y = 65.7, z = 57, f = "e" },
-						{ t = "train", class = true, candidates = candidateLists[1] },
+						{ t = "train", class = true, zone = 1429, candidates = candidateLists[1] },
 					},
 				},
 				{
 					title = "{area:18} and the wolves",
 					note = "The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.",
 					goals = {
-						{ t = "collect", quest = 112, title = "Collecting Kelp", item = 1256, itemName = "Crystal Kelp Frond", count = 4, oi = 1, map = 1429, x = 49.8, y = 66.4, f = "e", spotsPacked = "51.1,67,,66,13;54.3,66.9,,83,12;54.5,63.7,,42,4;56.1,68.9,,41,3;57,66.6,,55,8;57.2,63,,17,2;50.5,62.3,,15,1,1", lvl = 7, note = "Crystal Kelp Fronds", fromNpcs = { { npc = 285, npcName = "Murloc" }, { npc = 735, npcName = "Murloc Streamrunner" } } },
+						{ t = "collect", quest = 112, title = "Collecting Kelp", item = 1256, itemName = "Crystal Kelp Frond", count = 4, oi = 1, map = 1429, x = 49.8, y = 66.4, f = "e", spotsPacked = "51.1,67,,66,13;54.3,66.9,,83,12;54.5,63.7,,42,4;56.1,68.9,,41,3;57,66.6,,55,8;57.2,63,,17,2;50.5,62.3,,15,1,1", lvl = 7, note = "Crystal Kelp Fronds", from = "Murloc", fromKind = "npc", fromAlso = "Murloc Streamrunner", fromId = 285, fromAlsoId = 735, fromNpcs = { { npc = 285, npcName = "Murloc" }, { npc = 735, npcName = "Murloc Streamrunner" } } },
 						{ t = "collect", quest = 91751, item = 247877, optional = true, note = "Rough Wolf Pelts" },
 					},
 				},
@@ -445,7 +445,7 @@ do
 					title = "{area:86}",
 					note = "Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore.",
 					goals = {
-						{ t = "collect", quest = 83, title = "Red Linen Goods", item = 1019, itemName = "Red Linen Bandana", count = 6, oi = 1, map = 1429, x = 72.5, y = 56.4, f = "e", spotsPacked = "73.3,55,,48,5;76.4,48,,40,2;71.3,76.7,,40,1,,9;68.3,81.3,,40,2,,9;48.7,81,,40,2,,9;48.3,87.4,,40,3;47.6,74.1,,40,1,,9;52.4,59,,40,3;34.4,55.8,,40,1,,9;29.1,60.9,,47,6;30.7,65,,40,4,,9;89.5,79.3,,40,9;73.6,51.2,,75,10,1;77,52.5,,40,2,1;73.5,46.7,,40,2,1;68.4,77.5,,40,4,1,9;70.9,80.4,,40,5,1;55.3,59.9,,40,1,1,9;50.3,83.4,,40,3,1;45.6,75.1,,46,4,1,9;47.5,83.7,,53,4,1,9;29.9,58.1,,41,4,1", spread = true, lvl = 10, note = "Red Linen Bandanas", fromNpcs = { { npc = 474, npcName = "Defias Rogue Wizard" }, { npc = 116, npcName = "Defias Bandit" }, { npc = 473, npcName = "Morgan the Collector" }, { npc = 583, npcName = "Defias Ambusher" }, { npc = 880, npcName = "Erlan Drudgemoor" } } },
+						{ t = "collect", quest = 83, title = "Red Linen Goods", item = 1019, itemName = "Red Linen Bandana", count = 6, oi = 1, map = 1429, x = 72.5, y = 56.4, f = "e", spotsPacked = "73.3,55,,48,5;76.4,48,,40,2;71.3,76.7,,40,1,,9;68.3,81.3,,40,2,,9;48.7,81,,40,2,,9;48.3,87.4,,40,3;47.6,74.1,,40,1,,9;52.4,59,,40,3;34.4,55.8,,40,1,,9;29.1,60.9,,47,6;30.7,65,,40,4,,9;89.5,79.3,,40,9;73.6,51.2,,75,10,1;77,52.5,,40,2,1;73.5,46.7,,40,2,1;68.4,77.5,,40,4,1,9;70.9,80.4,,40,5,1;55.3,59.9,,40,1,1,9;50.3,83.4,,40,3,1;45.6,75.1,,46,4,1,9;47.5,83.7,,53,4,1,9;29.9,58.1,,41,4,1", spread = true, lvl = 10, note = "Red Linen Bandanas", fromNpcs = { { npc = 474, npcName = "Defias Rogue Wizard" }, { npc = 116, npcName = "Defias Bandit" }, { npc = 473, npcName = "Morgan the Collector" }, { npc = 583, npcName = "Defias Ambusher" }, { npc = 880, npcName = "Erlan Drudgemoor" }, { npc = 881, npcName = "Surena Caledon" }, { npc = 6846, npcName = "Defias Dockmaster" }, { npc = 6866, npcName = "Defias Bodyguard" }, { npc = 6927, npcName = "Defias Dockworker" } }, fromNpcsAt = "1;1;2;2;2;7,8,9;2;2,1;4;1,2;2;2,1;1;1;1;2;2,3,5,6;2;2,1;2;2;2,1" },
 						{ t = "turnin", quest = 45, title = "Discover Rolf's Fate", object = 56, objName = "Rolf's corpse", map = 1429, x = 79.8, y = 55.5, z = 73.4, f = "e" },
 						{ t = "accept", quest = 71, title = "Report to Thomas", object = 56, objName = "Rolf's corpse", minLevel = 7, qlvl = 10, pre = { 45 }, preTitles = { [45] = "Discover Rolf's Fate" }, map = 1429, x = 79.8, y = 55.5, z = 73.4, f = "e" },
 						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Prowler", npc = 118, count = 8, oi = 1, map = 1429, x = 83.2, y = 59.6, z = 67.5, f = "e", spotsPacked = "84.8,61.3,63.4,69,5;87.6,68.7,62.1,40,4;83.8,72,54.6,40,1;81.8,77.8,47.6,40,2;82.9,84.5,,40,3;89.6,76.6,,40,3;76.4,75.9,40.9,49,6;72.2,65.3,55.8,40,4;77.9,62.1,65.5,66,5;77.7,40.8,75.7,42,3;71.4,37.5,73.7,40,1;66,44.3,,40,2;81.2,60.9,,40,2,1;86.9,64.5,,40,4,1;85.9,72.3,57.5,40,1,1;88.2,71.5,,40,2,1;79.4,78.2,,53,5,1;87.4,78.4,,40,3,1;80.4,81.8,35.3,48,8,1;87.5,81.6,39.5,40,2,1;90.8,80.6,,40,2,1;74.4,39.1,,55,7,1;85.4,84.1,34,40,3,1;70.7,40.7,,49,4,1", spread = true, lvl = 10, optional = true },
@@ -502,7 +502,7 @@ do
 						{ t = "accept", quest = 59, title = "Cloth and Leather Armor", npc = 240, npcName = "Marshal Dughan", minLevel = 7, qlvl = 10, pre = { 39 }, preTitles = { [39] = "Deliver Thomas' Report" }, map = 1429, x = 42.1, y = 65.9, z = 56.8, f = "e" },
 						{ t = "accept", quest = 239, title = "Westbrook Garrison Needs Help!", npc = 240, npcName = "Marshal Dughan", minLevel = 6, qlvl = 10, pre = { 76 }, preTitles = { [76] = "The Jasperlode Mine" }, map = 1429, x = 42.1, y = 65.9, z = 56.8, f = "e" },
 						{ t = "accept", quest = 114, title = "The Escape", npc = 253, npcName = "William Pestle", minLevel = 5, qlvl = 7, pre = { 112 }, preTitles = { [112] = "Collecting Kelp" }, map = 1429, x = 43.3, y = 65.7, z = 57, f = "e" },
-						{ t = "train", class = true, candidates = candidateLists[1] },
+						{ t = "train", class = true, zone = 1429, candidates = candidateLists[1] },
 					},
 				},
 				{
@@ -543,7 +543,7 @@ do
 					title = "{area:60}",
 					note = "Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border. {npc:100}, a level 12 gnoll, walks among them and carries the {item:1307}: right-click it.",
 					goals = {
-						{ t = "collect", quest = 11, title = "Riverpaw Gnoll Bounty", item = 782, itemName = "Painted Gnoll Armband", count = 8, oi = 1, map = 1429, x = 27.4, y = 79.7, f = "e", spotsPacked = "27.4,81.2,,40,4;27.4,86.5,,52,8;30.9,89.1,,40,1,,9;28.2,93.8,,40,2;25.1,93.4,,59,10;31.2,81.7,,40,2,,9;68.6,54.8,,40,1;68.2,49.9,,40,2;68.1,45.1,,58,10;66.8,40.6,,52,14;72.9,38.3,,40,1;76.8,40.2,,40,1;27.9,88.5,,40,5,1;25.4,89,,48,7,1;69.1,39.1,,60,11,1", spread = true, lvl = 10, note = "Painted Gnoll Armbands", fromNpcs = { { npc = 478, npcName = "Riverpaw Outrunner" }, { npc = 97, npcName = "Riverpaw Runt" } } },
+						{ t = "collect", quest = 11, title = "Riverpaw Gnoll Bounty", item = 782, itemName = "Painted Gnoll Armband", count = 8, oi = 1, map = 1429, x = 27.4, y = 79.7, f = "e", spotsPacked = "27.4,81.2,,40,4;27.4,86.5,,52,8;30.9,89.1,,40,1,,9;28.2,93.8,,40,2;25.1,93.4,,59,10;31.2,81.7,,40,2,,9;68.6,54.8,,40,1;68.2,49.9,,40,2;68.1,45.1,,58,10;66.8,40.6,,52,14;72.9,38.3,,40,1;76.8,40.2,,40,1;27.9,88.5,,40,5,1;25.4,89,,48,7,1;69.1,39.1,,60,11,1", spread = true, lvl = 10, note = "Painted Gnoll Armbands", from = "Riverpaw Runt", fromKind = "npc", fromAlso = "Riverpaw Outrunner", fromId = 97, fromAlsoId = 478, fromNpcs = { { npc = 478, npcName = "Riverpaw Outrunner" }, { npc = 97, npcName = "Riverpaw Runt" } } },
 						{ t = "collect", item = 1307, itemName = "Gold Pickup Schedule", count = 1, map = 1429, x = 25.4, y = 89.8, f = "e", optional = true, note = "{item:1307}: {npc:100}", from = "Gruff Swiftbite", fromKind = "npc", fromRank = 4, fromId = 100, fromNpcs = { { npc = 100, npcName = "Gruff Swiftbite" } } },
 						{ t = "accept", quest = 123, title = "The Collector", item = 1307, itemName = "Gold Pickup Schedule", minLevel = 7, qlvl = 10, optional = true },
 					},
@@ -632,7 +632,7 @@ do
 						{ t = "accept", quest = 5635, title = "Desperate Prayer", npc = 377, npcName = "Priestess Josetta", minLevel = 10, qlvl = 10, closedBy = { 5634, 5636, 5637, 5638, 5639, 5640 }, preTitles = { [5634] = "Desperate Prayer", [5636] = "Desperate Prayer", [5637] = "Desperate Prayer", [5638] = "Desperate Prayer", [5639] = "Desperate Prayer", [5640] = "Desperate Prayer" }, map = 1429, x = 43.3, y = 65.7, z = 63.9, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:377}: {npc:376} in {zone:1453} takes both" },
 						{ t = "accept", quest = 94774, only = { classes = { "PRIEST" } } },
 						{ t = "accept", quest = 1860, title = "Speak with Jennea", npc = 328, npcName = "Zaldimar Wefhellt", minLevel = 10, qlvl = 10, closedBy = { 1879 }, map = 1429, x = 43.2, y = 66.2, z = 63.9, f = "e", only = { classes = { "MAGE" } }, note = "{npc:328}: {npc:5497} in {zone:1453} takes it" },
-						{ t = "train", class = true, candidates = { candidateRecords[12], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[12], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{

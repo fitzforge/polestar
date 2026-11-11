@@ -182,6 +182,12 @@ function Compat.GetMoney()
 	return readable(GetMoney and GetMoney()) or 0
 end
 
+-- Whether the open merchant repairs (false with no merchant window, or a
+-- client without the call).
+function Compat.CanMerchantRepair()
+	return readable(CanMerchantRepair and CanMerchantRepair()) and true or false
+end
+
 function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
 end
@@ -321,6 +327,15 @@ function Compat.IsQuestReadyForTurnIn(questID)
 	return false
 end
 
+-- Whether questID is in the log and failed (an escort lost, a timer run out,
+-- an event's NPC killed): C_QuestLog.IsFailed, which Forever's client answers
+-- (the Recorder's `fail` events come from it). False without the API.
+function Compat.IsQuestFailed(questID)
+	local QL = C_QuestLog
+	if not (QL and QL.IsFailed and QL.IsOnQuest and QL.IsOnQuest(questID)) then return false end
+	return QL.IsFailed(questID) and true or false
+end
+
 function Compat.GetQuestObjectives(questID)
 	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then return nil end
 	local raw = C_QuestLog.GetQuestObjectives(questID)
@@ -344,10 +359,14 @@ end
 -- ("Kobold Vermin slain: 3/10", "Linen Cloth: 2/6", on some clients "3/10
 -- Kobold Vermin slain"), the name an objective is matched on (the guide's
 -- objective goals, Engine; the quest tracker's lines). A line of counts alone
--- (" slain: 0/8", ": 0/1") has no name yet: "".
+-- (" slain: 0/8", ": 0/1") has no name yet: "". The frFR client writes kill
+-- lines "%s : %d/%d |4personnage tué:personnages tués;" (a grammar escape the
+-- log resolves by the count; the space before the colon at times a no-break
+-- one): the escape is not part of the name, the no-break space is a space.
 function Compat.ObjectiveLabel(text)
 	if type(text) ~= "string" then return "" end
-	local s = text:gsub("^%s*%d+%s*/%s*%d+%s+", ""):gsub("%s*:%s*%d+%s*/%s*%d+%s*$", "")
+	local s = text:gsub("|4[^|;]*;", ""):gsub("\194\160", " ")
+	s = s:gsub("^%s*%d+%s*/%s*%d+%s+", ""):gsub("%s*:%s*%d+%s*/%s*%d+%s*$", "")
 	s = s:gsub("^%s+", ""):gsub("%s+$", "")
 	if s == "slain" then return "" end
 	return (s:gsub("%s+slain$", ""))
@@ -369,6 +388,71 @@ function Compat.GetLogQuests()
 		local info = QL.GetInfo(i)
 		local q = info and not info.isHeader and not info.isHidden and Compat.Readable(info.questID)
 		if type(q) == "number" and q > 0 then out[#out + 1] = q end
+	end
+	return out
+end
+
+-- Whether a quest in the log runs its timer now: one with time allowed
+-- (C_QuestLog.GetTimeAllowed, the quest log's clock; the old GetQuestTimers
+-- where the client has it) that is neither ready to hand in nor failed.
+-- Nil-safe on any client; no tables of its own (the client's GetInfo makes
+-- one per entry).
+function Compat.QuestTimerRunning()
+	if GetQuestTimers and GetQuestTimers() then return true end
+	local QL = C_QuestLog
+	if not (QL and QL.GetTimeAllowed and QL.GetNumQuestLogEntries and QL.GetInfo) then return false end
+	for i = 1, QL.GetNumQuestLogEntries() or 0 do
+		local info = QL.GetInfo(i)
+		local q = info and not info.isHeader and info.questID
+		if type(q) == "number" and q > 0 then
+			local ok, total = pcall(QL.GetTimeAllowed, q)
+			if ok and type(total) == "number" and total > 0 and not Compat.IsQuestReadyForTurnIn(q)
+				and not (QL.IsFailed and QL.IsFailed(q)) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+-- The timers running in the quest log: out[questID] = seconds left, for each
+-- quest whose clock runs and has not failed, whether or not its objectives
+-- are done (the hand-in is timed too). The old GetQuestTimers (seconds left,
+-- one per timer; GetQuestIndexForTimer names its log entry) where the client
+-- has it, else C_QuestLog.GetTimeAllowed's total less its elapsed (Forever's
+-- client: #1327). Fills and returns `out` (a new table when nil), wiped
+-- first. Nil-safe on any client.
+function Compat.QuestTimers(out)
+	out = out or {}
+	for q in pairs(out) do out[q] = nil end
+	local QL = C_QuestLog
+	if not (QL and QL.GetNumQuestLogEntries and QL.GetInfo) then return out end
+	if GetQuestTimers and GetQuestIndexForTimer then
+		for i = 1, select("#", GetQuestTimers()) do
+			local left = select(i, GetQuestTimers())
+			local index = GetQuestIndexForTimer(i)
+			local info = index and QL.GetInfo(index)
+			local q = info and info.questID
+			if type(q) == "number" and q > 0 and type(left) == "number" then out[q] = left > 0 and left or 0 end
+		end
+	end
+	if QL.GetTimeAllowed then
+		for i = 1, QL.GetNumQuestLogEntries() or 0 do
+			local info = QL.GetInfo(i)
+			local q = info and not info.isHeader and info.questID
+			if type(q) == "number" and q > 0 and out[q] == nil then
+				local ok, total, elapsed = pcall(QL.GetTimeAllowed, q)
+				if ok and type(total) == "number" and total > 0 then
+					local left = total - (type(elapsed) == "number" and elapsed or 0)
+					out[q] = left > 0 and left or 0
+				end
+			end
+		end
+	end
+	if QL.IsFailed then
+		for q in pairs(out) do
+			if QL.IsFailed(q) then out[q] = nil end
+		end
 	end
 	return out
 end
@@ -462,6 +546,23 @@ function Compat.GetActiveQuests(source)
 		return nil
 	end
 	return out
+end
+
+-- Whether the open gossip window has an option that is no service: neither
+-- the goods (VendorGossipIcon, fileID 132060), training (TrainerGossipIcon,
+-- 132058), the inn's bind (BinderGossipIcon, 132052) nor the flight map
+-- (TaxiGossipIcon, 132057), told by the option's icon, never its text. Such
+-- a chat option can lead to a quest the window's list leaves out: Sovik
+-- gives Chief Engineer Scooty only from his (#1762). False when the client
+-- cannot say.
+local SERVICE_ICONS = { [132060] = true, [132058] = true, [132052] = true, [132057] = true }
+function Compat.GossipHasChat()
+	local G = C_GossipInfo
+	if not (G and G.GetOptions) then return false end
+	for _, o in ipairs(G.GetOptions() or {}) do
+		if not SERVICE_ICONS[o.overrideIconID or o.icon] then return true end
+	end
+	return false
 end
 
 -- Classic grey level (no XP from quests at or below it), used when the

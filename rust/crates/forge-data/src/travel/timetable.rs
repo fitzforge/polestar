@@ -630,6 +630,75 @@ const PORTALS: [PortalDef; 2] = [
 	PortalDef { trigger: 542, id: "portal-darnassus", from: "Rut'theran Village", from_area: 702.0, to: "Darnassus", to_area: 1657.0 },
 ];
 const PORTAL_SECONDS: f64 = 5.0;
+
+/// A walk-in portal that is a game object (a spellcaster the player clicks) rather than an area
+/// trigger. Its teleport spell's target is server-side (no spell_target_position row in either
+/// world DB), so both ends are recorded: `a` the object's spawn (Forever's world DB), `b` where
+/// players' recordings put them one loading screen later. Each end is a point on its zone's map
+/// (uiMap, x, y: the map's live frame where Forever drew it, else its Era frame) and, where known,
+/// the floor height.
+struct ObjectPortalDef {
+	object: i64,
+	id: &'static str,
+	from: &'static str,
+	from_area: f64,
+	a: (i64, f64, f64, Option<f64>),
+	to: &'static str,
+	to_area: f64,
+	b: (i64, f64, f64, Option<f64>),
+	landing: &'static str,
+}
+
+// Zephras Isle (#1674): the shrine's portal up to the Rohashi Spires, and the portal beside
+// Lorthuna's terrace back down to Valanaar. Without them the planner walked or hearthed off the
+// heights the portal leaves in five seconds. Zephras Isle (2521) is a Forever-only map: live frame.
+const OBJECT_PORTALS: [ObjectPortalDef; 2] = [
+	ObjectPortalDef {
+		object: 586726,
+		id: "portal-rohashi-spires",
+		from: "Shrine of Akir",
+		from_area: 16629.0,
+		a: (2521, 65.56, 50.34, Some(844.3)),
+		to: "Rohashi Spires",
+		to_area: 16630.0,
+		b: (2521, 68.4, 50.6, None),
+		landing: "15 recorded arrivals at 2521:68.3-68.5,50.5-50.6 (6 people)",
+	},
+	ObjectPortalDef {
+		object: 617085,
+		id: "portal-valanaar",
+		from: "Rohashi Spires",
+		from_area: 16630.0,
+		a: (2521, 75.08, 53.25, Some(1181.9)),
+		to: "Valanaar",
+		to_area: 16638.0,
+		b: (2521, 66.3, 79.7, Some(658.0)),
+		landing: "recorded arrivals at 2521:66.3,79.7 beside Elaadrin Evengale (3 people)",
+	},
+];
+
+/// An object portal's end on its map (live frame first, as spawn_points reads a live spawn), or None
+/// when the data has no frame for the map.
+fn map_end(name: &str, area: f64, (map, x, y, _): (i64, f64, f64, Option<f64>), frames: &Frames, live: &LiveFrames) -> Option<End> {
+	let (b, f) = match live.get(&map) {
+		Some(b) => (*b, "l"),
+		None => (frames.frame(map)?, "e"),
+	};
+	Some(End {
+		name: name.to_string(),
+		area: Some(area),
+		c: b.c,
+		wx: round(b.top + (b.bottom - b.top) * (y / 100.0), 1),
+		wy: round(b.left + (b.right - b.left) * (x / 100.0), 1),
+		map,
+		x: round(x, 2),
+		y: round(y, 2),
+		f,
+		source: None,
+		board: None,
+		z: None,
+	})
+}
 const DEST_HOME: f64 = 9.0;
 const DEST_DB: f64 = 17.0;
 const HEARTHSTONE_SPELL: f64 = 8690.0;
@@ -707,6 +776,32 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			b,
 			seconds: PORTAL_SECONDS,
 			source: format!("AreaTrigger {} -> classic-db areatrigger_teleport {}", p.trigger, p.trigger),
+		});
+	}
+	for p in &OBJECT_PORTALS {
+		let mut a = map_end(p.from, p.from_area, p.a, frames, live);
+		let mut b = map_end(p.to, p.to_area, p.b, frames, live);
+		if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
+			for (e, z) in [(a, p.a.3), (b, p.b.3)] {
+				let Some(z) = z else { continue };
+				match end_height(nav, e.c, e.wx, e.wy, Some(z)) {
+					Some(h) => e.z = Some(h),
+					None => warnings.push(format!("{}: the {} end has no walkable surface near its height {}", p.id, e.name, num_str(round(z, 1)))),
+				}
+			}
+		}
+		let (Some(a), Some(b)) = (a, b) else {
+			warnings.push(format!("{}: an end is on no map, skipped", p.id));
+			continue;
+		};
+		out.push(Portal {
+			id: p.id.to_string(),
+			name: p.to.to_string(),
+			area: p.to_area,
+			a,
+			b,
+			seconds: PORTAL_SECONDS,
+			source: format!("gameobject {} spawn (Forever world DB) -> {}", p.object, p.landing),
 		});
 	}
 	out

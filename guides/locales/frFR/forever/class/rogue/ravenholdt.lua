@@ -32,9 +32,8 @@ return {
 	["Pick Pocket Syndicate members for {quest:6701}"] = "",
 
 	-- Step 4: Myrokos Silentform
-	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766} : {quest:6701}, répétable",
-	["one emblem each time, 100 reputation"] = "un insigne à chaque fois, 100 points de réputation",
+	-- {npc:6766} Ravenholdt Guard
+	["{npc:6766}: one emblem each time, 100 reputation"] = "",
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
@@ -83,8 +82,10 @@ return {
 	-- ["Horde fly to {area:272}, Alliance to {area:271}. The manor hides in the hills east of {area:272}, up a path into the {zone:1416}; the Rite of Cunning is passing its way in."] = "La Horde prend un vol pour {area:272}, l'Alliance pour {area:271}. Le manoir se cache dans les collines à l'est de {area:272}, au bout d'un chemin qui monte dans {zone:1416} ; le Rite of Cunning sert à y entrer.",
 	-- ["Opens {area:3486}, the hidden rogue house in the Alterac hills, and its first jobs."] = "Ouvre {area:3486}, le repaire caché des voleurs dans les collines d'Alterac, et ses premières missions.",
 	-- ["Rite of Cunning"] = "Rite of Cunning",
+	-- ["one emblem each time, 100 reputation"] = "un insigne à chaque fois, 100 points de réputation",
 	-- ["{item:17124}, by {spell:921}"] = "{item:17124}, par {spell:921}",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482} : faites les poches de Barton",
 	-- ["{item:275482}: {spell:921} on Barton"] = "{item:275482} : {spell:921} sur Barton",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} est à l'intérieur de {area:275}, la forteresse du Syndicat dans l'est de {area:287}, au sud du manoir. Vite et sans bruit, dit {npc:13085}.",
+	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766} : {quest:6701}, répétable",
 }

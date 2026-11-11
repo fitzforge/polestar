@@ -9,10 +9,13 @@ next forever/alliance/30-40/03-ashenvale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Defeat Nek'rosh (474), MacKreel's Moonshine (647), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
+# Added here: Defeat Nek'rosh (474), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
 # The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
 # Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299),
-# with Howin's Word to Ironforge (98300, optional: never seen offered without 98230) on the same stop.
+# with Howin's Word to Ironforge (98300, optional: never seen offered without 98230) on the same stop. Solo players never see
+# them (when group 474).
+# Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
+# MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 
 step To Deepwater Tavern
   zone Wetlands
@@ -54,23 +57,35 @@ step Dragonmaw Gates: kill these as you meet them
   collect 280330 quest 98283.2 optional -- Carnage's Head
   collect 280103 quest 98245.1        -- Razormaw Incisor
 
+step Razormaw nests
+  when onquest 98246
+  tip The Perfect Razormaw Eggs for Trying Times lie in the raptors' nests in the hills around Carnage.
+  collect 280132 quest 98246.1 @69.2,32.7 -- Perfect Razormaw Egg
+
 step Neru
   when group 98310
   tip Neru stands in the hills between the Dragonmaw Gates and Dun Modr (use the Goaz Stone).
   collect 280398 quest 98310.4        -- Heart of Neru
 
 step The Green Belt
-  when onquest 98283
-  tip Maddened Rotclaws roam the Green Belt around Rethiel.
-  collect 280331 quest 98283.1 optional -- Malignant Rotclaw Flesh
-  turnin 98283 optional               -- Rethiel the Greenwarden
+  when has 280330
+  tip Maddened Rotclaws roam the Green Belt around Rethiel; one of them drops the flesh. Rethiel takes the quest only with Carnage's head too.
+  collect 280331 quest 98283.1        -- Malignant Rotclaw Flesh
+
+step Rethiel the Greenwarden
+  when complete 98283
+  turnin 98283                        -- With Carnage's head and the flesh
 
 # ---------------------------------------------------------------- Dun Modr
 
 step Dun Modr
-  tip North along the road to Dun Modr. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp; the Captive Fire Elemental is held on the west side: lead it out to Roggo.
+  tip North along the road to Dun Modr. Longbraid the Grim and Rhag Garmason stand together in the dwarves' camp on the east side of the road; the Dark Iron ruins west of it are full of elites.
   turnin 472                              -- Longbraid the Grim
   accept 631                          -- Rhag Garmason
+
+step Captive Fire Elemental
+  when group 87491
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Captive Fire Elemental is held at the far west end of the Dark Iron ruins, past level 27-30 elite dwarves, and Balgaras the Foul (34, elite) can be among them. Lead it east out of the ruins, then hand it in to Roggo Harlbarrow in the camp. Skip it if you are alone.
   accept 87491                        -- Captive Fire Elemental
   turnin 87491                        -- Roggo Harlbarrow
 
@@ -79,11 +94,10 @@ step Modr
   tip Modr stands in the ruins of Dun Modr (use the Goaz Stone).
   collect 280396 quest 98310.2        -- Heart of Modr
 
-step The Villards
+step Ebenezer Rustlocke
   zone Wetlands
-  tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to Rhag.
-  accept 87318                        -- Comar Villard
-  turnin 87318                        -- Essene Villard
+  tip North along the road from Dun Modr towards the Thandol Span: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to Rhag.
+  tip Two elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out.
   turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
   accept 632                          -- the same corpse
 
@@ -95,12 +109,8 @@ step Rhag Garmason
 
 step The Cache of Explosives
   zone Arathi Highlands
-  tip Over the Thandol Span: the Dark Irons' cache of explosives sits by its Arathi end. Foggy MacKreel stands a short walk west of it.
+  tip Over the Thandol Span: the Dark Irons' cache of explosives sits by its Arathi end.
   interact 2704 quest 633.1           -- Cache of Explosives
-
-step Foggy MacKreel
-  zone Arathi Highlands
-  accept 647 only Dwarf,Gnome,NightElf,Skyborne
 
 step Waterlogged Envelope
   collect 4433 x1 optional @44.3,92.9 map 1417 -- Underwater
@@ -115,6 +125,10 @@ step Rhag Garmason again
 step The Green Belt
   turnin 98245                        -- Howin Kindfeather
 
+step Howin Kindfeather
+  when complete 98246
+  turnin 98246                        -- Trying Times: the eggs
+
 step Prospector Whelgar
   when group 98310
   turnin 98310                        -- Below ground
@@ -123,6 +137,7 @@ step Prospector Whelgar
 step Menethil Harbor
   tip West along the road to Menethil.
   turnin 98223                        -- On the top floor
+  accept 1132                         -- Red Jack Flint, by the keep's door: for Fiora Longears in Theramore, in the next guide
 
 step Menethil Harbor
   tip Captain Stoutfist stands on the top floor of Menethil Keep: go up inside, the arrow cannot tell the floors apart.
@@ -141,7 +156,7 @@ step Level 30.8
   when level<30.8
   tip Skipped Defeat Nek'rosh and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the Gnomeregan dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
   goto 12.3,64.9 map 1437 "Bluegill Raider"
-  level 30.8                           -- grind on Bluegill Raider
+  level 30.8 grind 1418                -- grind on Bluegill Raider
 
 step Menethil Harbor
   turnin 98072                        -- James Halloran
@@ -154,21 +169,26 @@ step Boat to Southshore
 
 step Southshore
   zone Hillsbrad Foothills
-  tip Off the boat, walk up the pier into town: Phin Odelic and Lieutenant Farren stand by the inn, Brewmeister Bilger below it and Chef Jessen upstairs, Darren Malvew east of it; the flight master is at the north end, Micha Yance and Bartolo Ginsetti between her and the inn, Maleb in the town hall at the west side.
+  tip Off the boat, walk up the pier into town: Phin Odelic and Lieutenant Farren stand by the inn, Chef Jessen upstairs, Darren Malvew east of it; the flight master is at the north end, Micha Yance and Bartolo Ginsetti between her and the inn, Maleb in the town hall at the west side.
+  tip Barkeep Kelly may not offer Talk of the Town on Forever: if she doesn't, skip it.
   # An Alarming Request requires level 30 (Forever's quest data, quest 92432, checked 2026-10-14).
   accept 659                          -- Phin Odelic: his trail leads to Arathi
   turnin 98219 npc 2228               -- Lieutenant Farren Orinelle, inside
   accept 536                          -- Lieutenant Farren Orinelle
   sethome "Southshore" npc 2352       -- Innkeeper Anderson
-  accept 98463                        -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
-  turnin 647 only Dwarf,Gnome,NightElf,Skyborne -- Brewmeister Bilger, below ground
+  accept 98463 optional               -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
   accept 555                          -- Chef Jessen, upstairs
   accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
-  accept 565 optional                 -- Bartolo Ginsetti: only if you have or can buy a Hillman's Cloak (Leatherworking) and a Bolt of Woolen Cloth (Tailoring); no vendor sells them
   accept 505                          -- Magistrate Henry Maleb, inside
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
+
+step Bartolo Ginsetti
+  when has 3719
+  when has 2997
+  tip Bartolo makes a yeti fur cloak for anyone who brings a Hillman's Cloak (Leatherworking) and a Bolt of Woolen Cloth (Tailoring); no vendor sells either, so this step shows only when you carry both.
+  accept 565 optional                 -- Bartolo Ginsetti, between the flight master and the inn: he wants a Hillman's Cloak and a Bolt of Woolen Cloth too
 
 # ---------------------------------------------------------------- The coast
 
@@ -209,15 +229,14 @@ step Southshore
 step Southshore
   zone Hillsbrad Foothills
   tip Captain McManus stands north-west of the flight master, on the way north to the yeti cave.
-  accept 98059                        -- Captain McManus
-  turnin 98059                        -- Captain McManus
+  tip Hillsbrad's Hoard: Captain McManus hands you a Sealed Company Request for the Hillsbrad council, in the farms west of Southshore; you deliver it after the Syndicate camp.
+  accept 98059 optional               -- Captain McManus
 
 step Yeti cave
   when onquest 565
   zone Hillsbrad Foothills
   tip The yetis live in the cave in the hills north of Southshore, on the way north to the Syndicate camp.
-  collect 3720 quest 565.4 optional   -- Yeti Fur
-  note Bartolo also wants a Hillman's Cloak (Leatherworking), a Bolt of Woolen Cloth (Tailoring) and Fine Thread (any trade supplier): the cloak is turned in when you are back in Southshore later.
+  collect 3720 quest 565.4            -- Yeti Fur
 
 step Alterac Mountains
   zone Alterac Mountains
@@ -231,6 +250,18 @@ step Syndicate camp
   accept 510 object 1738              -- Syndicate Documents
   accept 511 object 1738
 
+step Hillsbrad Fields
+  when onquest 98059
+  zone Hillsbrad Foothills
+  tip South-west from the Syndicate camp to the Hillsbrad Fields farms.
+  goto 32.5,39.5 "Hillsbrad Fields"
+
+step Hillsbrad council
+  when onquest 98059
+  zone Hillsbrad Foothills
+  tip Use the Sealed Company Request at the Hillsbrad council.
+  use 279386 quest 98059.1 @29.7,41.7 -- Sealed Company Request
+
 # ---------------------------------------------------------------- North of Southshore
 
 step Snapjaws
@@ -238,18 +269,15 @@ step Snapjaws
   tip The Snapjaw turtles bask along the river east of Southshore, south of Tarren Mill (Horde).
   collect 3712 quest 555              -- Turtle Meat
 
-step Hillsbrad Foothills
-  zone Hillsbrad Foothills
-  goto 48.9,55.0 "Hillsbrad Foothills"
-
 step Southshore
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
+  turnin 511                          -- Loremaster Dibbs
+  accept 514
   turnin 510                          -- Inside
   accept 512
   turnin 505                          -- Magistrate Henry Maleb
-  turnin 511                          -- Loremaster Dibbs
-  accept 514
   turnin 555                          -- Chef Jessen, upstairs
+  turnin 98059 optional               -- Captain McManus
 
 step Fly to Ironforge
   zone Hillsbrad Foothills
@@ -302,7 +330,7 @@ step Dashel Stonefist
   tip Dashel waits in the Pig and Whistle tavern in Old Town; he and his two thugs fight you, but stop once beaten.
   turnin 1246
   accept 1447
-  complete 1447
+  complete 1447 @74.3,59.2 live          -- Beat Dashel and his thugs: they give up
   turnin 1447
   accept 1247
 

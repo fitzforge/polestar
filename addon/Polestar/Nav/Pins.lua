@@ -973,6 +973,33 @@ do
 	local wC, wLeft, wTop, wKx, wKy, wSpacing
 	local viewMap -- forward
 
+	-- What the map's scroll frame shows of the canvas, in percent of the
+	-- viewed map: x0, y0, x1, y1 (reads only: the canvas and its parent's place);
+	-- the whole map while the frame has no place or size yet.
+	local function viewRect()
+		local v = wView
+		local canvas = v.canvas
+		local frame = canvas.GetParent and canvas:GetParent()
+		local w, h = v.width or 0, v.height or 0
+		if not frame or w <= 0 or h <= 0 then return 0, 0, 100, 100 end
+		local cl, ct, cs = canvas:GetLeft(), canvas:GetTop(), canvas:GetEffectiveScale()
+		local fl, ft, fr, fb, fs = frame:GetLeft(), frame:GetTop(), frame:GetRight(), frame:GetBottom(), frame:GetEffectiveScale()
+		if not (cl and ct and fl and ft and fr and fb and cs and fs and cs > 0) or fr <= fl or ft <= fb then return 0, 0, 100, 100 end
+		local kx, ky = 100 / (w * cs), 100 / (h * cs)
+		return (fl * fs - cl * cs) * kx, (ct * cs - ft * fs) * ky, (fr * fs - cl * cs) * kx, (ct * cs - fb * fs) * ky
+	end
+
+	-- Hulls are drawn only inside a window around what the view shows (#1622):
+	-- the view and half its size again on every side, in percent of the viewed
+	-- map. A pan or zoom out past the window, or a zoom in to a quarter of its
+	-- width, draws them again for the new view (world.hullsStale, on each frame
+	-- and each zoom step), so a zoomed-in map or OpenMap's stitched map (whose
+	-- host map can be a whole continent) lays out and holds only the hulls near
+	-- the screen. world.hullWin = { x0, y0, x1, y1, mapType = the viewed map's,
+	-- any = a hull lies on it }. (On `world`, not locals: the main chunk is at
+	-- Lua's 200 locals.)
+	world.hullWin = { 0, 0, 100, 100 }
+
 	-- Centre frame f on (x, y), percent of the viewed map, at scale s.
 	local function placeAt(f, x, y, s)
 		local v = wView
@@ -1047,7 +1074,7 @@ do
 	local function worldPin(i)
 		local f = wPins[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		buildLook(f)
 		f.data = {}
 		f:EnableMouse(true)
@@ -1069,7 +1096,7 @@ do
 	local function worldArea(i)
 		local f = wAreas[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		f.tex = f:CreateTexture(nil, "BACKGROUND")
 		f.tex:SetTexture(MEDIA .. "area")
 		f.tex:SetAllPoints()
@@ -1090,7 +1117,7 @@ do
 	local function worldHull(i)
 		local f = wHulls[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		f.texs, f.used, f.outline = {}, 0, {}
 		f.get = function(k)
 			local t = f.texs[k]
@@ -1149,7 +1176,8 @@ do
 	end
 
 	-- A pin's hull in percent of the viewed map (same continent), drawn as the
-	-- count + 1st hull when any of it lies on that map. Returns the new count.
+	-- count + 1st hull when any of it lies on that map inside world.hullWin. Returns
+	-- the new count.
 	local sx, sy = {}, {}
 	local function hullOn(p, layer, i, count, level)
 		local hull, c = p.hull, layer.c[i]
@@ -1166,6 +1194,9 @@ do
 			if y > y1 then y1 = y end
 		end
 		if n < 3 or x1 < 0 or x0 > 100 or y1 < 0 or y0 > 100 then return count end
+		local w = world.hullWin
+		w.any = true
+		if x1 < w[1] or x0 > w[3] or y1 < w[2] or y0 > w[4] then return count end
 		local f = worldHull(count + 1)
 		local d = f.data
 		local xs, ys = d.xs, d.ys
@@ -1176,6 +1207,42 @@ do
 		layoutHull(f)
 		f:Show()
 		return count + 1
+	end
+
+	-- Every shown layer's hulls on the viewed map, inside the window around
+	-- the view as it is now (world.hullWin; mapType: the viewed map's, for minMapType).
+	function world.drawHulls(mapType)
+		local x0, y0, x1, y1 = viewRect()
+		local mx, my = (x1 - x0) * 0.5, (y1 - y0) * 0.5
+		local w = world.hullWin
+		w[1], w[2], w[3], w[4], w.mapType, w.any = x0 - mx, y0 - my, x1 + mx, y1 + my, mapType, false
+		local count = 0
+		if wC then
+			local level = wView:Level(BLOB_LEVEL)
+			for _, name in ipairs(order) do
+				local layer = layers[name]
+				if layer and layer.world and not hidden[name]
+					and (not layer.minMapType or (mapType and mapType >= layer.minMapType)) then
+					if not layer.resolved then resolveLayer(layer) end
+					local pins = layer.pins
+					for i = 1, #pins do
+						local p = pins[i]
+						if type(p.hull) == "table" then count = hullOn(p, layer, i, count, level) end
+					end
+				end
+			end
+		end
+		hideFrom(wHulls, count + 1)
+		wHulls.n = count
+	end
+
+	-- The view has left the hulls' window, or shrunk to a quarter of it,
+	-- while some hull lies on the viewed map.
+	function world.hullsStale()
+		local w = world.hullWin
+		if not (w.any and wC) then return false end
+		local x0, y0, x1, y1 = viewRect()
+		return x0 < w[1] or y0 < w[2] or x1 > w[3] or y1 > w[4] or (x1 - x0) * 4 < w[3] - w[1]
 	end
 
 	-- Higher priority draws last, so it lands on top.
@@ -1224,10 +1291,11 @@ do
 		local v = wView
 		local mapID = v.mapID
 		local C = ns.Compat
-		local n, areas, hulls = 0, 0, 0
+		local n, areas, mapType = 0, 0, nil
 		if mapID then
 			viewMap(mapID)
 			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mapID)
+			mapType = info and info.mapType
 			local pinLevel, blobLevel = v:Level(PIN_LEVEL), v:Level(BLOB_LEVEL)
 			for _, name in ipairs(order) do
 				local layer = layers[name]
@@ -1238,7 +1306,6 @@ do
 					local first = n + 1
 					for i = 1, #pins do
 						local p = pins[i]
-						if type(p.hull) == "table" then hulls = hullOn(p, layer, i, hulls, blobLevel) end
 						if not (p.areaOnly and not p.area) then
 							local x, y
 							if p.map == mapID and p.x and p.y and not p.f then
@@ -1300,23 +1367,30 @@ do
 		end
 		hideFrom(wPins, n + 1)
 		hideFrom(wAreas, areas + 1)
-		hideFrom(wHulls, hulls + 1)
-		wPins.n, wAreas.n, wHulls.n = n, areas, hulls
+		wPins.n, wAreas.n = n, areas
+		world.drawHulls(mapType)
 		drawTrailWorld(trailFrac())
 		updateTrailDriver()
 	end
 
 	-- Zooming: pins grow with the zoom (PIN_ZOOM), dots keep their size on
 	-- screen, hull rims their width (within a quarter); areas and hulls scale
-	-- with the terrain.
+	-- with the terrain. Hulls whose rim must be laid out again, or a zoom out
+	-- of their window, are drawn anew for the view as it is now, so the work
+	-- shrinks with the view as it zooms in.
 	local function rescaleWorld()
 		for i = 1, wPins.n do placePin(wPins[i], wView) end
 		local scale = wView:PinScale(1, PIN_ZOOMED)
 		local rim = rimWidth()
-		for i = 1, wHulls.n do
+		local redraw = world.hullsStale()
+		for i = 1, redraw and 0 or wHulls.n do
 			local f = wHulls[i]
-			if not f.rim or rim > f.rim * 1.25 or rim < f.rim * 0.8 then layoutHull(f) end
+			if not f.rim or rim > f.rim * 1.25 or rim < f.rim * 0.8 then
+				redraw = true
+				break
+			end
 		end
+		if redraw then world.drawHulls(world.hullWin.mapType) end
 		local t = wTrail
 		local size = WORLD_DOT * scale
 		if t and t.size ~= size then
@@ -1528,21 +1602,6 @@ do
 		return WORLD_MIN_SPACING * 2 ^ ceil(math.log(raw / WORLD_MIN_SPACING) / LOG2 - 1e-9)
 	end
 
-	-- What the map's scroll frame shows of the canvas, in percent of the
-	-- viewed map: x0, y0, x1, y1 (reads only: the canvas and its parent's place).
-	local function viewRect()
-		local v = wView
-		local canvas = v.canvas
-		local frame = canvas.GetParent and canvas:GetParent()
-		local w, h = v.width or 0, v.height or 0
-		if not frame or w <= 0 or h <= 0 then return 0, 0, 100, 100 end
-		local cl, ct, cs = canvas:GetLeft(), canvas:GetTop(), canvas:GetEffectiveScale()
-		local fl, ft, fr, fb, fs = frame:GetLeft(), frame:GetTop(), frame:GetRight(), frame:GetBottom(), frame:GetEffectiveScale()
-		if not (cl and ct and fl and ft and fr and fb and cs and fs and cs > 0) then return 0, 0, 100, 100 end
-		local kx, ky = 100 / (w * cs), 100 / (h * cs)
-		return (fl * fs - cl * cs) * kx, (ct * cs - ft * fs) * ky, (fr * fs - cl * cs) * kx, (ct * cs - fb * fs) * ky
-	end
-
 	-- OpenMap's switch: the trail on its map.
 	local function hookOpenMap(OM)
 		if omHooked then return end
@@ -1601,9 +1660,11 @@ do
 		return count
 	end
 
-	-- Every frame of the open map: on OpenMap's map a pan or zoom moves the
-	-- view without changing the map, so the trail follows it here.
+	-- Every frame of the open map: a pan or zoom moves the view without
+	-- changing the map (on OpenMap's map, and zooming in on any), so the
+	-- hulls' window and the trail on OpenMap's map follow it here.
 	function world.followView()
+		if world.hullsStale() then world.drawHulls(world.hullWin.mapType) end
 		if not (omOn and trail and trail.world) then return end
 		local x0, y0, x1, y1 = viewRect()
 		local eps = (omX1 - omX0) * 0.002
@@ -1629,7 +1690,7 @@ do
 	-- in canvas units; WORLD_DOT on screen like a pin.
 	local function trailHost()
 		if wTrail then return wTrail end
-		local host = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		local host = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		host:SetPoint("TOPLEFT", wView.canvas, "TOPLEFT", 0, 0)
 		host:SetSize(1, 1)
 		wTrail = { host = host, dots = {}, n = 0 }
@@ -1728,7 +1789,9 @@ local function isSquare()
 	return GetMinimapShape ~= nil and GetMinimapShape() == "SQUARE"
 end
 
+-- Anything to draw on the minimap: nothing while Polestar is hidden.
 local function hasMinimapPins()
+	if ns.Hidden() then return false end
 	if trail and trail.minimap then return true end
 	for _, name in ipairs(order) do
 		local layer = layers[name]
@@ -2251,7 +2314,7 @@ end
 -- Compare the state the minimap pins depend on; redraw when it changed.
 -- Returns true when something changed.
 local function sample(force)
-	if not Minimap then return false end
+	if not Minimap or ns.Hidden() then return false end
 	local C = ns.Compat
 	local pc, px, py
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
@@ -2285,9 +2348,10 @@ local function wake()
 	end
 end
 
+-- The drivers hang off Polestar's layer (Core/Init.lua): hidden, they stop.
 local function ensureMinimap()
 	if driver or not Minimap then return end
-	driver = CreateFrame("Frame", nil, UIParent)
+	driver = CreateFrame("Frame", nil, ns.UIParent)
 	driver:Hide()
 	driver:SetScript("OnUpdate", ns.Safe(function(self, elapsed)
 		accum = accum + elapsed
@@ -2475,7 +2539,7 @@ end
 function updateTrailDriver()
 	if not stillTrail() and (minimapTrailShown() or world.dotsShown()) then
 		if not trailDriver then
-			trailDriver = CreateFrame("Frame", nil, UIParent)
+			trailDriver = CreateFrame("Frame", nil, ns.UIParent)
 			trailDriver:Hide()
 			trailDriver:SetScript("OnUpdate", ns.Safe(trailTick))
 			Pins.trailDriver = trailDriver
@@ -2507,6 +2571,23 @@ end
 -- nav.minimapIconSize redraws the minimap's marks.
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "nav" or path == "nav.minimapIconSize" then refreshMinimap(true) end
+end)
+
+-- Hidden: the minimap's pins, areas and dots go at once (the map's go with
+-- its view frame, Nav/MapCanvas.lua); shown again, they are drawn for where
+-- you are, and a ping announced meanwhile does not play late: news while
+-- hidden is not kept for after.
+ns.On("POLESTAR_HIDDEN", function(gone)
+	if not gone then
+		local played = Pins.PING.played
+		for _, name in ipairs(order) do
+			local layer = layers[name]
+			for _, p in ipairs(layer and layer.pins or {}) do
+				if p.ping then played[p.ping] = true end
+			end
+		end
+	end
+	refreshMinimap(false)
 end)
 
 -- ui.reduceMotion stops or restarts the crawl at once.

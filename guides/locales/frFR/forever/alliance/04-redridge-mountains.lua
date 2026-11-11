@@ -7,9 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Stormwind
-	-- {area:12} Elwynn Forest
-	["Train, then leave by the main gate and follow the road east through {area:12}."] = "",
+	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
+	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "",
 	["Level 18 and 20 spells"] = "Sorts des niveaux 18 et 20",
+	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
+	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "",
 
 	-- Step 2: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -41,8 +43,14 @@ return {
 	["{item:15882}: the {object:177790}"] = "{item:15882} : l'{object:177790}",
 
 	-- Step 8: Back to Elwynn Forest
-	-- {area:12} Elwynn Forest
-	["Back to {area:12}"] = "Retour dans la {area:12}",
+	-- {zone:1429} Elwynn Forest
+	["Back to {zone:1429}"] = "Retour dans la {zone:1429}",
+	-- {zone:1429} Elwynn Forest
+	["The road into {zone:1429}"] = "",
+
+	-- Step 9: Elwynn Forest
+	-- {area:91} Tower of Azora
+	["The {area:91}"] = "La {area:91}",
 
 	-- Step 10: Theocritus
 	["On the top floor"] = "Au dernier étage",
@@ -58,12 +66,12 @@ return {
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846} : Sorciers-voleurs défias",
 
 	-- Step 12: Three Corners
-	-- {area:1002} Three Corners · {area:10} Duskwood
-	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {area:10} and Elwynn meet: south to {area:10} first."] = "",
+	-- {area:1002} Three Corners · {zone:1431} Duskwood
+	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "",
 
 	-- Step 14: Darkshire
-	-- {area:1002} Three Corners · {area:10} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras · {npc:1448} Neal Allen · {area:150} Menethil Harbor
-	["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "",
+	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, à l'extrémité nord de la ville",
 	-- {npc:265} Madame Eva
@@ -92,9 +100,9 @@ return {
 	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
 	["{area:121}: kill these as you meet them"] = "{area:121} : tuez-les au passage",
-	-- {area:42} Darkshire · {npc:302} Blind Mary · {area:10} Duskwood · {item:2378} Skeleton Finger
+	-- {area:42} Darkshire · {npc:302} Blind Mary · {zone:1431} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
-	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {area:10} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "Des Guerriers squelettes et des Mages squelettes errent parmi les tombes au sud-est de {area:42}, en contrebas de la maison de {npc:302} sur la colline. Tous les squelettes du {area:10} peuvent lâcher un {item:2378}.\nAttention : les squelettes se tiennent près les uns des autres : foncer dans le tas en attire souvent plusieurs à la fois.",
+	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {zone:1431} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "Des Guerriers squelettes et des Mages squelettes errent parmi les tombes au sud-est de {area:42}, en contrebas de la maison de {npc:302} sur la colline. Tous les squelettes du {zone:1431} peuvent lâcher un {item:2378}.\nAttention : les squelettes se tiennent près les uns des autres : foncer dans le tas en attire souvent plusieurs à la fois.",
 
 	-- Step 16: Watcher Dodds
 	-- {npc:888} Watcher Dodds · {area:245} Yorgen Farmstead
@@ -121,6 +129,8 @@ return {
 	-- {item:1130} Vial of Spider Venom
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "",
+	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
+	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "",
 
 	-- Step 20: Abercrombie
 	-- {area:492} Raven Hill Cemetery
@@ -145,6 +155,12 @@ return {
 	["{npc:268}, inside"] = "{npc:268}, à l'intérieur",
 	-- {npc:272} Chef Grual
 	["{npc:272}, in the Scarlet Raven Tavern"] = "",
+	-- {npc:272} Chef Grual · {zone:1431} Duskwood
+	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
+	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "",
+	["Already carrying six? Hand them in now"] = "",
+	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
+	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "",
 	-- {npc:663} Calor
 	["{npc:663}, by the town hall"] = "{npc:663}, près de l'hôtel de ville",
 
@@ -165,7 +181,9 @@ return {
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "",
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Traversez le long pont vers le nord jusqu'à la ville : {npc:381} sur les quais, {npc:900} dans l'hôtel de ville, {npc:342} dans son jardin, à l'ouest. Les quêtes Blackrock de {npc:382} et {quest:98386} vous suivent depuis votre première visite dans les Carmines.",
+	-- {npc:415} Verner Osgood
+	["{npc:415}, by the road at the north end of the bridge"] = "",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "",
 	["The Wanted poster by the inn"] = "L'avis de recherche près de l'auberge",
@@ -184,11 +202,10 @@ return {
 	["The Wanted poster on the town hall doorway"] = "",
 	["The Wanted poster beside it"] = "",
 
-	-- Step 33: Lake Everstill: kill these as you meet them
-	-- {area:68} Lake Everstill
-	["{area:68}: kill these as you meet them"] = "{area:68} : tuez-les au passage",
-	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula
-	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
+	-- Step 33: Alther's Mill
+	-- {quest:98386} Alther's Mill
+	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "Camps Blackrock",
@@ -221,30 +238,39 @@ return {
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
 	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "",
 
-	-- Step 40: Render's Valley
+	-- Step 40: Yowler
+	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
+	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
+	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "",
+
+	-- Step 41: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "{npc:435}, sous terre",
 
-	-- Step 41: Corporal Keeshan
+	-- Step 42: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Keeshan se cache tout au nord de la vallée, près de la frontière de {zone:1428}. Escortez-le jusqu'à {area:69} ; des orcs Blackrock vous tendent des embuscades en chemin.",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "{npc:349}, sous terre",
 
-	-- Step 42: Back to Lakeshire
+	-- Step 43: Magistrate Solomon: Gath'Ilzogg
+	-- {npc:344} Magistrate Solomon
+	["{npc:344}, in the town hall"] = "{npc:344}, dans l'hôtel de ville",
+
+	-- Step 45: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "Retour à {area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe
 	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "",
-	-- {npc:344} Magistrate Solomon
-	["{npc:344}, in the town hall"] = "{npc:344}, dans l'hôtel de ville",
+	-- {npc:415} Verner Osgood
+	["{npc:415}, by the road on the way to the bridge"] = "",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, près des griffons au sud du pont",
-	-- {area:42} Darkshire · {area:10} Duskwood
-	["Next: the gryphon to {area:42} for {area:10}'s second loop (05-duskwood)."] = "",
+	-- {area:42} Darkshire · {zone:1431} Duskwood
+	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "Fouailleventre",
@@ -276,6 +302,7 @@ return {
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "Le bateau d'{area:442} accoste à {area:17203}. Montez en ville pour l'entraînement et {npc:1646}, puis sortez par la porte principale et suivez la route vers l'est à travers {zone:1429}.",
 	-- ["{area:1000}: kill these as you meet them"] = "{area:1000} : tuez-les au passage",
 	-- ["{area:1001}: kill these as you meet them"] = "{area:1001} : tuez-les au passage",
+	-- ["{area:68}: kill these as you meet them"] = "{area:68} : tuez-les au passage",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075} : tout gnoll Sombrepoil",
 	-- ["{item:1309}; underwater"] = "{item:1309} ; sous l'eau",
 	-- ["{item:1467} on the way"] = "{item:1467} en chemin",

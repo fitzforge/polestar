@@ -32,9 +32,8 @@ return {
 	["Pick Pocket Syndicate members for {quest:6701}"] = "",
 
 	-- Step 4: Myrokos Silentform
-	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetible",
-	["one emblem each time, 100 reputation"] = "",
+	-- {npc:6766} Ravenholdt Guard
+	["{npc:6766}: one emblem each time, 100 reputation"] = "",
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
@@ -85,4 +84,5 @@ return {
 	-- ["Rite of Cunning"] = "Rite of Cunning",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}: roba del bolsillo a Barton",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} está dentro de {area:275}, la fortaleza de la Hermandad en el este de {area:287}, al sur de la mansión. Rápido y en silencio, dice {npc:13085}.",
+	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetible",
 }

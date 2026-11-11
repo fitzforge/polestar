@@ -10,7 +10,7 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Blessed Arm (322), The Black Shield (1319, 1320), Highperch Venom (1135), Hardened Shells (1105),
-# Load Lightening (1176), A Bump in the Road (1175).
+# Load Lightening (1176), A Bump in the Road (1175), Fiora Longears (1132).
 # Fizzle offers Martek the Exiled (1106) once Salt Flat Venom and Hardened Shells are both handed in: taken here, for the
 # Badlands at the end of 30-40 (Indurium, 1108), and News for Fizzle (1137) back at the Raceway in 40-50/04.
 # Since 2026-11-07 the Mirage Raceway and Dustwallow Marsh's Shady Rest quests are done here, on one crossing to
@@ -19,16 +19,23 @@ next forever/alliance/30-40/04-stranglethorn-vale
 
 step Fly to Menethil Harbor
   zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
   fly "Menethil Harbor"
   zone Wetlands
 
+step Red Jack Flint
+  zone Wetlands
+  tip Red Jack Flint stands by Menethil Keep's door, just north of the flight master.
+  accept 1132                         -- For Fiora Longears in Theramore's inn, where this guide's boat goes
+
 step Glorin Steelbrow
   zone Wetlands
-  tip Glorin stands on the upper floor of Menethil's keep.
+  tip Glorin stands in the Deepwater Tavern, south of the keep, where Mikhail and Vincent Hyal wait too.
   turnin 270                          -- Inside
   accept 321
 
 step Deepwater Tavern
+  tip Tapoke Jahn (34) slips out of the tavern once you take The Missing Diplomat: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from Mikhail.
   sethome "Deepwater Tavern"
   turnin 1248                         -- Mikhail
   accept 1249
@@ -65,6 +72,8 @@ step Theramore
   getfp "Theramore"
   turnin 1302                         -- Clerk Lendry, on the top floor
   turnin 1264                         -- Commander Samaul, on the top floor
+  turnin 1132                         -- Fiora Longears, inside the inn in the north of town
+  note Fiora's next errand goes to Astranaar, off this route: leave it.
   accept 1135                         -- Fiora Longears: the wyverns are in Thousand Needles, later in this guide
 
 step The Shady Rest Inn
@@ -93,11 +102,12 @@ step Highperch
 
 step Thousand Needles
   zone Thousand Needles
-  goto 46.9,48.5 "Thousand Needles"
+  tip East through the canyons. Freewind Post, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth.
+  goto 46.3,40.9 "The canyons east of Highperch"
 
 step Thousand Needles
   zone Thousand Needles
-  goto 77.8,77.3 "Thousand Needles"
+  goto 77.8,77.3 "Mirage Raceway"
 
 step Mirage Raceway
   tip Follow the canyons east to the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions.
@@ -119,6 +129,7 @@ step Mirage Raceway: kill these as you meet them
   kill 4147 quest 1175.1                  -- Saltstone Basilisk
   kill 4151 quest 1175.2                  -- Saltstone Crystalhide
   kill 4150 quest 1175.3                  -- Saltstone Gazer
+  collect 5675 quest 1078.1 optional      -- Crystalized Scale, from the Saltstone Basilisks: eight for Collin Mauren in Stormwind
 
 step Mirage Raceway
   turnin 1110                             -- Kravel Koalbeard
@@ -128,9 +139,14 @@ step Mirage Raceway
   turnin 1176                             -- Pozzik
   turnin 1175                             -- Trackmaster Zherin
 
+step Into Tanaris
+  zone Thousand Needles
+  tip From the raceway follow the road south out of the Shimmering Flats into Tanaris.
+  goto 74.2,93.6 "Into Tanaris"
+
 step Gadgetzan
   zone Tanaris
-  tip From the raceway follow the road south out of the Shimmering Flats into Tanaris; Gadgetzan is a short walk down it. Keep to the road. Bera Stonehammer, the Alliance flight master, stands inside the walls.
+  tip Gadgetzan is a short walk down the road; keep to it. Bera Stonehammer, the Alliance flight master, stands inside the walls.
   getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
 
 step Fly to Theramore

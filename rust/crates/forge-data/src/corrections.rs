@@ -251,20 +251,41 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 	for (id, ci) in c.get("items").entries() {
 		let it = items.get(&id);
 		if it.is_undef() {
-			a.unused.push(format!("items {id}: no such item (an item correction only removes sources)"));
-			entry(&mut a, "items", &id, "unused", "no such item (an item correction only removes sources)".into());
+			a.unused.push(format!("items {id}: no such item (an item correction only changes the sources of an item the data has)"));
+			entry(&mut a, "items", &id, "unused", "no such item (an item correction only changes the sources of an item the data has)".into());
 			continue;
 		}
 		let drops_left = ["npc", "object"].iter().any(|kind| ci.get("removeDrops").get(kind).items().iter().any(|x| !it.get("drops").get(kind).get(&x.to_js_string()).is_undef()));
+		let drops_new = ["npc", "object"].iter().any(|kind| ci.get("addDrops").get(kind).items().iter().any(|x| it.get("drops").get(kind).get(&x.to_js_string()).is_undef()));
 		let vendors_left = ci.get("removeVendors").items().iter().any(|r| it.get("vendors").items().iter().any(|v| r.strict_eq(v)));
-		if drops_left || vendors_left {
+		if drops_left || drops_new || vendors_left {
 			entry(&mut a, "items", &id, "applied", String::new());
 		} else {
-			entry(&mut a, "items", &id, "redundant", "no source it removes is in the merged data".into());
+			entry(&mut a, "items", &id, "redundant", "no source it removes is in the merged data, and every one it adds is".into());
 		}
 		for kind in ["npc", "object"] {
 			for x in ci.get("removeDrops").get(kind).items() {
 				it.get("drops").get(kind).as_obj().map(|o| o.delete(&x.to_js_string()));
+			}
+			// A dropper the sources missed (players' recordings): added with no rate, as the
+			// unrated droppers of the merged data are; one already listed keeps its rate.
+			let add = ci.get("addDrops").get(kind).items();
+			if add.is_empty() {
+				continue;
+			}
+			if it.get("drops").as_obj().is_none() {
+				it.set("drops", Obj::new());
+			}
+			let drops = it.get("drops");
+			if drops.get(kind).as_obj().is_none() {
+				drops.set(kind, Obj::new());
+			}
+			let table = drops.get(kind);
+			for x in add {
+				let key = x.to_js_string();
+				if table.get(&key).is_undef() {
+					table.set(&key, V::Null);
+				}
 			}
 		}
 		// sim-v2: no rated dropper left, no scale either.
@@ -386,6 +407,11 @@ pub fn reassert(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim
 					out.push(format!("items {id}: drop from {kind} {}", x.to_js_string()));
 				}
 			}
+			for x in ci.get("addDrops").get(kind).items() {
+				if it.get("drops").get(kind).get(&x.to_js_string()).is_undef() {
+					out.push(format!("items {id}: new drop from {kind} {}", x.to_js_string()));
+				}
+			}
 		}
 		for r in ci.get("removeVendors").items() {
 			if it.get("vendors").items().iter().any(|v| r.strict_eq(v)) {
@@ -479,7 +505,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 21] = [
+const QUEST_FIELDS: [&str; 23] = [
 	"title",
 	"level",
 	"minLevel",
@@ -499,8 +525,12 @@ const QUEST_FIELDS: [&str; 21] = [
 	"skill",
 	"event",
 	"escort",
+	// Handed in on the spot from the giver's window, never in the log (the server's QuestType 0).
+	"direct",
 	"breadcrumbFor",
 	"breadcrumbs",
+	// Seconds the quest allows once taken (the TDB's TimeAllowed; a Forever quest's from its text).
+	"limit",
 ];
 
 struct Ck<'a> {
@@ -790,7 +820,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		for (k, v) in set.entries() {
 			let a = format!("{at}.set.{k}");
 			match &*k {
-				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" => {
+				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" | "limit" => {
 					if !(v.is_nullish() || v.as_num().is_some_and(|n| n >= 0.0 && n.fract() == 0.0)) {
 						ck.err(&a, format!("{} must be a whole number or null", show(&v)));
 					}
@@ -800,9 +830,9 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 						ck.err(&a, "must be text");
 					}
 				}
-				"escort" => {
+				"escort" | "direct" => {
 					if !matches!(v, V::Bool(_)) {
-						ck.err(&a, "escort is true or false");
+						ck.err(&a, format!("{k} is true or false"));
 					}
 				}
 				"start" | "end" => {
@@ -856,6 +886,40 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 				ck.err(format!("{at}.set.{k}"), format!("quest {id} cannot list itself"));
 			}
 		}
+		// A prerequisite this correction sets that is also one of the quest's breadcrumbs (its `breadcrumbs`, or the
+		// other quest's `breadcrumbFor`, as the correction or else the data has them): every prerequisite reader
+		// drops breadcrumbs (forge-guide prereqs), so it never blocks (#1490: The Great Outdoors after The Adventurer).
+		let found: Vec<(String, String)> = {
+			let data_q = |q: &str| ck.table("quests").map(|t| t.get(q)).unwrap_or(V::Undef);
+			let field = |q: &str, f: &str| {
+				let cs = c.get("quests").get(q).get("set");
+				if cs.has(f) {
+					cs.get(f)
+				} else {
+					data_q(q).get(f)
+				}
+			};
+			let crumbs: Vec<String> = field(&id, "breadcrumbs").items().iter().map(|x| num_str(x.num())).collect();
+			let mut out = Vec::new();
+			for k in ["pre", "preAny", "preAll"] {
+				for p in set.get(k).items().iter().map(|x| num_str(x.num())) {
+					let how = if crumbs.contains(&p) {
+						Some(format!("quest {id}'s `breadcrumbs` list it"))
+					} else if num_str(field(&p, "breadcrumbFor").num()) == id {
+						Some(format!("its `breadcrumbFor` is {id}"))
+					} else {
+						None
+					};
+					if let Some(how) = how {
+						out.push((format!("{at}.set.{k}"), format!("quest {p} is a prerequisite and a breadcrumb ({how}): breadcrumbs never block, so this prerequisite is dropped. A real prerequisite: set `breadcrumbs` without it here and `breadcrumbFor` null on quest {p}; only a breadcrumb: leave it out of {k}")));
+					}
+				}
+			}
+			out
+		};
+		for (a, m) in found {
+			ck.warn(a, m);
+		}
 	}
 	for kind in ["npcs", "objects"] {
 		for (id, e) in ck.section_ids(kind, &c.get(kind)) {
@@ -893,18 +957,21 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 	}
 	for (id, e) in ck.section_ids("items", &c.get("items")) {
 		let at = format!("items.{id}");
-		ck.keys(&at, &e, &["removeDrops", "removeVendors", "source", "note"]);
+		ck.keys(&at, &e, &["removeDrops", "addDrops", "removeVendors", "source", "note"]);
 		ck.note(&at, &e);
 		ck.source(&at, &e);
 		if ck.exists("items", &id) == Some(false) {
-			ck.err(&at, format!("no item {id} in the data (an item correction only removes sources)"));
+			ck.err(&at, format!("no item {id} in the data (an item correction only changes the sources of an item the data has)"));
 		}
-		let rd = e.get("removeDrops");
-		if !rd.is_undef() {
-			ck.keys(&format!("{at}.removeDrops"), &rd, &["npc", "object"]);
+		for field in ["removeDrops", "addDrops"] {
+			let rd = e.get(field);
+			if rd.is_undef() {
+				continue;
+			}
+			ck.keys(&format!("{at}.{field}"), &rd, &["npc", "object"]);
 			for (k, t) in [("npc", "npcs"), ("object", "objects")] {
 				if rd.has(k) {
-					ck.ids(&format!("{at}.removeDrops.{k}"), t, &rd.get(k));
+					ck.ids(&format!("{at}.{field}.{k}"), t, &rd.get(k));
 				}
 			}
 		}
@@ -1100,8 +1167,8 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 		ck.refers(&format!("{a}[1]"), "quests", &s.items()[1]);
 		Some(num_str(s.items()[1].num()))
 	};
-	let mut included: Vec<(String, String)> = Vec::new();
-	let mut skipped: Vec<(String, String)> = Vec::new();
+	let mut included: Vec<(String, String, bool)> = Vec::new();
+	let mut skipped: Vec<(String, String, bool)> = Vec::new();
 	for (sec, allowed) in [("include", &["q", "after", "reason", "issue"][..]), ("skip", &["q", "reason", "issue", "faction"][..])] {
 		let list = o.get(sec);
 		if !list.is_undef() && !list.is_arr() {
@@ -1125,14 +1192,16 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 			}
 			let q = num_str(e.get("q").num());
 			let mine = if sec == "include" { &mut included } else { &mut skipped };
-			if mine.iter().any(|(x, _)| *x == q) {
+			if mine.iter().any(|(x, _, _)| *x == q) {
 				ck.warn(&a, format!("quest {q} is already in {sec}"));
 			}
-			mine.push((q, a));
+			mine.push((q, a, !f.is_undef()));
 		}
 	}
-	for (q, a) in &included {
-		if let Some((_, b)) = skipped.iter().find(|(x, _)| x == q) {
+	// A skip held for one side's routes leaves an include for the other side standing (Zamek's Distraction
+	// 1191: included for the Horde, skipped for the Alliance with its parent 1190).
+	for (q, a, _) in &included {
+		if let Some((_, b, _)) = skipped.iter().find(|(x, _, one_side)| x == q && !one_side) {
 			ck.err(a, format!("quest {q} is both included and skipped ({b})"));
 		}
 	}
@@ -1156,7 +1225,7 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 		};
 		if let Some(q) = q {
 			if e.get("edit").as_str() != Some("insert") {
-				if let Some((_, b)) = skipped.iter().find(|(x, _)| *x == q) {
+				if let Some((_, b, _)) = skipped.iter().find(|(x, _, _)| *x == q) {
 					ck.err(&a, format!("quest {q} is skipped ({b}): reverting its step keeps nothing"));
 				}
 			}
@@ -1359,13 +1428,16 @@ fn check_places(ck: &mut Ck, d: &V) {
 }
 
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
-/// objective, objective? }, tip | level (after?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
+/// objective, objective? }, tip | goalNote | optional: true | level (after?, only?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
 /// objective goal only): the writer never lists the objective "on the way" before its step. `after: true`
-/// (a level gate only): the gate goes right after the anchor goal, not before it. `early: { after: { quest, goal:
+/// (a level gate only): the gate goes right after the anchor goal, not before it. `only` (a level gate only): a
+/// class or race list the gate holds (`level N only Priest`), the others pass. `early: { after: { quest, goal:
 /// accept | turnin }, title, when?, tip? }` (an accept only): an `along until` step right after the step of `after`
 /// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 /// `when: "level>=N"`: the goal's step shows only from that level (optional work above the level the route
-/// plays it at, #977). `background: { title, tip?, mobs: [npc], mention?, finish: { title, tip?, map, x, y } }`
+/// plays it at, #977); `when: "onquest Q[,Q...]"`: only while one of the quests is in the log. `at: { guide,
+/// goal: fly, fly }` (a `when` only, #1676): the flight step `fly "<fly>"` of that guide (`guide` its id), e.g.
+/// a trip only those quests need. `background: { title, tip?, mobs: [npc], mention?, finish: { title, tip?, map, x, y } }`
 /// (an objective only, #1135): a zone-wide, slow collection: the writer lists the objective on the way
 /// (an `along until … background` step right after the quest's accept) until the step that hands the
 /// quest in, puts a finish step at `finish` right before it (passed at once when the count is reached),
@@ -1381,17 +1453,52 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "goalNote", "optional", "level", "after", "only", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
+		for field in ["optional", "goalNote"] {
+			let v = r.get(field);
+			if !v.is_undef() {
+				if ["tip", "level", "along", "early", "when", "background", if field == "optional" { "goalNote" } else { "optional" }].iter().any(|k| !r.get(k).is_undef()) {
+					ck.err(format!("{at}.{field}"), "a goal modifier or note uses a separate record");
+				}
+				if field == "optional" && !matches!(v, V::Bool(true)) {
+					ck.err(format!("{at}.optional"), "`optional` is true (the anchored goal never holds the route)");
+				}
+				if field == "goalNote" && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains(['\n', '\r']))) {
+					ck.err(format!("{at}.goalNote"), "a goal note is one line of text");
+				}
+			}
+		}
 		let after = r.get("after");
 		if !after.is_undef() && (!matches!(after, V::Bool(true)) || r.get("level").is_undef()) {
 			ck.err(format!("{at}.after"), "`after` is true, on a level gate");
 		}
+		let only = r.get("only");
+		if !only.is_undef()
+			&& (r.get("level").is_undef()
+				|| !only.as_str().is_some_and(|o| !o.is_empty() && o.split(',').all(|x| !x.trim().is_empty() && x.trim().chars().all(|c| c.is_ascii_alphabetic() || c == '!'))))
+		{
+			ck.err(format!("{at}.only"), "`only` is a class or race list (`Priest`, `Warrior,Hunter`), on a level gate");
+		}
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
-		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective"]);
-		ck.refers(&format!("{at}.at.quest"), "quests", &a.get("quest"));
+		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective", "guide", "fly"]);
+		let fly = a.get("goal").as_str() == Some("fly");
+		if !fly {
+			ck.refers(&format!("{at}.at.quest"), "quests", &a.get("quest"));
+		}
 		match a.get("goal").as_str() {
 			Some("accept" | "turnin" | "complete") => {}
+			Some("fly") => {
+				for k in ["guide", "fly"] {
+					if !has_text(&a.get(k)) {
+						ck.err(format!("{at}.at.{k}"), "a flight anchor names its guide id and the `fly` place");
+					}
+				}
+				let others = ["tip", "level", "along", "early", "background"].iter().any(|k| !r.get(k).is_undef());
+				if !a.get("quest").is_undef() || r.get("when").is_undef() || others {
+					ck.err(format!("{at}.at"), "a flight anchor carries a `when` only, and no quest");
+				}
+			}
 			Some("objective") => {
 				let o = a.get("objective");
 				if !is_id(&o) {
@@ -1402,11 +1509,13 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					}
 				}
 			}
-			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete or objective", show(&a.get("goal")))),
+			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective or fly", show(&a.get("goal")))),
 		}
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
 		let background = r.get("background");
 		let kind = match (tip.is_undef(), level.is_undef()) {
+			(true, true) if !r.get("optional").is_undef() => "optional",
+			(true, true) if !r.get("goalNote").is_undef() => "goalNote",
 			(true, true) if !background.is_undef() && when.is_undef() && early.is_undef() && along.is_undef() => {
 				check_background(ck, &at, &background);
 				if a.get("goal").as_str() != Some("objective") {
@@ -1415,8 +1524,16 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"background"
 			}
 			(true, true) if !when.is_undef() && early.is_undef() && along.is_undef() => {
-				if !when.as_str().is_some_and(|w| w.strip_prefix("level>=").is_some_and(|n| n.parse::<u32>().is_ok_and(|n| (2..=60).contains(&n)))) {
-					ck.err(format!("{at}.when"), format!("{}: `level>=N`, N a level from 2 to 60", show(&when)));
+				let level_ok = |w: &str| w.strip_prefix("level>=").is_some_and(|n| n.parse::<u32>().is_ok_and(|n| (2..=60).contains(&n)));
+				let quests = when.as_str().and_then(|w| w.strip_prefix("onquest ")).map(|l| l.split(',').map(|q| q.trim().parse::<u32>().ok()).collect::<Option<Vec<u32>>>());
+				match quests {
+					Some(Some(qs)) if !qs.is_empty() => {
+						for q in qs {
+							ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64));
+						}
+					}
+					_ if when.as_str().is_some_and(level_ok) => {}
+					_ => ck.err(format!("{at}.when"), format!("{}: `level>=N` (N a level from 2 to 60) or `onquest Q[,Q...]`", show(&when))),
 				}
 				"when"
 			}
@@ -1461,7 +1578,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"level"
 			}
 			_ => {
-				ck.err(&at, "a guide fix sets a `tip`, a `level` gate, a `when`, `along: false`, `early` or `background`");
+				ck.err(&at, "a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early` or `background`");
 				"?"
 			}
 		};
@@ -1611,6 +1728,36 @@ mod tests {
 	}
 
 	#[test]
+	fn add_drops_lists_droppers_the_sources_missed_with_no_rate_and_keeps_a_known_rate() {
+		// #1602: Carved Centaur Totem (254432) drops from Kolkar and Magram centaurs in players'
+		// recordings; the merged data listed only the Maraudine.
+		let c = parse_json(
+			r#"{ "items": { "50": { "addDrops": { "npc": [8, 9, 10], "object": [30] } }, "51": { "addDrops": { "npc": [9] } },
+				"52": { "addDrops": { "npc": [9] } } } }"#,
+		)
+		.unwrap();
+		let items = parse_json(
+			r#"{ "50": { "id": 50, "drops": { "npc": { "7": null, "8": 25 }, "object": {} } }, "51": { "id": 51 },
+			"52": { "id": 52, "drops": { "npc": { "9": null } } } }"#,
+		)
+		.unwrap();
+		let Some(i) = items.as_obj() else { panic!() };
+		let a = apply(&c, &Obj::new(), &Obj::new(), &Obj::new(), i, false);
+		let st: Vec<(String, &str)> = a.entries.iter().map(|e| (format!("{} {}", e.section, e.id), e.state)).collect();
+		assert_eq!(st, vec![("items 50".into(), "applied"), ("items 51".into(), "applied"), ("items 52".into(), "redundant")]);
+		let null = |v: V| matches!(v, V::Null);
+		let npc = i.get("50").get("drops").get("npc");
+		assert_eq!(npc.get("8").as_num(), Some(25.0), "a listed dropper keeps its rate");
+		assert!(null(npc.get("7")) && null(npc.get("9")) && null(npc.get("10")), "the new ones have no rate");
+		assert!(null(i.get("50").get("drops").get("object").get("30")));
+		assert!(null(i.get("51").get("drops").get("npc").get("9")), "an item with no drops gets the table");
+		let ok = findings(Some(r#"{ "items": { "40": { "addDrops": { "npc": [20] }, "source": { "kind": "recording", "ref": "r" }, "note": "n" } } }"#), None, None);
+		assert!(ok.iter().all(|f| !f.contains("items.40")), "{ok:#?}");
+		let bad = findings(Some(r#"{ "items": { "40": { "addDrops": { "creature": [20] }, "source": { "kind": "recording", "ref": "r" }, "note": "n" } } }"#), None, None);
+		assert!(bad.iter().any(|f| f.contains("items.40.addDrops")), "{bad:#?}");
+	}
+
+	#[test]
 	fn a_removed_quest_leaves_the_data_and_the_links_to_it_go() {
 		// #948: Horns of Nez'ra (2358) is not in the game on Forever; Alther's Mill (2282) named it as
 		// its follow-up.
@@ -1637,6 +1784,14 @@ mod tests {
 		let src = r#""source": { "kind": "in-game-check", "ref": "issue 1" }, "note": "gone""#;
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "remove": true, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "remove": 1, {src} }}, "11": {{ "remove": true, "set": {{ "xp": 1 }}, {src} }} }} }}"#)), None, None);
+		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	#[test]
+	fn a_time_limit_is_whole_seconds() {
+		let src = r#""source": { "kind": "questie", "ref": "objective text" }, "note": "ten minutes""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
 	}
 
@@ -1668,12 +1823,56 @@ mod tests {
 		assert_eq!(findings(Some(c), Some(m), Some(o)), Vec::<String>::new());
 	}
 
+	// #1490: a correction set The Great Outdoors' `pre` to The Adventurer, which the data names as its breadcrumb (the
+	// quest's `breadcrumbs` and The Adventurer's `breadcrumbFor`): prerequisite readers drop breadcrumbs, so the Codex
+	// had no prerequisite. The check warns until both breadcrumb links are cleared, by the correction or in the data.
+	#[test]
+	fn a_prerequisite_that_is_also_a_breadcrumb_warns_until_both_links_are_cleared() {
+		let mut t = tables();
+		t.quests = parse_json(r#"{ "10": { "id": 10, "breadcrumbs": [11] }, "11": { "id": 11, "breadcrumbFor": 10 }, "12": { "id": 12 } }"#).unwrap();
+		let run = |c: &str| -> Vec<String> {
+			check(&CheckInputs { corrections: Some(("c", c)), mechanics: None, route_fixes: None, places: None, guide_fixes: None, data: Some(&t) })
+				.into_iter()
+				.map(|f| format!("{} {}: {}", f.severity, f.at, f.message))
+				.collect()
+		};
+		let src = r#""source": { "kind": "recording", "ref": "refused before, offered after" }, "note": "a prerequisite""#;
+		let pre = |extra: &str, other: &str| format!(r#"{{ "quests": {{ "10": {{ "set": {{ "pre": [11], "preAny": [11]{extra} }}, {src} }}{other} }} }}"#);
+		let f = run(&pre("", ""));
+		assert_eq!(f.len(), 2, "{f:#?}");
+		assert!(f[0].starts_with("warning quests.10.set.pre: quest 11 is a prerequisite and a breadcrumb (quest 10's `breadcrumbs` list it)"), "{f:#?}");
+		let f = run(&pre(r#", "breadcrumbs": []"#, ""));
+		assert!(f.len() == 2 && f[1].contains("(its `breadcrumbFor` is 10)"), "{f:#?}");
+		let cleared = format!(r#", "11": {{ "set": {{ "breadcrumbFor": null }}, {src} }}"#);
+		assert_eq!(run(&pre(r#", "breadcrumbs": []"#, &cleared)), Vec::<String>::new());
+		assert_eq!(run(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "pre": [12] }}, {src} }} }} }}"#)), Vec::<String>::new());
+	}
+
 	fn record_findings(p: Option<&str>, g: Option<&str>) -> Vec<String> {
 		let t = tables();
 		check(&CheckInputs { corrections: None, mechanics: None, route_fixes: None, places: p.map(|x| ("p", x)), guide_fixes: g.map(|x| ("g", x)), data: Some(&t) })
 			.into_iter()
 			.map(|f| format!("{} {} {}: {}", f.severity, f.file, f.at, f.message))
 			.collect()
+	}
+
+	#[test]
+	fn optional_guide_fixes_are_checked() {
+		let src = r#""source": { "kind": "in-game-check", "ref": "issue 1550" }, "note": "checked""#;
+		let good = format!(r#"{{ "fixes": [ {{ "id": "optional", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "optional": true, {src} }} ] }}"#);
+		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
+		for value in ["false", "1", "\"true\"", "null"] {
+			let bad = good.replace("\"optional\": true", &format!("\"optional\": {value}"));
+			assert!(record_findings(None, Some(&bad)).iter().any(|f| f.contains("optional")), "{value}");
+		}
+		let mixed = good.replace("\"optional\": true", "\"optional\": true, \"tip\": \"A tip.\"");
+		assert!(record_findings(None, Some(&mixed)).iter().any(|f| f.contains("optional")));
+		let note = good.replace("\"optional\": true", "\"goalNote\": \"Mine the deposits.\"");
+		assert_eq!(record_findings(None, Some(&note)), Vec::<String>::new());
+		for value in ["false", "null", "\"\"", "\"two\\nlines\"", "\"two\\rlines\""] {
+			let bad = note.replace("\"Mine the deposits.\"", value);
+			assert!(record_findings(None, Some(&bad)).iter().any(|f| f.contains("goalNote")), "{value}");
+		}
 	}
 
 	#[test]
@@ -1687,7 +1886,7 @@ mod tests {
 				{{ "id": "1-d", "quest": 10, "objective": 2, "faction": "Horde", "at": {{ "map": 2521, "x": 1, "y": 1, "frame": "live" }}, {src} }} ] }}"#
 		);
 		let g = format!(
-			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }}, {{ "id": "1-b", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "background": {{ "title": "Beaks as you go", "mobs": [20], "mention": "They count here.", "finish": {{ "title": "Finish the beaks", "map": 1413, "x": 50.5, "y": 25 }} }}, {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }}, {{ "id": "1-b", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "background": {{ "title": "Beaks as you go", "mobs": [20], "mention": "They count here.", "finish": {{ "title": "Finish the beaks", "map": 1413, "x": 50.5, "y": 25 }} }}, {src} }}, {{ "id": "1-f", "at": {{ "guide": "forever/horde/04-the-barrens", "goal": "fly", "fly": "Ratchet" }}, "when": "onquest 10,11", {src} }} ] }}"#
 		);
 		assert_eq!(record_findings(Some(&p), Some(&g)), Vec::<String>::new());
 		let bad_p = r#"{ "places": [
@@ -1695,7 +1894,7 @@ mod tests {
 			{ "id": "x", "quest": 10, "objective": 1, "write": true, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "y", "quest": 10, "objective": 1, "at": { "map": 1429, "x": 1, "y": 1 }, "path": { "map": 1429, "points": [] }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "w", "quest": 10, "objective": 2, "faction": "Both", "at": { "map": 2521, "x": 1, "y": 1, "frame": "era" }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" } ] }"#;
-		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" }, { "id": "u", "at": { "quest": 10, "goal": "accept" }, "background": { "title": "", "mobs": [21], "finish": { "title": "F", "map": 1413, "x": 150, "y": 1 } } } ] }"#;
+		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" }, { "id": "u", "at": { "quest": 10, "goal": "accept" }, "background": { "title": "", "mobs": [21], "finish": { "title": "F", "map": 1413, "x": 150, "y": 1 } } }, { "id": "t", "at": { "goal": "fly", "fly": "Ratchet" }, "tip": "A tip." }, { "id": "s", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest" } ] }"#;
 		let f = record_findings(Some(bad_p), Some(bad_g));
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		for s in [
@@ -1711,9 +1910,12 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets a `tip`, a `level` gate, a `when`, `along: false`, `early` or `background`",
+			"fixes[0]: a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early` or `background`",
 			"fixes[1].after: `after` is true, on a level gate",
-			"fixes[2].when: \"onquest 12\": `level>=N`",
+			"fixes[2].when: no quest 12 in the data",
+			"fixes[4].at.guide: a flight anchor names its guide id",
+			"fixes[4].at: a flight anchor carries a `when` only",
+			"fixes[5].when: \"onquest\": `level>=N`",
 			"fixes[3].background.title: one line of text",
 			"fixes[3].background.mobs[0]",
 			"fixes[3].background.finish.x: a map percent",
@@ -1749,6 +1951,9 @@ mod tests {
 		assert!(has("deliberate.pairs[0].a[1]: no quest 6 in the data"), "{f:#?}");
 		assert!(has("error o deliberate.pairs[0].b"), "{f:#?}");
 		assert!(has("reverting its step keeps nothing"), "{f:#?}");
+		let o = r#"{ "overrides": { "include": [{ "q": 10, "reason": "x" }], "skip": [{ "q": 10, "reason": "y", "faction": "Alliance" }] } }"#;
+		let f = findings(None, None, Some(o));
+		assert!(!f.iter().any(|x| x.contains("both included and skipped")), "a one-side skip leaves the include for the other side: {f:#?}");
 		let m = r#"{ "schema": 1, "quests": { "10": { "kinds": [{ "kind": "teleport" }], "steps": [{ "n": 1, "action": "use" }], "note": "x" } }, "corrections": {} }"#;
 		let f = findings(Some(r#"{ "mechanics": { "10": { "params": [{ "kind": "delayed-offer" }], "note": "x" } } }"#), Some(m), None);
 		let has = |s: &str| f.iter().any(|x| x.contains(s));

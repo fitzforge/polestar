@@ -2,7 +2,9 @@
 --
 --   local R = stub.rares
 --   R.unit("nameplate1", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
---     -- options: guid (instead of npc), dead, player, controlled, secret (UnitGUID returns a secret)
+--     -- options: guid (instead of npc), dead, player, controlled, secret (UnitGUID returns a secret),
+--     --   surname (UnitName's second return, as Forever gives a player's), faction (UnitFactionGroup)
+--   R.me = { "Fitz", "Polestar" }  -- UnitName("player") on a Forever client: first name, surname
 --   R.clear("nameplate1")
 --   R.vignette("Vignette-1", { npc = 61 | object = 2843, name, dead, onMinimap = true, map, x, y })
 --   R.vignetteGone("Vignette-1")
@@ -46,9 +48,24 @@ function UnitGUID(unit)
 end
 
 function UnitName(unit)
+	if unit == "player" and R.me then return R.me[1], R.me[2] end
 	local u = R.units[unit]
-	if u then return u.name end
+	if u then return u.name, u.surname end
 	return prevName and prevName(unit)
+end
+
+local prevFaction = UnitFactionGroup
+function UnitFactionGroup(unit)
+	local u = R.units[unit]
+	if u and u.faction then return u.faction, u.faction end
+	return prevFaction and prevFaction(unit)
+end
+
+-- The same unit: the same token, or both known with one GUID.
+function UnitIsUnit(a, b)
+	if a == b then return true end
+	local ga, gb = UnitGUID(a), UnitGUID(b)
+	return ga ~= nil and ga == gb
 end
 
 function UnitLevel(unit)

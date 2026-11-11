@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Quatre pièces d'armure au niveau 30 (haubert, heaume, gantelets, jambières) et un bouclier en chemin.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -36,30 +36,30 @@ return {
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
 	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
 
-	-- Step 7: Roogug in Razorfen Kraul
-	-- {area:1717} Razorfen Kraul
-	["Roogug in {area:1717}"] = "Roogug dans {area:1717}",
-	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "Roogug est un huran élite (niveau 28) dans le {area:1717}, le donjon au sud des {zone:1413} ; un donjon à cinq joueurs : il faut un groupe de cinq, ses gardes viennent avec lui. À l'intérieur, prenez à gauche au premier embranchement, traversez le pont de lianes au-dessus des enclos à cochons, dépassez la salle au grand chaudron : il attend dans la salle de droite. Il lance {spell:403} et appelle des Grondeurs de terre. La fiole tombe toujours.",
-	-- {item:6841} Vial of Phlogiston
-	["{item:6841}, from Roogug"] = "{item:6841}, sur Roogug",
-
-	-- Step 8: Windshear Mine
+	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
 	-- plural, as words: Smoky Iron Ingots = {item:7126} Smoky Iron Ingot
 	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "Il vous faut 15 Lingots de fer cendré. La {area:2160} se trouve à l'extrémité est de la {area:461}, à l'est de la {area:460} ; chaque kobold Cisaille-vent (niveau 19-23) lâche un lingot quatre fois sur cinq. Les Tailleurs de pierre, les Géomanciens et les Seigneurs fuient chercher de l'aide quand leur vie est basse ; les Géomanciens lancent {spell:116}.",
 	-- {item:7126} Smoky Iron Ingot
 	["{item:7126}, from the Windshear kobolds"] = "{item:7126}, sur les kobolds Cisaille-vent",
 
-	-- Step 9: Hillsbrad Miners
+	-- Step 8: Hillsbrad Miners
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["Hillsbrad Miners"] = "Mineurs d'Hillsbrad ({npc:2269})",
 	-- {item:7127} Powdered Azurite · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "Il vous faut 10 {item:7127}. Les Mineurs d'Hillsbrad (niveau 26-27) travaillent dans la mine des collines à l'ouest d'{area:271} et lâchent l'azurite quatre fois sur cinq ; ils combattent en {spell:71}, fracassent votre armure et fuient chercher de l'aide à 30 % de vie. Volez jusqu'à {area:272} et allez vers le sud-ouest.",
+	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "Il vous faut 10 {item:7127}. Le guide attend d'abord le niveau 25. Les Mineurs d'Hillsbrad (niveau 26-27) travaillent dans la mine des collines à l'ouest d'{area:271} et lâchent l'azurite quatre fois sur cinq ; ils combattent en {spell:71}, fracassent votre armure et fuient chercher de l'aide à 30 % de vie. Volez jusqu'à {area:272} et allez vers le sud-ouest.",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["{item:7127}, from the Hillsbrad Miners"] = "{item:7127}, sur les Mineurs d'Hillsbrad",
+
+	-- Step 9: Roogug in Razorfen Kraul
+	-- {area:1717} Razorfen Kraul
+	["Roogug in {area:1717}"] = "Roogug dans {area:1717}",
+	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "Roogug est un huran élite (niveau 28) dans le {area:1717}, le donjon au sud des {zone:1413} ; un donjon à cinq joueurs : il faut un groupe de cinq, ses gardes viennent avec lui. Le guide attend d'abord le niveau 26. À l'intérieur, prenez à gauche au premier embranchement, traversez le pont de lianes au-dessus des enclos à cochons, dépassez la salle au grand chaudron : il attend dans la salle de droite. Il lance {spell:403} et appelle des Grondeurs de terre. La fiole tombe toujours.",
+	-- {item:6841} Vial of Phlogiston
+	["{item:6841}, from Roogug"] = "{item:6841}, sur Roogug",
 
 	-- Step 10: Iron Bars
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
@@ -100,18 +100,21 @@ return {
 	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "Prenez le zeppelin d'{zone:1454} vers {zone:1420} ; {npc:6411} travaille dans le {object:36078} de {zone:1458}. Elle veut 8 Solides tibias de Dragonmaw.",
 
 	-- Step 19: Dragonmaw Shinbones
-	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
-	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). Every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131}: right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "Les orcs Dragonmaw (niveau 26-30) campent au milieu des {zone:1437} ; depuis {area:321}, en Arathi, allez au sud par le {area:881} ({area:150} est à l'Alliance). Chaque Pillard, Coureur des marais, Centurion, Gardombre et Gardos lâche un {item:7131} : faites un clic droit dessus pour le tester ; environ un sur quatre se révèle solide, les autres se brisent, comptez donc 30 victimes ou plus pour 8. Vous pouvez tester en vous déplaçant ou en combattant. Les orcs fuient chercher de l'aide à 15 % ; les Pillards lancent des filets, les Centurions donnent des coups de bouclier, les Gardombres lancent {spell:686}, les Gardos relèvent des squelettes.",
+	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {quest:1846} Dragonmaw Shinbones · {npc:6411} Velora Nitely · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
+	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). With {quest:1846} from {npc:6411} in your log, every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131} (without the quest they drop none): right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "Les orcs Dragonmaw (niveau 26-30) campent au milieu des {zone:1437} ; depuis {area:321}, en Arathi, allez au sud par le {area:881} ({area:150} est à l'Alliance). Avec {quest:1846} de {npc:6411} dans votre journal, chaque Pillard, Coureur des marais, Centurion, Gardombre et Gardos lâche un {item:7131} (sans la quête, ils n'en lâchent aucun) : faites un clic droit dessus pour le tester ; environ un sur quatre se révèle solide, les autres se brisent, comptez donc 30 victimes ou plus pour 8. Vous pouvez tester en vous déplaçant ou en combattant. Les orcs fuient chercher de l'aide à 15 % ; les Pillards lancent des filets, les Centurions donnent des coups de bouclier, les Gardombres lancent {spell:686}, les Gardos relèvent des squelettes.",
 	["from the Dragonmaw orcs: right-click to test it"] = "sur les orcs Dragonmaw : clic droit pour le tester",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "Retournez voir {npc:5878} au bord de la route à l'est de {area:380}. {quest:1848} est la première pièce ; il vous envoie ensuite voir trois artisans pour le reste.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Prenez un vol pour {area:378}. Au sud du camp, les Antres des silithides parsèment {area:390} : les silithides qui s'y trouvent portent les Antennes mobiles.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Quatre pièces d'armure au niveau 30 (haubert, heaume, gantelets, jambières) et un bouclier en chemin.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Les mineurs fondent les Barres de fer à partir de {item:2772} ({skill:186} 125) ; les autres les achètent à l'hôtel des ventes d'{zone:1454}.",
+	-- ["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "Roogug est un huran élite (niveau 28) dans le {area:1717}, le donjon au sud des {zone:1413} ; un donjon à cinq joueurs : il faut un groupe de cinq, ses gardes viennent avec lui. À l'intérieur, prenez à gauche au premier embranchement, traversez le pont de lianes au-dessus des enclos à cochons, dépassez la salle au grand chaudron : il attend dans la salle de droite. Il lance {spell:403} et appelle des Grondeurs de terre. La fiole tombe toujours.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug est un huran élite dans {area:1717}, le donjon au sud de {zone:1413} ; il lâche la {item:6841}. {area:1717} est un donjon : mieux vaut former un groupe.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Lingots de fer cendré sur les kobolds des Cisailles",
 	-- ["Sturdy Dragonmaw Shinbones"] = "Solides tibias de Dragonmaw ({item:7134})",
 	-- ["Take the zeppelin from {zone:1454} to {zone:1420}; the {zone:1458} lies below the {area:153}."] = "Prenez le zeppelin d'{zone:1454} pour {zone:1420} ; {zone:1458} se trouve sous les {area:153}.",
+	-- ["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). Every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131}: right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "Les orcs Dragonmaw (niveau 26-30) campent au milieu des {zone:1437} ; depuis {area:321}, en Arathi, allez au sud par le {area:881} ({area:150} est à l'Alliance). Chaque Pillard, Coureur des marais, Centurion, Gardombre et Gardos lâche un {item:7131} : faites un clic droit dessus pour le tester ; environ un sur quatre se révèle solide, les autres se brisent, comptez donc 30 victimes ou plus pour 8. Vous pouvez tester en vous déplaçant ou en combattant. Les orcs fuient chercher de l'aide à 15 % ; les Pillards lancent des filets, les Centurions donnent des coups de bouclier, les Gardombres lancent {spell:686}, les Gardos relèvent des squelettes.",
 	-- ["The Dragonmaw orcs camp in the middle of the {zone:1437}, south of the road; Raiders, Swamprunners, Centurions, Shadowwarders and Bonewarders all drop the Sturdy Dragonmaw Shinbones."] = "Les orcs Dragonmaw campent au milieu des {zone:1437}, au sud de la route ; Ecumeurs, Arpenteurs, Centurions, Veilleurs des ombres et Gardiens Dragonmaw lâchent tous les Solides tibias de Dragonmaw ({item:7134}).",
 	-- ["The Hillsbrad Miners work the mine in the west of {zone:1424}; they drop the {item:7127}. Take the zeppelin from {zone:1454} to {zone:1420} and ride south through {zone:1421}."] = "Les Mineurs d'Hillsbrad ({npc:2269}) travaillent dans la mine de l'ouest de {zone:1424} ; ils lâchent {item:7127}. Prenez le zeppelin d'{zone:1454} à {zone:1420} et chevauchez vers le sud à travers {zone:1421}.",
 	-- ["The {area:2160} lies at the east end of {area:461} in Stonetalon. Its kobolds drop the Smoky Iron Ingots."] = "{area:2160} se trouve à l'extrémité est de {area:461}, dans les Serres-Rocheuses. Ses kobolds lâchent les Lingots de fer cendré.",
@@ -120,6 +123,7 @@ return {
 	-- ["The {npc:6167} roams the south-west of Stonetalon near the Fledgling and Young Chimaeras; she drops the {item:6840}."] = "La {npc:6167} rôde au sud-ouest des Serres-Rocheuses près des Petites chimères et des Jeunes chimères ; elle lâche la {item:6840}.",
 	-- ["Twitching Antennae from the silithid"] = "Antennes mobiles sur les silithides",
 	-- ["Uncloven {quest:1842}"] = "{quest:1842} fendus",
+	-- ["You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "Il vous faut 10 {item:7127}. Les Mineurs d'Hillsbrad (niveau 26-27) travaillent dans la mine des collines à l'ouest d'{area:271} et lâchent l'azurite quatre fois sur cinq ; ils combattent en {spell:71}, fracassent votre armure et fuient chercher de l'aide à 30 % de vie. Volez jusqu'à {area:272} et allez vers le sud-ouest.",
 	-- ["{area:287} Miners"] = "Mineurs d'{area:287}",
 	-- ["{item:6840} from the {npc:6167}"] = "{item:6840} sur la {npc:6167}",
 	-- ["{item:7127} from the Hillsbrad Miners"] = "{item:7127} sur les Mineurs d'Hillsbrad ({npc:2269})",

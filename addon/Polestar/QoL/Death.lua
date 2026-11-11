@@ -1,10 +1,13 @@
 -- Death helper: as a ghost, compare running back to the corpse with
 -- resurrecting at the nearest Spirit Healer (spawns from Data.lua), point
--- the arrow at the faster choice and say why in one line. A point picked
--- before dying (a map click, /way, another addon's) comes back once alive,
--- if the guide is still on the same step. The arrow's route to either is
--- planned like any target (Nav/Travel.lua walks a ghost there on foot), and
--- it shows even while the guide window is hidden with the arrow (Death.Guides).
+-- the arrow at the faster choice and say why in one line. The arrow is held
+-- there (Nav.Hold) until you are alive: a step change, the guide's next
+-- waypoint, a point picked by hand or another addon's never takes it away
+-- (#1382). A point picked before dying (a map click, /way, another addon's)
+-- comes back once alive, if the guide is still on the same step. The arrow's
+-- route to either is planned like any target (Nav/Travel.lua walks a ghost
+-- there on foot), and it shows even while the guide window is hidden with the
+-- arrow (Nav.HiddenWithGuide).
 --
 -- Cost of each choice in seconds: the run (ghost run speed) and, for the
 -- Spirit Healer, resurrection sickness. That is the length the game last gave
@@ -179,16 +182,9 @@ end
 
 local advice = {}
 local current          -- "corpse" | "healer" | nil
-local mine             -- the Nav target we set
+local mine             -- the Nav target we hold
 local ticker
 local noted = false
-local previous -- the picked target (Nav override) the death helper replaced
-
--- Whether `t` (a Nav target) is the way back the death helper set: that
--- arrow shows even while the guide window hides it (Nav.HiddenWithGuide).
-function Death.Guides(t)
-	return t ~= nil and t == mine
-end
 
 -- Pure decision, for tests and the tick: choice, corpseSeconds, healerSeconds, sickness.
 -- `seen` as for Death.Sickness.
@@ -230,29 +226,21 @@ end
 
 local function point(a)
 	local Nav = ns.Nav
-	if not (Nav and Nav.SetTarget) then return end
-	if Nav.GetTarget and mine and Nav.GetTarget() == mine and a.choice == current then return end
-	-- A point picked before dying (a map click, /way, another addon's) is
-	-- handed back after resurrecting.
-	if not mine and Nav.IsOverride and Nav.IsOverride() then previous = Nav.GetTarget() end
+	if not (Nav and Nav.Hold) then return end
+	if mine and a.choice == current then return end
 	local C = ns.Compat
-	local ok
 	if a.choice == "corpse" then
-		ok = Nav.SetTarget(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"])
+		mine = Nav.Hold(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"])
 	else
 		-- Live percent on the healer's own map; Era frame if the client cannot convert.
 		local x, y = C.WorldToMap(a.healerC, a.healerWX, a.healerWY, a.healerMap)
 		if x then
-			ok = Nav.SetTarget(a.healerMap, x, y, L["Spirit Healer"])
+			mine = Nav.Hold(a.healerMap, x, y, L["Spirit Healer"])
 		else
-			ok = Nav.SetTarget(a.healerMap, a.healerEX, a.healerEY, L["Spirit Healer"], "e")
+			mine = Nav.Hold(a.healerMap, a.healerEX, a.healerEY, L["Spirit Healer"], "e")
 		end
 	end
 	current = a.choice
-	mine = ok and Nav.GetTarget and Nav.GetTarget() or nil
-	-- The arrow looked at the target before it was known as ours: once more,
-	-- so a guide hidden with the arrow still shows the way back.
-	if mine and Nav.Refresh then Nav.Refresh() end
 end
 
 local function tint(name)
@@ -332,20 +320,10 @@ local function release()
 		ticker = nil
 	end
 	local Nav = ns.Nav
-	if mine and Nav and Nav.GetTarget and Nav.GetTarget() == mine then
-		local E = ns.Engine
-		local step = E and E.GetStepIndex and E.GetStepIndex() or nil
-		if previous and previous.stepIndex == step then
-			-- Picked before dying, on the same guide step: hand it back.
-			Nav.SetTarget(previous.map, previous.x, previous.y, previous.label, previous.f, previous.stop, previous.z)
-		elseif Nav.ReleaseTarget then
-			Nav.ReleaseTarget()
-		else
-			local wp = E and E.GetWaypoint and E.GetWaypoint()
-			if wp then Nav.SetTarget(wp.map, wp.x, wp.y, wp.label, wp.f, nil, wp.z) elseif Nav.ClearTarget then Nav.ClearTarget() end
-		end
-	end
-	mine, current, noted, previous = nil, nil, false, nil
+	-- What the arrow guided to underneath (the guide's step, or a point picked
+	-- before dying on the same step) shows again.
+	if mine and Nav and Nav.Unhold then Nav.Unhold() end
+	mine, current, noted = nil, nil, false
 	if ns.Pins and ns.Pins.ClearLayer then ns.Pins.ClearLayer(LAYER) end
 	pinned.choice, pinned.hx, pinned.cx = nil, nil, nil
 end

@@ -13,8 +13,9 @@ next forever/horde/30-40/03-stranglethorn-vale
 # Lightening (1176), A Bump in the Road (1175), Family Tree (5361), Alliance Relations (1436),
 # Martek the Exiled (1106), Hate the Hatefury (97265), Rocket Car Parts (1110), Salt Flat Venom
 # (1104), Hemet Nesingwary (5762).
-# Left out: Bodyguard for Hire (5821), Claim Rackmore's Treasure! (6161), Gelkis Alliance (1368),
-# Bone Collector (5501).
+# Left out: Bodyguard for Hire (5821), Gelkis Alliance (1368), Bone Collector (5501).
+# Claim Rackmore's Treasure (6161) is taken at Rackmore's Log by Azore's tower on the one walk north along the coast.
+# Hate the Hatefury is optional (#1314): nobody has been recorded taking it, and Aka'rai was never seen, even by players passing her spot.
 
 # The Shimmering Flats at 33-34, then Desolace's 33-36 quests at 34-35. Desolace's 38-40 quests
 # (Melizza and the ghost-o-plasm, Taiga's portals, the centaur totems) come on a short second
@@ -27,9 +28,9 @@ next forever/horde/30-40/03-stranglethorn-vale
 # vultures -> the
 # raceway -> Freewind Post (Family Tree) -> fly to Sun Rock Retreat -> ride into
 # Desolace: Scrabblescrew's Camp, Ghost Walker Post -> the Kodo Graveyard -> Shadowprey Village
-# (flight path, bind) -> the clam beds and Sar'theris Strand -> Ethel Rethor -> Thunder Axe
-# Fortress -> Ethel Rethor and the Book of the Ancients -> Sargeron -> Kolkar Village -> Ghost
-# Walker Post -> Shadowprey, where the next guide flies to Orgrimmar.
+# (flight path, bind) -> Ethel Rethor -> Thunder Axe Fortress -> Ethel Rethor -> Rackmore's Log,
+# the clam beds, Sar'theris Strand and the Book of the Ancients (one walk north) -> Azore -> Sargeron
+# -> Kolkar Village -> Ghost Walker Post -> Shadowprey, where the next guide flies to Orgrimmar.
 #
 # Optional extras:
 # - The Corrupter (1480): the Flayed Demon Skin that starts it drops at 1-5% from the Burning
@@ -44,9 +45,6 @@ next forever/horde/30-40/03-stranglethorn-vale
 #   would be a walk back north from the graveyard and back for 2,250 XP.
 # - Gelkis Alliance and Magram Alliance (1368, 1367) need Friendly standing with the clan,
 #   earned only by killing the rival clan, and their follow-ups go with them.
-# - Claim Rackmore's Treasure! (6161): its two keys drop at 10-15% from crabs south of
-#   Shadowprey and naga on the northern coast, and the chest sits on an island off the far
-#   north.
 #
 # Class training: Hunters and Shamans in Orgrimmar at the start, Druids in Thunder Bluff on the
 # flight to Freewind Post. Shamans hand the Shard of Water to Islen Waterseer by Ratchet on the
@@ -59,7 +57,8 @@ next forever/horde/30-40/03-stranglethorn-vale
 # handed in.
 #
 # Carried on: Parts of the Swarm (1148) for Korran at the Crossroads, Load Lightening's Goblin
-# Sponsorship (1178) for Gazlowe in Ratchet and Centaur Bounty (1366) for the second Desolace
+# Sponsorship (1178) for Gazlowe and Kravel's parts order (Wharfmaster Dizzywig, 1111) for the
+# docks in Ratchet, and Centaur Bounty (1366) for the second Desolace
 # visit (forever/horde/30-40/04-dustwallow-marsh); Alliance Relations (1436) and Hunting in
 # Stranglethorn (5763) for the next guide.
 
@@ -71,7 +70,7 @@ step Zeppelin to Orgrimmar
 
 step Alliance Relations
   zone Orgrimmar
-  tip The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok waits in the Drag; Keldran stands in the Valley of Spirits on the west side of the city.
+  tip The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.
   accept 1431                         -- Craven Drok: offered from level 30
   turnin 1431                         -- Keldran
   accept 1432                         -- for Takata Steelblade in Desolace, later in this guide
@@ -201,23 +200,24 @@ step Shimmering Flats: kill these as you meet them
   collect 5798 quest 1110             -- Rocket Car Rubble, all over the northern flats
   collect 5794 quest 1104             -- Salt Flat Venom, from the Scorpid Reavers of the north half
 
-step Level 32.5
-  when level<32.5
-  zone Thousand Needles
-  tip Desolace's quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the Scarlet Monastery dungeon (Graveyard or Library) instead.
-  goto 71.0,78.0 map 1441 "Sparkleshell Snappers"
-  level 32.5                          -- grind on Sparkleshell Snapper
-
 step Mirage Raceway
   zone Thousand Needles
   tip South-west back to the raceway.
   turnin 1110                         -- Kravel Koalbeard
+  accept 1111                         -- Kravel Koalbeard: his parts order goes to Wharfmaster Dizzywig in Ratchet, later on the route
   turnin 1104                         -- Fizzle Brassbolts
   turnin 1105                         -- Wizzle Brassbolts
   accept 1106                         -- Fizzle Brassbolts: his letter goes to Martek in the Badlands, at 39
   turnin 1176                         -- Pozzik
   accept 1178                         -- Pozzik: for Gazlowe in Ratchet, later on the route
   turnin 1175                         -- Trackmaster Zherin
+
+step Level 32.5
+  when level<32.5
+  zone Thousand Needles
+  tip Desolace's quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the Scarlet Monastery dungeon (Graveyard or Library) instead.
+  goto 77.5,70.5 map 1441 "Sparkleshell Snappers"
+  level 32.5 grind 4143               -- grind on Sparkleshell Snapper
 
 step Freewind Post
   zone Thousand Needles
@@ -256,8 +256,8 @@ step Ghost Walker Post
 step Kodo Graveyard
   zone Desolace
   tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the graveyard and walk the tamed kodo back to Smeed. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time.
-  goto 52.0,57.5 "Kodo Graveyard"
-  complete 5561
+  use 13892 @51.0,58.5 "Kodo Kombobulator" -- on an Aged, Dying or Ancient Kodo in the graveyard; don't kill it
+  talk 4700 quest 5561.1 @60.6,61.6   -- the tamed kodo, at Smeed's camp: talk to it, five times
 
 step Scrabblescrew's Camp
   zone Desolace
@@ -268,43 +268,33 @@ step Level 33
   zone Desolace
   tip Shadowprey's Hand of Iruxos and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of Smeed's camp are on your way west: kill them until level 33. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
   goto 59.9,54.6 map 1443 "Scorpashi Lashers"
-  level 33                            -- grind on Scorpashi Lasher
+  level 33 grind 4697                 -- grind on Scorpashi Lasher
 
 # ---------------------------------------------------------------- The west coast
 
 step Shadowprey Village
   zone Desolace
   tip Head west to the troll village on the coast, keeping clear of the Gelkis Village on the way. Aka'rai stands on the path just north of the village.
-  accept 97265                        -- Aka'rai: the Hatefury satyrs of Sargeron, later in this guide
-  getfp "Shadowprey Village"
+  tip Aka'rai may not be here on Forever: if Aka'rai doesn't offer Hate the Hatefury, skip it.
+  accept 97265 optional               -- Aka'rai: the Hatefury satyrs of Sargeron, later in this guide
+  accept 5381                         -- Taiga Wisemane
+  sethome "Shadowprey Village"        -- Innkeeper Sikewa
+  accept 5763                         -- Roon Wildmane: for Hemet Nesingwary in Stranglethorn, next guide
   accept 6143                         -- Drulzegar Skraghook
   accept 6142                         -- Mai'Lahii
-  accept 5381                         -- Taiga Wisemane
-  accept 5763                         -- Roon Wildmane: for Hemet Nesingwary in Stranglethorn, next guide
-  sethome "Shadowprey Village"
-
-step Clam beds
-  zone Desolace
-  tip Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat.
-  collect 15924 quest 6142            -- Underwater
-
-step Sar'theris Strand
-  zone Desolace
-  tip Keep north to Sar'theris Strand. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time.
-  kill 4714 quest 6143.1
-  kill 4711 quest 6143.2
-  kill 4712 quest 6143.3
+  getfp "Shadowprey Village"          -- Thalon, at the village's south-west end
 
 step Ethel Rethor
   zone Desolace
-  tip Azore Aldamort waits in the ruined tower of Ethel Rethor, inland to the east.
+  tip Head north along the coast, then inland to the ruined tower of Ethel Rethor: Azore Aldamort waits inside. The coast's clams and naga come after Thunder Axe Fortress, on one walk north to Ranazjar Isle.
   accept 5741                         -- Azore Aldamort
 
 step Thunder Axe Fortress
   zone Desolace
-  tip Head east to Thunder Axe Fortress. Beat a Burning Blade cultist down, then use the Burning Gem on it before it dies to fill one Infused Burning Gem. The Burning Blade Seer stands on the fortress's top floor with the Sceptre; use the Demon Pick on the Demon Spirit for the Demon Box. The cultists also drop a Flayed Demon Skin now and then (1-5%); if one drops, read it.
-  collect 6435 quest 1435
+  tip Head east to Thunder Axe Fortress. Beat a Burning Blade cultist down, then use the Burning Gem on it before it dies to fill one Infused Burning Gem. The Burning Blade Seer stands on the fortress's top floor with the Sceptre. The cultists also drop a Flayed Demon Skin now and then (1-5%); if one drops, read it. Hand of Iruxos: clear the middle of the largest building, then use the Demon Pick on the red Hand of Iruxos Crystal there. A Demon Spirit (37) comes out: kill it for the Demon Box.
+  collect 6435 quest 1435 @55.0,26.5
   collect 15750 quest 5741 @55.2,30.1 -- On the top floor
+  use 14523 quest 5381.1 @55.0,26.7 map 1443 -- Demon Pick, on the Hand of Iruxos Crystal
   collect 13542 quest 5381
   collect 20310 x1 optional
   accept 1480 optional
@@ -315,13 +305,38 @@ step Ethel Rethor
   turnin 5741                         -- Azore Aldamort
   accept 6027
 
+step Rackmore's Log
+  zone Desolace
+  tip Rackmore's Log lies on the ground just south-west of Azore's tower, on the way down to the shore: read it. Its two keys drop only while you have the quest.
+  accept 6161 object 177787           -- Rackmore's Log
+
+step Clam beds
+  zone Desolace
+  tip West to the shore. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a Soft-shelled Clam. Open each one in your bags for its meat.
+  tip The Drysnap Crawlers and Pincers on the same beach carry Rackmore's Silver Key, about one in seven.
+  interact 177784 quest 6142.1 @30.6,31.9 map 1443 -- Giant Softshell Clams, on the sea floor
+  use 15874 quest 6142.1 @30.6,31.9 map 1443 -- Soft-shelled Clam: open it in your bags
+  collect 15924 quest 6142            -- Underwater
+  collect 15878 quest 6161.1 @33.4,30.1 map 1443 -- Rackmore's Silver Key, from the Drysnap crabs
+
+step Sar'theris Strand
+  zone Desolace
+  tip Keep north to Sar'theris Strand. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop Rackmore's Golden Key.
+  kill 4714 quest 6143.1
+  kill 4711 quest 6143.2
+  kill 4712 quest 6143.3
+  collect 15881 quest 6161.2          -- Rackmore's Golden Key, from the Slitherblade naga
+
 step The Book of the Ancients
   zone Desolace
-  tip The Slitherblade naga hold the coast north of Ethel Rethor; Lord Kragaru guards the Book of the Ancients at the far northern tip.
+  tip Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients. He is well above you: rest to full first. Rackmore's Chest stands on the shore beside the statue: open it with both keys.
+  use 15766 quest 6027.1 @28.2,6.7 map 1443 -- Gem of the Serpent, on the Serpent Statue
   collect 15803 quest 6027
+  turnin 6161 @30.0,8.7 map 1443     -- Rackmore's Chest
 
 step Azore Aldamort
   zone Desolace
+  tip Back south to Azore's tower.
   turnin 6027
 
 # ---------------------------------------------------------------- North-east
@@ -334,11 +349,11 @@ step Sargeron
   kill 4672 quest 1434.2
   kill 4673 quest 1434.3
   kill 4675 quest 1434.4
-  kill 4674 quest 97265.3 @75.7,15.8 map 1443 -- Hatefury Shadowstalker
-  kill 4675 quest 97265.2
-  kill 4671 quest 97265.1 @76.5,20.5 map 1443 -- Hatefury Trickster, on the way south
-  kill 4672 quest 97265.4
-  kill 4670 quest 97265.5
+  kill 4674 quest 97265.3 optional @75.7,15.8 map 1443 -- Hatefury Shadowstalker
+  kill 4675 quest 97265.2 optional
+  kill 4671 quest 97265.1 optional @76.5,20.5 map 1443 -- Hatefury Trickster, on the way south
+  kill 4672 quest 97265.4 optional
+  kill 4670 quest 97265.5 optional
 
 step Khan Dez'hepah
   zone Desolace
@@ -362,7 +377,7 @@ step Ghost Walker Post
 step Shadowprey Village
   zone Desolace
   tip West to Shadowprey: your hearthstone is bound there.
-  turnin 97265 npc 268705             -- Aka'rai, on the path just north of the village
+  turnin 97265 npc 268705 optional    -- Aka'rai, on the path just north of the village
   turnin 5381                         -- Taiga Wisemane
   turnin 6142                         -- Mai'Lahii
   turnin 6143                         -- Drulzegar Skraghook

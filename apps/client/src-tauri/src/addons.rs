@@ -174,7 +174,7 @@ pub async fn releases(http: &reqwest::Client, beta: bool) -> Result<BTreeMap<&'s
 		.header("X-GitHub-Api-Version", "2022-11-28")
 		.send()
 		.await
-		.map_err(|e| format!("Could not reach GitHub: {e}"))?;
+		.map_err(|e| crate::net::unreachable(&e, "GitHub"))?;
 	let status = response.status();
 	if status == reqwest::StatusCode::FORBIDDEN || status == reqwest::StatusCode::TOO_MANY_REQUESTS {
 		return Err("GitHub is limiting requests from this network for now; try again in an hour.".to_owned());
@@ -182,7 +182,7 @@ pub async fn releases(http: &reqwest::Client, beta: bool) -> Result<BTreeMap<&'s
 	if !status.is_success() {
 		return Err(format!("GitHub answered {status}."));
 	}
-	let releases: Vec<GhRelease> = response.json().await.map_err(|e| format!("Could not read GitHub's answer: {e}"))?;
+	let releases: Vec<GhRelease> = response.json().await.map_err(|e| format!("Could not read GitHub's answer ({}).", crate::net::cause(&e)))?;
 	let mut out: BTreeMap<&'static str, Vec<Release>> = BTreeMap::new();
 	for release in releases {
 		if release.draft || (release.prerelease && !beta) {
@@ -290,7 +290,7 @@ async fn download(http: &reqwest::Client, asset: &Asset, progress: &(dyn Fn(u64,
 	if asset.size > MAX_ZIP {
 		return Err(format!("{} is {} MB, far bigger than any Polestar addon; not installing it.", asset.name, asset.size / 1_000_000));
 	}
-	let failed = |e: reqwest::Error| format!("Downloading {} failed: {e}", asset.name);
+	let failed = |e: reqwest::Error| format!("Downloading {} failed: {}", asset.name, crate::net::cause(&e));
 	let mut response = http.get(&asset.url).send().await.map_err(failed)?;
 	if !response.status().is_success() {
 		return Err(format!("Downloading {} failed: GitHub answered {}.", asset.name, response.status()));

@@ -18,6 +18,8 @@ return {
 	["The WANTED poster outside the inn"] = "L'affiche AVIS DE RECHERCHE devant l'auberge",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "",
+	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
+	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "",
 
@@ -34,6 +36,11 @@ return {
 	["{item:12238}: fish from the pier"] = "{item:12238} : à pêcher depuis la jetée",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg
 	["Crawler Legs"] = "Pattes de clampant",
+
+	-- Step 5: Auberdine
+	-- {quest:3524} Washed Ashore
+	-- plural, as words: Beached Sea Turtles = {quest:4722} Beached Sea Turtle
+	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "",
 
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "La tortue squelettique",
@@ -96,9 +103,9 @@ return {
 	["Cast {spell:18960}"] = "Lancez {spell:18960}",
 
 	-- Step 19: Trial of the Lake
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {area:442} Auberdine
+	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122} : remplissez l'échantillonneur aux {area:445}",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -160,9 +167,9 @@ return {
 	["Moonstalker Fangs"] = "Crocs de traquelune",
 
 	-- Step 31: The Tower of Althalaxx
-	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale
-	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
-	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "",
+	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
+	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
+	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "À l'est de Bigobox 323, {npc:3661} se cache au pied de la tour parmi les Fanatiques de la Rive noire. Gardez sa lettre pour Delgren le Purificateur en {zone:1440}.\nAttention : des Anéantisseurs de la Rive noire (28-29) avec leurs marcheurs du Vide et {npc:3660} (31) se tiennent dans la tour même : prenez les parchemins sur les Fanatiques au sud de la tour et restez à l'écart de celle-ci.",
 	-- {item:5348} Worn Parchment
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348} : Fanatiques de la Rive noire",

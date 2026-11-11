@@ -9,8 +9,8 @@ next forever/horde/40-50/02-feralas
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
-# Left out: The Bloodsail Buccaneers (608).
+# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372), The Gurubashi Legends of Old (95748).
+# Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 
 step Fly to Grom'gol
   zone Badlands
@@ -20,7 +20,7 @@ step Fly to Grom'gol
 
 step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
-  accept 598                            -- Kin'weelay
+  accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
 
 step Jungle Stalkers
   tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
@@ -39,7 +39,6 @@ step Booty Bay
   zone Stranglethorn Vale
   turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
-  accept 209                            -- Kebok, upstairs
   turnin 213                          -- Kebok
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 669
@@ -108,8 +107,9 @@ step Booty Bay
 # the Badlands). The Troll Witchdoctor (1240, from forever/horde/30-40/04-
 # dustwallow-marsh) at Kin'weelay in Grom'gol.
 #
-# Optional: The Bloodsail Buccaneers (608): the three captains are 45-48 on
-# decks crewed by 42-45 pirates, at about 41.
+# The Bloodsail Buccaneers (608): the three captains are 45-48 on decks
+# crewed by 42-45 pirates, too high at about 41; forever/horde/40-50/06-azshara
+# takes it on its Booty Bay stop at 50.
 #
 # Accepted here, finished later on the route: Stoley's Debt (2872) and
 # Tran'rek (2864) in Tanaris; Cortello's Riddle (624) in the Swamp of
@@ -219,14 +219,17 @@ step Nesingwary's camp
 step Zul'Kunda
   tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the Uldaman dungeon instead.
   collect 3904 quest 584.1
+  collect 2007 quest 95748.1 @23.0,12.0 map 1434 -- from the Fall of Gurubashi, in the ruins
   collect 3905 quest 584.2
   level 41                            -- grind on the Bloodscalps here: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43
 
 step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
+  turnin 95748 npc 2519                 -- Kin'weelay
   accept 586
   accept 585
   accept 2932                           -- Nimboya: for the Hinterlands, around level 48
+  accept 598                            -- Kin'weelay: the trophy skulls stand in the Skullsplitter ruins, later on this loop
 
 # ---------------------------------------------------------------- South to Booty Bay
 
@@ -246,8 +249,10 @@ step Booty Bay
   turnin 606                            -- "Shaky" Phillipe
   accept 607
   sethome "Booty Bay" npc 6807          -- Innkeeper Skindle, upstairs
+  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
   turnin 617                            -- Privateer Bloads
   turnin 600                          -- Inside
+  accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
   accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
   accept 609
@@ -272,7 +277,7 @@ step Pirate ghosts
 step Zul'Mamwe
   tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. Ana'thek the Cruel guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
   goto 45.4,36.2 "Skullsplitter warriors"
-  collect 1524 quest 209.1
+  collect 1524 quest 209.1 @45.4,36.2 map 1434 era
   kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
   kill 781 quest 586.2
   kill 783 quest 586.3
@@ -292,6 +297,9 @@ step Grom'gol Base Camp
   turnin 598                            -- Kin'weelay
   turnin 586                            -- the Bubbling Cauldron
   turnin 585
+  accept 588                            -- the Bubbling Cauldron again: Yenniku's fate
+  turnin 588
+  accept 589                            -- Kin'weelay: the basilisks graze beside the road back from Booty Bay
   turnin 573                            -- Far Seer Mok'thardin
 
 step Fly to Booty Bay
@@ -305,10 +313,14 @@ step Booty Bay
   turnin 209                            -- Kebok, upstairs
   accept 2864                           -- Krazek, upstairs: for Tran'rek in Gadgetzan
 
-step Fly to Grom'gol
+step Ironjaw Basilisks
   zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
+  tip Ride north out of Booty Bay along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to Grom'gol. Their shards drop often.
+  collect 3911 quest 589              -- Below ground
+
+step Grom'gol Base Camp
+  tip Ride on north to Grom'gol.
+  turnin 589                          -- Kin'weelay
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
@@ -348,7 +360,7 @@ step Level 42.68
   when level<42.68
   tip If you skipped Panther Mastery or Raptor Mastery, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
-  level 42.68                          -- grind on Skullsplitter Warrior
+  level 42.68 grind 667                -- grind on Skullsplitter Warrior
 
 step Big Game Hunter
   when group 208
@@ -365,7 +377,7 @@ step Level 42.74
   when level<42.74
   tip If you skipped Big Game Hunter, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
-  level 42.74                          -- grind on Skullsplitter Warrior
+  level 42.74 grind 667                -- grind on Skullsplitter Warrior
 
 step Duskwood
   zone Duskwood
@@ -422,5 +434,5 @@ step Galen's Strongbox
 
 step The Harborage
   tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
-  turnin 1392 optional -- Magtoor
+  turnin 1392                           -- Magtoor
   turnin 1389

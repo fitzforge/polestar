@@ -93,7 +93,7 @@ local function host(rec)
 	local f = rec.host
 	if f then return f end
 	local canvas = rec.view.canvas
-	f = ns.CreateFrameUnder("Frame", nil, canvas)
+	f = ns.CreateFrameUnder("Frame", nil, rec.view.frame)
 	f:SetPoint("TOPLEFT", canvas, "TOPLEFT", 0, 0)
 	f:SetSize(1, 1)
 	rec.host, rec.tex, rec.n = f, {}, 0

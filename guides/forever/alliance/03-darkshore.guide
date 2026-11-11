@@ -46,10 +46,11 @@ step Boat to Auberdine
 #   Darnassus, a detour off the route, and the chain's last step (943) needs
 #   the Stone of Relu, a 1.5% raptor drop in the Wetlands.
 # - Refresh: Expanding Horizons (97914, Forever) is taken at the end:
-#   Thundris Windweaver's letter goes to Baros Alexston at the Stormwind stop
-#   (06-ashenvale, its Stormwind stop), his reply (Making Do, 97926, a Shipwright's
-#   Satchel) back to Thundris on the next visit to Auberdine
-#   (06-wetlands).
+#   Thundris Windweaver's letter goes to Baros Alexston on the Stormwind stop
+#   before the boat back (the end of 03-loch-modan, #1415), his reply (Making Do,
+#   97926, a Shipwright's Satchel) to Thundris where the boat lands
+#   (03-darkshore-return); 06-ashenvale and 06-wetlands keep both as optional
+#   fallbacks for a player who still carries them.
 # - Left out, accepted but never turned in on the route: One Shot. One Kill.
 #   (5713): it ends at Maestra's Post (06-ashenvale, now at about 20); left
 #   out for now: Sentinel Aynasha stands on Kerlonian's escort road, and how
@@ -128,7 +129,7 @@ step Auberdine
   accept 98025 only Dwarf,Gnome,Human,Skyborne -- The WANTED poster outside the inn
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   getfp "Auberdine"
-  accept 3524 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
+  accept 3524                                 -- Gwennyth Bly'Leggonde (Night Elves have it from Teldrassil)
   accept 1138                                 -- Gubber Blump, on the pier
 
 step Gubber Blump
@@ -141,21 +142,21 @@ step Gubber Blump
 
 step The beach
   tip Tide Crawlers scuttle along the shore below the village; Buzzbox 827 stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The Beached Sea Creature lies on the shore just south of the village.
-  collect 12242 quest 3524 only Dwarf,Gnome,Human,Skyborne -- Sea Creature Bones
+  collect 12242 quest 3524                    -- Sea Creature Bones
   collect 12238 quest 1141 optional @36.1,44.9 -- Darkshore Grouper: fish from the pier
   collect 5385 quest 983 @35.6,47.1           -- Crawler Legs
   turnin 983                                  -- Buzzbox 827
   accept 1001
 
 step Auberdine
-  turnin 3524 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
-  accept 4681 only Dwarf,Gnome,Human,Skyborne
+  turnin 3524                                 -- Gwennyth Bly'Leggonde
+  accept 4681                                 -- Washed Ashore: the Beached Sea Turtles up the coast offer their quests only once it is handed in
   turnin 1141 optional                        -- Gubber Blump
   sethome "Auberdine"
 
 step The skeletal turtle
-  collect 12289 quest 4681 only Dwarf,Gnome,Human,Skyborne -- Sea Turtle Remains, on the beach west of the docks; underwater
-  turnin 4681 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
+  collect 12289 quest 4681                    -- Sea Turtle Remains, on the beach west of the docks; underwater
+  turnin 4681                                 -- Gwennyth Bly'Leggonde
 
 step Plagued bears
   tip Rabid Thistle Bears roam the hills just east of Auberdine. Use Tharnariun's Hope on one and lead it back to him.
@@ -232,10 +233,12 @@ step A Lesson to Learn
   tip Fly from Auberdine to Rut'theran Village and take the portal up to Mathrengyl Bearwalker in the Cenarion Enclave.
   fly "Rut'theran Village"
 
+# Mathrengyl stands upstairs in the druids' building; the walking maps have no way up inside it, so
+# this goto is its door on the south side (players' recordings walk in there), not his spot (#1338).
 step Darnassus
   only NightElf,Druid
   zone Darnassus
-  goto 35.4,8.4 "Darnassus"
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
 
 step A Lesson to Learn
   only NightElf,Druid
@@ -251,7 +254,7 @@ step Moonglade
 step Trial of the Lake
   only NightElf,Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Then fly back to Auberdine from Nighthaven.
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Trial of the Lake runs on a timer: no teleport or Hearthstone until Tajarri has it. Then fly back to Auberdine from Nighthaven.
   turnin 26 only NightElf -- Dendrite Starblaze
   turnin 6121 only NightElf
   accept 6122 only NightElf -- The Principal Source: fill the sampler at Cliffspring Falls
@@ -331,6 +334,7 @@ step Cliffspring River
 
 step The Tower of Althalaxx
   tip East of Buzzbox 323, Balthule Shadowstrike hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in Ashenvale.
+  tip Careful: Dark Strand Voidcallers (28-29) with their voidwalkers and Athrikus Narassin (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower.
   turnin 965                                  -- Balthule Shadowstrike
   accept 966
   collect 5348 quest 966 @55.8,25.9 map 1439 -- Worn Parchment: Dark Strand Fanatics

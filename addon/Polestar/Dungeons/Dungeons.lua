@@ -18,10 +18,17 @@
 --       attune = { A = n, H = n } } }   -- level order, no page decoded
 --       (name and zoneName in the client's language when it has them; map: the instance's Map id)
 --   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, players, map, zone, zoneName, entrance } | nil
+--   Dungeons.ForMap(mapID) -> key | nil   -- the dungeon or raid whose instance map that is (Compat.GetInstanceMapID)
 --   Dungeons.Entrance(key) -> map, x, y, f | nil
+--   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range: one under the
+--       median level of its encounter bosses, else of all its bosses, else of its quests, else the
+--       range's midpoint (the first that falls inside the range); nil without a level range
 --   Dungeons.EnemyEntrance(key[, side]) -> text | nil   -- side "A" | "H" (nil: this character's): the
 --       way in lies in the other faction's land (Ruins of Lordaeron outside the Undercity, The Hall of
 --       Thanes in Ironforge, Ragefire Chasm, the Stockade): "Entrance in Horde territory (...)"
+--   Dungeons.EnemyCapital(key, side) -> true | nil   -- side "A" | "H": the way in lies inside the
+--       other faction's capital (The Hall of Thanes, Ragefire Chasm, the Stockade), so the hub's
+--       "For your level" leaves it out under that side's filter
 --   Dungeons.Quests(key, faction) -> { quest, ... }   -- faction "A" | "H" | nil (all); level order
 --   Dungeons.Quest(key, id) -> quest | nil           -- page and chain quests
 --       quest = { id, title, level, minLevel, faction, classes, inside, shareable,
@@ -31,6 +38,11 @@
 --         the quest a breadcrumb leads to, its exclusive group),
 --         rewards = { items = { { id, name, quality, choice } }, xp, money, rep = { { faction, name, value } } },
 --         bosses = { names } }
+--   Dungeons.QuestFor(quest) -> who, why | nil   -- who a page, chain or attunement quest is for
+--       (#1730: The Orb of Soran'ruk is the Warlocks'): who = { classes, races } (Lookup.QuestFor
+--       on the Codex quest's masks; the page's `classes` when the Codex has no record), nil when
+--       anyone of its side may take it; why = "class" | "race" when this character may not
+--       (Lookup.QuestBlock, the rule the pick-up guide leaves such a quest out by)
 --   Dungeons.ObjectiveText(quest) -> text | nil   -- its objectives in the client's language, one a line
 --   Dungeons.Bosses(key) -> { { order, name, npc, level, object, role, encounter, quests = { { id, how, item, itemName } } } }
 --       object: a chest boss's object id (npc nil); role: "rare" | "event" | "optional" for the
@@ -39,7 +51,7 @@
 --       how: "kill" (an objective), "item" (drops an objective item), "starts" (drops the item
 --       that starts it), "involved" (DungeonJournal names it for the quest)
 --   Dungeons.Open(key|nil)   -- fires SHOW_DUNGEON(key); the hub section listens
---   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop]) -> ok   (Nav)
+--   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop[, warning[, what]]]) -> ok   (a trip, Nav.StartTrip)
 --   Dungeons.ShowOnMap(key) -> ok   -- the world map on the entrance's zone
 --   Dungeons.Find(text) -> key | nil   -- by name (the client's language or English) or key
 --   Dungeons.Register(group, a, b)  -- pack files only
@@ -71,7 +83,7 @@ ns.Dungeons = Dungeons
 
 local type, pairs, ipairs, pcall, tostring = type, pairs, ipairs, pcall, tostring
 local find, lower, format, gsub = string.find, string.lower, string.format, string.gsub
-local sort = table.sort
+local sort, floor = table.sort, math.floor
 
 ns.RegisterDefaults("dungeons", { enabled = true, headsUp = true }) -- headsUp: UI/DungeonToast.lua
 
@@ -82,6 +94,7 @@ local meta
 local summaries = {} -- key -> summary table
 local sources = {} -- key -> page source (string)
 local openKey, openPage -- the one decoded page
+local bestAt = {} -- key -> level | false (Dungeons.BestAt)
 
 ---------------------------------------------------------------------------
 -- Registration and loading
@@ -93,7 +106,7 @@ function Dungeons.Register(group, a, b)
 	elseif group == "dungeon" then
 		if type(a) == "table" then for k, v in pairs(a) do summaries[k] = v end end
 		if type(b) == "table" then for k, v in pairs(b) do sources[k] = v end end
-		openKey, openPage = nil, nil
+		openKey, openPage, bestAt = nil, nil, {}
 	end
 end
 
@@ -228,12 +241,15 @@ end
 
 -- Instances whose way in lies in one faction's land (Fitz, 2026-11-07): the
 -- other faction can do them, but has to get through that land. side: whose
--- land it is; text: what the other faction is told.
+-- land it is; text: what the other faction is told; capital: the way in is
+-- inside that faction's capital, not merely its land (Fitz, 2026-11-08: The
+-- Hall of Thanes is no Horde dungeon "for your level"; the Ruins of
+-- Lordaeron, outside the Undercity, can be reached).
 local TERRITORY = {
 	["ruins-of-lordaeron"] = { side = "H", text = L["Entrance in Horde territory (outside the Undercity)"] },
-	["the-hall-of-thanes"] = { side = "A", text = L["Entrance in Alliance territory (in Ironforge)"] },
-	["ragefire-chasm"] = { side = "H", text = L["Entrance in Horde territory (in Orgrimmar)"] },
-	["stormwind-stockade"] = { side = "A", text = L["Entrance in Alliance territory (in Stormwind)"] },
+	["the-hall-of-thanes"] = { side = "A", capital = true, text = L["Entrance in Alliance territory (in Ironforge)"] },
+	["ragefire-chasm"] = { side = "H", capital = true, text = L["Entrance in Horde territory (in Orgrimmar)"] },
+	["stormwind-stockade"] = { side = "A", capital = true, text = L["Entrance in Alliance territory (in Stormwind)"] },
 }
 
 -- The warning for side `side` ("A" | "H"; nil: this character's) when the
@@ -247,6 +263,12 @@ function Dungeons.EnemyEntrance(key, side)
 	end
 	if side == nil or side == t.side then return nil end
 	return t.text
+end
+
+function Dungeons.EnemyCapital(key, side)
+	local t = key and TERRITORY[key]
+	if t and t.capital and (side == "A" or side == "H") and side ~= t.side then return true end
+	return nil
 end
 
 local function summary(key, s)
@@ -282,6 +304,74 @@ function Dungeons.Get(key)
 	return summary(key, s)
 end
 
+function Dungeons.ForMap(mapID)
+	if type(mapID) ~= "number" or not ready() then return nil end
+	for key, s in pairs(summaries) do
+		if s.map == mapID then return key end
+	end
+	return nil
+end
+
+-- The level a dungeon suits best (a player asked why Uldaman, 35-47, was "for
+-- your level" at 35, where most of it suits ~42). The players' side of the
+-- bosses: one level under their median, which lands where a run fits
+-- (Deadmines 19, Uldaman 43, Zul'Farrak 45, Blackrock Depths 54). A source
+-- counts only when it falls inside the range: the City of Dalaran (28-60)
+-- has one level 63 boss and reads its quests instead. Worked out from the
+-- page source once per dungeon, without decoding names.
+local function median(t)
+	local n = #t
+	if n == 0 then return nil end
+	sort(t)
+	if n % 2 == 1 then return t[(n + 1) / 2] end
+	return (t[n / 2] + t[n / 2 + 1]) / 2
+end
+
+local function pageFacts(key)
+	if key == openKey then return openPage end
+	local src = sources[key]
+	if type(src) ~= "string" then return nil end
+	local fn = loadstring(src, "=Dungeons:" .. tostring(key))
+	if not fn then return nil end
+	setfenv(fn, {})
+	local ok, p = pcall(fn)
+	return ok and type(p) == "table" and p or nil
+end
+
+local function deriveBestAt(key, s)
+	local lo, hi = s.minLevel, s.maxLevel or s.minLevel
+	if type(lo) ~= "number" then return nil end
+	if hi <= lo then return lo end
+	local p = pageFacts(key)
+	local encounters, bosses, quests = {}, {}, {}
+	for _, b in ipairs(p and p.bosses or {}) do
+		if type(b.level) == "number" then
+			bosses[#bosses + 1] = b.level
+			if not b.role then encounters[#encounters + 1] = b.level end
+		end
+	end
+	for _, q in ipairs(p and p.quests or {}) do
+		if type(q.level) == "number" and q.level > 0 then quests[#quests + 1] = q.level end
+	end
+	local function inside(m, under)
+		if not m then return nil end
+		local v = floor(m + 0.5) - under
+		return v >= lo and v <= hi and v or nil
+	end
+	return inside(median(encounters), 1) or inside(median(bosses), 1) or inside(median(quests), 0) or floor((lo + hi) / 2)
+end
+
+function Dungeons.BestAt(key)
+	local s = key ~= nil and ready() and summaries[key]
+	if not s then return nil end
+	local v = bestAt[key]
+	if v == nil then
+		v = deriveBestAt(key, s) or false
+		bestAt[key] = v
+	end
+	return v or nil
+end
+
 function Dungeons.Entrance(key)
 	local s = key ~= nil and ready() and summaries[key]
 	local e = s and entranceOf(s)
@@ -306,6 +396,26 @@ function Dungeons.Quest(key, id)
 	return p.chain[id]
 end
 
+local WHO_WHY = { class = true, race = true }
+function Dungeons.QuestFor(q)
+	if type(q) ~= "table" or not q.id then return nil end
+	local Lk, C = ns.Lookup, ns.Codex
+	local rec = C and C.Quest and C.Quest(q.id)
+	local who = rec and Lk and Lk.QuestFor and Lk.QuestFor(rec)
+	if not who and not rec and type(q.classes) == "table" and #q.classes > 0 then who = { classes = q.classes } end
+	if not who then return nil end
+	local p = Lk and Lk.PlayerInfo and Lk.PlayerInfo()
+	local why
+	if rec and p then
+		why = Lk.QuestBlock(rec, p)
+		if not WHO_WHY[why] then why = nil end
+	elseif p and who.classes then
+		why = "class"
+		for _, c in ipairs(who.classes) do if c == p.class then why = nil end end
+	end
+	return who, why
+end
+
 function Dungeons.Bosses(key)
 	local p = page(key)
 	return p and p.bosses or {}
@@ -323,6 +433,7 @@ local OBJECTIVE = {
 	kill = { L["Kill %s"], L["Kill %d %s"], "npc" },
 	item = { L["Collect %s"], L["Collect %d %s"], "item" },
 	object = { L["Use %s"], nil, "object" },
+	talk = { L["Speak with %s"], nil, "npc" },
 }
 
 -- The quest text tokens a summary keeps: $B a line break (a space here),
@@ -402,18 +513,25 @@ function Dungeons.Open(key)
 	return true
 end
 
--- `stop`: Nav.SetTarget's stop kind ("dungeon" for an entrance); `warning`:
--- the line the arrow shows under the label (Dungeons.EnemyEntrance).
-function Dungeons.GuideToPoint(point, label, stop, warning)
+-- The arrow to `point`. `stop`: Nav.SetTarget's stop kind; "dungeon" (an
+-- entrance) makes it a trip (Nav.StartTrip, "Back to the guide" on the way)
+-- that ends through the instance's portal (#1686), labelled `what`
+-- ("Dungeon", "Raid"). `warning`: the line the arrow shows under the label
+-- (Dungeons.EnemyEntrance). Any other point (a giver, a turn-in) stays the
+-- arrow's until the step changes, as a point set on the map does.
+function Dungeons.GuideToPoint(point, label, stop, warning, what)
 	local Nav = ns.Nav
 	if not (type(point) == "table" and point.map and point.x and point.y and Nav and Nav.SetTarget) then return false end
-	return Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning) and true or false
+	local t = Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning)
+	if not t then return false end
+	if stop == "dungeon" then Nav.StartTrip(t, label or point.name, what or L["Dungeon"], "instance") end
+	return true
 end
 
 function Dungeons.GuideTo(key)
 	local d = Dungeons.Get(key)
 	if not (d and d.entrance) then return false end
-	return Dungeons.GuideToPoint(d.entrance, d.name, "dungeon", Dungeons.EnemyEntrance(key))
+	return Dungeons.GuideToPoint(d.entrance, d.name, "dungeon", Dungeons.EnemyEntrance(key), d.kind == "raid" and L["Raid"] or L["Dungeon"])
 end
 
 -- Through Compat.OpenWorldMap: the client's C_Map opener, never in combat
@@ -445,7 +563,10 @@ if ns.RegisterOptions then
 	-- dungeons of the Codex's instances (data/codex/entrances.json), by
 	-- level, as Map id and English name; the name shows in the client's
 	-- language when it has one (Names.Instance). The choice is per character
-	-- (Engine.ChooseDungeon).
+	-- (Engine.ChooseDungeon). Only the ones this character's guides have
+	-- steps for are offered (Engine.GuideDungeons, read at login once the
+	-- guides are registered; none: no section); a choice saved for one not
+	-- offered is kept.
 	local ROUTE = {
 		{ 389, "Ragefire Chasm" }, { 43, "Wailing Caverns" }, { 36, "The Deadmines" }, { 33, "Shadowfang Keep" },
 		{ 48, "Blackfathom Deeps" }, { 34, "The Stockade" }, { 90, "Gnomeregan" }, { 47, "Razorfen Kraul" },
@@ -454,17 +575,24 @@ if ns.RegisterOptions then
 		{ 429, "Dire Maul" }, { 289, "Scholomance" }, { 329, "Stratholme" },
 	}
 	Dungeons.ROUTE = ROUTE
-	local controls = {}
-	for _, d in ipairs(ROUTE) do
-		local map, name = d[1], d[2]
-		controls[#controls + 1] = { kind = "toggle",
-			label = function() return ns.Names and ns.Names.Instance and ns.Names.Instance(map) or name end,
-			help = L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."],
-			get = function() local E = ns.Engine; return E and E.DungeonChosen and E.DungeonChosen(map) or false end,
-			set = function(on) local E = ns.Engine; if E and E.ChooseDungeon then E.ChooseDungeon(map, on) end end }
-	end
-	ok, err = ns.RegisterOptions({ page = L["Discovery"], tab = L["Dungeons"], section = L["Dungeons in leveling guides"], controls = controls })
-	if not ok and geterrorhandler then geterrorhandler()(err) end
+	ns.OnLogin(function()
+		local E = ns.Engine
+		local have = E and E.GuideDungeons and E.GuideDungeons() or {}
+		local controls = {}
+		for _, d in ipairs(ROUTE) do
+			local map, name = d[1], d[2]
+			if have[map] then
+				controls[#controls + 1] = { kind = "toggle",
+					label = function() return ns.Names and ns.Names.Instance and ns.Names.Instance(map) or name end,
+					help = L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."],
+					get = function() return E.DungeonChosen(map) end,
+					set = function(on) E.ChooseDungeon(map, on) end }
+			end
+		end
+		if #controls == 0 then return end
+		local done, why = ns.RegisterOptions({ page = L["Discovery"], tab = L["Dungeons"], section = L["Dungeons in leveling guides"], controls = controls })
+		if not done and geterrorhandler then geterrorhandler()(why) end
+	end)
 
 	-- The group quests of this character's guides (`when group`), one toggle
 	-- each: on, do it with a group; off, skip it (or not answered yet: the

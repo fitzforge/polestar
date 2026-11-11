@@ -46,11 +46,11 @@ return {
 	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Nur falls ein {npc:272273} {quest:96138} fallen ließ: Rechtsklick darauf",
-	["Below ground"] = "",
+	["Below ground"] = "Unter der Erde",
 
 	-- Step 10: Defias Strongbox
-	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
-	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Das Lager der Defias liegt im Südwesten des {area:10}, südlich von {area:94} nahe der Grenze zu {zone:1436}. Die Geldkassette steht zwischen den Zelten.",
+	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
+	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Das Lager der Defias liegt im Südwesten des {zone:1431}, südlich von {area:94} nahe der Grenze zu {zone:1436}. Die Geldkassette steht zwischen den Zelten.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
@@ -127,6 +127,7 @@ return {
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "Reite die Straße nach Westen; die Hütte des Einsiedlers steht nordöstlich des {area:492}.",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "Skeletträuber, Skelettheiler und Skelettwärter halten den Westteil des Friedhofs, gleich östlich von {npc:311}s Lager.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Nimm das Boot vom Pier von Menethil nach {area:513} in den {zone:1445}.",
+	-- ["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Das Lager der Defias liegt im Südwesten des {area:10}, südlich von {area:94} nahe der Grenze zu {zone:1436}. Die Geldkassette steht zwischen den Zelten.",
 	-- ["The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "Die Orcs der Dragonmaw lagern östlich der Ausgrabungsstätte. Räuber und Sumpfläufer tragen die Kriegsbanner.",
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "Die Seuchenverbreiter wandeln in der nördlichen Hälfte des {area:492}. {npc:522}, ein Elite, wandert zwischen den Gräbern: Halte dich von ihm fern.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "Der Kapitän wandelt auf dem Deck des Schiffswracks; seine Geldkassette steht im Laderaum.",

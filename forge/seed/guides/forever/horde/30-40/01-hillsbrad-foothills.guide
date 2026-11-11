@@ -2,9 +2,10 @@
 guide forever/horde/30-40/01-hillsbrad-foothills
 title Hillsbrad Foothills & Arathi Highlands
 faction Horde
-levels 30-32
+levels 29-32
 zone Hillsbrad Foothills
 next forever/horde/30-40/02-thousand-needles
+pitch For characters of 29 to 33, but most quests here are level 32-34, a few up to 36: on purpose, for their experience. The Syndicate, Dalaran's guards and the Boulderfist ogres are 31-35, so pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -19,25 +20,40 @@ next forever/horde/30-40/02-thousand-needles
 # guide topped up to 32-33 at Sargeron and the coast.
 #
 # Flow: Freewind Post (where the previous guide ends) -> fly to the Crossroads (Korran) ->
-# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill (bind) -> Valik and the Syndicate camps -> the yeti caves ->
+# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill (bind) -> the yeti caves ->
 # Hillsbrad's town hall -> Tarren Mill -> the Foothill Caverns' flames -> the Dalaran crater ->
-# the Azurelode Mine -> Southshore's graveyard (and the coast, for Elixir of Agony) -> Tarren
-# Mill -> east into Arathi: the Boulderfist camp, Hammerfall (flight path) -> raptors, spiders
+# the Azurelode Mine -> Southshore's graveyard (and the coast, for Elixir of Agony) -> Valik and
+# the Syndicate camp north of Tarren Mill -> Tarren Mill -> east into Arathi: the Boulderfist camp, Hammerfall (flight path) -> raptors, spiders
 # and the Witherbark trolls -> Hammerfall -> fly to the Undercity (training), where the next
 # guide takes the Orgrimmar zeppelin.
+#
+# Infiltration (533, level 34; Syndicate 32-34) is accepted on the first Tarren Mill stop and
+# worked on the way back from Southshore at about 31-32, Valik's missive handed to Krusk with the
+# Dalaran hand-ins (#1466; at the start of the visit, at 30, the pace line called it hard).
+#
+# Catch-up (#1660): a character who skipped forever/horde/06-hillsbrad-foothills arrives without
+# Darthalia's first Battle of Hillsbrad parts (527-529) and Krusk's The Rescue (498), and then
+# without Battle of Hillsbrad 532, 539 and 541 and Infiltration (533, with Valik), which need them.
+# For that character the guide does them first, from Tarren Mill, in the 22-25 guide's order: the
+# fields, Tarren Mill, the peasants, Tarren Mill, Durnholde Keep, Hillsbrad's smithy, Tarren Mill.
+# Each of those steps is shown only until its chain's last quest (529, 498) is handed in, so a
+# character who did the 22-25 guide sees none of them.
 #
 # Saved for the 38-39 visit (forever/horde/30-40/05-arathi-highlands): Gol'dir and the
 # Perenolde chain (503-508), Dalaran Patrols and Bracers of Binding (545, 557: accepted here), Foul Magics
 # (671, accepted here; its Syndicate are by the road in from Tarren Mill), Guile of the Raptor
 # (701) and the Stones of Binding.
+# Key to the City (93680) comes along with Prison Break In: Voidglare offers Dalaran Patrols right after
+# it (players' recordings, the refusal gate's hand-in-first step).
 #
 # Left out: To Steal From Thieves (1164): Genavie Callow offers it in the Undercity at 30, three
 # levels before the Dabyrie family (33-35) fit, and the route does not come back to the
 # Undercity after the 38-39 Arathi visit.
 #
 # Optional extras:
-# - Elixir of Agony (515, 517, 524): needs a Strong Troll's Blood Potion, an Alchemy item no
-#   vendor sells. Without one, skip the whole chain.
+# - Elixir of Agony (515, 517, 524): needs a Lesser Troll's Blood Elixir (item 3388; the quest
+#   text says Strong, the objective takes the Lesser one), an Alchemy item no vendor sells.
+#   Without one, skip the whole chain.
 #
 # Class quests and training:
 # - Druids train in Thunder Bluff on the flight from Freewind Post; Paladins with Garen Largo in
@@ -71,7 +87,7 @@ step Ratchet
   zone The Barrens
   tip Fly from Freewind Post to Ratchet. Islen Waterseer camps on the coast a short walk south of the town; fly on to the Crossroads from Ratchet.
   fly "Ratchet"
-  turnin 220                          -- Islen Waterseer
+  turnin 220 reward 6637              -- Islen Waterseer: your Water Sapta, for the brazier
   accept 63
 
 step Fly to the Crossroads
@@ -132,8 +148,8 @@ step Zeppelin to Undercity
 
 step The Undercity
   zone Undercity
-  tip Elixir of Agony needs a Strong Troll's Blood Potion, an Alchemy item: buy one at the auction house if you can (or ask an alchemist). No potion: skip the Elixir steps in Hillsbrad.
-  note Strong Troll's Blood Potion: auction house or an alchemist, for Elixir of Agony.
+  tip Elixir of Agony needs a Lesser Troll's Blood Elixir, an Alchemy item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a Lesser Troll's Blood Elixir. No elixir: skip the Elixir steps in Hillsbrad.
+  note Lesser Troll's Blood Elixir: auction house or an alchemist, for Elixir of Agony.
 
 step Garen Largo
   only Paladin
@@ -151,6 +167,7 @@ step Brazier of Everfount
   zone Silverpine Forest
   tip Fly to the Sepulcher. The Brazier of Everfount stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the Minor Manifestation of Water and keep the Shard of Water for Islen. Fly on to Tarren Mill from the Sepulcher.
   fly "The Sepulcher"
+  use 6637 quest 63.1 @38.5,44.4 map 1421 -- Water Sapta: drink it by the standing stone to see the elemental
   collect 7812 quest 63.1
   turnin 63                           -- Brazier of Everfount
   accept 100
@@ -171,6 +188,74 @@ step Fly to Tarren Mill
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 
+# ---------------------------------------------------------------- Catch-up: the Battle of Hillsbrad and The Rescue
+
+step High Executor Darthalia
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip You missed Darthalia's first errands, from the 22-25 Hillsbrad guide: they come first now. They are a few levels below you and quick, and they open the rest of the Battle of Hillsbrad in this guide.
+  accept 527                          -- High Executor Darthalia
+
+step Krusk
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip Krusk wants his two scouts freed from Durnholde Keep before he trusts you with Infiltration.
+  accept 498                          -- Krusk, inside
+
+step Hillsbrad Fields
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip West past the hills to the farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere.
+  kill 2266 quest 527.1
+  kill 2360 quest 527.2
+  kill 232 quest 527.3
+  kill 2403 quest 527.4
+
+step Tarren Mill
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip Back east to Tarren Mill.
+  turnin 527                          -- High Executor Darthalia
+  accept 528
+
+step Hillsbrad Peasants
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping.
+  kill 2267 quest 528.1
+
+step Tarren Mill
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  turnin 528                          -- High Executor Darthalia
+  accept 529
+
+step Durnholde Keep
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip South-east of Tarren Mill. Drull and Tog'thar are chained in the keep's courtyard buildings: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.
+  interact 1721 quest 498.1           -- Drull's ball and chain
+  interact 1722 quest 498.2           -- Tog'thar's ball and chain
+
+step The smithy
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip West across the foothills to Hillsbrad town: the smithy stands in the middle of it. Blacksmith Verringtan and his apprentices work at the forge; the Shipment of Iron is stacked beside it.
+  kill 2404 quest 529.1
+  kill 2265 quest 529.2
+  collect 3564 quest 529.3            -- Inside
+
+step Krusk
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip Back to Tarren Mill.
+  turnin 498                          -- Krusk, inside
+
+step High Executor Darthalia
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  turnin 529                          -- High Executor Darthalia
+
 # ---------------------------------------------------------------- Tarren Mill
 
 step Tarren Mill
@@ -181,31 +266,11 @@ step Tarren Mill
   sethome "Tarren Mill"
   buy 3703 x1 npc 2388                -- Southshore Stout, for Henchman Valik
 
-# ---------------------------------------------------------------- Valik and the Syndicate
-
-step Henchman Valik
-  zone Alterac Mountains
-  tip Follow the road north out of Tarren Mill into the Alterac foothills. Valik waits by the Syndicate camp; hand him the stout.
-  accept 535
-
-step Syndicate missives
-  zone Alterac Mountains
-  tip The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one.
-  collect 3601 quest 533
-
-step Henchman Valik
-  zone Alterac Mountains
-  turnin 535
-
 # ---------------------------------------------------------------- Yetis and the town hall
-
-step Hillsbrad Foothills
-  zone Hillsbrad Foothills
-  goto 61.5,20.9 "Hillsbrad Foothills"
 
 step Helcular's Rod
   zone Hillsbrad Foothills
-  tip South-west, the Cave and Ferocious Yetis (30-31) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.
+  tip South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.
   collect 3708 quest 552
 
 step Level 30
@@ -213,7 +278,7 @@ step Level 30
   zone Hillsbrad Foothills
   tip Tarren Mill's Prison Break In, Stone Tokens and The Hammer May Fall are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the Scarlet Monastery dungeon (Graveyard) or the Blackfathom Deeps dungeon instead.
   goto 44.0,28.0 map 1424 "Foothill Caverns"
-  level 30                            -- grind on Cave Yeti
+  level 30 grind 2248                 -- grind on Cave Yeti
 
 step Town hall
   zone Hillsbrad Foothills
@@ -229,10 +294,10 @@ step Tarren Mill
   tip Back east to Tarren Mill.
   turnin 532                          -- High Executor Darthalia
   accept 539
-  turnin 533                          -- Krusk, inside
   turnin 552                          -- Novice Thaivand
   accept 553
   accept 544                          -- Magus Wordeen Voidglare, inside: offered from level 30
+  accept 93680                        -- Magus Wordeen Voidglare: Key to the City, the Grimy Key is by the traitors
   accept 556                          -- Keeper Bel'varil, inside: offered from level 30
   accept 676                          -- Tallow: for Drum Fel in Hammerfall, later in this guide (from level 30)
 
@@ -255,12 +320,12 @@ step Alterac Mountains
 
 step The Dalaran crater
   zone Alterac Mountains
-  tip Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-32) around them drop the Worn Stone Tokens.
-  tip Careful: Many guards stand in linked pairs and others patrol alone around the camp.
+  tip Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp.
   collect 3691 quest 544.1            -- Dermot
   collect 3689 quest 544.2            -- Ricter
   collect 3690 quest 544.3            -- Alina
   collect 3688 quest 544.4            -- Kegan Darkmar
+  collect 279469 quest 93680.1 @16.4,89.3 map 1416 -- Grimy Key: an object to loot, by the traitors
   collect 3714 quest 556
 
 step Hillsbrad Foothills
@@ -293,18 +358,41 @@ step Daggerspine naga
   goto 53.0,65.0 "Daggerspine shore"
   collect 3509 quest 515.2 optional
 
+# ---------------------------------------------------------------- Valik and the Syndicate
+
+step Henchman Valik
+  when onquest 533
+  when !complete 533
+  zone Alterac Mountains
+  tip From Southshore head north past Tarren Mill and follow the road on into the Alterac foothills. Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants. A missive from the Syndicate here does the same: with one in your bags the guide passes Valik.
+  accept 535
+  turnin 535
+
+step Syndicate missives
+  zone Alterac Mountains
+  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.
+  collect 3601 quest 533
+
 step Tarren Mill
   zone Hillsbrad Foothills
-  tip Head back north to Tarren Mill, east of Southshore.
+  tip Head back south down the road to Tarren Mill.
+  turnin 533                          -- Krusk, inside
   turnin 539                          -- High Executor Darthalia
   turnin 567
   turnin 556                          -- Keeper Bel'varil, inside
   turnin 544                          -- Magus Wordeen Voidglare, inside
+  turnin 93680                        -- Magus Wordeen Voidglare: he offers Dalaran Patrols after it
   accept 557                          -- Keeper Bel'varil: for the 38-39 visit to Alterac
   accept 545                          -- Magus Wordeen Voidglare: for the 38-39 visit to Alterac
   note Krusk now offers Gol'dir (level 36): leave it for the 38-39 visit.
   turnin 515 optional                 -- Apothecary Lydon, inside
-  accept 517 optional
+
+step Elixir of Agony with a group
+  when group 517
+  when turnedin 515
+  zone Hillsbrad Foothills
+  tip Lydon's next errand is a keg of Shindigger Stout from the cellar of Dun Garok, the elite dwarven keep south-east of Southshore: take it only if you go there with a group.
+  accept 517                          -- Apothecary Lydon, inside
 
 step Battle of Hillsbrad with a group
   when group 541
@@ -341,15 +429,17 @@ step Deathguard Humbert
 
 step Shindigger keg
   when onquest 517
-  tip The keg stands with a few others at the Syndicate camp on the south-east coast of Hillsbrad.
-  collect 3517 quest 517 optional @72.0,80.5 -- Below ground
+  zone Hillsbrad Foothills
+  tip The Kegs of Shindigger Stout stand in the cellar of Dun Garok, the dwarven keep south-east of Southshore, beside Captain Ironhill (32); every dwarf there is elite (28-32).
+  collect 3517 quest 517 @72.0,80.5  -- Below ground
 
 step Back to Tarren Mill
   when onquest 517
+  zone Hillsbrad Foothills
   tip Head back north to Tarren Mill.
-  turnin 517 optional                 -- Apothecary Lydon, inside
-  accept 524 optional
-  turnin 524 optional                 -- Place the Tainted Keg on the Dusty Rug beside the inn; upstairs
+  turnin 517                          -- Apothecary Lydon, inside
+  accept 524
+  turnin 524                          -- Place the Tainted Keg on the Dusty Rug beside the inn; upstairs
 
 # ---------------------------------------------------------------- Into Arathi
 
@@ -359,7 +449,7 @@ step Arathi Highlands
 
 step Boulderfist camp
   zone Arathi Highlands
-  tip Head east out of Tarren Mill through Thoradin's Wall and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south-east of Northfold Manor.
+  tip Head east out of Tarren Mill through Thoradin's Wall and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of Northfold Manor; the Enforcers stay in the cave there.
   kill 2562 quest 676.1
   kill 2564 quest 676.2               -- Below ground
 
@@ -368,17 +458,18 @@ step Level 31
   zone Arathi Highlands
   tip Hammerfall's quests are 32-36. Below 31? Keep killing the Boulderfist Ogres and Enforcers at this camp until level 31. Or, with a group, run the Scarlet Monastery dungeon (Graveyard) or the Blackfathom Deeps dungeon instead.
   goto 31.2,48.0 map 1417 "Boulderfist camp"
-  level 31                            -- grind on Boulderfist Ogre
+  level 31 grind 2562                 -- grind on Boulderfist Ogre
 
 # ---------------------------------------------------------------- Hammerfall
 
 step Hammerfall
   zone Arathi Highlands
   tip The orc stronghold at the eastern end of the road. Urda, the wind rider master, stands by the gate.
+  tip Rutherford Twing offers the Defiler's Basic Care Package only once you are Friendly with the Defilers (Arathi Basin): skip it if he doesn't offer it.
   accept 655                          -- Gor'mul, by the gate
   getfp "Hammerfall"
-  accept 8263                         -- Rutherford Twing
-  turnin 8263
+  accept 8263 optional                -- Rutherford Twing
+  turnin 8263 optional
   turnin 676                          -- Drum Fel
   accept 677
   turnin 655                          -- Tor'gan
@@ -388,8 +479,7 @@ step Hammerfall
 
 step Witherbark Village
   zone Arathi Highlands
-  tip South-east of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village.
-  tip Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps.
+  tip South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps.
   kill 2556 quest 677.2
   kill 2554 quest 677.1
   kill 2555 quest 677.3

@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} (Geselle)",
 	-- {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:4772} Ultham Ironhorn · {npc:1261} Veron Amberstill · {skill:762} Riding · {faction:47} Ironforge
-	["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 60 {npc:4772} teaches Journeyman {skill:762} to Dwarves for 1,000g (10% less at Honored with {faction:47}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift ram costs 200g here."] = "",
+	["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 60 {npc:4772} teaches Journeyman {skill:762} to Dwarves for 1,000g (10% less at Honored with {faction:47}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift ram costs 200g here."] = "{area:803} liegt östlich von {area:131} an der Straße nach {zone:1432}; {npc:4772} steht neben den Widdern von {npc:1261}. Auf Stufe 60 lehrt {npc:4772} Zwerge {skill:762} (Geselle) für 1.000g (10% weniger bei Wohlwollend mit {faction:47}); laut Blizzard gehört ein Reittier dazu. Andere Rassen lernen es beim Reitlehrer ihrer eigenen Rasse. Jeder schnelle Widder kostet hier 200g.",
 	-- {npc:4772} Ultham Ironhorn
 	["{npc:4772}, riding trainer"] = "{npc:4772}, Reitlehrer",
 
 	-- Step 2: Ram Riding for other races
 	-- {spell:826} Ram Riding
-	["{spell:826} for other races"] = "",
+	["{spell:826} for other races"] = "{spell:826} für andere Rassen",
 	-- {spell:826} Ram Riding · {skill:762} Riding · {npc:4772} Ultham Ironhorn · {faction:47} Ironforge
-	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "",
+	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "Jede Allianzrasse kann diese Widder kaufen, aber um einen zu reiten, braucht man auch {spell:826}, das nur Zwerge mit {skill:762} bekommen. {npc:4772} lehrt es andere Rassen, sobald sie bei {faction:47} Ehrfürchtig sind (der Ruf-Guide für Ironforge zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Widder.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",

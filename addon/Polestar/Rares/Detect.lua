@@ -11,6 +11,8 @@
 --     (unitToken), with UnitClassification "rare" | "rareelite"
 --     (UnitDocumentation.lua).
 --   * Target and mouseover: PLAYER_TARGET_CHANGED, UPDATE_MOUSEOVER_UNIT.
+--   * A player character on any of these paths goes to
+--     Rares.FounderSighting: the founder (Rares.FOUNDER), or nothing.
 --   * Unit reads may be secret values (SecretWhenUnitIdentityRestricted on
 --     UnitGUID, UnitName, UnitCreatureType): a secret reads as unknown and the
 --     unit is passed over.
@@ -79,6 +81,11 @@ function D.Unit(unit, source)
 	local guid = readable(UnitGUID and UnitGUID(unit))
 	if not guid then return nil end
 	local kind, id = guidId(guid)
+	-- A player character can only be the founder (Rares.FounderSighting).
+	if kind == "Player" then
+		if not fresh(guid, false) then return nil end
+		return Rares.FounderSighting(unit, source, guid)
+	end
 	if kind ~= "Creature" and kind ~= "Vehicle" then return nil end
 	local dead = readable(UnitIsDead and UnitIsDead(unit))
 	if not fresh(guid, dead) then return nil end

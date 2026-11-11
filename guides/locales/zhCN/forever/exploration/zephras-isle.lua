@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Zephras Isle (1/3)
 	-- {zone:2521} Zephras Isle · {area:17221} Skywall
-	["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit. 20 areas to discover here, levels 3-12."] = "",
+	["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit. 20 areas to discover here, levels 3-12."] = "{zone:2521} 是天裔的起始岛，位于 {area:17221}，自成一方天地；任何人都可以前往。这里有 20 个可探索区域，等级范围为 3-12 级。",
 	["Skyborne start here. Everyone else takes a skyboat, about every five minutes; either faction may take either one."] = "天裔从这里开始。其他人乘坐天空飞船，约每五分钟一班；两个阵营都可以乘坐任意一艘。",
 	-- {area:279} Dalaran · {zone:1416} Alterac Mountains · {zone:1456} Thunder Bluff
 	["The skyboat leaves the north side of {area:279} in the {zone:1416} (another flies from north of {zone:1456})."] = "天空飞船从{zone:1416}{area:279}的北侧出发（另一艘从{zone:1456}北边起飞）。",

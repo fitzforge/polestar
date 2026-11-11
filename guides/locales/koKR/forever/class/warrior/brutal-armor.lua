@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "30레벨에 방어구 네 부위(사슬 갑옷, 투구, 건틀릿, 다리보호구), 도중에 방패도 얻습니다.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -36,30 +36,30 @@ return {
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
 	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
 
-	-- Step 7: Roogug in Razorfen Kraul
-	-- {area:1717} Razorfen Kraul
-	["Roogug in {area:1717}"] = "{area:1717}의 루구그",
-	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "",
-	-- {item:6841} Vial of Phlogiston
-	["{item:6841}, from Roogug"] = "{item:6841}, 루구그에게서",
-
-	-- Step 8: Windshear Mine
+	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
 	-- plural, as words: Smoky Iron Ingots = {item:7126} Smoky Iron Ingot
 	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "",
 	-- {item:7126} Smoky Iron Ingot
 	["{item:7126}, from the Windshear kobolds"] = "",
 
-	-- Step 9: Hillsbrad Miners
+	-- Step 8: Hillsbrad Miners
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["Hillsbrad Miners"] = "{npc:2269}",
 	-- {item:7127} Powdered Azurite · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "",
+	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "{item:7127} 10개가 필요합니다. 가이드는 먼저 25레벨까지 기다립니다. 힐스브래드 광부(26-27레벨)는 {area:271} 서쪽 언덕의 광산에서 일하며, 다섯 마리 중 네 마리꼴로 남동석을 떨어뜨립니다. {spell:71}(으)로 싸우며, 방어도를 깎고 생명력 30%에서 도움을 청하러 도망갑니다. {area:272}(으)로 날아가서 남서쪽으로 가세요.",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["{item:7127}, from the Hillsbrad Miners"] = "",
+
+	-- Step 9: Roogug in Razorfen Kraul
+	-- {area:1717} Razorfen Kraul
+	["Roogug in {area:1717}"] = "{area:1717}의 루구그",
+	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "루구그는 {zone:1413} 남쪽 끝의 던전 {area:1717} 안에 있는 정예 가시멧돼지(28레벨)입니다. 5인 던전이라 5인 파티가 필요하며, 그의 경비병도 함께 덤빕니다. 가이드는 먼저 26레벨까지 기다립니다. 안에서 첫 갈림길에서 왼쪽 길로 가서 돼지우리 위의 덩굴 다리를 건너고, 큰 가마솥이 있는 방을 지나가세요. 그는 오른쪽 방에서 기다립니다. {spell:403}을(를) 시전하고 바위 정령을 부릅니다. 약병은 항상 떨어집니다.",
+	-- {item:6841} Vial of Phlogiston
+	["{item:6841}, from Roogug"] = "{item:6841}, 루구그에게서",
 
 	-- Step 10: Iron Bars
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
@@ -100,13 +100,14 @@ return {
 	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "",
 
 	-- Step 19: Dragonmaw Shinbones
-	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
-	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). Every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131}: right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "",
+	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {quest:1846} Dragonmaw Shinbones · {npc:6411} Velora Nitely · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
+	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}; from {area:321} in Arathi head south over the {area:881} ({area:150} is Alliance). With {quest:1846} from {npc:6411} in your log, every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a {item:7131} (without the quest they drop none): right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast {spell:686}, Bonewarders raise skeletons."] = "용아귀부족 오크(레벨 26-30)는 {zone:1437} 한가운데에 진을 치고 있습니다. 아라시의 {area:321}에서 남쪽으로 {area:881}를 건너가세요({area:150}은(는) 얼라이언스 지역입니다). {npc:6411}의 {quest:1846} 퀘스트를 목록에 갖고 있으면 약탈자, 늪길잡이, 백인대장, 어둠보초병, 해골감시자가 모두 {item:7131}을(를) 떨어뜨립니다(퀘스트가 없으면 떨어뜨리지 않습니다). 오른쪽 클릭으로 시험해 보면 약 4개 중 1개가 튼튼한 정강이뼈가 되고 나머지는 부서지므로, 8개를 얻으려면 30마리 이상 처치할 각오를 하세요. 이동하거나 싸우는 중에도 시험할 수 있습니다. 오크는 생명력이 15%가 되면 도움을 청하러 달아납니다. 약탈자는 그물을 던지고, 백인대장은 방패 가격을 쓰며, 어둠보초병은 {spell:686}을(를) 시전하고, 해골감시자는 해골을 일으킵니다.",
 	["from the Dragonmaw orcs: right-click to test it"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "{area:380} 동쪽 길가의 {npc:5878}에게 돌아가세요. {quest:1848}이(가) 첫 번째 부위이며, 그 후 나머지를 위해 장인 세 명에게 보냅니다.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "{area:378}(으)로 날아가세요. 야영지 남쪽 {area:390}에 실리시드 흙더미가 흩어져 있으며, 그곳의 실리시드가 꿈틀거리는 더듬이를 지니고 있습니다.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "30레벨에 방어구 네 부위(사슬 갑옷, 투구, 건틀릿, 다리보호구), 도중에 방패도 얻습니다.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "채광사는 {item:2772}을(를) 제련해 철 주괴를 만들고({skill:186} 125), 그 외에는 {zone:1454} 경매장에서 사세요.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "루구그는 {zone:1413} 남쪽 끝의 던전인 {area:1717} 안의 정예 가시멧돼지족이며 {item:6841}을(를) 떨어뜨립니다. {area:1717}은(는) 던전이니 파티를 권장합니다.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "칼바람 코볼트에게서 연기나는 철제 주괴",

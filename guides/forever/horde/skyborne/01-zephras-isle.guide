@@ -78,10 +78,10 @@ step Thendal Village turn-ins
   turnin 92463                        -- Elatrell Featherlight
   turnin 92598                        -- Ventaari Brightwish
   turnin 92469                        -- Rorian the Dayseeker
+  accept 92471
   turnin 92482 only Hunter            -- Tai'ree Farsight, beside Rorian
   turnin 92483 only Rogue             -- Akeri Duskblade, in the watchtower
   turnin 92532 only Warrior           -- Blademaster Ren, in the watchtower
-  accept 92471
   turnin 92471                        -- Aetheen of the Gales
   accept 92470
   train class
@@ -126,7 +126,7 @@ step Windshaper Boro
 # ---------------------------------------------------------------- Shen'dar Village
 
 step Shen'dar Village
-  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side.
+  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side. With a profession learned, Raan also offers its Camping 101: its trainer stands in the village.
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
@@ -140,6 +140,36 @@ step Shen'dar Village
   complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101                        -- Raan Wildwind
   accept 96646
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97971                        -- Raan Wildwind
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97965                        -- Raan Wildwind
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97969                        -- Raan Wildwind
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97970                        -- Raan Wildwind
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97963                        -- Raan Wildwind
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97964                        -- Raan Wildwind
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97967                        -- Raan Wildwind
+
+step Shen'dar Village
   turnin 92514                        -- Constable Aonda
   accept 92517
   accept 92516                        -- Teeri Wellwind
@@ -151,10 +181,45 @@ step Shen'dar Village
   turnin 96646                        -- Zerril Softbreeze
   accept 92553                        -- Zerril Softbreeze
 
+step Mendalass Tattermend
+  when onquest 97971
+  complete 97971 @43.29,43.37 map 2521 live
+  turnin 97971                        -- Mendalass Tattermend
+
+step Naleeia Tattermend
+  when onquest 97965
+  complete 97965 @43.08,46.31 map 2521 live
+  turnin 97965                        -- Naleeia Tattermend
+
+step Indari Sunseam
+  when onquest 97969
+  complete 97969 @44.68,44.52 map 2521 live
+  turnin 97969                        -- Indari Sunseam
+
+step Messana Crestwind
+  when onquest 97970
+  complete 97970 @44.77,44.56 map 2521 live
+  turnin 97970                        -- Messana Crestwind
+
+step Nyassa Swiftdraught
+  when onquest 97963
+  complete 97963 @43.69,43.42 map 2521 live
+  turnin 97963                        -- Nyassa Swiftdraught
+
+step Aedi Thriceforged
+  when onquest 97964
+  complete 97964 @44.88,44.37 map 2521 live
+  turnin 97964                        -- Aedi Thriceforged
+
+step Fenn Fairweather
+  when onquest 97967
+  complete 97967 @45.02,48.44 map 2521 live
+  turnin 97967                        -- Fenn Fairweather
+
 step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
-  tip Prideclaws and Galestriders share the meadows south of Shen'dar Village. The Galestriders drop both the Small Eggs and the Strider Meat for Zerril.
-  collect 6889 quest 92553.1
+  tip Prideclaws and Galestriders share the meadows around Shen'dar Village; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the Strider Meat for Zerril.
+  collect 6889 quest 92553.1 @42.1,39.4
   collect 5469 quest 92553.2
 
 step Shen'dar Village hand-ins
@@ -177,7 +242,7 @@ step Shen'dar Highlands: kill these as you meet them
 # steps (Prideclaw pelts in the highland one, judge merge and walked-past).
 step Shen'dar bounty board
   when group 93318
-  accept 93318 optional               -- the bounty board
+  accept 93318                        -- the bounty board
 
 step Shen'dar Village turn-ins
   turnin 92517                        -- Constable Aonda
@@ -192,7 +257,7 @@ step Shen'dar Village turn-ins
 step Vulgara the Insatiable
   when group 93318
   tip Vulgara lurks south of the village, among the Prideclaws. Vulgara is elite: grouping up is advised.
-  collect 257942 quest 93318.1 optional
+  collect 257942 quest 93318.1
 
 # ---------------------------------------------------------------- Falaath Village
 
@@ -219,7 +284,7 @@ step Shen'dar Highlands: kill these as you meet them
 
 step Danarii Bellowveil
   when group 93318
-  turnin 93318 optional               -- Danarii Bellowveil
+  turnin 93318                        -- Danarii Bellowveil
 
 step The West Pylon Watchtower
   tip Head south-west to the West Pylon Watchtower. Peacekeeper Vaaniel is at the top; the Bloody Note lies beside him.
@@ -279,6 +344,7 @@ step Ayessa Dawnsinger
   accept 93735
   complete 92708 @59.15,79.73         -- talk to Ayessa Dawnsinger
   turnin 92708
+  level 10 only Shaman
   accept 97243 only Shaman            -- Sessaria Skystride, beside Ayessa: Call of Fire
   accept 93736                        -- Endaria Mistgaze
 
@@ -289,6 +355,7 @@ step Nyalah and Alvarion
   sethome "Valanaar" npc 255940       -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                        -- Alvarion Windfield
   talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
+  level 10 only Hunter
   accept 94978 only Hunter            -- Quel'ana Quickgale, a few steps west of Nyalah: Taming the Beast, the first rod
   accept 93317                        -- Nyalah Brightfire, inside
 
@@ -297,6 +364,7 @@ step Riaani Nightwind
   turnin 93735
   accept 93737
   talk 256083 quest 93737.1 "Listen to Riaani Nightwind"
+  level 10 only Warrior
   accept 94003 only Warrior           -- Seena Skybreaker, beside Riaani: The Skybreaker Bulwark
 
 # ---------------------------------------------------------------- Windfield Orchard
@@ -304,10 +372,10 @@ step Riaani Nightwind
 step Windfield Orchard
   tip Windfield Orchard is west of Valanaar along the coast road.
   talk 252800 quest 92679.1 @46.7,81.95
-  turnin 92679                        -- Aamelia Windfield
-  accept 92682
-  accept 92683
-  accept 92684
+  turnin 92679 @46.7,81.95            -- Aamelia Windfield
+  accept 92682 @46.7,81.95
+  accept 92683 @46.7,81.95
+  accept 92684 @46.7,81.95
 
 step The orchard
   tip Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge.
@@ -320,11 +388,11 @@ step The orchard
   accept 97244 only Shaman
 
 step Aamelia Windfield
-  turnin 92682
-  turnin 92684
-  turnin 92683
-  turnin 92698
-  accept 92685
+  turnin 92682 @46.7,81.95
+  turnin 92684 @46.7,81.95
+  turnin 92683 @46.7,81.95
+  turnin 92698 @46.7,81.95
+  accept 92685 @46.7,81.95
 
 step Gustberry Lowlands: kill these as you meet them
   zone Zephras Isle
@@ -333,8 +401,8 @@ step Gustberry Lowlands: kill these as you meet them
   collect 260880 quest 93737.4
 
 step Standing Our Ground
-  turnin 92685                        -- Aamelia Windfield
-  accept 92693
+  turnin 92685 @46.7,81.95            -- Aamelia Windfield
+  accept 92693 @46.7,81.95
   talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
@@ -439,7 +507,7 @@ step Ur'endra
 step Zephras Isle
   only Shaman
   zone Zephras Isle
-  goto 51.2,86.2 "Zephras Isle" live
+  goto 51.2,86.2 "Olariaan Swiftburn" live
 
 step Olariaan Swiftburn
   zone Zephras Isle
@@ -452,7 +520,7 @@ step Olariaan Swiftburn
 step Zephras Isle
   only Shaman
   zone Zephras Isle
-  goto 51.2,86.2 "Zephras Isle" live
+  goto 51.2,86.2 "The Eternal Flame" live
 
 step The Eternal Flame
   zone Zephras Isle
@@ -525,7 +593,7 @@ step The Al'Aketh camp
   collect 265475 quest 94488.1
   kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den" -- Below ground
   talk 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
-  collect 258771 quest 93165.1
+  collect 258771 quest 93165.1 @63.7,37.1
   turnin 93165
   collect 265476 optional
   accept 94490 optional
@@ -597,9 +665,6 @@ step Valanaar
   accept 93090
   turnin 94896                        -- Ealaane Nimbuswalker
   turnin 94897
-
-step Valanaar
-  when onquest 94491
   turnin 94491                        -- Lotheluum Starbreeze
 
 step Valanaar
@@ -623,6 +688,7 @@ step Northern Mulgore
 step Clarice Foster
   zone Thunder Bluff
   tip Clarice Foster stands in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart.
+  level 12
   accept 264
 
 step Class trainer
@@ -680,9 +746,9 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
-step The Barrens
+step The Crossroads
   zone The Barrens
-  goto 52.2,31.0 "The Barrens"
+  goto 52.2,31.0 "The Crossroads"
 
 # ---------------------------------------------------------------- The Crossroads
 
@@ -694,4 +760,4 @@ step The Crossroads
 step To Orgrimmar
   zone Orgrimmar
   tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
-  goto 55.6,72.3 "Orgrimmar"
+  goto 55.6,72.3 "Orgrimmar's Valley of Strength"

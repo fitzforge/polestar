@@ -20,12 +20,16 @@ next forever/horde/07-ashenvale
 # -> up the Webwinder Path to Sun Rock Retreat (flight path, bind) -> Mirkfallon Lake and
 # Stonetalon Peak -> Sun Rock -> the Charred Vale -> Sun Rock -> down to Malaka'jin -> Camp
 # Taurajo (bind) -> the Field of Giants -> Gann Stonespire, Bael Modan and Blackthorn Ridge ->
-# Feegly's strongbox in the dig -> the Great Lift -> Camp Taurajo -> fly to the Crossroads -> fly
-# to Ratchet (Sputtervalve, Mebok) -> the Merchant Coast (Mahren, Isha Awak). The next guide flies
+# the Great Lift -> Camp Taurajo -> fly to the Crossroads -> fly to Ratchet (Sputtervalve,
+# Mebok) -> the Merchant Coast (Mahren, Isha Awak). The next guide flies
 # from Ratchet to Zoram'gar Outpost.
 #
 # Rare-spawn quests (optional): Owatanka (884) and Washte Pawne (885) start from the drops of rare
 # spawns: take them if you meet one.
+#
+# The Tear of the Moons (857) is a level 30 quest: General Twinbraid (30) and his Officers stand
+# by the strongbox. It is taken at 28 in forever/horde/07-ashenvale, on the road from Camp
+# Taurajo to the Great Lift (#1333).
 #
 # Carried on, finished: Trouble in the Deeps (6562, Je'neu at Zoram'gar, next guide) and Message to
 # Freewind Post (4542, Freewind Post, next guide).
@@ -186,13 +190,6 @@ step The flying machine
   tip The dwarves' flying machine sits on its platform inside the dig site.
   interact 3644 quest 849.1
 
-step Tear of the Moons
-  zone The Barrens
-  tip While you are in the dig: Feegly the Exiled hides at the south edge of the dig; General Twinbraid's Strongbox sits at the bottom of the excavation.
-  accept 857                          -- Feegly the Exiled
-  collect 5038 quest 857 @49.1,84.3   -- General Twinbraid's Strongbox; below ground
-  turnin 857
-
 step Gann Stonespire
   turnin 849                          -- Gann Stonespire walks around Blackthorn Ridge: look inside the circle on the map
 
@@ -234,6 +231,7 @@ step The Crossroads
 
 step Fly to Ratchet
   zone The Barrens
+  when onquest 1094,874,873
   goto 51.5,30.4 "Crossroads flight master"
   fly "Ratchet"
 

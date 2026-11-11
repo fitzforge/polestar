@@ -79,11 +79,11 @@ fn an_undead_horde_player_in_the_barrens_is_sent_to_the_nearest_horde_trainer_ne
 		true,
 	);
 	assert_eq!(out["first"], json!([3373, "Arnok", 1411, 50, 50, 2]));
-	assert_eq!(out["wp"], json!([1411, 50, 50, "Train First Aid"]));
+	assert_eq!(out["wp"], json!([1411, 50, 50, "Learn First Aid"]));
 	assert_eq!(out["cycled"], json!(["Rawrk", "Nurse Neela", "Arnok"]));
 	assert_eq!(out["wpAfter"], 1411);
-	assert_eq!(out["text"], "Train First Aid");
-	assert_eq!(out["detail"], "at Arnok");
+	assert_eq!(out["text"], "Learn First Aid");
+	assert_eq!(out["detail"], "from Arnok");
 }
 
 #[test]
@@ -334,9 +334,9 @@ fn skipgrey_a_grey_accept_kept_for_its_chain_names_the_nearest_open_quest_it_lea
 		on,
 		json!([
 			// 1002 still worth doing: 827 and 411 lead to it.
-			{ "level": 20, "kept": 1002, "text": "Grey, kept: opens Buzzbox 323", "skipped": false, "accepts": [1002, "open", "open"] },
+			{ "level": 20, "kept": 1002, "text": "Grey, kept: opens “Buzzbox 323”", "skipped": false, "accepts": [1002, "open", "open"] },
 			// Only 525 left: the grey chain before it names it.
-			{ "level": 22, "kept": 1003, "text": "Grey, kept: opens Buzzbox 525", "skipped": false, "accepts": [1003, 1003, "open"] },
+			{ "level": 22, "kept": 1003, "text": "Grey, kept: opens “Buzzbox 525”", "skipped": false, "accepts": [1003, 1003, "open"] },
 			// All grey: the chain is left out, nothing to explain.
 			{ "level": 23, "kept": false, "text": false, "skipped": true, "accepts": ["skipped", "skipped", "skipped"] },
 		])
@@ -538,4 +538,54 @@ fn a_vendor_in_a_zone_far_above_the_character_comes_after_every_other_choice_sti
 	};
 	assert_eq!(pick(18), json!({ "first": "Naram Longclaw", "cycled": "Chagrak Hammerstrike" }));
 	assert_eq!(pick(50), json!({ "first": "Chagrak Hammerstrike", "cycled": "Naram Longclaw" }));
+}
+
+// #1357 (MrBackus, Skyborne Shaman 30): Orgrimmar's training step came up while he stood in the Barrens by
+// Ratchet, and the nearest Shaman trainer by line was Shikrik in the Valley of Trials, a starter village.
+// A `train class` goal carries its step's zone: that map's trainers come first wherever the player stands,
+// unless one stands within 100 yards of them (the Skyborne camp's trainers below Thunder Bluff).
+const ZONE_FIRST: &str = r#"
+	Polestar.RegisterGuide({ id = "test/tc", pack = "test", title = "Train", minLevel = 1, maxLevel = 60, steps = {
+		{ goals = { { t = "train", class = true, zone = 1454, candidates = ${SHIKRIK_KARDRIS} } } },
+		{ goals = { { t = "train", class = true, candidates = ${SHIKRIK_KARDRIS} } } },
+		{ goals = { { t = "train", class = true, zone = 1454, candidates = {
+			{ npc = 262558, npcName = "Palah Thunderhoof", map = 1413, x = 61, y = 30, faction = "H", classes = { "SHAMAN" } },
+			{ npc = 3344, npcName = "Kardris Dreamseeker", map = 1454, x = 50, y = 50, faction = "H", classes = { "SHAMAN" } },
+		} } } },
+		{ goals = { { t = "train", class = true, zone = 1454, candidates = {
+			{ npc = 3157, npcName = "Shikrik", map = 1411, x = 10, y = 10, faction = "H", classes = { "SHAMAN" } },
+			{ npc = 3344, npcName = "Kardris Dreamseeker", map = 1454, x = 50, y = 50, faction = "H", classes = { "MAGE" } },
+		} } } },
+		{ goals = { { t = "level", level = 60 } } },
+	} })
+"#;
+
+#[test]
+fn train_class_ranks_its_step_s_zone_first_wherever_the_player_stands_unless_a_trainer_is_right_there_1357() {
+	let cands = r#"{
+			{ npc = 3157, npcName = "Shikrik", map = 1411, x = 10, y = 10, faction = "H", classes = { "SHAMAN" } },
+			{ npc = 3344, npcName = "Kardris Dreamseeker", map = 1454, x = 50, y = 50, faction = "H", classes = { "SHAMAN" } },
+		}"#;
+	let out = run(
+		r#"stub.world.race, stub.world.raceName, stub.world.class, stub.world.className = "Skyborne", "Skyborne", "SHAMAN", "Shaman""#,
+		&ZONE_FIRST.replace("${SHIKRIK_KARDRIS}", cands),
+		None,
+		r#"
+			E.SetGuide("test/tc")
+			local function npc(s) return E.GetStepView(s).goals[1].npcName end
+			local first = { npc(1), npc(2), npc(3), npc(4) }
+			E.CycleCandidate(1, 1)
+			emit({ first = first, cycled = npc(1) })
+		"#,
+		true,
+	);
+	// The Barrens at 60,30: Shikrik (Durotar) is about 1,000 yd away, Kardris (Orgrimmar) about 2,500.
+	assert_eq!(
+		out,
+		json!({
+			"first": ["Kardris Dreamseeker", "Shikrik", "Palah Thunderhoof", "Shikrik"],
+			"cycled": "Shikrik",
+		}),
+		"the step's zone first; no zone: the nearest; a trainer by the player stays first; a zone with no trainer of the class: the nearest"
+	);
 }

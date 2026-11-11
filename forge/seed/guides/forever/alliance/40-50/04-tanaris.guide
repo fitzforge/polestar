@@ -22,8 +22,6 @@ step Mirage Raceway
   tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles: Fizzle Brassbolts is in the gnomes' camp beside the track, Zamek by the goblin camp.
   turnin 2769
   turnin 1137                         -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
-  accept 1191                         -- Zamek
-  turnin 1191                         -- He runs off to keep Rizzle busy
 
 step Tanaris
   zone Tanaris
@@ -37,13 +35,13 @@ step Gadgetzan
   turnin 2864                         -- Tran'rek, north side of town
   accept 3362                         -- Tran'rek
   accept 992                          -- Senior Surveyor Fizzledowser
-  accept 2605                         -- Marin Noggenfogger
   getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
-  sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
+  accept 2605                         -- Marin Noggenfogger
   accept 1690                         -- Chief Engineer Bilgewhizzle, by the water tower
   accept 1707                         -- Spigot Operator Luglunket, next to him
-  accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
+  sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
   accept 5863                         -- Andi Lynn
+  accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
 
 # ---------------------------------------------------------------- Steamwheedle Port
 
@@ -92,7 +90,7 @@ step Lost Rigger Cove: kill these as you meet them
 
 step Steamwheedle Port
   turnin 2873                         -- Stoley, inside
-  note Stoley's next delivery goes back to Booty Bay: skip it.
+  accept 2874                         -- "Sea Wolf" MacKinley in Booty Bay: the route takes you there at the end of the Hinterlands guide, keep it
   turnin 2875                         -- Security Chief Bilgewhizzle, inside
   turnin 8366
   turnin 8365                         -- Haughty Modiste
@@ -134,7 +132,7 @@ step Dunemaul Compound
   kill 5474 quest 5863                -- Dunemaul Brute
   kill 5472 quest 5863                -- Dunemaul Enforcer
   kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
-  level 47.06                          -- grind on Dunemaul Brute
+  level 47.06 grind 5474               -- grind on Dunemaul Brute
 
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
@@ -151,15 +149,15 @@ step Tooga's escort
   turnin 1560                         -- Torta
 
 step Gadgetzan
-  tip Ride back west to Gadgetzan.
+  tip Ride back west to Gadgetzan: Andi Lynn stands on the east side of town, where you come in.
+  turnin 5863                         -- Andi Lynn
   turnin 2605                         -- Marin Noggenfogger
   accept 2606
-  turnin 82                           -- Alchemist Pestlezugg, inside
-  accept 10                           -- Senior Surveyor Fizzledowser
+  turnin 3362                         -- Tran'rek
   turnin 2606                         -- Sprinkle
   accept 2641
-  turnin 3362                         -- Tran'rek
-  turnin 5863                         -- Andi Lynn, on the east side of town
+  turnin 82                           -- Alchemist Pestlezugg, inside
+  accept 10                           -- Senior Surveyor Fizzledowser
 
 # ---------------------------------------------------------------- The south
 

@@ -9,8 +9,8 @@ next forever/horde/50-60/02-felwood
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Pawn Captures Queen (4507).
-# Left out: Uncle Carlin (5241).
+# Added here: Pawn Captures Queen (4507), Yuka Screwspigot (4324).
+# Added here (0.3.7): Uncle Carlin (5241), a message to Carlin on the closing Light's Hope Chapel stop.
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
 
 step Un'Goro Crater
@@ -94,6 +94,7 @@ step Un'Goro Crater
 step Into Un'Goro Crater
   tip From the Broken Pillar ride west to the long ramp that winds down into Un'Goro Crater, then follow the crater's north wall to Marshal's Refuge, a camp in the cliff caves. Everyone here is neutral.
   getfp "Marshal's Refuge"
+  accept 4501                         -- the wooden sign beside Spraggle Frock, by the flight master: the pterrordax are on this guide's ground
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
   accept 3882                         -- Spark Nilminer
   accept 3883                         -- Hol'anyee Marshal
@@ -115,7 +116,8 @@ step Lakkari Tar Pits
 step Pterrordax
   tip Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle.
   collect 11831 quest 4503.2
-  level 51.11                          -- grind on Pterrordax
+  kill 9166 quest 4501.1
+  level 51.11 grind 9166               -- grind on Pterrordax
 
 step Power Crystals and soil
   tip The crystal clusters stand all over the crater, many around Fire Plume Ridge. Take a few extra of each colour for the pylons.
@@ -133,6 +135,7 @@ step Lakkari Tar Pits: kill these as you meet them
   kill 6510 quest 4145.3
   collect 11114 quest 3882
   collect 11830 quest 4503.1
+  kill 9167 quest 4501.2
   kill 6512 quest 4145.2
 
 step Research Equipment
@@ -142,7 +145,7 @@ step Research Equipment
 step The Slithering Scar
   tip Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd.
   collect 11837 quest 4496.1
-  level 51.26                          -- grind on Gorishi Wasp
+  level 51.26 grind 6551               -- grind on Gorishi Wasp
 
 step The Slithering Scar
   use 11132 quest 3883.1 @48.7,85.3 map 1449
@@ -185,7 +188,7 @@ step Torwa Pathfinder
 step Lashers and Threshers
   tip Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle.
   kill 6511 quest 4145.4
-  level 51.38                          -- grind on Bloodpetal Thresher
+  level 51.38 grind 6511               -- grind on Bloodpetal Thresher
 
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater
@@ -197,6 +200,7 @@ step Un'Goro Crater: kill these as you meet them
 
 step Marshal's Refuge
   turnin 4503                         -- Shizzle, at the entrance
+  turnin 4501                         -- Spraggle Frock, beside the flight master
   turnin 4145                         -- Larion
   accept 4147
   turnin 3845                         -- Linken
@@ -223,12 +227,6 @@ step Gorillas
   turnin 4243                         -- A-Me 01, the robot on the plateau; below ground
   note A-Me 01 then wants a Mithril Casing, an Engineering item. Skip it unless you have one.
 
-step Level 52
-  when level<52
-  tip Top up here to level 52: The Rise of the Machines at Kargath needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
-  goto 65.8,31.5 map 1449 "Bloodpetal Lasher"
-  level 52                          -- grind on Bloodpetal Lasher
-
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater
   tip Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast Silithid Pox and Tunnelers and the Hive Guard use Tunneler Acid.
@@ -242,7 +240,9 @@ step Eastern Pylon
 
 step The Marshlands
   tip Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.
+  tip Below level 52, keep hunting the ravasaurs here after the eighth claw: The Rise of the Machines at Kargath needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   collect 11477 quest 4300
+  level 52 grind 6505                 -- grind on Ravasaur
 
 step Western Pylon
   tip Cross the south of the crater to the pylon on the western cliffs.
@@ -285,6 +285,7 @@ step Back to Gadgetzan
 step Boat to Powderfuse Port
   zone Tanaris
   goto 67.6,23.1 "Boat to Powderfuse Port"
+  accept 4324                         -- Yorba Screwspigot, by the dock: for Yuka Screwspigot at Flame Crest, later in this guide
 
 step Badlands
   zone Badlands
@@ -312,6 +313,7 @@ step Flame Crest
   getfp "Flame Crest"
   accept 4296                         -- Maxwort Uberglint
   accept 4726                         -- Tinkee Steamboil
+  turnin 4324                         -- Yuka Screwspigot
 
 step Sha'ni Proudtusk
   tip Follow the cliffs south to Dreadmaul Rock, the Firegut ogres' hill. Sha'ni Proudtusk's remains lie at its foot.
@@ -377,6 +379,7 @@ step Oran Snakewrithe
 step Undercity
   zone Undercity
   accept 3568                         -- Chemist Cuely, the Apothecarium: the vials fill in Azshara later
+  turnin 864                          -- Apothecary Zinge, near Cuely in the Apothecarium
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   turnin 3542                         -- Andron Gant, the Rogues' Quarter
   accept 3564
@@ -457,6 +460,7 @@ step Pamela's Doll
 step Pamela Redpath
   turnin 5149
   accept 5152
+  accept 5241                         -- a message for Carlin at Light's Hope Chapel, where this guide ends
   note Keep Auntie Marlene: Marlene lives at Sorrow Hill in the Western Plaguelands.
 
 step Zaeldarr the Outcast
@@ -470,5 +474,37 @@ step Pestilent Scar
 step Back to Light's Hope Chapel
   turnin 6021                         -- Caretaker Alen
   turnin 5211
+  turnin 5241                         -- Carlin Redpath
   turnin 5510 optional
-  note The next guide starts here, at the chapel's flight master.
+
+# ---------------------------------------------------------------- Western Plaguelands: Marlene and Chromie
+
+step Fly to Tarren Mill
+  zone Eastern Plaguelands
+  goto 80.1,57.0 "Light's Hope Chapel flight master"
+  fly "Tarren Mill"
+  zone Hillsbrad Foothills
+
+step Western Plaguelands
+  zone Western Plaguelands
+  goto 43.0,83.5 "Western Plaguelands"
+
+step Sorrow Hill
+  tip Ride north up the road from Tarren Mill. Marlene's house stands by the road at Sorrow Hill, and Joseph Redpath's monument is in the graveyard behind it.
+  turnin 5152                         -- Marlene Redpath, upstairs
+  accept 5153
+  collect 12894 quest 5153 @49.7,76.8
+
+step Chromie
+  tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
+  turnin 5153                         -- Upstairs
+  accept 5154
+
+step The Annals of Darrowshire
+  tip The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.
+  collect 12900 quest 5154 @43.4,69.5
+
+step Chromie
+  turnin 5154                         -- Upstairs
+  accept 5210
+  note Brother Carlin goes to Light's Hope Chapel: keep it for later. The next guide starts with Mulgris Deepriver by the Writhing Haunt, east of Andorhal.

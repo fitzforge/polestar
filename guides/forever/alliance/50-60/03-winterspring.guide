@@ -21,13 +21,17 @@ step Salfa
 
 step Winterspring
   zone Winterspring
-  goto 61.3,39.0 "Winterspring"
+  goto 61.3,39.0 "Everlook"
 
 # ---------------------------------------------------------------- Everlook
 
+step Everlook's inn
+  when !bound "Stoutlager Inn"
+  tip Your Hearthstone is not set at Thelsamar (the Hinterlands guide binds there at 47, and this guide leaves Winterspring through it): bind at Everlook instead, for the trips back to town.
+  sethome "Everlook" npc 11118        -- Innkeeper Vizzie
+
 step Everlook
   getfp "Everlook"
-  sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
   accept 5601                         -- Jessica Redpath: keep it for Darrowshire; inside
   accept 6028                         -- Gregor Greystone: keep both for the Plaguelands; inside
   accept 6030
@@ -67,27 +71,32 @@ step Donova Snowden
 
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
-  tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten) and, rarely, a Winterfall Ritual Totem: right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
-  collect 12771 optional              -- Empty Firewater Flask, a rare drop
-  accept 5083 optional
+  tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and a Winterfall Ritual Totem (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
+  tip The rest of Winterspring's work is level 55-58: stay on this camp until level 54, so your first kills also count for Donova and Salfa. Or, with a group, run the Blackrock Depths dungeon instead.
+  collect 12771                       -- Empty Firewater Flask
+  accept 5083
   kill 7442 quest 5082.1              -- Winterfall Pathfinder
   kill 7440 quest 5082.2              -- Winterfall Den Watcher
   kill 7441 quest 5082.3              -- Winterfall Totemic
   kill 7440 quest 8464.2              -- Winterfall Den Watcher
-  collect 14047 quest 6031.1 optional -- Runecloth, for Meilosh later
-  collect 20742 optional              -- Winterfall Ritual Totem, a rare drop
-  accept 8471 optional                -- For Kernda in Timbermaw Hold: keep it
+  level 54 grind 7442                  -- grind on Winterfall Pathfinder
 
 step Donova Snowden
   turnin 5082
-  turnin 5083 optional
-  accept 5084 optional                -- The Deadwood cauldron in Felwood: keep it
+  turnin 5083
+  accept 5084                         -- The Deadwood cauldron in Felwood: keep it
 
 step Level 55.05
   when level<55.05
-  tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56. Grind the Winterfall furbolgs camped by Frostfire Hot Springs (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through Timbermaw Hold need. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
+  tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56. Grind the Winterfall furbolgs camped by Frostfire Hot Springs (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through Timbermaw Hold need, one of them drops the Winterfall Ritual Totem, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
   goto 31.4,36.0 map 1452 "Winterfall Pathfinder"
-  level 55.05                          -- grind on Winterfall Pathfinder
+  level 55.05 grind 7442               -- grind on Winterfall Pathfinder
+
+step Winterfall Ritual Totem
+  tip Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it.
+  goto 31.4,36.0 map 1452 "Winterfall Pathfinder"
+  collect 20742                       -- Winterfall Ritual Totem
+  accept 8471                         -- For Kernda in Timbermaw Hold: keep it
 
 step Everlook
   turnin 4809                         -- Felnok Steelspring
@@ -110,37 +119,45 @@ step Everlook
   turnin 977
   accept 5163
   use 12928 @61.5,38.6 "Umi's Mechanical Yeti" -- On Legacki, by the inn
-  kill 10978 quest 5163.1             -- Legacki: Sprinkle and Quixxil come later
+  kill 10978 quest 5163.1 "Scare Legacki with Umi's Mechanical Yeti" -- Legacki: Sprinkle and Quixxil come later
 
-step Winterspring
-  zone Winterspring
-  goto 62.3,36.6 "Winterspring"
+step To Stoutlager Inn
+  when bound "Stoutlager Inn"
+  zone Loch Modan
+  tip Your Hearthstone is still set at Thelsamar: from there the gryphon to Chillwind Camp is about ten minutes quicker than Everlook's flight to Theramore and the boat.
+  goto 35.5,48.4 "Stoutlager Inn"
+
+step Fly to Chillwind Camp
+  when bound "Stoutlager Inn"
+  zone Loch Modan
+  goto 33.9,50.8 "Thelsamar flight master"
+  fly "Chillwind Camp"
+  zone Western Plaguelands
 
 step Fly to Theramore
+  when !bound "Stoutlager Inn"
   zone Winterspring
   goto 62.3,36.6 "Everlook flight master"
   fly "Theramore"
   zone Dustwallow Marsh
 
 step Boat to Menethil Harbor
+  when !bound "Stoutlager Inn"
   zone Dustwallow Marsh
   goto 71.6,56.4 "Boat to Menethil Harbor"
 
-step Fly to Southshore
+step Fly to Chillwind Camp
+  when !bound "Stoutlager Inn"
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
-  fly "Southshore"
-  zone Hillsbrad Foothills
-
-step Western Plaguelands
+  fly "Chillwind Camp"
   zone Western Plaguelands
-  goto 42.9,85.0 "Western Plaguelands"
 
 # ---------------------------------------------------------------- To the Plaguelands
 
 step Chillwind Camp
   zone Western Plaguelands
-  tip From Southshore, ride north up the road through Alterac to Chillwind Camp.
+  tip Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master.
   turnin 6028                         -- Argent Officer Pureheart
   accept 5903                         -- Nathaniel Dumah: the termites come later, in Terrordale
   accept 5097                         -- Commander Ashlam Valorfist: the watchtowers are in Andorhal, keep it
@@ -158,7 +175,7 @@ step Into Eastern Plaguelands
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 36.4,90.8 "Eastern Plaguelands"
+  goto 36.4,90.8 "Pamela Redpath"
 
 step Pamela Redpath
   zone Eastern Plaguelands
@@ -188,17 +205,18 @@ step Light's Hope Chapel
   turnin 5241                         -- Carlin Redpath
   accept 5211
   turnin 6030                         -- Duke Nicholas Zverenhoff
-  accept 5503
-  turnin 5503
-  accept 5509
-  accept 5510
+  turnin 5503 direct
   accept 6021 optional                -- Caretaker Alen: Zaeldarr is a level 54 elite
 
 # ---------------------------------------------------------------- Eastern Plaguelands
 
 step Corin's Crossing
+  zone Eastern Plaguelands
   tip The Scourge around Corin's Crossing, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.
+  tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
   kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
+  collect 12840 x20 -- Minion's Scourgestone
+  collect 12841 x10 -- Invader's Scourgestone
 
 # ---------------------------------------------------------------- The west
 
@@ -206,15 +224,9 @@ step The Undercroft
   tip Zaeldarr is elite: grouping up is advised. He waits at the bottom of the Undercroft, the crypt in the south-west of the zone.
   collect 15785 quest 6021.1 optional -- Zaeldarr's Head; below ground
 
-step Browman Mill: kill these as you meet them
-  zone Eastern Plaguelands
-  tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
-  collect 12840 quest 5510.1          -- Minion's Scourgestone
-  collect 12841 quest 5509.1          -- Invader's Scourgestone
-
 step Light's Hope Chapel
   turnin 5211                         -- Carlin Redpath
-  turnin 5509                         -- Duke Nicholas Zverenhoff
-  turnin 5510
+  turnin 5509 direct -- Duke Nicholas Zverenhoff
+  turnin 5510 direct
   turnin 6021 optional                -- Caretaker Alen
   note The next guide starts here and flies to Chillwind Camp.

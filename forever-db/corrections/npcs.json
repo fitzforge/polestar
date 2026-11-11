@@ -1,4 +1,20 @@
 {
+	"1411": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 120 (Booty Bay, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "npc 1411 seen neutral, never attacked (rec.py npc 1411, 2 people)"
+			}
+		],
+		"note": "Ian Strom, the rogue trainer in Booty Bay, serves both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua (#1357 sweep)."
+	},
 	"1738": {
 		"addSpawns": {
 			"1420": {
@@ -26,6 +42,397 @@
 			"ref": "creature_template Classification"
 		},
 		"note": "Stormwind Royal Guard is Elite on Forever; the merged Era data has rank 0 (Normal)."
+	},
+	"2411": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.5,
+							90.0
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							25.9,
+							27.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 36 kills of Ricter by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.5,90.0); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Ricter (npc 2411), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Marble), stands with the others in the Dalaran camp at Alterac Mountains 19.5,90.0 (map 1416; Hillsbrad Foothills 25.9,27.2). Our data had the Classic spot 20.16,84.28, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2412": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.6,
+							90.9
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							26.0,
+							28.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 27 kills of Alina by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.6,90.9); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Alina (npc 2412), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Shard), stands with the others in the Dalaran camp at Alterac Mountains 19.6,90.9 (map 1416; Hillsbrad Foothills 26.0,28.0). Our data had the Classic spot 20.34,86.4, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2413": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.3,
+							91.5
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							25.7,
+							28.5
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 25 kills of Dermot by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.3,91.5); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Dermot (npc 2413), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Wedge), stands with the others in the Dalaran camp at Alterac Mountains 19.3,91.5 (map 1416; Hillsbrad Foothills 25.7,28.5). Our data had the Classic spot 19.91,85.97, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2414": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							16.8,
+							89.4
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							23.6,
+							26.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 20 kills of Kegan Darkmar by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 16.8,89.4); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Kegan Darkmar (npc 2414), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Oval), stands with the others in the Dalaran camp at Alterac Mountains 16.8,89.4 (map 1416; Hillsbrad Foothills 23.6,26.7). Our data had the Classic spot 17.8,83.2, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633). The reporter's right spot was 16.90,89.20."
+	},
+	"2543": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							14.16,
+							59.73
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							21.25,
+							0.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 22600002 (sniffed, build 70425), map 0 (385.1, 386.8)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 5 people (2 established) met him within 60 yd of that spot, Alterac Mountains 14-15,59-61; nobody met him at the old point"
+			}
+		],
+		"note": "Archmage Ansirem Runeweaver (npc 2543), who takes Magical Analysis (602) and gives Ansirem's Key (603), stands at the Kirin Tor camp by Dalaran, Alterac Mountains 14.16,59.73 (map 1416). Our merged data had the old Dalaran point 18.84,78.49, about 370 yd south-east, where nobody met him; the Arathi Highlands guide's hand-in of 602 used it."
+	},
+	"2956": {
+		"addSpawns": {
+			"1412": {
+				"f": "l",
+				"pts": [
+					[
+						35.12,
+						38.75
+					],
+					[
+						36.13,
+						79.85
+					],
+					[
+						36.28,
+						45.88
+					],
+					[
+						36.28,
+						68.62
+					],
+					[
+						36.48,
+						53.48
+					],
+					[
+						36.96,
+						60.49
+					],
+					[
+						37.32,
+						64.58
+					],
+					[
+						37.81,
+						74.27
+					],
+					[
+						41.33,
+						70.74
+					],
+					[
+						41.72,
+						66.11
+					],
+					[
+						42.87,
+						59.08
+					],
+					[
+						44.45,
+						47.23
+					],
+					[
+						45.43,
+						72.59
+					],
+					[
+						45.82,
+						39.47
+					],
+					[
+						47.78,
+						51.42
+					],
+					[
+						48.91,
+						69.06
+					],
+					[
+						50.84,
+						63.78
+					],
+					[
+						53.49,
+						51.64
+					],
+					[
+						54.22,
+						61.31
+					],
+					[
+						54.92,
+						43.99
+					],
+					[
+						55.49,
+						68.79
+					],
+					[
+						55.78,
+						73.5
+					],
+					[
+						58.48,
+						62.96
+					],
+					[
+						59.25,
+						58.88
+					],
+					[
+						39.73,
+						57.37
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 20025173, map 1 (-2086.6, 34.4)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 4 people (1 established) met them within 60 yd of that spot, Mulgore 39-41,57-59"
+			}
+		],
+		"note": "Adult Plainstrider (npc 2956) also roams Mulgore 39.7,57.4, between two of our points; adds it."
+	},
+	"2988": {
+		"addSpawns": {
+			"1412": {
+				"f": "l",
+				"pts": [
+					[
+						54.76,
+						64.27
+					],
+					[
+						50.32,
+						62.88
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 20026577, map 1 (-2312.9, -617.4)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 6 people (3 established) opened his quest window within 60 yd of that spot and 4 (2 established) handed in there; the others met him by the well at 54.8,64.3"
+			}
+		],
+		"note": "Morin Cloudstalker (npc 2988) walks between the well south-east of Bloodhoof Village and the road west of it (Mulgore 50.3,62.9); our data had only the well. Keeps the well point and adds the western end of his walk."
+	},
+	"4025": {
+		"addSpawns": {
+			"1442": {
+				"f": "e",
+				"pts": [
+					[
+						29.64,
+						62.62
+					],
+					[
+						29.98,
+						61.88
+					],
+					[
+						30.79,
+						65.29
+					],
+					[
+						30.8,
+						61.32
+					],
+					[
+						31.11,
+						58.55
+					],
+					[
+						32.07,
+						60.43
+					],
+					[
+						35.42,
+						64.27
+					],
+					[
+						35.28,
+						63.23
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guids 25128072, 25128432 and their neighbours, map 1 (around 824-858, 1516-1523)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 8 people (4 established) met them within 60 yd of those spots and 7 (5 established) killed them there, Stonetalon 34-36,63-65"
+			}
+		],
+		"note": "Bloodfury Ambusher (npc 4025) also camps at Stonetalon Mountains 35.3-35.4,63.2-64.3, east of the points our data had (29.6-32.1,58.6-65.3). Keeps those points and adds the eastern camp."
+	},
+	"6707": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 471 (Ravenholdt, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "npc 6707 seen neutral, his trainer window opened for an Alliance rogue (rec.py npc 6707)"
+			}
+		],
+		"note": "Fahrad, the grand master rogue trainer at Ravenholdt Manor, serves both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua (#1357 sweep)."
 	},
 	"10181": {
 		"set": {
@@ -70,6 +477,66 @@
 			}
 		],
 		"note": "The Great Cat Spirit (npc 11957), giver and ender of the druids' Cat Form quests (98394, 98396, 98731 for Night Elves; 98405, 98342, 98739 for Tauren), stands on the hill by the bridge in southern Moonglade at 54.5,75.0 (map 1450). The merged data had 58.39,73.52, about 90 yards east, where players found nobody. Replaces the map's points."
+	},
+	"12042": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 994 (Cenarion Circle, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "trainer window opened for Alliance druids (Night Elf, Skyborne: 7 sessions) and Horde druids (Tauren, Skyborne: 6 sessions); seen neutral by 14 people"
+			}
+		],
+		"note": "Loganaar, the druid trainer in Nighthaven (Moonglade), trains both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua, and the Horde 50-60 guides' Moonglade training step (Felwood, Eastern Plaguelands) sent Druids to Hana Lighthoof in Mulgore (#1357 sweep)."
+	},
+	"13155": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "e",
+					"pts": [
+						[
+							51.41,
+							59.23
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-08: 7 people (5 established) opened his window 35 times at Wetlands 51.38-51.48,59.19-59.43 (map 1437), outside the Excavation Site instance (subzones Thandol Span and Excavation Site: Wetlands, no instance entered in the session for the Dragonmaw Rumors hand-ins): hand-ins of Dragonmaw Rumors (95663) and Open the Maw (95682), accepts of Open the Maw"
+		},
+		"note": "Deathstalker Agent (npc 13155), ender of Dragonmaw Rumors and giver and ender of Open the Maw (the Horde's Excavation Site: Wetlands quests), stands outside the instance at Wetlands 51.41,59.23 (map 1437). The merged data placed him nowhere, so the dungeon's pick-up and hand-in guides could not send anyone to him (#1326 sweep)."
+	},
+	"15991": {
+		"set": {
+			"spawns": {
+				"1453": {
+					"f": "e",
+					"pts": [
+						[
+							68.15,
+							29
+						],
+						[
+							70.18,
+							29.86
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-08: 6 people (all who handed in the Alliance's Crest of Lordaeron, 95189) did so at Stormwind City 68.1-68.48,28.94-30.26 (4 people) and 70.17-70.2,29.84-29.88 (2 people), map 1453; 7 people (5 established) met her there, friendly"
+		},
+		"note": "Lady Dena Kennedy (npc 15991), ender of the Alliance's Crest of Lordaeron (95189, started by the crest that drops in the Ruins of Lordaeron), stands in Stormwind City between 68.15,29.0 and 70.18,29.86 (map 1453), where players handed it in. The merged data placed her nowhere, so the dungeon's hand-in guide listed the quest as turned in at no known place (#1326 sweep)."
 	},
 	"209797": {
 		"set": {
@@ -349,6 +816,32 @@
 		},
 		"note": "Outraged Pillager is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"269127": {
+		"set": {
+			"spawns": {
+				"1421": {
+					"f": "e",
+					"pts": [
+						[
+							68.62,
+							45.18
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "5 people opened her window at Silverpine 68.57-68.66,45.09-45.25 (map 1421): hand-ins of An Alarming Request 92432 and accepts of 92457/92458/96984 (sessions 20261106T155909Z, 20261107T153654Z, 20261107T192842Z, 20261107T220846Z, 20261107T233025Z); none met her in Alterac Mountains"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1305: the reporter marked her at Silverpine 68.62,45.13"
+			}
+		],
+		"note": "Image of Archmage Modera (npc 269127), giver of Heart of Disruption and Starving Arcane and ender of An Alarming Request, stands only at the Kirin Tor camp on the lake shore in Silverpine Forest, 68.62,45.18 (map 1421). The merged data also had Alterac Mountains 14.3,59.57 (map 1416), about 186 yards east by Dalaran's sewer entrance, where nobody has met her; the Arathi Highlands guide's hand-in of 92432 and the City of Dalaran pick-up guide pointed there. Replaces every spawn."
+	},
 	"275666": {
 		"set": {
 			"rank": 1
@@ -378,5 +871,391 @@
 			"ref": "creature_template Classification"
 		},
 		"note": "Decrepit Harvester is Rare on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"738": {
+		"addSpawns": {
+			"1434": {
+				"f": "e",
+				"pts": [
+					[
+						38.0,
+						3.4
+					],
+					[
+						40.34,
+						8.44
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature 20002243 (entry 738) waypoint_path 800022430: about 28 minutes at node 1 (38.0,3.4), 3 minutes at node 24 (40.3,8.4)"
+		},
+		"note": "Private Thorsen (Jungle Secrets, Supplies to Private Thorsen) stands most of the time at the top of the Rebel Camp's path and walks down to the road end now and then; the data had only the road end (#1425). Both ends of his walk."
+	},
+	"5895": {
+		"addSpawns": {
+			"1436": {
+				"f": "l",
+				"pts": [
+					[
+						46.4,
+						59.2
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-08): 3 people handed Call of Water (94503) in to the Minor Manifestation of Water at Westfall 46.4,59.2 and took 94505 from it there; 4 people saw it there"
+		},
+		"note": "Alliance shaman Call of Water: the Minor Manifestation of Water (npc 5895) rises beside the Forgotten Shrine by Stendel's Pond in Westfall, as well as at its Silverpine spot (kept). The merged data had only Silverpine, so the arrow had no Westfall point for it."
+	},
+	"5894": {
+		"addSpawns": {
+			"1436": {
+				"f": "l",
+				"pts": [
+					[
+						45.7,
+						60.1
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08): the Corrupt Minor Manifestation of Water dropped its loot at Westfall 45.7,60.1; 3 people handed Call of Water (94502) in at the Forgotten Shrine beside it (45.6,60.0)"
+			}
+		],
+		"note": "Alliance shaman Call of Water: drinking the Water Sapta at the Forgotten Shrine by Stendel's Pond in Westfall calls the Corrupt Minor Manifestation of Water (npc 5894) there, as well as at its Silverpine spot (kept). The merged data had only Silverpine."
+	},
+	"9020": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Commander Gor'shak stands inside Blackrock Depths (instance map 230): the dungeon hand-in guide lists his turn-in as inside, not nowhere."
+	},
+	"9021": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Kharan Mighthammer stands inside Blackrock Depths (instance map 230)."
+	},
+	"9023": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Marshal Windsor stands inside Blackrock Depths (instance map 230)."
+	},
+	"10257": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Bijou stands inside Blackrock Spire (instance map 229)."
+	},
+	"10299": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "The Scarshield Infiltrator stands inside Blackrock Spire (instance map 229)."
+	},
+	"265002": {
+		"set": {
+			"instances": [
+				3065
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature spawn on map 3065 only"
+			}
+		],
+		"note": "The Ghostly Attendant, An Ancient Grudge's giver and ender, stands inside the Hall of Thanes (instance map 3065, Forever's)."
+	},
+	"9500": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Mistress Nagmara (The Love Potion) stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"9503": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Private Rocknot (Rocknot's Ale) stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"12944": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Lokhtos Darkbargainer, the Thorium Brotherhood's quartermaster, stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"10740": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Awbee stands inside Blackrock Spire."
+	},
+	"10799": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Warosh (Urok Doomhowl) stands inside Blackrock Spire."
+	},
+	"1340": {
+		"addSpawns": {
+			"1432": {
+				"f": "e",
+				"pts": [
+					[
+						34.17,
+						47.84
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature spawn of entry 1340 at world -5367.6,-2936.2 (Loch Modan 34.17,47.84), with a waypoint walk of 97 yd around 35.03,45.85 (data/forever/moves.json)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 35 people met him in Thelsamar, most at 34-36,46-48 (17 at about 35,47, 11 at 34,48); his quest windows (414, 416, 1339) opened along the road from 32.7,49.6 to 36.8,42.1, median about 34.3,47.8"
+			}
+		],
+		"note": "Mountaineer Kadrell walks the road through Thelsamar. The merged data put him at 32.63,49.74, the south end of his walk, 55 yd from his spawn; the compiler draws a walker's circle only for a point within 15 yd of the spawn, so his goals showed one point at the end of the road where few players met him (IngestCheck036, position sweep). His spawn is the game's own."
+	},
+	"2155": {
+		"addSpawns": {
+			"1438": {
+				"f": "e",
+				"pts": [
+					[
+						42.22,
+						51.27
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature spawn of entry 2155 at world 10091.4,1664.9 (Teldrassil 42.22,51.27), with a waypoint walk of 161 yd around 39.38,52.62 (data/forever/moves.json)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 22 people met her on the road west of Dolanaar, 38-43,50-55; her bounty (490) taken by 10 and handed in by 13 people along the road from 41.3,50.8 to 38.2,54.4"
+			}
+		],
+		"note": "Sentinel Shayla Nightbreeze walks the road west of Dolanaar. The merged data had her at 40.46,50.73, on her walk but 91 yd from her spawn, so the compiler drew no walk circle (it needs the point within 15 yd of the spawn) and half the players met her 70-130 yd from the arrow (position sweep). Her spawn is the game's own."
+	},
+	"10880": {
+		"addSpawns": {
+			"1454": {
+				"f": "e",
+				"pts": [
+					[
+						48.18,
+						66.11
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature spawn of entry 10880 at world 1655.5,-4356.4 (Orgrimmar 48.18,66.11), with a waypoint walk of 262 yd around 48.82,57.64 (data/forever/moves.json)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 71 people met him in Orgrimmar, most in the Valley of Strength (11 at about 46,64, others at 45-47,64-65, 50-52,62-71, 52-55,57-58); none at the data's 37.68,75.16"
+			}
+		],
+		"note": "Warcaller Gorlach, giver of Camp Mojache (7492), walks the Valley of Strength and the streets off it. The merged data had him at 37.68,75.16, 170 yd from his spawn and outside his walk, so the arrow led where no player met him and his goal got no walk circle (IngestCheck036, position sweep). His spawn is the game's own."
+	},
+	"4967": {
+		"addSpawns": {
+			"1445": {
+				"f": "e",
+				"pts": [
+					[
+						66.42,
+						49.26
+					],
+					[
+						59.7,
+						41.2
+					],
+					[
+						45.2,
+						24.4
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: The Missing Diplomat 1265 handed in to him at Sentry Point (59.69-59.71,41.17-41.22) by 4 of 4 people (20261107T230704Z-0508863063f76280, 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0) and 1324 beside North Point Tower (45.19-45.22,24.37-24.38) by 3 of 3; moused over at North Point before Private Hendel's fight in 3 sessions"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 4967: one spawn, 66.42,49.26 (Theramore's tower), kept"
+			}
+		],
+		"note": "Archmage Tervosh stands at three places in Dustwallow Marsh: in Theramore's tower (the merged data's only spawn), at the foot of Sentry Point's tower and beside North Point Tower, where players hand him The Missing Diplomat (1265, 1324); Forever's NPC page lists the same three. Without the two outer spots the guide's hand-ins there drew lint warnings and the arrow could only lead to Theramore (position sweep, IngestCheck036)."
+	},
+	"4968": {
+		"addSpawns": {
+			"1445": {
+				"f": "e",
+				"pts": [
+					[
+						66.27,
+						49.04
+					],
+					[
+						45.2,
+						24.3
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: The Missing Diplomat 1267 handed in to her beside North Point Tower (45.21-45.24,24.30-24.31) by 3 of 3 people (20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0); moused over there before Private Hendel's fight in 4 sessions"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 4968: one spawn, 66.27,49.04 (Theramore's tower), kept"
+			}
+		],
+		"note": "Lady Jaina Proudmoore stands in Theramore's tower (the merged data's only spawn) and beside North Point Tower, where players hand her The Missing Diplomat (1267); Forever's NPC page lists both. Without the second spot the guide's hand-in there drew a lint warning."
 	}
 }

@@ -184,7 +184,7 @@ return {
 	-- Step 28: Quests elsewhere
 	["Quests elsewhere"] = "",
 	-- {faction:609} Cenarion Circle · {zone:1414} Kalimdor · {npc:10739} Mulgris Deepriver · {zone:1422} Western Plaguelands · {area:2100} Maraudon · {quest:1123} Rabine Saturna · {item:18501} Felvine Shard · {area:2577} Dire Maul
-	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. In Classic a quest pays less once it is 6 or more levels below you (a fifth less per level, down to a fifth): at 60, The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) would pay 60 and 75 instead of 75 and 75, and Corruption of Earth and Seed ({area:2100}, level 51) 30 instead of 150. Your first turn-in shows which rule Forever uses. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "",
+	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) 75 and 75, Corruption of Earth and Seed ({area:2100}, level 51) 150. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "",
 	-- {zone:1422} Western Plaguelands · {area:2100} Maraudon
 	["Do the {zone:1422} and {area:2100} quests while you level; at 60 they may pay a fraction."] = "",
 

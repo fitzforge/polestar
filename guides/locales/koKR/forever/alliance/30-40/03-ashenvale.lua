@@ -9,25 +9,37 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
+	-- {zone:1453} Stormwind
+	["{zone:1453} flight master"] = "",
 
-	-- Step 2: Glorin Steelbrow
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217}은(는) 메네실 항구 성채의 위층에 있습니다.",
+	-- Step 2: Red Jack Flint
+	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
+	["{npc:4455} stands by {area:2103}'s door, just north of the flight master."] = "{npc:4455}은(는) 비행 조련사 바로 북쪽, {area:2103} 문 옆에 서 있습니다.",
+	-- {quest:1132} Fiora Longears
+	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "테라모어 여관의 {quest:1132}용 (이 가이드의 배가 가는 곳)",
+
+	-- Step 3: Glorin Steelbrow
+	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
+	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217}은(는) 성채 남쪽의 {area:2104}에 있으며, {npc:4963}와(과) {npc:5082}도 그곳에서 기다리고 있습니다.",
 	["Inside"] = "",
 
-	-- Step 4: Waterlogged Chest
+	-- Step 4: Deepwater Tavern
+	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
+	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "",
+
+	-- Step 5: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "Flying Osprey의 난파선은 성채 남쪽 얕은 물에 있습니다.",
 
-	-- Step 5: Lightforge Ingots
+	-- Step 6: Lightforge Ingots
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "메네실 항구 남서쪽 해변의 푸른아가미멀록들이 주괴를 지니고 있습니다.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "",
 
-	-- Step 6: Glorin Steelbrow
+	-- Step 7: Glorin Steelbrow
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
 	["For {npc:1416} in {zone:1453}, after Stranglethorn"] = "",
 
-	-- Step 8: Theramore
+	-- Step 9: Theramore
 	["Theramore"] = "테라모어",
 	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
 	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "비행 조련사는 {area:514} 성문 옆에 있으며, {npc:5083}와(과) {npc:4964}은(는) 성채 안에 있습니다.",
@@ -35,18 +47,22 @@ return {
 	["{npc:5083}, on the top floor"] = "",
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "",
-	-- {npc:4456} Fiora Longears · {area:400} Thousand Needles
-	["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "",
+	-- {quest:1132} Fiora Longears
+	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}, 마을 북쪽 여관 안",
+	-- {npc:4456} Fiora Longears · {area:415} Astranaar
+	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
+	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
+	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "",
 
-	-- Step 9: The Shady Rest Inn
+	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
 	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "",
 
-	-- Step 10: Into Barrens
+	-- Step 11: Into Barrens
 	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 11: Takar the Seer
+	-- Step 12: Takar the Seer
 	-- {zone:1413} Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
 	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "{zone:1413}을(를) 지나 남쪽으로 가는 길에서, {npc:6244}은(는) 길 동쪽, {area:378} 북동쪽에 진을 치고 있습니다. 동쪽에서 접근하고 호드 경비병을 피하세요.",
 	-- {quest:1738} Heartswood · {zone:1440} Ashenvale · {zone:1443} Desolace
@@ -54,41 +70,56 @@ return {
 	-- {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {quest:1738} Heartswood
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}: 서큐버스 옆의 인큐버스. {item:190309}은(는) {quest:1738} 근처에 있습니다",
 
-	-- Step 12: Highperch
-	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	-- Step 13: Highperch
+	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
 
-	-- Step 15: Mirage Raceway
+	-- Step 14: Thousand Needles
+	-- {area:484} Freewind Post
+	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "협곡을 지나 동쪽으로 가세요. 이곳 고원 위에는 경비병이 있는 호드 야영지 {area:484}이(가) 있습니다. 협곡 바닥으로만 다니고 승강기 아래쪽은 멀리 피하세요.",
+	-- {area:482} Highperch
+	["The canyons east of {area:482}"] = "",
+
+	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["Follow the canyons east to the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "협곡을 따라 동쪽의 소금 평원으로 가세요. {area:2240}의 고블린과 노움은 중립이며 양 진영 모두에게 퀘스트를 줍니다.",
 	-- {quest:5762} Hemet Nesingwary
 	["For {quest:5762} in Stranglethorn, later"] = "나중에 가시덤불 골짜기에서 {quest:5762}에게",
 
-	-- Step 16: Mirage Raceway: kill these as you meet them
+	-- Step 17: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
+	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
+	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
 
-	-- Step 17: Mirage Raceway
+	-- Step 18: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "",
 
-	-- Step 18: Gadgetzan
-	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
-	["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	-- Step 19: Into Tanaris
+	-- {zone:1446} Tanaris
+	["Into {zone:1446}"] = "",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
 
-	-- Step 19: Fly to Theramore
+	-- Step 20: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
+	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+
+	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "",
 
-	-- Step 20: Theramore
+	-- Step 22: Theramore
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
 	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
 
-	-- Step 21: Boat to Menethil Harbor
+	-- Step 23: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
 

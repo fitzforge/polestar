@@ -306,6 +306,16 @@ fn an_accept_compiles_closed_by_the_quest_its_breadcrumb_leads_to_and_its_exclus
 	assert_eq!(json!([g[3]["closedBy"], g[3]["preTitles"]]), json!([[9330], { "9330": "Quest 9330" }]));
 }
 
+// #1661: a child quest (9340, `parent` 9341, like Valik under Infiltration) is offered only while its parent is in
+// the log: the accept carries the parent, titled for the reason text, and no prerequisite.
+#[test]
+fn an_accept_of_a_child_quest_compiles_its_parent_titled_for_the_reason_text() {
+	let r = compile_with(&guide_text(&["step S", "  accept 9341", "  accept 9340", "  accept 9311"]), &prereq_data());
+	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[1]["parent"], g[1]["preTitles"], g[1].get("pre")]), json!([9341, { "9341": "Quest 9341" }, null]));
+	assert!(g[0].get("parent").is_none() && g[2].get("parent").is_none());
+}
+
 #[test]
 fn coordinates_outside_0_100_are_errors() {
 	let src = guide_text(&["step S", "  goto 101,5", "  kill 6 @-1,50", "  goto 100,0"]);
@@ -481,6 +491,49 @@ fn a_next_guide_whose_races_leave_out_the_characters_says_why_its_turnins_do_not
 		diags(lone.diag.warnings(), "never turned in")[0].hint.as_deref(),
 		Some("turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it")
 	);
+}
+
+// Quest work handed in only by a later guide of the chain carries that guide's id (`carriedTo`), when every route of
+// every character the goal applies to hands it in there: the Engine says to keep it and lists it at the guide's
+// end. Work this guide hands in itself carries none.
+#[test]
+fn quest_work_handed_in_only_by_a_later_guide_carries_that_guides_id() {
+	let carried = |c: &Compiled, id: &str| -> Vec<Value> { c.guide(id).get("steps").items().iter().flat_map(|s| s.get("goals").items()).map(|g| plain(&g.get("carriedTo"))).collect() };
+	let one = text("t/one", &["step S", "  accept 7", "  accept 33", "  kill 6 quest 7.1", "  collect 750 x8 quest 33.1", "  turnin 33"], &["next t/two"]);
+	let deep = compile_map(&[("1.guide", &one), ("2.guide", &text("t/two", &["step S", "  level 2"], &["next t/three"])), ("3.guide", &text("t/three", &["step S", "  turnin 7"], &[]))]);
+	assert_eq!(carried(&deep, "t/one"), vec![Value::Null, Value::Null, json!("t/three"), Value::Null, Value::Null]);
+	assert!(emit(&deep.guides).contains("carriedTo = \"t/three\""));
+	// Route choices: one guide every route hands it in at.
+	let choice = |two: &[&str], three: &[&str], meet: bool| {
+		let start = text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1"], &["next t/two, t/three"]);
+		let extra: &[&str] = if meet { &["next t/four"] } else { &[] };
+		let two = text("t/two", two, &[&["pitch Two"], extra].concat());
+		let three = text("t/three", three, &[&["pitch Three"], extra].concat());
+		let four = text("t/four", &["step S", "  turnin 7"], &[]);
+		let c = compile_map(&[("1.guide", &start), ("2.guide", &two), ("3.guide", &three), ("4.guide", &four)]);
+		carried(&c, "t/one")[1].clone()
+	};
+	assert_eq!(choice(&["step S", "  level 2"], &["step S", "  turnin 7"], false), Value::Null, "the route through t/two never hands it in");
+	assert_eq!(choice(&["step S", "  turnin 7"], &["step S", "  turnin 7"], false), Value::Null, "two guides hand it in");
+	assert_eq!(choice(&["step S", "  level 2"], &["step S", "  level 3"], true), json!("t/four"), "both routes meet where it is handed in");
+	// A race branch counts for its own characters only, and nothing after an abandon.
+	let raced = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1", "  kill 6 quest 7.1 only Dwarf"], &["race Human, Dwarf", "next t/two"])),
+		("2.guide", &text("t/two", &["step S", "  turnin 7"], &["race Dwarf"])),
+	]);
+	assert_eq!(carried(&raced, "t/one")[1..], [Value::Null, json!("t/two")], "a Human cannot follow t/two");
+	let dropped = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1"], &["next t/two"])),
+		("2.guide", &text("t/two", &["step S", "  abandon 7"], &["next t/three"])),
+		("3.guide", &text("t/three", &["step S", "  accept 7", "  turnin 7"], &[])),
+	]);
+	assert_eq!(carried(&dropped, "t/one")[1], Value::Null);
+	// Handed in later in the same guide: nothing carried.
+	let here = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1", "step T", "  turnin 7"], &["next t/two"])),
+		("2.guide", &text("t/two", &["step S", "  turnin 7"], &[])),
+	]);
+	assert_eq!(carried(&here, "t/one")[1], Value::Null);
 }
 
 #[test]
@@ -755,7 +808,7 @@ fn elite_data() -> Data {
 }
 
 fn elite_tip(target: &str) -> String {
-	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it) or make it `optional`, with the tip \"{target} is elite: grouping up is advised.\"")
+	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it), not optional there, or make it `optional` in a step for everyone, with the tip \"{target} is elite: grouping up is advised.\"")
 }
 
 #[test]
@@ -772,6 +825,45 @@ fn elite_work_in_a_leveling_guide_killing_a_hostile_elite_is_an_error_unless_opt
 	let group = guide_text(&["step S", "  when group 7", "  kill 95003", "", "step T", "  when !group 7", "  kill 95003"]);
 	let last = group.split('\n').collect::<Vec<_>>().iter().rposition(|l| *l == "  kill 95003").unwrap() + 1;
 	assert_eq!(only(&compile_with(&group, &data).errors, "elite"), vec![format!("test.guide:{last}: `kill` npc 95003 (Elite Kobold) is elite; {}", elite_tip("Elite Kobold"))]);
+}
+
+#[test]
+fn a_group_or_dungeon_step_of_optional_goals_only_is_an_error_in_our_pack_and_a_warning_in_others() {
+	// The Monogrammed Sash, Margol's Horn: a step of optional goals only is done at once, so the player who
+	// chose the group way got no arrow. One goal that holds, notes only, or the solo way (`!group`) is fine.
+	let src = guide_text(&[
+		"step Asked",
+		"  when group 7",
+		"  collect 95100 x1 optional",
+		"  accept 7 optional",
+		"",
+		"step Held",
+		"  when group 7",
+		"  accept 7",
+		"  accept 783 optional",
+		"",
+		"step Solo",
+		"  when !group 7",
+		"  accept 7 optional",
+		"",
+		"step Talk",
+		"  when group 7",
+		"  note Ask around for a group.",
+		"",
+		"step Run",
+		"  when dungeon \"Ragefire Chasm\"",
+		"  turnin 783 optional",
+	]);
+	let msg = |what: &str, at: &str| {
+		format!("test.guide:{}: every goal of this `{what}` step is `optional`: a step of optional goals only is done at once, so the player who chose it gets no arrow; drop `optional` (only that player sees the step)", line_of(&src, at))
+	};
+	let want = vec![msg("when group 7", "  collect 95100 x1 optional"), msg("when dungeon", "  turnin 783 optional")];
+	let data = elite_data();
+	let ours = compile_with(&src, &data);
+	assert_eq!(only(&ours.errors, "every goal of this"), want, "{}", ours.text);
+	let theirs = compile_files(&[("test.guide", &src)], &data, Some("someone"));
+	assert!(only(&theirs.errors, "every goal of this").is_empty(), "{}", theirs.text);
+	assert_eq!(only(&theirs.warnings, "every goal of this"), want, "{}", theirs.text);
 }
 
 #[test]

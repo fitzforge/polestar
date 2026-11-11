@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Mayhoa Skyhoof
 	-- {npc:268745} Mayhoa Skyhoof · {zone:1454} Orgrimmar · {object:172957} Valley of Wisdom · {object:172958} Valley of Honor
-	["{npc:268745}, the girl with puppies, walks a long loop through {zone:1454}: from the {object:172957} through the Drag to the {object:172958} and back. The waypoint is where she is seen most, on the road between the Drag and the {object:172958}; if she is not there, walk the loop. The carrier costs 60s. By beta reports she carries one pup at a time: if she has none, another player just bought it, so come back later. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:268745}, the girl with puppies, walks a long loop through {zone:1454}: from the {object:172957} through the Drag to the {object:172958} and back. The waypoint is where she is seen most, on the road between the Drag and the {object:172958}; if she is not there, walk the loop. The carrier costs 60s. She carries one pup at a time: if she has none, another player just bought it, so come back later. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
 	["60s"] = "60銀",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

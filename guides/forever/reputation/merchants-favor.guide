@@ -57,7 +57,7 @@ step The Crossroads camp: the Shipping Label
   turnin 98248
 
 step Gather your writs
-  tip Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a Lesser Troll's Blood Elixir writ wants a Strong Troll's Blood Potion). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for.
+  tip Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for.
   task "Take the quests of the writs you can fill"
 
 step Duskwood writ customers
@@ -76,24 +76,18 @@ step Stranglethorn Vale writ customers
   turnin 94226 npc 2501                       -- Green Iron Gauntlets, 75 reputation
   turnin 94235 npc 7853                       -- Gnomish Universal Remote, 75 reputation
   turnin 94244 npc 2663                       -- Dark Leather Shoulders, 75 reputation
-  turnin 94217 npc 14508                      -- Strong Troll's Blood Potion, 75 reputation
+  turnin 94217 npc 14508                      -- Lesser Troll's Blood Elixir, 75 reputation
   turnin 94253 npc 261961                     -- Colorful Kilt, 75 reputation
 
 step Wetlands writ customers
   when onquest 94219,94228,94237,94246,94255
   zone Wetlands
   tip Kixxle stands about 600 yards south of Dun Modr. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway.
-  turnin 94219 npc 8305                       -- Elixir of Water Breathing, 75 reputation
+  turnin 94219 npc 8305                       -- Draught of Water Breathing, 75 reputation
   turnin 94228 npc 8305                       -- Green Iron Boots, 75 reputation
   turnin 94237 npc 8305                       -- Crafted Solid Shot, 75 reputation
   turnin 94246 npc 8305                       -- Red Whelp Gloves, 75 reputation
   turnin 94255 npc 8305                       -- Spider Silk Slippers, 75 reputation
-
-step An Explosive Sheep for the writ
-  when onquest 94230
-  when !has 4384
-  tip Engineers make the Explosive Sheep; Kimberly Hiett sells it in Lakeshire (Alliance). Otherwise buy one at the Auction House.
-  buy 4384 nearest optional only Alliance  -- Explosive Sheep
 
 step Arathi Highlands writ customers
   when onquest 94212,94221,94230,94239,94248
@@ -101,7 +95,7 @@ step Arathi Highlands writ customers
   tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark: right-click them anyway.
   turnin 94212 npc 257296                     -- Elixir of Wisdom, 75 reputation
   turnin 94221 npc 257296                     -- Golden Rod, 75 reputation
-  collect 4384 quest 94230.2 @34,23.2         -- bring it: craft it or buy it at the Auction House
+  collect 4384 quest 94230.2 @34,23.2         -- bring it: engineers make it; Kimberly Hiett in Lakeshire lists it (not yet seen in her window up to level 30), or the Auction House
   turnin 94230 npc 257304                     -- Explosive Sheep, 75 reputation
   turnin 94239 npc 257304                     -- Fine Leather Pants, 75 reputation
   turnin 94248 npc 257304                     -- Blue Overalls, 75 reputation
@@ -116,18 +110,12 @@ step Hillsbrad Foothills writ customers
   turnin 94242 npc 3536                       -- Pilferer's Gloves, 75 reputation
   turnin 94215 npc 261928                     -- Free Action Potion, 75 reputation
 
-step A Heavy Leather Ball for the writ
-  when onquest 94238
-  when !has 18662
-  tip Leatherworkers make the Heavy Leather Ball, and the Auction House has it. Its only vendor is Flik at the Darkmoon Faire, which Forever has not shown yet: go there only if the Faire is in town.
-  buy 18662 nearest optional              -- Heavy Leather Ball
-
 step Alterac Mountains writ customers
   when onquest 94004,94238,94220,94229,94247,94251
   zone Alterac Mountains
   tip Sos'mol and Alan Sneeks are close together in the south-west of the mountains; Syndicate thugs roam around Alan Sneeks. Bath'rah the Windwatcher stands on the eastern edge, above Tarren Mill. Customers show no quest mark: right-click them anyway.
-  turnin 94004 npc 257281                     -- Elixir of Ogre's Strength, 75 reputation
-  collect 18662 quest 94238.2 @38.34,61.15    -- bring it: craft it or buy it at the Auction House
+  turnin 94004 npc 257281                     -- Elixir of Ogre Strength, 75 reputation
+  collect 18662 quest 94238.2 @38.34,61.15    -- bring it: leatherworkers make it, or buy it at the Auction House
   turnin 94238 npc 257281                     -- Heavy Leather Ball, 75 reputation
   turnin 94220 npc 257282                     -- Pearl-handled Dagger, 75 reputation
   turnin 94229 npc 257282                     -- Ornate Spyglass, 75 reputation
@@ -149,7 +137,7 @@ step A Heavy Quiver for the writ
   when onquest 94243
   when !has 7371
   tip Leatherworkers make the Heavy Quiver; the bow and gun vendors of Stormwind, Ironforge and the Undercity sell it. Otherwise buy one at the Auction House.
-  buy 7371 nearest optional               -- Heavy Quiver
+  buy 7371 nearest                        -- Heavy Quiver
 
 step Stonetalon Mountains writ customers
   when onquest 94216,94225,94234,94243
@@ -166,7 +154,7 @@ step Thousand Needles writ customers
   zone Thousand Needles
   tip All five stand at the Mirage Raceway on the Shimmering Flats, south-east of Freewind Post: Rizzle Brassbolts, the chicken "Plucky" Johnson, Razzeric, the Goblin Pit Boss and Magus Tirth. Customers show no quest mark: right-click them anyway.
   collect 8951 quest 94218.2 @77.22,77.4      -- bring it: craft it or buy it at the Auction House
-  turnin 94218 npc 4720                       -- Elixir of Greater Defense, 75 reputation
+  turnin 94218 npc 4720                       -- Elixir of Defense, 75 reputation
   turnin 94227 npc 6626                       -- Big Bronze Knife, 75 reputation
   turnin 94236 npc 4706                       -- Big Bronze Bomb, 75 reputation
   turnin 94245 npc 4496                       -- Barbaric Gloves, 75 reputation
@@ -178,7 +166,7 @@ step Neutral to Friendly
   rep 2587 Friendly only Horde
 
 step Gather your writs again
-  tip Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a Lesser Troll's Blood Elixir writ wants a Strong Troll's Blood Potion). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for.
+  tip Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for.
   task "Take the quests of the writs you can fill"
 
 step Duskwood writ customers again
@@ -197,24 +185,18 @@ step Stranglethorn Vale writ customers again
   turnin 94226 npc 2501                       -- Green Iron Gauntlets, 75 reputation
   turnin 94235 npc 7853                       -- Gnomish Universal Remote, 75 reputation
   turnin 94244 npc 2663                       -- Dark Leather Shoulders, 75 reputation
-  turnin 94217 npc 14508                      -- Strong Troll's Blood Potion, 75 reputation
+  turnin 94217 npc 14508                      -- Lesser Troll's Blood Elixir, 75 reputation
   turnin 94253 npc 261961                     -- Colorful Kilt, 75 reputation
 
 step Wetlands writ customers again
   when onquest 94219,94228,94237,94246,94255
   zone Wetlands
   tip Kixxle stands about 600 yards south of Dun Modr. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway.
-  turnin 94219 npc 8305                       -- Elixir of Water Breathing, 75 reputation
+  turnin 94219 npc 8305                       -- Draught of Water Breathing, 75 reputation
   turnin 94228 npc 8305                       -- Green Iron Boots, 75 reputation
   turnin 94237 npc 8305                       -- Crafted Solid Shot, 75 reputation
   turnin 94246 npc 8305                       -- Red Whelp Gloves, 75 reputation
   turnin 94255 npc 8305                       -- Spider Silk Slippers, 75 reputation
-
-step An Explosive Sheep for the writ again
-  when onquest 94230
-  when !has 4384
-  tip Engineers make the Explosive Sheep; Kimberly Hiett sells it in Lakeshire (Alliance). Otherwise buy one at the Auction House.
-  buy 4384 nearest optional only Alliance  -- Explosive Sheep
 
 step Arathi Highlands writ customers again
   when onquest 94212,94221,94230,94239,94248
@@ -222,7 +204,7 @@ step Arathi Highlands writ customers again
   tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark: right-click them anyway.
   turnin 94212 npc 257296                     -- Elixir of Wisdom, 75 reputation
   turnin 94221 npc 257296                     -- Golden Rod, 75 reputation
-  collect 4384 quest 94230.2 @34,23.2         -- bring it: craft it or buy it at the Auction House
+  collect 4384 quest 94230.2 @34,23.2         -- bring it: engineers make it; Kimberly Hiett in Lakeshire lists it (not yet seen in her window up to level 30), or the Auction House
   turnin 94230 npc 257304                     -- Explosive Sheep, 75 reputation
   turnin 94239 npc 257304                     -- Fine Leather Pants, 75 reputation
   turnin 94248 npc 257304                     -- Blue Overalls, 75 reputation
@@ -237,18 +219,12 @@ step Hillsbrad Foothills writ customers again
   turnin 94242 npc 3536                       -- Pilferer's Gloves, 75 reputation
   turnin 94215 npc 261928                     -- Free Action Potion, 75 reputation
 
-step A Heavy Leather Ball for the writ again
-  when onquest 94238
-  when !has 18662
-  tip Leatherworkers make the Heavy Leather Ball, and the Auction House has it. Its only vendor is Flik at the Darkmoon Faire, which Forever has not shown yet: go there only if the Faire is in town.
-  buy 18662 nearest optional              -- Heavy Leather Ball
-
 step Alterac Mountains writ customers again
   when onquest 94004,94238,94220,94229,94247,94251
   zone Alterac Mountains
   tip Sos'mol and Alan Sneeks are close together in the south-west of the mountains; Syndicate thugs roam around Alan Sneeks. Bath'rah the Windwatcher stands on the eastern edge, above Tarren Mill. Customers show no quest mark: right-click them anyway.
-  turnin 94004 npc 257281                     -- Elixir of Ogre's Strength, 75 reputation
-  collect 18662 quest 94238.2 @38.34,61.15    -- bring it: craft it or buy it at the Auction House
+  turnin 94004 npc 257281                     -- Elixir of Ogre Strength, 75 reputation
+  collect 18662 quest 94238.2 @38.34,61.15    -- bring it: leatherworkers make it, or buy it at the Auction House
   turnin 94238 npc 257281                     -- Heavy Leather Ball, 75 reputation
   turnin 94220 npc 257282                     -- Pearl-handled Dagger, 75 reputation
   turnin 94229 npc 257282                     -- Ornate Spyglass, 75 reputation
@@ -270,7 +246,7 @@ step A Heavy Quiver for the writ again
   when onquest 94243
   when !has 7371
   tip Leatherworkers make the Heavy Quiver; the bow and gun vendors of Stormwind, Ironforge and the Undercity sell it. Otherwise buy one at the Auction House.
-  buy 7371 nearest optional               -- Heavy Quiver
+  buy 7371 nearest                        -- Heavy Quiver
 
 step Stonetalon Mountains writ customers again
   when onquest 94216,94225,94234,94243
@@ -287,7 +263,7 @@ step Thousand Needles writ customers again
   zone Thousand Needles
   tip All five stand at the Mirage Raceway on the Shimmering Flats, south-east of Freewind Post: Rizzle Brassbolts, the chicken "Plucky" Johnson, Razzeric, the Goblin Pit Boss and Magus Tirth. Customers show no quest mark: right-click them anyway.
   collect 8951 quest 94218.2 @77.22,77.4      -- bring it: craft it or buy it at the Auction House
-  turnin 94218 npc 4720                       -- Elixir of Greater Defense, 75 reputation
+  turnin 94218 npc 4720                       -- Elixir of Defense, 75 reputation
   turnin 94227 npc 6626                       -- Big Bronze Knife, 75 reputation
   turnin 94236 npc 4706                       -- Big Bronze Bomb, 75 reputation
   turnin 94245 npc 4496                       -- Barbaric Gloves, 75 reputation

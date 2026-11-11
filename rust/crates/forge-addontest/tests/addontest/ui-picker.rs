@@ -433,6 +433,33 @@ fn selecting_a_guide_shows_its_details_and_loads_nothing_the_selection_is_rememb
 }
 
 #[test]
+fn a_class_guide_s_details_carry_the_class_quest_heads_up_after_why() {
+	let out = run_all(
+		r#"
+		local id = "forever/class/paladin/test"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Storm", category = "Class", folder = "Paladin", minLevel = 22, maxLevel = 30,
+			zone = 1439, zoneName = "Darkshore", why = "A cloak.",
+			steps = { { title = "One", goals = { { t = "note", text = "One", status = "pending" } } } } }
+		table.insert(uistub.order, id)
+		local asked
+		Polestar.QoL = Polestar.QoL or {}
+		Polestar.QoL.ClassQuests = {
+			Heads = function(g) asked = g.id; return { quests = 6 } end,
+			HeadsLine = function(h) return h.quests == 6 and "Long chain: 6 quests across 4 zones" or nil end,
+		}
+		Polestar.Set("ui.pickerFaction", "All")
+		UI.ShowPicker()
+		P.Select(id)
+		emit({ asked = asked, facts = { P.detail.facts[1], P.detail.facts[2] } })
+		P.Select("forever/alliance/02-westfall")
+		emit(P.detail.facts[1][1])"#,
+		"",
+	);
+	assert_eq!(out[0], json!({ "asked": "forever/class/paladin/test", "facts": [["Why", "A cloak."], ["Heads-up", "Long chain: 6 quests across 4 zones"]] }));
+	assert_eq!(out[1], "Steps", "a leveling guide has none");
+}
+
+#[test]
 fn a_class_guide_s_details_lead_with_its_reward_item_and_spell_icons_quality_colour_the_game_s_tooltip_on_hover_and_why() {
 	let out = run_all(
 		r#"
@@ -636,7 +663,7 @@ fn from_the_guide_window_s_loading_opens_a_new_tab_faction_buttons_write_the_fil
 #[test]
 fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects_a_double_click_continues() {
 	let out = run(r#"
-		uistub.player.level = 10
+		uistub.player.level = 11
 		uistub.openTabs(TABS, 1)
 		UI.ShowPicker()
 		local cards = {}
@@ -655,14 +682,31 @@ fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects
 	assert_eq!(out["view"], "home");
 	assert_eq!(out["homeOn"], true);
 	assert_eq!(out["folders"], json!(["Continue 3", "Suggested for you 2"]));
-	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 10 is within
-	// two levels of its follow-up (12).
+	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 11 is one
+	// level below its follow-up (12).
 	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
 	// One row of cards: three tabs leave the third behind "Show all (3)".
 	assert_eq!(out["shown"], 2);
 	assert_eq!(out["info"], json!([["Elwynn Forest", "Step 3 of 8", "29%", "Tab 1"], ["Tailoring 1-300", "Step 2 of 4", "25%", "Tab 2"],]));
 	assert_eq!(out["selected"], json!(["forever/professions/tailoring", "Tailoring 1-300", true]));
 	assert_eq!(out["continued"], json!([["SetGuide", "forever/professions/tailoring"], 2, false]));
+}
+
+// Suggestions come one level before they fit, not several (Fitz, 2026-11-10, Discord feedback: cards and tabs
+// stacked up levels early): an open guide's follow-up joins "Suggested for you" one level below its minimum.
+#[test]
+fn a_follow_up_guide_is_suggested_from_one_level_below_its_minimum() {
+	let out = run(r#"
+		uistub.player.level = 10
+		uistub.openTabs(TABS, 1)
+		UI.ShowPicker()
+		local r = { at10 = lines() }
+		uistub.player.level = 11
+		P.Render()
+		r.at11 = lines()
+		emit(r)"#);
+	assert_eq!(out["at10"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1"]));
+	assert_eq!(out["at11"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
 }
 
 // The Continue cards under a test's eye: the shown ones, in the order they are laid out (top to bottom, left to right).
@@ -911,7 +955,7 @@ fn the_details_art_the_zone_s_painting_from_the_client_around_the_guide_s_focus_
 #[test]
 fn the_next_fact_and_the_suggested_follow_ups_list_only_the_options_offered_now() {
 	let out = run(r#"
-		uistub.player.level = 10
+		uistub.player.level = 11
 		uistub.openTabs(TABS, 1)
 		local desolace, feralas = "forever/alliance/30-40/02-desolace", "forever/alliance/40-50/03-feralas"
 		local offered = {}
@@ -1006,7 +1050,8 @@ fn rail_labels(before: &str) -> Value {
 
 #[test]
 fn every_rail_label_shows_on_the_hub_s_first_show_and_on_the_way_back_from_options_at_80_90_and_100_percent_in_english_and_german() {
-	for (locale, before, lookup) in [("enUS", "", "Lookup"), ("deDE", "function GetLocale() return \"deDE\" end", "Nachschlagen")] {
+	let german = format!("function GetLocale() return \"deDE\" end\n{}", forge_addontest::shipped_strings("deDE"));
+	for (locale, before, lookup) in [("enUS", "", "Lookup"), ("deDE", german.as_str(), "Nachschlagen")] {
 		let out = rail_labels(before);
 		let runs = out.as_array().unwrap();
 		assert_eq!(runs.len(), 3);

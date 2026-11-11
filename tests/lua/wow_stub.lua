@@ -19,6 +19,8 @@
 --   stub.frame(name)         look up a named frame
 --   stub.withEllesmere()     install a fake EllesmereUI matching SKINNING_API.md
 --   stub.json(value)         encode a value for emit()
+--   stub.mouseClick(f, ran[, mouse]) the client's mouse click: OnEnter, then the press and the release
+--   stub.keyClick(f, ran)    a CLICK binding's key press and release (no hover)
 --
 -- Animation groups finish synchronously: Play() runs OnPlay then OnFinished.
 -- WoW's global trig helpers (sin, cos, atan2, ...) take and return degrees, as
@@ -128,16 +130,36 @@ function Methods.UnregisterEvent(self, ev) self.events[ev] = nil end
 function Methods.UnregisterAllEvents(self) self.events = {} end
 function Methods.IsEventRegistered(self, ev) return self.events[ev] == true end
 
--- Visibility
+-- Visibility. With stub.cascadeVisibility on, as in the client: showing or
+-- hiding a frame also runs OnShow / OnHide on every shown descendant whose
+-- visibility changed with it (a hidden parent's children are not visible).
+-- Off by default: tests written before it fire only the frame's own.
+local function cascade(self, script, seen)
+	seen = seen or {}
+	for _, c in ipairs(self.children) do
+		if c.parent == self and c.shown and not seen[c] then
+			seen[c] = true
+			RunScript(c, script)
+			cascade(c, script, seen)
+		end
+	end
+end
 function Methods.Show(self)
 	local was = self.shown
 	self.shown = true
-	if not was then RunScript(self, "OnShow") end
+	if not was then
+		RunScript(self, "OnShow")
+		if stub.cascadeVisibility and Methods.IsVisible(self) then cascade(self, "OnShow") end
+	end
 end
 function Methods.Hide(self)
 	local was = self.shown
+	local visible = was and stub.cascadeVisibility and Methods.IsVisible(self)
 	self.shown = false
-	if was then RunScript(self, "OnHide") end
+	if was then
+		RunScript(self, "OnHide")
+		if visible then cascade(self, "OnHide") end
+	end
 end
 function Methods.SetShown(self, v) if v then self:Show() else self:Hide() end end
 function Methods.IsShown(self) return self.shown end
@@ -149,7 +171,16 @@ function Methods.IsVisible(self)
 	end
 	return true
 end
-function Methods.SetAlpha(self, a) self.alpha = a end
+-- As in the client, a texture's (or a line's) alpha and its vertex colour's
+-- alpha are one value: SetAlpha sets the alpha SetVertexColor gave it
+-- (#1684, the transparent window's 20 % shades drawn solid after
+-- SetAlpha(1)). tools/preview/render.js reads it that way.
+function Methods.SetAlpha(self, a)
+	if (self.kind == "Texture" or self.kind == "Line") and self.vertexColor then
+		self.vertexColor[4] = a
+	end
+	self.alpha = a
+end
 function Methods.GetAlpha(self) return self.alpha end
 function Methods.GetEffectiveAlpha(self) return self.alpha end
 
@@ -221,7 +252,10 @@ function Methods.IsMouseOver() return false end
 function Methods.Click(self, button) RunScript(self, "OnClick", button or "LeftButton", false) end
 
 -- Text
-function Methods.SetText(self, t) self.text = t == nil and nil or tostring(t) end
+function Methods.SetText(self, t)
+	self.text = t == nil and nil or tostring(t)
+	self.highlight = nil
+end
 function Methods.GetText(self) return self.text end
 function Methods.SetFormattedText(self, fmt, ...) self.text = string.format(fmt, ...) end
 function Methods.SetFont(self, path, size, flags) self.font = { path, size, flags }; return true end
@@ -246,12 +280,18 @@ function Methods.GetShadowColor(self)
 end
 -- As in the client: GetStringWidth ignores word wrap but includes
 -- truncation (a single-line string, SetWordWrap(false), is cut at its set
--- width); GetUnboundedStringWidth is the whole text's width.
+-- width); GetUnboundedStringWidth is the whole text's width. Every character
+-- is half the font size wide, a UTF-8 one (“, ·, «) counting once.
+local function chars(s) return #s - select(2, s:gsub("[\128-\191]", "")) end
 function Methods.SetWordWrap(self, on) self.wordWrap = not not on end
+function Methods.SetJustifyH(self, j) self.justifyH = j end
+function Methods.GetJustifyH(self) return self.justifyH or "CENTER" end
+function Methods.SetJustifyV(self, j) self.justifyV = j end
+function Methods.GetJustifyV(self) return self.justifyV or "MIDDLE" end
 function Methods.GetWordWrap(self) return self.wordWrap ~= false end
 function Methods.GetUnboundedStringWidth(self)
 	local size = (self.font and self.font[2]) or 12
-	return #tostring(self.text or "") * size * 0.5
+	return chars(tostring(self.text or "")) * size * 0.5
 end
 function Methods.GetStringWidth(self)
 	local full = self:GetUnboundedStringWidth()
@@ -269,7 +309,7 @@ function Methods.GetStringHeight(self)
 	if w <= 0 then return size end
 	local lines = 0
 	for line in (tostring(self.text or "") .. "\n"):gmatch("([^\n]*)\n") do
-		lines = lines + math.max(1, math.ceil(#line * size * 0.5 / w))
+		lines = lines + math.max(1, math.ceil(chars(line) * size * 0.5 / w))
 	end
 	if (self.maxLines or 0) > 0 then lines = math.min(lines, self.maxLines) end
 	return lines * size
@@ -286,7 +326,7 @@ function Methods.IsTruncated(self)
 	local size = (self.font and self.font[2]) or 12
 	local lines = 0
 	for line in (tostring(self.text or "") .. "\n"):gmatch("([^\n]*)\n") do
-		lines = lines + math.max(1, math.ceil(#line * size * 0.5 / w))
+		lines = lines + math.max(1, math.ceil(chars(line) * size * 0.5 / w))
 	end
 	return lines > self.maxLines
 end
@@ -386,6 +426,15 @@ end
 function Methods.SetFocus(self) stub.focus = self end
 function Methods.ClearFocus(self) if stub.focus == self then stub.focus = nil end end
 function Methods.HasFocus(self) return stub.focus == self end
+-- An edit box's selection, as in the client: HighlightText() selects all of
+-- it, (0, 0) none, (s, e) from s to e (-1: the end); new text drops it.
+-- self.highlight = { s, e } or nil.
+function Methods.HighlightText(self, s, e)
+	local n = #(self.text or "")
+	s, e = s or 0, e or n
+	if e < 0 or e > n then e = n end
+	self.highlight = e > s and { s, e } or nil
+end
 function Methods.Insert(self, t) self.text = (self.text or "") .. tostring(t) end
 function Methods.SetVerticalScroll(self, v) self.scroll = v end
 function Methods.GetVerticalScroll(self) return self.scroll or 0 end
@@ -1240,5 +1289,63 @@ function stub.json(v)
 end
 
 function emit(v) io.write("@@JSON ", stub.json(v), "\n") end
+
+---------------------------------------------------------------------------
+-- Clicks as the client delivers them
+---------------------------------------------------------------------------
+-- The press, then the release, each reaching the button only when
+-- RegisterForClicks asked for it ("AnyDown"/"AnyUp", "<Button>Down"/"Up"; a
+-- button that never called it gets "LeftButtonUp"). A secure action button
+-- (f.secure) runs SecureActionButton_OnClick, which the client calls without
+-- its mouse arguments for an addon's button (SecureTemplates.xml), so mouse
+-- and key alike act on the press when useOnKeyDown -- the attribute, else the
+-- ActionButtonUseKeyDown CVar (stub.cvars) -- is true, else on the release;
+-- "type1".."typeN" answers only that button, "type" any. Each action goes in
+-- ran as { type, macrotext or item or spell }; PreClick and PostClick run on
+-- every event delivered. A plain button gets OnClick per event while enabled.
+-- A mouse click enters the button first (OnEnter; the cursor stays on it).
+local registerForClicks = Methods.RegisterForClicks
+function Methods.RegisterForClicks(self, ...)
+	self.clicks = {}
+	for _, c in ipairs({ ... }) do self.clicks[c] = true end
+	if registerForClicks then return registerForClicks(self, ...) end
+end
+
+local function deliver(f, ran, mouse)
+	mouse = mouse or "LeftButton"
+	local digit = ({ LeftButton = "1", RightButton = "2", MiddleButton = "3" })[mouse]
+	for _, down in ipairs({ true, false }) do
+		local c = f.clicks or { LeftButtonUp = true }
+		if c[down and "AnyDown" or "AnyUp"] or c[mouse .. (down and "Down" or "Up")] then
+			if f.secure then
+				RunScript(f, "PreClick", mouse, down)
+				local attr = f:GetAttribute("useOnKeyDown")
+				local onDown
+				if attr == nil then onDown = GetCVarBool("ActionButtonUseKeyDown") else onDown = attr and true or false end
+				if onDown == down then
+					local kind = f:GetAttribute("type" .. (digit or "")) or f:GetAttribute("type")
+					if kind then
+						local function attr(k) return digit and f:GetAttribute(k .. digit) or f:GetAttribute(k) end
+						ran[#ran + 1] = { kind, attr("macrotext") or attr("item") or attr("spell") or false }
+					end
+				end
+				RunScript(f, "PostClick", mouse, down)
+			elseif f:IsEnabled() then
+				RunScript(f, "PreClick", mouse, down)
+				RunScript(f, "OnClick", mouse, down)
+				RunScript(f, "PostClick", mouse, down)
+			end
+		end
+	end
+end
+
+function stub.mouseClick(f, ran, mouse)
+	RunScript(f, "OnEnter")
+	deliver(f, ran, mouse)
+end
+
+function stub.keyClick(f, ran)
+	deliver(f, ran, "LeftButton")
+end
 
 return stub

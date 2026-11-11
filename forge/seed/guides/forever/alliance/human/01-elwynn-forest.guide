@@ -106,7 +106,7 @@ step Kelsey Fargo
 
 step Kelsey Fargo
   when group 91752
-  accept 91752 optional
+  accept 91752
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
@@ -115,7 +115,7 @@ step Inside Echo Ridge Mine
 step Inside Echo Ridge Mine
   when group 91752
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Shinyfinder Narf (level 3 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 247886 quest 91752 optional group 2 -- Shinyfinder Narf
+  collect 247886 quest 91752 group 2          -- Shinyfinder Narf
 
 step Northshire Abbey
   tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
@@ -129,17 +129,17 @@ step Northshire Abbey
 
 step Northshire Abbey
   when group 91752
-  turnin 91752 optional
-  accept 91758 optional
-  turnin 91758 optional                       -- Tordrin Sternblade
-  accept 91772 optional                       -- his kobold tracker shows the kobolds to click on the road to Goldshire
+  turnin 91752
+  accept 91758
+  turnin 91758                                -- Tordrin Sternblade
+  accept 91772                                -- his kobold tracker shows the kobolds to click on the road to Goldshire
 
 step Level 5.48
   when !group 91752
   when level<5.48
   tip If you skipped The Big Picture, grind here to level 5.48 to stay on the route's plan.
   goto 48.9,28.1 map 1429 "Kobold Laborer"
-  level 5.48                          -- grind on Kobold Laborer
+  level 5.48 grind 80                 -- grind on Kobold Laborer
 
 # ---------------------------------------------------------------- Goldshire and Crystal Lake
 
@@ -154,18 +154,18 @@ step Goldshire
 
 step Goldshire
   when group 91752
-  turnin 91772 optional                       -- Marshal Dughan
+  turnin 91772                                -- Marshal Dughan
 
 step Goldshire
   when group 91775
-  accept 91775 optional
+  accept 91775
 
 step Level 5.77
   when !group 91752
   when level<5.77
   tip If you skipped The Big Picture, grind here to level 5.77 to stay on the route's plan.
   goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 5.77                          -- grind on Kobold Miner
+  level 5.77 grind 40                 -- grind on Kobold Miner
 
 step The lake shore
   tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
@@ -265,8 +265,8 @@ step The Maclure Vineyards: kill these as you meet them
 step The Maclure Vineyards: kill these as you meet them
   when group 91775
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Nimsy (level 6 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 248001 quest 91775 optional group 2 -- Lost Books: Kobold Miners and Tunnelers
-  collect 248002 quest 91775 optional group 2 -- Fun with Elementals: Nimsy
+  collect 248001 quest 91775 group 2          -- Lost Books: Kobold Miners and Tunnelers
+  collect 248002 quest 91775 group 2          -- Fun with Elementals: Nimsy
 
 step Goldtooth
   tip Goldtooth is inside the Fargodeep Mine, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a Westfall Deed now and then: right-click it.
@@ -293,14 +293,14 @@ step Goldshire
 
 step Goldshire
   when group 91775
-  turnin 91775 optional
+  turnin 91775
 
 step Level 8.39
   when !group 91775
   when level<8.39
   tip If you skipped Book Return, grind here to level 8.39 to stay on the route's plan.
   goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 8.39                          -- grind on Kobold Miner
+  level 8.39 grind 40                 -- grind on Kobold Miner
 
 step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
@@ -345,13 +345,10 @@ step Downstream and Princess
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247817 quest 91733                  -- Waterlogged Axe
 
-step Downstream and Princess
+step Croaky
   when group 91740
-  collect 247826 x1 optional                  -- Croaky's Head: Croaky
-
-step Downstream and Princess
-  when group 91740
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Croaky's Head needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
+  tip Croaky is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. Croaky's Head needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest.
+  collect 247826 x1                           -- Croaky's Head: Croaky
   accept 91740 optional
 
 step Ridgepoint Tower
@@ -363,7 +360,7 @@ step Level 8.85
   when level<8.85
   tip If you skipped Croaky's Head, grind here to level 8.85 to stay on the route's plan.
   goto 78.1,62.1 map 1429 "Prowler"
-  level 8.85                          -- grind on Prowler
+  level 8.85 grind 118                -- grind on Prowler
 
 step Ormin Pelford
   turnin 91733

@@ -162,7 +162,7 @@ step Back to Everlook
   hearth "Everlook"
 
 step Grind to 55
-  level 55 -- grind on Winterfall Den Watcher at Winterfall Village, Winterspring
+  level 55 grind 7440 -- grind on Winterfall Den Watcher at Winterfall Village, Winterspring
 
 step A Little Luck
   accept 6606                         -- Harlo Wigglesworth

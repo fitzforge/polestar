@@ -445,10 +445,16 @@ A fix goes into a record the next build applies, whoever builds:
 | whether the route takes a quest; an order players asked for | `data/route-fixes.json` (`overrides`, `deliberate`) |
 | the check that pins it | `tests/guides-reported.test.js` |
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
-| a step's tip, a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level) | `data/guide-fixes.json` |
+| a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level; `onquest Q,...`: only while one of the quests is in the log; on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
 
 Places and guide fixes are anchored on a quest's goal, never on a line or a step, and the writer
 applies them to the guides it writes, last:
+
+A `goalNote` record replaces the anchored goal's `--` note without changing
+the step's tip or other goals. An `optional: true` record makes only the
+anchored goal optional, including its copies listed on the way. Use separate
+records for these changes. When a whole quest is optional, cover its accept,
+each objective and its turn-in, so none of them holds the route later.
 
 ```json
 { "places": [
@@ -482,7 +488,8 @@ line of an objective the quest no longer has goes (#859).
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
 step's tip, `level` puts a `level N` gate right before the goal (with `"after": true`, right after
-it, so the hand-ins up to it count towards the level). `early` (on an accept) is a take on the way:
+it, so the hand-ins up to it count towards the level; with `"only": "Priest"`, a class or race list,
+the gate is `level N only Priest` and holds those players alone). `early` (on an accept) is a take on the way:
 right after the step of `early.after`, an `along until` step (with the record's title, `when` and tip)
 lists the quest's accept and objectives until the quest's own step, which gets a `label` and still
 takes it for everyone else. `background` (on an objective, #1135) makes a slow, zone-wide collection
@@ -564,6 +571,7 @@ print the forge command to run):
 | `forge nav grid`, `prepare`, `pack`, `check`, `layers` | the walking grid, the walk graphs, Polestar_Nav's maps and their ground layers |
 | `forge release version`, `pack`, `notes`, `credits` | the version, the release zips, the release notes, the Guiding Stars page |
 | `forge changelog add`, `check`, `show`, `build` | the changelog fragments in `changes/` |
+| `forge record import`, `pull`, `resession`, `learn` | players' recordings: the archive, and what it teaches about the quests Forever added ([forge/learn.md](forge/learn.md)) |
 
 `forge <command> --help` gives each one's options. The contributor tools `playtest`, `find`,
 `record`, `new`, `dev`, `install`, `play`, `preview` and the planner stay on Node
@@ -574,6 +582,7 @@ print the forge command to run):
 | Page | For |
 |---|---|
 | [forge/data.md](forge/data.md) | reading the game's data, the reference data, corrections, the knowledge base, the data pack |
+| [forge/learn.md](forge/learn.md) | what players' recordings teach: `forge record learn`, its trust rules and the `data/recorded` snapshot |
 | [forge/nav.md](forge/nav.md) | the walking grid, Leffe's navigation maps, the walk store |
 | [forge/model.md](forge/model.md) | the time model: what a route's hours are made of |
 | [forge/routes.md](forge/routes.md) | how a route is searched from the seed: the search, guards, group quests, the shared route, ledgers, overrides |

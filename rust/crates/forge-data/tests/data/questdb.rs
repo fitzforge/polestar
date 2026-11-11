@@ -40,7 +40,7 @@ fn the_fixture_database_matches_the_expected_files_and_rebuilds_byte_identical()
 
 use std::collections::BTreeMap;
 
-use forge_data::questdb::{quest_faction, Output, Val};
+use forge_data::questdb::{payload, quest_faction, Output, Val};
 use forge_guide::cluster::cluster_points;
 use forge_guide::js::{parse_json, V};
 use serde_json::{json, Value};
@@ -163,7 +163,7 @@ fn the_fixture_database_keeps_quest_related_entities_only_in_the_documented_layo
 	assert!(!db.items.contains_key(&2000), "item no quest references is dropped");
 	assert!(db.npcs.contains_key(&40) && db.objects.contains_key(&77), "drop sources of objective items are kept");
 	assert_eq!(db.map_frames.keys().copied().collect::<Vec<_>>(), [1411, 1426, 1429], "only maps with points get frames");
-	assert_eq!(db.quests[&7], vals(json!(["Kobold Camp Cleanup", 2, 1, null, null, 1, 197, 197, null, 783, null, [1, 6, 10], 1429, null, null, null, null, null, null])));
+	assert_eq!(db.quests[&7], vals(json!(["Kobold Camp Cleanup", 2, 1, null, null, 1, 197, 197, null, 783, null, [1, 6, 10], 1429, null, null, null, null, null, null, null])));
 	assert_eq!(db.quests[&16][6], Val::Num(-31.0), "object givers are negative refs");
 	assert_eq!(db.quests[&18][11], val(&json!([3, 55, null, 4, 1, null])));
 	assert_eq!(db.quests[&18][13], val(&json!([1429, 0, 40.5, 70.3])));
@@ -176,6 +176,27 @@ fn the_fixture_database_keeps_quest_related_entities_only_in_the_documented_layo
 	assert!(frames.contains("Polestar.RegisterMapFrames({ era = {"), "{frames}");
 	assert!(frames.contains("[1429] = {bottom=-1500,c=0,left=1500,right=-1500,top=500},"), "{frames}");
 	assert!(file(&out, "LICENSE-DATA.txt").contains("Fixture notice."));
+}
+
+// A timed quest's `limit` (seconds, the server's TimeAllowed) is the record's 20th field, so Polestar can count it
+// down from the accept when the client reports no timer (0.3.7: Apothecary Zamah, 2700 s, never
+// reported one in 24 recorded accepts). No limit, or 0, stays nil and costs nothing (trailing nils are dropped).
+#[test]
+fn a_timed_quest_carries_its_time_limit_in_seconds_and_an_untimed_one_none() {
+	let dir = data_with("limit", |raw| {
+		let q = raw.get_mut("quests.json").unwrap();
+		q["7"]["limit"] = json!(2700);
+		q["5"]["limit"] = json!(0);
+	});
+	let out = build(&dir, &root(), &Options::default()).unwrap();
+	assert!(out.warnings.is_empty(), "{:?}", out.warnings);
+	let rec = &out.db.quests[&7];
+	assert_eq!(rec.len(), 20);
+	assert_eq!(rec[19], Val::Num(2700.0), "limit");
+	assert!(payload(rec).ends_with(";;;;;;;2700"), "{}", payload(rec));
+	assert_eq!(out.db.quests[&5][19], Val::Nil, "a 0 limit is no limit");
+	assert!(!payload(&out.db.quests[&5]).ends_with(';'), "trailing nils dropped");
+	assert_eq!(out.db.quests[&9][19], Val::Nil);
 }
 
 #[test]

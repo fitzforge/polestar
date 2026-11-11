@@ -340,8 +340,9 @@ local function paint()
 	return st
 end
 
+-- Not while Polestar is hidden: the frame goes with it and its ticker stops.
 local function wanted()
-	if not (ns.Get("maps.instances") and ns.Get("maps.instanceDisplay")) then return false end
+	if not (ns.Get("maps.instances") and ns.Get("maps.instanceDisplay")) or ns.Hidden() then return false end
 	if active then return true end
 	local h = Maps.InstanceWindow(entries(), serverTime(), 1, 0)
 	return h > 0
@@ -399,6 +400,8 @@ local function buildFrame()
 	frame:SetScript("OnHide", stopTicker)
 end
 
+ns.On("POLESTAR_HIDDEN", function() refreshDisplay() end)
+
 ---------------------------------------------------------------------------
 -- Slash command: /pole instances [clear]
 ---------------------------------------------------------------------------
@@ -442,7 +445,7 @@ ns.RegisterCommand("instances", function(rest)
 		Client.RequestRaidInfo()
 		report()
 	end
-end, L["Instance limits, runs and lockouts (instances clear: forget them)"])
+end, L["Instance limits, runs and lockouts (instances clear: forget them)"], true)
 
 ---------------------------------------------------------------------------
 -- Events

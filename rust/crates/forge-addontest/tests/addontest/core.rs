@@ -190,7 +190,7 @@ fn polestar_help_prints_each_line_in_the_client_language_core_s_own_commands_too
 			"options": "Einstellungen öffnen",
 			"debug": "Debug-Ausgabe umschalten",
 			"prev": "Vorherigen Schritt ansehen",
-			"hide": "Hide the guide window",
+			"hide": "Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)",
 		})
 	);
 }
@@ -201,7 +201,10 @@ fn lc_a_word_with_two_meanings_has_a_key_per_meaning_english_while_untranslated(
 		emitted(&RunAddon {
 			before: fake_locale("itIT", strings),
 			addons: vec![core()],
-			script: r#"emit({ button = Polestar.L["Back"], chest = Polestar.LC("boss", "Chest") })"#.into(),
+			// Only Init.lua: Core/Locale.lua's ask for the language folder, by hand.
+			script: r#"C_AddOns.LoadAddOn("Polestar_itIT")
+emit({ button = Polestar.L["Back"], chest = Polestar.LC("boss", "Chest") })"#
+				.into(),
 			..Default::default()
 		})
 		.remove(0)

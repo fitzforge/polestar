@@ -69,41 +69,8 @@ step Fly to Thelsamar
 
 step Thelsamar
   zone Loch Modan
+  tip Set your hearth here: the Searing Gorge guide starts from Thelsamar.
   sethome "Stoutlager Inn" npc 6734   -- Innkeeper Hearthstove
-  accept 17                           -- Ghak Healtouch, below ground
-
-step Ironband's Excavation Site
-  tip Ride east along the south shore of the loch to Ironband's camp.
-  turnin 739                          -- Prospector Ironband
-  accept 704
-
-step Into Badlands
-  zone Badlands
-  goto 49.4,8.0 "Into Badlands"
-
-step Badlands
-  zone Badlands
-  goto 37.4,14.9 "Badlands"
-
-step The Uldaman dig
-  zone Badlands
-  tip Ride south through the pass into the Badlands' northern edge: the Stonevault troggs dig outside Uldaman there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself.
-  collect 8047 quest 17               -- Magenta Fungus Cap; below ground
-  collect 4610 quest 704              -- Carved Stone Urn; below ground
-
-step Back to Loch Modan
-  zone Badlands
-  goto 49.4,8.0 "Loch Modan"
-
-step Ironband's Excavation Site
-  zone Loch Modan
-  tip Ride back north to Ironband's camp.
-  turnin 704                          -- Prospector Ironband
-
-step Thelsamar
-  zone Loch Modan
-  tip Ride back west along the loch to Thelsamar.
-  turnin 17                           -- Ghak Healtouch, below ground
 
 step Fly to Menethil Harbor
   zone Loch Modan
@@ -149,6 +116,13 @@ step Thyn'tel Bladeweaver
 
 step Craftsmen's Terrace
   accept 3763 lvl 47                  -- Innkeeper Saelienne
+
+# Fandral stands at the top of the druids' building, and the walking maps have no way up inside it:
+# the arrow led onto a ledge outside, behind the wall (#1338). A goto at the building's door on its
+# south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight at him.
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
 
 step Cenarion Enclave
   turnin 3763                         -- Arch Druid Fandral Staghelm, at the top of the tree
@@ -238,17 +212,31 @@ step The bloodmages
   note The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it.
 
 step Fly to Booty Bay
-  when group 8552
   zone Blasted Lands
   goto 65.5,24.4 "Nethergarde Keep flight master"
   fly "Booty Bay"
   zone Stranglethorn Vale
 
+step Booty Bay
+  zone Stranglethorn Vale
+  turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
+  accept 608                          -- Fleet Master Seahorn, top floor
+
+step The Bloodsail captains
+  zone Stranglethorn Vale
+  tip The three Bloodsail ships lie at anchor off the coast just south of Booty Bay: Captain Stillwater (45) and Captain Keelhaul (46) on the nearer decks, Fleet Master Firallon (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time.
+  kill 2550 quest 608.1 @32.9,88.2 map 1434 -- Captain Stillwater
+  kill 2548 quest 608.2 @29.3,88.3 map 1434 -- Captain Keelhaul
+  kill 2546 quest 608.3 @30.6,90.6 map 1434 -- Fleet Master Firallon
+
+step Booty Bay
+  turnin 608                          -- Fleet Master Seahorn, top floor
+
 step Monogrammed Sash
   when group 8552
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Monogrammed Sash needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 3985 x1 optional @23.3,72.1 map 1434
-  accept 8552 optional
+  collect 3985 x1 @23.3,72.1 map 1434
+  accept 8552 item 3985
 
 step Captain Hecklebury Smotts
   when group 8552
@@ -257,7 +245,7 @@ step Captain Hecklebury Smotts
 
 step Sprogger
   when group 8552
-  turnin 8553 optional
+  turnin 8553
 
 step Sprogger
   when group 8554

@@ -670,7 +670,10 @@ function collect(w, x, gi, find, p) {
 			sourced = false;
 			find(gi, 'R3', optional ? 'warn' : 'fail', `collect ${name}: the data has no mob, object or vendor for it and no earlier line gives it`, `write the line that makes it (\`buy\` what it takes, the object to use, the quest that rewards it) before, or drop the goal`);
 		} else if (at && !vendors.length) {
-			const near = npcs.some((m) => w.npcDist(m, at.w) <= SOURCE_YD) || objs.some((o) => w.objDist(o, at.w) <= SOURCE_YD);
+			const nearAt = (pt, r) => npcs.some((m) => w.npcDist(m, pt) <= SOURCE_YD + r) || objs.some((o) => w.objDist(o, pt) <= SOURCE_YD + r);
+			// A goal searched over spots, a `loop` circuit's (Gordo walks the road Patience asks for his
+			// report on): sourced at any of them, not only the first, as forge judge's R3 has it.
+			const near = nearAt(at.w, 0) || (x.spots || []).some((s) => nearAt(w.world(at.map, s.x, s.y, at.f), s.r || 0));
 			if (!near) {
 				sourced = false;
 				const best = [...npcs.map((m) => ({ d: w.npcDist(m, at.w), name: npcName(data, m) })), ...objs.map((o) => ({ d: w.objDist(o, at.w), name: (data.objects[o] && data.objects[o].name) || `object ${o}` }))].sort((a, b) => a.d - b.d)[0];

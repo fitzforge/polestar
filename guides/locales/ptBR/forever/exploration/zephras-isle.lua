@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Zephras Isle (1/3)
 	-- {zone:2521} Zephras Isle · {area:17221} Skywall
-	["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit. 20 areas to discover here, levels 3-12."] = "",
+	["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit. 20 areas to discover here, levels 3-12."] = "{zone:2521} é a ilha inicial dos Celonatos, um mundo à parte em {area:17221}; qualquer um pode visitar. 20 áreas para descobrir aqui, níveis 3-12.",
 	["Skyborne start here. Everyone else takes a skyboat, about every five minutes; either faction may take either one."] = "Os Celonatos começam aqui. Todos os outros pegam um barco celeste, mais ou menos a cada cinco minutos; qualquer facção pode pegar qualquer um deles.",
 	-- {area:279} Dalaran · {zone:1416} Alterac Mountains · {zone:1456} Thunder Bluff
 	["The skyboat leaves the north side of {area:279} in the {zone:1416} (another flies from north of {zone:1456})."] = "O barco celeste parte do lado norte de {area:279}, nas {zone:1416} (outro voa do norte de {zone:1456}).",

@@ -163,7 +163,7 @@ fn accept_objectives_and_turn_in_advance_the_steps_and_fire_messages_in_order() 
 		json!(goals),
 		json!([
 			["active", "Go to Kobold camp", "Go to", "Kobold camp", "place", "Elwynn Forest", false],
-			["active", "Kill Kobold Vermin", "Kill", "Kobold Vermin", "npc", "for Kobold Camp Cleanup", false],
+			["active", "Kill Kobold Vermin", "Kill", "Kobold Vermin", "npc", "for “Kobold Camp Cleanup”", false],
 		])
 	);
 	assert_eq!(view3["goals"][1]["progress"], json!({ "cur": 3, "max": 10, "kind": "count" }));
@@ -463,7 +463,7 @@ fn several_open_field_goals_the_arrow_and_the_mark_lead_to_the_nearest_the_list_
 }
 
 #[test]
-fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight_and_moves_on_when_it_is_done() {
+fn the_field_route_keeps_the_left_arm_before_heading_right_and_moves_on_when_it_is_done() {
 	let out = run1(Run {
 		guides: FIELD,
 		before: "w.onQuest(7, { 1 }); w.onQuest(8, { 8 }); w.onQuest(9, { 10 }); w.moveTo(1429, 40, 50)",
@@ -476,15 +476,18 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 			local r = { start = E.GetWaypoint().goalIndex }
 			-- 49: the Graverobbers' point 120 yd off, the Doom Weed's area edge 170
 			r.between = at(49)
-			-- 51.5: 195 yd against 95, clearly nearer
+			-- 51.5: the weeds are nearer, but taking them first would force a
+			-- return to the Graverobbers before heading east to Maggot Eye.
 			r.past = at(51.5)
-			-- 50.5: 165 against 125, the Graverobbers not clearly nearer: no flap back
+			-- Ordinary movement keeps the shorter complete trip stable.
 			r.back = at(50.5)
-			-- in a fight beside the Graverobbers the arrow stays
+			-- in a fight beside the Graverobbers the arrow stays, and for 5 s after it (Spots.SETTLE)
 			fighting = true
 			r.fight = at(45.5)
 			fighting = false
-			r.after = at(45.5)
+			r.settling = at(45.5)
+			stub.advance(5)
+			r.after = E.GetWaypoint().goalIndex
 			-- the Graverobbers done: on to the nearest left, the Doom Weed
 			w.progress(8, 1, 8); flush()
 			r.done = E.GetWaypoint().goalIndex
@@ -492,7 +495,7 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 3, "back": 3, "fight": 3, "after": 2, "done": 3 }));
+	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 2, "back": 2, "fight": 2, "settling": 2, "after": 2, "done": 3 }));
 }
 
 #[test]
@@ -608,6 +611,31 @@ fn cyclespot_moves_an_area_objective_on_by_hand_to_the_next_spot_or_a_chosen_one
 		..Default::default()
 	});
 	assert_eq!(out, json!({ "next": 2, "afterNext": 40, "held": 40, "chosen": 3, "afterChosen": 80, "none": false }));
+}
+
+// #1616: the target button names the mobs of the spot the arrow takes; SpotIndexOf reads it without moving it.
+#[test]
+fn spotindexof_gives_the_spot_the_arrow_takes_else_the_nearest_and_changes_nothing_1616() {
+	let out = run1(Run {
+		guides: SEARCH,
+		before: "w.onQuest(7, { 12 }); w.moveTo(1429, 20, 50)",
+		script: r#"
+			E.SetGuide("test/search"); flush()
+			local goal = E.GetGuide().steps[1].goals[1]
+			local r = { picked = E.SpotIndexOf(goal) }
+			E.CycleSpot(1, 1, 3)
+			r.chosen = E.SpotIndexOf(goal)
+			r.arrow = E.GetWaypoint().spot
+			-- A goal nothing picked a spot for: the nearest to the player, still unpicked after.
+			local other = { t = "collect", map = 1429, x = 80, y = 50, spots = { { x = 80, y = 50, r = 10 }, { x = 25, y = 50, r = 10 } } }
+			r.nearest = E.SpotIndexOf(other)
+			r.still = E.SpotIndexOf(other)
+			r.none = E.SpotIndexOf({ t = "kill" }) or false
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "picked": 1, "chosen": 3, "arrow": 3, "nearest": 2, "still": 2, "none": false }));
 }
 
 #[test]
@@ -1252,6 +1280,9 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 	assert_eq!(out["trail"], json!(["early-vendor=1", "wrong-npc=1", "talk-open=1", "talk=2", "bind=3", "fp=4", "fly=5", "vendor=6", "buy=7", "collect-2=7", "collect-3=8", "hearth=9", "moved-on=9"]));
 	assert_eq!(out["fp"], json!({ "Stormwind, Elwynn": true }));
 	assert_eq!(out["progress"], json!({ "cur": 2, "max": 3, "kind": "count" }));
+	// The buy and the collect stay done with their items gone (latched): no progress bar shows their count
+	// then, so the text says it. A buy the route passed before the player bought it read "Buy Soothing
+	// Spices" with no count, and the player bought one of three (#1631).
 	assert_eq!(
 		out["texts"],
 		json!([
@@ -1260,11 +1291,40 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 			"Get the flight path at Stormwind",
 			"Fly to Stormwind City",
 			"Sell and repair at Corina Steele",
-			"Buy Refreshing Spring Water",
-			"Collect Tough Wolf Meat",
+			"Buy 5 Refreshing Spring Water",
+			"Collect 3 Tough Wolf Meat",
 			"Hearth to Goldshire",
 		])
 	);
+}
+
+// #1298: the bind confirmation closes the innkeeper's window before HEARTHSTONE_BOUND, so the "npc" unit is gone
+// then (every bind the Recorder saw). The innkeeper is the last NPC window closed within 2 minutes; a bind
+// location that does not read as the goal's place ("Lakeshire Inn") still completes the goal bound at its inn.
+#[test]
+fn t_1298_a_bind_after_the_innkeeper_s_window_closed_completes_the_sethome_at_that_innkeeper_only() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/bind", pack = "test", title = "Bind", minLevel = 1, maxLevel = 30, steps = {
+				{ goals = { { t = "sethome", location = "Lakeshire", npc = 6727, npcName = "Innkeeper Brianna" } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/bind"); flush()
+			local r = {}
+			w.gossip(54); w.close(); w.bind("Lakeshire Inn"); flush()
+			r.otherNpc = E.GetStepIndex()
+			w.gossip(6727); w.close(); stub.advance(130); w.bind("Lakeshire Inn"); flush()
+			r.longAgo = E.GetStepIndex()
+			w.gossip(6727); w.close(); w.bind("Lakeshire Inn"); flush()
+			r.innkeeper = E.GetStepIndex()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "otherNpc": 1, "longAgo": 1, "innkeeper": 2 }));
 }
 
 // #859: Desperate Times (92640) asks to speak with Valennia, then the Windshapers (Ayessa), then the High
@@ -1327,7 +1387,7 @@ fn t_859_a_quest_talk_goal_ticks_from_its_quest_log_line_and_a_talk_counts_only_
 	assert_eq!(out["trail"], json!(["start=---", "elaadrin-first=---", "valennia=---", "line1=x--", "elaadrin-early=x--", "ayessa=x--", "line2=xx-", "elaadrin=xxx"]));
 	assert_eq!(out["at"], 2);
 	assert_eq!(out["text"], "Talk to Valennia");
-	assert_eq!(out["detail"], "for Desperate Times");
+	assert_eq!(out["detail"], "for “Desperate Times”");
 
 	// The quest ready for turn-in: every talk goal is done, the lines the client never listed too.
 	let ready = run1(Run {
@@ -1674,7 +1734,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 			SlashCmdList.POLESTAR("guide test/01-northshire")
 			SlashCmdList.POLESTAR("guide Test/02-Elwynn")
 			emit({ status = status, afterSkip = afterSkip, afterPrev = afterPrev, exact = exact, guide = E.GetGuide().id, msgs = stub.messages,
-				header = BINDING_HEADER_POLESTAR, binding = BINDING_NAME_POLESTAR_NEXT })
+				tag = BINDING_TAG_POLESTAR, binding = BINDING_NAME_POLESTAR_NEXT })
 		"#,
 		..Default::default()
 	});
@@ -1694,7 +1754,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 			"|cff4fd1c5Polestar|r: Guide: Elwynn Forest",
 		])
 	);
-	assert_eq!(out["header"], "Polestar");
+	assert_eq!(out["tag"], "Polestar");
 	assert_eq!(out["binding"], "Next step");
 }
 
@@ -1750,6 +1810,27 @@ fn a_quest_to_complete_shows_its_objectives_count_and_reads_as_its_objective_lin
 	// Looting past the need counts the need; a finished objective stays a line, full.
 	assert_eq!(*fed, json!([{ "cur": 7, "max": 14, "kind": "count" }, ["Plainstrider Meat 7/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]]));
 	assert_eq!(*log, json!(["STEP_UPDATED 1", "STEP_UPDATED 1"]), "each count change redraws the step");
+}
+
+// The frFR client's kill line (#942's objective lines): "Jeune loup : 3/7 |4personnage tué:personnages tués;"
+// reads as "Jeune loup 3/7", never with the raw grammar escape.
+#[test]
+fn a_quest_to_complete_reads_an_frfr_kill_line_without_its_grammar_escape() {
+	let guides = format!("{NORTHSHIRE}{HUNT}");
+	let out = run(Run {
+		guides: &guides,
+		before: r#"w.onQuest(747, { { text = "Jeune loup\194\160: 0/7 |4personnage tué:personnages tués;", required = 7 } })"#,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/hunt"); flush()
+			w.progress(747, 1, 3); flush()
+			local out = {}
+			for _, o in ipairs(E.GetStepView(1).goals[1].objectiveLines or {}) do out[#out + 1] = o.text .. " " .. o.cur .. "/" .. o.max end
+			emit(out)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out[0], json!(["Jeune loup 3/7"]));
 }
 
 // Darkshore's Plagued Lands (#942): looked at before the quest is taken, its `complete` goal reads as the
@@ -2035,4 +2116,51 @@ fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the
 	assert_eq!(out["unknownBound"], json!({ "line": false, "arrow": false }));
 	assert_eq!(out["walked"], 2, "arriving in Goldshire on foot checks the hearth off");
 	assert_eq!(out["unknownInn"], json!({ "line": false, "arrow": false }));
+}
+
+// #1753 (doctor-house, 0.3.6, Night Elf Hunter 27, Duskwood's Hushed Bank: "kill these as you meet them"): "63x
+// Engine.lua:2311: attempt to compare nil with number". The player fought at the goal's spot, then took the other
+// spot by hand (here an alternative, spot 2) and went there. No candidate was fresh (the fought-over spot counts as
+// visited, the alternative is no automatic pick), so the pick fell back to the spot visited longest ago, which has
+// no distance key, and that missing key was compared on every poll. The spot the player went to is kept, and no
+// error is raised.
+#[test]
+fn a_spot_picked_by_hand_with_no_other_spot_fresh_is_kept_without_a_lua_error_1753() {
+	let out = run1(Run {
+		guides: r#"
+Polestar.RegisterGuide({ id = "test/hushed", pack = "test", title = "Hushed Bank", zone = 1429, steps = {
+	{ title = "The Hushed Bank: kill these as you meet them", goals = {
+		{ t = "kill", target = "Pygmy Venom Web Spider", npc = 539, count = 15, quest = 245, oi = 1, map = 1429, x = 55, y = 50,
+			spots = { { x = 55, y = 50, r = 10, n = 4 }, { x = 30, y = 50, r = 10, n = 2, alt = true } } },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#,
+		before: "w.onQuest(245, { 15 }); w.moveTo(1429, 55, 50)",
+		script: r#"
+			local w = stub.world
+			local fighting = false
+			function UnitAffectingCombat(unit) return unit == "player" and fighting end
+			E.SetGuide("test/hushed"); flush()
+			local goal = E.GetGuide().steps[1].goals[1]
+			local r = { start = E.SpotIndexOf(goal) }
+			-- A fight at spot 1: its ground counts as worked.
+			fighting = true; stub.advance(2); fighting = false; stub.advance(6)
+			-- Spot 2 by hand (the guide window's spot arrows), then walk there.
+			r.cycled = E.CycleSpot(1, 1, 2)
+			for x = 53, 30, -1 do w.moveTo(1429, x, 50); stub.advance(1) end
+			r.spot = E.SpotIndexOf(goal)
+			-- Polls on: a dwell there with no kill may move on (Spots, "Dwell"), never with an error.
+			for _ = 1, 10 do stub.advance(1) end
+			local errs = {}
+			for _, e in ipairs(Polestar.Errors()) do errs[#errs + 1] = e.count .. "x " .. e.msg end
+			r.errors = errs
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["start"], 1, "{out}");
+	assert_eq!(out["cycled"], 2, "{out}");
+	assert!(out["errors"].as_array().map_or(out["errors"] == json!({}), |a| a.is_empty()), "no Lua error: {out}");
+	assert_eq!(out["spot"], 2, "the spot the player went to is kept on arrival: {out}");
 }

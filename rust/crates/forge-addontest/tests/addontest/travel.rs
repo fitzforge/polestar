@@ -29,6 +29,21 @@ local function known(...)
 end
 "#;
 
+/// nav() loads no Core/Locale.lua, and Nav/Travel.lua reads its captions at load: the language folder is
+/// asked for right after Core/Init.lua, where Locale.lua (before Nav in Core.xml) would have asked.
+const ASK_FOR_THE_FOLDER: &str = r#"
+do
+	local load = loadfile
+	function loadfile(file)
+		local chunk, err = load(file)
+		if not chunk or not file:match("[/\\]Polestar[/\\]Core[/\\]Init%.lua$") then return chunk, err end
+		return function(...)
+			chunk(...)
+			C_AddOns.LoadAddOn("Polestar_" .. GetLocale())
+		end
+	end
+end"#;
+
 fn nav() -> Addon {
 	Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])
 }
@@ -77,7 +92,7 @@ fn every_leg_caption_is_in_the_client_language_flight_boat_and_tram() {
 				("Take the boat to %s", "Nimm das Schiff nach %s"),
 				("Take the tram to %s", "Nimm die Tiefenbahn nach %s"),
 			],
-		),
+		) + ASK_FOR_THE_FOLDER,
 	);
 	assert_eq!(
 		out,
@@ -104,6 +119,30 @@ fn takes_a_known_flight_over_a_long_walk_and_walks_when_no_flight_is_known() {
 	assert_eq!(out["flying"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
 	assert!(out["total"].as_f64().unwrap() < 1380.0 / 7.0, "flying ({} s) beats walking 1380 yd", out["total"]);
 	assert_eq!(out["walking"], json!(["walk|Kobolds"]));
+}
+
+// #1603: a walk the walking engine measured chooses by the router's cost, which prices a road at 0.8 of its yards;
+// flights cost their real seconds. From West Hold to 20 yd past East Hold the flight takes 1700 / 30 + 2 s plus a
+// 20 yd walk (~62 s), and its first hop costs 4 s more to plan (the take-off at the flight master, never its time).
+// A 500 yd road walk (71 s, cost 57) walked before; a plan that only walks on a road's discount is planned again with
+// measured walks at their yards and now flies. A 450 yd walk (64 s, 2 s slower than the flight) flew for 2 s; it now
+// walks. A 400 yd walk up a slope (57 s, cost 74) still flies: the router's penalties count. Choices between walks
+// (which landing, at the road's discount) stay the router's: nav-spf.rs's cost_and_yards_the_measure_s_cost_picks_the_landing.
+#[test]
+fn issue_1603_a_measured_road_walk_never_beats_a_faster_flight_and_a_near_tie_walks() {
+	let out = run(r#"
+		local function plan(yards, rate)
+			local legs = N.PlanRoute({ c = 0, wx = 0, wy = 790, faction = 1, known = { [1] = true, [2] = true }, speed = 7,
+				target = { c = 0, wx = 0, wy = -820, label = "Kobolds" },
+				walkCost = function(_, _, _, start) if start then return yards * rate, yards end end })
+			local out = {}
+			for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.seconds end
+			return out
+		end
+		emit({ road = plan(500, 0.8), tie = plan(450, 1), slope = plan(400, 1.3) })"#);
+	assert_eq!(out["road"], json!(["fly|59", "walk|4"]));
+	assert_eq!(out["tie"], json!(["walk|64"]));
+	assert_eq!(out["slope"], json!(["fly|59", "walk|4"]));
 }
 
 #[test]

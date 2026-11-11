@@ -8,18 +8,18 @@
 return {
 	-- Guide
 	-- {area:2057} Scholomance · {item:20134} Skyfury Helm
-	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "",
+	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "Ein {area:2057}-Kampf mit Stufe 60 für Ruf bei der Horde; {item:20134} könnte in Forever weg sein.",
 	["200 Horde reputation"] = "200 Ruf bei der Horde",
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom
-	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "",
+	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "Mit Stufe 58 verlangt {npc:13417}, der Schamanenlehrer im {object:172957}, zwei seltene Diamanten; jeder Horde-Schamane geht zu ihm. Himmelsgeborene: Die Questseite von Forever führt diese Quest nur für Orcs, Tauren und Trolle auf: Frag nach, bevor du die Diamanten kaufst.",
 
 	-- Step 2: Two diamonds
 	["Two diamonds"] = "Zwei Diamanten",
 	-- {item:12800} Azerothian Diamond · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {item:18335} Pristine Black Diamond
 	-- plural, as words: Small Thorium Veins = {object:324} Small Thorium Vein
-	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "",
+	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "Beide Diamanten sind selten: Das Auktionshaus ist der schnelle Weg. Bergbauer finden {item:12800} bei etwa einer von hundert Thoriumadern (die Small Thorium Veins nördlich von {area:2418} in {zone:1428} respawnen alle fünf Minuten). {item:18335} fällt bei hochstufigen Elites mit etwa einem Prozent, am besten beim seltenen Elite Revanchion (etwa eins zu neun).",
 
 	-- Step 3: Sagorne Creststrider
 	-- {quest:7668} The Darkreaver Menace
@@ -30,11 +30,11 @@ return {
 	-- Step 4: The Great Ossuary
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {object:179746} The Great Ossuary (no name in this language: may be words) · {item:18746} Divination Scryer · {npc:14516} Death Knight Darkreaver · {spell:686} Shadow Bolt · {spell:6958} Blood Leech
 	-- plural, as words: Cleaves = {spell:845} Cleave
-	["A five-player dungeon event: {area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. In the {object:179746}'s basement, first clear every mob in the room, then use the {item:18746} at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then {npc:14516} (level 62 elite) appears: he Cleaves, casts {spell:686} and {spell:6958}, and Dominates a player's mind against the group. His head always drops."] = "",
+	["A five-player dungeon event: {area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. In the {object:179746}'s basement, first clear every mob in the room, then use the {item:18746} at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then {npc:14516} (level 62 elite) appears: he Cleaves, casts {spell:686} and {spell:6958}, and Dominates a player's mind against the group. His head always drops."] = "Ein Dungeon-Event für fünf Spieler: {area:2057} liegt unter {area:2298}, der Inselstadt im Südosten von {zone:1422}. Räume im Keller von {object:179746} zuerst alle Mobs im Raum, dann benutze {item:18746} in dessen Mitte: Es folgen vier Wellen von Geistern, jede endet mit einem Aspekt-Mini-Boss (die erste Welle schwach und langsam, die übrigen Elite). Kämpfe in einer Ecke, damit nichts anderes dazukommt, und trink zwischen den Wellen: Es dauert lange. Dann erscheint {npc:14516} (Stufe 62, Elite): Er wirkt Spalten und {spell:686} und {spell:6958} und beherrscht den Geist eines Spielers gegen die Gruppe. Sein Kopf fällt immer.",
 
 	-- Step 5: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {item:20134} Skyfury Helm
-	["{npc:13417}: 200 Horde reputation; the {item:20134} may be gone"] = "",
+	["{npc:13417}: 200 Horde reputation; the {item:20134} may be gone"] = "{npc:13417}: 200 Ruf bei der Horde; {item:20134} könnte weg sein",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {area:2057} fight at 60 for Horde reputation; Forever removed the {item:20134}."] = "Ein Kampf in {area:2057} mit 60 für Ruf bei der Horde; Forever hat {item:20134} entfernt.",

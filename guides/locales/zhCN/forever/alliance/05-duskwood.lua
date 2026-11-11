@@ -10,9 +10,9 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飞往{area:42}",
 	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
+	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "返回 {area:69} 的狮鹫管理员处，飞往 {area:42}，进行 {zone:1431} 的第二轮路线。",
 	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "",
+	["{area:69} flight master"] = "{area:69} 飞行管理员",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -26,61 +26,74 @@ return {
 	["{quest:337}: a rare drop from {zone:1431}'s mobs"] = "{quest:337}：{zone:1431}怪物的稀有掉落",
 
 	-- Step 5: Abercrombie
-	["Head west along the road once more."] = "",
+	["Head west along the road once more."] = "再次沿路向西走。",
 
-	-- Step 7: Back to Darkshire
+	-- Step 6: Gooey Spider Legs
+	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
+	["Gooey Spider Legs"] = "",
+	-- {npc:311} Sven Yorgen
+	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
+	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "",
+
+	-- Step 8: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
 	-- {area:42} Darkshire
-	["Head back east to {area:42}."] = "",
+	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}：在屋内",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}，在市政厅",
 	-- {npc:273} Tavernkeep Smitts
 	["{npc:273}, in the tavern"] = "{npc:273}，在酒馆里",
 
-	-- Step 8: Rot Blossoms
+	-- Step 9: Chef Grual
+	-- {npc:272} Chef Grual
+	["{npc:272} is in the Scarlet Raven Tavern too."] = "",
+	-- {npc:288} Jitters · {area:94} Raven Hill
+	["For {npc:288}, at {area:94} on the way west"] = "",
+
+	-- Step 10: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
 	["Rot Blossoms"] = "{item:1598}",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Rot Blossoms = {item:1598} Rot Blossom
 	["Skeletal Horrors walk the hillside between {area:42} and the {area:121}, south-east of town; they drop the Rot Blossoms."] = "{npc:202}在{area:42}与{area:121}之间、镇子东南方的山坡上游荡；它们掉落{item:1598}。",
 
-	-- Step 10: Abercrombie
-	["Head west to the hermit once more."] = "",
+	-- Step 12: Abercrombie
+	["Head west to the hermit once more."] = "再次向西去找隐士。",
 
-	-- Step 11: Ghoul Ribs
+	-- Step 13: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "食尸鬼的肋骨",
 	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的所有食尸鬼均有几率掉落肋骨，包括食腐者、噬骨者、瘟疫食尸鬼和食脑者。\n注意：{npc:948}死亡时会施放{spell:3428}，召来额外的敌人。",
 
-	-- Step 13: Raven Hill Cemetery: kill these as you meet them
+	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}：沿途击杀以下目标",
 	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
 	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "穿过墓地向南前往{area:94}。骸骨魔和恐怖骸骨在墓地南半部游荡。精英{npc:522}在墓地间徘徊：离他远点。",
 
-	-- Step 14: Jitters
+	-- Step 16: Jitters
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["{npc:288} hides in the house at the west end of {area:94}."] = "{npc:288}躲在{area:94}西端的房子里。",
 
-	-- Step 15: Sven's Camp
+	-- Step 18: Sven's Camp
 	-- {zone:1453} Stormwind · {area:150} Menethil Harbor · {zone:1437} Wetlands
-	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "",
+	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "接下来：学习技能，再从 {zone:1453} 飞往 {area:150}，前往 {zone:1437}。",
 
-	-- Step 17: Agent Kearnen
-	-- {area:94} Raven Hill · {area:40} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
-	["Head west along the road out of {area:94} into {area:40}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "",
+	-- Step 20: Agent Kearnen
+	-- {area:94} Raven Hill · {zone:1436} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
+	["Head west along the road out of {area:94} into {zone:1436}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "从{area:94}沿路向西进入{zone:1436}。{npc:7024}在刚过边界的山丘上监视{npc:7053}的高塔。守塔的{npc:7051}（23 级）携带钥匙，克拉文·摩特维克的日记在塔顶箱子里。",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "{item:7908}，在箱子里",
 
-	-- Step 18: Master Mathias Shaw
+	-- Step 21: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "向北穿过艾尔文森林前往{zone:1453}；马迪亚斯·肖尔位于{object:2100}的军情七处。",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
 	["{npc:332}: Poisons, and {item:18160}"] = "{npc:332}：毒药，以及{item:18160}",
 	-- {quest:2607} The Touch of Zanzil · {npc:7207} Doc Mixilpixil
@@ -89,35 +102,41 @@ return {
 	["/lay down beside {npc:7207}"] = "在{npc:7207}旁边 /lay down",
 	-- {item:3372} Leaded Vial · {npc:1313} Maria Lumere
 	["{item:3372}: {npc:1313}, Alchemy Supplies"] = "{item:3372}：{npc:1313}，炼金用品",
+	-- {item:4371} Bronze Tube · {object:2096} Trade District · {npc:5519} Billibub Cogspinner
+	["{item:4371}: the Auction House, {object:2096}; {npc:5519} keeps one and is nearly always sold out"] = "",
 
-	-- Step 19: Elwynn Forest
+	-- Step 22: Elwynn Forest
 	-- {area:94} Raven Hill · {area:87} Goldshire · {zone:1453} Stormwind
-	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "",
+	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "从 {area:94} 向北穿过艾尔文森林：去 {zone:1453} 的路上会经过 {area:87}。",
 
-	-- Step 20: Class trainer
+	-- Step 23: Class trainer
 	["Class trainer"] = "职业训练师",
 	["Level 22 and 24 spells"] = "22级和24级法术",
 
-	-- Step 21: Gazin Tenorm
+	-- Step 24: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
-	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "",
+	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "继续前往 {zone:1453}：{npc:6173} 和 {npc:6171} 在圣光大教堂，去狮鹫管理员处时顺路经过。",
 	["Cathedral of Light"] = "光明大教堂",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}：救赎",
 
-	-- Step 23: Tram to Ironforge
+	-- Step 25: Stormwind
+	-- {zone:1453} Stormwind · {object:28027} Dwarven District
+	["{zone:1453}'s {object:28027}"] = "{zone:1453}的{object:28027}",
+
+	-- Step 26: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "乘地铁前往{zone:1455}",
 
-	-- Step 24: Shaman training
+	-- Step 27: Shaman training
 	["Shaman training"] = "萨满祭司训练",
 	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}没有萨满祭司训练师：从{object:28027}乘{area:2257}前往{zone:1455}，在{npc:258098}处学习，然后乘地铁返回。",
 
-	-- Step 25: Rogue training
-	["Rogue training"] = "",
+	-- Step 28: Rogue training
+	["Rogue training"] = "学习潜行者技能",
 	-- {zone:1453} Stormwind
-	["Train here, in {zone:1453}, before you go on."] = "",
+	["Train here, in {zone:1453}, before you go on."] = "继续出发前，先在{zone:1453}学习技能。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "继续向西到{area:94}。{object:673515}在道路南边的废弃房屋旁发光。",
@@ -126,6 +145,7 @@ return {
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "沿道路从{area:1002}向南进入{area:10}；{area:42}位于森林东侧。\n没有{quest:174}所需的{item:4371}？{npc:3133}在{npc:276}旁边的房子里出售，存货有限；{area:150}的{npc:1448}也有售。\n{npc:276}的房子在镇子东端。{npc:3133}在旁边的房子里出售工程学物品。",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "沿道路从{area:1002}向南进入{zone:1431}；{area:42}位于森林东侧。",
 	-- ["For {npc:302}, on the hill south-east of town"] = "交给{npc:302}，在镇子东南方的山上",
+	-- ["Head back east to {area:42}."] = "向东返回{area:42}。",
 	-- ["Next: {zone:1453} for training, then the boat from {area:17203} to {area:442} for {zone:1440}."] = "下一步：去{zone:1453}训练，然后从{area:17203}乘船前往{area:442}，再去{zone:1440}。",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "疯狂的恐狼在墓地和{npc:289}周围的树林中游荡，饥饿的恐狼在他东北方的山丘上。小型结网毒蜘蛛在墓地东边爬行，掉落毒液。墓地北半部的所有食尸鬼都可能掉落牙齿。",
 	-- ["Ride back east along the road to the {area:245}."] = "沿道路向东骑回{area:245}。",

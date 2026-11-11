@@ -29,7 +29,7 @@ return {
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "骷髅海龟",
 	-- {item:12289} Sea Turtle Remains
-	["{item:12289}, on the beach west of the docks; underwater"] = "",
+	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289}：位于码头西侧海滩外的水下",
 
 	-- Step 6: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "熊和黑木营地",
@@ -38,7 +38,7 @@ return {
 	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "狂暴蓟熊在{area:442}南边的山丘上游荡：对其中一只使用{item:7586}将其捕获。然后走到它们东边不远处的熊怪营地：暂时无需击杀任何怪物。",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
+	["the Rabid Thistle Bears nearest {npc:3701}"] = "{npc:3701} 附近的狂暴蓟熊",
 
 	-- Step 7: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
@@ -58,7 +58,7 @@ return {
 	-- Step 9: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "",
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北，{npc:3650}在{quest:954}废墟内等候。野生劣魔和恶灵劣魔遍布废墟，戴瑟雷萨特在东缘活动。{object:17183}位于废墟西侧路边，前去途中，海岸上还有一处{quest:4723}。",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "{item:5336}",
 	-- {item:5338} Ancient Moonstone Seal
@@ -93,23 +93,23 @@ return {
 
 	-- Step 18: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "乘船前往{area:17203}",
 
 	-- Step 19: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
-	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "",
+	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "下船后，{npc:268511}就站在港口：他的货物要送到{object:2096}、飞行管理员旁边{npc:483}的奶酪店。",
 
 	-- Step 20: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 	-- {npc:483} Elaine Trias
-	["{npc:483}, in her cheese shop"] = "",
+	["{npc:483}, in her cheese shop"] = "{npc:483}，在她的奶酪店里",
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
-	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "",
+	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "沿她店里的楼梯上楼，把货物留在{object:460004}处",
 
 	-- Step 21: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall
-	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
+	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646}站在{object:2096}西边的{object:2098}。他的罗盘在{zone:1436}的旧居里，途中会经过。",
 
 	-- Step 22: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District

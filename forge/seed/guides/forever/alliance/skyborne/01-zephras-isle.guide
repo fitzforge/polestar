@@ -143,14 +143,14 @@ step Village quests
   accept 92553                                -- Zerril Softbreeze
 
 step Prideclaws and Galestriders
-  tip Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat.
-  collect 6889 quest 92553.1
+  tip Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village.
+  collect 6889 quest 92553.1 @42.1,39.4
   collect 5469 quest 92553.2
   collect 252670 quest 92515.1
 
 step Village quests
   when group 93318
-  accept 93318 optional                       -- The bounty board
+  accept 93318                                -- The bounty board
 
 step Village quests
   turnin 92553                                -- Zerril Softbreeze
@@ -199,7 +199,7 @@ step Falaath Village
 step Vulgara the Insatiable
   when group 93318
   tip Vulgara lurks in the hills south-west of the village, on the way back. Vulgara the Insatiable is elite: grouping up is advised.
-  collect 257942 quest 93318.1 optional       -- Vulgara's Head
+  collect 257942 quest 93318.1                -- Vulgara's Head
 
 step Constable Aonda
   turnin 92528                                -- Constable Aonda
@@ -281,7 +281,9 @@ step Skyhoppers
 
 step The road to Valanaar
   tip Nyalah Brightfire and Alvarion Windfield stand on Valanaar's west side, beside the inn; Seena Skybreaker and Quel'ana Quickgale train just west of Nyalah. Windsong Crawlers line the shore further west, around 51,70.
+  level 10 only Warrior
   accept 94003 only Warrior                   -- Seena Skybreaker, beside Nyalah: Zaal Stormshield holds the Bulwark at the Shrine of Akir
+  level 10 only Hunter
   accept 94978 only Hunter                    -- Quel'ana Quickgale, beside Nyalah: the first Taming Rod
   sethome "Valanaar" npc 255940               -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                                -- Alvarion Windfield
@@ -294,7 +296,7 @@ step Class trainer
 
 step Shen'dar Village again
   when group 93318
-  turnin 93318 optional
+  turnin 93318
 
 step The missing scholar
   tip The Bloodstained Satchel lies by the path west of Valanaar.
@@ -318,7 +320,7 @@ step The missing scholar
 step Aamelia Windfield
   tip Aamelia Windfield runs the farm in the south-west lowlands.
   talk 252800 quest 92679.1 @46.7,81.95
-  turnin 92679
+  turnin 92679 @46.7,81.95
   accept 92682
   accept 92683
   accept 92684
@@ -333,19 +335,20 @@ step Gustberry Lowlands: kill these as you meet them
   collect 253591 quest 92682.1
 
 step Aamelia again
-  turnin 92682                                -- Aamelia Windfield
-  turnin 92684
-  turnin 92683
-  accept 92685
-  turnin 92698
+  tip Back to Aamelia Windfield at the farmhouse.
+  turnin 92682 @46.7,81.95                    -- Aamelia Windfield
+  turnin 92684 @46.7,81.95
+  turnin 92683 @46.7,81.95
+  accept 92685 @46.7,81.95
+  turnin 92698 @46.7,81.95
 
 step Bandit Highwaymen
   tip The Bandit Highwaymen hold the hills north of the farm.
   collect 253596 quest 92685.1
 
 step Standing our ground
-  turnin 92685                                -- Aamelia Windfield
-  accept 92693
+  turnin 92685 @46.7,81.95                    -- Aamelia Windfield, at the farmhouse
+  accept 92693 @46.7,81.95
   talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
@@ -494,7 +497,7 @@ step Vayn Moongaze
   collect 265475 quest 94488.1                -- Commander Haalien's Severed Head
   kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den" -- Below ground
   talk 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
-  collect 258771 quest 93165.1
+  collect 258771 quest 93165.1 @63.7,37.1 map 2521 live -- Al'Aketh Cultist's Ear: the Stormchasers and Footsoldiers around Vayn's camp
   turnin 93165
 
 step Elegael Thornpaw, the missive

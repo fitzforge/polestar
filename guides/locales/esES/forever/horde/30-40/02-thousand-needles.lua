@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Alliance Relations
 	-- {zone:1454} Orgrimmar · {npc:5639} Craven Drok · {npc:5640} Keldran · {object:172961} Valley of Spirits
-	["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} waits in the Drag; {npc:5640} stands in the {object:172961} on the west side of the city."] = "",
+	["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} walks the Drag: if he isn't at the arrow, look along its streets to the south-west. {npc:5640} stands in the {object:172961} on the west side of the city."] = "El zepelín aterriza en la torre que hay fuera de la puerta principal de {zone:1454}. {npc:5639} recorre La Calle Mayor: si no está en la flecha, búscalo por sus calles al suroeste. {npc:5640} está en {object:172961}, en el lado oeste de la ciudad.",
 	-- {npc:5639} Craven Drok
 	["{npc:5639}: offered from level 30"] = "",
 	-- {npc:5641} Takata Steelblade · {zone:1443} Desolace
@@ -39,7 +39,7 @@ return {
 
 	-- Step 7: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 8: Thunder Bluff
 	-- {zone:1454} Orgrimmar · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {area:484} Freewind Post
@@ -106,22 +106,24 @@ return {
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["{quest:1104}, from the Scorpid Reavers of the north half"] = "",
 
-	-- Step 21: Level 32.5
-	["Level 32.5"] = "",
-	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
-	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer
-	["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "",
-	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
-	["Sparkleshell Snappers"] = "",
-	-- {npc:4143} Sparkleshell Snapper
-	["grind on {npc:4143}"] = "",
-
-	-- Step 22: Mirage Raceway
+	-- Step 21: Mirage Raceway
 	["South-west back to the raceway."] = "",
+	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
+	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "",
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: his letter goes to Martek in the {zone:1418}, at 39"] = "",
 	-- {npc:4630} Pozzik · {area:392} Ratchet
 	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "",
+
+	-- Step 22: Level 32.5
+	["Level 32.5"] = "",
+	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
+	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
+	["{zone:1443}'s quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "",
+	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
+	["Sparkleshell Snappers"] = "",
+	-- {npc:4143} Sparkleshell Snapper
+	["grind on {npc:4143}"] = "",
 
 	-- Step 23: Freewind Post
 	-- {area:484} Freewind Post · {npc:10537} Cliffwatcher Longhorn
@@ -148,6 +150,10 @@ return {
 	-- Step 28: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time."] = "",
+	-- {npc:4702} Ancient Kodo
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	-- {npc:11596} Smeed Scrabblescrew
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
 	-- Step 30: Level 33
 	["Level 33"] = "",
@@ -160,56 +166,79 @@ return {
 	["grind on {npc:4697}"] = "",
 
 	-- Step 31: Shadowprey Village
-	-- {area:606} Gelkis Village · {npc:268705} Aka'rai
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village."] = "",
+	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "",
 	-- {npc:268705} Aka'rai · {area:603} Sargeron
 	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
 	["{npc:11877}: for {quest:5762} in Stranglethorn, next guide"] = "",
+	-- {npc:6726} Thalon
+	["{npc:6726}, at the village's south-west end"] = "",
 
-	-- Step 32: Clam beds
-	["Clam beds"] = "Lechos de almejas",
-	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler
-	["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "",
-	["Underwater"] = "",
+	-- Step 32: Ethel Rethor
+	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
+	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Ve al norte por la costa y luego hacia el interior hasta la torre en ruinas de {area:2405}: {npc:11863} espera dentro. Las almejas y los naga de la costa vienen después de {area:599}, en un solo recorrido hacia el norte hasta {area:2406}.",
 
-	-- Step 33: Sar'theris Strand
-	-- {area:598} Sar'theris Strand
-	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
-	["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "",
+	-- Step 33: Thunder Axe Fortress
+	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words) · {npc:11876} Demon Spirit · {item:13542} Demon Box
+	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "",
+	["On the top floor"] = "",
+	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
+	["{item:14523}, on the {object:176581}"] = "",
 
 	-- Step 34: Ethel Rethor
-	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor
-	["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "",
-
-	-- Step 35: Thunder Axe Fortress
-	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:14523} Demon Pick · {npc:11876} Demon Spirit · {item:13542} Demon Box · {item:20310} Flayed Demon Skin
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre; use the {item:14523} on the {npc:11876} for the {item:13542}. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it."] = "",
-	["On the top floor"] = "",
-
-	-- Step 36: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
 	["Back west to {npc:11863}."] = "",
 
-	-- Step 37: The Book of the Ancients
+	-- Step 35: Rackmore's Log
+	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
+	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} está en el suelo justo al suroeste de la torre de {npc:11863}, de camino a la orilla: léelo. Sus dos llaves solo caen mientras tienes la misión.",
+
+	-- Step 36: Clam beds
+	["Clam beds"] = "Lechos de almejas",
+	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
+	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
+	["West to the shore. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat.\nThe Drysnap Crawlers and Pincers on the same beach carry {item:15878}, about one in seven."] = "Ve al oeste hasta la orilla. Las almejas gigantes de concha blanda yacen en los bajíos y los reptadores de arrecife enfurecidos recorren la playa: cada almeja que abres en el fondo del mar, y algunos reptadores, dan una {item:15874}. Ábrela en tus bolsas para obtener su carne.\nLos reptadores y tenazas Pinzaseca de la misma playa llevan {item:15878}, aproximadamente uno de cada siete.",
+	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam
+	["Giant Softshell Clams, on the sea floor"] = "",
+	-- {item:15874} Soft-shelled Clam
+	["{item:15874}: open it in your bags"] = "",
+	["Underwater"] = "",
+	-- {item:15878} Rackmore's Silver Key
+	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, de los cangrejos Pinzaseca",
+
+	-- Step 37: Sar'theris Strand
+	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
+	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
+	["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "Sigue al norte hasta {area:598}. Los mirmidones, naga y hechiceras Filozante ocupan la playa; atráelos de uno en uno. Cualquier Filozante puede soltar {item:15881}.",
+	-- {item:15881} Rackmore's Golden Key
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, de los naga Filozante",
+
+	-- Step 38: The Book of the Ancients
 	-- {quest:6027} Book of the Ancients
 	["The {quest:6027}"] = "",
-	-- {area:2405} Ethel Rethor · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "",
+	-- {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients · {object:177786} Rackmore's Chest
+	["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "Nada hasta {area:2406}, frente al extremo norte, y usa {item:15766} en {object:177673}: aparece {npc:12369} (38); mátalo para obtener {quest:6027}. Tiene bastante más nivel que tú: descansa hasta estar al máximo antes. {object:177786} está en la orilla junto a la estatua: ábrelo con ambas llaves.",
+	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
+	["{item:15766}, on the {object:177673}"] = "{item:15766}, en {object:177673}",
 
-	-- Step 39: Sargeron
+	-- Step 39: Azore Aldamort
+	-- {npc:11863} Azore Aldamort
+	["Back south to {npc:11863}'s tower."] = "Vuelve al sur hasta la torre de {npc:11863}.",
+
+	-- Step 40: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "",
 
-	-- Step 40: Khan Dez'hepah
+	-- Step 41: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
 
-	-- Step 41: Ghost Walker Post
+	-- Step 42: Ghost Walker Post
 	["South-west down the road to the post."] = "",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "",
@@ -218,7 +247,7 @@ return {
 	-- {zone:1443} Desolace
 	["for the second {zone:1443} visit, in forever/horde/30-40/04-dustwallow-marsh"] = "",
 
-	-- Step 42: Shadowprey Village
+	-- Step 43: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "",

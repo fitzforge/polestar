@@ -9,9 +9,12 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Vahlarriel's Vengeance (97284), on the Thunder Axe Fortress visit; The Karnitol Shipwreck (1454, 1455) and the
+# satchel's errand (1456), whose chest lies by Azore's tower on the way to the fortress; Carved Centaur Totems (93224),
+# whose totems the Kolkar drop with Centaur Bounty's ears (#1602; 30-40/06 keeps it for a player who loads it fresh).
 # Left out: Bodyguard for Hire (5821).
 # Since 2026-11-07 this first Desolace visit comes after Stranglethorn's first loop (33-35); the south loop stays at
-# the end of 30-40/06 (38-39), and The Karnitol Shipwreck (39) is taken there.
+# the end of 30-40/06 (38-39), which dives for Karnitol's satchel on its north-west coast.
 
 # ---------------------------------------------------------------- Getting there
 
@@ -22,7 +25,9 @@ step Nijel's Point
   sethome "Nijel's Point" npc 11103   -- Innkeeper Lyshaerya
   turnin 1453                         -- Kreldig Ungor
   accept 1458
+  accept 1454                         -- Kreldig Ungor: the wreck's chest lies below Azore's tower, on the way to Thunder Axe Fortress
   accept 1387                         -- Corporal Melkins
+  accept 93224                        -- Captain Pentigast, beside Corporal Melkins
   accept 1437                         -- Vahlarriel Demonslayer
 
 step Malem chest
@@ -48,6 +53,7 @@ step Nijel's Point
   zone Desolace
   turnin 1465
   accept 1438
+  accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
 
 # ---------------------------------------------------------------- Thunder Axe Fortress
 
@@ -55,15 +61,24 @@ step Azore Aldamort
   tip Azore's tower stands on the hill west of Thunder Axe Fortress: take his quest first, the sceptre he wants is in the fortress.
   accept 5741
 
+step Karnitol's Chest
+  tip The wrecked ship lies just south-west of Azore's tower; its chest sits beside Rackmore's Log.
+  turnin 1454                         -- Karnitol's Chest
+  accept 1455                         -- For Kreldig Ungor, at the end of this guide
+
 step Dalinda Malem
   tip Dalinda hides inside the Burning Blade's fortress south-west of Nijel's Point.
   turnin 1438                         -- Inside
   accept 1439
 
 step Tyranis and the Seer
-  tip Her brother Tyranis (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The Burning Blade Seer keeps the sceptre in the fortress's main building.
+  tip Her brother Tyranis (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The Burning Blade Seer keeps the sceptre in the fortress's main building. Vahlarriel wants four of each kind of cultist on the way.
   collect 6767 quest 1439             -- Tyranis' Pendant; inside
   collect 15750 quest 5741            -- Sceptre of Light; on the top floor
+  kill 4663 quest 97284.1             -- Burning Blade Augur
+  kill 4664 quest 97284.2             -- Burning Blade Reaver
+  kill 4665 quest 97284.3             -- Burning Blade Adept
+  kill 4666 quest 97284.4             -- Burning Blade Felsworn
 
 step Escort Dalinda
   turnin 1439                         -- Dalinda Malem, inside
@@ -77,9 +92,9 @@ step Smeed Scrabblescrew
   accept 5561
 
 step Kodo Graveyard
-  tip Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp. There, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.
-  goto 51.7,56.7
-  kill 4700 quest 5561.1
+  tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.
+  use 13892 @51.0,58.5 "Kodo Kombobulator" -- on an Aged, Dying or Ancient Kodo in the graveyard; don't kill it
+  talk 4700 quest 5561.1 @60.6,61.6   -- the tamed kodo, at Smeed's camp: talk to it, five times
   collect 6249 quest 1459.2
   collect 6248 quest 1459.1           -- Scorpashi Venom
 
@@ -91,13 +106,18 @@ step Smeed Scrabblescrew
 step Kolkar Village
   tip The Kolkar roam the plains around Kolkar Village; their ears are for Corporal Melkins.
   collect 6067 quest 1387             -- Centaur Ear
+  collect 254432 quest 93224.1        -- Carved Centaur Totem
 
 # ---------------------------------------------------------------- Nijel's Point
 
 step Nijel's Point
   turnin 1440                         -- Vahlarriel Demonslayer
+  turnin 97284
   turnin 1387                         -- Corporal Melkins
+  turnin 93224                        -- Captain Pentigast
   turnin 1459                         -- Kreldig Ungor
+  turnin 1455
+  accept 1456                         -- Kreldig Ungor: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it
 
 # ---------------------------------------------------------------- To Stormwind
 

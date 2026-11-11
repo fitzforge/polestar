@@ -31,7 +31,7 @@ return {
 	-- Step 5: Silithus
 	["7 areas to discover here, level 55."] = "Hier gibt es 7 Gebiete zu entdecken, Stufe 55.",
 	-- {zone:1451} Silithus · {zone:1449} Un'Goro Crater · {area:3425} Cenarion Hold
-	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "",
+	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "{zone:1451} liegt westlich von {zone:1449}, durch den Pass im Nordwesten. {area:3425} ist neutral.",
 	-- {area:3425} Cenarion Hold · {npc:15177} Cloud Skydancer
 	["Flight path here: {area:3425} ({npc:15177})."] = "Flugroute hier: {area:3425} ({npc:15177}).",
 	-- {area:3425} Cenarion Hold · {npc:15178} Runk Windtamer
@@ -81,7 +81,7 @@ return {
 	["Flight path here: {area:2255} (Yugrek)."] = "Flugroute hier: {area:2255} (Yugrek).",
 
 	-- Step 14: Mount Hyjal (1/2)
-	["9 areas to discover here. Its creatures are level 54-60."] = "",
+	["9 areas to discover here. Its creatures are level 54-60."] = "Hier gibt es 9 Gebiete zu entdecken. Die Kreaturen dort sind Stufe 54-60.",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "{zone:2482} erreichst du von {zone:1452} aus durch die {area:2256} im Süden. Es ist das Endgame-Levelgebiet von Forever.",
 

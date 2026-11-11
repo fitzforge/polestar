@@ -25,12 +25,12 @@ return {
 
 	-- Step 4: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
 	-- Step 5: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "직업 전문가",
 
 	-- Step 6: Tram to Stormwind
 	-- {zone:1453} Stormwind
@@ -51,44 +51,16 @@ return {
 	["Fly to {area:144}"] = "",
 
 	-- Step 11: Thelsamar
-	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	-- {zone:1427} Searing Gorge · {area:144} Thelsamar
+	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "",
 
-	-- Step 12: Ironband's Excavation Site
-	["Ride east along the south shore of the loch to Ironband's camp."] = "호수 남쪽 기슭을 따라 동쪽 아이언밴드의 발굴현장으로 가십시오.",
-
-	-- Step 13: Into Badlands
-	-- {area:3} Badlands
-	["Into {area:3}"] = "",
-
-	-- Step 15: The Uldaman dig
-	-- {area:1517} Uldaman
-	["The {area:1517} dig"] = "{area:1517} 발굴지",
-	-- {area:3} Badlands · {area:1517} Uldaman
-	["Ride south through the pass into the {area:3}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "고개를 지나 남쪽 {area:3} 북쪽 끝으로 가십시오: 그곳 {area:1517} 밖에서 바위동굴 트로그가 땅을 파고 있습니다. 돌조각 단지와 자홍버섯은 던전 밖, 트로그의 동굴과 굴에 있습니다.",
-	-- {item:8047} Magenta Fungus Cap
-	["{item:8047}; below ground"] = "",
-	-- {object:2743} Carved Stone Urn
-	["{object:2743}; below ground"] = "",
-
-	-- Step 16: Back to Loch Modan
-	-- {area:38} Loch Modan
-	["Back to {area:38}"] = "",
-
-	-- Step 17: Ironband's Excavation Site
-	["Ride back north to Ironband's camp."] = "북쪽 아이언밴드의 발굴현장으로 돌아가십시오.",
-
-	-- Step 18: Thelsamar
-	-- {area:144} Thelsamar
-	["Ride back west along the loch to {area:144}."] = "",
-
-	-- Step 19: Fly to Menethil Harbor
+	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
-	-- Step 22: Rut'theran Village
+	-- Step 15: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -97,45 +69,45 @@ return {
 	["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}: 간직하십시오. 깃털은 {zone:1428} 가이드 끝에서 구합니다",
 	["the book on her table"] = "그녀의 탁자 위 책",
 
-	-- Step 24: Temple of the Moon
+	-- Step 17: Temple of the Moon
 	["Temple of the Moon"] = "달의 신전",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "차원문을 지나 {zone:1457}(으)로 들어가십시오. 달의 신전은 도시 남쪽에 있습니다.",
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740}, beside her"] = "{npc:7740}, 그녀의 옆",
 
-	-- Step 27: Cenarion Enclave
+	-- Step 21: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, 나무 꼭대기",
 
-	-- Step 29: Cenarion Enclave
+	-- Step 23: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "흙은 나중에 {zone:1449}에서 구합니다",
 
-	-- Step 30: Portal to Teldrassil
-	-- {area:141} Teldrassil
-	["Portal to {area:141}"] = "",
+	-- Step 24: Portal to Teldrassil
+	-- {zone:1438} Teldrassil
+	["Portal to {zone:1438}"] = "{zone:1438}행 차원문",
 
-	-- Step 31: Fly to Auberdine
+	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 32: Boat to Stormwind Harbor
+	-- Step 26: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 33: Fly to Darkshire
+	-- Step 27: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
 
-	-- Step 36: The bloodmages
+	-- Step 30: The bloodmages
 	["The bloodmages"] = "혈법사",
-	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
-	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "",
+	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
+	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "",
 
-	-- Step 37: Nethergarde Keep
+	-- Step 31: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
 	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "먼저 길을 따라 동쪽 요새로 가십시오: {item:6091}은(는) {area:42}에서 받은 지 1시간 후에 사라지는데, 혈법사들의 야수 사냥은 그보다 오래 걸립니다.",
 	-- {quest:2990} Thadius Grimshade
@@ -145,27 +117,37 @@ return {
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "",
 
-	-- Step 38: Blasted Lands: kill these as you meet them
-	-- {area:4} Blasted Lands
-	["{area:4}: kill these as you meet them"] = "",
+	-- Step 32: Blasted Lands: kill these as you meet them
+	-- {zone:1419} Blasted Lands
+	["{zone:1419}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 39: The bloodmages
+	-- Step 33: The bloodmages
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "혈법사들의 두 번째 단계는 같은 재료에 경험치 없이 강화 아이템만 줍니다: 건너뛰십시오.",
 
-	-- Step 40: Fly to Booty Bay
+	-- Step 34: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "{area:35}(으)로 날아가기",
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "",
 
-	-- Step 41: Monogrammed Sash
+	-- Step 35: Booty Bay
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	-- {npc:2487} Fleet Master Seahorn
+	["{npc:2487}, top floor"] = "{npc:2487}, 꼭대기 층",
+
+	-- Step 36: The Bloodsail captains
+	["The Bloodsail captains"] = "붉은해적단 선장들",
+	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
+	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
+
+	-- Step 38: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 45: Facing Negolash
+	-- Step 42: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
@@ -179,11 +161,15 @@ return {
 	-- ["Hearth to {area:348}."] = "귀환석으로 {area:348}에 가십시오.",
 	-- ["Hearthstone on cooldown? Ride back north-west."] = "귀환석이 재사용 대기 중이라면 북서쪽으로 돌아가십시오.",
 	-- ["Ride back east to {area:1438} and fly to {area:144}."] = "동쪽 {area:1438}(으)로 돌아가 {area:144}(으)로 날아가십시오.",
+	-- ["Ride back north to Ironband's camp."] = "북쪽 아이언밴드의 발굴현장으로 돌아가십시오.",
+	-- ["Ride east along the south shore of the loch to Ironband's camp."] = "호수 남쪽 기슭을 따라 동쪽 아이언밴드의 발굴현장으로 가십시오.",
 	-- ["Ride east through {zone:1430} into the {zone:1435} and south down the road into the {zone:1419}. The bloodmages' camp is the first stop beside the road."] = "동쪽으로 {zone:1430}을(를) 지나 {zone:1435}(으)로 간 다음, 길을 따라 남쪽 {zone:1419}(으)로 내려가십시오. 혈법사들의 야영지가 길가 첫 번째 장소입니다.",
 	-- ["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it."] = "북쪽으로 {zone:1425} 한가운데의 {area:351}까지 가세요. 초록 진흙괴물과 비취 수액괴물이 그 주변 곳곳을 기어다닙니다.",
+	-- ["Ride south through the pass into the {area:3}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "고개를 지나 남쪽 {area:3} 북쪽 끝으로 가십시오: 그곳 {area:1517} 밖에서 바위동굴 트로그가 땅을 파고 있습니다. 돌조각 단지와 자홍버섯은 던전 밖, 트로그의 동굴과 굴에 있습니다.",
 	-- ["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down."] = "남동쪽으로 {zone:1425} 남쪽에 있는 썩은가지부족의 계단식 신전 {area:355}(으)로 가서 꼭대기까지 올라가십시오. 문지기 퀴아가와 {npc:8636}(정예, 50)이(가) 그곳에 있습니다: 꼭대기에 닿으면 곧바로 내려오십시오.",
 	-- ["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time."] = "서쪽으로 가십시오: 굶주린 칼송곳니하이에나가 혈법사 야영지 바로 남쪽의 메마른 언덕을 돌아다니고, 스콜포크 독침전갈(50레벨)이 북쪽 한가운데를 기어다닙니다. {npc:5982} 독수리가 그 위를 맴돕니다. 하나씩 끌어내십시오.",
 	-- ["Scorpoks and snickerfangs"] = "스콜포크와 칼송곳니하이에나",
 	-- ["The druid trainers stand in the Enclave; {zone:1455} has none"] = "드루이드 상급자는 세나리온 자치령에 있습니다. {zone:1455}에는 없습니다",
+	-- ["The {area:1517} dig"] = "{area:1517} 발굴지",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 }

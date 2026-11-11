@@ -11,6 +11,8 @@ return {
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957} : gardez-la pour {zone:1451}",
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist · {area:1237} Valormok
+	["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "",
 
 	-- Step 2: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -91,17 +93,33 @@ return {
 	["{npc:8393}, beside him"] = "{npc:8393}, à côté de lui",
 
 	-- Step 19: The Undercity
-	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
-	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Prenez le zeppelin à la tour devant {zone:1454} jusqu'à {zone:1420}, puis chevauchez jusqu'à {zone:1458}. Dame Sylvanas règne sur {object:36126}.",
+	-- {object:36126} Royal Quarter
+	["Lady Sylvanas holds the {object:36126}."] = "Dame Sylvanas se tient dans {object:36126}.",
 
-	-- Step 20: Royal Quarter
+	-- Step 22: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, tout près",
+
+	-- Step 23: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} se rend à {npc:10778}, dans {zone:1422} : gardez-la.",
+
+	-- Step 24: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Seulement avec {quest:79095} de la boutique d'alchimie de {area:159} dans vos sacs (le guide des Livres de la bibliothèque)",
+
+	-- Step 26: The Bulwark
+	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+
+	-- Step 28: Felstone Field
+	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
+	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La ferme de {npc:10778} est la première à l'est de {area:152}. Les Goules jacassantes de la ferme portent l'autre moitié de son porte-bonheur ; {npc:11075} garde le chaudron dans le champ.\nAttention : un ou deux morts-vivants combattent généralement à ses côtés, et d'autres seigneurs du chaudron peuvent attaquer après que vous avez utilisé le chaudron.",
+
+	-- Step 29: Janice Felstone
+	["Upstairs"] = "À l'étage",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Les deux dons d'{item:14047} se rendent plus loin dans le parcours : gardez soixante {item:14047} pour chacun si vous les voulez.",
@@ -115,10 +133,13 @@ return {
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "Dans {object:172961}. Ayez l'Etoffe de laine, l'Etoffe de soie et l'Etoffe de tisse-mage dans vos sacs.",
 	-- ["Open {object:149036} for the {item:10556}"] = "Ouvrez le {object:149036} pour obtenir le {item:10556}",
 	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "Le camp de Rimtori se trouve à l'extrémité est du camp de base. Lisez-y le {object:151286}, puis tuez le magus.",
+	-- ["Take the zeppelin from the tower outside {zone:1454} to {area:85} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Prenez le zeppelin à la tour devant {zone:1454} jusqu'à {area:85}, puis chevauchez jusqu'à {zone:1458}. Dame Sylvanas règne sur {object:36126}.",
+	-- ["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Prenez le zeppelin à la tour devant {zone:1454} jusqu'à {zone:1420}, puis chevauchez jusqu'à {zone:1458}. Dame Sylvanas règne sur {object:36126}.",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "La tour des zeppelins se trouve juste au nord-est de la grande porte de {zone:1454} ; prenez le zeppelin pour {zone:1458}.",
 	-- ["Zeppelin to the {zone:1458}"] = "Zeppelin pour {zone:1458}",
 	-- ["Zeppelin tower"] = "Tour des zeppelins",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, dans l'Apothicarium",
 	-- ["{npc:11044}, in the {object:36072}"] = "{npc:11044}, dans {object:36072}",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} se tient à {area:380}. Ouvrez chaque caisse qu'elle vous remet et rapportez-lui ce qu'elle contient.",
+	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} se rend à {npc:10778}, dans {area:28} : gardez-la.",
 }

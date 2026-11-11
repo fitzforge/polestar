@@ -132,7 +132,7 @@ impl Engine {
 			state.settings.channel == Channel::Beta
 		};
 		self.publish();
-		let result = addons::releases(&self.http, beta).await;
+		let result = addons::releases(&self.http(), beta).await;
 		{
 			let mut state = self.lock();
 			state.checking = false;
@@ -144,6 +144,8 @@ impl Engine {
 				Err(e) => state.catalog_error = Some(e),
 			}
 		}
+		// The addon's update card learns the newest release (docs/RECORDING.md "Client info").
+		self.sync_client_info();
 		self.publish();
 	}
 
@@ -187,7 +189,7 @@ impl Engine {
 			}
 		};
 		let result = match &release {
-			Some(release) => addons::install(&self.http, product, release, &dir, &report).await.map(|_| release.version.clone()),
+			Some(release) => addons::install(&self.http(), product, release, &dir, &report).await.map(|_| release.version.clone()),
 			None => {
 				report(addons::Progress::step("remove"));
 				let dir = dir.clone();
@@ -216,6 +218,10 @@ impl Engine {
 		if product.id == "recorder" && action != "uninstall" && result.is_ok() {
 			// The release ships an empty Ack.lua; put back what the server confirmed.
 			self.rewrite_ack();
+		}
+		if product.id == "polestar" && action != "uninstall" && result.is_ok() {
+			// The release ships an empty ClientInfo.lua; put back what the last check found.
+			self.sync_client_info();
 		}
 		self.rescan();
 		self.publish();

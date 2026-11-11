@@ -123,6 +123,10 @@ pub struct Inputs<'a> {
 	pub walks: Option<&'a dyn forge_sim::walks::Walks>,
 	/// The world's zone crossings: a written walk from one zone into another goes over them.
 	pub borders: Option<&'a crate::borders::Borders>,
+	/// "Every guide stands on its own": a guide's opening accepts that need a quest only an earlier
+	/// guide hands in are listed (`Flag`), moved to a later visit to their giver (`Move`), or not
+	/// checked (`Off`).
+	pub fresh_openers: post::FreshOpeners,
 }
 
 /// What apply_route wrote: the chain's guides (relative path, text), in chain order.
@@ -1478,6 +1482,19 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	for &k in &by_median {
 		if !chain.contains(&pos_of[k].0) {
 			chain.push(pos_of[k].0.clone());
+		}
+	}
+	// (Then all of them in the route's order, by the median route position of their lines: v1's
+	// `next` links put the guides they do not reach after every guide they do, and each pass that
+	// compares a step's file and line with another's reads this order as the route's. Silverpine
+	// (12-15) after the Barrens (15-21) it leads into left Silverpine's Strange Lockbox step at 12-15,
+	// before the Barrens' accept of Trial of the Sea Lion it is for, #1386.)
+	{
+		let ord = crate::post::play_order(&chain, &|f| pos_idx.get(f).map(|&k| median(&pos_of[k].1)));
+		if ord.iter().enumerate().any(|(i, &k)| i != k) {
+			let sorted: Vec<String> = ord.iter().map(|&k| chain[k].clone()).collect();
+			log.push(format!("apply-route: the chain in the route's order: {}", sorted.join(", ")));
+			chain = sorted;
 		}
 	}
 	// (A shared guide the start plays in its own part, before the faction's join, comes before the join
@@ -5458,6 +5475,22 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		log.push(format!("after its prerequisite: {} {q}", chain[fi]));
 	}
 	post::source_item_uses(&mut texts, data, &may);
+	// "Every guide stands on its own": an accept in a guide's opening that needs a quest only an earlier
+	// guide hands in (the start's own starting zone aside) is listed, or moved to a later visit to its
+	// giver in the guide (`--fresh-openers move`).
+	if inp.fresh_openers != post::FreshOpeners::Off {
+		let starter = texts.first().filter(|t| re!(r"(?m)^levels\s+1\s*-").is_match(t)).map(|_| 0);
+		let found = post::fresh_openers(&texts, data, post::FRESH_STEPS, starter);
+		let n = found.len();
+		let left = if inp.fresh_openers == post::FreshOpeners::Move { post::fresh_openers_later(&mut texts, &found, post::FRESH_STEPS, &quest_place, crate::hub::HUB_YD) } else { found };
+		if inp.fresh_openers == post::FreshOpeners::Move {
+			log.push(format!("fresh openers: {} moved after the opening, {} left", n - left.len(), left.len()));
+		}
+		for o in &left {
+			let needs: Vec<String> = o.needs.iter().map(|(p, fs)| format!("{p} ({})", fs.iter().map(|&f| chain[f].as_str()).collect::<Vec<_>>().join(", "))).collect();
+			log.push(format!("fresh opener: {} step {}: accept {} needs {}", chain[o.file], o.step + 1, o.quest, needs.join(", ")));
+		}
+	}
 	if cx.route_travel {
 		for t in texts.iter_mut() {
 			*t = stale_skip_notes(&cx, t.split('\n').map(str::to_string).collect(), &route_q).join("\n");
@@ -5475,6 +5508,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			*t = dup_tips(t.split('\n').map(str::to_string).collect()).join("\n");
 		}
 	}
+	// After every pass that adds or moves accepts: a quest handed in on the spot is never accepted (#1699).
+	post::direct_hand_ins(&mut texts, data);
 	for t in texts.iter_mut() {
 		if cx.route_travel {
 			*t = hub_steps(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
@@ -7982,7 +8017,7 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 /// the route's nearest one in the player's zone (local); else the route's next such camp, never in a
 /// city; else where the player is. `own`: the route's own point for the grind. `solo`: for a player
 /// alone, no camp of elites or of a group family's work.
-fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Option<u32>, solo: bool) -> (Option<String>, Option<u32>, bool, Option<Near>) {
+fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Option<u32>, solo: bool) -> (Option<(String, Option<u32>)>, Option<u32>, bool, Option<Near>) {
 	const CAMP_NEAR_YD: f64 = 800.0;
 	/// Yards from the grind's point within which its camp mob spawns, else the arrow goes to the mob.
 	const CAMP_AT_YD: f64 = 400.0;
@@ -8052,7 +8087,8 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 		);
 	let work = local.or_else(|| order[after..].iter().take(CAMP_FAR).filter(task_camp).find(|w| cx.w(w.pt).is_some() && !in_city(w.pt)));
 	let mob = work.and_then(camp).filter(|e| e.name.as_deref().is_some_and(|s| !s.is_empty()));
-	let target = mob.and_then(|e| e.name.clone());
+	// (Its name, and its npc id for the `grind` modifier: the arrow leads to its nearest spawn area.)
+	let target = mob.and_then(|e| Some((e.name.clone()?, cx.data.npcs.iter().find(|(_, n)| std::ptr::eq(*n, e)).map(|(&id, _)| id))));
 	// (The route's own point for it, when near the player; else the camp's, else where the player is.)
 	let pt = own.filter(|&p| near_here(Some(p))).or_else(|| work.and_then(|w| w.pt)).or_else(|| order[..before].iter().rev().find_map(|x| x.pt.filter(|_| cx.w(x.pt).is_some())));
 	// (The mob named is the one about the player's level, which need not spawn at that point: Darkshore's
@@ -8065,15 +8101,16 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 
 /// A grind's way to its camp and its `level N` goal (`n`: level_str of its target): to `spot`, the camp
 /// mob's spawn, when grind_camp gave one, else to the grind's point.
-fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, spot: Option<&Near>, n: &str) -> Vec<String> {
+fn grind_lines(cx: &Ctx, target: &Option<(String, Option<u32>)>, pt: Option<u32>, spot: Option<&Near>, n: &str) -> Vec<String> {
 	let mut lines = Vec::with_capacity(2);
 	let at = spot.map_or_else(|| cx.coords_of(pt), |s| s.at.clone());
 	if !at.is_empty() {
-		let label = target.as_deref().unwrap_or("Grind spot");
+		let label = target.as_ref().map_or("Grind spot", |(t, _)| t.as_str());
 		lines.push(format!("  goto {} \"{label}\"", at.trim_start().trim_start_matches('@')));
 	}
 	lines.push(match target {
-		Some(t) => format!("  level {n}                          -- grind on {t}"),
+		Some((t, Some(id))) => format!("  level {n} grind {id}                -- grind on {t}"),
+		Some((t, None)) => format!("  level {n}                          -- grind on {t}"),
 		None => format!("  level {n}"),
 	});
 	lines
@@ -10304,7 +10341,7 @@ mod tests {
 				&format!("  when level<{n}"),
 				&format!("  tip Top up here to level {n} before the hand-ins at Everlook: they take you to level 53."),
 				"  goto 60.1,30.2 \"Yeti\"",
-				&format!("  level {n}                          -- grind on Ice Thistle Yeti"),
+				&format!("  level {n} grind 7458                -- grind on Ice Thistle Yeti"),
 				"",
 			])
 		};
@@ -10343,7 +10380,7 @@ mod tests {
 		);
 		let levels: Vec<&str> = out.iter().filter(|l| l.trim_start().starts_with("level ")).map(|l| l.split_whitespace().nth(1).unwrap()).collect();
 		assert_eq!(levels, ["52.2", "52.5", "52.6", "52.7"], "{out:#?}");
-		assert_eq!(out[..4], v(&["step Ice Thistle yetis", "  zone Winterspring", "  collect 12366 quest 3783", "  level 52.2                          -- grind on Ice Thistle Yeti"])[..]);
+		assert_eq!(out[..4], v(&["step Ice Thistle yetis", "  zone Winterspring", "  collect 12366 quest 3783", "  level 52.2 grind 7458                -- grind on Ice Thistle Yeti"])[..]);
 	}
 
 	#[test]

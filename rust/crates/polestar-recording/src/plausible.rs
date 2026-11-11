@@ -27,6 +27,8 @@ pub const MAX_LOOTS_PER_MINUTE: usize = 60;
 /// Most `gather` and most `refuse` records in any 60 seconds (the addon writes at most 20 and 10).
 pub const MAX_GATHERS_PER_MINUTE: usize = 30;
 pub const MAX_REFUSES_PER_MINUTE: usize = 30;
+/// Most `open` records (world objects opened) in any 60 seconds (the addon writes at most 20).
+pub const MAX_OPENS_PER_MINUTE: usize = 30;
 /// Largest group: a raid of 40.
 pub const MAX_GROUP: i64 = 40;
 /// Quest, creature, object and item ids are below this.
@@ -55,7 +57,7 @@ pub struct Context {
 #[derive(Clone, Debug, PartialEq)]
 pub struct Issue {
 	/// Short rule name (`epoch`, `span`, `seq`, `level`, `kill-xp`, `kill-rate`, `loot-rate`,
-	/// `gather-rate`, `refuse-rate`, `group`, `id`, `speed`).
+	/// `gather-rate`, `refuse-rate`, `open-rate`, `group`, `id`, `speed`).
 	pub rule: &'static str,
 	pub detail: String,
 }
@@ -127,6 +129,7 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 	let mut spawns = Vec::new();
 	let mut gathers = Vec::new();
 	let mut refuses = Vec::new();
+	let mut opens = Vec::new();
 	// The last `pos`: (map, x, y in percent, t).
 	let mut last_pos: Option<(u32, f64, f64, f64)> = None;
 	// The jump of the last `pos` segment when it was one, and how many jumps the chunk holds so far:
@@ -180,6 +183,7 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 			}
 			Kind::Gather => gathers.push(r.t),
 			Kind::Refuse => refuses.push(r.t),
+			Kind::Open => opens.push(r.t),
 			Kind::Group => {
 				if let Some(size) = r.int("size").filter(|s| *s > MAX_GROUP) {
 					issue("group", format!("group of {size}"));
@@ -226,6 +230,7 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 		("loot-rate", "loot windows", loots, MAX_LOOTS_PER_MINUTE),
 		("gather-rate", "gathers", gathers, MAX_GATHERS_PER_MINUTE),
 		("refuse-rate", "refusals", refuses, MAX_REFUSES_PER_MINUTE),
+		("open-rate", "objects opened", opens, MAX_OPENS_PER_MINUTE),
 	] {
 		times.sort_by(f64::total_cmp);
 		let n = busiest_minute(&times);
@@ -323,6 +328,28 @@ mod tests {
 		assert_eq!(rules(&chunk(&format!("kill\t5\t1501\t13\te\t\t\t\t10\t{}\t0\t\n", bound + 1)), &ctx()), ["kill-xp"]);
 		// A skull mob (-1) uses the player's level.
 		assert_eq!(rules(&chunk(&format!("kill\t5\t1501\t-1\tb\t\t\t\t{}\t\t0\t\n", max_kill_xp(12) + 1)), &ctx()), ["kill-xp"]);
+	}
+
+	#[test]
+	fn explorer_records_pass_and_objects_opened_are_rate_limited() {
+		// An explorer-mode stretch: spawns seen, a quest's map point, the inside of an instance, a pull.
+		let c = chunk(concat!(
+			"pos\t10\t1420\t1000\t1000\t0\t70\n",
+			"unitx\t11\t1501\t000043F59F\t1420\t1010\t1000\n",
+			"poi\t12\t364\t0\t1420\t9000\t9000\n",
+			"pos\t50\t1420\t1300\t1400\t0\t70\n",
+			"where\t51\tc\t1568\tDeathknell\t0\n",
+			"open\t52\t3365\t1420\t1300\t1400\to\t500123\n",
+			"imap\t60\t2943\t2681\t\t\n",
+			"engage\t61\t3301\t1\t5\n",
+		));
+		assert_eq!(check_chunk(&c, &ctx()), []);
+		let opens = |n: usize| (0..n).map(|i| format!("open\t{}\t3365\t1420\t1300\t1400\t\t\n", 10 + i * 10)).collect::<String>();
+		assert_eq!(rules(&chunk(&opens(MAX_OPENS_PER_MINUTE)), &ctx()), [] as [&str; 0]);
+		assert_eq!(rules(&chunk(&opens(MAX_OPENS_PER_MINUTE + 1)), &ctx()), ["open-rate"]);
+		// Their ids are held below a million like every other record's.
+		assert_eq!(rules(&chunk("unitx\t5\t1000000\t1A\t\t\t\n"), &ctx()), ["id"]);
+		assert_eq!(rules(&chunk("open\t5\t3365\t\t\t\to\t1000000\n"), &ctx()), ["id"]);
 	}
 
 	#[test]

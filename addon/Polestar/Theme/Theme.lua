@@ -1024,8 +1024,11 @@ local function paintShadow(fs)
 end
 
 -- Forever leaves a string blank after a new font until its text changes
--- (the options' values and tiles after a skin change): set it again.
+-- (the options' values and tiles after a skin change): set it again. Not an
+-- edit box the player is in: setting its text again drops their cursor and
+-- selection (#1753: the report box selected for Ctrl+C).
 local function textAgain(fs)
+	if fs.HasFocus and fs:HasFocus() then return end
 	local text = fs.GetText and fs:GetText()
 	if text and text ~= "" then
 		fs:SetText(text .. " ")
@@ -1135,27 +1138,20 @@ local function hideBorder(frame)
 	if e then for i = 1, 4 do e[i]:Hide() end end
 end
 
--- A soft drop shadow around a window: nine slices of Media/UI/shadow, offset
--- down a little so it reads as depth, not a halo.
-local SHADOW_OUT = 16
-local SHADOW_DROP = 4
-local SLICE = 20 / 64
-local function shadowFor(frame)
-	local s = frame.psShadow
-	if s then return s end
-	s = CreateFrame("Frame", nil, frame)
-	s:SetFrameLevel(math.max(0, frame:GetFrameLevel() - 1))
-	s:SetPoint("TOPLEFT", frame, "TOPLEFT", -SHADOW_OUT, SHADOW_OUT - SHADOW_DROP)
-	s:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", SHADOW_OUT, -SHADOW_OUT - SHADOW_DROP)
+-- A soft box: the eight outer slices of Media/UI/shadow round frame `s`,
+-- corners C square, each slice `S` of the texture from its edge. The
+-- texture's shape (the middle 24 of its 64 texels) is feathered over 22
+-- texels centred on the shape's edge: nothing out to texel 9, half at 20,
+-- solid from 31. -> the eight textures (corners first).
+local function softBox(s, C, S)
 	local tex = Theme.Media("shadow")
 	local parts = {}
 	local spec = {
-		{ "TOPLEFT", 0, 0, SLICE, SLICE },
-		{ "TOPRIGHT", 1 - SLICE, 0, 1, SLICE },
-		{ "BOTTOMLEFT", 0, 1 - SLICE, SLICE, 1 },
-		{ "BOTTOMRIGHT", 1 - SLICE, 1 - SLICE, 1, 1 },
+		{ "TOPLEFT", 0, 0, S, S },
+		{ "TOPRIGHT", 1 - S, 0, 1, S },
+		{ "BOTTOMLEFT", 0, 1 - S, S, 1 },
+		{ "BOTTOMRIGHT", 1 - S, 1 - S, 1, 1 },
 	}
-	local C = SHADOW_OUT + 6
 	for i = 1, 4 do
 		local t = s:CreateTexture(nil, "BACKGROUND", nil, -8)
 		t:SetTexture(tex)
@@ -1172,13 +1168,96 @@ local function shadowFor(frame)
 		t:SetPoint(b[1], b[2], b[3], 0, 0)
 		parts[#parts + 1] = t
 	end
-	edge({ "TOPLEFT", parts[1], "TOPRIGHT" }, { "BOTTOMRIGHT", parts[2], "BOTTOMLEFT" }, SLICE, 1 - SLICE, 0, SLICE)
-	edge({ "TOPLEFT", parts[3], "TOPRIGHT" }, { "BOTTOMRIGHT", parts[4], "BOTTOMLEFT" }, SLICE, 1 - SLICE, 1 - SLICE, 1)
-	edge({ "TOPLEFT", parts[1], "BOTTOMLEFT" }, { "BOTTOMRIGHT", parts[3], "TOPRIGHT" }, 0, SLICE, SLICE, 1 - SLICE)
-	edge({ "TOPLEFT", parts[2], "BOTTOMLEFT" }, { "BOTTOMRIGHT", parts[4], "TOPRIGHT" }, 1 - SLICE, 1, SLICE, 1 - SLICE)
-	s.parts = parts
+	edge({ "TOPLEFT", parts[1], "TOPRIGHT" }, { "BOTTOMRIGHT", parts[2], "BOTTOMLEFT" }, S, 1 - S, 0, S)
+	edge({ "TOPLEFT", parts[3], "TOPRIGHT" }, { "BOTTOMRIGHT", parts[4], "BOTTOMLEFT" }, S, 1 - S, 1 - S, 1)
+	edge({ "TOPLEFT", parts[1], "BOTTOMLEFT" }, { "BOTTOMRIGHT", parts[3], "TOPRIGHT" }, 0, S, S, 1 - S)
+	edge({ "TOPLEFT", parts[2], "BOTTOMLEFT" }, { "BOTTOMRIGHT", parts[4], "TOPRIGHT" }, 1 - S, 1, S, 1 - S)
+	return parts
+end
+
+-- A soft drop shadow around a window: nine slices of Media/UI/shadow, offset
+-- down a little so it reads as depth, not a halo. Sliced at the shape's edge
+-- (half strength): the window covers the rest.
+local SHADOW_OUT = 16
+local SHADOW_DROP = 4
+local SLICE = 20 / 64
+local function shadowFor(frame)
+	local s = frame.psShadow
+	if s then return s end
+	s = CreateFrame("Frame", nil, frame)
+	s:SetFrameLevel(math.max(0, frame:GetFrameLevel() - 1))
+	s:SetPoint("TOPLEFT", frame, "TOPLEFT", -SHADOW_OUT, SHADOW_OUT - SHADOW_DROP)
+	s:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", SHADOW_OUT, -SHADOW_OUT - SHADOW_DROP)
+	s.parts = softBox(s, SHADOW_OUT + 6, SLICE)
 	frame.psShadow = s
 	return s
+end
+
+-- A scrim with no edge, for text laid straight on the game world (the
+-- transparent guide window's backing): a frame at its parent's level, under
+-- the parent's children. Its outer `feather` units are the shadow texture
+-- sliced to where its shape turns solid (texel 31): clear over the first
+-- s.psClear of them (texels 0-9), then a smooth rise to solid, so two scrims
+-- whose rises cover the same band cross-fade without a seam. Place it with
+-- SetPoint; Theme.PaintScrim colours it.
+local SCRIM_SLICE = 31 / 64
+function Theme.Scrim(parent, feather)
+	local s = CreateFrame("Frame", nil, parent)
+	s:SetFrameLevel(parent:GetFrameLevel())
+	local parts = softBox(s, feather, SCRIM_SLICE)
+	local mid = s:CreateTexture(nil, "BACKGROUND", nil, -8)
+	mid:SetTexture(Theme.Media("white"))
+	mid:SetPoint("TOPLEFT", parts[1], "BOTTOMRIGHT", 0, 0)
+	mid:SetPoint("BOTTOMRIGHT", parts[4], "TOPLEFT", 0, 0)
+	parts[#parts + 1] = mid
+	s.parts = parts
+	s.psClear = math.floor(feather * 9 / 31 + 0.5)
+	return s
+end
+
+-- A light shade for one string laid on the game world: nine textures on
+-- `parent` under its strings, a solid middle (s.parts[1], placed and sized to
+-- the text by the caller) and, round it, the shadow texture's rise from clear
+-- to solid over `fx` units left and right and `fy` above and below, so it
+-- shows no edge. Coloured by Theme.PaintScrim.
+function Theme.TextShade(parent, fx, fy)
+	local tex, S = Theme.Media("shadow"), SCRIM_SLICE
+	local function part(u0, u1, v0, v1)
+		local t = parent:CreateTexture(nil, "BACKGROUND", nil, -8)
+		t:SetTexture(tex)
+		t:SetTexCoord(u0, u1, v0, v1)
+		return t
+	end
+	local mid = parent:CreateTexture(nil, "BACKGROUND", nil, -8)
+	mid:SetTexture(Theme.Media("white"))
+	local tl, tr, bl, br = part(0, S, 0, S), part(1 - S, 1, 0, S), part(0, S, 1 - S, 1), part(1 - S, 1, 1 - S, 1)
+	for _, c in ipairs({ tl, tr, bl, br }) do c:SetSize(fx, fy) end
+	tl:SetPoint("BOTTOMRIGHT", mid, "TOPLEFT", 0, 0)
+	tr:SetPoint("BOTTOMLEFT", mid, "TOPRIGHT", 0, 0)
+	bl:SetPoint("TOPRIGHT", mid, "BOTTOMLEFT", 0, 0)
+	br:SetPoint("TOPLEFT", mid, "BOTTOMRIGHT", 0, 0)
+	local top, bottom, left, right = part(S, 1 - S, 0, S), part(S, 1 - S, 1 - S, 1), part(0, S, S, 1 - S), part(1 - S, 1, S, 1 - S)
+	top:SetPoint("BOTTOMLEFT", mid, "TOPLEFT", 0, 0)
+	top:SetPoint("BOTTOMRIGHT", mid, "TOPRIGHT", 0, 0)
+	top:SetHeight(fy)
+	bottom:SetPoint("TOPLEFT", mid, "BOTTOMLEFT", 0, 0)
+	bottom:SetPoint("TOPRIGHT", mid, "BOTTOMRIGHT", 0, 0)
+	bottom:SetHeight(fy)
+	left:SetPoint("TOPRIGHT", mid, "TOPLEFT", 0, 0)
+	left:SetPoint("BOTTOMRIGHT", mid, "BOTTOMLEFT", 0, 0)
+	left:SetWidth(fx)
+	right:SetPoint("TOPLEFT", mid, "TOPRIGHT", 0, 0)
+	right:SetPoint("BOTTOMLEFT", mid, "BOTTOMRIGHT", 0, 0)
+	right:SetWidth(fx)
+	return { parts = { mid, tl, tr, bl, br, top, bottom, left, right } }
+end
+
+-- The scheme's scrim colour at `alpha`. The alpha is the parts' vertex
+-- alpha: in the client a texture's SetAlpha sets that same value, so a part
+-- is never SetAlpha'd (fold any fade into `alpha`, #1684).
+function Theme.PaintScrim(s, alpha)
+	local r, g, b = Theme.Color("scrim")
+	for i = 1, #s.parts do s.parts[i]:SetVertexColor(r, g, b, alpha) end
 end
 
 ---------------------------------------------------------------------------
@@ -1312,9 +1391,18 @@ local HOUSE_PAINT = {
 				d.check = check
 			end
 		end
-		local r, g, b = Theme.Color("shade")
-		fill(d.box):SetVertexColor(r, g, b, 0.35)
-		Theme.Border(d.box, Theme.Wash("box"))
+		-- psOnWorld (the transparent guide window's tick boxes): the scrim
+		-- inside and an ink edge, so the box holds over bright ground.
+		if f.psOnWorld then
+			local r, g, b = Theme.Color("scrim")
+			fill(d.box):SetVertexColor(r, g, b, 0.6)
+			local tr, tg, tb = Theme.Color("textDim")
+			Theme.Border(d.box, tr, tg, tb, 0.7)
+		else
+			local r, g, b = Theme.Color("shade")
+			fill(d.box):SetVertexColor(r, g, b, 0.35)
+			Theme.Border(d.box, Theme.Wash("box"))
+		end
 		if d.check then d.check:SetVertexColor(Theme.Accent()) end
 		d.box:Show()
 		hoverWash(f)

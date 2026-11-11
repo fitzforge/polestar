@@ -247,6 +247,11 @@ pub struct Goal {
 	pub frac: Option<f64>,
 	pub money: Option<f64>,
 	pub until_skill: Option<f64>,
+	/// A `craft … until` goal's skill-up colours (the crafts still to make for a section's materials).
+	pub yellow: Option<f64>,
+	pub grey: Option<f64>,
+	/// A craft's reagents: (item, count).
+	pub reagents: Vec<(u32, f64)>,
 	pub location: Option<String>,
 	pub min_level: Option<f64>,
 	pub qlvl: Option<f64>,
@@ -331,6 +336,9 @@ impl Goal {
 			frac: num(v, "frac"),
 			money: num(v, "money"),
 			until_skill: num(v, "untilSkill"),
+			yellow: num(v, "yellow"),
+			grey: num(v, "grey"),
+			reagents: v.get("reagents").as_arr().map(|a| a.to_vec().iter().filter_map(|r| id(r, "item").map(|i| (i, num(r, "count").unwrap_or(1.0)))).collect()).unwrap_or_default(),
 			location: text(v, "location"),
 			min_level: tonumber(&v.get("minLevel")),
 			qlvl: tonumber(&v.get("qlvl")),
@@ -379,7 +387,18 @@ pub struct Step {
 	pub skipto: Option<Vec<(String, Pred)>>,
 	pub label: Option<String>,
 	pub along: Along,
+	/// The 1-based index in the guide's `sections` of the skill range the step is under.
+	pub section: Option<usize>,
 	pub goals: Vec<Goal>,
+}
+
+/// A profession guide's skill-range heading (`section <Profession> <from>-<to>`).
+#[derive(Clone, Debug)]
+pub struct Section {
+	pub skill: Option<String>,
+	pub skill_line: Option<u32>,
+	pub from: f64,
+	pub to: f64,
 }
 
 /// A quest's accept, turn-in or abandon goal in a guide (layoutOf: `{ s, key, step, goal }`).
@@ -394,6 +413,7 @@ pub struct At {
 pub struct Guide {
 	pub id: String,
 	pub steps: Vec<Step>,
+	pub sections: Vec<Section>,
 	pub next: Option<String>,
 	pub next_choices: Option<Vec<String>>,
 	pub next_when: FxHashMap<String, Vec<Pred>>,
@@ -433,6 +453,7 @@ impl Guide {
 							skipto,
 							label: text(s, "label"),
 							along,
+							section: num(s, "section").map(|n| n as usize),
 							goals: s.get("goals").as_arr().map(|g| g.to_vec().iter().map(Goal::read).collect()).unwrap_or_default(),
 						}
 					})
@@ -451,6 +472,11 @@ impl Guide {
 		let mut g = Guide {
 			id: text(v, "id").unwrap_or_default(),
 			steps,
+			sections: v
+				.get("sections")
+				.as_arr()
+				.map(|a| a.to_vec().iter().map(|s| Section { skill: text(s, "skill"), skill_line: id(s, "skillLine"), from: num(s, "from").unwrap_or(0.0), to: num(s, "to").unwrap_or(0.0) }).collect())
+				.unwrap_or_default(),
 			next: text(v, "next"),
 			next_choices,
 			next_when,

@@ -73,10 +73,10 @@ step Doc Mixilpixil
   accept 2609
 
 step The cure's ingredients
-  tip All four are in Stormwind. Simple Wildflowers: Bernard or Felicia Gump's flower shop by the Trade District canal. A Leaded Vial: many general goods and alchemy vendors (Keldric Boucher, Jasper Fel and others). A Bronze Tube: an engineering supplier, who keeps only a few (or an engineer or the Auction House). The Spool of Light Chartreuse Silk Thread lies on the floor beside the left end of the counter in The Finest Thread, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an Anti-Venom (First Aid) or a druid's Cure Poison also clears the Touch of Zanzil.
+  tip All four are in Stormwind. Simple Wildflowers: Bernard or Felicia Gump's flower shop by the Trade District canal. A Leaded Vial: many general goods and alchemy vendors (Keldric Boucher, Jasper Fel and others). A Bronze Tube: the Auction House in the Trade District; the engineering suppliers keep only one and are nearly always sold out, and an engineer can make one. The Spool of Light Chartreuse Silk Thread lies on the floor beside the left end of the counter in The Finest Thread, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an Anti-Venom (First Aid) or a druid's Cure Poison also clears the Touch of Zanzil.
   buy 3421 x1 nearest                         -- Simple Wildflowers
   buy 3372 x1 nearest                         -- Leaded Vial
-  buy 4371 x1 nearest                         -- Bronze Tube
+  collect 4371 x1 @61.2,71.3 map 1453 live    -- Bronze Tube: the Auction House
   collect 8431 quest 2609.4                   -- Spool of Light Chartreuse Silk Thread
 
 step Back to Doc Mixilpixil

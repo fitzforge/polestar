@@ -18,6 +18,8 @@ return {
 	["The WANTED poster outside the inn"] = "여관 밖의 현상수배 포스터",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "",
+	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
+	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "",
 
@@ -34,6 +36,11 @@ return {
 	["{item:12238}: fish from the pier"] = "{item:12238}: 부두에서 낚시",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg
 	["Crawler Legs"] = "집게다리",
+
+	-- Step 5: Auberdine
+	-- {quest:3524} Washed Ashore
+	-- plural, as words: Beached Sea Turtles = {quest:4722} Beached Sea Turtle
+	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "",
 
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "거북 해골",
@@ -96,9 +103,9 @@ return {
 	["Cast {spell:18960}"] = "",
 
 	-- Step 19: Trial of the Lake
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {area:442} Auberdine
+	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: {area:445}에서 채집기를 채우십시오",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -160,9 +167,9 @@ return {
 	["Moonstalker Fangs"] = "달표범 송곳니",
 
 	-- Step 31: The Tower of Althalaxx
-	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale
-	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
-	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "",
+	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
+	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
+	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "버즈박스 323 동쪽, {npc:3661}은(는) 탑 아래에서 암흑이교도 광신자들 사이에 숨어 있습니다. 그의 편지는 {zone:1440}의 수호자 델그렌에게 가져가야 하니 보관하세요.\n주의: 암흑이교도 소환사(28-29)는 공허방랑자를 데리고 {npc:3660}(31)와(과) 함께 탑 안에 있습니다. 탑 남쪽의 광신자들에게서 양피지를 얻고 탑에는 가까이 가지 마세요.",
 	-- {item:5348} Worn Parchment
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: 암흑이교도 광신자",

@@ -23,10 +23,11 @@ zone Azeroth
 # Goblin Rocket Fuel, Ghost Dye and Viridian Dye need it, so this route leaves them out. The
 # skill-300 Alchemy Laboratory (flasks) has no known blueprint source yet.
 #
-# Ranks: Expert is taught only by Ainethil (Darnassus) and Doctor Herbert Halsey (Undercity), plus
-# the Artisan trainers Kylanna Windwhisper (Feathermoon Stronghold, Feralas) and Rogvar (Stonard,
-# Swamp of Sorrows). Alchemy has no specialisation. Transmutes and the Philosopher's Stone come from
-# Alchemist Pestlezugg in Gadgetzan.
+# Ranks: trainers teach by tier and train only from their tier's skill: Journeyman at the city
+# trainers, from skill 50; Expert only at Ainethil (Darnassus) and Doctor Herbert Halsey
+# (Undercity), from 125; Artisan only at Kylanna Windwhisper (Feathermoon Stronghold, Feralas) and
+# Rogvar (Stonard, Swamp of Sorrows), from 200. Alchemy has no specialisation. Transmutes and the
+# Philosopher's Stone come from Alchemist Pestlezugg in Gadgetzan.
 #
 # The route keeps to trainer recipes from 75 to 265. Holy Protection Potion (100) and Shadow
 # Protection Potion (135) would cost about the same, but their recipes come from limited-stock
@@ -72,6 +73,7 @@ zone Azeroth
 # costs.
 
 # ---------------------------------------------------------------- Apprentice (1-75)
+section Alchemy 1-75
 
 step Learn Alchemy
   tip Apprentice Alchemy lets you craft up to 75 for 10c, at any character level. Any Alchemy trainer of your faction teaches it; the arrow picks the nearest. Pair it with Herbalism: Peacebloom and Silverleaf grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 Silverleaf and 110 Peacebloom to gather or buy.
@@ -173,9 +175,10 @@ step Elixir of Minor Defense to 75
   skill Alchemy 75
 
 # ---------------------------------------------------------------- Journeyman (75-150)
+section Alchemy 75-150
 
 step Journeyman Alchemy
-  tip Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs Alchemy 50 and character level 10, so you can take it on any visit from 50. Not every Alchemy trainer teaches it: Alliance Ainethil (Darnassus), Alchemist Narett (Dustwallow Marsh), Jaxin Chong (Stranglethorn Vale), Kylanna (Ashenvale), Kylanna Windwhisper (Feralas), Lilyssia Nightbreeze (Stormwind City), Sylvanna Forestmoon (Darnassus) and Tally Berryfizz (Ironforge); Horde Bena Winterhoof (Thunder Bluff), Doctor Herbert Halsey (Undercity), Doctor Marsh (Undercity), Jaxin Chong (Stranglethorn Vale), Rogvar (Swamp of Sorrows), Serge Hinott (Hillsbrad Foothills) and Yelmak (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Minor Mana Potion (from 25, 1s). Also learn Mana Well (1s): Forever's Alchemy camp item, 1 Peacebloom and 1 Empty Vial, placed at a campsite beside a campfire for its buff. The Camping 101: Alchemy quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 1s of recipes and 9s 8c of vendor goods, plus 77 Mageroyal, 152 Briarthorn and 54 Bruiseweed to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs Alchemy 50 and character level 10, so you can take it on any visit from 50. Not every Alchemy trainer teaches it: Alliance Alchemist Narett (Dustwallow Marsh), Jaxin Chong (Stranglethorn Vale), Kylanna (Ashenvale), Lilyssia Nightbreeze (Stormwind City), Sylvanna Forestmoon (Darnassus) and Tally Berryfizz (Ironforge); Horde Bena Winterhoof (Thunder Bluff), Doctor Marsh (Undercity), Jaxin Chong (Stranglethorn Vale), Serge Hinott (Hillsbrad Foothills) and Yelmak (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Minor Mana Potion (from 25, 1s). Also learn Mana Well (1s): Forever's Alchemy camp item, 1 Peacebloom and 1 Empty Vial, placed at a campsite beside a campfire for its buff. The Camping 101: Alchemy quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 1s of recipes and 9s 8c of vendor goods, plus 77 Mageroyal, 152 Briarthorn and 54 Bruiseweed to gather or buy.
   level 10
   train Alchemy Journeyman
   learn 2331
@@ -305,6 +308,7 @@ step Lesser Troll's Blood Elixir to 150
   skill Alchemy 150
 
 # ---------------------------------------------------------------- Expert (150-225)
+section Alchemy 150-225
 
 step Alchemy 150-225: vendor goods
   tip Buy the whole bracket's share in one go: 83 Leaded Vial (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).
@@ -360,7 +364,7 @@ step Goldthorn (Horde)
 
 step Expert Alchemy
   zone Azeroth
-  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Alchemy 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Ainethil (Darnassus) and Kylanna Windwhisper (Feralas); Horde Doctor Herbert Halsey (Undercity) and Rogvar (Swamp of Sorrows). The arrow picks the nearest of your faction. 150-225 takes about 33s 20c of vendor goods, plus 40 Wild Steelbloom, 39 Kingsblood, 39 Stranglekelp and 40 Goldthorn to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Mana Potion (from 160) and Elixir of Defense (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
+  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Alchemy 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Ainethil (Darnassus); Horde Doctor Herbert Halsey (Undercity). The arrow picks the nearest of your faction. 150-225 takes about 33s 20c of vendor goods, plus 40 Wild Steelbloom, 39 Kingsblood, 39 Stranglekelp and 40 Goldthorn to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Mana Potion (from 160) and Elixir of Defense (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
   level 20
   train Alchemy Expert
 
@@ -386,6 +390,7 @@ step Elixir of Defense to 225
   skill Alchemy 225
 
 # ---------------------------------------------------------------- Artisan (225-300)
+section Alchemy 225-300
 
 step Alchemy 225-300: vendor goods
   tip Buy the whole bracket's share in one go: 51 Leaded Vial (20s 40c) and 86 Crystal Vial (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).

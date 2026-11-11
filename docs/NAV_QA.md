@@ -21,7 +21,7 @@ why it does not apply.
 |---|---|---|---|
 | 1 | Replanning a walk measured at zero cost raised "Division by zero" | Fixed 1.15.0 (#139) | Zero-length legs keep every time finite (K7): `rust/crates/forge-addontest/tests/addontest/ui-journey.rs`, `rust/crates/forge-addontest/tests/addontest/nav-spf.rs` |
 | 2 | Flights planned through flight points the character does not know (Everlook, Bloodvenom Post from Moonglade) | Fixed 1.15.0 | No flight leg lands at or connects through an unknown node; walking to one is fine: `rust/crates/forge-addontest/tests/addontest/travel-transit.rs` |
-| 3 | A learned flight point (Camp Taurajo) not counted as known | Manual toggle added 1.14.0; detection unclear | The known set is read again for every plan: `rust/crates/forge-addontest/tests/addontest/travel-transit.rs`; in game, see below |
+| 3 | A learned flight point (Camp Taurajo) not counted as known | Manual toggle added 1.14.0; detection unclear | The known set is read again for every plan, and the world map's flight points add the ones learnt while Polestar was not running on every loading screen (#1308): `rust/crates/forge-addontest/tests/addontest/travel-transit.rs`; in game, see below |
 | 4 | The journey tracker overlapped the quest tracker | Fixed 1.15.0 (#142) | Not taken: Polestar's journey lives in its own guide window |
 | 5 | The tracker's title stayed on screen with nothing tracked | Fixed 1.15.0 | The journey panel leaves nothing on screen without a route: `rust/crates/forge-addontest/tests/addontest/ui-journey.rs` |
 | 6 | Crashes or blocked actions with a game controller (`SetPreferredGamepadInteractTarget()`), also with other addons | **Open** upstream, cause unknown | No protected calls or secure frame changes in combat (`rust/crates/forge-addontest/tests/addontest/nav-prompts.rs`); in game, see below |
@@ -96,7 +96,7 @@ lift landings from Polestar_Nav's `Chokepoints.lua`).
 | K7 | Legs under a few yards are merged or dropped; every time stays finite | `rust/crates/forge-addontest/tests/addontest/nav-spf.rs`, `rust/crates/forge-addontest/tests/addontest/nav-route-lines.rs`, `rust/crates/forge-addontest/tests/addontest/ui-journey.rs` |
 | K8 | A hand-made chain node or guide goto at the same spot keeps its own caption | `rust/crates/forge-addontest/tests/addontest/nav-spf.rs`, `rust/crates/forge-addontest/tests/addontest/nav-route-lines.rs` |
 
-## Floors (Z1-Z3)
+## Floors (Z1-Z4)
 
 A walk searched without a height ends on whichever floor the engine picks
 under the target: measured over our guides, 435 of 2,325 NPC and object
@@ -110,6 +110,22 @@ matches the walking maps' floors for 99.1% of them).
 | Z1 | A guide goal at an NPC or object is searched with its height and ends on its floor; a point set by hand has no height | `rust/crates/forge-addontest/tests/addontest/engine-heights.rs`, `rust/crates/forge-addontest/tests/addontest/nav-spf.rs`, `rust/crates/forge-addontest/tests/addontest/nav-e2e.rs` |
 | Z2 | A search with the height that fails, or whose path ends more than 30 yards above or below it, is asked once more without it, and that answer stands | `rust/crates/forge-addontest/tests/addontest/nav-spf.rs` |
 | Z3 | Only a goal whose point stands for an NPC or object gets a height, from a spawn of that NPC or object on the same map within 15 yards; gotos, collect spots, exploration, smart targets and spawn places elsewhere get none | `rust/crates/forge-guide/tests/guide/dsl_heights.rs`, `rust/crates/forge-addontest/tests/addontest/engine-heights.rs` |
+| Z4 | A floor the walking maps cannot reach from its own door gets a guide `goto` at that door before every goal there (the arrow is straight from a reached goto, past goals at the target's own spot): the druids' building of the Cenarion Enclave (#1338) | `tests/guides-floors.test.js`, `rust/crates/forge-addontest/tests/addontest/nav-spf.rs` |
+
+Known gaps in the walking maps (for the next grid build; until then the
+goto of Z4 stands in):
+
+- **Darnassus, the Cenarion Enclave's druids' building (#1338).** The
+  ground floor (about z 1326) is reached through the door on its south side
+  (35.8,11.6), but no link climbs from it to Mathrengyl Bearwalker's floor
+  (z 1340), and Arch Druid Fandral Staghelm's floor at the top (z 1367) is
+  not on the maps at all. Mathrengyl's floor is joined only to a ledge
+  outside its east wall (37.68,8.09, z 1338), through the wall, so every walk
+  to him, even from the door or from Fandral, went round past the hunters'
+  building to that ledge (152 yards from the door, 28 in a straight line).
+  Found with the walking router run standalone (`nav eval`'s harness) from
+  the doors players' recordings walk through, for every guide target in the
+  six capitals.
 
 ## In game
 

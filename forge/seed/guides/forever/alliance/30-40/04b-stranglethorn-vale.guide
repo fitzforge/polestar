@@ -5,6 +5,7 @@ faction Alliance
 levels 35-36
 zone Stranglethorn Vale
 next forever/alliance/30-40/05-arathi-highlands
+pitch For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. Troll Witchery's Skullsplitter trolls are 39-42, so pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -12,12 +13,14 @@ next forever/alliance/30-40/05-arathi-highlands
 # Since 2026-11-07 Stranglethorn's second loop, after Desolace (the first loop is 30-40/04, which takes its Booty Bay
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
 
-step Stormwind
+step Collin Mauren
+  when complete 1078
   zone Stormwind City
-  turnin 1078                         -- Mauren, from Stonetalon
+  turnin 1078                         -- In the Slaughtered Lamb, if you still carry it
 
 step Fly to Darkshire
   zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
   fly "Darkshire"
   zone Duskwood
 
@@ -35,6 +38,7 @@ step Rebel Camp
   accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
 
 step Bookie Herod
+  when onquest 200
   tip Herod's records lie in a hut on the west side of Kurzen's Compound, east of the Rebel Camp.
   turnin 200                          -- Bookie Herod's Records, upstairs
   accept 328
@@ -107,7 +111,7 @@ step Level 36
   zone Stranglethorn Vale
   tip Troll Witchery's Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
   goto 40.2,27.2 map 1434 "Snapjaw Crocolisk"
-  level 36                            -- grind on Snapjaw Crocolisk
+  level 36 grind 1152                 -- grind on Snapjaw Crocolisk
 
 step Skullsplitter trolls
   tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.

@@ -65,8 +65,8 @@ step Torwa Pathfinder
   accept 9051
 
 step Toxic Test
-  tip Use the Devilsaur Barb on a living Devilsaur (an Ironhide or Tyrant Devilsaur, or King Mosh, counts too): they are elite (level 54-55), hit with Mighty Blow and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or Entangling Roots it from range, stab it (the barb does not break Hibernate), then leave. The credit counts the moment the barb lands, even if you die after. The nearest roams south-west of Marshal's Refuge.
-  kill 6498 quest 9051.1                -- Devilsaur: stab it with the Devilsaur Barb
+  tip Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with Mighty Blow and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or Entangling Roots it from range, stab it with the Devilsaur Barb (the barb does not break Hibernate), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an Ironhide Devilsaur roams the middle of the crater's south, nearer Torwa.
+  kill 6498 quest 9051.1 "Stab a Devilsaur with the Devilsaur Barb" -- Devilsaur: stab it with the Devilsaur Barb
 
 step Torwa Pathfinder
   turnin 9051                           -- Torwa Pathfinder

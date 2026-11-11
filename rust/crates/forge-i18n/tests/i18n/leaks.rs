@@ -94,7 +94,7 @@ fn english_the_code_shows_is_found_with_its_scene_and_the_language_the_names_and
 leaks.try("a test window", function()
 	local f = CreateFrame("Frame", nil, UIParent)
 	local fs = f:CreateFontString()
-	fs:SetText("Kill ten wolves near the farm")
+	fs:SetText("Fetch twelve crabs along the creek")
 	fs:SetText(Polestar.L["Open settings"])
 	fs:SetText(UnitName("player") .. " · " .. C_Map.GetMapInfo(1429).name .. " · Polestar · /polestar guides")
 	GameTooltip:SetOwner(UIParent)
@@ -106,8 +106,8 @@ end)"#,
 	);
 	assert!(r.get("errors").is_empty(), "{}", forge_guide::js::stringify(&r.get("errors"), None));
 	let m = mine(&r, "a test window");
-	assert_eq!(m.iter().map(|l| l.get("text").to_js_string()).collect::<Vec<_>>(), ["Kill ten wolves near the farm", "Left-click to open"]);
-	assert!(words(&m[0]).iter().any(|w| w == "wolves"), "{:?}", words(&m[0]));
+	assert_eq!(m.iter().map(|l| l.get("text").to_js_string()).collect::<Vec<_>>(), ["Fetch twelve crabs along the creek", "Left-click to open"]);
+	assert!(words(&m[0]).iter().any(|w| w == "crabs"), "{:?}", words(&m[0]));
 }
 
 #[test]

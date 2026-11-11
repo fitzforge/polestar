@@ -78,10 +78,10 @@ step Thendal Village turn-ins
   turnin 92463                        -- Elatrell Featherlight
   turnin 92598                        -- Ventaari Brightwish
   turnin 92469                        -- Rorian the Dayseeker
+  accept 92471
   turnin 92482 only Hunter            -- Tai'ree Farsight, beside Rorian
   turnin 92483 only Rogue             -- Akeri Duskblade, in the watchtower
   turnin 92532 only Warrior           -- Blademaster Ren, in the watchtower
-  accept 92471
   turnin 92471                        -- Aetheen of the Gales
   accept 92470
   train class
@@ -153,8 +153,8 @@ step Shen'dar Village
 
 step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
-  tip Prideclaws and Galestriders share the meadows south of Shen'dar Village. The Galestriders drop both the Small Eggs and the Strider Meat for Zerril.
-  collect 6889 quest 92553.1
+  tip Prideclaws and Galestriders share the meadows around Shen'dar Village; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the Strider Meat for Zerril.
+  collect 6889 quest 92553.1 @42.1,39.4
   collect 5469 quest 92553.2
 
 step Shen'dar Village hand-ins
@@ -177,7 +177,7 @@ step Shen'dar Highlands: kill these as you meet them
 # steps (Prideclaw pelts in the highland one, judge merge and walked-past).
 step Shen'dar bounty board
   when group 93318
-  accept 93318 optional               -- the bounty board
+  accept 93318                        -- the bounty board
 
 step Shen'dar Village turn-ins
   turnin 92517                        -- Constable Aonda
@@ -192,7 +192,7 @@ step Shen'dar Village turn-ins
 step Vulgara the Insatiable
   when group 93318
   tip Vulgara lurks south of the village, among the Prideclaws. Vulgara is elite: grouping up is advised.
-  collect 257942 quest 93318.1 optional
+  collect 257942 quest 93318.1
 
 # ---------------------------------------------------------------- Falaath Village
 
@@ -219,7 +219,7 @@ step Shen'dar Highlands: kill these as you meet them
 
 step Danarii Bellowveil
   when group 93318
-  turnin 93318 optional               -- Danarii Bellowveil
+  turnin 93318                        -- Danarii Bellowveil
 
 step The West Pylon Watchtower
   tip Head south-west to the West Pylon Watchtower. Peacekeeper Vaaniel is at the top; the Bloody Note lies beside him.
@@ -279,6 +279,7 @@ step Ayessa Dawnsinger
   accept 93735
   complete 92708 @59.15,79.73         -- talk to Ayessa Dawnsinger
   turnin 92708
+  level 10 only Shaman
   accept 97243 only Shaman            -- Sessaria Skystride, beside Ayessa: Call of Fire
   accept 93736                        -- Endaria Mistgaze
 
@@ -289,6 +290,7 @@ step Nyalah and Alvarion
   sethome "Valanaar" npc 255940       -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                        -- Alvarion Windfield
   talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
+  level 10 only Hunter
   accept 94978 only Hunter            -- Quel'ana Quickgale, a few steps west of Nyalah: Taming the Beast, the first rod
   accept 93317                        -- Nyalah Brightfire, inside
 
@@ -297,6 +299,7 @@ step Riaani Nightwind
   turnin 93735
   accept 93737
   talk 256083 quest 93737.1 "Listen to Riaani Nightwind"
+  level 10 only Warrior
   accept 94003 only Warrior           -- Seena Skybreaker, beside Riaani: The Skybreaker Bulwark
 
 # ---------------------------------------------------------------- Windfield Orchard
@@ -304,10 +307,10 @@ step Riaani Nightwind
 step Windfield Orchard
   tip Windfield Orchard is west of Valanaar along the coast road.
   talk 252800 quest 92679.1 @46.7,81.95
-  turnin 92679                        -- Aamelia Windfield
-  accept 92682
-  accept 92683
-  accept 92684
+  turnin 92679 @46.7,81.95            -- Aamelia Windfield
+  accept 92682 @46.7,81.95
+  accept 92683 @46.7,81.95
+  accept 92684 @46.7,81.95
 
 step The orchard
   tip Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge.
@@ -320,11 +323,11 @@ step The orchard
   accept 97244 only Shaman
 
 step Aamelia Windfield
-  turnin 92682
-  turnin 92684
-  turnin 92683
-  turnin 92698
-  accept 92685
+  turnin 92682 @46.7,81.95
+  turnin 92684 @46.7,81.95
+  turnin 92683 @46.7,81.95
+  turnin 92698 @46.7,81.95
+  accept 92685 @46.7,81.95
 
 step Gustberry Lowlands: kill these as you meet them
   zone Zephras Isle
@@ -333,8 +336,8 @@ step Gustberry Lowlands: kill these as you meet them
   collect 260880 quest 93737.4
 
 step Standing Our Ground
-  turnin 92685                        -- Aamelia Windfield
-  accept 92693
+  turnin 92685 @46.7,81.95            -- Aamelia Windfield
+  accept 92693 @46.7,81.95
   talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
@@ -525,7 +528,7 @@ step The Al'Aketh camp
   collect 265475 quest 94488.1
   kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den" -- Below ground
   talk 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
-  collect 258771 quest 93165.1
+  collect 258771 quest 93165.1 @63.7,37.1
   turnin 93165
   collect 265476 optional
   accept 94490 optional
@@ -623,6 +626,7 @@ step Northern Mulgore
 step Clarice Foster
   zone Thunder Bluff
   tip Clarice Foster stands in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart.
+  level 12
   accept 264
 
 step Class trainer
@@ -680,9 +684,9 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
-step The Barrens
+step The Crossroads
   zone The Barrens
-  goto 52.2,31.0 "The Barrens"
+  goto 52.2,31.0 "The Crossroads"
 
 # ---------------------------------------------------------------- The Crossroads
 
@@ -694,4 +698,4 @@ step The Crossroads
 step To Orgrimmar
   zone Orgrimmar
   tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
-  goto 55.6,72.3 "Orgrimmar"
+  goto 55.6,72.3 "Orgrimmar's main gate"

@@ -73,7 +73,7 @@ function followProblem(g, other, data) {
 const eliteReported = new WeakSet();
 
 function eliteTip(target) {
-	return `in a Leveling guide put the goal in a step with \`when group <quest>\` (the player chooses it) or make it \`optional\`, with the tip "${target} is elite: grouping up is advised."`;
+	return `in a Leveling guide put the goal in a step with \`when group <quest>\` (the player chooses it), not optional there, or make it \`optional\` in a step for everyone, with the tip "${target} is elite: grouping up is advised."`;
 }
 
 // A step the route takes only for a player who chose to do a group quest
@@ -337,7 +337,8 @@ function checkRedundantGotos(g, data, diag) {
 		step.goals.forEach((goto, i) => {
 			if (goto.t !== 'goto' || goto.x === undefined) return;
 			const next = step.goals.slice(i + 1).find((goal) => goal.t !== 'note');
-			if (!next || next.t === 'goto' || next.x === undefined || next.optional || next.map !== goto.map || unspawnedTarget(data, next)) return;
+			// (A grind's goto is where the arrow leads when its mob has no spawns: the Engine's fallback, kept.)
+			if (!next || next.t === 'goto' || next.t === 'level' || next.x === undefined || next.optional || next.map !== goto.map || unspawnedTarget(data, next)) return;
 			if (JSON.stringify(next.only || null) !== JSON.stringify(goto.only || null)) return;
 			const at = worldPoint(data, goto.map, goto.x, goto.y, goto.f);
 			if (!at) return;
@@ -432,6 +433,26 @@ function checkBareUses(g, diag) {
 				`bind it: \`use ${goal.item} quest ${o}\``,
 			);
 		});
+	}
+}
+
+// A step only players who chose the group way follow (`when group <quest>`,
+// `when dungeon "<Name>"`) whose every goal is `optional`: an optional goal
+// never holds a step, so it is done at once and the player who chose it gets
+// no arrow to the accept, the elite or the hand-in (the Monogrammed Sash,
+// Margol's Horn). House rule.
+function checkChosenAllOptional(g, diag) {
+	for (const step of g.steps) {
+		const p = (step.when || []).find((w) => (w.k === 'group' || w.k === 'dungeon') && !w.neg);
+		if (!p) continue;
+		const goals = step.goals.filter((goal) => goal.t !== 'note');
+		if (goals.length === 0 || !goals.every((goal) => goal.optional)) continue;
+		const what = p.k === 'group' ? `when group ${p.q}` : 'when dungeon';
+		houseRule(diag, g)(
+			g._ast.file,
+			goals[0]._line,
+			`every goal of this \`${what}\` step is \`optional\`: a step of optional goals only is done at once, so the player who chose it gets no arrow; drop \`optional\` (only that player sees the step)`,
+		);
 	}
 }
 
@@ -567,6 +588,64 @@ function validateGuides(guides, data, diag) {
 		coveredMemo.set(key, out);
 		return out;
 	};
+	// The characters that can follow guide g (its faction, races and classes), cached per guide.
+	const followMemo = new Map();
+	const followers = (g) => {
+		if (!followMemo.has(g.id)) followMemo.set(g.id, characters([guideLayer(g)]));
+		return followMemo.get(g.id);
+	};
+	// Where character k, entering guide h, hands quest q in on every route
+	// from there: the id of the guide, or null when a route never does (it
+	// ends, drops the quest with an abandon, or loops), or two routes hand it
+	// in in different guides. `cut`: the answer met a loop (not cached).
+	const carriedMemo = new Map();
+	const handInFrom = (h, q, k, visiting) => {
+		const mk = `${h.id}|${q}|${k}`;
+		if (carriedMemo.has(mk)) return { to: carriedMemo.get(mk), cut: false };
+		if (visiting.has(h.id)) return { to: null, cut: true };
+		visiting.add(h.id);
+		const end = questGoals(h).find((t) => closes(t.goal) && t.goal.quest === q && t.chars.has(k));
+		const out = end ? { to: end.goal.t === 'turnin' ? h.id : null, cut: false } : handInAfter(h, q, k, visiting);
+		visiting.delete(h.id);
+		if (!out.cut) carriedMemo.set(mk, out.to);
+		return out;
+	};
+	// handInFrom over every guide after h that k can follow (`next` and each route choice).
+	const handInAfter = (h, q, k, visiting) => {
+		let found = null;
+		let cut = false;
+		for (const s of successors(h).filter((s) => followers(s).has(k))) {
+			const r = handInFrom(s, q, k, visiting);
+			cut = cut || r.cut;
+			if (r.to === null || (found !== null && found !== r.to)) return { to: null, cut };
+			found = r.to;
+		}
+		return { to: found, cut };
+	};
+	// Quest work carried to a later guide: each objective or `complete` goal
+	// of a quest this guide does not turn in (or abandon) after it gets
+	// `carriedTo`, the id of the guide after it that hands the quest in, when
+	// that is one and the same guide on every route for every character the
+	// goal applies to. The Engine says to keep it, and lists the quests still
+	// in the log at the guide's end.
+	const markCarried = (g) => {
+		const gl = guideLayer(g);
+		const goals = goalsOf(g);
+		goals.forEach(({ step, goal }, i) => {
+			if (goal.quest === undefined || !(goal.t === 'complete' || OBJECTIVE_VERBS.has(goal.t))) return;
+			if (goals.slice(i + 1).some((later) => closes(later.goal) && later.goal.quest === goal.quest)) return;
+			let to = null;
+			for (const k of characters([gl, step._only, goal._only], data.quest(goal.quest))) {
+				const r = handInAfter(g, goal.quest, k, new Set([g.id])).to;
+				if (r === null || (to !== null && to !== r)) {
+					to = null;
+					break;
+				}
+				to = r;
+			}
+			if (to) goal.carriedTo = to;
+		});
+	};
 
 	for (const g of byId.values()) {
 		const file = g._ast.file;
@@ -575,6 +654,8 @@ function validateGuides(guides, data, diag) {
 		checkTurninItems(g, ancestors(g), data, diag);
 		checkBareCompletes(g, data, diag);
 		checkBareUses(g, diag);
+		checkChosenAllOptional(g, diag);
+		markCarried(g);
 		const accepted = new Set();
 		const turnedIn = new Set();
 		const whenOnly = new Set();

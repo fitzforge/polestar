@@ -87,7 +87,7 @@ fn captions_follow_the_direction_a_crossing_without_one_says_where_it_goes() {
 		nav.place(-500, -500)                            -- East Vale, heading west
 		target(-500, 500)
 		emit(route())"#);
-	assert_eq!(out, json!(["walk|Go to West Vale", "walk|Go to West Vale", "walk|Target"]));
+	assert_eq!(out, json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
 }
 
 #[test]
@@ -110,7 +110,7 @@ fn an_open_ground_pair_walks_straight_across_the_border_a_one_way_pair_only_one_
 		emit(r)"#);
 	assert_eq!(out["open"], json!(["walk|Target"]));
 	assert_eq!(out["oneWayWith"], json!(["walk|Target"]));
-	assert_eq!(out["oneWayAgainst"], json!(["walk|Go to West Vale", "walk|Go to West Vale", "walk|Target"]));
+	assert_eq!(out["oneWayAgainst"], json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
 }
 
 #[test]
@@ -427,8 +427,8 @@ fn a_start_already_past_a_crossing_s_near_end_walks_on_to_its_far_end_never_back
 		local off = N.GetRoute()
 		r.offTo = { off[1].to.wx, off[1].to.wy }
 		emit(r)"#);
-	assert_eq!(out["before"], json!(["walk|Go to East Vale", "walk|Go to East Vale", "walk|Kobolds"]));
-	assert_eq!(out["on"], json!(["walk|Go to East Vale", "walk|Kobolds"]), "straight on to the far end");
+	assert_eq!(out["before"], json!(["walk|Walk to East Vale", "walk|Walk to East Vale", "walk|Kobolds"]));
+	assert_eq!(out["on"], json!(["walk|Walk to East Vale", "walk|Kobolds"]), "straight on to the far end");
 	assert_eq!(out["firstTo"], json!([600, -300, 15, true]));
 	assert_eq!(out["offTo"], json!([600, 300]), "off the road the near end comes first, as before");
 }
@@ -463,7 +463,7 @@ fn skipping_a_crossing_s_near_end_walks_on_later_plans_near_the_crossing_walk_on
 		r.other = first()
 		emit(r)"#);
 	assert_eq!(out["replanned"], 0, "skipping the near end moves on without planning back to it");
-	assert_eq!(out["skip"], json!(["walk|Go to East Vale", "walk|Kobolds"]));
+	assert_eq!(out["skip"], json!(["walk|Walk to East Vale", "walk|Kobolds"]));
 	assert_eq!(out["near"], json!([600, -300]), "near the crossing the skipped end stays skipped");
 	assert_eq!(out["far"], json!([600, 300]), "far from it the skip never walks straight over the zone border");
 	assert_eq!(out["other"], json!([600, 300]));
@@ -548,4 +548,190 @@ fn the_barrens_to_ashenvale_road_plans_made_between_the_crossing_s_ends_keep_hea
 	assert_eq!(out["zone"], out["far"], "a subzone change between the ends keeps heading for the Ashenvale end");
 }
 
+// #1359: in the cave before Blackfathom Deeps the client puts the player on Kalimdor's map (1414), on no zone's.
+// Zone frames are rectangles: that spot lies in Ashenvale's and in Felwood's, Felwood's the smaller, so the planner
+// placed the player in Felwood, 46 yd from a Sapphire of Aku'Mai in Ashenvale, and sent them to Felwood's crossing or
+// to hearth to Camp Taurajo. The client's zone under that spot of the continent map, else the walking maps' zone at
+// it, places the player in Ashenvale: one walk. The real travel data (Nav/TravelData.lua) and the report's spot.
+#[test]
+fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_not_the_smallest_frame_1359() {
+	let out = run_raw(
+		r#"
+			local N, nav = Polestar.Nav, stub.nav
+			nav.faction = "Horde"
+			nav.maps[1414] = { name = "Kalimdor", c = 1, top = 12799.9, bottom = -11733.3, left = 17066.6, right = -19733.2 }
+			nav.maps[1440] = { name = "Ashenvale", c = 1, top = 4672.917, bottom = 829.167, left = 1700, right = -4066.667 }
+			function nav.Compat.GetPlayerMapPosition()
+				local p, b = nav.player, nav.maps[1414]
+				return 1414, (p.wy - b.left) / (b.right - b.left) * 100, (p.wx - b.top) / (b.bottom - b.top) * 100
+			end
+			nav.items[6948], nav.bind = 1, "Camp Taurajo"
+			local flags = Polestar.CharState().flags
+			flags.taxi = { [22] = true, [23] = true, [25] = true, [58] = true, [77] = true }
+			local function route()
+				local legs, ci = N.GetRoute()
+				local out = {}
+				for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+				return out
+			end
+			local r = {}
+			local _, wx, wy = nav.Compat.MapToWorld(1414, 43.99, 35.39)
+			nav.place(wx, wy, 1)                              -- the report's /polestar where: map 1414 @43.99,35.39
+			N.SetTarget(1440, 13.30, 12.80, "Sapphire")       -- the step's goal, 46 yd on
+			r.frames = route()
+			-- The walking maps' zone there (Polestar_Nav's zone field: Ashenvale's chunk).
+			local zoneAt = N.danger.ZoneAt
+			N.danger.ZoneAt = function(c) return c == 1 and 1440 or nil end
+			stub.fire("ZONE_CHANGED")
+			r.grid = route()
+			N.danger.ZoneAt = zoneAt
+			stub.fire("ZONE_CHANGED")
+			r.again = route()
+			-- The client's zone under that spot of Kalimdor's map.
+			function C_Map.GetMapInfo(id) return { mapID = id, mapType = id == 1414 and 2 or 3 } end
+			function C_Map.GetMapInfoAtPosition(id) if id == 1414 then return { mapID = 1440, mapType = 3 } end end
+			stub.fire("ZONE_CHANGED")
+			r.client = route()
+			emit(r)"#,
+	);
+	let first = out["frames"][0].as_str().unwrap_or_default();
+	assert!(first.starts_with("hearth|Hearth to Camp Taurajo"), "placed by the frames alone, as the report: Felwood ({first})");
+	assert_eq!(out["grid"], json!(["walk|Sapphire"]), "the walking maps' zone: Ashenvale, one walk");
+	assert_eq!(out["again"], out["frames"], "the same plan without it");
+	assert_eq!(out["client"], json!(["walk|Sapphire"]), "the client's zone under the spot: Ashenvale, one walk");
+}
+
+// #1359's sweep: other cave and dungeon spots a continent-map reading put in a neighbouring zone frame, each 40 yd
+// from a guide goal (north of it), with the Hearthstone ready at the faction's capital and every flight known. By the
+// frames alone the plans hearth, take the portal or fly; placed by the walking maps' zone or by the client's zone
+// under the spot, each is one walk.
+#[test]
+fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sweep() {
+	let out = run_raw(
+		r#"
+			local N, nav = Polestar.Nav, stub.nav
+			nav.maps[1414] = { name = "Kalimdor", c = 1, top = 12799.9, bottom = -11733.3, left = 17066.6, right = -19733.2 }
+			local CASES = {
+				-- the Den Mother's cave, Darkshore (frames: Felwood)
+				{ "Alliance", "Darnassus", 1439, 55.04, 33.34, { top = 8333.333, bottom = 3966.667, left = 2941.667, right = -3608.333 } },
+				-- Dire Maul's entrance, Feralas (frames: Mulgore)
+				{ "Horde", "Orgrimmar", 1444, 60.3, 30.2, { top = -2366.667, bottom = -7000, left = 5441.667, right = -1508.333 } },
+				-- the Venture Co. mine by the centaurs, Mulgore (frames: Dustwallow Marsh)
+				{ "Horde", "Orgrimmar", 1412, 61.19, 62.89, { top = -272.917, bottom = -3697.917, left = 2047.917, right = -3089.583 } },
+				-- Zul'Farrak's entrance, Tanaris (frames: Un'Goro Crater)
+				{ "Horde", "Orgrimmar", 1446, 38.7, 20, { top = -5875, bottom = -10475, left = -218.75, right = -7118.75 } },
+			}
+			function nav.Compat.GetPlayerMapPosition()
+				local p, b = nav.player, nav.maps[1414]
+				return 1414, (p.wy - b.left) / (b.right - b.left) * 100, (p.wx - b.top) / (b.bottom - b.top) * 100
+			end
+			local function route()
+				local legs, ci = N.GetRoute()
+				local out = {}
+				for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+				return table.concat(out, " > ")
+			end
+			local zoneAt, here = N.danger.ZoneAt, nil
+			function C_Map.GetMapInfo(id) return { mapID = id, mapType = id == 1414 and 2 or 3 } end
+			function C_Map.GetMapInfoAtPosition(id) if id == 1414 and here then return { mapID = here, mapType = 3 } end end
+			local r = {}
+			for i, k in ipairs(CASES) do
+				local faction, bind, map, x, y, f = k[1], k[2], k[3], k[4], k[5], k[6]
+				nav.faction, nav.items[6948], nav.bind = faction, 1, bind
+				local bit = faction == "Alliance" and 1 or 2
+				local taxi = {}
+				for _, n in ipairs(N.GetTravelData().taxi) do
+					if not n.class and (n.faction == 3 or n.faction == bit) then taxi[n.id] = true end
+				end
+				Polestar.CharState().flags.taxi = taxi
+				nav.maps[map] = { c = 1, top = f.top, bottom = f.bottom, left = f.left, right = f.right }
+				local _, wx, wy = nav.Compat.MapToWorld(map, x, y)
+				nav.place(wx + 40, wy, 1)
+				here = nil
+				N.SetTarget(map, x, y, "Goal " .. i)
+				local got = { frames = route() }
+				N.danger.ZoneAt = function(c) return c == 1 and map or nil end
+				stub.fire("ZONE_CHANGED")
+				got.grid = route()
+				N.danger.ZoneAt, here = zoneAt, map
+				stub.fire("ZONE_CHANGED")
+				got.client = route()
+				r[i] = got
+			end
+			emit(r)"#,
+	);
+	for (i, got) in out.as_array().unwrap().iter().enumerate() {
+		let walk = format!("walk|Goal {}", i + 1);
+		assert_ne!(got["frames"], walk.as_str(), "case {}: by the frames alone, not one walk", i + 1);
+		assert_eq!(got["grid"], walk.as_str(), "case {}: the walking maps' zone", i + 1);
+		assert_eq!(got["client"], walk.as_str(), "case {}: the client's zone under the spot", i + 1);
+	}
+}
+
+// #1694: from the middle of the Badlands (50,50) to Kargath's flight master (Gorrik, 4.0,44.8), the walking engine
+// measured the walk 2,188 yd along the road; the planner priced a walk to the Searing Gorge gate's Badlands end
+// (1.09,62.92) straight (x1.25) and that end's walk on to Gorrik straight too, 300 yd: cheaper, so the arrow went
+// to the gate first and on from there. A walk that stops at a crossing's end without crossing is the same walk
+// past it: one walk. A target in Searing Gorge still goes through the gate.
+#[test]
+fn a_walk_never_stops_at_a_crossing_s_end_it_does_not_cross_kargath_from_the_badlands_1694() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local function plan(map, wx, wy, label)
+				local legs = N.PlanRoute({ c = 0, map = 1418, wx = -6718.75, wy = -3322.9, faction = 2, speed = 7,
+					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
+					walkCost = function(_, _, _, start) if start then return 2188, 2188 end end })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			emit({
+				kargath = plan(1418, -6632.5, -2178.67, "Gorrik"),
+				gorge = plan(1427, -6843.75, -1884.8, "Searing Gorge"),
+			})"#,
+	);
+	assert_eq!(out["kargath"], json!(["walk|Gorrik"]), "one walk, never by the gate");
+	let gorge: Vec<&str> = out["gorge"].as_array().unwrap().iter().map(|l| l.as_str().unwrap()).collect();
+	assert!(gorge.iter().any(|l| l.ends_with("|carbonite-searing-gorge--badlands")), "into Searing Gorge through the gate: {gorge:?}");
+}
+
+// #1694: the data lists Gorrik on the Badlands' map (4.0,44.8) and again on Searing Gorge's (83.2,35.8), the same
+// spot; Nearby services took the Searing Gorge copy, and the planner walked a target on Searing Gorge's map
+// through the gate into Searing Gorge and back. A target's zone is where the walking maps put its point: Kargath is
+// in the Badlands, one walk. A city's map keeps its target, whatever they say under it: they put the Undercity's
+// halls in Tirisfal, and a walk from Brill to Aelthalyste (Undercity 49.3,17.1) still goes in by the Undercity's way.
+#[test]
+fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_city_s_stays_in_the_city_1694() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local zone
+			N.danger.ZoneAt = function(c) return c == 0 and zone or nil end
+			local function plan(from, map, wx, wy, label, cost)
+				local legs = N.PlanRoute({ c = 0, map = from[1], wx = from[2], wy = from[3], faction = 2, speed = 7,
+					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
+					walkCost = cost and function(_, _, _, start) if start then return cost, cost end end or nil })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			local badlands, brill = { 1418, -6718.75, -3322.9 }, { 1420, 2252.9, 236.2 }
+			local r = {}
+			zone = 1418
+			r.copy = plan(badlands, 1427, -6632.5, -2179.3, "Gorrik", 2188)
+			zone = nil
+			r.unknown = plan(badlands, 1427, -6632.5, -2179.3, "Gorrik", 2188)
+			zone = 1420
+			r.city = plan(brill, 1458, 1768.5, 400.2, "Aelthalyste")
+			zone = nil
+			r.cityPlain = plan(brill, 1458, 1768.5, 400.2, "Aelthalyste")
+			emit(r)"#,
+	);
+	assert_eq!(out["copy"], json!(["walk|Gorrik"]), "the walking maps put it in the Badlands: one walk");
+	let unknown: Vec<&str> = out["unknown"].as_array().unwrap().iter().map(|l| l.as_str().unwrap()).collect();
+	assert!(unknown.iter().any(|l| l.ends_with("|carbonite-searing-gorge--badlands")), "without the walking maps, the map's zone: {unknown:?}");
+	assert_eq!(out["city"], out["cityPlain"], "the Undercity's map keeps its target");
+	assert_ne!(out["city"], json!(["walk|Aelthalyste"]), "into the Undercity by its way, not a walk to the ground above");
+}
 // KEPT IN JS:

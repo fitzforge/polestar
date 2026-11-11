@@ -13,7 +13,7 @@ return {
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "C的秘密投递点",
 	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "",
+	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "{object:410369} 是一只宝箱，位于银松森林南部、{area:236} 以南的 {area:204} 外一间房子里。打开它并阅读 C 的便条：这项工作必须退出小队，独自完成。",
 
 	-- Step 2: Veenix
 	-- {npc:4086} Veenix · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {item:210187} Venture Co. Work Order · {spell:921} Pick Pocket
@@ -24,7 +24,7 @@ return {
 
 	-- Step 3: Shadowfang Keep
 	-- {item:210186} Breaching Charge · {item:5140} Flash Powder · {item:210213} Sister's Half-Key · {item:210212} Brother's Half-Key
-	["Go in alone and use the {item:210186} at the courtyard gate. Players also report a freed prisoner opening the courtyard door for you: if you die while he is opening it, stay dead until it is open; it stays open once you release. If you know Vanish, bring {item:5140} and check its cooldown before entering; keep it ready for a failed approach. Pickpocket the sister in the dining hall for the {item:210213}, then the brother in the room reached by turning right at the top of the stairs for the {item:210212} (a level 20 rogue without Vanish may need ranks in Master of Deception to reach the second one unseen). Combine them somewhere safe: this breaks stealth. Free a bag slot first: opening the chest with full bags can use up the key without giving the horn. Return to the courtyard stables and use the combined key on the chest for the horn. Stay clear of the nearby elites; the minimum quest level does not guarantee a safe approach."] = "",
+	["Go in alone and use the {item:210186} at the courtyard gate. Players also report a freed prisoner opening the courtyard door for you: if you die while he is opening it, stay dead until it is open; it stays open once you release. If you know Vanish, bring {item:5140} and check its cooldown before entering; keep it ready for a failed approach. Pickpocket the sister in the dining hall for the {item:210213}, then the brother in the room reached by turning right at the top of the stairs for the {item:210212} (a level 20 rogue without Vanish may need ranks in Master of Deception to reach the second one unseen). Combine them somewhere safe: this breaks stealth. Free a bag slot first: opening the chest with full bags can use up the key without giving the horn. Return to the courtyard stables and use the combined key on the chest for the horn. Stay clear of the nearby elites; the minimum quest level does not guarantee a safe approach."] = "独自进入，在庭院大门处使用 {item:210186}。也有玩家报告，被释放的囚犯会替你打开庭院大门：如果他开门时你死了，先保持死亡状态，等门开了再释放灵魂；释放灵魂后门仍会保持开启。如果已学会消失，进入前带上 {item:5140} 并检查冷却时间，确保接近目标失败时能用它脱身。先在餐厅偷窃妹妹，取得 {item:210213}，再上楼梯并在顶端右转，进入房间偷窃哥哥，取得 {item:210212}（没有消失的 20 级潜行者，可能需要投入欺诈高手天赋才能不被发现地靠近第二人）。在安全地点将两者合并：这会解除潜行。先腾出一个背包空格：背包已满时开箱，可能会消耗钥匙却拿不到号角。返回庭院马厩，用合并后的钥匙打开宝箱，取得号角。避开附近的精英；达到任务最低等级不代表能安全靠近。",
 	-- {item:210183} Horn of Xelthos · {area:236} Shadowfang Keep
 	["{item:210183}, inside {area:236}"] = "{item:210183}，在{area:236}里",
 

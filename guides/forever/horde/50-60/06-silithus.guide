@@ -9,30 +9,9 @@ next forever/horde/50-60/07-felwood
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Dearest Natalia (8304), Alas, Andorhal (105), Skeletal Fragments (964), Return to the Bulwark (5232), Of Lost Honor (5845), Counting Out Time (4972).
+# Added here: Dearest Natalia (8304), Alas, Andorhal (105), Skeletal Fragments (964), Return to the Bulwark (5232), Of Lost Honor (5845), Counting Out Time (4972),
+# Return to the Bulwark (5234), Target: Gahrron's Withering (5235), Return to the Bulwark (5236), Mission Accomplished! (5238).
 # Left out: Little Pamela (5142).
-
-# ---------------------------------------------------------------- Valor's Rest and Southwind
-
-step Fly to Marshal's Refuge
-  zone Feralas
-  goto 75.4,44.3 "Camp Mojache flight master"
-  fly "Marshal's Refuge"
-
-step Layo Starstrike
-  zone Silithus
-  tip The pass from Un'Goro comes out at Valor's Rest, the graveyard in north-east Silithus. Layo stands among the graves.
-  turnin 1124
-  accept 1125
-
-step The Spirits of Southwind
-  tip Ride south-west to the ruins of Southwind Village. The Dusty Reliquary for Rabine Saturna sits inside one of the ruined houses.
-  kill 12178 quest 1125.1
-  kill 12179 quest 1125.2
-
-step Layo Starstrike
-  turnin 1125
-  accept 1126
 
 # ---------------------------------------------------------------- Cenarion Hold
 
@@ -103,9 +82,8 @@ step Flayers and Rock Stalkers
   collect 20375 quest 8278.1
 
 step Twilight Vanguard
-  tip Twilight Keeper Exeter walks the Vanguard camp in the far south-west. Every cultist here drops Encrypted Twilight Texts, quest or not: collect twenty, ten for Bor Wildmane and ten for Ortell.
+  tip Twilight Keeper Exeter walks the Vanguard camp in the far south-west. Keep every Encrypted Twilight Text the cultists drop: Bor Wildmane and Ortell want ten each later.
   collect 20395 quest 8279.2
-  collect 20404 x10
 
 step Stonelash Pincer Stinger
   collect 20374 quest 8278.2
@@ -115,20 +93,18 @@ step Twilight Post
   collect 20394 quest 8279.1
 
 step Twilight Outpost
-  tip Twilight Keeper Havunth stands in the outpost west of Cenarion Hold. Top your Encrypted Twilight Texts up to twenty on the cultists here.
+  tip Twilight Keeper Havunth stands in the outpost west of Cenarion Hold. Keep any Encrypted Twilight Texts that drop here too.
   collect 20396 quest 8279.3
-  collect 20404 x20
 
 step Level 58
   when level<58
   tip Commander Mar'alith's Dearest Natalia, at Cenarion Hold, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.
   goto 33.8,47.8 map 1451 "Twilight Avenger"
-  level 58                            -- grind on Twilight Avenger
+  level 58 grind 11880                -- grind on Twilight Avenger
 
 step Cenarion Hold
   tip Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.
-  accept 8318                         -- Bor Wildmane, on the west side of the Hold: the texts are already in your bags
-  turnin 8318
+  accept 8318                         -- Bor Wildmane, on the west side of the Hold
   accept 8304                         -- Commander Mar'alith
   turnin 8281                         -- Windcaller Proudhorn
   turnin 8278                         -- Beetix Ficklespragg
@@ -148,14 +124,21 @@ step Noggle's Lost Satchel
 
 step Dearest Natalia
   tip Frankal Stonebridge and Rutgar Glyphshaper camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them.
-  kill 15171 quest 8304.1 @40.8,88.9 map 1451
-  kill 15170 quest 8304.2 @41.3,88.5 map 1451
+  talk 15171 quest 8304.1 @40.8,88.9 map 1451
+  talk 15170 quest 8304.2 @41.3,88.5 map 1451
+
+step Twilight Base Camp
+  when onquest 8318
+  tip Collect twenty Encrypted Twilight Texts from the cultists here, ten for Bor Wildmane and ten for Ortell.
+  collect 20404 quest 8318.1
+  collect 20404 x20                   -- ten for each quest: Bor Wildmane takes his ten before Ortell
 
 step Twilight Base Camp
   collect 20404 quest 8323.1          -- The spare texts from the cultists
 
 step Back to Cenarion Hold
   tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  turnin 8318                         -- Bor Wildmane, on the west side of the Hold
   turnin 8287                         -- Commander Mar'alith
   turnin 8304
   turnin 8282                         -- Noggle Ficklespragg
@@ -171,20 +154,14 @@ step Layo Starstrike
 
 step Un'Goro Crater
   zone Un'Goro Crater
-  goto 44.7,8.1 "Un'Goro Crater"
+  goto 44.7,8.1 "Marshal's Refuge"
 
 # ---------------------------------------------------------------- Marshal's Refuge and Gadgetzan
 
 step Marshal's Refuge
   zone Un'Goro Crater
-  tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave.
-  turnin 3914                         -- Linken
-  accept 3941
-  accept 4501                         -- The wooden sign beside Spraggle
+  tip Through the pass and east along the northern cliffs to Marshal's Refuge. Spraggle Frock stands beside the flight master.
   accept 4492                         -- Spraggle Frock
-
-step Frenzied Pterrordax
-  kill 9167 quest 4501.2              -- Frenzied Pterrordax walks around here: look inside the circle on the map
 
 step Krakle
   tip Krakle the goblin sits at Golakka Hot Springs, just east of the pylon.
@@ -220,7 +197,6 @@ step Un'Goro Crater: kill these as you meet them
   collect 11478 quest 4289            -- Below ground
   collect 11479 quest 4289            -- Below ground
   collect 11480 quest 4289            -- Below ground
-  kill 9166 quest 4501.1
 
 step Marshal's Refuge
   zone Un'Goro Crater
@@ -228,8 +204,7 @@ step Marshal's Refuge
   turnin 3941                         -- J.D. Collie, below ground
   accept 3942
   note Keep Linken's Memory: Eridan Bluewind is at the Emerald Sanctuary, on the next guide's way through Felwood.
-  turnin 4501
-  kill 10977 quest 5163.3             -- Use Umi's Mechanical Yeti on Quixxil
+  kill 10977 quest 5163.3 "Scare Quixxil with Umi's Mechanical Yeti" -- Use Umi's Mechanical Yeti on Quixxil
 
 step Ringo
   tip Ringo sits on the ridge, lost and exhausted.
@@ -251,12 +226,12 @@ step Torwa Pathfinder
 
 step Tanaris
   zone Tanaris
-  goto 52.4,27.0 "Tanaris"
+  goto 52.4,27.0 "Gadgetzan"
 
 step Gadgetzan
   zone Tanaris
-  tip Fly to Gadgetzan. The Egg-O-Matic stands in the middle of town.
-  turnin 2741
+  tip Fly to Gadgetzan. Still carrying The Super Egg-O-Matic? The machine stands in the middle of town.
+  turnin 2741 direct
   turnin 4507                         -- Inside
   accept 4509
 
@@ -287,7 +262,7 @@ step Zeppelin to Undercity
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 51.9,28.1 "Western Plaguelands"
+  goto 51.9,28.1 "Kirsta Deepshadow"
 
 step Kirsta Deepshadow
   turnin 6004
@@ -298,6 +273,11 @@ step Radley and Durgen
   tip Careful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight.
   kill 11613 quest 6023
   kill 11611 quest 6023
+
+step Northridge Lumber Camp
+  tip The lumber mill is right beside Radley: set Mickey's termite barrel down in the middle of it.
+  turnin 5902
+  accept 6390
 
 step Kirsta Deepshadow
   turnin 6023
@@ -319,7 +299,7 @@ step Kirsta Deepshadow
 step Andorhal watchtowers and silos
   tip Ride south into Andorhal. Chromie waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the Beacon Torch to mark it; keep to the edges of town. Use the Temporal Displacer by the silos in the middle of town to bring out Temporal Parasites.
   accept 4971                         -- Chromie, upstairs
-  use 12815 @42.3,66.2 map 1422
+  use 12815 quest 5098.2 @42.3,66.2 map 1422
   kill 10903 quest 5098.2 "Mark Andorhal Tower Two with the Beacon Torch"
   use 12627 @45.2,62.8 map 1422
   kill 10717 quest 4971.1
@@ -340,7 +320,7 @@ step Chromie
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 83.0,71.9 "Tirisfal Glades"
+  goto 83.0,71.9 "The Bulwark"
 
 step The Bulwark
   zone Tirisfal Glades
@@ -351,6 +331,7 @@ step The Bulwark
   accept 838
   turnin 838                          -- Apothecary Dithers
   accept 964
+  turnin 6390                         -- Mickey Levine
 
 # ---------------------------------------------------------------- Western Plaguelands
 
@@ -366,11 +347,6 @@ step Dalson's Tears
 
 step Return to the Bulwark
   accept 5232
-
-step Northridge Lumber Camp
-  tip North to the lumber camp; set the termite barrel down in the middle of the mill.
-  turnin 5902
-  accept 6390
 
 step Redpath's Shield
   zone Western Plaguelands
@@ -390,7 +366,7 @@ step Tirion Fordring
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 81.5,59.8 "Eastern Plaguelands"
+  goto 81.5,59.8 "Light's Hope Chapel"
 
 step Light's Hope Chapel
   zone Eastern Plaguelands
@@ -428,7 +404,7 @@ step Tirion Fordring
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 45.3,69.2 "Western Plaguelands"
+  goto 45.3,69.2 "Alas, Andorhal"
 
 step Alas, Andorhal
   zone Western Plaguelands
@@ -439,7 +415,7 @@ step Level 59.14
   when level<59.14
   tip If you skipped Duskwing, Oh How I Hate Thee..., grind here to level 59.14 to stay on the route's plan. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
   goto 48.0,64.8 map 1422 "Temporal Parasite"
-  level 59.14                          -- grind on Temporal Parasite
+  level 59.14 grind 10717              -- grind on Temporal Parasite
 
 step Chromie
   zone Western Plaguelands
@@ -450,7 +426,6 @@ step Chromie
 step The Bulwark
   zone Tirisfal Glades
   tip West to the Bulwark.
-  turnin 6390                         -- Mickey Levine
   turnin 5232
   accept 5233
   turnin 964
@@ -462,7 +437,7 @@ step Into Eastern Plaguelands
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 71.3,34.0 "Eastern Plaguelands"
+  goto 71.3,34.0 "The lake for Of Lost Honor"
 
 step Of Lost Honor
   collect 14625 quest 5845.1 @62.5,26.8 map 1423 live -- Underwater
@@ -477,12 +452,8 @@ step Tirion Fordring
   turnin 5845
   accept 5846
 
-step Eastern Plaguelands
-  zone Eastern Plaguelands
-  goto 28.0,86.1 "Eastern Plaguelands"
-
 step Hameya's mound
-  tip The Mound of Dirt is just behind the Undercroft.
+  tip Ride south-east from Tirion to the Undercroft; the Mound of Dirt is just behind it.
   turnin 6024
 
 step Into Western Plaguelands
@@ -491,7 +462,7 @@ step Into Western Plaguelands
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 65.8,75.4 "Western Plaguelands"
+  goto 65.8,75.4 "Artist Renfray"
 
 step Artist Renfray
   turnin 5846                         -- Inside
@@ -499,3 +470,23 @@ step Artist Renfray
 step Target: Writhing Haunt
   collect 13197 quest 5233.1 @52.9,66.1 map 1422
   turnin 5233
+  accept 5234                         -- from the cauldron, for Shadow Priestess Vandis at the Bulwark
+
+step The Bulwark
+  zone Tirisfal Glades
+  tip West to the Bulwark.
+  turnin 5234                         -- Shadow Priestess Vandis
+  accept 5235
+
+step Target: Gahrron's Withering
+  zone Western Plaguelands
+  tip Back east past the Writhing Haunt to Gahrron's Withering, the farm under the eastern hills: Cauldron Lord Soulwrath guards its cauldron. Kill him for the key, then use the cauldron.
+  collect 13196 quest 5235.1 @62.2,59.1 map 1422
+  turnin 5235
+  accept 5236
+
+step The Bulwark
+  zone Tirisfal Glades
+  tip West to the Bulwark one last time.
+  turnin 5236                         -- Shadow Priestess Vandis
+  turnin 5238 direct

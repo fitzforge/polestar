@@ -2,7 +2,7 @@
 guide forever/horde/05-stonetalon-mountains
 title Ashenvale & Silverpine Forest
 faction Horde
-levels 21-22
+levels 21-23
 zone Ashenvale
 next forever/horde/06-hillsbrad-foothills
 
@@ -30,6 +30,10 @@ next forever/horde/06-hillsbrad-foothills
 # Hillsbrad to the 27 visit). The Sapphires, Torek, Pixel and Senani's hunt
 # targets are level 23-27 and wait for the second visit at 26; none is taken now and carried.
 #
+# Ashenvale Outrunners (level 24, Outrunners 23-24) waits for the second Ashenvale visit at 26
+# (forever/horde/07-ashenvale), with Torek and Sharptalon by the same lumber camp: taken on the way
+# back from Thistlefur at 22-23, the model's players were still 1-1.5 levels under it (0.3.7).
+#
 # The Undercity flight path is learned at the end of forever/horde/03-silverpine-forest; the way
 # to Tarren Mill without its flight path is the road through Silverpine, which passes Deathstalker
 # Lesh: Time To Strike (494) is picked up there and handed to Darthalia on arrival in the next
@@ -48,11 +52,17 @@ next forever/horde/06-hillsbrad-foothills
 # 0.3 hours sooner to 60 on every Horde branch without it).
 #
 # Carried on, finished: Beren's Peril and Watching the Roads (Allister, next guide).
+# Undead: Return to Podrig (6324, Gordon's Crate from the Undercity stop of
+# forever/horde/03-silverpine-forest) goes to Deathguard Podrig on the Sepulcher stop.
 #
 # Class quests: Rogues take Deep Cover (2458, from Shenthul in Orgrimmar at 20) to Taskmaster Fizzule
 # by the Venture Co. tower north of the Sludge Fen on the way north, a short walk east of the road to
 # Kadrak, and hand Mission: Possible But Not Probable (2478, optional: Gallywix is elite) to Shenthul on
-# the Orgrimmar stop. Warlocks bind the succubus (The Binding, 1513) on the Orgrimmar stop.
+# the Orgrimmar stop. Warlocks bind the succubus (The Binding, 1513) on the Orgrimmar stop. Tauren
+# Druids carrying Trial of the Sea Lion (30, from forever/horde/02-the-barrens) open the Strange
+# Lockbox off the coast west of the Dead Field on the way to the Sepulcher: its Half Pendant of
+# Aquatic Endurance drops only while the quest is in the log (#1386). The pendant is joined and
+# handed in at the end of the next guide.
 
 # ---------------------------------------------------------------- The Sludge Fen (Rogues)
 
@@ -69,22 +79,15 @@ step Kadrak
   # The Mor'shan Rampart is in the Barrens (Forever's quest data; AreaTable 1703):
   # on Ashenvale's map the route sent you through the zone crossing past him (#246).
   zone The Barrens
-  tip From Seereth's camp head north-east across the Barrens to the road north of the Crossroads. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.
+  tip From Seereth's camp head north-east across the Barrens to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.
   turnin 6541                         -- Kadrak
 
-step Ashenvale
+step Into Ashenvale
   zone Ashenvale
-  goto 71.1,68.1 "Ashenvale"
-
-step Ashenvale Outrunners
-  zone Ashenvale
-  tip Kuray'bin stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them.
-  accept 6503
-  kill 12856 quest 6503 @72.5,69.5 map 1440
-  turnin 6503
+  goto 71.1,68.1 "The road north to Splintertree Post"
 
 step Splintertree Post
-  tip Splintertree Post is just north up the road. Coming in from the south, the flight master and Senani Thunderheart's hunt board at Night Run come first, then the vendors.
+  tip Splintertree Post is just north up the road. Coming in from the south, the flight master and Senani Thunderheart's hunt board at Night Run come first, then the vendors. Kuray'bin at the lumber camp offers Ashenvale Outrunners: leave it for the next Ashenvale visit, at 26.
   getfp "Splintertree Post"
   turnin 6382                         -- Senani Thunderheart
   accept 6383
@@ -155,14 +158,10 @@ step Splintertree Post
 
 step Fly to Orgrimmar
   zone Ashenvale
-  tip Back out of the inn to the flight master and fly to Orgrimmar.
+  tip Out of the inn to the Splintertree Post flight master and fly to Orgrimmar.
   goto 73.26,61.67 "Splintertree Post flight master"
   fly "Orgrimmar"
   zone Orgrimmar
-
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
 
 step Druid trainer
   only Druid
@@ -189,25 +188,41 @@ step Shenthul
   only Rogue
   when complete 2478
   tip If you did Mission: Possible But Not Probable with a group, Shenthul in the Cleft of Shadow takes it now.
-  turnin 2478 optional                -- Shenthul, Cleft of Shadow
-  accept 2479 optional                -- Serge Hinott in Tarren Mill teaches Poisons: keep it
-
-step Durotar
-  zone Durotar
-  goto 50.7,12.9 "Durotar"
+  turnin 2478                         -- Shenthul, Cleft of Shadow
+  accept 2479                         -- Serge Hinott in Tarren Mill teaches Poisons: keep it
 
 step Zeppelin to Undercity
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
 
+step Brill
+  only Paladin
+  zone Tirisfal Glades
+  tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
+  train class
+
 # ---------------------------------------------------------------- Silverpine Forest
+
+step Strange Lockbox
+  only Tauren,Druid
+  zone Silverpine Forest
+  when onquest 30
+  tip From the zeppelin towers, run south into Silverpine and west past the Dead Field to the coast: the Strange Lockbox lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the Half Pendant of Aquatic Endurance for Trial of the Sea Lion. Then on to the Sepulcher.
+  collect 15882                         -- Half Pendant of Aquatic Endurance, from the Strange Lockbox
 
 step The Sepulcher
   zone Silverpine Forest
-  tip From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the Sepulcher. Shadow Priest Allister and Apothecary Renferrel stand by the crypt entrance.
+  tip Down the road through Silverpine to the Sepulcher: from the zeppelin towers, south through Tirisfal; from the Strange Lockbox, south-east from the coast to the road. Shadow Priest Allister and Apothecary Renferrel stand by the crypt entrance.
   accept 493                          -- Apothecary Renferrel: Lydon in Tarren Mill, next guide
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, south-east of Ambermill
+
+step Deathguard Podrig
+  only Undead
+  zone Silverpine Forest
+  when onquest 6324
+  tip Deathguard Podrig stands just west of the crypt entrance: hand him Gordon's Crate from the Undercity.
+  turnin 6324                         -- Deathguard Podrig
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest
@@ -219,7 +234,8 @@ step Silverpine Forest: kill these as you meet them
 
 step Beren's Peril
   zone Silverpine Forest
-  tip In the ruins of Beren's Peril: The Ravenclaw undead haunt the ruins of Beren's Peril east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
+  tip The Ravenclaw undead haunt the ruins of Beren's Peril, east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
+  tip An elite spirit (20) often stands beside the Offering Stone: pull the Ravenclaws away from the stone before you fight them.
   accept 95884 item 271343            -- Note Scrap, from a Ravenclaw Guardian
   turnin 95884 @58.1,69.8             -- Offering Stone
   accept 95883                        -- the Offering Stone offers The Tortured Soul once the Note Scrap is in; below ground
@@ -227,15 +243,17 @@ step Beren's Peril
   turnin 95883                        -- Below ground
 
 step The Offering of Blood
-  tip Use the Tortured Soul at the Offering Stone for a willing sacrifice and kill the Tortured Soul that answers. The Tortured Soul is elite: grouping up is advised.
+  tip The quest hands you a Tortured Soul: use it beside the Offering Stone to offer your blood, then kill the elite spirit that answers.
+  tip The Tortured Soul is elite: grouping up is advised.
   goto 58.1,69.8 "Offering Stone"
   accept 95885 optional               -- Below ground
-  kill 212753 quest 95885.1 optional
+  use 210713 optional @58.1,69.8 map 1421 -- Tortured Soul, beside the Offering Stone: summons the elite spirit
+  kill 212753 quest 95885.3 optional
   turnin 95885 optional               -- Below ground
 
-step Hillsbrad Foothills
+step Into Hillsbrad
   zone Hillsbrad Foothills
-  goto 20.8,47.4 "Hillsbrad Foothills"
+  goto 20.8,47.4 "The road east to Southpoint Tower"
 
 step Southpoint Tower
   zone Hillsbrad Foothills

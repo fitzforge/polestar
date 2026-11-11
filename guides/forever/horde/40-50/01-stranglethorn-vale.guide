@@ -9,8 +9,11 @@ next forever/horde/40-50/02-feralas
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
-# Left out: The Bloodsail Buccaneers (608).
+# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372), The Gurubashi Legends of Old (95748),
+# Locating the Lost City (95770, Kin'weelay's next legend: the cavern entrance under the Vile Reef, west of Grom'gol, on
+# the way to the jungle stalkers; handed in with the trophy skulls). Its follow-up, The Drowned City (95775), is a dungeon.
+# Excelsior (628, Drizzlik: the Elder Saltwater Crocolisk on the coast between Zul'Kunda and Grom'gol, optional).
+# Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 
 step Fly to Grom'gol
   zone Badlands
@@ -20,7 +23,7 @@ step Fly to Grom'gol
 
 step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
-  accept 598                            -- Kin'weelay
+  accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
 
 step Jungle Stalkers
   tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
@@ -38,10 +41,13 @@ step Fly to Booty Bay
 step Booty Bay
   zone Stranglethorn Vale
   turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
+  accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
-  accept 209                            -- Kebok, upstairs
   turnin 213                          -- Kebok
+  turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
+  accept 1181
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
+  turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
@@ -108,8 +114,9 @@ step Booty Bay
 # the Badlands). The Troll Witchdoctor (1240, from forever/horde/30-40/04-
 # dustwallow-marsh) at Kin'weelay in Grom'gol.
 #
-# Optional: The Bloodsail Buccaneers (608): the three captains are 45-48 on
-# decks crewed by 42-45 pirates, at about 41.
+# The Bloodsail Buccaneers (608): the three captains are 45-48 on decks
+# crewed by 42-45 pirates, too high at about 41; forever/horde/40-50/06-azshara
+# takes it on its Booty Bay stop at 50.
 #
 # Accepted here, finished later on the route: Stoley's Debt (2872) and
 # Tran'rek (2864) in Tanaris; Cortello's Riddle (624) in the Swamp of
@@ -117,9 +124,9 @@ step Booty Bay
 #
 # Left out: Sunken Treasure part 6 (670: Seahorn sends you back to Shakes
 # O'Breen in Arathi, and the route never returns there); Goblin Sponsorship
-# (1182: its chain 1178-1181 starts at Pozzik in Thousand Needles and runs
-# through Gazlowe in Ratchet, none of it on the route, and Cozzle's
-# footlocker sits in the Venture Co. camp at Lake Nazferiti, off this loop).
+# part 4 (1182: Cozzle's footlocker sits in the Venture Co. camp at Lake
+# Nazferiti, off this loop). Parts 2 and 3 (1180, 1181: Gazlowe's letter from
+# 30-40/04) are handed in on the first Booty Bay stop.
 # Left out from the refreshed export:
 # - Ancient Gurubashi Idol (96774, new in Forever, 8,800 XP): a dungeon quest
 #   in the Drowned City ("gather some friends", the Forever client's
@@ -174,18 +181,14 @@ step The Bloodsail ships
 
 # ---------------------------------------------------------------- North through the jungle
 
-step Witch Doctor Unbagwa
-  tip Take the road north out of Booty Bay; Unbagwa sits on a hill in Mistvale Valley, east of the road.
-  accept 349                          -- Inside Spirit Den
-
 step Mistvale gorillas
   tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang.
-  collect 2799 quest 349.1
+  collect 2799 x10
   collect 3862 quest 571 @33.0,66.1 map 1434
 
 step Witch Doctor Unbagwa
   tip Hand Unbagwa the fangs and stay by him: he calls three waves of gorillas, then Mokk. Fight them one at a time.
-  turnin 349                          -- Inside Spirit Den
+  turnin 349 direct -- Inside Spirit Den
   collect 2797 quest 348.1
 
 step Mistvale gorillas
@@ -219,14 +222,26 @@ step Nesingwary's camp
 step Zul'Kunda
   tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the Uldaman dungeon instead.
   collect 3904 quest 584.1
+  collect 2007 quest 95748.1 @23.0,12.0 map 1434 -- from the Fall of Gurubashi, in the ruins
   collect 3905 quest 584.2
+  tip On the coast between Zul'Kunda and Grom'gol an Elder Saltwater Crocolisk (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for Drizzlik.
+  collect 4105 quest 628.1 optional @29.3,22.3 map 1434 -- Elder Saltwater Crocolisk
   level 41                            -- grind on the Bloodscalps here: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43
 
 step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
+  turnin 95748 npc 2519                 -- Kin'weelay
   accept 586
   accept 585
   accept 2932                           -- Nimboya: for the Hinterlands, around level 48
+  accept 598                            -- Kin'weelay: the trophy skulls stand in the Skullsplitter ruins, later on this loop
+  accept 95770 npc 2519                 -- Kin'weelay: the cavern entrance under the Vile Reef, west of the camp
+
+step The Vile Reef
+  when onquest 95770
+  when !complete 95770
+  tip Locating the Lost City: west of Grom'gol, swim out over the Vile Reef and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast.
+  goto 21.8,27.6 map 1434 "the Drowned City's entrance, underwater"
 
 # ---------------------------------------------------------------- South to Booty Bay
 
@@ -246,12 +261,15 @@ step Booty Bay
   turnin 606                            -- "Shaky" Phillipe
   accept 607
   sethome "Booty Bay" npc 6807          -- Innkeeper Skindle, upstairs
+  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
   turnin 617                            -- Privateer Bloads
   turnin 600                          -- Inside
+  accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
   accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
   accept 609
   turnin 348                            -- Fin Fizracket
+  turnin 628 optional                   -- Drizzlik, inside: the Elder Crocolisk Skin
   vendor nearest
 
 step Zanzil's camps
@@ -272,7 +290,7 @@ step Pirate ghosts
 step Zul'Mamwe
   tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. Ana'thek the Cruel guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
   goto 45.4,36.2 "Skullsplitter warriors"
-  collect 1524 quest 209.1
+  collect 1524 quest 209.1 @45.4,36.2 map 1434 era
   kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
   kill 781 quest 586.2
   kill 783 quest 586.3
@@ -290,8 +308,12 @@ step Balia'mah Ruins: kill these as you meet them
 step Grom'gol Base Camp
   tip Head west to Grom'gol.
   turnin 598                            -- Kin'weelay
+  turnin 95770 npc 2519                 -- Kin'weelay
   turnin 586                            -- the Bubbling Cauldron
   turnin 585
+  accept 588                            -- the Bubbling Cauldron again: Yenniku's fate
+  turnin 588
+  accept 589                            -- Kin'weelay: the basilisks graze beside the road back from Booty Bay
   turnin 573                            -- Far Seer Mok'thardin
 
 step Fly to Booty Bay
@@ -305,14 +327,18 @@ step Booty Bay
   turnin 209                            -- Kebok, upstairs
   accept 2864                           -- Krazek, upstairs: for Tran'rek in Gadgetzan
 
-step Fly to Grom'gol
+step Ironjaw Basilisks
   zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
+  tip Ride north out of Booty Bay along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to Grom'gol. Their shards drop often.
+  collect 3911 quest 589              -- Below ground
+
+step Grom'gol Base Camp
+  tip Ride on north to Grom'gol.
+  turnin 589                          -- Kin'weelay
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
-  goto 35.7,10.8 "Stranglethorn Vale"
+  goto 35.7,10.8 "Nesingwary's Expedition"
 
 step Nesingwary's Expedition
   tip Head north up the road to the hunters' camp.
@@ -336,11 +362,11 @@ step Sir S. J. Erlgadin
   when group 193
   turnin 193
 
-step Sir S. J. Erlgadin
+step Hemet Nesingwary
   when group 197
   turnin 197
 
-step Sir S. J. Erlgadin
+step Hemet Nesingwary
   when group 208
   accept 208
 
@@ -348,7 +374,7 @@ step Level 42.68
   when level<42.68
   tip If you skipped Panther Mastery or Raptor Mastery, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
-  level 42.68                          -- grind on Skullsplitter Warrior
+  level 42.68 grind 667                -- grind on Skullsplitter Warrior
 
 step Big Game Hunter
   when group 208
@@ -365,11 +391,11 @@ step Level 42.74
   when level<42.74
   tip If you skipped Big Game Hunter, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
-  level 42.74                          -- grind on Skullsplitter Warrior
+  level 42.74 grind 667                -- grind on Skullsplitter Warrior
 
 step Duskwood
   zone Duskwood
-  goto 87.8,35.6 "Duskwood"
+  goto 87.8,35.6 "Deathstalker Zraedus"
 
 step Deathstalker Zraedus
   accept 1372
@@ -377,7 +403,7 @@ step Deathstalker Zraedus
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
-  goto 26.0,31.4 "Swamp of Sorrows"
+  goto 26.0,31.4 "Magtoor"
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
@@ -422,5 +448,5 @@ step Galen's Strongbox
 
 step The Harborage
   tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
-  turnin 1392 optional -- Magtoor
+  turnin 1392                           -- Magtoor
   turnin 1389

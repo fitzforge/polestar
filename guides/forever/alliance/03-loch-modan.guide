@@ -19,23 +19,38 @@ next forever/alliance/03-darkshore-return
 # Flow: the boat to Menethil Harbor -> the Wetlands road and Dun Algaz -> Loch Modan from the
 # north: the Algaz Station and the Silver Stream Mine, the Stonewrought Dam, the loch's
 # toolbox, Thelsamar (flight path), Ironband's Excavation, the Farstrider Lodge and its hunts,
-# Thelsamar, Ylva's banner and the tunnel post -> Dun Morogh -> Ironforge (flight path) ->
+# Thelsamar, Ylva's banner and the tunnel post -> Dun Morogh (Dwarves and Gnomes, who have the Ironforge flight path
+# from their start, fly from Thelsamar instead: #1508) -> Ironforge (flight path) ->
 # the tram -> Stormwind -> Elwynn -> Redridge: Three Corners, Lakeshire (flight path) and the
 # loop west and south of the lake -> the walk west through Goldshire (Smith Argus) to Sentinel
-# Hill -> Stormwind by gryphon (Shaw, General Marcus) and back -> Moonbrook, the lighthouse,
-# the traitor's escort -> the gryphon to Lakeshire -> the gnoll hills north of the lake ->
-# Lakeshire, then back to Auberdine: the gryphon to Stormwind and the boat, or the Hearthstone
-# (still bound there since the first Darkshore visit).
+# Hill -> Stormwind by gryphon (Shaw, General Marcus) and back -> Moonbrook (People's Militia
+# part 2 and Alba's crates, moved here from 02-westfall's second half), the lighthouse, the
+# traitor's escort -> the gryphon to Lakeshire -> the gnoll hills north of the lake ->
+# Lakeshire, then back to Auberdine: the gryphon to Stormwind (Sprite Jumpsprocket, Baros Alexston
+# for Expanding Horizons, whose reply goes to Thundris where the boat lands) and the boat, or the
+# Hearthstone (still bound there since the first Darkshore visit).
+# The Westfall stretch needs The Defias Brotherhood (65) from 02-westfall: a player who loads
+# this guide without it goes from Goldshire to Stormwind's gate (General Marcus) and flies
+# back to Lakeshire instead.
 #
-# Left out: Crocolisk Hunting (385): its skins come only from Wetlands crocolisks (21+).
+# Crocolisk Hunting (385) rides on the lodge stops: Loch Crocolisks drop its meat and skins
+# (players' recordings: skins and meat looted in Loch Modan, hand-ins at about 17).
+# Stormpike's Delivery (353), from Grimand Elmore after Elmore's Task on 02-westfall's last Stormwind
+# stop (Humans), is handed to Mountaineer Stormpike on the first Algaz Station stop.
+# Human Paladins: The Tome of Divinity (1786, 1787, from Gazin Tenorm on 02-westfall's last Stormwind stop) on
+# this guide's walk east through Elwynn (Henze Faulk at Stone Cairn Lake, north of the bridge) and Redemption
+# (1788) at the Cathedral of Light on its last Stormwind stop, at about 20-21 instead of 04's Elwynn road and
+# 05's Stormwind stop at about 26 (those steps stay for a Paladin still carrying the quests).
+# Left out:
 # A Dark Threat Looms (161) goes on to Ashlan Stonesmirk at Whelgar's dig, three levels later.
 # Mountaineer Stormpike's Task and Stormpike's Order (1339, 1338): Kadrell's breadcrumb, and
 # the route reaches Stormpike from the north first (Filthy Paws, 307, has no prerequisite).
 # The tunnel post's trogg chain (224, 237, 263, 217): sixty trogg kills and four trips between
 # the post and Stonesplinter Valley. Bingles (2039, 2038): Find Bingles starts in Ironforge.
-# Mercenaries and Vyrin's Revenge (255, 271): elite. Keeper of the Flame (103): its flasks come
-# from the harvest golems around Sentinel Hill after Captain Grayson gives it, a second
-# lighthouse trip. Messenger to Westfall and Darkshire (143, 145): another round trip each.
+# Mercenaries and Vyrin's Revenge (255, 271): elite. Keeper of the Flame (103): taken and handed
+# in at once on the lighthouse stop, only by a player carrying five Flasks of Oil (a free drop of
+# the Harvest Watchers 02-westfall kills; it says to keep five), never a trip for the flasks.
+# Messenger to Westfall and Darkshire (143, 145): another round trip each.
 # Marshal Marris's Blackrock quests (20, 98387), Alther's Mill (98386) and Murloc Poachers (150,
 # from 20) are taken here, at their givers, and done on the 24 visit (04-redridge-mountains), where
 # level 20-21 quests still give full XP. Givers passed and left for later, by level: A Watchful Eye
@@ -71,6 +86,10 @@ step Algaz Station
   tip Mountaineer Stormpike stands at the Algaz Station, at the south end of the pass.
   accept 307                                  -- Mountaineer Stormpike
 
+step Mountaineer Stormpike
+  when onquest 353
+  turnin 353                                  -- Mountaineer Stormpike: Grimand Elmore's package
+
 step Silver Stream Mine
   only Human,NightElf,Skyborne
   tip East along the hills to the mine: the Miners' League crates sit in its tunnels among the Tunnel Rat kobolds.
@@ -95,7 +114,7 @@ step Stonewrought Dam
 # ---------------------------------------------------------------- Thelsamar
 
 step The loch
-  tip South along the west shore. A Discarded Fishing Toolbox lies on the loch bed east of Thelsamar (it moves between several spots): open it for the Monogrammed Silver Hair Clip, which starts the quest.
+  tip South along the west shore. The Discarded Fishing Toolbox lies on the loch bed at one of several places: east of Thelsamar (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the Monogrammed Silver Hair Clip comes with it.
   accept 86614                                -- Discarded Fishing Toolbox; underwater
 
 step Thelsamar
@@ -128,6 +147,7 @@ step Ironband's Excavation
 step The Farstrider Lodge
   tip North-east to the lodge on the hill. Marek Ironheart stands inside, Daryl the Youngling outside.
   accept 86758                                -- Marek Ironheart, inside
+  accept 385                                  -- Marek Ironheart: the loch crocolisks below the lodge
   accept 257                                  -- Daryl the Youngling: 15 minutes
 
 step Mountain Buzzards
@@ -138,14 +158,17 @@ step Daryl the Youngling
   turnin 257
   accept 258                                  -- 12 minutes
 
-step Elder Mountain Boars and Daggerfang
-  tip The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. Daggerfang, a crocolisk, patrols the shore below them. A Hunter's Challenge runs for 12 minutes.
+step Elder Mountain Boars, Daggerfang and the loch crocolisks
+  tip The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore: A Hunter's Challenge runs for 12 minutes, so the boars come first. Daggerfang, a crocolisk, patrols the shore below them among the Loch Crocolisks.
   kill 1192 quest 258                         -- Elder Mountain Boar
   collect 279591 quest 86758                  -- Marek's Croc-Hunting Knife: Daggerfang
+  collect 2924 quest 385                      -- Crocolisk Meat: Loch Crocolisks
+  collect 2925 quest 385                      -- Crocolisk Skin
 
 step The Farstrider Lodge
   turnin 258                                  -- Daryl the Youngling
   turnin 86758                                -- Marek Ironheart, inside
+  turnin 385
 
 # ---------------------------------------------------------------- South to the tunnel
 
@@ -166,12 +189,24 @@ step The tunnel post
 
 # ---------------------------------------------------------------- Ironforge
 
+step Fly to Ironforge
+  only Dwarf,Gnome
+  zone Loch Modan
+  tip You have the Ironforge flight path from Dun Morogh: back north to Thelsamar's gryphons, quicker than walking through the tunnel and across Dun Morogh.
+  goto 33.9,50.8 "Thelsamar flight master"
+  fly "Ironforge"
+  zone Ironforge
+
 step Into Dun Morogh
+  only Human,NightElf,Skyborne
+  when !zone "Ironforge"
   zone Dun Morogh
-  tip Through the South Gate tunnel and west along the road to Ironforge.
+  tip Through the South Gate tunnel and west along the road to Ironforge. Know the Ironforge flight path already? Fly from Thelsamar instead: these two waypoints drop once you are in the city.
   goto 86.0,49.6 "Into Dun Morogh"
 
 step Into Ironforge
+  only Human,NightElf,Skyborne
+  when !zone "Ironforge"
   zone Ironforge
   goto 21.6,77.8 "Into Ironforge"
 
@@ -192,7 +227,7 @@ step Tram to Stormwind
 step Elwynn Forest
   zone Elwynn Forest
   tip From the tram, leave Stormwind by the main gate and follow the road through Goldshire and east through Elwynn to Redridge.
-  goto 65.2,69.7 "Elwynn Forest"
+  goto 65.8,74.0 "The road east to Redridge"
 
 step Guard Thomas
   only NightElf
@@ -200,6 +235,16 @@ step Guard Thomas
   when onquest 35
   tip Guard Thomas guards the bridge on this road east, past the Tower of Azora: Marshal Dughan's Further Concerns, from your walk through Goldshire, goes to him.
   turnin 35                                   -- Guard Thomas, on the bridge
+
+step Henze Faulk
+  only Human,Paladin
+  zone Elwynn Forest
+  when onquest 1786,1787
+  tip From the bridge, head north to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
+  use 6866 quest 1786.1 @72.6,51.41 map 1429 era only Human -- Use the Symbol of Life on Henze Faulk
+  turnin 1786 only Human -- Henze Faulk
+  accept 1787 only Human
+  collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
 
 step Three Corners
   zone Redridge Mountains
@@ -287,23 +332,37 @@ step Smith Argus
   turnin 118                                  -- Smith Argus
   accept 119
 
+step Stormwind's gate
+  when !turnedin 65
+  zone Stormwind City
+  tip No Defias Brotherhood from Wiley (it starts with Gryan Stoutmantle's letter in Westfall): skip Westfall. North along the road from Goldshire to Stormwind: General Marcus Jonathan sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the Trade District, back to Lakeshire.
+  turnin 120                                  -- General Marcus Jonathan, outside the main gate
+  accept 121
+  fly "Lakeshire"
+
 step Westfall
+  when turnedin 65
   zone Westfall
   tip West through Westbrook into Westfall.
-  goto 59.9,19.4 "Westfall"
+  goto 59.9,19.4 "Sentinel Hill"
 
 step Sentinel Hill
+  when turnedin 65
   zone Westfall
   tip Down the road to Sentinel Hill. Gryan Stoutmantle stands at the top of the stone tower.
   turnin 132                                  -- Gryan Stoutmantle
   accept 135                                  -- For Master Mathias Shaw in Stormwind
+  accept 14                                   -- Gryan Stoutmantle
+  accept 92747                                -- Alba Fairmoon
 
 step Fly to Stormwind
+  when turnedin 65
   zone Westfall
   goto 56.6,52.6 "Sentinel Hill flight master"
   fly "Stormwind"
 
 step Stormwind
+  when turnedin 65
   zone Stormwind City
   tip Master Mathias Shaw is upstairs in the SI:7 building in Old Town: the stairs are hard to see at first. General Marcus Jonathan sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the Trade District.
   turnin 135                                  -- Master Mathias Shaw, SI:7; upstairs
@@ -313,30 +372,55 @@ step Stormwind
   fly "Sentinel Hill"
 
 step Sentinel Hill
+  when turnedin 65
   zone Westfall
   turnin 141                                  -- Gryan Stoutmantle, at the top of the tower
   accept 142
 
+step Moonbrook and the Defias hills
+  when turnedin 65
+  tip Defias Pathstalkers and Knuckledusters walk Moonbrook; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. The Deadmines entrance in the smithy is a group dungeon.
+  tip Careful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level.
+  kill 121 quest 14
+  kill 449 quest 14
+  kill 122 quest 14
+  collect 254676 quest 92747.1                -- Suspicious Industrial Supplies, from the crates around Moonbrook
+
 step The Defias Messenger
+  when turnedin 65
   tip South along the road to Moonbrook. The Defias Messenger starts in front of the Moonbrook smithy and walks north to the Gold Coast Quarry and the back of the Jangolode Mine, then back: look along his road. Slow him when he runs at 30% health.
   collect 1381 quest 142                      -- A Mysterious Message: the Defias Messenger
 
 step Westfall Lighthouse
+  when turnedin 65
   tip South-west from Moonbrook to the lighthouse on the point: Captain Grayson waits on its steps. Old Murk-Eye walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles.
   accept 104                                  -- Captain Grayson
-  collect 3636 quest 104                      -- Scale of Old Murk-Eye: Old Murk-Eye
+  collect 3636 quest 104 @33.7,83.9 map 1436 live -- Scale of Old Murk-Eye: Old Murk-Eye, on the beach north-east of the lighthouse
   turnin 104                                  -- Captain Grayson
 
+step Captain Grayson
+  when turnedin 65
+  when has 814 x5
+  tip Kept five Flasks of Oil from Westfall's Harvest Watchers? Captain Grayson takes them for his lighthouse fire.
+  accept 103                                  -- Captain Grayson
+  turnin 103
+
 step Sentinel Hill
+  when turnedin 65
   tip Back north up the road to Sentinel Hill. The Defias Traitor waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes.
   turnin 142                                  -- Gryan Stoutmantle
   accept 155                                  -- The Defias Traitor
+  turnin 14
+  turnin 92747                                -- Alba Fairmoon
+  accept 92748
 
 step The Defias Traitor
+  when turnedin 65
   tip Stay with the traitor as he walks south to Moonbrook; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below Moonbrook.
   complete 155 @55.7,47.5                     -- The Defias Traitor, at the foot of the tower ramp
 
 step Sentinel Hill
+  when turnedin 65
   tip Back north to Gryan Stoutmantle and the gryphons.
   turnin 155                                  -- Gryan Stoutmantle
   fly "Lakeshire"
@@ -373,8 +457,30 @@ step Lakeshire
 step Fly to Stormwind
   zone Redridge Mountains
   tip Back to Auberdine for Darkshore's southern loops: the gryphon to Stormwind, then the boat from the harbour.
-  goto 25.5,59.4 "Lakeshire flight master"
+  goto 25.5,59.4 "Lakeshire flight master" live
   fly "Stormwind"
+
+step Sprite Jumpsprocket
+  when onquest 92748
+  zone Stormwind City
+  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+
+step Baros Alexston
+  when onquest 97914
+  zone Stormwind City
+  tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
+  turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
+  accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
+
+step Gazin Tenorm
+  only Human,Paladin
+  zone Stormwind City
+  when onquest 1787,1788
+  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on Cathedral Square, on the way to the harbour.
+  goto 50.5,47.5 "Cathedral of Light" live
+  turnin 1787 only Human -- Gazin Tenorm
+  accept 1788 only Human
+  turnin 1788 only Human -- Duthorian Rall: Redemption
 
 step Boat to Auberdine
   zone Stormwind City

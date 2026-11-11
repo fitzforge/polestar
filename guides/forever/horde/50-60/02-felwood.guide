@@ -10,48 +10,13 @@ next forever/horde/50-60/03-winterspring
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Left out: Little Pamela (5142).
-
-step Fly to Tarren Mill
-  zone Eastern Plaguelands
-  goto 80.1,57.0 "Light's Hope Chapel flight master"
-  fly "Tarren Mill"
-  zone Hillsbrad Foothills
-
-step Western Plaguelands
-  zone Western Plaguelands
-  goto 43.0,83.5 "Western Plaguelands"
-
-step Sorrow Hill
-  tip Argent Officer Pureheart stands at the south end of the Sorrow Hill graveyard, where the road from Tarren Mill comes in.
-  accept 5402 optional                -- Argent Officer Pureheart, at the graveyard's south end
-  accept 5403 optional
-
-step Sorrow Hill
-  tip Marlene's house stands by the road, and Joseph Redpath's monument is in the graveyard behind it.
-  turnin 5152                         -- Marlene Redpath, upstairs
-  accept 5153
-  collect 12894 quest 5153 @49.7,76.8
-  turnin 5403 optional
-  note Keep Little Pamela: Pamela is in Darrowshire, visited again later.
-  turnin 5402 optional
+# Added here (0.3.6 flow pass, from 50-60/01): Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901),
+# in Terrordale just east of Tirion's house; the rest of the Eastern Plaguelands waits for 50-60/05.
 
 step Mulgris Deepriver
+  zone Western Plaguelands
   tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
   accept 4984                         -- Inside
-
-step Chromie
-  tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
-  turnin 5153                         -- Upstairs
-  accept 5154
-
-step The Annals of Darrowshire
-  tip The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.
-  collect 12900 quest 5154 @43.4,69.5
-
-step Chromie
-  turnin 5154                         -- Upstairs
-  accept 5210
-  note Brother Carlin goes to Light's Hope Chapel: keep it for later.
 
 step Tirion Fordring
   zone Eastern Plaguelands
@@ -61,9 +26,23 @@ step Tirion Fordring
   accept 5544
   note Tirion's hunts are in the Eastern Plaguelands: keep them for later.
 
+step Augustus the Touched
+  zone Eastern Plaguelands
+  tip Cross the river east into Terrordale, the ruined town in the north-west of the Eastern Plaguelands. Augustus sits in a hut at its edge.
+  accept 6164                         -- Inside
+
+step Terrordale: kill these as you meet them
+  zone Eastern Plaguelands
+  tip The book lies in the ruined inn of Terrordale; the undead in the town are 54-56, so pull them one at a time.
+  tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
+  collect 15884 quest 6164 @17.4,31.1 -- Upstairs
+  collect 15043 quest 5901
+  collect 12840 x20 optional -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
+  note Keep Augustus' Receipt Book: Augustus takes it back on the Eastern Plaguelands guide's Terrordale stop.
+
 step Kirsta Deepshadow
   zone Western Plaguelands
-  tip Ride west to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
+  tip Ride back west over the river and on to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
   accept 6004
 
 step Level 52.63
@@ -71,7 +50,7 @@ step Level 52.63
   when level<52.63
   tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53. The Scarlet Mages and Knights here count for Kirsta's Unfinished Business. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 53.1,37.3 map 1422 "Scarlet Mage"
-  level 52.63                          -- grind on Scarlet Mage
+  level 52.63 grind 1826               -- grind on Scarlet Mage
 
 step Diseased Wolves
   tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east.
@@ -82,39 +61,25 @@ step Diseased Wolves
 
 step Dalson's Tears farmhouse
   tip The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A Wandering Skeleton carries the outhouse key; Farmer Dalson comes out when you open the outhouse and carries the cabinet key.
-  accept 5060                         -- Locked Cabinet, inside
-  accept 5059                         -- Outhouse
-  accept 5058                         -- Mrs. Dalson's Diary, inside
-  turnin 5058
-  collect 12738 quest 5059 @47.7,49.9 map 1422
-  collect 12739 quest 5060 @48.1,49.7 -- Farmer Dalson
-  turnin 5059
-  turnin 5060
+  turnin 5058 direct
+  collect 12738 @47.7,49.9 map 1422
+  collect 12739 @48.1,49.7 -- Farmer Dalson
+  turnin 5059 direct
+  turnin 5060 direct
 
 step Mulgris Deepriver
   turnin 4984                         -- Inside
   accept 4985
 
-step Level 53.02
-  when level<53.02
-  tip Top up here to level 53.02 before the hand-ins at The Writhing Haunt: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
-  goto 45.7,46.0 map 1422 "Diseased Wolf"
-  level 53.02                          -- grind on Diseased Wolf
-
 step Diseased Grizzlies
-  tip The bears roam the hills north and east of the Writhing Haunt.
+  tip The bears roam the hills north and east of the Writhing Haunt. Below level 53.02, keep hunting them after the eighth: the hand-ins at the Writhing Haunt take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   kill 1816 quest 4985
+  level 53.02 grind 1816               -- grind on Diseased Grizzly
 
 step Mulgris Deepriver
   turnin 4985                         -- Inside
   accept 4987
   note Keep the branch: Nara Wildmane is in Thunder Bluff.
-
-step Level 53.2
-  when level<53.2
-  tip Top up here to level 53.2 before the hand-ins at The Bulwark: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
-  goto 54.9,62.4 map 1422 "Diseased Grizzly"
-  level 53.2                          -- grind on Diseased Grizzly
 
 step Scarlet Crusade
   tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it.
@@ -122,17 +87,17 @@ step Scarlet Crusade
   kill 1831 quest 6004.2
   kill 1826 quest 6004.3
   kill 10605 quest 6004.1
-  level 53.24                          -- grind on Scarlet Medic
+  level 53.24 grind 10605              -- grind on Scarlet Medic
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 83.2,68.5 "Tirisfal Glades"
+  goto 83.2,68.5 "The Bulwark"
 
 step The Bulwark
   zone Tirisfal Glades
   tip Ride south-west past Felstone Farm and follow the road west back to the Bulwark.
-  turnin 5407 optional                -- Argent Officer Garush
-  turnin 5408 optional
+  turnin 5407 direct optional -- Argent Officer Garush
+  turnin 5408 direct optional
   turnin 5096                         -- High Executor Derrington
   accept 5098
   accept 5228
@@ -147,11 +112,11 @@ step Level 53.34
   when level<53.34
   tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   goto 40.5,51.8 map 1422 "Scarlet Medic"
-  level 53.34                          -- grind on Scarlet Medic
+  level 53.34 grind 10605              -- grind on Scarlet Medic
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 61.8,59.2 "Tirisfal Glades"
+  goto 61.8,59.2 "Brill"
 
 step Paladin trainer
   only Paladin
@@ -164,7 +129,13 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 51.5,45.6 "Orgrimmar"
+  goto 51.5,45.6 "The middle of Orgrimmar"
+
+step Jes'rimon
+  zone Orgrimmar
+  when onquest 4300
+  tip Jes'rimon takes the ravasaur claws from Un'Goro; he stands in the Cleft of Shadow, a short walk from the middle of the city.
+  turnin 4300                           -- Jes'rimon, the Cleft of Shadow
 
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -184,7 +155,7 @@ step Fly to Splintertree Post
 
 step Felwood
   zone Felwood
-  goto 50.9,81.6 "Felwood"
+  goto 50.9,81.6 "Emerald Sanctuary"
 
 # ---------------------------------------------------------------- Emerald Sanctuary and Jaedenar
 
@@ -194,17 +165,14 @@ step Emerald Sanctuary
   accept 5156                         -- Taronn Redfeather
   accept 5155                         -- Greta Mosshoof
   accept 8460                         -- Grazle, at the south edge of the camp
+  accept 4102                         -- Maybess Riverbreeze, on the west side of the camp
 
 step Deadwood Village
   tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   kill 7153 quest 8460.1
   kill 7154 quest 8460.3
-  level 53.92                          -- grind on Deadwood Warrior
+  level 53.92 grind 7153               -- grind on Deadwood Warrior
   kill 7155 quest 8460.2
-
-step Emerald Sanctuary
-  zone Felwood
-  accept 4102                         -- Maybess Riverbreeze, just west of the camp
 
 step Southern Jaedenar
   tip Follow the road north-west. The south of Jaedenar, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.
@@ -214,27 +182,38 @@ step Southern Jaedenar
   kill 7112 quest 5155.4
 
 step A Strange Red Key
-  tip Only if a Blood Red Key dropped: use it to start the quest, then free Arko'narin in her cage in Shadow Hold, the cave at the north end of Jaedenar, and escort her out.
+  when has 13140
+  tip A Blood Red Key dropped: use it to start the quest, then free Arko'narin from her cage in Shadow Hold, the cave at the north end of Jaedenar.
   accept 5202 optional
-  turnin 5202 optional                -- Captured Arko'narin, below ground
-  accept 5203 optional
-  complete 5203 optional
+
+step Captured Arko'narin
+  when onquest 5202
+  turnin 5202                         -- Captured Arko'narin, below ground
+
+step Rescue From Jaedenar
+  when available 5203
+  accept 5203 optional                -- Captured Arko'narin, below ground
+
+step Rescue From Jaedenar
+  when onquest 5203
+  tip Walk Arko'narin out of Shadow Hold and keep her alive until she is out of the cave.
+  complete 5203 @36.2,55.5 map 1448   -- Arko'narin, below ground
+
+step Jessir Moonbow
+  when onquest 5203
+  tip Back at the Emerald Sanctuary.
+  turnin 5203                         -- Jessir Moonbow
+
+step Jessir Moonbow
+  when available 5204
+  accept 5204 optional
 
 step Emerald Sanctuary
-  turnin 5203 optional                -- Jessir Moonbow
-  accept 5204 optional
   turnin 5155                         -- Greta Mosshoof
   accept 5157
   turnin 8460
   accept 8462
-  accept 8466 optional                -- Only with 5 Deadwood Headdress Feathers
-  turnin 8466 optional
-
-step Level 54.1
-  when level<54.1
-  tip Top up here to level 54.1 before the hand-ins at Felwood: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
-  level 54.1                          -- grind on Deadwood Pathfinder
+  turnin 8466 direct optional
 
 # ---------------------------------------------------------------- North through Felwood
 
@@ -244,10 +223,14 @@ step The Jaedenar moonwell
   collect 12907 quest 5157 @35.2,59.8
 
 step Rakaiah
-  tip Only if you rescued Arko'narin: the succubus Rakaiah waits in the middle of Jaedenar, beside the Remains of Trey Lightforge.
-  kill 9518 quest 5204 optional       -- Below ground
-  turnin 5204 optional                -- Remains of Trey Lightforge, below ground
-  accept 5385 optional
+  when onquest 5204
+  tip The succubus Rakaiah waits in the middle of Jaedenar, beside the Remains of Trey Lightforge.
+  kill 9518 quest 5204                -- Below ground
+  turnin 5204                         -- Remains of Trey Lightforge, below ground
+
+step The Remains of Trey Lightforge
+  when available 5385
+  accept 5385 optional                -- Remains of Trey Lightforge, below ground
 
 step Bloodvenom Post
   tip The Horde camp just north of Jaedenar.
@@ -266,14 +249,14 @@ step Shatter Scar Vale
   kill 9879 quest 5156.2
 
 step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo.
+  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2
-  level 54.21                          -- grind on Angerclaw Grizzly
+  level 54.21 grind 8957               -- grind on Angerclaw Grizzly
 
 step Irontree Woods
   collect 11503 quest 4102            -- Below ground
-  level 54.3                          -- grind on Warpwood Shredder
+  level 54.3 grind 7101               -- grind on Warpwood Shredder
 
 step Felpaw Village
   tip The Deadwood furbolg village just west of the tunnel. Chieftain Bloodmaw (56) stands among them. Meilosh, a friendly furbolg, sits at the north end of the village.
@@ -286,58 +269,48 @@ step Nafien
 
 step Felpaw Village
   tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
+  tip Below level 54.54, keep fighting the Deadwood here after Nafien's count: the hand-ins at Timbermaw Hold and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59.
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
+  collect 20741                       -- Deadwood Ritual Totem
+  accept 8470
+  level 54.54 grind 7156               -- grind on Deadwood Den Watcher
 
 step Nafien
   turnin 8461
   accept 8465
-  accept 8467 optional                -- Only with 5 Deadwood Headdress Feathers
-
-step Level 54.45
-  when level<54.45
-  tip Top up here to level 54.45 before the hand-ins at Timbermaw Hold: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  goto 62.2,10.1 map 1448 "Deadwood Den Watcher"
-  level 54.45                          -- grind on Deadwood Den Watcher
-
-step Nafien
-  when onquest 8467
-  turnin 8467 optional
+  turnin 8467 direct optional
   note Keep Speak to Salfa for Winterspring.
 
-step Level 54.54
-  when level<54.54
-  tip Top up here to level 54.54 before the hand-ins at Emerald Sanctuary: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  goto 62.2,10.1 map 1448 "Deadwood Den Watcher"
-  level 54.54                          -- grind on Deadwood Den Watcher
-
-step Felpaw Village
-  collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
-  accept 8470 optional
+step Timbermaw Hold
+  tip Step into the cave: Kernda stands just inside.
+  turnin 8470 optional                -- Kernda: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map
 
 # ---------------------------------------------------------------- Back south
 
 step Emerald Sanctuary
   tip Ride the road south through Felwood to the Sanctuary.
   turnin 5156                         -- Taronn Redfeather
-  turnin 5385 optional                -- Jessir Moonbow
   turnin 5157                         -- Greta Mosshoof
   accept 5158
+  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
+  note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
+
+step Jessir Moonbow
+  when onquest 5385
+  turnin 5385                         -- Jessir Moonbow
 
 step Overlord Ror
   tip Ror stands at the far south end of Deadwood Village.
   collect 15879 quest 6162 @48.2,94.3
 
-step Emerald Sanctuary
-  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
-  note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
-
 step Level 54.7
   when level<54.7
   tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post : they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
-  level 54.7                          -- grind on Deadwood Pathfinder
+  level 54.7 grind 7155               -- grind on Deadwood Pathfinder
 
 step The Jadefire moonwell
   tip Ride back south past Jaedenar to the corrupted moonwell of the Jadefire satyrs and fill Winna's flasket there.
@@ -353,18 +326,15 @@ step Bloodvenom Post
   accept 4506
 
 step Winna's kitten
-  tip Take the kitten to the same moonwell and release it there; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
-  goto 32.3,66.6 "Jadefire moonwell"
+  tip Take the kitten to the same moonwell and release it there with Winna's Kitten Carrier; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
+  use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier, at the Jadefire moonwell
   complete 4506
-
-step Winna's Kitten Carrier
-  use 12565 quest 4506.1 @32.3,66.6 map 1448
 
 step Winna Hazzard
   turnin 4506
 
 step Level 54.87
   when level<54.87
-  tip Top up here to level 54.87 before the hand-ins at Everlook: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Top up here to level 54.87 before the hand-ins in Winterspring: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 38.3,61.7 map 1448 "Jaedenar Hound"
-  level 54.87                          -- grind on Jaedenar Hound
+  level 54.87 grind 7125               -- grind on Jaedenar Hound

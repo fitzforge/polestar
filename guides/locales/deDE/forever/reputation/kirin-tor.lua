@@ -7,72 +7,72 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Kirin Tor Reputation"] = "",
+	["Kirin Tor Reputation"] = "Ruf: Kirin Tor",
 	-- {area:279} Dalaran
-	["New in Forever: {area:279}'s mages sell Azure armour recipes at Friendly and their tabard at Exalted."] = "",
+	["New in Forever: {area:279}'s mages sell Azure armour recipes at Friendly and their tabard at Exalted."] = "Neu in Forever: Die Magier von {area:279} verkaufen bei Freundlich Rezepte für Azure-Rüstung und bei Ehrfürchtig ihr Wappenrock.",
 	-- {skill:164} Blacksmithing · {skill:165} Leatherworking · {skill:197} Tailoring
-	["Eight Azure helm and shoulder recipes at Friendly ({skill:164}, {skill:165}, {skill:197})"] = "",
+	["Eight Azure helm and shoulder recipes at Friendly ({skill:164}, {skill:165}, {skill:197})"] = "Acht Azure-Helm- und -Schulterrezepte bei Freundlich ({skill:164}, {skill:165}, {skill:197})",
 
 	-- Step 1: Skyborne: the recipes now
-	["Skyborne: the recipes now"] = "",
+	["Skyborne: the recipes now"] = "Himmelsgeborene: die Rezepte sofort",
 	-- {faction:2740} Kirin Tor · {npc:32287} Archmage Alvareaux · {area:279} Dalaran
-	["Alliance Skyborne start Friendly with the {faction:2740}, and their arrival quests The Magical City of Dalaran and Exploring the Alliance pay 100 more each, so {npc:32287} sells you the Azure recipes at once (10g each, they need skill 175). He stands upstairs in the building with the {faction:2740} banners in {area:279}, past the Sky Enclave. Buy the ones for your profession."] = "",
+	["Alliance Skyborne start Friendly with the {faction:2740}, and their arrival quests The Magical City of Dalaran and Exploring the Alliance pay 100 more each, so {npc:32287} sells you the Azure recipes at once (10g each, they need skill 175). He stands upstairs in the building with the {faction:2740} banners in {area:279}, past the Sky Enclave. Buy the ones for your profession."] = "Allianz-Himmelsgeborene beginnen bei den {faction:2740} Freundlich, und ihre Ankunftsquests The Magical City of Dalaran und Exploring the Alliance zahlen je 100 mehr, sodass {npc:32287} dir die Azure-Rezepte sofort verkauft (je 10g, sie brauchen Fertigkeit 175). Er steht oben in dem Gebäude mit den Bannern der {faction:2740} in {area:279}, hinter der Sky Enclave. Kaufe die für deinen Beruf.",
 
 	-- Step 2: An Alarming Request
 	-- {npc:247264} Emissary Jacques · {faction:2740} Kirin Tor · {area:271} Southshore · {npc:246748} Archmage Modera · {area:1338} Lordamere Lake · {area:279} Dalaran
-	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "",
+	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation at any level in Forever."] = "{npc:247264} der {faction:2740} wartet in {area:271}. Er schickt dich zum Bild von {npc:246748} am Ufer von {area:1338}, vor den Mauern von {area:279}. Die Quests der {faction:2740} beginnen auf Stufe 24 bis 30 und zahlen in Forever auf jeder Stufe vollen Ruf.",
 
 	-- Step 3: Archmage Modera's image
 	-- {npc:246748} Archmage Modera
-	["{npc:246748}'s image"] = "",
+	["{npc:246748}'s image"] = "das Bild von {npc:246748}",
 	-- {item:277507} Dalaran Sewer Key
-	["you get the {item:277507} with it"] = "",
+	["you get the {item:277507} with it"] = "du erhältst dabei den {item:277507}",
 
 	-- Step 4: The City of Dalaran
-	["The City of Dalaran"] = "",
+	["The City of Dalaran"] = "Die City of Dalaran",
 	-- {quest:92457} Starving Arcane · {npc:246020} Shade of the Archmage · {npc:246748} Archmage Modera · {item:251961} Arcane Mote · {faction:2740} Kirin Tor
-	["The City of Dalaran is a dungeon for levels 28 to 33: go in through the sewers with the key Modera gave you. The arcane elementals throughout the city count for {quest:92457}. The {npc:246020}, the last boss, waits in the Purple Parlor above the Violet Citadel (a portal by {npc:246748} in the Citadel takes you up) and drops the {item:251961}. Beta players saw every kill in the dungeon pay {faction:2740} reputation, the bosses the most. Group of five advised below level 35."] = "",
+	["The City of Dalaran is a dungeon for levels 28 to 33: go in through the sewers with the key Modera gave you. The arcane elementals throughout the city count for {quest:92457}. The {npc:246020}, the last boss, waits in the Purple Parlor above the Violet Citadel (a portal by {npc:246748} in the Citadel takes you up) and drops the {item:251961}. Beta players saw every kill in the dungeon pay {faction:2740} reputation, the bosses the most. Group of five advised below level 35."] = "Die City of Dalaran ist ein Dungeon für die Stufen 28 bis 33: Geh durch die Kanalisation hinein, mit dem Schlüssel, den Modera dir gegeben hat. Die arkanen Elementare in der ganzen Stadt zählen für {quest:92457}. Der {npc:246020}, der letzte Boss, wartet im Purple Parlor über der Violet Citadel (ein Portal bei {npc:246748} in der Zitadelle bringt dich hinauf) und lässt die {item:251961} fallen. Beta-Spieler sahen, dass jeder Kill im Dungeon Ruf bei den {faction:2740} zahlte, die Bosse am meisten. Gruppe von fünf empfohlen unter Stufe 35.",
 	-- {item:251961} Arcane Mote · {npc:246020} Shade of the Archmage
-	["{item:251961}, from the {npc:246020}"] = "",
+	["{item:251961}, from the {npc:246020}"] = "{item:251961}, vom {npc:246020}",
 
 	-- Step 5: Back to Modera's image
-	["Back to Modera's image"] = "",
+	["Back to Modera's image"] = "Zurück zu Moderas Bild",
 
 	-- Step 6: Archmage Celindra
 	-- {npc:252085} Archmage Celindra · {area:279} Dalaran
-	["{npc:252085} waits in the Violet Citadel in {area:279}."] = "",
+	["{npc:252085} waits in the Violet Citadel in {area:279}."] = "{npc:252085} wartet in der Violet Citadel in {area:279}.",
 
 	-- Step 7: Past Due
 	-- {npc:264265} Magus Olvek · {area:279} Dalaran · {npc:6487} Arcanist Doan · {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades
-	["{npc:264265} in {area:279} wants a book back from {npc:6487}, the last boss of the {area:796}'s Library (levels 33 to 41), in {zone:1420}."] = "",
+	["{npc:264265} in {area:279} wants a book back from {npc:6487}, the last boss of the {area:796}'s Library (levels 33 to 41), in {zone:1420}."] = "{npc:264265} in {area:279} will ein Buch von {npc:6487} zurück, dem letzten Boss der Bibliothek der {area:796} (Stufen 33 bis 41), in {zone:1420}.",
 
 	-- Step 8: Arcanist Doan
 	-- {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades
-	["The {area:796} stands in the north-east of {zone:1420}; Doan waits at the end of the Library wing. Group of five advised below level 40."] = "",
+	["The {area:796} stands in the north-east of {zone:1420}; Doan waits at the end of the Library wing. Group of five advised below level 40."] = "Die {area:796} steht im Nordosten von {zone:1420}; Doan wartet am Ende des Bibliotheksflügels. Gruppe von fünf empfohlen unter Stufe 40.",
 	-- {item:273169} The Lost Magic of the Runemasters · {npc:6487} Arcanist Doan
-	["{item:273169}, from {npc:6487}"] = "",
+	["{item:273169}, from {npc:6487}"] = "{item:273169}, von {npc:6487}",
 
 	-- Step 9: Back to Magus Olvek
 	-- {npc:264265} Magus Olvek
-	["Back to {npc:264265}"] = "",
+	["Back to {npc:264265}"] = "Zurück zu {npc:264265}",
 
 	-- Step 10: City of Dalaran runs to Friendly
-	["City of Dalaran runs to Friendly"] = "",
-	["The quests leave a non-Skyborne at about 320 of the 3,000 Friendly needs. The rest comes from kills in the City of Dalaran dungeon: run it until Friendly. How much each kill pays is not in the game's data; the bosses pay the most. At 60 you clear it alone."] = "",
+	["City of Dalaran runs to Friendly"] = "Die City of Dalaran bis Freundlich",
+	["The quests leave a non-Skyborne at about 320 of the 3,000 Friendly needs. The rest comes from kills in the City of Dalaran dungeon: run it until Friendly. How much each kill pays is not in the game's data; the bosses pay the most. At 60 you clear it alone."] = "Die Quests lassen einen Nicht-Himmelsgeborenen bei etwa 320 der 3.000 stehen, die Freundlich braucht. Der Rest kommt von Kills im Dungeon City of Dalaran: Lauf ihn, bis du Freundlich bist. Wie viel jeder Kill zahlt, steht nicht in den Spieldaten; die Bosse zahlen am meisten. Auf 60 räumst du ihn allein.",
 
 	-- Step 11: Archmage Alvareaux: the Azure recipes
 	-- {npc:32287} Archmage Alvareaux
-	["{npc:32287}: the Azure recipes"] = "",
+	["{npc:32287}: the Azure recipes"] = "{npc:32287}: die Azure-Rezepte",
 	-- {npc:32287} Archmage Alvareaux · {faction:2740} Kirin Tor · {area:279} Dalaran
-	["{npc:32287} sells the Azure helm and shoulder recipes at Friendly, 10g each (skill 175). He stands upstairs in the building with the {faction:2740} banners in {area:279}. Buy the ones for your profession."] = "",
+	["{npc:32287} sells the Azure helm and shoulder recipes at Friendly, 10g each (skill 175). He stands upstairs in the building with the {faction:2740} banners in {area:279}. Buy the ones for your profession."] = "{npc:32287} verkauft die Azure-Helm- und -Schulterrezepte bei Freundlich, je 10g (Fertigkeit 175). Er steht oben in dem Gebäude mit den Bannern der {faction:2740} in {area:279}. Kaufe die für deinen Beruf.",
 
 	-- Step 12: City of Dalaran runs to Exalted
-	["City of Dalaran runs to Exalted"] = "",
-	["Nothing is sold at Honored or Revered in the game's data. Friendly to Exalted is 39,000 reputation, all from City of Dalaran kills. In Classic most dungeon kills stop paying at Honored or Revered; whether these do is not known yet."] = "",
+	["City of Dalaran runs to Exalted"] = "Die City of Dalaran bis Ehrfürchtig",
+	["Nothing is sold at Honored or Revered in the game's data. Friendly to Exalted is 39,000 reputation, all from City of Dalaran kills. In Classic most dungeon kills stop paying at Honored or Revered; whether these do is not known yet."] = "Bei Wohlwollend oder Respektvoll wird in den Spieldaten nichts verkauft. Von Freundlich bis Ehrfürchtig sind es 39.000 Ruf, alle aus Kills in der City of Dalaran. In Classic hören die meisten Dungeon-Kills bei Wohlwollend oder Respektvoll auf zu zahlen; ob diese es tun, ist noch nicht bekannt.",
 
 	-- Step 13: The Kirin Tor Tabard
 	-- {item:285327} Kirin Tor Tabard
-	["The {item:285327}"] = "",
+	["The {item:285327}"] = "Das {item:285327}",
 	-- {npc:32287} Archmage Alvareaux · {npc:28776} Elizabeth Ross · {area:279} Dalaran · {item:285327} Kirin Tor Tabard
-	["{npc:32287} and {npc:28776}, the tabard vendor in {area:279}, sell the {item:285327} at Exalted for 25g."] = "",
+	["{npc:32287} and {npc:28776}, the tabard vendor in {area:279}, sell the {item:285327} at Exalted for 25g."] = "{npc:32287} und {npc:28776}, der Wappenrock-Händler in {area:279}, verkaufen das {item:285327} bei Ehrfürchtig für 25g.",
 }

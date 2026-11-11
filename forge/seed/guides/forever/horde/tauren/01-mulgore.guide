@@ -47,18 +47,12 @@ step Grull Hawkwind
   accept 755
 
 step The Hunt Continues
-  tip Antur Fallow stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to Grull.
+  tip Antur Fallow stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot.
   accept 1656                         -- Antur Fallow
   collect 4742 quest 750.1            -- Mountain Cougar Pelt
 
-step Grull Hawkwind
-  turnin 750
-  accept 780
-  accept 3376                         -- Brave Windfeather, next to Grull; walks around Camp Narache: look inside the circle on the map
-  train class
-
 step Seer Graytongue
-  tip Follow the path south out of camp to the Seer's tent at the foot of the hills.
+  tip The Seer's tent stands at the foot of the cougars' hills.
   turnin 755
   accept 95805
   accept 757
@@ -66,6 +60,13 @@ step Seer Graytongue
 step The shrine of An'she and Mu'sha
   tip The incense burns out in ten minutes: run straight east along the southern hills to the Ritual Fire.
   turnin 95805
+
+step Grull Hawkwind
+  tip Back north-west up to Camp Narache.
+  turnin 750
+  accept 780
+  accept 3376                         -- Brave Windfeather, next to Grull; walks around Camp Narache: look inside the circle on the map
+  train class
 
 # ---------------------------------------------------------------- Brambleblade Ravine
 
@@ -202,9 +203,10 @@ step Bloodhoof Village
 step Thunderhorn Water Well
   tip The well lies north of the village. Adult Plainstriders graze around it: they drop the Tender Strider Meat for Kyle.
   use 5415 quest 758.1 @44.6,45.4     -- Thunderhorn Cleansing Totem
+  collect 287505                      -- Tender Strider Meat
 
 step Bloodhoof Village
-  use 287505 quest 99411.1            -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
+  use 287505 quest 99411.1 @47.8,63.1 -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
   turnin 99411                        -- Ahab Wheathoof, at the north end of the village
   turnin 758                          -- Mull Thunderhorn
   accept 759
@@ -317,7 +319,7 @@ step Red Rocks
 
 step Thunder Bluff
   zone Thunder Bluff
-  goto 60.3,51.7 "Thunder Bluff"
+  goto 60.3,51.7 "Thunder Bluff's lift"
 
 # ---------------------------------------------------------------- Thunder Bluff
 
@@ -391,6 +393,7 @@ step Preparation for Ceremony
 step Clarice Foster
   zone Thunder Bluff
   tip Clarice Foster stands in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart.
+  level 12
   accept 264
   accept 1523 only Shaman -- Xanis Flameweaver, a few steps from Clarice Foster on Spirit Rise
 
@@ -445,9 +448,9 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
-step The Barrens
+step The Crossroads
   zone The Barrens
-  goto 52.2,31.0 "The Barrens"
+  goto 52.2,31.0 "The Crossroads"
 
 step The Crossroads
   zone The Barrens
@@ -485,4 +488,4 @@ step Jahan Hawkwing
 step To Orgrimmar
   zone Orgrimmar
   tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.
-  goto 55.6,72.3 "Orgrimmar"
+  goto 55.6,72.3 "Orgrimmar's main gate"

@@ -10,7 +10,13 @@ next forever/horde/02-the-barrens
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Prove Your Worth (421), Raleigh and the Undercity (441), Prompt Potion Runner (97891),
-# Zinge's Delivery and Sample for Helbrim (1359, 1358), The Spirits of Stonetalon (1061).
+# Zinge's Delivery and Sample for Helbrim (1359, 1358), The Spirits of Stonetalon (1061), and for
+# the starts that come by zeppelin, The Argent Emissary, The Cult of the Damned, Remnants of War and
+# Delivery to Silverpine Forest (96895, 96897, 96898, 445).
+# Undead only: Supplying the Sepulcher (6321) and Ride to the Undercity (6323), Deathguard Podrig to
+# Karos Razok on the first Sepulcher stop, then Gordon Wendham and Michael Garrett (6322) side by side
+# on the Undercity stop at the end; Return to Podrig (6324) goes back with the ride through the
+# Sepulcher in forever/horde/05-stonetalon-mountains. Forever gives the chain to the Undead alone.
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): Silverpine Forest comes first, at
 # 12-15, straight from every start. Tirisfal Glades walks south into it; Durotar, Mulgore and
@@ -18,7 +24,8 @@ next forever/horde/02-the-barrens
 # forever/horde/02-the-barrens, which starts where this guide ends, in Orgrimmar.
 #
 # Flow: Orgrimmar (flight path, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
-# the Sepulcher (flight path, bind) -> the Dalaran crate and back -> north loop: the Dead Field,
+# Brill (Terrence, Johaan) and Hadric's cultists by the zeppelin towers ->
+# the Sepulcher (flight path) -> the Dalaran crate and back -> north loop: the Dead Field,
 # Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
 # Quinn, the murloc eyes on the shore -> south along the lake shore past the Decrepit Ferry to
 # Ambermill -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
@@ -69,12 +76,16 @@ next forever/horde/02-the-barrens
 #
 # Class quests: Orcs and Trolls hand the cultists' Neeru Fireblade (829) and The Admiral's Orders
 # (831) in on arrival in Orgrimmar. Troll Priests hand Hex of Weakness (5654) to Ur'kyo on the
-# Orgrimmar training trip of forever/horde/02-the-barrens. Tauren Druids open the Strange Lockbox
-# on the coast west of the Dead Field for Trial of the Sea Lion (30), which they take in Moonglade
-# in the next guide.
+# Orgrimmar training trip of forever/horde/02-the-barrens. Tauren Druids leave the Strange Lockbox
+# on the coast west of the Dead Field alone here: its Half Pendant of Aquatic Endurance drops only
+# while Trial of the Sea Lion (30, from level 16) is in the log (#1386). They take the quest in
+# Moonglade in the next guide and open the lockbox on the ride through Silverpine at 21
+# (forever/horde/05-stonetalon-mountains).
 #
 # Class training: Orgrimmar on arrival at 12 and at the end at 15 for everyone but Druids and
-# Paladins (no trainer of theirs there). Paladins train in Brill on the way through Tirisfal Glades.
+# Paladins (no trainer of theirs there). Paladins train in Brill on the way through Tirisfal Glades
+# and with Garen Largo on the Undercity stop at the end; Druids train in Thunder Bluff on the next
+# guide's Moonglade trip at 16, not by a trip from Orgrimmar to Thunder Bluff at 15.
 # Undead Paladins from 18: Danitha Morr at Bandarion Keep (Tirisfal) starts their Silverpine chain
 # (91858-91862, 96204, 95034: the Sepulcher, Fenris Isle, Lumina Windsinger), the Class guide
 # forever/class/paladin/lumina-windsinger.
@@ -114,12 +125,52 @@ step The Drag
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.
   accept 97242                        -- Kor'geld
 
+step Jandi
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97905
+  tip Jandi, the herbalism trainer, keeps her shop in the Drag.
+  complete 97905 @55.62,39.46
+  turnin 97905                        -- Jandi: Camping 101, from Brakk's campfire in Durotar
+
+step Jhag
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97901
+  tip Jhag, the enchanting trainer, works in the Drag.
+  complete 97901 @53.47,38.55
+  turnin 97901                        -- Jhag: Camping 101, from Brakk's campfire in Durotar
+
 step Valley of Honor
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
   tip The cattails and speargrass grow along the water in the Valley of Honor, east of the Drag.
   collect 277278 quest 97242.1
   collect 277279 quest 97242.2
+
+step Thuwd
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97908
+  tip Thuwd, the skinning trainer, stands in the Valley of Honor.
+  complete 97908 @63.36,45.42
+  turnin 97908                        -- Thuwd: Camping 101, from Brakk's campfire in Durotar
+
+step Karolek
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97906
+  tip Karolek, the leatherworking trainer, works in the Valley of Honor.
+  complete 97906 @62.81,44.15
+  turnin 97906                        -- Karolek: Camping 101, from Brakk's campfire in Durotar
+
+step Snang
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 96102
+  tip Snang, the tailoring trainer, is in the Valley of Honor.
+  complete 96102 @62.93,49.24
+  turnin 96102                        -- Snang: Camping 101, from Brakk's campfire in Durotar
 
 step Class trainer
   only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Warlock
@@ -166,6 +217,14 @@ step Kor'geld
   accept 97275                        -- Yelmak
   turnin 97275                        -- Whuut
 
+step Whuut
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97899
+  tip Whuut, the alchemy trainer, stands next door to Kor'geld.
+  complete 97899 @55.79,32.9
+  turnin 97899                        -- Whuut: Camping 101, from Brakk's campfire in Durotar
+
 step Valley of Wisdom
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
@@ -190,15 +249,43 @@ step Nazgrel
   when onquest 831
   turnin 831 only Orc,Troll           -- Nazgrel, in Grommash Hold
 
-step Durotar
-  only Orc,Troll,Tauren,Skyborne
-  zone Durotar
-  goto 50.8,13.5 "Durotar"
-
 step Zeppelin to Undercity
   only Orc,Troll,Tauren,Skyborne
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
+
+# Tirisfal Glades on the way down to Silverpine (Orcs, Trolls, Tauren and Skyborne): Brill, a short walk north of the
+# zeppelin towers (Deathguard Terrence, Apothecary Johaan), then Hadric Harlson's Argent chain at Deathguard Linnea's
+# camp east of the towers: The Cult of the Damned and Remnants of War (level 12, from 10) on the cultists a short walk
+# south-east of him. Delivery to Silverpine Forest (445) goes to Renferrel at the Sepulcher.
+step Brill
+  only Orc,Troll,Tauren,Skyborne
+  zone Tirisfal Glades
+  tip Brill is a short walk north up the road from the zeppelin towers: Deathguard Terrence stands by the road into town, Apothecary Johaan in the apothecary's house on the west side of the square.
+  accept 96895                        -- Deathguard Terrence
+  accept 445                          -- Apothecary Johaan, inside
+
+step Hadric Harlson
+  only Orc,Troll,Tauren,Skyborne
+  zone Tirisfal Glades
+  tip Back down the road past the zeppelin towers and east to Deathguard Linnea's camp: Hadric stands beside her.
+  turnin 96895
+  accept 96897
+  accept 96898
+
+step The Cult of the Damned
+  only Orc,Troll,Tauren,Skyborne
+  zone Tirisfal Glades
+  tip The cultists camp a short walk south-east of Hadric. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents.
+  kill 267006 quest 96897.1
+  kill 275437 quest 96897.2
+  collect 275851 quest 96898.1
+
+step Hadric Harlson
+  only Orc,Troll,Tauren,Skyborne
+  zone Tirisfal Glades
+  turnin 96897
+  turnin 96898
 
 step Brill
   only Paladin
@@ -206,26 +293,29 @@ step Brill
   tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
   train class
 
-step Silverpine Forest
+step The Sepulcher
   zone Silverpine Forest
-  goto 44.0,40.9 "Silverpine Forest"
+  goto 44.0,40.9 "The Sepulcher"
 
 # ---------------------------------------------------------------- The Sepulcher
 
 step The Sepulcher
   zone Silverpine Forest
   tip The Sepulcher is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; Karos Razok, the bat handler, is just east of it.
+  accept 6321 only Undead             -- Deathguard Podrig
   getfp "The Sepulcher"
+  turnin 6321 only Undead             -- Karos Razok
+  accept 6323 only Undead             -- Karos Razok: Gordon Wendham in the Undercity, at the end of this guide; no need to buy the flight
   accept 477                          -- Shadow Priest Allister
   accept 421
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
-  sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
-  turnin 445 only Undead              -- Apothecary Renferrel: Delivery to Silverpine Forest
+  turnin 445                          -- Apothecary Renferrel: Delivery to Silverpine Forest
 
 step The Sepulcher
   zone Silverpine Forest
   when onquest 264
+  tip Until Death Do Us Part is handed in at Yuriv's Tombstone, a grave a few steps south of the crypt entrance, not to a person.
   turnin 264 only Skyborne,Tauren
 
 step Border Crossings
@@ -240,11 +330,6 @@ step The Dead Field
   tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field.
   collect 3622 quest 437.1
   complete 437 @45.1,21.7
-
-step Strange Lockbox
-  only Tauren,Druid
-  tip The Strange Lockbox lies on the coast west of the Dead Field. It holds the Half Pendant of Aquatic Endurance for Trial of the Sea Lion.
-  collect 15882
 
 step Malden's Orchard
   tip Follow the road north-east to the Yoricks' house at Malden's Orchard.
@@ -329,9 +414,9 @@ step The Ivar Patch
   collect 3621 quest 425.1            -- Inside
   turnin 425
 
-step Tirisfal Glades
+step Brill
   zone Tirisfal Glades
-  goto 61.3,50.8 "Tirisfal Glades"
+  goto 61.3,50.8 "Brill"
 
 step Magistrate Sevren
   zone Tirisfal Glades
@@ -348,12 +433,41 @@ step Tirisfal Glades
 step The Undercity
   zone Undercity
   tip The Undercity lies under the Ruins of Lordaeron, beside the zeppelin towers. Raleigh Andrean stands at the inn by the way down; Alessandro Luca on the way down to the Apothecarium, where Doctor Martin Felben and Apothecary Zinge stand beside Master Apothecary Faranell.
+  turnin 6323 only Undead             -- Gordon Wendham, the weapon merchant beside the bat handler
+  accept 6322 only Undead
   getfp "Undercity"
+  turnin 6322 only Undead             -- Michael Garrett, the bat handler
+  accept 6324 only Undead             -- Michael Garrett: keep Gordon's Crate, Podrig takes it on the next stop at the Sepulcher, at 22
   turnin 441                          -- Raleigh Andrean
   accept 97891                        -- Alessandro Luca
   turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
   turnin 1359                         -- Apothecary Zinge, in the Apothecarium
   accept 1358                         -- Apothecary Zinge: Helbrim at the Crossroads, in the next guide
+  train class only Paladin            -- Garen Largo, the Undercity's paladin trainer
+
+step Brom Killian
+  only Undead
+  zone Undercity
+  when onquest 97959
+  tip Brom Killian, the mining trainer, works in the Undercity.
+  complete 97959 @56.03,37.45
+  turnin 97959                        -- Brom Killian: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Basil Frye
+  only Undead
+  zone Undercity
+  when onquest 97952
+  tip Basil Frye, the blacksmithing trainer, works in the Undercity.
+  complete 97952 @60.17,29.09
+  turnin 97952                        -- Basil Frye: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Graham Van Talen
+  only Undead
+  zone Undercity
+  when onquest 97954
+  tip Graham Van Talen, the engineering trainer, works in the Undercity.
+  complete 97954 @75.34,73.13
+  turnin 97954                        -- Graham Van Talen: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
 
 step Lady Sylvanas Windrunner
   only Skyborne
@@ -367,7 +481,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 55.6,72.3 "Orgrimmar"
+  goto 55.6,72.3 "Orgrimmar's Valley of Strength"
 
 step Valley of Strength
   zone Orgrimmar
@@ -387,14 +501,6 @@ step Valley of Strength
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
-
-step Druid trainer
-  only Druid
-  train class only Druid -- Sheal Runetotem in Mulgore; Orgrimmar has no druid trainer
 
 step The Drag
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.

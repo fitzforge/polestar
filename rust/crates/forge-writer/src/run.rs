@@ -50,11 +50,14 @@ pub struct RunOpts {
 	/// route's own legs, which write the travel themselves.
 	pub repair: bool,
 	pub rules: engine::Opts,
+	/// A guide's opening accepts that need a quest only an earlier guide hands in (post::fresh_openers):
+	/// listed in the log (default), moved to a later visit to their giver, or not checked.
+	pub fresh_openers: crate::post::FreshOpeners,
 }
 
 impl Default for RunOpts {
 	fn default() -> Self {
-		RunOpts { engine: true, level: true, route_legs: true, repair: true, rules: engine::Opts::default() }
+		RunOpts { engine: true, level: true, route_legs: true, repair: true, rules: engine::Opts::default(), fresh_openers: crate::post::FreshOpeners::default() }
 	}
 }
 
@@ -91,6 +94,7 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 		solo_fallback: opts.engine && opts.rules.groups,
 		walks: if opts.engine { inp.walks } else { None },
 		borders: if opts.engine { inp.walk_yards.and_then(|w| w.borders()) } else { None },
+		fresh_openers: opts.fresh_openers,
 	};
 	let r = apply_route(&ai)?;
 	log.extend(r.log.iter().cloned());

@@ -26,13 +26,13 @@ zone Ironforge
 # ASSUMED: past level 30 (the beta's cap) Forever's spawns are Classic's; nothing
 # confirms them yet. In-game check: refine with Polestar_Recorder sessions.
 # Ranks ask no character level: Forever's sniffed trainer lists carry none for
-# Herbalism, Mining or Skinning, and level 10 for Journeyman crafting and Fishing.
-# INGAME: does a gathering trainer ask a level for Expert or Artisan? (our data:
-# none; one web guide: Expert 10, Artisan 25).
+# Herbalism, Mining or Skinning, and players' recordings show Expert Mining
+# trained at 15 and Artisan Skinning at 29.
 # Waypoints are Era-frame (`coords era`); the engine converts them where Forever
 # changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
 # ---------------------------------------------------------------- Apprentice
+section Herbalism 1-50
 
 step Learn Herbalism
   tip Any Herbalism trainer of your faction teaches Apprentice Herbalism at any level (10c), and so does the Junior Herbalism Trainer in each starting area; the arrow picks the nearest. Turn on Find Herbs (spellbook, General tab) so herbs show on the minimap. Forever's starting areas also have Wilted Peacebloom and Stunted Silverleaf (skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's Cactus Apple Surprise, A Humble Task, Marla's Last Wish) offers Wild Harvest as a reward: reading it gives 2 skill, up to 15. Trade goods vendors sell the Apprentice's Herb Pouch, a four-slot bag for herbs (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Herbalism: hand it in to the herbalism trainer it names once you reach skill 20, for the Incense Candle recipe.
@@ -44,9 +44,10 @@ step Peacebloom & Silverleaf: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
   tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
-  goto 53.1,38.6 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 53.2,38.6 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 45.8,32.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 46.1,42.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 50.9,46.2 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 42.4,56.6 "Peacebloom, Silverleaf" r 30
   goto 35.8,59.4 "Silverleaf, Peacebloom" r 30
   goto 26.3,85.5 "Peacebloom, Silverleaf" r 30
@@ -55,7 +56,6 @@ step Peacebloom & Silverleaf: Elwynn Forest (1-50)
   goto 87.6,80.0 "Silverleaf, Peacebloom" r 30
   goto 62.6,62.7 "Peacebloom, Silverleaf" r 30
   goto 56.9,44.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
-  goto 50.9,46.4 "Stunted Silverleaf, Wilted Peacebloom" r 30
   skill Herbalism 50
 
 step Peacebloom & Silverleaf: Dun Morogh (1-50)
@@ -85,7 +85,7 @@ step Peacebloom & Silverleaf: Teldrassil (1-50)
   goto 60.9,62.4 "Silverleaf, Peacebloom" r 30
   goto 67.3,60.5 "Silverleaf, Peacebloom" r 30
   goto 67.3,51.6 "Silverleaf, Peacebloom" r 30
-  goto 56.0,44.1 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 56.0,44.1 "Wilted Peacebloom" r 30
   goto 45.8,40.8 "Peacebloom, Silverleaf" r 30
   goto 37.2,41.1 "Silverleaf, Peacebloom" r 30
   goto 38.6,67.2 "Peacebloom, Earthroot" r 30
@@ -117,7 +117,7 @@ step Peacebloom & Silverleaf: Durotar (1-50)
   zone Durotar
   tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
   goto 44.6,64.6 "Wilted Peacebloom, Stunted Silverleaf" r 30
-  goto 45.1,70.8 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 45.0,70.9 "Wilted Peacebloom, Stunted Silverleaf" r 30
   goto 55.3,66.9 "Silverleaf, Peacebloom" r 30
   goto 52.1,58.4 "Peacebloom, Silverleaf" r 30
   goto 49.5,47.7 "Silverleaf, Peacebloom" r 30
@@ -133,7 +133,7 @@ step Peacebloom & Silverleaf: Durotar (1-50)
 step Peacebloom & Silverleaf: Mulgore (1-50)
   only Tauren
   zone Mulgore
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange, rare), Wilted Peacebloom (1, orange, rare), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
   goto 34.2,35.0 "Silverleaf, Peacebloom" r 30
   goto 34.7,41.1 "Peacebloom, Silverleaf" r 30
   goto 38.0,47.3 "Peacebloom, Silverleaf" r 30
@@ -166,12 +166,13 @@ step Peacebloom & Silverleaf: Tirisfal Glades (1-50)
   goto 31.6,70.5 "Stunted Silverleaf, Wilted Peacebloom" r 30
   skill Herbalism 50
 
+# ---------------------------------------------------------------- Herbalism 50-100
+section Herbalism 50-100
+
 step Journeyman Herbalism
   tip Journeyman Herbalism raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest Herbalism trainer of your faction. Incense Candle, Forever's camping item for Herbalism, is taught from skill 20 (1s, or free from Camping 101: Herbalism): a Peacebloom and a Silverleaf each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour.
   train Herbalism Journeyman
   learn 1229705
-
-# ---------------------------------------------------------------- Herbalism 50-100
 
 step Mageroyal & Briarthorn: Westfall (50-100)
   only Human,Skyborne,Alliance
@@ -264,6 +265,7 @@ step Mageroyal & Briarthorn: Silverpine Forest (50-100)
   skill Herbalism 100
 
 # ---------------------------------------------------------------- Herbalism 100-125
+section Herbalism 100-125
 
 step Briarthorn & Bruiseweed: Redridge Mountains (100-125)
   only Human,Dwarf,Gnome,Skyborne,Alliance
@@ -337,11 +339,12 @@ step Stranglekelp & Bruiseweed: Hillsbrad Foothills (100-125)
   goto 41.0,39.7 "Bruiseweed, Briarthorn" r 30
   skill Herbalism 125
 
+# ---------------------------------------------------------------- Herbalism 125-160
+section Herbalism 125-160
+
 step Expert Herbalism
   tip Expert Herbalism raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest Herbalism trainer of your faction.
   train Herbalism Expert
-
-# ---------------------------------------------------------------- Herbalism 125-160
 
 step Stranglekelp & Kingsblood: Stranglethorn Vale (125-160)
   zone Stranglethorn Vale
@@ -361,6 +364,7 @@ step Stranglekelp & Kingsblood: Stranglethorn Vale (125-160)
   skill Herbalism 160
 
 # ---------------------------------------------------------------- Herbalism 160-185
+section Herbalism 160-185
 
 step Liferoot & Fadeleaf: Dustwallow Marsh (160-185)
   zone Dustwallow Marsh
@@ -380,6 +384,7 @@ step Liferoot & Fadeleaf: Dustwallow Marsh (160-185)
   skill Herbalism 185
 
 # ---------------------------------------------------------------- Herbalism 185-210
+section Herbalism 185-210
 
 step Liferoot & Khadgar's Whisker: Dustwallow Marsh (185-200)
   zone Dustwallow Marsh
@@ -420,6 +425,7 @@ step Fadeleaf & Khadgar's Whisker: Dustwallow Marsh (200-210) cont.
   skill Herbalism 210
 
 # ---------------------------------------------------------------- Herbalism 210-230
+section Herbalism 210-230
 
 step Purple Lotus: The Hinterlands (210-230)
   zone The Hinterlands
@@ -439,12 +445,13 @@ step Purple Lotus: The Hinterlands (210-230)
   skill Herbalism 230
 
 # ---------------------------------------------------------------- Herbalism 230-260
+section Herbalism 230-260
 
 step Purple Lotus & Sungrass: The Hinterlands (230-260)
   zone The Hinterlands
   tip Pick every Liferoot (150, green, rare), Fadeleaf (160, green, rare), Goldthorn (170, green), Khadgar's Whisker (185, yellow, rare), Purple Lotus (210, orange), Sungrass (230, orange), Ghost Mushroom (from 245) you pass and circle the waypoints until Herbalism 260. Ghost Mushroom grows in caves and dark hollows: look inside as well. Purple Lotus sometimes gives a Wildvine as well. Zone level 40-50. Expect about 50 herbs for these 30 points.
   goto 56.9,42.2 "Ghost Mushroom, Purple Lotus" r 30
-  goto 63.8,47.8 "Sungrass, Khadgar's Whisker" r 30
+  goto 63.8,47.8 "Sungrass, Goldthorn" r 30
   goto 65.5,67.8 "Purple Lotus" r 30
   goto 68.1,74.8 "Purple Lotus" r 30
   goto 49.8,65.6 "Purple Lotus, Sungrass" r 30
@@ -452,12 +459,13 @@ step Purple Lotus & Sungrass: The Hinterlands (230-260)
   goto 18.1,52.5 "Sungrass" r 30
   goto 24.2,56.2 "Sungrass, Purple Lotus" r 30
   goto 32.6,59.9 "Purple Lotus, Sungrass" r 30
-  goto 37.8,54.3 "Sungrass, Fadeleaf" r 30
-  goto 42.0,45.9 "Sungrass, Khadgar's Whisker" r 30
+  goto 37.8,54.3 "Sungrass" r 30
+  goto 42.0,45.9 "Sungrass" r 30
   goto 46.6,55.1 "Sungrass, Purple Lotus" r 30
   skill Herbalism 260
 
 # ---------------------------------------------------------------- Herbalism 260-285
+section Herbalism 260-285
 
 step Sungrass & Golden Sansam: The Hinterlands (260-285)
   zone The Hinterlands
@@ -471,12 +479,13 @@ step Sungrass & Golden Sansam: The Hinterlands (260-285)
   goto 36.8,59.0 "Sungrass, Golden Sansam" r 30
   goto 58.2,81.6 "Purple Lotus, Ghost Mushroom" r 30
   goto 65.5,67.8 "Purple Lotus" r 30
-  goto 75.5,53.4 "Golden Sansam, Khadgar's Whisker" r 30
+  goto 75.5,53.4 "Golden Sansam, Sungrass" r 30
   goto 69.3,48.6 "Golden Sansam, Sungrass" r 30
-  goto 63.8,47.3 "Sungrass, Khadgar's Whisker" r 30
+  goto 63.8,47.3 "Sungrass, Golden Sansam" r 30
   skill Herbalism 285
 
 # ---------------------------------------------------------------- Herbalism 285-300
+section Herbalism 285-300
 
 step Dreamfoil & Plaguebloom: Western Plaguelands (285-300)
   zone Western Plaguelands

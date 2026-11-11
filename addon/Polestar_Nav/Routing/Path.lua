@@ -246,7 +246,9 @@ local function kindSwims(swim)
 end
 
 -- One grid search loop; splitting moves its retained arrays to upvalues on the hot path
-local function search(st, k, swim, mult, source, tree, goal, targets, left, back)
+-- limit: with goal, give up once the cheapest open node's cost plus its heuristic passes it (the goal costs more);
+-- without, stop the Dijkstra once the cheapest open node costs more (every node settled costs at most limit).
+local function search(st, k, swim, mult, source, tree, goal, targets, left, back, limit)
 	-- Search only enters populated grids, through snapped endpoints or decoded entrances. A paused search keeps its
 	-- cluster's strings even if another job evicts the cluster.
 	local c = grid(st, k)
@@ -346,6 +348,25 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 			tick()
 			if u == goal then
 				return true
+			end
+			if limit and not goal then
+				-- A Dijkstra settles in cost order: past limit, every node left costs more.
+				if g[i] > limit then
+					return false
+				end
+			elseif limit then
+				-- Popped in order of cost plus the (consistent) heuristic: past limit, so is the goal.
+				local lc = u < N and u or floorCell(c, u)
+				local ax, ay = floor(lc / C) - gx, lc % C - gy
+				if ax < 0 then
+					ax = -ax
+				end
+				if ay < 0 then
+					ay = -ay
+				end
+				if g[i] + (ax > ay and ax + (SQRT2 - 1) * ay or ay + (SQRT2 - 1) * ax) * hs > limit then
+					return false
+				end
 			end
 			if targets and targets[u] then
 				left = left - 1
@@ -469,7 +490,7 @@ local function trace(tree, node, out)
 	return out
 end
 
-local trees = { S = Tree(), G = Tree(), R = Tree() }
+local trees = { S = Tree(), G = Tree(), R = Tree(), B = {} } -- (B: connectWithin's, one per start surface)
 
 -- Abstract A* state.
 local ag, ay, apar, astamp, aclosed, agen = {}, {}, {}, {}, {}, 0
@@ -606,6 +627,17 @@ local function connect(st, swim, mult, k, node, back)
 	return entry.node, entry.edges, entry.tree, entry.yards, entry
 end
 
+-- The endpoint tree a start surface already has from an earlier Find (connect's), when it ran dry from that very node
+-- (not settled elsewhere, not given back to the pool): every node the start can reach is in it, so a goal it never
+-- reached is out of reach. nil otherwise. Reading it searches nothing.
+local function keptDry(st, swim, mult, k, node)
+	local entry = st.ends and st.ends[k .. ":" .. node .. ":" .. swim .. ":" .. (mult and mult.tag or "")]
+	local tree = entry and entry.node == node and entry.tree
+	if tree and tree.k == k and tree.whole == tree.gen then
+		return tree
+	end
+end
+
 -- A point without a height (a map click, or the player while Polestar's walking floor is unknown: UnitPosition's
 -- height is a placeholder 0, so Nav/Walk.lua usually sends the floor it follows under the player, Path.SurfacesAt)
 -- could stand on any surface at its spot, so it starts from each one within a cell of it at a distinct height and the
@@ -614,7 +646,8 @@ end
 -- while the player's own is unknown indoors) keeps to the surfaces within ZTOL of one of them, all of them when none
 -- is: the Undercity's canals and streets, never its roofs or the Ruins above. Returns each surface's connection, the
 -- entrance costs merged by minimum, per entrance the surface it came from, and the merged costs' yards.
-local function connectPoint(st, swim, mult, k, node, h, floors, back)
+-- The surfaces a point starts from (connectPoint, and run's walk inside one cluster).
+local function surfaces(st, k, node, h, floors)
 	local nodes = { node }
 	if not h then
 		local cl = grid(st, k)
@@ -673,8 +706,12 @@ local function connectPoint(st, swim, mult, k, node, h, floors, back)
 			nodes[1] = node
 		end
 	end
+	return nodes
+end
+
+local function connectPoint(st, swim, mult, k, node, h, floors, back)
 	local ends, merged, via, yards = {}, {}, {}, {}
-	for _, start in ipairs(nodes) do
+	for _, start in ipairs(surfaces(st, k, node, h, floors)) do
 		-- The entry itself: its tree may go to the pool before the caller reads it (connect).
 		local _, edges, _, edgeYards, entry = connect(st, swim, mult, k, start, back)
 		ends[#ends + 1] = entry
@@ -685,6 +722,50 @@ local function connectPoint(st, swim, mult, k, node, h, floors, back)
 		end
 	end
 	return ends, merged, via, yards
+end
+
+-- The start's connection within a cost radius (run's walk across clusters): each surface's Dijkstra to its cluster's
+-- entrances stops once past R, so it holds the exact cost of every entrance within R and nothing beyond. Its trees are
+-- run's own, reused (never cached: a moving start never comes again). -> as connectPoint, then whether every tree is
+-- complete (it met every entrance or ran dry: the full connection) and whether any entrance was met at all.
+-- The trees are the job's own (trees.B, in its scratch): searches are sliced and take turns, and one job's tree must
+-- never be rewritten under another's paused search or traced by its refinement.
+-- A surface whose tree is complete and met no entrance is a rock top or ledge: like connectPoint, it goes through
+-- connect, which moves it to a node that reaches one (settle), and that connection joins the starts.
+local function connectWithin(st, swim, mult, k, nodes, R)
+	local targets, left = {}, 0
+	for _, id in ipairs(nodesOf(st, k)) do
+		local e = entrance(st, id)
+		if e and not targets[e] then
+			targets[e], left = true, left + 1
+		end
+	end
+	local ends, merged, via, yards = {}, {}, {}, {}
+	local complete, met = true, false
+	for i, n in ipairs(nodes) do
+		local tree = trees.B[i] or Tree()
+		trees.B[i] = tree
+		local whole = search(st, k, swim, mult, n, tree, nil, targets, left, nil, R)
+		local edges, edgeYards = connections(st, tree, k)
+		local entry
+		if whole and next(edges) == nil then
+			local _, _, _, _, settled = connect(st, swim, mult, k, n)
+			entry, edges, edgeYards = settled, settled.edges, settled.yards
+		else
+			entry = { node = n, edges = edges, yards = edgeYards, tree = tree }
+			if not whole then
+				complete = false
+			end
+		end
+		ends[#ends + 1] = entry
+		for id, c in pairs(edges) do
+			met = true
+			if not merged[id] or c < merged[id] then
+				merged[id], via[id], yards[id] = c, entry, edgeYards[id]
+			end
+		end
+	end
+	return ends, merged, via, yards, complete, met
 end
 
 -- Lifts: the walking grid has no links between a lift's landings (the car moves, the ground does not), so the
@@ -701,6 +782,9 @@ local LIFT_ID = 1073741824 -- landing i's vertex is LIFT_ID + i, above every ent
 local LIFT_ENDS = 64
 -- The longest walk a search looks for: DETOUR times the straight line plus DETOUR_YD yards (run's abstract A*).
 local DETOUR, DETOUR_YD = 8, 2000
+-- The straight yards up to which a walk across clusters bounds the start's tree (run): the arrow's re-asks round an
+-- objective, where the win is; a far walk's cost is usually well over the first bound, so it takes the full tree.
+local BOUNDED_YARDS = 400
 
 -- The map's lift landings, read once a map state: { [i] = { x, y, z, k, partners = { j, ... } }, byCluster = { [k] =
 -- { i, ... } } }.
@@ -858,6 +942,66 @@ local function hubsOn(hubs, points, profile)
 	end
 	return out
 end
+-- The hostile hubs the walk goes round (display only; nothing here prices or changes the path): the ones the straight
+-- line between its ends would enter and the drawn line does not (it is not in entered, hubsOn's list), and that the
+-- drawn line passes within AVOID_NEAR yards of, so a bend the ground forced elsewhere is not called a detour.
+-- -> { { id, name, areaId, x, y }, ... } in the order the straight line meets them (x, y: the town's place); {} without
+-- hubs, a profile or a line.
+local AVOID_NEAR = 100
+
+local function distanceToSegment(a, b, cx, cy)
+	local dx, dy = b.x - a.x, b.y - a.y
+	local A = dx * dx + dy * dy
+	local t = A > 0 and ((cx - a.x) * dx + (cy - a.y) * dy) / A or 0
+	t = t < 0 and 0 or (t > 1 and 1 or t)
+	local px, py = a.x + dx * t - cx, a.y + dy * t - cy
+	return sqrt(px * px + py * py)
+end
+
+local function passesNear(points, disks)
+	for _, d in ipairs(disks) do
+		for i = 2, #points do
+			if distanceToSegment(points[i - 1], points[i], d[1], d[2]) <= d[3] + AVOID_NEAR then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+local function hubsAvoided(hubs, points, profile, entered)
+	local out = {}
+	profile = Costs.Profile(profile)
+	if not hubs or not profile or #points < 2 then
+		return out
+	end
+	local inside = {}
+	for _, h in ipairs(entered) do
+		inside[h.id] = true
+	end
+	local hits = {}
+	for order, hub in ipairs(hubs) do
+		if hub.side ~= profile and Costs.Profile(hub.side) and not inside[hub.id] then
+			local disks = hub.disks or {}
+			local t = enters(points[1], points[#points], disks)
+			if t and passesNear(points, disks) then
+				hits[#hits + 1] = { t = t, order = order, hub = hub }
+			end
+		end
+	end
+	table.sort(hits, function(p, q)
+		return p.t < q.t or (p.t == q.t and p.order < q.order)
+	end)
+	for _, hit in ipairs(hits) do
+		local sx, sy, n = 0, 0, 0
+		for _, d in ipairs(hit.hub.disks or {}) do
+			sx, sy, n = sx + d[1], sy + d[2], n + 1
+		end
+		-- x, y: the town's place (the mean of its disks' centres), for the walk piece that passes it
+		out[#out + 1] = { id = hit.hub.id, name = hit.hub.name, areaId = hit.hub.areaId, x = n > 0 and sx / n or nil, y = n > 0 and sy / n or nil }
+	end
+	return out
+end
 -- Sliced A* and refinement share scratch trees; splitting adds hot-path calls and upvalues
 local function run(map, from, to, waterWalking, costOnly, profile, job, style, danger)
 	runStamp = runStamp + 1
@@ -884,194 +1028,320 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 	local C = st.C
 
 	local S, G = trees.S, trees.G
-	local starts, source, sourceVia, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z, from.floors)
-	local goals, target, targetVia, targetYards = connectPoint(st, swim, mult, gk, gc, to.z, to.floors, true)
-	local key = table.concat({ sk, sc, gk, gc, swim, from.z and 1 or 0, to.z and 1 or 0, mult and mult.tag or "",
-		type(from.floors) == "table" and table.concat(from.floors, ",") or "", type(to.floors) == "table" and table.concat(to.floors, ",") or "" }, ":")
-	st.paths = st.paths or {}
-	local cached = st.paths[key]
 	local hops, cost, yards, directFrom, directTo
 	local x0, y0, cs = st.x0, st.y0, st.cs
 	local lifts = liftsOf(st, map)
 	-- Per landing vertex on the way: the start node walked to it, the goal node walked to from it.
 	local liftStart, liftGoal
-	if cached then
-		hops, cost, yards, directFrom, directTo = cached.hops, cached.cost, cached.yards, cached.directFrom, cached.directTo
-		liftStart, liftGoal = cached.liftStart, cached.liftGoal
-	else
-		local direct, directYards
-		if sk == gk then
-			-- A start's endpoint tree is a Dijkstra over its cluster: a goal it never reached when it ran dry is out of
-			-- reach (a floor or rock top the start's floor never joins), and an A* for it would expand everything the
-			-- start reaches (Ironforge's city under the mountain: most of a cold walk). A goal it can reach keeps its A*
-			-- (the same points and costs as before).
-			for _, a in ipairs(starts) do
-				local tree = a.tree
-				local dry = tree and tree.k == sk and tree.whole == tree.gen
-				for _, b in ipairs(goals) do
-					if not (dry and not reached(tree, b.node)) and search(st, sk, swim, mult, a.node, S, b.node)
-						and (not direct or S.g[b.node + 1] < direct) then
-						direct, directYards, directFrom, directTo = S.g[b.node + 1], yardsAt(st, S, b.node), a.node, b.node
-					end
-				end
-			end
-		end
-
-		local comps, shared = {}, false
-		for id in pairs(source) do
-			nodesOf(st, floor(id / 4096))
-			local _, _, component = metadata(st, id)
-			comps[component] = true
-		end
-		for id in pairs(target) do
-			nodesOf(st, floor(id / 4096))
-			local _, _, component = metadata(st, id)
-			shared = shared or comps[component]
-		end
-		-- Components join only through the grid: a lift may join two (a mesa top and the plain below).
-		if not direct and not shared and #lifts == 0 then
-			return nil, "unreachable"
-		end
-
-		-- Abstract A* from START to GOAL through the entrance graph.
-		local function world(id)
-			local k, lc = floor(id / 4096), metadata(st, id)
-			return x0 + (floor(k / st.ny) * C + floor(lc / C) + 0.5) * cs, y0 + ((k % st.ny) * C + lc % C + 0.5) * cs
-		end
-		-- Rounded graph edges, snapping and, with classes, a yard cheaper than running (hmin) must not let the
-		-- heuristic overstate the remaining cost.
-		local goalCell = cellOf(st, gk, gc)
-		local goalX = x0 + (floor(gk / st.ny) * C + floor(goalCell / C) + 0.5) * cs
-		local goalY = y0 + (gk % st.ny * C + goalCell % C + 0.5) * cs
+	local starts, source, sourceVia, sourceYards, goals, target, targetVia, targetYards, key, cached
+	-- A walk inside one cluster without the start's endpoint tree. Each end's tree is a Dijkstra over the whole
+	-- cluster to its entrances; the goal's is kept (connect), but a moving start never reuses its own, so every time
+	-- the arrow asked again from a few steps on it flooded the cluster again: 15,000 to 60,000 expansions for a quest
+	-- objective 14 yards away. Any walk that leaves the cluster comes back to the goal through an entrance e, so it
+	-- costs at least the straight yards from a start surface's own cell to e at the cheapest yard (the abstract
+	-- search's own lower bound) plus the goal tree's exact cost from e. A direct walk no dearer than the least of those
+	-- over every entrance costs what the full search finds (a tie may draw another line), without the start's tree.
+	-- Its A* stops once past that bound, so a surface that cannot reach the goal costs little. No lift in the cluster
+	-- (a ride enters through no entrance); otherwise, or when no direct walk is under the bound, the full search.
+	if Path.direct ~= false and sk == gk and #(lifts.byCluster[sk] or {}) == 0 then
 		local lower = max(0, 1 - 0.5 / cs) * hmin
-		local function h(id)
-			local x, y
-			if id > LIFT_ID then
-				local l = lifts[id - LIFT_ID]
-				x, y = l.x, l.y
-			else
-				x, y = world(id)
-			end
-			local dx, dy = abs(x - goalX), abs(y - goalY)
-			return (dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx) * lower
+		goals, target, targetVia, targetYards = connectPoint(st, swim, mult, gk, gc, to.z, to.floors, true)
+		-- (from each start surface's own cell centre, where its search begins: snap may place it cells from the point)
+		local starts0 = surfaces(st, sk, sc, from.z, from.floors)
+		local centres = {}
+		for i, a in ipairs(starts0) do
+			local cell = cellOf(st, sk, a)
+			centres[i] = { x0 + (floor(sk / st.ny) * C + floor(cell / C) + 0.5) * cs, y0 + ((sk % st.ny) * C + cell % C + 0.5) * cs }
 		end
-		agen = agen + 1
-		local gen = agen
-		hn = 0
-		-- No walk is worth more than DETOUR times the straight line plus DETOUR_YD: past that the search stops
-		-- (unreachable; Nav/Walk.lua asks again without the start's height). A start on a surface the maps join to the
-		-- world only far away (the terrain buried under Stormwind's Trade District, reached by Leffe's maps only over
-		-- the mountains: 20 km) otherwise searched most of a continent's graph for seconds.
-		local detour = DETOUR * sqrt((to.x - from.x) ^ 2 + (to.y - from.y) ^ 2) + DETOUR_YD
-		local function relax(v, gv, yv, parent)
-			if yv and yv > detour then
-				return
-			end
-			if astamp[v] ~= gen or gv < ag[v] then
-				ag[v], ay[v], apar[v], astamp[v] = gv, yv, parent, gen
-				push(gv + (v == GOAL and 0 or h(v)), v)
-			end
-		end
-		for id, distance in pairs(source) do
-			relax(id, distance, sourceYards[id], START)
-		end
-		if direct then
-			relax(GOAL, direct, directYards, START)
-		end
-		liftStart, liftGoal = {}, {}
-		-- The landings in the start's cluster, walked to from the start.
-		for _, i in ipairs(lifts.byCluster[sk] or {}) do
-			local land = landingEnds(st, swim, mult, lifts, i)
-			if land then
-				for _, a in ipairs(starts) do
-					local c, yd = within(st, swim, mult, sk, a, land.node)
-					local v = LIFT_ID + i
-					if c and (astamp[v] ~= gen or c < ag[v]) then
-						relax(v, c, yd, START)
-						liftStart[v] = a.node
-					end
+		local bound = huge
+		for id, c in pairs(target) do
+			local k = floor(id / 4096)
+			nodesOf(st, k)
+			local lc = metadata(st, id)
+			local ex = x0 + (floor(k / st.ny) * C + floor(lc / C) + 0.5) * cs
+			local ey = y0 + ((k % st.ny) * C + lc % C + 0.5) * cs
+			for _, p in ipairs(centres) do
+				local d = sqrt((ex - p[1]) ^ 2 + (ey - p[2]) ^ 2)
+				if d * lower + c < bound then
+					bound = d * lower + c
 				end
 			end
 		end
-		local found = false
-		while hn > 0 do
-			local u = pop()
-			if aclosed[u] ~= gen then
-				aclosed[u] = gen
-				tick()
-				if u == GOAL then
-					found = true
+		if bound < huge then
+			-- Every surface the start stands on must reach the goal so: one that does not (a rock top the grid cannot
+			-- leave) is moved by its endpoint tree (settle), which only the full search does.
+			local all = true
+			for _, a in ipairs(starts0) do
+				local reaches = false
+				-- (a goal surface the start's kept endpoint tree never reached when it ran dry is out of reach: no A*
+				-- for it, as in the full search; Ironforge's city floors under the mountain's ground)
+				local dry = keptDry(st, swim, mult, sk, a)
+				for _, b in ipairs(goals) do
+					if not (dry and not reached(dry, b.node))
+						and search(st, sk, swim, mult, a, S, b.node, nil, nil, nil, bound) and S.g[b.node + 1] <= bound then
+						reaches = true
+						if not cost or S.g[b.node + 1] < cost then
+							cost, yards, directFrom, directTo = S.g[b.node + 1], yardsAt(st, S, b.node), a, b.node
+						end
+					end
+				end
+				if not reaches then
+					all = false
 					break
 				end
-				local gu, yu = ag[u], ay[u]
-				if u > LIFT_ID then
-					-- A landing: the ride to its other landing, its cluster's entrances, and the goal in its cluster.
-					local i = u - LIFT_ID
-					local l = lifts[i]
-					for _, j in ipairs(l.partners) do
-						local p = lifts[j]
-						relax(LIFT_ID + j, gu + LIFT_COST, yu + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2), u)
-					end
-					local land = landingEnds(st, swim, mult, lifts, i)
-					if land then
-						for id, c in pairs(land.edges) do
-							if aclosed[id] ~= gen then
-								nodesOf(st, floor(id / 4096))
-								relax(id, gu + c, yu + land.yards[id], u)
-							end
+			end
+			if not all then
+				cost, yards, directFrom, directTo = nil, nil, nil, nil
+			end
+			if cost then
+				hops = { GOAL, START }
+				liftStart, liftGoal = {}, {}
+			end
+		end
+	end
+	local R, complete, full
+	local tries = 0
+	if not hops then
+		goals, target, targetVia, targetYards = connectPoint(st, swim, mult, gk, gc, to.z, to.floors, true)
+		key = table.concat({ sk, sc, gk, gc, swim, from.z and 1 or 0, to.z and 1 or 0, mult and mult.tag or "",
+			type(from.floors) == "table" and table.concat(from.floors, ",") or "", type(to.floors) == "table" and table.concat(to.floors, ",") or "" }, ":")
+		st.paths = st.paths or {}
+		cached = st.paths[key]
+		local straight = sqrt((to.x - from.x) ^ 2 + (to.y - from.y) ^ 2)
+		if not cached and Path.direct ~= false and sk ~= gk and straight <= BOUNDED_YARDS
+			and #(lifts.byCluster[sk] or {}) == 0 then
+			R = 1.25 * straight + 25
+		else
+			starts, source, sourceVia, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z, from.floors)
+		end
+	end
+	-- A short walk across clusters (the arrow's re-asks round an objective: BOUNDED_YARDS): the start's tree only as
+	-- far as it needs to go. The start's Dijkstra to its entrances stops past a cost R; a walk the abstract search
+	-- then finds for at most R is the cheapest there is (any other leaves the start's cluster through an entrance
+	-- beyond R, so costs more). A walk dearer than R gets one more try with R that cost; none found, or a second
+	-- miss, takes the full tree (a far or unreachable goal would otherwise pay a growing tree and an abstract search
+	-- each time). A tree that meets every entrance or runs dry within R is the full one, so its walk stands. Not with
+	-- a lift in the start's cluster (its landings are walked to from the full trees). The cost is the full search's;
+	-- an equal-cost tie may draw another line.
+	while true do
+		local retry = false
+		if full then
+			full = false
+			starts, source, sourceVia, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z, from.floors)
+		elseif R then
+			tries = tries + 1
+			local met
+			starts, source, sourceVia, sourceYards, complete, met =
+				connectWithin(st, swim, mult, sk, surfaces(st, sk, sc, from.z, from.floors), R)
+			if complete and not met then
+				-- (a start no entrance joins: the full connection moves it, as before)
+				R = nil
+				starts, source, sourceVia, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z, from.floors)
+			end
+		end
+		if hops then
+			-- (the direct walk above)
+		elseif cached then
+			hops, cost, yards, directFrom, directTo = cached.hops, cached.cost, cached.yards, cached.directFrom, cached.directTo
+			liftStart, liftGoal = cached.liftStart, cached.liftGoal
+		else
+			local direct, directYards
+			if sk == gk then
+				-- A start's endpoint tree is a Dijkstra over its cluster: a goal it never reached when it ran dry is out of
+				-- reach (a floor or rock top the start's floor never joins), and an A* for it would expand everything the
+				-- start reaches (Ironforge's city under the mountain: most of a cold walk). A goal it can reach keeps its A*
+				-- (the same points and costs as before).
+				for _, a in ipairs(starts) do
+					local tree = a.tree
+					local dry = tree and tree.k == sk and tree.whole == tree.gen
+					for _, b in ipairs(goals) do
+						if not (dry and not reached(tree, b.node)) and search(st, sk, swim, mult, a.node, S, b.node)
+							and (not direct or S.g[b.node + 1] < direct) then
+							direct, directYards, directFrom, directTo = S.g[b.node + 1], yardsAt(st, S, b.node), a.node, b.node
 						end
-						if l.k == gk then
-							for _, b in ipairs(goals) do
-								local c, yd = within(st, swim, mult, gk, b, land.node)
-								if c and (astamp[GOAL] ~= gen or gu + c < ag[GOAL]) then
-									relax(GOAL, gu + c, yu + yd, u)
-									liftGoal[u] = b.node
+					end
+				end
+			end
+
+			local comps, shared = {}, false
+			for id in pairs(source) do
+				nodesOf(st, floor(id / 4096))
+				local _, _, component = metadata(st, id)
+				comps[component] = true
+			end
+			for id in pairs(target) do
+				nodesOf(st, floor(id / 4096))
+				local _, _, component = metadata(st, id)
+				shared = shared or comps[component]
+			end
+			-- Components join only through the grid: a lift may join two (a mesa top and the plain below).
+			if not direct and not shared and #lifts == 0 then
+				if R and not complete then
+					retry, R, full = true, nil, true
+				else
+					return nil, "unreachable"
+				end
+			end
+			if not retry then
+
+			-- Abstract A* from START to GOAL through the entrance graph.
+			local function world(id)
+				local k, lc = floor(id / 4096), metadata(st, id)
+				return x0 + (floor(k / st.ny) * C + floor(lc / C) + 0.5) * cs, y0 + ((k % st.ny) * C + lc % C + 0.5) * cs
+			end
+			-- Rounded graph edges, snapping and, with classes, a yard cheaper than running (hmin) must not let the
+			-- heuristic overstate the remaining cost.
+			local goalCell = cellOf(st, gk, gc)
+			local goalX = x0 + (floor(gk / st.ny) * C + floor(goalCell / C) + 0.5) * cs
+			local goalY = y0 + (gk % st.ny * C + goalCell % C + 0.5) * cs
+			local lower = max(0, 1 - 0.5 / cs) * hmin
+			local function h(id)
+				local x, y
+				if id > LIFT_ID then
+					local l = lifts[id - LIFT_ID]
+					x, y = l.x, l.y
+				else
+					x, y = world(id)
+				end
+				local dx, dy = abs(x - goalX), abs(y - goalY)
+				return (dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx) * lower
+			end
+			agen = agen + 1
+			local gen = agen
+			hn = 0
+			-- No walk is worth more than DETOUR times the straight line plus DETOUR_YD: past that the search stops
+			-- (unreachable; Nav/Walk.lua asks again without the start's height). A start on a surface the maps join to the
+			-- world only far away (the terrain buried under Stormwind's Trade District, reached by Leffe's maps only over
+			-- the mountains: 20 km) otherwise searched most of a continent's graph for seconds.
+			local detour = DETOUR * sqrt((to.x - from.x) ^ 2 + (to.y - from.y) ^ 2) + DETOUR_YD
+			local function relax(v, gv, yv, parent)
+				if yv and yv > detour then
+					return
+				end
+				if astamp[v] ~= gen or gv < ag[v] then
+					ag[v], ay[v], apar[v], astamp[v] = gv, yv, parent, gen
+					push(gv + (v == GOAL and 0 or h(v)), v)
+				end
+			end
+			for id, distance in pairs(source) do
+				relax(id, distance, sourceYards[id], START)
+			end
+			if direct then
+				relax(GOAL, direct, directYards, START)
+			end
+			liftStart, liftGoal = {}, {}
+			-- The landings in the start's cluster, walked to from the start.
+			for _, i in ipairs(lifts.byCluster[sk] or {}) do
+				local land = landingEnds(st, swim, mult, lifts, i)
+				if land then
+					for _, a in ipairs(starts) do
+						local c, yd = within(st, swim, mult, sk, a, land.node)
+						local v = LIFT_ID + i
+						if c and (astamp[v] ~= gen or c < ag[v]) then
+							relax(v, c, yd, START)
+							liftStart[v] = a.node
+						end
+					end
+				end
+			end
+			local found = false
+			while hn > 0 do
+				local u = pop()
+				if aclosed[u] ~= gen then
+					aclosed[u] = gen
+					tick()
+					if u == GOAL then
+						found = true
+						break
+					end
+					local gu, yu = ag[u], ay[u]
+					if u > LIFT_ID then
+						-- A landing: the ride to its other landing, its cluster's entrances, and the goal in its cluster.
+						local i = u - LIFT_ID
+						local l = lifts[i]
+						for _, j in ipairs(l.partners) do
+							local p = lifts[j]
+							relax(LIFT_ID + j, gu + LIFT_COST, yu + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2), u)
+						end
+						local land = landingEnds(st, swim, mult, lifts, i)
+						if land then
+							for id, c in pairs(land.edges) do
+								if aclosed[id] ~= gen then
+									nodesOf(st, floor(id / 4096))
+									relax(id, gu + c, yu + land.yards[id], u)
+								end
+							end
+							if l.k == gk then
+								for _, b in ipairs(goals) do
+									local c, yd = within(st, swim, mult, gk, b, land.node)
+									if c and (astamp[GOAL] ~= gen or gu + c < ag[GOAL]) then
+										relax(GOAL, gu + c, yu + yd, u)
+										liftGoal[u] = b.node
+									end
 								end
 							end
 						end
-					end
-				else
-					if target[u] then
-						relax(GOAL, gu + target[u], yu + targetYards[u], u)
-					end
-					local ku = floor(u / 4096)
-					-- The landings in this entrance's cluster.
-					for _, i in ipairs(lifts.byCluster[ku] or {}) do
-						local land = landingEnds(st, swim, mult, lifts, i)
-						local c = land and land.edges[u]
-						if c and aclosed[LIFT_ID + i] ~= gen then
-							relax(LIFT_ID + i, gu + c, yu + land.yards[u], u)
+					else
+						if target[u] then
+							relax(GOAL, gu + target[u], yu + targetYards[u], u)
 						end
-					end
-					nodesOf(st, ku)
-					local s, pos, n, width = edges(st, u)
-					for _ = 1, n do
-						local v = edgeTarget(st, s, pos, ku)
-						if aclosed[v] ~= gen then
-							nodesOf(st, floor(v / 4096))
-							local c = edgeValue(st, s, pos, ci)
-							relax(v, gu + (edged and c * edged(u, v) or c), yu + edgeValue(st, s, pos, yi), u)
+						local ku = floor(u / 4096)
+						-- The landings in this entrance's cluster.
+						for _, i in ipairs(lifts.byCluster[ku] or {}) do
+							local land = landingEnds(st, swim, mult, lifts, i)
+							local c = land and land.edges[u]
+							if c and aclosed[LIFT_ID + i] ~= gen then
+								relax(LIFT_ID + i, gu + c, yu + land.yards[u], u)
+							end
 						end
-						pos = pos + width
+						nodesOf(st, ku)
+						local s, pos, n, width = edges(st, u)
+						for _ = 1, n do
+							local v = edgeTarget(st, s, pos, ku)
+							if aclosed[v] ~= gen then
+								nodesOf(st, floor(v / 4096))
+								local c = edgeValue(st, s, pos, ci)
+								relax(v, gu + (edged and c * edged(u, v) or c), yu + edgeValue(st, s, pos, yi), u)
+							end
+							pos = pos + width
+						end
 					end
 				end
 			end
-		end
-		if not found then
-			return nil, "unreachable"
-		end
-		cost, yards = ag[GOAL], ay[GOAL]
-		hops = { GOAL }
-		while hops[#hops] ~= START do
-			hops[#hops + 1] = apar[hops[#hops]]
-		end
+			if not found then
+				if R and not complete then
+					retry, R, full = true, nil, true
+				else
+					return nil, "unreachable"
+				end
+			elseif R and not complete and ag[GOAL] > R then
+				-- (a walk dearer than R: another may leave through an entrance beyond R; look that far once, then
+				-- the full tree)
+				retry = true
+				if tries < 2 then
+					R = ag[GOAL]
+				else
+					R, full = nil, true
+				end
+			else
+				cost, yards = ag[GOAL], ay[GOAL]
+				hops = { GOAL }
+				while hops[#hops] ~= START do
+					hops[#hops + 1] = apar[hops[#hops]]
+				end
 
-		if (st.pathCount or 0) >= 16 then
-			st.paths, st.pathCount = {}, 0
+				if (st.pathCount or 0) >= 16 then
+					st.paths, st.pathCount = {}, 0
+				end
+				st.paths[key] = { hops = hops, cost = cost, yards = yards, directFrom = directFrom, directTo = directTo,
+					liftStart = liftStart, liftGoal = liftGoal }
+				st.pathCount = (st.pathCount or 0) + 1
+			end
+			end
 		end
-		st.paths[key] = { hops = hops, cost = cost, yards = yards, directFrom = directFrom, directTo = directTo,
-			liftStart = liftStart, liftGoal = liftGoal }
-		st.pathCount = (st.pathCount or 0) + 1
+		if not retry then
+			break
+		end
 	end
 	if costOnly then
 		job.yards = yards
@@ -1195,6 +1465,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 	end
 	points.wet = wetYards
 	job.yards, job.hubs = drawnYards, hubsOn(st.D.hubs, points, job.report or profile)
+	job.avoided = hubsAvoided(st.D.hubs, points, job.report or profile, job.hubs)
 	-- Smoothing only changes drawing: planning and FindMany use the identical graph cost.
 	return points, cost
 end
@@ -1845,7 +2116,7 @@ local function scratch(saved)
 		ag, apar, astamp, aclosed, agen, ay = saved[5], saved[6], saved[7], saved[8], saved[9], saved[10]
 	else
 		hk, hv, hn = {}, {}, 0
-		trees = { S = Tree(), G = Tree(), R = Tree() }
+		trees = { S = Tree(), G = Tree(), R = Tree(), B = {} }
 		ag, apar, astamp, aclosed, agen, ay = {}, {}, {}, {}, 0, {}
 	end
 	return previous

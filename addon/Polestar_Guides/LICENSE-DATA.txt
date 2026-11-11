@@ -87,7 +87,7 @@ TrinityCore and the advocaite/TrinityCore `forever` branch; CMaNGOS (https://git
 
 Quest XP for quests QuestieDB lacks: two Forever web quest databases (one from the beta client's quest cache)
 -------------------------------------------------------------------------------------------------------------
-Revision: 561 quests; cache data/sources/webxp/quest-xp.json
+Revision: 522 quests; cache data/sources/webxp/quest-xp.json
 License: Public web pages; facts (XP numbers) only, used locally with permission
 
 QuestieDB (Questie-Forever), baked Forever store and support data

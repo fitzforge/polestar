@@ -642,8 +642,15 @@ fn registration_networks<'a>(network: &'a str, wide: Option<&'a str>) -> Vec<(&'
 	std::iter::once((network, REGISTRATIONS_PER_DAY)).chain(wide.map(|w| (w, REGISTRATIONS_PER_DAY_V6_32))).collect()
 }
 
-async fn register(State(state): State<Arc<AppState>>, Extension(ClientIp { network: ip, wide, cohort }): Extension<ClientIp>, body: Body) -> Result<Response, ApiError> {
-	if !state.register_limiter.check(&ip, Instant::now()) {
+async fn register(State(state): State<Arc<AppState>>, Extension(ClientIp { network: ip, wide, cohort }): Extension<ClientIp>, headers: HeaderMap, body: Body) -> Result<Response, ApiError> {
+	// The maintainer's test identities (smoke tests, end-to-end runs): sent with the maintainer key,
+	// they use no network's daily registrations and are registered blocked, so whatever they upload
+	// is answered as usual (and counted in their `/v1/me`) but never exported or in `/v1/stats`.
+	let test = headers.contains_key(header::AUTHORIZATION);
+	if test {
+		maintainer(&state, &headers)?;
+	}
+	if !test && !state.register_limiter.check(&ip, Instant::now()) {
 		return Err(ApiError::too_many());
 	}
 	let Ok(reading) = state.bodies.try_acquire() else { return Err(ApiError::bodies_full()) };
@@ -653,16 +660,17 @@ async fn register(State(state): State<Arc<AppState>>, Extension(ClientIp { netwo
 	let now = now();
 	let today = now.div_euclid(DAY);
 	let (s, network, w) = (state.clone(), ip.clone(), wide.clone());
-	let full = blocking(move || {
-		let db = s.db();
-		for (net, cap) in registration_networks(&network, w.as_deref()) {
-			if db.registrations(today, net).map_err(internal)? >= cap {
-				return Ok(true);
+	let full = !test
+		&& blocking(move || {
+			let db = s.db();
+			for (net, cap) in registration_networks(&network, w.as_deref()) {
+				if db.registrations(today, net).map_err(internal)? >= cap {
+					return Ok(true);
+				}
 			}
-		}
-		Ok(false)
-	})
-	.await?;
+			Ok(false)
+		})
+		.await?;
 	if full {
 		return Err(registration_cap());
 	}
@@ -686,7 +694,12 @@ async fn register(State(state): State<Arc<AppState>>, Extension(ClientIp { netwo
 	let token = hex(&random::<32>()?);
 	let hash = hex(&Sha256::digest(token.as_bytes()));
 	// Counted and stored in one transaction, so parallel solutions cannot pass the cap.
-	match blocking(move || state.db().register(&hash, &challenge, expires, now, &registration_networks(&ip, wide.as_deref()), &cohort).map_err(internal)).await? {
+	match blocking(move || {
+		let networks = if test { Vec::new() } else { registration_networks(&ip, wide.as_deref()) };
+		state.db().register(&hash, &challenge, expires, now, &networks, &cohort, test).map_err(internal)
+	})
+	.await?
+	{
 		Registration::Done(_) => Ok(Json(RegisterResponse { token }).into_response()),
 		Registration::Spent => Err(ApiError::new(StatusCode::BAD_REQUEST, "challenge already used")),
 		Registration::OverCap => Err(registration_cap()),
@@ -1006,7 +1019,7 @@ mod tests {
 		let token = "ab".repeat(32);
 		let hash = hex(&Sha256::digest(token.as_bytes()));
 		let at = now();
-		s.db().register(&hash, "c", at + 600, at, &[("net", 3)], "0123456789abcdef").unwrap();
+		s.db().register(&hash, "c", at + 600, at, &[("net", 3)], "0123456789abcdef", false).unwrap();
 		(token, hash)
 	}
 

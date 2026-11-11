@@ -290,6 +290,9 @@ const VENDOR_EXCEPTIONS = {
 	16763: 'Warsong Runner Update: handed out by the Warsong scout, whom the data lists as its vendor; the guide collects it from him',
 	16764: 'Warsong Scout Update: handed out by the Warsong scout, whom the data lists as its vendor; the guide collects it from him',
 	16765: 'Warsong Outrider Update: handed out by the Warsong outrider, whom the data lists as its vendor; the guide collects it from him',
+	4384: 'Explosive Sheep (Merchant\'s Favor writ 94230): engineers make it; Kimberly Hiett in Lakeshire lists it but was not seen selling it to players up to level 30 (her window is level-gated), so the customer step collects it with that hint (#1419)',
+	18662: 'Heavy Leather Ball (Merchant\'s Favor writ 94238): leatherworkers make it, the Auction House has it; its one vendor is at the Darkmoon Faire, which the guide does not send players to (#1419)',
+	8523: 'Field Testing Kit: Alessandro Luca and Apothecary Zinge hand it out with Errand for Apothecary Zinge (238) and Into the Field (243), which the Horde route takes in the Undercity before Tanaris; the data lists Luca as its vendor',
 };
 
 // Sold, and dropped by nothing but the vendors themselves, from no object or container.

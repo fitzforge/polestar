@@ -10,7 +10,7 @@ in this repository.
 | Recording library | `rust/crates/polestar-recording/` | Reads the SavedVariables file, decodes and validates records, finds WoW installs, scrubs text, writes the ack file, summarises. Shared by the three below. |
 | Polestar Client | `apps/client/` (Tauri) | Desktop app for Windows, macOS and Linux: finds the game, installs the Recorder, uploads new chunks, shows exactly what was sent. |
 | Ingest server | `services/ingest/` | Receives uploads, validates them with the library, stores them, serves stats, deletion and the maintainer export. |
-| forge | `forge record import`, `forge record pull`, `forge record resession` | Turns local files or the server export into `data/recordings/<session>.json` for the data build (`resession` rewrites them all from the archived chunks after a forge update). `import` marks this PC's own installs' contributor `local`. A file someone sent in needs `import --vouch <name>` (contributor `sent-<name>`, a name the maintainer chooses; trusted like the maintainer's own) or `import --anonymize` (contributor `anon-<16 hex>`; never used for the data). |
+| forge | `forge record import`, `forge record pull`, `forge record resession`, `forge record learn` | Turns local files or the server export into `data/recordings/<session>.json` for the data build (`resession` rewrites them all from the archived chunks after a forge update). `import` marks this PC's own installs' contributor `local`. A file someone sent in needs `import --vouch <name>` (contributor `sent-<name>`, a name the maintainer chooses; trusted like the maintainer's own) or `import --anonymize` (contributor `anon-<16 hex>`; never used for the data). `learn` turns the archive into the committed snapshot `data/recorded/` (counts of players only; [forge/learn.md](forge/learn.md)). |
 
 ## What is never collected
 
@@ -21,7 +21,9 @@ name of a refusal, see `refuse`), the server, instance and zone parts of
 creature GUIDs, the player's typed text other than `/psrec mark` notes and
 `/psrec trail` labels, and anything from outside the game folder.
 Quest and gossip text has the player's name replaced with `$N` (and race and
-class with `$R`, `$C`) in the addon, and again in Polestar Client.
+class) in the addon, and again in Polestar Client. Explorer mode (below) adds
+game data only: nothing on this list, and nothing more about the player than
+the records above already hold.
 
 ## SavedVariables (`PolestarRecorderDB`, per account)
 
@@ -30,6 +32,8 @@ PolestarRecorderDB = {
 	schema = 2,
 	enabled = true,            -- recording on (/psrec on, or Polestar Client's share flag); nothing is written while false
 	optout = true,             -- only after /psrec off: the client's share flag does not turn recording on; /psrec on clears it
+	exploreOff = true,         -- only after /psrec explore off: explorer mode stays off (see "Explorer mode"); /psrec explore on clears it
+	exploreSaid = true,        -- explorer mode's one-time chat note was shown
 	install = "k3j9x0q2m7ab",  -- 12 random base-36 characters, made once per WoW account folder
 	seq = 41,                  -- last chunk number used
 	acked = 37,                -- highest chunk Polestar Client confirmed (from Ack.lua), kept for display
@@ -63,11 +67,12 @@ without its name.
 
 `Interface/AddOns/Polestar_Recorder/Ack.lua`, loaded first by the TOC. One
 entry per install, because several WoW accounts share one AddOns folder,
-then whether the player shares:
+then whether the player shares and whether explorer mode may work:
 
 ```lua
 PolestarRecorderAck = { ["k3j9x0q2m7ab"] = 37 }
 PolestarRecorderShare = true
+PolestarRecorderExplore = true
 ```
 
 The release zip ships it as `PolestarRecorderAck = nil` with no share flag;
@@ -92,6 +97,56 @@ is set, `false` turns it off (without setting `optout`), and no flag leaves
 own default does not change: installed without Polestar Client (no flag), it
 stays off until `/psrec on`.
 
+`PolestarRecorderExplore = false` keeps explorer mode off (as `/psrec explore
+off` does, without setting `exploreOff`); `true` or no flag leaves it to the
+player (on unless they typed `/psrec explore off`). `/psrec explore on`
+overrides a `false` flag for the session. Polestar Client writes it only
+once its explorer toggle has been used.
+
+### Client info (written by Polestar Client)
+
+`Interface/AddOns/Polestar/ClientInfo.lua`, loaded first by Polestar's TOC
+(the main addon's folder, not the Recorder's: the update card is
+Polestar's). After each check for addon updates, after it installs or
+updates Polestar (whose release ships the file as `PolestarClientInfo =
+nil`) and after each look for the game, Polestar Client writes the newest
+Polestar releases it found:
+
+```lua
+PolestarClientInfo = {
+	latest = "0.3.7",
+	released = 1794312000,
+	checked = 1794400000,
+	releases = { "0.3.7", "0.3.6", "0.3.5" },
+}
+```
+
+`probe = false` follows `releases` when the newest release's notes carry
+`<!-- polestar: probe off -->` (an HTML comment, so the notes don't show it):
+the addon's kill switch for its version probe, the hidden whispers to other
+players (docs/ARCHITECTURE.md "Update notices"). Without it the probe
+follows the player's settings.
+
+`latest` is the newest release, `released` when GitHub published it and
+`checked` when the client looked (Unix seconds), `releases` up to 20
+release versions, newest first. Only releases count, never pre-releases,
+whichever update channel the client is on, and only versions of digits and
+dots. The game reads addon files only when it loads them (login, `/reload`)
+and never writes them, so the client writes this one at any time, atomically
+(a temporary file, then a rename), and only when its text changes. The
+client checks GitHub's release list every 6 hours while **Check for
+updates** is on (and whenever the Addons page checks); the file is never
+older than its last check.
+
+The addon (`Core/Update.lua`, docs/ARCHITECTURE.md "Update notices") trusts
+it before any other player's version: `latest` newer than the running build
+shows the update card; `releases` counts how many releases behind it is; a
+check newer than a party or guild member's sighting overrules that member's
+higher number; a check from the last 7 days that finds nothing newer keeps
+the "this Polestar is 3 weeks old" line away. Its presence alone says the
+client is installed, and the card then says the client can update
+Polestar.
+
 ### Field encoding
 
 - Integers in decimal. Empty field = unknown or not applicable.
@@ -106,8 +161,12 @@ stays off until `/psrec on`.
   (`session.locale`). At most 4,000 bytes per text field, and no control
   characters. Quest titles (`text`), objectives (`objectives`) and zone names
   (`zone`) also have no `|` (the game's escape character) and at most 255
-  characters (100 for zone names); a record that breaks this makes its chunk
-  invalid.
+  characters (100 for zone names). The frFR client's kill objectives end in a
+  `|4personnage tué:personnages tués;` grammar escape, which the Recorder
+  drops since 0.3.6; readers drop it from older uploads too (with the count
+  before it, and no-break spaces read as spaces). Readers empty a name that
+  still breaks the rule and keep the record. A control character still makes
+  the chunk invalid.
 - `npcKind`: `c` creature, `o` game object, `i` item, `p` player (never
   stored beyond the kind), empty unknown.
 - `spawnUid`: 1–16 hex digits (`0-9`, `A-F`); `error`: a game constant's
@@ -159,7 +218,7 @@ Quests
 | `objectives` | q, list | at accept: `type:required:text` per objective (type `monster`, `item`, `object`, `event`, `reputation`, `log`) |
 | `progress` | q, index, cur, max, P | an objective count changes |
 | `complete` | q | all objectives done |
-| `turnin` | q, npcKind, npcId, P, level, xp, money, chosenItem | quest handed in (`xp`, `money` actually paid) |
+| `turnin` | q, npcKind, npcId, P, level, xp, money, chosenItem | quest handed in (`xp`, `money` actually paid; `money` is negative for a quest that costs money to hand in, e.g. -300 for 3 silver) |
 | `abandon` | q | quest abandoned |
 | `fail` | q, P | a quest in the log turns failed (its timer ran out, the escort died), as the client flags it (`C_QuestLog.IsFailed`); once per failure, never for a quest already failed at login |
 | `gossip` | npcKind, npcId, P, optionId, optionText | a gossip option is chosen |
@@ -179,7 +238,7 @@ Fights and loot
 | `rare` | npcId, level, cls, P, src | a rare or rare elite sighted (`src` `v` vignette, `p` plate, `t` target, `m` mouseover) |
 | `treasure` | objectId, P | a treasure vignette |
 | `enter` | instanceId, instanceType, difficulty, P | entering an instance (P = last outdoor position) |
-| `encounter` | encounterId, ok (1/0), difficulty, size | `ENCOUNTER_END` |
+| `encounter` | encounterId, ok (1/0), difficulty, size | `ENCOUNTER_END` (its start is `engage`, in explorer mode) |
 
 Services
 
@@ -197,6 +256,71 @@ Guide
 |---|---|---|
 | `step` | guide, step, reason, P | Polestar's step or guide changes (`reason` `next`, `skip`, `back`, `auto` (also at login and reload), `pick`, `done`) |
 
+Explorer mode (only in Forever's new places; see "Explorer mode")
+
+| Kind | Fields | When |
+|---|---|---|
+| `unitx` | npcId, spawnUid, P | a creature seen on a nameplate, target or mouseover, with its GUID's spawn part (`spawnUid`, as `spawn` carries it: never the server, instance or zone parts); once per spawn per 30 yd it moved (once per session inside a new dungeon, where P is empty) |
+| `poi` | q, done (1/0), P | the quest log's own map point for a quest in the log (`C_QuestLog.GetQuestsOnMap` on the player's map): `P` is the quest's point, not the player's; `done` 1 when the quest is ready to hand in (the point is then where it is handed in). Once per quest, map and `done` per session |
+| `imap` | instanceId, uiMapId, groupId, floor | inside a new dungeon, whenever its uiMapID changes (the client gives no position there): `groupId` the map group (`C_Map.GetMapGroupID`), `floor` that map's `relativeHeightIndex` in the group |
+| `engage` | encounterId, difficulty, size | `ENCOUNTER_START` (the `encounter` record is its end: boss order and time per boss) |
+| `where` | npcKind, npcId, subzoneText, indoors (1/0) | an `offer`, `accept` or `turnin` window: the subzone text there (`GetSubZoneText`) and whether the player stood indoors; once per NPC or object per session |
+| `open` | spellId, P, targetKind, targetId | the player opened a world object (an "Opening" cast: the client's lock-opening spells, by id or by that name in the client's language), at the player's position; the target is the object the client names as the soft-interact target, when it does (only `o`/`c`). At most 20 a minute |
+
+## Explorer mode
+
+Explorer mode (Recorder 0.3.6 and later) makes the Recorder note more about
+the places Forever made new, for the zones and dungeons no other source
+covers yet. It is on by default and works by itself while recording is on
+and the player is in one of those places, and nowhere else.
+
+- **Where** (`Explore.lua`, `NEW_PLACES`, the one list it goes by): the new
+  zones by uiMapID and every map inside them (2521 and 2665 Zephras Isle,
+  2548 Riverglades, 2652 Shen'dralas, 2482 Mount Hyjal, 2524 Darkspear
+  Islands), the new instances and separate maps by the map id
+  `GetInstanceInfo` gives (Zephras Isle 2991, Hyjal Crater 2995, Darkspear
+  Islands 2997, The Hall of Thanes 3065, Ruins of Lordaeron 2999, Excavation
+  Site: Wetlands 2998, City of Dalaran 2959, The Drowned City 2970,
+  Krol'dok Stronghold 3039, Alcaz Prison 2994, Blackmaw Hold 2974, The
+  Shaper's Terrace 3001, Manor Mistmantle 3109), and 200 yards around the
+  dungeon doors that stand in older zones (Hall of Thanes, Ruins of
+  Lordaeron, Excavation Site: Wetlands, City of Dalaran). Ids from the
+  70862 client's Map and UiMap tables (`data/forever` zones.json,
+  dungeons.json). The raids of Mount Hyjal have no map ids yet.
+- **What, there**: `unit` once per 30 yards per creature (not 100), `pos`
+  every 10 yards at most once a second (not 25 yards and 2 seconds), each
+  creature spawn seen (`unitx`), and `poi`, `imap`, `engage`, `where` and
+  `open` (table above). Elsewhere the Recorder records as it always did.
+- **Saying so.** The first time it works on an account, the Recorder says
+  once in chat: "Polestar Recorder: recording more detail here to map this
+  new zone (/psrec explore off to stop)" (`exploreSaid`).
+- **Turning it off.** `/psrec explore off` (kept until `/psrec explore on`;
+  `/psrec explore` toggles; `/psrec status` shows it), or Polestar Client's
+  explorer flag (`PolestarRecorderExplore = false`, see "Ack file").
+- **Privacy.** Only game data: creatures, objects, quests, maps, subzone
+  names, boss pulls. Nothing more about the player than recording already
+  holds (the position and the indoors flag `pos` carries), and nothing on
+  the "never collected" list: never a player's GUID, name, chat, guild or
+  group member (`open` drops a soft-interact target that is a player).
+- **Cost** (`rust/crates/forge-addontest/tests/addontest/recorder-perf.rs`).
+  A busy hour of questing in a new zone (25 creatures on nameplates a
+  minute) stores about 133 KiB instead of 55 KiB for a usual hour elsewhere:
+  the 4 MiB store holds over 25 hours of it, a day of it is under 4 MiB of
+  the server's 20 MiB per contributor, and its largest chunk is about 12 KiB
+  and 330 records (the server takes 64 KiB and 4,096). What it remembers for
+  a session stays bounded (one number per spawn, at most 1,000 spawns, then
+  it starts over). The Recorder's CPU budgets, in the test's reference
+  units, hold with it working.
+- **Compatibility.** Each addition is a new record kind, so a reader that
+  does not know it skips it. Two older readers matter: a Polestar Client
+  built before these kinds leaves them out of the upload (it sends only the
+  kinds its library knows), and an ingest server before them drops them
+  from the stored chunk, but rejects a chunk holding more than 64 records of
+  kinds it does not know (a busy explorer chunk easily holds more `unitx`).
+  So the server learns the kinds first, then a Polestar Client that knows
+  them (0.1.6 and later), and only then does explorer mode data reach the
+  archive.
+
 ## Upload API (`https://data.polestar.guide/v1`)
 
 The server is reachable only through a Cloudflare Tunnel: it opens no ports
@@ -212,11 +336,11 @@ network, with a salt made for that day, and deletes both when the day ends.
 
 | Request | Body / answer |
 |---|---|
-| `POST /v1/register` | `{}` → `{ "challenge" (32 hex), "difficulty" (22), "expires" }`; then `{ "challenge", "solution" (u64 decimal) }` (SHA-256 of `challenge:solution` has `difficulty` leading zero bits) → `{ "token" (64 hex) }`. A challenge lasts 10 minutes and works once. |
+| `POST /v1/register` | `{}` → `{ "challenge" (32 hex), "difficulty" (22), "expires" }`; then `{ "challenge", "solution" (u64 decimal) }` (SHA-256 of `challenge:solution` has `difficulty` leading zero bits) → `{ "token" (64 hex) }`. A challenge lasts 10 minutes and works once. With the maintainer key as the bearer on both requests, the token is a test identity: no network's daily count, blocked from the start (never exported or in `/v1/stats`). |
 | `POST /v1/upload` (`Authorization: Bearer <token>`) | `{ "uploader": "0.1.0", "install": "<addon install id>", "chunks": [ { "seq": 38, "text": "..." } ] }`. Answer `{ "accepted": [38], "duplicate": [], "rejected": [ { "seq": 39, "reason": "..." } ] }`. Each chunk is decoded with the library; a chunk with any malformed record, or whose `chunk` record names another seq, is rejected whole. An unknown token gets 401 and registers again. |
 | `GET /v1/me` (bearer) | `{ "chunks", "records": { kind: n }, "first_upload", "last_upload" }` (unix seconds): what the server holds from this token. |
 | `DELETE /v1/me` (bearer) | deletes everything the server holds from this token, counts included; answers `{ "deleted": <chunks> }`. A tombstone then removes it from the maintainer's copies on their next pull. |
-| `GET /v1/stats` | public totals: contributors, chunks, records by kind, quests seen, last 30 days (cached 60 s). |
+| `GET /v1/stats` | public totals: contributors, chunks, records by kind, quests seen, last 30 days, and the last 30 days' rejected chunks by reason class (`rejects`: `{day, reason, chunks}`, the reason without what was sent) (cached 60 s). |
 | `GET /v1/export?after=<id>&limit=<n>[&include=suspect]` (maintainer key) | NDJSON, one line per chunk: `{ "id", "contributor" (token hash, 16 hex), "cohort" (16 hex), "contributorSince", "contributorChunks" (chunks that passed the checks), "install", "seq", "received", "flagged", "text" }`; with `include=suspect` also suspect chunks, with `suspect` and `suspectReasons`. `after` defaults to 0, `limit` to 500 (at most 1000); a page also stops after 8 MiB of chunk text (always at least one line). |
 | `GET /v1/export/tombstones?after=<unix>` (maintainer key) | NDJSON `{ "contributor", "at", "why": "deleted" \| "blocked" }`, oldest first; `forge record pull` purges those contributors' chunks and sessions. |
 | `POST /v1/export/ack` `{ "upto": <id> }` (maintainer key) | every export line up to `<id>` is safely stored; answers `{ "acked", "pruned", "held" }`. |
@@ -251,8 +375,8 @@ The plausibility checks: clock within the last 30 days and at most 10
 minutes ahead, a chunk spans at most 2 hours, seq within 400 of the
 install's highest, levels 1–60, kill XP within what the level allows, at
 most 40 of the player's own kills (and their `spawn` records; kills another
-player had tagged don't count) a minute, 60 loot windows, 30 `gather` and 30
-`refuse` records a minute, groups of at most 40, ids below 1,000,000, and no
+player had tagged don't count) a minute, 60 loot windows, 30 `gather`, 30
+`refuse` and 30 `open` records a minute, groups of at most 40, ids below 1,000,000, and no
 movement faster than 100 yards a second between positions on one map twice
 in a row or more than twice in a chunk (one such jump is a teleport the game
 makes: the spirit healer after a release, a portal; map sizes from the game's
@@ -316,6 +440,21 @@ their own client, so nothing trusts a single upload.
   recorded on trusted evidence, or a gap one voter filled (which the public
   database never publishes on its own). Text from a non-English client never
   overwrites English names.
+- **In the learned layer** (`forge record learn`, [forge/learn.md](forge/learn.md)).
+  The same voters and the same establishment rule, plus the maintainer's
+  audit: contributors it marks exclude or suspect never count, contributors
+  it finds to be one person (a shared install, character or cohort) vote
+  once, and a character id re-used for another race or class has neither
+  trusted. For the quests Forever added it learns where objectives are done
+  (each voter's tick spots, then spots several voters share) and
+  prerequisites and minimum levels from givers' refusals and unlocks only,
+  never from what players merely did in order (most follow our guides). A
+  fact replaces another source's value only when 3 counted voters back it
+  and at least two thirds of the counted voters with evidence either way
+  agree; a refusal-backed prerequisite or level needs 2. A fact one voter
+  recorded is provisional: the Codex and guides may use it, the public
+  database never does. Corrections still win. The committed snapshot
+  (`data/recorded/`) holds counts of voters only, never who they are.
 - **What the server keeps.** Rows per contributor are capped: 5,000 quests,
   8 installs, about 1,000 remembered seqs per install, and 30 days of
   per-day counts. Backups are encrypted, hold neither the day's network salt

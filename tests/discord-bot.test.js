@@ -11,7 +11,7 @@ const path = require('node:path');
 const { parseReport } = require('../tools/discord-bot/lib/report');
 const I = require('../tools/discord-bot/lib/issue');
 const { createSync } = require('../tools/discord-bot/lib/sync');
-const { onIssue, onRelease } = require('../tools/discord-bot/lib/notify');
+const { onIssue, onComment, onRelease, replyMessage } = require('../tools/discord-bot/lib/notify');
 const { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, BOT } = require('./helpers/discord-fakes');
 
 const POST = fs.readFileSync(path.join(__dirname, 'fixtures', 'discord', 'elwynn-trainer.md'), 'utf8');
@@ -110,6 +110,13 @@ test('a report with no guide open still finds the arrow and position lines', () 
 	assert.equal(r.details.routes, undefined, 'a report from before the Routes line has none');
 });
 
+test('a report from an old Polestar keeps its version, and the issue says it is outdated', () => {
+	const r = parseReport('```\nPolestar 0.3.5 Beta (outdated: latest 0.3.7) · client 1.60.1 (70425) · enUS\nGuide: none open\nArrow: none\nWhere: Stormwind City · no position\nErrors: none\n```');
+	assert.equal(r.details.version, '0.3.5');
+	assert.equal(r.details.locale, 'enUS');
+	assert.match(I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' }), /^\| Polestar \| 0\.3\.5 Beta \(outdated: latest 0\.3\.7\) \|$/m);
+});
+
 test('a post without a report is all description, other code blocks included', () => {
 	const r = parseReport('The map pin is wrong.\n```\nsome log\n```');
 	assert.equal(r.details, null);
@@ -120,6 +127,45 @@ test('a report pasted with trailing NULs, or into the title, still reads', () =>
 	const r = parseReport(POST + '\u0000\u0000\u0000');
 	assert.equal(r.details.version, '0.2.3');
 	assert.equal(I.issueTitle('**What went wrong:** Watcher Dodds not here! ``` Polestar 0.2.3 Beta · client'), 'Watcher Dodds not here!');
+});
+
+test('a 1,000-character description of several lines reads whole, inside the bold line and after it; the issue title is its first line, cut at 80', () => {
+	const first = 'The arrow points into the lake at Goldshire and never moves on to the next goal at all.';
+	const rest = ('I walked round the lake twice, reloaded, and the step stayed where it was. '.repeat(13)).trim();
+	const desc = `${first}\n\n${rest}`.slice(0, 1000);
+	assert.equal(desc.length, 1000);
+	const post = [
+		`**What went wrong:** ${desc}`,
+		'**Addons:** Questie',
+		'```',
+		'Polestar 0.3.7 · client 1.60.1 (70532) · enUS',
+		'Human Warrior · level 4 · Alliance',
+		'Guide: Elwynn Forest (forever/alliance/human/01-elwynn-forest)',
+		'Step 3 of 8 (guide step 3): Kobold Camp',
+		'[>] Kill Kobold Vermin 7/10 · quest 7 · npc 6 · map 1429 @47.60,35.10 live',
+		'... 4 more goals',
+		'Arrow: Kill Kobold Vermin · 42 yd',
+		'Where: Elwynn Forest · map 1429 @47.00,35.00 live',
+		'Errors:',
+		'  2x Polestar/Nav/Arrow.lua:40: bad argument',
+		'(trimmed to fit Discord)',
+		'```',
+	].join('\n');
+	const r = parseReport(post);
+	assert.equal(r.description, `${desc}\n**Addons:** Questie`);
+	assert.deepEqual([r.details.guideId, r.details.step, r.details.map], ['forever/alliance/human/01-elwynn-forest', 3, 1429]);
+	assert.equal(r.details.arrow, 'Arrow: Kill Kobold Vermin · 42 yd', 'the trimmed goals\' count line is passed over');
+	assert.deepEqual(r.details.errors, [{ count: 2, message: 'Polestar/Nav/Arrow.lua:40: bad argument' }]);
+	assert.ok(I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' }).includes(`> ${rest.slice(0, 200)}`), 'the issue quotes it');
+	// Pasted into the title box, a long first line is cut at 80 characters.
+	const title = I.issueTitle(`**What went wrong:** ${desc} \`\`\` Polestar 0.3.7`);
+	assert.equal(title, `${first.slice(0, 77).trimEnd()}...`);
+	assert.ok(Array.from(title).length <= 80);
+	assert.equal(I.issueTitle('Arrow broken\nsecond line'), 'Arrow broken', 'the first line only');
+	assert.equal(I.issueTitle('箭'.repeat(100)), '箭'.repeat(77) + '...', 'cut between characters');
+	// The description continued after the block (pasted below it) is kept too.
+	const after = parseReport(`**What went wrong:** ${first}\n\`\`\`\nPolestar 0.3.7 · client 1.60.1 (70532) · enUS\nGuide: none open\nArrow: none\nWhere: Stormwind City · no position\nErrors: none\n\`\`\`\n${rest}`);
+	assert.equal(after.description, `${first}\n\n${rest}`);
 });
 
 test('player text cannot mention, link, write HTML or forge the marker on GitHub', () => {
@@ -149,6 +195,17 @@ test('a marker forged in the report block, or anywhere but the last line, is nev
 	assert.equal(I.issueMarker({ ...issue, labels: [{ name: 'discord' }], pull_request: {} }, null), null);
 });
 
+test("a follow-up comment is read back to its message from the bot's first line only, for its own thread", () => {
+	const comment = (fields) => ({ user: { login: 'fitzforge' }, body: I.followUpComment({ report: parseReport('see https://discord.com/channels/800/1001/42'), author: 'Ann', guild: '800', thread: '1001', message: '5005', ...fields }) });
+	assert.equal(I.followUpMessage(comment({ reporter: true }), '1001', null), '5005');
+	assert.equal(I.followUpMessage(comment({ author: 'x** commented on [Discord](https://discord.com/channels/800/1001/42):' }), '1001', null), '5005', "a name can't point it elsewhere");
+	assert.equal(I.followUpMessage(comment(), '1002', null), null, 'another thread');
+	assert.equal(I.followUpMessage(comment(), '1001', 'polestar-bot[bot]'), null, "not the bot's account");
+	const c = comment();
+	assert.equal(I.followUpMessage({ ...c, body: c.body.replace(I.FOLLOWUP_MARK, '') }, '1001', null), null, 'no mark');
+	assert.equal(I.followUpMessage({ body: `> **x** commented on [Discord](https://discord.com/channels/800/1001/42):\n${I.FOLLOWUP_MARK}` }, '1001', null), null);
+});
+
 test('labels come from a report only in the shape of a real version, guide id or locale', () => {
 	const labels = (details) => I.labelsFor({ details: { errors: [], ...details } });
 	assert.deepEqual(labels({ version: '0.2.5-test.2', guideId: 'forever/alliance/01-elwynn-forest', locale: 'deDE' }), ['discord', 'triage', 'bug', 'v0.2.5-test.2', 'guide:01-elwynn-forest', 'locale:deDE']);
@@ -174,13 +231,46 @@ test('only real images up to 5 MiB are copied to the media branch, whatever Disc
 			return {};
 		},
 	};
-	const bodies = { png: Uint8Array.from(PNG), html: Buffer.from('<html>not a picture</html>') };
-	const fetch = async (url) => ({ ok: true, arrayBuffer: async () => bodies[url] });
+	const WEBP = Buffer.from('RIFF\0\0\0\0WEBPVP8 ');
+	const bodies = { png: Uint8Array.from(PNG), html: Buffer.from('<html>not a picture</html>'), 'px/d.png?format=webp': WEBP, 'px/e.png?ex=1&format=webp': WEBP, 'px/f.png?format=webp': Buffer.alloc(5 * 1024 * 1024 + 1) };
+	const fetched = [];
+	const fetch = async (url) => (fetched.push(url), bodies[url] ? { ok: true, arrayBuffer: async () => bodies[url] } : { ok: false });
 	const media = createMedia({ github, branch: 'bug-media', fetch });
 	assert.match(await media.copy('a.png', { url: 'png', size: 10 }, 'm'), /bug-media\/a\.png$/);
 	assert.equal(await media.copy('b.png', { url: 'html', size: 10 }, 'm'), null);
-	assert.equal(await media.copy('c.png', { url: 'png', size: 5 * 1024 * 1024 + 1 }, 'm'), null);
-	assert.deepEqual(puts.map((p) => p.split('/').pop()), ['a.png']);
+	const big = 5 * 1024 * 1024 + 1;
+	assert.equal(await media.copy('c.png', { url: 'png', size: big }, 'm'), null, 'too big, and no media proxy to shrink it');
+	// Too big as sent (a full-size PNG screenshot): Discord's media proxy gives it as WebP, kept under .webp.
+	assert.match(await media.copy('d.png', { url: 'png', proxy_url: 'px/d.png', content_type: 'image/png', size: big }, 'm'), /bug-media\/d\.webp$/);
+	assert.match(await media.copy('e.png', { url: 'png', proxy_url: 'px/e.png?ex=1', content_type: 'image/png', size: big }, 'm'), /bug-media\/e\.webp$/);
+	assert.equal(await media.copy('f.png', { url: 'png', proxy_url: 'px/f.png', content_type: 'image/png', size: big }, 'm'), null, 'still too big as WebP');
+	assert.equal(await media.copy('g.zip', { url: 'png', proxy_url: 'px/g.zip', content_type: 'application/zip', size: big }, 'm'), null, 'not an image');
+	assert.deepEqual(puts.map((p) => p.split('/').pop()), ['a.png', 'd.webp', 'e.webp']);
+	assert.deepEqual(fetched, ['png', 'html', 'px/d.png?format=webp', 'px/e.png?ex=1&format=webp', 'px/f.png?format=webp'], 'nothing fetched for what cannot be copied');
+});
+
+test("the reporter's full-size screenshot in a follow-up is mirrored and embedded in its comment", async () => {
+	const puts = [];
+	const mediaGitHub = {
+		repo: 'fitzforge/polestar',
+		async request(method, p) {
+			if (method === 'GET' && p.includes('/contents/')) throw Object.assign(new Error('404'), { status: 404 });
+			if (method === 'PUT') puts.push(p);
+			return {};
+		},
+	};
+	const fetch = async (url) => ({ ok: url.endsWith('format=webp'), arrayBuffer: async () => Buffer.from('RIFF\0\0\0\0WEBPVP8 ') });
+	const discord = fakeDiscord();
+	const github = fakeGitHub();
+	const sync = createSync({ discord, github, media: createMedia({ github: mediaGitHub, branch: 'bug-media', fetch }), config: { forumId: FORUM, botId: BOT }, log: quietLog, sleep: async () => {}, now: () => 0 });
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	const shot = { id: 'a9', filename: 'image.png', content_type: 'image/png', size: 7838236, url: 'https://cdn.discordapp.com/x/image.png', proxy_url: 'https://media.discordapp.net/x/image.png' };
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u1', content: '', attachments: [shot] }));
+	const body = github.commentsByIssue.get(1)[0].body;
+	assert.match(body, /!\[image\.png\]\(https:\/\/raw\.githubusercontent\.com\/fitzforge\/polestar\/bug-media\/discord\/1001\/a9-image\.webp\)/);
+	assert.doesNotMatch(body, /\(on Discord\)/);
+	assert.equal(puts.length, 1);
 });
 
 test("only the thread owner's screenshots are copied; reports and follow-ups are capped per user an hour", async () => {
@@ -384,6 +474,125 @@ test("every player's follow-up becomes a comment, the reporter's marked as their
 	assert.match(comments[1].body, /bug-media\/discord\/1001\/a9-b\.jpg/);
 });
 
+test('what the thread says while its post waits for the hourly limit is copied once the post is filed, in order', async () => {
+	const { discord, github, sync, fire } = clocked();
+	for (const id of ['1001', '1002', '1003', '1004', '1005', '1006']) {
+		discord.post(id, { owner: 'u9', content: 'bug' });
+		await sync.newPost(id);
+	}
+	assert.equal(github.issues.length, 5, 'the sixth waits');
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1006', { author: 'u9', content: 'did the bot miss this' }));
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1006', { author: 'u2', content: 'same here' }));
+	assert.equal(github.commentsByIssue.get(6), undefined, 'no issue to copy to yet');
+	await fire();
+	const bodies = github.commentsByIssue.get(6).map((c) => c.body);
+	assert.equal(bodies.length, 2);
+	assert.match(bodies[0], /^\*\*someone\*\* \(the reporter\) added[\s\S]*did the bot miss this/);
+	assert.match(bodies[1], /^\*\*someone\*\* commented[\s\S]*same here/);
+});
+
+test('after a restart or a new gateway session, follow-ups sent while the bot was away are copied once, oldest first', async () => {
+	const { discord, github, sync } = setup();
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'seen live' }));
+	// Said while the bot was down: no gateway event reaches it.
+	discord.say('1001', { author: 'u1', content: 'still broken after a reload' });
+	discord.say('1001', { author: 'u3', attachments: [{ id: 'a7', filename: 'c.png', content_type: 'image/png', size: 5, url: 'z' }] });
+	discord.say('1001', { author: 'u3' }); // a sticker alone: nothing to copy
+	discord.say('1001', { author: 'u1', content: 'A better title', type: 4 }); // the post renamed
+	const bodies = () => github.commentsByIssue.get(1).map((c) => c.body);
+
+	// The fakes' message ids date from 2015 (Discord's epoch): a clock at 0 keeps them inside the catch-up's week.
+	const again = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT }, log: quietLog, now: () => 0 });
+	await again.loadIndex();
+	await again.dispatch('READY', { user: { id: BOT, username: 'Polestar Bot' } });
+	assert.equal(bodies().length, 3);
+	assert.match(bodies()[0], /seen live/);
+	assert.match(bodies()[1], /\(the reporter\) added[\s\S]*still broken after a reload/);
+	assert.match(bodies()[2], /\[c\.png\]\(https:\/\/discord\.com\/channels\/800\/1001\/\d+\) \(on Discord\)/);
+
+	// The session lost again (READY, not RESUMED), and another restart: nothing twice.
+	await again.dispatch('READY', { user: { id: BOT, username: 'Polestar Bot' } });
+	const third = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT }, log: quietLog, now: () => 0 });
+	await third.loadIndex();
+	await third.backfill();
+	assert.equal(bodies().length, 3);
+});
+
+test("the catch-up copies the last week's missed follow-ups, not older ones (those are a one-off backfill's)", async () => {
+	const discord = fakeDiscord();
+	const github = fakeGitHub();
+	const sync = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT }, log: quietLog, sleep: async () => {}, now: () => Date.parse('2026-11-10T12:00:00Z') });
+	const snowflake = (iso) => String((BigInt(Date.parse(iso)) - 1420070400000n) << 22n);
+	const post = snowflake('2026-10-15T18:00:00Z');
+	discord.post(post, { content: POST });
+	await sync.newPost(post);
+	for (const [iso, content] of [['2026-10-16T09:00:00Z', 'a month ago'], ['2026-11-09T09:00:00Z', 'yesterday']]) {
+		discord.messages.get(post).push({ id: snowflake(iso), type: 0, channel_id: post, content, attachments: [], mentions: [], author: { id: 'u2', username: 'someone' } });
+	}
+	await sync.backfill();
+	assert.deepEqual(github.commentsByIssue.get(1).map((c) => c.body.match(/> (.*)/)[1]), ['yesterday']);
+});
+
+test('a follow-up GitHub failed to take is copied by a catch-up a few minutes later, once', async () => {
+	const { discord, github, sync, timers, fire } = clocked();
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	const comment = github.comment;
+	let failures = 2;
+	github.comment = async (...a) => {
+		if (failures-- > 0) throw Object.assign(new Error('GitHub POST: 502'), { status: 502 });
+		return comment(...a);
+	};
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'me too' }));
+	assert.equal(github.commentsByIssue.get(1), undefined);
+	assert.equal(timers.length, 1);
+	assert.equal(timers[0].at, 5 * 60 * 1000);
+	await fire(); // fails again, then backs off to 10 minutes and copies it
+	assert.equal(github.commentsByIssue.get(1).length, 1);
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'and again' }));
+	assert.deepEqual(github.commentsByIssue.get(1).map((c) => /me too/.test(c.body) || /and again/.test(c.body)), [true, true]);
+	assert.equal(github.commentsByIssue.get(1).length, 2);
+});
+
+test('a post its player tagged In progress is filed; a status tag only moderators can set still means handled', async () => {
+	const { discord, github, sync } = setup();
+	discord.channels.get(FORUM).available_tags = [...discord.channels.get(FORUM).available_tags, { id: 't-progress', name: 'In Progress', moderated: false }];
+	discord.post('1001', { name: 'Picked In progress', tags: ['t-progress'] });
+	discord.post('1002', { name: 'Fixed already', tags: ['t-fixed'] });
+	await sync.backfill();
+	assert.deepEqual(github.issues.map((i) => i.title), ['Picked In progress']);
+	assert.deepEqual(discord.channels.get('1001').applied_tags, ['t-tracked'], 'In progress gives way to Tracked');
+});
+
+test("an edited follow-up rewrites its comment; one never copied is copied; link previews change nothing", async () => {
+	const { discord, github, sync } = setup();
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	const msg = discord.say('1001', { author: 'u2', content: 'Happens at stpe 20' });
+	await sync.dispatch('MESSAGE_CREATE', msg);
+	let writes = 0;
+	const editComment = github.editComment;
+	github.editComment = (...a) => (writes++, editComment(...a));
+	await sync.dispatch('MESSAGE_UPDATE', { ...msg, embeds: [{}] });
+	assert.equal(writes, 0, 'a link preview is not an edit');
+	msg.content = 'Happens at step 20';
+	msg.edited_timestamp = '2026-11-10T20:07:53Z';
+	await sync.dispatch('MESSAGE_UPDATE', msg);
+	await sync.dispatch('MESSAGE_UPDATE', msg);
+	assert.equal(writes, 1, 'written once per change');
+	const away = discord.say('1001', { author: 'u3', content: 'sent while the bot was away' });
+	away.content = 'sent while the bot was away, then edited';
+	away.edited_timestamp = '2026-11-10T20:09:00Z';
+	await sync.dispatch('MESSAGE_UPDATE', away);
+	const bodies = github.commentsByIssue.get(1).map((c) => c.body);
+	assert.equal(bodies.length, 2);
+	assert.match(bodies[0], /Happens at step 20/);
+	assert.doesNotMatch(bodies[0], /stpe/);
+	assert.match(bodies[1], /then edited/);
+});
+
 test('editing the first message rewrites the issue body, once per change', async () => {
 	const { discord, github, sync } = setup();
 	const msg = discord.post('1001', { content: 'Arrow points into a wall' });
@@ -416,6 +625,158 @@ test('closing as completed tells the reporter, tags Fixed and locks the thread',
 	const t = discord.channels.get('1001');
 	assert.deepEqual(t.applied_tags, ['t-questing', 't-fixed']);
 	assert.equal(t.thread_metadata.locked, true);
+});
+
+// A maintainer's comment on issue n as GitHub's issue_comment event carries it.
+async function remark(github, n, body, { association = 'OWNER', type = 'User' } = {}) {
+	await github.comment(n, body);
+	const c = github.commentsByIssue.get(n).at(-1);
+	Object.assign(c, { author_association: association, user: { login: 'fitzforge', type } });
+	return structuredClone(c);
+}
+
+test("a maintainer's reply on GitHub is posted in the thread once, edited there when edited; nobody else's is", async () => {
+	const { discord, github, sync } = await filed();
+	const issue = () => structuredClone(github.issues[0]);
+	const reply = async (comment, action = 'created') => onComment({ discord, github, event: { action, issue: issue(), comment }, forumId: FORUM, log: quietLog });
+	const bot = () => discord.messages.get('1001').filter((m) => m.author.bot);
+	const before = bot().length;
+
+	const c = await remark(github, 1, [
+		'<!-- triage note -->',
+		'### Cause',
+		'The trainer list is **out of date** (see #1234 and [the fix](https://github.com/fitzforge/polestar/pull/1235)).',
+		'',
+		'- Workaround: open the map and click the trainer',
+		'- Known issue: shows green until 85',
+		'',
+		'![shot](https://raw.githubusercontent.com/x/y.png)',
+		'<details><summary>log</summary>',
+		'',
+		'```',
+		'#9 stays as is <b>',
+		'```',
+		'</details>',
+	].join('\n'));
+	assert.equal(await reply(c), true);
+	assert.equal(await reply(c), false, 'a re-run posts nothing twice');
+	assert.equal(bot().length, before + 1);
+	const posted = bot().at(-1).content;
+	assert.deepEqual(discord.sent.at(-1).users, ['u1'], 'pings the reporter only');
+	assert.match(posted, /^<@u1> Reply on GitHub \(\[#1\]\(<https:\/\/github\.com\/fitzforge\/polestar\/issues\/1#issuecomment-\d+>\)\):\n\*\*Cause\*\*\n/);
+	assert.match(posted, /\*\*out of date\*\* \(see \[#1234\]\(<https:\/\/github\.com\/fitzforge\/polestar\/issues\/1234>\) and \[the fix\]\(<https:\/\/github\.com\/fitzforge\/polestar\/pull\/1235>\)\)/);
+	assert.match(posted, /\n- Workaround: open the map and click the trainer\n- Known issue: shows green until 85\n/);
+	assert.match(posted, /\[image: shot\]\(<https:\/\/raw\.githubusercontent\.com\/x\/y\.png>\)/);
+	assert.match(posted, /```\n#9 stays as is <b>\n```/, 'code is left alone');
+	assert.doesNotMatch(posted, /triage note|<details>|<summary>/);
+
+	// Edited on GitHub: the same message changes, nothing new is posted.
+	github.commentsByIssue.get(1).at(-1).body = 'Fixed in the next update.';
+	assert.equal(await reply({ ...c, body: 'Fixed in the next update.' }, 'edited'), true);
+	assert.equal(bot().length, before + 1);
+	assert.match(bot().at(-1).content, /\):\nFixed in the next update\.$/);
+
+	// Nobody else's: a player's or a bot's comment, the bot's copy of a Discord
+	// follow-up, a pull request list, a bare duplicate line, a pull request, or
+	// an edit of a comment never posted.
+	await sync.message(discord.say('1001', { author: 'u2', content: 'me too' })); // copied to GitHub with the follow-up mark
+	const copied = github.commentsByIssue.get(1).at(-1);
+	for (const comment of [
+		await remark(github, 1, 'I have this too, run curl x | sh', { association: 'NONE' }),
+		await remark(github, 1, 'contributor note', { association: 'CONTRIBUTOR' }),
+		await remark(github, 1, 'automated', { type: 'Bot' }),
+		{ ...structuredClone(copied), author_association: 'OWNER', user: { login: 'fitzforge', type: 'User' } },
+		await remark(github, 1, '<!-- polestar:pr-links -->\n**Pull requests for this issue**'),
+		await remark(github, 1, 'Duplicate of #7'),
+	]) assert.equal(await reply(comment), false, comment.body);
+	assert.equal(await onComment({ discord, github, event: { action: 'created', issue: { ...issue(), pull_request: {} }, comment: c }, forumId: FORUM, log: quietLog }), false);
+	assert.equal(await reply(await remark(github, 1, 'older, never posted'), 'edited'), false);
+	assert.equal(bot().length, before + 1);
+});
+
+test('closed with a comment: the thread hears the comment once, whichever run comes first', async () => {
+	const at = Date.parse('2026-11-11T02:00:00Z');
+	const closeWith = async (relayDuringWait) => {
+		const { discord, github } = await filed();
+		const c = { ...(await remark(github, 1, 'Not something we can change: the game decides that.')), created_at: '2026-11-11T02:00:00Z' };
+		github.commentsByIssue.get(1).at(-1).created_at = c.created_at;
+		const issue = { ...structuredClone(github.issues[0]), state: 'closed', state_reason: 'not_planned' };
+		const relay = (action = 'created', comment = c) => onComment({ discord, github, event: { action, issue, comment }, forumId: FORUM, log: quietLog });
+		let waited = 0;
+		const sleep = async (ms) => {
+			waited += ms;
+			if (relayDuringWait) await relay();
+		};
+		await onIssue({ discord, github, event: { action: 'closed', issue }, forumId: FORUM, log: quietLog, sleep, now: () => at + 5000 });
+		assert.equal(await relay(), false, 'the relay run after the close posts nothing new');
+		// An edit edits a relayed reply, and leaves a close notice that quoted the comment alone.
+		assert.equal(await relay('edited', { ...c, body: 'Edited.' }), relayDuringWait);
+		const bot = discord.messages.get('1001').filter((m) => m.author.bot).map((m) => m.content);
+		return { bot, waited, c };
+	};
+	// The close's run first: it waits for the relay, which does not come, then quotes the comment and links it.
+	let { bot, waited, c } = await closeWith(false);
+	assert.equal(waited, 20000);
+	assert.equal(bot.filter((s) => s.includes('the game decides that')).length, 1);
+	assert.match(bot.at(-1), new RegExp(`^<@u1> We've decided not to change this one\\.\\n> Not something[\\s\\S]*, \\[comment\\]\\(<[^>]+#issuecomment-${c.id}>\\)\\)$`));
+	assert.doesNotMatch(bot.at(-1), /Edited/, 'an edit leaves the close notice alone');
+	// The relay lands while the close's run waits: the close no longer quotes it.
+	({ bot, c } = await closeWith(true));
+	assert.equal(bot.filter((s) => s.includes('the game decides that') || s.endsWith('Edited.')).length, 1, 'one copy, edited in place');
+	assert.match(bot.at(-2), /^<@u1> Reply on GitHub/);
+	assert.match(bot.at(-1), /^<@u1> We've decided not to change this one\.\nThanks for the report!/);
+});
+
+test('a long reply is cut under 2000 characters with a link to the full reply, its code block closed', () => {
+	const body = 'Intro line.\n```\n' + 'x '.repeat(1500) + '\n```\nAfter.';
+	const msg = replyMessage({ repo: 'fitzforge/polestar', issue: { number: 5 }, comment: { id: 77, body }, owner: 'u1' });
+	assert.ok(msg.length <= 2000, String(msg.length));
+	assert.match(msg, /\n```\n… full reply: <https:\/\/github\.com\/fitzforge\/polestar\/issues\/5#issuecomment-77>$/);
+});
+
+test('the needs-info question and a not-planned close do not quote a reply the thread already has', async () => {
+	const { discord, github } = await filed();
+	const c = await remark(github, 1, 'Which class were you playing?');
+	await onComment({ discord, github, event: { action: 'created', issue: structuredClone(github.issues[0]), comment: c }, forumId: FORUM, log: quietLog });
+	await onIssue({ discord, github, event: { action: 'labeled', label: { name: 'needs-info' }, issue: github.issues[0] }, forumId: FORUM, log: quietLog });
+	assert.match(discord.sent.at(-1).content, /^<@u1> We need a little more to go on with this one: please answer the question above here in the thread\./);
+	const why = await remark(github, 1, 'Trainers there are for level 10+, this is expected.');
+	await onComment({ discord, github, event: { action: 'created', issue: structuredClone(github.issues[0]), comment: why }, forumId: FORUM, log: quietLog });
+	await onIssue({ discord, github, event: { action: 'closed', issue: { ...structuredClone(github.issues[0]), state: 'closed', state_reason: 'not_planned' } }, forumId: FORUM, log: quietLog });
+	assert.match(discord.sent.at(-1).content, /^<@u1> We've decided not to change this one\.\nThanks for the report!/);
+});
+
+test('a fix closed when its release is already out says so, and is labelled so the next release run skips it', async () => {
+	const { discord, github, sync } = await filed();
+	for (const id of ['1002', '1003', '1004']) {
+		discord.post(id, { content: 'bug ' + id });
+		await sync.newPost(id);
+	}
+	const v036 = { id: 1, tag_name: 'v0.3.6', name: 'Polestar 0.3.6', html_url: 'https://github.com/fitzforge/polestar/releases/tag/v0.3.6', published_at: '2026-11-10T12:47:02Z' };
+	github.releasesList.push(v036);
+	const close = async (n, fields) => {
+		Object.assign(github.issues[n - 1], { state: 'closed', state_reason: 'completed', ...fields });
+		await onIssue({ discord, github, event: { action: 'closed', issue: structuredClone(github.issues[n - 1]) }, forumId: FORUM, log: quietLog });
+		return discord.sent.at(-1).content;
+	};
+	const labelled = (n) => github.issues[n - 1].labels.map((l) => l.name).filter((l) => l.startsWith('released:'));
+	// A sweep labelled it released:v0.3.6 before closing it.
+	github.issues[0].labels.push({ name: 'released:v0.3.6' });
+	assert.match(await close(1, { closed_at: '2026-11-10T12:51:29Z' }), /^<@u1> This is fixed, and the fix is out in \*\*Polestar 0\.3\.6\*\*: update Polestar to get it\. Thanks for the report! \(\[release notes\]\(<https:\/\/github\.com\/fitzforge\/polestar\/releases\/tag\/v0\.3\.6>\)/);
+	assert.deepEqual(labelled(1), ['released:v0.3.6']);
+	// Milestone 0.3.6, closed by hand a few minutes after 0.3.6 was published.
+	assert.match(await close(2, { closed_at: '2026-11-10T12:52:33Z', milestone: { title: '0.3.6' } }), /the fix is out in \*\*Polestar 0\.3\.6\*\*/);
+	assert.deepEqual(labelled(2), ['released:v0.3.6']);
+	// Closed before the release (the release run tells it), or for an update not out yet.
+	assert.match(await close(3, { closed_at: '2026-11-10T12:00:00Z', milestone: { title: '0.3.6' } }), /will ship in the next Polestar update/);
+	assert.match(await close(4, { closed_at: '2026-11-10T13:00:00Z', milestone: { title: '0.3.7' } }), /will ship in the next Polestar update/);
+	assert.deepEqual([labelled(3), labelled(4)], [[], []]);
+
+	const v037 = { id: 2, tag_name: 'v0.3.7', name: 'Polestar 0.3.7', html_url: 'https://github.com/fitzforge/polestar/releases/tag/v0.3.7', published_at: '2026-11-14T00:00:00Z' };
+	github.releasesList.push(v037);
+	const before = discord.sent.length;
+	await onRelease({ discord, github, event: { release: v037 }, log: quietLog });
+	assert.deepEqual(discord.sent.slice(before).map((s) => s.channel), ['1004'], '0.3.7 tells only the fix it ships, not the two already told they are out');
 });
 
 test("closing as not planned quotes the maintainer's last note, not a copied follow-up", async () => {
@@ -547,6 +908,38 @@ test('a release tells the threads of fixes closed since the last release, once',
 	assert.ok(github.issues[1].labels.some((l) => l.name === 'released:v0.2.5'));
 
 	assert.deepEqual(await onRelease({ discord, github, event: { release }, log: quietLog }), { told: 0, failed: 0 });
+});
+
+test('a manual release run told which issues it ships tells exactly those and their duplicates, once, whatever their close time', async () => {
+	const { discord, github, sync } = setup();
+	for (const id of ['1', '2', '3', '4', '5']) {
+		discord.post(id, { content: 'bug ' + id });
+		await sync.newPost(id);
+	}
+	const close = (n, fields) => Object.assign(github.issues[n - 1], { state: 'closed', state_reason: 'completed', ...fields });
+	github.releasesList.push({ id: 1, tag_name: 'v0.3.5', published_at: '2026-11-08T00:00:00Z' });
+	const release = { id: 2, tag_name: 'v0.3.6', name: 'Polestar 0.3.6', html_url: 'https://github.com/fitzforge/polestar/releases/tag/v0.3.6', published_at: '2026-11-10T12:47:02Z' };
+	github.releasesList.push(release);
+	close(1, { closed_at: '2026-11-10T12:51:29Z' }); // closed by hand during the run
+	close(2, { closed_at: '2026-11-10T12:52:33Z' }); // the same, not listed
+	close(3, { closed_at: '2026-11-10T12:53:00Z', state_reason: 'not_planned' });
+	await github.comment(3, 'Duplicate of #1');
+	// #4 still open, listed by mistake; #5 closed as not planned, listed by mistake.
+	close(5, { closed_at: '2026-11-10T12:00:00Z', state_reason: 'not_planned' });
+	Object.assign(github.issues[3], { state: 'open' });
+
+	let before = discord.sent.length;
+	assert.deepEqual(await onRelease({ discord, github, event: { release }, log: quietLog }), { told: 0, failed: 0 }, 'the release run itself: all closed after it');
+	assert.deepEqual(await onRelease({ discord, github, event: { release }, issues: [1, 4, 5, 99], log: quietLog }), { told: 2, failed: 0 });
+	const told = discord.sent.slice(before);
+	assert.deepEqual(told.map((s) => s.channel), ['1', '3']);
+	assert.match(told[0].content, /^<@u1> The fix is out in \*\*Polestar 0\.3\.6\*\*/);
+	assert.match(told[1].content, /The fix for \[fitzforge\/polestar#1\]\S+, the same bug as yours, is out in \*\*Polestar 0\.3\.6\*\*/);
+	for (const n of [1, 3]) assert.ok(github.issues[n - 1].labels.some((l) => l.name === 'released:v0.3.6'));
+	for (const n of [2, 4, 5]) assert.ok(!github.issues[n - 1].labels.some((l) => l.name.startsWith('released:')));
+	before = discord.sent.length;
+	assert.deepEqual(await onRelease({ discord, github, event: { release }, issues: [1], log: quietLog }), { told: 0, failed: 0 }, 'once');
+	assert.equal(discord.sent.length, before);
 });
 
 test('a Forge, data, library or data pack release tells no thread and is never the release before', async () => {

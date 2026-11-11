@@ -1,9 +1,14 @@
 -- The route lines' style: a small window the gear beside Options > Guide >
--- Arrow & routes > "Route lines" opens. The style (nav.lineStyle: Polestar's
--- dots, or sparkles drifting toward the goal, Maps/RouteSparkle.lua) and the
--- sparkles' own settings, made by the options window's own controls
--- (Options.Control) in one column, with three presets. Every change shows
--- on the maps at once. The ✕ and Escape close it.
+-- Arrow & routes > "Route lines" opens. The style (nav.lineStyle: a solid
+-- line, Polestar's dots, or sparkles drifting toward the goal,
+-- Maps/RouteSparkle.lua), the line's thickness (nav.lineWidth), the line's
+-- and dots' colour (nav.dotColor), the sparkles' own settings, and the
+-- minimap line's opacity (nav.minimapRouteAlpha) and the minimap size of the
+-- style chosen (its own setting, RouteLines.SIZE_KEYS: the slider follows the
+-- style), made by the options window's own controls
+-- (Options.Control) in one column, with three sparkle presets. Every change
+-- shows on the maps at once. The ✕ and Escape close it. Never taller than
+-- the screen less MARGIN: the rows scroll under the header.
 -- UI.ShowLineStyle(), or SHOW_LINE_STYLE.
 --
 -- Built on first use; colours are Theme tokens only.
@@ -11,7 +16,7 @@
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
 local L = ns.L
-local floor = math.floor
+local floor, min, max = math.floor, math.min, math.max
 
 local WIDTH = 420
 local PAD = 24
@@ -20,12 +25,32 @@ local HEAD_H = 56
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 local function plain() return ns.Get("nav.lineStyle") ~= "sparkle" end
+local function sparkles() return not plain() end
+local function notLine() return ns.Get("nav.lineStyle") ~= "line" end
+-- The minimap size setting of the style chosen.
+local function sizeKey()
+	local keys = ns.RouteLines and ns.RouteLines.SIZE_KEYS or {}
+	return "nav." .. (keys[ns.Get("nav.lineStyle")] or keys.dots or "minimapDotsSize")
+end
 
 local SECTIONS = {
 	{ name = L["Style"], controls = {
 		{ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
-			help = L["How the route lines are drawn: Polestar's dots, or sparkles that drift along the way to the goal."],
-			choices = { { value = "dots", label = L["Dots"] }, { value = "sparkle", label = L["Sparkle"] } } },
+			help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
+			choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {} },
+		{ kind = "slider", key = "nav.lineWidth", label = L["Line thickness"], min = 2, max = 8, step = 1, format = px, disabled = notLine,
+			help = L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] },
+		{ kind = "dropdown", key = "nav.dotColor", label = L["Route colour"], disabled = sparkles,
+			help = L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."],
+			choices = {
+				{ value = "route", label = L["Route colours"] }, { value = "cyan", label = L["Cyan"] },
+				{ value = "magenta", label = L["Magenta"] }, { value = "white", label = L["White"] },
+			} },
+		{ kind = "slider", key = "nav.minimapRouteAlpha", label = L["Minimap opacity"], min = 0.2, max = 1, step = 0.05, format = percent,
+			help = L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] },
+		{ kind = "slider", key = "nav.minimapRouteSize", label = L["Minimap size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
+			get = function() return ns.Get(sizeKey()) end, set = function(v) ns.Set(sizeKey(), v) end,
+			help = L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."] },
 	} },
 	{ name = L["Sparkle"], presets = true, controls = {
 		{ kind = "slider", key = "nav.sparkleIntensity", label = L["Intensity"], min = 0, max = 1, step = 0.05, format = percent,
@@ -60,17 +85,22 @@ local PRESETS = {
 
 local F
 
+-- The window is never taller than the screen less MARGIN: its rows scroll
+-- under the header (a 768-high UI with the sparkle settings is 748 tall).
+local MARGIN = 80
+
 local function layout()
 	local inner = WIDTH - PAD * 2
-	local y = HEAD_H + 4
+	local body = F.Body.Child
+	local y = 4
 	for _, s in ipairs(F.sections) do
 		s.header:ClearAllPoints()
-		s.header:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
+		s.header:SetPoint("TOPLEFT", body, "TOPLEFT", PAD, -y)
 		s.header:SetWidth(inner)
 		y = y + 44
 		for _, w in ipairs(s.rows) do
 			w:ClearAllPoints()
-			w:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
+			w:SetPoint("TOPLEFT", body, "TOPLEFT", PAD, -y)
 			y = y + W.LayoutRow(w, inner)
 		end
 		if s.presets then
@@ -78,14 +108,19 @@ local function layout()
 			local bw = (inner - 16) / #s.presets
 			for i, b in ipairs(s.presets) do
 				b:ClearAllPoints()
-				b:SetPoint("TOPLEFT", F, "TOPLEFT", PAD + (i - 1) * (bw + 8), -y)
+				b:SetPoint("TOPLEFT", body, "TOPLEFT", PAD + (i - 1) * (bw + 8), -y)
 				b:SetWidth(bw)
 			end
 			y = y + s.presets[1]:GetHeight()
 		end
 		y = y + 8
 	end
-	F:SetHeight(y + PAD)
+	local content = y + PAD
+	local room = max(200, (UIParent:GetHeight() or 768) - MARGIN - HEAD_H - 1)
+	local view = min(content, room)
+	body:SetWidth(WIDTH - 2)
+	F:SetHeight(HEAD_H + 1 + view)
+	W.SetScrollContent(F.Body, content, view)
 end
 
 local function refreshPresets()
@@ -99,7 +134,7 @@ local function refreshPresets()
 end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarLineStyle", UIParent)
+	F = CreateFrame("Frame", "PolestarLineStyle", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -131,13 +166,18 @@ local function build()
 	F.Title:SetWordWrap(false)
 	F.Title:SetText(L["Route line style"])
 
+	F.Body = W.Scroll(F)
+	F.Body:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, 0)
+	F.Body:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
+	local body = F.Body.Child
+
 	F.sections, F.controls = {}, {}
 	for _, spec in ipairs(SECTIONS) do
-		local s = { header = W.SectionHeader(F), rows = {} }
+		local s = { header = W.SectionHeader(body), rows = {} }
 		W.SetSection(s.header, spec.name)
 		for _, c in ipairs(spec.controls) do
 			if ns.GetDefault(c.key) ~= nil then
-				local w = UI.Options.Control(F, c)
+				local w = UI.Options.Control(body, c)
 				s.rows[#s.rows + 1] = w
 				F.controls[c.key] = w
 			end
@@ -145,7 +185,7 @@ local function build()
 		if spec.presets and ns.RouteLines and ns.RouteLines.ApplySparklePreset then
 			s.presets = {}
 			for i, p in ipairs(PRESETS) do
-				s.presets[i] = W.Button(F, p.label, function() ns.RouteLines.ApplySparklePreset(p.key) end)
+				s.presets[i] = W.Button(body, p.label, function() ns.RouteLines.ApplySparklePreset(p.key) end)
 			end
 		end
 		F.sections[#F.sections + 1] = s
@@ -178,7 +218,12 @@ end
 
 ns.On("SHOW_LINE_STYLE", function() UI.ShowLineStyle() end)
 ns.On("SETTING_CHANGED", function(path)
-	if F and (path == "nav.lineStyle" or path == "nav" or path == "" or path == nil) then refreshPresets() end
+	if F and (path == "nav.lineStyle" or path == "nav" or path == "" or path == nil) then
+		refreshPresets()
+		-- The size slider shows the chosen style's own size.
+		local size = F.controls["nav.minimapRouteSize"]
+		if size and size.Refresh then size:Refresh() end
+	end
 end)
 W.OnFontChanged(function()
 	if F and F:IsShown() then layout() end

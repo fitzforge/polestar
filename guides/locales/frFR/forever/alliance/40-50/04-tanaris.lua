@@ -7,15 +7,14 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} se trouve sur les {area:439}, dans le sud-est des {zone:1441} : {npc:4454} est dans le camp des gnomes à côté de la piste, Zamek près du camp gobelin.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
-	["He runs off to keep Rizzle busy"] = "Il s'éloigne pour occuper Rizzle Brassbolts",
 
 	-- Step 4: Gadgetzan
-	-- {area:439} Shimmering Flats · {area:440} Tanaris · {area:976} Gadgetzan
-	["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Chevauchez vers le sud-est en quittant les {area:439} pour entrer en {area:440}. {area:976} se trouve juste après la frontière.",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
+	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "Chevauchez au sud-est hors des {area:439} jusqu'en {zone:1446}. {area:976} est juste après la frontière.",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}, au nord de la ville",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
@@ -58,8 +57,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, à l'intérieur",
-	-- {npc:7881} Stoley · {area:35} Booty Bay
-	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "La livraison suivante de {npc:7881} retourne à {area:35} : passez-la.",
+	-- {area:35} Booty Bay · {zone:1425} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Attention : les Larrons lancent Désarmement. Les Voleurs restent cachés grâce à Camouflage. Les Assassins utilisent Exécution quand votre vie est à 20 % ou moins.",
@@ -107,12 +106,10 @@ return {
 	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La petite tortue {npc:5955} se cache à l'extrémité nord de la vallée. Ramenez-la chez sa femme {npc:6015}, au bord de l'eau juste à l'est de {area:977} : elle avance lentement et les bêtes du désert l'attaquent, gardez-la en vie.",
 
 	-- Step 21: Gadgetzan
-	-- {area:976} Gadgetzan
-	["Ride back west to {area:976}."] = "Revenez vers l'ouest jusqu'à {area:976}.",
+	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
-	-- {npc:11758} Andi Lynn
-	["{npc:11758}, on the east side of town"] = "{npc:11758}, à l'est de la ville",
 
 	-- Step 22: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -158,13 +155,15 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Volez jusqu'à {area:348}. Le guide des {zone:1425} commence ici.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Suivez la côte vers le sud jusqu'à la Crique des Gréements. Des Pirates des Mers du sud envahissent la plage et les bateaux : progressez par les bords et attirez-les un par un. {npc:7883} se tient de l'autre côté ; la cargaison volée de {npc:7881} se trouve dans le camp.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "Depuis le quai de la {area:1108}, prenez le bateau pour le Bastion de Pennelune et volez jusqu'à {area:489}, puis chevauchez vers l'est à travers {zone:1441} jusqu'au {area:2240} sur les {area:439}. {npc:4454} et {npc:4630} sont dans les camps près de la piste ; {npc:4709} se tient près du camp gobelin.",
+	-- ["He runs off to keep Rizzle busy"] = "Il s'éloigne pour occuper Rizzle Brassbolts",
 	-- ["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",
 	-- ["Hearth to {area:976}."] = "Pierre de foyer vers {area:976}.",
+	-- ["Ride back west to {area:976}."] = "Revenez vers l'ouest jusqu'à {area:976}.",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "Revenez vers l'ouest en direction de {area:976}. Des Bandits Bat-le-désert et des Larrons Bat-le-désert tiennent les dunes en chemin ; chacun d'eux peut porter une Outre de Bat-le-désert.",
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "Chevauchez au nord-ouest jusqu'au Repaire nuisible, la ruche Centipaar dans les dunes. Tout Centipaar peut laisser tomber des Morceaux d'insecte Centipaar.",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "Chevauchez vers le sud dans la {quest:3362}. Les Chardonniers collecteurs de rosée laissent tomber les glandes ; seules certaines sont pleines, gardez la Glande de rosée remplie. Les Chardonniers noueux et les Chardonniers taille-racine partagent la vallée. Les Chardonniers noueux sont de niveau 48-50, au-dessus de vous : attirez-les un par un.",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "Chevauchez vers le sud au-delà du {area:1938} jusqu'au {area:981}, les tunnels Hazzali ; l'équipement d'analyse de Scrimshank se trouve tout au fond.",
-	-- ["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "Chevauchez au sud-est hors des {area:439} jusqu'en {zone:1446}. {area:976} est juste après la frontière.",
+	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Chevauchez vers le sud-est en quittant les {area:439} pour entrer en {area:440}. {area:976} se trouve juste après la frontière.",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "Chevauchez au sud-est jusqu'au {area:985}. {npc:7847} se tient au centre du camp Bat-le-désert sud : nettoyez autour de lui d'abord.",
 	-- ["Rizzle's plans"] = "Les Plans de Rizzle",
 	-- ["The Wanted poster by {npc:7882}"] = "L'affiche Avis de recherche près de {npc:7882}",
@@ -173,8 +172,10 @@ return {
 	-- ["Wastewander bandits"] = "Les bandits Bat-le-désert",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "Pendant que {npc:4709} retient Rizzle Brassbolts, ses plans sont laissés sans surveillance dans le camp gnome de l'autre côté de la piste.",
 	-- ["{item:8483} on the way"] = "{item:8483} en chemin",
+	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}, à l'est de la ville",
 	-- ["{npc:7583}'s next ingredient grows in the {area:47}, and the route never brings it back: skip it."] = "L'ingrédient suivant de {npc:7583} pousse dans les {area:47}, et l'itinéraire n'y revient jamais : passez-le.",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "L'ingrédient suivant de {npc:7583} pousse dans les {zone:1425}, et l'itinéraire n'y revient jamais : passez-le.",
+	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "La livraison suivante de {npc:7881} retourne à {area:35} : passez-la.",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}, dans la taverne du port",
 	-- ["{object:20805}, inside"] = "{object:20805}, à l'intérieur",
 }

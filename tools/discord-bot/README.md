@@ -25,16 +25,19 @@ sequenceDiagram
 | What happens | Who does it | What the player sees |
 |---|---|---|
 | A new post | the bot, at once | "Tracked as fitzforge/polestar#N. Replies in this thread, from anyone, are copied to the issue.", tag **Tracked** |
-| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". The bot's own messages are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill files skipped posts). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
+| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". What is said before the post is filed (while it waits for the hourly limit) is copied, in order, once it is. The bot's own messages, pins, renames and a sticker or embed alone are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill and catch-up file skipped posts and copy skipped follow-ups). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
+| Anyone edits a later message | the bot | nothing; its comment is written again |
 | A pull request addresses the issue for the first time (its title names `#N`, or it says `closes`/`fixes`/`resolves #N`) | `pr-links.yml` | ping: "A fix for this is open (#M). It still has to be reviewed; we'll tell you here when it's fixed.", tag **In progress**. Once per issue: more pull requests, edits and closes tell the thread nothing. On GitHub the issue gets one comment listing its pull requests, kept up to date, and the label `has-pr` (CONTRIBUTING.md, "Before you start") |
-| Issue labelled **needs-info** | `discord-issue-sync.yml` | ping: "We need a little more to go on with this one", quoting the maintainer's last comment on the issue, and "Please answer here in the thread". The answer comes back to the issue as a follow-up. Tags unchanged |
-| Issue closed as **completed** (button, or `Fixes #N` in a commit) | `discord-issue-sync.yml` | ping: "This is fixed and will ship in the next Polestar update", tag **Fixed**, thread locked |
+| A maintainer (owner, member or collaborator) comments on the issue | `discord-issue-replies.yml` | ping: "Reply on GitHub (#N):" and the comment as Discord shows Markdown (bold, bullets, quotes and code kept; headings bold; HTML comments and tags dropped; images and links as links, #N linked), cut under 2000 characters with "… full reply: <link>". Editing the comment edits that message; a re-run posts nothing twice. Never anyone else's comment, a bot's, the bot's copies of Discord follow-ups (`polestar-bot:followup`), the pull request lists, or a bare `Duplicate of #M` |
+| Issue labelled **needs-info** | `discord-issue-sync.yml` | ping: "We need a little more to go on with this one", quoting the maintainer's last comment on the issue, and "Please answer here in the thread" ("please answer the question above" when that comment is in the thread already as a reply). The answer comes back to the issue as a follow-up. Tags unchanged. A not-planned or duplicate close likewise leaves out a quote the thread has already. Closed or labelled with a comment (the same action, or within 2 minutes): the notice waits 20 seconds for the comment's relay; if it came, no quote, else the notice quotes the comment and links it, and the relay then posts nothing (and leaves the notice alone on an edit). Either way the thread hears the comment once |
+| Issue closed as **completed** (button, or `Fixes #N` in a commit) | `discord-issue-sync.yml` | ping: "This is fixed and will ship in the next Polestar update", tag **Fixed**, thread locked. When the fix is out already, "This is fixed, and the fix is out in **Polestar X**: update Polestar to get it", with the release notes: the issue is labelled `released:vX` (a sweep after a release), or its milestone is a full release published before it closed (a tidy-up after the release); the latter then gets `released:vX`, so the next release does not tell it again |
 | Issue closed as **not planned** | the same | ping: "We've decided not to change this one" (or, from `/close`, "No change is needed here", "We couldn't reproduce this one", "We're closing this one without a fix for now"), quoting your last comment on the issue as the reason; tag **Won't fix**, locked |
 | Issue closed as **duplicate** of #M (`gh issue close N --duplicate-of M`, GitHub's "Close as duplicate", or `/close`), or closed as **not planned** with a maintainer's `Duplicate of #M` comment (what GitHub's website and older `gh` leave) and no other `resolution:` label | the same | ping: where #M stands, read from GitHub: labelled `released:vX` "It's the same bug as #M, and the fix is out in Polestar X"; labelled `fix-merged` or closed as completed "It's the same bug as #M, and that's already fixed: it ships in the next Polestar update"; closed as not planned "It's the same as #M, and we've decided not to change it" (or its `resolution:` label's words), quoting #M's last maintainer comment when it is 300 characters or less; open "we're tracking it in #M", with "A fix is in progress." when #M has `has-pr`. Then the maintainer's explanation on this issue: their latest comment that is more than the bare `Duplicate of #M` line. Tag **Duplicate**, locked |
 | Issue reopened | the same | "We've reopened this", tag **Tracked**, unlocked |
-| A release published | `discord-release-notify.yml` | ping: "The fix is out in **Polestar 0.2.x**", for every issue closed as completed that the release ships; the issue gets `released:v0.2.x` so it is never told twice. An issue closed by a commit (`Fixes #N`, a merged pull request) ships in the first full release whose tag holds that commit, so a fix merged into `next` waits for the feature release, however many patches go out first. One closed by hand (a patch's fix) ships in the first full release published after it closed. Prereleases do not count as the release before. Each issue from Discord closed as a duplicate of one the release ships (filed from Discord or not; found by GitHub's search for `reason:duplicate` and for a `Duplicate of` comment) gets "The fix for #M, the same bug as yours, is out in **Polestar 0.2.x**" and the same `released:` label, so it too is told once |
+| A release published | `discord-release-notify.yml` | ping: "The fix is out in **Polestar 0.2.x**", for every issue closed as completed that the release ships; the issue gets `released:v0.2.x` so it is never told twice. An issue closed by a commit (`Fixes #N`, a merged pull request) ships in the first full release whose tag holds that commit, so a fix merged into `next` waits for the feature release, however many patches go out first. One closed by hand (a patch's fix) ships in the first full release published after it closed. Prereleases do not count as the release before. Each issue from Discord closed as a duplicate of one the release ships (filed from Discord or not; found by GitHub's search for `reason:duplicate` and for a `Duplicate of` comment) gets "The fix for #M, the same bug as yours, is out in **Polestar 0.2.x**" and the same `released:` label, so it too is told once. Issues closed after the run (a close even a minute after publishing misses it): Actions, Discord release notes, Run workflow with the tag and `issues` (e.g. `1390 1402`) tells exactly those, closed as completed and without a `released:` label, whatever their close time, and their duplicates |
 | A prerelease published (`v0.3.0-rc.1`: GitHub's prerelease flag, or a tag with a `-` part) | the same | nothing in the threads, and no `released:` label. The testers channel gets one message pinging the tester role: the tag, the release's link, the player entries from the tag's `changes/` (as many as fit), and a request to report in #bugs. A re-run finds that message (a bot message with the tag in bold, among the channel's last 50) and pings no one again |
+| An issue labelled `known-issue` changes, or a maintainer comments `Known issue:`/`Workaround:` on one; a release; daily; by hand | `discord-known-issues.yml` | the #known-issues board, edited in place (below) |
 
 ## What an issue holds
 
@@ -53,7 +56,10 @@ only when it has a real one's shape (`0.2.5` or `0.2.5-test.1`, a lowercase
 guide file name, a game locale); anything else gets no label.
 
 Screenshots are copied only when their bytes are a PNG, JPEG, WebP or GIF
-image of 5 MiB or less; anything else stays a link to Discord.
+image of 5 MiB or less; anything else stays a link to Discord. An image
+bigger than that (a full-size PNG screenshot often is) is copied as the WebP
+Discord's media proxy makes of it (`.webp`, about a tenth of the size), when
+that fits.
 
 The report is read by its shape, not its words (the addon translates them),
 so a German or French report fills the same table. A post without a report
@@ -63,6 +69,72 @@ The repository is public: the issue shows the player's server name and
 words, never their Discord id. Their text cannot mention GitHub users, link
 other issues or carry HTML. Say so in the #bugs guidelines, for example:
 "Posts here are copied to our public GitHub issues so we can track them."
+
+## The #known-issues board
+
+One post in #known-issues lists the problems players are likely to hit,
+each with what to do meanwhile. It is written again from GitHub on every
+run, so it never drifts and a run can be repeated at will.
+
+```
+**Known issues in Polestar 0.3.6**
+-# Last updated <date, in the reader's time zone>
+Problems we know about and are fixing, with what to do meanwhile. Something else wrong? Report it in #bugs.
+
+**Westfall**
+- #1234 The guide skips "Bounty on Murlocs" after a hearth. → Click the step back once.
+
+**Fixed in the next update**
+- #1201 ...
+
+**Fixed in 0.3.6 (update to get the fix)**
+- #1188 ...
+```
+
+- **What is listed**: issues labelled `known-issue`. Triage adds the label
+  when an issue is confirmed and players are likely to run into it; it
+  stays on when the issue closes.
+- **The words**: a maintainer's (owner, member, collaborator) comment, or
+  issue body, with the lines `Known issue: <one line for players>` and
+  `Workaround: <one line>` (bold and list markers allowed); the newest of
+  each counts, so a later comment corrects an earlier one. Without a
+  `Known issue:` line the title is used (without `[Bug]`-style prefixes);
+  without a `Workaround:` line the entry has no arrow. Players' comments
+  are never read for these. All text is made inert: no mentions (`@everyone`
+  and `@here` lose their `@`, user, role and channel mentions are dropped),
+  no links (a link to one of this repository's issues becomes `#N`), Markdown
+  escaped, one line, at most 140 characters (160 for the workaround).
+- **Where it goes**: grouped by area: the guide (the first `guide:` label,
+  `guide:02-westfall` as "Westfall"), else Arrow and travel (`navigation`),
+  Guide engine (`engine`), Errors (`lua-error`), Polestar Client
+  (`client`), else Addon. Groups by their newest issue, issues newest first.
+  At most 20; past that a line says how many more and links the label's
+  list on GitHub.
+- **When it leaves**: open with `fix-merged`, or closed as completed after
+  the latest release, it moves to "Fixed in the next update" (it keeps its
+  workaround). Once the latest full release ships it (its `released:` label,
+  or the release notes' rule above for what a release ships), it shows under
+  "Fixed in X" for 7 days after X was published, then drops off. Closed as
+  not planned or duplicate, it drops off at once. At most 10 per fixed
+  section.
+- **The post**: plain messages of under 2000 characters (a bot's limit),
+  embeds suppressed, mentions disabled; a long board takes two or three,
+  split between lines, never after a heading (past three, fewer known issues
+  are shown). The bot's own messages in the channel, oldest first, are the
+  board: each is edited when its text changes (not when only the date
+  would), a new one is posted when the board grows and surplus ones are
+  deleted when it shrinks. Nothing is stored anywhere else. Other people's
+  messages in the channel are left alone; anything the bot itself posts
+  there becomes part of the board.
+- **When it runs**: `discord-known-issues.yml`, on a `known-issue` issue
+  being labelled, unlabelled, closed, reopened or edited (and when the
+  label is removed); a maintainer's comment with either line on one; a
+  release published; daily at 06:17 UTC (drops week-old fixes, catches
+  label changes made by other workflows, which start no runs); and by hand
+  (Actions, Discord known issues, Run workflow). It does nothing while
+  `KNOWN_ISSUES_CHANNEL_ID` is unset. `node tools/discord-bot/known.js
+  --dry-run` prints the board with only `GITHUB_TOKEN` and
+  `GITHUB_REPOSITORY` set.
 
 ## Setting it up
 
@@ -90,6 +162,10 @@ other issues or carry HTML. Say so in the #bugs guidelines, for example:
    All Roles for the bot in that channel). Copy the channel's id, that is
    `DISCORD_TESTERS_CHANNEL_ID`, and the role's (Server Settings, Roles,
    right-click the role, Copy Role ID), that is `DISCORD_TESTER_ROLE_ID`.
+6. For the known-issues board: in #known-issues (read-only for players),
+   give the bot View Channel, Send Messages and Read Message History (a
+   permission override for the bot's role or the bot). Copy the channel's
+   id: that is `KNOWN_ISSUES_CHANNEL_ID`.
 
 ### 2. GitHub
 
@@ -113,7 +189,8 @@ other issues or carry HTML. Say so in the #bugs guidelines, for example:
    `DISCORD_TOKEN` (the same bot token) and the variable `DISCORD_FORUM_ID`;
    for release candidates, the variables `DISCORD_TESTERS_CHANNEL_ID` and
    `DISCORD_TESTER_ROLE_ID`. Without both, a prerelease's run logs that no
-   one is told and succeeds.
+   one is told and succeeds. For the known-issues board, the variable
+   `KNOWN_ISSUES_CHANNEL_ID`, and the label `known-issue`.
    The issue workflow runs from the repository's default branch (`next`),
    so it works once this folder and `.github/workflows/discord-*.yml` are
    there. A release runs the tagged commit's copy of the release workflow,
@@ -147,9 +224,15 @@ bot.js refresh` writes every filed issue again from its post (title, body,
 the labels the report gives), then exits.
 
 A restart loses nothing: the bot reads back which posts it filed (a hidden
-marker in each issue body, and its "Tracked as" reply in each thread), files
-the posts made while it was away, and Discord replays what a short drop
-missed. Edits and follow-ups made during a long outage are not carried over.
+marker in each issue body, and its "Tracked as" reply in each thread) and
+which messages each issue has (each comment links its message). On every
+new gateway session (a start, or a drop Discord can't resume) it files the
+open posts made while it was away and copies, oldest first, every message of
+the last week in an open post's thread that its issue lacks (older ones need
+a one-off backfill); Discord replays what a resumed drop missed. A comment
+GitHub fails to take is tried again by the same catch-up 5 minutes later,
+backing off to an hour. A post a player tagged In progress is filed like any
+other: only the status tags moderators set mean a post was handled.
 
 ## Closing from Discord
 
@@ -177,21 +260,23 @@ see them but not use them.
 
 ## Working on it
 
-`npm test` runs `tests/discord-bot.test.js` and `tests/discord-links.test.js`
-over in-memory Discord and GitHub. To run the bot, `notify.js` or `links.js`
-against something else, `DISCORD_API` and `GITHUB_API_URL` point the
-clients elsewhere.
+`npm test` runs `tests/discord-bot.test.js`, `tests/discord-links.test.js`
+and `tests/discord-known.test.js` over in-memory Discord and GitHub. To run
+the bot, `notify.js`, `links.js` or `known.js` against something else,
+`DISCORD_API` and `GITHUB_API_URL` point the clients elsewhere.
 
 | File | What it does |
 |---|---|
 | `bot.js` | The service: settings, the gateway, the sync |
 | `notify.js` | The Actions' entry: `issue` (closed, reopened) and `release` |
 | `links.js` | The Actions' entry for pull requests: `event`, and `sweep` for every open one (`--dry-run`) |
+| `known.js` | The Actions' entry for the #known-issues board (`--dry-run` prints it) |
 | `lib/report.js` | The addon's report (`addon/Polestar/UI/Report.lua`) read back into fields |
 | `lib/issue.js` | Issue title, body, labels and comments; the marker; making player text inert |
 | `lib/sync.js` | Posts, follow-ups and edits to issues; the index and the backfill |
 | `lib/notify.js` | Close, reopen and release messages, tags and locks; the testers' ping for a prerelease |
 | `lib/links.js` | Which issues a pull request addresses; the issue's pull requests comment, the overlap warning and their labels |
+| `lib/known.js` | The #known-issues board: which issues, their words made inert, grouping, the fixed sections, splitting and writing in place |
 | `lib/gateway.js`, `lib/discord.js`, `lib/github.js` | The Discord gateway and the two REST APIs; the media branch |
 
 A change to the report's layout in `Report.lua` needs `lib/report.js` and

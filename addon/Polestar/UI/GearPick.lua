@@ -3,6 +3,8 @@
 --
 --   ^ Thornroot Club  +12%        an upgrade: the chevron and gain in success
 --   Take Thornroot Club           no choice is an upgrade: the best of them, muted
+--   Reward: Thornroot Club +12% · at turn-in
+--                                 on an accept goal, when the pick is an upgrade: muted
 --
 -- The item name is in its quality colour. Hover shows the item's tooltip
 -- (with Gear's comparison lines); a modified click links it (the client's
@@ -12,7 +14,8 @@
 --   UI.GearPick.Paint(row, goal)                -- after the row's subline is set
 --   UI.GearPick.Measure(row, width, h, above)   -- -> h, above (unchanged when hidden)
 -- Shown for open turn-in goals whose quest has gear choices this character
--- can use (Gear.QuestPick); hidden otherwise or with gear advice off.
+-- can use (Gear.QuestPick), and for open accept goals whose pick is an
+-- upgrade; hidden otherwise or with gear advice off (then nothing is looked up).
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -29,9 +32,11 @@ local CHEVRON = 10
 local function pickFor(goal)
 	local Gear = ns.Gear
 	if not (Gear and Gear.QuestPick and Gear.IsEnabled() and ns.Get("gear.rewards")) then return nil end
-	if goal.t ~= "turnin" or not goal.quest then return nil end
+	if (goal.t ~= "turnin" and goal.t ~= "accept") or not goal.quest then return nil end
 	if goal.status == "done" or goal.status == "skipped" then return nil end
-	return Gear.QuestPick(goal.quest)
+	local pick = Gear.QuestPick(goal.quest)
+	if goal.t == "accept" and not (pick and pick.upgrade) then return nil end
+	return pick
 end
 GP.PickFor = pickFor
 
@@ -111,7 +116,13 @@ function GP.Paint(row, goal)
 	f.psEntry = e
 	local name = "|c" .. qualityHex(itemQuality(e.id)) .. itemName(e.id) .. "|r"
 	f.Text:ClearAllPoints()
-	if pick.upgrade then
+	if goal.t == "accept" then
+		f.Chevron:Hide()
+		f.Gain:Hide()
+		f.Text:SetPoint("LEFT", f, "LEFT", 0, 0)
+		f.Text:SetText(L["Reward"] .. ": " .. name .. " " .. (e.pct and ns.Gear.GainText(e.pct) or L["new"])
+			.. " · " .. L["at turn-in"])
+	elseif pick.upgrade then
 		f.Chevron:Show()
 		f.Text:SetPoint("LEFT", f.Chevron, "RIGHT", 4, 0)
 		f.Text:SetText(name)

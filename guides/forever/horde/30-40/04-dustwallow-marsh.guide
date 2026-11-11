@@ -2,14 +2,15 @@
 guide forever/horde/30-40/04-dustwallow-marsh
 title Dustwallow Marsh & Desolace
 faction Horde
-levels 37-38
+levels 36-38
 zone Dustwallow Marsh
 next forever/horde/30-40/05-arathi-highlands
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Theramore Docks (1202), Parts of the Swarm (1184), Goblin Sponsorship (1178).
+# Added here: The Theramore Docks (1202), Parts of the Swarm (1184). Goblin Sponsorship (1178) and
+# Wharfmaster Dizzywig (1111) are handed in at Ratchet on the way to the Booty Bay boat, in 03.
 # Left out: Gizelton Caravan (5943), The Kolkar of Desolace (1362).
 
 # Dustwallow at 37-38, after Stranglethorn (the 2026-11-07 re-order), then a short second
@@ -19,7 +20,7 @@ next forever/horde/30-40/05-arathi-highlands
 # Flow: Grom'gol (where the previous guide ends) -> zeppelin to Orgrimmar (Soothing Spices) -> fly to the Crossroads (Korran) -> fly to Camp Taurajo -> the Shady
 # Rest Inn -> Brackenwall Village (flight path) -> Reethe -> Witch Hill (Stinky) -> the Mirefin
 # murlocs -> Swamplight Manor -> the spiders and venomspitters -> Brackenwall -> Swamplight
-# Manor -> the Theramore docks -> Brackenwall -> fly to Ratchet (Stinky's Mebok, Gazlowe;
+# Manor -> the Theramore docks -> Brackenwall -> fly to Ratchet (Stinky's Mebok;
 # Warriors: The Affray on Fray Island) -> fly to Shadowprey Village -> Mannoroc Coven -> Ghost
 # Walker Post -> the Valley of Spears (Melizza) -> Hornizz -> the Valley of Bones -> Hornizz and
 # Ghost Walker Post -> Shadowprey -> fly to Orgrimmar (Belgrom, Hunter and Shaman training),
@@ -37,7 +38,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 51.5,45.6 "Orgrimmar"
+  goto 51.5,45.6 "The middle of Orgrimmar"
 
 step Orgrimmar
   zone Orgrimmar
@@ -63,7 +64,7 @@ step Fly to Camp Taurajo
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
-  goto 29.7,47.6 "Dustwallow Marsh"
+  goto 29.7,47.6 "Shady Rest Inn"
 
 # ---------------------------------------------------------------- The Shady Rest Inn
 
@@ -78,7 +79,7 @@ step Shady Rest Inn
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
-  goto 35.1,38.3 "Dustwallow Marsh"
+  goto 35.1,38.3 "Brackenwall Village"
 
 step Brackenwall Village
   zone Dustwallow Marsh
@@ -98,7 +99,7 @@ step Brackenwall Village
 step Questioning Reethe
   tip Ogron waits in the Quagmire east of the village. Follow him to Reethe and keep him alive through the fight that breaks out.
   accept 1273
-  complete 1273
+  complete 1273 @42.6,38.1 map 1445
 
 # ---------------------------------------------------------------- Witch Hill
 
@@ -150,14 +151,8 @@ step Swamp Eye Jarl
   turnin 1203 optional
 
 step The Theramore Docks
+  tip South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57.
   collect 5882 quest 1202.1 @71.5,51.2 map 1445 -- Underwater
-
-step Level 37.5
-  when level<37.5
-  zone Dustwallow Marsh
-  tip Desolace's last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past Witch Hill, until level 37.5. Or, with a group, run the Razorfen Downs dungeon or the Scarlet Monastery dungeon (Armory) instead.
-  goto 54.3,14.8 map 1445 "Mirefin murlocs"
-  level 37.5                          -- grind on Mirefin Coastrunner
 
 step Brackenwall Village
   tip Head back west to Brackenwall with the head: Mudcrush Durtfeet stands at the south edge of the village where the road comes in, Nazeer Bloodpike in the village.
@@ -165,6 +160,13 @@ step Brackenwall Village
   turnin 1202                         -- Nazeer Bloodpike
   turnin 1239                         -- Nazeer Bloodpike
   accept 1240                         -- For Kin'weelay at Grom'gol, in forever/horde/40-50/01-stranglethorn-vale
+
+step Level 37.5
+  when level<37.5
+  zone Dustwallow Marsh
+  tip Desolace's last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the Razorfen Downs dungeon or the Scarlet Monastery dungeon (Armory) instead.
+  goto 31.4,22.2 map 1445 "Darkmist cavern"
+  level 37.5 grind 4377               -- grind on Darkmist Lurker
 
 # ---------------------------------------------------------------- Ratchet
 
@@ -176,9 +178,7 @@ step Fly to Ratchet
 
 step Ratchet
   zone The Barrens
-  tip Gazlowe waits upstairs in the house by the flight master; Mebok Mizzyrix stands below it, towards the docks.
-  turnin 1178                         -- Gazlowe
-  note Gazlowe's next errand takes you to Booty Bay, off this part of the route: leave it.
+  tip Mebok Mizzyrix stands below Gazlowe's house by the flight master, towards the docks.
   turnin 1270                         -- Mebok Mizzyrix
 
 step The Affray
@@ -187,7 +187,7 @@ step The Affray
   tip Head south along the coast from Ratchet to Fray Island. Klannoc Macleod stands by the arena: step on the grate to start the fight; the challengers come one at a time, then Big Will (33).
   turnin 1718                         -- Klannoc Macleod
   accept 1719
-  complete 1719
+  complete 1719 @68.6,48.7 map 1413
   turnin 1719                         -- Klannoc Macleod: Berserker Stance
 
 # ---------------------------------------------------------------- Desolace, the second visit
@@ -205,8 +205,7 @@ step Shadowprey Village
 
 step Portals of the Legion
   zone Desolace
-  tip Head east to Mannoroc Coven. Use the Rod of Banishing by each demon portal to close six of them.
-  tip Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.
+  tip Head east to Mannoroc Coven. With the Hand of Iruxos from Taiga in your bags, open a demon portal's ring: a Demon Portal Guardian (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake.
   goto 52.0,78.0 "Mannoroc Coven"
   complete 5581
 
@@ -282,7 +281,12 @@ step Belgrom Rockmaul
   zone Orgrimmar
   tip Belgrom Rockmaul stands in the Valley of Honor.
   turnin 1184                         -- Belgrom Rockmaul
-  turnin 2841                         -- Nogg, in the Valley of Honor beside Belgrom: Rig Wars, if you ran Gnomeregan
+
+step Nogg
+  when complete 2841
+  zone Orgrimmar
+  tip Nogg's workshop is in the Valley of Honor beside Belgrom: hand in Rig Wars if you ran Gnomeregan.
+  turnin 2841                         -- Nogg
 
 step Orgrimmar trainers
   only Hunter,Shaman

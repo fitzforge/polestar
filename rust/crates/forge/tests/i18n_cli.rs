@@ -32,7 +32,7 @@ fn status_lists_every_locale_with_its_status_and_translators() {
 		assert_eq!(l["locale"], want.code);
 		assert_eq!(l["status"], want.status);
 		assert_eq!(l["translators"].as_array().unwrap().len(), want.translators.len());
-		let file = root().join("addon/Polestar/Locales").join(format!("{}.lua", want.code)).exists();
+		let file = root().join(format!("addon/Polestar_{}/Interface.lua", want.code)).exists();
 		assert_eq!(l["file"], file);
 		if file {
 			let n = l["translated"].as_u64().unwrap();

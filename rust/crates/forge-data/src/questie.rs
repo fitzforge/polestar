@@ -412,8 +412,11 @@ fn read_entities(meta: &FxHashMap<String, String>, schema: &Schema) -> Result<En
 
 // ---------------------------------------------------------------- support data
 
-const SUPPORT_FILES: [&str; 7] = [
+/// Loaded in this order into one state: QuestieDB 1.0.13's player-trace XP rows
+/// (`xpDB-traces.lua`, `QuestXP.db[id] = {level, xp}`) come after the classic table and win.
+const SUPPORT_FILES: [&str; 8] = [
 	"support/Forever/QuestXP/xpDB-classic.lua",
+	"support/Forever/QuestXP/xpDB-traces.lua",
 	"support/Forever/DropTables/classicItemDrops.lua",
 	"support/Forever/DropTables/itemDropCorrections.lua",
 	"support/Forever/FactionTemplates/factionTemplateClassic.lua",

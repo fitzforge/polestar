@@ -17,18 +17,20 @@ next forever/alliance/06-ashenvale
 # Flow: Auberdine (the quests whose work is on these loops) -> Onu at the Grove -> the Master's
 # Glaive, Remtravel's dig, Murkdeep's beach -> the Grove -> Auberdine ->
 # the naga and the Ruins of Mathystra -> back south (Auberdine, the Grove) -> Volcor -> Auberdine
-# (Druids: Cat Form), then Kerlonian's escort into Ashenvale (06-ashenvale).
+# (Druids: Cat Form), then Kerlonian's escort south through Darkshore (06-ashenvale).
 
 # ---------------------------------------------------------------- Auberdine
 
 step Auberdine
   zone Darkshore
-  tip From the dock, up to the north end of the village first (Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south.
+  tip From the dock, up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.
+  turnin 97926 optional                       -- Thundris Windweaver, north end of the village: Baros Alexston's reply
   accept 6123 only NightElf,Druid             -- Alanndarian Nightsong
   accept 729                                  -- Archaeologist Hollee
   vendor nearest optional
   accept 4740                                 -- The WANTED poster
   accept 986                                  -- Terenthis
+  accept 990                                  -- Sentinel Selarin, beside Terenthis: for Raene Wolfrunner in Astranaar, in the next guide
 
 step Onu
   when onquest 952
@@ -53,9 +55,8 @@ step The Grove of the Ancients
   turnin 1003                                 -- Buzzbox 525
 
 step The Master's Glaive
-  tip Moonstalker Sires prowl the woods around the glaive. The Scrying Bowl and the Twilight Tome sit at the bottom of the crater; Therylune stands on its north side.
+  tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater; Therylune stands on its north side. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.
   collect 5386 quest 986                      -- Fine Moonstalker Pelts
-  accept 98042
   accept 945                                  -- Therylune
   complete 945                                -- Escort her out of the glaive; Therysil takes the turn-in in Ashenvale
   accept 968 optional                         -- Only if a Disciple or Thug dropped Book: The Powers Below: right-click it
@@ -64,6 +65,7 @@ step The Master's Glaive
   accept 949
   turnin 949                                  -- The Twilight Tome
   accept 950
+  accept 98042                                -- The Twilight Tome, once it has The Twilight Camp
   collect 279279 quest 98042                  -- Peerless Eye: Twilight Disciples and Thugs
 
 step Prospector Remtravel
@@ -134,7 +136,11 @@ step The Ruins of Mathystra
   collect 7500 quest 2098 @56.9,13.1 map 1439
   collect 7499 quest 2098 @55.5,12.6 map 1439 -- Underwater
   turnin 2098
-  collect 15883 x1 only NightElf,Druid        -- Half Pendant of Aquatic Agility: the Strange Lockbox under the water off the north coast, west of the ruins
+
+step Strange Lockbox
+  only NightElf,Druid
+  when onquest 272
+  collect 15883 x1                            -- Half Pendant of Aquatic Agility: the Strange Lockbox under the water off the north coast, west of the ruins
 
 step Mist's Edge: kill these as you meet them
   zone Darkshore
@@ -153,12 +159,11 @@ step Volcor
   turnin 993                                  -- Volcor, inside Blackwood Den
   accept 994
   complete 994 @41.7,81.5                     -- His walk ends at the road, where Grimclaw waits
-  kill 12298 quest 6124.1 only NightElf,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
+  kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
 
 step Auberdine
   only Druid
   turnin 994                                  -- Terenthis
-  accept 990                                  -- Sentinel Selarin: for Raene Wolfrunner in Astranaar, in the next guide
 
 step Auberdine flight master
   only Druid
@@ -175,10 +180,12 @@ step The Great Cat Spirit
   getfp "Rut'theran Village" only Skyborne
   level 20 only Druid
 
+# Mathrengyl stands upstairs in the druids' building; the walking maps have no way up inside it, so
+# this goto is its door on the south side (players' recordings walk in there), not his spot (#1338).
 step Darnassus
   only NightElf,Skyborne,Druid
   zone Darnassus
-  goto 35.4,8.4 "Darnassus"
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
 
 step The Great Cat Spirit
   only Druid
@@ -241,10 +248,11 @@ step Back to Dendrite
   accept 98397 only NightElf,Skyborne
   fly "Rut'theran Village"
 
+# The druids' building's door, as above (#1338).
 step Darnassus
   only NightElf,Skyborne,Druid
   zone Darnassus
-  goto 35.4,8.4 "Darnassus"
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
 
 step To Darnassus
   only Druid

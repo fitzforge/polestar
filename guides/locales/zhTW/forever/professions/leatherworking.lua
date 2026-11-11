@@ -9,8 +9,8 @@ return {
 	-- Step 1: Learn Leatherworking
 	-- {skill:165} Leatherworking
 	["Learn {skill:165}"] = "",
-	-- {skill:165} Leatherworking · {skill:393} Skinning · {item:2318} Light Leather · {item:2320} Coarse Thread
-	["Apprentice {skill:165} lets you craft up to 75 for 10c, at any character level. Any {skill:165} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:393}: {item:2318} comes from the beasts of every starting zone. {item:2320} and Salt are sold by leatherworking and trade supplies vendors. 1-75 takes about 1s 50c of recipes and 5s of vendor goods, plus 349 {item:2318} to gather or buy."] = "",
+	-- {skill:165} Leatherworking · {npc:1632} Adele Fielder · {zone:1429} Elwynn Forest · {npc:11083} Darianna · {zone:1457} Darnassus · {npc:252376} Emerii Tallgust · {zone:2521} Zephras Isle · {npc:1466} Gretta Finespindle · {zone:1455} Ironforge · {npc:251993} Indari Sunseam · {npc:3605} Nadyia Maneweaver · {zone:1438} Teldrassil · {npc:11096} Randal Worth · {zone:1453} Stormwind City · {npc:3069} Chaw Stronghide · {zone:1412} Mulgore · {npc:223} Dan Golthas · {zone:1458} Undercity · {npc:5811} Kamari · {zone:1454} Orgrimmar · {npc:3008} Mak · {zone:1456} Thunder Bluff · {npc:3549} Shelene Rhobart · {zone:1420} Tirisfal Glades · {skill:393} Skinning · {item:2318} Light Leather · {item:2320} Coarse Thread
+	["Apprentice {skill:165} lets you craft up to 75 for 10c, at any character level. Not every {skill:165} trainer teaches it: Alliance {npc:1632} ({zone:1429}), {npc:11083} ({zone:1457}), {npc:252376} ({zone:2521}), {npc:1466} ({zone:1455}), {npc:251993} ({zone:2521}), {npc:3605} ({zone:1438}) and {npc:11096} ({zone:1453}); Horde {npc:3069} ({zone:1412}), {npc:223} ({zone:1458}), {npc:252376} ({zone:2521}), {npc:251993} ({zone:2521}), {npc:5811} ({zone:1454}), {npc:3008} ({zone:1456}) and {npc:3549} ({zone:1420}). The arrow picks the nearest of your faction. Pair it with {skill:393}: {item:2318} comes from the beasts of every starting zone. {item:2320} and Salt are sold by leatherworking and trade supplies vendors. 1-75 takes about 1s 50c of recipes and 5s of vendor goods, plus 349 {item:2318} to gather or buy."] = "初級{skill:165}可讓你把技能練到75，學費10銅，不限角色等級。並非每位{skill:165}訓練師都會教：聯盟有{npc:1632}（{zone:1429}）、{npc:11083}（{zone:1457}）、{npc:252376}（{zone:2521}）、{npc:1466}（{zone:1455}）、{npc:251993}（{zone:2521}）、{npc:3605}（{zone:1438}）和{npc:11096}（{zone:1453}）；部落有{npc:3069}（{zone:1412}）、{npc:223}（{zone:1458}）、{npc:252376}（{zone:2521}）、{npc:251993}（{zone:2521}）、{npc:5811}（{zone:1454}）、{npc:3008}（{zone:1456}）和{npc:3549}（{zone:1420}）。箭頭會選擇你陣營最近的一位。搭配{skill:393}一起學：{item:2318}來自每個起始地區的野獸。{item:2320}和鹽由製皮供應商和雜貨商出售。1-75約需1銀50銅的配方和5銀的商人材料，另需採集或購買349張{item:2318}。",
 
 	-- Step 2: Leatherworking 1-75: vendor goods
 	-- {skill:165} Leatherworking
@@ -67,8 +67,8 @@ return {
 	-- Step 13: Journeyman Leatherworking
 	-- {skill:165} Leatherworking
 	["Journeyman {skill:165}"] = "中級{skill:165}",
-	-- {skill:165} Leatherworking · {npc:3967} Aayndia Floralwind · {zone:1440} Ashenvale · {npc:11097} Drakk Stonehand · {zone:1425} The Hinterlands · {npc:252376} Emerii Tallgust · {zone:2521} Zephras Isle · {zone:1457} Darnassus · {npc:5127} Fimble Finespindle · {zone:1455} Ironforge · {npc:5564} Simon Tanner · {zone:1453} Stormwind City · {npc:4212} Telonis · {npc:4588} Arthur Moore · {zone:1458} Undercity · {npc:1385} Brawn · {zone:1434} Stranglethorn Vale · {npc:11098} Hahrana Ironhide · {zone:1444} Feralas · {npc:3365} Karolek · {zone:1454} Orgrimmar · {npc:3703} Krulmoo Fullmoon · {zone:1413} The Barrens · {npc:8153} Narv Hidecrafter · {zone:1443} Desolace · {zone:1456} Thunder Bluff · {npc:3007} Una · {spell:3763} Fine Leather Belt · {item:2319} Medium Leather · {item:2457} Elixir of Minor Agility · {item:4234} Heavy Leather
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:165} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:165} trainer teaches it: Alliance {npc:3967} ({zone:1440}), {npc:11097} ({zone:1425}), {npc:252376} ({zone:2521}), Faldron ({zone:1457}), {npc:5127} ({zone:1455}), {npc:5564} ({zone:1453}) and {npc:4212} ({zone:1457}); Horde {npc:4588} ({zone:1458}), {npc:1385} ({zone:1434}), {npc:252376} ({zone:2521}), {npc:11098} ({zone:1444}), {npc:3365} ({zone:1454}), {npc:3703} ({zone:1413}), {npc:8153} ({zone:1443}), Tarn ({zone:1456}) and {npc:3007} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:3763} (from 55, 3s). 75-150 takes about 15s 50c of recipes and 57s of vendor goods, plus 144 {item:2319}, 24 {item:2457} and 308 {item:4234} to gather or buy."] = "",
+	-- {skill:165} Leatherworking · {npc:3967} Aayndia Floralwind · {zone:1440} Ashenvale · {npc:252376} Emerii Tallgust · {zone:2521} Zephras Isle · {npc:11081} Faldron · {zone:1457} Darnassus · {npc:5127} Fimble Finespindle · {zone:1455} Ironforge · {npc:5564} Simon Tanner · {zone:1453} Stormwind City · {npc:4588} Arthur Moore · {zone:1458} Undercity · {npc:1385} Brawn · {zone:1434} Stranglethorn Vale · {npc:3365} Karolek · {zone:1454} Orgrimmar · {npc:3703} Krulmoo Fullmoon · {zone:1413} The Barrens · {npc:8153} Narv Hidecrafter · {zone:1443} Desolace · {npc:11084} Tarn · {zone:1456} Thunder Bluff · {spell:3763} Fine Leather Belt · {item:2319} Medium Leather · {item:2457} Elixir of Minor Agility · {item:4234} Heavy Leather
+	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:165} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:165} trainer teaches it: Alliance {npc:3967} ({zone:1440}), {npc:252376} ({zone:2521}), {npc:11081} ({zone:1457}), {npc:5127} ({zone:1455}) and {npc:5564} ({zone:1453}); Horde {npc:4588} ({zone:1458}), {npc:1385} ({zone:1434}), {npc:252376} ({zone:2521}), {npc:3365} ({zone:1454}), {npc:3703} ({zone:1413}), {npc:8153} ({zone:1443}) and {npc:11084} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:3763} (from 55, 3s). 75-150 takes about 15s 50c of recipes and 57s of vendor goods, plus 144 {item:2319}, 24 {item:2457} and 321 {item:4234} to gather or buy."] = "中級將上限從75提高到150，費用5銀；需要{skill:165} 50和角色等級10，所以技能達到50後，任何一次經過都可以學。並非每位{skill:165}訓練師都會教：聯盟有{npc:3967}（{zone:1440}）、{npc:252376}（{zone:2521}）、{npc:11081}（{zone:1457}）、{npc:5127}（{zone:1455}）和{npc:5564}（{zone:1453}）；部落有{npc:4588}（{zone:1458}）、{npc:1385}（{zone:1434}）、{npc:252376}（{zone:2521}）、{npc:3365}（{zone:1454}）、{npc:3703}（{zone:1413}）、{npc:8153}（{zone:1443}）和{npc:11084}（{zone:1456}）。箭頭會選擇你陣營最近的一位。現在學習：{spell:3763}（技能55起，3銀）。75-150約需15銀50銅的配方和57銀的商人材料，另需採集或購買144張{item:2319}、24瓶{item:2457}和321張{item:4234}。",
 
 	-- Step 14: Leatherworking 75-150: vendor goods
 	-- {skill:165} Leatherworking
@@ -89,12 +89,12 @@ return {
 	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30; or the Auction House. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "",
 
 	-- Step 19: Heavy Leather (Alterac Mountains)
-	-- {item:4234} Heavy Leather · {spell:3780} Heavy Armor Kit · {item:4304} Thick Leather · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti
-	["308 {item:4234} for {spell:3780} and {item:4304} (178 of them for 150-225: pick them all now): {skill:393}: beasts of level 28-40; or the Auction House. Skin {npc:2248}, {npc:2249}, {npc:2251}, {npc:2407}, {npc:2406}, {npc:2250} and Snapjaw here (level 28-40); the {skill:393} guide routes this."] = "",
+	-- {item:4234} Heavy Leather · {spell:3780} Heavy Armor Kit · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti
+	["321 {item:4234} for {spell:3780}, {item:5964} and {item:5966} (191 of them for 150-225: pick them all now): {skill:393}: beasts of level 28-40; or the Auction House. Skin {npc:2248}, {npc:2249}, {npc:2251}, {npc:2407}, {npc:2406}, {npc:2250} and Snapjaw here (level 28-40); the {skill:393} guide routes this."] = "為{spell:3780}、{item:5964}和{item:5966}準備321張{item:4234}（其中191張用於150-225階段：現在一次收齊）：{skill:393}：剝取28-40級野獸；或從拍賣場購買。在這裡剝取{npc:2248}、{npc:2249}、{npc:2251}、{npc:2407}、{npc:2406}、{npc:2250}和鉗嘴龜（28-40級）的皮；{skill:393}指南有對應路線。",
 
 	-- Step 20: Heavy Leather (Thousand Needles)
-	-- {item:4234} Heavy Leather · {spell:3780} Heavy Armor Kit · {item:4304} Thick Leather · {skill:393} Skinning · {npc:4107} Highperch Wyvern · {npc:4147} Saltstone Basilisk · {npc:4140} Scorpid Reaver · {npc:4139} Scorpid Terror · {npc:4143} Sparkleshell Snapper · {npc:4142} Sparkleshell Tortoise
-	["308 {item:4234} for {spell:3780} and {item:4304} (178 of them for 150-225: pick them all now): {skill:393}: beasts of level 28-40; or the Auction House. Skin {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} and {npc:4142} here (level 28-40); the {skill:393} guide routes this."] = "",
+	-- {item:4234} Heavy Leather · {spell:3780} Heavy Armor Kit · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:4107} Highperch Wyvern · {npc:4147} Saltstone Basilisk · {npc:4140} Scorpid Reaver · {npc:4139} Scorpid Terror · {npc:4143} Sparkleshell Snapper · {npc:4142} Sparkleshell Tortoise
+	["321 {item:4234} for {spell:3780}, {item:5964} and {item:5966} (191 of them for 150-225: pick them all now): {skill:393}: beasts of level 28-40; or the Auction House. Skin {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} and {npc:4142} here (level 28-40); the {skill:393} guide routes this."] = "為{spell:3780}、{item:5964}和{item:5966}準備321張{item:4234}（其中191張用於150-225階段：現在一次收齊）：{skill:393}：剝取28-40級野獸；或從拍賣場購買。在這裡剝取{npc:4107}、{npc:4147}、{npc:4140}、{npc:4139}、{npc:4143}和{npc:4142}（28-40級）的皮；{skill:393}指南有對應路線。",
 
 	-- Step 23: Fine Leather Belt to 102
 	-- {spell:3763} Fine Leather Belt
@@ -130,128 +130,137 @@ return {
 	-- {skill:165} Leatherworking
 	["{skill:165} 150-225: vendor goods"] = "",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 8 {item:2321} (8s) and 32 {item:4291} (1g 60s); about 1g 68s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次買齊這個階段所需的份量：29個{item:2321}（29銀）、66份鹽（33銀）和145個{item:4291}（7金25銀）；總計約7金87銀。箭頭會指向你陣營最近的賣家（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。",
 
-	-- Step 29: Thick Leather (Alliance)
+	-- Step 29: Heavy Hide (Alliance)
+	-- {item:4235} Heavy Hide
+	["{item:4235} (Alliance)"] = "{item:4235}（聯盟）",
+	-- {item:4235} Heavy Hide · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti
+	["22 {item:4235} for {item:5964} and {item:5966}: {skill:393}: beasts of level 28-40; or the Auction House. Skin {npc:2248}, {npc:2249}, {npc:2251}, {npc:2407}, {npc:2406}, {npc:2250} and Snapjaw here (level 28-40); the {skill:393} guide routes this."] = "為{item:5964}和{item:5966}準備22張{item:4235}：{skill:393}：剝取28-40級野獸；或從拍賣場購買。在這裡剝取{npc:2248}、{npc:2249}、{npc:2251}、{npc:2407}、{npc:2406}、{npc:2250}和鉗嘴龜（28-40級）的皮；{skill:393}指南有對應路線。",
+
+	-- Step 30: Heavy Hide (Horde)
+	-- {item:4235} Heavy Hide
+	["{item:4235} (Horde)"] = "{item:4235}（部落）",
+	-- {item:4235} Heavy Hide · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:4107} Highperch Wyvern · {npc:4147} Saltstone Basilisk · {npc:4140} Scorpid Reaver · {npc:4139} Scorpid Terror · {npc:4143} Sparkleshell Snapper · {npc:4142} Sparkleshell Tortoise
+	["22 {item:4235} for {item:5964} and {item:5966}: {skill:393}: beasts of level 28-40; or the Auction House. Skin {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} and {npc:4142} here (level 28-40); the {skill:393} guide routes this."] = "為{item:5964}和{item:5966}準備22張{item:4235}：{skill:393}：剝取28-40級野獸；或從拍賣場購買。在這裡剝取{npc:4107}、{npc:4147}、{npc:4140}、{npc:4139}、{npc:4143}和{npc:4142}（28-40級）的皮；{skill:393}指南有對應路線。",
+
+	-- Step 31: Thick Leather (Alliance)
 	-- {item:4304} Thick Leather
 	["{item:4304} (Alliance)"] = "{item:4304}（聯盟）",
-	-- {item:4304} Thick Leather · {item:8173} Thick Armor Kit · {item:8170} Rugged Leather · {skill:393} Skinning · {npc:2729} Elder Crag Coyote · {npc:2730} Rabid Crag Coyote · {npc:2732} Ridge Huntress · {npc:2734} Ridge Stalker Patriarch
-	["257 {item:4304} for {item:8173} and {item:8170}: {skill:393}: beasts of level 38-50; or the Auction House. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this."] = "",
+	-- {item:4304} Thick Leather · {item:8176} Nightscape Headband · {item:8193} Nightscape Pants · {skill:393} Skinning · {npc:2729} Elder Crag Coyote · {npc:2730} Rabid Crag Coyote · {npc:2732} Ridge Huntress · {npc:2734} Ridge Stalker Patriarch
+	["373 {item:4304} for {item:8176} and {item:8193}: {skill:393}: beasts of level 38-50; or the Auction House. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this."] = "為{item:8176}和{item:8193}準備373張{item:4304}：{skill:393}：剝取38-50級野獸；或從拍賣場購買。在這裡剝取{npc:2729}、{npc:2730}、{npc:2732}和{npc:2734}（38-50級）的皮；{skill:393}指南有對應路線。",
 
-	-- Step 30: Thick Leather (Horde)
+	-- Step 32: Thick Leather (Horde)
 	-- {item:4304} Thick Leather
 	["{item:4304} (Horde)"] = "{item:4304}（部落）",
-	-- {item:4304} Thick Leather · {item:8173} Thick Armor Kit · {item:8170} Rugged Leather · {skill:393} Skinning · {npc:5292} Feral Scar Yeti · {npc:5300} Frayfeather Hippogryph · {npc:5304} Frayfeather Stagwing · {npc:5272} Grizzled Ironfur Bear · {npc:5260} Groddoc Ape · {npc:5262} Groddoc Thunderer · {npc:5268} Ironfur Bear · {npc:5274} Ironfur Patriarch · {npc:5287} Longtooth Howler · {npc:5286} Longtooth Runner · {npc:5296} Rage Scar Yeti
-	["257 {item:4304} for {item:8173} and {item:8170}: {skill:393}: beasts of level 38-50; or the Auction House. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this."] = "",
+	-- {item:4304} Thick Leather · {item:8176} Nightscape Headband · {item:8193} Nightscape Pants · {skill:393} Skinning · {npc:5292} Feral Scar Yeti · {npc:5300} Frayfeather Hippogryph · {npc:5304} Frayfeather Stagwing · {npc:5272} Grizzled Ironfur Bear · {npc:5260} Groddoc Ape · {npc:5262} Groddoc Thunderer · {npc:5268} Ironfur Bear · {npc:5274} Ironfur Patriarch · {npc:5287} Longtooth Howler · {npc:5286} Longtooth Runner · {npc:5296} Rage Scar Yeti
+	["373 {item:4304} for {item:8176} and {item:8193}: {skill:393}: beasts of level 38-50; or the Auction House. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this."] = "為{item:8176}和{item:8193}準備373張{item:4304}：{skill:393}：剝取38-50級野獸；或從拍賣場購買。在這裡剝取{npc:5292}、{npc:5300}、{npc:5304}、{npc:5272}、{npc:5260}、{npc:5262}、{npc:5268}、{npc:5274}、{npc:5287}、{npc:5286}和{npc:5296}（38-50級）的皮；{skill:393}指南有對應路線。",
 
-	-- Step 31: Expert Leatherworking
+	-- Step 33: Expert Leatherworking
 	-- {skill:165} Leatherworking
 	["Expert {skill:165}"] = "高級{skill:165}",
-	-- {skill:165} Leatherworking · {npc:11097} Drakk Stonehand · {zone:1425} The Hinterlands · {npc:4212} Telonis · {zone:1457} Darnassus · {npc:11098} Hahrana Ironhide · {zone:1444} Feralas · {npc:3007} Una · {zone:1456} Thunder Bluff · {item:4304} Thick Leather · {item:8173} Thick Armor Kit · {item:8170} Rugged Leather
-	["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:11097} ({zone:1425}) and {npc:4212} ({zone:1457}); Horde {npc:11098} ({zone:1444}) and {npc:3007} ({zone:1456}). The arrow picks the nearest of your faction. 150-225 takes about 1g 68s of vendor goods, plus 257 {item:4304} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:4304} (from 155) and {item:8173} (from 175), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. {item:8170} (from 205) takes a second trip, to other trainers (below)."] = "",
+	-- {skill:165} Leatherworking · {npc:4212} Telonis · {zone:1457} Darnassus · {npc:3007} Una · {zone:1456} Thunder Bluff · {spell:3818} Cured Heavy Hide · {spell:7151} Barbaric Shoulders · {item:4235} Heavy Hide · {item:4304} Thick Leather · {item:5966} Guardian Gloves · {item:8176} Nightscape Headband · {item:8193} Nightscape Pants
+	["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4212} ({zone:1457}); Horde {npc:3007} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:3818} (from 125, 5s) and {spell:7151} (from 150). 150-225 takes about 5s of recipes and 7g 87s of vendor goods, plus 22 {item:4235} and 373 {item:4304} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:5966} (from 165), {item:8176} (from 180) and {item:8193} (from 210), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 4."] = "高級將上限從150提高到225；需要{skill:165} 125和角色等級20，所以技能達到125後，任何一次經過都可以學。只有少數訓練師會教：聯盟為{npc:4212}（{zone:1457}）；部落為{npc:3007}（{zone:1456}）。箭頭會選擇你陣營最近的一位。現在學習：{spell:3818}（技能125起，5銀）和{spell:7151}（技能150起）。150-225約需5銀的配方和7金87銀的商人材料，另需採集或購買22張{item:4235}和373張{item:4304}。把這些全部帶在背包裡再來（按上面的步驟收集，其餘從拍賣場購買）：這些訓練師也教{item:5966}（技能165起）、{item:8176}（技能180起）和{item:8193}（技能210起），而且製作不需要工作台，可以就在這裡製作，技能一到就學新配方。只要跑一趟，不用跑4趟。",
 
-	-- Step 32: Heavy Armor Kit to 155
+	-- Step 34: Heavy Armor Kit to 158
 	-- {spell:3780} Heavy Armor Kit
-	["{spell:3780} to 155"] = "",
+	["{spell:3780} to 158"] = "{spell:3780}練到158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 8 crafts to 155. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "",
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}在技能150時為黃色（145變黃、155變綠、165變灰）：約製作15次可到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（來自28-40級野獸）；做出的護甲片可以賣給商人。",
 
-	-- Step 33: Leatherworking recipes at 155
+	-- Step 35: Barbaric Shoulders to 165
+	-- {item:5964} Barbaric Shoulders
+	["{item:5964} to 165"] = "{item:5964}練到165",
+	-- {item:5964} Barbaric Shoulders · {item:4234} Heavy Leather · {spell:3818} Cured Heavy Hide · {item:2321} Fine Thread
+	["{item:5964} is orange at 158 (yellow 170, green 180, grey 190): about 7 crafts to 165, a point every craft. Each takes 8 {item:4234}, 1 {spell:3818} and 2 {item:2321}. Make the 7 {spell:3818} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:5964}在技能158時為橙色（170變黃、180變綠、190變灰）：約製作7次可到165，每次都加1點。每次需要8個{item:4234}、1個{spell:3818}和2個{item:2321}。先做好7個{spell:3818}。訓練師會教這個配方，而且這是資料中度過這幾點最便宜的方式。",
+
+	-- Step 36: Leatherworking recipes at 165
 	-- {skill:165} Leatherworking
-	["{skill:165} recipes at 155"] = "",
-	-- {spell:20650} Thick Leather
-	["Still at the Expert trainer: {spell:20650} (from 155)."] = "",
+	["{skill:165} recipes at 165"] = "{skill:165}165點的配方",
+	-- {spell:7156} Guardian Gloves
+	["Still at the Expert trainer: {spell:7156} (from 165)."] = "繼續在高級訓練師處學習{spell:7156}（技能165起可學）。",
 
-	-- Step 34: Thick Leather to 177
-	-- {item:4304} Thick Leather
-	["{item:4304} to 177"] = "",
-	-- {item:4304} Thick Leather · {item:4234} Heavy Leather
-	-- plural, as words: Thick Armor Kits = {item:8173} Thick Armor Kit
-	["{item:4304} is orange at 155 (yellow 175, green 177, grey 180): about 23 crafts to 177. Each takes 6 {item:4234}. Six {item:4234} make one {item:4304}, orange until 175: keep them, the Thick Armor Kits next use them."] = "",
+	-- Step 37: Guardian Gloves to 180
+	-- {item:5966} Guardian Gloves
+	["{item:5966} to 180"] = "{item:5966}練到180",
+	-- {item:5966} Guardian Gloves · {item:4234} Heavy Leather · {spell:3818} Cured Heavy Hide · {item:4291} Silken Thread
+	["{item:5966} is orange at 165 (yellow 185, green 195, grey 205): about 15 crafts to 180, a point every craft. Each takes 4 {item:4234}, 1 {spell:3818} and 1 {item:4291}. Make the 15 {spell:3818} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:5966}在技能165時為橙色（185變黃、195變綠、205變灰）：約製作15次可到180，每次都加1點。每次需要4個{item:4234}、1個{spell:3818}和1個{item:4291}。先做好15個{spell:3818}。訓練師會教這個配方，而且這是資料中度過這幾點最便宜的方式。",
 
-	-- Step 35: Leatherworking recipes at 177
+	-- Step 38: Leatherworking recipes at 180
 	-- {skill:165} Leatherworking
-	["{skill:165} recipes at 177"] = "",
-	-- {spell:10487} Thick Armor Kit
-	["Still at the Expert trainer: {spell:10487} (from 175)."] = "",
+	["{skill:165} recipes at 180"] = "{skill:165}180點的配方",
+	-- {spell:10507} Nightscape Headband
+	["Still at the Expert trainer: {spell:10507} (from 180)."] = "繼續在高級訓練師處學習{spell:10507}（技能180起可學）。",
 
-	-- Step 36: Thick Armor Kit to 205
-	-- {item:8173} Thick Armor Kit
-	["{item:8173} to 205"] = "",
-	-- {item:8173} Thick Armor Kit · {item:4304} Thick Leather · {item:4291} Silken Thread
-	["{item:8173} is orange at 177 (yellow 195, green 205, grey 215): about 32 crafts to 205. Each takes 5 {item:4304} and 1 {item:4291}. Use the 23 {item:4304} you made earlier; the counts above leave them out. Five {item:4304} a craft; the kits sell to vendors."] = "",
+	-- Step 39: Nightscape Headband to 213
+	-- {item:8176} Nightscape Headband
+	["{item:8176} to 213"] = "{item:8176}練到213",
+	-- {item:8176} Nightscape Headband · {item:4304} Thick Leather · {item:4291} Silken Thread
+	["{item:8176} is orange at 180 (yellow 200, green 210, grey 220): about 41 crafts to 213. Each takes 5 {item:4304} and 2 {item:4291}. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:8176}在技能180時為橙色（200變黃、210變綠、220變灰）：約製作41次可到213。每次需要5個{item:4304}和2個{item:4291}。訓練師會教這個配方，而且這是資料中度過這幾點最便宜的方式。",
 
-	-- Step 37: Leatherworking recipes at 205
+	-- Step 40: Leatherworking recipes at 213
 	-- {skill:165} Leatherworking
-	["{skill:165} recipes at 205"] = "",
-	-- {spell:22331} Rugged Leather · {npc:11097} Drakk Stonehand · {zone:1425} The Hinterlands · {npc:11098} Hahrana Ironhide · {zone:1444} Feralas · {skill:165} Leatherworking
-	["{spell:22331} (from 205) is taught only by the Artisan trainers: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). You can train Artisan there now if you are level 35 (it needs {skill:165} 200), which saves the trip at 225."] = "",
+	["{skill:165} recipes at 213"] = "{skill:165}213點的配方",
+	-- {spell:10548} Nightscape Pants
+	["Still at the Expert trainer: {spell:10548} (from 210)."] = "繼續在高級訓練師處學習{spell:10548}（技能210起可學）。",
 
-	-- Step 38: Rugged Leather to 225
-	-- {item:8170} Rugged Leather
-	["{item:8170} to 225"] = "",
-	-- {item:8170} Rugged Leather · {item:4304} Thick Leather · {skill:165} Leatherworking
-	["{item:8170} is orange at 205 (yellow 225, green 225, grey 225): about 20 crafts to 225, a point every craft. Each takes 6 {item:4304}. {item:8170} from {item:4304}: the points come cheap and you need the {item:8170} next. {skill:165} 225 is a Legacy System milestone."] = "",
+	-- Step 41: Nightscape Pants to 225
+	-- {item:8193} Nightscape Pants
+	["{item:8193} to 225"] = "{item:8193}練到225",
+	-- {item:8193} Nightscape Pants · {item:4304} Thick Leather · {item:4291} Silken Thread · {skill:165} Leatherworking
+	["{item:8193} is orange at 213 (yellow 225, green 235, grey 245): about 12 crafts to 225, a point every craft. Each takes 14 {item:4304} and 4 {item:4291}. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:165} 225 is a Legacy System milestone."] = "{item:8193}在技能213時為橙色（225變黃、235變綠、245變灰）：約製作12次可到225，每次都加1點。每次需要14個{item:4304}和4個{item:4291}。訓練師會教這個配方，而且這是資料中度過這幾點最便宜的方式。{skill:165}達到225是傳承系統的一個里程碑。",
 
-	-- Step 39: Artisan Leatherworking
+	-- Step 42: Artisan Leatherworking
 	-- {skill:165} Leatherworking
 	["Artisan {skill:165}"] = "專家級{skill:165}",
 	-- {skill:165} Leatherworking · {npc:11097} Drakk Stonehand · {zone:1425} The Hinterlands · {npc:11098} Hahrana Ironhide · {zone:1444} Feralas · {spell:19058} Rugged Armor Kit · {item:8170} Rugged Leather · {item:14047} Runecloth
-	["Artisan raises the cap from 225 to 300; it needs {skill:165} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). The arrow picks the nearest of your faction. Learn now: {spell:19058} (from 205). 225-300 takes about 3g 40s of recipes and 44g 90s of vendor goods, plus 1009 {item:8170} and 430 {item:14047} to gather or buy."] = "",
+	["Artisan raises the cap from 225 to 300; it needs {skill:165} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). The arrow picks the nearest of your faction. Learn now: {spell:19058} (from 225). 225-300 takes about 3g 40s of recipes and 44g 90s of vendor goods, plus 1029 {item:8170} and 430 {item:14047} to gather or buy."] = "專家級將上限從225提高到300；需要{skill:165} 200和角色等級35，所以技能達到200後，任何一次經過都可以學。只有少數訓練師會教：聯盟為{npc:11097}（{zone:1425}）；部落為{npc:11098}（{zone:1444}）。箭頭會選擇你陣營最近的一位。現在學習：{spell:19058}（技能225起）。225-300約需3金40銀的配方和44金90銀的商人材料，另需採集或購買1029張{item:8170}和430個{item:14047}。",
 
-	-- Step 40: Leatherworking 225-300: vendor goods
+	-- Step 43: Leatherworking 225-300: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 225-300: vendor goods"] = "",
 	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
 
-	-- Step 41: Pattern: Wicked Leather Gauntlets
+	-- Step 44: Pattern: Wicked Leather Gauntlets
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking · {npc:12942} Leonard Porter · {zone:1422} Western Plaguelands · {npc:12943} Werg Thickblade
 	["{item:15725} teaches {item:15083} ({skill:165} 235) for 1g 20s. Sold by Alliance: {npc:12942} ({zone:1422}), limited stock; Horde: {npc:12943} ({zone:1422}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
 
-	-- Step 42: Pattern: Runic Leather Headband
+	-- Step 45: Pattern: Runic Leather Headband
 	-- {item:15756} Pattern: Runic Leather Headband · {item:15094} Runic Leather Headband · {skill:165} Leatherworking · {npc:12941} Jase Farlane · {zone:1423} Eastern Plaguelands
 	["{item:15756} teaches {item:15094} ({skill:165} 265) for 2g 20s. Sold by {npc:12941} ({zone:1423}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
 
-	-- Step 43: Rugged Leather (Alliance)
+	-- Step 46: Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Alliance)"] = "{item:8170}（聯盟）",
-	-- {item:8170} Rugged Leather · {item:15564} Rugged Armor Kit · {item:15083} Wicked Leather Gauntlets · {item:15094} Runic Leather Headband · {skill:393} Skinning · {npc:1815} Diseased Black Bear · {npc:1816} Diseased Grizzly · {npc:1817} Diseased Wolf
-	["1009 {item:8170} for {item:15564}, {item:15083} and {item:15094}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:1815}, {npc:1816} and {npc:1817} here (level 48-60); the {skill:393} guide routes this."] = "",
+	-- {item:8170} Rugged Leather · {item:15564} Rugged Armor Kit · {item:15083} Wicked Leather Gauntlets · {item:15094} Runic Leather Headband · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
+	["1029 {item:8170} for {item:15564}, {item:15083} and {item:15094}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "為{item:15564}、{item:15083}和{item:15094}準備1029張{item:8170}：{skill:393}：剝取48-60級野獸；或從拍賣場購買。在這裡剝取{npc:8598}、瘟疫犬和{npc:8596}（48-60級）的皮；{skill:393}指南有對應路線。",
 
-	-- Step 44: Rugged Leather (Horde)
+	-- Step 47: Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Horde)"] = "{item:8170}（部落）",
 	-- {item:8170} Rugged Leather · {item:15564} Rugged Armor Kit · {item:15083} Wicked Leather Gauntlets · {item:15094} Runic Leather Headband · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	["1009 {item:8170} for {item:15564}, {item:15083} and {item:15094}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["1029 {item:8170} for {item:15564}, {item:15083} and {item:15094}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "為{item:15564}、{item:15083}和{item:15094}準備1029張{item:8170}：{skill:393}：剝取48-60級野獸；或從拍賣場購買。在這裡剝取{npc:6369}、{npc:8760}、{npc:6380}、{npc:6379}、{npc:6378}和{npc:6377}（48-60級）的皮；{skill:393}指南有對應路線。",
 
-	-- Step 45: Runecloth (Alliance)
-	-- {item:14047} Runecloth
-	["{item:14047} (Alliance)"] = "{item:14047}（聯盟）",
-	-- {item:14047} Runecloth · {item:15094} Runic Leather Headband · {npc:7027} Blackrock Slayer
-	["430 {item:14047} for {item:15094}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "",
+	-- Step 48: Runecloth
+	-- {item:14047} Runecloth · {item:15094} Runic Leather Headband
+	["430 {item:14047} for {item:15094}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "為{item:15094}準備430個{item:14047}：45-60級的人型生物會掉落。練等時把撿到的留著，從銀行取出，或在拍賣場購買。",
 
-	-- Step 46: Runecloth (Horde)
-	-- {item:14047} Runecloth
-	["{item:14047} (Horde)"] = "{item:14047}（部落）",
-	-- {item:14047} Runecloth · {item:15094} Runic Leather Headband · {npc:11880} Twilight Avenger
-	["430 {item:14047} for {item:15094}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "",
-
-	-- Step 47: Rugged Armor Kit to 239
+	-- Step 49: Rugged Armor Kit to 239
 	-- {item:15564} Rugged Armor Kit
 	["{item:15564} to 239"] = "",
 	-- {item:15564} Rugged Armor Kit · {item:8170} Rugged Leather · {npc:7866} Peter Galen · {zone:1447} Azshara · {npc:7867} Thorkaf Dragoneye · {zone:1418} Badlands · {item:8204} Tough Scorpid Gloves · {zone:1446} Tanaris · {item:8165} Worn Dragonscale · {npc:7868} Sarah Tanner · {zone:1427} Searing Gorge · {npc:7869} Brumn Winterhoof · {zone:1417} Arathi Highlands · {item:7077} Heart of Fire · {item:7079} Globe of Water · {item:7075} Core of Earth · {item:7081} Breath of Wind · {npc:7870} Caryssia Moonhunter · {zone:1444} Feralas · {npc:7871} Se'Jib · {zone:1434} Stranglethorn Vale · {item:8211} Wild Leather Vest · {npc:7852} Pratt McGrubben · {npc:7854} Jangdor Swiftstrider · {item:279941} Tanning Rack
 	-- plural, as words: Tough Scorpid Breastplates = {item:8203} Tough Scorpid Breastplate
-	["{item:15564} is yellow at 225 (yellow 225, green 235, grey 245): about 23 crafts to 239. Each takes 5 {item:8170}. Use the 20 {item:8170} you made earlier; the counts above leave them out. Five {item:8170} a craft. Specialisation (optional): at 225 and character level 40. Dragonscale: {npc:7866} ({zone:1447}) or {npc:7867} ({zone:1418}) wants 2 Tough Scorpid Breastplates, 2 {item:8204} (patterns drop from the Wastewander bandits in {zone:1446}) and 10 {item:8165}. Elemental: {npc:7868} ({zone:1427}) or {npc:7869} ({zone:1417}) wants 2 each of {item:7077}, {item:7079}, {item:7075} and {item:7081}. Tribal (from 235): {npc:7870} ({zone:1444}) or {npc:7871} ({zone:1434}) wants a {item:8211} and Helmet, after the Wild Leather quests from {npc:7852} or {npc:7854} in {zone:1444}. On Forever the specialisation patterns need a {item:279941}. You can take only one; none is needed for 300, and the beta never tested them (it stopped at level 30)."] = "",
+	["{item:15564} is yellow at 225 (yellow 225, green 235, grey 245): about 23 crafts to 239. Each takes 5 {item:8170}. Five {item:8170} a craft. Specialisation (optional): at 225 and character level 40. Dragonscale: {npc:7866} ({zone:1447}) or {npc:7867} ({zone:1418}) wants 2 Tough Scorpid Breastplates, 2 {item:8204} (patterns drop from the Wastewander bandits in {zone:1446}) and 10 {item:8165}. Elemental: {npc:7868} ({zone:1427}) or {npc:7869} ({zone:1417}) wants 2 each of {item:7077}, {item:7079}, {item:7075} and {item:7081}. Tribal (from 235): {npc:7870} ({zone:1444}) or {npc:7871} ({zone:1434}) wants a {item:8211} and Helmet, after the Wild Leather quests from {npc:7852} or {npc:7854} in {zone:1444}. On Forever the specialisation patterns need a {item:279941}. You can take only one; none is needed for 300, and the beta never tested them (it stopped at level 30)."] = "{item:15564}在技能225時為黃色（225變黃、235變綠、245變灰）：約製作23次可到239。每次需要5張{item:8170}。每次五張{item:8170}。專精（可選）：需要技能225和角色等級40。龍鱗製皮：{npc:7866}（{zone:1447}）或{npc:7867}（{zone:1418}）需要2件硬化蠍殼胸甲、2件{item:8204}（圖樣由{zone:1446}的廢土強盜掉落）和10片{item:8165}。元素製皮：{npc:7868}（{zone:1427}）或{npc:7869}（{zone:1417}）需要{item:7077}、{item:7079}、{item:7075}和{item:7081}各2個。部族製皮（235起）：先完成{zone:1444}的{npc:7852}或{npc:7854}提供的蠻皮系列任務，再向{npc:7870}（{zone:1444}）或{npc:7871}（{zone:1434}）交一件{item:8211}和一件蠻皮頭盔。在Forever中，專精圖樣需要{item:279941}。只能選一種專精；練到300不需要專精，而且測試版從未測試過這些（測試止於30級）。",
 
-	-- Step 48: Wicked Leather Gauntlets to 269
+	-- Step 50: Wicked Leather Gauntlets to 269
 	-- {item:15083} Wicked Leather Gauntlets
 	["{item:15083} to 269"] = "",
 	-- {item:15083} Wicked Leather Gauntlets · {item:8170} Rugged Leather · {item:2325} Black Dye · {item:14341} Rune Thread
 	["{item:15083} is orange at 239 (yellow 255, green 265, grey 275): about 39 crafts to 269. Each takes 8 {item:8170}, 1 {item:2325} and 1 {item:14341}. Eight {item:8170} a craft; {item:2325} and {item:14341} from leatherworking or tailoring vendors."] = "",
 	["from the recipe in your bags"] = "使用背包裡的配方",
 
-	-- Step 49: Runic Leather Headband to 300
+	-- Step 51: Runic Leather Headband to 300
 	-- {item:15094} Runic Leather Headband
 	["{item:15094} to 300"] = "{item:15094}練到300",
 	-- {item:15094} Runic Leather Headband · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14341} Rune Thread · {skill:165} Leatherworking
@@ -303,6 +312,8 @@ return {
 	-- ["Yellow until 235, green until 245: not every craft gives a point."] = "黃色到235，綠色到245：不是每次製造都會得到點數。",
 	-- ["Yellow until 70, green until 85: not every craft gives a point. 75 is the Apprentice cap."] = "黃色到70，綠色到85：不是每次製造都會得到點數。75是初級的上限。",
 	-- ["Yellow until 85, green until 100: not every craft gives a point."] = "黃色到85，綠色到100：不是每次製造都會得到點數。",
+	-- ["{item:14047} (Alliance)"] = "{item:14047}（聯盟）",
+	-- ["{item:14047} (Horde)"] = "{item:14047}（部落）",
 	-- ["{item:15083} to 267"] = "{item:15083}練到267",
 	-- ["{item:15564} to 236"] = "{item:15564}練到236",
 	-- ["{item:2318} (Alliance)"] = "{item:2318}（聯盟）",

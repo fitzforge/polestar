@@ -9,11 +9,20 @@ next forever/alliance/50-60/05-silithus
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: The Giant Guardian (2844), Wandering Shay (2845), at the Feralas stop where the Northspring harpies are below you.
 # Left out: Felstone Field Cauldron (5218), Dalson's Tears Cauldron (5221), Writhing Haunt Cauldron (5224).
 
 step Chillwind Camp
   zone Western Plaguelands
   fly "Chillwind Camp"
+
+step Argent Officer Pureheart
+  when !turnedin 5503
+  tip No Argent Dawn Commission yet (Light's Hope gives it on the Winterspring guide's way through)? Pureheart gives you one here: the scourgestone quests need it.
+  accept 5401                         -- Argent Officer Pureheart
+  turnin 5401
+
+step Argent Officer Pureheart
   accept 5402                         -- Argent Officer Pureheart
   accept 5403
 
@@ -303,6 +312,11 @@ step Fly to Rut'theran Village
   fly "Rut'theran Village"
   zone Teldrassil
 
+step Rut'theran Village
+  zone Teldrassil
+  turnin 978                          -- Erelas Ambersky
+  accept 979                          -- Ranshalla in Winterspring: keep it
+
 step Portal to Darnassus
   zone Teldrassil
   goto 55.9,89.3 "Portal to Darnassus"
@@ -321,9 +335,27 @@ step Darnassus
   zone Darnassus
   tip The portal in Rut'theran Village leads up to Darnassus.
   turnin 3764                         -- Jenal, in the Cenarion Enclave
+
+# Fandral and Mathrengyl stand upstairs in the druids' building, and the walking maps have no way up
+# inside it: the arrow led onto a ledge outside, behind the wall (#1338). Before each of them, a goto
+# at the building's door on its south side, 35.8,11.6 (players' recordings walk in there), makes the
+# arrow point straight at him from there.
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus
+  zone Darnassus
   accept 3781                         -- Arch Druid Fandral Staghelm
   turnin 1047                         -- Arch Druid Fandral Staghelm
   accept 6761
+
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus
+  zone Darnassus
   turnin 3781                         -- Mathrengyl Bearwalker
   turnin 4986
   train class only Druid              -- Ironforge, where the next guide trains, has no druid trainer
@@ -338,12 +370,11 @@ step Portal to Teldrassil
   zone Darnassus
   goto 29.1,41.2 "Portal to Teldrassil"
 
-step Rut'theran Village
-  zone Teldrassil
-  turnin 978                          -- Erelas Ambersky
-  accept 979                          -- Ranshalla in Winterspring: keep it
-
 # ---------------------------------------------------------------- Feralas
+
+step Rut'theran Village flight master
+  zone Teldrassil
+  goto 58.4,93.9 "Rut'theran Village flight master"
 
 step Feathermoon Stronghold
   zone Feralas
@@ -379,6 +410,21 @@ step Gregan Brewspewer
   tip Gregan's camp lies north of the Twin Colossals. He sells the Videre Elixir once he has his bait.
   turnin 4142
   collect 11243 quest 3909.1          -- Videre Elixir
+
+step Rockbiter
+  tip The giant Rockbiter sits just north-west of Gregan's camp.
+  accept 2844
+
+step Shay Leafrunner
+  tip Ride north into the Ravenwind Ruins: Shay hides in the small round building at the back. Open the chest beside her for Shay's Bell: it lasts 15 minutes, like the quest.
+  turnin 2844
+  accept 2845
+  collect 9189 quest 2845.1           -- Shay's Bell
+
+step Wandering Shay
+  tip Lead Shay back to Rockbiter at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them.
+  complete 2845 @42.3,21.9
+  turnin 2845                         -- Rockbiter
 
 step Feralas
   zone Feralas
@@ -484,6 +530,16 @@ step Linken
 
 # ---------------------------------------------------------------- Lost!
 
+step Into Silithus
+  zone Silithus
+  goto 81.5,19.5 "Into Silithus"
+
+step Layo Starstrike
+  zone Silithus
+  tip Ride out of the crater's north-western pass into Silithus: Layo Starstrike stands at Valor's Rest, where the pass comes out.
+  turnin 1124
+  accept 1125
+
 step Silithus
   zone Silithus
   goto 51.6,38.6 "Silithus"
@@ -492,10 +548,13 @@ step Silithus
 
 step Cenarion Hold
   zone Silithus
-  tip Ride out of the crater's north-western pass into Silithus and on to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip Ride on west to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  getfp "Cenarion Hold"
+  accept 9415                         -- Rifleman Torrig, at the Alliance tents
   accept 8277                         -- Beetix Ficklespragg
   sethome "Cenarion Hold"
   accept 8280                         -- Windcaller Proudhorn
+  accept 8284                         -- Geologist Larksbane
 
 step Silithus: kill these as you meet them
   zone Silithus
@@ -509,18 +568,15 @@ step Level 56.89
   when level<56.89
   tip If you skipped The Super Snapper FX, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
   goto 54.9,31.2 map 1451 "Dredge Striker"
-  level 56.89                          -- grind on Dredge Striker
+  level 56.89 grind 11740              -- grind on Dredge Striker
 
 step Cenarion Hold
   zone Silithus
-  tip Follow the road south-west out of the pass to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
-  accept 9415                         -- Rifleman Torrig, at the Alliance tents
-  getfp "Cenarion Hold"
+  tip Ride back to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8277
   accept 8278
   turnin 8280
   accept 8281
-  accept 8284                         -- Geologist Larksbane
   accept 8318                         -- Bor Wildmane
 
 step Silithus: kill these as you meet them
@@ -530,11 +586,6 @@ step Silithus: kill these as you meet them
   kill 11741 quest 8281.1             -- Dredge Crusher walks around here: look inside the circle on the map
   collect 20377 quest 8278.3          -- Rock Stalker Fang
   collect 20375 quest 8278.1          -- Stonelash Flayer Stinger
-
-step Layo Starstrike
-  tip Ride east to Layo Starstrike.
-  turnin 1124
-  accept 1125
 
 step Southwind Village
   tip The tortured druids and sentinels haunt the ruined village south-west of Layo.
@@ -557,16 +608,16 @@ step Un'Goro Crater
   zone Un'Goro Crater
   goto 33.2,48.4 "Un'Goro Crater"
 
+step Krakle
+  tip Coming in from Silithus, Golakka Hot Springs is just inside the crater: Krakle the goblin sits by the water.
+  accept 974
+
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater
   kill 9167 quest 4501                -- Frenzied Pterrordax
   kill 9166 quest 4501
 
 # ---------------------------------------------------------------- West and Fire Plume Ridge
-
-step Krakle
-  tip Ride west past Marshal's Refuge and south down the western side to Golakka Hot Springs: Krakle the goblin sits by the water.
-  accept 974
 
 step Krakle's Thermometer
   tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vents near the top.
@@ -588,15 +639,13 @@ step The crater
   collect 11837 quest 4496.1          -- Gorishi Scent Gland
 
 step Torwa Pathfinder
+  zone Un'Goro Crater
+  tip Torwa camps at the foot of the ramp into the crater.
   turnin 4291
+  accept 4292
+  accept 4289                         -- The pelts come from the gorillas on Ironstone Plateau
 
 # ---------------------------------------------------------------- East side
-
-step Torwa Pathfinder
-  zone Un'Goro Crater
-  tip Ride down the ramp into the crater: Torwa camps at its foot.
-  accept 4292
-  accept 4289                         -- The pelts come after loop 2, on the gorilla plateau
 
 step Lakkari Tar Pits: kill these as you meet them
   zone Un'Goro Crater

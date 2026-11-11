@@ -11,12 +11,12 @@ return {
 	["{item:8705} in {zone:1444}"] = "{item:8705} in {zone:1444}",
 	-- {zone:1444} Feralas · {area:1108} Forgotten Coast
 	-- plural, as words: Coast Crawl Snapclaws = {npc:5327} Coast Crawl Snapclaw · Sprite Dragons = {npc:5276} Sprite Dragon
-	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "",
+	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "Jeder Roboter beginnt mit einem Notsignal, das Gegner seiner Zone fallen lassen, etwa bei einem von 40 bis 100 Kills nach den Daten von Classic. In {zone:1444} sind am besten die Coast Crawl Snapclaws und Deepseers (Stufe 43-45) an der {area:1108} und die Sprite Dragons (47-48), etwa 2,5%; Oger, Harpyien, Naga und Grimmtotem lassen es mit etwa 1% fallen. Du kannst es ab Stufe 40 plündern.",
 
 	-- Step 2: Rescue OOX-22/FE
 	["Rescue OOX-22/FE"] = "Rette OOX-22/FE",
 	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "",
+	["Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "Klicke das Signal mit der rechten Maustaste an. OOX-22/FE sitzt in einer Höhle bei {area:1105}, zwischen Yetis und Affen. Seine Eskorte läuft westlich die Straße entlang zum Dock an der {area:1108} mit drei Hinterhalten: drei Yetis, dann drei Gorillas, dann vier oder fünf Gnolle mit einem Zauberer. Bring einen Freund mit, wenn du unter 47 bist. Der Roboter läuft weiter, solange er nicht getroffen wird, bleib also in der Nähe; will er sich nicht bewegen, hat ihn ein anderer Spieler: Warte, bis er zurückkommt. Seine Abgabe ist in {area:35}; behalte die Quest für später.",
 	["Escort OOX-22/FE"] = "Eskortiere OOX-22/FE",
 
 	-- Step 3: OOX-17/TN Distress Beacon in Tanaris
@@ -24,32 +24,32 @@ return {
 	["{item:8623} in {zone:1446}"] = "{item:8623} in {zone:1446}",
 	-- {zone:1446} Tanaris
 	-- plural, as words: Treasure Hunting Pirates = {npc:7899} Treasure Hunting Pirate · Ground Pounders = {npc:9396} Ground Pounder
-	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "",
+	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "Gegner in {zone:1446} lassen das Signal von OOX-17/TN etwa bei einem von 50 bis 150 Kills fallen. Am besten: die Treasure Hunting Pirates und Buccaneers am Südufer (44-45) und die Ground Pounders im Norden (41-43), etwa 2%. Du kannst es ab Stufe 43 plündern.",
 
 	-- Step 4: Rescue OOX-17/TN
 	["Rescue OOX-17/TN"] = "Rette OOX-17/TN",
 	-- {area:981} Gaping Chasm · {zone:1446} Tanaris · {area:977} Steamwheedle Port · {area:35} Booty Bay
-	["OOX-17/TN stands in the hills near the {area:981} in south-east {zone:1446}. Its escort to {area:977} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {area:35} too."] = "",
+	["OOX-17/TN stands in the hills near the {area:981} in south-east {zone:1446}. Its escort to {area:977} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {area:35} too."] = "OOX-17/TN steht in den Hügeln nahe {area:981} im Südosten von {zone:1446}. Seine Eskorte nach {area:977} hat zwei Hinterhalte: drei Skorpide nahe dem Start, drei Wastewander-Banditen nahe dem Ende. Der Roboter hat etwa 3.000 Gesundheit und hält an, um gegen das zu kämpfen, was du angreifst, er kann also kurz tanken, während du dich erholst. Seine Abgabe ist ebenfalls in {area:35}.",
 	["Escort OOX-17/TN"] = "Eskortiere OOX-17/TN",
 
 	-- Step 5: OOX-09/HL Distress Beacon in the Hinterlands
 	-- {item:8704} OOX-09/HL Distress Beacon · {zone:1425} Hinterlands
 	["{item:8704} in the {zone:1425}"] = "{item:8704} im Gebiet {zone:1425}",
 	-- {zone:1425} Hinterlands
-	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "",
+	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "Die meisten Gegner in {zone:1425} lassen das Signal von OOX-09/HL etwa bei jedem 100. Kill fallen: Silvermane-Wölfe, Eulenbiester, Highvale-Elfen, Witherbark- und Vilebranch-Trolle. Du kannst es ab Stufe 43 plündern.",
 
 	-- Step 6: Rescue OOX-09/HL
 	["Rescue OOX-09/HL"] = "Rette OOX-09/HL",
 	-- {area:351} Skulk Rock
 	-- plural, as words: Marauding Owlbeasts = {npc:7808} Marauding Owlbeast · Vilebranch Ambushers = {npc:7809} Vilebranch Ambusher
-	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "",
+	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "OOX-09/HL wartet auf der größten Insel im See westlich von {area:351}. Seine Eskorte zum Ufer hinter Overlook Cliff hat zwei Hinterhalte zu je drei: Marauding Owlbeasts, dann Vilebranch Ambushers; der Roboter warnt dich kurz vor jedem.",
 	["Escort OOX-09/HL"] = "Eskortiere OOX-09/HL",
 
 	-- Step 7: Oglethorpe Obnoticus in Booty Bay
 	-- {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
 	["{npc:7406} in {area:35}"] = "{npc:7406} in {area:35}",
 	-- {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {npc:2490} First Mate Crazz · {quest:3721} An OOX of Your Own · {item:10398} Mechanical Chicken
-	["{npc:7406} is in {area:35}, upstairs in the building north of the inn, above {npc:2490}. Hand in all three rescues; at level 45 he then offers {quest:3721}, which you turn straight back in for the {item:10398}."] = "",
+	["{npc:7406} is in {area:35}, upstairs in the building north of the inn, above {npc:2490}. Hand in all three rescues; at level 45 he then offers {quest:3721}, which you turn straight back in for the {item:10398}."] = "{npc:7406} ist in {area:35}, oben im Gebäude nördlich des Gasthauses, über {npc:2490}. Gib alle drei Rettungen ab; auf Stufe 45 bietet er dann {quest:3721} an, die du sofort zurückgibst, um das {item:10398} zu erhalten.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Each robot starts with a distress beacon that mobs in its zone drop (about 1-2.5% per kill in our data). Start in {zone:1444}."] = "Jeder Roboter beginnt mit einem Notsignal, das Mobs in seinem Gebiet droppen (laut unseren Daten etwa 1-2,5% pro Kill). Fang in {zone:1444} an.",

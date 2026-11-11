@@ -11,6 +11,14 @@ next forever/alliance/07-thousand-needles
 # into this file.
 # Added here: Velinde Starsong (1037), Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop).
 # Also left out: This Land Was Their Land (98230), which Captain Stoutfist offers only after Defeat Nek'rosh (474) is handed in (#1299): it is on the group branch of 30-40/01-hillsbrad-foothills.
+# Insane Druids (1012, level 32) is optional: three druids deep in the Dor'Danil Barrow Den, a
+# respawning cave of stealthed mobs, with Kayneth Stillwind before and after (a back-and-forth across
+# south-east Ashenvale for one quest). Players' recordings: nobody took it on a recorded version.
+# Trying Times (98246) is taken with Razormaw Needling (98245) at Howin: the same raptors, on the
+# Wetlands loop of 30-40/01-hillsbrad-foothills. Blisters on the Land's Fen Creepers are hunted along
+# the river west of Einar (data/places.json 610-wetlands-fen-creepers), not across the zone.
+# The Eye of Paleth (292) goes to Glorin Steelbrow on the Menethil stop before the boat, not on a walk
+# of its own between the two wreck trips.
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole) from the old 25-29 06-ashenvale and the
 # Wetlands visit of 07-thousand-needles: the Wetlands are one visit at 27-29, after Duskwood.
 # Since 2026-11-07 Ashenvale's 27-32 quests follow on the same trip (the order their quest
@@ -23,58 +31,77 @@ next forever/alliance/07-thousand-needles
 step Moonglade
   only NightElf,Druid
   zone Moonglade
+  when onquest 272
   goto 56.3,32.5 "Cast Teleport: Moonglade"
+
+step Trial of the Sea Lion
+  only NightElf,Druid
+  zone Moonglade
+  when onquest 272
+  tip Cast Teleport: Moonglade. With both half pendants in your bags, stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then go to Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  collect 15885 quest 272.1                   -- Pendant of the Sea Lion: join the halves at the Shrine of Remulos
+  turnin 272                                  -- Dendrite Starblaze
 
 step Aquatic Form
   only NightElf,Druid
   zone Moonglade
-  tip In Stormwind, join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
-  collect 15885 quest 272.1 only NightElf,Skyborne -- Pendant of the Sea Lion: join the two halves
-  turnin 272 only NightElf,Skyborne -- Dendrite Starblaze
-  accept 5061 only NightElf
+  when turnedin 272
+  when !turnedin 5061
+  tip Take Aquatic Form from Dendrite Starblaze, upstairs in his building. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village.
+  accept 5061                                 -- Dendrite Starblaze
   fly "Rut'theran Village"
 
+# Mathrengyl stands upstairs in the druids' building; the walking maps have no way up inside it, so
+# this goto is its door on the south side (players' recordings walk in there), not his spot (#1338).
 step Darnassus
   only NightElf,Druid
   zone Darnassus
-  goto 35.4,8.4 "Darnassus"
+  when onquest 5061
+  goto 35.8,11.6 "Darnassus"
 
 step Mathrengyl Bearwalker
   only NightElf,Druid
   zone Darnassus
+  when onquest 5061
   tip Take the portal up to the Cenarion Enclave, then fly back to Auberdine for the boat to Menethil Harbor.
-  turnin 5061 only NightElf -- Mathrengyl Bearwalker: Aquatic Form
+  turnin 5061                                 -- Mathrengyl Bearwalker: Aquatic Form
   fly "Auberdine"
 
 step Boat to Auberdine
   only NightElf,Priest
+  when onquest 5673
   zone Stormwind City
   goto 21.8,56.9 "Boat to Auberdine" live
 
 step Fly to Rut'theran Village
   only NightElf,Priest
+  when onquest 5673
   zone Darkshore
   goto 36.4,45.6 "Auberdine flight master"
   fly "Rut'theran Village"
 
 step Into Darnassus
   only NightElf,Priest
+  when onquest 5673
   zone Darnassus
   goto 85.7,35.9 "Into Darnassus"
 
 step Darnassus
   only NightElf,Priest
+  when onquest 5673
   zone Darnassus
   goto 39.5,81.2 "Darnassus"
 
 step Elune's Grace
   only NightElf,Priest
+  when onquest 5673
   zone Darnassus
   turnin 5673 only NightElf -- Priestess Alathea: Elune's Grace
   fly "Auberdine"
 
 step Boat to Menethil Harbor
   only NightElf,Druid,Priest
+  when zone "Darkshore"
   zone Darkshore
   tip Take the boat from Auberdine's dock to Menethil Harbor.
   goto 32.4,43.8 "Boat to Menethil Harbor"
@@ -91,7 +118,7 @@ step Menethil Harbor
   zone Wetlands
   accept 288                              -- First Mate Fitzsimmons, in the inn
   sethome "Deepwater Tavern"
-  buy 2594 x1 npc 1464                    -- Flagon of Mead, from Innkeeper Helbrek
+  buy 2594 x1 npc 1464                    -- Flagon of Dwarven Honeymead, from Innkeeper Helbrek
   turnin 288
   accept 289
   accept 464                              -- Captain Stoutfist, by the keep; on the top floor
@@ -136,10 +163,6 @@ step Captain Halyndor
   turnin 290                              -- Intrepid's Locked Strongbox
   accept 292
 
-step Glorin Steelbrow
-  turnin 292                              -- Inside
-  accept 293                              -- For Archbishop Benedictus in Stormwind, at the end of this guide
-
 # ---------------------------------------------------------------- East Wetlands
 
 step Raptor valley
@@ -156,6 +179,7 @@ step Whelgar's Excavation Site
 step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands
   tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
+  tip Goaz Warders (elite, 32) stand among the relics and the Loose Soil: pull them away one at a time, or work around them.
   collect 2658 quest 299                  -- Ados Fragment
   collect 2659 quest 299                  -- Modr Fragment
   collect 2660 quest 299                  -- Golm Fragment
@@ -168,14 +192,16 @@ step Ormer and Whelgar
   accept 98216 optional                   -- Prospector Whelgar, below ground: the Titanic Keystone, from the elite Goaz Warders
 
 step Goaz Warders
+  when group 98216
   when onquest 98216
   tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
   tip Goaz Warder is elite: grouping up is advised.
-  collect 279993 quest 98216.1 optional   -- Titanic Keystone
+  collect 279993 quest 98216.1            -- Titanic Keystone
 
 step Prospector Whelgar
-  when onquest 98216
-  turnin 98216 optional                   -- Below ground
+  when group 98216
+  when complete 98216
+  turnin 98216                            -- Below ground
 
 step Prospector Whelgar
   when group 98310
@@ -183,9 +209,12 @@ step Prospector Whelgar
   accept 98310                                     -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground. Their hearts drop from level 32 elites on the Dun Modr visit
 
 step Angerfang Encampment
-  tip South-east from the dig to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
-  complete 98221 @53.5,54.5
-  collect 3337 quest 464                  -- Dragonmaw War Banner: the camp's Raiders and Swamprunners
+  tip North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The Ironforge plan lies at the camp's west end, the other three further east. Chieftain Nek'rosh, an elite, stands apart to the south-east: From the Ashes doesn't need him.
+  interact 671487 "Attack Plan: Ironforge" quest 98221.4 @38.5,46.1 map 1437
+  interact 671481 "Attack Plan: Menethil Harbor" quest 98221.1 @45.6,42.7 map 1437
+  interact 671483 "Attack Plan: Southshore" quest 98221.3 @45.4,45.7 map 1437
+  interact 671486 "Attack Plan: Thelsamar" quest 98221.2 @49.4,46.8 map 1437
+  collect 3337 quest 464.1 @45.5,44.7 map 1437 -- Dragonmaw War Banner: the camp's Raiders and Swamprunners
 
 step Rethiel the Greenwarden
   tip Follow the road east to the Green Belt; Rethiel the Greenwarden stands by the river. Fire Taboo's flint came with you from your last Wetlands visit.
@@ -195,27 +224,34 @@ step Rethiel the Greenwarden
 step Howin Kindfeather
   tip Howin Kindfeather camps among the Fenrunners, just west of Rethiel.
   accept 98245                            -- Razormaw Incisors: from the raptors by the Dragonmaw Gates, on the Wetlands loop of 30-40/01-hillsbrad-foothills
+  accept 98246                            -- Trying Times: the Razormaw eggs, on the same loop
 
 step Einar Stonegrip
   tip East from Howin: Einar Stonegrip stands beside the road.
   accept 469                              -- Einar Stonegrip: for James Halloran in Menethil
 
-step The Green Belt: kill these as you meet them
+step Fen Creepers along the river
   zone Wetlands
-  tip Red whelps fill the hills west of the gates, Maddened Rotclaws the Green Belt, Razormaws the northern slopes; Neru stands in the north-east (use the Goaz Stone).
-  tip Fen Creepers hide in the marsh pools north-west of the Green Belt.
+  tip North-west from Einar to the river: Fen Creepers hide in its pools and along its banks all the way west to Sundown Marsh. Work west along it until you have twelve, then back east to Rethiel.
   tip Careful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see.
-  kill 1040 quest 275 @24.46,33.18 map 1437 era
+  loop
+  goto 47.6,32.8
+  goto 40.6,32.9
+  goto 35.6,33.4
+  goto 25.9,31.9
+  kill 1040 quest 275                     -- Fen Creeper
 
 step Rethiel the Greenwarden
   turnin 275
   accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
 step Captain Stoutfist
-  tip Back west along the road to Menethil Harbor: Captain Stoutfist stands on the top floor of Menethil Keep.
+  tip Back west along the road to Menethil Harbor: Captain Stoutfist stands on the top floor of Menethil Keep, Glorin Steelbrow in the Deepwater Tavern south of it, James Halloran by the docks on the way to the boat.
   turnin 464                              -- On the top floor
   turnin 98221
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
+  turnin 292                              -- Glorin Steelbrow, in the Deepwater Tavern
+  accept 293                              -- For Archbishop Benedictus in Stormwind, at the end of this guide
   turnin 469                              -- James Halloran, by the docks, on the way to the boat
 
 # ---------------------------------------------------------------- Ashenvale
@@ -225,12 +261,16 @@ step Boat to Auberdine
   tip The boat to Auberdine leaves from the far end of Menethil's western pier.
   goto 4.5,56.7 "Boat to Auberdine"
 
+step Thundris Windweaver
+  zone Darkshore
+  when onquest 97926
+  tip Thundris Windweaver stands at the north end of Auberdine.
+  turnin 97926                            -- Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first Auberdine stop)
+
 step Auberdine
   zone Darkshore
-  tip Thundris Windweaver stands at the north end of Auberdine, Terenthis and Sentinel Selarin by the flight master.
-  turnin 97926 optional                   -- Thundris Windweaver: Alexston's reply, if you took it in Stormwind
+  tip Terenthis stands by the flight master.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
-  accept 990                              -- Sentinel Selarin: for Raene Wolfrunner in Astranaar
 
 step Fly to Astranaar
   zone Darkshore
@@ -246,7 +286,6 @@ step Shindrell Swiftfire
 
 step Astranaar
   sethome "Astranaar"
-  turnin 990                              -- Raene Wolfrunner, in the inn
   accept 1035                         -- Pelturas Whitemoon, inside
 
 step Melyria and Illiyana
@@ -305,10 +344,18 @@ step Fallen Sky Lake
 
 step Kayneth Stillwind
   turnin 1011
-  accept 1012
+  tip Optional: Kayneth also offers Insane Druids, three level 32 druids deep in The Dor'Danil Barrow Den, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it.
+  accept 1012 optional
+
+# Players' recordings: the barrow's mouth near 75.95,75.45, south of the Forsaken camp; the
+# walking maps lead over the hill above the druids instead (#1336).
+step The Dor'Danil Barrow Den's entrance
+  when onquest 1012
+  goto 75.95,75.45 live "The Dor'Danil Barrow Den"
 
 step Insane druids
-  tip The three druids stand together at the Forsaken camp south of Forest Song.
+  when onquest 1012
+  tip The three druids are inside The Dor'Danil Barrow Den, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. Taneel Darkwood is in the eastern halls, Uthil Mooncall deepest down at the north-east end and Mavoris Cloudsbreak at the western end.
   tip Careful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight.
   kill 3940 quest 1012.1              -- Taneel Darkwood, inside The Dor'Danil Barrow Den
   kill 3941 quest 1012.2              -- Uthil Mooncall, inside The Dor'Danil Barrow Den
@@ -320,6 +367,7 @@ step Satyrnaar
   interact 20352 quest 1140.2         -- Circle of Imprisonment
 
 step Forest Song
+  when onquest 1012
   turnin 1012                         -- Kayneth Stillwind
 
 # ---------------------------------------------------------------- Night Run and the shrine
@@ -342,8 +390,11 @@ step Shael'dryn
   accept 1029
 
 step Astranaar
+  tip Raene Wolfrunner and Maliynn are in the inn; Pelturas Whitemoon is inside the building just south of it.
   turnin 1029                         -- Raene Wolfrunner
   accept 1030
+  turnin 98027                        -- Maliynn, in the inn
+  turnin 1035                         -- Pelturas Whitemoon, inside the building south of the inn
 
 # ---------------------------------------------------------------- Krolg
 
@@ -355,8 +406,8 @@ step Krolg
 step Ran Bloodtooth
   tip Ran Bloodtooth and his guards camp just east of Krolg.
   tip Careful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs.
-  kill 3932 quest 1045.2              -- Bloodtooth Guard
-  kill 3696 quest 1045.1              -- Ran Bloodtooth
+  kill 3932 quest 1045.1              -- Bloodtooth Guard
+  collect 5388 quest 1045.2           -- Ran Bloodtooth's Skull, from Ran Bloodtooth
 
 step Krolg
   turnin 1045
@@ -376,10 +427,8 @@ step Delgren the Purifier
   turnin 1140
 
 step Astranaar
-  tip South-east along the road to Astranaar: Raene Wolfrunner in the inn, Maliynn and Pelturas Whitemoon inside, the flight master at the west end.
+  tip South-east along the road to Astranaar: Raene Wolfrunner in the inn, the flight master at the west end.
   turnin 1046                         -- Raene Wolfrunner
-  turnin 98027                        -- Maliynn
-  turnin 1035                         -- Pelturas Whitemoon, inside
 
 step Fly to Auberdine
   zone Ashenvale

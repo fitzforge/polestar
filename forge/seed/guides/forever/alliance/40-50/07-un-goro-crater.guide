@@ -5,6 +5,7 @@ faction Alliance
 levels 49-50
 zone Un'Goro Crater
 next forever/alliance/50-60/01-burning-steppes
+pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -88,6 +89,8 @@ step Marshal's Refuge
   accept 3881
   getfp "Marshal's Refuge"            -- Gryfe
   turnin 3884 optional                -- Williden Marshal
+  turnin 3845                         -- Linken, at the back of the refuge
+  accept 3908                         -- Ends with Donova Snowden in Winterspring: keep it
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
 
 # ---------------------------------------------------------------- Loop 1: the middle and the east
@@ -108,8 +111,6 @@ step Marshal's Refuge
   accept 4285
   accept 4287
   accept 4288
-  turnin 3845                         -- Linken
-  accept 3908                         -- Ends with Donova Snowden in Winterspring: keep it
   turnin 4141                         -- Muigin
   accept 4142                         -- For Gregan Brewspewer in Feralas: keep it
 
@@ -130,7 +131,7 @@ step Level 49.51
   when level<49.51
   tip Top up here to level 49.51 before the hand-ins at Marshal's Refuge: they take you to level 50. Or, with a group, run the Maraudon dungeon instead.
   goto 57.0,10.2 map 1449 "Pterrordax"
-  level 49.51                          -- grind on Pterrordax
+  level 49.51 grind 9166               -- grind on Pterrordax
 
 step Crate of Foodstuffs
   tip Ride south down the east side. Young Diemetradons graze the eastern jungle and Fledgling Pterrordax fly near the eastern cliffs; both drop Shizzle's scales. The crate sits at the abandoned camp in the eastern jungle.
@@ -148,14 +149,14 @@ step The Gorishi hive
   use 11132 quest 3883.1 @48.7,85.3 map 1449
   collect 11131 quest 3883            -- Hive Wall Sample
   collect 11018 quest 3764            -- Un'Goro Soil
-  level 49.6                          -- grind on Frenzied Pterrordax
+  level 49.6 grind 9167               -- grind on Frenzied Pterrordax
 
 step Bones and equipment
   tip Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's Research Equipment lies in the south-west jungle.
   collect 11112 quest 3881            -- Research Equipment
   collect 11114 quest 3882            -- Dinosaur Bone
   collect 11830 quest 4503            -- Webbed Diemetradon Scale
-  level 49.79                          -- grind on Elder Diemetradon
+  level 49.79 grind 9164               -- grind on Elder Diemetradon
 
 step Western Pylon
   tip The pylon stands on the western cliffs. Frenzied Pterrordax fly over the whole west side.
@@ -173,6 +174,7 @@ step Marshal's Refuge
   turnin 4288
   accept 4321
   turnin 4321
+  level 50 only Priest
 
 step To Stoutlager Inn
   zone Loch Modan
@@ -196,6 +198,7 @@ step Mystic Ward
   accept 3449                         -- Four rune rubbings in Azshara: keep it
   accept 3450
   accept 8254 npc 11406 only Priest   -- High Priest Rohan: for Ogtinc in Azshara, keep it
+  accept 8250 npc 7312 only Mage      -- Dink, the mage trainer: for Sanath Lim-yo in Azshara, keep it
 
 step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -226,4 +229,4 @@ step Level 50.4
   when level<50.4
   tip Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead.
   goto 17.0,69.4 map 1447 "Highborne Apparition"
-  level 50.4                          -- grind on Highborne Apparition
+  level 50.4 grind 6116               -- grind on Highborne Apparition

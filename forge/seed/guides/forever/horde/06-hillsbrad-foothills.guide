@@ -22,11 +22,18 @@ next forever/horde/04-the-barrens
 # Blossoms, Masoj and the southern peak -> Hillsbrad town's smithy -> the western peak -> Tarren
 # Mill -> the northern peak -> Masoj -> fly to the Sepulcher (Allister: Beren's Peril, Watching the
 # Roads) -> the Undercity (Faranell, training) -> zeppelin to Orgrimmar. The next guide flies from
-# Orgrimmar to the Crossroads.
+# Orgrimmar to the Crossroads. Tauren Druids with Trial of the Sea Lion go from the Undercity to
+# Moonglade, Thunder Bluff and the Crossroads instead.
 #
 # Class quests: Shamans fill the Empty Red Waterskin at the Spring Well beside the inn (Call of Water,
 # 1536); Undead Priests hand Dark Sacrifice (5646) to Aelthalyste in the Undercity; Rogues learn
-# Poisons from Serge Hinott (2479, 2480, optional, after Mission: Possible But Not Probable).
+# Poisons from Serge Hinott (2479, 2480, optional, after Mission: Possible But Not Probable). Tauren
+# Druids carry Trial of the Sea Lion (30) from forever/horde/02-the-barrens with both half pendants
+# (the Sludge Fen's, and Silverpine's from the ride in forever/horde/05-stonetalon-mountains; its
+# lockbox gives the half only while the quest is in the log, #1386): from the Undercity they cast
+# Teleport: Moonglade, join the pendant at the Shrine of Remulos, hand it to Dendrite Starblaze,
+# take Bunthen Plainswind's flight to Thunder Bluff for Aquatic Form (31) and training at Turak
+# Runetotem, and fly on to the Crossroads, where the next guide starts, in place of the zeppelin.
 
 # ---------------------------------------------------------------- Tarren Mill
 
@@ -123,7 +130,7 @@ step Deathstalker Masoj
 
 step The southern peak
   tip Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above Dun Garok, just south of him: use a vial at the top.
-  use 279395 quest 98095.3 @73.8,72.7 live
+  use 279395 quest 98095.3 @74.1,73.4 live
 
 # ---------------------------------------------------------------- Hillsbrad
 
@@ -135,8 +142,9 @@ step The smithy
   kill 2449 quest 567.2
 
 step The western peak
-  tip From Hillsbrad town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border.
-  use 279395 quest 98095.1 @38.4,87.2 map 1416 live
+  zone Alterac Mountains
+  tip From Hillsbrad town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope.
+  use 279395 quest 98095.1 @38.6,94.8 map 1416 live
 
 step Back to Tarren Mill
   zone Hillsbrad Foothills
@@ -152,7 +160,7 @@ step Tarren Mill
 
 step The northern peak
   tip The northern peak rises south-east of Tarren Mill, on the way down towards Durnholde.
-  use 279395 quest 98095.2 @72.3,31.2 live
+  use 279395 quest 98095.2 @71.6,30.2 live
 
 step Deathstalker Masoj
   tip Back down to Masoj on the hillside above Dun Garok.
@@ -227,13 +235,44 @@ step Archibald
   tip While you're here: learn Swords from Archibald (War Quarter, 10 silver); a sword in the main hand levels a Rogue steadily.
   train 11870                         -- Archibald
 
+# ---------------------------------------------------------------- Tauren Druids: Aquatic Form
+# Three steps, so no step's `when` turns false before its last goal is done: the hand-in of 30
+# ends the first, the hand-in of 31 the second, and the third holds only in Thunder Bluff.
+step Trial of the Sea Lion
+  only Tauren,Druid
+  zone Moonglade
+  when onquest 30
+  tip Cast Teleport: Moonglade. Join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  collect 15885 quest 30.1              -- Pendant of the Sea Lion: use a half at the Shrine of Remulos
+  turnin 30                             -- Dendrite Starblaze
+
+step Aquatic Form
+  only Tauren,Druid
+  zone Thunder Bluff
+  when turnedin 30
+  when !turnedin 31
+  tip Take Aquatic Form from Dendrite Starblaze, who stands upstairs in his building. Then Bunthen Plainswind in Nighthaven flies druids to Thunder Bluff: Turak Runetotem is on Elder Rise.
+  accept 31                             -- Dendrite Starblaze
+  fly "Thunder Bluff"                   -- Bunthen Plainswind in Nighthaven flies druids there
+  turnin 31                             -- Turak Runetotem: Aquatic Form
+
+step Back to the Crossroads
+  only Tauren,Druid
+  zone Thunder Bluff
+  when zone "Thunder Bluff"
+  tip Train with Turak Runetotem, then fly on to the Crossroads, where the next guide starts.
+  train class
+  fly "Crossroads"
+
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
+  when !turnedin 31
   goto 60.7,58.9 "Zeppelin to Orgrimmar"
 
 step Orgrimmar
   zone Orgrimmar
-  goto 51.5,45.6 "Orgrimmar"
+  when !turnedin 31
+  goto 51.5,45.6 "Orgrimmar, the Valley of Strength"
 
 step Orgrimmar
   only Hunter,Shaman

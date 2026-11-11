@@ -15,15 +15,6 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// 3,199 resident and 9,385 at the peak, ruRU 4,364 and 10,867 (namesequal.lua, lua5.1).
 const BUDGET: [(&str, f64, f64); 2] = [("deDE", 1065.0, 1085.0), ("ruRU", 1860.0, 1890.0)];
 
-const NO_INTERFACE_FILE: &str = r#"
-do
-	local load = loadfile
-	function loadfile(file)
-		if file:match("[/\\]Locales[/\\]%a%a%u%u%.lua$") then return function() end end
-		return load(file)
-	end
-end"#;
-
 #[test]
 fn the_names_packs_stay_within_their_memory_budget_693() {
 	let mut over = vec![];
@@ -44,7 +35,7 @@ emit({{ resident = resident, peak = peak, npc = N.Cached("npc", 6) or false }})"
 		);
 		let out = emitted(&RunAddon {
 			// The client's language without its interface file: the pack is what is measured.
-			before: format!("function GetLocale() return {} end\n{NO_INTERFACE_FILE}", lua_string(locale)),
+			before: format!("function GetLocale() return {} end", lua_string(locale)),
 			stubs: vec!["stub_world.lua"],
 			addons: vec![Addon::name("Polestar")],
 			script,

@@ -180,7 +180,7 @@ step Kirsta Deepshadow
 
 step Northridge Lumber Camp
   tip Kirsta's last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp.
-  level 53 -- grind on Scarlet Knights at Northridge Lumber Camp, Western Plaguelands
+  level 53 grind 1833 -- grind on Scarlet Knights at Northridge Lumber Camp, Western Plaguelands
 
 step Kirsta Deepshadow
   accept 6025
@@ -350,7 +350,7 @@ step Bloodvenom Post
 
 step Felpaw Village
   tip Back at Felpaw Village, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation.
-  level 54 -- grind on Deadwood Avengers at Felpaw Village, Felwood
+  level 54 grind 7157 -- grind on Deadwood Avengers at Felpaw Village, Felwood
   turnin 8470 optional                -- Kernda, at the tunnel mouth
 
 # Re-seeded for flow in 0.3.5: Speak to Salfa is handed in where the tunnel

@@ -12,7 +12,9 @@ next forever/alliance/40-50/02-badlands
 # Added here: Cortello's Riddle (625), The Brassbolts Brothers (2769), ... and Bugs (1258).
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
-# Left out: The Bloodsail Buccaneers (608).
+# The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
+# Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
+# Cold Eye Basilisks and back.
 
 # ---------------------------------------------------------------- Theramore
 
@@ -33,11 +35,6 @@ step Sentry Point
 step Archmage Tervosh
   tip Back in Theramore: Tervosh waits with Lady Jaina in the tower of Foothold Citadel.
   turnin 1265                         -- Upstairs
-
-step Theramore Isle
-  buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
-
-step Archmage Tervosh
   accept 1266                         -- Upstairs
 
 step Theramore
@@ -47,10 +44,9 @@ step Theramore
 # ---------------------------------------------------------------- The north
 
 step Swamplight Manor
-  tip Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house.
+  tip Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three Soothing Spices: if you passed Helenia Olden, buy them from her in Theramore first.
   accept 1219                         -- Loose Dirt
   accept 1218                         -- "Swamp Eye" Jarl
-  buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
   turnin 1218                         -- with the spices from Theramore
   accept 1206
 
@@ -138,6 +134,15 @@ step Dustwallow Marsh
   zone Dustwallow Marsh
   when level>=40
   goto 67.5,51.2 "Dustwallow Marsh"
+
+step Foothold Citadel
+  only Human
+  zone Dustwallow Marsh
+  when level>=40
+  tip The boat leaves from Theramore: report to Captain Garran Vimes on the top floor of Foothold Citadel on the way to the docks.
+  turnin 1287                         -- Captain Garran Vimes, on the top floor
+  accept 1288
+  turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
 
 step Boat to Menethil Harbor
   only Human
@@ -299,9 +304,7 @@ step Booty Bay
   note Seahorn's next errand goes back to Arathi: skip it.
   turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
-  accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   sethome "Booty Bay"                 -- Upstairs
-  accept 348                          -- Fin Fizracket
   accept 595                          -- First Mate Crazz
 
 # ---------------------------------------------------------------- The Bloodsail
@@ -333,7 +336,9 @@ step Wild Shore: kill these as you meet them
 
 step Booty Bay
   turnin 587                          -- Deeg, on the top floor
+  accept 348                          -- Fin Fizracket
   turnin 604                          -- Fleet Master Seahorn
+  note Seahorn now offers The Bloodsail Buccaneers: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it.
   turnin 576                          -- Dizzy One-Eye
 
 step Gorilla hills
@@ -358,6 +363,7 @@ step Booty Bay
   accept 607
   turnin 617                          -- Privateer Bloads
   accept 623                          -- for Privateer Groy in Theramore: keep it
+  accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   turnin 348                          -- Fin Fizracket
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
   accept 609
@@ -379,9 +385,8 @@ step Maury and Jon-Jon
   tip Ride north to the hills west of the road. Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together just north of Zanzil's village.
   collect 3924 quest 609              -- Maury's Clubbed Foot
 
-step Cold Eye Basilisks
-  tip The Cold Eye Basilisks lie on the rocks west of the mine.
-  collect 2476 quest 212              -- Chilled Basilisk Haunch
+step Jungle Stalkers
+  tip The Jungle Stalkers roam the slopes west of the mine.
   kill 687 quest 196.1 @32.1,43.1 map 1434 -- Jungle Stalker
 
 # ---------------------------------------------------------------- The far north
@@ -398,9 +403,13 @@ step Hemet Nesingwary
   when group 197
   accept 197
 
+step Arbor Tarantula
+  when onquest 93176
+  tip An Arbor Tarantula crawls in the jungle south-east of Nesingwary's camp, on the way to the Rebel Camp: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
+  collect 213566 "Arbor Tarantula Specimen" @43.1,16.7
+
 step Rebel Camp
-  tip Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale. On the way, an Arbor Tarantula crawls in the jungle south-east of Nesingwary's camp: catch one with the Entomology Starter Kit, then tick it off.
-  kill 217588                         -- Arbor Tarantula: catch it, for My Little Friends
+  tip Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale.
   turnin 622                          -- Corporal Kaleb
 
 step Brother Nimetz
@@ -411,6 +420,15 @@ step Panther Mastery
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bhag'thera is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
   collect 3876 quest 193.1 @49.4,24.0 map 1434
 
+step Level 42.16 at Zul'Mamwe
+  when !group 193
+  when !group 197
+  when !group 208
+  when level<42.16
+  tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. Or, with a group, run the Uldaman dungeon instead.
+  goto 45.5,36.5 map 1434 "Skullsplitter Warrior"
+  level 42.16 grind 667                -- grind on Skullsplitter Warrior
+
 step Ruins of Zul'Mamwe: kill these as you meet them
   zone Stranglethorn Vale
   tip The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.
@@ -418,13 +436,6 @@ step Ruins of Zul'Mamwe: kill these as you meet them
   tip Careful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp.
   collect 1524 quest 209              -- Skullsplitter Tusk
   collect 3917 quest 600              -- Singing Blue Crystal
-
-step Level 42.06
-  when !group 193
-  when level<42.06
-  tip If you skipped Panther Mastery, grind here to level 42.06 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
-  goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.06                          -- grind on Cold Eye Basilisk
 
 step Raptor Mastery
   when group 197
@@ -443,13 +454,6 @@ step Hemet Nesingwary
   when group 208
   accept 208
 
-step Level 42.1
-  when !group 197
-  when level<42.1
-  tip If you skipped Raptor Mastery, grind here to level 42.1 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
-  goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.1                           -- grind on Cold Eye Basilisk
-
 step Big Game Hunter
   when group 208
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. King Bangalash is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.
@@ -461,11 +465,10 @@ step Hemet Nesingwary
   turnin 208
 
 step Level 42.16
-  when !group 208
   when level<42.16
-  tip If you skipped Big Game Hunter, grind here to level 42.16 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
+  tip Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. Or, with a group, run the Uldaman dungeon instead.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.16                          -- grind on Cold Eye Basilisk
+  level 42.16 grind 690                -- grind on Cold Eye Basilisk
 
 step Booty Bay
   tip Ride south down the road to Booty Bay.
@@ -489,8 +492,7 @@ step Stormwind
   zone Stormwind City
   tip Angus Stern cooks in the Blue Recluse; Brohann Caskbelly is in the Dwarven District.
   sethome "Stormwind City"
-  turnin 212                          -- Angus Stern
-  accept 1271
+  accept 1271                         -- Angus Stern
   turnin 1271
   accept 1477                         -- High Sorcerer Andromath: for Watchmaster Sorigal in Darkshire, on the way to the swamp
   accept 1363                         -- Mazen Mac'Nadir
@@ -536,6 +538,12 @@ step Fly to Rut'theran Village
   when level>=40
   goto 36.4,45.6 "Auberdine flight master"
   fly "Rut'theran Village"
+
+step Thyn'tel Bladeweaver
+  only NightElf
+  zone Darnassus
+  when level>=40
+  turnin 1037
 
 step Darnassus
   only NightElf
@@ -597,11 +605,11 @@ step Level 42.46
   when level<42.46
   tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 5.5,31.4 map 1435 "Tangled Horror"
-  level 42.46                          -- grind on Tangled Horror
+  level 42.46 grind 766                -- grind on Tangled Horror
 
 step Cortello's Riddle
   accept 625
-  turnin 93176                        -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
+  turnin 93176 optional               -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
@@ -694,6 +702,17 @@ step Fly to Thelsamar
   goto 55.9,47.9 "Ironforge flight master"
   fly "Thelsamar"
   zone Loch Modan
+
+step Loch Modan
+  only Dwarf,Gnome
+  zone Loch Modan
+  tip Ride east out of Dun Morogh through the tunnel into Loch Modan and on along the road to Thelsamar.
+  goto 35.5,48.4 "Thelsamar"
+
+step Thelsamar
+  zone Loch Modan
+  tip Ghak Healtouch is below ground in Thelsamar, by the inn. His mushrooms grow in the Uldaman dig in the Badlands; the next guide takes you there and back through Thelsamar.
+  accept 17                           -- Ghak Healtouch, below ground
 
 step Badlands
   zone Badlands

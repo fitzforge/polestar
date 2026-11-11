@@ -123,7 +123,7 @@ fn a_missing_prerequisite_names_the_quest_and_its_turn_in_opens_the_guide() {
 		r.done = shown()
 		emit(r)"#);
 	assert_eq!(out["open"]["notice"], "Not available yet");
-	assert_eq!(out["open"]["text"], "Duthorian Rall, Durotar starts it.\nFinish The Tome of Divinity first: the guide picks up by itself then.");
+	assert_eq!(out["open"]["text"], "Duthorian Rall, Durotar starts it.\nFinish “The Tome of Divinity” first: the guide picks up by itself then.");
 	assert_eq!(out["open"]["wp"], false);
 	assert_eq!(out["done"]["notice"], false);
 	assert_eq!(out["done"]["card"], true);

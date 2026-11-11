@@ -7,6 +7,7 @@
 //! Library: [`build::run`] (`Options` -> `Output`, the files' texts) and [`build::write`].
 
 pub mod build;
+pub mod class_spells;
 pub mod client;
 pub mod cmangos;
 pub mod codex;
@@ -18,11 +19,13 @@ pub mod gear;
 pub mod itemdb;
 pub mod jsv;
 pub mod kb;
+pub mod learn;
 pub mod lua;
 pub mod maps;
 pub mod merge;
 pub mod names;
 pub mod names_sources;
+pub mod newquests;
 pub mod normalize;
 pub mod objectives;
 pub mod pfquest;

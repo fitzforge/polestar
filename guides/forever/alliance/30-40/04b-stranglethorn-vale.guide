@@ -5,6 +5,7 @@ faction Alliance
 levels 35-36
 zone Stranglethorn Vale
 next forever/alliance/30-40/05-arathi-highlands
+pitch For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. Troll Witchery's Skullsplitter trolls are 39-42, so pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -12,12 +13,14 @@ next forever/alliance/30-40/05-arathi-highlands
 # Since 2026-11-07 Stranglethorn's second loop, after Desolace (the first loop is 30-40/04, which takes its Booty Bay
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
 
-step Stormwind
+step Collin Mauren
+  when complete 1078
   zone Stormwind City
-  turnin 1078                         -- Mauren, from Stonetalon
+  turnin 1078                         -- In the Slaughtered Lamb, if you still carry it
 
 step Fly to Darkshire
   zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
   fly "Darkshire"
   zone Duskwood
 
@@ -34,8 +37,13 @@ step Rebel Camp
   accept 574                          -- Sergeant Yohwa
   accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
 
+step Nesingwary's Expedition
+  tip South along the road: the hunters' tents stand just west of it.
+  accept 192                          -- Sir S. J. Erlgadin: the Shadowmaw Panthers prowl around Lake Nazferiti, after Kurzen's Compound
+
 step Bookie Herod
-  tip Herod's records lie in a hut on the west side of Kurzen's Compound, east of the Rebel Camp.
+  when onquest 200
+  tip East to Kurzen's Compound: Herod's records lie in a hut on its west side.
   turnin 200                          -- Bookie Herod's Records, upstairs
   accept 328
 
@@ -47,39 +55,39 @@ step Kurzen's Compound
   turnin 328                          -- Bookie Herod's Strongbox, below ground
   accept 329
 
-step Rebel Camp
-  turnin 329                          -- Lieutenant Doren
-  accept 330
-  turnin 330                          -- Corporal Sethman
-  accept 331
-  turnin 331                          -- Lieutenant Doren
-  turnin 574                          -- Sergeant Yohwa: the Commandos and Headshrinkers fell in the compound
-
-step Nesingwary's Expedition
-  tip South along the road: the hunters' tents stand just west of it.
-  accept 192                          -- Sir S. J. Erlgadin
+step Lake Nazferiti
+  zone Stranglethorn Vale
+  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it.
+  collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
+  kill 684 quest 192 @48.6,22.2 map 1434 -- Shadowmaw Panther
 
 step The jungle ruins
-  tip Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on Lake Nazferiti carries the Tumbled Crystals.
+  tip West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.
   collect 2005 quest 207.1            -- The First Troll Legend: Moon Over the Vale
   collect 2006 quest 207.2            -- The Second Troll Legend: Gri'lek the Wanderer; underwater
 
 step Water Elementals
-  tip Follow the west coast north to the haunted island off the shore west of Nesingwary's camp: the Lesser Water Elementals rise from the water around it.
+  tip The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it.
   collect 3923 quest 601              -- Water Elemental Bracers
 
-step Stranglethorn Vale: kill these as you meet them
+step The Ruins of Zul'Kunda
   zone Stranglethorn Vale
+  tip North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop.
   collect 2007 quest 207.3            -- The Third Troll Legend: Fall of Gurubashi
   collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
-  collect 4106 quest 213              -- Tumbled Crystal
-  kill 684 quest 192                  -- Shadowmaw Panther
   complete 339 optional               -- Chapter I
   complete 340 optional               -- Chapter II
   complete 341 optional               -- Chapter III
   complete 342 optional               -- Chapter IV
 
 step Rebel Camp
+  tip East to the Rebel Camp, on the way back to Nesingwary's camp.
+  turnin 329                          -- Lieutenant Doren
+  accept 330
+  turnin 330                          -- Corporal Sethman
+  accept 331
+  turnin 331                          -- Lieutenant Doren
+  turnin 574                          -- Sergeant Yohwa: the Commandos and Headshrinkers fell in the compound
   turnin 207                          -- Brother Nimetz
   accept 205
 
@@ -107,7 +115,7 @@ step Level 36
   zone Stranglethorn Vale
   tip Troll Witchery's Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
   goto 40.2,27.2 map 1434 "Snapjaw Crocolisk"
-  level 36                            -- grind on Snapjaw Crocolisk
+  level 36 grind 1152                 -- grind on Snapjaw Crocolisk
 
 step Skullsplitter trolls
   tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.
@@ -122,6 +130,6 @@ step Booty Bay
   accept 602                          -- For Archmage Ansirem in Alterac Mountains
   turnin 213                          -- Kebok
   turnin 210                          -- Krazek, upstairs
-  accept 627                          -- Krazek: the ore drops from Drywhisker kobolds in Arathi Highlands, next
+  accept 627 optional -- Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.
   accept 600                          -- Crank Fizzlebub, inside
   accept 606                          -- "Sea Wolf" MacKinley, on the top floor

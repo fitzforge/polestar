@@ -442,6 +442,34 @@ emit(fires)"#,
 }
 
 #[test]
+fn party_a_member_s_xp_alone_repaints_only_the_party_panel_and_the_same_unit_again_nothing() {
+	let out = live(&sent(
+		r#"
+local prog, panel = 0, 0
+Polestar.On("PARTY_PROGRESS", function() prog = prog + 1 end)
+Polestar.On("PARTY_PANEL", function() panel = panel + 1 end)
+local function step(text)
+	prog, panel = 0, 0
+	if text then p.receive("Ana-TestRealm", text) end
+	stub.advance(1)
+	return { prog, panel, P.Members()[1] and P.Members()[1].unit and P.Members()[1].unit.xp or false }
+end
+p.join("Ana")
+step()
+emit(step("2U|12|40|1|1")) -- first: who she is
+emit(step("2U|12|43|1|1")) -- a kill's XP
+emit(step("2U|12|43|1|1")) -- the same again (with a snapshot)
+emit(step("2U|13|0|1|1")) -- a level
+emit(step("2U|13|2|8|1")) -- another class: what she can take changes"#,
+	));
+	assert_eq!(out[0], json!([1, 0, 40]), "her first unit refreshes the guide (and the panel with it)");
+	assert_eq!(out[1], json!([0, 1, 43]), "XP alone: the panel, after the same delay; the guide and engine show none of it");
+	assert_eq!(out[2], json!([0, 0, 43]), "nothing new: nothing fires");
+	assert_eq!(out[3], json!([1, 0, 0]), "a level changes what she can take: the guide refreshes");
+	assert_eq!(out[4], json!([1, 0, 2]));
+}
+
+#[test]
 fn party_after_a_reload_in_a_party_it_says_hello_and_answers_the_member_who_answers_once() {
 	let out = not_logged_in(&sent(
 		r#"
@@ -949,20 +977,81 @@ emit({ P.StepLine() })"#
 }
 
 #[test]
-fn party_a_member_on_a_newer_polestar_or_guide_pack_is_said_once_a_session() {
+fn party_a_member_on_another_polestar_version_is_said_once_a_session_and_a_newer_guide_pack_once() {
 	let out = live(&sent(&format!(
 		"{ON_GUIDE}{}",
 		r#"
+p.quiet.Ana, p.quiet.Ben, p.quiet.Cy, p.quiet.Dee = true, true, true, true
 stub.messages = {}
-Polestar.version = "0.3.0"
-p.join("Ana")
-p.receive("Ana-TestRealm", "1P|8|999.0|test|4|test/g")
-p.receive("Ana-TestRealm", "1P|9|999.0|test|4|test/g")
-local n = 0
-for _, m in ipairs(stub.messages) do if m:find("999.0", 1, true) or m:find("(4;", 1, true) then n = n + 1 end end
-emit(n)"#
+Polestar.version = "0.3.7"
+p.join("Ana"); p.join("Ben"); p.join("Cy"); p.join("Dee")
+-- Ana: an older Polestar, from her hello, then the same again by "1P|" and "2U|".
+p.receive("Ana-TestRealm", "1H|0.3.6")
+p.receive("Ana-TestRealm", "1P|8|0.3.6|test|3|test/g")
+p.receive("Ana-TestRealm", "2U|12|5|1|1")
+-- Ben: a newer one, by "2U|" alone (he has no guide open), and a newer guide pack.
+p.receive("Ben-TestRealm", "2U|12|5|1|1|999.0")
+p.receive("Ben-TestRealm", "1P|9|999.0|test|4|test/g")
+-- Cy: the same version; Dee: a dev build.
+p.receive("Cy-TestRealm", "1Y|0.3.7")
+p.receive("Dee-TestRealm", "1Y|0.3.8-preview.1a2b3c")
+emit(stub.messages)
+stub.messages = {}
+-- Ana reloads: her hello again, same version: nothing.
+p.receive("Ana-TestRealm", "1H|0.3.6")
+emit(#stub.messages)"#
 	)));
-	assert_eq!(out[0], 2, "one line for Polestar, one for the pack, each once");
+	let said: Vec<&str> = out[0].as_array().unwrap().iter().filter_map(|m| m.as_str()).map(|m| m.trim_start_matches("|cff4fd1c5Polestar|r: ")).filter(|m| !m.contains("Party sync is on")).collect();
+	assert_eq!(
+		said,
+		vec!["Ana is on Polestar 0.3.6: your guides can differ.", "Ben is on Polestar 999.0: your guides can differ. A newer version is out.", "Ben has a newer Test guide pack (4; yours is 3).",],
+		"once per member and version; nothing for the same version or a dev build"
+	);
+	assert_eq!(out[1], 0);
+}
+
+#[test]
+fn party_with_showing_off_no_version_note() {
+	let out = run_with(
+		&sent(
+			r#"
+stub.messages = {}
+Polestar.version = "0.3.7"
+p.join("Ana")
+p.receive("Ana-TestRealm", "1H|0.3.6")
+emit(#stub.messages)"#,
+		),
+		LIVE_STUBS,
+		FILES,
+		true,
+		Some("PolestarDB = { schema = 1, settings = { party = { share = true, show = false } } }"),
+	);
+	assert_eq!(out[0], 0);
+}
+
+// A member's release version tells the update notices (Core/Update.lua), from their hello or their "1P|"; once
+// the update card has shown for that version (PolestarDB.update.shown), the chat line says nothing more.
+#[test]
+fn party_a_members_newer_release_tells_the_update_notices_and_the_chat_line_is_left_out_once_the_card_said_it() {
+	let script = sent(&format!(
+		"{ON_GUIDE}{}",
+		r#"
+stub.messages = {}
+Polestar.version = "0.3.6"
+p.quiet.Ben = true
+p.join("Ben")
+p.receive("Ben-TestRealm", "1Y|0.3.7")
+local fromHello = PolestarDB.update and PolestarDB.update.peer or false
+p.join("Ana")
+p.receive("Ana-TestRealm", "1P|8|0.3.8|test|3|test/g")
+local n = 0
+for _, m in ipairs(stub.messages) do if m:find("A newer version is out", 1, true) then n = n + 1 end end
+emit({ hello = fromHello, peer = PolestarDB.update.peer, lines = n })"#
+	));
+	let out = run_with(&script, LIVE_STUBS, FILES, true, Some(ON));
+	assert_eq!(out[0], json!({ "hello": "0.3.7", "peer": "0.3.8", "lines": 2 }), "one line per member on a newer release (#1617)");
+	let told = run_with(&script, LIVE_STUBS, FILES, true, Some("PolestarDB = { schema = 1, settings = { party = { share = true, show = true } }, update = { shown = \"0.3.8\" } }"));
+	assert_eq!(told[0], json!({ "hello": "0.3.7", "peer": "0.3.8", "lines": 0 }), "the card said 0.3.8 is out");
 }
 
 // Group play: on by default, the "2U|" unit message, sharing with the reason a member cannot take a
@@ -981,7 +1070,7 @@ local function told()
 end"#;
 
 #[test]
-fn party_sync_is_on_by_default_a_player_who_turned_it_off_stays_off_and_the_first_polestar_member_found_says_so_once() {
+fn party_sync_is_on_by_default_a_player_who_turned_it_off_stays_off_and_the_first_member_progress_shown_says_so_once() {
 	let script = format!(
 		"{NOTICE}{}",
 		r#"
@@ -993,23 +1082,27 @@ stub.advance(6)
 emit(texts())
 emit(told())
 p.sent = {}
+p.receive("Ana-TestRealm", "1Y|0.0.1")
+emit(told())
 p.receive("Ana-TestRealm", "1|60:1/4")
 p.receive("Ana-TestRealm", "1|60:2/4")
 stub.advance(6)
 emit(texts())
 emit(told())
+emit(stub.messages[#stub.messages] or false)
 p.disband(); p.join("Ben"); stub.advance(6)
 p.receive("Ben-TestRealm", "1|60:1/4")
 emit(told())"#
 	);
 	let fresh = saved_run(None, &script);
 	assert_eq!(fresh[0], json!(["1H|0.1.0-test"]), "never touched: on, and only the hello before anyone answers");
-	assert_eq!(fresh[2], json!(["1S|33:0/8"]), "Ana runs Polestar: she gets our snapshot");
-	assert_eq!(json!([fresh[1], fresh[3], fresh[4]]), json!([0, 1, 1]), "said once, on the first member who runs Polestar");
+	assert_eq!(fresh[3], json!(["1S|33:0/8"]), "Ana runs Polestar: she gets our snapshot");
+	assert_eq!(json!([fresh[1], fresh[2], fresh[4], fresh[6]]), json!([0, 0, 1, 1]), "said once, when the first member's progress shows (her answer alone shows nothing)");
+	assert_eq!(fresh[5], "|cff4fd1c5Polestar|r: Party sync is on: you and your party see each other's quest progress. Turn it off in Options.");
 	let no_share = saved_run(Some("PolestarDB = { schema = 1, settings = { party = { share = false } } }"), &script);
 	assert_eq!(no_share[0], json!(["1H|0.1.0-test"]), "showing alone still says hello");
-	assert!(no_share[2] == json!([]) || no_share[2] == json!({}), "sharing turned off stays off: {}", no_share[2]);
-	assert_eq!(no_share[3], 0, "nothing to say to a player who does not share");
+	assert!(no_share[3] == json!([]) || no_share[3] == json!({}), "sharing turned off stays off: {}", no_share[3]);
+	assert_eq!(no_share[4], 0, "a player who turned sharing off has been to Options: nothing to say");
 	let off = saved_run(Some("PolestarDB = { schema = 1, settings = { party = { share = false, show = false } } }"), &script);
 	assert!(off[0] == json!([]) || off[0] == json!({}), "both off: nothing sent, {}", off[0]);
 }
@@ -1071,16 +1164,81 @@ emit({ waiting = P.Waiting(goal) or false, holds = P.HoldsQuest(33), roster = #P
 fn party_the_unit_message_round_trips_ignores_later_fields_and_version_1_decoders_drop_it() {
 	let out = run(r#"
 local text = P.EncodeUnit({ level = 12, xp = 45, class = 8, race = 1 })
-emit(text); emit(P.DecodeUnit(text)); emit(P.DecodeUnit(text .. "|7|later"))
+emit(text); emit(P.DecodeUnit(text)); emit(P.DecodeUnit(text .. "|0.3.7|later"))
 emit({ P.Decode(text) == nil, P.DecodePos(text) == nil })
 emit({ P.DecodeUnit("1|33:1/2") == nil, P.DecodeUnit("2U|0|5||") == nil, P.DecodeUnit("2U|12|101||") == nil, P.DecodeUnit("2U|12|5||x") == nil })
 emit(P.DecodeUnit("2U|3|0||"))"#);
 	assert_eq!(out[0], "2U|12|45|8|1");
-	assert_eq!(out[1], json!({ "level": 12, "xp": 45, "class": 8, "race": 1 }));
-	assert_eq!(out[2], out[1], "a later version's fields are ignored");
+	assert_eq!(out[1], json!({ "level": 12, "xp": 45, "class": 8, "race": 1 }), "0.3.6 and older send no version");
+	assert_eq!(out[2], json!({ "level": 12, "xp": 45, "class": 8, "race": 1, "version": "0.3.7" }), "the version, then a later version's fields ignored");
 	assert_eq!(out[3], json!([true, true]), "the version-1 decoders (what older Polestar runs) drop it");
 	assert_eq!(out[4], json!([true, true, true, true]));
 	assert_eq!(out[5], json!({ "level": 3, "xp": 0 }), "class and race may be unknown");
+}
+
+// 0.3.7 adds the sender's Polestar version to "2U|" and the "2D|" message. A 0.3.6 client (tag v0.3.6) runs the
+// decoders below: its DecodeUnit whole, the others by their patterns, which decide what each takes. It must still read
+// the unit, and drop "2D|" as it drops every message it does not know (its handler then returns before anything else).
+const DECODERS_036: &str = r#"
+local Old = {}
+local function count(s) local n = tonumber(s); return n and n <= 999 and n or nil end
+function Old.DecodeUnit(text)
+	if type(text) ~= "string" then return nil end
+	local level, xp, class, race, rest = text:match("^2U|(%d+)|(%d+)|(%d*)|(%d*)(.*)$")
+	if not level or (rest ~= "" and rest:sub(1, 1) ~= "|") then return nil end
+	level, xp = count(level), tonumber(xp)
+	if not level or level < 1 or xp > 100 then return nil end
+	return { level = level, xp = xp, class = count(class), race = count(race) }
+end
+function Old.Decode(text)
+	if type(text) ~= "string" then return nil end
+	local mark, body = text:match("^1([SRQ]?)|(.*)$")
+	if not mark then return nil end
+	return mark
+end
+function Old.DecodeHello(text) return (type(text) == "string" and text:match("^1([HY])|([^|]*)$")) or nil end
+function Old.DecodePos(text) return (type(text) == "string" and text:match("^1P|(%d+)|([^|]*)|([^|]*)|([^|]*)|(.+)$")) or nil end
+function Old.DecodeAt(text) return (type(text) == "string" and text:match("^2([PG])|([%w%.]+)|(.+)$")) or nil end
+function Old.DecodeAnswer(text) return (type(text) == "string" and text:match("^2A|(.)$")) or nil end
+"#;
+
+#[test]
+fn party_a_0_3_6_client_reads_the_new_unit_message_and_drops_the_done_message() {
+	let out = run(&format!(
+		"{DECODERS_036}{}",
+		r#"
+local unit = P.EncodeUnit({ level = 12, xp = 45, class = 8, race = 1, version = "0.3.7" })
+local done = P.EncodeDone({ 33, 60 })
+emit(unit); emit(Old.DecodeUnit(unit)); emit(done)
+local dropped = true
+for _, f in pairs(Old) do if f(done) ~= nil then dropped = false end end
+emit(dropped)
+-- And the new client reads a 0.3.6 one's unit, which has no version.
+emit(P.DecodeUnit("2U|12|45|8|1"))"#
+	));
+	assert_eq!(out[0], "2U|12|45|8|1|0.3.7");
+	assert_eq!(out[1], json!({ "level": 12, "xp": 45, "class": 8, "race": 1 }), "0.3.6 reads the unit and ignores the version");
+	assert_eq!(out[2], "2D|33,60");
+	assert_eq!(out[3], true, "every 0.3.6 decoder drops \"2D|\"");
+	assert_eq!(out[4], json!({ "level": 12, "xp": 45, "class": 8, "race": 1 }));
+}
+
+#[test]
+fn party_the_done_message_round_trips_fits_255_bytes_and_refuses_malformed_text() {
+	let out = run(r#"
+local ids = {}
+for i = 1, 60 do ids[i] = 78000 + i end
+local long = P.EncodeDone(ids)
+local n = 0
+for _ in pairs(P.DecodeDone(long)) do n = n + 1 end
+emit({ #long <= 255, n, long:sub(1, 15) })
+emit({ P.EncodeDone({}), next(P.DecodeDone("2D|")) == nil, P.DecodeDone("2D|33|later")[33] })
+emit({ P.DecodeDone("2D|1,,2") == nil, P.DecodeDone("2D|x") == nil, P.DecodeDone("2D|0") == nil, P.DecodeDone("1D|33") == nil })
+emit({ P.Decode("2D|33") == nil, P.DecodePos("2D|33") == nil, P.DecodeUnit("2D|33") == nil, P.DecodeAt("2D|33") == nil })"#);
+	assert_eq!(out[0], json!([true, 40, "2D|78001,78002,"]), "the nearest first, 40 at most, under 255 bytes");
+	assert_eq!(out[1], json!(["2D|", true, true]), "none is \"2D|\"; a later version's fields are ignored");
+	assert_eq!(out[2], json!([true, true, true, true]));
+	assert_eq!(out[3], json!([true, true, true, true]));
 }
 
 #[test]
@@ -1089,13 +1247,13 @@ fn party_a_member_s_new_or_unknown_messages_change_nothing_else_and_raise_no_err
 		r#"
 p.join("Ana")
 p.receive("Ana-TestRealm", "1|33:5/8")
-p.receive("Ana-TestRealm", "2U|14|55|8|1|more")
+p.receive("Ana-TestRealm", "2U|14|55|8|1|0.3.9|more")
 p.receive("Ana-TestRealm", "3Z|whatever|comes|next")
 p.receive("Ana-TestRealm", "2P|5|x")
 emit(members()); emit(P.Members()[1].unit); emit(#Polestar.Errors())"#,
 	));
 	assert_eq!(out[0], json!(["Ana 33:5/8"]));
-	assert_eq!(out[1], json!({ "level": 14, "xp": 55, "class": 8, "race": 1 }));
+	assert_eq!(out[1], json!({ "level": 14, "xp": 55, "class": 8, "race": 1, "version": "0.3.9" }));
 	assert_eq!(out[2], 0);
 }
 
@@ -1116,9 +1274,9 @@ w.setXP(200, 1000); stub.advance(3)
 emit(texts())"#,
 	));
 	assert_eq!(out[0], 0, "solo: nothing");
-	assert_eq!(out[1], json!(["1R|", "2U|12|10|1|1"]));
+	assert_eq!(out[1], json!(["1R|", "2U|12|10|1|1|0.1.0-test"]), "with your Polestar version");
 	assert_eq!(out[2], 0, "still 10%");
-	assert_eq!(out[3], json!(["2U|12|20|1|1"]));
+	assert_eq!(out[3], json!(["2U|12|20|1|1|0.1.0-test"]));
 }
 
 // A quest database for the reasons a member cannot take quest 33 (level 10, warriors and paladins).
@@ -1160,11 +1318,105 @@ emit(P.ShareFor(goal) == nil)"#
 	));
 	assert_eq!(out[0], true, "not in your log: nothing to share");
 	assert_eq!(out[1], json!(["Dee"]), "Ana has it; Ben is too low, Cy another class");
-	assert_eq!(out[2], "Not on this quest: Ben (level 8, needs 10), Cy (another class), Dee");
+	assert_eq!(out[2], "Not on this quest: Ben (level 8, needs 10), Dee", "Cy's class cannot take it: her guide never has it, so the line leaves her out");
 	assert_eq!(json!([&out[3], &out[4]]), json!([true, [33]]));
 	assert_eq!(out[5], true, "the game said Dee has done it");
-	assert_eq!(out[6], "Not on this quest: Ben (level 8, needs 10), Cy (another class), Dee (already done)");
+	assert_eq!(out[6], "Not on this quest: Ben (level 8, needs 10), Dee (already done)");
 	assert_eq!(out[7], true, "a quest the game will not share: no Share");
+}
+
+#[test]
+fn party_a_member_who_handed_the_quest_in_reads_already_done_and_one_who_cannot_take_it_is_left_out() {
+	let out = group(&format!(
+		"{QDB}{}",
+		r#"
+local goal = { t = "kill", quest = 33, oi = 1, status = "active" }
+w.onQuest(33, { 8 })
+p.join("Cy"); p.join("Dee")
+p.set("Cy", { level = 12, class = "MAGE", race = "Human" })
+p.set("Dee", { level = 12, class = "WARRIOR", race = "Human" })
+p.receive("Dee-TestRealm", "1S|60:1/4")
+emit({ P.Line(goal) or false, P.ShareFor(goal) or false })
+p.receive("Dee-TestRealm", "2D|71,33")
+emit({ P.Line(goal) or false, P.ShareFor(goal) or false })
+-- Her next snapshot replaces what she did; no "2D|" after it: she has done none of it.
+p.receive("Dee-TestRealm", "1S|60:2/4")
+emit({ P.Line(goal) or false, P.ShareFor(goal) or false })
+p.leave("Dee")
+emit(P.Line(goal) or false)"#
+	));
+	assert_eq!(out[0], json!(["Not on this quest: Dee", ["Dee"]]), "Cy, a Mage, never had the Warrior quest: not named");
+	assert_eq!(out[1], json!(["Not on this quest: Dee (already done)", false]), "her \"2D|\" says she handed it in: no Share");
+	assert_eq!(out[2], json!(["Not on this quest: Dee", ["Dee"]]));
+	assert_eq!(out[3], false, "only Cy, who cannot take it: no line at all");
+}
+
+#[test]
+fn party_the_quests_you_handed_in_around_your_step_go_out_after_your_place_and_again_only_when_they_change() {
+	let out = live(&sent(
+		r#"
+local E = Polestar.Engine
+local steps = {}
+for i = 1, 30 do steps[i] = { goals = {} } end
+steps[3].goals = { { t = "turnin", quest = 60 } }
+steps[4].goals = { { t = "accept", quest = 61 }, { t = "turnin", quest = 62 } }
+steps[5].goals = { { t = "kill", quest = 33, oi = 1 } }
+steps[29].goals = { { t = "turnin", quest = 99 } }
+local guide = { id = "test/g", pack = "test", steps = steps }
+E.GetGuide = function() return guide end
+E.GetLiveStep = function() return 5 end
+Polestar.Guides.Pack = function(id) if id == "test" then return { id = "test", title = "Test", version = "3" } end end
+w.complete({ 60, 62, 99 })
+local function done()
+	local out = {}
+	for _, t in ipairs(texts()) do if t:sub(1, 3) == "2D|" then out[#out + 1] = t end end
+	return out
+end
+emit(P.MyDone())
+p.join("Ana"); stub.advance(6.5)
+local all = texts()
+emit({ done(), all[#all] })
+p.sent = {}
+Polestar.Fire("STEP_UPDATED", 5); stub.advance(2.5)
+emit(#p.sent)
+w.complete({ 33 })
+Polestar.Fire("STEP_UPDATED", 5); stub.advance(2.5)
+emit(texts())
+p.sent = {}
+guide = { id = "test/h", pack = "test", steps = {} }
+Polestar.Fire("GUIDE_CHANGED"); stub.advance(2.5)
+emit(done())"#,
+	));
+	assert_eq!(out[0], json!([62, 60]), "the live step's and the steps before it, nearest first; step 29 is too far ahead");
+	assert_eq!(out[1], json!([["2D|62,60"], "2D|62,60"]), "after the place, with the snapshot");
+	assert_eq!(out[2], 0, "nothing changed: nothing sent");
+	assert_eq!(out[3], json!(["2D|33,62,60"]), "the place is the same; only what you did goes out");
+	assert_eq!(out[4], json!(["2D|"]), "another guide with none of it: the party is told to forget the list");
+}
+
+// In the client's chat lockdown (encounters, dungeons: CHAT_MSG_SYSTEM is SecretInChatMessagingLockdown in Forever's
+// ChatInfoDocumentation) the share's answer comes as a secret string, and matching one throws. Lua 5.1 has no secret
+// type, so the stub marks the line secret through issecretvalue: a handler that parsed it would mark Dee "already
+// done"; the share's answer reads as no answer instead.
+#[test]
+fn party_a_secret_system_line_after_a_share_is_never_parsed() {
+	let out = group(&format!(
+		"{QDB}{}",
+		r#"
+local secret = {}
+function issecretvalue(v) return type(v) == "string" and secret[v] ~= nil end
+local goal = { t = "kill", quest = 33, oi = 1, status = "active" }
+p.join("Dee")
+p.set("Dee", { level = 12, class = "WARRIOR", race = "Human" })
+w.onQuest(33, { 8 })
+emit(P.Share(33))
+secret[ERR_QUEST_PUSH_ALREADY_DONE_S:format("Dee")] = true
+p.pushResult("Dee", "ERR_QUEST_PUSH_ALREADY_DONE_S")
+stub.advance(1)
+emit(P.Line(goal))"#
+	));
+	assert_eq!(out[0], true);
+	assert_eq!(out[1], "Not on this quest: Dee", "the secret line is passed over, never parsed");
 }
 
 const PANEL_GUIDE: &str = r#"
@@ -1205,7 +1457,7 @@ emit(PP.Frame():IsShown())
 stub.fire("PLAYER_REGEN_ENABLED")
 emit(PP.Frame():IsShown())
 local t
-Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return true end, GetTarget = function() return t end }
+Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return t end, GetTarget = function() return t end, StartTrip = function() end }
 emit({ P.PointAt("party1"), t, P.PointAt("party2") })
 p.disband()
 emit(PP.Frame():IsShown())"#
@@ -1226,6 +1478,103 @@ emit(PP.Frame():IsShown())"#
 	assert_eq!(out[6], true);
 	assert_eq!(out[7], json!([true, [1429, 40, 50, "Party: Ana"], false]), "Ben's place is not known: no arrow");
 	assert_eq!(out[8], false, "solo: hidden");
+}
+
+// The row's height counts the step line only while it shows, so the needs line must hang under the name then, not
+// under the hidden step line: a hidden region keeps its place in an anchor chain, and an empty one can keep a line's
+// height (Feature Studio's render of #1617: Ana's wrapped needs line ran into Ben's row).
+#[test]
+fn party_a_row_without_a_step_hangs_its_needs_line_under_the_name_and_sizes_to_its_wrapped_lines() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+p.join("Ana"); p.join("Ben")
+p.set("Ana", { class = "MAGE", level = 17 }); p.set("Ben", { class = "WARRIOR", level = 8 })
+p.receive("Ana-TestRealm", "1|33:3/8")
+p.receive("Ben-TestRealm", "1|60:1/4")
+stub.advance(1)
+local F = PP.Frame()
+local function rowOf(name)
+	for _, r in ipairs(F.rows) do if r:IsShown() and r.psName == name then return r end end
+end
+local function seen(r)
+	local _, rel = r.Needs:GetPoint(1)
+	local h = 6 + r.Name:GetStringHeight() + (r.Step:IsShown() and (2 + r.Step:GetStringHeight()) or 0)
+		+ (r.Needs:IsShown() and (2 + r.Needs:GetStringHeight()) or 0)
+	return { step = r.Step:IsShown(), under = rel == r.Name and "name" or rel == r.Step and "step" or "other",
+		wraps = r.Needs:GetNumLines() > 1, fits = r:GetHeight() >= h }
+end
+-- A long needs line wraps.
+Polestar.Engine.GetStepView = function(i)
+	if i == 5 then
+		return { goals = { { t = "kill", quest = 33, oi = 1, status = "active", subject = "Shipment of Boots from Drizzlik's Emporium" },
+			{ t = "kill", quest = 33, oi = 2, status = "active", subject = "Telescopic Lens from Fragile - Do Not Drop" } } }
+	end
+end
+p.receive("Ana-TestRealm", "1|33:3/8,1/4")
+PP.Refresh()
+emit(seen(rowOf("Ana")))
+p.receive("Ana-TestRealm", "1P|5|0.0.1|test|3|test/g")
+PP.Refresh()
+emit(seen(rowOf("Ana")))"#
+	));
+	assert_eq!(out[0], json!({ "step": false, "under": "name", "wraps": true, "fits": true }), "no step: under the name, every wrapped line in the row");
+	assert_eq!(out[1], json!({ "step": true, "under": "step", "wraps": true, "fits": true }), "with her step: under it");
+}
+
+// A player report (Discord, via Fitz): following a party member from the party panel could not be cancelled, and
+// the arrival chime played over and over while standing by them; only opening another guide stopped it. Each look
+// at where they were set a new target, which re-armed the arrival. Now the follow is a trip (Nav.StartTrip: it ends
+// on arrival, and "Back to the guide" cancels it) whose one target moves with them (Nav.MoveTarget), and it ends
+// once they leave the party (their slot taken by someone else), go offline, or have no place the client gives.
+#[test]
+fn party_following_a_member_is_one_moving_trip_that_ends_when_they_leave_go_offline_or_lose_their_place() {
+	let out = group(
+		r#"
+local calls, t = {}, nil
+local function log(s) calls[#calls + 1] = s end
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label) t = { map = map, x = x, y = y, label = label }; log("set " .. label); return t end,
+	GetTarget = function() return t end,
+	StartTrip = function(target, name, label) log("trip " .. tostring(name) .. " (" .. label .. ")") end,
+	MoveTarget = function(target, map, x, y) target.map, target.x, target.y = map, x, y; log(("move %d %g %g"):format(map, x, y)); return true end,
+	EndTrip = function() log("end"); t = nil; return true end,
+	ReleaseTarget = function() log("release"); t = nil end,
+}
+local function follow(unit, setup)
+	calls = {}
+	P.PointAt(unit)
+	local first = t
+	stub.advance(3.1)                       -- not moved: nothing
+	p.set("Ana", { x = 41 })
+	stub.advance(3.1)                       -- moved: the same target goes with her
+	local same = t == first
+	setup()
+	stub.advance(3.1)
+	stub.advance(3.1)                       -- over: no more looks
+	p.set("Ana", { map = 1429, x = 40 })
+	return { calls = calls, same = same }
+end
+p.join("Ana"); p.join("Ben")
+p.set("Ana", { map = 1429, x = 40, y = 50 }); p.set("Ben", { map = 1429, x = 60, y = 60 })
+local left = follow("party1", function() p.leave("Ana") end) -- Ben moves up to party1: never followed instead
+p.join("Ana"); p.set("Ana", { map = 1429, x = 40, y = 50 }) -- party2 now
+local offline = follow("party2", function() p.connect("Ana", false) end)
+p.connect("Ana", true)
+local lost = follow("party2", function() p.set("Ana", { map = false }) end) -- no place the client gives
+calls = {}
+P.PointAt("party2")
+t = { label = "Elsewhere" }                  -- another target took over: the follow stops quietly
+stub.advance(3.1)
+emit({ left = left, offline = offline, lost = lost, replaced = calls })"#,
+	);
+	let out = &out[0];
+	let followed = |end: &str| json!({ "calls": ["set Party: Ana", "trip Ana (Party)", "move 1429 41 50", end], "same": true });
+	assert_eq!(out["left"], followed("end"), "she left: the trip ends, the arrow never jumps to Ben");
+	assert_eq!(out["offline"], followed("end"));
+	assert_eq!(out["lost"], followed("end"));
+	assert_eq!(out["replaced"], json!(["set Party: Ana", "trip Ana (Party)"]), "no move, no end: it stops without a word");
 }
 
 #[test]
@@ -1398,4 +1747,127 @@ emit(C.SenderIsUnit("Ana Smith-TestRealm", "party1"))"#,
 	assert_eq!(out[3], json!(["Ana 33:1/8"]), "a sender without the realm counts; our echo and secret values do not");
 	assert_eq!(out[4], 0, "no error");
 	assert_eq!(out[5], false, "a secret answer is no");
+}
+
+// Boosted Rest (QoL/Rest.lua) as its own "2B|" message: every older decoder drops it, a later version's fields
+// are ignored, a member who never sends it (an older client) shows none, and the panel counts it down.
+#[test]
+fn party_boosted_rest_round_trips_and_older_decoders_drop_it() {
+	let out = run(r#"
+emit({ P.EncodeRest(2519.2), P.EncodeRest(true), P.EncodeRest(nil), P.EncodeRest(0) })
+emit({ P.DecodeRest("2B|2520"), P.DecodeRest("2B|*"), P.DecodeRest("2B|0"), P.DecodeRest("2B|2520|later") })
+emit({ P.Decode("2B|2520") == nil, P.DecodePos("2B|2520") == nil, P.DecodeUnit("2B|2520") == nil, P.DecodeAt("2B|2520") == nil,
+	P.DecodeAnswer("2B|2520") == nil, P.DecodeHello("2B|2520") == nil, P.DecodeRest("2U|12|45|8|1") == nil, P.DecodeRest("2B|x") == nil,
+	P.DecodeRest("2B|2520x") == nil, P.DecodeRest("1B|20") == nil })"#);
+	assert_eq!(out[0], json!(["2B|2520", "2B|*", "2B|0", "2B|0"]));
+	assert_eq!(out[1], json!([2520, true, false, 2520]), "fields after the first are ignored");
+	assert_eq!(out[2], json!([true, true, true, true, true, true, true, true, true, true]));
+}
+
+#[test]
+fn party_boosted_rest_goes_out_on_a_change_only_and_an_end_only_after_it_was_on() {
+	let out = live(&sent(
+		r#"
+local left
+Polestar.QoL = { On = function(k) return k == "boostedRest" end, Rest = { Left = function() return left end } }
+w.onQuest(33, { 8 })
+p.join("Ana"); stub.advance(10)
+p.sent = {}
+Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
+emit(#texts())
+left = 2520
+Polestar.Fire("QOL_REST_UPDATED", false); stub.advance(3)
+emit(#texts())
+Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
+emit(texts()[1])
+p.sent = {}
+left = nil
+Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
+emit(texts()[1])
+p.sent = {}
+Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
+emit(#texts())"#,
+	));
+	assert_eq!(out[0], 0, "never on: nothing to say");
+	assert_eq!(out[1], 0, "a minute redraw is no change");
+	assert_eq!(out[2], "2B|2520");
+	assert_eq!(out[3], "2B|0", "it ended: the party that heard it on is told");
+	assert_eq!(out[4], 0, "and only once");
+}
+
+#[test]
+fn party_boosted_rest_of_a_member_shows_on_their_panel_row_and_an_older_client_shows_none() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+p.join("Ana")
+p.set("Ana", { class = "MAGE", level = 11 })
+p.receive("Ana-TestRealm", "2U|12|45|8|1")
+local function lvl() local _, b = PP.RowText(P.Roster()[1]); return b end
+emit({ P.Roster()[1].rest or false, lvl() })
+p.receive("Ana-TestRealm", "2B|2520")
+stub.advance(60)
+emit({ math.floor(P.Roster()[1].rest + 0.5), lvl() })
+p.receive("Ana-TestRealm", "2B|*")
+emit(lvl())
+p.receive("Ana-TestRealm", "2B|0")
+emit({ P.Roster()[1].rest or false, lvl() })
+p.receive("Ana-TestRealm", "2B|30")
+stub.advance(31)
+emit(P.Roster()[1].rest or false)"#
+	));
+	assert_eq!(out[0], json!([false, "Level 12  \u{b7}  45% XP"]), "an older client sends no \"2B|\": nothing shown");
+	assert_eq!(out[1], json!([2460, "Level 12  \u{b7}  45% XP  \u{b7}  Boosted Rest 41m"]));
+	assert_eq!(out[2], "Level 12  \u{b7}  45% XP  \u{b7}  Boosted Rest");
+	assert_eq!(out[3], json!([false, "Level 12  \u{b7}  45% XP"]));
+	assert_eq!(out[4], false, "run out since it arrived");
+}
+
+// #1684's sweep: the panel's "Still needs" line wraps, and the client breaks a line after "/", so "Kobold Vermin
+// 3/8" could read "3/" at a line's end and "8" under it. A count moves to the next line whole, at any name length.
+#[test]
+fn party_the_panel_s_still_needs_line_never_splits_a_count() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+local E = Polestar.Engine
+p.join("Ana")
+p.set("Ana", { class = "MAGE", level = 11 })
+p.receive("Ana-TestRealm", "1P|5|0.0.1|test|3|test/g")
+p.receive("Ana-TestRealm", "1|33:3/8")
+local probe = UIParent:CreateFontString()
+local function needsLine(f)
+	for _, r in ipairs(f.regions or {}) do
+		if r:GetObjectType() == "FontString" and r:IsShown() and (r:GetText() or ""):find("/", 1, true) then return r end
+	end
+	for _, c in ipairs(f.children or {}) do local x = needsLine(c); if x then return x end end
+end
+local split, moved, seen = {}, 0, 0
+for n = 1, 60 do
+	local subject = "Kobold " .. string.rep("v", n)
+	E.GetStepView = function(i) if i == 5 then return { goals = { { t = "kill", quest = 33, oi = 1, status = "active", subject = subject } } } end end
+	p.receive("Ana-TestRealm", "1|33:3/" .. (n % 2 == 0 and "8" or "10"))
+	stub.advance(2.1)
+	local fs = needsLine(PP.Frame())
+	if fs then
+		seen = seen + 1
+		local text = fs:GetText()
+		local s, e = text:find("%d+/%d+")
+		probe:SetFont(fs:GetFont())
+		probe:SetWidth(fs:GetWidth())
+		probe:SetText(text:sub(1, s))
+		local h1 = probe:GetStringHeight()
+		probe:SetText(text:sub(1, e))
+		if probe:GetStringHeight() ~= h1 then split[#split + 1] = text end
+		if text:find("\n", 1, true) then moved = moved + 1 end
+	end
+end
+emit({ split = table.concat(split, " | "), moved = moved, seen = seen })"#
+	));
+	let r = &out[0];
+	assert_eq!(r["split"], "", "no count starts on one line and ends on the next: {r}");
+	assert!(r["seen"].as_u64().unwrap() >= 50, "the line was on screen: {r}");
+	assert!(r["moved"].as_u64().unwrap() > 0, "some name length put the count on the next line: {r}");
 }

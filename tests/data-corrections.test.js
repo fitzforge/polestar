@@ -73,6 +73,22 @@ test('every prerequisite correction blocks the quest until its prerequisites are
 	assert.deepEqual(dead, [], `corrections that set prerequisites but block nothing: ${dead.join(', ')}`);
 });
 
+// A timed quest's `limit` (seconds once taken): the Forever TDB's TimeAllowed through the data build's KB step, a
+// Forever quest's from a correction. Dynamic Questing takes a timed quest early only when the walk still fits.
+test('Grace of An\'she and Mu\'sha allows ten minutes; a time limit is a whole number of seconds', () => {
+	assert.equal(corrections.quests[95805].set.limit, 600);
+	const bad = Object.entries(corrections.quests).filter(([, e]) => e.set && 'limit' in e.set && !(Number.isInteger(e.set.limit) && e.set.limit > 0));
+	assert.deepEqual(bad.map(([id]) => id), []);
+});
+
+test('the release data carries time limits: 95805 600 s, Scalding Mornbrew Delivery the TDB\'s 300 s, none on an untimed quest', (t) => {
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	if (!Object.values(quests).some((q) => q.limit)) return t.skip('data/forever was built without the KB step (no time limits)');
+	assert.deepEqual([quests[95805].limit, quests[3364].limit, quests[755].limit], [600, 300, undefined]);
+});
+
 test('Highland Hides waits for Young Crocolisk Skins, not Daily Delivery (#533)', () => {
 	const { all, any } = blockingPrereqs({ id: 98815, start: { npc: [2094] }, ...corrections.quests[98815].set });
 	assert.deepEqual({ all, any }, { all: [], any: [484] });
@@ -127,6 +143,40 @@ test('Crocs of the Sky waits for Apprentice\'s Duties, and The Shamed Lieutenant
 	assert.deepEqual(blocks(98219, 928), { all: [], any: [98191] }, 'Lord Grayson Shadowbreaker, Stormwind');
 });
 
+// Bennistrov (#1354): Highlord Bolvar Fordragon's A Friend of the Family (98191) is offered only once Captain
+// Stoutfist's (98190) is handed in to him. Without the prerequisite the guide still sent a player who had skipped
+// 98190 to Bolvar for 98191. The follow-up sweep (players' recordings: taken only after the quest before, refused
+// before it; a second source agreeing) found the same gap in these chains.
+test('Follow-ups wait for the quest before them, so a skipped one takes its follow-up with it (#1354 sweep)', () => {
+	const blocks = (id, npc) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return blockingPrereqs({ id, start: { npc: [npc] }, ...entry.set });
+	};
+	for (const [id, npc, any, who] of [
+		[98191, 1748, [98190], 'Highlord Bolvar Fordragon, Stormwind (#1354)'],
+		[98394, 11802, [98393], 'Dendrite Starblaze, Moonglade (Druid cat form)'],
+		[98396, 11957, [98394], 'the Great Cat Spirit'],
+		[98731, 11957, [98396], 'the Great Cat Spirit'],
+		[98397, 11802, [98731, 98738], 'Dendrite Starblaze: either blessing'],
+		[78089, 3663, [78088], 'Delgren the Purifier (Paladin cloak)'],
+		[78090, 5492, [78089], 'Katherine the Pure'],
+		[78091, 5495, [78090], 'Ursula Deline: Earning Your Salt'],
+		[78092, 5495, [78091], 'Ursula Deline'],
+		[91859, 248840, [91858], 'Trevan Rol (Lumina Windsinger chain)'],
+		[91860, 259611, [91859], 'Deathguard Baldren'],
+		[96204, 248755, [91862], 'Lumina Windsinger'],
+		[95034, 259620, [96204], 'Lumina Windsinger'],
+		[96264, 259023, [94789], 'Veyric Thunderhame (Shaman Call of Air)'],
+		[92519, 12920, [97539], 'Doctor Gregory Victor, Hammerfall'],
+		[92457, 269127, [92432], 'Image of Archmage Modera (Kirin Tor)'],
+		[95770, 2519, [95748], 'Kin\'weelay: Locating the Lost City after The Gurubashi Legends of Old'],
+	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
+	const fenris = corrections.quests[91861];
+	assert.ok(fenris, 'a correction for 91861');
+	assert.deepEqual(blockingPrereqs({ id: 91861, start: { object: [566037] }, ...fenris.set }), { all: [], any: [91860] }, 'the Charred Remains');
+});
+
 test('Seeking Caitlin is closed by Lost in the Thicket Things, its breadcrumb target (#533)', () => {
 	const quests = { 95737: { id: 95737, ...corrections.quests[95737].set }, 95647: { id: 95647 } };
 	assert.deepEqual(closedByOf(95737, quests), [95647]);
@@ -141,6 +191,22 @@ test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
 
+test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
+	assert.deepEqual(corrections.quests[6981].set.objectives, [{ type: 'talk', id: 3442, count: 1, text: 'Speak with someone in Ratchet about the Glowing Shard' }]);
+});
+
+test('dungeon turn-in NPCs the data placed nowhere stand where players hand in to them (#1326 sweep)', () => {
+	assert.deepEqual(corrections.npcs[13155].set.spawns, { 1437: { f: 'e', pts: [[51.41, 59.23]] } }, 'Deathstalker Agent: Dragonmaw Rumors and Open the Maw, Wetlands');
+	assert.deepEqual(corrections.npcs[15991].set.spawns, { 1453: { f: 'e', pts: [[68.15, 29], [70.18, 29.86]] } }, 'Lady Dena Kennedy: Crest of Lordaeron, Stormwind City');
+});
+
+test('the Dalaran traitors stand in the camp south of their Classic spot, where players kill them (#1633)', () => {
+	const at = (id) => corrections.npcs[id].set.spawns;
+	assert.deepEqual(at(2414), { 1416: { f: 'l', pts: [[16.8, 89.4]] }, 1424: { f: 'l', pts: [[23.6, 26.7]] } }, 'Kegan Darkmar: Bloodstone Oval');
+	assert.deepEqual([2411, 2412, 2413].map((id) => at(id)[1416].pts), [[[19.5, 90]], [[19.6, 90.9]], [[19.3, 91.5]]], 'Ricter, Alina and Dermot');
+	for (const id of [2411, 2412, 2413, 2414]) assert.ok(at(id)[1424], `npc ${id}: its Hillsbrad Foothills spot moves too`);
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
@@ -150,4 +216,56 @@ test('class quests the data left open are locked to their class, and Magma or La
 	assert.ok('classes' in lava && lava.classes === null, 'Magma or Lava?: no class limit');
 	assert.ok('races' in lava && lava.races === null, 'Magma or Lava?: no race limit');
 	assert.deepEqual(lava.end, { npc: [5497, 7825], object: [] }, 'its enders stay');
+});
+
+// #1490: The Great Outdoors' corrections gave it The Adventurer as its prerequisite, but the quest data also names The
+// Adventurer as its breadcrumb (The Great Outdoors' `breadcrumbs`, The Adventurer's `breadcrumbFor`), and a breadcrumb
+// never blocks, so the Codex had no prerequisite. Players' recordings: every Great Outdoors giver refuses it until The
+// Adventurer is handed in. The corrections clear both breadcrumb links, so the prerequisite stands over the data's.
+test('The Great Outdoors waits for The Adventurer, whatever breadcrumb links the data has (#1490)', () => {
+	const pairs = { 95998: 96627, 96101: 96638, 96604: 96652, 96605: 96659, 96606: 96630, 96607: 96656, 96608: 96628 };
+	for (const [g, a] of Object.entries(pairs).map(([g, a]) => [Number(g), a])) {
+		const ge = corrections.quests[g];
+		const ae = corrections.quests[a];
+		assert.ok(ge && ae, `corrections for ${g} and ${a}`);
+		// The records as the merged data has them (questie: breadcrumb links both ways), with the corrections applied.
+		const quest = { id: g, start: { npc: [1] }, breadcrumbs: [a], ...ge.set };
+		const adventurer = { id: a, start: { npc: [2] }, breadcrumbFor: g, ...ae.set };
+		const { all, any } = blockingPrereqs(quest, (id) => (id === a ? adventurer : null));
+		assert.deepEqual({ all, any }, { all: [], any: [a] }, `${g} after ${a}`);
+	}
+});
+
+// The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
+// players' recorded hand-ins at a full-XP level, but for Harvesting the Harvesters (92911): one hand-in in the 2026-11-08
+// count and none in the recordings archive now, so it stays as the data has it until a second source agrees. The corrections hold the recorded values, so the level model gets them.
+test('quest XP the recordings confirm is held by the corrections (1.0.13 trace XP check)', () => {
+	const xp = {
+		91723: 525, 91732: 320, 91740: 875, 91745: 25, 91758: 35, 91772: 360, 92750: 120, 92751: 120, 95495: 140, 95507: 1000,
+		95508: 1350, 95805: 360, 96130: 340, 96139: 1400, 96241: 2350, 96259: 2350, 96260: 1750, 96825: 550, 96874: 850, 97242: 110,
+		97246: 110, 97249: 110, 97253: 1050, 97282: 850, 97326: 550, 97914: 625, 97926: 625, 97944: 270, 98094: 1000, 98251: 1400,
+		98252: 925, 98298: 1150, 98319: 350, 99048: 80, 99049: 390, 99052: 1100, 99080: 875, 99082: 90, 99108: 270, 99127: 480,
+		99131: 65, 99143: 480, 99159: 350, 99160: 525,
+	};
+	const got = Object.fromEntries(Object.keys(xp).map((q) => [q, corrections.quests[q] && corrections.quests[q].set.xp]));
+	assert.deepEqual(got, Object.fromEntries(Object.entries(xp).map(([q, v]) => [q, v])));
+});
+
+test('Call of Fire has its third giver, The Horn of Xelthos its horn, and A Simmering Storm\'s chain stays Horde only (1.0.13 review)', () => {
+	assert.deepEqual(corrections.quests[94449].set.start.npc, [258098, 258113, 257446], 'Teo Hammerstorm in Dun Morogh gives Call of Fire too');
+	assert.deepEqual(corrections.quests[78261].set.objectives, [{ type: 'item', id: 210183, count: 1, text: 'Horn of Xelthos' }]);
+	for (const q of [97281, 97282]) assert.equal(corrections.quests[q] && corrections.quests[q].set.races, 8589934770, `${q}: Horde races`);
+});
+
+test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s races: Zephras Isle, both Skyborne, the Horde Skyborne village, Call of Fire, the Horde Shaman chain', () => {
+	const races = (id) => (corrections.quests[id] && 'races' in corrections.quests[id].set ? corrections.quests[id].set.races : undefined);
+	const SKYBORNE = 2 ** 32 + 2 ** 33;
+	const HORDE = 2 + 16 + 32 + 128 + 2 ** 33;
+	const ALLIANCE = 1 + 4 + 8 + 64 + 2 ** 32;
+	const zephras = [92460, 92461, 92462, 92463, 92472, 92516, 92550, 92553, 92682, 92685, 93160, 93165, 93317, 93320, 93926, 93951, 94486, 94489, 94568, 94897, 96101];
+	assert.deepEqual(zephras.filter((id) => races(id) !== null), [], 'the Zephras Isle quests both Skyborne starts take have no race limit');
+	assert.deepEqual([92474, 94003, 94006, 98404].map(races), [SKYBORNE, SKYBORNE, SKYBORNE, SKYBORNE], 'Alliance and Horde Skyborne');
+	assert.deepEqual([92514, 92595].map(races), [HORDE, HORDE], "Welcome to Shen'dar Village and The Windshapers: the Horde, not Tauren only");
+	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
+	assert.deepEqual([79361, 79442].map(races), [HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
 });

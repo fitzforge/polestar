@@ -103,6 +103,26 @@ fn c11_a_class_teleport_is_a_leg_from_the_start_when_it_is_faster_a_ghost_only_w
 }
 
 #[test]
+fn issue_1515_a_class_teleport_landing_in_the_zone_the_player_stands_in_is_never_planned() {
+	let out = run(r#"
+		local r = {}
+		local landing = { name = "Testshire", c = 0, wx = -500, wy = -500, map = 9000, x = 75, y = 75 }
+		Polestar.Transit = {
+			Now = function() return 0 end,
+			Teleports = function() return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = 0, to = landing } } end,
+		}
+		nav.place(0, 0)                                   -- in Testshire (map 9000), 700 yd from the quest
+		target(-500, -480, "Quest")
+		r.inZone = route()
+		landing.map = 9002                                -- the same landing, in another zone
+		target(-500, -470, "Quest")
+		r.elsewhere = route()
+		emit(r)"#);
+	assert_eq!(out["inZone"], json!(["walk|Quest"]), "in Testshire: no Teleport: Testshire across it");
+	assert_eq!(out["elsewhere"], json!(["teleport|Cast Teleport: Testshire", "walk|Quest"]));
+}
+
+#[test]
 fn a_walk_in_portal_goes_one_way_only() {
 	let out = run(r#"
 		local r = {}
@@ -212,6 +232,40 @@ fn t_2_3_no_flight_leg_lands_at_or_passes_through_an_unknown_flight_master_the_k
 	assert_eq!(out["unknownStops"], json!([2, 3]), "Middle Post unknown: no flight through it");
 	assert_eq!(out["known"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
 	assert_eq!(out["stops"], json!([1, 2, 3]));
+}
+
+// A flight path learnt while Polestar was not running: the world map's flight points (C_TaxiMap.GetTaxiNodesForMap,
+// isUndiscovered) make it known on the next loading screen, with no flight map opened (#1308: from Ironforge the
+// arrow walked to the Wetlands until the flight map there showed Menethil Harbor). A client that reads no node as
+// undiscovered, or gives no such field, is not trusted.
+#[test]
+fn a_flight_path_learnt_without_polestar_counts_from_the_world_map_on_a_loading_screen() {
+	let out = run(r#"
+		local r = {}
+		local nodes
+		C_TaxiMap.GetTaxiNodesForMap = function(mapID)
+			if mapID ~= 9000 then return {} end
+			return nodes
+		end
+		local function reload(list)
+			known()
+			nodes = list
+			stub.fire("PLAYER_ENTERING_WORLD")
+			target(0, -780, "Kobolds")
+			return route()
+		end
+		nav.place(0, 600)
+		r.none = reload({})
+		r.world = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false }, { nodeID = 3, isUndiscovered = true } })
+		r.saved = { Polestar.CharState().flags.taxi[1] == true, Polestar.CharState().flags.taxi[2] == true, Polestar.CharState().flags.taxi[3] == true }
+		r.allKnown = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false } })
+		r.noField = reload({ { nodeID = 1 }, { nodeID = 2 }, { nodeID = 3 } })
+		emit(r)"#);
+	assert_eq!(out["none"], json!(["walk|Kobolds"]), "East Hold unknown: walked");
+	assert_eq!(out["world"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
+	assert_eq!(out["saved"], json!([true, true, false]), "only the discovered nodes, saved");
+	assert_eq!(out["allKnown"], json!(["walk|Kobolds"]), "no node read as undiscovered: not trusted");
+	assert_eq!(out["noField"], json!(["walk|Kobolds"]));
 }
 
 #[test]
@@ -358,6 +412,64 @@ fn review_p2_6_skipping_a_teleport_a_flight_or_a_ride_plans_the_rest_of_the_way_
 	assert_eq!(out["otherTarget"], "teleport|Cast Teleport: Testshire", "another target may cast it again");
 	assert_eq!(out["afterFlight"], json!(["walk|Kobolds"]));
 	assert_eq!(out["afterBoat"], 0, "no other way across: nothing left to follow");
+}
+
+// The quest timer (Compat.QuestTimerRunning, tested in compat.rs) the test turns on and off; the quest log's update tells
+// the planner to read it again.
+const TIMER: &str = r#"
+		local running = false
+		Polestar.Compat.QuestTimerRunning = function() return running end
+		local function timer(on)
+			running = on
+			stub.fire("QUEST_LOG_UPDATE")
+		end"#;
+
+#[test]
+fn issue_1327_no_class_teleport_while_a_quest_timer_runs_it_comes_back_when_the_quest_is_done() {
+	let out = run(&r#"
+		@TIMER@
+		local r = {}
+		Polestar.Transit = { Now = function() return 0 end, Teleports = function() return { @TELEPORT@ } end }
+		nav.place(0, 0, 1)
+		target(-500, -480, "Quest")
+		r.free = route()[1]
+		local m, x, y = nav.mapPoint(-500, -470)
+		r.freeEstimate = N.EstimateTravel(nil, { map = m, x = x, y = y })
+		timer(true)
+		r.timedEstimate = N.EstimateTravel(nil, { map = m, x = x, y = y })
+		N.Refresh()
+		r.timed = route()[1]
+		timer(false)
+		N.Refresh()
+		r.done = route()[1]
+		emit(r)"#
+		.replace("@TIMER@", TIMER)
+		.replace("@TELEPORT@", TELEPORT));
+	assert_eq!(out["free"], "teleport|Cast Teleport: Testshire");
+	assert_eq!(out["timed"], "walk|Walk to the boat", "the running timer plans again, without the teleport");
+	assert!(out["timedEstimate"].as_f64() > out["freeEstimate"].as_f64(), "estimates leave it out too: {out}");
+	assert_eq!(out["done"], "teleport|Cast Teleport: Testshire", "the trial done: teleports count again");
+}
+
+#[test]
+fn issue_1327_no_hearthstone_while_a_quest_timer_runs_it_comes_back_when_the_timer_ends() {
+	let out = run(&r#"
+		@TIMER@
+		local r = {}
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		timer(true)
+		nav.place(0, 0, 1)
+		target(-520, -690, "Innkeeper quest")
+		r.timed = route()[1]
+		timer(false)
+		N.Refresh()
+		r.ended = route()[1]
+		emit(r)"#
+		.replace("@TIMER@", TIMER));
+	assert_eq!(out["timed"], "walk|Walk to the boat");
+	assert_eq!(out["ended"], "hearth|Hearth to Testshire Inn: saves 10 min");
 }
 
 #[test]

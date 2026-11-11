@@ -1963,6 +1963,17 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		let rewards = r.map(|r| sorted(&r.0)).unwrap_or_else(V::arr);
 		let choices = r.map(|r| sorted(&r.1)).unwrap_or_else(V::arr);
 		if q.truthy() {
+			// Players' recordings (data/recorded/quests.json): prerequisites and objective spots,
+			// provisional (single-player) facts too, never over a field a correction sets.
+			let learned = inputs.learned.quests.get(&ids);
+			let corrected = inputs.learned.corrections.get("quests").get(&ids).get("set");
+			let q = if learned.truthy() {
+				let c = q.json_clone();
+				crate::learn::apply_prereqs(&c, &learned, &corrected, true);
+				c
+			} else {
+				q
+			};
 			let o = Obj::new();
 			o.set("id", idf);
 			o.set("title", q.get("title"));
@@ -1986,6 +1997,23 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			let tame = tames_with_rod(&q);
 			let objectives: Vec<V> =
 				q.get("objectives").items().iter().filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk"))).map(|o| objective_of(o, escort, tame)).collect();
+			if learned.truthy() && !corrected.has("objectives") {
+				// A recorded spot places an objective our data doesn't; a trusted one replaces our data's point.
+				let kept: Vec<usize> =
+					q.get("objectives").items().iter().enumerate().filter(|(_, o)| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk"))).map(|(i, _)| i).collect();
+				for (i, (map, x, y, provisional)) in crate::learn::objective_spots(&q, &learned, true) {
+					let Some(o) = kept.iter().position(|k| *k == i).map(|p| &objectives[p]) else { continue };
+					if provisional && !o.get("map").is_nullish() {
+						continue;
+					}
+					o.set("map", map as f64);
+					o.set("x", round1(x));
+					o.set("y", round1(y));
+					if provisional {
+						o.set("provisional", true);
+					}
+				}
+			}
 			o.set("objectives", V::from(objectives));
 			let pre = forge_guide::prereqs::blocking_prereqs(&q, &quest_of);
 			o.set("pre", pre.get("all"));

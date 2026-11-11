@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} (Profissional)",
 	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "",
+	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "{npc:4753} e os sabres de {npc:4730} ficam nos campos de equitação de {area:1658}, em {faction:69}. No nível 60, {npc:4753} ensina {skill:762} Profissional aos Elfos Noturnos por 1.000g (10% menos com Honrado em {faction:69}); a Blizzard diz que vem junto uma montaria. As outras raças treinam no instrutor de equitação da própria raça. Cada sabre veloz custa 200g aqui.",
 	-- {npc:4753} Jartsam
-	["{npc:4753}, riding trainer"] = "{npc:4753}, instrutor de montaria",
+	["{npc:4753}, riding trainer"] = "{npc:4753}, instrutor de equitação",
 
 	-- Step 2: Tiger Riding for other races
 	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
+	["{spell:828} for other races"] = "{spell:828} para outras raças",
 	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Qualquer raça da Aliança pode comprar estes sabres, mas montar um também exige {spell:828}, que só os Elfos Noturnos recebem com {skill:762}. {npc:4753} ensina às outras raças quando elas estão Exaltadas com {faction:69} (o guia Reputação: Darnassus mostra o caminho). Até lá, não compre sabre para este personagem.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Escolha uma cor",

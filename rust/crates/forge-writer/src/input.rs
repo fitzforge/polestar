@@ -516,6 +516,10 @@ pub struct Quest {
 	/// The item the quest gives when taken (Dogran's Pendant for The Binding).
 	#[serde(default, rename = "sourceItem", deserialize_with = "lenient_num")]
 	pub source_item: Option<f64>,
+	/// Handed in on the spot: its giver opens straight on the hand-in window and it never enters the
+	/// log (the server's QuestType 0; Essence of the Exile, the cloth donations).
+	#[serde(default)]
+	pub direct: Option<bool>,
 }
 
 impl Quest {
@@ -541,6 +545,9 @@ impl Quest {
 			Some(Value::String(s)) => !s.is_empty(),
 			Some(_) => true,
 		}
+	}
+	pub fn direct(&self) -> bool {
+		self.direct == Some(true)
 	}
 }
 

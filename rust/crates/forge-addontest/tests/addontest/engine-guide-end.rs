@@ -9,6 +9,7 @@ const WORLD: &str = r#"
 local w = stub.world
 w.addMap(1411, { name = "Durotar", c = 1, left = -3000, right = -6000, top = 1000, bottom = -2000 })
 w.addMap(1413, { name = "The Barrens", c = 1, left = 0, right = -3000, top = 1000, bottom = -2000 })
+w.addMap(1458, { name = "Undercity", c = 0, left = 1500, right = 1000, top = 500, bottom = 0 })
 w.race, w.raceName, w.faction, w.class = "Orc", "Orc", "Horde", "WARRIOR"
 w.moveTo(1411, 52, 43)
 "#;
@@ -26,13 +27,17 @@ Polestar.RegisterGuide({ id = "test/cooking", pack = "test", title = "Cooking", 
 	steps = { q(20, "Cooking 1") } })
 Polestar.RegisterGuide({ id = "test/cooking2", pack = "test", title = "Cooking 2", category = "Professions",
 	steps = { { goals = { { t = "level", level = 30 } } } } })
--- Dun Morogh's shape: the last step is the walk on to the next zone. The second also has work in that zone
--- before it (as Darkshore visits Elwynn before it ends there).
+-- Dun Morogh's shape: the last step is the walk on to the next zone.
 local walk = { title = "The Barrens", goals = { { t = "goto", map = 1413, x = 50, y = 50, text = "The Barrens" } } }
 Polestar.RegisterGuide({ id = "test/walk", pack = "test", title = "Walk", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
 	steps = { q(30, "One"), q(31, "Two"), q(32, "Three"), walk } })
-Polestar.RegisterGuide({ id = "test/visit", pack = "test", title = "Visit", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
-	steps = { q(40, "One"), { goals = { { t = "accept", quest = 41, title = "In the Barrens", map = 1413, x = 20, y = 20 } } }, q(42, "Three"), walk } })
+-- Hillsbrad Foothills & Arathi Highlands (30-32)'s shape: an early stop in the Undercity (its flight master, a
+-- goto on the city's map) and the flight back there at the end (a fly goal naming the city's area).
+Polestar.RegisterGuide({ id = "test/undercity", pack = "test", title = "Undercity", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(100, "Korran"), { title = "Fly to Tarren Mill", goals = { { t = "goto", map = 1458, x = 63.1, y = 48.3, text = "Undercity flight master" } } },
+		q(101, "Tarren Mill"), q(102, "Hammerfall"),
+		{ title = "Fly to Undercity", goals = { { t = "goto", map = 1413, x = 73.1, y = 32.7, text = "Hammerfall flight master" },
+			{ t = "fly", location = "Undercity", area = 1497 } } } } })
 -- Stranglethorn's shape: trailing steps that only offer (riding at a level, all optional; a note), and one
 -- ending at any class trainer.
 Polestar.RegisterGuide({ id = "test/offer", pack = "test", title = "Offer", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
@@ -126,13 +131,116 @@ fn the_last_step_done_with_steps_left_open_ends_the_guide_once_it_stays_on_the_l
 	assert_eq!(out["next"], "test/barrens");
 	assert_eq!(out["later"], json!({ "log": ["GUIDE_COMPLETED test/durotar"], "guide": "test/durotar" }));
 
-	// The same character after a reload (its end saved): placed, then the last step again, nothing asks.
+	// The same character after a reload, as the game keeps it (step 1 skipped, Far Watch Post in the log, the end
+	// saved): placed with the end still there, nothing asks and the end stands.
 	let reload = run(Run {
 		next: NEXT,
-		saved: Some(r#"PolestarCharDB = { schema = 1, guideEnds = { ["test/durotar"] = true } }"#),
-		script: "farWatchFirst(); emit({ log = takeLog(), ended = E.GuideEnded(\"test/durotar\") })",
+		saved: Some(&format!("{}\nstub.world.onQuest(13)", saved_end(None, r#"skipped = { ["test/durotar"] = { [1] = true } },"#))),
+		script: "flush(); emit({ log = takeLog(), ended = E.GuideEnded(\"test/durotar\"), live = E.GetLiveStep() })",
 	});
-	assert_eq!(reload, json!({ "log": {}, "ended": true }));
+	assert_eq!(reload, json!({ "log": {}, "ended": true, "live": 2 }));
+}
+
+/// A character's save with Durotar's end recorded the 0.3.6 way (`guideEndsV = 2`), its stored shape when given,
+/// and `more` fields.
+fn saved_end(shape: Option<&str>, more: &str) -> String {
+	let shape = shape.map(|s| format!(r#"shapes = {{ ["test/durotar"] = {s} }},"#)).unwrap_or_default();
+	format!(r#"PolestarCharDB = {{ schema = 1, {shape} {more} guideEndsV = 2, guideEnds = {{ ["test/durotar"] = true }} }}"#)
+}
+
+// state(): Durotar's end as the engine and the save have it, the live step, and what was fired since the last look.
+const STATE: &str = r#"function state() return { ended = E.GuideEnded("test/durotar"), saved = PolestarCharDB.guideEnds["test/durotar"] or false,
+	step = E.GetStepIndex(), live = E.GetLiveStep() or false, shape = PolestarCharDB.shapes["test/durotar"], log = takeLog() } end"#;
+
+fn with_state(script: &str) -> String {
+	format!("{STATE}\n{script}")
+}
+
+/// Durotar's shape as the addon stores it.
+fn durotar_shape() -> String {
+	serde_json::to_string(&run(Run { next: NEXT, saved: None, script: &with_state("emit(state())") })["shape"]).unwrap()
+}
+
+// A screenshot report after 0.3.5: 0.3.5 reused guide ids for new content (forever/horde/04-the-barrens was The
+// Barrens 19-23, now The Barrens & Stonetalon Mountains 24-26). A character that reached the end of the old guide
+// kept its end flag, and the guide window said "You've reached the end of this guide" on every step of the new one
+// (GF.EndOffer reads E.GuideEnded). A pack update that changes the guide's steps forgets that end; the same steps
+// keep it while it holds (Far Watch Post still in the log).
+#[test]
+fn a_guide_whose_steps_changed_in_an_update_forgets_the_old_guide_s_end_the_same_steps_keep_it() {
+	let saved = |shape: &str| format!("{}\nstub.world.onQuest(13)", saved_end(Some(shape), ""));
+	let script = with_state("emit(state())");
+	let changed = run(Run { next: NEXT, saved: Some(&saved(r#""7-12345""#)), script: &script });
+	assert_eq!(json!([changed["ended"], changed["saved"], changed["step"]]), json!([false, false, 1]), "the old guide's end is forgotten on an open step");
+	let same = run(Run { next: NEXT, saved: Some(&saved(&durotar_shape())), script: &script });
+	assert_eq!(json!([same["ended"], same["saved"]]), json!([true, true]), "the same steps: the end stays");
+}
+
+// The 0.3.5 reports ("You've reached the end of this guide" at step 2 of Hillsbrad, "26-30 finished even with
+// resetting", "similar at 20/21"): an end saved before 0.3.6 can be another guide's (0.3.5 reused ids; a guide
+// 0.3.5 had already stored the new shape of keeps it through checkShape) or one 0.3.5 told by where the player
+// stood. It is dropped once on the first load, even with the same steps and the last step reading done (the 26-30
+// guide's last quest in a 0.3.4 character's history), and nothing asks: that step reads done from the start.
+#[test]
+fn an_end_saved_before_0_3_6_is_dropped_on_the_first_load_even_with_the_same_steps_and_its_last_step_done() {
+	let legacy = format!(
+		r#"PolestarCharDB = {{ schema = 1, shapes = {{ ["test/durotar"] = {} }}, guideEnds = {{ ["test/durotar"] = true }} }}
+stub.world.onQuest(13)"#,
+		durotar_shape()
+	);
+	let out = run(Run { next: NEXT, saved: Some(&legacy), script: &with_state("flush(); local r = state(); r.v = PolestarCharDB.guideEndsV; emit(r)") });
+	assert_eq!(json!([out["ended"], out["saved"], out["live"], out["log"], out["v"]]), json!([false, false, 1, {}, 2]));
+}
+
+// An end recorded is not the end itself: with the same steps, once it no longer holds (Far Watch Post gone from
+// the log) it is forgotten, and reached again it asks again.
+#[test]
+fn an_end_that_no_longer_holds_is_forgotten_and_reached_again_asks_again() {
+	let out = run(Run { next: NEXT, saved: Some(&saved_end(Some(&durotar_shape()), "")), script: &with_state("flush(); local r = { gone = state() }; farWatchFirst(); r.again = state(); emit(r)") });
+	assert_eq!(json!([out["gone"]["ended"], out["gone"]["saved"], out["gone"]["live"]]), json!([false, false, 1]), "the end does not hold: forgotten");
+	assert_eq!(out["again"]["log"], json!(["GUIDE_END test/durotar undone=2 live=2 next=test/barrens choose=nil"]));
+	assert_eq!(out["again"]["ended"], true);
+}
+
+// "Even with resetting": Reset guide progress (Engine.ResetProgress) forgets the end with the check-offs and
+// skips. The guide is placed again as if just opened, so with its last step done from the start nothing asks.
+// Your Place's skip stays: it is behind Far Watch Post, taken (the game's own progress), so the guide is at
+// Cutting Teeth, not back at Your Place (#1764).
+#[test]
+fn reset_guide_progress_forgets_the_end() {
+	let out = run(Run { next: NEXT, saved: None, script: &with_state("farWatchFirst(); local r = { before = state() }; E.ResetProgress(); stub.advance(3); r.after = state(); emit(r)") });
+	assert_eq!(out["before"]["ended"], true);
+	assert_eq!(json!([out["after"]["ended"], out["after"]["saved"], out["after"]["live"], out["after"]["log"]]), json!([false, false, 2, {}]));
+}
+
+// guides_end_early after #1320 (0.3.6's Loch Modan, Human Warrior; Hillsbrad Foothills, Orcs): the last Lakeshire
+// stop's Murloc Poachers needs level 20, which the character has not reached. Played to the end, the guide ends at
+// its last step, with no live step left; it never says "end" while waiting on the accept the level holds back.
+#[test]
+fn an_accept_held_back_by_its_level_never_ends_the_guide_with_a_live_step_the_end_comes_with_the_last_step_1320() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			Polestar.RegisterGuide({ id = "test/lakeshire", pack = "test", title = "Lakeshire", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411,
+				steps = { { goals = { { t = "accept", quest = 80, title = "One", map = 1411, x = 50, y = 50 } } },
+					{ goals = { { t = "accept", quest = 81, title = "Two", map = 1411, x = 50, y = 50 },
+						{ t = "accept", quest = 82, title = "Murloc Poachers", minLevel = 20, map = 1411, x = 50, y = 50 } } },
+					{ title = "The Barrens", goals = { { t = "goto", map = 1413, x = 50, y = 50, text = "The Barrens" } } } } })
+			E.SetGuide("test/lakeshire"); flush(); takeLog()
+			w.accept(80, {}); flush()
+			w.accept(81, {}); flush()
+			local v = E.GetStepView(2).goals[2]
+			local r = { at = E.GetStepIndex(), held = v.status == "na" and not v.unavailableText and "level" or false }
+			w.moveTo(1413, 50, 50); stub.advance(1)
+			r.log, r.step = takeLog(), E.GetStepIndex() or false
+			emit(r)"#,
+	});
+	assert_eq!(out["at"], 3, "the accept held back by its level: on to the last step");
+	assert_eq!(out["held"], "level");
+	assert_eq!(out["step"], false, "the last step done: the guide is finished");
+	let ends: Vec<&str> = out["log"].as_array().unwrap().iter().filter_map(|l| l.as_str()).filter(|l| l.starts_with("GUIDE_END")).collect();
+	assert_eq!(ends, vec!["GUIDE_END test/lakeshire undone=0 live=nil next=nil choose=nil"], "the end with no live step");
 }
 
 #[test]
@@ -231,49 +339,60 @@ fn the_old_continue_to_the_next_guide_toggle_is_dropped_and_both_values_start_on
 	}
 }
 
-// Dun Morogh's shape: the last step is the walk on to the next zone, watched for arrival out of turn.
+// Dun Morogh's shape: the last step is the walk on to the next zone. Being at its spot ahead of the live step is
+// no end (where the player stands is not the guide done); on screen, the walk ends it.
 #[test]
-fn arriving_at_a_last_step_s_spot_ahead_of_the_live_step_ends_the_guide_and_it_stays_until_start() {
+fn arriving_at_a_last_step_s_spot_ahead_of_the_live_step_is_no_end_the_walk_on_screen_is() {
 	let out = run(Run {
 		next: NEXT,
 		saved: None,
 		script: r#"
 			E.SetGuide("test/walk"); stub.advance(1); takeLog()
-			-- Somewhere else on the way: nothing.
-			w.moveTo(1413, 20, 20); stub.advance(1.5)
-			local r = { passing = takeLog() }
 			w.moveTo(1413, 50, 50); stub.advance(1.5)
-			r.arrived, r.guide, r.step = takeLog(), E.GetGuide().id, E.GetStepIndex()
-			r.started = E.StartNext("test/walk")
-			r.now = E.GetGuide().id
+			local r = { ahead = takeLog(), ended = E.GuideEnded("test/walk"), live = E.GetLiveStep() }
+			w.moveTo(1411, 52, 43); stub.advance(1.5)
+			for q = 30, 32 do w.accept(q, {}); flush() end
+			r.onScreen = E.GetLiveStep()
+			w.moveTo(1413, 50, 50); stub.advance(1.5)
+			r.done = takeLog()
 			emit(r)"#,
 	});
-	assert_eq!(out["passing"], json!({}));
-	assert_eq!(out["arrived"], json!(["GUIDE_END test/walk undone=3 live=1 next=test/barrens choose=nil"]));
-	assert_eq!(out["guide"], "test/walk");
-	assert_eq!(out["step"], 1);
-	assert_eq!(out["started"], true);
-	assert_eq!(out["now"], "test/barrens");
+	assert_eq!(json!([out["ahead"], out["ended"], out["live"]]), json!([{}, false, 1]));
+	assert_eq!(out["onScreen"], 4);
+	assert_eq!(out["done"], json!(["GUIDE_COMPLETED test/walk", "GUIDE_END test/walk undone=0 live=nil next=test/barrens choose=nil"]));
 }
 
-// Darkshore's shape: the route still has open work on the last step's map, so being at its spot is passing by.
+// The 0.3.5 report "You've reached the end of this guide" at step 2 of Hillsbrad Foothills & Arathi Highlands
+// (30-32): its last step flies back to the Undercity (a fly goal naming the city's area), and the player walked
+// into the Undercity near the start. The guide's own stop there (a goto on the city's map) did not count as work
+// in that place, so the flight read done ahead and the guide ended for good. A flight's landing, like any place,
+// is no end ahead of the live step: not at the start, not on a visit to train once the guide's own stop there is
+// behind. Flown on screen, it ends the guide.
 #[test]
-fn a_last_spot_on_a_map_with_open_work_before_it_does_not_end_the_guide_until_that_work_is_behind() {
+fn being_in_the_last_flight_s_city_ahead_of_the_live_step_never_ends_the_guide_hillsbrad_undercity() {
 	let out = run(Run {
 		next: NEXT,
 		saved: None,
 		script: r#"
-			E.SetGuide("test/visit"); stub.advance(1); takeLog()
-			w.moveTo(1413, 50, 50); stub.advance(1.5)
-			local r = { passing = takeLog() }
-			w.accept(41, {}); flush()
-			w.moveTo(1413, 49, 50); stub.advance(1.5)
-			w.moveTo(1413, 50, 50); stub.advance(1.5)
-			r.after = takeLog()
+			E.SetGuide("test/undercity"); flush(); takeLog()
+			local function city() w.moveTo(1458, 60, 50); w.setZone("Undercity", "Undercity"); stub.advance(1.5) end
+			local function away(map, x, y, zone) w.moveTo(map, x, y); w.setZone(zone, ""); stub.advance(1.5) end
+			city()
+			local r = { start = takeLog(), ended = E.GuideEnded("test/undercity"), live = E.GetLiveStep() }
+			away(1411, 52, 43, "Durotar"); w.accept(100, {}); flush()
+			w.moveTo(1458, 63.1, 48.3); w.setZone("Undercity", "Undercity"); stub.advance(1.5)
+			away(1413, 10, 10, "Hillsbrad Foothills"); w.accept(101, {}); flush()
+			city()
+			r.midGuide, r.live2 = takeLog(), E.GetLiveStep()
+			away(1413, 20, 20, "Arathi Highlands"); w.accept(102, {}); flush()
+			away(1413, 73.1, 32.7, "Arathi Highlands")
+			city()
+			r.done = takeLog()
 			emit(r)"#,
 	});
-	assert_eq!(out["passing"], json!({}));
-	assert_eq!(out["after"], json!(["GUIDE_END test/visit undone=2 live=1 next=test/barrens choose=nil"]));
+	assert_eq!(json!([out["start"], out["ended"], out["live"]]), json!([{}, false, 1]), "in the Undercity at the start");
+	assert_eq!(json!([out["midGuide"], out["live2"]]), json!([{}, 4]), "back in the Undercity mid-guide");
+	assert_eq!(out["done"], json!(["GUIDE_COMPLETED test/undercity", "GUIDE_END test/undercity undone=0 live=nil next=test/barrens choose=nil"]));
 }
 
 // Stranglethorn's shape: a trailing step of only optional goals (riding at a level) and a note are offered,

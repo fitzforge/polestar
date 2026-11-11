@@ -37,6 +37,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { parseCsv } = require('../data/csv');
+const { CLASS_BY_FILE } = require('../game/races');
 
 const KINDS = ['npc', 'object', 'item', 'quest', 'zone', 'area', 'spell', 'faction', 'skill'];
 const TOKEN_RE = /\{(npc|object|item|quest|zone|area|spell|faction|skill):(\d+)\}/g;
@@ -346,45 +347,70 @@ function worldIndex(data, common) {
 	return { idx, abilities };
 }
 
+// The spells of the classes of `mask` that another thing of the game is
+// called (clientSpells), filed as worldIndex files spells: a guide of those
+// classes looks here before the world's names.
+function classIndex(data, common, mask) {
+	const idx = new NameIndex(common);
+	const abilities = new NameIndex(common);
+	for (const [name, id, classMask] of clientSpells(data)) if (classMask & mask) (name.includes(' ') || /['’:]/.test(name) ? idx : abilities).add('spell', id, name, WORLD_SPELL);
+	return { idx, abilities };
+}
+
 // Spell names the client gives by id (GetSpellInfo), from the Forever
-// SpellName table of the data's own client build (pinnedBuildDir): [[name, id]], each name once
-// (its lowest id: a spell's ranks share their name in every language), none
-// that another thing of the game is called. Names of
+// SpellName table of the data's own client build (pinnedBuildDir): [[name, id, classMask]], each name once
+// (its lowest id: a spell's ranks share their name in every language). Names of
 // two words or more, or with an apostrophe or colon ("Teleport: Moonglade"),
 // of any spell; one-word names only of a class or profession ability
-// (SkillLineAbility: "Polymorph", "Whirlwind").
+// (SkillLineAbility: "Polymorph", "Whirlwind"). classMask is 0 for a name
+// every guide's texts may use; a name another thing of the game is called is
+// only a class's spell (SkillLineAbility ClassMask; its lowest id of those
+// rows), for the guides of that class (classIndex), and never a place's.
 const SPELLS = new WeakMap();
-function spellNames(data) {
+function clientSpells(data) {
 	if (!SPELLS.has(data)) SPELLS.set(data, readSpellNames(data));
 	return SPELLS.get(data);
+}
+
+// The names every guide's texts may use: [[name, id]].
+function spellNames(data) {
+	return clientSpells(data).filter((s) => !s[2]);
 }
 
 function readSpellNames(data) {
 	const dir = data.dir && pinnedBuildDir(data, ['SpellName.csv', 'SkillLineAbility.csv']);
 	if (!dir) return [];
-	const abilities = new Set(parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8')).map((r) => Number(r.Spell)));
+	// Each ability with the classes it is a spell of.
+	const abilities = new Map();
+	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8'))) abilities.set(Number(r.Spell), (abilities.get(Number(r.Spell)) || 0) | Number(r.ClassMask));
 	// A name something else of the game has too ("Burning Blade", "Zephras
-	// Isle", "The Molten Core") is that thing in a text, not the spell.
+	// Isle", "The Molten Core") is that thing in a text, not the spell; but in
+	// the guides of a class its own spell ("Cold Snap", not the staff), unless
+	// a place has the name.
 	const taken = new Set();
-	for (const t of [data.npcs, data.objects, data.items, data.zones]) for (const x of Object.values(t || {})) if (x && str(x.name)) taken.add(x.name.trim().toLowerCase());
+	for (const t of [data.npcs, data.objects, data.items]) for (const x of Object.values(t || {})) if (x && str(x.name)) taken.add(x.name.trim().toLowerCase());
 	for (const q of Object.values(data.quests || {})) if (q && str(q.title)) taken.add(q.title.trim().toLowerCase());
 	for (const f of data.factions.values()) if (f && str(f.name)) taken.add(f.name.trim().toLowerCase());
 	// Every faction of the client's table, those without a reputation too.
 	const factions = path.join(dir, 'Faction.csv');
 	if (fs.existsSync(factions)) for (const r of parseCsv(fs.readFileSync(factions, 'utf8'))) if (str(r.Name_lang)) taken.add(r.Name_lang.trim().toLowerCase());
-	if (data.areas) for (const key of data.areas.byName.keys()) taken.add(key);
+	const places = new Set();
+	for (const z of Object.values(data.zones || {})) if (z && str(z.name)) places.add(z.name.trim().toLowerCase());
+	if (data.areas) for (const key of data.areas.byName.keys()) places.add(key);
 	const best = new Map();
 	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SpellName.csv'), 'utf8'))) {
 		const id = Number(r.ID);
 		const name = String(r.Name_lang || '').trim();
 		if (!Number.isInteger(id) || !name || /[()[\]<>_]|\b(OLD|DND|TEST|Test|QA|zz)\b|^\d/.test(name)) continue;
 		// A profession's rank spell reads as rank and profession: words and {skill:id}.
-		if (/^(Apprentice|Journeyman|Expert|Artisan|Master) /.test(name) || / Reputation$/.test(name) || taken.has(name.toLowerCase())) continue;
+		if (/^(Apprentice|Journeyman|Expert|Artisan|Master) /.test(name) || / Reputation$/.test(name) || places.has(name.toLowerCase())) continue;
+		const classMask = taken.has(name.toLowerCase()) ? abilities.get(id) || 0 : 0;
+		if (taken.has(name.toLowerCase()) && !classMask) continue;
 		if (!/[ '’:]/.test(name) && !abilities.has(id)) continue;
 		const had = best.get(name);
-		if (had === undefined || id < had) best.set(name, id);
+		if (had === undefined || id < had[1]) best.set(name, [name, id, classMask]);
 	}
-	return [...best];
+	return [...best.values()];
 }
 
 const SPELL_IDS = new WeakMap();
@@ -399,6 +425,35 @@ const SPELL_BY_NAME = new WeakMap();
 function spellIdOf(data, name) {
 	if (!SPELL_BY_NAME.has(data)) SPELL_BY_NAME.set(data, new Map(spellNames(data)));
 	return SPELL_BY_NAME.get(data).get(String(name).trim()) || null;
+}
+
+// The client's name of a spell a skill line teaches (SkillLineAbility: class
+// spells, talents, recipes, Forever's new ones), each rank by its own id, from
+// the SpellName table of the data's own client build (pinnedBuildDir); null
+// without that build and for any other spell.
+const TAUGHT = new WeakMap();
+function taughtSpellName(data, id) {
+	if (!TAUGHT.has(data)) TAUGHT.set(data, readTaughtSpells(data));
+	return TAUGHT.get(data).get(Number(id)) || null;
+}
+
+function readTaughtSpells(data) {
+	const out = new Map();
+	const dir = data.dir && pinnedBuildDir(data, ['SpellName.csv', 'SkillLineAbility.csv']);
+	if (!dir) return out;
+	// A profession's recipes stay professions.json's, as for `craft`: their
+	// skill lines are left out (Riding teaches no recipe). Not SkillLine's
+	// CategoryID: its secondary skills (9) also hold Comprehension, Poisons and
+	// Riding.
+	const { BUILTIN_PROFESSIONS } = require('./data');
+	const recipeLines = new Set(BUILTIN_PROFESSIONS.filter((p) => p.name !== 'Riding').map((p) => p.id));
+	const rows = parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8'));
+	const taught = new Set(rows.filter((r) => !recipeLines.has(Number(r.SkillLine))).map((r) => Number(r.Spell)));
+	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SpellName.csv'), 'utf8'))) {
+		const name = String(r.Name_lang || '').trim();
+		if (name && taught.has(Number(r.ID))) out.set(Number(r.ID), name);
+	}
+	return out;
 }
 
 // First word of every NPC name -> how many different names start with it
@@ -592,13 +647,20 @@ function tokeniseGuides(guides, data) {
 	const stats = { replaced: Object.fromEntries(KINDS.map((k) => [k, 0])), bySource: Object.fromEntries(SOURCES.map((k) => [k, 0])), dropped: 0 };
 	const problems = [];
 	const aliases = []; // names matched without their "The" or "City"
+	const classes = new Map(); // class mask -> classIndex
 	const out = guides.map((guide) => {
 		const base = guideIndex(guide, data, common);
 		// One-word class and profession abilities ("Polymorph", "Whirlwind") where
 		// the guide teaches them; elsewhere only right after "cast" or "your"
 		// ("cast your Skysight racial ability").
-		const cast = { at: (text, i, plural) => (/\b(cast|your)[ \t]+$/iu.test(text.slice(Math.max(0, i - 6), i)) ? abilities.at(text, i, plural) : null) };
-		const worlds = [world, guide.category === 'Class' || guide.category === 'Professions' ? abilities : cast];
+		const ab = (x) => (guide.category === 'Class' || guide.category === 'Professions' ? x : { at: (text, i, plural) => (/\b(cast|your)[ \t]+$/iu.test(text.slice(Math.max(0, i - 6), i)) ? x.at(text, i, plural) : null) });
+		const worlds = [world, ab(abilities)];
+		// The guide's classes' own spells, ahead of the NPCs, objects and items of their name.
+		const mask = (guide.classes || []).reduce((m, c) => m | CLASS_BY_FILE[c].bit, 0);
+		if (mask) {
+			if (!classes.has(mask)) classes.set(mask, classIndex(data, common, mask));
+			worlds.unshift(classes.get(mask).idx, ab(classes.get(mask).abilities));
+		}
 		const copy = { ...guide, steps: guide.steps.map((s) => ({ ...s, goals: s.goals.map((g) => ({ ...g })) })) };
 		for (const k of GUIDE_LISTS) if (Array.isArray(copy[k])) copy[k] = copy[k].slice();
 		if (Array.isArray(copy.reward)) copy.reward = copy.reward.map((r) => ({ ...r }));
@@ -701,4 +763,4 @@ function onlyTokens(text) {
 	return !/\p{L}/u.test(String(text).replace(TOKEN_RE, ''));
 }
 
-module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf };
+module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf, taughtSpellName };

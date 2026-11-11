@@ -7,15 +7,14 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} находится здесь: {area:439}, на юго-востоке зоны {zone:1441}. {npc:4454} – в лагере гномов у трассы, Замек – у лагеря гоблинов.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
-	["He runs off to keep Rizzle busy"] = "Он убегает отвлечь Риззла",
 
 	-- Step 4: Gadgetzan
-	-- {area:439} Shimmering Flats · {area:440} Tanaris · {area:976} Gadgetzan
-	["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Езжайте на юго-восток из места {area:439} в {area:440}. {area:976} — сразу за границей.",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
+	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "Езжайте на юго-восток из места {area:439} в {zone:1446}. {area:976} — сразу за границей.",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}, северная часть городка",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
@@ -58,8 +57,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "",
-	-- {npc:7881} Stoley · {area:35} Booty Bay
-	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "Следующая доставка ({npc:7881}) ведет обратно в {area:35}: пропустите ее.",
+	-- {area:35} Booty Bay · {zone:1425} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
@@ -107,12 +106,10 @@ return {
 	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины. Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его.",
 
 	-- Step 21: Gadgetzan
-	-- {area:976} Gadgetzan
-	["Ride back west to {area:976}."] = "Езжайте обратно на запад в {area:976}.",
+	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
-	-- {npc:11758} Andi Lynn
-	["{npc:11758}, on the east side of town"] = "{npc:11758}, восточная часть городка",
 
 	-- Step 22: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -158,17 +155,22 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Летите в {area:348}. Здесь начинается гайд по зоне {zone:1425}.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Идите вдоль побережья на юг к пиратской бухте. Пираты Южных морей заполонили пляж и корабли: двигайтесь по краю и выманивайте по одному. {npc:7883} стоит на дальней стороне; украденный груз ({npc:7881}) лежит в лагере.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "От причала ({area:1108}) плывите на корабле в Крепость Оперенной Луны и летите в {area:489}, затем езжайте на восток через {zone:1441} к месту {area:2240} ({area:439}). {npc:4454} и {npc:4630} — в лагерях у трассы; {npc:4709} стоит у лагеря гоблинов.",
+	-- ["He runs off to keep Rizzle busy"] = "Он убегает отвлечь Риззла",
 	-- ["Hearth to {area:976}."] = "Используйте Камень возвращения: {area:976}.",
+	-- ["Ride back west to {area:976}."] = "Езжайте обратно на запад в {area:976}.",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "Езжайте обратно на запад к месту {area:976}. По пути дюны занимают бандиты и воры из шайки Скитальцев Пустыни; у любого из них может быть бурдюк с водой.",
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "Езжайте на северо-запад к улью сентипааров в дюнах. С любого сентипаара могут выпасть части насекомых.",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "Езжайте на юг: {quest:3362}. Железы падают с терновых собирателей росы; полные не все, так что сохраните насыщенную. В долине также бугристые шипокожи и терновые корнеплеты. Шипокожи 48-50 уровня, выше вас: выманивайте по одному.",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "Езжайте на юг мимо места {area:1938} к месту {area:981} – туннелям Хаззали; снаряжение Холстомера лежит глубоко внутри.",
+	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Езжайте на юго-восток из места {area:439} в {area:440}. {area:976} — сразу за границей.",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "Езжайте на юго-восток в {area:985}. {npc:7847} стоит в центре южного лагеря Скитальцев Пустыни: сначала зачистите все вокруг него.",
 	-- ["Rizzle's plans"] = "Чертежи Риззла",
 	-- ["The Wanted poster by {npc:7882}"] = "Плакат «Розыск!» у NPC {npc:7882}",
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "Более сильные разбойники, темные маги и убийцы из шайки Скитальцев Пустыни стоят лагерем к юго-востоку от места {area:976}, южнее бандитов. {npc:7847} в центре южного лагеря оставьте на потом.",
 	-- ["Wastewander bandits"] = "Бандиты из шайки Скитальцев Пустыни",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "Пока {npc:4709} заговаривает Риззлу зубы, его чертежи лежат без охраны в лагере гномов по ту сторону трассы.",
+	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}, восточная часть городка",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "Следующий ингредиент ({npc:7583}) растет здесь: {zone:1425}, а маршрут никогда не приводит его обратно: пропустите.",
+	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "Следующая доставка ({npc:7881}) ведет обратно в {area:35}: пропустите ее.",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}, в таверне порта",
 }

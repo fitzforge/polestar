@@ -12,35 +12,35 @@ return {
 
 	-- Step 1: SI:7 (Goldshire)
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:6946} Renzik "The Shiv" · {zone:1453} Stormwind
-	["At 16 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}. Taking it shuts out the other towns' breadcrumbs."] = "",
+	["At 16 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}. Taking it shuts out the other towns' breadcrumbs."] = "16 级时，{area:87} 狮王之傲旅店楼上的潜行者训练师 {npc:917} 会让你去 {zone:1453} 找 {npc:6946}。接下后就不能再接其他城镇的同类引导任务。",
 
 	-- Step 2: To Hulfdan! (Kharanos)
 	-- {npc:1234} Hogral Bakkan · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {npc:5165} Hulfdan Blackbeard · {zone:1455} Ironforge · {object:32383} Forlorn Cavern
-	["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165} in {zone:1455}'s {object:32383}."] = "",
+	["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165} in {zone:1455}'s {object:32383}."] = "达到 16 级后，{area:131} 的 {area:2102} 中的 {npc:1234} 会让你去找 {zone:1455} 的 {object:32383} 中的 {npc:5165}。",
 
 	-- Step 3: Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard · {object:32383} Forlorn Cavern · {area:2257} Deeprun Tram · {zone:1453} Stormwind
-	["{npc:5165} is in the house with a shady dealer outside, in the {object:32383}, down the stairs. Then fly or take the {area:2257} to {zone:1453}."] = "",
+	["{npc:5165} is in the house with a shady dealer outside, in the {object:32383}, down the stairs. Then fly or take the {area:2257} to {zone:1453}."] = "{npc:5165}在{object:32383}的一栋房子里，下楼梯即可找到；屋外有个可疑的商人。然后飞往{zone:1453}，或乘坐{area:2257}前往。",
 
 	-- Step 4: Erion Shadewhisper (Dolanaar)
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {quest:2259} Erion Shadewhisper · {zone:1457} Darnassus
-	["At 16 {npc:3599} in the {area:186} inn sends you to {quest:2259} in {zone:1457}."] = "",
+	["At 16 {npc:3599} in the {area:186} inn sends you to {quest:2259} in {zone:1457}."] = "16级时，{area:186} 旅店内的 {npc:3599} 会派你前往 {zone:1457} 进行 {quest:2259}。",
 
 	-- Step 5: Erion Shadewhisper
 	-- {npc:4214} Erion Shadewhisper · {area:1658} Cenarion Enclave · {area:702} Rut'theran Village · {area:442} Auberdine · {area:17203} Stormwind Harbor
-	["{npc:4214} stands in the {area:1658}. Then the boat from {area:702} to {area:442}, and the boat from {area:442} to {area:17203}."] = "",
+	["{npc:4214} stands in the {area:1658}. Then the boat from {area:702} to {area:442}, and the boat from {area:442} to {area:17203}."] = "{npc:4214}站在{area:1658}。之后从{area:702}乘船到{area:442}，再从{area:442}乘船到{area:17203}。",
 
 	-- Step 6: Renzik "The Shiv"
 	-- {npc:6946} Renzik "The Shiv" · {quest:2300} SI:7 · {object:2100} Old Town · {spell:1804} Pick Lock · {npc:13283} Lord Tony Romano
-	["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack {spell:1804}, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "",
+	["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack {spell:1804}, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "{npc:6946} 在 {object:2100} 的 {quest:2300} 建筑楼上，位于潜行者训练师后方。离开前：如果还不会 {spell:1804}，可向 {quest:2300} 建筑里的 {npc:13283} 学习；下一个任务考验的就是开锁。",
 
 	-- Step 7: Lucius
 	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {npc:6966} Lucius · {item:5060} Thieves' Tools · {npc:3090} Gerald Crawley · {spell:1804} Pick Lock
-	["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). {spell:1804} does not work without the tools in your bags."] = "",
+	["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). {spell:1804} does not work without the tools in your bags."] = "向东穿过 {zone:1429} 进入赤脊山，或飞往 {area:69}。{npc:6966} 站在镇子南边 {area:69} 的某个码头上的箱子上；接到任务时他会给你 {item:5060}（{area:69} 的 {npc:3090} 也出售）。背包里没有工具就无法使用 {spell:1804}。",
 
 	-- Step 8: Alther's Mill
 	-- {quest:2282} Alther's Mill · {area:69} Lakeshire · {object:121264} Lucius's Lockbox
-	["{quest:2282} stands east of {area:69}, up off the road; Blackrock orcs roam near it. Inside, the Practice Lockboxes come back almost at once: pick them until {object:121264} opens for you (about 25 Lockpicking). Your Lockpicking cap rises 5 per level, so a low character may stall. Some boxes are trapped (a frost trap, for one); the skill still goes up. On Forever level 20 spiders wander near the boxes: clear them first or bring a friend. The lockbox always holds the token and is back two seconds after use. Practise on while it still gives skill: the next class quest needs about 75."] = "",
+	["{quest:2282} stands east of {area:69}, up off the road; Blackrock orcs roam near it. Inside, the Practice Lockboxes come back almost at once: pick them until {object:121264} opens for you (about 25 Lockpicking). Your Lockpicking cap rises 5 per level, so a low character may stall. Some boxes are trapped (a frost trap, for one); the skill still goes up. On Forever level 20 spiders wander near the boxes: clear them first or bring a friend. The lockbox always holds the token and is back two seconds after use. Practise on while it still gives skill: the next class quest needs about 75."] = "{quest:2282}位于{area:69}东面、道路上方；附近有黑石兽人游荡。里面的练习用保险箱几乎立即刷新：持续开锁，直到能打开{object:121264}（大约需要25点开锁技能）。开锁技能上限每升一级提高5点，因此等级太低可能无法继续提升。有些箱子设有陷阱（例如冰霜陷阱），但仍可提升技能。无限中，箱子附近有20级蜘蛛游荡：先清掉它们或带个朋友来。保险箱必定装有信物，使用后2秒刷新。只要还能提升技能就继续练习：下一个职业任务约需75点。",
 
 	-- Step 9: Back to Lucius
 	-- {npc:6966} Lucius
