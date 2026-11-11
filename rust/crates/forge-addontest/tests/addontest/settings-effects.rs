@@ -11,10 +11,12 @@
 //! reads it bound, then cleared.
 //!
 //! Each group file starts with the environment it runs in, `-- env: <name> [stub file...]` (one of env()'s, with
-//! more of tests/lua's stubs after its own: `-- env: world stub_rares.lua`), and returns { setup = fn?, settle =
+//! more of tests/lua's stubs after its own: `-- env: world stub_rares.lua`), optionally a Codex pack the client
+//! loads when asked (`-- codex: sample.json`, a tests/fixtures/codex file), and returns { setup = fn?, settle =
 //! seconds?, probes = { [id] = probe | { probe, value?, with?, press?, bind? } } } where id is the control's setting
 //! key, "action:<binding action>" or "label:<English label>" for a control with neither.
 
+use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts};
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
@@ -231,9 +233,16 @@ fn run_group(g: &Group) -> Value {
 			e.stubs.push(s);
 		}
 	}
+	// A Codex pack from a tests/fixtures/codex file the group names ("-- codex: sample.json"), loaded when the
+	// addon asks for it, as the client does (rares.rs, lookup.rs); held until the run ends.
+	let codex = g.src.lines().find_map(|l| l.strip_prefix("-- codex: ")).map(|f| write_codex_pack(&fixture(f.trim()), &CodexOpts::default()));
+	let before = match &codex {
+		Some(pack) => format!("{}\n{}", pack.stub_lua, e.before),
+		None => e.before.into(),
+	};
 	emitted(&RunAddon {
 		stubs: e.stubs,
-		before: e.before.into(),
+		before,
 		addons: e.addons,
 		login: e.login,
 		script: format!("{}__GROUP = (function() {} end)()\n{RUNNER}", e.prelude, g.src),
