@@ -1201,7 +1201,9 @@ local function planRoute(p)
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
 			else
+				-- A point on the way (a path node): nothing to do there.
 				leg.label = L["Walk"]
+				leg.via = true
 			end
 		elseif how == FLY then
 			leg.kind = "fly"
@@ -1933,6 +1935,27 @@ function Travel.CurrentLeg()
 	return legs and legs[ci]
 end
 
+-- The point the current leg leads to, as Travel.Aim aims: a walk's end (a
+-- flight master, a dock, a portal, a crossing), a ride's or flight's
+-- boarding point, a hearth's or teleport's landing; and the leg's label. A
+-- walk to a point on the way (`via`: a path node) is no stop: the leg after
+-- it is, so the stop does not hop between path nodes as the route is planned
+-- again. nil with no route or on its last walk (the target itself).
+-- Nav/Bridges.lua mirrors it to Waypoint UI.
+function Travel.Stop()
+	if not Travel.Active() then return nil end
+	local k = ci
+	while k < #legs and legs[k].via do k = k + 1 end
+	local leg = legs[k]
+	local kind = leg.kind
+	if kind == "walk" then
+		if k == #legs then return nil end
+		return leg.to, leg.label
+	end
+	if kind == "hearth" or kind == "teleport" then return leg.to, leg.label end
+	return leg.from, leg.label
+end
+
 -- The walk the arrow is on ends at a lift's landing and the player stands
 -- within LIFT_LEAVE of it: the lift ride (the next leg), shown in its place.
 local function boardingRide(leg)
@@ -2333,7 +2356,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	local totalSecs = floor(total / RUN_SPEED + 0.5)
 	pieces[#pieces + 1] = {
 		kind = "walk", from = from, to = whole.to, label = whole.label, step = whole.step,
-		radius = whole.radius, waypoint = whole.waypoint, tail = 0, parent = P,
+		radius = whole.radius, waypoint = whole.waypoint, via = whole.via, tail = 0, parent = P,
 		yards = floor(total - doneYards + 0.5), seconds = totalSecs - doneSecs,
 		hubs = hubs,
 	}
