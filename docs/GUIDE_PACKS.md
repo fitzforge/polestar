@@ -100,14 +100,15 @@ can fix them.
 
 <br>
 
-In the game's AddOns list, Polestar has one entry in the Quests category.
+In the game's AddOns list, Polestar has a heading of its own, **Polestar**.
 Open it and you see Polestar's own addons and your community addons side by
 side.
 
-- **Polestar's own addons** are Polestar Guides and the addons that carry
-  Polestar's data (Polestar Quest Database, Polestar Item Data, Polestar
-  Codex), plus Polestar Recorder for guide authors. Each lists Polestar as
-  its author.
+- **Polestar's own addons** are Polestar Guides (with its faction and race
+  parts), the addons that carry Polestar's data (Polestar Quest Database,
+  Polestar Item Data, Polestar Codex, Polestar Nav and its maps), the
+  language folder for your client's language (such as "Polestar - German"),
+  plus Polestar Recorder for guide authors. Each lists Polestar as its author.
 - **A community addon** built with Polestar's tools is titled
   "Polestar Community:" and its own name, such as
   "Polestar Community: Emberway Routes". Point at it and the tooltip shows
@@ -327,8 +328,8 @@ your addon apart and to reach you:
 
 <br>
 
-The TOC places your community addon under Polestar's entry in the Quests
-category, titled "Polestar Community: &lt;your title&gt;", with the line
+The TOC places your community addon under Polestar's own heading in the
+AddOns list, titled "Polestar Community: &lt;your title&gt;", with the line
 "Community addon for Polestar by &lt;author&gt;" unless you write your own
 `notes`. Polestar's own menus show your title as you wrote it. Community
 addons built before this name read "Polestar Pack:" until you rebuild them;

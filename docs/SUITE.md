@@ -10,15 +10,15 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 
 | Module | What it does |
 |---|---|
-| Guides (core) | Leveling 1-60 (proven routes, `docs/SIMULATION.md`; class quests as class-only steps inside them), professions, reputations, exploration, Legacy, collectibles (one guide per mount/pet) |
+| Guides (core) | Leveling 1-60 (proven routes, `docs/SIMULATION.md`; class quests as class-only steps inside them), professions (on Forever's trainers and recipes, starting from the player's own skill), reputations, exploration, Legacy, collectibles (one guide per mount/pet) |
 | Navigation (core) | Arrow, travel planner, waypoints; `/polestar way <x> <y> [label]` (or `/pole way`) points the arrow at a spot on the current map; Shift-click a map to go there; `/polestar near <service>` for the quickest trainer, vendor, inn, bank...; other addons' TomTom waypoints and `/way` without TomTom; `Polestar.Nav.API` for addon authors |
-| Quests | Map and minimap pins for available quests, objective areas, quest givers (off by default, Map options); tooltip lines on mobs and items that a quest needs; quest levels in the log; a quest icon beside the health bar of nameplates of mobs a quest needs (replacement nameplates included) |
+| Quests | Map and minimap pins for available quests, objective areas, quest givers (off by default, Map options); tooltip lines on mobs and items that a quest needs; quest levels in the log; a quest icon beside the health bar of nameplates of mobs a quest needs (replacement nameplates included); timed quests counted down, with a row of their own when the guide doesn't hand them in |
 | Lookup (Codex) | One search over guides and entities (items, mounts, pets, recipes, tabards, quests, NPCs, rares, treasures, dungeons, zones). "How to get" for any item, mount or pet: sources ranked for this character, one click to a guide (curated when one exists, otherwise built on the spot). Tooltip source lines; Alt-click an item link to guide; target or mouse over a player to see their mount and how to get it. Search only: no browse-everything lists |
 | Dungeons | A journal page per dungeon: every quest with where to get it, its objective, its chain and its rewards (item choices, XP, money, reputation), plus bosses and the entrance on the map, with "guide me" to givers and the entrance; attunements and keys (Molten Core, Onyxia's Lair, Blackwing Lair, Naxxramas, Scholomance, Blackrock Depths, the City of Dalaran...) with this character's progress and a guide through what is left. No loot tables |
 | Upgrades | Upgrade indicator on item tooltips and an upgrade arrow on bag items (the game's bags and Baganator), the best pick on quest reward choices, from stat weights per spec (detected from the client's talent points) and level band |
 | Rares | Rare NPC and treasure database with locations and loot, map pins (off by default, Map options), alerts (only through APIs the Forever client has) |
 | Maps | World map without fog of war (the zone-art overlay table), coordinates, zone level ranges, dungeon entrance and travel pins (off by default, Map options) |
-| QoL | Quality of life helpers: action buttons, XP and pace, merchant, reward marks, flight masters, death helper, toggles, requests from other players |
+| QoL | Quality of life helpers: action buttons (bindable, also from the game's Quick Keybind Mode), quest-starting loot, bags and restock, XP and pace, Boosted Rest, merchant, trainers (Train All, the spells new at a level, old spell ranks on the action bars), reward marks, flight masters, death helper, toggles, requests from other players, and inside a dungeon only its own quests in the quest tracker |
 | Characters | An account-wide page of every character you have played: level, class, zone, hearth, gold, professions, the guide it follows and an XP bar with rested XP worked out to now. Each is as of its last logout; sorts by last played, most rested or level |
 | Talents (planned) | Where your next talent points go, level by level, on the talent panel, per class and spec. The trees are read from the client; the builds are written by contributors |
 
@@ -54,10 +54,13 @@ their versions in its `meta`.
 
 ## Data layer
 
-- Importers: `tools/lib/consume/<addon>.js` for the Codex and gear sources
-  (AtlasLoot, ForeverLevelingBiS, RareScanner, wowsims), sharing one
-  Lua-literal reader (`lua.js`); QuestieDB is read by `forge data build`,
-  DungeonJournal by `forge data dungeons`. Each returns plain JSON. Web sources are
+- Importers: Forge reads the Codex sources (AtlasLoot and RareScanner for
+  the local extras, `rust/crates/forge-data/src/codex/`) and the gear sources
+  (ForeverLevelingBiS and wowsims, `rust/crates/forge-data/src/gear/`);
+  QuestieDB is read by `forge data build`, DungeonJournal by
+  `forge data dungeons`. The Node commands keep their own readers in
+  `tools/lib/consume/` (wowsims, the attunement comparison), sharing one
+  Lua-literal reader (`lua.js`). Each returns plain JSON. Web sources are
   cached under `data/sources/` and only fetched when asked.
 - `forge data codex` merges `data/forever/*.json`, the Forever client's
   tables, the recorded item sources (`data/codex/recorded.json`) and our guides into
@@ -118,17 +121,22 @@ Search" and "Lookup"; in short:
 
 ## UI
 
-One hub, grown from the guide menu: Guides, Lookup, Dungeons, Rares, Talents and
-Characters as top-level sections, Options at the rail's foot, all in
+One hub, grown from the guide menu: Guides, Lookup, Dungeons, Talents, Rares and
+Characters as top-level sections, Import and Options at the rail's foot, all in
 Polestar's world ([`docs/DESIGN.md`](DESIGN.md)). New surfaces extend that
 world; they never introduce another look.
 
-Small windows outside the hub share its look: the guide window, the route
-choice, the welcome for new characters (`UI/Welcome.lua`), the copy window
+Small windows outside the hub share its look: the guide window (with its
+step browser, `UI/StepList.lua`, and the cards that sit on it: class quests,
+dungeons, new spells, updates), the route
+choice, the guide's end (`UI/GuideEnd.lua`), the welcome for new characters
+(`UI/Welcome.lua`), the copy window
 (`UI/Copy.lua`, `PolestarCopy`: text to copy, such as `/polestar where`'s
 lines), the report window (`UI/Report.lua`, `PolestarReport`: the guide
 window's bug writes a report on the step on screen to paste on the Polestar
-Discord) and the rare alert. Options carries a Community guides page
+Discord), the party panel and the rare alert. A click on the minimap button
+hides all of them at once, and everything else Polestar shows, until the next
+click. Options carries a Community guides page
 (`UI/Packs.lua`) and a Gamepad page (`UI/GamepadGuide.lua`); every window
 answers a gamepad while it is open (`UI/Gamepad.lua`, ported from Ding! by
 Yendi).
