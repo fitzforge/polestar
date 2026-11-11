@@ -171,15 +171,9 @@ fn build_version() -> Vec<u64> {
 	version(line.trim_start_matches("## Version:"))
 }
 
-fn list(v: &Value) -> Vec<String> {
-	if v.as_object().is_some_and(|o| o.is_empty()) {
-		return vec![];
-	}
-	v.as_array().unwrap_or_else(|| panic!("not a list: {v}")).iter().map(|x| x.as_str().unwrap_or_default().to_string()).collect()
-}
-
-#[test]
-fn every_control_of_every_release_s_settings_window_is_reachable_in_this_one() {
+// The manifest's control ids, split: the releases up to this build's (due), and the later ones' (ahead: their rows
+// may stand in the window before this build registers their settings). The effect checks' coverage uses it too.
+pub(crate) fn due_and_ahead() -> (Vec<Value>, Vec<Value>) {
 	let manifest: Value = serde_json::from_str(MANIFEST).expect("settings-controls.json");
 	let build = build_version();
 	let mut due = vec![];
@@ -195,6 +189,19 @@ fn every_control_of_every_release_s_settings_window_is_reachable_in_this_one() {
 			ahead.extend(ids);
 		}
 	}
+	(due, ahead)
+}
+
+fn list(v: &Value) -> Vec<String> {
+	if v.as_object().is_some_and(|o| o.is_empty()) {
+		return vec![];
+	}
+	v.as_array().unwrap_or_else(|| panic!("not a list: {v}")).iter().map(|x| x.as_str().unwrap_or_default().to_string()).collect()
+}
+
+#[test]
+fn every_control_of_every_release_s_settings_window_is_reachable_in_this_one() {
+	let (due, ahead) = due_and_ahead();
 	assert!(due.len() >= 277, "0.3.6's 277 controls at least: {}", due.len());
 	let out = run(&format!(
 		r#"
