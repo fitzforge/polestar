@@ -28,7 +28,7 @@ local L = ns.L
 local QoL = ns.QoL
 local readable = ns.Compat.Readable
 
-local type, ceil, format = type, math.ceil, string.format
+local type, ceil, floor, format = type, math.ceil, math.floor, string.format
 
 local Rest = {}
 QoL.Rest = Rest
@@ -73,10 +73,13 @@ function Rest.BagLeft()
 	return left > 0 and left or 0
 end
 
--- "42m" for minutes left, rounded up: 30 seconds still reads "1m".
+-- "42m" for minutes left, rounded up: 30 seconds still reads "1m". To the
+-- millisecond first: a frame clock a hair past the minute (59.9999999 s
+-- gone) must not round a whole minute up.
 local function minutes(left)
-	if left >= 60 and QoL.Duration then return QoL.Duration(ceil(left / 60) * 60) end
-	return format(L["%dm"], ceil(left / 60))
+	local m = ceil(floor(left * 1000 + 0.5) / 60000)
+	if left >= 60 and QoL.Duration then return QoL.Duration(m * 60) end
+	return format(L["%dm"], m)
 end
 Rest.Minutes = minutes
 

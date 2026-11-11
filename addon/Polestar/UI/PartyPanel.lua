@@ -119,7 +119,8 @@ function PP.RowText(e)
 	-- Boosted Rest (their "2B|"), unless the player turned the status off.
 	local Q = ns.QoL
 	if e.rest and not (Q and Q.On and not Q.On("boostedRest")) then
-		local rest = e.rest == true and L["Boosted Rest"] or L["Boosted Rest %dm"]:format(math.ceil(e.rest / 60))
+		-- Minutes rounded up, to the millisecond first (a frame clock a hair past the minute adds none).
+		local rest = e.rest == true and L["Boosted Rest"] or L["Boosted Rest %dm"]:format(math.ceil(math.floor(e.rest * 1000 + 0.5) / 60000))
 		level = level ~= "" and (level .. DOT .. rest) or rest
 	end
 	local parts = {}
