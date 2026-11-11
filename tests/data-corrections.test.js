@@ -267,5 +267,5 @@ test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s ra
 	assert.deepEqual([92474, 94003, 94006, 98404].map(races), [SKYBORNE, SKYBORNE, SKYBORNE, SKYBORNE], 'Alliance and Horde Skyborne');
 	assert.deepEqual([92514, 92595].map(races), [HORDE, HORDE], "Welcome to Shen'dar Village and The Windshapers: the Horde, not Tauren only");
 	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
-	assert.deepEqual([79361, 79442].map(races), [HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
+	assert.deepEqual([79361, 79442, 79365].map(races), [HORDE, HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
 });
