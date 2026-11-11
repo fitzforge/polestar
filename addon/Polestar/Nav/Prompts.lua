@@ -45,7 +45,7 @@ ns.RegisterDefaults("nav", { castPrompt = true })
 local HEARTHSTONE = 6948
 local SIZE = 36
 local GAP = 6                   -- px between the arrow's foot and the button
-local DEFAULT_Y = -262          -- under the arrow's default spot when it is hidden
+local DEFAULT_Y = -262          -- under the arrow's default spot, for an arrow with no spot of its own
 local NAME = "PolestarTravelButton"
 
 ---------------------------------------------------------------------------
@@ -309,17 +309,32 @@ local function create()
 	if QB then QB.Add(b) end
 end
 
--- Just under the arrow, in UIParent's space; the arrow may be scaled.
+-- The arrow's foot (the middle of its bottom edge) as a point of UIParent and
+-- an offset from it in UIParent's units, read from the arrow's own anchor
+-- and size rather than its measured rectangle: right while the arrow is
+-- hidden or not laid out yet (a /reload), and for any scale of either.
+-- nil when the arrow isn't held by one point of UIParent.
+local function footOf(a)
+	if a:GetNumPoints() ~= 1 then return nil end
+	local point, rel, relPoint, x, y = a:GetPoint(1)
+	if rel == nil then rel = a:GetParent() end
+	if rel ~= UIParent or type(point) ~= "string" then return nil end
+	local fx = point:find("LEFT") and 0 or point:find("RIGHT") and 1 or 0.5
+	local fy = point:find("TOP") and 1 or point:find("BOTTOM") and 0 or 0.5
+	local s = a:GetEffectiveScale() / UIParent:GetEffectiveScale()
+	return relPoint or point, ((x or 0) + (0.5 - fx) * a:GetWidth()) * s, ((y or 0) - fy * a:GetHeight()) * s
+end
+
+-- Just under the arrow, anchored to the same point of UIParent as the arrow
+-- (so a new UI scale or screen size keeps it there). Not anchored to the
+-- arrow frame itself: a secure button's anchor frame can't be moved in combat.
 local function place()
 	local a = Nav.arrow and Nav.arrow.frame
-	local x, bottom
-	if a and a:IsShown() then
-		x, bottom = a:GetCenter(), a:GetBottom()
-	end
+	local relPoint, x, y
+	if a then relPoint, x, y = footOf(a) end
 	button:ClearAllPoints()
-	if x and bottom then
-		local s = a:GetEffectiveScale() / UIParent:GetEffectiveScale()
-		button:SetPoint("TOP", UIParent, "BOTTOMLEFT", x * s, bottom * s - GAP)
+	if relPoint then
+		button:SetPoint("TOP", UIParent, relPoint, x, y - GAP)
 	else
 		button:SetPoint("TOP", UIParent, "TOP", 0, DEFAULT_Y)
 	end
@@ -360,9 +375,10 @@ local function update()
 	secure("travel", sync)
 end
 
--- The arrow moved or came back: follow it (out of combat).
+-- The arrow moved, was dragged, rescaled or resized: follow it (out of
+-- combat; in combat, once it ends).
 local function replace()
-	if applied.kind then secure("travel", sync) end
+	if applied.kind then secure("place", place) end
 end
 
 ---------------------------------------------------------------------------
@@ -444,8 +460,12 @@ local function hookArrow()
 			GameTooltip:Show()
 		end
 	end)
+	-- Its saved spot and scale (a /reload, the options), a drag, a new size:
+	-- the frame's own calls, so this holds whatever moves it.
+	hooksecurefunc(a, "SetPoint", replace)
+	hooksecurefunc(a, "SetScale", replace)
+	a:HookScript("OnSizeChanged", replace)
 	a:HookScript("OnDragStop", replace)
-	a:HookScript("OnShow", replace)
 end
 
 -- Nav calls these: the once-a-second tick, nav.* settings.
