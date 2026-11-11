@@ -1431,7 +1431,13 @@ function Theme.KitRowLit(r, shown, key, inset)
 	t:SetPoint("TOPLEFT", r, "TOPLEFT", inset or 4, 0)
 	t:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -(inset or 4), 0)
 	draw(t, kit, (key == "navLit" and kit.navLit) or kit.rowLit)
-	if kit.source == "file" then t:SetBlendMode("ADD") end
+	-- The quest log's gold title highlight is light (ADD); at the game's full
+	-- strength it drowns a goal's coloured tip lines (the violet of a
+	-- mechanic, the muted "Inside"), so the guide window's lights it at half.
+	if kit.source == "file" then
+		t:SetBlendMode("ADD")
+		if key ~= "navLit" then t:SetVertexColor(1, 1, 1, 0.5) end
+	end
 	return true
 end
 

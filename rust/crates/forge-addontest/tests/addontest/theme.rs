@@ -1048,6 +1048,11 @@ fn skins_classic_draws_the_dialog_box_the_chat_frame_and_the_tooltip_from_the_va
 		local bar = GF.parts.foot.Status
 		out.bar = { fill = bar:GetStatusBarTexture().texture, color = { bar:GetStatusBarTexture():GetVertexColor() },
 			frame = shown(bar.psSkin.kit.statusNine and bar.psSkin.kit.statusNine[1]) }
+		-- the current goal: the quest log's gold title highlight, as light at half strength
+		for _, r in ipairs(GF.rows or {}) do
+			local t = r.psSkin and r.psSkin.kit and r.psSkin.kit.rowLit
+			if t and t:IsShown() then out.lit = { tex = t.texture, alpha = select(4, t:GetVertexColor()), blend = t.blend } end
+		end
 		-- a toast: the tooltip; a menu: the tooltip in the panel colour
 		uistub.realNav.alerts.ShowSample()
 		local a = PolestarAlert.psSkin.kit
@@ -1094,6 +1099,7 @@ fn skins_classic_draws_the_dialog_box_the_chat_frame_and_the_tooltip_from_the_va
 	assert_eq!(out["bar"]["fill"], "Interface\\TargetingFrame\\UI-StatusBar");
 	assert_eq!(round(&out["bar"]["color"]), vec![0.58, 0.0, 0.55, 1.0], "the XP bar's purple");
 	assert_eq!(out["bar"]["frame"], "Interface\\CastingBar\\UI-CastingBar-Border", "in the cast bar's frame");
+	assert_eq!(out["lit"], json!({ "tex": "Interface\\QuestFrame\\UI-QuestTitleHighlight", "alpha": 0.5, "blend": "ADD" }), "the lit goal at half the game's strength, so its tip lines read");
 	assert_eq!(out["toast"], json!({ "tipEdge": "Interface\\Tooltips\\UI-Tooltip-Border", "rim": false }), "a toast is a tooltip");
 	assert_eq!(out["menu"]["edge"], "Interface\\Tooltips\\UI-Tooltip-Border", "a menu is a tooltip");
 	assert_eq!(out["menu"]["tile"], "Interface\\Tooltips\\UI-Tooltip-Background");
