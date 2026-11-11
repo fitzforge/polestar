@@ -10621,3 +10621,13 @@ test('Alliance Arathi Highlands: the Shadowy Assassin never holds the Southshore
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
 	for (const q of [522, 523]) assert.ok(rf.some((e) => e.q === q), `route-fixes deliberate.optional ${q}`);
 });
+
+// #1556: Dartol's Rod's Wooden Key (5475) drops only from the Crazed (3834, 44%) and Withered Ancients (3919, 45%)
+// north of the moonwell, and its line named neither: the compiler named a source only when it drops the item at 50%
+// or more. An item only one or two located sources of one kind drop, each at 20% or more, names them both now.
+test('Alliance Wetlands & Ashenvale: the Wooden Key line names the Ancients that drop it (#1556)', { skip }, () => {
+	const list = goals('forever/alliance/06-wetlands.guide');
+	const { goal } = list[at(list, 'collect 5475', (g) => g.t === 'collect' && g.item === 5475)];
+	assert.deepEqual([goal.fromId, goal.fromAlsoId].sort((a, b) => a - b), [3834, 3919], 'both Ancients are named');
+	assert.equal(goal.fromKind, 'npc');
+});

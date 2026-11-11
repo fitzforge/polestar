@@ -382,7 +382,7 @@ do
 					title = "{area:18} and the wolves",
 					note = "The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.",
 					goals = {
-						{ t = "collect", quest = 112, title = "Collecting Kelp", item = 1256, itemName = "Crystal Kelp Frond", count = 4, oi = 1, map = 1429, x = 49.8, y = 66.4, f = "e", spotsPacked = "51.1,67,,66,13;54.3,66.9,,83,12;54.5,63.7,,42,4;56.1,68.9,,41,3;57,66.6,,55,8;57.2,63,,17,2;50.5,62.3,,15,1,1", lvl = 7, note = "Crystal Kelp Fronds", fromNpcs = { { npc = 285, npcName = "Murloc" }, { npc = 735, npcName = "Murloc Streamrunner" } } },
+						{ t = "collect", quest = 112, title = "Collecting Kelp", item = 1256, itemName = "Crystal Kelp Frond", count = 4, oi = 1, map = 1429, x = 49.8, y = 66.4, f = "e", spotsPacked = "51.1,67,,66,13;54.3,66.9,,83,12;54.5,63.7,,42,4;56.1,68.9,,41,3;57,66.6,,55,8;57.2,63,,17,2;50.5,62.3,,15,1,1", lvl = 7, note = "Crystal Kelp Fronds", from = "Murloc", fromKind = "npc", fromAlso = "Murloc Streamrunner", fromId = 285, fromAlsoId = 735, fromNpcs = { { npc = 285, npcName = "Murloc" }, { npc = 735, npcName = "Murloc Streamrunner" } } },
 						{ t = "collect", quest = 91751, item = 247877, optional = true, note = "Rough Wolf Pelts" },
 					},
 				},
@@ -543,7 +543,7 @@ do
 					title = "{area:60}",
 					note = "Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border. {npc:100}, a level 12 gnoll, walks among them and carries the {item:1307}: right-click it.",
 					goals = {
-						{ t = "collect", quest = 11, title = "Riverpaw Gnoll Bounty", item = 782, itemName = "Painted Gnoll Armband", count = 8, oi = 1, map = 1429, x = 27.4, y = 79.7, f = "e", spotsPacked = "27.4,81.2,,40,4;27.4,86.5,,52,8;30.9,89.1,,40,1,,9;28.2,93.8,,40,2;25.1,93.4,,59,10;31.2,81.7,,40,2,,9;68.6,54.8,,40,1;68.2,49.9,,40,2;68.1,45.1,,58,10;66.8,40.6,,52,14;72.9,38.3,,40,1;76.8,40.2,,40,1;27.9,88.5,,40,5,1;25.4,89,,48,7,1;69.1,39.1,,60,11,1", spread = true, lvl = 10, note = "Painted Gnoll Armbands", fromNpcs = { { npc = 478, npcName = "Riverpaw Outrunner" }, { npc = 97, npcName = "Riverpaw Runt" } } },
+						{ t = "collect", quest = 11, title = "Riverpaw Gnoll Bounty", item = 782, itemName = "Painted Gnoll Armband", count = 8, oi = 1, map = 1429, x = 27.4, y = 79.7, f = "e", spotsPacked = "27.4,81.2,,40,4;27.4,86.5,,52,8;30.9,89.1,,40,1,,9;28.2,93.8,,40,2;25.1,93.4,,59,10;31.2,81.7,,40,2,,9;68.6,54.8,,40,1;68.2,49.9,,40,2;68.1,45.1,,58,10;66.8,40.6,,52,14;72.9,38.3,,40,1;76.8,40.2,,40,1;27.9,88.5,,40,5,1;25.4,89,,48,7,1;69.1,39.1,,60,11,1", spread = true, lvl = 10, note = "Painted Gnoll Armbands", from = "Riverpaw Runt", fromKind = "npc", fromAlso = "Riverpaw Outrunner", fromId = 97, fromAlsoId = 478, fromNpcs = { { npc = 478, npcName = "Riverpaw Outrunner" }, { npc = 97, npcName = "Riverpaw Runt" } } },
 						{ t = "collect", item = 1307, itemName = "Gold Pickup Schedule", count = 1, map = 1429, x = 25.4, y = 89.8, f = "e", optional = true, note = "{item:1307}: {npc:100}", from = "Gruff Swiftbite", fromKind = "npc", fromRank = 4, fromId = 100, fromNpcs = { { npc = 100, npcName = "Gruff Swiftbite" } } },
 						{ t = "accept", quest = 123, title = "The Collector", item = 1307, itemName = "Gold Pickup Schedule", minLevel = 7, qlvl = 10, optional = true },
 					},

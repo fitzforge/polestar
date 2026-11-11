@@ -22,6 +22,9 @@ const FIND_ID_HINT: &str = "find the id with `polestar find <name>`, or give its
 
 /// A collect's sources are named only for an item that few creatures or objects drop.
 const MAX_NAMED_SOURCES: usize = 8;
+/// An item only one or two located sources of one kind drop is named after them when each drops it at this
+/// percentage or more (#1556); under it, or at an unknown chance (0), the drop list is no guide to where to farm it.
+const FEW_SOURCES_BAR: f64 = 20.0;
 /// `fromNpcs` on a collect: at most this many names.
 const MAX_SOURCE_NPCS: usize = 5;
 /// Droppers this many levels or more above the quest do not set the likely-dropper bar (levelSplit).
@@ -2205,7 +2208,10 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					Some((near, _)) => near,
 					None => normal,
 				};
-				if !widespread && !named.is_empty() && (candidates.len() == 1 || num(&named[0], "chance") >= 50.0) {
+				// One or two located sources of one kind, each at FEW_SOURCES_BAR% or more, are where the item comes
+				// from whatever their chance: both are named (the Wooden Key, 44% and 45% from two Ancients, #1556).
+				let few = candidates.len() <= 2 && named.len() == candidates.len() && named.iter().all(|c| c.get("kind").strict_eq(&named[0].get("kind")) && num(c, "chance") >= FEW_SOURCES_BAR);
+				if !widespread && !named.is_empty() && (candidates.len() == 1 || num(&named[0], "chance") >= 50.0 || few) {
 					let top = &named[0];
 					let rec = if top.get("kind").as_str() == Some("npc") { data.npc(&top.get("id")) } else { data.object(&top.get("id")) };
 					if rec.truthy() && rec.get("name").truthy() {
@@ -2221,7 +2227,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 							}
 						}
 						if let Some(next) = named.get(1) {
-							if next.get("kind").strict_eq(&top.get("kind")) && num(next, "chance") >= 50.0 {
+							if next.get("kind").strict_eq(&top.get("kind")) && (num(next, "chance") >= 50.0 || few) {
 								let nrec = if next.get("kind").as_str() == Some("npc") { data.npc(&next.get("id")) } else { data.object(&next.get("id")) };
 								if nrec.truthy() && nrec.get("name").truthy() && nrec.get("name").to_js_string() != goal.get("from").to_js_string() {
 									goal.set("fromAlso", nrec.get("name").to_js_string());
