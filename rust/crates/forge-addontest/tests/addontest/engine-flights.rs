@@ -449,6 +449,74 @@ fn a_flight_to_a_known_landing_the_zone_text_names_otherwise_is_done_on_landing_
 	assert_eq!(out, json!({ "before": 1, "landed": [2, "done", "done"] }));
 }
 
+// #1768 (and #1596): Ashenvale & Thousand Needles after the Earthen Ring, for a character who knows Thunder Bluff's
+// flight path and has nothing else in Thunder Bluff. The walk up to its central rise passed because the flight to
+// Camp Taurajo follows (Own.flightOn), and nothing latched it; on landing in Camp Taurajo the flight read done, the
+// next open step was the work south of the camp, so the walk was open again and the arrow sent the player back up to
+// Thunder Bluff, where the flight to Camp Taurajo (never latched: it was no longer the live step when it landed) was
+// open again: Camp Taurajo, Thunder Bluff, Camp Taurajo. The same for a walk straight before a flight (Alliance
+// Arathi Highlands 30-40: "Duskwood", then "Fly to Stormwind", open again on landing in Stormwind). A travel step the
+// route passes for the planner's flight now stays passed.
+const TAURAJO: &str = r#"
+Polestar.RegisterMapFrames({ era = { [1412] = { c = 1, left = 3000, right = -1000, top = -3000, bottom = -6000 } } })
+Polestar.RegisterGuide({ id = "test/taurajo", pack = "test", title = "Ashenvale & Thousand Needles", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "The Earthen Ring", goals = { { t = "turnin", quest = 96259, title = "Defending the Dead", npc = 259118, map = 1412, x = 33.4, y = 22.5 } } },
+	{ title = "Thunder Bluff", goals = { { t = "goto", map = 1412, x = 47.0, y = 49.8, text = "Thunder Bluff's central rise" } } },
+	{ title = "Thunder Bluff", goals = { { t = "getfp", location = "Thunder Bluff", node = 22, map = 1412, x = 47, y = 50 } } },
+	{ title = "Fly to Camp Taurajo", goals = {
+		{ t = "goto", map = 1412, x = 47, y = 50, text = "Thunder Bluff flight master" },
+		{ t = "fly", location = "Camp Taurajo", node = 77 },
+	} },
+	{ title = "Tear of the Moons", goals = { { t = "accept", quest = 857, title = "The Tear of the Moons", npc = 3421, map = 1412, x = 90, y = 80 } } },
+} })
+"#;
+
+const STRAIGHT: &str = r#"
+Polestar.RegisterMapFrames({ era = { [1412] = { c = 1, left = 3000, right = -1000, top = -3000, bottom = -6000 } } })
+Polestar.RegisterGuide({ id = "test/straight", pack = "test", title = "Arathi Highlands", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "The Earthen Ring", goals = { { t = "turnin", quest = 96259, title = "Defending the Dead", npc = 259118, map = 1412, x = 33.4, y = 22.5 } } },
+	{ title = "Bloodhoof Village", goals = { { t = "goto", map = 1412, x = 47.0, y = 60.0, text = "Bloodhoof Village" } } },
+	{ title = "Fly to Camp Taurajo", goals = { { t = "fly", location = "Camp Taurajo", node = 77 } } },
+	{ title = "Tear of the Moons", goals = { { t = "accept", quest = 857, title = "The Tear of the Moons", npc = 3421, map = 1412, x = 90, y = 80 } } },
+} })
+"#;
+
+#[test]
+fn a_travel_step_passed_for_the_planners_flight_stays_passed_once_that_flight_lands_1768() {
+	let trip = |guide: &str, id: &str| {
+		run(
+			guide,
+			&format!(
+				r#"
+				local w = stub.world
+				w.complete({{ 96259 }})
+				w.moveTo(1412, 33.4, 22.5)
+				KNOWN = {{ [22] = true, [77] = true }}
+				Polestar.CharState().flags.taxi = {{ [22] = true, [77] = true }}
+				E.SetGuide("{id}"); flush()
+				local r = {{ before = E.GetStepIndex() }}
+				-- Landed beside Camp Taurajo's flight master.
+				w.moveTo(1412, 90, 50); w.setZone("The Barrens", "Camp Taurajo"); stub.fire("ZONE_CHANGED"); stub.advance(1)
+				r.landed = E.GetStepIndex()
+				-- On south to the work, out of the camp's subzone.
+				w.moveTo(1412, 90, 70); w.setZone("The Barrens", ""); stub.fire("ZONE_CHANGED"); stub.advance(1)
+				r.on = E.GetStepIndex()
+				emit(r)
+				"#
+			),
+		)
+	};
+	assert_eq!(
+		json!({ "taurajo": trip(TAURAJO, "test/taurajo"), "straight": trip(STRAIGHT, "test/straight") }),
+		json!({
+			// The walk up to Thunder Bluff passes for the flight; landed, the work south of the camp leads, and stays.
+			"taurajo": { "before": 4, "landed": 5, "on": 5 },
+			// A walk straight before the flight: the same.
+			"straight": { "before": 3, "landed": 4, "on": 4 },
+		})
+	);
+}
+
 // The report's trip on the real addon (TravelData's taxi nodes through Nav.GetTaxiNode, the known ones through
 // Nav.GetKnownTaxiNodes, the client's map frames): 0.3.4's Ashenvale after Webwinder Path in Stonetalon, a walk to
 // Astranaar's flight master and the flight to Auberdine. A Night Elf who knows Stonetalon Peak, Astranaar and

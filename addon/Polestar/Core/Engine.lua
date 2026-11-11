@@ -3708,15 +3708,22 @@ local function computeCurrent()
 end
 
 -- Store the live-done latchable goals of steps from..to (steps the route has
--- just moved past), and whether their `when` held (Own.latchWhen).
+-- just moved past), and whether their `when` held (Own.latchWhen). A travel
+-- step the route passed for the planner's flight (Own.flightPassed) has its
+-- walk and flight latched too: they are behind the player once the route
+-- moves on, even after that flight lands and nothing flies on any more
+-- (#1768: the walk up to Thunder Bluff opened again on landing in Camp
+-- Taurajo, and the flight to Camp Taurajo again back in Thunder Bluff).
 local function latchPassed(from, to)
 	local steps = guide.steps
 	for s = from, to do
 		local step = steps[s]
 		Own.latchWhen(s)
 		if stepApplies(step) then
+			local flown = not Own.goalsDone(s) and Own.flightPassed(s)
 			for g, goal in ipairs(step.goals) do
-				if latchable(goal) and goalApplies(goal) and not checked(s, g) and goalDone(s, g, goal) then
+				if latchable(goal) and goalApplies(goal) and not checked(s, g)
+					and (goalDone(s, g, goal) or (flown and (goal.t == "goto" or goal.t == "fly"))) then
 					manualFor(guide.id, true)[s .. ":" .. g] = true
 				end
 			end
