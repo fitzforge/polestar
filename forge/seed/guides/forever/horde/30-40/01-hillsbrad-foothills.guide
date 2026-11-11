@@ -362,8 +362,9 @@ step Daggerspine naga
 
 step Henchman Valik
   when onquest 533
+  when !complete 533
   zone Alterac Mountains
-  tip From Southshore head north past Tarren Mill and follow the road on into the Alterac foothills. Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants.
+  tip From Southshore head north past Tarren Mill and follow the road on into the Alterac foothills. Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants. A missive from the Syndicate here does the same: with one in your bags the guide passes Valik.
   accept 535
   turnin 535
 
