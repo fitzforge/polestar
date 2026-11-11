@@ -90,8 +90,7 @@ step Splintertree Post
   tip Splintertree Post is just north up the road. Coming in from the south, the flight master and Senani Thunderheart's hunt board at Night Run come first, then the vendors. Kuray'bin at the lumber camp offers Ashenvale Outrunners: leave it for the way back, at 22.
   getfp "Splintertree Post"
   turnin 6382                         -- Senani Thunderheart
-  accept 6383
-  turnin 6383
+  turnin 6383 direct
   note Senani's hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next Ashenvale visit, at 26.
   vendor nearest
 

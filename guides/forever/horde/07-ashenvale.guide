@@ -115,8 +115,7 @@ step Splintertree Post
 step Senani Thunderheart
   when !turnedin 6383
   tip Senani Thunderheart keeps the hunt board at Night Run, by the flight master: take The Ashenvale Hunt and hand it straight back. Ursangous, Sharptalon and Shadumbra drop their trophies only after it.
-  accept 6383                         -- Senani Thunderheart
-  turnin 6383
+  turnin 6383 direct
 
 step Splintertree Post
   when onquest 23
@@ -185,8 +184,7 @@ step Splintertree Post
   turnin 24 optional
 
 step Splintertree Post
-  accept 247                          -- Senani Thunderheart, once all three hunts are in
-  turnin 247
+  turnin 247 direct
   turnin 6441                         -- Pixel
 
 step Splintertree Post

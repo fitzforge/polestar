@@ -1018,6 +1018,16 @@ they matter to the player. They are not the judge's honest rules.
 - **Direct turn-ins** (#1153): a repeatable quest whose giver is also its ender,
   taken and handed in at the same stop, is written `turnin <id> direct` with no
   accept, keeping the accept's `only` (The Tome of Divinity, 1641).
+- **Hand-ins on the spot** (#1699): a quest quests.json marks `direct` (the
+  server's quest type 0: its giver opens straight on the hand-in window, and it
+  never enters the log) is never accepted. After every pass that adds or moves
+  accepts, each of its `accept` lines goes, its turn-ins are `direct` (an
+  accept's `only` onto a turn-in of its step that has none), its objective
+  lines lose `quest <id>.<n>` (plain collects, with the quest's count), a
+  `complete <id>` becomes the collects of its items, `when onquest <id>` reads
+  `when available <id>` and `when complete <id>` reads `when has <item> xN`. A
+  step left with no goal goes (Essence of the Exile, the cloth donations, the
+  Scourgestones, the Videre Elixir).
 - **Groups**: the elite and group quests the route takes (its `groups`, each
   order entry's `group`; [routes.md](routes.md#group-quests)) are asked. Every
   step that is not `along` and holds a line of a family's quest (accept, work,

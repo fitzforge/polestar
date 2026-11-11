@@ -372,8 +372,7 @@ step Oran Snakewrithe
   tip Oran stands in the Magic Quarter.
   turnin 2782
   turnin 2995
-  accept 8273
-  turnin 8273
+  turnin 8273 direct
 
 # ---------------------------------------------------------------- The Undercity and the Bulwark
 
@@ -396,10 +395,7 @@ step The Bulwark
   note Take a Box of Incendiaries from the crate next to Derrington for Scarlet Diversions, done on the way back. Equip the Argent Dawn Commission: Scourgestones only drop while you wear it.
   turnin 5094                         -- High Executor Derrington
   accept 5096
-  accept 5405                         -- Argent Officer Garush
-  turnin 5405
-  accept 5407 optional
-  accept 5408 optional
+  turnin 5405 direct
 # ---------------------------------------------------------------- Western Plaguelands
 
 step Scarlet forward camp

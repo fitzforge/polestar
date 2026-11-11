@@ -620,8 +620,7 @@ step The Undercity
   use 6284 @86.6,27.1 only Warlock    -- Runes of Summoning
   kill 5676 quest 1471.1 only Warlock
   turnin 1471 only Warlock            -- Carendin Halgar: Summon Voidwalker
-  accept 5658 only Priest             -- Aelthalyste
-  turnin 5658 only Priest             -- Aelthalyste: Touch of Weakness
+  turnin 5658 direct only Priest -- Aelthalyste: Touch of Weakness
   turnin 1882 only Mage choose 9514 7507 -- Anastasia Hartwell: The Balnir Farmstead
 
 step Back to Tirisfal Glades

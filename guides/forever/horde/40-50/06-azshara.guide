@@ -45,8 +45,7 @@ step Booty Bay
   turnin 2767 optional                -- Oglethorpe Obnoticus, inside
   turnin 836 optional
   turnin 648 optional
-  accept 3721 optional                -- Only once all three robots are home
-  turnin 3721 optional
+  turnin 3721 direct optional
   turnin 580                          -- Whiskey Slim, in the inn
   turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
   accept 608                          -- Fleet Master Seahorn, on the balcony of the same building
@@ -301,9 +300,9 @@ step Frayfeather Hippogryphs
   use 9619 quest 3124.1 @58.0,62.8 map 1444
 
 step Hippogryph nests
-  when onquest 2741
+  when available 2741
   tip The hippogryph nests are on the hills to the south, around the Ruins of Isildien; each holds an egg for the Egg-O-Matic.
-  collect 8564 quest 2741 @58.0,76.3 map 1444
+  collect 8564 @58.0,76.3 map 1444
 
 step Witch Doctor Uzer'i
   turnin 3124
@@ -376,7 +375,7 @@ step Gadgetzan
   turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
-  turnin 2741                         -- The Egg-O-Matic, in the middle of town
+  turnin 2741 direct -- The Egg-O-Matic, in the middle of town
   sethome "Gadgetzan"
   turnin 2661                         -- Marin Noggenfogger
   accept 2662

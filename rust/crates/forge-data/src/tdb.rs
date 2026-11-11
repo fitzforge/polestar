@@ -12,7 +12,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::jsv::{arr, math_round, nums};
 
-pub const SCHEMA: f64 = 9.0;
+pub const SCHEMA: f64 = 10.0;
 pub const SNIFFED: i64 = 70000;
 const REPO_URL: &str = "https://github.com/advocaite/TrinityCore/tree/forever";
 const SPAWN_MAPS: &str = "0,1,2991,2997";
@@ -303,7 +303,7 @@ pub fn extract(file: &Path) -> Result<V, String> {
 		objs.entry(r.i("QuestID")).or_default().push(arr(vec![r.js("Type"), r.js("ObjectID"), r.js("Amount")]));
 	}
 	let quests = Obj::new();
-	for r in all(&db, "select ID, VerifiedBuild, TimeAllowed, RewardNextQuest, QuestInfoID, RewardSpell, RewardDisplaySpell1, RewardXPDifficulty, RewardXPMultiplier, cast(AllowableRaces as text) races from quest_template", &[])? {
+	for r in all(&db, "select ID, VerifiedBuild, QuestType, TimeAllowed, RewardNextQuest, QuestInfoID, RewardSpell, RewardDisplaySpell1, RewardXPDifficulty, RewardXPMultiplier, cast(AllowableRaces as text) races from quest_template", &[])? {
 		let id = r.i("ID");
 		if !set.contains(&id) {
 			continue;
@@ -315,6 +315,13 @@ pub fn extract(file: &Path) -> Result<V, String> {
 		q.set("obj", arr(objs.get(&id).cloned().unwrap_or_default()));
 		if r.n("TimeAllowed") > 0.0 {
 			q.set("time", r.js("TimeAllowed"));
+		}
+		// QuestType 0: the server hands the quest in on the spot. Its giver opens straight on the
+		// hand-in window (what it wants, then Continue); it is never accepted and never in the log
+		// (#1699: Essence of the Exile at Bath'rah's Cauldron; players' recordings: 66 such quests
+		// handed in, none ever accepted).
+		if matches!(r.v("QuestType"), Sq::Integer(0)) {
+			q.set("auto", true);
 		}
 		let next = if r.truthy("RewardNextQuest") { r.js("RewardNextQuest") } else if ad.is_some_and(|a| a.truthy("NextQuestID")) { ad.unwrap().js("NextQuestID") } else { V::Num(0.0) };
 		if next.num() > 0.0 {
