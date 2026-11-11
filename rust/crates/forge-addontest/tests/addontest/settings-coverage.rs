@@ -228,8 +228,7 @@ fn every_control_of_every_release_s_settings_window_is_reachable_in_this_one() {
 
 #[test]
 fn every_control_registered_now_is_reachable_on_its_page() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		local lost, n = {}, 0
 		for _, c in ipairs(controls) do
 			n = n + 1
@@ -240,8 +239,7 @@ fn every_control_registered_now_is_reachable_on_its_page() {
 			end
 		end
 		table.sort(lost)
-		emit({ lost = lost, n = n })"#,
-	);
+		emit({ lost = lost, n = n })"#);
 	assert!(out["n"].as_f64().unwrap() >= 600.0, "every control: {}", out["n"]);
 	let lost = list(&out["lost"]);
 	assert!(lost.is_empty(), "{} controls cannot be reached:\n{}", lost.len(), lost.join("\n"));

@@ -325,16 +325,28 @@ fn two_characters_keep_their_own_profile_apart_and_share_the_account_s() {
 	assert_eq!(first["source"], "character");
 	let db = first["db"].as_str().unwrap().to_string();
 	let mine = first["char"].as_str().unwrap().to_string();
-	let second = session(real, &db, "F.chars[2]", 2, r#"
+	let second = session(
+		real,
+		&db,
+		"F.chars[2]",
+		2,
+		r#"
 		stub.fire("PLAYER_LOGOUT")
 		emit({ width = Polestar.Get("ui.width"), arrow = Polestar.Get("nav.arrowScale"), active = Polestar.Profiles.Active(),
-			source = Polestar.Profiles.Source(), db = ser(PolestarDB) })"#);
+			source = Polestar.Profiles.Source(), db = ser(PolestarDB) })"#,
+	);
 	assert_eq!(second["active"], "Default", "the second character follows the account's profile");
 	assert_eq!(second["source"], "account");
 	assert_eq!(second["width"], 418, "Default kept the saved width");
 	assert_eq!(second["arrow"], 1, "and the default arrow");
 	let db2 = second["db"].as_str().unwrap().to_string();
-	let again = session(real, &db2, &mine, 1, r#"
-		emit({ width = Polestar.Get("ui.width"), arrow = Polestar.Get("nav.arrowScale"), active = Polestar.Profiles.Active() })"#);
+	let again = session(
+		real,
+		&db2,
+		&mine,
+		1,
+		r#"
+		emit({ width = Polestar.Get("ui.width"), arrow = Polestar.Get("nav.arrowScale"), active = Polestar.Profiles.Active() })"#,
+	);
 	assert_eq!(again, serde_json::json!({ "width": 300, "arrow": 1.5, "active": "Mine" }), "the first character's own profile");
 }
