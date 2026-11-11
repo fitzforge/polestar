@@ -10,7 +10,7 @@ return {
 	-- {skill:185} Cooking
 	["Learn {skill:185}"] = "学习{skill:185}",
 	-- {skill:185} Cooking · {object:29784} Basic Campfire · {item:279981} Basic Campfire Kit · {item:4470} Simple Wood · {item:4471} Flint and Tinder
-	["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "本阵营任意{skill:185}训练师都能教授初级{skill:185}（角色5级，1银币）；箭头指向最近的一位。无限：每位厨师都掌握{object:29784}。用1个{item:4470}（38铜币）配合{item:4471}（1银35铜，保留在背包中）制作{item:279981}，再放置套件，即可随地点起烹饪用火；提前做几个备用（每5分钟可使用一次）。最初制作的几个套件还能将{skill:185}提高到约5点。初始地区营地的“露营 101: {skill:185}”任务会让你来找这位训练师。",
+	["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (any character level, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "",
 
 	-- Step 2: Charred Wolf Meat: ingredients
 	-- {spell:2538} Charred Wolf Meat
@@ -73,7 +73,7 @@ return {
 	-- {skill:185} Cooking
 	["Journeyman {skill:185}"] = "中级{skill:185}",
 	-- {skill:185} Cooking
-	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "中级{skill:185}将上限提高到150；需要技能50和角色等级10：箭头会指向你所在阵营最近的{skill:185}训练师；训练花费5银。",
+	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "",
 
 	-- Step 18: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
@@ -292,11 +292,13 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5); the arrow picks the nearest."] = "本阵营的任何{skill:185}训练师都能教授初级{skill:185}（角色等级5级）；箭头指向最近的训练师。",
+	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "本阵营任意{skill:185}训练师都能教授初级{skill:185}（角色5级，1银币）；箭头指向最近的一位。无限：每位厨师都掌握{object:29784}。用1个{item:4470}（38铜币）配合{item:4471}（1银35铜，保留在背包中）制作{item:279981}，再放置套件，即可随地点起烹饪用火；提前做几个备用（每5分钟可使用一次）。最初制作的几个套件还能将{skill:185}提高到约5点。初始地区营地的“露营 101: {skill:185}”任务会让你来找这位训练师。",
 	-- ["Catch about 50 {item:6291} here by fishing (see the {skill:356} guide)."] = "在这里钓约50条{item:6291}（参见{skill:356}指南）。",
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "在这里钓约68条{item:6361}（参见{skill:356}指南）。",
 	-- ["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072}; the arrow picks its nearest seller for your faction. Buy it and read it."] = "高级{skill:185}将上限提高到225；需要技能125和角色等级20级：它是一本书，即{item:16072}；箭头指向本阵营最近的出售者。买下并阅读。",
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "巨蛋由{zone:1448}的铁喙猫头鹰掉落。",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "中级{skill:185}将上限提高到150；需要技能50和角色等级10级：箭头指向本阵营最近的{skill:185}训练师。",
+	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "中级{skill:185}将上限提高到150；需要技能50和角色等级10：箭头会指向你所在阵营最近的{skill:185}训练师；训练花费5银。",
 	-- ["{area:442} docks"] = "{area:442}码头",
 	-- ["{area:702} docks"] = "{area:702}码头",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210}从175起为橙色（215变黄，255变灰）：约制作40次可到215。任何火堆都能烹饪：学会{skill:185}即获得{object:29784}。",

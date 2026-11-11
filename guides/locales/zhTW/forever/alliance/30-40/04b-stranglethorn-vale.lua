@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {quest:205} Troll Witchery
+	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "",
+
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
 	["In the {object:2164}, if you still carry it"] = "",

@@ -39,9 +39,9 @@ return {
 	["You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use {spell:1160}: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again."] = "",
 
 	-- Step 8: Bath'rah the Windwatcher
-	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {quest:1714} Essence of the Exile
+	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {item:6851} Essence of the Exile
 	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
-	["{npc:6176} camps by ruins on the east bank of the river that runs past {area:272}, a short walk north-east of the town, just over the border in {zone:1416}; his cauldron stands beside him. Horde: fly to {area:272}. Alliance: fly to {area:271} and go north along the river; {area:272}'s guards are level 42 elites, so keep away from the town. Accepting {quest:1712} gives you {item:6929}, the list of what he needs: 8 {item:3357}, 30 Bloodscalp Tusks and the {quest:1714} from his cauldron. Click the cauldron for that quest."] = "",
+	["{npc:6176} camps by ruins on the east bank of the river that runs past {area:272}, a short walk north-east of the town, just over the border in {zone:1416}; his cauldron stands beside him. Horde: fly to {area:272}. Alliance: fly to {area:271} and go north along the river; {area:272}'s guards are level 42 elites, so keep away from the town. Accepting {quest:1712} gives you {item:6929}, the list of what he needs: 8 {item:3357}, 30 Bloodscalp Tusks and the {item:6851} from his cauldron. The cauldron's {item:6851} is not a quest you take: it never shows in your quest log. Come back with its charms and hand them in at the cauldron."] = "",
 
 	-- Step 9: Liferoot
 	-- {item:3357} Liferoot · {zone:1437} Wetlands · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {npc:1302} Bernard Gump · {npc:1313} Maria Lumere · {zone:1453} Stormwind · {npc:844} Antonio Perelli · {area:460} Sun Rock Retreat · {zone:1441} Thousand Needles
@@ -69,8 +69,8 @@ return {
 	["{item:4481}, from Cresting Exiles"] = "",
 
 	-- Step 12: Essence of the Exile
-	-- {object:89931} Bath'rah's Cauldron · {quest:1714} Essence of the Exile
-	["Put the 24 charms into {object:89931}: it hands you the {quest:1714}."] = "",
+	-- {object:89931} Bath'rah's Cauldron · {quest:1712} Cyclonian · {quest:1714} Essence of the Exile
+	["Click {object:89931} with the 24 charms in your bags and {quest:1712} in your log. Its window asks for the charms straight away, with nothing to accept: Continue, then Complete, and it hands you the {quest:1714}."] = "",
 	-- {quest:1714} Essence of the Exile · {npc:6176} Bath'rah the Windwatcher
 	["{quest:1714}, from the cauldron by {npc:6176}"] = "",
 

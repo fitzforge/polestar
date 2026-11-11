@@ -29,7 +29,6 @@ return {
 	["Continue south to {area:35}. {npc:7406} has his workshop on the upper ring of the bay."] = "繼續向南前往{area:35}。{npc:7406}的工作室在海灣的上層環道。",
 	-- {npc:7406} Oglethorpe Obnoticus
 	["{npc:7406}, inside"] = "",
-	["Only once all three robots are home"] = "三個機器人都回家後才能做",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
@@ -252,6 +251,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "精靈貴族與哈達爾薩特",
 	-- ["Ironjaw Basilisks"] = "鐵齶蜥蜴",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "保留{area:1417}，交給{zone:1446}的{npc:7771}。",
+	-- ["Only once all three robots are home"] = "三個機器人都回家後才能做",
 	-- ["Ride into {area:16}"] = "騎進{area:16}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北騎往{area:1108}；{npc:14637}在碼頭等候。",
 	-- ["Sea elementals"] = "海元素",

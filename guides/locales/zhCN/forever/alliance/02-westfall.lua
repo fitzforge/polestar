@@ -140,7 +140,7 @@ return {
 	-- Step 29: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
 	["Goretusk Livers as you go"] = "顺路收集{item:723}",
-	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
+	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
 	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "{npc:454}在这条路线的每一段游荡：顺路杀掉遇到的，收集馅饼用的肝脏。",
 
 	-- Step 30: Stringy Vulture Meat as you go

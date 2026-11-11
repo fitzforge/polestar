@@ -87,8 +87,8 @@ return {
 	-- {npc:254151} Vayn Moongaze
 	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "Die Geschichte und die erste Quest von {npc:254151} lassen dich bei Freundlich mit 2100 Reserve zurück. Wohlwollend ist 3900 mehr: vier Abgaben zu je fünf Ohren bis Stufe 18, zwanzig ab Stufe 22. Freundlich öffnet 32 der Muster von {npc:254151}, in zwei Farben, Cloudy und Azure: Schmiedekunst Skyforged Wristguards und Chain (Fertigkeit 50, 9s 50c), Gauntlets und Greaves (55, 11s); Lederverarbeitung Gustwoven- und Windraveled-Armschienen und -Gürtel (50) sowie Handschuhe und Stiefel (55); Schneiderei Stormsewn Cuffs und Cord (50), Handwraps und Shoes (55). Sie werden beim Kauf gebunden, kaufe sie also am Handwerker.",
 	["five ears per turn-in"] = "fünf Ohren pro Abgabe",
-	-- {quest:93459} More Al'Aketh Ears
-	["{quest:93459}: 1000 reputation"] = "{quest:93459}: 1000 Ruf",
+	-- {quest:93459} More Al'Aketh Ears · {npc:254151} Vayn Moongaze
+	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "",
 	-- {npc:254151} Vayn Moongaze
 	["{npc:254151}'s patterns"] = "Die Muster von {npc:254151}",
 
@@ -108,4 +108,7 @@ return {
 	["The {item:280363}"] = "Die {item:280363}",
 	-- {item:280363} Nightclaw Mantle
 	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "Ehrfürchtig öffnet die {item:280363}, grüne Stoffschultern für Stufe 15, für 8s 16c.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{quest:93459}: 1000 reputation"] = "{quest:93459}: 1000 Ruf",
 }

@@ -87,8 +87,8 @@ return {
 	-- {npc:254151} Vayn Moongaze
 	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "故事线加上 {npc:254151} 的首个任务，会让你达到友善并多出 2100 点。到尊敬还差 3900 点：18 级及以下，每次交五只耳朵，交四次即可；22 级起则需交二十次。友善后开放 {npc:254151} 的 32 张图样，分 黯云 和碧蓝圣殿骑士两种颜色：锻造的 天铸 护腕和链带（技能 50，9 银 50 铜）、护手和胫甲（55，11 银币）；制皮的 风织 与 风缠 护腕和腰带（50）、手套和靴子（55）；裁缝的 雷缝 护腕和束带（50）、裹手和鞋（55）。购买后绑定，因此要由制造角色购买。",
 	["five ears per turn-in"] = "每次交还五只耳朵",
-	-- {quest:93459} More Al'Aketh Ears
-	["{quest:93459}: 1000 reputation"] = "{quest:93459}：1000声望",
+	-- {quest:93459} More Al'Aketh Ears · {npc:254151} Vayn Moongaze
+	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "",
 	-- {npc:254151} Vayn Moongaze
 	["{npc:254151}'s patterns"] = "{npc:254151}的图样",
 
@@ -111,4 +111,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} 站在岛屿南部的天裔城镇 {area:16638}，一直没有收到北边德鲁伊的消息。他的差事是 夜爪 故事线的开端（8 级起，所有种族均可）。这条线的每个任务都会奖励 夜爪 声望：总共 4100 点，足够到友善。尽早来做：经典怀旧服中，超过任务 6 级后奖励会减少，超过 9 级及以上时最多只能获得五分之一，而这些任务是 11 至 13 级。",
+	-- ["{quest:93459}: 1000 reputation"] = "{quest:93459}：1000声望",
 }

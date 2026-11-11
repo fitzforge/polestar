@@ -11,13 +11,13 @@ return {
 	["Learn {skill:129}"] = "Lerne {skill:129}",
 	-- {skill:129} First Aid · {item:118} Minor Healing Potion · {item:2447} Peacebloom · {item:2678} Mild Spices · {item:3371} Empty Vial · {skill:182} Herbalism
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Jeder {skill:129}-Lehrer deiner Fraktion lehrt Lehrling in {skill:129} (Charakterstufe 5, 1s); der Pfeil wählt den nächsten. Forever lehrt dazu {item:118}: {item:2447}, {item:2678} und {item:3371}, orange bis 55. Mit {skill:182} kann es die Leinenverbände unten ersetzen.",
+	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (any character level, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "",
 
 	-- Step 2: Linen Bandage: cloth
 	-- {item:1251} Linen Bandage
 	["{item:1251}: cloth"] = "{item:1251}: Stoff",
 	-- {item:2589} Linen Cloth
-	["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "Humanoide der Stufe 5-20 lassen {item:2589} fallen (oder kauf ihn im Auktionshaus).",
+	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 3: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
@@ -36,7 +36,7 @@ return {
 	-- {skill:129} First Aid
 	["Journeyman {skill:129}"] = "{skill:129} (Geselle)",
 	-- {skill:129} First Aid
-	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Geselle in {skill:129} hebt die Obergrenze auf 150 an; er braucht Fertigkeit 50 und Charakterstufe 10: Der Pfeil wählt den nächsten {skill:129}-Lehrer deiner Fraktion; die Ausbildung kostet 5s.",
+	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "",
 
 	-- Step 8: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
@@ -46,7 +46,7 @@ return {
 	-- {spell:3277} Wool Bandage
 	["{spell:3277}: cloth"] = "{spell:3277}: Stoff",
 	-- {item:2592} Wool Cloth
-	["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "Humanoide der Stufe 15-30 lassen {item:2592} fallen (oder kauf ihn im Auktionshaus).",
+	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 10: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
@@ -76,7 +76,7 @@ return {
 	-- {item:6450} Silk Bandage
 	["{item:6450}: cloth"] = "{item:6450}: Stoff",
 	-- {item:4306} Silk Cloth
-	["humanoids of level 25-45 drop {item:4306} (or buy it at the Auction House)."] = "Humanoide der Stufe 25-45 lassen {item:4306} fallen (oder kauf ihn im Auktionshaus).",
+	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 17: Silk Bandage (150-180)
 	-- {item:6450} Silk Bandage · {skill:129} First Aid
@@ -94,7 +94,7 @@ return {
 	-- {item:8544} Mageweave Bandage
 	["{item:8544}: cloth"] = "{item:8544}: Stoff",
 	-- {item:4338} Mageweave Cloth
-	["humanoids of level 35-50 drop {item:4338} (or buy it at the Auction House)."] = "Humanoide der Stufe 35-50 lassen {item:4338} fallen (oder kauf ihn im Auktionshaus).",
+	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 21: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage
@@ -146,7 +146,7 @@ return {
 	-- {item:14529} Runecloth Bandage
 	["{item:14529}: cloth"] = "{item:14529}: Stoff",
 	-- {item:14047} Runecloth
-	["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "Humanoide der Stufe 45-60 lassen {item:14047} fallen (oder kauf ihn im Auktionshaus).",
+	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 33: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
@@ -154,10 +154,17 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "Jeder Lehrer für {skill:129} deiner Fraktion lehrt {skill:129} (Lehrling) (Charakterstufe 5); der Pfeil wählt den nächsten.",
+	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Jeder {skill:129}-Lehrer deiner Fraktion lehrt Lehrling in {skill:129} (Charakterstufe 5, 1s); der Pfeil wählt den nächsten. Forever lehrt dazu {item:118}: {item:2447}, {item:2678} und {item:3371}, orange bis 55. Mit {skill:182} kann es die Leinenverbände unten ersetzen.",
 	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}."] = "{skill:129} (Fachmann) gibt es über die Quest {quest:6622}. Sie braucht Fertigkeit 225 und Stufe 40; der Lehrer für {skill:129} in {zone:1454} schickt dich zum Arzt in {area:321}.",
 	-- ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore."] = "{skill:129} (Fachmann) gibt es über die Quest {quest:6624}. Sie braucht Fertigkeit 225 und Stufe 40; der Lehrer für {skill:129} in {zone:1455} schickt dich zum Arzt in Theramore.",
 	-- ["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084}; the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals: buy both now, you read them at 180 and 210."] = "{skill:129} (Experte) hebt die Obergrenze auf 225; dafür brauchst du Fertigkeit 125 und Charakterstufe 20: Es ist ein Buch, {item:16084}; der Pfeil wählt den nächsten Verkäufer für deine Fraktion. Kauf es und lies es. Derselbe Händler verkauft die Handbücher für Schwerer Seidenverband und {item:8544}: Kauf beide jetzt, du liest sie bei 180 und 210.",
 	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction. Learn {spell:3276} on the same visit."] = "{skill:129} (Geselle) hebt die Obergrenze auf 150; dafür brauchst du Fertigkeit 50 und Charakterstufe 10: Der Pfeil wählt den nächsten Lehrer für {skill:129} deiner Fraktion. Lerne beim selben Besuch {spell:3276}.",
+	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Geselle in {skill:129} hebt die Obergrenze auf 150 an; er braucht Fertigkeit 50 und Charakterstufe 10: Der Pfeil wählt den nächsten {skill:129}-Lehrer deiner Fraktion; die Ausbildung kostet 5s.",
+	-- ["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "Humanoide der Stufe 15-30 lassen {item:2592} fallen (oder kauf ihn im Auktionshaus).",
+	-- ["humanoids of level 25-45 drop {item:4306} (or buy it at the Auction House)."] = "Humanoide der Stufe 25-45 lassen {item:4306} fallen (oder kauf ihn im Auktionshaus).",
+	-- ["humanoids of level 35-50 drop {item:4338} (or buy it at the Auction House)."] = "Humanoide der Stufe 35-50 lassen {item:4338} fallen (oder kauf ihn im Auktionshaus).",
+	-- ["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "Humanoide der Stufe 45-60 lassen {item:14047} fallen (oder kauf ihn im Auktionshaus).",
+	-- ["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "Humanoide der Stufe 5-20 lassen {item:2589} fallen (oder kauf ihn im Auktionshaus).",
 	-- ["{item:1251} is orange from 1 (yellow at 30, grey at 60): about 61 crafts to 50. Bandages need no fire: craft them anywhere."] = "{item:1251} ist ab 1 orange (gelb ab 30, grau ab 60): etwa 61 Herstellungen bis 50. Verbände brauchen kein Feuer: Stelle sie überall her.",
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529} ist ab 260 gelb (gelb ab 260, grau ab 320): etwa 65 Herstellungen bis 300. Verbände brauchen kein Feuer: Stell sie überall her. {item:14529} bleibt bis 320 gelb und bringt dich so ohne einen Weg für den Schweren Runenstoffverband bis 300.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} ist ab 50 gelb (gelb ab 50, grau ab 100): etwa 46 Herstellungen bis 80. Verbände brauchen kein Feuer: Stelle sie überall her.",

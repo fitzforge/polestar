@@ -29,7 +29,6 @@ return {
 	["Continue south to {area:35}. {npc:7406} has his workshop on the upper ring of the bay."] = "계속 남쪽 {area:35}(으)로 가세요. {npc:7406}의 작업장은 항구 위층 둘레에 있습니다.",
 	-- {npc:7406} Oglethorpe Obnoticus
 	["{npc:7406}, inside"] = "",
-	["Only once all three robots are home"] = "로봇 세 대가 모두 돌아온 뒤에만",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
@@ -252,6 +251,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "명가 유령과 할다르 사티로스",
 	-- ["Ironjaw Basilisks"] = "무쇠턱 바실리스크",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "{area:1417}은(는) {zone:1446}의 {npc:7771}을(를) 위해 보관하세요.",
+	-- ["Only once all three robots are home"] = "로봇 세 대가 모두 돌아온 뒤에만",
 	-- ["Ride into {area:16}"] = "{area:16}(으)로 이동",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "북서쪽 {area:1108}(으)로 가세요. {npc:14637}이(가) 부두에서 기다립니다.",
 	-- ["Sea elementals"] = "바다 정령",

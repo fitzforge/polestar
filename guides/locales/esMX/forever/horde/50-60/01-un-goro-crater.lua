@@ -242,8 +242,8 @@ return {
 	-- Step 49: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Sal de {zone:1458} y cabalga al este por el camino a través de {zone:1420} hasta {area:152}, el fuerte de los Renegados en la frontera.",
-	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
-	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Toma una {object:176092} del cajón junto a Derrington para {quest:5096}, que se hace al volver. Equípate la {quest:5401}: las Piedras de la Plaga solo caen mientras la llevas.",
+	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
+	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "",
 
 	-- Step 50: Scarlet forward camp
 	["Scarlet forward camp"] = "Campamento avanzado Escarlata",
@@ -292,6 +292,7 @@ return {
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "Cabalga al suroeste hasta {area:537}, el volcán en medio del cráter. Los Despellejadores Sangrepétalo crecen alrededor de su base.",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "Cabalga al oeste hasta la excavación. Los gólems {npc:7039} (53) pisotean alrededor y sueltan los fragmentos a menudo; {quest:4296} está en el centro, entre los enanos Thaurissan. Cópiala.",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "Al sur de las fuentes termales pastan los Stegodons; los Huesos de dinosaurio caen de ellos o están en el suelo. Los Diemetradones cercanos llevan las escamas que quiere {npc:9998}. Los Ravasaurios cazan en manada en el suroeste: sus garras son para {npc:8659}, y a veces uno lleva Un diario destrozado (botín raro: toma su misión solo si lo consigues). Evita a Gruff, un Stegodon de nivel 57.",
+	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Toma una {object:176092} del cajón junto a Derrington para {quest:5096}, que se hace al volver. Equípate la {quest:5401}: las Piedras de la Plaga solo caen mientras la llevas.",
 	-- ["Termite mounds"] = "Montículos de termitas",
 	-- ["Thaurissan dig site"] = "Excavación Thaurissan",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Las Crónicas están entre los libros enmohecidos del ayuntamiento de Andorhal; ábrelos hasta encontrar el correcto.",

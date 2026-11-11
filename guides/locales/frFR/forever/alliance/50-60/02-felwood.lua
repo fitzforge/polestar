@@ -43,7 +43,6 @@ return {
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
 	["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395} attend à l'extrémité nord de {zone:1448}",
-	["Five feathers buy a little Timbermaw reputation"] = "Cinq plumes rapportent un peu de réputation Grumegueule",
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "Niveau 52.69",
@@ -126,6 +125,7 @@ return {
 	["Ends in the {zone:1413}: keep it"] = "Se termine dans {zone:1413} : gardez-la",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Five feathers buy a little Timbermaw reputation"] = "Cinq plumes rapportent un peu de réputation Grumegueule",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Prenez un vol de {area:1998} jusqu'au bout de la route côté sanctuaire, ou descendez-la vers le sud.",
 	-- ["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "Si vous avez passé La corne de la bête ou {item:9328}, tuez des monstres ici jusqu'au niveau 52.58 pour suivre le plan de l'itinéraire.",
 	-- ["Keep her alive until she is out of the cave"] = "Gardez-la en vie jusqu'à sa sortie de la grotte",

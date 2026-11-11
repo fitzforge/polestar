@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "Ferme de {area:200}",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "Le journal se trouve dans la ferme, le meuble est à l'intérieur et les latrines sont derrière. Un {npc:10816} porte la clé des latrines ; {npc:10836} sort quand vous ouvrez les latrines et porte la clé du meuble.",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "{object:175924}, à l'intérieur",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "{quest:5058}, à l'intérieur",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Grizzlys malades",
@@ -158,10 +154,6 @@ return {
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
-
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "Seulement avec 5 Coiffures de plumes mort-bois ({item:21377})",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -289,6 +281,7 @@ return {
 	-- ["On the way"] = "En chemin",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "Seulement si une {item:13140} est tombée : utilisez-la pour lancer la quête, puis libérez {npc:11018} de sa cage au {area:1770}, la grotte à l'extrémité nord de {area:1763}, et escortez-la dehors.",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "Seulement si vous avez sauvé {npc:11018} : la succube {npc:9518} attend au milieu de {area:1763}, à côté de {npc:11020}.",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "Seulement avec 5 Coiffures de plumes mort-bois ({item:21377})",
 	-- ["Radley and Durgen"] = "Radley et Durgen",
 	-- ["Ride back south-east to the Sanctuary."] = "Retournez vers le sud-est jusqu'au Sanctuaire.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Retournez à {area:1497}, prenez le zeppelin pour {zone:1454} et volez jusqu'au {area:431}. Suivez la route vers l'ouest en quittant Bois-brisé et prenez l'embranchement nord vers {zone:1448}.",
@@ -334,6 +327,8 @@ return {
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} ({zone:1456}) ; {zone:1454} n'a pas de maître des paladins",
 	-- ["{npc:9529}, just west of the camp"] = "{npc:9529}, juste à l'ouest du camp",
 	-- ["{object:175894}, beside the house"] = "{object:175894}, à côté de la maison",
+	-- ["{object:175924}, inside"] = "{object:175924}, à l'intérieur",
+	-- ["{quest:5058}, inside"] = "{quest:5058}, à l'intérieur",
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} se rend à {area:2268} : gardez-la pour plus tard.",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, un butin rare",
 }

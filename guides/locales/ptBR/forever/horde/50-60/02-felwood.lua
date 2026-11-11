@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "Casa da fazenda de {area:200}",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "O diário fica na casa da fazenda, o armário fica lá dentro e a casinha fica atrás dela. Um {npc:10816} leva a chave da casinha; {npc:10836} sai quando você abre a casinha e leva a chave do armário.",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "{object:175924}, lá dentro",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "{quest:5058}, lá dentro",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Ursos-cinzentos Doentes",
@@ -158,10 +154,6 @@ return {
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "De volta a {area:2479}.",
-
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "Só com 5 Penas do Cocar de Lenha Morta",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -287,6 +279,7 @@ return {
 	-- ["Level 54.1"] = "Nível 54.1",
 	-- ["Level 54.45"] = "Nível 54.45",
 	-- ["Level 54.54"] = "Nível 54.54",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "Só com 5 Penas do Cocar de Lenha Morta",
 	-- ["Radley and Durgen"] = "Eiras e Durgen",
 	-- ["Ride back south-east to the Sanctuary."] = "Cavalgue de volta para sudeste até o Santuário.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Volte a {area:1497}, pegue o zepelim para {zone:1454} e voe para {area:431}. Siga a estrada para o oeste saindo do Posto Machadada e pegue a bifurcação para o norte até {zone:1448}.",
@@ -325,6 +318,8 @@ return {
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} fica a leste do acampamento madeireiro; {npc:11611} guarda a estrada a nordeste de {npc:11610}, rumo a {area:190}.",
 	-- ["{npc:9529}, just west of the camp"] = "{npc:9529}, logo a oeste do acampamento",
 	-- ["{object:175894}, beside the house"] = "{object:175894}, ao lado da casa",
+	-- ["{object:175924}, inside"] = "{object:175924}, lá dentro",
+	-- ["{quest:5058}, inside"] = "{quest:5058}, lá dentro",
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} vai para {area:2268}: guarde-a para depois.",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, um saque raro",
 }

@@ -7,10 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Riggle Bassbait
-	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {quest:8193} Master Angler · {npc:15077} Riggle Bassbait · {skill:356} Fishing
-	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks when it starts and take {quest:8193} from {npc:15077}. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275} custa uma {item:274026}, o prêmio de vencer a Stranglethorn Fishing Extravaganza. O torneio acontece aos domingos, das 14h às 16h no horário do servidor: esteja nas docas de {area:35} quando começar e pegue {quest:8193} com {npc:15077}. Leve sua melhor perícia de {skill:356} e iscas para nenhum peixe escapar, uma montaria e bolsas vazias, e vincule sua Pedra de Regresso em {area:35}.",
-	-- {npc:15077} Riggle Bassbait
-	["{npc:15077}, during the contest"] = "{npc:15077}, durante o torneio",
+	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {npc:15077} Riggle Bassbait · {quest:8193} Master Angler · {skill:356} Fishing
+	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "",
 
 	-- Step 2: Schools of Tastyfish
 	["Schools of Tastyfish"] = "Cardumes de Peixe Saboroso",
@@ -30,6 +28,8 @@ return {
 	["{npc:15078}, {npc:15077}'s apprentice, stands beside him on the {area:35} docks and trades the {item:276275} for the coin."] = "{npc:15078}, aprendiz de {npc:15077}, fica ao lado dele nas docas de {area:35} e troca {item:276275} pela moeda.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks when it starts and take {quest:8193} from {npc:15077}. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275} custa uma {item:274026}, o prêmio de vencer a Stranglethorn Fishing Extravaganza. O torneio acontece aos domingos, das 14h às 16h no horário do servidor: esteja nas docas de {area:35} quando começar e pegue {quest:8193} com {npc:15077}. Leve sua melhor perícia de {skill:356} e iscas para nenhum peixe escapar, uma montaria e bolsas vazias, e vincule sua Pedra de Regresso em {area:35}.",
 	-- ["The {item:276275} is a fishing reward: {npc:15078} trades it for one {item:274026}, a reward of the fishing contest {npc:15078} runs in {area:35}. The coin's exact source is not published yet."] = "O {item:276275} é uma recompensa de pesca: {npc:15078} o troca por uma {item:274026}, recompensa do torneio de pesca que {npc:15078} organiza em {area:35}. A origem exata da moeda ainda não foi divulgada.",
+	-- ["{npc:15077}, during the contest"] = "{npc:15077}, durante o torneio",
 	-- ["{npc:15078} stands on the {area:35} docks."] = "{npc:15078} fica nas docas de {area:35}.",
 }

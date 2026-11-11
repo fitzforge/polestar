@@ -23,8 +23,6 @@ return {
 	["Horde fly to {area:272}, Alliance to {area:271}. The trail to the manor is hard to see: it starts behind the plateau north of {area:275}, east of {area:272}, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast {spell:1846} near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies {area:3486}: {npc:6707} is upstairs inside. Do not attack anyone at the manor: it costs {npc:13936} reputation."] = "Die Horde fliegt nach {area:272}, die Allianz nach {area:271}. Der Pfad zum Anwesen ist schwer zu erkennen: Er beginnt hinter dem Plateau nördlich von {area:275}, östlich von {area:272}, führt in die Hügel und knickt zweimal ab zu einem kleinen Tunnel. Im Tunnel steht eine Truhe: Öffne sie nicht. Wirke {spell:1846} in ihrer Nähe und geh dicht heran; das ist der Rite of Cunning (er kommt nach 5 Minuten wieder). Das Öffnen der Truhe ruft Milton, einen Elite-Schurken der Stufe 32. Hinter dem Tunnel liegt {area:3486}: {npc:6707} ist oben im Inneren. Greife im Anwesen niemanden an: Das kostet Ruf bei {npc:13936}.",
 	-- {spell:1846} Detect Traps
 	["Rite of Cunning: {spell:1846} beside the tunnel chest"] = "Rite of Cunning: {spell:1846} neben der Truhe im Tunnel",
-	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "{npc:6766}: {quest:6701}, wiederholbar; nimm sie jetzt an, die Embleme sind Questgegenstände",
 
 	-- Step 3: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems
@@ -87,4 +85,5 @@ return {
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}: Barton bestehlen",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} ist in {area:275}, der Festung des Syndikats im Osten von {area:287}, südlich des Anwesens. Schnell und leise, sagt {npc:13085}.",
 	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, wiederholbar",
+	-- ["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "{npc:6766}: {quest:6701}, wiederholbar; nimm sie jetzt an, die Embleme sind Questgegenstände",
 }

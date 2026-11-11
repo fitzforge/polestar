@@ -202,6 +202,8 @@ return {
 	["Neutral to Friendly is 3,000 reputation. Every trash mob of the {area:16076} (a 40-player raid behind the {area:2737}) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The {area:3454} (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "De Neutro a Amigável são 3.000 de reputação. Todo monstro comum de {area:16076} (uma raide de 40 jogadores atrás de {area:2737}) dá 100, e os Imperadores Gêmeos 210 cada, até 2.999 de 3.000 de Neutro, um ponto antes de Amigável; ali eles param. Depois entregue um {item:21230} guardado (1.000, a {npc:15502}) ou {item:21229} (500, a {npc:15503}) para passar. As trocas de ombreiras e botas do set de tier do Templo não exigem posição: o símbolo, dois ídolos e dez escaravelhos para {npc:15502} (ombreiras) ou {npc:15503} (botas) pagam 200 cada. As {area:3454} (20 jogadores) dão um pouco dos chefes: Korinnaxx, Moam, Buru e Ayamiss 50 cada, Rajaxx 34, Ossirian 100, até Exaltado.",
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "{item:21229}, chefes do Templo",
+	-- {npc:15503} Kandrostrasz
+	["{npc:15503}: 500, handed in from his window"] = "",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "O anel em Amigável",

@@ -18,7 +18,7 @@ return {
 	-- {area:188} Shadowglen
 	["{area:188}: kill these as you meet them"] = "{area:188} : tuez-les au passage",
 	-- {area:256} Aldrassil · {item:3297} Fel Moss
-	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Gnarlpine Totems = {item:279082} Gnarlpine Totem
+	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Grells = {npc:1988} Grell · Gnarlpine Totems = {item:279082} Gnarlpine Totem
 	["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "Les Jeunes sabres-de-nuit et les Jeunes sangliers des chardons rôdent autour d'{area:256}. Les Grells portent de la {item:3297} dans les bois à l'ouest de l'arbre, où se dressent les Totems pin-tordu.",
 
 	-- Step 3: Back at Aldrassil
@@ -62,8 +62,9 @@ return {
 	-- {quest:917} Webwood Egg
 	["{quest:917} and the antidote"] = "{quest:917} et l'antidote",
 	-- {object:4406} Webwood Eggs · {area:257} Shadowthread Cave · {area:256} Aldrassil
-	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom
+	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom · Grells = {npc:1988} Grell
 	["The {object:4406} lie at the back of {area:257}: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of {area:256}."] = "Les {object:4406} se trouvent au fond de {area:257} : prenez le chemin central, puis à gauche à l'embranchement, jusqu'à la haute corniche. Les Champignons jacinthe tombent des Grells, les Lys pétale de lune poussent près des étangs au nord d'{area:256}.",
+	-- plural, as words: Grells = {npc:1988} Grell
 	["Grells"] = "",
 
 	-- Step 8: Shadowglen
@@ -382,8 +383,6 @@ return {
 	-- {npc:2080} Denalan
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
 	["South-east of Dolanaar, to {npc:2080}. Lasher Sproutlings wander around him on the shore."] = "Au sud-est de Dolanaar, vers {npc:2080}. Les Jeunes pousses de flagellant errent autour de lui sur la rive.",
-	-- {object:7510} Sprouted Frond
-	["{object:7510}, beside him"] = "{object:7510}, à côté de lui",
 
 	-- Step 63: Dolanaar again
 	-- {area:186} Dolanaar
@@ -592,6 +591,7 @@ return {
 	-- ["{npc:7318}, in the den"] = "{npc:7318}, dans le refuge",
 	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584} est un peu plus au nord-ouest. {quest:3522} dure cinq minutes : remplissez la fiole et allez directement le voir.",
 	-- ["{npc:8584} waits in the trees west of the cave mouth."] = "{npc:8584} attend dans les arbres à l'ouest de l'entrée de la grotte.",
+	-- ["{object:7510}, beside him"] = "{object:7510}, à côté de lui",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} et le puits de lune de la Brise-étoilée",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979} : lancez {spell:1259799} et {spell:20580}, puis rendez-la à {npc:3595}",
 }

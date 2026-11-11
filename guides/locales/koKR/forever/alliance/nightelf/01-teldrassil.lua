@@ -18,7 +18,7 @@ return {
 	-- {area:188} Shadowglen
 	["{area:188}: kill these as you meet them"] = "",
 	-- {area:256} Aldrassil · {item:3297} Fel Moss
-	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Gnarlpine Totems = {item:279082} Gnarlpine Totem
+	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Grells = {npc:1988} Grell · Gnarlpine Totems = {item:279082} Gnarlpine Totem
 	["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "새끼 흑호와 새끼 엉겅퀴멧돼지가 {area:256} 주변을 돌아다닙니다. 나무 서쪽 숲의 그렐이 {item:3297}을(를) 지니고 있으며, 그곳에 나무옹이일족 토템이 서 있습니다.",
 
 	-- Step 3: Back at Aldrassil
@@ -62,8 +62,9 @@ return {
 	-- {quest:917} Webwood Egg
 	["{quest:917} and the antidote"] = "{quest:917}와(과) 해독제",
 	-- {object:4406} Webwood Eggs · {area:257} Shadowthread Cave · {area:256} Aldrassil
-	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom
+	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom · Grells = {npc:1988} Grell
 	["The {object:4406} lie at the back of {area:257}: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of {area:256}."] = "{object:4406}은(는) {area:257} 안쪽에 있습니다. 가운데 길로 가다가 갈림길에서 왼쪽으로 높은 바위턱까지 오르세요. {item:10639}은(는) 그렐이 떨어뜨리고, 달봉우리 백합은 {area:256} 북쪽 연못가에 자랍니다.",
+	-- plural, as words: Grells = {npc:1988} Grell
 	["Grells"] = "",
 
 	-- Step 8: Shadowglen
@@ -382,8 +383,6 @@ return {
 	-- {npc:2080} Denalan
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
 	["South-east of Dolanaar, to {npc:2080}. Lasher Sproutlings wander around him on the shore."] = "돌라나르 남동쪽의 {npc:2080}에게 가세요. 덩굴손 묘목이 물가에서 그 주변을 돌아다닙니다.",
-	-- {object:7510} Sprouted Frond
-	["{object:7510}, beside him"] = "그 옆의 {object:7510}",
 
 	-- Step 63: Dolanaar again
 	-- {area:186} Dolanaar
@@ -569,6 +568,7 @@ return {
 	-- ["{npc:6094}, in the inn: Camping 101, {skill:129}"] = "여관 안의 {npc:6094}: 야영 기초, {skill:129}",
 	-- ["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "샤일라 앞 길가에서 야영 중인 {npc:6287}: 야영 기초, 무두장이",
 	-- ["{npc:7318}, in the den"] = "굴 안의 {npc:7318}",
+	-- ["{object:7510}, beside him"] = "그 옆의 {object:7510}",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488}와(과) 별바람 마을 달샘",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: {spell:1259799}와(과) {spell:20580}을(를) 시전한 뒤 {npc:3595}에게 완료하세요",
 }

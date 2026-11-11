@@ -18,7 +18,7 @@ return {
 	-- {area:188} Shadowglen
 	["{area:188}: kill these as you meet them"] = "{area:188}: vá matando estes pelo caminho",
 	-- {area:256} Aldrassil · {item:3297} Fel Moss
-	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Gnarlpine Totems = {item:279082} Gnarlpine Totem
+	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Grells = {npc:1988} Grell · Gnarlpine Totems = {item:279082} Gnarlpine Totem
 	["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "Sabres-da-noite Jovens e Javalis-espinho Jovens vagueiam ao redor de {area:256}. Os Capetas carregam {item:3297} no bosque a oeste da árvore, onde ficam os Totens de Masca-pinho.",
 
 	-- Step 3: Back at Aldrassil
@@ -62,8 +62,9 @@ return {
 	-- {quest:917} Webwood Egg
 	["{quest:917} and the antidote"] = "{quest:917} e o antídoto",
 	-- {object:4406} Webwood Eggs · {area:257} Shadowthread Cave · {area:256} Aldrassil
-	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom
+	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom · Grells = {npc:1988} Grell
 	["The {object:4406} lie at the back of {area:257}: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of {area:256}."] = "{object:4406} ficam no fundo de {area:257}: pegue o caminho central e vire à esquerda na bifurcação, até a saliência alta. Os Capetas deixam cair Cogumelos Jacinto; os Lírios Lunapétala crescem junto aos lagos ao norte de {area:256}.",
+	-- plural, as words: Grells = {npc:1988} Grell
 	["Grells"] = "Capetas",
 
 	-- Step 8: Shadowglen
@@ -382,8 +383,6 @@ return {
 	-- {npc:2080} Denalan
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
 	["South-east of Dolanaar, to {npc:2080}. Lasher Sproutlings wander around him on the shore."] = "A sudeste de Dolanaar, até {npc:2080}. Brotos de Açoitadeira vagueiam ao redor dele na margem.",
-	-- {object:7510} Sprouted Frond
-	["{object:7510}, beside him"] = "{object:7510}, ao lado dele",
 
 	-- Step 63: Dolanaar again
 	-- {area:186} Dolanaar
@@ -571,5 +570,6 @@ return {
 	-- ["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "{npc:6287}, acampado à beira da estrada antes de Shayla: Introdução ao acampamento, esfoladores",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}, na toca",
 	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584} fica um pouco mais a noroeste. {quest:3522} dura cinco minutos: encha o frasco e vá direto até ele.",
+	-- ["{object:7510}, beside him"] = "{object:7510}, ao lado dele",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} e o poço lunar do Vilarejo Brisastral",
 }

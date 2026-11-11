@@ -82,7 +82,7 @@ return {
 	-- {item:17124} Syndicate Emblem
 	["{item:17124}: pickpocket Syndicate"] = "{item:17124} : faites les poches du Syndicat",
 	-- {npc:6766} Ravenholdt Guard
-	["a {npc:6766}: 100 per emblem"] = "un {npc:6766} : 100 par emblème",
+	["a {npc:6766}: 100 per emblem, handed in from his window"] = "",
 
 	-- Step 11: Syndicate kills to the end of Honored
 	["Syndicate kills to the end of Honored"] = "Tuer le Syndicat jusqu'à la fin d'Honoré",
@@ -118,5 +118,9 @@ return {
 	-- {item:16885} Heavy Junkbox · {area:1445} Blackrock Mountain
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "{item:16885} : faites les poches des humanoïdes de niveau 50+, {area:1445}",
 	-- {npc:6707} Fahrad
-	["{npc:6707}: 50 per five boxes"] = "{npc:6707} : 50 pour cinq coffrets",
+	["{npc:6707}: 50 per five boxes, handed in from his window"] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["a {npc:6766}: 100 per emblem"] = "un {npc:6766} : 100 par emblème",
+	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707} : 50 pour cinq coffrets",
 }

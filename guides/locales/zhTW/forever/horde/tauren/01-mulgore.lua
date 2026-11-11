@@ -34,21 +34,23 @@ return {
 	["Inside"] = "",
 
 	-- Step 5: The Hunt Continues
-	-- {npc:6775} Antur Fallow · {npc:2980} Grull Hawkwind
+	-- {npc:6775} Antur Fallow
 	-- plural, as words: Mountain Cougars = {npc:2961} Mountain Cougar
-	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775}站在營地西端，山獅出沒的丘陵西北角：接他的任務，從那裡往南和往東獵殺山獅，然後回到{npc:2980}那裡。",
+	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot."] = "",
 
-	-- Step 6: Grull Hawkwind
-	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
-	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "",
+	-- Step 6: Seer Graytongue
+	["The Seer's tent stands at the foot of the cougars' hills."] = "",
 
-	-- Step 7: Seer Graytongue
-	["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "沿小徑向南出營地，前往山腳下灰舌先知的帳篷。",
-
-	-- Step 8: The shrine of An'she and Mu'sha
+	-- Step 7: The shrine of An'she and Mu'sha
 	["The shrine of An'she and Mu'sha"] = "安希與Mu'sha的神殿",
 	-- {object:660739} Ritual Fire (no name in this language: may be words)
 	["The incense burns out in ten minutes: run straight east along the southern hills to the {object:660739}."] = "薰香十分鐘就會燒完：沿南邊的丘陵直接向東跑到{object:660739}。",
+
+	-- Step 8: Grull Hawkwind
+	-- {area:221} Camp Narache
+	["Back north-west up to {area:221}."] = "",
+	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
+	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "",
 
 	-- Step 9: Red Cloud Mesa: kill these as you meet them
 	-- {area:220} Red Cloud Mesa
@@ -387,6 +389,7 @@ return {
 	-- ["Class turn-ins in {area:1638}"] = "{area:1638}的職業任務繳交",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "在村子周圍的平原收集完狼心、山獅股骨、平原陸行鳥鱗片和猛鷲砂囊。",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "平原徘徊者在{area:225}周圍的平原遊蕩",
+	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "沿小徑向南出營地，前往山腳下灰舌先知的帳篷。",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "沿道路從{area:220}向北走。{npc:265810}在{area:222}南邊不遠的路上等著；在她的營火旁 /sit，直到獲得{spell:1229451}。",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "加拉克半人馬與草原狼前鋒",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "用爐石回到{area:222}，向北騎到{area:1639}。",
@@ -422,5 +425,6 @@ return {
 	-- ["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}：給{area:380}的{quest:860}",
 	-- ["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}：給{area:380}的{npc:3448}",
 	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "中央高台的{npc:6746}會派你去{area:1639}找{npc:3033}。",
+	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775}站在營地西端，山獅出沒的丘陵西北角：接他的任務，從那裡往南和往東獵殺山獅，然後回到{npc:2980}那裡。",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130}與{quest:756}",
 }

@@ -99,8 +99,6 @@ return {
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "처음 두 우리는 {npc:5634} 남쪽 마른나무껍질 마을에 함께 있고, 세 번째는 동쪽의 다음 마을에 있습니다. 모든 마른나무껍질 트롤이 목걸이를 떨어뜨릴 수 있습니다.",
 
 	-- Step 21: Aerie Peak
-	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}은(는) 목걸이를 계속 받습니다. 남는 것은 제출하십시오",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master at the top; inside"] = "",
 	-- {zone:1425} The Hinterlands
@@ -156,4 +154,5 @@ return {
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}은(는) 발굴 현장 남동쪽 {area:1898}에 홀로 야영하고 있습니다.",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}의 칵테일에는 칼림도어의 재료가 필요하니 건너뛰십시오.",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, 꼭대기의 비행 조련사 옆",
+	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}은(는) 목걸이를 계속 받습니다. 남는 것은 제출하십시오",
 }
