@@ -994,7 +994,7 @@ impl Batch {
 /// blocking Polestar Client, a VPN or proxy, or the network. Players saw only "check your
 /// internet connection" while their browser was online.
 pub(crate) fn describe_reqwest(e: &reqwest::Error) -> String {
-	let cause = root_cause(e);
+	let cause = crate::net::cause(e);
 	if crate::net::clock_wrong(e) {
 		crate::net::clock_message(now_ms() / 1000)
 	} else if e.is_timeout() {
@@ -1011,15 +1011,6 @@ pub(crate) fn describe_reqwest(e: &reqwest::Error) -> String {
 /// between this PC and the server (a proxy, a VPN, a network filter, the server's front end).
 pub(crate) fn not_from_server(status: reqwest::StatusCode) -> String {
 	format!("The answer was {status}, not from the recording server itself: a proxy, VPN or network filter on the way may be blocking it, or the server's front end is briefly down. Polestar Client keeps trying.")
-}
-
-/// The innermost error of a chain: "dns error: …", "Connection refused", "invalid peer certificate".
-fn root_cause(e: &(dyn std::error::Error + 'static)) -> String {
-	let mut inner: &(dyn std::error::Error + 'static) = e;
-	while let Some(next) = inner.source() {
-		inner = next;
-	}
-	inner.to_string()
 }
 
 /// The server's `{"error": ...}`, from at most [`MAX_ANSWER`] bytes of its answer.

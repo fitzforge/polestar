@@ -52,7 +52,16 @@ the upload API, and the public list of what is never collected.
   recording server until the next start, and Status names it. When the
   environment's proxy itself can't be reached, that one request goes without
   it (never kept). The recording server's client follows no redirects and is
-  https only; GitHub's is https only. Certificates are always checked.
+  https only; GitHub's is https only. Certificates are always checked. When a
+  request to the recording server, the community site or GitHub gets no
+  answer, the message names the cause (`net::cause`: DNS, a refused or reset
+  connection, a certificate, a timeout) and what to try.
+- **Out of sight, still** (`src/lib/still.ts`, `src/lib/sight.svelte.ts`).
+  Minimized, closed to the tray, or unfocused for 20 seconds, the page pauses
+  every animation (`html.still` in `app.css`) and its 1-second clock; the
+  decorative ones (the band's twinkle, the status light's breaths) end after
+  a few cycles anyway and replay when the window comes back into sight. Only
+  work in progress loops (`tests/client-still.test.js` holds the list).
 - **Client updates** are looked for at launch and every 6 hours (Settings >
   About also has "Check for client updates"). One waiting shows as a banner
   in the title strip at the top of every page, "A new Polestar Client is
