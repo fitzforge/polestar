@@ -951,13 +951,7 @@ fn the_arrow_label_keeps_a_long_quest_name_on_one_line_and_wraps_a_longer_one_to
 		snap("Accept “The Power to Destroy...” · Varimathras ok") -- 49 characters: 294 px (two lines at the old 200)
 		snap("Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter") -- 69: 414 px
 		emit(seen)"#);
-	assert_eq!(
-		out,
-		json!([
-			["Accept “The Power to Destroy...” · Varimathras ok", 1, false],
-			["Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter", 2, false]
-		])
-	);
+	assert_eq!(out, json!([["Accept “The Power to Destroy...” · Varimathras ok", 1, false], ["Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter", 2, false]]));
 }
 
 #[test]

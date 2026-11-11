@@ -1749,7 +1749,6 @@ emit(C.SenderIsUnit("Ana Smith-TestRealm", "party1"))"#,
 	assert_eq!(out[5], false, "a secret answer is no");
 }
 
-
 // Boosted Rest (QoL/Rest.lua) as its own "2B|" message: every older decoder drops it, a later version's fields
 // are ignored, a member who never sends it (an older client) shows none, and the panel counts it down.
 #[test]
@@ -1767,7 +1766,8 @@ emit({ P.Decode("2B|2520") == nil, P.DecodePos("2B|2520") == nil, P.DecodeUnit("
 
 #[test]
 fn party_boosted_rest_goes_out_on_a_change_only_and_an_end_only_after_it_was_on() {
-	let out = live(&sent(r#"
+	let out = live(&sent(
+		r#"
 local left
 Polestar.QoL = { On = function(k) return k == "boostedRest" end, Rest = { Left = function() return left end } }
 w.onQuest(33, { 8 })
@@ -1786,7 +1786,8 @@ Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
 emit(texts()[1])
 p.sent = {}
 Polestar.Fire("QOL_REST_UPDATED", true); stub.advance(3)
-emit(#texts())"#));
+emit(#texts())"#,
+	));
 	assert_eq!(out[0], 0, "never on: nothing to say");
 	assert_eq!(out[1], 0, "a minute redraw is no change");
 	assert_eq!(out[2], "2B|2520");

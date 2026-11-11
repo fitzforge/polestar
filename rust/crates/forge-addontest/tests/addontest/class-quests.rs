@@ -924,7 +924,6 @@ local r = { first = CQ.Heads(G.Get(id), Polestar.Compat.GetPlayerInfo()).firstLe
 for _, n in ipairs({ 30, 33, 34 }) do stub.world.level = n; r["at" .. n] = ready() end
 emit(r)"#
 			.into(),
-		..Default::default()
 	});
 	assert_eq!(out[0], json!({ "first": 35, "at30": false, "at33": false, "at34": true }));
 }

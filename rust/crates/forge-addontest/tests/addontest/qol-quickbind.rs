@@ -20,13 +20,7 @@ local function look(b) return { shown = b:IsShown(), alpha = b:GetAlpha() or 1, 
 "#;
 
 fn run(script: &str) -> Vec<Value> {
-	emitted(&RunAddon {
-		stubs: vec!["stub_qol.lua", "stub_quickbind.lua"],
-		addons: vec![Addon::files("Polestar", &FILES)],
-		login: true,
-		script: format!("{PRELUDE}{script}"),
-		..Default::default()
-	})
+	emitted(&RunAddon { stubs: vec!["stub_qol.lua", "stub_quickbind.lua"], addons: vec![Addon::files("Polestar", &FILES)], login: true, script: format!("{PRELUDE}{script}"), ..Default::default() })
 }
 
 const FORCED: &str = "normal: Not needed right now: shown so you can bind it.";

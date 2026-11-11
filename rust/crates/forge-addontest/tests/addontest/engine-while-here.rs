@@ -1668,15 +1668,7 @@ fn an_objective_several_steps_hold_is_one_line_naming_the_earliest_step_two_obje
 		emit(E.GetWhileHereList()[3].appeared == before)
 	"#,
 	);
-	assert_eq!(
-		out,
-		vec![
-			json!("2:1:work:2:2 3:1:work:4:- 4:1:work:2:2 5:1:work:3:- 6:1:work:2:2 7:1:turnin:0:-"),
-			json!("3:3:20 5:5:25 4:2:30"),
-			json!("3:3:45 5:5:45 6:2:20"),
-			json!(true)
-		]
-	);
+	assert_eq!(out, vec![json!("2:1:work:2:2 3:1:work:4:- 4:1:work:2:2 5:1:work:3:- 6:1:work:2:2 7:1:turnin:0:-"), json!("3:3:20 5:5:25 4:2:30"), json!("3:3:45 5:5:45 6:2:20"), json!(true)]);
 }
 
 // Dismissing the line dismisses the objective: step 6's copy, 10 yd off, stays away as step 4's does.
@@ -1692,10 +1684,7 @@ fn dismissing_an_objective_several_steps_hold_hides_every_copy() {
 		stub.advance(300); emit(named())
 	"#,
 	);
-	assert_eq!(
-		out,
-		vec![json!("3:3:20 5:5:25 4:2:30"), json!(true), json!("3:3:20 5:5:25"), json!("3:3:55 5:5:55"), json!("3:3:55 5:5:55")]
-	);
+	assert_eq!(out, vec![json!("3:3:20 5:5:25 4:2:30"), json!(true), json!("3:3:20 5:5:25"), json!("3:3:55 5:5:55"), json!("3:3:55 5:5:55")]);
 }
 
 // Flight paths you pass (Fitz, 2026-11-10): a friendly flight master within the radius whose flight path the

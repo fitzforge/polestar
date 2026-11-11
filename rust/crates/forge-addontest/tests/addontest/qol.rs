@@ -1691,11 +1691,7 @@ fn bag_button_by_default_stands_where_its_slot_over_the_set_was_at_the_set_scale
 	"#,
 	]
 	.concat());
-	assert_eq!(
-		out[0],
-		json!([["CENTER", "CENTER", 260, -52, true], ["CENTER", "CENTER", 260, -140], false, true]),
-		"two slots (88) above the item's default spot, on UIParent; nothing saved"
-	);
+	assert_eq!(out[0], json!([["CENTER", "CENTER", 260, -52, true], ["CENTER", "CENTER", 260, -140], false, true]), "two slots (88) above the item's default spot, on UIParent; nothing saved");
 	assert_eq!(out[1], json!([1.25, 1.25, ["CENTER", "CENTER", 260, -52, true]]), "scaled with the set, so its screen spot scales the same");
 }
 
@@ -1738,11 +1734,7 @@ fn bag_button_its_drag_moves_only_it_and_the_sets_drag_leaves_it_both_saved_rese
 	assert_eq!(out[2], json!([[false, false], ["CENTER", "CENTER", -400, 200, true]]), "locked, no Shift: stays");
 	assert_eq!(out[3], json!([[true, false], ["CENTER", "CENTER", -350, 180, true], ["CENTER", "CENTER", 100, -50]]), "locked, Shift held: moves");
 	assert_eq!(out[4], json!([[false, false], ["CENTER", "CENTER", -350, 180, true]]), "in combat: no drag");
-	assert_eq!(
-		out[5],
-		json!([["CENTER", "CENTER", 260, -52, true], ["CENTER", "CENTER", 260, -140], false, false]),
-		"Reset button positions puts both back"
-	);
+	assert_eq!(out[5], json!([["CENTER", "CENTER", 260, -52, true], ["CENTER", "CENTER", 260, -140], false, false]), "Reset button positions puts both back");
 }
 
 #[test]
@@ -1771,11 +1763,7 @@ fn bag_button_a_set_moved_before_it_had_its_own_spot_keeps_it_in_place_once_then
 		"",
 		Some(r#"PolestarCharDB = { qol = { buttonPos = { "TOPLEFT", "TOPLEFT", 40, -360 } } }"#),
 	);
-	assert_eq!(
-		out[0],
-		json!([["TOPLEFT", "TOPLEFT", 40, -272, true], ["TOPLEFT", "TOPLEFT", 40, -272], true]),
-		"its old slot over the moved set (88 above), saved as its own"
-	);
+	assert_eq!(out[0], json!([["TOPLEFT", "TOPLEFT", 40, -272, true], ["TOPLEFT", "TOPLEFT", 40, -272], true]), "its old slot over the moved set (88 above), saved as its own");
 	assert_eq!(out[1], json!([[true, 0, "false"], ["CENTER", "CENTER", 0, 0], ["TOPLEFT", "TOPLEFT", 40, -272, true]]), "then the set moves alone");
 
 	// A character already past that step whose set moved after a reset: the bag button keeps its default spot.
@@ -2219,7 +2207,8 @@ fn target_button_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_
 	]
 	.concat();
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
-	let mob_first = "/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
+	let mob_first =
+		"/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
 	assert_eq!(out[0], "Sven Yorgen", "no rows: the NPC alone");
 	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "Skeletal Fiend", mob_first]), "200 yd from Sven: the row's mob first, pinged and marked as a mob");
@@ -2254,8 +2243,16 @@ fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after
 	.concat();
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
 	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]"]), "no rows: the NPC keeps the key");
-	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]), "200 yd: the row's mob first, pinged");
-	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]"]), "100 yd: Sven first, not pinged");
+	assert_eq!(
+		out[1],
+		json!(["Skeletal Fiend, Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]),
+		"200 yd: the row's mob first, pinged"
+	);
+	assert_eq!(
+		out[2],
+		json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]"]),
+		"100 yd: Sven first, not pinged"
+	);
 	assert_eq!(out[3], "Skeletal Fiend, Sven Yorgen", "210 yd: the mob first again");
 }
 
