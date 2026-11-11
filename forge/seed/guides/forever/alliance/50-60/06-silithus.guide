@@ -194,7 +194,7 @@ step Hermit Ortell
   accept 8279
 
 step Bronzebeard's Encampment
-  tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand just south-east of the camp.
+  tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand south-east of the camp, where Deathclasp, an elite scorpid, patrols: grab it while he is away.
   collect 20379 quest 8282.1          -- Noggle's Satchel
   kill 15171 quest 8304.1
   kill 15170 quest 8304.2

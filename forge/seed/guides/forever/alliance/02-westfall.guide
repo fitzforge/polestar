@@ -105,7 +105,7 @@ step The Tower of Azora
 step Downstream
   only Dwarf,Gnome
   zone Elwynn Forest
-  tip East along the road, then into the river south of the bridge: the Waterlogged Saw, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks.
+  tip East along the road, then into the river south of the bridge: the Waterlogged Saw, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks. Careful: Croaky, a level 11 elite, walks the murloc shore beside the river: keep clear of him.
   collect 247813 quest 91733                  -- Waterlogged Saw
   kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear

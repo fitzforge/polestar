@@ -11295,3 +11295,15 @@ test("Fyurie's report (#1791): Solution to Doom is a group quest in the Badlands
 		assert.deepEqual(chest.group, { kind: 'elite', rank: 1, lvl: 38, near: true }, `${guide}: the chest's goal says the elites`);
 	}
 });
+
+// The #1791 sweep: Alas, Andorhal's shard (105) comes from Araj's Phylactery at Araj the Summoner's feet, a level
+// 61 elite among elite Skeletal Warlords, and the Horde 50-60 route sent every character there. It is asked as a
+// group quest, accept to turn-in.
+test('the #1791 sweep: Alas, Andorhal is a group quest on the Horde 50-60 route', { skip }, () => {
+	const guide = 'forever/horde/50-60/06-silithus.guide';
+	const mine = goals(guide).filter(({ goal }) => goal.quest === 105);
+	assert.deepEqual(mine.map(({ goal }) => goal.t), ['accept', 'collect', 'turnin']);
+	for (const { step, goal } of mine) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(105) && !p.neg), `${goal.t} 105 is under when group 105`);
+	}
+});
