@@ -30,6 +30,7 @@
 
 UI\Controls.lua
 UI\Preview.lua
+Core\ProfileStrings.lua
 UI\Options.lua
 UI\Profiles.lua
 UI\Looks\Theme.lua
