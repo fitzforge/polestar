@@ -44,7 +44,8 @@ use std::time::Instant;
 /// The client product the grid is built from (the one wago.tools lists Forever under).
 pub const GRID_PRODUCT: &str = "wow_classic_beta";
 /// Bump a stage's version when its code changes what it writes.
-pub const DATA_VERSION: &str = "data-2";
+/// data-3: the Alliance Tailoring and Leatherworking trainer lists (professions.json, #1536).
+pub const DATA_VERSION: &str = "data-3";
 pub const GRID_VERSION: &str = "grid-1";
 pub const PREPARE_VERSION: &str = "prepare-2";
 /// world-6: vendor buys for item objectives; world-7: the graveyard table (World::graveyards, the

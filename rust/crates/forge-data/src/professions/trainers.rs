@@ -119,7 +119,7 @@ const CURATED: [Curated; 12] = [
 		id: 165,
 		name: "Leatherworking",
 		train: s(&["Simon Tanner", "Fimble Finespindle", "Telonis", "Faldron", "Aayndia Floralwind"], &["Karolek", "Una", "Tarn", "Arthur Moore", "Brawn", "Krulmoo Fullmoon", "Narv Hidecrafter"]),
-		novice: Some(s(&["Adele Fielder", "Randal Worth", "Darianna"], &["Chaw Stronghide"])),
+		novice: Some(s(&["Adele Fielder", "Randal Worth", "Darianna", "Nadyia Maneweaver"], &["Chaw Stronghide"])),
 		expert: Some(s(&["Telonis", "Drakk Stonehand"], &["Una", "Hahrana Ironhide"])),
 		artisan: Some(s(&["Drakk Stonehand"], &["Hahrana Ironhide"])),
 		junior: None,
@@ -132,7 +132,7 @@ const CURATED: [Curated; 12] = [
 		name: "Tailoring",
 		train: s(&["Georgio Bolero", "Sellandus", "Jormund Stonebrow", "Me'lynn", "Grarnik Goodstitch"], &["Magar", "Rhiannon Davis", "Mahani", "Josef Gregorian", "Tepa", "Grarnik Goodstitch"]),
 		// Not Josephine Lister (Undercity): she teaches Shadoweave patterns only, from 210 (#1498).
-		novice: Some(s(&["Eldrin", "Lawrence Schneider", "Uthrar Threx", "Sinda", "Nadyia Maneweaver"], &["Snang", "Victor Ward", "Bowen Brisboise", "Vhan"])),
+		novice: Some(s(&["Eldrin", "Lawrence Schneider", "Uthrar Threx", "Trianna", "Grondal Moonbreeze"], &["Snang", "Victor Ward", "Bowen Brisboise", "Vhan"])),
 		expert: Some(s(&["Georgio Bolero", "Timothy Worthington"], &["Josef Gregorian", "Daryl Stack"])),
 		artisan: Some(s(&["Timothy Worthington"], &["Daryl Stack"])),
 		junior: None,
@@ -521,6 +521,61 @@ mod tests {
 		assert_eq!(stringify(&r.trainers.get("Horde"), None), "[1]");
 		for rank in &r.ranks {
 			assert_eq!(stringify(&rank.get("trainers").get("Horde"), None), "[1]");
+		}
+	}
+
+	fn forever_db(table: &str) -> Vec<serde_json::Value> {
+		let path = format!("{}/../../../forever-db/data/{table}.jsonl", env!("CARGO_MANIFEST_DIR"));
+		std::fs::read_to_string(&path).unwrap().lines().filter(|l| !l.is_empty()).map(|l| serde_json::from_str(l).unwrap()).collect()
+	}
+
+	/// Every name a profession lists for a side, in any trainer group.
+	fn listed(c: &Curated, side: usize) -> Vec<&'static str> {
+		let groups = [Some(c.train), c.novice, c.expert, c.artisan, c.junior];
+		groups.iter().flatten().flat_map(|g| g.get(side).iter().copied()).collect()
+	}
+
+	// `train <Profession>` sends the arrow to the nearest listed name, so a vendor on the list sends a
+	// player to an NPC who teaches nothing (#1536: Sinda, Dolanaar's leather armor merchant, was listed
+	// for Tailoring). Forever's npc.jsonl has no side, only faction templates; every listed name is one
+	// NPC there, so the name finds it. Only the professions checked so far: Blacksmithing and
+	// Enchanting still list a weapon crafter and a supplies vendor.
+	#[test]
+	fn listed_trainers_teach_their_profession() {
+		let checked = [
+			("Tailoring", r"^(Journeyman|Expert|Artisan|Master)( Shadoweave)? Tailor$"),
+			("Leatherworking", r"^(Journeyman|Expert|Artisan|Master) (Leatherworker|Leathercrafter|Leatherworking Trainer)$"),
+		];
+		let npcs = forever_db("npc");
+		let mut bad = Vec::new();
+		for (profession, title) in checked {
+			let title = regex::Regex::new(title).unwrap();
+			let c = CURATED.iter().find(|c| c.name == profession).unwrap();
+			for side in 0..2 {
+				for name in listed(c, side) {
+					let found: Vec<&serde_json::Value> = npcs.iter().filter(|n| n["name"] == name).collect();
+					let subname = found.first().and_then(|n| n["subname"].as_str()).unwrap_or("");
+					if found.len() != 1 || !title.is_match(subname) {
+						bad.push(format!("{profession} {} {name}: {} NPCs, {subname:?}", SIDES[side], found.len()));
+					}
+				}
+			}
+		}
+		assert!(bad.is_empty(), "{bad:#?}");
+	}
+
+	// Teldrassil's campfire quests send a new Night Elf to a trainer: Camping 101: Tailoring (97950)
+	// and Leatherworking (97946). Each ends at an NPC on its profession's Alliance list.
+	#[test]
+	fn camping_101_trainers_are_listed() {
+		let npcs = forever_db("npc");
+		let ends = forever_db("quest_end");
+		for (quest, profession) in [(97950, "Tailoring"), (97946, "Leatherworking")] {
+			let end = ends.iter().find(|e| e["quest"] == quest && e["kind"] == "npc").unwrap();
+			let npc = npcs.iter().find(|n| n["id"] == end["id"]).unwrap();
+			let name = npc["name"].as_str().unwrap();
+			let c = CURATED.iter().find(|c| c.name == profession).unwrap();
+			assert!(listed(c, 0).contains(&name), "{quest} ends at {name}, not on the Alliance {profession} list");
 		}
 	}
 }
