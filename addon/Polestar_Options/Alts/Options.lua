@@ -2,8 +2,9 @@
 -- (docs/ARCHITECTURE.md, "Options registry"). alts.enabled switches the
 -- module off: nothing is saved about the characters you play, and the
 -- Characters page says so. Characters saved earlier are still listed until you forget them.
+-- Part of the settings' addon: nothing of it is in memory before the settings open.
 
-local ADDON, ns = ...
+local ns = Polestar
 local L = ns.L
 
 if not (ns.Alts and ns.RegisterOptions) then return end

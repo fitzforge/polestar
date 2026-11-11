@@ -47,7 +47,8 @@ Polestar.Widgets.OptionsRegistry = {
 fn run_with(saved: Option<String>, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_encoding.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		// The profile strings are the settings' addon's (Polestar_Options/Core/ProfileStrings.lua).
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "../Polestar_Options/Core/ProfileStrings.lua"])],
 		saved: saved.map(|s| ("Polestar".to_string(), s)).into_iter().collect(),
 		login: true,
 		script: format!("{SER}\n{DEFAULTS}\n{script}"),

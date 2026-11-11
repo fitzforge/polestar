@@ -25,5 +25,4 @@
 	<Script file="Social.lua"/>
 	<Script file="Riding.lua"/>
 	<Script file="ClassQuests.lua"/>
-	<Script file="Options.lua"/>
 </Ui>

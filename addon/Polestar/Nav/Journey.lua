@@ -749,7 +749,7 @@ ns.OnLogin(function()
 	claimWay()
 end)
 
-if ns.RegisterOptions then
+if ns.OnOptions then ns.OnOptions(function()
 	local ok, err = ns.RegisterOptions({
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
 		controls = {
@@ -772,4 +772,4 @@ if ns.RegisterOptions then
 		},
 	})
 	if not ok and geterrorhandler then geterrorhandler()(err) end
-end
+end) end

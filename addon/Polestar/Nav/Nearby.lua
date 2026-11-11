@@ -645,7 +645,7 @@ end)
 ns.RegisterCommand("near", Nearby.Command,
 	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"])
 
-if ns.RegisterOptions then
+if ns.OnOptions then ns.OnOptions(function()
 	-- Also on Quality of Life > Travel > Nearby services: one setting, a fresh
 	-- control per page (the registry keeps per-control state).
 	local function controls()
@@ -665,4 +665,4 @@ if ns.RegisterOptions then
 		local ok, err = ns.RegisterOptions(spec)
 		if not ok and geterrorhandler then geterrorhandler()(err) end
 	end
-end
+end) end

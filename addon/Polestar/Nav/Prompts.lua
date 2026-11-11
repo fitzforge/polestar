@@ -454,7 +454,7 @@ end)
 -- control per page (the registry keeps per-control state).
 ---------------------------------------------------------------------------
 
-if ns.RegisterOptions then
+if ns.OnOptions then ns.OnOptions(function()
 	local function castPrompt()
 		return Nav.HandoffOption({ kind = "toggle", key = "nav.castPrompt", label = L["Travel button"],
 			search = "hearth, hearthstone, teleport, portal, cast button, travel spell",
@@ -467,4 +467,4 @@ if ns.RegisterOptions then
 		local ok, err = ns.RegisterOptions(spec)
 		if not ok and geterrorhandler then geterrorhandler()(err) end
 	end
-end
+end) end

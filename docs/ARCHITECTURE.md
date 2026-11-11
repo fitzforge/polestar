@@ -293,7 +293,12 @@ named; caps on length, payload, settings, texts and names. The areas: `look`
 (controls on the Look pages: a page's `group = "look"` or order 20–29),
 `positions`, `guiding` (the rest). A string from before a migration is
 migrated as it is read. The Profiles page (`UI/Profiles.lua`, settings window,
-Setup) shows all of it.
+Setup) shows all of it. The strings' code is the settings' addon's
+(`Polestar_Options/Core/ProfileStrings.lua`), never in memory at login: core's
+`Export`, `Import`, `Apply`, `Portable`, `FreeName`, `Pack`, `AreaOf` and
+`Same` load it on their first call (`UI.LoadOptions`; in a fight they answer
+`nil, "combat"`) and it takes their place; `RegisterPosition` keeps a shape
+for it until then.
 
 ### Commands
 
@@ -5678,7 +5683,15 @@ the entrance. Nothing left: nil, "done"; the other side's attunement: nil,
 
 ### Options registry
 
-Any module adds settings to the settings window without touching UI files:
+Any module adds settings to the settings window without touching UI files.
+The rows are the settings window's alone, so none is built at login: a page
+of its own lives in the window's addon (`Polestar_Options`, load on demand:
+the Look pages, Quality of Life, Rares, Characters) and registers as it loads;
+a core module hands its rows over as a function,
+`Polestar.OnOptions(function() Polestar.RegisterOptions({ ... }) end)`, run
+the first time the rows are needed (the window's addon loads, or
+`Widgets.OptionsRegistry` is read: reading it loads that addon too, out of
+combat, so it holds every row). A registration made after that runs at once.
 
 ```lua
 Polestar.RegisterOptions({
@@ -5744,7 +5757,9 @@ popup, which holds the gamepad until B. `O.Controls(page, tab)` maps keys to
 widgets, extras and header switches included; `O.MoreControls()` those of the
 open popup. A custom page builds the same parts with `W.SectionCard`,
 `W.CompactRow`, `W.HeaderSwitch`, `W.InlineSwatch`, `W.InlineToggle` and
-`W.Cog`. The first open shows one line over the first card ("Hover a setting
+`W.Cog` (all but `W.CompactRow`, which Quick settings shares, are the
+settings' addon's own: `Polestar_Options/UI/Controls.lua`, with `W.Swatch`,
+`W.Cards`, `W.ActionRow` and `W.ActionTile`). The first open shows one line over the first card ("Hover a setting
 for what it does. Right-click resets it.") until its close button
 (`PolestarDB.optionsIntro`). Search results stand in a card per page, tab and
 section, the best first, the chevron to the row in a gutter inside the card;
@@ -6640,17 +6655,21 @@ Each call fires `GUIDE_VISIBILITY`.
   (`logo`, or the `emblem` glyph in the accent or white) and `ui.launcherBack`
   (the disc), painted by `Launcher.Paint` on the face `Launcher.Face` builds,
   which the Buttons page's preview draws on a plain button of its own.
-- Unlock mode (`UI/Movers.lua`, `ns.Movers`; `/polestar unlock`, again or
-  `/polestar lock` to lock, Options, Guide, Window, Position, Move frames):
-  a dim box with an accent hairline, the frame's name and its size over every
-  registered frame whose feature is on, hidden ones at their default size.
-  `Movers.Register({ key, label, frame, size, get, set, reset, anchor?,
-  enabled?, fixedSize? })`: `get` and `set` speak a point on `UIParent` in its
-  units, and each frame keeps its own saved key and format (`ui.pos`,
-  `nav.arrowPos`, `ui.launcherPos`, the character's `qol.buttonPos`,
+- Unlock mode (`Polestar_Options/UI/Movers.lua`, `ns.Movers`; `/polestar
+  unlock`, again or `/polestar lock` to lock, Options, Guide, Window,
+  Position, Move frames): a dim box with an accent hairline, the frame's name
+  and its size over every registered frame whose feature is on, hidden ones
+  at their default size. The mode is the settings' addon's: core keeps its
+  door (`UI/Movers.lua`: the commands, `movers.*`'s defaults and `ns.Movers`,
+  whose functions load the mode on their first call and which keeps the specs
+  registered before it, `Movers.pending`; in a fight `Unlock` says no and
+  nothing loads). `Movers.Register({ key, label, frame, size, get, set, reset,
+  anchor?, enabled?, fixedSize? })`: `get` and `set` speak a point on
+  `UIParent` in its units, and each frame keeps its own saved key and format
+  (`ui.pos`, `nav.arrowPos`, `ui.launcherPos`, the character's `qol.buttonPos`,
   `maps.timerPos`, `maps.trackerPos`, `party.panelPos`, `rares.toastPoint`,
-  `toasts.transport.point`, `toasts.whilehere.point`; UI/Looks/Toasts.lua
-  adds the stacked alerts' line). A drag moves the live frame along and, on
+  `toasts.transport.point`, `toasts.whilehere.point`; UI/Toasts.lua adds the
+  stacked alerts' line). A drag moves the live frame along and, on
   the drop, saves through `set` (`Movers.MoveTo`); it snaps (`Movers.Snap`,
   pure) to the screen's centre lines and the other boxes' edges and centres
   within 6 px with an accent guide (`movers.snap`), else to the grid out from

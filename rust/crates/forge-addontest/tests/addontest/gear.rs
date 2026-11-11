@@ -508,6 +508,7 @@ fn options_the_gear_advice_on_questing_with_the_class_spec_dropdown_registered_o
 		local seen = {}
 		Polestar.RegisterOptions = function(def) seen[#seen + 1] = def end
 		stub.login()
+		Polestar.Widgets.BuildRegistry() -- core's rows are built when the settings first need them
 		local out = {}
 		for _, def in ipairs(seen) do
 			local keys = {}

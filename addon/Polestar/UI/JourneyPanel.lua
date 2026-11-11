@@ -641,7 +641,7 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 Theme.OnChanged(function() if guideShown() then JP.Refresh(true) end end)
 
-if ns.Nav and ns.RegisterOptions then
+if ns.Nav and ns.OnOptions then ns.OnOptions(function()
 	local ok, err = ns.RegisterOptions({
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
 		controls = {
@@ -650,4 +650,4 @@ if ns.Nav and ns.RegisterOptions then
 		},
 	})
 	if not ok and geterrorhandler then geterrorhandler()(err) end
-end
+end) end

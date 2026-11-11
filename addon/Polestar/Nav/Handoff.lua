@@ -524,7 +524,7 @@ for _, event in ipairs({ "PLAYER_DEAD", "PLAYER_ALIVE", "PLAYER_UNGHOST" }) do
 	end)
 end
 
-if ns.RegisterOptions then
+if ns.OnOptions then ns.OnOptions(function()
 	local ok, err = ns.RegisterOptions({
 		page = L["Integrations"], section = "Shortest Path Forever",
 		controls = {
@@ -534,4 +534,4 @@ if ns.RegisterOptions then
 		},
 	})
 	if not ok and geterrorhandler then geterrorhandler()(err) end
-end
+end) end

@@ -505,17 +505,20 @@ ns.RegisterCommand("dungeons", function(rest)
 	Dungeons.Open(rest ~= "" and Dungeons.Find(rest) or nil)
 end, L["Dungeon quests, bosses and entrances"])
 
-if ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Discovery"], tab = L["Dungeons"], section = ENCOUNTER_JOURNAL,
-		controls = {
-			{ kind = "toggle", key = "dungeons.enabled", label = L["Dungeons"],
-				help = L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] },
-			{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], child = true, disabled = function() return not ns.Get("dungeons.enabled") end,
-				help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
+-- The rows, built when the settings are first needed (ns.OnOptions).
+if ns.OnOptions then
+	ns.OnOptions(function()
+		local ok, err = ns.RegisterOptions({
+			page = L["Discovery"], tab = L["Dungeons"], section = ENCOUNTER_JOURNAL,
+			controls = {
+				{ kind = "toggle", key = "dungeons.enabled", label = L["Dungeons"],
+					help = L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] },
+				{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], child = true, disabled = function() return not ns.Get("dungeons.enabled") end,
+					help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] },
+			},
+		})
+		if not ok and geterrorhandler then geterrorhandler()(err) end
+	end)
 
 	-- The dungeons a leveling guide's `when dungeon` steps can be for, one
 	-- toggle each, all off: the solo route is the default. The Classic
@@ -523,9 +526,9 @@ if ns.RegisterOptions then
 	-- level, as Map id and English name; the name shows in the client's
 	-- language when it has one (Names.Instance). The choice is per character
 	-- (Engine.ChooseDungeon). Only the ones this character's guides have
-	-- steps for are offered (Engine.GuideDungeons, read at login once the
-	-- guides are registered; none: no section); a choice saved for one not
-	-- offered is kept.
+	-- steps for are offered (Engine.GuideDungeons, read after login, when
+	-- the settings are first needed; none: no section); a choice saved for
+	-- one not offered is kept.
 	local ROUTE = {
 		{ 389, "Ragefire Chasm" }, { 43, "Wailing Caverns" }, { 36, "The Deadmines" }, { 33, "Shadowfang Keep" },
 		{ 48, "Blackfathom Deeps" }, { 34, "The Stockade" }, { 90, "Gnomeregan" }, { 47, "Razorfen Kraul" },
@@ -534,7 +537,7 @@ if ns.RegisterOptions then
 		{ 429, "Dire Maul" }, { 289, "Scholomance" }, { 329, "Stratholme" },
 	}
 	Dungeons.ROUTE = ROUTE
-	ns.OnLogin(function()
+	ns.OnLogin(function() ns.OnOptions(function()
 		local E = ns.Engine
 		local have = E and E.GuideDungeons and E.GuideDungeons() or {}
 		local controls = {}
@@ -551,13 +554,13 @@ if ns.RegisterOptions then
 		if #controls == 0 then return end
 		local done, why = ns.RegisterOptions({ page = L["Discovery"], tab = L["Dungeons"], section = L["Dungeons in leveling guides"], controls = controls })
 		if not done and geterrorhandler then geterrorhandler()(why) end
-	end)
+	end) end)
 
 	-- The group quests of this character's guides (`when group`), one toggle
 	-- each: on, do it with a group; off, skip it (or not answered yet: the
 	-- guide asks when it gets there). Per character (Engine.AnswerGroup). Read
-	-- at login, once the guides are registered; none: no tab.
-	ns.OnLogin(function()
+	-- after login, when the settings are first needed; none: no tab.
+	ns.OnLogin(function() ns.OnOptions(function()
 		local E = ns.Engine
 		local list = E and E.GroupQuests and E.GroupQuests() or {}
 		if #list == 0 then return end
@@ -572,5 +575,5 @@ if ns.RegisterOptions then
 		end
 		local done, why = ns.RegisterOptions({ page = L["Discovery"], tab = L["Group quests"], section = L["Group quests in leveling guides"], controls = quests })
 		if not done and geterrorhandler then geterrorhandler()(why) end
-	end)
+	end) end)
 end

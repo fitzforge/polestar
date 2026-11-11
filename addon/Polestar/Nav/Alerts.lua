@@ -410,7 +410,7 @@ end
 -- per page: the registry keeps per-control state).
 ---------------------------------------------------------------------------
 
-if ns.RegisterOptions then
+if ns.OnOptions then ns.OnOptions(function()
 	local function off() return not ns.Get("nav.alerts") end
 	local H = Nav.HandoffOption
 	local function alerts()
@@ -436,4 +436,4 @@ if ns.RegisterOptions then
 	if not ok and geterrorhandler then geterrorhandler()(err) end
 	ok, err = ns.RegisterOptions({ page = L["Quality of Life"], tab = L["Travel"], section = L["Along the route"], controls = { alerts() } })
 	if not ok and geterrorhandler then geterrorhandler()(err) end
-end
+end) end

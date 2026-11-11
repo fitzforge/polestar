@@ -1,21 +1,34 @@
-//! The settings window loads on demand (addon/Polestar_Options, a LoadOnDemand addon):
-//! after login nothing of it is in memory (no window, no UI.Options, no LoadAddOn of it); the first
-//! SHOW_OPTIONS loads it, once, and opens the window; later openings load nothing. Its cost is measured as
-//! the client counts it (Lua 5.1 collectgarbage("count")) and held to a budget: lower a budget when a change
-//! lowers the figure, never raise one to make a change pass.
+//! The settings load on demand (addon/Polestar_Options, a LoadOnDemand addon): after login nothing of them
+//! is in memory (no window, no UI.Options, no LoadAddOn of it); the first SHOW_OPTIONS loads it, once, and
+//! opens the window; later openings load nothing. Their cost is measured as the client counts it (Lua 5.1
+//! collectgarbage("count")) and held to budgets: lower a budget when a change lowers the figure, never raise
+//! one to make a change pass.
 //!
+//!   login     the core's resident memory at login (two full collects), the whole of addon/Polestar on a
+//!             logged-in stub client
 //!   loaded    resident after LoadAddOn("Polestar_Options") and two full collects, over the core's at login
 //!   opened    resident after the window first opens (its frames, the first page), over the core's at login
 //!   peak      the heap grown while loading it, with the collector stopped
 //!
-//! KiB (Lua 5.1, 64-bit), measured on 2026-11-10 with the whole of addon/Polestar and a logged-in stub
-//! client: the core at login was 9,940 resident with the window's code in it (before the move) and 9,180
-//! after the move; the window's addon costs 760 resident once loaded (1,190 at the peak) and 1,890 once the
-//! window is open on its first page: paid only by a player who opens the settings.
+//! Login (0.3.8: the settings overhaul costs nothing a player notices at login): at most the 0.3.7 base's
+//! figure and 50 KiB. The base is next at 0df6f58ab (2026-11-10), measured with this test's script
+//! (LOGIN_BASE). Rebased on a later release, measure that release's tree the same way and set LOGIN_BASE to
+//! it, with the date and sha. What the overhaul put out of the login, into Polestar_Options: the window, its
+//! pages and previews, the settings-only widgets (UI/Controls.lua), the Quality of Life, Rares and
+//! Characters rows, Unlock mode (UI/Movers.lua; core keeps its door) and the profile strings
+//! (Core/ProfileStrings.lua); the rows core modules register are built only when the settings first need
+//! them (ns.OnOptions).
+//!
+//! The settings' addon (KiB, Lua 5.1, 64-bit) grew from 2026-11-10's figures (760 loaded, 1,890 opened,
+//! 1,190 peak) by what moved into it from the login, not by new work: the budgets' comments say by how much.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
+/// The 0.3.7 base's core at login: next at 0df6f58ab, this test's script, 2026-11-11: 10,428.4 KiB.
+const LOGIN_BASE: f64 = 10428.4;
+/// At most 50 KiB over the base.
+const LOGIN: f64 = LOGIN_BASE + 50.0;
 const LOADED: f64 = 900.0;
 const OPENED: f64 = 2200.0;
 const PEAK: f64 = 1400.0;
@@ -55,6 +68,9 @@ local login = {
 	options = UI.Options ~= nil, frame = _G.PolestarOptions ~= nil, profiles = UI.Profiles ~= nil,
 	toastsPreview = UI.Toasts.Preview ~= nil, loaded = C_AddOns.IsAddOnLoaded("Polestar_Options"),
 	asked = stub.addonsLoaded.Polestar_Options == true,
+	-- The settings-only widgets, Unlock mode and the profile strings are the settings' addon's too.
+	swatch = Polestar.Widgets.Swatch ~= nil, cards = Polestar.Widgets.Cards ~= nil, movers = _G.PolestarMovers ~= nil,
+	moversWaiting = type(Polestar.Movers.pending) == "table", strings = Polestar.Profiles.pendingPositions == nil,
 	-- What core keeps: the opener, the size's default, the Blizzard category, the toasts' and trackers' looks.
 	stub = type(UI.ShowOptions) == "function", size = Polestar.GetDefault("ui.optionsSize") == false,
 	category = UI.settingsCategory ~= nil, toasts = type(UI.Toasts.Attach) == "function", trackers = type(UI.Trackers.Attach) == "function",
@@ -72,6 +88,7 @@ emit({ login = login, first = first, hidden = hidden, again = PolestarOptions:Is
 	assert_eq!(
 		out["login"],
 		serde_json::json!({ "options": false, "frame": false, "profiles": false, "toastsPreview": false, "loaded": false, "asked": false,
+			"swatch": false, "cards": false, "movers": false, "moversWaiting": true, "strings": false,
 			"stub": true, "size": true, "category": true, "toasts": true, "trackers": true }),
 		"nothing of the settings window before it opens; core keeps its door"
 	);
@@ -127,4 +144,18 @@ emit({ core = base, loaded = loaded, opened = opened, peak = peak, shown = Poles
 	// A real cost moved out of the login (the window's code is not a few lines).
 	assert!(n(&out["loaded"]) > 200.0, "the window's addon holds the window: {}", out["loaded"]);
 	assert!(over.is_empty(), "over budget: {}", over.join(", "));
+}
+
+// The core at login holds at most the 0.3.7 base and 50 KiB: the settings overhaul's window, pages,
+// previews, profile strings and Unlock mode load with the settings, and the rows core modules register
+// are built only when the settings first need them.
+#[test]
+fn at_login_the_core_holds_at_most_the_0_3_7_base_and_50_kib() {
+	let out = run(r#"
+emit({ core = full(), loaded = C_AddOns.IsAddOnLoaded("Polestar_Options"), loads = count("Polestar_Options") })"#);
+	let core = n(&out["core"]);
+	eprintln!("core at login: {core:.0} KiB (the 0.3.7 base {LOGIN_BASE:.0}, budget {LOGIN:.0}, {:+.0} over the base)", core - LOGIN_BASE);
+	assert_eq!(out["loaded"], false, "the settings' addon is not loaded at login");
+	assert_eq!(out["loads"], 0);
+	assert!(core <= LOGIN, "the core at login: {core:.0} KiB, over the 0.3.7 base ({LOGIN_BASE:.0}) by {:.0} (at most 50)", core - LOGIN_BASE);
 }

@@ -1038,14 +1038,7 @@ end
 
 -- Tell the preview on screen which setting the pointer is on: its frame's
 -- optional f:Focus(key) (a preview that scrolls to the part it draws).
-function O.PreviewFocus(key)
-	local view = O.view
-	local host = view and rawget(view, "PreviewHost")
-	local f = host and host:IsShown() and host.Frame
-	if not (key and f and type(f.Focus) == "function") then return end
-	local ok, err = pcall(f.Focus, f, key)
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end
+function O.PreviewFocus(key) UI.Preview.Focus(O.view, key) end
 
 -- A setting's half, built once per view (view: a page tab's, the search
 -- results', the cog popup's), with its extras and cog.
@@ -1361,25 +1354,20 @@ function O.MoreControls()
 end
 
 ---------------------------------------------------------------------------
--- The pinned preview. A page tab's `preview(host)` -> frame f with
--- f:Layout(width) -> height is built the first time the tab shows, into its
--- own host in the shell's preview slot, and laid out across the main
--- column; the slot's chrome lies over it: "Preview" and the frame's caption
--- (f.caption: a string or a function) at the top left, the Live mark at the
--- top right. At most PREVIEW_MAX of the body's height; it clips past that.
+-- The pinned preview, its stage and its hotspots are UI/Preview.lua's
+-- (UI.Preview); here, what it asks of the window.
 ---------------------------------------------------------------------------
 
-local PREVIEW_MAX, HINT_FOOT = 0.45, 24
-
 -- The setting `key`'s control spec: on the page and tab on screen first,
--- then the page, then anywhere. -> spec | nil
-local function controlByKey(key)
+-- then the page, then anywhere; a reference to a control on another tab
+-- (c.ref) leads to that control itself. -> spec | nil
+function O.ControlByKey(key)
 	local best, rank
 	for _, p in ipairs(pageList) do
 		for _, t in ipairs(p.tabs) do
 			for _, s in ipairs(t.sections) do
 				for _, c in ipairs(allSettings(s)) do
-					if c.key == key and available(c) then
+					if c.key == key and available(c) and not rawget(c, "ref") then
 						local r = (p == current and t == currentTab) and 1 or (p == current and 2 or 3)
 						if not rank or r < rank then best, rank = c, r end
 					end
@@ -1389,143 +1377,16 @@ local function controlByKey(key)
 	end
 	return best
 end
+O.LabelOf = labelOf
 
----------------------------------------------------------------------------
--- Preview hotspots: a part of a preview that a click takes to its setting.
---   O.PreviewHotspot(frame, region, key) (or host:Hotspot(region, key)
---   while the preview is built): frame is the preview's frame or any frame
---   in it, region the part (a texture or frame). Under the cursor a 1px
---   accent outline goes round the part and the tooltip names the setting; a
---   click opens its row (O.Jump) and lights it. The first preview with
---   hotspots says so once ("Click a part of the preview to find its
---   settings", under its band) until the first click (PolestarDB).
----------------------------------------------------------------------------
-
-local function hintDismissed() return ns.DB().optionsPreviewHint == true end
-
-local function hostOf(f)
-	while f do
-		if rawget(f, "psIsHost") then return f end
-		f = f:GetParent()
-	end
-end
-
-local function hotspotEdge(b, on)
-	local r, g, bb = Theme.Accent()
-	Theme.Border(b, r, g, bb, on and 1 or 0)
-end
-
-function O.PreviewHotspot(frame, region, key)
-	local b = CreateFrame("Button", nil, frame)
-	b:SetAllPoints(region)
-	b:SetFrameLevel(frame:GetFrameLevel() + 20)
-	b.psKey, b.psPadSkip = key, true
-	hotspotEdge(b, false)
-	b:SetScript("OnEnter", function(self)
-		hotspotEdge(self, true)
-		local c = controlByKey(self.psKey)
-		if c then W.Tooltip(self, "ANCHOR_TOP", labelOf(c), { L["Click to find its settings."] }) end
-	end)
-	b:SetScript("OnLeave", function(self)
-		hotspotEdge(self, false)
-		W.HideTooltip(self)
-	end)
-	b:SetScript("OnClick", function(self)
-		if not hintDismissed() then
-			ns.DB().optionsPreviewHint = true
-			for _, p in ipairs(pageList) do
-				for _, v in pairs(p.views or {}) do
-					local h = rawget(v, "PreviewHost")
-					if h then h.Hint:Hide(); h.Foot:Hide() end
-				end
-			end
-		end
-		local c = controlByKey(self.psKey)
-		if c then O.Jump(c) end
-	end)
-	local host = hostOf(frame)
-	if host then host.psHotspots = (host.psHotspots or 0) + 1 end
-	return b
-end
-
-local function previewHost(view, t)
-	local host = rawget(view, "PreviewHost")
-	if host then return host end
-	host = CreateFrame("Frame", nil, W.ShellPreviewSlot(win))
-	if host.SetClipsChildren then host:SetClipsChildren(true) end
-	host.psIsHost = true
-	host.Hotspot = function(self, region, key) return O.PreviewHotspot(self, region, key) end
-	view.PreviewHost = host
-	local ok, f = pcall(t.preview, host)
-	if not ok then
-		if geterrorhandler then geterrorhandler()(f) end
-		f = nil
-	end
-	host.Frame = f
-	if f then
-		f:ClearAllPoints()
-		f:SetPoint("TOPLEFT", host, "TOPLEFT", 0, 0)
-		if f.Hotspot == nil then f.Hotspot = function(self, region, key) return O.PreviewHotspot(self, region, key) end end
-	end
-	-- The chrome, over the preview.
-	local chrome = CreateFrame("Frame", nil, host)
-	chrome:SetAllPoints(host)
-	chrome:SetFrameLevel(host:GetFrameLevel() + 30)
-	host.Label = W.Text(chrome, "caption", "text")
-	host.Label:SetText(L["Preview"])
-	host.Label:SetPoint("TOPLEFT", chrome, "TOPLEFT", 16, -12)
-	host.Caption = W.Text(chrome, "small", "textDim")
-	host.Caption:SetPoint("LEFT", host.Label, "RIGHT", 8, 0)
-	host.Live = W.Text(chrome, "small", "textMuted")
-	host.Live:SetText(L["Live"])
-	host.Live:SetPoint("TOPRIGHT", chrome, "TOPRIGHT", -16, -12)
-	local dot = W.Tex(chrome, "ARTWORK", "circle", "success")
-	dot:SetSize(6, 6)
-	dot:SetPoint("RIGHT", host.Live, "LEFT", -6, 0)
-	-- The hotspots' one-time hint: a foot row of its own under the preview,
-	-- on the band's ground, clear of the preview's content.
-	host.Foot = W.Tex(chrome, "BACKGROUND", nil, "bg")
-	host.Foot:SetPoint("BOTTOMLEFT", chrome, "BOTTOMLEFT", 0, 0)
-	host.Foot:SetPoint("BOTTOMRIGHT", chrome, "BOTTOMRIGHT", 0, 0)
-	host.Foot:SetHeight(HINT_FOOT)
-	host.Hint = W.Text(chrome, "small", "textMuted")
-	host.Hint:SetText(L["Click a part of the preview to find its settings."])
-	host.Hint:SetPoint("LEFT", host.Foot, "LEFT", 16, 0)
-	host.Hint:Hide()
-	host.Foot:Hide()
-	host:Hide()
-	return host
-end
+-- A part of a preview that a click takes to its setting (UI.Preview.Hotspot).
+function O.PreviewHotspot(frame, region, key) return UI.Preview.Hotspot(frame, region, key) end
 
 -- Lay the shown tab's preview out across the main column and pin it.
 local function placePreview(view, t)
-	if not (t and t.preview) or view.empty then
-		W.ShellPreview(win, nil)
-		return
-	end
-	local host = previewHost(view, t)
-	local f = host.Frame
-	if not f then
-		W.ShellPreview(win, nil)
-		return
-	end
 	local width = win.psMainW or (win.BodyWidth + SH.pad * 2)
-	local ok, h = pcall(f.Layout, f, width)
-	if not ok then
-		if geterrorhandler then geterrorhandler()(h) end
-		h = 0
-	end
-	h = tonumber(h) or 0
-	f:SetWidth(width)
-	f:Show()
-	local cap = f.caption
-	if type(cap) == "function" then cap = cap() end
-	host.Caption:SetText(cap or "")
-	local hint = (host.psHotspots or 0) > 0 and not hintDismissed()
-	host.Hint:SetShown(hint)
-	host.Foot:SetShown(hint)
 	local room = win:GetHeight() - SH.header - SH.tabs - SH.footer
-	W.ShellPreview(win, host, min(h, floor(room * PREVIEW_MAX)) + (hint and HINT_FOOT or 0))
+	UI.Preview.Place(win, view, t, width, room)
 end
 
 -- The first open's one line under the header: how the rows work (hover,

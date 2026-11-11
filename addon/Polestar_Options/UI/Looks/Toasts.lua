@@ -140,26 +140,14 @@ local REFILL = {
 }
 
 -- A stage `height` tall (STAGE_H by default): a toast's own height and room
--- for the window's "Preview" over it and Play under it, no more.
+-- for the window's "Preview" over it and Play under it, no more. The
+-- settings window's preview stage (UI.Preview.Stage): the toast over the
+-- world it shows in, the zone you stand in. Its caption: how much it had to
+-- shrink the toast to fit, or why it is empty.
 local function newStage(view, height)
-	local s = CreateFrame("Frame", nil, view)
-	s.psHeight = height or STAGE_H
-	s:SetHeight(s.psHeight)
-	if s.SetClipsChildren then s:SetClipsChildren(true) end
-	-- The world under the toast: the deepest ground and the night's lift.
-	W.Fill(s, "scrim", "BACKGROUND", -8)
-	W.Painter(s, function(self) Theme.Border(self, Theme.Wash("divider")) end)
-	-- The options window draws "Preview" and "Live" over it, with this
-	-- caption: how much it had to shrink the toast to fit, or why it is empty.
-	s.caption = function() return s.psNote end
-	s.psWidth = 600
+	local s = UI.Preview.Stage(view, { height = height or STAGE_H, backdrop = "world" })
+	s.Paint = function(self) if self.Refresh then self:Refresh() end end
 	stages[s] = true
-	s:SetScript("OnShow", function(self)
-		if self.psDirty then
-			self.psDirty = nil
-			self:Refresh()
-		end
-	end)
 	return s
 end
 
@@ -170,15 +158,10 @@ function markStages()
 end
 
 -- Fit a toast of size w x h (its own units) at its scale into the stage's
--- area under the label; says so when it had to shrink it.
+-- room under the chrome, over Play, on a whole pixel; says so when it had to
+-- shrink it. Its place is its entrance's (Anim.Anchor).
 local function fitInto(s, card, kind, w, h, scale)
-	local availW, availH = s.psWidth - 64, s.psHeight - 84
-	local k = scale or TS.Scale(kind)
-	local fit = min(1, availW / max(1, w * k), availH / max(1, h * k))
-	card.psFit = fit
-	card:SetScale(k * fit)
-	Anim.Anchor(card, "CENTER", s, "CENTER", 0, 0)
-	s.psNote = (fit < 0.995 and format(L["Shown at %d%% to fit"], floor(fit * 100 + 0.5)) or "")
+	UI.Preview.Fit(s, card, w, h, scale or TS.Scale(kind), { bottom = 42, anchor = Anim.Anchor })
 end
 
 TS.NewStage = newStage
@@ -274,11 +257,7 @@ local function classCardStage(view)
 		TS.ApplyLook(card)
 		local h = CC.FillDemo(card, demo, CARD_W)
 		ground:SetSize(CARD_W, h)
-		local fit = min(1, (self.psWidth - 64) / CARD_W, (self.psHeight - 84) / max(1, h))
-		ground:SetScale(fit)
-		ground:ClearAllPoints()
-		ground:SetPoint("CENTER", self, "CENTER", 0, 0)
-		self.psNote = (fit < 0.995 and format(L["Shown at %d%% to fit"], floor(fit * 100 + 0.5)) or "")
+		UI.Preview.Fit(self, ground, CARD_W, h, 1, { bottom = 42 })
 	end
 	s.Play = W.Button(s, L["Play"], function()
 		if CC.Shine then CC.Shine(card) end

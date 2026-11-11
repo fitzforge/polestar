@@ -14,24 +14,26 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 
 -- Coming soon (Talents.lua, T.SOON): no settings for plans that are not there.
-if not ns.RegisterOptions or T.SOON then return end
+if not ns.OnOptions or T.SOON then return end
 
 local function off() return not T.Get("enabled") end
 local function overlayOff() return off() or not T.Get("overlay") end
 
-local ok, err = ns.RegisterOptions({
-	page = L["Questing"], tab = L["Talents"], section = L["Talent plan"],
-	controls = {
-		{ kind = "toggle", key = "talents.enabled", label = L["Talent plans"], search = "talents, talent build, spec, talent tree, build",
-			help = L["Follow a talent plan for your class and spec (/pole talents)."] },
-		{ kind = "toggle", key = "talents.overlay", label = L["Mark the talent frame"], disabled = off,
-			help = L["A ring on the next talent in your plan and a flag on points the plan does not spend."] },
-		{ kind = "toggle", key = "talents.badges", label = L["Pick numbers"], disabled = overlayOff, child = true,
-			help = L["Where each talent comes in your plan's order (#1, #2, ...)."] },
-		{ kind = "toggle", key = "talents.tooltip", label = L["Plan in tooltips"], disabled = off,
-			help = L["A line in each talent's tooltip: where it comes in the plan, or that it is off the plan."] },
-		{ kind = "toggle", key = "talents.reminder", label = L["Remind me of unspent points"], disabled = off, search = "talents, talent points, unspent, level up",
-			help = L["A chat line naming the plan's next talent when a point is waiting."] },
-	},
-})
-if not ok and geterrorhandler then geterrorhandler()(err) end
+ns.OnOptions(function()
+	local ok, err = ns.RegisterOptions({
+		page = L["Questing"], tab = L["Talents"], section = L["Talent plan"],
+		controls = {
+			{ kind = "toggle", key = "talents.enabled", label = L["Talent plans"], search = "talents, talent build, spec, talent tree, build",
+				help = L["Follow a talent plan for your class and spec (/pole talents)."] },
+			{ kind = "toggle", key = "talents.overlay", label = L["Mark the talent frame"], disabled = off,
+				help = L["A ring on the next talent in your plan and a flag on points the plan does not spend."] },
+			{ kind = "toggle", key = "talents.badges", label = L["Pick numbers"], disabled = overlayOff, child = true,
+				help = L["Where each talent comes in your plan's order (#1, #2, ...)."] },
+			{ kind = "toggle", key = "talents.tooltip", label = L["Plan in tooltips"], disabled = off,
+				help = L["A line in each talent's tooltip: where it comes in the plan, or that it is off the plan."] },
+			{ kind = "toggle", key = "talents.reminder", label = L["Remind me of unspent points"], disabled = off, search = "talents, talent points, unspent, level up",
+				help = L["A chat line naming the plan's next talent when a point is waiting."] },
+		},
+	})
+	if not ok and geterrorhandler then geterrorhandler()(err) end
+end)

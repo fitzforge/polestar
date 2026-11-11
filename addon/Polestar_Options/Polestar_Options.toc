@@ -28,6 +28,9 @@
 ## X-License: GPL-3.0-only
 ## X-Website: https://github.com/fitzforge/polestar
 
+UI\Controls.lua
+UI\Preview.lua
+Core\ProfileStrings.lua
 UI\Options.lua
 UI\Profiles.lua
 UI\Looks\Theme.lua
@@ -38,3 +41,7 @@ Maps\RouteOptions.lua
 QoL\ButtonsOptions.lua
 UI\Looks\Toasts.lua
 UI\Looks\Trackers.lua
+QoL\Options.lua
+Rares\Options.lua
+Alts\Options.lua
+UI\Movers.lua

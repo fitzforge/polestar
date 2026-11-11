@@ -204,37 +204,9 @@ end
 local MAP = L["Map"]
 
 local function register(spec)
-	if not ns.RegisterOptions then return end
 	local ok, err = ns.RegisterOptions(spec)
 	if not ok and err then ns.Debug(err) end
 end
-
-register({
-	page = MAP, tab = L["Rares & travel"], section = L["Dungeons and travel"],
-	controls = {
-		{ kind = "toggle", key = "maps.dungeonPins", label = L["Dungeon entrances"], search = "instance, dungeon, entrance, map pins, icons, markers",
-			help = L["Marks each dungeon entrance with its level range. Click to open the dungeon's guide, or to set a waypoint when there is none; Shift-click always sets a waypoint. Needs the Codex pack."] },
-		{ kind = "toggle", key = "maps.taxiPins", label = L["Flight masters"], search = "flight, taxi, flight path, gryphon, wind rider, map pins, icons, markers",
-			help = L["Your faction's and neutral flight masters: green when known, amber when not yet discovered. The tooltip lists destinations and flight times."] },
-		{ kind = "toggle", key = "maps.dockPins", label = L["Boats and zeppelins"], search = "boat, ship, zeppelin, tram, dock, map pins, icons, markers",
-			help = L["Docks, zeppelin towers and the Deeprun Tram, with where they go."] },
-		{ kind = "toggle", key = "maps.innPins", label = L["Inns"], search = "inn, innkeeper, hearth, hearthstone, map pins, icons, markers",
-			help = L["Innkeepers; the one your Hearthstone is bound to is marked."] },
-		{ kind = "toggle", key = "maps.travelMinimap", label = L["Travel icons on the minimap"], search = "flight, taxi, boat, inn, minimap icons, markers",
-			help = L["Shows the flight masters, docks and inns turned on here on the minimap as well."] },
-	},
-})
-
-register({
-	page = MAP, tab = L["Zones"], section = L["Zones"],
-	controls = {
-		{ kind = "dropdown", key = "maps.reveal", label = L["Unexplored areas"], search = "fog of war, reveal map, unexplored, explore, undiscovered",
-			help = L["Shows the parts of each zone you have not explored yet, so the whole map is there before you visit. Tinted keeps them apart from where you have been."],
-			choices = { { value = "off", label = L["Hidden"] }, { value = "on", label = L["Revealed"] }, { value = "tint", label = L["Revealed and tinted"] } } },
-		{ kind = "toggle", key = "maps.zoneLevels", label = L["Zone level ranges"], search = "zone levels, level range, where to level",
-			help = L["Shows each zone's level range on the continent and zone maps, coloured by difficulty for your level."] },
-	},
-})
 
 -- Coordinates and the minimap button, also on Quality of Life > Map: one
 -- setting, a fresh control per page (the registry keeps per-control state).
@@ -251,14 +223,42 @@ local function minimapButton()
 		help = L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] }
 end
 
-register({ page = MAP, tab = L["Zones"], section = L["Coordinates"], controls = { coords(), minimapCoords() } })
-register({ page = MAP, tab = L["Guide & quests"], section = L["Guide"], controls = { minimapButton() } })
-register({ page = L["Quality of Life"], tab = L["Map"], section = L["Minimap"], controls = { minimapButton() } })
-register({ page = L["Quality of Life"], tab = L["Map"], section = L["Coordinates"], controls = { coords(), minimapCoords() } })
+-- The rows, built when the settings are first needed (ns.OnOptions).
+if ns.OnOptions then ns.OnOptions(function()
+	register({
+		page = MAP, tab = L["Rares & travel"], section = L["Dungeons and travel"],
+		controls = {
+			{ kind = "toggle", key = "maps.dungeonPins", label = L["Dungeon entrances"], search = "instance, dungeon, entrance, map pins, icons, markers",
+				help = L["Marks each dungeon entrance with its level range. Click to open the dungeon's guide, or to set a waypoint when there is none; Shift-click always sets a waypoint. Needs the Codex pack."] },
+			{ kind = "toggle", key = "maps.taxiPins", label = L["Flight masters"], search = "flight, taxi, flight path, gryphon, wind rider, map pins, icons, markers",
+				help = L["Your faction's and neutral flight masters: green when known, amber when not yet discovered. The tooltip lists destinations and flight times."] },
+			{ kind = "toggle", key = "maps.dockPins", label = L["Boats and zeppelins"], search = "boat, ship, zeppelin, tram, dock, map pins, icons, markers",
+				help = L["Docks, zeppelin towers and the Deeprun Tram, with where they go."] },
+			{ kind = "toggle", key = "maps.innPins", label = L["Inns"], search = "inn, innkeeper, hearth, hearthstone, map pins, icons, markers",
+				help = L["Innkeepers; the one your Hearthstone is bound to is marked."] },
+			{ kind = "toggle", key = "maps.travelMinimap", label = L["Travel icons on the minimap"], search = "flight, taxi, boat, inn, minimap icons, markers",
+				help = L["Shows the flight masters, docks and inns turned on here on the minimap as well."] },
+		},
+	})
 
--- The flight timer and the instance tracker join Quality of Life's Travel
--- and Trackers tabs; their sections are declared there, in order.
-do
+	register({
+		page = MAP, tab = L["Zones"], section = L["Zones"],
+		controls = {
+			{ kind = "dropdown", key = "maps.reveal", label = L["Unexplored areas"], search = "fog of war, reveal map, unexplored, explore, undiscovered",
+				help = L["Shows the parts of each zone you have not explored yet, so the whole map is there before you visit. Tinted keeps them apart from where you have been."],
+				choices = { { value = "off", label = L["Hidden"] }, { value = "on", label = L["Revealed"] }, { value = "tint", label = L["Revealed and tinted"] } } },
+			{ kind = "toggle", key = "maps.zoneLevels", label = L["Zone level ranges"], search = "zone levels, level range, where to level",
+				help = L["Shows each zone's level range on the continent and zone maps, coloured by difficulty for your level."] },
+		},
+	})
+
+	register({ page = MAP, tab = L["Zones"], section = L["Coordinates"], controls = { coords(), minimapCoords() } })
+	register({ page = MAP, tab = L["Guide & quests"], section = L["Guide"], controls = { minimapButton() } })
+	register({ page = L["Quality of Life"], tab = L["Map"], section = L["Minimap"], controls = { minimapButton() } })
+	register({ page = L["Quality of Life"], tab = L["Map"], section = L["Coordinates"], controls = { coords(), minimapCoords() } })
+
+	-- The flight timer and the instance tracker join Quality of Life's Travel
+	-- and Trackers tabs; their sections are declared there, in order.
 	local QOL = L["Quality of Life"]
 	register({
 		page = QOL, tab = L["Travel"], section = L["Flight timer"],
@@ -297,7 +297,7 @@ do
 				onClick = function() if Maps.ClearInstances then Maps.ClearInstances() end end },
 		},
 	})
-end
+end) end
 
 ---------------------------------------------------------------------------
 -- Draggable compact frames (flight timer, instance tracker)

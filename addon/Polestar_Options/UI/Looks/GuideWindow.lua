@@ -78,17 +78,10 @@ local function demoGoals()
 end
 
 local function buildPreview(view)
-	local f = CreateFrame("Frame", nil, view)
-	f:SetHeight(PREVIEW_H)
-	if f.SetClipsChildren then f:SetClipsChildren(true) end
+	-- The settings window's preview stage: the window over the world it
+	-- floats over, the zone you stand in (its opacity shows on it).
+	local f = ns.UI.Preview.Stage(view, { height = PREVIEW_H, backdrop = "world" })
 	f.texts = {}
-	-- The sky the window floats over (the Theme page's stage).
-	W.Fill(f, "scrim", "BACKGROUND", -8)
-	f.Lift = W.Tex(f, "BACKGROUND", "glow", nil, -7)
-	f.Band = Theme.Band(f, "BACKGROUND", -6)
-	f.Band:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
-	f.Band:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
-	f.Band:SetHeight(Theme.BAND_H)
 	-- The settings window draws "Preview" and "Live" over it; the caption
 	-- says how large the window is drawn when the stage makes it smaller.
 	f.caption = function()
@@ -491,9 +484,10 @@ local function buildPreview(view)
 			local part = at[self.psFocus or "bars"] or 0
 			scroll = max(0, min(y - room, part - 12))
 		end
+		local snap = ns.UI.Preview.Snap
 		gw:SetScale(k)
 		gw:ClearAllPoints()
-		gw:SetPoint("TOP", self, "TOP", 0, -TOP / k + scroll)
+		gw:SetPoint("TOPLEFT", self, "TOPLEFT", snap(gw, (width / k - w) / 2), snap(gw, -TOP / k + scroll))
 		self.psScale, self.psScroll = k, scroll
 		self:Hotspots()
 	end
@@ -534,13 +528,9 @@ local function buildPreview(view)
 		self.psFocus = part
 		if self:IsVisible() then self:Paint() else self.psDirty = true end
 	end
-	-- The theme (skin, scheme, accent, font): the sky and the window again.
-	W.Painter(f, function(self)
-		Theme.Border(self, Theme.Wash("divider"))
-		local r, g, b = Theme.Color("sky")
-		self.Lift:SetVertexColor(r, g, b, 0.75)
-		self:Refresh()
-	end)
+	-- The theme (skin, scheme, accent, font): the window again (the stage
+	-- paints its own backdrop).
+	W.Painter(f.Back, function() f:Refresh() end)
 	ns.On("SETTING_CHANGED", function(path)
 		if not (WATCH[path] or (type(path) == "string" and path:sub(1, 12) == "guideWindow.")) then return end
 		f.psFocus = PART_OF[path] or f.psFocus
@@ -551,10 +541,6 @@ local function buildPreview(view)
 	function f:Layout(width)
 		self:SetWidth(width)
 		self.psW = width
-		self.Lift:ClearAllPoints()
-		self.Lift:SetSize(width * 0.7, PREVIEW_H * 1.6)
-		self.Lift:SetPoint("CENTER", self, "TOPLEFT", width * 0.5, -PREVIEW_H * 0.4)
-		self.Band:SetTexCoord(Theme.BandCoords(width, Theme.BAND_H))
 		self:Paint()
 		return PREVIEW_H
 	end

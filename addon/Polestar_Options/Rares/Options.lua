@@ -2,9 +2,10 @@
 -- (docs/ARCHITECTURE.md, "Options registry"): alerts, the detection paths
 -- the Forever client offers and the history; the spawn pins sit with every
 -- other map icon on the Map page. rares.enabled switches the whole module
--- off: no events, no pins, no alerts.
+-- off: no events, no pins, no alerts. Part of the settings' addon: nothing
+-- of it is in memory before the settings open.
 
-local ADDON, ns = ...
+local ns = Polestar
 local Rares = ns.Rares
 local L = ns.L
 
