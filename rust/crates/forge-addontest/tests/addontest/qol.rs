@@ -342,6 +342,7 @@ fn quest_item_button_range_tint_and_cooldown_follow_the_item() {
 #[test]
 fn target_button_kill_targets_and_questdb_droppers_preferred_name_first_each_click_cycles() {
 	let out = run(r#"
+		set("targetSimple", true) -- the single button; the list keeps its order (qol-target-list.rs)
 		local t = PolestarTargetButton
 		q.step({
 			{ t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 },
@@ -381,6 +382,7 @@ fn target_button_kill_targets_and_questdb_droppers_preferred_name_first_each_cli
 #[test]
 fn target_button_a_collect_names_the_mobs_the_arrow_leads_to_first_356_then_the_item_s_droppers() {
 	let out = run(r#"
+		set("targetSimple", true) -- the name beside the single button
 		local B = Polestar.QoL.Buttons
 		local t = PolestarTargetButton
 		local function names()
@@ -432,6 +434,7 @@ fn target_button_a_collect_names_the_mobs_the_arrow_leads_to_first_356_then_the_
 #[test]
 fn target_button_names_what_a_use_goal_s_item_works_on_and_every_creature_a_kill_s_objective_credits_1614() {
 	let out = run(r#"
+		set("targetSimple", true) -- the name beside the single button
 		local B = Polestar.QoL.Buttons
 		local t = PolestarTargetButton
 		local function names()
@@ -468,6 +471,7 @@ fn target_button_names_what_a_use_goal_s_item_works_on_and_every_creature_a_kill
 #[test]
 fn target_button_names_the_mobs_at_the_spot_the_arrow_takes_when_a_collect_s_spots_hold_other_camps_1616() {
 	let out = run(r#"
+		set("targetSimple", true) -- the name beside the single button
 		local B = Polestar.QoL.Buttons
 		local t = PolestarTargetButton
 		local function names()
@@ -1155,6 +1159,7 @@ fn mark_target_a_group_change_in_combat_leaves_the_macros_alone_and_applies_once
 fn mark_target_the_target_button_tooltip_says_what_a_press_marks_while_marking_is_on() {
 	let out = run_group(
 		r#"
+		set("targetSimple", true) -- the single button's tooltip
 		local t = PolestarTargetButton
 		local function hint()
 			stub.RunScript(t, "OnEnter")
@@ -1627,6 +1632,7 @@ fn action_buttons_with_the_lock_on_only_a_shift_drag_moves_the_set_a_plain_drag_
 	let out = run(&[
 		ACTS,
 		r#"
+		Polestar.Set("qol.targetSimple", true) -- the single target button, dragged and hovered
 		q.items[900] = { name = "Torch" }
 		q.addItem(0, 1, 900, 1)
 		q.step({ { t = "use", item = 900, quest = 7 }, { t = "kill", target = "Wolf" } })
@@ -1803,6 +1809,7 @@ fn bag_button_an_above_name_stacks_over_it_only_while_it_stands_in_its_old_slot(
 // The target button shows who it targets (qol.targetPlate, #1387): its icon the action of the name the next click
 // targets, the name in its kind's colour, the names after it as small icons, faces of elites and NPCs once seen.
 const LOOK: &str = r#"
+set("targetSimple", true) -- the single button's look; the list hides it (qol-target-list.rs)
 local B, t = Polestar.QoL.Buttons, PolestarTargetButton
 local function base(tex) local p = tex:GetTexture(); return p and p:match("([^\\/]+)$") end
 local TONES = { "danger", "success", "quest", "textDim" }

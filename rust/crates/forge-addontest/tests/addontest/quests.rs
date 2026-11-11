@@ -69,6 +69,21 @@ fn has(list: &Value, q: i64) -> bool {
 }
 
 #[test]
+fn objective_mobs_come_with_their_ids_and_drop_chances_in_the_same_order() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+emit({ Q.GetObjectiveMobs(60, 1) })
+emit({ Q.GetObjectiveMobs(7, 1) })
+"#,
+		"",
+	);
+	assert_eq!(out[0], json!([["Kobold Vermin", "Kobold Miner"], [{ "id": 6, "chance": 40 }, { "id": 40, "chance": 20.5 }]]), "an item's droppers, best chance first");
+	assert_eq!(out[1], json!([["Kobold Vermin"], [{ "id": 6 }]]), "a kill target");
+}
+
+#[test]
 fn loads_the_database_at_login_and_answers_lookups() {
 	let db = fixture();
 	let out = run(

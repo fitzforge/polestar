@@ -850,6 +850,7 @@ local ALIASES = {
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
 	characters = { "discovery", L["Characters"] }, alts = { "discovery", L["Characters"] },
 	look = { "appearance" }, qol = { "qualityoflife" },
+	buttons = { "questing", L["Buttons"] },
 }
 
 ---------------------------------------------------------------------------

@@ -132,6 +132,7 @@ test('guide name: kills and collect sources use mob marks; all NPC verbs use NPC
 
 test('mark cycle: guide names, target button and step key advance together without losing name cycles', () => {
 	const out = run(`
+		set("targetSimple", true) -- the target button's own name cycle
 		set("markTarget", true)
 		set("markMob", "cycle")
 		q.step({ { t = "kill", target = "Wolf" }, { t = "kill", target = "Boar" } })
@@ -187,6 +188,7 @@ test('mark cycle: NPCs skip the fixed mob icon; off and fixed settings do not ad
 
 test('mark cycle: existing target and step macros stay frozen in combat, then apply the latest cycle once safe', () => {
 	const out = run(`
+		set("targetSimple", true) -- the target button's own name cycle
 		set("markTarget", true)
 		set("markMob", "cycle")
 		q.step({ { t = "kill", target = "Wolf" }, { t = "kill", target = "Boar" } })

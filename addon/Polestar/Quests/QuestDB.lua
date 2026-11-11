@@ -379,6 +379,8 @@ end
 -- Names of the mobs a quest objective is about: the kill target, or the
 -- droppers of the item (best chance first). oi is the objective's position
 -- in the database, which matches the quest log for nearly every quest.
+-- Second value: { id, chance } for each name, in the same order (chance only
+-- for droppers).
 function Q.GetObjectiveMobs(questID, oi)
 	local r = questID and data.quests[questID]
 	local obj = r and r[QUEST_OBJ]
@@ -387,15 +389,20 @@ function Q.GetObjectiveMobs(questID, oi)
 	local kind, id = obj[i], obj[i + 1]
 	if kind == 1 then
 		local nrec = data.npcs[id]
-		return nrec and { named("Npc", id, nrec[1]) } or nil
+		if not nrec then return nil end
+		return { named("Npc", id, nrec[1]) }, { { id = id } }
 	elseif kind == 2 then
 		local d = Q.GetItemDroppers(id)
 		if not d then return nil end
-		local out = {}
+		local out, meta = {}, {}
 		for k = 1, #d do
-			if d[k].name then out[#out + 1] = d[k].name end
+			if d[k].name then
+				out[#out + 1] = d[k].name
+				meta[#out] = { id = d[k].id, chance = d[k].chance }
+			end
 		end
-		return #out > 0 and out or nil
+		if #out == 0 then return nil end
+		return out, meta
 	end
 	return nil
 end
