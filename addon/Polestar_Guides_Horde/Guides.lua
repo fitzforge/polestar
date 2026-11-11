@@ -21338,7 +21338,7 @@ do
 					title = "{npc:14727}: how it works",
 					note = "Darkspear reputation comes from quests and cloth. {npc:14727}, the Darkspear cloth quartermaster, stands in {zone:1454}'s {object:172961}. She takes four one-time donations of 60 cloth (150 each) and then {quest:7837}, 20 {item:14047} for 50, as often as you like. Every point you earn with the {faction:530} also gives a quarter as much to {zone:1454}, {zone:1456} and the {zone:1458}. While you level, do the Darkspear quests within 5 levels of them: {zone:1411} at 5 to 12, {area:414} in {zone:1440} at 19 to 27, {object:3202} in Stranglethorn at 34 to 46. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Darkspear merchants sell to you for 10% less (the Classic rule), the raptor vendor included; at Exalted other races can buy the raptors: 20 gold for a level 40 raptor, 200 gold for a swift raptor at level 60, once you have mount training. The {faction:530} have no tabard or other reward.",
 					goals = {
-						{ t = "goto", text = "{npc:14727}", map = 1454, x = 37.7, y = 87.9, f = "e", note = "her donations are handed in from her window and never enter the log (#1699 sweep)" },
+						{ t = "goto", text = "{npc:14727}", map = 1454, x = 37.7, y = 87.9, f = "e", note = "her donations are handed in from her window and never enter the log" },
 					},
 				},
 				{
@@ -21748,7 +21748,7 @@ do
 					title = "{faction:76}: how it works",
 					note = "{faction:76} reputation comes from quests and cloth. {npc:14726}, the cloth quartermaster, stands in the Drag beside the cloth and leather armor shop. She takes four one-time donations of 60 cloth (150 each) and then {quest:7832}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:76} also gives a quarter as much to {zone:1456}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:76}'s quests within 5 levels of them: {zone:1411} at 5 to 12, the Crossroads at 12 to 20, {npc:4949}'s {quest:5726} at 12 to 16. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Orgrimmar's merchants sell to you for 10% less (the Classic rule), the wolf vendor included; at Exalted other races can buy the wolves: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60, once you have mount training. {faction:76} has no tabard or other reward.",
 					goals = {
-						{ t = "goto", text = "{npc:14726}", map = 1454, x = 63.6, y = 51.2, f = "e", note = "her donations are handed in from her window and never enter the log (#1699 sweep)" },
+						{ t = "goto", text = "{npc:14726}", map = 1454, x = 63.6, y = 51.2, f = "e", note = "her donations are handed in from her window and never enter the log" },
 					},
 				},
 				{
@@ -22422,7 +22422,7 @@ do
 					title = "{faction:81}: how it works",
 					note = "{faction:81} reputation comes from quests, {item:11040} and cloth. {npc:14728}, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then {quest:7825}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:81} also gives a quarter as much to {zone:1454}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:81}'s quests within 5 levels of them: {zone:1412} at 1 to 12, {area:378} and the Crossroads at 13 to 22, {zone:1441} at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. {faction:81} has no tabard or other reward.",
 					goals = {
-						{ t = "goto", text = "{npc:14728}", map = 1456, x = 43.1, y = 42.7, f = "e", note = "his donations are handed in from his window and never enter the log (#1699 sweep)" },
+						{ t = "goto", text = "{npc:14728}", map = 1456, x = 43.1, y = 42.7, f = "e", note = "his donations are handed in from his window and never enter the log" },
 					},
 				},
 				{
@@ -22844,7 +22844,7 @@ do
 					title = "{faction:68}: how it works",
 					note = "{faction:68} reputation comes from quests and cloth. {npc:14729}, the cloth quartermaster, stands in the {object:36082} beside the tailors. He takes four one-time donations of 60 cloth (150 each) and then {quest:7819}, 20 {item:14047} for 50, as often as you like. Every point you earn with the {faction:68} also gives a quarter as much to {zone:1454}, {zone:1456} and the Darkspear Trolls. While you level, do the {faction:68}'s quests within 5 levels of them: Tirisfal at 1 to 12, Silverpine at 10 to 20, {area:287} and {area:272} at 20 to 33. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the {faction:68}'s merchants sell to you for 10% less (the Classic rule), the horse vendor included; at Exalted other races can buy the skeletal horses: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse, once you have mount training. {object:1661} has no tabard or other reward.",
 					goals = {
-						{ t = "goto", text = "{npc:14729}", map = 1458, x = 71.7, y = 29.2, f = "e", note = "his donations are handed in from his window and never enter the log (#1699 sweep)" },
+						{ t = "goto", text = "{npc:14729}", map = 1458, x = 71.7, y = 29.2, f = "e", note = "his donations are handed in from his window and never enter the log" },
 					},
 				},
 				{

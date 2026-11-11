@@ -2271,7 +2271,7 @@ do
 					title = "{quest:4785}",
 					note = "Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway.",
 					goals = {
-						{ t = "turnin", quest = 4785, title = "Fine Gold Thread", npc = 2670, npcName = "Xizk Goodstitch", qlvl = 37, map = 1434, x = 28.71, y = 76.89, z = 32.4, f = "e", note = "{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)", direct = true },
+						{ t = "turnin", quest = 4785, title = "Fine Gold Thread", npc = 2670, npcName = "Xizk Goodstitch", qlvl = 37, map = 1434, x = 28.71, y = 76.89, z = 32.4, f = "e", note = "{npc:2670}: {quest:4785}, handed straight back", direct = true },
 						{ t = "collect", quest = 4784, title = "Components for the Enchanted Gold Bloodrobe", item = 12293, itemName = "Fine Gold Thread", count = 1, oi = 1, map = 1434, x = 28.71, y = 76.89, f = "e", from = "Xizk Goodstitch", fromKind = "npc", fromId = 2670, fromNpcs = { { npc = 2670, npcName = "Xizk Goodstitch" } } },
 					},
 				},
