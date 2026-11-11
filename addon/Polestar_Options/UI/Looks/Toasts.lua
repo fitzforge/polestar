@@ -513,3 +513,97 @@ for _, c in ipairs({
 		help = L["A short chime the first time a class quest chain's card or heads-up shows. Off while the game's sound effects are off."] },
 }) do card[#card + 1] = c end
 register({ tab = CARD, section = L["Card"], preview = function(view) return TS.Preview(view, "classcard") end, controls = card })
+
+---------------------------------------------------------------------------
+-- Essentials (the page's lead tab): four ways the alerts can be, as picture
+-- cards, then the ten settings players change most, each a reference to its
+-- row on the alerts' own tabs.
+---------------------------------------------------------------------------
+
+local O = UI.Options
+if O and O.PresetCards and O.Ref then
+	local R = O.Ref
+	local KINDS4 = { "rare", "transport", "whilehere", "headsup" }
+	-- A preset's card: the rare alert as the preset paints it (its own card
+	-- code, Rares' NewCard and TS.ApplyLook, at a share of its scale so a
+	-- bigger one shows bigger), the transport banner under it while alerts
+	-- line up, and a Silent chip while no alert makes a sound.
+	local function drawAlertCard(art, _, values)
+		local cw, ch = art:GetWidth(), art:GetHeight()
+		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
+		if not (ch and ch > 0) then ch = W.CARD_ART end
+		if art.psBuilt == nil then
+			W.Fill(art, "scrim", "BACKGROUND", -6)
+			art.psRare, art.psBoat = BUILD.rare(art), BUILD.transport(art)
+			art.psSilent = W.Chip(art)
+			W.SetChip(art.psSilent, L["Silent"], "muted")
+			art.psBuilt = true
+		end
+		local rare, boat = art.psRare, art.psBoat
+		O.WithSettings(values, function()
+			local lined = ns.Get("toasts.stack") and true or false
+			local silent = not (ns.Get("rares.sound") or ns.Get("nav.alertSound") or ns.Get("behavior.whileHereSound"))
+			art.psSilent:ClearAllPoints()
+			art.psSilent:SetPoint("BOTTOMRIGHT", art, "BOTTOMRIGHT", -6, 6)
+			art.psSilent:SetShown(silent)
+			local list = { rare }
+			if lined and boat then list[2] = boat end
+			if boat then boat:SetShown(lined) end
+			local gap = (tonumber(ns.Get("toasts.spacing")) or 8)
+			local total, sizes = 0, {}
+			for i, c in ipairs(list) do
+				if c then
+					TS.ApplyLook(c, true)
+					local kind = i == 1 and "rare" or "transport"
+					local k = 0.34 * TS.Scale(kind)
+					sizes[i] = { k, c:GetWidth() * k, c:GetHeight() * k }
+					total = total + sizes[i][3] + (i > 1 and gap * 0.34 or 0)
+				end
+			end
+			-- Fitted to the card when the column would not fit.
+			local fit = 1
+			for _, s in pairs(sizes) do fit = min(fit, (cw - 12) / max(1, s[2])) end
+			fit = min(fit, (ch - 10) / max(1, total))
+			local y = (ch - total * fit) / 2
+			for i, c in ipairs(list) do
+				if c and sizes[i] then
+					local s = sizes[i]
+					c:SetScale(max(0.05, s[1] * fit))
+					c:SetAlpha(TS.Alpha(i == 1 and "rare" or "transport"))
+					c:ClearAllPoints()
+					c:SetPoint("TOP", art, "TOP", 0, -(y / (s[1] * fit)))
+					c:Show()
+					y = y + s[3] * fit + gap * 0.34 * fit
+				end
+			end
+		end)
+	end
+	local quiet = { ["rares.sound"] = false, ["nav.alertSound"] = false, ["nav.alertFlash"] = false, ["behavior.whileHereSound"] = false,
+		["ui.classCardSound"] = false }
+	local large = {}
+	for _, k in ipairs(KINDS4) do
+		quiet["toasts." .. k .. ".enter"] = "fade"
+		large["toasts." .. k .. ".scale"], large["toasts." .. k .. ".titleSize"], large["toasts." .. k .. ".bodySize"] = 1.25, 1.15, 1.15
+	end
+	local PRESETS = {
+		{ value = "polestar", label = L["Polestar"], set = {}, draw = drawAlertCard },
+		{ value = "quiet", label = L["Quiet"], set = quiet, draw = drawAlertCard,
+			help = L["No sounds and no taskbar flash; the alerts fade in instead of sliding."] },
+		{ value = "large", label = L["Large"], set = large, draw = drawAlertCard,
+			help = L["Every alert and card bigger, its text with it."] },
+		{ value = "lined", label = L["Lined up"], set = { ["toasts.stack"] = true }, draw = drawAlertCard,
+			help = L["The rare alert, the transport banner and While you're here line up one under the other."] },
+	}
+	local ESSENTIALS = L["Essentials"]
+	register({ tab = ESSENTIALS, lead = true, section = L["Presets"], preview = function(view) return TS.Preview(view, "rare") end,
+		controls = { O.PresetCards({ presets = PRESETS }) } })
+	register({ tab = ESSENTIALS, section = L["Alerts"], jump = { tab = RARE, section = L["Rare alert"] }, controls = {
+		R("toggle", "rares.alerts", { label = L["Rares"] }), R("toggle", "nav.alerts", { label = L["Transport"] }),
+		R("toggle", "behavior.whileHere"), R("toggle", "dungeons.headsUp"),
+		R("toggle", "toasts.stack"), R("dropdown", "toasts.growth"),
+	} })
+	register({ tab = ESSENTIALS, section = L["Sound"], jump = { tab = RARE, section = L["Rare alert"] }, controls = {
+		R("dropdown", "rares.soundKit"), R("toggle", "nav.alertSound", { label = L["Transport sound"] }),
+		R("toggle", "behavior.whileHereSound", { label = L["Nearby chime"] }), R("toggle", "ui.classCardSound", { label = L["Class quest chime"] }),
+	} })
+end

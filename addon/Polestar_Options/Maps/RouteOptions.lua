@@ -642,3 +642,19 @@ register(L["Flights & rides"], {
 		"tram colour, color, deeprun, lift, elevator, underground"),
 })
 
+-- Essentials (the page's lead tab): the styles, then the settings players
+-- change most, each a reference to its row on Route; the size row is the
+-- drawn style's own (line thickness, dot size or sparkle size).
+local O = ns.UI and ns.UI.Options
+if O and O.Ref then
+	local Ref = O.Ref
+	local ESSENTIALS = L["Essentials"]
+	register(L["Style"], { Ref("cards", "nav.lineStyle") }, { tab = ESSENTIALS, lead = true })
+	register(L["Route lines"], {
+		Ref("slider", "nav.laterAlpha"), Ref("color", "nav.walkColor"),
+		Ref("slider", "nav.worldRouteAlpha"), Ref("slider", "nav.minimapRouteAlpha"),
+		Ref("slider", "nav.lineWidth", { needs = drawn("line") }), Ref("slider", "nav.dotSize", { needs = drawn("dots") }),
+		Ref("slider", "nav.sparkleSize", { needs = drawn("sparkle") }), Ref("color", "nav.flightColor"),
+	}, { tab = ESSENTIALS, jump = { tab = ROUTE, section = L["Route lines"] }, toggle = Ref("toggle", "nav.routeLines") })
+end
+

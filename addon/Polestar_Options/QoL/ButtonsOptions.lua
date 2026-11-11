@@ -430,6 +430,89 @@ local SPECS = {
 	} },
 }
 
+---------------------------------------------------------------------------
+-- Essentials (the page's lead tab): four looks of the button set as picture
+-- cards, then the ten settings players change most, each a reference to its
+-- row on Action buttons or Launcher & minimap.
+---------------------------------------------------------------------------
+
+local O = ns.UI and ns.UI.Options
+if O and O.PresetCards and O.Ref then
+	local R = O.Ref
+	-- A preset's card: the Hearthstone, quest item and target buttons as the
+	-- set lines them up with the preset's values, drawn by the buttons' own
+	-- face code (Buttons.NewFace, Size, Paint, Offsets, Alpha) and fitted in.
+	local function drawSetCard(art, _, values)
+		local cw, ch = art:GetWidth(), art:GetHeight()
+		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
+		if not (ch and ch > 0) then ch = W.CARD_ART end
+		local g = art.psGroup
+		if not g then
+			W.Fill(art, "scrim", "BACKGROUND", -6)
+			g = CreateFrame("Frame", nil, art)
+			g:SetSize(1, 1)
+			g.faces = {}
+			for i, kind in ipairs(SHOWN) do
+				local b = Buttons.NewFace(g, kind)
+				b.psStack = g.faces
+				g.faces[i] = b
+			end
+			g.faces[1].Icon:SetTexture(itemIcon(QoL.Client and QoL.Client.HEARTHSTONE, DEMO_HEARTH_ICON))
+			g.faces[2].Icon:SetTexture(DEMO_ITEM_ICON)
+			g.faces[2].Count:SetText("3")
+			for i, key in ipairs({ "H", "E", "T" }) do g.faces[i].Hotkey:SetText(key) end
+			local t = g.faces[3]
+			t.aList, t.aVerbs, t.aIds, t.aMarks, t.aCycle = { L["Kobold Vermin"] }, { "kill" }, {}, { false }, 1
+			art.psGroup = g
+		end
+		O.WithSettings(values, function()
+			local at = Buttons.Offsets()
+			local x0, x1, y0, y1 = math.huge, -math.huge, math.huge, -math.huge
+			for _, b in ipairs(g.faces) do
+				local size = Buttons.Size(b.psKind)
+				b:SetSize(size, size)
+				b.psReady = true
+				Buttons.Paint(b)
+				local o, h = at[b.psKind], size / 2
+				b:ClearAllPoints()
+				b:SetPoint("CENTER", g, "CENTER", o[1], o[2])
+				x0, x1, y0, y1 = min(x0, o[1] - h), max(x1, o[1] + h), min(y0, o[2] - h), max(y1, o[2] + h)
+			end
+			-- The set at 45% of its scale (so a bigger set shows bigger), smaller
+			-- only when it would not fit the card.
+			local s = (tonumber(ns.Get("qol.buttonScale")) or 1) * 0.45
+			s = min(s, (ch - 14) / (y1 - y0), (cw - 16) / (x1 - x0))
+			g:SetScale(max(0.05, s))
+			g:ClearAllPoints()
+			g:SetPoint("CENTER", art, "CENTER", -(x0 + x1) / 2, -(y0 + y1) / 2)
+			g:SetAlpha(Buttons.Alpha(false))
+		end)
+	end
+	local PRESETS = {
+		{ value = "polestar", label = L["Polestar"], set = {}, draw = drawSetCard },
+		{ value = "large", label = L["Large"], draw = drawSetCard,
+			help = L["Bigger buttons with bigger names and key bindings."],
+			set = { ["qol.buttonScale"] = 1.3, ["buttons.labelScale"] = 1.2, ["buttons.hotkeyScale"] = 1.2 } },
+		{ value = "row", label = L["Row"], draw = drawSetCard,
+			help = L["The buttons side by side, their names below them."],
+			set = { ["buttons.layout"] = "row", ["qol.buttonTextSide"] = "below" } },
+		{ value = "quiet", label = L["Quiet"], draw = drawSetCard,
+			help = L["Half seen out of combat, no glow and no background plate."],
+			set = { ["buttons.idleAlpha"] = 0.5, ["buttons.glow"] = false, ["buttons.backing"] = "none" } },
+	}
+	local ESSENTIALS = L["Essentials"]
+	local list = {
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildActionPreview,
+			controls = { O.PresetCards({ presets = PRESETS }) } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Buttons"], jump = { tab = ACTION, section = L["Buttons"] },
+			controls = { R("slider", "buttons.itemSize"), R("slider", "buttons.hearthSize"), R("slider", "buttons.targetSize"), R("slider", "buttons.rareSize") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Button set"], jump = { tab = ACTION, section = L["Button set"] },
+			controls = { R("slider", "qol.buttonScale"), R("dropdown", "buttons.layout"), R("dropdown", "qol.buttonTextSide"), R("slider", "buttons.idleAlpha"),
+				R("slider", "ui.launcherSize"), R("slider", "maps.minimapButtonSize") } },
+	}
+	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end
+end
+
 for _, spec in ipairs(SPECS) do
 	local ok, err = ns.RegisterOptions(spec)
 	if not ok and geterrorhandler then geterrorhandler()(err) end

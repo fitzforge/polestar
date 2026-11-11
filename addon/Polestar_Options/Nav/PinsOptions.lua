@@ -667,6 +667,88 @@ local SPECS = {
 	} },
 }
 
+---------------------------------------------------------------------------
+-- Essentials (the page's lead tab): its presets as picture cards, then the
+-- ten settings players change most, each a reference to its row on Pins or
+-- Icons (same key, same tooltip; More opens that tab at the section).
+---------------------------------------------------------------------------
+
+local O = ns.UI and ns.UI.Options
+if O and O.PresetCards and O.Ref then
+	local R = O.Ref
+	-- Where a card's pins sit (fractions of its art): the target, three steps.
+	local CARD_SPOTS = { target = { 0.2, 0.56 }, steps = { { 0.44, 0.3 }, { 0.64, 0.66 }, { 0.84, 0.34 } } }
+	-- A preset's card: a corner of Elwynn with the target and three numbered
+	-- pins on their route, drawn by Pins' own look code with the preset's
+	-- values (Pins' look is read again after, for the live pins).
+	local function drawPreset(art, _, values)
+		local w, h = art:GetWidth(), art:GetHeight()
+		if not (w and w > 0) then w = W.CARD_W - 2 end
+		if not (h and h > 0) then h = W.CARD_ART end
+		local ZA = ns.UI and ns.UI.ZoneArt
+		if not art.psLayer then
+			local ground = art
+			if ZA then
+				art.psZone = ZA.Create(art, w, h, "panelAlt")
+				art.psZone:SetPoint("TOPLEFT", art, "TOPLEFT", 0, 0)
+				ZA.Paint(art.psZone, ZONE, 42, 64, 3)
+				ground = art.psZone.Over or art.psZone
+			end
+			local layer = CreateFrame("Frame", nil, art)
+			layer:SetAllPoints(art)
+			layer:SetFrameLevel(ground:GetFrameLevel() + 2)
+			art.psLayer, art.psTarget, art.psDots = layer, newPin(layer), {}
+			art.psSteps = { newPin(layer), newPin(layer), newPin(layer) }
+		end
+		local layer = art.psLayer
+		O.WithSettings(values, function()
+			Pins.ReadLook()
+			local arrow = rgb("arrow")
+			local glow, _, grow, scale = Layers.TargetLook()
+			local tx, ty = CARD_SPOTS.target[1] * w, CARD_SPOTS.target[2] * h
+			worldPin(art.psTarget, layer, { icon = "map:target", color = arrow, glow = glow, grow = grow }, scale, tx, ty, ZOOM_OUT)
+			local route = { { tx, ty } }
+			for i, s in ipairs(art.psSteps) do
+				local p, numbered = Upcoming.Look(i, #art.psSteps)
+				p.text = numbered and tostring(i + 1) or nil
+				local x, y = CARD_SPOTS.steps[i][1] * w, CARD_SPOTS.steps[i][2] * h
+				worldPin(s, layer, p, 1, x, y, ZOOM_OUT)
+				route[#route + 1] = { x, y }
+			end
+			local mr, mg, mb = Theme.Color("textDim")
+			local n = dotLine(art.psDots, layer, 0, route, 7, 2, mr, mg, mb, 0.55)
+			for i = n + 1, #art.psDots do art.psDots[i]:Hide() end
+		end)
+		Pins.ReadLook()
+	end
+	local PRESETS = {
+		{ value = "polestar", label = L["Polestar"], set = {}, draw = drawPreset },
+		{ value = "large", label = L["Large"], draw = drawPreset,
+			help = L["Bigger pins and marks, easier to read and to click."],
+			set = { ["nav.stepPinSize"] = 1.5, ["nav.stepNumberSize"] = 1.2, ["nav.targetPinSize"] = 1.3, ["nav.worldIconSize"] = 1.3,
+				["nav.minimapIconSize"] = 1.2, ["nav.badgeSize"] = 1.2 } },
+		{ value = "subtle", label = L["Subtle"], draw = drawPreset,
+			help = L["Smaller, fainter pins that leave the map to the map."],
+			set = { ["nav.stepPinSize"] = 0.8, ["nav.stepAlpha"] = 0.7, ["nav.stepFadeTo"] = 0.25, ["nav.worldPinAlpha"] = 0.75,
+				["nav.minimapPinAlpha"] = 0.75, ["nav.areaAlpha"] = 0.2, ["nav.targetGlow"] = false } },
+		{ value = "steps", label = L["Colour per step"], draw = drawPreset,
+			help = L["Each step ahead in its own colour, none fainter, so the route reads at a glance."],
+			set = { ["nav.stepColorMode"] = "steps", ["nav.stepFadeTo"] = 1 } },
+	}
+	local ESSENTIALS = L["Essentials"]
+	local list = {
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildPinsPreview,
+			controls = { O.PresetCards({ presets = PRESETS }) } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Numbered pins"], jump = { tab = L["Pins"], section = L["Numbered pins"] },
+			toggle = R("toggle", "nav.upcomingPins"),
+			controls = { R("slider", "nav.stepPinSize"), R("slider", "nav.stepNumberSize"), R("dropdown", "nav.stepColorMode"), R("slider", "nav.upcomingCount") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Icons and target"], jump = { tab = L["Icons"], section = L["Icons"] },
+			controls = { R("dropdown", "nav.mapIcons", { label = L["Icon pack"], wide = false }), R("slider", "nav.targetPinSize"), R("slider", "nav.worldIconSize"),
+				R("slider", "nav.minimapIconSize"), R("slider", "nav.areaAlpha"), R("toggle", "nav.targetGlow") } },
+	}
+	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end
+end
+
 for _, spec in ipairs(SPECS) do
 	local ok, err = ns.RegisterOptions(spec)
 	if not ok and geterrorhandler then geterrorhandler()(err) end

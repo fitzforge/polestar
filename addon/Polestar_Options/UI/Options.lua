@@ -107,7 +107,7 @@ end
 local function sectionOf(t, name)
 	name = name or ""
 	for _, s in ipairs(t.sections) do if s.name == name then return s end end
-	local s = { name = name, controls = {} }
+	local s = { name = name, controls = {}, psTab = t }
 	t.sections[#t.sections + 1] = s
 	return s
 end
@@ -131,10 +131,24 @@ local function add(spec, builtin)
 	if spec.empty then p.empty = spec.empty end
 	if spec.group then p.group = spec.group end
 	local tab = tabOf(p, spec.tab)
+	-- The page's lead tab (Essentials): first, whatever registered before it.
+	if spec.lead and not tab.lead then
+		tab.lead = true
+		for i, t in ipairs(p.tabs) do
+			if t == tab then table.remove(p.tabs, i) break end
+		end
+		table.insert(p.tabs, 1, tab)
+	end
 	-- preview(host) -> frame with :Layout(width) -> height: the tab's live
 	-- preview, pinned over its rows (W.ShellPreview).
 	if spec.preview then tab.preview = spec.preview end
 	local s = sectionOf(tab, spec.section)
+	-- jump = { tab, section }: a More link in the section's header that opens
+	-- that tab of the page and lights that section (Essentials).
+	if spec.jump then s.jump = spec.jump end
+	-- columns = { left, right }: a caption over each half of the section's
+	-- rows (two places taking the same settings: world map | minimap).
+	if spec.columns then s.columns = spec.columns end
 	local function place(c, owner)
 		c.page, c.tab, c.section, c.psSection, c.psOwner = p, spec.tab, spec.section, s, owner
 		for _, e in ipairs(c.extras or {}) do place(e, c) end
@@ -773,7 +787,65 @@ local ALIASES = {
 -- Controls and the grid
 ---------------------------------------------------------------------------
 
+---------------------------------------------------------------------------
+-- References (Essentials). A control with `ref = true` stands for the
+-- control registered under its key elsewhere (its home, on a deep tab of
+-- the page, else of any page): it takes every field of its home's (kind,
+-- range, format, choices, help, search, disabled, needs, extras, ...) but
+-- the home's cog and New mark, and the fields given beside `ref` win (a
+-- shorter label, other extras). Resolved when first needed, so the order of
+-- registration does not matter; with no home registered it is left out.
+-- Search, the profiles' checks and O.AllControls see the homes alone.
+---------------------------------------------------------------------------
+
+-- What a reference never takes from its home: where it stands, its own
+-- state (ps* fields), the home's cog and New mark.
+local REF_OWN = { page = true, tab = true, section = true, more = true, new = true, child = true }
+
+-- -> the home of reference c, or nil (c is no reference, or has no home yet)
+local function homeOf(c)
+	local home = rawget(c, "psHome")
+	if home or not rawget(c, "ref") then return home end
+	local same, other
+	local function look(x, onPage)
+		if same then return end
+		if x ~= c and not rawget(x, "ref") and x.key == c.key then
+			if onPage then same = x elseif not other then other = x end
+		end
+		for _, e in ipairs(rawget(x, "extras") or {}) do look(e, onPage) end
+		local m = rawget(x, "more")
+		for _, y in ipairs(type(m) == "table" and m or {}) do look(y, onPage) end
+	end
+	for _, p in ipairs(pageList) do
+		local onPage = p == rawget(c, "page")
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do
+				if s.toggle then look(s.toggle, onPage) end
+				for _, x in ipairs(s.controls) do look(x, onPage) end
+			end
+		end
+	end
+	home = same or other
+	if not home then return nil end
+	rawset(c, "psHome", home)
+	setmetatable(c, { __index = function(_, k)
+		if REF_OWN[k] or (type(k) == "string" and k:sub(1, 2) == "ps") then return nil end
+		return home[k]
+	end })
+	return home
+end
+O.HomeOf = homeOf
+
+-- A reference for a page's spec: kind and key (what RegisterOptions checks),
+-- `ref`, and any fields given (a shorter label, other extras).
+function O.Ref(kind, key, fields)
+	local c = { kind = kind, key = key, ref = true }
+	for k, v in pairs(fields or {}) do c[k] = v end
+	return c
+end
+
 local function available(c)
+	if rawget(c, "ref") and not homeOf(c) then return false end
 	if c.needs and not c.needs() then return false end
 	if c.kind == "button" then return true end
 	if c.kind == "binding" then return ns.Gamepad ~= nil and ns.Gamepad.BindingRow ~= nil end
@@ -800,6 +872,8 @@ local function choicesOf(c)
 	end
 	return out
 end
+
+local watching = setmetatable({}, { __mode = "k" }) -- widget -> the settings it shows (c.watch)
 
 local function makeControl(parent, c)
 	local w
@@ -837,10 +911,19 @@ local function makeControl(parent, c)
 	end
 	if c.disabled then W.SetDisabledWhen(w, c.disabled) end
 	w.psControl = c
+	if c.watch then watching[w] = c.watch end
 	return w
 end
 -- A control from its spec, as the pages make them.
 O.Control = makeControl
+
+-- A widget that shows several settings (c.watch = { [key] = true }: the
+-- presets' cards) repaints when one of them changes, or all of them do.
+ns.On("SETTING_CHANGED", function(path)
+	for w, keys in pairs(watching) do
+		if (path == nil or path == "" or keys[path] or not path:find(".", 1, true)) and w:IsVisible() and w.Refresh then w:Refresh() end
+	end
+end)
 
 ---------------------------------------------------------------------------
 -- New settings. A control's `new` (the release it came in: "0.3.8") puts a
@@ -934,6 +1017,19 @@ local function allSettings(s)
 	return out
 end
 
+-- Every setting of a section that is a home: no reference (Essentials) and
+-- nothing a reference shows of its home's (its extras). -> list
+local function homeSettings(s)
+	local out = {}
+	if s.toggle and not rawget(s.toggle, "ref") then out[1] = s.toggle end
+	for _, c in ipairs(s.controls) do
+		if not rawget(c, "ref") then
+			eachSetting(c, function(x) if not rawget(x, "ref") then out[#out + 1] = x end end)
+		end
+	end
+	return out
+end
+
 -- The settings of a list that are off their default. -> count
 local function modifiedCount(controls)
 	local n = 0
@@ -1019,8 +1115,8 @@ local function pathOf(c)
 end
 
 -- A setting's tooltip lines: its help, where its colour comes from while it
--- follows one, why it is off, that right-click resets it, and (search
--- results) where it lives.
+-- follows one, why it is off, that right-click resets it, and where it
+-- lives (search results, and a reference: its home's page, tab and section).
 local function tipOf(c, withPath)
 	return function(w)
 		local lines = {}
@@ -1035,7 +1131,8 @@ local function tipOf(c, withPath)
 			if why then lines[#lines + 1] = { why, Theme.Color("warning") } end
 		end
 		if on and c.key and W.Modified(c.key) then lines[#lines + 1] = { L["Right-click to reset."], Theme.Color("textMuted") } end
-		if withPath then lines[#lines + 1] = { pathOf(c), Theme.Color("textMuted") } end
+		local home = homeOf(c)
+		if withPath or home then lines[#lines + 1] = { pathOf(home or c), Theme.Color("textMuted") } end
 		return lines
 	end
 end
@@ -1174,7 +1271,7 @@ local function layoutRows(view, controls, top, x, width, whole)
 	return y - top
 end
 
--- Header widgets, right to left from the 16 edge: the toggle, Reset, New.
+-- Header widgets, right to left from the 16 edge: the toggle, More, Reset, New.
 local function placeHeader(card)
 	local x = 16
 	local function put(f)
@@ -1184,8 +1281,56 @@ local function placeHeader(card)
 	end
 	local sw = card.psToggle
 	if sw and sw:IsShown() then put(sw) end
+	if card.More:IsShown() then put(card.More) end
 	if card.Reset:IsShown() then put(card.Reset) end
 	if card.New:IsShown() then put(card.New) end
+end
+
+-- Open a page's tab with a section of it scrolled under the top of the body
+-- and lit (an Essentials section's More link). -> the section's card, or nil
+function O.ShowSection(pageKey, tabName, sectionName)
+	O.Select(pageKey, tabName)
+	local view = O.view
+	if not (view and view.cards) then return nil end
+	for _, card in ipairs(view.cards) do
+		if card:IsShown() and card.psName == sectionName then
+			W.ScrollTo(win.Scroll, max(0, (card.psTop or 0) - 16))
+			O.Flash(card)
+			return card
+		end
+	end
+	return nil
+end
+
+-- An Essentials section's way to the rest of its part's settings: "More"
+-- and a chevron in the label role, textDim (text under the cursor).
+local function moreLink(card)
+	local b = CreateFrame("Button", nil, card.Header)
+	b.Label = W.Text(b, "label", "textDim")
+	b.Label:SetText(L["More"])
+	b.Label:SetPoint("LEFT", b, "LEFT", 0, 0)
+	b.Chevron = W.Tex(b, "ARTWORK", "chevron-right", "textDim")
+	b.Chevron:SetSize(9, 9)
+	b.Chevron:SetPoint("LEFT", b.Label, "RIGHT", 4, 0)
+	b:SetSize(floor(b.Label:GetStringWidth() + 13 + 0.5), 20)
+	b:SetScript("OnEnter", function(self)
+		W.Color(self.Label, "text")
+		W.Color(self.Chevron, "text")
+		local j = card.psSection and card.psSection.jump
+		if j then W.Tooltip(self, "ANCHOR_TOP", string.format(L["Every setting of %s"], j.tab or "")) end
+	end)
+	b:SetScript("OnLeave", function(self)
+		W.Color(self.Label, "textDim")
+		W.Color(self.Chevron, "textDim")
+		W.HideTooltip(self)
+	end)
+	b:SetScript("OnClick", function()
+		local s = card.psSection
+		local j = s and s.jump
+		if j and current then O.ShowSection(current.key, j.tab, j.section or s.name) end
+	end)
+	b:Hide()
+	return b
 end
 
 -- A section's Reset: more than three settings ask first.
@@ -1215,8 +1360,26 @@ local function cardOf(view, n)
 	card.New = W.Chip(card.Header)
 	W.SetChip(card.New, L["New"], "accent")
 	card.New:Hide()
+	card.More = moreLink(card)
 	view.cards[n] = card
 	return card
+end
+
+-- A section's caption row (s.columns): each half's caption in the caption
+-- role, textMuted, on a faint shade under the header. Made once per card.
+local COLUMNS_H = 24
+local function columnsOf(card)
+	local c = rawget(card, "Columns")
+	if c then return c end
+	c = CreateFrame("Frame", nil, card)
+	c.Shade = W.Tex(c, "BACKGROUND", nil, "shade")
+	c.Shade:SetAllPoints(c)
+	W.Color(c.Shade, "shade", 0.14)
+	c.Left = W.Text(c, "caption", "textMuted")
+	c.Left:SetPoint("LEFT", c, "LEFT", 16, 0)
+	c.Right = W.Text(c, "caption", "textMuted")
+	card.Columns = c
+	return c
 end
 
 -- Show each card's Reset and New, and each cog's dot, as the settings stand.
@@ -1275,13 +1438,38 @@ local function layoutSections(view, groups, y, opts)
 		card.Rule:SetShown(header)
 		card.RowsTop = header and W.CARD_HEADER + 1 or 0
 		card.psToggle = t and toggleOf(view, t, card) or nil
+		-- The lead tab (Essentials) shows no New: its rows stand for settings
+		-- whose homes carry it.
+		local lead = s and s.psTab and s.psTab.lead
 		local new = false
-		for _, x in ipairs(g.settings or {}) do if rowIsNew(x) then new = true end end
+		if not lead then
+			for _, x in ipairs(g.settings or {}) do if rowIsNew(x) then new = true end end
+		end
 		card.New:SetShown(header and new)
+		card.More:SetShown(header and not view.psSearch and s ~= nil and s.jump ~= nil)
 		local gutter = opts and opts.gutter or 0
-		local rowsH = layoutRows(view, g.controls, y + card.RowsTop, SH.pad + gutter, width - gutter, opts and opts.whole)
+		local whole = opts and opts.whole
+		-- A caption over each half (s.columns), while the rows stand in halves.
+		local capH = 0
+		local cols = s and s.columns
+		if cols and not whole and width - gutter >= HALVES_MIN then
+			capH = COLUMNS_H
+			local c = columnsOf(card)
+			local half = floor((width - gutter) / 2)
+			c:ClearAllPoints()
+			c:SetPoint("TOPLEFT", card, "TOPLEFT", gutter, -card.RowsTop)
+			c:SetSize(width - gutter, COLUMNS_H)
+			c.Left:SetText(cols[1] or "")
+			c.Right:SetText(cols[2] or "")
+			c.Right:ClearAllPoints()
+			c.Right:SetPoint("LEFT", c, "LEFT", half + 16, 0)
+			c:Show()
+		elseif rawget(card, "Columns") then
+			card.Columns:Hide()
+		end
+		local rowsH = layoutRows(view, g.controls, y + card.RowsTop + capH, SH.pad + gutter, width - gutter, whole)
 		card.psTop = y
-		y = y + card:Place(SH.pad, y, width, rowsH) + SECTION_GAP
+		y = y + card:Place(SH.pad, y, width, rowsH + capH) + SECTION_GAP
 	end
 	for i = n + 1, #view.cards do view.cards[i]:Hide() end
 	markSections(view)
@@ -1789,7 +1977,7 @@ local function suggest(nw)
 		for _, t in ipairs(p.tabs) do
 			for _, sec in ipairs(t.sections) do
 				for _, c in ipairs(sec.controls) do
-					if available(c) then
+					if not rawget(c, "ref") and available(c) then
 						local s = searchTokens(c)
 						local total = 0
 						for i = 1, nw do
@@ -1846,11 +2034,14 @@ function O.Search(q)
 		for _, t in ipairs(p.tabs) do
 			for _, s in ipairs(t.sections) do if sectionShown(s) then
 				-- The section's toggle is a result of its own; a control is
-				-- found by its words and by those of its extras and cog.
+				-- found by its words and by those of its extras and cog. A
+				-- reference (Essentials) is found at its home.
 				local list, best
 				local cands = {}
-				if s.toggle then cands[1] = s.toggle end
-				for _, c in ipairs(s.controls) do cands[#cands + 1] = c end
+				if s.toggle and not rawget(s.toggle, "ref") then cands[1] = s.toggle end
+				for _, c in ipairs(s.controls) do
+					if not rawget(c, "ref") then cands[#cands + 1] = c end
+				end
 				for _, c in ipairs(cands) do
 					order = order + 1
 					if available(c) and not (c.key and seen[c.key]) then
@@ -2053,7 +2244,7 @@ local function pageNew(p)
 	local n = 0
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(allSettings(s)) do
+			for _, c in ipairs(homeSettings(s)) do
 				if c.new and newer(c.new, seenNow) and available(c) then n = n + 1 end
 			end
 		end
@@ -2070,7 +2261,7 @@ local function pageNewest(p)
 	local top
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(allSettings(s)) do
+			for _, c in ipairs(homeSettings(s)) do
 				if c.new and newer(c.new, top) then top = c.new end
 			end
 		end
@@ -2252,12 +2443,74 @@ function O.ResetPage(p)
 	end
 end
 
+-- The tab last opened on each page (PolestarDB.optionsTab, account-wide,
+-- not a setting): the page opens there again. -> name | nil
+local function tabMemory()
+	local db = ns.DB()
+	if type(db.optionsTab) ~= "table" then db.optionsTab = {} end
+	return db.optionsTab
+end
+
+-- The lead tab (Essentials) of the tab row: the star before its label, a
+-- short upright hairline after it, the other tabs moved along to make room.
+-- Run after every W.ShellTabs, which lays the row out afresh (the game's
+-- tab looks keep their label's anchor: the shift made here comes off first).
+local LEAD_STAR, LEAD_GAP, LEAD_RULE = 11, 4, 17
+local function markLead(list, active)
+	local first = win.tabButtons and win.tabButtons[1]
+	if not first then return end
+	local grow = LEAD_STAR + LEAD_GAP
+	local lp, lrel, lrp, lx, ly = first.Label:GetPoint(1)
+	lx = lx or 0
+	if first.psLeadX and math.abs(lx - first.psLeadX) < 0.01 then lx = lx - grow / 2 end
+	first.psLeadX = nil
+	local lead = first:IsShown() and list[1] and list[1].lead and #list > 1 and true or false
+	local star, rule = rawget(first, "psStar"), rawget(win, "psLeadRule")
+	if star then star:SetShown(lead) end
+	if rule then rule:SetShown(lead) end
+	if lp then
+		first.Label:ClearAllPoints()
+		first.Label:SetPoint(lp, lrel or first, lrp or lp, lead and lx + grow / 2 or lx, ly or 0)
+	end
+	if not lead then return end
+	first.psLeadX = lx + grow / 2
+	if not star then
+		star = W.Tex(first, "ARTWORK", "star", "textMuted")
+		star:SetSize(LEAD_STAR, LEAD_STAR)
+		first.psStar = star
+	end
+	W.Color(star, list[1] == active and "accent" or "textMuted")
+	star:ClearAllPoints()
+	star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD_GAP, 0)
+	star:Show()
+	first:SetWidth(first:GetWidth() + grow)
+	if not rule then
+		rule = W.Divider(win.TabRow, true)
+		win.psLeadRule = rule
+	end
+	-- 8 either side of the hairline.
+	local _, _, _, fx = first:GetPoint(1)
+	rule:ClearAllPoints()
+	rule:SetSize(1, 16)
+	rule:SetPoint("LEFT", win.TabRow, "BOTTOMLEFT", (fx or 0) + first:GetWidth() + 8, SH.tabs / 2)
+	rule:Show()
+	local shift = grow + LEAD_RULE
+	for i = 2, #win.tabButtons do
+		local t = win.tabButtons[i]
+		if t:IsShown() then
+			local p, rel, rp, x, y = t:GetPoint(1)
+			t:ClearAllPoints()
+			t:SetPoint(p, rel, rp, (x or 0) + shift, y or 0)
+		end
+	end
+end
+
 -- Show page `key` (and tab name), or the search results when searching.
 function O.Select(key, tabName)
 	if not win then return end
 	local p, aliasTab = pageByKey(key)
 	p = p or pageList[1]
-	tabName = tabName or aliasTab
+	tabName = tabName or aliasTab or tabMemory()[p.key]
 	current = p
 	W.HideMenu()
 	O.HideMore()
@@ -2271,6 +2524,7 @@ function O.Select(key, tabName)
 	for _, tt in ipairs(list) do if tt.name == tabName then t = tt end end
 	t = t or list[1]
 	currentTab = t
+	if #list > 1 then tabMemory()[p.key] = t.name end
 	p.views = p.views or {}
 	local view = p.views[t.name]
 	if not view then
@@ -2288,6 +2542,7 @@ function O.Select(key, tabName)
 		for i, tt in ipairs(list) do tabs[i] = { key = tt.name, label = tt.name } end
 	end
 	W.ShellTabs(win, tabs, t.name, function(name) O.Select(p.key, name) end)
+	markLead(list, t)
 	W.ShellTitle(win, p.name, p.subtitle)
 	local h = view.Refresh()
 	view:SetHeight(h)
@@ -2620,12 +2875,29 @@ end
 
 -- Every control of every page, built-in ones included, in page order, each
 -- with its page (c.page), tab and section (profiles: labels, validation).
+-- Homes only: a reference (Essentials) is in O.References.
 function O.AllControls()
 	local out = {}
 	for _, p in ipairs(pageList) do
 		for _, t in ipairs(p.tabs) do
 			for _, s in ipairs(t.sections) do
-				for _, c in ipairs(allSettings(s)) do out[#out + 1] = c end
+				for _, c in ipairs(homeSettings(s)) do out[#out + 1] = c end
+			end
+		end
+	end
+	return out
+end
+
+-- Every reference (Essentials rows and section switches), in page order.
+function O.References()
+	local out = {}
+	for _, p in ipairs(pageList) do
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do
+				if s.toggle and rawget(s.toggle, "ref") then out[#out + 1] = s.toggle end
+				for _, c in ipairs(s.controls) do
+					if rawget(c, "ref") then out[#out + 1] = c end
+				end
 			end
 		end
 	end
