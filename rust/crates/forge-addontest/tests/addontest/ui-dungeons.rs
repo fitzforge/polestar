@@ -371,6 +371,23 @@ fn a_page_the_painting_header_with_the_name_facts_and_actions_tabs_with_counts_g
 	assert_eq!(out["back"], json!([false, 1, true, false]));
 }
 
+// #1753's pattern: a string hidden by SetAlpha(0) came back on a theme repaint (a UI scale or display size change),
+// which sets its colour again, and in the client a string's colour alpha is its alpha. The hub's title and subtitle,
+// veiled over a page's zone art, stay veiled through one; back home they show at their colour's alpha.
+#[test]
+fn a_page_s_veiled_hub_title_stays_veiled_through_a_theme_repaint() {
+	let out = run(r#"
+		Polestar.Dungeons.Open("wailing-caverns")
+		Polestar.Theme.Refresh()
+		local t, s = PolestarPicker.Title, PolestarPicker.Subtitle
+		local open = { t:GetAlpha(), t.textColor[4], s.textColor[4] }
+		DS.Home()
+		Polestar.Theme.Refresh()
+		emit({ open = open, back = { t:GetAlpha(), t.textColor[4] > 0 } })"#);
+	assert_eq!(out[0]["open"], json!([0, 0, 0]), "veiled by alpha and by colour, through the repaint");
+	assert_eq!(out[0]["back"], json!([1, true]));
+}
+
 #[test]
 fn the_levels_chip_what_the_quests_still_to_do_are_worth_hovering_it_shows_the_xp_a_bar_of_the_levels_it_spans_and_what_was_counted_none_at_60() {
 	let out = run(r#"

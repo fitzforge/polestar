@@ -642,6 +642,77 @@ test('the description box takes 1,000 letters: it grows with the text from three
 	assert.ok(out.full.window <= 720, `the window fits a 720-unit screen (${out.full.window})`);
 });
 
+// #1753: the report window as doctor-house had it in 0.3.6: 28 other addons,
+// an error caught 63 times, a full quest log and changed settings, `desc`
+// typed, Copy report pressed, then a theme repaint (what a UI scale or
+// display size change runs). `outdated` adds the update line.
+function crowded({ desc = 'Guide is throwing lua errors and the report a problem page is broken', addons = 28, errors = 63, outdated = false } = {}) {
+	return run(`
+		for i = 1, ${addons} do stub.addons[#stub.addons + 1] = { name = ("Details_SomeLongModuleName%02d"):format(i), loaded = true } end
+		for i = 1, ${errors} do Polestar.NoteError("Interface/AddOns/Polestar/Core/Engine.lua:2311: attempt to compare nil with number") end
+		local log = {}
+		for i = 1, 23 do log[i] = 1000 + i * 37 end
+		Polestar.Compat.GetLogQuests = function() return log end
+		Polestar.Compat.GetQuestObjectives = function() return { { finished = true }, { finished = false } } end
+		Polestar.Set("behavior.deathskips", true)
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		${outdated ? 'F.Outdated:SetText("Polestar 9.9.9 is out: update first, it may fix this."); F.Outdated:Show()' : ''}
+		F.Desc:SetText(${JSON.stringify(desc)})
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		F.Copy:Click()
+		Polestar.Theme.Refresh()
+		-- Every font string drawn in the window, by its text.
+		local drawn = {}
+		local function walk(f)
+			for _, r in ipairs({ f:GetRegions() }) do
+				if r:GetObjectType() == "FontString" and r:IsVisible() and (r:GetText() or "") ~= "" then drawn[#drawn + 1] = r:GetText() end
+			end
+			for _, c in ipairs({ f:GetChildren() }) do walk(c) end
+		end
+		walk(F)
+		-- Each part's top and bottom, down from the window's top.
+		local function span(o) local y = select(5, o:GetPoint(1)); return { -y, -y + o:GetHeight() } end
+		-- Before #1753 the box had no well of its own: the box stands for it.
+		local well = rawget(F, "BoxWell") or F.Box
+		local scroll = rawget(F, "BoxScroll")
+		emit({ report = F.Box:GetText(), drawn = drawn, window = F:GetHeight(), boxShown = F.Box:IsShown(),
+			box = F.Box:GetHeight(), view = well:GetHeight(), content = scroll and scroll.psContent or F.Box:GetHeight(),
+			copy = span(F.Copy), well = span(well), rule = span(F.GitHubRule), github = span(F.GitHub),
+			desc = span(F.DescWell), mark = span(F.Mark) })`)[0];
+}
+
+test('a long report with many addons and an error caught 63 times stays in its box: the box scrolls under Copy report, nothing draws over the form, the window fits a 720-unit screen (#1753)', () => {
+	const cases = [
+		['short, one addon', { addons: 1, errors: 1 }],
+		['the reporter\'s', {}],
+		['the reporter\'s, outdated line shown', { outdated: true }],
+		['1,000 letters', { desc: 'The arrow kept pointing at the bank. '.repeat(28).slice(0, 1000) }],
+		['1,000 letters, outdated line shown', { desc: 'w'.repeat(1000), outdated: true }],
+	];
+	for (const [name, opts] of cases) {
+		const out = crowded(opts);
+		assert.equal(out.boxShown, true, name);
+		assert.ok(out.report.length > 0 && out.report.length <= 2000, `${name}: ${out.report.length}`);
+		// The bug: the box's measuring string drew the report over the window
+		// once a theme repaint gave it its colour's alpha back.
+		for (const s of out.drawn) {
+			assert.ok(!s.includes('Engine.lua:2311') && !s.includes('**What went wrong:**'), `${name}: a font string draws the report: ${s.slice(0, 80)}`);
+		}
+		assert.ok(out.window <= 720, `${name}: the window fits a 720-unit screen (${out.window})`);
+		assert.ok(out.view <= out.box && out.view >= Math.min(out.box, 96), `${name}: the view (${out.view}) holds up to the box (${out.box})`);
+		assert.equal(out.content, out.box, `${name}: the whole report scrolls in the view`);
+		assert.ok(out.box >= out.report.split('\n').length * 11, `${name}: the box holds every line (${out.box})`);
+		// The form stays where it is: the box sits between Copy report and the
+		// GitHub row, under the description and the mark button.
+		assert.ok(out.desc[1] <= out.mark[0] && out.mark[1] <= out.copy[0], `${name}: description, mark, copy in order`);
+		assert.ok(out.well[0] >= out.copy[1] && out.well[1] <= out.rule[0] && out.rule[1] <= out.github[0], `${name}: the box between Copy report (${out.copy}) and the GitHub row (${out.rule}): ${out.well}`);
+		assert.ok(out.github[1] <= out.window, `${name}: Open on GitHub inside the window`);
+		if (name !== 'short, one addon') assert.ok(out.view < out.box, `${name}: a long report scrolls (${out.view} of ${out.box})`);
+	}
+});
+
 test('a link too short for the report even without its goals cuts the report, its code block kept closed, no character cut in half', () => {
 	for (const [locale, word, letter] of SCRIPTS) {
 		const out = longest(locale, word, letter, { linkMax: 2000 });

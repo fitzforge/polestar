@@ -773,6 +773,10 @@ local BOX_W = WIDTH - PAD * 2
 -- The description's well: as tall as its text, from DESC_LINES lines up to
 -- DESC_LINES_MAX; past that the text scrolls in it.
 local DESC_LINES, DESC_LINES_MAX, LINE_H = 3, 7, 16
+-- The window stays inside a 720-unit screen (UIParent is 768 high at UI
+-- scale 1): the report box under Copy report is a view of at most what is
+-- left, never under BOX_VIEW_MIN, and the report scrolls in it (#1753).
+local WINDOW_MAX, BOX_VIEW_MIN = 720, 96
 local LOGO = 32
 local TEXT_X = PAD + LOGO + 12 -- the Discord block's text column
 
@@ -781,6 +785,12 @@ local F
 local function put(obj, x, y)
 	obj:ClearAllPoints()
 	obj:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
+end
+
+-- The report box and its well, shown or hidden together.
+local function showBox(on)
+	F.BoxWell:SetShown(on)
+	F.Box:SetShown(on)
 end
 
 -- The well as tall as the text, between its least and most lines, and the
@@ -827,19 +837,25 @@ local function layout()
 	F.Invite:ClearAllPoints()
 	F.Invite:SetPoint("LEFT", F.Copy, "RIGHT", 8, 0)
 	y = y + F.Copy:GetHeight()
-	if F.Box:IsShown() then
+	-- What goes under the box: its gap, the GitHub rule and row, the edge.
+	local bw = F.GitHub:GetWidth()
+	F.GitHubNote:SetWidth(BOX_W - bw - 12)
+	local nh, bh = F.GitHubNote:GetStringHeight(), F.GitHub:GetHeight()
+	local row = max(nh, bh)
+	if F.BoxWell:IsShown() then
 		y = y + 12
-		put(F.Box, PAD, y)
-		y = y + F.Box:GetHeight()
+		put(F.BoxWell, PAD, y)
+		local content = F.Box:GetHeight()
+		local room = WINDOW_MAX - y - (16 + 1 + 12 + row + PAD)
+		local view = min(content, max(BOX_VIEW_MIN, floor(room)))
+		F.BoxWell:SetHeight(view)
+		W.SetScrollContent(F.BoxScroll, content, view)
+		y = y + view
 	end
 	y = y + 16
 	put(F.GitHubRule, PAD, y)
 	y = y + 1 + 12
 	-- One row: the note beside its button, centred on each other.
-	local bw = F.GitHub:GetWidth()
-	F.GitHubNote:SetWidth(BOX_W - bw - 12)
-	local nh, bh = F.GitHubNote:GetStringHeight(), F.GitHub:GetHeight()
-	local row = max(nh, bh)
 	put(F.GitHubNote, PAD, y + floor((row - nh) / 2 + 0.5))
 	put(F.GitHub, WIDTH - PAD - bw, y + floor((row - bh) / 2 + 0.5))
 	y = y + row
@@ -874,12 +890,12 @@ local function gate()
 		b.psTip = not ok and L["Say what went wrong first."] or nil
 		if ok then W.HideTooltip(b) end
 	end
-	if not ok then F.Box:Hide() end
+	if not ok then showBox(false) end
 	return ok
 end
 
--- The report box is as tall as its text, so it is read whole and copied
--- whole: measured in its own font at its inner width.
+-- The report box is as tall as its text, measured in its own font at its
+-- inner width, so it is copied whole; it scrolls in its well (layout).
 local function compose()
 	showSpot()
 	gate()
@@ -887,13 +903,14 @@ local function compose()
 	W.SetCopyText(F.Box, report)
 	F.Measure:SetText(report)
 	F.Box:SetHeight(floor(F.Measure:GetStringHeight() + 16 + 0.5))
+	W.ScrollTo(F.BoxScroll, 0)
 	layout()
 end
 
 -- The report for Discord, shown under its buttons only when asked for.
 local function copyReport()
 	if not gate() then return end
-	F.Box:Show()
+	showBox(true)
 	layout()
 	F.Box:SetFocus()
 	F.Box:HighlightText()
@@ -996,15 +1013,14 @@ local function textArea()
 	e:SetHeight(DESC_LINES * LINE_H + 16)
 	e:SetTextInsets(10, 10, 8, 8)
 	sf.Child:SetWidth(BOX_W)
-	-- The text in the box's font at its inner width, never seen: what the
-	-- well's height is measured on.
+	-- The text in the box's font at its inner width: what the well's height
+	-- is measured on. Hidden, never alpha 0 (F.Measure, #1753).
 	F.DescMeasure = W.Text(F, "label", "text")
-	F.DescMeasure:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, 0)
 	F.DescMeasure:SetWidth(BOX_W - 20)
 	F.DescMeasure:SetJustifyH("LEFT")
 	F.DescMeasure:SetWordWrap(true)
 	F.DescMeasure:SetNonSpaceWrap(true)
-	F.DescMeasure:SetAlpha(0)
+	F.DescMeasure:Hide()
 	e.Placeholder = W.Text(e, "label", "textMuted")
 	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, -8)
 	e.Placeholder:SetWidth(BOX_W - 20)
@@ -1093,20 +1109,29 @@ local function build()
 	end)
 	F.Clear:Hide()
 
-	F.Box = W.CopyBox(F, { lines = 2 })
-	F.Box:Hide()
+	-- The report for Discord: its well, a view the report scrolls in (#1753:
+	-- a long report drawn past its box, over the form), and the box itself.
+	F.BoxWell = CreateFrame("Frame", nil, F)
+	F.BoxWell:SetWidth(BOX_W)
+	F.BoxScroll = W.Scroll(F.BoxWell)
+	F.BoxScroll:SetAllPoints(F.BoxWell)
+	F.BoxScroll.Child:SetWidth(BOX_W)
+	F.Box = W.CopyBox(F.BoxScroll.Child, { lines = 2, well = F.BoxWell })
+	F.Box:SetPoint("TOPLEFT", F.BoxScroll.Child, "TOPLEFT", 0, 0)
 	Theme.Font(F.Box, "small")
 	F.Box:SetWidth(BOX_W)
 	F.Box:SetScript("OnTabPressed", function() F.Desc:SetFocus() end)
-	-- The report's text in the box's font at its inner width, never seen:
-	-- what the box's height is measured on.
+	showBox(false)
+	-- The report's text in the box's font at its inner width: what the box's
+	-- height is measured on. Hidden, never alpha 0: a theme repaint gives a
+	-- string its colour's alpha back, and this one then drew the whole report
+	-- over the window (#1753).
 	F.Measure = W.Text(F, "small", "text")
-	F.Measure:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, 0)
 	F.Measure:SetWidth(BOX_W - 20)
 	F.Measure:SetJustifyH("LEFT")
 	F.Measure:SetWordWrap(true)
 	F.Measure:SetNonSpaceWrap(true)
-	F.Measure:SetAlpha(0)
+	F.Measure:Hide()
 
 	F.Rule = W.Divider(F)
 	F.Rule:SetWidth(BOX_W)
@@ -1179,7 +1204,7 @@ function UI.ShowReport()
 	local note = ns.Update and ns.Update.ReportNote()
 	F.Outdated:SetText(note or "")
 	F.Outdated:SetShown(note ~= nil)
-	F.Box:Hide()
+	showBox(false)
 	compose()
 	F:Show()
 	F:Raise()
