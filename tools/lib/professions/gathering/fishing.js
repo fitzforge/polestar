@@ -226,8 +226,7 @@ function render(ctx) {
 	const apprentice = rankInfo(ctx, 'Fishing', 'Apprentice');
 	const bowl = ctx.data.recipe(1229745).recipe;
 	step('Learn Fishing', [
-		`tip Any Fishing trainer of your faction teaches Apprentice Fishing (character level 5, ${money(apprentice.cost)}); the arrow picks the nearest, and every starting area has one on its lake or shore. Buy a Fishing Pole${note(ctx, POLE)} from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles${note(ctx, SHINY_BAUBLE, 25, true)}: a lure adds its bonus to your skill for ten minutes, so fewer fish get away at the start. If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Fishing, handed in to the fishing trainer it names at skill 20 for the ${bowl.name} recipe.`,
-		'level 5',
+		`tip Any Fishing trainer of your faction teaches Apprentice Fishing at any character level (${money(apprentice.cost)}); the arrow picks the nearest, and every starting area has one on its lake or shore. Buy a Fishing Pole${note(ctx, POLE)} from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles${note(ctx, SHINY_BAUBLE, 25, true)}: a lure adds its bonus to your skill for ten minutes, so fewer fish get away at the start. If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Fishing, handed in to the fishing trainer it names at skill 20 for the ${bowl.name} recipe.`,
 		'train Fishing Apprentice',
 		`buy ${POLE} x1 nearest`,
 	]);

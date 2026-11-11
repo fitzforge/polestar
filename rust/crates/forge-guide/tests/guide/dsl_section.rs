@@ -35,10 +35,7 @@ fn sections_head_the_steps_after_them_with_the_profession_s_skill_line() {
 	]));
 	assert!(r.errors.is_empty() && r.warnings.is_empty(), "{}", r.text);
 	let g = plain(&r.guides[0]);
-	assert_eq!(
-		g["sections"],
-		json!([{ "skill": "First Aid", "skillLine": 129, "from": 1, "to": 40 }, { "skill": "First Aid", "skillLine": 129, "from": 40, "to": 50 }])
-	);
+	assert_eq!(g["sections"], json!([{ "skill": "First Aid", "skillLine": 129, "from": 1, "to": 40 }, { "skill": "First Aid", "skillLine": 129, "from": 40, "to": 50 }]));
 	let secs: Vec<_> = r.steps().iter().map(|s| s.get("section").cloned().unwrap_or(json!(null))).collect();
 	assert_eq!(secs, vec![json!(null), json!(1), json!(1), json!(2)]);
 	// The until craft's colours, from professions.json (Linen Bandage: yellow 30, grey 60).

@@ -1,9 +1,12 @@
 warning: First Aid Alliance trainer "Nissa Firestone": not in npcs.json for this side
 warning: First Aid Alliance trainer "Thamner Pol": not in npcs.json for this side
 warning: First Aid Alliance trainer "Byancie": not in npcs.json for this side
+warning: First Aid Alliance trainer "Dannelor": not in npcs.json for this side
+warning: First Aid Alliance trainer "Fremal Doohickey": not in npcs.json for this side
 warning: First Aid Horde trainer "Pand Stonebinder": not in npcs.json for this side
 warning: First Aid Horde trainer "Mary Edras": not in npcs.json for this side
 warning: First Aid Horde trainer "Nurse Neela": not in npcs.json for this side
+warning: First Aid Horde trainer "Vira Younghoof": not in npcs.json for this side
 warning: First Aid Alliance trainer "Deneb Walker": not in npcs.json for this side
 warning: First Aid Alliance trainer "Doctor Gustaf VanHowzen": not in npcs.json for this side
 warning: First Aid Horde trainer "Doctor Gregory Victor" (12920) has no spawns
@@ -14,6 +17,7 @@ warning: Blacksmithing Alliance trainer "Brikk Keencraft": not in npcs.json for 
 warning: Blacksmithing Horde trainer "Karn Stonehoof": not in npcs.json for this side
 warning: Blacksmithing Horde trainer "James Van Brunt": not in npcs.json for this side
 warning: Blacksmithing Horde trainer "Brikk Keencraft": not in npcs.json for this side
+warning: Blacksmithing Horde trainer "Angus Hammerhand": not in npcs.json for this side
 warning: Blacksmithing Alliance trainer "Bengus Deepforge": not in npcs.json for this side
 warning: Blacksmithing Alliance trainer "Brikk Keencraft": not in npcs.json for this side
 warning: Blacksmithing Horde trainer "Brikk Keencraft": not in npcs.json for this side
@@ -21,6 +25,7 @@ warning: Blacksmithing Alliance trainer "Brikk Keencraft": not in npcs.json for 
 warning: Blacksmithing Horde trainer "Brikk Keencraft": not in npcs.json for this side
 warning: Blacksmithing Alliance trainer "Groum Stonebeard": not in npcs.json for this side
 warning: Blacksmithing Alliance trainer "Tognus Flintfire": not in npcs.json for this side
+warning: Blacksmithing Alliance trainer "Delfrum Flintbeard": not in npcs.json for this side
 warning: Blacksmithing Horde trainer "Thrag Stonehoof": not in npcs.json for this side
 warning: Blacksmithing Horde trainer "Basil Frye": not in npcs.json for this side
 warning: Leatherworking Alliance trainer "Fimble Finespindle": not in npcs.json for this side
@@ -40,7 +45,10 @@ warning: Leatherworking Alliance trainer "Drakk Stonehand": not in npcs.json for
 warning: Leatherworking Horde trainer "Hahrana Ironhide": not in npcs.json for this side
 warning: Leatherworking Alliance trainer "Darianna": not in npcs.json for this side
 warning: Leatherworking Alliance trainer "Nadyia Maneweaver": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Gretta Finespindle": not in npcs.json for this side
 warning: Leatherworking Horde trainer "Chaw Stronghide": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Dan Golthas": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Shelene Rhobart": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Tally Berryfizz": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Ainethil": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Sylvanna Forestmoon": not in npcs.json for this side
@@ -93,8 +101,12 @@ warning: Cooking Alliance trainer "Daryl Riknussun": not in npcs.json for this s
 warning: Cooking Alliance trainer "Gremlock Pilsnor": not in npcs.json for this side
 warning: Cooking Alliance trainer "Alegorn": not in npcs.json for this side
 warning: Cooking Alliance trainer "Zarrin": not in npcs.json for this side
+warning: Cooking Alliance trainer "Cook Ghilm": not in npcs.json for this side
+warning: Cooking Alliance trainer "Crystal Boughman": not in npcs.json for this side
 warning: Cooking Horde trainer "Aska Mistrunner": not in npcs.json for this side
 warning: Cooking Horde trainer "Eunice Burch": not in npcs.json for this side
+warning: Cooking Horde trainer "Pyall Silentstride": not in npcs.json for this side
+warning: Cooking Horde trainer "Mudduk": not in npcs.json for this side
 warning: Cooking Alliance trainer "Shandrina": not in npcs.json for this side
 warning: Cooking Horde trainer "Wulan": not in npcs.json for this side
 warning: Cooking Alliance trainer "Dirge Quikcleave" (8125) has no spawns
@@ -164,6 +176,7 @@ warning: Enchanting Alliance trainer "Alanna Raveneye": not in npcs.json for thi
 warning: Enchanting Horde trainer "Mot Dawnstrider": not in npcs.json for this side
 warning: Enchanting Horde trainer "Malcomb Wynn": not in npcs.json for this side
 warning: Enchanting Horde trainer "Vance Undergloom": not in npcs.json for this side
+warning: Enchanting Horde trainer "Pa'zula": not in npcs.json for this side
 warning: Fishing Alliance trainer "Grimnur Stonebrand": not in npcs.json for this side
 warning: Fishing Alliance trainer "Paxton Ganter": not in npcs.json for this side
 warning: Fishing Alliance trainer "Astaia": not in npcs.json for this side

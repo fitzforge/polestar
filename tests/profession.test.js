@@ -160,6 +160,17 @@ test('planner: a vendor recipe whose only seller has no faction is left out (Pex
 	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
 });
 
+test('planner: a faction-less vendor Classic knows serves both sides (Kania\'s Formula: Lesser Mana Oil in Cenarion Hold)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 1, 70, 90, 10, { source: 'vendor', recipeItem: 50, cost: 100 })]);
+	prof.materials[50] = { name: 'Formula: Oil', buy: 100, buyCount: 1, sell: 25, quality: 1, vendors: { Alliance: [9], Horde: [9] } };
+	// The data carries no side for a neutral town's NPC; pfQuest knows it, so it is a Classic one.
+	data.npcs = { 9: { id: 9, name: 'Kania', faction: null, source: ['pfquest', 'questie-forever'] } };
+	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
+	// A Forever-new NPC with no side still counts for neither (Pexmit).
+	data.npcs[9].source = ['questie-forever'];
+	assert.ok(planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2 && /one faction only/.test(e.why)));
+});
+
 test('planner and draft: a quest-reward plan is usable from the quest\'s skill and costs its hand-in (Derotain\'s Imperial Plate plans)', () => {
 	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 30, 70, 90, 10, { source: 'item', recipeItem: 77 })]);
 	prof.materials[77] = { name: 'Plans: Boots', sell: 1, buy: 4, quality: 2, bop: true };
@@ -224,11 +235,17 @@ test('materials: a smelted bar is worth at least what goes into it (Steel Bar: a
 
 test('materials: disenchanted, fished, cloth and other professions\' goods are valued above their sell price', () => {
 	const ctx = { professions: { 171: { name: 'Alchemy', recipes: [{ spell: 3171, name: 'Elixir of Wisdom', reagents: [] }] } }, npcs: {}, objects: {}, zones: {}, self: 197 };
-	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', ctx).cost, 800);
-	// Strange Dust sold at 8s stays a disenchanting material (worth 5s); a cheaper vendor wins.
-	const dust = (buy) => sourceOf(1, { name: 'Strange Dust', sell: 1, buy, quality: 1, vendors: { Alliance: [7] } }, 'Alliance', ctx);
+	const enchanter = { ...ctx, self: 333 };
+	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', enchanter).cost, 800);
+	// Strange Dust sold at 8s stays a disenchanting material to an enchanter (worth 5s); a cheaper vendor wins.
+	const dust = (buy, c = enchanter) => sourceOf(1, { name: 'Strange Dust', sell: 1, buy, quality: 1, vendors: { Alliance: [7] } }, 'Alliance', c);
 	assert.deepEqual([dust(800).kind, dust(800).cost], ['disenchant', 500]);
 	assert.deepEqual([dust(100).kind, dust(100).cost], ['vendor', 100]);
+	// To any other profession they are an enchanter's goods (a friend or the Auction House), six times
+	// that: the 8s vendor wins, and a leatherworker's 2 Soul Dust a craft lose to plain leather.
+	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', ctx).cost, 800 * 6);
+	assert.deepEqual([dust(800, ctx).kind, dust(800, ctx).cost], ['vendor', 800]);
+	assert.deepEqual([dust(4000, ctx).kind, dust(4000, ctx).cost], ['disenchant', 500 * 6]);
 	assert.equal(sourceOf(1, { name: 'Raw Fish', sell: 1, quality: 1, gather: { fishing: [1] } }, 'Alliance', ctx).cost, 400);
 	assert.ok(Math.abs(sourceOf(1, { name: 'Wool Cloth', sell: 33, quality: 1, dropCount: 50, drops: [{ npc: 1, chance: 20 }] }, 'Alliance', ctx).cost - 100 * Math.sqrt(0.33) * 4 * 3) < 1e-9);
 	const elixir = sourceOf(1, { name: 'Elixir of Wisdom', sell: 25, quality: 1, madeBy: [{ skillLine: 171, spell: 3171 }] }, 'Alliance', ctx);
@@ -554,6 +571,18 @@ test('an NPC listed on two maps stands on its interior map; a capital beats its 
 	const ainethil = { spawns: { 1438: { f: 'e', pts: [[28.6, 51.9]] }, 1457: { f: 'e', pts: [[54.9, 24]] } } };
 	assert.equal(homeMap(ainethil), 1457);
 	assert.equal(homeMap({ spawns: {} }), null);
+});
+
+test('draft: cloth is counted in the bags, from humanoids as you level or the Auction House, never a farm trip', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 70, 90, 2589)]);
+	prof.materials[2589] = { name: 'Linen Cloth', buy: 55, buyCount: 1, sell: 13, quality: 1, dropCount: 40, drops: [{ npc: 3, chance: 30 }] };
+	data.npcs = { 3: { id: 3, name: 'Defias Thug', level: 9, faction: null, spawns: { 1429: { f: 'e', pts: [[50, 40]] } } } };
+	data.zones = { 1429: { name: 'Elwynn Forest', type: 3 } };
+	data.mapFrames = { era: { 1429: { c: 0 } } };
+	data.items = {};
+	const { text } = draftGuide('Tailoring', { ...data, farmable: () => ({ Alliance: 9, Horde: 9 }) }, { to: 75, spec: {} });
+	assert.match(text, /\n {2}tip \d+ Linen Cloth for [^\n]*: humanoids of level 5-20 drop it\. Keep what you loot as you level, take it from your bank, or buy it at the Auction House\.\n {2}collect 2589 x\d+ anywhere\n/);
+	assert.doesNotMatch(text, /collect 2589 x\d+ (nearest|@)/);
 });
 
 test('draft: mob drops the compiler can place become one `collect … nearest` step', async () => {

@@ -686,7 +686,7 @@ function applyLoop(step, s, data, err) {
 	if (gotos.some((g) => g.f !== first.f)) return err(ln, '`loop` points must all be in one map frame: all Era, or all `live`');
 	const own = gotos.find((g) => g.only || g.optional);
 	if (own) return err(own._line, 'a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it');
-	const targets = step.goals.filter((g, i) => LOOP_VERBS.has(g.t) && !s.goals[i].explicitCoords && !g.candidates);
+	const targets = step.goals.filter((g, i) => LOOP_VERBS.has(g.t) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
 	if (!targets.length) {
 		return err(ln, '`loop` needs a kill, collect or interact goal without its own `@x,y`', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
 	}
@@ -1521,6 +1521,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// the current zone and on maps the guide already uses, then the likely sources
 			// on that map (see pickSpawn), nearest first. Vendors are not sources here:
 			// `buy … nearest` is the vendor path.
+			// `anywhere`: a bag count with no place (cloth a profession guide counts as you
+			// loot it while levelling): no source is picked, so the arrow never leads to one
+			// dropper of hundreds; the step's tip says where it comes from.
+			if (g.anywhere) {
+				if (g.quest !== undefined) err(ln, '`collect … anywhere` is a bag count; drop `quest` (quest objectives use the quest’s own targets)');
+				if (g.count === undefined) err(ln, '`collect … anywhere` needs a count: `collect <item> xN anywhere`');
+				if (g.nearest || g.explicitCoords || g.npc !== undefined) err(ln, '`collect … anywhere` has no place: drop `nearest`, `npc` or the coordinates');
+				break;
+			}
 			if (g.nearest) {
 				// Farm spots: the engine picks one by level, safety and travel time.
 				if (g.quest !== undefined) err(ln, '`collect … nearest` farms by bag count; drop `quest` (quest objectives use the quest’s own targets)');
@@ -2126,7 +2135,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	setIf(goal, 'node', goalNode(data, goal, smartSides(ctx.sides, applicable(ctx.layers || []))));
 
 	// A `loop` step's gotos place its kill, collect and interact goals (applyLoop).
-	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !(ctx.loop && LOOP_VERBS.has(v))) {
+	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && LOOP_VERBS.has(v))) {
 		warn(ln, `\`${v}\` has no coordinates (no known spawns; add @x,y)`, 'add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there');
 	}
 	if (goal.grind !== undefined && goal.x === undefined) warn(ln, `\`grind ${goal.grind}\` has no known spawns here: the arrow keeps the step's goto`);

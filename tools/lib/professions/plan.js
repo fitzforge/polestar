@@ -76,10 +76,17 @@ function expectedCrafts(r, s, t) {
 }
 
 // A recipe item one copy of which is enough: limited-stock vendors count. A
-// vendor with no faction in npcs.json (Pexmit, "Someone's Minion", in Mount
-// Hyjal) may not sell to anyone, so it counts for neither side.
+// vendor with no faction in npcs.json is one of two kinds. A Classic NPC (one
+// pfQuest knows) stands in a neutral town and serves both sides: Kania in
+// Cenarion Hold, Qia in Everlook, the goblins of Booty Bay, Gadgetzan and
+// Ratchet (older data builds said "AH" for them; the current ones carry no
+// side). A Forever-new NPC with no side (Pexmit, "Someone's Minion", in Mount
+// Hyjal) may not sell to anyone, so it counts for neither.
 function bothSidesSell(m, npcs = {}) {
-	const ok = (id) => !npcs[id] || npcs[id].faction != null;
+	const ok = (id) => {
+		const n = npcs[id];
+		return !n || n.faction != null || (n.source || []).includes('pfquest');
+	};
 	const has = (side) => [...((m && m.vendors && m.vendors[side]) || []), ...((m && m.limitedVendors && m.limitedVendors[side]) || [])].some(ok);
 	return has('Alliance') && has('Horde');
 }

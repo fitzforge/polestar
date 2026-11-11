@@ -28,15 +28,17 @@ function allPoints(s) {
 // (`abundance`, node-abundance.json: { name: { up } } for the map) spread over
 // the kind's points, so a point listed for six pooled kinds counts for the one
 // node the server puts there; a kind the zone's table lacks counts nothing. A
-// map with no table splits each point among the kinds listed at it. `w` is
-// `up` times the band weight.
+// map with no table, or whose table holds none of `table`'s kinds (Teldrassil's
+// lists its herbs only, not its Amber), splits each point among the kinds
+// listed at it. `w` is `up` times the band weight.
 function nodePoints(objects, project, { table, role, map, from, to, abundance = null }) {
 	const { raw, count } = mapNodes(objects, project, table, role, map);
+	const ab = abundance && Object.keys(table).some((k) => abundance[k]) ? abundance : null;
 	const out = [];
 	for (const p of raw) {
 		const bw = bandWeight(p.req, from, to);
 		if (bw <= 0) continue;
-		const up = abundance ? (abundance[p.name] ? abundance[p.name].up / count.get(p.name) : 0) : p.share;
+		const up = ab ? (ab[p.name] ? ab[p.name].up / count.get(p.name) : 0) : p.share;
 		if (up <= 0) continue;
 		out.push({ name: p.name, req: p.req, up, w: bw * up, pt: p.pt });
 	}

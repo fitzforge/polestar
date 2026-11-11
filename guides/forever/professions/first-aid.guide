@@ -24,10 +24,10 @@ zone Ironforge
 # from the Forever client tables (`forge data professions`).
 # ASSUMED: past level 30 (the beta's cap) Forever's spawns are Classic's; nothing
 # confirms them yet. In-game check: refine with Polestar_Recorder sessions.
-# ASSUMED: rank level gates are Classic's (Journeyman 10, Expert 20, Artisan 35);
-# Forever's sniffed trainer lists show none (the gate sits on the rank spell, a
-# table we lack); only Journeyman Fishing is sniffed at level 10. In-game check:
-# the level a trainer asks for each rank.
+# Rank level gates: Journeyman Fishing asks level 10 (Forever's sniffed trainer
+# list); Cooking's and First Aid's Journeyman ask none (their sniffed lists, and
+# players' recordings train them at 6 and 7). In-game check: reading an Expert
+# book below level 20.
 # Waypoints are Era-frame (`coords era`); the engine converts them where Forever
 # changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
@@ -36,14 +36,14 @@ zone Ironforge
 section First Aid 1-40
 
 step Learn First Aid
-  tip Any First Aid trainer of your faction teaches Apprentice First Aid (character level 5, 1s); the arrow picks the nearest. Forever teaches Minor Healing Potion with it: Peacebloom, Mild Spices and an Empty Vial, orange to 55. With Herbalism it can replace the Linen Bandages below.
-  level 5
+  tip Any First Aid trainer of your faction teaches Apprentice First Aid (any character level, 1s); the arrow picks the nearest. Forever teaches Minor Healing Potion with it: Peacebloom, Mild Spices and an Empty Vial, orange to 55. With Herbalism it can replace the Linen Bandages below.
   train First Aid Apprentice
 
 # ---------------------------------------------------------------- First Aid 1-125
 
 step Linen Bandage: cloth
-  collect 2589 x41 nearest     -- humanoids of level 5-20 drop Linen Cloth (or buy it at the Auction House).
+  tip Linen Cloth drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2589 x41 anywhere
 
 step Linen Bandage (1-40)
   tip Linen Bandage is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40. Bandages need no fire: craft them anywhere. At 20 the trainer also teaches First Aid Kit (1s; the Camping 101: First Aid quest at your starting area's camp teaches it free), Forever's camping item for First Aid: three Linen Bandages and a Refreshing Spring Water; it gives a few points until 25.
@@ -52,7 +52,8 @@ step Linen Bandage (1-40)
 section First Aid 40-50
 
 step Heavy Linen Bandage: cloth
-  collect 2589 x20 nearest     -- humanoids of level 5-20 drop Linen Cloth (or buy it at the Auction House).
+  tip Linen Cloth drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2589 x20 anywhere
 
 step Heavy Linen Bandage (40-50)
   tip Heavy Linen Bandage is orange from 40 (yellow at 50, green at 75, grey at 100): about 10 crafts to 50. Bandages need no fire: craft them anywhere. Any First Aid trainer of your faction teaches it from skill 40 for 1s; the arrow picks the nearest.
@@ -62,12 +63,12 @@ step Heavy Linen Bandage (40-50)
 section First Aid 50-80
 
 step Journeyman First Aid
-  tip Journeyman First Aid raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest First Aid trainer of your faction; training costs 5s.
-  level 10
+  tip Journeyman First Aid raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest First Aid trainer of your faction; training costs 5s.
   train First Aid Journeyman
 
 step Heavy Linen Bandage: cloth
-  collect 2589 x92 nearest     -- humanoids of level 5-20 drop Linen Cloth (or buy it at the Auction House).
+  tip Linen Cloth drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2589 x92 anywhere
 
 step Heavy Linen Bandage (50-80)
   tip Heavy Linen Bandage is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. Herbalists: Lesser Healing Potion (from 55, 1s 50c; Briarthorn, two Mild Spices and an Empty Vial) is orange to 85.
@@ -76,7 +77,8 @@ step Heavy Linen Bandage (50-80)
 section First Aid 80-115
 
 step Wool Bandage: cloth
-  collect 2592 x49 nearest     -- humanoids of level 15-30 drop Wool Cloth (or buy it at the Auction House).
+  tip Wool Cloth drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2592 x49 anywhere
 
 step Wool Bandage (80-115)
   tip Wool Bandage is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any First Aid trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. Anti-Venom (Small Venom Sac, from spiders) is taught at 80 too: Rogues need it for Touch of Zanzil, and it sells.
@@ -86,7 +88,8 @@ step Wool Bandage (80-115)
 section First Aid 115-125
 
 step Heavy Wool Bandage: cloth
-  collect 2592 x22 nearest     -- humanoids of level 15-30 drop Wool Cloth (or buy it at the Auction House).
+  tip Wool Cloth drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2592 x22 anywhere
 
 step Heavy Wool Bandage (115-125)
   tip Heavy Wool Bandage is yellow from 115 (yellow at 115, green at 150, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere. Any First Aid trainer of your faction teaches it from skill 115 for 10s; the arrow picks the nearest. Herbalists: Healing Potion (from 110, 8s; Bruiseweed, Hot Spices and a Leaded Vial) is orange to 135.
@@ -107,7 +110,8 @@ step Expert First Aid
 # ---------------------------------------------------------------- First Aid 125-225
 
 step Heavy Wool Bandage: cloth
-  collect 2592 x76 nearest     -- humanoids of level 15-30 drop Wool Cloth (or buy it at the Auction House).
+  tip Wool Cloth drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2592 x76 anywhere
 
 step Heavy Wool Bandage (125-150)
   tip Heavy Wool Bandage is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere.
@@ -116,7 +120,8 @@ step Heavy Wool Bandage (125-150)
 section First Aid 150-180
 
 step Silk Bandage: cloth
-  collect 4306 x42 nearest     -- humanoids of level 25-45 drop Silk Cloth (or buy it at the Auction House).
+  tip Silk Cloth drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 4306 x42 anywhere
 
 step Silk Bandage (150-180)
   tip Silk Bandage is yellow from 150 (yellow at 150, green at 180, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere. Any First Aid trainer of your faction teaches it from skill 150 for 50s; the arrow picks the nearest.
@@ -126,7 +131,8 @@ step Silk Bandage (150-180)
 section First Aid 180-210
 
 step Heavy Silk Bandage: cloth
-  collect 4306 x84 nearest     -- humanoids of level 25-45 drop Silk Cloth (or buy it at the Auction House).
+  tip Silk Cloth drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 4306 x84 anywhere
 
 step Heavy Silk Bandage (180-210)
   tip Heavy Silk Bandage is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere.
@@ -136,7 +142,8 @@ step Heavy Silk Bandage (180-210)
 section First Aid 210-225
 
 step Mageweave Bandage: cloth
-  collect 4338 x18 nearest     -- humanoids of level 35-50 drop Mageweave Cloth (or buy it at the Auction House).
+  tip Mageweave Cloth drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 4338 x18 anywhere
 
 step Mageweave Bandage (210-225)
   tip Mageweave Bandage is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere.
@@ -184,7 +191,8 @@ step Triage
 # ---------------------------------------------------------------- First Aid 225-300
 
 step Mageweave Bandage: cloth
-  collect 4338 x24 nearest     -- humanoids of level 35-50 drop Mageweave Cloth (or buy it at the Auction House).
+  tip Mageweave Cloth drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 4338 x24 anywhere
 
 step Mageweave Bandage (225-240)
   tip Mageweave Bandage is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. Mageweave Bandage turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260.
@@ -198,7 +206,8 @@ step Heavy Mageweave Bandage
   learn 10841 npc 12920 only Horde
 
 step Heavy Mageweave Bandage: cloth
-  collect 4338 x50 nearest     -- humanoids of level 35-50 drop Mageweave Cloth (or buy it at the Auction House).
+  tip Mageweave Cloth drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 4338 x50 anywhere
 
 step Heavy Mageweave Bandage (240-260)
   tip Heavy Mageweave Bandage is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere.
@@ -212,7 +221,8 @@ step Runecloth Bandage
   learn 18629 npc 12920 only Horde
 
 step Runecloth Bandage: cloth
-  collect 14047 x65 nearest     -- humanoids of level 45-60 drop Runecloth (or buy it at the Auction House).
+  tip Runecloth drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 14047 x65 anywhere
 
 step Runecloth Bandage (260-300)
   tip Runecloth Bandage is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. Runecloth Bandage turns green at 290, yet to 300 it takes about the same Runecloth as switching to Heavy Runecloth Bandage (the doctor teaches it at 290): one recipe is enough.
