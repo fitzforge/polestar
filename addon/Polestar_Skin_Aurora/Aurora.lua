@@ -19,7 +19,8 @@
 --   * spec.shadow in a colour: the window's drop shadow as a glow;
 --   * hooks on the guide window's own parts: guideTitle (the aurora laid
 --     over the band, wherever the band is, and a line of light on the
---     navigator's rule) and guideProgress (the progress in two colours),
+--     navigator's rule), guideLayout (the aurora turned when the bars move,
+--     taking no room) and guideProgress (the progress in two colours),
 --     their pieces kept in the guide window's store so a transparent window,
 --     or another skin, hides them with everything else.
 -- Nothing here touches Polestar's own files.
@@ -227,6 +228,13 @@ local PAINT = {
 -- own store, so they go wherever its painter's go.
 ---------------------------------------------------------------------------
 
+-- The aurora hangs toward the step: upside down when the bars sit at the
+-- window's foot (ui.growUp with ui.barsBottom).
+local function hang(curtain)
+	local flip = Polestar.Get("ui.growUp") and Polestar.Get("ui.barsBottom")
+	curtain:SetTexCoord(0, 1, flip and 1 or 0, flip and 0 or 1)
+end
+
 local HOOKS = {
 	-- The aurora over the band (the tabs and the navigator), hanging toward
 	-- the step: flipped when the bars sit at the window's foot. With the
@@ -246,8 +254,7 @@ local HOOKS = {
 				own.curtain = c
 			end
 			local on = Theme.ShowsBand()
-			local flip = Polestar.Get("ui.growUp") and Polestar.Get("ui.barsBottom")
-			c:SetTexCoord(0, 1, flip and 1 or 0, flip and 0 or 1)
+			hang(c)
 			c:SetVertexColor(1, 1, 1, 0.85)
 			c:SetShown(on)
 			if own.veil then own.veil:SetShown(not on) end
@@ -272,6 +279,12 @@ local HOOKS = {
 			shade(line, "HORIZONTAL", light(TEAL, 0.75), light(VIOLET, 0.75))
 			shade(glow, "VERTICAL", light(TEAL, 0), light(TEAL, 0.14))
 		end
+	end,
+	-- Every layout (the bars moved to the foot or back, the window grown
+	-- upward): the aurora turned to match. Nothing returned: no room taken.
+	guideLayout = function()
+		local _, own = guideWindow()
+		if own and own.curtain then hang(own.curtain) end
 	end,
 	-- The progress filled teal into violet.
 	guideProgress = function(foot, frac)
