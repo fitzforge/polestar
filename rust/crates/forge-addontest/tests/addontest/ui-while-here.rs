@@ -242,6 +242,23 @@ fn two_suggestions_are_two_rows_of_one_panel_each_aiming_and_dismissing_its_own(
 	assert_eq!(o["last"], json!({ "shown": false, "list": 0 }), "the last row's close button takes the panel with it");
 }
 
+// One objective several steps hold is one line (engine-while-here.rs): its row names the earliest of them
+// (`firstStep`), the one the route reaches first, whichever copy it measures to (`step`).
+#[test]
+fn a_line_several_steps_hold_names_the_earliest_step() {
+	let out = run(
+		"",
+		r#"
+		local v = { step = 3, firstStep = 2, index = 1, here = "work", left = 2, yards = 60, later = true, appeared = 1 }
+		for k, x in pairs(E.GetStepView(3).goals[1]) do if v[k] == nil then v[k] = x end end
+		E.GetWhileHereList = function() return { v } end
+		GF.HereChanged(); stub.advance(0.6)
+		emit({ sub = row(1).Sub:GetText(), shown = H:IsShown() })
+	"#,
+	);
+	assert_eq!(out[0], json!({ "sub": "Step 2, later in this guide", "shown": true }));
+}
+
 #[test]
 fn reduced_motion_the_line_fades_in_without_sliding() {
 	let out = run(

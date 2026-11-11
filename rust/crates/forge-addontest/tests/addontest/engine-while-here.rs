@@ -760,7 +760,8 @@ fn mulgore_fitz_walking_past_seer_graytongue_with_rites_of_the_earthmother_ready
 	let f = data.map_frames.get("forever").get("1412");
 	// pelts: 750's count (10: ready, step 6 live); limit: Grace's seconds (the data's 600 once rebuilt with its
 	// correction; set here so the test does not wait for the data build).
-	let run = |pelts: u32, limit: u32| {
+	let run = |pelts: u32, limit: u32, escort: bool| {
+		let escort = if escort { "true" } else { "nil" };
 		let before = format!(
 			r#"local w = stub.world
 w.addMap(1412, {{ name = "Mulgore", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
@@ -786,7 +787,7 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 {HELPERS}
 E.SetGuide("forever/horde/tauren/01-mulgore"); flush()
-for _, g in ipairs(E.GetGuide().steps[7].goals) do if g.quest == 95805 then g.limit = {limit} end end
+for _, g in ipairs(E.GetGuide().steps[7].goals) do if g.quest == 95805 then g.limit = {limit}; g.escort = {escort} end end
 stub.fire("QUEST_LOG_UPDATE"); flush()
 local function mg(x, y) w.moveTo(1412, x, y); stub.advance(0.6); stub.advance(0.6) end
 local function state()
@@ -815,7 +816,7 @@ emit({{ camp = camp, report = report, calls = table.concat(calls, ", "), live = 
 		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0)
 	};
 	let visit = "7:1 Hand in “Rites of the Earthmother” to Seer Graytongue, then take “Grace of An'she and Mu'sha”, “Rite of Strength”: saves a trip back";
-	let fitz = run(10, 600);
+	let fitz = run(10, 600, false);
 	assert_eq!(fitz["report"]["live"], 6, "Grull Hawkwind's step is live: {fitz}");
 	assert_eq!(fitz["report"]["here"], visit, "121 yd from the Seer, the whole visit shows at the shipped settings: {fitz}");
 	assert!(fitz["report"]["credit"].as_f64().is_some_and(|c| c > 43.0), "its credit outweighs the 43 s detour: {fitz}");
@@ -825,13 +826,18 @@ emit({{ camp = camp, report = report, calls = table.concat(calls, ", "), live = 
 	assert_eq!(fitz["live"], 6, "the live step stays: {fitz}");
 	assert!(fitz["arrow"].as_str().unwrap().starts_with("6:"), "the arrow stays on it: {fitz}");
 	assert_eq!(fitz["done"], json!([true, true, true]), "step 7 is done: no trip back: {fitz}");
-	let short = run(10, 120);
+	let short = run(10, 120, false);
 	assert_eq!(short["report"]["here"], "none", "a two-minute Grace: no visit, the bare hand-in 43 s out of the way: {short}");
 	assert_eq!(short["report"]["why"], "out of the way (43 s, over 20 s)", "{short}");
 	assert!(!short["calls"].as_str().unwrap().contains("AcceptQuest 95805"), "Grace not taken ahead: {short}");
-	let cougars = run(6, 600);
+	let cougars = run(6, 600, false);
 	assert_eq!(cougars["report"]["live"], 5, "the cougar step is live: {cougars}");
 	assert_eq!(cougars["report"]["here"], visit, "hunting cougars around the Seer, the visit shows: {cougars}");
+	// #1618 (MattMer, Protect Kaya): an escort is never taken ahead, like a timed quest whose walk does not fit: it
+	// starts walking the moment it is taken, so only its own step, with its warning, takes it.
+	let escort = run(10, 600, true);
+	assert_eq!(escort["report"]["here"], "none", "an escort Grace: no visit offering it: {escort}");
+	assert!(!escort["calls"].as_str().unwrap().contains("AcceptQuest 95805"), "the escort not taken ahead: {escort}");
 }
 
 // The Barrens as shipped: an Orc Warrior at 14, in from Far Watch Post on the road west, 60 yd past Thun'grim Firegaze
@@ -1573,4 +1579,86 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 	assert_eq!(out[0], json!([true, "", wolves]));
 	assert_eq!(out[1], json!(["2:1:50", format!("{wolves}\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]")]));
 	assert_eq!(out[2], wolves);
+}
+
+// One objective on several steps (Fitz, 0.3.6, the Barrens: "Collect Intact Raptor Horn 0/5" three times, from steps
+// 21, 34 and 45, one per raptor camp visit). 1 (live) the wolves far off · 2, 4, 6 the same candles for 60 (1 of 3),
+// at 20,80 (far), 47.6,34.1 and 47.6,39.1 · 3 and 5 quest 61's two objectives: spiders at 47.0,36.1 and eggs at
+// 48.4,36.1 · 7 and 8 hand in 40 (ready) to Dughan, far off.
+const DUPES: &str = r#"
+stub.world.onQuest(61, { { required = 4, fulfilled = 0 }, { text = "Spider Egg: 0/3", type = "item", required = 3, fulfilled = 0 } }, "Spiders and Eggs")
+local function candles(title, x, y)
+	return { title = title, goals = { { t = "collect", item = 772, itemName = "Large Candle", count = 3, quest = 60, oi = 1, npc = 476, map = 1429, x = x, y = y } } }
+end
+local dughan = { t = "turnin", quest = 40, title = "A Fishy Peril", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 20.0, y = 20.0 }
+Polestar.RegisterGuide({
+	id = "test/dupes", pack = "test", title = "Dupes", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		candles("Candles west", 20.0, 80.0),
+		{ title = "Spiders", goals = { { t = "kill", target = "Forest Spider", npc = 43, count = 4, quest = 61, oi = 1, map = 1429, x = 47.0, y = 36.1 } } },
+		candles("Candles north", 47.6, 34.1),
+		{ title = "Eggs", goals = { { t = "collect", item = 773, itemName = "Spider Egg", count = 3, quest = 61, oi = 2, map = 1429, x = 48.4, y = 36.1 } } },
+		candles("Candles south", 47.6, 39.1),
+		{ title = "Dughan", goals = { dughan } },
+		{ title = "Dughan again", goals = { dughan } },
+	},
+})
+function dupes()
+	local out = {}
+	for _, c in ipairs(E.GetWhileHereCandidates()) do out[#out + 1] = c.step .. ":" .. c.index .. ":" .. c.kind .. ":" .. c.left .. ":" .. (c.first or "-") end
+	return table.concat(out, " ")
+end
+-- Every line shown: "step:named step:yards ...".
+function named()
+	local out = {}
+	for _, v in ipairs(E.GetWhileHereList()) do out[#out + 1] = v.step .. ":" .. v.firstStep .. ":" .. (v.yards or "-") end
+	return table.concat(out, " ")
+end
+"#;
+
+// The candles are one line, naming step 2 (the earliest, the one the route reaches first) and measured to the copy
+// nearest the player: step 4's camp, then step 6's once the player walks there (the same line: no new chime). The
+// two objectives of quest 61 are two lines. The hand-in is one candidate, step 7's.
+#[test]
+fn an_objective_several_steps_hold_is_one_line_naming_the_earliest_step_two_objectives_of_a_quest_are_two() {
+	let out = run_guide(
+		DUPES,
+		"test/dupes",
+		r#"
+		emit(dupes())
+		at(47.6, 35.6); emit(named())
+		local before = E.GetWhileHereList()[3].appeared
+		at(47.6, 38.1); emit(named())
+		emit(E.GetWhileHereList()[3].appeared == before)
+	"#,
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!("2:1:work:2:2 3:1:work:4:- 4:1:work:2:2 5:1:work:3:- 6:1:work:2:2 7:1:turnin:0:-"),
+			json!("3:3:20 5:5:25 4:2:30"),
+			json!("3:3:45 5:5:45 6:2:20"),
+			json!(true)
+		]
+	);
+}
+
+// Dismissing the line dismisses the objective: step 6's copy, 10 yd off, stays away as step 4's does.
+#[test]
+fn dismissing_an_objective_several_steps_hold_hides_every_copy() {
+	let out = run_guide(
+		DUPES,
+		"test/dupes",
+		r#"
+		at(47.6, 35.6); emit(named())
+		emit(E.DismissWhileHere(3)); emit(named())
+		at(47.6, 38.6); emit(named())
+		stub.advance(300); emit(named())
+	"#,
+	);
+	assert_eq!(
+		out,
+		vec![json!("3:3:20 5:5:25 4:2:30"), json!(true), json!("3:3:20 5:5:25"), json!("3:3:55 5:5:55"), json!("3:3:55 5:5:55")]
+	);
 }
