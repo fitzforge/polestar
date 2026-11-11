@@ -6524,6 +6524,16 @@ function Engine.TabIds()
 	return out
 end
 
+-- Each tab's guide and live step (nil: that guide is complete), in tab
+-- order, without loading any tab: the hand-in plan over every open route
+-- (Core/RoutePlan.lua).
+function Engine.TabLiveSteps()
+	sync()
+	local out = {}
+	for i = 1, #tabs do out[i] = { guide = tabs[i].guide, live = tabs[i].computed } end
+	return out
+end
+
 -- counts: also each tab's done and total (progressLoaded: the done rules over
 -- every step of its guide), for the views that show them (the tab tooltip,
 -- the guide menu); left out otherwise, as the tab strip's every repaint and
