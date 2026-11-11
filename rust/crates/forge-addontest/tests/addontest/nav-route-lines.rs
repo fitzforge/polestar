@@ -372,6 +372,37 @@ fn the_minimap_redraws_only_when_something_changed_and_its_line_pool_never_shrin
 	assert!(f(&out["limit"]) <= 600.0);
 }
 
+// The game redraws the minimap every frame; a line laid out less often lags the terrain under it and jumps to
+// catch up (jitter at 60+ fps).
+#[test]
+fn the_minimap_line_follows_every_rendered_frame_while_the_view_changes_at_a_high_frame_rate() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		stub.advance(0.5)
+		local driver
+		for _, c in ipairs(R.GetMinimapFrame().children) do if c.scripts.OnUpdate then driver = c end end
+		local strokes = R.GetStrokes("minimap")
+		local function frame()
+			strokes.x1[1] = 12345
+			stub.RunScript(driver, "OnUpdate", 1 / 144)
+			return strokes.x1[1] ~= 12345 and 1 or 0
+		end
+		local r = { moving = 0, still = 0 }
+		for i = 1, 24 do                                 -- 24 frames at 144 fps, a step each
+			nav.place(0, -i * 0.05)
+			r.moving = r.moving + frame()
+		end
+		for _ = 1, 24 do r.still = r.still + frame() end -- standing still
+		emit(r)"#,
+	);
+	assert_eq!(out["moving"], 24, "one layout per rendered frame while moving");
+	assert_eq!(out["still"], 0, "nothing redrawn while the view holds still");
+}
+
 // The lines are Polestar's own frame on the canvas (Nav/MapCanvas.lua): nothing is acquired from the map or
 // released to it, so combat changes nothing.
 #[test]
