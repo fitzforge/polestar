@@ -122,7 +122,8 @@ end
 
 -- At login, once: ask to turn it on, never in combat (then after it). The
 -- answer is kept per account until the guides are on again, so a player who
--- keeps them off on purpose is asked once.
+-- keeps them off on purpose is asked once. Never with the gamepad interface
+-- (its focus owns the game's dialogs): the guide window's button stays.
 local POPUP = "POLESTAR_GUIDES_OFF"
 local askPending = false
 
@@ -130,7 +131,7 @@ local function ask()
 	if not askPending then return end
 	if ns.Compat.InCombat() then return end
 	askPending = false
-	if not (StaticPopupDialogs and StaticPopup_Show) or not P.OwnGuidesOff() then return end
+	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) or not P.OwnGuidesOff() then return end
 	ns.DB().guidesOffAsked = true
 	StaticPopupDialogs[POPUP] = StaticPopupDialogs[POPUP] or {
 		text = "%s",
