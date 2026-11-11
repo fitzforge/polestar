@@ -42,6 +42,25 @@ local function slide()
 	stub.advance(1)
 	return out
 end
+-- Kobold Vermin (the step's third goal) turning done, 0.9 s on (past the hold, into the fold): the share of its row's
+-- height left (it shuts like a drawer) or its whole height (it only fades); then open again.
+local function fold()
+	local g = uistub.goal(3, 3)
+	local cur, status = g.progress and g.progress.cur, g.status
+	if g.progress then g.progress.cur = g.progress.max or 10 end
+	g.status = "done"
+	uistub.update()
+	stub.advance(0.9)
+	local k = false
+	for _, r in ipairs(GF.rows) do
+		if r:IsShown() and r.psFold then k = r.psK or 1 end
+	end
+	if g.progress then g.progress.cur = cur end
+	g.status = status
+	uistub.update()
+	stub.advance(1)
+	return k
+end
 return {
 	setup = function()
 		GF, F, Anim = Polestar.UI.GuideFrame, PolestarGuideFrame, Polestar.Anim
@@ -120,5 +139,8 @@ return {
 		["guideWindow.progress"] = one("foot"),
 		["guideWindow.progressColor"] = one("fill"),
 		["guideWindow.progressPct"] = one("pct"),
+		["guideWindow.foldAnim"] = fold,
+		-- A preset card (Compact): the window narrower, without the step's person.
+		["Guide window:Presets"] = function() return { snapshot().width, snapshot().person } end,
 	},
 }
