@@ -11,7 +11,7 @@ const path = require('node:path');
 const { parseReport } = require('../tools/discord-bot/lib/report');
 const I = require('../tools/discord-bot/lib/issue');
 const { createSync } = require('../tools/discord-bot/lib/sync');
-const { onIssue, onRelease } = require('../tools/discord-bot/lib/notify');
+const { onIssue, onComment, onRelease, replyMessage } = require('../tools/discord-bot/lib/notify');
 const { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, BOT } = require('./helpers/discord-fakes');
 
 const POST = fs.readFileSync(path.join(__dirname, 'fixtures', 'discord', 'elwynn-trainer.md'), 'utf8');
@@ -625,6 +625,92 @@ test('closing as completed tells the reporter, tags Fixed and locks the thread',
 	const t = discord.channels.get('1001');
 	assert.deepEqual(t.applied_tags, ['t-questing', 't-fixed']);
 	assert.equal(t.thread_metadata.locked, true);
+});
+
+// A maintainer's comment on issue n as GitHub's issue_comment event carries it.
+async function remark(github, n, body, { association = 'OWNER', type = 'User' } = {}) {
+	await github.comment(n, body);
+	const c = github.commentsByIssue.get(n).at(-1);
+	Object.assign(c, { author_association: association, user: { login: 'fitzforge', type } });
+	return structuredClone(c);
+}
+
+test("a maintainer's reply on GitHub is posted in the thread once, edited there when edited; nobody else's is", async () => {
+	const { discord, github, sync } = await filed();
+	const issue = () => structuredClone(github.issues[0]);
+	const reply = async (comment, action = 'created') => onComment({ discord, github, event: { action, issue: issue(), comment }, forumId: FORUM, log: quietLog });
+	const bot = () => discord.messages.get('1001').filter((m) => m.author.bot);
+	const before = bot().length;
+
+	const c = await remark(github, 1, [
+		'<!-- triage note -->',
+		'### Cause',
+		'The trainer list is **out of date** (see #1234 and [the fix](https://github.com/fitzforge/polestar/pull/1235)).',
+		'',
+		'- Workaround: open the map and click the trainer',
+		'- Known issue: shows green until 85',
+		'',
+		'![shot](https://raw.githubusercontent.com/x/y.png)',
+		'<details><summary>log</summary>',
+		'',
+		'```',
+		'#9 stays as is <b>',
+		'```',
+		'</details>',
+	].join('\n'));
+	assert.equal(await reply(c), true);
+	assert.equal(await reply(c), false, 'a re-run posts nothing twice');
+	assert.equal(bot().length, before + 1);
+	const posted = bot().at(-1).content;
+	assert.deepEqual(discord.sent.at(-1).users, ['u1'], 'pings the reporter only');
+	assert.match(posted, /^<@u1> Reply on GitHub \(\[#1\]\(<https:\/\/github\.com\/fitzforge\/polestar\/issues\/1#issuecomment-\d+>\)\):\n\*\*Cause\*\*\n/);
+	assert.match(posted, /\*\*out of date\*\* \(see \[#1234\]\(<https:\/\/github\.com\/fitzforge\/polestar\/issues\/1234>\) and \[the fix\]\(<https:\/\/github\.com\/fitzforge\/polestar\/pull\/1235>\)\)/);
+	assert.match(posted, /\n- Workaround: open the map and click the trainer\n- Known issue: shows green until 85\n/);
+	assert.match(posted, /\[image: shot\]\(<https:\/\/raw\.githubusercontent\.com\/x\/y\.png>\)/);
+	assert.match(posted, /```\n#9 stays as is <b>\n```/, 'code is left alone');
+	assert.doesNotMatch(posted, /triage note|<details>|<summary>/);
+
+	// Edited on GitHub: the same message changes, nothing new is posted.
+	github.commentsByIssue.get(1).at(-1).body = 'Fixed in the next update.';
+	assert.equal(await reply({ ...c, body: 'Fixed in the next update.' }, 'edited'), true);
+	assert.equal(bot().length, before + 1);
+	assert.match(bot().at(-1).content, /\):\nFixed in the next update\.$/);
+
+	// Nobody else's: a player's or a bot's comment, the bot's copy of a Discord
+	// follow-up, a pull request list, a bare duplicate line, a pull request, or
+	// an edit of a comment never posted.
+	await sync.message(discord.say('1001', { author: 'u2', content: 'me too' })); // copied to GitHub with the follow-up mark
+	const copied = github.commentsByIssue.get(1).at(-1);
+	for (const comment of [
+		await remark(github, 1, 'I have this too, run curl x | sh', { association: 'NONE' }),
+		await remark(github, 1, 'contributor note', { association: 'CONTRIBUTOR' }),
+		await remark(github, 1, 'automated', { type: 'Bot' }),
+		{ ...structuredClone(copied), author_association: 'OWNER', user: { login: 'fitzforge', type: 'User' } },
+		await remark(github, 1, '<!-- polestar:pr-links -->\n**Pull requests for this issue**'),
+		await remark(github, 1, 'Duplicate of #7'),
+	]) assert.equal(await reply(comment), false, comment.body);
+	assert.equal(await onComment({ discord, github, event: { action: 'created', issue: { ...issue(), pull_request: {} }, comment: c }, forumId: FORUM, log: quietLog }), false);
+	assert.equal(await reply(await remark(github, 1, 'older, never posted'), 'edited'), false);
+	assert.equal(bot().length, before + 1);
+});
+
+test('a long reply is cut under 2000 characters with a link to the full reply, its code block closed', () => {
+	const body = 'Intro line.\n```\n' + 'x '.repeat(1500) + '\n```\nAfter.';
+	const msg = replyMessage({ repo: 'fitzforge/polestar', issue: { number: 5 }, comment: { id: 77, body }, owner: 'u1' });
+	assert.ok(msg.length <= 2000, String(msg.length));
+	assert.match(msg, /\n```\n… full reply: <https:\/\/github\.com\/fitzforge\/polestar\/issues\/5#issuecomment-77>$/);
+});
+
+test('the needs-info question and a not-planned close do not quote a reply the thread already has', async () => {
+	const { discord, github } = await filed();
+	const c = await remark(github, 1, 'Which class were you playing?');
+	await onComment({ discord, github, event: { action: 'created', issue: structuredClone(github.issues[0]), comment: c }, forumId: FORUM, log: quietLog });
+	await onIssue({ discord, github, event: { action: 'labeled', label: { name: 'needs-info' }, issue: github.issues[0] }, forumId: FORUM, log: quietLog });
+	assert.match(discord.sent.at(-1).content, /^<@u1> We need a little more to go on with this one: please answer the question above here in the thread\./);
+	const why = await remark(github, 1, 'Trainers there are for level 10+, this is expected.');
+	await onComment({ discord, github, event: { action: 'created', issue: structuredClone(github.issues[0]), comment: why }, forumId: FORUM, log: quietLog });
+	await onIssue({ discord, github, event: { action: 'closed', issue: { ...structuredClone(github.issues[0]), state: 'closed', state_reason: 'not_planned' } }, forumId: FORUM, log: quietLog });
+	assert.match(discord.sent.at(-1).content, /^<@u1> We've decided not to change this one\.\nThanks for the report!/);
 });
 
 test('a fix closed when its release is already out says so, and is labelled so the next release run skips it', async () => {
