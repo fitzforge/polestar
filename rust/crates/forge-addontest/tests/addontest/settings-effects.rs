@@ -240,27 +240,13 @@ fn env(name: &str) -> Env {
 			before: "",
 			addons: vec![Addon::files(
 				"Polestar",
-				&[
-					"Core/Init.lua",
-					"Core/Compat.lua",
-					"Core/Hooks.lua",
-					"Theme/Theme.xml",
-					"QoL/QoL.xml",
-					&page("Polestar_Options/QoL/Options.lua"),
-					&page("Polestar_Options/QoL/ButtonsOptions.lua"),
-				],
+				&["Core/Init.lua", "Core/Compat.lua", "Core/Hooks.lua", "Theme/Theme.xml", "QoL/QoL.xml", &page("Polestar_Options/QoL/Options.lua"), &page("Polestar_Options/QoL/ButtonsOptions.lua")],
 			)],
 			login: true,
 			prelude: "stub.advance(1)\n".into(),
 		},
 		// The whole addon on the world stub, the settings window's addon loaded.
-		_ => Env {
-			stubs: vec!["stub_world.lua"],
-			before: "",
-			addons: vec![Addon::name("Polestar")],
-			login: true,
-			prelude: "stub.advance(1)\nassert(Polestar.UI.LoadOptions())\n".into(),
-		},
+		_ => Env { stubs: vec!["stub_world.lua"], before: "", addons: vec![Addon::name("Polestar")], login: true, prelude: "stub.advance(1)\nassert(Polestar.UI.LoadOptions())\n".into() },
 	}
 }
 
@@ -288,15 +274,7 @@ fn run_group(g: &Group) -> Value {
 	if let Some(db) = &questdb {
 		before = format!("stub.quests.dbFiles = {}\n{before}", db.lua_files());
 	}
-	emitted(&RunAddon {
-		stubs: e.stubs,
-		before,
-		addons: e.addons,
-		login: e.login,
-		script: format!("{}__GROUP = (function() {} end)()\n{RUNNER}", e.prelude, g.src),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: e.stubs, before, addons: e.addons, login: e.login, script: format!("{}__GROUP = (function() {} end)()\n{RUNNER}", e.prelude, g.src), ..Default::default() }).remove(0)
 }
 
 fn check(name: &str) {
