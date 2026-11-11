@@ -141,6 +141,12 @@ House.ROLES = ROLES
 --   loneTab      a lone guide tab takes the room its title needs
 --   well         a tick box's well: shade at this share
 --   rareEmber    the rare button's glyph and name in Rare Ember, outlined
+--   dialogFoot   a dialog's and the guide end's footer height (the 4-point
+--                rhythm; 54 and 60 in the other looks)
+--   endEmblem    the guide end's emblem (44 in the other looks)
+--   sidePad      the party panel's padding (10 in the other looks)
+--   sideHead     the party panel's head, as the guide window's tab strip
+--                (26 in the other looks)
 ---------------------------------------------------------------------------
 
 local TOKENS = {
@@ -155,6 +161,10 @@ local TOKENS = {
 	loneTab = true,
 	well = 0.12,
 	rareEmber = true,
+	dialogFoot = 56,
+	endEmblem = 40,
+	sidePad = 12,
+	sideHead = 28,
 }
 
 ---------------------------------------------------------------------------

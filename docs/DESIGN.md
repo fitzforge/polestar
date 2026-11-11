@@ -616,6 +616,7 @@ What the built-in house look draws that no other look does: its own tokens in `T
 - **A lone tab shows its whole title:** with one guide open its tab takes the room its title and level range need, up to the strip ("Elwynn Forest (1–13)", not "Elwynn Fo… (1–13)" beside an empty strip); a title longer than the strip truncates inside it. Several tabs share the strip as before; the other looks keep the 150-unit tab.
 - **Lighter tick boxes:** the well is the shade at 12% (35% in the other looks), so goal rows no longer carry a column of black squares down the window's edge; the box keeps its hairline, and on the world (the transparent style) the scrim inside as before.
 - **The rare button wears Rare Ember:** its glyph and name in the `rare` colour, as the rare alert's ring, the name outlined as the target plate's so the colour holds on warm ground (`buttons.labelOutline` still decides when set). The other looks keep the quest gold glyph and a textDim name.
+- **Sizes on the 4-point rhythm:** the guide end's footer 56 and its emblem 40, a dialog's footer 56, the party panel's padding 12 and its head 28 (the guide window's tab strip). The other looks keep 60 and 44, 54, 10 and 26.
 
 ### Zone Art
 A zone's own world-map painting, drawn from the player's client, 20% desaturated so it sits in the night palette, zoomed past the whole map and framed around a place; a 40px shade along the top for chips and buttons, a fade over the bottom 62% into the ground. Where the art is missing, a stretch of the starlit band stands in.

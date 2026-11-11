@@ -682,3 +682,60 @@ fn the_house_look_draws_a_lighter_tick_box_well() {
 	assert_eq!(looks[3]["well"], looks[0]["well"], "back on the house skin");
 	assert_eq!(out["clear"][3], 0.6, "on the world: the scrim inside, as before");
 }
+
+// The house look's sizes on the 4-point rhythm: the guide end's footer 56 and emblem 40, a dialog's footer 56, the
+// party panel's padding 12 and head 28 (the guide window's strip). Every other look keeps 60 and 44, 54, 10 and 26.
+// Each is laid out whole at every scale.
+#[test]
+fn the_guide_end_the_dialog_and_the_party_panel_take_the_house_looks_sizes_only() {
+	let out = run(r#"
+		local W, PP, E = Polestar.Widgets, Polestar.UI.PartyPanel, Polestar.Engine
+		E.GuideEnded = function() return true end
+		E.NextGuide = function() return "forever/alliance/02-westfall" end
+		local function ending()
+			Polestar.Fire("GUIDE_END", uistub.elwynn, { guideId = uistub.elwynn, undone = 0, complete = true, next = "forever/alliance/02-westfall" })
+			stub.advance(1)
+			local F = PolestarGuideEnd
+			local out = { foot = F.Footer:GetHeight(), emblem = F.Emblem:GetWidth(), glow = F.Glow:GetWidth(), shown = F:IsShown() }
+			F:Hide()
+			return out
+		end
+		local bad = {}
+		local function dialog(scale)
+			local m = W.Modal({ title = "Reset every setting?", text = "Every setting goes back to Polestar's own.", action = "Reset" })
+			local box = m.Box
+			box:SetScale(scale)
+			box.Title.psName, box.Text.psName, box.Action.psName, box.Cancel.psName = "title", "text", "action", "cancel"
+			for _, b in ipairs(breaks(box, { { box.Title, "text" }, { box.Text, "text" }, { box.Action }, { box.Cancel } })) do bad[#bad + 1] = "dialog x" .. scale .. ": " .. b end
+			local out = { foot = box.Foot:GetHeight() }
+			W.HideModal()
+			return out
+		end
+		local function party(scale)
+			local p = PP.NewPanel(UIParent)
+			p:SetScale(scale)
+			PP.FillRows(p, { { name = "Ana", level = 12, step = "Step 3: Kobold Camp Cleanup", unit = "party1" }, { name = "Bo", level = 11, unit = "party2" } })
+			local r = p.rows[1]
+			for i, row in ipairs(p.rows) do
+				row.psName = "row " .. i
+				for _, b in ipairs(breaks(p, { { row }, { p.Title, "text" } })) do bad[#bad + 1] = "party x" .. scale .. ": " .. b end
+			end
+			return { titleX = select(4, p.Title:GetPoint(1)), rowX = select(4, r:GetPoint(1)), rowY = select(5, r:GetPoint(1)) }
+		end
+		local out = { looks = eachLook(function()
+			local d, pa
+			for _, scale in ipairs({ 0.64, 0.65, 1, 1.25, 1.5 }) do d, pa = dialog(scale), party(scale) end
+			return { ending = ending(), dialog = d, party = pa }
+		end) }
+		out.bad = table.concat(bad, " | ")
+		emit(out)"#);
+	let looks = out["looks"].as_array().unwrap();
+	let house = json!({ "ending": { "foot": 56, "emblem": 40, "glow": 120, "shown": true }, "dialog": { "foot": 56 }, "party": { "titleX": 12, "rowX": 12, "rowY": -28 } });
+	let other = json!({ "ending": { "foot": 60, "emblem": 44, "glow": 132, "shown": true }, "dialog": { "foot": 54 }, "party": { "titleX": 10, "rowX": 10, "rowY": -26 } });
+	for l in looks {
+		let mut l = l.clone();
+		let skin = l.as_object_mut().unwrap().remove("skin").unwrap();
+		assert_eq!(l, if skin == "polestar" { house.clone() } else { other.clone() }, "{skin}");
+	}
+	assert_eq!(out["bad"], "", "nothing cut, overlapping or outside its window");
+}

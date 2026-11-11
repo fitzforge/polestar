@@ -45,6 +45,8 @@ UI.GuideEnd = GE
 
 local WIDTH = 460
 local PAD = 24
+-- The emblem and the footer; the house look's own (Theme.House "endEmblem",
+-- "dialogFoot", on the 4-point rhythm) read as the window is laid out.
 local EMBLEM = 44
 local EMBLEM_Y = 26 -- the emblem's top below the header's
 local HEAD_BOTTOM = 24 -- under the heading's last line
@@ -244,6 +246,10 @@ local function build()
 end
 
 local function layout(m)
+	local emblem, footH = Theme.House("endEmblem") or EMBLEM, Theme.House("dialogFoot") or FOOT_H
+	F.Emblem:SetSize(emblem, emblem)
+	F.Glow:SetSize(emblem * 3, emblem * 3)
+	F.Footer:SetHeight(footH)
 	paintTitle(F.Title)
 	if m.complete then
 		F.Undone:Hide()
@@ -251,7 +257,7 @@ local function layout(m)
 		F.Undone:SetText(m.undone == 1 and L["1 step was left undone."] or format(L["%d steps were left undone."], m.undone))
 		F.Undone:Show()
 	end
-	local headH = EMBLEM_Y + EMBLEM + 16 + F.Title:GetStringHeight()
+	local headH = EMBLEM_Y + emblem + 16 + F.Title:GetStringHeight()
 	if F.Undone:IsShown() then headH = headH + 8 + F.Undone:GetStringHeight() end
 	headH = floor(headH + HEAD_BOTTOM + 0.5)
 	F.Header:SetHeight(headH)
@@ -321,7 +327,7 @@ local function layout(m)
 		local no = E and E.StepNumberOf and g and (E.StepNumberOf(g, m.live)) or m.live
 		W.SetButtonText(F.Later, format(L["Back to step %d"], no))
 	end
-	F:SetHeight(floor(y + PAD + FOOT_H + 0.5))
+	F:SetHeight(floor(y + PAD + footH + 0.5))
 	if W.LayoutRim then W.LayoutRim(F) end
 end
 

@@ -2569,7 +2569,10 @@ function W.Modal(spec)
 	box.Text:SetText(spec.text or "")
 	box.Text:SetShown((spec.text or "") ~= "")
 	local body = box.Text:IsShown() and math.ceil(box.Text:GetStringHeight()) + 8 or 0
-	box:SetHeight(MODAL_PAD + th + body + 20 + MODAL_FOOT)
+	-- The footer: the house look's (Theme.House "dialogFoot"), else MODAL_FOOT.
+	local foot = Theme.House("dialogFoot") or MODAL_FOOT
+	box.Foot:SetHeight(foot)
+	box:SetHeight(MODAL_PAD + th + body + 20 + foot)
 	local a = box.Action
 	a.psDanger, a.psPrimary = spec.danger and true or false, not spec.danger
 	W.SetButtonText(a, spec.action or L["OK"])
