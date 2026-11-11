@@ -544,7 +544,7 @@ fn guide_class() {
 // release's control (settings-controls.json, as the coverage test reads it: its row placed in the window ahead of the
 // setting it needs) needs its check once this build is that release.
 #[test]
-#[ignore = "effect checks still to write: the Guide, Alerts & toasts and Trackers pages and the Look pages' presets"]
+#[ignore = "effect checks still to write: the Alerts & toasts and Trackers pages and the Look pages' presets"]
 fn every_control_has_an_effect_check() {
 	let mut checked = std::collections::BTreeSet::new();
 	for g in GROUPS {
