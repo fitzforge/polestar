@@ -123,7 +123,7 @@ the description they show no version, so they stay true.
 
 | File | Title | Description |
 |---|---|---|
-| `01-featured.jpg` | Polestar | Free leveling guides for WoW: Forever: the arrow and the guide window on the way to Elder Rise |
+| `01-featured.jpg` | Polestar Community Guides | Free leveling guides for WoW: Forever, 1 to 60, every race |
 | `02-arrow.jpg` | The arrow walks real paths | Around cliffs, across bridges and up the lifts, with the distance and time to go |
 | `03-person.jpg` | One person at a time | Who to talk to now, in full; done people fold away and the next one moves up |
 | `04-while-here.jpg` | While you're here | Kills, items and hand-ins from other steps, offered when you are close to them |
