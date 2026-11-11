@@ -124,8 +124,10 @@ fn takes_a_known_flight_over_a_long_walk_and_walks_when_no_flight_is_known() {
 // #1603: a walk the walking engine measured chooses by the router's cost, which prices a road at 0.8 of its yards;
 // flights cost their real seconds. From West Hold to 20 yd past East Hold the flight takes 1700 / 30 + 2 s plus a
 // 20 yd walk (~62 s), and its first hop costs 4 s more to plan (the take-off at the flight master, never its time).
-// A 500 yd road walk (71 s, cost 57) walked before; it now flies. A 450 yd walk (64 s, 2 s slower than the flight)
-// flew for 2 s; it now walks. A 400 yd walk up a slope (57 s, cost 74) still flies: the router's penalties count.
+// A 500 yd road walk (71 s, cost 57) walked before; a plan that only walks on a road's discount is planned again with
+// measured walks at their yards and now flies. A 450 yd walk (64 s, 2 s slower than the flight) flew for 2 s; it now
+// walks. A 400 yd walk up a slope (57 s, cost 74) still flies: the router's penalties count. Choices between walks
+// (which landing, at the road's discount) stay the router's: nav-spf.rs's cost_and_yards_the_measure_s_cost_picks_the_landing.
 #[test]
 fn issue_1603_a_measured_road_walk_never_beats_a_faster_flight_and_a_near_tie_walks() {
 	let out = run(r#"
