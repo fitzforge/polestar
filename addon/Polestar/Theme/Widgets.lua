@@ -1864,7 +1864,11 @@ function W.CopyBox(parent, opts)
 		Theme.SetFocused(well, false)
 		self:HighlightText(0, 0)
 	end)
-	e:SetScript("OnMouseUp", function(self) self:SetFocus(); self:HighlightText() end)
+	e:SetScript("OnMouseUp", function(self) W.SelectCopy(self) end)
+	-- Ctrl+A (Cmd+A on a Mac) selects all of it again.
+	e:SetScript("OnKeyDown", function(self, key)
+		if key == "A" and ((IsControlKeyDown and IsControlKeyDown()) or (IsMetaKeyDown and IsMetaKeyDown())) then self:HighlightText() end
+	end)
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 	e:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
 	e:SetScript("OnTextChanged", function(self, userInput)
@@ -1880,6 +1884,20 @@ function W.SetCopyText(e, text)
 	e.psText = text or ""
 	e:SetText(e.psText)
 	e:SetCursorPosition(0)
+end
+
+-- A copy box in focus with all its text selected, for Ctrl+C: now, and
+-- again in the next frame. A box just shown inside a scroll view (the
+-- report window's, #1753) is laid out by its scroll frame in a later frame,
+-- and Fitz found the report there not selected after Copy report in 0.3.7.
+function W.SelectCopy(e)
+	e:SetFocus()
+	e:HighlightText()
+	ns.After(0, function()
+		if not e:IsVisible() then return end
+		e:SetFocus()
+		e:HighlightText()
+	end)
 end
 
 ---------------------------------------------------------------------------
@@ -1962,11 +1980,26 @@ function W.Scroll(parent)
 	return sf
 end
 
+-- Scroll `child` itself (created with the scroll area as its parent) in
+-- place of the area's own child frame: an edit box, the way the game's own
+-- scrolling input boxes hold theirs. 0.3.7-rc1's report box, nested in the
+-- area's child frame instead, took no click and no focus in the game (#1753).
+function W.ScrollChild(sf, child)
+	if sf.Child and sf.Child ~= child then sf.Child:Hide() end
+	sf:SetScrollChild(child)
+	sf.Child = child
+	return child
+end
+
 -- Tell the scroll area its content and view heights (view nil = measured).
+-- UpdateScrollChildRect has the client take the child's new size at once,
+-- as the game's own scroll frames do after resizing theirs (#1753: the
+-- report box, sized while its area was hidden, took no click in rc1).
 function W.SetScrollContent(sf, contentHeight, viewHeight)
 	sf.psContent = contentHeight
 	sf.psView = viewHeight
 	sf.Child:SetHeight(max(1, contentHeight))
+	if sf.UpdateScrollChildRect then sf:UpdateScrollChildRect() end
 	scrollUpdate(sf)
 end
 
