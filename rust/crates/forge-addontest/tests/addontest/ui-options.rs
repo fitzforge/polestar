@@ -2009,7 +2009,7 @@ fn every_look_page_keeps_the_layout_rules_at_defaults() {
 					local where = p.name .. " > " .. tab
 					seen = seen + 1
 					local rows, on = 0, 0
-					local per = {}
+					local per, cardsOnly = {}, {}
 					for c, w in pairs(v.cache) do
 						if w:IsShown() and not c.psOwner then
 							rows = rows + 1
@@ -2018,6 +2018,8 @@ fn every_look_page_keeps_the_layout_rules_at_defaults() {
 							if c.psSection then
 								per[c.psSection] = per[c.psSection] or {}
 								per[c.psSection][w.psTop or 0] = true
+								-- A block of picture cards alone (presets, skins, styles) stands as its own section.
+								cardsOnly[c.psSection] = cardsOnly[c.psSection] ~= false and c.kind == "cards"
 							end
 							local sw, sc = 0, 0
 							for _, e in ipairs(rawget(w, "psExtras") or {}) do
@@ -2041,7 +2043,7 @@ fn every_look_page_keeps_the_layout_rules_at_defaults() {
 						local s = card:IsShown() and card.psSection
 						local lines = 0
 						for _ in pairs(s and per[s] or {}) do lines = lines + 1 end
-						if s and lines < 2 then bad[#bad + 1] = where .. ": section \"" .. tostring(s.name) .. "\" has " .. lines .. " row" end
+						if s and lines < 2 and not cardsOnly[s] then bad[#bad + 1] = where .. ": section \"" .. tostring(s.name) .. "\" has " .. lines .. " row" end
 					end
 					if rows > 0 and on == 0 then bad[#bad + 1] = where .. ": every row is off at defaults" end
 				end

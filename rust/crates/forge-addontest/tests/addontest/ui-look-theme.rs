@@ -211,8 +211,9 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 			if switches > 1 or swatches > 1 then bad[#bad + 1] = name .. ": more than one switch or swatch beside it" end
 			for _, x in ipairs(c.more or {}) do check(x) end
 		end
+		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs).
 		for _, spec in ipairs(W.OptionsRegistry) do
-			if spec.page == "Theme" then
+			if spec.page == "Theme" and spec.tab ~= "Essentials" then
 				first = first or spec
 				if not tabs[spec.tab] then tabs[spec.tab] = true; tabs[#tabs + 1] = spec.tab end
 				if spec.preview then previews[spec.tab] = true end

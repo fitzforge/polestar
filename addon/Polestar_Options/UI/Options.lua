@@ -1169,6 +1169,8 @@ local function rowOf(view, c)
 				x = W.InlineToggle(w, e.key, labelOf(e), tipOf(e, view.psSearch))
 			end
 			x.psControl = e
+			-- A reference's row shows its home's extras: these stand for them too.
+			if rawget(c, "ref") and not rawget(c, "extras") then x.psViaRef = true end
 			W.SetDisabledWhen(x, disabledOf(e))
 			extras = extras or {}
 			extras[#extras + 1] = x
@@ -2841,19 +2843,25 @@ end
 -- (other tabs lay out when selected).
 W.OnFontChanged(relayout)
 
--- The widgets on a page tab (tests and preview): key -> widget.
+-- The widgets on a page tab (tests and preview): key -> widget. Over a whole
+-- page a setting's home row wins over a reference to it (Essentials).
 function O.Controls(key, tabName)
 	local p = pageByKey(key)
-	local out = {}
+	local out, byRef = {}, {}
 	if not p or not p.views then return out end
+	local function put(c, k, w)
+		local ref = rawget(c, "ref") or rawget(w, "psViaRef")
+		if out[k] and not byRef[k] and ref then return end
+		out[k], byRef[k] = w, ref and true or nil
+	end
 	for name, view in pairs(p.views) do
 		if not tabName or name == tabName then
 			for c, w in pairs(view.cache) do
-				if c.key then out[c.key] = w else out[labelOf(c)] = w end
+				if c.key then put(c, c.key, w) else out[labelOf(c)] = w end
 			end
 			-- Inline extras and the sections' header toggles, by their keys.
 			for c, w in pairs(view.extras or {}) do
-				if c.key then out[c.key] = w end
+				if c.key then put(c, c.key, w) end
 			end
 		end
 	end
