@@ -1857,7 +1857,8 @@ emit(out)"#);
 			"text": "Kill Burning Blade Fanatic or Burning Blade Apprentice for Lieutenant's Insignia" }),
 		"both droppers named, the lower id first at the same chance; no faction: mobs to kill"
 	);
-	assert_eq!(out["talkNote"], "Neeru Fireblade: click through what they say until the quest's line is done.");
+	// The step is a prerequisite of the dungeon quest too: why it is in the guide comes first, then how to do it.
+	assert_eq!(out["talkNote"], "Needed for “The Dungeon Quest”. Neeru Fireblade: click through what they say until the quest's line is done.");
 
 	// A third dropper, none at 50%: the item drops all around, no source is named (as compiled guides do).
 	let mut wide = c.clone();
@@ -1934,8 +1935,8 @@ emit({ steps = describe(def), notes = notes, groups = groups, view = { note = v.
 	assert_eq!(plain["steps"], json!(from_undercity()));
 	assert_eq!(
 		plain["notes"],
-		json!(["Needed for “Arugal Must Die”.", "Needed for “Arugal Must Die”.", false, false, false]),
-		"the two quests before Dalar's, not the givers' steps nor the entrance"
+		json!(["Needed for “Arugal Must Die”.", "Needed for “Arugal Must Die”.", false, false, "In your log already: “The Book of Ur”"]),
+		"the two quests before Dalar's; not the givers' steps; the entrance keeps its own note (#1591)"
 	);
 	assert_eq!(plain["view"]["note"], "Needed for “Arugal Must Die”.", "the guide window shows it on the step");
 
