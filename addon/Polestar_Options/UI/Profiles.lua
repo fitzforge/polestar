@@ -691,6 +691,19 @@ end
 
 local layoutProfiles, layoutShare
 
+-- The view's loose text (labels, notes and warnings placed by the layout)
+-- stands on a layer of its own over the section cards, whose grounds would
+-- otherwise cover text drawn on the view itself.
+local function overlay(v)
+	local top = rawget(v, "TextLayer")
+	if top then return top end
+	top = CreateFrame("Frame", nil, v)
+	top:SetAllPoints(v)
+	top:SetFrameLevel(v:GetFrameLevel() + 6)
+	v.TextLayer = top
+	return top
+end
+
 local function buildProfiles(v)
 	local P = Profiles()
 	-- The cards first, so the rows over them draw above.
@@ -738,12 +751,12 @@ local function buildProfiles(v)
 	end
 	W.Confirm(v.Delete, L["Delete"], function() PV.Delete(current()) end)
 	-- The name editor, in place of the actions.
-	v.NameLabel = W.Text(v, "body", "rowLabel")
+	v.NameLabel = W.Text(overlay(v), "body", "rowLabel")
 	v.NameLabel:SetWordWrap(false)
 	v.NameBox = field(v, function() PV.CommitEdit() end)
 	v.NameOK = W.Button(v, "", function() PV.CommitEdit() end, { primary = true, height = 24 })
 	v.NameCancel = W.Button(v, L["Cancel"], function() PV.CancelEdit() end, { height = 24 })
-	v.NameError = text(v, "note", "warning")
+	v.NameError = text(overlay(v), "note", "warning")
 	v.Refresh = function() return layoutProfiles(v) end
 end
 
@@ -773,16 +786,16 @@ local function buildShare(v)
 
 	v.PasteBox = pasteBox(v)
 	v.Status = statusLine(v)
-	v.Changes = text(v, "note", "textDim")
+	v.Changes = text(overlay(v), "note", "textDim")
 	v.ImportAreas = {}
 	for _, area in ipairs(P.AREAS) do
 		v.ImportAreas[area] = switchRow(v, AREA_LABEL[area], AREA_HELP[area],
 			function() return importAreas[area] end,
 			function(on) importAreas[area] = on and true or false end)
 	end
-	v.Screen = text(v, "note", "warning")
-	v.Dropped = text(v, "note", "warning")
-	v.ImportNameLabel = W.Text(v, "body", "rowLabel")
+	v.Screen = text(overlay(v), "note", "warning")
+	v.Dropped = text(overlay(v), "note", "warning")
+	v.ImportNameLabel = W.Text(overlay(v), "body", "rowLabel")
 	v.ImportNameLabel:SetText(L["Name"])
 	v.ImportName = field(v, function() PV.ImportNew() end)
 	v.ImportNew = W.Button(v, L["Import as new"], function() PV.ImportNew() end, { primary = true, height = 24 })
@@ -791,7 +804,7 @@ local function buildShare(v)
 	v.ImportHere.psTip = L["The string's settings (the parts switched on) into the profile in use; the rest stay as they are. Asks first."]
 	v.ImportCancel = W.Button(v, L["Clear"], function() PV.ClearImport() end, { ghost = true, height = 24 })
 	v.ImportCancel.psTip = L["Empty the box."]
-	v.ImportError = text(v, "note", "warning")
+	v.ImportError = text(overlay(v), "note", "warning")
 	v.Done = statusLine(v)
 	v.Refresh = function() return layoutShare(v) end
 end
