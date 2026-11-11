@@ -1915,6 +1915,30 @@ test('Objective numbers point at the line the game counts for each target: A Moo
 	assert.equal(checked, 17, 'the lines of every guide that number these objectives');
 });
 
+// gabriel pasternak's report (#1760, Orc Shaman at Freewind Post): Razorfen Kraul's page and pick-up guide
+// showed Elemental Aid (79360) as given by Rau Cliffrunner and handed in to Bath'rah the Windwatcher in Alterac
+// Mountains, with no prerequisite: the Season of Discovery chain's NPCs, listed first in the merged data. Prate
+// Cloudseer gives it once Call of Air (1531, 1532 or Skyborne's 96136) is handed in to her, and Rau takes it
+// (players' recordings: taken from Prate by 2 people, handed in to Rau by 3, never offered by Rau). The same
+// Season of Discovery NPC led Storm, Earth, and Fire's enders (79361, Prate) and Heed My Call's givers (79366,
+// Prate). The Horde Shaman class guide already went that way; the records make the data agree with it.
+test("gabriel pasternak's report (#1760): the Horde Elemental Aid chain's givers and enders, and Call of Air first", { skip }, () => {
+	const q = loadCorrections().quests;
+	const npcs = (rec, end) => rec && rec.set && rec.set[end] && rec.set[end].npc;
+	assert.deepEqual(npcs(q['79360'], 'start'), [5905], 'Elemental Aid: Prate Cloudseer alone gives it');
+	assert.deepEqual(npcs(q['79360'], 'end'), [4722], 'Elemental Aid: Rau Cliffrunner alone takes it');
+	assert.deepEqual([...q['79360'].set.preAny].sort((a, b) => a - b), [1531, 1532, 96136], 'Elemental Aid: after any Call of Air');
+	assert.deepEqual(npcs(q['79361'], 'end'), [5905], 'Storm, Earth, and Fire: handed in to Prate Cloudseer');
+	assert.deepEqual(npcs(q['79366'], 'start'), [5905], 'Heed My Call: given by Prate Cloudseer');
+	const list = goals('forever/class/shaman/call-of-air-horde.guide');
+	const accept = at(list, 'accept 79360', is('accept', 79360));
+	assert.equal(list[accept].goal.npc, 5905, 'the class guide takes Elemental Aid from Prate');
+	assert.equal(list[at(list, 'turnin 79360', is('turnin', 79360))].goal.npc, 4722, 'and hands it in to Rau');
+	for (const air of [1531, 1532, 96136]) assert.ok(at(list, `turnin ${air}`, is('turnin', air)) < accept, `Call of Air ${air} is handed in before Elemental Aid is taken`);
+	assert.equal(list[at(list, 'turnin 79361', is('turnin', 79361))].goal.npc, 5905, 'Storm, Earth, and Fire to Prate');
+	assert.equal(list[at(list, 'accept 79366', is('accept', 79366))].goal.npc, 5905, 'Heed My Call from Prate');
+});
+
 // --- Silverpine (Wyatt R, #161; Rupert, #229): Dalar Dawnweaver did not offer
 // Stop the Spread to an Undead at 19 or a Tauren at 21 on the route, though
 // the data gives it to every Horde race with no prerequisite.
