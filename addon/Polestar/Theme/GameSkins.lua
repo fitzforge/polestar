@@ -223,7 +223,9 @@ local function draw(t, kit, name, u0, u1, v0, v1)
 	u0, u1, v0, v1 = u0 or 0, u1 or 1, v0 or 0, v1 or 1
 	local du, dv = r - l, b - tp
 	t:SetTexCoord(l + du * u0, l + du * u1, tp + dv * v0, tp + dv * v1)
-	t:SetVertexColor(1, 1, 1, 1)
+	-- The game's art, in a registered skin's art tint where it has one
+	-- (spec.artTint), else as drawn.
+	Theme.TintArt(t)
 	t:SetBlendMode("BLEND")
 	t:Show()
 	return w, h
@@ -235,7 +237,7 @@ local function file(t, path, tile)
 	t:SetTexture(path, tile and "REPEAT" or nil, tile and "REPEAT" or nil)
 	t:SetTexCoord(0, 1, 0, 1)
 	if t.SetHorizTile then t:SetHorizTile(tile and true or false); t:SetVertTile(tile and true or false) end
-	t:SetVertexColor(1, 1, 1, 1)
+	Theme.TintArt(t)
 	t:Show()
 	return t
 end
@@ -528,7 +530,7 @@ local function edge(f, key, path, e, host, out, layer, sub, cr, cg, cb, ca)
 	end
 	for i = 1, 8 do
 		p[i]:ClearAllPoints()
-		p[i]:SetVertexColor(cr or 1, cg or 1, cb or 1, ca or 1)
+		Theme.TintArt(p[i], cr, cg, cb, ca)
 		p[i]:Show()
 	end
 	p[1]:SetPoint("TOPLEFT", host, "TOPLEFT", -out, out); p[1]:SetSize(e, e)
@@ -552,7 +554,7 @@ local function tiled(f, key, name, host, inset, cr, cg, cb, ca, layer, sub)
 	inset = inset or 0
 	t:SetPoint("TOPLEFT", host, "TOPLEFT", inset, -inset)
 	t:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", -inset, inset)
-	t:SetVertexColor(cr or 1, cg or 1, cb or 1, ca or 1)
+	Theme.TintArt(t, cr, cg, cb, ca)
 	return t
 end
 
@@ -769,7 +771,7 @@ local GUIDE = {
 		local tr, tg, tb = tipTint(r, g, b)
 		local t = body(f, tr, tg, tb, a, 3)
 		file(t, CLASSIC.tile[1], true)
-		t:SetVertexColor(tr, tg, tb, a)
+		Theme.TintArt(t, tr, tg, tb, a)
 		local o = child(f, "edge", 6)
 		o:EnableMouse(false)
 		o:SetAllPoints(f)
@@ -792,7 +794,7 @@ local function bigMetal(f, kit)
 	local a = opacity(f)
 	local t = body(f, 1, 1, 1, a)
 	file(t, ROCK, true)
-	t:SetVertexColor(1, 1, 1, a)
+	Theme.TintArt(t, 1, 1, 1, a)
 	local streaks = tex(f, "streaks", "BACKGROUND", -5)
 	local w, h = draw(streaks, kit, kit.streaks)
 	streaks:ClearAllPoints()
@@ -1038,7 +1040,7 @@ local function checkbox(f, kit)
 	box:SetPoint("CENTER", f, "CENTER", 0, 0)
 	if d.check then
 		draw(d.check, kit, kit.checkOn)
-		d.check:SetVertexColor(1, 1, 1, 1)
+		Theme.TintArt(d.check)
 	end
 	size()
 	local k = store(f)
@@ -1436,11 +1438,11 @@ function Theme.KitRowLit(r, shown, key, inset)
 	-- mechanic, the muted "Inside"), so the guide window's lights it at half.
 	if kit.source == "file" then
 		t:SetBlendMode("ADD")
-		if key ~= "navLit" then t:SetVertexColor(1, 1, 1, 0.5) end
+		if key ~= "navLit" then Theme.TintArt(t, 1, 1, 1, 0.5) end
 	elseif kit.source == "retail" and key ~= "navLit" then
 		-- Blizzard's gold wash: its glow lines are heavier than the text's
 		-- strokes at full strength; at 60 % they frame the goal.
-		t:SetVertexColor(1, 1, 1, 0.6)
+		Theme.TintArt(t, 1, 1, 1, 0.6)
 	end
 	return true
 end
@@ -1466,7 +1468,7 @@ function Theme.KitHeader(f, shown)
 	-- Blizzard's filigree runs under the person's name and place: an
 	-- ornament under text, so it stays faint.
 	local a = kit.source == "retail" and 0.45 or 1
-	for i = 1, 3 do parts[i]:SetVertexColor(1, 1, 1, a) end
+	for i = 1, 3 do Theme.TintArt(parts[i], 1, 1, 1, a) end
 	return true
 end
 
@@ -1613,8 +1615,11 @@ function Theme.KitStatus(b)
 		b:SetStatusBarTexture(CLASSIC.statusFill[1])
 		fill = b:GetStatusBarTexture()
 		fill:SetTexCoord(0, 1, 0, 1)
-		fill:SetVertexColor(1, 0.82, 0, 1)
-		b.Bg:Hide()
+		Theme.TintArt(fill, 1, 0.82, 0, 1)
+		-- On the window's black the shadowed track alone doesn't show where
+		-- the bar ends: a faint light strip under it marks its length.
+		file(b.Bg, Theme.Media("white"))
+		b.Bg:SetVertexColor(1, 1, 1, 0.1)
 		local track = child(b, "statusTrack", 0)
 		track:EnableMouse(false)
 		track:ClearAllPoints()
@@ -1634,7 +1639,7 @@ function Theme.KitStatus(b)
 		fill = b:GetStatusBarTexture()
 		fill:SetTexCoord(0, 1, 0, 1)
 		local c = kit.status.color
-		fill:SetVertexColor(c[1], c[2], c[3], 1)
+		Theme.TintArt(fill, c[1], c[2], c[3], 1)
 		file(b.Bg, Theme.Media("white"))
 		b.Bg:SetVertexColor(0, 0, 0, 0.5)
 		local o = child(b, "statusFrame", 2)
