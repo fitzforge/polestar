@@ -304,7 +304,7 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 			for _, t in ipairs(tabs) do
 				O.Select("map", t)
 				local heads = {}
-				for _, h in ipairs(O.view.headers) do if h:IsShown() then heads[#heads + 1] = h.Text:GetText() end end
+				for _, card in ipairs(O.view.cards) do if card:IsShown() and card.psHeader then heads[#heads + 1] = card.Title:GetText() end end
 				local keys = {}
 				for k in pairs(O.Controls("map", t)) do keys[#keys + 1] = k end
 				table.sort(keys)

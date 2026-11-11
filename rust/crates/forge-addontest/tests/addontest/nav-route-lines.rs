@@ -864,7 +864,7 @@ fn line_style_a_walk_is_one_piece_a_segment_end_to_end_over_a_soft_shadow_a_roun
 	assert!(arms.iter().all(|s| f(&s["under"]) == 0.0 && near(f(&s["alpha"]), 0.6) && near(f(&s["width"]), 1.5)));
 	let first = arms.iter().map(|s| f(&s["ax"])).fold(f64::INFINITY, f64::min);
 	assert!((first - (100.0 + CHEVRON_SPACING / 2.0)).abs() < 3.0, "the first chevron half a spacing in ({first})");
-	assert_eq!(out["thick"], 8, "the thickness kept in range");
+	assert_eq!(out["thick"], 12, "the thickness kept in range (2-12 px since 0.3.7's Route lines page)");
 }
 
 #[test]
@@ -1364,45 +1364,6 @@ fn each_style_keeps_its_own_minimap_size_the_line_half_the_dots_80_percent_the_s
 	assert_eq!(out["sparkle"], 1.5, "the sparkles at 150 %");
 	assert_eq!(out["sparkleAt1"], 1);
 	assert_eq!(out["others"], json!([0.5, 0.8]), "each style's size its own");
-}
-
-// The window's "Minimap size" slider shows and sets the chosen style's size; right-click puts that style's default
-// back.
-#[test]
-fn the_minimap_size_slider_follows_the_chosen_style() {
-	let out = emitted(&RunAddon {
-		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Maps/RouteSparkle.lua", "UI/UI.xml"])],
-		script: r#"
-Polestar.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = 4, dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1,
-	minimapLineSize = 0.5, minimapDotsSize = 0.8, minimapSparkleSize = 1.5 })
-Polestar.RegisterDefaults("nav", Polestar.RouteSparkle.DEFAULTS)
-Polestar.RouteLines = { SIZE_KEYS = { line = "minimapLineSize", dots = "minimapDotsSize", sparkle = "minimapSparkleSize" },
-	STYLE_CHOICES = { { value = "line", label = "Line" }, { value = "dots", label = "Dots" }, { value = "sparkle", label = "Sparkles" } } }
-uistub.install()
-stub.login()
-Polestar.UI.ShowLineStyle()
-local slider = Polestar.UI.LineStyleControls()["nav.minimapRouteSize"]
-local function shows() return slider.Slider:GetValue() end
-local r = { line = shows() }
-Polestar.Set("nav.lineStyle", "dots")
-r.dots = shows()
-Polestar.Set("nav.lineStyle", "sparkle")
-r.sparkle = shows()
-stub.RunScript(slider.Slider, "OnValueChanged", 1.0, true)
-r.after = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize") }
-slider:Click("RightButton")
-r.reset = Polestar.Get("nav.minimapSparkleSize")
-r.max = select(2, slider.Slider:GetMinMaxValues())
-emit(r)"#
-			.into(),
-		..Default::default()
-	})
-	.remove(0);
-	assert_eq!([&out["line"], &out["dots"], &out["sparkle"]], [&json!(0.5), &json!(0.8), &json!(1.5)], "the slider follows the style");
-	assert_eq!(out["after"], json!([0.5, 0.8, 1]), "only the sparkles' size changed");
-	assert_eq!(out["reset"], 1.5);
-	assert_eq!(out["max"], 1.5, "the size stops at 150 %");
 }
 
 // A size saved before the sizes were per style is kept, as every style's own; with none saved the defaults apply.

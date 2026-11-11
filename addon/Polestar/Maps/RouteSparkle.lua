@@ -23,7 +23,7 @@ local floor, ceil, sqrt, sin, abs, pi = math.floor, math.ceil, math.sqrt, math.s
 local Sparkle = {}
 ns.RouteSparkle = Sparkle
 
--- The settings and their ranges (nav.sparkle*; UI/LineStyle.lua shows them).
+-- The settings and their ranges (nav.sparkle*; the Route lines page, Maps/RouteOptions.lua, shows them).
 Sparkle.DEFAULTS = {
 	sparkleIntensity = 0.75, sparkleDensity = 5, sparkleSubtlety = 0.35, sparkleSize = 14,
 	sparkleFlow = 0.5, sparkleMax = 140, sparkleColor = "gold", sparkleLater = false,

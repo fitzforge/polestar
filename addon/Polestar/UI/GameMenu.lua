@@ -1,5 +1,5 @@
 -- A "Polestar" button in the game menu (Esc), setting ui.gameMenuButton (on
--- by default, under Appearance > Windows > Menus): it closes the menu and
+-- by default, under Settings > Theme > Frames > Menus): it closes the menu and
 -- opens the guide menu (SHOW_PICKER). It works in combat too.
 --
 -- Where: in the addon section near the top (Fitz, 2026-11-09: not under

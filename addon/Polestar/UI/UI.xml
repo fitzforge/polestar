@@ -43,8 +43,13 @@
 	<Script file="Report.lua"/>
 	<Script file="Packs.lua"/>
 	<Script file="Import.lua"/>
+	<Script file="Profiles.lua"/>
 	<Script file="Thanks.lua"/>
 	<Script file="Options.lua"/>
-	<Script file="LineStyle.lua"/>
+	<Script file="Looks\Theme.lua"/>
+	<Script file="Looks\GuideWindow.lua"/>
+	<Script file="Looks\Toasts.lua"/>
+	<Script file="Looks\Trackers.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
+	<Script file="Movers.lua"/>
 </Ui>

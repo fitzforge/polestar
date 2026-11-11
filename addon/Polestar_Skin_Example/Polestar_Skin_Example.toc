@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin Example
+## Notes: An example skin for Polestar (Moonlit), for skin authors. Not part of Polestar's release.
+## Title-deDE: Polestar: Design-Beispiel
+## Notes-deDE: Ein Beispiel-Design für Polestar (Moonlit) für Design-Autoren. Nicht Teil von Polestars Veröffentlichung.
+## Title-esES: Polestar: tema de ejemplo
+## Notes-esES: Un tema de ejemplo para Polestar (Moonlit), para autores de temas. No forma parte de la versión de Polestar.
+## Title-esMX: Polestar: tema de ejemplo
+## Notes-esMX: Un tema de ejemplo para Polestar (Moonlit), para autores de temas. No forma parte de la versión de Polestar.
+## Title-frFR: Polestar : habillage d'exemple
+## Notes-frFR: Un habillage d'exemple pour Polestar (Moonlit), pour les auteurs d'habillages. Ne fait pas partie de la version publiée de Polestar.
+## Title-koKR: Polestar 스킨 예제
+## Notes-koKR: 스킨 제작자를 위한 Polestar 예제 스킨(Moonlit). Polestar 배포판에는 포함되지 않습니다.
+## Title-ptBR: Polestar: tema de exemplo
+## Notes-ptBR: Um tema de exemplo para o Polestar (Moonlit), para autores de temas. Não faz parte da versão do Polestar.
+## Title-ruRU: Polestar: пример оформления
+## Notes-ruRU: Пример оформления для Polestar (Moonlit) для авторов оформлений. Не входит в выпуск Polestar.
+## Title-zhCN: Polestar 皮肤示例
+## Notes-zhCN: 供皮肤作者参考的 Polestar 示例皮肤（Moonlit）。不属于 Polestar 的发行版。
+## Title-zhTW: Polestar 皮膚範例
+## Notes-zhTW: 供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。
+## Author: Polestar
+## X-License: CC0-1.0
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.5
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Moonlit.lua

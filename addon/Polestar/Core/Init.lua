@@ -746,6 +746,9 @@ local function onAddonLoaded(_, name)
 	DB()
 	newCharacter = type(PolestarCharDB) ~= "table"
 	ns.CharState()
+	-- The character's settings profile into PolestarDB.settings and the
+	-- settings migrations, before anything reads a setting (Core/Profiles.lua).
+	if ns.Profiles and ns.Profiles.Load then call(ns.Profiles.Load) end
 	loadHidden()
 	initialized = true
 	local queue = initQueue

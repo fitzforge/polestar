@@ -2,18 +2,18 @@
 -- (UI/GuideFrame.lua).
 
 local ADDON, ns = ...
-local UI, Theme, W, Anim, max, min = ns.UI, ns.Theme, ns.Widgets, ns.Anim, math.max, math.min
+local UI, Theme, W, Anim, floor, max, min = ns.UI, ns.Theme, ns.Widgets, ns.Anim, math.floor, math.max, math.min
 local GF = UI.GuideFrame
 local transparent, placeCheck, CARD, twoLines, rows = GF.Transparent, GF.PlaceCheck, GF.CARD, GF.TwoLines, GF.rows
 local tabButtons, lines, texts, chrome = GF.tabs, GF.lines, GF.texts, GF.chrome
 
 -- The window's parts and sizes, handed over by the core (GF.Bind).
-local F, strip, nav, card, person, after, upnext, grip, band, banner
-local foot
+local F, strip, nav, card, person, after, along, upnext, grip, band
+local banner, foot
 local PAD, TAB_H, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD, UP_TOGGLE
 GF.Bind(function(p, m)
-	F, strip, nav, card, person, after, upnext, grip = p.F, p.strip, p.nav, p.card, p.person, p.after, p.upnext, p.grip
-	band, banner, foot = p.band, p.banner, p.foot
+	F, strip, nav, card, person, after, along, upnext = p.F, p.strip, p.nav, p.card, p.person, p.after, p.along, p.upnext
+	grip, band, banner, foot = p.grip, p.band, p.banner, p.foot
 	PAD, TAB_H, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD = m.PAD, m.TAB_H, m.NAV_H, m.PROG_H, m.ICON, m.TEXT_X, m.CHECK, m.ROW_PAD
 	UP_TOGGLE = m.UP_TOGGLE
 end)
@@ -42,21 +42,25 @@ local function fadeChrome(to)
 	end
 end
 
+-- The cursor left: the transparent chrome fades, and the window to
+-- guideWindow.idleAlpha when the player set one.
 local function watch()
 	if F:IsMouseOver(4, -4, -4, 4) then return end
 	hovering = false
 	watcher:SetScript("OnUpdate", nil)
 	if transparent() then fadeChrome(0) end
+	if GF.Num("idleAlpha") < 1 then GF.ApplyAlpha(true) end
 end
+GF.Watch = watch
 
 -- The cursor reached the window (or one of its parts).
 function GF.HoverIn()
 	if not F or hovering then return end
 	hovering = true
-	if transparent() then
-		fadeChrome(1)
-		watcher:SetScript("OnUpdate", ns.Safe(watch))
-	end
+	local fades = GF.Num("idleAlpha") < 1
+	if transparent() then fadeChrome(1) end
+	if transparent() or fades then watcher:SetScript("OnUpdate", ns.Safe(watch)) end
+	if fades then GF.ApplyAlpha(true) end
 end
 
 function GF.IsHovering() return hovering end
@@ -78,8 +82,12 @@ end
 -- and around the lines. "none": the outlined text alone on the world.
 GF.VEIL = { dark = 0.68 }
 GF.VEIL_FEATHER = 20
+-- The dark backing's strength is the player's (guideWindow.veil).
 function GF.Backing()
-	return transparent() and GF.VEIL[ns.Get("ui.backing")] or nil
+	local backing = ns.Get("ui.backing")
+	local v = transparent() and GF.VEIL[backing] or nil
+	if v and backing == "dark" then v = GF.Num("veil") end
+	return v
 end
 function GF.PaintVeil(s)
 	Theme.PaintScrim(s, GF.Backing() or 0)
@@ -133,7 +141,7 @@ function GF.ShadeText(fs, on)
 	local point = (y .. x ~= "") and (y .. x) or "CENTER"
 	m:SetPoint(point, fs, point, x == "LEFT" and ix or x == "RIGHT" and -ix or 0, y == "TOP" and -iy or y == "BOTTOM" and iy or 0)
 	local a = fs:GetAlpha() or 1
-	Theme.PaintScrim(s, GF.SHADE * a)
+	Theme.PaintScrim(s, GF.Num("shade") * a)
 	s.shown = true
 	for _, p in ipairs(s.parts) do p:Show() end
 end
@@ -150,7 +158,7 @@ end
 
 function GF.ShadeAlpha(fs, a)
 	local s = GF.shades[fs]
-	if s and s.shown then Theme.PaintScrim(s, GF.SHADE * (a or 1)) end
+	if s and s.shown then Theme.PaintScrim(s, GF.Num("shade") * (a or 1)) end
 end
 
 function GF.PaintShades()
@@ -176,6 +184,12 @@ function GF.ApplyStyle()
 	if not F then return end
 	local clear = transparent()
 	F.psBare = clear
+	-- This window's own ground and border (guideWindow.bgColor, bgOpacity,
+	-- border); unset, it follows every Polestar window's.
+	local r, g, b = GF.Rgb("bgColor")
+	F.psBgColor = r and { r, g, b } or nil
+	F.psBgAlpha = tonumber(ns.Get("guideWindow.bgOpacity"))
+	F.psNoBorder = not GF.On("border") or nil
 	Theme.Repaint(F)
 	local skin = Theme.SkinKey()
 	band:SetShown(not clear and skin == "polestar")
@@ -189,17 +203,21 @@ function GF.ApplyStyle()
 	Theme.KitStrip(strip, not clear)
 	-- The quest tracker's header behind the focus (Forever, Blizzard).
 	Theme.KitHeader(person, not clear)
-	strip.Rule:SetShown(not clear)
-	nav.Rule:SetShown(not clear)
+	-- The hairlines between the window's parts (guideWindow.rules).
+	local rules = GF.On("rules")
+	strip.Rule:SetShown(not clear and rules)
+	nav.Rule:SetShown(not clear and rules)
+	for _, part in ipairs({ after, along, upnext.Toggle, GF.xp, GF.party, banner }) do part.Rule:SetAlpha(rules and 1 or 0) end
 	W.Painter(foot.Line.Track, paintTrack)
 	if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
-	for i = 1, #texts do Theme.SetOutline(texts[i], clear) end
+	local outline = clear and GF.Outline()
+	for i = 1, #texts do Theme.SetOutline(texts[i], outline) end
 	-- Tick boxes on the world: a scrim inside and an ink edge.
 	for _, r in ipairs(rows) do
 		r.Check.psOnWorld = clear
 		Theme.Repaint(r.Check)
 	end
-	if not clear then
+	if not clear and GF.Num("idleAlpha") >= 1 then
 		watcher:SetScript("OnUpdate", nil)
 		hovering = false
 	end
@@ -210,6 +228,33 @@ function GF.ApplyStyle()
 	GF.Layout()
 end
 
+-- A guideWindow.* setting changed (`key` without the section; nil: all of
+-- them, a reset): only what it touches is redrawn.
+GF.LOOK_STYLE = { outline = true, bgColor = true, bgOpacity = true, border = true, veil = true, shade = true, rules = true }
+GF.LOOK_PAINT = { targetBar = true, targetBarColor = true, targetBarWidth = true, progressColor = true }
+GF.LOOK_LATER = { stepAnim = true, animSpeed = true, foldAnim = true } -- read when they play
+function GF.ApplyLook(key)
+	if not F or (key and GF.LOOK_LATER[key]) then return end
+	if key == "hideTaxi" then return GF.ApplyVisibility() end
+	if key == "idleAlpha" or key == "combatAlpha" then
+		-- The cursor may sit on a window that never watched it (Standard style).
+		if key == "idleAlpha" and hovering and GF.Num("idleAlpha") < 1 then watcher:SetScript("OnUpdate", ns.Safe(watch)) end
+		return GF.ApplyAlpha(false)
+	end
+	if not key or GF.LOOK_PAINT[key] then
+		GF.PaintMark(person.Mark)
+		for _, r in ipairs(rows) do GF.PaintMark(r.Mark) end
+		GF.PaintProgressFill(foot.Line.Fill)
+		if key then return end
+	end
+	if key and GF.LOOK_STYLE[key] then return GF.ApplyStyle() end
+	GF.ApplySkin()
+	if not key then
+		GF.ApplyStyle()
+		GF.ApplyAlpha(false)
+	end
+	if ns.IsLoggedIn() then GF.Render() end
+end
 ---------------------------------------------------------------------------
 -- Skins (Polestar.Theme, "Skins"): Halo and Blizzard take the handoff's
 -- sizes (DIRECTION_B_HALO.md §3) and their own parts: Halo's gold rule under
@@ -287,11 +332,13 @@ function GF.PaintStatus(frac, pctText)
 		t:SetVertexColor(0.91, 0.722, 0, 1)
 	end
 	b.Pct:SetText(pctText or "")
+	b.Pct:SetShown(GF.On("progressPct"))
 end
 
 function GF.ApplySkin()
 	if not F then return end
 	GF.ReadMetrics()
+	GF.ApplyFonts()
 	local skin = Theme.SkinKey()
 	skinShown = skin
 	F.psGuide = true
@@ -341,7 +388,8 @@ function GF.ApplySkin()
 	-- Hearth: the person's name over a gold separator.
 	person.Rule:SetShown(skin == "hearth")
 	-- The focus parts at the skin's paddings.
-	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -11)
+	person.Icon:SetSize(ICON + 1, ICON + 1)
+	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -(11 + floor((GF.Num("titleSize") - 1) * 7 + 0.5)))
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
 	card.Tip.Text:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", TEXT_X, -6)
 	card.Tip.Toggle:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", PAD - 2, -3)
@@ -365,7 +413,7 @@ function GF.ApplySkin()
 		l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
 	end
 	for _, r in ipairs(rows) do
-		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -12 - ROW_PAD)
+		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -GF.GlyphY())
 		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
 		r.Check:SetSize(CHECK, CHECK)
 		placeCheck(r)
@@ -373,11 +421,11 @@ function GF.ApplySkin()
 	end
 	-- The progress bar: the game's status bar in Hearth and the game's looks.
 	local bliz = Theme.GameSkin()
-	foot.Line:SetHeight(3)
+	foot.Line:SetHeight(GF.Num("progressHeight"))
 	foot.Line:SetPoint("LEFT", foot, "LEFT", PAD, 0)
 	foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -PAD, 0)
 	foot.Line:SetShown(not bliz)
-	foot.Pct:SetShown(not bliz)
+	foot.Pct:SetShown(not bliz and GF.On("progressPct"))
 	if bliz then
 		local b = footBar()
 		b:ClearAllPoints()
@@ -406,6 +454,10 @@ function GF.ApplySkin()
 		b:SetHeight(TAB_H)
 		GF.PaintTab(b)
 	end
+	-- Sized with the bar's text (guideWindow.barTextSize); Along the way's
+	-- label on its toggle's middle (guideWindow.upSize).
+	nav.Skip:SetWidth(floor(7 + 11 + 5 + nav.Skip.Label:GetStringWidth() + 8 + 0.5))
+	along.Label:SetPoint("LEFT", along, "TOPLEFT", PAD, -UP_TOGGLE / 2)
 end
 
 -- A skin chosen while the window shows: its sizes, then a fresh layout.

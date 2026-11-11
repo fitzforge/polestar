@@ -591,7 +591,10 @@ fn party_the_group_section_has_its_switches_all_on_by_default_the_panel_too_1018
 		r#"
 local keys = {}
 Polestar.Widgets.OnOptionsRegistered(function(spec)
-	for _, c in ipairs(spec.controls) do
+	-- A section's on/off in its header (spec.toggle) is a control too.
+	local list = { unpack(spec.controls or {}) }
+	if spec.toggle then table.insert(list, 1, spec.toggle) end
+	for _, c in ipairs(list) do
 		if c.key and c.key:sub(1, 6) == "party." then keys[#keys + 1] = spec.page .. "/" .. spec.section .. "/" .. c.key end
 	end
 end)
@@ -606,6 +609,8 @@ emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Pol
 	assert_eq!(
 		out[0],
 		json!([
+			// The panel's switch also heads its look tab (Options > Trackers > Party panel, UI/Looks/Trackers.lua).
+			"Trackers/Party panel/party.panel",
 			"Questing/Group/party.share",
 			"Questing/Group/party.show",
 			"Questing/Group/party.waitForGroup",

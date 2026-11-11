@@ -1,14 +1,22 @@
--- The options window, in the Polestar shell (Polestar.Widgets.Shell): pages
--- in the sidebar, tabs under the header band, sections of setting rows in
--- one column (each row with its description, each section in a panel), a
--- settings search, and a footer with Reset page, Reload UI and Close.
--- Consequential actions ask in the shared dialog (W.Modal).
+-- Polestar's settings window, in the Polestar shell (Polestar.Widgets.Shell):
+-- big (EllesmereUI's options' size at the default scale), resizable by its
+-- corner grip (ui.optionsSize) and scaled by the Menu scale in its header.
+-- The sidebar is a tree of groups (Guiding, Look, Setup, About), each
+-- folding away (PolestarDB.optionsNav), with its pages; tabs under the
+-- header band; a page tab's live preview pinned between the tabs and the
+-- rows, which scroll under it; sections of setting rows in one or two
+-- columns (each row with its description, each section in a panel, a
+-- Reset section while one of its settings is off its default); a search in
+-- the header whose results jump to their row; a footer with Reset page,
+-- Reload UI, Move frames, the profile in use and Close. Consequential
+-- actions ask in the shared dialog (W.Modal).
 --
 -- Built-in pages come first; other modules add theirs with
 -- Polestar.RegisterOptions (docs/ARCHITECTURE.md, UI -> "Options
 -- registry"), which may run before this file loads: the registry replays
 -- every registration to us. A control whose settings key has no registered
--- default is left out rather than shown dead.
+-- default is left out rather than shown dead. Nothing is built before the
+-- window first opens, a page tab only when first shown.
 --
 -- A Blizzard Settings category ("Polestar") opens this window.
 
@@ -101,26 +109,52 @@ local function sectionOf(t, name)
 	return s
 end
 
+-- A page tab's views, dropped so they are built again (a registration came
+-- in for a page on screen); their pinned previews go with them.
+local function dropViews(p)
+	if not p.views then return end
+	for _, v in pairs(p.views) do
+		v:Hide()
+		if rawget(v, "PreviewHost") then v.PreviewHost:Hide() end
+	end
+	p.views = nil
+end
+
 local function add(spec, builtin)
 	local p = pageOf(spec.page, spec.icon, spec.order, builtin, spec.key)
 	if spec.subtitle then p.subtitle = spec.subtitle end
 	if spec.custom then p.custom = spec.custom end
 	if spec.dot then p.dot = spec.dot end
 	if spec.empty then p.empty = spec.empty end
+	if spec.group then p.group = spec.group end
 	local tab = tabOf(p, spec.tab)
-	-- preview(view) -> frame with :Layout(width) -> height: drawn over the
-	-- tab's sections (Appearance's live preview).
+	-- preview(host) -> frame with :Layout(width) -> height: the tab's live
+	-- preview, pinned over its rows (W.ShellPreview).
 	if spec.preview then tab.preview = spec.preview end
 	local s = sectionOf(tab, spec.section)
+	local function place(c, owner)
+		c.page, c.tab, c.section, c.psSection, c.psOwner = p, spec.tab, spec.section, s, owner
+		for _, e in ipairs(c.extras or {}) do place(e, c) end
+		for _, m in ipairs(c.more or {}) do place(m, c) end
+	end
+	-- The section's on/off, in its card's header.
+	if spec.toggle then
+		place(spec.toggle)
+		s.toggle = spec.toggle
+	end
+	-- shown() -> false hides the section's whole card (a mode's settings while
+	-- another mode is on); worked out again as settings change.
+	if spec.shown then s.shown = spec.shown end
 	for _, c in ipairs(spec.controls or {}) do
-		c.page, c.tab, c.section = p, spec.tab, spec.section
+		place(c)
+		-- A child depends on the setting before it that is none.
+		if c.child then c.psParent = s.psLastParent else s.psLastParent = c end
 		s.controls[#s.controls + 1] = c
 	end
 	-- A page or tab already on screen picks up late registrations.
 	if win and win:IsShown() then
 		if current == p then
-			if p.views then for _, v in pairs(p.views) do v:Hide() end end
-			p.views = nil
+			dropViews(p)
 			O.Select(p.key, currentTab and currentTab.name)
 		elseif O.RefreshNav then
 			O.RefreshNav()
@@ -132,20 +166,26 @@ end
 -- Built-in pages
 --
 -- The pages follow what the player came to do, not which module owns a
--- setting: follow the guide (Guide), make Polestar look their way
--- (Appearance), choose what the maps show (Map), quest (Questing), find
--- things (Discovery: Lookup, the dungeon journal, rares, your characters), small
--- conveniences (Quality of Life), other addons Polestar works with
--- (Integrations); the author's Recorder and About close the
--- list. Modules still register their own controls; the pages they fill are
--- declared here with their tabs and sections in order, and the modules
--- register into them by name (docs/ARCHITECTURE.md, "Options registry").
+-- setting: follow the guide (Guide), choose what the maps show (Map), quest
+-- (Questing), find things (Discovery: Lookup, the dungeon journal, rares,
+-- your characters), small conveniences (Quality of Life), other addons
+-- Polestar works with (Integrations); the author's Recorder and About close
+-- the list. How everything looks has a page per surface in the Look group
+-- (Theme, Guide window, Arrow, Map pins, ...), registered by the modules
+-- that draw them. Modules still register their own controls; the pages they
+-- fill are declared here with their tabs and sections in order, and the
+-- modules register into them by name (docs/ARCHITECTURE.md, "Options
+-- registry").
 ---------------------------------------------------------------------------
 
-local GUIDE, LOOK, MAP, QUESTING, DISCOVERY, QOL, REC, ABOUT =
-	L["Guide"], L["Appearance"], L["Map"], L["Questing"], L["Discovery"], L["Quality of Life"], L["Recorder"], L["About"]
+local GUIDE, MAP, QUESTING, DISCOVERY, QOL, REC, ABOUT =
+	L["Guide"], L["Map"], L["Questing"], L["Discovery"], L["Quality of Life"], L["Recorder"], L["About"]
 
+-- Every movable frame back in its place: the Movers' reset of all they hold
+-- (UI/Movers.lua), and the guide window, party panel and arrow whether or
+-- not their modules registered a mover; these windows centred.
 local function resetPositions()
+	if ns.Movers and ns.Movers.ResetAll then ns.Movers.ResetAll() end
 	ns.Set("ui.pos", nil)
 	-- The party panel re-places itself on the change (UI/PartyPanel.lua).
 	ns.Set("party.panelPos", nil)
@@ -161,11 +201,6 @@ local function resetPositions()
 end
 O.ResetPositions = resetPositions
 
-local function borderOff() return not ns.Get("ui.border") end
--- Settings of the house style alone: every other skin brings its own grounds,
--- no starlit band and no drop shadow (Theme.lua, "Skins").
-local function houseOnly() return Theme.SkinKey() ~= "polestar" end
-local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 -- Guidance options with no effect while Shortest Path Forever guides (Nav/Handoff.lua).
 local function H(c)
 	local N = ns.Nav
@@ -280,7 +315,7 @@ local BUILTIN = {
 		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], help = L["Points to the current goal. Its look and colours are under Appearance, Arrow."],
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], help = L["Points to the current goal. Its look and colours are on the Arrow page."],
 			search = "arrow, waypoint, pointer, direction, compass, navigation, hud" }),
 		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
 			child = true, disabled = function() return not ns.Get("nav.arrow") end }),
@@ -305,7 +340,7 @@ local BUILTIN = {
 			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, sparkles, dots",
-			gear = { tip = L["Line style"], onClick = function() if UI.ShowLineStyle then UI.ShowLineStyle() end end } }),
+			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end } }),
 		H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
 			help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
 			search = "route style, solid line, path line, dots, sparkles, breadcrumbs",
@@ -365,128 +400,6 @@ local BUILTIN = {
 			end,
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
-	} },
-
-	-- How everything looks: colour and type, the windows' frames and the
-	-- guide window's own look, the arrow. Every change repaints live, the
-	-- preview over Colour & type with it. The accent's sources sit together
-	-- in their own section.
-	{ page = LOOK, key = "appearance", icon = "palette", order = 20, tab = L["Colour & type"], section = L["Accent"],
-		preview = function(view) return O.LookPreview(view) end,
-		subtitle = L["Colours, type, window frames and the arrow. Everything repaints as you change it; right-click a setting to reset it."], controls = {
-		{ kind = "color", key = "ui.accent", label = L["Accent colour"], linked = { "ui.matchAccent", "ui.classAccent" }, search = "theme colour, highlight colour, tint",
-			help = L["Click to pick your own, right-click to go back to the scheme's."],
-			shown = function() return Theme.Accent() end,
-			source = function()
-				if Theme.FollowsClassAccent() then return (UnitClass and UnitClass("player")) or L["Class colour"] end
-				return Theme.FollowsEllesmereAccent() and "EllesmereUI" or L["Polestar gold"]
-			end },
-		{ kind = "toggle", key = "ui.classAccent", label = L["Class colour"],
-			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
-	} },
-	{ page = LOOK, tab = L["Colour & type"], section = L["Background"], controls = {
-		{ kind = "dropdown", key = "ui.scheme", label = L["Colour scheme"], disabled = houseOnly, search = "theme, dark mode, darker",
-			help = L["How deep the night runs. Dusk is the default, Night the darkest, Graphite a neutral grey; EllesmereUI takes its panel colour and accent."],
-			choices = function() return Theme.SchemeChoices() end },
-		{ kind = "color", key = "ui.bgColor", label = L["Background colour"], disabled = houseOnly,
-			help = L["The ground of every Polestar window. Right-click to go back to the scheme's. Text always stays legible: a colour too light for it is darkened."],
-			shown = function() return Theme.Color("bg") end,
-			source = function() return O.SchemeLabel() end },
-		{ kind = "slider", key = "ui.brightness", label = L["Brightness"], disabled = houseOnly, min = -1, max = 1, step = 0.05, format = O.Signed,
-			help = L["Lifts or lowers every background together. Right-click to reset."] },
-		{ kind = "slider", key = "ui.bgOpacity", label = L["Background opacity"], min = 0, max = 1, step = 0.05, format = percent,
-			help = L["The background opacity of every Polestar window: how much of the world shows through. Right-click to reset."] },
-	} },
-	{ page = LOOK, tab = L["Colour & type"], section = L["Type & motion"], controls = {
-		{ kind = "dropdown", key = "ui.font", label = L["Font"], search = "typeface, text, letters", help = L["The skin's font (the default: the game's own, Fira Sans in Halo), or a font of your choice."],
-			choices = function()
-				local list = { { value = "skin", label = L["The skin's font"] }, { value = "opensans", label = "Open Sans" }, { value = "game", label = L["Game font"] },
-					{ value = "inter", label = "Inter" }, { value = "fira", label = "Fira Sans" } }
-				if Theme.IsEllesmere() then list[#list + 1] = { value = "ellesmere", label = "EllesmereUI" } end
-				return list
-			end,
-			get = function() return Theme.FollowsEllesmereFont() and "ellesmere" or ns.Get("ui.font") end,
-			set = function(v)
-				if v == "ellesmere" then
-					ns.Set("ui.matchFont", true)
-					return
-				end
-				ns.Set("ui.font", v)
-				if Theme.IsEllesmere() then ns.Set("ui.matchFont", false) end
-			end },
-		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent, search = "font size, bigger text, smaller text, readability",
-			help = L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] },
-		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."],
-			search = "animations, motion sickness, fps, frame rate, performance, lag, stutter, cpu, slow" },
-		{ kind = "toggle", key = "ui.classCardSound", label = L["Class quest chime"],
-			disabled = function() return not (UI.ClassCard and UI.ClassCard.GameSoundOn()) end,
-			help = L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] },
-	} },
-	{ page = LOOK, tab = L["Windows"], section = L["Frame"], controls = {
-		{ kind = "dropdown", key = "ui.skin", label = L["Skin"], search = "theme, look, style, frame",
-			help = L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."],
-			choices = function()
-				local list = {}
-				for i, c in ipairs(Theme.SkinChoices()) do list[i] = { value = c.value, label = c.text } end
-				return list
-			end },
-		{ kind = "toggle", key = "ui.border", label = L["Window border"], help = L["The line around every Polestar window."] },
-		{ kind = "color", key = "ui.borderColor", label = L["Border colour"], linked = { "ui.borderAccent" }, disabled = borderOff, child = true,
-			help = L["Click to pick your own, right-click to go back to the scheme's hairline."],
-			shown = function() return Theme.Color("windowBorder") end,
-			source = function() return ns.Get("ui.borderAccent") and L["Accent"] or L["Hairline"] end },
-		{ kind = "toggle", key = "ui.borderAccent", label = L["Accent border"], disabled = borderOff, child = true,
-			help = L["The border takes your accent colour. Picking your own border colour turns this off."] },
-		{ kind = "slider", key = "ui.borderSize", label = L["Border thickness"], min = 1, max = 4, step = 1, format = px, disabled = borderOff, child = true,
-			help = L["In screen pixels; a thicker border grows outward. Right-click to reset."] },
-		{ kind = "toggle", key = "ui.band", label = L["Starlit band"], disabled = houseOnly, help = L["The night sky with its stars across the top of every window. Off: the plain background."] },
-		{ kind = "toggle", key = "ui.shadow", label = L["Window shadow"], disabled = houseOnly, help = L["The soft shadow under every window."] },
-	} },
-	{ page = LOOK, tab = L["Windows"], section = L["Guide window"], controls = {
-		{ kind = "dropdown", key = "ui.style", label = L["Style"], help = L["Transparent drops every background and border; text is outlined and the controls appear when you hover the window."],
-			choices = { { value = "standard", label = L["Standard"] }, { value = "transparent", label = L["Transparent"] } } },
-		{ kind = "dropdown", key = "ui.backing", label = L["Backing"], child = true, disabled = function() return ns.Get("ui.style") ~= "transparent" end,
-			help = L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."],
-			search = "transparent, background, shade, dark, readable, contrast",
-			choices = { { value = "soft", label = L["Soft"] }, { value = "dark", label = L["Dark"] }, { value = "none", label = L["Off"] } } },
-		{ kind = "toggle", key = "ui.barShown", label = L["Keep the bar shown"], child = true, disabled = function() return ns.Get("ui.style") ~= "transparent" end,
-			help = L["With Transparent, the tabs and the step bar stay on screen instead of only under the cursor."],
-			search = "transparent, bar, header, readable, always, show" },
-		{ kind = "slider", key = "ui.scale", label = L["Window scale"], min = 0.6, max = 1.6, step = 0.05, format = percent, search = "size, bigger, smaller, zoom" },
-		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d", search = "wide, wider, size" },
-		{ kind = "slider", key = "ui.opacity", label = L["Window opacity"], min = 0.3, max = 1, step = 0.05, format = percent, search = "transparency, alpha, see through",
-			help = L["The whole guide window, text included. The background's own opacity is under Colour & type."] },
-	} },
-	{ page = LOOK, tab = L["Windows"], section = L["Menus"], controls = {
-		{ kind = "slider", key = "ui.menuScale", label = L["Menu scale"], min = 0.7, max = 1.4, step = 0.05, format = percent, release = true,
-			help = L["The guide menu and this window; applies when you let go. Right-click to reset."] },
-		{ kind = "toggle", key = "ui.gameMenuButton", label = L["Button in the game menu"],
-			help = L["A Polestar button in the game menu (Esc) that opens the guide menu."],
-			search = "game menu, escape, esc, main menu, button, open polestar" },
-	} },
-	{ page = LOOK, tab = L["Arrow"], section = L["Arrow"], controls = {
-		H({ kind = "dropdown", key = "nav.arrowStyle", label = L["Arrow style"], choices = { { value = "skin", label = L["The skin's arrow"] }, { value = "3d", label = L["3D"] }, { value = "flat", label = L["Flat"] },
-			{ value = "halo", label = L["Halo"] }, { value = "hearth", label = L["Hearth"] } } }),
-		H({ kind = "slider", key = "nav.arrowScale", label = L["Arrow scale"], min = 0.5, max = 2, step = 0.05, format = percent, search = "arrow size, bigger arrow, smaller arrow" }),
-		H({ kind = "slider", key = "nav.arrowAlpha", label = L["Arrow opacity"], min = 0.2, max = 1, step = 0.05, format = percent, search = "arrow transparency, alpha" }),
-	} },
-	{ page = LOOK, tab = L["Arrow"], section = L["Colours"], controls = {
-		{ kind = "color", key = "nav.arrowColor", label = L["Arrow colour"],
-			help = L["The arrow on its way; the target's pin on the maps and the route's stops wear it too. Right-click to go back to the accent."],
-			shown = function() return Theme.Color("arrow") end,
-			source = function() return L["Accent"] end },
-		{ kind = "color", key = "nav.arrowNearColor", label = L["Arrival colour"],
-			help = L["The arrow as it closes on the target, and the ring when you arrive. Right-click to go back to jade."],
-			shown = function() return Theme.Color("arrowNear") end,
-			source = function() return L["Jade"] end },
-	} },
-	{ page = LOOK, tab = L["Arrow"], section = L["Map icons"], controls = {
-		{ kind = "dropdown", key = "nav.mapIcons", label = L["Icon pack"],
-			help = L["The medallion under every mark on the world map and the minimap. The skin's: Polestar's, Halo's, or Hearth's for Hearth and the game's own looks. Glyphs only: no medallion."],
-			choices = { { value = "skin", label = L["The skin's icons"] }, { value = "polestar", label = L["Polestar"] },
-				{ value = "halo", label = L["Halo"] }, { value = "hearth", label = L["Hearth"] }, { value = "bare", label = L["Glyphs only"] } } },
-		{ kind = "slider", key = "nav.minimapIconSize", label = L["Minimap icon size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
-			help = L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] },
 	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
@@ -841,7 +754,8 @@ add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["T
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
 
 -- Page keys from before the pages were regrouped (and older section names)
--- reach the page, and the tab, that holds those settings now.
+-- reach the page, and the tab, that holds those settings now. A page's own
+-- key wins: "arrow" and "guidewindow" open the Look pages where those exist.
 local ALIASES = {
 	guidewindow = { "guide", L["Window"] }, general = { "guide", L["Window"] }, window = { "guide", L["Window"] },
 	navigation = { "guide", L["Arrow & routes"] }, nav = { "guide", L["Arrow & routes"] }, arrow = { "guide", L["Arrow & routes"] },
@@ -849,133 +763,8 @@ local ALIASES = {
 	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] },
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
 	characters = { "discovery", L["Characters"] }, alts = { "discovery", L["Characters"] },
-	look = { "appearance" }, qol = { "qualityoflife" },
+	appearance = { "theme" }, look = { "theme" }, qol = { "qualityoflife" },
 }
-
----------------------------------------------------------------------------
--- Appearance's live preview: a small guide window (its band, a tab, the
--- step's title, a goal done, the current goal on its accent bar, the
--- progress line) and the arrow with its distance, over the night sky. All
--- of it is painted from the theme, so the accent, scheme, skin, ground
--- opacity, band and font show in it as they change.
----------------------------------------------------------------------------
-
-local PREVIEW_H, MINI_W, MINI_PAD = 168, 270, 10
-
-function O.LookPreview(view)
-	local f = CreateFrame("Frame", nil, view)
-	f:SetHeight(PREVIEW_H)
-	if f.SetClipsChildren then f:SetClipsChildren(true) end
-	-- The sky: the deepest ground, the starlit band (gone with ui.band off),
-	-- a soft lift of the sky colour behind the window, the inner hairline.
-	W.Fill(f, "scrim", "BACKGROUND", -8)
-	f.Lift = W.Tex(f, "BACKGROUND", "glow", nil, -7)
-	W.Painter(f.Lift, function(t)
-		local r, g, b = Theme.Color("sky")
-		t:SetVertexColor(r, g, b, 0.75)
-	end)
-	f.Band = Theme.Band(f, "BACKGROUND", -6)
-	f.Band:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
-	f.Band:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
-	f.Band:SetHeight(Theme.BAND_H)
-	W.Painter(f, function(self) Theme.Border(self, Theme.Wash("divider")) end)
-
-	local label = W.Text(f, "caption", "textMuted")
-	label:SetText(L["Preview"])
-	label:SetPoint("TOPLEFT", f, "TOPLEFT", 14, -12)
-	local live = W.Text(f, "small", "textMuted")
-	live:SetText(L["Live"])
-	live:SetPoint("TOPRIGHT", f, "TOPRIGHT", -14, -12)
-	local dot = W.Tex(f, "ARTWORK", "circle", "success")
-	dot:SetSize(6, 6)
-	dot:SetPoint("RIGHT", live, "LEFT", -6, 0)
-
-	-- The guide window, in the window paint of the skin in use.
-	local gw = CreateFrame("Frame", nil, f)
-	gw:SetWidth(MINI_W)
-	Theme.Skin(gw, "window")
-	local band = Theme.Band(gw, "BACKGROUND", -5)
-	band:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, 0)
-	band:SetPoint("TOPRIGHT", gw, "TOPRIGHT", 0, 0)
-	band:SetHeight(48)
-	band:SetTexCoord(Theme.BandCoords(MINI_W, 48))
-	local tabGlyph = W.Tex(gw, "ARTWORK", "icon-level", "accent")
-	tabGlyph:SetSize(10, 10)
-	tabGlyph:SetPoint("LEFT", gw, "TOPLEFT", MINI_PAD, -12)
-	local tab = W.Text(gw, "small", "text")
-	tab:SetText(L["Tirisfal Glades"])
-	tab:SetPoint("LEFT", tabGlyph, "RIGHT", 6, 0)
-	local range = W.Text(gw, "small", "textMuted")
-	range:SetText("(1\226\128\14713)")
-	range:SetPoint("LEFT", tab, "RIGHT", 4, 0)
-	local tabRule = W.Divider(gw)
-	tabRule:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, -24)
-	tabRule:SetPoint("TOPRIGHT", gw, "TOPRIGHT", 0, -24)
-	local tabBar = W.Tex(gw, "ARTWORK", nil, "accent")
-	tabBar:SetHeight(2)
-	tabBar:SetPoint("BOTTOMLEFT", gw, "TOPLEFT", MINI_PAD - 2, -24)
-	W.Painter(tabBar, function(t) t:SetWidth(math.ceil(W.TextWidth(tab) + 10 + 6 + 4)) end)
-	local title = W.Text(gw, "heading", "text")
-	title:SetText(L["Garren's Haunt"])
-	title:SetPoint("TOPLEFT", gw, "TOPLEFT", MINI_PAD, -32)
-	local zone = W.Text(gw, "small", "textMuted")
-	zone:SetText(L["Tirisfal Glades"])
-	zone:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -2)
-	local function goal(y, glyph, glyphColor, textColor)
-		local g = W.Tex(gw, "ARTWORK", glyph, glyphColor)
-		g:SetSize(11, 11)
-		g:SetPoint("LEFT", gw, "TOPLEFT", MINI_PAD + 2, -y)
-		local t = W.Text(gw, "note", textColor)
-		t:SetPoint("LEFT", g, "LEFT", 18, 0)
-		t:SetWidth(MINI_W - 2 * MINI_PAD - 20)
-		return g, t
-	end
-	local _, done = goal(76, "check", "success", "textMuted")
-	done:SetText(L["Collect Doom Weed"] .. " 10/10")
-	local curGlyph, cur = goal(96, "icon-kill", "text", "text")
-	W.Painter(cur, function(fs)
-		fs:SetText(string.format(L["Kill %s"], "|c" .. Theme.Hex("npc") .. L["Rot Hide Mongrel"] .. "|r") .. "  2/5")
-	end)
-	local curBar = W.Tex(gw, "ARTWORK", nil, "accent")
-	curBar:SetSize(2, 16)
-	curBar:SetPoint("LEFT", gw, "LEFT", 0, 0)
-	curBar:SetPoint("TOP", curGlyph, "CENTER", 0, 8)
-	local progress = W.ProgressLine(gw, 3)
-	progress:SetPoint("TOPLEFT", gw, "TOPLEFT", MINI_PAD, -112)
-	progress:SetPoint("TOPRIGHT", gw, "TOPRIGHT", -MINI_PAD, -112)
-	W.SetProgress(progress, 0.38, MINI_W - 2 * MINI_PAD)
-	gw:SetHeight(112 + 3 + 9)
-
-	-- The arrow toward the goal, its distance and where it goes.
-	local arrow = W.Tex(f, "ARTWORK", "dart", "arrow")
-	arrow:SetSize(56, 56)
-	if arrow.SetRotation then arrow:SetRotation(-0.35) end
-	local dist = W.Text(f, "display", "text")
-	dist:SetText(L["381 yd"])
-	dist:SetPoint("TOP", arrow, "BOTTOM", 0, -2)
-	local to = W.Text(f, "small", "textDim")
-	to:SetPoint("TOP", dist, "BOTTOM", 0, -2)
-	W.Painter(to, function(fs)
-		fs:SetText(string.format(L["Go to %s"], "|c" .. Theme.Hex("place") .. L["Brill"] .. "|r"))
-	end)
-
-	-- -> the preview's height, its parts placed across `width`.
-	function f:Layout(width)
-		self:SetWidth(width)
-		local x = max(110, floor(width * 0.255))
-		gw:ClearAllPoints()
-		gw:SetPoint("TOPLEFT", self, "TOPLEFT", x, -28)
-		local right = x + MINI_W
-		arrow:ClearAllPoints()
-		arrow:SetPoint("TOP", self, "TOPLEFT", right + floor((width - right) / 2), -28)
-		f.Lift:ClearAllPoints()
-		f.Lift:SetSize(width * 0.7, PREVIEW_H * 1.6)
-		f.Lift:SetPoint("CENTER", self, "TOPLEFT", width * 0.4, -PREVIEW_H * 0.4)
-		f.Band:SetTexCoord(Theme.BandCoords(width, Theme.BAND_H))
-		return PREVIEW_H
-	end
-	return f
-end
 
 ---------------------------------------------------------------------------
 -- Controls and the grid
@@ -985,8 +774,9 @@ local function available(c)
 	if c.needs and not c.needs() then return false end
 	if c.kind == "button" then return true end
 	if c.kind == "binding" then return ns.Gamepad ~= nil and ns.Gamepad.BindingRow ~= nil end
-	-- A toggle or slider with get/set and no key holds state that is no setting (per character).
-	if (c.kind == "toggle" or c.kind == "slider") and not c.key and c.get and c.set then return true end
+	-- A toggle, slider or cards with get/set and no key holds state that is no
+	-- setting (per character, or a preset the cards' get recognises).
+	if (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.get and c.set then return true end
 	return ns.GetDefault and ns.GetDefault(c.key) ~= nil
 end
 
@@ -1001,23 +791,32 @@ local function choicesOf(c)
 	local out = {}
 	local list = c.choices
 	if type(list) == "function" then list = list() end
-	for i, ch in ipairs(list or {}) do out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value) } end
+	for i, ch in ipairs(list or {}) do
+		out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
+			disabled = ch.disabled, note = ch.note, tip = ch.tip }
+	end
 	return out
 end
 
 local function makeControl(parent, c)
 	local w
+	local getset = (c.get or c.set) and { get = c.get, set = c.set } or nil
 	if c.kind == "toggle" then
 		w = W.Toggle(parent, labelOf(c), c.key, c.help, nil, (c.gear or c.get or c.set) and { gear = c.gear, get = c.get, set = c.set } or nil)
 	elseif c.kind == "slider" then
 		local opts
 		if c.release or c.get or c.set then opts = { release = c.release, get = c.get, set = c.set } end
-		w = W.Slider(parent, c.label, c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, opts)
-	elseif c.kind == "dropdown" then
+		w = W.Slider(parent, labelOf(c), c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, opts)
+	elseif c.kind == "dropdown" or c.kind == "font" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
-		w = W.Dropdown(parent, c.label, c.key, choices, c.help, nil, (c.get or c.set) and { get = c.get, set = c.set } or nil)
+		local opts = getset
+		if c.kind == "font" then opts = { get = c.get, set = c.set, faces = true } end
+		w = W.Dropdown(parent, labelOf(c), c.key, choices, c.help, nil, opts)
+	elseif c.kind == "cards" then
+		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
+		w = W.Cards(parent, labelOf(c), c.key, choices, c.help, getset)
 	elseif c.kind == "color" then
-		w = W.Swatch(parent, c.label, c.key, c.help, { shown = c.shown, source = c.source, linked = c.linked })
+		w = W.Swatch(parent, labelOf(c), c.key, c.help, { shown = c.shown, source = c.source, linked = c.linked, alpha = c.alpha })
 	elseif c.kind == "button" then
 		-- A row with its button at the right; a consequential one (confirm)
 		-- asks first, in the shared dialog.
@@ -1037,42 +836,64 @@ local function makeControl(parent, c)
 	w.psControl = c
 	return w
 end
--- A control from its spec, as the pages make them (UI/LineStyle.lua).
+-- A control from its spec, as the pages make them.
 O.Control = makeControl
 
--- A section's controls in one column from y, each row showing its
--- description under its label and marking a setting off its default. In the
--- house style they sit in one panel (its ground and inner hairline, a
--- hairline between rows). A child (c.child: a setting that depends on the
--- one above it) is indented on a connector, dimmed while that one is off.
--- `cache` maps control spec -> widget; `panel` is the section's (W.RowPanel)
--- or nil. -> new y
-local ROW_INSET, CHILD_INSET, SECTION_GAP = 16, 40, 22
-function O.Rows(view, controls, y, cache, panel)
-	local width = win.BodyWidth
-	local top = y
-	for i, c in ipairs(controls) do
-		local w = cache[c]
-		if not w then
-			w = makeControl(view, c)
-			W.RowDetails(w, { inset = c.child and CHILD_INSET or ROW_INSET, child = c.child })
-			cache[c] = w
-		end
-		w:ClearAllPoints()
-		w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
-		w:Show()
-		if w.Refresh then w:Refresh() end
-		y = y + W.LayoutRow(w, width)
-		if w.Rule then w.Rule:SetShown(i < #controls) end
+---------------------------------------------------------------------------
+-- New settings. A control's `new` (the release it came in: "0.3.7") puts a
+-- New badge on its row, and its page's row in the sidebar counts them until
+-- the page is opened. PolestarDB.optionsSeen[page key] holds the newest
+-- release whose settings the player has seen on that page (account-wide,
+-- not a setting). The rows keep their badges through the session a page is
+-- first opened in: they read the seen state as it was when the window
+-- first opened.
+---------------------------------------------------------------------------
+
+-- Is version a newer than b ("0.3.10" > "0.3.7"; nil is oldest)?
+local function newer(a, b)
+	if type(a) ~= "string" then return false end
+	if type(b) ~= "string" then return true end
+	local ia, ib = a:gmatch("%d+"), b:gmatch("%d+")
+	while true do
+		local x, y = ia(), ib()
+		if not x and not y then return false end
+		x, y = tonumber(x) or 0, tonumber(y) or 0
+		if x ~= y then return x > y end
 	end
-	if panel then
-		panel:ClearAllPoints()
-		panel:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -top)
-		panel:SetSize(width, max(1, y - top))
-		panel:SetShown(Theme.SkinKey() == "polestar")
-	end
-	return y
 end
+O.Newer = newer
+
+local seenAtOpen
+local function seenTable()
+	local db = ns.DB()
+	if type(db.optionsSeen) ~= "table" then db.optionsSeen = {} end
+	if not seenAtOpen then
+		seenAtOpen = {}
+		for k, v in pairs(db.optionsSeen) do seenAtOpen[k] = v end
+	end
+	return db.optionsSeen
+end
+
+local function rowIsNew(c)
+	if not (c.new and c.page) then return false end
+	seenTable()
+	return newer(c.new, seenAtOpen[c.page.key])
+end
+
+---------------------------------------------------------------------------
+-- Rows and sections (DESIGN.md "The Row Rule", "Body"). A section is a card
+-- across the body: a 36px header (its title; at the right, right to left,
+-- its on/off (the spec's `toggle`), Reset while a setting in it is off its
+-- default, a New pill while it holds new settings) over rows of 36px, each
+-- two halves split by a hairline (one half below HALVES_MIN, `wide` and
+-- picture cards across both). A half is a setting's label and control, its
+-- `extras` inline before the control and its `more` behind a cog; its help is
+-- the tooltip. While a section's toggle is off, its rows dim and stop.
+---------------------------------------------------------------------------
+
+local SECTION_GAP, HALVES_MIN, MORE_W, MORE_ROW = 24, 760, 300, 30
+-- The search results' chevron gutter, inside the card left of each row.
+local SEARCH_GUTTER = 28
 
 -- The visible controls of a section.
 local function visible(section)
@@ -1083,41 +904,675 @@ local function visible(section)
 	return out
 end
 
--- Sections top down from y: each its plain heading over its panel of rows.
--- groups: { { name, controls }, ... }; the view keeps its headers and
--- panels (view.headers, view.panels). Controls not placed are hidden.
--- -> new y
-local function layoutSections(view, groups, y)
-	for _, w in pairs(view.cache) do w:Hide() end
-	local n = 0
-	for gi, g in ipairs(groups) do
-		n = n + 1
-		local h = view.headers[n]
-		if not h then
-			h = W.SectionHeader(view, { plain = true })
-			view.headers[n] = h
-		end
-		local panel = view.panels[n]
-		if not panel then
-			panel = W.RowPanel(view)
-			view.panels[n] = panel
-		end
-		if g.name ~= "" then
-			W.SetSection(h, g.name)
-			h:ClearAllPoints()
-			h:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
-			h:SetWidth(win.BodyWidth)
-			h:Show()
-			y = y + W.PLAIN_SECTION_H
-		else
-			h:Hide()
-		end
-		y = O.Rows(view, g.controls, y, view.cache, panel)
-		if gi < #groups then y = y + SECTION_GAP end
+-- fn(x) for a control and every setting it holds: its extras, its cog's.
+local function eachSetting(c, fn)
+	fn(c)
+	for _, e in ipairs(c.extras or {}) do fn(e) end
+	for _, m in ipairs(c.more or {}) do eachSetting(m, fn) end
+end
+
+-- Every available setting of a section (its toggle, its controls and what
+-- they hold), or of the controls given. -> list
+local function sectionSettings(s, controls)
+	local out = {}
+	if s and s.toggle and available(s.toggle) then out[#out + 1] = s.toggle end
+	for _, c in ipairs(controls or (s and visible(s)) or {}) do
+		eachSetting(c, function(x) if x == c or available(x) then out[#out + 1] = x end end)
 	end
-	for i = n + 1, #view.headers do view.headers[i]:Hide() end
-	for i = n + 1, #view.panels do view.panels[i]:Hide() end
-	return y
+	return out
+end
+
+-- Every setting spec of a section, available or not: its toggle, its
+-- controls and what they hold. -> list
+local function allSettings(s)
+	local out = {}
+	if s.toggle then out[1] = s.toggle end
+	for _, c in ipairs(s.controls) do eachSetting(c, function(x) out[#out + 1] = x end) end
+	return out
+end
+
+-- The settings of a list that are off their default. -> count
+local function modifiedCount(controls)
+	local n = 0
+	for _, c in ipairs(controls) do
+		if c.key and c.kind ~= "button" and c.kind ~= "binding" and W.Modified(c.key) then n = n + 1 end
+	end
+	return n
+end
+O.ModifiedCount = modifiedCount
+
+-- Every setting of a list back to its default (state that is no setting
+-- too, through its set(nil)).
+function O.ResetSection(controls)
+	for _, c in ipairs(controls) do
+		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
+			ns.Set(c.key, nil)
+		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set then
+			c.set(nil)
+		end
+	end
+	local view = O.view
+	if view and view.cache then
+		for _, c in ipairs(controls) do
+			local w = view.cache[c]
+			if w and not c.key and w.Refresh then w:Refresh() end
+		end
+	end
+end
+
+-- Is a section's on/off (its header's toggle) off?
+local function sectionOff(s)
+	local t = s and s.toggle
+	return t ~= nil and t.key ~= nil and available(t) and not ns.Get(t.key)
+end
+
+-- Is a section on screen? Its spec's shown() says (none: always).
+local function sectionShown(s)
+	if not s.shown then return true end
+	local ok, v = pcall(s.shown)
+	return not ok or v ~= false and v ~= nil
+end
+
+-- Which of a tab's sections with a shown() are on screen, as a string.
+local function shownSig(t)
+	local sig = ""
+	for _, s in ipairs(t and t.sections or {}) do
+		if s.shown then sig = sig .. (sectionShown(s) and "1" or "0") end
+	end
+	return sig
+end
+
+-- A setting is off while its section's toggle is, or its own `disabled` says.
+local function disabledOf(c)
+	return function()
+		local s = c.psSection
+		if s and s.toggle ~= c and sectionOff(s) then return true end
+		if c.disabled then
+			local ok, off = pcall(c.disabled)
+			if ok and off then return true end
+		end
+		return false
+	end
+end
+
+-- Why a setting is off, for its tooltip: its section's toggle, or the
+-- on/off it depends on (the parent a child follows, the row an extra is on).
+local function whyOff(c)
+	local s = c.psSection
+	if s and s.toggle ~= c and sectionOff(s) then return string.format(L["Turn on %s first."], labelOf(s.toggle) or "") end
+	local parent = c.psParent or c.psOwner
+	if parent and parent.kind == "toggle" and parent.key and not ns.Get(parent.key) then
+		return string.format(L["Turn on %s first."], labelOf(parent) or "")
+	end
+	return nil
+end
+
+-- Where a setting lives: "Page · Tab · Section" (a search result's tooltip).
+local function pathOf(c)
+	local parts = { c.page and c.page.name or nil }
+	if c.tab and c.tab ~= "" then parts[#parts + 1] = c.tab end
+	if c.section and c.section ~= "" then parts[#parts + 1] = c.section end
+	return table.concat(parts, "  \194\183  ")
+end
+
+-- A setting's tooltip lines: its help, where its colour comes from while it
+-- follows one, why it is off, that right-click resets it, and (search
+-- results) where it lives.
+local function tipOf(c, withPath)
+	return function(w)
+		local lines = {}
+		if type(c.help) == "string" and c.help ~= "" then lines[#lines + 1] = c.help end
+		if c.source and c.key and not W.Modified(c.key) then
+			local ok, src = pcall(c.source)
+			if ok and src and src ~= "" then lines[#lines + 1] = { string.format(L["From: %s"], src), Theme.Color("textDim") } end
+		end
+		local on = W.Enabled(w)
+		if not on then
+			local why = whyOff(c)
+			if why then lines[#lines + 1] = { why, Theme.Color("warning") } end
+		end
+		if on and c.key and W.Modified(c.key) then lines[#lines + 1] = { L["Right-click to reset."], Theme.Color("textMuted") } end
+		if withPath then lines[#lines + 1] = { pathOf(c), Theme.Color("textMuted") } end
+		return lines
+	end
+end
+O.TipOf = tipOf
+
+-- An inline control or cog: dimmed while it is off, unless the row it sits
+-- on is (the row dims it already).
+local function inlineRefresh(self)
+	local on = W.Enabled(self)
+	local row = self:GetParent()
+	local rowOff = row and row.IsEnabled and not row:IsEnabled()
+	self:SetAlpha((on or rowOff) and 1 or 0.4)
+	if on then self:Enable() else self:Disable() end
+end
+
+-- Tell the preview on screen which setting the pointer is on: its frame's
+-- optional f:Focus(key) (a preview that scrolls to the part it draws).
+function O.PreviewFocus(key)
+	local view = O.view
+	local host = view and rawget(view, "PreviewHost")
+	local f = host and host:IsShown() and host.Frame
+	if not (key and f and type(f.Focus) == "function") then return end
+	local ok, err = pcall(f.Focus, f, key)
+	if not ok and geterrorhandler then geterrorhandler()(err) end
+end
+
+-- A setting's half, built once per view (view: a page tab's, the search
+-- results', the cog popup's), with its extras and cog.
+local function rowOf(view, c)
+	local w = view.cache[c]
+	if w then return w end
+	w = makeControl(view, c)
+	W.SetDisabledWhen(w, disabledOf(c))
+	local extras
+	for _, e in ipairs(c.extras or {}) do
+		if available(e) then
+			local x
+			if e.kind == "color" then
+				x = W.InlineSwatch(w, e.key, labelOf(e), tipOf(e, view.psSearch), { alpha = e.alpha, shown = e.shown, linked = e.linked })
+			else
+				x = W.InlineToggle(w, e.key, labelOf(e), tipOf(e, view.psSearch))
+			end
+			x.psControl = e
+			W.SetDisabledWhen(x, disabledOf(e))
+			extras = extras or {}
+			extras[#extras + 1] = x
+			view.extras[e] = x
+		end
+	end
+	local cog
+	if c.more and #c.more > 0 then
+		cog = W.Cog(w, string.format(L["More: %s"], labelOf(c) or ""), function(self) O.ShowMore(self, c) end)
+		cog.psControl = c
+		cog.Refresh = inlineRefresh
+		W.SetDisabledWhen(cog, disabledOf(c))
+		view.cogs[c] = cog
+	end
+	-- Picture cards named as their section need no label of their own: the
+	-- card's header says it.
+	local bare = c.kind == "cards" and not view.psSearch and labelOf(c) == c.section
+	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog,
+		height = view.psRowH, bare = bare })
+	-- The pointer on the row, an extra or the cog: the tab's preview may
+	-- show the part that setting draws (f:Focus(key), optional).
+	if not view.psSearch then
+		w:HookScript("OnEnter", function() O.PreviewFocus(c.key) end)
+		for _, x in ipairs(extras or {}) do
+			x:HookScript("OnEnter", function(self) O.PreviewFocus(self.psControl.key) end)
+		end
+		if cog then cog:HookScript("OnEnter", function() O.PreviewFocus(c.key) end) end
+	end
+	view.cache[c] = w
+	return w
+end
+
+-- The vertical hairline between two halves (pooled per view), on a layer of
+-- its own over the section cards' grounds.
+local function midRule(view, n)
+	local t = view.mids[n]
+	if not t then
+		local layer = rawget(view, "MidLayer")
+		if not layer then
+			layer = CreateFrame("Frame", nil, view)
+			layer:SetAllPoints(view)
+			layer:SetFrameLevel(view:GetFrameLevel() + 2)
+			view.MidLayer = layer
+		end
+		t = W.Divider(layer, true)
+		view.mids[n] = t
+	end
+	return t
+end
+
+-- A list of controls as rows of halves from y, across `width` at x (all
+-- across with `whole`). The view keeps its rows (view.cache). -> height
+local function layoutRows(view, controls, top, x, width, whole)
+	local two = not whole and width >= HALVES_MIN
+	local half = floor(width / 2)
+	local y, left, leftH = top, nil, 0
+	local lineRows = {}
+	local function place(w, px, pw)
+		w:ClearAllPoints()
+		w:SetPoint("TOPLEFT", view, "TOPLEFT", px, -y)
+		w:Show()
+		if w.Refresh then w:Refresh() end
+		w.psTop = y
+		if w.Rule then w.Rule:Show() end
+		lineRows[#lineRows + 1] = w
+		return W.LayoutRow(w, pw)
+	end
+	for _, c in ipairs(controls) do
+		local w = rowOf(view, c)
+		if not two or c.wide or c.kind == "cards" then
+			if left then y, left = y + leftH, nil end
+			lineRows = {}
+			y = y + place(w, x, width)
+		elseif left then
+			local h = place(w, x + half, width - half)
+			view.psMid = (view.psMid or 0) + 1
+			local m = midRule(view, view.psMid)
+			m:ClearAllPoints()
+			m:SetPoint("TOPLEFT", view, "TOPLEFT", x + half, -y)
+			m:SetSize(1, max(leftH, h))
+			m:Show()
+			left.psPair, w.psPair = w, left
+			y, left = y + max(leftH, h), nil
+		else
+			lineRows = {}
+			left = w
+			leftH = place(w, x, half)
+		end
+	end
+	if left then y = y + leftH end
+	-- The last line's hairline would double the card's edge.
+	for _, w in ipairs(lineRows) do if w.Rule then w.Rule:Hide() end end
+	return y - top
+end
+
+-- Header widgets, right to left from the 16 edge: the toggle, Reset, New.
+local function placeHeader(card)
+	local x = 16
+	local function put(f)
+		f:ClearAllPoints()
+		f:SetPoint("RIGHT", card.Header, "RIGHT", -x, 0)
+		x = x + f:GetWidth() + 12
+	end
+	local sw = card.psToggle
+	if sw and sw:IsShown() then put(sw) end
+	if card.Reset:IsShown() then put(card.Reset) end
+	if card.New:IsShown() then put(card.New) end
+end
+
+-- A section's Reset: more than three settings ask first.
+local function sectionReset(card)
+	local list = card.psSettings
+	if not list then return end
+	local n = modifiedCount(list)
+	if n > 3 then
+		W.Modal({ title = L["Reset this section?"], icon = "reset", danger = true, action = L["Reset section"],
+			text = string.format(L["%d settings in %s go back to their defaults."], n, card.psName or ""),
+			onAccept = function() O.ResetSection(list) end })
+	else
+		O.ResetSection(list)
+	end
+end
+
+local function cardOf(view, n)
+	local card = view.cards[n]
+	if card then return card end
+	card = W.SectionCard(view)
+	card.Reset = W.Button(card.Header, L["Reset"], function() sectionReset(card) end, { ghost = true, icon = "reset", height = 22 })
+	card.Reset.psTight = true
+	W.SetButtonText(card.Reset, L["Reset"])
+	-- A gamepad moves row to row: Y resets a row, the footer's Reset page the page.
+	card.Reset.psPadSkip = true
+	card.Reset:Hide()
+	card.New = W.Chip(card.Header)
+	W.SetChip(card.New, L["New"], "accent")
+	card.New:Hide()
+	view.cards[n] = card
+	return card
+end
+
+-- Show each card's Reset and New, and each cog's dot, as the settings stand.
+local function markSections(view)
+	for _, card in ipairs(view.cards or {}) do
+		if card:IsShown() and card.psSettings then
+			card.Reset:SetShown(card.psHeader and modifiedCount(card.psSettings) > 0)
+			placeHeader(card)
+		end
+	end
+	for c, cog in pairs(view.cogs or {}) do
+		if cog:IsVisible() then
+			local list = {}
+			for _, m in ipairs(c.more) do eachSetting(m, function(x) list[#list + 1] = x end) end
+			W.SetCogDot(cog, modifiedCount(list) > 0)
+		end
+	end
+end
+
+-- The header switch of a section's toggle, made once per view.
+local function toggleOf(view, t, card)
+	local sw = view.extras[t]
+	if not sw then
+		sw = W.HeaderSwitch(card.Header, t.key, labelOf(t), tipOf(t, view.psSearch))
+		sw.psControl = t
+		if t.disabled then W.SetDisabledWhen(sw, t.disabled) end
+		view.extras[t] = sw
+	end
+	if sw:GetParent() ~= card.Header then sw:SetParent(card.Header) end
+	sw:Show()
+	return sw
+end
+
+-- Sections from y, one card each across the body. groups: { { name,
+-- controls, section, settings }, ... } (`settings`: what its Reset resets);
+-- opts.whole: every row across (search results); opts.gutter: room left of
+-- the rows inside the card (the search results' chevrons). Rows not placed
+-- are hidden.
+-- -> new y
+local function layoutSections(view, groups, y, opts)
+	for _, w in pairs(view.cache) do w:Hide() end
+	for _, sw in pairs(view.extras) do if rawget(sw, "psHeaderSwitch") then sw:Hide() end end
+	for _, m in ipairs(view.mids) do m:Hide() end
+	view.psMid = 0
+	local width = win.BodyWidth
+	local n = 0
+	for _, g in ipairs(groups) do
+		n = n + 1
+		local card = cardOf(view, n)
+		local s = g.section
+		local t = s and s.toggle and available(s.toggle) and s.toggle or nil
+		local header = g.name ~= "" or t ~= nil
+		card.psHeader, card.psName, card.psSettings, card.psSection = header, g.name, g.settings, g.section
+		card:SetTitle(g.name)
+		card.Header:SetShown(header)
+		card.Rule:SetShown(header)
+		card.RowsTop = header and W.CARD_HEADER + 1 or 0
+		card.psToggle = t and toggleOf(view, t, card) or nil
+		local new = false
+		for _, x in ipairs(g.settings or {}) do if rowIsNew(x) then new = true end end
+		card.New:SetShown(header and new)
+		local gutter = opts and opts.gutter or 0
+		local rowsH = layoutRows(view, g.controls, y + card.RowsTop, SH.pad + gutter, width - gutter, opts and opts.whole)
+		card.psTop = y
+		y = y + card:Place(SH.pad, y, width, rowsH) + SECTION_GAP
+	end
+	for i = n + 1, #view.cards do view.cards[i]:Hide() end
+	markSections(view)
+	return y - (n > 0 and SECTION_GAP or 0)
+end
+
+-- A view's tables: rows, inline extras and header switches, cogs, cards and
+-- the halves' hairlines.
+local function viewTables(view)
+	view.cache, view.extras, view.cogs, view.cards, view.mids = {}, {}, {}, {}, {}
+	view.headers, view.panels = {}, {}
+	return view
+end
+
+---------------------------------------------------------------------------
+-- The cog's popup: a row's detail settings (its `more`) in a compact panel by
+-- the cog: the row's label as its title over single-column rows of 30px,
+-- 300 wide. It closes on Escape, a click outside it, or another page.
+---------------------------------------------------------------------------
+
+local more
+
+local function buildMore()
+	more = CreateFrame("Frame", "PolestarOptionsMore", UIParent)
+	more:SetFrameStrata("FULLSCREEN_DIALOG")
+	more:SetFrameLevel(10)
+	more:SetClampedToScreen(true)
+	more:EnableMouse(true)
+	Theme.Skin(more, "panel")
+	viewTables(more)
+	more.psRowH = MORE_ROW
+	more.Title = W.Text(more, "heading", "text")
+	more.Title:SetPoint("TOPLEFT", more, "TOPLEFT", 16, -12)
+	more.Title:SetWordWrap(false)
+	more.Rule = W.Divider(more)
+	more.Rule:SetPoint("TOPLEFT", more, "TOPLEFT", 1, -W.CARD_HEADER)
+	more.Rule:SetPoint("TOPRIGHT", more, "TOPRIGHT", -1, -W.CARD_HEADER)
+	local catcher = CreateFrame("Button", nil, UIParent)
+	catcher:SetAllPoints(UIParent)
+	catcher:SetFrameStrata("FULLSCREEN_DIALOG")
+	catcher:SetFrameLevel(1)
+	catcher:RegisterForClicks("AnyUp")
+	catcher:SetScript("OnClick", function() more:Hide() end)
+	catcher:Hide()
+	more.Catcher = catcher
+	more:SetScript("OnHide", function() catcher:Hide() end)
+	more:Hide()
+	ns.CloseOnEscape("PolestarOptionsMore")
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(more, { back = function() more:Hide() end })
+	end
+end
+
+-- Open (or, from its own cog, close) the popup of control c's `more`.
+function O.ShowMore(cog, c)
+	if not more then buildMore() end
+	if more:IsShown() and more.psFor == c then
+		more:Hide()
+		return
+	end
+	more.psFor = c
+	W.HideMenu()
+	for _, w in pairs(more.cache) do w:Hide() end
+	more.Title:SetText(labelOf(c) or "")
+	more.Title:SetWidth(MORE_W - 32)
+	local list = {}
+	for _, m in ipairs(c.more or {}) do if available(m) then list[#list + 1] = m end end
+	local h = layoutRows(more, list, W.CARD_HEADER + 1, 0, MORE_W, true)
+	more:SetSize(MORE_W, W.CARD_HEADER + 1 + h + 2)
+	if win then more:SetScale(win:GetEffectiveScale() / UIParent:GetEffectiveScale()) end
+	more:ClearAllPoints()
+	more:SetPoint("TOPRIGHT", cog, "BOTTOMRIGHT", 0, -4)
+	more.Catcher:Show()
+	more:Show()
+	more:Raise()
+	markSections(more)
+	Anim.To(more, "alpha", 0, 1, Anim.FAST, "out")
+	return more
+end
+
+function O.HideMore()
+	if more then more:Hide() end
+end
+
+-- The settings of the open cog popup (tests): key -> widget.
+function O.MoreControls()
+	local out = {}
+	if not (more and more:IsShown()) then return out end
+	for c, w in pairs(more.cache) do if w:IsShown() and c.key then out[c.key] = w end end
+	for c, w in pairs(more.extras) do if c.key then out[c.key] = w end end
+	return out
+end
+
+---------------------------------------------------------------------------
+-- The pinned preview. A page tab's `preview(host)` -> frame f with
+-- f:Layout(width) -> height is built the first time the tab shows, into its
+-- own host in the shell's preview slot, and laid out across the main
+-- column; the slot's chrome lies over it: "Preview" and the frame's caption
+-- (f.caption: a string or a function) at the top left, the Live mark at the
+-- top right. At most PREVIEW_MAX of the body's height; it clips past that.
+---------------------------------------------------------------------------
+
+local PREVIEW_MAX, HINT_FOOT = 0.45, 24
+
+-- The setting `key`'s control spec: on the page and tab on screen first,
+-- then the page, then anywhere. -> spec | nil
+local function controlByKey(key)
+	local best, rank
+	for _, p in ipairs(pageList) do
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do
+				for _, c in ipairs(allSettings(s)) do
+					if c.key == key and available(c) then
+						local r = (p == current and t == currentTab) and 1 or (p == current and 2 or 3)
+						if not rank or r < rank then best, rank = c, r end
+					end
+				end
+			end
+		end
+	end
+	return best
+end
+
+---------------------------------------------------------------------------
+-- Preview hotspots: a part of a preview that a click takes to its setting.
+--   O.PreviewHotspot(frame, region, key) (or host:Hotspot(region, key)
+--   while the preview is built): frame is the preview's frame or any frame
+--   in it, region the part (a texture or frame). Under the cursor a 1px
+--   accent outline goes round the part and the tooltip names the setting; a
+--   click opens its row (O.Jump) and lights it. The first preview with
+--   hotspots says so once ("Click a part of the preview to find its
+--   settings", under its band) until the first click (PolestarDB).
+---------------------------------------------------------------------------
+
+local function hintDismissed() return ns.DB().optionsPreviewHint == true end
+
+local function hostOf(f)
+	while f do
+		if rawget(f, "psIsHost") then return f end
+		f = f:GetParent()
+	end
+end
+
+local function hotspotEdge(b, on)
+	local r, g, bb = Theme.Accent()
+	Theme.Border(b, r, g, bb, on and 1 or 0)
+end
+
+function O.PreviewHotspot(frame, region, key)
+	local b = CreateFrame("Button", nil, frame)
+	b:SetAllPoints(region)
+	b:SetFrameLevel(frame:GetFrameLevel() + 20)
+	b.psKey, b.psPadSkip = key, true
+	hotspotEdge(b, false)
+	b:SetScript("OnEnter", function(self)
+		hotspotEdge(self, true)
+		local c = controlByKey(self.psKey)
+		if c then W.Tooltip(self, "ANCHOR_TOP", labelOf(c), { L["Click to find its settings."] }) end
+	end)
+	b:SetScript("OnLeave", function(self)
+		hotspotEdge(self, false)
+		W.HideTooltip(self)
+	end)
+	b:SetScript("OnClick", function(self)
+		if not hintDismissed() then
+			ns.DB().optionsPreviewHint = true
+			for _, p in ipairs(pageList) do
+				for _, v in pairs(p.views or {}) do
+					local h = rawget(v, "PreviewHost")
+					if h then h.Hint:Hide(); h.Foot:Hide() end
+				end
+			end
+		end
+		local c = controlByKey(self.psKey)
+		if c then O.Jump(c) end
+	end)
+	local host = hostOf(frame)
+	if host then host.psHotspots = (host.psHotspots or 0) + 1 end
+	return b
+end
+
+local function previewHost(view, t)
+	local host = rawget(view, "PreviewHost")
+	if host then return host end
+	host = CreateFrame("Frame", nil, W.ShellPreviewSlot(win))
+	if host.SetClipsChildren then host:SetClipsChildren(true) end
+	host.psIsHost = true
+	host.Hotspot = function(self, region, key) return O.PreviewHotspot(self, region, key) end
+	view.PreviewHost = host
+	local ok, f = pcall(t.preview, host)
+	if not ok then
+		if geterrorhandler then geterrorhandler()(f) end
+		f = nil
+	end
+	host.Frame = f
+	if f then
+		f:ClearAllPoints()
+		f:SetPoint("TOPLEFT", host, "TOPLEFT", 0, 0)
+		if f.Hotspot == nil then f.Hotspot = function(self, region, key) return O.PreviewHotspot(self, region, key) end end
+	end
+	-- The chrome, over the preview.
+	local chrome = CreateFrame("Frame", nil, host)
+	chrome:SetAllPoints(host)
+	chrome:SetFrameLevel(host:GetFrameLevel() + 30)
+	host.Label = W.Text(chrome, "caption", "text")
+	host.Label:SetText(L["Preview"])
+	host.Label:SetPoint("TOPLEFT", chrome, "TOPLEFT", 16, -12)
+	host.Caption = W.Text(chrome, "small", "textDim")
+	host.Caption:SetPoint("LEFT", host.Label, "RIGHT", 8, 0)
+	host.Live = W.Text(chrome, "small", "textMuted")
+	host.Live:SetText(L["Live"])
+	host.Live:SetPoint("TOPRIGHT", chrome, "TOPRIGHT", -16, -12)
+	local dot = W.Tex(chrome, "ARTWORK", "circle", "success")
+	dot:SetSize(6, 6)
+	dot:SetPoint("RIGHT", host.Live, "LEFT", -6, 0)
+	-- The hotspots' one-time hint: a foot row of its own under the preview,
+	-- on the band's ground, clear of the preview's content.
+	host.Foot = W.Tex(chrome, "BACKGROUND", nil, "bg")
+	host.Foot:SetPoint("BOTTOMLEFT", chrome, "BOTTOMLEFT", 0, 0)
+	host.Foot:SetPoint("BOTTOMRIGHT", chrome, "BOTTOMRIGHT", 0, 0)
+	host.Foot:SetHeight(HINT_FOOT)
+	host.Hint = W.Text(chrome, "small", "textMuted")
+	host.Hint:SetText(L["Click a part of the preview to find its settings."])
+	host.Hint:SetPoint("LEFT", host.Foot, "LEFT", 16, 0)
+	host.Hint:Hide()
+	host.Foot:Hide()
+	host:Hide()
+	return host
+end
+
+-- Lay the shown tab's preview out across the main column and pin it.
+local function placePreview(view, t)
+	if not (t and t.preview) or view.empty then
+		W.ShellPreview(win, nil)
+		return
+	end
+	local host = previewHost(view, t)
+	local f = host.Frame
+	if not f then
+		W.ShellPreview(win, nil)
+		return
+	end
+	local width = win.psMainW or (win.BodyWidth + SH.pad * 2)
+	local ok, h = pcall(f.Layout, f, width)
+	if not ok then
+		if geterrorhandler then geterrorhandler()(h) end
+		h = 0
+	end
+	h = tonumber(h) or 0
+	f:SetWidth(width)
+	f:Show()
+	local cap = f.caption
+	if type(cap) == "function" then cap = cap() end
+	host.Caption:SetText(cap or "")
+	local hint = (host.psHotspots or 0) > 0 and not hintDismissed()
+	host.Hint:SetShown(hint)
+	host.Foot:SetShown(hint)
+	local room = win:GetHeight() - SH.header - SH.tabs - SH.footer
+	W.ShellPreview(win, host, min(h, floor(room * PREVIEW_MAX)) + (hint and HINT_FOOT or 0))
+end
+
+-- The first open's one line under the header: how the rows work (hover,
+-- right-click), until its close button dismisses it for good
+-- (PolestarDB.optionsIntro). -> the room it takes at the view's top
+local INTRO_H = 28
+local function introRoom(view)
+	if ns.DB().optionsIntro then
+		if rawget(view, "Intro") then view.Intro:Hide() end
+		return 0
+	end
+	local bar = rawget(view, "Intro")
+	if not bar then
+		bar = CreateFrame("Frame", nil, view)
+		bar:SetHeight(INTRO_H)
+		bar.Icon = W.Tex(bar, "ARTWORK", "info", "textMuted")
+		bar.Icon:SetSize(12, 12)
+		bar.Icon:SetPoint("LEFT", bar, "LEFT", 16, 0)
+		bar.Text = W.Text(bar, "note", "textMuted")
+		bar.Text:SetText(L["Hover a setting for what it does. Right-click resets it."])
+		bar.Text:SetPoint("LEFT", bar.Icon, "RIGHT", 8, 0)
+		bar.Close = W.IconButton(bar, "close", 20, L["Got it"], function()
+			ns.DB().optionsIntro = true
+			O.Relayout()
+		end, 10)
+		bar.Close:SetPoint("RIGHT", bar, "RIGHT", -12, 0)
+		-- Not a stop for the gamepad: its first stop stays the first setting.
+		bar.Close.psPadSkip = true
+		view.Intro = bar
+	end
+	bar:ClearAllPoints()
+	bar:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -12)
+	bar:SetWidth(win.BodyWidth)
+	bar:Show()
+	return INTRO_H + 4
 end
 
 -- A view = one page tab rendered into its own frame (built once).
@@ -1125,22 +1580,25 @@ local function buildView(p, t)
 	local view = CreateFrame("Frame", nil, win.Body)
 	view:SetPoint("TOPLEFT", win.Body, "TOPLEFT", 0, 0)
 	view:SetPoint("RIGHT", win.Body, "RIGHT", 0, 0)
-	view.cache, view.headers, view.panels = {}, {}, {}
+	viewTables(view)
+	view.psTab = t
 	if p.custom then
 		p.custom(view)
 	else
 		view.Refresh = function()
-			local y = 16
+			local y = 16 + introRoom(view)
 			local groups = {}
+			view.psShownSig = shownSig(t)
 			for _, s in ipairs(t.sections) do
 				local list = visible(s)
-				if #list > 0 then groups[#groups + 1] = { name = s.name, controls = list } end
+				if sectionShown(s) and (#list > 0 or (s.toggle and available(s.toggle))) then
+					groups[#groups + 1] = { name = s.name, controls = list, section = s, settings = sectionSettings(s, list) }
+				end
 			end
 			if #groups == 0 then
 				for _, w in pairs(view.cache) do w:Hide() end
-				for _, h in ipairs(view.headers) do h:Hide() end
-				for _, pn in ipairs(view.panels) do pn:Hide() end
-				if rawget(view, "Preview") then view.Preview:Hide() end
+				for _, card in ipairs(view.cards) do card:Hide() end
+				for _, m in ipairs(view.mids) do m:Hide() end
 				if not rawget(view, "Empty") then
 					view.Empty = W.Text(view, "note", "textMuted")
 					view.Empty:SetWordWrap(true)
@@ -1155,14 +1613,6 @@ local function buildView(p, t)
 			end
 			view.empty = false
 			if rawget(view, "Empty") then view.Empty:Hide() end
-			-- The tab's preview over its sections.
-			if t.preview then
-				if not rawget(view, "Preview") then view.Preview = t.preview(view) end
-				view.Preview:ClearAllPoints()
-				view.Preview:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
-				view.Preview:Show()
-				y = y + view.Preview:Layout(win.BodyWidth) + SECTION_GAP
-			end
 			y = layoutSections(view, groups, y)
 			return y + 24
 		end
@@ -1221,6 +1671,44 @@ local SPELLING = { color = "colour", colors = "colours", gray = "grey", meter = 
 -- control's score when one of its words is the same, and are not required.
 local FILLER = {}
 for w in ("a an the of to in on at and or for my me i is it how do can turn off enable disable toggle set setting settings option options where want"):gmatch("%S+") do FILLER[w] = true end
+
+-- Hint words a player types for a kind of change, and the words settings
+-- use for it: a query word that matches nothing of a control's own tries
+-- the others of its group ("bigger pins" finds Numbered pin size; "see
+-- through" finds an opacity). Counted below a word's own match.
+local SYNONYMS = {
+	"bigger big larger large size sizes scale huge tiny smaller small enlarge shrink zoom grow",
+	"colour colours tint hue tone",
+	"transparent transparency opacity alpha seethrough translucent faint fade faded",
+	"font fonts text letters typeface type writing",
+	"move moving position positions drag unlock anchor place placement reposition",
+	"pin pins marker markers icon icons numbered mark marks medallion blip blips",
+	"border borders edge edges frame outline",
+	"background backing ground bg backdrop",
+	"sound sounds audio chime ding noise",
+	"hide hidden show shown visible visibility",
+	"animation animations motion animated effects",
+	"arrow pointer compass dart",
+	"line lines route routes path trail dots",
+	"spacing padding gap gaps margin",
+	"toast toasts alert alerts notification notifications popup banner",
+	"thickness thick thicker thin width wider",
+	"glow shine light",
+}
+local SYN = {}
+for _, group in ipairs(SYNONYMS) do
+	local words = {}
+	for w in group:gmatch("%S+") do words[#words + 1] = w end
+	for _, w in ipairs(words) do
+		local list = SYN[w] or {}
+		for _, o in ipairs(words) do if o ~= w then list[#list + 1] = o end end
+		SYN[w] = list
+	end
+end
+-- Phrases read as one hint word.
+local PHRASES = { { "see%W*through", "seethrough" }, { "step%W*numbers?", "numbered" } }
+-- A synonym's match counts this share of the word's own.
+local SYN_SHARE = 0.6
 
 local LABEL, KEY, TERMS, PLACE, HELP = 1, 2, 3, 4, 5
 -- By field, the score of a match inside a word, a typo off, the word's start, the whole word.
@@ -1333,17 +1821,27 @@ local function kindOf(m, t)
 	return k
 end
 
-local qwords, qfiller, qpairs, seen = {}, {}, {}, {}
+local qwords, qfiller, qpairs, qsyn, seen = {}, {}, {}, {}, {}
 
 -- The query's words into qwords (memos) and qfiller, each word joined to
--- the one before into qpairs. -> count
+-- the one before into qpairs, a hint word's synonyms into qsyn. -> count
 local function parseQuery(q)
 	local n, needed, prev = 0, 0, nil
-	for word in fold(q or ""):gmatch("[%w\128-\255]+") do
+	local text = fold(q or "")
+	for _, ph in ipairs(PHRASES) do text = text:gsub(ph[1], ph[2]) end
+	for word in text:gmatch("[%w\128-\255]+") do
 		local w = SPELLING[word] or word
 		n = n + 1
 		qwords[n], qfiller[n] = wordMemo(w), FILLER[w] or false
 		qpairs[n] = prev and wordMemo(prev .. w) or false
+		local syn = SYN[w]
+		if syn then
+			local list = {}
+			for i, o in ipairs(syn) do list[i] = wordMemo(o) end
+			qsyn[n] = list
+		else
+			qsyn[n] = false
+		end
 		if not FILLER[w] then needed = needed + 1 end
 		prev = w
 	end
@@ -1351,6 +1849,24 @@ local function parseQuery(q)
 		for i = 1, n do qfiller[i] = false end
 	end
 	return n
+end
+
+-- A word's best match through its synonyms: a whole word or a word's start
+-- of the control's own (its help aside), at SYN_SHARE of the score.
+local function synonymScore(list, tw, tf)
+	local best = 0
+	for _, sm in ipairs(list) do
+		for j = 1, #tw do
+			if tf[j] ~= HELP then
+				local k = kindOf(sm, tw[j])
+				if k >= 3 then
+					local v = floor(SCORE[tf[j]][k] * SYN_SHARE)
+					if v > best then best = v end
+				end
+			end
+		end
+	end
+	return best
 end
 
 -- A control's score for the query, 0 when a word it needs matches nothing.
@@ -1372,19 +1888,24 @@ local function scoreOf(c, nw)
 				if pk > phrase then phrase = pk end
 			end
 		end
+		if best == 0 and not filler and qsyn[i] then best = synonymScore(qsyn[i], tw, tf) end
 		if best == 0 and not filler then return 0 end
 		total = total + best + phrase
 	end
 	return total
 end
 
+-- The best match first; one its section's on/off stops after an equal one
+-- that works.
 local function byScore(a, b)
 	if a.psScore ~= b.psScore then return a.psScore > b.psScore end
+	if a.psStopped ~= b.psStopped then return not a.psStopped end
 	return a.psOrder < b.psOrder
 end
 
 local function byBest(a, b)
 	if a.best ~= b.best then return a.best > b.best end
+	if a.off ~= b.off then return not a.off end
 	return a.order < b.order
 end
 
@@ -1452,27 +1973,45 @@ function O.Search(q)
 	local order = 0
 	for _, p in ipairs(pageList) do
 		for _, t in ipairs(p.tabs) do
-			local list, best
-			for _, s in ipairs(t.sections) do
-				for _, c in ipairs(s.controls) do
+			for _, s in ipairs(t.sections) do if sectionShown(s) then
+				-- The section's toggle is a result of its own; a control is
+				-- found by its words and by those of its extras and cog.
+				local list, best
+				local cands = {}
+				if s.toggle then cands[1] = s.toggle end
+				for _, c in ipairs(s.controls) do cands[#cands + 1] = c end
+				for _, c in ipairs(cands) do
 					order = order + 1
 					if available(c) and not (c.key and seen[c.key]) then
-						local score = scoreOf(c, nw)
+						local score = 0
+						eachSetting(c, function(x)
+							if x == c or available(x) then
+								local v = scoreOf(x, nw)
+								if v > score then score = v end
+							end
+						end)
 						if score > 0 then
 							if c.key then seen[c.key] = true end
 							c.psScore, c.psOrder = score, order
+							-- Stopped by its section's on/off: after the ones that work.
+							c.psStopped = s.toggle ~= c and sectionOff(s)
 							list = list or {}
 							list[#list + 1] = c
 							if not best or score > best then best = score end
 						end
 					end
 				end
-			end
-			if list then
-				table.sort(list, byScore)
-				groups[#groups + 1] = { title = t.name ~= "" and (p.name .. "  \194\183  " .. t.name) or p.name, controls = list, best = best, order = #groups + 1 }
-				count = count + #list
-			end
+				if list then
+					table.sort(list, byScore)
+					-- Where they live: page, tab, section.
+					local title = p.name
+					if t.name ~= "" then title = title .. "  \194\183  " .. t.name end
+					if s.name ~= "" and s.name ~= t.name then title = title .. "  \194\183  " .. s.name end
+					groups[#groups + 1] = { title = title, controls = list, best = best, order = #groups + 1, section = s,
+						off = list[1].psStopped and true or false }
+					count = count + #list
+				end
+			end end
 		end
 	end
 	if count == 0 then return groups, 0, suggest(nw) end
@@ -1485,7 +2024,8 @@ local function renderSearch()
 		searchView = CreateFrame("Frame", nil, win.Body)
 		searchView:SetPoint("TOPLEFT", win.Body, "TOPLEFT", 0, 0)
 		searchView:SetPoint("RIGHT", win.Body, "RIGHT", 0, 0)
-		searchView.cache, searchView.headers, searchView.panels = {}, {}, {}
+		viewTables(searchView)
+		searchView.psSearch = true
 		searchView.Empty = W.Text(searchView, "note", "textMuted")
 		searchView.Hint = W.Text(searchView, "note", "textMuted")
 		searchView.Hint:SetText(L["Did you mean:"])
@@ -1493,8 +2033,35 @@ local function renderSearch()
 	end
 	local groups, count, suggestions = O.Search(query)
 	local sections = {}
-	for i, g in ipairs(groups) do sections[i] = { name = g.title, controls = g.controls } end
-	local y = layoutSections(searchView, sections, 16)
+	for i, g in ipairs(groups) do
+		-- A result stopped by its section's on/off: that switch in the header.
+		local s
+		if g.section and g.section.toggle then
+			local stopped, listed = false, false
+			for _, c in ipairs(g.controls) do
+				if c.psStopped then stopped = true end
+				if c == g.section.toggle then listed = true end
+			end
+			if stopped and not listed then s = g.section end
+		end
+		sections[i] = { name = g.title, controls = g.controls, section = s, settings = sectionSettings(nil, g.controls) }
+	end
+	local y = layoutSections(searchView, sections, 16, { whole = true, gutter = SEARCH_GUTTER })
+	-- Each result's way to its page: a chevron in the card's gutter left of
+	-- the row opens the page and tab it lives on, the row scrolled into view
+	-- and lit (O.Jump).
+	for c, w in pairs(searchView.cache) do
+		local j = rawget(w, "psJump")
+		if w:IsShown() then
+			if not j then
+				j = W.IconButton(w, "chevron-right", 20, L["Show on its page"], function(self) O.Jump(self.psControl) end, 12)
+				j:SetPoint("LEFT", w, "LEFT", -(SEARCH_GUTTER - 4), 0)
+				w.psJump = j
+			end
+			j.psControl = c
+			j:Show()
+		end
+	end
 	searchView.Empty:SetShown(count == 0)
 	local links = searchView.Links
 	local shown = count == 0 and suggestions and #suggestions or 0
@@ -1530,6 +2097,7 @@ local function renderSearch()
 	for i = shown + 1, #links do links[i]:Hide() end
 	W.ShellTitle(win, L["Search"], count == 1 and L["1 setting matches"] or string.format(L["%d settings match"], count))
 	W.ShellTabs(win, nil)
+	W.ShellPreview(win, nil)
 	searchView:Show()
 	W.ShellBody(win, y + 16)
 	O.results = { groups = groups, count = count, suggestions = suggestions }
@@ -1545,7 +2113,8 @@ end
 -- such tab out of the sidebar; declared pages fill as modules register.
 local function tabHasControls(t)
 	for _, s in ipairs(t.sections) do
-		for _, c in ipairs(s.controls) do
+		if sectionShown(s) and s.toggle and available(s.toggle) then return true end
+		for _, c in ipairs(sectionShown(s) and s.controls or {}) do
 			if available(c) then return true end
 		end
 	end
@@ -1570,34 +2139,132 @@ local function pageShown(p)
 	return false
 end
 
--- The sidebar in three groups, a hairline between them: the pages of
--- playing (Guide to Quality of Life), those of other addons, guides and
--- tools (Integrations on), and About.
-local function navGroup(p)
-	if p.key == "about" then return 3 end
-	return p.order >= 65 and 2 or 1
+local pageByKey
+
+-- The sidebar's tree: the groups in order, a page in the group it names
+-- (spec.group) or that its order puts it in. Pages of the Look group are
+-- 20-29; Setup 63-79 (Profiles, Integrations, Community guides, Gamepad);
+-- About from 80 (Guiding Stars, Recorder, About); Guiding the rest.
+local GROUPS = {
+	{ key = "guiding", label = L["Guiding"] },
+	{ key = "look", label = L["Look"] },
+	{ key = "setup", label = L["Setup"] },
+	{ key = "about", label = L["About"] },
+}
+local GROUP_KEY = {}
+for _, g in ipairs(GROUPS) do GROUP_KEY[g.key] = true end
+local GROUP_PREFIX = "group:"
+
+local function groupOf(p)
+	if p.group and GROUP_KEY[p.group] then return p.group end
+	local o = p.order or 100
+	if o >= 20 and o < 30 then return "look" end
+	if o >= 80 then return "about" end
+	if o >= 63 then return "setup" end
+	return "guiding"
+end
+O.GroupOf = function(key)
+	local p = pageByKey(key)
+	return p and groupOf(p)
+end
+
+-- The groups folded away, per account (PolestarDB.optionsNav.folded).
+local function navState()
+	local db = ns.DB()
+	if type(db.optionsNav) ~= "table" then db.optionsNav = {} end
+	if type(db.optionsNav.folded) ~= "table" then db.optionsNav.folded = {} end
+	return db.optionsNav
+end
+
+-- The page's settings new since the player last opened it. -> count
+local function pageNew(p)
+	local seenNow = seenTable()[p.key]
+	local n = 0
+	for _, t in ipairs(p.tabs) do
+		for _, s in ipairs(t.sections) do
+			for _, c in ipairs(allSettings(s)) do
+				if c.new and newer(c.new, seenNow) and available(c) then n = n + 1 end
+			end
+		end
+	end
+	return n
+end
+O.PageNew = function(key)
+	local p = pageByKey(key)
+	return p and pageNew(p) or 0
+end
+
+-- The newest release among the page's settings. -> version | nil
+local function pageNewest(p)
+	local top
+	for _, t in ipairs(p.tabs) do
+		for _, s in ipairs(t.sections) do
+			for _, c in ipairs(allSettings(s)) do
+				if c.new and newer(c.new, top) then top = c.new end
+			end
+		end
+	end
+	return top
+end
+
+-- Does the page hold a setting off its default?
+local function pageChanged(p)
+	for _, t in ipairs(p.tabs) do
+		for _, s in ipairs(t.sections) do
+			if modifiedCount(sectionSettings(s)) > 0 then return true end
+		end
+	end
+	return false
 end
 
 local function navItems()
-	local items, group = {}, nil
+	local folded = navState().folded
+	local byGroup = {}
 	for _, p in ipairs(pageList) do
 		if pageShown(p) or p == current then
-			local g = navGroup(p)
-			if group and g ~= group then items[#items + 1] = { separator = true } end
-			group = g
-			items[#items + 1] = { key = p.key, label = p.name, icon = p.icon, dot = p.dot and p.dot() or nil }
+			local g = groupOf(p)
+			byGroup[g] = byGroup[g] or {}
+			table.insert(byGroup[g], p)
+		end
+	end
+	local items = {}
+	for _, g in ipairs(GROUPS) do
+		local list = byGroup[g.key]
+		if list then
+			local fold = folded[g.key] and true or false
+			items[#items + 1] = { group = true, key = GROUP_PREFIX .. g.key, label = g.label, folded = fold }
+			for _, p in ipairs(list) do
+				-- A folded group still shows the page on screen.
+				if not fold or p == current then
+					local n = pageNew(p)
+					items[#items + 1] = { key = p.key, label = p.name, icon = p.icon, indent = true, dot = p.dot and p.dot() or nil,
+						new = n > 0 and n or nil, changed = pageChanged(p) or nil }
+				end
+			end
 		end
 	end
 	return items
 end
 
+-- A sidebar click: a group's header folds or opens it, a page opens.
+local function navSelect(key)
+	if type(key) == "string" and key:sub(1, #GROUP_PREFIX) == GROUP_PREFIX then
+		local folded = navState().folded
+		local g = key:sub(#GROUP_PREFIX + 1)
+		folded[g] = (not folded[g]) or nil
+		O.RefreshNav()
+		return
+	end
+	O.Select(key)
+end
+
 function O.RefreshNav()
-	if win then W.ShellNav(win, navItems(), query == "" and current and current.key or nil, function(k) O.Select(k) end) end
+	if win then W.ShellNav(win, navItems(), query == "" and current and current.key or nil, navSelect) end
 end
 
 -- -> page, the tab an old page key points at (nil: the page's first). A
 -- page's own key wins over an alias of the same name.
-local function pageByKey(key)
+function pageByKey(key)
 	key = key and keyOf(key)
 	for _, p in ipairs(pageList) do
 		if p.key == key then return p end
@@ -1620,7 +2287,7 @@ local function pageKeys(p)
 	local keys = {}
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(s.controls) do
+			for _, c in ipairs(allSettings(s)) do
 				if c.key and available(c) then keys[#keys + 1] = c.key end
 			end
 		end
@@ -1628,6 +2295,48 @@ local function pageKeys(p)
 	return keys
 end
 
+-- The profiles (ns.Profiles, UI/Profiles.lua): their names and the one in use.
+local function profileNames()
+	local P = ns.Profiles
+	if not (P and P.List and P.Active and P.Switch) then return nil end
+	local ok, list = pcall(P.List)
+	if not ok or type(list) ~= "table" then return nil end
+	local out = {}
+	for i, e in ipairs(list) do out[i] = type(e) == "table" and (e.name or e[1]) or e end
+	local okA, active = pcall(P.Active)
+	if type(active) == "table" then active = active.name end
+	return out, okA and active or nil
+end
+
+-- A profile's name as shown (ns.Profiles.Label: "Default" translated).
+local function profileLabel(name)
+	local P = ns.Profiles
+	if P and P.Label then
+		local ok, text = pcall(P.Label, name)
+		if ok and text then return text end
+	end
+	return tostring(name or "")
+end
+
+-- The footer's profile switch: the profile in use, a menu of the others.
+local function profileMenu(button)
+	local names, active = profileNames()
+	if not names then return end
+	if W.MenuShown(button) then return W.HideMenu() end
+	local items = {}
+	for _, name in ipairs(names) do
+		items[#items + 1] = { text = profileLabel(name), checked = name == active, onClick = function()
+			if name == active then return end
+			local ok, why = ns.Profiles.Switch(name)
+			if not ok and why and ns.Print then ns.Print(why) end
+		end }
+	end
+	items[#items + 1] = { separator = true }
+	items[#items + 1] = { text = L["Manage profiles"], icon = "layers", onClick = function() O.Select("profiles") end }
+	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4 })
+end
+
+local footerProfile
 local function renderFooter(p)
 	local left = {}
 	if p and #pageKeys(p) > 0 then
@@ -1638,16 +2347,30 @@ local function renderFooter(p)
 		end }
 	end
 	left[#left + 1] = { label = L["Reload UI"], onClick = function() if ReloadUI then ReloadUI() end end, opts = { icon = "reload", ghost = true } }
-	W.ShellFooter(win, left, { { label = L["Close"], onClick = function() win:Hide() end } })
+	-- Unlock mode (ns.Movers): every movable frame shows a mover to drag.
+	if ns.Movers and ns.Movers.Unlock then
+		-- Unlocking hides this window and brings it back on Lock (UI/Movers.lua).
+		left[#left + 1] = { label = L["Move frames"], opts = { icon = "lock", ghost = true }, onClick = function()
+			ns.Movers.Unlock()
+		end }
+	end
+	local right = { { label = L["Close"], onClick = function() win:Hide() end } }
+	local names, active = profileNames()
+	footerProfile = active
+	if names then
+		right[#right + 1] = { label = string.format(L["Profile: %s"], profileLabel(active)), opts = { icon = "layers", ghost = true }, onClick = profileMenu }
+	end
+	W.ShellFooter(win, left, right)
+	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 end
 
 function O.ResetPage(p)
 	for _, key in ipairs(pageKeys(p)) do ns.Set(key, nil) end
-	-- Toggles and sliders of state that is no setting go back to their default too.
+	-- Toggles, sliders and cards of state that is no setting go back to their default too.
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(s.controls) do
-				if (c.kind == "toggle" or c.kind == "slider") and not c.key and c.set and available(c) then c.set(nil) end
+			for _, c in ipairs(allSettings(s)) do
+				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set and available(c) then c.set(nil) end
 			end
 		end
 	end
@@ -1666,6 +2389,7 @@ function O.Select(key, tabName)
 	tabName = tabName or aliasTab
 	current = p
 	W.HideMenu()
+	O.HideMore()
 	hideViews()
 	if query ~= "" then
 		win.Search:SetText("")
@@ -1682,7 +2406,11 @@ function O.Select(key, tabName)
 		view = buildView(p, t)
 		p.views[t.name] = view
 	end
-	W.ShellNav(win, navItems(), p.key, function(k) O.Select(k) end)
+	-- Opened: its new settings are seen (the rows keep their badges this session).
+	local seenT = seenTable()
+	local newest = pageNewest(p)
+	if newest and newer(newest, seenT[p.key]) then seenT[p.key] = newest end
+	W.ShellNav(win, navItems(), p.key, navSelect)
 	local tabs
 	if #list > 1 or (list[1] and list[1].name ~= "") then
 		tabs = {}
@@ -1693,6 +2421,7 @@ function O.Select(key, tabName)
 	local h = view.Refresh()
 	view:SetHeight(h)
 	view:Show()
+	placePreview(view, t)
 	W.ScrollTo(win.Scroll, 0)
 	W.ShellBody(win, h)
 	renderFooter(p)
@@ -1704,14 +2433,70 @@ end
 function O.SetQuery(text)
 	query = text or ""
 	if not win then return end
+	-- A query from code (a link, What's New) shows in the header's box; the
+	-- box's own change then finds it the same and does nothing more.
+	local box = win.Search
+	if (box:GetText() or "") ~= query then
+		box:SetText(query)
+		box.Placeholder:SetShown(query == "")
+		box.Clear:SetShown(query ~= "")
+	end
 	if query == "" then
 		O.Select(current and current.key, currentTab and currentTab.name)
 		return
 	end
 	hideViews()
-	W.ShellNav(win, navItems(), nil, function(k) O.Select(k) end)
+	W.ShellNav(win, navItems(), nil, navSelect)
 	renderSearch()
 	renderFooter(nil)
+end
+
+-- Light a row a moment (a search result's jump): the accent wash fades in,
+-- holds and fades out (shorter with Reduce motion); nothing runs after.
+function O.Flash(w)
+	local f = rawget(w, "psFlash")
+	if not f then
+		f = W.Tex(w, "BACKGROUND", nil, nil, 2)
+		f:SetAllPoints(w)
+		W.Painter(f, function(t)
+			local r, g, b = Theme.Accent()
+			t:SetVertexColor(r, g, b, 0.16)
+		end)
+		w.psFlash = f
+	end
+	f:SetAlpha(0)
+	f:Show()
+	local hold = Anim.Reduced() and 0.5 or 1.1
+	Anim.To(f, "alpha", 0, 1, Anim.FAST, "out", function()
+		C_Timer.After(hold, function()
+			Anim.To(f, "alpha", 1, 0, Anim.SLOW, "out", function() f:Hide() end)
+		end)
+	end)
+end
+
+-- Open a control's page and tab, scroll its row into view (40px under the
+-- top of the body) and light it. -> the row, or nil
+function O.Jump(c)
+	local p = c and c.page
+	if not (win and p) then return nil end
+	O.Select(p.key, c.tab or "")
+	local view = O.view
+	if not (view and view.cache) then return nil end
+	-- An extra or a cog's setting: the row it is on.
+	local row = c
+	while row.psOwner do row = row.psOwner end
+	local w, top = view.cache[row], nil
+	if w then
+		top = w.psTop
+	elseif view.extras[c] then
+		-- A section's toggle: its card's header.
+		w = view.extras[c]:GetParent()
+		top = w:GetParent().psTop
+	end
+	if not (w and w:IsShown()) then return nil end
+	W.ScrollTo(win.Scroll, max(0, (top or 0) - 40))
+	O.Flash(w)
+	return w
 end
 
 -- The next (delta 1) or previous tab, running on into the next page's
@@ -1731,29 +2516,58 @@ function O.StepTab(delta)
 	if to then O.Select(to[1], to[2]) end
 end
 
--- The settings are the hub's Options section in their own shell: the same
--- rail, Options marked, so any section is one click back.
-local function build()
-	win = W.Shell("PolestarOptions", {
-		rail = true, title = GUIDE, scalePath = "ui.menuScale", searchPlaceholder = L["Search settings"],
-		onSearch = function(text)
-			if (text or "") == query then return end
-			O.SetQuery(text)
-		end,
-	})
-	O.frame = win
-	UI.Report.SidebarLink(win)
-	UI.Thanks.HeaderLink(win)
-	-- A gamepad moves through the page (UI/Gamepad.lua); LB / RB step the tabs.
-	if ns.Gamepad and ns.Gamepad.Register then
-		ns.Gamepad.Register(win, {
-			initial = function(rows)
-				for i, w in ipairs(rows) do if ns.Gamepad.Within(w, win.Body) then return i end end
-			end,
-			prevTab = function() O.StepTab(-1) end,
-			nextTab = function() O.StepTab(1) end,
-		})
+---------------------------------------------------------------------------
+-- The window's size: EllesmereUI's options panel (1300 x 946 screen pixels,
+-- and more on a screen taller than 1440 pixels, in 5 % steps) at the default
+-- Menu scale, whatever the UI scale, until the player drags the grip
+-- (ui.optionsSize: { w, h } in the window's own units; false: the default).
+-- Never past the screen, never under MIN_W x MIN_H (the screen allowing).
+---------------------------------------------------------------------------
+
+local BASE_W, BASE_H, MIN_W, MIN_H, EDGE = 1300, 946, 860, 560, 16
+ns.RegisterDefaults("ui", { optionsSize = false })
+
+-- -> the default size, in UIParent units
+function O.DefaultSize()
+	local _, ph = 0, 0
+	if GetPhysicalScreenSize then _, ph = GetPhysicalScreenSize() end
+	local uh = UIParent:GetHeight()
+	local perUnit = (ph and ph > 0 and uh and uh > 0) and ph / uh or 1
+	local k = max(1, floor((ph or 0) / 1440 * 20 + 0.5) / 20)
+	return floor(BASE_W * k / perUnit + 0.5), floor(BASE_H * k / perUnit + 0.5)
+end
+
+-- -> minW, minH, maxW, maxH in the window's units (its Menu scale applied)
+local function sizeBounds()
+	local s = win:GetScale() or 1
+	if s <= 0 then s = 1 end
+	local maxW = floor(UIParent:GetWidth() / s - 2 * EDGE)
+	local maxH = floor(UIParent:GetHeight() / s - 2 * EDGE)
+	return min(MIN_W, maxW), min(MIN_H, maxH), maxW, maxH
+end
+
+-- Size the window from the setting, within the screen. -> true when it changed
+local function applySize()
+	local saved = ns.Get("ui.optionsSize")
+	local w, h
+	if type(saved) == "table" and tonumber(saved[1]) and tonumber(saved[2]) then
+		w, h = tonumber(saved[1]), tonumber(saved[2])
+	else
+		w, h = O.DefaultSize()
 	end
+	local minW, minH, maxW, maxH = sizeBounds()
+	w = floor(min(maxW, max(minW, w)) + 0.5)
+	h = floor(min(maxH, max(minH, h)) + 0.5)
+	if win.SetResizeBounds then
+		win:SetResizeBounds(minW, minH, maxW, maxH)
+	elseif win.SetMinResize then
+		win:SetMinResize(minW, minH)
+		win:SetMaxResize(maxW, maxH)
+	end
+	if win:GetWidth() == w and win:GetHeight() == h then return false end
+	win:SetSize(w, h)
+	W.ShellLayout(win)
+	return true
 end
 
 local function renderRail()
@@ -1765,6 +2579,127 @@ local function renderRail()
 	end)
 end
 
+-- Lay everything on screen out again where it is (a new size or font): the
+-- rail, the sidebar, the page on screen and its preview, the scroll kept.
+local function relayout()
+	if not (win and win:IsShown()) then return end
+	W.ShellLayout(win)
+	renderRail()
+	O.RefreshNav()
+	if query ~= "" then
+		renderSearch()
+		return
+	end
+	local view = O.view
+	if view and view:IsShown() and view.Refresh then
+		local scroll = win.Scroll:GetVerticalScroll()
+		local h = view.Refresh()
+		view:SetHeight(h)
+		placePreview(view, view.psTab)
+		W.ShellBody(win, h)
+		W.ScrollTo(win.Scroll, scroll)
+	end
+end
+O.Relayout = relayout
+
+-- While shown, a setting's change updates the marks it moves: the
+-- sections' Reset, the sidebar's changed dots (redrawn only when they
+-- moved), the preview's height, the profile in the footer.
+local navSig
+local function refreshMarks()
+	if query == "" and O.view and O.view:IsShown() then markSections(O.view) end
+	local items = navItems()
+	local sig = {}
+	for i, it in ipairs(items) do
+		sig[i] = (it.key or "") .. (it.changed and "*" or "") .. (it.new or "") .. (it.dot and "!" or "") .. (it.folded and "-" or "")
+	end
+	sig = table.concat(sig, "|")
+	if sig ~= navSig then
+		navSig = sig
+		W.ShellNav(win, items, query == "" and current and current.key or nil, navSelect)
+	end
+	if query == "" and O.view and O.view:IsShown() and O.view.psTab and O.view.psTab.preview then
+		placePreview(O.view, O.view.psTab)
+	end
+	local _, active = profileNames()
+	if active ~= footerProfile then renderFooter(query == "" and current or nil) end
+end
+
+-- The settings are the hub's Options section in their own shell: the same
+-- rail, Options marked, so any section is one click back.
+local function build()
+	win = W.Shell("PolestarOptions", {
+		rail = true, title = GUIDE, scalePath = "ui.menuScale", searchPlaceholder = L["Search settings"],
+		headerSearch = true,
+		onSearch = function(text)
+			if (text or "") == query then return end
+			O.SetQuery(text)
+		end,
+		resizable = {
+			onResized = function(w, h) ns.Set("ui.optionsSize", { floor(w + 0.5), floor(h + 0.5) }) end,
+			onReset = function() ns.Set("ui.optionsSize", nil) end,
+		},
+	})
+	O.frame = win
+	applySize()
+	UI.Report.SidebarLink(win)
+	-- "Special thanks to" sits in the footer, left of its right-hand buttons:
+	-- the header holds the search.
+	win.psPlaceThanks = function(b)
+		local anchor
+		for _, fb in ipairs(win.footerButtons.right) do if fb:IsShown() then anchor = fb end end
+		if anchor then
+			b:SetPoint("RIGHT", anchor, "LEFT", -16, 0)
+		else
+			b:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0)
+		end
+	end
+	UI.Thanks.HeaderLink(win)
+	-- After the shell's own scale handler: the size follows the scale's room.
+	ns.On("SETTING_CHANGED", function(path)
+		if path == "ui.optionsSize" or path == "ui.menuScale" or path == "" or path == "ui" then
+			if applySize() then relayout() end
+		end
+		if win:IsShown() then
+			-- A section's shown() turned: the page lays out again.
+			local v = O.view
+			if query == "" and v and v:IsShown() and rawget(v, "psShownSig") and v.psShownSig ~= shownSig(v.psTab) then
+				relayout()
+			end
+			refreshMarks()
+		end
+	end)
+	-- A profile made, renamed or switched: the footer's switch says so.
+	ns.On("PROFILES_CHANGED", function()
+		if win:IsShown() then renderFooter(query == "" and current or nil) end
+	end)
+	-- A gamepad moves through the page (UI/Gamepad.lua); LB / RB step the tabs.
+	win:HookScript("OnHide", function() O.HideMore() end)
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(win, {
+			-- The window's widgets in order, each row's inline extras and cog
+			-- after it (a row is one widget to the gamepad, its parts too).
+			rows = function()
+				local out = {}
+				for _, w in ipairs(ns.Gamepad.Collect(win)) do
+					out[#out + 1] = w
+					for _, x in ipairs(rawget(w, "psExtras") or {}) do
+						if x:IsShown() then out[#out + 1] = x end
+					end
+					local cog = rawget(w, "Cog")
+					if cog and cog:IsShown() then out[#out + 1] = cog end
+				end
+				return out
+			end,
+			initial = function(rows)
+				for i, w in ipairs(rows) do if ns.Gamepad.Within(w, win.Body) then return i end end
+			end,
+			prevTab = function() O.StepTab(-1) end,
+			nextTab = function() O.StepTab(1) end,
+		})
+	end
+end
+
 function UI.ShowOptions(section)
 	if not win then build() end
 	local hub = UI.Picker and UI.Picker.frame
@@ -1772,30 +2707,16 @@ function UI.ShowOptions(section)
 		if not win:IsShown() then UI.Picker.TakePlace(win, hub) end
 		hub:Hide()
 	end
-	renderRail()
+	applySize()
 	win:Show()
+	renderRail()
 	O.Select(section or (current and current.key) or pageList[1].key)
 end
 
 -- A new font measures every label, value and description anew: the rail,
 -- the sidebar and the page on screen are laid out again where they are
 -- (other tabs lay out when selected).
-W.OnFontChanged(function()
-	if not (win and win:IsShown()) then return end
-	renderRail()
-	if query ~= "" then
-		W.ShellNav(win, navItems(), nil, function(k) O.Select(k) end)
-		renderSearch()
-		return
-	end
-	O.RefreshNav()
-	local view = O.view
-	if view and view:IsShown() and view.Refresh then
-		local h = view.Refresh()
-		view:SetHeight(h)
-		W.ShellBody(win, h)
-	end
-end)
+W.OnFontChanged(relayout)
 
 -- The widgets on a page tab (tests and preview): key -> widget.
 function O.Controls(key, tabName)
@@ -1806,6 +2727,10 @@ function O.Controls(key, tabName)
 		if not tabName or name == tabName then
 			for c, w in pairs(view.cache) do
 				if c.key then out[c.key] = w else out[labelOf(c)] = w end
+			end
+			-- Inline extras and the sections' header toggles, by their keys.
+			for c, w in pairs(view.extras or {}) do
+				if c.key then out[c.key] = w end
 			end
 		end
 	end
@@ -1819,7 +2744,21 @@ function O.Pages()
 		if pageShown(p) then
 			local tabs = {}
 			for j, t in ipairs(shownTabs(p)) do tabs[j] = t.name end
-			out[#out + 1] = { name = p.name, key = p.key, builtin = p.builtin and true or false, tabs = tabs }
+			out[#out + 1] = { name = p.name, key = p.key, builtin = p.builtin and true or false, tabs = tabs, group = groupOf(p) }
+		end
+	end
+	return out
+end
+
+-- Every control of every page, built-in ones included, in page order, each
+-- with its page (c.page), tab and section (profiles: labels, validation).
+function O.AllControls()
+	local out = {}
+	for _, p in ipairs(pageList) do
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do
+				for _, c in ipairs(allSettings(s)) do out[#out + 1] = c end
+			end
 		end
 	end
 	return out
