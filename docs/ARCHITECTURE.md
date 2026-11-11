@@ -6842,19 +6842,50 @@ the scrolling rows); it returns a frame `f` with `f:Layout(width, height) ->
 height`, laid out across the whole main column and pinned there: the rows
 scroll under it, and the scroll area is anchored anew when its height changes
 (`Layout` runs again after every setting change while the window is shown,
-and on a new size or font). The preview is the page's hero: its stage stands
-on a backdrop at least 40% of the window's height (`height`, the room the
-page lays its scene out in), at most 55% of the body's; the stage is as tall
-as the height its page returns, centred on the hero. It is never cut off:
-past 55% it is shown whole at the scale that fits, laid out for the width
-that scale gives, and its caption says by how much ("Shown at 81% to fit").
-The window draws its chrome over it: "Preview" and the frame's `f.caption`
-(a string or a function) at the top left, the Live mark and the backdrop's
-chip at the top right. A preview draws the real elements with the current
-values in a sandbox of its own (the module's own builder or paint code, never
-the live instance) at their true size, and repaints itself only while shown.
+and on a new size or font). A preview draws the real elements with the
+current values in a sandbox of its own (the module's own builder or paint
+code, never the live instance) at their true size, and repaints itself only
+while shown.
 
-Every page draws its preview on the one stage, `P.Stage(parent, opts)`: a
+A Look tab's preview is a band, `P.Band(parent, opts)`: the element the tab
+sets and nothing else, at
+its real size (1:1 on the game's UI scale, `f:TrueScale()`), centred on the
+element itself on the window's plain ground (`bg`), the band only as tall as
+it: 20 over and under, the element, its states' labels (12px Label,
+textMuted, 10 under its foot, `f:Label`), and at most one hint line. The page
+sets `f:Content(width) -> w, h, place(left, top, k), labels` (its natural
+size, what puts it there at scale k, its labels' centres). `opts.picker`
+(`{ choices, get, set }`) puts a centred 220 x 28 dropdown 14 over the
+element (a tab that sets several elements: the one shown, the window's
+shared popup menu); `opts.play` a small Play button hanging right of the
+element, its foot on the element's (under its right end on a band too
+narrow), so the element stays centred; `opts.watch` the setting prefixes
+that repaint it at once while it shows and on its next show otherwise (a
+theme change too). An element wider than the band less 24 a side, or taller
+than its room (55% of the body less the band's parts), is placed at the k
+that fits, every part alike, never over 1, and the hint line says so ("Shown
+at 86% to fit"); else the hint line is the hotspots' one-time hint until the
+first click on a part; else there is none. No chrome: no "Preview", no Live
+mark, no backdrop chip; the slot's own hairline under it. Map pins draws on
+the map hero, `P.MapHero(f)`: a sharp 1:1 crop of Elwynn's world map
+(`P.SharpArt`, `UI.ZoneArt` at its tiles' own size, a hairline and a soft
+inner shade, `P.InnerShade`) and the game's 140 px minimap (its ring over the
+client's own minimap tiles by file id under a round mask, the player's arrow
+in the middle), side by side, labelled; `P.HERO_SCENE` the scene in the map's
+pixels, `P.HeroWorld` to world yards. Theme shows its three surfaces side by
+side (the guide window cut under its third goal row, faded into the panel;
+the heads-up card; the rare alert), at 86% to fit in the default window.
+
+The tabs whose band comes later keep the stage, under the window's chrome:
+"Preview" and the frame's `f.caption` (a string or a function) at the top
+left, the Live mark and the backdrop's chip at the top right. The stage is
+the page's hero: it stands on a backdrop at least 40% of the window's height
+(`height`, the room the page lays its scene out in), at most 55% of the
+body's, as tall as the height its page returns, centred on the hero, never
+cut off: past 55% it is shown whole at the scale that fits, laid out for the
+width that scale gives, and its caption says by how much.
+
+Those tabs draw on the stage, `P.Stage(parent, opts)`: a
 backdrop under the page's parts (`s.Content`), the player's pick for every
 preview through the chip (`PolestarDB.optionsBackdrop`, not a setting): the
 zone they stand in (the default), painted from their own client's world map
@@ -6883,24 +6914,18 @@ nameplate (name, health bar, level, a raid mark) over its spot on the ground
 (its ring while it is your target, or in a colour of the scene's), placed
 with `m:Stand(x, y, k)`.
 
-The Look pages' scenes: Theme, the guide window (drawn by the Guide window
-page's own code, `UI.GuideWindowScene`) with the heads-up card on its top
-edge, a rare alert, the arrow and the two kinds of button (the Names tab: a
-card of every subject's name in its colour); Guide window, the window alone;
-Arrow, its three states; Map pins and Route lines, their paintings and a
-minimap; Buttons, the whole set over the world it acts on (the mob the
-target button names, your target with its ring and its raid mark while Mark
-target is on, and the rare the rare button names, further off), the travel
-button under the arrow (the Hearthstone's other button, a plain frame in its
-look under Nav's own dial), the floating and the minimap button; Alerts & toasts, the rare alert and the
-transport banner at the top of the world, the arrow under them pointing to
-what they are about and the guide window at the right, cropped at the
-hero's foot (the rare in the world beside them), the heads-up and class
-quest cards each alone, every one together
-on Essentials (the alerts in their line while they line up); Trackers, each
-tab's own surface, every one together on Essentials (the journey and the XP
-bar's mark with the trackers). A page too narrow for a part of its scene
-leaves it out.
+The Look pages' previews: Theme (Essentials, Colour, Text, Frames), its
+three surfaces (the Names tab: a card of every subject's name in its colour,
+on the stage); Guide window, the window alone (the stage); Arrow, Essentials'
+dial on its way, closing in and in combat (Look and Text: the stage's three
+states); Map pins (Essentials, Pins), the map hero, its preset cards the same
+scene on a sharp crop (Icons: the stage); Route lines, its painting and a
+minimap (the stage); Buttons, Essentials' dropdown of the action button set
+as laid out, the floating button and the minimap button (Action buttons and
+Launcher & minimap: the stage, the set over the world it acts on);
+Alerts & toasts, each alert alone with Play on its own tab, Essentials'
+dropdown of them (the rare alert and the transport banner in their line
+while alerts line up); Trackers, each tab's own surface (the stage).
 
 One setting may show on two pages: a convenience on its home page and on
 Quality of Life, where players look for it (the quest automation toggles,
