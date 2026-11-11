@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {item:268484} Moonsilver Blade · {item:267369} Wolfsbane
-	["{item:268484} and {item:267369} (Forsaken)"] = "",
+	["{item:268484} and {item:267369} (Forsaken)"] = "{item:268484} и {item:267369} (Отрекшиеся)",
 	-- {quest:91862} Lumina Windsinger · {quest:95140} Old Fire-Eye
-	["The Forsaken paladin's two-handed sword: rescue {quest:91862}, gather three parts, slay {quest:95140}."] = "",
+	["The Forsaken paladin's two-handed sword: rescue {quest:91862}, gather three parts, slay {quest:95140}."] = "Двуручный меч паладина Отрекшихся: спасите {quest:91862}, соберите три части, убейте {quest:95140}.",
 
 	-- Step 1: Danitha Morr
 	-- {npc:246378} Danitha Morr · {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {area:228} Sepulcher · {zone:1421} Silverpine Forest
@@ -47,6 +47,8 @@ return {
 	["{npc:259620} waits beside {npc:248840} in the {area:228} (a different {npc:259620} from the one you escorted). For {quest:95034}, click through every line of her story."] = "",
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
+	-- {npc:259620} Lumina Windsinger
+	["{npc:259620}: hear her story to the end"] = "",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -63,21 +65,21 @@ return {
 	["{item:267361}, on Arugal's table"] = "",
 
 	-- Step 9: Whitestone Oak Lumber
-	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall
+	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall · {zone:1458} Undercity · {object:3202} Grom'gol · {zone:1434} Stranglethorn Vale · {zone:1431} Duskwood
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
+	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, в шахте ({area:20})",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["Goblin Woodcarvers, inside"] = "",
+	["Goblin Woodcarvers, inside"] = "Гоблины-древорубы, внутри",
 
 	-- Step 10: Ulric Frostveil
-	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
-	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: from the {zone:1458} take the zeppelin to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "",
+	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {object:3202} Grom'gol · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
+	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "",
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
-	["The {item:6995}"] = "",
+	["The {item:6995}"] = "{item:6995}",
 	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
 
@@ -94,6 +96,8 @@ return {
 	-- Step 14: Ott
 	-- {npc:3539} Ott · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {quest:95125} Ott's Masterwork
 	["{npc:3539}, the weaponsmith, stands just south of {area:272} in {zone:1424}. Accepting {quest:95125} starts the forging: step back and wait near him until he is done."] = "",
+	-- {npc:3539} Ott
+	["Watch {npc:3539} forge the blade"] = "",
 	-- {npc:3539} Ott · {quest:95125} Ott's Masterwork
 	["{npc:3539} gives you {quest:95125}"] = "",
 
@@ -107,7 +111,7 @@ return {
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): grouping up is encouraged; one player needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "",
+	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Наденьте {item:268484}. {quest:95140}, огромный ворген, бродит по лесам к югу от места {area:228} в сторону ворот ({area:17065}). Он элитный (25-й уровень): гайд сначала ждет 22-го уровня, и лучше собрать группу; игроки убивали его с 22-го уровня, одному понадобился напарник, другой справился в одиночку на 25-м. Пока ваш первый удар клинком не достигнет цели, его защищает фиолетовый щит: сообщение скажет, что щит разрушен.",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "",
 
@@ -116,7 +120,6 @@ return {
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to the {area:228}"] = "Вернитесь: {area:228}",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "Освободите ее ключом и держитесь рядом, пока она пробивается из крепости.",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "Предмета пока нет: история о спасении для паладина Отрекшихся; ее продолжение, {item:268484}, пока нельзя завершить.",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "Когда она выберется из места {area:235}, Люмина ждет вас здесь: {area:228}. Поговорите с ней снова, чтобы узнать, что на самом деле случилось в дороге.",
@@ -125,7 +128,6 @@ return {
 	-- ["Ride south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "Езжайте на юг через {zone:1421} к {area:228}. {npc:248840} стоит в поселении; {npc:259611} стоит на страже у входа.",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "{area:172} — остров в озере к востоку от {area:228}. Обугленные останки лежат на его берегу.",
 	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378} руководит паладинами Tyr's Watch изнутри места {area:16602}, на утесах к северо-западу от места {area:156}.",
-	-- ["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862} заперта в клетке здесь: {area:235}, северный край острова. Ключ у гноллов из стаи Гнилошкуров вокруг нее.",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "Репутация: {zone:1458} и Служители Земли",
 }

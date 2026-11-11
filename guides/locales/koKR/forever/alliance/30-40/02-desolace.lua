@@ -9,6 +9,10 @@ return {
 	-- Step 1: Nijel's Point
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {zone:1443} Desolace · {area:608} Nijel's Point
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "길을 따라 서쪽으로 {area:460}(호드)을(를) 지나, 남서쪽 {area:465}을(를) 거쳐 {zone:1443}(으)로 가십시오. {area:608}은(는) 고개 꼭대기에 있습니다.",
+	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
+	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: 난파선의 궤짝은 {npc:11863}의 탑 아래, {area:599}(으)로 가는 길에 있습니다",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5752} 옆의 {npc:5396}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "말렘의 궤짝",
@@ -20,13 +24,19 @@ return {
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
 	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
 
-	-- Step 5: Aged Kodo Hide on the way
-	-- {item:6249} Aged Kodo Hide
-	["{item:6249} on the way"] = "",
+	-- Step 5: Nijel's Point
+	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
 
-	-- Step 7: Azore Aldamort
+	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:11863}'s tower stands on the hill west of {area:599}: take his quest first, the sceptre he wants is in the fortress."] = "{npc:11863}의 탑은 {area:599} 서쪽 언덕에 있습니다. 먼저 그의 퀘스트를 수락하십시오. 그가 원하는 홀은 요새 안에 있습니다.",
+
+	-- Step 7: Karnitol's Chest
+	-- {npc:11863} Azore Aldamort · {object:177787} Rackmore's Log
+	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "난파선은 {npc:11863}의 탑 바로 남서쪽에 있습니다. 궤짝은 {object:177787} 옆에 있습니다.",
+	-- {npc:5638} Kreldig Ungor
+	["For {npc:5638}, at the end of this guide"] = "{npc:5638}에게, 이 가이드 마지막에",
 
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
@@ -36,8 +46,8 @@ return {
 	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643}와(과) 현자",
-	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "그녀의 오빠 {npc:5643}(36)는 불타는 칼날단 사교도(30-33)와 함께 요새를 돌아다닙니다. 그만 따로 끌어오세요. {npc:13019}은(는) 요새 본관에 홀을 가지고 있습니다.",
+	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
 	-- {item:6767} Tyranis' Pendant
 	["{item:6767}; inside"] = "",
 	-- {quest:5741} Sceptre of Light
@@ -57,49 +67,47 @@ return {
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "{npc:11596}의 야영지는 {area:609} 남쪽 길가, {area:596} 옆에 있습니다.",
 
 	-- Step 12: Kodo Graveyard
-	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4700} Aged Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo
-	["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "{npc:11596}의 {item:13892}을(를) {npc:4700}에게 사용하고 길들인 코도를 그의 야영지로 데려가십시오. 다섯 번 반복합니다. 늙은 코도는 가죽도 떨어뜨립니다.",
+	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
+	-- {npc:4702} Ancient Kodo
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	-- {npc:11596} Smeed Scrabblescrew
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
-	-- Step 14: Scorpashi venom
-	["Scorpashi venom"] = "스콜파시 독",
-	-- {area:2407} Kormek's Hut
-	["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "스콜파시 전갈이 남쪽 길의 {area:2407} 주변 언덕에서 사냥합니다.",
-
-	-- Step 16: Kolkar Village
+	-- Step 14: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "콜카르일족이 {area:609} 주변 평원을 돌아다닙니다. 귀는 {npc:5752}에게 가져가십시오.",
 
-	-- Step 17: Hearth to Nijel's Point
-	-- {area:608} Nijel's Point
-	["Hearth to {area:608}"] = "",
+	-- Step 15: Nijel's Point
+	-- {npc:5638} Kreldig Ungor
+	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: 가방은 북서쪽 해안 앞바다에 있으며, 30-40(06-badlands) 마지막의 남쪽 순회 중에 얻습니다. 보관해 두십시오",
 
-	-- Step 19: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	-- Step 16: Fly to Auberdine
+	-- {area:442} Auberdine
+	["Fly to {area:442}"] = "",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "",
 
-	-- Step 20: Delgren the Purifier
-	-- {area:415} Astranaar · {area:413} Maestra's Post
-	["Follow the road west out of {area:415}; {area:413} lies north of it."] = "",
-
-	-- Step 21: Heartswood
-	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {area:1276} Talondeep Path
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "",
-	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
-	["{item:190309}, north of {area:413}"] = "{item:190309}, {area:413} 북쪽",
+	-- Step 17: Boat to Stormwind Harbor
+	-- {area:17203} Stormwind Harbor
+	["Boat to {area:17203}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Escort the caravan"] = "대상단 호위",
 	-- ["From {area:415} head south-west to the {area:1276}, a tunnel through the mountains into Stonetalon."] = "{area:415}에서 남서쪽 {area:1276}(으)로 가십시오. 산을 뚫고 돌발톱 산맥으로 이어지는 터널입니다.",
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "{area:415}에서 북서쪽 언덕으로 가십시오. {quest:1738}은(는) {area:413}(으)로 가는 길 북쪽의 빛나는 나무입니다. {quest:65602}을(를) 수락했다면 {item:190309}은(는) {area:413} 북쪽 나무 사이의 집 안에 있습니다(26.6,22.0). 그다음 {area:415}을(를) 지나 {area:1276}(으)로 돌아가십시오.",
 	-- ["From {zone:1455}'s {npc:1573}"] = "{zone:1455}의 {npc:1573}에게서",
+	-- ["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "그녀의 오빠 {npc:5643}(36)는 불타는 칼날단 사교도(30-33)와 함께 요새를 돌아다닙니다. 그만 따로 끌어오세요. {npc:13019}은(는) 요새 본관에 홀을 가지고 있습니다.",
+	-- ["Scorpashi venom"] = "스콜파시 독",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "메네실 항구의 부두에서 {area:442}행 배를 타십시오.",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "메네실 항구의 부두에서 {area:442}행 배를 타십시오. {npc:3649}은(는) {area:442}의 비행 조련사 북쪽에 있습니다.",
 	-- ["The Gizelton Caravan waits at {area:2407}."] = "기젤톤 대상단은 {area:2407}에서 기다립니다.",
 	-- ["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}."] = "서릿발분노 사티로스가 {area:608} 동쪽 {area:603} 폐허를 차지하고 있습니다.",
+	-- ["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "스콜파시 전갈이 남쪽 길의 {area:2407} 주변 언덕에서 사냥합니다.",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "{npc:11596}의 {item:13892}을(를) {npc:4700}에게 사용하고 길들인 코도를 그의 야영지로 데려가십시오. 다섯 번 반복합니다. 늙은 코도는 가죽도 떨어뜨립니다.",
 	-- ["Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33."] = "대상단과 함께 {area:609}을(를) 지나 남쪽으로 걸어가십시오. 도중에 콜카르일족 매복병이 습격합니다. {area:2617}에서 멈출 때까지 가까이 있으십시오. 매복병은 34-35레벨이며 여러 차례 몰려오니, 33레벨 미만이면 건너뛰십시오.",
+	-- ["{item:190309}, north of {area:413}"] = "{item:190309}, {area:413} 북쪽",
 	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915}, 메네실 항구의 Sylessa에게서",
 }

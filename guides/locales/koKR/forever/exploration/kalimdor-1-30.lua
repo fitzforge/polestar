@@ -107,8 +107,8 @@ return {
 	-- Step 22: The Barrens (1/4)
 	-- {area:814} Southfury River · {zone:1411} Durotar · {zone:1413} The Barrens · {area:385} Northwatch Hold
 	["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "{area:814}의 다리를 건너 {zone:1411}에서 서쪽의 {zone:1413}으로 가세요. 동쪽의 {area:385}은(는) 얼라이언스 요새입니다.",
-	-- {area:392} Ratchet · {area:380} The Crossroads · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
-	["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "이곳의 비행 경로: {area:392} (브라고크), {area:380} (데브락), {area:378} ({npc:10378}).",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
+	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "",
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore
@@ -162,11 +162,8 @@ return {
 	["Flight path here: {area:484} (Nyse)."] = "이곳의 비행 경로: {area:484} (니세).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "{area:814}의 다리를 건너 {zone:1411}에서 서쪽의 {zone:1413}(으)로 가세요. 동쪽의 {area:385}은(는) 얼라이언스 요새입니다.",
-	-- ["Cross the {area:814} east from the northern {zone:1413} into {zone:1411}: Horde country, with guards at {area:362}, {area:367} and {zone:1454}."] = "{zone:1413} 북부에서 동쪽으로 {area:814}을(를) 건너 {zone:1411}(으)로 가세요. 호드 지역이며 {area:362}, {area:367}, {zone:1454}에 경비병이 있습니다.",
 	-- ["Flight path here: {zone:1456} (Tal)."] = "이곳의 비행 경로: {zone:1456} (탈).",
 	-- ["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "이곳의 비행 경로: {area:392} (브라고크), {area:380} (데브락), {area:378} ({npc:10378}).",
-	-- ["Fly to {area:378} and walk south through the {zone:1413} to the {area:485} down into {zone:1441}."] = "{area:378}(으)로 날아간 뒤 {zone:1413}을(를) 지나 남쪽의 {area:485}(으)로 걸어가서 {zone:1441}(으)로 내려가세요.",
 	-- ["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "{zone:1413} 남부에서 {area:485}을(를) 타고 {zone:1441}(으)로 내려가세요. {area:484}은(는) 호드 마을입니다.",
 	-- ["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "{zone:1413}으로 돌아가 서쪽의 {area:1702}을(를) 지나 {zone:1442}(으)로 가세요. {area:460}은(는) 호드 마을이고, 북쪽의 {area:467}은(는) 얼라이언스 지역입니다.",
 	-- ["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "{zone:1413}을(를) 가로질러 서쪽으로 돌아가세요. {area:378}에서 서쪽 길을 오르면 {zone:1412}입니다. 타우렌 지역이며 {area:222}와(과) {zone:1456}에 경비병이 있습니다.",

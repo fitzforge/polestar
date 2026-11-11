@@ -1,10 +1,15 @@
 'use strict';
 // Discord #bugs to GitHub issues: a new post becomes an issue, every later
 // message in its thread (the reporter's and other players') a comment, an
-// edit of the first message its new body.
+// edit of the first message its new body, an edit of a later one its comment.
 // The bot keeps no database: an issue's body carries its thread's id (the
-// marker), the thread carries the bot's "Tracked as #N" reply, and both are
-// read back on start, so a restart neither loses nor repeats a post.
+// marker), the thread carries the bot's "Tracked as #N" reply, each comment
+// links the message it copies, and all are read back, so a restart neither
+// loses nor repeats a post or a follow-up. A thread's catch-up copies what
+// its issue lacks: messages sent before the post was filed (while it waited
+// for the hourly limit), while the bot was away, or when GitHub failed. It
+// runs once a post is filed, for every open post on each new connection,
+// and a while after a failed copy.
 //
 // Work on one thread runs one job at a time, so a follow-up that arrives
 // while its post is still being filed waits for the issue.
@@ -16,9 +21,12 @@ const { isStaff } = require('./commands');
 
 const DISCORD_EPOCH = 1420070400000n;
 
+// When a Discord id (a snowflake) was made.
+const sentAt = (id) => Number((BigInt(id) >> 22n) + DISCORD_EPOCH);
+
 function createdAt(thread) {
 	const ts = thread.thread_metadata && thread.thread_metadata.create_timestamp;
-	return ts ? Date.parse(ts) : Number((BigInt(thread.id) >> 22n) + DISCORD_EPOCH);
+	return ts ? Date.parse(ts) : sentAt(thread.id);
 }
 
 function safeName(name) {
@@ -51,9 +59,19 @@ const HOUR = 60 * 60 * 1000;
 // Per Discord user: new reports, and follow-ups and edits, an hour. Server
 // staff and RATE_EXEMPT_IDS have none. What is skipped is tried again once
 // the user's window frees up, at most MAX_DEFERRED things waiting at once.
-const LIMITS = { posts: 3, followUps: 20 };
+const LIMITS = { posts: 5, followUps: 20 };
 const MAX_DEFERRED = 100;
 const GUILD_TTL = 10 * 60 * 1000;
+// The messages copied as follow-ups: plain ones and replies, not a pin, a
+// join or a rename (whose content is the new title).
+const FOLLOW_UP_TYPES = new Set([0, 19]);
+// A failed copy's catch-up: after 5 minutes, doubling up to an hour, 6 tries.
+const RETRY_MS = 5 * 60 * 1000;
+const RETRIES = 6;
+// A catch-up reads a thread's messages of the last week (older ones are
+// left to a one-off backfill), at most this many pages of 100.
+const CATCH_UP_MS = 7 * 24 * HOUR;
+const CATCH_UP_PAGES = 10;
 
 function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now, setTimer = (fn, ms) => setTimeout(fn, ms).unref() }) {
 	const { forumId, since = null } = config;
@@ -66,6 +84,8 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	const issues = new Map(); // thread id -> issue number
 	const threads = new Map(); // channel id -> channel (threads, and others as { id, parent_id: null })
 	const seen = new Map(); // thread id -> starter content signature last written
+	const held = new Map(); // thread id -> the bot's "will be filed in about N minutes" reply
+	const copied = new Set(); // messages known to be on their issue: copied, or read back from its comments
 	const queues = new Map();
 	let forum = null;
 	let botId = config.botId || null;
@@ -103,12 +123,12 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	}
 
 	// Skipped work run again when the user's window frees up: once per key,
-	// and no more than MAX_DEFERRED waiting.
+	// and no more than MAX_DEFERRED waiting. True when a retry is waiting.
 	function retryLater(key, take, userId, fn) {
-		if (deferred.has(key)) return;
+		if (deferred.has(key)) return true;
 		if (deferred.size >= MAX_DEFERRED) {
 			log.warn(`limits: ${MAX_DEFERRED} skipped already waiting, ${key} not retried`);
-			return;
+			return false;
 		}
 		deferred.add(key);
 		setTimer(() => {
@@ -117,6 +137,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 				.then(fn)
 				.catch((err) => log.error(`retry ${key}:`, err.message));
 		}, Math.max(1000, take.freeAt(userId) - now() + 1000));
+		return true;
 	}
 
 	function serial(id, fn) {
@@ -156,6 +177,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		const messages = await discord.getMessages(threadId, 100);
 		for (const m of messages) {
 			if (!m.author || !m.author.bot || (botId && m.author.id !== botId)) continue;
+			if (I.isHeldReply(m.content)) {
+				if (!held.has(threadId)) held.set(threadId, m.id);
+				continue;
+			}
 			const n = I.readTrackedReply(m.content, repo);
 			if (n) {
 				issues.set(threadId, n);
@@ -242,15 +267,24 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			const meta = thread.thread_metadata || {};
 			if (backfill && (meta.locked || meta.archived)) return null;
 			if (since && createdAt(thread) < since) return null;
-			const tags = statusTags(await getForum());
-			const status = new Set(Object.values(tags));
-			if ((thread.applied_tags || []).some((id) => status.has(id))) return null;
+			const f = await getForum();
+			const tags = statusTags(f);
+			// Handled already: a status tag only moderators can set. A player
+			// may pick In progress on their own post; that files it all the same.
+			const handled = new Set(Object.values(tags).filter((id) => (f.available_tags || []).some((t) => t.id === id && t.moderated)));
+			if ((thread.applied_tags || []).some((id) => handled.has(id))) return null;
 			if (await issueFor(threadId)) return null;
 			const message = await starter(threadId);
 			if (!message || message.author.bot) return null;
 			if (!(await allowed(takePost, thread.guild_id, message.author.id))) {
 				log.warn(`${threadId}: ${message.author.id} filed ${LIMITS.posts} reports this hour, filed when the hour allows`);
-				retryLater(`post ${threadId}`, takePost, message.author.id, () => newPost(threadId));
+				const waiting = retryLater(`post ${threadId}`, takePost, message.author.id, () => newPost(threadId));
+				// Told once, so the player knows it isn't lost.
+				if (waiting && !held.has(threadId)) {
+					const minutes = (takePost.freeAt(message.author.id) - now()) / 60000;
+					const reply = await discord.send(threadId, I.heldReply(minutes));
+					held.set(threadId, reply && reply.id);
+				}
 				return null;
 			}
 
@@ -262,12 +296,125 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			seen.set(threadId, signature(message));
 			log.info(`filed #${issue.number} for "${thread.name}" (${threadId})`);
 
-			await discord.send(threadId, I.trackedReply(repo, issue.number));
+			await trackedReply(threadId, issue.number);
 			if (tags.tracked) {
 				await discord.editThread(threadId, { applied_tags: withStatus(thread.applied_tags, tags, 'tracked') });
 			}
+			// What was said in the thread while the post waited.
+			await tryCatchUp(thread, issue.number);
 			return issue.number;
 		});
+	}
+
+	// "Tracked as #N": the held reply edited into it when there is one, else a new reply.
+	async function trackedReply(threadId, number) {
+		const text = I.trackedReply(repo, number);
+		const heldId = held.get(threadId);
+		held.delete(threadId);
+		if (heldId) {
+			try {
+				await discord.editMessage(threadId, heldId, text);
+				return;
+			} catch (err) {
+				if (err.status !== 404) throw err;
+			}
+		}
+		await discord.send(threadId, text);
+	}
+
+	const relayable = (m) => Boolean(m.author) && !m.author.bot && !m.webhook_id && FOLLOW_UP_TYPES.has(m.type || 0);
+	const byId = (a, b) => (BigInt(a.id) < BigInt(b.id) ? -1 : 1);
+
+	const readFollowUp = (m) => parseReport(I.discordToText(m.content, m.mentions));
+
+	// Whether a message has nothing to copy: no text, no files (a sticker, an embed alone).
+	const saysNothing = (m) => {
+		const report = readFollowUp(m);
+		return !report.description && !report.details && !(m.attachments || []).length;
+	};
+
+	// A follow-up's comment and its author's name.
+	async function followUpBody(thread, m) {
+		const reporter = m.author.id === thread.owner_id;
+		const f = await files(thread.guild_id, thread.id, m, reporter);
+		const author = await displayName(thread.guild_id, m.author, m.member);
+		return { author, body: I.followUpComment({ report: readFollowUp(m), author, reporter, guild: thread.guild_id, thread: thread.id, message: m.id, files: f }) };
+	}
+
+	// Copies one follow-up to issue n, inside the thread's job. Null when it
+	// is there already, says nothing, or waits for the user's hourly limit.
+	async function followUp(thread, n, m) {
+		if (copied.has(m.id) || saysNothing(m)) return null;
+		if (!(await allowed(takeFollowUp, thread.guild_id, m.author.id, m.member))) {
+			log.warn(`#${n}: ${m.author.id} sent ${LIMITS.followUps} follow-ups this hour, ${m.id} copied when the hour allows`);
+			retryLater(`message ${m.id}`, takeFollowUp, m.author.id, () => message(m));
+			return null;
+		}
+		const { author, body } = await followUpBody(thread, m);
+		await github.comment(n, body);
+		copied.add(m.id);
+		log.info(`#${n}: added ${author}'s follow-up ${m.id}`);
+		return n;
+	}
+
+	// A thread's messages of the catch-up window, newest first.
+	async function threadMessages(threadId) {
+		const from = now() - CATCH_UP_MS;
+		const out = [];
+		let before = null;
+		for (let page = 0; page < CATCH_UP_PAGES; page++) {
+			const got = await discord.getMessages(threadId, 100, before);
+			out.push(...got.filter((m) => sentAt(m.id) >= from));
+			if (got.length < 100 || sentAt(got[got.length - 1].id) < from) break;
+			before = got[got.length - 1].id;
+		}
+		return out;
+	}
+
+	// Copies, oldest first, the thread's recent follow-ups its issue lacks;
+	// the issue's comments say which are there. Runs inside the thread's job.
+	async function catchUp(thread, n) {
+		const waiting = (await threadMessages(thread.id)).filter((m) => m.id !== thread.id && relayable(m) && !copied.has(m.id));
+		if (!waiting.length) return 0;
+		for (const c of await github.comments(n)) {
+			const id = I.followUpMessage(c, thread.id);
+			if (id) copied.add(id);
+		}
+		let done = 0;
+		for (const m of waiting.sort(byId)) {
+			if (await followUp(thread, n, m)) done++;
+		}
+		if (done) log.info(`#${n}: caught up ${done} follow-up(s) from ${thread.id}`);
+		return done;
+	}
+
+	// A catch-up whose failure is logged and tried again later.
+	async function tryCatchUp(thread, n) {
+		try {
+			return await catchUp(thread, n);
+		} catch (err) {
+			log.error(`#${n}: catch-up of ${thread.id} failed:`, err.message);
+			catchUpLater(thread, n);
+			return 0;
+		}
+	}
+
+	// After a failed copy: the thread's catch-up a while later, backing off.
+	function catchUpLater(thread, n, attempt = 0) {
+		const key = `catch-up ${thread.id}`;
+		if (deferred.has(key)) return;
+		if (attempt >= RETRIES) {
+			log.error(`#${n}: ${thread.id} still not caught up after ${RETRIES} tries; the next connection tries again`);
+			return;
+		}
+		deferred.add(key);
+		setTimer(() => {
+			deferred.delete(key);
+			serial(thread.id, () => catchUp(thread, n)).catch((err) => {
+				log.error(`#${n}: catch-up of ${thread.id} failed:`, err.message);
+				catchUpLater(thread, n, attempt + 1);
+			});
+		}, Math.min(HOUR, RETRY_MS * 2 ** attempt));
 	}
 
 	// A message in a thread: the post itself, or a follow-up, the reporter's
@@ -275,32 +422,27 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	// context for whoever triages the issue).
 	async function message(m) {
 		if (m.channel_id === m.id) return newPost(m.id);
-		if (!m.author || m.author.bot || m.webhook_id) return null;
+		if (!relayable(m)) return null;
 		const thread = await getThread(m.channel_id);
 		if (!inForum(thread)) return null;
 		return serial(thread.id, async () => {
+			// Not filed yet (waiting for the hourly limit): the catch-up copies it once it is.
 			const n = await issueFor(thread.id);
 			if (!n) return null;
-			const report = parseReport(I.discordToText(m.content, m.mentions));
-			if (!report.description && !report.details && !(m.attachments || []).length) return null;
-			if (!(await allowed(takeFollowUp, thread.guild_id, m.author.id, m.member))) {
-				log.warn(`#${n}: ${m.author.id} sent ${LIMITS.followUps} follow-ups this hour, ${m.id} copied when the hour allows`);
-				retryLater(`message ${m.id}`, takeFollowUp, m.author.id, () => message(m));
-				return null;
+			try {
+				return await followUp(thread, n, m);
+			} catch (err) {
+				catchUpLater(thread, n);
+				throw err;
 			}
-			const reporter = m.author.id === thread.owner_id;
-			const f = await files(thread.guild_id, thread.id, m, reporter);
-			const author = await displayName(thread.guild_id, m.author, m.member);
-			await github.comment(n, I.followUpComment({ report, author, reporter, guild: thread.guild_id, thread: thread.id, message: m.id, files: f }));
-			log.info(`#${n}: added ${author}'s follow-up ${m.id}`);
-			return n;
 		});
 	}
 
 	// An edited message: when it is a tracked post's first one, the issue
-	// body is written again. Edits that only add link previews change nothing.
+	// body is written again; a follow-up's comment likewise. Edits that only
+	// add link previews change nothing.
 	async function edit(m) {
-		if (m.channel_id !== m.id) return null;
+		if (m.channel_id !== m.id) return editFollowUp(m);
 		const thread = await getThread(m.id);
 		if (!inForum(thread)) return null;
 		return serial(m.id, async () => {
@@ -317,6 +459,32 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			await github.updateIssue(n, { body: I.issueBody(await postFor(fresh, message)) });
 			seen.set(m.id, signature(message));
 			log.info(`#${n}: body updated from an edit`);
+			return n;
+		});
+	}
+
+	// An edited follow-up: its comment written again, or the message copied
+	// when its comment is missing. Only real edits (edited_timestamp) count.
+	async function editFollowUp(m) {
+		if (!m.edited_timestamp || !relayable(m)) return null;
+		const thread = await getThread(m.channel_id);
+		if (!inForum(thread)) return null;
+		return serial(thread.id, async () => {
+			const n = await issueFor(thread.id);
+			if (!n) return null;
+			const message = await discord.getMessage(thread.id, m.id);
+			const comment = (await github.comments(n)).find((c) => I.followUpMessage(c, thread.id) === m.id);
+			if (!comment) return followUp(thread, n, message);
+			if (saysNothing(message)) return null;
+			if (!(await allowed(takeFollowUp, thread.guild_id, message.author.id, m.member))) {
+				log.warn(`#${n}: ${message.author.id} edited too often this hour, edit copied when the hour allows`);
+				retryLater(`edit ${m.id}`, takeFollowUp, message.author.id, () => edit(m));
+				return null;
+			}
+			const { author, body } = await followUpBody(thread, message);
+			if (body === comment.body) return null;
+			await github.editComment(comment.id, body);
+			log.info(`#${n}: ${author}'s follow-up ${m.id} updated from an edit`);
 			return n;
 		});
 	}
@@ -357,21 +525,24 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		log.info(`index: ${issues.size} issues already filed from Discord`);
 	}
 
-	// Open posts made while the bot was away.
+	// Open posts made while the bot was away, and what their threads said
+	// meanwhile.
 	async function backfill() {
 		const f = await getForum(true);
 		const { threads: active = [] } = await discord.activeThreads(f.guild_id);
-		const mine = active.filter((t) => t.parent_id === forumId).sort((a, b) => (BigInt(a.id) < BigInt(b.id) ? -1 : 1));
+		const mine = active.filter((t) => t.parent_id === forumId).sort(byId);
 		let filed = 0;
+		let caught = 0;
 		for (const t of mine) {
 			threads.set(t.id, t);
 			try {
 				if (await newPost(t.id, { backfill: true })) filed++;
+				else if (issues.has(t.id)) caught += await serial(t.id, () => tryCatchUp(t, issues.get(t.id)));
 			} catch (err) {
 				log.error(`backfill: ${t.id} failed:`, err.message);
 			}
 		}
-		log.info(`backfill: ${mine.length} open posts, ${filed} filed`);
+		log.info(`backfill: ${mine.length} open posts, ${filed} filed, ${caught} follow-ups caught up`);
 	}
 
 	function dispatch(type, d) {

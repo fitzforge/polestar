@@ -9,12 +9,15 @@ next forever/horde/50-60/01-un-goro-crater
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Monogrammed Sash (8552), Message in a Bottle (594), The Mind's Eye (591).
+# Added here: The Monogrammed Sash (8552), Message in a Bottle (594), The Mind's Eye (591), The Bloodsail Buccaneers (608).
+# The Super Egg-O-Matic (2741, level 47, accepted in 04-tanaris): the egg from the nests south of the Frayfeather
+# hippogryphs and the hand-in at Gadgetzan, at 50 with its full 4,200 XP (it was taken at about 56.5 in 50-60/05 with a
+# Feralas ride for about a fifth of that).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
-  goto 46.1,54.7 "Swamp of Sorrows"
+  goto 46.1,54.7 "Stonard"
 
 step Fly to Grom'gol
   zone Swamp of Sorrows
@@ -31,9 +34,6 @@ step To Grom'gol
 
 step Grom'gol Base Camp
   turnin 2932                         -- Nimboya
-  accept 588                          -- The Bubbling Cauldron beside Kin'weelay
-  turnin 588
-  accept 589
 
 step Fly to Booty Bay
   zone Stranglethorn Vale
@@ -45,15 +45,25 @@ step Booty Bay
   turnin 2767 optional                -- Oglethorpe Obnoticus, inside
   turnin 836 optional
   turnin 648 optional
-  accept 3721 optional                -- Only once all three robots are home
-  turnin 3721 optional
+  turnin 3721 direct optional
+  turnin 580                          -- Whiskey Slim, in the inn
   turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
+  accept 608                          -- Fleet Master Seahorn, on the balcony of the same building
+
+step The Bloodsail ships
+  tip South of Booty Bay, three Bloodsail ships lie off the Wild Shore: Captain Stillwater, Captain Keelhaul and Fleet Master Firallon each stand on a deck with their crews. Swim out and work from ship to ship.
+  kill 2550 quest 608.1 @32.9,88.2 map 1434
+  kill 2548 quest 608.2 @29.3,88.3 map 1434
+  kill 2546 quest 608.3 @30.6,90.6 map 1434
+
+step Booty Bay
+  turnin 608                          -- Fleet Master Seahorn
 
 step Monogrammed Sash
   when group 8552
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Monogrammed Sash needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 3985 x1 optional @23.3,72.1 map 1434
-  accept 8552 optional
+  collect 3985 x1 @23.3,72.1 map 1434
+  accept 8552
 
 step Captain Hecklebury Smotts
   when group 8552
@@ -72,12 +82,10 @@ step Princess Poobah
   when onquest 594
   turnin 594
 
-step Ironjaw Basilisks
-  tip Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often.
-  collect 3911 quest 589              -- Below ground
-
-step Back to Grom'gol
-  turnin 589                          -- Kin'weelay
+step Fly to Grom'gol
+  zone Stranglethorn Vale
+  goto 26.8,77.0 "Booty Bay flight master"
+  fly "Grom'gol"
 
 step Back to Grom'gol
   when group 591
@@ -107,11 +115,23 @@ step Zeppelin to Orgrimmar
   zone Stranglethorn Vale
   goto 31.4,29.9 "Zeppelin to Orgrimmar"
 
+step Zilzibin Drumlore
+  zone Orgrimmar
+  when onquest 32
+  tip On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris, and its experience shortens the top-up to 50 in Azshara.
+  turnin 32                             -- Zilzibin Drumlore, the Drag
+
+step Dran Droffers
+  zone Orgrimmar
+  when onquest 81
+  tip The Droffers' shop is a few steps further into the Drag.
+  turnin 81                             -- Dran Droffers, the Drag
+
 # ---------------------------------------------------------------- To Azshara
 
 step Azshara
   zone Azshara
-  goto 11.4,78.2 "Azshara"
+  goto 11.4,78.2 "Loh'atu"
 
 step Ride into Azshara
   zone Azshara
@@ -128,11 +148,11 @@ step Haldarr Encampment: kill these as you meet them
   kill 6126 quest 5536.2
   kill 6125 quest 5536.1
 
-step Level 49.93
-  when level<49.93
-  tip If you skipped The Monogrammed Sash or The Mind's Eye, grind here to level 49.93 to stay on the route's plan.
+step Level 50
+  when level<50
+  tip Top up here to level 50: March of the Silithid, from Zilzibin in Orgrimmar at the end of Azshara, needs it. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead.
   goto 20.1,62.0 map 1447 "Haldarr Satyr"
-  level 49.93                          -- grind on Haldarr Satyr
+  level 50 grind 6125               -- grind on Haldarr Satyr
 
 step Loh'atu
   tip Back to Loh'atu at the shrine; stay west of the Talrendis Point guards.
@@ -154,8 +174,8 @@ step Undamaged Hippogryph Feathers
   collect 10450 quest 3381 optional
 
 step Sanath Lim-yo
-  when onquest 3381
-  turnin 3381 optional
+  when complete 3381
+  turnin 3381
 
 # ---------------------------------------------------------------- Kim'jael
 
@@ -218,9 +238,7 @@ step Fly to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  tip Take the zeppelin back to Orgrimmar.
-  turnin 32                           -- Zilzibin Drumlore, Valley of Spirits
-  turnin 7732
+  turnin 32                           -- Zilzibin Drumlore, the Drag: if you still carry it
   accept 4494
   turnin 3541                         -- Jes'rimon, the Cleft of Shadow
   accept 3563
@@ -270,16 +288,21 @@ step Fly to Camp Mojache
   zone Feralas
 
 step Camp Mojache
-  tip Stay here: the next guide starts with the flight to Gadgetzan.
   sethome "Camp Mojache"
   turnin 3123                         -- Witch Doctor Uzer'i
   accept 3124
   accept 3380
+  accept 4120                           -- Talo Thornhoof: the bears are in Felwood
 
 step Frayfeather Hippogryphs
   tip The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body.
   collect 9595 quest 3124
   use 9619 quest 3124.1 @58.0,62.8 map 1444
+
+step Hippogryph nests
+  when available 2741
+  tip The hippogryph nests are on the hills to the south, around the Ruins of Isildien; each holds an egg for the Egg-O-Matic.
+  collect 8564 @58.0,76.3 map 1444
 
 step Witch Doctor Uzer'i
   turnin 3124
@@ -315,11 +338,11 @@ step The Forgotten Coast: kill these as you meet them
   zone Feralas
   tip The Sea Elementals and Sea Sprays wash along the shore around the dock.
   tip The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with Zorbin's Ultra-Shrinker first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.
+  collect 9597 quest 3127
+  use 9621 quest 3127.1 @39.9,22.2 map 1444
   collect 18958 quest 7726
   collect 18956 quest 7725
   use 18904 quest 7725.1 @44.3,46.6 map 1444
-  collect 9597 quest 3127
-  use 9621 quest 3127.1 @39.9,22.2 map 1444
 
 step Zorbin Fandazzle
   turnin 7725
@@ -341,10 +364,18 @@ step Fly to Gadgetzan
 step Gadgetzan
   zone Tanaris
   turnin 4494                         -- Alchemist Pestlezugg, inside
-  accept 4496
+
+step Alchemist Pestlezugg
+  zone Tanaris
+  when available 4496
+  accept 4496                         -- Alchemist Pestlezugg, inside
+
+step Gadgetzan
+  zone Tanaris
   turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
+  turnin 2741 direct -- The Egg-O-Matic, in the middle of town
   sethome "Gadgetzan"
   turnin 2661                         -- Marin Noggenfogger
   accept 2662
@@ -352,7 +383,6 @@ step Gadgetzan
   note Tran'rek's tar and Pestlezugg's samples come from Un'Goro Crater.
 
 step Marvon Rivetseeker
-  tip South down the road again.
   tip Ride south along the road to the Broken Pillar; Marvon Rivetseeker camps beside it. From here the road west leads down into Un'Goro Crater, where the next guide starts.
   turnin 3380                         -- Marvon Rivetseeker
   accept 3444

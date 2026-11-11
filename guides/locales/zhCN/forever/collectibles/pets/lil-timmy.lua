@@ -8,14 +8,15 @@
 return {
 	-- Step 1: Lil Timmy
 	-- {npc:8666} Lil Timmy · {npc:7386} White Kitten · {object:2098} Cathedral Square · {object:2096} Trade District · {object:2100} Old Town · {object:28027} Dwarven District
-	["{npc:8666} sells the {npc:7386} (60s). He starts at {object:2098} and walks through the {object:2096}, {object:2100} and the {object:28027} before he vanishes near the square again; if he is not around, wait for him at {object:2098}. By beta reports he carries one kitten at a time: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "",
+	["{npc:8666} sells the {npc:7386} (60s). He starts at {object:2098} and walks through the {object:2096}, {object:2100} and the {object:28027} before he vanishes near the square again; if he is not around, wait for him at {object:2098}. By beta reports he carries one kitten at a time: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "{npc:8666}出售{npc:7386}（60银）。他从{object:2098}出发，经过{object:2096}、{object:2100}和{object:28027}，随后又在广场附近消失；如果没找到，就在{object:2098}等他。根据测试服玩家反馈，他每次只带一只小猫：如果没货，就是刚被别人买走。使用每个宠物物品即可学会召唤对应伙伴；之后目标会保持勾选。",
 	-- {item:8489} Cat Carrier (White Kitten)
 	["{item:8489}, 60s"] = "{item:8489}，60银",
 
 	-- Step 2: Xaphod Bizznox
 	-- {npc:7386} White Kitten · {npc:262471} Xaphod Bizznox · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains · {zone:1413} Barrens
-	["Horde players buy the {npc:7386} (60s) from {npc:262471}, a trader new in Forever, at {area:2539}, the Darkspear camp at the southern tip of {zone:1442}, on the way up from the {zone:1413}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "",
+	["Horde players buy the {npc:7386} (60s) from {npc:262471}, a trader new in Forever, at {area:2539}, the Darkspear camp at the southern tip of {zone:1442}, on the way up from the {zone:1413}. He keeps one kitten at a time: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Horde players buy the {npc:7386} (60s) from {npc:262471}, a trader new in Forever, at {area:2539}, the Darkspear camp at the southern tip of {zone:1442}, on the way up from the {zone:1413}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "部落玩家可向 {npc:262471} 购买 {npc:7386}（60 银币）。他是无限新增的商人，位于 {zone:1442} 最南端的暗矛营地 {area:2539}，从 {zone:1413} 向北上来时会经过。使用每个宠物物品后即可学会召唤对应的小伙伴；之后目标仍会保持勾选。",
 	-- ["{npc:8666} sells the {npc:7386} (60s). He walks around the city, so the waypoint is only one point on his path; look along the nearby streets if he is not there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8666}出售{npc:7386}（60银）。他在城里四处走动，所以路径点只是他路线上的一个点；如果他不在，就去附近街道找找。每件宠物物品使用后会教会你对应的小伙伴；之后目标会保持勾选。",
 }

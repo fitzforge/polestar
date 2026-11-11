@@ -26,9 +26,11 @@ class Canvas {
 		this.px = new Float32Array(width * height * 4);
 	}
 
-	// Composite a shape over the canvas (source-over).
+	// Composite a shape over the canvas (source-over). `color` is [r, g, b, a]
+	// or a function (x, y) -> [r, g, b, a] of the pixel centre (a gradient).
 	fill(shape, color, { feather = 1 } = {}) {
-		const [r, g, b, a = 1] = color;
+		const at = typeof color === 'function' ? color : null;
+		let [r, g, b, a = 1] = at ? [0, 0, 0, 0] : color;
 		const { width, height, px } = this;
 		for (let y = 0; y < height; y++) {
 			for (let x = 0; x < width; x++) {
@@ -36,6 +38,7 @@ class Canvas {
 				let cov = 0.5 - d / feather;
 				if (cov <= 0) continue;
 				if (cov > 1) cov = 1;
+				if (at) [r, g, b, a = 1] = at(x + 0.5, y + 0.5);
 				const sa = a * cov;
 				const i = (y * width + x) * 4;
 				const da = px[i + 3];

@@ -921,23 +921,31 @@ fn guide_window_in_dungeons_and_battlegrounds_hides_by_default_keep_visible_is_a
 }
 
 // Discovery, Dungeons: which dungeons the leveling guides' `when dungeon` steps take this character through
-// (Dungeons/Dungeons.lua, Engine.ChooseDungeon).
+// (Dungeons/Dungeons.lua, Engine.ChooseDungeon). Only the dungeons this character's guides have steps for
+// are offered (0.3.6 plan: "Options page lists only dungeons with steps"): Ragefire Chasm in a guide whose
+// steps are read and The Deadmines here (Engine.GuideDungeons; engine-when-dungeon.rs reads them from the
+// guides). A choice saved for a dungeon not offered (Gnomeregan) is kept.
+
 #[test]
-fn discovery_dungeons_a_toggle_per_classic_dungeon_for_leveling_guides_all_off_chosen_per_character_in_the_client_s_language() {
+fn discovery_dungeons_a_toggle_per_dungeon_the_guides_have_steps_for_all_off_chosen_per_character_in_the_client_s_language() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "UI/UI.xml"])],
-		script: format!("uistub.install()\nstub.login()\n{HELPERS}\nlocal UI, O, E = Polestar.UI, Polestar.UI.Options, Polestar.Engine")
+		script: format!("uistub.install()\nuistub.guideDungeons = {{ [389] = true, [36] = true }}\nstub.login()\n{HELPERS}\nlocal UI, O, E = Polestar.UI, Polestar.UI.Options, Polestar.Engine")
 			+ r#"
 		Polestar.Names.Instance = function(id) if id == 389 then return "Огненная пропасть" end end
+		Polestar.CharState().dungeons[90] = true
 		UI.ShowOptions("dungeons")
 		local c = O.Controls("discovery", "Dungeons")
 		local labels, on = {}, 0
 		for _, d in ipairs(Polestar.Dungeons.ROUTE) do
 			local row = c[d[1] == 389 and "Огненная пропасть" or d[2]]
-			labels[#labels + 1] = row and row.Label:GetText() or ("missing " .. d[2])
-			if row and row.checked then on = on + 1 end
+			if row then
+				labels[#labels + 1] = row.Label:GetText()
+				if row.checked then on = on + 1 end
+			end
 		end
+		local help = c["The Deadmines"].psDesc
 		local rfc, dm = c["Огненная пропасть"], c["The Deadmines"]
 		rfc:Click()
 		dm:Click()
@@ -952,41 +960,36 @@ fn discovery_dungeons_a_toggle_per_classic_dungeon_for_leveling_guides_all_off_c
 		PolestarModal.Box.Action:Click()
 		emit({ title = PolestarOptions.Title:GetText(), labels = labels, on = on, clicked = clicked, right = right, found = found,
 			reset = { rfc = rfc.checked, chosen = E.DungeonChosen(389), saved = PolestarCharDB.dungeons },
-			account = account })"#,
+			account = account, help = help, hidden = E.DungeonChosen(90) })"#,
 		..Default::default()
 	})
 	.remove(0);
 	assert_eq!(out["title"], "Discovery");
-	assert_eq!(
-		out["labels"],
-		json!([
-			"Огненная пропасть",
-			"Wailing Caverns",
-			"The Deadmines",
-			"Shadowfang Keep",
-			"Blackfathom Deeps",
-			"The Stockade",
-			"Gnomeregan",
-			"Razorfen Kraul",
-			"Scarlet Monastery",
-			"Razorfen Downs",
-			"Uldaman",
-			"Zul'Farrak",
-			"Maraudon",
-			"Sunken Temple",
-			"Blackrock Depths",
-			"Blackrock Spire",
-			"Dire Maul",
-			"Scholomance",
-			"Stratholme"
-		])
-	);
+	assert_eq!(out["labels"], json!(["Огненная пропасть", "The Deadmines"]), "only the dungeons this character's guides have steps for");
+	assert!(out["help"].as_str().unwrap().ends_with("More dungeons join this list as they are added to the guides' route."), "{}", out["help"]);
 	assert_eq!(out["on"], 0, "every dungeon is off by default: the solo route");
-	assert_eq!(out["clicked"], json!({ "rfc": true, "chosen": true, "dm": true, "saved": { "389": true, "36": true } }));
+	assert_eq!(out["clicked"], json!({ "rfc": true, "chosen": true, "dm": true, "saved": { "389": true, "36": true, "90": true } }));
 	assert_eq!(out["right"], json!({ "dm": false, "chosen": false }), "right-click puts it back to off");
 	assert_eq!(out["found"], 1, "search finds the dungeon by the name it shows");
-	assert_eq!(out["reset"], json!({ "rfc": false, "chosen": false, "saved": {} }), "Reset page turns the choices off too");
+	assert_eq!(out["reset"], json!({ "rfc": false, "chosen": false, "saved": { "90": true } }), "Reset page turns the shown choices off; a hidden one's is kept");
+	assert_eq!(out["hidden"], true, "Gnomeregan's saved choice stands though it is not offered");
 	assert_eq!(out["account"], false, "the choice is per character, never an account setting");
+}
+
+#[test]
+fn discovery_dungeons_with_no_guide_steps_for_any_dungeon_has_no_leveling_guides_section() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "UI/UI.xml"])],
+		script: format!("uistub.install()\nstub.login()\n{HELPERS}\nlocal UI, O = Polestar.UI, Polestar.UI.Options")
+			+ r#"
+		UI.ShowOptions("dungeons")
+		local c = O.Controls("discovery", "Dungeons")
+		emit({ dm = c["The Deadmines"] ~= nil, rfc = c["Ragefire Chasm"] ~= nil })"#,
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "dm": false, "rfc": false }));
 }
 
 // Guide, Automation: the answer for every group quest (`when group`), shown once a guide for the character has
@@ -1177,7 +1180,7 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 #[test]
 fn search_on_a_german_client_matches_german_labels_and_the_english_terms_and_label() {
 	let out = run_mods(
-		"function GetLocale() return \"deDE\" end",
+		&format!("function GetLocale() return \"deDE\" end\n{}", forge_addontest::shipped_strings("deDE")),
 		r#"emit({ german = top("Plündern"), noAccent = top("plundern"), term = top("autoloot"), english = top("faster auto loot"), stone = top("ruhestein button") })"#,
 	);
 	for q in ["german", "noAccent", "term", "english"] {
@@ -1191,7 +1194,7 @@ fn search_on_a_german_client_matches_german_labels_and_the_english_terms_and_lab
 #[test]
 fn search_finds_single_non_ascii_characters_inside_translated_labels() {
 	for (locale, query, expected) in [("zhCN", "图", "maps.minimapButton"), ("zhTW", "圖", "maps.minimapButton"), ("koKR", "템", "qol.itemButton"), ("ruRU", "ш", "nav.arrowScale")] {
-		let out = run_mods(&format!("function GetLocale() return \"{locale}\" end"), &format!("emit(keys(\"{query}\"))"));
+		let out = run_mods(&format!("function GetLocale() return \"{locale}\" end\n{}", forge_addontest::shipped_strings(locale)), &format!("emit(keys(\"{query}\"))"));
 		assert!(out.as_array().is_some_and(|keys| keys.iter().any(|key| key.as_str() == Some(expected))), "{locale}: {query:?} did not find {expected}: {out}");
 	}
 }
@@ -1239,4 +1242,57 @@ fn search_with_no_match_suggests_the_nearest_settings() {
 	assert!(includes(&out["suggestions"], "Hearthstone button"), "{s:?}");
 	assert_eq!(out["nothing"]["n"], 0);
 	assert_eq!(out["nothing"]["suggestions"], json!({}), "nothing near: no suggestion (an empty list)");
+}
+
+// Fitz, 0.3.5 preview: "Version 0.3.5-preview.2f100bfb3" ran under the Discord mark, and the BETA chip after it
+// sat on the footer's "Reset page". The version line and its chip stay left of the mark; a version too long for
+// "Version " drops the word, then is cut.
+#[test]
+fn the_version_line_and_its_stage_chip_end_before_the_discord_mark_in_both_windows_a_long_version_drops_the_word_then_is_cut() {
+	let out = run(r#"
+		local function foot(f)
+			local st, mark = f.Status, f.Discord
+			local _, _, _, sx = st:GetPoint(1)
+			local _, _, _, mx = mark:GetPoint(1)
+			return { text = st:GetText(), right = sx + st:GetStringWidth(), chip = f.Stage:IsShown() and f.Stage:GetWidth() or 0,
+				markLeft = f.psSidebar + mx - mark:GetWidth() }
+		end
+		Polestar.version = "0.3.5"
+		UI.ShowOptions()
+		local short = foot(PolestarOptions)
+		PolestarOptions:Hide()
+		Polestar.version = "0.3.5-preview.2f100bfb3"
+		UI.ShowOptions()
+		local preview = foot(PolestarOptions)
+		UI.ShowPicker()
+		emit({ short = short, preview = preview, hub = foot(PolestarPicker) })"#);
+	assert_eq!(out["short"]["text"], "Version 0.3.5");
+	assert_eq!(out["preview"]["text"], "0.3.5-preview.2f100bfb3", "too long with the word: the number alone");
+	for key in ["short", "preview", "hub"] {
+		let f = &out[key];
+		assert!(n(&f["chip"]) > 0.0, "{key}: the BETA chip shows");
+		let end = n(&f["right"]) + 8.0 + n(&f["chip"]);
+		assert!(end <= n(&f["markLeft"]), "{key}: the line and its chip end at {end}, the Discord mark starts at {}", f["markLeft"]);
+	}
+}
+
+// #1684's sweep: in the client a texture's SetAlpha and its vertex colour's alpha are one value. The confirm
+// dialog's scrim was SetAlpha'd to 55 % once, and every theme change repainted its colour at full alpha: after
+// any scheme or skin change the next dialog darkened the whole screen solid. Its strength is now in its colour.
+#[test]
+fn the_confirm_dialog_s_scrim_stays_at_its_strength_after_a_theme_change() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		local b = footerButton("Reset page")
+		local function scrim()
+			b:Click()
+			local a = select(4, PolestarModal.Scrim:GetVertexColor())
+			PolestarModal.Box.Cancel:Click()
+			return a
+		end
+		local first = scrim()
+		Polestar.Set("ui.scheme", "graphite")
+		emit({ first = first, after = scrim() })"#);
+	assert_eq!(out["first"], 0.55, "the dialog's scrim at 55 %");
+	assert_eq!(out["after"], 0.55, "and still 55 % after a theme change, not solid");
 }

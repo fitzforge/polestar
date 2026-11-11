@@ -892,6 +892,16 @@ for name in pairs(KITS) do Theme.SKIN_PAINT[name] = paints(name) end
 -- Parts the widgets and the guide window ask for
 ---------------------------------------------------------------------------
 
+-- The house glyph under a kit's own art, hidden or shown again. In the client
+-- a texture's SetAlpha and its colour's alpha are one value (#1684), so a
+-- shown glyph takes its colour back (a disabled button's 35 %), and a hidden
+-- one stays hidden when the button recolours it (W.Color reads psVeiled).
+local function veil(icon, hidden)
+	icon.psVeiled = hidden or nil
+	icon:SetAlpha(hidden and 0 or 1)
+	if not hidden and ns.Widgets then ns.Widgets.Recolor(icon) end
+end
+
 -- An icon button in a kit: the close art, a plate under the glyph (or, in
 -- Classic, the page arrows for ‹ ›). -> true when the kit drew it.
 function Theme.KitIconButton(b)
@@ -900,12 +910,12 @@ function Theme.KitIconButton(b)
 	local isClose = rawget(b, "psIconName") == "close"
 	for _, key in ipairs({ "plate", "plateLit", "closeN", "closeD", "closeL" }) do hideKey(b, key) end
 	if not kit or not (framed or isClose) then
-		if b.Icon then b.Icon:SetAlpha(1) end
+		if b.Icon then veil(b.Icon, false) end
 		return false
 	end
 	if isClose then
 		closeArt(b, kit, min(32, b:GetWidth() + 2))
-		b.Icon:SetAlpha(0)
+		veil(b.Icon, true)
 		return true
 	end
 	if kit.source == "file" then
@@ -915,9 +925,9 @@ function Theme.KitIconButton(b)
 			t:ClearAllPoints()
 			t:SetPoint("CENTER", b, "CENTER", 0, 0)
 			t:SetSize(b:GetWidth() + 4, b:GetHeight() + 4)
-			b.Icon:SetAlpha(0)
+			veil(b.Icon, true)
 		else
-			b.Icon:SetAlpha(1)
+			veil(b.Icon, false)
 		end
 		return true
 	end
@@ -928,7 +938,7 @@ function Theme.KitIconButton(b)
 	draw(hl, kit, kit.plateHover)
 	hl:SetAllPoints(b)
 	hl:SetBlendMode("ADD")
-	b.Icon:SetAlpha(1)
+	veil(b.Icon, false)
 	return true
 end
 

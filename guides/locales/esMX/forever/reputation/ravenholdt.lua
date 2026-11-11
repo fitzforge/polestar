@@ -35,7 +35,7 @@ return {
 	-- {area:280} Strahnbrad
 	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "",
 	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "",
+	["{item:275482}: pickpocket Barton"] = "{item:275482}: roba del bolsillo a Barton",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
@@ -59,7 +59,7 @@ return {
 
 	-- Step 8: Back to Myrokos Silentform
 	-- {npc:13085} Myrokos Silentform
-	["Back to {npc:13085}"] = "",
+	["Back to {npc:13085}"] = "Regresa con {npc:13085}",
 	-- {quest:96782} Covert Extraction · {quest:96781} What's the Big Idea?
 	["{quest:96782}, after {quest:96781}"] = "",
 
@@ -82,7 +82,7 @@ return {
 	-- {item:17124} Syndicate Emblem
 	["{item:17124}: pickpocket Syndicate"] = "",
 	-- {npc:6766} Ravenholdt Guard
-	["a {npc:6766}: 100 per emblem"] = "",
+	["a {npc:6766}: 100 per emblem, handed in from his window"] = "un {npc:6766}: 100 por emblema, se entrega desde su ventana",
 
 	-- Step 11: Syndicate kills to the end of Honored
 	["Syndicate kills to the end of Honored"] = "",
@@ -118,5 +118,5 @@ return {
 	-- {item:16885} Heavy Junkbox · {area:1445} Blackrock Mountain
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "",
 	-- {npc:6707} Fahrad
-	["{npc:6707}: 50 per five boxes"] = "",
+	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707}: 50 por cada cinco cajas, se entrega desde su ventana",
 }

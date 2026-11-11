@@ -14,8 +14,8 @@ return {
 	["Splinters of Atiesh"] = "Éclats d'Atiesh",
 	-- {area:2277} Plaguewood · {zone:1423} Eastern Plaguelands · {npc:15990} Kel'Thuzad
 	["Forty Splinters of Atiesh drop in Naxxramas, the 40-player raid in the necropolis over the {area:2277} in {zone:1423}: each of its twelve bosses before Sapphiron and {npc:15990}, and the Four Horsemen's chest, drops one about a third of the time, and the raid shares them out. It takes many weeks of clears. Keep every splinter in one stack."] = "Quarante Éclats d'Atiesh tombent dans Naxxramas, le raid à 40 joueurs dans la nécropole au-dessus du {area:2277}, en {zone:1423} : chacun de ses douze boss avant Saphiron et {npc:15990}, ainsi que le coffre des Quatre cavaliers, en laisse tomber un environ une fois sur trois, et le raid se les partage. Il faut de nombreuses semaines de raids. Gardez tous les éclats en une seule pile.",
-	-- {quest:9250} Frame of Atiesh
-	["Forming {quest:9250}: forty splinters become the {quest:9250}"] = "",
+	-- {spell:28324} Forming Frame of Atiesh · {quest:9250} Frame of Atiesh
+	["{spell:28324}: forty splinters become the {quest:9250}"] = "{spell:28324} : quarante éclats deviennent le {quest:9250}",
 
 	-- Step 2: Anachronos
 	-- {quest:9250} Frame of Atiesh · {npc:15192} Anachronos · {area:2300} Caverns of Time · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -39,8 +39,8 @@ return {
 	-- Step 5: Atiesh, Hand of Sargeras
 	-- {npc:16387} Atiesh
 	["{npc:16387}, Hand of Sargeras"] = "{npc:16387}, Main de Sargeras",
-	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane (no name in this language: may be words) · {object:181206} Consecrated Earth (no name in this language: may be words) · {npc:16387} Atiesh
-	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his Unholy Aura hurts everyone and cannot be dispelled (shadow resistance helps), his Breath of Sargeras curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "",
+	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane (no name in this language: may be words) · {object:181206} Consecrated Earth (no name in this language: may be words) · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
+	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his {spell:17466} hurts everyone and cannot be dispelled (shadow resistance helps), his {spell:28342} curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "Apportez le bâton souillé à {area:2279}, le donjon à l'extrémité nord des {zone:1423}, par la porte principale. Dans l'allée du Festival, trouvez la parcelle de Terre consacrée où brûle une petite flamme blanche, placez-vous dessus et utilisez le bâton : {npc:16387}, Main de Sargeras (boss de niveau 63), apparaît. Venez avec un groupe solide : son {spell:17466} blesse tout le monde et ne peut pas être dissipé (la résistance à l'Ombre aide), sa malédiction {spell:28342} doit être retirée immédiatement, et le Désarmement d'un guerrier lui fait lâcher son épée, qu'un joueur de mêlée peut ramasser et utiliser contre lui. Il reste jusqu'à deux heures et demie, vous pouvez donc vous regrouper.",
 	-- {object:181206} Consecrated Earth (no name in this language: may be words) · {area:2279} Stratholme
 	["the befouled staff, on the {object:181206} inside {area:2279}"] = "le bâton souillé, sur la Terre consacrée à l'intérieur de {area:2279}",
 
@@ -48,8 +48,4 @@ return {
 	["The Greatstaff"] = "Le grand bâton",
 	-- {npc:15192} Anachronos · {area:2300} Caverns of Time
 	["Back to {npc:15192} at the {area:2300}."] = "Retour auprès d'{npc:15192} aux {area:2300}.",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his {spell:17466} hurts everyone and cannot be dispelled (shadow resistance helps), his {spell:28342} curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "Apportez le bâton souillé à {area:2279}, le donjon à l'extrémité nord des {zone:1423}, par la porte principale. Dans l'allée du Festival, trouvez la parcelle de Terre consacrée où brûle une petite flamme blanche, placez-vous dessus et utilisez le bâton : {npc:16387}, Main de Sargeras (boss de niveau 63), apparaît. Venez avec un groupe solide : son {spell:17466} blesse tout le monde et ne peut pas être dissipé (la résistance à l'Ombre aide), sa malédiction {spell:28342} doit être retirée immédiatement, et le Désarmement d'un guerrier lui fait lâcher son épée, qu'un joueur de mêlée peut ramasser et utiliser contre lui. Il reste jusqu'à deux heures et demie, vous pouvez donc vous regrouper.",
-	-- ["{spell:28324}: forty splinters become the {quest:9250}"] = "{spell:28324} : quarante éclats deviennent le {quest:9250}",
 }

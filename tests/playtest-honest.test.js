@@ -26,6 +26,7 @@ function play(text, { persona = ORC, kb = null } = {}) {
 }
 const ORC = { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' };
 const HUMAN = { race: 'Human', faction: 'Alliance', cls: 'WARRIOR' };
+const UNDEAD = { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR' };
 const of = (findings, rule, severity = 'fail') => findings.filter((f) => f.rule === rule && f.severity === severity);
 
 test('R2: a quest started by an item needs the item from an earlier line (The Admiral\'s Orders before the chest)', { skip }, () => {
@@ -78,6 +79,26 @@ test('R3: a collect needs a source in the data (An Apple Treat\'s applejack)', {
 	assert.deepEqual(of(play('step Bread\n  buy 4540 x5 nearest\n', { persona: HUMAN }), 'R3'), [], 'a buy is a source');
 });
 
+test('R3: a loop step\'s collect finds its source near any of its spots, not only the first (Gordo\'s Report)', { skip }, () => {
+	// Gordo walks the road from Brill to the west; Patience asks for his report. The loop's first spot is
+	// 488 yards from his spawn, its last stands on it.
+	const head = 'step Executor Zygand\n  zone Tirisfal Glades\n  accept 99141\n\nstep Gordo\n  zone Tirisfal Glades\n';
+	play(head, { persona: UNDEAD });
+	// Gordo hands his report over when asked (data/rules.json H31c); a data build may not list him as its
+	// source, so the test gives him as one for its own run.
+	const drops = data.items[286202].drops;
+	const had = drops.npc[10666];
+	drops.npc[10666] = had === undefined ? 100 : had;
+	try {
+		const looped = play(head + '  loop\n  goto 53.8,53.1\n  goto 49.7,58.0\n  goto 43.1,54.7\n  collect 286202 quest 99141.3\n', { persona: UNDEAD });
+		assert.deepEqual(of(looped, 'R3').map((f) => f.reason), [], 'Gordo stands at the last spot of the loop');
+		const single = play(head + '  collect 286202 quest 99141.3 @53.8,53.1\n', { persona: UNDEAD });
+		assert.match(of(single, 'R3')[0].reason, /Gordo's Report at Tirisfal Glades 53.8,53.1: nothing there drops it/, 'one place far from him is still a finding');
+	} finally {
+		if (had === undefined) delete drops.npc[10666];
+	}
+});
+
 test('R3: a quest item drops only while its quest is held', { skip }, () => {
 	const bad = play('step Tails\n  collect 4862 x10\n\nstep Gornek\n  accept 789\n');
 	assert.match(of(bad, 'R3')[0].reason, /drops only while Sting of the Scorpid is held/);
@@ -122,4 +143,22 @@ test('chains follow the main route; a catch-up guide behind `when` is its own ch
 	const g = (id, next, nextChoices, nextWhen) => ({ id, next, nextChoices, nextWhen, steps: [] });
 	const out = chains([g('a-catchup', 'b'), g('a', 'a-catchup', ['a-catchup', 'b'], { 'a-catchup': [{ k: 'level', op: '<', n: 9 }] }), g('b', null)]);
 	assert.deepEqual(out.map((c) => c.map((x) => x.id)), [['a', 'b'], ['a-catchup']]);
+});
+
+// A `when` line with a single-quest predicate (`complete`, `turnedin`, `available`, `group`: dsl/when.js QUEST_ONE)
+// compiles with one quest id, not a list; the honest play read every predicate as a list and crashed
+// (`qs.every is not a function`).
+test('a step behind `when complete <quest>` or `when turnedin <quest>` plays, holding or not', { skip }, () => {
+	const text = 'step Gornek\n  accept 789\n\nstep Back\n  when complete 789\n  turnin 789\n\nstep Later\n  when turnedin 789\n  accept 790\n';
+	assert.doesNotThrow(() => play(text));
+	assert.doesNotThrow(() => play('step Alone\n  when !turnedin 789\n  accept 789\n'));
+});
+
+// It's a Secret to Everybody (3845): the quest hands over A Small Pack (11107), and the compass, map and key come out
+// of it (items.json `containers`). Each collect opens the held pack; none needs a mob, object or vendor.
+test('R3: an item in a held container comes out of it (A Small Pack\'s compass, map and key)', { skip }, () => {
+	const text = 'step A Wrecked Raft\n  zone Un\'Goro Crater\n  accept 3844 object 161505\n  turnin 3844 object 161504\n  accept 3845 object 161504\n  collect 11104 quest 3845.1\n  collect 11105 quest 3845.2\n  collect 11106 quest 3845.3\n';
+	assert.deepEqual(of(play(text, { persona: HUMAN }), 'R3').map((f) => f.reason), []);
+	const before = 'step The pack\n  zone Un\'Goro Crater\n  collect 11104\n';
+	assert.match(of(play(before, { persona: HUMAN }), 'R3')[0].reason, /Large Compass: the data has no mob, object or vendor/, 'without the pack it is still a finding');
 });

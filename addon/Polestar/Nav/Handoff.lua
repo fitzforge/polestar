@@ -82,8 +82,11 @@ function Handoff.Available()
 	return api() ~= nil
 end
 
+-- Handing off: the option on, Shortest Path Forever there, and Polestar not
+-- hidden with its arrow (ns.ArrowHidden: its guidance is the arrow's, so it
+-- goes and comes back as turning the option off and on does).
 local function engaged()
-	return ns.Get("nav.spfHandoff") and api() ~= nil or false
+	return ns.Get("nav.spfHandoff") and not ns.ArrowHidden() and api() ~= nil or false
 end
 
 local refused = false -- it refused the last stop: Polestar guides that target itself
@@ -495,6 +498,7 @@ function Handoff:OnSettings()
 end
 
 Nav.RegisterModule(Handoff)
+ns.On("POLESTAR_HIDDEN", function() Handoff:OnSettings() end)
 
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	worldUp = true

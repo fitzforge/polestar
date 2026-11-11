@@ -115,14 +115,18 @@ function threadUrl(guild, thread, message) {
 }
 
 // A post's title as an issue title. A player who pasted the report into the
-// title box gets their words alone: no bold lead-in, nothing from the code block on.
+// title box gets their words alone: no bold lead-in, nothing from the code
+// block on, their first line only, cut at 80 characters (never inside one).
 function issueTitle(name) {
-	const t = String(name || '')
+	const words = String(name || '')
 		.replace(/```[\s\S]*$/, '')
 		.replace(/^\s*\*\*[^*\n]{1,60}[:：]\*\*\s*/, '')
+		.trim()
+		.split('\n')[0]
 		.replace(/\s+/g, ' ')
-		.trim() || 'Bug report from Discord';
-	return t.length > 200 ? t.slice(0, 197) + '...' : t;
+		.trim();
+	const t = Array.from(words || 'Bug report from Discord');
+	return t.length > 80 ? t.slice(0, 77).join('').trimEnd() + '...' : t.join('');
 }
 
 // The report's text is the player's, so a label is made from it only when it
@@ -210,6 +214,20 @@ function followUpComment(msg) {
 	return out.join('\n');
 }
 
+// The Discord message a follow-up comment was copied from, or null: read
+// from the comment's first line (the bot's own, before any player text) and
+// only when the comment ends in the follow-up mark and links `thread`.
+// `login`: the bot's GitHub account (BOT_GITHUB_LOGIN), checked against the
+// comment's author when set, as for the issue marker.
+const FOLLOWUP_HEAD = /^\*\*.*\*\* (?:\(the reporter\) added|commented) on \[Discord\]\(https:\/\/discord\.com\/channels\/\d+\/(\d+)\/(\d+)\):$/;
+function followUpMessage(comment, thread, login = (process.env.BOT_GITHUB_LOGIN || '').trim() || null) {
+	if (!comment || (login && !(comment.user && comment.user.login === login))) return null;
+	const text = String(comment.body || '').trimEnd();
+	if (!text.endsWith(FOLLOWUP_MARK)) return null;
+	const m = FOLLOWUP_HEAD.exec(text.split('\n', 1)[0]);
+	return m && m[1] === thread ? m[2] : null;
+}
+
 // The bot's reply in the thread once the issue exists, and that reply read back.
 function trackedReply(repo, number) {
 	return `Tracked as [${repo}#${number}](<https://github.com/${repo}/issues/${number}>). Replies in this thread, from anyone, are copied to the issue. We'll reply here when it's fixed.`;
@@ -220,6 +238,16 @@ function readTrackedReply(content, repo) {
 	const m = String(content || '').match(new RegExp(`github\\.com/${esc}/issues/(\\d+)`));
 	return m ? Number(m[1]) : null;
 }
+
+// The bot's reply to a post held by the hourly limit (edited into the
+// tracked reply once it is filed), and that reply recognised again.
+const HELD_LEAD = "Thanks! You've sent a few reports this hour";
+function heldReply(minutes) {
+	const m = Math.max(1, Math.ceil(minutes));
+	return `${HELD_LEAD}; this one will be filed automatically in about ${m} minute${m === 1 ? '' : 's'}.`;
+}
+
+const isHeldReply = (content) => String(content || '').startsWith(HELD_LEAD);
 
 module.exports = {
 	FOLLOWUP_MARK,
@@ -234,8 +262,11 @@ module.exports = {
 	labelInfo,
 	issueBody,
 	followUpComment,
+	followUpMessage,
 	trackedReply,
 	readTrackedReply,
+	heldReply,
+	isHeldReply,
 	issueMarker,
 	labelNames,
 };

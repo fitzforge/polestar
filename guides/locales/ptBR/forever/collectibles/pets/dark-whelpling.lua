@@ -10,7 +10,7 @@ return {
 	["Black whelps"] = "Dragonetes negros",
 	-- {area:511} Wyrmbog · {zone:1445} Dustwallow Marsh · {zone:1418} Badlands
 	-- plural, as words: Searing Whelps = {npc:4324} Searing Whelp · Scalding Whelps = {npc:2725} Scalding Whelp
-	["The Searing Whelps of the {area:511} in southern {zone:1445} (level 42-43) and the Scalding Whelps of eastern {zone:1418} (level 41-43) drop it about once in 900 kills. The waypoint is the {area:511}, where the whelps stand thickest; the {zone:1418} whelps are the same grind. The whelpling can be traded, so the Auction House may be quicker."] = "",
+	["The Searing Whelps of the {area:511} in southern {zone:1445} (level 42-43) and the Scalding Whelps of eastern {zone:1418} (level 41-43) drop it about once in 900 kills. The waypoint is the {area:511}, where the whelps stand thickest; the {zone:1418} whelps are the same grind. The whelpling can be traded, so the Auction House may be quicker."] = "Os Dragonetes Carbonizantes de {area:511}, no sul de {zone:1445} (nível 42-43), e os Dragonetes Escaldantes do leste de {zone:1418} (nível 41-43) soltam em cerca de uma morte em 900. O marcador de rota é {area:511}, onde os dragonetes são mais numerosos; os de {zone:1418} dão o mesmo trabalho. O dragonete pode ser negociado, então a Casa de Leilões pode ser mais rápida.",
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "O {area:511}",
 

@@ -72,14 +72,14 @@ fn every_polestar_folder_sits_in_polestars_group_one_language_folder_per_languag
 			assert_eq!(f.get("Group").map(String::as_str), Some("Polestar"), "{addon} is missing ## Group: Polestar");
 		}
 	}
-	// The two writers of a language folder write the one TOC: both files, alike.
+	// The two writers of a language folder write the one TOC alike, and it lists the interface strings too.
 	for l in LOCALE_CODES {
 		let name = language_addon(l);
 		let dir = root().join("addon").join(&name);
 		let text = std::fs::read_to_string(dir.join(format!("{name}.toc"))).unwrap();
 		let f = fields(&text);
 		assert_eq!(text, language_toc(l, &f["Interface"], &f["Version"]), "{name}");
-		for file in ["Names.lua", "Texts.lua"] {
+		for file in ["Interface.lua", "Names.lua", "Texts.lua"] {
 			assert!(dir.join(file).exists(), "{name}/{file}");
 		}
 	}

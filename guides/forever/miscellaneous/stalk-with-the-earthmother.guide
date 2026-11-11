@@ -29,16 +29,15 @@ why A one-hand blade or mace at 11 from Boarton Shadetotem's three tests in and 
 # and a Druid, a Hunter and a Shaman on 76240. quests.json limited 76240 to Shamans
 # (corrected on this branch).
 # INGAME: are Orc and Troll characters turned away by Boarton (server race mask Tauren only; Forever's quest page: Orc, Tauren, Troll)?
-# Lint: 206170, 206176 and 206344 (cones, mortar, knife set) are not in the
-# item data (Forever-new; ids from Forever's quest data); 76156 and 76160
-# have no objectives in quests.json, so the mine is a `task` and the turn-ins
-# check the rest.
-# Places: the data has no spawns for the Blasting Supplies carts or the
-# Windfury Cones. The mine is Supervisor Fizsprocket's (npc 3051, the
-# Venture Co. Mine south-east of Thunder Bluff); the cones lie under the
-# harpy nest trees of Windfury Ridge north-west of Thunder Bluff (the
-# Windfury Sorceresses' and Matriarchs' spawns, npcs 2964, 2965). Boarton
-# is stealthed (player notes).
+# Objectives (data/forever now has them, 2026-11-09): 76156 five Seaforium
+# Mining Charges (206157) from the Blasting Supplies carts (403041, spawns in
+# and around the Venture Co. Mine, Mulgore); 76160 the Pine Salve (206175) the
+# Mortar and Pestle makes from eight Windfury Cones (403105, Windfury Ridge and
+# the hills north of Thunder Bluff); 76240 the Fish Chunks (206345) from the
+# Knife Set. Players' recordings tick each where the guide sends them: the
+# charges at the carts (57.7-60.2, 42.4-50.0), the salve on Windfury Ridge, and
+# the Fish Chunks on the mesa 60 to 90 yards from Boarton (4 people), so the
+# knife does not need him beside you. Boarton is stealthed (player notes).
 # The pool: Thunder Bluff's main mesa (Forever's quest notes: "from a vendor
 # or by fishing"); no vendor in the data sells the smallfish.
 # A Tauren side guide, not a class guide: every Tauren class takes the chain,
@@ -55,9 +54,8 @@ step Boarton Shadetotem
 
 step The Venture Co. Mine
   zone Mulgore
-  tip Ride down the lift and south-east across Mulgore to the Venture Co. Mine. Put on the disguise, then open the carts of Blasting Supplies inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges.
-  goto 61.2,49.3 "Venture Co. Mine"
-  task "Loot 5 Seaforium Mining Charges from the Blasting Supplies"
+  tip Ride down the lift and south-east across Mulgore to the Venture Co. Mine. Put on the disguise, then open the carts of Blasting Supplies inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges.
+  collect 206157 x5 quest 76156.1             -- Seaforium Mining Charge, from the Blasting Supplies
 
 step Boarton Shadetotem
   zone Thunder Bluff
@@ -68,20 +66,20 @@ step Boarton Shadetotem
 step Windfury Cones
   zone Mulgore
   tip Windfury Cones lie on the ground under the harpies' nest trees on Windfury Ridge, north-west of Thunder Bluff; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the Mortar and Pestle to grind them.
-  collect 206170 "Windfury Cone" x8 @31.9,32.0
-  use 206176 "Mortar and Pestle" @31.9,32.0   -- grind the eight cones
+  collect 206170 "Windfury Cone" x8 optional @31.9,32.0 live -- the mortar takes all eight
+  use 206176 "Mortar and Pestle" quest 76160.1 @31.9,32.0 live -- grind the eight cones into the Pine Salve
 
 step Boarton Shadetotem
   zone Thunder Bluff
-  tip Back to Boarton. He hands you the Knife Set: the fish must be filleted in front of him.
+  tip Back to Boarton. He hands you the Knife Set for the last test.
   turnin 76160                                -- Boarton Shadetotem
   accept 76240
 
 step Raw Brilliant Smallfish
-  tip Buy a Raw Brilliant Smallfish at the Auction House (Auctioneer Stampi, north of the pool), or fish one yourself: Kah Mistrunner trains Fishing and Sewa Mistrunner beside him sells the Fishing Pole and a Shiny Bauble; the pool on the main mesa gives smallfish at any skill.
-  collect 6291 x1 @40.4,51.8                   -- Raw Brilliant Smallfish: the Auction House, or the pool
+  tip Buy a Raw Brilliant Smallfish at the Auction House (Auctioneer Stampi, north of the pool), or fish one yourself: Kah Mistrunner trains Fishing and Sewa Mistrunner beside him sells the Fishing Pole and a Shiny Bauble; the pool on the main mesa gives smallfish at any skill. Then use the Knife Set on it, wherever you are.
+  collect 6291 x1 optional @40.4,51.8          -- Raw Brilliant Smallfish: the Auction House, or the pool; the knife takes it
+  use 206344 "Knife Set" quest 76240.1 @41.7,59.9 -- fillet the smallfish into Fish Chunks (where players did it, on the way back to Boarton)
 
-step Fish Chunks
-  tip Stand beside Boarton and use the Knife Set on the smallfish: it only counts next to him. Then take your weapon: the Hoof-Holstered Blade or the Valley Cosh.
-  use 206344 "Knife Set" @39.4,65.7           -- in front of Boarton
+step Boarton Shadetotem
+  tip Take your weapon from Boarton: the Hoof-Holstered Blade or the Valley Cosh.
   turnin 76240 choose 277988 278002           -- Boarton Shadetotem

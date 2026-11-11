@@ -90,7 +90,10 @@ local function breadcrumb(map, x, y)
 	if last.map == map and last.x then
 		local d = ns.Yards(map, x - last.x, y - last.y)
 		local dt = GetTime() - last.at
-		if not ((d >= POS_MIN_YARDS and dt >= POS_MIN_GAP) or (d >= POS_SLOW_YARDS and dt >= POS_SLOW_GAP)) then return end
+		local minYards, minGap = POS_MIN_YARDS, POS_MIN_GAP
+		-- Explorer mode in a new zone (Explore.lua): finer.
+		if ns.Dense(map, x, y) then minYards, minGap = ns.EXPLORE_POS_YARDS, ns.EXPLORE_POS_GAP end
+		if not ((d >= minYards and dt >= minGap) or (d >= POS_SLOW_YARDS and dt >= POS_SLOW_GAP)) then return end
 	end
 	ns.RecPos(map, x, y)
 end

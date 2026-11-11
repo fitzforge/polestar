@@ -97,7 +97,7 @@ return {
 
 	-- Step 13: Back to Hammerfall
 	-- {area:321} Hammerfall
-	["Back to {area:321}"] = "",
+	["Back to {area:321}"] = "返回{area:321}",
 
 	-- Step 14: The Defilers to Friendly
 	-- {faction:510} The Defilers

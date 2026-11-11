@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:2458} Berserker Stance · {spell:1680} Whirlwind
-	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "",
+	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "{spell:2458} a nivel 30 y, a nivel 40, un hacha, espada o martillo de guerra de {spell:1680}.",
 
 	-- Step 1: The Islander (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens
@@ -39,15 +39,25 @@ return {
 	["You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use {spell:1160}: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again."] = "",
 
 	-- Step 8: Bath'rah the Windwatcher
-	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {quest:1714} Essence of the Exile
+	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {item:6851} Essence of the Exile
 	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
-	["{npc:6176} camps by ruins on the east bank of the river that runs past {area:272}, a short walk north-east of the town, just over the border in {zone:1416}; his cauldron stands beside him. Horde: fly to {area:272}. Alliance: fly to {area:271} and go north along the river; {area:272}'s guards are level 42 elites, so keep away from the town. Accepting {quest:1712} gives you {item:6929}, the list of what he needs: 8 {item:3357}, 30 Bloodscalp Tusks and the {quest:1714} from his cauldron. Click the cauldron for that quest."] = "",
+	["{npc:6176} camps by ruins on the east bank of the river that runs past {area:272}, a short walk north-east of the town, just over the border in {zone:1416}; his cauldron stands beside him. Horde: fly to {area:272}. Alliance: fly to {area:271} and go north along the river; {area:272}'s guards are level 42 elites, so keep away from the town. Accepting {quest:1712} gives you {item:6929}, the list of what he needs: 8 {item:3357}, 30 Bloodscalp Tusks and the {item:6851} from his cauldron. The cauldron's {item:6851} is not a quest you take: it never shows in your quest log. Come back with its charms and hand them in at the cauldron."] = "{npc:6176} acampa junto a unas ruinas en la orilla este del río que pasa por {area:272}, a un paseo al noreste del pueblo, justo pasada la frontera de {zone:1416}; su caldero está a su lado. Horda: vuela a {area:272}. Alianza: vuela a {area:271} y ve al norte siguiendo el río; los guardias de {area:272} son élites de nivel 42, así que no te acerques al pueblo. Al aceptar {quest:1712} recibes {item:6929}, la lista de lo que necesita: 8 {item:3357}, 30 Colmillos Sangrapellejo y la {item:6851} de su caldero. La {item:6851} del caldero no es una misión que se acepte: nunca aparece en tu registro de misiones. Vuelve con sus talismanes y entrégalos en el caldero.",
 
-	-- Step 9: The exiles of Arathi
+	-- Step 9: Liferoot
+	-- {item:3357} Liferoot · {zone:1437} Wetlands · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {npc:1302} Bernard Gump · {npc:1313} Maria Lumere · {zone:1453} Stormwind · {npc:844} Antonio Perelli · {area:460} Sun Rock Retreat · {zone:1441} Thousand Needles
+	["You need 8 {item:3357}. Herbalists pick it by rivers and lakes in the {zone:1437}, {zone:1417} and {zone:1434}; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: {npc:1302} and {npc:1313} in {zone:1453}, {npc:844} on the road in eastern Elwynn, Jeeda at {area:460} in Stonetalon, Montarr in {zone:1441}. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve."] = "",
+
+	-- Step 10: Bloodscalp Tusks
+	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
+	["Bloodscalp Tusks"] = "",
+	-- {area:117} Grom'gol Base Camp · {area:123} Bal'lal Ruins
+	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "",
+
+	-- Step 11: The exiles of Arathi
 	["The exiles of Arathi"] = "Los exiliados de Arathi",
 	-- {area:334} Circle of West Binding · {area:320} Refuge Pointe · {area:336} Circle of Outer Binding · {spell:403} Lightning Bolt · {area:333} Circle of East Binding · {area:321} Hammerfall · {spell:122} Frost Nova
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
-	["The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite, and hit hard at 30-33: bring a friend or come at 35 or more. Burning Exiles (fire) by the {area:334} in the north-west, north-west of {area:320}; Thundering Exiles (air) by the {area:336} south-east of {area:320}, casting {spell:403} from 40 yards; Cresting Exiles (water) by the {area:333}, north-west of {area:321}, with {spell:122}. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning)."] = "",
+	["The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite: the guide waits for level 37 first, and a friend helps. Burning Exiles (fire) by the {area:334} in the north-west, north-west of {area:320}; Thundering Exiles (air) by the {area:336} south-east of {area:320}, casting {spell:403} from 40 yards; Cresting Exiles (water) by the {area:333}, north-west of {area:321}, with {spell:122}. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning)."] = "El caldero pide 8 talismanes de cada tipo, 24 en total, y cada exiliado suelta su talismán aproximadamente una vez de cada tres, así que cuenta con unas 70 muertes. Todos son de nivel 38-39, no élites: la guía espera primero al nivel 37, y un amigo ayuda. Exiliados ardientes (fuego) junto a {area:334}, en el noroeste, al noroeste de {area:320}; Exiliados tronadores (aire) junto a {area:336}, al sureste de {area:320}, que lanzan {spell:403} desde 40 metros; exiliados de agua ({npc:2761}) junto a {area:333}, al noroeste de {area:321}, con {spell:122}. Hay una docena de cada uno, y reaparecen en menos de 7 minutos. Los talismanes se pueden comerciar y vender en la casa de subastas; usar uno destierra durante un rato a otro tipo de exiliado (el ardiente al tronador, el tronador al de agua, el de agua al ardiente).",
 	-- {item:4479} Burning Charm
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile
 	["{item:4479}, from Burning Exiles"] = "",
@@ -58,21 +68,11 @@ return {
 	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
 	["{item:4481}, from Cresting Exiles"] = "",
 
-	-- Step 10: Essence of the Exile
-	-- {object:89931} Bath'rah's Cauldron · {quest:1714} Essence of the Exile
-	["Put the 24 charms into {object:89931}: it hands you the {quest:1714}."] = "",
+	-- Step 12: Essence of the Exile
+	-- {object:89931} Bath'rah's Cauldron · {quest:1712} Cyclonian · {quest:1714} Essence of the Exile
+	["Click {object:89931} with the 24 charms in your bags and {quest:1712} in your log. Its window asks for the charms straight away, with nothing to accept: Continue, then Complete, and it hands you the {quest:1714}."] = "Haz clic en {object:89931} con los 24 talismanes en tus bolsas y {quest:1712} en tu registro. Su ventana pide los talismanes directamente, sin nada que aceptar: Continuar y luego Completar, y te entrega la {quest:1714}.",
 	-- {quest:1714} Essence of the Exile · {npc:6176} Bath'rah the Windwatcher
 	["{quest:1714}, from the cauldron by {npc:6176}"] = "",
-
-	-- Step 11: Liferoot
-	-- {item:3357} Liferoot · {zone:1437} Wetlands · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {npc:1302} Bernard Gump · {npc:1313} Maria Lumere · {zone:1453} Stormwind · {npc:844} Antonio Perelli · {area:460} Sun Rock Retreat · {zone:1441} Thousand Needles
-	["You need 8 {item:3357}. Herbalists pick it by rivers and lakes in the {zone:1437}, {zone:1417} and {zone:1434}; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: {npc:1302} and {npc:1313} in {zone:1453}, {npc:844} on the road in eastern Elwynn, Jeeda at {area:460} in Stonetalon, Montarr in {zone:1441}. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve."] = "",
-
-	-- Step 12: Bloodscalp Tusks
-	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
-	["Bloodscalp Tusks"] = "",
-	-- {area:117} Grom'gol Base Camp · {area:123} Bal'lal Ruins
-	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "",
 
 	-- Step 13: The Summoning
 	-- {npc:6176} Bath'rah the Windwatcher · {quest:1713} The Summoning · {quest:1712} Cyclonian · {item:6052} Nature Protection Potion · {spell:10101} Knock Away · {item:6894} Whirlwind Heart
@@ -95,5 +95,4 @@ return {
 	-- ["{item:6894} from {quest:1712}"] = "{item:6894} de {quest:1712}",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176} acampa en el sureste de {zone:1416}, por encima de {zone:1424}; su caldero está a su lado. Te pide {item:3357}, {item:3901} y {quest:1714}, que su caldero prepara con tres amuletos.",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712} espera justo al norte del campamento de {npc:6176} y lleva {item:6894}. {quest:1712} es élite: se recomienda ir en grupo.",
-	-- ["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "{spell:2458} a nivel 30 y, a nivel 40, un hacha, espada o martillo de guerra de {spell:1680}.",
 }

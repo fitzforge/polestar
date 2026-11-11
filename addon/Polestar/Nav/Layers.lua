@@ -13,7 +13,8 @@
 -- leg's start where the mode changes, and its end), broken at a Hearthstone (a jump, not a
 -- path) and across continents; without a route, straight to the target (both surfaces).
 -- nav.worldPins / nav.minimapPins switch Nav's layers on each surface; nav.trailDots the trail,
--- which stands in only while Maps/RouteLines.lua draws no route (nav.routeLines off).
+-- which stands in only while Maps/RouteLines.lua draws no route (nav.routeLines off), and
+-- nav.minimapRoute keeps it off the minimap.
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -135,10 +136,29 @@ local function updateRoute(world)
 	Pins.SetLayer(ROUTE, pins, { world = true, minimap = false, scale = 0.9 })
 end
 
-local function updateGoals(world)
+-- A goal of step `index` (the step the guide is on), clicked on the map: the
+-- Engine leads the arrow there as a click on its line in the guide window
+-- does (Engine.AimGoal), so the arrow moves on through its spots (#1653);
+-- one whose quest waits for its accept leaves the arrow on the accept and
+-- says so (#1385). False when the Engine can't lead there.
+local function aimAt(index, goal)
 	local Engine = ns.Engine
-	local index = world and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	if not (goal.index and Engine and Engine.AimGoal) then return false end
+	local aimed, why, title = Engine.AimGoal(index, goal.index)
+	if not (aimed or why == "accept") then return false end
+	Nav.ReleaseTarget()
+	if why == "accept" then
+		local message = format(L["Take %s first"], ns.Quoted(title) or "")
+		if UIErrorsFrame and UIErrorsFrame.AddMessage then UIErrorsFrame:AddMessage(message, 1, 0.82, 0) else ns.Print(message) end
+	end
+	return true
+end
+
+-- view: the current step's Engine.GetStepView (index), fetched once per
+-- Layers.Update for this and the areas.
+local function updateGoals(world, index, view)
+	local Engine = ns.Engine
+	if not world then view = nil end
 	if not (view and view.goals) then
 		Pins.ClearLayer(GOALS)
 		return
@@ -148,7 +168,7 @@ local function updateGoals(world)
 	-- The step's goals, then the Along the way list's (Engine.GetAlong: along
 	-- steps and pinned quests, #644). The While you're here line has its own
 	-- layer (updateHere).
-	local list = view.goals
+	local list, own = view.goals, #view.goals
 	if Engine.GetAlong then
 		list = {}
 		for _, goal in ipairs(view.goals) do list[#list + 1] = goal end
@@ -156,7 +176,7 @@ local function updateGoals(world)
 			for _, goal in ipairs(s.goals) do list[#list + 1] = goal end
 		end
 	end
-	for _, goal in ipairs(list) do
+	for i, goal in ipairs(list) do
 		if goal.map and goal.x and goal.y and (goal.status == "active" or goal.status == "pending")
 			and not (target and target.map == goal.map and target.x == goal.x and target.y == goal.y) then
 			local text = goal.text
@@ -167,8 +187,11 @@ local function updateGoals(world)
 					tip:SetText(text or "")
 					tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
 				end,
+				-- The step's own goals (the list's first `own`) through the
+				-- Engine; an Along the way goal, a plain point.
 				onClick = function(button)
-					if button == "LeftButton" then Nav.SetTarget(goal.map, goal.x, goal.y, text, goal.f, nil, goal.z) end
+					if button ~= "LeftButton" or (i <= own and aimAt(index, goal)) then return end
+					Nav.SetTarget(goal.map, goal.x, goal.y, text, goal.f, nil, goal.z)
 				end,
 			}
 		end
@@ -238,10 +261,9 @@ local function sameSig(sig)
 	return true
 end
 
-local function updateAreas(world, minimap)
+local function updateAreas(world, minimap, index, view)
 	local Engine = ns.Engine
-	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	if not (world or minimap) then view = nil end
 	local guide = view and view.goals and Engine.GetGuide and Engine.GetGuide()
 	local step = guide and guide.steps and guide.steps[index]
 	local ar, ag, ab = Nav.RGB("arrow")
@@ -309,48 +331,63 @@ local function updateAreas(world, minimap)
 	end
 end
 
--- The While you're here line (Engine.GetWhileHere) on both surfaces until
--- the arrow leads there: its mark in the accent with a soft glow, clamped to
--- the minimap's rim with the edge pointer when it is off it (an edge layer),
--- and its spawn areas in the accent on the minimap too, so the minimap shows
--- what the line and its chime point at. The mark pings once as the line
--- appears (Pins `ping`: the line's `appeared`). Set again only when the line,
--- its colour or the surfaces changed.
+-- The While you're here lines (Engine.GetWhileHereList) on both surfaces
+-- until the arrow leads to one: each one's mark in the accent with a soft
+-- glow, clamped to the minimap's rim with the edge pointer when it is off it
+-- (an edge layer), and their spawn areas in the accent on the minimap too, so
+-- the minimap shows what the lines and their chime point at. A mark pings
+-- once as its line appears (Pins `ping`: the line's `appeared`; a line coming
+-- back has a new one). Set again only when the lines, their colour or the
+-- surfaces changed.
 local hereSig = {}
 local function updateHere(world, minimap)
 	local Engine = ns.Engine
-	local v = Engine and Engine.GetWhileHere and Engine.GetWhileHere()
+	local all = Engine and Engine.GetWhileHereList and Engine.GetWhileHereList() or {}
 	local target = Nav.GetTarget()
-	if v and target and target.stepIndex == v.step and target.goalIndex == v.index then v = nil end
+	local lines = {}
+	for i, v in ipairs(all) do
+		if v.map and v.x and v.y and not (target and target.stepIndex == v.step and target.goalIndex == v.index) then
+			lines[#lines + 1] = { v = v, i = i }
+		end
+	end
 	local r, g, b = Nav.RGB("accent")
 	local s = hereSig
-	if v and s.appeared == v.appeared and s.r == r and s.g == g and s.b == b and s.world == world and s.minimap == minimap then return end
-	s.appeared, s.r, s.g, s.b, s.world, s.minimap = v and v.appeared, r, g, b, world, minimap
-	if not (v and v.map and v.x and v.y and (world or minimap)) then
+	local same = s.n == #lines and s.r == r and s.g == g and s.b == b and s.world == world and s.minimap == minimap
+	for k, e in ipairs(lines) do
+		if same and (s[k] ~= e.v.appeared or s["i" .. k] ~= e.i) then same = false end
+	end
+	if same then return end
+	s.n, s.r, s.g, s.b, s.world, s.minimap = #lines, r, g, b, world, minimap
+	for k, e in ipairs(lines) do s[k], s["i" .. k] = e.v.appeared, e.i end
+	if #lines == 0 or not (world or minimap) then
 		Pins.ClearLayer(HERE)
 		Pins.ClearLayer(HERE_AREAS)
 		return
 	end
-	local text = v.hereText
-	Pins.SetLayer(HERE, { {
-		map = v.map, x = v.x, y = v.y, f = v.f, icon = "map:pin", color = { r, g, b, 1 }, glow = true, priority = 40,
-		ping = v.appeared, label = text,
-		tooltip = function(tip)
-			tip:SetText(L["While you're here:"] .. " " .. (text or ""))
-			tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
-		end,
-		onClick = function(button)
-			if button == "LeftButton" and Engine.AimWhileHere then Engine.AimWhileHere() end
-		end,
-	} }, { world = world, minimap = minimap, edge = true })
-	local goal = Engine.AlongGoal and Engine.AlongGoal(v.step, v.index)
-	local regions = goal and goal.map and goal.spots and regionsOf(goal)
-	if regions then
-		local list = {}
-		for _, rg in ipairs(regions) do
-			list[#list + 1] = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, color = { r, g, b, rg.alt and 0.4 or 0.75 } }
+	local pins, areas = {}, {}
+	for _, e in ipairs(lines) do
+		local v, i = e.v, e.i
+		local text = v.hereText
+		pins[#pins + 1] = {
+			map = v.map, x = v.x, y = v.y, f = v.f, icon = "map:pin", color = { r, g, b, 1 }, glow = true, priority = 40,
+			ping = v.appeared, label = text,
+			tooltip = function(tip)
+				tip:SetText(L["While you're here:"] .. " " .. (text or ""))
+				tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
+			end,
+			onClick = function(button)
+				if button == "LeftButton" and Engine.AimWhileHere then Engine.AimWhileHere(i) end
+			end,
+		}
+		local goal = Engine.AlongGoal and Engine.AlongGoal(v.step, v.index)
+		local regions = goal and goal.map and goal.spots and regionsOf(goal)
+		for _, rg in ipairs(regions or {}) do
+			areas[#areas + 1] = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, color = { r, g, b, rg.alt and 0.4 or 0.75 } }
 		end
-		Pins.SetLayer(HERE_AREAS, list, { world = world, minimap = minimap, minimapAreas = true })
+	end
+	Pins.SetLayer(HERE, pins, { world = world, minimap = minimap, edge = true })
+	if #areas > 0 then
+		Pins.SetLayer(HERE_AREAS, areas, { world = world, minimap = minimap, minimapAreas = true })
 	else
 		Pins.ClearLayer(HERE_AREAS)
 	end
@@ -363,6 +400,8 @@ end
 local function updateTrail(world, minimap)
 	local target = Nav.GetTarget()
 	local lines = ns.RouteLines and ns.RouteLines.Active()
+	-- "Route line on the minimap" off takes the trail off it too; the pin stays.
+	minimap = minimap and ns.Get("nav.minimapRoute") ~= false
 	if lines or Nav.HandedOff() or not (target and ns.Get("nav.trailDots") and (world or minimap)) then
 		Pins.ClearTrail()
 		return
@@ -399,11 +438,16 @@ end
 
 function Layers.Update()
 	local world, minimap = surfaces()
+	-- The step's view, built once for the goals and the areas (a view is
+	-- built afresh on every Engine.GetStepView).
+	local Engine = ns.Engine
+	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
+	local view = index and Engine.GetStepView and Engine.GetStepView(index)
 	updateTarget(world, minimap)
 	updateRoute(world)
-	updateGoals(world)
+	updateGoals(world, index, view)
 	updateSpots(world)
-	updateAreas(world, minimap)
+	updateAreas(world, minimap, index, view)
 	updateHere(world, minimap)
 	updateTrail(world, minimap)
 end

@@ -29,10 +29,10 @@ why Your Earth Totem: without it no earth totem can be cast. Stoneskin Totem com
 # quest data lists none for 92468, the Skyborne leveling guide's hand-in gives
 # the same totem and spell. Stoneskin Totem: the spell the chain unlocks
 # (classrewards chain reward).
-# Lint: "quest 1463 needs 1517 turned in first" (and 1462 / 1520) is the
-# data reading the server's "while on quest" prerequisite (PrevQuestID -1517
-# and -1520 in the TDB) as "turned in": the steps ask for the quest to be in
-# the log, as the server does.
+# Earth Sapta 1463 and 1462 are offered "while on quest" 1517 / 1520
+# (PrevQuestID -1517 and -1520 in both world databases): the data read that as
+# "turned in" until forever-db/corrections/quests.json dropped it; the steps
+# ask for the quest to be in the log, as the server does.
 # Drops and timers from Forever's quest notes: Felstalker Hoof and Ritual Salve
 # 80% per kill; 16 Felstalkers (3 min 20 s respawn), Bristleback Shamans
 # 4 min 10 s. The Signet of Akir has no drop rate in the data.

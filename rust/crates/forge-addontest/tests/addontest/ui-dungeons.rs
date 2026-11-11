@@ -39,7 +39,11 @@ fn instance_map(m: &Value) -> InstanceMap {
 /// The fixture's Codex as a pack, with its Dungeons journal (`buildJournal(fixture.inputs, fixture.codex)`).
 fn pack() -> CodexPack {
 	let f = fixture("dungeons.json");
-	let (codex, inputs) = (&f["codex"], &f["inputs"]);
+	pack_of(&f["codex"], &f["inputs"])
+}
+
+/// A Codex and its journal inputs as a pack, with its Dungeons journal.
+fn pack_of(codex: &Value, inputs: &Value) -> CodexPack {
 	let maps: Vec<InstanceMap> = inputs["client"]["instanceMaps"].as_array().map(|a| a.iter().map(instance_map).collect()).unwrap_or_default();
 	let fv = &inputs["forever"];
 	let (frames, quests, objects, zones, dungeons) = (v(&fv["mapFrames"]["forever"]), v(&fv["quests"]), v(&fv["objects"]), v(&fv["zones"]), v(&fv["dungeons"]));
@@ -125,7 +129,10 @@ local function plain(s) return (s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r
 "#;
 
 fn run_with(script: &str, with_pack: bool) -> Vec<Value> {
-	let pack = with_pack.then(pack);
+	run_pack(script, with_pack.then(pack))
+}
+
+fn run_pack(script: &str, pack: Option<CodexPack>) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		before: pack.as_ref().map(|p| p.stub_lua.clone()).unwrap_or_default(),
@@ -170,8 +177,113 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 	assert!(is_match(out["sub"].as_str().unwrap(), r"^Level 20 .+ 1 dungeon to run now$"), "{}", out["sub"]);
 	assert_eq!(out["tabRow"], true, "the tab row stays for the faction filter");
 	assert_eq!(out["shown"]["band"], "level");
-	assert_eq!(out["stats"], "17\u{2013}24  \u{b7}  The Barrens  \u{b7}  4 quests");
+	assert_eq!(out["stats"], "17\u{2013}24  \u{b7}  best at 19  \u{b7}  The Barrens  \u{b7}  4 quests");
 	assert_eq!(out["chip"], false, "no \"Your level\" chip where every card is");
+}
+
+// Fitz, 2026-11-08 (a level 13 Horde Warlock saw the Ruins of Lordaeron, 15-22, and The Hall of Thanes, in
+// Ironforge, under "For your level"): a dungeon is for your level from its recommended start, and
+// one whose way in lies inside the other faction's capital is not under that faction's filter. The Ruins,
+// outside the Undercity, can be reached by both.
+#[test]
+fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	let forever = |key: &str, name: &str, levels: [i64; 3]| json!({ "key": key, "name": name, "kind": "dungeon", "forever": true, "areaId": null, "map": null, "entrance": null, "levels": levels, "bosses": [] });
+	codex["instances"]["ruins-of-lordaeron"] = forever("ruins-of-lordaeron", "Ruins of Lordaeron", [10, 15, 22]);
+	codex["instances"]["the-hall-of-thanes"] = forever("the-hall-of-thanes", "The Hall of Thanes", [10, 13, 16]);
+	codex["instances"]["ragefire-chasm"] = forever("ragefire-chasm", "Ragefire Chasm", [10, 13, 16]);
+	let out = run_pack(
+		r#"
+		local function at(level, f)
+			uistub.player.level = level
+			Polestar.Dungeons.Open()
+			DS.SetFaction(f)
+			DS.SetBand("level")
+			local keep = { ["Ruins of Lordaeron"] = true, ["The Hall of Thanes"] = true, ["Ragefire Chasm"] = true }
+			local out = {}
+			for _, n in ipairs(cardNames()) do if keep[n] then out[#out + 1] = n end end
+			table.sort(out)
+			return out
+		end
+		emit({ h12 = at(12, "Horde"), h13 = at(13, "Horde"), h14 = at(14, "Horde"), h15 = at(15, "Horde"), h22 = at(22, "Horde"),
+			a13 = at(13, "Alliance"), a15 = at(15, "Alliance"), all13 = at(13, "All") })"#,
+		Some(pack_of(&codex, &f["inputs"])),
+	);
+	let out = &out[0];
+	assert_eq!(out["h12"], json!({}), "not below the recommended start");
+	assert_eq!(out["h13"], json!(["Ragefire Chasm"]), "not the Ruins (15-22) at 13; not The Hall of Thanes (Ironforge) for the Horde");
+	assert_eq!(out["h14"], json!(["Ragefire Chasm"]), "the Ruins from 15, not 14");
+	assert_eq!(out["h15"], json!(["Ragefire Chasm", "Ruins of Lordaeron"]));
+	assert_eq!(out["h22"], json!(["Ruins of Lordaeron"]));
+	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
+	assert_eq!(out["a15"], json!(["Ruins of Lordaeron", "The Hall of Thanes"]), "the Ruins lie outside the Undercity: the Alliance can get there");
+	assert_eq!(out["all13"], json!(["Ragefire Chasm", "The Hall of Thanes"]), "All shows both sides'");
+}
+
+// A player asked why Uldaman (35-47) showed under "For your level" at 35, where most of it suits ~42. It still
+// shows inside its range, but the cards go by closeness to where each suits best (Dungeons.BestAt), the ones the
+// player is 4+ levels under come after the ones that fit and say "Tough at your level" (a calm chip, not the
+// warning colour), and each card and page says "best at N" after the range.
+#[test]
+fn for_your_level_sorts_by_closeness_to_best_at_and_marks_dungeons_4_levels_under_it_tough_uldaman_at_35_vs_42() {
+	let out = run(r#"
+		Polestar.Dungeons.Load()
+		local function bosses(list)
+			local t = {}
+			for i, l in ipairs(list) do t[i] = string.format("{order=%d,name=%q,level=%d}", i, "Boss " .. i, l) end
+			return "return {bosses={" .. table.concat(t, ",") .. "}}"
+		end
+		Polestar.Dungeons.Register("dungeon", {
+			uldaman = { name = "Uldaman", kind = "dungeon", minLevel = 35, maxLevel = 47, players = 10, zoneName = "Badlands" },
+			["scarlet-monastery"] = { name = "Scarlet Monastery", kind = "dungeon", minLevel = 30, maxLevel = 42, players = 10, zoneName = "Tirisfal Glades" },
+			["razorfen-downs"] = { name = "Razorfen Downs", kind = "dungeon", minLevel = 35, maxLevel = 41, players = 10, zoneName = "The Barrens" },
+		}, {
+			uldaman = bosses({ 40, 42, 44, 44, 45, 46, 47 }),
+			["scarlet-monastery"] = bosses({ 32, 35, 37, 40, 42 }),
+			["razorfen-downs"] = bosses({ 39, 40, 40, 41 }),
+		})
+		local function at(level)
+			uistub.player.level = level
+			Polestar.Dungeons.Open()
+			DS.SetFaction("All")
+			DS.SetBand("level")
+			local out = {}
+			for _, c in ipairs(DS.cards) do
+				if c:IsShown() then
+					out[#out + 1] = { c.Name:GetText(), c.Yours:IsShown() and c.Yours.Text:GetText() or false, c.Stats:GetText() }
+				end
+			end
+			return out
+		end
+		local at35, at42 = at(35), at(42)
+		DS.SetBand("all")
+		local chips = {}
+		for _, c in ipairs(DS.cards) do
+			if c:IsShown() and c.Yours:IsShown() then chips[c.Name:GetText()] = c.Yours.Text:GetText() end
+		end
+		uistub.player.level = 35
+		DS.SetBand("all")
+		local tough = {}
+		for _, c in ipairs(DS.cards) do
+			if c:IsShown() and c.Name:GetText() == "Uldaman" then tough = { c.Yours:IsShown(), c.Yours.Text:GetText() } end
+		end
+		Polestar.Dungeons.Open("uldaman")
+		local _, _, pg = DS.Frames()
+		emit({ at35 = at35, at42 = at42, chips = chips, tough = tough, sub = pg.Sub:GetText() })"#);
+	let out = &out[0];
+	let names = |v: &Value| v.as_array().unwrap().iter().map(|c| c[0].as_str().unwrap().to_string()).collect::<Vec<_>>();
+	assert_eq!(names(&out["at35"]), ["Scarlet Monastery", "Razorfen Downs", "Uldaman"], "at 35 the Monastery (best at 36) fits; Razorfen Downs (39) and Uldaman (43) are tough, nearest first");
+	assert_eq!(out["at35"][0][1], false, "no chip on a card that fits under For your level");
+	assert_eq!(out["at35"][1][1], "Tough at your level");
+	assert_eq!(out["at35"][2][1], "Tough at your level");
+	assert_eq!(out["at35"][2][2], "35\u{2013}47  \u{b7}  best at 43  \u{b7}  Badlands\nNo quests known", "the chip leaves less room: the facts break between two");
+	assert_eq!(names(&out["at42"]), ["Uldaman", "Scarlet Monastery"], "at 42 Uldaman (best at 43) comes first; Razorfen Downs (35-41) is behind you");
+	assert_eq!(out["at42"][0][1], false, "not tough at 42");
+	assert_eq!(out["at42"][1][1], false, "6 over best at is no reason to warn");
+	assert_eq!(out["chips"]["Uldaman"], "Your level", "under All at 42: the usual chip");
+	assert_eq!(out["tough"], json!([true, "Tough at your level"]), "under All at 35 the chip says it is tough");
+	assert!(out["sub"].as_str().unwrap().starts_with("Levels 35\u{2013}47  \u{b7}  best at 43  \u{b7}  Badlands"), "{}", out["sub"]);
 }
 
 #[test]
@@ -249,11 +361,31 @@ fn a_page_the_painting_header_with_the_name_facts_and_actions_tabs_with_counts_g
 			back = (function() DS.Home() return { DS.Page() or false, PolestarPicker.Title:GetAlpha(), PolestarPicker.Band:IsShown(), pg:IsShown() } end)() })"#);
 	let out = &out[0];
 	// The facts break between two facts where the actions leave too little room.
-	assert_eq!(out["head"], json!(["Wailing Caverns", "Levels 17\u{2013}24  \u{b7}  The Barrens  \u{b7}  10 players\n4 bosses", true, true, true, false, "Wailing Caverns", 0, false, true]));
+	assert_eq!(
+		out["head"],
+		json!(["Wailing Caverns", "Levels 17\u{2013}24  \u{b7}  best at 19  \u{b7}  The Barrens\n10 players  \u{b7}  4 bosses", true, true, true, false, "Wailing Caverns", 0, false, true])
+	);
 	assert_eq!(out["tabs"], json!(["Quests  4", "Attunement", "Bosses  4", "Map"]), "the fixture gives Wailing Caverns an attunement");
 	assert_eq!(out["nav"], json!([1413, 46, 36.4, "Wailing Caverns"]));
 	assert_eq!(out["map"], 1413);
 	assert_eq!(out["back"], json!([false, 1, true, false]));
+}
+
+// #1753's pattern: a string hidden by SetAlpha(0) came back on a theme repaint (a UI scale or display size change),
+// which sets its colour again, and in the client a string's colour alpha is its alpha. The hub's title and subtitle,
+// veiled over a page's zone art, stay veiled through one; back home they show at their colour's alpha.
+#[test]
+fn a_page_s_veiled_hub_title_stays_veiled_through_a_theme_repaint() {
+	let out = run(r#"
+		Polestar.Dungeons.Open("wailing-caverns")
+		Polestar.Theme.Refresh()
+		local t, s = PolestarPicker.Title, PolestarPicker.Subtitle
+		local open = { t:GetAlpha(), t.textColor[4], s.textColor[4] }
+		DS.Home()
+		Polestar.Theme.Refresh()
+		emit({ open = open, back = { t:GetAlpha(), t.textColor[4] > 0 } })"#);
+	assert_eq!(out[0]["open"], json!([0, 0, 0]), "veiled by alpha and by colour, through the repaint");
+	assert_eq!(out[0]["back"], json!([1, true]));
 }
 
 #[test]
@@ -405,6 +537,50 @@ fn a_page_with_quests_to_pick_up_pick_up_the_quests_is_the_primary_action_the_en
 	assert_eq!(none["tabs"], 0, "and opens no guide");
 }
 
+// Fitz, 2026-11-08 (Ragefire Chasm at 13 offered "a guide to the 5 quests here you can take" when two needed
+// 16): the button says how many can be taken now and how many wait for which level; its tip lists the
+// waiting ones and why; with none open now it says from which level. Here Trouble at the Docks needs 19.
+#[test]
+fn pick_up_the_quests_says_how_many_now_and_how_many_wait_for_a_level_the_tip_lists_the_waiting_ones() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	codex["quests"]["959"]["minLevel"] = json!(19);
+	let out = run_pack(
+		r#"
+		local _, _, pg = DS.Frames()
+		local function page(level)
+			uistub.player.level = level
+			Polestar.Dungeons.Open("wailing-caverns")
+			local _, _, p = DS.Frames()
+			local b = p.Pickup:IsShown() and p.Pickup or p.PickupNone
+			return { label = b.Label:GetText(), tip = b.psTipLines, width = b:GetWidth() > b.Label:GetStringWidth() }
+		end
+		local at17 = page(17)
+		local at19 = page(19)
+		done[1486] = true
+		local none = page(17)
+		emit({ at17 = at17, at19 = at19, none = none })"#,
+		Some(pack_of(&codex, &f["inputs"])),
+	);
+	let out = &out[0];
+	assert_eq!(out["at17"]["label"], "Pick up the quests (1 now \u{b7} 1 at level 19)");
+	assert_eq!(out["at17"]["width"], true, "the button grows with its label");
+	assert_eq!(
+		out["at17"]["tip"],
+		json!([
+			"A guide to the 1 quest here you can take, with what comes before it, ending at the entrance.",
+			"1 more is in your log already.",
+			"Waiting:",
+			"\u{201c}Trouble at the Docks\u{201d}: level 19",
+			"It opens in a new tab."
+		])
+	);
+	assert_eq!(out["at19"]["label"], "Pick up the quests", "all open: the plain label");
+	assert_eq!(out["none"]["label"], "Pick up the quests from level 19");
+	assert!(is_match(out["none"]["tip"][0].as_str().unwrap(), "^Nothing to pick up before the run.+1 more opens at a later level"), "{}", out["none"]["tip"]);
+	assert_eq!(out["none"]["tip"][2], "\u{201c}Trouble at the Docks\u{201d}: level 19");
+}
+
 #[test]
 fn hand_in_the_quests_shows_only_while_one_of_the_pages_quests_is_in_the_log_leads_once_one_is_finished_and_opens_the_hand_in_guide_nothing_finished_says_what_is_open() {
 	let out = run(r#"
@@ -433,7 +609,7 @@ fn hand_in_the_quests_shows_only_while_one_of_the_pages_quests_is_in_the_log_lea
 		emit({ asked = asked, hub = PolestarPicker:IsShown() })"#);
 	let (open, gone, ready, done2) = (&out[0], &out[1], &out[2], &out[3]);
 	assert_eq!(json!([open["lead"], open["quiet"], open["corner"]]), json!([false, "Hand in the quests", "Pick up the quests"]), "beside \"Pick up the quests\", which leads");
-	assert_eq!(open["tip"], json!(["Not finished yet: Leaders of the Fang."]));
+	assert_eq!(open["tip"], json!(["Not finished yet: “Leaders of the Fang”."]));
 	assert_eq!(open["printed"], json!([open["tip"][0]]), "the action says so");
 	assert_eq!(open["tabs"], 0, "and opens no guide");
 	assert_eq!(json!([open["go"], open["map"]]), json!(["Guide me to the entrance", false]), "three actions at most: \"Show on map\" gives way");
@@ -493,7 +669,7 @@ fn quests_the_giver_line_is_a_link_with_a_prerequisite_still_to_do_it_points_at_
 			hides = { hides.StartLink.psTip, hides.StartLink.psTipLines[1] } })"#);
 	let out = &out[0];
 	assert_eq!(out["pins"], json!([[1413, 52.2, 31.9, "Tonga Runetotem"], [1413, 46, 35.7, "Nalpak"]]));
-	assert_eq!(out["fang"], json!(["Set the arrow to Tonga Runetotem", "First pick up Nara Wildmane, which comes before this quest.", "Set the arrow to Tonga Runetotem"]));
+	assert_eq!(out["fang"], json!(["Set the arrow to Tonga Runetotem", "First pick up “Nara Wildmane”, which comes before this quest.", "Set the arrow to Tonga Runetotem"]));
 	assert_eq!(out["hides"], json!(["Set the arrow to Nalpak", "Where this quest starts."]));
 }
 
@@ -557,6 +733,53 @@ fn quests_one_block_per_quest_with_state_level_flags_objective_start_and_end_pin
 	assert_eq!(out["pins"][0], json!([1456, 75.6, 31.2, "Nara Wildmane"]));
 	assert_eq!(out["pins"][1], json!([1413, 52.2, 31.9, "Tonga Runetotem"]));
 	assert_eq!(out["tip"], true, "item hover shows the game tooltip");
+}
+
+// #1380: Blackfathom Deeps' Allegiance to the Old Gods starts from the Damp Note, which no boss drops: the
+// Blackfathom Tide Priestesses do, in the tunnels before the portal, outside the instance. Its card named the
+// item alone. A quest an item starts now names what drops it when no boss does (the mobs outside the dungeon
+// first), says "Picked up inside the dungeon" only when every mob that drops it is inside, and its pin leads
+// to the nearest one outside.
+#[test]
+fn a_quest_an_item_starts_names_the_mobs_that_drop_it_inside_or_outside_the_dungeon_its_pin_leads_to_one_outside_1380() {
+	let f = fixture("dungeons.json");
+	let (mut codex, mut inputs) = (f["codex"].clone(), f["inputs"].clone());
+	let mob = |id: i64, name: &str, instance: Value, spawns: Value| json!({ "id": id, "name": name, "level": 20, "levelMax": 21, "faction": null, "rare": false, "elite": true, "boss": false, "instance": instance, "roles": [], "spawns": spawns });
+	codex["npcs"]["90040"] = mob(90040, "Tide Priestess", Value::Null, json!([{ "map": 1413, "x": 45, "y": 37, "f": "e" }]));
+	codex["npcs"]["90041"] = mob(90041, "Deviate Lurker", json!("wailing-caverns"), json!([]));
+	let item = |id: i64, name: &str, source: Value| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [source] });
+	codex["items"]["90042"] = item(90042, "Damp Note", json!({ "type": "drop", "npc": 90040, "chance": 33 }));
+	codex["items"]["90043"] = item(90043, "Lurker Scale", json!({ "type": "drop", "npc": 90041, "chance": 20, "instance": "wailing-caverns" }));
+	let quest = |id: i64, title: &str, start_item: i64| {
+		json!({
+			"id": id, "title": title, "level": 15, "minLevel": 10, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [], "object": [], "item": [start_item] }, "end": { "npc": [5767], "object": [] },
+			"objectives": [], "pre": [], "zone": 1413, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	codex["quests"]["90044"] = quest(90044, "A Damp Note", 90042);
+	codex["quests"]["90045"] = quest(90045, "A Lurker Scale", 90043);
+	inputs["forever"]["quests"]["90044"] = json!({ "area": 718 });
+	inputs["forever"]["quests"]["90045"] = json!({ "area": 718 });
+	let out = run_pack(
+		r#"
+		Polestar.Dungeons.Open("wailing-caverns")
+		local pins = {}
+		Polestar.Nav.SetTarget = function(map, x, y, label) pins[#pins + 1] = { map, x, y, label } return true end
+		local note, scale = block(90044), block(90045)
+		note.StartPin:Click()
+		emit({ note = { note.Meta:GetText(), plain(note.Start:GetText()), note.StartPin:IsEnabled() },
+			scale = { scale.Meta:GetText(), plain(scale.Start:GetText()), scale.StartPin:IsEnabled() }, pins = pins })"#,
+		Some(pack_of(&codex, &inputs)),
+	);
+	let out = &out[0];
+	assert_eq!(out["note"][1], "Damp Note  \u{b7}  drops from Tide Priestess", "the mob that drops it, though no boss does");
+	assert!(!is_match(out["note"][0].as_str().unwrap(), "Picked up inside the dungeon"), "it drops outside: {}", out["note"][0]);
+	assert_eq!(out["note"][2], true, "its pin leads to the mob outside");
+	assert_eq!(out["pins"][0], json!([1413, 45, 37, "Tide Priestess"]));
+	assert_eq!(out["scale"][1], "Lurker Scale  \u{b7}  drops from Deviate Lurker");
+	assert!(is_match(out["scale"][0].as_str().unwrap(), "Picked up inside the dungeon"), "it drops only inside: {}", out["scale"][0]);
+	assert_eq!(out["scale"][2], false, "nowhere to point the arrow outside");
 }
 
 // #837: Axe of Orgrimmar is blue on its tooltip in the game and green on the page, whose quality comes
@@ -653,7 +876,7 @@ fn bosses_kill_order_level_and_the_quests_each_serves_a_quest_line_opens_the_que
 	let ties = strs(&out["ties"]);
 	assert!(ties.len() >= 2, "{ties:?}");
 	assert!(ties.iter().any(|t| t.contains("Leaders of the Fang")), "{ties:?}");
-	assert!(ties.contains(&"Drops Glowing Shard, which starts The Glowing Shard".into()), "{ties:?}");
+	assert!(ties.contains(&"Drops Glowing Shard, which starts “The Glowing Shard”".into()), "{ties:?}");
 	assert_eq!(out["tab"], "quests");
 	assert!(out["blocks"].as_f64().unwrap() > 0.0);
 }
@@ -794,13 +1017,6 @@ fn a_french_client_a_dungeon_page_and_the_codex_name_quests_npcs_and_items_in_fr
 		stubs: vec!["stub_ui.lua"],
 		before: format!(
 			r#"function GetLocale() return "frFR" end
-do
-	local load = loadfile
-	function loadfile(file)
-		if file:match("[/\\]Locales[/\\]%a%a%u%u%.lua$") then return function() end end
-		return load(file)
-	end
-end
 {fr}
 {}"#,
 			pack.stub_lua
@@ -1083,16 +1299,17 @@ fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside
 	assert_eq!(out[1], json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
 }
 
-// Fitz's design for #836: the card comes at the level-up that opens the dungeon's quests. With Leaders of the
-// Fang (914, Horde, from 18) not yet taken, 16 is below Wailing Caverns' range and at 17 one of its three quests
-// still waits for a later level (two to take: not enough to tell); at 18 all three are open.
+// Fitz's design for #836, offered from one level below the quests' level (Fitz, 2026-11-10: the game gives many
+// 3-5 levels early, and the cards stacked up there). With Leaders of the Fang (914, Horde, level 22, the game gives
+// it from 18) not yet taken, 16 is below Wailing Caverns' range; from 17 to 20 one of its three quests still waits
+// (two to take: not enough to tell); at 21, one below Leaders of the Fang's level, all three are offered.
 #[test]
-fn the_card_comes_at_the_level_up_that_opens_the_dungeons_quests_not_before() {
+fn the_card_comes_one_level_below_the_dungeons_quests_level_not_when_the_game_first_gives_them() {
 	let out = run(&format!(
 		r#"{HEADS_UP}
 		log[914] = nil
 		local seen = {{}}
-		for _, n in ipairs({{ 16, 17, 18 }}) do
+		for _, n in ipairs({{ 16, 17, 18, 20, 21 }}) do
 			uistub.player.level = n
 			levelUp(n)
 			local c = card()
@@ -1100,7 +1317,28 @@ fn the_card_comes_at_the_level_up_that_opens_the_dungeons_quests_not_before() {
 		end
 		emit(seen)"#
 	));
-	assert_eq!(out[0], json!([false, false, "3 quests to pick up  ·  Levels 17–24  ·  The Barrens"]));
+	assert_eq!(out[0], json!([false, false, false, false, "3 quests to pick up  ·  Levels 17–24  ·  The Barrens"]));
+}
+
+// The heads-up's guide picks up by the same rule, its waiting quest coming back at its offer level; the dungeon's
+// page still picks up everything the game gives (Fitz: "still openable early from the menus").
+#[test]
+fn the_heads_up_s_pick_up_plan_waits_for_one_level_below_a_quest_s_level_the_page_s_does_not() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		local D = Polestar.Dungeons
+		local function ids(list) local t = {{}} for _, x in ipairs(list) do t[#t + 1] = (x.quest or x).id end table.sort(t) return t end
+		local offer, page = D.PickupPlan("wailing-caverns", true), D.PickupPlan("wailing-caverns")
+		local w = offer.waiting[1]
+		emit({{ offer = ids(offer.take), waiting = {{ w.quest.id, w.level }}, later = offer.later, page = ids(page.take), pageLater = page.later }})"#
+	));
+	assert_eq!(out[0]["waiting"], json!([914, 21]), "Leaders of the Fang, level 22: from 21");
+	assert_eq!(out[0]["later"], 1);
+	assert_eq!(out[0]["pageLater"], 0);
+	let (offer, page) = (out[0]["offer"].as_array().unwrap(), out[0]["page"].as_array().unwrap());
+	assert!(!offer.contains(&json!(914)) && page.contains(&json!(914)), "{offer:?} {page:?}");
+	assert_eq!(offer.len() + 1, page.len());
 }
 
 // The player's faction only: the Deadmines' one quest is the Alliance's, Leaders of the Fang the Horde's.
@@ -1109,9 +1347,10 @@ fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for
 	let out = run(&format!(
 		r#"{HEADS_UP}
 		log[914] = nil
+		uistub.player.level = 21
 		local function list()
 			local t = {{}}
-			for _, c in ipairs(DT.Candidates(20, "levelup")) do t[#t + 1] = {{ c.key, c.take }} end
+			for _, c in ipairs(DT.Candidates(21, "levelup")) do t[#t + 1] = {{ c.key, c.take }} end
 			return t
 		end
 		emit({{ horde = list() }})
@@ -1220,4 +1459,50 @@ fn a_dungeon_whose_entrance_is_in_the_other_factions_land_says_so_on_the_heads_u
 	assert_eq!(out["more"], "Pick up the quests");
 	assert_eq!(out["wline"], "2 quests to pick up  ·  Levels 17–24  ·  The Barrens");
 	assert_eq!(out["wact"], "Pick up the quests");
+}
+
+// #1730 (danagar, Alliance, Shadowfang Keep): The Orb of Soran'ruk is the Warlocks' quest, and its card said so
+// nowhere: he worked it out from the rewards. The page's quests came without classes (the journal fills them only
+// from dungeons.json), so who a quest is for now comes from the Codex quest's class and race masks. Each card says
+// "Warlock only" with the class in its colour (races too: "Tauren only"), and for a character who may not take it
+// the state chip says "Not for your class" (or race) and the name is muted, the rule the pick-up guide leaves it
+// out by. Lookup's rows name who it is for too. Here Deviate Hides (1486) is made the Warlocks' and Trouble at the
+// Docks (959) the Taurens'; the character is a Tauren Druid, then a Tauren Warlock.
+#[test]
+fn a_quest_only_some_classes_or_races_may_take_says_who_it_is_for_and_one_not_for_you_says_so_1730() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	codex["quests"]["1486"]["classes"] = json!(256);
+	codex["quests"]["959"]["races"] = json!(32);
+	let script = r#"
+		local function card(id)
+			local b = block(id)
+			return { meta = b.Meta:GetText(), plain = plain(b.Meta:GetText()), state = b.State:IsShown() and b.State.Text:GetText() or false,
+				title = { b.Title:GetTextColor() } }
+		end
+		local Lk = Polestar.Lookup
+		local function lookup(id) local _, text = Lk.QuestBlock(Polestar.Codex.Quest(id), Lk.PlayerInfo()) return text or false end
+		Polestar.Dungeons.Open("wailing-caverns")
+		local druid = { hides = card(1486), docks = card(959), lookup = lookup(1486) }
+		uistub.player.class = "WARLOCK"
+		DS.Render()
+		local warlock = { hides = card(1486), docks = card(959), lookup = lookup(1486) }
+		uistub.player.race = "Orc"
+		DS.Render()
+		emit({ druid = druid, warlock = warlock, orc = { docks = card(959), lookup = lookup(959) } })"#;
+	let out = run_pack(script, Some(pack_of(&codex, &f["inputs"]))).remove(0);
+	let (druid, warlock, orc) = (&out["druid"], &out["warlock"], &out["orc"]);
+	let meta = druid["hides"]["meta"].as_str().unwrap();
+	assert!(is_match(druid["hides"]["plain"].as_str().unwrap(), "Warlock only"), "{meta}");
+	assert!(is_match(meta, r"\|cff[0-9a-f]{6}Warlock\|r only"), "the class in its colour: {meta}");
+	assert_eq!(druid["hides"]["state"], "Not for your class");
+	assert_ne!(druid["hides"]["title"], warlock["hides"]["title"], "muted for the Druid, the difficulty colour for the Warlock");
+	assert_eq!(druid["lookup"], "Warlock only", "Lookup's row says who it is for, not only that it isn't yours");
+	assert!(is_match(druid["docks"]["plain"].as_str().unwrap(), "Tauren only"), "{}", druid["docks"]["plain"]);
+	assert_eq!(druid["docks"]["state"], false, "a Tauren may take it");
+	assert!(is_match(warlock["hides"]["plain"].as_str().unwrap(), "Warlock only"), "still says who it is for");
+	assert_eq!(warlock["hides"]["state"], false, "a Warlock may take it: no chip");
+	assert_eq!(warlock["lookup"], false);
+	assert_eq!(orc["docks"]["state"], "Not for your race");
+	assert_eq!(orc["lookup"], "Tauren only");
 }

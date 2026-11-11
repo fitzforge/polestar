@@ -25,8 +25,8 @@ return {
 	-- {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {spell:2983} Sprint
 	-- plural, as words: Defias Drones = {npc:7050} Defias Drone
 	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol."] = "",
-	-- {item:7923} Defias Tower Key · {spell:921} Pick Pocket · {npc:7051} Malformed Defias Drone
-	["{item:7923}: {spell:921} the {npc:7051}"] = "",
+	-- {spell:921} Pick Pocket · {npc:7051} Malformed Defias Drone · {item:7923} Defias Tower Key
+	["{spell:921} the {npc:7051} for the {item:7923}"] = "",
 
 	-- Step 4: Klaven's journal
 	["Klaven's journal"] = "",
@@ -37,8 +37,8 @@ return {
 	["{item:7908}: the {object:123214}, top floor"] = "",
 
 	-- Step 5: Master Mathias Shaw
-	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {item:6947} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {item:6947} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "",
+	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "Ve al norte por Elwynn hasta {zone:1453}; Mathias Shaw está en el piso de arriba de IV:7. Te enseña Venenos y te da la receta de {item:7676}. Los venenos se fabrican, no se compran: cada tanda de {spell:8681} lleva un {item:2928} y un {item:3371}, que {npc:1325} y {npc:1326} venden en {object:2100}, junto a IV:7. Compra un montón de cada uno, abre Venenos desde tu libro de hechizos para fabricarlos y luego aplica un veneno a tu arma.",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "",
 
@@ -50,7 +50,9 @@ return {
 	-- Step 7: The cure's ingredients
 	["The cure's ingredients"] = "Los ingredientes de la cura",
 	-- {zone:1453} Stormwind · {item:3421} Simple Wildflowers · {npc:1303} Felicia Gump · {object:2096} Trade District · {item:3372} Leaded Vial · {npc:1257} Keldric Boucher · {npc:1325} Jasper Fel · {item:4371} Bronze Tube · {item:8431} Spool of Light Chartreuse Silk Thread · {object:2177} The Finest Thread (no name in this language: may be words) · {item:6452} Anti-Venom · {skill:129} First Aid · {spell:526} Cure Poison · {spell:9810} Touch of Zanzil
-	["All four are in {zone:1453}. {item:3421}: Bernard or {npc:1303}'s flower shop by the {object:2096} canal. A {item:3372}: many general goods and alchemy vendors ({npc:1257}, {npc:1325} and others). A {item:4371}: an engineering supplier, who keeps only a few (or an engineer or the Auction House). The {item:8431} lies on the floor beside the left end of the counter in {object:2177}, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an {item:6452} ({skill:129}) or a druid's {spell:526} also clears the {spell:9810}."] = "",
+	["All four are in {zone:1453}. {item:3421}: Bernard or {npc:1303}'s flower shop by the {object:2096} canal. A {item:3372}: many general goods and alchemy vendors ({npc:1257}, {npc:1325} and others). A {item:4371}: the Auction House in the {object:2096}; the engineering suppliers keep only one and are nearly always sold out, and an engineer can make one. The {item:8431} lies on the floor beside the left end of the counter in {object:2177}, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an {item:6452} ({skill:129}) or a druid's {spell:526} also clears the {spell:9810}."] = "",
+	-- {item:4371} Bronze Tube
+	["{item:4371}: the Auction House"] = "",
 
 	-- Step 8: Back to Doc Mixilpixil
 	-- {npc:7207} Doc Mixilpixil

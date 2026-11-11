@@ -174,15 +174,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "Traversez {area:881}, au nord de {zone:1437}, pour entrer dans {zone:1417} (créatures de niveau 30+ hors de la route), puis suivez la route vers l'ouest après {area:320} jusque dans {zone:1424}.",
-	-- ["Flight path here: {area:228} ({npc:2226})."] = "Trajet aérien ici : {area:228} ({npc:2226}).",
 	-- ["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "Depuis {area:925}, prenez le tunnel vers l'ouest jusque dans {zone:1426}. {area:131} et les portes de {zone:1455} sont des terres de l'Alliance.",
 	-- ["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "Depuis {area:925}, la route vers le nord par le col de {area:836} mène dans {zone:1437}.",
-	-- ["Horde guards: touch the edge of {area:228} and move on"] = "Gardes de la Horde : touchez le bord de {area:228} et repartez",
 	-- ["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "Quittez {zone:1426} vers l'est par le tunnel de la porte ; il débouche sur {zone:1432} à {area:925}.",
 	-- ["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "Les Carmines commencent à {area:1002}, où se rejoignent les routes de {zone:1429} et de {zone:1431}.",
 	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "Prenez {area:2257} depuis {object:28027} de {zone:1453} jusqu'à {zone:1455} (ou prenez un vol pour {zone:1455}), puis quittez la ville par ses portes.",
 	-- ["The {area:228}"] = "{area:228}",
-	-- ["{zone:1429} is north of {zone:1436} and {zone:1431}. {area:87}, {area:9} and {zone:1453}'s gates are Alliance ground with guards."] = "{zone:1429} est au nord de {zone:1436} et de {zone:1431}. {area:87}, {area:9} et les portes de {zone:1453} sont des terres de l'Alliance gardées.",
 	-- ["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431} est à l'est de {zone:1436} et au sud de {zone:1429}. Sa route mène à l'est jusqu'à {area:42}.",
 	-- ["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436} borde {zone:1429} à l'ouest : suivez la route au-delà de {area:120}.",
 }

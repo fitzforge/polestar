@@ -38,9 +38,9 @@ ns.IssueURL = "https://github.com/fitzforge/polestar/issues/new"
 local pcall, type, pairs, select, tostring = pcall, type, pairs, select, tostring
 
 -- Translations: a key is the English text, and a missing key renders as
--- itself. A locale file loaded right after this one fills L for its client,
--- so nothing in this file reads L at load: the commands with their help
--- lines register in Commands.lua.
+-- itself. The client's language folder fills L when Core/Locale.lua loads
+-- it, so nothing in this file (nor any before Locale.lua) reads L at load:
+-- the commands with their help lines register in Commands.lua.
 local L = setmetatable({}, { __index = function(_, key) return key end })
 ns.L = L
 
@@ -50,6 +50,20 @@ ns.L = L
 -- "Chest" while there is none.
 function ns.LC(context, text)
 	return rawget(L, context .. ": " .. text) or text
+end
+
+-- A quest's name in running text, in the client's own quote marks ("Turn in
+-- “Your Place in the World”", Havi's suggestion): the translation of
+-- "quote marks: “%s”" (deDE „…“, frFR « … », ruRU «…», zhTW 「…」, ...).
+-- A name that already holds double quotes, guillemets or corner brackets
+-- keeps its own; nil and "" come back as they are.
+local OWN_QUOTES = { '"', "\226\128\156", "\226\128\157", "\226\128\158", "\194\171", "\194\187", "\227\128\140", "\227\128\141", "\227\128\142", "\227\128\143" }
+function ns.Quoted(name)
+	if type(name) ~= "string" or name == "" then return name end
+	for _, q in ipairs(OWN_QUOTES) do
+		if name:find(q, 1, true) then return name end
+	end
+	return ns.LC("quote marks", "\226\128\156%s\226\128\157"):format(name)
 end
 
 -- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c"
@@ -297,12 +311,128 @@ end
 local gamepadUI = readGamepadUI()
 function ns.GamepadUI() return gamepadUI end
 
+---------------------------------------------------------------------------
+-- Hiding Polestar (docs/ARCHITECTURE.md, "Hiding Polestar"): one switch per
+-- character (the minimap button's click, the addon compartment, the
+-- POLESTAR_HIDE binding, /polestar hide), kept through a /reload in
+-- PolestarCharDB.hidden. While it holds nothing of Polestar shows and its
+-- sounds are silent; the engine, party sync and the Recorder run on. With
+-- "Keep the arrow when hidden" (PolestarCharDB.hideKeepsArrow) the arrow,
+-- its travel button and its arrival chime stay (Polestar.ArrowHidden).
+--
+-- Polestar's frames on UIParent hang off one layer of its own,
+-- Polestar.UIParent (PolestarUIParent: the screen's size, at UIParent's
+-- frame level), made with it as their parent and anchored to UIParent as
+-- before. Hiding is the layer's Hide(): each window, card and toast keeps
+-- its own shown state and comes back as it was, and their OnUpdate scripts
+-- stop. Not under it: the secure buttons (a protected child would make the
+-- layer protected in a fight; each goes with ns.GuideShown, changed out of
+-- combat), the arrow (hiding may keep it), and the ways back (the minimap
+-- and floating buttons, the menu they open). The maps' frames hide with
+-- their view (Nav/MapCanvas.lua); the minimap's drawings, the marks on the
+-- game's frames and the tooltip lines ask Polestar.Hidden() and redraw on
+-- POLESTAR_HIDDEN.
+---------------------------------------------------------------------------
+
+local layer = CreateFrame("Frame", "PolestarUIParent", UIParent)
+layer:SetAllPoints(UIParent)
+layer:SetFrameLevel(UIParent:GetFrameLevel())
+ns.UIParent = layer
+
+local hidden, keepArrow = false, false
+
+function ns.Hidden() return hidden end
+function ns.HideKeepsArrow() return keepArrow end
+-- Whether hiding takes the arrow now (its travel button and arrival chime with it).
+function ns.ArrowHidden() return hidden and not keepArrow end
+
+local function underLayer(f)
+	while f do
+		if f == layer then return true end
+		f = f.GetParent and f:GetParent()
+	end
+	return false
+end
+
 -- A Polestar window that Escape closes: listed in UISpecialFrames, which
 -- the gamepad interface's menus also read and close, so not with it on
--- (the window's own close button, and B where it takes the gamepad).
+-- (the window's own close button, and B where it takes the gamepad). While
+-- Polestar is hidden, the windows under its layer leave the list: the
+-- client's CloseSpecialWindows hides a listed window that IsShown, seen or
+-- not, so Escape would close one out of sight instead of opening the menu.
+local escapes, escapeOut = {}, {}
 function ns.CloseOnEscape(name)
 	if gamepadUI or not (UISpecialFrames and name) then return end
+	escapes[name] = true
+	if hidden and underLayer(_G[name]) then
+		escapeOut[name] = true
+		return
+	end
 	tinsert(UISpecialFrames, name)
+end
+
+local function applyLayer()
+	layer:SetShown(not hidden)
+	local list = not gamepadUI and UISpecialFrames
+	if not list then return end
+	if hidden then
+		for i = #list, 1, -1 do
+			local name = list[i]
+			if escapes[name] and underLayer(_G[name]) then
+				table.remove(list, i)
+				escapeOut[name] = true
+			end
+		end
+	else
+		for name in pairs(escapeOut) do
+			tinsert(list, name)
+			escapeOut[name] = nil
+		end
+	end
+end
+
+-- Hide (true) or show everything Polestar shows. POLESTAR_HIDDEN(hidden)
+-- says it changed, GUIDE_SHOWN what goes with the guide (ns.GuideShown).
+function ns.SetHidden(on)
+	on = on and true or false
+	if on == hidden then return end
+	local guide = ns.GuideShown()
+	hidden = on
+	ns.CharState().hidden = on or nil
+	applyLayer()
+	ns.Fire("POLESTAR_HIDDEN", on)
+	if ns.GuideShown() ~= guide then ns.Fire("GUIDE_SHOWN", not guide) end
+end
+
+function ns.ToggleHidden() ns.SetHidden(not hidden) end
+
+-- "Keep the arrow when hidden": while hidden, takes effect at once.
+function ns.SetHideKeepsArrow(on)
+	on = on and true or false
+	if on == keepArrow then return end
+	keepArrow = on
+	ns.CharState().hideKeepsArrow = on or nil
+	if hidden then ns.Fire("POLESTAR_HIDDEN", true) end
+end
+
+-- The character's saved state, as the addon loads (ADDON_LOADED).
+local function loadHidden()
+	local s = ns.CharState()
+	hidden, keepArrow = s.hidden == true, s.hideKeepsArrow == true
+	if hidden then applyLayer() end
+end
+
+-- Polestar's sounds, each tied to something it shows, go through these:
+-- silent while Polestar is hidden, an `arrow` sound (the arrival chime)
+-- while hiding takes the arrow. -> the client's answer, false when silent
+function ns.PlaySound(kit, channel, arrow)
+	if not PlaySound or (arrow and ns.ArrowHidden()) or (not arrow and hidden) then return false end
+	return PlaySound(kit, channel)
+end
+
+function ns.PlaySoundFile(file, channel, arrow)
+	if not PlaySoundFile or (arrow and ns.ArrowHidden()) or (not arrow and hidden) then return false end
+	return PlaySoundFile(file, channel)
 end
 
 local function compact(list)
@@ -455,11 +585,18 @@ local function lookup(root, keys)
 	return node
 end
 
+-- The table DB() made when there was none: before the saved variables load
+-- (a file reading a setting as it loads), the client replaces it with the
+-- saved one if there is one, so still holding it at ADDON_LOADED means a
+-- fresh install.
+local madeDB
+
 local function DB()
 	local db = PolestarDB
 	if type(db) ~= "table" then
 		db = { schema = 1 }
 		PolestarDB = db
+		madeDB = db
 	end
 	if type(db.settings) ~= "table" then db.settings = {} end
 	return db
@@ -510,9 +647,17 @@ end
 -- The guide window's on/off (ui.shown): the action buttons, the party panel
 -- and the rare and transport alerts go with it, the arrow only with
 -- nav.hideArrowWithGuide on (Nav.HiddenWithGuide). An instance hide
--- (ui.instance "hide") takes them too; a combat hide leaves them.
+-- (ui.instance "hide") takes them too; a combat hide leaves them. Hiding
+-- Polestar takes them all.
 local awayInside = false
 function ns.GuideShown()
+	return not hidden and ns.GuideWindowOn()
+end
+
+-- The window's own on/off and instance wait, Polestar hidden or not: what
+-- "Hide the arrow with the guide" and the travel button follow (hiding
+-- Polestar takes those only with the arrow, ns.ArrowHidden).
+function ns.GuideWindowOn()
 	return ns.Get("ui.shown") ~= false and not awayInside
 end
 
@@ -554,17 +699,27 @@ function ns.CharState()
 	if type(s.flags) ~= "table" then s.flags = {} end
 	-- Quest id -> true: the quests the player pinned as along the way (#644; Engine.PinQuest).
 	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end
-	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once.
-	if type(s.guideEnds) ~= "table" then s.guideEnds = {} end
+	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once; it stands only while that end holds, and is forgotten by a reset or when a pack update changes the guide's steps (checkShape).
+	-- Those saved before 0.3.6 (guideEndsV unset) are dropped once: 0.3.5 reused guide ids for other parts of the route, and ended guides by where the player stood (the Undercity at the start of Hillsbrad), so any of them can be false; one without a live step shows nothing either way.
+	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 2 then
+		s.guideEnds, s.guideEndsV = {}, 2
+	end
 	return s
 end
 
 -- A character Polestar had never seen: no saved PolestarCharDB when the addon
 -- loaded. A /reload loads the saved table again, so it reads false after one.
 local newCharacter = false
+-- An account the same way: no saved PolestarDB (a fresh install), or only
+-- the table DB() made while the files loaded.
+local newAccount = false
 
 function ns.IsNewCharacter()
 	return newCharacter
+end
+
+function ns.IsNewAccount()
+	return newAccount
 end
 
 ---------------------------------------------------------------------------
@@ -587,9 +742,11 @@ function ns.IsLoggedIn() return loggedIn end
 local function onAddonLoaded(_, name)
 	if name ~= ADDON then return end
 	ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
+	newAccount = type(PolestarDB) ~= "table" or PolestarDB == madeDB
 	DB()
 	newCharacter = type(PolestarCharDB) ~= "table"
 	ns.CharState()
+	loadHidden()
 	initialized = true
 	local queue = initQueue
 	initQueue = nil
@@ -643,10 +800,13 @@ end
 
 local commands, commandOrder = {}, {}
 
-function ns.RegisterCommand(name, fn, help)
+-- quiet: a command that only prints or sets (status, the arrow's commands);
+-- any other, typed while Polestar is hidden, brings Polestar back first, as
+-- it is asking to see something.
+function ns.RegisterCommand(name, fn, help, quiet)
 	name = name:lower()
 	if not commands[name] then commandOrder[#commandOrder + 1] = name end
-	commands[name] = { fn = fn, help = help }
+	commands[name] = { fn = fn, help = help, quiet = quiet and true or nil }
 end
 
 local function showHelp()
@@ -674,10 +834,21 @@ function ns.RunCommand(msg)
 		showHelp()
 		return
 	end
+	if hidden and not c.quiet then ns.SetHidden(false) end
 	call(c.fn, rest)
 end
 if not gamepadUI then
 	SLASH_POLESTAR1 = "/polestar"
 	SLASH_POLESTAR2 = "/pole"
 	SlashCmdList.POLESTAR = ns.RunCommand
+end
+if not gamepadUI and not SLASH_POLESTAR_RL1 then
+	SLASH_POLESTAR_RL1 = "/rl"
+	SlashCmdList.POLESTAR_RL = function()
+		if C_UI and C_UI.Reload then
+			C_UI.Reload()
+		elseif ReloadUI then
+			ReloadUI()
+		end
+	end
 end

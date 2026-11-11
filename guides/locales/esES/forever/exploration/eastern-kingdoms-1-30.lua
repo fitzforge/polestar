@@ -174,15 +174,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "Cruza {area:881}, en el norte de {zone:1437}, hacia {zone:1417} (criaturas de nivel 30+ fuera del camino), sigue el camino hacia el oeste más allá de {area:320} y continúa hasta {zone:1424}.",
-	-- ["Flight path here: {area:228} ({npc:2226})."] = "Ruta de vuelo aquí: {area:228} ({npc:2226}).",
 	-- ["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "Desde {area:925}, toma el túnel hacia el oeste hasta {zone:1426}. {area:131} y las puertas de {zone:1455} son territorio de la Alianza.",
 	-- ["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "Desde {area:925}, el camino hacia el norte por el paso de {area:836} lleva a {zone:1437}.",
-	-- ["Horde guards: touch the edge of {area:228} and move on"] = "Guardias de la Horda: toca el borde de {area:228} y sigue adelante",
 	-- ["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "Sal de {zone:1426} hacia el este por el túnel de la puerta; da a {zone:1432} en {area:925}.",
 	-- ["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "Las Montañas Crestagrana empiezan en {area:1002}, donde se juntan los caminos de {zone:1429} y {zone:1431}.",
 	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "Toma el {area:2257} desde {object:28027} de {zone:1453} hasta {zone:1455} (o vuela a {zone:1455}) y sal de la ciudad por sus puertas.",
 	-- ["The {area:228}"] = "{area:228}",
-	-- ["{zone:1429} is north of {zone:1436} and {zone:1431}. {area:87}, {area:9} and {zone:1453}'s gates are Alliance ground with guards."] = "{zone:1429} está al norte de {zone:1436} y {zone:1431}. {area:87}, {area:9} y las puertas de {zone:1453} son territorio de la Alianza con guardias.",
 	-- ["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431} está al este de {zone:1436} y al sur de {zone:1429}. Su camino va hacia el este hasta {area:42}.",
 	-- ["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436} linda al oeste con {zone:1429}: sigue el camino más allá de {area:120}.",
 }

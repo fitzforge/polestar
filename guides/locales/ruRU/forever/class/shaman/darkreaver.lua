@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:2057} Scholomance · {item:20134} Skyfury Helm
-	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "",
+	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "Бой в подземелье {area:2057} на 60-м уровне ради репутации у Орды; в Forever предмета {item:20134} может не быть.",
 	["200 Horde reputation"] = "200 очков репутации у Орды",
 
 	-- Step 1: Sagorne Creststrider

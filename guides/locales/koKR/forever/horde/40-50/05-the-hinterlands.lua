@@ -6,115 +6,118 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Fly to Hammerfall
-	-- {area:321} Hammerfall
-	["Fly to {area:321}"] = "",
+	-- Step 1: Fly to Tarren Mill
+	-- {area:272} Tarren Mill
+	["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 2: Fly to Tarren Mill
-	-- {area:272} Tarren Mill
-	["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
-	-- {area:321} Hammerfall
-	["{area:321} flight master"] = "",
-
-	-- Step 4: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "{npc:7801}의 야영지",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "",
 
-	-- Step 5: Highvale
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "{area:272}에서 북동쪽 {zone:1425}로 들어가 길을 따라 동쪽으로 가세요. {npc:7801}은(는) 엘프의 {area:350} 남쪽 언덕에 야영하고 있습니다.",
+
+	-- Step 4: Highvale
 	["Highvale"] = "깊은골짜기",
 	-- {area:350} Quel'Danil Lodge · {npc:7780} Rin'ji
 	["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way.\nCareful: Groups of about three elves ambush the escort, usually twice."] = "",
 
-	-- Step 6: Violet Tragan
+	-- Step 5: Violet Tragan
 	["East of the village, the violet flower grows in the hills."] = "마을 동쪽 언덕에 보라색 꽃이 자랍니다.",
 	["Underwater"] = "",
 
-	-- Step 7: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "",
+	-- Step 6: Revantusk Village
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "길을 따라 동쪽으로 {zone:1425}을(를) 가로질러 동쪽 해안의 트롤 마을로 가세요.",
 
-	-- Step 9: On the way
-	["On the way"] = "",
+	-- Step 8: Revantusk Village
+	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
+	["{quest:7849}, {quest:7845} and {quest:7850} are group quests: they send you into {area:354}, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.\n{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "",
 
-	-- Step 10: The Overlook Cliffs: kill these as you meet them
+	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "",
-	-- {npc:2491} Whiskey Slim
-	["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "큰 거북은 마을 북쪽 해변을 기어다닙니다. {npc:2491}의 포트와인 병도 이 해변에 있지만, 그의 퀘스트는 이 경로에 없습니다. 무쇠턱바다거북이 드물게 OOX-09/HL 조난 탐지기를 떨어뜨릴 수 있습니다. 보관하세요.",
+	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "",
+	-- {object:2068} Pupellyverbos Port
+	["{object:2068}, on the beaches"] = "",
 	-- {item:8704} OOX-09/HL Distress Beacon
 	["{item:8704}, a rare drop"] = "드물게 떨어지는 {item:8704}",
 
-	-- Step 11: The Overlook Cliffs: kill these as you meet them
-	-- {npc:7977} Gammerita
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	-- Step 10: The Overlook Cliffs: kill these as you meet them
+	-- {npc:7977} Gammerita · {area:307} The Overlook Cliffs
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "이들은 정예 몹입니다. 파티를 권장하니 함께할 사람을 찾아보세요. {npc:7977}은(는) 48레벨 정예입니다. 50레벨이면 대부분의 직업이 혼자 처치할 수 있지만 도움이 필요할 수도 있습니다. 혼자라면 건너뛰세요. 경로에서 경험치를 사냥으로 다시 채웁니다.\n{npc:7977}은(는) {area:307} 아래 해안을 걸어 다니며, 화살표에서 남쪽으로 약 75,66, 북쪽으로 약 82,52까지 이동합니다. 화살표 위치에 없다면 해안을 따라가세요.",
 
-	-- Step 12: Rin'ji's Secret
+	-- Step 11: Rin'ji's Secret
 	-- {area:307} The Overlook Cliffs
 	["The secret lies on the {area:307}, above the beach."] = "비밀은 해변 위쪽 {area:307}에 있습니다.",
 	-- {npc:7825} Oran Snakewrithe · {zone:1458} Undercity
 	["for {npc:7825} in the {zone:1458}, around level 50"] = "50레벨쯤 {zone:1458}의 {npc:7825}에게",
 
-	-- Step 13: Lard's lunch
+	-- Step 12: Lard's lunch
 	-- {npc:14731} Lard
 	["{npc:14731}'s lunch"] = "{npc:14731}의 점심",
 	-- {npc:14731} Lard · {npc:14748} Vilebranch Kidnapper
 	["North along the coast, {npc:14731}'s picnic basket is on the small island; a {npc:14748} guards it."] = "해안을 따라 북쪽으로 가면 작은 섬에 {npc:14731}의 소풍 바구니가 있습니다. {npc:14748}이(가) 지키고 있습니다.",
 
-	-- Step 15: Shaol'watha: kill these as you meet them
+	-- Step 14: Shaol'watha: kill these as you meet them
 	-- {area:1917} Shaol'watha
 	["{area:1917}: kill these as you meet them"] = "",
 	-- {area:1884} Agol'watha · {area:1917} Shaol'watha · {area:351} Skulk Rock · {item:9618} Wildkin Muisek Vessel · {npc:14738} Otho Moji'ko · {spell:7367} Infected Bite · {npc:2925} Silvermane Howler
 	-- plural, as words: Silvermane Stalkers = {npc:2926} Silvermane Stalker · Savage Owlbeasts = {npc:2929} Savage Owlbeast · Razorbeak Skylords = {npc:2659} Razorbeak Skylord · Long Elegant Feathers = {item:4589} Long Elegant Feather
 	["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "",
 
-	-- Step 16: Skulk Rock
+	-- Step 15: Skulk Rock
 	-- {item:8684} Hinterlands Honey Ripple · {area:351} Skulk Rock
 	["The crates of {item:8684} lie around the abandoned Horde camp at {area:351}, among the oozes."] = "{item:8684} 상자는 {area:351}의 버려진 호드 야영지 주변, 수액괴물 사이에 있습니다.",
 
-	-- Step 17: Wildkin Muisek
+	-- Step 16: Wildkin Muisek
 	-- {area:1883} Valorwind Lake
 	["Careful: Stealthed wolves and griffons roam the {area:1883} area."] = "",
 
-	-- Step 18: The Altar of Zul: kill these as you meet them
+	-- Step 17: The Altar of Zul: kill these as you meet them
 	-- {area:355} The Altar of Zul
 	["{area:355}: kill these as you meet them"] = "",
 	-- {area:355} The Altar of Zul · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Silvermane Howlers = {npc:2925} Silvermane Howler
-	["On the way back east, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "",
+	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "",
 
-	-- Step 19: OOX-09/HL
+	-- Step 18: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
 	-- {area:351} Skulk Rock · {area:307} The Overlook Cliffs · {area:35} Booty Bay
 	["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "",
 
-	-- Step 20: Gilveradin Sunchaser's camp
+	-- Step 19: Gilveradin Sunchaser's camp
 	-- {npc:6986} Dran Droffers · {zone:1454} Orgrimmar
 	["for {npc:6986} in {zone:1454}, around level 50"] = "50레벨쯤 {zone:1454}의 {npc:6986}에게",
 
-	-- Step 21: Highvale
+	-- Step 20: Highvale
 	-- {area:350} Quel'Danil Lodge
 	["Back west to {area:350}; rangers and marksmen stay near the lodge, scouts and outrunners on the slopes south of it."] = "서쪽의 {area:350}(으)로 돌아가세요. 순찰대와 명사수는 산장 근처에, 정찰대와 길잡이는 그 남쪽 비탈에 있습니다.",
 
-	-- Step 22: Jintha'Alor
+	-- Step 21: Jintha'Alor
 	-- {area:354} Jintha'Alor · {npc:14757} Elder Torntusk
-	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "사냥꾼 마코르의 해골은 썩은가지부족 폐허 아래 더미에, 뼈는 {area:354} 기슭의 더미에 있습니다. 오염된 피가 담긴 용기는 아래쪽 계단식 단에 있고, {npc:14757}은(는) 꼭대기에 갇혀 있습니다. 길에서 벗어나지 마세요. 안쪽의 트롤은 정예입니다.",
+	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "",
 	-- {npc:14757} Elder Torntusk · {area:354} Jintha'Alor
 	["{npc:14757}, at the top of {area:354}"] = "{area:354} 꼭대기의 {npc:14757}",
 	-- {area:355} The Altar of Zul
 	["His next request, going on to the {area:355}, is for a group."] = "그의 다음 요청인 {area:355} 진입은 파티용입니다.",
 
-	-- Step 23: Revantusk Village
+	-- Step 22: Revantusk Village
 	-- {npc:14731} Lard
 	["{npc:14731}, inside"] = "",
 
+	-- Step 23: Revantusk Village
+	-- {npc:14736} Primal Torntusk · {npc:14731} Lard
+	["{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "",
+
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "",
-	-- {quest:7816} Gammerita, Mon!
-	["If you skipped {quest:7816}, grind here to level 49.02 to stay on the route's plan."] = "",
+	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "",
 
@@ -132,60 +135,69 @@ return {
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "{area:348} 우물",
 
-	-- Step 30: Hearth to Revantusk Village
-	-- {area:3317} Revantusk Village
-	["Hearth to {area:3317}"] = "",
-
-	-- Step 31: Revantusk Village
-	-- {area:3317} Revantusk Village
-	["The next guide starts here, at {area:3317}."] = "다음 가이드는 여기 {area:3317}에서 시작합니다.",
-
-	-- Step 32: Fly to Stonard
+	-- Step 31: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "{area:75}(으)로 날아가기",
 	-- {area:3317} Revantusk Village
 	["{area:3317} flight master"] = "",
 
-	-- Step 33: Fel'zerul
+	-- Step 32: Fel'zerul
 	["On the top floor"] = "",
 
-	-- Step 34: The bloodmages
+	-- Step 33: Fallen Hero of the Horde
+	-- {zone:1419} Blasted Lands
+	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "",
+
+	-- Step 35: Fallen Hero of the Horde
+	-- {npc:7623} Dispatch Commander Ruag · {area:75} Stonard · {zone:1419} Blasted Lands
+	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "",
+
+	-- Step 36: The bloodmages
 	["The bloodmages"] = "피의 마법사",
 	-- {area:75} Stonard · {zone:1419} Blasted Lands
 	["Ride west out of {area:75} and south through the canyon into the {zone:1419}; the two bloodmages stand by the road just inside."] = "{area:75}에서 서쪽으로 나가 협곡을 지나 남쪽 {zone:1419}(으)로 가세요. 피의 마법사 둘은 들어가자마자 길가에 서 있습니다.",
 
-	-- Step 35: Serpent's Coil: kill these as you meet them
+	-- Step 37: Serpent's Coil: kill these as you meet them
 	-- {area:1440} Serpent's Coil
 	["{area:1440}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
 	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 36: The bloodmages
+	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "북쪽의 피의 마법사에게 돌아가세요.",
 	["Their follow-ups ask for the same parts again for a buff item and pay no experience: leave them."] = "후속 퀘스트는 강화 아이템을 위해 같은 재료를 다시 요구하며 경험치를 주지 않습니다. 받지 마세요.",
+
+	-- Step 39: Stonard
+	-- {area:75} Stonard
+	["Ride back north through the canyon to {area:75}."] = "",
+	-- {npc:7643} Bengor · {npc:950} Swamp Talker
+	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "길 동쪽 비탈에서는 잿빛갈기멧돼지와 꿀꿀이가 붉은바위 바실리스크 옆에서 땅을 뒤집니다. 더 남쪽의 52레벨 지옥멧돼지는 피하세요.",
 	-- ["Fly to the {area:1497}"] = "{area:1497}(으)로 날아가기",
-	-- ["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "길을 따라 동쪽으로 {zone:1425}을(를) 가로질러 동쪽 해안의 트롤 마을로 가세요.",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "길을 따라 동쪽으로 {area:47}을(를) 가로질러 동쪽 해안의 트롤 마을로 가세요.",
 	-- ["From {area:1446}'s flight master."] = "{area:1446}의 비행 조련사에게서",
 	-- ["Grind to 48"] = "48레벨까지 사냥",
+	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "사냥꾼 마코르의 해골은 썩은가지부족 폐허 아래 더미에, 뼈는 {area:354} 기슭의 더미에 있습니다. 오염된 피가 담긴 용기는 아래쪽 계단식 단에 있고, {npc:14757}은(는) 꼭대기에 갇혀 있습니다. 길에서 벗어나지 마세요. 안쪽의 트롤은 정예입니다.",
 	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of {spell:19478} sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "사냥꾼 마코르의 해골은 썩은가지부족 폐허 아래 더미에, 뼈는 {area:354} 기슭의 더미에 있습니다. {spell:19478}이(가) 담긴 용기는 아래쪽 계단식 단에 있고, {npc:14757}은(는) 꼭대기에 갇혀 있습니다. 길에서 벗어나지 마세요. 안쪽의 트롤은 정예입니다.",
 	-- ["On the way back east, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps."] = "동쪽으로 돌아가는 길에, 중앙 언덕 남쪽의 트롤 사원인 {area:355}을(를) 썩은가지부족 예언자가 차지하고 있습니다. 퀴아가와 {npc:8636}(정예, 50)은(는) 꼭대기에 있습니다. 아래 계단의 예언자를 상대하세요.",
 	-- ["Only if you are not level 48 yet."] = "아직 48레벨이 아닐 때만",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "조난 탐지기가 있을 때만: 로봇은 {area:351} 서쪽 강의 상류에 있습니다. 동쪽으로 {area:307} 너머 해안까지 호위하세요. 보상은 {area:35}의 오글소프에게서 받습니다.",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "북쪽의 {area:75}(으)로 돌아가 {area:1497}(으)로 날아가세요.",
-	-- ["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "{area:272}에서 북동쪽 {zone:1425}로 들어가 길을 따라 동쪽으로 가세요. {npc:7801}은(는) 엘프의 {area:350} 남쪽 언덕에 야영하고 있습니다.",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "{area:272}에서 북동쪽 {area:47}로 들어가 길을 따라 동쪽으로 가세요. {npc:7801}은(는) 엘프의 {area:350} 남쪽 언덕에 야영하고 있습니다.",
 	-- ["Saltwater Snapjaws"] = "무쇠턱바다거북",
 	-- ["Silvermane Howlers"] = "긴울음 은빛갈기늑대",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "남서쪽, 마른나무껍질부족 마을 동쪽 언덕에 긴울음 은빛갈기늑대가 돌아다닙니다.",
 	-- ["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way."] = "깊은골짜기 엘프는 {area:350} 주변에 야영하고 있습니다. 그들의 야영지에서 보고서, 쪽지, 기록을 불태우세요. {npc:7780}은(는) 산장 안에 갇혀 있습니다. 밖으로 데리고 나오며 도중의 매복을 물리치세요.",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "긴발톱 은빛갈기늑대, 포악한 올빼미야수, 우두머리 뾰족부리그리핀이 사원과 {area:351} 사이 언덕에 함께 있습니다. 처치한 올빼미야수에 {item:9618}을(를) 사용하세요. 우두머리 뾰족부리그리핀은 길고 고운 깃털도 떨어뜨립니다. {npc:14738}의 두 번째 전갈을 위해 열 개를 보관하세요.",
 	-- ["The Vilebranch temples"] = "썩은가지부족 사원",
+	-- ["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "큰 거북은 마을 북쪽 해변을 기어다닙니다. {npc:2491}의 포트와인 병도 이 해변에 있지만, 그의 퀘스트는 이 경로에 없습니다. 무쇠턱바다거북이 드물게 OOX-09/HL 조난 탐지기를 떨어뜨릴 수 있습니다. 보관하세요.",
 	-- ["The central hills"] = "중앙 언덕",
 	-- ["The eastern slopes"] = "동쪽 비탈",
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "퀘스트 다섯 개가 같은 재료를 요구합니다. 한 번에 모두 모으세요. 길 서쪽 언덕에는 {npc:5982}, 굶주린 칼송곳니하이에나, 스콜포크 독침전갈, 죽음의 눈 바실리스크가 함께 있습니다.",
+	-- ["The next guide starts here, at {area:3317}."] = "다음 가이드는 여기 {area:3317}에서 시작합니다.",
 	-- ["The northern beasts"] = "북쪽의 짐승들",
 	-- ["Vilebranch soothsayers"] = "썩은가지부족 예언자",
 	-- ["Vulture hills"] = "대머리수리 언덕",

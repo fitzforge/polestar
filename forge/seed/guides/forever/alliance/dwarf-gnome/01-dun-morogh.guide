@@ -386,7 +386,7 @@ step Brewnall Village
 step Frostmane Hold
   tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for Rejold. Kill Headhunters at its mouth and walk through to its far end.
   kill 1123 quest 287                         -- Frostmane Headhunter
-  goto 22.8,52.1 "Frostmane Hold"
+  goto 21.3,54.2 "Frostmane Hold"
   complete 287
 
 step Gnomes, bears and leopards
@@ -445,7 +445,8 @@ step Kharanos
   tip Back east through Kharanos: the class quests here wait for level 10.
   accept 6064 only Hunter                     -- Grif Wildheart, at the smithy
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
-  accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priestess Laurena in Stormwind takes it
+  level 10 only Priest
+  accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priest Rohan in Ironforge takes it
   accept 94824 only Priest,Gnome              -- Maxan Anvol: High Priestess Mims in Ironforge takes it
 
 step Taming the Beast

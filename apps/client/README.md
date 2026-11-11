@@ -34,6 +34,34 @@ the upload API, and the public list of what is never collected.
   (its opt-out is unknown). With sharing off, the Recording section's "Help
   improve Polestar's guides" page (what is shared, what never is) offers
   "Start sharing" again.
+- **Explorer mode** (Settings). The Recorder's explorer mode (more about the
+  game world in Forever's new zones and dungeons, docs/RECORDING.md) is on
+  unless the player turns it off here. Until the switch is used the client
+  writes no flag and the Recorder decides; from then on Ack.lua carries
+  `PolestarRecorderExplore = true|false`, which the Recorder reads at login
+  or /reload. What we send's "Never sent" tab says what explorer mode adds.
+- **Connecting** (`net.rs`). Requests go out the normal way: the system's
+  DNS, certificate checks and proxy. Only requests to the recording server
+  fall back when that can't connect: IPv4 only; the bundled Mozilla
+  certificate authorities added to the system's verifier (only after a
+  certificate from an authority the system doesn't know, or where it has
+  none; the system still checks revocation and distrust); a DNS-over-HTTPS
+  lookup of `data.polestar.guide` / `polestar.guide` (never another name) at
+  Cloudflare (1.1.1.1, 1.0.0.1) and Google (8.8.8.8), which then see the
+  lookup and the PC's IP address. The first that connects is kept for the
+  recording server until the next start, and Status names it. When the
+  environment's proxy itself can't be reached, that one request goes without
+  it (never kept). The recording server's client follows no redirects and is
+  https only; GitHub's is https only. Certificates are always checked. When a
+  request to the recording server, the community site or GitHub gets no
+  answer, the message names the cause (`net::cause`: DNS, a refused or reset
+  connection, a certificate, a timeout) and what to try.
+- **Out of sight, still** (`src/lib/still.ts`, `src/lib/sight.svelte.ts`).
+  Minimized, closed to the tray, or unfocused for 20 seconds, the page pauses
+  every animation (`html.still` in `app.css`) and its 1-second clock; the
+  decorative ones (the band's twinkle, the status light's breaths) end after
+  a few cycles anyway and replay when the window comes back into sight. Only
+  work in progress loops (`tests/client-still.test.js` holds the list).
 - **Client updates** are looked for at launch and every 6 hours (Settings >
   About also has "Check for client updates"). One waiting shows as a banner
   in the title strip at the top of every page, "A new Polestar Client is
@@ -71,6 +99,14 @@ the upload API, and the public list of what is never collected.
   looked for every 6 hours (off in Settings) and announced in the tray;
   they install by themselves only if you turn that on, and never while the
   game is running. The Stable channel offers releases, Beta pre-releases too.
+  After each check (and after installing or updating Polestar, whose release
+  ships the file empty) the client writes the newest Polestar releases into
+  `Interface/AddOns/Polestar/ClientInfo.lua` (`src-tauri/src/clientinfo.rs`;
+  releases only, whatever the channel; only when the text changes), so the
+  addon's update card knows what is out and that the client can update it
+  (docs/RECORDING.md "Client info"). A newest release whose notes carry
+  `<!-- polestar: probe off -->` adds `probe = false`, which stops the
+  addon's version probe.
 - **Community** installs Community Guides players publish on
   [polestar.guide](https://polestar.guide): installed guides first, then the
   others, searchable by title and author, each with Install, Update, Remove,

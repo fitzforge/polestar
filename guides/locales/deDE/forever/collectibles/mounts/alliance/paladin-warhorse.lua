@@ -12,11 +12,11 @@ return {
 
 	-- Step 1: The Tome of Nobility (Ironforge)
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {npc:5149} Brandur Ironhammer · {area:2257} Deeprun Tram
-	["At 40 {npc:6179}, upstairs in the {object:32386}, sends you to {npc:6171} in {zone:1453} ({npc:5149} downstairs gives the same errand; take one). Take the {area:2257} to {zone:1453}."] = "",
+	["At 40 {npc:6179}, upstairs in the {object:32386}, sends you to {npc:6171} in {zone:1453} ({npc:5149} downstairs gives the same errand; take one). Take the {area:2257} to {zone:1453}."] = "Auf Stufe 40 schickt dich {npc:6179}, oben in der {object:32386}, zu {npc:6171} in {zone:1453} ({npc:5149} unten gibt denselben Auftrag; nimm einen). Nimm die {area:2257} nach {zone:1453}.",
 
 	-- Step 4: Summon Warhorse
 	-- {npc:6171} Duthorian Rall · {quest:1661} The Tome of Nobility · {spell:13819} Summon Warhorse
-	["{npc:6171} stands in the Cathedral of Light. At 40 he offers {quest:1661}: accept it and hand it straight back to learn {spell:13819}. Paladins do not buy a horse."] = "",
+	["{npc:6171} stands in the Cathedral of Light. At 40 he offers {quest:1661}: accept it and hand it straight back to learn {spell:13819}. Paladins do not buy a horse."] = "{npc:6171} steht in der Kathedrale des Lichts. Auf Stufe 40 bietet er {quest:1661} an: Nimm sie an und gib sie sofort zurück, um {spell:13819} zu lernen. Paladine kaufen kein Pferd.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:5149} in the {object:32362} sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the tram from {zone:1455} to {zone:1453}."] = "Auf Stufe 40 schickt dich {npc:5149} im {object:32362} zu {npc:6171} in der Kathedrale des Lichts in {zone:1453}. Nimm die Tiefenbahn von {zone:1455} nach {zone:1453}.",

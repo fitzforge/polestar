@@ -205,9 +205,10 @@ static PER_LANGUAGE: &[(&str, [(&str, &str); 9])] = &[(
 /// What a language folder's name starts with: Polestar_<locale>.
 pub const LANGUAGE_PREFIX: &str = "Polestar_";
 
-/// The language folder of `locale` (docs/ARCHITECTURE.md, "Names" and "Guide texts"): our guides'
-/// texts (Texts.lua, `forge guide compile`) and the game's names (Names.lua, `forge data names`) in
-/// that language, in one load-on-demand addon that both Core/GuideTexts.lua and Core/Names.lua load.
+/// The language folder of `locale` (docs/ARCHITECTURE.md, "Localisation", "Names" and "Guide texts"):
+/// Polestar's interface strings (Interface.lua, `forge i18n sync`), our guides' texts (Texts.lua,
+/// `forge guide compile`) and the game's names (Names.lua, `forge data names`) in that language, in one
+/// load-on-demand addon that Core/Locale.lua loads on a client in that language.
 pub fn language_addon(locale: &str) -> String {
 	format!("{LANGUAGE_PREFIX}{locale}")
 }
@@ -218,8 +219,12 @@ pub fn retired_language_addons(locale: &str) -> [String; 2] {
 	[format!("Polestar_Guides_{locale}"), format!("Polestar_Names_{locale}")]
 }
 
-/// The language folder's files, in load order: every writer of the folder lists both.
-pub const LANGUAGE_FILES: [&str; 2] = ["Names.lua", "Texts.lua"];
+/// The language folder's interface strings (`forge i18n sync` and the translators): never written or
+/// removed by `forge guide compile` or `forge data names`.
+pub const INTERFACE_FILE: &str = "Interface.lua";
+
+/// The language folder's files, in load order: every writer of the folder lists all three.
+pub const LANGUAGE_FILES: [&str; 3] = [INTERFACE_FILE, "Names.lua", "Texts.lua"];
 
 /// <Polestar_<locale>>.toc, written whole and alike by `forge guide compile` (Texts.lua) and
 /// `forge data names` (Names.lua), so either may run first. `version`: the release's.
@@ -277,7 +282,7 @@ static PER_RACE: [(&str, &str); 9] = [
 	("Polestar 指南（%2）", "Polestar 為%2角色提供的升級指南及其步行路線。按需載入。"),
 ];
 
-/// Each race in each language as addon/Polestar/Locales/ has it: RACE_NAMES[locale][race], LOCALE_CODES and
+/// Each race in each language as the interface files (addon/Polestar_<locale>/Interface.lua) have it: RACE_NAMES[locale][race], LOCALE_CODES and
 /// RACE_FILES order.
 static RACE_NAMES: [[&str; 9]; 9] = [
 	["Mensch", "Orc", "Zwerg", "Nachtelf", "Untoter", "Tauren", "Gnom", "Troll", "Himmelsgeborene"],

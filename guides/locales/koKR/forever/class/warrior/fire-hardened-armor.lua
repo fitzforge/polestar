@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "불에 달궈 만든 갑옷",
-	["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -48,7 +48,7 @@ return {
 	["Charred and Galvanized Horns"] = "까맣게 탄 뿔과 번개 뿔",
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {area:460} in the {area:465}: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "",
+	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "키메라는 {area:460} 남서쪽의 {area:465}에 삽니다. 가이드는 먼저 26레벨까지 기다립니다. 어린 키메라(25-27레벨)와 새끼 키메라(23-25)에게서 까맣게 탄 뿔 12개가 필요하며 다섯 마리 중 네 마리꼴로 떨어지고, {npc:6167}(28, 큰 녀석)에게서 {item:6840}도 필요한데 역시 다섯 번에 네 번 떨어집니다. 그곳에는 어린 키메라 세 마리, 새끼 두 마리, 우두머리 한 마리만 살며 각각 5분 뒤에 다시 나타나므로 기다릴 각오를 하세요. 어린 키메라와 우두머리는 {spell:3396}을(를) 뱉고, 새끼는 {spell:403}을(를) 시전합니다. 얼라이언스: {area:467}(으)로 날아가서 남쪽으로 가세요.",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
@@ -71,29 +71,33 @@ return {
 	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "",
 
 	-- Step 12: Burning Blood
-	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {spell:3427} Infected Wound
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. {npc:6170} (level 32, not elite) carries the {item:6845} (also four in five): he walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. {npc:6170} and the Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "",
+	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "{area:42} 남쪽과 서쪽에 있는 {zone:1431}의 파멸의어둠일족 늑대인간(암흑길잡이, 송곳니투사, 흑마술사, 늑대인간, 타락전사, 26-31레벨)은 다섯 마리 중 네 마리꼴로 {quest:1705}을(를) 떨어뜨립니다. 타락전사는 독을 쓰고 울부짖으며, 송곳니투사는 {spell:3427}을(를) 겁니다.",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "",
+
+	-- Step 13: Gutspill
+	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
+	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170}(32레벨, 정예 아님)은(는) {item:6845}을(를) 지니고 있으며 다섯 번에 네 번꼴로 떨어뜨립니다. 가이드는 먼저 30레벨까지 기다립니다. 그는 {area:42} 남동쪽 {area:2161} 광산의 안쪽과 입구 사이를 오가므로, 입구에서 기다렸다가 밖으로 끌어내세요. 독을 쓰고 울부짖습니다.",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "",
 
-	-- Step 14: Mathiel
+	-- Step 15: Mathiel
 	-- {quest:1703} Mathiel · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
 	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "",
 
-	-- Step 15: Sunscorched Shells
+	-- Step 16: Sunscorched Shells
 	-- {area:482} Highperch · {zone:1441} Thousand Needles
 	-- plural, as words: Highperch Wyverns = {npc:4107} Highperch Wyvern
 	["The shells lie on the ground under the wyvern nests at {area:482} in western {zone:1441}, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once."] = "",
 
-	-- Step 17: Klockmort Spannerspan
+	-- Step 18: Klockmort Spannerspan
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
 	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "",
 
-	-- Step 18: Iron Coral
-	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Elixir of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an {item:5996} removes the risk."] = "",
+	-- Step 19: Iron Coral
+	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
 	["{item:6848}, from {quest:1708}"] = "",
 

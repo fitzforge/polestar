@@ -12,7 +12,7 @@ reward item 6971
 reward item 6973
 reward item 6974
 reward item 6970
-why A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way.
+why Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths.
 
 # The Alliance Warrior armor chain: Yorus Barleybrew, The Rethban Gauntlet and
 # The Shieldsmith (1698, 1699, 1702, level 20-22: Furen's Favor), Fire Hardened
@@ -46,6 +46,11 @@ why A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shi
 # runs from Redridge to Stonetalon, the Wetlands and the capitals.
 # Fire Hardened Mail and the pieces after it (level 28-30) are near or above
 # the beta's level cap: that part is written from the data, not from play.
+# Level holds (the #1667 rule: a goal waits until its mobs' top level is at
+# most 2 above you): the chimaeras (Matriarch 28) and Roogug (28 elite) wait
+# for 26, Gutspill (32) for 30, in his own step after the worgen (26-31, open
+# from 26 by then). Players' recordings: the horns and Roogug at 30, the
+# Burning Blood and the rock at 31.
 
 step Yorus Barleybrew (Stormwind)
   only Human,Skyborne
@@ -93,7 +98,8 @@ step Scorched Spider Fangs
 
 step Charred and Galvanized Horns
   zone Stonetalon Mountains
-  tip The chimaeras live south-west of Sun Rock Retreat in the Charred Vale: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the Galvanized Horn from the Chimaera Matriarch (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit Corrosive Poison, the Young cast Lightning Bolt. Alliance: fly to Stonetalon Peak and head south.
+  tip The chimaeras live south-west of Sun Rock Retreat in the Charred Vale; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the Galvanized Horn from the Chimaera Matriarch (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit Corrosive Poison, the Young cast Lightning Bolt. Alliance: fly to Stonetalon Peak and head south.
+  level 26
   collect 6839 x12 quest 1701.2               -- Charred Horn, from the young chimaeras
   collect 6840 quest 1701.3                   -- Galvanized Horn, from the Chimaera Matriarch
 
@@ -123,8 +129,14 @@ step Grimand Elmore
 step Burning Blood
   only Human,Skyborne
   zone Duskwood
-  tip The Nightbane worgen of Duskwood (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of Darkshire drop the Burning Blood four kills in five. Gutspill (level 32, not elite) carries the Burning Rock (also four in five): he walks between the inside and the mouth of the Roland's Doom mine south-east of Darkshire, so wait at the entrance and pull him outside. Gutspill and the Tainted Ones poison and howl; Vile Fangs cause Infected Wound.
+  tip The Nightbane worgen of Duskwood (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of Darkshire drop the Burning Blood four kills in five. The Tainted Ones poison and howl; Vile Fangs cause Infected Wound.
   collect 6844 x20 quest 1705.1               -- Burning Blood, from the Nightbane worgen
+
+step Gutspill
+  only Human,Skyborne
+  zone Duskwood
+  tip Gutspill (level 32, not elite) carries the Burning Rock, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the Roland's Doom mine south-east of Darkshire, so wait at the entrance and pull him outside. He poisons and howls.
+  level 30
   collect 6845 quest 1705.2                   -- Burning Rock, from Gutspill
 
 step Grimand's Armor
@@ -168,7 +180,7 @@ step Klockmort Spannerspan
 step Iron Coral
   only Dwarf,Gnome
   zone Wetlands
-  tip The Iron Coral grows on the sea floor just south of Menethil Harbor, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an Elixir of Water Breathing removes the risk.
+  tip The Iron Coral grows on the sea floor just south of Menethil Harbor, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a Draught of Water Breathing removes the risk.
   collect 6848 x20 quest 1708.1               -- Searing Coral, from Iron Coral
 
 step Klockmort's Creation

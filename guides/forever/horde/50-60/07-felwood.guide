@@ -12,7 +12,7 @@ zone Felwood
 
 step Tirisfal Glades
   zone Tirisfal Glades
-  goto 63.0,74.4 "Tirisfal Glades"
+  goto 63.0,74.4 "The zeppelin towers"
 
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
@@ -20,14 +20,15 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  goto 45.3,63.7 "Orgrimmar"
+  when !has 14047 x60
+  goto 45.3,63.7 "Orgrimmar flight master"
 # Built from the simulator's consensus route (Horde, visits 102-116) and
 # machine-checked with lint; not play-tested on Forever yet. The end of the
 # Horde leveling chain.
 #
-# Optional here: Toxic Horrors and Winterfall Runners (5086, 5087), which
-# follow a rare Winterspring drop, and Runecloth (6031), which Meilosh takes
-# only at Neutral with the Timbermaw.
+# Toxic Horrors and Winterfall Runners (5086, 5087) end the Winterfall
+# Firewater chain from 03-winterspring (taken since 0.3.7). Optional here:
+# Runecloth (6031), which Meilosh takes only at Neutral with the Timbermaw.
 #
 # Flow: the Undercity -> zeppelin to Orgrimmar (cloth donations) -> fly to
 # Splintertree Post -> ride north into Felwood: the Emerald Sanctuary (Greta,
@@ -75,12 +76,16 @@ step Orgrimmar
 
 # ---------------------------------------------------------------- Orgrimmar
 
-step Zeppelin to Orgrimmar
-  when onquest 7836,7824
+step Vehena
+  when has 14047 x60
   zone Orgrimmar
-  tip From the Undercity, take the zeppelin from the tower outside the city to Orgrimmar.
-  turnin 7836 optional                -- sixty Runecloth, if you carry them
-  turnin 7824 optional
+  tip In the Valley of Spirits.
+  turnin 7836 direct -- sixty Runecloth
+
+step Rashona Straglash
+  when has 14047 x60
+  zone Orgrimmar
+  turnin 7824 direct -- sixty Runecloth
 
 step Fly to Splintertree Post
   zone Orgrimmar
@@ -90,7 +95,7 @@ step Fly to Splintertree Post
 
 step Felwood
   zone Felwood
-  goto 51.2,82.1 "Felwood"
+  goto 51.2,82.1 "The Emerald Sanctuary"
 
 # ---------------------------------------------------------------- Southern Felwood
 
@@ -115,13 +120,6 @@ step Greta Mosshoof
   turnin 5165
   accept 5242
 
-step Level 59.54
-  zone Winterspring
-  when level<59.54
-  tip Top up here to level 59.54 before the hand-ins at Bloodvenom Post : they take you to level 60.
-  goto 27.9,34.5 map 1452 "Winterfall Totemic"
-  level 59.54                          -- grind on Winterfall Totemic
-
 # ---------------------------------------------------------------- Northern Felwood
 
 step Bloodvenom Post
@@ -136,19 +134,24 @@ step A Final Blow
   kill 9861 quest 5242.1              -- Below ground
   kill 9860 quest 5242.2              -- Below ground
   collect 13207 quest 5242.3          -- Below ground
+  collect 11515 x6 -- Corrupted Soul Shards from the cultists, Salve via Hunting
+
+step Maybess Riverbreeze
+  when available 5887
+  tip On the way back south to Greta, Maybess takes the shards on the west side of the Sanctuary.
+  turnin 5887 direct -- Maybess Riverbreeze
 
 step Greta Mosshoof
   tip South to the Sanctuary once more.
   turnin 5242
 
 step Toxic Horrors
-  tip Only if Donova gave you Toxic Horrors: ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees.
-  collect 12822 quest 5086.1 optional
-  level 59.65                          -- grind on Winterfall Totemic
+  tip Ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees, and most of them drop a droplet.
+  collect 12822 quest 5086.1
 
 step Moonglade
   zone Moonglade
-  goto 44.9,35.6 "Moonglade"
+  goto 44.9,35.6 "Umber"
 
 # ---------------------------------------------------------------- Moonglade
 
@@ -170,59 +173,53 @@ step Rabine Saturna
   note Rabine's Shards of the Felvine needs Dire Maul. Skip it.
 
 step Umber
-  accept 1185                         -- Umber walks around Nighthaven: look inside the circle on the map
-  turnin 1185
+  turnin 1185 direct
 
 step Winterspring
   zone Winterspring
-  goto 31.3,45.2 "Winterspring"
-
-step Donova Snowden
-  turnin 980                          -- From Krakle in Un'Goro
-  accept 4842
-
-# ---------------------------------------------------------------- Winterspring
+  goto 31.3,45.2 "Donova Snowden"
 
 step Donova Snowden
   zone Winterspring
   tip Back into the Timbermaw tunnel and take the Winterspring exit; Donova camps by the hot springs just outside.
-  turnin 5086 optional
-  accept 5087 optional
+  turnin 980                          -- From Krakle in Un'Goro
+  accept 4842
+  turnin 5086
+  accept 5087
+
+# ---------------------------------------------------------------- Winterspring
 
 step Winterfall Runners
-  tip Only if you carry Winterfall Runners: the runners walk the road from Timbermaw Hold toward Winterfall Village in small groups; wait by the road near Donova and kill them as they pass. Each one carries a crate.
+  tip The runners walk the road from Timbermaw Hold toward Winterfall Village in small groups; wait by the road near Donova and kill them as they pass. Each one carries a crate.
   tip Careful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with Feign Death, and they then gather by the lake so you can take the next quest.
-  collect 12829 quest 5087.1 optional
+  collect 12829 quest 5087.1
 
 step Salfa
   turnin 8464
-  accept 8469
 
 step Beads for Salfa
   tip Any Winterfall furbolg can carry the beads; the camps just south of Salfa are the closest.
   goto 31.6,36.6 "Frostfire Winterfall camp"
-  collect 21383 quest 8469.1
+  collect 21383 x5
 
 step Salfa
-  turnin 8469
+  turnin 8469 direct
 
 step Meilosh
-  when onquest 6031,8470
+  when complete 6031
   zone Felwood
-  tip Only with 30 Runecloth, and only at Neutral with the Timbermaw: follow the road north to Timbermaw Hold; Meilosh trades just inside the entrance.
-  turnin 6031 optional                -- Below ground
-  turnin 8470 optional                -- Kernda, at the tunnel mouth; walks around here: look inside the circle on the map
+  tip With 30 Runecloth in your bags: follow the road north to Timbermaw Hold; Meilosh trades just inside the entrance.
+  turnin 6031                         -- Below ground
 
-step Level 59.9
-  zone Winterspring
-  when level<59.9
-  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60.
-  goto 27.9,34.5 map 1452 "Winterfall Totemic"
-  level 59.9                          -- grind on Winterfall Totemic
+step Kernda
+  when onquest 8470
+  zone Felwood
+  tip The Deadwood totem from Felpaw Village, if Kernda didn't take it then: she waits at the tunnel mouth of Timbermaw Hold and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of Felwood brought you to.
+  turnin 8470                         -- Kernda walks around here: look inside the circle on the map
 
 step Winterspring
   zone Winterspring
-  goto 59.8,74.3 "Winterspring"
+  goto 59.8,74.3 "Darkwhisper Gorge"
 
 # ---------------------------------------------------------------- Darkwhisper Gorge and Winterfall Village
 
@@ -231,14 +228,21 @@ step Darkwhisper Gorge
   goto 59.8,74.2 "Darkwhisper Gorge"
   complete 4842
 
+step Level 59.9
+  zone Winterspring
+  when level<59.9
+  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. The Rabid Shardtooths (59) of Frostwhisper Gorge, just north of the strange source, give far more experience than the furbolgs by Timbermaw Hold. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  goto 60.1,71.2 map 1452 "Rabid Shardtooth"
+  level 59.9 grind 7446               -- grind on Rabid Shardtooth
+
 step Donova Snowden
   tip Ride back west to Frostfire Hot Springs.
   turnin 4842
-  turnin 5087 optional                -- Donova Snowden
+  turnin 5087                         -- Donova Snowden
   note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
 
 step Are We There, Yeti?
-  kill 10978 quest 5163.1 @61.5,38.6 map 1452
+  kill 10978 quest 5163.1 @61.5,38.6 map 1452 "Scare Legacki with Umi's Mechanical Yeti"
 
 step Everlook
   tip Ride east along the road to Everlook.
@@ -253,6 +257,6 @@ step Dungeon instead of grinding
 step Grind to 60
   tip The quests run out here. Rabid Shardtooths prowl Frostwhisper Gorge in southern Winterspring, south of the road from Everlook.
   goto 60.1,71.2 "Frostwhisper Gorge"
-  level 60 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
+  level 60 grind 7446 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
   train class optional only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- In Orgrimmar: fly from Everlook
   train class optional only Druid,Paladin -- In Thunder Bluff: fly from Everlook

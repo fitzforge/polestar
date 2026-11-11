@@ -17,6 +17,7 @@ step Orgrimmar
   turnin 4300                         -- Jes'rimon, the Cleft of Shadow
   sethome "Orgrimmar"
   accept 8276                         -- Cenarion Emissary Blackhoof, Valley of Wisdom: keep it for Silithus
+  accept 3504                         -- Belgrom Rockmaul, Valley of Honor: carried from the first Azshara visit, else take it here for Ag'tor in Valormok
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Fly to Ratchet
@@ -39,35 +40,15 @@ step Islen Waterseer
   note Cleansed Water goes to the Emerald Sanctuary in Felwood: keep it for later.
 
 step Dokimi's crates
-  tip Ride north up the road to the Crossroads; Dokimi stands there. Open each crate she hands you and bring back what is inside. Fly on to Orgrimmar from the Crossroads.
-  accept 91899
-  complete 91899
-  turnin 91899
-  accept 91904
-  complete 91904
-  turnin 91904
-
-step Vehena
-  zone Orgrimmar
-  tip In the Valley of Spirits. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  turnin 7833 optional
-  turnin 7834 optional
-  turnin 7835 optional
-  accept 7836 optional
-
-step Rashona Straglash
-  tip In the Valley of Honor.
-  turnin 7826 optional
-  turnin 7827 optional
-  turnin 7831 optional
-  accept 7824 optional
-  note Both Runecloth donations are handed in later in the route: save sixty Runecloth for each if you want them.
-
-# ---------------------------------------------------------------- Orgrimmar
+  tip Ride north up the road to the Crossroads; Dokimi stands there. Open each crate she hands you and bring back what is inside. Fly on to Valormok from the Crossroads.
+  collect 248765
+  turnin 91899 direct
+  collect 248770
+  turnin 91904 direct
 
 step Fly to Valormok
-  zone Orgrimmar
-  goto 45.3,63.7 "Orgrimmar flight master"
+  zone The Barrens
+  goto 51.5,30.4 "Crossroads flight master"
   fly "Valormok"
   zone Azshara
 
@@ -135,26 +116,73 @@ step Zeppelin to Undercity
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
 
-step Prompt Potion Runner
+step Chemist Cuely
   zone Undercity
-  accept 97891                        -- Alessandro Luca
-  turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
+  tip Chemist Cuely and Thersa Windsong work in the Apothecarium.
   turnin 3568                         -- Chemist Cuely
   accept 3569
   turnin 3569                         -- Thersa Windsong, beside him
-  accept 3570 npc 8390
-  turnin 3570
+  turnin 3570 direct
 
 step The Undercity
   zone Undercity
-  tip Take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades and ride into the Undercity. Lady Sylvanas holds the Royal Quarter.
+  tip Lady Sylvanas holds the Royal Quarter.
   accept 5961
 
 step Royal Quarter
   turnin 5023                         -- Royal Overseer Bauhaus
+
+step Royal Overseer Bauhaus
+  when available 5049
   accept 5049
+
+step Jeremiah Payson
+  when onquest 5049
   turnin 5049                         -- Jeremiah Payson, nearby
+
+step Jeremiah Payson
+  when available 5050
   accept 5050
   note Good Luck Charm goes back to Janice Felstone in the Western Plaguelands: keep it.
+
+step Royal Quarter
   accept 79095 optional               -- Only with The Apothecary's Metaphysical Primer from Brill's alchemy shop in your bags (the Library Books guide)
   turnin 79095 optional
+
+step Tirisfal Glades
+  zone Tirisfal Glades
+  goto 83.0,71.9 "The Bulwark"
+
+step The Bulwark
+  zone Tirisfal Glades
+  tip Ride east out of the Undercity along the road; the Bulwark guards the way into the Western Plaguelands.
+  turnin 6029                         -- Argent Officer Garush
+
+step Western Plaguelands
+  zone Western Plaguelands
+  goto 36.9,57.4 "Felstone Field"
+
+step Felstone Field
+  zone Western Plaguelands
+  tip Janice Felstone's farm is the first one east of the Bulwark. Jabbering Ghouls on the farm carry the other half of her charm; Cauldron Lord Bilemaw guards the cauldron in the field.
+  tip Careful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron.
+  collect 13194 quest 5229.1 @36.9,57.4 map 1422
+  turnin 5229                         -- Scourge Cauldron
+  accept 5230
+
+step Janice Felstone
+  zone Western Plaguelands
+  when onquest 5050
+  turnin 5050                         -- Upstairs
+
+step Janice Felstone
+  zone Western Plaguelands
+  when available 5051
+  accept 5051                         -- Upstairs
+
+step Good Luck Other-Half-Charm
+  zone Western Plaguelands
+  when onquest 5051
+  collect 12722 x1 "Good Luck Other-Half-Charm"
+  complete 5051
+  turnin 5051

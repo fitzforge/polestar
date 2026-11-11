@@ -66,7 +66,7 @@ pub mod questdb;
 pub mod run;
 pub mod tmp;
 
-pub use locale::fake_locale;
+pub use locale::{fake_locale, shipped_strings};
 pub use run::{build_program, emitted, lua_string, lua_value, run_addon, run_addon_output, Addon, Output, RunAddon, Session};
 
 /// The Lua line registering the pack the tests put their guides in: pack `test`, guide ids under `test/`

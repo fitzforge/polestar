@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 28] = [
+pub const GUIDE_KEYS: [&str; 29] = [
 	"id",
 	"pack",
 	"title",
@@ -67,21 +67,24 @@ pub const GUIDE_KEYS: [&str; 28] = [
 	"group",
 	"names",
 	"written",
+	"sections",
 	"steps",
 ];
-/// `image` follows note, so a step without one is emitted as before.
-pub const STEP_KEYS: [&str; 9] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "goals"];
+/// `image` follows note, so a step without one is emitted as before; so does `section`.
+pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "section", "goals"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-pub const WHEN_KEYS: [&str; 17] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy"];
+pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 73] = [
+pub const GOAL_KEYS: [&str; 81] = [
 	"t",
 	"class",
+	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
+	"zone",
 	"spell",
 	"spellName",
 	"faction",
@@ -107,15 +110,25 @@ pub const GOAL_KEYS: [&str; 73] = [
 	"rankMax",
 	"level",
 	"frac",
+	// A `level` goal's mob (`grind <npc>`): its spawn areas are the goal's `spots`.
+	"grind",
 	"money",
 	"untilSkill",
+	// A `craft … until` goal's skill-up colours (the engine's crafts still to make).
+	"yellow",
+	"grey",
 	"reagents",
 	"location",
 	"minLevel",
 	"qlvl",
+	// An `accept`'s time limit in seconds (the data's quest `limit`): Dynamic Questing takes a timed quest early
+	// only when the route's walk to it still fits.
+	"limit",
 	"pre",
 	"preAll",
 	"closedBy",
+	// A child quest's parent (the data's `parent`): its giver offers it only while the parent is in the log (#1661).
+	"parent",
 	"preTitles",
 	"text",
 	"node",
@@ -144,6 +157,8 @@ pub const GOAL_KEYS: [&str; 73] = [
 	"fromId",
 	"fromAlsoId",
 	"fromNpcs",
+	// Per spot, the places in `fromNpcs` of the sources spawning there, where the spots hold more than it named (#1616).
+	"fromNpcsAt",
 	"candidates",
 	"rewards",
 	"group",
@@ -156,6 +171,8 @@ pub const GOAL_KEYS: [&str; 73] = [
 	"objs",
 	"startItem",
 	"startItemName",
+	// Quest work handed in only by a later guide of the chain: that guide's id (validate.rs, Ctx::mark_carried).
+	"carriedTo",
 ];
 const REAGENT_KEYS: [&str; 3] = ["item", "itemName", "count"];
 /// A `complete` goal's `objs`: each objective's text and count.
@@ -173,6 +190,8 @@ const SPOT_KEYS: [&str; 7] = ["x", "y", "z", "r", "n", "alt", "lvl"];
 const REWARD_KEYS: [&str; 3] = ["item", "itemName", "quality"];
 /// A guide's `reward = { ... }`: an item (`choice` when one of several), a spell or words.
 const GUIDE_REWARD_KEYS: [&str; 7] = ["item", "itemName", "quality", "choice", "spell", "spellName", "text"];
+/// A profession guide's `sections` (`section <Profession> <from>-<to>`): its skill-range headings.
+const SECTION_KEYS: [&str; 4] = ["skill", "skillLine", "from", "to"];
 
 /// LIST_DECIMALS[k]: farm-spot rates (items per kill) need three decimals; coordinates are already rounded to two.
 fn list_decimals(k: &str) -> usize {
@@ -194,6 +213,7 @@ pub fn list_keys(k: &str) -> Option<&'static [&'static str]> {
 		"items" => &REWARD_KEYS,
 		"choices" => &REWARD_KEYS,
 		"reward" => &GUIDE_REWARD_KEYS,
+		"sections" => &SECTION_KEYS,
 		_ => return None,
 	})
 }

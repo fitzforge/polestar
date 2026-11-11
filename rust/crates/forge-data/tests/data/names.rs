@@ -85,7 +85,7 @@ fn the_fixture_packs_match_the_expected_files() {
 	}
 	let toc = &got["Polestar_frFR/Polestar_frFR.toc"];
 	assert_eq!(*toc, forge_guide::toc::language_toc("frFR", &toc_line(toc, "Interface"), &toc_line(toc, "Version")), "the language folder's TOC, as `forge guide compile` writes it");
-	for line in ["## LoadOnDemand: 1", "## Dependencies: Polestar", "## Group: Polestar", "Names.lua", "Texts.lua"] {
+	for line in ["## LoadOnDemand: 1", "## Dependencies: Polestar", "## Group: Polestar", "Interface.lua", "Names.lua", "Texts.lua"] {
 		assert!(toc.lines().any(|l| l == line), "{line}");
 	}
 	let lic = &got["Polestar_frFR/LICENSE-DATA.txt"];
@@ -223,6 +223,11 @@ fn no_questie_pfquest_only_and_a_language_without_names_loses_its_names_but_keep
 		}
 	}
 	assert!(files_of(&dir)["Polestar_frFR/Names.lua"].contains("Lardeur (pfQuest)"));
+	// The interface strings (Interface.lua) keep the folder too, without the texts.
+	std::fs::remove_file(dir.join("Polestar_esMX/Texts.lua")).unwrap();
+	std::fs::write(dir.join("Polestar_esMX/Interface.lua"), "-- interface strings\n").unwrap();
+	names::run(&o, &|_| {}).unwrap();
+	assert!(dir.join("Polestar_esMX/Interface.lua").exists(), "the interface strings stay");
 	let json: serde_json::Value = serde_json::from_str(&r.json()).unwrap();
 	assert!(json["ding"].is_null() && json["wago"].is_null() && json["web"].is_null());
 	assert_eq!(json["locales"]["frFR"]["names"]["npc"], 2);

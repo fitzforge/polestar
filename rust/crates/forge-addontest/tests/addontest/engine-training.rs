@@ -320,6 +320,57 @@ fn every_class_trainer_counts_not_only_the_reminder_s_one_per_town_capital_train
 	assert_eq!(out, json!({ "pet": false, "weapon": false, "riding": false, "merchant": false }));
 }
 
+// A Night Elf Hunter dinged 20 at the Farstrider Lodge, trained with Dargh Trueaim there, and Loch Modan's
+// `train class` step still sent him to Regnus Thundergranite in Ironforge (#1507): the class trainer list
+// lacked Dargh and the other trainers the trainer data has. Training with any trainer of the class ticks it;
+// portal trainers are no class trainers.
+#[test]
+fn training_with_dargh_trueaim_at_the_farstrider_lodge_ticks_loch_modan_s_train_class_step_1507() {
+	let added = [
+		("HUNTER", 10930),
+		("HUNTER", 987),
+		("HUNTER", 1404),
+		("HUNTER", 3963),
+		("HUNTER", 5501),
+		("HUNTER", 8308),
+		("DRUID", 8142),
+		("DRUID", 9465),
+		("DRUID", 270459),
+		("MAGE", 331),
+		("PALADIN", 8140),
+		("PRIEST", 5994),
+		("SHAMAN", 986),
+		("WARLOCK", 988),
+		("WARRIOR", 985),
+		("WARRIOR", 8141),
+	];
+	for (cls, npc) in added {
+		let out = run(None, &format!("stub.world.class = \"{cls}\""), &format!("emit({{ yes = Polestar.Engine.IsClassTrainer({npc}) }})"));
+		assert_eq!(out["yes"], true, "{cls} {npc}");
+	}
+	let out = run(None, r#"stub.world.class = "MAGE""#, "emit({ portal = Polestar.Engine.IsClassTrainer(2489) })");
+	assert_eq!(out["portal"], false, "Milstaff Stormeye, a portal trainer");
+
+	let out = run(
+		None,
+		r#"local w = stub.world
+		w.addMap(1432, { name = "Loch Modan", c = 0, left = -1993.75, right = -4752.083, top = -4487.5, bottom = -6327.083 })
+		w.race, w.raceName, w.faction, w.class = "NightElf", "Night Elf", "Alliance", "HUNTER"
+		w.level = 20
+		w.moveTo(1432, 82.4, 62.5)
+		Polestar.RegisterGuide({ id = "test/loch", pack = "test", title = "Loch Modan", faction = "Alliance", minLevel = 15, maxLevel = 21, steps = {
+			{ goals = { { t = "train", class = true, candidates = { { npc = 5117, npcName = "Regnus Thundergranite", map = 1455, x = 69.87, y = 82.9, f = "e", faction = "A", classes = { "HUNTER" } } } } } },
+			{ goals = { { t = "level", level = 21 } } },
+		} })"#,
+		r#"Polestar.Engine.SetGuide("test/loch") stub.advance(0.5)
+		local before = Polestar.Engine.GetStepIndex()
+		stub.world.trainer(10930); stub.advance(0.5)
+		stub.world.learnSpell(14281); stub.advance(0.5)
+		emit({ before = before, after = Polestar.Engine.GetStepIndex() })"#,
+	);
+	assert_eq!(out, json!({ "before": 1, "after": 2 }), "trained with Dargh Trueaim: the step is done");
+}
+
 // Grezz trains warriors in step 1; step 2 holds the route; step 3 trains again.
 const AGAIN: &str = r#"
 local grezz = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } }
@@ -348,6 +399,49 @@ fn train_class_asks_nothing_when_there_is_nothing_new_trained_at_this_level_or_a
 	assert_eq!(at(13, Some(12), "stub.world.setLevel(14) stub.advance(0.5)"), 2, "passed at 13, then 14");
 }
 
+// A Dwarf at 19 stood at Ironforge's trainer with nothing new, and Loch Modan's `train class` step held
+// the guide (2026-11-09): no spell was learned, and no visit had been recorded at 18. A class trainer's
+// list with no "available" service is the visit for the level; with one, the step waits for the spell.
+#[test]
+fn train_class_is_done_when_the_class_trainer_lists_nothing_to_learn_and_waits_for_the_spell_when_it_lists_one() {
+	let play = |services: &str, filter_off: bool, after: &str| {
+		let pre = format!(
+			r#"stub.world.level = 19
+			SERVICES = {services}
+			function GetNumTrainerServices() return #SERVICES end
+			function GetTrainerServiceInfo(i) local s = SERVICES[i] if s then return s[1], s[2] end end
+			{}"#,
+			if filter_off { "function GetTrainerServiceTypeFilter(kind) return kind ~= \"available\" end" } else { "" }
+		);
+		run(
+			None,
+			&pre,
+			&format!(
+				r#"{AGAIN} stub.advance(0.5)
+				local before = Polestar.Engine.GetStepIndex()
+				stub.world.trainer(3353); stub.advance(0.5)
+				local open = Polestar.Engine.GetStepIndex()
+				{after}
+				emit({{ before = before, open = open, after = Polestar.Engine.GetStepIndex(), visit = PolestarCharDB.classTrainVisit or false }})"#
+			),
+		)
+	};
+	let used = r#"{ { "Battle Shout", "used" }, { "Cleave", "unavailable" } }"#;
+	assert_eq!(play(used, false, ""), json!({ "before": 1, "open": 2, "after": 2, "visit": 19 }), "nothing to learn at 19: done");
+	assert_eq!(play("{}", false, ""), json!({ "before": 1, "open": 2, "after": 2, "visit": 19 }), "an empty list: done");
+	let one = r#"{ { "Battle Shout", "used" }, { "Hamstring", "available" } }"#;
+	assert_eq!(play(one, false, "stub.world.learnSpell(1715); stub.advance(0.5)"), json!({ "before": 1, "open": 1, "after": 2, "visit": 19 }), "a spell to learn: waits until it is learned");
+	assert_eq!(play(one, false, "stub.world.close(); stub.advance(0.5)"), json!({ "before": 1, "open": 1, "after": 1, "visit": false }), "closed without training: still open");
+	// With the "available" filter off the list hides what could be learned: no word either way.
+	assert_eq!(play(used, true, ""), json!({ "before": 1, "open": 1, "after": 1, "visit": false }), "filter off: unknown");
+	// The list after the last purchase (TRAINER_UPDATE) has nothing left.
+	assert_eq!(
+		play(one, false, r#"SERVICES[2][2] = "used"; stub.fire("TRAINER_UPDATE"); stub.advance(0.5)"#),
+		json!({ "before": 1, "open": 1, "after": 2, "visit": 19 }),
+		"nothing left after training"
+	);
+}
+
 #[test]
 fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_window_or_a_first_sight_does_not() {
 	let out = run(
@@ -362,4 +456,45 @@ fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_wind
 			emit({ before = before or false, opened = opened or false, visit = PolestarCharDB.classTrainVisit })"#,
 	);
 	assert_eq!(out, json!({ "before": false, "opened": false, "visit": 12 }));
+}
+
+// The guide's class training stop `at` applicable steps from the first: walks across the Barrens, then Orgrimmar.
+fn trains_at(at: usize) -> String {
+	let mut steps: Vec<String> = (1..at).map(|i| format!(r#"{{ title = "Walk {i}", goals = {{ {{ t = "goto", map = 1413, x = {}, y = 30 }} }} }}"#, 40 + i)).collect();
+	steps.push(
+		r#"{ title = "Orgrimmar", goals = { { t = "train", class = true, candidates = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } } } } }"#
+			.into(),
+	);
+	steps.push(r#"{ goals = { { t = "level", level = 20 } } }"#.into());
+	format!(r#"Polestar.RegisterGuide({{ id = "test/orgrimmar-{at}", pack = "test", title = "To Orgrimmar", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {{ {} }} }})"#, steps.join(", "))
+}
+
+const ADVICE: &str = r#"stub.advance(0.5)
+local a = Polestar.Engine.TrainingAdvice()
+local t = Polestar.Engine.NearestClassTrainer(true)
+emit({ guide = a.guide or false, steps = a.steps, title = a.title, trainer = a.trainer and a.trainer.npc or false,
+	planner = t and t.npc or false, due = #DUE, dueNpc = DUE[1] and DUE[1].npc or false })"#;
+
+#[test]
+fn at_the_crossroads_with_the_guide_training_in_orgrimmar_in_10_steps_the_advice_is_the_guide_s_stop_and_names_no_trainer() {
+	let out = run(Some(&on_guide("test/orgrimmar-10", 10)), &trains_at(10), ADVICE);
+	assert_eq!(out["guide"], true, "{out}");
+	assert_eq!(out["steps"], 10);
+	assert_eq!(out["title"], "Orgrimmar");
+	assert_eq!(out["trainer"], false, "no other trainer named: {out}");
+	// The reminder itself still comes (the stop is past its 4-step hold); the banner words it from the advice.
+	assert_eq!(out["due"], 1, "{out}");
+}
+
+#[test]
+fn with_no_guide_stop_within_10_steps_the_advice_is_the_planner_s_trainer_the_reminder_names() {
+	let out = run(Some(&on_guide("test/orgrimmar-11", 10)), &trains_at(11), ADVICE);
+	assert_eq!(out["guide"], false, "{out}");
+	assert_eq!(out["steps"], 11);
+	assert_ne!(out["trainer"], false, "{out}");
+	assert_eq!(out["trainer"], out["planner"], "ranked by the travel planner on the guide's way: {out}");
+	assert_eq!(out["trainer"], out["dueNpc"], "the banner's trainer and the advice agree: {out}");
+	let none = run(Some(&on_guide("test/barrens", 10)), "", ADVICE);
+	assert_eq!(none["steps"], false, "{none}");
+	assert_eq!(none["trainer"], none["planner"], "{none}");
 }

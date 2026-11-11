@@ -384,7 +384,7 @@ fn chill_of_death(ctx: &Ctx, c: &mut Check) {
 const BUY_AT_TURNIN: [(&str, i64, f64, f64, Option<f64>, &str); 7] = [
 	("forever/alliance/30-40/01-hillsbrad-foothills.guide", 555, 3713.0, 1.0, Some(2381.0), "the Soothing Spices for Chef Jessen"),
 	("forever/alliance/40-50/01-stranglethorn-vale.guide", 1218, 3713.0, 3.0, Some(4897.0), "the Soothing Spices for \"Swamp Eye\" Jarl, from Theramore"),
-	("forever/horde/30-40/04-dustwallow-marsh.guide", 1218, 3713.0, 3.0, None, "the Soothing Spices for \"Swamp Eye\" Jarl, bought in Ratchet in the Arathi guide"),
+	("forever/horde/30-40/04-dustwallow-marsh.guide", 1218, 3713.0, 3.0, None, "the Soothing Spices for \"Swamp Eye\" Jarl, bought in Orgrimmar at the start of the Dustwallow guide"),
 	(TELDRASSIL, 99050, 3371.0, 1.0, Some(3614.0), "the Empty Vial for Byancie"),
 	(TELDRASSIL, 99050, 159.0, 1.0, Some(6736.0), "the Refreshing Spring Water for Byancie"),
 	("forever/collectibles/mounts/alliance/paladin-charger.guide", 7645, 13724.0, 20.0, Some(10857.0), "the Enriched Manna Biscuits for Merideth Carlson, from Chillwind Camp"),
@@ -633,7 +633,7 @@ fn talk_to(ctx: &Ctx, c: &mut Check) {
 	let talks = [
 		("forever/horde/03-silverpine-forest.guide", 93739, 1.0, "Nazgrel"),
 		("forever/horde/03-silverpine-forest.guide", 93739, 2.0, "Vol'jin"),
-		(STONETALON, 93739, 4.0, "Lady Sylvanas Windrunner"),
+		("forever/horde/03-silverpine-forest.guide", 93739, 4.0, "Lady Sylvanas Windrunner"),
 		(ASHENVALE_HORDE, 93739, 3.0, "Cairne Bloodhoof"),
 	];
 	for (guide, quest, oi, name) in talks {

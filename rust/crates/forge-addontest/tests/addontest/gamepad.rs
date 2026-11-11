@@ -291,6 +291,37 @@ fn the_guide_menu_y_on_a_continue_card_closes_that_tab() {
 	assert_eq!(out[1], json!({ "calls": [["CloseTab", 1]], "shown": true }));
 }
 
+// #1358: a Browse folder's header is a line the focus reaches; A folds its guides away and back, the focus
+// staying on it. The focus starts on a guide, never on a header.
+#[test]
+fn the_guide_menu_a_on_a_browse_folder_s_header_folds_it_and_unfolds_it() {
+	let out = run(r#"
+		local P = UI.Picker
+		UI.ShowPicker()
+		P.SetCategory("Leveling")
+		P.Select(nil)
+		PolestarPicker:Hide()
+		UI.ShowPicker()
+		stub.advance(0.3)
+		local start = G.Focused(PolestarPicker)
+		-- A press makes the focus the player's; then onto the header.
+		stub.press("PADDDOWN")
+		local h
+		for _, f in ipairs(stub.frames) do
+			if f.psFolder == "Leveling/Alliance/1" and f:IsShown() then h = f end
+		end
+		G.SetFocus(PolestarPicker, h)
+		local before = h.psPadLabel
+		stub.press("PAD1")
+		local r = { start = start and start.psGuide ~= nil, before = before, folded = P.IsCollapsed("Leveling/Alliance/1"), after = h.psPadLabel,
+			still = G.Focused(PolestarPicker) == h }
+		stub.press("PAD1")
+		r.unfolded = not P.IsCollapsed("Leveling/Alliance/1")
+		emit(r)
+	"#);
+	assert_eq!(out[0], json!({ "start": true, "before": "Collapse", "folded": true, "after": "Expand", "still": true, "unfolded": true }));
+}
+
 #[test]
 fn a_menu_over_a_window_holds_the_gamepad_until_b_then_the_window_has_it_back_where_it_was() {
 	let out = run(r#"

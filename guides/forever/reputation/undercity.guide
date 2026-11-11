@@ -8,7 +8,7 @@ zone Undercity
 keywords Undercity, Ralston Farnsley, cloth quartermaster, cloth donation, Runecloth, Additional Runecloth, Wool, Silk, Mageweave, Nathanos Blightcaller, The Bulwark, Scourge Cauldrons, The Spider God, Shadra, Venom to the Undercity, Deathknell, Brill, skeletal horse, Zachariah Post
 reward text Exalted with the Undercity
 reward item 18791
-why The Plaguelands' level 55-60 quests and Runecloth to Exalted, with Tirisfal's old quests as an optional extra.
+why Tirisfal quests while you level, the Plaguelands quests from 55, then Runecloth to Exalted.
 
 # Built from Forever's quest data: every quest that pays Undercity reputation,
 # with the value from Forever's own quest pages, the world database (quest
@@ -24,13 +24,14 @@ why The Plaguelands' level 55-60 quests and Runecloth to Exalted, with Tirisfal'
 # Diplomat adds 2% a rank, 10% at 5/5: the numbers here leave it out. City
 # reputation also gives a quarter to the other Horde cities (Faction table:
 # parent Horde, 0.25), except starting-zone quests.
-# Low-level quests: in Classic a quest 6 or more levels below you pays less, a
-# fifth at 60; quests of level 55 and up pay in full at 60, so Nathanos and the
-# Bulwark come first (the Bulwark's first quests are level 53: a little less).
-# The old hubs are optional steps (the first step of each carries a label;
-# skipping it skips the hub), ranked by reputation per minute at full value
-# with the fifth beside it.
-# INGAME: grey-quest reputation at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# Order: the old hubs as optional steps (the
+# first step of each carries a label; skipping it skips the hub), ranked by
+# reputation per minute. Then the cloth
+# donations, then the level 55-60 quests (their first step waits for 55), then
+# Additional Runecloth to Exalted.
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 # INGAME: reputation discounts in Forever (Classic: 10% at Honored with the city's merchants; Forever guide sites report 5/10/15/20% from Friendly to Exalted, one says not announced)
 # Left out: class letters and Undead-only quests (Rude Awakening gates The
 # Mindless Ones in Deathknell), race-only breadcrumbs, Chemist Fuely's ooze
@@ -44,7 +45,136 @@ why The Plaguelands' level 55-60 quests and Runecloth to Exalted, with Tirisfal'
 
 step Undercity: how it works
   tip Undercity reputation comes from quests and cloth. Ralston Farnsley, the cloth quartermaster, stands in the Magic Quarter beside the tailors. He takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with the Undercity also gives a quarter as much to Orgrimmar, Thunder Bluff and the Darkspear Trolls. While you level, do the Undercity's quests within 5 levels of them: Tirisfal at 1 to 12, Silverpine at 10 to 20, Hillsbrad and Tarren Mill at 20 to 33. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Undercity's merchants sell to you for 10% less (the Classic rule), the horse vendor included; at Exalted other races can buy the skeletal horses: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse, once you have mount training. The Undercity has no tabard or other reward.
-  accept 7813                         -- Ralston Farnsley: A Donation of Wool, +150
+  zone Undercity
+  goto 71.7,29.2 "Ralston Farnsley"   -- his donations are handed in from his window and never enter the log
+
+step Deathknell (optional hub)
+  label deathknell
+  zone Tirisfal Glades
+  tip Forever pays these old quests in full at any level. Deathknell, the Forsaken start at the west end of Tirisfal: about 900 Undercity reputation in 25 minutes. Starting-zone quests give the other cities no share. Novice Elreth, Executor Arren and Deathguard Saltain stand in the village.
+  accept 376                          -- Novice Elreth: The Damned, +100
+  collect 3265 x6 quest 376.1         -- Scavenger Paw
+  collect 3264 x6 quest 376.2         -- Duskbat Wing
+  turnin 376
+
+step Deathknell: the next quests
+  when done deathknell
+  accept 3902                         -- Deathguard Saltain: Scavenging Deathknell, +150
+  accept 380                          -- Executor Arren: Night Web's Hollow, +100
+  accept 6395                         -- Novice Elreth: Marla's Last Wish, +100
+  accept 98389                        -- A Light in the Darkness, +100
+
+step Around Deathknell
+  when done deathknell
+  tip The Equipment Boxes are all around the village. Night Web's Hollow is the mine north-west; the Webbed Forsaken hang inside. Samuel Fipps waits at the ruined camp by the road north-east: bury his remains at Marla's Grave, in the front row of the village graveyard.
+  collect 11127 x6 quest 3902.1       -- Scavenged Goods
+  kill 1504 x10 quest 380.1           -- Young Night Web Spider
+  kill 1505 x8 quest 380.2            -- Night Web Spider
+  kill 271961 x6 quest 98389.1        -- Webbed Forsaken freed
+  interact 178090 quest 6395.1        -- Marla's Grave, with Samuel's Remains
+
+step Deathknell: hand in
+  when done deathknell
+  turnin 3902
+  turnin 380
+  accept 381                          -- The Scarlet Crusade, +100
+  turnin 6395
+  turnin 98389
+
+step The Scarlet camp
+  when done deathknell
+  tip The Scarlet camp is south-east of Deathknell. Meven Korgal leads it.
+  collect 3266 x12 quest 381.1        -- Scarlet Armband
+  turnin 381                          -- Executor Arren
+  accept 382                          -- The Red Messenger, +200
+  collect 2885 quest 382.1            -- Scarlet Crusade Documents, from Meven Korgal
+  turnin 382
+  accept 383                          -- Vital Intelligence, +75: to Executor Zygand in Brill
+
+step Brill: Executor Zygand
+  when onquest 383
+  turnin 383                          -- Executor Zygand
+
+step Brill (optional hub)
+  label brill
+  tip Forever pays these old quests in full at any level. Brill and the fields around it: about 1,100 Undercity reputation in 45 minutes. Executor Zygand, Magistrate Sevren, Apothecary Johaan, Deathguard Dillinger and Coleman Farthing are in the town.
+  accept 99134                        -- Executor Zygand: Discipline, +100
+  accept 99141                        -- Patience, +100
+  accept 358                          -- Magistrate Sevren: Graverobbers, +100
+  accept 367                          -- Apothecary Johaan: A New Plague, +100
+  accept 404                          -- Deathguard Dillinger: A Putrid Task, +75
+  accept 362                          -- Coleman Farthing: The Haunted Mills, +50
+  accept 354                          -- Deaths in the Family, +100
+  accept 86784                        -- Deathguard Bartholomew: Sticks and Bones, +100
+
+step Around Brill
+  when done brill
+  tip Use the Executor's Motivator on five Deathguards around Brill. For Patience, talk to Deathguard Dillinger west of Brill, Deathguard Kristof at the waystation east of it and Gordo on the road. The Rot Hide gnolls dig at the mass grave north of Brill. The Rotting Dead walk around the old bridge west of Brill; the dry branches lie under the trees there. Darkhounds roam everywhere.
+  complete 99134                      -- Motivate 5 Deathguards
+  collect 286200 quest 99141.1 npc 1496 -- Dillinger's Report
+  collect 286201 quest 99141.2 npc 251001 -- Kristof's Report
+  collect 286202 quest 99141.3 npc 10666 -- Gordo's Report
+  kill 1941 x8 quest 358.1            -- Rot Hide Graverobber
+  kill 1675 x5 quest 358.2            -- Rot Hide Mongrel
+  collect 2834 x8 quest 358.3         -- Embalming Ichor
+  collect 2858 x5 quest 367.1         -- Darkhound Blood
+  collect 2855 x7 quest 404.1         -- Putrid Claw
+  collect 279991 x6 quest 86784.1     -- Dry Branch
+
+step Agamand Mills
+  when done brill
+  tip Devlin Agamand walks the road to Agamand Mills; Nissa waits upstairs in the first house, Gregor and Thurman further on in the mills.
+  collect 2831 quest 362.1            -- Devlin's Remains
+  collect 2829 quest 354.1            -- Gregor's Remains
+  collect 2828 quest 354.2            -- Nissa's Remains
+  collect 2830 quest 354.3            -- Thurman's Remains
+
+step Brill: hand in
+  when done brill
+  turnin 99134
+  turnin 99141
+  turnin 358
+  turnin 367
+  turnin 404
+  accept 426                          -- The Mills Overrun, +150
+  turnin 362
+  turnin 354
+  turnin 86784
+
+step Agamand Mills again
+  when done brill
+  tip The skeletons of Agamand Mills drop the ribs; the Darkeye Bonecasters the skulls.
+  collect 3162 x5 quest 426.1         -- Notched Rib
+  collect 3163 x3 quest 426.2         -- Blackened Skull
+  turnin 426                          -- Deathguard Dillinger
+
+step Ralston Farnsley: A Donation of Wool
+  zone Undercity
+  tip From here it is cloth. Wool, Silk and Mageweave must all be handed in before Ralston offers the Runecloth donation, and Additional Runecloth needs the Runecloth donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, Runecloth 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey.
+  zone Ashenvale
+  collect 2592 x60 @36,37             -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
+  turnin 7813 direct                  -- Ralston Farnsley: A Donation of Wool, +150
+
+step A Donation of Silk
+  tip Silk: the Syndicate in Hillsbrad and Alterac drop it about one kill in three, or buy it.
+  level 26
+  zone Alterac Mountains
+  collect 4306 x60 @57.7,67.6         -- Silk Cloth: the Syndicate
+  turnin 7814 direct                  -- +150
+
+step A Donation of Mageweave
+  tip Mageweave: the Jadefire satyrs in southern Felwood and the Dunemaul ogres in Tanaris drop it about one kill in three, or buy it.
+  level 40
+  zone Felwood
+  collect 4338 x60 @41.6,85.7         -- Mageweave Cloth: the Jadefire satyrs
+  turnin 7817 direct                  -- +150
+
+step A Donation of Runecloth
+  tip Runecloth: the Scarlet at Tyr's Hand in the Eastern Plaguelands, the Gordok ogres outside Dire Maul in Feralas and the Twilight camps of Silithus drop it about one kill in three. The Auction House is faster if you have gold.
+  level 50
+  zone Eastern Plaguelands
+  collect 14047 x60 live @68,69.5     -- Runecloth: the Scarlet outside Tyr's Hand
+  turnin 7818 direct                  -- +150
 
 step Undercity: Harbinger Balthazad
   zone Undercity
@@ -54,7 +184,7 @@ step Undercity: Harbinger Balthazad
 
 step The Bulwark: Scarlet Diversions
   zone Tirisfal Glades
-  tip The Bulwark is the Forsaken camp on the road from Tirisfal into the Western Plaguelands. High Executor Derrington's chain sends you against the Scourge cauldrons of the Western Plaguelands: about 820 Undercity reputation, about 710 at 60 if the level 53 quests pay less. Take a Flame in a Bottle from the box beside him; burn the command tent of the Scarlet camp between Dalson's Tears and Felstone Field and plant the Scourge Banner beside it.
+  tip The Bulwark is the Forsaken camp on the road from Tirisfal into the Western Plaguelands. High Executor Derrington's chain sends you against the Scourge cauldrons of the Western Plaguelands: about 820 Undercity reputation. Take a Flame in a Bottle from the box beside him; burn the command tent of the Scarlet camp between Dalson's Tears and Felstone Field and plant the Scourge Banner beside it.
   turnin 5094                         -- High Executor Derrington
   accept 5096                         -- Scarlet Diversions, +100 (level 53)
   complete 5096 map 1422 @40.7,51.9   -- the Scarlet Crusade Forward Camp
@@ -72,10 +202,10 @@ step Felstone Field and the Andorhal towers
   collect 13194 quest 5229.1          -- Felstone Field Cauldron Key
   turnin 5229                         -- the Scourge Cauldron
   accept 5230                         -- Return to the Bulwark, +50
-  kill 10902 quest 5098.1 @40.05,71.6 -- Andorhal Tower One: use the Beacon Torch at the door
-  kill 10903 quest 5098.2 @42.33,66.24 -- Andorhal Tower Two
-  kill 10904 quest 5098.3 @44.3,63.25 -- Andorhal Tower Three
-  kill 10905 quest 5098.4 @46.62,71.05 -- Andorhal Tower Four
+  kill 10902 quest 5098.1 @40.05,71.6 "Mark Andorhal Tower One with the Beacon Torch" -- Andorhal Tower One: use the Beacon Torch at the door
+  kill 10903 quest 5098.2 @42.33,66.24 "Mark Andorhal Tower Two with the Beacon Torch" -- Andorhal Tower Two
+  kill 10904 quest 5098.3 @44.3,63.25 "Mark Andorhal Tower Three with the Beacon Torch" -- Andorhal Tower Three
+  kill 10905 quest 5098.4 @46.62,71.05 "Mark Andorhal Tower Four with the Beacon Torch" -- Andorhal Tower Four
 
 step The Bulwark: Dalson's Tears
   zone Tirisfal Glades
@@ -155,7 +285,7 @@ step Duskwing and Borelgore
 step The Spider God (optional chain)
   label shadra
   zone The Hinterlands
-  tip Six quests across the Hinterlands, Tarren Mill, Sen'jin Village, Zul'Farrak and the Undercity: 600 Undercity and 225 Darkspear reputation. Summoning Shadra and Venom to the Undercity are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 (a fifth at 60 in Classic, 440 Undercity in all then). Allow about 90 minutes with the travel. The Venom Bottles stand on the tables of the Witherbark village in the west of the Hinterlands: click one to start.
+  tip Six quests across the Hinterlands, Tarren Mill, Sen'jin Village, Zul'Farrak and the Undercity: 600 Undercity and 225 Darkspear reputation. Summoning Shadra and Venom to the Undercity are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The Venom Bottles stand on the tables of the Witherbark village in the west of the Hinterlands: click one to start.
   accept 2933 object 142702           -- Venom Bottle: Venom Bottles, +100
 
 step Tarren Mill: Apothecary Lydon
@@ -201,137 +331,6 @@ step Tarren Mill and the Undercity
   turnin 2937                         -- Apothecary Lydon
   accept 2938                         -- Venom to the Undercity, +200
   turnin 2938                         -- Master Apothecary Faranell, in the Apothecarium
-
-step Deathknell (optional hub)
-  label deathknell
-  zone Tirisfal Glades
-  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Deathknell, the Forsaken start at the west end of Tirisfal: about 900 Undercity reputation in 25 minutes (180 at a fifth). Starting-zone quests give the other cities no share. Novice Elreth, Executor Arren and Deathguard Saltain stand in the village.
-  accept 376                          -- Novice Elreth: The Damned, +100
-  collect 3265 x6 quest 376.1         -- Scavenger Paw
-  collect 3264 x6 quest 376.2         -- Duskbat Wing
-  turnin 376
-
-step Deathknell: the next quests
-  when done deathknell
-  accept 3902                         -- Deathguard Saltain: Scavenging Deathknell, +150
-  accept 380                          -- Executor Arren: Night Web's Hollow, +100
-  accept 6395                         -- Novice Elreth: Marla's Last Wish, +100
-  accept 98389                        -- A Light in the Darkness, +100
-
-step Around Deathknell
-  when done deathknell
-  tip The Equipment Boxes are all around the village. Night Web's Hollow is the mine north-west; the Webbed Forsaken hang inside. Samuel Fipps waits at the ruined camp by the road north-east: bury his remains at Marla's Grave, in the front row of the village graveyard.
-  collect 11127 x6 quest 3902.1       -- Scavenged Goods
-  kill 1504 x10 quest 380.1           -- Young Night Web Spider
-  kill 1505 x8 quest 380.2            -- Night Web Spider
-  kill 271961 x6 quest 98389.1        -- Webbed Forsaken freed
-  interact 178090 quest 6395.1        -- Marla's Grave, with Samuel's Remains
-
-step Deathknell: hand in
-  when done deathknell
-  turnin 3902
-  turnin 380
-  accept 381                          -- The Scarlet Crusade, +100
-  turnin 6395
-  turnin 98389
-
-step The Scarlet camp
-  when done deathknell
-  tip The Scarlet camp is south-east of Deathknell. Meven Korgal leads it.
-  collect 3266 x12 quest 381.1        -- Scarlet Armband
-  turnin 381                          -- Executor Arren
-  accept 382                          -- The Red Messenger, +200
-  collect 2885 quest 382.1            -- Scarlet Crusade Documents, from Meven Korgal
-  turnin 382
-  accept 383                          -- Vital Intelligence, +75: to Executor Zygand in Brill
-
-step Brill: Executor Zygand
-  when onquest 383
-  turnin 383                          -- Executor Zygand
-
-step Brill (optional hub)
-  label brill
-  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Brill and the fields around it: about 1,100 Undercity reputation in 45 minutes (220 at a fifth). Executor Zygand, Magistrate Sevren, Apothecary Johaan, Deathguard Dillinger and Coleman Farthing are in the town.
-  accept 99134                        -- Executor Zygand: Discipline, +100
-  accept 99141                        -- Patience, +100
-  accept 358                          -- Magistrate Sevren: Graverobbers, +100
-  accept 367                          -- Apothecary Johaan: A New Plague, +100
-  accept 404                          -- Deathguard Dillinger: A Putrid Task, +75
-  accept 362                          -- Coleman Farthing: The Haunted Mills, +50
-  accept 354                          -- Deaths in the Family, +100
-  accept 86784                        -- Deathguard Bartholomew: Sticks and Bones, +100
-
-step Around Brill
-  when done brill
-  tip Use the Executor's Motivator on five Deathguards around Brill. For Patience, talk to Deathguard Dillinger west of Brill, Deathguard Kristof at the waystation east of it and Gordo on the road. The Rot Hide gnolls dig at the mass grave north of Brill. The Rotting Dead walk around the old bridge west of Brill; the dry branches lie under the trees there. Darkhounds roam everywhere.
-  complete 99134                      -- Motivate 5 Deathguards
-  collect 286200 quest 99141.1 npc 1496 -- Dillinger's Report
-  collect 286201 quest 99141.2 npc 251001 -- Kristof's Report
-  collect 286202 quest 99141.3 npc 10666 -- Gordo's Report
-  kill 1941 x8 quest 358.1            -- Rot Hide Graverobber
-  kill 1675 x5 quest 358.2            -- Rot Hide Mongrel
-  collect 2834 x8 quest 358.3         -- Embalming Ichor
-  collect 2858 x5 quest 367.1         -- Darkhound Blood
-  collect 2855 x7 quest 404.1         -- Putrid Claw
-  collect 279991 x6 quest 86784.1     -- Dry Branch
-
-step Agamand Mills
-  when done brill
-  tip Devlin Agamand walks the road to Agamand Mills; Nissa waits upstairs in the first house, Gregor and Thurman further on in the mills.
-  collect 2831 quest 362.1            -- Devlin's Remains
-  collect 2829 quest 354.1            -- Gregor's Remains
-  collect 2828 quest 354.2            -- Nissa's Remains
-  collect 2830 quest 354.3            -- Thurman's Remains
-
-step Brill: hand in
-  when done brill
-  turnin 99134
-  turnin 99141
-  turnin 358
-  turnin 367
-  turnin 404
-  accept 426                          -- The Mills Overrun, +150
-  turnin 362
-  turnin 354
-  turnin 86784
-
-step Agamand Mills again
-  when done brill
-  tip The skeletons of Agamand Mills drop the ribs; the Darkeye Bonecasters the skulls.
-  collect 3162 x5 quest 426.1         -- Notched Rib
-  collect 3163 x3 quest 426.2         -- Blackened Skull
-  turnin 426                          -- Deathguard Dillinger
-
-step Ralston Farnsley: A Donation of Wool
-  zone Undercity
-  tip From here it is cloth. Wool, Silk and Mageweave must all be handed in before Ralston offers the Runecloth donation, and Additional Runecloth needs the Runecloth donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, Runecloth 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey.
-  zone Ashenvale
-  collect 2592 x60 quest 7813.1 @36,37      -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
-  turnin 7813                         -- Ralston Farnsley, +150
-
-step A Donation of Silk
-  tip Silk: the Syndicate in Hillsbrad and Alterac drop it about one kill in three, or buy it.
-  level 26
-  accept 7814                         -- +150
-  zone Alterac Mountains
-  collect 4306 x60 quest 7814.1 @57.7,67.6 -- Silk Cloth: the Syndicate
-  turnin 7814
-
-step A Donation of Mageweave
-  tip Mageweave: the Jadefire satyrs in southern Felwood and the Dunemaul ogres in Tanaris drop it about one kill in three, or buy it.
-  level 40
-  accept 7817                         -- +150
-  zone Felwood
-  collect 4338 x60 quest 7817.1 @41.6,85.7 -- Mageweave Cloth: the Jadefire satyrs
-  turnin 7817
-
-step A Donation of Runecloth
-  tip Runecloth: the Scarlet at Tyr's Hand in the Eastern Plaguelands, the Gordok ogres outside Dire Maul in Feralas and the Twilight camps of Silithus drop it about one kill in three. The Auction House is faster if you have gold.
-  level 50
-  accept 7818                         -- +150
-  zone Eastern Plaguelands
-  collect 14047 x60 quest 7818.1 live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
-  turnin 7818
 
 step Additional Runecloth to Honored
   zone Eastern Plaguelands

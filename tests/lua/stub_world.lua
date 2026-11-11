@@ -16,7 +16,7 @@
 --   w.questDetail(197, 7, { auto = false, pvp = false, objectives = { 10 } })
 --   w.questProgress(197, 783); w.questComplete(197, 783, { choices = 2, money = 0 })
 --   w.greeting(197, { active = {...}, available = {...} })
---   w.trainer(911); w.merchant(54); w.taxi(352, "Stormwind, Elwynn"); w.close()
+--   w.trainer(911); w.merchant(54, { repair = true }); w.taxi(352, "Stormwind, Elwynn"); w.close()
 --   w.calls                                -- { { "AcceptQuest", q }, { "GetQuestReward", q, choice }, { "CloseQuest", q }, ... }
 --   w.learnSkill(171, "Alchemy", 1, 75); w.skillUp(171, 50)    -- SKILL_LINES_CHANGED + CHAT_MSG_SKILL
 --   w.learnSpell(2330)                     -- spellbook spell (LEARNED_SPELL_IN_SKILL_LINE, SPELLS_CHANGED)
@@ -46,6 +46,7 @@ local world = {
 	zone = "Elwynn Forest", subzone = "Northshire Valley",
 	inInstance = false,
 	indoors = false, -- IsIndoors(): in a cave, mine or building
+	resting = false, -- IsResting(): in a town's or a city's rest area
 	maps = {},
 	log = {},
 	completed = {},
@@ -261,9 +262,10 @@ function world.trainer(npc)
 	fire("TRAINER_SHOW")
 end
 
-function world.merchant(npc)
+-- opts.repair: the merchant repairs (CanMerchantRepair).
+function world.merchant(npc, opts)
 	talkTo(npc)
-	world.frame = { kind = "merchant", npc = npc }
+	world.frame = { kind = "merchant", npc = npc, repair = opts and opts.repair or false }
 	fire("MERCHANT_SHOW")
 end
 
@@ -387,6 +389,7 @@ function UnitGUID(unit)
 end
 function UnitOnTaxi(unit) return unit == "player" and world.onTaxi or false end
 function IsIndoors() return world.indoors end
+function IsResting() return world.resting end
 function UnitAffectingCombat(unit) return unit == "player" and stub.inCombat or false end
 function GetZoneText() return world.zone or "" end
 function GetRealZoneText() return world.zone or "" end
@@ -394,6 +397,7 @@ function GetSubZoneText() return world.subzone or "" end
 function GetMinimapZoneText() return (world.subzone ~= "" and world.subzone) or world.zone or "" end
 function GetBindLocation() return world.bindLocation or "" end
 function GetMoney() return world.money or 0 end
+function CanMerchantRepair() local f = world.frame; return f and f.kind == "merchant" and f.repair or false end
 function GetPlayerFacing() if world.inInstance then return nil end return world.facing end
 function IsInInstance() return world.inInstance, world.inInstance and "party" or "none" end
 
@@ -427,6 +431,9 @@ local function logIDs()
 	table.sort(ids)
 	return ids
 end
+-- Forever's client answers 0 here (its log holds 40: Compat.GetLogCap); the
+-- stub answers the same, so code that reads it raw fails in tests too.
+function C_QuestLog.GetMaxNumQuestsCanAccept() return 0 end
 function C_QuestLog.GetNumQuestLogEntries()
 	local n = #logIDs()
 	return n, n
@@ -618,7 +625,7 @@ function C_GossipInfo.GetOptions()
 	local f = frameOf("gossip")
 	local out = {}
 	for i, o in ipairs(f and f.options or {}) do
-		out[i] = { name = o.name or ("Option " .. i), gossipOptionID = o.gossipOptionID or i, icon = 0, flags = 0, status = 0 }
+		out[i] = { name = o.name or ("Option " .. i), gossipOptionID = o.gossipOptionID or i, icon = o.icon or 0, overrideIconID = o.overrideIconID, flags = 0, status = 0 }
 	end
 	return out
 end

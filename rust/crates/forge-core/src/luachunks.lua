@@ -8,6 +8,7 @@
 --   store:Raw(kind, id) -> payload | nil
 --   store:Get(kind, id, decode) -> decode(payload, id) cached weakly per kind | nil
 --   store:Ids(kind) -> { id, ... } sorted (a fresh table)
+--   store:EachRaw(kind, fn)            -- fn(id, payload) for every record, nothing decoded
 --   store:Has(kind) -> bool
 --   LuaChunks.Split(s, sep) -> { field, ... }, n (empty fields kept; sep one of ; , : |)
 --   LuaChunks.Unesc(s) -> s with %XX turned back (nil for "")
@@ -103,6 +104,14 @@ function Store:Ids(kind)
 	end
 	sort(out)
 	return out
+end
+
+-- fn(id, payload) for every record of a kind, chunk by chunk, each in its chunk's order: a pass
+-- over the text that decodes nothing (an index of one field of every record).
+function Store:EachRaw(kind, fn)
+	for _, c in ipairs(self.chunks[kind] or {}) do
+		for id, payload in gmatch(c[3], "\n(%-?%d+)\t([^\n]*)") do fn(tonumber(id), payload) end
+	end
 end
 
 local PATTERN = { [";"] = "([^;]*);", [","] = "([^,]*),", [":"] = "([^:]*):", ["|"] = "([^|]*)|" }

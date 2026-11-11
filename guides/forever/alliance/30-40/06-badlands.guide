@@ -2,14 +2,19 @@
 guide forever/alliance/30-40/06-badlands
 title Badlands & Desolace
 faction Alliance
-levels 39-40
+levels 38-39
 zone Badlands
 next forever/alliance/40-50/01-stranglethorn-vale
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Claim Rackmore's Treasure! (6161), The Karnitol Shipwreck (1456).
+# Added here: Claim Rackmore's Treasure! (6161, every race), The Karnitol Shipwreck (1456).
+# Since 0.3.6 the wreck's chest is opened and handed in on the first Desolace visit (30-40/02), so the satchel is
+# dived for on the one trip to the north-west coast, Rackmore's chest is opened right after the Serpent Statue, and
+# Nijel's Point is visited once at the end instead of in the middle of the loop as well.
+# Since 2026-11-07 Theramore's first quests are handed in on the Dustwallow Marsh crossing at 33-34 (30-40/03): the
+# boat lands in Theramore only for the flight to Nijel's Point.
 
 step Into Badlands
   zone Badlands
@@ -17,7 +22,7 @@ step Into Badlands
 
 step Badlands
   zone Badlands
-  goto 53.4,43.4 "Badlands"
+  goto 53.4,43.4 "Hammertoe's Digsite"
 
 # ---------------------------------------------------------------- Hammertoe's Digsite
 
@@ -68,7 +73,7 @@ step Agmond's End: kill these as you meet them
   collect 3404 quest 703              -- Buzzard Wing
   collect 7847 quest 2500             -- Buzzard Gizzard
   accept 739                          -- Battered Dwarven Skeleton
-  note The skeleton's next task, Murdaloc, waits until the later Badlands guide at 43.
+  note Murdaloc himself (42) walks among the Bonesnappers: leave him for the later Badlands guide at 43, and kill the Bonesnappers for this quest now.
   collect 5797 quest 1108             -- Indurium Flake
   kill 2893 quest 739                 -- Stonevault Bonesnapper
   accept 709                          -- Theldurin the Lost
@@ -86,14 +91,17 @@ step Lotwil Veriatus
   turnin 710
   accept 711
 
-step Lucien Tosselwrench
-  note Lotwil's next test needs crafted gear: skip it.
-
 # ---------------------------------------------------------------- The north
 
 step The Ancient Chest
   tip Head north-east to the dwarven ruins in the north of the Badlands; the chest sits among the Shadowforge dwarves. Ambassador Infernus nearby is elite: give him room.
   collect 4631 quest 709              -- Tablet of Ryun'eh; below ground
+
+step Valley of Fangs
+  tip Head south down the road: Martek and Rigglefuzz camp in the Valley of Fangs, on the way to Agmond's End.
+  turnin 1108                         -- Martek the Exiled
+  accept 1137                         -- For Fizzle Brassbolts at the Mirage Raceway: the Tanaris guide passes him at 45, keep it
+  turnin 703                          -- Rigglefuzz
 
 step Theldurin the Lost
   tip Head south to Agmond's End.
@@ -105,15 +113,26 @@ step Rock Elementals
   collect 4627 quest 711              -- Large Stone Slab
 
 step Lotwil Veriatus
+  tip Lotwil's last test is optional: five Bracers of Rock Binding, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on.
   turnin 711
   accept 712 optional
-  collect 4628 quest 712 optional     -- Bracers of Rock Binding
+
+step Bracers of Rock Binding
+  when onquest 712
+  tip South-west into the gulches: only the Greater Rock Elementals there drop the bracers.
+  collect 4628 quest 712              -- Bracers of Rock Binding
+
+step Lotwil Veriatus
+  when complete 712
   turnin 712
 
 step Lucien Tosselwrench
+  when has 2868
   zone Badlands
-  accept 716 optional                 -- Lucien Tosselwrench, beside Lotwil
-  turnin 716 optional                 -- only if you carry Patterned Bronze Bracers (a blacksmith's craft)
+  tip Lucien Tosselwrench, beside Lotwil, trades for Patterned Bronze Bracers, a blacksmith's craft: this step shows only when you carry a pair.
+  accept 716                          -- Lucien Tosselwrench, beside Lotwil
+  turnin 716
+
 step To Stoutlager Inn
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
@@ -134,13 +153,10 @@ step Boat to Theramore
   zone Wetlands
   goto 5.13,63.61 "Boat to Theramore"
 
-step Theramore
+step Theramore flight master
   zone Dustwallow Marsh
-  tip The flight master stands by the gate of Foothold Citadel; Clerk Lendry and Commander Samaul are inside the citadel.
-  getfp "Theramore"
-  turnin 1302                         -- Clerk Lendry, on the top floor
-  turnin 1264                         -- Commander Samaul, on the top floor
-  accept 1265                         -- for the Dustwallow loop in the next guide
+  tip Off the boat, walk up the pier to Baldruc, the flight master by the gate of Foothold Citadel.
+  goto 67.5,51.3 "Theramore flight master"
 
 step Nijel's Point
   zone Desolace
@@ -149,6 +165,7 @@ step Nijel's Point
   turnin 6141                         -- Brother Anton
   accept 261
   accept 1466
+  accept 1454                         -- Kreldig Ungor, if 30-40/02 didn't take it: the wreck lies below Azore's tower
   accept 93224                        -- Captain Pentigast
 
 # ---------------------------------------------------------------- Desolace: the south loop
@@ -158,10 +175,14 @@ step Bibbly F'utzbuckle
   accept 5501
 
 step Kodo Graveyard
-  tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons. A Flesh Picker crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off.
+  tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons.
   collect 13703 quest 5501            -- Kodo Bone
-  kill 217590                         -- Flesh Picker: catch it, for My Little Friends
   accept 6134                         -- Hornizz Brimbuzzle
+
+step Flesh Picker
+  when onquest 93176
+  tip A Flesh Picker crawls about the Kodo Graveyard: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
+  collect 213567 "Flesh Picker Specimen" @48.1,57.1
 
 step Maraudine centaurs
   tip The Maraudine centaurs hold the Valley of Spears west of the graveyard; every kind drops the totems.
@@ -198,33 +219,26 @@ step Azore Aldamort
   accept 6027
 
 step Karnitol's Chest
-  tip The wrecked ship's chest lies on the shore just west of Azore's tower.
+  tip The wrecked ship's chest lies just south-west of Azore's tower.
   turnin 1454                         -- Karnitol's Chest
   accept 1455
 
 step Claim Rackmore's Treasure!
-  accept 6161 only Dwarf
-  collect 15878 quest 6161.1 @34.7,33.5 map 1443 only Dwarf -- Underwater
-
-step Nijel's Point
-  tip Follow the road north to Nijel's Point.
-  turnin 1466                         -- Kreldig Ungor
-  turnin 1455                         -- Kreldig Ungor
-  accept 1467                         -- for Roetten Stonehammer in Ironforge: keep it
-  accept 1456
-  turnin 93224                        -- Captain Pentigast
-  turnin 261                          -- Brother Anton
-  accept 1052                         -- for Raleigh the Devout in Southshore: keep it
+  tip Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.
+  accept 6161
+  collect 15878 quest 6161.1 @34.7,33.5 map 1443 -- Underwater
 
 step Sar'theris Strand: kill these as you meet them
   zone Desolace
-  tip Lord Kragaru, a centaur chieftain, camps on the north-west coast, north of Azore's tower.
+  tip The Slitherblade naga hold the north-west coast north of Azore's tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.
   collect 6245 quest 1456.1 @33.2,10.5 map 1443 -- Underwater
+  collect 15881 quest 6161.2 @30.0,12.2 map 1443 -- Rackmore's Golden Key, from the Slitherblade naga
+  use 15766 quest 6027.1 @28.2,6.7 map 1443 -- Gem of the Serpent, on the Serpent Statue
   collect 15803 quest 6027            -- Book of the Ancients
 
-step Claim Rackmore's Treasure!
-  collect 15881 quest 6161.2 @36.3,23.1 map 1443 only Dwarf
-  turnin 6161 only Dwarf
+step Rackmore's Chest
+  tip Rackmore's chest lies just south-east of the Serpent Statue.
+  turnin 6161                         -- Rackmore's Chest
 
 step Azore Aldamort
   turnin 6027
@@ -232,9 +246,16 @@ step Azore Aldamort
 step Kormek's Hut
   turnin 5501                         -- Bibbly F'utzbuckle
 
-step Kreldig Ungor
+step Nijel's Point
+  tip Follow the road north to Nijel's Point: Captain Pentigast stands at its south end, Kreldig Ungor in the middle, Brother Anton to the north.
+  turnin 93224                        -- Captain Pentigast
+  turnin 1466                         -- Kreldig Ungor
+  turnin 1455                         -- Kreldig Ungor
   turnin 1456
-  accept 1457
+  accept 1457                         -- for Roetten Stonehammer in Ironforge: keep it
+  accept 1467                         -- for Roetten Stonehammer in Ironforge: keep it
+  turnin 261                          -- Brother Anton
+  accept 1052                         -- for Raleigh the Devout in Southshore: keep it
 
 step Fly to Theramore
   zone Dustwallow Marsh

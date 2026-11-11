@@ -39,12 +39,15 @@ local colored = setmetatable({}, { __mode = "k" }) -- region -> colour name
 local painters = setmetatable({}, { __mode = "k" }) -- object -> fn(object)
 
 -- Colour a font string or texture by palette name, and keep it coloured
--- through theme changes. alpha multiplies the palette alpha.
+-- through theme changes. alpha multiplies the palette alpha. A veiled
+-- region (psVeiled: a texture a kit hides under its own art, a string a
+-- page hides, Dungeons' header) stays at 0: in the client the colour's
+-- alpha is the region's alpha (#1684, #1753).
 function W.Color(region, name, alpha)
 	colored[region] = name
 	region.psAlpha = alpha
 	local r, g, b, a = Theme.Color(name)
-	a = (a or 1) * (alpha or 1)
+	a = region.psVeiled and 0 or (a or 1) * (alpha or 1)
 	if region:GetObjectType() == "Texture" then
 		region:SetVertexColor(r, g, b, a)
 	else
@@ -56,6 +59,25 @@ end
 -- Stop following the theme (the caller colours the region itself).
 function W.Uncolor(region)
 	colored[region] = nil
+end
+
+-- Put a region's palette colour (and its W.Color alpha) back on: after a
+-- SetAlpha that shows a texture again, which in the client also set its
+-- colour's alpha (#1684).
+function W.Recolor(region)
+	local name = colored[region]
+	if name then W.Color(region, name, region.psAlpha) end
+	return region
+end
+
+-- A texture whose strength is its colour's alpha (W.Color) keeps it when
+-- something else sets its alpha: in the client a texture's SetAlpha sets
+-- that same alpha, so a button bar showing our regions at full alpha turned
+-- a 25 % hover into an opaque disc (#1684). The colour goes back on after
+-- any SetAlpha.
+function W.HoldColorAlpha(tex)
+	hooksecurefunc(tex, "SetAlpha", W.Recolor)
+	return tex
 end
 
 -- Run fn(obj) now and on every theme change.
@@ -153,8 +175,8 @@ W.SimpleTip, W.HideTip = simpleTip, hideTip
 
 -- The game's own item and spell tooltips on Polestar's buttons (reward
 -- tiles, loot tiles, gear picks, rare drops), and their modified clicks.
---   W.ItemTip(owner, itemID, extra?)   -- extra(tooltip): lines after the game's
---   W.SpellTip(owner, spellID, extra?)
+--   W.ItemTip(owner, itemID, extra?, place?)   -- extra(tooltip): lines after the game's
+--   W.SpellTip(owner, spellID, extra?, place?) -- place(tooltip): anchors it (default: right of owner)
 --   W.ItemClick(itemID) -> handled     -- Shift links, Ctrl tries on, Alt guides
 --   W.SpellClick(spellID) -> handled   -- Shift links
 --   W.PrefetchItem(itemID), W.PrefetchSpell(spellID)
@@ -162,9 +184,9 @@ W.SimpleTip, W.HideTip = simpleTip, hideTip
 -- information" and the client's own refresh does not reliably redraw it, so
 -- the tooltip is set again when GET_ITEM_INFO_RECEIVED / SPELL_DATA_LOAD_RESULT
 -- brings that ID while the same button still owns it.
-local gameTip -- { owner, kind, id, extra } of the tooltip last set here
+local gameTip -- { owner, kind, id, extra, place } of the tooltip last set here
 
-local function setGameTip(owner, kind, id, extra)
+local function setGameTip(owner, kind, id, extra, place)
 	local tip = GameTooltip
 	if not (tip and owner and type(id) == "number") then return end
 	local C = ns.Compat
@@ -175,15 +197,19 @@ local function setGameTip(owner, kind, id, extra)
 	elseif C.RequestSpell then
 		C.RequestSpell(id)
 	end
-	tip:SetOwner(owner, "ANCHOR_RIGHT")
+	tip:SetOwner(owner, place and "ANCHOR_NONE" or "ANCHOR_RIGHT")
+	if place then
+		tip:ClearAllPoints()
+		place(tip)
+	end
 	if kind == "item" then tip:SetHyperlink("item:" .. id) else tip:SetSpellByID(id) end
 	if extra then extra(tip) end
 	tip:Show()
-	gameTip = { owner = owner, kind = kind, id = id, extra = extra }
+	gameTip = { owner = owner, kind = kind, id = id, extra = extra, place = place }
 end
 
-function W.ItemTip(owner, itemID, extra) setGameTip(owner, "item", itemID, extra) end
-function W.SpellTip(owner, spellID, extra) setGameTip(owner, "spell", spellID, extra) end
+function W.ItemTip(owner, itemID, extra, place) setGameTip(owner, "item", itemID, extra, place) end
+function W.SpellTip(owner, spellID, extra, place) setGameTip(owner, "spell", spellID, extra, place) end
 
 local function owns(owner)
 	local tip = GameTooltip
@@ -197,7 +223,7 @@ local function arrived(kind, id)
 	if not (g and g.kind == kind and (id == nil or id == g.id)) then return end
 	if GameTooltip and GameTooltip.IsShown and not GameTooltip:IsShown() then gameTip = nil return end
 	if not owns(g.owner) then gameTip = nil return end
-	setGameTip(g.owner, kind, g.id, g.extra)
+	setGameTip(g.owner, kind, g.id, g.extra, g.place)
 end
 
 if ns.RegisterEvent then
@@ -1419,6 +1445,13 @@ function W.MenuShown(owner)
 	return menu and menu:IsShown() and (not owner or menu.psOwner == owner) or false
 end
 
+-- The menu is on UIParent, not Polestar's layer (Core/Init.lua): the minimap
+-- button's menu works while Polestar is hidden. One open as Polestar hides
+-- (a window's dropdown, a key pressed) closes.
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if hidden then W.HideMenu() end
+end)
+
 ---------------------------------------------------------------------------
 -- Dropdown: a button showing the current choice; the list is the menu.
 -- choices: a list or a function returning one (choices that come and go).
@@ -1803,10 +1836,13 @@ end
 -- A read-only field holding text to copy (a link, a report, a position):
 -- the search field's well and border, the text selected whenever it takes
 -- focus, typing puts the text back. opts.lines > 1: a multi-line box that
--- tall. W.SetCopyText(box, text) fills it.
+-- tall. opts.well: the frame that draws the well and lights with focus
+-- instead of the box (a box taller than its view, scrolled inside it).
+-- W.SetCopyText(box, text) fills it.
 function W.CopyBox(parent, opts)
 	opts = opts or {}
 	local e = CreateFrame("EditBox", nil, parent)
+	local well = opts.well or e
 	local lines = opts.lines or 1
 	e:SetAutoFocus(false)
 	Theme.Font(e, "label")
@@ -1819,16 +1855,20 @@ function W.CopyBox(parent, opts)
 		e:SetHeight(30)
 		e:SetTextInsets(10, 10, 0, 0)
 	end
-	Theme.Skin(e, "editbox")
+	Theme.Skin(well, "editbox")
 	e:SetScript("OnEditFocusGained", function(self)
-		Theme.SetFocused(self, true)
+		Theme.SetFocused(well, true)
 		self:HighlightText()
 	end)
 	e:SetScript("OnEditFocusLost", function(self)
-		Theme.SetFocused(self, false)
+		Theme.SetFocused(well, false)
 		self:HighlightText(0, 0)
 	end)
-	e:SetScript("OnMouseUp", function(self) self:SetFocus(); self:HighlightText() end)
+	e:SetScript("OnMouseUp", function(self) W.SelectCopy(self) end)
+	-- Ctrl+A (Cmd+A on a Mac) selects all of it again.
+	e:SetScript("OnKeyDown", function(self, key)
+		if key == "A" and ((IsControlKeyDown and IsControlKeyDown()) or (IsMetaKeyDown and IsMetaKeyDown())) then self:HighlightText() end
+	end)
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 	e:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
 	e:SetScript("OnTextChanged", function(self, userInput)
@@ -1840,10 +1880,34 @@ function W.CopyBox(parent, opts)
 	return e
 end
 
+-- Fill a copy box: its text, the cursor at its start. The same text again
+-- changes nothing, so a selection the player made stays: in 0.3.7-rc1 a
+-- report box clicked or Ctrl+A'd flashed its selection, then sat with the
+-- cursor at the start (#1753). -> whether the text changed.
 function W.SetCopyText(e, text)
-	e.psText = text or ""
-	e:SetText(e.psText)
+	text = text or ""
+	if e.psText == text and e:GetText() == text then return false end
+	e.psText = text
+	e:SetText(text)
 	e:SetCursorPosition(0)
+	return true
+end
+
+-- A copy box in focus with all its text selected, for Ctrl+C: now, and
+-- again in the next frame, after the game has handled the click that got
+-- here and laid out a box just shown inside a scroll view (the report
+-- window's, #1753). The next frame leaves the focus alone when the player
+-- has gone on to another edit box.
+function W.SelectCopy(e)
+	e:SetFocus()
+	e:HighlightText()
+	ns.After(0, function()
+		if not e:IsVisible() then return end
+		local focus = GetCurrentKeyBoardFocus and GetCurrentKeyBoardFocus()
+		if focus and focus ~= e then return end
+		if not focus then e:SetFocus() end
+		e:HighlightText()
+	end)
 end
 
 ---------------------------------------------------------------------------
@@ -1926,11 +1990,30 @@ function W.Scroll(parent)
 	return sf
 end
 
+-- Scroll `child` itself (created with the scroll area as its parent) in
+-- place of the area's own child frame: an edit box, the way the game's own
+-- scrolling input boxes hold theirs. 0.3.7-rc1's report box, nested in the
+-- area's child frame instead, took no click and no focus in the game (#1753).
+function W.ScrollChild(sf, child)
+	if sf.Child and sf.Child ~= child then sf.Child:Hide() end
+	sf:SetScrollChild(child)
+	sf.Child = child
+	return child
+end
+
 -- Tell the scroll area its content and view heights (view nil = measured).
+-- UpdateScrollChildRect has the client take the child's new size at once,
+-- as the game's own scroll frames do after resizing theirs (#1753: the
+-- report box, sized while its area was hidden, took no click in rc1); only
+-- when the height changed, so an edit box scrolled in it keeps its
+-- selection through a layout that changes nothing.
 function W.SetScrollContent(sf, contentHeight, viewHeight)
+	local resized = sf.psContent ~= contentHeight or not sf.psSized
+	sf.psSized = true
 	sf.psContent = contentHeight
 	sf.psView = viewHeight
 	sf.Child:SetHeight(max(1, contentHeight))
+	if resized and sf.UpdateScrollChildRect then sf:UpdateScrollChildRect() end
 	scrollUpdate(sf)
 end
 
@@ -2096,25 +2179,24 @@ local function closeModal(accept)
 end
 
 local function buildModal()
-	local s = CreateFrame("Button", "PolestarModal", UIParent)
+	local s = CreateFrame("Button", "PolestarModal", ns.UIParent)
 	s:SetAllPoints(UIParent)
 	s:SetFrameStrata("FULLSCREEN_DIALOG")
 	s:EnableMouse(true)
 	s:Hide()
-	s.Scrim = W.Fill(s, "scrim", "BACKGROUND")
-	s.Scrim:SetAlpha(MODAL_SCRIM)
+	-- Its strength in the colour (W.Color's alpha, kept through theme
+	-- changes), never SetAlpha: in the client a texture's alpha is its vertex
+	-- colour's, so the repaint on a theme change made a SetAlpha'd scrim solid.
+	s.Scrim = W.Color(W.Fill(s, "scrim", "BACKGROUND"), "scrim", MODAL_SCRIM)
 	s:SetScript("OnClick", function() closeModal(false) end)
 	local box = CreateFrame("Frame", nil, s)
 	box:SetWidth(MODAL_W)
 	box:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
 	box:EnableMouse(true)
-	W.Painter(box, function(f)
-		local d = rawget(f, "Ground") or W.Fill(f, "bg", "BACKGROUND")
-		f.Ground = d
-		local r, g, b = Theme.Color("bg")
-		d:SetVertexColor(r, g, b, 1)
-		Theme.Border(f, Theme.Wash("border"))
-	end)
+	-- A window on the window skin (the Player's Frame Rule), opaque over the
+	-- scrim; the game's looks give it the guide window's light frame (#1390).
+	box.psLight, box.psBgAlpha = true, 1
+	Theme.Skin(box, "window")
 	s.Box = box
 	box.Icon = W.Tex(box, "ARTWORK")
 	box.Icon:SetSize(16, 16)
@@ -2245,6 +2327,26 @@ function W.SetStageChip(c)
 		return 0
 	end
 	return W.SetChip(c, string.upper(L[ns.stage]), "warning")
+end
+
+-- The version line and its stage chip, kept inside the sidebar and clear of
+-- the Discord mark at its end (UI/Report.lua, R.SidebarLink): "Version
+-- 0.3.5", the number alone when that is too long (a preview's
+-- "0.3.5-preview.2f100bfb3"), cut at the room left when even that is.
+function W.ShellStatus(f)
+	local status = f.Status
+	local room = (f.psSidebar or SHELL.sidebar) - SHELL.side * 2
+	local mark = rawget(f, "Discord")
+	if mark and mark:IsShown() then
+		local _, _, _, x = mark:GetPoint(1)
+		room = (f.psSidebar or SHELL.sidebar) - SHELL.side + (x or 0) - mark:GetWidth() - 4
+	end
+	local chip = W.SetStageChip(f.Stage)
+	if chip > 0 then room = room - chip - 8 end
+	status:SetWidth(0)
+	local text = statusText()
+	if textWidth(status, text) > room then text = tostring(ns.version or "dev") end
+	if textWidth(status, text) > room then status:SetWidth(math.max(room, 1)) end
 end
 
 -- Navigation rows in the sidebar, on the nav scroll area's child.
@@ -2400,7 +2502,10 @@ function W.ShellNav(f, items, active, onSelect)
 	local view = W.ShellNavHeight(f)
 	sf.Child:SetWidth((f.psSidebar or SHELL.sidebar) - 1)
 	W.SetScrollContent(sf, y, view)
-	if activeY then
+	-- A new selection is scrolled into view; a redraw with the same one (a
+	-- refresh, a guide picked in the list) keeps the place the player
+	-- scrolled to, a community guide's entry far down the list included.
+	if activeY and active ~= sf.psActive then
 		local cur = sf:GetVerticalScroll()
 		if activeY < cur then
 			W.ScrollTo(sf, activeY)
@@ -2408,6 +2513,7 @@ function W.ShellNav(f, items, active, onSelect)
 			W.ScrollTo(sf, activeY + NAV_ROW - view)
 		end
 	end
+	sf.psActive = active
 end
 
 -- The height the navigation rows may fill: from their top line to the
@@ -2676,7 +2782,7 @@ function W.Shell(name, opts)
 	local RAIL = opts.rail and SHELL.rail or 0
 	local Wd, Hd = opts.width or (SHELL.width + RAIL), opts.height or SHELL.height
 	local SB = opts.sidebar or SHELL.sidebar
-	local f = CreateFrame("Frame", name, UIParent)
+	local f = CreateFrame("Frame", name, ns.UIParent)
 	f.psSidebar = SB
 	f:SetSize(Wd, Hd)
 	f:SetPoint("CENTER", UIParent, "CENTER", 0, 20)
@@ -2873,17 +2979,24 @@ function W.Shell(name, opts)
 	W.ShellTabs(f, nil)
 
 	if opts.scalePath then
-		local function applyScale() f:SetScale(ns.Get(opts.scalePath) or 1) end
+		local function applyScale()
+			f:SetScale(ns.Get(opts.scalePath) or 1)
+			if f:IsShown() then Theme.RetextLater(f) end
+		end
 		applyScale()
 		ns.On("SETTING_CHANGED", function(path)
 			if path == opts.scalePath or path == "" or path == "ui" then applyScale() end
 		end)
 	end
+	-- Every string the window shows is set again a frame later
+	-- (Theme.RetextLater): on a fresh start some drew blank.
 	f:HookScript("OnShow", function(self)
-		self.Status:SetText(statusText())
-		W.SetStageChip(self.Stage)
+		W.ShellStatus(self)
+		Theme.RetextLater(self)
 		Anim.To(self, "alpha", 0, 1, Anim.FAST, "out")
 	end)
+	-- Another font measures the version line anew.
+	W.OnFontChanged(function() if f:IsShown() then W.ShellStatus(f) end end)
 	f:HookScript("OnHide", function() W.HideMenu() end)
 	ns.CloseOnEscape(name)
 	return f

@@ -22,12 +22,12 @@ fn groups(src: &str) -> (V, Vec<Value>) {
 
 #[test]
 fn a_kill_of_a_hostile_elite_is_elite_group_content_with_its_rank_a_friendly_talk_credit_and_a_normal_mob_are_not() {
-	assert_eq!(groups(&guide(&["step S", "  kill 95003", "  kill 95030", "  kill 6"])).1, [json!({ "kind": "elite", "rank": 1 }), Value::Null, Value::Null]);
+	assert_eq!(groups(&guide(&["step S", "  kill 95003", "  kill 95030", "  kill 6"])).1, [json!({ "kind": "elite", "lvl": 7, "rank": 1 }), Value::Null, Value::Null]);
 }
 
 #[test]
 fn a_collect_is_elite_group_content_only_when_every_dropper_is_an_elite() {
-	assert_eq!(groups(&guide(&["step S", "  collect 95100 x3", "  collect 95101 x3"])).1, [json!({ "kind": "elite", "rank": 1 }), Value::Null]);
+	assert_eq!(groups(&guide(&["step S", "  collect 95100 x3", "  collect 95101 x3"])).1, [json!({ "kind": "elite", "lvl": 7, "rank": 1 }), Value::Null]);
 }
 
 #[test]
@@ -69,6 +69,31 @@ fn the_guide_is_flagged_group_when_a_goal_of_its_route_needs_a_group_not_for_an_
 	assert_eq!(groups(&guide(&["step S", "  kill 6", "  kill 95003"])).0.get("group"), V::Bool(true));
 	assert!(groups(&guide(&["step S", "  kill 6", "  kill 95003 optional"])).0.get("group").is_undef());
 	assert!(groups(&guide(&["step S", "  kill 6"])).0.get("group").is_undef());
+}
+
+// #1358: Dun Morogh's "Group" chip came from Vagash (an elite) behind `when group 314`, which only a player who
+// chose the group way follows. The chip is for the route every player follows.
+#[test]
+fn the_guide_flag_leaves_out_opt_in_group_steps_their_quests_later_goals_and_a_dungeon_quest_s_turn_in() {
+	let flag = |body: &[&str]| groups(&guide(body)).0.get("group");
+	// Behind `when group` or `when dungeon`: opt-in.
+	assert!(flag(&["step S", "  when group 7", "  kill 95003"]).is_undef());
+	assert!(flag(&["step S", "  when dungeon \"Hollow Deeps\"", "  accept 9600"]).is_undef());
+	// The quest accepted only in a `when group` step: its later goals go with it.
+	assert!(flag(&["step A", "  when group 9600", "  accept 9600", "", "step B", "  kill 95040 quest 9600"]).is_undef());
+	// A dungeon quest's turn-in in the guide after the one that runs it: the run was the group content.
+	let head = |id: &str, next: &str| format!("guide {id}\ntitle {id}\nfaction Alliance\ncategory Class\nlevels 1-60\nzone Elwynn Forest\n{next}\n");
+	let run = format!("{}\nstep S\n  accept 9600\n", head("t/run", "next t/handin"));
+	let handin = format!("{}\nstep S\n  turnin 9600\n", head("t/handin", ""));
+	let r = compile_files(&[("run.guide", &run), ("handin.guide", &handin)], &group_data(), None);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let flag_of = |id: &str| r.guides.iter().find(|g| g.get("id").as_str() == Some(id)).unwrap().get("group");
+	assert_eq!(flag_of("t/run"), V::Bool(true));
+	assert!(flag_of("t/handin").is_undef());
+	// The solo way (`when !group`), a quest accepted on the route too, the dungeon quest's accept: the route.
+	assert_eq!(flag(&["step S", "  when !group 7", "  kill 95003"]), V::Bool(true));
+	assert_eq!(flag(&["step A", "  when group 9600", "  accept 9600", "", "step B", "  accept 9600", "  kill 95040 quest 9600"]), V::Bool(true));
+	assert_eq!(flag(&["step S", "  accept 9600"]), V::Bool(true));
 }
 
 #[test]

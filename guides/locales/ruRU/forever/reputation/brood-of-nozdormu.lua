@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Brood of Nozdormu Reputation"] = "",
-	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "",
+	["Brood of Nozdormu Reputation"] = "Репутация: Род Ноздорму",
+	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "Кольцо бронзовых драконов улучшается на каждом уровне репутации; долгий путь от ненависти, в основном в рейдах.",
 	-- {item:21175} The Scepter of the Shifting Sands
-	["{item:21175} quest chain"] = "",
+	["{item:21175} quest chain"] = "Цепочка заданий {item:21175}",
 
 	-- Step 1: Baristolth in Cenarion Hold
 	-- {area:3425} Cenarion Hold
@@ -202,6 +202,8 @@ return {
 	["Neutral to Friendly is 3,000 reputation. Every trash mob of the {area:16076} (a 40-player raid behind the {area:2737}) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The {area:3454} (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "",
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "",
+	-- {npc:15503} Kandrostrasz
+	["{npc:15503}: 500, handed in from his window"] = "{npc:15503}: 500, сдается через его окно",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "",

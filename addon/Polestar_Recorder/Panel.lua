@@ -498,6 +498,9 @@ function ns.TogglePanel()
 	if F:IsShown() then F:Hide() else F:Show() end
 end
 
--- Key bindings (Bindings.xml), listed after Polestar's own.
-BINDING_NAME_POLESTAR_RECORDER_TRAIL = L["Recorder: start or stop the position trail"]
-BINDING_NAME_POLESTAR_RECORDER_WINDOW = L["Recorder: show or hide the window"]
+-- Key bindings (Bindings.xml), in the "Polestar" section after Polestar's
+-- own, with its search tag (Polestar/Core/Commands.lua; set here as well for
+-- the Recorder without Polestar). Short names: the rows are ~22 characters.
+BINDING_TAG_POLESTAR = "Polestar"
+BINDING_NAME_POLESTAR_RECORDER_TRAIL = L["Recorder: trail on/off"]
+BINDING_NAME_POLESTAR_RECORDER_WINDOW = L["Recorder window"]

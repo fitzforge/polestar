@@ -8,6 +8,8 @@
 --   g.equip(16, "item:1482")          -- fires PLAYER_EQUIPMENT_CHANGED
 --   g.bag(0, 1, "item:2041")          -- updates the shown bag frames holding bag 0, fires BAG_UPDATE_DELAYED
 --   g.setSpecs({ { "Arms", 31 }, { "Fury", 5 }, { "Protection", 0 } })   -- talent tabs; fires PLAYER_TALENT_UPDATE
+--   g.setColumns({ { "Balance", 0 }, { "Feral Combat", 2 }, { "Restoration", 14 } })  -- Forever's C_Traits tree:
+--                                     -- each column's name and points spent; fires TRAIT_CONFIG_UPDATED (nil: no tree)
 --   g.secret["item:999"] = true       -- issecretvalue() is true for that value
 --   g.showTooltip(GameTooltip, link)  -- what TooltipDataHandler does: clear, post-calls; returns tooltip.lines
 --   g.rewards({ "item:1", "item:2" }, { fromLog = false })  -- reward panel with these choices, runs QuestInfo_Display
@@ -41,6 +43,11 @@ end
 function g.setSpecs(list)
 	g.specs = list
 	fire("PLAYER_TALENT_UPDATE")
+end
+
+function g.setColumns(list)
+	g.columns = list
+	fire("TRAIT_CONFIG_UPDATED", 7)
 end
 
 function issecretvalue(v) return v ~= nil and g.secret[v] == true end
@@ -83,6 +90,29 @@ function C_SpecializationInfo.GetSpecializationInfo(i)
 end
 function C_SpecializationInfo.IsSpecSelectionEnabled() return g.specSelection == true end
 function C_SpecializationInfo.GetSpecialization() return g.primary or 0 end
+
+-- Forever's talent frame reads its column headers this way (Blizzard_PlayerSpells
+-- Camelot ClassTalentsFrameMixin:RefreshTreeHeaders): the active config, its
+-- tree, the tree's groups in column order, each group's points spent.
+C_ClassTalents = C_ClassTalents or {}
+function C_ClassTalents.GetActiveConfigID() return g.columns and 7 or nil end
+C_Traits = C_Traits or {}
+function C_Traits.GetConfigInfo(config) return config == 7 and { ID = 7, type = 1, name = "", treeIDs = { 1089 } } or nil end
+function C_Traits.GetGroupDisplayInfoByTreeID(tree)
+	local out = {}
+	for i, c in ipairs(tree == 1089 and g.columns or {}) do
+		out[i] = { groupID = 500 + i, treeID = tree, skillLineID = 0, orderIndex = i - 1, displayName = c[1], icon = 0 }
+	end
+	return out
+end
+function C_Traits.GetGroupCurrencyInfo(config, ids)
+	local out = {}
+	for i, id in ipairs(ids) do
+		local c = config == 7 and g.columns and g.columns[id - 500]
+		if c then out[#out + 1] = { traitNodeGroupID = id, currencyInfos = { { traitCurrencyID = 1, quantity = 0, spent = c[2] or 0 } } } end
+	end
+	return out
+end
 
 -- Tooltips the way Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua runs them.
 Enum.TooltipDataType = Enum.TooltipDataType or {}

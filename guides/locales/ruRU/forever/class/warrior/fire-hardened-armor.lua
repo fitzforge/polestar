@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "Закаленный огнем доспех",
-	["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "Начинается с 20 уровня со щита; на 28 уровне – кольчуга, затем капюшон, поножи и рукавицы у трех кузнецов.",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -48,7 +48,7 @@ return {
 	["Charred and Galvanized Horns"] = "Обугленные и гальванизированные рога",
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {area:460} in the {area:465}: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "",
+	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "Химеры живут к юго-западу от места {area:460}, здесь: {area:465}; сначала гайд ждет 26-го уровня. Нужно 12 обугленных рогов с химер-слетков (25-27 уровень) и молодых химер (23-25) – падают в четырех случаях из пяти, – и {item:6840} с NPC {npc:6167} (28, самая большая), тоже в четырех случаях из пяти. Там живут всего три слетка, две молодые химеры и одна матриарх, каждая возрождается через 5 минут, так что придется подождать. Слетки и матриарх плюются ядом ({spell:3396}), молодые применяют {spell:403}. Альянс: летите сюда: {area:467}, и идите на юг.",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
@@ -71,33 +71,38 @@ return {
 	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "",
 
 	-- Step 12: Burning Blood
-	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {spell:3427} Infected Wound
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. {npc:6170} (level 32, not elite) carries the {item:6845} (also four in five): he walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. {npc:6170} and the Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "",
+	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "Воргены из стаи Ночной Погибели в зоне {zone:1431} (вестники Тьмы, Ярые Клыки, тенеткачи, воргены и нечистые воргены, 26-31 уровень) к югу и западу от места {area:42} роняют {quest:1705} в четырех случаях из пяти. Нечистые воргены отравляют и воют; Ярые Клыки вызывают {spell:3427}.",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "",
+
+	-- Step 13: Gutspill
+	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
+	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170} (32-й уровень, не элитный) носит {item:6845}, падает в четырех случаях из пяти; сначала гайд ждет 30-го уровня. Он ходит между глубиной и входом шахты ({area:2161}) к юго-востоку от места {area:42}, так что ждите у входа и выманите его наружу. Он отравляет и воет.",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "",
 
-	-- Step 14: Mathiel
+	-- Step 15: Mathiel
 	-- {quest:1703} Mathiel · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
 	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "",
 
-	-- Step 15: Sunscorched Shells
+	-- Step 16: Sunscorched Shells
 	-- {area:482} Highperch · {zone:1441} Thousand Needles
 	-- plural, as words: Highperch Wyverns = {npc:4107} Highperch Wyvern
 	["The shells lie on the ground under the wyvern nests at {area:482} in western {zone:1441}, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once."] = "",
 
-	-- Step 17: Klockmort Spannerspan
+	-- Step 18: Klockmort Spannerspan
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
 	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "",
 
-	-- Step 18: Iron Coral
-	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Elixir of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an {item:5996} removes the risk."] = "",
+	-- Step 19: Iron Coral
+	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
 	["{item:6848}, from {quest:1708}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "Кольчуга на 28-м уровне, капюшон, поножи и рукавицы от трех кузнецов и щит по пути.",
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "Кольчуга на 28-м уровне, капюшон, поножи или рукавицы в зависимости от расы и щит по пути.",
 	-- ["At 20, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {quest:1698} in Redridge."] = "На 20-м уровне {npc:5479} ({object:2100}, рядом с таверной «Свинья и Свисток») отправляет вас к NPC {quest:1698} в Красногорье.",
 	-- ["Back to {npc:5413} in the {object:28027}. He sends you on to a smith of your own race."] = "Вернитесь: {npc:5413} ({object:28027}). Он отправит вас к кузнецу вашей расы.",

@@ -1,5 +1,6 @@
 //! `enter "<Place>"` during play (addon/Polestar/Core/Engine.lua): done while the zone or subzone text reads the
-//! place (inPlace, as for `hearth`), kept once the live step had it, so walking out again does not reopen it.
+//! place (inPlace, as for `hearth`) on the ground (not while a taxi passes over it), kept once the live step had
+//! it, so walking out again does not reopen it.
 //! Coordinates only point the arrow. Real Core manifest, stub world (a level 1 Human Warrior in Elwynn
 //! Forest), as tests/engine-when-dungeon.rs.
 
@@ -66,6 +67,33 @@ fn enter_is_done_once_the_subzone_or_zone_text_reads_the_place_and_stays_done() 
 	assert_eq!(rows["area"], 2, "in Goldshire: step 1 is done");
 	assert_eq!(rows["left"], json!([2, "done"]), "walking on does not reopen it");
 	assert_eq!(rows["zone"], 3, "in Westfall, a zone: step 2 is done");
+}
+
+// The class of a 0.3.6 report (a hearth goal done while a flight only passed over its town): a taxi crossing
+// Goldshire on its way elsewhere does not enter it, and a landing elsewhere keeps the step; landing in it does.
+#[test]
+fn enter_is_not_done_while_a_taxi_passes_over_the_place_only_on_landing_there() {
+	let out = run(r#"
+		local w = stub.world
+		local out = { start = E.GetLiveStep() }
+		w.onTaxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		w.setZone("Elwynn Forest", "Goldshire"); flush()
+		out.over = E.GetLiveStep()
+		w.setZone("Elwynn Forest", "Brackwell Pumpkin Patch"); flush()
+		w.onTaxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); flush()
+		out.elsewhere = E.GetLiveStep()
+		w.onTaxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		w.setZone("Elwynn Forest", "Goldshire"); flush()
+		out.approach = E.GetLiveStep()
+		w.onTaxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); flush()
+		out.landed = E.GetLiveStep()
+		emit(out)
+	"#);
+	assert_eq!(out[0], json!({ "start": 1, "over": 1, "elsewhere": 1, "approach": 1, "landed": 2 }));
 }
 
 #[test]

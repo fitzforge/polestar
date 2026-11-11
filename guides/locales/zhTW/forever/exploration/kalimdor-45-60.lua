@@ -64,7 +64,7 @@ return {
 	-- Step 11: Moonglade
 	["1 area to discover here, level 15."] = "這裡有1個區域要發現，等級15。",
 	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {area:2361} Nighthaven
-	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "",
+	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "穿過{zone:1448}北部的{area:1769}隧道前往{zone:1450}（德魯伊：{spell:18960}）。{area:2361}是中立的。",
 	-- {zone:1450} Moonglade
 	["Flight path here: {zone:1450} (Sindrayl)."] = "此處飛行路線：{zone:1450}（辛德拉爾）。",
 	-- {zone:1450} Moonglade
@@ -87,6 +87,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "這裡有9個區域要發現。",
-	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "穿過{zone:1448}北部的{area:1769}隧道前往{zone:1450}（德魯伊：{spell:18960}）。{area:2361}是中立的。",
 	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451}在{zone:1449}西邊。{area:3425}是中立的。",
 }

@@ -10,15 +10,11 @@ next forever/alliance/40-50/04-tanaris
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rise of the Silithid (4267).
-# Left out: Lonebrow's Journal (1100), The Giant Guardian (2844), Wandering Shay (2845).
+# Left out: Lonebrow's Journal (1100). The Giant Guardian (2844) and Wandering Shay (2845) come on the later Feralas stop (50-60/04).
 
 step Into The Barrens
   zone The Barrens
   goto 49.5,78.4 "Into The Barrens"
-
-step The Barrens
-  zone The Barrens
-  goto 44.0,93.0 "The Barrens"
 
 step Thalanaar flight master
   zone Feralas
@@ -69,7 +65,7 @@ step Boat to The Forgotten Coast
 
 step Feralas
   zone Feralas
-  goto 45.4,65.0 "Feralas"
+  goto 45.4,65.0 "The courier's boat"
 
 # ---------------------------------------------------------------- The southern mainland
 
@@ -94,19 +90,19 @@ step Isle of Dread
   collect 9248 quest 2870 @28.5,70.5 map 1444 -- Mysterious Relic; below ground
 
 step Feathermoon Stronghold
-  tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip Coming from the south: Latronicus and Vestia first, then Angelas beside Ginro's building, then the stairs. Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Pratt is by the flight master, on the way out.
+  turnin 2870                         -- Latronicus Moonspear
+  accept 2871
+  turnin 2871                         -- Vestia Moonspear
+  turnin 2982                         -- Angelas Moonbreeze
   turnin 4127                         -- Ginro Hearthkindle
   accept 4129
-  turnin 2821                         -- Pratt McGrubben
-  accept 7733
   turnin 4129                         -- Quintis Jonespyre, upstairs
   accept 4130
   turnin 4130                         -- Ginro Hearthkindle
   accept 4131
-  turnin 2982                         -- Angelas Moonbreeze
-  turnin 2870                         -- Latronicus Moonspear
-  accept 2871
-  turnin 2871                         -- Vestia Moonspear
+  turnin 2821                         -- Pratt McGrubben
+  accept 7733
 
 step Fly to Thalanaar
   zone Feralas
@@ -115,7 +111,7 @@ step Fly to Thalanaar
 
 step Feralas
   zone Feralas
-  goto 65.9,45.7 "Feralas"
+  goto 65.9,45.7 "Grimtotem camp"
 
 # ---------------------------------------------------------------- The eastern loop
 
@@ -147,13 +143,16 @@ step The Writhing Deep
 
 step High Wilderness: kill these as you meet them
   zone Feralas
-  tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a Pristine Yeti Hide, which Pratt pays for too.
+  tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a Pristine Yeti Hide, which Pratt pays for too.
+  tip Zorbin's quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring Pratt's hides. Or, with a group, run the Zul'Farrak dungeon instead.
   collect 6258 quest 1452.2 @53.2,47.3 map 1444
   collect 18947 quest 7733            -- Rage Scar Yeti Hide
+  level 44.5 grind 5296                -- grind on Rage Scar Yeti
 
 step Rage Scar Hold
-  collect 18969 optional              -- Pristine Yeti Hide
-  accept 7735 optional
+  tip No Pristine Yeti Hide yet? Keep killing the Rage Scar yetis until one drops, then right-click it.
+  collect 18969                       -- Pristine Yeti Hide
+  accept 7735
 
 step Feathermoon Stronghold
   tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
@@ -165,7 +164,7 @@ step Feathermoon Stronghold
 step Feathermoon Stronghold
   note Shandris then asks you to carry news to Darnassus: skip it, Gadgetzan sends you there instead.
   turnin 7733                         -- Pratt McGrubben
-  turnin 7735 optional
+  turnin 7735
 
 # ---------------------------------------------------------------- Level 45
 
@@ -175,8 +174,8 @@ step Boat to The Forgotten Coast
 
 step Grind to 45
   zone Feralas
-  tip Ride east into Feral Scar Vale. Zorbin's quests on the coast need level 45.
-  level 45 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
+  tip Ride east into Feral Scar Vale. Zorbin's quests on the coast need level 45. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
+  level 45 grind 5292 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
 
 step Zorbin Fandazzle
   tip Ride back to the Forgotten Coast; the goblin stands by the dock.
@@ -194,7 +193,7 @@ step Zorbin Fandazzle
   turnin 7003
   turnin 7721
   note Zorbin's refills are level 55: skip them.
-  note You end at the Forgotten Coast dock: the Tanaris guide starts with the trip east from here.
+  note The Tanaris guide starts with the trip east, past Thalanaar.
 
 step Thalanaar
   when onquest 4281

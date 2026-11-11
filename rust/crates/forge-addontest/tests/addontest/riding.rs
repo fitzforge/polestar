@@ -6,7 +6,7 @@
 //! Section 2: Riding.lua unit logic (stub_qol, like the old riding test).
 
 use forge_addontest::{emitted, text, truthy, Addon, RunAddon};
-use serde_json::Value;
+use serde_json::{json, Value};
 
 // ---------------------------------------------------------------------------
 // Section 1: Banner (GuideFrame.lua "riding" notice kind)
@@ -175,8 +175,11 @@ fn clicking_dismiss_hides_the_banner() {
 	assert_eq!(out[0], false);
 }
 
+// Take me there is a trip to the trainer (#1686): the riding offer goes, the guide window's trip banner takes its
+// place ("On the way to … (Riding trainer)", with "Back to the guide"), and the trip ends at the trainer. Back to
+// the guide leaves no banner.
 #[test]
-fn clicking_take_me_there_sets_nav_arrow_to_trainer_and_hides_banner() {
+fn clicking_take_me_there_sets_nav_arrow_to_trainer_and_the_trip_banner_replaces_the_offer() {
 	let out = run_ui(
 		r#"
 		uistub.openTabs(TABS, 1)
@@ -185,11 +188,14 @@ fn clicking_take_me_there_sets_nav_arrow_to_trainer_and_hides_banner() {
 			trainer = { map = 1429, x = 84.3, y = 64.9, npcName = "Randal Hunter" } })
 		B.Jump:Click()
 		local t = uistub.target
-		emit({ hidden = not B:IsShown(), map = t and t.map, x = t and t.x, label = t and t.label })
+		local trip = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText() }
+		B.Jump:Click()
+		emit({ trip = trip, back = not B:IsShown(), map = t and t.map, x = t and t.x, label = t and t.label })
 	"#,
 	);
 	let out = &out[0];
-	assert_eq!(out["hidden"], true, "banner hides after Take me there");
+	assert_eq!(out["trip"], json!([true, "On the way to Randal Hunter (Riding trainer).", "Back to the guide"]), "the offer gives way to the trip");
+	assert_eq!(out["back"], true, "back to the guide: no banner left");
 	assert_eq!(out["map"], 1429);
 	assert_eq!(out["x"], 84.3);
 	assert_eq!(out["label"], "Randal Hunter");

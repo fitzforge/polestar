@@ -116,7 +116,7 @@ test('nothing invites bringing or converting other guides', () => {
 function trackedFiles() {
 	const git = spawnSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 });
 	assert.equal(git.status, 0, 'the guide-comparison check runs in a git checkout');
-	const self = path.relative(ROOT, __filename);
+	const self = path.relative(ROOT, __filename).split(path.sep).join('/');
 	return git.stdout.split('\0').filter((rel) => rel && rel !== self && !/^addon\/Polestar_Nav/.test(rel))
 		.map((rel) => path.join(ROOT, rel)).filter((f) => fs.existsSync(f) && fs.statSync(f).isFile()).map(textFile).filter(Boolean);
 }

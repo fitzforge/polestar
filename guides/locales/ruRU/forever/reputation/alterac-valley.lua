@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Alterac Valley Reputation"] = "Репутация: Альтеракская долина",
-	["One-time quests worth 2,000 and big wins make it the quickest of the four; Exalted gives a Legacy Point."] = "",
-	["Master of Alterac Valley: a Legacy Point at Exalted"] = "",
+	["One-time quests worth 2,000 and big wins make it the quickest of the four; Exalted gives a Legacy Point."] = "Разовые задания на 2000 очков и крупные победы делают эту репутацию самой быстрой из четырех; «Превознесение» дает очко наследия.",
+	["Master of Alterac Valley: a Legacy Point at Exalted"] = "Мастер Альтеракской долины: очко наследия за «Превознесение»",
 
 	-- Step 1: Lieutenant Rotimer
 	-- {zone:1459} Alterac Valley · {zone:1455} Ironforge · {npc:13843} Lieutenant Rotimer · {object:32372} Great Forge

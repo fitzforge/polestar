@@ -72,7 +72,7 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("abandon", &["text", "optional", "only"]),
 	("destroy", &["text", "optional", "only"]),
 	("kill", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count"]),
-	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest"]),
+	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere"]),
 	("goto", &["text", "optional", "only", "group", "map", "r", "frame"]),
 	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame", "gossip", "quest"]),
 	("interact", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
@@ -88,7 +88,8 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("train", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
 	("buy", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "count", "nearest"]),
 	("vendor", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
-	("level", &["text", "optional", "only", "group"]),
+	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
+	("level", &["text", "optional", "only", "group", "grind"]),
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
 	("money", &["text", "optional", "only"]),
 	("task", &["optional", "only", "at", "map", "r", "frame"]),
@@ -126,11 +127,14 @@ fn mod_label(m: &str) -> &str {
 		"xp" => "xp <N>",
 		"money" => "money <amount>",
 		"group" => "group [N]",
+		"grind" => "grind <npcId>",
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 21] =
-	["map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "reward", "choose", "xp", "money", "group", "direct", "gossip"];
+pub const MOD_WORDS: [&str; 23] = [
+	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "reward", "choose", "xp", "money", "group", "direct", "gossip",
+	"grind",
+];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
 const GROUP_MAX: f64 = 40.0;
@@ -255,6 +259,41 @@ fn unquote_rest(line: &[u16], lex: &Lex, from: usize) -> String {
 		return toks[0].text.clone();
 	}
 	js_trim(&sl(line, toks[0].start, lex.end)).to_string()
+}
+
+/// "<from>-<to>", both whole numbers.
+fn skill_range(text: &str) -> Option<(f64, f64)> {
+	let (a, b) = text.split_once('-')?;
+	(is_int(a) && is_int(b)).then(|| (str_to_num(a), str_to_num(b)))
+}
+
+/// `section <Profession> <from>-<to>` (a profession guide's skill range as a heading over the steps after
+/// it): { line, skill, skillQuoted?, from, to }, or None.
+fn parse_section(toks: &[Tok], ln: f64, cx: &mut Cx) -> Option<V> {
+	let usage = "`section` needs a profession and a skill range: section <Profession> <from>-<to>";
+	let sec = V::Obj(obj! { "line" => ln });
+	let mut i = 1;
+	if toks.get(i).is_some_and(|t| t.quoted) {
+		sec.set("skill", toks[i].text.as_str());
+		sec.set("skillQuoted", true);
+		i += 1;
+	} else {
+		let (text, next) = words_until(toks, i, |tk| skill_range(&tk.text).is_some());
+		sec.set("skill", text);
+		i = next;
+	}
+	let range = toks.get(i).filter(|r| !r.quoted).and_then(|r| skill_range(&r.text));
+	let Some((from, to)) = range.filter(|_| sec.get("skill").truthy() && i + 1 == toks.len()) else {
+		cx.err(ln, usage, None);
+		return None;
+	};
+	if from >= to {
+		cx.err(ln, format!("malformed skill range \"{}\" (from below to)", toks[i].text), None);
+		return None;
+	}
+	sec.set("from", from);
+	sec.set("to", to);
+	Some(sec)
 }
 
 /// `image <path> [<w>x<h>]`: the step's picture, at most one per step.
@@ -426,10 +465,24 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 			if kw.is_some() && kw_s == "step" {
 				let title = unquote_rest(&line, &lex, 1);
 				step = V::Obj(obj! { "line" => ln, "title" => if title.is_empty() { V::Null } else { V::str(&title) }, "only" => V::Null, "tip" => V::Null, "goals" => V::arr() });
+				let secs = guide.get("sections");
+				if !secs.is_undef() {
+					step.set("section", secs.len() as f64);
+				}
 				guide.get("steps").push(step.clone());
 				continue;
 			}
-			if step.truthy() {
+			if kw.is_some() && kw_s == "section" {
+				if let Some(sec) = parse_section(toks, ln, &mut cx) {
+					sec.set("first", guide.get("steps").len() as f64);
+					if guide.get("sections").is_undef() {
+						guide.set("sections", V::arr());
+					}
+					guide.get("sections").push(sec);
+				}
+				continue;
+			}
+			if step.truthy() || !guide.get("sections").is_undef() {
 				cx.err(ln, format!("unexpected `{}` in column 0 after the first step (indent step lines; header keys belong before the first step)", toks[0].text), None);
 				continue;
 			}
@@ -610,6 +663,14 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 	for s in &steps {
 		if s.get("goals").items().is_empty() {
 			cx.err(s.get("line").num(), "step has no goals", None);
+		}
+	}
+	// A section heads at least one step.
+	let secs = guide.get("sections").items();
+	for (i, sec) in secs.iter().enumerate() {
+		let end = secs.get(i + 1).map(|n| n.get("first").num()).unwrap_or(steps.len() as f64);
+		if sec.get("first").num() >= end {
+			cx.err(sec.get("line").num(), "`section` has no steps under it", None);
 		}
 	}
 	guide
@@ -1331,6 +1392,13 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 				i += 2;
 				continue;
 			}
+			"grind" => {
+				use_!("grind");
+				let v = int_arg(i + 1, "npc id", cx)?;
+				goal.set("grind", v);
+				i += 2;
+				continue;
+			}
 			"lvl" => {
 				use_!("lvl");
 				let v = int_arg(i + 1, "level", cx)?;
@@ -1384,6 +1452,12 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 			"nearest" => {
 				use_!("nearest");
 				goal.set("nearest", true);
+				i += 1;
+				continue;
+			}
+			"anywhere" => {
+				use_!("anywhere");
+				goal.set("anywhere", true);
 				i += 1;
 				continue;
 			}

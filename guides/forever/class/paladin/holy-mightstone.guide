@@ -62,8 +62,8 @@ step The Argent Dawn Commission
   zone Western Plaguelands
   when !has 12846
   tip The Scourge drop no Scourgestones unless you wear an Argent Dawn Commission. Argent Officer Pureheart gives you one through her quest, Argent Dawn Commission, which you hand in straight away (if you already have one from Light's Hope Chapel, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones.
-  talk 10840                          -- Argent Officer Pureheart: Argent Dawn Commission
-  collect 12846 @42.97,83.55          -- Argent Dawn Commission: equip it
+  accept 5401                         -- Argent Officer Pureheart: Argent Dawn Commission
+  turnin 5401                         -- the Argent Dawn Commission trinket: equip it
 
 step Minion's Scourgestones
   zone Western Plaguelands

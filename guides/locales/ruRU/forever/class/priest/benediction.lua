@@ -10,7 +10,7 @@ return {
 	-- {item:18608} Benediction
 	["{item:18608} and Anathema"] = "{item:18608} и Анафема",
 	-- {spell:23101} Eye of Divinity · {area:2717} Molten Core · {npc:14494} Eris Havenfire
-	["The epic priest staff: the {spell:23101} from {area:2717}, {npc:14494}'s peasant rescue, then the Eye of Shadow."] = "",
+	["The epic priest staff: the {spell:23101} from {area:2717}, {npc:14494}'s peasant rescue, then the Eye of Shadow."] = "Эпический посох жреца: «{spell:23101}» из {area:2717}, спасение крестьян с NPC {npc:14494}, затем Око Тени.",
 
 	-- Step 1: The Eye of Divinity
 	-- {item:18646} The Eye of Divinity · {object:179703} Cache of the Firelord · {npc:12018} Majordomo Executus · {area:2717} Molten Core · {area:1584} Blackrock Depths · {item:18412} Core Fragment · {npc:14387} Lothos Riftwaker · {area:254} Blackrock Mountain · {npc:14494} Eris Havenfire

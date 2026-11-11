@@ -83,6 +83,8 @@ Q.OPTIONS = {
 				choices = { { value = "left", label = L["Left"] }, { value = "right", label = L["Right"] }, { value = "above", label = L["Above"] } } },
 			{ kind = "toggle", key = "qol.questLevels", label = L["Quest levels"], search = "quest log, level numbers, show level",
 				help = L["Show quest levels, like [12], wherever the game lists quests without them."] },
+			{ kind = "toggle", key = "qol.questTimerAlerts", label = L["Timed quest alerts"], search = "timer, timed quest, countdown, time limit, time left, alarm",
+				help = L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] },
 		},
 	},
 }
@@ -114,4 +116,4 @@ ns.RegisterCommand("questdb", function()
 	local mem = info.memoryKB and (" (%.1f MB)"):format(info.memoryKB / 1024) or ""
 	ns.Print(("%s%s: %d %s, %d %s; %d %s, %d %s"):format(L["Quest database"], mem, m.quests or 0, L["quests"], m.npcs or 0, L["NPCs"],
 		#Q.GetAvailableQuests(), L["available now"], tracked, L["mobs tracked"]))
-end, L["Quest database status"])
+end, L["Quest database status"], true)

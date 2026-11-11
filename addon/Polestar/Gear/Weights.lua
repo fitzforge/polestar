@@ -39,9 +39,10 @@ Gear.STAT_KEYS = {
 	"dps", "rdps",
 }
 
--- Specs in talent-tab order (C_SpecializationInfo index). `names` are the
--- enUS tab names, matched first; the index is the fallback. `default` is the
--- usual levelling spec, used before any talent point is spent.
+-- Specs in talent order: Forever's talent columns left to right, the same as
+-- the talent-tab (C_SpecializationInfo) index. `names` are the enUS column
+-- names, matched first; the position is the fallback (other languages).
+-- `default` is the usual levelling spec, used before any talent point is spent.
 Gear.CLASSES = {
 	WARRIOR = { bit = 1, default = "arms", specs = {
 		{ key = "arms", label = "Arms", names = { "arms" } },

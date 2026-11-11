@@ -203,7 +203,7 @@ end
 -- chunk stays well inside Lua 5.1's cap on locals.
 local KEYS = {
 	only = { "classes", "races", "factions" },
-	goalNumbers = { "skillLine", "untilSkill", "criteria", "level", "profLine", "profRank", "lvl" },
+	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit" },
 	goalRanks = { "rank", "qlvl" },
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
@@ -307,6 +307,10 @@ end
 -- `spots` builds the same tables the compiler had (Own.PACKED) and keeps
 -- them on the goal, so a spot is one table for the session (the Engine keys
 -- its pick and visits by it); a goal nobody reads keeps only its string.
+-- Goals whose spots read the same on the same map and frame (a kill and the
+-- grind or farm step after it on one mob, a camp a route comes back to) share
+-- one list (Own.spotsShared, by the interned string: no copy): a fifth of the
+-- spots a session can build are such repeats (#1392).
 ---------------------------------------------------------------------------
 
 local strfind, strbyte, gmatch = string.find, string.byte, string.gmatch
@@ -362,11 +366,36 @@ function Own.unpackSpots(s)
 	return out
 end
 
+-- [map][frame] -> { [packed string] = spots }, weak values: a list lives while a goal holds it.
+Own.spotsShared = {}
+local WEAK_VALUES = { __mode = "v" }
+
+local function sharedSpots(goal)
+	local m = rawget(goal, "map") or 0
+	local byMap = Own.spotsShared[m]
+	if not byMap then
+		byMap = {}
+		Own.spotsShared[m] = byMap
+	end
+	local f = rawget(goal, "f") or "l"
+	local lists = byMap[f]
+	if not lists then
+		lists = setmetatable({}, WEAK_VALUES)
+		byMap[f] = lists
+	end
+	return lists
+end
+
 Own.PACKED = { __index = function(goal, k)
 	if k ~= "spots" then return nil end
 	local s = rawget(goal, "spotsPacked")
-	local spots = s and Own.unpackSpots(s)
-	if spots then rawset(goal, "spots", spots) end
+	if not s then return nil end
+	local lists = sharedSpots(goal)
+	local spots = lists[s] or Own.unpackSpots(s)
+	if spots then
+		lists[s] = spots
+		rawset(goal, "spots", spots)
+	end
 	return spots
 end }
 
@@ -447,12 +476,17 @@ local function checkGoal(goal)
 	if goal.fromFaction ~= nil and goal.fromFaction ~= "A" and goal.fromFaction ~= "H" and goal.fromFaction ~= "AH" then
 		return "bad fromFaction"
 	end
+	-- Per spot, places in fromNpcs (`fromNpcsAt`, "1,2;3;;4"): digits, commas and semicolons only.
+	if goal.fromNpcsAt ~= nil and not (isStr(goal.fromNpcsAt) and goal.fromNpcsAt:find("^[%d,;]*$")) then return "bad fromNpcsAt" end
+	-- Quest work a later guide hands in: that guide's id.
+	if goal.carriedTo ~= nil and not isStr(goal.carriedTo) then return "bad carriedTo" end
 	for _, key in ipairs(KEYS.goalRanks) do
 		if goal[key] ~= nil and not isNum(goal[key]) and not isStr(goal[key]) then return "bad " .. key end
 	end
 	if goal.pre ~= nil and type(goal.pre) ~= "table" then return "bad pre" end
 	if goal.preAll ~= nil and type(goal.preAll) ~= "table" then return "bad preAll" end
 	if goal.closedBy ~= nil and type(goal.closedBy) ~= "table" then return "bad closedBy" end
+	if goal.parent ~= nil and not isNum(goal.parent) then return "bad parent" end
 	if goal.rewards ~= nil then
 		local r = goal.rewards
 		if type(r) ~= "table" then return "bad rewards" end
@@ -539,6 +573,18 @@ local function validate(def)
 			end
 		end
 	end
+	-- sections (`section <Profession> <from>-<to>`): a profession guide's skill-range
+	-- headings, { skill?, skillLine?, from, to }; a step's `section` is an index into them.
+	if def.sections ~= nil then
+		if type(def.sections) ~= "table" then return "bad sections" end
+		for i = 1, #def.sections do
+			local sec = def.sections[i]
+			if type(sec) ~= "table" or not (isStr(sec.skill) or isNum(sec.skillLine)) or (sec.skill ~= nil and not isStr(sec.skill))
+				or (sec.skillLine ~= nil and not isNum(sec.skillLine)) or not isNum(sec.from) or not isNum(sec.to) or sec.from >= sec.to then
+				return "bad section " .. i
+			end
+		end
+	end
 	if deferred then return nil end
 	return Own.validateSteps(def.steps)
 end
@@ -559,6 +605,7 @@ function Own.validateSteps(steps)
 			labelAt[step.label] = s
 		end
 		if not checkImage(step.image) then return ("step %d: bad image"):format(s) end
+		if step.section ~= nil and not (isNum(step.section) and step.section >= 1 and step.section % 1 == 0) then return ("step %d: bad section"):format(s) end
 		for g, goal in ipairs(step.goals) do
 			local err = checkGoal(goal)
 			if err then return ("step %d goal %d: %s"):format(s, g, err) end
@@ -1332,6 +1379,16 @@ function Guides.Get(id)
 	return nil
 end
 
+-- Puts g2 in place of registered guide `id` for the session: the Engine's
+-- copy of it with a character's feeder steps first (Engine, #1353). g2's
+-- steps are its own (never released); the header counts them.
+function Guides.Replace(id, g2)
+	if not (guides[id] and type(g2) == "table" and g2.id == id and type(g2.steps) == "table") then return false end
+	guides[id] = g2
+	if headers[id] then headers[id].stepCount = #g2.steps end
+	return true
+end
+
 function Guides.List()
 	local out = {}
 	for i = 1, #order do
@@ -1562,6 +1619,45 @@ function Guides.Successor(id)
 	if not retired[id] or guides[id] then return nil end
 	local fitting, best = rank(retired[id], ns.Compat.GetPlayerInfo(), ns.PlayerPoint(), ns.Compat.GetZoneText())
 	return fitting[1] or best
+end
+
+-- Where the player's place went when an update reworked guide `id` (0.3.5
+-- kept forever/horde/05-stonetalon-mountains for Ashenvale & Silverpine
+-- Forest and moved Sun Rock Retreat to The Barrens & Stonetalon Mountains,
+-- #1328): the leveling guide of `id`'s pack for the player that has the
+-- most quests of the log to work on (a goal other than taking it), when
+-- that is another guide than `id`. nil: `id` has as many as any (or none
+-- has any); a tie between others goes to the earlier in the pack.
+function Guides.FollowLog(id)
+	local g = id and guides[id]
+	local r = g and packs[g.pack]
+	if not (r and packVisible(r)) then return nil end
+	local log = {}
+	for _, q in ipairs(ns.Compat.GetLogQuests()) do log[q] = true end
+	if next(log) == nil then return nil end
+	local player = ns.Compat.GetPlayerInfo()
+	local function score(guide)
+		local seen, n = {}, 0
+		for _, step in ipairs(guide.steps or {}) do
+			for _, goal in ipairs(step.goals or {}) do
+				local q = goal.quest
+				if q and log[q] and not seen[q] and goal.t ~= "accept" then
+					seen[q] = true
+					n = n + 1
+				end
+			end
+		end
+		return n
+	end
+	local own, best, bestN = score(g), nil, 0
+	for _, other in ipairs(r.guides) do
+		local o = other ~= id and Guides.Get(other)
+		if o and (o.category == nil or o.category == "Leveling") and guideMatches(o, player) then
+			local n = score(o)
+			if n > bestN then best, bestN = other, n end
+		end
+	end
+	return bestN > own and best or nil
 end
 
 -- The leveling guide a new character of the player's race and class starts

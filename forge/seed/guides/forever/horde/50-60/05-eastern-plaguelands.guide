@@ -147,17 +147,12 @@ step Carlin Redpath
 # ---------------------------------------------------------------- Thunder Bluff
 
 step Fly to Thunder Bluff
+  only Druid,Paladin
   zone Thunder Bluff
   tip The flight from Bloodvenom Post lands in Thunder Bluff: Turak Runetotem (Druids) trains on Elder Rise, Alodan the Hopeful (Paladins) in the city too.
   fly "Thunder Bluff"
   sethome "Thunder Bluff"
   train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
-
-step Rumstag Proudstrider
-  tip On Hunter Rise. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  turnin 7820 optional
-  turnin 7821 optional
-  turnin 7822 optional
 
 # ---------------------------------------------------------------- Felwood and Moonglade
 
@@ -211,7 +206,7 @@ step Gadgetzan
 
 step Sprinkle
   tip Use Umi's Mechanical Yeti on Sprinkle, the goblin girl in Gadgetzan. Quixxil and Legacki are scared later in the route.
-  kill 7583 quest 5163.2
+  kill 7583 quest 5163.2 "Scare Sprinkle with Umi's Mechanical Yeti"
 
 step Gaeriyan
   tip Gaeriyan is a ghost at the graveyard just north of Gadgetzan; the Conspicuous Gravestone is south of it, outside the town wall.

@@ -86,8 +86,6 @@ return {
 	-- ["14 areas to discover here, levels 41-49."] = "這裡有14個區域要發現，等級41-49。",
 	-- ["Continue west into {zone:1431}, north to {zone:1433} and take the pass north out of Redridge into the {zone:1428}; {area:2418} (Alliance) is near the top."] = "繼續向西進入{zone:1431}，向北前往{zone:1433}，再從赤脊山北邊的山口進入{zone:1428}；{area:2418}（聯盟）在頂端附近。",
 	-- ["Cross {area:254} from the western {zone:1428} into the {zone:1427}: stay on the chain path inside, past the dungeon entrances."] = "從{zone:1428}西部穿過{area:254}進入{zone:1427}：在山內沿著鎖鏈小路走，經過地城入口。",
-	-- ["Fly to {area:3317} if you have it; otherwise fly to {area:272} and walk east from {zone:1424} into the {zone:1425}."] = "如果你有{area:3317}的飛行路線就飛過去；否則飛往{area:272}，從{zone:1424}向東步行進入{zone:1425}。",
-	-- ["Fly to {area:348} if you have it; otherwise fly to {area:271} and walk north-east from {zone:1424} into the {zone:1425}."] = "如果你有{area:348}的飛行路線就飛過去；否則飛往{area:271}，從{zone:1424}向東北步行進入{zone:1425}。",
 	-- ["Go back north through the {zone:1435} and west into {zone:1430}."] = "向北穿過{zone:1435}回去，再向西進入{zone:1430}。",
 	-- ["Starts where the 30-45 guide ends, in the {zone:1435}. The last area of this guide completes the {zone:1415} map. 9 areas to discover here, levels 46-63."] = "從30-45級指南結束的{zone:1435}開始。本指南的最後一個區域會完成{zone:1415}地圖。這裡有9個區域要發現，等級46-63。",
 	-- ["The {zone:1419} are south of the {zone:1435}; the road arrives at {area:1438} (Alliance)."] = "{zone:1419}位於{zone:1435}南邊；道路通往{area:1438}（聯盟）。",

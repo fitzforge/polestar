@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:94449} Call of Fire
-	["{quest:94449} (Alliance)"] = "",
+	["{quest:94449} (Alliance)"] = "{quest:94449} (Альянс)",
 	-- {item:5176} Fire Totem · {spell:3599} Searing Totem · {item:263412} Totem of Charged Flames
-	["Your {item:5176} for every fire totem, {spell:3599} with it, and Forever's {item:263412}."] = "",
+	["Your {item:5176} for every fire totem, {spell:3599} with it, and Forever's {item:263412}."] = "{item:5176} для всех тотемов огня, {spell:3599} с его помощью и {item:263412} от Forever.",
 
 	-- Step 1: Call of Fire
 	-- {npc:258113} Ingrid Dunwald · {area:131} Kharanos · {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {npc:257597} Bruegs Kindleborn

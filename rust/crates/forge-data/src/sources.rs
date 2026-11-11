@@ -252,7 +252,7 @@ fn dedupe(v: Vec<&'static str>) -> Vec<&'static str> {
 }
 
 /// Pinned builds and their tables: the QuestXP table (`data`); with `builders` the Codex's Era item
-/// tables, the talent trees and the map overlays.
+/// tables, the talent trees, the map overlays and both quest tables of the "New in Forever" ids.
 pub fn pinned_tables(data: bool, builders: bool) -> Vec<(&'static str, Vec<&'static str>)> {
 	let mut era: Vec<&'static str> = if data { vec!["QuestXP"] } else { Vec::new() };
 	let mut out = Vec::new();
@@ -260,6 +260,8 @@ pub fn pinned_tables(data: bool, builders: bool) -> Vec<(&'static str, Vec<&'sta
 		era.extend(crate::codex::client::ERA_TABLES);
 		out.push((crate::talents::BUILD, crate::talents::TABLES.to_vec()));
 		out.push((crate::worldmap::OVERLAYS_BUILD, crate::worldmap::OVERLAY_TABLES.to_vec()));
+		out.push((crate::newquests::ERA_BUILD, crate::newquests::TABLES.to_vec()));
+		out.push((crate::newquests::FOREVER_BUILD, crate::newquests::TABLES.to_vec()));
 	}
 	out.insert(0, (crate::players::QUESTXP_BUILD, dedupe(era)));
 	out

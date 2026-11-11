@@ -29,9 +29,9 @@
 # drop and the reward waits in Booty Bay, which the route no longer visits at
 # this level (a flight there and a long one back for its turn-ins).
 #
-# Optional: the Pristine Yeti Hide (7735) is a 3% drop: taken if it drops,
-# never farmed. Zul'Farrak is offered as an optional alternative to the 49
-# minute yeti grind before Zorbin's level 45 quests.
+# The Pristine Yeti Hide (7735) is a 3% drop from the Rage Scar yetis, where
+# half of the top-up before Zorbin's level 45 quests is ground (0.3.7), so it is
+# counted. Zul'Farrak is offered as an optional alternative to the yeti grind.
 #
 # Left out: Rise of the Silithid (4267: never handed in by the route; Gadgetzan's
 # 162 takes you to the same Darnassus NPC), Rhapsody's Kalimdor Kocktail (1452:
@@ -148,10 +148,15 @@ step Thalanaar
   turnin 1100                         -- if you carry Lonebrow's Journal from Thousand Needles
 
 step Rage Scar yetis
-  tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a Pristine Yeti Hide, which Pratt pays for too.
+  tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a Pristine Yeti Hide, which Pratt pays for too.
+  tip Zorbin's quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring Pratt's hides. Or, with a group, run the Zul'Farrak dungeon instead.
   collect 18947 quest 7733            -- Rage Scar Yeti Hide
-  collect 18969 optional              -- Pristine Yeti Hide
-  accept 7735 optional
+  level 44.5 grind 5296                -- grind on Rage Scar Yeti
+
+step Rage Scar Hold
+  tip No Pristine Yeti Hide yet? Keep killing the Rage Scar yetis until one drops, then right-click it.
+  collect 18969                       -- Pristine Yeti Hide
+  accept 7735
 
 step Rockbiter
   tip Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room.
@@ -175,7 +180,7 @@ step Feathermoon Stronghold
   turnin 4266                         -- Shandris Feathermoon
   note Shandris then asks you to carry news to Darnassus: skip it, Gadgetzan sends you there instead.
   turnin 7733                         -- Pratt McGrubben
-  turnin 7735 optional
+  turnin 7735
 
 # ---------------------------------------------------------------- Level 45
 
@@ -186,8 +191,8 @@ step Zul'Farrak instead of grinding
 
 step Grind to 45
   zone Feralas
-  tip Boat to the Forgotten Coast and ride east into Feral Scar Vale. Zorbin's quests on the coast need level 45.
-  level 45 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
+  tip Boat to the Forgotten Coast and ride east into Feral Scar Vale. Zorbin's quests on the coast need level 45. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
+  level 45 grind 5292 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
 
 step Zorbin Fandazzle
   tip Ride back to the Forgotten Coast; the goblin stands by the dock.
@@ -203,4 +208,4 @@ step Zorbin Fandazzle
   turnin 7003
   turnin 7721
   note Zorbin's refills are level 55: skip them.
-  note You end at the Forgotten Coast dock: the Tanaris guide starts with the trip east from here.
+  note The Tanaris guide starts with the trip east, past Thalanaar.

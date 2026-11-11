@@ -26,10 +26,13 @@ return {
 	["Eight of each. The Gorishi Wasps and Stingers (level 51-52) in and around the {area:540}, the hive in the south-west of the crater, drop a sting about one kill in seven; the wasps share spawn points with the other bugs, so kill whatever stands near you to make room for more wasps (respawn five minutes). The bugs' {spell:8137} makes you take more physical damage for 30 minutes; Workers call for help when hurt. The Bloodpetal Sprouts grow all over the crater (around {area:541} and the western half): open them, about every other one gives a {item:22434}, back in three to five minutes."] = "",
 
 	-- Step 5: Toxic Test
-	-- {item:22432} Devilsaur Barb · {npc:6498} Devilsaur · {npc:6500} Tyrant Devilsaur · {npc:6584} King Mosh · {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {spell:2637} Hibernate · {area:541} Marshal's Refuge
-	["Use the {item:22432} on a living {npc:6498} (an Ironhide or {npc:6500}, or {npc:6584}, counts too): they are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The nearest roams south-west of {area:541}."] = "",
+	-- {npc:6498} Devilsaur · {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
+	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur · Devilsaurs = {npc:6498} Devilsaur
+	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
 	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
 	["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}: apuñálalo con {item:22432}",
+	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
+	["Stab a {npc:6498} with the {item:22432}"] = "",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple

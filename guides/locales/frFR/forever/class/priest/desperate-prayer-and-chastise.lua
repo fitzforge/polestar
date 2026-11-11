@@ -93,8 +93,8 @@ return {
 	["{npc:11401}: take her {quest:5641} letter"] = "{npc:11401} : prenez sa lettre {quest:5641}",
 
 	-- Step 15: Chastise: High Priest Rohan
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:5641} Chastise
-	["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains Fear Ward."] = "",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:5641} Chastise · {spell:6346} Fear Ward
+	["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains {spell:6346}."] = "Au niveau 20, {npc:11406}, dans la salle des Mystères, vous apprend {quest:5641} avec une quête qu'il donne et reprend aussitôt. Forever l'a renommé, c'était Un manque de peur : {quest:5641} inflige des dégâts à un humanoïde et l'immobilise 2 secondes (instantané, temps de recharge de 2 minutes), et tous les prêtres apprennent désormais {spell:6346}.",
 
 	-- Step 16: Chastise: Laurena's letter
 	-- {quest:5645} Chastise
@@ -110,7 +110,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362}. Forever's quest text names Rohan, but the quest data has {npc:376} in {zone:1453}'s Cathedral of Light take it: try Rohan first, then Laurena (the {area:2257} links the cities)."] = "Au niveau 10, allez voir {npc:11406} dans la {object:32386}, dans {object:32362} de {zone:1455}. Le texte de la quête dans Forever nomme Rohan, mais selon les données c'est {npc:376}, dans la cathédrale de la Lumière de {zone:1453}, qui la reçoit : essayez d'abord Rohan, puis Laurena (le {area:2257} relie les deux villes).",
-	-- ["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains {spell:6346}."] = "Au niveau 20, {npc:11406}, dans la salle des Mystères, vous apprend {quest:5641} avec une quête qu'il donne et reprend aussitôt. Forever l'a renommé, c'était Un manque de peur : {quest:5641} inflige des dégâts à un humanoïde et l'immobilise 2 secondes (instantané, temps de recharge de 2 minutes), et tous les prêtres apprennent désormais {spell:6346}.",
 	-- ["At 20, {npc:11406} teaches {quest:5641}. {npc:376} in {zone:1453} and {npc:11401} in {zone:1457} send you to him with a quest of the same name."] = "Au niveau 20, {npc:11406} enseigne {quest:5641}. {npc:376} à {zone:1453} et {npc:11401} à {zone:1457} vous envoient à lui avec une quête du même nom.",
 	-- ["If Rohan did not take it: {npc:376} is in the Cathedral of Light. Take the {area:2257} from {object:171524}."] = "Si Rohan ne l'a pas prise : {npc:376} est dans la cathédrale de la Lumière. Prenez le {area:2257} depuis {object:171524}.",
 	-- ["The Human and Dwarf priest spells: {quest:5634} at 10, {quest:5641} for Dwarves at 20."] = "Les sorts de prêtre humains et nains : {quest:5634} au niveau 10, {quest:5641} pour les nains au niveau 20.",

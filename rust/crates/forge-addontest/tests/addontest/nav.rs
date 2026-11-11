@@ -308,6 +308,31 @@ fn reaching_the_target_switches_to_the_arrived_state_with_hysteresis_one_chime_a
 	assert_eq!(out, json!([["travel", "20 yd", 0], ["arrived", "Arrived", 1, true, false], ["arrived", 1], ["travel", "20 yd", false], ["arrived", 1], 2]));
 }
 
+// A player report (Discord): following a party member, the arrival chime played over and over while you kept up
+// with them, since each look at where they were set a new target and a new target re-arms the arrival. A target
+// that moves (Nav.MoveTarget) stays the same target: one arrival, one chime, while you stay by it.
+#[test]
+fn a_moving_target_keeps_its_arrival_one_chime_while_you_keep_up_a_new_target_chimes_again() {
+	let out = run(r#"
+		local m, x, y = nav.mapPoint(20, 0)
+		local t = N.SetTarget(m, x, y, "Party: Ana")
+		nav.place(15, 0)
+		stub.advance(0.2)
+		local first = #stub.sounds
+		for i = 1, 3 do                    -- she walks on, you keep up
+			nav.place(15 + 3 * i, 0)
+			m, x, y = nav.mapPoint(20 + 3 * i, 0)
+			N.MoveTarget(t, m, x, y)
+			stub.advance(0.2)
+		end
+		local moved = { #stub.sounds, N.GetTarget() == t, A.GetMode(), N.GetTarget().label }
+		m, x, y = nav.mapPoint(31, 0)
+		N.SetTarget(m, x, y, "Party: Ana")
+		stub.advance(0.2)
+		emit({ first = first, moved = moved, renewed = #stub.sounds, refused = N.MoveTarget(t, m, x, y) })"#);
+	assert_eq!(out, json!({ "first": 1, "moved": [1, true, "arrived", "Party: Ana"], "renewed": 2, "refused": false }));
+}
+
 #[test]
 fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_down_until_you_are_on_its_floor() {
 	let out = run(r#"
@@ -911,6 +936,24 @@ fn without_a_player_position_the_arrow_says_so_keeps_the_label_and_points_again_
 	);
 }
 
+// #1581: the label under the arrow is as wide as the distance line's longer texts ("Hearth to The Crossroads:
+// saves 3 min"), so "Accept “The Power to Destroy...”" no longer breaks onto a second line; a longer one still
+// wraps to two. The stub draws each character half the font size wide (12: 6 px).
+#[test]
+fn the_arrow_label_keeps_a_long_quest_name_on_one_line_and_wraps_a_longer_one_to_two_1581() {
+	let out = run(r#"
+		local seen = {}
+		local function snap(label)
+			target(100, 0, label)
+			stub.advance(0.1)
+			seen[#seen + 1] = { A.labelText:GetText(), A.labelText:GetNumLines(), A.labelText:IsTruncated() }
+		end
+		snap("Accept “The Power to Destroy...” · Varimathras ok") -- 49 characters: 294 px (two lines at the old 200)
+		snap("Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter") -- 69: 414 px
+		emit(seen)"#);
+	assert_eq!(out, json!([["Accept “The Power to Destroy...” · Varimathras ok", 1, false], ["Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter", 2, false]]));
+}
+
 #[test]
 fn releasetarget_drops_only_the_override_and_guides_to_the_engine_waypoint_again() {
 	let out = run(r#"
@@ -1096,6 +1139,39 @@ fn tomtom_mirrors_the_target_one_waypoint_replaced_on_change_removed_when_cleare
 	assert_eq!(out["arrowAfter"], true, "ours returns when the bridge is off");
 }
 
+// #1325: TomTom's arrow hides itself for a waypoint on another continent (it measures no distance there), so
+// with "Use TomTom's arrow" a goal across the sea showed no arrow at all. Polestar's own arrow guides until the
+// player reaches the goal's continent, then gives way to TomTom's; the mirror keeps TomTom's arrow on it.
+#[test]
+fn with_tomtom_s_arrow_polestar_s_guides_to_another_continent_and_gives_way_on_arriving_1325() {
+	let out = run(r#"
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", true)
+		local out = {}
+		N.SetTarget(9001, 50, 50, "Farland goal") -- the player stands on continent 0
+		out.away, out.guides = A.frame:IsShown(), N.TomTomArrowGuides()
+		out.crazy = TomTom.calls[#TomTom.calls].crazy
+		nav.place(0, 0, 1) -- landed on the goal's continent
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		out.arrived, out.guidesThere = A.frame:IsShown(), N.TomTomArrowGuides()
+		nav.place(0, 0, 0)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		out.back = A.frame:IsShown()
+		target(100, 0, "Near goal")
+		out.near = A.frame:IsShown()
+		Polestar.Set("nav.useTomTomArrow", false)
+		out.off = N.TomTomArrowGuides()
+		emit(out)"#);
+	assert_eq!(out["away"], true, "Polestar's arrow guides to another continent");
+	assert_eq!(out["guides"], false);
+	assert_eq!(out["crazy"], true, "TomTom's arrow still holds the mirrored goal");
+	assert_eq!(out["arrived"], false, "on the goal's continent TomTom's arrow takes over");
+	assert_eq!(out["guidesThere"], true);
+	assert_eq!(out["back"], true, "leaving the continent brings Polestar's arrow back");
+	assert_eq!(out["near"], false, "a goal on the player's continent is TomTom's");
+	assert_eq!(out["off"], false);
+}
+
 // Waypoint UI's public API (WaypointUIAPI.Navigation) and the game's quest tracking, recording
 // what Polestar asks of them. `log` = quests in the quest log.
 const WAYPOINT_UI: &str = r#"
@@ -1215,6 +1291,23 @@ fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
 	assert_eq!(out["before"], 0);
 	assert_eq!(out["calls"], json!([["pin", "Talk to Executor Arren", 9000, 50, 45, "Polestar", true]]));
 	assert_eq!(out["native"], 2, "the plain pin first (set and tracked), then Waypoint UI's");
+}
+
+#[test]
+fn a_plain_pin_set_before_waypoint_ui_s_api_is_ready_is_cleared_when_the_quest_is_tracked_instead() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		local api = WaypointUIAPI.Navigation
+		WaypointUIAPI.Navigation = nil
+		Polestar.Set("nav.blizzardWaypoint", true)
+		log[376] = true
+		nav.setWaypoint(wp(-100, 0, "Turn in The Damned", {{ kind = "turnin", quest = 376 }}))
+		WaypointUIAPI.Navigation = api
+		stub.advance(2.1)
+		emit({{ calls = calls, native = nav.userWaypoints }})"#
+	));
+	assert_eq!(out["calls"], json!([["quest", 376]]));
+	assert_eq!(out["native"], json!([["set", 9000, 0.5, 0.55], ["track", true], ["clear"]]), "our plain pin goes once the quest is tracked");
 }
 
 #[test]
@@ -1484,6 +1577,56 @@ fn world_map_pins_target_and_open_goals_on_the_viewed_map_with_tooltip_and_click
 	assert_eq!(out["after"], 2, "pins rebuilt around the new target");
 	assert_eq!(out["off"], 0);
 	assert_eq!(out["otherMap"], 1, "only the goal on the viewed map");
+}
+
+// #1653: a click on the pin of one of the step's goals leads the arrow there through the Engine (Engine.AimGoal), as
+// a click on its line in the guide window does, so a click on the arrow still moves on through the goal's spots; a
+// point picked by hand there held the arrow on one place. A goal whose quest waits for its accept leaves the arrow on
+// the accept and says so (#1385). An Along the way goal's pin still sets a point.
+#[test]
+fn a_click_on_a_step_goal_s_map_pin_aims_the_engine_so_the_arrow_still_moves_on_through_its_spots() {
+	let out = run(r#"
+		local m, x, y = nav.mapPoint(100, 0)
+		nav.engine.views[1] = { index = 1, goals = {
+			{ index = 1, status = "active", text = "Target goal", map = m, x = x, y = y },
+			{ index = 2, status = "active", text = "Accept Silver of the Waves", map = 9000, x = 60, y = 60 },
+		} }
+		function nav.Engine.GetAlong() return { { goals = { { index = 1, status = "active", text = "Along goal", map = 9000, x = 30, y = 30 } } } } end
+		local aimed, cycled, answer = {}, nil, true
+		function nav.Engine.AimGoal(s, g)
+			aimed[#aimed + 1] = { s, g }
+			if answer ~= true then return false, "accept", "Silver of the Waves" end
+			local _, sx, sy = nav.mapPoint(-100, 0)
+			nav.setWaypoint({ map = 9000, x = 60, y = 60, label = "Accept Silver of the Waves", stepIndex = 1, goalIndex = 2, kind = "accept", r = 8,
+				area = 15, spots = { { x = 60, y = 60, r = 15 }, { x = sx, y = sy, r = 15 } }, spot = 1 })
+			return true
+		end
+		function nav.Engine.CycleSpot(s, g, i) cycled = { s, g, i or 0 }; return 2 end
+		local said = {}
+		function UIErrorsFrame.AddMessage(_, message) said[#said + 1] = message end
+		local function pinFor(label)
+			for _, pin in ipairs(nav.pins()) do
+				if pin.data.layer.name == "nav.goals" and nav.tooltipOf(pin)[1] == label then return pin end
+			end
+		end
+		nav.setWaypoint(wp(100, 0, "Target goal"))
+		nav.showWorldMap(9000)
+		local r = {}
+		nav.click(pinFor("Accept Silver of the Waves"), "LeftButton")
+		r.aimed = { aimed[1], N.IsOverride(), N.GetTarget().goalIndex }
+		r.next = { N.NextSpot(), cycled }
+		nav.setWaypoint(wp(100, 0, "Target goal"))
+		nav.click(pinFor("Along goal"), "LeftButton")
+		r.along = { #aimed, N.IsOverride(), N.GetTarget().label }
+		N.ReleaseTarget()
+		answer = false
+		nav.click(pinFor("Accept Silver of the Waves"), "LeftButton")
+		r.accept = { aimed[#aimed], N.IsOverride(), said[1] or false }
+		emit(r)"#);
+	assert_eq!(out["aimed"], json!([[1, 2], false, 2]), "the Engine's waypoint, not a point by hand");
+	assert_eq!(out["next"], json!([true, [1, 2, 0]]), "a click on the arrow moves on to the goal's next spot");
+	assert_eq!(out["along"], json!([1, true, "Along goal"]), "an Along the way goal: a point, the Engine not asked");
+	assert_eq!(out["accept"], json!([[1, 2], false, "Take “Silver of the Waves” first"]));
 }
 
 #[test]

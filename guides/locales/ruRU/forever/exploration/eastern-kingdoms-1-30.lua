@@ -174,15 +174,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "Перейдите {area:881} на севере зоны {zone:1437} в {zone:1417} (вне дороги существа 30+ уровня), идите по дороге на запад мимо места {area:320} и дальше в {zone:1424}.",
-	-- ["Flight path here: {area:228} ({npc:2226})."] = "Маршрут полета здесь: {area:228} ({npc:2226}).",
 	-- ["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "Из места {area:925} идите по туннелю на запад в {zone:1426}. {area:131} и ворота города {zone:1455} — земли Альянса.",
 	-- ["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "Из места {area:925} дорога на север через перевал ({area:836}) ведет в {zone:1437}.",
-	-- ["Horde guards: touch the edge of {area:228} and move on"] = "Стража Орды: коснитесь края места {area:228} и идите дальше",
 	-- ["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "Выйдите из зоны {zone:1426} на восток через туннель у ворот; он выводит в {zone:1432} у места {area:925}.",
 	-- ["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "Красногорье начинается здесь: {area:1002}, где сходятся дороги из зон {zone:1429} и {zone:1431}.",
 	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "Поезжайте на поезде ({area:2257}) из места {object:28027} {zone:1453} в {zone:1455} (или летите в {zone:1455}), затем выйдите из города через ворота.",
 	-- ["The {area:228}"] = "{area:228}",
-	-- ["{zone:1429} is north of {zone:1436} and {zone:1431}. {area:87}, {area:9} and {zone:1453}'s gates are Alliance ground with guards."] = "{zone:1429} — к северу от зон {zone:1436} и {zone:1431}. {area:87}, {area:9} и ворота города {zone:1453} — земли Альянса со стражей.",
 	-- ["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431} — к востоку от зоны {zone:1436} и к югу от {zone:1429}. Дорога ведет на восток в {area:42}.",
 	-- ["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436} граничит с зоной {zone:1429} на западе: идите по дороге мимо места {area:120}.",
 }

@@ -17,12 +17,10 @@ return {
 	["{npc:4753}, riding trainer"] = "{npc:4753}, maître de monte",
 
 	-- Step 2: Tiger Riding for other races
-	-- {skill:762} Riding
-	["Tiger {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes Tiger Riding, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
-	-- {npc:4753} Jartsam
-	["{npc:4753}, Tiger Riding"] = "",
+	-- {spell:828} Tiger Riding
+	["{spell:828} for other races"] = "{spell:828} pour les autres races",
+	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Toute race de l'Alliance peut acheter ces sabres, mais en monter un demande aussi {spell:828}, que seuls les Elfes de la nuit reçoivent avec la {skill:762}. {npc:4753} l'enseigne aux autres races une fois Exaltées auprès de {faction:69} (le guide de réputation de Darnassus montre le chemin). D'ici là, n'achetez pas de sabre pour ce personnage.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Choisir une couleur",
@@ -37,8 +35,6 @@ return {
 	["new in Forever, 20g; beta players found it here"] = "nouveau dans Forever, 20 po ; les joueurs de la bêta l'ont trouvé ici",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Toute race de l'Alliance peut acheter ces sabres, mais en monter un demande aussi {spell:828}, que seuls les Elfes de la nuit reçoivent avec la {skill:762}. {npc:4753} l'enseigne aux autres races une fois Exaltées auprès de {faction:69} (le guide de réputation de Darnassus montre le chemin). D'ici là, n'achetez pas de sabre pour ce personnage.",
 	-- ["{item:274706} is a new Forever saber (level 40, 20g in the client) whose source is not known yet."] = "{item:274706} est un nouveau sabre de Forever (niveau 40, 20 po dans le client) dont la source n'est pas encore connue.",
 	-- ["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {zone:1457}. At 40 {npc:4753} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "Les sabres de {npc:4753} et {npc:4730} se trouvent dans l'enclos de monte de {area:1658}, à {zone:1457}. Au niveau 40, {npc:4753} enseigne {skill:762} (100 po selon les concepteurs de Blizzard), et l'apprendre vous donne une monture. Le client Forever permet à toutes les races de l'Alliance de les monter.",
-	-- ["{spell:828} for other races"] = "{spell:828} pour les autres races",
 }

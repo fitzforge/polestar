@@ -8,29 +8,29 @@
 return {
 	-- Guide
 	-- plural, as words: Nightclaw Druids = {npc:254152} Nightclaw Druid
-	["Nightclaw Druids Reputation"] = "",
+	["Nightclaw Druids Reputation"] = "Репутация: Друиды Ночного Когтя",
 	-- {zone:2521} Zephras Isle
-	["{zone:2521}'s hidden druids: five cultist ears pay 1000 reputation, best done before you outlevel the isle."] = "",
+	["{zone:2521}'s hidden druids: five cultist ears pay 1000 reputation, best done before you outlevel the isle."] = "Скрытые друиды зоны {zone:2521}: пять ушей культистов дают 1000 репутации. Лучше выполнить, пока ваш уровень не перерос остров.",
 	-- {skill:164} Blacksmithing · {skill:165} Leatherworking · {skill:197} Tailoring
-	["48 {skill:164}, {skill:165} and {skill:197} patterns"] = "",
+	["48 {skill:164}, {skill:165} and {skill:197} patterns"] = "48 рецептов: {skill:164}, {skill:165} и {skill:197}",
 
 	-- Step 1: Skyboat from Dalaran
 	-- {area:279} Dalaran
-	["Skyboat from {area:279}"] = "",
+	["Skyboat from {area:279}"] = "Небесный корабль: {area:279}",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
 	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "",
 	-- {zone:2521} Zephras Isle
-	["Skyboat to {zone:2521}"] = "",
+	["Skyboat to {zone:2521}"] = "Небесный корабль: {zone:2521}",
 
 	-- Step 2: Skyboat from Thunder Bluff
 	-- {zone:1456} Thunder Bluff
-	["Skyboat from {zone:1456}"] = "",
+	["Skyboat from {zone:1456}"] = "Небесный корабль: {zone:1456}",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
 	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "",
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "",
+	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "",
 
 	-- Step 4: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -78,7 +78,7 @@ return {
 
 	-- Step 12: Back to Valanaar
 	-- {area:16638} Valanaar
-	["Back to {area:16638}"] = "",
+	["Back to {area:16638}"] = "Назад: {area:16638}",
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {area:16626} Gustberry Lowlands
 	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "",
 
@@ -87,8 +87,8 @@ return {
 	-- {npc:254151} Vayn Moongaze
 	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "",
 	["five ears per turn-in"] = "",
-	-- {quest:93459} More Al'Aketh Ears
-	["{quest:93459}: 1000 reputation"] = "",
+	-- {quest:93459} More Al'Aketh Ears · {npc:254151} Vayn Moongaze
+	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "{quest:93459}: 1000 репутации, сдается через окно NPC {npc:254151}",
 	-- {npc:254151} Vayn Moongaze
 	["{npc:254151}'s patterns"] = "",
 

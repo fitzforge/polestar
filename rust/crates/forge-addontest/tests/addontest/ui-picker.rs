@@ -433,6 +433,33 @@ fn selecting_a_guide_shows_its_details_and_loads_nothing_the_selection_is_rememb
 }
 
 #[test]
+fn a_class_guide_s_details_carry_the_class_quest_heads_up_after_why() {
+	let out = run_all(
+		r#"
+		local id = "forever/class/paladin/test"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Storm", category = "Class", folder = "Paladin", minLevel = 22, maxLevel = 30,
+			zone = 1439, zoneName = "Darkshore", why = "A cloak.",
+			steps = { { title = "One", goals = { { t = "note", text = "One", status = "pending" } } } } }
+		table.insert(uistub.order, id)
+		local asked
+		Polestar.QoL = Polestar.QoL or {}
+		Polestar.QoL.ClassQuests = {
+			Heads = function(g) asked = g.id; return { quests = 6 } end,
+			HeadsLine = function(h) return h.quests == 6 and "Long chain: 6 quests across 4 zones" or nil end,
+		}
+		Polestar.Set("ui.pickerFaction", "All")
+		UI.ShowPicker()
+		P.Select(id)
+		emit({ asked = asked, facts = { P.detail.facts[1], P.detail.facts[2] } })
+		P.Select("forever/alliance/02-westfall")
+		emit(P.detail.facts[1][1])"#,
+		"",
+	);
+	assert_eq!(out[0], json!({ "asked": "forever/class/paladin/test", "facts": [["Why", "A cloak."], ["Heads-up", "Long chain: 6 quests across 4 zones"]] }));
+	assert_eq!(out[1], "Steps", "a leveling guide has none");
+}
+
+#[test]
 fn a_class_guide_s_details_lead_with_its_reward_item_and_spell_icons_quality_colour_the_game_s_tooltip_on_hover_and_why() {
 	let out = run_all(
 		r#"
@@ -636,7 +663,7 @@ fn from_the_guide_window_s_loading_opens_a_new_tab_faction_buttons_write_the_fil
 #[test]
 fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects_a_double_click_continues() {
 	let out = run(r#"
-		uistub.player.level = 10
+		uistub.player.level = 11
 		uistub.openTabs(TABS, 1)
 		UI.ShowPicker()
 		local cards = {}
@@ -655,14 +682,31 @@ fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects
 	assert_eq!(out["view"], "home");
 	assert_eq!(out["homeOn"], true);
 	assert_eq!(out["folders"], json!(["Continue 3", "Suggested for you 2"]));
-	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 10 is within
-	// two levels of its follow-up (12).
+	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 11 is one
+	// level below its follow-up (12).
 	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
 	// One row of cards: three tabs leave the third behind "Show all (3)".
 	assert_eq!(out["shown"], 2);
 	assert_eq!(out["info"], json!([["Elwynn Forest", "Step 3 of 8", "29%", "Tab 1"], ["Tailoring 1-300", "Step 2 of 4", "25%", "Tab 2"],]));
 	assert_eq!(out["selected"], json!(["forever/professions/tailoring", "Tailoring 1-300", true]));
 	assert_eq!(out["continued"], json!([["SetGuide", "forever/professions/tailoring"], 2, false]));
+}
+
+// Suggestions come one level before they fit, not several (Fitz, 2026-11-10, Discord feedback: cards and tabs
+// stacked up levels early): an open guide's follow-up joins "Suggested for you" one level below its minimum.
+#[test]
+fn a_follow_up_guide_is_suggested_from_one_level_below_its_minimum() {
+	let out = run(r#"
+		uistub.player.level = 10
+		uistub.openTabs(TABS, 1)
+		UI.ShowPicker()
+		local r = { at10 = lines() }
+		uistub.player.level = 11
+		P.Render()
+		r.at11 = lines()
+		emit(r)"#);
+	assert_eq!(out["at10"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1"]));
+	assert_eq!(out["at11"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
 }
 
 // The Continue cards under a test's eye: the shown ones, in the order they are laid out (top to bottom, left to right).
@@ -911,7 +955,7 @@ fn the_details_art_the_zone_s_painting_from_the_client_around_the_guide_s_focus_
 #[test]
 fn the_next_fact_and_the_suggested_follow_ups_list_only_the_options_offered_now() {
 	let out = run(r#"
-		uistub.player.level = 10
+		uistub.player.level = 11
 		uistub.openTabs(TABS, 1)
 		local desolace, feralas = "forever/alliance/30-40/02-desolace", "forever/alliance/40-50/03-feralas"
 		local offered = {}
@@ -939,4 +983,85 @@ fn the_next_fact_and_the_suggested_follow_ups_list_only_the_options_offered_now(
 	assert_eq!(out["both"], json!(["Next", "Your choice: Desolace or Feralas"]));
 	assert_eq!(out["one"], json!(["Next", "Desolace (31\u{2013}34)"]));
 	assert_ne!(out["none"], "Next");
+}
+
+// Fitz, 0.3.5 preview (EllesmereUI's font, menu scale 90 %): on a fresh client start the hub's rail labels drew
+// blank, one or two excepted, and stayed blank on every return from Options; a /reload brought them back. The
+// client lays a window's first strings out blank and draws them only once their text is set again in a later frame
+// (setting the same text changes nothing). The stub models that: a label set in the frame its window shows is
+// blank until set in a later one. Every rail label must show, at 80, 90 and 100 %, in English and German.
+fn rail_labels(before: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: before.into(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal UI, P = Polestar.UI, Polestar.UI.Picker\n{}",
+			r#"
+		local hooked = {}
+		local function shown(f)
+			for _, b in ipairs(f.railButtons) do
+				local l = b.Label
+				if not hooked[l] then
+					hooked[l] = true
+					local set = l.SetText
+					l.SetText = function(self, ...)
+						if GetTime() > self.psShownAt then self.psBlank = nil end
+						return set(self, ...)
+					end
+				end
+				l.psBlank, l.psShownAt = true, GetTime()
+			end
+		end
+		local function labels(f)
+			local out = {}
+			for _, b in ipairs(f.railButtons) do
+				if b:IsShown() then out[#out + 1] = b.Label.psBlank and "" or (b.Label:GetText() or "") end
+			end
+			return out
+		end
+		local out = {}
+		for _, scale in ipairs({ 0.8, 0.9, 1 }) do
+			Polestar.Set("ui.menuScale", scale)
+			if PolestarPicker then PolestarPicker:Hide() end
+			if PolestarOptions then PolestarOptions:Hide() end
+			UI.ShowPicker()
+			shown(PolestarPicker)
+			stub.advance(0.1)
+			local first = labels(PolestarPicker)
+			UI.ShowOptions()
+			shown(PolestarOptions)
+			stub.advance(0.1)
+			local options = labels(PolestarOptions)
+			UI.ShowPicker()
+			shown(PolestarPicker)
+			stub.advance(0.1)
+			local want = {}
+			for _, item in ipairs(P.FootItems()) do want[#want + 1] = item.label end
+			for _, item in ipairs(P.RailItems()) do want[#want + 1] = item.label end
+			out[#out + 1] = { scale = PolestarPicker:GetScale(), want = want, first = first, options = options, back = labels(PolestarPicker) }
+		end
+		emit(out)"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn every_rail_label_shows_on_the_hub_s_first_show_and_on_the_way_back_from_options_at_80_90_and_100_percent_in_english_and_german() {
+	let german = format!("function GetLocale() return \"deDE\" end\n{}", forge_addontest::shipped_strings("deDE"));
+	for (locale, before, lookup) in [("enUS", "", "Lookup"), ("deDE", german.as_str(), "Nachschlagen")] {
+		let out = rail_labels(before);
+		let runs = out.as_array().unwrap();
+		assert_eq!(runs.len(), 3);
+		for (run, scale) in runs.iter().zip([0.8, 0.9, 1.0]) {
+			assert_eq!(run["scale"].as_f64().unwrap(), scale, "{locale}");
+			let want = &run["want"];
+			assert!(want.as_array().unwrap().iter().any(|l| l.as_str() == Some(lookup)), "{locale}: {want}");
+			assert_eq!(&run["first"], want, "{locale} {scale}: the hub's first show");
+			assert_eq!(&run["options"], want, "{locale} {scale}: the settings' rail");
+			assert_eq!(&run["back"], want, "{locale} {scale}: back from the settings");
+		}
+	}
 }

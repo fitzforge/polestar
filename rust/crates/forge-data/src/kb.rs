@@ -2110,12 +2110,16 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 				tag(&q, "kb:tdb:pre");
 				bump(&tdb_report, "preFilled", 1.0);
 			}
-			let time = tq.get("time");
-			if time.num() > 0.0 && !q.get("limit").strict_eq(&time) {
+			if let Some(time) = tdb_limit(&q, &tq) {
 				let cur = q.get("limit");
 				kb.change("quests", qidn, "limit", if cur.is_nullish() { V::Null } else { cur }, time.clone(), src);
-				q.set("limit", time.clone());
+				q.set("limit", time);
 				bump(&tdb_report, "limits", 1.0);
+			}
+			if tdb_direct(&q, &tq) {
+				kb.change("quests", qidn, "direct", V::Null, V::Bool(true), src);
+				q.set("direct", true);
+				bump(&tdb_report, "direct", 1.0);
 			}
 			let rs = tq.get("rewardSpell");
 			if rs.num() > 0.0 && q.get("rewardSpell").is_nullish() {
@@ -2550,6 +2554,24 @@ fn verify_counts(list: &[V]) -> Obj {
 fn tdb_rate_fills_unrated(item: &V, row: &V) -> bool {
 	let scale = item.get("dropScale");
 	(scale.is_nullish() || scale.as_str() == Some("server")) && row.num_at(0) > 0.0
+}
+
+/// The quest's time limit from its TDB row: the server's `TimeAllowed` (`time`, whole seconds once the
+/// quest is taken) when it has one and the quest's `limit` differs, else None (nothing to change).
+/// quests.json's `limit` reaches every accept of the quest in the guides (forge-guide resolve.rs), which
+/// Dynamic Questing and the addon's countdown read (Quests/Timed.lua).
+fn tdb_limit(q: &V, tq: &V) -> Option<V> {
+	let time = tq.get("time");
+	(time.num() > 0.0 && !q.get("limit").strict_eq(&time)).then_some(time)
+}
+
+/// Whether the quest is handed in on the spot (quests.json `direct`): the server's quest type says so
+/// (`auto`, QuestType 0 in its TDB row) and the quest has no `direct` of its own yet (a correction's
+/// `false` stands). Its giver opens straight on the hand-in window and it never enters the log, so the
+/// guides hand it in with `turnin <id> direct` and never accept it or track it as objectives
+/// (forge-writer post::direct_hand_ins; #1699).
+fn tdb_direct(q: &V, tq: &V) -> bool {
+	tq.get("auto").truthy() && q.get("direct").is_nullish()
 }
 
 /// The TDB's sniffed spawns, drop rates and droppers (kb.js applyTdbWorld).
@@ -3546,6 +3568,33 @@ mod tests {
 		assert!(!tdb_rate_fills_unrated(&observed, &row));
 		// A zero row fills nothing.
 		assert!(!tdb_rate_fills_unrated(&item, &parse_json(r#"[0, "vmangos", 5, null, null, 1]"#).unwrap()));
+	}
+
+	#[test]
+	fn tdb_time_allowed_becomes_the_quests_limit() {
+		// Need for a Cure 812: the server allows 45 minutes.
+		let tq = parse_json(r#"{ "sniffed": false, "obj": [[1, 4904, 1]], "time": 2700 }"#).unwrap();
+		let fresh = parse_json(r#"{ "id": 812 }"#).unwrap();
+		assert_eq!(tdb_limit(&fresh, &tq).map(|t| t.num()), Some(2700.0));
+		let other = parse_json(r#"{ "id": 812, "limit": 1800 }"#).unwrap();
+		assert_eq!(tdb_limit(&other, &tq).map(|t| t.num()), Some(2700.0), "the server's time wins over another source's");
+		let same = parse_json(r#"{ "id": 812, "limit": 2700 }"#).unwrap();
+		assert!(tdb_limit(&same, &tq).is_none(), "already the same: no change logged");
+		// No TimeAllowed (or 0): untimed on the server, the quest keeps what it has.
+		assert!(tdb_limit(&fresh, &parse_json(r#"{ "sniffed": false, "obj": [] }"#).unwrap()).is_none());
+		assert!(tdb_limit(&other, &parse_json(r#"{ "time": 0 }"#).unwrap()).is_none());
+	}
+
+	#[test]
+	fn the_servers_hand_in_on_the_spot_quests_are_direct() {
+		// #1699: Essence of the Exile 1714, QuestType 0 on the server: Bath'rah's Cauldron opens on its
+		// hand-in window and the quest never enters the log.
+		let tq = parse_json(r#"{ "sniffed": false, "obj": [[1, 4480, 8]], "auto": true }"#).unwrap();
+		assert!(tdb_direct(&parse_json(r#"{ "id": 1714 }"#).unwrap(), &tq));
+		assert!(!tdb_direct(&parse_json(r#"{ "id": 1714, "direct": true }"#).unwrap(), &tq), "already direct: no change logged");
+		assert!(!tdb_direct(&parse_json(r#"{ "id": 1714, "direct": false }"#).unwrap(), &tq), "a correction's false stands");
+		// An ordinary quest (QuestType 2: taken into the log) is not.
+		assert!(!tdb_direct(&parse_json(r#"{ "id": 1712 }"#).unwrap(), &parse_json(r#"{ "sniffed": false, "obj": [] }"#).unwrap()));
 	}
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {

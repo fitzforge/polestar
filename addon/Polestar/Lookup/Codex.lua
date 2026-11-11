@@ -4,15 +4,17 @@
 -- in tools/lib/codex/pack.js). The pack calls Register per chunk of a group
 -- with two long strings (names and compact records, one line per entry) and
 -- RegisterIndex once per searchable kind. Nothing is parsed at load or
--- indexed afterwards: an entry is one plain find of "\n" .. id .. "\t" in its
--- chunk (tens of microseconds), and a record is decoded on first access
--- (cached weakly). Contract: docs/ARCHITECTURE.md, "Lookup".
+-- indexed afterwards: an entry is found by halving its chunk's id-ordered
+-- lines (fieldAt), a record is decoded on first access (cached weakly), and
+-- an id a group lacks is remembered as absent until the group's chunks
+-- change. Contract: docs/ARCHITECTURE.md, "Lookup".
 --
 --   Codex.Load() -> loaded, reason   -- Data.Pack("Polestar_Codex"); fires CODEX_LOADED(meta) once
 --   Codex.IsLoaded() ; Codex.Meta()
 --   Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id)
 --       (a quest's `xp`: its full XP reward, nil when not known or the pack predates it;
 --       an event objective's `map`, `x`, `y`, `f`: where it is done, when known;
+--       a talk objective's `id`: the NPC to speak to, absent from packs before it;
 --       an NPC's or object's spawns { map, x, y, f, z }: z the height of its
 --       spawn there, nil when not known or the pack predates it)
 --   Codex.FollowUps(questId) -> { quest, ... }   -- the quests whose pre or preAny names it
@@ -48,7 +50,7 @@ ns.Codex = Codex
 
 local PACK = "Polestar_Codex"
 
-local type, tonumber, pairs = type, tonumber, pairs
+local type, tonumber, pairs, floor = type, tonumber, pairs, math.floor
 local char, byte, sub, find, gsub, gmatch = string.char, string.byte, string.sub, string.find, string.gsub, string.gmatch
 
 -- group -> { chunk, ... }; chunk = { lo, hi (numeric id range | nil), names (blob), recs (blob | nil) }
@@ -75,10 +77,34 @@ local function covers(c, id)
 	return type(id) == "number" and id >= lo and id <= c.hi
 end
 
--- blob, id -> offset of the field after "\n<id>\t" | nil
-local function fieldAt(blob, id)
+-- blob, id -> offset of the field after "\n<id>\t" | nil. The pack writes
+-- each blob's lines in id order (forge data codex, sortedIds), so a number
+-- id is found by halving the blob: some 20 short reads, where a plain find
+-- read up to a megabyte per lookup (a guide opened or a step changed asks
+-- for hundreds). A string id (roles, zones by name), or a line that doesn't
+-- start with a number id, takes the plain find.
+local function scan(blob, id)
 	local _, e = find(blob, "\n" .. id .. "\t", 1, true)
 	return e and e + 1
+end
+local function fieldAt(blob, id)
+	if type(id) ~= "number" then return scan(blob, id) end
+	local lo, hi = 1, #blob
+	while lo <= hi do
+		local mid = floor((lo + hi) / 2)
+		-- The first line starting at or after mid; none before hi: look lower.
+		local nl = find(blob, "\n", mid, true)
+		if not nl or nl > hi then
+			hi = mid - 1
+		else
+			local _, e, v = find(blob, "^(%d+)\t", nl + 1)
+			v = tonumber(v)
+			if not v then return scan(blob, id) end
+			if v == id then return e + 1 end
+			if v < id then lo = nl + 1 else hi = mid - 1 end
+		end
+	end
+	return nil
 end
 
 -- blob, offset -> the rest of that line
@@ -162,7 +188,8 @@ local SOURCE = {
 local BOOL_FIELD = { limited = true, choice = true }
 local STRING_FIELD = { instance = true }
 
-local OBJECTIVE = { k = "kill", i = "item", o = "object", e = "event" }
+-- s: a talk-to objective (an NPC to speak to); `t` alone is the tame flag.
+local OBJECTIVE = { k = "kill", i = "item", o = "object", e = "event", s = "talk" }
 
 ---------------------------------------------------------------------------
 -- Decoding helpers
@@ -487,15 +514,25 @@ local function ready()
 	return (Codex.Load())
 end
 
--- group, id -> record | nil (decoded once)
+-- group, id -> record | nil (decoded once; an absent id is kept as false)
 local function get(group, id)
 	local c = cache[group]
 	if c then
 		local rec = c[id]
 		if rec ~= nil then return rec or nil end
 	end
+	if id == nil then return nil end
+	if not c then
+		-- Weak values: records nobody holds are decoded again on demand
+		-- (false, an id the group lacks, stays until Register drops the cache).
+		c = setmetatable({}, WEAK)
+		cache[group] = c
+	end
 	local name, chunk = entryOf(group, id)
-	if name == nil then return nil end
+	if name == nil then
+		c[id] = false
+		return nil
+	end
 	local s = recordIn(chunk, id)
 	local rec
 	if s and DECODE[group] then rec = DECODE[group](group, id, s) end
@@ -505,11 +542,6 @@ local function get(group, id)
 		rec.title = shown(nk, id, rec.title or name)
 	elseif nk then
 		rec.name = shown(nk, id, rec.name)
-	end
-	if not c then
-		-- Weak values: records nobody holds are decoded again on demand.
-		c = setmetatable({}, WEAK)
-		cache[group] = c
 	end
 	c[id] = rec
 	return rec

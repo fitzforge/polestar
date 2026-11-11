@@ -67,7 +67,10 @@ local function build(active)
 		current = id and G.Get(id) or nil
 		if unloaded or (id and not current) then missing = true end
 	end
-	local index = {}
+	-- carried: quest -> the later guide that hands it in, from the compiled
+	-- `carriedTo` on the route's quest work: known even where the plan
+	-- cannot reach that guide (not loaded, a choice to make, another race's).
+	local index, carried = {}, {}
 	for chapter, g in ipairs(route) do
 		for si, step in ipairs(g.steps or {}) do
 			if G.Matches(step.only, player) then
@@ -77,12 +80,14 @@ local function build(active)
 						index[goal.quest] = entries
 						entries[#entries + 1] = { guide = g.id, title = g.title, step = si, goal = gi,
 							chapter = chapter, optional = goal.optional or step.optional or false }
+					elseif goal.carriedTo and goal.quest and not carried[goal.quest] and G.Matches(goal.only, player) then
+						carried[goal.quest] = goal.carriedTo
 					end
 				end
 			end
 		end
 	end
-	return { active = active, chapter = seen[active.id], index = index, pending = pending, missing = missing }
+	return { active = active, chapter = seen[active.id], index = index, carried = carried, pending = pending, missing = missing }
 end
 
 function Plan.Invalidate() cached = nil end
@@ -117,6 +122,13 @@ function Plan.GetTurnIn(questId)
 		out.status = past and "missed" or "skipped"
 		return out
 	end
+	-- Handed in by a later guide the plan does not reach: said as such, never
+	-- as "no turn-in" (prefer keeping a quest to calling it unneeded).
+	local to = cached.carried[questId]
+	if to then
+		local later = ns.Guides.Get(to)
+		return { status = "later", guide = to, title = later and later.title or nil, carried = true }
+	end
 	return { status = cached.pending and "choice" or cached.missing and "unloaded" or "unplanned" }
 end
 
@@ -127,8 +139,12 @@ function Plan.Describe(result)
 	-- The step as the player counts it in its guide (#942: steps not theirs left out).
 	local g = r.guide and ns.Guides and ns.Guides.Get and ns.Guides.Get(r.guide) or active
 	local n = r.step and E and E.StepNumberOf and g and (E.StepNumberOf(g, r.step)) or r.step
-	local where = n and L["step %d"]:format(n) or ""
-	if r.guide and (not active or active.id ~= r.guide) then where = L["%s · %s"]:format(r.title or r.guide, where) end
+	local where = n and L["step %d"]:format(n) or nil
+	-- A hand-in a later guide makes beyond the plan (`carried`) has no step: the guide alone.
+	if r.guide and (not active or active.id ~= r.guide) then
+		where = where and L["%s · %s"]:format(r.title or r.guide, where) or (r.title or r.guide)
+	end
+	where = where or ""
 	local text
 	-- A numbered step can visit several NPCs. Being on that step does not
 	-- mean this hand-in is the current interaction or that we should navigate.
@@ -163,15 +179,22 @@ end
 -- while the plan cannot say (no guide, a route choice to make, a guide not
 -- loaded). Those it never hands in, and the grey ones it doesn't hand in
 -- in this chapter (one it does is still worth its reward or its chain);
--- "grey" wins over the other three.
+-- "grey" wins over the other three. A grey quest a later guide hands in
+-- is listed only when that guide leaves it out too (Skip grey quests on and
+-- nothing on its chain needs it: Engine.GreyLeftOut); a quest a later guide
+-- hands in beyond the plan's reach (`carriedTo`) is "later", not unplanned.
 function Plan.Unneeded()
-	local C, out = ns.Compat, {}
+	local C, E, out = ns.Compat, ns.Engine, {}
 	local level = (C.GetPlayerInfo() or {}).level
 	for _, q in ipairs(C.GetLogQuests() or {}) do
 		local r = Plan.GetTurnIn(q)
 		if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then return nil end
 		local status = r.status
-		if (NEVER[status] or status == "later") and grey(C, q, level) then status = "grey" end
+		if NEVER[status] and grey(C, q, level) then
+			status = "grey"
+		elseif status == "later" and grey(C, q, level) and E and E.GreyLeftOut and E.GreyLeftOut(r.guide, q, level) then
+			status = "grey"
+		end
 		if NEVER[status] or status == "grey" then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status } end
 	end
 	return out
@@ -209,7 +232,8 @@ function Plan.LogOverflow()
 		for _, q in ipairs(log) do
 			local r = Plan.GetTurnIn(q)
 			if not here[q] and (r.status == "future" or r.status == "later") then
-				later[#later + 1] = { quest = q, title = C.GetQuestTitle(q), chapter = r.chapter, step = r.step }
+				-- A hand-in beyond the plan (`carried`) comes after every planned one.
+				later[#later + 1] = { quest = q, title = C.GetQuestTitle(q), chapter = r.chapter or math.huge, step = r.step or 0 }
 			end
 		end
 		table.sort(later, function(a, b)

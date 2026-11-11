@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "30레벨대를 위한 희귀 천 로브. 가져온 재료로 {npc:6266}이(가) 만들어 줍니다.",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "{npc:6266}이(가) 만들어 주는 30레벨대용 희귀 천 로브입니다. 마지막 재료는 35레벨과 37레벨까지 기다립니다.",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -51,36 +51,42 @@ return {
 	-- {npc:6266} Menara Voidrender · {zone:1443} Desolace
 	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "",
 
-	-- Step 9: Desolace demons
-	-- {zone:1443} Desolace
-	["{zone:1443} demons"] = "{zone:1443}의 악마",
-	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point · {area:602} Mannoroc Coven · {spell:686} Shadow Bolt
-	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25. The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south, drop the stone half the time; they resist fire, so use {spell:686} and Corruption."] = "",
+	-- Step 9: Hatefury satyrs
+	["Hatefury satyrs"] = "서릿발분노 사티로스",
+	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point
+	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "서릿발분노 사티로스(31-32레벨)는 {area:608} 너머 {zone:1443} 북동쪽 끝의 {area:603}을(를) 차지하고 있습니다. 다섯 마리 중 두 마리꼴로 유리병을 주니 25마리쯤 잡을 생각을 하세요.",
 	["Vials of Hatefury Blood"] = "서릿발분노의 사티로스 피",
 
-	-- Step 10: Menara Voidrender again
+	-- Step 10: Mannoroc Coven
+	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
+	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "{zone:1443} 남쪽 {area:602}의 하급 지옥불정령(36-37)과 악마의 차원문 수호병(38)은 절반의 확률로 돌을 떨어뜨립니다. 가이드는 먼저 35레벨까지 기다립니다. 31레벨에서는 너무 강해 혼자 잡기 어렵습니다. 화염에 저항하므로 {spell:686}와(과) 부패를 쓰세요.",
+
+	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
 	["{npc:6266} again"] = "다시 {npc:6266}에게",
 
-	-- Step 11: Fine Gold Thread
+	-- Step 12: Fine Gold Thread
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
 	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "",
+	-- {npc:2670} Xizk Goodstitch · {quest:4785} Fine Gold Thread
+	["{npc:2670}: {quest:4785}, handed straight back"] = "{npc:2670}: {quest:4785}, 받자마자 바로 제출",
 
-	-- Step 12: Smoldering Coal
+	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. They resist fire: {spell:686} and Corruption. Below 38 they hit hard; the Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "떠도는 불의 정령(38-39레벨)은 {zone:1417} 서쪽 {area:334}에 있는 불의 정령으로, 대략 세 번에 한 번 석탄을 떨어뜨립니다. 가이드는 먼저 37레벨까지 기다립니다. 그보다 낮으면 너무 세게 때려 혼자 잡기 어렵습니다. 화염에 저항합니다: {spell:686}와(과) 부패를 쓰세요. {area:321} 근처의 떠도는 물의 정령에게서 얻는 용마루장식 부적은 피해를 입힌 정령을 마무리합니다. 가는 길에 {spell:1120}(으)로 {item:6265}을(를) 만드세요.",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "",
 
-	-- Step 13: The Completed Robe
+	-- Step 14: The Completed Robe
 	-- {npc:6266} Menara Voidrender · {item:6265} Soul Shard
 	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she finishes the robe"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "30레벨대를 위한 희귀 천 로브. 가져온 재료로 {npc:6266}이(가) 만들어 줍니다.",
 	-- ["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "31레벨에 {object:172960}의 {npc:3326}이(가) {area:392}의 {npc:6266}에게 보냅니다.",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "31레벨에 {object:36082}의 {npc:4563}이(가) {area:392}의 {npc:6266}에게 보냅니다. {zone:1420}에서 출발하는 비행선이 {zone:1411}(으)로 갑니다.",
 	-- ["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "31레벨에 {object:2101} {object:2164}의 {npc:461}이(가) {area:392}의 {npc:6266}에게 보냅니다.",
@@ -94,4 +100,5 @@ return {
 	-- ["{npc:2670} in {area:35} has the thread for you."] = "{area:35}의 {npc:2670}이(가) 실을 가지고 있습니다.",
 	-- ["{npc:2670} sells tailoring supplies in {area:35}. Bring him the {item:3577}."] = "{npc:2670}은(는) {area:35}에서 재봉 용품을 팝니다. 그에게 {item:3577}을(를) 가져가십시오.",
 	-- ["{npc:6266} stands in the tower on the hill above {area:392}, beside {npc:6251}."] = "{npc:6266}은(는) {area:392} 위 언덕의 탑에서 {npc:6251} 옆에 서 있습니다.",
+	-- ["{zone:1443} demons"] = "{zone:1443}의 악마",
 }

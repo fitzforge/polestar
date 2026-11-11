@@ -503,7 +503,9 @@ emit({ title = def.title, steps = describe(def), goto = { last.goals[2].map, las
 local gid = D.Attune("wailing-caverns", "fang")
 local tabs = {}
 for i, t in ipairs(Polestar.Engine.GetTabs()) do tabs[i] = t.guideId end
-emit({ gid = gid, tabs = tabs })
+local E = Polestar.Engine
+local enter = E.GetStepView(E.GetStepCount()).goals[2]
+emit({ gid = gid, tabs = tabs, enter = enter.text, header = enter.header or false })
 stub.world.complete({ 90002, 90003 })
 local none, why = D.AttuneGuide("wailing-caverns", "fang")
 emit({ none = none == nil, why = why })"#,
@@ -522,9 +524,13 @@ emit({ none = none == nil, why = why })"#,
 	assert_eq!(later["title"], "Wailing Caverns: Fang of the Serpent");
 	let titles: Vec<Value> = list(&later["steps"]).iter().map(|s| s["title"].clone()).collect();
 	assert_eq!(json!(titles), json!(["The Serpent's Trial", "Fang of the Serpent", "Wailing Caverns"]));
-	assert_eq!(later["goto"], json!([1413, 46, 36.4, "Enter Wailing Caverns"]));
+	assert_eq!(later["goto"], json!([1413, 46, 36.4, "Wailing Caverns"]));
 	assert_eq!(later["note"], "Lets you take the serpent's path.");
-	assert_eq!(*opened, json!({ "gid": "lookup/attune/wailing-caverns:fang", "tabs": ["lookup/attune/wailing-caverns:fang"] }));
+	assert_eq!(
+		*opened,
+		json!({ "gid": "lookup/attune/wailing-caverns:fang", "tabs": ["lookup/attune/wailing-caverns:fang"], "enter": "Enter Wailing Caverns", "header": false }),
+		"the entrance reads Enter, not Go to Enter, as its own row"
+	);
 	assert_eq!(*finished, json!({ "none": true, "why": "done" }));
 }
 
@@ -629,7 +635,8 @@ stub.advance(0.6)
 local walk = {}
 local function look()
 	local v = E.GetStepView(1)
-	walk[#walk + 1] = { step = E.GetStepIndex() or false, accept = v.goals[1].detail }
+	local wp = E.GetWaypoint()
+	walk[#walk + 1] = { step = E.GetStepIndex() or false, accept = v.goals[1].detail, entrance = wp ~= nil and wp.map == 1413 and wp.x == 46 and wp.y == 36.4 }
 end
 look()
 stub.world.setLevel(25)
@@ -663,8 +670,9 @@ emit(walk)"#,
 	assert_eq!(built["at"][0], json!(["1413 52.2 31.9", entrance, entrance, entrance]), "Tonga in the Barrens; Kresh, the scale pile and the Keeper at the entrance");
 	assert_eq!(built["at"][1], json!([entrance, "1413 52.2 31.9"]));
 	assert_eq!(built["notes"], json!(["Deviate Keeper, Kresh, Shimmering Scale: inside Wailing Caverns.", "Deviate Keeper: inside Wailing Caverns.", false]));
+	let steps: Vec<Value> = walk.as_array().unwrap().iter().map(|w| json!({ "step": w["step"], "accept": w["accept"] })).collect();
 	assert_eq!(
-		*walk,
+		json!(steps),
 		json!([
 			{ "step": 1, "accept": "from Tonga Runetotem, from level 25" },
 			{ "step": 1, "accept": "from Tonga Runetotem" },
@@ -673,6 +681,9 @@ emit(walk)"#,
 		]),
 		"the guide stays on the gated quest, then walks each quest in turn to the entrance"
 	);
+	// #1320's generic pass of an accept above the level never sends a character too low for the attunement into
+	// the dungeon's entrance: the guide holds at Tonga's accept.
+	assert_eq!(walk[0]["entrance"], json!(false), "level 18: the arrow is not on the entrance");
 }
 
 #[test]

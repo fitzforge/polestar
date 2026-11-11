@@ -14,6 +14,12 @@ why Berserker Stance at 30 and a Whirlwind axe, sword or warhammer at 40.
 # (1718, 1719, level 30), The Windwatcher (1791), Cyclonian with Essence of
 # the Exile (1712, 1714), The Summoning (1713) and Whirlwind Weapon (1792,
 # level 40).
+# Essence of the Exile (1714) is no quest you take: the cauldron opens
+# straight on its hand-in window (the charms it wants, then Continue), only
+# while Cyclonian is in your log, and it never enters the log (#1699: a
+# player's screenshot of that window; the game's data has 1714 as a quest
+# handed in on the spot, and players' recordings never show such a quest
+# accepted). So it is a `turnin direct`, and the charms are plain collects.
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
 # objectives (8 Liferoot, 30 Bloodscalp Tusks, 8 of each charm), drops and
 # places; the knowledge base's drop table (Burning Charm 34%, Thundering 39%,
@@ -30,10 +36,14 @@ why Berserker Stance at 30 and a Whirlwind axe, sword or warhammer at 40.
 # Warhammer.
 # The leveling guides take The Islander and The Affray on the route
 # (alliance/30-40/01-hillsbrad-foothills and 40-50/01-stranglethorn-vale;
-# horde/30-40/03-arathi-highlands); they are repeated here for anyone off it.
+# horde/30-40/04-dustwallow-marsh); they are repeated here for anyone off it.
 # The rest is left out of the leveling guides: it ends in an elite fight and
 # runs from the Barrens to Alterac, Arathi and Stranglethorn.
 # ASSUMED: the Affray's challengers, Bath'rah's ritual and Cyclonian's fight are as in Classic (Classic flow; Forever's data has no event data above 30). In-game check: six challengers before Big Will, and Cyclonian appearing when The Summoning is accepted.
+# Level holds (the #1667 rule: a goal waits until its mobs' top level is at
+# most 2 above you): the Liferoot and the Bloodscalp tusks (trolls 33-37)
+# come first; the exiles (38-39) wait for 37 and Cyclonian (40 elite) for 38.
+# Players' recordings: Bloodscalp tusks gathered at 36.
 
 step The Islander (Stormwind)
   only Human,NightElf,Skyborne,Alliance
@@ -84,23 +94,9 @@ step The Affray
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains
-  tip Bath'rah the Windwatcher camps by ruins on the east bank of the river that runs past Tarren Mill, a short walk north-east of the town, just over the border in Alterac Mountains; his cauldron stands beside him. Horde: fly to Tarren Mill. Alliance: fly to Southshore and go north along the river; Tarren Mill's guards are level 42 elites, so keep away from the town. Accepting Cyclonian gives you Bath'rah's Parchment, the list of what he needs: 8 Liferoot, 30 Bloodscalp Tusks and the Essence of the Exile from his cauldron. Click the cauldron for that quest.
+  tip Bath'rah the Windwatcher camps by ruins on the east bank of the river that runs past Tarren Mill, a short walk north-east of the town, just over the border in Alterac Mountains; his cauldron stands beside him. Horde: fly to Tarren Mill. Alliance: fly to Southshore and go north along the river; Tarren Mill's guards are level 42 elites, so keep away from the town. Accepting Cyclonian gives you Bath'rah's Parchment, the list of what he needs: 8 Liferoot, 30 Bloodscalp Tusks and the Essence of the Exile from his cauldron. The cauldron's Essence of the Exile is not a quest you take: it never shows in your quest log. Come back with its charms and hand them in at the cauldron.
   turnin 1791                                 -- Bath'rah the Windwatcher
   accept 1712
-  accept 1714 object 89931                    -- Bath'rah's Cauldron
-
-step The exiles of Arathi
-  zone Arathi Highlands
-  tip The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite, and hit hard at 30-33: bring a friend or come at 35 or more. Burning Exiles (fire) by the Circle of West Binding in the north-west, north-west of Refuge Pointe; Thundering Exiles (air) by the Circle of Outer Binding south-east of Refuge Pointe, casting Lightning Bolt from 40 yards; Cresting Exiles (water) by the Circle of East Binding, north-west of Hammerfall, with Frost Nova. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning).
-  collect 4479 x8 quest 1714.2                -- Burning Charm, from Burning Exiles
-  collect 4480 x8 quest 1714.1                -- Thundering Charm, from Thundering Exiles
-  collect 4481 x8 quest 1714.3                -- Cresting Charm, from Cresting Exiles
-
-step Essence of the Exile
-  zone Alterac Mountains
-  tip Put the 24 charms into Bath'rah's Cauldron: it hands you the Essence of the Exile.
-  turnin 1714 object 89931                    -- Bath'rah's Cauldron: Essence of the Exile
-  collect 6851 quest 1712.3 @80.5,66.9        -- Essence of the Exile, from the cauldron by Bath'rah
 
 step Liferoot
   tip You need 8 Liferoot. Herbalists pick it by rivers and lakes in the Wetlands, Arathi Highlands and Stranglethorn Vale; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: Bernard Gump and Maria Lumere in Stormwind, Antonio Perelli on the road in eastern Elwynn, Jeeda at Sun Rock Retreat in Stonetalon, Montarr in Thousand Needles. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve.
@@ -111,10 +107,25 @@ step Bloodscalp Tusks
   tip You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of Grom'gol Base Camp and around the Bal'lal Ruins on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes.
   collect 3901 x30 quest 1712.2               -- Bloodscalp Tusk
 
+step The exiles of Arathi
+  zone Arathi Highlands
+  tip The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite: the guide waits for level 37 first, and a friend helps. Burning Exiles (fire) by the Circle of West Binding in the north-west, north-west of Refuge Pointe; Thundering Exiles (air) by the Circle of Outer Binding south-east of Refuge Pointe, casting Lightning Bolt from 40 yards; Cresting Exiles (water) by the Circle of East Binding, north-west of Hammerfall, with Frost Nova. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning).
+  level 37
+  collect 4479 x8                             -- Burning Charm, from Burning Exiles
+  collect 4480 x8                             -- Thundering Charm, from Thundering Exiles
+  collect 4481 x8                             -- Cresting Charm, from Cresting Exiles
+
+step Essence of the Exile
+  zone Alterac Mountains
+  tip Click Bath'rah's Cauldron with the 24 charms in your bags and Cyclonian in your log. Its window asks for the charms straight away, with nothing to accept: Continue, then Complete, and it hands you the Essence of the Exile.
+  turnin 1714 object 89931 direct             -- Bath'rah's Cauldron: Essence of the Exile
+  collect 6851 quest 1712.3 @80.5,66.9        -- Essence of the Exile, from the cauldron by Bath'rah
+
 step The Summoning
   zone Alterac Mountains
   tip Back to Bath'rah. Accepting The Summoning starts his ritual, and Cyclonian appears just north of his camp. Cyclonian is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a Nature Protection Potion soaks it), whirls, and Knock Away throws you far while it heals itself as you run back: fight with your back to a slope or rock. The Whirlwind Heart always drops. If the fight fails Bath'rah stops answering: abandon The Summoning and take it again for a new summon; the earlier items are not needed again.
   turnin 1712                                 -- Bath'rah the Windwatcher
+  level 38
   accept 1713
   kill 6239 group 3                           -- Cyclonian
   collect 6894 quest 1713.1                   -- Whirlwind Heart, from Cyclonian

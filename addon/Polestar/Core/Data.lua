@@ -105,7 +105,7 @@ end
 -- Folders the release zip puts beside Polestar. The first two must be there;
 -- the walking routes (Polestar_Nav), quest and item packs and the language
 -- folder of the client's language (Names.PackName(), none in English) are optional
--- (the arrow falls back to straight lines, names and guide texts to English; a source
+-- (the arrow falls back to straight lines, the interface, names and guide texts to English; a source
 -- install may not build the packs), but when present they must be the same
 -- version.
 local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Nav", "Polestar_QuestDB", "Polestar_ItemDB" }

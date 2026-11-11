@@ -31,7 +31,7 @@ return {
 	-- Step 5: Silithus
 	["7 areas to discover here, level 55."] = "7 áreas a descobrir aqui, nível 55.",
 	-- {zone:1451} Silithus · {zone:1449} Un'Goro Crater · {area:3425} Cenarion Hold
-	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "",
+	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "{zone:1451} fica a oeste de {zone:1449}, pela passagem no noroeste dela. {area:3425} é neutra.",
 	-- {area:3425} Cenarion Hold · {npc:15177} Cloud Skydancer
 	["Flight path here: {area:3425} ({npc:15177})."] = "Rota de voo aqui: {area:3425} ({npc:15177}).",
 	-- {area:3425} Cenarion Hold · {npc:15178} Runk Windtamer
@@ -64,7 +64,7 @@ return {
 	-- Step 11: Moonglade
 	["1 area to discover here, level 15."] = "1 área a descobrir aqui, nível 15.",
 	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {area:2361} Nighthaven
-	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "",
+	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "Pegue o túnel de {area:1769}, no norte de {zone:1448}, até {zone:1450} (druidas: {spell:18960}). {area:2361} é neutra.",
 	-- {zone:1450} Moonglade
 	["Flight path here: {zone:1450} (Sindrayl)."] = "Rota de voo aqui: {zone:1450} (Sindrayl).",
 	-- {zone:1450} Moonglade
@@ -81,12 +81,11 @@ return {
 	["Flight path here: {area:2255} (Yugrek)."] = "Rota de voo aqui: {area:2255} (Yugrek).",
 
 	-- Step 14: Mount Hyjal (1/2)
-	["9 areas to discover here. Its creatures are level 54-60."] = "",
+	["9 areas to discover here. Its creatures are level 54-60."] = "9 áreas para descobrir aqui. As criaturas dela são de nível 54-60.",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "{zone:2482} é alcançado a partir de {zone:1452} por {area:2256}, no sul. É a zona de evolução de fim de jogo do Forever.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "9 áreas a descobrir aqui.",
-	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "Pegue o túnel de {area:1769}, no norte de {zone:1448}, até {zone:1450} (druidas: {spell:18960}). {area:2361} é neutra.",
 	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451} fica a oeste de {zone:1449}. {area:3425} é neutro.",
 }

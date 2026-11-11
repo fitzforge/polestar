@@ -22,8 +22,15 @@ why A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborn
 #   Aetherwind in Valanaar) and Boughs in the Wind (93797): the Windbough Wand
 #   (263430). Mirror Lake's race mask takes Skyborne too, so they take it from
 #   Jennea on reaching Stormwind at about 15 (02-westfall does).
-# Exclusive (quests.json `excl`, and Forever's quest data): 1860 shuts out 1879
-# and 1880, 1879 shuts out 1860 and 1861, 1861 and 1880 shut out each other.
+# Exclusive (Forever's server data, quest_template_addon ExclusiveGroup): the
+# two errands, Speak with Jennea (1860) and Speak with Bink (1879), shut out
+# each other, and so do the two weapon quests, Mirror Lake (1861) and the
+# Gizmonitor (1880). Speak with Bink does NOT shut out Mirror Lake (nor Speak
+# with Jennea the Gizmonitor). quests.json `excl` reads the other way round, "is
+# shut out by": 1879 lists 1860 and 1861 because either one taken closes it
+# (it would only lead to the Gizmonitor). The Mirror Lake steps skip a mage
+# holding Speak with Bink (`when !onquest 1879`): Bink is where that errand
+# goes, and Mirror Lake would shut out the Gizmonitor it leads to.
 # Every Human or Gnome mage gets one staff-or-orb chain: Humans take Jennea's,
 # Gnomes Bink's (either race may take the other town's; the guide follows the
 # home town). Belann's chain has no `excl`: Skyborne do both.
@@ -72,14 +79,14 @@ step Back to Belann
 step Zaldimar Wefhellt (Goldshire)
   only Human
   zone Elwynn Forest
-  tip At 10 Zaldimar Wefhellt, the Goldshire mage trainer, upstairs in the Lion's Pride Inn, sends you to Jennea Cannon in Stormwind. Taking it shuts out Bink's quest in Ironforge; you get one staff-or-orb quest.
+  tip At 10 Zaldimar Wefhellt, the Goldshire mage trainer, upstairs in the Lion's Pride Inn, sends you to Jennea Cannon in Stormwind. Taking it shuts out Speak with Bink, the Kharanos trainer's errand; Mirror Lake and Bink's Gizmonitor shut out each other, so you get one staff or orb.
   level 10
   accept 1860 npc 328                         -- Zaldimar Wefhellt
 
 step Magis Sparkmantle (Kharanos)
   only Gnome
   zone Dun Morogh
-  tip At 10 Magis Sparkmantle, the Kharanos mage trainer in the Thunderbrew Distillery, sends you to Bink in Ironforge. Taking it shuts out Jennea's Mirror Lake; you get one staff-or-orb quest. (A Gnome who took Zaldimar's quest in Goldshire instead follows the Mirror Lake steps; a Human who took this one, the Gizmonitor steps.)
+  tip At 10 Magis Sparkmantle, the Kharanos mage trainer in the Thunderbrew Distillery, sends you to Bink in Ironforge. Taking it shuts out Speak with Jennea, the Goldshire trainer's errand; Bink's Gizmonitor and Jennea's Mirror Lake shut out each other, so you get one staff or orb. (A Gnome who took Zaldimar's quest in Goldshire instead follows the Mirror Lake steps; a Human who took this one, the Gizmonitor steps.)
   level 10
   accept 1879 npc 1228                        -- Magis Sparkmantle
 

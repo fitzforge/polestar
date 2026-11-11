@@ -137,7 +137,9 @@ local function clearAdded(tooltip)
 	added[tooltip] = nil
 end
 
+-- While Polestar is hidden (ns.Hidden) no module adds a line.
 local function decorate(kind, tooltip, key, ...)
+	if ns.Hidden() then return 0 end
 	if not clearChecked[tooltip] then
 		-- Check once, including failures: repeated post-calls must not retry.
 		-- Missing APIs or explicit lack of support keep the line-count fallback.
@@ -293,8 +295,9 @@ end
 -- Modified clicks on items
 ---------------------------------------------------------------------------
 
+-- While Polestar is hidden a modified click opens nothing of Polestar's.
 local function itemClick(link)
-	if type(link) ~= "string" or secret(link) then return end
+	if type(link) ~= "string" or secret(link) or ns.Hidden() then return end
 	local id = idOfLink(link)
 	if not id then return end
 	run("click", link, id)

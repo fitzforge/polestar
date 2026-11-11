@@ -1,13 +1,14 @@
 //! Port of tools/lib/i18n/files.js (with the parts of tools/lib/i18n/keys.js
 //! it uses: tokenize, unescapeLua; and of tools/lib/lua.js: luaToJson).
 //!
-//! The interface's translation files, addon/Polestar/Locales/<locale>.lua, in
-//! the layout their translators write:
+//! The interface's translation files, Interface.lua in each language folder
+//! addon/Polestar_<locale> (the Recorder's: addon/Polestar_Recorder/Locales/<locale>.lua),
+//! in the layout their translators write:
 //!
 //!   -- German (deDE). ...                <- the file's own header comments
 //!
-//!   local _, ns = ...
-//!   if not (GetLocale and GetLocale() == "deDE") then return end
+//!   local ns = Polestar                  <- the Recorder's: local _, ns = ...
+//!   if not (ns and GetLocale and GetLocale() == "deDE") then return end
 //!   local L = ns.L
 //!
 //!   -- Core/Commands.lua                  <- a group: the file that first uses its keys
@@ -52,8 +53,14 @@ pub fn lua_string(s: &str) -> String {
 	out
 }
 
+/// The translation file of `locale` for the addon at `addon_dir`: Polestar's is Interface.lua in the
+/// language folder Polestar_<locale> beside it (Core/Locale.lua loads that folder on its client only,
+/// docs/ARCHITECTURE.md "Localisation"); another addon's (the Recorder's) is its own Locales/<locale>.lua.
 #[cfg(feature = "native")]
 pub fn locale_file(addon_dir: &std::path::Path, locale: &str) -> std::path::PathBuf {
+	if addon_dir.file_name().is_some_and(|n| n == "Polestar") {
+		return addon_dir.with_file_name(crate::toc::language_addon(locale)).join(crate::toc::INTERFACE_FILE);
+	}
 	addon_dir.join("Locales").join(format!("{locale}.lua"))
 }
 
@@ -277,6 +284,7 @@ for i, e in ipairs(list) do
 	}})
 	local ns = {{ L = L, locale = e.locale }}
 	function ns.AddTranslations(locale, t) got = t end
+	Polestar = ns
 	local ok, ret = __polestar_loaddata(e.path, "Polestar", ns)
 	local r = {{ ok = ok }}
 	if not ok then
@@ -796,20 +804,24 @@ pub fn update_locale_text(text: &str, file: &str, keys: &[(String, Vec<String>)]
 
 /// A new locale file: its header, then every key grouped under the file that
 /// first uses it in load order, translated from `fill` or commented out.
-/// `title`: the JS default is "Polestar's interface strings".
-pub fn new_locale_text(locale: &str, keys: &[(String, Vec<String>)], fill: &V, retire: &V, title: &str) -> Result<LocaleUpdate, String> {
+/// `title`: the JS default is "Polestar's interface strings". `language_folder`: the file is
+/// Interface.lua in Polestar_<locale>, an addon of its own, so it reaches Polestar's namespace through
+/// the global `Polestar` rather than `...`.
+pub fn new_locale_text(locale: &str, keys: &[(String, Vec<String>)], fill: &V, retire: &V, title: &str, language_folder: bool) -> Result<LocaleUpdate, String> {
 	let language = locales::locale(locale).map_or(locale, |m| m.language);
+	let (ns, guard) = if language_folder { ("local ns = Polestar", "ns and ") } else { ("local _, ns = ...", "") };
 	let head = [
 		format!("-- {language} ({locale}): {title}."),
 		"-- Keys are the English strings exactly as the code writes them; a key".into(),
 		"-- missing here, or commented out, shows in English. Grouped by the file that".into(),
 		"-- first uses each key. docs/TRANSLATING.md explains the rest.".into(),
 		String::new(),
-		"local _, ns = ...".into(),
-		format!("if not (GetLocale and GetLocale() == {}) then return end", lua_string(locale)),
+		ns.into(),
+		format!("if not ({guard}GetLocale and GetLocale() == {}) then return end", lua_string(locale)),
 		BODY_START.into(),
 	];
-	update_locale_text(&format!("{}\n", head.join("\n")), &format!("Locales/{locale}.lua"), keys, fill, retire)
+	let file = if language_folder { format!("{}/{}", crate::toc::language_addon(locale), crate::toc::INTERFACE_FILE) } else { format!("Locales/{locale}.lua") };
+	update_locale_text(&format!("{}\n", head.join("\n")), &file, keys, fill, retire)
 }
 
 #[cfg(all(test, feature = "native"))]

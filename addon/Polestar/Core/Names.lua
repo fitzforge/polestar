@@ -10,9 +10,10 @@
 --     The client's own name first (a quest's title, C_QuestLog; an item's,
 --     C_Item; an NPC's or object's as the client named it in play, below),
 --     then the names pack of its language, Names.lua in the language folder
---     Polestar_<locale> (built by `forge data names`; our guides' texts share
---     the folder), loaded on demand on the first
---     ask (or already in through GuideTexts), else nil. Always nil on an English client (enUS, enGB), which
+--     Polestar_<locale> (built by `forge data names`; our guides' texts and
+--     the interface strings share the folder), already in through
+--     Core/Locale.lua (when that failed, loaded on demand on the first ask),
+--     else nil. Always nil on an English client (enUS, enGB), which
 --     loads nothing. A quest or item the client has not cached is asked for,
 --     once a session; when the asked names arrive (QUEST_DATA_LOAD_RESULT,
 --     ITEM_DATA_LOAD_RESULT) one STEP_UPDATED redraws the guide window.

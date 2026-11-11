@@ -7,80 +7,74 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Ratchet
-	-- {area:3425} Cenarion Hold · {area:392} Ratchet
-	["Ride back to {area:3425} and fly to {area:392}."] = "",
+	-- {area:541} Marshal's Refuge · {area:392} Ratchet
+	["Fly from {area:541} to {area:392}."] = "从{area:541}飞往{area:392}。",
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}, inside"] = "",
+	["{npc:8496}, inside"] = "{npc:8496}：在屋内",
 
 	-- Step 2: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "乘船前往{area:35}",
 
 	-- Step 3: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "飞往{zone:1453}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
-	-- Step 4: Ironforge
-	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["Take the {area:2257} to {zone:1455}."] = "",
-
-	-- Step 5: Stormwind
+	-- Step 4: Stormwind
 	-- {area:392} Ratchet · {area:35} Booty Bay · {zone:1453} Stormwind
-	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "",
+	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "从{area:392}乘船前往{area:35}，飞往{zone:1453}。",
 	-- {npc:3520} Ol' Emma
-	["{npc:3520}, who walks the canals"] = "",
+	["{npc:3520}, who walks the canals"] = "{npc:3520}，在运河边走动",
 	-- {npc:10778} Janice Felstone
-	["For {npc:10778}: keep it"] = "",
+	["For {npc:10778}: keep it"] = "交给{npc:10778}：留着",
 
-	-- Step 6: Stormwind Keep
+	-- Step 5: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, in SI:7"] = "",
+	["{npc:332}, in SI:7"] = "{npc:332}，在军情七处",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
-	["{quest:6184} at {area:3197}: keep it"] = "",
+	["{quest:6184} at {area:3197}: keep it"] = "{area:3197}的{quest:6184}：留着",
 
-	-- Step 7: Tram to Ironforge
+	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "乘地铁前往{zone:1455}",
 
-	-- Step 8: Ironforge
-	["Its jars are filled on the next Un'Goro visit"] = "",
-	-- {npc:14724} Bubulo Acerbus
-	["{npc:14724}, by the tram"] = "",
+	-- Step 7: Ironforge
+	["Its jars are filled on the next Un'Goro visit"] = "采样瓶在下次去安戈洛时装满",
 
-	-- Step 9: Fly to Light's Hope Chapel
+	-- Step 8: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
-	["Fly to {area:2268}"] = "",
+	["Fly to {area:2268}"] = "飞往{area:2268}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 
-	-- Step 11: Light's Hope Chapel
-	-- {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel
-	["Ride on north to {area:3197} and fly to {area:2268}."] = "",
+	-- Step 9: Light's Hope Chapel
+	-- {npc:11038} Caretaker Alen · {area:2627} Terrordale
+	["{npc:11038}, by the graves south of the chapel: Egan is in {area:2627}, keep it"] = "{npc:11038}，在教堂南面的墓地旁：埃根在{area:2627}，先留着",
 
-	-- Step 12: Scourge Champions
+	-- Step 10: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions"] = "",
+	["Scourge Champions"] = "天灾勇士",
 	-- {area:2270} Noxious Glade · {area:2268} Light's Hope Chapel · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "",
+	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "天灾勇士（59级）在{area:2268}北边的{area:2270}游荡。在你杀死的每一个身上挥动{npc:11063}的{item:13156}：产生共鸣的头骨就是他要的。一次拉一个。",
 	-- {item:13155} Resonating Skull
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["{item:13155}, from the Scourge Champions"] = "",
+	["{item:13155}, from the Scourge Champions"] = "{item:13155}，来自天灾勇士",
 
-	-- Step 13: Light's Hope Chapel
-	["Chromie in Andorhal: keep it"] = "",
+	-- Step 11: Light's Hope Chapel
+	["Chromie in Andorhal: keep it"] = "安多哈尔的克罗米：留着",
 
-	-- Step 14: Infiltrator Hameya
+	-- Step 12: Infiltrator Hameya
 	-- {area:2277} Plaguewood · {area:2273} Zul'Mashar
-	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
+	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "向北骑行前往{area:2277}东北边缘。\n注意：通往{area:2273}沿途的巨魔为 57–59 级，低血量时会逃跑求援，经常引来更多敌人。",
 
-	-- Step 15: The Undercroft
+	-- Step 13: The Undercroft
 	-- {area:2261} The Undercroft · {npc:11886} Mercutio Filthgorger
-	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
+	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "向西南骑行前往{area:2261}，土堆位于内部。{npc:11886}是精英，建议组队。\n注意：米库提奥·污血会带来约四名非精英随从，他们会走到墓地，而非原地出现。",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
-	["{item:14613}, from {npc:11886}"] = "",
+	["{item:14613}, from {npc:11886}"] = "{item:14613}，来自{npc:11886}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Chromie in Andorhal: keep it"] = "安多哈尔的克罗米：留着",
@@ -104,9 +98,7 @@ return {
 	-- ["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised."] = "向西南骑行到{area:2261}。土堆在里面。{npc:11886}是精英：建议组队。",
 	-- ["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "向西南骑行到{area:1938}的{npc:7771}营地。",
 	-- ["Scourge Champions"] = "天灾勇士",
-	-- ["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "天灾勇士（59级）在{area:2268}北边的{area:2270}游荡。在你杀死的每一个身上挥动{npc:11063}的{item:13156}：产生共鸣的头骨就是他要的。一次拉一个。",
 	-- ["Sixty {item:2592}, if you carry them"] = "六十块{item:2592}，如果你带着的话",
-	-- ["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "从{area:392}乘船前往{area:35}，飞往{zone:1453}。",
 	-- ["Take the {area:2257} to {zone:1455}."] = "乘{area:2257}前往{zone:1455}。",
 	-- ["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}."] = "焦油兽在{area:538}中打滚；中央{area:537}的火元素携带灰烬；南部{area:540}的格里什异种蝎携带腺体。环形山中的所有生物都可能掉落{item:11018}。",
 	-- ["The crater"] = "环形山",
@@ -123,5 +115,4 @@ return {
 	-- ["{npc:3520}, who walks the canals"] = "{npc:3520}，在运河边走动",
 	-- ["{npc:9299} waits at the graveyard just east of town; the gravestone stands nearby."] = "{npc:9299}在镇子东边不远的墓地等候；墓碑就在附近。",
 	-- ["{quest:3444} is in {area:392}"] = "{quest:3444}在{area:392}",
-	-- ["{quest:6184} at {area:3197}: keep it"] = "{area:3197}的{quest:6184}：留着",
 }

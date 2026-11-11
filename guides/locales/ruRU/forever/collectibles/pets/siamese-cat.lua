@@ -15,7 +15,7 @@ return {
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, в шахте ({area:20})",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581} portal, inside the {area:20} mine"] = "Портал ({area:1581}), внутри шахты ({area:20})",
 	["Cookie"] = "Пирожок",

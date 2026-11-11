@@ -531,21 +531,36 @@ const GREY: &str = r#"
     P.Compat.GetPlayerInfo = function() return {cls="DRUID", class="DRUID", race="NightElf", faction="Alliance", level=20} end
 "#;
 
+// A grey quest the next chapter hands in (Five) is kept while Skip grey quests is off, and while a quest still
+// worth doing on that chapter's chain needs it; with the setting on and no such need, that chapter leaves it out
+// too (Engine.GreyLeftOut), so it is listed.
 #[test]
-fn grey_quests_are_listed_as_grey_unless_the_route_hands_them_in_this_chapter() {
-	let out = run(
+fn grey_quests_are_listed_as_grey_unless_the_route_still_hands_them_in() {
+	let room = r#"
+    function room()
+        local list, why = R.Unneeded(), {}
+        for i, u in ipairs(list) do why[i] = u.status end
+        return { titles = titles(list), why = why }
+    end
+"#;
+	let out = run(&format!("{ROOM}{GREY}{room}{}", r#"local off = room(); P.Set("behavior.skipGrey", true); emit({ off = off, on = room() })"#), false);
+	assert_eq!(out["off"], json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "Skip grey off: the next guide hands Five in");
+	assert_eq!(out["on"], json!({ "titles": ["One", "Five", "Stray"], "why": ["missed", "grey", "grey"] }));
+	// Westfall's own accept of 6 (level 18, not grey) needs Five first.
+	let needed =
+		run(&format!("{ROOM}{GREY}{room}{}", r#"table.insert(guideB.steps, 1, { goals = { { t="accept", quest=6, qlvl=18, pre={5} } } }); P.Set("behavior.skipGrey", true); emit(room())"#), false);
+	assert_eq!(needed, json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "a later quest needs Five");
+	// Westfall's route choice, the other option not loaded: what it needs is unknown, so Five stays.
+	let unknown = run(
 		&format!(
-			"{ROOM}{GREY}{}",
-			r#"
-    local list = R.Unneeded()
-    local why = {}
-    for i, u in ipairs(list) do why[i] = u.status end
-    emit({ titles = titles(list), why = why })
-  "#
+			"{ROOM}{GREY}{room}{}",
+			r#"guides["route/d"] = { id = "route/d", title = "Duskwood", steps = {} }
+    guideB.nextChoices = { "route/d", "route/gone" }; P.CharState().routes = { [guideB.id] = "route/d" }
+    P.Set("behavior.skipGrey", true); emit(room())"#
 		),
 		false,
 	);
-	assert_eq!(out, json!({ "titles": ["One", "Five", "Stray"], "why": ["missed", "grey", "grey"] }));
+	assert_eq!(unknown, json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "a later guide's needs unknown");
 }
 
 #[test]
@@ -554,6 +569,7 @@ fn a_grey_quest_handed_in_later_is_named_once_when_the_log_overflows() {
 		&format!(
 			"{ROOM}{GREY}{}",
 			r#"
+    P.Set("behavior.skipGrey", true)
     w.abandon(1); w.abandon(77); cap = 2
     emit(titles(R.LogOverflow().drop))
   "#
@@ -561,4 +577,31 @@ fn a_grey_quest_handed_in_later_is_named_once_when_the_log_overflows() {
 		false,
 	);
 	assert_eq!(out, json!(["Five", "Three"]));
+}
+
+// Quest work a later guide hands in (the compiled `carriedTo`) is "later" there, even where the plan cannot reach
+// that guide (not loaded here): never unplanned, never listed, grey or not, and said as that guide's hand-in.
+#[test]
+fn a_quest_a_later_guide_hands_in_beyond_the_plan_is_not_called_unneeded() {
+	let out = run(
+		&format!(
+			"{ROOM}{GREY}{}",
+			r#"
+    w.onQuest(88, {}, "Sceptre")
+    levels[88] = 10
+    table.insert(guideA.steps, { goals = { { t="kill", quest=88, oi=1, carriedTo="route/z" } } })
+    guides["route/y"] = { id = "route/y", title = "Badlands", steps = {} }
+    table.insert(guideA.steps, { goals = { { t="collect", quest=89, item=1, carriedTo="route/y" } } })
+    P.Fire("GUIDES_REGISTERED")
+    P.Set("behavior.skipGrey", true)
+    local plan = R.GetTurnIn(88)
+    emit({ status = plan.status, guide = plan.guide, listed = titles(R.Unneeded()), named = R.Describe(R.GetTurnIn(89)) })
+  "#
+		),
+		false,
+	);
+	assert_eq!(out["status"], "later");
+	assert_eq!(out["guide"], "route/z");
+	assert_eq!(out["listed"], json!(["One", "Five", "Stray"]), "Sceptre is the unloaded later guide's: kept even grey with Skip grey on");
+	assert_eq!(out["named"], "Turn in at Badlands");
 }

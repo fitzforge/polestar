@@ -367,4 +367,4 @@ ns.RegisterCommand("xp", function()
 			if shown >= 5 then break end
 		end
 	end
-end, L["XP per hour, time to level and level splits"])
+end, L["XP per hour, time to level and level splits"], true)

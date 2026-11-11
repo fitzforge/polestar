@@ -3,7 +3,10 @@
 --
 -- Rules: settings behavior.autoAccept / behavior.autoTurnin; holding Shift
 -- suppresses both; only `accept`/`turnin` goals of the live step qualify
--- (never a step ahead, nor one the player only looks at); a reward with
+-- (never one the player only looks at), a hand-in the While-you're-here
+-- panel shows (Engine.WantsQuest, #1408) and an accept of the route's next
+-- steps at the NPC the player talks to (Engine.WantsQuest: Own.aheadWants,
+-- with its guards: gates, level, timers, the log's room); a reward with
 -- several choices is always
 -- left to the player, as are quests that cost money or flag for PvP, and
 -- (behavior.warnClosing) quests that close another one for good.
@@ -81,6 +84,27 @@ local function wantsTurnIn(q)
 	if not (q and q ~= 0) then return false end
 	if ns.Compat.IsOnQuest(q) then return ns.Engine.WantsQuest("turnin", q) end
 	return wantsDirect(q)
+end
+
+-- The debug log's lines for the quests a window offers that auto-accept
+-- leaves (ns.Debug: chat only with /polestar debug on; a report carries the
+-- last lines, so one short line per quest), each with why
+-- (Engine.AcceptRefusal): the setting off, Shift held, or the guide's
+-- reason. `list`: quest ids; nothing logged for none.
+local function noteLeft(kind, list)
+	if #list == 0 then return end
+	local npc = tostring(ns.Compat.GetNpcID("npc"))
+	for _, q in ipairs(list) do
+		local why
+		if not ns.Get("behavior.autoAccept") then
+			why = "auto-accept off"
+		elseif suppressed() then
+			why = "Shift held"
+		else
+			why = ns.Engine.AcceptRefusal(q) or "wanted"
+		end
+		ns.Debug(("auto-accept left %s (%s %s): %s"):format(tostring(q), kind, npc, why))
+	end
 end
 
 local function questID()
@@ -169,11 +193,19 @@ end
 ---------------------------------------------------------------------------
 
 local function onDetail()
-	if not canAccept() then return false end
 	local q = questID()
-	if not wantsAccept(q) then return false end
-	if ns.Closes.HoldsOffer() then return false end -- closes another quest for good: the player chooses
-	if QuestFlagsPVP and QuestFlagsPVP() then return false end -- needs the PvP confirmation
+	if not (canAccept() and wantsAccept(q)) then
+		noteLeft("detail", { q or 0 })
+		return false
+	end
+	if ns.Closes.HoldsOffer() then -- closes another quest for good: the player chooses
+		ns.Debug(("auto-accept left %s (detail): closes another quest for good"):format(tostring(q)))
+		return false
+	end
+	if QuestFlagsPVP and QuestFlagsPVP() then -- needs the PvP confirmation
+		ns.Debug(("auto-accept left %s (detail): needs the PvP confirmation"):format(tostring(q)))
+		return false
+	end
 	noteActed()
 	if QuestGetAutoAccept and QuestGetAutoAccept() then
 		if AcknowledgeAutoAcceptQuest then AcknowledgeAutoAcceptQuest() end
@@ -205,11 +237,22 @@ local function onComplete()
 	if GetQuestReward then GetQuestReward(choices == 1 and 1 or 0) end
 end
 
+-- The quest ids a greeting panel offers.
+local function greetingOffers()
+	local list = {}
+	if not GetAvailableQuestInfo then return list end
+	for i = 1, GetNumAvailableQuests and GetNumAvailableQuests() or 0 do list[i] = select(5, GetAvailableQuestInfo(i)) or 0 end
+	return list
+end
+
 -- Greeting panel (several quests from one NPC/object): turn-ins first, since
 -- they often unlock the follow-up to accept.
 local function onGreeting()
 	local turnin, accept = canTurnIn(), canAccept()
-	if not (turnin or accept) then return false end
+	if not (turnin or accept) then
+		noteLeft("greeting", greetingOffers())
+		return false
+	end
 	local numActive = GetNumActiveQuests and GetNumActiveQuests() or 0
 	if turnin and GetActiveTitle and GetActiveQuestID and SelectActiveQuest then
 		for i = 1, numActive do
@@ -230,6 +273,7 @@ local function onGreeting()
 			end
 		end
 	end
+	noteLeft("greeting", greetingOffers())
 	return false
 end
 
@@ -251,8 +295,8 @@ local function onGossip()
 			end
 		end
 	end
-	if (accept or turnin) and G.GetAvailableQuests and G.SelectAvailableQuest then
-		local available = G.GetAvailableQuests() or {}
+	local available = G.GetAvailableQuests and G.GetAvailableQuests() or {}
+	if (accept or turnin) and G.SelectAvailableQuest then
 		for i = 1, #available do
 			local info = available[i]
 			if (accept and wantsAccept(info.questID)) or (turnin and wantsDirect(info.questID)) then
@@ -261,6 +305,9 @@ local function onGossip()
 			end
 		end
 	end
+	local ids = {}
+	for i, info in ipairs(available) do ids[i] = info.questID or 0 end
+	noteLeft("gossip", ids)
 	return false
 end
 

@@ -8,7 +8,7 @@ zone Ironforge
 keywords Ironforge, Mistina Steelshield, cloth quartermaster, Additional Runecloth, Wool, Silk, Mageweave, Runecloth, ram, Swift Gray Ram, grey quests, Coldridge Valley, Kharanos, Dun Morogh, Oralius, Morgan's Vigil, Blackrock Medallion, Enraged Wildkin, Alterac Valley
 reward text Exalted with Ironforge: in Classic, other races may buy the rams
 reward text About 600 Ironforge reputation from level 52-59 quests in the Burning Steppes and Winterspring; Alterac Valley's quests pay Ironforge too
-reward text About 2,900 Ironforge reputation from low-level quests in Dun Morogh, most of it paid to Gnomeregan too (in Classic, a fifth of it at 60)
+reward text About 2,900 Ironforge reputation from low-level quests in Dun Morogh, most of it paid to Gnomeregan too
 why Cloth, the Burning Steppes quests and the Dun Morogh hubs, which pay Gnomeregan too; Alterac Valley adds more.
 
 # Built from Forever's quest data (the reputation each quest pays, as Forever's
@@ -20,13 +20,12 @@ why Cloth, the Burning Steppes quests and the Dun Morogh hubs, which pay Gnomere
 # Numbers: the first donation of each cloth pays 150 (60 cloth); Additional
 # Runecloth (7806) pays 50 for 20 Runecloth and repeats. Bands: Friendly 6000,
 # Honored 12000, Revered 21000.
-# Low-level quests: in Classic a quest 6+ levels below you pays a fifth less per
-# level, down to a fifth; one Forever beta report saw full pay at level 30.
 # Gnomeregan Exiles the same amount (see that guide: one sweep, two factions).
 # The quest hubs are optional: each hub's first step carries a label, the
 # steps after it run only when it was done (`when done`), so skipping the
 # first step skips the hub.
-# Level 52-59 quests first (they pay in full at 60, or nearly): Royal
+# Order: the Dun Morogh hubs, the cloth donations, then the level 52-59 quests
+# (their first step waits for 55), then Additional Runecloth. The late quests: Royal
 # Historian Archesonus's Thaurissan relics (3702, 3701: 110), Oralius at
 # Morgan's Vigil (3823-3825, 4283: 400) and Enraged Wildkin in Winterspring
 # (6604-4864: 100). Left to a tip: the Blackrock Depths quests (Kharan
@@ -38,7 +37,9 @@ why Cloth, the Burning Steppes quests and the Dun Morogh hubs, which pay Gnomere
 # ASSUMED: other races buy the rams at Exalted with Ironforge (Classic flow;
 # Forever's data has no vendor rule for it). In-game check: Veron
 # Amberstill's stock for a non-Dwarf at Exalted and below.
-# INGAME: grey-quest rep at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 # INGAME: reputation discount (Classic: 10% at Honored with the vendor's faction; Forever guide sites report 5% at Friendly rising to 20% at Exalted, another says unannounced). Check a city vendor's price at Friendly and at Honored.
 # Legacy Diplomat adds up to 10% to every gain; the numbers here leave it out.
 # No race has a reputation bonus in Forever (Diplomacy is gone).
@@ -50,84 +51,10 @@ step Mistina Steelshield, the cloth quartermaster
   accept 7802
   turnin 7802
 
-step A Donation of Silk
-  tip Silk Cloth drops from humanoids level 23 to 40: the Dragonmaw of the Wetlands, the Syndicate of Alterac and Arathi, Stranglethorn's trolls.
-  level 26
-  collect 4306 x60 nearest
-  accept 7803
-  turnin 7803
-
-step A Donation of Mageweave
-  tip Mageweave Cloth drops from humanoids level 35 to 50: the Shadowforge and Dark Iron dwarves of the Badlands and Searing Gorge, the Dunemaul ogres of Tanaris, the Hatecrest naga of Feralas.
-  level 40
-  collect 4338 x60 nearest
-  accept 7804
-  turnin 7804
-
-step A Donation of Runecloth
-  tip Runecloth drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring. Keep any Runecloth past the first 60 for Additional Runecloth.
-  level 50
-  collect 14047 x60 nearest
-  accept 7805
-  turnin 7805
-
-step Ironforge: Royal Historian Archesonus
-  zone Ironforge
-  tip These quests are level 52 to 59, so they pay in full at 60, or nearly: about 600 Ironforge reputation (in Classic about 450 at 60, as the Burning Steppes ones are level 52 to 54). Royal Historian Archesonus stands beside King Magni in the High Seat; he sends you to the ruins of Thaurissan in the Burning Steppes.
-  level 55
-  accept 3702                         -- The Smoldering Ruins of Thaurissan, +10
-  kill 8879 quest 3702.1 "Hear Royal Historian Archesonus out"
-  turnin 3702
-  accept 3701                         -- The Smoldering Ruins of Thaurissan, +100
-
-step Morgan's Vigil: Oralius
-  zone Burning Steppes
-  tip Morgan's Vigil sits in the south-east of the Burning Steppes, at the top of the pass up from Redridge. Oralius wants the Firegut ogres of Dreadmaul Rock, north of the Vigil, thinned out; the Brutes keep to the rock's east side.
-  accept 4283                         -- FIFTY! YEP!, +100
-  accept 3823                         -- Extinguish the Firegut, +100
-  kill 7034 x15 quest 3823.1          -- Firegut Ogre Mage
-  kill 7033 x15 quest 3823.2          -- Firegut Ogre
-  kill 7035 x7 quest 3823.3           -- Firegut Brute
-  turnin 3823
-  accept 3824                         -- Gor'tesh the Brute Lord, +100
-
-step Thaurissan and Blackrock Stronghold
-  tip The Thaurissan relics are the carved stones in the ruins around Flame Crest, west along the road: click twelve of them. Gor'tesh and the Blackrock orcs and worgs hold the camps at the foot of Blackrock Mountain, further west; each may drop a Blackrock Medallion (about one kill in three), and Oralius wants fifty. The orcs are level 50 and up, so they drop Runecloth too: keep it for Additional Runecloth.
-  interact 153556 quest 3701.1        -- Thaurissan Relic
-  collect 11080 quest 3824.1          -- Gor'tesh's Lopped Off Head
-  collect 11467 x50 quest 4283.1      -- Blackrock Medallion
-
-step Morgan's Vigil: hand in
-  tip Plant Gor'tesh's head on the soft dirt mound at the top of Dreadmaul Rock.
-  turnin 4283
-  turnin 3824
-  accept 3825                         -- Ogre Head On A Stick = Party, +100
-  interact 160840 quest 3825.1        -- Soft Dirt Mound
-  turnin 3825
-
-step Ironforge: Archesonus again
-  zone Ironforge
-  tip With a group, Blackrock Depths pays more: Archesonus's chain goes on with Kharan Mighthammer (100) and The Fate of the Kingdom (Emperor Thaurissan, 150), and Oralius takes 20 Dark Iron Fanny Packs from the dwarves inside (The Good Stuff, 100). Alterac Valley, from level 51, pays Ironforge too: its one-time quests about 1,900 as your Stormpike standing grows (the Alterac Valley guide walks them), and inside the battle 25 for every 10 Irondeep or Coldtooth Supplies and 50 for 5 Storm Crystals, as often as you like.
-  turnin 3701
-
-step Winterspring: Enraged Wildkin
-  zone Winterspring
-  tip Harlo Wigglesworth in Everlook sends you west to Jaron Stoneshaper at Starfall Village. Jaron's damaged crate and wrecked wagon lie at Mazthoril, down the valley to the south-east; his supplies lie around the wagon and the owlbeasts nearby carry his amulet. The last quest is level 59: 100 Ironforge in full.
-  accept 6604                         -- Harlo Wigglesworth
-  turnin 6604                         -- Jaron Stoneshaper
-  accept 4861
-  turnin 4861                         -- Damaged Crate
-  accept 4863
-  turnin 4863                         -- Jaron's Wagon
-  accept 4864                         -- Enraged Wildkin, +100
-  collect 12525 quest 4864.1          -- Jaron's Supplies
-  collect 12524 quest 4864.2          -- Blue-feathered Amulet
-  turnin 4864                         -- Jaron Stoneshaper
-
 step Coldridge Valley
   label if-coldridge
   zone Dun Morogh
-  tip Optional: the Dwarf and Gnome start valley south-west of Kharanos, about 1,100 reputation (220 at a fifth) in 30 minutes at 60. Sten Stoutarm and Balir Frosthammer stand at Anvilmar. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  tip Optional: the Dwarf and Gnome start valley south-west of Kharanos, about 1,100 reputation in 30 minutes at 60. Sten Stoutarm and Balir Frosthammer stand at Anvilmar. Forever pays these old quests in full at any level. Skip this step to skip the hub.
   accept 179
   accept 3361
   accept 2160
@@ -185,7 +112,7 @@ step Coldridge: on to Kharanos
 step Kharanos
   label if-kharanos
   zone Dun Morogh
-  tip Optional: Kharanos and the Brewnall and Gnomeregan roads around it, about 1,300 reputation (260 at a fifth) in 50 minutes at 60. Most givers stand in and around the Thunderbrew Distillery and at Steelgrill's Depot east of it. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  tip Optional: Kharanos and the Brewnall and Gnomeregan roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the Thunderbrew Distillery and at Steelgrill's Depot east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub.
   accept 400
   turnin 400
   accept 317
@@ -249,7 +176,7 @@ step Kharanos: last hand-in
 step The quarry and Amberstill Ranch
   label if-east
   zone Dun Morogh
-  tip Optional: eastern Dun Morogh, from Earthseer Farsen's camp to the Gol'Bolar Quarry and Amberstill Ranch, about 500 reputation (100 at a fifth) in 30 minutes at 60. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  tip Optional: eastern Dun Morogh, from Earthseer Farsen's camp to the Gol'Bolar Quarry and Amberstill Ranch, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.
   turnin 96408 optional
   accept 96392
   turnin 96392
@@ -275,9 +202,83 @@ step The Reports
   zone Ironforge
   turnin 291                          -- Senator Barin Redstone, in the throne room
 
+step A Donation of Silk
+  tip Silk Cloth drops from humanoids level 23 to 40: the Dragonmaw of the Wetlands, the Syndicate of Alterac and Arathi, Stranglethorn's trolls.
+  level 26
+  collect 4306 x60 nearest
+  accept 7803
+  turnin 7803
+
+step A Donation of Mageweave
+  tip Mageweave Cloth drops from humanoids level 35 to 50: the Shadowforge and Dark Iron dwarves of the Badlands and Searing Gorge, the Dunemaul ogres of Tanaris, the Hatecrest naga of Feralas.
+  level 40
+  collect 4338 x60 nearest
+  accept 7804
+  turnin 7804
+
+step A Donation of Runecloth
+  tip Runecloth drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring. Keep any Runecloth past the first 60 for Additional Runecloth.
+  level 50
+  collect 14047 x60 nearest
+  accept 7805
+  turnin 7805
+
+step Ironforge: Royal Historian Archesonus
+  zone Ironforge
+  tip These quests are level 52 to 59, so they pay in full at 60: about 600 Ironforge reputation. Royal Historian Archesonus stands beside King Magni in the High Seat; he sends you to the ruins of Thaurissan in the Burning Steppes.
+  level 55
+  accept 3702                         -- The Smoldering Ruins of Thaurissan, +10
+  kill 8879 quest 3702.1 "Hear Royal Historian Archesonus out"
+  turnin 3702
+  accept 3701                         -- The Smoldering Ruins of Thaurissan, +100
+
+step Morgan's Vigil: Oralius
+  zone Burning Steppes
+  tip Morgan's Vigil sits in the south-east of the Burning Steppes, at the top of the pass up from Redridge. Oralius wants the Firegut ogres of Dreadmaul Rock, north of the Vigil, thinned out; the Brutes keep to the rock's east side.
+  accept 4283                         -- FIFTY! YEP!, +100
+  accept 3823                         -- Extinguish the Firegut, +100
+  kill 7034 x15 quest 3823.1          -- Firegut Ogre Mage
+  kill 7033 x15 quest 3823.2          -- Firegut Ogre
+  kill 7035 x7 quest 3823.3           -- Firegut Brute
+  turnin 3823
+  accept 3824                         -- Gor'tesh the Brute Lord, +100
+
+step Thaurissan and Blackrock Stronghold
+  tip The Thaurissan relics are the carved stones in the ruins around Flame Crest, west along the road: click twelve of them. Gor'tesh and the Blackrock orcs and worgs hold the camps at the foot of Blackrock Mountain, further west; each may drop a Blackrock Medallion (about one kill in three), and Oralius wants fifty. The orcs are level 50 and up, so they drop Runecloth too: keep it for Additional Runecloth.
+  interact 153556 quest 3701.1        -- Thaurissan Relic
+  collect 11080 quest 3824.1          -- Gor'tesh's Lopped Off Head
+  collect 11467 x50 quest 4283.1      -- Blackrock Medallion
+
+step Morgan's Vigil: hand in
+  tip Plant Gor'tesh's head on the soft dirt mound at the top of Dreadmaul Rock.
+  turnin 4283
+  turnin 3824
+  accept 3825                         -- Ogre Head On A Stick = Party, +100
+  interact 160840 quest 3825.1        -- Soft Dirt Mound
+  turnin 3825
+
+step Ironforge: Archesonus again
+  zone Ironforge
+  tip With a group, Blackrock Depths pays more: Archesonus's chain goes on with Kharan Mighthammer (100) and The Fate of the Kingdom (Emperor Thaurissan, 150), and Oralius takes 20 Dark Iron Fanny Packs from the dwarves inside (The Good Stuff, 100). Alterac Valley, from level 51, pays Ironforge too: its one-time quests about 1,900 as your Stormpike standing grows (the Alterac Valley guide walks them), and inside the battle 25 for every 10 Irondeep or Coldtooth Supplies and 50 for 5 Storm Crystals, as often as you like.
+  turnin 3701
+
+step Winterspring: Enraged Wildkin
+  zone Winterspring
+  tip Harlo Wigglesworth in Everlook sends you west to Jaron Stoneshaper at Starfall Village. Jaron's damaged crate and wrecked wagon lie at Mazthoril, down the valley to the south-east; his supplies lie around the wagon and the owlbeasts nearby carry his amulet. The last quest is level 59: 100 Ironforge in full.
+  accept 6604                         -- Harlo Wigglesworth
+  turnin 6604                         -- Jaron Stoneshaper
+  accept 4861
+  turnin 4861                         -- Damaged Crate
+  accept 4863
+  turnin 4863                         -- Jaron's Wagon
+  accept 4864                         -- Enraged Wildkin, +100
+  collect 12525 quest 4864.1          -- Jaron's Supplies
+  collect 12524 quest 4864.2          -- Blue-feathered Amulet
+  turnin 4864                         -- Jaron Stoneshaper
+
 step Additional Runecloth to Honored
   zone Ironforge
-  tip Additional Runecloth: 50 reputation for 20 Runecloth, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 Runecloth (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each Dun Morogh hub you did takes 10 to 26 more off if it paid in full. More hubs pay Ironforge, in full while they are no more than 5 levels below you: Thelsamar in Loch Modan (about 3,500 in all) and Menethil Harbor in the Wetlands (about 2,500). From level 51 Alterac Valley's one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your Runecloth at once.
+  tip Additional Runecloth: 50 reputation for 20 Runecloth, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 Runecloth (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each Dun Morogh hub you did takes 10 to 26 more off. More hubs pay Ironforge, in full while they are no more than 5 levels below you: Thelsamar in Loch Modan (about 3,500 in all) and Menethil Harbor in the Wetlands (about 2,500). From level 51 Alterac Valley's one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your Runecloth at once.
   collect 14047 x20 optional nearest
   turnin 7806 direct optional
   rep 47 Honored

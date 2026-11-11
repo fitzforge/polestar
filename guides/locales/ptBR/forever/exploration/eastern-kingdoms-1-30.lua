@@ -23,40 +23,40 @@ return {
 	-- Step 3: Dun Morogh (1/3)
 	["18 areas to discover here, levels 4-12."] = "18 áreas para descobrir aqui, níveis 4-12.",
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind City · {object:28027} Dwarven District · {zone:1455} Ironforge
-	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}, then leave the city through its gates."] = "",
+	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}, then leave the city through its gates."] = "Pegue o {area:2257} a partir do {object:28027} de {zone:1453} até {zone:1455} e depois saia da cidade pelos portões.",
 
 	-- Step 6: Loch Modan (1/2)
 	["11 areas to discover here, levels 10-18."] = "11 áreas para descobrir aqui, níveis 10-18.",
 	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:924} Valley of Kings
-	["Leave {zone:1426} east through the South Gate tunnel; it opens into {zone:1432} by the dwarf king statues of the {area:924}."] = "",
+	["Leave {zone:1426} east through the South Gate tunnel; it opens into {zone:1432} by the dwarf king statues of the {area:924}."] = "Saia de {zone:1426} para leste pelo túnel do Portão Sul; ele se abre em {zone:1432}, junto às estátuas dos reis anões de {area:924}.",
 	-- {area:144} Thelsamar · {npc:1572} Thorgrum Borrelson
 	["Flight path here: {area:144} ({npc:1572})."] = "Rota de voo aqui: {area:144} ({npc:1572}).",
 
 	-- Step 8: Westfall (1/2)
 	["14 areas to discover here, levels 9-18."] = "14 áreas para descobrir aqui, níveis 9-18.",
 	-- {area:144} Thelsamar · {zone:1453} Stormwind City · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1429} Elwynn Forest · {area:120} Westbrook Garrison · {zone:1436} Westfall
-	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "",
+	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "Voe de {area:144} para {zone:1453}, se tiver o voo; senão, cavalgue de volta a {zone:1455} e pegue o {area:2257}. Siga a pé para oeste saindo de {zone:1429}, passando por {area:120}, até {zone:1436}.",
 	-- {area:108} Sentinel Hill
 	["Flight path here: {area:108} (Thor)."] = "Rota de voo aqui: {area:108} (Thor).",
 
 	-- Step 10: Redridge Mountains (1/2)
 	["11 areas to discover here, levels 15-24."] = "11 áreas para descobrir aqui, níveis 15-24.",
 	-- {zone:1429} Elwynn Forest · {area:88} Eastvale Logging Camp · {area:1002} Three Corners · {zone:1431} Duskwood
-	["Go back east through {zone:1429}: the road past the {area:88} enters Redridge at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "",
+	["Go back east through {zone:1429}: the road past the {area:88} enters Redridge at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "Volte para leste por {zone:1429}: a estrada depois de {area:88} entra em Cristarrubra em {area:1002}, onde se encontram as estradas de {zone:1429} e {zone:1431}.",
 	-- {area:69} Lakeshire · {npc:931} Ariena Stormfeather
 	["Flight path here: {area:69} ({npc:931})."] = "Rota de voo aqui: {area:69} ({npc:931}).",
 
 	-- Step 12: Duskwood (1/2)
 	["13 areas to discover here, levels 10-30."] = "13 áreas para descobrir aqui, níveis 10-30.",
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
-	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "",
+	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "A partir de {area:1002}, pegue a estrada para o sul até {zone:1431}; {area:42} fica a leste pela estrada principal. A maior parte da Floresta do Crepúsculo é de nível 24-30: venha com Cristarrubra já concluída.",
 	-- {area:42} Darkshire · {npc:2409} Felicia Maline
 	["Flight path here: {area:42} ({npc:2409})."] = "Rota de voo aqui: {area:42} ({npc:2409}).",
 
 	-- Step 14: Wetlands (1/2)
 	["15 areas to discover here, levels 20-30."] = "15 áreas para descobrir aqui, níveis 20-30.",
 	-- {area:42} Darkshire · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:836} Dun Algaz · {zone:1437} Wetlands
-	["Fly from {area:42} to {area:144} in {zone:1432} and ride north through the {area:836} pass into the {zone:1437}."] = "",
+	["Fly from {area:42} to {area:144} in {zone:1432} and ride north through the {area:836} pass into the {zone:1437}."] = "Voe de {area:42} para {area:144}, em {zone:1432}, e cavalgue para o norte pela passagem de {area:836} até {zone:1437}.",
 	-- {area:150} Menethil Harbor · {npc:1571} Shellei Brondir
 	["Flight path here: {area:150} ({npc:1571})."] = "Rota de voo aqui: {area:150} ({npc:1571}).",
 	-- {area:1038} Dragonmaw Gates · {area:1037} Grim Batol
@@ -65,7 +65,7 @@ return {
 	-- Step 16: Hillsbrad Foothills (1/2)
 	["12 areas to discover here, levels 20-31."] = "12 áreas para descobrir aqui, níveis 20-31.",
 	-- {area:150} Menethil Harbor · {area:271} Southshore
-	["Take the boat from {area:150} to {area:271}."] = "",
+	["Take the boat from {area:150} to {area:271}."] = "Pegue o barco de {area:150} até {area:271}.",
 	-- {area:271} Southshore · {npc:2432} Darla Harris
 	["Flight path here: {area:271} ({npc:2432})."] = "Rota de voo aqui: {area:271} ({npc:2432}).",
 	-- {area:272} Tarren Mill
@@ -129,7 +129,7 @@ return {
 
 	-- Step 34: Dun Morogh (1/3)
 	-- {area:925} Algaz Station · {area:807} North Gate Pass · {zone:1426} Dun Morogh · {area:131} Kharanos · {zone:1455} Ironforge
-	["From {area:925} take the {area:807} tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "",
+	["From {area:925} take the {area:807} tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "A partir de {area:925}, pegue o túnel de {area:807} para oeste até {zone:1426}. {area:131} e os portões de {zone:1455} são território da Aliança.",
 
 	-- Step 35: Dun Morogh (2/3)
 	-- {area:809} Gates of Ironforge

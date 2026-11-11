@@ -28,15 +28,17 @@ function allPoints(s) {
 // (`abundance`, node-abundance.json: { name: { up } } for the map) spread over
 // the kind's points, so a point listed for six pooled kinds counts for the one
 // node the server puts there; a kind the zone's table lacks counts nothing. A
-// map with no table splits each point among the kinds listed at it. `w` is
-// `up` times the band weight.
+// map with no table, or whose table holds none of `table`'s kinds (Teldrassil's
+// lists its herbs only, not its Amber), splits each point among the kinds
+// listed at it. `w` is `up` times the band weight.
 function nodePoints(objects, project, { table, role, map, from, to, abundance = null }) {
 	const { raw, count } = mapNodes(objects, project, table, role, map);
+	const ab = abundance && Object.keys(table).some((k) => abundance[k]) ? abundance : null;
 	const out = [];
 	for (const p of raw) {
 		const bw = bandWeight(p.req, from, to);
 		if (bw <= 0) continue;
-		const up = abundance ? (abundance[p.name] ? abundance[p.name].up / count.get(p.name) : 0) : p.share;
+		const up = ab ? (ab[p.name] ? ab[p.name].up / count.get(p.name) : 0) : p.share;
 		if (up <= 0) continue;
 		out.push({ name: p.name, req: p.req, up, w: bw * up, pt: p.pt });
 	}
@@ -123,9 +125,23 @@ function scorePoints(points, { perPoint = 0 } = {}) {
 }
 
 // A loop of at most `maxStops` cluster waypoints covering `cover` of the
-// zone's skill-up weight, starting from the cluster nearest `entry`.
-function loop(points, project, { radius = 110, maxStops = 12, cover = 0.85, entry = null } = {}) {
-	const cl = weightedClusters(points, radius, project);
+// zone's skill-up weight, starting from the cluster nearest `entry`. `rare`:
+// kinds that never lead a waypoint (build.js `rareKinds`): a cluster holding
+// at least half its nodes of them is left out while three others remain.
+function loop(points, project, { radius = 110, maxStops = 12, cover = 0.85, entry = null, rare = null } = {}) {
+	let cl = weightedClusters(points, radius, project);
+	if (rare && rare.size) {
+		const kept = cl.filter((c) => {
+			let all = 0;
+			let few = 0;
+			for (const [name, n] of Object.entries(c.counts)) {
+				all += n;
+				if (rare.has(name)) few += n;
+			}
+			return few * 2 < all;
+		});
+		if (kept.length >= 3) cl = kept;
+	}
 	const total = cl.reduce((s, c) => s + c.w, 0);
 	const keep = [];
 	let acc = 0;

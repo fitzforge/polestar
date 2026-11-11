@@ -355,7 +355,15 @@ be compared byte for byte with the old JavaScript writer.
   flight master before the flight to Southshore, with A Plague Upon Thee's second part, c19). The
   log names each moved event (`hub tour: ...`).
 - **The chain** is v1's: from the guide holding the route's first line, through
-  each guide's `next`.
+  each guide's `next`; the guides those links do not reach join it, and then
+  the whole chain is put in the route's order, by the median route position of
+  each guide's lines (`post::play_order`, #1386). The fix-ups below compare a
+  step's guide and line with another's as "before" and "after", so the files'
+  order must be the order the route plays them: Silverpine (12-15), which v1's
+  links did not reach, sat after the Barrens (15-21) it leads into, and its
+  Strange Lockbox step stayed at 12-15, before the Barrens' accept of Trial of
+  the Sea Lion it is for. The log lists a reordered chain (`apply-route: the
+  chain in the route's order: …`).
 - **Steps split.** v1's goal lines go in the route's order. Consecutive lines
   of one v1 step stay one step. A goal line the route does not name goes with
   the next line of its step that the route names (NPC lines between two named
@@ -437,6 +445,25 @@ be compared byte for byte with the old JavaScript writer.
   not written, nor the rest of its quest: next to the accept it made a trip of
   its own (c17 Horde: the OOX-17/TN and OOX-09/HL rewards flown to Booty Bay
   from Tanaris and the Hinterlands, the escort after the hand-in).
+- A step whose every goal collects an item that drops only for a quest not yet
+  taken (or a step `when onquest Q`) moves after Q's accept, next to its place
+  (`post::steps_after_their_quest`). When Q's accept is only in guides the
+  step's players do not play, the step stays, gated `when onquest Q`.
+- **Every guide stands on its own** (Fitz, 2026-11-08; `post::fresh_openers`):
+  a player may load any leveling guide fresh at its level, having done their
+  starting zone and none of our other guides. An accept in a guide's first 10
+  steps whose quest needs one (the data's `pre`/`preAny`) that the guide has
+  not handed in before it, and that only an earlier guide of the chain hands
+  in, is one that player cannot take (the addon hides it). `forge writer
+  apply-route --fresh-openers` sets what the writer does with them: `flag`
+  (default) lists each in the log (`fresh opener: <guide> step N: accept Q
+  needs P (<earlier guide>)`); `move` takes each to the end of the guide's
+  first step after the opening that stands by its giver (a step for everyone,
+  with no line of the quest before it), so the route's player takes it on that
+  later visit and the opening asks nothing of a fresh player
+  (`post::fresh_openers_later`), and lists the rest; `off` skips the check. The
+  release gate measuring the shipped guides the same way, both as written and
+  as the addon shows them, is the maintainers' fresh-start gate.
 - A quest started by an item that only drops, rarely or at an unknown chance,
   is optional: its collect and its accept, and the accepts of the quests
   after it in its chain (Nibbled-On Book, then Book Inventory); their
@@ -991,6 +1018,16 @@ they matter to the player. They are not the judge's honest rules.
 - **Direct turn-ins** (#1153): a repeatable quest whose giver is also its ender,
   taken and handed in at the same stop, is written `turnin <id> direct` with no
   accept, keeping the accept's `only` (The Tome of Divinity, 1641).
+- **Hand-ins on the spot** (#1699): a quest quests.json marks `direct` (the
+  server's quest type 0: its giver opens straight on the hand-in window, and it
+  never enters the log) is never accepted. After every pass that adds or moves
+  accepts, each of its `accept` lines goes, its turn-ins are `direct` (an
+  accept's `only` onto a turn-in of its step that has none), its objective
+  lines lose `quest <id>.<n>` (plain collects, with the quest's count), a
+  `complete <id>` becomes the collects of its items, `when onquest <id>` reads
+  `when available <id>` and `when complete <id>` reads `when has <item> xN`. A
+  step left with no goal goes (Essence of the Exile, the cloth donations, the
+  Scourgestones, the Videre Elixir).
 - **Groups**: the elite and group quests the route takes (its `groups`, each
   order entry's `group`; [routes.md](routes.md#group-quests)) are asked. Every
   step that is not `along` and holds a line of a family's quest (accept, work,
@@ -1000,7 +1037,10 @@ they matter to the player. They are not the judge's honest rules.
   placement; several families, in the step's order: Sprogger's hand-in of
   8553 before his accept of 8554). A bag collect of the item that starts a family's quest is
   that quest's line (Croaky's Head, a level 11 elite's drop, sat in Elwynn's step for
-  everyone: 12 recorded deaths at 8-9, #977). The family's work is never listed along the way. Its first step
+  everyone: 12 recorded deaths at 8-9, #977). The family's lines in those steps lose `optional`:
+  only a player who chose the group way follows them, and a step of optional goals only is done at
+  once, which left that player with no arrow to the item, the accept or the hand-in (the Monogrammed
+  Sash, Margol's Horn). The family's work is never listed along the way. Its first step
   that does the root's work (else its accept step) gets one tip: "These are
   elite mobs: grouping up is encouraged, look for people to do it with." then
   how hard (size 1: "Sarkoth is a level 10 elite: most classes solo it at

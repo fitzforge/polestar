@@ -9,12 +9,12 @@ use forge_guide::js::{Obj, V};
 const DUN_MOROGH: &str = "forever/alliance/dwarf-gnome/01-dun-morogh.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
-const REDRIDGE: &str = "forever/alliance/04-redridge-mountains.guide";
+const LOCH_MODAN: &str = "forever/alliance/03-loch-modan.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
 const STONETALON_HORDE: &str = "forever/horde/05-stonetalon-mountains.guide";
 const ASHENVALE_ALLIANCE: &str = "forever/alliance/06-ashenvale.guide";
-const BARRENS_04: &str = "forever/horde/04-the-barrens.guide";
+const BARRENS_04: &str = "forever/horde/02-the-barrens.guide";
 
 pub fn tests() -> Vec<SeedTest> {
 	let t = |n: &str, f: fn(&Ctx, &mut Check)| -> SeedTest { (n.to_string(), f) };
@@ -22,7 +22,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t("Sato's report: The Great Outdoors on Zephras Isle is done by sitting at Raan's campfire, not by clicking it", great_outdoors),
 		t("Sato's report: the Scrawny Ursera step leads to the slope west of Thendal Village", scrawny_ursera),
 		t("Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it", strays),
-		t("forever/alliance/03-darkshore.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them", grizzled_scalps),
+		t("forever/alliance/03-darkshore-return.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them", grizzled_scalps),
 		t("the cloth the guides tell you to buy leads to the Auction House: the capitals' cloth donations and Grimand's Runecloth", cloth_auction_house),
 		t("forever/alliance/dwarf-gnome/01-dun-morogh.guide: rikette's report: the Grizzled Den leads the arrow to the wendigo cave", grizzled_den),
 		t("every step with a quest objective to do has a goal the arrow can lead to", objective_steps_placed),
@@ -40,7 +40,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t("#246: every goal with Tirion leads to Tirion Fordring at his hut, never to Lord Tirion Fordring in Hearthglen", tirion_hut),
 		t("forever/horde/04-the-barrens.guide: Fitz's report (#273): the Savannah Lion Hide arrow stays in the Dry Hills with the traps, never by Ratchet", lion_hides),
 		t("forever/horde/04-the-barrens.guide: Fitz's report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in", raptor_horns),
-		t("forever/alliance/04-redridge-mountains.guide: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels", iron_pike),
+		t("forever/alliance/03-loch-modan.guide: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels", iron_pike),
 		t("Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll", elemental_bracers),
 	]
 }
@@ -169,9 +169,9 @@ fn strays(ctx: &Ctx, c: &mut Check) {
 	type Pred = fn(&V) -> bool;
 	let cases: [(&str, &str, Pred, [f64; 4]); 7] = [
 		(DUN_MOROGH, "Frostmane Headhunter (Frostmane Hold)", |g| t_is(g, "kill") && num_is(g, "npc", 1123.0) && num_is(g, "quest", 287.0), [20.0, 27.0, 49.0, 56.0]),
-		("forever/alliance/03-darkshore.guide", "Grizzled Scalp", |g| t_is(g, "collect") && num_is(g, "item", 5414.0), [37.0, 46.0, 69.0, 83.0]),
+		("forever/alliance/03-darkshore-return.guide", "Grizzled Scalp", |g| t_is(g, "collect") && num_is(g, "item", 5414.0), [37.0, 46.0, 69.0, 83.0]),
 		("forever/alliance/50-60/02-felwood.guide", "Jadefire Hellcaller (Jadefire Run)", |g| t_is(g, "kill") && num_is(g, "npc", 7111.0), [38.0, 44.0, 13.0, 23.0]),
-		("forever/horde/05-stonetalon-mountains.guide", "Stonetalon Sap", |g| t_is(g, "collect") && num_is(g, "item", 5582.0), [32.0, 41.0, 9.0, 21.0]),
+		("forever/horde/04-the-barrens.guide", "Stonetalon Sap", |g| t_is(g, "collect") && num_is(g, "item", 5582.0), [32.0, 41.0, 9.0, 21.0]),
 		("forever/horde/50-60/01-un-goro-crater.guide", "Bloodpetal Lasher (east side)", |g| t_is(g, "kill") && num_is(g, "npc", 6509.0), [55.0, 77.0, 20.0, 50.0]),
 		("forever/horde/50-60/01-un-goro-crater.guide", "Bloodpetal Thresher (east side)", |g| t_is(g, "kill") && num_is(g, "npc", 6511.0), [55.0, 77.0, 20.0, 50.0]),
 		("forever/horde/40-50/03-feralas.guide", "Marsh Flesheater (huts on the western shore)", |g| t_is(g, "kill") && num_is(g, "npc", 751.0), [60.0, 75.0, 75.0, 100.0]),
@@ -242,7 +242,7 @@ fn strays(ctx: &Ctx, c: &mut Check) {
 }
 
 fn grizzled_scalps(ctx: &Ctx, c: &mut Check) {
-	let Some(list) = goals(ctx, c, "forever/alliance/03-darkshore.guide") else { return };
+	let Some(list) = goals(ctx, c, "forever/alliance/03-darkshore-return.guide") else { return };
 	let Some(i) = at(c, &list, "Grizzled Scalp", |g| t_is(g, "collect") && num_is(g, "item", 5414.0)) else { return };
 	let Some(turnin) = at(c, &list, "turnin 1003", is("turnin", 1003)) else { return };
 	if !c.ok(list[i].step.strict_eq(&list[turnin].step), "one step: the bears and Buzzbox 525") || !c.ok(i < turnin, "the scalps before the turn-in") {
@@ -850,7 +850,7 @@ fn raptor_horns(ctx: &Ctx, c: &mut Check) {
 
 fn iron_pike(ctx: &Ctx, c: &mut Check) {
 	let d = &ctx.data;
-	let Some(list) = goals(ctx, c, REDRIDGE) else { return };
+	let Some(list) = goals(ctx, c, LOCH_MODAN) else { return };
 	let ribchaser = 14271.0;
 	let pts_on =
 		|id: f64| -> Vec<(f64, f64)> { d.spawns("npc", &V::Num(id)).into_iter().filter(|s| num_is(s, "map", 1433.0)).flat_map(|s| s.get("pts").items()).map(|p| (p.num_at(0), p.num_at(1))).collect() };

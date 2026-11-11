@@ -14,7 +14,7 @@ return {
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
 	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, в шахте ({area:20})",
 	-- {area:1581} The Deadmines
 	["{area:1581} portal, at the bottom of the mine"] = "",
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate

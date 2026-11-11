@@ -158,13 +158,49 @@ function Client.NumSpecs(classID)
 	return nil
 end
 
--- -> tab name, points spent in it
+-- -> tab name, points spent in it (the talent-tab API: Forever's client
+-- answers it but keeps its talents in C_Traits, see Client.TreeColumns)
 function Client.SpecInfo(index)
 	local S = C_SpecializationInfo
 	if not (S and S.GetSpecializationInfo) then return nil end
 	local ok, _, name, _, _, _, _, points = pcall(S.GetSpecializationInfo, index)
 	if not ok then return nil end
 	return readable(name), readable(points)
+end
+
+-- Forever's talents are one C_Traits tree per class whose spec columns are
+-- the tree's node groups: its talent frame heads each column with the
+-- group's name and the points spent in it (Blizzard_PlayerSpells Camelot,
+-- ClassTalentsFrameMixin:RefreshTreeHeaders: GetGroupDisplayInfoByTreeID,
+-- then GetGroupCurrencyInfo's currencyInfos[1].spent).
+-- -> { { name, points }, ... } left to right | nil when the client has no such tree
+function Client.TreeColumns()
+	local CT, T = C_ClassTalents, C_Traits
+	if not (CT and CT.GetActiveConfigID and T and T.GetConfigInfo and T.GetGroupDisplayInfoByTreeID and T.GetGroupCurrencyInfo) then return nil end
+	local ok, config = pcall(CT.GetActiveConfigID)
+	config = ok and readable(config)
+	if type(config) ~= "number" then return nil end
+	local ok2, info = pcall(T.GetConfigInfo, config)
+	local tree = ok2 and type(info) == "table" and type(info.treeIDs) == "table" and readable(info.treeIDs[1])
+	if type(tree) ~= "number" then return nil end
+	local ok3, shown = pcall(T.GetGroupDisplayInfoByTreeID, tree)
+	if not (ok3 and type(shown) == "table" and shown[1]) then return nil end
+	local ids = {}
+	for i, d in ipairs(shown) do ids[i] = d.groupID end
+	local ok4, groups = pcall(T.GetGroupCurrencyInfo, config, ids)
+	local spent = {}
+	if ok4 and type(groups) == "table" then
+		for _, g in ipairs(groups) do
+			local c = type(g) == "table" and type(g.currencyInfos) == "table" and g.currencyInfos[1]
+			if type(c) == "table" and g.traitNodeGroupID ~= nil then spent[g.traitNodeGroupID] = readable(c.spent) end
+		end
+	end
+	local out = {}
+	for i, d in ipairs(shown) do
+		local points = spent[d.groupID]
+		out[i] = { name = readable(d.displayName), points = type(points) == "number" and points or 0 }
+	end
+	return out
 end
 
 function Client.KnowsSpell(spellID)
@@ -256,6 +292,12 @@ Gear.ItemID = itemID
 local CACHE_CAP = 400
 local infoCache, infoCount = {}, 0
 local resultCache, resultCount = {}, 0
+-- Item IDs whose client data an answer above was built from, since the
+-- caches were last wiped for item data: GET_ITEM_INFO_RECEIVED for any other
+-- item cannot change an answer (every item read goes through itemInfo).
+-- Past ASKED_CAP the next arrival wipes as before, which starts it afresh.
+local ASKED_CAP = 2000
+local asked, askedCount = {}, 0
 
 local function clientStats(link)
 	if type(link) ~= "string" then return nil end
@@ -276,6 +318,10 @@ end
 local function buildInfo(link)
 	local id = itemID(link)
 	if not id then return nil end
+	if not asked[id] then
+		asked[id] = true
+		askedCount = askedCount + 1
+	end
 	local rec = ns.ItemDB and ns.ItemDB.Get(id)
 	local cstats = clientStats(link)
 	local inv, class, subclass, req, quality
@@ -381,21 +427,35 @@ local function specKeyOf(meta, name, index)
 	return meta.specs[index] and meta.specs[index].key
 end
 
--- The talent tree with the most points, else the primary tree chosen on
--- clients with spec selection, else the class's levelling default (before
--- the first point, or when the client cannot tell).
+-- The spec whose column or tab has the most points: name first (enUS),
+-- else its position. -> key | nil
+local function mostPoints(meta, list)
+	local best, bestPoints = nil, 0
+	for i, col in ipairs(list) do
+		if type(col.points) == "number" and col.points > bestPoints then
+			local key = specKeyOf(meta, col.name, i)
+			if key then best, bestPoints = key, col.points end
+		end
+	end
+	return best
+end
+
+-- The talent column with the most points (Forever's C_Traits tree), else the
+-- talent tab with the most, else the primary tree chosen on clients with
+-- spec selection, else the class's levelling default (before the first
+-- point, or when the client cannot tell).
 function Gear.DetectSpec(class, classID)
 	local meta = CLASSES[class]
 	if not meta then return nil, "default" end
-	local count = Client.NumSpecs(classID) or #meta.specs
-	local best, bestPoints = nil, 0
-	for i = 1, count do
+	local columns = Client.TreeColumns()
+	local best = columns and mostPoints(meta, columns)
+	if best then return best, "talents" end
+	local tabs = {}
+	for i = 1, Client.NumSpecs(classID) or #meta.specs do
 		local name, points = Client.SpecInfo(i)
-		if type(points) == "number" and points > bestPoints then
-			local key = specKeyOf(meta, name, i)
-			if key then best, bestPoints = key, points end
-		end
+		tabs[i] = { name = name, points = points }
 	end
+	best = mostPoints(meta, tabs)
 	if best then return best, "talents" end
 	local primary = Client.PrimarySpec(classID)
 	if primary then
@@ -531,8 +591,23 @@ local function racialBonus(info, w, asOffhand)
 	return s
 end
 
+local SCHOOLS = { spArcane = true, spFire = true, spFrost = true, spHoly = true, spNature = true, spShadow = true }
+
+-- A spec's damage splits over its spell schools, so bonus damage to several
+-- schools is worth at most its largest single bonus at the spell power weight
+-- (or the largest school weight, for a scale with school weights only): +34
+-- Fire and +34 Shadow is no better than +34 Spell Power to a Warlock (#1324).
+local function schoolCap(w, top)
+	local wTop = w.sp or 0
+	for k in pairs(SCHOOLS) do
+		local x = w[k] or 0
+		if x > wTop then wTop = x end
+	end
+	return wTop * top
+end
+
 local function scoreWith(info, w, asOffhand)
-	local s = 0
+	local s, school, top = 0, 0, 0
 	for k, v in pairs(info.stats) do
 		if k == "dps" then
 			if RANGED_INV[info.inv] then
@@ -540,11 +615,18 @@ local function scoreWith(info, w, asOffhand)
 			elseif MELEE_INV[info.inv] then
 				s = s + (w.dps or 0) * v * (asOffhand and OFFHAND_DPS or 1)
 			end
+		elseif SCHOOLS[k] then
+			school = school + (w[k] or 0) * v
+			if v > top then top = v end
 		else
 			s = s + (w[k] or 0) * v
 		end
 	end
-	return s + racialBonus(info, w, asOffhand)
+	if school > 0 then
+		local cap = schoolCap(w, top)
+		if school > cap then school = cap end
+	end
+	return s + school + racialBonus(info, w, asOffhand)
 end
 Gear.ScoreWith = scoreWith
 
@@ -602,7 +684,11 @@ local function usability(info)
 		end
 	elseif info.class == 2 and sub then
 		if sub == 20 then return false, "weapon", minLevel end -- fishing poles
-		if sub ~= 14 and not prof.weapons[sub] then return false, "weapon", minLevel end
+		-- Miscellaneous (14): every one a player gets is a profession tool or a novelty (Skinning Knife,
+		-- Mining Pick, Blacksmith Hammer, Arclight Spanner, Frying Pan), never a weapon to fight with (#1304).
+		-- No reason, so its tooltip gets no gear line.
+		if sub == 14 then return false, nil, minLevel end
+		if not prof.weapons[sub] then return false, "weapon", minLevel end
 		if WEAPON_SKILL[sub] and not knowsWeaponSkill(WEAPON_SKILL[sub]) then return false, "skill", minLevel end
 		if info.inv == 22 and not canDualWield() then return false, "dualwield", minLevel end
 	end
@@ -793,6 +879,7 @@ local function invalidate(what)
 	if what == "items" then
 		for k in pairs(infoCache) do infoCache[k] = nil end
 		infoCount = 0
+		asked, askedCount = {}, 0
 	end
 	weaponSkills = nil
 	if what ~= "bags" then eqDirty = true end
@@ -812,7 +899,11 @@ ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() invalidate("equipment") 
 ns.RegisterEvent("BAG_UPDATE_DELAYED", function() invalidate("bags") end)
 ns.RegisterEvent("PLAYER_LEVEL_UP", onLevel)
 ns.RegisterEvent("SKILL_LINES_CHANGED", function() invalidate("skills") end)
-ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function() invalidate("items") end)
+-- Item data arriving changes an answer only for an item one was built from.
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id)
+	id = tonumber(readable(id))
+	if not id or asked[id] or askedCount >= ASKED_CAP then invalidate("items") end
+end)
 for _, ev in ipairs({ "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED", "CHARACTER_POINTS_CHANGED", "TRAIT_CONFIG_UPDATED" }) do
 	ns.RegisterEvent(ev, function() invalidate("spec") end)
 end

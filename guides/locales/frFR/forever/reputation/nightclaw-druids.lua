@@ -30,7 +30,7 @@ return {
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} se tient à {area:16638}, la ville des Éolides au sud de l'île, et n'a aucune nouvelle des druides du nord. Sa course lance l'histoire de la Noctegriffe (niveau 8 et plus, toutes races). Chacune de ses quêtes rapporte de la réputation auprès de la Noctegriffe : 4100 en tout, assez pour Amical. Venez tôt : dans Classic, une quête rapporte moins une fois que vous la dépassez de 6 niveaux, un cinquième au plus à partir de 9 niveaux, et ce sont des quêtes de niveau 11 à 13.",
+	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "",
 
 	-- Step 4: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -87,8 +87,8 @@ return {
 	-- {npc:254151} Vayn Moongaze
 	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "L'histoire et la première quête de {npc:254151} vous laissent à Amical avec 2100 d'avance. Honoré est à 3900 de plus : quatre remises de cinq oreilles jusqu'au niveau 18, vingt à partir du niveau 22. Amical ouvre 32 des patrons de {npc:254151}, en deux coloris, Cloudy et Azure : forge, Skyforged Wristguards et Chain (compétence 50, 9 pa 50 pc), Gauntlets et Greaves (55, 11 pa) ; travail du cuir, brassards et ceintures Gustwoven et Windraveled (50) et gants et bottes (55) ; couture, Stormsewn Cuffs et Cord (50), Handwraps et Shoes (55). Ils sont liés quand vous les achetez : achetez-les donc avec l'artisan.",
 	["five ears per turn-in"] = "cinq oreilles par remise",
-	-- {quest:93459} More Al'Aketh Ears
-	["{quest:93459}: 1000 reputation"] = "{quest:93459} : 1000 de réputation",
+	-- {quest:93459} More Al'Aketh Ears · {npc:254151} Vayn Moongaze
+	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "{quest:93459} : 1000 de réputation, rendue depuis la fenêtre de {npc:254151}",
 	-- {npc:254151} Vayn Moongaze
 	["{npc:254151}'s patterns"] = "Les patrons de {npc:254151}",
 
@@ -108,4 +108,8 @@ return {
 	["The {item:280363}"] = "Le {item:280363}",
 	-- {item:280363} Nightclaw Mantle
 	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "Exalté ouvre le {item:280363}, des épaulières vertes en tissu de niveau 15, pour 8 pa 16 pc.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} se tient à {area:16638}, la ville des Éolides au sud de l'île, et n'a aucune nouvelle des druides du nord. Sa course lance l'histoire de la Noctegriffe (niveau 8 et plus, toutes races). Chacune de ses quêtes rapporte de la réputation auprès de la Noctegriffe : 4100 en tout, assez pour Amical. Venez tôt : dans Classic, une quête rapporte moins une fois que vous la dépassez de 6 niveaux, un cinquième au plus à partir de 9 niveaux, et ce sont des quêtes de niveau 11 à 13.",
+	-- ["{quest:93459}: 1000 reputation"] = "{quest:93459} : 1000 de réputation",
 }

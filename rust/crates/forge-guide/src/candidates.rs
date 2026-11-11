@@ -51,9 +51,11 @@ pub struct WorldPos {
 	pub wy: f64,
 }
 
-/// World yards of a map point through data.frame, or None without a frame.
-pub fn world_pos(data: &Data, map: &V, x: f64, y: f64) -> Option<WorldPos> {
-	let fr = data.frame(map);
+/// World yards of a map point in the frame it is in: an Era point (`f` "e") through data.frame, any other
+/// point (live frame) through the map's Forever frame, else its Era one. None without a frame.
+pub fn world_pos(data: &Data, map: &V, x: f64, y: f64, f: &V) -> Option<WorldPos> {
+	let fr = if f.as_str() == Some("e") { data.frame(map) } else { data.map_frames.get("forever").get(&map.to_js_string()) };
+	let fr = if fr.truthy() { fr } else { data.frame(map) };
 	if !fr.truthy() {
 		return None;
 	}
@@ -135,7 +137,7 @@ fn distinct_points(data: &Data, id: &V) -> Vec<Point> {
 		.into_iter()
 		.map(|p| {
 			let map = p.get("map");
-			let w = world_pos(data, &map, p.get("x").num(), p.get("y").num());
+			let w = world_pos(data, &map, p.get("x").num(), p.get("y").num(), &p.get("f"));
 			let a = area(&map);
 			(Point { p, w }, a)
 		})
@@ -166,7 +168,7 @@ pub fn build_candidates(data: &Data, entries: &[V], opts: &V) -> V {
 	let sides = opts.get("sides").items();
 	let cap = if opts.get("cap").truthy() { opts.get("cap").num() } else { MAX_PER_GROUP };
 	let r = opts.get("ref");
-	let reference = if r.truthy() { world_pos(data, &r.get("map"), r.get("x").num(), r.get("y").num()) } else { None };
+	let reference = if r.truthy() { world_pos(data, &r.get("map"), r.get("x").num(), r.get("y").num(), &r.get("f")) } else { None };
 	// npc id -> (side, classes), in insertion order
 	let mut merged: Vec<(f64, V, Option<Vec<V>>)> = Vec::new();
 	for e in entries {

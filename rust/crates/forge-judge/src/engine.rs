@@ -4,13 +4,15 @@
 //! - Steps: `only` (class/race/faction, `!x` excludes), `when` (every WHEN_KEYS predicate, stored once
 //!   passed), `skipto` jumps, `along` steps passed over, placement of a guide just opened, latches of
 //!   passed and in-step goals.
-//! - Goals: the done rule per verb (goalDone), optional and note goals never block, unavailable marks
+//! - Goals: the done rule per verb (goalDone), optional and note goals never block, nor does a `vendor`
+//!   beside other work of its step (Own.sideVendor), unavailable marks
 //!   (closed, prerequisite not coming, the giver's refusal, level/prerequisite gates at placement),
 //!   never-had quests (`na`), profession gates, NPC interactions latched during their step.
 //! - `next`: the guide hands over when it ends (one option, the remembered one, else the recommended one).
 //!
 //! The player ([`Replay`]) completes, each loop, the first open goal that is not optional (accept, kill,
-//! loot, walk there, talk, train, bind, level up...) against a stub world as lenient as the JS one: any
+//! loot, walk there, talk, train, bind, level up...; a vendor beside other work is left alone, as by a
+//! player with nothing to sell) against a stub world as lenient as the JS one: any
 //! quest can be taken, objectives finish when acted on, items come from nowhere. A goal that stays open
 //! after the act is ticked when manual; else the play is stuck there (stopped, or the step skipped).
 //! Time runs as wow_stub.lua's clock (0.6 s per act, evaluations at most every 0.1 s, the arrival poll

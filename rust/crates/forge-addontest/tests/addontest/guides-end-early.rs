@@ -4,7 +4,13 @@
 //! race and class, and one more of a class its last step is only for). Every hand-in comes as the game brings it:
 //! the giver's window first, listing the quest as ready and offering only what the character can take right then
 //! (so a follow-up waits for the hand-in that opens it, as Regthar Deathgate's Verog the Dervish waits for Kolkar
-//! Leaders). GUIDE_END must never fire while a step is still live.
+//! Leaders), and every move puts the player in its map's zone, as the zone text says (the guide's own stop in the
+//! Undercity at the start of Hillsbrad, whose last flight lands there, ended it in 0.3.5). GUIDE_END must never
+//! fire while a step is still live.
+//!
+//! GUIDES_END_ONLY=<part of an id> plays only those guides; GUIDES_END_HISTORY=<file.json>, `{ "<guide id>":
+//! [quest ids] }`, starts each guide's character with those quests turned in (a character that played an older
+//! route up to that guide's level).
 
 use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
 use forge_addontest::playtest::SIMULATE;
@@ -14,7 +20,8 @@ use forge_guide::js::V;
 use forge_guide::project::find_guide_files;
 use serde_json::Value;
 
-// Before SIMULATE: GUIDE_END recorded with the live step, and every hand-in preceded by its giver's window.
+// Before SIMULATE: GUIDE_END recorded with the live step, every move in its map's zone, and every hand-in preceded
+// by its giver's window.
 const SETUP: &str = r#"
 stub.login()
 stub.fire("QUEST_LOG_UPDATE")
@@ -24,6 +31,15 @@ ENDS = {}
 Polestar.On("GUIDE_END", function(gid, i)
 	ENDS[#ENDS + 1] = { id = gid, undone = i.undone, live = i.live or false }
 end)
+do
+	local w, move = stub.world, stub.world.moveTo
+	w.moveTo = function(map, x, y)
+		move(map, x, y)
+		local m = w.maps[map]
+		if m and m.name and m.name ~= "" and m.name ~= w.zone then w.setZone(m.name, "") end
+	end
+	if w.map then w.moveTo(w.map, w.x, w.y) end
+end
 E.SetGuide(@ID@)
 stub.advance(3)
 SIM_GUIDE = E.GetGuide()
@@ -110,6 +126,10 @@ fn every_leveling_guide_played_in_order_with_its_givers_windows_ends_only_at_its
 		}
 	}
 
+	// GUIDES_END_HISTORY: per guide id, the quests its character has turned in before it.
+	let history: Value =
+		std::env::var("GUIDES_END_HISTORY").ok().map(|p| serde_json::from_str(&std::fs::read_to_string(&p).expect("GUIDES_END_HISTORY")).expect("GUIDES_END_HISTORY json")).unwrap_or(Value::Null);
+
 	// (who, before, script) per character; played on all cores, each run its own Lua state.
 	let mut jobs: Vec<(String, String, String)> = Vec::new();
 	for g in &compiled.guides {
@@ -151,8 +171,9 @@ fn every_leveling_guide_played_in_order_with_its_givers_windows_ends_only_at_its
 			let level = if raw == "undefined" { "1".to_string() } else { raw };
 			let start = first.as_ref().map(|x| format!("w.moveTo({}, {}, {})", s(x, "map"), s(x, "x"), s(x, "y"))).unwrap_or_default();
 			let race_name = if race == "Scourge" { "Undead".to_string() } else { race.clone() };
+			let done = history[&id].as_array().map(|qs| format!("w.complete({{ {} }})\n", qs.iter().map(|q| q.to_string()).collect::<Vec<_>>().join(", "))).unwrap_or_default();
 			let before = format!(
-				"local w = stub.world\n{maps}w.race, w.raceName = {r:?}, {rn:?}\nw.class, w.className = {c:?}, {c:?}\nw.faction = {f:?}\nw.level = {level}\n{start}\n",
+				"local w = stub.world\n{maps}w.race, w.raceName = {r:?}, {rn:?}\nw.class, w.className = {c:?}, {c:?}\nw.faction = {f:?}\nw.level = {level}\n{start}\n{done}",
 				r = race,
 				rn = race_name,
 				c = class,

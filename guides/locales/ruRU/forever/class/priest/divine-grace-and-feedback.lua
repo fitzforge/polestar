@@ -10,7 +10,7 @@ return {
 	-- {quest:94773} Divine Grace · {spell:13896} Feedback
 	["{quest:94773} and {spell:13896}"] = "{quest:94773} и {spell:13896}",
 	-- {quest:94773} Divine Grace · {spell:13896} Feedback
-	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "",
+	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "Заклинания жрецов-людей: {quest:94773} на 10-м уровне (новое в Forever), {spell:13896} на 20-м. Бесплатно, без задач.",
 
 	-- Step 1: Divine Grace: Priestess Josetta
 	-- {npc:377} Priestess Josetta · {area:87} Goldshire · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
@@ -25,8 +25,8 @@ return {
 	["{npc:3600}: take her {quest:94773} letter"] = "",
 
 	-- Step 3: Divine Grace: High Priestess Laurena
-	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul
-	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get Desperate Prayer in Forever: this is their spell instead."] = "",
+	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul · {spell:13908} Desperate Prayer
+	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "На 10-м уровне идите к NPC {npc:376} к алтарю в Соборе Света ({object:2098}, {zone:1453}) и возьмите ее задание: она сразу обучит {quest:94773}. Письмо не нужно; подойдет и письмо от другого учителя (следующие шаги). {quest:94773} мгновенно исцеляет союзника, у которого меньше половины здоровья, и снимает {spell:6788}, так что его снова можно накрыть щитом (восстановление 5 минут); на себя не действует. Жрецы-люди в Forever не получают {spell:13908}: вместо него у них это заклинание.",
 
 	-- Step 4: Divine Grace: Josetta's letter
 	-- {quest:94774} Divine Grace

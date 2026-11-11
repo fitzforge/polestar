@@ -15,14 +15,14 @@ return {
 	-- plural, as words: Flawless Fel Essences = {quest:7602} Flawless Fel Essence
 	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "",
 
-	-- Step 2: Jaedenar
-	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {area:1770} Shadow Hold · {npc:9516} Lord Banehollow
-	-- plural, as words: Jaedenar Legionnaires = {npc:9862} Jaedenar Legionnaire
-	["{area:1763} lies just south of {area:1997}, west of the road. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "",
-
-	-- Step 3: Azshara
+	-- Step 2: Azshara
 	-- {zone:1447} Azshara
 	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "",
+
+	-- Step 3: Jaedenar
+	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {area:1770} Shadow Hold · {npc:9516} Lord Banehollow
+	-- plural, as words: Jaedenar Legionnaires = {npc:9862} Jaedenar Legionnaire
+	["{area:1763} lies just south of {area:1997}, west of the road. The guide waits for level 53 first: its Legionnaires are 55. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "{area:1763}就在{area:1997}南方、道路西側。指南會先等到53級：那裡的軍團士兵是55級。兩座洞穴中，{area:1770}是北邊、位於山坡更高處的那座；另一座沒有軍團士兵。{area:1770}的隧道向北延伸到山丘底下，加德納爾軍團士兵（55級）站在較深處的大廳，從第一段坡道一直到{npc:9516}的房間；牠們會對近戰的人使用上勾拳。每擊殺四隻約有三隻掉落精華，但總共只有約十一隻：一路清進去，必要時等五分鐘重生。{area:1763}和{area:1770}的教徒全都是敵對的。",
 
 	-- Step 4: The Dark Portal
 	-- {area:72} The Dark Portal · {zone:1419} Blasted Lands

@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {spell:71} Defensive Stance
-	["{spell:71} and a Weapon (Alliance)"] = "",
+	["{spell:71} and a Weapon (Alliance)"] = "{spell:71} и оружие (Альянс)",
 	-- {spell:71} Defensive Stance · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus
-	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "{spell:71} на 10-м уровне и одноручное оружие на выбор из городов {zone:1453}, {zone:1455} или {zone:1457}.",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar

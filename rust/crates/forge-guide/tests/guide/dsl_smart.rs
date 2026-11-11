@@ -117,6 +117,29 @@ fn train_profession_the_default_rank_follows_earlier_skill_targets_and_never_rep
 	assert_eq!(done.errors, ["test.guide:9: `train Mining`: Artisan is already trained earlier in this guide"]);
 }
 
+// Oli's report (#1708): Doctor Herbert Halsey only trains Alchemy from 125, so Journeyman (taken at 50)
+// pointed at him was refused. professions.json's `trainerSkill` (the skill a trainer's "Train me." option
+// asks for) leaves a trainer out of a rank whose skill is below it, and out of a recipe learned below it.
+#[test]
+fn train_and_learn_point_only_at_trainers_who_train_at_that_skill_1708() {
+	let data = data_with("trainer-skill", |raw| {
+		raw.get_mut("professions.json").unwrap()["129"]["trainerSkill"] = json!({ "5150": 50 });
+	});
+	let body = ["step S", "  train First Aid", "  learn 3275", "  train First Aid Journeyman", "  learn 3276"];
+	let (r, g) = goals(&text(head(Some("Alliance"), &[]), &body), Some(&data));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let npcs = |i: usize| cands(&g[i], |c| c["npc"].clone());
+	// Apprentice (from 0) and Linen Bandage (learned at 1): not Nissa Firestone, who trains from 50.
+	assert_eq!(npcs(0), [json!(2329)]);
+	assert_eq!(npcs(1), [json!(2329)]);
+	// Journeyman (from 50): both; Heavy Linen Bandage (learned at 40): still not her.
+	assert_eq!(npcs(2), [json!(2329), json!(5150)]);
+	assert_eq!(npcs(3), [json!(2329)]);
+	// Without the gates every trainer is a candidate, as before.
+	let plain = goals(&text(head(Some("Alliance"), &[]), &body), None).1;
+	assert_eq!(cands(&plain[0], |c| c["npc"].clone()), [json!(2329), json!(5150)]);
+}
+
 #[test]
 fn train_profession_npc_id_keeps_the_trainer_errors_for_unknown_professions_and_coordinates() {
 	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  train Mining npc 1681"]), None).1;
@@ -161,6 +184,15 @@ fn train_class_missing_coverage_warns_per_faction_and_class_no_candidate_at_all_
 	assert_eq!(none.errors, ["test.guide:9: `train` found no class trainer in data for Horde characters; name one with an npc id instead"]);
 	let npc = compile(&text(head(Some("Alliance"), &[]), &["step S", "  level 2", "  train class npc 911"]));
 	assert_eq!(npc.errors, ["test.guide:9: `train class` picks the trainer at runtime; drop `npc`"]);
+}
+
+#[test]
+fn train_class_carries_its_step_s_zone_for_the_engine_to_rank_that_town_first_1357() {
+	// #1357: the Engine ranks the trainers on the step's zone map first, wherever the player stands.
+	let (r, g) = goals(&text(head(None, &["class Warrior"]), &["step Elwynn", "  train class", "", "step Durotar", "  zone Durotar", "  train class", "", "step Mining", "  train Mining"]), None);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!([&g[0]["zone"], &g[1]["zone"]], [&json!(1429), &json!(1411)]);
+	assert!(g[2].get("zone").is_none(), "a profession train keeps the nearest: {}", g[2]);
 }
 
 #[test]
@@ -264,12 +296,47 @@ fn a_map_with_only_a_forever_frame_keeps_one_candidate_per_town_too_not_one_per_
 }
 
 #[test]
+fn a_live_frame_spawn_is_placed_in_the_maps_forever_frame_so_a_town_beside_it_is_kept() {
+	let data = data_with("live-frame", |raw| {
+		// Mulgore's Era and Forever frames differ by hundreds of yards; Thunder Bluff's are the same.
+		let frames = raw.get_mut("map-frames.json").unwrap();
+		frames["era"]["1412"] = json!({ "c": 1, "left": 2047.917, "right": -3089.583, "top": -272.917, "bottom": -3697.917 });
+		frames["era"]["1456"] = json!({ "c": 1, "left": 516.667, "right": -527.083, "top": -850, "bottom": -1545.833 });
+		frames["forever"] = json!({
+			"1412": { "c": 1, "left": 2479.167, "right": -3675, "top": 266.666, "bottom": -3835.416 },
+			"1456": { "c": 1, "left": 516.667, "right": -527.083, "top": -850, "bottom": -1545.833 }
+		});
+		let npcs = raw.get_mut("npcs.json").unwrap();
+		// A smith north of the bluff, from a live-frame spawn on Mulgore (370 yd from the rise; 62 yd if
+		// read in the Era frame), and one on the bluff's Spirit Rise (#1294).
+		smith(npcs, 92000, "Plains Smith", 1412, 33.59, 22.4, false);
+		smith(npcs, 92001, "Rise Smith", 1456, 22.82, 21.11, true);
+	});
+	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  vendor nearest"]), Some(&data)).1;
+	let mut ids: Vec<u64> = g[0]["candidates"].as_array().unwrap().iter().filter(|c| c["map"] == 1412 || c["map"] == 1456).map(|c| c["npc"].as_u64().unwrap()).collect();
+	ids.sort();
+	assert_eq!(ids, [92000, 92001]);
+}
+
+#[test]
 fn accept_goals_carry_the_quest_level_and_prerequisites_for_grey_quest_skipping() {
 	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  accept 9500", "  accept 783 lvl 3"]), None).1;
 	let get = |x: &Value, k: &str| x.get(k).cloned().unwrap_or(Value::Null);
 	assert_eq!(json!([get(&g[0], "qlvl"), get(&g[0], "pre"), get(&g[1], "qlvl"), get(&g[1], "pre"), get(&g[1], "minLevel")]), json!([3, [9201, 783], 1, null, 3]));
 	let unknown = goals(&text(head(Some("Alliance"), &[]), &["step S", "  accept 424242 \"New\""]), None).1;
 	assert!(unknown[0].get("qlvl").is_none() && unknown[0].get("pre").is_none());
+}
+
+// A timed quest's accept carries its time limit (quests.json `limit`, seconds): Dynamic Questing takes it early only
+// when the walk to it still fits. An untimed quest's carries none.
+#[test]
+fn an_accept_of_a_timed_quest_carries_its_time_limit() {
+	let data = data_with("limit", |raw| {
+		raw.get_mut("quests.json").unwrap()["9500"]["limit"] = json!(600);
+	});
+	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  accept 9500", "  accept 783"]), Some(&data)).1;
+	assert_eq!(g[0].get("limit"), Some(&json!(600)), "{}", g[0]);
+	assert!(g[1].get("limit").is_none(), "{}", g[1]);
 }
 
 #[test]
@@ -299,6 +366,14 @@ fn every_goal_of_a_quest_that_needs_a_profession_carries_it_a_leveling_guide_war
 	assert_eq!(warns("Leveling", &["  train Mining", "  accept 7"]), 1);
 	assert_eq!(warns("Leveling", &["  skill Mining 50", "  accept 7"]), 0);
 	assert_eq!(warns("Class", &steps), 0);
+	// A step gated on the profession at the quest's rank or above: only its holders see it, so no warning.
+	assert_eq!(warns("Leveling", &["  when skill Mining 50", "  accept 7"]), 0);
+	assert_eq!(warns("Leveling", &["  when skill Mining 1", "  accept 33"]), 0);
+	assert_eq!(warns("Leveling", &["  when skill Mining 1", "  accept 7"]), 1);
+	assert_eq!(warns("Leveling", &["  when !skill Mining 50", "  accept 7"]), 1);
+	// A hand-in step gated on carrying the quest: no warning; on carrying another quest: the warning stays.
+	assert_eq!(warns("Leveling", &["  when onquest 7", "  turnin 7"]), 0);
+	assert_eq!(warns("Leveling", &["  when onquest 33", "  turnin 7"]), 1);
 	// Guides.lua carries the new fields.
 	let pack = compile_files(&[("test.guide", &t.replacen("guide t/", "guide test/", 1))], &data, Some("test"));
 	assert_match(&emit(&pack.guides), r#"profLine = 186, profName = "Mining", profRank = 50"#);
@@ -313,7 +388,7 @@ fn smart_goals_emit_the_lua_the_engine_reads() {
 	let lua = emit(&r.guides);
 	assert_match(
 		&lua,
-		r#"\{ t = "train", class = true, candidates = \{ \{ npc = 911, npcName = "Llane Beshere", map = 1429, x = 50\.2, y = 42\.3, f = "e", faction = "A", classes = \{ "WARRIOR" \} \}"#,
+		r#"\{ t = "train", class = true, zone = 1429, candidates = \{ \{ npc = 911, npcName = "Llane Beshere", map = 1429, x = 50\.2, y = 42\.3, f = "e", faction = "A", classes = \{ "WARRIOR" \} \}"#,
 	);
 	assert_match(&lua, r#"\{ t = "accept", quest = 9500, title = "Either Way", npc = 823, npcName = "Deputy Willem", minLevel = 1, qlvl = 3, pre = \{ 9201, 783 \},"#);
 }

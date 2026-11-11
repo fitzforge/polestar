@@ -102,6 +102,7 @@ fn run(c: &Case, area_at: Option<&dyn SubzoneOf>) -> Run {
 		solo_fallback: true,
 		walks: None,
 		borders: borders.as_ref(),
+		fresh_openers: forge_writer::post::FreshOpeners::Flag,
 	})
 	.unwrap();
 	Run { out, guides }
@@ -1928,10 +1929,48 @@ fn inserted_grind_top_up_is_a_step_of_its_own_at_the_camp_before_the_hand_ins() 
 	assert!(
 		m(
 			&text,
-			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill: they take you to level 13\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 +-- grind on Mottled Boar\n\nstep Hub again"#
+			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill: they take you to level 13\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
 		),
 		"{text}"
 	);
+}
+
+// Fitz's grind policy (2026-11-08, final route review): every written grind step keeps its gate and says
+// plainly that a dungeon of the player's level will do instead, by faction and level band.
+#[test]
+fn a_grind_top_up_names_the_dungeons_of_its_level_for_the_routes_faction() {
+	let c = |faction: Option<&str>, target: f64| Case {
+		files: vec![("a", vec!["guide t/a", "title A", "levels 10-30", "zone Durotar", "", "step Hub", "  accept 1", "", "step Camp", "  kill 20 quest 1.1", "", "step Hub again", "  turnin 1", ""])],
+		route: {
+			let mut r = json!({ "diff": {}, "order": [
+				{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+				{ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) },
+				{ "t": "level", "lvl": target - 0.2, "target": target, "pt": 1, "from": "inserted" },
+				{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) },
+			] });
+			if let Some(fc) = faction {
+				r["faction"] = json!(fc);
+			}
+			r
+		},
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411]], "zones": { "1411": "Durotar" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }] }),
+		quests: json!({ "1": { "title": "One", "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "kill", "id": 20 }] } }),
+		npcs: json!({ "8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } }, "20": { "name": "Mottled Boar", "spawns": { "1411": { "f": "e", "pts": [[75, 75]] } } } }),
+		..Case::default()
+	};
+	let tip = |faction: Option<&str>, target: f64| {
+		let r = run(&c(faction, target), Some(&area("Razor Hill", "Durotar", 1411)));
+		r.read("a").into_iter().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default()
+	};
+	let horde = tip(Some("Horde"), 21.4);
+	assert!(horde.ends_with("they take you to level 22. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
+	let alliance = tip(Some("Alliance"), 21.4);
+	assert!(alliance.ends_with(" Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."), "{alliance}");
+	let high = tip(Some("Horde"), 28.9);
+	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead."), "{high}");
+	// Below every dungeon's band: no sentence.
+	let low = tip(Some("Horde"), 12.4);
+	assert!(low.ends_with("they take you to level 13."), "{low}");
 }
 
 #[test]
@@ -1997,7 +2036,7 @@ fn a_skipped_group_familys_xp_is_ground_back_after_its_step_for_skippers_only() 
 	assert!(
 		m(
 			&text,
-			r#" {2}kill 21 quest 2\.1\n( {2}.*\n)*\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when !group 2\n {2}when level<12\.4\n {2}tip If you skipped Two, grind here to level 12\.4 to stay on the route's plan\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 +-- grind on Mottled Boar\n\nstep Hub again"#
+			r#" {2}kill 21 quest 2\.1\n( {2}.*\n)*\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when !group 2\n {2}when level<12\.4\n {2}tip If you skipped Two, grind here to level 12\.4 to stay on the route's plan\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
 		),
 		"{text}"
 	);
@@ -3475,6 +3514,70 @@ fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
 			"  turnin 6"
 		]
 	);
+}
+
+#[test]
+fn a_quest_handed_in_on_the_spot_is_never_accepted_or_tracked() {
+	// #1699: Essence of the Exile (1714) at Bath'rah's Cauldron and the Scourgestones (5510) are handed in
+	// on the spot (quests.json `direct`, the server's QuestType 0): never in the log, so an accept never
+	// ticks and held its step, and the objectives bound to it never counted. The accepts go (a step left
+	// with nothing goes too), the turn-ins are direct (the accept's `only` with them), the objective lines
+	// are plain collects (with the quest's count) and a `complete` becomes the collects of its items.
+	// Ordinary quests keep theirs.
+	let quests: BTreeMap<u32, forge_writer::input::Quest> = serde_json::from_value(json!({
+		"1714": { "title": "Essence of the Exile", "direct": true, "objectives": [{ "type": "item", "id": 4480, "count": 8 }] },
+		"5510": { "title": "Minion's Scourgestones", "direct": true, "repeatable": true },
+		"3804": { "title": "Morrowgrain to Thunder Bluff", "direct": true, "objectives": [{ "type": "item", "id": 11040, "count": 10 }] },
+		"1712": { "title": "Cyclonian", "objectives": [{ "type": "item", "id": 6851, "count": 1 }] }
+	}))
+	.unwrap();
+	let data = Data { quests, ..Data::default() };
+	let mut files = vec![
+		[
+			"step Light's Hope Chapel",
+			"  accept 5510 only Human              -- Argent Officer",
+			"",
+			"step Bath'rah",
+			"  accept 1712",
+			"  accept 1714 object 89931            -- Bath'rah's Cauldron",
+			"",
+			"step The exiles",
+			"  collect 4480 quest 1714.1 optional @50.4,50.8 -- Thundering Charm",
+			"  collect 12840 quest 5510.1",
+			"  collect 6851 quest 1712.3",
+		]
+		.join("\n"),
+		[
+			"step The cauldron",
+			"  accept 5510",
+			"  turnin 5510",
+			"  turnin 1714 object 89931            -- Bath'rah's Cauldron",
+			"  accept 3804 optional",
+			"  complete 3804 optional              -- Bashana",
+			"  turnin 3804 optional",
+			"  turnin 1712",
+		]
+		.join("\n"),
+		["step Nafien", "  when complete 3804", "  when onquest 1714", "  turnin 1712"].join("\n"),
+	];
+	forge_writer::post::direct_hand_ins(&mut files, &data);
+	assert_eq!(
+		files[0].split('\n').collect::<Vec<_>>(),
+		vec!["step Bath'rah", "  accept 1712", "", "step The exiles", "  collect 4480 x8 optional @50.4,50.8 -- Thundering Charm", "  collect 12840", "  collect 6851 quest 1712.3",]
+	);
+	assert_eq!(
+		files[1].split('\n').collect::<Vec<_>>(),
+		vec![
+			"step The cauldron",
+			"  turnin 5510 direct",
+			"  turnin 1714 direct object 89931 -- Bath'rah's Cauldron",
+			"  collect 11040 x10 optional -- Bashana",
+			"  turnin 3804 direct optional",
+			"  turnin 1712",
+		]
+	);
+	// `when complete` reads as the bags holding what it asks for, `when onquest` as the quest being open.
+	assert_eq!(files[2].split('\n').collect::<Vec<_>>(), vec!["step Nafien", "  when has 11040 x10", "  when available 1714", "  turnin 1712"]);
 }
 
 #[test]

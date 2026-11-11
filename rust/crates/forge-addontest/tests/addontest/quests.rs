@@ -636,6 +636,33 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 	assert_eq!(out[5], json!(["?"]));
 }
 
+// The "New in Forever" mark (Quests/NewQuests.lua): a quest Forever added carries its ∞ after its name on the quest
+// lines of a mob's and an item's tooltip ("Starts a quest" too); ui.newInForever off takes it away. Kobold Camp
+// Cleanup (7) and A Strange Note (1972's) stand in for Forever's quests here.
+#[test]
+fn a_forever_quest_s_tooltip_lines_carry_the_new_in_forever_mark() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local note = Q.StartedBy(1972)[1]
+Polestar.NewQuests.Register(6, string.format("%06d%06d", math.min(7, note), math.max(7, note)))
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit(sq.hoverUnit(6))
+emit(sq.hoverItem(1972))
+Polestar.Set("ui.newInForever", false)
+emit(sq.hoverUnit(6))
+"#,
+		"w.complete({ 783 })",
+	);
+	let mark = " |TInterface\\AddOns\\Polestar\\Media\\UI\\icon-forever:8:16:0:0|t";
+	assert_eq!(out[0], json!(["?", format!("Kobold Camp Cleanup{mark}: | Kill Kobold Vermin 0/10"), "Kobold Candles: | Large Candle 0/8"]));
+	assert_eq!(out[1], json!(["?", format!("Starts a quest: | A Strange Note{mark}")]));
+	assert_eq!(out[2], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 0/8"]));
+}
+
 // An item a quest still needs is marked in the bags and named on its tooltip
 // until the quest is handed in: through the log, and (not accepted yet) through
 // the running guide's steps from the live one on.
@@ -756,9 +783,14 @@ emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
 "#,
 		"",
 	);
+	// Applejack Still (91736) is a quest Forever added: its tooltip line carries the "New in Forever" mark.
+	let mark = " |TInterface\\AddOns\\Polestar\\Media\\UI\\icon-forever:8:16:0:0|t";
+	// The apples' count is the data's: 4 in a build that has it (Forever's quest data), else the objective reads 1/1.
+	let quests: Value = serde_json::from_str(&std::fs::read_to_string(root().join("data/forever/quests.json")).unwrap()).unwrap();
+	let n = quests["91736"]["objectives"][0]["count"].as_u64().unwrap_or(1).min(4);
 	assert_eq!(
 		out[0],
-		json!([true, ["?", "Applejack Still: | 1/1 (not accepted)"], "Do you want to destroy Shiny Red Apple?//Needed for: Applejack Still"]),
+		json!([true, ["?", format!("Applejack Still{mark}: | {n}/{n} (not accepted)")], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
 		"bought at the Stonefield Farm: the still ahead needs them"
 	);
 	assert_eq!(out[1], json!([true]), "at the still");
@@ -803,7 +835,7 @@ emit(show("DELETE_GOOD_ITEM"))
 "#,
 		"w.complete({ 783 })",
 	);
-	assert_eq!(out[0], json!(["Do you want to destroy X?//Needed for: Kobold Candles", 124]));
+	assert_eq!(out[0], json!(["Do you want to destroy X?//Needed for: “Kobold Candles”", 124]));
 	assert_eq!(out[1], json!(["Do you want to destroy X?", 100]), "an item no quest needs: dialog untouched");
 	assert_eq!(out[2], json!(["Do you want to destroy X?", 100]), "quest handed in: dialog untouched");
 }
@@ -1477,7 +1509,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 #[test]
 fn the_database_loads_on_demand_not_while_every_quest_feature_is_off_at_once_when_one_turns_on() {
 	let db = fixture();
-	let all_off = "{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false }";
+	let all_off = "{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false, questLoot = false }";
 	let out = run_saved(
 		&db,
 		r#"
@@ -1598,13 +1630,15 @@ emit(look().opts)
 }
 
 #[test]
-fn objective_spot_regions_are_built_once_per_quest_log_change_not_on_a_setting_a_publish_or_a_kill_count() {
+fn objective_spot_regions_group_only_the_objectives_a_quest_log_change_brought_never_on_a_setting_a_step_change_or_a_kill_count() {
 	let db = spots_db();
 	let out = run(
 		&db,
 		r#"
 w.accept(9600, { { text = "Murloc Forager slain: 0/5", type = "monster", required = 5 } })
 stub.advance(0.3)
+local function area() for _, p in ipairs(layer("quests.objectives")) do if p.hull then return p end end end
+local first = area()
 local calls, of = 0, Polestar.Regions.Of
 Polestar.Regions.Of = function(...) calls = calls + 1; return of(...) end
 for _, mode in ipairs({ "icons", "areas", "groups" }) do Polestar.Set("qol.objectiveSpots", mode); stub.advance(0.3) end
@@ -1617,12 +1651,38 @@ emit(calls)
 w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
 stub.advance(0.3)
 emit(calls)
+w.abandon(7); stub.advance(0.3)
+emit({ calls, area() == first })
 "#,
 		"w.complete({ 783 })",
 	);
 	assert_eq!(out[0], 0, "settings and a step change only restyle");
 	assert_eq!(out[1], 0, "a kill count alone");
-	assert_eq!(out[2], 2, "a quest came: one grouping per objective (9600's foragers, 7's kobolds)");
+	assert_eq!(out[2], 1, "a quest came: only its objective is grouped (7's kobolds); 9600's foragers keep theirs");
+	assert_eq!(out[3], json!([1, true]), "a quest left: nothing grouped, the foragers' area is the same pin");
+}
+
+#[test]
+fn with_the_objective_and_turn_in_markers_off_a_quest_log_change_builds_no_marker_and_groups_no_spot() {
+	let db = spots_db();
+	let out = run_saved(
+		&db,
+		r#"
+local calls, of = 0, Polestar.Regions.Of
+Polestar.Regions.Of = function(...) calls = calls + 1; return of(...) end
+local rebuilds = Q.stats.rebuilds
+w.accept(9600, { { text = "Murloc Forager slain: 0/5", type = "monster", required = 5 } })
+stub.advance(0.3)
+Polestar.Fire("STEP_CHANGED", 1); stub.advance(0.3)
+emit({ Q.stats.rebuilds - rebuilds, calls, sq.pins.layers["quests.objectives"] == nil, Q.ObjectivesForNpc(9600) ~= nil })
+Polestar.Set("qol.mapObjectives", true); stub.advance(0.3)
+emit({ Q.stats.rebuilds - rebuilds, calls, #layer("quests.objectives") > 0 })
+"#,
+		"",
+		"PolestarDB = { schema = 1, settings = { qol = { mapObjectives = false, minimapObjectives = false, turnInMarkers = false, questTooltips = true } } }",
+	);
+	assert_eq!(out[0], json!([0, 0, true, true]), "no markers or regions; the tooltip index still knows the forager");
+	assert_eq!(out[1], json!([1, 1, true]), "turned on: built and grouped once");
 }
 
 #[test]
@@ -1651,4 +1711,28 @@ emit({{ look(), centre().focus }})
 	assert_eq!(alpha(&out[0][0]), vec![0.36], "another quest's: 0.6 x the dim 0.6");
 	assert_eq!(out[1][1], "focus");
 	assert_eq!(alpha(&out[1][0]), vec![0.6], "the step's quest: full");
+}
+
+// The full-scan indexes (the item tooltip's "Starts a quest", the loot line, closes, follow-ups) read the one
+// field they need from the data's text: no quest record is decoded to build them (that cost ~55 ms and ~6 MB of
+// garbage each on the full database, in the frame that first asked).
+#[test]
+fn the_quest_indexes_are_built_without_decoding_a_record_and_answer_as_before() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local mt = getmetatable(Q._data.quests)
+local get, reads = mt.__index, 0
+mt.__index = function(t, id) reads = reads + 1; return get(t, id) end
+local answers = { started = Q.StartedBy(1972), closed14 = Q.ClosedBy(14), closed15 = Q.ClosedBy(15),
+	after783 = Q.FollowUps(783), after33 = Q.FollowUps(33), after60 = Q.FollowUps(60), none = Q.StartedBy(4) or false }
+mt.__index = get
+emit(reads)
+emit(answers)
+"#,
+		"",
+	);
+	assert_eq!(out[0], 0, "no record decoded");
+	assert_eq!(out[1], json!({ "started": [17], "closed14": [15], "closed15": [14], "after783": [7], "after33": [19], "after60": [19], "none": false }));
 }

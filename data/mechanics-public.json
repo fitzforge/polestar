@@ -2,6 +2,42 @@
 	"_about": "Polestar's public quest mechanics: how a quest is done beyond its objectives, in our own words, ids and positions. `forge data build --kb` merges it over the private mechanics layers by their rules, into data/forever/mechanics.json. quests: { \"<quest id>\": { kinds, params, steps, note } }. kinds: [{ kind, confidence }]: kind is one of escort, timed, summon-by-item, use-item-at-place, use-item-on-mob, object-click, vendor-buy, crafted, event-start, group/elite, item-from-other-quest, multi-step-in-one-objective, delayed-offer, other; confidence high, medium (default) or low. A kind gains the source `public`; it drives the route when it is high or another source agrees with it; a kind the server data refutes is not added. params: [{ kind, ... }]: the kind's parameters (for example delayed-offer: after, npc, sec; summon-by-item: item, npc); they join a kind some layer keeps, replacing the row with the same kind and item. steps: [{ n, action, target, item, count, place, fact, confidence }]: step n replaces the step with that n or is added; place is { map, x, y, f } (uiMapID, map percent, f `e` for the Classic frame). note: where each fact comes from (an in-game check, a recording, a player report with its issue number, the game's data). Check an edit with `forge data check-corrections`. See docs/forge/data.md, Changing the data. Hand-checked mechanics fixes, applied over every layer and always driving the route, live in forever-db/corrections/mechanics.json.",
 	"schema": 1,
 	"quests": {
+		"2842": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "accept",
+					"target": {
+						"type": "npc",
+						"id": 3413
+					},
+					"fact": "Sovik's window lists no quest: pick his chat option, the one that is not his goods, and Chief Engineer Scooty opens.",
+					"confidence": "high"
+				}
+			],
+			"note": "Chief Engineer Scooty (2842) is offered from Sovik's (3413) chat option (gossip option 95758), never from his window's quest list. Source: players' in-game recordings to 2026-11-11: 11 people opened it, every one through that option, and no window of his in the recordings listed it; the player report #1762. The server data puts the same option in his menu, beside his goods, and asks for Rig Wars (2841) in the log: 10 of the 11 people had it, one did not."
+		},
+		"1918": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 12759
+					},
+					"fact": "Kill Tideress in Mystral Lake with Stonetalon Standstill (25) in your log or handed in: only then does she drop the Befouled Water Globe that starts the quest.",
+					"place": {
+						"map": 1440,
+						"x": 46,
+						"y": 70,
+						"f": "e"
+					},
+					"confidence": "high"
+				}
+			],
+			"note": "The Befouled Element (1918) starts from the Befouled Water Globe (16408), which Tideress (12759) drops only for a player who has Stonetalon Standstill (25) in the log or handed in. Source: players' in-game recordings to 2026-11-08: the 7 people who took 1918 all had 25 (6 in the log, 1 handed in), 2 people without it killed Tideress and got no globe, and the player report #1346. The loot tables of the Classic servers have only a Horde condition on the globe."
+		},
 		"91736": {
 			"kinds": [
 				{
@@ -107,6 +143,227 @@
 				}
 			],
 			"note": "Suntara Stones (3367) is an escort: Forever's quest data lists its one objective as the Dorius Escort event, ending at the Singed Letter (object 175704) in Dustfire Valley, and the server data marks it an escort. Taken and left behind, it fails, so the route takes it right before the walk."
+		},
+		"95885": {
+			"kinds": [
+				{
+					"kind": "summon-by-item",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "summon-by-item",
+					"item": 210713,
+					"npc": 212753,
+					"npcName": "Tortured Soul",
+					"place": {
+						"objects": [
+							645153
+						],
+						"objectName": "Offering Stone",
+						"positions": [
+							{
+								"map": 1421,
+								"x": 58.1,
+								"y": 69.8
+							}
+						]
+					},
+					"provided": true
+				}
+			],
+			"note": "The Offering of Blood (95885): the Offering Stone in Beren's Peril hands over a Tortured Soul (210713) with the quest; used beside the stone it makes the offering and summons the elite Tortured Soul (212753), whose kill completes the quest. Source: players' in-game recordings to 2026-11-08, 12 people (4 established), the offering cast at the stone a few seconds after the accept with no item looted, then the kill ticking the quest's last line (#1317)."
+		},
+		"5381": {
+			"kinds": [
+				{
+					"kind": "use-item-at-place",
+					"confidence": "high"
+				},
+				{
+					"kind": "summon-by-item",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "summon-by-item",
+					"item": 14523,
+					"npc": 11876
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 14523,
+					"target": {
+						"type": "object",
+						"id": 176581
+					},
+					"place": {
+						"map": 1443,
+						"x": 54.95,
+						"y": 26.66,
+						"f": "e"
+					},
+					"fact": "Use the Demon Pick on the red Hand of Iruxos Crystal in the middle of the largest building of Thunder Axe Fortress: a Demon Spirit comes out.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 11876
+					},
+					"place": {
+						"map": 1443,
+						"x": 55.0,
+						"y": 26.6,
+						"f": "e"
+					},
+					"fact": "Kill the Demon Spirit (level 37) for the Demon Box.",
+					"confidence": "high"
+				}
+			],
+			"note": "Hand of Iruxos: the game's data gives the quest the Demon Pick (14523) as its source item, the Hand of Iruxos Crystal (object 176581) at 54.95,26.66 and the Demon Spirit (11876) beside it, which drops the Demon Box (13542, 100%); EG Link's live quest record lists the pick with the box. The guide said to use the pick on the spirit."
+		},
+		"6027": {
+			"kinds": [
+				{
+					"kind": "use-item-at-place",
+					"confidence": "high"
+				},
+				{
+					"kind": "summon-by-item",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "summon-by-item",
+					"item": 15766,
+					"npc": 12369
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 15766,
+					"target": {
+						"type": "object",
+						"id": 177673
+					},
+					"place": {
+						"map": 1443,
+						"x": 28.24,
+						"y": 6.67,
+						"f": "e"
+					},
+					"fact": "Use the Gem of the Serpent on the Serpent Statue on Ranazjar Isle, off Desolace's northern tip: Lord Kragaru rises.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 12369
+					},
+					"place": {
+						"map": 1443,
+						"x": 28.24,
+						"y": 6.67,
+						"f": "e"
+					},
+					"fact": "Kill Lord Kragaru (level 38) for the Book of the Ancients.",
+					"confidence": "high"
+				}
+			],
+			"note": "Book of the Ancients: the game's data gives the quest the Gem of the Serpent (15766) as its source item and puts the Serpent Statue (object 177673) and Lord Kragaru (12369) at 28.24,6.67; EG Link's live quest record lists the gem with the book."
+		},
+		"6142": {
+			"kinds": [
+				{
+					"kind": "object-click",
+					"confidence": "high"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "collect-object",
+					"item": 15874,
+					"target": {
+						"type": "object",
+						"id": 177784
+					},
+					"place": {
+						"map": 1443,
+						"x": 30.6,
+						"y": 31.9,
+						"f": "e"
+					},
+					"fact": "Open Giant Softshell Clams on the sea floor north of Shadowprey for Soft-shelled Clams; Enraged Reef Crawlers drop some too.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "use-item",
+					"item": 15874,
+					"fact": "Open each Soft-shelled Clam in your bags for its meat.",
+					"confidence": "high"
+				}
+			],
+			"note": "Clam Bait: the game's data has the meat (15924) inside the Soft-shelled Clam (15874), which comes from the Giant Softshell Clam objects (177784, 100%) and the Enraged Reef Crawlers (12347); 2 recorded players collected the meat on that coast."
+		},
+		"63": {
+			"kinds": [
+				{
+					"kind": "use-item-at-place",
+					"confidence": "high"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 6637,
+					"place": {
+						"map": 1421,
+						"x": 38.5,
+						"y": 44.4,
+						"f": "e"
+					},
+					"fact": "Drink the Water Sapta (Islen Waterseer's reward for the previous part) by the standing stone south-west of the Sepulcher to see the Corrupt Minor Manifestation of Water.",
+					"confidence": "high"
+				}
+			],
+			"note": "Call of Water (63): Islen Waterseer gives the Water Sapta (6637) with Call of Water (220)'s hand-in (the game's quest reward data) and the quest requires it (requiredItems 6637); the elemental (5894) is at Silverpine 38.78,44.26 beside the Brazier of Everfount (113791)."
+		},
+		"1714": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "collect",
+					"fact": "Gather 8 Thundering Charms (4480), 8 Burning Charms (4479) and 8 Cresting Charms (4481) from the exiles of Arathi Highlands.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "turn-in",
+					"target": {
+						"type": "object",
+						"id": 89931
+					},
+					"fact": "With Cyclonian (1712) in your log, click Bath'rah's Cauldron: its window asks for the 24 charms at once and hands you the Essence of the Exile (6851). There is nothing to accept, and the quest never shows in your quest log.",
+					"confidence": "high"
+				}
+			],
+			"note": "Essence of the Exile (1714) is handed in at Bath'rah's Cauldron (object 89931) straight from the cauldron's window, which opens on the charms it wants (\"The cauldron bubbles. Its vapors beckon...\", then Continue): a player's in-game screenshot (#1699). The game's data marks 1714 as a quest handed in on the spot, repeatable, offered only while Cyclonian is in the log; players' recordings have never shown a quest of that kind accepted (66 such quests handed in, none taken)."
 		}
 	}
 }

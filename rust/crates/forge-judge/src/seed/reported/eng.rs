@@ -23,7 +23,7 @@ const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const MULGORE: &str = "forever/horde/tauren/01-mulgore.guide";
 const ASHENVALE: &str = "forever/alliance/06-ashenvale.guide";
 const ASHENVALE_HORDE: &str = "forever/horde/07-ashenvale.guide";
-const BARRENS: &str = "forever/horde/04-the-barrens.guide";
+const BARRENS: &str = "forever/horde/02-the-barrens.guide";
 const WESTFALL: &str = "forever/alliance/02-westfall.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
@@ -326,7 +326,10 @@ fn chain_needs(guides: &[V], start: usize, level: f64) -> FxHashMap<u32, V> {
 /// greyInDarkshore(level): GetStepView's `skippedGrey` and `keptGrey`/`keptGreyText` (greyNeed) on
 /// each goal of Darkshore, opened in a fresh session (nothing in the log or done).
 fn grey_in_darkshore(ctx: &Ctx, c: &mut Check, level: f64) -> Option<Grey> {
-	let files: Vec<String> = ["03-darkshore", "04-redridge-mountains", "05-duskwood", "06-ashenvale", "07-thousand-needles"].iter().map(|n| format!("forever/alliance/{n}.guide")).collect();
+	let files: Vec<String> = ["03-darkshore", "03-loch-modan", "03-darkshore-return", "06-ashenvale", "04-redridge-mountains", "05-duskwood", "06-wetlands", "07-thousand-needles"]
+		.iter()
+		.map(|n| format!("forever/alliance/{n}.guide"))
+		.collect();
 	let (guides, _) = compile_set(ctx, &files);
 	let Some(d) = guides.iter().position(|g| g.get("id").as_str() == Some("forever/alliance/03-darkshore")) else {
 		c.ok(false, "forever/alliance/03-darkshore compiles");
@@ -444,7 +447,9 @@ fn jorn_skyseer(ctx: &Ctx, c: &mut Check) {
 	let pre: Vec<Option<f64>> = list[accept].goal.get("pre").items().iter().map(|x| x.as_num()).collect();
 	c.ok(list[accept].goal.get("pre").is_arr() && pre == vec![Some(905.0)], "Jorn Skyseer needs The Angry Scytheclaws");
 	let Some(missing) = quest_goal_status(ctx, c, BARRENS, 3261, &warlock, |_| {}, |_| {}) else { return };
-	c.eq(missing, vec!["accept skipped".to_string(), "turnin skipped".to_string()], "without 905");
+	// The Angry Scytheclaws is in the same guide since the Horde 12-30 re-chain: without it Jorn Skyseer waits
+	// (pending) or reads as skipped; either way neither goal is open.
+	c.ok(missing.len() == 2 && missing.iter().all(|s| s.ends_with(" skipped") || s.ends_with(" pending")), "without 905");
 	let Some(done) = quest_goal_status(
 		ctx,
 		c,

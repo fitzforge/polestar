@@ -2,25 +2,152 @@
 guide forever/alliance/02-westfall
 title Westfall
 faction Alliance
-levels 11-15
+levels 11-17
 zone Westfall
 next forever/alliance/03-darkshore
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Humble Beginnings (399): taken in Stormwind on the way in, the compass at the
+# Alexston Farmstead on the west loop, handed in on the Stormwind visit before the boat. Humans
+# take Thor's flight to Stormwind on the first Sentinel Hill visit for Continue to Stormwind (6281),
+# Dungar Longdrink (6261) and Return to Lewis (6285), and hand Elmore's Task (1097) to Grimand
+# Elmore before the boat, taking his Stormpike's Delivery (353) for the Algaz Station in 03-loch-modan.
+# Business in Auberdine (97894) is taken from Borgus Steelhand on that visit.
+# On the Thor flight's Stormwind visit (about 13), Human Warriors do Defensive Stance (1638-1665: Ilsa Corbin,
+# Harry Burlguard and Bartleby stand in Old Town by Osric's shop) and Human Priests hand Divine Grace (94774) to
+# High Priestess Laurena across Cathedral Square from Baros, instead of a trip at the end of the guide.
+# Added 2026-11-07 (Alliance 12-20 zone order): east Elwynn for Dwarves and Gnomes, on the walk from
+# Goldshire to Westfall at about 13.5-14.5 (Humans do it in their start guide; Night Elves and Skyborne
+# arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): A Fishy Peril (40,
+# Further Concerns needs it), Guard Thomas' chain, the Eastvale Logging Camp, the Tower of Azora and
+# the Jasperlode Mine in one loop; Report to Gryan Stoutmantle (109) comes from Dughan on the way in.
+# Left out for them: The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
+# Mine (62) first (players' recordings: never offered without it), and Delicate Instruments' second
+# part (91724), a second trip to Stone Cairn Lake for one hand-in at the tower.
+# Alba Fairmoon's Toxic Soil chain (92742 to 92748) is for every Alliance race, Humans included: players'
+# recordings show Humans taking and handing it in (2026-11-08), so #144's Human exclusion is lifted.
+
+# ---------------------------------------------------------------- East Elwynn (Dwarves and Gnomes)
+
+step Goldshire
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip On the road from Stormwind to Westfall, Goldshire is the first stop: Remy "Two Times" stands outside the inn, Marshal Dughan beside him. Remy's A Fishy Peril goes straight to Dughan, who then gives Further Concerns; his Report to Gryan Stoutmantle goes with you to Westfall.
+  accept 40                                   -- Remy "Two Times"
+  turnin 40                                   -- Marshal Dughan
+  accept 35
+  accept 109                                  -- Marshal Dughan: for Gryan Stoutmantle at Sentinel Hill
+
+step The Tower of Azora
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip East along the road past Crystal Lake: Hamish Bergwort and Blixie Fitzwink stand at the foot of the tower.
+  accept 91725                                -- Blixie Fitzwink
+  accept 91723                                -- Hamish Bergwort
+
+step The bridge
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Guard Thomas guards the bridge on the road east; Ormin Pelford stands just across it. His tools and Thomas's Prowlers and bears are south of the bridge, on the way back.
+  turnin 35                                   -- Guard Thomas
+  accept 37
+  accept 52
+  accept 91733                                -- Ormin Pelford
+
+step The Eastvale Logging Camp
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.
+  accept 83                                   -- Sara Timberlain, inside
+  accept 5545                                 -- Supervisor Raelen
+  accept 91732                                -- Hagar Lowe
+  collect 13872 quest 5545                    -- Bundle of Wood
+  turnin 5545                                 -- Supervisor Raelen
+
+step A half-eaten body
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip It lies by the river north-west of the logging camp.
+  turnin 37
+  accept 45
+
+step Stone Cairn Lake
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. Rolf's corpse lies in the murloc village on the north-east shore.
+  collect 1019 quest 83                       -- Red Linen Bandanas
+  turnin 45                                   -- Rolf's corpse
+  accept 71
+
+step The gnoll camps
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Riverpaw gnolls camp in the hills west of Stone Cairn Lake; the Stolen Enchanting Supplies lie in their camps.
+  collect 247805 quest 91725                  -- Stolen Enchanting Supplies
+
+step The Jasperlode Mine's entrance
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  goto 61.6,54.1 "Jasperlode Mine"
+
+step Jasperlode Mine: kill these as you meet them
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
+  tip Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.
+  collect 247816 quest 91732                  -- Mining Tools
+  kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map
+
+step The Tower of Azora
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Follow the hills south to the tower.
+  turnin 91723                                -- Hamish Bergwort
+  turnin 91725                                -- Blixie Fitzwink
+
+step Downstream
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip East along the road, then into the river south of the bridge: the Waterlogged Saw, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks.
+  collect 247813 quest 91733                  -- Waterlogged Saw
+  kill 118 quest 52                           -- Prowler
+  kill 822 quest 52                           -- Young Forest Bear
+  collect 247818 quest 91733                  -- Waterlogged Toolbox
+  collect 247817 quest 91733                  -- Waterlogged Axe
+
+step The bridge
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  turnin 91733                                -- Ormin Pelford
+  turnin 71                                   -- Guard Thomas
+  accept 39
+  turnin 52
+
+step The Eastvale Logging Camp
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  turnin 83                                   -- Sara Timberlain, inside
+  turnin 91732                                -- Hagar Lowe
+
+step Goldshire
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Follow the road west to Goldshire, on the way to Westfall: Marshal Dughan stands outside the inn.
+  turnin 39                                   -- Marshal Dughan
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
 step The Jansen Stead
   zone Westfall
   tip Follow the road from Elwynn into Westfall: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any Sack of Oats you pass on the loop: the rest are gathered in the fields here on the way back.
-  accept 109 npc 237 only Human -- Farmer Furlbrow; Humans took it from Deputy Rainer in Elwynn
+  accept 109 npc 237 only Human,NightElf,Skyborne -- Farmer Furlbrow: Humans may have it already from Deputy Rainer in Elwynn
 
 step Westfall
   only Dwarf,Gnome,Skyborne
   zone Westfall
-  goto 59.9,19.4 "Westfall"
+  goto 59.9,19.4 "The Jansen Stead"
 
 step The Jansen Stead
   zone Westfall
@@ -44,129 +171,30 @@ step Goretusk Snouts
 
 # ---------------------------------------------------------------- Sentinel Hill
 
-step Sentinel Hill
-  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
-  turnin 109 only Human
+step Sentinel Hill's tower and Thor
+  only Human
+  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower, Quartermaster Lewis inside it, Thor the gryphon master on the south side of the hill with Scout Galiaan beside him. Thor gives you Lewis' note for Osric Strang with a free flight to Stormwind: take it now. In Stormwind, Morgan Pestle's shop is in the Trade District by the gryphons, Osric's shop, Limited Immunity, in Old Town; Baros Alexston stands in Cathedral Square on the way back to Dungar Longdrink, the gryphon master.
+  turnin 109                                  -- Gryan Stoutmantle
   accept 12
   accept 102                                  -- Captain Danuvin
-  accept 6181 only Human                      -- Quartermaster Lewis, inside
+  accept 6181                                 -- Quartermaster Lewis, inside
   getfp "Sentinel Hill"
-  turnin 6181 only Human                      -- Thor; skip the free flight it offers
-  accept 153                                  -- Scout Galiaan
-  accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon, beside Scout Galiaan
-  accept 92744 only Dwarf,Gnome,NightElf,Skyborne
+  accept 153                                  -- Scout Galiaan, beside Thor
+  turnin 6181                                 -- Thor
+  accept 6281                                 -- Thor: the free flight he offers goes to Stormwind
+  fly "Stormwind"
 
-step Sentinel Hill
-  when onquest 98021
-  turnin 98021 only Skyborne                  -- Gryan Stoutmantle
-
-# ---------------------------------------------------------------- The north loop
-step Molsen Farm: kill these as you meet them
-  zone Westfall
-  tip Defias Trappers and Smugglers camp in the fields between Sentinel Hill and Molsen Farm.
-  tip West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone.
-  tip Young Goretusks and Fleshrippers roam every leg of this loop: their livers and meat are for the pie and the stew.
-  kill 95 quest 12
-  kill 504 quest 12
-  kill 114 quest 9                            -- Harvest Watchers
-  collect 255007 quest 92909.1
-  collect 255010 quest 92909.2
-  collect 732 quest 38.4                      -- Okra
-  collect 255155 optional                     -- Precessive Autocognition Assembly
-  accept 92910 optional
-  collect 254547 quest 92742.2 @46.1,38.2 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the farm's well
-  collect 723 quest 22                        -- Goretusk Liver
-  collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers
-
-step Furlbrow's Pumpkin Farm: kill these as you meet them
-  zone Westfall
-  tip Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above Jangolode Mine east to the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.
-  tip Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.
-  tip Careful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.
-  tip Careful: Furlbrow's Wardrobe stands in the ruined house east of the mine, on the way to the Jansen Stead. Two Defias stand guard inside, one of them the level 15 named Benny Blaanco. They are linked, so attacking either one brings both.
-  collect 725 quest 102 @44.7,14.6            -- Gnoll Paws
-  collect 254548 quest 92744 only Dwarf,Gnome,NightElf,Skyborne @43.5,9.2 map 1436 live -- Longshore Murloc Gills
-  collect 730 quest 38.2 @43.5,9.2            -- Murloc Eye
-  collect 841 quest 64                        -- Furlbrow's Wardrobe; inside
-  collect 829 quest 153                       -- Red Leather Bandanas: every Defias drops them, from Jangolode Mine to the Jansen Stead
-
-step The Jansen Stead
-  collect 1528 quest 151 @56.8,19.1           -- Sacks of Oats in the fields around the farm
-  collect 254546 quest 92742.1 @56.6,18.6 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the well
-  turnin 64                                   -- Farmer Furlbrow
-  turnin 151                                  -- Verna Furlbrow
-
-step Saldean's Farm
-  turnin 38                                   -- Salma Saldean, inside
-  turnin 22
-  turnin 9                                    -- Farmer Saldean
-  turnin 92909                                -- Ozwin Ironsprocket
-  turnin 92910
-
-step Sentinel Hill
-  turnin 12                                   -- Gryan Stoutmantle
-  accept 65                                   -- For Wiley the Black in Lakeshire, Redridge
-  accept 13
-  turnin 102                                  -- Captain Danuvin
-  turnin 153                                  -- Scout Galiaan
-  sethome "Sentinel Hill"
-  turnin 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
-  turnin 92744 only Dwarf,Gnome,NightElf,Skyborne
-  accept 92745 only Dwarf,Gnome,NightElf,Skyborne
-  vendor nearest
-
-# ---------------------------------------------------------------- The mines
-
-step Jangolode Mine
-  only Dwarf,Gnome,NightElf,Skyborne
-  tip Back north past Molsen Farm to the mine: Kobold Diggers work inside.
-  kill 1236 quest 92745.1 only Dwarf,Gnome,NightElf,Skyborne -- Kobold Diggers
-
-step The Gold Coast Quarry
-  only Dwarf,Gnome,NightElf,Skyborne
-  tip South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry.
-  kill 1426 quest 92745.2 only Dwarf,Gnome,NightElf,Skyborne -- Riverpaw Miners
-
-# ---------------------------------------------------------------- West and south
-
-step Moonbrook: kill these as you meet them
-  zone Westfall
-  tip Defias Pillagers and Looters hold the farms west of Sentinel Hill, between the coast road and Moonbrook.
-  tip Careful: The Gold Coast Quarry cave holds many Defias packed together, so it is easy to pull several at once there.
-  kill 589 quest 13
-  kill 590 quest 13
-
-step Sentinel Hill
-  turnin 13                                   -- Gryan Stoutmantle
-  accept 14
-  turnin 92745 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
-  accept 92747 only Dwarf,Gnome,NightElf,Skyborne
-
-step Moonbrook and the Defias hills
-  tip Defias Pathstalkers and Knuckledusters walk Moonbrook; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. The Deadmines entrance in the smithy is a group dungeon.
-  tip Careful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level.
-  kill 121 quest 14
-  kill 449 quest 14
-  kill 122 quest 14
-  collect 254676 quest 92747.1 only Dwarf,Gnome,NightElf,Skyborne -- Suspicious Industrial Supplies, from the crates around Moonbrook
-
-step Back to Sentinel Hill
-  turnin 14                                   -- Gryan Stoutmantle
-  turnin 92747 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
-  accept 92748 only Dwarf,Gnome,NightElf,Skyborne -- For Sprite Jumpsprocket in Stormwind's Dwarven District
-  vendor nearest
-
-# ---------------------------------------------------------------- Stormwind and the boat
-
-step Stormwind City
-  only Human,Warrior
+step Osric Strang
+  only Human
   zone Stormwind City
-  goto 80.4,59.8 "Stormwind City" live
+  turnin 61                                   -- Morgan Pestle, Trade District, by the gryphons
+  turnin 6281                                 -- Osric Strang, Limited Immunity in Old Town
+  accept 6261
 
 step Defensive Stance
   only Human,Warrior
   zone Stormwind City
-  tip From Westfall, walk to Stormwind; the tram from Ironforge arrives in the Dwarven District. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.
+  tip Ilsa Corbin trains warriors in Old Town, near Osric's shop; the tram from Ironforge arrives in the Dwarven District, north of it. Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.
   accept 1638 npc 5480 only Human -- Ilsa Corbin
   turnin 1638 only Human -- Harry Burlguard
   accept 1639 only Human
@@ -177,10 +205,179 @@ step Defensive Stance
   accept 1665 only Human
   turnin 1665 only Human -- Harry Burlguard: Defensive Stance
 
+step Baros Alexston
+  only Human
+  zone Stormwind City
+  accept 399                                  -- Baros Alexston, Cathedral Square: his compass is in his old house in Westfall
+
 step Stormwind City
   only Human,Priest
+  when onquest 94774
   zone Stormwind City
-  goto 49.5,44.6 "Stormwind City" live
+  goto 49.5,44.6 "High Priestess Laurena" live
+
+step High Priestess Laurena
+  only Human,Priest
+  zone Stormwind City
+  tip High Priestess Laurena is in the Cathedral of Light, across Cathedral Square from Baros.
+  turnin 94774 only Human -- Divine Grace
+
+step Dungar Longdrink
+  only Human
+  zone Stormwind City
+  turnin 6261                                 -- Dungar Longdrink, the gryphon master
+  accept 6285
+  getfp "Stormwind"
+  fly "Sentinel Hill"
+
+step Sentinel Hill
+  zone Westfall
+  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
+  turnin 109 only Dwarf,Gnome,NightElf,Skyborne -- Gryan Stoutmantle
+  accept 12
+  accept 102                                  -- Captain Danuvin
+  turnin 6285 only Human                      -- Quartermaster Lewis, inside: back from Stormwind
+  getfp "Sentinel Hill"
+  accept 153                                  -- Scout Galiaan
+  accept 92742                                -- Alba Fairmoon, beside Scout Galiaan
+  accept 92744
+
+step Sentinel Hill
+  when onquest 98021
+  turnin 98021 only Skyborne                  -- Gryan Stoutmantle
+
+# ---------------------------------------------------------------- The north loop
+step Goretusk Livers as you go
+  along until q22
+  background
+  tip Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers.
+  collect 723 quest 22.1                      -- Goretusk Liver
+
+step Stringy Vulture Meat as you go
+  along until q22
+  background
+  tip Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat.
+  collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers
+
+step Red Leather Bandanas as you go
+  along until q153
+  background
+  tip Every Defias on this loop can drop a Red Leather Bandana: the Trappers and Smugglers, and the guards at Furlbrow's Wardrobe.
+  collect 829 quest 153.1                     -- Red Leather Bandanas
+
+step Defias Trappers and Smugglers
+  zone Westfall
+  tip North-west from Sentinel Hill toward Molsen Farm: Defias Trappers and Smugglers camp in the fields between them.
+  kill 95 quest 12
+  kill 504 quest 12
+
+step Molsen Farm's well
+  collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
+
+step Molsen Farm's Harvest Watchers
+  tip Harvest Watchers and Golems work the fields around Molsen Farm; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone.
+  kill 114 quest 9                            -- Harvest Watchers
+  collect 255007 quest 92909.1
+  collect 255010 quest 92909.2
+  collect 732 quest 38.4                      -- Okra
+  collect 255155 optional                     -- Precessive Autocognition Assembly
+  accept 92910 optional
+  collect 814 x5 optional                     -- Flask of Oil: keep five for Captain Grayson at the Westfall Lighthouse, later on the route
+
+step The gnoll hills
+  tip North to the hills above Jangolode Mine: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.
+  tip Careful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.
+  collect 725 quest 102 @44.7,14.6            -- Gnoll Paws
+
+step The Longshore murlocs
+  tip Murloc Coastrunners and Raiders line the north coast from above the mine east toward the Jansen Stead: work along the beach eastward. They flee at low health: pull one at a time.
+  loop
+  goto 42.5,10.5 live
+  goto 45.5,9.2 live
+  goto 49.5,9.5 live
+  goto 53.0,10.5 live
+  goto 56.0,9.2 live
+  collect 254548 quest 92744                  -- Longshore Murloc Gills
+  collect 730 quest 38.2                      -- Murloc Eye
+
+step Furlbrow's Wardrobe
+  tip Furlbrow's Wardrobe stands in the ruined house east of the mine, on the way to the Jansen Stead.
+  tip Careful: Two Defias stand guard inside, one of them the level 15 named Benny Blaanco. They are linked, so attacking either one brings both.
+  collect 841 quest 64                        -- Furlbrow's Wardrobe; inside
+
+step The Jansen Stead
+  collect 1528 quest 151 @56.8,19.1           -- Sacks of Oats in the fields around the farm
+  collect 254546 quest 92742.1 @56.6,18.6     -- Fill the vial at the well
+  turnin 64                                   -- Farmer Furlbrow
+  turnin 151                                  -- Verna Furlbrow
+
+step Finish the Goretusk Livers
+  when !has 723 x8
+  tip Still short of eight? Young Goretusks root in the fields just west of Saldean's Farm.
+  collect 723 quest 22.1 @54.15,26.72         -- Goretusk Liver
+
+step Finish the Stringy Vulture Meat
+  when !has 729 x3
+  tip Still short of three? Young Fleshrippers circle the fields north-west of Saldean's Farm.
+  collect 729 quest 38.1 @51.87,27.69         -- Stringy Vulture Meat: Fleshrippers
+
+step Saldean's Farm
+  label q22
+  turnin 38                                   -- Salma Saldean, inside
+  turnin 22
+  turnin 9                                    -- Farmer Saldean
+  turnin 92909                                -- Ozwin Ironsprocket
+  turnin 92910
+
+step Finish the Red Leather Bandanas
+  when !has 829 x15
+  tip Still short of fifteen? Defias Trappers camp in the fields just west of Sentinel Hill.
+  collect 829 quest 153.1 @48.53,45.24        -- Red Leather Bandanas
+
+step Sentinel Hill
+  label q153
+  turnin 12                                   -- Gryan Stoutmantle
+  accept 65                                   -- For Wiley the Black in Lakeshire, Redridge
+  accept 13
+  turnin 102                                  -- Captain Danuvin
+  turnin 153                                  -- Scout Galiaan
+  sethome "Sentinel Hill"
+  turnin 92742                                -- Alba Fairmoon
+  turnin 92744
+  accept 92745
+  vendor nearest optional
+
+# ---------------------------------------------------------------- The mines
+
+step Jangolode Mine
+  tip Back north past Molsen Farm to the mine: Kobold Diggers work inside.
+  kill 1236 quest 92745.1                     -- Kobold Diggers
+
+step The Gold Coast Quarry
+  tip South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry.
+  kill 1426 quest 92745.2                     -- Riverpaw Miners
+
+# ---------------------------------------------------------------- West and south
+
+step Moonbrook: kill these as you meet them
+  zone Westfall
+  tip Defias Pillagers and Looters hold the farms west of Sentinel Hill, between the coast road and Moonbrook. Alexston's Chest stands in the farmhouse at the Alexston Farmstead, among them: Baros' compass is inside.
+  tip Careful: The Gold Coast Quarry cave holds many Defias packed together, so it is easy to pull several at once there.
+  kill 589 quest 13
+  kill 590 quest 13
+  collect 2998 quest 399.1 @36.24,54.52       -- A Simple Compass, from Alexston's Chest
+
+step Sentinel Hill
+  turnin 13                                   -- Gryan Stoutmantle
+  turnin 92745                                -- Alba Fairmoon
+
+# ---------------------------------------------------------------- Stormwind and the boat
+
+step Stormwind City
+  only Human,Priest
+  when onquest 94774
+  zone Stormwind City
+  goto 49.5,44.6 "High Priestess Laurena" live
 
 step High Priestess Laurena
   only Human,Priest
@@ -191,7 +388,7 @@ step High Priestess Laurena
 step Stormwind City
   only Human,Paladin
   zone Stormwind City
-  goto 50.5,47.5 "Stormwind City" live
+  goto 50.5,47.5 "Duthorian Rall" live
 
 step The Tome of Divinity
   only Human,Paladin
@@ -214,7 +411,7 @@ step The Tome of Divinity
 step Stormwind City
   only Shaman
   zone Stormwind City
-  goto 64.5,7.5 "Stormwind City"
+  goto 64.5,7.5 "Stormwind's Dwarven District"
 
 step Tram to Ironforge
   only Shaman
@@ -230,23 +427,24 @@ step Shaman training
 step Stormwind
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   zone Stormwind City
-  tip Walk to Stormwind, or fly if you know its flight path. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Park (Druids).
+  tip Walk to Stormwind, or fly if you know its flight path. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters), the Park (Druids).
+  enter "Stormwind City" @69.5,85.5          -- In through the main gate (already done if you are in the city)
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 12, 14 and 16 spells
 
 step Back to Stormwind City
   only Shaman
   zone Stormwind City
-  goto 56.2,64.6 "Stormwind City"
-
-step Stormwind City
-  zone Stormwind City
-  goto 56.2,64.6 "Stormwind City"
+  tip Ride the tram back: it comes out in Stormwind's Dwarven District, where the errands below start.
+  goto 64.5,7.5 "Stormwind's Dwarven District"
 
 step Stormwind
   zone Stormwind City
   getfp "Stormwind"
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
-  turnin 92748 only Dwarf,Gnome,NightElf,Skyborne -- Sprite Jumpsprocket, Dwarven District
+  turnin 1097 only Human                      -- Grimand Elmore, Dwarven District
+  accept 353 only Human                       -- Grimand Elmore: his package for Mountaineer Stormpike in Loch Modan, later on the route
+  accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
+  turnin 399                                  -- Baros Alexston, Cathedral Square
   turnin 1861 only Gnome,Human,Skyborne,Mage choose 9513 7508      -- Jennea Cannon, Wizard's Sanctum: Mirror Lake
 
 step Stormwind
