@@ -68,6 +68,9 @@ const GROUPS: &[Group] = &[
 	Group { name: "alerts_rare", src: include_str!("effects/alerts-rare.lua") },
 	Group { name: "alerts_cards", src: include_str!("effects/alerts-cards.lua") },
 	Group { name: "alerts_classcard", src: include_str!("effects/alerts-classcard.lua") },
+	Group { name: "trackers_travel", src: include_str!("effects/trackers-travel.lua") },
+	Group { name: "trackers_instances", src: include_str!("effects/trackers-instances.lua") },
+	Group { name: "trackers_party", src: include_str!("effects/trackers-party.lua") },
 ];
 
 // Two reads compared (numbers within 1e-4, tables by their keys) and shown in a message: the runner's, and a login
@@ -558,11 +561,26 @@ fn alerts_classcard() {
 	check("alerts_classcard");
 }
 
+#[test]
+fn trackers_travel() {
+	check("trackers_travel");
+}
+
+#[test]
+fn trackers_instances() {
+	check("trackers_instances");
+}
+
+#[test]
+fn trackers_party() {
+	check("trackers_party");
+}
+
 // Every control of the settings window has an effect check, and every check is a registered control's. A later
 // release's control (settings-controls.json, as the coverage test reads it: its row placed in the window ahead of the
 // setting it needs) needs its check once this build is that release.
 #[test]
-#[ignore = "effect checks still to write: the Trackers page and the Look pages' presets"]
+#[ignore = "effect checks still to write: the Guide window and Map pins pages' presets"]
 fn every_control_has_an_effect_check() {
 	let mut checked = std::collections::BTreeSet::new();
 	for g in GROUPS {
