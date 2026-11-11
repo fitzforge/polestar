@@ -2357,6 +2357,29 @@ fn t_989_rutheran_village_to_teldrassil_takes_the_portal_up_and_from_its_landing
 	assert_eq!(f(&down["treeWalks"]), 0.0, "from Darnassus: no walk leg joins Rut'theran to the top of the tree");
 }
 
+/// #1761 (zpectral): on Teldrassil's southern rim (60.2,71.6), bound for Vesprystus, the flight master in Rut'theran
+/// Village (58.4,93.93) at the foot of the tree, the arrow drew a walk straight down the trunk. No walk joins the two
+/// (the walking grid reaches neither from the other) and the fall from the rim kills (recorded descents); the
+/// way down is through Darnassus and its portal. Rut'theran is an area of Teldrassil's map no walk joins to the rest
+/// (crossings.json `areas`): a zone of its own to the planner. From Dolanaar too.
+fn rutheran_flight_master_from(from: (i64, f64, f64)) {
+	skip_unless_ready!();
+	let out = teldrassil_route(from, (1438, 58.4, 93.93, "Vesprystus"));
+	let (kinds, transports) = (strs(&out["kinds"]), strs(&out["transports"]));
+	assert!(transports.iter().any(|t| t == "portal-ruttheran"), "the Darnassus portal down ({}; {})", kinds.join(", "), transports.join(", "));
+	assert_eq!(f(&out["treeWalks"]), 0.0, "no walk leg joins the top of the tree to Rut'theran ({}; {})", kinds.join(", "), transports.join(", "));
+}
+
+#[test]
+fn t_1761_from_teldrassils_rim_to_the_rutheran_flight_master_the_route_takes_the_darnassus_portal_down_never_a_walk_off_the_tree() {
+	rutheran_flight_master_from((1438, 60.2, 71.6));
+}
+
+#[test]
+fn t_1761_from_dolanaar_to_the_rutheran_flight_master_the_route_takes_the_darnassus_portal_down_never_a_walk_off_the_tree() {
+	rutheran_flight_master_from((1438, 55.9, 59.8));
+}
+
 // Same pattern (controller handover): Dolanaar <-> Auberdine must not walk between the top of Teldrassil and the
 // Rut'theran dock; the way is Darnassus' portal and the boat (or a flight from Rut'theran).
 fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
@@ -2368,13 +2391,11 @@ fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
 }
 
 #[test]
-#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_dolanaar_to_auberdine_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1438, 56.73, 61.9), (1439, 36.8, 44.3, "Auberdine"));
 }
 
 #[test]
-#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1439, 36.8, 44.3), (1438, 55.9, 59.8, "Dolanaar"));
 }

@@ -1094,5 +1094,14 @@
 				{ "map": 1441, "x": 38.04, "y": 35.7, "z": 84, "radius": 12 }
 			]
 		}
+	],
+	"areas": [
+		{
+			"id": "rutheran-village",
+			"name": "Rut'theran Village",
+			"map": 1438,
+			"box": { "x1": 45, "y1": 81.5, "x2": 68, "y2": 100 },
+			"note": "At the foot of Teldrassil, on the tree's map: no walk joins it to the top, only the Darnassus portals, the boats and the flight master do; the fall from the rim kills (recorded descents, #1761). The box holds only ground Polestar's walking grid reaches from the flight master and none it reaches from Dolanaar (sampled every map percent of Teldrassil 44-68 x 76-100, every half percent along the rim)"
+		}
 	]
 }

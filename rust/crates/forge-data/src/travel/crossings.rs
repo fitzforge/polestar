@@ -19,7 +19,7 @@ const HOP_YARDS: f64 = 600.0;
 const CAPTION: usize = 160;
 const OFF_MAP: [f64; 2] = [-50.0, 150.0];
 
-const KEYS_TOP: &[&str] = &["schema", "frame", "source", "build", "crossings", "open", "chains"];
+const KEYS_TOP: &[&str] = &["schema", "frame", "source", "build", "crossings", "open", "chains", "areas"];
 /// (`source`: where a crossing the top-level source does not cover comes from.)
 const KEYS_CROSSING: &[&str] = &["id", "a", "b", "ab", "ba", "oneWay", "source"];
 /// (`z`: the end's height, for ends on a ramp or a ledge: the crossings baked-legs measured.)
@@ -27,6 +27,8 @@ const KEYS_END: &[&str] = &["map", "x", "y", "z", "radius", "offMap"];
 const KEYS_OPEN: &[&str] = &["a", "b", "oneWay", "source"];
 const KEYS_CHAIN: &[&str] = &["id", "name", "open", "note", "nodes"];
 const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "offMap"];
+/// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap.)
+const KEYS_AREA: &[&str] = &["id", "name", "map", "box", "note", "source"];
 
 /// A checked point: map percent, radius, world position (and a chain node's captions).
 #[derive(Clone, Debug)]
@@ -73,11 +75,27 @@ pub struct Chain {
 	pub nodes: Vec<XPt>,
 }
 
+/// A part of a zone no walk joins to the rest of it (Rut'theran Village at the foot of Teldrassil): the
+/// planner treats it as a zone of its own, reached only by crossings, portals, ships and flights.
+/// World box: top/bottom (wx), left/right (wy), as a zone frame.
+#[derive(Clone, Debug)]
+pub struct Area {
+	pub id: String,
+	pub name: String,
+	pub map: f64,
+	pub c: f64,
+	pub top: f64,
+	pub bottom: f64,
+	pub left: f64,
+	pub right: f64,
+}
+
 #[derive(Clone, Debug, Default)]
 pub struct Set {
 	pub crossings: Vec<Crossing>,
 	pub open: Vec<Open>,
 	pub chains: Vec<Chain>,
+	pub areas: Vec<Area>,
 }
 
 fn is_obj(v: &V) -> bool {
@@ -358,6 +376,47 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 		let name = if name.truthy() { name.to_js_string() } else { id.clone() };
 		out.chains.push(Chain { id, name, open, c: nodes[0].c, nodes });
 	}
+
+	for (i, e) in list("areas", &mut errors).iter().enumerate() {
+		let at = named("areas", i, e);
+		if !is_obj(e) {
+			errors.push(format!("{at}: expected an object"));
+			continue;
+		}
+		unknown_keys(e, KEYS_AREA, &at, &mut errors);
+		claim(&e.get("id"), &at, &mut errors);
+		let name = e.get("name");
+		if name.as_str().is_none_or(|s| s.trim().is_empty()) {
+			errors.push(format!("{at}: name must be a non-empty string"));
+		}
+		let map = is_integer(&e.get("map")).filter(|m| frames.frame(*m as i64).is_some());
+		if map.is_none() {
+			errors.push(format!("{at}: map {} is not a known uiMap id with a map frame", json(&e.get("map"))));
+		}
+		let b = e.get("box");
+		let corners: Vec<Option<f64>> = ["x1", "y1", "x2", "y2"].iter().map(|k| b.get(k).as_num().filter(|v| v.is_finite() && (0.0..=100.0).contains(v))).collect();
+		if !is_obj(&b) || corners.iter().any(Option::is_none) {
+			errors.push(format!("{at}: box must give x1, y1, x2, y2 in map percent (0-100)"));
+			continue;
+		}
+		let (x1, y1, x2, y2) = (corners[0].unwrap(), corners[1].unwrap(), corners[2].unwrap(), corners[3].unwrap());
+		if !(x1 < x2 && y1 < y2) {
+			errors.push(format!("{at}: box x1 < x2 and y1 < y2"));
+			continue;
+		}
+		let Some(map) = map else { continue };
+		let (Some(a), Some(z)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
+		out.areas.push(Area {
+			id: e.get("id").to_js_string(),
+			name: name.to_js_string(),
+			map,
+			c: a.c,
+			top: round(a.wx, 1),
+			bottom: round(z.wx, 1),
+			left: round(a.wy, 1),
+			right: round(z.wy, 1),
+		});
+	}
 	(errors, out)
 }
 
@@ -458,6 +517,9 @@ fn zone_table(set: &Set, frames: &Frames, complete: bool, live: &Live) -> (Vec<Z
 			maps.insert(n.map as i64);
 		}
 	}
+	for a in &set.areas {
+		maps.insert(a.map as i64);
+	}
 	let frame_of = |map: i64| live.get(&map.to_string()).copied().or_else(|| frames.frame(map));
 	let mut sorted: Vec<i64> = maps.iter().copied().collect();
 	sorted.sort();
@@ -555,6 +617,24 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 		}
 		l.push("\t},".into());
 	}
+	if !set.areas.is_empty() {
+		l.push("\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy)".into());
+		l.push("\tareas = {".into());
+		for a in &set.areas {
+			l.push(format!(
+				"\t\t{{ id = {}, name = {}, map = {}, c = {}, top = {}, bottom = {}, left = {}, right = {} }},",
+				lua_str(&a.id),
+				lua_str(&a.name),
+				num_str(a.map),
+				num_str(a.c),
+				num_str(a.top),
+				num_str(a.bottom),
+				num_str(a.left),
+				num_str(a.right)
+			));
+		}
+		l.push("\t},".into());
+	}
 	l.push("})".into());
 	l
 }
@@ -610,4 +690,39 @@ pub fn crossing_counts(set: &Set) -> Vec<(f64, [usize; 4])> {
 	let mut v: Vec<(f64, [usize; 4])> = out.into_values().collect();
 	v.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
 	v
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	fn frames() -> Frames {
+		let era = parse_json(r#"{ "1438": { "c": 1, "left": 3814.583, "right": -1277.083, "top": 11831.25, "bottom": 8437.5 } }"#).unwrap();
+		let zones = parse_json(r#"{ "1438": { "id": 1438, "name": "Teldrassil", "type": 3 } }"#).unwrap();
+		Frames::new(&era, &zones)
+	}
+
+	// #1761: Rut'theran Village, at the foot of Teldrassil on the same map as the tree's top, which no walk joins
+	// it to: a part of the zone the planner keeps apart, its world box in the crossing set.
+	#[test]
+	fn an_area_of_a_zone_is_checked_and_written_with_its_world_box_1761() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "frame": "e", "areas": [ { "id": "rutheran-village", "name": "Rut'theran Village", "map": 1438,
+				"box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "note": "at the foot of the tree" } ] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert!(errors.is_empty(), "{errors:?}");
+		let a = &set.areas[0];
+		assert_eq!((a.id.as_str(), a.map, a.c), ("rutheran-village", 1438.0, 1.0));
+		assert_eq!((a.top, a.bottom, a.left, a.right), (8980.5, 8437.5, 1421.5, 454.1));
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(lua.contains("\tareas = {\n\t\t{ id = \"rutheran-village\", name = \"Rut'theran Village\", map = 1438, c = 1, top = 8980.5, bottom = 8437.5, left = 1421.5, right = 454.1 },\n\t},"), "{lua}");
+		assert!(lua.contains("[1438] = { name = \"Teldrassil\""), "its zone is in the zone table: {lua}");
+
+		let bad = parse_json(r#"{ "schema": 1, "areas": [ { "id": "x", "name": "X", "map": 1438, "box": { "x1": 60, "y1": 84, "x2": 50, "y2": 100 } }, { "id": "y", "name": "", "map": 9999, "box": {} } ] }"#).unwrap();
+		let (errors, set) = validate_crossings(&bad, &frames());
+		assert!(set.areas.is_empty());
+		assert_eq!(errors.len(), 4, "{errors:?}");
+	}
 }
