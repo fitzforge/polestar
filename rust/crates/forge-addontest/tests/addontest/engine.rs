@@ -2117,3 +2117,50 @@ fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the
 	assert_eq!(out["walked"], 2, "arriving in Goldshire on foot checks the hearth off");
 	assert_eq!(out["unknownInn"], json!({ "line": false, "arrow": false }));
 }
+
+// #1753 (doctor-house, 0.3.6, Night Elf Hunter 27, Duskwood's Hushed Bank: "kill these as you meet them"): "63x
+// Engine.lua:2311: attempt to compare nil with number". The player fought at the goal's spot, then took the other
+// spot by hand (here an alternative, spot 2) and went there. No candidate was fresh (the fought-over spot counts as
+// visited, the alternative is no automatic pick), so the pick fell back to the spot visited longest ago, which has
+// no distance key, and that missing key was compared on every poll. The spot the player went to is kept, and no
+// error is raised.
+#[test]
+fn a_spot_picked_by_hand_with_no_other_spot_fresh_is_kept_without_a_lua_error_1753() {
+	let out = run1(Run {
+		guides: r#"
+Polestar.RegisterGuide({ id = "test/hushed", pack = "test", title = "Hushed Bank", zone = 1429, steps = {
+	{ title = "The Hushed Bank: kill these as you meet them", goals = {
+		{ t = "kill", target = "Pygmy Venom Web Spider", npc = 539, count = 15, quest = 245, oi = 1, map = 1429, x = 55, y = 50,
+			spots = { { x = 55, y = 50, r = 10, n = 4 }, { x = 30, y = 50, r = 10, n = 2, alt = true } } },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#,
+		before: "w.onQuest(245, { 15 }); w.moveTo(1429, 55, 50)",
+		script: r#"
+			local w = stub.world
+			local fighting = false
+			function UnitAffectingCombat(unit) return unit == "player" and fighting end
+			E.SetGuide("test/hushed"); flush()
+			local goal = E.GetGuide().steps[1].goals[1]
+			local r = { start = E.SpotIndexOf(goal) }
+			-- A fight at spot 1: its ground counts as worked.
+			fighting = true; stub.advance(2); fighting = false; stub.advance(6)
+			-- Spot 2 by hand (the guide window's spot arrows), then walk there.
+			r.cycled = E.CycleSpot(1, 1, 2)
+			for x = 53, 30, -1 do w.moveTo(1429, x, 50); stub.advance(1) end
+			r.spot = E.SpotIndexOf(goal)
+			-- Polls on: a dwell there with no kill may move on (Spots, "Dwell"), never with an error.
+			for _ = 1, 10 do stub.advance(1) end
+			local errs = {}
+			for _, e in ipairs(Polestar.Errors()) do errs[#errs + 1] = e.count .. "x " .. e.msg end
+			r.errors = errs
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["start"], 1, "{out}");
+	assert_eq!(out["cycled"], 2, "{out}");
+	assert!(out["errors"].as_array().map_or(out["errors"] == json!({}), |a| a.is_empty()), "no Lua error: {out}");
+	assert_eq!(out["spot"], 2, "the spot the player went to is kept on arrival: {out}");
+}

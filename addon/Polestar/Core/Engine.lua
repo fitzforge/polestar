@@ -2336,9 +2336,15 @@ function Spots.repick(goal, c, px, py, moveOn)
 			end
 		end
 	end
+	-- No fresh spot among the candidates: the one visited longest ago, which
+	-- has no distance key. A fresh current spot that is no candidate itself (an
+	-- alternative the player picked by hand, or one above the cap) is then kept
+	-- against it, unless it is over the cap: comparing that missing key raised
+	-- "attempt to compare nil with number" on every poll (#1753).
+	local stale = best == nil
 	best = best or old
 	local new = cur
-	if best and (moveOn or not cur or not fresh(cur) or not curD or bestKey < curD - Spots.SWITCH or (cap and (cur.lvl or lvl or 0) > cap)) then new = best end
+	if best and (moveOn or not cur or not fresh(cur) or not curD or (not stale and bestKey < curD - Spots.SWITCH) or (cap and (cur.lvl or lvl or 0) > cap)) then new = best end
 	new = new or spots[1]
 	if new == cur then return false end
 	Spots.chosen[goal] = new
