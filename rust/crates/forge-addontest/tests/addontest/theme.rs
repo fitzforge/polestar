@@ -1319,6 +1319,29 @@ fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the
 	assert_eq!(out["classic"], json!({ "active": on(true, json!(-2)), "rest": on(true, json!(-3.5)) }), "Classic: a 28 strip, chat tabs 24 and 21 high");
 }
 
+// Blizzard's tab close is its glyph alone, shown the way every kit glyph is: from a look that hid it under its red
+// button (WoW Forever), the glyph stays shown when something colours it again (in the client a texture's alpha and
+// its colour's alpha are one value), dims with its button when disabled and comes back when enabled.
+#[test]
+fn blizzard_s_tab_close_glyph_stays_shown_after_a_look_that_hid_it_and_dims_with_its_button() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
+		Polestar.Set("ui.skin", "forever")
+		Polestar.Set("ui.skin", "blizzard")
+		local b = GF.tabs[1].Close
+		local function drawn() return math.floor(select(4, b.Icon:GetVertexColor()) * 1000 + 0.5) / 1000 end
+		local out = { shown = drawn() }
+		W.Recolor(b.Icon)
+		out.recoloured = drawn()
+		W.SetIconState(b, false, false)
+		out.disabled = drawn()
+		W.SetIconState(b, false, true)
+		out.enabled = drawn()
+		emit(out)"#);
+	assert_eq!(out, json!({ "shown": 1, "recoloured": 1, "disabled": 0.35, "enabled": 1 }), "the glyph shown, recoloured, disabled and back");
+}
+
 // Blizzard is the game's own damage meter, not WoW Forever in grey: the guide window's ground is the meter's window
 // art (no fill under it), its header flat charcoal over the tab strip and the navigator, its parts parted by grey
 // hairlines, its selected row (the active tab, the current goal) flat grey, the navigator's buttons, a tab's close

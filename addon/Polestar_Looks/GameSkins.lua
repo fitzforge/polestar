@@ -1181,7 +1181,7 @@ function Theme.KitIconButton(b)
 	end
 	if isClose and kit.bareIcons then
 		-- The damage meter's header: the close a glyph like its other buttons.
-		b.Icon:SetAlpha(1)
+		veil(b.Icon, false)
 		return true
 	end
 	if isClose then
