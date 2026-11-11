@@ -9090,11 +9090,13 @@ test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Glorin on the last Mene
 });
 
 // T1386 sweep (Plan line, 0.3.7): a Night Elf Druid loading 06-wetlands fresh without Trial of the Sea Lion (272) was
-// sent to Moonglade for a pendant they can't make. Split by quest state, as horde/06-hillsbrad-foothills does.
-test(`${WETLANDS}: #1415: the Night Elf Druid Moonglade opening only with Trial of the Sea Lion or Aquatic Form in hand`, { skip }, () => {
+// sent to Moonglade for a pendant they can't make. Split by quest state, as horde/06-hillsbrad-foothills does. The
+// steps are for Skyborne Druids too (#1775: Forever opens the chain to them): the same gates hold for both.
+test(`${WETLANDS}: #1415: the Night Elf and Skyborne Druid Moonglade opening only with Trial of the Sea Lion or Aquatic Form in hand`, { skip }, () => {
 	const text = fs.readFileSync(path.join(OFFICIAL_DIR, WETLANDS), 'utf8').split(/\n(?=step )/);
-	const druid = text.filter((s) => /only NightElf,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s) && !/Boat to/.test(s));
-	assert.ok(druid.length >= 4);
+	const druid = text.filter((s) => /only NightElf,Skyborne,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s) && !/Boat to/.test(s));
+	assert.ok(druid.length >= 4, `the Druid Moonglade and Darnassus steps, for Night Elves and Skyborne (${druid.length})`);
+	assert.ok(!text.some((s) => /only NightElf,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s)), 'none of them leaves Skyborne Druids out');
 	for (const s of druid) assert.match(s, /^\s+when (onquest 272|turnedin 272|onquest 5061)$/m, `gated: ${s.split('\n')[0]}`);
 	const pendant = text.find((s) => /turnin 272\b/.test(s));
 	assert.ok(!/accept 5061/.test(pendant), 'the Aquatic Form accept is its own step (a when onquest 272 turns false at the hand-in)');
