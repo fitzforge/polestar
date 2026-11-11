@@ -78,8 +78,7 @@ step Rock Elementals
 
 step Agmond's End
   when group 709
-  tip Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals.
-  tip His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.
+  tip Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals. His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.
   accept 709
 
 step Stonevault troggs

@@ -76,8 +76,7 @@ step Agmond's End: kill these as you meet them
 
 step Theldurin the Lost
   when group 709
-  tip Theldurin sits by the ruined camp south of the trogg camp.
-  tip His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.
+  tip Theldurin sits by the ruined camp south of the trogg camp. His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.
   accept 709                          -- Theldurin the Lost
 
 step Lotwil Veriatus

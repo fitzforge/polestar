@@ -1,7 +1,7 @@
 {
   "about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",
   "files": {
-    "forever/alliance/02-westfall.guide": "61a8b924804434a6a41e751b11d70465dc0b734baee19f14000f1d553069ac53",
+    "forever/alliance/02-westfall.guide": "600087b2d1399e0dcdfcdcc463fe323041dd8a97336016f6aa97d1a3a1bb0fb9",
     "forever/alliance/03-darkshore-return.guide": "04340dedc6d3a9ebc379a443a9a303a3ec3f5cf43a48e4eaddbbe0c8a96bb85c",
     "forever/alliance/03-darkshore.guide": "a61363799df55877ea0ffa8a7a3029bd2caca000b20159eaf8b3173d83ae4f5d",
     "forever/alliance/03-loch-modan.guide": "5dca2768fc185a53f2323707b1a30b7fe895b52c7093cb29d1327a64e14c9a78",
@@ -15,8 +15,8 @@
     "forever/alliance/30-40/03-ashenvale.guide": "3e4fb16dcb96b54e312a146a9ad16049ca01108570bc061f6e1d7ab67fee1848",
     "forever/alliance/30-40/04-stranglethorn-vale.guide": "8d96e319a2d5bd8e5badae416d7e3f2da22c55396a55d52f587d64e79ad66e0f",
     "forever/alliance/30-40/04b-stranglethorn-vale.guide": "1c7ae57b7670df8988b568c92ff2282073909f477fce50e402801a21ed33a426",
-    "forever/alliance/30-40/05-arathi-highlands.guide": "78f6bcc0c0b098d3baf3bf79c53c95631e3eb371b97be4c71a58c1f7994527c7",
-    "forever/alliance/30-40/06-badlands.guide": "6e3a62d58955a4e25d84e1a79d4166cfdce0abe646058a0c1e260703dea7eeac",
+    "forever/alliance/30-40/05-arathi-highlands.guide": "a4275d373e643344463db4a0f18649141bd34ac9ff73cc00d2746b41ad1d011a",
+    "forever/alliance/30-40/06-badlands.guide": "fd9627be1649fc1d112558f61645e13da9af6f65b4e5a4ab9e51d8c10afe8fff",
     "forever/alliance/40-50/01-stranglethorn-vale.guide": "83662a8ec6aed83f08b2bb7ecdae71b1b2de79d8142390fef69ff448ca2da5d2",
     "forever/alliance/40-50/02-badlands.guide": "7ebb2413ae76acaf202e775bf170e54611d79caf37dd0bc46e54c229c0fc505e",
     "forever/alliance/40-50/03-feralas.guide": "1b1e50d73681445f5027f1a2bd10d3c6af0a1ad0f02a719ca6c11695e73aeb86",
@@ -47,7 +47,7 @@
     "forever/horde/30-40/03-stranglethorn-vale.guide": "ce9f65448beea96ea2ef34f267b5c9ecc7371fbf9113b01565748ddab291d14e",
     "forever/horde/30-40/04-dustwallow-marsh.guide": "b2294b7c57e672129b2eeab95a5ece6c7001936a3b55fa26dfad06cd9ac6e3cf",
     "forever/horde/30-40/05-arathi-highlands.guide": "5ba1422ef020e514e688fead267085b012d0f098cf7837166d2b887eff8b9d6a",
-    "forever/horde/30-40/06-badlands.guide": "3b9b91454389605e14657159853e665008e65473cfa00ba7050e8b3940349e3d",
+    "forever/horde/30-40/06-badlands.guide": "ac6a823bc38451d96ee239518b8a5ad4cc3045269d719d22a1d11db92698bc80",
     "forever/horde/40-50/01-stranglethorn-vale.guide": "7f6f1a64092068a69cc5adb6b50899641719c0971159b7a12ece1423e3f5df85",
     "forever/horde/40-50/02-feralas.guide": "63ccdad03635740c33ef1629fc15b00ace05fb1d57cd2bf847558f2c826dc39c",
     "forever/horde/40-50/03-feralas.guide": "77c10a4934b973df02808507d07ab8adcca44aa340b191af670a398aa0fe765d",
