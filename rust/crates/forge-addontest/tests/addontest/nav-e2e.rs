@@ -2600,3 +2600,50 @@ fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to
 	assert!(strs(&now["kinds"]).iter().all(|k| k == "walk"), "it walks ({})", strs(&now["kinds"]).join(", "));
 	assert!(alterac(&now) < alterac(&before), "fewer yards of Alterac Mountains: {} with the floor, {} without", alterac(&now), alterac(&before));
 }
+
+/// #1834 (Konky88, Troll Shaman 35, 0.3.6): in Booty Bay (Stranglethorn 27.11,76.93) on the Stranglethorn Vale step
+/// "Grom'gol", bound for Commander Aggro'gosh (32.17,28.90) with Grom'gol's flight path known and "Use TomTom's arrow"
+/// on, he walked up the coast: Polestar's plan flew from Booty Bay's flight master, but TomTom's arrow, which guides
+/// in its place, was handed only the far target. While TomTom's arrow guides a route, its waypoint is the current
+/// leg's stop: Booty Bay's flight master, then the target once the last walk begins (in Grom'gol).
+#[test]
+fn t_1834_with_tomtom_s_arrow_tomtom_is_handed_booty_bays_flight_master_for_the_flight_to_gromgol_not_the_far_target() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Troll", "Troll"
+		w.setLevel(35)
+		Polestar.CharState().flags.taxi = { [18] = true, [20] = true } -- Booty Bay and Grom'gol (Horde)
+		local adds = {}
+		TomTom = {}
+		function TomTom:AddWaypoint(m, x, y, opts) adds[#adds + 1] = { map = m, x = x * 100, y = y * 100, title = opts.title, crazy = opts.crazy }; return #adds end
+		function TomTom:RemoveWaypoint() end
+		Polestar.Set("nav.tomtom", true)
+		Polestar.Set("nav.useTomTomArrow", true)
+		local _, bx, by = C.MapToWorld(1434, 27.11, 76.93)
+		place(1434, bx, by, 0)
+		N.SetTarget(1434, 32.17, 28.90, "Accept The Defense of Grom'gol")
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local legs, ci = N.GetRoute()
+		local kinds = {}
+		for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+		local first = adds[1]
+		local last = adds[#adds]
+		-- Landed in Grom'gol: the last walk, to the target itself.
+		local _, gx, gy = C.MapToWorld(1434, 32.51, 29.28)
+		place(1434, gx, gy, 0)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		for _ = 1, 100 do stub.advance(0.05); aim() end
+		emit({ kinds = kinds, guides = N.TomTomArrowGuides(), atBootyBay = last, first = first, landed = adds[#adds], n = #adds })"#,
+		true,
+	);
+	assert!(strs(&out["kinds"]).iter().any(|k| k == "fly"), "the plan flies ({:?})", out["kinds"]);
+	assert_eq!(out["guides"], true, "TomTom's arrow guides");
+	let at = &out["atBootyBay"];
+	let d = (f(&at["x"]) - 26.82).hypot(f(&at["y"]) - 77.0);
+	assert!(d < 0.3, "TomTom's waypoint is Booty Bay's flight master (26.82,77), not Commander Aggro'gosh: {at}");
+	let landed = &out["landed"];
+	let dl = (f(&landed["x"]) - 32.17).hypot(f(&landed["y"]) - 28.9);
+	assert!(dl < 0.3, "in Grom'gol it is the target: {landed}");
+}
