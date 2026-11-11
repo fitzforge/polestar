@@ -5645,6 +5645,46 @@
 					"ref": "players' in-game recordings to 2026-11-10: the Shadowy Assassin seen by 5 people and killed by 4 in all, at spots spread around Southshore's edge (Hillsbrad 47-55, 54-62)"
 				}
 			]
+		},
+		{
+			"id": "1833-hunters-challenge-boars-first",
+			"faction": "Alliance",
+			"at": {
+				"quest": 258,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. A Hunter's Challenge runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after.",
+			"note": "#1833: the boars' step no longer carries the crocolisks and Daggerfang (route-fixes deliberate.pairs 258 -> 385, 258 -> 86758), so the tip says to go straight back to Daryl.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "quests.json limit 720 for 258 (the server's TimeAllowed)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (timed_recordings.py, to 2026-11-11): on Polestar 0.3.5 and later 17 accepts of 258, 12 hand-ins (3.5-11.9 minutes), 3 fails at 12:00, 2 abandons"
+				}
+			],
+			"issue": 1833
+		},
+		{
+			"id": "1833-daggerfang-shore-after-daryl",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86758,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Back down to the east shore below the boars' hills: Daggerfang, a crocolisk, patrols it among the Loch Crocolisks.",
+			"note": "#1833: the shore step comes after A Hunter's Challenge is handed in; Daggerfang's spawns (270693) and the Loch Crocolisks' (1693) share the east shore, 58-67, 33-55.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "QuestieDB Forever spawns (data/forever npcs.json) of Daggerfang (270693) and Loch Crocolisk (1693) in Loch Modan"
+				}
+			],
+			"issue": 1833
 		}
 	]
 }

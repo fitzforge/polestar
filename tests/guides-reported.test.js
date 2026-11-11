@@ -11279,3 +11279,17 @@ test("mutaka's report (#1752): Jungle Secrets from Private Thorsen at the foot o
 	// Without Jungle Secrets nothing of it holds the step: its hand-in is not this character's, Bookie Herod waits on it.
 	assert.deepEqual(Object.values(view).filter((v) => !v.startsWith('accept 215')).map((v) => v.replace(/ (na|skipped)$/, ' passed')), ['turnin 215 passed', 'accept 200 passed']);
 });
+
+// #1833 (Ami2, NightElf Druid 19, 0.3.7): A Hunter's Challenge (258) must be back at Daryl the Youngling within 12
+// minutes, and the boars' step also carried Crocolisk Hunting's crocolisks and Daggerfang, so the timer ran on the
+// shore (recordings on 0.3.5+: 3 fails at 12:00 in 17 accepts). Now the boars come alone, 258 goes straight back to
+// Daryl, then the shore.
+test(`${LOCH_MODAN}: #1833: A Hunter's Challenge is handed in before the crocolisks and Daggerfang`, { skip }, () => {
+	const list = goals(LOCH_MODAN);
+	const take = at(list, 'accept 258', is('accept', 258));
+	const back = at(list, 'turnin 258', is('turnin', 258));
+	assert.ok(take < back, 'taken before it is handed in');
+	assert.ok(list.slice(take + 1, back).every(({ goal }) => !['kill', 'collect', 'interact', 'use'].includes(goal.t) || goal.quest === 258), 'no other quest\'s field work while A Hunter\'s Challenge runs');
+	assert.ok(back < at(list, 'Crocolisk Meat', (g) => g.t === 'collect' && g.item === 2924), 'the crocolisks after the hand-in');
+	assert.ok(back < at(list, "Marek's Croc-Hunting Knife", (g) => g.t === 'collect' && g.item === 279591), 'Daggerfang after the hand-in');
+});
