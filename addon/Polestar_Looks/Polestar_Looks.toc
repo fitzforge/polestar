@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 皮膚
 ## Notes-zhTW: Polestar 的一部分：WoW Forever、Blizzard、Classic 和 Hearth 皮膚。選擇其中一個時載入。
 ## Author: Polestar
-## Version: 0.3.6
+## Version: 0.3.7
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1
