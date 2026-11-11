@@ -1196,6 +1196,87 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 	assert_eq!(out["hearth"], json!({ "bar": false, "line": true, "lineH": 3, "pad": 12, "lit": 4 }), "Hearth: the game's bar put away, the house's slim line, its own sizes");
 }
 
+// A skin drawn from a game look with an art tint (Skin API 2's artTint, here a variant's) dims the guide
+// window's lit goal and every piece of its progress bar (the fill, the frame, the ground under it) as it does
+// the frames: drawn tinted, tinted again on every repaint, and back as drawn on the plain look. Each piece:
+// its colour, alpha and grey (hundredths).
+#[test]
+fn a_skin_s_art_tint_dims_the_guide_window_s_lit_goal_and_progress_bar_in_every_game_look_and_leaves_with_it() {
+	let out = run_with(
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		local DUSK = { tint = { 0.5, 0.5, 1 }, brightness = -0.5, desaturate = 0.8 }
+		T.RegisterSkin("dusk", { api = 2, name = "Dusk", addon = "Test", base = "polestar", defaultVariant = "flat", variants = {
+			{ id = "flat", name = "Flat" },
+			{ id = "forever", name = "WoW Forever, dusk", base = "forever", artTint = DUSK },
+			{ id = "blizzard", name = "Blizzard, dusk", base = "blizzard", artTint = DUSK },
+			{ id = "classic", name = "Classic, dusk", base = "classic", artTint = DUSK },
+		} })
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		local function piece(t)
+			if not (t and t:IsShown()) then return false end
+			local r, g, b, a = t:GetVertexColor()
+			local function h(x) return math.floor(x * 255 + 0.5) end
+			return { string.format("%02x%02x%02x", h(r), h(g), h(b)), math.floor(a * 100 + 0.5), math.floor((t.desaturation or 0) * 100 + 0.5) }
+		end
+		local function pieces()
+			local bar = GF.parts.foot.Status
+			bar:SetWidth(200)
+			bar:SetValue(0.5)
+			local k = bar.psSkin.kit
+			local lit, frame
+			for _, r in ipairs(GF.rows) do
+				local t = r.psSkin and r.psSkin.kit and r.psSkin.kit.rowLit
+				if t and t:IsShown() then lit = t end
+			end
+			for _, key in ipairs({ "statusArt", "statusNine" }) do
+				local p = k[key] and k[key][1]
+				if p and p:IsShown() then frame = p end
+			end
+			-- Forever draws its own fill (the bar's is unseen); Blizzard and Classic colour the bar's.
+			local fill = k.statusFill and k.statusFill:IsShown() and k.statusFill or bar:GetStatusBarTexture()
+			return { lit = piece(lit), fill = piece(fill), frame = piece(frame), ground = piece(bar.Bg) }
+		end
+		local out = {}
+		for _, look in ipairs({ "forever", "blizzard", "classic" }) do
+			Polestar.Set("ui.skin", look)
+			local plain = pieces()
+			Polestar.Set("ui.skinVariants.dusk", look)
+			Polestar.Set("ui.skin", "dusk")
+			local dusk = pieces()
+			GF.Render()
+			local again = pieces()
+			Polestar.Set("ui.skin", look)
+			out[look] = { plain = plain, dusk = dusk, again = again, back = pieces() }
+			Polestar.Set("ui.skin", "polestar")
+		end
+		emit(out)"#,
+		r#"C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 234, height = 24 }
+		end }"#,
+	);
+	// The tint: 0.5, 0.5, 1 at half the brightness, 80 % grey. White art turns 404080.
+	let white = |a: u32| json!(["ffffff", a, 0]);
+	let dusk = |a: u32| json!(["404080", a, 80]);
+	let want = |plain: [Value; 4], dusk: [Value; 4]| {
+		let v = |p: &[Value; 4]| json!({ "lit": p[0], "fill": p[1], "frame": p[2], "ground": p[3] });
+		json!({ "plain": v(&plain), "dusk": v(&dusk), "again": v(&dusk), "back": v(&plain) })
+	};
+	assert_eq!(out["forever"], want([white(100), white(100), white(100), white(100)], [dusk(100), dusk(100), dusk(100), dusk(100)]), "Forever");
+	// Blizzard: the gold wash at 60 %, the bar's gold fill, the light strip under the track at 10 %.
+	assert_eq!(
+		out["blizzard"],
+		want([white(60), json!(["ffd100", 100, 0]), white(100), white(10)], [dusk(60), json!(["403400", 100, 80]), dusk(100), dusk(10)]),
+		"Blizzard"
+	);
+	// Classic: the quest title's light at half, the XP bar's purple, its half-black trough.
+	assert_eq!(
+		out["classic"],
+		want([white(50), json!(["94008c", 100, 0]), white(100), json!(["000000", 50, 0])], [dusk(50), json!(["250046", 100, 80]), dusk(100), json!(["000000", 50, 80])]),
+		"Classic"
+	);
+}
+
 #[test]
 fn text_size_scales_every_role_at_once_apart_from_the_window_scale_within_80_to_140_percent() {
 	let out = run(r#"

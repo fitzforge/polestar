@@ -358,21 +358,6 @@ local function mirrored(f, key, kit, parts, cut, size, host, out, layer, sub)
 end
 Theme.KitMirrored = mirrored
 
--- A white texture carrying a vertical or horizontal gradient (no texture
--- coordinates set: a status bar or the preview would lose the gradient).
-local function gradient(t, orientation, r0, g0, b0, a0, r1, g1, b1, a1)
-	t:SetTexture(Theme.Media("white"))
-	if t.SetHorizTile then t:SetHorizTile(false); t:SetVertTile(false) end
-	if t.SetGradient and CreateColor then
-		t:SetVertexColor(1, 1, 1, 1)
-		t:SetGradient(orientation, CreateColor(r0, g0, b0, a0), CreateColor(r1, g1, b1, a1))
-	else
-		t:SetVertexColor((r0 + r1) / 2, (g0 + g1) / 2, (b0 + b1) / 2, (a0 + a1) / 2)
-	end
-	t:Show()
-	return t
-end
-
 -- One piece of art cut into nine: corners `cu` x `cv` of its box (fractions),
 -- drawn `cw` x `ch` units.
 local function nineOf(f, key, kit, name, cu, cv, cw, ch, host, out, layer, sub, noCentre)
@@ -1622,7 +1607,7 @@ function Theme.KitStatus(b)
 		-- On the window's black the shadowed track alone doesn't show where
 		-- the bar ends: a faint light strip under it marks its length.
 		file(b.Bg, Theme.Media("white"))
-		b.Bg:SetVertexColor(1, 1, 1, 0.1)
+		Theme.TintArt(b.Bg, 1, 1, 1, 0.1)
 		local track = child(b, "statusTrack", 0)
 		track:EnableMouse(false)
 		track:ClearAllPoints()
@@ -1644,7 +1629,7 @@ function Theme.KitStatus(b)
 		local c = kit.status.color
 		Theme.TintArt(fill, c[1], c[2], c[3], 1)
 		file(b.Bg, Theme.Media("white"))
-		b.Bg:SetVertexColor(0, 0, 0, 0.5)
+		Theme.TintArt(b.Bg, 0, 0, 0, 0.5)
 		local o = child(b, "statusFrame", 2)
 		o:EnableMouse(false)
 		o:SetAllPoints(b)
