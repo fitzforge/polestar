@@ -6,7 +6,8 @@
 //! its section's header switch, its inline extra, or its row in its cog's popup. The test client has every addon
 //! Polestar works with installed, a skin with variants and a layout, a guide with group quests, and Shortest Path
 //! Forever, so no control waits on something missing. A few live in the window's own chrome (the Menu scale in its
-//! header): those are checked there.
+//! header): those are checked there. A later release's control whose setting this build does not register yet (its
+//! row placed ahead of it on purpose) is pending, not lost, until this build is that release (pending_lua).
 
 use forge_addontest::run::{addons_dir, lua_value};
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -192,6 +193,29 @@ pub(crate) fn due_and_ahead() -> (Vec<Value>, Vec<Value>) {
 	(due, ahead)
 }
 
+// A later release's control (its release in settings-controls.json after this build's) whose setting this build does
+// not register: its row stands in the window ahead of that setting on purpose, so it is pending, neither lost nor
+// owing an effect check, until this build is that release. Its setting: its key's default; for a control without a
+// key, what its `needs` asks for. -> Lua defining pending(c) for this build; the effect checks' coverage uses it too.
+pub(crate) fn pending_lua() -> String {
+	let (_, ahead) = due_and_ahead();
+	format!(
+		r#"
+local later = {{}}
+for _, id in ipairs({ahead}) do later[id] = true end
+function pending(c)
+	local label = c.label
+	if type(label) == "function" then label = label() end
+	local id = c.key or (c.kind == "binding" and ("action:" .. tostring(c.action))) or ("label:" .. tostring(label))
+	if not later[id] then return false end
+	if c.key then return Polestar.GetDefault(c.key) == nil end
+	return c.needs ~= nil and not c.needs()
+end
+"#,
+		ahead = lua_value(&Value::Array(ahead))
+	)
+}
+
 fn list(v: &Value) -> Vec<String> {
 	if v.as_object().is_some_and(|o| o.is_empty()) {
 		return vec![];
@@ -204,43 +228,65 @@ fn every_control_of_every_release_s_settings_window_is_reachable_in_this_one() {
 	let (due, ahead) = due_and_ahead();
 	assert!(due.len() >= 277, "0.3.6's 277 controls at least: {}", due.len());
 	let out = run(&format!(
-		r#"
+		r#"{pending}
 		local due, ahead = {due}, {ahead}
-		local lost, pending = {{}}, {{}}
+		local lost, waiting = {{}}, {{}}
 		for _, id in ipairs(due) do
 			local why = reachId(id)
 			if why then lost[#lost + 1] = id .. ": " .. why end
 		end
-		-- A later release's control: once it is in this build (anything has it), it must be reachable too.
+		-- Every control with this id pending (its setting not in this build yet).
+		local function pendingId(id)
+			for _, c in ipairs(homes) do
+				if idOf(c) == id and not pending(c) then return false end
+			end
+			return true
+		end
+		-- A later release's control: once this build has it and registers its setting, it must be reachable too.
 		for _, id in ipairs(ahead) do
 			local why, n = reachId(id)
-			if n == 0 then pending[#pending + 1] = id elseif why then lost[#lost + 1] = id .. " (a later release's): " .. why end
+			if n == 0 or (why and pendingId(id)) then waiting[#waiting + 1] = id elseif why then lost[#lost + 1] = id .. " (a later release's): " .. why end
 		end
 		table.sort(lost)
-		emit({{ lost = lost, pending = pending, checked = #due + #ahead }})"#,
+		table.sort(waiting)
+		emit({{ lost = lost, pending = waiting, checked = #due + #ahead }})"#,
+		pending = pending_lua(),
 		due = lua_value(&Value::Array(due)),
 		ahead = lua_value(&Value::Array(ahead))
 	));
-	let lost = list(&out["lost"]);
-	assert!(lost.is_empty(), "{} controls of a release's settings window can no longer be reached:\n{}", lost.len(), lost.join("\n"));
-	eprintln!("{} controls checked; not yet in this build: {}", out["checked"], list(&out["pending"]).join(", "));
+	let (lost, pending) = (list(&out["lost"]), list(&out["pending"]));
+	assert!(
+		lost.is_empty(),
+		"{} controls of a release's settings window can no longer be reached:\n{}\n(a later release's, pending until this build is that release: {})",
+		lost.len(),
+		lost.join("\n"),
+		pending.join(", ")
+	);
+	eprintln!("{} controls checked; a later release's, pending until this build is that release: {}", out["checked"], pending.join(", "));
 }
 
 #[test]
 fn every_control_registered_now_is_reachable_on_its_page() {
-	let out = run(r#"
-		local lost, n = {}, 0
+	let out = run(&format!(
+		r#"{}
+		local lost, waiting, n = {{}}, {{}}, 0
 		for _, c in ipairs(controls) do
 			n = n + 1
 			local why = reach(c)
 			if why then
-				lost[#lost + 1] = (rawget(c, "ref") and "a reference to " or "") .. (c.key or c.action or tostring(c.label)) .. " ("
+				local line = (rawget(c, "ref") and "a reference to " or "") .. (c.key or c.action or tostring(c.label)) .. " ("
 					.. (c.page and c.page.key or "?") .. " > " .. tostring(c.tab) .. " > " .. tostring(c.section) .. "): " .. why
+				-- A later release's control whose setting is not in this build yet waits for it.
+				if pending(c) then waiting[#waiting + 1] = line else lost[#lost + 1] = line end
 			end
 		end
 		table.sort(lost)
-		emit({ lost = lost, n = n })"#);
+		table.sort(waiting)
+		emit({{ lost = lost, pending = waiting, n = n }})"#,
+		pending_lua()
+	));
 	assert!(out["n"].as_f64().unwrap() >= 600.0, "every control: {}", out["n"]);
-	let lost = list(&out["lost"]);
-	assert!(lost.is_empty(), "{} controls cannot be reached:\n{}", lost.len(), lost.join("\n"));
+	let (lost, pending) = (list(&out["lost"]), list(&out["pending"]));
+	assert!(lost.is_empty(), "{} controls cannot be reached:\n{}\n(a later release's, pending until this build is that release:\n{})", lost.len(), lost.join("\n"), pending.join("\n"));
+	eprintln!("a later release's controls, pending until this build is that release:\n{}", pending.join("\n"));
 }
