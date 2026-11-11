@@ -163,6 +163,18 @@ local PAINT = {
 		base(frame)
 		kit.fill(frame):SetVertexColor(Theme.Color("scrim"))
 	end,
+	-- Check boxes as printed on the page: a box ruled in ink on a lighter
+	-- sheet, not a grey square. The transparent window's boxes over the
+	-- world keep Polestar's own.
+	checkbox = function(frame, base, kit)
+		base(frame)
+		local box = frame.psSkin and frame.psSkin.box
+		if not box or frame.psOnWorld then return end
+		local r, g, b = Theme.Color("scrim")
+		kit.fill(box):SetVertexColor(r, g, b, 0.6)
+		r, g, b = Theme.Color("ink")
+		kit.border(box, r, g, b, 0.85)
+	end,
 }
 
 ---------------------------------------------------------------------------
@@ -171,7 +183,6 @@ local PAINT = {
 -- loads the skin without it.
 ---------------------------------------------------------------------------
 
-local PAPER = { 0.96, 0.92, 0.82 }
 local PRESET = {
 	["ui.style"] = "standard",    -- paper has no transparent form
 	["ui.bgOpacity"] = 1,         -- a sheet, not a veil
@@ -180,11 +191,10 @@ local PRESET = {
 	-- Should the player go transparent anyway: dark ink wants a light shade
 	-- behind each line and a shadow, not a black outline.
 	["ui.backing"] = "soft", ["guideWindow.outline"] = "shadow",
-	-- The arrow's words over the world: paper-coloured on a dark plate (the
-	-- skin's own ink would vanish over a night zone); the dart a brighter
+	-- The arrow's words over the world (Polestar draws them in the paper's
+	-- colour on a light skin) on a dark plate; the dart a brighter
 	-- sealing-wax red than the ink's, to hold over the world.
 	["nav.arrowBacking"] = true, ["nav.arrowBackingAlpha"] = 0.55,
-	["nav.arrowDistColor"] = PAPER, ["nav.arrowLabelColor"] = PAPER, ["nav.arrowEtaColor"] = PAPER,
 	["nav.arrowColor"] = { 0.84, 0.27, 0.18 },
 	["nav.lineStyle"] = "dots",   -- a dotted course on the map, as on a chart
 }

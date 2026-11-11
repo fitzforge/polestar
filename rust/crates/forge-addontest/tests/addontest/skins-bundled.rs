@@ -134,3 +134,101 @@ emit(out)
 	assert_eq!(out["back"], true, "back in the standard style, the aurora is back");
 	assert_eq!(out["other"], serde_json::json!({ "curtain": false, "veil": false, "toast": false }), "another skin hides every piece");
 }
+
+// The arrow's lines are drawn over the 3D world, never on a skin's ground. Vellum's dark ink vanished there over a
+// night zone (the distance read at 1.2:1); on a light skin Polestar draws them in the skin's paper, outlined and
+// shadowed in its ink. Every bundled skin's distance and label read at 7:1 on a night zone (Nav.WORLD_NIGHT, a dark
+// zone's ground as the renders show it), its secondary line at 4.5:1, and the shadow is darker than the text.
+#[test]
+fn every_bundled_skin_s_arrow_text_reads_over_a_night_zone() {
+	let list = SKINS.iter().map(|(id, _, _)| format!("{id:?}")).collect::<Vec<_>>().join(", ");
+	let script = format!(
+		r#"
+local T, N = Polestar.Theme, Polestar.Nav
+local A = N.arrow
+local out = {{}}
+local function rgb(fs) local r, g, b = fs:GetTextColor(); return {{ r, g, b }} end
+local function ratio(c) return math.floor(T.Contrast(c, N.WORLD_NIGHT) * 10 + 0.5) / 10 end
+for _, id in ipairs({{ "polestar", {list} }}) do
+	Polestar.Set("ui.skin", id)
+	N.SetTarget(1429, 30, 30, "Somewhere")
+	stub.advance(1.1)
+	local sr, sg, sb = A.distText:GetShadowColor()
+	out[id] = {{ inUse = T.SkinId() == id, distance = ratio(rgb(A.distText)), label = ratio(rgb(A.labelText)), eta = ratio(rgb(A.etaText)),
+		shadowDarker = T.Luminance(sr, sg, sb) < T.Luminance(unpack(rgb(A.distText))) }}
+	N.ReleaseTarget()
+end
+emit(out)
+"#
+	);
+	let mut addons = vec![Addon::name("Polestar")];
+	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0);
+	for id in std::iter::once("polestar").chain(SKINS.iter().map(|(id, _, _)| *id)) {
+		let s = &out[id];
+		let n = |k: &str| s[k].as_f64().unwrap();
+		assert_eq!(s["inUse"], true, "{id}: in use");
+		assert!(n("distance") >= 7.0 && n("label") >= 7.0, "{id}: the distance and label read on a night zone: {s}");
+		assert!(n("eta") >= 4.5, "{id}: the secondary line too: {s}");
+		assert_eq!(s["shadowDarker"], true, "{id}: the shadow under the text is darker than it");
+	}
+}
+
+// Vellum's check boxes are printed boxes: ruled in its ink on a lighter sheet (the scrim), not the grey square
+// Polestar's own fill of shade drew on the paper.
+#[test]
+fn vellum_s_check_boxes_are_ruled_in_ink_on_a_lighter_sheet() {
+	let script = r#"
+local T = Polestar.Theme
+Polestar.Set("ui.skin", "vellum")
+local c = Polestar.Widgets.Checkbox(UIParent)
+local box = c.psSkin.box
+local function hex(r, g, b) return string.format("%02x%02x%02x", math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5)) end
+local fr, fg, fb, fa = box.psSkin.bg:GetVertexColor()
+local er, eg, eb, ea = box.psBorder[1]:GetVertexColor()
+emit({ inUse = T.SkinId() == "vellum", fill = { hex(fr, fg, fb), math.floor(fa * 100 + 0.5) }, edge = { hex(er, eg, eb), math.floor(ea * 100 + 0.5) } })
+"#;
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Vellum")];
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
+	assert_eq!(out["inUse"], true);
+	assert_eq!(out["fill"], serde_json::json!(["f3eadb", 60]), "the scrim's lighter sheet inside");
+	assert_eq!(out["edge"], serde_json::json!(["3a2a1a", 85]), "ruled in the ink");
+}
+
+// Aurora's active tab stood in the aurora's ribbons, its teal line lost in them: with the band showing, the night
+// is drawn over the light behind the active tab (the sky at 60 %, the aurora there at two fifths) and its line is a
+// paler accent; without the band the tab keeps Polestar's own wash.
+#[test]
+fn aurora_s_active_tab_dims_the_aurora_behind_it_and_pales_its_line() {
+	let script = r#"
+local T = Polestar.Theme
+Polestar.Set("ui.shown", true)
+Polestar.Set("ui.skin", "aurora")
+Polestar.UI.GuideFrame.Layout()
+stub.advance(1)
+local function hex(t)
+	local r, g, b, a = t:GetVertexColor()
+	local function h(x) return math.floor(x * 255 + 0.5) end
+	return { string.format("%02x%02x%02x", h(r), h(g), h(b)), math.floor(a * 100 + 0.5) }
+end
+local b = CreateFrame("Button", nil, UIParent)
+local parts = { selected = b:CreateTexture(), bar = b:CreateTexture() }
+parts.selected:SetVertexColor(1, 1, 1, 0.1)
+T.SkinHook("guideTab", b, parts, true)
+local out = { inUse = T.SkinId() == "aurora", selected = hex(parts.selected), bar = hex(parts.bar), sky = hex(select(1, (function()
+	local t = b:CreateTexture(); t:SetVertexColor(T.Color("sky")); return t end)())) }
+Polestar.Set("ui.band", false)
+parts.selected:SetVertexColor(1, 1, 1, 0.1)
+T.SkinHook("guideTab", b, parts, true)
+out.noBand = hex(parts.selected)
+emit(out)
+"#;
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Aurora")];
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
+	assert_eq!(out["inUse"], true);
+	assert_eq!(out["selected"][0], out["sky"][0], "the band's night over the aurora behind the tab");
+	assert_eq!(out["selected"][1], 60, "at 60 %: the aurora there at two fifths");
+	// The accent #45f2c7 two fifths of the way to white.
+	assert_eq!(out["bar"], serde_json::json!(["8ff7dd", 100]), "a paler accent line");
+	assert_eq!(out["noBand"], serde_json::json!(["ffffff", 10]), "no band, no night drawn over it");
+}

@@ -20,8 +20,9 @@
 --   * hooks on the guide window's own parts: guideTitle (the aurora laid
 --     over the band, wherever the band is, and a line of light on the
 --     navigator's rule), guideLayout (the aurora turned when the bars move,
---     taking no room) and guideProgress (the progress in two colours),
---     their pieces kept in the guide window's store so a transparent window,
+--     taking no room), guideProgress (the progress in two colours) and
+--     guideTab (the active tab dims the aurora behind it), the pieces of
+--     their own kept in the guide window's store so a transparent window,
 --     or another skin, hides them with everything else.
 -- Nothing here touches Polestar's own files.
 
@@ -300,6 +301,18 @@ local HOOKS = {
 		end
 		t:SetShown(not f.psBare and frac > 0)
 		shade(t, "HORIZONTAL", light(TEAL, 1), light(VIOLET, 1))
+	end,
+	-- The active tab stands out of the aurora: the night drawn over the
+	-- light behind it (the aurora there at two fifths, while the band
+	-- shows), its line a paler accent than the ribbons it sits on.
+	guideTab = function(_, parts, active)
+		if not (active and parts and parts.selected and parts.bar) then return end
+		local ar, ag, ab = Theme.Accent()
+		parts.bar:SetVertexColor(ar + (1 - ar) * 0.4, ag + (1 - ag) * 0.4, ab + (1 - ab) * 0.4, 1)
+		local f = guideWindow()
+		if not (f and not f.psBare and Theme.ShowsBand()) then return end
+		local r, g, b = Theme.Color("sky")
+		parts.selected:SetVertexColor(r, g, b, 0.6)
 	end,
 }
 
