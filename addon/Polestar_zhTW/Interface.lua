@@ -1453,7 +1453,7 @@ L["Turn on Polestar Guides and reload"] = "開啟 Polestar 指南並重新載入
 L["Keep these, a later guide hands them in: %s"] = "保留這些任務，之後的指南會繳交：%s"
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "按 %s，或右鍵點擊小地圖按鈕並選擇「指南視窗」以顯示。"
 L["Right-click the minimap button and pick Guide window to show it."] = "右鍵點擊小地圖按鈕並選擇「指南視窗」以顯示。"
--- L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = ""
+L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "從你最近一次任務進度起，清除此指南中你手動勾選與跳過的步驟。指南會停留在你的任務進度所在的位置。"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -2259,9 +2259,9 @@ L["Flight paths you pass"] = "途經的飛行路線"
 L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."] = "也包括附近你尚未學會其飛行路線的友方飛行管理員。學會後，指南中之後對應的步驟也會一併完成。"
 L["Detour captions"] = "繞行說明"
 L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = "在旅程中的步行路段下方，說明它何時繞開敵對陣營的城鎮：「繞開南海鎮」。只是提示：路線和箭頭保持不變。"
--- L["Manual check-offs and skips, current guide, from your last quest progress on."] = ""
--- L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
--- L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
+L["Manual check-offs and skips, current guide, from your last quest progress on."] = "目前指南中，從最近一次任務進度起的手動勾選與跳過。"
+L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "從你最近一次任務進度起，你在 %s 中手動勾選與跳過的步驟將被清除。已完成的任務仍保持完成，指南也會停留在這些任務所對應的位置。"
+L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "從你最近一次任務進度起，你在目前指南中手動勾選與跳過的步驟將被清除。已完成的任務仍保持完成，指南也會停留在這些任務所對應的位置。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -3400,7 +3400,3 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Click: show or hide the guide"] = "點擊：顯示或隱藏指南"
 -- L["Show window"] = "顯示視窗"
 -- L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = "其出現區域需多近才會顯示建議。離開稍遠一點後才會消失。"
--- L["Clears your manual check-offs and skipped steps for this guide."] = "清除此指南中你手動勾選與跳過的步驟。"
--- L["Manual check-offs and skips, current guide."] = "目前指南的手動勾選與跳過。"
--- L["Your manual check-offs and skipped steps in %s are cleared. Quests you have done stay done."] = "你在 %s 中手動勾選與跳過的步驟將被清除。已完成的任務仍保持完成。"
--- L["Your manual check-offs and skipped steps in the current guide are cleared. Quests you have done stay done."] = "你在目前指南中手動勾選與跳過的步驟將被清除。已完成的任務仍保持完成。"

@@ -1453,7 +1453,7 @@ L["Turn on Polestar Guides and reload"] = "Polestar 가이드 켜고 다시 불�
 L["Keep these, a later guide hands them in: %s"] = "이 퀘스트들은 유지하십시오. 이후 가이드에서 제출합니다: %s"
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "%s 키를 누르거나, 미니맵 버튼을 우클릭해 '가이드 창'을 고르면 표시됩니다."
 L["Right-click the minimap button and pick Guide window to show it."] = "미니맵 버튼을 우클릭해 '가이드 창'을 고르면 표시됩니다."
--- L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = ""
+L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "마지막으로 퀘스트가 진행된 지점부터 이 가이드의 수동 체크와 건너뛴 단계를 지웁니다. 가이드는 퀘스트 진행 상황이 가리키는 위치에 그대로 남습니다."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2259,9 +2259,9 @@ L["Flight paths you pass"] = "지나가는 비행 경로"
 L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."] = "아직 배우지 않은 비행 경로가 있는 근처의 우호적인 비행 조련사도 포함합니다. 배우면 가이드의 이후 해당 단계도 완료됩니다."
 L["Detour captions"] = "우회 설명"
 L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = "여정의 걷기 구간 아래에 상대 진영 마을을 돌아갈 때 알려 줍니다: '사우스쇼어 우회'. 알려 주기만 할 뿐, 경로와 화살표는 그대로입니다."
--- L["Manual check-offs and skips, current guide, from your last quest progress on."] = ""
--- L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
--- L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
+L["Manual check-offs and skips, current guide, from your last quest progress on."] = "현재 가이드의 수동 체크와 건너뛰기, 마지막 퀘스트 진행 지점부터."
+L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "%s에서 마지막 퀘스트 진행 지점부터 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태이며, 가이드는 그 퀘스트들이 가리키는 위치에 그대로 남습니다."
+L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "현재 가이드에서 마지막 퀘스트 진행 지점부터 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태이며, 가이드는 그 퀘스트들이 가리키는 위치에 그대로 남습니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -3400,7 +3400,3 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Click: show or hide the guide"] = "클릭: 가이드 표시/숨기기"
 -- L["Show window"] = "창 표시"
 -- L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = "제안이 표시되려면 생성 지역이 얼마나 가까워야 하는지. 조금 더 멀어지면 다시 사라집니다."
--- L["Clears your manual check-offs and skipped steps for this guide."] = "이 가이드의 수동 체크와 건너뛴 단계를 지웁니다."
--- L["Manual check-offs and skips, current guide."] = "현재 가이드의 수동 체크와 건너뛰기."
--- L["Your manual check-offs and skipped steps in %s are cleared. Quests you have done stay done."] = "%s에서 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태입니다."
--- L["Your manual check-offs and skipped steps in the current guide are cleared. Quests you have done stay done."] = "현재 가이드에서 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태입니다."
