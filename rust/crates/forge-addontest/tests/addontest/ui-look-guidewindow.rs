@@ -286,6 +286,23 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 	assert_eq!(out["hot"], true, "the parts are hotspots that jump to their rows");
 }
 
+// The drawing shows Up next only while it is on (ui.upcoming: how many steps; 0, the default, off), as the window
+// does; compact never shows it.
+#[test]
+fn the_preview_shows_up_next_only_while_it_is_on() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local f = Polestar.UI.GuideWindowPreview(UIParent)
+		f:Layout(900)
+		local off = f.Up:IsShown()
+		Polestar.Set("ui.upcoming", 3)
+		local on = f.Up:IsShown()
+		Polestar.Set("ui.compact", true)
+		local compact = f.Up:IsShown()
+		emit({ default = Polestar.Get("ui.upcoming") == 3 and "set" or "?", off = off, on = on, compact = compact })"#);
+	assert_eq!(out, json!({ "default": "set", "off": false, "on": true, "compact": false }));
+}
+
 #[test]
 fn the_settings_window_lays_the_page_out_by_element_with_inline_switches_swatches_and_cogs() {
 	let out = run(r#"

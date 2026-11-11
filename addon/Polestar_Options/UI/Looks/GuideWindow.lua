@@ -420,9 +420,10 @@ local function buildWindow(f, top)
 		end
 		y = y + 6
 
-		-- Up next.
-		up:SetShown(not isCompact)
-		if not isCompact then
+		-- Up next, while it is on (ui.upcoming: how many steps; 0, the default, off).
+		local showUp = not isCompact and (tonumber(ns.Get("ui.upcoming")) or 0) > 0
+		up:SetShown(showUp)
+		if showUp then
 			local h = M.upToggle + M.upRow + 6
 			up:ClearAllPoints()
 			up:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, -y)
