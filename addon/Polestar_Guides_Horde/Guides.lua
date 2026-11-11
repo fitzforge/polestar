@@ -1771,7 +1771,7 @@ do
 				{
 					title = "{npc:5905}",
 					goals = {
-						{ t = "accept", quest = 79360, title = "Elemental Aid", npc = 5905, npcName = "Prate Cloudseer", minLevel = 30, qlvl = 33, map = 1441, x = 53.54, y = 42.65, z = -7.4, f = "e" },
+						{ t = "accept", quest = 79360, title = "Elemental Aid", npc = 5905, npcName = "Prate Cloudseer", minLevel = 30, qlvl = 33, pre = { 1531, 1532, 96136 }, preTitles = { [1531] = "Call of Air", [1532] = "Call of Air", [96136] = "Call of Air" }, map = 1441, x = 53.54, y = 42.65, z = -7.4, f = "e" },
 					},
 				},
 				{

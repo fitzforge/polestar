@@ -60,7 +60,6 @@ forever/alliance/30-40/01-hillsbrad-foothills	step 57	0:-8689,323>-8421,405	deto
 forever/alliance/30-40/01-hillsbrad-foothills	step 58	0:-8421,405>-8529,855	detour 1.67x straight on leffe, no named passage
 forever/alliance/30-40/02-desolace	step 4	1:-15,1081>163,1257	detour 1.53x straight on leffe, no named passage
 forever/alliance/30-40/02-desolace	step 7	1:-362,2485>-461,2610	detour 3.41x straight on leffe, no named passage
-forever/alliance/30-40/04-stranglethorn-vale	step 13	0:-11618,-48>-11313,-204	detour 1.56x straight on leffe, no named passage
 forever/alliance/30-40/04-stranglethorn-vale	step 14	0:-11310,-205>-11567,-566	detour 1.53x straight on grid, no named passage
 forever/alliance/30-40/04-stranglethorn-vale	step 24	0:-11913,664>-11922,677	detour 2.33x straight on leffe, no named passage
 forever/alliance/30-40/04-stranglethorn-vale	step 26	0:-11548,149>-11313,-204	detour 1.74x straight on leffe, no named passage
