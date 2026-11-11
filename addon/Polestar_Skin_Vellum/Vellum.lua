@@ -123,14 +123,17 @@ local PAINT = {
 	-- Every window, the guide window included: Polestar's own painter lays
 	-- the ground, the window border (the player's setting) and the drop
 	-- shadow; the paper goes over the ground and the gilt line inside the
-	-- rule. A transparent window shows nothing of it.
+	-- rule. A heads-up card (drawn as the guide window, psGuide, and docked
+	-- on it) keeps the brown rule alone, so the two frames meet in one edge.
+	-- A transparent window shows nothing of it.
 	window = function(frame, base, kit)
 		base(frame)
 		if frame.psBare then return kit.bare(frame) end
 		local r, g, b = ground(frame, "bg")
 		paper(frame, kit, "BACKGROUND", -6, r, g, b, frame.psBgAlpha or Theme.GroundAlpha())
+		local card = frame.psGuide and frame:GetName() ~= "PolestarGuideFrame"
 		local shown = Theme.WindowBorder()
-		if shown and not frame.psNoBorder then
+		if shown and not frame.psNoBorder and not card then
 			rule(frame, kit, 3, GILT[1], GILT[2], GILT[3], 0.75)
 		else
 			hideRule(frame, kit)
