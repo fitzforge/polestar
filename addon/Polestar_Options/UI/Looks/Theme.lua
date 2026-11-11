@@ -189,16 +189,20 @@ local function buildPreview(view)
 	end
 
 	-- -> the preview's height, its parts placed across `width`: the guide
-	-- window at the left, the arrow beside it, the toast and the buttons at
-	-- the right (under the guide window when the page is narrow).
+	-- window, the arrow beside it, the toast and the buttons, as one group
+	-- in the middle (its gaps grow a little with the width, the rest is sky
+	-- at both sides); the toast and the buttons leave when the page is narrow.
 	function f:Layout(width)
 		self:SetWidth(width)
-		local x = 32 -- the body's pad: the preview spans the column edge to edge
+		local pad = 32 -- the body's pad
+		local least = MINI_W + 110 + TOAST_W
+		local wide = width >= pad + least + pad
+		local gap = wide and min(48, floor((width - 2 * pad - least) / 4)) or 0
+		local x = wide and floor((width - least - 2 * gap) / 2) or pad
 		gw:ClearAllPoints()
 		gw:SetPoint("TOPLEFT", self, "TOPLEFT", x, -32)
 		local right = x + MINI_W
-		local wide = width >= right + 110 + TOAST_W + 32
-		local arrowX = wide and right + 55 or right + floor((width - right) / 2)
+		local arrowX = wide and right + gap + 55 or right + floor((width - right) / 2)
 		arrow:ClearAllPoints()
 		arrow:SetPoint("TOP", self, "TOPLEFT", arrowX, -36)
 		toast:ClearAllPoints()
@@ -208,7 +212,7 @@ local function buildPreview(view)
 		accept:SetShown(wide)
 		skip:SetShown(wide)
 		if wide then
-			toast:SetPoint("TOPRIGHT", self, "TOPRIGHT", -32, -32)
+			toast:SetPoint("TOPLEFT", self, "TOPLEFT", right + 2 * gap + 110, -32)
 			skip:SetPoint("TOPRIGHT", toast, "BOTTOMRIGHT", 0, -14)
 			accept:SetPoint("RIGHT", skip, "LEFT", -8, 0)
 		end
