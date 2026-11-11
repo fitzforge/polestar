@@ -106,6 +106,47 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 	assert_eq!(gone["target"], json!([1, 1]), "the arrow is back on the step's wolves");
 }
 
+// Show in quest log: where the client can open the quest log at a quest, a right-click opens a menu, the quest log at
+// the line's quest and "Not now", which dismisses it as the right-click did on its own; the tooltip says so.
+#[test]
+fn a_right_click_offers_show_in_quest_log_and_not_now() {
+	let out = run(
+		"",
+		r#"
+		local opened = {}
+		QuestMapFrame_OpenToQuestDetails = function(q) opened[#opened + 1] = q end
+		local function menu()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+			return out
+		end
+		local function pick(text) for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() end end end
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.05)
+		local R = row(1)
+		stub.RunScript(R, "OnEnter")
+		local tip = GameTooltip.lines[#GameTooltip.lines]
+		R:GetScript("OnClick")(R, "RightButton")
+		local items = menu()
+		pick("Show in quest log")
+		local kept = E.GetWhileHere() ~= nil
+		R:GetScript("OnClick")(R, "RightButton")
+		pick("Not now"); stub.advance(0.6)
+		emit({ tip = tip, items = items, opened = opened, kept = kept, gone = E.GetWhileHere() == nil, shown = H:IsShown() })
+	"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({
+			"tip": "Right-click: show in quest log, or not now around here (twice: for the rest of this zone).",
+			"items": ["Show in quest log", "Not now"],
+			"opened": [7],
+			"kept": true,
+			"gone": true,
+			"shown": false,
+		})
+	);
+}
+
 // Fitz, 0.3.5: the line was an amber strip cut mid-word ("Collect Fungal Spores fr…"). It is its own section now: a
 // panel in the player's accent, dulled into the window ground so the text still reads at 7:1, following an accent
 // change live, with a "While you're here" label, then the suggestion as a goal row, its glyph, distance and close

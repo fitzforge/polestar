@@ -596,6 +596,41 @@ fn right_click_on_a_quest_line_tick_it_done_or_skip_this_quest_the_banner_undo_o
 	assert_eq!(out["neals"], json!([["ToggleGoal", 4, 4], false]), "a line with no quest ticks on right-click, as before");
 }
 
+// Show in quest log (Quests/QuestLogLink.lua): a quest's line, right-clicked, offers the game's quest log at that
+// quest between its tick and its skip; picking it goes through Polestar.ShowInQuestLog.
+#[test]
+fn right_click_on_a_quest_line_offers_show_in_quest_log_which_opens_the_log_at_that_quest() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Quests/QuestLogLink.lua"])],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal GF, UI, W = Polestar.UI.GuideFrame, Polestar.UI, Polestar.Widgets\nlocal F = PolestarGuideFrame\n{HELPERS}\n{}",
+			r#"
+		local C, opened, asked = Polestar.Compat, {}, {}
+		C.CanOpenQuestLog = function() return true end
+		C.IsOnQuest = function(q) return q == 15 end
+		C.OpenQuestLog = function(q) opened[#opened + 1] = q; return true end
+		local show = Polestar.ShowInQuestLog
+		Polestar.ShowInQuestLog = function(q) asked[#asked + 1] = q; return show(q) end
+		uistub.setGuide(uistub.elwynn, 3)
+		for g = 1, 3 do uistub.goal(4, g).status = "done" end
+		uistub.goal(4, 2).status = "active"
+		uistub.setStep(4)
+		stub.RunScript(rowFor("Investigate Echo Ridge"), "OnClick", "RightButton")
+		local items = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then items[#items + 1] = r.Text:GetText() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Show in quest log" then r:Click() end end
+		emit({ items = items, asked = asked, opened = opened, skip = lastCall("SkipQuest") or false })"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["items"], json!(["Tick it done", "Show in quest log", "Skip this quest"]));
+	assert_eq!(out["asked"], json!([15]), "the menu row calls Polestar.ShowInQuestLog");
+	assert_eq!(out["opened"], json!([15]), "the quest log opens at that quest");
+	assert_eq!(out["skip"], false, "nothing skipped");
+}
+
 #[test]
 fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	let lines = run(r#"

@@ -7121,8 +7121,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   fades faster (`Anim.FAST`) when its last line goes, before the window
   closes the gap; rows coming and going inside it do not slide it; under
   `ui.reduceMotion` it only fades. A row's left-click:
-  `Engine.AimWhileHere(i)`; right-click or its close button:
-  `Engine.DismissWhileHere(i)`; `WHILE_HERE_MOVED(yards, i)` moves its
+  `Engine.AimWhileHere(i)`; right-click: a menu with "Show in quest log"
+  (`ns.QuestLogMenuItem`, Quests/QuestLogLink.lua) and "Not now", or straight
+  away "Not now" when its quest is not in the log or the client can't open the
+  log there; "Not now" and its close button: `Engine.DismissWhileHere(i)`;
+  `WHILE_HERE_MOVED(yards, i)` moves its
   distance. In the compact window the rows drop their "Step N" line; in the
   transparent style the ground is the accent alone at `GF.HERE_CLEAR` (0.18)
   under the outlined text. With the window hidden, the toast (UI/WhileHere.lua,

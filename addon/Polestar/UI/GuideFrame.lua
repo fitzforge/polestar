@@ -413,9 +413,10 @@ local function skipGoal(row)
 	if E.SkipGoal and goal.optional then E.SkipGoal(view.index, goal.index) end
 end
 
--- A quest's line, right-clicked: tick this goal done (or untick it), or skip
--- the whole quest and what follows from it (Engine.SkipQuest), or bring a
--- skipped quest back.
+-- A quest's line, right-clicked: tick this goal done (or untick it), open
+-- the game's quest log at its quest (ns.QuestLogMenuItem), or skip the whole
+-- quest and what follows from it (Engine.SkipQuest), or bring a skipped
+-- quest back.
 local function rowMenu(row)
 	local E, goal = Engine(), row.psGoal
 	if not (E and goal and goal.quest and E.SkipQuest) then return false end
@@ -427,6 +428,8 @@ local function rowMenu(row)
 	if goal.tickable and goal.status ~= "done" or goal.ticked then
 		items[#items + 1] = { text = goal.ticked and L["Untick"] or L["Tick it done"], icon = "check", onClick = function() toggleGoal(row) end }
 	end
+	local show = ns.QuestLogMenuItem and ns.QuestLogMenuItem(goal.quest)
+	if show then items[#items + 1] = show end
 	-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
 	local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
 	local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
