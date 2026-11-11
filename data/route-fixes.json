@@ -11467,13 +11467,13 @@
 			{
 				"a": [
 					"turnin",
-					533
+					553
 				],
 				"b": [
-					"task",
-					539
+					"accept",
+					535
 				],
-				"why": "#1079: Infiltration is handed to Krusk on the Tarren Mill stop between the town hall and the mine, where the walk passes him, not 26 minutes later"
+				"why": "#1466 (0.3.7, replaces #1079's 'Infiltration handed in on the first Tarren Mill return'): Infiltration (533, level 34) was worked at 30 on every start, its Syndicate Footpads and Thieves 32-34, and the pace line called it hard (Steffen's report). Valik's errand (535: his reward is the missive) and the fallback missive drops come on the way back from Southshore's graveyard (Helcular's Revenge, 553) to Tarren Mill, at about 31-32, as a benchmark guide does it after Dalaran; Krusk takes 533 with the Dalaran hand-ins"
 			},
 			{
 				"a": [
@@ -11521,14 +11521,14 @@
 			},
 			{
 				"a": [
-					"turnin",
-					533
+					"task",
+					544
 				],
 				"b": [
 					"task",
-					539
+					533
 				],
-				"why": "#1079: Infiltration is handed to Krusk on the Tarren Mill stop between the town hall and the mine, where the walk passes him, not 26 minutes later"
+				"why": "#1466 (0.3.7, replaces #1079's 'Infiltration handed in on the first Tarren Mill return'): the Syndicate missive comes after the Dalaran crater's Bloodstone pieces (Prison Break In, 544), on the walk back from Southshore to Tarren Mill; Valik's own pair (turnin 535 before task 533) keeps the errand first"
 			},
 			{
 				"a": [

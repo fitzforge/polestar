@@ -20,12 +20,16 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # guide topped up to 32-33 at Sargeron and the coast.
 #
 # Flow: Freewind Post (where the previous guide ends) -> fly to the Crossroads (Korran) ->
-# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill (bind) -> Valik and the Syndicate camps -> the yeti caves ->
+# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill (bind) -> the yeti caves ->
 # Hillsbrad's town hall -> Tarren Mill -> the Foothill Caverns' flames -> the Dalaran crater ->
-# the Azurelode Mine -> Southshore's graveyard (and the coast, for Elixir of Agony) -> Tarren
-# Mill -> east into Arathi: the Boulderfist camp, Hammerfall (flight path) -> raptors, spiders
+# the Azurelode Mine -> Southshore's graveyard (and the coast, for Elixir of Agony) -> Valik and
+# the Syndicate camp north of Tarren Mill -> Tarren Mill -> east into Arathi: the Boulderfist camp, Hammerfall (flight path) -> raptors, spiders
 # and the Witherbark trolls -> Hammerfall -> fly to the Undercity (training), where the next
 # guide takes the Orgrimmar zeppelin.
+#
+# Infiltration (533, level 34; Syndicate 32-34) is accepted on the first Tarren Mill stop and
+# worked on the way back from Southshore at about 31-32, Valik's missive handed to Krusk with the
+# Dalaran hand-ins (#1466; at the start of the visit, at 30, the pace line called it hard).
 #
 # Catch-up (#1660): a character who skipped forever/horde/06-hillsbrad-foothills arrives without
 # Darthalia's first Battle of Hillsbrad parts (527-529) and Krusk's The Rescue (498), and then
@@ -262,25 +266,7 @@ step Tarren Mill
   sethome "Tarren Mill"
   buy 3703 x1 npc 2388                -- Southshore Stout, for Henchman Valik
 
-# ---------------------------------------------------------------- Valik and the Syndicate
-
-step Henchman Valik
-  when onquest 533
-  zone Alterac Mountains
-  tip Follow the road north out of Tarren Mill into the Alterac foothills. Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants.
-  accept 535
-  turnin 535
-
-step Syndicate missives
-  zone Alterac Mountains
-  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.
-  collect 3601 quest 533
-
 # ---------------------------------------------------------------- Yetis and the town hall
-
-step Hillsbrad Foothills
-  zone Hillsbrad Foothills
-  goto 61.5,20.9 "Hillsbrad Foothills"
 
 step Helcular's Rod
   zone Hillsbrad Foothills
@@ -308,7 +294,6 @@ step Tarren Mill
   tip Back east to Tarren Mill.
   turnin 532                          -- High Executor Darthalia
   accept 539
-  turnin 533                          -- Krusk, inside
   turnin 552                          -- Novice Thaivand
   accept 553
   accept 544                          -- Magus Wordeen Voidglare, inside: offered from level 30
@@ -373,9 +358,24 @@ step Daggerspine naga
   goto 53.0,65.0 "Daggerspine shore"
   collect 3509 quest 515.2 optional
 
+# ---------------------------------------------------------------- Valik and the Syndicate
+
+step Henchman Valik
+  when onquest 533
+  zone Alterac Mountains
+  tip From Southshore head north past Tarren Mill and follow the road on into the Alterac foothills. Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants.
+  accept 535
+  turnin 535
+
+step Syndicate missives
+  zone Alterac Mountains
+  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.
+  collect 3601 quest 533
+
 step Tarren Mill
   zone Hillsbrad Foothills
-  tip Head back north to Tarren Mill, east of Southshore.
+  tip Head back south down the road to Tarren Mill.
+  turnin 533                          -- Krusk, inside
   turnin 539                          -- High Executor Darthalia
   turnin 567
   turnin 556                          -- Keeper Bel'varil, inside

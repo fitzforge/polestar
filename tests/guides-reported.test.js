@@ -1435,7 +1435,8 @@ test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tri
 // Hillsbrad Fields -> Tarren Mill five times, the last two for Magistrate Burnside and Foreman Bonds (both
 // level 30) at 25-27. Parts 4 and 5 (532, 539) and Dangerous!'s clerk and miner come on the Tarren Mill
 // visit at 30-32 (30-40/01-hillsbrad-foothills since the 2026-11-07 Horde 30-40 re-order): the town hall
-// after the yeti caves, Infiltration and Helcular's Revenge handed in on the Tarren Mill stop between, then
+// after the yeti caves, Helcular's Revenge handed in on the Tarren Mill stop between (Infiltration waits for the
+// last Tarren Mill stop since #1466: the #1466 case after Valik's), then
 // the flames, Dalaran's crater and the mine on one sweep south-west to Southshore's graveyard.
 test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 and 5 wait for the Tarren Mill visit at 32', { skip }, () => {
 	const early = goals('forever/horde/06-hillsbrad-foothills.guide');
@@ -1450,7 +1451,7 @@ test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 an
 	const bonds = idx('Foreman Bonds', (g) => g.t === 'kill' && g.quest === 539 && g.npc === 2305);
 	const dalaran = idx('the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
 	assert.ok(accept < rod && rod < hall && hall < back && back < dalaran && dalaran < bonds, 'Tarren Mill, the yetis, the town hall, Tarren Mill, Dalaran, the mine');
-	for (const q of [533, 552]) assert.equal(list[idx(`turnin ${q}`, is('turnin', q))].s, list[back].s, `${q} is handed in on the Tarren Mill stop between`);
+	assert.equal(list[idx('turnin 552', is('turnin', 552))].s, list[back].s, '552 is handed in on the Tarren Mill stop between');
 	for (const q of [539, 567]) assert.ok(idx(`turnin ${q}`, is('turnin', q)) > bonds, `${q} is handed in after the mine`);
 });
 
@@ -5120,11 +5121,11 @@ test('Kolbi on Discord (#1695): Helcular\'s Rod is farmed on the Foothill Cavern
 	}
 });
 
-test('Danger at the spot (#1575, #1695): the Syndicate missives fallback at 29 warns that the Syndicate are well above you', { skip }, () => {
-	// The guide's start (route level 29.4) among 32-35 Syndicate; recordings: 4 people died there at about 32.
+test('Danger at the spot (#1575, #1695): the Syndicate missives fallback warns that the Syndicate are above you', { skip }, () => {
+	// 32-35 Syndicate, worked at about 31-32 since #1466 (29.4 before); recordings: 4 people died there at about 32.
 	const steps = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.t === 'collect' && goal.quest === 533);
 	assert.ok(steps.length > 0, 'the missive fallback is in the guide');
-	for (const { step } of steps) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: at 29-30 they are well above you[^.]*Wizards \(34-35\)/, `"${step.title}" warns`);
+	for (const { step } of steps) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: at 31-32 they are still above you[^.]*Wizards \(34-35\)/, `"${step.title}" warns`);
 });
 
 test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
@@ -9323,6 +9324,27 @@ test("Valik's report: Valik only with Infiltration in the log, handed in at once
 	assert.ok(s.goals.some((g) => g.t === 'turnin' && g.quest === 535), 'the stout is handed in on the same step');
 	const list = goals(guide);
 	assert.ok(at(list, 'turnin 535', is('turnin', 535)) < at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601), 'Valik before the missive drops');
+});
+
+// Steffen's report (#1466): Infiltration (533, level 34; Syndicate 32-34) was worked at 30, right after the first Tarren
+// Mill stop, on every start, and the pace line called it hard. It is still accepted there (Valik offers his errand only
+// while it is in the log), but Valik and the missive come on the way back from Southshore's graveyard, after Dalaran,
+// at about 31-32, and Krusk takes it with the Dalaran hand-ins. Valik's gate (above) keeps working.
+test("#1466: Infiltration is accepted at 30 but Valik and the missive wait for the walk back from Southshore", { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const take = at(list, 'accept 533', is('accept', 533));
+	const town = at(list, 'Magistrate Burnside', (g) => g.t === 'kill' && g.quest === 532 && g.npc === 2335);
+	const dalaran = at(list, 'the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
+	const grave = at(list, 'turnin 553', is('turnin', 553));
+	const valik = at(list, 'accept 535', is('accept', 535));
+	const missive = at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601);
+	const hand = at(list, 'turnin 533', is('turnin', 533));
+	const dalaranIn = at(list, 'turnin 544', is('turnin', 544));
+	assert.ok(take < town && town < dalaran && dalaran < grave && grave < valik && valik < missive && missive < hand, 'accepted first, worked after Southshore');
+	assert.equal(list[hand].s, list[dalaranIn].s, 'Krusk takes it on the Tarren Mill stop with the Dalaran hand-ins');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.pairs;
+	assert.ok(!pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 533 && p.b[1] === 539), 'no #1079 pair hands it in before the mine');
+	assert.ok(pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 553 && p.b[0] === 'accept' && p.b[1] === 535), 'a route-fixes pair keeps Valik after Southshore');
 });
 
 // Players' recordings (2026-11-09 pull): after Eagle's Fist (79975) on the Stonewrought Dam's ledge, most players drop
