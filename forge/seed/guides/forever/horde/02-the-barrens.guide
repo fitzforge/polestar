@@ -74,7 +74,7 @@ next forever/horde/05-stonetalon-mountains
 # Mill. Warlocks: the succubus chain (1507-1513), The Binding on the Orgrimmar stop of the next
 # guide. Troll Priests Shadowguard (5680, Ur'kyo); Undead Priests Dark Sacrifice (5646, Ur'kyo to
 # Aelthalyste in the Undercity on the Hillsbrad guide's stop). Rogues The Shattered Salute / Deep
-# Cover / Mission: Possible But Not Probable (2460, 2458, 2478 optional). Tauren Druids: Trial of
+# Cover / Mission: Possible But Not Probable (2460, 2458, 2478 optional). Tauren and Skyborne Druids: Trial of
 # the Lake at 16 and Cure Poison (6126-6130), Cat Form at 20 (98340-98362; 98341 for Skyborne).
 # Trial of the Sea Lion (30) is taken at 16 and carried: the Sludge Fen's half pendant on this
 # guide's walk north, the Silverpine half on the ride to Hillsbrad at 21 (its lockbox gives it only
@@ -510,27 +510,27 @@ step Thunder Bluff
   tip Fly from the Crossroads to Thunder Bluff: Turak Runetotem trains you on Elder Rise.
   fly "Thunder Bluff"
   train class
-  accept 27 only Tauren               -- Turak Runetotem
-  accept 6126 only Tauren             -- Turak Runetotem: Lessons Anew
+  accept 27 only Tauren,Skyborne               -- Turak Runetotem
+  accept 6126 only Tauren,Skyborne             -- Turak Runetotem: Lessons Anew
 
 step Moonglade
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Moonglade
   goto 56.3,32.5 "Cast Teleport: Moonglade"
 
 step Trial of the Lake
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Moonglade
   tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri. Trial of the Lake runs on a timer: no teleport or Hearthstone until Tajarri has it.
-  turnin 27 only Tauren -- Dendrite Starblaze
-  turnin 6126 only Tauren
-  accept 6127 only Tauren -- The Principal Source: Dreadmist Peak, next guide
-  accept 28 only Tauren
+  turnin 27 only Tauren,Skyborne -- Dendrite Starblaze
+  turnin 6126 only Tauren,Skyborne
+  accept 6127 only Tauren,Skyborne -- The Principal Source: Dreadmist Peak, next guide
+  accept 28 only Tauren,Skyborne
   collect 15877 x1                    -- Shrine Bauble, from a Bauble Container in the lake
   use 15877 @36.0,41.4                -- At the Shrine of Remulos
-  complete 28 only Tauren
-  turnin 28 only Tauren -- Tajarri, at the Shrine of Remulos
-  accept 30 only Tauren               -- Trial of the Sea Lion, carried: one half pendant in the Sludge Fen in this guide, the other underwater off Silverpine on the way to Hillsbrad at 21; the pendant is handed in after Hillsbrad
+  complete 28 only Tauren,Skyborne
+  turnin 28 only Tauren,Skyborne -- Tajarri, at the Shrine of Remulos
+  accept 30 only Tauren,Skyborne               -- Trial of the Sea Lion, carried: one half pendant in the Sludge Fen in this guide, the other underwater off Silverpine on the way to Hillsbrad at 21; the pendant is handed in after Hillsbrad
   fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there
 
 step Fly to Ratchet
@@ -638,17 +638,17 @@ step The Crossroads
   turnin 3281                         -- Gazrog
 
 step Dreadmist Peak
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   tip Head north from the Crossroads to Dreadmist Peak and fill the Empty Dreadmist Peak Sampler at the Dreadmist Peak Pool, then back to Tonga Runetotem in the Crossroads. No Herbalism? Hula'mahi beside him sells Earthroot, three at a time until he restocks.
-  collect 15843 quest 6127.1 @48.4,18.9 only Tauren -- Filled Dreadmist Peak Sampler
-  turnin 6127 only Tauren -- Tonga Runetotem
-  accept 6128 only Tauren
+  collect 15843 quest 6127.1 @48.4,18.9 only Tauren,Skyborne -- Filled Dreadmist Peak Sampler
+  turnin 6127 only Tauren,Skyborne -- Tonga Runetotem
+  accept 6128 only Tauren,Skyborne
   buy 2449 x5 npc 3490 optional       -- Earthroot from Hula'mahi; herbalists pick it on the plains
 
 # ---------------------------------------------------------------- North-west: the Dry Hills
 
 step Kolkar camp
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   tip Lost Barrens Kodos roam the plains around the Kolkar camp north-west of Regthar; herbalists pick Earthroot there too.
   collect 15852 x5 quest 6128.2       -- Kodo Horn
   collect 2449 x5 quest 6128.1        -- Earthroot
@@ -701,7 +701,7 @@ step Ignition
   accept 863
 
 step Strange Lockbox
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   when onquest 30
   tip The Strange Lockbox lies at the north edge of the Sludge Fen, by the Venture Co. tower. It holds the Half Pendant of Aquatic Agility for Trial of the Sea Lion.
   collect 15883
@@ -731,14 +731,14 @@ step the Crossroads
   tip South down the road to the Crossroads: Darsok stands on the tower platform, Tonga Runetotem at the south gate.
   turnin 876                          -- Darsok Swiftdagger
   accept 1060
-  turnin 6128 only Tauren,Druid       -- Tonga Runetotem
-  accept 6129 only Tauren,Druid       -- He gives you the Curative Animal Salve
+  turnin 6128 only Tauren,Skyborne,Druid       -- Tonga Runetotem
+  accept 6129 only Tauren,Skyborne,Druid       -- He gives you the Curative Animal Salve
 
 step Verog the Dervish
   zone The Barrens
   tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads.
   collect 5023 quest 851.1
-  kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
+  kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Skyborne,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps
   tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Mankrik's wife lies at their north edge, on your way south. Leave the quilboar for now: Mangletooth in Camp Taurajo wants the same camps cleared. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
@@ -1041,8 +1041,8 @@ step Moonglade
   only Druid
   zone Moonglade
   tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
-  turnin 6129 only Tauren             -- Dendrite Starblaze
-  accept 6130 only Tauren
+  turnin 6129 only Tauren,Skyborne             -- Dendrite Starblaze
+  accept 6130 only Tauren,Skyborne
 
 step Moonglade
   only Skyborne,Druid
@@ -1095,7 +1095,7 @@ step Turak Runetotem
   only Druid
   zone Thunder Bluff
   fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there
-  turnin 6130 only Tauren             -- Turak Runetotem: Cure Poison
+  turnin 6130 only Tauren,Skyborne             -- Turak Runetotem: Cure Poison
   turnin 98362 only Skyborne,Tauren -- Turak Runetotem: Cat Form
 
 step Back to the Crossroads
