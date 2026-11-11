@@ -80,6 +80,41 @@ fn collect_nearest_no_spots_no_count_a_quest_link_or_coordinates_are_errors() {
 }
 
 #[test]
+fn collect_item_xn_anywhere_is_a_bag_count_with_no_place() {
+	// Without `anywhere` a bag count is placed at one of the item's droppers; with it, nowhere.
+	let placed = compile(&src(None, &["  collect 4306 x20"])).steps()[0]["goals"][0].clone();
+	assert!(placed.get("map").is_some_and(|m| !m.is_null()), "{placed}");
+	let r = compile(&src(None, &["  collect 4306 x20 anywhere"]));
+	assert!(r.errors.is_empty() && r.warnings.is_empty(), "{}", r.text);
+	let g = r.steps()[0]["goals"][0].clone();
+	assert_eq!(
+		json!([g["t"], g["item"], g["itemName"], g["count"], g.get("map"), g.get("x"), g.get("candidates"), g.get("fromNpcs")]),
+		json!(["collect", 4306, "Silk Cloth", 20, null, null, null, null])
+	);
+	let bad = compile(&src(
+		None,
+		&[
+			"  collect 4306 anywhere",
+			"  accept 33",
+			"  collect 4306 x2 quest 33 anywhere",
+			"  collect 4306 x2 anywhere nearest",
+			"  collect 4306 x2 anywhere @1,1",
+			"  collect 4306 x2 anywhere npc 95001",
+		],
+	));
+	assert_eq!(
+		bad.errors,
+		[
+			"test.guide:7: `collect … anywhere` needs a count: `collect <item> xN anywhere`",
+			"test.guide:9: `collect … anywhere` is a bag count; drop `quest` (quest objectives use the quest’s own targets)",
+			"test.guide:10: `collect … anywhere` has no place: drop `nearest`, `npc` or the coordinates",
+			"test.guide:11: `collect … anywhere` has no place: drop `nearest`, `npc` or the coordinates",
+			"test.guide:12: `collect … anywhere` has no place: drop `nearest`, `npc` or the coordinates",
+		]
+	);
+}
+
+#[test]
 fn a_faction_with_no_safe_farm_spot_gets_a_warning_when_the_goal_serves_it() {
 	let r = compile(&src(None, &["  collect 4306 x5 nearest only Alliance", "  collect 4306 x5 nearest"]));
 	assert!(r.errors.is_empty() && r.warnings.is_empty(), "{}", r.text);

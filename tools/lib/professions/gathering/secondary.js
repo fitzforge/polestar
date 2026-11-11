@@ -268,12 +268,12 @@ const CLOTH = {
 };
 
 // Bandages: crafted anywhere, so one gathering step (the cloth, counted in the
-// bags) and one crafting step for everyone.
+// bags with no place: `anywhere`) and one crafting step for everyone.
 function renderBandage(ctx, P, e, L) {
 	const recipe = recipeOf(ctx, e.spell);
 	const crafts = expectedCrafts(recipe, e.from, e.to);
 	const tip = recipe.reagents.map((rg) => `${CLOTH[rg.item]}: keep what you loot as you level, take it from your bank, or buy it at the Auction House.`).join(' ');
-	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count}`)]);
+	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} anywhere`)]);
 	// A recipe learned in this step: where and what it costs (sniffed trainer lists).
 	const learnTip = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc ')) && recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.` : '';
 	const lines = [craftTip(P, recipe, e.from, e.to, crafts, [learnTip, e.tip].filter(Boolean).join(' '))];

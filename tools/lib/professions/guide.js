@@ -716,7 +716,8 @@ function draftGuide(name, data, opts = {}) {
 			const forWhat = `${t.count} ${matName(t.item)} for ${D.list(t.uses)}${ahead.length ? ` (${D.list(ahead)}: pick them all now)` : ''}`;
 			// Cloth: counted in the bags, from humanoids of its band as the character
 			// levels, or the Auction House. No farm spot: a trip to a named camp is a
-			// long journey for what the player loots anyway.
+			// long journey for what the player loots anyway; `anywhere` keeps the
+			// compiler from placing the count at one dropper of hundreds.
 			if (need.every((side) => t.src[side].kind === 'cloth')) {
 				const lv = D.CLOTH_LEVELS[matName(t.item)];
 				line('');
@@ -724,7 +725,7 @@ function draftGuide(name, data, opts = {}) {
 				world();
 				if (need.length === 1) line(`  only ${need[0]}`);
 				line(`  tip ${forWhat}: humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.`);
-				line(`  collect ${t.item} x${t.count}`);
+				line(`  collect ${t.item} x${t.count} anywhere`);
 				continue;
 			}
 			// The engine skips spots whose mobs are 3+ levels above the player; the
