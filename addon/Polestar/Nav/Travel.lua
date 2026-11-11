@@ -503,6 +503,15 @@ local function zoneOf(map, c, wx, wy, target)
 end
 Travel.ZoneOf = zoneOf
 
+-- The middle of a zone the crossing data knows (a city or an open zone,
+-- never a continent or a battleground): c, wx, wy | nil. Lookup's guide to
+-- a zone with no flight master or inn goes there (#1743).
+function Nav.ZoneMiddle(map)
+	local z = map and zoneInfo[map]
+	if not (z and z.c and z.top and z.bottom and z.left and z.right) then return nil end
+	return z.c, (z.top + z.bottom) / 2, (z.left + z.right) / 2
+end
+
 local function pathZoneOf(i)
 	local z = pathZone[i]
 	if z == nil then

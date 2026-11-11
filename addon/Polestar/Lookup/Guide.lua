@@ -817,6 +817,14 @@ builders.entrance = function(ctx, row)
 	return { { title = ctx.name, goals = { at({ t = "goto", text = ctx.name, entrance = true }, row) } } }
 end
 
+-- A zone's flight master, inn or middle (Sources' zone rows, #1743): one
+-- goto, and the arrow's route (flights, boats, portals) leads the way there.
+builders.flight = function(ctx, row)
+	if not located(row) then return nil, "nolocation" end
+	return { { title = ctx.name, goals = { at({ t = "goto", text = row.label }, row) } } }
+end
+builders.inn, builders.middle = builders.flight, builders.flight
+
 local function entityName(kind, entity)
 	if not entity then return nil end
 	if kind == "quest" then return entity.title end
