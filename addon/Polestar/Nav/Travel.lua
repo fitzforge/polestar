@@ -70,8 +70,6 @@ ns.RegisterDefaults("nav", { travel = true, detourCaption = false })
 
 local RUN_SPEED = 7          -- yd/s, unmounted run speed
 local MIN_SPEED, MAX_SPEED = 4, 14
-local FLIGHT_SPEED = 30      -- yd/s along the flight path (Classic gryphon/wyvern)
-local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 local HEARTH_ITEM = 6948
@@ -92,17 +90,9 @@ local BOARD = 60             -- yards: at the dock / flight master
 local LEAVE = 90             -- yards: walked away from it, plan again
 local DOCK_ARRIVE = 120      -- yards: a ride or hearth has arrived
 local LIFT_LEAVE = 30       -- yards from a lift's landing: at it (the ride is shown), or walked off it (the ride is over)
-local LINK_YARDS, MAX_LINKS = 150, 3
-local MAX_PATH_VERTICES = 1500
-local MAX_POPS = 20000
-local MAX_MS = 40
 local BIND_MATCH = 60
-local CAPTURE, CAPTURE_MIN = 2, 30 -- a point within max(2 x radius, 30) yd of a chain node past the mouth is inside it
 local REPLAN_AFTER, REPLAN_MOVED = 30, 50 -- seconds, yards: moved this far since a plan this old, plan again
 local LEARN_FP = 60          -- yards: a flight path learned this close to a flight master is that one
-
-local START, TARGET, TAXI, DOCK, INN, PATH, CROSS, CHAIN, DARK = 1, 2, 3, 4, 5, 6, 7, 8, 9
-local WALK, FLY, RIDE, HEARTH = 1, 2, 3, 4 -- HEARTH: the Hearthstone or a teleport, from the start
 
 ---------------------------------------------------------------------------
 -- Data
@@ -542,6 +532,7 @@ local function onEvery(floors, h)
 	return near
 end
 local function insideChain(c, wx, wy, z, loose, floors)
+	local CAPTURE, CAPTURE_MIN = 2, 30 -- a point within max(2 x radius, 30) yd of a chain node past the mouth is inside it
 	local best, bestD
 	for _, ch in ipairs(chains) do
 		local nodes = ch.nodes
@@ -583,6 +574,15 @@ local TAKE = {
 }
 
 local function planRoute(p)
+	-- (planRoute's own constants: the file's main chunk keeps clear of Lua 5.1's 200 locals)
+	local FLIGHT_SPEED = 30      -- yd/s along the flight path (Classic gryphon/wyvern)
+	local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
+	local LINK_YARDS, MAX_LINKS = 150, 3
+	local MAX_PATH_VERTICES = 1500
+	local MAX_POPS = 20000
+	local MAX_MS = 40
+	local START, TARGET, TAXI, DOCK, INN, PATH, CROSS, CHAIN, DARK = 1, 2, 3, 4, 5, 6, 7, 8, 9
+	local WALK, FLY, RIDE, HEARTH = 1, 2, 3, 4 -- HEARTH: the Hearthstone or a teleport, from the start
 	local clock = debugprofilestop
 	local t0 = clock and clock()
 	local tg = p.target
