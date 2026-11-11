@@ -1212,8 +1212,9 @@ fn run_cards(script: &str) -> Value {
 
 // Each skin's card is a small guide window and the arrow, drawn by that skin's own painters, fonts, palette and
 // arrow while Polestar's own look is in use: the band and the house's progress line on Polestar's own look, Halo's
-// veil and Fira Sans, the game's status bar on the game's looks, a skin from another addon in its font and arrow;
-// each scheme's card is Polestar's own look in that scheme. The live look is left as it was.
+// veil and Fira Sans, Hearth's slim line in its own art, the game's status bar on the game's looks, a skin from
+// another addon in its font and arrow; each scheme's card is Polestar's own look in that scheme. The live look is
+// left as it was.
 #[test]
 fn the_picker_s_cards_draw_each_skin_s_guide_window_and_arrow_as_it_draws_them_whatever_skin_is_in_use() {
 	let out = run_cards(
@@ -1235,7 +1236,8 @@ fn the_picker_s_cards_draw_each_skin_s_guide_window_and_arrow_as_it_draws_them_w
 	let row = |k: &str| json!([out[k]["look"], out[k]["face"], out[k]["band"], out[k]["bar"], out[k]["dial"]]);
 	assert_eq!(row("polestar"), json!(["polestar", "FRIZQT__.TTF", true, false, "3d"]), "Polestar's own: the band, the progress line, the 3D arrow");
 	assert_eq!(row("halo"), json!(["halo", "FiraSans-SemiBold.ttf", false, false, "halo"]), "Halo: Fira Sans, no band, its own arrow");
-	for id in ["hearth", "forever", "blizzard", "classic"] {
+	assert_eq!(row("hearth"), json!(["hearth", "FRIZQT__.TTF", false, false, "hearth"]), "Hearth: its own window paint and slim line, its arrow");
+	for id in ["forever", "blizzard", "classic"] {
 		assert_eq!(row(id), json!([id, "FRIZQT__.TTF", false, true, "hearth"]), "{id}: its own window paint, the game's status bar and arrow");
 	}
 	assert_eq!(row("moonlit"), json!(["moonlit/polestar", "FiraSans-SemiBold.ttf", true, false, "halo"]), "a skin from another addon: its font and arrow");
