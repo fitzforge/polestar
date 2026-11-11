@@ -12,6 +12,8 @@ next forever/alliance/30-40/06-badlands
 # Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe; MacKreel's Moonshine (647),
 # moved from 01-hillsbrad-foothills for its 15-minute limit: taken after Kor'gresh, handed in straight off the Refuge Pointe flight (#1319).
 # My Little Friends (93176) is optional (#1314): nobody has been recorded taking it, and Amaryllis Webb was never seen.
+# Assassin's Contract (522) and Baron's Demise (523) are optional (#1542): the contract drops only from the Shadowy
+# Assassin, a single stealthed mob on Southshore's edge that few players find, so the Southshore step never waits for him.
 # Since the 0.3.7 audit: Refuge Pointe's hand-ins come on the walk from Go'Shek Farm to the Stone of West Binding, and the
 # Swamp of Sorrows ends Harborage, then Watcher Biggs, on the road out.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
@@ -132,13 +134,13 @@ step Southshore
   accept 500                          -- Marshal Redpath
 
 step Shadowy Assassin
-  tip A Shadowy Assassin lurks unseen on the edge of Southshore; kill him and read the contract he carries.
+  tip A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.
   sethome "Southshore"
-  kill 2434                           -- Shadowy Assassin
-  collect 3668 "Assassin's Contract"
-  accept 522
+  kill 2434 optional                  -- Shadowy Assassin, if you spot him
+  collect 3668 "Assassin's Contract" optional
+  accept 522 optional
   turnin 522                          -- Magistrate Henry Maleb, inside
-  accept 523
+  accept 523 optional
   turnin 525                          -- Magistrate Henry Maleb
   accept 537
 

@@ -5617,6 +5617,22 @@
 				}
 			],
 			"issue": 1676
+		},
+		{
+			"id": "alliance-southshore-shadowy-assassin-optional",
+			"faction": "Alliance",
+			"at": {
+				"quest": 522,
+				"goal": "accept"
+			},
+			"tip": "A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.",
+			"note": "#1542: the Southshore step waited on the Shadowy Assassin (2434), the only source of Assassin's Contract (3668, starts 522); his kill, the contract, 522 and Baron's Demise (523) are optional now (route-fixes deliberate.optional 522, 523), so the tip says not to wait for him.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-10: the Shadowy Assassin seen by 5 people and killed by 4 in all, at spots spread around Southshore's edge (Hillsbrad 47-55, 54-62)"
+				}
+			]
 		}
 	]
 }

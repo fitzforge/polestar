@@ -31,6 +31,11 @@ const { taughtSpellName } = require('./tokens');
 // objects drop (at 2% or more, with spawns); past this it drops everywhere.
 const MAX_NAMED_SOURCES = 8;
 
+// An item only one or two located sources of one kind drop is named after
+// them when each drops it at this percentage or more (#1556); under it, or at
+// an unknown chance (0), the data's drop list is no guide to where to farm it.
+const FEW_SOURCES_BAR = 20;
+
 // `fromNpcs` on a collect: the mobs its point and spots belong to, for the
 // target button, which cycles at most this many names.
 const MAX_SOURCE_NPCS = 5;
@@ -1565,7 +1570,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// game objective only says "Fel Moss: 0/8", so quest objectives get
 			// them too. Named only when a single located source has it or one
 			// drops it at 50% or more; a second of the same kind at 50% or more
-			// is named beside it (`fromAlso`). Not for an item that drops all
+			// is named beside it (`fromAlso`). An item that only one or two
+			// located sources of one kind drop, each at FEW_SOURCES_BAR% or more,
+			// names them whatever their chance: they are where it comes from
+			// (the Wooden Key, 44% from the Crazed and 45% from the Withered
+			// Ancients, #1556). Not for an item that drops all
 			// over the world (cloth: hundreds of droppers, where a guard's 100%
 			// says nothing about where to farm it). `fromFaction` lets the
 			// engine tell an enemy from a friend of the character's faction.
@@ -1581,7 +1590,8 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const normal = split ? split.normal : candidates;
 			const level = levelSplit(data, normal, dropLevel);
 			const named = level ? level.near : normal;
-			if (!widespread && named.length && (candidates.length === 1 || named[0].chance >= 50)) {
+			const few = candidates.length <= 2 && named.length === candidates.length && named.every((c) => c.kind === named[0].kind && c.chance >= FEW_SOURCES_BAR);
+			if (!widespread && named.length && (candidates.length === 1 || named[0].chance >= 50 || few)) {
 				const top = named[0];
 				const rec = top.kind === 'npc' ? data.npc(top.id) : data.object(top.id);
 				if (rec && rec.name) {
@@ -1593,7 +1603,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 						if (['A', 'H', 'AH'].includes(rec.faction)) goal.fromFaction = rec.faction;
 					}
 					const next = named[1];
-					const nrec = next && next.kind === top.kind && next.chance >= 50 && (next.kind === 'npc' ? data.npc(next.id) : data.object(next.id));
+					const nrec = next && next.kind === top.kind && (next.chance >= 50 || few) && (next.kind === 'npc' ? data.npc(next.id) : data.object(next.id));
 					if (nrec && nrec.name && String(nrec.name) !== goal.from) {
 						goal.fromAlso = String(nrec.name);
 						goal.fromAlsoId = next.id;
