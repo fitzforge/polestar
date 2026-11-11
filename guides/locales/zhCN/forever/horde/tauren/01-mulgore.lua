@@ -36,10 +36,10 @@ return {
 	-- Step 5: The Hunt Continues
 	-- {npc:6775} Antur Fallow
 	-- plural, as words: Mountain Cougars = {npc:2961} Mountain Cougar
-	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot."] = "",
+	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot."] = "{npc:6775}站在营地西端，位于山狮出没的山丘西北角：接下他的任务，然后向南穿过山丘猎杀山狮，一路走向山脚下灰舌先知的帐篷。",
 
 	-- Step 6: Seer Graytongue
-	["The Seer's tent stands at the foot of the cougars' hills."] = "",
+	["The Seer's tent stands at the foot of the cougars' hills."] = "灰舌先知的帐篷位于山狮所在山丘的山脚下。",
 
 	-- Step 7: The shrine of An'she and Mu'sha
 	["The shrine of An'she and Mu'sha"] = "安瑟与穆莎的神龛",
@@ -48,7 +48,7 @@ return {
 
 	-- Step 8: Grull Hawkwind
 	-- {area:221} Camp Narache
-	["Back north-west up to {area:221}."] = "",
+	["Back north-west up to {area:221}."] = "向西北返回{area:221}。",
 	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
 	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "{npc:3209}，在 {npc:2980} 旁；会绕着 {area:221} 走动：查看地图圆圈内的区域",
 
@@ -354,7 +354,7 @@ return {
 	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
 	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418}：交给十字路口的{npc:3429}",
 	-- {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
-	["{npc:10378}, beside {npc:3418}"] = "",
+	["{npc:10378}, beside {npc:3418}"] = "{npc:10378}，在{npc:3418}旁边",
 
 	-- Step 83: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens

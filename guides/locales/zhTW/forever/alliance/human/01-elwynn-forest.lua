@@ -84,7 +84,7 @@ return {
 	["Inside {area:34}"] = "{area:34}內部",
 	-- {npc:248362} Shinyfinder Narf
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "狗頭人苦力在礦坑隧道裡工作。{npc:248362}在右邊第二個轉角深處等著。\n小心：{npc:248362}（3級）是精英：除非有朋友同行，否則別去惹他。",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "",
 
@@ -256,7 +256,7 @@ return {
 	-- Step 50: Goldtooth
 	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed · {npc:248464} Nimsy · {npc:79} Narg the Taskmaster
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
-	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "",
+	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "{quest:87}在{area:57}裡面，不在上方的山丘上：從入口進去，靠左走到礦坑底層的最深處；不要走樓梯上去。葡萄園周圍的迪菲亞強盜偶爾會掉落{item:1972}：右鍵點擊它。\n小心：礦坑深處的狗頭人{npc:248464}（6級）是精英，{npc:79}（10級，稀有）在隧道裡遊蕩：一次拉一隻狗頭人。",
 	-- {item:981} Bernice's Necklace
 	["{item:981}; below ground"] = "",
 
@@ -355,7 +355,7 @@ return {
 	["{area:54}: kill these as you meet them"] = "",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
 	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "",
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "礦坑在豺狼人營地西南方。{item:247816}散落在入口附近；隧道裡是狗頭人地卜師。\n小心：{npc:471}（7-10級）、礦坑蜘蛛（7-9級）和{npc:248474}（7級）都是礦坑深處的精英：在入口附近一次拉一隻狗頭人，若有精英過來就退出去；有朋友同行會輕鬆些。",
 	["Walk into the mine"] = "走進礦坑",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "",

@@ -56,21 +56,21 @@ return {
 	["Keep east on the road. {npc:12858} waits south-west of the Warsong lumber camp. He and his grunts storm the {area:2360}: let them take aggro and stay with {npc:12858} until {npc:12860} is dead."] = "继续沿道路向东。{npc:12858}在战歌伐木营地西南等候。他和他的步兵会猛攻{area:2360}：让他们吸引仇恨，跟着{npc:12858}直到{npc:12860}死去。",
 
 	-- Step 11: Warsong lumber camp
-	["Warsong lumber camp"] = "",
+	["Warsong lumber camp"] = "战歌伐木营地",
 	-- {area:2360} Silverwing Outpost · {npc:12867} Kuray'bin
-	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "",
+	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "从{area:2360}向东北前往路边的战歌伐木营地：{npc:12867}站在那里。",
 
 	-- Step 12: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "",
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "暗夜精灵{quest:6503}（23-24级）在伐木营地南边和东南边的树林里潜伏；他们会潜行，所以留意他们。",
 
 	-- Step 13: Sharptalon
 	-- {npc:12676} Sharptalon
-	["{npc:12676}, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest."] = "",
+	["{npc:12676}, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest."] = "{npc:12676} 是一只巨大的夜刃豹，在同一片树林更东边徘徊，位于向北通往碎木岗哨的路上。她的爪子可以触发下一个狩猎任务。",
 
 	-- Step 14: Warsong lumber camp
 	-- {npc:12867} Kuray'bin
-	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "",
+	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "回到伐木营地的{npc:12867}处，就在向北通往碎木岗哨的路上。",
 
 	-- Step 16: Senani Thunderheart
 	-- {npc:12696} Senani Thunderheart · {area:428} Night Run · {quest:6383} The Ashenvale Hunt · {npc:12678} Ursangous · {npc:12676} Sharptalon · {npc:12677} Shadumbra
@@ -248,7 +248,7 @@ return {
 	-- Step 56: Galak centaurs
 	["Galak centaurs"] = "加拉克半人马",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
-	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him."] = "",
+	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him."] = "加拉克半人马的营地遍布乱风岗北边的峡谷；每个营地都有加拉克斥候、加拉克争斗者和加拉克逐风者。一个落单的{npc:10617}沿着一条很长的路线在营地之间走动：如果遇到他，就杀了他，他的信件可以开始一个{area:2237}的任务。不要专门等他。",
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{npc:10617}的{quest:4881}，如果你遇到他",
 

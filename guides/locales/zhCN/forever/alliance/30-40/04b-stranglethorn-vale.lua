@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {quest:205} Troll Witchery
-	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "",
+	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "适合35到36级的角色，但这里有几个任务是37-41级：这是有意安排的，为了它们的经验值。{quest:205}的劈颅巨魔为39-42级，所以一次拉一只。",
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
@@ -107,7 +107,7 @@ return {
 	["{npc:773}, upstairs"] = "{npc:773}：在楼上",
 	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
-	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "",
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}在楼上：这个可选任务需要四块{item:4278}。在{zone:1417}用{skill:186} 75开采次级血石矿脉，或在拍卖行购买矿石，或请会采矿的朋友帮忙。狗头人不会掉落它；拿不到矿石就跳过这个任务。",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",

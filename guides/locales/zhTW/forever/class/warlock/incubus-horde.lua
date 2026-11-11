@@ -47,7 +47,7 @@ return {
 	-- Step 8: Fallen Sky Lake
 	-- {area:422} Fallen Sky Lake · {zone:1440} Ashenvale · {area:431} Splintertree Post · {item:190232} Withered Scarf · {npc:3931} Shadethicket Oracle
 	-- plural, as words: Shadethicket Stone Movers = {npc:3782} Shadethicket Stone Mover
-	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "",
+	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422}位於{zone:1440}南部、{area:431}西南方。湖邊的移石沼澤獸和裂木沼澤獸（25-27級）約有二十分之一的機率掉落{item:190232}，單獨出現的{npc:3931}（30級）也可能掉落：預計要殺不少隻，所以指南會先等到24級（Forever把這個任務改成了27級）；若已經綁定了魅魔，可以留到20多級在{zone:1440}練功時再做。牠們五分鐘重生。",
 
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar

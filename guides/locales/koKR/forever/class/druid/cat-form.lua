@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {zone:1457} Darnassus · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
-	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "",
+	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "{npc:4217}은(는) {area:1658}에 서 있습니다. {zone:1457}에서 멀리 있는 스카이본이라면 {spell:18960}을(를) 시전하고 {area:2361} 중앙에서 {npc:11800}의 비행편을 타세요(드루이드를 {area:702}까지 태워 주며, 비행 경로가 필요 없습니다). 그다음 차원문을 타고 올라가세요. 아직 {spell:1066}이(가) 없나요? 그에게서 '귀중한 교훈'도 받으세요. 이 퀘스트도 {npc:11802}에게 가며, 이어지는 '엘룬아라 호수의 시험'({spell:1066} 가이드)도 같은 {area:493}에 있습니다.",
 
 	-- Step 3: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -35,7 +35,7 @@ return {
 
 	-- Step 8: The Great Cat Spirit
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
-	["{npc:3033} stands in the druids' hut on {area:1639}. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "{npc:3033}은(는) {area:1639}의 드루이드 오두막에 서 있습니다. 아직 {spell:1066}이(가) 없나요? 그에게서 '꼭 배워야 할 교훈'도 받으세요. 이 퀘스트도 {npc:11802}에게 가며, 이어지는 '엘룬아라 호수의 시험'({spell:1066} 가이드)도 같은 {area:493}에 있습니다.",
 
 	-- Step 9: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven

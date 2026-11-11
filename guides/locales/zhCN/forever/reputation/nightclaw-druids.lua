@@ -88,7 +88,7 @@ return {
 	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "故事线加上 {npc:254151} 的首个任务，会让你达到友善并多出 2100 点。到尊敬还差 3900 点：18 级及以下，每次交五只耳朵，交四次即可；22 级起则需交二十次。友善后开放 {npc:254151} 的 32 张图样，分 黯云 和碧蓝圣殿骑士两种颜色：锻造的 天铸 护腕和链带（技能 50，9 银 50 铜）、护手和胫甲（55，11 银币）；制皮的 风织 与 风缠 护腕和腰带（50）、手套和靴子（55）；裁缝的 雷缝 护腕和束带（50）、裹手和鞋（55）。购买后绑定，因此要由制造角色购买。",
 	["five ears per turn-in"] = "每次交还五只耳朵",
 	-- {quest:93459} More Al'Aketh Ears · {npc:254151} Vayn Moongaze
-	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "",
+	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "{quest:93459}：1000声望，在{npc:254151}的窗口中直接交还",
 	-- {npc:254151} Vayn Moongaze
 	["{npc:254151}'s patterns"] = "{npc:254151}的图样",
 

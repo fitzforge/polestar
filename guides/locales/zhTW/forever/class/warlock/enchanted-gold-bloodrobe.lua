@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "30多級用的稀有布甲長袍，由{npc:6266}製作；最後幾樣材料要等到35級和37級。",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -52,15 +52,15 @@ return {
 	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "",
 
 	-- Step 9: Hatefury satyrs
-	["Hatefury satyrs"] = "",
+	["Hatefury satyrs"] = "怨怒薩特",
 	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point
-	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "",
+	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "怨怒薩特（31-32級）盤踞在{zone:1443}最東北端、{area:608}再過去的{area:603}：大約每擊殺五隻掉兩瓶，預計要殺25隻左右。",
 	["Vials of Hatefury Blood"] = "怨怒薩特之血",
 
 	-- Step 10: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
 	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "",
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "{zone:1443}南部{area:602}的次級地獄火（36-37級）和惡魔之門的衛士（38級）有一半機率掉落石頭。指南會先等到35級：31級時牠們太強，無法單刷。牠們有火焰抗性，所以使用{spell:686}和腐蝕術。",
 
 	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
@@ -70,12 +70,12 @@ return {
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
 	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "",
 	-- {npc:2670} Xizk Goodstitch · {quest:4785} Fine Gold Thread
-	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "",
+	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "{npc:2670}：{quest:4785}，當場繳交（#1699 排查）",
 
 	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "烈焰流放者（38-39級）是{zone:1417}西部{area:334}的火元素，煤炭掉落率約三分之一。指南會先等到37級：低於這個等級時牠們打得太痛，無法單刷。牠們抵抗火焰：使用{spell:686}和腐蝕術。先把牠打傷，再用{area:321}附近水浪流放者掉落的海浪符咒就能解決牠。途中用{spell:1120}製作一個{item:6265}。",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "",
 

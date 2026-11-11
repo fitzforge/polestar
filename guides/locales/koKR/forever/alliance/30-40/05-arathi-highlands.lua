@@ -29,9 +29,9 @@ return {
 
 	-- Step 7: Fallow Sanctuary
 	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One · {quest:1392} Noboru the Cudgel · {npc:1776} Magtoor
-	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "",
+	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "길을 따라 동쪽으로 {area:76}까지 가세요. {npc:256028} 몹이 수정을 떨어뜨립니다. {quest:1392}은(는) 폐허를 지나는 긴 길을 돌아다닙니다. 마주치면 처치하세요. 그의 곤봉으로 {npc:1776}의 퀘스트가 시작됩니다. 그를 기다리지는 마세요.",
 	-- {quest:1392} Noboru the Cudgel
-	["from {quest:1392}: he walks a path through the ruins"] = "",
+	["from {quest:1392}: he walks a path through the ruins"] = "{quest:1392}에게서: 폐허를 지나는 길을 돌아다닙니다",
 
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
@@ -94,9 +94,9 @@ return {
 
 	-- Step 22: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
-	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "",
+	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "{npc:2434}이(가) {area:271} 외곽에 은신한 채 숨어 있어 그를 찾는 플레이어는 드뭅니다. 발견하면 처치하고 그가 지닌 계약서를 읽으세요. {npc:2276}이(가) 받습니다. 그를 기다리지는 마세요. 이 단계의 나머지는 그가 없어도 됩니다.",
 	-- {npc:2434} Shadowy Assassin
-	["{npc:2434}, if you spot him"] = "",
+	["{npc:2434}, if you spot him"] = "{npc:2434}, 발견한 경우",
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "",
 
@@ -125,7 +125,7 @@ return {
 	["{area:318}: kill these as you meet them"] = "",
 	-- {area:321} Hammerfall · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
-	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "",
+	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "마른수염 코볼트는 {area:321}(호드) 동쪽 협곡에서 땅을 팝니다. 마을은 북쪽으로 돌아가세요. 이들은 미즈라엘의 결정 파편을 떨어뜨리지만, 크라제크의 광석은 떨어뜨리지 않습니다. 저급 혈석 광맥은 {skill:186} 75가 필요합니다. 광석 4개를 캐거나, 경매장에서 사거나, 채광하는 친구에게 부탁하세요. 광석 목표는 선택 사항입니다. 구할 수 없으면 미즈라엘 퀘스트를 계속하세요. 주의: 모든 코볼트는 생명력이 낮아지면 도움을 청하러 도망가므로(코볼트는 30%, 흙점쟁이와 채굴꾼은 15%) 더 많이 끌려올 수 있습니다.",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "",
 

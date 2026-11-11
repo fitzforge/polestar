@@ -34,7 +34,7 @@ return {
 	["Razormane camp: {npc:3429}'s quilboar"] = "钢鬃营地：{npc:3429}的野猪人",
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "既然在营地里：{npc:3429}要的钢鬃寻水者和钢鬃织棘者在西半部，钢鬃猎手在中部，补给箱在营地东端。\n小心：钢鬃食肉者和钢鬃狂战士（18-19级）是精英；它们站在营地东北部的补给箱旁：把野猪人一只一只地从它们身边引开。",
 
 	-- Step 8: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -64,7 +64,7 @@ return {
 
 	-- Step 15: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "营地里，钢鬃寻水者和钢鬃织棘者占据西半部，钢鬃猎手在中部；补给箱在营地东端。\n这里的陆行鸟也算在喙的数量里。\n小心：钢鬃食肉者和钢鬃狂战士（18-19级）是精英；它们站在营地东北部的补给箱旁：把野猪人一只一只地从它们身边引开。",
 
 	-- Step 16: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -91,7 +91,7 @@ return {
 	["Thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
 	-- {area:379} Far Watch Post · {area:369} Thunder Ridge
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "",
+	["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "雷霆蜥蜴和闪电蜥蜴就在{area:379}下方桥对面吃草。\n小心：12级精英哈利科尔在{area:369}的蜥蜴群中游荡：拉怪前先留意他的位置。",
 
 	-- Step 27: Telf Joolam
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1411} Durotar · {npc:5900} Telf Joolam
@@ -116,7 +116,7 @@ return {
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}：控制台在{area:382}，稍后",
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
-	["{npc:16227}, beside {npc:3442}"] = "",
+	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}，在{npc:3442}旁边",
 	-- {object:3972} WANTED
 	["{object:3972} poster"] = "{object:3972}告示",
 	-- {quest:1492} Wharfmaster Dizzywig
@@ -167,7 +167,7 @@ return {
 	-- Step 43: The Disruption Ends
 	-- {npc:3438} Kreenig Snarlsnout
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near {npc:3438}: pull {npc:3438} and the quilboar away from them one at a time."] = "",
+	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near {npc:3438}: pull {npc:3438} and the quilboar away from them one at a time."] = "回到钢鬃营地。钢鬃地卜师和钢鬃防御者占据营地东半部；{npc:3438}在它们之间走动。\n小心：钢鬃食肉者和钢鬃狂战士（18-19级）是精英，位于营地东北部、{npc:3438}附近：把{npc:3438}和野猪人一只一只地从它们身边引开。",
 
 	-- Step 45: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -178,11 +178,11 @@ return {
 
 	-- Step 48: The Crossroads
 	-- {npc:3338} Sergra Darkthorn · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3432} Mankrik · {npc:3448} Tonga Runetotem · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {area:383} Dry Hills · {quest:853} Apothecary Zamah · {zone:1456} Thunder Bluff
-	["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate last. His seed test waits for the {npc:3395} pass at the {area:388}: go straight on north-west to the {area:383}. After the spores Helbrim offers {quest:853}, a delivery to {zone:1456} within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to {zone:1456})."] = "",
+	["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate last. His seed test waits for the {npc:3395} pass at the {area:388}: go straight on north-west to the {area:383}. After the spores Helbrim offers {quest:853}, a delivery to {zone:1456} within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to {zone:1456})."] = "先找旅店旁的{npc:3338}，然后是旅店老板、北门旁的赫布瑞姆、塔楼平台上的{npc:3429}和{npc:3449}、旅店旁的{npc:3432}，最后是南门的{npc:3448}。他的种子测试要等到前往{area:388}找{npc:3395}那一趟再做：现在直接向西北前往{area:383}。交了孢子后，赫布瑞姆会提供{quest:853}，要在45分钟内送到{zone:1456}：这条路线不去那里，所以先不接（德鲁伊会在下一次经过十字路口时接取，正好在飞往{zone:1456}之前）。",
 	-- {npc:3432} Mankrik
 	["{npc:3432}: his wife lies at the north edge of the Bristleback camps, later"] = "{npc:3432}：他妻子的遗体在刺背营地北缘，稍后再找",
 	-- {npc:3448} Tonga Runetotem · {area:388} Stagnant Oasis · {npc:3395} Verog the Dervish
-	["{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass"] = "",
+	["{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass"] = "{npc:3448}：{area:388}冒泡的裂隙，在去找{npc:3395}的那一趟",
 
 	-- Step 49: Harpy Lieutenants
 	-- {area:383} Dry Hills
@@ -207,11 +207,11 @@ return {
 
 	-- Step 54: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
-	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "",
+	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "从北门进来：先找{npc:3464}，再找旅店旁的{npc:3338}，然后上到飞行管理员所在的塔楼平台，找{npc:3449}和{npc:3429}。",
 	-- {npc:3464} Gazrog · {quest:3281} Stolen Silver · {area:385} Northwatch Hold
 	["{npc:3464}: the {quest:3281}, in a raptor nest north-west of {area:385}"] = "{npc:3464}：{quest:3281}，在{area:385}西北方的迅猛龙巢中",
 	-- {npc:3390} Apothecary Helbrim · {zone:1456} Thunder Bluff
-	["{npc:3390}: 45 minutes, for Zamah on the {zone:1456} step next"] = "",
+	["{npc:3390}: 45 minutes, for Zamah on the {zone:1456} step next"] = "{npc:3390}：限时45分钟，交给紧接着{zone:1456}步骤中的扎玛",
 	-- {npc:3338} Sergra Darkthorn
 	["{npc:3338}: the raptor nests south of the Crossroads"] = "{npc:3338}：十字路口南边的迅猛龙巢",
 	-- {npc:3449} Darsok Swiftdagger · {quest:876} Serena Bloodfeather · {area:383} Dry Hills
@@ -221,9 +221,9 @@ return {
 
 	-- Step 55: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {quest:853} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "",
+	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "从十字路口飞往{area:1638}。{quest:853}在{area:1640}下方的洞穴{area:2197}里：趁限时未到，先去那里交还孢子。然后{npc:3033}在{area:1639}为你训练。",
 	-- {quest:853} Apothecary Zamah · {area:2197} Pools of Vision
-	["{quest:853}, in the {area:2197}"] = "",
+	["{quest:853}, in the {area:2197}"] = "{quest:853}，在{area:2197}",
 
 	-- Step 56: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -379,7 +379,7 @@ return {
 
 	-- Step 94: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "",
+	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}在十字路口东南方{area:388}的科卡尔中游荡。趁在那里，到绿洲东岸冒泡的裂隙处测试{npc:3448}的种子。",
 	["Underwater"] = "在水下",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}：对它们使用{item:15826}；它们在十字路口四周的平原上游荡",
@@ -406,7 +406,7 @@ return {
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate. Keep the {item:5075}: {npc:3430} takes it on the next stop in {area:378}."] = "沿{area:458}向北到十字路口：{npc:3448}在南门，{npc:3432}在旅店旁，{npc:3428}在北门西边。留着{item:5075}：下一站到{area:378}时交给{npc:3430}。",
 	-- {npc:3448} Tonga Runetotem · {area:387} Lushwater Oasis · {npc:3396} Hezrul Bloodmark · {zone:1454} Orgrimmar
 	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["{npc:3448}: the Oasis Snapjaws at {area:387}, with {npc:3396} after the {zone:1454} trip"] = "",
+	["{npc:3448}: the Oasis Snapjaws at {area:387}, with {npc:3396} after the {zone:1454} trip"] = "{npc:3448}：{area:387}的绿洲钳嘴龟，去过{zone:1454}之后和{npc:3396}一起做",
 	-- {npc:3432} Mankrik · {quest:95774} Her Name Is Olgra · {quest:4921} Lost in Battle
 	["{npc:3432} offers {quest:95774} once {quest:4921} is handed in"] = "{quest:4921}交还后，{npc:3432}会提供{quest:95774}",
 	-- {npc:3428} Korran · {area:390} Field of Giants · {area:378} Camp Taurajo · {zone:1454} Orgrimmar
@@ -492,7 +492,7 @@ return {
 	-- Step 120: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
 	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "",
+	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "{npc:3396}带领科卡尔盘踞在{npc:3389}南边的{area:387}西岸。他沿岸游走，北端约46,36，南端约46,42：若箭头处没看到他，就沿岸寻找。最后一次到十字路口时，把他的头交给{npc:3389}。绿洲钳嘴龟在那里的绿洲水中爬行：它们的壳是给{npc:3448}的。",
 
 	-- Step 121: Olgra's Adornments
 	-- {area:458} Gold Road · {area:378} Camp Taurajo · {item:277277} Olgra's Adornments · {npc:3432} Mankrik
@@ -551,7 +551,7 @@ return {
 
 	-- Step 132: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
-	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "",
+	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "沿{area:458}向北到十字路口：{npc:3448}在南门，{npc:3432}在旅店旁，{npc:3428}在北门西边。",
 
 	-- Step 133: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze
