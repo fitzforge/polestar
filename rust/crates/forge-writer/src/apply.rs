@@ -360,6 +360,42 @@ impl<'a> Ctx<'a> {
 		self.world.zones.get(&map?).filter(|z| !z.is_empty()).cloned()
 	}
 
+	/// The label of a travel-only goto to `pt`: where it leads, never just the zone's name, which reads
+	/// in game as "Go to The Barrens", a spot with nothing to do (#1450). The town whose flight master
+	/// stands within TOWN_YD of it in its zone ("To Camp Taurajo"), else the step it leads to (`dest`,
+	/// its title), else the client's area there ("To Everlook"), else the zone it crosses into ("Into
+	/// The Barrens").
+	fn dest_label(&self, pt: Option<u32>, dest: Option<&str>) -> String {
+		const TOWN_YD: f64 = 400.0;
+		let p = self.w(pt);
+		let town = p.and_then(|p| {
+			self.world
+				.nodes
+				.iter()
+				.filter(|n| n.kind == "fp")
+				.filter_map(|n| self.w(n.pt).filter(|q| q.c == p.c && q.map == p.map).map(|q| (js_hypot(q.wx - p.wx, q.wy - p.wy), n)))
+				.filter(|&(d, _)| d <= TOWN_YD)
+				.min_by(|a, b| a.0.total_cmp(&b.0))
+				.map(|(_, n)| n.name.split(',').next().unwrap_or("").trim().to_string())
+				.filter(|t| !t.is_empty())
+		});
+		if let Some(t) = town {
+			return format!("To {t}");
+		}
+		let is_zone = |s: &str| self.world.zones.values().any(|z| z == s);
+		if let Some(d) = dest.map(str::trim).filter(|d| !d.is_empty() && !is_zone(re!(r"^(Back to|To|Into) ").replace(d, "").as_ref())) {
+			return if re!(r"^(Back to|To|Into) ").is_match(d) { d.to_string() } else { format!("To {d}") };
+		}
+		let area = p.and_then(|p| self.area_at.and_then(|a| a.at(p.c, p.wx, p.wy))).map(|a| a.name).filter(|s| !s.is_empty() && !s.starts_with("area ") && !is_zone(s));
+		if let Some(a) = area {
+			return format!("To {a}");
+		}
+		match p.and_then(|p| self.zone_name(Some(p.map))) {
+			Some(z) => format!("Into {z}"),
+			None => "Onward".into(),
+		}
+	}
+
 	fn covers(&self, dst: usize, src: usize) -> bool {
 		let d = &self.guide_races[dst];
 		let r = &self.guide_races[src];
@@ -4855,6 +4891,12 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					PieceKind::Step { keys, .. } => cx.key_pt.get(&keys[0]).copied(),
 					PieceKind::Orphan(_) => None,
 				};
+				// (The title of the step the travel leads to: its zone-entry goto says where it leads, #1450.)
+				let dest: Option<String> = match &p.kind {
+					PieceKind::Ins { title, .. } => title.clone(),
+					PieceKind::Step { step, .. } => Some(trim(&re!(r"^step\s+").replace(&cx.steps[*step].title, "")).to_string()),
+					PieceKind::Orphan(_) => None,
+				};
 				let near_route = |wr: &Writer| -> bool {
 					match (cx.w(first_pt), cx.w(wr.route_pt)) {
 						(Some(a), Some(b)) => a.c == b.c && js_hypot(a.wx - b.wx, a.wy - b.wy) <= ZONE_STEP_YD,
@@ -4950,7 +4992,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 						moves = its.as_ref().is_some_and(|v| v.iter().any(|x| matches!(x.t, ItemT::Hearth | ItemT::Network)));
 					}
 					if !moves && !kept_same && !leg_done && !(is_ins && ins_lines_empty) {
-						wr.travel_to(wr.route_pt, first_pt);
+						wr.travel_to(wr.route_pt, first_pt, dest.as_deref());
 					}
 					wr.g.waypoints.clear();
 					wr.g.v1_moves.clear();
@@ -5005,7 +5047,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 						// (A guide's first piece: from where the route was in the guide before, on its continent:
 						// the walk to Feathermoon. A sea crossing there is v1's own opening travel's.)
 						let opening = cx.route_travel && !wr.g.body.iter().flatten().any(|l| l.starts_with("step ")) && matches!((cx.w(wr.route_pt), cx.w(first_pt)), (Some(a), Some(b)) if a.c == b.c);
-						wr.travel_to(if opening { last_pt.or(wr.route_pt) } else { last_pt }, first_pt);
+						wr.travel_to(if opening { last_pt.or(wr.route_pt) } else { last_pt }, first_pt, dest.as_deref());
 						wr.g.item_only = saved;
 						let flew = wr.g.body[n..].iter().flatten().any(|l| re!(r"^\s+(fly|hearth)\s").is_match(l));
 						if let Some(list) = gated.filter(|l| flew && cx.route_travel && only_classes(Some(l)) && Ctx::only_races(Some(l)).is_none()) {
@@ -5872,7 +5914,8 @@ impl Writer<'_, '_> {
 		self.push(format!("  goto {},{} \"{label}\"{}", c[0], c[1], c[3]));
 	}
 
-	fn travel_to(&mut self, a: Option<u32>, b: Option<u32>) {
+	/// The way from `a` to `b`, the step titled `dest` (its travel-only steps say where they lead, #1450).
+	fn travel_to(&mut self, a: Option<u32>, b: Option<u32>, dest: Option<&str>) {
 		let cx = self.cx;
 		// (The classes away come back to where the route goes on, not to where it leaves from: the
 		// Mages and Warlocks via Goldshire's on the way to Rainer after a training stop, H4; the Dwarf
@@ -5886,7 +5929,7 @@ impl Writer<'_, '_> {
 			if let Some(best) = cx.crossing(pa, pb) {
 				self.goto_step(best.dep, &format!("{} to {}", best.kind, best.dest), false);
 			}
-			self.goto_step(b, &cx.zone_name(Some(pb.map)).unwrap_or_else(|| "Onward".into()), false);
+			self.goto_step(b, &cx.dest_label(b, dest), false);
 		} else if pa.map != pb.map && js_hypot(pa.wx - pb.wx, pa.wy - pb.wy) > ZONE_STEP_YD {
 			// (An island the route walks to, Feathermoon Stronghold off the Forgotten Coast: the flight
 			// toward its boat, then the boat.)
@@ -5903,7 +5946,7 @@ impl Writer<'_, '_> {
 					return;
 				}
 			}
-			self.walk_goto(a, b, &cx.zone_name(Some(pb.map)).unwrap_or_else(|| "Onward".into()), false);
+			self.walk_goto(a, b, &cx.dest_label(b, dest), false);
 		}
 	}
 
@@ -6576,7 +6619,7 @@ impl Writer<'_, '_> {
 								let to = l.node.and_then(|n| cx.world.nodes.get(n)).and_then(|n| n.pt).or(l.to).or(x.to);
 								if let (Some(a), Some(b)) = (cx.w(at), cx.w(to)) {
 									if a.c == b.c && (a.map != b.map || js_hypot(a.wx - b.wx, a.wy - b.wy) > ZONE_STEP_YD) {
-										let label = cx.zone_name(Some(b.map)).unwrap_or_else(|| "Onward".into());
+										let label = cx.dest_label(to, None);
 										// (v1's steps waiting in a zone the walk crosses: the walk to that crossing,
 										// they, then on from where they end, Takar the Seer in the Barrens on the walk
 										// from Theramore to Thousand Needles, c15 C14Plan.)
@@ -7267,10 +7310,8 @@ impl Writer<'_, '_> {
 				if let Some(t) = tram {
 					// (The tram between the two cities, the Warriors' Defensive Stance in Stormwind from
 					// Ironforge: no flight round about.)
-					if let Some(d) = cx.w(t.dep).filter(|d| d.map != here.map && js_hypot(d.wx - here.wx, d.wy - here.wy) > ZONE_STEP_YD) {
-						if let Some(z) = cx.zone_name(Some(d.map)) {
-							self.goto_step(t.dep, &z, true);
-						}
+					if cx.w(t.dep).is_some_and(|d| d.map != here.map && js_hypot(d.wx - here.wx, d.wy - here.wy) > ZONE_STEP_YD) {
+						self.goto_step(t.dep, &cx.dest_label(t.dep, None), true);
 					}
 					self.goto_step(t.dep, &format!("{} to {}", t.kind, t.dest), true);
 				} else if b.c == here.c && (b.map != here.map || js_hypot(b.wx - here.wx, b.wy - here.wy) > ZONE_STEP_YD) {
@@ -7287,7 +7328,7 @@ impl Writer<'_, '_> {
 							_ => w,
 						}
 					};
-					let label = cx.zone_name(Some(b.map)).unwrap_or_else(|| "Onward".into());
+					let label = cx.dest_label(p0, Some(trim(&re!(r"^step\s+").replace(&s.title, ""))));
 					if let Some((_, f0, f1)) = cx.best_flight_by(from, p0, &known, &yd) {
 						// (From where they are: over the crossings to its flight master, and on from where it
 						// lands, into another zone or far.)
@@ -7300,7 +7341,7 @@ impl Writer<'_, '_> {
 							self.goto_step(p0, &label, true);
 						}
 						out = Some((list.clone(), name));
-					} else if !(classes.iter().all(|c| *c == "Druid") && label == "Moonglade") && yd(from, p0).is_finite() {
+					} else if !(classes.iter().all(|c| *c == "Druid") && cx.zone_name(Some(b.map)).as_deref() == Some("Moonglade")) && yd(from, p0).is_finite() {
 						// (No flight quicker: their walk over the crossings, Thousand Needles up the Great Lift
 						// into the Barrens. Moonglade is the Druids' by their own spell.)
 						self.crossings(from, p0, true);
@@ -7313,12 +7354,10 @@ impl Writer<'_, '_> {
 						if let Some((f0, f1)) = cx.best_flight(from, best.dep, &known) {
 							let name = cx.world.nodes[f1].name.clone();
 							self.fly_step(f0, &name);
-						} else if let Some(d) = cx.w(best.dep).filter(|d| d.map != here.map && js_hypot(d.wx - here.wx, d.wy - here.wy) > ZONE_STEP_YD) {
+						} else if cx.w(best.dep).is_some_and(|d| d.map != here.map && js_hypot(d.wx - here.wx, d.wy - here.wy) > ZONE_STEP_YD) {
 							// (No flight there: the walk to the dock's zone, then the ride, the Undead Paladins'
 							// walk from the Crossroads to Orgrimmar's tower.)
-							if let Some(z) = cx.zone_name(Some(d.map)) {
-								self.goto_step(best.dep, &z, true);
-							}
+							self.goto_step(best.dep, &cx.dest_label(best.dep, None), true);
 						}
 						self.goto_step(best.dep, &format!("{} to {}", best.kind, best.dest), true);
 					}
@@ -7576,17 +7615,18 @@ impl Writer<'_, '_> {
 						if fp.c == t.c && (fp.map != t.map || js_hypot(fp.wx - t.wx, fp.wy - t.wy) > ZONE_STEP_YD) {
 							let z = cx.zone_name(Some(t.map)).unwrap_or_default();
 							self.push(format!("  zone {z}"));
-							self.push(format!("  goto {},{} \"{z}\"{}", c[0], c[1], c[3]));
+							self.push(format!("  goto {},{} \"{}\"{}", c[0], c[1], cx.dest_label(to, None), c[3]));
 						}
 					}
 				}
 				None => {
 					let Some(c) = coords_re(&cx.coords_of(to)) else { continue };
 					let z = cx.zone_name(c[2].parse().ok()).unwrap_or_default();
-					self.push(format!("step Back to {z}"));
+					let l = cx.dest_label(to, None);
+					self.push(format!("step {}", l.strip_prefix("To ").map_or_else(|| l.clone(), |t| format!("Back to {t}"))));
 					self.push(format!("  only {cl}"));
 					self.push(format!("  zone {z}"));
-					self.push(format!("  goto {},{} \"{z}\"{}", c[0], c[1], c[3]));
+					self.push(format!("  goto {},{} \"{l}\"{}", c[0], c[1], c[3]));
 				}
 			}
 			self.g.zone = None;

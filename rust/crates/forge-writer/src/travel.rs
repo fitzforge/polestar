@@ -256,7 +256,8 @@ impl Ways<'_> {
 		if f0.d > WALK_YD {
 			if let Some(z) = &z0 {
 				out.extend(self.crossing_steps(from, &Pt { map: f0.n.get("map").num(), x: fx, y: fy, f: "e".into() }));
-				out.push(WayStep { title: z.clone(), zone: Some(z.clone()), lines: vec![format!("  goto {} \"{z}\"", Self::xy(fx, fy))] });
+				let l = format!("To {}", f0.n.get("short").to_js_string());
+				out.push(WayStep { title: l.clone(), zone: Some(z.clone()), lines: vec![format!("  goto {} \"{l}\"", Self::xy(fx, fy))] });
 			}
 		}
 		let mut lines = Vec::new();
@@ -292,8 +293,24 @@ impl Ways<'_> {
 	}
 	fn goto_step(&self, b: &Pt, label: Option<&str>) -> Option<WayStep> {
 		let z = self.zone_of(b.map)?;
-		let l = label.map_or(z.clone(), str::to_string);
+		let l = label.map_or_else(|| self.dest_label(b, &z), str::to_string);
 		Some(WayStep { title: l.clone(), zone: Some(z), lines: vec![format!("  goto {} \"{l}\"{}", Self::xy(b.x, b.y), Self::live(b))] })
+	}
+	/// A travel-only goto's label, where it leads, never just the zone's name (#1450): the town whose
+	/// flight master stands within TOWN_YD of it in its zone ("To Camp Taurajo"), else the zone it
+	/// crosses into.
+	fn dest_label(&self, b: &Pt, z: &str) -> String {
+		const TOWN_YD: f64 = 400.0;
+		let at = self.at_pt(b).map(|a| a.w);
+		self.nodes
+			.iter()
+			.filter(|n| n.get("map").num() == b.map)
+			.map(|n| (dist(at, wpt(n)), n))
+			.filter(|&(d, _)| d <= TOWN_YD)
+			.min_by(|a, b| a.0.total_cmp(&b.0))
+			.map(|(_, n)| n.get("short").to_js_string())
+			.filter(|t| !t.is_empty())
+			.map_or_else(|| format!("Into {z}"), |t| format!("To {t}"))
 	}
 	/// The walk from a to b: over the zone crossings it passes, then to b.
 	fn walk_steps(&self, a: &Pt, b: &Pt, label: Option<&str>) -> Vec<WayStep> {
