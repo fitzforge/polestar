@@ -9185,5 +9185,1489 @@
 			}
 		],
 		"note": "A Simmering Storm (Durotar: the Dull Storm Orb, a drop of the Dustwind Storm Witches, handed to Rezlak) is a Horde quest. Newer quest data drops the race mask and players' caches say every race, so this correction keeps it Horde only (#1361 review)."
+	},
+	"95254": {
+		"set": {
+			"title": "WANTED: Trapclaw",
+			"level": 42,
+			"minLevel": 36,
+			"zone": 2548,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 268586,
+					"count": 1,
+					"text": "Trapclaw's Pincer"
+				}
+			],
+			"objectiveText": "Bring Trapclaw's Pincer to Fimbo Greasemitz.",
+			"xp": 3450,
+			"start": {
+				"object": [
+					628948
+				]
+			},
+			"end": {
+				"npc": [
+					259962
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95254 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 15 people accepted it, 9 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95254, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95121": {
+		"set": {
+			"title": "A Taste of the Sea",
+			"level": 40,
+			"minLevel": 36,
+			"zone": 2548,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 268344,
+					"count": 12,
+					"text": "Saltwater Murloc Eye"
+				},
+				{
+					"type": "item",
+					"id": 268345,
+					"count": 6,
+					"text": "Sand Crawler Meat"
+				}
+			],
+			"objectiveText": "Gather 12 Murloc Eyes and 6 pieces of Sand Crawler Meat for Fimbo Greasemitz.",
+			"xp": 3150,
+			"start": {
+				"npc": [
+					259962
+				]
+			},
+			"end": {
+				"npc": [
+					259962
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95121 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 16 people accepted it, 11 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95121, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"96107": {
+		"set": {
+			"title": "Feathers for Fletching",
+			"level": 40,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 271793,
+					"count": 6,
+					"text": "Plains Buzzard Feather"
+				}
+			],
+			"objectiveText": "Bring 6 Plains Buzzard Feathers to Neza Bloodsnout at Rog'mar.",
+			"xp": 3150,
+			"start": {
+				"npc": [
+					258031
+				]
+			},
+			"end": {
+				"npc": [
+					258031
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 96107 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 8 people accepted it, 8 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 96107, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"93788": {
+		"set": {
+			"title": "Borrowed Blades",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 263972,
+					"count": 10,
+					"text": "Woodworker's Axe"
+				}
+			],
+			"objectiveText": "Retrieve 10 Woodworker's Axe from the lumberjacks at Turner's Logging Camp for Kreza Darkthorn in Rog'mar.",
+			"xp": 2850,
+			"start": {
+				"npc": [
+					256657
+				]
+			},
+			"end": {
+				"npc": [
+					256657
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 93788 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 8 people accepted it, 6 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 93788, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"93787": {
+		"set": {
+			"title": "Food for the Taking",
+			"level": 36,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 262640,
+					"count": 6,
+					"text": "Feed Satchel"
+				}
+			],
+			"objectiveText": "Steal 6 Feed Satchels from the Alliance farm in Meadowsbrook then return to Krom'rosh.",
+			"xp": 2800,
+			"start": {
+				"npc": [
+					256418
+				]
+			},
+			"end": {
+				"npc": [
+					256418
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 93787 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 8 people accepted it, 6 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 93787, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94483": {
+		"set": {
+			"title": "Show Them How It's Done",
+			"level": 39,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 270667,
+					"count": 8,
+					"text": "Farholde Priest Initiate"
+				},
+				{
+					"type": "kill",
+					"id": 257926,
+					"count": 12,
+					"text": "Farholde Scout Trainee"
+				}
+			],
+			"objectiveText": "Slay 8 Farholde Priests and 12 Farholde Scouts south of the river.",
+			"xp": 3000,
+			"start": {
+				"npc": [
+					256418
+				]
+			},
+			"end": {
+				"npc": [
+					256418
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94483 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 6 people accepted it, 5 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94483, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95882": {
+		"set": {
+			"title": "WANTED: Scoutmaster Vargas",
+			"level": 43,
+			"minLevel": 38,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 268581,
+					"count": 1,
+					"text": "Scoutmaster's Eye"
+				}
+			],
+			"objectiveText": "Bring the Scoutmaster's Eye to Neza Bloodsnout in Rog'mar.",
+			"xp": 4450,
+			"start": {
+				"object": [
+					707249
+				]
+			},
+			"end": {
+				"npc": [
+					258031
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95882 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 4 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95882, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95119": {
+		"set": {
+			"title": "Unfriendly Competition",
+			"level": 43,
+			"minLevel": 38,
+			"zone": 2548,
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 257901,
+					"count": 10,
+					"text": "Eastsea Buccaneer"
+				},
+				{
+					"type": "kill",
+					"id": 257910,
+					"count": 10,
+					"text": "Eastsea Musketeer"
+				}
+			],
+			"objectiveText": "Kill 10 Eastsea Buccaneers and 10 Eastsea Musketeers along the Eastwind Shore, north of Powderfuse Port.",
+			"xp": 3600,
+			"start": {
+				"npc": [
+					259961
+				]
+			},
+			"end": {
+				"npc": [
+					259961
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95119 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 13 people accepted it, 9 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95119, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95141": {
+		"set": {
+			"title": "Report to Rog'mar",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [],
+			"objectiveText": "Report to Krom'rosh at the Rog'mar outpost in the Riverglades.",
+			"start": {
+				"npc": [
+					2464
+				]
+			},
+			"end": {
+				"npc": [
+					256418
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95141 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 4 people accepted it, 6 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95141, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95293": {
+		"set": {
+			"title": "Smuggler's Special",
+			"level": 42,
+			"minLevel": 38,
+			"zone": 2548,
+			"objectives": [],
+			"objectiveText": "Deliver The Friz Special to Captain Bentcoin in Eastwind Shore.",
+			"xp": 1700,
+			"start": {
+				"npc": [
+					255897
+				]
+			},
+			"end": {
+				"npc": [
+					260390
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95293 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 6 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95293, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95165": {
+		"set": {
+			"title": "See Ya, Scallywags!",
+			"level": 44,
+			"minLevel": 38,
+			"zone": 2548,
+			"sourceItem": 268505,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "First Ship Charge planted"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Second Ship Charge planted"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Third Ship Charge planted"
+				}
+			],
+			"objectiveText": "Plant a remote explosive charge on each of the Eastsea's three boats.",
+			"xp": 3750,
+			"start": {
+				"npc": [
+					259961
+				]
+			},
+			"end": {
+				"npc": [
+					259961
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95165 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 4 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95165, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94963": {
+		"set": {
+			"title": "Biting the Hand",
+			"level": 40,
+			"minLevel": 36,
+			"zone": 2548,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Help Fuzzle escape Sunnyglade."
+				}
+			],
+			"objectiveText": "<Fuzzle snarls.>",
+			"xp": 3150,
+			"start": {
+				"npc": [
+					259158
+				]
+			},
+			"end": {
+				"object": [
+					625582
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94963 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 7 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94963, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95428": {
+		"set": {
+			"title": "Clugfist's Decree",
+			"level": 41,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [],
+			"objectiveText": "Report to Krom'rosh in Rog'mar.",
+			"xp": 330,
+			"start": {
+				"npc": [
+					255829
+				]
+			},
+			"end": {
+				"npc": [
+					256418
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95428 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 4 people accepted it, 4 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95428, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94975": {
+		"set": {
+			"title": "A Token of Vengeance",
+			"level": 42,
+			"minLevel": 38,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 267091,
+					"count": 15,
+					"text": "Cultist Ear"
+				}
+			],
+			"objectiveText": "Collect 15 Cultist Ears from the Twilight's Hammer in Krol'dok Stronghold.",
+			"xp": 8200,
+			"start": {
+				"npc": [
+					258570
+				]
+			},
+			"end": {
+				"npc": [
+					258570
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94975 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 3 people accepted it, 2 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94975, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94968": {
+		"set": {
+			"title": "Eye of Mugg",
+			"level": 45,
+			"minLevel": 40,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 267086,
+					"count": 1,
+					"text": "Eye of Mugg"
+				}
+			],
+			"objectiveText": "Infiltrate Krol'dok Stronghold and return to Krom'rosh with proof of their leader's demise.",
+			"xp": 11500,
+			"start": {
+				"npc": [
+					256418
+				]
+			},
+			"end": {
+				"npc": [
+					256418
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94968 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 3 people accepted it, 2 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94968, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94972": {
+		"set": {
+			"title": "Tome of Twilight",
+			"level": 44,
+			"minLevel": 39,
+			"zone": 2548,
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 267104,
+					"count": 1,
+					"text": "Tome of Twilight"
+				}
+			],
+			"objectiveText": "Recover the Tome of Twilight from Krol'dok Stronghold.",
+			"xp": 11050,
+			"start": {
+				"npc": [
+					256710
+				]
+			},
+			"end": {
+				"npc": [
+					256710
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94972 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 3 people accepted it, 2 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94972, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95991": {
+		"set": {
+			"title": "WANTED: Ghostmaw",
+			"level": 42,
+			"minLevel": 38,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 271828,
+					"count": 1,
+					"text": "Ghostmaw's Fang"
+				}
+			],
+			"objectiveText": "Bring Ghostmaw's Fang to Wheatley in Farholde Keep.",
+			"xp": 4300,
+			"start": {
+				"object": [
+					645166
+				]
+			},
+			"end": {
+				"npc": [
+					259859
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95991 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 6 people accepted it, 3 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95991, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95330": {
+		"set": {
+			"title": "Love Thy Neighbor",
+			"level": 37,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [],
+			"objectiveText": "Deliver Cassandra's surplus farm goods to Halligan Turner at Turner's Logging Camp.",
+			"xp": 290,
+			"start": {
+				"npc": [
+					259863
+				]
+			},
+			"end": {
+				"npc": [
+					256438
+				]
+			},
+			"sourceItem": 268816
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95330 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 8 people accepted it, 6 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95330, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95603": {
+		"set": {
+			"title": "Bats in the Belfry",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 262037,
+					"count": 5,
+					"text": "Roosting Duskbat"
+				}
+			],
+			"objectiveText": "Kill 5 Roosting Duskbats in the Farholde Cathedral for Sister Rowland.",
+			"xp": 2150,
+			"start": {
+				"npc": [
+					262031
+				]
+			},
+			"end": {
+				"npc": [
+					262031
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95603 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 8 people accepted it, 7 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95603, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95613": {
+		"set": {
+			"title": "Keeping the Light On",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 17028,
+					"count": 5,
+					"text": "Holy Candle"
+				}
+			],
+			"objectiveText": "Bring 5 Holy Candles to Sister Rowland in Farholde Keep.",
+			"xp": 2150,
+			"start": {
+				"npc": [
+					262031
+				]
+			},
+			"end": {
+				"npc": [
+					262031
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95613 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 7 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95613, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94614": {
+		"set": {
+			"title": "Freshwater Fiends",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 258574,
+					"count": 8,
+					"text": "Mudfin Warrior"
+				},
+				{
+					"type": "kill",
+					"id": 258573,
+					"count": 8,
+					"text": "Mudfin Oracle"
+				}
+			],
+			"objectiveText": "Kill 8 Mudfin Oracles and 8 Mudfin Warriors along the river near Wheeler's Grange.",
+			"xp": 2850,
+			"start": {
+				"npc": [
+					258317
+				]
+			},
+			"end": {
+				"npc": [
+					258317
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94614 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 7 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94614, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94618": {
+		"set": {
+			"title": "Wheeler's Fleeing Steeds",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [],
+			"objectiveText": "Find one of the horses that fled Wheeler's Grange after the coyote attack and give it some feed.",
+			"xp": 1450,
+			"start": {
+				"npc": [
+					258317
+				]
+			},
+			"end": {
+				"npc": [
+					259254
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94618 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 5 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94618, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94617": {
+		"set": {
+			"title": "Coyote Huntin'",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 265738,
+					"count": 1,
+					"text": "Sootfur's Pelt"
+				}
+			],
+			"objectiveText": "Kill the coyote known as Sootfur, and bring its pelt back to Benjy Wheeler.",
+			"xp": 2850,
+			"start": {
+				"npc": [
+					258317
+				]
+			},
+			"end": {
+				"npc": [
+					258317
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94617 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 7 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94617, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94857": {
+		"set": {
+			"title": "If a Tree Falls, and No One Hears...",
+			"level": 39,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [],
+			"objectiveText": "Go to Turner's Logging Camp and get help.",
+			"xp": 300,
+			"start": {
+				"npc": [
+					258935
+				]
+			},
+			"end": {
+				"npc": [
+					258963
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94857 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 4 people accepted it, 4 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94857, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94842": {
+		"set": {
+			"title": "Unsavory Plant Food",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 266157,
+					"count": 4,
+					"text": "Jumbo Crawfish Shell"
+				},
+				{
+					"type": "item",
+					"id": 266156,
+					"count": 4,
+					"text": "Fresh Manure"
+				},
+				{
+					"type": "item",
+					"id": 267266,
+					"count": 8,
+					"text": "Mudfin Murloc Head"
+				}
+			],
+			"objectiveText": "Gather 4 Jumbo Crawfish Shells, 4 pieces of Fresh Manure, and 8 Mudfin Murloc Heads for Halligan Turner.",
+			"xp": 2850,
+			"start": {
+				"npc": [
+					256438
+				]
+			},
+			"end": {
+				"npc": [
+					256438
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94842 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 7 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94842, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94931": {
+		"set": {
+			"title": "Stolen Saws",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 266897,
+					"count": 8,
+					"text": "Saw Blade"
+				}
+			],
+			"objectiveText": "Recover 8 Saw Blades from the gnoll camps in Bristle Hills for Halligan Turner at the lumber mill.",
+			"xp": 2850,
+			"start": {
+				"npc": [
+					256438
+				]
+			},
+			"end": {
+				"npc": [
+					256438
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94931 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 4 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94931, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95642": {
+		"set": {
+			"title": "Abominable Magics",
+			"level": 40,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"sourceItem": 269990,
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 262006,
+					"count": 25,
+					"text": "Twilight Ritual Circle"
+				}
+			],
+			"objectiveText": "Absorb 25 samples into the Crystal Catalyst from Twilight's Hammer cultists and Twilight Ritual Circles in the cave underneath Sunnyglade for Apprentice Claire.",
+			"xp": 3150,
+			"start": {
+				"npc": [
+					256831
+				]
+			},
+			"end": {
+				"npc": [
+					256831
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95642 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 4 people accepted it, 4 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95642, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95643": {
+		"set": {
+			"title": "Indiscriminate Purge",
+			"level": 40,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 261711,
+					"count": 5,
+					"text": "Empowered Brute"
+				},
+				{
+					"type": "kill",
+					"id": 262169,
+					"count": 5,
+					"text": "Twilight Ritualist"
+				}
+			],
+			"objectiveText": "Kill 5 Twilight Ritualists and 5 Empowered Brutes within the caves underneath Sunnyglade.",
+			"xp": 3150,
+			"start": {
+				"npc": [
+					256831
+				]
+			},
+			"end": {
+				"npc": [
+					256831
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95643 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 4 people accepted it, 4 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95643, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94884": {
+		"set": {
+			"title": "An Unsettling Discovery",
+			"level": 41,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [],
+			"objectiveText": "Bring the Filled Crystal Catalyst to Ashe Amberhall in Farholde Keep.",
+			"xp": 1650,
+			"start": {
+				"npc": [
+					256831
+				]
+			},
+			"end": {
+				"npc": [
+					257591
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94884 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 3 people accepted it, 3 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94884, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"96081": {
+		"set": {
+			"title": "Wound Dressings",
+			"level": 40,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 4338,
+					"count": 20,
+					"text": "Mageweave Cloth"
+				}
+			],
+			"objectiveText": "Gather 20 Mageweave Cloth for Brother Lowley at Farholde Keep.",
+			"xp": 1550,
+			"start": {
+				"npc": [
+					263613
+				]
+			},
+			"end": {
+				"npc": [
+					263613
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 96081 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 4 people accepted it, 2 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 96081, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"96125": {
+		"set": {
+			"title": "In Need of Relief",
+			"level": 43,
+			"minLevel": 38,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [],
+			"objectiveText": "Find Dunston Willis somewhere among the ogres in Bolder'ok.",
+			"xp": 360,
+			"start": {
+				"npc": [
+					259352
+				]
+			},
+			"end": {
+				"npc": [
+					259057
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 96125 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 6 people accepted it, 3 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 96125, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95059": {
+		"set": {
+			"title": "Frazzlespark's Crate",
+			"level": 36,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"objectives": [],
+			"objectiveText": "Deliver Frazzlespark's Crate to Knight Commander Demar Brant in Farholde Keep.",
+			"xp": 280,
+			"start": {
+				"npc": [
+					255897
+				]
+			},
+			"end": {
+				"npc": [
+					257558
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95059 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 8 people accepted it, 7 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95059, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"94843": {
+		"set": {
+			"title": "From Seed to Sprout",
+			"level": 38,
+			"minLevel": 36,
+			"zone": 2548,
+			"races": 4294967373,
+			"sourceItem": 266161,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Sapling planted"
+				}
+			],
+			"objectiveText": "Plant 5 saplings around the lumber camp with Halligan Turner's tree sprouting kit.",
+			"xp": 2150,
+			"start": {
+				"npc": [
+					256438
+				]
+			},
+			"end": {
+				"npc": [
+					256438
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 94843 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 7 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 94843, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+	},
+	"95267": {
+		"set": {
+			"title": "The Monster Surfaces",
+			"level": 42,
+			"minLevel": 38,
+			"zone": 2548,
+			"sourceItem": 268647,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 268633,
+					"count": 1,
+					"text": "Sea Monster's Head"
+				}
+			],
+			"objectiveText": "Use the Big Ball o' Bait to lure out the sea monster. Then, bring its head to Argo Brinewhistle.",
+			"xp": 3450,
+			"start": {
+				"npc": [
+					260231
+				]
+			},
+			"end": {
+				"npc": [
+					260231
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest record 95267 (client quest cache, build 70862)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf): Forever store and page base"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 5 people accepted it, 5 handed it in"
+			}
+		],
+		"note": "Forever's Riverglades quest 95267, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
 	}
 }
