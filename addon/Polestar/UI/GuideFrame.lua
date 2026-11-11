@@ -1333,6 +1333,9 @@ local function tabButton(i)
 		if E and E.CloseTab then E.CloseTab(self:GetParent().psIndex) end
 	end, 9)
 	b.Close:SetPoint("RIGHT", b, "RIGHT", -3, 0)
+	-- The game's looks draw a tab's close at their tabClose (Theme.KitIconButton).
+	b.Close.psTabClose = true
+	Theme.KitIconButton(b.Close)
 	b.Close:SetAlpha(TAB_CLOSE_REST)
 	b.Close.psOnEnter = function(c) c:SetAlpha(1) end
 	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(TAB_CLOSE_REST) end end
@@ -4140,6 +4143,11 @@ function GF.ApplySkin()
 			W.SetFramed(b, "icon")
 		end
 	end
+	-- The banner's close: in the game's looks the card's, their red button at
+	-- the icon buttons' size (at the banner's own 24 unit target it stood
+	-- larger than anything round it); elsewhere that 24 unit target.
+	if Theme.Kit() then banner.Close:SetSize(iw, ih) else banner.Close:SetSize(24, 24) end
+	Theme.KitIconButton(banner.Close)
 	nav.Skip:SetHeight(nb)
 	nav.Steps:SetHeight(nb)
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
