@@ -394,6 +394,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["River Crocolisks swim the river by the {area:99}."] = "淡水鱷在{area:99}旁的河中游動。",
 		["River crocolisks"] = "淡水鱷",
 		["Stranglethorn Tigers"] = "荊棘谷猛虎",
+		["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "沿道路向北；營地在西邊的丘陵中。\n{npc:738}只有在營地外時才會提供{quest:215}：他大約每半小時沿小徑走到大路上，兩名庫爾森的密探會在那裡伏擊他。幫他殺掉他們，並在他走回去之前立刻接下任務。他不在？那就算了：指南也會略過由此引出的{quest:200}。",
 		["The adult tigers prowl the hills just south and west of the camp."] = "成年猛虎在營地南邊和西邊不遠的丘陵徘徊。",
 		["The elder tigers come later, on the way back from the {area:99}"] = "老年荊棘谷猛虎之後再打，在從{area:99}回來的路上",
 		["The haunted island"] = "鬧鬼的島",
@@ -407,6 +408,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["{npc:729} and the Lashtail raptors"] = "{npc:729}與鞭尾迅猛龍",
 		["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "巨虎{npc:729}的巢穴在營地西南方的山頂；鞭尾迅猛龍在它南邊、前往{area:35}的路上奔跑。",
 		["{npc:737}, in the tavern"] = "{npc:737}，在酒館裡",
+		["{npc:738}, at the foot of the path"] = "{npc:738}，在小徑下端",
 		["{quest:201}: just look around the hunters' camp"] = "{quest:201}：只需在獵人營地四處看看",
 } end)()
 t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {

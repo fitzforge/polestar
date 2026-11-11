@@ -412,6 +412,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["River Crocolisks swim the river by the {area:99}."] = "Flusskrokilisken schwimmen im Fluss beim {area:99}.",
 		["River crocolisks"] = "Flusskrokilisken",
 		["Stranglethorn Tigers"] = "Schlingendorntiger",
+		["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "Folge der Straße nach Norden; das Lager liegt in den Hügeln im Westen.\n{npc:738} bietet {quest:215} nur an, solange er außerhalb des Lagers ist: Etwa jede halbe Stunde geht er den Pfad hinunter zur Straße, wo ihn zwei von Kurzens Agenten überfallen. Hilf ihm, sie zu töten, und nimm die Quest sofort an, bevor er wieder hinaufgeht. Er ist nicht da? Dann lass sie aus: Der Guide lässt auch die Folgequest {quest:200} aus.",
 		["The adult tigers prowl the hills just south and west of the camp."] = "Die ausgewachsenen Tiger streifen durch die Hügel gleich südlich und westlich des Lagers.",
 		["The elder tigers come later, on the way back from the {area:99}"] = "Die Alten Schlingendorntiger kommen später, auf dem Rückweg vom {area:99}",
 		["The haunted island"] = "Die Spukinsel",
@@ -425,6 +426,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["{npc:729} and the Lashtail raptors"] = "{npc:729} und die Schmetterschwänze",
 		["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "{npc:729}, der große Tiger, haust auf der Hügelkuppe südwestlich des Lagers; Schmetterschwänze laufen südlich davon, auf dem Weg nach {area:35}.",
 		["{npc:737}, in the tavern"] = "{npc:737}, in der Taverne",
+		["{npc:738}, at the foot of the path"] = "{npc:738}, am Fuß des Pfads",
 		["{quest:201}: just look around the hunters' camp"] = "{quest:201}: Sieh dich einfach im Lager der Jäger um",
 } end)()
 t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {

@@ -393,6 +393,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["River Crocolisks swim the river by the {area:99}."] = "Los crocoliscos fluviales nadan en el río junto a {area:99}.",
 		["River crocolisks"] = "Crocoliscos fluviales",
 		["Stranglethorn Tigers"] = "Tigres de Tuercespina",
+		["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "Toma el camino al norte; el campamento está en las colinas al oeste.\n{npc:738} solo ofrece {quest:215} mientras está fuera del campamento: más o menos cada media hora baja por el sendero hasta el camino, donde dos Agentes de Kurzen le tienden una emboscada. Ayúdalo a matarlos y toma la misión de inmediato, antes de que vuelva a subir. ¿No está? Déjala: la guía también omite {quest:200}, que viene de ella.",
 		["The adult tigers prowl the hills just south and west of the camp."] = "Los tigres adultos merodean por las colinas justo al sur y al oeste del campamento.",
 		["The elder tigers come later, on the way back from the {area:99}"] = "Los tigres mayores vienen después, al regresar de {area:99}",
 		["The haunted island"] = "La isla embrujada",
@@ -406,6 +407,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["{npc:729} and the Lashtail raptors"] = "{npc:729} y los raptores colazote",
 		["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "{npc:729}, el gran tigre, tiene su guarida en la cima de la colina al suroeste del campamento; los raptores colazote corren al sur de ella, por el camino a {area:35}.",
 		["{npc:737}, in the tavern"] = "{npc:737}, en la taberna",
+		["{npc:738}, at the foot of the path"] = "{npc:738}, al pie del sendero",
 		["{quest:201}: just look around the hunters' camp"] = "{quest:201}: solo echa un vistazo al campamento de los cazadores",
 } end)()
 t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {

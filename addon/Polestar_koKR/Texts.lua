@@ -394,6 +394,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["River Crocolisks swim the river by the {area:99}."] = "{npc:1150}은(는) {area:99} 옆 강에서 헤엄칩니다.",
 		["River crocolisks"] = "민물악어",
 		["Stranglethorn Tigers"] = "{npc:682}",
+		["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "길을 따라 북쪽으로 가세요. 야영지는 서쪽 언덕에 있습니다.\n{npc:738}은(는) 야영지 밖에 나와 있을 때만 {quest:215}을(를) 줍니다. 그는 30분쯤마다 오솔길을 따라 큰길까지 내려오는데, 그곳에서 쿠르젠의 요원 두 명이 그를 기습합니다. 그를 도와 요원들을 처치하고, 그가 다시 올라가기 전에 바로 퀘스트를 받으세요. 그가 없나요? 그냥 두세요. 가이드는 그 퀘스트에서 이어지는 {quest:200}도 건너뜁니다.",
 		["The adult tigers prowl the hills just south and west of the camp."] = "다 자란 호랑이는 야영지 바로 남쪽과 서쪽 언덕을 어슬렁거립니다.",
 		["The elder tigers come later, on the way back from the {area:99}"] = "덩치큰 가시덤불 호랑이는 나중에 {area:99}에서 돌아오는 길에 잡습니다",
 		["The haunted island"] = "유령의 섬",
@@ -407,6 +408,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["{npc:729} and the Lashtail raptors"] = "{npc:729}와(과) 채찍꼬리랩터",
 		["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "거대한 호랑이 {npc:729}은(는) 야영지 남서쪽 언덕 꼭대기에 살고, {npc:686}은(는) 그 남쪽, {area:35}(으)로 가는 길을 따라 뛰어다닙니다.",
 		["{npc:737}, in the tavern"] = "{npc:737}, 선술집 안",
+		["{npc:738}, at the foot of the path"] = "오솔길 아래쪽 끝의 {npc:738}",
 		["{quest:201}: just look around the hunters' camp"] = "{quest:201}: 사냥꾼 야영지를 둘러보기만 하세요",
 } end)()
 t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {

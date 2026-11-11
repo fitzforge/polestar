@@ -491,6 +491,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["River Crocolisks swim the river by the {area:99}."] = "Речные кроколиски плавают в реке у места {area:99}.",
 		["River crocolisks"] = "Речные кроколиски",
 		["Stranglethorn Tigers"] = "Тигры Тернистой долины",
+		["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "Идите по дороге на север; лагерь – в холмах к западу.\n{npc:738} предлагает задание {quest:215}, только пока находится вне лагеря: примерно раз в полчаса он спускается по тропе к дороге, где на него из засады нападают двое посланников Курцена. Помогите ему убить их и сразу возьмите задание, пока он не ушел обратно наверх. Его там нет? Оставьте задание: гайд пропустит и {quest:200}, которое из него следует.",
 		["The adult tigers prowl the hills just south and west of the camp."] = "Взрослые тигры рыщут по холмам сразу к югу и западу от лагеря.",
 		["The elder tigers come later, on the way back from the {area:99}"] = "Старые тигры – позже, на обратном пути от лагеря ({area:99})",
 		["The haunted island"] = "Остров духов",
@@ -504,6 +505,7 @@ t.guides["forever/alliance/30-40/04-stranglethorn-vale"] = (function() return {
 		["{npc:729} and the Lashtail raptors"] = "{npc:729} и ящеры-кнутохвосты",
 		["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "{npc:729}, огромный тигр, живет на вершине холма к юго-западу от лагеря; ящеры-кнутохвосты бегают к югу от него, по пути в {area:35}.",
 		["{npc:737}, in the tavern"] = "{npc:737} – в таверне",
+		["{npc:738}, at the foot of the path"] = "{npc:738} – у подножия тропы",
 		["{quest:201}: just look around the hunters' camp"] = "{quest:201}: просто осмотритесь в лагере охотников",
 } end)()
 t.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = (function() return {
