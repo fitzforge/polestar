@@ -1,4 +1,4 @@
-//! The settings window loads on demand (addon/Polestar_Options, a LoadOnDemand addon like EllesmereUIOptions):
+//! The settings window loads on demand (addon/Polestar_Options, a LoadOnDemand addon):
 //! after login nothing of it is in memory (no window, no UI.Options, no LoadAddOn of it); the first
 //! SHOW_OPTIONS loads it, once, and opens the window; later openings load nothing. Its cost is measured as
 //! the client counts it (Lua 5.1 collectgarbage("count")) and held to a budget: lower a budget when a change

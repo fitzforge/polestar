@@ -1430,11 +1430,11 @@ Polestar.RegisterOptions({ page = "Fake pins", tab = "Medallions", section = "Gl
 } })
 "#;
 
-// The window opens at EllesmereUI's options' size (1300 x 946 screen pixels at the default Menu scale: the
-// stub's screen is 1080 pixels in 1080 units), the grip's drag is kept in ui.optionsSize and the body takes the
-// new width; a saved size never goes past the screen nor under 860 x 560; right-click on the grip goes back.
+// The window opens at 1300 x 946 screen pixels at the default Menu scale (the stub's screen is 1080 pixels in
+// 1080 units), the grip's drag is kept in ui.optionsSize and the body takes the new width; a saved size never
+// goes past the screen nor under 860 x 560; right-click on the grip goes back.
 #[test]
-fn the_window_opens_at_ellesmereui_s_size_its_grip_s_size_is_kept_and_clamped_to_the_screen_right_click_restores_it() {
+fn the_window_opens_at_1300_by_946_its_grip_s_size_is_kept_and_clamped_to_the_screen_right_click_restores_it() {
 	let out = run(r#"
 		local before = PolestarOptions == nil
 		UI.ShowOptions("guide")
