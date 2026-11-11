@@ -2066,3 +2066,55 @@ fn an_objective_s_time_counts_kills_by_the_best_drop_chance() {
 		D.PrereqSeconds({ goals = {} }, nil, nil) })"#;
 	assert_eq!(run(&pack_of(&c, &inputs), step, Opts::default()).remove(0), json!([75 + 320, 75]));
 }
+
+// Fitz, 0.3.8 (after the pick-up guide's "Needed for" lines): a dungeon's quests, and the nearest three open
+// prerequisites before each, carry the Dungeons window's glyph after their name on the guide window's goal rows and
+// While you're here rows, and the goal's tooltip says why. Here a chain of five quests leads to The Dungeon Quest
+// (90706, in Shadowfang Keep): the three nearest (90703-90705) are marked, the first two are not.
+#[test]
+fn a_dungeon_quest_and_its_nearest_three_prerequisites_carry_the_dungeon_mark_on_goal_rows_while_here_and_tooltips() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90710"] = json!({
+		"id": 90710, "name": "Chain Giver", "level": 11, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	let quest = |id: i32, title: &str, pre: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 14, "minLevel": 10, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90710], "object": [], "item": [] }, "end": { "npc": [90710], "object": [] },
+			"objectives": [], "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	for (id, pre) in [(90701, vec![]), (90702, vec![90701]), (90703, vec![90702]), (90704, vec![90703]), (90705, vec![90704])] {
+		c["quests"][id.to_string()] = quest(id, &format!("Errand {}", id - 90700), &pre);
+	}
+	c["quests"]["90706"] = quest(90706, "The Dungeon Quest", &[90705]);
+	i["forever"]["quests"]["90706"] = json!({ "area": 209 });
+	let script = r#"
+local D, UI = Polestar.Dungeons, Polestar.UI
+D.Load()
+local marks = {}
+for id = 90701, 90706 do
+	local m = D.QuestMark(id)
+	marks[#marks + 1] = m and (m.dungeon .. " / " .. (m.quest or "-")) or false
+end
+local goal = { t = "accept", quest = 90705, subject = "Errand 5", subjectKind = "quest", text = "Accept “Errand 5”", status = "active" }
+local here = { here = "turnin", t = "turnin", quest = 90706, hereText = "Hand in “The Dungeon Quest” to Chain Giver", hereTitle = "“The Dungeon Quest”" }
+emit({ marks = marks, row = UI.GoalLine(goal, nil, true), plain = UI.GoalLine(goal), here = UI.HereText(here),
+	tip = D.MarkTooltip(90705), own = D.MarkTooltip(90706), none = D.MarkTooltip(90701) or false, after = D.MarkAfter(90701) })"#;
+	let out = run(&pack_of(&c, &i), script, Opts { whole: true, ..Default::default() }).remove(0);
+	let dungeon = "Shadowfang Keep / The Dungeon Quest";
+	assert_eq!(out["marks"], json!([false, false, dungeon, dungeon, dungeon, "Shadowfang Keep / -"]), "the nearest three before the dungeon quest");
+	let glyph = "|TInterface\\AddOns\\Polestar\\Media\\UI\\icon-dungeon:0:0:0:0:32:32:0:32:0:32:";
+	let row = out["row"].as_str().unwrap();
+	assert!(row.contains("Errand 5") && row.contains(glyph), "the goal row carries it after the name: {row}");
+	assert!(!out["plain"].as_str().unwrap().contains("icon-dungeon"), "only where asked for (not the Then: lines or the step list)");
+	let here = out["here"].as_str().unwrap();
+	assert!(here.starts_with("Hand in “The Dungeon Quest” |T") && here.ends_with("|t to Chain Giver"), "the While you're here row: {here}");
+	let tip = out["tip"].as_str().unwrap();
+	assert!(tip.starts_with(glyph) && tip.ends_with("|t Needed for “The Dungeon Quest” in Shadowfang Keep"), "{tip}");
+	assert!(out["own"].as_str().unwrap().ends_with("|t Part of the Shadowfang Keep quests"), "{}", out["own"]);
+	assert_eq!(json!([out["none"], out["after"]]), json!([false, ""]));
+}
