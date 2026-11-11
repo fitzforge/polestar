@@ -581,7 +581,7 @@ test('draft: cloth is counted in the bags, from humanoids as you level or the Au
 	data.mapFrames = { era: { 1429: { c: 0 } } };
 	data.items = {};
 	const { text } = draftGuide('Tailoring', { ...data, farmable: () => ({ Alliance: 9, Horde: 9 }) }, { to: 75, spec: {} });
-	assert.match(text, /\n {2}tip \d+ Linen Cloth for [^\n]*: humanoids of level 5-20 drop it\. Keep what you loot as you level, take it from your bank, or buy it at the Auction House\.\n {2}collect 2589 x\d+\n/);
+	assert.match(text, /\n {2}tip \d+ Linen Cloth for [^\n]*: humanoids of level 5-20 drop it\. Keep what you loot as you level, take it from your bank, or buy it at the Auction House\.\n {2}collect 2589 x\d+ anywhere\n/);
 	assert.doesNotMatch(text, /collect 2589 x\d+ (nearest|@)/);
 });
 
