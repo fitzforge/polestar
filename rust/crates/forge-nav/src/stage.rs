@@ -62,6 +62,10 @@ pub struct WalksIn<'a> {
 	pub log: &'a (dyn Fn(&str) + Sync),
 	/// Extra pairs (world point ids) to walk beyond the radius rules (WalkWorld::extra).
 	pub extra: &'a [(usize, usize)],
+	/// The hybrid's two passes (our grid's, Leffe's) one after the other instead of side by side: about half
+	/// the peak memory (each pass holds its own walk store, grid or map cache), for a longer wall time. The
+	/// walks are the same either way (each pass is deterministic; the merge comes after both).
+	pub serial: bool,
 }
 
 pub struct WalksOut {
@@ -138,14 +142,14 @@ pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
 	let Some((leffe_nav, leffe_store)) = leffe_pass else { return pass(i, &world, &pool) };
 	// Each backend's own pass: its "not walkable" counts are its own, before the merge falls back to the grid.
 	let (glog, llog) = (|m: &str| (i.log)(&format!("grid: {m}")), |m: &str| (i.log)(&format!("Leffe's maps: {m}")));
-	// Side by side, each on threads of its own: while one reads its store, assembles or writes it (one core),
-	// the other routes. (One pool for both starves the grid's fine-grained steps, its CCH customization among
-	// them, behind Leffe's searches of seconds each.)
-	let (g, l) = std::thread::scope(|s| {
-		let g = s.spawn(|| pass(&WalksIn { nav: Nav::Grid, log: &glog, ..*i }, &world, &self::pool(i.threads)?));
-		let l = pass(&WalksIn { nav: leffe_nav, store: leffe_store, log: &llog, ..*i }, &world, &pool);
-		(g.join().unwrap_or_else(|e| std::panic::resume_unwind(e)), l)
-	});
+	// Side by side by default, each on threads of its own: while one reads its store, assembles or writes it
+	// (one core), the other routes. (One pool for both starves the grid's fine-grained steps, its CCH
+	// customization among them, behind Leffe's searches of seconds each.) `serial`: one after the other.
+	let (g, l) = both(
+		i.serial,
+		|| pass(&WalksIn { nav: Nav::Grid, log: &glog, ..*i }, &world, &self::pool(i.threads)?),
+		|| pass(&WalksIn { nav: leffe_nav, store: leffe_store, log: &llog, ..*i }, &world, &pool),
+	);
 	let (g, l) = (g?, l?);
 	let (bin, h) = pool.install(|| hybrid_bin(&g.bin, &l.bin, crate::hybrid::SLACK))?;
 	for line in crate::hybrid::summary(&h) {
@@ -157,6 +161,20 @@ pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
 
 fn pool(threads: usize) -> Result<rayon::ThreadPool, String> {
 	rayon::ThreadPoolBuilder::new().num_threads(threads).build().map_err(|e| e.to_string())
+}
+
+/// Runs `a` and `b`: side by side (`a` on a thread of its own), or `a` to the end and then `b` when
+/// `serial`. -> (a's result, b's result).
+pub fn both<A: Send, B>(serial: bool, a: impl FnOnce() -> A + Send, b: impl FnOnce() -> B) -> (A, B) {
+	if serial {
+		let ra = a();
+		return (ra, b());
+	}
+	std::thread::scope(|s| {
+		let ha = s.spawn(a);
+		let rb = b();
+		(ha.join().unwrap_or_else(|e| std::panic::resume_unwind(e)), rb)
+	})
 }
 
 /// One backend's walks of the world (`i.nav` is no hybrid) on `pool`.
