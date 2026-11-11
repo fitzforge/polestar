@@ -355,13 +355,13 @@ local BUILTIN = {
 		trainReminder(),
 		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
 			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
-		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide."], confirm = true,
+		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
 			confirmTitle = L["Reset guide progress?"], confirmAction = L["Reset progress"],
 			confirmText = function()
 				local g = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
 				local name = g and (g.title or g.id)
-				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared. Quests you have done stay done."], name) end
-				return L["Your manual check-offs and skipped steps in the current guide are cleared. Quests you have done stay done."]
+				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."], name) end
+				return L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."]
 			end,
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },

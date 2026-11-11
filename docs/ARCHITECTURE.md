@@ -2709,6 +2709,15 @@ transient goals). `Prev` and `Next` walk the same applicable steps, done,
 skipped or open. NPC interactions count for the live step too while another
 step is shown.
 
+Reset guide progress (`Engine.ResetProgress`) clears the guide's check-offs,
+skips, kept `when` steps, skip records, update passes and recorded end, then
+places the guide again as if just opened. What it clears starts at the last
+step with quest progress the game shows (`anchorStep`, read with every mark
+gone); the player's own marks and skips before it stay, so a step skipped
+long ago, its quests never taken, does not become the start and send the
+guide back (#1764); `Goto` brings one back. With the quest log not read yet,
+everything is cleared.
+
 Waypoint:
 
 ```lua

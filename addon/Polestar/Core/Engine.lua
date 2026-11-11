@@ -12130,22 +12130,46 @@ function Engine.CycleWaypoint(dir)
 end
 
 -- Forget check-offs, skips, the saved view and the end reached for the
--- active guide: placed again as if just opened, it tells its end again only
--- when the player gets there (Own.noteEnd).
+-- active guide from where the player is in it: placed again as if just
+-- opened, it tells its end again only when the player gets there
+-- (Own.noteEnd). Where they are is what the game shows, not their marks: the
+-- last step with quest progress (anchorStep, read with every mark gone).
+-- Before it, their own check-offs, skips and kept `when` steps stay, so a
+-- step skipped long ago (its quests never taken, still open to take) does
+-- not become the guide's start and send it back there (#1764); one of them
+-- comes back from the step list (Engine.Goto opens a skipped step). At that
+-- step and after, everything goes, as before. With the quest log not read
+-- yet, nothing is kept.
 function Engine.ResetProgress()
 	if not guide then return end
+	refreshPlayer()
 	local state = ns.CharState()
-	state.manual[guide.id] = nil
-	state.skipped[guide.id] = nil
-	state.when[guide.id] = nil
-	if type(state.skipStored) == "table" then state.skipStored[guide.id] = nil end
+	local id = guide.id
+	local held = { manual = state.manual[id], skipped = state.skipped[id], when = state.when[id] }
+	state.manual[id] = nil
+	state.skipped[id] = nil
+	state.when[id] = nil
+	if type(state.skipStored) == "table" then state.skipStored[id] = nil end
 	-- What an update passed or left behind (Own.passAdded) comes back too.
 	for _, f in ipairs({ "added", "gone", "behind", "passedBefore" }) do
-		if type(state[f]) == "table" then state[f][guide.id] = nil end
+		if type(state[f]) == "table" then state[f][id] = nil end
 	end
 	Own.goneGen = Own.goneGen + 1
-	state.guideEnds[guide.id] = nil
-	Own.endOpen[guide.id], Own.lastOpen[guide.id] = nil, nil
+	-- Keys are a step's number ("skipped", "when") or "step:goal" ("manual",
+	-- an optional goal's skip).
+	local anchor = logReady and anchorStep(nil) or 0
+	for field, t in pairs(held) do
+		for k, v in pairs(type(t) == "table" and t or NONE) do
+			local s = type(k) == "number" and k or tonumber(tostring(k):match("^(%d+)"))
+			if s and s < anchor then
+				local into = state[field][id] or {}
+				state[field][id] = into
+				into[k] = v
+			end
+		end
+	end
+	state.guideEnds[id] = nil
+	Own.endOpen[id], Own.lastOpen[id] = nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
 	evaluate()
 end
