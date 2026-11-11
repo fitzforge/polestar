@@ -2885,12 +2885,16 @@ Polestar.Theme.OnChanged(fn)              -- fn() on any scheme/colour/font chan
 Polestar.Theme.IsEllesmere() -> bool
 Polestar.Theme.SkinId() -> id             -- ui.skin as drawn: a registered skin that has not failed, else "polestar"
 Polestar.Theme.SkinKey() -> "polestar" | "halo" | "hearth" | "forever" | "blizzard" | "classic"   -- the built-in look SkinId() is drawn from
-Polestar.Theme.SkinChoices() -> { { value, text, addon?, desc?, author? }, ... }   -- built-ins, then registered skins
-Polestar.Theme.SchemeChoices() -> { { value, text, addon? }, ... }
-Polestar.Theme.RegisterScheme(id, spec) / RegisterSkin(id, spec) -> ok, message   -- the Skin API, docs/SKINS-API.md
-Polestar.Theme.API_VERSION, HasCapability(name), Capabilities(), SkinInfo(id), SchemeInfo(id), SkinScheme()
-Polestar.Theme.SkinArrowStyle(), SkinMapIcons(), SkinMedia(name), SkinHook(surface, ...)   -- read by Nav/Arrow.lua, Nav/Pins.lua
-Polestar.Theme.DrawSkinCard(frame, id), DrawSchemeCard(frame, id), PaletteFor(id)   -- the Theme page's picker cards
+Polestar.Theme.SkinChoices() -> { { value, text, addon?, desc?, author? }, ... }   -- built-ins, then registered skins (loads the installed skin addons first)
+Polestar.Theme.SchemeChoices() -> { { value, text, addon?, desc?, author? }, ... }
+Polestar.Theme.RegisterScheme(id, spec) / RegisterSkin(id, spec) -> ok, message   -- the Skin API (version 2), docs/skins/reference.md
+Polestar.Theme.API_VERSION, HasCapability(name), Capabilities(), SkinSurfaces(), SkinInfo(id), SchemeInfo(id), SkinScheme()
+Polestar.Theme.SkinVariants(id), SkinVariant(id), SkinToken(name), GuideParts(), TintArt(texture, r, g, b, a)
+Polestar.Theme.InstalledSkins(), LoadSkinAddon(id), LoadInstalledSkins()   -- skin addons that declare ## X-Polestar-Skin
+Polestar.Theme.SkinArrowStyle(), SkinMapIcons(), SkinMedia(name)   -- read by Nav/Arrow.lua, Nav/Pins.lua
+Polestar.Theme.SkinHook(surface, ...), SkinHookValue(surface, ...) -> ran, answer, SkinHooks(surface)   -- a module hands its frames to the skin in use
+Polestar.Theme.DrawSkinCard(frame, id, variant?), DrawSchemeCard(frame, id)   -- the Theme page's picker cards (Polestar_Options/Theme/SkinPicker.lua)
+Polestar.Theme.PaletteFor(id)
 Polestar.Theme.Metric(key, house) -> n   -- a size in the skin in use; `house` in the house style
 Polestar.Theme.Icon(name) -> name        -- a glyph a skin draws its own way ("bug" -> "flag")
 Polestar.Theme.FontKey() -> "opensans" | "game" | "inter" | "fira"   -- ui.font, "skin" resolved
@@ -2932,25 +2936,44 @@ house style, the `halo` dart in Halo, the `hearth` dart in Hearth and the
 game's looks; Nav/Arrow.lua). The skins' textures are drawn by
 `tools/media/skins.js`.
 
-**Skins and schemes from other addons** (the Skin API, [SKINS-API.md](SKINS-API.md)):
-`Theme.RegisterScheme` / `Theme.RegisterSkin` validate a spec (fields, ids,
-colours, the legibility floors above: grounds too light are darkened, or the
-spec refused with `strict`) and fill the same tables the built-ins use
-(`SCHEMES`, `SKIN_PALETTES`, `SKIN_FONT`, `SKIN_ROLES`, `SKIN_SHADOW`,
-`SKIN_ICON`, `METRICS`, `GAME_SKINS`), keyed by the skin's id; the six
-built-in skins and three schemes register through the same functions at
-load. A registered skin extends a built-in look (`spec.base`), so
-`Theme.SkinKey()` (what modules key their own art by) returns that base and
-`Theme.SkinId()` the skin itself. `paint(frame, kind)` runs the skin's own
-painter (`spec.paint[kind]`, `guide` / `toast` for psGuide / psLight windows)
-under `pcall` with the base look's painter and `Theme.SkinKit`; the arrow
-(`Arrow:OnTheme`) and the map pins hand their frames to `Theme.SkinHook`. The
-first error of a registered skin's painter, hook, `onApply` or `onLeave` is
-noted (`ns.NoteError`, one chat line) and the skin is off for the session
+**Skins and schemes from other addons** (the Skin API, version 2:
+[SKINS-API.md](SKINS-API.md), [docs/skins](skins/README.md)). Three files:
+`Theme/SkinApi.lua` (resident: the version and capabilities, the built-in
+schemes and skins taken as they are, the hooks' dispatch, the facts a picker
+shows, installed skin addons), `Polestar_SkinAPI/SkinCheck.lua` (load on
+demand: the checks a spec goes through, loaded by the first
+`Theme.RegisterScheme` / `Theme.RegisterSkin` call and handed back as
+`ThemeInternal.register`) and `Polestar_Options/Theme/SkinPicker.lua` (with
+the settings window: the picker's cards and the presets applied and undone).
+The checks validate a spec (fields, ids, colours, variants, shadow, art tint,
+preset, and the legibility floors above: grounds too close to the text are
+moved, or the spec refused with `strict`) and fill the same tables the
+built-ins use (`SCHEMES`, `SKIN_PALETTES`, `SKIN_FONT`, `SKIN_ROLES`,
+`SKIN_SHADOW`, `SKIN_ICON`), keyed by the skin's id. A registered skin
+extends a built-in look (`spec.base`, or its variant's), so `Theme.SkinKey()`
+(what modules key their own art by) returns that base and `Theme.SkinId()`
+the skin itself; a skin's resolver (`spec.resolve`) is asked with the
+player's context on every palette build and on a new zone (`CTX`, a repaint
+only when its answer changed). `paint(frame, kind)` runs the skin's own
+painter (`spec.paint[kind]`, `guide` / `toast` for psGuide / psLight
+windows) under `pcall` with the base look's painter and `Theme.SkinKit`, then
+its window shadow and art tint (`finishPaint`). The art modules hand their
+frames and parts to `Theme.SkinHook` / `Theme.SkinHookValue` after their own
+look: the arrow (`Arrow:OnTheme`), the pins (`Pins.SkinHook`), the guide
+window's files (title, rows, layout, render, progress, tabs, the parts a
+skin places itself, the menu; the heads-up card's edge in UI/ClassToast.lua),
+UI/Toasts.lua (cards and toasts) and the buttons (QoL/Buttons.lua,
+Nav/Prompts.lua, UI/Launcher.lua); the hooks of the skin in use are kept as it
+changes (`I.onSwitch`), so a point no skin hooks costs one lookup. The first
+error of a registered skin's painter, hook, resolver, `onApply` or `onLeave`
+is noted (`ns.NoteError`, one chat line) and the skin is off for the session
 (`FAILED`), the saved `ui.skin` kept; Theme.Refresh repaints everything in
 the house style. A saved `ui.skin` / `ui.scheme` naming an unregistered one
-draws the house style until it registers, then applies at once. The example
-addon `addon/Polestar_Skin_Example` is never shipped (forge-release's list is
+draws the house style until it registers, then applies at once; an installed
+addon that declares it (`## X-Polestar-Skin`) is loaded for it at login, when
+the player picks it, and when the settings list the skins. A refused skin the
+player chose says so once in chat. The example addon
+`addon/Polestar_Skin_Example` is never shipped (forge-release's list is
 closed) and the install check skips `Polestar_Skin_*` folders.
 
 The arrow's look (Settings > Arrow, `Nav/ArrowOptions.lua`; the `nav.arrow*`
