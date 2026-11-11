@@ -11136,6 +11136,45 @@ test("creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide see
 	for (const q of ['532', '533']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
 });
 
+// Kolbi's report (#1776, Skyborne Druid 31, 0.3.6): "Dangerous! makes you split 4 kills between a few steps". Dangerous!
+// (567) comes from the poster in the 22-25 guide, which kills Farmer Kalaba with the peasants and Citizen Wilkes at the
+// smithy; the clerk and the miner wait for this guide's town hall (with 532) and Azurelode Mine (with 539) visits, as
+// players' recordings show. A character who carried it but left the 22-25 guide before the smithy had no step for Kalaba or
+// Wilkes in Hillsbrad 30-40: the catch-up's peasants and smithy steps list them now.
+function dangerousKills(before) {
+	return engineRun(HILLSBRAD_3040, TAUREN_DRUID_29, {
+		before,
+		script: `local out = {}
+			for i, step in ipairs(E.GetGuide().steps) do
+				for k, g in ipairs(step.goals) do
+					if g.t == "kill" and g.quest == 567 then
+						local key = tostring(g.oi)
+						out[key] = (out[key] and out[key] .. "," or "") .. E.GetStepView(i).goals[k].status
+					end
+				end
+			end
+			emit(out)`,
+	});
+}
+
+test("Kolbi's report (#1776): Hillsbrad 30-40's catch-up kills Dangerous!'s Kalaba with the peasants and Wilkes at the smithy", { skip }, () => {
+	const list = goals(HILLSBRAD_3040);
+	const stepOf = (pred, what) => list[at(list, what, pred)].step;
+	const kill = (npc, q, oi) => (g) => g.t === 'kill' && g.quest === q && g.oi === oi && g.npc === npc;
+	assert.equal(stepOf(kill(2451, 567, 4), 'Farmer Kalaba'), stepOf(kill(2267, 528, 1), 'the peasants'), 'Kalaba with the peasants');
+	assert.equal(stepOf(kill(2449, 567, 2), 'Citizen Wilkes'), stepOf(kill(2404, 529, 1), 'the smithy'), 'Wilkes at the smithy');
+	assert.equal(stepOf(kill(2448, 567, 1), 'the clerk'), stepOf(kill(2387, 532, 2), 'the town hall'), 'the clerk in the town hall, with 532');
+	assert.equal(stepOf(kill(2450, 567, 3), 'the miner'), stepOf(kill(2269, 539, 2), 'the mine'), 'the miner in the mine, with 539');
+	// Carried from the 22-25 guide with nothing killed, and Battle of Hillsbrad not done: every kill has an open step.
+	const carried = dangerousKills('w.onQuest(567, { 1, 1, 1, 1 })');
+	for (const oi of ['1', '2', '3', '4']) assert.ok(carried[oi] && !/skipped|na|done/.test(carried[oi]), `567.${oi} is open: ${carried[oi]}`);
+	// A character who did the 22-25 guide (529 handed in) sees no catch-up step: Kalaba and Wilkes are behind them.
+	const followed = dangerousKills('w.complete({ 527, 528, 529, 498 }); w.onQuest(567, { { required = 1, fulfilled = 0 }, { required = 1, fulfilled = 1 }, { required = 1, fulfilled = 0 }, { required = 1, fulfilled = 1 } })');
+	assert.equal(followed['2'], 'na');
+	assert.equal(followed['4'], 'na');
+	for (const oi of ['1', '3']) assert.ok(!/skipped|na|done/.test(followed[oi]), `567.${oi} is open: ${followed[oi]}`);
+});
+
 // Centaur reputation, Magram (Discord, 2026-11-10: "Magram rep missing from the guide"): the guide went to the Magram
 // half only with Brutal Politics or Magram Alliance in the log, so a player who took only Buying Friendship: Magram,
 // or had handed the choice quest in, stayed on the Gelkis steps; a Gelkis player who had handed in only Buying
