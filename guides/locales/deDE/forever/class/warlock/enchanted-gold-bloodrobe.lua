@@ -70,7 +70,7 @@ return {
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
 	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "Zurück zu {npc:2670} in {area:35}: Er bietet {quest:4785} als Quest an, die du direkt wieder bei ihm abgibst. Vielleicht zeigt er kein Questzeichen; sprich ihn trotzdem an.",
 	-- {npc:2670} Xizk Goodstitch · {quest:4785} Fine Gold Thread
-	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "{npc:2670}: {quest:4785}, sofort wieder abgegeben (Durchsicht #1699)",
+	["{npc:2670}: {quest:4785}, handed straight back"] = "{npc:2670}: {quest:4785}, sofort wieder abgegeben",
 
 	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul

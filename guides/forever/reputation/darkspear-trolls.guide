@@ -44,7 +44,7 @@ why Runecloth to Exalted, with the old Durotar quests as a fast extra that pays 
 step Vehena: how it works
   tip Darkspear reputation comes from quests and cloth. Vehena, the Darkspear cloth quartermaster, stands in Orgrimmar's Valley of Spirits. She takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with the Darkspear Trolls also gives a quarter as much to Orgrimmar, Thunder Bluff and the Undercity. While you level, do the Darkspear quests within 5 levels of them: Durotar at 5 to 12, Zoram Strand in Ashenvale at 19 to 27, Grom'gol in Stranglethorn at 34 to 46. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Darkspear merchants sell to you for 10% less (the Classic rule), the raptor vendor included; at Exalted other races can buy the raptors: 20 gold for a level 40 raptor, 200 gold for a swift raptor at level 60, once you have mount training. The Darkspear Trolls have no tabard or other reward.
   zone Orgrimmar
-  goto 37.7,87.9 "Vehena"             -- her donations are handed in from her window and never enter the log (#1699 sweep)
+  goto 37.7,87.9 "Vehena"             -- her donations are handed in from her window and never enter the log
 
 step Valley of Trials (optional hub)
   label valley
