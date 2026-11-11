@@ -107,7 +107,8 @@ end
 ---------------------------------------------------------------------------
 
 -- A small picture of a palette on `card`: the window ground with the band
--- across its top, a title and a dimmer line in `face`, an accent bar and a
+-- across its top, a title and a dimmer line in `face`, an accent bar (with
+-- the skin's own second accent and glow after it, when it has them) and a
 -- button, edged by the window border. Textures and strings on the card
 -- itself, 4 units in from its edges (the card's own border and selection
 -- stay the picker's), made on its first draw.
@@ -146,12 +147,27 @@ local function cardParts(card)
 	p.accent = tex("ARTWORK", 0)
 	p.accent:SetPoint("BOTTOMLEFT", p.ground, "BOTTOMLEFT", 8, 8)
 	p.accent:SetHeight(3)
+	-- The skin's own second accent and glow, swatches after the accent.
+	p.accent2 = tex("ARTWORK", 0)
+	p.accent2:SetHeight(3)
+	p.glow = tex("ARTWORK", 0)
+	p.glow:SetHeight(3)
 	p.button = tex("ARTWORK", 0)
 	p.button:SetPoint("BOTTOMRIGHT", p.ground, "BOTTOMRIGHT", -8, 6)
 	p.panel:SetPoint("TOPLEFT", p.button, "TOPLEFT", -1, 1)
 	p.panel:SetPoint("BOTTOMRIGHT", p.button, "BOTTOMRIGHT", 1, -1)
 	card.psSkinCard = p
 	return p
+end
+
+-- Whether colour `c` is there and not `like` (a token the palette derived
+-- from another, as a skin without its own second accent or glow has).
+local function own(c, like)
+	if type(c) ~= "table" or type(like) ~= "table" then return type(c) == "table" end
+	for i = 1, 3 do
+		if math.abs((c[i] or 0) - (like[i] or 0)) > 0.002 then return true end
+	end
+	return false
 end
 
 local function drawCard(card, pal, face, band, stars)
@@ -179,6 +195,29 @@ local function drawCard(card, pal, face, band, stars)
 	p.line:SetTextColor(d[1], d[2], d[3], 1)
 	p.accent:SetWidth(math.max(8, math.floor(w * 0.35)))
 	tint(p.accent, pal.accent, 1)
+	-- A skin's own second accent and glow (a duotone skin's, a variant's: what
+	-- tells its variant cards apart), each a swatch after the accent; none
+	-- for a palette that only derives them (Polestar's own skins, a scheme).
+	local swatch, last = math.max(4, math.floor(w * 0.1)), p.accent
+	p.accent2:ClearAllPoints()
+	if own(pal.accent2, pal.accent) then
+		p.accent2:SetPoint("LEFT", last, "RIGHT", 2, 0)
+		p.accent2:SetWidth(swatch)
+		tint(p.accent2, pal.accent2, 1)
+		p.accent2:Show()
+		last = p.accent2
+	else
+		p.accent2:Hide()
+	end
+	p.glow:ClearAllPoints()
+	if own(pal.arrowGlow, pal.arrowNear) then
+		p.glow:SetPoint("LEFT", last, "RIGHT", 2, 0)
+		p.glow:SetWidth(swatch)
+		tint(p.glow, pal.arrowGlow, 1)
+		p.glow:Show()
+	else
+		p.glow:Hide()
+	end
 	p.button:SetSize(math.max(10, math.floor(w * 0.25)), 10)
 	tint(p.button, pal.control or pal.panelAlt)
 	tint(p.panel, pal.border)

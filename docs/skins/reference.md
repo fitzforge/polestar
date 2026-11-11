@@ -236,7 +236,7 @@ assert(#Theme.SkinSurfaces().hooks == 14 and #Theme.SkinSurfaces().paint == 14)
 
 | | |
 |---|---|
-| `DrawSkinCard(frame, id, variant?)` | Draws skin `id`'s preview (its ground, band, a title and a line in its font, an accent bar and a button, edged by its window border) on `frame`, four units in from its edges, without touching the live look. `variant`: one of the skin's [variants](#variants), else the one in use. Creates its textures on the first call (`frame.psSkinCard`); call it again on every redraw. Nothing happens for an unknown id. |
+| `DrawSkinCard(frame, id, variant?)` | Draws skin `id`'s preview (its ground, band, a title and a line in its font, an accent bar and a button, edged by its window border) on `frame`, four units in from its edges, without touching the live look. A skin that gives its own `accent2` or `glow` shows each as a swatch after the accent bar, so variants that differ only there tell apart on their cards. `variant`: one of the skin's [variants](#variants), else the one in use. Creates its textures on the first call (`frame.psSkinCard`); call it again on every redraw. Nothing happens for an unknown id. |
 | `DrawSchemeCard(frame, id)` | The same for a scheme, in Polestar's own style with the accent in use. |
 
 Polestar's settings use these, and they load with the settings window (its

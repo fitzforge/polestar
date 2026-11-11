@@ -1211,3 +1211,32 @@ fn a_part_a_skin_places_itself_leaves_the_guide_window_s_height_and_comes_back_w
 	assert_eq!(out["back"], json!({ "h": out["house"].clone(), "after": true, "tip": true }), "claimed no more: back under its own frame, the window its height again");
 	assert_eq!(out["off"], out["house"], "Polestar's own look: the house layout");
 }
+
+// The picker's variant cards tell the variants apart at card size: a skin's own second accent and glow sit as
+// swatches after the accent bar (Moonlit's two variants differ there and nowhere else on the card), also under the
+// player's own accent. A card whose palette only derives them (Polestar's own skins, a scheme) keeps the accent bar
+// alone.
+#[test]
+fn a_variant_s_card_shows_its_own_second_accent_and_glow_beside_the_accent() {
+	let out = run(r##"
+		local function swatches(id, variant, scheme)
+			local card = CreateFrame("Frame")
+			card:SetSize(154, 88)
+			if scheme then T.DrawSchemeCard(card, id) else T.DrawSkinCard(card, id, variant) end
+			local p = card.psSkinCard
+			local function shown(t) return t and t:IsShown() and hexOf({ t:GetVertexColor() }) or false end
+			return { accent = shown(p.accent), accent2 = shown(p.accent2), glow = shown(p.glow) }
+		end
+		local out = { full = swatches("moonlit", "full"), new = swatches("moonlit", "new"), halo = swatches("halo"),
+			polestar = swatches("polestar"), forever = swatches("forever"), scheme = swatches("moonlit", nil, true) }
+		Polestar.Set("ui.accent", { 1, 0, 0 })
+		out.fullOwn, out.newOwn = swatches("moonlit", "full"), swatches("moonlit", "new")
+		emit(out)"##);
+	assert_eq!(out["full"], json!({ "accent": "afc0ff", "accent2": "d8e0ff", "glow": "c8d4ff" }), "Full moon: silver");
+	assert_eq!(out["new"], json!({ "accent": "afc0ff", "accent2": "7f9cff", "glow": "6f8dff" }), "New moon: blue");
+	assert_eq!(out["fullOwn"], json!({ "accent": "ff0000", "accent2": "d8e0ff", "glow": "c8d4ff" }), "the player's accent, the variant's own swatches");
+	assert_eq!(out["newOwn"], json!({ "accent": "ff0000", "accent2": "7f9cff", "glow": "6f8dff" }));
+	for k in ["halo", "polestar", "forever", "scheme"] {
+		assert_eq!((out[k]["accent2"].clone(), out[k]["glow"].clone()), (json!(false), json!(false)), "{k}: the accent bar alone");
+	}
+}
