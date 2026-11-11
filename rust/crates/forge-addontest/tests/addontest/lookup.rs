@@ -1294,7 +1294,7 @@ fn options_the_lookup_tab_of_discovery_and_its_defaults() {
 		emit(out)
 		emit({ Polestar.Get("lookup.enabled"), Polestar.Get("lookup.tooltip"), Polestar.Get("lookup.altClick"), Polestar.Get("lookup.mounts") })
 	"#,
-		&Opts { files: &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml"], ..Default::default() },
+		&Opts { files: &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "../Polestar_Options/Lookup/Options.lua"], ..Default::default() },
 	));
 	let keys: Vec<Value> = arr(&controls).iter().map(|c| c["key"].clone()).collect();
 	assert_eq!(keys, ["lookup.enabled", "lookup.tooltip", "lookup.altClick", "lookup.mounts"]);

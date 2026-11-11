@@ -503,11 +503,18 @@ fn quest_reward_tooltips_hovering_a_choice_setquestitem_setquestlogitem_shows_th
 
 #[test]
 fn options_the_gear_advice_on_questing_with_the_class_spec_dropdown_registered_once() {
+	// The rows are the settings' addon's (Polestar_Options/Gear/Options.lua), run here as it loads.
+	let file = forge_addontest::run::addons_dir().join("Polestar_Options/Gear/Options.lua").to_string_lossy().into_owned();
 	let out = run(
-		r#"
+		&[
+			r#"
 		local seen = {}
-		Polestar.RegisterOptions = function(def) seen[#seen + 1] = def end
-		stub.login()
+		Polestar.RegisterOptions = function(def) seen[#seen + 1] = def; return true end
+		dofile([["#,
+			&file,
+			r#"]])
+		stub.login()"#,
+			r#"
 		local out = {}
 		for _, def in ipairs(seen) do
 			local keys = {}
@@ -517,6 +524,8 @@ fn options_the_gear_advice_on_questing_with_the_class_spec_dropdown_registered_o
 		end
 		emit(out)
 	"#,
+		]
+		.concat(),
 		Opts { login: false, ..Default::default() },
 	);
 	let defs = out[0].as_array().unwrap();

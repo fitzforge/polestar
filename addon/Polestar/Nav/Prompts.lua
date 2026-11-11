@@ -447,24 +447,3 @@ ns.OnLogin(function()
 	hookArrow()
 	update()
 end)
-
----------------------------------------------------------------------------
--- Options: Guide > Arrow & routes > Along the route (Alerts.lua adds its
--- own), and Quality of Life > Travel > Along the route: one setting, a fresh
--- control per page (the registry keeps per-control state).
----------------------------------------------------------------------------
-
-if ns.RegisterOptions then
-	local function castPrompt()
-		return Nav.HandoffOption({ kind = "toggle", key = "nav.castPrompt", label = L["Travel button"],
-			search = "hearth, hearthstone, teleport, portal, cast button, travel spell",
-			help = L["When the route says to hearth or teleport, a button under the arrow casts it. Right-click the arrow to skip a leg."] })
-	end
-	for _, spec in ipairs({
-		{ page = L["Guide"], tab = L["Arrow & routes"], section = L["Along the route"], controls = { castPrompt() } },
-		{ page = L["Quality of Life"], tab = L["Travel"], section = L["Along the route"], controls = { castPrompt() } },
-	}) do
-		local ok, err = ns.RegisterOptions(spec)
-		if not ok and geterrorhandler then geterrorhandler()(err) end
-	end
-end

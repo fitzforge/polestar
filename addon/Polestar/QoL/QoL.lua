@@ -1,6 +1,6 @@
 -- Quality of Life: the questing helpers players expect from a leveling addon,
 -- each behind a "qol.*" setting on the Questing or Quality of Life options
--- page (QoL/Options.lua).
+-- page (their rows: Polestar_Options/QoL/Options.lua).
 -- This file holds what the features share: settings, the out-of-combat queue
 -- for secure frames, the current step's goals, and the client calls Compat
 -- does not cover (bags, items, XP, money). Every client function used here

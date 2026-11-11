@@ -1,13 +1,14 @@
 -- The Quality of Life settings (docs/ARCHITECTURE.md, "Options registry"):
 -- the questing helpers on the Questing page, the rest on Quality of Life, and
 -- the conveniences among the questing helpers on both (C below). Both pages
--- and their tabs and sections are declared in UI/Options.lua.
+-- and their tabs and sections are declared in UI/Options.lua. Part of the
+-- settings' addon: nothing of it is in memory before the settings open.
 
-local ADDON, ns = ...
+local ns = Polestar
 local L = ns.L
 local QoL = ns.QoL
 
-if not ns.RegisterOptions then return end
+if not (QoL and ns.RegisterOptions) then return end
 
 local QUESTING, QOL = L["Questing"], L["Quality of Life"]
 

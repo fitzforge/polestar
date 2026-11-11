@@ -640,14 +640,3 @@ ns.On("SETTING_CHANGED", function(path)
 	end
 end)
 Theme.OnChanged(function() if guideShown() then JP.Refresh(true) end end)
-
-if ns.Nav and ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
-		controls = {
-			ns.Nav.HandoffOption({ kind = "toggle", key = "nav.journeySteps", label = L["Show the journey"],
-				help = L["The route's steps in the guide window with a time for each, counting down: walks, lifts, boats and flights. Click the current step to skip it."] }),
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end

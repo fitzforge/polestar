@@ -523,15 +523,3 @@ for _, event in ipairs({ "PLAYER_DEAD", "PLAYER_ALIVE", "PLAYER_UNGHOST" }) do
 		heard()
 	end)
 end
-
-if ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Integrations"], section = "Shortest Path Forever",
-		controls = {
-			{ kind = "toggle", key = "nav.spfHandoff", label = L["Hand guiding to Shortest Path Forever"],
-				help = L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay. Off: Polestar guides, and steps aside only while a journey you started in Shortest Path Forever runs."],
-				needs = Handoff.Available },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end
