@@ -271,6 +271,22 @@ if STUDIO_ATLAS then
 	end
 end
 
+-- Interface files by path (the art cache's file list, the files decoded
+-- into it): SetTexture and SetStatusBarTexture draw them by file ID.
+if STUDIO_FILES then
+	local F = STUDIO_FILES
+	local function fileOf(p)
+		if type(p) == "string" then
+			local fid = F[(p:lower():gsub("/", "\\"):gsub("%.blp$", ""))]
+			if fid then return fid end
+		end
+		return p
+	end
+	local setTexture, setBar = M.SetTexture, M.SetStatusBarTexture
+	M.SetTexture = function(self, p, ...) return setTexture(self, fileOf(p), ...) end
+	if setBar then M.SetStatusBarTexture = function(self, p, ...) return setBar(self, fileOf(p), ...) end end
+end
+
 ---------------------------------------------------------------------------
 -- Scenario helpers
 ---------------------------------------------------------------------------

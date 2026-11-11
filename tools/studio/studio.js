@@ -63,16 +63,30 @@ function withClientFonts(L) {
 	const d = L.sharedData();
 	if (d.studioFonts) return d;
 	d.studioFonts = true;
+	const faces = [];
 	const file = art.font('FRIZQT__.TTF');
-	if (!file) return d;
-	const f = new L.Font(file);
-	d.fonts['FRIZQT__.TTF'] = f;
+	if (file) faces.push(['FRIZQT__.TTF', file]);
+	// A skin addon's own fonts (addon/Polestar_Skin_*/Fonts, the Skin API's
+	// `font = { regular = path, ... }`), by file name, as the preview does.
+	const addons = L.ADDONS;
+	for (const folder of fs.existsSync(addons) ? fs.readdirSync(addons) : []) {
+		if (!folder.startsWith('Polestar_Skin_')) continue;
+		const dir = path.join(addons, folder, 'Fonts');
+		if (!fs.existsSync(dir)) continue;
+		for (const f of fs.readdirSync(dir)) if (/\.ttf$/i.test(f)) faces.push([f, path.join(dir, f)]);
+	}
 	const cps = [];
 	for (let c = 32; c < 127; c++) cps.push(c);
 	for (let c = 0xa0; c < 0x180; c++) cps.push(c);
 	cps.push(0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d, 0x2026, 0x2022, 0x00b7, 0x00d7, 0x2192);
-	const adv = cps.map((c) => `[${c}]=${f.advanceEm(c).toFixed(5)}`).join(',');
-	d.metrics += `\npreview.metrics["FRIZQT__.TTF"] = { upm = ${f.upm}, fallback = ${f.advanceEm(0x6e).toFixed(5)}, adv = { ${adv} } }`;
+	for (const [name, ttf] of faces) {
+		// `in`, not a read: the fonts proxy answers any name with the fallback face.
+		if (name in d.fonts) continue;
+		const f = new L.Font(ttf);
+		d.fonts[name] = f;
+		const adv = cps.map((c) => `[${c}]=${f.advanceEm(c).toFixed(5)}`).join(',');
+		d.metrics += `\npreview.metrics[${JSON.stringify(name)}] = { upm = ${f.upm}, fallback = ${f.advanceEm(0x6e).toFixed(5)}, adv = { ${adv} } }`;
+	}
 	return d;
 }
 
@@ -131,7 +145,12 @@ async function prepare(sc, offline) {
 	const rows = Object.entries(atlases).filter(([, a]) => art.has(art.dir(), a.file))
 		.map(([k, a]) => `[${q(k)}] = { ${a.file}, ${a.w}, ${a.h}, ${a.l}, ${a.r}, ${a.t}, ${a.b} }`);
 	const atlasLua = rows.length ? `STUDIO_ATLAS = { ${rows.join(', ')} }\n` : '';
-	return { book, lua: data.lua + atlasLua, missingArt: pulled.missing };
+	// The interface files the cache holds (SetTexture / SetStatusBarTexture by
+	// path, as the game's looks name the vanilla art).
+	const files = Object.entries(art.readJson(path.join(art.dir(), 'files.json'), {})).filter(([, fid]) => art.has(art.dir(), fid))
+		.map(([k, fid]) => `[${q(k)}] = ${fid}`);
+	const filesLua = files.length ? `STUDIO_FILES = { ${files.join(', ')} }\n` : '';
+	return { book, lua: data.lua + atlasLua + filesLua, missingArt: pulled.missing };
 }
 
 function setupLua(sc, book) {
