@@ -19,7 +19,7 @@
 -- goals grey with the Engine's "failed: abandon it and take it again"
 -- (Own.failedQuest) and the alert says the same in chat.
 -- A running timer whose hand-in the active guide's route does not make from
--- the live step on (0.3.7: Fitz carried Apothecary Zamah, offered by a giver
+-- the live step on (0.3.7: Apothecary Zamah, offered by a giver
 -- the Barrens route visits, with 42:00 left) gets a line of its own at the top
 -- of the guide window's While-here panel (UI/GuideFrame.lua, GF.FillHere):
 -- "Apothecary Zamah 42:00 left", under it "Thunder Bluff ~6 min · this guide
@@ -300,7 +300,8 @@ function Timed.OffText(q)
 	else
 		sub = format(L["%s · this guide doesn't go there"], place)
 	end
-	return name .. "  " .. countdown, sub
+	-- Timed.Countdown starts with the hourglass and its own space: "<quest> <hourglass> 44:59 left".
+	return name .. " " .. countdown, sub
 end
 
 function Timed.AimOff(q)
