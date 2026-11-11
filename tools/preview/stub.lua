@@ -275,8 +275,9 @@ local function entry(o)
 	else
 		e.scrollChild = idOf(o.scrollChild)
 		e.vscroll = o.scroll
-		-- A single-line edit box clips its text at its edges, as the client draws it.
-		e.clips = o.clips or o.kind == "ScrollFrame" or (o.kind == "EditBox" and not o.multiLine)
+		-- An edit box clips nothing of its own children (a placeholder hint is drawn whole, as in the
+		-- client); its typed text (typedText below) is cut to the box in one line or wraps in several.
+		e.clips = o.clips or o.kind == "ScrollFrame"
 		e.checked = o.checked
 		e.checkedTexture = idOf(o.checkedTexture)
 		e.thumbTexture = idOf(o.thumbTexture)
