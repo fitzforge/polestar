@@ -1900,16 +1900,16 @@ a node the character knows (`Nav.GetTaxiNode`, `Nav.GetKnownTaxiNodes`):
   whose own work is behind them). The verdict holds until the character
   learns a flight path (`Own.flyVerdicts`).
 
-A travel step passed either way stays passed once the route moves beyond it:
-its gotos and flight are latched like any travel goal the route passes
-(`latchPassed`), so the landing never reopens it. Before that (#1768), landing
-at the flight's end left nothing to fly on to, the walk before it read open
-again and the arrow sent the player back (Camp Taurajo to Thunder Bluff's
-rise, then the flight to Camp Taurajo again).
-
 With the planner off the steps hold as written. `forge guide lint` reports a
 flight to a stop with nothing to do followed by another flight
 (`check_flight_hops`, a house rule).
+
+A travel step the planner passed (`Own.flightOn`, a verdict) stays passed once
+the route moves beyond it: its gotos and flight are latched like any travel
+goal the route passes (`latchPassed`), so the landing never reopens it. Before
+that (#1768), landing at the flight's end left nothing to fly on to, the walk
+before it read open again and the arrow sent the player back (Camp Taurajo to
+Thunder Bluff's rise, then the flight to Camp Taurajo again).
 
 #### Focus: one person at a time
 
