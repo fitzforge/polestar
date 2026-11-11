@@ -29,7 +29,6 @@ return {
 	["Continue south to {area:35}. {npc:7406} has his workshop on the upper ring of the bay."] = "继续向南前往{area:35}。{npc:7406}的工作室在海湾的上层环道上。",
 	-- {npc:7406} Oglethorpe Obnoticus
 	["{npc:7406}, inside"] = "{npc:7406}：在屋内",
-	["Only once all three robots are home"] = "仅当三个机器人都回家后",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
@@ -253,6 +252,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "上层精灵和哈达尔萨特",
 	-- ["Ironjaw Basilisks"] = "铁腭蜥蜴",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "留着{area:1417}给{zone:1446}的{npc:7771}。",
+	-- ["Only once all three robots are home"] = "仅当三个机器人都回家后",
 	-- ["Ride into {area:16}"] = "骑马进入{area:16}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北骑往{area:1108}；{npc:14637}在码头上等候。",
 	-- ["Sea elementals"] = "海元素",

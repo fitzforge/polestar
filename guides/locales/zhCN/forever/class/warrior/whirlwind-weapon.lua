@@ -39,9 +39,9 @@ return {
 	["You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use {spell:1160}: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again."] = "你有10分钟。先吃喝回满，再站到人群中央的栅格上：{npc:6248} 会宣布挑战者入场（26—27级），每次一名，间隔15—20秒，而且只有你站在栅格附近时才会出场。每杀一名，先走下栅格吃东西或打绷带；准备好迎接下一名再站回去。一共六名，之后 {npc:6238}（33级，非精英）会走出来；在你主动攻击前他会保持中立，因此先吃东西或打绷带。不要用 {spell:1160}：它会让挑战者逃跑，导致更多挑战者同时涌入。如果没有开始，先离开栅格再站上去，或放弃任务后重新接受。",
 
 	-- Step 8: Bath'rah the Windwatcher
-	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {quest:1714} Essence of the Exile
+	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {item:6851} Essence of the Exile
 	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
-	["{npc:6176} camps by ruins on the east bank of the river that runs past {area:272}, a short walk north-east of the town, just over the border in {zone:1416}; his cauldron stands beside him. Horde: fly to {area:272}. Alliance: fly to {area:271} and go north along the river; {area:272}'s guards are level 42 elites, so keep away from the town. Accepting {quest:1712} gives you {item:6929}, the list of what he needs: 8 {item:3357}, 30 Bloodscalp Tusks and the {quest:1714} from his cauldron. Click the cauldron for that quest."] = "{npc:6176}在流经{area:272}的河流东岸废墟旁扎营，从镇子往东北走不远、刚过边界进入{zone:1416}即可找到；他的大锅就在旁边。部落飞往{area:272}。联盟飞往{area:271}，再沿河向北；{area:272}的守卫是42级精英，远离镇子。接受{quest:1712}可获得{item:6929}，上面列出他需要的材料：8个{item:3357}、30个血顶巨魔的獠牙，以及从大锅取得的{quest:1714}。点击大锅接受该任务。",
+	["{npc:6176} camps by ruins on the east bank of the river that runs past {area:272}, a short walk north-east of the town, just over the border in {zone:1416}; his cauldron stands beside him. Horde: fly to {area:272}. Alliance: fly to {area:271} and go north along the river; {area:272}'s guards are level 42 elites, so keep away from the town. Accepting {quest:1712} gives you {item:6929}, the list of what he needs: 8 {item:3357}, 30 Bloodscalp Tusks and the {item:6851} from his cauldron. The cauldron's {item:6851} is not a quest you take: it never shows in your quest log. Come back with its charms and hand them in at the cauldron."] = "",
 
 	-- Step 9: Liferoot
 	-- {item:3357} Liferoot · {zone:1437} Wetlands · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {npc:1302} Bernard Gump · {npc:1313} Maria Lumere · {zone:1453} Stormwind · {npc:844} Antonio Perelli · {area:460} Sun Rock Retreat · {zone:1441} Thousand Needles
@@ -69,8 +69,8 @@ return {
 	["{item:4481}, from Cresting Exiles"] = "{item:4481}，由水浪流放者掉落",
 
 	-- Step 12: Essence of the Exile
-	-- {object:89931} Bath'rah's Cauldron · {quest:1714} Essence of the Exile
-	["Put the 24 charms into {object:89931}: it hands you the {quest:1714}."] = "把24个咒符放入{object:89931}：它会给你{quest:1714}。",
+	-- {object:89931} Bath'rah's Cauldron · {quest:1712} Cyclonian · {quest:1714} Essence of the Exile
+	["Click {object:89931} with the 24 charms in your bags and {quest:1712} in your log. Its window asks for the charms straight away, with nothing to accept: Continue, then Complete, and it hands you the {quest:1714}."] = "",
 	-- {quest:1714} Essence of the Exile · {npc:6176} Bath'rah the Windwatcher
 	["{quest:1714}, from the cauldron by {npc:6176}"] = "{quest:1714}，从 {npc:6176} 旁的锅中获得",
 
@@ -85,6 +85,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 30, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {npc:6236} on {area:720} in the {zone:1413}."] = "30级时，{object:2100}酒馆旁的{npc:5479}会让你去{zone:1413}的{area:720}找{npc:6236}。",
 	-- ["Defeat the challengers and {npc:6238}"] = "击败挑战者和{npc:6238}",
+	-- ["Put the 24 charms into {object:89931}: it hands you the {quest:1714}."] = "把24个咒符放入{object:89931}：它会给你{quest:1714}。",
 	-- ["Ride south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "从{area:392}沿海岸向南骑到{area:720}。{npc:6236}站在竞技场旁：踩上格栅开始战斗；挑战者一个接一个上场，最后是{npc:6238}（33级）。",
 	-- ["The Bloodscalp trolls hold the north-west of {zone:1434}; they drop the {item:3901}."] = "血顶巨魔占据着{zone:1434}西北部；他们掉落{item:3901}。",
 	-- ["The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite, and hit hard at 30-33: bring a friend or come at 35 or more. Burning Exiles (fire) by the {area:334} in the north-west, north-west of {area:320}; Thundering Exiles (air) by the {area:336} south-east of {area:320}, casting {spell:403} from 40 yards; Cresting Exiles (water) by the {area:333}, north-west of {area:321}, with {spell:122}. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning)."] = "大锅需要每种咒符各 8 个，总共 24 个；每只流放者掉落对应咒符的概率约为三分之一，因此预计需要击杀约 70 只。它们都是 38-39 级的非精英怪，但对 30-33 级玩家伤害很高：带朋友来，或等到 35 级及以上。烈焰流放者（火）位于西北部的 {area:334} 旁、{area:320} 西北方；雷霆流放者（风）位于 {area:320} 东南方的 {area:336} 旁，会从 40 码外施放 {spell:403}；水浪流放者（水）位于 {area:321} 西北方的 {area:333} 旁，会使用 {spell:122}。每种约十二只，不到 7 分钟就会刷新。咒符可以交易，也能在拍卖行买卖；使用一种咒符可暂时放逐另一种流放者（烈焰对雷霆、雷霆对水浪、水浪对烈焰）。",
@@ -94,6 +95,7 @@ return {
 	-- ["{item:4480} from the Thundering Exiles"] = "{item:4480}，来自{npc:2762}",
 	-- ["{item:4481} from the Cresting Exiles"] = "{item:4481}，来自{npc:2761}",
 	-- ["{item:6894} from {quest:1712}"] = "{item:6894}，来自{quest:1712}",
+	-- ["{npc:6176} camps by ruins on the east bank of the river that runs past {area:272}, a short walk north-east of the town, just over the border in {zone:1416}; his cauldron stands beside him. Horde: fly to {area:272}. Alliance: fly to {area:271} and go north along the river; {area:272}'s guards are level 42 elites, so keep away from the town. Accepting {quest:1712} gives you {item:6929}, the list of what he needs: 8 {item:3357}, 30 Bloodscalp Tusks and the {quest:1714} from his cauldron. Click the cauldron for that quest."] = "{npc:6176}在流经{area:272}的河流东岸废墟旁扎营，从镇子往东北走不远、刚过边界进入{zone:1416}即可找到；他的大锅就在旁边。部落飞往{area:272}。联盟飞往{area:271}，再沿河向北；{area:272}的守卫是42级精英，远离镇子。接受{quest:1712}可获得{item:6929}，上面列出他需要的材料：8个{item:3357}、30个血顶巨魔的獠牙，以及从大锅取得的{quest:1714}。点击大锅接受该任务。",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176}在{zone:1416}东南部、{zone:1424}上方扎营；他的大锅就在旁边。他要一个{item:3357}、一个{item:3901}和{quest:1714}，后者由他的大锅用三个护符熬制。",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712}在{npc:6176}营地北边不远处等候，身上带着{item:6894}。{quest:1712}是精英：建议组队。",
 }

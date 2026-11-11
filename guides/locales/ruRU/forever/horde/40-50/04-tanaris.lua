@@ -91,8 +91,6 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "для персонажа {npc:7010} ({zone:1454}), примерно на 50-м уровне",
-	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
-	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "Устройство {object:142071} в центре города: яйцо находится на юге края {zone:1444}, примерно на 50-м уровне",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -188,6 +186,7 @@ return {
 	-- ["The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge."] = "Опаляющие лавовые пауки бродят по плато и лавовым озерам на юго-западе ущелья.",
 	-- ["The Steamsmiths' furnaces"] = "Горны кузнецов",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "Корабль ({area:35}) причаливает к пирсу ({area:392}) под холмом распорядителя полетов.",
+	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "Устройство {object:142071} в центре города: яйцо находится на юге края {zone:1444}, примерно на 50-м уровне",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "К западу от лагеря долину заполняют кактусовые существа; росяная железа – только у собирателей росы. С большинства монстров ({zone:1446}) изредка падает аварийный маяк КПХ-17/TN: сохраните его, если выпадет.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "К западу насекомые-сентипаары роятся у своих ульев; части тел падают с любого.",
 	-- ["the {object:150075} in the square"] = "{object:150075} на площади",

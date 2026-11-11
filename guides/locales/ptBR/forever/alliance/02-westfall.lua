@@ -140,7 +140,7 @@ return {
 	-- Step 29: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
 	["Goretusk Livers as you go"] = "Fígados de Goretusco pelo caminho",
-	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
+	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
 	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "Goretuscos e Goretuscos Jovens fuçam em todos os trechos deste circuito: mate os que encontrar pelo caminho para pegar os fígados do empadão.",
 
 	-- Step 30: Stringy Vulture Meat as you go

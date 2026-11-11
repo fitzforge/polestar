@@ -23,8 +23,6 @@ return {
 	["Horde fly to {area:272}, Alliance to {area:271}. The trail to the manor is hard to see: it starts behind the plateau north of {area:275}, east of {area:272}, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast {spell:1846} near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies {area:3486}: {npc:6707} is upstairs inside. Do not attack anyone at the manor: it costs {npc:13936} reputation."] = "部落飞往{area:272}，联盟飞往{area:271}。通往庄园的小路很难发现：起点在{area:275}北面高地的后方、{area:272}以东，沿路爬上山丘，拐两次弯后到达一条小隧道。隧道内有个箱子：不要打开。在附近施放{spell:1846}，再走近箱子；这样就完成了入门考验（五分钟后刷新）。打开箱子会召来米尔顿·西弗，一名约32级的精英盗贼。穿过隧道就是{area:3486}：{npc:6707}在屋内楼上。不要攻击庄园中的任何人：会损失{npc:13936}声望。",
 	-- {spell:1846} Detect Traps
 	["Rite of Cunning: {spell:1846} beside the tunnel chest"] = "狡诈仪式：在隧道宝箱旁使用 {spell:1846}。",
-	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "",
 
 	-- Step 3: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems

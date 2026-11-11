@@ -92,8 +92,8 @@ return {
 	["{npc:14338} sits shackled in Dire Maul North, the Gordok ogres' wing (a five-player dungeon from level 57: group up). Every {item:18250} frees him once: 150 to every town, and he is shackled again on your next run. Gordok ogres drop the keys (about one in fifteen; {npc:14321} one in seven): a full run of the wing usually brings one. His {item:18258} pays 100 the first time and 50 after, for 4 Bolts of Runecloth, 8 {item:8170}, 2 {item:14341} and the {item:18240} from the basket in the wing. Under 57 when you get here? Unskip this step later."] = "{npc:14338} sitzt in Fesseln im Düsterbruch Nord, dem Flügel der Gordok-Oger (ein Dungeon für fünf Spieler ab Stufe 57: bildet eine Gruppe). Jeder {item:18250} befreit ihn einmal: 150 bei jeder Stadt, und bei deinem nächsten Durchlauf ist er wieder gefesselt. Gordok-Oger lassen die Schlüssel fallen (etwa einer von fünfzehn; {npc:14321} einer von sieben): Ein kompletter Durchlauf des Flügels bringt meist einen. Sein {item:18258} zahlt beim ersten Mal 100 und danach 50, für 4 Ballen Runenstoff, 8 {item:8170}, 2 {item:14341} und das {item:18240} aus dem Korb im Flügel. Bist du hier unter Stufe 57? Hebe das Überspringen dieses Schritts später auf.",
 	-- {item:18250} Gordok Shackle Key
 	["{item:18250}, Gordok ogres"] = "{item:18250}, Gordok-Oger",
-	-- {quest:5525} Free Knot!
-	["{quest:5525}: 150 to every town"] = "{quest:5525}: 150 für jede Stadt",
+	-- {quest:5525} Free Knot! · {npc:14338} Knot Thimblejack
+	["{quest:5525}: 150 to every town, handed in from {npc:14338}'s window"] = "",
 	-- {quest:5525} Free Knot!
 	["{quest:5525}, again on every later run: 150"] = "{quest:5525}, bei jedem weiteren Durchlauf erneut: 150",
 
@@ -205,4 +205,7 @@ return {
 	["Every town to Exalted"] = "Jede Stadt bis Ehrfürchtig",
 	-- {npc:14637} Zorbin Fandazzle
 	["Revered to Exalted is 21,000 more with each town: 840 of {npc:14637}'s turn-ins or 140 Free Knot runs. No quartermaster sells anything for Exalted: this is for the title bar only."] = "Von Respektvoll bis Ehrfürchtig sind es weitere 21.000 bei jeder Stadt: 840 Abgaben bei {npc:14637} oder 140 Free-Knot-Durchläufe. Kein Rüstmeister verkauft etwas für Ehrfürchtig: Das ist nur für die Titelleiste.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{quest:5525}: 150 to every town"] = "{quest:5525}: 150 für jede Stadt",
 }

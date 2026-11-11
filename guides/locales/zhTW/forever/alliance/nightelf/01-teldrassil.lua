@@ -18,7 +18,7 @@ return {
 	-- {area:188} Shadowglen
 	["{area:188}: kill these as you meet them"] = "",
 	-- {area:256} Aldrassil · {item:3297} Fel Moss
-	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Gnarlpine Totems = {item:279082} Gnarlpine Totem
+	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Grells = {npc:1988} Grell · Gnarlpine Totems = {item:279082} Gnarlpine Totem
 	["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "小夜刃豹和小草刺野豬在{area:256}周圍遊蕩。小劣魔帶著{item:3297}，在樹西邊瘤背圖騰矗立的樹林裡。",
 
 	-- Step 3: Back at Aldrassil
@@ -62,8 +62,9 @@ return {
 	-- {quest:917} Webwood Egg
 	["{quest:917} and the antidote"] = "{quest:917}與解毒劑",
 	-- {object:4406} Webwood Eggs · {area:257} Shadowthread Cave · {area:256} Aldrassil
-	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom
+	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom · Grells = {npc:1988} Grell
 	["The {object:4406} lie at the back of {area:257}: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of {area:256}."] = "{object:4406}在{area:257}深處：走中間的路，分岔處往左，一路上到高處的岩架。紫藍色蘑菇由小劣魔掉落，月牙百合花生長在{area:256}北邊的池塘旁。",
+	-- plural, as words: Grells = {npc:1988} Grell
 	["Grells"] = "",
 
 	-- Step 8: Shadowglen
@@ -382,8 +383,6 @@ return {
 	-- {npc:2080} Denalan
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
 	["South-east of Dolanaar, to {npc:2080}. Lasher Sproutlings wander around him on the shore."] = "從多蘭納爾向東南前往{npc:2080}那裡。鞭笞者幼苗在岸邊他的周圍遊蕩。",
-	-- {object:7510} Sprouted Frond
-	["{object:7510}, beside him"] = "{object:7510}，在他旁邊",
 
 	-- Step 63: Dolanaar again
 	-- {area:186} Dolanaar
@@ -569,6 +568,7 @@ return {
 	-- ["{npc:6094}, in the inn: Camping 101, {skill:129}"] = "{npc:6094}，在旅店裡：露營入門，{skill:129}",
 	-- ["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "{npc:6287}，在夏伊拉之前的路旁紮營：露營入門，剝皮師",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}，在巢穴裡",
+	-- ["{object:7510}, beside him"] = "{object:7510}，在他旁邊",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488}與星風村月井",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}：施放{spell:1259799}和{spell:20580}，然後交回給{npc:3595}",
 }

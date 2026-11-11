@@ -34,21 +34,23 @@ return {
 	["Inside"] = "Lá dentro",
 
 	-- Step 5: The Hunt Continues
-	-- {npc:6775} Antur Fallow · {npc:2980} Grull Hawkwind
+	-- {npc:6775} Antur Fallow
 	-- plural, as words: Mountain Cougars = {npc:2961} Mountain Cougar
-	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} fica no extremo oeste do acampamento, no canto noroeste das colinas onde rondam os Pumas da Montanha: pegue a missão dele, cace os pumas dali para o sul e o leste e depois volte até {npc:2980}.",
+	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot."] = "",
 
-	-- Step 6: Grull Hawkwind
-	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
-	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "{npc:3209}, ao lado de {npc:2980}; anda por {area:221}: procure dentro do círculo no mapa",
+	-- Step 6: Seer Graytongue
+	["The Seer's tent stands at the foot of the cougars' hills."] = "",
 
-	-- Step 7: Seer Graytongue
-	["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Siga a trilha para o sul saindo do acampamento até a tenda do Vidente, no sopé das colinas.",
-
-	-- Step 8: The shrine of An'she and Mu'sha
+	-- Step 7: The shrine of An'she and Mu'sha
 	["The shrine of An'she and Mu'sha"] = "O santuário de An'she e Mu'sha",
 	-- {object:660739} Ritual Fire
 	["The incense burns out in ten minutes: run straight east along the southern hills to the {object:660739}."] = "O incenso se apaga em dez minutos: corra direto para o leste pelas colinas do sul até a {object:660739}.",
+
+	-- Step 8: Grull Hawkwind
+	-- {area:221} Camp Narache
+	["Back north-west up to {area:221}."] = "",
+	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
+	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "{npc:3209}, ao lado de {npc:2980}; anda por {area:221}: procure dentro do círculo no mapa",
 
 	-- Step 9: Red Cloud Mesa: kill these as you meet them
 	-- {area:220} Red Cloud Mesa
@@ -386,6 +388,7 @@ return {
 	-- ["Class turn-ins in {area:1638}"] = "Entregas de classe em {area:1638}",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "Termine o coração de lobo, o fêmur de puma, a escama de pinote e a moela de rapineiro nas planícies em volta da aldeia.",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Predadores das Estepes vagam pelas planícies em volta do {area:225}",
+	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Siga a trilha para o sul saindo do acampamento até a tenda do Vidente, no sopé das colinas.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Siga a estrada para o norte saindo de {area:220}. {npc:265810} espera na estrada logo ao sul de {area:222}; use /sit junto à fogueira dela até ganhar {spell:1229451}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Centauros Galath e Lobos-da-pradaria Alfa",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "Use a Pedra de Regresso para ir à {area:222} e siga para o norte até o {area:1639}.",
@@ -422,5 +425,6 @@ return {
 	-- ["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}: para {quest:860} em {area:380}",
 	-- ["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}: para {npc:3448} em {area:380}",
 	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "{npc:6746}, na elevação central, manda você até {npc:3033} no {area:1639}.",
+	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} fica no extremo oeste do acampamento, no canto noroeste das colinas onde rondam os Pumas da Montanha: pegue a missão dele, cace os pumas dali para o sul e o leste e depois volte até {npc:2980}.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130} e {quest:756}",
 }

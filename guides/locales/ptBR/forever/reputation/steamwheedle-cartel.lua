@@ -92,8 +92,8 @@ return {
 	["{npc:14338} sits shackled in Dire Maul North, the Gordok ogres' wing (a five-player dungeon from level 57: group up). Every {item:18250} frees him once: 150 to every town, and he is shackled again on your next run. Gordok ogres drop the keys (about one in fifteen; {npc:14321} one in seven): a full run of the wing usually brings one. His {item:18258} pays 100 the first time and 50 after, for 4 Bolts of Runecloth, 8 {item:8170}, 2 {item:14341} and the {item:18240} from the basket in the wing. Under 57 when you get here? Unskip this step later."] = "{npc:14338} está acorrentado em Gládio Cruel Norte, a ala dos ogros Gordok (uma masmorra para cinco jogadores a partir do nível 57: forme um grupo). Cada {item:18250} o liberta uma vez: 150 para cada cidade, e ele é acorrentado de novo na sua próxima passagem. Os ogros Gordok soltam as chaves (cerca de uma em quinze; {npc:14321}, uma em sete): uma passagem completa pela ala costuma render uma. O {item:18258} dele paga 100 na primeira vez e 50 depois, por 4 Rolos de Runatrama, 8 {item:8170}, 2 {item:14341} e o {item:18240} da cesta na ala. Abaixo do 57 quando chegar aqui? Reative este passo depois.",
 	-- {item:18250} Gordok Shackle Key
 	["{item:18250}, Gordok ogres"] = "{item:18250}, ogros Gordok",
-	-- {quest:5525} Free Knot!
-	["{quest:5525}: 150 to every town"] = "{quest:5525}: 150 para cada cidade",
+	-- {quest:5525} Free Knot! · {npc:14338} Knot Thimblejack
+	["{quest:5525}: 150 to every town, handed in from {npc:14338}'s window"] = "",
 	-- {quest:5525} Free Knot!
 	["{quest:5525}, again on every later run: 150"] = "{quest:5525}, de novo em cada passagem seguinte: 150",
 
@@ -205,4 +205,7 @@ return {
 	["Every town to Exalted"] = "Todas as cidades até Exaltado",
 	-- {npc:14637} Zorbin Fandazzle
 	["Revered to Exalted is 21,000 more with each town: 840 of {npc:14637}'s turn-ins or 140 Free Knot runs. No quartermaster sells anything for Exalted: this is for the title bar only."] = "De Reverenciado a Exaltado são mais 21.000 com cada cidade: 840 entregas de {npc:14637} ou 140 passagens por Liberdade ainda que tardia. Nenhum intendente vende algo para Exaltado: isto é só para a barra do título.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{quest:5525}: 150 to every town"] = "{quest:5525}: 150 para cada cidade",
 }

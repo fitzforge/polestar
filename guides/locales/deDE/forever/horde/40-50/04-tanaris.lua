@@ -91,8 +91,6 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "für {npc:7010} in {zone:1454}, etwa auf Stufe 50",
-	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
-	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "Die Maschine {object:142071} mitten in der Stadt: Das Ei liegt im südlichen {zone:1444}, etwa auf Stufe 50",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -188,6 +186,7 @@ return {
 	-- ["The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge."] = "Die Großen Lavaspinnen streifen über die Plateaus und Lavabecken im Südwesten der Schlucht.",
 	-- ["The Steamsmiths' furnaces"] = "Die Öfen der Dampfschmiede",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "Das Boot nach {area:35} legt am Pier von {area:392} an, unterhalb des Hügels des Flugmeisters.",
+	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "Die Maschine {object:142071} mitten in der Stadt: Das Ei liegt im südlichen {zone:1444}, etwa auf Stufe 50",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "Westlich des Truppenlagers füllen die Kakteenwesen das Tal; nur die Disteltausammler tragen eine Taudrüse. Die meisten Mobs in {zone:1446} können selten den OOX-17/TN-Notsignalgeber fallen lassen: Behalte ihn, wenn du einen siehst.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "Im Westen schwärmen die Insekten der Centipaar um ihre Baue; jedes kann die Teile fallen lassen.",
 	-- ["the {object:150075} in the square"] = "der {object:150075} auf dem Platz",

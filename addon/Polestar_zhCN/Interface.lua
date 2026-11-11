@@ -155,6 +155,17 @@ L["Hand in %s to them"] = "就地交付%s"
 L["Take %s from them: saves a trip back"] = "就地接取%s：省一趟回程"
 L["Take %s from %s: saves a trip back"] = "从%2$s处接取%1$s：省一趟回程"
 L["%s failed: abandon it and take it again"] = "%s 已失败：放弃后重新接取"
+-- L["For quests from %s, %s and more"] = ""
+-- L["For quests from %s and %s"] = ""
+-- L["For %s's quests"] = ""
+-- L["For %s and %s"] = ""
+-- L["For %s"] = ""
+-- L["Group quest you chose to skip (Discovery, Group quests)"] = ""
+-- L["Group quest: Options, Automation, Group quests skips them all"] = ""
+-- L["Learn the flight path at %s"] = ""
+-- L["Step %d learns this flight path later; learned now, that step is done when you get there."] = ""
+-- L["Flight path"] = ""
+-- L["You haven't learned this flight path yet: talk to the flight master to learn it."] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 会永久关闭 %s。"
@@ -350,6 +361,7 @@ L["Ride the elevator up"] = "乘坐升降梯上去"
 L["Ride the elevator down"] = "乘坐升降梯下去"
 L["Ride the elevator"] = "乘坐升降梯"
 L["%s Inn"] = "%s旅店"
+-- L["Detour around %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -990,6 +1002,8 @@ L["The target button and the step key ping the mob they target, so your group se
 -- L["Lists the spells you kept at a lower rank again."] = ""
 -- L["Boosted Rest status"] = ""
 -- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
+-- L["Take the marked flight"] = ""
+-- L["When the flight map opens, flies to the marked destination. Hold Shift at the flight master to choose yourself."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -2208,7 +2222,6 @@ L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so 
 L["How close"] = "距离范围"
 L["Include nearby hand-ins"] = "包括附近的交任务"
 L["Dynamic Questing"] = "动态任务"
-L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = "目标刷新区域需在此距离内才显示建议；距离再远一些时会隐藏。"
 L["Sound for a new suggestion"] = "新建议提示音"
 L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = "根据任务日志和附近情况，在你接近后续步骤的目标时给出建议。它们显示在当前步骤下方的“顺便完成”面板中：点击建议可让箭头指向该目标；右键可在这附近忽略它（忽略两次后，本地区内不再提示）。"
 L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = "每出现一个新建议播放轻柔提示音（多个建议同时出现时只播放一次），音量随游戏音效设置。"
@@ -2243,6 +2256,11 @@ L["With Transparent: Soft lays a light shade behind each line of text, Dark a da
 L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."] = "设置窗口、按钮和提醒在地下城、团队副本、战场和竞技场中的行为。小地图按钮菜单中的“指南窗口”、按键绑定或 /polestar 可在其中打开窗口，直到离开。"
 L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "可放在屏幕任意位置的 Polestar 小按钮。点击隐藏或显示 Polestar，右键点击打开菜单，拖动以移动。若战斗中和地下城中设为隐藏，它会随窗口一起隐藏。"
 L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."] = "隐藏 Polestar 时保留箭头、它的旅行按钮和到达音效。仅限此角色。"
+-- L["How near the middle of its spawn area you must be for a suggestion to show. It goes again a little further out."] = ""
+-- L["Flight paths you pass"] = ""
+-- L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."] = ""
+-- L["Detour captions"] = ""
+-- L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3389,3 +3407,4 @@ L["Right-click: hide this until the timer ends."] = "右键：隐藏直到计时
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "可放在屏幕任意位置的 Polestar 小按钮。点击显示或隐藏指南，右键点击打开菜单，拖动以移动。若战斗中和地下城中设为隐藏，它会随窗口一起隐藏。"
 -- L["Click: show or hide the guide"] = "点击：显示或隐藏指南"
 -- L["Show window"] = "显示窗口"
+-- L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = "目标刷新区域需在此距离内才显示建议；距离再远一些时会隐藏。"

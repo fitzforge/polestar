@@ -202,6 +202,8 @@ return {
 	["Neutral to Friendly is 3,000 reputation. Every trash mob of the {area:16076} (a 40-player raid behind the {area:2737}) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The {area:3454} (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "De Neutre à Amical, il faut 3 000 de réputation. Chaque monstre ordinaire du {area:16076} (un raid à 40 joueurs derrière le {area:2737}) donne 100, et les Empereurs jumeaux 210 chacun, jusqu'à 2 999 sur 3 000 de Neutre, à un point d'Amical ; là, ils s'arrêtent. Rendez alors un {item:21230} gardé (1 000, à {npc:15502}) ou un {item:21229} (500, à {npc:15503}) pour passer le cap. Les échanges d'épaulières et de bottes de l'ensemble du Temple ne demandent aucune réputation : le jeton, deux idoles et dix scarabées à {npc:15502} (épaulières) ou {npc:15503} (bottes) rapportent 200 chacun. Les {area:3454} (20 joueurs) donnent un peu avec les boss : Kurinnaxx, Moam, Buru et Ayamiss 50 chacun, Rajaxx 34, Ossirian 100, jusqu'à Exalté.",
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "{item:21229}, boss du Temple",
+	-- {npc:15503} Kandrostrasz
+	["{npc:15503}: 500, handed in from his window"] = "",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "L'anneau à Amical",

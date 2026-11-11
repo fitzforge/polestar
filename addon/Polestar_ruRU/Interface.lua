@@ -155,6 +155,17 @@ L["Hand in %s to them"] = "Сдать %s здесь"
 L["Take %s from them: saves a trip back"] = "Взять %s здесь — не придётся возвращаться"
 L["Take %s from %s: saves a trip back"] = "Взять %s (%s) — не придётся возвращаться"
 L["%s failed: abandon it and take it again"] = "%s провалено: откажитесь от задания и возьмите его снова"
+-- L["For quests from %s, %s and more"] = ""
+-- L["For quests from %s and %s"] = ""
+-- L["For %s's quests"] = ""
+-- L["For %s and %s"] = ""
+-- L["For %s"] = ""
+-- L["Group quest you chose to skip (Discovery, Group quests)"] = ""
+-- L["Group quest: Options, Automation, Group quests skips them all"] = ""
+-- L["Learn the flight path at %s"] = ""
+-- L["Step %d learns this flight path later; learned now, that step is done when you get there."] = ""
+-- L["Flight path"] = ""
+-- L["You haven't learned this flight path yet: talk to the flight master to learn it."] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Взяв %s, вы навсегда закроете %s."
@@ -350,6 +361,7 @@ L["Ride the elevator up"] = "Подняться на лифте"
 L["Ride the elevator down"] = "Спуститься на лифте"
 L["Ride the elevator"] = "Проехать на лифте"
 L["%s Inn"] = "Таверна: %s"
+-- L["Detour around %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -990,6 +1002,8 @@ L["The target button and the step key ping the mob they target, so your group se
 -- L["Lists the spells you kept at a lower rank again."] = ""
 -- L["Boosted Rest status"] = ""
 -- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
+-- L["Take the marked flight"] = ""
+-- L["When the flight map opens, flies to the marked destination. Hold Shift at the flight master to choose yourself."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -2208,7 +2222,6 @@ L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so 
 L["How close"] = "Насколько близко"
 L["Include nearby hand-ins"] = "Включая сдачу заданий рядом"
 L["Dynamic Questing"] = "Динамические задания"
-L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = "Насколько близко должна быть область появления, чтобы показать подсказку. Она исчезает чуть дальше."
 L["Sound for a new suggestion"] = "Звук новой подсказки"
 L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = "Предлагает цели из следующих шагов, когда вы рядом с ними, — по вашему журналу заданий и окружению. Они показываются под шагом на панели «Пока вы здесь»: щелчок направляет туда стрелку; ПКМ скрывает подсказку в этих местах (скрытая дважды, она не появится до конца зоны)."
 L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = "Тихий звон для каждой новой подсказки (один раз, если их несколько сразу), с громкостью звуковых эффектов игры."
@@ -2243,6 +2256,11 @@ L["With Transparent: Soft lays a light shade behind each line of text, Dark a da
 L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."] = "Что делают окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. «Окно гайда» в меню кнопки у миникарты, назначенная клавиша или /polestar открывает его там до вашего выхода."
 L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Маленькая кнопка Polestar, которую можно разместить в любом месте экрана. Щелчок скрывает или показывает Polestar, ПКМ — меню, перетаскивание перемещает её. Она скрывается вместе с окном в бою и в подземельях, если для них выбрано «Скрыть»."
 L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."] = "При скрытии Polestar остаются стрелка, её кнопка пути и звук прибытия. Только для этого персонажа."
+-- L["How near the middle of its spawn area you must be for a suggestion to show. It goes again a little further out."] = ""
+-- L["Flight paths you pass"] = ""
+-- L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."] = ""
+-- L["Detour captions"] = ""
+-- L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3389,3 +3407,4 @@ L["Right-click: hide this until the timer ends."] = "Правый клик: ск
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Маленькая кнопка Polestar, которую можно разместить в любом месте экрана. Щелчок показывает или скрывает гайд, ПКМ — меню, перетаскивание перемещает ее. Она скрывается вместе с окном в бою и в подземельях, если для них выбрано «Скрыть»."
 -- L["Click: show or hide the guide"] = "Щелчок: показать или скрыть гайд"
 -- L["Show window"] = "Показать окно"
+-- L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = "Насколько близко должна быть область появления, чтобы показать подсказку. Она исчезает чуть дальше."

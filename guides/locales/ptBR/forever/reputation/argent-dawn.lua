@@ -49,12 +49,12 @@ return {
 	["{npc:11056}: ask for a {item:13370}"] = "{npc:11056}: peça um {item:13370}",
 	-- {npc:11057} Apothecary Dithers · {area:152} Bulwark · {item:13370} Vitreous Focuser
 	["{npc:11057}, at the {area:152}: ask for a {item:13370}"] = "{npc:11057}, em {area:152}: peça um {item:13370}",
-	-- {area:201} Gahrron's Withering
-	["the cauldron at {area:201}"] = "o caldeirão em {area:201}",
 	-- plural, as words: Ectoplasmic Resonators = {item:13354} Ectoplasmic Resonator
 	["Ectoplasmic Resonators: the ghosts around the cauldron"] = "Ressonadores Ectoplásmicos: os fantasmas ao redor do caldeirão",
 	-- {item:13320} Arcane Quickener
 	["{item:13320}, 50 silver"] = "{item:13320}, 50 pratas",
+	-- {area:201} Gahrron's Withering
+	["the cauldron at {area:201}: handed in from its window, never in the log"] = "",
 
 	-- Step 5: Light's Hope Chapel quests
 	-- {area:2268} Light's Hope Chapel
@@ -160,6 +160,7 @@ return {
 	-- ["Keep running {area:2279} and {area:2057} and turning in every {item:12843} at {area:2268} until Exalted."] = "Continue fazendo {area:2279} e {area:2057} e entregando cada {item:12843} em {area:2268} até Exaltado.",
 	-- ["Minion's Scourgestones to Friendly"] = "Pedras do Flagelo do Lacaio até Amistoso",
 	-- ["Run {area:2279} (both wings) and {area:2057}, killing every Scourge you pass."] = "Faça {area:2279} (as duas alas) e {area:2057}, matando todo Flagelo pelo caminho.",
+	-- ["the cauldron at {area:201}"] = "o caldeirão em {area:201}",
 	-- ["{faction:529} to Exalted"] = "{faction:529} até Exaltado",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160} começa em Neutro. Pegue a Ordem com {npc:10839} em {area:152} e equipe-a: no Classic, Pedras do Flagelo só caem enquanto o berloque {quest:5401} estiver equipado. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10840} at {area:3197} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160} começa em Neutro. Pegue a Ordem com {npc:10840} em {area:3197} e equipe-a: no Classic, Pedras do Flagelo só caem enquanto o berloque {quest:5401} estiver equipado. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",

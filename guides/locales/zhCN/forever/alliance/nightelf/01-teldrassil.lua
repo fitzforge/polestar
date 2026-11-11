@@ -18,7 +18,7 @@ return {
 	-- {area:188} Shadowglen
 	["{area:188}: kill these as you meet them"] = "{area:188}：沿途击杀以下目标",
 	-- {area:256} Aldrassil · {item:3297} Fel Moss
-	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Gnarlpine Totems = {item:279082} Gnarlpine Totem
+	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Grells = {npc:1988} Grell · Gnarlpine Totems = {item:279082} Gnarlpine Totem
 	["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "夜刃豹幼崽和草刺野猪幼崽在{area:256}周围游荡。小劣魔在巨树西边的树林里携带{item:3297}，瘤背图腾就立在那里。",
 
 	-- Step 3: Back at Aldrassil
@@ -62,8 +62,9 @@ return {
 	-- {quest:917} Webwood Egg
 	["{quest:917} and the antidote"] = "{quest:917}和解药",
 	-- {object:4406} Webwood Eggs · {area:257} Shadowthread Cave · {area:256} Aldrassil
-	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom
+	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom · Grells = {npc:1988} Grell
 	["The {object:4406} lie at the back of {area:257}: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of {area:256}."] = "{object:4406}在{area:257}深处：走中间的路，分岔处向左，一直上到高处的岩架。紫蓝色蘑菇由小劣魔掉落，月牙百合花长在{area:256}北边的池塘旁。",
+	-- plural, as words: Grells = {npc:1988} Grell
 	["Grells"] = "小劣魔",
 
 	-- Step 8: Shadowglen
@@ -382,8 +383,6 @@ return {
 	-- {npc:2080} Denalan
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
 	["South-east of Dolanaar, to {npc:2080}. Lasher Sproutlings wander around him on the shore."] = "前往多兰纳尔东南方的{npc:2080}处。{npc:275703}在湖岸上围着他游荡。",
-	-- {object:7510} Sprouted Frond
-	["{object:7510}, beside him"] = "{object:7510}，在他旁边",
 
 	-- Step 63: Dolanaar again
 	-- {area:186} Dolanaar
@@ -583,6 +582,7 @@ return {
 	-- ["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "{npc:6287}，在遇到哨兵莎依拉·夜风之前的路旁扎营：露营 101，剥皮师",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}，在兽穴内",
 	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584}位于稍西北侧。{quest:3522}限时五分钟，装满药瓶后立即去找他。",
+	-- ["{object:7510}, beside him"] = "{object:7510}，在他旁边",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488}和星风村的月亮井",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}：施放{spell:1259799}和{spell:20580}，然后交还给{npc:3595}",
 }

@@ -84,8 +84,8 @@ return {
 	-- Step 15: Journeyman Engineering
 	-- {skill:202} Engineering
 	["Journeyman {skill:202}"] = "{skill:202} (Geselle)",
-	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11029} Trixie Quikswitch · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {npc:3412} Nogg · {zone:1454} Orgrimmar · {npc:11017} Roxxik · {spell:3929} Coarse Blasting Powder · {spell:3930} Crafted Heavy Shot · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:8736} ({zone:1446}), {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}), {npc:5174} ({zone:1455}) and {npc:11029} ({zone:1455}); Horde {npc:8736} ({zone:1446}), {npc:11031} ({zone:1458}), {npc:3412} ({zone:1454}) and {npc:11017} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "",
+	-- {skill:202} Engineering · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:11029} Trixie Quikswitch · {zone:1455} Ironforge · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {npc:3412} Nogg · {zone:1454} Orgrimmar · {spell:3929} Coarse Blasting Powder · {spell:3930} Crafted Heavy Shot · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
+	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}) and {npc:3412} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "",
 
 	-- Step 16: Engineering 75-150: vendor goods
 	-- {skill:202} Engineering
@@ -179,8 +179,8 @@ return {
 	-- Step 34: Expert Engineering
 	-- {skill:202} Engineering
 	["Expert {skill:202}"] = "{skill:202} (Experte)",
-	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:9271} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}) and {npc:5174} ({zone:1455}); Horde {npc:8736} ({zone:1446}) and {npc:11017} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "",
+	-- {skill:202} Engineering · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:9271} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
+	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:5174} ({zone:1455}); Horde {npc:11017} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "",
 
 	-- Step 35: Engineering 150-225: vendor goods
 	-- {skill:202} Engineering
@@ -202,7 +202,7 @@ return {
 
 	-- Step 38: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
-	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "19 {item:2592} für {spell:3953}: Beute von Humanoiden der Stufen 15-30; oder im Auktionshaus. Der Pfeil wählt einen Farmplatz für deine Stufe und Fraktion.",
+	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 39: Coarse Stone (Alliance)
 	-- {item:2836} Coarse Stone
@@ -303,7 +303,7 @@ return {
 
 	-- Step 55: Schematic: Thorium Tube
 	-- {item:16047} Schematic: Thorium Tube · {item:16000} Thorium Tube · {skill:202} Engineering · {npc:260565} Kor'gar · {zone:2548} Riverglades · {npc:11185} Xizzer Fizzbolt · {zone:1452} Winterspring
-	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16047} bringt dir {item:16000} ({skill:202} 275) für 1g 60s bei. Verkauft von Allianz: {npc:260565} ({zone:2548}) und {npc:11185} ({zone:1452}), begrenzter Vorrat; Horde: {npc:11185} ({zone:1452}), begrenzter Vorrat. Die Händler haben ein oder zwei auf Lager, die einige Zeit nach einem Verkauf wiederkommen; es ist beim Aufheben gebunden, das Auktionshaus hat es also nie.",
+	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "",
 
 	-- Step 56: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
@@ -313,38 +313,30 @@ return {
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
 	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50); or the Auction House. The densest cluster of {object:2040} in {zone:1443} is marked."] = "212 {item:7912} für {item:10512} und {item:10513}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50); oder im Auktionshaus. Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert.",
 
-	-- Step 58: Runecloth (Alliance)
-	-- {item:14047} Runecloth
-	["{item:14047} (Alliance)"] = "{item:14047} (Allianz)",
-	-- {item:14047} Runecloth · {item:15994} Thorium Widget · {npc:7027} Blackrock Slayer
-	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "24 {item:14047} für {item:15994}: Beute von Humanoiden der Stufen 45-60; oder im Auktionshaus. Hier ist es Beute von {npc:7027} (Stufe 56-57).",
+	-- Step 58: Runecloth
+	-- {item:14047} Runecloth · {item:15994} Thorium Widget
+	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
-	-- Step 59: Runecloth (Horde)
-	-- {item:14047} Runecloth
-	["{item:14047} (Horde)"] = "{item:14047} (Horde)",
-	-- {item:14047} Runecloth · {item:15994} Thorium Widget · {npc:11880} Twilight Avenger
-	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "24 {item:14047} für {item:15994}: Droppt bei Humanoiden der Stufen 45-60; oder im Auktionshaus. Droppt hier bei {npc:11880} (Stufe 57-59).",
-
-	-- Step 60: Hi-Impact Mithril Slugs to 245
+	-- Step 59: Hi-Impact Mithril Slugs to 245
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "{item:10512} bis 245",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:186} Mining · {item:3858} Mithril Ore
 	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {item:3860} (118 for 225-300): {skill:186}: smelt {item:3858}; or the Auction House."] = "{item:10512} ist bei 225 gelb (gelb 210, grün 230, grau 250): etwa 62 Herstellungen bis 245. Jede braucht 1 {item:3860} und 1 {item:10505} und ergibt 200 Stück. Stelle zuerst die 50 {item:10505} her. Nutze die 12 {item:10505}, die du vorher hergestellt hast; die Zahlen oben lassen sie weg. Pro Herstellung ein {item:3860} und ein {item:10505}; Jäger kaufen die Slugs. Braucht einen Amboss in der Nähe. {item:3860} (118 für 225-300): {skill:186}: {item:3858} schmelzen; oder im Auktionshaus.",
 
-	-- Step 61: Engineering recipes at 245
+	-- Step 60: Engineering recipes at 245
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 245"] = "Rezepte für {skill:202} bei 245",
 	-- {skill:202} Engineering · {spell:12621} Mithril Gyro-Shot
 	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "Zurück zu einem {skill:202}-Lehrer: {spell:12621} (ab 245).",
 
-	-- Step 62: Mithril Gyro-Shot to 265
+	-- Step 61: Mithril Gyro-Shot to 265
 	-- {item:10513} Mithril Gyro-Shot
 	["{item:10513} to 265"] = "{item:10513} bis 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
 	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} ist bei 245 gelb (gelb 245, grün 265, grau 285): etwa 28 Herstellungen bis 265. Jede braucht 2 {item:3860} und 2 {item:10505} und ergibt 200 Stück. Stelle zuerst die 56 {item:10505} her. Zwei Mithrilbarren und zwei {item:10505} pro Herstellung. Braucht einen Amboss in der Nähe.",
 
-	-- Step 63: Thorium Widget to 287
+	-- Step 62: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "{item:15994} bis 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth · {skill:186} Mining · {item:10620} Thorium Ore
@@ -352,7 +344,7 @@ return {
 	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby. {item:12359} (156 for 225-300): {skill:186}: smelt {item:10620}; or the Auction House."] = "{item:15994} ist bei 265 orange (gelb 280, grün 290, grau 300): etwa 24 Herstellungen bis 287. Jede braucht 3 {item:12359} und 1 {item:14047}. Drei Thoriumbarren und ein {item:14047} pro Herstellung; die Widgets sind Teile für die späteren Thorium-Gadgets. Braucht einen Amboss in der Nähe. {item:12359} (156 für 225-300): {skill:186}: {item:10620} schmelzen; oder im Auktionshaus.",
 	["from the recipe in your bags"] = "aus dem Rezept in deinen Taschen",
 
-	-- Step 64: Thorium Tube to 300
+	-- Step 63: Thorium Tube to 300
 	-- {item:16000} Thorium Tube
 	["{item:16000} to 300"] = "{item:16000} bis 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
@@ -360,6 +352,9 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} ist bei 287 orange (gelb 295, grün 305, grau 315): etwa 14 Herstellungen bis 300. Jede braucht 6 {item:12359}. Das Schema wird beim Aufheben gebunden; sechs Thoriumbarren pro Herstellung. Braucht einen Amboss in der Nähe. {skill:202} 300 ist ein Meilenstein des Vermächtnissystems.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "19 {item:2592} für {spell:3953}: Beute von Humanoiden der Stufen 15-30; oder im Auktionshaus. Der Pfeil wählt einen Farmplatz für deine Stufe und Fraktion.",
+	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "24 {item:14047} für {item:15994}: Droppt bei Humanoiden der Stufen 45-60; oder im Auktionshaus. Droppt hier bei {npc:11880} (Stufe 57-59).",
+	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "24 {item:14047} für {item:15994}: Beute von Humanoiden der Stufen 45-60; oder im Auktionshaus. Hier ist es Beute von {npc:7027} (Stufe 56-57).",
 	-- ["Apprentice {skill:202}"] = "{skill:202} (Lehrling)",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "Fachmann erfordert Charakterstufe 35 und {skill:202} 200; damit steigt die Obergrenze auf 300. Die Materialien für 225-300 sind insgesamt etwa 67g wert.",
 	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "Zurück zu einem Lehrer für {skill:202}: {spell:12585}, {spell:12596} werden ab {skill:202} 210 gelehrt.",
@@ -403,7 +398,10 @@ return {
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "Gelb bis 95, grün bis 110: Nicht jede Herstellung bringt einen Punkt. Erfordert einen Amboss in der Nähe.",
 	-- ["{item:10498} to 210"] = "{item:10498} bis 210",
 	-- ["{item:10513} to 264"] = "{item:10513} bis 264",
+	-- ["{item:14047} (Alliance)"] = "{item:14047} (Allianz)",
+	-- ["{item:14047} (Horde)"] = "{item:14047} (Horde)",
 	-- ["{item:15994} to 288"] = "{item:15994} bis 288",
+	-- ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16047} bringt dir {item:16000} ({skill:202} 275) für 1g 60s bei. Verkauft von Allianz: {npc:260565} ({zone:2548}) und {npc:11185} ({zone:1452}), begrenzter Vorrat; Horde: {npc:11185} ({zone:1452}), begrenzter Vorrat. Die Händler haben ein oder zwei auf Lager, die einige Zeit nach einem Verkauf wiederkommen; es ist beim Aufheben gebunden, das Auktionshaus hat es also nie.",
 	-- ["{item:2592} (Alliance)"] = "{item:2592} (Allianz)",
 	-- ["{item:2592} (Horde)"] = "{item:2592} (Horde)",
 	-- ["{item:2835} (Alliance)"] = "{item:2835} (Allianz)",

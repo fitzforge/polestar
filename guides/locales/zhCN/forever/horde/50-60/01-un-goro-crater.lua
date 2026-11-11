@@ -242,8 +242,8 @@ return {
 	-- Step 49: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "离开{zone:1458}，沿道路向东穿过{zone:1420}，前往边境上的被遗忘者要塞{area:152}。",
-	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
-	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5401}：只有佩戴它时才会掉落天灾石。",
+	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
+	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "",
 
 	-- Step 50: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字军前线营地",
@@ -297,6 +297,7 @@ return {
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "向西南骑往环形山中央的火山{area:537}。血瓣花掠夺者生长在山脚周围。",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "向西骑往挖掘场。{npc:7039}傀儡（53级）在周围走动，经常掉落碎片；{quest:4296}立在挖掘场中央的索瑞森矮人中间。抄录它。",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "在温泉南边，剑龙在吃草，恐龙骨头从它们身上掉落或散落在地上；附近的双帆龙携带{npc:9998}想要的鳞片。暴掠龙在西南成群捕猎：它们的爪子是给{npc:8659}的，偶尔会有一只携带被撕破的日记（稀有掉落：只有拿到了才接它的任务）。避开57级的剑龙格鲁夫。",
+	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5401}：只有佩戴它时才会掉落天灾石。",
 	-- ["Termite mounds"] = "白蚁丘",
 	-- ["Thaurissan dig site"] = "索瑞森挖掘场",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "达隆郡的历史就在安多哈尔市政厅里的发霉的书籍中间；一本本打开，直到找到正确的那本。",

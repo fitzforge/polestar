@@ -10,7 +10,7 @@ return {
 	-- {skill:185} Cooking
 	["Learn {skill:185}"] = "Apprendre {skill:185}",
 	-- {skill:185} Cooking · {object:29784} Basic Campfire · {item:279981} Basic Campfire Kit · {item:4470} Simple Wood · {item:4471} Flint and Tinder
-	["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "Tout maître de {skill:185} de votre faction enseigne {skill:185} (Apprenti) (niveau 5, 1 pa) ; la flèche indique le plus proche. Sur Forever, tout cuisinier connaît {object:29784}. Fabriquez un {item:279981} à partir d'un {item:4470} (38 pc) avec un {item:4471} (1 pa 35 pc, gardé dans vos sacs), puis posez le kit pour allumer un feu de cuisine n'importe où ; préparez-en quelques-uns à l'avance (une utilisation toutes les 5 minutes). Les premiers kits portent aussi {skill:185} à environ 5. La quête Introduction au camping : {skill:185} au camp de votre zone de départ vous envoie à ce maître.",
+	["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (any character level, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "",
 
 	-- Step 2: Charred Wolf Meat: ingredients
 	-- {spell:2538} Charred Wolf Meat
@@ -73,7 +73,7 @@ return {
 	-- {skill:185} Cooking
 	["Journeyman {skill:185}"] = "{skill:185} (Compagnon)",
 	-- {skill:185} Cooking
-	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "{skill:185} (Compagnon) porte le plafond à 150 ; il demande la compétence 50 et le niveau 10 : la flèche indique le maître de {skill:185} de votre faction le plus proche ; l'apprentissage coûte 5 pa.",
+	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "",
 
 	-- Step 18: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
@@ -292,11 +292,13 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5); the arrow picks the nearest."] = "Tout maître en {skill:185} de votre faction enseigne {skill:185} (Apprenti) (niveau 5) ; la flèche indique le plus proche.",
+	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "Tout maître de {skill:185} de votre faction enseigne {skill:185} (Apprenti) (niveau 5, 1 pa) ; la flèche indique le plus proche. Sur Forever, tout cuisinier connaît {object:29784}. Fabriquez un {item:279981} à partir d'un {item:4470} (38 pc) avec un {item:4471} (1 pa 35 pc, gardé dans vos sacs), puis posez le kit pour allumer un feu de cuisine n'importe où ; préparez-en quelques-uns à l'avance (une utilisation toutes les 5 minutes). Les premiers kits portent aussi {skill:185} à environ 5. La quête Introduction au camping : {skill:185} au camp de votre zone de départ vous envoie à ce maître.",
 	-- ["Catch about 50 {item:6291} here by fishing (see the {skill:356} guide)."] = "Pêchez ici environ 50 {item:6291} (voir le guide de {skill:356}).",
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "Pêchez ici environ 68 {item:6361} (voir le guide de {skill:356}).",
 	-- ["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072}; the arrow picks its nearest seller for your faction. Buy it and read it."] = "{skill:185} (Expert) porte le plafond à 225 ; requiert la compétence 125 et le niveau 20 : c'est un livre, {item:16072} ; la flèche indique son vendeur le plus proche pour votre faction. Achetez-le et lisez-le.",
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "Les Oeufs géants sont laissés par les chouettes Bec-de-fer de {zone:1448}.",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "{skill:185} (Compagnon) porte le plafond à 150 ; requiert la compétence 50 et le niveau 10 : la flèche indique le maître en {skill:185} le plus proche de votre faction.",
+	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "{skill:185} (Compagnon) porte le plafond à 150 ; il demande la compétence 50 et le niveau 10 : la flèche indique le maître de {skill:185} de votre faction le plus proche ; l'apprentissage coûte 5 pa.",
 	-- ["{area:442} docks"] = "Quais d'{area:442}",
 	-- ["{area:702} docks"] = "Quais de {area:702}",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210} est orange dès 175 (jaune à 215, gris à 255) : environ 40 préparations jusqu'à 215. Cuisinez à n'importe quel feu : {object:29784} s'apprend avec {skill:185}.",

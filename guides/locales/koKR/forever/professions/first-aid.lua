@@ -11,13 +11,13 @@ return {
 	["Learn {skill:129}"] = "{skill:129} 배우기",
 	-- {skill:129} First Aid · {item:118} Minor Healing Potion · {item:2447} Peacebloom · {item:2678} Mild Spices · {item:3371} Empty Vial · {skill:182} Herbalism
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "",
+	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (any character level, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "",
 
 	-- Step 2: Linen Bandage: cloth
 	-- {item:1251} Linen Bandage
 	["{item:1251}: cloth"] = "{item:1251}: 천",
 	-- {item:2589} Linen Cloth
-	["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "5-20레벨 인간형 몹이 {item:2589}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 3: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
@@ -36,7 +36,7 @@ return {
 	-- {skill:129} First Aid
 	["Journeyman {skill:129}"] = "수습 {skill:129}",
 	-- {skill:129} First Aid
-	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "",
+	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "",
 
 	-- Step 8: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
@@ -46,7 +46,7 @@ return {
 	-- {spell:3277} Wool Bandage
 	["{spell:3277}: cloth"] = "{spell:3277}: 천",
 	-- {item:2592} Wool Cloth
-	["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "15-30레벨 인간형 몹이 {item:2592}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 10: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
@@ -76,7 +76,7 @@ return {
 	-- {item:6450} Silk Bandage
 	["{item:6450}: cloth"] = "{item:6450}: 천",
 	-- {item:4306} Silk Cloth
-	["humanoids of level 25-45 drop {item:4306} (or buy it at the Auction House)."] = "25-45레벨 인간형 몹이 {item:4306}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 17: Silk Bandage (150-180)
 	-- {item:6450} Silk Bandage · {skill:129} First Aid
@@ -94,7 +94,7 @@ return {
 	-- {item:8544} Mageweave Bandage
 	["{item:8544}: cloth"] = "{item:8544}: 천",
 	-- {item:4338} Mageweave Cloth
-	["humanoids of level 35-50 drop {item:4338} (or buy it at the Auction House)."] = "35-50레벨 인간형 몹이 {item:4338}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 21: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage
@@ -146,7 +146,7 @@ return {
 	-- {item:14529} Runecloth Bandage
 	["{item:14529}: cloth"] = "{item:14529}: 천",
 	-- {item:14047} Runecloth
-	["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "45-60레벨 인간형 몹이 {item:14047}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
 
 	-- Step 33: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
@@ -158,6 +158,11 @@ return {
 	-- ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore."] = "전문 {skill:129}은(는) {quest:6624} 퀘스트로 배웁니다. 숙련도 225, 레벨 40이 필요합니다. {zone:1455}의 {skill:129} 상급자가 테라모어 섬의 의사에게 보냅니다.",
 	-- ["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084}; the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals: buy both now, you read them at 180 and 210."] = "숙련 {skill:129}은(는) 최대 숙련도를 225로 올립니다. 숙련도 125, 캐릭터 레벨 20이 필요합니다. 책 {item:16084}(으)로 배우며, 화살표가 진영의 가장 가까운 판매 상인을 가리킵니다. 사서 읽으세요. 같은 상인이 두꺼운 비단 붕대와 {item:8544} 교본도 팝니다. 지금 둘 다 사 두고 180과 210에 읽으세요.",
 	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction. Learn {spell:3276} on the same visit."] = "수습 {skill:129}은(는) 최대 숙련도를 150으로 올립니다. 숙련도 50, 캐릭터 레벨 10이 필요합니다. 화살표가 진영의 가장 가까운 {skill:129} 상급자를 가리킵니다. 같은 방문에 {spell:3276}도 배우세요.",
+	-- ["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "15-30레벨 인간형 몹이 {item:2592}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	-- ["humanoids of level 25-45 drop {item:4306} (or buy it at the Auction House)."] = "25-45레벨 인간형 몹이 {item:4306}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	-- ["humanoids of level 35-50 drop {item:4338} (or buy it at the Auction House)."] = "35-50레벨 인간형 몹이 {item:4338}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	-- ["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "45-60레벨 인간형 몹이 {item:14047}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
+	-- ["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "5-20레벨 인간형 몹이 {item:2589}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
 	-- ["{item:1251} is orange from 1 (yellow at 30, grey at 60): about 61 crafts to 50. Bandages need no fire: craft them anywhere."] = "{item:1251}은(는) 1부터 주황색입니다(노란색 30, 회색 60). 50까지 약 61번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529}은(는) 260부터 노란색입니다(260에서 노란색, 320에서 회색). 300까지 약 65번 만드세요. 붕대는 불이 필요 없어 어디서나 만들 수 있습니다. {item:14529}은(는) 320까지 노란색이라, 두꺼운 룬매듭 붕대를 배우러 가지 않고도 300까지 올릴 수 있습니다.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581}은(는) 50부터 노란색입니다(노란색 50, 회색 100). 80까지 약 46번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",

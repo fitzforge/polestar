@@ -166,13 +166,13 @@ return {
 	-- {npc:1449} Witch Doctor Unbagwa
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; {npc:1449} sits among them."] = "向内陆骑行到迷雾谷猩猩所在的山丘。老迈的迷雾谷猩猩掉落内脏；{npc:1449}坐在它们中间。",
-	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
-	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，位于{area:1742}内部",
 
 	-- Step 50: Unbagwa's ritual
 	["Unbagwa's ritual"] = "安巴格瓦的仪式",
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last. Fight at full health."] = "交还牙齿后留下：会来三波猩猩，最后是{npc:1514}。满血再战。",
+	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
+	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，位于{area:1742}内部",
 
 	-- Step 51: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer

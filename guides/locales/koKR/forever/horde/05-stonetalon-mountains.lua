@@ -23,8 +23,9 @@ return {
 	["The road north to {area:431}"] = "",
 
 	-- Step 4: Splintertree Post
-	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the way back, at 22."] = "",
+	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {zone:1440} Ashenvale
+	-- plural, as words: Ashenvale Outrunners = {npc:12856} Ashenvale Outrunner
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "",
 
@@ -81,48 +82,44 @@ return {
 	-- {npc:12837} Yama Snowhoof
 	["{npc:12837}, inside the inn"] = "",
 
-	-- Step 15: Ashenvale Outrunners
-	-- {npc:12867} Kuray'bin
-	["Out of the inn and south down the road to the lumber camp: {npc:12867} stands there. The night elf Outrunners (23-24) stalk the woods south-east of it; they stealth, so watch for them."] = "",
-
-	-- Step 16: Fly to Orgrimmar
+	-- Step 15: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:431} Splintertree Post · {area:1637} Orgrimmar
-	["Back north up the road to the {area:431} flight master and fly to {area:1637}."] = "",
+	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "",
 	-- {area:431} Splintertree Post
 	["{area:431} flight master"] = "",
 
-	-- Step 17: Druid trainer
+	-- Step 16: Druid trainer
 	["Druid trainer"] = "",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
-	-- Step 19: The Binding
+	-- Step 18: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875}은(는) {object:172960}에 있습니다. 그곳 소환진에서 {item:6626}을(를) 사용하고 서큐버스를 쓰러뜨려 속박하십시오.",
 
-	-- Step 20: Shenthul
+	-- Step 19: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{area:272}의 {npc:2391}이(가) 독 조제를 가르칩니다: 보관하세요",
 
-	-- Step 21: Zeppelin to Undercity
+	-- Step 20: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 22: Brill
+	-- Step 21: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152}은(는) 비행선 탑에서 길을 따라 북쪽으로 조금 걸어가면 나오는 {area:159}에서 성기사를 훈련시킵니다. 은빛소나무 숲으로 가려면 같은 길로 다시 내려오세요.",
 
-	-- Step 23: Strange Lockbox
+	-- Step 22: Strange Lockbox
 	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}, from the {object:177790}"] = "",
 
-	-- Step 24: Sepulcher
+	-- Step 23: Sepulcher
 	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
 	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "길을 따라 은빛소나무 숲을 지나 {area:228}(으)로 가세요. 비행선 탑에서 출발한다면 티리스팔을 지나 남쪽으로, {object:177790}에서 출발한다면 해안에서 남동쪽으로 길까지 가세요. {npc:2121}와(과) {npc:1937}은(는) 지하 묘지 입구 옆에 서 있습니다.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
@@ -130,18 +127,18 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
 	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "",
 
-	-- Step 25: Deathguard Podrig
+	-- Step 24: Deathguard Podrig
 	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
 	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389}은(는) 지하 묘지 입구 바로 서쪽에 서 있습니다. {zone:1458}에서 가져온 {item:16210}을(를) 그에게 건네주세요.",
 
-	-- Step 26: Silverpine Forest: kill these as you meet them
+	-- Step 25: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
 
-	-- Step 27: Beren's Peril
+	-- Step 26: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -152,19 +149,19 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 
-	-- Step 28: The Offering of Blood
+	-- Step 27: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
-	-- Step 29: Into Hillsbrad
+	-- Step 28: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "",
 
-	-- Step 30: Southpoint Tower
+	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "다시 길을 따라 남쪽으로 가세요. 길이 동쪽 {area:287}(으)로 꺾이는 곳의 {area:285}에서 {npc:2214}이(가) 기다립니다.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill

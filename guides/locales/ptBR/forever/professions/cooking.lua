@@ -10,7 +10,7 @@ return {
 	-- {skill:185} Cooking
 	["Learn {skill:185}"] = "Aprender {skill:185}",
 	-- {skill:185} Cooking · {object:29784} Basic Campfire · {item:279981} Basic Campfire Kit · {item:4470} Simple Wood · {item:4471} Flint and Tinder
-	["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "Qualquer instrutor de {skill:185} da sua facção ensina {skill:185} Aprendiz (nível de personagem 5, 1s); a seta escolhe o mais próximo. Forever: todo cozinheiro conhece {object:29784}. Crie um {item:279981} a partir de uma {item:4470} (38c) com {item:4471} (1s 35c, mantido nas bolsas), depois coloque o kit para acender uma fogueira de cozinha em qualquer lugar; faça alguns com antecedência (um uso a cada 5 minutos). Os primeiros kits também elevam {skill:185} a cerca de 5. A missão Introdução ao acampamento: {skill:185}, no acampamento da sua área inicial, manda você a este instrutor.",
+	["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (any character level, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "",
 
 	-- Step 2: Charred Wolf Meat: ingredients
 	-- {spell:2538} Charred Wolf Meat
@@ -73,7 +73,7 @@ return {
 	-- {skill:185} Cooking
 	["Journeyman {skill:185}"] = "{skill:185} (Profissional)",
 	-- {skill:185} Cooking
-	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "{skill:185} Profissional eleva o limite para 150; exige perícia 50 e nível de personagem 10: a seta escolhe o instrutor de {skill:185} mais próximo da sua facção; o treinamento custa 5s.",
+	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "",
 
 	-- Step 18: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
@@ -292,11 +292,13 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5); the arrow picks the nearest."] = "Qualquer instrutor de {skill:185} da sua facção ensina {skill:185} Aprendiz (nível de personagem 5); a seta escolhe o mais próximo.",
+	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "Qualquer instrutor de {skill:185} da sua facção ensina {skill:185} Aprendiz (nível de personagem 5, 1s); a seta escolhe o mais próximo. Forever: todo cozinheiro conhece {object:29784}. Crie um {item:279981} a partir de uma {item:4470} (38c) com {item:4471} (1s 35c, mantido nas bolsas), depois coloque o kit para acender uma fogueira de cozinha em qualquer lugar; faça alguns com antecedência (um uso a cada 5 minutos). Os primeiros kits também elevam {skill:185} a cerca de 5. A missão Introdução ao acampamento: {skill:185}, no acampamento da sua área inicial, manda você a este instrutor.",
 	-- ["Catch about 50 {item:6291} here by fishing (see the {skill:356} guide)."] = "Pesque cerca de 50 {item:6291} aqui (veja o guia de {skill:356}).",
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "Pesque cerca de 68 {item:6361} aqui (veja o guia de {skill:356}).",
 	-- ["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072}; the arrow picks its nearest seller for your faction. Buy it and read it."] = "{skill:185} (Perito) eleva o limite para 225; requer perícia 125 e nível de personagem 20: é um livro, {item:16072}; a seta escolhe o vendedor mais próximo da sua facção. Compre-o e leia-o.",
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "Ovos Gigantescos caem das Corujas Bico-de-ferro de {zone:1448}.",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "{skill:185} Profissional eleva o limite para 150; requer perícia 50 e nível de personagem 10: a seta escolhe o instrutor de {skill:185} mais próximo da sua facção.",
+	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "{skill:185} Profissional eleva o limite para 150; exige perícia 50 e nível de personagem 10: a seta escolhe o instrutor de {skill:185} mais próximo da sua facção; o treinamento custa 5s.",
 	-- ["{area:442} docks"] = "Docas de {area:442}",
 	-- ["{area:702} docks"] = "Docas de {area:702}",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210} fica laranja a partir de 175 (amarelo em 215, cinza em 255): cerca de 40 criações até 215. Cozinhe em qualquer fogo: {object:29784} vem com {skill:185}.",

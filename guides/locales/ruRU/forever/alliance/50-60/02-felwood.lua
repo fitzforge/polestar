@@ -43,7 +43,6 @@ return {
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
 	["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395} ждет в северной части зоны {zone:1448}",
-	["Five feathers buy a little Timbermaw reputation"] = "Пять перьев дают немного репутации у Древобрюхов",
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "",
@@ -126,6 +125,7 @@ return {
 	["Ends in the {zone:1413}: keep it"] = "Завершается здесь: {zone:1413} – сохраните задание",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Five feathers buy a little Timbermaw reputation"] = "Пять перьев дают немного репутации у Древобрюхов",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Летите ({area:1998}) к концу дороги у Святилища или езжайте по ней на юг.",
 	-- ["Keep her alive until she is out of the cave"] = "Не дайте ей погибнуть, пока она не выйдет из пещеры",
 	-- ["Oozes"] = "Слизнюки",

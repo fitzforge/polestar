@@ -42,8 +42,6 @@ return {
 
 	-- Step 7: Ironforge
 	["Its jars are filled on the next Un'Goro visit"] = "采样瓶在下次去安戈洛时装满",
-	-- {npc:14724} Bubulo Acerbus
-	["{npc:14724}, by the tram"] = "{npc:14724}，在地铁旁",
 
 	-- Step 8: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel

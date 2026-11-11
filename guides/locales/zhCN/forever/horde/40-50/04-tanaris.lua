@@ -91,8 +91,6 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "交给{zone:1454}的{npc:7010}，大约50级时",
-	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
-	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "镇中心的{object:142071}机器：蛋在{zone:1444}南部，大约50级时",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -192,6 +190,7 @@ return {
 	-- ["The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge."] = "灼热熔岩蜘蛛在峡谷西南的高地和熔岩池一带游荡。",
 	-- ["The Steamsmiths' furnaces"] = "黑铁锻造师的熔炉",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "前往{area:35}的船停靠在{area:392}的码头，就在飞行管理员所在山丘的下方。",
+	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "镇中心的{object:142071}机器：蛋在{zone:1444}南部，大约50级时",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "在营地西边，仙人掌生物占满了山谷；只有灌木露水收集者携带露水腺。{zone:1446}的大多数怪物都可能掉落OOX-17/TN定位器，但很少见：如果看到就留着。",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "向西，森提帕尔虫群聚集在它们的巢穴周围；任何一只都会掉落森提帕尔昆虫肢体。",
 	-- ["the {object:150075} in the square"] = "广场上的{object:150075}",
