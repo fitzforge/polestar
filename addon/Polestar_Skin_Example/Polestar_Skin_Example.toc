@@ -22,7 +22,7 @@
 ## Author: Polestar
 ## X-License: CC0-1.0
 ## X-Website: https://github.com/fitzforge/polestar
-## Version: 0.3.5
+## Version: 0.3.6
 ## Category: Polestar
 ## Group: Polestar
 ## Dependencies: Polestar

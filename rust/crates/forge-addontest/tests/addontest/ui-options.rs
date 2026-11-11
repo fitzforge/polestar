@@ -1111,7 +1111,9 @@ fn run_mods(before: &str, script: &str) -> Value {
 		stubs: vec!["stub_ui.lua"],
 		before: before.into(),
 		addons: vec![Addon::files("Polestar", &ALL)],
-		script: format!("uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal UI, O = Polestar.UI, Polestar.UI.Options\n{SEARCH_HELPERS}\n{script}"),
+		// The settings window's addon loads before the stub's fake Nav stands in, so its Look pages see the real
+		// modules, as in the game.
+		script: format!("Polestar.UI.LoadOptions()\nuistub.install()\nstub.login()\nlocal UI, O = Polestar.UI, Polestar.UI.Options\n{SEARCH_HELPERS}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)

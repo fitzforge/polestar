@@ -900,8 +900,9 @@ const GREYED: [&str; 25] = [
 const OPTIONS: &str = r#"
 Polestar.Set("nav.routeLines", false) -- trailDots' own condition out of the way
 Polestar.Set("nav.tomtom", true)
--- The options window's own widgets, every page that holds a nav option.
-Polestar.UI.LoadOptions()
+-- The options window's own widgets, every page that holds a nav option (its
+-- addon loads where the test loads UI.xml's loader).
+if Polestar.UI.LoadOptions then Polestar.UI.LoadOptions() end
 local O, W = Polestar.UI.Options, Polestar.Widgets
 local function controls()
 	local out = {}

@@ -562,6 +562,8 @@ fn party_the_group_section_has_its_switches_all_on_by_default_the_panel_too_1018
 	let out = run_with(
 		r#"
 local keys = {}
+-- The settings window's addon too (its Look pages register when it loads).
+Polestar.UI.LoadOptions()
 Polestar.Widgets.OnOptionsRegistered(function(spec)
 	-- A section's on/off in its header (spec.toggle) is a control too.
 	local list = { unpack(spec.controls or {}) }
@@ -581,8 +583,6 @@ emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Pol
 	assert_eq!(
 		out[0],
 		json!([
-			// The panel's switch also heads its look tab (Options > Trackers > Party panel, UI/Looks/Trackers.lua).
-			"Trackers/Party panel/party.panel",
 			"Questing/Group/party.share",
 			"Questing/Group/party.show",
 			"Questing/Group/party.waitForGroup",
@@ -592,7 +592,10 @@ emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Pol
 			"Questing/Group/party.chatLoot",
 			"Questing/Group/party.chatEcho",
 			"Questing/Group/party.chatHideOthers",
-			"Questing/Group/party.chatOnlyNeeded"
+			"Questing/Group/party.chatOnlyNeeded",
+			// The panel's switch also heads its look tab (Options > Trackers > Party panel), registered with the
+			// settings window's addon (Polestar_Options/UI/Looks/Trackers.lua).
+			"Trackers/Party panel/party.panel"
 		])
 	);
 	assert_eq!(out[1], json!([true, true, true, true, true, true, true]), "the panel opens by itself once a member is heard (#1018)");
