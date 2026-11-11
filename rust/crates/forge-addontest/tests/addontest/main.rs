@@ -199,6 +199,8 @@ mod guides_end_places;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;
+#[path = "hide-all.rs"]
+mod hide_all;
 #[path = "hide-with-guide.rs"]
 mod hide_with_guide;
 mod import;

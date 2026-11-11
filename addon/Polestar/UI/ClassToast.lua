@@ -356,7 +356,7 @@ end
 local layout
 
 local function build()
-	f = CreateFrame("Frame", "PolestarClassToast", UIParent)
+	f = CreateFrame("Frame", "PolestarClassToast", ns.UIParent)
 	f:SetSize(340, 120)
 	f:EnableMouse(true)
 	-- The guide window's own panel, border and corners.
@@ -432,7 +432,9 @@ local function build()
 
 	local w = window()
 	if w then
-		w:HookScript("OnHide", function() if f then f:Hide() end end)
+		-- The window closed: the card goes with it. Polestar hiding (its
+		-- layer, with the window still open) hides both and keeps the card.
+		w:HookScript("OnHide", function(self) if f and not self:IsShown() then f:Hide() end end)
 		w:HookScript("OnShow", function() if CT.current then CT.Place(true) end end)
 		w:HookScript("OnSizeChanged", function() if f:IsShown() then CT.Place(false) end end)
 	end
@@ -687,8 +689,8 @@ function CT.ShowCard(m)
 	CT.Place(not wasShown)
 	if not wasShown and f:IsShown() and not m.quiet then
 		local C = CC()
-		if ns.Get("ui.classCardSound") and C.GameSoundOn() and PlaySound then
-			pcall(PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
+		if ns.Get("ui.classCardSound") and C.GameSoundOn() then
+			pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 		end
 	end
 	if m.hideAfter then

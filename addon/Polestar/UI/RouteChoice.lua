@@ -286,7 +286,7 @@ end
 ---------------------------------------------------------------------------
 
 local function build()
-	F = CreateFrame("Frame", "PolestarRouteChoice", UIParent)
+	F = CreateFrame("Frame", "PolestarRouteChoice", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)

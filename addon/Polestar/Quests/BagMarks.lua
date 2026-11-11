@@ -24,8 +24,9 @@ local type, pairs, ipairs, pcall, tonumber = type, pairs, ipairs, pcall, tonumbe
 local ICON = "Interface/GossipFrame/ActiveQuestIcon"
 local SIZE = 16
 
+-- The marks only (none while Polestar is hidden); the guards below ask Q.IsItemNeeded.
 local function isOn()
-	return Q.IsRunning() and ns.Get("qol.questBagMarks") and true or false
+	return Q.IsRunning() and ns.Get("qol.questBagMarks") and not ns.Hidden() and true or false
 end
 
 -- Whether a quest in the log, or one ahead in the running guide, still asks
@@ -228,3 +229,4 @@ ns.On("GUIDE_CHANGED", Q.RedrawBagMarks)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.questBagMarks" or path == "qol.questDB" or path == "qol" or path == "" then Q.RedrawBagMarks() end
 end)
+ns.On("POLESTAR_HIDDEN", Q.RedrawBagMarks)

@@ -173,7 +173,6 @@ L["Step action: NPC, quest item, mob or Hearthstone"] = "步骤动作：NPC、�
 L["Use the route's Hearthstone or teleport"] = "使用路线中的炉石或传送"
 L["No guide selected. Use /polestar guides to pick one."] = "未选择指南。使用 /polestar guides 选择一个。"
 L["Show the guide window"] = "显示指南窗口"
-L["Hide the guide window"] = "隐藏指南窗口"
 L["Choose a guide"] = "选择指南"
 L["Open settings"] = "打开设置"
 L["Debug output"] = "调试输出"
@@ -225,6 +224,11 @@ L["Nothing to skip: the guide has no step open."] = "无可跳过：指南当前
 L["Reopen closed tab"] = "重新打开已关闭的标签页"
 L["No closed tab to reopen."] = "没有可重新打开的已关闭标签页。"
 L["Reopen the last guide tab you closed"] = "重新打开你最近关闭的指南标签页"
+L["Hide/show Polestar"] = "隐藏/显示 Polestar"
+L["Hiding Polestar keeps the arrow."] = "隐藏 Polestar 时保留箭头。"
+L["Hiding Polestar hides the arrow too."] = "隐藏 Polestar 时箭头也一并隐藏。"
+L["Polestar is hidden: /polestar hide or the minimap button shows it again."] = "Polestar 已隐藏：输入 /polestar hide 或点击小地图按钮即可重新显示。"
+L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"] = "隐藏或显示 Polestar 的全部内容（hide arrow：隐藏时保留箭头）"
 
 -- Theme/Theme.lua
 L["Dusk"] = "黄昏"
@@ -255,6 +259,7 @@ L["Point the arrow at x y on your current map (no argument clears it)"] = "让�
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever 正在导航它自己的行程。行程结束后 Polestar 的箭头会回来。"
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭\"交由 Shortest Path Forever 导航\"（选项，整合）。"
 L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "指南已隐藏，且“随指南隐藏箭头”已开启，所以箭头也已隐藏：/polestar show 可恢复显示。"
+L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."] = "Polestar 已隐藏，箭头也随之隐藏：在小地图按钮菜单中开启“隐藏时保留箭头”即可保留箭头。"
 
 -- Nav/Arrow.lua
 L["Search here"] = "在此搜索"
@@ -698,9 +703,9 @@ L["Classic Era allows 30 new instances per 24 hours per account; 0 ignores the d
 L["Clear instance history"] = "清除副本记录"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "清除已记录的进入和进度（不影响服务器自身的限制）。"
 L["Minimap button"] = "小地图按钮"
-L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "小地图边缘的 Polestar 按钮。左键点击显示或隐藏指南，右键点击打开设置，拖动可移动。"
 L["Forget"] = "忘记"
 L["Minimap"] = "小地图"
+L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."] = "小地图边缘的 Polestar 按钮。左键点击隐藏或显示 Polestar，右键点击打开菜单，拖动可移动。"
 
 -- Maps/WorldMap.lua
 L["Player"] = "玩家"
@@ -1408,8 +1413,6 @@ L["The rest of this guide follows from a skipped step"] = "此指南的后续内
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "你跳过了%s，而之后的步骤需要其中的任务。撤销跳过以继续，或自行完成该步骤：指南会从那里接着进行。"
 L["Undo the skip"] = "撤销跳过"
 L["Take %s first"] = "先接取%s"
-L["Click the minimap button or press %s to show it."] = "点击微缩地图按钮或按 %s 显示。"
-L["Click the minimap button to show it."] = "点击微缩地图按钮显示。"
 L["Press %s to show it."] = "按 %s 显示。"
 L["Turn on the minimap button or bind a key to show it."] = "开启微缩地图按钮或绑定按键以显示。"
 L["Press %s or type /polestar to show it."] = "按 %s 或输入 /polestar 显示。"
@@ -1434,6 +1437,8 @@ L["Step %d, later in this guide"] = "第 %d 步，本指南稍后"
 -- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
 -- L["Turn on Polestar Guides and reload"] = ""
 -- L["Keep these, a later guide hands them in: %s"] = ""
+L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "按 %s，或右键点击小地图按钮并选择“指南窗口”以显示。"
+L["Right-click the minimap button and pick Guide window to show it."] = "右键点击小地图按钮并选择“指南窗口”以显示。"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -2217,10 +2222,8 @@ L["Hand-ins: how far out of your way"] = "交任务：可偏离路线多远"
 L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = "交任务允许额外步行的秒数（前往其 NPC 再回到路线上）。你所在城镇中的总会显示；设为 0 则只显示这些。"
 L["Route line on the minimap"] = "微缩地图上的路线线条"
 L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = "在微缩地图上显示通往目标的路线。关闭：微缩地图上保留指南图钉，地图上保留线条。颜色、不透明度和大小：见指南 > 箭头与路线 > 路线线条旁的齿轮。"
-L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = "设置窗口、按钮和提醒在地下城、团队副本、战场和竞技场中的行为。微缩地图按钮、按键绑定或 /polestar 可在其中打开窗口，直到离开。"
 L["Show and hide"] = "显示与隐藏"
 L["Floating button"] = "浮动按钮"
-L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "可放在屏幕任意位置的 Polestar 小按钮。点击显示或隐藏指南，右键点击打开菜单，拖动以移动。若战斗中和地下城中设为隐藏，它会随窗口一起隐藏。"
 L["Step key targets their mobs"] = "步骤快捷键选中其怪物"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "步骤快捷键在选中当前步骤的怪物之后，也会选中推荐任务的怪物，最近的优先。只在非战斗状态下切换。"
 L["Mark quests new in Forever"] = "标记 Forever 新增任务"
@@ -2237,6 +2240,9 @@ L["With Transparent, the tabs and the step bar stay on screen instead of only un
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "透明样式下：柔和会在每行文字后加一层浅色阴影，深色会在整个窗口后加深色背景。关闭：只有带描边的文字显示在游戏画面上。"
 -- L["Tell me when a newer Polestar is out"] = ""
 -- L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."] = ""
+L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."] = "设置窗口、按钮和提醒在地下城、团队副本、战场和竞技场中的行为。小地图按钮菜单中的“指南窗口”、按键绑定或 /polestar 可在其中打开窗口，直到离开。"
+L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "可放在屏幕任意位置的 Polestar 小按钮。点击隐藏或显示 Polestar，右键点击打开菜单，拖动以移动。若战斗中和地下城中设为隐藏，它会随窗口一起隐藏。"
+L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."] = "隐藏 Polestar 时保留箭头、它的旅行按钮和到达音效。仅限此角色。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -2453,10 +2459,14 @@ L["Balance"] = "平衡"
 L["Feral"] = "野性战斗"
 
 -- Maps/MinimapButton.lua
-L["Click: show or hide the guide"] = "点击：显示或隐藏指南"
 L["Right-click: menu"] = "右键点击：菜单"
 L["Drag: move it around the minimap"] = "拖动：沿小地图移动"
-L["Show window"] = "显示窗口"
+L["Polestar is hidden: click to show"] = "Polestar 已隐藏：点击以显示"
+L["Click: hide Polestar"] = "点击：隐藏 Polestar"
+L["Hide arrow"] = "隐藏箭头"
+L["Show Polestar"] = "显示 Polestar"
+L["Hide Polestar"] = "隐藏 Polestar"
+L["Keep the arrow when hidden"] = "隐藏时保留箭头"
 
 -- UI/Gamepad.lua
 L["D-pad up"] = "方向键上"
@@ -3371,3 +3381,11 @@ L["Right-click: hide this until the timer ends."] = "右键：隐藏直到计时
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：届时你为%4$s；请先升到 %5$d 级"
 -- L["%s has Polestar %s; you have %s. A newer version is out."] = "%s 的 Polestar 版本为 %s；你的为 %s。已有新版本。"
 -- L["Party sync is on: your party sees your quest progress (Options > Questing > Quests > Group to turn it off)."] = "小队同步已开启：你的小队能看到你的任务进度（在选项 > 做任务 > 任务 > 小队中关闭）。"
+-- L["Hide the guide window"] = "隐藏指南窗口"
+-- L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "小地图边缘的 Polestar 按钮。左键点击显示或隐藏指南，右键点击打开设置，拖动可移动。"
+-- L["Click the minimap button or press %s to show it."] = "点击微缩地图按钮或按 %s 显示。"
+-- L["Click the minimap button to show it."] = "点击微缩地图按钮显示。"
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = "设置窗口、按钮和提醒在地下城、团队副本、战场和竞技场中的行为。微缩地图按钮、按键绑定或 /polestar 可在其中打开窗口，直到离开。"
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "可放在屏幕任意位置的 Polestar 小按钮。点击显示或隐藏指南，右键点击打开菜单，拖动以移动。若战斗中和地下城中设为隐藏，它会随窗口一起隐藏。"
+-- L["Click: show or hide the guide"] = "点击：显示或隐藏指南"
+-- L["Show window"] = "显示窗口"
