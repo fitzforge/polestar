@@ -1,5 +1,5 @@
 -- Polestar's settings window, in the Polestar shell (Polestar.Widgets.Shell):
--- big (EllesmereUI's options' size at the default scale), resizable by its
+-- big (1300 x 946 screen pixels at the default scale), resizable by its
 -- corner grip (ui.optionsSize) and scaled by the Menu scale in its header.
 -- The sidebar is a tree of groups (Guiding, Look, Setup, About), each
 -- folding away (PolestarDB.optionsNav), with its pages; tabs under the
@@ -2505,10 +2505,10 @@ function O.StepTab(delta)
 end
 
 ---------------------------------------------------------------------------
--- The window's size: EllesmereUI's options panel (1300 x 946 screen pixels,
--- and more on a screen taller than 1440 pixels, in 5 % steps) at the default
--- Menu scale, whatever the UI scale, until the player drags the grip
--- (ui.optionsSize: { w, h } in the window's own units; false: the default).
+-- The window's size: 1300 x 946 screen pixels (and more on a screen taller
+-- than 1440 pixels, in 5 % steps) at the default Menu scale, whatever the UI
+-- scale, until the player drags the grip (ui.optionsSize: { w, h } in the
+-- window's own units; false: the default).
 -- Never past the screen, never under MIN_W x MIN_H (the screen allowing).
 ---------------------------------------------------------------------------
 

@@ -5907,10 +5907,10 @@ A page row carries the count of its settings new to the player and a dot
 while one of its settings is off its default; the dots move as settings
 change, the sidebar redrawn only when one did.
 
-Its size is EllesmereUI's options panel at the default Menu scale: 1300 by
-946 screen pixels whatever the UI scale (`O.DefaultSize`: the pixels per
-UIParent unit from `GetPhysicalScreenSize`), grown in 5% steps on a screen
-taller than 1440 pixels. The grip in its bottom-right corner sizes it
+Its size at the default Menu scale is 1300 by 946 screen pixels whatever the
+UI scale (`O.DefaultSize`: the pixels per UIParent unit from
+`GetPhysicalScreenSize`), grown in 5% steps on a screen taller than 1440
+pixels. The grip in its bottom-right corner sizes it
 (`W.Shell` `resizable`; only the shell lays out during the drag, the page when
 it ends) and stores `ui.optionsSize` (`{ w, h }`, false: the default);
 right-click on the grip goes back to the default. It is never smaller than

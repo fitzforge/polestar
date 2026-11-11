@@ -1,12 +1,12 @@
 ---
 section: players
 ---
-- A new settings window: bigger (EllesmereUI's size, resizable from its
-  corner, with its scale in the header), with the pages in groups (Guiding,
-  Look, Setup, About), a live preview of the real element pinned over each
-  Look page, a "Reset section" button, "New" badges on new settings, typed
-  values on sliders, colours with hex and opacity, and a search that
-  understands hint words ("bigger pins") and jumps to the setting.
+- A new settings window: bigger, resizable from its corner, with its scale
+  in the header and the pages in groups (Guiding, Look, Setup, About), a
+  live preview of the real element pinned over each Look page, a "Reset
+  section" button, "New" badges on new settings, typed values on sliders,
+  colours with hex and opacity, and a search that understands hint words
+  ("bigger pins") and jumps to the setting.
 - Make Polestar yours: eight Look pages (Theme, Guide window, Arrow, Map
   pins, Route lines, Buttons, Alerts & toasts, Trackers) let you change the
   size, colours, opacity, fonts and outline, backing and borders, spacing,
