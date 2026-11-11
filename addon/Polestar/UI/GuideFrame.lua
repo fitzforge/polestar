@@ -724,6 +724,15 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 		r.Icon:SetSize(ICON, ICON)
 	end
 	r.psStatus = status
+	-- A skin's own dress for the row (Skin API 2, hooks.guideRow): after the
+	-- house painted it; r.psRowInfo, the row's own table, says what it shows.
+	local info = r.psRowInfo
+	if not info then
+		info = {}
+		r.psRowInfo = info
+	end
+	info.current, info.done, info.skipped = current and true or false, done, skipped
+	Theme.SkinHook("guideRow", r, goal, info)
 end
 
 local function layoutBar(b, tw)
@@ -2296,7 +2305,7 @@ local function showSteps(show)
 	empty:SetShown(not show)
 end
 
-function GF.Render()
+local function render()
 	if not F or not ns.IsLoggedIn() then return end
 	local E, G = Engine(), ns.Guides
 	strip.psHasTabs = GF.TabsOf(E) ~= nil
@@ -2366,6 +2375,13 @@ function GF.Render()
 	-- A class chain's card, the first time it shows: its shine and chime.
 	if F:IsVisible() and not GF.catchingUp and UI.ClassCard then UI.ClassCard.Celebrate() end
 	shownIndex, shownGuide, shownFocus = index, guide.id, focus
+end
+
+-- Render, then a skin's own (Skin API 2, hooks.guideRender(view, parts)):
+-- the step on screen, nil when there is none.
+function GF.Render()
+	render()
+	if F then Theme.SkinHook("guideRender", state == "steps" and view or nil, Theme.GuideParts()) end
 end
 
 -- The step the window shows (the catch-up's while it goes over the steps).

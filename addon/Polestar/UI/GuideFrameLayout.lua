@@ -407,6 +407,11 @@ function GF.Layout()
 	else
 		GF.xp:Hide()
 	end
+	-- A skin's own room under the window's parts (Skin API 2,
+	-- hooks.guideLayout(parts, width, y)): it may place its frames from y
+	-- down; its answer is the height they take.
+	local ran, extra = Theme.SkinHookValue("guideLayout", Theme.GuideParts(), width, y)
+	if ran and type(extra) == "number" and extra > 0 then y = y + extra end
 	local showFoot = (state == "steps" or state == "complete" or state == "skippedout") and GF.On("progress")
 	foot:SetShown(showFoot)
 	local stripH = showStrip and TAB_H or 0
@@ -453,6 +458,8 @@ function GF.PaintProgress(animate)
 	W.SetProgress(foot.Line, frac, w, animate)
 	GF.PaintStatus(frac, foot.Pct:GetText())
 	foot.psDone, foot.psTotal = done, total
+	-- A skin's own progress (Skin API 2, hooks.guideProgress(foot, frac)).
+	Theme.SkinHook("guideProgress", foot, frac)
 end
 
 GF.StripShown = stripShown

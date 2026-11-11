@@ -143,7 +143,7 @@ fn invalid_specs_are_refused_with_the_reason_and_grounds_too_light_are_darkened_
 		out.range = try(S, "a3", scheme({ text = { 1.2, 1, 1 } }))
 		out.token = try(S, "a4", scheme({ txet = "#ffffff" }))
 		out.field = try(S, "a5", scheme(nil, { colour = 1 }))
-		out.api = try(S, "a6", scheme(nil, { api = 2 }))
+		out.api = try(S, "a6", scheme(nil, { api = 3 }))
 		out.dup = try(S, "plain", scheme())
 		out.builtin = try(S, "dusk", scheme())
 		out.id = try(S, "1abc", scheme())
@@ -184,7 +184,7 @@ fn invalid_specs_are_refused_with_the_reason_and_grounds_too_light_are_darkened_
 	refused("range", "token \"text\" is not a colour");
 	refused("token", "unknown token \"txet\"");
 	refused("field", "unknown field \"colour\"");
-	refused("api", "needs Skin API 2; this Polestar has 1");
+	refused("api", "needs Skin API 3; this Polestar has 2");
 	refused("dup", "the id \"plain\" is taken (Test)");
 	refused("builtin", "the id \"dusk\" is taken (Polestar)");
 	refused("id", "the id must be a word");
@@ -358,7 +358,7 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 			arrow = T.HasCapability("surfaces.arrow"), pin = T.HasCapability("surfaces.pin"), fonts = T.HasCapability("fonts"),
 			preset = T.HasCapability("preset"), light = T.HasCapability("lightSchemes"), title = T.HasCapability("surfaces.guideTitle"),
 			nope = T.HasCapability("surfaces.nope"), odd = T.HasCapability(nil), n = #T.Capabilities() })"##);
-	assert_eq!(out["v"], 1);
+	assert_eq!(out["v"], 2);
 	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts", "preset", "light", "title"] {
 		assert_eq!(out[k], true, "{k}");
 	}

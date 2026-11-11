@@ -723,7 +723,11 @@ function CT.Place(animate)
 		dy = 18
 	else
 		f:SetClampedToScreen(false)
-		local top, bottom, room = w:GetTop(), w:GetBottom(), UIParent:GetTop()
+		-- A skin's own frame around the window (its cards above it: Skin API 2,
+		-- hooks.guideAnchor) is the edge the card sits on instead.
+		local ran, own = Theme.SkinHookValue("guideAnchor")
+		local edge = ran and type(own) == "table" and own.GetTop and own or w
+		local top, bottom, room = edge:GetTop(), edge:GetBottom(), UIParent:GetTop()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
 		local fitsAbove = not (top and room) or (top + h * k) * s <= room * us
 		local above = fitsAbove
@@ -733,9 +737,9 @@ function CT.Place(animate)
 		end
 		CT.side = above and "above" or "below"
 		if above then
-			Anim.Anchor(f, "BOTTOMLEFT", w, "TOPLEFT", 0, -1)
+			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, -1)
 		else
-			Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, 1)
+			Anim.Anchor(f, "TOPLEFT", edge, "BOTTOMLEFT", 0, 1)
 		end
 		dy = above and -h or h
 	end
