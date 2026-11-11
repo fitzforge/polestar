@@ -555,6 +555,22 @@ test(`${MULGORE}: A Task Unfinished at Antur Fallow starts the cougar hunt, with
 	assert.ok(hunt < at(list, 'turnin 750', is('turnin', 750)), 'the hunt ends at Grull');
 });
 
+// Route review (0.3.7): the cougar hunt went round Seer Graytongue's tent, north to Grull, then back south
+// to the Seer. The hunt now goes south to the Seer (her tent stands at the foot of the cougars' hills) and on to the
+// shrine's Ritual Fire, then back up to Grull.
+test(`${MULGORE}: Seer Graytongue and the shrine during the cougar hunt, no walk back south from Grull`, { skip }, () => {
+	const list = goals(MULGORE);
+	const antur = at(list, 'accept 1656', is('accept', 1656));
+	const seer = at(list, 'turnin 755', is('turnin', 755));
+	const shrine = at(list, 'turnin 95805', is('turnin', 95805));
+	const grull = at(list, 'turnin 750', is('turnin', 750));
+	const boars = at(list, 'Battleboar Snout', (g) => g.t === 'collect' && g.quest === 780);
+	assert.ok(antur < seer && seer < shrine && shrine < grull && grull < boars, 'Antur, the Seer, the shrine, Grull, then the battleboars');
+	assert.ok(list.slice(antur, seer).some(({ goal }) => goal.t === 'collect' && goal.quest === 750), 'the pelts on the way south to the Seer');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 95805 && p.b[0] === 'turnin' && p.b[1] === 750), 'a route-fixes pair keeps the order');
+});
+
 // Flow audit, Mulgore: the walk passed Bloodhoof's NPCs with finished quests and came back for them
 // (Swoop Hunting and Rite of Vision on a later visit, Mazzranache two visits later), walked out to
 // Morin Cloudstalker and Longwalker Malah a second time, and took Preparation for Ceremony after the

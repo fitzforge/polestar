@@ -47,18 +47,12 @@ step Grull Hawkwind
   accept 755
 
 step The Hunt Continues
-  tip Antur Fallow stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to Grull.
+  tip Antur Fallow stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot.
   accept 1656                         -- Antur Fallow
   collect 4742 quest 750.1            -- Mountain Cougar Pelt
 
-step Grull Hawkwind
-  turnin 750
-  accept 780
-  accept 3376                         -- Brave Windfeather, next to Grull; walks around Camp Narache: look inside the circle on the map
-  train class
-
 step Seer Graytongue
-  tip Follow the path south out of camp to the Seer's tent at the foot of the hills.
+  tip The Seer's tent stands at the foot of the cougars' hills.
   turnin 755
   accept 95805
   accept 757
@@ -66,6 +60,13 @@ step Seer Graytongue
 step The shrine of An'she and Mu'sha
   tip The incense burns out in ten minutes: run straight east along the southern hills to the Ritual Fire.
   turnin 95805
+
+step Grull Hawkwind
+  tip Back north-west up to Camp Narache.
+  turnin 750
+  accept 780
+  accept 3376                         -- Brave Windfeather, next to Grull; walks around Camp Narache: look inside the circle on the map
+  train class
 
 # ---------------------------------------------------------------- Brambleblade Ravine
 

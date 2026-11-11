@@ -1750,6 +1750,18 @@
 			},
 			{
 				"a": [
+					"turnin",
+					95805
+				],
+				"b": [
+					"turnin",
+					750
+				],
+				"faction": "Horde",
+				"why": "Route review (0.3.7): Mulgore bounced cougar hills -> north to Grull (The Hunt Continues) -> back south to Seer Graytongue, whose tent (42.5,90.1) stands inside the Mountain Cougars' hills (41-55, 82-92). The Seer (755 in, 757 and the timed 95805 out) and the shrine's Ritual Fire (56.6,88.7, at the east end of the same hills) come at the end of the cougar hunt (the pelts on the way south), then Grull and the battleboars. A benchmark guide also takes the Seer and the shrine before Grull's hand-in"
+			},
+			{
+				"a": [
 					"task",
 					95314
 				],
