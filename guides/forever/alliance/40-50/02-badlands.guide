@@ -136,7 +136,6 @@ step Witherbark villages
 
 step Aerie Peak
   turnin 2880                         -- Fraggar Thundermantle, inside
-  accept 2881 optional                -- Fraggar keeps paying for necklaces: hand in any extras
   turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top; inside
   note Talonaxe's next task waits for a later Hinterlands guide.
 

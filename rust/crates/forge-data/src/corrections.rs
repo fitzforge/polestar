@@ -505,7 +505,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 22] = [
+const QUEST_FIELDS: [&str; 23] = [
 	"title",
 	"level",
 	"minLevel",
@@ -525,6 +525,8 @@ const QUEST_FIELDS: [&str; 22] = [
 	"skill",
 	"event",
 	"escort",
+	// Handed in on the spot from the giver's window, never in the log (the server's QuestType 0).
+	"direct",
 	"breadcrumbFor",
 	"breadcrumbs",
 	// Seconds the quest allows once taken (the TDB's TimeAllowed; a Forever quest's from its text).
@@ -828,9 +830,9 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 						ck.err(&a, "must be text");
 					}
 				}
-				"escort" => {
+				"escort" | "direct" => {
 					if !matches!(v, V::Bool(_)) {
-						ck.err(&a, "escort is true or false");
+						ck.err(&a, format!("{k} is true or false"));
 					}
 				}
 				"start" | "end" => {

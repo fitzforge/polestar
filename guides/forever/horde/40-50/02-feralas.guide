@@ -210,8 +210,7 @@ step Mirage Raceway
   turnin 1183                           -- Pozzik: the Fuel Regulator Blueprints from Baron Revilgaz, if you carry them
   accept 1186
   turnin 1186                           -- Razzeric, beside Pozzik
-  accept 1191                           -- Zamek
-  turnin 1191
+  turnin 1191 direct
   turnin 1190                           -- Rizzle's Unguarded Plans
   accept 1194
   turnin 1194                           -- Pozzik
@@ -244,7 +243,6 @@ step Gadgetzan
   turnin 1690                           -- Chief Engineer Bilgewhizzle
   accept 1691
   turnin 1707                           -- Spigot Operator Luglunket
-  accept 1878
 
 # ---------------------------------------------------------------- Steamwheedle Port
 
@@ -291,7 +289,7 @@ step Steamwheedle Port
   turnin 8366
 
 step Gadgetzan
-  turnin 1878
+  turnin 1878 direct
   turnin 2781                           -- Chief Engineer Bilgewhizzle
   turnin 1691                           -- Chief Engineer Bilgewhizzle
   vendor nearest
