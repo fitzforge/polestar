@@ -82,7 +82,7 @@ return {
 	-- {item:17124} Syndicate Emblem
 	["{item:17124}: pickpocket Syndicate"] = "",
 	-- {npc:6766} Ravenholdt Guard
-	["a {npc:6766}: 100 per emblem, handed in from his window"] = "",
+	["a {npc:6766}: 100 per emblem, handed in from his window"] = "un {npc:6766}: 100 por emblema, se entrega desde su ventana",
 
 	-- Step 11: Syndicate kills to the end of Honored
 	["Syndicate kills to the end of Honored"] = "",
@@ -118,5 +118,5 @@ return {
 	-- {item:16885} Heavy Junkbox · {area:1445} Blackrock Mountain
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "",
 	-- {npc:6707} Fahrad
-	["{npc:6707}: 50 per five boxes, handed in from his window"] = "",
+	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707}: 50 por cada cinco cajas, se entrega desde su ventana",
 }

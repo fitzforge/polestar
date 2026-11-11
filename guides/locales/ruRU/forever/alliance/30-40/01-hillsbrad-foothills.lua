@@ -190,7 +190,7 @@ return {
 	["Yeti cave"] = "Пещера йети",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "",
+	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Йети живут в пещере на холмах к северу (ориентир: {area:271}), по пути на север к лагерю Синдиката.\nОставайтесь здесь: {area:277}. В пещере дальше к северу парами ходят горные и гигантские йети (32-34) и {npc:13602}, элитный противник 36-го уровня.",
 
 	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "Лагерь Синдиката",
