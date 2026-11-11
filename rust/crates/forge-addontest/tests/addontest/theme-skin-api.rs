@@ -357,9 +357,11 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 			window = T.HasCapability("surfaces.window"), toast = T.HasCapability("surfaces.toast"),
 			arrow = T.HasCapability("surfaces.arrow"), pin = T.HasCapability("surfaces.pin"), fonts = T.HasCapability("fonts"),
 			preset = T.HasCapability("preset"), light = T.HasCapability("lightSchemes"), title = T.HasCapability("surfaces.guideTitle"),
+			variants = T.HasCapability("variants"), resolve = T.HasCapability("resolve"), shadow = T.HasCapability("shadow"),
+			artTint = T.HasCapability("artTint"), dart = T.HasCapability("media.dart"), parts = T.HasCapability("guideParts"),
 			nope = T.HasCapability("surfaces.nope"), odd = T.HasCapability(nil), n = #T.Capabilities() })"##);
 	assert_eq!(out["v"], 2);
-	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts", "preset", "light", "title"] {
+	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts", "preset", "light", "title", "variants", "resolve", "shadow", "artTint", "dart", "parts"] {
 		assert_eq!(out[k], true, "{k}");
 	}
 	assert_eq!((out["nope"].clone(), out["odd"].clone()), (json!(false), json!(false)));
@@ -512,4 +514,138 @@ stub.addonMeta["Polestar_Skin_Moonlit"] = { Version = "1.0" }"##
 		..Default::default()
 	});
 	assert_eq!(out[0], "Polestar_Nav 0.0.1", "a skin addon has its own version");
+}
+
+// Skin API 2: one design in several versions (spec.variants). Each variant is checked as the skin is (its fields,
+// its base, its grounds' legibility); the player's pick is kept per skin (ui.skinVariants.<id>) and repaints at
+// once; a variant may draw the skin from another look (its base: the game's art, its own dart); a card draws a
+// variant without touching the live one; a pick the skin no longer has falls back on its default.
+#[test]
+fn a_skin_s_variants_are_checked_picked_per_skin_drawn_on_their_own_cards_and_may_change_the_look_it_is_drawn_from() {
+	let out = run(r##"
+		local function spec(extra)
+			local s = { name = "V", addon = "Test" }
+			for k, v in pairs(extra or {}) do s[k] = v end
+			return s
+		end
+		local function try(id, sp)
+			local ok, msg = T.RegisterSkin(id, sp)
+			return { ok = ok, msg = msg or false }
+		end
+		local out = {}
+		out.twice = try("v1", spec({ variants = { { id = "a", name = "A" }, { id = "a", name = "B" } } }))
+		out.unknown = try("v2", spec({ variants = { { id = "a", name = "A", colour = 1 } } }))
+		out.default = try("v3", spec({ variants = { { id = "a", name = "A" } }, defaultVariant = "b" }))
+		out.alone = try("v4", spec({ defaultVariant = "a" }))
+		out.vbase = try("v5", spec({ variants = { { id = "a", name = "A", base = "nope" } } }))
+		out.shadow = try("v6", spec({ shadow = { size = 8, blur = 2 } }))
+		out.tint = try("v7", spec({ artTint = { brightness = 2 } }))
+		out.resolve = try("v8", spec({ resolve = "x" }))
+		out.dark = try("v9", spec({ strict = true, variants = { { id = "a", name = "A",
+			tokens = { text = "#303030", textDim = "#303030", textMuted = "#303030" } } } }))
+		out.empty = try("v10", spec({ variants = {} }))
+		out.ok = try("duo", spec({ shadow = { size = 20, drop = 4 }, defaultVariant = "flat", variants = {
+			{ id = "flat", name = "Flat", desc = "Polestar's own frames", tokens = { accent = "#ff00ff" } },
+			{ id = "forever", name = "WoW Forever, dimmed", base = "forever", artTint = { tint = { 0.8, 0.8, 0.9 }, brightness = -0.4, desaturate = 0.8 },
+				media = { dart = "Interface\\AddOns\\Test\\dart" } },
+		} }))
+		Polestar.Set("ui.skin", "duo")
+		out.list = T.SkinVariants("duo")
+		out.flat = { T.SkinVariant("duo"), T.SkinKey(), T.GameSkin(), hexOf(T.Palette().accent), T.SkinMedia("dart") or false }
+		local card = CreateFrame("Frame")
+		card:SetSize(120, 72)
+		T.DrawSkinCard(card, "duo", "forever")
+		out.card = hexOf({ card.psSkinCard.ground:GetVertexColor() })
+		T.DrawSkinCard(card, "forever")
+		out.foreverCard = hexOf({ card.psSkinCard.ground:GetVertexColor() })
+		out.stillFlat = { T.SkinVariant("duo"), T.SkinKey(), hexOf(T.Palette().accent) }
+		local repaints = 0
+		T.OnChanged(function() repaints = repaints + 1 end)
+		Polestar.Set("ui.skinVariants.duo", "forever")
+		out.forever = { T.SkinVariant("duo"), T.SkinKey(), T.GameSkin(), T.SkinMedia("dart") or false, repaints }
+		-- Another skin's pick repaints nothing; a pick the skin no longer has is its default.
+		Polestar.Set("ui.skinVariants.halo", "x")
+		out.otherSkin = repaints
+		Polestar.Set("ui.skinVariants.duo", "gone")
+		out.gone = T.SkinVariant("duo")
+		-- Kept per skin, through another skin and back.
+		Polestar.Set("ui.skinVariants.duo", "forever")
+		Polestar.Set("ui.skin", "halo")
+		Polestar.Set("ui.skin", "duo")
+		out.kept = T.SkinVariant("duo")
+		out.none = { T.SkinVariants("halo") == nil, T.SkinVariant("halo") == nil }
+		emit(out)"##);
+	let refused = |k: &str, pat: &str| {
+		assert_eq!(out[k]["ok"], false, "{k}: {}", out[k]);
+		let msg = out[k]["msg"].as_str().unwrap_or("");
+		assert!(msg.contains(pat), "{k}: {msg:?} should say {pat:?}");
+	};
+	refused("twice", "the variant id \"a\" is given twice");
+	refused("unknown", "unknown field \"colour\" in variants[1]");
+	refused("default", "defaultVariant must be one of the variants' ids");
+	refused("alone", "defaultVariant goes with variants");
+	refused("vbase", "variants[1].base must be one of Polestar's skins");
+	refused("shadow", "unknown field \"blur\" in shadow");
+	refused("tint", "artTint.brightness must be a number from -1 to 1");
+	refused("resolve", "resolve must be a function");
+	refused("dark", "variants[1]: ");
+	refused("empty", "variants must be a list");
+	assert_eq!(out["ok"], json!({ "ok": true, "msg": false }));
+	assert_eq!(out["list"], json!([{ "id": "flat", "name": "Flat", "desc": "Polestar's own frames" }, { "id": "forever", "name": "WoW Forever, dimmed" }]));
+	assert_eq!(out["flat"], json!(["flat", "polestar", false, "ff00ff", false]), "the default variant: the house style in its accent");
+	assert_eq!(out["card"], out["foreverCard"], "the variant's card: drawn on WoW Forever's ground");
+	assert_eq!(out["stillFlat"], json!(["flat", "polestar", "ff00ff"]), "a card leaves the live skin alone");
+	assert_eq!(out["forever"], json!(["forever", "forever", true, "Interface\\AddOns\\Test\\dart", 1]), "the pick repaints once, drawn from the game's art with the variant's own dart");
+	assert_eq!(out["otherSkin"], 1, "another skin's pick repaints nothing");
+	assert_eq!(out["gone"], "flat");
+	assert_eq!(out["kept"], "forever");
+	assert_eq!(out["none"], json!([true, true]));
+}
+
+// Skin API 2: a skin's resolver (spec.resolve) is asked with the player's context (faction, class and its colour,
+// the zone, the continent and its name); on a new zone it is asked again, and Polestar repaints only when its
+// answer changed (a skin keyed to the continent repaints on a new continent, not at every zone border). With no
+// such skin in use, a new zone asks nothing.
+#[test]
+fn a_resolver_is_asked_with_the_player_s_context_and_a_new_zone_repaints_only_when_its_answer_changed() {
+	let out = run(r##"
+		local MAPS = {
+			[1414] = { mapID = 1414, name = "Kalimdor", mapType = 2, parentMapID = 947 },
+			[1415] = { mapID = 1415, name = "Eastern Kingdoms", mapType = 2, parentMapID = 947 },
+			[1411] = { mapID = 1411, name = "Durotar", mapType = 3, parentMapID = 1414 },
+			[1413] = { mapID = 1413, name = "The Barrens", mapType = 3, parentMapID = 1414 },
+			[1429] = { mapID = 1429, name = "Elwynn Forest", mapType = 3, parentMapID = 1415 },
+		}
+		local zone = 1411
+		C_Map = { GetBestMapForUnit = function() return zone end, GetMapInfo = function(id) return MAPS[id] end }
+		local asks, seen = 0, nil
+		local ok, why = T.RegisterSkin("way", { name = "Waymark", addon = "Test", resolve = function(ctx)
+			asks = asks + 1
+			seen = ctx
+			return { accent = ctx.continent == 1414 and "#ff0000" or "#00ff00" }
+		end })
+		local repaints = 0
+		T.OnChanged(function() repaints = repaints + 1 end)
+		Polestar.Set("ui.skin", "way")
+		local r0 = repaints
+		local out = { ok = ok, why = why or false }
+		out.first = { hexOf(T.Palette().accent), seen.zone, seen.continent, seen.continentName, type(seen.faction), type(seen.class),
+			type(seen.classColor) }
+		zone = 1413
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		out.sameContinent = { repaints - r0, hexOf(T.Palette().accent), seen.zone }
+		zone = 1429
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		out.newContinent = { repaints - r0, hexOf(T.Palette().accent), seen.continentName }
+		Polestar.Set("ui.skin", "polestar")
+		local r1, a1 = repaints, asks
+		zone = 1411
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		out.plain = { repaints - r1, asks - a1 }
+		emit(out)"##);
+	assert_eq!(out["ok"], true, "{}", out["why"]);
+	assert_eq!(out["first"], json!(["ff0000", 1411, 1414, "Kalimdor", "string", "string", "table"]));
+	assert_eq!(out["sameContinent"], json!([0, "ff0000", 1413]), "asked again, the same answer: no repaint");
+	assert_eq!(out["newContinent"], json!([1, "00ff00", "Eastern Kingdoms"]), "a new answer: one repaint");
+	assert_eq!(out["plain"], json!([0, 0]), "no resolver in use: nothing asked, nothing repainted");
 }

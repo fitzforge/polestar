@@ -312,6 +312,23 @@ local SPECS = {
 				end
 				return list
 			end },
+		-- A skin in several versions (its variants, Skin API 2): the player's
+		-- pick, kept per skin (ui.skinVariants.<id>); shown while the skin in
+		-- use has them.
+		{ kind = "cards", label = L["Variant"], wide = true, new = NEW,
+			search = "skin variant, skin version, skin colours, skin style",
+			help = L["This skin comes in several versions: pick yours. Each skin keeps its own."],
+			needs = function() return Theme.SkinVariants ~= nil and Theme.SkinVariants(Theme.SkinId()) ~= nil end,
+			get = function() return Theme.SkinVariant(Theme.SkinId()) end,
+			set = function(v) ns.Set("ui.skinVariants." .. Theme.SkinId(), v) end,
+			choices = function()
+				local list, id = {}, Theme.SkinId()
+				for i, v in ipairs(Theme.SkinVariants(id) or {}) do
+					list[i] = { value = v.id, label = v.name, tip = v.desc,
+						draw = skinCards and function(card, value) Theme.DrawSkinCard(card, id, value) end or nil }
+				end
+				return list
+			end },
 		-- A skin may recommend settings of its own (its preset): the player
 		-- applies them, and may take them back this session. The pair shows
 		-- while the skin has one or one is applied; each dims when it has
