@@ -200,7 +200,7 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 			if c.wide then wides[#wides + 1] = c.key end
 			if c.new then
 				news[#news + 1] = name
-				if c.new ~= "0.3.7" then bad[#bad + 1] = name .. ": new is not 0.3.7" end
+				if c.new ~= "0.3.8" then bad[#bad + 1] = name .. ": new is not 0.3.8" end
 			end
 			local switches, swatches = 0, 0
 			for _, x in ipairs(c.extras or {}) do
@@ -236,13 +236,41 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 	// The old Appearance > Colour & type and Windows > Frame settings (the menu scale lives in the window's header,
 	// the class quest chime on Alerts & toasts).
 	for k in [
-		"ui.accent", "ui.classAccent", "ui.scheme", "ui.bgColor", "ui.brightness", "ui.bgOpacity", "ui.font", "ui.textSize", "ui.reduceMotion",
-		"ui.skin", "ui.border", "ui.borderColor", "ui.borderAccent", "ui.borderSize", "ui.band", "ui.shadow", "ui.gameMenuButton",
+		"ui.accent",
+		"ui.classAccent",
+		"ui.scheme",
+		"ui.bgColor",
+		"ui.brightness",
+		"ui.bgOpacity",
+		"ui.font",
+		"ui.textSize",
+		"ui.reduceMotion",
+		"ui.skin",
+		"ui.border",
+		"ui.borderColor",
+		"ui.borderAccent",
+		"ui.borderSize",
+		"ui.band",
+		"ui.shadow",
+		"ui.gameMenuButton",
 	] {
 		assert!(keys.contains(&k), "{k} is on the Theme page");
 	}
 	assert!(!keys.contains(&"ui.menuScale") && !keys.contains(&"ui.classCardSound"), "one home per setting");
-	for k in ["ui.fontOutline", "ui.textShadow", "ui.headingFont", "ui.textColor", "ui.colors.npc", "ui.colors.quest", "ui.panelColor", "ui.hairlineOpacity", "ui.shadowStrength", "ui.starAlpha", "ui.rim", "ui.animSpeed"] {
+	for k in [
+		"ui.fontOutline",
+		"ui.textShadow",
+		"ui.headingFont",
+		"ui.textColor",
+		"ui.colors.npc",
+		"ui.colors.quest",
+		"ui.panelColor",
+		"ui.hairlineOpacity",
+		"ui.shadowStrength",
+		"ui.starAlpha",
+		"ui.rim",
+		"ui.animSpeed",
+	] {
 		assert!(keys.contains(&k), "{k} is on the Theme page");
 	}
 	assert_eq!(out["bad"], "");

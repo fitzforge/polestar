@@ -20,7 +20,7 @@ local L = ns.L
 local floor, max, min, format, type, ipairs, pairs, tonumber = math.floor, math.max, math.min, string.format, type, ipairs, pairs, tonumber
 
 local TS = UI.Toasts
-local NEW = "0.3.7"
+local NEW = "0.3.8"
 
 local function stackOn() return ns.Get("toasts.stack") and true or false end
 

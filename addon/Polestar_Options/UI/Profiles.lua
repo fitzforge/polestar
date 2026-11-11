@@ -726,7 +726,7 @@ ns.On("PROFILES_CHANGED", function()
 	if view:IsVisible() then relayout() else view.psDirty = true end
 end)
 
-ns.RegisterOptions({ page = L["Profiles"], key = "profiles", icon = "compact", order = 64, group = "setup", new = "0.3.7",
+ns.RegisterOptions({ page = L["Profiles"], key = "profiles", icon = "compact", order = 64, group = "setup", new = "0.3.8",
 	subtitle = L["Named sets of settings: one per character, class or the whole account, and strings to share them."],
 	search = L["profile, profiles, export, import, share, string, copy settings, backup, per character, alts, class, switch, rename, delete"],
 	custom = PV.Build, controls = {} })

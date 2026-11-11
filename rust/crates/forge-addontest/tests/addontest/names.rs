@@ -286,7 +286,9 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	// A complete install for the stub's Alliance character: our guides' Alliance part too (format 8).
 	let check = |addons: &str| {
 		run(Opts {
-			before: format!(r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}, {{ name = "Polestar_Options" }}{addons} }}"#),
+			before: format!(
+				r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}, {{ name = "Polestar_Options" }}{addons} }}"#
+			),
 			script: script.into(),
 			..Default::default()
 		})

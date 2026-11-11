@@ -22,14 +22,7 @@ local function rgba(t) local r, g, b, a = t:GetVertexColor(); return { r, g, b, 
 
 /// The live action buttons, with the QoL stubs (secure frames refuse protected calls in combat).
 fn run_qol(script: &str) -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_qol.lua"],
-		addons: vec![Addon::files("Polestar", &QOL_FILES)],
-		login: true,
-		script: format!("{QOL_PRELUDE}{script}"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_qol.lua"], addons: vec![Addon::files("Polestar", &QOL_FILES)], login: true, script: format!("{QOL_PRELUDE}{script}"), ..Default::default() }).remove(0)
 }
 
 /// Every module with a button on the page, and the options window.
@@ -177,7 +170,7 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 			r.keys[#r.keys + 1] = c.key
 			if Polestar.GetDefault(c.key) == nil then r.missing[#r.missing + 1] = c.key end
 			local fresh = c.key:find("^buttons%.") or c.key:find("^ui%.launcher.") or c.key:find("^maps%.minimapButton.")
-			if not (c.search and c.search ~= "" and c.help and c.help ~= "") or (fresh and c.new ~= "0.3.7") then r.bare[#r.bare + 1] = c.key end
+			if not (c.search and c.search ~= "" and c.help and c.help ~= "") or (fresh and c.new ~= "0.3.8") then r.bare[#r.bare + 1] = c.key end
 		end
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == "Buttons" then
@@ -252,22 +245,51 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 	] {
 		assert_eq!(out["extras"][main], extra, "{extra} beside {main}");
 	}
-	for (main, cog) in [
-		("buttons.border", "buttons.borderSize"),
-		("buttons.labelScale", "buttons.labelOutline"),
-		("qol.targetPlate", "buttons.miniSize"),
-		("buttons.hotkey", "buttons.hotkeyScale"),
-	] {
+	for (main, cog) in [("buttons.border", "buttons.borderSize"), ("buttons.labelScale", "buttons.labelOutline"), ("qol.targetPlate", "buttons.miniSize"), ("buttons.hotkey", "buttons.hotkeyScale")] {
 		assert_eq!(out["more"][main], cog, "{cog} behind {main}'s cog");
 	}
 	let keys: Vec<&str> = out["keys"].as_array().unwrap().iter().map(|k| k.as_str().unwrap()).collect();
 	for k in [
-		"qol.buttonScale", "qol.buttonTextSide", "qol.targetPlate", "qol.itemButton", "qol.hearthButton", "qol.targetButton", "qol.rareButton",
-		"ui.launcher", "maps.minimapButton", "buttons.itemSize", "buttons.hearthSize", "buttons.targetSize", "buttons.rareSize", "buttons.bagSize",
-		"buttons.spacing", "buttons.layout", "buttons.padding", "buttons.backing", "buttons.backingColor", "buttons.border", "buttons.borderColor",
-		"buttons.borderSize", "buttons.hoverColor", "buttons.labelScale", "buttons.labelOutline", "buttons.miniSize", "buttons.hotkey",
-		"buttons.hotkeyScale", "buttons.count", "buttons.cooldownText", "buttons.idleAlpha", "buttons.alpha", "buttons.glow", "buttons.glowColor",
-		"ui.launcherSize", "ui.launcherAlpha", "ui.launcherIcon", "ui.launcherBack", "maps.minimapButtonSize", "maps.minimapButtonIcon",
+		"qol.buttonScale",
+		"qol.buttonTextSide",
+		"qol.targetPlate",
+		"qol.itemButton",
+		"qol.hearthButton",
+		"qol.targetButton",
+		"qol.rareButton",
+		"ui.launcher",
+		"maps.minimapButton",
+		"buttons.itemSize",
+		"buttons.hearthSize",
+		"buttons.targetSize",
+		"buttons.rareSize",
+		"buttons.bagSize",
+		"buttons.spacing",
+		"buttons.layout",
+		"buttons.padding",
+		"buttons.backing",
+		"buttons.backingColor",
+		"buttons.border",
+		"buttons.borderColor",
+		"buttons.borderSize",
+		"buttons.hoverColor",
+		"buttons.labelScale",
+		"buttons.labelOutline",
+		"buttons.miniSize",
+		"buttons.hotkey",
+		"buttons.hotkeyScale",
+		"buttons.count",
+		"buttons.cooldownText",
+		"buttons.idleAlpha",
+		"buttons.alpha",
+		"buttons.glow",
+		"buttons.glowColor",
+		"ui.launcherSize",
+		"ui.launcherAlpha",
+		"ui.launcherIcon",
+		"ui.launcherBack",
+		"maps.minimapButtonSize",
+		"maps.minimapButtonIcon",
 	] {
 		assert!(keys.contains(&k), "{k} on the Buttons page");
 	}

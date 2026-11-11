@@ -18,13 +18,7 @@ local HERE = { t = "kill", hereText = "Kill Kobold Vermin  8/10", yards = 50, st
 "#;
 
 fn run(script: &str) -> Vec<Value> {
-	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
-		addons: vec![Addon::name("Polestar")],
-		login: true,
-		script: format!("Polestar.UI.LoadOptions()\n{HELPERS}\n{script}"),
-		..Default::default()
-	})
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], login: true, script: format!("Polestar.UI.LoadOptions()\n{HELPERS}\n{script}"), ..Default::default() })
 }
 
 #[test]
@@ -393,11 +387,33 @@ fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_a
 		}
 	}
 	for key in [
-		"rares.toastSeconds", "rares.treasureAlerts", "rares.combatAlerts", "nav.alertBanner", "nav.alertSound", "nav.alertFlash",
-		"toasts.transport.linger", "toasts.whilehere.seconds", "toasts.whilehere.accent", "behavior.whileHereSound", "toasts.headsup.seconds",
-		"dungeons.headsUp", "ui.classCardSound", "toasts.classcard.glow", "toasts.classcard.stripe", "toasts.classcard.shine",
-		"toasts.classcard.note", "toasts.classcard.titleSize", "toasts.classcard.bodySize", "toasts.growth", "toasts.spacing", "toasts.max",
-		"trackers.flight.barHeight", "trackers.flight.format", "maps.instanceDisplay", "trackers.xp.label", "trackers.journey.rows",
+		"rares.toastSeconds",
+		"rares.treasureAlerts",
+		"rares.combatAlerts",
+		"nav.alertBanner",
+		"nav.alertSound",
+		"nav.alertFlash",
+		"toasts.transport.linger",
+		"toasts.whilehere.seconds",
+		"toasts.whilehere.accent",
+		"behavior.whileHereSound",
+		"toasts.headsup.seconds",
+		"dungeons.headsUp",
+		"ui.classCardSound",
+		"toasts.classcard.glow",
+		"toasts.classcard.stripe",
+		"toasts.classcard.shine",
+		"toasts.classcard.note",
+		"toasts.classcard.titleSize",
+		"toasts.classcard.bodySize",
+		"toasts.growth",
+		"toasts.spacing",
+		"toasts.max",
+		"trackers.flight.barHeight",
+		"trackers.flight.format",
+		"maps.instanceDisplay",
+		"trackers.xp.label",
+		"trackers.journey.rows",
 		"trackers.journey.numbers",
 	] {
 		assert!(keys.contains(&key), "{key} is on the page");

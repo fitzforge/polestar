@@ -128,7 +128,7 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."], search = "raid marker, raid icon, star" },
 	C.stepInteract(),
 	-- How they look (size, layout, text, opacity...) is the Buttons page's (QoL/ButtonsOptions.lua).
-	{ kind = "button", icon = "palette", button = L["Open"], label = L["Button look"], new = "0.3.7",
+	{ kind = "button", icon = "palette", button = L["Open"], label = L["Button look"], new = "0.3.8",
 		help = L["Size, spacing, layout, backing, text, opacity and glow of these buttons, with a live preview, on the Buttons page."],
 		search = "button size, scale, bigger, smaller, look, style, opacity, layout, name position",
 		onClick = function() ns.UI.ShowOptions("buttons") end },

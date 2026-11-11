@@ -349,10 +349,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 	})
 	.remove(0);
 	let keys: Vec<String> = out["keys"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
-	assert!(
-		in_order(&keys, &["guide", "map", "questing", "discovery", "qualityoflife", "integrations", "guidepacks", "gamepad", "thanks", "recorder", "about"]),
-		"keys: {keys:?}"
-	);
+	assert!(in_order(&keys, &["guide", "map", "questing", "discovery", "qualityoflife", "integrations", "guidepacks", "gamepad", "thanks", "recorder", "about"]), "keys: {keys:?}");
 	assert!(keys.contains(&"theme".to_string()) && !keys.contains(&"appearance".to_string()), "keys: {keys:?}");
 	assert!(is_match(text(&out["options appearance"]), r"^theme: Thema > "), "{}", out["options appearance"]);
 	let mut rest = out.clone();
@@ -525,10 +522,7 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 	// Page and tab (a result card's title adds its section).
 	let mut titles: Vec<String> = out["arrow"]["titles"].as_array().unwrap().iter().map(|v| tab_of(v.as_str().unwrap())).collect();
 	titles.dedup();
-	assert!(
-		in_order(&titles[..2], &["Guide  \u{b7}  Window", "Guide  \u{b7}  Arrow & routes"]),
-		"the best groups first: {titles:?}"
-	);
+	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Window", "Guide  \u{b7}  Arrow & routes"]), "the best groups first: {titles:?}");
 	assert!(titles.contains(&"Map  \u{b7}  Guide & quests".to_string()) && titles.contains(&"Gamepad  \u{b7}  Key bindings".to_string()), "{titles:?}");
 	assert!(!titles.iter().any(|t| t.starts_with("Appearance")), "{titles:?}");
 	assert_eq!(out["arrow"]["title"], "Search");
@@ -1554,10 +1548,7 @@ fn new_settings_put_a_pill_on_their_section_and_a_count_on_their_page_until_open
 		emit({ before = before, opened = count(), rowMark = rowMark, pill = pill("Numbered step pins"), oldPill = pill("Goal pins"),
 			seen = PolestarDB.optionsSeen and PolestarDB.optionsSeen.fakepins or false, settings = PolestarDB.settings.optionsSeen == nil })"#;
 	let first = run_opts(script, "", "", LOOK_PAGE);
-	assert_eq!(
-		first,
-		json!({ "before": "2", "opened": false, "rowMark": false, "pill": "New", "oldPill": false, "seen": "0.3.7", "settings": true })
-	);
+	assert_eq!(first, json!({ "before": "2", "opened": false, "rowMark": false, "pill": "New", "oldPill": false, "seen": "0.3.7", "settings": true }));
 	let next = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsSeen = {{ fakepins = \"0.3.7\" }}"));
 	assert_eq!(next["before"], false);
 	assert_eq!(next["pill"], false, "seen in an earlier session: no pill");

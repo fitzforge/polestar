@@ -1320,7 +1320,19 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!(["Choose guide", "Open in new tab", "Skip this step", "Report a problem", "Compact mode", "Transparent", "Lock window", "Reset guide progress", "Quick settings", "Options", "Hide window"])
+		json!([
+			"Choose guide",
+			"Open in new tab",
+			"Skip this step",
+			"Report a problem",
+			"Compact mode",
+			"Transparent",
+			"Lock window",
+			"Reset guide progress",
+			"Quick settings",
+			"Options",
+			"Hide window"
+		])
 	);
 	assert_eq!(out["locked"], true);
 	assert_eq!(out["style"], "transparent");

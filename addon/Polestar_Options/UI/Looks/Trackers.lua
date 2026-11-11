@@ -12,7 +12,7 @@ local L = ns.L
 local floor, max, min, format, type, ipairs, pairs, tonumber = math.floor, math.max, math.min, string.format, type, ipairs, pairs, tonumber
 
 local TR = UI.Trackers
-local NEW = "0.3.7"
+local NEW = "0.3.8"
 local FADED = TR.FADED
 local num = TR.Num
 
