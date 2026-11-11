@@ -1003,8 +1003,8 @@ steps and detours, the steps to fix first.
 
 ### Slash commands
 
-`/polestar` (or `/pole`) shows or hides the guide window; settings live in
-`/polestar options`, grouped by what you came to do: Guide, Appearance, Map,
+`/polestar` (or `/pole`, `/ps`) shows or hides the guide window; settings live in
+`/polestar options` (or `/ps options`, or right-click the game menu's Polestar button), grouped by what you came to do: Guide, Appearance, Map,
 Questing, Discovery, Quality of Life, Integrations (settings for other addons
 Polestar works with, such as Questie, shown while they are installed), Guide
 packs, Gamepad, Recorder and About, with a search that finds any setting.

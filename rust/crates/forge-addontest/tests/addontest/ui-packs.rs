@@ -67,6 +67,7 @@ guide("elsewhere/two", "probs")
 assert(Polestar.RegisterPack(meta("Dung", "dung", "Dungeon Pack")))
 guide("dung/deadmines", "dung", { category = "Dungeons" })
 stub.login()
+Polestar.UI.LoadOptions()
 UI, O, P = Polestar.UI, Polestar.UI.Options, Polestar.UI.Packs
 function openPage() UI.ShowOptions("guidepacks"); return P.view end
 function rowOf(addon)

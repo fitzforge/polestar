@@ -7,7 +7,7 @@
 -- Built when the page is first shown; laid out again on PROFILES_CHANGED
 -- only while it is on screen.
 
-local ADDON, ns = ...
+local ns = Polestar
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
 local L = ns.L
 local SH = W.SHELL

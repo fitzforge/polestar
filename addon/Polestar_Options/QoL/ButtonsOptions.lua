@@ -12,7 +12,7 @@
 -- no click, step or binding hook. Nothing is built until the page first
 -- shows; it repaints on its settings only while shown.
 
-local ADDON, ns = ...
+local ns = Polestar
 local QoL = ns.QoL
 local Buttons = QoL and QoL.Buttons
 local Theme, W = ns.Theme, ns.Widgets

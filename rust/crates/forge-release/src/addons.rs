@@ -2,8 +2,9 @@
 
 use std::path::Path;
 
-/// Always in the release: the addon, our guides and the walking router and maps (committed).
-pub const RELEASE_ADDONS: [&str; 3] = ["Polestar", "Polestar_Guides", "Polestar_Nav"];
+/// Always in the release: the addon, our guides, the walking router and maps, and the settings window (loaded
+/// on demand; all committed).
+pub const RELEASE_ADDONS: [&str; 4] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options"];
 /// The Codex folder (Lookup, Dungeons and Rares read it): a release refuses to go without it.
 pub const CODEX: &str = "Polestar_Codex";
 /// The optional recorder, in a zip of its own.
@@ -32,7 +33,7 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 /// Leffe's, loaded on demand by Polestar_Nav's router).
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
-/// The release's folders: the three always shipped, the walking maps' part addons when written, our guides'
+/// The release's folders: the four always shipped, the walking maps' part addons when written, our guides'
 /// faction parts and race parts once built, then the data addons that are built (our guides' texts are in the
 /// language folders).
 pub fn release_addons(addons: &Path) -> Release {
@@ -176,6 +177,7 @@ mod tests {
 				"Polestar",
 				"Polestar_Guides",
 				"Polestar_Nav",
+				"Polestar_Options",
 				"Polestar_Guides_Alliance",
 				"Polestar_Guides_Horde",
 				"Polestar_Guides_Orc",

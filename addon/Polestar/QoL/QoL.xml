@@ -32,5 +32,4 @@
 	<Script file="ClassQuests.lua"/>
 	<Script file="InstanceTrack.lua"/>
 	<Script file="Options.lua"/>
-	<Script file="ButtonsOptions.lua"/>
 </Ui>

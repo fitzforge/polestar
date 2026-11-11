@@ -133,7 +133,7 @@ function Maps.ShowMenu(anchor)
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Guides"], icon = "guides", onClick = open("SHOW_PICKER") }
 	items[#items + 1] = { text = L["Lookup"], icon = "search", onClick = open("SHOW_LOOKUP") }
-	items[#items + 1] = { text = L["Options"], icon = "sliders", onClick = open("SHOW_OPTIONS") }
+	items[#items + 1] = { text = L["Settings"], icon = "sliders", onClick = open("SHOW_OPTIONS") }
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Report a problem"], icon = "bug", onClick = open("SHOW_REPORT") }
 	W.ShowMenu(anchor, items, { point = "TOPRIGHT", relPoint = "BOTTOMLEFT", x = 4, y = 4 })

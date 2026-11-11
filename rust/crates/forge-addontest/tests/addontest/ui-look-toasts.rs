@@ -1,4 +1,4 @@
-//! Alerts & toasts and Trackers (addon/Polestar/UI/Looks/Toasts.lua, UI/Looks/Trackers.lua): the player's scale,
+//! Alerts & toasts and Trackers (addon/Polestar/UI/Toasts.lua, UI/Trackers.lua; their pages and previews in Polestar_Options/UI/Looks/): the player's scale,
 //! opacity, type sizes, duration, entrance and stacking reach the real rare alert (Rares/Toast.lua), transport
 //! banner (Nav/Alerts.lua), While you're here toast (UI/WhileHere.lua) and heads-up card (UI/ClassToast.lua); the
 //! tracker settings reach the real flight timer (Maps/FlightTimer.lua), instance tracker (Maps/Instances.lua), party
@@ -22,7 +22,7 @@ fn run(script: &str) -> Vec<Value> {
 		stubs: vec!["stub_world.lua"],
 		addons: vec![Addon::name("Polestar")],
 		login: true,
-		script: format!("{HELPERS}\n{script}"),
+		script: format!("Polestar.UI.LoadOptions()\n{HELPERS}\n{script}"),
 		..Default::default()
 	})
 }

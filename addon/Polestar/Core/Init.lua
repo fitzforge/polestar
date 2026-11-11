@@ -843,6 +843,7 @@ end
 if not gamepadUI then
 	SLASH_POLESTAR1 = "/polestar"
 	SLASH_POLESTAR2 = "/pole"
+	SLASH_POLESTAR3 = "/ps"
 	SlashCmdList.POLESTAR = ns.RunCommand
 end
 if not gamepadUI and not SLASH_POLESTAR_RL1 then

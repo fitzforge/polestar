@@ -10,7 +10,7 @@
 -- the live arrow; it runs an OnUpdate only while shown and the arrival
 -- animates. Nothing is built until the page first shows.
 
-local ADDON, ns = ...
+local ns = Polestar
 local Nav = ns.Nav
 local Arrow = Nav and Nav.arrow
 local Theme, W = ns.Theme, ns.Widgets

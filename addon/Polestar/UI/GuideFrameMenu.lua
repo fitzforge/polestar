@@ -50,6 +50,11 @@ local function openMenu(button)
 	end
 	local reopen = GF.ReopenItem()
 	if reopen then table.insert(items, 3, reopen) end
+	-- First, the few settings changed mid-play (UI/QuickSettings.lua), by the button.
+	if UI.QuickSettings then
+		table.insert(items, 1, { separator = true })
+		table.insert(items, 1, { text = L["Quick settings"], icon = "sliders", onClick = function() UI.QuickSettings.Show(button) end })
+	end
 	W.ShowMenu(button, items)
 end
 

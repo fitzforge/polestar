@@ -257,8 +257,8 @@ fn left_pane_the_rail_holds_the_sections_and_options_the_sidebar_holds_the_categ
 			"home": { "view": "home", "homeOn": true }, "back": { "view": "browse", "category": "Professions", "browseOn": true },
 		})
 	);
-	assert_eq!(out["options"], true);
-	assert_eq!(out["picker"], false);
+	assert_eq!(out["options"], true, "the rail's Options opens the settings window");
+	assert_eq!(out["picker"], true, "a window of its own: the hub stays");
 }
 
 fn is_match_icon(s: &str) -> bool {
@@ -1032,7 +1032,9 @@ fn rail_labels(before: &str) -> Value {
 			UI.ShowOptions()
 			shown(PolestarOptions)
 			stub.advance(0.1)
-			local options = labels(PolestarOptions)
+			local options = #labels(PolestarOptions)
+			-- The settings are a window of their own (no rail): the hub closed and opened again.
+			PolestarPicker:Hide()
 			UI.ShowPicker()
 			shown(PolestarPicker)
 			stub.advance(0.1)
@@ -1060,7 +1062,7 @@ fn every_rail_label_shows_on_the_hub_s_first_show_and_on_the_way_back_from_optio
 			let want = &run["want"];
 			assert!(want.as_array().unwrap().iter().any(|l| l.as_str() == Some(lookup)), "{locale}: {want}");
 			assert_eq!(&run["first"], want, "{locale} {scale}: the hub's first show");
-			assert_eq!(&run["options"], want, "{locale} {scale}: the settings' rail");
+			assert_eq!(run["options"], 0, "{locale} {scale}: the settings window has no rail");
 			assert_eq!(&run["back"], want, "{locale} {scale}: back from the settings");
 		}
 	}

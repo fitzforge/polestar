@@ -22,6 +22,10 @@ pub fn stubs_dir() -> PathBuf {
 	root().join("tests/lua")
 }
 
+/// Polestar's own load-on-demand addons besides the walking maps' parts, which [`run_addon`] loads from their
+/// TOC when the addon asks (C_AddOns.LoadAddOn): the settings window.
+pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options"];
+
 /// An addon to load, as the client loads it.
 #[derive(Clone, Debug)]
 pub enum Addon {
@@ -186,11 +190,12 @@ pub fn build_program(opts: &RunAddon) -> Result<String, String> {
 end"
 		.into(),
 	);
-	// The walking maps' part addons (Polestar_Nav_EK, _Kalimdor: load on demand, Routing/PathGrid.lua asks for
-	// one the first time it searches its continent), loaded as the client loads them, when asked (a test's own
-	// stub.packs entry for one, stub_packs.lua, wins).
+	// The load-on-demand addons, loaded as the client loads them, when asked (a test's own stub.packs entry for
+	// one, stub_packs.lua, wins): the walking maps' part addons (Polestar_Nav_EK, _Kalimdor: Routing/PathGrid.lua
+	// asks for one the first time it searches its continent) and the settings window (Polestar_Options:
+	// UI/OptionsLoader.lua asks for it the first time the settings open).
 	let mut parts = Vec::new();
-	for (_, part) in forge_nav::pack::PARTS {
+	for part in forge_nav::pack::PARTS.iter().map(|(_, p)| *p).chain(LOAD_ON_DEMAND.iter().copied()) {
 		if opts.addons.iter().any(|a| a.addon_name() == part) {
 			continue;
 		}
