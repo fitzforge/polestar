@@ -148,11 +148,13 @@ local KITS = {
 	-- ButtonFrameTemplateNoPortrait's mainline offsets, the retail art. The
 	-- guide window is Blizzard's own damage meter, as the meter draws it: its
 	-- window's ground (black under a grey light that falls from the top,
-	-- the corners rounded), its header bar over the tab strip and the
-	-- navigator, its bars, and its header's buttons as their glyphs alone;
-	-- no ornament under the focus. The toasts and cards wear the alert
-	-- toasts' frame, the current goal is the Settings list's selected row,
-	-- the text buttons the 128-RedButton.
+	-- the corners rounded), its flat charcoal header over the tab strip and
+	-- the navigator (headerFill), grey hairlines between its parts, its
+	-- selected row flat grey (rowFlat: the active tab and the current goal),
+	-- its bars, and its header's buttons as their glyphs alone, the closes
+	-- too; no ornament under the focus, no gold but the titles. The toasts
+	-- and cards wear the alert toasts' frame, the text buttons the
+	-- 128-RedButton.
 	blizzard = settingsParts({
 		source = "retail",
 		metalOut = { 8, 16, 4, 3 },
@@ -161,13 +163,12 @@ local KITS = {
 		toast = { "Toast-NineSlice-CornerTopLeft", "_Toast-NineSlice-EdgeTop", "Toast-NineSlice-CornerTopRight",
 			"!Toast-NineSlice-EdgeLeft", false, "!Toast-NineSlice-EdgeRight",
 			"Toast-NineSlice-CornerBottomLeft", "_Toast-NineSlice-EdgeBottom", "Toast-NineSlice-CornerBottomRight" },
-		headerBar = "ui-damagemeters-header-bar", header = false, bareIcons = true,
-		rowLit = "Options_List_Active", flushBare = true,
+		headerFill = { 0.122, 0.122, 0.122 }, header = false, bareIcons = true,
+		rowFlat = { 0.165, 0.165, 0.165 }, flushBare = true,
 		redButton = { "128-RedButton-Left", "_128-RedButton-Center", "128-RedButton-Right",
 			pressed = { "128-RedButton-Left-Pressed", "_128-RedButton-Center-Pressed", "128-RedButton-Right-Pressed" },
 			disabled = { "128-RedButton-Left-Disabled", "_128-RedButton-Center-Disabled", "128-RedButton-Right-Disabled" },
 			lit = "128-RedButton-Highlight" },
-		status = { bg = "ui-damagemeters-bar-shadowbg", edge = "ui-damagemeters-bar-shadowedge" },
 	}),
 	-- The vanilla files: the dialog box round the big windows, the chat
 	-- frame (its tabs and rim on the tooltip tile) for the guide window, the
@@ -250,6 +251,14 @@ local function file(t, path, tile)
 	Theme.TintArt(t)
 	t:Show()
 	return t
+end
+
+-- A lit row or tab: the kit's flat colour (a { r, g, b }) or its art (a name).
+local function litPiece(t, kit, what)
+	if type(what) ~= "table" then return draw(t, kit, what) end
+	file(t, Theme.Media("white"))
+	Theme.TintArt(t, what[1], what[2], what[3], 1)
+	t:SetBlendMode("BLEND")
 end
 
 -- frame.psSkin.kit[key]: textures (and frames) a kit painted on a frame,
@@ -1170,6 +1179,11 @@ function Theme.KitIconButton(b)
 		if b.Icon then veil(b.Icon, false) end
 		return false
 	end
+	if isClose and kit.bareIcons then
+		-- The damage meter's header: the close a glyph like its other buttons.
+		b.Icon:SetAlpha(1)
+		return true
+	end
 	if isClose then
 		-- The red button the same size in every look: a tab's TAB_CLOSE,
 		-- another close button's width and 2; Classic's art grown by its
@@ -1314,8 +1328,9 @@ end
 -- kit with tabClear stops the outline that far under the edge, so it
 -- rises from the strip's foot and closes as a tab does (Forever); a kit
 -- without one lights the active tab as the Settings list's selected row.
--- Blizzard's strip is the damage meter's header bar: the active tab is the
--- selected row too, and the resting tabs their label alone (kit.flushBare).
+-- Blizzard's strip is the damage meter's header: the active tab is its
+-- selected row (flat, kit.rowFlat), and the resting tabs their label alone
+-- (kit.flushBare).
 -- `close` (the guide window's tab close button) goes on the middle of the
 -- tab's art, 3 in from its right side: a tab art that stops under the
 -- strip's top (or rises from its foot) is lower than the strip's middle;
@@ -1328,7 +1343,7 @@ function Theme.KitTab(b, active, label, flush, close)
 	end
 	local isFile = kit.source == "file"
 	local clear = flush and kit.tabClear
-	local lit = flush and active and (kit.source == "atlas" or kit.flushBare) and not clear and kit.navLit
+	local lit = flush and active and (kit.source == "atlas" or kit.flushBare) and not clear and (kit.rowFlat or kit.navLit)
 	local gap = clear and kit.tabGap or 0
 	local host = child(b, "tab", -1)
 	host:EnableMouse(false)
@@ -1343,7 +1358,7 @@ function Theme.KitTab(b, active, label, flush, close)
 		host:SetPoint("TOP", b, "TOP", 0, 0)
 		hideKey(b, "tabArt")
 		local t = tex(b, "tabLit", "BACKGROUND", 0, host)
-		draw(t, kit, lit)
+		litPiece(t, kit, lit)
 		t:SetAllPoints(host)
 	elseif flush and kit.chatTab then
 		-- The chat frame's tabs on the guide window's strip: the resting
@@ -1382,7 +1397,7 @@ end
 
 -- The highlight under the guide window's current goal and a selected
 -- navigation row: Forever's selected card / the Settings list's active row,
--- Blizzard's gold wash, Classic's quest title or list highlight.
+-- Blizzard's flat selected row, Classic's quest title or list highlight.
 function Theme.KitRowLit(r, shown, key, inset)
 	key = key or "rowLit"
 	local kit = Theme.Kit()
@@ -1424,17 +1439,13 @@ function Theme.KitRowLit(r, shown, key, inset)
 	end
 	t:SetPoint("TOPLEFT", r, "TOPLEFT", inset or 4, 0)
 	t:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -(inset or 4), 0)
-	draw(t, kit, (key == "navLit" and kit.navLit) or kit.rowLit)
+	litPiece(t, kit, (key == "navLit" and kit.navLit) or kit.rowFlat or kit.rowLit)
 	-- The quest log's gold title highlight is light (ADD); at the game's full
 	-- strength it drowns a goal's coloured tip lines (the violet of a
 	-- mechanic, the muted "Inside"), so the guide window's lights it at half.
 	if kit.source == "file" then
 		t:SetBlendMode("ADD")
 		if key ~= "navLit" then Theme.TintArt(t, 1, 1, 1, 0.5) end
-	elseif kit.source == "retail" and key ~= "navLit" then
-		-- Blizzard's gold wash: its glow lines are heavier than the text's
-		-- strokes at full strength; at 60 % they frame the goal.
-		Theme.TintArt(t, 1, 1, 1, 0.6)
 	end
 	return true
 end
@@ -1465,16 +1476,14 @@ end
 -- fading out at its ends) along the strip's foot where the tabs stand, 4 in
 -- from the window's sides so its ends fade inside the frame's line; with
 -- the strip at the window's bottom (ui.barsBottom) along the strip's top.
--- Blizzard: the damage meter's header bar, as the meter wears it: over the
--- tab strip and the navigator together (the navigator is guideNav high
--- under the strip, which folds to nothing in compact mode, so the bar then
--- covers the navigator alone). The art's rows: its hairline (3) at the
--- top, the gradient between, its gold line and glow (7) at the foot, the
--- ends kept at the art's width.
-local BAR_TOP, BAR_FOOT, BAR_END = 3 / 28, 7 / 28, 20 / 280
+-- Blizzard: the damage meter's header, flat charcoal (kit.headerFill) at
+-- the window's opacity, over the tab strip and the navigator together (the
+-- navigator is guideNav high under the strip, which folds to nothing in
+-- compact mode, so the header then covers the navigator alone); the
+-- navigator's rule (the separator) closes it.
 function Theme.KitStrip(f, shown)
 	local kit = Theme.Kit()
-	if not (kit and (kit.headerBar or kit.strip) and shown) then
+	if not (kit and (kit.headerFill or kit.strip) and shown) then
 		hideKey(f, "stripHost")
 		hideKey(f, "stripLine")
 		return false
@@ -1493,43 +1502,21 @@ function Theme.KitStrip(f, shown)
 	end
 	hideKey(f, "stripLine")
 	-- On the strip's parent (the window): the strip hides in compact mode,
-	-- and the bar must stay over the navigator. Its rect still anchors to
+	-- and the header must stay over the navigator. Its rect still anchors to
 	-- the strip's, which folds to nothing then.
+	local window = f:GetParent() or f
 	local host = child(f, "stripHost", -1)
-	host:SetParent(f:GetParent() or f)
+	host:SetParent(window)
 	host:EnableMouse(false)
 	host:ClearAllPoints()
 	host:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
 	host:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
 	host:SetPoint("BOTTOM", f, "BOTTOM", 0, -Theme.Metric("guideNav", 32))
-	local k = store(f)
-	local p = k.stripArt
-	if not p then
-		p = {}
-		for i = 1, 9 do p[i] = host:CreateTexture(nil, "BACKGROUND", nil, -6) end
-		k.stripArt = p
-	end
-	local _, _, _, _, _, w, h = region(kit, kit.headerBar)
-	w, h = w or 280, h or 28
-	local endW, topH, footH = w * BAR_END, h * BAR_TOP, h * BAR_FOOT
-	local us = { { 0, BAR_END }, { BAR_END, 1 - BAR_END }, { 1 - BAR_END, 1 } }
-	local vs = { { 0, BAR_TOP }, { BAR_TOP, 1 - BAR_FOOT }, { 1 - BAR_FOOT, 1 } }
-	for row = 1, 3 do
-		for col = 1, 3 do
-			local t = p[(row - 1) * 3 + col]
-			draw(t, kit, kit.headerBar, us[col][1], us[col][2], vs[row][1], vs[row][2])
-			t:ClearAllPoints()
-		end
-	end
-	p[1]:SetPoint("TOPLEFT", host, "TOPLEFT"); p[1]:SetSize(endW, topH)
-	p[3]:SetPoint("TOPRIGHT", host, "TOPRIGHT"); p[3]:SetSize(endW, topH)
-	p[7]:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT"); p[7]:SetSize(endW, footH)
-	p[9]:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT"); p[9]:SetSize(endW, footH)
-	p[2]:SetPoint("TOPLEFT", p[1], "TOPRIGHT"); p[2]:SetPoint("BOTTOMRIGHT", p[3], "BOTTOMLEFT")
-	p[8]:SetPoint("TOPLEFT", p[7], "TOPRIGHT"); p[8]:SetPoint("BOTTOMRIGHT", p[9], "BOTTOMLEFT")
-	p[4]:SetPoint("TOPLEFT", p[1], "BOTTOMLEFT"); p[4]:SetPoint("BOTTOMRIGHT", p[7], "TOPRIGHT")
-	p[6]:SetPoint("TOPLEFT", p[3], "BOTTOMLEFT"); p[6]:SetPoint("BOTTOMRIGHT", p[9], "TOPRIGHT")
-	p[5]:SetPoint("TOPLEFT", p[1], "BOTTOMRIGHT"); p[5]:SetPoint("BOTTOMRIGHT", p[9], "TOPLEFT")
+	local t = tex(f, "stripFill", "BACKGROUND", -6, host)
+	file(t, Theme.Media("white"))
+	local c = kit.headerFill
+	Theme.TintArt(t, c[1], c[2], c[3], opacity(window))
+	t:SetAllPoints(host)
 	return true
 end
 
@@ -1565,14 +1552,18 @@ end
 Theme.KitPaintFill = paintFill
 function Theme.KitStatus(b)
 	local kit = Theme.Kit()
-	for _, key in ipairs({ "statusFrame", "statusEdge", "statusArt", "statusShadow", "statusNine", "statusFill", "statusTrack", "statusRim" }) do hideKey(b, key) end
-	-- Blizzard's branch re-anchors the bar's ground between its caps; every
-	-- kit (and the house bar after them) expects it over the whole bar.
+	for _, key in ipairs({ "statusFrame", "statusArt", "statusNine", "statusFill" }) do hideKey(b, key) end
+	-- Every kit (and the house bar after them) draws the bar's ground over
+	-- the whole bar.
 	b.Bg:ClearAllPoints()
 	b.Bg:SetAllPoints(b)
 	b.Bg:Show()
 	local own = b:GetStatusBarTexture()
 	if own then own:SetAlpha(1) end
+	-- The percent: white; the meter's bar text at 90 % (its hard shadow is
+	-- the game look's own, Theme.Font).
+	local pct = rawget(b, "Pct")
+	if pct then pct:SetTextColor(1, 1, 1, kit and kit.source == "retail" and 0.9 or 1) end
 	local k = store(b)
 	k.fillKit = nil
 	if not kit then return false end
@@ -1596,29 +1587,16 @@ function Theme.KitStatus(b)
 		o:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 7, -7)
 		sliced(b, "statusArt", kit, kit.status.frame, o, nil, "ARTWORK", 0, true, 0.5)
 	elseif kit.source == "retail" then
-		-- The meter's bar as its rows wear it: the shadowed track with its
-		-- round ends kept (the art's 128 cut at 7 a side), the game's status
-		-- bar texture in the tracker's gold (NORMAL_FONT_COLOR), and the edge
-		-- highlight 2 out, its ends kept the same way.
+		-- The meter's bar as its rows wear it: the game's status bar texture
+		-- in the tracker's gold (NORMAL_FONT_COLOR), square at both ends,
+		-- over a faint light strip that marks the bar's length on the
+		-- window's black; nothing over the fill or the percent.
 		b:SetStatusBarTexture(CLASSIC.statusFill[1])
 		fill = b:GetStatusBarTexture()
 		fill:SetTexCoord(0, 1, 0, 1)
 		Theme.TintArt(fill, 1, 0.82, 0, 1)
-		-- On the window's black the shadowed track alone doesn't show where
-		-- the bar ends: a faint light strip under it marks its length.
 		file(b.Bg, Theme.Media("white"))
 		Theme.TintArt(b.Bg, 1, 1, 1, 0.1)
-		local track = child(b, "statusTrack", 0)
-		track:EnableMouse(false)
-		track:ClearAllPoints()
-		track:SetPoint("TOPLEFT", b, "TOPLEFT", -2, 2)
-		track:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 2, -2)
-		track:SetFrameLevel(b:GetFrameLevel())
-		three(b, "statusShadow", kit, kit.status.bg, track, 7, 7 / 128, "BACKGROUND", -1)
-		local rim = child(b, "statusRim", 3)
-		rim:EnableMouse(false)
-		rim:SetAllPoints(track)
-		three(b, "statusEdge", kit, kit.status.edge, rim, 7, 7 / 128, "OVERLAY", 6)
 	else
 		-- The XP bar: UI-StatusBar in its purple over a half-black trough,
 		-- in the cast bar's frame at 60 % of its sheet: caps 19 wide, the

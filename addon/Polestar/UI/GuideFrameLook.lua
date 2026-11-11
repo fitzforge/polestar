@@ -288,6 +288,8 @@ function GF.PaintTab(b)
 	b.Close:ClearAllPoints()
 	b.Close:SetPoint("RIGHT", b, "RIGHT", -3 - Theme.Metric("guideTabInset", 0), 0)
 	local kit, mid = Theme.KitTab(b, b.psActive, nil, true, b.Close)
+	-- The close at the skin's rest strength (a skin change while it rests).
+	if not b:IsMouseOver() then b.Close:SetAlpha(GF.TabCloseRest()) end
 	b.Icon:SetPoint("LEFT", b, "LEFT", 9, kit and mid or 0)
 	local hearth = Theme.SkinKey() == "hearth"
 	local f = rawget(b, "psFrameTex")

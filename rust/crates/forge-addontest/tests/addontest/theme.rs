@@ -1270,8 +1270,12 @@ fn a_skin_s_art_tint_dims_the_guide_window_s_lit_goal_and_progress_bar_in_every_
 		json!({ "plain": v(&plain), "dusk": v(&dusk), "again": v(&dusk), "back": v(&plain) })
 	};
 	assert_eq!(out["forever"], want([white(100), white(100), white(100), white(100)], [dusk(100), dusk(100), dusk(100), dusk(100)]), "Forever");
-	// Blizzard: the gold wash at 60 %, the bar's gold fill, the light strip under the track at 10 %.
-	assert_eq!(out["blizzard"], want([white(60), json!(["ffd100", 100, 0]), white(100), white(10)], [dusk(60), json!(["403400", 100, 80]), dusk(100), dusk(10)]), "Blizzard");
+	// Blizzard: the flat grey selected row, the bar's gold fill (no frame round it), the light strip under it at 10 %.
+	assert_eq!(
+		out["blizzard"],
+		want([json!(["2a2a2a", 100, 0]), json!(["ffd100", 100, 0]), json!(false), white(10)], [json!(["0b0b15", 100, 80]), json!(["403400", 100, 80]), json!(false), dusk(10)]),
+		"Blizzard"
+	);
 	// Classic: the quest title's light at half, the XP bar's purple, its half-black trough.
 	assert_eq!(
 		out["classic"],
@@ -1280,10 +1284,11 @@ fn a_skin_s_art_tint_dims_the_guide_window_s_lit_goal_and_progress_bar_in_every_
 	);
 }
 
-// A guide window tab's close button: the red button 14 high in every game look (Classic's art, whose button fills
-// 19 of its 32 units, drawn bigger to match), on the middle of the tab's art where the tab has art: WoW Forever's
-// outline and Classic's chat tab stand lower than the strip's middle, and the tab's glyph (with the title and range
-// after it) moves down with them. Blizzard's resting tab is its label alone.
+// A guide window tab's close button: the red button 14 high in WoW Forever and Classic (Classic's art, whose button
+// fills 19 of its 32 units, drawn bigger to match), on the middle of the tab's art where the tab has art: WoW
+// Forever's outline and Classic's chat tab stand lower than the strip's middle, and the tab's glyph (with the title
+// and range after it) moves down with them. Blizzard's close is its glyph, as the damage meter's header buttons
+// are; its resting tab is its label alone.
 #[test]
 fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the_tab_s_art() {
 	let out = run_with(
@@ -1294,11 +1299,11 @@ fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the
 		for _, look in ipairs({ "forever", "blizzard", "classic" }) do
 			Polestar.Set("ui.skin", look)
 			local function tab(b)
-				local art = b.Close.psSkin.kit.closeN
+				local art = b.Close.psSkin and b.Close.psSkin.kit and b.Close.psSkin.kit.closeN
 				local ink = look == "classic" and 19 / 32 or 1
 				local _, rel = b.Close:GetPoint(1)
-				return { button = math.floor(art:GetHeight() * ink * 100 + 0.5) / 100, onArt = rel == b.psSkin.kit.tab,
-					glyph = select(5, b.Icon:GetPoint(1)) }
+				local button = art and art:IsShown() and math.floor(art:GetHeight() * ink * 100 + 0.5) / 100 or { glyph = b.Close.Icon:GetAlpha() }
+				return { button = button, onArt = rel == b.psSkin.kit.tab, glyph = select(5, b.Icon:GetPoint(1)) }
 			end
 			out[look] = { active = tab(GF.tabs[1]), rest = tab(GF.tabs[2]) }
 		end
@@ -1308,14 +1313,17 @@ fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the
 		end }"#,
 	);
 	let on = |art: bool, glyph: Value| json!({ "button": 14, "onArt": art, "glyph": glyph });
+	let bare = |art: bool| json!({ "button": { "glyph": 1 }, "onArt": art, "glyph": 0 });
 	assert_eq!(out["forever"], json!({ "active": on(true, json!(-3)), "rest": on(true, json!(-4.5)) }), "Forever: a 30 strip, outlines 24 and 21 high");
-	assert_eq!(out["blizzard"], json!({ "active": on(true, json!(0)), "rest": on(false, json!(0)) }), "Blizzard");
+	assert_eq!(out["blizzard"], json!({ "active": bare(true), "rest": bare(false) }), "Blizzard: the glyph alone");
 	assert_eq!(out["classic"], json!({ "active": on(true, json!(-2)), "rest": on(true, json!(-3.5)) }), "Classic: a 28 strip, chat tabs 24 and 21 high");
 }
 
 // Blizzard is the game's own damage meter, not WoW Forever in grey: the guide window's ground is the meter's window
-// art (no fill under it), the navigator's buttons are their glyphs alone and nothing lies under the focus; WoW
-// Forever keeps its black body, its square plates and its bronze rods.
+// art (no fill under it), its header flat charcoal over the tab strip and the navigator, its parts parted by grey
+// hairlines, its selected row (the active tab, the current goal) flat grey, the navigator's buttons, a tab's close
+// and a heads-up card's close their glyphs alone, nothing under the focus; WoW Forever keeps its black body, its
+// square plates, its bronze rods and its gold-lit goal.
 #[test]
 fn skins_blizzard_s_guide_window_is_the_damage_meter_apart_from_wow_forever_s() {
 	let out = run_with(
@@ -1323,14 +1331,38 @@ fn skins_blizzard_s_guide_window_is_the_damage_meter_apart_from_wow_forever_s() 
 		local GF = Polestar.UI.GuideFrame
 		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
 		local F = PolestarGuideFrame
+		-- A heads-up card's close (UI/ClassToast.lua): the same 24 button.
+		local card = Polestar.Widgets.IconButton(UIParent, "close", 24)
+		local function hex(t)
+			if not (t and t:IsShown()) then return false end
+			local r, g, b = t:GetVertexColor()
+			local function h(x) return math.floor(x * 255 + 0.5) end
+			return string.format("%02x%02x%02x", h(r), h(g), h(b))
+		end
 		local function look()
 			local k = F.psSkin.kit
 			local prev = GF.parts.nav.Prev
 			local plate = prev.psSkin and prev.psSkin.kit and prev.psSkin.kit.plate
 			local header = GF.parts.person.psSkin and GF.parts.person.psSkin.kit and GF.parts.person.psSkin.kit.header
+			local strip = GF.parts.strip.psSkin and GF.parts.strip.psSkin.kit or {}
+			local lit
+			for _, r in ipairs(GF.rows) do
+				local t = r.psSkin and r.psSkin.kit and r.psSkin.kit.rowLit
+				if t and t:IsShown() then lit = t end
+			end
+			local tab = GF.tabs[1].psSkin.kit
+			local close = GF.tabs[1].Close
+			local closeArt = close.psSkin and close.psSkin.kit and close.psSkin.kit.closeN
+			local sr, sg, sb, sa = Polestar.Theme.Color("separator")
 			return { ground = k.meterArt ~= nil and k.meterArt[1]:IsShown() and k.meterArt[1].texture or false,
 				fill = F.psSkin.bg ~= nil and F.psSkin.bg:IsShown(), plate = plate ~= nil and plate:IsShown(),
-				glyph = prev.Icon:GetAlpha(), header = header ~= nil and header[2]:IsShown() }
+				glyph = prev.Icon:GetAlpha(), header = header ~= nil and header[2]:IsShown(),
+				bar = strip.stripHost ~= nil and strip.stripHost:IsShown() and hex(strip.stripFill), lit = lit and (lit.texture == Polestar.Theme.Media("white") and hex(lit) or "art") or false,
+				tab = tab.tabLit and tab.tabLit:IsShown() and hex(tab.tabLit) or false,
+				close = closeArt ~= nil and closeArt:IsShown() and "art" or close.Icon:GetAlpha(),
+				card = card.psSkin and card.psSkin.kit and card.psSkin.kit.closeN and card.psSkin.kit.closeN:IsShown() and "art" or card.Icon:GetAlpha(),
+				pct = math.floor(select(4, GF.parts.foot.Status.Pct:GetTextColor()) * 100 + 0.5),
+				separator = string.format("%02x%02x%02x%s", math.floor(sr * 255 + 0.5), math.floor(sg * 255 + 0.5), math.floor(sb * 255 + 0.5), sa == 1 and "" or "~") }
 		end
 		Polestar.Set("ui.skin", "blizzard")
 		local out = { blizzard = look() }
@@ -1341,8 +1373,18 @@ fn skins_blizzard_s_guide_window_is_the_damage_meter_apart_from_wow_forever_s() 
 			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 110, height = 110 }
 		end }"#,
 	);
-	assert_eq!(out["blizzard"], json!({ "ground": 7499559, "fill": false, "plate": false, "glyph": 1, "header": false }), "the meter's window");
-	assert_eq!(out["forever"], json!({ "ground": false, "fill": true, "plate": true, "glyph": 1, "header": true }), "the Settings panel's parts");
+	assert_eq!(
+		out["blizzard"],
+		json!({ "ground": 7499559, "fill": false, "plate": false, "glyph": 1, "header": false, "bar": "1f1f1f", "lit": "2a2a2a", "tab": "2a2a2a",
+			"close": 1, "card": 1, "pct": 90, "separator": "3a3a3a" }),
+		"the meter's window"
+	);
+	assert_eq!(
+		out["forever"],
+		json!({ "ground": false, "fill": true, "plate": true, "glyph": 1, "header": true, "bar": false, "lit": "art", "tab": false, "close": "art",
+			"card": "art", "pct": 100, "separator": "ae9d81~" }),
+		"the Settings panel's parts"
+	);
 }
 
 #[test]

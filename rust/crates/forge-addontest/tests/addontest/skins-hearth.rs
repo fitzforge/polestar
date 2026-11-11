@@ -227,7 +227,9 @@ fn the_game_looks_keep_their_own_colours_sizes_and_controls_apart_from_hearth() 
 		assert_eq!(rgb(&s["text"]), [1.0, 1.0, 1.0], "{skin}: HIGHLIGHT_FONT_COLOR");
 		assert_eq!(rgb(&s["title"]), [1.0, 0.82, 0.0], "{skin}: NORMAL_FONT_COLOR");
 		assert_eq!(rgb(&s["success"]), [0.118, 1.0, 0.0], "{skin}: the game's green");
-		assert_eq!(round(&s["selected"]), [1.0, 0.82, 0.0, 0.14], "{skin}: its own gold selection wash");
+		// Blizzard's is the damage meter's: a white wash, gold left to the titles.
+		let wash = if skin == "blizzard" { [1.0, 1.0, 1.0, 0.1] } else { [1.0, 0.82, 0.0, 0.14] };
+		assert_eq!(round(&s["selected"]), wash, "{skin}: its own selection wash");
 		assert_eq!(rgb(&s["npc"]), [1.0, 1.0, 1.0], "{skin}: NPC names in white, as the game's");
 		assert_eq!(s["row"], 28, "{skin}: the Settings panel's rows");
 		assert_eq!(s["menuRow"], 22, "{skin}");

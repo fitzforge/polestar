@@ -47,17 +47,21 @@ end
 
 -- A tab's label: the title, then its level range in a dimmer string. The
 -- range tells same-named guides apart, so it keeps its width and the title
--- truncates, clear of the close button at the right (TAB_CLOSE_PAD).
+-- truncates, clear of the close button at the right (TAB_CLOSE_PAD; a skin's
+-- guideTabClosePad).
 -- Too narrow for even the range, the tab is its glyph alone.
 local TAB_TEXT_X = 27 -- the label's left edge: the glyph's inset, width and gap
 local TAB_RANGE_GAP = 4
 local TAB_CLOSE_PAD = 20
--- The close button at rest: faint, so players find it; in full under the pointer.
+-- The close button at rest: faint, so players find it; in full under the
+-- pointer (a skin's guideTabCloseRest).
 local TAB_CLOSE_REST = 0.35
+local function closeRest() return Theme.Metric("guideTabCloseRest", TAB_CLOSE_REST) end
+GF.TabCloseRest = closeRest
 local function layoutTab(b)
 	-- A skin whose tab outline stands in from the tab's sides (WoW Forever's,
 	-- metric guideTabInset) keeps the close button and the text inside it.
-	local room = b:GetWidth() - TAB_TEXT_X - TAB_CLOSE_PAD - Theme.Metric("guideTabInset", 0)
+	local room = b:GetWidth() - TAB_TEXT_X - Theme.Metric("guideTabClosePad", TAB_CLOSE_PAD) - Theme.Metric("guideTabInset", 0)
 	local rangeW = b.psRange and (floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP) or 0
 	local fits = rangeW <= room
 	local titleW = fits and min(b.psTitleW, room - rangeW) or 0
@@ -107,9 +111,9 @@ local function tabButton(i)
 	-- The game's looks draw a tab's close art at one size (Theme.KitIconButton).
 	b.Close.psTabClose = true
 	Theme.KitIconButton(b.Close)
-	b.Close:SetAlpha(TAB_CLOSE_REST)
+	b.Close:SetAlpha(closeRest())
 	b.Close.psOnEnter = function(c) c:SetAlpha(1) end
-	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(TAB_CLOSE_REST) end end
+	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(closeRest()) end end
 	-- Its parts for a skin's hooks.guideTab (Skin API 2), made once.
 	b.psParts = { selected = b.Selected, bar = b.Bar, label = b.Label, range = b.Range, icon = b.Icon, close = b.Close }
 	b:SetScript("OnClick", function(self, button)
@@ -131,7 +135,7 @@ local function tabButton(i)
 		GF.HoverIn()
 	end)
 	b:SetScript("OnLeave", function(self)
-		if not self.Close:IsMouseOver() then self.Close:SetAlpha(TAB_CLOSE_REST) end
+		if not self.Close:IsMouseOver() then self.Close:SetAlpha(closeRest()) end
 		W.HideTooltip(self)
 	end)
 	tabButtons[i] = b

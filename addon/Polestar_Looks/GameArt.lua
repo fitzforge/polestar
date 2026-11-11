@@ -85,9 +85,6 @@ ns.GameArt = {
 	["minimal-scrollbar-small-thumb-top"] = { 5142787, 8, 8, 0.3125, 0.4375, 0.84375, 0.96875 },
 	["minimal-scrollbar-track-bottom"] = { 4331838, 8, 8, 0.0859375, 0.1484375, 0.765625, 0.890625 },
 	["minimal-scrollbar-track-top"] = { 4331838, 8, 8, 0.1640625, 0.2265625, 0.609375, 0.734375 },
-	["ui-damagemeters-bar-shadowbg"] = { 7499559, 128, 14, 0.4277344, 0.6777344, 0.1210938, 0.1757813 },
-	["ui-damagemeters-bar-shadowedge"] = { 7499559, 128, 14, 0.6816406, 0.9316406, 0.1210938, 0.1757813 },
-	["ui-damagemeters-header-bar"] = { 7499559, 280, 28, 0.3066406, 0.8535156, 0.0039063, 0.1132813 },
 }
 
 -- The nine-slice margins (left, top, right, bottom) the client cuts these

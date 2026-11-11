@@ -10,4 +10,5 @@ section: players
   (lit under the cursor), dropdowns, input boxes and the quest log's gold
   and silver row highlights are the vanilla files. Every border is drawn
   from the game's own edge art, so the previews show it and nothing sits
-  between a window and its contents.
+  between a window and its contents. A guide tab's red close button shows at
+  full strength, as the game draws it, rather than faded.

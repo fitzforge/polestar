@@ -3035,13 +3035,17 @@ change hides them:
   `tabClear` under the window's edge and `tabGap` in from its sides, so it
   closes as a tab does: #312); Blizzard's own damage meter, apart from
   Forever's look (its window's ground cut at its slices with no other fill,
-  its header bar over the tab strip and navigator, the header's buttons as
-  their glyphs alone, `kit.bareIcons`, no ornament under the focus,
+  its flat charcoal header over the tab strip and navigator, `kit.headerFill`,
+  grey hairlines, its selected row flat grey, `kit.rowFlat`, for the active
+  tab and the current goal, the header's buttons and a tab's or card's close
+  as their glyphs alone, `kit.bareIcons`, no ornament under the focus,
   `header = false`), the toasts and cards in the alert toasts' frame;
   Classic's chat frame (the tooltip tile in the window colour under the chat
   tab's rim, its tabs cut from the chat tab sheet) with a toast as the
-  game's tooltip. A tab's close button is 14 high in every look, on the
-  middle of its tab's art;
+  game's tooltip. A tab's red close button is 14 high in Forever and
+  Classic, on the middle of its tab's art; the tab's text ends 6 clear of
+  the close in every game look (metric `guideTabClosePad`), and Classic's
+  rests at full strength (`guideTabCloseRest`);
 - atlases the client draws sliced (UiTextureAtlasElementSliceData) are cut at
   the same margins (`ns.GameArtSlice`).
 

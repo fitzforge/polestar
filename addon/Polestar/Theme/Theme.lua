@@ -263,14 +263,18 @@ SKIN_PALETTES.forever = gamePalette({
 	-- lit goal's gold card as well as on black.
 	dungeon = hex("BBA6FF"),
 })
--- Blizzard Style: the meter header's and the tracker header's own gold lines
--- draw the window's rules, so the hairlines stay faint and white; resting
--- tabs in the Settings panel's tan, the active one gold on its lit row.
+-- Blizzard Style: the damage meter's greys. Its parts are parted by 1px
+-- grey hairlines (#3a3a3a), the selection a flat grey row (GameSkins'
+-- rowFlat), the accent (the focus's bar, a tab's glyph, a tick) the
+-- meter's light grey, the resting tabs a grey label; gold is left to the
+-- titles (the active tab's, the windows') and the progress bar.
 SKIN_PALETTES.blizzard = gamePalette({
 	bg = hex("000000", 0.96), bgBottom = hex("000000", 0.96), sidebar = hex("000000", 0.25),
-	icon = hex("E8E8E8"), iconHover = hex("FFFFFF"), tabRest = hex("C9B37A"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
-	separator = hex("FFFFFF", 0.1), divider = hex("FFFFFF", 0.1), accentLine = hex("FFD100", 0.45),
-	border = hex("404040"), windowEdge = hex("404040"), hover = hex("FFFFFF", 0.08), selected = hex("FFD100", 0.14),
+	accent = hex("D9D9D9"), accentLine = hex("D9D9D9", 0.45), padSelect = hex("FFFFFF", 0.1), chipAccent = hex("FFFFFF", 0.12),
+	mover = hex("FFFFFF", 0.08),
+	icon = hex("E8E8E8"), iconHover = hex("FFFFFF"), tabRest = hex("A8A8A8"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	separator = hex("3A3A3A"), divider = hex("3A3A3A"),
+	border = hex("404040"), windowEdge = hex("404040"), hover = hex("FFFFFF", 0.08), selected = hex("FFFFFF", 0.1),
 })
 -- Classic: the game's tooltip colour (TOOLTIP_DEFAULT_BACKGROUND_COLOR,
 -- 0.09 0.09 0.19, as its grey tile draws it) under the guide window and the
@@ -1340,7 +1344,11 @@ local METRICS = {
 -- 30 high so the Settings tab outlines stand clear of the window's edge
 -- (#312, GameSkins' tabClear), and a tab's close button and text stay
 -- inside its outline, 5 in from the tab's sides (guideTabInset: GameSkins'
--- tabGap).
+-- tabGap). A tab's title ends 6 clear of its close (guideTabClosePad: the
+-- room kept right of the text for the close, 3 in from the tab's side, and
+-- the gap): the red button's 14 in WoW Forever and Classic, Blizzard's
+-- 9-unit glyph. Classic's red button rests at full strength
+-- (guideTabCloseRest), as the game draws it; faded it went to mud.
 do
 	local GAME_ROLES = { hero = { "semibold", 24 } }
 	local GAME_METRICS = {
@@ -1352,6 +1360,7 @@ do
 		guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 20, guideNavIcon = 12,
 		guideIconBtnW = 20, guideIconBtnH = 20, guideIcon = 11, guideRow = 22, guideCheck = 15,
 		guideProgress = 14, guideGrip = 8, guideFoot = 28, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 4,
+		guideTabClosePad = 24,
 	}
 	for _, k in ipairs({ "forever", "blizzard", "classic" }) do
 		METRICS[k] = GAME_METRICS
@@ -1359,6 +1368,8 @@ do
 	end
 	METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true, guideTabs = 30,
 		guideTabInset = 5 }, { __index = GAME_METRICS })
+	METRICS.blizzard = setmetatable({ guideTabClosePad = 22 }, { __index = GAME_METRICS })
+	METRICS.classic = setmetatable({ guideTabCloseRest = 1 }, { __index = GAME_METRICS })
 end
 Theme.METRICS = METRICS
 

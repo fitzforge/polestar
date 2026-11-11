@@ -38,9 +38,8 @@ const ELEMENTS = [
 	'128-RedButton-Left-Pressed', '_128-RedButton-Center-Pressed', '128-RedButton-Right-Pressed',
 	'128-RedButton-Left-Disabled', '_128-RedButton-Center-Disabled', '128-RedButton-Right-Disabled',
 	'128-RedButton-Highlight', 'RedButton-Exit', 'RedButton-exit-pressed',
-	// The damage meter: its window's ground, the header bar over its tabs and
-	// navigator, its bars' shadowed track and edge.
-	'damagemeters-background', 'ui-damagemeters-header-bar', 'ui-damagemeters-bar-shadowbg', 'ui-damagemeters-bar-shadowedge',
+	// The damage meter: its window's ground.
+	'damagemeters-background',
 	// The Settings panel's parts (SettingsPanel, its category list and rows).
 	'Options_List_Active', 'Options_List_Hover', 'RedButton-Highlight', '_UI-Frame-TopTileStreaks',
 	'UI-Frame-InnerTopLeft', 'UI-Frame-InnerTopRight', 'UI-Frame-InnerBotLeftCorner', 'UI-Frame-InnerBotRight',

@@ -1067,6 +1067,41 @@ fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_th
 	}
 }
 
+// The skins' design review (0.3.8): in the game looks a narrow tab's title and range ran up to its close, 2 units
+// short of the red button. Its text ends 6 clear of the close's ink in every one (Blizzard's close is now its
+// glyph, as the damage meter's header buttons are), and Classic's red button rests at full strength, not faded to
+// mud; the others keep the house's faint rest.
+#[test]
+fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s_close_rests_whole() {
+	let out = run(r#"
+		Polestar.Set("ui.width", 300)
+		uistub.openTabs(TABS, 1)
+		local out = {}
+		for _, look in ipairs({ "forever", "blizzard", "classic" }) do
+			Polestar.Set("ui.skin", look)
+			GF.Render()
+			local b = shownTabs()[1]
+			local c = b.Close
+			-- The close's ink: Blizzard's glyph, else the red button's 14 on the button's middle.
+			local inkLeft = look == "blizzard" and c.Icon:GetLeft() or (c:GetLeft() + c:GetRight()) / 2 - 7
+			out[look] = { gap = inkLeft - (b.Range:GetLeft() + b.Range:GetStringWidth()), range = b.Range:IsShown(),
+				cut = b.Label:IsShown() and b.Label:GetStringWidth() < b.Label:GetUnboundedStringWidth(), rest = c:GetAlpha(),
+				glyph = c.Icon:GetAlpha(), tab = { b:GetLeft(), b:GetRight() }, close = { c:GetLeft(), c:GetRight() },
+				rangeAt = { b.Range:GetLeft(), b.Range:GetStringWidth() }, label = { b.Label:GetLeft(), b.Label:GetWidth() } }
+		end
+		emit(out)"#)
+	.remove(0);
+	for look in ["forever", "blizzard", "classic"] {
+		let m = &out[look];
+		assert_eq!(m["range"], true, "{look}: the range shows");
+		assert_eq!(m["cut"], true, "{look}: the title truncates (the tight case)");
+		assert!(f(&m["gap"]) >= 6.0, "{look}: the text ends {} before the close's ink: {m}", m["gap"]);
+	}
+	assert_eq!(out["blizzard"]["glyph"], 1.0, "Blizzard's close is its glyph, as the meter's header buttons are");
+	assert_eq!(out["classic"]["rest"], 1.0, "Classic's red button at rest as the game draws it");
+	assert!(f(&out["forever"]["rest"]) < 0.6 && f(&out["blizzard"]["rest"]) < 0.6, "the others keep the faint rest");
+}
+
 #[test]
 fn without_the_engine_tabs_api_the_strip_stays_hidden_and_the_navigator_names_the_guide() {
 	let out = run_with(
