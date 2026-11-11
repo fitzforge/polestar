@@ -23,8 +23,7 @@ end
 "#;
 
 fn run(script: &str) -> Value {
-	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], login: true, script: format!("{HELPERS}\n{script}"), ..Default::default() })
-		.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], login: true, script: format!("{HELPERS}\n{script}"), ..Default::default() }).remove(0)
 }
 
 // Coverage: every tab of every page that has a preview draws it on the settings window's stage, and the pages

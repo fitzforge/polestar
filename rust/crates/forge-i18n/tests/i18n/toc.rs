@@ -35,7 +35,19 @@ fn every_addon_toc_names_the_addon_in_every_client_language_as_toc_rs_has_it() {
 #[test]
 fn the_translations_keep_polestars_name_fill_every_locale_and_the_language_folders_name_their_language() {
 	let fill = regex::Regex::new(r"%[0-9]").unwrap();
-	for addon in ["Polestar", "Polestar_Codex", "Polestar_Guides", "Polestar_ItemDB", "Polestar_Nav", "Polestar_Options", "Polestar_QuestDB", "Polestar_Recorder", "Polestar_SkinAPI", "Polestar_deDE", "Polestar_zhTW"] {
+	for addon in [
+		"Polestar",
+		"Polestar_Codex",
+		"Polestar_Guides",
+		"Polestar_ItemDB",
+		"Polestar_Nav",
+		"Polestar_Options",
+		"Polestar_QuestDB",
+		"Polestar_Recorder",
+		"Polestar_SkinAPI",
+		"Polestar_deDE",
+		"Polestar_zhTW",
+	] {
 		let t = toc_text(addon).unwrap();
 		assert_eq!(t.len(), LOCALE_CODES.len());
 		for (l, title, notes) in t {
