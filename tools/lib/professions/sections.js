@@ -3,7 +3,7 @@
 // (docs/GUIDE_FORMAT.md, "Sections"): the skill ranges the guide window shows
 // as headings, and from which the engine starts the guide where the player's
 // skill is. Applied to a rendered guide's text, so every generator (and a hand
-// edit of a committed guide, ~/work tooling) writes the same lines.
+// edit of a committed guide, maintainer tooling) writes the same lines.
 //
 // byBanners(text, skill): a section under each rank or band banner that names
 // a range ("# ---- Journeyman (75-150)", "# ---- Mining 1-65"). A banner
