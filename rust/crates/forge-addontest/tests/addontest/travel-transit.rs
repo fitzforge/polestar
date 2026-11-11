@@ -199,6 +199,65 @@ fn a_walk_in_portal_goes_one_way_only() {
 	assert_eq!(out["back"][0], "walk|Walk to the boat", "never back through it");
 }
 
+// #1741: a turn-in through the walk-in portal, with the game's waypoint mirrored (nav.blizzardWaypoint), walked
+// to the portal, through it and on. `waypoint_ui`: Waypoint UI's public API (WaypointUIAPI.Navigation) is
+// loaded, recording what Polestar asks of it and of the game's quest tracking.
+fn portal_turn_in_mirrored(waypoint_ui: bool) -> Value {
+	let api = if waypoint_ui {
+		r#"WaypointUIAPI = { Navigation = {
+			NewUserNavigation = function(o) current = o; calls[#calls + 1] = { "pin", o.name, o.mapID, o.x, o.y } end,
+			ClearUserNavigation = function() current = nil; calls[#calls + 1] = { "clear pin" } end,
+			IsUserNavigationFlagged = function(flag) return current ~= nil and current.flags == flag end,
+		} }"#
+	} else {
+		""
+	};
+	run(&format!(
+		r#"
+		local calls, current, tracked = {{}}, nil, 0
+		{api}
+		C_QuestLog = C_QuestLog or {{}}
+		C_QuestLog.IsOnQuest = function(q) return q == 376 end
+		C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = {{ "quest", q }} end
+		C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
+		Polestar.Set("nav.blizzardWaypoint", true)
+		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,
+			a = {{ "West Portal", 0, 0, 900, 9000, 5, 50 }}, b = {{ "Far Gate", 1, 0, -400, 9001, 90, 50 }} }} }} }})
+		nav.place(0, 850)
+		nav.setWaypoint({{ map = 9001, x = 80, y = 60, label = "Turn in The Damned", kind = "turnin", quest = 376,
+			stepIndex = 1, goalIndex = 1, r = 8 }})
+		local r = {{ route = route(), walking = #calls }}
+		nav.place(0, 899)                                 -- at the portal: the next leg
+		N.Sample()
+		r.atPortal = #calls
+		nav.place(0, -400, 1)                             -- through it: the last walk, to the turn-in
+		N.Sample()
+		r.calls, r.native = calls, nav.userWaypoints
+		emit(r)"#
+	))
+}
+
+// With Waypoint UI, its beacon leads the way the arrow does: the current leg's stop (the portal), named after
+// the leg and moved on as the legs change, and the goal itself (its quest tracked) once the last walk begins,
+// where it pointed at the turn-in across the portal from the start (Rut'theran Village to the Darnassus bank).
+#[test]
+fn issue_1741_with_waypoint_ui_the_pin_is_the_current_leg_s_stop_then_the_goal() {
+	let out = portal_turn_in_mirrored(true);
+	assert_eq!(out["route"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Turn in The Damned"]));
+	assert_eq!(out["calls"], json!([["pin", "Walk to the portal", 9000, 5, 50], ["pin", "Take the portal to Far Gate", 9000, 5, 50], ["clear pin"], ["quest", 376]]));
+	assert_eq!(out["walking"], 1, "one pin while walking to the portal: a plan and the target announced together");
+	assert_eq!(out["atPortal"], 2);
+	assert_eq!(out["native"], json!({}), "Waypoint UI sets the game's pin itself");
+}
+
+// Without Waypoint UI nothing changes: the game's plain pin stays on the target the whole way.
+#[test]
+fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
+	let out = portal_turn_in_mirrored(false);
+	assert_eq!(out["calls"], json!({}));
+	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", true]]));
+}
+
 #[test]
 fn t_11_skipping_a_hearth_leg_plans_this_target_without_the_hearthstone_another_target_may_hearth_again() {
 	let out = run(r#"
