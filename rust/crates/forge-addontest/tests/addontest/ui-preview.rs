@@ -280,16 +280,8 @@ fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the
 		end
 		emit({ scene = scene, window = { emblem = lit[win.Emblem] == true, row = row, tab = tabs, otherTabs = others,
 			fills = fills > 0, tracks = tracks > 0 } })"#);
-	assert_eq!(
-		out["scene"],
-		json!({ "tab": true, "goal": true, "progress": true, "stripe": true, "primaries": true, "timer": true, "arrow": true, "dark": true }),
-		"the scene's accent parts"
-	);
-	assert_eq!(
-		out["window"],
-		json!({ "emblem": true, "row": true, "tab": 1, "otherTabs": 0, "fills": true, "tracks": true }),
-		"the settings window's own accent parts"
-	);
+	assert_eq!(out["scene"], json!({ "tab": true, "goal": true, "progress": true, "stripe": true, "primaries": true, "timer": true, "arrow": true, "dark": true }), "the scene's accent parts");
+	assert_eq!(out["window"], json!({ "emblem": true, "row": true, "tab": 1, "otherTabs": 0, "fills": true, "tracks": true }), "the settings window's own accent parts");
 }
 
 // The Buttons hero and the single alerts stand in the world they act in: the button set with the mob the target
