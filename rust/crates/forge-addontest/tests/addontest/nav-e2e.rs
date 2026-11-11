@@ -1580,6 +1580,38 @@ fn t_234_floor_balanced_at_the_dens_camp_walked_in_from_the_valley_floor_the_wal
 	floor_den("balanced");
 }
 
+// #1784: Silverpine Forest's covered bridge north-east of the Sepulcher (deck 56, the river at 33, the roof and its
+// eaves at 60-64). Walked onto from the south bank (60) along its west side, the floor follow took the eave a yard or
+// two above the bank (nearer than the deck) and climbed the roof; the arrow's walk on from there to the Hardened Tumor
+// (north-east) turned back south to the bank first. Now on a bridge the follow keeps the deck.
+#[test]
+fn t_1784_floor_walked_onto_silverpines_covered_bridge_from_the_south_bank_the_walk_north_starts_on_the_deck_not_the_roof() {
+	skip_unless_ready!();
+	let script = r#"
+		Polestar.Set("nav.travel", false)
+		w.setLevel(17)
+		w.faction = "Horde"
+		local r = {}
+		-- From the bank south of the bridge (one surface, z 60), north along its west side to the middle of the deck.
+		N.SetTarget(1421, 50, 20, "North")
+		place(1421, 818, 1364, 0)
+		stub.advance(3)
+		aim()
+		walkTo(1421, { { 843, 1364 } })
+		local f = walkFor(1421, 991.9, 1043.4, "Hardened Tumor", nil)
+		local south = math.huge
+		for _, p in ipairs(f.points or {}) do if p.x < south then south = p.x end end
+		r.z = f.from[3] or false
+		r.south = south
+		r.top = highest(f, 843, 1364, 15)
+		emit(r)"#;
+	let out = run(&format!("{FLOOR_WALK}{script}"), true);
+	eprintln!("from z {}, southernmost path point {}, highest within 15 yd {}", out["z"], out["south"], out["top"]);
+	assert!((f(&out["z"]) - 56.0).abs() <= 3.0, "the walk starts on the deck ({})", out["z"]);
+	assert!(f(&out["south"]) >= 838.0, "and never turns back south off the bridge ({})", out["south"]);
+	assert!(f(&out["top"]) <= 59.0, "nor stands on the roof ({})", out["top"]);
+}
+
 // The pattern sweep's worst Undercity start (hop|forever/class/rogue/plundering-the-plunderers|17, real z -62.2, its
 // column -62/5/63): a player who rode the south lift down (the floor unknown at a lift) and walked to it along the
 // router's own way, indoors (IsIndoors), keeps the lower level.
@@ -2357,6 +2389,29 @@ fn t_989_rutheran_village_to_teldrassil_takes_the_portal_up_and_from_its_landing
 	assert_eq!(f(&down["treeWalks"]), 0.0, "from Darnassus: no walk leg joins Rut'theran to the top of the tree");
 }
 
+/// #1761 (zpectral): on Teldrassil's southern rim (60.2,71.6), bound for Vesprystus, the flight master in Rut'theran
+/// Village (58.4,93.93) at the foot of the tree, the arrow drew a walk straight down the trunk. No walk joins the two
+/// (the walking grid reaches neither from the other) and the fall from the rim kills (recorded descents); the
+/// way down is through Darnassus and its portal. Rut'theran is an area of Teldrassil's map no walk joins to the rest
+/// (crossings.json `areas`): a zone of its own to the planner. From Dolanaar too.
+fn rutheran_flight_master_from(from: (i64, f64, f64)) {
+	skip_unless_ready!();
+	let out = teldrassil_route(from, (1438, 58.4, 93.93, "Vesprystus"));
+	let (kinds, transports) = (strs(&out["kinds"]), strs(&out["transports"]));
+	assert!(transports.iter().any(|t| t == "portal-ruttheran"), "the Darnassus portal down ({}; {})", kinds.join(", "), transports.join(", "));
+	assert_eq!(f(&out["treeWalks"]), 0.0, "no walk leg joins the top of the tree to Rut'theran ({}; {})", kinds.join(", "), transports.join(", "));
+}
+
+#[test]
+fn t_1761_from_teldrassils_rim_to_the_rutheran_flight_master_the_route_takes_the_darnassus_portal_down_never_a_walk_off_the_tree() {
+	rutheran_flight_master_from((1438, 60.2, 71.6));
+}
+
+#[test]
+fn t_1761_from_dolanaar_to_the_rutheran_flight_master_the_route_takes_the_darnassus_portal_down_never_a_walk_off_the_tree() {
+	rutheran_flight_master_from((1438, 55.9, 59.8));
+}
+
 // Same pattern (controller handover): Dolanaar <-> Auberdine must not walk between the top of Teldrassil and the
 // Rut'theran dock; the way is Darnassus' portal and the boat (or a flight from Rut'theran).
 fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
@@ -2368,13 +2423,11 @@ fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
 }
 
 #[test]
-#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_dolanaar_to_auberdine_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1438, 56.73, 61.9), (1439, 36.8, 44.3, "Auberdine"));
 }
 
 #[test]
-#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1439, 36.8, 44.3), (1438, 55.9, 59.8, "Dolanaar"));
 }
