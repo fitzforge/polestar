@@ -1217,6 +1217,7 @@ L["Tough at your level"] = "Difícil a tu nivel"
 -- UI/GearPick.lua
 L["new"] = "nuevo"
 L["Take"] = "Toma"
+-- L["at turn-in"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Ubicación"

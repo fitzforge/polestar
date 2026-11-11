@@ -785,7 +785,8 @@ runs solo or in a raid.
   talent points) and level band.
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
-  most. Turn-in goals name the best reward.
+  most. Turn-in goals name the best reward, and a quest you are about to accept
+  shows its reward when it is an upgrade.
 - **In your bags** every item that is an upgrade gets the same green arrow,
   in the game's bags, in Baganator and in EllesmereUI Bags. With Pawn
   installed, "Leave bag arrows to Pawn" hides Polestar's.

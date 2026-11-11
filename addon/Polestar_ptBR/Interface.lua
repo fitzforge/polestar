@@ -1454,6 +1454,7 @@ L["average wait %s"] = "espera média %s"
 -- UI/GearPick.lua
 L["new"] = "novo"
 L["Take"] = "Pegar"
+-- L["at turn-in"] = ""
 
 -- UI/Picker.lua
 L["Home"] = "Início"

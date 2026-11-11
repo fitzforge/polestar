@@ -11,7 +11,7 @@
 --       The quest that offers this item as a reward choice, and whether it is
 --       the pick there. Cached per item the same way.
 --
--- Nothing here runs until a turn-in goal or a reward item's tooltip asks.
+-- Nothing here runs until a turn-in or accept goal or a reward item's tooltip asks.
 
 local ADDON, ns = ...
 
