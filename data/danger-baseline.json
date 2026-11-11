@@ -2658,19 +2658,6 @@
 			"evidence": "route level 40.2; 7 spawns 42+; recordings (2026-11-11): done by 1 people at 41-41 (median 41), 1 people died within 60 yd (median level 41), 0 abandoned"
 		},
 		{
-			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 349.1|mixed",
-			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
-			"goal": "collect 349.1",
-			"kind": "mixed",
-			"title": "Gorilla hills",
-			"level": 40.5,
-			"mobs": [
-				"Skymane Gorilla 50-50"
-			],
-			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
-			"evidence": "route level 40.5; Skymane Gorilla 50-50; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
 			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 348.1|target",
 			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
 			"goal": "collect 348.1",
@@ -5073,82 +5060,6 @@
 			"evidence": "route level 55.3; 8 spawns 57+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "forever/alliance/50-60/03-winterspring.guide|collect 5509.1|elite",
-			"guide": "forever/alliance/50-60/03-winterspring.guide",
-			"goal": "collect 5509.1",
-			"kind": "elite",
-			"title": "Corin's Crossing",
-			"level": 55.3,
-			"mobs": [
-				"Argent Sentry 60-60",
-				"Enraged Felbat 55-55",
-				"Georgia 55-55"
-			],
-			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
-			"evidence": "route level 55.3; Argent Sentry 60-60, Enraged Felbat 55-55, Georgia 55-55; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/alliance/50-60/03-winterspring.guide|collect 5509.1|pack",
-			"guide": "forever/alliance/50-60/03-winterspring.guide",
-			"goal": "collect 5509.1",
-			"kind": "pack",
-			"title": "Corin's Crossing",
-			"level": 55.3,
-			"mobs": [
-				"15 spawns 57+"
-			],
-			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
-			"evidence": "route level 55.3; 15 spawns 57+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/alliance/50-60/03-winterspring.guide|collect 5509.1|mixed",
-			"guide": "forever/alliance/50-60/03-winterspring.guide",
-			"goal": "collect 5509.1",
-			"kind": "mixed",
-			"title": "Corin's Crossing",
-			"level": 55.3,
-			"mobs": [
-				"Diseased Flayer 57-59",
-				"Dread Weaver 58-59",
-				"Shadowmage 59-60",
-				"Abomination 59-60",
-				"Terrordale Spirit 59-60",
-				"Death Singer 57-59",
-				"Crypt Slayer 58-59",
-				"Dark Adept 59-59",
-				"Scourge Champion 59-60"
-			],
-			"reason": "warned at the step: its tip names Terrordale Spirit",
-			"evidence": "route level 55.3; Diseased Flayer 57-59, Dread Weaver 58-59, Shadowmage 59-60, Abomination 59-60, Terrordale Spirit 59-60, Death Singer 57-59, Crypt Slayer 58-59, Dark Adept 59-59, Scourge Champion 59-60; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/alliance/50-60/04-western-plaguelands.guide|collect 5402.1|elite",
-			"guide": "forever/alliance/50-60/04-western-plaguelands.guide",
-			"goal": "collect 5402.1",
-			"kind": "elite",
-			"title": "Sorrow Hill: kill these as you meet them",
-			"level": 55.5,
-			"mobs": [
-				"Skeletal Warlord 56-57"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 55.5; Skeletal Warlord 56-57; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/alliance/50-60/04-western-plaguelands.guide|collect 5403.1|mixed",
-			"guide": "forever/alliance/50-60/04-western-plaguelands.guide",
-			"goal": "collect 5403.1",
-			"kind": "mixed",
-			"title": "The Writhing Haunt: kill these as you meet them",
-			"level": 55.6,
-			"mobs": [
-				"Spectral Attendant 60-60",
-				"Crypt Slayer 58-59"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 55.6; Spectral Attendant 60-60, Crypt Slayer 58-59; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
 			"key": "forever/alliance/50-60/04-western-plaguelands.guide|use 5097.1|elite",
 			"guide": "forever/alliance/50-60/04-western-plaguelands.guide",
 			"goal": "use 5097.1",
@@ -5902,19 +5813,6 @@
 			"evidence": "route level 6.7; Scarred Crag Boar 9-10; recordings (2026-11-11): done by 26 people at 6-12 (median 6), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 287.1|over",
-			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
-			"goal": "kill 287.1",
-			"kind": "over",
-			"title": "Frostmane Hold",
-			"level": 8,
-			"mobs": [
-				"Great Father Arctikus 11-11 x3"
-			],
-			"reason": "the troll leader (11) and his guards are the hold's named mobs; 26 people did it (median 8), 2 died there",
-			"evidence": "route level 8; Great Father Arctikus 11-11 x3; recordings (2026-11-11): done by 26 people at 7-13 (median 8), 2 people died within 60 yd (median level 8), 2 abandoned"
-		},
-		{
 			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 287.1|rare",
 			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
 			"goal": "kill 287.1",
@@ -5926,19 +5824,6 @@
 			],
 			"reason": "the troll leader (11) is the hold's named mob; 26 people did it (median 8), 2 died there",
 			"evidence": "route level 8; Great Father Arctikus 11-11 x3; recordings (2026-11-11): done by 26 people at 7-13 (median 8), 2 people died within 60 yd (median level 8), 2 abandoned"
-		},
-		{
-			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 287.1|pack",
-			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
-			"goal": "kill 287.1",
-			"kind": "pack",
-			"title": "Frostmane Hold",
-			"level": 8,
-			"mobs": [
-				"12 spawns 9+"
-			],
-			"reason": "the hold's trolls stand close; 26 people did it (median 8), 2 died there",
-			"evidence": "route level 8; 12 spawns 9+; recordings (2026-11-11): done by 26 people at 7-13 (median 8), 2 people died within 60 yd (median level 8), 2 abandoned"
 		},
 		{
 			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 412.1|rare",
@@ -5954,19 +5839,6 @@
 			"evidence": "route level 8; Gibblewilt 11-11 x2; recordings (2026-11-11): done by 21 people at 7-13 (median 8), 1 people died within 60 yd (median level 10), 1 abandoned"
 		},
 		{
-			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 412.1|pack",
-			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
-			"goal": "collect 412.1",
-			"kind": "pack",
-			"title": "Gnomeregan: kill these as you meet them",
-			"level": 8,
-			"mobs": [
-				"20 spawns 9+"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 8; 20 spawns 9+; recordings (2026-11-11): done by 21 people at 7-13 (median 8), 1 people died within 60 yd (median level 10), 1 abandoned"
-		},
-		{
 			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 412.2|rare",
 			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
 			"goal": "collect 412.2",
@@ -5978,19 +5850,6 @@
 			],
 			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
 			"evidence": "route level 8; Gibblewilt 11-11 x2; recordings (2026-11-11): done by 21 people at 7-13 (median 8), 1 people died within 60 yd (median level 10), 1 abandoned"
-		},
-		{
-			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 412.2|pack",
-			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
-			"goal": "collect 412.2",
-			"kind": "pack",
-			"title": "Gnomeregan: kill these as you meet them",
-			"level": 8,
-			"mobs": [
-				"20 spawns 9+"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 8; 20 spawns 9+; recordings (2026-11-11): done by 21 people at 7-13 (median 8), 1 people died within 60 yd (median level 10), 1 abandoned"
 		},
 		{
 			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 312.1|elite",
@@ -7242,19 +7101,6 @@
 			"evidence": "route level 22.2; Rorgish Jowl 25-25; recordings (2026-11-11): done by 19 people at 21-29 (median 27), 0 people died within 60 yd, 12 abandoned"
 		},
 		{
-			"key": "forever/horde/05-stonetalon-mountains.guide|kill 6503.1|over",
-			"guide": "forever/horde/05-stonetalon-mountains.guide",
-			"goal": "kill 6503.1",
-			"kind": "over",
-			"title": "Ashenvale Outrunners",
-			"level": 22.8,
-			"mobs": [
-				"Severed Sleeper 28-29 x2"
-			],
-			"reason": "Severed Sleepers (28-29) near the Outrunners at 22: the Outrunners move to the 26 visit (0.3.7 guide fix); 38 people did it (median 24), 1 died there",
-			"evidence": "route level 22.8; Severed Sleeper 28-29 x2; recordings (2026-11-11): done by 38 people at 20-29 (median 24), 1 people died within 60 yd (median level 25), 3 abandoned"
-		},
-		{
 			"key": "forever/horde/06-hillsbrad-foothills.guide|collect 501.1|mixed",
 			"guide": "forever/horde/06-hillsbrad-foothills.guide",
 			"goal": "collect 501.1",
@@ -7386,6 +7232,45 @@
 			"evidence": "route level 24.9; Keeper Remulos 62-62; recordings (2026-11-11): done by 9 people at 16-23 (median 18), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|kill 527.1|pack",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "kill 527.1",
+			"kind": "pack",
+			"title": "Hillsbrad Fields",
+			"level": 22.9,
+			"mobs": [
+				"9 spawns 24+"
+			],
+			"reason": "players do it (30 people at 22-30, median 25); the 4 who died there fought the hills' Starving Mountain Lion and Vicious Gray Bear, Citizen Wilkes and a Hillsbrad Farmer, one each",
+			"evidence": "route level 22.9; 9 spawns 24+; recordings (2026-11-11): done by 30 people at 22-30 (median 25), 4 people died within 60 yd (median level 25), 4 abandoned"
+		},
+		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|collect 546.1|pack",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "collect 546.1",
+			"kind": "pack",
+			"title": "Hillsbrad Fields: kill these as you meet them",
+			"level": 23.9,
+			"mobs": [
+				"18 spawns 25+"
+			],
+			"reason": "warned at the step: its Careful tip says a fleeing peasant brings back adds from the town hall, footmen among them; players do it (28 people, median 26); the 8 who died there fought the town's Councilman, Peasants, Footmen and Clerk Horrace Whitesteed",
+			"evidence": "route level 23.9; 18 spawns 25+; recordings (2026-11-11): done by 28 people at 23-32 (median 26), 8 people died within 60 yd (median level 25), 2 abandoned"
+		},
+		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|kill 528.1|pack",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "kill 528.1",
+			"kind": "pack",
+			"title": "Hillsbrad Fields: kill these as you meet them",
+			"level": 23.9,
+			"mobs": [
+				"18 spawns 25+"
+			],
+			"reason": "warned at the step: its Careful tip says a fleeing peasant brings back adds from the town hall, footmen among them; players do it (27 people, median 26); the 8 who died there fought the town's Councilman, Peasants, Footmen and Clerk Horrace Whitesteed",
+			"evidence": "route level 23.9; 18 spawns 25+; recordings (2026-11-11): done by 27 people at 23-33 (median 26), 8 people died within 60 yd (median level 25), 2 abandoned"
+		},
+		{
 			"key": "forever/horde/07-ashenvale.guide|kill 96259.1|elite",
 			"guide": "forever/horde/07-ashenvale.guide",
 			"goal": "kill 96259.1",
@@ -7462,20 +7347,6 @@
 			],
 			"reason": "players do it (27 people, median 30); the 4 who died there fought other mobs (Screeching Roguefeather, Grenka Bloodscreech), not ",
 			"evidence": "route level 29; 6 spawns 31+; recordings (2026-11-11): done by 27 people at 28-35 (median 30), 4 people died within 60 yd (median level 29), 0 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|collect 533.1|target",
-			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
-			"goal": "collect 533.1",
-			"kind": "target",
-			"title": "Syndicate missives",
-			"level": 29.4,
-			"mobs": [
-				"Syndicate Thief 33-34",
-				"Syndicate Footpad 32-33"
-			],
-			"reason": "warned at the step: its tip names Syndicate Footpad",
-			"evidence": "route level 29.4; Syndicate Thief 33-34, Syndicate Footpad 32-33; recordings (2026-11-11): done by 17 people at 29-33 (median 32), 4 people died within 60 yd (median level 32), 4 abandoned"
 		},
 		{
 			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|collect 533.1|over",
@@ -7732,32 +7603,6 @@
 			],
 			"reason": "players do it at the route's level: 12 people at median 32, 0 died there",
 			"evidence": "route level 31; Kovork 36-36; recordings (2026-11-11): done by 12 people at 31-35 (median 32), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|kill 676.1|pack",
-			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
-			"goal": "kill 676.1",
-			"kind": "pack",
-			"title": "Boulderfist camp",
-			"level": 31,
-			"mobs": [
-				"15 spawns 32+"
-			],
-			"reason": "players do it at the route's level: 12 people at median 32, 0 died there",
-			"evidence": "route level 31; 15 spawns 32+; recordings (2026-11-11): done by 12 people at 31-35 (median 32), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|kill 676.2|target",
-			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
-			"goal": "kill 676.2",
-			"kind": "target",
-			"title": "Boulderfist camp",
-			"level": 31,
-			"mobs": [
-				"Boulderfist Enforcer 33-34"
-			],
-			"reason": "players do it at the route's level: 12 people at median 32, 0 died there",
-			"evidence": "route level 31; Boulderfist Enforcer 33-34; recordings (2026-11-11): done by 12 people at 31-35 (median 32), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|kill 676.2|over",
@@ -9180,32 +9025,6 @@
 			"evidence": "route level 40; 17 spawns 42+; recordings (2026-11-11): done by 1 people at 41-41 (median 41), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "forever/horde/40-50/01-stranglethorn-vale.guide|collect 349.1|over",
-			"guide": "forever/horde/40-50/01-stranglethorn-vale.guide",
-			"goal": "collect 349.1",
-			"kind": "over",
-			"title": "Mistvale gorillas",
-			"level": 40.3,
-			"mobs": [
-				"Mokk the Savage 44-44 x2"
-			],
-			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
-			"evidence": "route level 40.3; Mokk the Savage 44-44 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/40-50/01-stranglethorn-vale.guide|collect 349.1|mixed",
-			"guide": "forever/horde/40-50/01-stranglethorn-vale.guide",
-			"goal": "collect 349.1",
-			"kind": "mixed",
-			"title": "Mistvale gorillas",
-			"level": 40.3,
-			"mobs": [
-				"Skymane Gorilla 50-50"
-			],
-			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
-			"evidence": "route level 40.3; Skymane Gorilla 50-50; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
 			"key": "forever/horde/40-50/01-stranglethorn-vale.guide|collect 348.1|target",
 			"guide": "forever/horde/40-50/01-stranglethorn-vale.guide",
 			"goal": "collect 348.1",
@@ -9503,6 +9322,19 @@
 			],
 			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
 			"evidence": "route level 43; Kregg Keelhaul 47-47; recordings (2026-11-11): done by 1 people at 45-45 (median 45), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1691.2|pack",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1691.2",
+			"kind": "pack",
+			"title": "Waterspring Field: kill these as you meet them",
+			"level": 42.9,
+			"mobs": [
+				"7 spawns 44+"
+			],
+			"reason": "a kill-as-you-meet-them step with two Careful tips (the stealthed Wastewander Rogues, Caliph's escort); at the gate's edge (+0.5); 1 person did it at 45 with no deaths",
+			"evidence": "route level 42.9; 7 spawns 44+; recordings (2026-11-11): done by 1 people at 45-45 (median 45), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/40-50/03-feralas.guide|kill 1426.3|over",
@@ -11446,70 +11278,6 @@
 			"evidence": "route level 52.5; 13 spawns 54+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "forever/horde/50-60/02-felwood.guide|collect 5408.1|over",
-			"guide": "forever/horde/50-60/02-felwood.guide",
-			"goal": "collect 5408.1",
-			"kind": "over",
-			"title": "Terrordale: kill these as you meet them",
-			"level": 52.5,
-			"mobs": [
-				"Crypt Horror 57-58 x2",
-				"Crypt Slayer 58-59 x2",
-				"Nerubian Overseer 60-60 x2"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 52.5; Crypt Horror 57-58 x2, Crypt Slayer 58-59 x2, Nerubian Overseer 60-60 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/50-60/02-felwood.guide|collect 5408.1|elite",
-			"guide": "forever/horde/50-60/02-felwood.guide",
-			"goal": "collect 5408.1",
-			"kind": "elite",
-			"title": "Terrordale: kill these as you meet them",
-			"level": 52.5,
-			"mobs": [
-				"Nerubian Overseer 60-60 x2"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 52.5; Nerubian Overseer 60-60 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/50-60/02-felwood.guide|collect 5408.1|pack",
-			"guide": "forever/horde/50-60/02-felwood.guide",
-			"goal": "collect 5408.1",
-			"kind": "pack",
-			"title": "Terrordale: kill these as you meet them",
-			"level": 52.5,
-			"mobs": [
-				"14 spawns 54+"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 52.5; 14 spawns 54+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/50-60/02-felwood.guide|collect 5408.1|mixed",
-			"guide": "forever/horde/50-60/02-felwood.guide",
-			"goal": "collect 5408.1",
-			"kind": "mixed",
-			"title": "Terrordale: kill these as you meet them",
-			"level": 52.5,
-			"mobs": [
-				"Dark Summoner 55-56",
-				"Hate Shrieker 55-57",
-				"Stitched Horror 57-58",
-				"Putrid Gargoyle 54-56",
-				"Vile Tutor 56-57",
-				"Dark Caster 56-57",
-				"Scourge Guard 57-58",
-				"Crypt Walker 55-56",
-				"Gibbering Ghoul 56-57",
-				"Scourge Warder 55-56",
-				"Unseen Servant 55-56"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 52.5; Dark Summoner 55-56, Hate Shrieker 55-57, Stitched Horror 57-58, Putrid Gargoyle 54-56, Vile Tutor 56-57, Dark Caster 56-57, Scourge Guard 57-58, Crypt Walker 55-56, Gibbering Ghoul 56-57, Scourge Warder 55-56, Unseen Servant 55-56; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
 			"key": "forever/horde/50-60/02-felwood.guide|kill 6004.1|elite",
 			"guide": "forever/horde/50-60/02-felwood.guide",
 			"goal": "kill 6004.1",
@@ -11575,19 +11343,6 @@
 			],
 			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
 			"evidence": "route level 52.5; 31 spawns 54+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/50-60/02-felwood.guide|collect 5060.1|target",
-			"guide": "forever/horde/50-60/02-felwood.guide",
-			"goal": "collect 5060.1",
-			"kind": "target",
-			"title": "Dalson's Tears farmhouse",
-			"level": 52.6,
-			"mobs": [
-				"Farmer Dalson 56-56"
-			],
-			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
-			"evidence": "route level 52.6; Farmer Dalson 56-56; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/50-60/02-felwood.guide|kill 4985.1|pack",
@@ -11823,46 +11578,6 @@
 			],
 			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
 			"evidence": "route level 55.2; 7 spawns 57+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|collect 5510.1|over",
-			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
-			"goal": "collect 5510.1",
-			"kind": "over",
-			"title": "Pestilent Scar",
-			"level": 55.7,
-			"mobs": [
-				"Crypt Slayer 58-59 x2",
-				"Nerubian Overseer 60-60 x2"
-			],
-			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
-			"evidence": "route level 55.7; Crypt Slayer 58-59 x2, Nerubian Overseer 60-60 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|collect 5510.1|elite",
-			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
-			"goal": "collect 5510.1",
-			"kind": "elite",
-			"title": "Pestilent Scar",
-			"level": 55.7,
-			"mobs": [
-				"Nerubian Overseer 60-60 x2"
-			],
-			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
-			"evidence": "route level 55.7; Nerubian Overseer 60-60 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|collect 5510.1|pack",
-			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
-			"goal": "collect 5510.1",
-			"kind": "pack",
-			"title": "Pestilent Scar",
-			"level": 55.7,
-			"mobs": [
-				"6 spawns 57+"
-			],
-			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
-			"evidence": "route level 55.7; 6 spawns 57+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|collect 5154.1|over",
