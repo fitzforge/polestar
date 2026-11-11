@@ -137,6 +137,7 @@ House.ROLES = ROLES
 --   edgeLight    a window's light inside its top edge: ink at this share
 --   edgeKey      its contact line just outside, with the shadow: shade at
 --                this share
+--   openSections the guide window's body sections go without hairlines
 ---------------------------------------------------------------------------
 
 local TOKENS = {
@@ -147,6 +148,7 @@ local TOKENS = {
 	toastBand = true,
 	edgeLight = 0.07,
 	edgeKey = 0.42,
+	openSections = true,
 }
 
 ---------------------------------------------------------------------------

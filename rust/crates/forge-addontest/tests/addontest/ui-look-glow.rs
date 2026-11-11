@@ -560,3 +560,44 @@ fn a_house_window_carries_its_light_and_contact_edges_and_no_other_look_does() {
 	assert_eq!(out["unopened"], false, "a window never opened makes none");
 	assert_eq!(out["opened"], true, "it makes them on its first showing");
 }
+
+// The guide window's hairlines (guideWindow.rules): the house look keeps them round the tabs and the navigator and
+// over the footer (the XP line, the banner), and lets the body's sections ("Then:", Along the way, Up next, the party)
+// breathe on spacing; every other look keeps them all; the setting off takes them all away in every look.
+#[test]
+fn the_house_look_keeps_the_chrome_hairlines_and_drops_the_body_sections_ones() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		Polestar.Set("ui.shown", true)
+		local P = GF.parts
+		local function read()
+			local a = function(part) return part.Rule:IsShown() and 1 or 0 end
+			return { strip = P.strip.Rule:IsShown(), nav = P.nav.Rule:IsShown(), after = a(P.after), along = a(P.along), upnext = a(P.upnext.Toggle),
+				party = a(GF.party), xp = a(GF.xp), banner = a(P.banner) }
+		end
+		local out = { looks = eachLook(read) }
+		Polestar.Set("guideWindow.rules", false)
+		out.off = eachLook(read)
+		emit(out)"#);
+	let looks = out["looks"].as_array().unwrap();
+	assert_eq!(
+		looks[0],
+		json!({ "strip": true, "nav": true, "after": 0, "along": 0, "upnext": 0, "party": 0, "xp": 1, "banner": 1, "skin": "polestar" }),
+		"the house look: round the chrome and over the footer only"
+	);
+	for l in &looks[1..3] {
+		let skin = &l["skin"];
+		for k in ["after", "along", "upnext", "party", "xp", "banner"] {
+			assert_eq!(l[k], 1, "{skin}: {k}'s rule kept");
+		}
+		assert_eq!((l["strip"].as_bool(), l["nav"].as_bool()), (Some(true), Some(true)), "{skin}");
+	}
+	assert_eq!(looks[3], looks[0], "back on the house skin");
+	for l in out["off"].as_array().unwrap() {
+		let skin = &l["skin"];
+		for k in ["after", "along", "upnext", "party", "xp", "banner"] {
+			assert_eq!(l[k], 0, "{skin}: rules off, {k}'s gone");
+		}
+		assert_eq!((l["strip"].as_bool(), l["nav"].as_bool()), (Some(false), Some(false)), "{skin}");
+	}
+}

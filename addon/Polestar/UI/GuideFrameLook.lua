@@ -215,11 +215,16 @@ function GF.ApplyStyle()
 	-- The quest tracker's header behind the focus (Forever, Blizzard).
 	Theme.KitHeader(person, not clear)
 	-- The hairlines between the window's parts (guideWindow.rules): shown or hidden, never SetAlpha (their
-	-- strength is their colour's alpha, which SetAlpha replaces).
+	-- strength is their colour's alpha, which SetAlpha replaces). The house look keeps them round the chrome and
+	-- over the footer (the XP line, the banner) and lets the body's sections ("Then:", Along the way, Up next,
+	-- the party) breathe on spacing (Theme.House "openSections").
 	local rules = GF.On("rules")
 	strip.Rule:SetShown(not clear and rules)
 	nav.Rule:SetShown(not clear and rules)
-	for _, part in ipairs({ after, along, upnext.Toggle, GF.xp, GF.party, banner }) do part.Rule:SetShown(rules) end
+	local sections = rules and not Theme.House("openSections")
+	for _, part in ipairs({ after, along, upnext.Toggle, GF.party }) do part.Rule:SetShown(sections) end
+	GF.xp.Rule:SetShown(rules)
+	banner.Rule:SetShown(rules)
 	W.Painter(foot.Line.Track, paintTrack)
 	if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
 	local outline = clear and GF.Outline()
