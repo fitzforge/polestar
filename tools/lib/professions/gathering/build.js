@@ -102,18 +102,18 @@ function worthTrip(ctx, prof, recipe, merged) {
 	});
 }
 
-// The points a band's loop is made of: the zone's common kinds. A kind under a
-// twentieth of the nodes listed (nodeSummary's `rare`: Mulgore's Stunted
-// Silverleaf, a Forever node a few spots carry) never decides where a
-// waypoint goes or what it is called; the band's tip still names it. With
-// fewer than three common points left, every point counts.
-function commonPoints(points) {
+// The kinds under a twentieth of the nodes listed (nodeSummary's `rare`:
+// Mulgore's Stunted Silverleaf, a Forever node a few spots carry). They still
+// count where a loop's common nodes are, but never lead a waypoint or name it
+// (route.js `loop`, `label` below); the band's tip still names them. None for
+// a profession whose rare kinds may lead (skinning's beasts: `rareLeads`).
+function rareKinds(prof, points) {
+	if (prof.rareLeads) return new Set();
 	const up = (p) => (p.up === undefined ? 1 : p.up);
 	const byKind = new Map();
 	for (const p of points) byKind.set(p.name, (byKind.get(p.name) || 0) + up(p));
 	const total = [...byKind.values()].reduce((a, b) => a + b, 0);
-	const common = points.filter((p) => byKind.get(p.name) >= total / 20);
-	return common.length >= 3 ? common : points;
+	return new Set([...byKind].filter(([, n]) => n < total / 20).map(([k]) => k));
 }
 
 // Plan: a list of { kind: 'learn'|'train'|'recipes'|'band', ... } entries in guide order.
@@ -146,7 +146,7 @@ function plan(ctx, prof) {
 			const soon = [...(from === band.from ? skipped : []), ...within.filter((r) => r.learnedAt > from && r.learnedAt < stop)];
 			for (const m of merged) {
 				const entry = m.factions.length === 1 ? flightMaster(ctx, m.zone, m.factions[0]) : null;
-				const loop = R.loop(commonPoints(m.points), ctx.project, { entry: entry ? entry.pt : null, radius: prof.radius || 110 });
+				const loop = R.loop(m.points, ctx.project, { entry: entry ? entry.pt : null, radius: prof.radius || 110, rare: rareKinds(prof, m.points) });
 				out.push({ kind: 'band', cond: m.cond, zone: m.zone, from, to: stop, band, loop, points: m.points, cont: from !== band.from, soon });
 			}
 			const rank = splits.find((r) => r.learnAt === stop);
@@ -228,8 +228,12 @@ function shortName(prof, name) {
 	return prof.shortName ? prof.shortName(name) : name;
 }
 
-function label(prof, cluster) {
-	const names = Object.entries(cluster.counts)
+// A waypoint's name: its two most plentiful kinds, the zone's rare ones only
+// where it holds nothing else.
+function label(prof, cluster, rare) {
+	const all = Object.entries(cluster.counts);
+	const common = all.filter(([n]) => !rare.has(n));
+	const names = (common.length ? common : all)
 		.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
 		.slice(0, 2)
 		.map(([n]) => shortName(prof, n));
@@ -292,7 +296,8 @@ function render(ctx, prof) {
 			if (need) tip += ` Expect about ${need} ${prof.countNodes} for these ${e.to - e.from} points.`;
 			for (const r of e.soon || []) tip += ` ${recipeLine(r)} is taught from ${r.learnedAt}: learn it if you pass a ${prof.skill} trainer, it is not worth a trip of its own.`;
 			L.push(`  tip ${tip}`);
-			for (const c of e.loop) L.push(`  goto ${fmt(c.pt.x)},${fmt(c.pt.y)}${liveMark(c.pt)} "${label(prof, c)}" r 30`);
+			const rare = rareKinds(prof, e.points);
+			for (const c of e.loop) L.push(`  goto ${fmt(c.pt.x)},${fmt(c.pt.y)}${liveMark(c.pt)} "${label(prof, c, rare)}" r 30`);
 			L.push(`  skill ${prof.skill} ${e.to}`);
 		}
 	}
@@ -310,4 +315,4 @@ function buildAll(ctx) {
 	return out;
 }
 
-module.exports = { plan, render, buildAll, mergePicks, commonPoints, OUT_DIR };
+module.exports = { plan, render, buildAll, mergePicks, rareKinds, label, OUT_DIR };

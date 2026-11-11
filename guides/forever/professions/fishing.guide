@@ -68,7 +68,7 @@ step Fishing: Zephras Isle (1-50)
   only Skyborne,Alliance
   zone Zephras Isle
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.
-  goto 62.5,75.5 live "Valanaar shore" r 25
+  goto 63.3,75.7 live "Valanaar shore" r 25
   skill Fishing 50
 
 step Fishing: Durotar (1-50)
@@ -96,7 +96,7 @@ step Fishing: Zephras Isle (1-50)
   only Skyborne,Horde
   zone Zephras Isle
   tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.
-  goto 62.5,75.5 live "Valanaar shore" r 25
+  goto 63.3,75.7 live "Valanaar shore" r 25
   skill Fishing 50
 
 step Journeyman Fishing

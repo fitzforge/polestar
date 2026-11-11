@@ -39,7 +39,7 @@ step Learn Skinning
 step Beasts 1-9: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
-  tip Kill and skin Gray Forest Wolf (7), Mangy Wolf (5), Prowler (9), Rockhide Boar (7), Stonetusk Boar (5), Timber Wolf (2), Young Forest Bear (8), Young Wolf (1) along the loop until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs Skinning: Rough Wolf Pelts (level 7, Helene Peltskinner). Zone level 1-10. Expect about 60 beasts for these 49 points.
+  tip Kill and skin Gray Forest Wolf (7), Mangy Wolf (5), Prowler (9), Rockhide Boar (7), Stonetusk Boar (5), Timber Wolf (2), Young Forest Bear (8), Young Wolf (1) along the loop until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs Skinning: Rough Wolf Pelts (level 8, Helene Peltskinner). Zone level 1-10. Expect about 60 beasts for these 49 points.
   goto 62.1,77.0 "Rockhide Boar, Young Forest Bear" r 30
   goto 54.7,79.3 "Rockhide Boar, Young Forest Bear" r 30
   goto 46.5,79.6 "Rockhide Boar, Young Forest Bear" r 30
@@ -94,18 +94,18 @@ step Beasts 1-10: Zephras Isle (1-50)
   only Skyborne
   zone Zephras Isle
   tip Kill and skin Cloudrunner (6), Galestrider (5), Highlands Ursera (7), Hippogryph Protector (6), Hippogryph Youth (6), Juvenile Vuldren (1), Ornery Galestrider (8), Prideclaw (5), Scrawny Ursera (3), Shadowgale Shriekling (10), Shriekling Fledgling (8), Ursera Scavenger (4), Vuldren (6), Vuldren Alpha (10), Windsong Crawler (8) along the loop until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points.
-  goto 38.4,53.9 live "Hippogryph Youth, Hippogryph Protector" r 30
-  goto 35.1,55.1 live "Hippogryph Protector, Hippogryph Youth" r 30
-  goto 37.0,47.1 live "Galestrider, Prideclaw" r 30
-  goto 40.0,43.5 live "Galestrider, Prideclaw" r 30
-  goto 44.6,39.1 live "Prideclaw, Galestrider" r 30
-  goto 44.8,25.8 live "Juvenile Vuldren" r 30
-  goto 57.5,39.5 live "Shadowgale Shriekling" r 30
-  goto 59.4,68.5 live "Ornery Galestrider, Vuldren Alpha" r 30
-  goto 54.9,72.9 live "Ornery Galestrider, Vuldren Alpha" r 30
-  goto 50.3,80.1 live "Ornery Galestrider, Vuldren Alpha" r 30
-  goto 46.4,55.7 live "Vuldren, Galestrider" r 30
-  goto 42.1,50.0 live "Prideclaw, Vuldren" r 30
+  goto 38.9,54.3 live "Hippogryph Youth, Prideclaw" r 30
+  goto 35.7,55.9 live "Hippogryph Protector, Hippogryph Youth" r 30
+  goto 45.5,67.8 live "Prideclaw, Vuldren" r 30
+  goto 51.4,78.6 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 55.0,72.4 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 59.3,67.3 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 54.4,60.4 live "Prideclaw, Galestrider" r 30
+  goto 50.1,63.9 live "Prideclaw, Galestrider" r 30
+  goto 45.4,59.2 live "Galestrider, Vuldren" r 30
+  goto 42.8,49.7 live "Prideclaw, Vuldren" r 30
+  goto 44.2,39.1 live "Prideclaw, Galestrider" r 30
+  goto 39.8,45.3 live "Prideclaw, Galestrider" r 30
   skill Skinning 50
 
 step Beasts 1-9: Durotar (1-50)
@@ -134,14 +134,14 @@ step Beasts 1-9: Mulgore (1-50)
   goto 45.0,16.4 "Flatland Prowler, Elder Plainstrider" r 30
   goto 50.8,14.1 "Flatland Prowler, Prairie Wolf Alpha" r 30
   goto 53.6,22.1 "Flatland Prowler, Elder Plainstrider" r 30
-  goto 54.0,35.7 "Flatland Cougar, Elder Plainstrider" r 30
+  goto 54.0,35.5 "Flatland Cougar, Elder Plainstrider" r 30
   goto 51.9,42.6 "Prairie Stalker, Flatland Cougar" r 30
   goto 54.0,82.8 "Battleboar, Plainstrider" r 30
+  goto 56.9,90.1 "Battleboar, Mountain Cougar" r 30
   goto 50.6,89.2 "Mountain Cougar, Plainstrider" r 30
   goto 44.2,87.4 "Mountain Cougar, Plainstrider" r 30
-  goto 37.1,69.5 "Prairie Wolf, Adult Plainstrider" r 30
-  goto 37.8,54.9 "Prairie Wolf, Adult Plainstrider" r 30
-  goto 47.1,37.8 "Prairie Stalker, Flatland Cougar" r 30
+  goto 48.7,79.6 "Plainstrider" r 30
+  goto 47.2,37.8 "Prairie Stalker, Flatland Cougar" r 30
   skill Skinning 50
 
 step Beasts 1-9: Tirisfal Glades (1-50)
@@ -208,13 +208,13 @@ step Beasts 10-16: Loch Modan (50-100)
 step Beasts 11-19: Darkshore (50-100)
   only NightElf
   zone Darkshore
-  tip Kill and skin Thistle Bear (11), Rabid Thistle Bear (13), Moonstalker (14), Grizzled Thistle Bear (16, needs 60), Moonstalker Runt (16, needs 60), Moonstalker Sire (17, needs 70), Ghostpaw Runner (19, needs 90), Moonstalker Matriarch (19, needs 90) along the loop until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 100 beasts for these 50 points.
+  tip Kill and skin Moonstalker Runt (11), Thistle Bear (11), Rabid Thistle Bear (13), Moonstalker (14), Grizzled Thistle Bear (16, needs 60), Moonstalker Sire (17, needs 70), Ghostpaw Runner (19, needs 90), Moonstalker Matriarch (19, needs 90) along the loop until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points.
   goto 39.9,36.5 "Thistle Bear, Moonstalker Runt" r 30
-  goto 44.9,26.2 "Thistle Bear, Moonstalker Runt" r 30
+  goto 44.7,25.1 "Thistle Bear, Moonstalker Runt" r 30
   goto 49.3,28.9 "Rabid Thistle Bear, Moonstalker" r 30
-  goto 45.3,32.6 "Thistle Bear, Rabid Thistle Bear" r 30
-  goto 43.4,43.0 "Thistle Bear, Moonstalker Runt" r 30
-  goto 44.5,56.0 "Moonstalker Runt, Thistle Bear" r 30
+  goto 53.0,28.1 "Rabid Thistle Bear, Moonstalker" r 30
+  goto 49.0,34.8 "Rabid Thistle Bear, Thistle Bear" r 30
+  goto 45.0,31.9 "Thistle Bear, Rabid Thistle Bear" r 30
   goto 43.2,67.5 "Rabid Thistle Bear, Moonstalker" r 30
   goto 43.3,82.0 "Moonstalker Sire, Grizzled Thistle Bear" r 30
   goto 38.9,80.4 "Grizzled Thistle Bear, Moonstalker" r 30

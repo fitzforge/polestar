@@ -45,9 +45,10 @@ step Peacebloom & Silverleaf: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
   tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
-  goto 53.1,38.6 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 53.2,38.6 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 45.8,32.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 46.1,42.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 50.9,46.2 "Stunted Silverleaf, Wilted Peacebloom" r 30
   goto 42.4,56.6 "Peacebloom, Silverleaf" r 30
   goto 35.8,59.4 "Silverleaf, Peacebloom" r 30
   goto 26.3,85.5 "Peacebloom, Silverleaf" r 30
@@ -56,7 +57,6 @@ step Peacebloom & Silverleaf: Elwynn Forest (1-50)
   goto 87.6,80.0 "Silverleaf, Peacebloom" r 30
   goto 62.6,62.7 "Peacebloom, Silverleaf" r 30
   goto 56.9,44.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
-  goto 50.9,46.4 "Stunted Silverleaf, Wilted Peacebloom" r 30
   skill Herbalism 50
 
 step Peacebloom & Silverleaf: Dun Morogh (1-50)
@@ -86,7 +86,7 @@ step Peacebloom & Silverleaf: Teldrassil (1-50)
   goto 60.9,62.4 "Silverleaf, Peacebloom" r 30
   goto 67.3,60.5 "Silverleaf, Peacebloom" r 30
   goto 67.3,51.6 "Silverleaf, Peacebloom" r 30
-  goto 56.0,44.1 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 56.0,44.1 "Wilted Peacebloom" r 30
   goto 45.8,40.8 "Peacebloom, Silverleaf" r 30
   goto 37.2,41.1 "Silverleaf, Peacebloom" r 30
   goto 38.6,67.2 "Peacebloom, Earthroot" r 30
@@ -118,7 +118,7 @@ step Peacebloom & Silverleaf: Durotar (1-50)
   zone Durotar
   tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
   goto 44.6,64.6 "Wilted Peacebloom, Stunted Silverleaf" r 30
-  goto 45.1,70.8 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 45.0,70.9 "Wilted Peacebloom, Stunted Silverleaf" r 30
   goto 55.3,66.9 "Silverleaf, Peacebloom" r 30
   goto 52.1,58.4 "Peacebloom, Silverleaf" r 30
   goto 49.5,47.7 "Silverleaf, Peacebloom" r 30
@@ -134,7 +134,7 @@ step Peacebloom & Silverleaf: Durotar (1-50)
 step Peacebloom & Silverleaf: Mulgore (1-50)
   only Tauren
   zone Mulgore
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange, rare), Wilted Peacebloom (1, orange, rare), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
   goto 34.2,35.0 "Silverleaf, Peacebloom" r 30
   goto 34.7,41.1 "Peacebloom, Silverleaf" r 30
   goto 38.0,47.3 "Peacebloom, Silverleaf" r 30
@@ -452,7 +452,7 @@ step Purple Lotus & Sungrass: The Hinterlands (230-260)
   zone The Hinterlands
   tip Pick every Liferoot (150, green, rare), Fadeleaf (160, green, rare), Goldthorn (170, green), Khadgar's Whisker (185, yellow, rare), Purple Lotus (210, orange), Sungrass (230, orange), Ghost Mushroom (from 245) you pass and circle the waypoints until Herbalism 260. Ghost Mushroom grows in caves and dark hollows: look inside as well. Purple Lotus sometimes gives a Wildvine as well. Zone level 40-50. Expect about 50 herbs for these 30 points.
   goto 56.9,42.2 "Ghost Mushroom, Purple Lotus" r 30
-  goto 63.8,47.8 "Sungrass, Khadgar's Whisker" r 30
+  goto 63.8,47.8 "Sungrass, Goldthorn" r 30
   goto 65.5,67.8 "Purple Lotus" r 30
   goto 68.1,74.8 "Purple Lotus" r 30
   goto 49.8,65.6 "Purple Lotus, Sungrass" r 30
@@ -460,8 +460,8 @@ step Purple Lotus & Sungrass: The Hinterlands (230-260)
   goto 18.1,52.5 "Sungrass" r 30
   goto 24.2,56.2 "Sungrass, Purple Lotus" r 30
   goto 32.6,59.9 "Purple Lotus, Sungrass" r 30
-  goto 37.8,54.3 "Sungrass, Fadeleaf" r 30
-  goto 42.0,45.9 "Sungrass, Khadgar's Whisker" r 30
+  goto 37.8,54.3 "Sungrass" r 30
+  goto 42.0,45.9 "Sungrass" r 30
   goto 46.6,55.1 "Sungrass, Purple Lotus" r 30
   skill Herbalism 260
 
@@ -480,9 +480,9 @@ step Sungrass & Golden Sansam: The Hinterlands (260-285)
   goto 36.8,59.0 "Sungrass, Golden Sansam" r 30
   goto 58.2,81.6 "Purple Lotus, Ghost Mushroom" r 30
   goto 65.5,67.8 "Purple Lotus" r 30
-  goto 75.5,53.4 "Golden Sansam, Khadgar's Whisker" r 30
+  goto 75.5,53.4 "Golden Sansam, Sungrass" r 30
   goto 69.3,48.6 "Golden Sansam, Sungrass" r 30
-  goto 63.8,47.3 "Sungrass, Khadgar's Whisker" r 30
+  goto 63.8,47.3 "Sungrass, Golden Sansam" r 30
   skill Herbalism 285
 
 # ---------------------------------------------------------------- Herbalism 285-300
