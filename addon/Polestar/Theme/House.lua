@@ -147,6 +147,9 @@ House.ROLES = ROLES
 --   sidePad      the party panel's padding (10 in the other looks)
 --   sideHead     the party panel's head, as the guide window's tab strip
 --                (26 in the other looks)
+--   sourceLines  Polestar's tooltip source lines stand out: the source's
+--                name in the accent, the type and place in textDim (textDim
+--                and textMuted in the other looks)
 ---------------------------------------------------------------------------
 
 local TOKENS = {
@@ -165,6 +168,7 @@ local TOKENS = {
 	endEmblem = 40,
 	sidePad = 12,
 	sideHead = 28,
+	sourceLines = true,
 }
 
 ---------------------------------------------------------------------------

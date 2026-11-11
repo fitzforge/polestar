@@ -138,9 +138,13 @@ end
 "#;
 
 fn run(script: &str) -> Value {
+	run_with(&FILES, script)
+}
+
+fn run_with(files: &[&str], script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &FILES), Addon::name("Polestar_Skin_Lanterns")],
+		addons: vec![Addon::files("Polestar", files), Addon::name("Polestar_Skin_Lanterns")],
 		script: format!("uistub.install()\nstub.login()\nlocal GF = Polestar.UI.GuideFrame\nlocal F = PolestarGuideFrame\n{HELPERS}\n{script}"),
 		..Default::default()
 	})
@@ -738,4 +742,51 @@ fn the_guide_end_the_dialog_and_the_party_panel_take_the_house_looks_sizes_only(
 		assert_eq!(l, if skin == "polestar" { house.clone() } else { other.clone() }, "{skin}");
 	}
 	assert_eq!(out["bad"], "", "nothing cut, overlapping or outside its window");
+}
+
+// Polestar's tooltip source lines in a tooltip it shares with other addons: in the house look the source's name takes
+// the accent and its type and place textDim; the Alt-click and /pole mount hints stay in textMuted. Every other look
+// keeps textDim over textMuted. The Codex and Lookup's ranked sources are stood in for: only the colours are under
+// test here (lookup.rs has the lines' words).
+#[test]
+fn the_tooltip_source_lines_take_the_accent_in_the_house_look_only() {
+	let files = [&FILES[..], &["Lookup/Lookup.xml"]].concat();
+	let out = run_with(
+		&files,
+		r#"
+		local Lk = Polestar.Lookup
+		for _, k in ipairs({ "lookup.enabled", "lookup.tooltip", "lookup.altClick", "lookup.mounts" }) do Polestar.Set(k, true) end
+		Polestar.Codex = { IsLoaded = function() return true end, Item = function() return { kind = "item", sources = { 1 } } end }
+		Lk.Sources = function()
+			return { { type = "vendor", label = "Bernard Gump", detail = "Vendor · Stormwind City", available = true, guideable = true } }
+		end
+		Lk.UnitMount = function() return { spell = 9500, name = "Amber Strider", class = "PALADIN" } end
+		local function rgb(r, g, b) local c = rgba(r, g, b, 1); c[4] = nil; return c end
+		local tt = { lines = {} }
+		function tt:AddDoubleLine(l, r, lr, lg, lb, rr, rg, rb) self.lines[#self.lines + 1] = { l, rgb(lr, lg, lb), r, rgb(rr, rg, rb) } end
+		function tt:AddLine(l, r, g, b) self.lines[#self.lines + 1] = { l, rgb(r, g, b) } end
+		emit(eachLook(function()
+			tt.lines = {}
+			Lk.ItemTooltip(tt, "|Hitem:7000|h[x]|h", 7000)
+			Lk.UnitTooltip(tt, "target")
+			return { lines = tt.lines, accent = rgb(T.Color("accent")), dim = rgb(T.Color("textDim")), muted = rgb(T.Color("textMuted")) }
+		end))"#,
+	);
+	let looks = out.as_array().unwrap();
+	for l in looks {
+		let skin = &l["skin"];
+		let (name, place) = if skin == "polestar" { (&l["accent"], &l["dim"]) } else { (&l["dim"], &l["muted"]) };
+		assert_eq!(
+			l["lines"],
+			json!([
+				["From Bernard Gump", name, "Vendor \u{b7} Stormwind City", place],
+				["Alt-click: guide me", l["muted"]],
+				["Mount: Amber Strider", name, "Class mount", place],
+				["/pole mount: how to get it", l["muted"]],
+			]),
+			"{skin}"
+		);
+	}
+	assert_ne!(looks[0]["accent"], looks[0]["dim"], "the house look's name stands apart from its place");
+	assert_eq!(looks[3], looks[0], "back on the house skin");
 }

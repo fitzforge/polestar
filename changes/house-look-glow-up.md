@@ -12,5 +12,7 @@ section: players
   you're here toast matches the other alerts: the night band, the glyph in a
   ring, the distance beside its heading, and a long line wraps instead of
   being cut. Windows keep a crisp edge over bright ground such as sky, snow
-  and sand, and the rare button wears the rare alert's ember colour. Skins
-  built on Polestar's look, Halo, Hearth and the game's looks are unchanged.
+  and sand, the rare button wears the rare alert's ember colour, and where
+  an item or a mount comes from stands out in its tooltip, its source in
+  Polestar's accent. Skins built on Polestar's look, Halo, Hearth and the
+  game's looks are unchanged.
