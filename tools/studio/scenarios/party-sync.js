@@ -10,21 +10,28 @@
 
 const MEMBERS = `local P, p = Polestar.Party, stub.party
 Polestar.version = "0.3.7"
--- The first step from the one the play reached with an objective goal, and its quest: a fixed
--- step would break whenever the guide gains or loses a step before it.
+-- Played on from where the guide's plays stop to the first step with an open objective goal
+-- (a kill, collect or click of a quest in the log: the goal the party's counts sit under). A
+-- fixed step would break whenever the guide gains or loses a step before it; looking ahead
+-- with Goto shows a step the player isn't on, and the counts never go under an accept.
 local E = Polestar.Engine
-local G = E.GetGuide()
-local i, last = E.GetStepIndex(), G and #G.steps or 0
-local q, oi
-while i and i <= last and not q do
-	local view = E.GetStepView(i)
+local function objective()
+	local view = E.GetStepView(E.GetStepIndex())
 	for _, g in ipairs(view and view.goals or {}) do
-		if g.quest and g.oi then q, oi = g.quest, g.oi; break end
+		if g.quest and g.oi and (g.status == "active" or g.status == "pending") then return g end
 	end
-	if not q then i = i + 1 end
 end
-assert(q, "no step from the one reached on has an objective goal")
-if i ~= E.GetStepIndex() then E.Goto(i); stub.advance(1) end
+local goal = objective()
+for _ = 1, 60 do
+	if goal then break end
+	local r = play.playStep()
+	if r == "noguide" then break elseif r == "stuck" then E.Next(); stub.advance(0.6) end
+	goal = objective()
+end
+assert(goal, "no step within 60 plays of where the guide stops has an open objective goal")
+local q = goal.quest
+-- The simulator's XP may have levelled the character: back to the scenario's level.
+stub.world.level = 17
 p.join("Ana"); p.join("Ben"); p.join("Dee")
 p.set("Ana", { level = 17, class = "HUNTER", classID = 3, race = "Tauren", raceID = 6 })
 p.set("Ben", { level = 8, class = "WARRIOR", classID = 1, race = "Orc", raceID = 2 })
