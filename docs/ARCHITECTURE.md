@@ -2993,6 +2993,14 @@ Polestar.Theme.Icon(name) -> name        -- a glyph a skin draws its own way ("b
 Polestar.Theme.FontKey() -> "opensans" | "game" | "inter" | "fira"   -- ui.font, "skin" resolved
 ```
 
+**The house look** (`Theme/House.lua`, loaded before `Theme/Theme.lua`):
+Polestar gold, the status and subject colours every look starts from
+(`SHARED`), the colour schemes (`SCHEMES`), the type ladder (`ROLES`) and
+the frame painters (`HOUSE_PAINT`, handed Theme.lua's paint helpers by
+`House.Bind` as Theme.lua loads). Theme.lua takes them as its own locals; the
+Skin API fills the same tables. The house's sizes stay each module's own
+constants, read through `Theme.Metric(key, house)`.
+
 **Skins** (`ui.skin`, Appearance > Windows > Frame): `polestar`, the house
 style everything below describes (the default); the two directions of the
 design handoff, `halo` (Forever · Halo: no frame, a dark veil with soft edges,
