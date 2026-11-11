@@ -298,6 +298,14 @@ pub fn faction_part(g: &V) -> Option<&'static str> {
 	FACTION_PARTS.into_iter().find(|p| f.as_str() == Some(*p))
 }
 
+/// A side-shelf guide of Polestar's own pack (format 8): every guide that is not a leveling guide (class,
+/// profession, reputation, collectible, exploration, ...). Its steps ship as source and are read in only
+/// when the guide is opened (docs/PACK_FORMAT.md, "Format 8").
+pub fn shelf(g: &V) -> bool {
+	let cat = g.get("category");
+	!cat.is_nullish() && cat.as_str() != Some("Leveling")
+}
+
 /// Our guide pack's folder (pack id `guides`).
 pub const OWN_FOLDER: &str = "Polestar_Guides";
 
@@ -430,7 +438,7 @@ pub fn build_pack_files(
 	files.push(("Pack.lua".into(), t(crate::emit::emit_pack(manifest, format))));
 	files.push(("MapFrames.lua".into(), t(crate::emit::emit_map_frames(&referenced_frames(guides, data), &id))));
 	let main_entries: Vec<V> = main.iter().map(entry).collect();
-	let mut gl = crate::emit::emit_guides_with(&main_entries, false, ours);
+	let mut gl = if ours { crate::emit::emit_own_guides(&main_entries) } else { crate::emit::emit_guides_with(&main_entries, false, false) };
 	if !retired.is_empty() {
 		gl.push_str(&crate::emit::emit_retired(&id, retired));
 	}
@@ -445,7 +453,7 @@ pub fn build_pack_files(
 		let name = part_addon(&folder, faction);
 		files.push((format!("../{name}/{name}.toc"), t(crate::emit::emit_faction_toc(manifest, faction, iface))));
 		let es: Vec<V> = list.iter().map(entry).collect();
-		files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, false, true))));
+		files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_own_guides(&es))));
 		files.push((format!("../{name}/LICENSE-DATA.txt"), t(license_data.clone())));
 		if let Some(l) = license {
 			files.push((format!("../{name}/LICENSE.txt"), t(l.to_string())));

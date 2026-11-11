@@ -65,6 +65,34 @@ fn a_community_pack_keeps_its_guides_together_and_its_spots_as_tables() {
 	assert_no_match(&files["PolestarPack_JoesRoutes.toc"], "X-Polestar-Format: 8");
 }
 
+// Side shelves (format 8): a guide of our pack that is not a leveling guide (class, profession, reputation,
+// collectible, ...) carries its steps as source, read in only when it is opened (Guides.Steps), in the pack
+// and in a faction part alike. It registers for every character (the guide menu lists it for anyone, so no
+// Polestar.PartWants), and its packed spots are inside the source. Leveling guides and a community pack's
+// guides keep their steps as tables.
+#[test]
+fn our_pack_s_side_shelf_guides_ship_their_steps_as_source_read_when_opened() {
+	let shelf = |id: &str, category: &str, faction: Option<&str>| {
+		let g = guide(id, faction);
+		g.set("category", v(&json!(category)));
+		g.set("classes", v(&json!(["DRUID"])));
+		g
+	};
+	let list = vec![guide("forever/alliance/elwynn", Some("Alliance")), shelf("forever/class/druid/bear-form", "Class", None), shelf("forever/professions/mining", "Professions", Some("Alliance"))];
+	let files = pack_files(&list, &manifest("guides", "Polestar_Guides"), &fixture_data());
+	let (main, part) = (&files["Guides.lua"], &files["../Polestar_Guides_Alliance/Guides.lua"]);
+	for text in [main, part] {
+		assert_match(text, r#"stepCount = 1,\n\t\t\tstepsSrc = "return \{\\n\\t\{\\n\\t\\ttitle = \\"Wolves\\""#);
+		assert_match(text, r#"spotsPacked = \\"43\.5,9\.2,,110,19;47\.4,9\.7,-12\.5,4,,1;50,50\.25,,15,2\\""#);
+		assert_no_match(text, "PartWants");
+	}
+	assert_match(main, r#"id = "forever/class/druid/bear-form""#);
+	assert_no_match(main, r"\n\t\t\tsteps = \{");
+	assert_match(part, r#"(?s)id = "forever/alliance/elwynn".*?\n\t\t\tsteps = \{\n.*?id = "forever/professions/mining".*?stepsSrc = "#);
+	let community = pack_files(&list, &manifest("joe-routes", "PolestarPack_JoesRoutes"), &fixture_data());
+	assert_no_match(&community["Guides.lua"], "stepsSrc");
+}
+
 #[test]
 fn our_pack_with_baked_legs_is_format_8_its_legs_in_the_race_parts_beside_the_faction_part() {
 	let list = guides();

@@ -41,9 +41,21 @@ local NONE = {}
 local MAX_CHAIN = 30
 
 -- { follow = { [q] = { e, ... } }, accepts = { [q] = { e, ... } },
---   turnins = { [q] = { e, ... } } }, e = { goal, step, guide }: the guide
--- accepts that need q, and every accept and turn-in of q.
+--   turnins = { [q] = { e, ... } } }, e = { goal, only, guide }: the guide
+-- accepts that need q, and every accept and turn-in of q (`only`: the
+-- step's). A guide with deferred steps (a side shelf: Guides.Peek) is read
+-- in for the index and given back: its entries keep copies of the goal
+-- fields the asks read, not its goals, and only a guide this character can
+-- take is read (the asks leave out the rest).
 local index
+
+local KEPT = { "t", "quest", "title", "only", "pre", "preAll", "npc", "npcName", "object", "objName", "rewards" }
+
+local function slim(goal)
+	local c = {}
+	for _, k in ipairs(KEPT) do c[k] = goal[k] end
+	return c
+end
 
 local function push(map, q, e)
 	local list = map[q]
@@ -58,21 +70,28 @@ local function guideIndex()
 	if index then return index end
 	local follow, accepts, turnins = {}, {}, {}
 	local Guides = ns.Guides
+	local player = ns.Compat.GetPlayerInfo()
 	for _, h in ipairs(Guides.List()) do
 		local g = Guides.Get(h.id)
-		for _, step in ipairs(g and g.steps or NONE) do
+		local deferred = Guides.Deferred(g)
+		local steps, fresh = NONE, false
+		if g and not (deferred and not Guides.GuideMatches(g, player)) then steps, fresh = Guides.Peek(h.id) end
+		for _, step in ipairs(steps or NONE) do
 			for _, goal in ipairs(step.goals) do
 				local q = goal.quest
-				if q and goal.t == "accept" then
-					local e = { goal = goal, step = step, guide = g }
-					push(accepts, q, e)
-					for _, p in ipairs(type(goal.pre) == "table" and goal.pre or NONE) do push(follow, p, e) end
-					for _, p in ipairs(type(goal.preAll) == "table" and goal.preAll or NONE) do push(follow, p, e) end
-				elseif q and goal.t == "turnin" then
-					push(turnins, q, { goal = goal, step = step, guide = g })
+				if q and (goal.t == "accept" or goal.t == "turnin") then
+					local e = { goal = deferred and slim(goal) or goal, only = step.only, guide = g }
+					if goal.t == "accept" then
+						push(accepts, q, e)
+						for _, p in ipairs(type(goal.pre) == "table" and goal.pre or NONE) do push(follow, p, e) end
+						for _, p in ipairs(type(goal.preAll) == "table" and goal.preAll or NONE) do push(follow, p, e) end
+					else
+						push(turnins, q, e)
+					end
 				end
 			end
 		end
+		Guides.Unpeek(h.id, fresh)
 	end
 	index = { follow = follow, accepts = accepts, turnins = turnins }
 	return index
@@ -93,7 +112,7 @@ end
 
 local function mine(s, e)
 	local G, p = ns.Guides, s.player
-	return G.GuideMatches(e.guide, p) and G.Matches(e.step.only, p) and G.Matches(e.goal.only, p)
+	return G.GuideMatches(e.guide, p) and G.Matches(e.only, p) and G.Matches(e.goal.only, p)
 end
 
 -- A quest the database knows this character can never take.

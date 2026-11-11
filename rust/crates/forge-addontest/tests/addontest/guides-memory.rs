@@ -2,14 +2,18 @@
 //! client loads it, with Polestar reading it (Core/Guides.lua) for one Alliance (Human) and one Horde (Orc)
 //! character, under Lua 5.1 as the client counts it (collectgarbage("count")). The pack is format 8
 //! (docs/PACK_FORMAT.md, "Format 8"): each faction's guides in a load-on-demand part
-//! (Polestar_Guides_Alliance, _Horde) of which only the player's faction's loads, and a goal's spawn spots as
-//! one string, built into tables on the goal's first read of `spots`. Each figure fails the test when it grows
-//! past its budget: lower a budget when a change lowers the figure, never raise one to make a change pass.
+//! (Polestar_Guides_Alliance, _Horde) of which only the player's faction's loads, a goal's spawn spots as
+//! one string, built into tables on the goal's first read of `spots`, and the side shelves (every guide that
+//! is not a leveling guide) with their steps as one source string, read in when the guide is opened. Each
+//! figure fails the test when it grows past its budget: lower a budget when a change lowers the figure, never
+//! raise one to make a change pass.
 //!
 //!   resident      after loading the pack (and the part it loads) and two full collects
 //!   peak          the heap grown while loading them, with the collector stopped
 //!   read          after reading every registered goal's spots once and two full collects: the most a
-//!                 session can build (a session builds only the spots of the goals it shows)
+//!                 session can build (a session builds only the spots of the goals it shows; a shelf guide
+//!                 is read in for the look and given back, Guides.Peek, as the guide menu and the indexes
+//!                 do, so its steps count while read, not after)
 //!
 //! The pack is in the repository, so this needs no reference data and no game.
 
@@ -90,15 +94,25 @@ collectgarbage("restart")
 local resident = full() - base
 stub.login()
 local guides, other, spots = 0, 0, 0
+local shelves, readIn, slowest, slowestId = 0, 0, 0, false
 for _, h in ipairs(G.List()) do
 	guides = guides + 1
 	if h.faction and h.faction ~= {faction} then other = other + 1 end
-	for _, step in ipairs(G.Get(h.id).steps) do
+	local t0 = os.clock()
+	local steps, fresh = G.Peek(h.id)
+	local dt = (os.clock() - t0) * 1000
+	if fresh then
+		shelves, readIn = shelves + 1, readIn + dt
+		if dt > slowest then slowest, slowestId = dt, h.id end
+	end
+	for _, step in ipairs(steps) do
 		for _, goal in ipairs(step.goals) do if goal.spots then spots = spots + #goal.spots end end
 	end
+	G.Unpeek(h.id, fresh)
 end
 local read = full() - base
 emit({{ resident = resident, peak = peak, read = read, guides = guides, other = other, spots = spots,
+	shelves = shelves, readIn = readIn, slowest = slowest, slowestId = slowestId,
 	alliance = stub.packLoads.Polestar_Guides_Alliance or 0, horde = stub.packLoads.Polestar_Guides_Horde or 0 }})"#,
 			files = files.join(", "),
 			faction = lua_string(faction),
@@ -125,6 +139,15 @@ emit({{ resident = resident, peak = peak, read = read, guides = guides, other = 
 				over.push(format!("{faction} {k} {v:.0} KiB > {b}"));
 			}
 		}
+		// What a side shelf costs when it is opened (Guides.Steps, read in once per opening): reported, not
+		// budgeted (timings vary from run to run).
+		eprintln!(
+			"{faction}: {} side-shelf guides read in for the look in {:.1} ms, the slowest {:.2} ms ({})",
+			m["shelves"],
+			m["readIn"].as_f64().unwrap_or(0.0),
+			m["slowest"].as_f64().unwrap_or(0.0),
+			m["slowestId"]
+		);
 		let mine = if faction == "Alliance" { "alliance" } else { "horde" };
 		let theirs = if faction == "Alliance" { "horde" } else { "alliance" };
 		if (m[mine].as_i64(), m[theirs].as_i64()) != (Some(1), Some(0)) {
@@ -216,6 +239,201 @@ emit({{ guide = Polestar.Guides.Get("forever/alliance/t-legs") ~= nil, leg = leg
 		..Default::default()
 	});
 	assert_eq!(out[0], serde_json::json!({ "guide": true, "leg": "CgA", "alliance": 1, "human": 1 }));
+}
+
+// Side shelves (format 8): a guide of our pack that is not a leveling guide ships its steps as source and
+// registers without them, listed with its step count. Opening it in a tab reads them in; a look at every
+// guide's steps (Unlocks' index, Guides.Peek) reads a shelf in and gives it back; closing its tab gives its
+// steps back too. One shelf in the pack (no faction), one in the Alliance part.
+#[test]
+fn a_side_shelf_guide_s_steps_load_when_it_is_opened_and_go_when_its_tab_closes() {
+	let shelf = |id: &str, category: &str, faction: &str| {
+		let mut lines = vec![format!("guide {id}"), format!("title {category} guide"), format!("category {category}"), "class Druid".into()];
+		if !faction.is_empty() {
+			lines.push(format!("faction {faction}"));
+		}
+		lines.extend(["levels 1-10", "zone Elwynn Forest", "", "step First", "  accept 7", "", "step Second", "  turnin 7"].map(String::from));
+		lines
+	};
+	let class = shelf("forever/class/druid/t-shelf", "Class", "");
+	let prof = shelf("forever/professions/t-shelf", "Professions", "Alliance");
+	let sources: Vec<String> = [class, prof].iter().map(|l| forge_addontest::dsl::guide_text(&l.iter().map(String::as_str).collect::<Vec<_>>())).collect();
+	let files: Vec<(String, &str)> = sources.iter().enumerate().map(|(i, s)| (format!("t{i}.guide"), s.as_str())).collect();
+	let r = forge_addontest::dsl::compile_with(&files.iter().map(|(f, s)| (f.as_str(), *s)).collect::<Vec<_>>(), &forge_addontest::dsl::fixture_data(), None);
+	assert_eq!(r.errors, Vec::<String>::new());
+	let pack = forge_addontest::dsl::write_our_test_pack(&r.guides);
+	assert!(pack.text("Guides.lua").contains("stepsSrc = "), "the class guide ships its steps as source");
+	assert!(pack.text("../Polestar_Guides_Alliance/Guides.lua").contains("stepsSrc = "), "so does the Alliance part's profession guide");
+	let lua_list = |files: Vec<PathBuf>| files.iter().map(|f| lua_string(&f.to_string_lossy())).collect::<Vec<_>>().join(", ");
+	let entries = |dir: PathBuf| lua_list(forge_addontest::run::toc_entries(&dir).unwrap_or_else(|e| panic!("{e}")).iter().map(|f| dir.join(f)).collect());
+	let parent = pack.dir.parent().unwrap().to_path_buf();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_packs.lua"],
+		before: format!(
+			"stub.packs.Polestar_Guides_Alliance = {{ {} }}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"NightElf\", \"Night Elf\"\nw.class, w.className, w.classID = \"DRUID\", \"Druid\", 11",
+			entries(parent.join("Polestar_Guides_Alliance"))
+		),
+		addons: vec![Addon::name("Polestar")],
+		script: format!(
+			r#"
+local ns = {{}}
+for _, f in ipairs({{ {} }}) do assert(loadfile(f))("Polestar_Guides", ns) end
+stub.addonLoaded("Polestar_Guides")
+stub.login()
+local G, E = Polestar.Guides, Polestar.Engine
+local function state(id)
+	local def = G.Get(id)
+	local h
+	for _, x in ipairs(G.List()) do if x.id == id then h = x end end
+	return {{ listed = h ~= nil and h.stepCount or false, inn = rawget(def, "steps") ~= nil }}
+end
+local ids = {{ "forever/class/druid/t-shelf", "forever/professions/t-shelf" }}
+local out = {{}}
+for _, id in ipairs(ids) do
+	local s = {{ registered = state(id) }}
+	Polestar.Unlocks.For(7)
+	s.looked = state(id)
+	E.SetGuide(id)
+	local g = E.GetGuide()
+	s.opened = state(id)
+	s.first = g and g.id == id and g.steps[1].title or false
+	E.SetGuide(nil)
+	s.closed = state(id)
+	out[id] = s
+end
+emit(out)"#,
+			entries(pack.dir.clone())
+		),
+		..Default::default()
+	});
+	let one = |first: &str| {
+		serde_json::json!({
+			"registered": { "listed": 2, "inn": false },
+			"looked": { "listed": 2, "inn": false },
+			"opened": { "listed": 2, "inn": true },
+			"first": first,
+			"closed": { "listed": 2, "inn": false },
+		})
+	};
+	assert_eq!(out[0]["forever/class/druid/t-shelf"], one("First"));
+	assert_eq!(out[0]["forever/professions/t-shelf"], one("First"));
+}
+
+// A side-shelf guide reads in as the steps it would have had in its table, and its saved tab comes back after a
+// reload. The same compiled guide is written twice, as a shelf (as our pack is compiled) and inline (its steps in
+// the guide's table, as before the shelves); a character with that guide's tab saved logs in with each. Both
+// land on the same step, the shelf's steps are read in for its tab and match the inline ones key for key, and
+// closing the tab gives the shelf's steps back.
+#[test]
+fn a_side_shelf_guide_reads_in_as_its_inline_steps_and_its_saved_tab_comes_back_after_a_reload() {
+	let id = "forever/class/druid/t-shelf";
+	let header = format!("guide {id}");
+	let r = forge_addontest::dsl::compile(&forge_addontest::dsl::guide_text(&[
+		&header,
+		"title Class guide",
+		"category Class",
+		"class Druid",
+		"levels 1-10",
+		"zone Elwynn Forest",
+		"",
+		"step First",
+		"  accept 7",
+		"",
+		"step Kobolds",
+		"  goto 52.3,26.8",
+		"  kill 6 x10 quest 7.1",
+		"  note Clear the camp for {npc:197}, one at a time.",
+		"",
+		"step Last",
+		"  turnin 7",
+	]));
+	assert_eq!(r.errors, Vec::<String>::new());
+	let shelf = forge_addontest::dsl::write_our_test_pack(&r.guides);
+	assert!(shelf.text("Guides.lua").contains("stepsSrc = "), "the class guide ships its steps as source");
+	let inline = forge_addontest::dsl::write_our_test_pack(&r.guides);
+	let entries: Vec<forge_guide::js::V> = r
+		.guides
+		.iter()
+		.map(|g| {
+			let loc = g.hidden("_localised");
+			forge_guide::obj! { "guide" => if loc.truthy() { loc } else { g.clone() }, "source" => forge_guide::js::V::Null }.into()
+		})
+		.collect();
+	let text = forge_guide::emit::emit_guides_with(&entries, false, true);
+	assert!(!text.contains("stepsSrc"), "the inline copy keeps its steps in its table");
+	std::fs::write(inline.dir.join("Guides.lua"), text).unwrap();
+	let run = |pack: &forge_addontest::dsl::TestPack| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua", "stub_packs.lua"],
+			before: "local w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"NightElf\", \"Night Elf\"\nw.class, w.className, w.classID = \"DRUID\", \"Druid\", 11".into(),
+			addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", pack.dir.clone())],
+			saved: vec![("Polestar".into(), format!("PolestarCharDB = {{ schema = 1, tabs = {{ {0} }}, activeTab = 1, pins = {{ [{0}] = {{ step = 2, done = false }} }} }}", lua_string(id)))],
+			login: true,
+			script: format!(
+				r#"local G, E = Polestar.Guides, Polestar.Engine
+local def, g = G.Get({0}), E.GetGuide()
+local out = {{ guide = g and g.id or false, inn = rawget(def, "steps") ~= nil, step = E.GetStepIndex() or false, steps = def.steps }}
+E.SetGuide(nil)
+out.closed = rawget(def, "steps") ~= nil
+emit(out)"#,
+				lua_string(id)
+			),
+		})
+		.remove(0)
+	};
+	let (a, b) = (run(&shelf), run(&inline));
+	assert_eq!(
+		(&a["guide"], &a["inn"], &a["closed"]),
+		(&serde_json::json!(id), &serde_json::json!(true), &serde_json::json!(false)),
+		"the shelf's tab comes back with its steps read in; closing it gives them back"
+	);
+	assert_eq!(b["closed"], serde_json::json!(true), "inline steps stay");
+	assert_eq!(a["step"], b["step"], "the shelf lands on the inline guide's step");
+	assert_eq!(a["steps"], b["steps"], "the shelf's steps read in as the inline ones");
+}
+
+// A side-shelf guide opened again after its tab closed reads its steps in afresh, and the Engine's per-guide
+// lookups (the goal layout, the step numbers, the chain's needs) follow the new tables: the hand-in of an
+// optional quest the character did not take stays out the second time as it did the first (before, the layout
+// kept the first reading's goals, missed the new hand-in and let it count again).
+#[test]
+fn a_side_shelf_guide_opened_again_answers_from_its_new_steps() {
+	let id = "forever/class/druid/t-again";
+	let header = format!("guide {id}");
+	let r = forge_addontest::dsl::compile(&forge_addontest::dsl::guide_text(&[
+		&header,
+		"title Class guide",
+		"category Class",
+		"class Druid",
+		"levels 1-10",
+		"zone Elwynn Forest",
+		"",
+		"step Camp",
+		"  accept 7 optional",
+		"",
+		"step Hand in",
+		"  turnin 7",
+	]));
+	assert_eq!(r.errors, Vec::<String>::new());
+	let pack = forge_addontest::dsl::write_our_test_pack(&r.guides);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_packs.lua"],
+		before: "local w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"NightElf\", \"Night Elf\"\nw.class, w.className, w.classID = \"DRUID\", \"Druid\", 11".into(),
+		addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", pack.dir.clone())],
+		login: true,
+		script: format!(
+			r#"local G, E = Polestar.Guides, Polestar.Engine
+E.SetGuide({0})
+local first = E.Applies(2, 1)
+E.SetGuide(nil)
+local dropped = rawget(G.Get({0}), "steps") == nil
+E.SetGuide({0})
+emit({{ first = first, dropped = dropped, again = E.Applies(2, 1) }})"#,
+			lua_string(id)
+		),
+		..Default::default()
+	});
+	assert_eq!(out[0], serde_json::json!({ "first": false, "dropped": true, "again": false }));
 }
 
 // A goal's packed spots (format 8) are checked at registration without being built, read back on the goal's

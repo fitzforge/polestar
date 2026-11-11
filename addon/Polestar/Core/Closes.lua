@@ -21,31 +21,46 @@ local L = ns.L
 local Closes = {}
 ns.Closes = Closes
 
--- Closing quest id -> { { goal, step, guide }, ... }: the guide accepts it
+-- Closing quest id -> { { goal, only, guide }, ... }: the guide accepts it
 -- closes, with the guide each comes from (its faction, race and class decide
--- whether the character can ever take it).
+-- whether the character can ever take it) and its step's `only`. A guide
+-- with deferred steps (a side shelf: Guides.Peek) is read in for the index
+-- and given back: its entries keep copies of the goal fields read here, and
+-- only a guide this character can take is read.
 local index
+
+local KEPT = { "quest", "title", "only", "closedBy", "preTitles" }
 
 local function guideIndex()
 	if index then return index end
 	index = {}
 	local Guides = ns.Guides
+	local player = ns.Compat.GetPlayerInfo()
 	for _, h in ipairs(Guides.List()) do
 		local g = Guides.Get(h.id)
-		for _, step in ipairs(g and g.steps or {}) do
+		local deferred = Guides.Deferred(g)
+		local steps, fresh = nil, false
+		if g and not (deferred and not Guides.GuideMatches(g, player)) then steps, fresh = Guides.Peek(h.id) end
+		for _, step in ipairs(steps or {}) do
 			for _, goal in ipairs(step.goals) do
 				if goal.t == "accept" and type(goal.closedBy) == "table" then
+					local kept = goal
+					if deferred then
+						kept = {}
+						for _, k in ipairs(KEPT) do kept[k] = goal[k] end
+					end
 					for _, by in ipairs(goal.closedBy) do
 						local list = index[by]
 						if not list then
 							list = {}
 							index[by] = list
 						end
-						list[#list + 1] = { goal = goal, step = step, guide = g }
+						list[#list + 1] = { goal = kept, only = step.only, guide = g }
 					end
 				end
 			end
 		end
+		Guides.Unpeek(h.id, fresh)
 	end
 	return index
 end
@@ -94,7 +109,7 @@ function Closes.For(q, title)
 
 	for _, e in ipairs(list or {}) do
 		local goal = e.goal
-		if Guides.GuideMatches(e.guide, player) and Guides.Matches(e.step.only, player) and Guides.Matches(goal.only, player)
+		if Guides.GuideMatches(e.guide, player) and Guides.Matches(e.only, player) and Guides.Matches(goal.only, player)
 			and not anyTaken(C, goal.closedBy, q) then
 			add(goal.quest, goal.title)
 		end
