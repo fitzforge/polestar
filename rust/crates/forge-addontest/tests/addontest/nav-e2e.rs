@@ -2692,9 +2692,9 @@ fn t_1242_from_the_canals_the_walk_to_the_deeprun_tram_goes_through_its_door_not
 // over the rope bridges is a TravelData chain). From the Barrens' side of the lift (44.64,89.30, MrM00se's place,
 // 380 yd from her: too near for the engine to measure the walk) the planner's zone rule (the Barrens to Thousand
 // Needles: through a crossing) sent the player down the lift, and from its foot the arrow's walk led up it again.
-// A Horde player at level 28: from there the walk on to her, neither the crossing nor the lift; from the pinnacle's
-// top one walk; from the canyon floor and the lift's foot, a route that ends with the walk to her and never takes
-// the crossing back down.
+// A Horde player at level 28: from there the walk on to her (the near walk, which the arrow's own search finds short
+// along the plateau), neither the crossing nor the lift; from the pinnacle's top one walk; from the canyon floor and
+// the lift's foot, a route that ends with the walk to her and never takes the crossing back down.
 #[test]
 fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walks_on_never_back_down_the_lift_1543() {
 	skip_unless_ready!();
@@ -2737,5 +2737,51 @@ fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walk
 		assert!(!l.is_empty(), "{k}: a route");
 		assert!(l.last().is_some_and(|x| x == "walk|Lakota Windsong"), "{k}: on to her ({l:?})");
 		assert!(!l.iter().any(|x| x.ends_with("|carbonite-the-barrens--thousand-needles")), "{k}: never the crossing back down ({l:?})");
+	}
+}
+
+// #1543's near walk where the arrow's own search finds it long or none (the 0.3.7 border sweep's worst pairs): the
+// route takes the crossing's way back, as before #1543, and keeps it. A Horde player at level 30 on Alterac's ridge,
+// 395 yd above a goal in the Undercity (no walk joins them: the near walk flipped the arrow 127 times between itself
+// and the crossing), on Searing Gorge's rim 350 yd above a Badlands goal (the walk 3.6k yd round: the player never
+// got there), and in Tanaris 200 yd from a goal down in Un'Goro Crater (1.4k yd round the rim: never got there).
+#[test]
+fn a_near_target_over_a_closed_zone_border_with_a_long_walk_or_none_keeps_the_crossings_way_1543() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(30)
+		w.faction = "Horde"
+		local function legs()
+			local out = {}
+			local L, ci = N.GetRoute()
+			for i = ci or 1, #(L or {}) do
+				local l = L[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. (l.crossing and ("|" .. l.crossing) or "") .. (l.near and "|near" or "")
+			end
+			return out
+		end
+		local function case(smap, swx, swy, sz, tmap, tx, ty, tz)
+			N.ClearTarget()
+			place(smap, swx, swy, sz)
+			for _ = 1, 10 do aim(); stub.advance(0.05) end
+			N.SetTarget(tmap, tx, ty, "Target", "e", nil, tz)
+			for _ = 1, 200 do aim(); stub.advance(0.05) end
+			local first = legs()
+			for _ = 1, 200 do aim(); stub.advance(0.05) end
+			return { first = first, later = legs() }
+		end
+		emit({
+			alterac = case(1416, 1409.8, -244.6, 180, 1458, 75.34, 73.13, -62.3),
+			gorge = case(1427, -6353.5, -2294.4, 390, 1418, 18.6, 42.9, nil),
+			ungoro = case(1446, -7916.9, -2302.1, 10, 1449, 71.64, 75.96, -254.3),
+		})"#,
+		true,
+	);
+	for (k, crossing) in [("alterac", "alterac-mountains--silverpine-forest-lake"), ("gorge", "carbonite-searing-gorge--badlands"), ("ungoro", "carbonite-tanaris--un-goro-crater")] {
+		let first = strs(&out[k]["first"]);
+		assert!(first.iter().any(|x| x.ends_with(&format!("|{crossing}"))), "{k}: through the crossing ({first:?})");
+		assert!(!first.iter().any(|x| x.ends_with("|near")), "{k}: not the near walk ({first:?})");
+		assert_eq!(strs(&out[k]["later"]), first, "{k}: the same way 10 s on, never back to the near walk");
 	}
 }

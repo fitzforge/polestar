@@ -100,6 +100,13 @@ local LIFT_LEAVE = 30       -- yards from a lift's landing: at it (the ride is s
 local BIND_MATCH = 60
 local REPLAN_AFTER, REPLAN_MOVED = 30, 50 -- seconds, yards: moved this far since a plan this old, plan again
 local LEARN_FP = 60          -- yards: a flight path learned this close to a flight master is that one
+-- The near walk over a zone border the crossing data closes (Nav.PlanRoute's p.nearWalk, #1543): a target within
+-- CROSS straight yards (Walk.lua's MEASURE_NEAR: so near, no walk is measured) is walked to straight while the arrow's
+-- own search finds that walk at most SLACK x the straight yards + PAD long (Travel.NearWalk); once it has, the walk
+-- holds within HOLD, the longest that passes. target, ok: the target the check is for and its answer (nil not yet,
+-- true short, false long or none). One table keeps the main chunk's locals spare.
+local nearWalk = { CROSS = 400, SLACK = 1.5, PAD = 100 }
+nearWalk.HOLD = nearWalk.CROSS * nearWalk.SLACK + nearWalk.PAD
 
 ---------------------------------------------------------------------------
 -- Data
@@ -396,6 +403,10 @@ end
 --         its straight estimate,
 --       noDirect = true: no walk from the player straight to the target (the
 --         engine found none from where they stand: Travel.WalkUnreachable),
+--       nearWalk = yards or nil: the near walk, a target within this many
+--         straight yards over a zone border the crossing data closes walked to
+--         straight (#1543; the live route's, which the arrow's own search
+--         checks: Travel.NearWalk); nil keeps the crossing's way,
 --       walkHooks = { fn(walk, cost) -> cost, ... } or nil (Travel.WalkCostHook):
 --         each walk's cost in seconds is handed to every hook in turn, with
 --         walk = { from = { c, wx, wy }, to = { c, wx, wy }, seconds } (one
@@ -421,7 +432,8 @@ end
 --         engine = "cost" (a walk priced by walkCost) | "path" (by its engine path),
 --         hubs = { { id, name, areaId }, ... } on a walk whose engine path enters the other
 --         faction's towns (Travel.SplitWalk, Travel.PricePaths; Find's job.hubs;
---         Travel.HubText names each by its areaId in the client's language) }
+--         Travel.HubText names each by its areaId in the client's language),
+--         near = true on the near walk (p.nearWalk) }
 -- Travel.SplitWalk later adds walk pieces (step and choke = { kind, name },
 -- parent, seg, tail) and lift rides (kind "lift", lift, side), or measures an
 -- unsplit walk along the path (straightYards, straightSeconds: the estimate here);
@@ -905,23 +917,28 @@ local function planRoute(p)
 		end
 	end
 
-	-- A target this near the start (straight yards) over a zone border the
-	-- crossing data closes is walked to straight all the same. The walking
-	-- engine measures no walk that near (Walk.lua's MEASURE_NEAR) and the
-	-- arrow's own search draws it, so the border's crossing is no better a
-	-- guess: from the Great Lift's top on the Barrens' plateau, Lakota Windsong
-	-- on Darkcloud Pinnacle (Thousand Needles) is a walk along the plateau, but
-	-- the crossing sent players down the lift, and from its foot the arrow's
-	-- walk led up it again (#1543). Not when the engine found no walk from the
-	-- player (p.noDirect): the crossing again. Nor when a chain joins the two
-	-- zones: its hand-made way is the one where the walking maps fail (the
-	-- Undercity's south lift). NEAR_CROSS is local here: PlanRoute is at Lua
-	-- 5.1's 60 upvalues.
+	-- The near walk (p.nearWalk, the live route's only): a target within
+	-- p.nearWalk straight yards of the start over a zone border the crossing
+	-- data closes is walked to straight all the same: from the Great Lift's top
+	-- on the Barrens' plateau, Lakota Windsong on Darkcloud Pinnacle (Thousand
+	-- Needles) is a walk along the plateau, but the crossing sent players down
+	-- the lift, and from its foot the arrow's walk led up it again (#1543).
+	-- The walking engine measures no walk that near (Walk.lua's MEASURE_NEAR),
+	-- so the live route offers it only while the arrow's own search can check
+	-- it, and takes it back when that search finds the walk long or none
+	-- (Travel.NearWalk); without p.nearWalk (estimates, no engine) the
+	-- crossing, as before. Only between two of the crossing data's zones, never
+	-- into or out of an area (ground no walk joins to its zone: Rut'theran under
+	-- the tree, #1761). Not when the engine found no walk from the player
+	-- (p.noDirect), not from or to a chain's inside, nor when a chain joins the
+	-- two zones: its hand-made way is the one where the walking maps fail (the
+	-- Undercity's south lift).
 	local nearCross
-	if zoned and not nw[1] and not sealed(1) and not sealed(2) and vc[1] == vc[2] and not zonesWalk(vzone[1], vzone[2]) then
-		local NEAR_CROSS = 400
+	local nearReach = p.nearWalk
+	if type(nearReach) == "number" and zoned and not nw[1] and not sealed(1) and not sealed(2) and vc[1] == vc[2] and not zonesWalk(vzone[1], vzone[2])
+		and zoneInfo[vzone[1]] and zoneInfo[vzone[2]] then
 		local d = yards(vc[1], vx[1], vy[1], vc[2], vx[2], vy[2])
-		if d < NEAR_CROSS then nearCross = d * walkRate end
+		if d < nearReach then nearCross = d * walkRate end
 		for _, ch in ipairs(nearCross and chains or {}) do
 			local a, b = false, false
 			for _, nd in ipairs(ch.nodes) do
@@ -1296,6 +1313,8 @@ local function planRoute(p)
 			if cross and vref[u].id ~= nil then
 				leg.crossing, leg.side = vref[u].id, vref[u].side
 			end
+			-- The near walk over a closed zone border: the arrow's own search checks it (Travel.NearWalk).
+			if nearCross and u == 1 and to == 2 and j == i + 1 then leg.near = true end
 		elseif how == FLY then
 			local stops = {}
 			for k = i, j do stops[#stops + 1] = vref[chain[k]] end
@@ -1886,6 +1905,16 @@ local function plan(target)
 	-- from Rut'theran Village, under the tree, the way to Teldrassil's top is
 	-- the portal up, not a walk drawn straight up the trunk (#989).
 	local direct = noWalkFor == target and noDirect and walkCost and walkCost(pc, px, py, true) == false
+	-- The near walk over a closed zone border (Nav.PlanRoute's p.nearWalk): only
+	-- while the arrow's own search can check it (the engine searching this
+	-- continent; the walk after a guide `goto` keeps the straight arrow,
+	-- unsearched) and has not found it long or missing for this target
+	-- (Travel.NearWalk); found short, it holds within nearWalk.HOLD.
+	if nearWalk.target ~= target then nearWalk.target, nearWalk.ok = target, nil end
+	local reach
+	if nearWalk.ok ~= false and W and W.Searches and W.Searches(pc) and not (W.FollowsGoto and W.FollowsGoto(target)) then
+		reach = nearWalk.ok and nearWalk.HOLD or nearWalk.CROSS
+	end
 	local route = Nav.PlanRoute({
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors,
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
@@ -1900,6 +1929,7 @@ local function plan(target)
 		noHearth = skipped.hearth,
 		skip = skip,
 		noDirect = direct or nil,
+		nearWalk = reach,
 		teleports = not ghost and not questTimed and teleportList() or nil,
 		departure = departureFn(),
 		walkOnly = ghost,
@@ -2538,6 +2568,37 @@ function Travel.WalkUnreachable(c, x, y)
 	if noWalkFor ~= target then noWalkFor, noWalk, noDirect = target, {}, false end
 	if noWalk[portal] then return false end
 	noWalk[portal] = true
+	return Travel.Remeasured()
+end
+
+-- The arrow's own search (Nav/Walk.lua) for the walk it is on, to (c, x, y),
+-- is in: `along` yards along its path from its first point (sx, sy); along
+-- false: the engine found no walk. The
+-- near walk over a closed zone border (leg.near, Nav.PlanRoute's p.nearWalk)
+-- stands only on a short path, at most SLACK x straight + PAD (nearWalk)
+-- yards; a longer one or none takes the crossing's way back for this target,
+-- as before #1543, for good: a detour round a ridge took players out past the
+-- near walk's reach, where the zone rule sent them back to the crossing and
+-- its foot's walk in again, round and round (Alterac's ridge above the
+-- Undercity, Searing Gorge's rim above the Badlands), and with no walk at all
+-- the arrow pointed straight over the cliffs. Weighed once per target: found
+-- short, a later search (a stray's, a retry's) goes the walk's way as any
+-- walk's does, as with #1543. -> true when the route changed.
+function Travel.NearWalk(c, x, y, along, sx, sy)
+	local leg = legs and legs[ci]
+	if not (leg and leg.kind == "walk") then return false end
+	local whole = leg.parent and leg.parent.leg or leg
+	local to = whole.to
+	if not whole.near or to.c ~= c or (to.wx - x) * (to.wx - x) + (to.wy - y) * (to.wy - y) > 1 then return false end
+	local target = Nav.GetTarget()
+	if nearWalk.target ~= target then nearWalk.target, nearWalk.ok = target, nil end
+	if nearWalk.ok then return false end
+	local straight = type(sx) == "number" and type(sy) == "number" and yards(c, sx, sy, c, x, y)
+	if type(along) == "number" and straight and along <= straight * nearWalk.SLACK + nearWalk.PAD then
+		nearWalk.ok = true
+		return false
+	end
+	nearWalk.ok = false
 	return Travel.Remeasured()
 end
 

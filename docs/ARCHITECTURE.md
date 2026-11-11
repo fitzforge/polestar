@@ -4221,15 +4221,24 @@ walk stays inside one zone; between zones it goes only through
   or dock goes through Darnassus and the portal (#1761), and one up takes the
   portal back (#989).
 
-One exception: the start walks straight to a target within 400 yd over a
-closed zone border (#1543). The walking engine measures no walk that near
-(`Walk.lua` `MEASURE_NEAR`) and the arrow's own search draws it, so the
-border's crossing is no better a guess: on the Barrens' side of the Great
-Lift, Lakota Windsong on Darkcloud Pinnacle is a walk along the plateau, and
-the crossing sent players down the lift and its foot's walk up it again. Not
-when the engine found no walk from the player (`noDirect`), not from or to a
-chain's inside, and not when a chain joins the two zones (its hand-made way
-stays the way: the Undercity's south lift).
+One exception, the near walk: the live route walks the start straight to a
+target within 400 yd over a closed zone border (#1543) while the arrow's own
+search finds that walk short. The walking engine measures no walk that near
+(`Walk.lua` `MEASURE_NEAR`), so the border's crossing is only a guess: on the
+Barrens' side of the Great Lift, Lakota Windsong on Darkcloud Pinnacle is a
+walk along the plateau, and the crossing sent players down the lift and its
+foot's walk up it again. The arrow's search for that walk checks it
+(`Travel.NearWalk`): a path longer than 1.5 x the straight yards + 100, or none
+at all, takes the crossing's way back for that target (a detour round a ridge
+led players out past 400 yd, where the zone rule sent them back to the
+crossing, round and round; with no path the arrow pointed straight over the
+cliffs); a short one holds within 700 yd. Planned only while that search runs
+(`Walk.Searches`: the engine on and its maps loaded, not the walk after a
+guide `goto`); estimates and plans without the engine keep the crossing. Never
+into or out of an area (no walk joins it to its zone), not when the engine found
+no walk from the player (`noDirect`), not from or to a chain's inside, and not
+when a chain joins the two zones (its hand-made way stays the way: the
+Undercity's south lift).
 
 A point's zone is its uiMap when the crossing data knows that zone (the area
 whose box holds it, if the map has one); a zone

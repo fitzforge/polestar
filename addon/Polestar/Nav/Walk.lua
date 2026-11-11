@@ -153,7 +153,11 @@
 --   Walk.Stops(pc, px, py) -> stops, total: the chokepoints along the path
 --   Walk.Split(): Travel.SplitWalk at them (on each path, and after a fresh plan);
 --     with none, the walk leg takes the path's yards and time, and goes back
---     to its straight estimate when the path fails or is cleared (Travel.RestoreWalk)
+--     to its straight estimate when the path fails or is cleared (Travel.RestoreWalk).
+--     Each path in, or none found, first goes to Travel.NearWalk: the near
+--     walk over a closed zone border (#1543) stands only on a short path
+--   Walk.Searches(c) -> true when the arrow's own walk on continent c is
+--     searched (the engine on and its maps there): Travel plans the near walk only then
 --   Walk.FollowsGoto(target) -> true when the guide's last located goal before
 --     this target is a `goto` the player has reached (Engine.GoalDone)
 --   Walk.Clear()
@@ -248,6 +252,14 @@ local function canSearch(P, c)
 	if not P.Resident or P.Resident(c) then return true end
 	local C = ns.Compat
 	return C and C.GetPlayerWorldPosition and C.GetPlayerWorldPosition() == c or false
+end
+
+-- Will the arrow's own walk on continent c be searched (the engine loaded and
+-- on, its maps there)? Travel plans the near walk over a closed zone border
+-- only then: that search checks it (Travel.NearWalk).
+function Walk.Searches(c)
+	local P = engine()
+	return P ~= nil and c ~= nil and canSearch(P, c)
 end
 
 -- The router's options (Routing/Path.lua): water walking (a ghost), the
@@ -894,13 +906,18 @@ local function ask(P, pc, px, py, flat)
 			took(points)
 			landX, landY = px, py -- searched from here: the player may be well on by now (Walk.Aim catches up)
 			hubs = hubsOf(answer)
+			-- The near walk over a closed zone border stands only on a short path (Travel.NearWalk).
+			local T = Nav.travel
+			if T and T.NearWalk then T.NearWalk(gc, gx, gy, left[1], ptsX[1], ptsY[1]) end
 			if Walk.Split then Walk.Split() end
 		else
 			failed, failAt, failX, failY = true, GetTime(), px, py
 			count, hubs, shape = 0, nil, nil
 			restore(gc, gx, gy)
-			-- No walk joins the player to the goal at all: a portal there may be out of reach (Travel.WalkUnreachable).
 			local T = Nav.travel
+			-- None found: the near walk over a closed zone border goes (Travel.NearWalk).
+			if T and T.NearWalk then T.NearWalk(gc, gx, gy, false) end
+			-- No walk joins the player to the goal at all: a portal there may be out of reach (Travel.WalkUnreachable).
 			if reason == "unreachable" and T and T.WalkUnreachable then T.WalkUnreachable(gc, gx, gy) end
 		end
 		changed()
@@ -914,6 +931,8 @@ local function ask(P, pc, px, py, flat)
 			return ask(P, pc, px, py, flat)
 		end
 		failed, failAt, failX, failY = true, askedAt, px, py
+		local T = Nav.travel
+		if T and T.NearWalk then T.NearWalk(gc, gx, gy, false) end
 		return
 	end
 	if token == mine then
@@ -981,6 +1000,8 @@ local function takeBaked(pc, px, py)
 	end
 	idx, failed, wanted, hubs = 1, false, false, nil
 	Nav.follow.Reset(fstate)
+	local T = Nav.travel
+	if T and T.NearWalk then T.NearWalk(gc, gx, gy, left[1], ptsX[1], ptsY[1]) end
 	if Walk.Split then Walk.Split() end
 	changed()
 	pumpLegs()

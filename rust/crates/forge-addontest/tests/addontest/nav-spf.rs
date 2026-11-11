@@ -3928,3 +3928,60 @@ fn a15_following_the_arrow_over_a_bend_with_a_wobble_the_yards_never_count_up() 
 		assert!(up <= 1.0, "wobble {j} yd: the yards counted up {up:.1} yd");
 	}
 }
+
+// #1543's near walk over a closed zone border, checked by the arrow's own search (Travel.NearWalk). The target 200 yd
+// east of the player, over West Vale's border with East Vale; the gate 1100 yd north. A short path (204 yd) keeps the
+// walk, one leg, and later plans keep it, out to 700 yd from the target (where the planner alone would take the gate);
+// a long one (round by the gate, 2246 yd) or none takes the gate's way for that target, and later plans keep that.
+#[test]
+fn the_near_walk_over_a_closed_zone_border_stands_on_a_short_path_a_long_one_or_none_takes_the_gate_1543() {
+	let out = run(r#"
+		local r = {}
+		local T = N.travel
+		N.RegisterCrossings({ complete = true,
+			zones = {
+				[9002] = { name = "West Vale", c = 0, top = 1000, bottom = -1000, left = 1000, right = 0 },
+				[9003] = { name = "East Vale", c = 0, top = 1000, bottom = -1000, left = 0, right = -1000 },
+			},
+			crossings = { { id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 20, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 },
+				ab = "Through the gate to East Vale" } } })
+		local function route()
+			local legs, ci = N.GetRoute()
+			local out = {}
+			for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label .. (legs[i].near and "|near" or "") end
+			return out
+		end
+		local function try(label, answer)
+			N.ClearTarget()
+			nav.place(-500, 100)
+			target(-500, -100, label)
+			local planned = route()
+			aim()
+			local job = fake.last()
+			local asked = { floor(job.to.x + 0.5), floor(job.to.y + 0.5) }
+			answer(job)
+			aim()
+			local after = route()
+			T.Replan()
+			return { planned = planned, asked = asked, after = after, again = route() }
+		end
+		r.short = try("Short", function(job) fake.answerXY(job, { -500, 100, -520, 0, -500, -100 }) end)
+		nav.place(-500, 450)
+		T.Replan()
+		r.hold = route()
+		r.long = try("Long", function(job) fake.answerXY(job, { -500, 100, 600, 20, 600, -20, -500, -100 }) end)
+		r.none = try("None", function(job) job.callback(nil, "unreachable", job) end)
+		emit(r)"#);
+	assert_eq!(out["short"]["planned"], json!(["walk|Short|near"]), "200 yd over the border: the near walk, one leg");
+	assert_eq!(out["short"]["asked"], json!([-500, -100]), "the arrow's own search goes to the target");
+	assert_eq!(out["short"]["after"], json!(["walk|Short|near"]), "a 204 yd path: kept");
+	assert_eq!(out["short"]["again"], json!(["walk|Short|near"]), "and planned again");
+	assert_eq!(out["hold"], json!(["walk|Short|near"]), "550 yd off, past 400: the walk found short holds");
+	for k in ["long", "none"] {
+		let label = if k == "long" { "Long" } else { "None" };
+		let gate = json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", format!("walk|{label}")]);
+		assert_eq!(out[k]["planned"], json!([format!("walk|{label}|near")]), "{k}: planned as the near walk");
+		assert_eq!(out[k]["after"], gate, "{k}: the search takes the gate's way back");
+		assert_eq!(out[k]["again"], gate, "{k}: and the next plan keeps it");
+	}
+}
