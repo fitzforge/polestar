@@ -137,12 +137,14 @@ function plain(s) {
 // characters (ideographs, kana, their punctuation), as the client wraps them.
 const CJK = /[\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]/u;
 const PIECES = /[\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]|[^\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]+/gu;
-function wrap(fonts, font, text, width) {
+// `nonSpace` (SetNonSpaceWrap, a multi-line edit box): a word wider than the
+// line breaks between characters.
+function wrap(fonts, font, text, width, nonSpace = false) {
 	const lines = [];
 	for (const para of text.split('\n')) {
 		let line = '';
 		for (const word of para.split(/\s+/).filter(Boolean)) {
-			const pieces = CJK.test(word) ? word.match(PIECES) : word.includes('/') ? word.split(/(?<=\/)/).filter(Boolean) : [word];
+			const pieces = nonSpace && measure(fonts, font, word) > width + 0.01 ? [...word] : CJK.test(word) ? word.match(PIECES) : word.includes('/') ? word.split(/(?<=\/)/).filter(Boolean) : [word];
 			pieces.forEach((piece, i) => {
 				const cand = line ? line + (i === 0 ? ' ' : '') + piece : piece;
 				if (line && measure(fonts, font, cand) > width + 0.01) {
@@ -215,7 +217,7 @@ function resolve(objects, fonts) {
 			if (o.kind === 'FontString') {
 				if (w == null) w = o.intrinsicW * s;
 				const lw = w / s;
-				const lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw) : o.plain.split('\n');
+				const lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw, o.nonSpace) : o.plain.split('\n');
 				o.lines = o.maxLines ? lines.slice(0, o.maxLines) : lines;
 				if (h == null) h = (o.lines.length * o.font[1] + (o.lines.length - 1) * (o.spacing || 0)) * s;
 			}
@@ -227,7 +229,7 @@ function resolve(objects, fonts) {
 		}
 		if (o.kind === 'FontString' && !o.lines) {
 			const lw = r.w / s;
-			o.lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw) : o.plain.split('\n');
+			o.lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw, o.nonSpace) : o.plain.split('\n');
 		}
 		visiting.delete(o.id);
 		rects.set(o.id, r);
