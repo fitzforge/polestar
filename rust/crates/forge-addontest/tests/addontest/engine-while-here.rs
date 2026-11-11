@@ -1242,12 +1242,16 @@ Polestar.RegisterGuide({
 	},
 })
 "#;
-	let out = run_guide_with(guide, "test/here", r#"
+	let out = run_guide_with(
+		guide,
+		"test/here",
+		r#"
 w.accept(465, {})
 w.setLevel(31)
 Polestar.Set("behavior.whileHereRadius", 180)
 flush()
-"#, r#"
+"#,
+		r#"
 at(53.48, 54.53)
 w.units.npc = "GameObject-0-1-0-1-671518-000001"
 emit({ step = E.GetLiveStep(), rows = cands(), wants = E.WantsQuest("accept", 98223) })
@@ -1257,7 +1261,8 @@ w.accept(474, { 1 }); flush()
 emit({ step = E.GetLiveStep(), wants = E.WantsQuest("accept", 98223) })
 w.accept(98223, {}); flush()
 emit(E.GetLiveStep())
-"#);
+"#,
+	);
 	assert_eq!(out[0], json!({ "step": 1, "rows": "", "wants": false }));
 	assert_eq!(out[1], json!({ "step": 2, "rows": "", "wants": false }));
 	assert_eq!(out[2], json!({ "step": 3, "wants": true }));
@@ -1285,19 +1290,19 @@ Polestar.RegisterGuide({
 	},
 })
 "#;
-	let out = run_guide(guide, "test/here", r#"
+	let out = run_guide(
+		guide,
+		"test/here",
+		r#"
 at(47.5, 45)
 emit(cands())
 w.accept(533, { 1 }); w.accept(96783, {}); flush()
 emit(cands())
 w.turnIn(533); w.turnIn(96783); flush()
 emit(cands())
-"#);
-	assert_eq!(out, vec![
-		json!("2:1:take:0 5:2:take:0"),
-		json!("3:1:take:0 4:1:turnin:0 5:2:take:0"),
-		json!("4:2:take:0 5:2:take:0"),
-	]);
+"#,
+	);
+	assert_eq!(out, vec![json!("2:1:take:0 5:2:take:0"), json!("3:1:take:0 4:1:turnin:0 5:2:take:0"), json!("4:2:take:0 5:2:take:0"),]);
 }
 
 // No zone stops While you're here (Fitz, 0.3.6): a guide whose live step is in Elwynn shows a pick-up of its
