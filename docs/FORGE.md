@@ -447,6 +447,7 @@ A fix goes into a record the next build applies, whoever builds:
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
 | a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level; `onquest Q,...`: only while one of the quests is in the log; on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
 | who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |
+| where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step, into another guide too (`step`) | `data/guide-fixes.json` |
 
 Places and guide fixes are anchored on a quest's goal, never on a line or a step, and the writer
 applies them to the guides it writes, last:
@@ -486,7 +487,15 @@ line of an objective the quest no longer has goes (#859).
     "background": { "title": "Plainstrider Beaks as you go", "tip": "…", "mobs": [3244, 3245, 3246], "mention": "…",
       "finish": { "title": "Finish the Plainstrider Beaks", "tip": "…", "map": 1413, "x": 53.4, "y": 26.5 } }, "…": "…" },
   { "id": "races-637-sully-balloos-letter", "faction": "Alliance", "at": { "quest": 637, "goal": "quest" }, "races": "all", "…": "…" },
-  { "id": "races-109-furlbrow-accept", "faction": "Alliance", "at": { "quest": 109, "goal": "accept" }, "races": "Human,NightElf,Skyborne", "…": "…" } ] }
+  { "id": "races-109-furlbrow-accept", "faction": "Alliance", "at": { "quest": 109, "goal": "accept" }, "races": "Human,NightElf,Skyborne", "…": "…" },
+  { "id": "darkshire-althea-after-ello", "at": { "quest": 227, "goal": "turnin", "guide": "forever/alliance/07-thousand-needles" },
+    "follows": { "quest": 252, "goal": "turnin" }, "…": "…" },
+  { "id": "astranaar-pass-hand-ins-split", "at": { "quest": 1025, "goal": "turnin", "guide": "forever/alliance/06-ashenvale" },
+    "split": { "title": "Astranaar", "tip": "South from Dal Bloodclaw's camp, Astranaar is on the way west: …" }, "…": "…" },
+  { "id": "astranaar-pass-hand-ins-step", "at": { "quest": 1025, "goal": "turnin", "guide": "forever/alliance/06-ashenvale" },
+    "step": { "after": { "quest": 1054, "goal": "objective", "objective": 1 } }, "…": "…" },
+  { "id": "tome-of-divinity-loch-modan-henze", "at": { "quest": 1786, "goal": "turnin", "guide": "forever/alliance/04-redridge-mountains" },
+    "step": { "copy": true, "guide": "forever/alliance/03-loch-modan", "after": { "quest": 35, "goal": "turnin" }, "tip": "From the bridge, …" }, "…": "…" } ] }
 ```
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
@@ -519,6 +528,23 @@ Balloo's Letter above, which the guides once showed to Dwarves, Gnomes, Night El
 A quest with a quest-wide `races` record has no other. The writer applies `races` in its fix pass,
 again after the shared route re-gates the shared guides by the starts that take each quest, and last
 on every guide it writes, so the old list never comes back.
+
+Three kinds move what a step holds; the writer applies them after the others, so a tip or `when` a
+record sets on a goal's step goes with it. `follows` puts the anchored goal line right after the
+first line of that goal in the guide: the order inside a step (Commander Althea's optional hand-in
+after Sirra Von'Indi's chain on the last Darkshire stop, so the town hall is visited once, not
+twice), or a goal moved into another step there; a step left with no goal goes. `split` makes the
+anchored goal and the lines after it in its step a step of their own right after it, titled
+`split.title` (with `split.tip`), repeating the step's `only` and `when` lines and the zone it is in
+there: a town stop split in walking order, or hand-ins cut off a later stop, which `step` then moves.
+`step` moves the anchored goal's whole step to right after the step of `step.after`'s goal, in the
+guide `step.guide` names (its id; the same guide when it names none), with `step.tip` as its tip;
+with `"copy": true` a copy goes there and the step stays (a class step done on an earlier walk past
+the same NPC, the later one kept, gated `when onquest`, for whoever still carries the quest). The
+travel-only steps right before it for the same players, the walk to it, go with it with `"way":
+true`; else they go when it moves. Where the step already follows `after`'s step, only its tip is
+set. `at.guide` (a guide's id) narrows any record to that guide: these records name the guide they
+are for.
 
 Each record says why, in our own words, and names its issue (`#647`) or pull request; a correction,
 place or guide fix also has its `source`. `forge data check-corrections` checks all five files. A record fix shows in the guides

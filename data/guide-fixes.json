@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). at: { quest, goal: accept | turnin | complete | objective | quest, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). at: { quest, goal: accept | turnin | complete | objective | quest, objective?, guide? } (guide: that guide only). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "1550-krazek-pickup-mining-advice",
@@ -5767,6 +5767,273 @@
 				{
 					"kind": "cmangos",
 					"ref": "quest 109 races 77 (the Classic Alliance mask)"
+				}
+			]
+		},
+		{
+			"id": "darkshire-althea-after-ello",
+			"faction": "Alliance",
+			"at": {
+				"quest": 227,
+				"goal": "turnin",
+				"guide": "forever/alliance/07-thousand-needles"
+			},
+			"follows": {
+				"quest": 252,
+				"goal": "turnin"
+			},
+			"note": "07-thousand-needles' last Darkshire stop: Commander Althea Ebonlocke (227's optional hand-in) is in the town hall, Sirra Von'Indi (96138, 401) in the house behind it. With 227 between Sirra's goals the stop went town hall, Sirra, town hall, Sirra, town hall; after Lord Ello's hand-in (252) it goes with Althea's own (58), so the town hall is visited once more, not twice. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 227 ender Commander Althea Ebonlocke (264); 252 Lord Ello Ebonlocke (263); 96138, 401 Sirra Von'Indi (268); 58 Commander Althea Ebonlocke"
+				}
+			]
+		},
+		{
+			"id": "astranaar-pass-hand-ins-split",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1025,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"split": {
+				"title": "Astranaar",
+				"tip": "South from Dal Bloodclaw's camp, Astranaar is on the way west: Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it."
+			},
+			"note": "06-ashenvale: after Dal Bloodclaw's camp, north of Astranaar, the route walks south-west through Astranaar to Ilkrud Magthrull with Raene Wolfrunner's hand-ins (1025, 1054) and Pelturas Whitemoon's (1034) ready. They are cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quests 1025, 1054 ender Raene Wolfrunner (3691); 1034 Pelturas Whitemoon (3894); 1008 Shindrell Swiftfire (3845)"
+				}
+			]
+		},
+		{
+			"id": "astranaar-pass-hand-ins-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1025,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"step": {
+				"after": {
+					"quest": 1054,
+					"goal": "objective",
+					"objective": 1
+				}
+			},
+			"note": "06-ashenvale: the Astranaar hand-ins cut off the last stop (astranaar-pass-hand-ins-split) go right after Dal Bloodclaw's step, on the walk through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1054 objective Dal Bloodclaw's Skull; enders Raene Wolfrunner (3691), Pelturas Whitemoon (3894)"
+				}
+			]
+		},
+		{
+			"id": "astranaar-last-stop-shindrell-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1008,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.",
+			"note": "06-ashenvale: the last Astranaar stop is Shindrell Swiftfire's hand-in by the flight master alone; Raene's and Pelturas's hand-ins went in on the pass after Dal Bloodclaw (astranaar-pass-hand-ins-split). 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1008 ender Shindrell Swiftfire (3845)"
+				}
+			]
+		},
+		{
+			"id": "astranaar-ilkrud-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 973,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "From Astranaar head south-west to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.",
+			"note": "06-ashenvale: Ilkrud Magthrull's step now follows the Astranaar hand-ins on the pass (astranaar-pass-hand-ins-split), so its tip leads on from Astranaar instead of telling players to leave the hand-ins for later. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 973 objective Ilkrud Magthrull's Tome"
+				}
+			]
+		},
+		{
+			"id": "tome-of-divinity-redridge-when",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1786,
+				"goal": "turnin",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"when": "onquest 1786,1787",
+			"note": "04-redridge-mountains' Henze Faulk step stays for a Human Paladin still carrying The Tome of Divinity (1786, 1787); 03-loch-modan does it on its own Elwynn walk (tome-of-divinity-loch-modan-henze). 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1786 ender Henze Faulk (6172); 1787 starter Henze Faulk"
+				}
+			]
+		},
+		{
+			"id": "tome-of-divinity-duskwood-when",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1787,
+				"goal": "turnin",
+				"guide": "forever/alliance/05-duskwood"
+			},
+			"when": "onquest 1787,1788",
+			"note": "05-duskwood's Gazin Tenorm step (Stormwind) stays for a Human Paladin still carrying 1787 or 1788; 03-loch-modan's last Stormwind stop does it (tome-of-divinity-loch-modan-gazin). Gated so it no longer walks a finished Paladin to the Cathedral. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1787 ender Gazin Tenorm (6173); 1788 starter Gazin Tenorm, ender Duthorian Rall (6171)"
+				}
+			]
+		},
+		{
+			"id": "tome-of-divinity-loch-modan-henze",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1786,
+				"goal": "turnin",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"step": {
+				"copy": true,
+				"guide": "forever/alliance/03-loch-modan",
+				"after": {
+					"quest": 35,
+					"goal": "turnin"
+				},
+				"tip": "From the bridge, head north to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script."
+			},
+			"note": "Human Paladins take The Tome of Divinity (1786) from Gazin Tenorm on 02-westfall's last Stormwind stop at about 16. 03-loch-modan walks the same Elwynn road east past Guard Thomas's bridge (35) and Stone Cairn Lake at about 19-20, so Henze Faulk (1786, 1787) is done on that walk instead of 04-redridge-mountains' identical walk at about 23: the same walking, earlier. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1786 ender Henze Faulk (6172); 35 ender Guard Thomas (261)"
+				}
+			]
+		},
+		{
+			"id": "tome-of-divinity-loch-modan-gazin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1787,
+				"goal": "turnin",
+				"guide": "forever/alliance/05-duskwood"
+			},
+			"step": {
+				"copy": true,
+				"guide": "forever/alliance/03-loch-modan",
+				"after": {
+					"quest": 97914,
+					"goal": "turnin"
+				},
+				"tip": "Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on Cathedral Square, on the way to the harbour."
+			},
+			"note": "03-loch-modan ends with a stop on Cathedral Square (Baros Alexston, 97914), beside the Cathedral of Light where Gazin Tenorm (1787) and Duthorian Rall (Redemption, 1788) stand: Redemption at about 20-21 instead of 05-duskwood's Stormwind stop at about 26, with no walk added. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1787 ender Gazin Tenorm (6173); 1788 ender Duthorian Rall (6171); 97914 ender Baros Alexston (1646)"
+				}
+			]
+		},
+		{
+			"id": "thor-stormwind-visit-baros",
+			"faction": "Alliance",
+			"at": {
+				"quest": 399,
+				"goal": "accept",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"split": {
+				"title": "Baros Alexston"
+			},
+			"note": "02-westfall: Thor's free flight takes every Human to Stormwind at about 13 for Osric Strang in Old Town, and back by Cathedral Square (Baros Alexston, 399) to Dungar Longdrink at the gryphons. The stop is split in walking order so Old Town's class steps (thor-stormwind-visit-defensive-stance) and the Cathedral's (thor-stormwind-visit-divine-grace) fit between. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 6281 ender Osric Strang (1323); 399 Baros Alexston (1646); 6261 ender Dungar Longdrink (352)"
+				}
+			]
+		},
+		{
+			"id": "thor-stormwind-visit-dungar",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6261,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"split": {
+				"title": "Dungar Longdrink"
+			},
+			"note": "02-westfall: the Thor visit's last piece, Dungar Longdrink at the gryphons (6261, 6285, the flight path and the flight back), a step of its own after Baros Alexston and the Cathedral. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 6261 ender Dungar Longdrink (352)"
+				}
+			]
+		},
+		{
+			"id": "thor-stormwind-visit-defensive-stance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1665,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"step": {
+				"after": {
+					"quest": 6281,
+					"goal": "turnin"
+				}
+			},
+			"note": "02-westfall: Ilsa Corbin, Harry Burlguard and Bartleby (Defensive Stance, 1638-1665) stand in Old Town by Osric Strang's shop, which every Human reaches on Thor's free flight at about 13. Human Warriors walked back into Old Town for it on the end-of-guide Stormwind visit at about 16; the step moves to right after Osric's (its walk to Ilsa goes): about three levels earlier, no detour east of the Trade District. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 1665 ender Harry Burlguard (6089); 1638 starter Ilsa Corbin (5480); 6281 ender Osric Strang (1323)"
+				}
+			]
+		},
+		{
+			"id": "thor-stormwind-visit-divine-grace",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94774,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"step": {
+				"copy": true,
+				"way": true,
+				"after": {
+					"quest": 399,
+					"goal": "accept"
+				},
+				"tip": "High Priestess Laurena is in the Cathedral of Light, across Cathedral Square from Baros."
+			},
+			"note": "02-westfall: High Priestess Laurena (Divine Grace, 94774) stands in the Cathedral of Light across Cathedral Square from Baros Alexston, on Thor's Stormwind visit at about 13. Human Priests hand it in there (the step and its walk copied after Baros); the end of the guide keeps it for a Priest still carrying it. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 94774 ender High Priestess Laurena (376); 399 Baros Alexston (1646)"
 				}
 			]
 		}

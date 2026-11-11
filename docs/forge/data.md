@@ -508,6 +508,46 @@ Humans never saw it:
 `turnin`, `complete` or `objective` covers that goal's lines only, for a quest whose lines differ per
 giver. A line with no race in its own `only` is left alone (its step's `only` decides).
 
+**A goal's place in its step (`follows`).** On the last Darkshire stop, Commander Althea's optional
+hand-in (227, the town hall) sat between Sirra Von'Indi's goals (the house behind it): town hall,
+Sirra, town hall, Sirra. It goes after Lord Ello's hand-in, so the town hall is visited once more:
+
+```json
+{ "id": "darkshire-althea-after-ello", "faction": "Alliance",
+  "at": { "quest": 227, "goal": "turnin", "guide": "forever/alliance/07-thousand-needles" },
+  "follows": { "quest": 252, "goal": "turnin" }, "note": "…", "source": [ … ] }
+```
+
+**Hand-ins on an earlier pass (`split`, then `step`).** In Ashenvale the walk from Dal Bloodclaw's
+camp to Ilkrud passes through Astranaar with three hand-ins ready, which the guide left for its last
+Astranaar stop. The first record cuts them (and the lines after them) off that stop into a step of
+their own; the second moves that step to right after Dal Bloodclaw's:
+
+```json
+{ "id": "astranaar-pass-hand-ins-split", "faction": "Alliance",
+  "at": { "quest": 1025, "goal": "turnin", "guide": "forever/alliance/06-ashenvale" },
+  "split": { "title": "Astranaar", "tip": "South from Dal Bloodclaw's camp, Astranaar is on the way west: …" }, … },
+{ "id": "astranaar-pass-hand-ins-step", "faction": "Alliance",
+  "at": { "quest": 1025, "goal": "turnin", "guide": "forever/alliance/06-ashenvale" },
+  "step": { "after": { "quest": 1054, "goal": "objective", "objective": 1 } }, … }
+```
+
+**A class step on an earlier visit, in another guide (`step` with `copy`).** Human Paladins' Henze
+Faulk step (The Tome of Divinity) is done on Loch Modan's walk east through Elwynn, five levels before
+Redridge's identical walk; Redridge keeps its step, gated by a `when` record, for a Paladin still
+carrying the quest:
+
+```json
+{ "id": "tome-of-divinity-loch-modan-henze", "faction": "Alliance",
+  "at": { "quest": 1786, "goal": "turnin", "guide": "forever/alliance/04-redridge-mountains" },
+  "step": { "copy": true, "guide": "forever/alliance/03-loch-modan", "after": { "quest": 35, "goal": "turnin" },
+    "tip": "From the bridge, head north to Stone Cairn Lake. …" }, … }
+```
+
+`step` without `copy` moves the step (Westfall's Defensive Stance from the end of the guide to the
+Thor flight's Stormwind visit); `"way": true` takes the travel-only steps right before it for the same
+players along, else they go with a move. These records run after every other guide fix.
+
 ## The knowledge base
 
 The knowledge base (KB) is what `--kb` adds. For every fact, one row per (kind, id, field), such as
