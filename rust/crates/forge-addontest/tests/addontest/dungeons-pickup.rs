@@ -2060,4 +2060,8 @@ fn an_objective_s_time_counts_kills_by_the_best_drop_chance() {
 	let out = run(&pack_of(&c, &inputs), script, Opts::default()).remove(0);
 	// 8 kills; 6 at 60% (the better source): 10 kills; 0.5% counts as 2%: 50 kills; an item no NPC drops and an object: uses.
 	assert_eq!(out, json!([320, 400, 2000, 60, 30]));
+	// A step's time: travel through its places (none here), STEP_SECONDS for its own talks and turn-in, then the objectives.
+	let step = r#"emit({ D.PrereqSeconds({ goals = { { t = "accept" }, { t = "turnin" } } }, { objectives = { { type = "kill", id = 1, count = 8 } } }, nil),
+		D.PrereqSeconds({ goals = {} }, nil, nil) })"#;
+	assert_eq!(run(&pack_of(&c, &inputs), step, Opts::default()).remove(0), json!([75 + 320, 75]));
 }

@@ -79,9 +79,13 @@
 --       Lordaeron's The New Plague).
 --   The pick-up guide's first goal also says how many of its steps are such
 --   prerequisites and about how long they take: "Prerequisite quests: 5 of 10
---   steps, about 1 h 15 min." (Dungeons.PrereqTime: the travel along the
---   route's order, LK().Travel, plus each quest's objectives,
---   Dungeons.ObjectiveSeconds; rounded to 5 minutes).
+--   steps, about 1 h 15 min." (Dungeons.PrereqTime of Dungeons.PrereqSeconds
+--   summed; rounded to 5 minutes).
+--   Dungeons.PrereqSeconds(step, rec, pos) -> seconds   -- a prerequisite step's rough time:
+--       the travel from `pos` through the step's goal points in order (its
+--       giver, the places of its objectives, its turn-in: LK().Travel) times
+--       TRAVEL_FACTOR, plus STEP_SECONDS, plus its quest's objectives
+--       (Dungeons.ObjectiveSeconds); calibrated on players' recordings (below)
 --   Dungeons.ObjectiveSeconds(o) -> seconds   -- a Codex quest objective's rough time:
 --       KILL_SECONDS a kill, and for an item NPCs drop the kills its best drop
 --       chance takes (6 Lake Skulker Moss at 60%: 10 kills); USE_SECONDS
@@ -1120,14 +1124,20 @@ function Dungeons.MarkOpens(step, quest, opens, breadcrumb)
 end
 
 -- A quest's mob: the kill and the walk to the next one. Anything else (an
--- object to use or loot, a talk, an event) per count. The Ruins of
--- Lordaeron's five Horde prerequisites (A Recipe For Death 447, 450, 451,
--- Rear Guard Patrol 356, 99156), from the Crossroads, come to about 1 h 15
--- min; players' recordings take 97 minutes from accept to hand-in for the
--- low quarter of each (with other work in between), 120 at the median.
+-- object to use or loot, a talk, an event) per count.
 local KILL_SECONDS = 40
 local USE_SECONDS = 30
 local MIN_CHANCE = 2 -- percent: a rarer drop counts as this (no hour-long farms)
+-- Calibrated (0.3.8) on players' recordings of the pick-up guides'
+-- prerequisite quests: 46 quests with three or more people who did one
+-- alone (accept to hand-in with no other quest taken, handed in or worked
+-- in between; one run per person). Summed, the low quarters come to 371
+-- minutes and the medians to 445; the estimate, 429 (travel as the route
+-- planner has it, 465 without these two). Per quest it stays rough: drops
+-- that run dry (A Recipe For Death) take longer, errands on a flight
+-- shorter.
+local TRAVEL_FACTOR = 0.7 -- players' ways are shorter than the planner's estimate
+local STEP_SECONDS = 75 -- each quest's own talks, loot and turn-in
 
 function Dungeons.ObjectiveSeconds(o)
 	local n = math.max(1, tonumber(o and o.count) or 1)
@@ -1145,16 +1155,19 @@ function Dungeons.ObjectiveSeconds(o)
 	return n * USE_SECONDS
 end
 
--- A prerequisite stop's rough time: the travel from `pos` to where it starts
--- and on to where it ends (LK().Travel; unknown: none), plus its quest's
--- objectives (Dungeons.ObjectiveSeconds).
-local function prereqSeconds(pos, s)
+function Dungeons.PrereqSeconds(step, rec, pos)
 	local Lk = LK()
-	local t = 0
-	if Lk and Lk.Travel then
-		t = t + (Lk.Travel(pos, s.inP) or 0) + (s.inP and s.outP and Lk.Travel(s.inP, s.outP) or 0)
+	local travel = Lk and Lk.Travel
+	local t, at = 0, pos
+	for _, g in ipairs(step and step.goals or {}) do
+		if g.map and g.x and g.y then
+			local p = { map = g.map, x = g.x, y = g.y, f = g.f }
+			if travel and at then t = t + (travel(at, p) or 0) end
+			at = p
+		end
 	end
-	for _, o in ipairs(s.rec and s.rec.objectives or {}) do t = t + Dungeons.ObjectiveSeconds(o) end
+	t = t * TRAVEL_FACTOR + STEP_SECONDS
+	for _, o in ipairs(rec and rec.objectives or {}) do t = t + Dungeons.ObjectiveSeconds(o) end
 	return t
 end
 
@@ -1208,7 +1221,7 @@ local function route(key, plan)
 			if step then
 				Dungeons.MarkOpens(step, s.rec.id, s.opens, by ~= nil)
 				pre.n = pre.n + 1
-				pre.seconds = pre.seconds + prereqSeconds(pos, s)
+				pre.seconds = pre.seconds + Dungeons.PrereqSeconds(step, s.rec, pos)
 			end
 			steps[#steps + 1] = step
 			lastGiver = nil
