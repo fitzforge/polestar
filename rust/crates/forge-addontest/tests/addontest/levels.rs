@@ -3,9 +3,11 @@
 //! (tools/lib/game/xp.js); and a guide's turn-ins for this character, their XP from the Codex.
 //! ui-dungeons.rs and ui-picker-levels.rs cover the chips and their tooltip.
 
+use forge_addontest::run::{addons_dir, join};
 use forge_addontest::{emitted, lua_value, truthy, Addon, RunAddon};
 use forge_guide::xp::{mob_xp, quest_xp_share, LEVEL_XP, MAX_LEVEL};
 use serde_json::{json, Value};
+use std::path::{Path, PathBuf};
 
 const FILES: &[&str] = &["Core/Core.xml"];
 
@@ -253,6 +255,41 @@ emit({ below = s.below, from = s.from.level, now = s.now.level })"#,
 	assert_eq!(low, json!({ "below": 10, "from": 10, "now": 7 }), "below the guide's minLevel: from there");
 }
 
+// #1697: Surgical Spidersilk (12 for Silky Sutures) had one dropper at 0.01% (a quest's loot counted over every
+// kill of the mob) beside the Plains Creepers, no chance known, that drop it on almost every kill: "120,188 kills
+// the guide asks for", +12 levels on a 29-33 guide. A chance under 5% beside a dropper with none known counts as no
+// chance known (no kills, as loot with no drop chance at all); alone, or with every dropper's chance known, it still
+// counts; the goal's own mob's chance always does.
+const STRAYS: &str = r#"
+local guide = { id = "silk", minLevel = 30, steps = {
+	{ goals = { { t = "collect", quest = 30, oi = 1, item = 600, count = 12 } } },
+	{ goals = { { t = "collect", quest = 31, oi = 1, item = 601, count = 1 } } },
+	{ goals = { { t = "collect", quest = 32, oi = 1, item = 602, count = 2 } } },
+	{ goals = { { t = "collect", quest = 33, oi = 1, item = 603, count = 1, fromKind = "npc", fromId = 201 } } },
+	{ goals = { { t = "collect", quest = 34, oi = 1, item = 604, count = 4 } } },
+} }
+Polestar.Guides.Get = function(id) return id == "silk" and guide or nil end
+local NPCS = { [200] = { level = 30 }, [201] = { level = 30 }, [202] = { level = 30 } }
+local ITEMS = {
+	[600] = { sources = { { type = "drop", npc = 200, chance = 0.01 }, { type = "drop", npc = 201 } } },
+	[601] = { sources = { { type = "drop", npc = 200, chance = 2 } } },
+	[602] = { sources = { { type = "drop", npc = 200, chance = 4 }, { type = "drop", npc = 201, chance = 1 } } },
+	[603] = { sources = { { type = "drop", npc = 202 }, { type = "drop", npc = 201, chance = 2 } } },
+	[604] = { sources = { { type = "drop", npc = 202 }, { type = "drop", npc = 200, chance = 40 } } },
+}
+Polestar.Codex = { IsLoaded = function() return true end, Quest = function() return nil end,
+	Npc = function(id) return NPCS[id] end, Item = function(id) return ITEMS[id] end }
+"#;
+
+#[test]
+fn a_stray_drop_chance_beside_a_dropper_with_none_known_is_not_estimated_1697() {
+	let s = lua(&[STRAYS, r#"emit(Lv.ForGuide("silk", { level = 30, xp = 0, class = "MAGE", race = "Orc", faction = "Horde" }))"#].join("\n")).remove(0);
+	// 600: 0.01% beside 201 (none known): no kills, not 120,000. 601: 1 / 2% = 50, the only dropper. 602: 2 / 4% =
+	// 50, every chance known. 603: 1 / 2% = 50, its own mob. 604: 4 / 40% = 10, not a stray.
+	assert_eq!(s["killsUnknown"], 0);
+	assert_eq!(s["kills"], 50 + 50 + 50 + 10);
+}
+
 #[test]
 fn pace_the_route_from_the_live_step_to_the_next_level_target_says_how_many_bars_short_or_on_pace() {
 	let out = lua(&[
@@ -461,4 +498,78 @@ fn pace_at_or_past_the_guide_s_top_is_on_pace_and_reaches_beyond_it() {
 	// already has, so on pace; the route's XP takes it past 24, which the guide window shows (ui.rs).
 	let out = lua(&[RIDGE, "p.level, p.xp, p.xpMax = 24, 0, 30000\nlocal s = Lv.Pace(p)\nemit({ kind = s.kind, target = s.target, bars = s.bars, past = s.reach > 24 })"].join("\n")).remove(0);
 	assert_eq!(out, json!({ "kind": "end", "target": 24, "bars": 0, "past": true }));
+}
+
+/// The Codex: $POLESTAR_CODEX_DIR (a Polestar_Codex folder), else addon/Polestar_Codex (`forge data codex`).
+fn codex_dir() -> PathBuf {
+	std::env::var_os("POLESTAR_CODEX_DIR").map_or_else(|| addons_dir().join("Polestar_Codex"), PathBuf::from)
+}
+
+/// A pack folder's TOC files, as absolute paths.
+fn toc_files(dir: &Path, toc: &str) -> Vec<String> {
+	let Ok(text) = std::fs::read_to_string(dir.join(toc)) else { return Vec::new() };
+	text.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')).map(|f| join(dir, f).to_string_lossy().into_owned()).collect()
+}
+
+// Every leveling guide the addon ships, on the real Codex, for a character of its faction (its first race when it
+// names races) at its start level: the "If you finish this guide" card's kills and the level it ends at.
+const SHIPPED: &str = r#"
+assert(loadfile(@CODEX_LUA@))("Polestar", Polestar)
+for _, f in ipairs(@CODEX@) do assert(loadfile(f))("Polestar_Codex", {}) end
+local guides, order = {}, {}
+Polestar.RegisterGuide = function(g)
+	if not guides[g.id] then order[#order + 1] = g.id end
+	guides[g.id] = g
+	return true
+end
+Polestar.RetireGuides = function() end
+for _, f in ipairs(@GUIDES@) do assert(loadfile(f))("Polestar_Guides", {}) end
+Polestar.Guides.Get = function(id) return guides[id] end
+Polestar.Compat.IsQuestCompleted = function() return false end
+local out = {}
+for _, id in ipairs(order) do
+	local g = guides[id]
+	if g.category == "Leveling" and g.minLevel and g.maxLevel then
+		local faction = g.faction or "Horde"
+		local race = type(g.races) == "table" and g.races[1] or (faction == "Alliance" and "Human" or "Orc")
+		local s = Lv.ForGuide(id, { level = g.minLevel, xp = 0, class = "WARRIOR", race = race, faction = faction })
+		if s then
+			out[#out + 1] = { id = id, top = g.maxLevel, kills = s.kills, to = s.to.level + (s.to.need > 0 and s.to.xp / s.to.need or 0) }
+		end
+	end
+end
+emit({ loaded = Polestar.Codex.IsLoaded(), guides = out })
+"#;
+
+/// #1697: 120,188 kills and +12 levels on the 29-33 Hillsbrad guide, from one stray drop chance. No leveling guide
+/// may ask for more than 2,000 kills or end more than 3 levels past its top. Skips without a Codex pack.
+#[test]
+fn every_shipped_leveling_guide_s_estimate_stays_sane_on_the_real_codex_1697() {
+	let dir = codex_dir();
+	if !dir.join("Polestar_Codex.toc").exists() {
+		eprintln!("skipped: no Codex pack at {} (forge data codex, or POLESTAR_CODEX_DIR)", dir.display());
+		return;
+	}
+	let mut guides = Vec::new();
+	for pack in std::fs::read_dir(addons_dir()).unwrap().flatten() {
+		let name = pack.file_name().to_string_lossy().into_owned();
+		if name.starts_with("Polestar_Guides") {
+			guides.extend(toc_files(&pack.path(), &format!("{name}.toc")).into_iter().filter(|f| f.ends_with("Guides.lua")));
+		}
+	}
+	guides.sort();
+	let script = SHIPPED
+		.replace("@CODEX_LUA@", &lua_value(&json!(addons_dir().join("Polestar/Lookup/Codex.lua").to_string_lossy())))
+		.replace("@CODEX@", &lua_value(&json!(toc_files(&dir, "Polestar_Codex.toc"))))
+		.replace("@GUIDES@", &lua_value(&json!(guides)));
+	let out = lua(&script).remove(0);
+	assert_eq!(out["loaded"], true, "the Codex pack at {} loads", dir.display());
+	let list = out["guides"].as_array().cloned().unwrap_or_default();
+	assert!(list.len() > 40, "every leveling guide estimated: {}", list.len());
+	let bad: Vec<String> = list
+		.iter()
+		.filter(|g| g["kills"].as_f64().unwrap_or(0.0) > 2000.0 || g["to"].as_f64().unwrap_or(0.0) > g["top"].as_f64().unwrap_or(0.0) + 3.0)
+		.map(|g| format!("{}: {} kills, ends at {:.1} (top {})", g["id"].as_str().unwrap_or(""), g["kills"], g["to"].as_f64().unwrap_or(0.0), g["top"]))
+		.collect();
+	assert!(bad.is_empty(), "estimates past any sense:\n{}", bad.join("\n"));
 }
