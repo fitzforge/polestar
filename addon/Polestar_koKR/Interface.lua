@@ -2407,6 +2407,7 @@ L["Click: show or hide the guide"] = "클릭: 가이드 표시/숨기기"
 L["Right-click: menu"] = "우클릭: 메뉴"
 L["Drag: move it around the minimap"] = "드래그: 미니맵 주위로 이동"
 L["Show window"] = "창 표시"
+-- L["Settings"] = ""
 
 -- UI/Gamepad.lua
 L["D-pad up"] = "방향 패드 위"
@@ -3044,6 +3045,7 @@ L["Show the class quest heads-up again (the next one due, or a quest id)"] = "�
 L["Show me"] = "보여 주기"
 L["Summon %s"] = "%s 소환"
 L["%s ready"] = "%s 준비됨"
+-- L["More"] = ""
 
 -- UI/GuideEnd.lua
 L["You've completed %s"] = "%s 완료"
@@ -3134,7 +3136,6 @@ L["Fully translated"] = "완전 번역"
 L["In 9 languages, with thanks to our translators."] = "9개 언어 지원, 번역가 여러분께 감사드립니다."
 L["Gear spec, trainers, map spots and more. Found something off? Type %s."] = "장비 전문화, 상급자, 지도 위치 등. 이상한 점이 있나요? %s 입력."
 -- L["A bigger settings window"] = ""
--- L["Groups in the sidebar, a live preview over each look, and a corner to drag it to any size."] = ""
 -- L["Make every part yours"] = ""
 -- L["Size, colours, opacity, fonts and borders of the guide window, arrow, map pins, routes and alerts."] = ""
 -- L["Bigger map pins"] = ""
@@ -3145,6 +3146,7 @@ L["Gear spec, trainers, map spots and more. Found something off? Type %s."] = "�
 -- L["Profiles and moving frames"] = ""
 -- L["Keep looks to switch between; %s lets you drag every Polestar frame into place."] = ""
 -- L["Move frames"] = ""
+-- L["A window of its own, any size, a live preview over each look; %s opens it."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "긴 연계: %d개 퀘스트, %d개 지역, %d개 대륙"
@@ -3172,6 +3174,7 @@ L["The way to %s takes about %s, longer than the time left"] = "%s까지 가는 
 L["%s: %d minutes left"] = "%s: %d분 남음"
 L["%s: 1 minute left"] = "%s: 1분 남음"
 L["%s failed: its time ran out. Abandon it in the quest log and take it again."] = "%s 실패: 시간이 다 되었습니다. 퀘스트 목록에서 포기하고 다시 받으세요."
+
 -- Core/Profiles.lua
 -- L["Give the profile a name."] = ""
 -- L["That name is too long."] = ""
@@ -3575,6 +3578,8 @@ L["%s failed: its time ran out. Abandon it in the quest log and take it again."]
 -- L["Game menu button"] = ""
 -- L["Speed"] = ""
 -- L["How fast Polestar's windows slide, fade and pop: 2x takes half the time."] = ""
+-- L["Variant"] = ""
+-- L["This skin comes in several versions: pick yours. Each skin keeps its own."] = ""
 
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
@@ -3742,6 +3747,14 @@ L["%s failed: its time ran out. Abandon it in the quest log and take it again."]
 -- L["Shine"] = ""
 -- L["Note"] = ""
 -- L["A short chime the first time a class quest chain's card or heads-up shows. Off while the game's sound effects are off."] = ""
+-- L["Place"] = ""
+-- L["Where the card goes: on the guide window's top edge (under the window when the screen has no room above), under its bottom edge (over it when there is no room below), or on a spot of its own that you move with Move frames."] = ""
+-- L["Above the window"] = ""
+-- L["Below the window"] = ""
+-- L["Its own spot"] = ""
+-- L["One line: its icon, its title and its button. Hover it for the rest; its other choices are in its menu."] = ""
+-- L["Its spot"] = ""
+-- L["Move the card in unlock mode, as /polestar unlock does. With Place on Its own spot."] = ""
 
 -- UI/Looks/Trackers.lua
 -- L["Aelindra"] = ""
@@ -3824,6 +3837,28 @@ L["%s failed: its time ran out. Abandon it in the quest log and take it again."]
 -- L["Lines to line frames up on while they are unlocked; a dragged frame lands on them."] = ""
 -- L["Grid size"] = ""
 -- L["How far apart the grid's lines are."] = ""
+
+-- UI/GuideFrameMenu.lua
+-- L["Quick settings"] = ""
+
+-- UI/QuickSettings.lua
+-- L["Auto-accept"] = ""
+-- L["Accepts the guide's quests when you talk to their givers."] = ""
+-- L["Auto turn-in"] = ""
+-- L["Hands in the guide's quests when you talk to their NPCs."] = ""
+-- L["The way to the goal on the world map and the minimap."] = ""
+-- L["All settings…"] = ""
+
+-- UI/OptionsLoader.lua
+-- L["Polestar's settings open when combat ends."] = ""
+-- L["Polestar's settings could not be loaded (%s): is the Polestar_Options folder installed and enabled?"] = ""
+
+-- UI/Preview.lua
+-- L["World"] = ""
+-- L["Night sky"] = ""
+-- L["Plain"] = ""
+-- L["Backdrop"] = ""
+-- L["Previews are drawn over %s. Click for the next backdrop."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
