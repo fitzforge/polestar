@@ -600,6 +600,9 @@ its source is in [apps/client](apps/client).
 - **Flight map destination.** On the flight map, the destination the guide
   flies you to is marked with a bobbing arrow and its name above it, and a
   slow ripple on the node itself. With Reduce motion on, the mark stands still.
+  With Take the marked flight on (Quality of Life, Travel; off by default),
+  the map flies you there as soon as it opens; hold Shift at the flight
+  master to choose yourself.
 - **Lock arrow and buttons** (Options, Guide, Window; off by default): a stray
   drag no longer moves the arrow, the quest item, target and Hearthstone
   buttons or the flight and instance timers. Shift-drag still moves them.

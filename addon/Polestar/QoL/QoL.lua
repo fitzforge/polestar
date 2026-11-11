@@ -70,6 +70,7 @@ local defaults = {
 	wearOffer = true,        -- offer gear from loot or a merchant that is an upgrade
 	flightAutoOpen = true,
 	flightHighlight = true,
+	flightAutoTake = false,  -- take the guide's flight as soon as the flight map opens (QoL/Flight.lua, #1621)
 	stepGossip = true,       -- pick the gossip option the live step asks for, open goods or training for its buy and train goals (QoL/Gossip.lua)
 	autoBind = false,        -- bind the Hearthstone at the step's innkeeper
 	deathHelper = true,
