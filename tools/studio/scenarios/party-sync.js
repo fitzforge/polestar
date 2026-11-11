@@ -10,15 +10,21 @@
 
 const MEMBERS = `local P, p = Polestar.Party, stub.party
 Polestar.version = "0.3.7"
--- The step's first objective goal and its quest.
+-- The first step from the one the play reached with an objective goal, and its quest: a fixed
+-- step would break whenever the guide gains or loses a step before it.
 local E = Polestar.Engine
-local i = E.GetStepIndex()
-local view = E.GetStepView(i)
+local G = E.GetGuide()
+local i, last = E.GetStepIndex(), G and #G.steps or 0
 local q, oi
-for _, g in ipairs(view and view.goals or {}) do
-	if g.quest and g.oi then q, oi = g.quest, g.oi; break end
+while i and i <= last and not q do
+	local view = E.GetStepView(i)
+	for _, g in ipairs(view and view.goals or {}) do
+		if g.quest and g.oi then q, oi = g.quest, g.oi; break end
+	end
+	if not q then i = i + 1 end
 end
-assert(q, "the step has no objective goal")
+assert(q, "no step from the one reached on has an objective goal")
+if i ~= E.GetStepIndex() then E.Goto(i); stub.advance(1) end
 p.join("Ana"); p.join("Ben"); p.join("Dee")
 p.set("Ana", { level = 17, class = "HUNTER", classID = 3, race = "Tauren", raceID = 6 })
 p.set("Ben", { level = 8, class = "WARRIOR", classID = 1, race = "Orc", raceID = 2 })
