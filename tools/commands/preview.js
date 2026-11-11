@@ -1952,10 +1952,10 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 ];
 
-// panel.stubs / panel.files: other client stubs and manifests than the UI's
-// (stub_ui.lua's fake Engine and guides, installed after load); panel.addons:
-// addons loaded after Polestar (the Recorder).
-function dumpPanel(panel, prelude) {
+// The Lua a panel runs before its addons load: the measuring prelude, the
+// preview stub, the client art, then the panel's own `before` and the
+// stand-in packs it asks for (tools/preview/audit.js builds its runs on it).
+function panelBefore(panel, prelude) {
 	const before = [prelude, `dofile(${JSON.stringify(path.join(ROOT, 'tools', 'preview', 'stub.lua'))})`];
 	before.push(clientUiArtLua());
 	if (panel.eui) before.push('stub.withEllesmere()');
@@ -1964,9 +1964,16 @@ function dumpPanel(panel, prelude) {
 	if (panel.levels) before.push(levelsStub());
 	if (panel.dungeons) before.push(dungeonsStub());
 	if (panel.rares) before.push(raresStub());
+	return before.join('\n');
+}
+
+// panel.stubs / panel.files: other client stubs and manifests than the UI's
+// (stub_ui.lua's fake Engine and guides, installed after load); panel.addons:
+// addons loaded after Polestar (the Recorder).
+function dumpPanel(panel, prelude) {
 	const { emitted } = runAddon({
 		stubs: panel.stubs || ['stub_ui.lua'],
-		before: before.join('\n'),
+		before: panelBefore(panel, prelude),
 		addons: [{ name: 'Polestar', files: panel.files || FILES }, ...(panel.addons || [])],
 		script: `${panel.stubs ? '' : 'uistub.install()\n'}stub.login()\n${panel.script}\nstub.advance(1)\npreview.emit()`,
 	});
@@ -2053,5 +2060,6 @@ module.exports = {
 	loadFonts,
 	metricsLua,
 	dumpPanel,
+	panelBefore,
 	cleanupPacks,
 };
