@@ -7995,7 +7995,11 @@ Era only fills gaps: a table wago.tools has no Forever export of (SpellTotems,
 SpellCastingRequirements, SpellFocusObject) comes whole from the newest Era
 build, and the spells and items the Forever tables lack come from Era's rows.
 Each profession also carries `mainTrainer { Alliance,
-Horde }` and `materials { itemId: { name, buy, buyCount, sell, quality,
+Horde }`, `trainerSkill { npcId: skill }` (the skill a trainer's "Train me." option asks for, from
+the world DB's conditions on its trainer menu option, the extract's `professionTrainerSkill`: Doctor
+Herbert Halsey trains Alchemy from 125, a city trainer such as Yelmak from 50; the guide compiler's
+`train` and `learn` goals leave out a trainer whose skill is above the rank's `minSkill` or the
+recipe's `learnedAt`, #1708) and `materials { itemId: { name, buy, buyCount, sell, quality,
 vendors { A, H }, limitedVendors { A, H }, currencyVendors { A, H }, bop, madeBy, gather { herb, mine, fishing },
 drops, dropCount } }` (`bop`: the client's ItemSparse binds it when picked
 up, so the Auction House never has it; `currencyVendors`: the world DB's sniffed vendor rows with an
@@ -8010,7 +8014,9 @@ standing }`, `tools`, `focus`, `races`, `classes`, `skillUps`. A trainer recipe'
 profession trainer lists (the extract's `professionSpells`: the lowest skill and
 price any sniffed list asks), when one teaches it (a sniffed list beats a recipe item for the
 same spell: Elixir of Minor Fortitude) and the client does not give it
-with the skill (`AcquireMethod` 1); else, when an older (Classic) list in the same
+with the skill (`AcquireMethod` 1); else the skill a player's trainer window showed on Forever, for
+the few recipes in forge-data's `CHECKED_LEARN` (`learnedAtFrom: "in-game"`: Thick Leather, Cured
+Thick Hide and Thick Armor Kit at 175, #1553); else, when an older (Classic) list in the same
 DB teaches it (`professionSpellsClassic`), Classic's learn skill moved by as much as
 Forever moved the recipe's yellow rank from Era's (`learnedAtEstimated`,
 `learnedAtFrom: "classic"`, no `cost`: the sniffed lists keep Classic's learn-to-yellow

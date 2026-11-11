@@ -162,6 +162,8 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 	let mut trained: rustc_hash::FxHashMap<i64, (f64, f64)> = rustc_hash::FxHashMap::default();
 	let mut trained_classic: rustc_hash::FxHashMap<i64, (f64, f64)> = rustc_hash::FxHashMap::default();
 	let mut trainer_lists: rustc_hash::FxHashMap<i64, Vec<i64>> = rustc_hash::FxHashMap::default();
+	let mut trainer_skill: rustc_hash::FxHashMap<i64, (i64, f64)> = rustc_hash::FxHashMap::default();
+	let mut trainer_any: rustc_hash::FxHashMap<i64, Vec<i64>> = rustc_hash::FxHashMap::default();
 	let mut currency: rustc_hash::FxHashSet<(i64, i64)> = rustc_hash::FxHashSet::default();
 	match crate::tdb::load(&opts.sources, &opts.tdb, &|_| {})? {
 		Some(t) if t.get("professionSpells").is_obj() => {
@@ -173,6 +175,12 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 			}
 			for (k, v) in t.get("professionTrainers").entries() {
 				trainer_lists.insert(forge_guide::js::str_to_num(&k) as i64, v.items().iter().map(|x| x.num() as i64).collect());
+			}
+			for (k, v) in t.get("professionTrainerSkill").entries() {
+				trainer_skill.insert(forge_guide::js::str_to_num(&k) as i64, (v.num_at(0) as i64, v.num_at(1)));
+			}
+			for (k, v) in t.get("professionTrainersAny").entries() {
+				trainer_any.insert(forge_guide::js::str_to_num(&k) as i64, v.items().iter().map(|x| x.num() as i64).collect());
 			}
 			for (k, v) in t.get("currencyVendors").entries() {
 				let npc = forge_guide::js::str_to_num(&k) as i64;
@@ -214,6 +222,8 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 		era_yellow: &loaded.era_yellow,
 		currency: &currency,
 		trainer_lists: &trainer_lists,
+		trainer_skill: &trainer_skill,
+		trainer_any: &trainer_any,
 	};
 	let res = extract::extract(&loaded.tables, &ctx);
 	warnings.extend(res.warnings);

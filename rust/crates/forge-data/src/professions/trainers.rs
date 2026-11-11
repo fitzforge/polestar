@@ -80,7 +80,8 @@ const CURATED: [Curated; 12] = [
 			&["Therum Deepforge", "Bengus Deepforge", "Rotgath Stonebeard", "Clarise Gnarltree", "Brikk Keencraft"],
 			&["Saru Steelfury", "Karn Stonehoof", "James Van Brunt", "Snarl", "Traugh", "Brikk Keencraft"],
 		),
-		novice: Some(s(&["Smith Argus", "Ironus Coldsteel", "Groum Stonebeard", "Tognus Flintfire"], &["Dwukk", "Thrag Stonehoof", "Basil Frye"])),
+		// Not Ironus Coldsteel (Ironforge): the Weaponsmith specialisation trainer, whose trainer list starts at 235.
+		novice: Some(s(&["Smith Argus", "Groum Stonebeard", "Tognus Flintfire"], &["Dwukk", "Thrag Stonehoof", "Basil Frye"])),
 		expert: Some(s(&["Bengus Deepforge", "Brikk Keencraft"], &["Saru Steelfury", "Brikk Keencraft"])),
 		artisan: Some(s(&["Brikk Keencraft"], &["Brikk Keencraft"])),
 		junior: None,
@@ -92,7 +93,8 @@ const CURATED: [Curated; 12] = [
 		id: 333,
 		name: "Enchanting",
 		train: s(&["Lucan Cordell", "Kitta Firewind", "Gimble Thistlefuzz", "Taladan", "Xylinnia Starshine"], &["Godan", "Teg Dawnstrider", "Lavinia Crowe", "Hgarth"]),
-		novice: Some(s(&["Betty Quin", "Tilli Thistlefuzz", "Thonys Pillarstone", "Lalina Summermoon", "Alanna Raveneye"], &["Jhag", "Mot Dawnstrider", "Malcomb Wynn", "Vance Undergloom"])),
+		// Tilli Thistlefuzz (Ironforge) sells enchanting supplies; she has no trainer list.
+		novice: Some(s(&["Betty Quin", "Thonys Pillarstone", "Lalina Summermoon", "Alanna Raveneye"], &["Jhag", "Mot Dawnstrider", "Malcomb Wynn", "Vance Undergloom"])),
 		expert: Some(s(&["Kitta Firewind"], &["Hgarth"])),
 		// Annora teaches inside Uldaman; the reference data has no spawn for her, so she is kept by name only.
 		artisan: Some(s(&["Annora"], &["Annora"])),
@@ -129,7 +131,8 @@ const CURATED: [Curated; 12] = [
 		id: 197,
 		name: "Tailoring",
 		train: s(&["Georgio Bolero", "Sellandus", "Jormund Stonebrow", "Me'lynn", "Grarnik Goodstitch"], &["Magar", "Rhiannon Davis", "Mahani", "Josef Gregorian", "Tepa", "Grarnik Goodstitch"]),
-		novice: Some(s(&["Eldrin", "Lawrence Schneider", "Uthrar Threx", "Trianna", "Grondal Moonbreeze"], &["Snang", "Josephine Lister", "Victor Ward", "Bowen Brisboise", "Vhan"])),
+		// Not Josephine Lister (Undercity): she teaches Shadoweave patterns only, from 210 (#1498).
+		novice: Some(s(&["Eldrin", "Lawrence Schneider", "Uthrar Threx", "Trianna", "Grondal Moonbreeze"], &["Snang", "Victor Ward", "Bowen Brisboise", "Vhan"])),
 		expert: Some(s(&["Georgio Bolero", "Timothy Worthington"], &["Josef Gregorian", "Daryl Stack"])),
 		artisan: Some(s(&["Timothy Worthington"], &["Daryl Stack"])),
 		junior: None,
@@ -464,6 +467,19 @@ mod tests {
 		assert_eq!(stringify(&V::Obj(r.ranks[3].clone()), None), r#"{"name":"Artisan","max":300,"minLevel":35,"minSkill":225,"quest":{"npcs":{"Alliance":[3],"Horde":[3]}}}"#);
 		assert!(r.warnings.iter().any(|w| w == "Fishing Horde trainer \"Lumak\" (2) has no spawns"));
 		assert_eq!(r.main.len(), 2);
+	}
+
+	// #1498: Josephine Lister (Undercity) teaches only Shadoweave patterns, from 210, and Ironus Coldsteel
+	// (Ironforge) only the Weaponsmith's, from 235: neither is an Apprentice trainer, so no recipe step sends a new
+	// tailor or smith to them. Victor Ward and Smith Argus are.
+	#[test]
+	fn specialists_are_no_apprentice_trainers_1498() {
+		let npcs = parse_json(r#"{"1":{"id":1,"name":"Josephine Lister","faction":"H","spawns":{"1458":{"pts":[[86,22]]}}},"2":{"id":2,"name":"Victor Ward","faction":"H","spawns":{"1458":{"pts":[[70,30]]}}},"3":{"id":3,"name":"Ironus Coldsteel","faction":"A","spawns":{"1455":{"pts":[[51,42]]}}},"4":{"id":4,"name":"Smith Argus","faction":"A","spawns":{"1429":{"pts":[[41,65]]}}}}"#).unwrap();
+		let f = Finder::new(npcs.as_obj().unwrap());
+		let tailoring = resolve(197, &f, "primary");
+		assert_eq!(stringify(&tailoring.ranks[0].get("trainers").get("Horde"), None), "[2]");
+		let smithing = resolve(164, &f, "primary");
+		assert_eq!(stringify(&smithing.ranks[0].get("trainers").get("Alliance"), None), "[4]");
 	}
 
 	// A neutral trainer (Booty Bay's) serves both sides; the starting areas' lakeside trainers are listed,

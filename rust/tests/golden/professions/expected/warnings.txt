@@ -19,7 +19,6 @@ warning: Blacksmithing Alliance trainer "Brikk Keencraft": not in npcs.json for 
 warning: Blacksmithing Horde trainer "Brikk Keencraft": not in npcs.json for this side
 warning: Blacksmithing Alliance trainer "Brikk Keencraft": not in npcs.json for this side
 warning: Blacksmithing Horde trainer "Brikk Keencraft": not in npcs.json for this side
-warning: Blacksmithing Alliance trainer "Ironus Coldsteel": not in npcs.json for this side
 warning: Blacksmithing Alliance trainer "Groum Stonebeard": not in npcs.json for this side
 warning: Blacksmithing Alliance trainer "Tognus Flintfire": not in npcs.json for this side
 warning: Blacksmithing Horde trainer "Thrag Stonehoof": not in npcs.json for this side
@@ -132,7 +131,6 @@ warning: Tailoring Horde trainer "Daryl Stack": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Uthrar Threx": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Trianna": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Grondal Moonbreeze": not in npcs.json for this side
-warning: Tailoring Horde trainer "Josephine Lister": not in npcs.json for this side
 warning: Tailoring Horde trainer "Victor Ward": not in npcs.json for this side
 warning: Tailoring Horde trainer "Bowen Brisboise": not in npcs.json for this side
 warning: Tailoring Horde trainer "Vhan": not in npcs.json for this side
@@ -160,7 +158,6 @@ warning: Enchanting Horde trainer "Hgarth": not in npcs.json for this side
 warning: Enchanting Horde trainer "Hgarth": not in npcs.json for this side
 warning: Enchanting Alliance trainer "Annora": not in npcs.json for this side
 warning: Enchanting Horde trainer "Annora": not in npcs.json for this side
-warning: Enchanting Alliance trainer "Tilli Thistlefuzz": not in npcs.json for this side
 warning: Enchanting Alliance trainer "Thonys Pillarstone": not in npcs.json for this side
 warning: Enchanting Alliance trainer "Lalina Summermoon": not in npcs.json for this side
 warning: Enchanting Alliance trainer "Alanna Raveneye": not in npcs.json for this side
