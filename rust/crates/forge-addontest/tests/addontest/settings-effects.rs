@@ -71,6 +71,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "trackers_travel", src: include_str!("effects/trackers-travel.lua") },
 	Group { name: "trackers_instances", src: include_str!("effects/trackers-instances.lua") },
 	Group { name: "trackers_party", src: include_str!("effects/trackers-party.lua") },
+	Group { name: "pins_world", src: include_str!("effects/pins-world.lua") },
 ];
 
 // Two reads compared (numbers within 1e-4, tables by their keys) and shown in a message: the runner's, and a login
@@ -574,6 +575,11 @@ fn trackers_instances() {
 #[test]
 fn trackers_party() {
 	check("trackers_party");
+}
+
+#[test]
+fn pins_world() {
+	check("pins_world");
 }
 
 // Every control of the settings window has an effect check, and every check is a registered control's. A later
