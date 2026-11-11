@@ -208,12 +208,15 @@ fn quests() -> Value {
 			"preQuestSingle": [100], "exclusiveTo": [102, 105], "breadcrumbs": [103], "childQuests": [104], "requiredSkill": [393, 1]
 		},
 		"102": { "name": "Fixture Altar", "questLevel": 4, "requiredLevel": 2, "startedBy": [[], [500]], "finishedBy": [[], [500]], "preQuestSingle": [101, 102, 100] },
-		"92461": { "name": "The Missing Scholar", "questLevel": 5, "requiredLevel": 2, "startedBy": { "2": [700] } },
-		"92460": {
+		// The Forever-only pair below has ids no real quest or correction uses, so the checkout's corrections
+		// (which every build here applies) never touch it: 90460 mirrors Coming of Age's shape and its Skyborne
+		// mask (2^32 + 2^33).
+		"90461": { "name": "The Missing Scholar", "questLevel": 5, "requiredLevel": 2, "startedBy": { "2": [700] } },
+		"90460": {
 			"name": "Coming of Age", "questLevel": 1, "requiredLevel": 1, "requiredRaces": 12884901888u64,
 			"startedBy": [[251362]], "finishedBy": [[251361]], "objectivesText": ["Find the shrine.", "", "Return to Rorian."],
 			"preQuestGroup": [100], "zoneOrSort": 16593, "triggerEnd": ["Find the shrine", { "16593": [[40.5, 60.25]] }],
-			"breadcrumbForQuestId": 92461, "parentQuest": 100, "retired": 99
+			"breadcrumbForQuestId": 90461, "parentQuest": 100, "retired": 99
 		}
 	})
 }
@@ -224,14 +227,14 @@ fn npcs() -> Value {
 		"2": { "name": "Alice", "minLevel": 5, "maxLevel": 6, "rank": 1, "spawns": { "12": [[42.1, 65.9]], "1519": [[60, 60]] }, "friendlyToFaction": "AH", "npcFlags": 6, "questStarts": [101] },
 		"3": { "name": "Fixture Wolf", "minLevel": 2, "maxLevel": 3, "spawns": { "12": [[21, 31]] }, "friendlyToFaction": "AH", "npcFlags": 0 },
 		"251361": { "name": "Rorian the Dayseeker", "minLevel": 1, "maxLevel": 1, "spawns": { "16593": [[44, 25]] }, "friendlyToFaction": "AH", "npcFlags": 2 },
-		"251362": { "name": "Ailee Farheart", "minLevel": 1, "maxLevel": 1, "spawns": { "16593": [[42.82, 23.37], [-1, -1]] }, "friendlyToFaction": "AH", "npcFlags": 2, "questStarts": [92460] }
+		"251362": { "name": "Ailee Farheart", "minLevel": 1, "maxLevel": 1, "spawns": { "16593": [[42.82, 23.37], [-1, -1]] }, "friendlyToFaction": "AH", "npcFlags": 2, "questStarts": [90460] }
 	})
 }
 
 fn objects() -> Value {
 	json!({
 		"500": { "name": "Fixture Altar", "spawns": { "12": [[30.12, 40.99]] } },
-		"700": { "name": "Bloodstained Satchel", "spawns": { "16593": [[53.25, 72.17]] }, "questStarts": [92461], "questEnds": [92461] },
+		"700": { "name": "Bloodstained Satchel", "spawns": { "16593": [[53.25, 72.17]] }, "questStarts": [90461], "questEnds": [90461] },
 		"600": { "name": "Peacebloom", "spawns": { "1519": [[10, 10]] } }
 	})
 }
@@ -291,7 +294,7 @@ fn write_questie(dir: &Path, store: &Store) -> PathBuf {
 	]
 	.map(String::from)
 	.to_vec();
-	toc.extend(store_lines("Quest", &merged(quests(), &store.quests), &[92460], &[(92460, "breadcrumbs", json!([7]))]));
+	toc.extend(store_lines("Quest", &merged(quests(), &store.quests), &[90460], &[(90460, "breadcrumbs", json!([7]))]));
 	toc.extend(store_lines("Npc", &merged(npcs(), &store.npcs), &[], &[]));
 	toc.extend(store_lines("Object", &merged(objects(), &store.objects), &[], &[]));
 	toc.extend(store_lines("Item", &merged(items(), &store.items), &[], &[]));
@@ -300,7 +303,7 @@ fn write_questie(dir: &Path, store: &Store) -> PathBuf {
 	for (e, f) in [("Quest", "questMeta.lua"), ("Npc", "npcMeta.lua"), ("Object", "objectMeta.lua"), ("Item", "itemMeta.lua")] {
 		w(&format!("src/meta/{f}"), &meta_lua(e));
 	}
-	w("support/Forever/QuestXP/xpDB-classic.lua", "local QuestXP = QuestieLoader:ImportModule(\"QuestXP\");\nQuestXP.db = {\n  [100] = {1, 85},\n  [101] = {3, 170},\n  [92460] = {1, 40},\n}\n");
+	w("support/Forever/QuestXP/xpDB-classic.lua", "local QuestXP = QuestieLoader:ImportModule(\"QuestXP\");\nQuestXP.db = {\n  [100] = {1, 85},\n  [101] = {3, 170},\n  [90460] = {1, 40},\n}\n");
 	w("support/Forever/DropTables/classicItemDrops.lua", &drops_lua("  [50] = { [3] = 12.5, [4] = 20 },\n", "  [50] = { [4] = 70.0 },\n"));
 	w("support/Forever/DropTables/itemDropCorrections.lua", DROP_FIXES);
 	w(
@@ -390,16 +393,16 @@ fn reads_every_entity_with_defaults_presence_masks_constants_and_support_data() 
 	let dir = write_questie(&root, &Store::default());
 	assert_eq!(forge_data::questie::questie_db_dir(&root), Some(dir.clone()), "an AddOns folder resolves to its QuestieDB");
 	let qz = forge_data::questie::read_questie(&dir, &|_| {}).unwrap();
-	assert_eq!(qz.quests.keys().copied().collect::<Vec<_>>(), [100, 101, 102, 92460, 92461]);
+	assert_eq!(qz.quests.keys().copied().collect::<Vec<_>>(), [100, 101, 102, 90460, 90461]);
 	let q = |id: i64, k: &str| s(&qz.quests[&id].get(k));
-	assert_eq!(q(92461, "startedBy"), json!({ "2": [700] }), "sparse questgivers: a Lua table with a hole");
-	assert_eq!(q(92460, "name"), json!("Coming of Age"), "chunked scalar row");
-	assert_eq!(q(92460, "requiredRaces"), json!(12884901888u64));
-	assert_eq!(q(92460, "startedBy"), json!([[251362]]));
-	assert_eq!(q(92460, "triggerEnd"), json!(["Find the shrine", { "16593": [[40.5, 60.25]] }]));
-	assert!(qz.quests[&92460].get("breadcrumbs").is_undef(), "a table without its presence bit is not read");
-	assert_eq!(q(92460, "retired"), json!(7), "constant fields read back as the schema constant");
-	assert_eq!(q(92460, "nextQuestInChain"), json!(0), "absent numbers read back as 0");
+	assert_eq!(q(90461, "startedBy"), json!({ "2": [700] }), "sparse questgivers: a Lua table with a hole");
+	assert_eq!(q(90460, "name"), json!("Coming of Age"), "chunked scalar row");
+	assert_eq!(q(90460, "requiredRaces"), json!(12884901888u64));
+	assert_eq!(q(90460, "startedBy"), json!([[251362]]));
+	assert_eq!(q(90460, "triggerEnd"), json!(["Find the shrine", { "16593": [[40.5, 60.25]] }]));
+	assert!(qz.quests[&90460].get("breadcrumbs").is_undef(), "a table without its presence bit is not read");
+	assert_eq!(q(90460, "retired"), json!(7), "constant fields read back as the schema constant");
+	assert_eq!(q(90460, "nextQuestInChain"), json!(0), "absent numbers read back as 0");
 	assert_eq!(q(100, "objectives"), json!([]), "objectives default to an empty table");
 	assert_eq!(q(102, "startedBy"), json!([[], [500]]));
 	assert!(qz.quests[&100].get("preQuestSingle").is_undef());
@@ -407,7 +410,7 @@ fn reads_every_entity_with_defaults_presence_masks_constants_and_support_data() 
 	assert_eq!(s(&qz.npcs[&2].get("spawns")), json!({ "12": [[42.1, 65.9]], "1519": [[60, 60]] }));
 	assert_eq!(s(&qz.objects[&500].get("factionID")), json!(0), "absent object faction templates keep the numeric default");
 	assert_eq!(s(&qz.items[&50].get("npcDrops")), json!([3, 4]));
-	assert_eq!(qz.xp[&92460], (Some(1.0), Some(40.0)));
+	assert_eq!(qz.xp[&90460], (Some(1.0), Some(40.0)));
 	assert_eq!(qz.faction_templates.iter().map(|(k, v)| (*k, *v)).collect::<Vec<_>>(), [(12, 4.0), (29, 2.0), (35, 0.0), (99, 6.0)]);
 	assert_eq!((qz.area_to_ui_map[&16593], qz.ui_map_to_area[&2521]), (2521.0, 16593.0));
 	assert_eq!(qz.era_to_forever.ui_map_to_area.iter().map(|(k, v)| (*k, *v)).collect::<Vec<_>>(), [(1453, 1519)]);
@@ -464,7 +467,7 @@ fn refuses_a_store_that_is_not_baked_forever_and_a_chunk_missing_a_part() {
 	let text = std::fs::read_to_string(&toc).unwrap();
 	std::fs::write(&toc, text.replace("## X-Flavor: Forever", "## X-Flavor: Era")).unwrap();
 	assert!(forge_data::questie::read_questie(&dir, &|_| {}).err().unwrap().contains("flavor Era, not Forever"));
-	let cut: Vec<&str> = text.split("\r\n").filter(|l| !l.starts_with("## X-Quest-92460-S-2:")).collect();
+	let cut: Vec<&str> = text.split("\r\n").filter(|l| !l.starts_with("## X-Quest-90460-S-2:")).collect();
 	std::fs::write(&toc, cut.join("\r\n")).unwrap();
 	assert!(forge_data::questie::read_questie(&dir, &|_| {}).err().unwrap().contains("declares 2 parts but part 2 is missing"));
 }
@@ -530,14 +533,14 @@ fn forever_only_records_shared_records_and_the_store_meta() {
 	let b = build("shared", &Store::default());
 	let q = b.read("quests");
 	assert_eq!(
-		q["92460"],
+		q["90460"],
 		json!({
-			"id": 92460, "title": "Coming of Age", "level": 1, "minLevel": 1, "races": 12884901888u64, "classes": null,
+			"id": 90460, "title": "Coming of Age", "level": 1, "minLevel": 1, "races": 12884901888u64, "classes": null,
 			"start": { "npc": [251362], "object": [], "item": [] }, "end": { "npc": [251361], "object": [] },
 			"pre": [100], "excl": [], "next": null,
 			"objectives": [{ "type": "event", "id": null, "count": null, "text": "Find the shrine", "map": 2521, "f": "l", "x": 40.5, "y": 60.25 }],
 			"objectiveText": "Find the shrine.$B$BReturn to Rorian.", "zone": 2521, "xp": 40, "skill": null, "event": null,
-			"source": ["questie-forever"], "preAll": [100], "breadcrumbFor": 92461, "parent": 100, "area": 16593
+			"source": ["questie-forever"], "preAll": [100], "breadcrumbFor": 90461, "parent": 100, "area": 16593
 		})
 	);
 	let n = b.read("npcs");
@@ -581,8 +584,8 @@ fn forever_only_records_shared_records_and_the_store_meta() {
 	assert_eq!((&src["revision"], &src["questie"]["version"]), (&json!("9.9.9 abc123"), &json!("8.8.8")));
 	assert!(src["license"].as_str().unwrap().contains("all rights reserved"));
 	assert_eq!(m["counts"]["questieOnlyQuests"], 2);
-	assert_eq!(q["92461"]["start"], json!({ "npc": [], "object": [700], "item": [] }), "sparse questgivers keep the object slot");
-	assert_eq!(q["92461"]["end"], json!({ "npc": [], "object": [700] }), "the ender from the object's questEnds");
+	assert_eq!(q["90461"]["start"], json!({ "npc": [], "object": [700], "item": [] }), "sparse questgivers keep the object slot");
+	assert_eq!(q["90461"]["end"], json!({ "npc": [], "object": [700] }), "the ender from the object's questEnds");
 	assert_eq!((&m["counts"]["reverseLinks"], &m["counts"]["questsWithXp"]), (&json!(1), &json!(3)));
 	// Frames: Era points on unchanged maps, live on changed and Forever-only ones.
 	assert_eq!(n["2"]["spawns"], json!({ "1429": { "f": "e", "pts": [[42.1, 65.9]] }, "1453": { "f": "l", "pts": [[60, 60]] } }));
