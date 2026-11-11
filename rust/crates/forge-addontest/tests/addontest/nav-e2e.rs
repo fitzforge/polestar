@@ -2415,10 +2415,7 @@ fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walk
 	assert_eq!(legs("top"), ["walk|Lakota Windsong"], "on the pinnacle: one walk");
 	let barrens = legs("barrens");
 	assert!(barrens.last().is_some_and(|x| x == "walk|Lakota Windsong"), "from the lift's top: on to her ({barrens:?})");
-	assert!(
-		!barrens.iter().any(|x| x.starts_with("lift|") || x.ends_with("|carbonite-the-barrens--thousand-needles")),
-		"from the lift's top: along the plateau, not back down the lift ({barrens:?})"
-	);
+	assert!(!barrens.iter().any(|x| x.starts_with("lift|") || x.ends_with("|carbonite-the-barrens--thousand-needles")), "from the lift's top: along the plateau, not back down the lift ({barrens:?})");
 	for k in ["floor", "lift"] {
 		let l = legs(k);
 		assert!(!l.is_empty(), "{k}: a route");
