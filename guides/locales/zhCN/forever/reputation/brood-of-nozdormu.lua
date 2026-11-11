@@ -203,7 +203,7 @@ return {
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "{item:21229}，由神殿首领掉落",
 	-- {npc:15503} Kandrostrasz
-	["{npc:15503}: 500, handed in from his window"] = "",
+	["{npc:15503}: 500, handed in from his window"] = "{npc:15503}：500，在他的窗口中直接交还",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "友善时的戒指",

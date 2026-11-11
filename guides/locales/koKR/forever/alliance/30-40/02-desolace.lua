@@ -12,7 +12,7 @@ return {
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: 난파선의 궤짝은 {npc:11863}의 탑 아래, {area:599}(으)로 가는 길에 있습니다",
 	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "",
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5752} 옆의 {npc:5396}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "말렘의 궤짝",

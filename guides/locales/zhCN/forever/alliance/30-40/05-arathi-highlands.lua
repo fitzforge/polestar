@@ -29,9 +29,9 @@ return {
 
 	-- Step 7: Fallow Sanctuary
 	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One · {quest:1392} Noboru the Cudgel · {npc:1776} Magtoor
-	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "",
+	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "沿道路向东前往{area:76}。{npc:256028}怪物掉落水晶。{quest:1392}会沿一条很长的路线穿过废墟游走：如果遇到他，就杀了他，他的木棒可以开始一个交给{npc:1776}的任务。不要专门等他。",
 	-- {quest:1392} Noboru the Cudgel
-	["from {quest:1392}: he walks a path through the ruins"] = "",
+	["from {quest:1392}: he walks a path through the ruins"] = "来自{quest:1392}：他沿一条路线穿过废墟游走",
 
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
@@ -94,9 +94,9 @@ return {
 
 	-- Step 22: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
-	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "",
+	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "一名{npc:2434}隐身潜伏在{area:271}边缘，很少有玩家能找到他。如果发现他，杀死他并阅读他携带的合同：{npc:2276}会收下它。不要专门等他：这一步的其余部分不需要他。",
 	-- {npc:2434} Shadowy Assassin
-	["{npc:2434}, if you spot him"] = "",
+	["{npc:2434}, if you spot him"] = "{npc:2434}，如果你发现他",
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "{npc:2276}：在屋内",
 
@@ -125,7 +125,7 @@ return {
 	["{area:318}: kill these as you meet them"] = "{area:318}：沿途击杀以下目标",
 	-- {area:321} Hammerfall · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
-	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "",
+	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "枯须狗头人在部落城镇{area:321}以东的峡谷里采掘，从城镇北侧绕过去。它们掉落密斯莱尔之尘，不掉克拉兹克要的矿石。次级血石矿脉需要{skill:186} 75：开采四块矿石、在拍卖行购买，或请会采矿的朋友帮忙。矿石目标是可选的；拿不到就继续做密斯莱尔的任务。小心：每种狗头人在低血量时都会逃跑求援（枯须狗头人30%，勘探员和掘地工15%），可能引来更多敌人。",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "从这一站附近的{npc:2572}、{npc:2573}和{npc:2574}身上获取{item:4435}",
 

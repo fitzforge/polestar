@@ -12,7 +12,7 @@ return {
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}：沉船的箱子在{npc:11863}的塔下方，位于前往{area:599}的路上",
 	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "",
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}，在{npc:5752}旁边",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "玛雷姆的箱子",

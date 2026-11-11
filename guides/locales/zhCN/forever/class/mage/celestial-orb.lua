@@ -30,13 +30,13 @@ return {
 
 	-- Step 5: The Exorcism
 	-- {npc:6546} Tabetha · {quest:1955} The Exorcism · {npc:6549} Demon of the Orb
-	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "",
+	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "返回{npc:6546}处。现在先交还宝珠；{quest:1955}要等到38级。先清理小屋周围的小动物，它们也会加入战斗。接取{quest:1955}即开始三分钟倒计时，{npc:6546}会在花园召唤{npc:6549}。它是 40 级精英，对许多法术、定身和减速有较强抗性。建议组队，40 级法师可能需要帮手或药水，约 45 级时可单人完成。可以从码头远程拉怪。击杀后倒计时仍继续，务必立刻交任务。超时则放弃后重新接取，她会再次召唤恶魔。",
 	-- {npc:6549} Demon of the Orb
 	["{npc:6549} (elite, 40)"] = "{npc:6549}（40 级精英）",
 
 	-- Step 6: Power in Uldaman
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {area:1898} Dustwind Gulch · {npc:7023} Obsidian Sentinel · {npc:7209} Obsidian Shard
-	["{area:1517} is a dungeon in the northern {zone:1418}: a group of five, from level 40 here. Go in by the rear entrance, a cave in {area:1898} south-east of the main entrance (elite dragons fly nearby): the {npc:7023} (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an {npc:7209}, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back."] = "",
+	["{area:1517} is a dungeon in the northern {zone:1418}: a group of five, from level 40 here. Go in by the rear entrance, a cave in {area:1898} south-east of the main entrance (elite dragons fly nearby): the {npc:7023} (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an {npc:7209}, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back."] = "{area:1517}是{zone:1418}北部的五人副本，本指南从40级起前往。从主入口东南侧{area:1898}的洞穴后门进入，附近有精英龙飞行。42 级精英{npc:7023}就在第一扇门后。它在 80%、60%、40% 和 20% 生命值时各分裂出一只同为精英的{npc:7209}。碎片存活时，两者都会反射指向性法术，改用范围法术和魔杖。单人技巧：每次碎片出现，都从旁边副本边界走出去；哨兵会回血，但体型会继续缩小。能量源必掉，首领两小时后刷新。",
 
 	-- Step 7: Mana Surges
 	-- {npc:6546} Tabetha · {quest:1957} Mana Surges · {spell:403} Lightning Bolt
@@ -48,13 +48,13 @@ return {
 	-- {quest:2861} Tabetha's Task
 	["{quest:2861} (optional)"] = "{quest:2861}（可选）",
 	-- {npc:6546} Tabetha · {npc:5497} Jennea Cannon · {npc:4568} Anastasia Hartwell · {npc:5885} Deino · {quest:2861} Tabetha's Task · {quest:2846} Tiara of the Deep · {npc:7795} Hydromancer Velratha · {area:978} Zul'Farrak · {zone:1446} Tanaris · {item:9527} Spellshifter Rod · {item:9531} Gemshale Pauldrons
-	["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. The reward window shows the {item:9527} and the {item:9531}."] = "",
+	["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. The reward window shows the {item:9527} and the {item:9531}."] = "40 级时，指引你去{npc:6546}处的法师训练师（{npc:5497}、彬克、{npc:4568}、{npc:5885}）还会提供所有职业都能完成的{quest:2861}。随后{npc:6546}需要从{area:978}的 46 级精英纳迦{npc:7795}身上取得{quest:2846}；那是{zone:1446}西北部的巨魔地下城，需要五人小队，44–54 级。奖励窗口显示{item:9527}和{item:9531}。",
 
 	-- Step 9: Tiara of the Deep in Zul'Farrak
 	-- {quest:2846} Tiara of the Deep · {area:978} Zul'Farrak
-	["{quest:2846} in {area:978}"] = "",
+	["{quest:2846} in {area:978}"] = "{area:978}中的{quest:2846}",
 	-- {area:978} Zul'Farrak · {zone:1446} Tanaris · {npc:7795} Hydromancer Velratha
-	["{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 44. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops."] = "",
+	["{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 44. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops."] = "{area:978}是{zone:1446}西北部的巨魔地下城，需要五人小队；指南会等到44级。{npc:7795}是圣池旁的首领之一，头冠必定掉落。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. She is one of the bosses by the sacred pool, and the tiara always drops. The reward window shows the {item:9527} and the {item:9531}."] = "40 级时，指引你去{npc:6546}处的法师训练师（{npc:5497}、彬克、{npc:4568}、{npc:5885}）还会提供所有职业都能完成的{quest:2861}。随后{npc:6546}需要从{area:978}的 46 级精英纳迦{npc:7795}身上取得{quest:2846}。副本位于{zone:1446}西北部，建议五人、44–54 级。她是圣池旁的首领之一，皇冠必定掉落。奖励窗口显示{item:9527}和{item:9531}。",
