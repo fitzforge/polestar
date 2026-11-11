@@ -10754,3 +10754,29 @@ test('forever/alliance/30-40/05-arathi-highlands.guide: Noboru\'s cudgel and que
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
 	assert.ok(rf.some((e) => e.q === 1392), 'route-fixes deliberate.optional 1392');
 });
+// Discord (Bright and others, 2026-11-09): Hillsbrad & Arathi is labelled 29-32 (29-33 since #1660) but most of its quests are 32-34 ("the
+// group one"). The label is the character level the route plays it at (it chains with Thousand Needles' 32); the
+// guide says up front that its quests run higher on purpose, and how hard its camps hit.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Discord: the guide says why its quests run above its 29-33 label', { skip }, () => {
+	const g = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.deepEqual([g.minLevel, g.maxLevel], [29, 33], 'the label stays the route\'s character levels');
+	assert.match(g.pitch || '', /32-34/, 'the pitch names the quest levels');
+	assert.match(g.pitch || '', /one at a time/);
+});
+
+
+// Route review (0.3.7), label vs quest levels: Un'Goro Crater is labelled 49-50 but works level 51-53
+// quests (the calibrated level model: Lar'korwi, the pylons and the expedition at +3.3 to +4.0), and Stranglethorn's
+// second visit 35-36 works Troll Witchery (40) at 36. The label stays the route's character level; the guide says
+// up front why its quests run higher and how hard the mobs hit (as Horde Hillsbrad & Arathi).
+test('Alliance Un\'Goro and Stranglethorn 35-36: the guide says why its quests run above its label', { skip }, () => {
+	for (const [file, lo, hi, levels] of [
+		['forever/alliance/40-50/07-un-goro-crater.guide', 49, 50, /51-53/],
+		['forever/alliance/30-40/04b-stranglethorn-vale.guide', 35, 36, /37-41/],
+	]) {
+		const g = compiled(file);
+		assert.deepEqual([g.minLevel, g.maxLevel], [lo, hi], `${file}: the label stays the route's character levels`);
+		assert.match(g.pitch || '', levels, `${file}: the pitch names the quest levels`);
+		assert.match(g.pitch || '', /one at a time/);
+	}
+});

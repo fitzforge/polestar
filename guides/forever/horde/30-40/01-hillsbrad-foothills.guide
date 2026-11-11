@@ -5,6 +5,7 @@ faction Horde
 levels 29-33
 zone Hillsbrad Foothills
 next forever/horde/30-40/02-thousand-needles
+pitch For characters of 29 to 33, but most quests here are level 32-34, a few up to 36: on purpose, for their experience. The Syndicate, Dalaran's guards and the Boulderfist ogres are 31-35, so pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
