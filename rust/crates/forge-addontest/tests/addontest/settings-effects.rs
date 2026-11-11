@@ -56,6 +56,15 @@ const GROUPS: &[Group] = &[
 	Group { name: "questing_party", src: include_str!("effects/questing-party.lua") },
 	Group { name: "questing_gear", src: include_str!("effects/questing-gear.lua") },
 	Group { name: "questing_bagmarks", src: include_str!("effects/questing-bagmarks.lua") },
+	Group { name: "guide_window", src: include_str!("effects/guide-window.lua") },
+	Group { name: "guide_hud", src: include_str!("effects/guide-hud.lua") },
+	Group { name: "guide_nav", src: include_str!("effects/guide-nav.lua") },
+	Group { name: "guide_whilehere", src: include_str!("effects/guide-whilehere.lua") },
+	Group { name: "guide_whilehere_turnins", src: include_str!("effects/guide-whilehere-turnins.lua") },
+	Group { name: "guide_automation", src: include_str!("effects/guide-automation.lua") },
+	Group { name: "guide_route", src: include_str!("effects/guide-route.lua") },
+	Group { name: "guide_ends", src: include_str!("effects/guide-ends.lua") },
+	Group { name: "guide_class", src: include_str!("effects/guide-class.lua") },
 ];
 
 // Two reads compared (numbers within 1e-4, tables by their keys) and shown in a message: the runner's, and a login
@@ -484,6 +493,51 @@ fn questing_gear() {
 #[test]
 fn questing_bagmarks() {
 	check("questing_bagmarks");
+}
+
+#[test]
+fn guide_window() {
+	check("guide_window");
+}
+
+#[test]
+fn guide_hud() {
+	check("guide_hud");
+}
+
+#[test]
+fn guide_nav() {
+	check("guide_nav");
+}
+
+#[test]
+fn guide_whilehere() {
+	check("guide_whilehere");
+}
+
+#[test]
+fn guide_whilehere_turnins() {
+	check("guide_whilehere_turnins");
+}
+
+#[test]
+fn guide_automation() {
+	check("guide_automation");
+}
+
+#[test]
+fn guide_route() {
+	check("guide_route");
+}
+
+#[test]
+fn guide_ends() {
+	check("guide_ends");
+}
+
+#[test]
+fn guide_class() {
+	check("guide_class");
 }
 
 // Every control of the settings window has an effect check, and every check is a registered control's. A later
