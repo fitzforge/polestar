@@ -1267,6 +1267,23 @@ function Nav.GetKnownTaxiNodes()
 	return knownNodes()
 end
 
+-- The flight masters on continent c this character may fly from (its
+-- faction's or neutral, its class's) whose flight path it has not learned
+-- (the Engine's "Learn the flight path" lines): their nodes into `out`
+-- (cleared first, reused). -> out
+function Nav.UnknownTaxiOn(c, out)
+	refreshFaction()
+	local known, n = knownNodes(), 0
+	for _, node in ipairs(taxiList) do
+		if node.c == c and not known[node.id] and allowed(node.faction, playerFaction, node.class) then
+			n = n + 1
+			out[n] = node
+		end
+	end
+	for i = n + 1, #out do out[i] = nil end
+	return out
+end
+
 -- Discovered states (Blizzard_APIDocumentationGenerated/TaxiMapDocumentation:
 -- FlightPathState Current 0, Reachable 1, Unreachable 2). The flight map hides
 -- Unreachable nodes unless a route passes through them, and the legacy taxi
