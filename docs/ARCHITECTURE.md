@@ -2000,7 +2000,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   asking, whatever `behavior.lostQuests` says, with the chat line.
 - **Room in the quest log** (`Core/RoutePlan.lua`; nothing is ever
   abandoned for the player). `RoutePlan.Unneeded()` lists the log's quests
-  the selected route never hands in (`GetTurnIn` status `missed`, `skipped`
+  no open route hands in (`GetTurnIn` status `missed`, `skipped`
   or `unplanned`) and the grey ones it doesn't hand in in this chapter
   (status `grey`, which also replaces those three: `Compat.IsQuestTrivial`
   on `Compat.GetQuestLevel`, the client's `GetQuestDifficultyLevel`, at the
@@ -2013,6 +2013,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the route's quest work marks `carriedTo` a later guide (the compiler's,
   GUIDE_FORMAT.md "Quests carried to a later guide") is status `later` at
   that guide even where the plan cannot reach it, never `unplanned`.
+  `GetTurnIn` asks the active tab's route first; a quest it doesn't hand in
+  ahead is status `other` (`via` that route's status) when another open
+  tab's route hands it in (`Engine.TabLiveSteps`: each tab's guide and live
+  step), or when it is a page quest of a dungeon whose pick-up or hand-in
+  guide is open in a tab (`dungeon`: what `Dungeons.HandinPlan` turns in
+  after the run; read only while the dungeon data is loaded). So a
+  dungeon's pick-up guide in the active tab never lists the dungeon's
+  quests or the leveling guide's (#1830). With no route handing it in, a
+  route still to settle makes the list nil; else the status is a passed or
+  skipped hand-in's, the leveling routes' first. The routes are built when
+  asked and kept until a tab, guide, route choice or pack changes.
   `RoutePlan.LogOverflow()` is
   `{ take, free, drop }` when the live step's open accepts outnumber the
   free slots (`Compat.GetLogCap`: the client's `GetMaxNumQuestsCanAccept`,
