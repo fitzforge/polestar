@@ -55,7 +55,10 @@ only when it has a real one's shape (`0.2.5` or `0.2.5-test.1`, a lowercase
 guide file name, a game locale); anything else gets no label.
 
 Screenshots are copied only when their bytes are a PNG, JPEG, WebP or GIF
-image of 5 MiB or less; anything else stays a link to Discord.
+image of 5 MiB or less; anything else stays a link to Discord. An image
+bigger than that (a full-size PNG screenshot often is) is copied as the WebP
+Discord's media proxy makes of it (`.webp`, about a tenth of the size), when
+that fits.
 
 The report is read by its shape, not its words (the addon translates them),
 so a German or French report fills the same table. A post without a report

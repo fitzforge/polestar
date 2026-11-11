@@ -231,13 +231,46 @@ test('only real images up to 5 MiB are copied to the media branch, whatever Disc
 			return {};
 		},
 	};
-	const bodies = { png: Uint8Array.from(PNG), html: Buffer.from('<html>not a picture</html>') };
-	const fetch = async (url) => ({ ok: true, arrayBuffer: async () => bodies[url] });
+	const WEBP = Buffer.from('RIFF\0\0\0\0WEBPVP8 ');
+	const bodies = { png: Uint8Array.from(PNG), html: Buffer.from('<html>not a picture</html>'), 'px/d.png?format=webp': WEBP, 'px/e.png?ex=1&format=webp': WEBP, 'px/f.png?format=webp': Buffer.alloc(5 * 1024 * 1024 + 1) };
+	const fetched = [];
+	const fetch = async (url) => (fetched.push(url), bodies[url] ? { ok: true, arrayBuffer: async () => bodies[url] } : { ok: false });
 	const media = createMedia({ github, branch: 'bug-media', fetch });
 	assert.match(await media.copy('a.png', { url: 'png', size: 10 }, 'm'), /bug-media\/a\.png$/);
 	assert.equal(await media.copy('b.png', { url: 'html', size: 10 }, 'm'), null);
-	assert.equal(await media.copy('c.png', { url: 'png', size: 5 * 1024 * 1024 + 1 }, 'm'), null);
-	assert.deepEqual(puts.map((p) => p.split('/').pop()), ['a.png']);
+	const big = 5 * 1024 * 1024 + 1;
+	assert.equal(await media.copy('c.png', { url: 'png', size: big }, 'm'), null, 'too big, and no media proxy to shrink it');
+	// Too big as sent (a full-size PNG screenshot): Discord's media proxy gives it as WebP, kept under .webp.
+	assert.match(await media.copy('d.png', { url: 'png', proxy_url: 'px/d.png', content_type: 'image/png', size: big }, 'm'), /bug-media\/d\.webp$/);
+	assert.match(await media.copy('e.png', { url: 'png', proxy_url: 'px/e.png?ex=1', content_type: 'image/png', size: big }, 'm'), /bug-media\/e\.webp$/);
+	assert.equal(await media.copy('f.png', { url: 'png', proxy_url: 'px/f.png', content_type: 'image/png', size: big }, 'm'), null, 'still too big as WebP');
+	assert.equal(await media.copy('g.zip', { url: 'png', proxy_url: 'px/g.zip', content_type: 'application/zip', size: big }, 'm'), null, 'not an image');
+	assert.deepEqual(puts.map((p) => p.split('/').pop()), ['a.png', 'd.webp', 'e.webp']);
+	assert.deepEqual(fetched, ['png', 'html', 'px/d.png?format=webp', 'px/e.png?ex=1&format=webp', 'px/f.png?format=webp'], 'nothing fetched for what cannot be copied');
+});
+
+test("the reporter's full-size screenshot in a follow-up is mirrored and embedded in its comment", async () => {
+	const puts = [];
+	const mediaGitHub = {
+		repo: 'fitzforge/polestar',
+		async request(method, p) {
+			if (method === 'GET' && p.includes('/contents/')) throw Object.assign(new Error('404'), { status: 404 });
+			if (method === 'PUT') puts.push(p);
+			return {};
+		},
+	};
+	const fetch = async (url) => ({ ok: url.endsWith('format=webp'), arrayBuffer: async () => Buffer.from('RIFF\0\0\0\0WEBPVP8 ') });
+	const discord = fakeDiscord();
+	const github = fakeGitHub();
+	const sync = createSync({ discord, github, media: createMedia({ github: mediaGitHub, branch: 'bug-media', fetch }), config: { forumId: FORUM, botId: BOT }, log: quietLog, sleep: async () => {}, now: () => 0 });
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	const shot = { id: 'a9', filename: 'image.png', content_type: 'image/png', size: 7838236, url: 'https://cdn.discordapp.com/x/image.png', proxy_url: 'https://media.discordapp.net/x/image.png' };
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u1', content: '', attachments: [shot] }));
+	const body = github.commentsByIssue.get(1)[0].body;
+	assert.match(body, /!\[image\.png\]\(https:\/\/raw\.githubusercontent\.com\/fitzforge\/polestar\/bug-media\/discord\/1001\/a9-image\.webp\)/);
+	assert.doesNotMatch(body, /\(on Discord\)/);
+	assert.equal(puts.length, 1);
 });
 
 test("only the thread owner's screenshots are copied; reports and follow-ups are capped per user an hour", async () => {

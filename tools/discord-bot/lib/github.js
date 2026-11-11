@@ -230,17 +230,25 @@ function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fe
 	}
 
 	// Copies a Discord attachment and returns its permanent URL, or null when
-	// it is too big, not an image or cannot be fetched (the caller links
-	// Discord instead).
+	// it is not an image, cannot be fetched or is too big (the caller links
+	// Discord instead). An image over maxBytes (a full-size PNG screenshot
+	// often is) is taken as WebP from Discord's media proxy, under a .webp
+	// name: a 7.8 MB 2560x1440 PNG comes back as about 0.9 MB.
 	function copy(path, attachment, message) {
 		const job = queue.then(async () => {
-			if (!(attachment.size <= maxBytes)) return null;
-			const res = await fetchImpl(attachment.url);
+			let url = attachment.url;
+			let at = path;
+			if (!(attachment.size <= maxBytes)) {
+				if (!attachment.proxy_url || !/^image\//.test(attachment.content_type || '')) return null;
+				url = attachment.proxy_url + (attachment.proxy_url.includes('?') ? '&' : '?') + 'format=webp';
+				at = path.replace(/(\.[^./]*)?$/, '.webp');
+			}
+			const res = await fetchImpl(url);
 			if (!res.ok) return null;
 			const bytes = new Uint8Array(await res.arrayBuffer());
 			if (bytes.length > maxBytes || !imageType(bytes)) return null;
-			await put(path, bytes, message);
-			return rawUrl(path);
+			await put(at, bytes, message);
+			return rawUrl(at);
 		});
 		queue = job.catch(() => {});
 		return job;

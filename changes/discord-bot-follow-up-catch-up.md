@@ -6,4 +6,5 @@ section: contributors
   messages sent while the bot was away or that GitHub failed to take are
   caught up, edits to a follow-up rewrite its comment, and a post its player
   tagged In progress is filed instead of skipped. Pins and renames are no
-  longer copied as comments.
+  longer copied as comments. Screenshots over 5 MiB (full-size PNGs) are now
+  copied to GitHub as WebP instead of left as a Discord link.
