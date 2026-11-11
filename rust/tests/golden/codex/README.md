@@ -32,3 +32,5 @@ Since the JS command was retired, the generated files' first line names `forge d
 When ForeverLevelingBiS left the Codex (2026-11), expected/ was rewritten by the Rust build (`FORGE_GOLDEN_BLESS=1 cargo test -p forge-data --test data codex::`): its synthetic item sources, their items and the source's notice went; nothing else changed. The Rust build is the reference now (the JS generators above predate the change), so later changes are blessed the same way and reviewed in the diff.
 
 Spawn heights (#1024, blessed the same way): NPC and object places in `codex/npcs.json` and `objects.json` gained `z` from the world slice's spawnz.json, the pack records (Npcs, Objects, Rares, Treasures) their trailing `z` field, and `meta.json`'s pack bytes grew with them; nothing else changed.
+
+Dungeon marks (0.3.8): `Polestar_Codex/Dungeons1.lua` gained its `D.Register("marks", …)` line (the slice's three page quests and the nearest prerequisites of each, per side: `journal.rs` `marks_of`), and `meta.json`'s pack bytes grew by its 371 bytes; nothing else changed.

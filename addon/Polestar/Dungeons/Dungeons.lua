@@ -54,7 +54,8 @@
 --   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop[, warning[, what]]]) -> ok   (a trip, Nav.StartTrip)
 --   Dungeons.ShowOnMap(key) -> ok   -- the world map on the entrance's zone
 --   Dungeons.Find(text) -> key | nil   -- by name (the client's language or English) or key
---   Dungeons.Register(group, a, b)  -- pack files only
+--   Dungeons.Register(group, a, b)  -- pack files only ("meta", "dungeon", and "marks": the dungeon marks
+--       per side, Dungeons/Mark.lua)
 --   Dungeons.Attunements(key, faction) -> { attunement, ... }   -- faction "A" | "H" | nil (all)
 --       attunement = { id, name, kind = "attunement"|"key"|"item", need = "each"|"one", faction,
 --         item = { id, name, quality }, note, level, any, goal = { questIds }, steps = { step, ... },
@@ -107,6 +108,10 @@ function Dungeons.Register(group, a, b)
 		if type(a) == "table" then for k, v in pairs(a) do summaries[k] = v end end
 		if type(b) == "table" then for k, v in pairs(b) do sources[k] = v end end
 		openKey, openPage, bestAt = nil, nil, {}
+	elseif group == "marks" then
+		-- The dungeon marks per side, as the Codex build wrote them (Dungeons/Mark.lua reads them).
+		if type(a) == "table" then Dungeons.marks = a end
+		if Dungeons.MarksChanged then Dungeons.MarksChanged() end
 	end
 end
 

@@ -684,10 +684,55 @@ const HEADER = [
 	'',
 ];
 
+// The dungeon marks (Polestar/Dungeons/Mark.lua), per side: every page quest of
+// the side, and the MARK_NEAREST last quests of its chain (those the side may
+// take), as "id:key" (a dungeon's own quest) or "id:key:quest" (needed for
+// that page quest), ";"-separated. A dungeon's own quest keeps its mark over
+// a prerequisite's; a prerequisite of several keeps the first dungeon's,
+// lowest minLevel first (then name, key); page quests in page order. The
+// Rust build's marks_of (forge-data codex/journal.rs) is the same.
+const MARK_NEAREST = 3;
+function marksOf(dungeons) {
+	const lv = (p) => (typeof p.minLevel === 'number' ? p.minLevel : 99);
+	const keys = Object.keys(dungeons || {}).sort((a, b) => {
+		const pa = dungeons[a], pb = dungeons[b];
+		return lv(pa) - lv(pb) || (String(pa.name) < String(pb.name) ? -1 : String(pa.name) > String(pb.name) ? 1 : 0) || (a < b ? -1 : a > b ? 1 : 0);
+	});
+	const side = (sd) => {
+		const takes = (f) => !f || f === sd;
+		const out = [];
+		const seen = new Set();
+		for (const k of keys) {
+			for (const q of dungeons[k].quests || []) {
+				if (takes(q.faction) && !seen.has(q.id)) {
+					seen.add(q.id);
+					out.push(`${q.id}:${k}`);
+				}
+			}
+		}
+		for (const k of keys) {
+			const p = dungeons[k];
+			for (const q of p.quests || []) {
+				if (!takes(q.faction)) continue;
+				const chain = (q.chain || []).filter((c) => takes(((p.chain || {})[c] || {}).faction));
+				for (const c of chain.slice(-MARK_NEAREST).reverse()) {
+					if (seen.has(c)) continue;
+					seen.add(c);
+					out.push(`${c}:${k}:${q.id}`);
+				}
+			}
+		}
+		return out.join(';');
+	};
+	return { A: side('A'), H: side('H') };
+}
+
 function emitJournal(journal) {
 	const lines = [...HEADER];
 	const meta = journal.meta || { schema: SCHEMA, counts: {} };
 	lines.push(`D.Register("meta", ${lua(meta)})`, '');
+	const marks = marksOf(journal.dungeons);
+	lines.push(`D.Register("marks", { A = ${luaStr(marks.A)}, H = ${luaStr(marks.H)} })`, '');
 	const keys = Object.keys(journal.dungeons || {}).sort();
 	lines.push('D.Register("dungeon", {');
 	for (const k of keys) lines.push(`${luaKey(k)}=${lua(summaryOf(journal.dungeons[k]))},`);
@@ -701,4 +746,4 @@ function emitJournal(journal) {
 	return [{ name: 'Dungeons1.lua', text: lines.join('\n') }];
 }
 
-module.exports = { instanceMapsOf, zonePoint, chainOf, objectivesOf, buildJournal, emitJournal, loadJournalQuests, SCHEMA };
+module.exports = { instanceMapsOf, zonePoint, chainOf, objectivesOf, buildJournal, emitJournal, marksOf, loadJournalQuests, SCHEMA };

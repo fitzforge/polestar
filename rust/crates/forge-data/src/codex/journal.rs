@@ -1229,6 +1229,59 @@ fn summary_of(p: &V) -> V {
 	V::Obj(o)
 }
 
+/// The prerequisites before a dungeon's quest that carry its dungeon mark: the nearest this many in its chain.
+pub const MARK_NEAREST: usize = 3;
+
+/// The dungeon marks (Polestar/Dungeons/Mark.lua), per side ("A", "H"): every page quest of the side, and the
+/// MARK_NEAREST last quests of its chain (those the side may take), as `id:key` (a dungeon's own quest) or
+/// `id:key:quest` (needed for that page quest), `;`-separated. A dungeon's own quest keeps its mark over a
+/// prerequisite's; a prerequisite of several keeps the first dungeon's, lowest `minLevel` first (then name, key:
+/// the Dungeons list's order); page quests in page order.
+pub fn marks_of(dungeons: &V) -> (String, String) {
+	let mut keys: Vec<String> = dungeons.keys().iter().map(|k| k.to_string()).collect();
+	keys.sort_by(|a, b| {
+		let (pa, pb) = (dungeons.get(a), dungeons.get(b));
+		let lv = |p: &V| if p.get("minLevel").is_num() { p.get("minLevel").num() } else { 99.0 };
+		lv(&pa)
+			.partial_cmp(&lv(&pb))
+			.unwrap_or(std::cmp::Ordering::Equal)
+			.then_with(|| forge_guide::js::cmp_utf16(&pa.get("name").to_js_string(), &pb.get("name").to_js_string()))
+			.then_with(|| forge_guide::js::cmp_utf16(a, b))
+	});
+	let side_of = |sd: &str| {
+		let takes = |f: &V| !f.truthy() || f.as_str() == Some(sd);
+		let mut out: Vec<String> = Vec::new();
+		let mut seen: FxHashSet<String> = FxHashSet::default();
+		for k in &keys {
+			for q in dungeons.get(k).get("quests").items() {
+				let id = kstr(&q.get("id"));
+				if takes(&q.get("faction")) && seen.insert(id.clone()) {
+					out.push(format!("{id}:{k}"));
+				}
+			}
+		}
+		for k in &keys {
+			let p = dungeons.get(k);
+			let chain_recs = p.get("chain");
+			for q in p.get("quests").items() {
+				if !takes(&q.get("faction")) {
+					continue;
+				}
+				let qid = kstr(&q.get("id"));
+				let chain: Vec<V> = q.get("chain").items().into_iter().filter(|c| takes(&chain_recs.get(&kstr(c)).get("faction"))).collect();
+				for c in chain.iter().rev().take(MARK_NEAREST) {
+					let id = kstr(c);
+					if seen.insert(id.clone()) {
+						out.push(format!("{id}:{k}:{qid}"));
+					}
+				}
+			}
+		}
+		out.join(";")
+	};
+	(side_of("A"), side_of("H"))
+}
+
 /// `emitJournal(journal)` -> Dungeons1.lua.
 pub fn emit_journal(journal: &V) -> String {
 	let mut lines: Vec<String> = vec![
@@ -1243,6 +1296,9 @@ pub fn emit_journal(journal: &V) -> String {
 	lines.push(format!("D.Register(\"meta\", {})", lua_s(&journal.get("meta"))));
 	lines.push(String::new());
 	let dungeons = journal.get("dungeons");
+	let (a, h) = marks_of(&dungeons);
+	lines.push(format!("D.Register(\"marks\", {{ A = {}, H = {} }})", lua_str(&a), lua_str(&h)));
+	lines.push(String::new());
 	let mut keys: Vec<String> = dungeons.keys().iter().map(|k| k.to_string()).collect();
 	keys.sort_by(|a, b| forge_guide::js::cmp_utf16(a, b));
 	lines.push("D.Register(\"dungeon\", {".into());
@@ -1261,4 +1317,33 @@ pub fn emit_journal(journal: &V) -> String {
 	lines.push("})".into());
 	lines.push(String::new());
 	lines.join("\n")
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	// Fitz, 0.3.8: a dungeon's quests and the three nearest prerequisites before each carry its mark, decided at
+	// build time. A five-quest chain marks its last three; a quest of the dungeon keeps its own mark; a
+	// prerequisite of two dungeons keeps the lower one's; a side's mark leaves out the other side's quests.
+	#[test]
+	fn the_marks_are_a_dungeon_s_quests_and_the_nearest_three_prerequisites_per_side() {
+		let dungeons = parse_json(
+			r#"{
+			"high": { "name": "High Halls", "minLevel": 30, "chain": { "5": { "faction": null } },
+				"quests": [ { "id": 20, "faction": null, "chain": [5] } ] },
+			"low": { "name": "Low Deeps", "minLevel": 15, "chain": {
+					"1": { "faction": null }, "2": { "faction": null }, "3": { "faction": null }, "4": { "faction": "A" }, "5": { "faction": null }, "11": { "faction": null } },
+				"quests": [
+					{ "id": 10, "faction": null, "chain": [1, 2, 3, 4, 5] },
+					{ "id": 11, "faction": "H", "chain": [] },
+					{ "id": 12, "faction": "H", "chain": [11] } ] }
+		}"#,
+		)
+		.unwrap();
+		let (a, h) = marks_of(&dungeons);
+		assert_eq!(a, "10:low;20:high;5:low:10;4:low:10;3:low:10");
+		// Horde: 4 is the Alliance's, so 2 comes in; 11 is a quest of the dungeon itself, not 12's prerequisite.
+		assert_eq!(h, "10:low;11:low;12:low;20:high;5:low:10;3:low:10;2:low:10");
+	}
 }
