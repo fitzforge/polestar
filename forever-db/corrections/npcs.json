@@ -1861,5 +1861,77 @@
 			}
 		],
 		"note": "Rexxie Copperclutch stands inside the City of Dalaran (instance map 2959, Forever's), so the dungeon's page places the quests there."
+	},
+	"255993": {
+		"set": {
+			"roles": [
+				"flightmaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 23 flight-map windows at this NPC on node 3203, 12 people (builds 70862, 70888)"
+			},
+			{
+				"kind": "client",
+				"ref": "TaxiNodes 3203 \"Rog'mar, Riverglades\" (1.60.1.70532, 1.60.1.70888), 3 yd from this NPC's spawn"
+			}
+		],
+		"note": "The Horde flight master at Rog'mar, Riverglades: the flight path builder needs the role to match node 3203 to its flight master."
+	},
+	"257087": {
+		"set": {
+			"roles": [
+				"flightmaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 15 flight-map windows at this NPC on node 3276, 10 people (builds 70862, 70888)"
+			},
+			{
+				"kind": "client",
+				"ref": "TaxiNodes 3276 \"Farholde Keep, Riverglades\" (1.60.1.70532, 1.60.1.70888), 3 yd from this NPC's spawn"
+			}
+		],
+		"note": "The Alliance flight master at Farholde Keep, Riverglades: the flight path builder needs the role to match node 3276 to its flight master."
+	},
+	"41861": {
+		"set": {
+			"roles": [
+				"flightmaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "client",
+				"ref": "TaxiNodes 559 \"Summit of Eternity, Mount Hyjal\" (1.60.1.70532, 1.60.1.70888), 8 yd from this NPC's spawn"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 41861: subname Flight Master, one spawn at Mount Hyjal 68.84,43.99"
+			}
+		],
+		"note": "The flight master at the Summit of Eternity, Mount Hyjal: the flight path builder needs the role to match node 559 to its flight master. No recorded flights there yet."
+	},
+	"260626": {
+		"set": {
+			"roles": [
+				"flightmaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "client",
+				"ref": "TaxiNodes 3242 \"Tainted Foothills, Mount Hyjal\" (1.60.1.70532, 1.60.1.70888), 6 yd from this NPC's spawn"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 260626: subname Flight Mistress, spawns at Mount Hyjal 54.57,83.19 and 55.05,82.81"
+			}
+		],
+		"note": "The flight mistress at the Tainted Foothills, Mount Hyjal: the flight path builder needs the role to match node 3242 to its flight master. No recorded flights there yet."
 	}
 }
