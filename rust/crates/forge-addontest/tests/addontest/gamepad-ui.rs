@@ -133,7 +133,7 @@ const REACHES: &[&str] = &[
 
 // file -> lines that reach, why it is safe with the gamepad interface
 const ALLOWED: &[(&str, usize, &str)] = &[
-	("Polestar/Core/Init.lua", 9, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar and /rl registrations, none with the gamepad interface"),
+	("Polestar/Core/Init.lua", 10, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar (/polestar, /pole, /ps) and /rl registrations, none with the gamepad interface"),
 	("Polestar/Core/Compat.lua", 4, "Compat.OpenWorldMap opens nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
 	("Polestar/Nav/Journey.lua", 6, "the map's canvas click handler and /way, neither with the gamepad interface; wayTaken only reads"),

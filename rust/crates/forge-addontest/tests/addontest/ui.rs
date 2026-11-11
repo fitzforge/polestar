@@ -1409,7 +1409,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!(["Quick settings", "Choose guide", "Open in new tab", "Skip this step", "Report a problem", "Compact mode", "Transparent", "Lock window", "Reset guide progress", "Options", "Hide window"])
+		json!(["Choose guide", "Open in new tab", "Skip this step", "Report a problem", "Compact mode", "Transparent", "Lock window", "Reset guide progress", "Quick settings", "Options", "Hide window"])
 	);
 	assert_eq!(out["locked"], true);
 	assert_eq!(out["style"], "transparent");
@@ -1417,7 +1417,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	assert_eq!(out["reset"], json!(["ResetProgress"]));
 	assert_eq!(out["picker"], true);
 	assert_eq!(out["options"], true);
-	assert_eq!(out["pickerAfter"], false, "one dialog at a time");
+	assert_eq!(out["pickerAfter"], true, "the settings window is a window of its own: the guide menu stays");
 }
 
 #[test]
@@ -1443,7 +1443,7 @@ fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_
 		Polestar.RoutePlan.Unneeded = function() return nil end
 		emit({ two = two, before = before, opened = opened, none = none, unsettled = items() })"#)
 	.remove(0);
-	assert_eq!(out["two"][5], "Clean up quest log (2)", "right after Report a problem");
+	assert_eq!(out["two"][4], "Clean up quest log (2)", "right after Report a problem");
 	assert_eq!(out["before"], false);
 	assert_eq!(out["opened"], true, "the entry opens the cleanup window");
 	for key in ["none", "unsettled"] {

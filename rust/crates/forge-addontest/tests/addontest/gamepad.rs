@@ -110,6 +110,8 @@ fn focus_mode_on_the_quest_item_s_line_a_is_the_item_button_s_own_secure_click_y
 fn combat_the_gamepad_goes_back_to_the_game_before_the_lockdown_nothing_is_set_in_a_fight_and_focus_mode_cannot_start_in_one() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
+		-- The settings window's addon loads nowhere near a fight (UI/OptionsLoader.lua): here it was opened before.
+		UI.LoadOptions()
 		G.StartFocus()
 		stub.fire("PLAYER_REGEN_DISABLED")
 		stub.inCombat = true
