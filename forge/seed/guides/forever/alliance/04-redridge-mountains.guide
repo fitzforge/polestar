@@ -181,7 +181,7 @@ step Duskwood
 
 step Darkshire
   tip Follow the road south from Three Corners into Duskwood; Darkshire lies on the east side of the forest.
-  tip No Bronze Tube for Look to the Stars? Herble Baubbletump sells it in the house beside Viktori, in limited stock; Neal Allen in Menethil Harbor sells it too.
+  tip No Bronze Tube for Look to the Stars? Herble Baubbletump, in the house beside Viktori, is nearly always sold out. Without one, right-click the quest in the guide window and skip it.
   getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
   accept 101                              -- Madame Eva, in her house by the tavern; inside
   accept 66                               -- Madame Eva, inside
@@ -192,8 +192,6 @@ step Darkshire
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
   accept 163                              -- Elaine Carevin: Jitters, at Raven Hill
-  tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
-  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
   accept 174                              -- Viktori Prism'Antras, inside
   turnin 174
   accept 175                              -- For Blind Mary, on the hill south-east of town

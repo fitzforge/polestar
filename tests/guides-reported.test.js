@@ -2533,16 +2533,20 @@ test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relic
 // --- Darkshire (Yendi, 0.2.3): part 1 of Look to the Stars needs a Bronze Tube.
 
 
-test(`${REDRIDGE}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step`, { skip }, () => {
-	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07); that
-	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-07).
-	const list = goals(REDRIDGE);
-	const give = at(list, 'turnin 174 (Look to the Stars)', is('turnin', 174));
-	const buy = at(list, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
-	assert.ok(buy < give && list[buy].s === list[give].s, 'bought on the same stop, before the turn-in');
-	assert.equal(list[buy].goal.npc, 3133, 'from Herble Baubbletump, beside Viktori');
-	// A player who has the tube, or who already handed it in, is not held by it.
-	assert.equal(list[buy].goal.optional, true, 'the buy is optional');
+// nikilok (#1792): the Darkshire buy sent players to Herble Baubbletump, who never had a tube in players' recordings (44
+// merchant windows of 28 people). Darkshire has no buy now; the tube comes from the Stormwind Auction House (below) or,
+// on the way, from Gearcutter Cogspinner in Tinker Town, on 06-ashenvale's Ironforge stop beside Lomac Gearstrip.
+test(`${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional`, { skip }, () => {
+	const red = goals(REDRIDGE);
+	assert.ok(!red.some(({ goal }) => goal.t === 'buy' && goal.item === 4371), 'no buy in 04-redridge-mountains');
+	const take = at(red, 'accept 174 (Look to the Stars)', is('accept', 174));
+	const darkshire = red[take].step;
+	assert.match(darkshire.note || '', /Without one, right-click the quest in the guide window and skip it/, 'the Darkshire step says to skip the quest without a tube');
+	const ash = goals('forever/alliance/06-ashenvale.guide');
+	const buy = at(ash, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
+	assert.equal(ash[buy].goal.npc, 5175, 'from Gearcutter Cogspinner');
+	assert.equal(ash[buy].goal.optional, true, 'optional: often sold out, and a player with a tube is not held');
+	assert.equal(ash[buy].s, ash[at(ash, 'turnin 1072 (Lomac Gearstrip)', is('turnin', 1072))].s, 'on the Tinker Town stop with Lomac Gearstrip');
 });
 
 // uNBEx and Bennistrov (#1348): Herble keeps one Bronze Tube and is nearly always sold out (no tube in 30
@@ -2617,7 +2621,7 @@ test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube come
 			seen++;
 			if (goal.t === 'buy') assert.equal(goal.optional, true, `${guide}: buy 4371 is optional`);
 			else if (!goal.optional) assert.ok(atAuctionHouse(goal), `${guide}: a required Bronze Tube is collected at the Auction House`);
-			assert.notEqual(goal.npc, 5519, `${guide}: not Billibub Cogspinner, sold out in every recorded window`);
+			assert.ok(![5519, 3133].includes(goal.npc), `${guide}: not Billibub Cogspinner or Herble Baubbletump, sold out in every recorded window (#1348, #1792)`);
 		}
 	}
 	assert.ok(seen >= 4, `the Bronze Tube goals were found (${seen})`);
