@@ -109,3 +109,36 @@ fn a_faction_part_the_build_no_longer_has_is_removed_another_folder_of_that_name
 	std::fs::write(addons.join("Polestar_Guides_Horde/mine.lua"), "-- someone else").unwrap();
 	assert_match(&write(&guides()).unwrap_err(), "not a generated faction part");
 }
+
+#[test]
+fn a_community_pack_that_asks_loads_on_demand_faction_parts_and_steps_read_when_opened() {
+	let mut m = json!({ "id": "joe-routes", "title": "Joe's Routes", "author": "Joe", "version": "1.0.0", "license": "CC-BY-4.0", "folder": "PolestarPack_JoesRoutes" });
+	m["load"] = json!("on-demand");
+	let files = pack_files(&guides(), &v(&m), &fixture_data());
+	let main = &files["Guides.lua"];
+	assert_match(main, r#"id = "forever/class/any""#);
+	assert_no_match(main, "forever/alliance/elwynn|forever/horde/durotar");
+	let horde = &files["../PolestarPack_JoesRoutes_Horde/Guides.lua"];
+	assert_match(horde, r#"id = "forever/horde/durotar""#);
+	assert_match(&files["../PolestarPack_JoesRoutes_Alliance/Guides.lua"], r#"id = "forever/alliance/elwynn""#);
+	assert_match(
+		&files["../PolestarPack_JoesRoutes_Horde/PolestarPack_JoesRoutes_Horde.toc"],
+		r"## LoadOnDemand: 1\n## Dependencies: Polestar, PolestarPack_JoesRoutes\n## X-Polestar-Part: joe-routes\n## X-Polestar-Faction: Horde\n",
+	);
+	// Every guide's steps are source, read when the guide is opened; spots are packed (format 8).
+	for text in [main, horde] {
+		assert_match(text, r#"stepCount = 1,\n\t\t\tstepsSrc = "#);
+		assert_no_match(text, r"\n\t\t\tsteps = \{");
+		assert_match(text, "spotsPacked = ");
+	}
+	assert_match(&files["PolestarPack_JoesRoutes.toc"], r"## X-Polestar-Format: 8\n");
+}
+
+#[test]
+fn load_takes_only_on_demand() {
+	let d = forge_guide::manifest::validate_manifest(&v(&json!({ "id": "joe-routes", "title": "T", "author": "Joe", "version": "1", "license": "MIT", "load": "lazy" })), "pack.json", false, None);
+	assert!(d.iter().any(|d| d.severity == "error" && d.message.contains("load \"lazy\"")), "{:?}", d.iter().map(|d| &d.message).collect::<Vec<_>>());
+	let d =
+		forge_guide::manifest::validate_manifest(&v(&json!({ "id": "joe-routes", "title": "T", "author": "Joe", "version": "1", "license": "MIT", "load": "on-demand" })), "pack.json", false, None);
+	assert!(d.is_empty(), "{:?}", d.iter().map(|d| &d.message).collect::<Vec<_>>());
+}

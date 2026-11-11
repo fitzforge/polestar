@@ -218,6 +218,55 @@ emit({{ guide = Polestar.Guides.Get("forever/alliance/t-legs") ~= nil, leg = leg
 	assert_eq!(out[0], serde_json::json!({ "guide": true, "leg": "CgA", "alliance": 1, "human": 1 }));
 }
 
+// A community pack that asks to load on demand (pack.json `load`: "on-demand"): its faction parts load as
+// ours do, the player's faction's at login and the other's when asked for, and a guide's steps are source
+// until the guide is read.
+#[test]
+fn a_community_pack_loading_on_demand_brings_the_player_s_faction_and_reads_steps_when_asked() {
+	let guide = |id: &str, faction: &str, zone: &str| {
+		forge_addontest::dsl::guide_text(&[&format!("guide joe-routes/{id}"), "title Start", &format!("faction {faction}"), "levels 1-10", &format!("zone {zone}"), "", "step S", "  level 2"])
+	};
+	let (a, h) = (guide("elwynn", "Alliance", "Elwynn Forest"), guide("durotar", "Horde", "Durotar"));
+	let r = forge_addontest::dsl::compile_with(&[("guides/elwynn.guide", &a), ("guides/durotar.guide", &h)], &forge_addontest::dsl::fixture_data(), Some("joe-routes"));
+	assert_eq!(r.errors, Vec::<String>::new());
+	let manifest = forge_guide::js::parse_json(
+		r#"{ "id": "joe-routes", "title": "Joe's Routes", "author": "Joe", "version": "1.0.0", "license": "CC-BY-4.0", "folder": "PolestarPack_JoesRoutes", "load": "on-demand" }"#,
+	)
+	.unwrap();
+	let pack = forge_addontest::dsl::write_test_pack(&r.guides, &forge_addontest::dsl::fixture_data(), &manifest);
+	let lua_list = |files: Vec<PathBuf>| files.iter().map(|f| lua_string(&f.to_string_lossy())).collect::<Vec<_>>().join(", ");
+	let entries = |dir: PathBuf| lua_list(forge_addontest::run::toc_entries(&dir).unwrap_or_else(|e| panic!("{e}")).iter().map(|f| dir.join(f)).collect());
+	let parent = pack.dir.parent().unwrap().to_path_buf();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_packs.lua"],
+		before: format!(
+			"stub.packs.PolestarPack_JoesRoutes_Alliance = {{ {} }}\nstub.packs.PolestarPack_JoesRoutes_Horde = {{ {} }}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Horde\", \"Orc\", \"Orc\"",
+			entries(parent.join("PolestarPack_JoesRoutes_Alliance")),
+			entries(parent.join("PolestarPack_JoesRoutes_Horde"))
+		),
+		addons: vec![Addon::name("Polestar")],
+		script: format!(
+			r#"
+local ns = {{}}
+for _, f in ipairs({{ {} }}) do assert(loadfile(f))("PolestarPack_JoesRoutes", ns) end
+stub.addonLoaded("PolestarPack_JoesRoutes")
+stub.login()
+local G = Polestar.Guides
+local def = G.Get("joe-routes/durotar")
+local deferred = def ~= nil and rawget(def, "steps") == nil and type(rawget(def, "stepsSrc")) == "string"
+local steps = def and G.Steps(def)
+local before = G.Get("joe-routes/elwynn") ~= nil
+local came = G.LoadFaction("Alliance")
+emit({{ horde = def ~= nil, deferred = deferred, steps = steps and #steps or 0, goal = steps and steps[1].goals[1].t or false,
+	allianceAtLogin = before, came = came, alliance = G.Get("joe-routes/elwynn") ~= nil,
+	loads = {{ stub.packLoads.PolestarPack_JoesRoutes_Horde or 0, stub.packLoads.PolestarPack_JoesRoutes_Alliance or 0 }} }})"#,
+			entries(pack.dir.clone())
+		),
+		..Default::default()
+	});
+	assert_eq!(out[0], serde_json::json!({ "horde": true, "deferred": true, "steps": 1, "goal": "level", "allianceAtLogin": false, "came": true, "alliance": true, "loads": [1, 1] }));
+}
+
 // A goal's packed spots (format 8) are checked at registration without being built, read back on the goal's
 // first read of `spots` as the tables the compiler had, and kept on the goal (the Engine keys its pick and
 // visits by spot). A string that is not packed spots, or one beside `spots`, refuses the guide.

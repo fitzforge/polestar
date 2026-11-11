@@ -11,7 +11,9 @@ use crate::format::{is_folder, is_pack_id, RESERVED_IDS};
 use crate::js::{json_quote, V};
 
 const REQUIRED: [&str; 5] = ["id", "title", "author", "version", "license"];
-const KEYS: [&str; 9] = ["id", "title", "author", "version", "license", "website", "source", "notes", "folder"];
+const KEYS: [&str; 10] = ["id", "title", "author", "version", "license", "website", "source", "notes", "folder", "load"];
+/// `load`'s one value: the pack is written to load on demand (project.rs build_pack_files).
+pub const LOAD_ON_DEMAND: &str = "on-demand";
 
 fn max_length(key: &str) -> Option<usize> {
 	Some(match key {
@@ -40,6 +42,7 @@ fn example_value(key: &str) -> &'static str {
 		"source" => "https://github.com/joe/joe-routes",
 		"notes" => "Leveling routes for Elwynn Forest and Westfall",
 		"folder" => "PolestarPack_JoesRoutes",
+		"load" => LOAD_ON_DEMAND,
 		_ => unreachable!(),
 	}
 }
@@ -144,6 +147,16 @@ pub fn validate_manifest(obj: &V, file: &str, official: bool, text: Option<&str>
 			"website" => {
 				if !(v.starts_with("https://") || v.starts_with("http://")) {
 					add("error", Some(key), format!("website \"{v}\" must start with https:// or http://"), "write the full address, like \"https://github.com/you/your-pack\"".into());
+				}
+			}
+			"load" => {
+				if v != LOAD_ON_DEMAND {
+					add(
+						"error",
+						Some(key),
+						format!("load \"{v}\" is not a way to load a pack"),
+						format!("write \"load\": \"{LOAD_ON_DEMAND}\" for a large pack (each faction's guides in a part of its own, steps read when a guide is opened), or leave `load` out"),
+					);
 				}
 			}
 			"folder" => {
