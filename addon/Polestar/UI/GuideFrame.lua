@@ -2279,13 +2279,17 @@ local function capHeight()
 	local margin = 24 -- ui.heightMode "auto": room left to the screen's edge, in the window's units
 	local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
 	local scale = max(0.01, F:GetEffectiveScale())
-	local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
-	if ns.Get("ui.heightMode") == "auto" then
+	-- While the grip is dragged, its height (GF.dragShare): ui.maxHeight is written once, on release.
+	local share = GF.dragShare or tonumber(ns.Get("ui.maxHeight")) or 0.5
+	local mode = ns.Get("ui.heightMode")
+	if mode == "auto" or mode == "fixed" then
 		-- Automatic: all the room from the pinned edge to the screen's edge, less
 		-- a margin; never under the slider's lowest (30%) nor over the screen.
+		-- Fixed: its height, but never past that same room (off the screen's bottom).
 		local room = ns.Get("ui.growUp") and roomAbove() or F:GetTop()
 		if type(room) == "number" then
-			return min(screen / scale, max(room - margin, screen * 0.3 / scale))
+			local fits = min(screen / scale, max(room - margin, screen * 0.3 / scale))
+			return mode == "auto" and fits or min(fits, screen * share / scale)
 		end
 	end
 	return screen * share / scale
@@ -4259,7 +4263,9 @@ function GF.ShowLimit(on)
 	end
 	limitLine:SetShown(on)
 	if not on then return end
-	local cap = capHeight()
+	-- What the window can reach: with the class quest card up, the cap less the card's room (as GF.Layout).
+	local toast = UI.ClassToast
+	local cap = capHeight() - (toast and toast.Reserved and toast.Reserved() or 0)
 	limitLine:ClearAllPoints()
 	local up = ns.Get("ui.growUp")
 	limitLine:SetPoint(up and "BOTTOMLEFT" or "TOPLEFT", F, up and "BOTTOMLEFT" or "TOPLEFT", 0, up and cap or -cap)
@@ -4268,15 +4274,22 @@ function GF.ShowLimit(on)
 end
 
 local function resizeUpdate(self)
-	-- Vertical: the height limit follows the mouse by how far it moved, down
-	-- with the top edge pinned, up with Grow upward (the bottom edge pinned).
-	-- It turns Automatic off, once the mouse has moved a few px.
+	-- Vertical, under Fixed only: the height follows the mouse by how far it moved,
+	-- down with the top edge pinned, up with Grow upward (the bottom edge pinned).
+	-- Under Automatic, a few px of it switch to Fixed; under Follows the step the
+	-- grip sets the width alone, so a sideways drag never drifts the height cap.
+	local mode = ns.Get("ui.heightMode")
 	local dy = (self.psStartY - select(2, GetCursorPosition()) / F:GetEffectiveScale()) * (ns.Get("ui.growUp") and -1 or 1)
-	if self.psSized or math.abs(dy) >= 3 then
+	if (mode == "fixed" or mode == "auto") and (self.psSized or math.abs(dy) >= 3) then
 		self.psSized = true
 		local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
 		local px = floor((self.psStartCap + dy) * F:GetEffectiveScale() + 0.5)
-		ns.Set("ui.maxHeight", min(1, max(0.3, px / screen)))
+		local share = min(1, max(0.3, px / screen))
+		if mode == "auto" then ns.Set("ui.heightMode", "fixed") end
+		if share ~= GF.dragShare then
+			GF.dragShare = share
+			GF.Layout()
+		end
 		GF.ShowLimit(true)
 	end
 	local x = GetCursorPosition() / F:GetEffectiveScale()
@@ -4308,6 +4321,9 @@ local function resizeStop(self)
 	if not self:GetScript("OnUpdate") then return end
 	self:SetScript("OnUpdate", nil)
 	GF.ShowLimit(false)
+	local share = GF.dragShare
+	GF.dragShare = nil
+	if share then ns.Set("ui.maxHeight", share) end
 	ns.Set("ui.width", floor(F:GetWidth() + 0.5))
 	savePosition()
 end

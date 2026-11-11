@@ -44,6 +44,8 @@ Polestar.Set("ui.maxHeight", 0.4)
 uistub.setGuide("test/durotar", 1)
 stub.advance(1)
 local goals = GF.parts.goals
+-- The stub does not lay frames out: the window's top edge at the top of the 1080 px screen, unless a test moves it.
+F.GetTop = function() return 1080 end
 -- A short step: one goal, far under any height (a class guide: its quest card shows and counts against the height).
 local function short() uistub.setGuide("test/class/warlock", 1); stub.advance(1) end
 `;
@@ -197,15 +199,16 @@ test('the grip sits on the edge that moves: the bottom right, or with Grow upwar
 	assert.deepEqual(back, down);
 });
 
-test('dragging the grip down sets the height by how far it moved, the top edge pinned, and the line shows it', () => {
+test('Fixed: dragging the grip down sets the height by how far it moved, the top edge pinned, the line shows it, and ui.maxHeight is written on release', () => {
 	const [mid, done] = run(`${DRAG}
+		Polestar.Set("ui.heightMode", "fixed")
 		drag(500, 600, 500, 500)
 		local line = GF.limitLine
 		emit({ max = Polestar.Get("ui.maxHeight"), cap = GF.CapHeight(), line = line:IsShown(), text = line.Text:GetText() })
 		drop()
 		emit({ line = line:IsShown(), max = Polestar.Get("ui.maxHeight") })`);
 	assert.equal(mid.cap, 532, 'the 432 px height grew by the 100 px drag');
-	assert.ok(Math.abs(mid.max - 532 / 1080) < 1e-6, JSON.stringify(mid));
+	assert.equal(mid.max, 0.4, 'nothing written while dragging: ' + JSON.stringify(mid));
 	assert.equal(mid.line, true);
 	assert.equal(mid.text, '532 px');
 	assert.equal(done.line, false, 'the line goes away on release');
@@ -225,6 +228,7 @@ test('Fixed: the window follows the grip while it is dragged, even on a short st
 
 test('with Grow upward the height grows by dragging up, and the line sits over the pinned bottom edge', () => {
 	const [c] = run(`${DRAG}
+		Polestar.Set("ui.heightMode", "fixed")
 		Polestar.Set("ui.growUp", true)
 		Polestar.Set("ui.pos", { 100, 200 })
 		drag(500, 600, 500, 700)
@@ -238,18 +242,20 @@ test('with Grow upward the height grows by dragging up, and the line sits over t
 
 test('the height stays between 30% and 100% of the screen', () => {
 	const [lo, hi] = run(`${DRAG}
+		Polestar.Set("ui.heightMode", "fixed")
 		drag(500, 600, 500, 900)
-		emit({ max = Polestar.Get("ui.maxHeight") })
 		drop()
-		drag(500, 600, 500, -900)
 		emit({ max = Polestar.Get("ui.maxHeight") })
-		drop()`);
+		drag(500, 600, 500, -900)
+		drop()
+		emit({ max = Polestar.Get("ui.maxHeight") })`);
 	assert.equal(lo.max, 0.3);
 	assert.equal(hi.max, 1);
 });
 
-test('only a vertical drag changes the height; a sideways one leaves it as it was', () => {
+test('Fixed: only a vertical drag changes the height; a sideways one leaves it as it was', () => {
 	const [c] = run(`${DRAG}
+		Polestar.Set("ui.heightMode", "fixed")
 		drag(500, 600, 560, 601)
 		emit({ max = Polestar.Get("ui.maxHeight"), w = F:GetWidth() })
 		drop()`);
@@ -264,12 +270,12 @@ test('a vertical drag under Automatic switches to Fixed from the room it had; a 
 		drag(500, 600, 560, 600)
 		emit({ mode = Polestar.Get("ui.heightMode") })
 		drop()
-		drag(500, 600, 500, 500)
+		drag(500, 600, 500, 700)
 		emit({ mode = Polestar.Get("ui.heightMode"), cap = GF.CapHeight() })
 		drop()`);
 	assert.equal(side.mode, 'auto');
 	assert.equal(vert.mode, 'fixed');
-	assert.equal(vert.cap, 460 - 24 + 100, 'it starts from the room Automatic had');
+	assert.equal(vert.cap, 460 - 24 - 100, 'it starts from the room Automatic had');
 });
 
 test('Lock window locks the height drag too', () => {
@@ -280,6 +286,42 @@ test('Lock window locks the height drag too', () => {
 	assert.equal(c.max, 0.4);
 	assert.equal(c.line, false);
 	assert.equal(c.grip, false);
+});
+
+test('Follows the step (the default): the grip sets the width alone, whatever the vertical drift', () => {
+	const [mid, done] = run(`${DRAG}
+		drag(500, 600, 560, 500)
+		emit({ max = Polestar.Get("ui.maxHeight"), cap = GF.CapHeight(), line = GF.limitLine and GF.limitLine:IsShown() or false, w = F:GetWidth() })
+		drop()
+		emit({ max = Polestar.Get("ui.maxHeight"), mode = Polestar.Get("ui.heightMode") })`);
+	assert.equal(mid.max, 0.4);
+	assert.equal(mid.cap, 432, 'the height cap stays put');
+	assert.equal(mid.line, false, 'no height line');
+	assert.ok(mid.w > 340, 'the width follows: ' + mid.w);
+	assert.deepEqual(done, { max: 0.4, mode: 'fit' });
+});
+
+test('Fixed never runs off the bottom of the screen: capped by the room under its top edge, as Automatic', () => {
+	const [c] = run(`
+		F.GetTop = function() return 600 end
+		Polestar.Set("ui.heightMode", "fixed")
+		Polestar.Set("ui.maxHeight", 0.8)
+		emit({ cap = GF.CapHeight(), h = F:GetHeight() + CT.Reserved() })`);
+	assert.equal(c.cap, 600 - 24, 'not the 864 px of 80%');
+	assert.ok(c.h <= c.cap, JSON.stringify(c));
+});
+
+test('with the class quest card up, the line shows the height the window can reach: the cap less the card', () => {
+	const [c] = run(`${DRAG}
+		Polestar.Set("ui.heightMode", "fixed")
+		short()
+		drag(500, 600, 500, 500)
+		local _, _, _, _, y = GF.limitLine:GetPoint(1)
+		emit({ cap = GF.CapHeight(), card = CT.Reserved(), y = y, text = GF.limitLine.Text:GetText() })
+		drop()`);
+	assert.ok(c.card > 0, 'the card is up: ' + JSON.stringify(c));
+	assert.equal(c.y, -(c.cap - c.card));
+	assert.equal(c.text, (c.cap - c.card) + ' px');
 });
 
 // The Options row on the height: a slider with a number field, always shown, between the track and the text.
@@ -362,6 +404,7 @@ test('Escape and an empty or non-numeric field put the old number back', () => {
 
 test('the field follows a drag of the grip, and typing a height under Automatic switches to Fixed', () => {
 	const [dragged, typed] = run(`${DRAG}${ROWS}
+		Polestar.Set("ui.heightMode", "fixed")
 		drag(500, 600, 500, 500)
 		drop()
 		emit({ field = field:GetText() })
