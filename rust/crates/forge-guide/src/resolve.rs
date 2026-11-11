@@ -25,6 +25,8 @@ const FIND_ID_HINT: &str = "find the id with `polestar find <name>`, or give its
 const MAX_NAMED_SOURCES: usize = 8;
 /// An item only one or two located sources of one kind drop is named after them when each drops it at this
 /// percentage or more (#1556); under it, or at an unknown chance (0), the drop list is no guide to where to farm it.
+/// Not needed when the item's only sources are those one or two creatures (no object, no vendor): they are named
+/// whatever their chance (Kron's Amulet, 10% from two crocolisks).
 const FEW_SOURCES_BAR: f64 = 20.0;
 /// `fromNpcs` on a collect: at most this many names.
 const MAX_SOURCE_NPCS: usize = 5;
@@ -2446,7 +2448,22 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				};
 				// One or two located sources of one kind, each at FEW_SOURCES_BAR% or more, are where the item comes
 				// from whatever their chance: both are named (the Wooden Key, 44% and 45% from two Ancients, #1556).
-				let few = candidates.len() <= 2 && named.len() == candidates.len() && named.iter().all(|c| c.get("kind").strict_eq(&named[0].get("kind")) && num(c, "chance") >= FEW_SOURCES_BAR);
+				// One or two creatures that are the item's only sources (every dropper located, no object, no
+				// vendor) are named at any chance: Kron's Amulet (10% from two crocolisks), Rackmore's Silver Key.
+				// Only when they spawn on a map in common, and their chances are all known or all unknown: an unknown
+				// one beside a known one is a stray record, often in another zone (a Loch Modan Seer beside Durotar's
+				// Burning Blade Cultists for the Reagent Pouch).
+				let maps_of = |s: &V| -> Vec<V> { data.spawns("npc", &s.get("id")).iter().map(|sp| sp.get("map")).collect() };
+				let known = sources.iter().filter(|s| num(s, "chance") > 0.0).count();
+				let only = !sources.is_empty()
+					&& sources.len() <= 2
+					&& candidates.len() == sources.len()
+					&& sources.iter().all(|s| s.get("kind").as_str() == Some("npc"))
+					&& vendors_of(&it).is_empty()
+					&& (known == 0 || known == sources.len())
+					&& maps_of(&sources[0]).iter().any(|m| sources.iter().all(|s| maps_of(s).iter().any(|n| n.strict_eq(m))));
+				let few =
+					candidates.len() <= 2 && named.len() == candidates.len() && named.iter().all(|c| c.get("kind").strict_eq(&named[0].get("kind")) && (only || num(c, "chance") >= FEW_SOURCES_BAR));
 				if !widespread && !named.is_empty() && (candidates.len() == 1 || num(&named[0], "chance") >= 50.0 || few) {
 					let top = &named[0];
 					let rec = if top.get("kind").as_str() == Some("npc") { data.npc(&top.get("id")) } else { data.object(&top.get("id")) };

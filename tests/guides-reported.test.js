@@ -11254,6 +11254,23 @@ test('Alliance Wetlands & Ashenvale: the Wooden Key line names the Ancients that
 	assert.equal(goal.fromKind, 'npc');
 });
 
+// #1556's follow-up (#1797's triage): an item whose only sources are one or two creatures (no object, no vendor) names
+// them whatever their drop chance. Kron's Amulet (4891, 10% from the two Dreadmaw Crocolisks), Rackmore's Silver Key
+// (15878, 15% from the Drysnap Crawlers and Pincers) and the Pristine Yeti Horn (12367, 10% from the Ice Thistle
+// Matriarch and Patriarch) read "Collect" with no source under the 20% bar.
+test("#1556's follow-up: an item only one or two creatures drop names them at any chance", { skip }, () => {
+	for (const [guide, item, ids] of [
+		['forever/horde/orc/01-durotar.guide', 4891, [3110, 3231]],
+		['forever/horde/30-40/02-thousand-needles.guide', 15878, [11562, 11563]],
+		['forever/alliance/50-60/03-winterspring.guide', 12367, [7459, 7460]],
+	]) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];
+		assert.equal(goal.fromKind, 'npc', `${guide}: ${item} names its droppers`);
+		assert.deepEqual([goal.fromId, goal.fromAlsoId].filter((x) => x != null).sort((a, b) => a - b), ids.filter((id) => data.spawns('npc', id).length), `${guide}: ${item} names every located dropper`);
+	}
+});
+
 // mutaka's report (#1752): Private Thorsen did not offer Jungle Secrets (215) at the arrow, his camp spot. The game
 // offers it only while he is out of the Rebel Camp (a quest condition on his area): at the foot of the path, where
 // two Kurzen's Agents ambush him for a few minutes of each half-hour round. All 9 recorded offers were there, none at

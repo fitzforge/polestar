@@ -1583,7 +1583,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// located sources of one kind drop, each at FEW_SOURCES_BAR% or more,
 			// names them whatever their chance: they are where it comes from
 			// (the Wooden Key, 44% from the Crazed and 45% from the Withered
-			// Ancients, #1556). Not for an item that drops all
+			// Ancients, #1556); one or two creatures that are its only sources
+			// (no object, no vendor) are named at any chance (Kron's Amulet, 10%
+			// from two crocolisks) when they spawn on a map in common and their
+			// chances are all known or all unknown (an unknown one beside a known
+			// one is a stray record, often in another zone). Not for an item that drops all
 			// over the world (cloth: hundreds of droppers, where a guard's 100%
 			// says nothing about where to farm it). `fromFaction` lets the
 			// engine tell an enemy from a friend of the character's faction.
@@ -1599,7 +1603,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const normal = split ? split.normal : candidates;
 			const level = levelSplit(data, normal, dropLevel);
 			const named = level ? level.near : normal;
-			const few = candidates.length <= 2 && named.length === candidates.length && named.every((c) => c.kind === named[0].kind && c.chance >= FEW_SOURCES_BAR);
+			const mapsOf = (s) => data.spawns('npc', s.id).map((sp) => sp.map);
+			const known = sources.filter((s) => s.chance > 0).length;
+			const only = sources.length > 0 && sources.length <= 2 && candidates.length === sources.length && sources.every((s) => s.kind === 'npc') && !((it && it.vendors) || []).length
+				&& (known === 0 || known === sources.length) && mapsOf(sources[0]).some((m) => sources.every((s) => mapsOf(s).includes(m)));
+			const few = candidates.length <= 2 && named.length === candidates.length && named.every((c) => c.kind === named[0].kind && (only || c.chance >= FEW_SOURCES_BAR));
 			if (!widespread && named.length && (candidates.length === 1 || named[0].chance >= 50 || few)) {
 				const top = named[0];
 				const rec = top.kind === 'npc' ? data.npc(top.id) : data.object(top.id);
