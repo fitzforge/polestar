@@ -10724,3 +10724,14 @@ test('Centaur reputation: a Gelkis player at the end of the Gelkis half goes to 
 	for (const q of [1382, 93227, 1368, 94873]) assert.ok(to(q), `${q} handed in or carried: the recipes`);
 	assert.ok(list.findIndex(({ step }) => step === router) < list.findIndex(({ step }) => step.label === 'magram'), 'before the Magram half');
 });
+
+// Roaming-NPC sweep: the Alliance 'Fallow Sanctuary' step waited for Noboru the Cudgel (5477), who walks a 56-node path
+// through the ruins: his cudgel and Noboru the Cudgel (1392) are optional; the hand-in at Magtoor stays a plain goal.
+test('forever/alliance/30-40/05-arathi-highlands.guide: Noboru\'s cudgel and quest are optional, the hand-in is not', { skip }, () => {
+	const list = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	assert.ok(list[at(list, 'collect 6196', (g) => g.t === 'collect' && g.item === 6196)].goal.optional, 'the cudgel never holds the step');
+	assert.ok(list[at(list, 'accept 1392', is('accept', 1392))].goal.optional, 'nor its accept');
+	assert.ok(!list[at(list, 'turnin 1392', is('turnin', 1392))].goal.optional, 'Magtoor takes it from whoever carries it');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
+	assert.ok(rf.some((e) => e.q === 1392), 'route-fixes deliberate.optional 1392');
+});
