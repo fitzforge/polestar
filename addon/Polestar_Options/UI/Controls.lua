@@ -337,7 +337,9 @@ end
 -- W.CARD_W - 2 wide, W.CARD_ART tall, clipped); note: a word after the name
 -- ("Not loaded"). A click picks; right-click puts the default back. A click
 -- on the row itself (a gamepad's A) steps to the next card.
--- opts.get() / opts.set(value) as a dropdown's.
+-- opts.get() / opts.set(value) as a dropdown's; opts.art = { w, h } the
+-- picture's size (a registered control's `art`), W.CARD_W - 2 x W.CARD_ART
+-- else.
 ---------------------------------------------------------------------------
 
 local CARD_W, CARD_ART, CARD_NAME, CARD_GAP = 156, 88, 30, 12
@@ -387,13 +389,14 @@ local function cardFor(row, ch)
 	local card = row.psCardBy[ch.value]
 	if card then return card end
 	card = CreateFrame("Button", nil, row)
-	card:SetSize(CARD_W, CARD_ART + CARD_NAME)
+	local cw, ca = row.psCardW or CARD_W, row.psCardArt or CARD_ART
+	card:SetSize(cw, ca + CARD_NAME)
 	W.Fill(card, "panelAlt", "BACKGROUND", -7)
 	hoverTexture(card)
 	card.Art = CreateFrame("Frame", nil, card)
 	card.Art:SetPoint("TOPLEFT", card, "TOPLEFT", 1, -1)
 	card.Art:SetPoint("TOPRIGHT", card, "TOPRIGHT", -1, -1)
-	card.Art:SetHeight(CARD_ART)
+	card.Art:SetHeight(ca)
 	if card.Art.SetClipsChildren then card.Art:SetClipsChildren(true) end
 	-- The name first on the line under the picture, the note (an addon's
 	-- name, "Not loaded") at its right in what the name leaves (cardsBelow).
@@ -434,7 +437,8 @@ end
 local function cardsBelow(row, width, y)
 	local list = choicesOf(row)
 	local inset = row.psInset or 12
-	local cols = max(1, floor((width + CARD_GAP) / (CARD_W + CARD_GAP)))
+	local cw, ca = row.psCardW or CARD_W, row.psCardArt or CARD_ART
+	local cols = max(1, floor((width + CARD_GAP) / (cw + CARD_GAP)))
 	for _, card in pairs(row.psCardBy) do card:Hide() end
 	local n = #list
 	-- Balanced lines: no lone card on the last one (6 at 5 a line: 3 and 3).
@@ -446,7 +450,7 @@ local function cardsBelow(row, width, y)
 		card.Note:SetText(note)
 		-- The name takes what it needs; the note what is left, cut short
 		-- (whole in the tooltip), or none when that is too little to read.
-		local room = CARD_W - 18
+		local room = cw - 18
 		local nameW = min(room, math.ceil(textWidth(card.Name)))
 		card.Name:SetWidth(max(1, nameW))
 		local noteRoom = room - nameW - 8
@@ -459,12 +463,12 @@ local function cardsBelow(row, width, y)
 		card.psTip, card.psTipLines = ch.text, #lines > 0 and lines or nil
 		local col, line = (i - 1) % cols, floor((i - 1) / cols)
 		card:ClearAllPoints()
-		card:SetPoint("TOPLEFT", row, "TOPLEFT", inset + col * (CARD_W + CARD_GAP), -(y + line * (CARD_ART + CARD_NAME + CARD_GAP)))
+		card:SetPoint("TOPLEFT", row, "TOPLEFT", inset + col * (cw + CARD_GAP), -(y + line * (ca + CARD_NAME + CARD_GAP)))
 		card:Show()
 		paintCard(card)
 	end
 	local lines = n == 0 and 0 or floor((n - 1) / cols) + 1
-	return lines * (CARD_ART + CARD_NAME) + max(0, lines - 1) * CARD_GAP
+	return lines * (ca + CARD_NAME) + max(0, lines - 1) * CARD_GAP
 end
 
 local function cardsRefresh(self)
@@ -478,6 +482,8 @@ function W.Cards(parent, label, path, choices, desc, opts)
 	local row = settingRow(parent, label, desc)
 	row.psChoices = choices
 	row.psGet, row.psSet = opts and opts.get, opts and opts.set
+	-- opts.art = { w, h }: bigger pictures (the skin cards' mini windows).
+	if opts and type(opts.art) == "table" then row.psCardW, row.psCardArt = opts.art[1] + 2, opts.art[2] end
 	row.psCardBy = {}
 	row.psBelow = cardsBelow
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")

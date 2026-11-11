@@ -817,7 +817,7 @@ local function makeControl(parent, c)
 		w = W.Dropdown(parent, labelOf(c), c.key, choices, c.help, nil, opts)
 	elseif c.kind == "cards" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
-		w = W.Cards(parent, labelOf(c), c.key, choices, c.help, getset)
+		w = W.Cards(parent, labelOf(c), c.key, choices, c.help, { get = getset and getset.get, set = getset and getset.set, art = c.art })
 	elseif c.kind == "color" then
 		w = W.Swatch(parent, labelOf(c), c.key, c.help, { shown = c.shown, source = c.source, linked = c.linked, alpha = c.alpha })
 	elseif c.kind == "button" then
@@ -1091,14 +1091,21 @@ local function rowOf(view, c)
 	local bare = c.kind == "cards" and not view.psSearch and labelOf(c) == c.section
 	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog,
 		height = view.psRowH, bare = bare })
-	-- The pointer on the row, an extra or the cog: the tab's preview may
-	-- show the part that setting draws (f:Focus(key), optional).
+	-- The pointer on the row, an extra or the cog: the tab's preview lights
+	-- the parts that setting changes and may show the part it draws
+	-- (f:Focus(key), optional); off them, the lights go out.
 	if not view.psSearch then
+		local function off() O.PreviewFocus(nil) end
 		w:HookScript("OnEnter", function() O.PreviewFocus(c.key) end)
+		w:HookScript("OnLeave", off)
 		for _, x in ipairs(extras or {}) do
 			x:HookScript("OnEnter", function(self) O.PreviewFocus(self.psControl.key) end)
+			x:HookScript("OnLeave", off)
 		end
-		if cog then cog:HookScript("OnEnter", function() O.PreviewFocus(c.key) end) end
+		if cog then
+			cog:HookScript("OnEnter", function() O.PreviewFocus(c.key) end)
+			cog:HookScript("OnLeave", off)
+		end
 	end
 	view.cache[c] = w
 	return w
