@@ -6750,20 +6750,25 @@ Own.skipQueue = {}
 
 -- Queue the unavailable quests of step s the route just moved past: its
 -- blocking goals that apply, not done, unavailable (once per quest). A step
--- the player skipped, or one not for the character, says nothing.
+-- the player skipped, or one not for the character, says nothing. A quest's
+-- starting item (a `collect` with no quest, unavailableFor's starter) speaks
+-- for the quest it starts (#1724: its nil quest as a key raised "table
+-- index is nil" and stopped the evaluation); a goal with neither says nothing.
 function Own.queueSkips(s)
 	local step = guide.steps[s]
 	if not step or isSkipped(s) or not stepApplies(step) then return end
 	local q = Own.skipQueue[guide.id]
 	for g, goal in ipairs(step.goals) do
 		local u = blocks(goal) and goalApplies(goal) and unavailableFor(goal)
-		if u and not (q and q.seen[goal.quest]) and not goalDone(s, g, goal) then
+		local a = u and (goal.quest and goal or layoutOf(guide).starters[goal])
+		local quest = a and a.quest
+		if quest and not (q and q.seen[quest]) and not goalDone(s, g, goal) then
 			if not q then
 				q = { from = s, skips = {}, seen = {} }
 				Own.skipQueue[guide.id] = q
 			end
-			q.seen[goal.quest] = true
-			q.skips[#q.skips + 1] = { quest = goal.quest, title = questTitle(goal), reason = u.reason, text = unavailableText(u) }
+			q.seen[quest] = true
+			q.skips[#q.skips + 1] = { quest = quest, title = questTitle(a), reason = u.reason, text = unavailableText(u) }
 		end
 	end
 end
