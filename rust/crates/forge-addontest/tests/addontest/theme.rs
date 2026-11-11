@@ -513,7 +513,9 @@ fn anim_onupdate_exists_only_while_a_tween_runs_retargeting_reuses_the_record() 
 	assert_eq!(out["active"], 0);
 }
 
-// Every texture the UI sets must exist on disk, or the client draws a green box.
+// Every texture the UI sets must exist on disk, or the client draws a green box. The skin picker's cards
+// (Theme/SkinPicker.lua) draw each of the game's looks in the client's own art (Theme/GameSkins.lua) whatever skin
+// is in use: there, and only there, the client's files stand beside Polestar's own.
 #[test]
 fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 	let verbs = [
@@ -524,11 +526,23 @@ fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 	let script = String::new()
 		+ r#"
 		local GF, UI = Polestar.UI.GuideFrame, Polestar.UI
-		local seen = {}
+		local seen, cardArt = {}, {}
+		local OWN = "Interface\\AddOns\\Polestar\\Media\\UI\\"
+		-- A picker card's frames: the frame a card (or a skin's window alone) is drawn on carries psSkinCard.
+		local function onCard(f)
+			while f do
+				if rawget(f, "psSkinCard") then return true end
+				f = f.parent
+			end
+			return false
+		end
 		local function collect()
 			for _, f in ipairs(stub.frames) do
 				for _, r in ipairs(f.regions) do
-					if type(r.texture) == "string" then seen[r.texture] = true end
+					local t = r.texture
+					if type(t) == "string" then
+						if t:sub(1, #OWN) ~= OWN and onCard(f) then cardArt[t] = true else seen[t] = true end
+					end
 				end
 			end
 		end
@@ -551,16 +565,24 @@ fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 		for _, v in ipairs({ "#
 		+ &list
 		+ r#" }) do seen[T.VerbIcon(v)] = true end
-		local out = {}
+		local out, art = {}, {}
 		for p in pairs(seen) do out[#out + 1] = p end
+		for p in pairs(cardArt) do art[#art + 1] = p end
 		table.sort(out)
-		emit(out)"#;
-	let paths = run(&script);
-	let paths: Vec<&str> = paths.as_array().unwrap().iter().map(|p| p.as_str().unwrap()).collect();
+		table.sort(art)
+		emit({ seen = out, cardArt = art })"#;
+	let out = run(&script);
+	let list = |k: &str| -> Vec<String> { out[k].as_array().cloned().unwrap_or_default().iter().map(|p| p.as_str().unwrap().to_string()).collect() };
+	let (paths, card_art) = (list("seen"), list("cardArt"));
+	let paths: Vec<&str> = paths.iter().map(|p| p.as_str()).collect();
 	let prefix = "Interface\\AddOns\\Polestar\\Media\\UI\\";
 	let ours: Vec<&str> = paths.iter().filter_map(|p| p.strip_prefix(prefix)).collect();
 	let others: Vec<&str> = paths.iter().copied().filter(|p| !p.starts_with(prefix)).collect();
 	assert_eq!(others, Vec::<&str>::new(), "the UI only uses its own textures");
+	assert!(!card_art.is_empty(), "the game looks' picker cards draw the client's art");
+	for p in &card_art {
+		assert!(p.starts_with("Interface\\") && !p.starts_with("Interface\\AddOns\\"), "a picker card draws the client's own files, never another addon's: {p}");
+	}
 	for v in verbs {
 		assert!(ours.contains(&format!("icon-{v}").as_str()));
 	}
