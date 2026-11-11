@@ -35,22 +35,44 @@ pub const PROFESSIONS: [(i64, &str); 12] = [
 pub const SOD_SPELL_MIN: i64 = 400000;
 const ESTIMATE_GAP: i64 = 0;
 
-/// Learn skills a player's trainer window showed on Forever, for recipes no sniffed list teaches: spell, skill,
-/// where it was seen. They win over the Classic-based estimate, which these show can be too early (#1553: Una's
-/// window, Thunder Bluff, 2026-11-10: Thick Leather and Cured Thick Hide at 175 and Dusky Bracers at 170, where the
+/// Learn skills seen on Forever for recipes no sniffed list teaches: spell, skill, where it was seen
+/// (`learnedAtFrom`: "in-game" a player's trainer window, "recordings" the skill players learned it at in
+/// their recordings, "classic" Classic's trainer list where no Forever source has it and Forever kept the
+/// recipe's colours). They win over the estimates, which these show can be off (#1553: Una's window,
+/// Thunder Bluff, 2026-11-10: Thick Leather and Cured Thick Hide at 175 and Dusky Bracers at 170, where the
 /// estimate said 155; Thick Armor Kit 175 and Guardian Gloves 165 as estimated).
-const CHECKED_LEARN: [(i64, i64, &str); 5] = [
-	(20650, 175, "#1553"), // Thick Leather
-	(10482, 175, "#1553"), // Cured Thick Hide
-	(10487, 175, "#1553"), // Thick Armor Kit
-	(7156, 165, "#1553"),  // Guardian Gloves
-	(9201, 170, "#1553"),  // Dusky Bracers
+const CHECKED_LEARN: [(i64, i64, &str); 19] = [
+	(20650, 175, "in-game"), // Thick Leather (#1553)
+	(10482, 175, "in-game"), // Cured Thick Hide (#1553)
+	(10487, 175, "in-game"), // Thick Armor Kit (#1553)
+	(7156, 165, "in-game"),  // Guardian Gloves (#1553)
+	(9201, 170, "in-game"),  // Dusky Bracers (#1553)
+	// Forever's own trainer patterns are taught 5 below their yellow (players learned them there; the
+	// estimate is the yellow): the leather armor sets at 75, the leather pants at 100.
+	(1255131, 75, "recordings"), // Wisdom's Leather Armor
+	(1255132, 75, "recordings"), // Stormrider's Leather Armor
+	(1255133, 75, "recordings"), // Totemic Leather Armor
+	(1255134, 75, "recordings"), // Defender's Leather Armor
+	(1255135, 75, "recordings"), // Trapper's Leather Armor
+	(1255136, 75, "recordings"), // Brawler's Leather Armor
+	(1255110, 100, "recordings"), // Wisdom's Leather Pants
+	(1255111, 100, "recordings"), // Stormrider's Leather Pants
+	(1255112, 100, "recordings"), // Totemic Leather Pants
+	(1255113, 100, "recordings"), // Defender's Leather Pants
+	(1255114, 100, "recordings"), // Trapper's Leather Pants
+	(1255115, 100, "recordings"), // Brawler's Leather Pants
+	(1249631, 120, "recordings"), // Magenta Dye (the estimate said its yellow, 130)
+	(13028, 175, "classic"),      // Goldthorn Tea (no world DB list; Classic's 175, colours unchanged)
 ];
 
-/// The learn skill a player's trainer window showed for `spell` (CHECKED_LEARN), if any.
-fn checked_learn(spell: i64) -> Option<i64> {
-	CHECKED_LEARN.iter().find(|(s, ..)| *s == spell).map(|&(_, skill, _)| skill)
+/// The learn skill seen for `spell` and where (CHECKED_LEARN), if any.
+fn checked_learn(spell: i64) -> Option<(i64, &'static str)> {
+	CHECKED_LEARN.iter().find(|(s, ..)| *s == spell).map(|&(_, skill, from)| (skill, from))
 }
+
+/// Official hotfixes the client tables predate: spell, learn skill, yellow, green, grey. The Tanning Rack
+/// (Leatherworking's tier-2 camp item) was lowered to 125 by Forever's 2026-11-06 hotfixes.
+const HOTFIXES: [(i64, i64, i64, i64, i64); 1] = [(1263031, 125, 125, 127, 130)];
 
 #[cfg(test)]
 mod checked_learn_tests {
@@ -60,8 +82,18 @@ mod checked_learn_tests {
 	// skills Forever's trainer asks, so a rebuilt professions.json (and a guide drafted from it) keeps them.
 	#[test]
 	fn thick_leather_and_its_kin_keep_the_skill_forevers_trainer_asks_1553() {
-		assert_eq!([20650, 10482, 10487, 7156, 9201].map(checked_learn), [Some(175), Some(175), Some(175), Some(165), Some(170)]);
+		assert_eq!([20650, 10482, 10487, 7156, 9201].map(|s| checked_learn(s).map(|c| c.0)), [Some(175), Some(175), Some(175), Some(165), Some(170)]);
 		assert_eq!(checked_learn(2152), None, "Light Armor Kit: no check, the build's own source stands");
+	}
+
+	// The 0.3.7 profession research: what players' recordings and Classic's list show where nothing else does.
+	#[test]
+	fn recorded_and_classic_learn_skills() {
+		assert_eq!(checked_learn(1255133), Some((75, "recordings")), "Totemic Leather Armor: learned at 75");
+		assert_eq!(checked_learn(1255114), Some((100, "recordings")), "Trapper's Leather Pants: learned at 100");
+		assert_eq!(checked_learn(1249631), Some((120, "recordings")), "Magenta Dye: learned at 120");
+		assert_eq!(checked_learn(13028), Some((175, "classic")), "Goldthorn Tea: Classic's 175");
+		assert_eq!(HOTFIXES[0], (1263031, 125, 125, 127, 130), "Tanning Rack at 125");
 	}
 }
 
@@ -331,7 +363,7 @@ fn extract_recipe(ix: &Ix, row: &Ability, ctx: &Ctx) -> Result<Recipe, &'static 
 	// list teaches is a trainer recipe even when a recipe item exists (Elixir of Minor Fortitude and
 	// its deprecated recipe; the copper boots and the school belts and slippers).
 	let recipe_item = recipe_items.iter().copied().filter(|_| row.acquire != 1 && !ctx.trained.contains_key(&spell)).min_by(|&a, &b| rank(a).cmp(&rank(b)).then(a.cmp(&b)));
-	let learned_at;
+	let mut learned_at;
 	if let Some(ri) = recipe_item {
 		let s = ix.sparse.get(&ri);
 		let req = s.map_or(0, |s| s.req_rank);
@@ -370,10 +402,10 @@ fn extract_recipe(ix: &Ix, row: &Ability, ctx: &Ctx) -> Result<Recipe, &'static 
 			learned_at = (rank as i64).max(1);
 			r.set("learnedAt", num(learned_at));
 			r.set("cost", num(cost as i64));
-		} else if let Some(skill) = checked_learn(spell) {
+		} else if let Some((skill, from)) = checked_learn(spell) {
 			learned_at = skill;
 			r.set("learnedAt", num(learned_at));
-			r.set("learnedAtFrom", "in-game");
+			r.set("learnedAtFrom", from);
 		} else if row.min_rank > 1 {
 			learned_at = row.min_rank;
 			r.set("learnedAt", num(learned_at));
@@ -399,7 +431,7 @@ fn extract_recipe(ix: &Ix, row: &Ability, ctx: &Ctx) -> Result<Recipe, &'static 
 	if let Some(sp) = specialization(spell) {
 		r.set("requires", num(sp));
 	}
-	let ry;
+	let mut ry;
 	if grey > 0 {
 		let y = if yellow > 0 { yellow } else { learned_at };
 		ry = Some(y);
@@ -411,6 +443,15 @@ fn extract_recipe(ix: &Ix, row: &Ability, ctx: &Ctx) -> Result<Recipe, &'static 
 		r.set("yellow", V::Null);
 		r.set("green", V::Null);
 		r.set("grey", V::Null);
+	}
+	if let Some(&(_, learn, y, g, gr)) = HOTFIXES.iter().find(|h| h.0 == spell) {
+		learned_at = learn;
+		r.set("learnedAt", num(learn));
+		r.set("learnedAtFrom", "hotfix");
+		r.set("yellow", num(y));
+		r.set("green", num(g));
+		r.set("grey", num(gr));
+		ry = Some(y);
 	}
 	if row.ups > 1 {
 		r.set("skillUps", num(row.ups));

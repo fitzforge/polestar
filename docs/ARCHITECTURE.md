@@ -7167,14 +7167,18 @@ standing }`, `tools`, `focus`, `races`, `classes`, `skillUps`. A trainer recipe'
 profession trainer lists (the extract's `professionSpells`: the lowest skill and
 price any sniffed list asks), when one teaches it (a sniffed list beats a recipe item for the
 same spell: Elixir of Minor Fortitude) and the client does not give it
-with the skill (`AcquireMethod` 1); else the skill a player's trainer window showed on Forever, for
-the few recipes in forge-data's `CHECKED_LEARN` (`learnedAtFrom: "in-game"`: Thick Leather, Cured
-Thick Hide and Thick Armor Kit at 175, #1553); else, when an older (Classic) list in the same
-DB teaches it (`professionSpellsClassic`), Classic's learn skill moved by as much as
-Forever moved the recipe's yellow rank from Era's (`learnedAtEstimated`,
-`learnedAtFrom: "classic"`, no `cost`: the sniffed lists keep Classic's learn-to-yellow
-distance on 126 of the 129 recipes they share, but not its prices); else
-`learnedAtEstimated` (the yellow rank).
+with the skill (`AcquireMethod` 1); else the skill seen on Forever, for the few recipes in
+forge-data's `CHECKED_LEARN` (`learnedAtFrom`: `"in-game"` a player's trainer window, Thick Leather,
+Cured Thick Hide and Thick Armor Kit at 175, #1553; `"recordings"` the skill players learned it at,
+Forever's leather armor and pants patterns 5 below their yellow, Magenta Dye 120; `"classic"`
+Classic's list where Forever kept the colours and no world DB list has it, Goldthorn Tea 175); else,
+when an older (Classic) list in the same DB teaches it (`professionSpellsClassic`: the highest skill
+any Classic list asks, as CMaNGOS's; a stray low list put Thick Leather at 155, #1553), Classic's
+learn skill moved by as much as Forever moved the recipe's yellow rank from Era's
+(`learnedAtEstimated`, `learnedAtFrom: "classic"`, no `cost`: the sniffed lists keep Classic's
+learn-to-yellow distance on 126 of the 129 recipes they share, but not its prices); else
+`learnedAtEstimated` (the yellow rank). `HOTFIXES` carries what an official hotfix changed after the
+client tables (`learnedAtFrom: "hotfix"`: the Tanning Rack at 125, yellow 125, grey 130).
 Season of
 Discovery recipes (spell id ≥ 400000 that the Era client's SkillLineAbility
 lists too; Forever's own recipes, past 1,000,000, it does not) and the ones Forever
