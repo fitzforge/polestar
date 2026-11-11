@@ -173,7 +173,6 @@ L["Step action: NPC, quest item, mob or Hearthstone"] = "Ação da etapa: PNJ, i
 L["Use the route's Hearthstone or teleport"] = "Usar a Pedra de Regresso ou teleporte da rota"
 L["No guide selected. Use /polestar guides to pick one."] = "Nenhum guia selecionado. Use /polestar guides para escolher um."
 L["Show the guide window"] = "Mostrar a janela do guia"
-L["Hide the guide window"] = "Ocultar a janela do guia"
 L["Choose a guide"] = "Escolher um guia"
 L["Open settings"] = "Abrir opções"
 L["Debug output"] = "Saída de depuração"
@@ -225,6 +224,11 @@ L["Nothing to skip: the guide has no step open."] = "Nada para pular: o guia nã
 L["Reopen closed tab"] = "Reabrir aba fechada"
 L["No closed tab to reopen."] = "Nenhuma aba fechada para reabrir."
 L["Reopen the last guide tab you closed"] = "Reabrir a última aba de guia que você fechou"
+L["Hide/show Polestar"] = "Ocultar/mostrar o Polestar"
+L["Hiding Polestar keeps the arrow."] = "Ocultar o Polestar mantém a seta."
+L["Hiding Polestar hides the arrow too."] = "Ocultar o Polestar também oculta a seta."
+L["Polestar is hidden: /polestar hide or the minimap button shows it again."] = "O Polestar está oculto: /polestar hide ou o botão do minimapa o mostra de novo."
+L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"] = "Ocultar ou mostrar tudo o que o Polestar mostra (hide arrow: manter a seta ao ocultar)"
 
 -- Theme/Theme.lua
 L["Dusk"] = "Crepúsculo"
@@ -255,6 +259,7 @@ L["Point the arrow at x y on your current map (no argument clears it)"] = "Apont
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "O Shortest Path Forever está guiando uma jornada própria. A seta do Polestar volta quando ela terminar."
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Passar a guia ao Shortest Path Forever\" (Opções, Integrações) para usar a seta do Polestar."
 L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "O guia está oculto e \"Ocultar a seta com o guia\" está ligado, então a seta também está: /polestar show traz os dois de volta."
+L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."] = "O Polestar está oculto, e a seta com ele: \"Manter a seta ao ocultar\" no menu do botão do minimapa a mantém."
 
 -- Nav/Arrow.lua
 L["Search here"] = "Procure aqui"
@@ -698,9 +703,9 @@ L["Classic Era allows 30 new instances per 24 hours per account; 0 ignores the d
 L["Clear instance history"] = "Limpar histórico de instâncias"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "Esquece entradas e incursões gravadas (o limite do próprio servidor não é afetado)."
 L["Minimap button"] = "Botão do minimapa"
-L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Um botão do Polestar na borda do minimapa. Clique para mostrar ou ocultar o guia, clique com o botão direito para as configurações, arraste para movê-lo."
 L["Forget"] = "Esquecer"
 L["Minimap"] = "Minimapa"
+L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."] = "Um botão do Polestar na borda do minimapa. Clique para ocultar ou mostrar o Polestar, clique com o botão direito para um menu, arraste para movê-lo."
 
 -- Maps/WorldMap.lua
 L["Player"] = "Jogador"
@@ -1409,8 +1414,6 @@ L["The rest of this guide follows from a skipped step"] = "O resto deste guia de
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "Você pulou %s, e as etapas seguintes precisam das missões dela. Desfaça o pulo para continuar, ou faça essa etapa você mesmo: o guia retoma dali."
 L["Undo the skip"] = "Desfazer o pulo"
 L["Take %s first"] = "Pegue %s antes"
-L["Click the minimap button or press %s to show it."] = "Clique no botão do minimapa ou pressione %s para mostrá-la."
-L["Click the minimap button to show it."] = "Clique no botão do minimapa para mostrá-la."
 L["Press %s to show it."] = "Pressione %s para mostrá-la."
 L["Turn on the minimap button or bind a key to show it."] = "Ative o botão do minimapa ou atribua uma tecla para mostrá-la."
 L["Press %s or type /polestar to show it."] = "Pressione %s ou digite /polestar para mostrá-la."
@@ -1435,6 +1438,8 @@ L["Step %d, later in this guide"] = "Passo %d, mais adiante neste guia"
 -- L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."] = ""
 -- L["Turn on Polestar Guides and reload"] = ""
 -- L["Keep these, a later guide hands them in: %s"] = ""
+L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "Pressione %s, ou clique com o botão direito no botão do minimapa e escolha \"Janela do guia\", para mostrá-la."
+L["Right-click the minimap button and pick Guide window to show it."] = "Clique com o botão direito no botão do minimapa e escolha \"Janela do guia\" para mostrá-la."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -2218,10 +2223,8 @@ L["Hand-ins: how far out of your way"] = "Entregas: quanto fora do caminho"
 L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = "Os segundos de caminhada extra que uma entrega pode custar, até o PNJ e de volta ao seu caminho. A da cidade em que você está sempre aparece; 0 mantém só essas."
 L["Route line on the minimap"] = "Linha de rota no minimapa"
 L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = "O caminho até o objetivo no minimapa. Desligado, mantém o marcador do guia ali e a linha no mapa-múndi. Cor, opacidade e tamanho: a engrenagem ao lado de Guia > Seta e rotas > Linhas de rota."
-L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = "O que a janela, seus botões e alertas fazem em masmorras, raides, campos de batalha e arenas. O botão do minimapa, o atalho de teclado ou /polestar abre a janela lá dentro até você sair."
 L["Show and hide"] = "Mostrar e ocultar"
 L["Floating button"] = "Botão flutuante"
-L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Um pequeno botão do Polestar que você pode pôr em qualquer lugar da tela. Clique para mostrar ou ocultar o guia, clique com o botão direito para um menu, arraste para mover. Ele some com a janela em combate e em masmorras quando estas estão em Ocultar."
 L["Step key targets their mobs"] = "Tecla de etapa seleciona criaturas das sugestões"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "A tecla de etapa também seleciona as criaturas das sugestões, da mais próxima para a mais distante, depois das da própria etapa atual. Só muda fora de combate."
 L["Mark quests new in Forever"] = "Marcar missões novas no Forever"
@@ -2237,6 +2240,9 @@ L["With Transparent, the tabs and the step bar stay on screen instead of only un
 L["With Transparent: Soft lays a light shade behind each line of text, Dark a dark backing behind the whole window. Off: the outlined text alone on the world."] = "Com Transparente: Suave põe uma sombra leve atrás de cada linha de texto, Escuro um fundo escuro atrás da janela inteira. Desativado: só o texto contornado sobre o mundo."
 -- L["Tell me when a newer Polestar is out"] = ""
 -- L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."] = ""
+L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."] = "O que a janela, seus botões e alertas fazem em masmorras, raides, campos de batalha e arenas. \"Janela do guia\" no menu do botão do minimapa, o atalho de teclado ou /polestar abre a janela lá dentro até você sair."
+L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Um pequeno botão do Polestar que você pode pôr em qualquer lugar da tela. Clique para ocultar ou mostrar o Polestar, clique com o botão direito para um menu, arraste para mover. Ele some com a janela em combate e em masmorras quando estas estão em Ocultar."
+L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."] = "Ocultar o Polestar deixa a seta, o botão de viagem dela e o som de chegada. Só para este personagem."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -2453,10 +2459,14 @@ L["Balance"] = "Equilíbrio"
 L["Feral"] = "Combate Feral"
 
 -- Maps/MinimapButton.lua
-L["Click: show or hide the guide"] = "Clique: mostrar ou ocultar o guia"
 L["Right-click: menu"] = "Clique direito: menu"
 L["Drag: move it around the minimap"] = "Arrastar: mover ao redor do minimapa"
-L["Show window"] = "Mostrar janela"
+L["Polestar is hidden: click to show"] = "O Polestar está oculto: clique para mostrar"
+L["Click: hide Polestar"] = "Clique: ocultar o Polestar"
+L["Hide arrow"] = "Ocultar seta"
+L["Show Polestar"] = "Mostrar o Polestar"
+L["Hide Polestar"] = "Ocultar o Polestar"
+L["Keep the arrow when hidden"] = "Manter a seta ao ocultar"
 
 -- UI/Gamepad.lua
 L["D-pad up"] = "Direcional para cima"
@@ -3372,3 +3382,11 @@ L["Right-click: hide this until the timer ends."] = "Clique direito: ocultar at�
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = "No ritmo, mas %s (%d) na etapa %d é difícil: você estará no nível %s; chegue ao nível %d antes"
 -- L["%s has Polestar %s; you have %s. A newer version is out."] = "%s tem o Polestar %s; você tem o %s. Já saiu uma versão mais nova."
 -- L["Party sync is on: your party sees your quest progress (Options > Questing > Quests > Group to turn it off)."] = "A sincronização do grupo está ligada: seu grupo vê seu progresso nas missões (Opções > Missões > Missões > Grupo para desligar)."
+-- L["Hide the guide window"] = "Ocultar a janela do guia"
+-- L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Um botão do Polestar na borda do minimapa. Clique para mostrar ou ocultar o guia, clique com o botão direito para as configurações, arraste para movê-lo."
+-- L["Click the minimap button or press %s to show it."] = "Clique no botão do minimapa ou pressione %s para mostrá-la."
+-- L["Click the minimap button to show it."] = "Clique no botão do minimapa para mostrá-la."
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = "O que a janela, seus botões e alertas fazem em masmorras, raides, campos de batalha e arenas. O botão do minimapa, o atalho de teclado ou /polestar abre a janela lá dentro até você sair."
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Um pequeno botão do Polestar que você pode pôr em qualquer lugar da tela. Clique para mostrar ou ocultar o guia, clique com o botão direito para um menu, arraste para mover. Ele some com a janela em combate e em masmorras quando estas estão em Ocultar."
+-- L["Click: show or hide the guide"] = "Clique: mostrar ou ocultar o guia"
+-- L["Show window"] = "Mostrar janela"

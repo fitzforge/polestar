@@ -475,10 +475,12 @@ local function release(unit)
 	pool[#pool + 1] = f
 end
 
+-- While Polestar is hidden the plates are still tracked but carry no icon:
+-- POLESTAR_HIDDEN puts the icons back on the plates shown then.
 local function updatePlate(unit)
 	local npc = plateUnits[unit]
 	local need, o = false, nil
-	if npc and platesOn() then need, o = needsKill(npc) end
+	if npc and platesOn() and not ns.Hidden() then need, o = needsKill(npc) end
 	if not need then
 		release(unit)
 		return
@@ -602,3 +604,4 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.nameplateIconSide" or path == "qol" or path == "" then replaceIcons() end
 	if path == "qol.nameplateIcons" or path == "qol.questTooltips" or path == "qol.questDB" or path == "qol" or path == "" then refreshAll() end
 end)
+ns.On("POLESTAR_HIDDEN", refreshPlates)

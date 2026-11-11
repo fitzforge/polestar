@@ -29,7 +29,7 @@ local WHY = {
 }
 
 local function build()
-	F = CreateFrame("Frame", "PolestarQuestRoom", UIParent)
+	F = CreateFrame("Frame", "PolestarQuestRoom", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)

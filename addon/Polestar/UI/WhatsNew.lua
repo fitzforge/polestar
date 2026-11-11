@@ -119,7 +119,7 @@ end
 
 local function build()
 	local K = UI.Welcome.Kit
-	F = CreateFrame("Frame", "PolestarWhatsNew", UIParent)
+	F = CreateFrame("Frame", "PolestarWhatsNew", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -240,12 +240,13 @@ end
 
 local try -- forward
 
--- Wait for the route choice to close, then try again.
+-- Wait for the route choice to close (not for Polestar hiding it with the
+-- rest: it stays open then), then try again.
 local function afterRouteChoice()
 	local RC = UI.RouteChoice
 	if not hookedRC and RC and RC.frame then
 		hookedRC = true
-		RC.frame:HookScript("OnHide", function() try() end)
+		RC.frame:HookScript("OnHide", function(self) if not self:IsShown() then try() end end)
 	end
 end
 

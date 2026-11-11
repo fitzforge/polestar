@@ -2746,4 +2746,4 @@ ns.RegisterCommand("route", function()
 		local leg = list[i]
 		ns.Print(format("%d. %s (%d:%02d)", i, leg.label or leg.kind, floor(leg.seconds / 60), leg.seconds % 60))
 	end
-end, L["Show the travel route to the current target"])
+end, L["Show the travel route to the current target"], true)

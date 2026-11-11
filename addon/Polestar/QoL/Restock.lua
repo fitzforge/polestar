@@ -234,9 +234,10 @@ local function makeButton()
 	button:Hide()
 end
 
--- Shown while the merchant sells something short of its amount.
+-- Shown while the merchant sells something short of its amount, not while
+-- Polestar is hidden.
 function Restock.Update()
-	if not open then
+	if not open or ns.Hidden() then
 		if button then button:Hide() end
 		return
 	end
@@ -270,6 +271,7 @@ ns.On("RESTOCK_CHANGED", function() if open then updateSoon() end end)
 ns.On("SETTING_CHANGED", function(path)
 	if open and (path == "" or path == "qol" or path == "qol.restock") then updateSoon() end
 end)
+ns.On("POLESTAR_HIDDEN", function() if open then updateSoon() end end)
 
 ---------------------------------------------------------------------------
 -- /polestar restock [drink|food|ammo|<item>] [amount]
@@ -318,5 +320,5 @@ function Restock.Command(rest)
 end
 
 if ns.RegisterCommand then
-	ns.RegisterCommand("restock", Restock.Command, L["Amounts to restock at merchants: drink, food, ammo or an item"])
+	ns.RegisterCommand("restock", Restock.Command, L["Amounts to restock at merchants: drink, food, ammo or an item"], true)
 end
