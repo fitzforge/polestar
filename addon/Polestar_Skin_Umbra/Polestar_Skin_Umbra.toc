@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Skin: Umbra
+## Notes: A dark mode for Polestar: charcoal windows sunk in a soft vignette, a steel glow on their edges, a deep shadow; on Polestar's frames or on the game's own art, dimmed.
+## Title-deDE: Polestar-Design: Umbra
+## Notes-deDE: Ein dunkler Modus für Polestar: anthrazitfarbene Fenster in einer weichen Vignette, ein stählernes Leuchten an den Kanten, ein tiefer Schatten; auf Polestars Rahmen oder auf der abgedunkelten Grafik des Spiels.
+## Title-esES: Polestar, tema: Umbra
+## Notes-esES: Un modo oscuro para Polestar: ventanas color carbón hundidas en una viñeta suave, un brillo acero en sus bordes, una sombra profunda; sobre los marcos de Polestar o sobre el arte del juego, atenuado.
+## Title-esMX: Polestar, tema: Umbra
+## Notes-esMX: Un modo oscuro para Polestar: ventanas color carbón hundidas en una viñeta suave, un brillo acero en sus bordes, una sombra profunda; sobre los marcos de Polestar o sobre el arte del juego, atenuado.
+## Title-frFR: Polestar, habillage : Umbra
+## Notes-frFR: Un mode sombre pour Polestar : des fenêtres anthracite dans un vignettage doux, une lueur acier sur leurs bords, une ombre profonde ; sur les cadres de Polestar ou sur les graphismes du jeu, assombris.
+## Title-koKR: Polestar 스킨: Umbra
+## Notes-koKR: Polestar의 다크 모드: 부드러운 비네트에 잠긴 차콜 창, 가장자리의 강철빛, 깊은 그림자. Polestar의 프레임 또는 어둡게 한 게임 자체 그래픽 위에.
+## Title-ptBR: Polestar, tema: Umbra
+## Notes-ptBR: Um modo escuro para o Polestar: janelas cor de carvão numa vinheta suave, um brilho de aço nas bordas, uma sombra profunda; nas molduras do Polestar ou na arte do próprio jogo, escurecida.
+## Title-ruRU: Polestar, оформление: Umbra
+## Notes-ruRU: Тёмный режим для Polestar: графитовые окна в мягкой виньетке, стальное свечение по краям, глубокая тень; на рамках Polestar или на затемнённой графике игры.
+## Title-zhCN: Polestar 皮肤：Umbra
+## Notes-zhCN: Polestar 的深色模式：沉在柔和暗角中的炭灰窗口，边缘钢色微光，深邃阴影；用于 Polestar 的窗框或调暗的游戏自带美术。
+## Title-zhTW: Polestar 皮膚：Umbra
+## Notes-zhTW: Polestar 的深色模式：沉在柔和暗角中的炭灰視窗，邊緣鋼色微光，深邃陰影；用於 Polestar 的窗框或調暗的遊戲自帶美術。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.6
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: umbra
+
+Umbra.lua

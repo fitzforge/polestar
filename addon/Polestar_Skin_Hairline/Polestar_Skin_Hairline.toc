@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Skin: Hairline
+## Notes: The lightest touch for Polestar: frames of single hairlines, outlined buttons, light condensed type with room round it, your class colour as the accent.
+## Title-deDE: Polestar-Design: Hairline
+## Notes-deDE: Der leichteste Strich für Polestar: Rahmen aus einzelnen Haarlinien, umrandete Schaltflächen, leichte schmale Schrift mit Luft, deine Klassenfarbe als Akzent.
+## Title-esES: Polestar, tema: Hairline
+## Notes-esES: El trazo más ligero para Polestar: marcos de una sola línea fina, botones solo con contorno, letra condensada ligera con aire alrededor, el color de tu clase como acento.
+## Title-esMX: Polestar, tema: Hairline
+## Notes-esMX: El trazo más ligero para Polestar: marcos de una sola línea fina, botones solo con contorno, letra condensada ligera con aire alrededor, el color de tu clase como acento.
+## Title-frFR: Polestar, habillage : Hairline
+## Notes-frFR: La touche la plus légère pour Polestar : des cadres d'un seul trait fin, des boutons en contour, des caractères condensés légers et aérés, la couleur de votre classe en accent.
+## Title-koKR: Polestar 스킨: Hairline
+## Notes-koKR: Polestar를 위한 가장 가벼운 스킨: 가는 선 하나로 된 테두리, 외곽선 버튼, 여유 있는 가는 좁은 글꼴, 직업 색상의 강조색.
+## Title-ptBR: Polestar, tema: Hairline
+## Notes-ptBR: O traço mais leve para o Polestar: molduras de uma só linha fina, botões só com contorno, letra condensada leve com espaço ao redor, a cor da sua classe como destaque.
+## Title-ruRU: Polestar, оформление: Hairline
+## Notes-ruRU: Самое лёгкое оформление для Polestar: рамки из одной тонкой линии, кнопки-контуры, лёгкий узкий шрифт с простором, цвет вашего класса как акцент.
+## Title-zhCN: Polestar 皮肤：Hairline
+## Notes-zhCN: Polestar 最轻盈的皮肤：单根细线的边框，仅描边的按钮，疏朗的细窄字体，以职业颜色为强调色。
+## Title-zhTW: Polestar 皮膚：Hairline
+## Notes-zhTW: Polestar 最輕盈的皮膚：單根細線的邊框，僅描邊的按鈕，疏朗的細窄字體，以職業顏色為強調色。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.6
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: hairline
+
+Hairline.lua
