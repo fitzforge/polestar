@@ -117,9 +117,14 @@ stub.login(); stub.advance(0.25)
 {open}
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
 local g = E.GetGuide()
+-- The steps that apply to him up to the first Tarren Mill stop that does (the catch-up on Battle of Hillsbrad and
+-- The Rescue before it, #1660, is for characters without those quests; he handed them in).
 local st = {{}}
 for i, step in ipairs(g.steps) do
-	if E.Applies(i) and i <= 19 then st[#st + 1] = step.title .. "=" .. E.GetStepView(i).status end
+	if E.Applies(i) then
+		st[#st + 1] = step.title .. "=" .. E.GetStepView(i).status
+		if step.title == "Tarren Mill" then break end
+	end
 end
 local korran
 for i, step in ipairs(g.steps) do if step.title == "Korran" then korran = i end end
@@ -139,6 +144,10 @@ fn tincho_at_28_7_loading_hillsbrad_keeps_orgrimmar_training_and_the_undercity_o
 		assert_eq!(out["korran"], "na", "Korran's accept waits for 29, no task, no level text: {out}");
 		for s in ["Fly to Orgrimmar=upcoming", "Train=upcoming", "Zeppelin to Undercity=upcoming", "The Undercity=upcoming", "Tarren Mill=upcoming"] {
 			assert!(out["steps"].as_array().unwrap().iter().any(|v| v == s), "reload {reload}, {s}: {out}");
+		}
+		for s in ["High Executor Darthalia", "Krusk", "Hillsbrad Fields", "Hillsbrad Peasants", "Durnholde Keep", "The smithy"] {
+			let catch_up = out["steps"].as_array().unwrap().iter().any(|v| v.as_str().is_some_and(|v| v.starts_with(&format!("{s}="))));
+			assert!(!catch_up, "reload {reload}: the #1660 catch-up ({s}) is not his, he handed those quests in: {out}");
 		}
 	}
 }
