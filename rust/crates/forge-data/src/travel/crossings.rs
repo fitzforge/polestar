@@ -406,16 +406,7 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 		}
 		let Some(map) = map else { continue };
 		let (Some(a), Some(z)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
-		out.areas.push(Area {
-			id: e.get("id").to_js_string(),
-			name: name.to_js_string(),
-			map,
-			c: a.c,
-			top: round(a.wx, 1),
-			bottom: round(z.wx, 1),
-			left: round(a.wy, 1),
-			right: round(z.wy, 1),
-		});
+		out.areas.push(Area { id: e.get("id").to_js_string(), name: name.to_js_string(), map, c: a.c, top: round(a.wx, 1), bottom: round(z.wx, 1), left: round(a.wy, 1), right: round(z.wy, 1) });
 	}
 	(errors, out)
 }
@@ -717,10 +708,16 @@ mod tests {
 		assert_eq!((a.id.as_str(), a.map, a.c), ("rutheran-village", 1438.0, 1.0));
 		assert_eq!((a.top, a.bottom, a.left, a.right), (8980.5, 8437.5, 1421.5, 454.1));
 		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
-		assert!(lua.contains("\tareas = {\n\t\t{ id = \"rutheran-village\", name = \"Rut'theran Village\", map = 1438, c = 1, top = 8980.5, bottom = 8437.5, left = 1421.5, right = 454.1 },\n\t},"), "{lua}");
+		assert!(
+			lua.contains("\tareas = {\n\t\t{ id = \"rutheran-village\", name = \"Rut'theran Village\", map = 1438, c = 1, top = 8980.5, bottom = 8437.5, left = 1421.5, right = 454.1 },\n\t},"),
+			"{lua}"
+		);
 		assert!(lua.contains("[1438] = { name = \"Teldrassil\""), "its zone is in the zone table: {lua}");
 
-		let bad = parse_json(r#"{ "schema": 1, "areas": [ { "id": "x", "name": "X", "map": 1438, "box": { "x1": 60, "y1": 84, "x2": 50, "y2": 100 } }, { "id": "y", "name": "", "map": 9999, "box": {} } ] }"#).unwrap();
+		let bad = parse_json(
+			r#"{ "schema": 1, "areas": [ { "id": "x", "name": "X", "map": 1438, "box": { "x1": 60, "y1": 84, "x2": 50, "y2": 100 } }, { "id": "y", "name": "", "map": 9999, "box": {} } ] }"#,
+		)
+		.unwrap();
 		let (errors, set) = validate_crossings(&bad, &frames());
 		assert!(set.areas.is_empty());
 		assert_eq!(errors.len(), 4, "{errors:?}");
