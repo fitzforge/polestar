@@ -136,9 +136,9 @@ emit(out)
 }
 
 // The arrow's lines are drawn over the 3D world, never on a skin's ground. Vellum's dark ink vanished there over a
-// night zone (the distance read at 1.2:1); on a light skin Polestar draws them in the skin's paper, outlined and
-// shadowed in its ink. Every bundled skin's distance and label read at 7:1 on a night zone (Nav.WORLD_NIGHT, a dark
-// zone's ground as the renders show it), its secondary line at 4.5:1, and the shadow is darker than the text.
+// night zone (the distance read at 1.1:1); on a light skin Polestar draws them in the skin's paper, outlined and
+// shadowed in its ink. Every bundled skin's distance and label read at 7:1 on a night zone (#16191f, a dark zone's
+// ground as the renders show it), its secondary line at 4.5:1, and the shadow is darker than the text.
 #[test]
 fn every_bundled_skin_s_arrow_text_reads_over_a_night_zone() {
 	let list = SKINS.iter().map(|(id, _, _)| format!("{id:?}")).collect::<Vec<_>>().join(", ");
@@ -148,7 +148,8 @@ local T, N = Polestar.Theme, Polestar.Nav
 local A = N.arrow
 local out = {{}}
 local function rgb(fs) local r, g, b = fs:GetTextColor(); return {{ r, g, b }} end
-local function ratio(c) return math.floor(T.Contrast(c, N.WORLD_NIGHT) * 10 + 0.5) / 10 end
+local NIGHT = {{ 0x16 / 255, 0x19 / 255, 0x1f / 255 }}
+local function ratio(c) return math.floor(T.Contrast(c, NIGHT) * 10 + 0.5) / 10 end
 for _, id in ipairs({{ "polestar", {list} }}) do
 	Polestar.Set("ui.skin", id)
 	N.SetTarget(1429, 30, 30, "Somewhere")

@@ -110,7 +110,6 @@ end
 -- ink, and its coloured lines are lifted toward the paper until they read
 -- on a night zone (WORLD_NIGHT) at the subject colours' floor (4.5:1).
 local WORLD_NIGHT = { 0.086, 0.098, 0.122 }
-Nav.WORLD_NIGHT = WORLD_NIGHT
 local PAPER_TEXT, LIFTED = { "text", "textDim" }, { "place", "arrowText", "arrowNearText" }
 local function overTheWorld(T)
 	local ok, light = pcall(function() return T.IsLightPalette(T.Palette()) end)
