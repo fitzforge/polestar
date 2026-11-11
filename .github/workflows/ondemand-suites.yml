@@ -73,6 +73,8 @@ concurrency:
   group: ondemand-suites-${{ inputs.sha || inputs.ref || github.ref }}
   cancel-in-progress: false
 
+# `shell: bash` runs steps with pipefail, so `cargo test | tee` fails when the tests do. A job's
+# own `defaults.run` replaces this one whole: it names the shell again (tests/workflows.test.js).
 defaults:
   run:
     shell: bash
@@ -220,6 +222,7 @@ jobs:
       contents: read
     defaults:
       run:
+        shell: bash
         working-directory: code/rust
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
@@ -284,6 +287,7 @@ jobs:
       contents: read
     defaults:
       run:
+        shell: bash
         working-directory: code/rust
     env:
       RUST_TEST_THREADS: "4"
@@ -322,7 +326,7 @@ jobs:
           {
             echo "### forge-addontest failures"
             echo '```'
-            grep -E '^test .* FAILED$|^test result:' "$RUNNER_TEMP/logs/addontest.log" | head -n 100
+            grep -E '^test .* FAILED$|^test result:' "$RUNNER_TEMP/logs/addontest.log" | head -n 100 || true
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -345,6 +349,7 @@ jobs:
       contents: read
     defaults:
       run:
+        shell: bash
         working-directory: code
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0

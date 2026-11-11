@@ -18,7 +18,10 @@ They run only when started: `workflow_dispatch` (people with write access),
 `workflow_call` from the batch workflow, and the batch on a push to a
 branch named `ci/<anything>`. Pushing any other branch starts none of them.
 Every job's full output is in the run's artifacts (`logs-*`, kept 14 days);
-each job's summary lists its findings.
+each job's summary lists its findings. A step fails when any command in it
+fails, one piped into `tee` included: every step runs under `bash` with
+pipefail, and `tests/workflows.test.js` checks that a job setting its own
+`defaults.run` names that shell again.
 
 ## Starting a run
 
