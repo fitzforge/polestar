@@ -662,7 +662,10 @@ local function spawnRows(entity, kind, p, from, levelGate, direct)
 		place(r, s, travel(from, s, direct))
 		r.detail = r.zone
 		if entity.level then r.detail = detail(r.zone or "", L["Level"] .. " " .. entity.level) end
-		if levelGate and entity.level and entity.level - p.level > MOB_LEVEL_GAP then
+		-- Only creatures you fight are out of reach by level: an NPC friendly to the
+		-- character's side (innkeeper, vendor, trainer, quest giver) is open at any level.
+		local friendly = entity.faction and sideOK(entity.faction, p)
+		if levelGate and not friendly and entity.level and entity.level - p.level > MOB_LEVEL_GAP then
 			block(r, "level", L["Level"] .. " " .. entity.level)
 		end
 		if entity.faction and not sideOK(entity.faction, p) then r.hostile = true end
