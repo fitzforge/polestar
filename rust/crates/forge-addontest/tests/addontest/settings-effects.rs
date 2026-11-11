@@ -35,6 +35,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "discovery", src: include_str!("effects/discovery.lua") },
 	Group { name: "discovery_lookup", src: include_str!("effects/discovery-lookup.lua") },
 	Group { name: "discovery_dungeons", src: include_str!("effects/discovery-dungeons.lua") },
+	Group { name: "gamepad", src: include_str!("effects/gamepad.lua") },
 ];
 
 // The runner: the group's probes over the control specs (the registry's, and the settings window's own pages
@@ -304,6 +305,11 @@ fn discovery_lookup() {
 #[test]
 fn discovery_dungeons() {
 	check("discovery_dungeons");
+}
+
+#[test]
+fn gamepad() {
+	check("gamepad");
 }
 
 // Every control of the settings window has an effect check, and every check is a control's.
