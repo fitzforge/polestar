@@ -338,6 +338,63 @@ fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
 	);
 }
 
+// The Hearthstone's two buttons, each its own switch: the one in the action set (qol.hearthButton) and the travel
+// button under the arrow (nav.castPrompt) sit side by side on one line wherever both show (the Buttons page, Questing
+// > Buttons, Quality of Life > Travel), their labels saying which is which; on the Buttons page each row lights its
+// own button in the preview (the travel button under the arrow drawn there too), never the other; and a search for
+// "hearth", "HS" or "hearthstone" puts that place first with both in it.
+#[test]
+fn the_hearthstone_s_two_buttons_sit_side_by_side_each_lights_its_own_and_a_search_finds_them_first() {
+	let out = run(r#"
+		local out = { places = {}, search = {} }
+		for _, at in ipairs({ { "buttons", "Action buttons", "buttons.hearthSize" }, { "questing", "Buttons", "qol.hearthButton" },
+			{ "qualityoflife", "Travel", "qol.hearthButton" } }) do
+			shown(at[1], at[2])
+			local rows = O.Controls(at[1], at[2])
+			local h, t = rows[at[3]], rows["nav.castPrompt"]
+			local place = false
+			if h and t then
+				local _, _, _, hx, hy = h:GetPoint(1)
+				local _, _, _, tx, ty = t:GetPoint(1)
+				place = hy == ty and tx > hx
+			end
+			out.places[at[1]] = place
+		end
+		local labels = {}
+		for _, c in ipairs(O.AllControls()) do
+			if c.key == "qol.hearthButton" or c.key == "nav.castPrompt" then labels[c.key] = c.label end
+			for _, x in ipairs(c.extras or {}) do if x.key == "qol.hearthButton" then labels[x.key] = x.label end end
+		end
+		out.labels = labels
+		local f, host = shown("buttons", "Action buttons")
+		local faces = f.Faces()
+		local travel = f.Travel()
+		local function lights(key, part)
+			for _, rec in ipairs(host.psByKey[key] or {}) do
+				if rawget(rec, "psRegion") == part then return true end
+			end
+			return false
+		end
+		out.lights = { hearth = lights("qol.hearthButton", faces.hearth), hearthNotTravel = not lights("qol.hearthButton", travel),
+			travel = lights("nav.castPrompt", travel), travelNotHearth = not lights("nav.castPrompt", faces.hearth) }
+		for _, q in ipairs({ "hearth", "HS", "hearthstone" }) do
+			local first = (O.Search(q))[1]
+			local keys = {}
+			for _, c in ipairs(first and first.controls or {}) do keys[#keys + 1] = c.key end
+			out.search[q] = { title = first and first.title, keys = table.concat(keys, " ") }
+		end
+		emit(out)"#);
+	assert_eq!(out["places"], json!({ "buttons": true, "questing": true, "qualityoflife": true }), "side by side on one line: {out}");
+	assert_eq!(out["labels"], json!({ "qol.hearthButton": "Hearthstone in the button set", "nav.castPrompt": "Travel button under the arrow" }));
+	assert_eq!(out["lights"], json!({ "hearth": true, "hearthNotTravel": true, "travel": true, "travelNotHearth": true }));
+	for q in ["hearth", "HS", "hearthstone"] {
+		let s = &out["search"][q];
+		assert_eq!(s["title"], "Buttons  \u{b7}  Action buttons  \u{b7}  Buttons", "{q}: the Buttons page first: {s}");
+		let keys = s["keys"].as_str().unwrap();
+		assert!(keys.contains("buttons.hearthSize") && keys.contains("nav.castPrompt"), "{q}: both in it: {keys}");
+	}
+}
+
 // A stage repaints on its own settings at once while it shows, on its next show when it was hidden, and not on
 // other settings (one with no look: a scale or a theme setting repaints every stage through Theme.Refresh).
 #[test]

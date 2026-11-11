@@ -1535,8 +1535,6 @@ L["The target button's icon shows what you do next: talk, accept, turn in, kill 
 L["Name new targets in chat"] = "Neue Ziele im Chat nennen"
 L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."] = "Wenn sich die Namen des Ziel-Buttons ändern, listet eine Chatzeile sie auf (\"Ziel: ...\"). Nur du siehst sie."
 L["Targeting: %s"] = "Ziel: %s"
-L["Hearthstone button"] = "Ruhestein-Button"
-L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "Zeigt deinen Ruhestein, solange der Guide dich zum Ruhestein schickt. Belegbar."
 L["Where the target's name shows around the target button: right, left, above or below."] = "Wo der Name des Ziels um den Ziel-Button steht: rechts, links, oben oder unten."
 L["Right"] = "Rechts"
 L["Left"] = "Links"
@@ -1682,6 +1680,10 @@ L["When the flight map opens, flies to the marked destination. Hold Shift at the
 -- L["Lists the spells you kept at a lower rank again."] = ""
 -- L["Boosted Rest status"] = ""
 -- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Dein Ruhestein bei den Aktions-Buttons, neben dem Questgegenstand- und dem Ziel-Button, solange der Guide dich zum Ruhestein schickt. Belegbar. Der Reise-Button unter dem Pfeil hat einen eigenen Schalter: Schaltest du diesen hier aus, bleibt jener an."
+L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "Unter dem Pfeil, solange die nächste Etappe der Route dein Ruhestein, ein Teleport oder ein Portal ist: ein Button, der ihn wirkt. Rechtsklick auf den Pfeil überspringt die Etappe. Der Ruhestein bei den Aktions-Buttons hat einen eigenen Schalter: Schaltest du diesen hier aus, bleibt jener an."
+L["Hearthstone in the button set"] = "Ruhestein bei den Aktions-Buttons"
+L["Travel button under the arrow"] = "Reise-Button unter dem Pfeil"
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"
@@ -2249,7 +2251,6 @@ L["Skip the travel route's current leg (a Hearthstone, teleport, flight, ride or
 L["Right-click to mark this leg done."] = "Rechtsklick, um diese Etappe als erledigt zu markieren."
 L["Along the route"] = "Entlang der Route"
 L["Travel button"] = "Reise-Button"
-L["When the route says to hearth or teleport, a button under the arrow casts it. Right-click the arrow to skip a leg."] = "Wenn die Route dich zum Ruhestein oder Teleport schickt, wirkt ihn ein Button unter dem Pfeil. Rechtsklick auf den Pfeil überspringt eine Etappe."
 
 -- Nav/Alerts.lua
 L["Tram to %s"] = "Bahn nach %s"
@@ -3620,7 +3621,6 @@ L["at turn-in"] = "bei der Abgabe"
 -- L["How solid the floating button is."] = ""
 -- L["Icon"] = ""
 -- L["Button set"] = ""
--- L["The quest item, Hearthstone, target and rare buttons, the floating button and the minimap button."] = ""
 -- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all. Sizes and layout change once a fight ends."] = ""
 -- L["Direction"] = ""
 -- L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."] = ""
@@ -3659,6 +3659,7 @@ L["at turn-in"] = "bei der Abgabe"
 -- L["The buttons side by side, their names below them."] = ""
 -- L["Quiet"] = ""
 -- L["Half seen out of combat, no glow and no background plate."] = ""
+L["The quest item, Hearthstone, target and rare buttons, the travel button under the arrow, the floating button and the minimap button."] = "Die Buttons für Questgegenstand, Ruhestein, Ziel und Rares, der Reise-Button unter dem Pfeil, der schwebende Button und der Minikarten-Button."
 
 -- UI/Profiles.lua
 -- L["Imported as %s, now in use."] = ""

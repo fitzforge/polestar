@@ -462,7 +462,6 @@ L["Skip the travel route's current leg (a Hearthstone, teleport, flight, ride or
 L["Right-click to mark this leg done."] = "右鍵點擊將這一段標為完成。"
 L["Along the route"] = "沿路線"
 L["Travel button"] = "旅行按鈕"
-L["When the route says to hearth or teleport, a button under the arrow casts it. Right-click the arrow to skip a leg."] = "當路線要你使用爐石或傳送時，箭頭下方的按鈕會施放它。右鍵點擊箭頭可跳過一段。"
 
 -- Nav/Alerts.lua
 L["Boat to %s"] = "前往 %s 的船"
@@ -882,8 +881,6 @@ L["The target button's icon shows what you do next: talk, accept, turn in, kill 
 L["Name new targets in chat"] = "在聊天中提示新目標"
 L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."] = "目標按鈕的名字變化時，聊天框中會用一行列出它們（「目標：...」）。只有你看得到。"
 L["Targeting: %s"] = "目標：%s"
-L["Hearthstone button"] = "爐石按鈕"
-L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "指南要你使用爐石時顯示你的爐石。可綁定。"
 L["Where the target's name shows around the target button: right, left, above or below."] = "目標名稱顯示在目標按鈕的哪個位置：右、左、上或下。"
 L["Right"] = "右"
 L["Left"] = "左"
@@ -1047,6 +1044,10 @@ L["When the flight map opens, flies to the marked destination. Hold Shift at the
 -- L["Lists the spells you kept at a lower rank again."] = ""
 -- L["Boosted Rest status"] = ""
 -- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "指南要你使用爐石時，在動作按鈕中、任務物品按鈕和目標按鈕旁顯示你的爐石。可綁定。箭頭下方的旅行按鈕有自己的開關：關閉這個不會關閉那個。"
+L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "當路線的下一段是爐石、傳送或傳送門時，箭頭下方會出現一個按鈕來施放它。右鍵點擊箭頭可跳過這一段。動作按鈕中的爐石有自己的開關：關閉這個不會關閉那個。"
+L["Hearthstone in the button set"] = "動作按鈕中的爐石"
+L["Travel button under the arrow"] = "箭頭下方的旅行按鈕"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -3649,7 +3650,6 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["How solid the floating button is."] = ""
 -- L["Icon"] = ""
 -- L["Button set"] = ""
--- L["The quest item, Hearthstone, target and rare buttons, the floating button and the minimap button."] = ""
 -- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all. Sizes and layout change once a fight ends."] = ""
 -- L["Direction"] = ""
 -- L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."] = ""
@@ -3688,6 +3688,7 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["The buttons side by side, their names below them."] = ""
 -- L["Quiet"] = ""
 -- L["Half seen out of combat, no glow and no background plate."] = ""
+L["The quest item, Hearthstone, target and rare buttons, the travel button under the arrow, the floating button and the minimap button."] = "任務物品、爐石、目標和稀有按鈕，箭頭下方的旅行按鈕，浮動按鈕和小地圖按鈕。"
 
 -- UI/Profiles.lua
 -- L["Imported as %s, now in use."] = ""

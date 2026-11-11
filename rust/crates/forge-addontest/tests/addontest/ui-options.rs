@@ -1242,7 +1242,8 @@ fn search_on_a_german_client_matches_german_labels_and_the_english_terms_and_lab
 	for q in ["german", "noAccent", "term", "english"] {
 		assert_eq!(out[q]["key"], "qol.fastLoot", "{q}");
 	}
-	assert_eq!(out["stone"]["key"], "qol.hearthButton");
+	// The Hearthstone's row on the Buttons page, its switch beside it.
+	assert_eq!(out["stone"]["key"], "buttons.hearthSize");
 }
 
 // One Chinese, Korean or Cyrillic character is a whole meaningful fragment inside a translated
@@ -1295,7 +1296,7 @@ fn search_with_no_match_suggests_the_nearest_settings() {
 	assert_eq!(out["sub"], "0 settings match");
 	let s = out["suggestions"].as_array().unwrap();
 	assert!(!s.is_empty() && s.len() <= 3, "{s:?}");
-	assert!(includes(&out["suggestions"], "Hearthstone button"), "{s:?}");
+	assert!(includes(&out["suggestions"], "Hearthstone in the button set"), "{s:?}");
 	assert_eq!(out["nothing"]["n"], 0);
 	assert_eq!(out["nothing"]["suggestions"], json!({}), "nothing near: no suggestion (an empty list)");
 }

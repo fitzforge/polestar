@@ -51,7 +51,6 @@ return {
 		["buttons.rareSize"] = function() return rare:GetWidth() end,
 		["buttons.bagSize"] = function() return bag:GetWidth() end,
 		["qol.itemButton"] = function() return item:IsShown() and true or false end,
-		["qol.hearthButton"] = function() return hearth:IsShown() and true or false end,
 		["qol.targetButton"] = function() return target:IsShown() and true or false end,
 		["qol.rareButton"] = function() return rare:IsShown() and true or false end,
 		-- The icon's inset from the button's edge.

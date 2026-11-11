@@ -1,8 +1,10 @@
 -- The Nav modules' rows (docs/ARCHITECTURE.md, "Options registry"), in the
--- modules' order (Nav/Nav.xml): Journey, Nearby, Prompts, Alerts, Handoff.
+-- modules' order (Nav/Nav.xml): Journey, Nearby, Alerts, Handoff.
 -- Guide > Arrow & routes (Routes, Along the route, Getting around), their
 -- doubles on Quality of Life > Travel > Hearth and travel, and Integrations
--- (TomTom, Shortest Path Forever). Part of
+-- (TomTom, Shortest Path Forever). The travel button (Prompts) sits beside
+-- the action set's Hearthstone, on the Buttons page, Questing > Buttons and
+-- Hearth and travel (QoL/Options.lua). Part of
 -- the settings' addon: none of it is in memory before the settings open.
 -- One setting may show on two pages: a fresh control per page (the registry
 -- keeps per-control state).
@@ -67,18 +69,6 @@ if Nav.nearby then
 	end
 	register({ page = L["Guide"], tab = L["Arrow & routes"], section = L["Getting around"], controls = controls() })
 	register({ page = L["Quality of Life"], tab = L["Travel"], section = L["Hearth and travel"], controls = controls() })
-end
-
--- Prompts (Nav/Prompts.lua): Guide > Arrow & routes > Along the route (Alerts
--- adds its own), and Quality of Life > Travel > Hearth and travel.
-if Nav.prompts then
-	local function castPrompt()
-		return H({ kind = "toggle", key = "nav.castPrompt", label = L["Travel button"],
-			search = "hearth, hearthstone, teleport, portal, cast button, travel spell",
-			help = L["When the route says to hearth or teleport, a button under the arrow casts it. Right-click the arrow to skip a leg."] })
-	end
-	register({ page = L["Guide"], tab = L["Arrow & routes"], section = L["Along the route"], controls = { castPrompt() } })
-	register({ page = L["Quality of Life"], tab = L["Travel"], section = L["Hearth and travel"], controls = { castPrompt() } })
 end
 
 -- Alerts (Nav/Alerts.lua): Guide > Arrow & routes > Along the route; the

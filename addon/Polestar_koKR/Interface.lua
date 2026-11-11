@@ -462,7 +462,6 @@ L["Skip the travel route's current leg (a Hearthstone, teleport, flight, ride or
 L["Right-click to mark this leg done."] = "오른쪽 클릭: 이 구간 완료 표시."
 L["Along the route"] = "경로 중"
 L["Travel button"] = "이동 버튼"
-L["When the route says to hearth or teleport, a button under the arrow casts it. Right-click the arrow to skip a leg."] = "경로가 귀환석이나 순간이동을 요구하면 화살표 아래 버튼으로 시전합니다. 화살표를 오른쪽 클릭하면 구간을 건너뜁니다."
 
 -- Nav/Alerts.lua
 L["Boat to %s"] = "%s행 배"
@@ -882,8 +881,6 @@ L["The target button's icon shows what you do next: talk, accept, turn in, kill 
 L["Name new targets in chat"] = "새 대상을 대화창에 알림"
 L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."] = "대상 버튼의 이름이 바뀌면 대화창에 한 줄로 알려줍니다(\"대상: ...\"). 나만 볼 수 있습니다."
 L["Targeting: %s"] = "대상: %s"
-L["Hearthstone button"] = "귀환석 버튼"
-L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "가이드가 귀환석 사용을 지시하는 동안 귀환석을 표시합니다. 단축키 지정 가능."
 L["Where the target's name shows around the target button: right, left, above or below."] = "대상 버튼 주변에 대상의 이름을 어디에 표시할지 정합니다: 오른쪽, 왼쪽, 위 또는 아래."
 L["Right"] = "오른쪽"
 L["Left"] = "왼쪽"
@@ -1047,6 +1044,10 @@ L["When the flight map opens, flies to the marked destination. Hold Shift at the
 -- L["Lists the spells you kept at a lower rank again."] = ""
 -- L["Boosted Rest status"] = ""
 -- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "가이드가 귀환석 사용을 지시하는 동안 퀘스트 아이템 버튼과 대상 버튼 옆, 행동 버튼 묶음에 귀환석을 표시합니다. 단축키 지정 가능. 화살표 아래 이동 버튼은 따로 켜고 끕니다: 이것을 꺼도 그쪽은 켜진 채로 남습니다."
+L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "경로의 다음 구간이 귀환석, 순간이동 또는 차원문일 때 화살표 아래에 나타나 그것을 시전하는 버튼입니다. 화살표를 오른쪽 클릭하면 구간을 건너뜁니다. 행동 버튼 묶음의 귀환석은 따로 켜고 끕니다: 이것을 꺼도 그쪽은 켜진 채로 남습니다."
+L["Hearthstone in the button set"] = "행동 버튼 묶음의 귀환석"
+L["Travel button under the arrow"] = "화살표 아래 이동 버튼"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -3649,7 +3650,6 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["How solid the floating button is."] = ""
 -- L["Icon"] = ""
 -- L["Button set"] = ""
--- L["The quest item, Hearthstone, target and rare buttons, the floating button and the minimap button."] = ""
 -- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all. Sizes and layout change once a fight ends."] = ""
 -- L["Direction"] = ""
 -- L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."] = ""
@@ -3688,6 +3688,7 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["The buttons side by side, their names below them."] = ""
 -- L["Quiet"] = ""
 -- L["Half seen out of combat, no glow and no background plate."] = ""
+L["The quest item, Hearthstone, target and rare buttons, the travel button under the arrow, the floating button and the minimap button."] = "퀘스트 아이템, 귀환석, 대상, 희귀 버튼, 화살표 아래 이동 버튼, 떠 있는 버튼과 미니맵 버튼."
 
 -- UI/Profiles.lua
 -- L["Imported as %s, now in use."] = ""

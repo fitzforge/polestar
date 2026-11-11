@@ -462,7 +462,6 @@ L["Skip the travel route's current leg (a Hearthstone, teleport, flight, ride or
 L["Right-click to mark this leg done."] = "Clique direito para marcar este trecho como feito."
 L["Along the route"] = "Ao longo da rota"
 L["Travel button"] = "Botão de viagem"
-L["When the route says to hearth or teleport, a button under the arrow casts it. Right-click the arrow to skip a leg."] = "Quando a rota mandar regressar ou teleportar, um botão sob a seta faz isso. Clique direito na seta para pular um trecho."
 
 -- Nav/Alerts.lua
 L["Boat to %s"] = "Barco para %s"
@@ -882,8 +881,6 @@ L["The target button's icon shows what you do next: talk, accept, turn in, kill 
 L["Name new targets in chat"] = "Anunciar novos alvos no chat"
 L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."] = "Quando os nomes do botão de alvo mudam, uma linha no chat os lista (\"Alvo: ...\"). Só você vê."
 L["Targeting: %s"] = "Alvo: %s"
-L["Hearthstone button"] = "Botão da Pedra de Regresso"
-L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "Mostra sua Pedra de Regresso quando o guia mandar usá-la. Aceita atalho."
 L["Where the target's name shows around the target button: right, left, above or below."] = "Onde o nome do alvo aparece em volta do botão de alvo: direita, esquerda, acima ou abaixo."
 L["Right"] = "Direita"
 L["Left"] = "Esquerda"
@@ -1047,6 +1044,10 @@ L["When the flight map opens, flies to the marked destination. Hold Shift at the
 -- L["Lists the spells you kept at a lower rank again."] = ""
 -- L["Boosted Rest status"] = ""
 -- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Sua Pedra de Regresso nos botões de ação, ao lado dos botões de item de missão e de alvo, quando o guia mandar usá-la. Aceita atalho. O botão de viagem sob a seta tem seu próprio interruptor: desligar este deixa aquele ligado."
+L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "Sob a seta, quando o próximo trecho da rota for sua Pedra de Regresso, um teleporte ou um portal: um botão que o lança. Clique direito na seta para pular o trecho. A Pedra de Regresso dos botões de ação tem seu próprio interruptor: desligar este deixa aquele ligado."
+L["Hearthstone in the button set"] = "Pedra de Regresso nos botões de ação"
+L["Travel button under the arrow"] = "Botão de viagem sob a seta"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -3649,7 +3650,6 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["How solid the floating button is."] = ""
 -- L["Icon"] = ""
 -- L["Button set"] = ""
--- L["The quest item, Hearthstone, target and rare buttons, the floating button and the minimap button."] = ""
 -- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all. Sizes and layout change once a fight ends."] = ""
 -- L["Direction"] = ""
 -- L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."] = ""
@@ -3688,6 +3688,7 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["The buttons side by side, their names below them."] = ""
 -- L["Quiet"] = ""
 -- L["Half seen out of combat, no glow and no background plate."] = ""
+L["The quest item, Hearthstone, target and rare buttons, the travel button under the arrow, the floating button and the minimap button."] = "Os botões de item de missão, Pedra de Regresso, alvo e raro, o botão de viagem sob a seta, o botão flutuante e o botão do minimapa."
 
 -- UI/Profiles.lua
 -- L["Imported as %s, now in use."] = ""

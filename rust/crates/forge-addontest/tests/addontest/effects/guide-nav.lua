@@ -1,10 +1,11 @@
 -- env: world stub_maps.lua
 -- The Guide page's arrow and routes rows (Polestar_Options/UI/Options.lua, Nav/Options.lua, UI/GuideOptions.lua;
--- Nav/Travel.lua, Walk.lua, Transit.lua, Journey.lua, Nearby.lua, Bridges.lua, Prompts.lua, Alerts.lua;
+-- Nav/Travel.lua, Walk.lua, Transit.lua, Journey.lua, Nearby.lua, Bridges.lua, Alerts.lua;
 -- UI/JourneyPanel.lua) on the whole addon in stub_maps.lua's travel world: a goal across the sea on Far Isle, the
 -- world map open on Testshire. What the modules' own tests fake stays faked the same way: the walking engine
 -- (Polestar_Nav's, nav-handoff.rs), TomTom (stub_nav.lua's), the game's user waypoint (stub_nav.lua's), the route
--- and the boat's timetable for the travel button and the alerts (nav-prompts.rs).
+-- and the boat's timetable for the alerts (nav-prompts.rs). The travel button under the arrow is the Buttons page's
+-- (buttons-world.lua), beside the action set's Hearthstone.
 local m, N, w, T, JP
 local finds, lastStyle, spot = 0, false, 0
 local pin = false
@@ -44,7 +45,6 @@ local function onRoute(route, read)
 	stub.advance(0.2)
 	return out
 end
-local HEARTH = { kind = "hearth", item = 6948, label = "Hearth to Goldshire", from = { c = 0, wx = 0, wy = 800 }, to = { c = 0, wx = 900, wy = 0 } }
 local WALK = { kind = "walk", label = "Walk", to = { c = 0, wx = 950, wy = 0 } }
 local BOAT = { kind = "boat", transport = { id = "boat-west", kind = "boat" }, side = "a",
 	from = { name = "West Dock", c = 0, wx = -900, wy = 900 }, to = { name = "Far Isle", c = 1, wx = 0, wy = 0 } }
@@ -170,13 +170,6 @@ return {
 			target("Near camp", 9000, 42, 42)
 			return PolestarNavArrow:IsShown() and true or false
 		end },
-		-- A route starting with the Hearthstone: the travel button under the arrow.
-		["nav.castPrompt"] = function()
-			return onRoute({ HEARTH, WALK }, function()
-				local b = _G.PolestarTravelButton
-				return b ~= nil and b:IsShown() and (b:GetAttribute("item") or true) or false
-			end)
-		end,
 		["nav.alerts"] = dock,
 		["nav.alertBanner"] = dock,
 		["nav.alertSound"] = dock,

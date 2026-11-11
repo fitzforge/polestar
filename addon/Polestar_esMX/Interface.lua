@@ -692,8 +692,6 @@ L["The target button's icon shows what you do next: talk, accept, turn in, kill 
 L["Name new targets in chat"] = "Nombrar los nuevos objetivos en el chat"
 L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."] = "Cuando cambian los nombres del botón de objetivo, una línea en el chat los enumera (\"Objetivo: ...\"). Solo la ves tú."
 L["Targeting: %s"] = "Objetivo: %s"
-L["Hearthstone button"] = "Botón de piedra de hogar"
-L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "Muestra tu piedra de hogar cuando la guía dice que la uses. Se le puede asignar una tecla."
 L["Where the target's name shows around the target button: right, left, above or below."] = "Dónde aparece el nombre del objetivo junto al botón de objetivo: derecha, izquierda, arriba o abajo."
 L["Right"] = "Derecha"
 L["Left"] = "Izquierda"
@@ -858,6 +856,10 @@ L["When the flight map opens, flies to the marked destination. Hold Shift at the
 -- L["Lists the spells you kept at a lower rank again."] = ""
 -- L["Boosted Rest status"] = ""
 -- L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."] = ""
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Tu piedra de hogar entre los botones de acción, junto a los botones de objeto de misión y de objetivo, cuando la guía dice que la uses. Se le puede asignar una tecla. El botón de viaje bajo la flecha tiene su propio interruptor: apagar este deja aquel encendido."
+L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "Bajo la flecha, cuando el siguiente tramo de la ruta es tu piedra de hogar, un teletransporte o un portal: un botón que lo lanza. Clic derecho en la flecha para omitir el tramo. La piedra de hogar de los botones de acción tiene su propio interruptor: apagar este deja aquel encendido."
+L["Hearthstone in the button set"] = "Piedra de hogar en los botones de acción"
+L["Travel button under the arrow"] = "Botón de viaje bajo la flecha"
 
 -- QoL/QoL.lua
 L["%dh %02dm"] = "%dh %02dm"
@@ -2352,7 +2354,6 @@ L["Skip the travel route's current leg (a Hearthstone, teleport, flight, ride or
 L["Right-click to mark this leg done."] = "Clic derecho para marcar este tramo como hecho."
 L["Along the route"] = "Por la ruta"
 L["Travel button"] = "Botón de viaje"
-L["When the route says to hearth or teleport, a button under the arrow casts it. Right-click the arrow to skip a leg."] = "Cuando la ruta indica usar la piedra de hogar o teletransportarse, un botón bajo la flecha lo lanza. Clic derecho en la flecha para omitir un tramo."
 
 -- Nav/Alerts.lua
 L["Tram to %s"] = "Tranvía a %s"
@@ -3648,7 +3649,6 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["How solid the floating button is."] = ""
 -- L["Icon"] = ""
 -- L["Button set"] = ""
--- L["The quest item, Hearthstone, target and rare buttons, the floating button and the minimap button."] = ""
 -- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all. Sizes and layout change once a fight ends."] = ""
 -- L["Direction"] = ""
 -- L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."] = ""
@@ -3687,6 +3687,7 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["The buttons side by side, their names below them."] = ""
 -- L["Quiet"] = ""
 -- L["Half seen out of combat, no glow and no background plate."] = ""
+L["The quest item, Hearthstone, target and rare buttons, the travel button under the arrow, the floating button and the minimap button."] = "Los botones de objeto de misión, piedra de hogar, objetivo y raro, el botón de viaje bajo la flecha, el botón flotante y el botón del minimapa."
 
 -- UI/Profiles.lua
 -- L["Imported as %s, now in use."] = ""

@@ -110,20 +110,43 @@ function C.stepInteract()
 		help = L["Once the step key has targeted the step's NPC, the next press talks to it; on the corpse of the step's mob, it loots; in the step's quest window, it accepts or completes. Only out of combat, and only on the step the guide is at."],
 		search = "interact, interact key, talk, loot, one button, keybind, hotkey" }
 end
+-- The Hearthstone's two buttons, each its own switch, side by side wherever
+-- both show (the action set's Hearthstone, the travel button under the
+-- arrow): their labels say which is which. The travel button's row is the
+-- Nav module's setting (Nav/Prompts.lua), here when it is loaded.
+local HEARTH_HELP = L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."]
+local TRAVEL_HELP = L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."]
 function C.hearthButton()
-	return { kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone button"],
-		help = L["Shows your Hearthstone while the guide says to hearth. Bindable."], search = "hearth, hearthstone, keybind, hotkey" }
+	return { kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone in the button set"], help = HEARTH_HELP,
+		search = "hearth, hearthstone, hs, hs button, hearth button, action button, keybind, hotkey" }
 end
+function C.castPrompt()
+	local Nav = ns.Nav
+	if not (Nav and Nav.prompts) then return nil end
+	local c = { kind = "toggle", key = "nav.castPrompt", label = L["Travel button under the arrow"], help = TRAVEL_HELP,
+		search = "hearth, hearthstone, hs, hs button, teleport, portal, cast button, travel spell, arrow" }
+	return Nav.HandoffOption and Nav.HandoffOption(c) or c
+end
+-- Both onto list, side by side.
+local function hearthPair(list)
+	list[#list + 1] = C.hearthButton()
+	list[#list + 1] = C.castPrompt()
+	return list
+end
+-- The Buttons page's rows of the pair (QoL/ButtonsOptions.lua, loaded after).
+QoL.HearthOptions = { hearth = C.hearthButton, travel = C.castPrompt, hearthHelp = HEARTH_HELP }
 
--- Questing > Buttons: the action buttons, then what the target button and the
--- step key target and how they mark it.
-register(QUESTING, L["Buttons"], L["Action buttons"], {
+-- Questing > Buttons: the action buttons (the Hearthstone's two side by
+-- side), then what the target button and the step key target and how they
+-- mark it.
+local actionRows = hearthPair({
 	C.itemButton(),
 	C.questLoot(),
 	{ kind = "toggle", key = "qol.bagGlow", label = L["Highlight the step's item in your bags"],
 		help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator). An item a later step needs gets a lock, so you don't sell it."],
 		search = "bags, glow, quest item, inventory" },
-	C.hearthButton(),
+})
+for _, c in ipairs({
 	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],
 		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."], search = "rare elite, target rare, keybind" },
 	C.stepInteract(),
@@ -134,7 +157,8 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		onClick = function() ns.UI.ShowOptions("buttons") end },
 	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
 		search = "move buttons, button position", onClick = function() if QoL.Buttons then QoL.Buttons.ResetPositions() end end },
-})
+}) do actionRows[#actionRows + 1] = c end
+register(QUESTING, L["Buttons"], L["Action buttons"], actionRows)
 
 register(QUESTING, L["Buttons"], L["Targeting"], {
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
@@ -209,13 +233,13 @@ register(QOL, L["Travel"], L["Flights"], {
 		help = L["When the flight map opens, flies to the marked destination. Hold Shift at the flight master to choose yourself."], search = "flight, taxi, flight path, auto fly, take flight" },
 })
 
--- The Hearthstone, after the travel button, the transport alerts and the nearby services (Nav/Options.lua).
-register(QOL, L["Travel"], L["Hearth and travel"], {
+-- The Hearthstone's two buttons side by side, after the transport alerts and
+-- the nearby services (Nav/Options.lua).
+register(QOL, L["Travel"], L["Hearth and travel"], hearthPair({
 	{ kind = "toggle", key = "qol.autoBind", label = L["Set your home at the guide's inn"],
 		help = L["When the step sets your home and you talk to its innkeeper, binds your Hearthstone there. Never at another inn. Hold Shift to skip."],
 		search = "hearth, hearthstone, bind, inn, innkeeper, home" },
-	C.hearthButton(),
-})
+}))
 
 register(QOL, L["Travel"], L["Death"], {
 	{ kind = "toggle", key = "qol.deathHelper", label = L["Corpse or Spirit Healer"],

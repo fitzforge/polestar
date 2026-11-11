@@ -30,13 +30,15 @@ local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 -- The settings a preview repaints for: its own keys, and their sections
 -- set at once (a profile, a reset).
 local OWN = {
-	[""] = true, buttons = true, qol = true, ui = true, maps = true,
+	[""] = true, buttons = true, qol = true, ui = true, maps = true, nav = true,
 	["qol.buttonScale"] = true, ["qol.buttonTextSide"] = true, ["qol.targetPlate"] = true, ["ui.reduceMotion"] = true,
 	["qol.itemButton"] = true, ["qol.hearthButton"] = true, ["qol.targetButton"] = true, ["qol.rareButton"] = true,
+	["nav.castPrompt"] = true,
 }
 local function owned(path)
 	if type(path) ~= "string" then return true end
 	return OWN[path] or path:sub(1, 8) == "buttons." or path:sub(1, 11) == "ui.launcher" or path:sub(1, 18) == "maps.minimapButton"
+		or path:sub(1, 9) == "nav.arrow"
 end
 
 -- The stage's height when the window gives it none (a preview laid out on
@@ -369,16 +371,75 @@ local function otherColumns(f, o)
 	return cols
 end
 
--- The Action buttons tab: the set over its world, and the combat button.
--- f.Faces, f.Mobs: its parts, for the tests.
+---------------------------------------------------------------------------
+-- The travel button under the arrow (Nav/Prompts.lua's PolestarTravelButton,
+-- the Hearthstone's other button): the arrow (Nav's own dial) and under it a
+-- plain frame in the travel button's look (the panel, the icon, the
+-- hairline; never the secure button), holding your Hearthstone.
+---------------------------------------------------------------------------
+
+local TRAVEL, TRAVEL_GAP = 36, 6 -- Prompts.lua's SIZE and GAP
+
+local function buildTravel(f)
+	local A = ns.Nav and ns.Nav.arrow
+	if not (ns.Nav and ns.Nav.prompts and A and A.BuildDial) then return nil end
+	local tr = { A = A, look = {}, holder = CreateFrame("Frame", nil, f) }
+	tr.holder:SetSize(A.WIDTH, A.HEIGHT + TRAVEL_GAP + TRAVEL)
+	local dial = CreateFrame("Frame", nil, tr.holder)
+	dial:SetSize(A.WIDTH, A.HEIGHT)
+	dial:SetPoint("TOP", tr.holder, "TOP", 0, 0)
+	tr.dial = A.BuildDial(dial)
+	local b = CreateFrame("Frame", nil, tr.holder)
+	b:SetSize(TRAVEL, TRAVEL)
+	b:SetPoint("TOP", dial, "BOTTOM", 0, -TRAVEL_GAP)
+	W.Fill(b, "panel", "BACKGROUND")
+	b.Icon = b:CreateTexture(nil, "ARTWORK")
+	b.Icon:SetPoint("TOPLEFT", b, "TOPLEFT", 2, -2)
+	b.Icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 2)
+	b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	tr.button = b
+	tr.cap = caption(f, L["Travel button"])
+	hotspot(f, b, "nav.castPrompt")
+	f:Light("nav.castPrompt", b)
+	return tr
+end
+
+-- Its column for lineUp: the arrow toward the leg's end, the button under it
+-- (faint while turned off, as a button of the set is).
+local function travelColumn(f, tr)
+	local A, t = tr.A, f:TrueScale()
+	A.ReadLook(tr.look)
+	A.PaintDial(tr.dial, tr.look, A.StyleFor(ns.Get("nav.arrowStyle")), "travel", 0.4, 1240, L["Goldshire"])
+	local b = tr.button
+	b.Icon:SetTexture(itemIcon(QoL.Client and QoL.Client.HEARTHSTONE, DEMO_HEARTH_ICON))
+	local r, g, bl, a = Theme.Color("border")
+	Theme.Border(b, r, g, bl, (a or 0.08) * 2.5)
+	b:SetAlpha(ns.Get("nav.castPrompt") and 1 or 0.3)
+	local w, h = tr.holder:GetWidth() * t, tr.holder:GetHeight() * t
+	return { w = w, h = h, foot = b, caption = tr.cap,
+		place = function(k, l, top)
+			local g = t * k
+			tr.holder:SetScale(g)
+			tr.holder:ClearAllPoints()
+			tr.holder:SetPoint("TOPLEFT", f, "TOPLEFT", l / g, -top / g)
+		end }
+end
+
+-- The Action buttons tab: the set over its world, the combat button, and the
+-- travel button under the arrow. f.Faces, f.Mobs, f.Travel: its parts, for
+-- the tests.
 local function buildActionPreview(view)
-	local set
+	local set, tr
 	local f = stage(view, function(f)
 		set = set or buildSet(f)
-		lineUp(f, setColumns(f, set, true))
+		if tr == nil then tr = buildTravel(f) or false end
+		local cols = setColumns(f, set, true)
+		if tr then cols[#cols + 1] = travelColumn(f, tr) end
+		lineUp(f, cols)
 	end)
 	f.Faces = function() return set and set.faces, set and set.combat end
 	f.Mobs = function() return set and set.mob, set and set.far end
+	f.Travel = function() return tr and tr.button end
 	return f
 end
 
@@ -424,16 +485,36 @@ Buttons.EssentialsPreview = buildEssentialsPreview
 
 local ACTION, OTHER = L["Action buttons"], L["Launcher & minimap"]
 
--- A button's size, with its on/off inline beside it (toggleKey), if any.
-local function sizeRow(kind, label, help, toggleKey, toggleHelp, off)
+-- A button's size, with its on/off inline beside it (toggleKey), if any;
+-- toggleLabel: the switch's own name, where the button's alone is not enough.
+local function sizeRow(kind, label, help, toggleKey, toggleHelp, off, toggleLabel)
 	local row = { kind = "slider", key = "buttons." .. kind .. "Size", label = label, min = 20, max = 80, step = 1, format = px, new = NEW,
 		disabled = off, help = help,
 		search = "size, bigger, smaller, huge, tiny, large, button size, scale, pixels, " .. kind }
 	if toggleKey then
-		row.extras = { { kind = "toggle", key = toggleKey, label = label, help = toggleHelp,
+		row.extras = { { kind = "toggle", key = toggleKey, label = toggleLabel or label, help = toggleHelp,
 			search = "show, hide, on, off, button, keybind, hotkey, " .. kind } }
 	end
 	return row
+end
+
+-- The Hearthstone's two buttons side by side (QoL/Options.lua's pair): its
+-- size and switch in the action set, then the travel button under the arrow
+-- (its switch; the Nav module's, when it is loaded).
+local HO = QoL.HearthOptions or {}
+local hearthRow = sizeRow("hearth", L["Hearthstone"], L["The Hearthstone button's size, before the scale. The switch beside it shows or hides the button."],
+	"qol.hearthButton", HO.hearthHelp, nil, L["Hearthstone in the button set"])
+hearthRow.extras[1].search = hearthRow.extras[1].search .. ", hearthstone, hs, hs button, action button"
+local travelRow = HO.travel and HO.travel()
+
+-- The rows given, without the ones not there (nil).
+local function present(...)
+	local out = {}
+	for i = 1, select("#", ...) do
+		local c = select(i, ...)
+		if c then out[#out + 1] = c end
+	end
+	return out
 end
 
 local ICON_CHOICES = {
@@ -446,7 +527,7 @@ local SPECS = {
 	-- The set as a whole: its scale, the way it lines up, the gaps, how solid it is.
 	{ page = PAGE, key = "buttons", icon = "icon-use", order = 25, group = "look", tab = ACTION, section = L["Button set"],
 		preview = buildActionPreview,
-		subtitle = L["The quest item, Hearthstone, target and rare buttons, the floating button and the minimap button."],
+		subtitle = L["The quest item, Hearthstone, target and rare buttons, the travel button under the arrow, the floating button and the minimap button."],
 		controls = {
 		{ kind = "slider", key = "qol.buttonScale", label = L["Scale"], min = 0.6, max = 1.6, step = 0.05, format = percent,
 			help = L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all. Sizes and layout change once a fight ends."],
@@ -468,22 +549,22 @@ local SPECS = {
 			help = L["How solid the buttons are while you fight."],
 			search = "opacity, transparency, alpha, fade, in combat, fight, see through" },
 	} },
-	-- Each button: its size, and whether it shows at all.
-	{ page = PAGE, tab = ACTION, section = L["Buttons"], controls = {
+	-- Each button: its size, and whether it shows at all; the Hearthstone's
+	-- two buttons side by side on one line.
+	{ page = PAGE, tab = ACTION, section = L["Buttons"], controls = present(
 		sizeRow("item", L["Quest item"], L["The quest item button's size, before the scale. The switch beside it shows or hides the button."],
 			"qol.itemButton", L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."]),
-		sizeRow("hearth", L["Hearthstone"], L["The Hearthstone button's size, before the scale. The switch beside it shows or hides the button."],
-			"qol.hearthButton", L["Shows your Hearthstone while the guide says to hearth. Bindable."]),
 		sizeRow("target", L["Target"], L["The target button's size, before the scale. The switch beside it shows or hides the button."],
 			"qol.targetButton", L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."]),
+		hearthRow,
+		travelRow,
 		sizeRow("rare", L["Rare"], L["The rare button's size, before the scale. The switch beside it shows or hides the button."],
 			"qol.rareButton", L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."]),
 		sizeRow("bag", L["Bag"], L["The bag space button's size (the cheapest junk, when your bags are nearly full), before the scale."], nil, nil,
 			function() return not QoL.On("bagSpace") end),
 		{ kind = "slider", key = "buttons.padding", label = L["Icon inset"], min = 0, max = 8, step = 1, format = px, new = NEW,
 			help = L["How far the icon sits in from the button's edge."],
-			search = "padding, inset, icon size, margin, border gap, zoom" },
-	} },
+			search = "padding, inset, icon size, margin, border gap, zoom" }) },
 	-- The plate behind each icon, its hairline, and the glow round it.
 	{ page = PAGE, tab = ACTION, section = L["Plate"], controls = {
 		{ kind = "dropdown", key = "buttons.backing", label = L["Background"], new = NEW,

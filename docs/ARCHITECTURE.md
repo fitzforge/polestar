@@ -6609,8 +6609,9 @@ card of every subject's name in its colour); Guide window, the window alone;
 Arrow, its three states; Map pins and Route lines, their paintings and a
 minimap; Buttons, the whole set over the world it acts on (the mob the
 target button names, your target with its ring and its raid mark while Mark
-target is on, and the rare the rare button names, further off), the
-floating and the minimap button; Alerts & toasts, the rare alert and the
+target is on, and the rare the rare button names, further off), the travel
+button under the arrow (the Hearthstone's other button, a plain frame in its
+look under Nav's own dial), the floating and the minimap button; Alerts & toasts, the rare alert and the
 transport banner at the top of the world, the arrow under them pointing to
 what they are about and the guide window at the right, cropped at the
 hero's foot (the rare in the world beside them), While you're here with two of
@@ -6690,8 +6691,12 @@ modules register their controls into them by name (`page = L["Questing"]`,
 `tab = L["Rewards & gear"]`, `section = L["Gear advice"]`): Quests, QoL,
 Gear and Talents fill Questing; Lookup, Alts, Dungeons and Rares fill Discovery (the switches of the hub's
 Dungeons and Characters sections stand on Lookup, beside Lookup's own); QoL, Maps
-(flight timer, instances, coordinates, minimap button), Nav (travel button, transport alerts, nearby
-services) and the options window (trainer reminders) fill Quality of Life. On the **Map** page (Guide &
+(flight timer, instances, coordinates, minimap button), Nav (transport alerts, nearby
+services) and the options window (trainer reminders) fill Quality of Life. The Hearthstone's two buttons, each
+its own switch (`qol.hearthButton`, the one in the action set; `nav.castPrompt`, the travel button under the
+arrow), sit side by side wherever both show: the Buttons page, Questing > Buttons and Quality of Life > Travel
+(QoL/Options.lua's pair, `QoL.HearthOptions` for the Buttons page); a settings search for "hearth", "HS" or
+"hearthstone" finds the Buttons page's pair first. On the **Map** page (Guide &
 quests: Guide, Quest markers; Rares, travel & zones: Rares and treasures, Dungeons and travel, NPC services,
 Zones and coordinates) Nav, Quests, Rares and Maps place every map and minimap setting. Every page keeps the
 window's layout rules: a section has two rows or more, two halves of a row pair related settings, a feature's
