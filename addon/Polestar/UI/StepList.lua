@@ -18,7 +18,8 @@
 -- screen on a lifted ground. A click looks at that step (GuideFrame.LookAt)
 -- and returns to the card. It opens at the step on screen and is as tall as
 -- its cards, up to the window's height cap. Works in every look and in
--- compact mode.
+-- compact mode. A profession guide's skill ranges head their steps ("First
+-- Aid 40-75", the range the player's skill is in in the accent colour).
 --
 -- GuideFrame.Layout asks UI.StepList.Place(body, steps) for the frame and
 -- stacks it with UI.StepList.Layout(width, room); the step number's click
@@ -42,6 +43,7 @@ local MIN_H = 120 -- the list's least height
 local GLYPH = 13
 local MAX_LINES = 6 -- goal lines a card shows; the rest is one "+N more" line
 local LINE_GAP = 2
+local HEAD_H = 16 -- a skill range's heading over its first card
 local GROUP_VERB = { npc = "talk", object = "interact", here = "goto" } -- as the step card's
 
 local function GF() return UI.GuideFrame end
@@ -141,6 +143,12 @@ local function row(i)
 	r.Live:SetText(string.upper(L["Live"]))
 	r.Live:Hide()
 	r.G = {} -- the goal lines, made as a step needs them
+	-- A skill range's heading, over the card (outside it).
+	r.Head = T(r, "caption", "textMuted")
+	r.Head:SetJustifyH("LEFT")
+	r.Head:SetWordWrap(false)
+	r.Head:SetMaxLines(1)
+	r.Head:Hide()
 	r.More = T(r, "small", "textMuted")
 	r.More:SetJustifyH("LEFT")
 	r.More:Hide()
@@ -277,6 +285,15 @@ local function fillRow(r, v, i, live, at)
 	r.Mark:SetShown(i == live)
 	r.View:SetShown(i == at)
 	r:Show()
+	-- The skill range this card starts (Fill sets psHead: the step's section
+	-- when the card before it is under another one).
+	local head = r.psHead
+	r.Head:SetShown(head ~= nil)
+	if head then
+		r.Head:SetText(head.title)
+		W.Color(r.Head, head.state == "current" and "accent" or "textMuted")
+		key[#key + 1] = head.title .. "|" .. head.state
+	end
 	key[#key + 1] = more
 	key[#key + 1] = r.Tab:GetText() .. (i == live and "|live" or "")
 	return table.concat(key, "\n")
@@ -307,12 +324,15 @@ function SL.Fill()
 	end
 	SL.sig, SL.at, SL.live, SL.lsig = sig, at, live, nil
 	SL.rowOf = {}
-	local n = 0
+	local n, last = 0, nil
 	for i = 1, count do
 		local v = not UI.StepHidden(i) and E.GetStepView(i)
 		if v and v.status ~= "na" then
 			n = n + 1
 			local r = row(n)
+			local sec = v.section
+			r.psHead = sec and sec.index ~= last and sec or nil
+			last = sec and sec.index or nil
 			r.psKey = fillRow(r, v, i, live, at)
 			SL.rowOf[i] = r
 		end
@@ -336,6 +356,12 @@ function SL.Layout(width, room)
 		local y, top = GAP, {}
 		for i = 1, SL.n do
 			local r = SL.rows[i]
+			if r.psHead then
+				r.Head:SetWidth(max(40, width - IN * 2 - PX))
+				r.Head:ClearAllPoints()
+				r.Head:SetPoint("BOTTOMLEFT", r, "TOPLEFT", 2, 3)
+				y = y + HEAD_H
+			end
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", sc.Child, "TOPLEFT", IN, -y)
 			r:SetPoint("TOPRIGHT", sc.Child, "TOPRIGHT", -IN, -y)
@@ -365,7 +391,7 @@ function SL.Layout(width, room)
 			local h = r.psOne and ONE_H or (r.psN == 0 and PT + TAB_H + PB or (ly - LINE_GAP + PB))
 			r:SetHeight(h)
 			r.Card:SetShown(not transparent())
-			top[r.psIndex] = y
+			top[r.psIndex] = y - (r.psHead and HEAD_H or 0)
 			y = y + h + GAP
 		end
 		SL.top, SL.H = top, y

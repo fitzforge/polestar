@@ -44,8 +44,12 @@ step Back to the abbey
 "#;
 
 fn compile_pack() -> TestPack {
+	compile_guide(GUIDE)
+}
+
+fn compile_guide(guide: &str) -> TestPack {
 	let data = fixture_data();
-	let r = compile_with(&[("steplist.guide", GUIDE)], &data, None);
+	let r = compile_with(&[("steplist.guide", guide)], &data, None);
 	let errors: Vec<String> = r.diag.errors().into_iter().map(forge_guide::diag::format).collect();
 	assert_eq!(errors, Vec::<String>::new());
 	write_our_test_pack(&r.guides)
@@ -133,7 +137,10 @@ const SCRIPT: &str = r#"
 				emit({ compact = true, open = open, clicked = compactSnap(), step = E.GetStepIndex() })"#;
 
 fn run_script(script: &str) -> Vec<serde_json::Value> {
-	let pack = compile_pack();
+	run_guide(compile_pack(), script)
+}
+
+fn run_guide(pack: TestPack, script: &str) -> Vec<serde_json::Value> {
 	let lines: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
 	let loads = format!("do local ns = {{}}\n{}\nend", lines.join("\n"));
 	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: BEFORE.into(), addons: vec![Addon::name("Polestar")], script: "\n\t\t\t\t".to_string() + &loads + script, ..Default::default() })
@@ -257,4 +264,64 @@ fn the_step_list_closes_when_the_guide_goes_and_the_next_guide_opens_on_its_card
 				emit({ open = open, gone = gone, back = SL.On(), list = SL.frame:IsShown(), card = GF.parts.card:IsShown() })"#,
 	);
 	assert_eq!(out[0], json!({ "open": true, "gone": false, "back": false, "list": false, "card": true }), "{}", out[0]);
+}
+
+// A profession guide's skill ranges head their cards (#1713's `section`): the first card under each range carries
+// the heading, the range the player's skill is in in the accent colour, the passed one muted.
+const SECTIONS: &str = r#"guide forever/professions/first-aid-list
+title First Aid 1-75
+category Professions
+levels 1-60
+zone Elwynn Forest
+
+section First Aid 1-40
+
+step Learn First Aid
+  train First Aid Apprentice
+
+step Linen Bandage
+  craft 3275 until 40
+
+section First Aid 40-75
+
+step Heavy Linen Bandage
+  learn 3276
+
+step Heavy Linen Bandage (40-75)
+  craft 3276 until 75
+"#;
+
+#[test]
+fn a_profession_guide_s_skill_ranges_head_their_cards_the_current_one_in_the_accent() {
+	let out = run_guide(
+		compile_guide(SECTIONS),
+		r#"
+				stub.world.learnSkill(129, "First Aid", 45, 75)
+				stub.login()
+				stub.advance(0.5)
+				local E = Polestar.Engine
+				local SL = Polestar.UI.StepList
+				E.SetGuide("forever/professions/first-aid-list")
+				stub.advance(0.5)
+				SL.Toggle(true)
+				stub.advance(0.3)
+				local heads = {}
+				for i = 1, SL.n do
+					local r = SL.rows[i]
+					heads[#heads + 1] = { step = r.psIndex, head = r.Head:IsShown() and r.Head:GetText() or false,
+						state = r.psHead and r.psHead.state or false, above = r.Head:IsShown() and select(2, r.Head:GetPoint(1)) == r or false }
+				end
+				emit({ n = SL.n, heads = heads })"#,
+	);
+	assert_eq!(
+		out[0]["heads"],
+		json!([
+			{ "step": 1, "head": "First Aid 1-40", "state": "done", "above": true },
+			{ "step": 2, "head": false, "state": false, "above": false },
+			{ "step": 3, "head": "First Aid 40-75", "state": "current", "above": true },
+			{ "step": 4, "head": false, "state": false, "above": false },
+		]),
+		"{}",
+		out[0]
+	);
 }
