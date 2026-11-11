@@ -8807,7 +8807,9 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   for Alliance, Horde and no profile and its yards. `chokepoints.js` adds `Chokepoints.lua`
   (`PolestarNavChokepoints[map]`: lift landings, bridges, gates at passages,
   tunnels, cave and building mouths, passes, each named by its AreaTable
-  area) for the journey's named walk steps.
+  area) for the journey's named walk steps; a passage whose gate is the ground
+  under a bridge's deck over water is named a bridge (`pack/chokepoints.rs`
+  under_bridge: the Southfury River's road crossing).
 - **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
   walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
   His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
