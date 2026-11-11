@@ -1734,7 +1734,7 @@
 					6503
 				],
 				"faction": "Horde",
-				"why": "Route review (0.3.7, Discord 2026-11-09: Ashenvale & Silverpine 21-22 sent level ~21 players into level-24 quests): Ashenvale Outrunners (level 24, Outrunners 23-24) was taken on the way back from Thistlefur at 22-23 (0.3.6's move), still 1-1.5 levels under it. It waits for the second Ashenvale visit at 26 (forever/horde/07-ashenvale): Kuray'bin's lumber camp lies between Torek (6544, south-west of it) and Sharptalon (south-east), so it is taken after Torek's assault and the Outrunners are killed in Sharptalon's woods. Calibrated level model: taken at 26.6-27.2 on every start, the guide 6 min shorter, 60 0.03 h sooner. Both benchmark guides do it on their 26-28 Ashenvale visit"
+				"why": "Route review (0.3.7, Discord 2026-11-09: Ashenvale & Silverpine 21-22 sent level ~21 players into level-24 quests): Ashenvale Outrunners (level 24, Outrunners 23-24) was taken on the way back from Thistlefur at 22-23 (0.3.6's move), still 1-1.5 levels under it. It waits for the second Ashenvale visit at 26 (forever/horde/07-ashenvale): Kuray'bin's lumber camp lies between Torek (6544, south-west of it) and Sharptalon (south-east), so it is taken after Torek's assault and the Outrunners are killed in Sharptalon's woods. Calibrated level model: taken at 26.6-27.2 on every start, the guide 6 min shorter, 60 0.03 h sooner."
 			},
 			{
 				"a": [
@@ -1758,7 +1758,7 @@
 					750
 				],
 				"faction": "Horde",
-				"why": "Route review (0.3.7): Mulgore bounced cougar hills -> north to Grull (The Hunt Continues) -> back south to Seer Graytongue, whose tent (42.5,90.1) stands inside the Mountain Cougars' hills (41-55, 82-92). The Seer (755 in, 757 and the timed 95805 out) and the shrine's Ritual Fire (56.6,88.7, at the east end of the same hills) come at the end of the cougar hunt (the pelts on the way south), then Grull and the battleboars. A benchmark guide also takes the Seer and the shrine before Grull's hand-in"
+				"why": "Route review (0.3.7): Mulgore bounced cougar hills -> north to Grull (The Hunt Continues) -> back south to Seer Graytongue, whose tent (42.5,90.1) stands inside the Mountain Cougars' hills (41-55, 82-92). The Seer (755 in, 757 and the timed 95805 out) and the shrine's Ritual Fire (56.6,88.7, at the east end of the same hills) come at the end of the cougar hunt (the pelts on the way south), then Grull and the battleboars."
 			},
 			{
 				"a": [
@@ -11473,7 +11473,7 @@
 					"accept",
 					535
 				],
-				"why": "#1466 (0.3.7, replaces #1079's 'Infiltration handed in on the first Tarren Mill return'): Infiltration (533, level 34) was worked at 30 on every start, its Syndicate Footpads and Thieves 32-34, and the pace line called it hard (Steffen's report). Valik's errand (535: his reward is the missive) and the fallback missive drops come on the way back from Southshore's graveyard (Helcular's Revenge, 553) to Tarren Mill, at about 31-32, as a benchmark guide does it after Dalaran; Krusk takes 533 with the Dalaran hand-ins"
+				"why": "#1466 (0.3.7, replaces #1079's 'Infiltration handed in on the first Tarren Mill return'): Infiltration (533, level 34) was worked at 30 on every start, its Syndicate Footpads and Thieves 32-34, and the pace line called it hard (Steffen's report). Valik's errand (535: his reward is the missive) and the fallback missive drops come on the way back from Southshore's graveyard (Helcular's Revenge, 553) to Tarren Mill, at about 31-32; Krusk takes 533 with the Dalaran hand-ins"
 			},
 			{
 				"a": [
