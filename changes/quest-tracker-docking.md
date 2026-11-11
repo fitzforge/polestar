@@ -11,3 +11,6 @@ section: players
   With Questie's tracker enabled, the guide docks above Questie and follows
   its font and height settings. Older FTA dock versions that cannot host
   Questie leave Polestar to provide its own tabs.
+  Docking and hiding the game's tracker are mutually exclusive. Old settings
+  with both enabled keep the guide floating. Docking is unavailable with
+  the gamepad interface.

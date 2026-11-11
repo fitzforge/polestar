@@ -64,11 +64,11 @@ function M.GetWidth(self)
 	return getWidth(self)
 end
 `;
-function run(script, { enabled = true, before = '' } = {}) {
+function run(script, { enabled = true, before = '', hideTracker = false, withQoL = false } = {}) {
 	return runAddon({
 		stubs: ['stub_ui.lua'], before: TRACKER + before,
-		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Theme/Theme.xml', 'UI/UI.xml'] }],
-		saved: { Polestar: `PolestarDB={schema=1,settings={ui={trackerDock=${enabled},pos={100,200},scale=1.2,growUp=true,maxHeight=0.3}}}` },
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Theme/Theme.xml', ...(withQoL ? ['QoL/QoL.xml'] : []), 'UI/UI.xml'] }],
+		saved: { Polestar: `PolestarDB={schema=1,settings={ui={trackerDock=${enabled},pos={100,200},scale=1.2,growUp=true,maxHeight=0.3},qol={hideQuestTracker=${hideTracker}}}}` },
 		script: `uistub.install();stub.login();stub.advance(0.3)
 local GF=Polestar.UI.GuideFrame
 local dock=Polestar.UI.TrackerDock
@@ -251,6 +251,36 @@ test('hiding Polestar in combat dismisses the secure reload prompt after combat'
 	setDockCombat(false)
 	emit({closed=not PolestarTrackerDockReload:IsShown(),hidden=Polestar.Hidden()})`,{enabled:false});
 	assert.deepEqual(out,{closed:true,hidden:true});
+});
+
+test('a saved configuration with docking and hide-tracker enabled keeps a visible floating guide',()=>{
+	const [out]=run(`
+	Polestar.UI.ShowOptions("integrations")
+	local disabled=not Polestar.UI.Options.Controls("integrations")["ui.trackerDock"]:IsEnabled()
+	emit({enabled=dock.Enabled(),floating=GF.dock==nil and GF.frame:IsVisible(),
+		trackerHidden=not ObjectiveTrackerFrame:IsShown(),shown=Polestar.Get("ui.shown"),disabled=disabled})`,
+		{hideTracker:true,withQoL:true});
+	assert.deepEqual(out,{enabled:false,floating:true,trackerHidden:true,shown:true,disabled:true});
+});
+
+test('the hide-tracker control is unavailable while docking is active',()=>{
+	const [out]=run(`
+	Polestar.UI.ShowOptions("qualityoflife")
+	Polestar.UI.Options.Select("qualityoflife","Quests")
+	local control=Polestar.UI.Options.Controls("qualityoflife","Quests")["qol.hideQuestTracker"]
+	emit({docked=GF.dock~=nil,disabled=control~=nil and not control:IsEnabled()})`,{withQoL:true});
+	assert.deepEqual(out,{docked:true,disabled:true});
+});
+
+test('the gamepad interface leaves docking inactive and the guide floating',()=>{
+	const [out]=run(`
+	Polestar.UI.ShowOptions("integrations")
+	emit({gamepad=Polestar.GamepadUI(),enabled=dock.Enabled(),floating=GF.dock==nil and GF.frame:IsVisible(),
+		trackerAlpha=ObjectiveTrackerFrame:GetAlpha(),tabs=PolestarTrackerDockTabs~=nil,
+		disabled=not Polestar.UI.Options.Controls("integrations")["ui.trackerDock"]:IsEnabled()})`,{
+		before:'Enum.InputDeviceInterfaceType={Mkb=0,Gamepad=1};C_InputInterfaceStyle={GetCurrentStyle=function() return 1 end}',
+	});
+	assert.deepEqual(out,{gamepad:true,enabled:false,floating:true,trackerAlpha:1,tabs:false,disabled:true});
 });
 
 const QUESTIE = `

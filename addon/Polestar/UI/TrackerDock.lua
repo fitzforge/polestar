@@ -28,7 +28,7 @@ local function Accent()
 	if EllesmereUI and EllesmereUI.GetAccentColor then
 		return EllesmereUI.GetAccentColor()
 	end
-	return 0.047, 0.824, 0.624
+	return ns.Theme.Accent()
 end
 
 -- Keep visibility separate from opacity: Ellesmere uses frame alpha for fades
@@ -51,6 +51,7 @@ end
 -- AttachedTracker.lua: BTN_H=18, TOP_PAD=4, QUESTS_H=26, GAP=2,
 -- MakeButton and UpdateToggleHighlight. Resolve colours from EUI's DB:
 -- GetVertexColor returns the tint, not the fill set by SetColorTexture.
+-- MidnightChores is MIT-licensed; its notice is in LICENSE-midnightchores.txt.
 local function TrackerConfig()
 	local eqt = _G.EllesmereUIQuestTracker
 	return eqt and eqt.DB and eqt.DB() or {}
@@ -74,6 +75,9 @@ local OBJECTIVES_HEADER_ATLAS = "ui-questtracker-primary-objective-header"
 local OBJECTIVES_HEADER_LEFT_INSET = 10
 
 local function Paint()
+	-- These colors match the host tracker's artwork rather than Polestar's
+	-- window palette: Ellesmere supplies its accent, Questie its backdrop,
+	-- and Blizzard's header art uses gold text over its dark native panel.
 	local themed = EllesmereStyle()
 	local useHeaderArt = not themed and not questieTracker and C_Texture and C_Texture.GetAtlasInfo
 		and C_Texture.GetAtlasInfo(OBJECTIVES_HEADER_ATLAS)
@@ -312,6 +316,8 @@ local function Initialize()
 			writing = false
 		end
 	end)
+	-- Start on quests, preserving the host tracker's login behavior. Remembering
+	-- a guide tab across reloads is a separate user-facing policy choice.
 	Select("quests")
 	return true
 end
@@ -322,7 +328,10 @@ function Skin.Enabled()
 	if enabled == nil then
 		-- Detect enabled addons before their files load: the standalone addon
 		-- depends on Polestar, so IsAddOnLoaded alone would miss it here.
-		enabled = ns.Get("ui.trackerDock") and not ns.Compat.AddOnPresent("Polestartrackerdock") or false
+		-- Saved configurations can predate the mutually exclusive controls.
+		-- Keep the guide floating when hiding the tracker or using the gamepad HUD.
+		enabled = ns.Get("ui.trackerDock") and not ns.Get("qol.hideQuestTracker")
+			and not ns.GamepadUI() and not ns.Compat.AddOnPresent("Polestartrackerdock") or false
 	end
 	return enabled
 end
@@ -364,7 +373,7 @@ local function CloseReloadPrompt()
 end
 
 local function ShowReloadPrompt()
-	if ns.Hidden() then return end
+	if ns.Hidden() or ns.GamepadUI() then return end
 	if InCombat() then
 		reloadPending = true
 		return

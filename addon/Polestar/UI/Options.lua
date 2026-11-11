@@ -555,8 +555,11 @@ add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 	empty = L["None of the addons Polestar works with is installed."] }, true)
 add({ page = L["Integrations"], section = L["Quest Tracker"], controls = {
 	{ kind = "toggle", key = "ui.trackerDock", label = L["Dock guide into the quest tracker"],
-		help = L["Adds a Polestar tab to the quest tracker. Supports Questie, EllesmereUI and the default tracker. Reload to apply changes. If Polestar Tracker Dock is enabled, it manages docking instead."],
-		disabled = function() return ns.Compat.AddOnPresent("Polestartrackerdock") end,
+		help = L["Adds a Polestar tab to the quest tracker. Supports Questie, EllesmereUI and the default tracker. Reload to apply changes. If Polestar Tracker Dock is enabled, it manages docking instead."]
+			.. " " .. L["Unavailable while Hide the game's quest tracker or the gamepad interface is enabled."],
+		disabled = function()
+			return ns.Get("qol.hideQuestTracker") or ns.GamepadUI() or ns.Compat.AddOnPresent("Polestartrackerdock")
+		end,
 		search = "dock, tracker, quests, EllesmereUI, FTA" },
 } }, true)
 add({ page = L["Integrations"], section = "EllesmereUI", controls = {
