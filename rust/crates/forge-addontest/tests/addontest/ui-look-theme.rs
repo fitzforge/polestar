@@ -294,38 +294,54 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 	assert_eq!(out["wides"], json!(["ui.skin", "ui.scheme"]), "the picture cards span the row");
 }
 
-// The preview is the real surfaces in the theme: the guide window (drawn by its own page's code, never the live
-// window) under its heads-up card, the rare alert (Rares' own card), no loose buttons (the accent lights the
-// cards' own); a change repaints them live; a narrow page keeps the guide window.
+// The preview is Theme v2, a band of the three surfaces the theme styles, drawn by their own code: the guide window
+// (the Guide window page's drawing, never the live window, cut under its third goal row), the heads-up card and the
+// rare alert (Rares' own card), side by side, feet on one line, a label under each, no loose buttons (the accent
+// lights the cards' own); a change repaints them live; real size where the band holds the three, else all three
+// smaller alike, never one left out, the hint line saying so.
 #[test]
 fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 	let out = run_with_rares(
 		r#"
 		local f = Polestar.UI.ThemePreview(UIParent)
-		local h = f:Layout(900)
+		local h = f:Layout(1600)
 		local hots = 0
 		for _ in pairs(rawget(f, "Hots") or {}) do hots = hots + 1 end
-		local out = { h = h, toast = f.Toast ~= nil and f.Toast:IsShown(), heads = f.Heads ~= nil and f.Heads:IsShown(),
-			guide = f.Guide ~= nil and f.Guide ~= PolestarGuideFrame, buttons = rawget(f, "Buttons") == nil, hots = hots }
+		-- Each one's foot, in band units.
+		local function foot(fr, k)
+			local _, _, _, _, y = fr:GetPoint(1)
+			local g = k or fr:GetScale()
+			return math.floor(-y * g + fr:GetHeight() * g + 0.5)
+		end
+		local labels = {}
+		for i, p in ipairs(f.Parts) do labels[i] = p.label:GetText() end
+		local out = { toast = f.Toast ~= nil and f.Toast:IsShown(), heads = f.Heads ~= nil and f.Heads:IsShown(),
+			guide = f.Guide ~= nil and f.Guide ~= PolestarGuideFrame, buttons = rawget(f, "Buttons") == nil, hots = hots,
+			fit = f.psFit, hint = f.Hint:IsShown(), labels = labels,
+			feet = { foot(f.Scene), foot(f.Heads), foot(f.Toast) }, arrow = rawget(f, "Arrow") == nil, tall = h < 400 }
 		Polestar.Set("ui.colors.item", { 0.6, 1, 0.6 })
 		Polestar.Set("ui.fontOutline", "outline")
 		out.item = f.Scene.Rows[3].Text:GetText()
 		out.titleFlags = select(3, f.StepTitle:GetFont())
 		f:Layout(420)
-		out.narrowToast = f.Toast:IsShown()
-		out.narrowGuide = f.Guide:IsShown()
+		out.narrow = { f.Toast:IsShown(), f.Heads:IsShown(), f.Guide:IsShown(), f.psFit < 1, f.Hint:GetText():find("to fit", 1, true) ~= nil }
 		emit(out)"#,
 	);
-	assert_eq!(out["h"], 196);
 	assert_eq!(out["toast"], true);
-	assert_eq!(out["heads"], true, "the heads-up card on the window's top edge");
+	assert_eq!(out["heads"], true);
 	assert_eq!(out["guide"], true, "the guide window, the preview's own");
 	assert_eq!(out["buttons"], true, "no Accept / Skip pair standing alone in the scene");
-	assert!(out["hots"].as_f64().unwrap() >= 8.0, "each part of the preview leads to its setting: {}", out["hots"]);
+	assert_eq!(out["arrow"], true, "no arrow: Theme shows the three surfaces it styles");
+	assert!(out["hots"].as_f64().unwrap() >= 6.0, "each part of the preview leads to its setting: {}", out["hots"]);
+	assert_eq!(out["fit"], 1, "a band wide enough: real size");
+	assert_eq!(out["hint"], false);
+	assert_eq!(out["labels"], json!(["Guide window", "Heads-up card", "Rare alert"]));
+	let feet = out["feet"].as_array().unwrap();
+	assert!(feet.iter().all(|f| (f.as_f64().unwrap() - feet[0].as_f64().unwrap()).abs() <= 1.0), "feet on one line: {feet:?}");
+	assert_eq!(out["tall"], true);
 	assert!(out["item"].as_str().unwrap().contains("|cff99ff99"), "the goal names the item in its own colour: {}", out["item"]);
 	assert_eq!(out["titleFlags"], "OUTLINE");
-	assert_eq!(out["narrowToast"], false, "a narrow page keeps the guide window");
-	assert_eq!(out["narrowGuide"], true);
+	assert_eq!(out["narrow"], json!([true, true, true, true, true]), "a narrow band shows all three smaller and says so");
 }
 
 // The game looks frame a big window with a title (WoW Forever's and Blizzard's bar, Classic's header plate

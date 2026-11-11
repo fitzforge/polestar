@@ -87,6 +87,7 @@ local PREVIEW_H, TOP, BOTTOM, PAD, GAP = 196, 34, 14, 32, 40
 local NAME_ROW = 22 -- a line of the names card
 local SHADOW_ROOM = 40 -- each side of the guide window's box, for its drop shadow
 
+local lightParts
 local function buildScene(view, names)
 	local UI, P = ns.UI, ns.UI.Preview
 	local TS = UI.Toasts
@@ -237,12 +238,17 @@ local function buildScene(view, names)
 		return height
 	end
 
-	-- A click on a part finds its setting; the pointer on a setting's row
-	-- lights the parts it changes (the settings window's own, for what
-	-- dresses it).
+	lightParts(f, G, heads, toast, card)
+	return f
+end
+
+-- A click on a part finds its setting; the pointer on a setting's row lights
+-- the parts it changes (the settings window's own, for what dresses it), on
+-- preview f: the guide window G, the heads-up card, the rare alert and the
+-- names card, those it has.
+function lightParts(f, G, heads, toast, card)
 	local surfaces = { f.Guide, heads, toast, card }
 	local win = PolestarOptions
-	local edge = {}
 	if G then
 		f:Hot(G.Window, "ui.bgOpacity")
 		f:Hot(G.Window.Band, "ui.starAlpha")
@@ -250,13 +256,8 @@ local function buildScene(view, names)
 		f:Hot(G.Rows[1], "ui.textMutedColor")
 		f:Hot(G.Rows[2].Text, "ui.colors.npc")
 		f:Hot(G.Rows[3].Text, "ui.colors.item")
-		f:Hot(G.Up, "ui.colors.quest")
 	end
 	if toast then f:Hot(toast, "ui.panelColor") end
-	if arrow then
-		f:Hot(arrow.dial.dial, "ui.accent")
-		f:Hot(arrow.dial.distText, "ui.textSize")
-	end
 	-- The cards' own primary buttons: the heads-up's, the rare alert's.
 	local primaries = {}
 	for _, b in ipairs({ heads and rawget(heads, "Act") or false, toast and rawget(toast, "Waypoint") or false }) do
@@ -269,7 +270,6 @@ local function buildScene(view, names)
 	local function outside(key, ...) if win then f:LightEdge(key, ...) end end
 	local everything = {}
 	for _, s in pairs(surfaces) do everything[#everything + 1] = s end
-	if arrow then everything[#everything + 1] = arrow.holder end
 	for _, key in ipairs({ "ui.skin", "ui.scheme", "ui.brightness", "ui.reduceMotion", "ui.animSpeed", "ui.font", "ui.fontOutline", "ui.textShadow" }) do
 		light(key, unpack(everything))
 	end
@@ -279,8 +279,7 @@ local function buildScene(view, names)
 	-- Every part the accent paints: in the scene the guide window's open tab
 	-- (its underline and icon), the current goal's bar and glyph and the
 	-- progress bar; the heads-up card's stripe, ring, headline, badge and
-	-- primary button; the rare alert's primary button and time bar; the
-	-- arrow, which the accent tints unless it has a colour of its own.
+	-- primary button; the rare alert's primary button and time bar.
 	local accents = {}
 	local function accent(...)
 		for i = 1, select("#", ...) do
@@ -292,7 +291,6 @@ local function buildScene(view, names)
 	if G then accent(G.Strip.Bar, G.Strip.Icon, G.Rows[2].Mark, G.Rows[2].Icon, G.Foot.Line) end
 	if heads then accent(rawget(heads, "Stripe"), rawget(heads, "Ring"), rawget(heads, "Head"), rawget(heads, "Badge")) end
 	if toast then accent(rawget(toast, "Timer")) end
-	if arrow then accent(arrow.dial.dial) end
 	-- Rings off them: an outline on a part in the accent would not show.
 	f:LightRing("ui.accent", unpack(accents))
 	f:LightRing("ui.classAccent", unpack(accents))
@@ -306,7 +304,7 @@ local function buildScene(view, names)
 		local function windowAccents()
 			local out, seen, ar, ag, ab = {}, {}, Theme.Accent()
 			local function walk(fr)
-				if not fr:IsVisible() or P.IsStage(fr) then return end
+				if not fr:IsVisible() or P.IsStage(fr) or P.IsBand(fr) then return end
 				-- A border's pieces or a pill's (a switch's track) by their frame.
 				local own = {}
 				for _, t in ipairs(rawget(fr, "psBorder") or {}) do own[t] = true end
@@ -371,11 +369,88 @@ local function buildScene(view, names)
 	if card then
 		for _, word in ipairs(card.Words) do light("ui.colors." .. word.name, word.fs) end
 	end
-	if arrow then light("ui.colors.place", arrow.dial.labelText) end
+end
+
+-- Theme v2, a band (UI.Preview.Band): the three surfaces the theme styles,
+-- side by side, 32 apart, their feet on one line, a label under each: the
+-- guide window (its head and three goal rows, cut under them and faded into
+-- the panel), the heads-up card (on the window's scale, as it sits on the
+-- window) and the rare alert; drawn by their own code at their real size,
+-- all smaller alike where the band cannot hold the three across (the band's
+-- hint line says so).
+local TRIO_GAP, ROWS_ROOM, SIDE = 32, 24, 16 -- between two; the window's ground under its third row; the window's own room a side
+local function buildPreview(view)
+	local UI = ns.UI
+	local TS = UI.Toasts
+	local f = UI.Preview.Band(view, { watch = { "ui.", "guideWindow.", "toasts." } })
+	local G = UI.GuideWindowScene and UI.GuideWindowScene(f, { fade = "bg" })
+	f.Scene, f.Guide = G, G and G.Window
+	f.StepTitle = G and G.Person.Name
+	local heads = TS and TS.Sandbox and TS.Sandbox("headsup", f)
+	local toast = TS and TS.Sandbox and TS.Sandbox("rare", f)
+	f.Heads, f.Toast = heads, toast
+	if heads then heads:Show() end
+	if toast then toast:Show() end
+	local parts = {}
+	if G then parts[#parts + 1] = { kind = "guide", label = f:Label(L["Guide window"]) } end
+	if heads then parts[#parts + 1] = { kind = "headsup", frame = heads, label = f:Label(L["Heads-up card"]) } end
+	if toast then parts[#parts + 1] = { kind = "rare", frame = toast, label = f:Label(L["Rare alert"]) } end
+	f.Parts = parts
+	lightParts(f, G, heads, toast)
+	if #parts == 0 then return f end
+	local snap = UI.Preview.Snap
+	function f:Content()
+		local t = self:TrueScale()
+		local scale = (tonumber(ns.Get("ui.scale")) or 1) * t
+		-- Each one's size at its real size (band units).
+		for _, p in ipairs(parts) do
+			if p.kind == "guide" then
+				-- Laid out whole, then given the room down to its third row's
+				-- foot (and the 8 its crop keeps under what it shows).
+				G:Layout(400 * scale + SIDE * 2, 4000)
+				p.k = scale
+				p.w = G.Window:GetWidth() * scale
+				p.h = ((G.psRowsFoot or 0) + ROWS_ROOM) * scale + 8
+			else
+				TS.ApplyLook(p.frame, true)
+				if p.kind == "headsup" then TS.Refill("headsup", p.frame) end
+				p.frame:SetAlpha(TS.Alpha(p.kind))
+				p.k = TS.Scale(p.kind) * (p.kind == "headsup" and scale or t)
+				p.w, p.h = p.frame:GetWidth() * p.k, p.frame:GetHeight() * p.k
+			end
+		end
+		local total, tall, labels = 0, 0, {}
+		for i, p in ipairs(parts) do
+			labels[i] = { p.label, total + p.w / 2 }
+			total = total + p.w + (i < #parts and TRIO_GAP or 0)
+			tall = max(tall, p.h)
+		end
+		return total, tall, function(left, top, k)
+			local x, foot = left, top + tall * k
+			for _, p in ipairs(parts) do
+				local g = p.k * k
+				if p.kind == "guide" then
+					-- Its box the window and the room it keeps a side, as tall
+					-- as the cut, its foot on the others'.
+					G:SetScale(k)
+					G:ClearAllPoints()
+					G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, x - SIDE * k) / k, -snap(self, foot - p.h * k) / k)
+					G:SetSize(p.w + SIDE * 2, p.h)
+					G:Layout(p.w + SIDE * 2, p.h)
+				else
+					p.frame:SetScale(g)
+					p.frame:ClearAllPoints()
+					p.frame:SetPoint("TOPLEFT", self, "TOPLEFT", snap(p.frame, x / g), snap(p.frame, -(foot - p.h * k) / g))
+				end
+				x = x + (p.w + TRIO_GAP) * k
+			end
+		end, labels
+	end
 	return f
 end
 
-local function buildPreview(view) return buildScene(view, false) end
+-- The Names tab: the guide window and the rare alert with every subject's
+-- name in its colour (the stage, until its band).
 local function buildNamesPreview(view) return buildScene(view, true) end
 -- The preview, for the other pages and the tests: buildPreview(parent) -> f.
 ns.UI.ThemePreview = buildPreview

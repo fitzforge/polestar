@@ -307,3 +307,39 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 		assert!(keys.split(' ').any(|x| x == k), "{k} is still settable on the page");
 	}
 }
+
+// Essentials, a band: Nav's own dial three times at its real size, the states its settings change, a label under
+// each: on its way, closing in (in the near colour) and in combat (at the combat opacity); 20 + the dial + its
+// labels' 25 + 20 tall, centred, nothing running.
+#[test]
+fn the_essentials_band_shows_the_dial_on_its_way_closing_in_and_in_combat() {
+	let out = run(r#"
+		local P = N.ArrowEssentialsPreview(UIParent)
+		P:Show()
+		local h = P:Layout(900)
+		local D = P.Dials
+		local t = Polestar.UI.Preview.TrueScale(P)
+		local function label(c) return c.label:GetText() end
+		local out = { height = h, dial = A.HEIGHT, labels = { label(D[1]), label(D[2]), label(D[3]) },
+			scale = math.abs(D[1].holder:GetScale() - t) < 1e-6, alpha = { D[1].holder:GetAlpha(), D[3].holder:GetAlpha() },
+			near = rgba(D[2].dial.sheet) ~= nil, updates = P:GetScript("OnUpdate") == nil }
+		Polestar.Set("nav.arrowCombatAlpha", 0.4)
+		out.fight = math.floor(D[3].holder:GetAlpha() * 100 + 0.5)
+		-- Centred across the band: the three dials and their two gaps.
+		local _, _, _, x = D[1].holder:GetPoint(1)
+		local g = D[1].holder:GetScale()
+		out.centred = math.abs(x * g * 2 + 3 * A.WIDTH * g + 2 * Polestar.UI.Preview.STATE_GAP - 900) <= 2
+		-- Bigger: on a band wide enough for the three, at the arrow's own scale.
+		Polestar.Set("nav.arrowScale", 1.5)
+		P:Layout(1600)
+		out.bigger = math.abs(D[1].holder:GetScale() - 1.5 * t) < 1e-6
+		emit(out)"#);
+	assert_eq!(out["height"].as_f64().unwrap(), 20.0 + out["dial"].as_f64().unwrap() + 25.0 + 20.0, "{out}");
+	assert_eq!(out["labels"], json!(["On its way", "Closing in", "In combat"]));
+	assert_eq!(out["scale"], true, "at its real size");
+	assert_eq!(out["alpha"], json!([1, 1]));
+	assert_eq!(out["fight"], 40, "In combat at the combat opacity");
+	assert_eq!(out["bigger"], true);
+	assert_eq!(out["centred"], true, "{out}");
+	assert_eq!(out["updates"], true);
+}

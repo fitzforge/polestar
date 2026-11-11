@@ -454,26 +454,165 @@ local function buildLauncherPreview(view)
 	return f
 end
 
--- Essentials: the set over its world, the floating button and the minimap
--- button, side by side.
-local function buildEssentialsPreview(view)
-	local set, o
-	local f = stage(view, function(f)
-		set = set or buildSet(f)
-		o = o or buildOthers(f)
-		local cols = setColumns(f, set, false)
-		for _, c in ipairs(otherColumns(f, o)) do cols[#cols + 1] = c end
-		lineUp(f, cols)
-	end)
-	f.Faces = function() return set and set.faces, set and set.combat end
-	f.Mobs = function() return set and set.mob, set and set.far end
+-- Essentials, a band (UI.Preview.Band): its dropdown picks the action
+-- button set, the floating button or the minimap button, shown alone at its
+-- real size. The set as the player laid it out (buttons.layout, the names'
+-- side, the sizes and the scale; a button turned off is not drawn), out of
+-- combat (its idle opacity), centred on its buttons, their names hanging to
+-- their side. f.Faces, f.Pick: its parts and its pick, for the tests.
+local function buildEssentialsBand(view)
+	local UI, Maps = ns.UI, ns.Maps
+	local pick = "action"
+	local choices = { { value = "action", label = L["Action buttons"] } }
+	local launcher = UI and UI.Launcher and UI.Launcher.Face
+	local minimap = Maps and Maps.MinimapButtonFace
+	if launcher then choices[#choices + 1] = { value = "launcher", label = L["Floating button"] } end
+	if minimap then choices[#choices + 1] = { value = "minimap", label = L["Minimap button"] } end
+	local f = ns.UI.Preview.Band(view, { watch = { "buttons.", "qol.", "ui.launcher", "maps.minimapButton" },
+		picker = { choices = choices, get = function() return pick end, set = function(v) pick = v end } })
+	local set = { faces = {}, list = {} }
+	set.group = CreateFrame("Frame", nil, f)
+	set.group:SetSize(1, 1)
+	for i, kind in ipairs(SHOWN) do
+		local b = Buttons.NewFace(set.group, kind)
+		set.faces[kind], set.list[i] = b, b
+		b.psStack = set.list
+	end
+	-- Over the buttons alone: what lights for the set as a whole.
+	set.box = CreateFrame("Frame", nil, f)
+	local faces = set.faces
+	faces.hearth.Cooldown:SetCooldown(GetTime and GetTime() - 600 or 0, 3600)
+	faces.bag.Icon:SetTexture(DEMO_BAG_ICON)
+	faces.rare.Label:SetText(L["Thuros Lightfingers"])
+	local target = faces.target
+	target.aList = { L["Rot Hide Mongrel"], L["Scarlet Warrior"], L["Executor Zygand"] }
+	target.aVerbs = { "kill", "collect", "turnin" }
+	target.aIds, target.aMarks, target.aCycle = {}, { false, false, false }, 1
+	local hots = { set = {}, launcher = {}, minimap = {} }
+	hots.set = { f:Hot(faces.hearth, "buttons.hearthSize"), f:Hot(faces.item, "buttons.itemSize"), f:Hot(target, "buttons.targetSize"),
+		f:Hot(faces.rare, "buttons.rareSize") }
+	local names = { target.Label, faces.rare.Label }
+	for key, parts in pairs({
+		["qol.buttonScale"] = { set.box }, ["buttons.layout"] = { set.box }, ["buttons.idleAlpha"] = { set.box },
+		["buttons.itemSize"] = { faces.item }, ["buttons.hearthSize"] = { faces.hearth }, ["buttons.targetSize"] = { target },
+		["buttons.rareSize"] = { faces.rare }, ["buttons.bagSize"] = { faces.bag },
+		["qol.itemButton"] = { faces.item }, ["qol.hearthButton"] = { faces.hearth }, ["qol.targetButton"] = { target },
+		["qol.rareButton"] = { faces.rare }, ["qol.buttonTextSide"] = names,
+	}) do
+		f:Light(key, unpack(parts))
+	end
+	local lb, mb
+	if launcher then
+		lb = launcher(CreateFrame("Button", nil, f))
+		hots.launcher = { f:Hot(lb, "ui.launcherSize") }
+		for _, key in ipairs({ "ui.launcherSize", "ui.launcher", "ui.launcherAlpha", "ui.launcherIcon", "ui.launcherBack" }) do f:Light(key, lb) end
+	end
+	if minimap then
+		mb = minimap(CreateFrame("Button", nil, f))
+		hots.minimap = { f:Hot(mb, "maps.minimapButtonSize") }
+		for _, key in ipairs({ "maps.minimapButtonSize", "maps.minimapButton", "maps.minimapButtonIcon" }) do f:Light(key, mb) end
+	end
+	f.Faces = function() return faces, lb, mb end
+	f.Pick = function(v)
+		if v ~= nil then pick = v end
+		return pick
+	end
+	local snap = ns.UI.Preview.Snap
+
+	-- The set with the current values. -> its natural size and place.
+	local function setContent(self)
+		local item, live = faces.item, Buttons.item
+		item.Icon:SetTexture(itemIcon(live and live.itemID, DEMO_ITEM_ICON))
+		item.Count:SetText("3")
+		item.Hotkey:SetText(keyFor("PolestarQuestItemButton", "E"))
+		-- Shown ready, so the glow setting shows.
+		item.psReady = true
+		faces.hearth.Icon:SetTexture(itemIcon(QoL.Client and QoL.Client.HEARTHSTONE, DEMO_HEARTH_ICON))
+		faces.hearth.Hotkey:SetText(keyFor("PolestarHearthButton", "H"))
+		target.Hotkey:SetText(keyFor("PolestarTargetButton", "T"))
+		for _, b in ipairs(set.list) do
+			local size = Buttons.Size(b.psKind)
+			b:SetSize(size, size)
+			Buttons.Paint(b)
+			-- A button turned off is not on screen: not in the band either.
+			b:SetShown(QoL.On(SWITCH[b.psKind]) and true or false)
+		end
+		set.group:SetAlpha(Buttons.Alpha(false))
+		local at = Buttons.Offsets()
+		local x0, x1, y0, y1 = math.huge, -math.huge, math.huge, -math.huge
+		local bx0, bx1, by0, by1 = math.huge, -math.huge, math.huge, -math.huge
+		local function grow(l, r, b, t) x0, x1, y0, y1 = min(x0, l), max(x1, r), min(y0, b), max(y1, t) end
+		local side = ns.Get("qol.buttonTextSide") or "right"
+		for _, b in ipairs(set.list) do
+			local o, h = at[b.psKind], Buttons.Size(b.psKind) / 2
+			b:ClearAllPoints()
+			b:SetPoint("CENTER", set.group, "CENTER", o[1], o[2])
+			if b:IsShown() then
+				grow(o[1] - h, o[1] + h, o[2] - h, o[2] + h)
+				bx0, bx1, by0, by1 = min(bx0, o[1] - h), max(bx1, o[1] + h), min(by0, o[2] - h), max(by1, o[2] + h)
+				-- The names beside the target and rare buttons, as drawn.
+				local lab = rawget(b, "Label")
+				if lab and lab:IsShown() and (lab:GetText() or "") ~= "" then
+					local lw, lh = lab:GetStringWidth() or 0, lab:GetStringHeight() or 12
+					if side == "left" then grow(o[1] - h - 6 - lw, o[1], o[2] - lh / 2, o[2] + lh / 2)
+					elseif side == "above" then grow(o[1] - lw / 2, o[1] + lw / 2, o[2], o[2] + h + 4 + lh)
+					elseif side == "below" then grow(o[1] - lw / 2, o[1] + lw / 2, o[2] - h - 4 - lh, o[2])
+					else grow(o[1], o[1] + h + 6 + lw, o[2] - lh / 2, o[2] + lh / 2) end
+				end
+			end
+		end
+		if bx0 > bx1 then return nil end
+		local g0 = (tonumber(ns.Get("qol.buttonScale")) or 1) * self:TrueScale()
+		-- Centred on the buttons, the names hanging to their side: a box as
+		-- wide either side of the buttons' middle as the farther edge.
+		local bcx = (bx0 + bx1) / 2
+		local half = max(bcx - x0, x1 - bcx)
+		return 2 * half * g0, (y1 - y0) * g0, function(left, top, k)
+			local g = g0 * k
+			set.group:SetScale(g)
+			set.group:ClearAllPoints()
+			local cx, cy = left + (half - bcx) * g, top + y1 * g
+			set.group:SetPoint("CENTER", self, "TOPLEFT", snap(self, cx) / g, -snap(self, cy) / g)
+			set.box:ClearAllPoints()
+			set.box:SetPoint("TOPLEFT", self, "TOPLEFT", cx + bx0 * g, -(cy - by1 * g))
+			set.box:SetSize((bx1 - bx0) * g, (by1 - by0) * g)
+		end
+	end
+
+	-- One button alone (the floating button, the minimap button) at its real size.
+	local function oneContent(self, b, paint)
+		paint(b)
+		local t = self:TrueScale()
+		local bw, bh = b:GetWidth() * t, b:GetHeight() * t
+		return bw, bh, function(left, top, k)
+			local g = t * k
+			b:SetScale(g)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", self, "TOPLEFT", snap(b, left / g), snap(b, -top / g))
+		end
+	end
+
+	function f:Content()
+		local onSet = pick == "action"
+		set.group:SetShown(onSet)
+		set.box:SetShown(onSet)
+		if lb then lb:SetShown(pick == "launcher") end
+		if mb then mb:SetShown(pick == "minimap") end
+		for which, list in pairs(hots) do
+			local on = (which == "set" and onSet) or which == pick
+			for _, h in pairs(list) do h:SetShown(on) end
+		end
+		if pick == "launcher" and lb then return oneContent(self, lb, UI.Launcher.Paint) end
+		if pick == "minimap" and mb then return oneContent(self, mb, Maps.PaintMinimapButton) end
+		return setContent(self)
+	end
 	return f
 end
 
 -- The previews, for the tests: (parent) -> f.
 Buttons.ActionPreview = buildActionPreview
 Buttons.LauncherPreview = buildLauncherPreview
-Buttons.EssentialsPreview = buildEssentialsPreview
+Buttons.EssentialsPreview = buildEssentialsBand
 
 ---------------------------------------------------------------------------
 -- The controls (CONTRACT-V2 layout): one section per element in the order
@@ -745,7 +884,7 @@ if O and O.PresetCards and O.Ref then
 	}
 	local ESSENTIALS = L["Essentials"]
 	local list = {
-		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildEssentialsPreview,
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildEssentialsBand,
 			controls = { O.PresetCards({ presets = PRESETS }) } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Buttons"], jump = { tab = ACTION, section = L["Buttons"] },
 			controls = { R("slider", "buttons.itemSize"), R("slider", "buttons.hearthSize"), R("slider", "buttons.targetSize"), R("slider", "buttons.rareSize") } },

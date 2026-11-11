@@ -400,6 +400,8 @@ local function buildWindow(f, top)
 			span(r, y, y + h)
 			y = y + h
 		end
+		-- The goals' foot (window units): where a scene cut under them ends.
+		self.psRowsFoot = y
 
 		-- The tip, one line.
 		at.tip = y
@@ -493,7 +495,7 @@ local function buildWindow(f, top)
 		local room = (self.psHeight - top - 8) / k
 		local scroll, drop = 0, 0
 		if y > room then
-			local part = at[self.psFocus or "bars"] or 0
+			local part = rawget(self, "psNoScroll") and 0 or at[self.psFocus or "bars"] or 0
 			scroll = max(0, min(y - room, part - 12))
 		else
 			drop = rawget(self, "psTopAligned") and 0 or (room - y) / 2
@@ -611,19 +613,23 @@ UI.GuideWindowPreview = buildPreview
 -- The guide window as a part of another page's scene (the Theme page's):
 -- the same window, drawn into a frame on `stage` (its parts click and light
 -- through that stage), at the top of its box; c:Layout(width, height) lays
--- it out for that box, cropped and faded out at its foot when taller. -> c
--- (c.Window: the window)
-function UI.GuideWindowScene(stage)
+-- it out for that box, cropped and faded out at its foot when taller, never
+-- scrolled. opts.fade: the colour its crop fades into ("scrim", or the
+-- panel's "bg" in a band). c.psRowsFoot: its goals' foot, in window units,
+-- once laid out. -> c (c.Window: the window)
+function UI.GuideWindowScene(stage, opts)
+	local fade = opts and opts.fade or "scrim"
 	local c = CreateFrame("Frame", nil, stage)
 	if c.SetClipsChildren then c:SetClipsChildren(true) end
-	c.Back, c.psHeight, c.psTopAligned, c.psNoHot = c, PREVIEW_H, true, true
+	c.Back, c.psHeight, c.psTopAligned, c.psNoHot, c.psNoScroll = c, PREVIEW_H, true, true, true
 	function c:Hot(region, key) return stage:Hot(region, key) end
 	function c:Light(key, ...) return stage:Light(key, ...) end
 	function c:LightEdge(key, ...) return stage:LightEdge(key, ...) end
-	function c:Floor(frame, pad) return stage:Floor(frame, pad) end
-	function c:NoFloor(frame) return stage:NoFloor(frame) end
+	-- A stage's floor shadows; a band has none.
+	function c:Floor(frame, pad) if rawget(stage, "Floor") then return stage:Floor(frame, pad) end end
+	function c:NoFloor(frame) if rawget(stage, "NoFloor") then return stage:NoFloor(frame) end end
 	function c:TrueScale() return stage:TrueScale() end
-	-- The crop's fade, as a stage's (over the window, the scrim's colour).
+	-- The crop's fade, over the window, into the ground it stands on.
 	local over = CreateFrame("Frame", nil, c)
 	over:SetAllPoints(c)
 	over:SetFrameLevel(c:GetFrameLevel() + 12)
@@ -634,9 +640,10 @@ function UI.GuideWindowScene(stage)
 	c.Fade:SetHeight(28)
 	c.Fade:Hide()
 	W.Painter(c.Fade, function(t)
-		local r, g, b = Theme.Color("scrim")
+		local r, g, b = Theme.Color(fade)
+		local a = fade == "scrim" and 0.92 or 1
 		if t.SetGradient and CreateColor then
-			t:SetGradient("VERTICAL", CreateColor(r, g, b, 0.92), CreateColor(r, g, b, 0))
+			t:SetGradient("VERTICAL", CreateColor(r, g, b, a), CreateColor(r, g, b, 0))
 		else
 			t:SetVertexColor(r, g, b, 0.6)
 		end

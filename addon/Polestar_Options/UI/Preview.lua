@@ -4,17 +4,40 @@
 -- The pinned preview. A page tab's `preview(host)` -> frame f with
 -- f:Layout(width, height) -> height is built the first time the tab shows,
 -- into its own host in the shell's preview slot, and laid out across the
--- main column (P.Place). The preview is the page's hero: a stage stands on a
+-- main column (P.Place). It is never cut off: past its room it is shown
+-- whole at the scale that fits, and says how much it shrank.
+--
+-- The band (P.Band(parent, opts) -> f): a Look tab's preview. The element
+-- the tab sets and nothing else, at its real size (f:TrueScale()), centred
+-- on the element on the window's plain ground, the band only as tall as it:
+-- BAND_PAD over and under, [the picker], the element, [its states' labels],
+-- [one hint line]; at most MAX of the body's height. No chrome.
+--   f:Content(width) -> w, h, place(left, top, k)[, labels]  the page's: the
+--                  element's natural size, what puts it at (left, top) at
+--                  scale k, and its labels ({ fontstring, x } at their
+--                  centres, in its units)
+--   f:Label(text)  a state's label (a 12px Label in textMuted, centred)
+--   opts.picker    { choices, get, set }: a centred dropdown over the element
+--                  (a tab that sets several elements: the one shown)
+--   opts.play      fn: a small Play button beside the element's foot
+--   opts.watch     as the stage's (below)
+--   An element too wide or too tall for the band is placed at the k that
+--   fits, every part alike, never over 1; its hint line says so ("Shown at
+--   86% to fit"), else it is the hotspots' one-time hint, else there is none.
+--   P.MapHero(f)   the map pins' hero: a sharp 1:1 crop of Elwynn's world map
+--                  (P.SharpArt, P.InnerShade) and the game's minimap, side by
+--                  side; P.HERO_SCENE the scene in the map's pixels,
+--                  P.HeroWorld(x, y) to world yards
+--
+-- The stage, for the tabs whose band comes later: a stage stands on a
 -- backdrop at least HERO of the window's height (`height`, the room the page
 -- may lay its scene out in; a smaller scene is centred on it), at most MAX of
--- the body's. It is never cut off: past that it is shown whole at the scale
--- that fits, laid out for the width that scale gives, its caption saying how
--- much it shrank. Over it the slot's chrome: "Preview" and the frame's
--- caption (f.caption: a string or a function) at the top left, the Live mark
--- and the backdrop's chip at the top right, and the hotspots' one-time hint
--- in a foot of its own.
+-- the body's. Over it the slot's chrome (host.Chrome): "Preview" and the
+-- frame's caption (f.caption: a string or a function) at the top left, the
+-- Live mark and the backdrop's chip at the top right, and the hotspots'
+-- one-time hint in a foot of its own.
 --
--- The stage (P.Stage(parent, opts) -> s): the ground every preview draws on.
+-- The stage (P.Stage(parent, opts) -> s): the ground those previews draw on.
 --   opts.height    its height (s.psHeight); s:Layout(width, height) returns
 --                  it unless the page's own Layout says otherwise
 --   s.Hero         the backdrop, a frame of its own under the stage (the
@@ -753,6 +776,7 @@ function P.Hotspot(frame, region, key)
 				h.Hint:Hide()
 				h.Foot:Hide()
 			end
+			P.HintGone()
 		end
 		local c = controlFor(self.psKey)
 		if c then UI.Options.Jump(c) end
@@ -909,6 +933,412 @@ function P.LightUp(owner, key)
 end
 
 ---------------------------------------------------------------------------
+-- The band
+---------------------------------------------------------------------------
+
+-- The band's geometry (UI units at scale 1): the room over and under its
+-- content, the dropdown and its gap to the element, a label's or the hint's
+-- gap and line, the gap between two states, the room kept each side of the
+-- element before it is shrunk, Play's gap to the element and its height.
+local BAND_PAD, PICKER_W, PICKER_H, PICKER_GAP = 20, 220, 28, 14
+local LINE_GAP, LINE_H, STATE_GAP, BAND_SIDE = 10, 15, 40, 24
+local PLAY_GAP, PLAY_H = 16, 22
+P.BAND_PAD, P.PICKER_H, P.PICKER_GAP, P.LINE_GAP, P.LINE_H, P.STATE_GAP = BAND_PAD, PICKER_H, PICKER_GAP, LINE_GAP, LINE_H, STATE_GAP
+
+local bands = setmetatable({}, { __mode = "k" })
+
+-- The band laid out again where it is: through the settings window while it
+-- holds it (its height may change), else in place; while hidden, on its
+-- next show.
+local function bandAgain(f)
+	if not f:IsVisible() then
+		f.psDirty = true
+		return
+	end
+	local O = UI.Options
+	if hostOf(f) and O and O.Relayout then
+		O.Relayout()
+	elseif f.psWidth then
+		f:Layout(f.psWidth, f.psRoom)
+	end
+end
+
+-- Its dropdown: the window's dropdown box, centred, its menu the shared
+-- popup menu. pick = { choices = { { value, label }, ... } or fn, get, set }
+local function choicesOf(pick)
+	local list = pick.choices
+	if type(list) == "function" then list = list() end
+	return list or {}
+end
+
+local function pickerLabel(f)
+	local pick, cur = f.psPick, f.psPick.get()
+	for _, c in ipairs(choicesOf(pick)) do
+		if c.value == cur then return c.label end
+	end
+	return ""
+end
+
+local function newPicker(f)
+	local b = CreateFrame("Button", nil, f)
+	b:SetSize(PICKER_W, PICKER_H)
+	Theme.Skin(b, "dropdown")
+	b.Label = W.Text(b, "label", "text")
+	b.Label:SetPoint("LEFT", b, "LEFT", 10, 0)
+	b.Label:SetPoint("RIGHT", b, "RIGHT", -26, 0)
+	b.Arrow = W.Tex(b, "ARTWORK", "chevron-down", "textDim")
+	b.Arrow:SetSize(12, 12)
+	b.Arrow:SetPoint("RIGHT", b, "RIGHT", -9, 0)
+	b:SetScript("OnClick", function(self)
+		if W.MenuShown(self) then return W.HideMenu() end
+		local pick, items = f.psPick, {}
+		local cur = pick.get()
+		for i, c in ipairs(choicesOf(pick)) do
+			items[i] = { text = c.label, checked = c.value == cur, onClick = function()
+				pick.set(c.value)
+				bandAgain(f)
+			end }
+		end
+		W.ShowMenu(self, items, { minWidth = PICKER_W, point = "TOP", relPoint = "BOTTOM" })
+	end)
+	return b
+end
+
+-- The tab's preview as a band (Fitz's EllesmereUI pattern): the element the
+-- tab sets, alone, at its real size (1:1 on the game's UI scale), centred on
+-- the window's plain ground, the band only as tall as it. opts:
+--   picker  { choices, get, set }: a centred dropdown over the element (a
+--           tab that sets several elements: the one shown)
+--   play    fn: a small Play button hanging right of the element, its foot
+--           on the element's (under its right end on a band too narrow)
+--   watch   setting path prefixes ("toasts.", "nav."): a change repaints the
+--           band at once while it shows, on its next show else; a theme
+--           change too
+-- The page sets f:Content(width) -> w, h, place(left, top, k), labels: its
+-- element's natural size (band units at k = 1), what puts it there at scale
+-- k (every part alike), and its states' labels ({ { fontString, centreX },
+-- ... } at k = 1, or nil). Nothing to show (its module is not loaded): nil.
+-- An element wider than the band (less BAND_SIDE a side) or taller than the
+-- room the window gives it is placed at the k that fits, never over 1, and
+-- the one hint line says so; else that line is the hotspots' one-time hint
+-- while it stands, else there is none. f:Label(text): a state's label.
+-- f:Layout(width, room) -> its height.
+function P.Band(parent, opts)
+	opts = opts or {}
+	local f = CreateFrame("Frame", nil, parent)
+	bands[f] = true
+	f.Ground = W.Fill(f, "bg", "BACKGROUND", -8)
+	if opts.picker then
+		f.psPick = opts.picker
+		f.Picker = newPicker(f)
+	end
+	f.Hint = W.Text(f, "label", "textMuted")
+	f.Hint:SetJustifyH("CENTER")
+	f.Hint:Hide()
+	if opts.play then
+		f.Play = W.Button(f, L["Play"], opts.play, { height = PLAY_H })
+		f.Play:SetWidth(math.ceil(W.TextWidth(f.Play.Label)) + 32)
+		f.Play:SetFrameLevel(f:GetFrameLevel() + 30)
+	end
+	f.psWatch = opts.watch
+	function f:Hot(region, key) return P.Hot(self, region, key) end
+	function f:Light(key, ...) return P.Light(self, key, ...) end
+	function f:LightEdge(key, ...) return P.LightEdge(self, key, ...) end
+	function f:LightRing(key, ...) return P.LightRing(self, key, ...) end
+	function f:LightEach(key, fn, ring) return P.LightEach(self, key, fn, ring) end
+	function f:TrueScale() return P.TrueScale(self) end
+	function f:Label(text)
+		local fs = W.Text(self, "label", "textMuted")
+		fs:SetJustifyH("CENTER")
+		fs:SetText(text)
+		return fs
+	end
+	f:SetScript("OnShow", function(self)
+		if self.psDirty and self.psWidth then self:Layout(self.psWidth, self.psRoom) end
+	end)
+	W.Painter(f.Ground, function()
+		if f:IsVisible() and f.psWidth then f:Layout(f.psWidth, f.psRoom) else f.psDirty = true end
+	end)
+
+	function f:Layout(width, room)
+		self.psDirty = nil
+		self:SetWidth(width)
+		self.psWidth, self.psRoom = width, room
+		local pick, play = rawget(self, "Picker"), rawget(self, "Play")
+		if pick then pick.Label:SetText(pickerLabel(self)) end
+		local w, h, place, labels
+		if type(self.Content) == "function" then
+			local ok, a, b, c, d = pcall(self.Content, self, width)
+			if ok then w, h, place, labels = a, b, c, d else report(a) end
+		end
+		local y = BAND_PAD
+		if pick then
+			pick:ClearAllPoints()
+			pick:SetPoint("TOP", self, "TOPLEFT", P.Snap(self, width / 2), -y)
+			y = y + PICKER_H + PICKER_GAP
+		end
+		local hint
+		if not (w and h and place) then
+			-- Its module is not loaded: the band says so.
+			if play then play:Hide() end
+			hint = L["Not loaded"]
+		else
+			-- The scale that fits: the band's width less its sides, the room
+			-- the window gives it less the parts over and under the element
+			-- (the hint line too, as it then says so).
+			local below = (labels and (LINE_GAP + LINE_H) or 0) + BAND_PAD
+			local k = min(1, (width - 2 * BAND_SIDE) / max(1, w))
+			if room then k = min(k, (room - y - below) / max(1, h)) end
+			if k < 0.995 and room then k = min(k, (room - y - below - LINE_GAP - LINE_H) / max(1, h)) end
+			k = max(0.05, k)
+			if k >= 0.995 then k = 1 end
+			self.psFit = k
+			local left = floor((width - w * k) / 2 + 0.5)
+			place(left, y, k)
+			local foot = y + h * k
+			if play then
+				-- Right of the element, its foot on the element's; on a band
+				-- too narrow, under the element's right end.
+				play:Show()
+				play:ClearAllPoints()
+				local pw = play:GetWidth()
+				if left + w * k + PLAY_GAP + pw <= width - 16 then
+					play:SetPoint("BOTTOMLEFT", self, "TOPLEFT", P.Snap(self, left + w * k + PLAY_GAP), -P.Snap(self, foot))
+				else
+					play:SetPoint("TOPRIGHT", self, "TOPLEFT", P.Snap(self, left + w * k), -P.Snap(self, foot + 8))
+					foot = foot + 8 + PLAY_H
+				end
+			end
+			y = foot
+			if labels then
+				for _, l in ipairs(labels) do
+					l[1]:ClearAllPoints()
+					l[1]:SetPoint("TOP", self, "TOPLEFT", P.Snap(self, left + l[2] * k), -P.Snap(self, y + LINE_GAP))
+				end
+				y = y + LINE_GAP + LINE_H
+			end
+			if k < 1 then
+				hint = string.format(L["Shown at %d%% to fit"], floor(k * 100 + 0.5))
+			else
+				local host = hostOf(self)
+				if host and (host.psHotspots or 0) > 0 and not hintDismissed() then hint = L["Click a part of the preview to find its settings."] end
+			end
+		end
+		self.Hint:SetShown(hint ~= nil)
+		if hint then
+			self.Hint:SetText(hint)
+			self.Hint:ClearAllPoints()
+			self.Hint:SetPoint("TOP", self, "TOPLEFT", P.Snap(self, width / 2), -P.Snap(self, y + LINE_GAP))
+			y = y + LINE_GAP + LINE_H
+		end
+		y = y + BAND_PAD
+		self.psHeight = y
+		self:SetHeight(y)
+		return y
+	end
+	return f
+end
+
+-- Whether frame f is a band (P.Band made it).
+function P.IsBand(f) return f ~= nil and bands[f] == true end
+
+-- The settings a band repaints on (its opts.watch), and the hotspots' hint
+-- going for good (a band's hint line with it).
+ns.On("SETTING_CHANGED", function(path)
+	for f in pairs(bands) do
+		local watch = f.psWatch
+		if watch and prefixMatch(watch, path) then
+			if f:IsVisible() and f.psWidth then f:Layout(f.psWidth, f.psRoom) else f.psDirty = true end
+		end
+	end
+end)
+function P.HintGone()
+	for f in pairs(bands) do bandAgain(f) end
+end
+
+---------------------------------------------------------------------------
+-- The map hero (Map pins; Route lines may use it too)
+---------------------------------------------------------------------------
+
+-- One small scene on a real world map and a real minimap, side by side in a
+-- band, each at its real size: the world map a 1:1 crop of the zone's own
+-- map tiles (UI.ZoneArt: never upscaled; the client's art, none shipped), a
+-- hairline round it and a soft inner shade so the marks come forward; the
+-- minimap the game's own: its ring over the client's minimap tiles (by file
+-- id, as ZoneArt ships only file ids) under a round mask, the player's arrow
+-- in the middle. The scene: Elwynn Forest (uiMap 1429) in its map's pixels
+-- (1002 x 668), the player on the road east of Goldshire.
+local HERO_ZONE, HERO_MAP_W, HERO_MAP_H = 1429, 1002, 668
+-- Elwynn's map frame in world yards (data/forever/map-frames.json).
+local Z_LEFT, Z_RIGHT, Z_TOP, Z_BOTTOM = 1535.417, -1935.417, -7939.583, -10254.166
+local HERO_SCENE = {
+	crop = { 382, 377, 488, 186 }, -- whole map labels only: Goldshire at the left, Eastvale Logging Camp at the right
+	player = { 530, 469 }, ahead = { 548, 471 },
+	walk = { { 512, 468 }, { 548, 471 }, { 560, 492 }, { 565, 503 } },
+	target = { 565, 503 }, area = 56,
+	steps = { { 600, 466 }, { 656, 446 }, { 672, 500 } },
+	card = { 605, 480 }, -- the preset cards' view, centred here
+}
+P.HERO_SCENE = HERO_SCENE
+-- The minimap: 140 px, 466.67 yd across at its widest zoom (the default),
+-- so a 533.33 yd tile is 160 px; Azeroth's tiles around the player (its WDT,
+-- builds 70374 and 70425), placed from the player's grid point.
+local MM, MM_YARDS, MM_BLOCK, MAP_GAP, SHADE = 140, 466.6667, 150, 48, 26
+local MM_TILE, MM_GRID = 160, { 32.563, 49.934 }
+local MM_TILES = { { 32, 49, 204494 }, { 32, 50, 204495 }, { 33, 49, 204534 }, { 33, 50, 204535 } }
+local RING, RING_CX, RING_CY, RING_TOP = "Interface\\Minimap\\UI-Minimap-Border", 168.5, 106.5, 30
+local MASK = "Interface\\CharacterFrame\\TempPortraitAlphaMask"
+P.MM, P.MM_YARDS = MM, MM_YARDS
+
+-- (mx, my) on the zone's map -> its world yards (x north, y west).
+function P.HeroWorld(mx, my)
+	return Z_TOP + my / HERO_MAP_H * (Z_BOTTOM - Z_TOP), Z_LEFT + mx / HERO_MAP_W * (Z_RIGHT - Z_LEFT)
+end
+
+-- A soft shade inside frame's four edges, `reach` px in, so marks near an
+-- edge read. -> its frame
+function P.InnerShade(frame, reach, strength)
+	local over = CreateFrame("Frame", nil, frame)
+	over:SetAllPoints(frame)
+	local sides = {}
+	for _, s in ipairs({ { "TOPLEFT", "TOPRIGHT", "h" }, { "BOTTOMLEFT", "BOTTOMRIGHT", "h" }, { "TOPLEFT", "BOTTOMLEFT", "w" }, { "TOPRIGHT", "BOTTOMRIGHT", "w" } }) do
+		local t = over:CreateTexture(nil, "ARTWORK")
+		t:SetTexture(Theme.Media("white"))
+		t:SetPoint(s[1], over, s[1], 0, 0)
+		t:SetPoint(s[2], over, s[2], 0, 0)
+		if s[3] == "h" then t:SetHeight(reach) else t:SetWidth(reach) end
+		sides[#sides + 1] = t
+	end
+	W.Painter(over, function()
+		local r, g, b = Theme.Color("scrim")
+		gradient(sides[1], "VERTICAL", r, g, b, 0, strength)
+		gradient(sides[2], "VERTICAL", r, g, b, strength, 0)
+		gradient(sides[3], "HORIZONTAL", r, g, b, strength, 0)
+		gradient(sides[4], "HORIZONTAL", r, g, b, 0, strength)
+	end)
+	return over
+end
+
+-- A painting of the scene's zone, w x h at its tiles' own size (1:1),
+-- centred on (cx, cy) of the zone's map, into parent; nil without ZoneArt.
+-- ground: the token under it where the client has no art.
+function P.SharpArt(parent, w, h, cx, cy, ground)
+	local ZA = UI.ZoneArt
+	if not (ZA and ZA.Create) then return nil end
+	local art = ZA.Create(parent, w, h, ground or "scrim")
+	art:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
+	for _, k in ipairs({ "Fade", "Top", "Rule" }) do
+		local r = rawget(art, k)
+		if r then r:Hide() end
+	end
+	art.psZoom = 1 / max(w / HERO_MAP_W, h / HERO_MAP_H)
+	art.psDesat, art.psFocusY, art.psW, art.psH = 0.1, h / 2, w, h
+	local ok, err = pcall(ZA.Paint, art, HERO_ZONE, cx / HERO_MAP_W * 100, cy / HERO_MAP_H * 100, 1)
+	if not ok then report(err) end
+	return art
+end
+
+-- The hero on band f: h.box (the two, laid out at scale k by h.Place),
+-- h.Map (the world map, crop-sized) with h.World (a route canvas, when
+-- RouteLines is loaded) and h.Layer (the marks) over its art; h.Minimap (MM
+-- across) with h.MmCanvas and h.MmLayer; h.Me, h.MmArrow (the player's
+-- arrows). -> h; h.Size() -> w, h, labels (k = 1); h.Place(left, top, k).
+function P.MapHero(f)
+	local h = {}
+	local cx0, cy0, cw, ch = unpack(HERO_SCENE.crop)
+	local box = CreateFrame("Frame", nil, f)
+	box:SetSize(cw + MAP_GAP + MM_BLOCK, ch)
+	h.box = box
+	-- The world map.
+	local map = CreateFrame("Frame", nil, box)
+	map:SetSize(cw, ch)
+	map:SetPoint("TOPLEFT", box, "TOPLEFT", 0, 0)
+	if map.SetClipsChildren then map:SetClipsChildren(true) end
+	h.Art = P.SharpArt(map, cw, ch, cx0 + cw / 2, cy0 + ch / 2)
+	if not h.Art then W.Fill(map, "panel", "BACKGROUND", -6) end
+	local base = h.Art and h.Art.Over and h.Art.Over:GetFrameLevel() or map:GetFrameLevel() + 3
+	P.InnerShade(map, SHADE, 0.6):SetFrameLevel(base + 1)
+	local R = ns.RouteLines
+	if R and R.NewCanvas then
+		h.World = R.NewCanvas(CreateFrame("Frame", nil, map))
+		h.World:SetAllPoints(map)
+		h.World:SetFrameLevel(base + 2)
+	end
+	h.Layer = CreateFrame("Frame", nil, map)
+	h.Layer:SetAllPoints(map)
+	h.Layer:SetFrameLevel(base + 4)
+	h.Me = h.Layer:CreateTexture(nil, "OVERLAY")
+	h.Me:SetTexture("Interface\\WorldMap\\WorldMapArrow")
+	local edge = CreateFrame("Frame", nil, map)
+	edge:SetAllPoints(map)
+	edge:SetFrameLevel(base + 8)
+	W.Painter(edge, function(self)
+		local r, g, b, a = Theme.Wash("border")
+		Theme.Border(self, r, g, b, min(1, (a or 0.1) * 1.8))
+	end)
+	h.Map = map
+	-- The minimap.
+	local mm = CreateFrame("Frame", nil, box)
+	mm:SetSize(MM, MM)
+	mm:SetPoint("CENTER", box, "TOPLEFT", cw + MAP_GAP + MM_BLOCK / 2, -ch / 2)
+	if mm.CreateMaskTexture then
+		local mask = mm:CreateMaskTexture()
+		mask:SetTexture(MASK, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+		mask:SetAllPoints(mm)
+		h.Tiles = {}
+		for i, t in ipairs(MM_TILES) do
+			local tex = mm:CreateTexture(nil, "BACKGROUND")
+			tex:SetTexture(t[3])
+			tex:SetSize(MM_TILE, MM_TILE)
+			tex:SetPoint("TOPLEFT", mm, "CENTER", (t[1] - MM_GRID[1]) * MM_TILE, -(t[2] - MM_GRID[2]) * MM_TILE)
+			tex:AddMaskTexture(mask)
+			h.Tiles[i] = tex
+		end
+		h.Mask = mask
+	end
+	h.MmArrow = mm:CreateTexture(nil, "ARTWORK")
+	h.MmArrow:SetTexture("Interface\\Minimap\\MinimapArrow")
+	h.MmArrow:SetSize(32, 32)
+	h.MmArrow:SetPoint("CENTER", mm, "CENTER", 0, 0)
+	if R and R.NewCanvas then
+		h.MmCanvas = R.NewCanvas(CreateFrame("Frame", nil, mm))
+		h.MmCanvas:SetAllPoints(mm)
+		h.MmCanvas:SetFrameLevel(mm:GetFrameLevel() + 2)
+	end
+	h.MmLayer = CreateFrame("Frame", nil, mm)
+	h.MmLayer:SetAllPoints(mm)
+	h.MmLayer:SetFrameLevel(mm:GetFrameLevel() + 4)
+	local ringFrame = CreateFrame("Frame", nil, mm)
+	ringFrame:SetFrameLevel(mm:GetFrameLevel() + 8)
+	ringFrame:SetAllPoints(mm)
+	-- The game's ring, its zone-name bar (the texture's top) left out.
+	h.Ring = ringFrame:CreateTexture(nil, "OVERLAY")
+	h.Ring:SetTexture(RING)
+	h.Ring:SetTexCoord(0, 1, RING_TOP / 256, 1)
+	h.Ring:SetSize(256, 256 - RING_TOP)
+	h.Ring:SetPoint("TOPLEFT", mm, "CENTER", -RING_CX, RING_CY - RING_TOP)
+	h.Minimap = mm
+	local labels = { f:Label(L["World map"]), f:Label(L["Minimap"]) }
+	local facing = math.atan2(-(HERO_SCENE.ahead[1] - HERO_SCENE.player[1]), -(HERO_SCENE.ahead[2] - HERO_SCENE.player[2]))
+	h.Facing = facing
+	function h.Size()
+		local t = f:TrueScale()
+		h.Me:SetSize(32 * t, 32 * t)
+		h.Me:ClearAllPoints()
+		h.Me:SetPoint("CENTER", h.Layer, "TOPLEFT", HERO_SCENE.player[1] - cx0, -(HERO_SCENE.player[2] - cy0))
+		if h.Me.SetRotation then h.Me:SetRotation(facing) end
+		if h.MmArrow.SetRotation then h.MmArrow:SetRotation(facing) end
+		return cw + MAP_GAP + MM_BLOCK, ch, { { labels[1], cw / 2 }, { labels[2], cw + MAP_GAP + MM_BLOCK / 2 } }
+	end
+	function h.Place(left, top, k)
+		box:SetScale(k)
+		box:ClearAllPoints()
+		box:SetPoint("TOPLEFT", f, "TOPLEFT", P.Snap(f, left) / k, -P.Snap(f, top) / k)
+	end
+	return h
+end
+
+---------------------------------------------------------------------------
 -- The pinned preview
 ---------------------------------------------------------------------------
 
@@ -944,10 +1374,11 @@ local function hostFor(win, view, t)
 		-- A frame's own Hotspot method (a stub's frame answers every name).
 		if rawget(f, "Hotspot") == nil then f.Hotspot = function(self, region, key) return P.Hotspot(self, region, key) end end
 	end
-	-- The chrome, over the preview.
+	-- The chrome, over a stage (a band has none: it is only its element).
 	local chrome = CreateFrame("Frame", nil, host)
 	chrome:SetAllPoints(host)
 	chrome:SetFrameLevel(host:GetFrameLevel() + 30)
+	host.Chrome = chrome
 	host.Label = W.Text(chrome, "caption", "text")
 	host.Label:SetText(L["Preview"])
 	host.Label:SetPoint("TOPLEFT", chrome, "TOPLEFT", 16, -12)
@@ -1014,6 +1445,23 @@ function P.Place(win, view, t, width, room)
 		return
 	end
 	local stage = stages[f] or false
+	if bands[f] then
+		-- A band: as tall as its element and its parts, the element fitted
+		-- to the room the window gives it; no chrome, its hint its own line.
+		host.Chrome:Hide()
+		f:SetScale(1)
+		local ok, h = pcall(f.Layout, f, width, max(1, floor(room * MAX)))
+		if not ok then
+			report(h)
+			h = 0
+		end
+		f:ClearAllPoints()
+		f:SetPoint("TOPLEFT", host, "TOPLEFT", 0, 0)
+		f:Show()
+		W.ShellPreview(win, host, P.Snap(host, tonumber(h) or 0))
+		return
+	end
+	host.Chrome:Show()
 	local maxH = max(1, floor(room * MAX))
 	local heroH = stage and min(maxH, floor((win:GetHeight() or room) * HERO + 0.5)) or nil
 	local function layout(w, hh)

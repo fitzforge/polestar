@@ -173,6 +173,73 @@ end
 -- The preview, for the tests: ArrowPreview(parent) -> f.
 Nav.ArrowPreview = buildPreview
 
+-- Essentials, a band (UI.Preview.Band): Nav's own dial in the states its
+-- settings change, side by side at its real size, a label under each: on
+-- its way, closing in (the near colour) and in combat (the combat opacity).
+local BAND_STATES = {
+	{ state = "travel", angle = 0.6, dist = 420, eta = 95, label = L["On its way"] },
+	{ state = "travel", angle = -0.3, dist = 40, eta = 9, label = L["Closing in"] },
+	{ state = "travel", angle = 0.6, dist = 420, eta = 95, label = L["In combat"], combat = true },
+}
+local function buildEssentialsBand(view)
+	local Preview = ns.UI.Preview
+	local f = Preview.Band(view, { watch = { "nav." } })
+	local lk, cols = {}, {}
+	for i, s in ipairs(BAND_STATES) do
+		local holder = CreateFrame("Frame", nil, f)
+		holder:SetSize(Arrow.WIDTH, Arrow.HEIGHT)
+		cols[i] = { holder = holder, dial = Arrow.BuildDial(holder), s = s, label = f:Label(s.label) }
+	end
+	f.Dials = cols
+	local d1, d2, d3 = cols[1].dial, cols[2].dial, cols[3].dial
+	f:Hot(d1.dial, "nav.arrowScale")
+	f:Hot(d2.dial, "nav.arrowNearColor")
+	f:Hot(d3.dial, "nav.arrowCombatAlpha")
+	f:Hot(d1.distText, "nav.arrowDistSize")
+	f:Hot(d1.labelText, "nav.arrowLabelSize")
+	f:Hot(d1.etaText, "nav.arrowEtaSize")
+	local holders = { cols[1].holder, cols[2].holder, cols[3].holder }
+	local dials = { d1.dial, d2.dial, d3.dial }
+	local dist, eta, labels = { d1.distText, d2.distText, d3.distText }, { d1.etaText, d2.etaText, d3.etaText }, { d1.labelText, d2.labelText, d3.labelText }
+	for key, parts in pairs({
+		["nav.arrow"] = holders, ["nav.arrowStyle"] = dials, ["nav.arrowScale"] = holders, ["nav.arrowAlpha"] = holders,
+		["nav.arrowNearColor"] = { d2.dial }, ["nav.arrowGlowStrength"] = dials, ["nav.hideArrowWithGuide"] = holders,
+		["nav.arrowCombatAlpha"] = { cols[3].holder }, ["nav.arrowDistSize"] = dist, ["nav.distanceUnit"] = dist,
+		["nav.arrowLabelLines"] = labels, ["nav.arrowEtaSize"] = eta,
+		-- The switches and swatches beside those rows.
+		["nav.arrowColor"] = { d1.dial, d3.dial }, ["nav.arrowGlow"] = dials, ["nav.arrowDistance"] = dist, ["nav.arrowDistColor"] = dist,
+		["nav.arrowEta"] = eta, ["nav.arrowEtaColor"] = eta,
+	}) do
+		f:Light(key, unpack(parts))
+	end
+	local snap = Preview.Snap
+	function f:Content()
+		Arrow.ReadLook(lk)
+		local style = Arrow.StyleFor(ns.Get("nav.arrowStyle"))
+		local g0 = clamp(ns.Get("nav.arrowScale"), 0.5, 2, 1) * self:TrueScale()
+		local alpha = clamp(ns.Get("nav.arrowAlpha"), 0.1, 1, 1)
+		local fight = clamp(ns.Get("nav.arrowCombatAlpha"), 0, 1, 1)
+		local w, h, gap = Arrow.WIDTH * g0, Arrow.HEIGHT * g0, Preview.STATE_GAP
+		local out = {}
+		for i, c in ipairs(cols) do
+			local s = c.s
+			Arrow.PaintDial(c.dial, lk, style, s.state, s.angle, s.dist, L["The innkeeper"], s.eta)
+			c.holder:SetAlpha(alpha * (s.combat and fight or 1))
+			out[i] = { c.label, (i - 1) * (w + gap) + w / 2 }
+		end
+		return #cols * w + (#cols - 1) * gap, h, function(left, top, k)
+			local g = g0 * k
+			for i, c in ipairs(cols) do
+				c.holder:SetScale(g)
+				c.holder:ClearAllPoints()
+				c.holder:SetPoint("TOPLEFT", self, "TOPLEFT", snap(c.holder, (left + (i - 1) * (w + gap) * k) / g), snap(c.holder, -top / g))
+			end
+		end, out
+	end
+	return f
+end
+Nav.ArrowEssentialsPreview = buildEssentialsBand
+
 ---------------------------------------------------------------------------
 -- Style cards: each a sandbox dial in that style, pointing ahead-left.
 ---------------------------------------------------------------------------
@@ -416,7 +483,7 @@ if O and O.Ref then
 	local R = O.Ref
 	local ESSENTIALS = L["Essentials"]
 	local list = {
-		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Style"], preview = buildPreview,
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Style"], preview = buildEssentialsBand,
 			controls = { R("cards", "nav.arrowStyle") } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Arrow"], jump = { tab = L["Look"], section = L["Arrow"] },
 			toggle = R("toggle", "nav.arrow"),

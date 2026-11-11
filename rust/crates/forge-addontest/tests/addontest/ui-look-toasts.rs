@@ -242,13 +242,23 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		live.hots = hots
 		emit({ heights = heights, live = live, sounds = #stub.sounds, fired = fired, target = Polestar.Nav.GetTarget() ~= nil })
 
-		-- A bigger rare alert: the preview shows it shrunk to fit and says so.
+		-- A bigger rare alert: the band shows it shrunk to fit and its hint line says so.
 		Polestar.Set("toasts.rare.scale", 2)
-		emit({ fit = r2(rare:GetScale()) < 2, note = stages.rare.caption() })
+		stages.rare:Layout(640, 400)
+		emit({ fit = r2(rare:GetScale()) < 2, note = stages.rare.Hint:IsShown() and stages.rare.Hint:GetText() or "" })
 
-		-- Play: the entrance again and the sound (it is on).
+		-- Play: on the four single tabs, not on Essentials; its foot on the card's, right of it. A click: the
+		-- entrance again, and the sound only while it is on.
+		local plays = {}
+		for _, tab in ipairs({ "rare", "transport", "headsup", "classcard" }) do plays[tab] = rawget(stages[tab], "Play") ~= nil end
+		plays.essentials = rawget(TS.Preview(host, "all"), "Play") ~= nil
+		local pp, _, prp = stages.transport.Play:GetPoint(1)
 		stages.rare.Play:Click()
-		emit({ sounds = #stub.sounds, entering = Polestar.Anim.IsRunning(rare, "alpha") })
+		local on = #stub.sounds
+		Polestar.Set("rares.sound", false)
+		stages.rare.Play:Click()
+		emit({ sounds = on, quiet = #stub.sounds, entering = Polestar.Anim.IsRunning(rare, "alpha"), plays = plays, foot = { pp, prp } })
+		Polestar.Set("rares.sound", true)
 
 		-- Hidden: nothing ticks, and a change waits for the preview to show again.
 		stub.advance(1)
@@ -290,7 +300,11 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 	assert_eq!(first["target"], false, "no waypoint");
 	assert_eq!(out[1]["fit"], true);
 	assert!(out[1]["note"].as_str().unwrap().starts_with("Shown at "), "{}", out[1]);
-	assert_eq!(out[2], json!({ "sounds": 1, "entering": true }));
+	assert_eq!(
+		out[2],
+		json!({ "sounds": 1, "quiet": 1, "entering": true,
+		"plays": { "rare": true, "transport": true, "headsup": true, "classcard": true, "essentials": false }, "foot": ["BOTTOMLEFT", "TOPLEFT"] })
+	);
 	assert_eq!(out[3], json!({ "updates": 0, "anim": 0, "waiting": 1, "shown": 0.5 }));
 }
 

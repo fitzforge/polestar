@@ -223,10 +223,12 @@ fn the_target_pin_takes_its_size_glow_and_pulse_and_reduce_motion_stops_the_puls
 }
 
 // The page's previews: Pins' own builder and paint on sandbox frames (never the live pins), repainted by their
-// settings while shown, else on the next show. Pins: the numbered pins at their true size on a route, shown as a
-// sample while off, a "Pin size" inset of 100% against yours. Icons: the marks at full size, one with its badge.
-// The page (layout v2: section toggles, extras, cogs) holds every setting a player could set, each new one with
-// search words and help (its tooltip).
+// settings while shown, else on the next show. Pins (Map pins v2): a band with the world map (a 488 x 186 crop,
+// the plain panel where ZoneArt is not loaded) and the game's 140 px minimap (masked round, its ring), the
+// target and the numbered pins at the zoomed-out map's real size (Pins.WorldScale(f, 0) x the true scale), at 70%
+// while numbered pins are off and whole while on; the minimap's at its widest zoom. Icons: the marks at full size,
+// one with its badge. The page (layout v2: section toggles, extras, cogs) holds every setting a player could set,
+// each new one with search words and help (its tooltip).
 #[test]
 fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_shown() {
 	let out = run(r#"
@@ -234,25 +236,29 @@ fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_sh
 		local P = N.PinsPreview(UIParent)          -- the stub takes addon frames under UIParent
 		P:Show()
 		out.height = P:Layout(900)
-		local M = P.Map
+		local M, H = P.Map, P.Hero
 		local s1 = M.steps[1]
-		local count = math.min(5, N.upcoming.Count())
+		local t = Polestar.UI.Preview.TrueScale(P)
 		out.live = #nav.pins() == 0 and s1:GetParent() ~= WorldMapFrame.Child
-		out.sample = { Polestar.Get("nav.upcomingPins"), s1:IsShown(), count >= 3 }
-		-- Zoomed in by default: a 15 px pin at 0.9 on screen, its number legible.
-		out.steps = { r3(s1.width), r3(s1.width * s1.scale), s1.text:GetText(), r3(rgba(M.steps[count].fill)[4]) }
+		out.map = { math.floor(H.Map:GetWidth() + 0.5), math.floor(H.Map:GetHeight() + 0.5), H.Minimap:GetWidth(), H.Mask ~= nil,
+			H.Ring:GetTexture(), #(H.Tiles or {}) }
+		-- Off by default: the numbered pins at 70%, at the zoomed-out map's size.
+		out.off = { r3(s1:GetAlpha() / Pins.look.worldAlpha), r3(s1.scale) == r3(Pins.WorldScale(s1, 0) * t), s1.text:GetText() }
+		Polestar.Set("nav.upcomingPins", true)
+		out.on = r3(s1:GetAlpha() / Pins.look.worldAlpha)
+		Polestar.Set("nav.upcomingPins", nil)
 		out.target = { glow = M.target.glow:IsShown(), icon = M.target.icon.texture:match("icon%-[%a-]+$") }
+		local w0 = r3(s1.width)
 		Polestar.Set("nav.stepPinSize", 2)
-		out.repainted = r3(s1.width)
-		out.inset = { r3(M.inset.base.width), r3(M.inset.yours.width) }
+		out.repainted = r3(s1.width) > w0
+		local w2 = r3(s1.width)
 		P:Hide()
 		Polestar.Set("nav.stepPinSize", 2.5)
-		out.hidden = r3(s1.width)
+		out.hidden = r3(s1.width) == w2
 		P:Show()
-		out.shown = r3(s1.width)
-		-- The zoom switch: zoomed out draws them at 0.7.
-		P.Zoom:GetChildren():Click()
-		out.zoomedOut = r3(s1.scale)
+		out.shown = r3(s1.width) > w2
+		local mt = P.Minimap.target
+		out.minimap = { mt:IsShown(), r3(mt.scale) == r3(t) }
 		out.updates = P:GetScript("OnUpdate") == nil
 		local I = N.PinsIconsPreview(UIParent)
 		I:Show()
@@ -280,14 +286,14 @@ fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_sh
 		table.sort(keys)
 		out.page, out.controls, out.keys, out.sections = page, n, keys, sections
 		emit(out)"#);
-	assert_eq!(out["height"], json!(196));
+	assert_eq!(out["height"], json!(251), "20 + the map's 186 + its labels' 25 + 20");
 	assert_eq!(out["live"], true, "sandbox pins, not the world map's");
-	assert_eq!(out["sample"], json!([false, true, true]), "numbered pins drawn as a sample while off");
-	assert_eq!(out["steps"], json!([15, 13.5, "2", 0.35]), "true on-map size zoomed in; the farthest at the fade's end");
+	assert_eq!(out["map"], json!([488, 186, 140, true, "Interface\\Minimap\\UI-Minimap-Border", 4]), "{}", out["map"]);
+	assert_eq!(out["off"], json!([0.7, true, "2"]), "numbered pins at 70% while off, the zoomed-out map's size");
+	assert_eq!(out["on"], json!(1), "whole while on");
 	assert_eq!(out["target"], json!({ "glow": true, "icon": "icon-target" }));
-	assert_eq!(json!([out["repainted"], out["hidden"], out["shown"]]), json!([30, 30, 37.5]), "repaints while shown, else on show");
-	assert_eq!(out["inset"], json!([15, 30]), "Pin size: 100% beside yours");
-	assert_eq!(out["zoomedOut"], json!(0.7));
+	assert_eq!(json!([out["repainted"], out["hidden"], out["shown"]]), json!([true, true, true]), "repaints while shown, else on show");
+	assert_eq!(out["minimap"], json!([true, true]), "the target on the minimap at the true scale");
 	assert_eq!(out["updates"], true, "no OnUpdate");
 	assert_eq!(out["icons"], json!([6, 19.8, "3"]), "six marks, a 22 px medallion zoomed in, a group's badge");
 	assert_eq!(out["page"], json!({ "key": "mappins", "order": 23, "group": "look" }));

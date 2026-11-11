@@ -366,3 +366,50 @@ fn buttons_previews_draw_the_real_faces_on_plain_frames_and_make_no_secure_frame
 		"every part of the previews leads to its row"
 	);
 }
+
+// Essentials, a band: the action button set as the player laid it out (Fitz's 4a), a column by default and a row
+// when set, the names on their side; a button turned off is not drawn; centred on the buttons, the names hanging
+// to the side. Its dropdown picks the floating button or the minimap button instead, each alone.
+#[test]
+fn the_essentials_band_draws_the_button_set_as_laid_out_centred_on_its_buttons() {
+	let out = run_ui(
+		r#"
+		local f = B.EssentialsPreview(UIParent)
+		f:Show()
+		local faces = f.Faces()
+		local function shape()
+			f:Layout(900)
+			local xs, ys, shown = {}, {}, {}
+			local x0, x1 = math.huge, -math.huge
+			local g = faces.item:GetParent():GetScale()
+			local _, _, _, gx = faces.item:GetParent():GetPoint(1)
+			for _, kind in ipairs({ "bag", "hearth", "item", "target", "rare" }) do
+				local b = faces[kind]
+				if b:IsShown() then
+					local _, _, _, x, y = b:GetPoint(1)
+					xs[#xs + 1], ys[#ys + 1], shown[#shown + 1] = x, y, kind
+					local h = b:GetWidth() / 2
+					x0, x1 = math.min(x0, x - h), math.max(x1, x + h)
+				end
+			end
+			local same = function(t) for i = 2, #t do if math.abs(t[i] - t[1]) > 0.5 then return false end end return true end
+			-- The buttons' middle on the band's middle.
+			local mid = gx * g + (x0 + x1) / 2 * g
+			return { column = same(xs), row = same(ys), shown = table.concat(shown, " "), centred = math.abs(mid - 450) <= 1 }
+		end
+		local out = { column = shape() }
+		Polestar.Set("buttons.layout", "row")
+		out.row = shape()
+		Polestar.Set("qol.rareButton", false)
+		out.off = shape().shown
+		f.Pick("launcher")
+		f:Layout(900)
+		local _, launcher, minimap = f.Faces()
+		out.launcher = { launcher:IsShown(), faces.item:GetParent():IsShown(), minimap:IsShown() }
+		emit(out)"#,
+	);
+	assert_eq!(out["column"], json!({ "column": true, "row": false, "shown": "bag hearth item target rare", "centred": true }), "{out}");
+	assert_eq!(out["row"], json!({ "column": false, "row": true, "shown": "bag hearth item target rare", "centred": true }), "{out}");
+	assert_eq!(out["off"], "bag hearth item target", "a button turned off is not drawn");
+	assert_eq!(out["launcher"], json!([true, false, false]), "the floating button alone");
+}
