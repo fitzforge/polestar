@@ -47,10 +47,12 @@ t.guides["forever/alliance/02-westfall"] = (function() return {
 		["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, Alchemy Supplies; herbalists pick it there instead"] = "{item:2449} para Reunir los ingredientes del remedio (6123) en {zone:1439}: {npc:1313}, suministros de alquimia; los herboristas la recogen allá",
 		["{item:6529}, from {npc:5494}"] = "{item:6529}, de {npc:5494}",
 		["{item:729}: Fleshrippers"] = "{item:729}: Desgarradores",
+		["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}: guarda cinco para {npc:392} en {area:115}, más adelante en la ruta",
 		["{npc:1416}: his package for {npc:1343} in {zone:1432}, later on the route"] = "{npc:1416}: su paquete para {npc:1343} en {zone:1432}, más adelante en la ruta",
 		["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} y {npc:821} están en lo alto de la torre de piedra. {npc:491} está en la torre; {npc:878}, en el lado sur de la colina, junto a la posada y {npc:523}, el maestro de grifos.",
 		["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "{npc:237}: puede que los Humanos ya la tengan de {npc:963} en Elwynn",
 		["{npc:253092}, beside {npc:878}"] = "{npc:253092}, junto a {npc:878}",
+		["{npc:5480} trains warriors in {object:2100}, near {npc:1323}'s shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "{npc:5480} entrena a los guerreros en {object:2100}, cerca de la tienda de {npc:1323}; el tranvía de {zone:1455} llega a {object:28027}, al norte. {npc:6089} y {npc:6090} están juntos ahí, junto a {object:2152}. {npc:6090} pelea contigo por su tarro. Si {npc:5480} no te ofrece {quest:1638}, ve directo con {npc:6089}: te da {quest:1639} sin ella.",
 		["{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat."] = "{npc:5494} vende suministros de pesca junto al canal, justo al oeste de {object:2096}; {npc:267118} pesca en el puerto, de camino al barco.",
 		["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}, Wizard's Sanctum: {quest:1861}",
 } end)()
