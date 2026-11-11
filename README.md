@@ -32,6 +32,33 @@
 </p>
 
 <p align="center">
+  <img src="docs/curseforge/media/arrow-walk.gif" width="836" alt="The arrow leading a Tauren across Thunder Bluff's rises and bridges to Arch Druid Hamuul Runetotem: the yards count down, the arrow turns at each corner, says Arrived, the quest is handed in and the next step opens">
+</p>
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/guide-hub.gif" width="418" alt="Northshire Abbey on a new Human: Deputy Willem, Marshal McBride and Eagan Peltskinner one after another, each folding into a done line as their quests are taken and handed in">
+      <br><sub><b>One person at a time.</b> Goals tick off as the game confirms them; done people fold away.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/while-here.gif" width="418" alt="Hillsbrad Fields: kills count up on the step while Mountain Lion Blood, from another step, counts up under While you're here">
+      <br><sub><b>While you're here.</b> Goals from other steps, offered when you are close to them.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/level-up.gif" width="418" alt="The level-up card above the guide window: new spells to train with their cost, a spell's tooltip, then the old ranks on the action bars with Upgrade">
+      <br><sub><b>New spells when you level up.</b> What to train, what it costs, where; Upgrade updates your bars.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/guide-menu.gif" width="418" alt="The guide menu: Home, Leveling, Westfall's page, Lookup searching swift, and the Deadmines in the dungeon journal">
+      <br><sub><b>Every guide in one place.</b> Leveling, class quests, professions, Lookup and Dungeons.</sub>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
   <a href="#quick-start">Quick start</a> ·
   <a href="#what-it-is">What it is</a> ·
   <a href="#a-look-inside">A look inside</a> ·
@@ -82,8 +109,8 @@
 
 Good to know:
 
-- `/polestar guides` opens the hub: every guide, Lookup, Dungeons, Talents
-  and Rares. `/polestar options` holds every setting; quest markers on the map
+- `/polestar guides` opens the hub: every guide, Lookup, Dungeons and
+  Rares. `/polestar options` holds every setting; quest markers on the map
   are off until you turn them on under **Map**. A click on the Polestar button
   on the minimap's edge hides everything Polestar shows, and a second click
   brings it all back; right-click it for a short menu (the guide window, the
@@ -140,8 +167,7 @@ them can be read step by step on [polestar.guide](https://polestar.guide/guides)
 Around the guides it adds a 3D waypoint arrow that walks real paths (on
 Polestar's walking maps, with a router that started from Shortest Path
 Forever's by Cillian Berragan) and a travel planner, quest markers on the map,
-talent plans for every class and spec, gear advice on tooltips, quest rewards
-and bags, a search for where any item, mount or pet comes from, a dungeon
+gear advice on tooltips, quest rewards and bags, a search for where any item, mount or pet comes from, a dungeon
 quest journal, rare alerts and the quality-of-life helpers a long leveling
 session needs. Its interface and its guides read in English, German, French,
 Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and
@@ -167,62 +193,6 @@ scheme, then the route style (Fastest, Balanced or Roads, with a line on what
 each does); then the guide Polestar suggests for that character, the Discord
 and community guides (`/polestar welcome` shows it again).
 
-### New in 0.3.7
-
-0.3.7 is the current release ([CHANGELOG.md](CHANGELOG.md) lists every
-change, with the players who reported them):
-
-- **Fixes from your reports** since 0.3.6, across the leveling guides, the
-  arrow, the profession guides and the guide window.
-- **Quieter play.** Less work in the background, so fewer hitches, and no
-  more stutter indoors.
-- **Train All.** One button in the class trainer window learns every skill
-  you can afford.
-- **Timed quests and carried quests.** A timed quest your guide doesn't hand
-  in gets its own row with its time left, and a quest you hand in only in a
-  later guide says so under its goal.
-- **Lookup and Browse all steps.** Open Lookup from the guide window's
-  toolbar, and browse every step of the guide from the step number.
-- **Profession guides rebuilt** on Forever's trainers and recipes.
-- **An update notice.** At login, a card says when a newer version is out
-  and how to update.
-
-### Built in 0.3.0
-
-0.3.0 brought a complete overhaul of the leveling routes:
-
-- **Routes rebuilt from the ground up.** Every race plays its own starting
-  zone, then one shared route per faction carries it to 60, so a fix or an
-  improvement reaches every race. Towns are done in one visit, work is picked
-  up on the way, class training comes where you already are, the hearthstone
-  is never asked for while it cools down, rare drops are optional, elite and
-  group quests come with the group they want and a solo way past, and every
-  order a player reported as wrong is followed
-  ([what changed](#what-changed-in-030)).
-- **A guide that follows the game.** A step moves on only when the game
-  confirms it: a quest taken or handed in, an item looted, a spell learnt.
-- **The arrow walks the guide's own paths.** The walk into each step is
-  worked out when the guides are built (on Leffe's navigation maps and
-  Polestar's own), so the arrow follows it at once instead of searching
-  first; far waypoints draw their whole walk along the ground.
-- **Lifts and cities.** "Ride the elevator up" or "down", with the
-  departure time; walks get on and off where the car stops; one fixed way in
-  and out of the Undercity; Stormwind and the other capitals are left by
-  their streets and gates.
-- **Every guide shelf rebuilt or reviewed** against Forever's data: class
-  quests for every class, professions, reputation (ten new factions among
-  them), mounts, pets and exploration.
-- **Your own way through a route.** Pin any quest along the way, answer group
-  quests once for the whole route, and have your class's quests offered in a
-  tab beside your leveling guide when they open.
-- **A new look and new tools:** new map and minimap icons, a Characters page,
-  restock, bag tools and a redesigned welcome and options.
-- **The recording program.** The Recorder is rebuilt to record what the
-  guides need most in compact, anonymous chunks, and the Polestar Client
-  sends them only with your consent, showing what each upload holds.
-- **Less memory.** Your race's guides, the quest database and the names in
-  other languages each take a fraction of what they did.
-
 > [!NOTE]
 > **Beta.** Every guide compiles, lints and plays to the end in a simulator
 > for every race and class it serves, and the route checker plays every
@@ -233,41 +203,38 @@ change, with the players who reported them):
 
 ## A look inside
 
-Polestar's own windows, drawn from the addon's layout: the same pictures
-[polestar.guide](https://polestar.guide) shows. The world map, minimap and zone
-art in them is © Blizzard Entertainment.
-
-<p align="center">
-  <img src="docs/assets/screenshots/hub.webp" width="880" alt="The Polestar hub on its Guides section. The rail holds Guides, Lookup, Dungeons, Talents and Rares, with Import and Options at its foot. The sidebar lists the guides by category (Leveling, Class, Professions, Reputation, Exploration, Legacy, Collectibles, Miscellaneous) and an installed community guide; the Alliance leveling guides are listed by level band with Westfall (12-17) selected, its steps, quests, zones and the next guide shown under the zone's map painting, with Load guide and Open in new tab buttons">
-  <br><sub><b>The hub.</b> Guides, Lookup, Dungeons, Talents and Rares on one rail, Import and Options at its foot; here the Alliance leveling guides by level band.</sub>
-</p>
+Polestar's own windows, rendered from the addon on a game scene (game art
+© Blizzard Entertainment). The GIFs above show it moving; these are the rest.
 
 <table>
   <tr>
-    <td width="36%" align="center">
-      <img src="docs/assets/screenshots/guide.webp" width="300" alt="The guide window on step 3 of 8, Kobold Camp in Elwynn Forest, with tabs for a profession and a reputation guide: Go to the Kobold Camp done, Kill Kobold Vermin 7/10, Kill Young Wolf for Tough Wolf Meat 3/8, a tip on pulling the kobolds, then Marshal McBride, and the guide 29% done">
-      <br><sub><b>The guide window.</b> The step's goals with their counters, a tip, who comes next, and up to six guides in tabs.</sub>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/leveling.jpg" width="418" alt="The guide menu on Leveling: the Alliance route from Elwynn Forest to Duskwood, the other starting zones, and Westfall's page">
+      <br><sub><b>Routes for every race.</b> Each race's own start, then one route per faction to 60.</sub>
     </td>
-    <td width="28%" align="center">
-      <img src="docs/assets/screenshots/waypoint-arrow.webp" width="200" alt="The waypoint arrow: 1412 yd, Go to Westfall, 8:00 total">
-      <br><sub><b>The arrow.</b> Distance, the goal it leads to and the time to get there.</sub>
-    </td>
-    <td width="36%" align="center">
-      <img src="docs/assets/screenshots/quest-markers.webp" width="300" alt="Quest markers on the Elwynn Forest world map around Northshire and Goldshire: the step's kobolds ringed in gold inside the step's outlined area, other quests' mobs, a turn-in mark at the Abbey and available quests in Goldshire">
-      <br><sub><b>Quest markers.</b> The step's mobs ringed inside its area, turn-ins and the quests you can pick up.</sub>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/journey.jpg" width="418" alt="Starting the Darkshore guide from Westfall: the journey to the boat to Auberdine, each leg with its time">
+      <br><sub><b>Flights, boats and your Hearthstone.</b> Every leg timed, waits included.</sub>
     </td>
   </tr>
-</table>
-
-<table>
   <tr>
     <td width="50%" align="center">
-      <img src="docs/assets/screenshots/lookup-search.webp" width="430" alt="Lookup in the hub searching swift: results across mounts, items, recipes, quests, NPCs and rares, with the Swift Brown Steed selected: level 60, sold by four vendors, the nearest 6 minutes away, and a Guide me button">
-      <br><sub><b>Lookup.</b> One search over guides, mounts, items, recipes, quests, NPCs and rares, each with where it comes from.</sub>
+      <img src="docs/curseforge/media/lookup.jpg" width="418" alt="Lookup searching swift: guides, mounts and items, with the Swift Ram selected">
+      <br><sub><b>Lookup.</b> Where any item, mount, pet, recipe, quest or NPC comes from.</sub>
     </td>
     <td width="50%" align="center">
-      <img src="docs/assets/screenshots/dungeon-journal.webp" width="430" alt="Wailing Caverns in the dungeon journal over the Barrens map: levels 17 to 24, its quests with objectives, who starts and ends them and their rewards, and a Hand in the quests button">
-      <br><sub><b>Dungeons.</b> Every dungeon's quests with their chains and rewards; one button gathers them, another hands them in.</sub>
+      <img src="docs/curseforge/media/dungeons.jpg" width="418" alt="The Deadmines in the dungeon journal: Red Silk Bandanas with its giver, its chain and its rewards">
+      <br><sub><b>Dungeons.</b> Every dungeon's quests, their chains and rewards.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/nearby.gif" width="418" alt="Nearby services opened from the guide window in Goldshire, then the arrow turning to the nearest vendor">
+      <br><sub><b>Nearby services.</b> The nearest vendor, repair, inn, flight master or trainer.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/questlog.jpg" width="418" alt="Make room in your quest log: three quests not handed in on this route, each with Abandon">
+      <br><sub><b>A tidy quest log.</b> Quests the route no longer needs, in one list.</sub>
     </td>
   </tr>
 </table>
@@ -288,7 +255,7 @@ the community guides, the Polestar Client and the docs in one place.
   [Alliance](https://polestar.guide/guides/alliance) or
   [Horde](https://polestar.guide/guides/horde), zone by zone.
 - **[Class leveling pages](https://polestar.guide/guides/class).** Each class's
-  races, class quests, talent plans and gear advice while leveling.
+  races, class quests and gear advice while leveling.
 - **[Community guides](https://polestar.guide/community).** Routes players
   write and publish, free to download ([Community guides](#community-guides)).
 - **[The docs](https://polestar.guide/docs)** for players, guide authors and
@@ -423,6 +390,10 @@ its source is in [apps/client](apps/client).
 
 ### Guides and the engine
 
+<details>
+<summary>One person at a time, goals that tick themselves off, skip with undo, tabs, While you're here, group and elite quests your call, new spells at level-up, hiding Polestar in one click.</summary>
+
+
 - **One person at a time.** In a quest hub the window shows only who to talk
   to now and their quests, then "Then: *next person*" and "Person 2 of 8";
   the arrow points at that person. Counters sit right after each goal ("Kill
@@ -484,9 +455,8 @@ its source is in [apps/client](apps/client).
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them
   all at once, so the route never stops to ask.
-- **Talent plans** for every class and spec, from level 10 to 60, in the
-  hub's Talents section: an ordered list of picks with short notes, marked on
-  the game's talent frame. Nothing is spent for you.
+- **Talent plans** are paused for now: the hub's Talents section says
+  "Coming soon".
 - **Reputation guides** say, for each standing band, what every turn-in, kill
   or run pays, how many you need to the next standing, where the items come
   from, when kills stop counting and what the quartermaster sells.
@@ -557,7 +527,13 @@ its source is in [apps/client](apps/client).
   (the guides, the options, their key bindings) brings Polestar back. In a
   fight the action buttons go or come back when it ends.
 
+</details>
+
 ### Navigation
+
+<details>
+<summary>The 3D arrow with distance and time, the travel planner, route lines, zone crossings, Go anywhere, Nearby services, other addons' waypoints.</summary>
+
 
 - **A 3D waypoint arrow** points at the current goal, shifting from the
   accent to jade as you arrive, with distance and ETA. Distances read in
@@ -607,7 +583,13 @@ its source is in [apps/client](apps/client).
   drag no longer moves the arrow, the quest item, target and Hearthstone
   buttons or the flight and instance timers. Shift-drag still moves them.
 
+</details>
+
 ### Pathing by Shortest Path Forever
+
+<details>
+<summary>Real walking paths, route styles, and handing guiding to Shortest Path Forever if you prefer it.</summary>
+
 
 The arrow walks real paths: round cliffs, water and walls, through the town
 gate and down into the mine, not over the edge. That is the work of
@@ -656,7 +638,13 @@ while it runs, and guides again when it ends. If Shortest Path Forever
 finds no way to a goal, or turns its journeys off, Polestar's own arrow
 guides you there instead.
 
+</details>
+
 ### Quests and the map
+
+<details>
+<summary>Quest markers and nameplate counts, services and rares on the map, the Target button, Quick Keybind Mode and key bindings.</summary>
+
 
 - **Quest markers**: givers, objectives and turn-ins on the world map and the
   minimap, with tooltip lines on the mobs and items a quest needs and quest
@@ -706,7 +694,13 @@ guides you there instead.
   Recorder's included, have a **Polestar** section of their own, and
   searching "polestar" there finds them.
 
+</details>
+
 ### Playing in a party
+
+<details>
+<summary>Party sync, waiting for the group, sharing a missing quest, the party panel, Sync to my guide.</summary>
+
 
 Group play works only with party members who also run Polestar. On joining
 a party Polestar sends one small hidden hello; a member who answers is synced,
@@ -778,7 +772,13 @@ runs solo or in a raid.
   players' Polestar lines, and "Only when someone in the party doesn't have
   Polestar".
 
+</details>
+
 ### Gear advice
+
+<details>
+<summary>Upgrade arrows on tooltips, quest rewards and bags, with your own stat weights.</summary>
+
 
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
   for your spec at your level, from stat weights per spec (detected from your
@@ -796,7 +796,13 @@ runs solo or in a raid.
   window lists your scales for every class: use, rename, export or delete
   them, change their weights, and start one from a built-in spec.
 
+</details>
+
 ### Lookup, Dungeons and Rares
+
+<details>
+<summary>Where anything comes from, every dungeon's quests, rare alerts, and the Characters page.</summary>
+
 
 - **Lookup** searches guides, items, mounts, pets, NPCs, quests, zones,
   dungeons and rares, and answers "how do I get that?" with the sources
@@ -826,7 +832,13 @@ Lookup, Dungeons and Rares read the Codex, a data pack that ships in the
 release as `Polestar_Codex`. Without it Lookup still searches the guides, and
 each section says what is missing.
 
+</details>
+
 ### Appearance and UI suites
+
+<details>
+<summary>Colour schemes, window styles, fonts and EllesmereUI.</summary>
+
 
 - **Color schemes**: Dusk (the default), Night and Graphite, and
   EllesmereUI's own panel color and accent while it is installed. On top of
@@ -843,7 +855,13 @@ each section says what is missing.
   its public skinning API, and where its Quality of Life or Friends module
   does the same job as a Polestar toggle, the toggle starts off.
 
+</details>
+
 ### Quality of life
+
+<details>
+<summary>Quest item, target and Hearthstone buttons, XP per hour, selling greys and repairing, training, the best quest reward, instant quest text, answers to summons and invitations; Shift skips any of them once.</summary>
+
 
 Quest item, target and Hearthstone buttons; an item you loot that starts a
 quest you can take shows on the quest item button, glowing, until you read
@@ -869,7 +887,13 @@ invitations, guild invitations and duels (friends and guild excepted). Hold
 **Shift** to skip auto-accept, auto-turn-in, auto-sell, training, binding or
 the flight helper once, or to answer a request yourself.
 
+</details>
+
 ### Updates
+
+<details>
+<summary>A card at login when a newer Polestar is out, and where Polestar learns of one.</summary>
+
 
 Many problems players report are already fixed in a newer Polestar, so
 Polestar says when one is out. At every login, ten seconds in, a card on the
@@ -901,7 +925,13 @@ players' Polestar which version it is** (under it, on by default) stops the
 whispers alone. With no source at all, a Polestar first run three weeks ago
 or more says, in the guide window only, that updates come often.
 
+</details>
+
 ### With a gamepad
+
+<details>
+<summary>Every Polestar action on a gamepad, with its own options and bindings.</summary>
+
 
 Polestar plays with a gamepad on Forever (ported from Ding! by Yendi,
 @moust4ki). Open its options from the minimap button (or `/polestar
@@ -941,7 +971,13 @@ and returns after it. Turn the bar off, or the windows' navigation
 altogether, on the Gamepad page. Without a gamepad plugged in, none of it
 shows: everything works with the mouse and keyboard as before.
 
+</details>
+
 ### Recorder
+
+<details>
+<summary>The optional recording program: what it records, and how to turn it off.</summary>
+
 
 `Polestar_Recorder` is an optional companion addon that records your play
 for the recording program, to improve the routes. It records while sharing
@@ -962,6 +998,8 @@ estimates with Forever facts, feed the Codex what only play shows, and
 `record report` turns them into per-step timings: passes, median and p75
 time, XP per hour, time in combat, deaths and travel, then the slowest
 steps and detours, the steps to fix first.
+
+</details>
 
 ### Slash commands
 
@@ -1009,7 +1047,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `lookup [search]` | Open Lookup, optionally searching |
 | `mount` | Look up the mount of your target (or mouseover) and how to get it |
 | `rares [test]` | Open Rares, or show a sample rare alert |
-| `talents` | Open your talent plan |
+| `talents` | Open the Talents section (talent plans: coming soon) |
 | `questdb` | Quest database status |
 | `packs` | Open Options > Community guides |
 | `import` | Open the Import page: paste a shared guide string to save it without installing an addon; `import clear` or `import delete` to remove it |
@@ -1106,25 +1144,6 @@ permanent fix record (`data/route-fixes.json`, `data/guide-fixes.json` and our c
 a hand edit of a guide, so the next build keeps it; the leveling guides themselves are generated
 (`guides/GENERATED.json` lists them). Every quest a route leaves out is listed with the reason,
 so a missing quest is a question with an answer.
-
-### What changed in 0.3.0
-
-What you will notice, that 0.2.6's guides didn't do:
-
-- **Your race's own start, then one route for your faction.** Every race levels in its own
-  starting zone, then joins the one Horde route from the Barrens or the one Alliance route from
-  Westfall, so every fix reaches every race.
-- **Towns in one visit.** At a town you pick up and hand in everything that is ready while you
-  are there, and a hand-in waits for you where a flight or your hearth lands you.
-- **Training on the way.** Class training sits where the route already passes a trainer, and
-  weapon trainers come up while you're there.
-- **Elite and group quests, your call.** They are offered with the group they want; skip one
-  and the guide has you grind back to the route's level, so you are never stranded.
-- **Rare drops never hold you up.** Quests that start from a rare drop are optional extras.
-- **The hearthstone is never asked for while it cools down.**
-- **Every order players reported as wrong is now followed**, and kept for every later build.
-- **The arrow walks a path made for each step**, and a step moves on only when the game confirms
-  it (a quest taken or handed in, a spell learnt), never when a window just opens.
 
 Every leveling guide is checked the way a player follows it before it ships, for every race and
 class, and each round of routes is read step by step. Polestar is not a speed-leveling guide:
