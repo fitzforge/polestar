@@ -163,16 +163,16 @@ local PAINT = {
 		base(frame)
 		kit.fill(frame):SetVertexColor(Theme.Color("scrim"))
 	end,
-	-- Check boxes as printed on the page: a box ruled in ink on a lighter
-	-- sheet, not a grey square. The transparent window's boxes over the
-	-- world keep Polestar's own.
+	-- Check boxes as printed on the page: a box ruled in ink on the paper,
+	-- not a grey square; its inside left clear, as the box's ground lies
+	-- over the tick (the sealing-wax accent) and would pale it. The
+	-- transparent window's boxes over the world keep Polestar's own.
 	checkbox = function(frame, base, kit)
 		base(frame)
 		local box = frame.psSkin and frame.psSkin.box
 		if not box or frame.psOnWorld then return end
-		local r, g, b = Theme.Color("scrim")
-		kit.fill(box):SetVertexColor(r, g, b, 0.6)
-		r, g, b = Theme.Color("ink")
+		kit.fill(box):SetVertexColor(0, 0, 0, 0)
+		local r, g, b = Theme.Color("ink")
 		kit.border(box, r, g, b, 0.85)
 	end,
 }

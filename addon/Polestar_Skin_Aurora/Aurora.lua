@@ -304,11 +304,12 @@ local HOOKS = {
 	end,
 	-- The active tab stands out of the aurora: the night drawn over the
 	-- light behind it (the aurora there at two fifths, while the band
-	-- shows), its line a paler accent than the ribbons it sits on.
+	-- shows), its line the accent seven tenths of the way to white, apart
+	-- from the curtain's glowing base beside it.
 	guideTab = function(_, parts, active)
 		if not (active and parts and parts.selected and parts.bar) then return end
 		local ar, ag, ab = Theme.Accent()
-		parts.bar:SetVertexColor(ar + (1 - ar) * 0.4, ag + (1 - ag) * 0.4, ab + (1 - ab) * 0.4, 1)
+		parts.bar:SetVertexColor(ar + (1 - ar) * 0.7, ag + (1 - ag) * 0.7, ab + (1 - ab) * 0.7, 1)
 		local f = guideWindow()
 		if not (f and not f.psBare and Theme.ShowsBand()) then return end
 		local r, g, b = Theme.Color("sky")

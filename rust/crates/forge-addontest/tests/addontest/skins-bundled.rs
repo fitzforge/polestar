@@ -175,25 +175,28 @@ emit(out)
 	}
 }
 
-// Vellum's check boxes are printed boxes: ruled in its ink on a lighter sheet (the scrim), not the grey square
-// Polestar's own fill of shade drew on the paper.
+// Vellum's check boxes are printed boxes: ruled in its ink on the paper, not the grey square Polestar's own fill of
+// shade drew there. The box's inside stays clear: its ground lies over the tick, and a light one paled the tick to a
+// faint pink, so a done goal read as barely ticked. The tick is the sealing-wax accent at full strength.
 #[test]
-fn vellum_s_check_boxes_are_ruled_in_ink_on_a_lighter_sheet() {
+fn vellum_s_check_boxes_are_ruled_in_ink_on_the_paper_with_the_tick_whole() {
 	let script = r#"
 local T = Polestar.Theme
 Polestar.Set("ui.skin", "vellum")
 local c = Polestar.Widgets.Checkbox(UIParent)
+c:SetChecked(true)
 local box = c.psSkin.box
 local function hex(r, g, b) return string.format("%02x%02x%02x", math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5)) end
-local fr, fg, fb, fa = box.psSkin.bg:GetVertexColor()
-local er, eg, eb, ea = box.psBorder[1]:GetVertexColor()
-emit({ inUse = T.SkinId() == "vellum", fill = { hex(fr, fg, fb), math.floor(fa * 100 + 0.5) }, edge = { hex(er, eg, eb), math.floor(ea * 100 + 0.5) } })
+local function piece(t) local r, g, b, a = t:GetVertexColor(); return { hex(r, g, b), math.floor((a or 1) * 100 + 0.5) } end
+emit({ inUse = T.SkinId() == "vellum", fill = piece(box.psSkin.bg)[2], edge = piece(box.psBorder[1]), tick = piece(c.psSkin.check),
+	accent = hex(T.Accent()) })
 "#;
 	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Vellum")];
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
 	assert_eq!(out["inUse"], true);
-	assert_eq!(out["fill"], serde_json::json!(["f3eadb", 60]), "the scrim's lighter sheet inside");
+	assert_eq!(out["fill"], 0, "nothing over the tick inside the box");
 	assert_eq!(out["edge"], serde_json::json!(["3a2a1a", 85]), "ruled in the ink");
+	assert_eq!(out["tick"], serde_json::json!([out["accent"], 100]), "the tick in the accent, whole");
 }
 
 // Aurora's active tab stood in the aurora's ribbons, its teal line lost in them: with the band showing, the night
@@ -229,7 +232,7 @@ emit(out)
 	assert_eq!(out["inUse"], true);
 	assert_eq!(out["selected"][0], out["sky"][0], "the band's night over the aurora behind the tab");
 	assert_eq!(out["selected"][1], 60, "at 60 %: the aurora there at two fifths");
-	// The accent #45f2c7 two fifths of the way to white.
-	assert_eq!(out["bar"], serde_json::json!(["8ff7dd", 100]), "a paler accent line");
+	// The accent #45f2c7 seven tenths of the way to white.
+	assert_eq!(out["bar"], serde_json::json!(["c7fbee", 100]), "a paler accent line");
 	assert_eq!(out["noBand"], serde_json::json!(["ffffff", 10]), "no band, no night drawn over it");
 }
