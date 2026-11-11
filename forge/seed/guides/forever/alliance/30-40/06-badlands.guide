@@ -73,6 +73,11 @@ step Agmond's End: kill these as you meet them
   note Murdaloc himself (42) walks among the Bonesnappers: leave him for the later Badlands guide at 43, and kill the Bonesnappers for this quest now.
   collect 5797 quest 1108             -- Indurium Flake
   kill 2893 quest 739                 -- Stonevault Bonesnapper
+
+step Theldurin the Lost
+  when group 709
+  tip Theldurin sits by the ruined camp south of the trogg camp.
+  tip His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.
   accept 709                          -- Theldurin the Lost
 
 step Lotwil Veriatus
@@ -91,16 +96,18 @@ step Lotwil Veriatus
 # ---------------------------------------------------------------- The north
 
 step The Ancient Chest
-  tip Head north-east to the dwarven ruins in the north of the Badlands; the chest sits among the Shadowforge dwarves. Ambassador Infernus nearby is elite: give him room.
+  when group 709
+  tip Head north to Uldaman's entrance, in the north of the Badlands: the chest lies just inside the cave mouth. Magregan Deepshadow and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together.
   collect 4631 quest 709              -- Tablet of Ryun'eh; below ground
 
 step Valley of Fangs
-  tip Head south down the road: Martek and Rigglefuzz camp in the Valley of Fangs, on the way to Agmond's End.
+  tip Martek and Rigglefuzz camp in the Valley of Fangs, on the road between Uldaman and Agmond's End.
   turnin 1108                         -- Martek the Exiled
   accept 1137                         -- For Fizzle Brassbolts at the Mirage Raceway: the Tanaris guide passes him at 45, keep it
   turnin 703                          -- Rigglefuzz
 
 step Theldurin the Lost
+  when group 709
   tip Head south to Agmond's End.
   turnin 709
   accept 727                          -- for Gerrig Bonegrip in Ironforge: keep it
