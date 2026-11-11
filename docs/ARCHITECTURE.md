@@ -252,6 +252,49 @@ after it comes back, to the pack's leveling guide with the most quests of
 the log to work on (`Guides.FollowLog`; never one open already), and chat
 says so.
 
+### Profiles
+
+```lua
+Polestar.Profiles.List() / Active() / Switch(name) / New(name, copyFrom?) / Copy(from, to) / Rename(old, new) / Delete(name)
+Polestar.Profiles.UseForCharacter(on) / UseForClass(on) / Source()   -- "character" | "class" | "account"
+Polestar.Profiles.Export(name?, { areas = { look, guiding, positions } } | { look = true }) -> string, count
+Polestar.Profiles.Import(text) -> preview | nil, why     -- nothing changes until Apply
+Polestar.Profiles.Apply(preview, name, areas?)           -- name = Active(): into the profile in use; else a new profile
+Polestar.Profiles.RegisterPosition(path, shape)          -- a position setting a string may carry ("xy" | "pxy" | "ppxy" | "anchor")
+Polestar.RegisterMigration(id, fn(settings))             -- at file load: runs once per id over every profile
+```
+
+`Core/Profiles.lua`. A profile is a named set of settings. The one in use
+stays in `PolestarDB.settings`, so `Get`/`Set` and every module are
+unchanged; the others wait in `PolestarDB.profiles[name]`, each its own table
+(never one table under two saved keys). `PolestarDB.profileActive` names the
+one in `settings`; a character uses its own (`PolestarCharDB.profile`), else
+its class's (`PolestarDB.classProfiles[CLASS]`), else the account's
+(`PolestarDB.profile`, `"Default"`). At `ADDON_LOADED`, before any `OnInit`
+handler (Init.lua calls `Profiles.Load`), that profile is swapped in and the
+registered migrations run (`PolestarDB.migrations[id] = true`, over the settings
+in use and every stored profile; one registered later runs at once).
+Settings saved before profiles are the profile `Default` where they are. A
+switch fires `SETTING_CHANGED("")` (as `ResetSettings`), so every module
+repaints; any change to the list or the choice fires `PROFILES_CHANGED`. A
+rename is kept in `PolestarDB.profileRenamed` so another character's own
+choice follows it. `Default` is never renamed or deleted; the profile in use
+is not deleted. `/polestar profile <name>` switches.
+
+A profile string is `!PSS1!<Adler-32>!<base64 of zlib of JSON>` (the guide
+import string's envelope, its JSON reader and checksum), the JSON
+`{ format = 1, name, scope = "look"?, areas, screen = { w, h, scale }, migrations, settings = { ["section.key"] = value } }`,
+written by the client's encoder when it has one, else as stored zlib blocks in
+plain Lua. Data only: each setting needs a registered default and a value of
+its type (a colour `{ r, g, b[, a] }` in 0–1; a position of its registered
+shape; in a slider's range or among a dropdown's choices when an Options
+control says so); `ui.shown` never travels; anything else is dropped and
+named; caps on length, payload, settings, texts and names. The areas: `look`
+(controls on the Look pages: a page's `group = "look"` or order 20–29),
+`positions`, `guiding` (the rest). A string from before a migration is
+migrated as it is read. The Profiles page (`UI/Profiles.lua`, settings window,
+Setup) shows all of it.
+
 ### Commands
 
 ```lua
@@ -2453,12 +2496,25 @@ Polestar.Theme.Band(parent, layer, sub) -> sky texture  -- the night-sky band (s
 Polestar.Theme.GroundAlpha() -> a          -- ui.bgOpacity, every Polestar window's ground
 Polestar.Theme.Font(fontString, role)     -- role: "hero","display","title","heading","body","label","note","small","number","caption","goal","name","mono"
 Polestar.Theme.FontSpec(role) -> path, size, flags
+Polestar.Theme.SetOutline(fontString, on)   -- true: OUTLINE, "thick": THICKOUTLINE, nil: follow ui.fontOutline
+Polestar.Theme.SetFontScale(fontString, k)  -- one string's own size against its role's (nil/1: the role's)
+Polestar.Theme.FontChoices() -> { { value, label, font = path }, ... }   -- the faces ui.font offers
+Polestar.Theme.FacePath(family, weight) -> path   -- "skin" resolves; weight "regular"|"medium"|"semibold"
+Polestar.Theme.OutlineFlags() -> "" | "OUTLINE" | "THICKOUTLINE"   -- ui.fontOutline
+Polestar.Theme.ShowsRim() -> bool         -- ui.rim
+Polestar.Theme.SUBJECTS                   -- the subject/status colours a player may set (ui.colors.<name>)
 Polestar.Theme.Skin(frame, kind)          -- "window","panel","inset","button","editbox","checkbox","dropdown","scrollbar","tab","close"
 Polestar.Theme.Media(name) -> texturePath -- e.g. "icon-accept", "check", "white", "glow"
 Polestar.Theme.OnChanged(fn)              -- fn() on any scheme/colour/font change
 Polestar.Theme.IsEllesmere() -> bool
-Polestar.Theme.SkinKey() -> "polestar" | "halo" | "blizzard"   -- ui.skin
-Polestar.Theme.SkinChoices() -> { { value, text }, ... }
+Polestar.Theme.SkinId() -> id             -- ui.skin as drawn: a registered skin that has not failed, else "polestar"
+Polestar.Theme.SkinKey() -> "polestar" | "halo" | "hearth" | "forever" | "blizzard" | "classic"   -- the built-in look SkinId() is drawn from
+Polestar.Theme.SkinChoices() -> { { value, text, addon?, desc?, author? }, ... }   -- built-ins, then registered skins
+Polestar.Theme.SchemeChoices() -> { { value, text, addon? }, ... }
+Polestar.Theme.RegisterScheme(id, spec) / RegisterSkin(id, spec) -> ok, message   -- the Skin API, docs/SKINS-API.md
+Polestar.Theme.API_VERSION, HasCapability(name), Capabilities(), SkinInfo(id), SchemeInfo(id), SkinScheme()
+Polestar.Theme.SkinArrowStyle(), SkinMapIcons(), SkinMedia(name), SkinHook(surface, ...)   -- read by Nav/Arrow.lua, Nav/Pins.lua
+Polestar.Theme.DrawSkinCard(frame, id), DrawSchemeCard(frame, id), PaletteFor(id)   -- the Theme page's picker cards
 Polestar.Theme.Metric(key, house) -> n   -- a size in the skin in use; `house` in the house style
 Polestar.Theme.Icon(name) -> name        -- a glyph a skin draws its own way ("bug" -> "flag")
 Polestar.Theme.FontKey() -> "opensans" | "game" | "inter" | "fira"   -- ui.font, "skin" resolved
@@ -2499,6 +2555,38 @@ The arrow follows the skin (`nav.arrowStyle` "skin", the default: 3D in the
 house style, the `halo` dart in Halo, the `hearth` dart in Hearth and the
 game's looks; Nav/Arrow.lua). The skins' textures are drawn by
 `tools/media/skins.js`.
+
+**Skins and schemes from other addons** (the Skin API, [SKINS-API.md](SKINS-API.md)):
+`Theme.RegisterScheme` / `Theme.RegisterSkin` validate a spec (fields, ids,
+colours, the legibility floors above: grounds too light are darkened, or the
+spec refused with `strict`) and fill the same tables the built-ins use
+(`SCHEMES`, `SKIN_PALETTES`, `SKIN_FONT`, `SKIN_ROLES`, `SKIN_SHADOW`,
+`SKIN_ICON`, `METRICS`, `GAME_SKINS`), keyed by the skin's id; the six
+built-in skins and three schemes register through the same functions at
+load. A registered skin extends a built-in look (`spec.base`), so
+`Theme.SkinKey()` (what modules key their own art by) returns that base and
+`Theme.SkinId()` the skin itself. `paint(frame, kind)` runs the skin's own
+painter (`spec.paint[kind]`, `guide` / `toast` for psGuide / psLight windows)
+under `pcall` with the base look's painter and `Theme.SkinKit`; the arrow
+(`Arrow:OnTheme`) and the map pins hand their frames to `Theme.SkinHook`. The
+first error of a registered skin's painter, hook, `onApply` or `onLeave` is
+noted (`ns.NoteError`, one chat line) and the skin is off for the session
+(`FAILED`), the saved `ui.skin` kept; Theme.Refresh repaints everything in
+the house style. A saved `ui.skin` / `ui.scheme` naming an unregistered one
+draws the house style until it registers, then applies at once. The example
+addon `addon/Polestar_Skin_Example` is never shipped (forge-release's list is
+closed) and the install check skips `Polestar_Skin_*` folders.
+
+The arrow's look (Settings > Arrow, `Nav/ArrowOptions.lua`; the `nav.arrow*`
+keys registered in Nav/Arrow.lua, each default the old look): glow on/off and
+strength, the arrival ring's colour and pulse, where the colour starts
+shifting (`nav.arrowNearRange`, colour only), turning speed, the distance,
+label and time's size, colour, font, outline, position (under or over the
+dial), label lines and width, a backing plate, opacity in combat, and a faint
+ring with no goal (`nav.arrowNoTarget` "dim", mode `idle`, no OnUpdate work).
+Region construction is `Arrow.BuildDial(parent)`; the paint functions take a
+dial, so the page's preview builds sandbox dials and paints them through
+`Arrow.PaintDial` / `Arrow.PulseDial` with no target, sampling or Nav hook.
 
 **The game's looks** (Theme/GameSkins.lua) draw Polestar in the client's art,
 the three looks EllesmereUI offers on the Forever client (its visual spec
@@ -2570,10 +2658,31 @@ scheme.
   name in Chinese on an English client) takes the client's font for it
   (`Theme.ScriptFont`: Fonts\2002.TTF, Fonts\ARKai_T.ttf), checked again
   whenever the text changes.
-- Text size: `ui.textSize` (0.8–1.4, default 1; Look > Colour & type) scales
+- Text size: `ui.textSize` (0.8–1.4, default 1; Theme > Type) scales
   every role's size in `Theme.FontSpec` (`Theme.TextScale()`, rounded to half
-  a point), apart from `ui.scale`; a change repaints every fonted string at
-  once (it is one of the looks `Theme.Refresh` follows).
+  a point), apart from `ui.scale`; `ui.headingSize` (hero, display, title,
+  heading) and `ui.smallSize` (small, caption, number), 0.7–1.6, move those
+  roles on top of it; `Theme.SetFontScale` one string on top of that. A change
+  repaints every fonted string at once (they are looks `Theme.Refresh` follows).
+- Headings: `ui.headingFont` (`body`, the default: the text's face, EllesmereUI's
+  included | `skin` | `opensans` | `game` | `inter` | `fira`).
+- Outline and shadow of every fonted string: `ui.fontOutline` (`none` |
+  `outline` | `thick`; a string outlined for the world keeps at least OUTLINE)
+  and `ui.textShadow` (`skin`: the skin's own | `soft` | `hard` | `none`).
+- The player's own text and name colours, in every skin: `ui.textColor`,
+  `ui.textDimColor`, `ui.textMutedColor` and `ui.colors.<subject>`
+  (`Theme.SUBJECTS`; `false` or `{ r, g, b }`), each held to its floor: a pick
+  that does not read is moved toward the text colour until it does (the ladder
+  at 7:1 / 4.5:1 on every opaque ground, a name at 4.5:1 on the lightest place
+  it sits). House style only: `ui.panelColor` and `ui.sidebarColor` (`{ r, g,
+  b[, a] }`), before the brightness and the ground guard.
+- Depth and light, in every skin: `ui.hairlineOpacity` (0–3, the border,
+  divider, separator and row-line washes against the skin's),
+  `ui.shadowStrength` (0–2, the `shadow` token's alpha), `ui.starAlpha` (0–1,
+  the band's stars), `ui.haze` (the header haze), `ui.rim` (`Theme.ShowsRim()`,
+  the accent rim of `W.Rim`).
+- Motion: `ui.animSpeed` (0.5–2) divides every `Polestar.Anim` tween's
+  duration, after `ui.reduceMotion`.
 - Settings from before schemes: a stored accent equal to the old gold default
   is dropped at load (Theme.lua's `migrate`); any other stays the user's own.
 - Window frame (the `window` skin of every top-level window, live):
@@ -3027,17 +3136,38 @@ on screen zoomed out, the game's 16 px POI icons; 19.8 zoomed in); on the
 minimap the size is 0.7 of it at zoom 0 (the widest, the default: a 14 px
 mark's medallion at 14) up to all of it at the closest zoom
 (`Minimap:GetZoom()` of `GetZoomLevels()`), the look laid out again when the
-zoom changes. The player's `nav.minimapIconSize` (default 1, Options ›
-Appearance › Arrow › Map icons) scales minimap sizes and their cap. A medallion is held to
-28 on the world map's screen and 24 px (times that setting) on the minimap,
+zoom changes. The player's `nav.minimapIconSize` (default 1, Settings ›
+Map pins › Icons) scales minimap sizes and their cap, `nav.worldIconSize`
+(default 1, the same section) world map sizes and their cap. A medallion is held to
+28 (times `nav.worldIconSize`) on the world map's screen and 24 px (times
+`nav.minimapIconSize`) on the minimap, both times a pin's own `grow` (a size
+the player set: the numbered pins', the target's),
 and a pin takes the mouse over its medallion and at least 20 (world map, on
-screen) or 14 px (minimap), through `SetHitRectInsets`.
+screen) or 14 px (minimap), through `SetHitRectInsets`. `Pins.WorldPinSize`,
+`Pins.WorldScale` and `Pins.MinimapPinSize` work these out for both surfaces
+and the settings' preview.
 
 The game draws the player's arrow as part of the Minimap itself, under every
 frame parented to it, so no pin can go under the arrow. A minimap pin fades
 instead (frame alpha), the more of the arrow (a disc of `ARROW_R` = 9 px at
 the centre) its footprint covers: in full while clear, 0.3 (`ARROW_FADE`)
-once one of the two lies inside the other.
+once one of the two lies inside the other (`nav.minimapArrowFade`, on by
+default; times `nav.minimapPinAlpha`).
+
+The player's look for every mark (Settings › Map pins, `Nav/PinsOptions.lua`)
+is read into Pins' `look` table (`Pins.ReadLook`) and a change restyles every
+layer and the trail (`Pins.Restyle`, also on theme changes):
+`nav.worldPinAlpha` / `nav.minimapPinAlpha` (each surface's opacity),
+`nav.areaAlpha` (areas, default 0.32; hulls in proportion) and `nav.areaColor`
+(every area in one colour), `nav.medalColor` (a tint over the medallions and
+the numbered pins' rims), `nav.pinBacking` (the icon pins' dark disc),
+`nav.badgeSize`, `nav.trailDotSize` / `nav.trailDotAlpha`, `nav.pulseSeconds`.
+Pin fields for a pin's own look: `pulse` (with `glow`: the glow breathes, a
+looping alpha animation the client runs, off under `ui.reduceMotion`), `grow`,
+`rimColor`, `textScale`, `textColor`, `textOutline`. The target's
+(`Nav/Layers.lua`, `Layers.TargetLook`): `nav.targetPinSize`,
+`nav.targetGlow`, `nav.targetPulse`. The settings page's preview paints
+sandbox frames with `Pins.BuildLook` and `Pins.ApplyLook`, never the live pins.
 
 Pins are drawn on the world map for the map being viewed (converted through Compat
 for other maps). Optional `worldLayout(projected, view)` receives this layer's
@@ -3046,13 +3176,19 @@ layout; map and canvas-size changes run it again. It never changes minimap
 pins. `minMapType` hides world pins on broader views.
 
 The steps ahead (`Nav/Upcoming.lua`, layer `nav.upcoming`, `nav.upcomingPins`
-off by default, Map > Guide & quests): `Nav.upcoming.Build()` takes the steps
+off by default, Map > Guide & quests and Settings › Map pins): `Nav.upcoming.Build()` takes the steps
 after the live one that are for the character and not done or skipped, as
-many as `ui.upcoming` (else five), each at its first open goal with a place:
-one small pin in the accent with the step's number as its `text`, its alpha
-falling from 1 to 0.35 with how far ahead the step is. A step whose place is
+many as `nav.upcomingCount`, else `ui.upcoming` (else five), each at its first open goal with a place:
+one small pin with the step's number as its `text`, its look from
+`Upcoming.Look` (the player's: `nav.stepPinSize`, `nav.stepNumbers`,
+`nav.stepNumberSize`, `nav.stepNumberColor`, `nav.stepNumberOutline`,
+`nav.stepColorMode` = accent, a colour per step or `nav.stepColor`,
+`nav.stepRingColor`), its alpha falling from `nav.stepAlpha` (1) to
+`nav.stepFadeTo` (0.35) with how far ahead the step is; on the minimap too
+unless `nav.upcomingMinimap` is off, at `nav.stepMinimapSize` of their size
+(`minimapSize`, its cap with it: `minimapGrow`). A step whose place is
 within 0.6 map percent of an earlier pin's joins it ("4+", every step in the
-tooltip). Rebuilt on step, guide and tab changes and the two settings.
+tooltip). Rebuilt on step, guide, tab and theme changes and its settings.
 
 Pins are projected on the minimap; `edge = true` clamps that layer's
 out-of-range pins to the minimap rim. On the world map they are Polestar's own
@@ -3188,10 +3324,10 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   50 %, `nav.minimapDotsSize` 80 %, `nav.minimapSparkleSize` 150 %, Fitz's
   tuning for 0.3.6; 50-150 %) scales it, dots, spacing and the gap at the pin
   together (the strokes are laid out at the frame's scale divided by it).
-  The line style window's "Minimap size" slider (key `nav.minimapRouteSize`)
+  The Route lines page's "Minimap size" slider (key `nav.minimapRouteSize`)
   reads and sets the chosen style's; a size saved there before the sizes
-  were per style became each style's own (`splitSize`). Both in the line
-  style window, the world map keeping its own. The
+  were per style became each style's own (`splitSize`). Both on the Route
+  lines page, the world map keeping its own (`nav.worldRouteAlpha`). The
   minimap frame sits at the minimap's level + 3, under Polestar's trail and
   pins: the client draws its tracking blips and quest marks into the
   minimap's own picture, under every frame on it, so no frame level puts the
@@ -3210,23 +3346,24 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
 - Line style (`nav.lineStyle`, `RouteLines.STYLE_CHOICES`): `"line"`,
   `"dots"` (the above) or `"sparkle"`, chosen on the welcome's setup page
   (`UI/Welcome.lua`, three cards each previewing its style), in Options
-  (Guide, Arrow & routes, under "Route lines") and in the window the gear
-  beside "Route lines" opens (`UI/LineStyle.lua`; the gear is `W.Toggle`'s
-  `opts.gear`). The default is the line; an account Polestar knew before the
+  (Guide, Arrow & routes, under "Route lines") and on the settings window's
+  Route lines page, which the gear beside "Route lines" opens
+  (`UI.ShowOptions("routelines")`; the gear is `W.Toggle`'s `opts.gear`).
+  The default is the line; an account Polestar knew before the
   line (`ns.IsNewAccount` false: a saved `PolestarDB` at load) with no style
   of its own gets `"dots"` written once (`PolestarDB.lineStyleKept`), so
   nobody's map changes unasked. Under `ui.reduceMotion` sparkles are drawn as
   dots (`RouteLines.Style()` is the style drawn).
 - The line (`RouteStrokes`, `view.style "line"`): the walk's path in pieces
   at least 8 px long (points nearer the last one kept are passed over), each
-  one line `nav.lineWidth` px thick (2-8, default 4; one less on continent maps)
+  one line `nav.lineWidth` px thick (2-12, default 4; one less on continent maps)
   over a soft shadow 3 px wider on each side (`Media/Nav/line-soft`, even
   along x and feathered across y, as a client Line stretches its texture;
   the scrim at 75%); a bend sharper than about 14 degrees gets a round joint
   (the dot texture, the line's width across, no outline); a piece joined at a
   bend starts half the width back along its way, so the outer side of the
-  bend has no notch. Chevrons every 90 px (`view.chevrons`) are in the code
-  but the painters leave them off: on a 4 px line they read as notches.
+  bend has no notch. Chevrons every 90 px (`view.chevrons`) on the world map
+  are off by default (`nav.routeChevrons`): on a 4 px line they read as notches.
   The walk being walked fades out behind the player over 120 px (12 px
   pieces from 45% down). Flights are dashed (7 px on, 5 off, 2 px, carried
   across their bends), rides stay solid, and a walk drawn straight with no
@@ -3237,8 +3374,29 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   a second meanwhile; not under `ui.reduceMotion`, not for sparkles, not for
   the same goal drawn again). Drawing only: no style, thickness or switch
   changes the route, the target or the arrow (tested).
+- The Route lines page (`Maps/RouteOptions.lua`, settings window, Look,
+  key `routelines`): one tab, Route, with sections Route lines (on/off in its
+  header, the style cards, world map and minimap opacity each with its on/off
+  switch, minimap size), the drawn style's own section only (Line, Dots or
+  Sparkles, with the sparkle presets as picture cards: section `shown`) and
+  Flights & rides, under a pinned
+  preview drawn by the maps' own code (`RouteLines.NewCanvas`, `Paint`,
+  `Look`, `MapSparkles`, `MinimapSparkles`, and `Strokes.Map`/`Minimap`)
+  for a fixed route (a walk with two bends from the player, a flight, a
+  later boat) over the player's zone painting, and the same route on a
+  minimap disc. Its settings, each applied by `look()` to both live
+  surfaces: `nav.worldRoute` (the lines on the world map at all),
+  `nav.walkColor` … `nav.tramColor` (`RouteLines.COLOR_KEYS`, `false` = the
+  token above; the walk's own wins over `nav.dotColor`), `nav.worldRouteAlpha`
+  (20-100%), `nav.laterAlpha` (0-100%, default 40%; 0 draws the leg in hand
+  only), `nav.lineOutline` (0-200% of the outline/shadow strength),
+  `nav.walkedFade`, `nav.routeChevrons`, `nav.flightDash` (off: flights a
+  solid line as the walk's), `nav.dotSize` (2-10 px) and `nav.dotSpacing`
+  (5-24 px; continent maps scale both as 3/4 and 7/9), `nav.drawIn`, plus the
+  sparkle presets. The preview repaints on those settings only while shown
+  and runs an OnUpdate only while it shows sparkles.
 - Sparkles (`Maps/RouteSparkle.lua`, `nav.lineStyle "sparkle"`), set in the
-  same window. Sparkles (ported from Forever Sparkle Trail)
+  same page. Sparkles (ported from Forever Sparkle Trail)
   sit along the same draw paths, measured in yards and split by continent:
   evenly spaced on screen at any zoom (`nav.sparkleDensity`, 36 px at 1 to
   9 px at 10), each a `Media/Nav/sparkle` star over `Media/Nav/glow`,
@@ -3448,7 +3606,8 @@ the segment's end could lie behind the player, and the yards counted up while
 they closed on the target). `Travel.Aim` returns those
 yards as a fifth value, and `Walk.Progress(c, x, y)` gives the yards along
 the path to the player's place on it and the yards between them. The arrow
-eases into each new direction (`Nav/Arrow.lua`'s `DAMPING`, swinging at most
+eases into each new direction (`Nav/Arrow.lua`'s `DAMPING`: 12/s, or 24 or 6
+with `nav.arrowTurn` "snappy" or "gentle", swinging at most
 `MAX_TURN`, about 200 degrees a second), on the target's bearing on the map:
 turning the camera moves it at once.
 A new goal (more than 1 yd away from the searched one) cancels the search
@@ -4825,6 +4984,10 @@ flight timer and the instance tracker are set under Quality of Life.
   has reparented it or anchored it elsewhere (`ours()`: parent and last
   anchor no longer what `place()` set), neither a drag nor a resize moves
   it back to the edge; clicks work as before.
+  Its look (Settings > Buttons): `maps.minimapButtonSize` (32px) and
+  `maps.minimapButtonIcon` (`logo`, or the `emblem` glyph in the accent or
+  white), painted by `Maps.PaintMinimapButton` on the face
+  `Maps.MinimapButtonFace` builds (the preview draws one of its own).
   No frame exists until the setting is first on. The addon
   compartment (clients with `AddonCompartmentFrame`) gets the same through
   the .toc's `AddonCompartmentFunc*` globals (`Polestar_OnAddonCompartment*`):
@@ -5514,35 +5677,96 @@ the entrance. Nothing left: nil, "done"; the other side's attunement: nil,
 
 ### Options registry
 
-Any module adds settings to the options window without touching UI files:
+Any module adds settings to the settings window without touching UI files:
 
 ```lua
 Polestar.RegisterOptions({
   page = "Quests", icon = "icon-accept", order = 30,      -- sidebar page (created on first use), its title as shown
   key = "quests",                                           -- optional: the page's stable key (default: made from page)
-  tab = "Map", section = "Markers",                         -- tab row entry and section header
+  group = "guiding",                                        -- optional: guiding | look | setup | about (default: by order)
+  tab = "Map", section = "Markers",                         -- tab row entry and section (a card)
+  toggle = { kind = "toggle", key = "qol.markers", label = "Markers", help = "One line." }, -- optional: the section's on/off, in its header
+  shown = function() return Polestar.Get("nav.lineStyle") == "sparkle" end, -- optional: hide the section's card (a mode's settings)
+  preview = function(host) return frame end,               -- optional: the tab's live preview, pinned over its rows (below)
   controls = {
-    { kind = "toggle",   key = "qol.mapObjectives", label = "Objective markers", help = "One line.",
-      search = "map pins, icons, markers" },                            -- optional: English words players may search with
-    { kind = "slider",   key = "qol.markerScale", label = "Marker size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
-      release = true },                                                 -- optional: write when the drag ends
+    { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
+      search = "map pins, icons, markers",                              -- optional: English words players may search with
+      new = "0.3.7",                                                    -- optional: the release it came in (the section's New pill)
+      info = true },                                                    -- optional: an (i) after the label (1-2 a page at most)
+    { kind = "slider",   key = "qol.markerScale", label = "Size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
+      release = true,                                                   -- optional: write when the drag ends
+      extras = { { kind = "color", key = "qol.markerColor", label = "Colour", alpha = true },  -- inline before the control, right to left
+                 { kind = "toggle", key = "qol.markerGlow", label = "Glow" } },               -- (a 20px chip; a small switch)
+      more = { { kind = "toggle", key = "qol.markerOutline", label = "Outline" } } },        -- behind the row's cog, in its popup
     { kind = "dropdown", key = "gear.spec", label = "Weights", choices = { { value = "auto", label = "Automatic" }, ... } }, -- example key (the real one is gear.spec.<CLASS>)
       -- choices may be a function (choices that come and go); get()/set(v) may stand in for the path
-    { kind = "color",    key = "qol.markerColor", label = "Marker colour", -- example key
+    { kind = "font",     key = "ui.font", label = "Font", choices = { { value = "inter", label = "Inter", font = path }, ... } },
+      -- a dropdown whose names are drawn each in its face (`font`: the file; nil: the face in use)
+    { kind = "cards",    key = "ui.skin", label = "Skin", choices = { { value = "halo", label = "Halo",
+      draw = function(art, value) end, disabled = fn, note = "Not loaded" }, ... } },  -- or no key and get()/set(v): a preset
+      -- picture cards, across the row: draw paints a card's picture once into `art` (W.CARD_W - 2 by W.CARD_ART)
+    { kind = "color",    key = "qol.trailColor", label = "Trail", alpha = true, -- example key
       shown = function() return r, g, b end, source = function() return "Scheme" end, linked = { "other.key" } }, -- example key
-      -- shown: the colour in effect while the key holds none; source: where it comes from;
-      -- linked: paths a cancelled pick restores too. Right-click resets (sliders too).
-    { kind = "button",   label = "Reset lockouts", help = "One line.", onClick = function() end },
+      -- shown: the colour in effect while the key holds none; source: where it comes from (in the tooltip);
+      -- linked: paths a cancelled pick restores too; alpha: with an opacity, stored { r, g, b, a }.
+      -- The row takes a typed hex and opacity, and offers the colours picked last (PolestarDB.recentColors).
+      -- Right-click resets (sliders too; a slider's value takes a typed number).
+    { kind = "button",   label = "Reset lockouts", help = "One line.", onClick = function() end, wide = true },
     { kind = "binding",  action = "POLESTAR_NEXT", label = "Next step", help = "One line." }, -- a key binding row (UI/GamepadGuide.lua)
   },
 })
 ```
 
+**Layout** (DESIGN.md "The Row Rule"). A section is a card across the body:
+a 36px header with its title (heading) and, at the right, its `toggle` (a switch), a
+Reset link while one of its settings is off its default (more than three ask
+first, `O.ResetSection`) and a New pill while it holds settings new to the
+player. Its controls run as halves of 36px rows, two to a row with a hairline
+between (one a row below a 760px body); `wide = true`, picture cards and the
+search results take a whole row. A half is the label and the control, no
+description: `help` is the tooltip (`O.TipOf`: the help, where its colour
+comes from, why it is off, "Right-click to reset." while off its default, and
+on a search result its page path), shown 0.25s after the cursor arrives.
+`extras` (at most one colour and one on/off) sit inline before the control in
+fixed columns (right to left: swatch, switch, cog, left of a control zone as
+wide as the widest control, an empty column keeping its place), each its
+own setting with its own tooltip and right-click; `more` sits behind a cog
+(`O.ShowMore`) that opens a popup of single-column 30px rows by it, with a
+dot while one of them is off its default. While a section's toggle is off
+every setting in it is stopped (its marks at 40%, its label and value in
+textMuted, legible) and its tooltip says so; a section's `shown()` hides
+its card, worked out again on every setting change; a `child`
+(no longer indented) is the next half and keeps its own `disabled`; an
+extra's `disabled` is its own (a row's does not reach its extras). The
+gamepad reaches a row's extras and cog after the row; A on the cog opens its
+popup, which holds the gamepad until B. `O.Controls(page, tab)` maps keys to
+widgets, extras and header switches included; `O.MoreControls()` those of the
+open popup. A custom page builds the same parts with `W.SectionCard`,
+`W.CompactRow`, `W.HeaderSwitch`, `W.InlineSwatch`, `W.InlineToggle` and
+`W.Cog`. The first open shows one line over the first card ("Hover a setting
+for what it does. Right-click resets it.") until its close button
+(`PolestarDB.optionsIntro`). Search results stand in a card per page, tab and
+section, the best first, the chevron to the row in a gutter inside the card;
+a result its section's toggle stops comes after an equally good one that
+works, its card carrying that toggle in the header.
+
+**Preview hotspots.** A preview may make its parts lead to their settings:
+`host:Hotspot(region, key)` while it is built (or
+`Polestar.UI.Options.PreviewHotspot(frame, region, key)`) lays a button over
+`region`; under the cursor a 1px accent outline goes round it and the tooltip
+names the setting; a click opens its row (`O.Jump`, the tab on screen first)
+and lights it. The first preview with hotspots says "Click a part of the
+preview to find its settings" in a foot row under it until the first click
+(`PolestarDB.optionsPreviewHint`). The other way round, the pointer on a row
+(or its extras or cog) calls the preview frame's optional `f:Focus(key)`
+(`O.PreviewFocus`), so a preview can show the part that setting draws.
+
 Controls read and write `Polestar.Get/Set`; `disabled = function() return bool end` is optional;
 registered labels and help are searchable (below, "Settings search"). A `label` may be a function, asked
 when the control is drawn or searched (a name in the client's language that
 is not loaded at registration, `Names.Instance`). A toggle with `get()` and
-`set(on)` and no `key` holds state that is no setting (per character): it
+`set(on)` and no `key` holds state that is no setting (per character; a
+slider or picture cards the same, the cards' `get` naming the preset in use): it
 reads and writes through them, right-click and Reset page call `set(nil)`.
 Discovery → Dungeons → "Dungeons in leveling guides" is one: a toggle per
 Classic dungeon (`Dungeons.ROUTE`, Map id and English name, from the Codex's
@@ -5550,6 +5774,27 @@ instances), all off, writing `Engine.ChooseDungeon`. Registered toggles are
 fixed, so the list is not built from the dungeons the loaded guides name. Pages sort by `order`; Recorder and
 About always close the list. A page or tab with no available control is left
 out of the sidebar and tab row. Every row resets to its default on right-click.
+
+**New settings.** A setting's `new` puts a New pill in its section's header
+(nothing on the row: its gutter is the changed dot's), and its page's sidebar row counts the
+page's new settings until the page is opened:
+`PolestarDB.optionsSeen[page key]` keeps the newest `new` release seen there
+(account-wide, not a setting, so profiles and resets leave it). The pills keep
+through the session the page is first opened in (they read the seen state as
+it was when the window first opened), and go the next.
+
+**The pinned preview.** A tab's `preview(host)` is called the first time the
+tab shows, with a host frame in the shell's preview slot (`W.ShellPreview`,
+between the tab band and the scrolling rows); it returns a frame `f` with
+`f:Layout(width) -> height`, laid out across the whole main column and pinned
+there: the rows scroll under it, and the scroll area is anchored anew when
+its height changes (`Layout` runs again after every setting change while the
+window is shown, and on a new size or font). It is at most 45% of the body's
+height and clipped past that. The window draws its chrome over it: "Preview"
+and the frame's `f.caption` (a string or a function) at the top left, the
+Live mark at the top right. A preview draws the real element with the current
+values in a sandbox of its own (the module's own builder or paint code, never
+the live instance) and repaints itself only while shown.
 
 One setting may show on two pages: a convenience on its home page and on
 Quality of Life, where players look for it (the quest automation toggles,
@@ -5582,9 +5827,20 @@ a query word makes of each word is remembered while it is typed on
 (64 words at most). With no match the page says so and offers up to three
 labels nearest the query as links that search for them.
 
+A query word that matches nothing of a control's own tries its **synonyms**
+(`SYNONYMS` in UI/Options.lua): groups of the words players hint with and the
+words settings use (bigger, size, scale, huge, tiny; colour, tint, hue;
+transparent, opacity, alpha, see-through; font, text, letters; move,
+position, drag, unlock, anchor; pin, marker, icon, numbered; border, edge,
+frame; background, backing, ground; …), a whole word or a word's start of
+the control's (its help aside) at 60% of the score: "bigger pins" finds a pin
+size. Each result has a chevron in its gutter: `O.Jump(control)` opens its
+page and tab, scrolls its row to 40px under the top and lights it a moment
+(`O.Flash`: the accent wash fades in, holds and fades out; shorter with
+Reduce motion; nothing runs after).
+
 The built-in pages are grouped by what the player is doing: **Guide** (10:
-Window, Arrow & routes, Automation), **Appearance** (20: Colour & type,
-Windows, Arrow), **Map** (30), **Questing** (40: Quests, Rewards & gear,
+Window, Arrow & routes, Automation), **Map** (30), **Questing** (40: Quests, Rewards & gear,
 Talents, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Characters), **Quality of Life** (60:
 Quests, Travel, Social, Vendors, Trackers, Map), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
@@ -5598,7 +5854,11 @@ names them only, with no donation link or request, per Blizzard's add-on
 policy rule 5), the merged pull requests on GitHub and its issues (the top 40
 reporters; which reports count: docs/forge/release.md); `UI.Thanks.HeaderLink` puts "Special thanks
 to: <name>", a name drawn anew at each open, at the top right of the hub's
-and the options' headers, opening the page), Recorder, About. The options window
+header and in the settings window's footer, opening the page), Recorder, About.
+How everything looks has a page per surface in the **Look** group (20-29:
+Theme, Guide window, Arrow, Map pins, Route lines, Buttons, Alerts & toasts,
+Trackers), registered by the modules that draw them, each tab with a pinned
+preview of the real element. The options window
 declares every tab and section of the module-filled pages, in order, and the
 modules register their controls into them by name (`page = L["Questing"]`,
 `tab = L["Rewards & gear"]`, `section = L["Gear advice"]`): Quests, QoL,
@@ -5611,24 +5871,58 @@ and minimap setting.
 
 A page is opened by its key (`/polestar options <key>`, `UI.ShowOptions(key)`,
 `Options.Select`), not its title: the built-in pages give English keys
-(`guide`, `appearance`, `map`, `questing`, `discovery`, `qualityoflife`,
+(`guide`, `map`, `questing`, `discovery`, `qualityoflife`,
 `guidepacks`, `recorder`, `about`) so a translated title does not move them;
 a registered page without `key` takes one made from its title. Old page keys
 (`guidewindow`, `navigation`, `automation`, `quests`, `gear`, `lookup`,
-`dungeons`, `rares`, …) reach the page and tab that now hold their settings
-(`ALIASES` in UI/Options.lua); a page's own key wins over an alias.
+`dungeons`, `rares`, `appearance` and `look` for the Theme page, …) reach the
+page and tab that now hold their settings (`ALIASES` in UI/Options.lua); a
+page's own key wins over an alias (`arrow` and `guidewindow` open the Look
+pages).
 
 The sidebar's page list is its own scroll area (`f.NavScroll`, `W.ShellNav`)
-from 12px under the search to the footer bar's line, so the version and stage
+from 12px under the search (or under the band, where the search is in the
+header) to the footer bar's line, so the version and stage
 chip below it are never crowded, whatever the page count, font or menu scale;
 a new selection is scrolled into view, and a redraw with the same one (a
 refresh, a guide picked in the list) keeps the place the player scrolled to.
 The hub shares it. Its items are
-`{ key, label, icon, count, dot }`: `dot` puts a warning dot at the row's
+`{ key, label, icon, count, dot, new, changed, indent }`: `dot` puts a warning dot at the row's
 right edge instead of the count (a page spec's `dot = function() end`, the
-Community guides page while a pack has problems), and `{ heading = true, label }`
+Community guides page while a pack has problems), `new` an accent chip with
+that number, `changed` a 6px accent dot before them; `{ heading = true, label }`
 is a muted heading over the rows after it, not a choice (the menu's "Community
-guides").
+guides"), and `{ group = true, key, label, folded }` a tree group's 32px header
+with its chevron, a choice that folds or opens it (rows with `indent` sit
+under it).
+
+The settings window's sidebar is that tree: **Guiding** (Guide, Map,
+Questing, Discovery, Quality of Life), **Look**, **Setup** (Profiles,
+Integrations, Community guides, Gamepad) and **About** (Guiding Stars,
+Recorder, About); a page's `group` places it, else its order (20-29 Look,
+63-79 Setup, 80 on About, the rest Guiding). A folded group
+(`PolestarDB.optionsNav.folded`, per account) still shows the page on screen.
+A page row carries the count of its settings new to the player and a dot
+while one of its settings is off its default; the dots move as settings
+change, the sidebar redrawn only when one did.
+
+Its size is EllesmereUI's options panel at the default Menu scale: 1300 by
+946 screen pixels whatever the UI scale (`O.DefaultSize`: the pixels per
+UIParent unit from `GetPhysicalScreenSize`), grown in 5% steps on a screen
+taller than 1440 pixels. The grip in its bottom-right corner sizes it
+(`W.Shell` `resizable`; only the shell lays out during the drag, the page when
+it ends) and stores `ui.optionsSize` (`{ w, h }`, false: the default);
+right-click on the grip goes back to the default. It is never smaller than
+860 by 560 or larger than the screen at its Menu scale, less 16px each side,
+and is clamped anew when the scale changes. The header holds the search
+(`W.Shell` `headerSearch`), the Menu scale and the close; the navigation
+starts under the band. Sections are cards across the body, one under
+another (above, "Layout"). The footer has
+Reset page, Reload UI and Move frames (with `ns.Movers`: unlock mode) on the
+left; Close, the profile in use (with `ns.Profiles`: a menu of the profiles
+and Manage profiles) and "Special thanks to" on the right. Nothing of the
+window is built before it first opens, a page tab only when first shown, and
+nothing runs while it is idle.
 
 The settings window is a rail shell like the hub (`W.Shell` with `rail`): it
 shows the hub's sections (`UI.Picker.RailItems()`, and at its foot
@@ -5787,6 +6081,27 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   five before and ten after, those for this character): done ones ticked
   and dimmed, skipped ones dimmed, the live one marked with a chevron, the
   one on screen in the accent; a click looks at that step.
+  The player's own look for the window (`guideWindow.*`, `GF.LOOK`; the
+  settings window's Guide window page, `UI/Looks/GuideWindow.lua`): every
+  default leaves the window as the skin draws it. `readMetrics` adds the
+  inner padding and goal spacing to the skin's and scales the tab bar, step
+  bar, goal glyphs, tick boxes and Up next rows; strings are sized by
+  element (`GF.SizeAs` with a group of `GF.SIZE_KEYS`: person, goals,
+  details, tips, Up next and Along the way, tabs and step bar) through
+  `Theme.SetFontScale`, wrapped lines take `guideWindow.lineSpacing`; the
+  tab strip, step number, guide title, Skip, the bug, the dividers and the
+  progress bar and percent can each be turned off; the target bar
+  (`GF.PaintMark`) and progress fill take their own colour and size; the
+  window its own ground colour and opacity and no border (`psBgColor`,
+  `psBgAlpha`, `psNoBorder` on the window skin); the transparent style its
+  outline (thin, thick, shadow only) and backing strengths; the window
+  fades to `guideWindow.idleAlpha` while the cursor is away (the hover
+  watch runs only while the cursor is over it), to `combatAlpha` in a
+  fight with Fade out, and hides on a flight with `hideTaxi`; the step
+  change slide and the folding of finished goals can be turned off or
+  sped up. `GF.ApplyLook(key)` redraws only what a key touches;
+  `GF.Metrics()` hands the sizes to the page's preview, which lays out a
+  demo step card by them in its own frame, never the live window.
 - **Class-quest card** (`UI/ClassCard.lua`): over the person and goals of
   a step whose accept (else turn-in) is one of the character's class quests:
   `UI/ClassRewards.lua` limits the quest to a few classes, the character's
@@ -6299,7 +6614,7 @@ Each call fires `GUIDE_VISIBILITY`.
 
 - The floating button (`UI/Launcher.lua`, `ui.launcher`, off by default;
   Options, Guide, Window, Show and hide, beside the minimap button's own
-  toggle): a 32px `PolestarLauncher` on `UIParent` in the minimap button's
+  toggle; its look on Settings > Buttons): a `PolestarLauncher` on `UIParent` in the minimap button's
   look. Click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu`, a drag
   (`StartMoving`; with `ui.lockHud` only a Shift-drag, `ns.DragLocked`) saves
   its centre in `ui.launcherPos` (from the screen's bottom-left; unset: beside
@@ -6307,6 +6622,31 @@ Each call fires `GUIDE_VISIBILITY`.
   `GUIDE_VISIBILITY` and its settings and hides while `RulesHide()` holds, so
   it goes in a fight or an instance as the window does and stays when the
   player hid the window. No frame exists until the setting is first on.
+  Its look: `ui.launcherSize` (32px), `ui.launcherAlpha`, `ui.launcherIcon`
+  (`logo`, or the `emblem` glyph in the accent or white) and `ui.launcherBack`
+  (the disc), painted by `Launcher.Paint` on the face `Launcher.Face` builds,
+  which the Buttons page's preview draws on a plain button of its own.
+- Unlock mode (`UI/Movers.lua`, `ns.Movers`; `/polestar unlock`, again or
+  `/polestar lock` to lock, Options, Guide, Window, Position, Move frames):
+  a dim box with an accent hairline, the frame's name and its size over every
+  registered frame whose feature is on, hidden ones at their default size.
+  `Movers.Register({ key, label, frame, size, get, set, reset, anchor?,
+  enabled?, fixedSize? })`: `get` and `set` speak a point on `UIParent` in its
+  units, and each frame keeps its own saved key and format (`ui.pos`,
+  `nav.arrowPos`, `ui.launcherPos`, the character's `qol.buttonPos`,
+  `maps.timerPos`, `maps.trackerPos`, `party.panelPos`, `rares.toastPoint`,
+  `toasts.transport.point`, `toasts.whilehere.point`; UI/Looks/Toasts.lua
+  adds the stacked alerts' line). A drag moves the live frame along and, on
+  the drop, saves through `set` (`Movers.MoveTo`); it snaps (`Movers.Snap`,
+  pure) to the screen's centre lines and the other boxes' edges and centres
+  within 6 px with an accent guide (`movers.snap`), else to the grid out from
+  the screen's centre (`movers.grid`, `movers.gridSize` 8, 16 or 32); Shift
+  keeps a drag to one axis. A click selects (its centre's offset shown), the
+  arrow keys nudge it 1 px (Shift 10), a right-click resets it, the top bar
+  has Grid, the size, Snap, Reset all positions (the shared dialog) and Lock;
+  Escape locks. The options window hides while it is up. A fight locks it
+  (`PLAYER_REGEN_DISABLED`) and it will not open in one. Nothing exists before
+  the first unlock, and only a drag runs `OnUpdate`.
 - The instance hint: the first time on the account (`PolestarDB.instanceHint`)
   the window hides itself on the way into an instance, `Nav.alerts.ShowNotice`
   puts "Polestar is hidden here" at the top of the screen for 12 s with
@@ -6323,6 +6663,38 @@ Each call fires `GUIDE_VISIBILITY`.
 
 Tests: `ui.rs` (`in_dungeons_and_battlegrounds_*`, `floating_button_*`),
 `nav-prompts.rs` (`alerts_a_notice_*`); render: `docs/preview/instance-hint.svg`.
+
+### Alerts & toasts, Trackers (`UI/Looks/Toasts.lua`, `UI/Looks/Trackers.lua`)
+
+Two Look pages (`alerts` 26, `trackers` 27). Each toast builds its frame
+with its own builder and hands it to `UI.Toasts.Attach(kind, frame, { titles,
+bodies, accents, relayout, hide, sandbox })`: the rare alert (`rare`), the
+transport banner and notices (`transport`), While you're here (`whilehere`),
+the class and dungeon heads-up card (`headsup`, scaled over the guide
+window's scale) and the class quest card in the guide window (`classcard`,
+inline: type, glow, stripe, shine, note only). From then on
+`toasts.<kind>.*` apply live: `scale`, `alpha`, `titleSize`/`bodySize`
+(`Theme.SetFontScale`), `bgAlpha` (a share of `Theme.GroundAlpha`), `bg`,
+`border`, `borderSize` (`UI.Toasts.PaintGround`), `enter` (slide, fade,
+none) and `speed` (`UI.Toasts.Enter`/`Leave`), plus each one's time on
+screen (`rares.toastSeconds`, `toasts.transport.linger`,
+`toasts.whilehere.seconds`, `toasts.headsup.seconds` 0 = until answered).
+`toasts.stack` lines the three top-of-screen alerts up from the
+`PolestarToastLine` anchor (`toasts.stackPoint`, a mover), `growth` down or
+up, `spacing` apart, at most `max` (the oldest goes through its own hide).
+The trackers do the same through `UI.Trackers.Attach` (`trackers.<kind>.*`:
+`flight`, `instances`, `party` with `scale`, `width`, `alpha`, type sizes,
+`outline`, ground, the flight bar's `bar`/`barHeight`/`barColor` and
+`format`, and `combat` show/fade/hide and `instance` show/hide through
+`UI.Trackers.Allowed`); the XP mark reads `trackers.xp.*` itself. The
+previews (`UI.Toasts.Preview`, `UI.Trackers.Preview`) are sandbox frames from
+the same builders (`Rares.Toast.NewCard`, `Nav.alerts.NewBanner`,
+`WhileHereToast.NewCard`, `ClassToast.NewCard`, `ClassCard.NewCard`,
+`Maps.NewFlightTimer`, `Maps.NewInstanceTracker`, `PartyPanel.NewPanel`,
+`XPMark.NewDemo`) with made-up content: no event, waypoint or sound until
+Play, no `OnUpdate`, and a change while hidden waits for the next show.
+
+Tests: `ui-look-toasts.rs`.
 
 ### Gamepad (`UI/Gamepad.lua`, `UI/GamepadGuide.lua`)
 

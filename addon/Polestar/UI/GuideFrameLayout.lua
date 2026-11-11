@@ -27,7 +27,7 @@ end)
 ---------------------------------------------------------------------------
 
 local function stripShown()
-	return strip.psHasTabs and not compact()
+	return strip.psHasTabs and not compact() and GF.On("tabs")
 end
 
 -- Measure and place the card's parts; the goals area's own height is left
@@ -334,7 +334,7 @@ function GF.Layout()
 	strip:SetHeight(showStrip and TAB_H or 0.01)
 	-- The guide's title sits in the navigator only when no tab names it.
 	local steps = nav.Steps:IsShown()
-	nav.Title:SetShown((not showStrip or not steps) and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "")
+	nav.Title:SetShown((not showStrip or not steps) and GF.On("guideTitle") and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "")
 	local skipW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
 	local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
 	local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
@@ -387,7 +387,7 @@ function GF.Layout()
 	else
 		GF.xp:Hide()
 	end
-	local showFoot = state == "steps" or state == "complete" or state == "skippedout"
+	local showFoot = (state == "steps" or state == "complete" or state == "skippedout") and GF.On("progress")
 	foot:SetShown(showFoot)
 	local stripH = showStrip and TAB_H or 0
 	fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
@@ -428,7 +428,7 @@ function GF.PaintProgress(animate)
 	local done, total = progress()
 	local frac = total > 0 and min(1, done / total) or 0
 	foot.Pct:SetText(floor(frac * 100 + 0.5) .. "%")
-	local w = F:GetWidth() - PAD * 2 - 44
+	local w = F:GetWidth() - PAD * 2 - (foot.Pct:IsShown() and 44 or 0)
 	foot.Line:SetWidth(max(1, w))
 	W.SetProgress(foot.Line, frac, w, animate)
 	GF.PaintStatus(frac, foot.Pct:GetText())

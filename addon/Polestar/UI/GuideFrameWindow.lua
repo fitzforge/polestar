@@ -8,10 +8,8 @@ local resetModel, anchorSkip = GF.ResetModel, GF.AnchorSkip
 
 -- The window's parts and sizes, handed over by the core (GF.Bind).
 local F, nav, grip
-local COMBAT_ALPHA
 GF.Bind(function(p, m)
 	F, nav, grip = p.F, p.nav, p.grip
-	COMBAT_ALPHA = m.COMBAT_ALPHA
 end)
 local inCombat = false
 local inInstance, openInside = false, false -- in a dungeon or raid; opened there by the player
@@ -23,7 +21,9 @@ local shownOnEntry = false -- ui.shown when this visit began
 
 local function targetAlpha()
 	local a = ns.Get("ui.opacity") or 1
-	if inCombat and ns.Get("ui.combat") == "fade" then a = a * COMBAT_ALPHA end
+	if inCombat and ns.Get("ui.combat") == "fade" then a = a * GF.Num("combatAlpha") end
+	-- The cursor away from the window: guideWindow.idleAlpha (1: no fade).
+	if not GF.IsHovering() then a = a * GF.Num("idleAlpha") end
 	return a
 end
 
@@ -38,8 +38,12 @@ end
 -- What the window's own rules hide now: a fight (ui.combat "hide") and an
 -- instance it waits out (ui.instance "hide"). The floating launcher
 -- (UI/Launcher.lua) follows them; GUIDE_VISIBILITY says they may have changed.
+-- With guideWindow.hideTaxi, a flight too.
 function GF.RulesHide()
-	return (inCombat and ns.Get("ui.combat") == "hide") or hiddenInside()
+	return (inCombat and ns.Get("ui.combat") == "hide") or hiddenInside() or GF.OnTaxi()
+end
+function GF.OnTaxi()
+	return ns.Get("guideWindow.hideTaxi") and UnitOnTaxi and UnitOnTaxi("player") and true or false
 end
 
 function GF.ApplyVisibility()
@@ -253,6 +257,11 @@ ns.On("SETTING_CHANGED", function(path)
 		fn()
 	elseif path == "" or path == "ui" then
 		applyAll()
+		if path == "" then GF.ApplyLook() end
+	elseif path == "guideWindow" then
+		GF.ApplyLook()
+	elseif type(path) == "string" and path:sub(1, 12) == "guideWindow." then
+		GF.ApplyLook(path:sub(13))
 	end
 end)
 ns.RegisterEvent("PLAYER_REGEN_DISABLED", function()

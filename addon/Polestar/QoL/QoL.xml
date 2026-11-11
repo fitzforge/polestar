@@ -26,4 +26,5 @@
 	<Script file="Riding.lua"/>
 	<Script file="ClassQuests.lua"/>
 	<Script file="Options.lua"/>
+	<Script file="ButtonsOptions.lua"/>
 </Ui>

@@ -12,6 +12,11 @@
 -- with the window there. It stays when the player hides the window: it is
 -- the way to bring it back.
 --
+-- Its look (the Buttons page, QoL/ButtonsOptions.lua): ui.launcherSize,
+-- ui.launcherAlpha, ui.launcherIcon (the logo, or the emblem in the accent or
+-- white) and ui.launcherBack (the disc behind it). Launcher.Face and
+-- Launcher.Paint draw the live button and the settings preview's alike.
+--
 -- Cost: nothing until the setting is first turned on (no frame exists).
 
 local ADDON, ns = ...
@@ -23,17 +28,69 @@ local floor = math.floor
 ns.RegisterDefaults("ui", {
 	launcher = false,
 	-- launcherPos = { x, y } once it has been moved
+	launcherSize = 32,
+	launcherAlpha = 1,
+	launcherIcon = "logo", -- logo | accent | white
+	launcherBack = true,
 })
 
 local Launcher = {}
 UI.Launcher = Launcher
 
-local SIZE = 32
 -- Out of the box: beside the guide window's top-left corner in its default
 -- place (UI/GuideFrame.lua: top right, 64 in, 240 down, 340 wide).
 local DEFAULT_X, DEFAULT_Y = -440, -256
 
 local button
+
+-- A Polestar mark in `mode`: "accent" or "white" the one-colour emblem,
+-- else the full-colour logo. Also the minimap button's (MinimapButton.lua).
+function Launcher.PaintIcon(tex, mode)
+	local W = ns.Widgets
+	if mode == "accent" or mode == "white" then
+		tex:SetTexture(ns.Theme.Media("emblem"))
+		if mode == "accent" then
+			W.Color(tex, "accent")
+			return
+		end
+	else
+		tex:SetTexture(ns.Theme.Media("logo"))
+	end
+	W.Uncolor(tex)
+	tex:SetVertexColor(1, 1, 1, 1)
+end
+
+-- The disc, the mark and the hover on a plain Button: the live one and the
+-- settings preview's.
+function Launcher.Face(b)
+	local W = ns.Widgets
+	local back = W.Tex(b, "BACKGROUND", "circle", "panel")
+	back:SetAllPoints(b)
+	b.Back = back
+	local logo = b:CreateTexture(nil, "ARTWORK")
+	logo:SetPoint("CENTER", b, "CENTER", 0, 0)
+	b.Icon = logo
+	-- The hover's 25 % in its colour, as the minimap button's (MinimapButton.lua).
+	local hover = W.Tex(b, "HIGHLIGHT", "circle")
+	W.Color(hover, "accent", 0.25)
+	hover:SetAllPoints(b)
+	b.Hover = hover
+	Launcher.Paint(b)
+	return b
+end
+
+-- The look settings on a face: size (the mark 22/32 of it), opacity, mark,
+-- disc. Not protected: at any time.
+function Launcher.Paint(b)
+	local size = tonumber(ns.Get("ui.launcherSize")) or 32
+	size = math.max(16, math.min(96, size))
+	b:SetSize(size, size)
+	local mark = floor(size * 22 / 32 + 0.5)
+	b.Icon:SetSize(mark, mark)
+	Launcher.PaintIcon(b.Icon, ns.Get("ui.launcherIcon"))
+	b:SetAlpha(math.max(0.1, math.min(1, tonumber(ns.Get("ui.launcherAlpha")) or 1)))
+	b.Back:SetShown(ns.Get("ui.launcherBack") and true or false)
+end
 
 local function place()
 	button:ClearAllPoints()
@@ -58,23 +115,12 @@ local function build()
 	local W = ns.Widgets
 	if not (W and W.Tex and UIParent) then return nil end
 	button = CreateFrame("Button", "PolestarLauncher", UIParent)
-	button:SetSize(SIZE, SIZE)
 	button:SetFrameStrata("MEDIUM")
 	button:SetMovable(true)
 	button:SetClampedToScreen(true)
 	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	button:RegisterForDrag("LeftButton")
-	local back = W.Tex(button, "BACKGROUND", "circle", "panel")
-	back:SetAllPoints(button)
-	local logo = W.Tex(button, "ARTWORK", "logo")
-	logo:SetSize(SIZE - 10, SIZE - 10)
-	logo:SetPoint("CENTER", button, "CENTER", 0, 0)
-	button.Icon = logo
-	-- The hover's 25 % in its colour, as the minimap button's (MinimapButton.lua).
-	local hover = W.Tex(button, "HIGHLIGHT", "circle")
-	W.Color(hover, "accent", 0.25)
-	hover:SetAllPoints(button)
-	button.Hover = hover
+	Launcher.Face(button)
 	button:SetScript("OnClick", function(self, which)
 		if which == "RightButton" then
 			W.HideTooltip(self)
@@ -126,6 +172,9 @@ end)
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end
 	if path == "ui.launcher" or path == "ui.launcherPos" or path == "ui" or path == "" then Launcher.Refresh() end
+	if button and (path == "ui.launcherSize" or path == "ui.launcherAlpha" or path == "ui.launcherIcon" or path == "ui.launcherBack" or path == "ui" or path == "") then
+		Launcher.Paint(button)
+	end
 end)
 
 ns.OnLogin(Launcher.Refresh)

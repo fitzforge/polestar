@@ -12,7 +12,9 @@
 -- spawn). It slides in from above, drains a hairline while it waits, holds
 -- while the cursor is on it, and closes itself after rares.toastSeconds.
 -- Drag to move (saved in rares.toastPoint). One alert at a time: a newer one
--- replaces it.
+-- replaces it. Its size, opacity, type sizes, ground, border, entrance and
+-- whether it lines up with the other alerts are the player's (Options >
+-- Alerts & toasts, UI/Looks/Toasts.lua).
 --
 -- Target: the card's own buttons cannot target (a protected action), so a
 -- secure button (PolestarRareCardTarget, parented to UIParent) lies over the
@@ -37,6 +39,7 @@
 --   Rares.Toast.TargetMacro(alert) the Target button's macro, nil: no button
 --   Rares.Toast.frame         the frame, once shown
 --   Rares.Toast.secure        PolestarRareCardTarget, once shown
+--   Rares.Toast.NewCard(parent), .FillCard(card, alert)  a sandbox card (the options' preview)
 
 local ADDON, ns = ...
 local Rares, Theme, W, Anim = ns.Rares, ns.Theme, ns.Widgets, ns.Anim
@@ -62,11 +65,7 @@ local function house()
 	return Theme.SkinKey() == "polestar"
 end
 
-local function place()
-	local p = Rares.Get("toastPoint")
-	if type(p) ~= "table" or type(p[1]) ~= "string" then p = DEFAULT end
-	Anim.Anchor(f, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
-end
+local place -- below: the card's own place, or its place among the stacked alerts
 
 local function waypoint()
 	local a = current
@@ -225,60 +224,67 @@ local function vgrad(t, r1, g1, b1, a1, r2, g2, b2, a2)
 	end
 end
 
-local function build()
-	f = CreateFrame("Frame", "PolestarRareToast", UIParent)
-	f:SetSize(WIDTH, BAND_H + ROW_H)
-	f:SetFrameStrata("HIGH")
-	f:SetClampedToScreen(true)
-	f:SetMovable(true)
-	f:EnableMouse(true)
-	f:RegisterForDrag("LeftButton")
+local fill
+
+-- The look's settings (UI/Looks/Toasts.lua: scale, opacity, type, ground,
+-- entrance), when that file is loaded.
+local function looks() return ns.UI and ns.UI.Toasts end
+
+-- The card, drawn into `parent`: the live alert's (build) or a sandbox one
+-- for the options' preview (T.NewCard). The same parts, paint and layout
+-- (fill); a sandbox card's buttons do nothing, and it has no secure button,
+-- drag or timer of its own.
+local function newCard(parent, name, sandbox)
+	local c = CreateFrame("Frame", name, parent)
+	c:SetSize(WIDTH, BAND_H + ROW_H)
+	c:EnableMouse(true)
+	c.psSandbox = sandbox or nil
 	-- A toast: the game's looks give it the guide window's light frame.
-	f.psLight = true
-	Theme.Skin(f, "window")
+	c.psLight = true
+	Theme.Skin(c, "window")
 
 	-- The night band: what it is.
-	local head = CreateFrame("Frame", nil, f)
-	head:SetPoint("TOPLEFT", f, "TOPLEFT", 1, -1)
-	head:SetPoint("TOPRIGHT", f, "TOPRIGHT", -1, -1)
+	local head = CreateFrame("Frame", nil, c)
+	head:SetPoint("TOPLEFT", c, "TOPLEFT", 1, -1)
+	head:SetPoint("TOPRIGHT", c, "TOPRIGHT", -1, -1)
 	head:SetHeight(BAND_H)
-	f.Head = head
-	f.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
-	f.Night:SetTexture(Theme.Media("white"))
-	f.Night:SetAllPoints(head)
-	W.Painter(f.Night, function(t)
+	c.Head = head
+	c.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
+	c.Night:SetTexture(Theme.Media("white"))
+	c.Night:SetAllPoints(head)
+	W.Painter(c.Night, function(t)
 		t:SetShown(house())
 		local tr, tg, tb = Theme.Color("scrim")
 		local br, bg, bb = Theme.Color("bg")
 		vgrad(t, tr, tg, tb, 1, br, bg, bb, 1)
 	end)
-	if W.Haze then f.Haze = W.Haze(head, { height = BAND_H, sub = -6 }) end
-	f.Band = Theme.Band(head, "BACKGROUND", -5)
-	f.Band:SetAllPoints(head)
-	f.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, BAND_H))
-	f.BandRule = W.Divider(f)
-	f.BandRule:SetPoint("TOPLEFT", f, "TOPLEFT", 1, -(BAND_H + 1))
-	f.BandRule:SetPoint("TOPRIGHT", f, "TOPRIGHT", -1, -(BAND_H + 1))
+	if W.Haze then c.Haze = W.Haze(head, { height = BAND_H, sub = -6 }) end
+	c.Band = Theme.Band(head, "BACKGROUND", -5)
+	c.Band:SetAllPoints(head)
+	c.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, BAND_H))
+	c.BandRule = W.Divider(c)
+	c.BandRule:SetPoint("TOPLEFT", c, "TOPLEFT", 1, -(BAND_H + 1))
+	c.BandRule:SetPoint("TOPRIGHT", c, "TOPRIGHT", -1, -(BAND_H + 1))
 
 	-- The glyph in a ring, in its kind's colour (Theme "rare", "object").
-	f.Ring = W.Tex(head, "ARTWORK", "qol-ring", "rare")
-	f.Ring:SetSize(RING, RING)
-	f.Ring:SetPoint("LEFT", head, "LEFT", PAD - 1, 0)
-	f.Glyph = W.Tex(head, "OVERLAY", "qol-target", "rare")
-	f.Glyph:SetSize(16, 16)
-	f.Glyph:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+	c.Ring = W.Tex(head, "ARTWORK", "qol-ring", "rare")
+	c.Ring:SetSize(RING, RING)
+	c.Ring:SetPoint("LEFT", head, "LEFT", PAD - 1, 0)
+	c.Glyph = W.Tex(head, "OVERLAY", "qol-target", "rare")
+	c.Glyph:SetSize(16, 16)
+	c.Glyph:SetPoint("CENTER", c.Ring, "CENTER", 0, 0)
 
-	f.Name = W.Text(head, "title", "title") -- the transport banner's title colour too (gold in the game's looks)
-	f.Name:SetPoint("BOTTOMLEFT", f.Ring, "RIGHT", 12, 1)
-	f.Name:SetPoint("RIGHT", head, "RIGHT", -40, 0)
-	f.Name:SetJustifyH("LEFT")
-	f.Name:SetWordWrap(false)
-	f.Facts = W.Text(head, "small", "textDim")
-	f.Facts:SetPoint("TOPLEFT", f.Ring, "RIGHT", 12, -3)
-	f.Facts:SetPoint("RIGHT", head, "RIGHT", -PAD, 0)
-	f.Facts:SetJustifyH("LEFT")
-	f.Facts:SetWordWrap(false)
-	for _, fs in ipairs({ f.Name, f.Facts }) do
+	c.Name = W.Text(head, "title", "title") -- the transport banner's title colour too (gold in the game's looks)
+	c.Name:SetPoint("BOTTOMLEFT", c.Ring, "RIGHT", 12, 1)
+	c.Name:SetPoint("RIGHT", head, "RIGHT", -40, 0)
+	c.Name:SetJustifyH("LEFT")
+	c.Name:SetWordWrap(false)
+	c.Facts = W.Text(head, "small", "textDim")
+	c.Facts:SetPoint("TOPLEFT", c.Ring, "RIGHT", 12, -3)
+	c.Facts:SetPoint("RIGHT", head, "RIGHT", -PAD, 0)
+	c.Facts:SetJustifyH("LEFT")
+	c.Facts:SetWordWrap(false)
+	for _, fs in ipairs({ c.Name, c.Facts }) do
 		W.Painter(fs, function(t)
 			local r, g, b = Theme.Color("shade")
 			t:SetShadowOffset(0, -1)
@@ -286,36 +292,110 @@ local function build()
 		end)
 	end
 
-	f.Close = W.IconButton(head, "close", 22, L["Dismiss"], function() T.Hide() end, 12)
-	f.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -8, -8)
+	local noop = function() end
+	c.Close = W.IconButton(head, "close", 22, L["Dismiss"], sandbox and noop or function() T.Hide() end, 12)
+	c.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -8, -8)
 
 	-- The row: how far, then what to do (the primary action rightmost).
 	local rowY = BAND_H + 1 + ROW_H / 2
-	f.Dart = W.Tex(f, "ARTWORK", "dart-gold")
-	f.Dart:SetSize(14, 14)
-	f.Dart:SetPoint("LEFT", f, "TOPLEFT", PAD, -rowY)
-	f.Distance = W.Text(f, "heading", "text")
-	f.Distance:SetPoint("LEFT", f.Dart, "RIGHT", 8, 0)
-	f.Distance:SetWordWrap(false)
+	c.Dart = W.Tex(c, "ARTWORK", "dart-gold")
+	c.Dart:SetSize(14, 14)
+	c.Dart:SetPoint("LEFT", c, "TOPLEFT", PAD, -rowY)
+	c.Distance = W.Text(c, "heading", "text")
+	c.Distance:SetPoint("LEFT", c.Dart, "RIGHT", 8, 0)
+	c.Distance:SetWordWrap(false)
 
-	f.Waypoint = W.Button(f, L["Set waypoint"], waypoint, { primary = true, height = 28, icon = "icon-goto" })
-	f.Waypoint:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -rowY)
-	f.Open = W.Button(f, L["Show rare"], showRare, { height = 28, icon = "search" })
+	c.Waypoint = W.Button(c, L["Set waypoint"], sandbox and noop or waypoint, { primary = true, height = 28, icon = "icon-goto" })
+	c.Waypoint:SetPoint("RIGHT", c, "TOPRIGHT", -PAD, -rowY)
+	c.Open = W.Button(c, L["Show rare"], sandbox and noop or showRare, { height = 28, icon = "search" })
 	-- Drawn here; the secure button over it does the click (see arm).
 	-- The plain button only gets a click the secure one missed (not laid
 	-- over it yet): lay it over now, and say so.
-	f.Target = W.Button(f, L["Target"], function()
+	c.Target = W.Button(c, L["Target"], sandbox and noop or function()
 		if lockdown() then return end
 		arm()
 		ns.Print(L["Click Target again to target the rare, or use the rare button."])
 	end, { height = 28, icon = "qol-target" })
+
+	c.Timer = W.ProgressLine(c, 2)
+	c.Timer:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 1, 1)
+	c.Timer:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -1, 1)
+	-- The rim's light kept inside the band.
+	if W.Rim then W.Rim(c, { height = BAND_H }) end
+	local TS = looks()
+	if TS then
+		TS.Attach("rare", c, { titles = { c.Name }, bodies = { c.Facts, c.Distance }, sandbox = sandbox, hide = function() T.Hide() end,
+			relayout = function(self) if self.psAlert then fill(self, self.psAlert) end end })
+	end
+	return c
+end
+
+-- Paint card c for alert a and size it to what it says.
+function fill(c, a)
+	c.psAlert = a
+	local founder = a.kind == "founder"
+	c.Glyph:SetTexture(Theme.Media(founder and "star" or a.kind == "treasure" and "icon-treasure" or "qol-target"))
+	W.Color(c.Glyph, Rares.ColorName(a.kind))
+	W.Color(c.Ring, Rares.ColorName(a.kind))
+	c.Name:SetText(founder and L["The Polestar founder is nearby!"] or a.name or "")
+	c.Facts:SetText(T.Facts(a))
+	local dist = T.Distance(a)
+	c.Distance:SetText(dist or "")
+	c.Distance:SetShown(dist ~= nil)
+	c.Dart:SetShown(dist ~= nil)
+	c.Waypoint:SetShown(a.map ~= nil and a.x ~= nil)
+	-- The button names what it opens; its width follows the label.
+	W.SetButtonText(c.Open, a.kind == "treasure" and L["Show treasure"] or L["Show rare"])
+	c.Open:SetShown(a.id ~= nil)
+	c.Target:SetShown(T.TargetMacro(a) ~= nil)
+	W.SetButtonText(c.Target, founder and L["Wave"] or L["Target"])
+	-- The shown buttons right to left, the primary rightmost, 8px apart.
+	local buttons, last = 0, nil
+	for _, b in ipairs({ c.Waypoint, c.Open, c.Target }) do
+		if b:IsShown() then
+			b:ClearAllPoints()
+			if last then
+				b:SetPoint("RIGHT", last, "LEFT", -8, 0)
+				buttons = buttons + 8
+			else
+				b:SetPoint("RIGHT", c, "TOPRIGHT", -PAD, -(BAND_H + 1 + ROW_H / 2))
+			end
+			buttons = buttons + b:GetWidth()
+			last = b
+		end
+	end
+	local distW = dist and (14 + 8 + ceil(W.TextWidth(c.Distance)) + 16) or 0
+	local need = max(WIDTH,
+		TEXT_X + ceil(W.TextWidth(c.Name)) + 40,
+		TEXT_X + ceil(W.TextWidth(c.Facts)) + PAD,
+		PAD + distW + buttons + PAD)
+	local width = min(MAX_W, need)
+	c:SetWidth(width)
+	if W.LayoutRim then W.LayoutRim(c) end
+	c.Distance:SetWidth(max(1, width - PAD * 2 - 22 - buttons - 16))
+	c.Band:SetTexCoord(Theme.BandCoords(width - 2, BAND_H))
+	W.SetProgress(c.Timer, c.psTotal and c.psLeft and max(0, c.psLeft) / c.psTotal or 1, width - 2)
+end
+
+-- A sandbox card for the options' preview, and its paint for a made-up alert:
+-- nothing is targeted, no waypoint is set, no sound plays.
+function T.NewCard(parent) return newCard(parent, nil, true) end
+function T.FillCard(c, a) fill(c, a) end
+
+local function build()
+	f = newCard(UIParent, "PolestarRareToast")
+	f:SetFrameStrata("HIGH")
+	f:SetClampedToScreen(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
 	buildSecure()
 
-	f.Timer = W.ProgressLine(f, 2)
-	f.Timer:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 1, 1)
-	f.Timer:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
-
-	f:SetScript("OnDragStart", function(self) self:StartMoving() end)
+	f:SetScript("OnDragStart", function(self)
+		-- Lined up with the other alerts (Alerts & toasts > Stacking): the line moves, not the card.
+		local TS = looks()
+		if TS and TS.Stacked("rare") then return end
+		self:StartMoving()
+	end)
 	f:SetScript("OnDragStop", function(self)
 		self:StopMovingOrSizing()
 		local point, _, _, x, y = self:GetPoint(1)
@@ -328,69 +408,45 @@ local function build()
 		W.SetProgress(self.Timer, max(0, self.psLeft) / total, self:GetWidth() - 2)
 		if self.psLeft <= 0 then T.Hide() end
 	end))
-	-- The rim's light kept inside the band.
-	if W.Rim then W.Rim(f, { height = BAND_H }) end
 	f:Hide()
 	T.frame = f
+end
+
+-- Where the card goes: its own place (rares.toastPoint), or its place in the
+-- line of alerts while they stack.
+local function ownPlace()
+	local p = Rares.Get("toastPoint")
+	if type(p) ~= "table" or type(p[1]) ~= "string" then p = DEFAULT end
+	Anim.Anchor(f, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
+end
+
+function place()
+	local TS = looks()
+	if TS and TS.Place("rare", f, ownPlace) then return end
+	ownPlace()
 end
 
 function T.Show(a)
 	if type(a) ~= "table" then return end
 	if not f then build() end
 	current = a
-	local founder = a.kind == "founder"
-	f.Glyph:SetTexture(Theme.Media(founder and "star" or a.kind == "treasure" and "icon-treasure" or "qol-target"))
-	W.Color(f.Glyph, Rares.ColorName(a.kind))
-	W.Color(f.Ring, Rares.ColorName(a.kind))
-	f.Name:SetText(founder and L["The Polestar founder is nearby!"] or a.name or "")
-	f.Facts:SetText(T.Facts(a))
-	local dist = T.Distance(a)
-	f.Distance:SetText(dist or "")
-	f.Distance:SetShown(dist ~= nil)
-	f.Dart:SetShown(dist ~= nil)
-	f.Waypoint:SetShown(a.map ~= nil and a.x ~= nil)
-	-- The button names what it opens; its width follows the label.
-	W.SetButtonText(f.Open, a.kind == "treasure" and L["Show treasure"] or L["Show rare"])
-	f.Open:SetShown(a.id ~= nil)
-	f.Target:SetShown(T.TargetMacro(a) ~= nil)
-	W.SetButtonText(f.Target, founder and L["Wave"] or L["Target"])
-	-- The shown buttons right to left, the primary rightmost, 8px apart.
-	local buttons, last = 0, nil
-	for _, b in ipairs({ f.Waypoint, f.Open, f.Target }) do
-		if b:IsShown() then
-			b:ClearAllPoints()
-			if last then
-				b:SetPoint("RIGHT", last, "LEFT", -8, 0)
-				buttons = buttons + 8
-			else
-				b:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(BAND_H + 1 + ROW_H / 2))
-			end
-			buttons = buttons + b:GetWidth()
-			last = b
-		end
-	end
-	local distW = dist and (14 + 8 + ceil(W.TextWidth(f.Distance)) + 16) or 0
-	local need = max(WIDTH,
-		TEXT_X + ceil(W.TextWidth(f.Name)) + 40,
-		TEXT_X + ceil(W.TextWidth(f.Facts)) + PAD,
-		PAD + distW + buttons + PAD)
-	local width = min(MAX_W, need)
-	f:SetWidth(width)
-	if W.LayoutRim then W.LayoutRim(f) end
-	f.Distance:SetWidth(max(1, width - PAD * 2 - 22 - buttons - 16))
-	f.Band:SetTexCoord(Theme.BandCoords(width - 2, BAND_H))
 	local secs = tonumber(Rares.Get("toastSeconds")) or 20
 	f.psTotal, f.psLeft = secs, secs
-	W.SetProgress(f.Timer, 1, width - 2)
+	fill(f, a)
 	local wasShown = f:IsShown()
 	place()
 	f:Show()
 	arm()
 	if not wasShown then
-		-- One authored moment: it settles in from above while it fades up.
-		local p = f.psAnchor
-		Anim.To(f, "alpha", 0, 1, Anim.SLOW, "out")
-		Anim.To(f, "offset", p[5] + 18, p[5], Anim.SLOW * 1.5, "out")
+		-- One authored moment: it settles in from above while it fades up
+		-- (the player's entrance, speed and opacity: Alerts & toasts).
+		local TS = looks()
+		if TS then
+			TS.Enter("rare", f, 18, Anim.SLOW * 1.5)
+		else
+			Anim.To(f, "alpha", 0, 1, Anim.SLOW, "out")
+			Anim.To(f, "offset", 18, 0, Anim.SLOW * 1.5, "out")
+		end
 	end
 end
 
@@ -416,3 +472,8 @@ end)
 function T.Current() return current end
 
 ns.On("RARE_SPOTTED", function(a) T.Show(a) end)
+
+-- Moved from elsewhere (reset, the movers): the card on screen follows.
+ns.On("SETTING_CHANGED", function(path)
+	if (path == "rares.toastPoint" or path == "rares" or path == "") and f and f:IsShown() then place() end
+end)

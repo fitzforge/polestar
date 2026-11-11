@@ -5,6 +5,7 @@
 	<Script file="Pins.lua"/>
 	<Script file="Regions.lua"/>
 	<Script file="Arrow.lua"/>
+	<Script file="ArrowOptions.lua"/>
 	<Script file="Layers.lua"/>
 	<Script file="Upcoming.lua"/>
 	<Script file="Bridges.lua"/>
@@ -19,4 +20,5 @@
 	<Script file="Prompts.lua"/>
 	<Script file="Alerts.lua"/>
 	<Script file="Handoff.lua"/>
+	<Script file="PinsOptions.lua"/>
 </Ui>

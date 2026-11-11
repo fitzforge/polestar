@@ -47,14 +47,17 @@
 -- the arrow's target mark, the current goal's glyph, primary buttons, the
 -- progress fill). Other glyphs sit in textDim, counters in text (success
 -- once complete; UI.GoalLine), tooltip ids in textMuted. No colour literals:
--- everything reads Theme tokens and repaints on a scheme change.
+-- everything reads Theme tokens and repaints on a scheme change. The player
+-- may give the target mark and the progress fill colours of their own, and
+-- this window its own ground and border (GF.LOOK, Options > Guide window).
 --
 -- Rows are pooled and filled in place, so STEP_UPDATED (a kill, a loot)
 -- repaints existing rows instead of rebuilding anything. Nothing runs per
 -- frame except a short tween (Polestar.Anim), a goal folding away (one
 -- driver for every fold, stopped when none is left), an active drag-resize,
--- the name-target hitbox position watch, or the transparent window's hover
--- watch.
+-- the name-target hitbox position watch, or the hover watch while the cursor
+-- is on a transparent window or one that fades when it leaves
+-- (guideWindow.idleAlpha).
 
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -78,7 +81,6 @@ local CHECK_IN = 0
 local CHECK_MID = false -- the tick box on the row's middle, not its first line
 local UP_ROW = 24
 local UP_TOGGLE = 30
-local COMBAT_ALPHA = 0.35
 -- A step's picture in the opened tip: never taller than this, and drawn
 -- 2:1 when its pack gave no size (512x256, a common screenshot texture).
 local PICTURE_MAX_H = 160
@@ -95,19 +97,25 @@ local function placeCheck(r)
 	end
 end
 
+-- The skin's sizes, then the player's own on top of them (Options > Guide
+-- window, UI/Looks/GuideWindow.lua: guideWindow.*; at their defaults the
+-- skin's sizes stand as they are).
 local function readMetrics()
-	PAD = Theme.Metric("guidePad", 14)
-	TAB_H = Theme.Metric("guideTabs", 28)
-	NAV_H = Theme.Metric("guideNav", 34)
+	local function k(key) return tonumber(ns.Get("guideWindow." .. key)) or 1 end
+	local function px(key) return tonumber(ns.Get("guideWindow." .. key)) or 0 end
+	PAD = max(4, Theme.Metric("guidePad", 14) + px("padding"))
+	TAB_H = floor(Theme.Metric("guideTabs", 28) * k("tabHeight") + 0.5)
+	NAV_H = floor(Theme.Metric("guideNav", 34) * k("navHeight") + 0.5)
 	PROG_H = Theme.Metric("guideFoot", 26)
+	ICON = floor(15 * k("glyphSize") + 0.5)
 	TEXT_X = PAD + ICON + Theme.Metric("guideIconGap", 10)
 	ROW_MIN = Theme.Metric("guideRow", 24)
-	CHECK = Theme.Metric("guideCheck", 18)
-	ROW_PAD = Theme.Metric("guideRowPad", 0)
+	CHECK = floor(Theme.Metric("guideCheck", 18) * k("checkSize") + 0.5)
+	ROW_PAD = Theme.Metric("guideRowPad", 0) + px("rowSpacing")
 	CHECK_IN = Theme.Metric("guideCheckIn", 0)
 	CHECK_MID = Theme.Metric("guideCheckMiddle", false) and true or false
-	UP_ROW = Theme.Metric("guideUpRow", 24)
-	UP_TOGGLE = Theme.Metric("guideUpToggle", 30)
+	UP_ROW = floor(Theme.Metric("guideUpRow", 24) * k("upSize") + 0.5)
+	UP_TOGGLE = floor(Theme.Metric("guideUpToggle", 30) * k("upSize") + 0.5)
 end
 local TAB_MAX_W = 150
 
@@ -137,7 +145,7 @@ local function current()
 	p.banner, p.foot, p.goals = banner, foot, goals
 	m.PAD, m.TAB_H, m.NAV_H, m.PROG_H, m.ICON, m.TEXT_X = PAD, TAB_H, NAV_H, PROG_H, ICON, TEXT_X
 	m.ROW_MIN, m.CHECK, m.ROW_PAD, m.CHECK_IN, m.CHECK_MID, m.UP_ROW = ROW_MIN, CHECK, ROW_PAD, CHECK_IN, CHECK_MID, UP_ROW
-	m.UP_TOGGLE, m.COMBAT_ALPHA, m.PICTURE_MAX_H, m.PICTURE_ASPECT, m.TAB_MAX_W = UP_TOGGLE, COMBAT_ALPHA, PICTURE_MAX_H, PICTURE_ASPECT, TAB_MAX_W
+	m.UP_TOGGLE, m.PICTURE_MAX_H, m.PICTURE_ASPECT, m.TAB_MAX_W = UP_TOGGLE, PICTURE_MAX_H, PICTURE_ASPECT, TAB_MAX_W
 	return p, m
 end
 local function handOver()
@@ -159,10 +167,107 @@ local function transparent() return ns.Get("ui.style") == "transparent" end
 local function T(parent, role, color, layer)
 	local fs = W.Text(parent, role, color, layer)
 	texts[#texts + 1] = fs
-	if F and transparent() then Theme.SetOutline(fs, true) end
+	if F and transparent() then Theme.SetOutline(fs, GF.Outline()) end
 	return fs
 end
 GF.Text = T -- for the panels other files place in the window (UI/JourneyPanel.lua)
+
+---------------------------------------------------------------------------
+-- The player's look for this window (Options > Guide window, UI/Looks/
+-- GuideWindow.lua): sizes (readMetrics), text sizes per element, the
+-- transparent style's outline, the target bar, the progress line, its own
+-- ground and border, fading while the cursor is away, motion. Every default
+-- leaves the window exactly as the skin draws it.
+---------------------------------------------------------------------------
+
+GF.LOOK = {
+	tabs = true, tabHeight = 1, navHeight = 1, stepCount = true, guideTitle = true, skipButton = true, reportButton = true,
+	barTextSize = 1, titleSize = 1, goalSize = 1, detailSize = 1, noteSize = 1, upSize = 1,
+	outline = "outline", padding = 0, rowSpacing = 0, lineSpacing = 0, glyphSize = 1, checkSize = 1,
+	targetBar = true, targetBarColor = false, targetBarWidth = 2,
+	progress = true, progressPct = true, progressHeight = 3, progressColor = false,
+	bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
+	stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false,
+}
+ns.RegisterDefaults("guideWindow", GF.LOOK)
+
+function GF.On(key) return ns.Get("guideWindow." .. key) ~= false end
+function GF.Num(key) return tonumber(ns.Get("guideWindow." .. key)) or GF.LOOK[key] end
+-- A colour setting: r, g, b, or nil to follow the theme.
+function GF.Rgb(key)
+	local c = ns.Get("guideWindow." .. key)
+	if type(c) == "table" and type(c[1]) == "number" then return c[1], c[2], c[3] end
+	return nil
+end
+
+-- The transparent style's outline (guideWindow.outline): true (thin),
+-- "thick", or false (the drop shadow alone).
+function GF.Outline()
+	local o = ns.Get("guideWindow.outline")
+	if o == "thick" then return "thick" end
+	return o ~= "shadow"
+end
+
+-- Strings the player sizes by element: group -> its setting. GF.sized:
+-- fontString -> group; GF.spaced: fontString -> its own line spacing (wrapped
+-- lines, guideWindow.lineSpacing on top); GF.sizedAt: what was applied, so an
+-- untouched string is never painted again.
+GF.SIZE_KEYS = { title = "titleSize", goal = "goalSize", detail = "detailSize", note = "noteSize", up = "upSize", bar = "barTextSize" }
+GF.sized = setmetatable({}, { __mode = "k" })
+GF.spaced = setmetatable({}, { __mode = "k" })
+GF.sizedAt = setmetatable({}, { __mode = "k" })
+
+function GF.SizeOne(fs)
+	local group = GF.sized[fs]
+	local k = group and GF.Num(GF.SIZE_KEYS[group]) or 1
+	local gap = GF.Num("lineSpacing")
+	local at = GF.sizedAt[fs]
+	if (at and (at[1] ~= k or at[2] ~= gap)) or (not at and (k ~= 1 or gap ~= 0)) then
+		if Theme.SetFontScale then Theme.SetFontScale(fs, k) end
+		local base = GF.spaced[fs]
+		if base and fs.SetSpacing then fs:SetSpacing(base + gap) end
+		GF.sizedAt[fs] = { k, gap }
+	end
+end
+
+-- fs sized as `group`; `spacing`: its own line spacing when its lines wrap.
+function GF.SizeAs(fs, group, spacing)
+	GF.sized[fs] = group
+	if spacing then GF.spaced[fs] = spacing end
+	GF.SizeOne(fs)
+	return fs
+end
+
+function GF.ApplyFonts()
+	for fs in pairs(GF.sized) do GF.SizeOne(fs) end
+end
+
+-- The arrow's target on a goal or the person: a bar at the row's edge in
+-- the accent (or the player's colour), guideWindow.targetBarWidth wide;
+-- turned off it stays laid out, unseen.
+function GF.PaintMark(t)
+	local r, g, b = GF.Rgb("targetBarColor")
+	if r then t:SetVertexColor(r, g, b, 1) else t:SetVertexColor(Theme.Color("accent")) end
+	t:SetWidth(GF.Num("targetBarWidth"))
+	t:SetAlpha(GF.On("targetBar") and 1 or 0)
+end
+
+-- The guide's progress fill: the accent, or the player's colour.
+function GF.PaintProgressFill(t)
+	local r, g, b = GF.Rgb("progressColor")
+	if r then t:SetVertexColor(r, g, b, 1) else t:SetVertexColor(Theme.Color("accent")) end
+end
+
+-- The goal glyph's centre below a row's top: on the first line of its text,
+-- which grows with guideWindow.goalSize (14 at 100 %).
+function GF.GlyphY()
+	return 12 + ROW_PAD + floor((GF.Num("goalSize") - 1) * 7 + 0.5)
+end
+
+-- How long a transition of `d` seconds takes at guideWindow.animSpeed.
+function GF.Dur(d)
+	return d / max(0.25, GF.Num("animSpeed"))
+end
 
 ---------------------------------------------------------------------------
 -- Targets and tooltips
@@ -387,16 +492,16 @@ local function goalRow(i)
 	r.Mark:SetWidth(2)
 	r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -3)
 	r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
-	W.Color(r.Mark, "accent")
+	W.Painter(r.Mark, GF.PaintMark)
 	r.Mark:Hide()
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
 	r.Icon:SetSize(ICON, ICON)
-	r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -12 - ROW_PAD)
-	r.Text = T(r, "goal", "text")
+	r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -GF.GlyphY())
+	r.Text = GF.SizeAs(T(r, "goal", "text"), "goal", 0)
 	r.Text:SetWordWrap(true)
 	r.Text:SetJustifyV("TOP")
 	r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
-	r.Sub = T(r, "small", "textMuted")
+	r.Sub = GF.SizeAs(T(r, "small", "textMuted"), "detail", 0)
 	r.Sub:SetWordWrap(true)
 	r.Sub:SetJustifyV("TOP")
 	r.Check = W.Checkbox(r, function(c)
@@ -921,7 +1026,7 @@ do
 		l.Icon = l:CreateTexture(nil, "ARTWORK")
 		l.Icon:SetSize(13, 13)
 		l.Icon:SetPoint("CENTER", l, "TOPLEFT", PAD + ICON / 2, -lh / 2)
-		l.Text = T(l, "label", "textDim")
+		l.Text = GF.SizeAs(T(l, "label", "textDim"), "detail")
 		l.Text:SetWordWrap(true)
 		l.Text:SetMaxLines(2)
 		l.Text:SetJustifyH("LEFT")
@@ -944,8 +1049,9 @@ do
 	-- which drops its row and counts it.
 	function fold.step()
 		local now = GetTime()
-		local reduced = Anim.Reduced()
-		local dur = reduced and CARD.reducedFade or CARD.time
+		-- guideWindow.foldAnim off: the row fades and goes, as with reduced motion.
+		local reduced = Anim.Reduced() or not GF.On("foldAnim")
+		local dur = reduced and CARD.reducedFade or GF.Dur(CARD.time)
 		local list = fold.list
 		local moved, landed = false, false
 		local i = 1
@@ -1144,13 +1250,13 @@ local function upRow(i)
 	r = CreateFrame("Button", nil, upnext)
 	r:SetHeight(UP_ROW)
 	W.Hover(r)
-	r.Num = T(r, "number", "textMuted")
+	r.Num = GF.SizeAs(T(r, "number", "textMuted"), "up")
 	r.Num:SetJustifyH("RIGHT")
 	r.Num:SetWidth(22)
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
 	r.Icon:SetSize(13, 13)
 	W.Color(r.Icon, "textMuted")
-	r.Text = T(r, "label", "textDim")
+	r.Text = GF.SizeAs(T(r, "label", "textDim"), "up")
 	r.Text:SetWordWrap(true)
 	r.Text:SetMaxLines(2)
 	r:SetScript("OnClick", function(self)
@@ -1185,7 +1291,7 @@ local function alongRow(i)
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
 	r.Icon:SetSize(13, 13)
 	W.Color(r.Icon, "textMuted")
-	r.Text = T(r, "label", "textDim")
+	r.Text = GF.SizeAs(T(r, "label", "textDim"), "up")
 	r.Text:SetWordWrap(true)
 	r.Text:SetMaxLines(2)
 	r:SetScript("OnClick", function(self, button)
@@ -1437,7 +1543,7 @@ end
 -- and on a step already skipped.
 function GF.PaintSkip(shown, enabled)
 	local b = nav.Skip
-	b:SetShown(shown and true or false)
+	b:SetShown(shown and GF.On("skipButton") and true or false)
 	if enabled then b:Enable() else b:Disable() end
 	local a = enabled and 1 or 0.35
 	W.Color(b.Icon, "textDim", a)
@@ -1448,7 +1554,7 @@ end
 -- button is off (nav.nearbyButton).
 local function anchorSkip()
 	nav.Skip:ClearAllPoints()
-	nav.Skip:SetPoint("RIGHT", nav.Nearby:IsShown() and nav.Nearby or nav.Report, "LEFT", -2, 0)
+	nav.Skip:SetPoint("RIGHT", (nav.Nearby:IsShown() and nav.Nearby) or (nav.Report:IsShown() and nav.Report) or nav.Menu, "LEFT", -2, 0)
 end
 
 local function navigatorFor(guide, index)
@@ -1470,14 +1576,14 @@ local function navigatorFor(guide, index)
 	W.SetIconState(nav.Prev, false, guide ~= nil)
 	W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
 	GF.PaintSkip(guide ~= nil, guide ~= nil and index ~= nil)
-	nav.Report:SetShown(guide ~= nil)
+	nav.Report:SetShown(guide ~= nil and GF.On("reportButton"))
 	nav.Nearby:ClearAllPoints()
-	nav.Nearby:SetPoint("RIGHT", guide and nav.Report or nav.Menu, "LEFT", 0, 0)
+	nav.Nearby:SetPoint("RIGHT", nav.Report:IsShown() and nav.Report or nav.Menu, "LEFT", 0, 0)
 	anchorSkip()
 	-- No guide: no steps to walk; the navigator names the addon instead.
-	nav.Steps:SetShown(guide ~= nil)
+	nav.Steps:SetShown(guide ~= nil and GF.On("stepCount"))
 	nav.Title:ClearAllPoints()
-	if guide then
+	if guide and nav.Steps:IsShown() then
 		nav.Title:SetPoint("LEFT", nav.Steps, "RIGHT", 8, 0)
 	else
 		nav.Title:SetPoint("LEFT", nav, "LEFT", PAD, 0)
@@ -2193,10 +2299,11 @@ function GF.Render()
 	GF.Layout()
 	followCurrent(focusChanged)
 	GF.PaintProgress(shownGuide == guide.id)
-	if focusChanged and F:IsVisible() and not GF.catchingUp then
-		-- The next person (or step) slides up 6px into place as it fades in.
-		Anim.To(card, "alpha", 0, 1, Anim.BASE, "out")
-		Anim.To(card, "offset", -6, 0, Anim.BASE, "out")
+	if focusChanged and F:IsVisible() and not GF.catchingUp and GF.On("stepAnim") then
+		-- The next person (or step) slides up 6px into place as it fades in
+		-- (guideWindow.stepAnim, at guideWindow.animSpeed).
+		Anim.To(card, "alpha", 0, 1, GF.Dur(Anim.BASE), "out")
+		Anim.To(card, "offset", -6, 0, GF.Dur(Anim.BASE), "out")
 	end
 	-- A class chain's card, the first time it shows: its shine and chime.
 	if F:IsVisible() and not GF.catchingUp and UI.ClassCard then UI.ClassCard.Celebrate() end
@@ -2259,6 +2366,14 @@ function GF.UpdateTargets()
 	end
 end
 
+-- The window's sizes as the skin and the player's settings make them now,
+-- for the settings window's preview (UI/Looks/GuideWindow.lua), which lays
+-- out its step card by the same numbers.
+function GF.Metrics()
+	readMetrics()
+	return { pad = PAD, tabH = TAB_H, navH = NAV_H, progH = PROG_H, icon = ICON, textX = TEXT_X, rowMin = ROW_MIN,
+		check = CHECK, rowPad = ROW_PAD, checkIn = CHECK_IN, upRow = UP_ROW, upToggle = UP_TOGGLE, glyphY = GF.GlyphY(), lineH = CARD.lineH }
+end
 ---------------------------------------------------------------------------
 -- Build
 ---------------------------------------------------------------------------
@@ -2351,7 +2466,7 @@ local function build()
 	end)
 	nav.Prev.psTipLines = { L["A look back: nothing changes."] }
 	nav.Prev:SetPoint("LEFT", nav.Steps, "LEFT", 0, 0)
-	nav.Steps.Count = T(nav.Steps, "number", "text")
+	nav.Steps.Count = GF.SizeAs(T(nav.Steps, "number", "text"), "bar")
 	nav.Steps.Count:SetJustifyH("CENTER")
 	nav.Steps.Count:SetPoint("LEFT", nav.Prev, "RIGHT", 0, 0)
 	nav.Next = W.IconButton(nav.Steps, "chevron-right", 24, L["Next step"], function()
@@ -2383,7 +2498,7 @@ local function build()
 	skip.Icon = W.Tex(skip, "ARTWORK", "skip", "textDim")
 	skip.Icon:SetSize(11, 11)
 	skip.Icon:SetPoint("LEFT", skip, "LEFT", 7, 0)
-	skip.Label = T(skip, "small", "textDim")
+	skip.Label = GF.SizeAs(T(skip, "small", "textDim"), "bar")
 	skip.Label:SetPoint("LEFT", skip.Icon, "RIGHT", 5, 0)
 	skip.Label:SetText(L["Skip"])
 	skip:SetWidth(floor(7 + 11 + 5 + skip.Label:GetStringWidth() + 8 + 0.5))
@@ -2408,7 +2523,7 @@ local function build()
 	skip:Hide()
 	nav.Skip = skip
 	anchorSkip()
-	nav.Title = T(nav, "small", "textDim")
+	nav.Title = GF.SizeAs(T(nav, "small", "textDim"), "bar")
 	-- The step's own title and the guide's facts, on the step number.
 	local countHit = CreateFrame("Frame", nil, nav.Steps)
 	countHit:SetAllPoints(nav.Steps.Count)
@@ -2468,28 +2583,27 @@ local function build()
 		t:SetVertexColor(r, g, b, a * 0.7)
 	end)
 	person.Hover:Hide()
-	-- The arrow on this person: the 2px accent selection bar.
+	-- The arrow on this person: the accent selection bar (GF.PaintMark).
 	person.Mark = person:CreateTexture(nil, "ARTWORK")
 	person.Mark:SetTexture(Theme.Media("white"))
-	person.Mark:SetWidth(2)
 	person.Mark:SetPoint("TOPLEFT", person, "TOPLEFT", 0, -6)
 	person.Mark:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", 0, 4)
-	W.Color(person.Mark, "accent")
+	W.Painter(person.Mark, GF.PaintMark)
 	person.Mark:Hide()
 	person.Icon = person:CreateTexture(nil, "ARTWORK")
 	person.Icon:SetSize(ICON + 1, ICON + 1)
 	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -11)
-	person.Name = T(person, "name", "personName")
+	person.Name = GF.SizeAs(T(person, "name", "personName"), "title")
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
-	person.Where = T(person, "small", "textDim")
+	person.Where = GF.SizeAs(T(person, "small", "textDim"), "detail")
 	person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
 	-- Why a step that depends on what the player does holds nothing now (fillCard).
-	person.Why = T(person, "small", "textDim")
+	person.Why = GF.SizeAs(T(person, "small", "textDim"), "detail", 0)
 	person.Why:SetJustifyH("LEFT")
 	person.Why:SetWordWrap(true)
 	person.Why:Hide()
 	-- A quest on the step well above the character's level (fillCard).
-	person.Level = T(person, "small", "warning")
+	person.Level = GF.SizeAs(T(person, "small", "warning"), "detail", 0)
 	person.Level:SetJustifyH("LEFT")
 	person.Level:SetWordWrap(true)
 	person.Level:Hide()
@@ -2512,6 +2626,7 @@ local function build()
 	tip.Text = T(tip, "note", "textDim")
 	tip.Text:SetJustifyV("TOP")
 	tip.Text:SetSpacing(3)
+	GF.SizeAs(tip.Text, "note", 3)
 	tip.Text:SetPoint("TOPLEFT", tip, "TOPLEFT", TEXT_X, -6)
 	tip.Toggle = W.IconButton(tip, "chevron-down", 18, nil, nil, 10)
 	-- The step's picture, shown while the tip is open (layoutCard).
@@ -2533,11 +2648,11 @@ local function build()
 	after.Rule = W.Divider(after)
 	after.Rule:SetPoint("TOPLEFT", after, "TOPLEFT", PAD, 0)
 	after.Rule:SetPoint("TOPRIGHT", after, "TOPRIGHT", -PAD, 0)
-	after.Text = T(after, "label", "textDim")
+	after.Text = GF.SizeAs(T(after, "label", "textDim"), "detail")
 	after.Text:SetWordWrap(true)
 	after.Text:SetMaxLines(2)
 	after.Text:SetPoint("LEFT", after, "LEFT", PAD, 0)
-	after.Count = T(after, "small", "textMuted")
+	after.Count = GF.SizeAs(T(after, "small", "textMuted"), "detail")
 	after.Count:SetJustifyH("RIGHT")
 	after.Count:SetPoint("RIGHT", after, "RIGHT", -PAD, 0)
 
@@ -2547,7 +2662,7 @@ local function build()
 	along.Rule = W.Divider(along)
 	along.Rule:SetPoint("TOPLEFT", along, "TOPLEFT", PAD, 0)
 	along.Rule:SetPoint("TOPRIGHT", along, "TOPRIGHT", -PAD, 0)
-	along.Label = T(along, "small", "textMuted")
+	along.Label = GF.SizeAs(T(along, "small", "textMuted"), "up")
 	along.Label:SetPoint("LEFT", along, "TOPLEFT", PAD, -UP_TOGGLE / 2)
 	along:Hide()
 	handOver()
@@ -2560,7 +2675,7 @@ local function build()
 	toggle.Rule = W.Divider(toggle)
 	toggle.Rule:SetPoint("TOPLEFT", toggle, "TOPLEFT", PAD, 0)
 	toggle.Rule:SetPoint("TOPRIGHT", toggle, "TOPRIGHT", -PAD, 0)
-	toggle.Label = T(toggle, "small", "textMuted")
+	toggle.Label = GF.SizeAs(T(toggle, "small", "textMuted"), "up")
 	toggle.Label:SetPoint("LEFT", toggle, "LEFT", PAD, 0)
 	toggle.Icon = toggle:CreateTexture(nil, "ARTWORK")
 	toggle.Icon:SetSize(12, 12)
@@ -2691,8 +2806,10 @@ local function build()
 	foot:SetHeight(PROG_H)
 	draggable(foot)
 	foot.Line = W.ProgressLine(foot, 3)
+	W.Uncolor(foot.Line.Fill)
+	W.Painter(foot.Line.Fill, GF.PaintProgressFill)
 	foot.Line:SetPoint("LEFT", foot, "LEFT", PAD, 0)
-	foot.Pct = T(foot, "number", "textDim")
+	foot.Pct = GF.SizeAs(T(foot, "number", "textDim"), "bar")
 	foot.Pct:SetJustifyH("RIGHT")
 	foot.Pct:SetWidth(40)
 	foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -PAD, 0)
@@ -2883,6 +3000,16 @@ end)
 ns.On("GUIDE_PLACED", function(guideId, step, chain)
 	if F then GF.PlayCatchUp(guideId, step, chain) end
 end)
+
+-- A flight begins or ends (guideWindow.hideTaxi): the client says the
+-- player is on a taxi a moment after control is lost, so look again then.
+function GF.TaxiChanged()
+	if not ns.Get("guideWindow.hideTaxi") then return end
+	GF.ApplyVisibility()
+	ns.After(0.5, GF.ApplyVisibility)
+end
+ns.RegisterEvent("PLAYER_CONTROL_LOST", function() GF.TaxiChanged() end)
+ns.RegisterEvent("PLAYER_CONTROL_GAINED", function() GF.TaxiChanged() end)
 
 -- For the other GuideFrame*.lua files, which take these as their own locals
 -- when they load (GF.Bind hands over the parts and sizes).

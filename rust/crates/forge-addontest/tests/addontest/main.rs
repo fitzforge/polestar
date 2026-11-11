@@ -220,6 +220,8 @@ mod names_memory;
 #[path = "names-shown.rs"]
 mod names_shown;
 mod nav;
+#[path = "nav-arrow-look.rs"]
+mod nav_arrow_look;
 #[path = "nav-crossings.rs"]
 mod nav_crossings;
 #[path = "nav-e2e.rs"]
@@ -240,12 +242,16 @@ mod nav_memory;
 mod nav_pack;
 #[path = "nav-pins.rs"]
 mod nav_pins;
+#[path = "nav-pins-look.rs"]
+mod nav_pins_look;
 #[path = "nav-prompts.rs"]
 mod nav_prompts;
 #[path = "nav-reported.rs"]
 mod nav_reported;
 #[path = "nav-route-lines.rs"]
 mod nav_route_lines;
+#[path = "nav-route-look.rs"]
+mod nav_route_look;
 #[path = "nav-route-sparkle.rs"]
 mod nav_route_sparkle;
 #[path = "nav-router.rs"]
@@ -275,6 +281,7 @@ mod party_group;
 mod party_pair;
 #[path = "party-sync.rs"]
 mod party_sync;
+mod profiles;
 mod qol;
 #[path = "qol-bagglow.rs"]
 mod qol_bagglow;
@@ -312,6 +319,8 @@ mod skins_sweep;
 mod syntax;
 mod talents;
 mod theme;
+#[path = "theme-skin-api.rs"]
+mod theme_skin_api;
 mod travel;
 #[path = "travel-build.rs"]
 mod travel_build;
@@ -332,8 +341,18 @@ mod ui_guide_end;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-look-buttons.rs"]
+mod ui_look_buttons;
+#[path = "ui-look-guidewindow.rs"]
+mod ui_look_guidewindow;
+#[path = "ui-look-theme.rs"]
+mod ui_look_theme;
+#[path = "ui-look-toasts.rs"]
+mod ui_look_toasts;
 #[path = "ui-lookup.rs"]
 mod ui_lookup;
+#[path = "ui-movers.rs"]
+mod ui_movers;
 #[path = "ui-options.rs"]
 mod ui_options;
 #[path = "ui-packs.rs"]
