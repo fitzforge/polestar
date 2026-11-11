@@ -74,8 +74,12 @@ end
 -- Text measurement with real metrics
 ---------------------------------------------------------------------------
 
+-- A string with no font set is in the font the stub's GetFont reports for it
+-- (the game font at 12): the addon reads that back (Theme.SetFace keeps a face
+-- it already has), so it is drawn as what the addon believes it set. Without
+-- that face's metrics (no client font loaded) the fallback face, as before.
 local function fontKey(self)
-	local path = self.font and self.font[1] or ""
+	local path = self.font and self.font[1] or "Fonts\\FRIZQT__.TTF"
 	local file = path:match("([^\\/]+)$") or path
 	if preview.metrics[file] then return file end
 	return preview.fallbackFont
@@ -251,7 +255,7 @@ local function entry(o)
 	end
 	if o.kind == "FontString" then
 		e.text = o.text
-		e.font = o.font and { fontKey(o), o.font[2], o.font[3] or "" } or { preview.fallbackFont, 12, "" }
+		e.font = o.font and { fontKey(o), o.font[2], o.font[3] or "" } or { fontKey(o), 12, "" }
 		e.textColor = copy(o.textColor)
 		e.justifyH, e.justifyV = o.justifyH or "CENTER", o.justifyV or "MIDDLE"
 		e.wrap = o.wrap ~= false
