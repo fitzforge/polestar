@@ -9326,6 +9326,22 @@ test("Valik's report: Valik only with Infiltration in the log, handed in at once
 	assert.ok(at(list, 'turnin 535', is('turnin', 535)) < at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601), 'Valik before the missive drops');
 });
 
+// aVikingTrex's detail on #1661 (Discord, 2026-11-11): waiting at Valik's camp he killed the Syndicate around it and
+// the missive dropped; from then on Valik's step could not progress (Valik hostile, no errand). With the missive in
+// the bags Infiltration is ready to hand in and Valik's errand, whose reward is that missive, is moot: the step
+// applies only while Infiltration is in the log and not yet complete.
+test("#1661: with the Syndicate Missive already in the bags the guide passes Henchman Valik", { skip }, () => {
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const steps = compiled(guide).steps;
+	const s = steps.findIndex((st) => st.goals.some((g) => g.t === 'accept' && g.quest === 535)) + 1;
+	assert.ok((steps[s - 1].when || []).some((p) => p.k === 'complete' && p.neg && p.q === 533), 'gated on Infiltration not complete');
+	const who = { race: 'Tauren', raceName: 'Tauren', faction: 'Horde', cls: 'SHAMAN', className: 'Shaman', level: 31 };
+	const applies = (before) => engineRun(guide, who, { before, script: `emit({ applies = E.Applies(${s}) })` }).applies;
+	assert.equal(applies('w.onQuest(533, { 1 })'), true, 'Infiltration in the log, no missive yet: Valik');
+	assert.equal(applies('w.onQuest(533, { 1 }); w.finish(533)'), false, 'the missive dropped: Valik is passed');
+	assert.equal(applies('w.onQuest(533, { 1 }); w.onQuest(535, { 1 }); w.finish(533)'), false, 'his errand taken, then the missive dropped');
+});
+
 // Steffen's report (#1466): Infiltration (533, level 34; Syndicate 32-34) was worked at 30, right after the first Tarren
 // Mill stop, on every start, and the pace line called it hard. It is still accepted there (Valik offers his errand only
 // while it is in the log), but Valik and the missive come on the way back from Southshore's graveyard, after Dalaran,
