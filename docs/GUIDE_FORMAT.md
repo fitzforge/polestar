@@ -147,6 +147,7 @@ A step must contain at least one goal.
 | `enter` | `"Location"` | Be in a zone or an area: done once the zone or subzone text reads that name (`"Darnassus"`, `"Goldshire"`; in the client's language when the compiler finds its area, "Places by ID"), on the ground (a flight passing over it doesn't count, landing there does), and kept once the step had it, so walking on does not reopen it. Coordinates (`@x,y`) only point the arrow there. Lint warns about a name that is no zone or area of the client's tables. |
 | `train` | `[npcId]`, `<Profession> [Rank]`, or `class` | `train First Aid` / `train Mining Expert`: the nearest own-faction trainer of that profession and rank (`Apprentice`, `Journeyman`, `Expert`, `Artisan`; ranks taught by a book or quest point at its vendor or quest giver). Without a rank: the highest rank whose minimum skill (0/50/125/225) the last earlier `skill` (or `craft … until`) target for that profession in the guide reaches, Apprentice when there is none, and always above a rank the guide already trained. `train class`: the nearest trainer of the player's class. Resolved at runtime from the player's faction and position. |
 | `buy` | `<itemId> ["Item name"]` | Use `xN` for quantity. Add `nearest` to send the player to the closest own-faction vendor selling it. |
+| `auction` | `<itemId> ["Item name"]` | Buy `xN` (required) at the Auction House: the arrow leads to the nearest auctioneer of the player's faction (the neutral houses are another market and are left out). A bag count like `buy`. In a profession guide it is one way to get a material, beside the item's `collect … gather` steps: see "Materials". Takes no place. Polestar 0.3.8 (pack format 10). |
 | `vendor` | `[npcId]` or `nearest` | Sell junk / repair; `nearest` picks the closest own-faction vendor. Done when that merchant's window opens during the step; for `nearest`, also any merchant who repairs within 250 yards of one of its vendors (the same town: Polestar 0.3.6). A `vendor <npcId>` (a mount vendor, say) counts only at that NPC. Beside other goals of the step it is a stop on the way, not work: the step is done once those are, sold or not (Polestar 0.3.5). A step of only `vendor` goals waits for the window. |
 | `level` | `<N>`, `<N>.<fraction>` or `<N>+<XP>` | Reach level N (grind if needed). `level 12.5` reaches halfway through level 12 and `level 12+2500` 2500 XP into it (converted to a share of the level with the 1.12 XP table): done at level 12 with that share of the level's XP, or at any later level, and the guide window reads "Reach level 12 (50%)" with the XP still to earn under it ("1,240 XP to go"; any `level` goal shows this). The XP bar's guide mark puts its tick at that share of the bar while the character is in that level. The share is kept to whole percent; one that rounds to 0% or 100% is an error (write `level 12` or `level 13`), as is XP past the level's total; `level 12.0` is plain level 12. A guide that uses either form is written in pack format 4 (see "Conditions checked during play"). `level 35 grind 686` names the mob the level is reached on (an npc id): the compiler places the goal at that mob's spawn areas (as a `kill`'s, without the alternatives), and the arrow leads to the nearest of them, not to a `goto` before it in the step, which only leads where the mob has no known spawns (the compiler warns). The step's text stays the author's (`-- grind on Lashtail Raptor`). |
 | `money` | `<amount>` | Hold that much money: copper (`money 350`) or `1g50s` / `7s` / `25c`. Done once the bags hold it, and it stays done for the rest of its step if the money is spent before the step's other goals are done; the guide window reads "Have at least 1s 50c". For "loot until you can afford it"; pack format 5. |
@@ -203,6 +204,7 @@ Modifiers, in any order after the positional arguments:
 | `lvl <N>` | Minimum level shown on an `accept`. |
 | `grind <npcId>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area. |
 | `optional` | Never blocks the step. |
+| `gather [<Profession> <rank>] [levels <min>-<max>]` | `collect` only: this bag count is the item's gather way in a profession guide (see "Materials"). `gather Mining 1`: it takes that profession at that rank (Herbalism for a herb, Mining to smelt a bar, Skinning for leather, Enchanting for dust; quoted for two words: `gather "First Aid" 1`); `gather levels 15-30`: it drops from mobs of those levels as the player levels (cloth, meat). Either, both (the profession first) or neither. |
 | `group [N]` | Needs a group, of `N` players (2–40) when given (`kill 1234 group 3`, `accept 7583 group 5`). The guide window says "Group of 3 advised" (or "Group advised") under the goal. Overrides what the compiler derives: see "Group content". |
 | `only <cond>[,<cond>...]` | Goal applies only to matching characters. |
 | `era` / `live` | Map frame of this goal's typed coordinates, overriding `coords`. |
@@ -587,6 +589,50 @@ otherwise); the profession is named as for `skill` (quoted to use a name
 the data lacks). A `section` with no step under it is an error, and header
 keys go before the first `section`. An older Polestar ignores sections and
 plays the steps from the start, so a pack with them needs no newer format.
+
+## Materials
+
+A crafting guide's materials can be gathered or bought: the player picks per
+guide (Gather, Buy or Mix) and per material, and changes it any time. A
+section writes both ways for each material it needs that the Auction House
+sells: an `auction` goal (usually all of them in one step after the vendor
+goods) and the item's `collect` steps marked `gather`:
+
+```
+section Tailoring 75-150
+
+step Tailoring 75-150: Auction House
+  auction 2592 x567
+  auction 4306 x204
+
+step Wool Cloth
+  collect 2592 x567 anywhere gather levels 15-30
+
+step Silk Cloth
+  collect 4306 x204 anywhere gather levels 25-45
+```
+
+Polestar applies one way per item, never both, and a goal of the other way
+does not apply (like a goal for another class: its step passes when nothing
+else in it does):
+
+- An item with only `auction` goals is always bought; one with only `gather`
+  collects is always gathered.
+- Otherwise the player's pick for the item wins, then the guide's way: Buy
+  buys, Gather gathers (an item whose `gather` takes a profession the
+  character lacks, or a lower rank, is bought), and Mix, the default, gathers
+  what the character can (the profession and rank `gather` names; the levels:
+  from 2 below `min`, and for a bag count with no place, cloth looted while
+  levelling, up to 5 past `max`) and buys the rest. A character in Self-Found
+  mode gathers everything.
+
+The counts work as for any `collect` or `buy` under a section (above), so an
+`auction` goal asks only for what the section's crafts still need. Lint warns
+about a `gather` with no `auction` goal for its item in the same section (a
+player who buys would have nothing that buys that share); an `auction` with no
+`gather` is fine (bought only). An `auction` needs `xN`; one for an item that
+binds when picked up is an error. A pack with `auction` or `gather` is written
+in pack format 10 (Polestar 0.3.8).
 
 ## Jumps
 
