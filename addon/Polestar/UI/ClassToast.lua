@@ -527,8 +527,8 @@ local function showParts(f, m)
 	f.Act:SetShown(m.act ~= nil)
 	f.More:SetShown(m.more ~= nil)
 	f.Off:SetShown(m.off ~= nil)
-	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
-	f.ShowMe:SetShown(m.act == nil and m.guideId == nil)
+	f.Open:SetShown(m.act == nil and not m.noAct and m.guideId ~= nil)
+	f.ShowMe:SetShown(m.act == nil and not m.noAct and m.guideId == nil)
 end
 
 -- toasts.headsup.compact: one line.
