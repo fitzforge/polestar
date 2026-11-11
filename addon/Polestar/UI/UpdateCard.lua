@@ -185,12 +185,26 @@ end
 ---------------------------------------------------------------------------
 
 -- What the line says, or nil: { kind, latest, behind, mine, weeks, closable }.
-function UC.Banner()
+local function banner()
 	local n = U().Notice()
 	if not n then return nil end
 	local strong = n.kind == "behind" and n.behind >= 2
 	if not strong and (bannerHidden or not ns.Get("update.card")) then return nil end
 	n.closable = not strong
+	return n
+end
+
+-- The line as the guide window last asked for it (GuideFrame's banner
+-- reads UC.Banner on each layout): its text and whether it closes, "" for
+-- none.
+local laidOut = ""
+local function key(n)
+	return n and (UC.BannerText(n) .. (n.closable and "|x" or "")) or ""
+end
+
+function UC.Banner()
+	local n = banner()
+	laidOut = key(n)
 	return n
 end
 
@@ -201,13 +215,16 @@ function UC.BannerText(n)
 end
 
 function UC.DismissBanner()
-	local n = UC.Banner()
+	local n = banner()
 	if n and n.closable then bannerHidden = true end
 end
 
+-- Lays the guide window out again when the line would read otherwise than
+-- it last did: a layout redraws the whole window, so never for nothing.
 local function relayout()
 	local GF = UI.GuideFrame
-	if GF and GF.frame and GF.Layout and ns.IsLoggedIn() then GF.Layout() end
+	if not (GF and GF.frame and GF.Layout and ns.IsLoggedIn()) or key(banner()) == laidOut then return end
+	GF.Layout()
 end
 
 ---------------------------------------------------------------------------
