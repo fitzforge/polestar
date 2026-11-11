@@ -92,7 +92,12 @@
 --     search from there starts on the ground walked in on, not on a ridge
 --     the router snaps to without a height (#1650: beside the Stonewrought
 --     Dam that ridge joins only Grim Batol, a 5,600 yd walk through the
---     Wetlands for 400 along the dam); farther: unknown.
+--     Wetlands for 400 along the dam); farther: unknown. On a bridge
+--     (Polestar_Nav's bridge chokepoints: within the radius of the line
+--     between its sides), of the same surfaces the one nearest the deck's
+--     height, not the floor's: a covered bridge's roof or rail a yard or two
+--     above the bank is no floor (#1784, Silverpine's bridge north-east of
+--     the Sepulcher).
 --   Unknown again: another continent; more than JUMP (30) yards since the
 --     last read (a hearth, teleport, landing, loading screen); moving after
 --     more than FRESH (2) seconds without a check; on a taxi, a transport
@@ -478,14 +483,58 @@ local function seed(n)
 	return nil
 end
 
+-- The deck's height when (x, y) on continent c is on a bridge, else nil: a bridge of Polestar_Nav's chokepoints
+-- (PolestarNavChokepoints[c], kind "bridge"), within its radius of the line between its two sides (of its point when
+-- it has no sides). Read in place: nothing is allocated.
+local function bridgeDeck(c, x, y)
+	local list = type(_G.PolestarNavChokepoints) == "table" and _G.PolestarNavChokepoints[c]
+	if type(list) ~= "table" then return nil end
+	for i = 1, #list do
+		local e = list[i]
+		if type(e) == "table" and e.kind == "bridge" and e.wx and e.wy and e.z then
+			local r = e.r or 5
+			local s = e.sides
+			local ax, ay, bx, by = e.wx, e.wy, e.wx, e.wy
+			if type(s) == "table" and s[1] and s[2] and s[1].wx and s[2].wx then
+				ax, ay, bx, by = s[1].wx, s[1].wy, s[2].wx, s[2].wy
+			end
+			local dx, dy = bx - ax, by - ay
+			local len2 = dx * dx + dy * dy
+			local t = len2 > 0 and ((x - ax) * dx + (y - ay) * dy) / len2 or 0
+			if t < 0 then t = 0 elseif t > 1 then t = 1 end
+			local ex, ey = ax + dx * t - x, ay + dy * t - y
+			if ex * ex + ey * ey <= r * r then return e.z end
+		end
+	end
+	return nil
+end
+
 -- A known floor from the n surfaces read: the one nearest it, never more
 -- than RISE above it (any drop is a fall); none: nil (track keeps the floor
--- within KEEP yards of where it was last on a surface).
-local function follow(n)
+-- within KEEP yards of where it was last on a surface). On a bridge (deck:
+-- its height, bridgeDeck) with a surface the follow may take within RISE of
+-- the deck, the one nearest the deck instead (#1784): a covered bridge's
+-- roof or side rail a yard or two above the bank it is walked onto from is
+-- no floor. Silverpine's bridge north-east of the Sepulcher, walked onto
+-- from the bank at 60: the roof's edge at 62 was nearer than the deck at
+-- 56, and the arrow's walk from the roof turned back to the bank. Under the
+-- bridge (the river, a road), with no such surface, the floor is followed
+-- as anywhere else.
+local function follow(n, deck)
+	local ref = floorZ
+	if deck then
+		for i = 1, n do
+			local z = surf[i]
+			if z <= floorZ + RISE and abs(z - deck) <= RISE then
+				ref = deck
+				break
+			end
+		end
+	end
 	local best, gap = nil, huge
 	for i = 1, n do
 		local z = surf[i]
-		if z <= floorZ + RISE and abs(z - floorZ) < gap then best, gap = z, abs(z - floorZ) end
+		if z <= floorZ + RISE and abs(z - ref) < gap then best, gap = z, abs(z - ref) end
 	end
 	return best
 end
@@ -702,7 +751,7 @@ local function track(P, pc, px, py)
 		if z ~= nil and abs(z - floorZ) > ZTOL then
 			floorZ, onX, onY = z, px, py
 		else
-			local f = follow(n)
+			local f = follow(n, bridgeDeck(pc, px, py))
 			if f ~= nil then
 				floorZ, onX, onY = f, px, py
 			else
