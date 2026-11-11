@@ -1657,5 +1657,137 @@
 			}
 		],
 		"note": "Abigail Lawson, an NPC of Forever's quest 94893 missing from the merged data."
+	},
+	"257926": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						44,
+						63.2
+					],
+					[
+						52,
+						69.6
+					],
+					[
+						65.8,
+						79.2
+					],
+					[
+						45.1,
+						64.1
+					],
+					[
+						45.3,
+						65.5
+					],
+					[
+						45.6,
+						66.5
+					],
+					[
+						47.5,
+						66.5
+					],
+					[
+						49.2,
+						64.9
+					],
+					[
+						50.8,
+						69.1
+					],
+					[
+						51.4,
+						71.0
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 Forever quest record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 5 people looted item 4338 from it at spots its known spawns miss"
+			}
+		],
+		"note": "Farholde Scout Trainee: its known Riverglades spawns plus where players looted Mageweave Cloth from it."
+	},
+	"258570": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						33.4,
+						38.0
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 33.4,38.0 (quest 95278)"
+			}
+		],
+		"note": "Da'grosh placed where players met it in the Riverglades."
+	},
+	"258697": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						52.8,
+						42.4
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 52.8,42.4 (quest 94858)"
+			}
+		],
+		"note": "Farmer Elbrim placed where players met it in the Riverglades."
+	},
+	"259254": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						53.7,
+						66.3
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 53.7,66.3 (quest 94992)"
+			}
+		],
+		"note": "Lost Horse placed where players met it in the Riverglades."
 	}
 }
