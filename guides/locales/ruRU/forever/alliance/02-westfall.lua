@@ -115,7 +115,7 @@ return {
 
 	-- Step 22: Defensive Stance
 	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:1323} Osric Strang · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
-	["{npc:5480} trains warriors in {object:2100}, near {npc:1323}'s shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "",
+	["{npc:5480} trains warriors in {object:2100}, near {npc:1323}'s shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "{npc:5480} обучает воинов здесь: {object:2100}, рядом с лавкой NPC {npc:1323}; трамвай из города {zone:1455} прибывает сюда: {object:28027}, к северу от него. {npc:6089} и {npc:6090} стоят там вместе рядом с заведением {object:2152}. {npc:6090} дерется с вами за свою кружку. Если {npc:5480} не предлагает задание {quest:1638}, идите прямо к NPC {npc:6089}: он дает {quest:1639} и без него.",
 
 	-- Step 23: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
@@ -178,7 +178,7 @@ return {
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "Дозорные полей",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
-	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "",
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}: оставьте пять для NPC {npc:392} ({area:115}), позже по маршруту",
 
 	-- Step 35: The gnoll hills
 	["The gnoll hills"] = "Холмы гноллов",
