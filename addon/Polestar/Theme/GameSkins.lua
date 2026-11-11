@@ -139,12 +139,26 @@ local KITS = {
 		rowLit = "common-button-list-small-selected",
 		status = { bg = "Legacy-Progressbar-BG", fill = "Legacy-Progressbar-Fill", frame = "Legacy-Progressbar-Frame" },
 	}),
-	-- ButtonFrameTemplateNoPortrait's mainline offsets, the retail art.
+	-- ButtonFrameTemplateNoPortrait's mainline offsets, the retail art. The
+	-- guide window wears SimplePanelTemplate's thin metal (one corner and two
+	-- edges, the rest their mirror images, as NineSliceUtil mirrors them), the
+	-- toasts and cards the alert toasts' frame, the tab strip and navigator
+	-- the damage meter's header bar, the current goal the Settings list's
+	-- selected row, the text buttons the 128-RedButton.
 	blizzard = settingsParts({
 		source = "retail",
 		metalOut = { 8, 16, 4, 3 },
 		closeSize = 24, closeAt = { 1, 0 },
-		headerBar = "ui-damagemeters-header-bar",
+		simple = { corner = "UI-Frame-SimpleMetal-CornerTopLeft", top = "_UI-Frame-SimpleMetal-EdgeTop", left = "!UI-Frame-SimpleMetal-EdgeLeft" },
+		toast = { "Toast-NineSlice-CornerTopLeft", "_Toast-NineSlice-EdgeTop", "Toast-NineSlice-CornerTopRight",
+			"!Toast-NineSlice-EdgeLeft", false, "!Toast-NineSlice-EdgeRight",
+			"Toast-NineSlice-CornerBottomLeft", "_Toast-NineSlice-EdgeBottom", "Toast-NineSlice-CornerBottomRight" },
+		headerBar = "ui-damagemeters-header-bar", headerCap = 25,
+		rowLit = "Options_List_Active", flushBare = true,
+		redButton = { "128-RedButton-Left", "_128-RedButton-Center", "128-RedButton-Right",
+			pressed = { "128-RedButton-Left-Pressed", "_128-RedButton-Center-Pressed", "128-RedButton-Right-Pressed" },
+			disabled = { "128-RedButton-Left-Disabled", "_128-RedButton-Center-Disabled", "128-RedButton-Right-Disabled" },
+			lit = "128-RedButton-Highlight" },
 		status = { bg = "ui-damagemeters-bar-shadowbg", edge = "ui-damagemeters-bar-shadowedge" },
 	}),
 	-- The vanilla files: the dialog box round the big windows, the chat
@@ -301,6 +315,57 @@ local function nine(f, key, kit, names, host, out, layer, sub, sizes)
 	p[6]:SetPoint("TOPRIGHT", p[3], "BOTTOMRIGHT"); p[6]:SetPoint("BOTTOMRIGHT", p[9], "TOPRIGHT"); p[6]:SetWidth(sz[6][1])
 	p[5]:SetPoint("TOPLEFT", p[1], "BOTTOMRIGHT"); p[5]:SetPoint("BOTTOMRIGHT", p[9], "TOPLEFT")
 	return p
+end
+
+-- A frame of one corner and two edges, the other corners and edges their
+-- mirror images (NineSliceUtil's mirrorLayout: SimplePanelTemplate).
+-- parts = { corner, top, left }; `cut` the share of each piece's box that
+-- holds the rail, drawn `size` units a side (the edges as thick); out =
+-- { l, t, r, b } past host's edges. -> the eight textures (p[5] unused)
+local function mirrored(f, key, kit, parts, cut, size, host, out, layer, sub)
+	out = out or { 0, 0, 0, 0 }
+	local k = store(f)
+	local p = k[key]
+	if not p then
+		p = {}
+		for i = 1, 9 do if i ~= 5 then p[i] = host:CreateTexture(nil, layer or "BORDER", nil, sub or 0) end end
+		k[key] = p
+	end
+	-- Texture coordinates run backwards on a mirrored piece.
+	draw(p[1], kit, parts.corner, 0, cut, 0, cut)
+	draw(p[3], kit, parts.corner, cut, 0, 0, cut)
+	draw(p[7], kit, parts.corner, 0, cut, cut, 0)
+	draw(p[9], kit, parts.corner, cut, 0, cut, 0)
+	draw(p[2], kit, parts.top, 0, 1, 0, cut)
+	draw(p[8], kit, parts.top, 0, 1, cut, 0)
+	draw(p[4], kit, parts.left, 0, cut, 0, 1)
+	draw(p[6], kit, parts.left, cut, 0, 0, 1)
+	for i = 1, 9 do if p[i] then p[i]:ClearAllPoints() end end
+	p[1]:SetPoint("TOPLEFT", host, "TOPLEFT", -out[1], out[2]); p[1]:SetSize(size, size)
+	p[3]:SetPoint("TOPRIGHT", host, "TOPRIGHT", out[3], out[2]); p[3]:SetSize(size, size)
+	p[7]:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", -out[1], -out[4]); p[7]:SetSize(size, size)
+	p[9]:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", out[3], -out[4]); p[9]:SetSize(size, size)
+	p[2]:SetPoint("TOPLEFT", p[1], "TOPRIGHT"); p[2]:SetPoint("TOPRIGHT", p[3], "TOPLEFT"); p[2]:SetHeight(size)
+	p[8]:SetPoint("BOTTOMLEFT", p[7], "BOTTOMRIGHT"); p[8]:SetPoint("BOTTOMRIGHT", p[9], "BOTTOMLEFT"); p[8]:SetHeight(size)
+	p[4]:SetPoint("TOPLEFT", p[1], "BOTTOMLEFT"); p[4]:SetPoint("BOTTOMLEFT", p[7], "TOPLEFT"); p[4]:SetWidth(size)
+	p[6]:SetPoint("TOPRIGHT", p[3], "BOTTOMRIGHT"); p[6]:SetPoint("BOTTOMRIGHT", p[9], "TOPRIGHT"); p[6]:SetWidth(size)
+	return p
+end
+Theme.KitMirrored = mirrored
+
+-- A white texture carrying a vertical or horizontal gradient (no texture
+-- coordinates set: a status bar or the preview would lose the gradient).
+local function gradient(t, orientation, r0, g0, b0, a0, r1, g1, b1, a1)
+	t:SetTexture(Theme.Media("white"))
+	if t.SetHorizTile then t:SetHorizTile(false); t:SetVertTile(false) end
+	if t.SetGradient and CreateColor then
+		t:SetVertexColor(1, 1, 1, 1)
+		t:SetGradient(orientation, CreateColor(r0, g0, b0, a0), CreateColor(r1, g1, b1, a1))
+	else
+		t:SetVertexColor((r0 + r1) / 2, (g0 + g1) / 2, (b0 + b1) / 2, (a0 + a1) / 2)
+	end
+	t:Show()
+	return t
 end
 
 -- One piece of art cut into nine: corners `cu` x `cv` of its box (fractions),
@@ -672,20 +737,26 @@ local GUIDE = {
 		o:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, 0)
 		sliced(f, "slim", kit, kit.slim, o, { 3, 3, 3, 3 }, "BORDER", 0, true)
 	end,
-	blizzard = function(f)
+	-- The damage meter's window: a black body, under SimplePanelTemplate's
+	-- thin metal rail on the guide window (its 2-unit rail astride the
+	-- window's edge: the corner art's rail starts 4 in, so the pieces lie 5
+	-- out), the alert toasts' frame on the toasts and cards (its rail's outer
+	-- edge one unit outside: the corner art's rail starts 3 in, so 4 out).
+	-- The frame sits at the window's own level: the content draws over it.
+	blizzard = function(f, kit)
 		local a = opacity(f)
-		local t = body(f, 0, 0, 0, 0.96 * a)
-		t:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -20)
-		local band = tex(f, "band", "BACKGROUND", -7)
-		band:ClearAllPoints()
-		band:SetPoint("TOPLEFT", f, "TOPLEFT")
-		band:SetPoint("TOPRIGHT", f, "TOPRIGHT")
-		band:SetHeight(20)
-		file(band, Theme.Media("white"))
-		if band.SetGradient and CreateColor then
-			band:SetGradient("VERTICAL", CreateColor(0, 0, 0, 0.96 * a), CreateColor(0, 0, 0, 0.48 * a))
+		body(f, 0, 0, 0, 0.96 * a)
+		hideKey(f, "band")
+		local o = child(f, "edge", 0)
+		o:EnableMouse(false)
+		o:ClearAllPoints()
+		o:SetAllPoints(f)
+		if f.psGuide then
+			hideKey(f, "toastArt")
+			mirrored(f, "simpleArt", kit, kit.simple, 24 / 64, 24, o, { 5, 5, 5, 5 }, "BORDER", 0)
 		else
-			band:SetVertexColor(0, 0, 0, 0.8 * a)
+			hideKey(f, "simpleArt")
+			nine(f, "toastArt", kit, kit.toast, o, { 4, 4, 4, 4 }, "BORDER", 0)
 		end
 	end,
 	-- The guide window is a chat frame: the tooltip tile in the window's
@@ -840,8 +911,48 @@ local function panel(f, kit)
 end
 
 -- A text button: UIPanelButtonTemplate (UI-Panel-Button-Up, the same file in
--- every look).
-local function textButton(f)
+-- every look), or the kit's own (Blizzard's 128-RedButton: the retail
+-- template's left cap, tiled middle and right cap at the button's height,
+-- the pressed and disabled sets, the red glow under the cursor).
+local RED_CAP = 48 -- the bevelled end of the 128-RedButton art, in its own pixels
+local function kitButton(f, kit)
+	local set = kit.redButton
+	local k = store(f)
+	local p = k.red
+	if not p then
+		p = {}
+		for i = 1, 3 do p[i] = f:CreateTexture(nil, "BACKGROUND", nil, -6) end
+		p.lit = f:CreateTexture(nil, "HIGHLIGHT")
+		p.lit:SetBlendMode("ADD")
+		p.lit:SetPoint("TOPLEFT", f, "TOPLEFT", -6, 4)
+		p.lit:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 6, -4)
+		k.red = p
+		f:HookScript("OnMouseDown", function(b) if b:IsEnabled() and Theme.Kit() == kit then k.redDown = true; kitButton(b, kit) end end)
+		f:HookScript("OnMouseUp", function(b) if k.redDown then k.redDown = nil; if Theme.Kit() == kit then kitButton(b, kit) end end end)
+		f:HookScript("OnEnable", function(b) if Theme.Kit() == kit then kitButton(b, kit) end end)
+		f:HookScript("OnDisable", function(b) if Theme.Kit() == kit then kitButton(b, kit) end end)
+	end
+	local names = set
+	if f.IsEnabled and not f:IsEnabled() then names = set.disabled elseif k.redDown then names = set.pressed end
+	local _, _, _, _, _, wl, hl = region(kit, names[1])
+	local _, _, _, _, _, wr = region(kit, names[3])
+	local h = f:GetHeight()
+	if not (h and h > 0) then h = Theme.Metric("buttonH", 22) end
+	-- The caps keep the art's aspect at the button's height.
+	local cap = (wl and hl and hl > 0) and RED_CAP * h / hl or 8
+	draw(p[1], kit, names[1], 0, wl and RED_CAP / wl or 1, 0, 1)
+	draw(p[2], kit, names[2])
+	draw(p[3], kit, names[3], wr and 1 - RED_CAP / wr or 0, 1, 0, 1)
+	draw(p.lit, kit, set.lit)
+	for i = 1, 3 do p[i]:ClearAllPoints() end
+	p[1]:SetPoint("TOPLEFT", f, "TOPLEFT"); p[1]:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT"); p[1]:SetWidth(cap)
+	p[3]:SetPoint("TOPRIGHT", f, "TOPRIGHT"); p[3]:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT"); p[3]:SetWidth(cap)
+	p[2]:SetPoint("TOPLEFT", p[1], "TOPRIGHT"); p[2]:SetPoint("BOTTOMRIGHT", p[3], "BOTTOMLEFT")
+	return p
+end
+
+local function textButton(f, kit)
+	if kit.redButton then return kitButton(f, kit) end
 	return P.redButton(f)
 end
 
@@ -1033,7 +1144,7 @@ local function paints(name)
 		sidebar = function(f) inset(f, kit, kit.source == "file" and 6 or nil) end,
 		inset = function(f) inset(f, kit) end,
 		button = function(f)
-			if f.psTextButton then return textButton(f) end
+			if f.psTextButton then return textButton(f, kit) end
 			card(f, kit)
 		end,
 		tile = function(f) card(f, kit) end,
@@ -1222,6 +1333,8 @@ end
 -- kit with tabClear stops the outline that far under the edge, so it
 -- rises from the strip's foot and closes as a tab does (Forever); a kit
 -- without one lights the active tab as the Settings list's selected row.
+-- Blizzard's strip is the damage meter's header bar: the active tab is the
+-- selected row too, and the resting tabs their label alone (kit.flushBare).
 function Theme.KitTab(b, active, label, flush)
 	local kit = Theme.Kit()
 	if not kit then
@@ -1230,7 +1343,7 @@ function Theme.KitTab(b, active, label, flush)
 	end
 	local isFile = kit.source == "file"
 	local clear = flush and kit.tabClear
-	local lit = flush and active and kit.source == "atlas" and not clear and kit.navLit
+	local lit = flush and active and (kit.source == "atlas" or kit.flushBare) and not clear and kit.navLit
 	local gap = clear and kit.tabGap or 0
 	local host = child(b, "tab", -1)
 	host:EnableMouse(false)
@@ -1252,6 +1365,9 @@ function Theme.KitTab(b, active, label, flush)
 		host:SetHeight(active and 24 or 21)
 		host:SetAlpha(active and 1 or 0.55)
 		three(b, "tabArt", kit, kit.chatTab, host, 10, 10 / 58, "BACKGROUND", 0)
+	elseif flush and kit.flushBare then
+		hideKey(b, "tabLit")
+		hideKey(b, "tabArt")
 	else
 		hideKey(b, "tabLit")
 		local h = active and (isFile and 28 or 26) or (isFile and 24 or 23)
@@ -1314,22 +1430,6 @@ function Theme.KitRowLit(r, shown, key, inset)
 	end
 	t:SetPoint("TOPLEFT", r, "TOPLEFT", inset or 4, 0)
 	t:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -(inset or 4), 0)
-	if kit.source == "retail" then
-		file(t, Theme.Media("white"))
-		if t.SetGradient and CreateColor then
-			t:SetGradient("HORIZONTAL", CreateColor(1, 0.82, 0, 0.2), CreateColor(1, 0.82, 0, 0))
-		else
-			t:SetVertexColor(1, 0.82, 0, 0.12)
-		end
-		local e = tex(r, key .. "Edge", "BORDER", 0)
-		file(e, Theme.Media("white"))
-		e:SetVertexColor(1, 0.82, 0, 1)
-		e:ClearAllPoints()
-		e:SetPoint("TOPLEFT", t, "TOPLEFT")
-		e:SetPoint("BOTTOMLEFT", t, "BOTTOMLEFT")
-		e:SetWidth(2)
-		return true
-	end
 	draw(t, kit, (key == "navLit" and kit.navLit) or kit.rowLit)
 	if kit.source == "file" then t:SetBlendMode("ADD") end
 	return true
@@ -1343,8 +1443,10 @@ function Theme.KitHeader(f, shown)
 		hideKey(f, "header")
 		return false
 	end
-	-- The band's own rows: 4..39 of its 40, its ends' rods 25 of its 300.
-	local parts = three(f, "header", kit, kit.header, f, 12, 25 / 300, "BACKGROUND", -3)
+	-- The band's own rows: 4..39 of its 40; its ends (the curl that opens the
+	-- lines at the left, their fade at the right) 25 of its 300, drawn at
+	-- that width (kit.headerCap: 12 squeezes them, Forever's rods).
+	local parts = three(f, "header", kit, kit.header, f, kit.headerCap or 12, 25 / 300, "BACKGROUND", -3)
 	local _, l, r, tp, b = region(kit, kit.header)
 	if l then
 		local du, dv = r - l, b - tp
@@ -1354,21 +1456,27 @@ function Theme.KitHeader(f, shown)
 	return true
 end
 
--- The guide window's tab strip ground: Blizzard's damage meter header bar;
--- in Forever the Settings panel's line under its tabs (kit.strip,
--- Options_HorizontalDivider: one unit high, fading out at its ends) along
--- the strip's foot where the tabs stand, 4 in from the window's sides so
--- its ends fade inside the frame's line. With the strip at the window's
--- bottom (ui.barsBottom) the line runs along the strip's top.
+-- The guide window's tab strip ground. Forever: the Settings panel's line
+-- under its tabs (kit.strip, Options_HorizontalDivider: one unit high,
+-- fading out at its ends) along the strip's foot where the tabs stand, 4 in
+-- from the window's sides so its ends fade inside the frame's line; with
+-- the strip at the window's bottom (ui.barsBottom) along the strip's top.
+-- Blizzard: the damage meter's header bar, as the meter wears it: over the
+-- tab strip and the navigator together (the navigator is guideNav high
+-- under the strip, which folds to nothing in compact mode, so the bar then
+-- covers the navigator alone). The art's rows: its hairline (3) at the
+-- top, the gradient between, its gold line and glow (7) at the foot, the
+-- ends kept at the art's width.
+local BAR_TOP, BAR_FOOT, BAR_END = 3 / 28, 7 / 28, 20 / 280
 function Theme.KitStrip(f, shown)
 	local kit = Theme.Kit()
 	if not (kit and (kit.headerBar or kit.strip) and shown) then
-		hideKey(f, "strip")
+		hideKey(f, "stripHost")
 		hideKey(f, "stripLine")
 		return false
 	end
 	if kit.strip then
-		hideKey(f, "strip")
+		hideKey(f, "stripHost")
 		local t = tex(f, "stripLine", "BACKGROUND", -6)
 		draw(t, kit, kit.strip)
 		local flip = ns.Get and ns.Get("ui.growUp") and ns.Get("ui.barsBottom")
@@ -1380,9 +1488,44 @@ function Theme.KitStrip(f, shown)
 		return true
 	end
 	hideKey(f, "stripLine")
-	local t = tex(f, "strip", "BACKGROUND", -6)
-	draw(t, kit, kit.headerBar)
-	t:SetAllPoints(f)
+	-- On the strip's parent (the window): the strip hides in compact mode,
+	-- and the bar must stay over the navigator. Its rect still anchors to
+	-- the strip's, which folds to nothing then.
+	local host = child(f, "stripHost", -1)
+	host:SetParent(f:GetParent() or f)
+	host:EnableMouse(false)
+	host:ClearAllPoints()
+	host:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+	host:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+	host:SetPoint("BOTTOM", f, "BOTTOM", 0, -Theme.Metric("guideNav", 32))
+	local k = store(f)
+	local p = k.stripArt
+	if not p then
+		p = {}
+		for i = 1, 9 do p[i] = host:CreateTexture(nil, "BACKGROUND", nil, -6) end
+		k.stripArt = p
+	end
+	local _, _, _, _, _, w, h = region(kit, kit.headerBar)
+	w, h = w or 280, h or 28
+	local endW, topH, footH = w * BAR_END, h * BAR_TOP, h * BAR_FOOT
+	local us = { { 0, BAR_END }, { BAR_END, 1 - BAR_END }, { 1 - BAR_END, 1 } }
+	local vs = { { 0, BAR_TOP }, { BAR_TOP, 1 - BAR_FOOT }, { 1 - BAR_FOOT, 1 } }
+	for row = 1, 3 do
+		for col = 1, 3 do
+			local t = p[(row - 1) * 3 + col]
+			draw(t, kit, kit.headerBar, us[col][1], us[col][2], vs[row][1], vs[row][2])
+			t:ClearAllPoints()
+		end
+	end
+	p[1]:SetPoint("TOPLEFT", host, "TOPLEFT"); p[1]:SetSize(endW, topH)
+	p[3]:SetPoint("TOPRIGHT", host, "TOPRIGHT"); p[3]:SetSize(endW, topH)
+	p[7]:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT"); p[7]:SetSize(endW, footH)
+	p[9]:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT"); p[9]:SetSize(endW, footH)
+	p[2]:SetPoint("TOPLEFT", p[1], "TOPRIGHT"); p[2]:SetPoint("BOTTOMRIGHT", p[3], "BOTTOMLEFT")
+	p[8]:SetPoint("TOPLEFT", p[7], "TOPRIGHT"); p[8]:SetPoint("BOTTOMRIGHT", p[9], "BOTTOMLEFT")
+	p[4]:SetPoint("TOPLEFT", p[1], "BOTTOMLEFT"); p[4]:SetPoint("BOTTOMRIGHT", p[7], "TOPRIGHT")
+	p[6]:SetPoint("TOPLEFT", p[3], "BOTTOMLEFT"); p[6]:SetPoint("BOTTOMRIGHT", p[9], "TOPRIGHT")
+	p[5]:SetPoint("TOPLEFT", p[1], "BOTTOMRIGHT"); p[5]:SetPoint("BOTTOMRIGHT", p[9], "TOPLEFT")
 	return true
 end
 
@@ -1418,7 +1561,12 @@ end
 Theme.KitPaintFill = paintFill
 function Theme.KitStatus(b)
 	local kit = Theme.Kit()
-	for _, key in ipairs({ "statusFrame", "statusEdge", "statusArt", "statusNine", "statusFill" }) do hideKey(b, key) end
+	for _, key in ipairs({ "statusFrame", "statusEdge", "statusArt", "statusNine", "statusFill", "statusTrack", "statusRim" }) do hideKey(b, key) end
+	-- Blizzard's branch re-anchors the bar's ground between its caps; every
+	-- kit (and the house bar after them) expects it over the whole bar.
+	b.Bg:ClearAllPoints()
+	b.Bg:SetAllPoints(b)
+	b.Bg:Show()
 	local own = b:GetStatusBarTexture()
 	if own then own:SetAlpha(1) end
 	local k = store(b)
@@ -1444,16 +1592,26 @@ function Theme.KitStatus(b)
 		o:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 7, -7)
 		sliced(b, "statusArt", kit, kit.status.frame, o, nil, "ARTWORK", 0, true, 0.5)
 	elseif kit.source == "retail" then
+		-- The meter's bar as its rows wear it: the shadowed track with its
+		-- round ends kept (the art's 128 cut at 7 a side), the game's status
+		-- bar texture in the tracker's gold (NORMAL_FONT_COLOR), and the edge
+		-- highlight 2 out, its ends kept the same way.
 		b:SetStatusBarTexture(CLASSIC.statusFill[1])
 		fill = b:GetStatusBarTexture()
 		fill:SetTexCoord(0, 1, 0, 1)
-		fill:SetVertexColor(1, 0.67, 0, 1)
-		draw(b.Bg, kit, kit.status.bg)
-		local e = tex(b, "statusEdge", "OVERLAY", 6)
-		draw(e, kit, kit.status.edge)
-		e:ClearAllPoints()
-		e:SetPoint("TOPLEFT", b, "TOPLEFT", -2, 2)
-		e:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 2, -2)
+		fill:SetVertexColor(1, 0.82, 0, 1)
+		b.Bg:Hide()
+		local track = child(b, "statusTrack", 0)
+		track:EnableMouse(false)
+		track:ClearAllPoints()
+		track:SetPoint("TOPLEFT", b, "TOPLEFT", -2, 2)
+		track:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 2, -2)
+		track:SetFrameLevel(b:GetFrameLevel())
+		three(b, "statusArt", kit, kit.status.bg, track, 7, 7 / 128, "BACKGROUND", -1)
+		local rim = child(b, "statusRim", 3)
+		rim:EnableMouse(false)
+		rim:SetAllPoints(track)
+		three(b, "statusEdge", kit, kit.status.edge, rim, 7, 7 / 128, "OVERLAY", 6)
 	else
 		-- The XP bar: UI-StatusBar in its purple over a half-black trough,
 		-- in the cast bar's frame at 60 % of its sheet: caps 19 wide, the

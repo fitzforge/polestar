@@ -97,9 +97,18 @@ class TextureCache {
 		if (this.uris.has(key)) return this.uris.get(key);
 		const t = this.load(name);
 		if (!t) return null;
+		// Four coordinates are the corners' rectangle, cut on whole pixels;
+		// coordinates running backwards mirror the piece (the game's
+		// NineSliceUtil mirrorLayout draws one corner four ways), which the
+		// corner form samples along its own axes, as a turned piece.
+		const [l, r, top, bottom] = tc && tc.length >= 8 ? [] : tc || [0, 1, 0, 1];
 		let w, h, at;
-		if (tc && tc.length >= 8) {
-			const [ulx, uly, llx, lly, urx, ury] = tc;
+		if (!(tc && tc.length >= 8) && l <= r && top <= bottom) {
+			const x0 = Math.round(l * t.w), x1 = Math.round(r * t.w), y0 = Math.round(top * t.h), y1 = Math.round(bottom * t.h);
+			w = Math.max(1, x1 - x0); h = Math.max(1, y1 - y0);
+			at = (x, y) => ((y0 + y) * t.w + (x0 + x)) * 4;
+		} else {
+			const [ulx, uly, llx, lly, urx, ury] = tc && tc.length >= 8 ? tc : [l, top, l, bottom, r, top];
 			w = Math.max(1, Math.round(Math.hypot((urx - ulx) * t.w, (ury - uly) * t.h)));
 			h = Math.max(1, Math.round(Math.hypot((llx - ulx) * t.w, (lly - uly) * t.h)));
 			at = (x, y) => {
@@ -107,11 +116,6 @@ class TextureCache {
 				const u = ulx + (urx - ulx) * fx + (llx - ulx) * fy, v = uly + (ury - uly) * fx + (lly - uly) * fy;
 				return (Math.min(t.h - 1, Math.max(0, Math.floor(v * t.h))) * t.w + Math.min(t.w - 1, Math.max(0, Math.floor(u * t.w)))) * 4;
 			};
-		} else {
-			const [l, r, top, bottom] = tc || [0, 1, 0, 1];
-			const x0 = Math.round(l * t.w), x1 = Math.round(r * t.w), y0 = Math.round(top * t.h), y1 = Math.round(bottom * t.h);
-			w = Math.max(1, x1 - x0); h = Math.max(1, y1 - y0);
-			at = (x, y) => ((y0 + y) * t.w + (x0 + x)) * 4;
 		}
 		const out = Buffer.alloc(w * h * 4);
 		for (let y = 0; y < h; y++) {

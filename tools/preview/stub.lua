@@ -267,6 +267,9 @@ local function entry(o)
 		e.checked = o.checked
 		e.checkedTexture = idOf(o.checkedTexture)
 		e.thumbTexture = idOf(o.thumbTexture)
+		-- A status bar's own fill texture (SetStatusBarTexture): drawn to the
+		-- bar's value by the renderer.
+		e.barTexture = idOf(o.barTexture)
 		e.mask = idOf(o.mask)
 		e.value, e.minValue, e.maxValue = o.value, o.minValue, o.maxValue
 		e.barTexture = idOf(o.barTexture)
@@ -352,6 +355,7 @@ function preview.dump(opts)
 			add(o.parent)
 			add(o.scrollChild)
 			add(o.thumbTexture)
+			add(o.barTexture)
 			add(o.checkedTexture)
 			add(o.barTexture)
 		end

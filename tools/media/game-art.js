@@ -49,6 +49,15 @@ const ELEMENTS = [
 	'minimal-scrollbar-track-top', '!minimal-scrollbar-track-middle', 'minimal-scrollbar-track-bottom',
 	'minimal-scrollbar-small-thumb-top', 'minimal-scrollbar-small-thumb-middle', 'minimal-scrollbar-small-thumb-bottom',
 	'minimal-scrollbar-arrow-top', 'minimal-scrollbar-arrow-bottom',
+	// The small windows' frames: SimplePanelTemplate's thin metal (one corner
+	// and two edges, mirrored as NineSliceUtil mirrors them) round the guide
+	// window, the alert toasts' frame round the toasts and cards; the objective
+	// tracker's check mark and secondary header.
+	'UI-Frame-SimpleMetal-CornerTopLeft', '_UI-Frame-SimpleMetal-EdgeTop', '!UI-Frame-SimpleMetal-EdgeLeft',
+	'Toast-NineSlice-CornerTopLeft', 'Toast-NineSlice-CornerTopRight', 'Toast-NineSlice-CornerBottomLeft',
+	'Toast-NineSlice-CornerBottomRight', '_Toast-NineSlice-EdgeTop', '_Toast-NineSlice-EdgeBottom',
+	'!Toast-NineSlice-EdgeLeft', '!Toast-NineSlice-EdgeRight',
+	'UI-QuestTracker-Secondary-Objective-Header', 'UI-QuestTracker-Tracker-Check',
 ];
 
 const OUT = path.join('Theme', 'GameArt.lua');
