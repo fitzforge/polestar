@@ -31,10 +31,8 @@
 -- bound inn, teleport landings, crossing ends, the player) are measured once
 -- per target by the engine (Nav/Walk.lua Walk.Measure, priced for the
 -- player's faction) instead of straight x1.25 (a place the engine finds no
--- walk from keeps its straight estimate): the router's cost chooses, never
--- below the walk's own time (a slope or the other faction's town costs more
--- than its yards; a road's discount picks the road among walks but never
--- makes a walk beat a faster flight, ride or hearth, #1603), its
+-- walk from keeps its straight estimate): the router's cost chooses (a road
+-- costs less than its yards, a slope or the other faction's town more), its
 -- yards time the walk and measure the leg. When the measure comes in the
 -- route is planned again and changes only if it now goes another way
 -- (Travel.Remeasured). Every later walk leg takes the yards of its own
@@ -381,8 +379,7 @@ end
 --         walking engine's measure of the walk from that place (the player when
 --         start) to the target (Nav/Walk.lua Walk.Measured): its cost (in
 --         running yards, priced by ground and the player's faction: a road
---         walk costs less than its yards) chooses, never below its yards
---         (#1603), its yards time it and
+--         walk costs less than its yards) chooses, its yards time it and
 --         measure the leg; false: the engine found no walk from there, so a
 --         portal's end walks on only by the portal (its landing is ground the
 --         game puts the player on, not a deck off its pier; #989); nil keeps
@@ -731,10 +728,9 @@ local function planRoute(p)
 
 	-- The walks to the target the walking engine measured (p.walkCost, Nav/Walk.lua):
 	-- tw[v] = the walk's cost from key vertex v (chooses), ty[v] its yards
-	-- (times and measures it); nil to keep the straight estimate. The cost is
-	-- never below the yards: flights, rides and the Hearthstone cost their real
-	-- seconds, and a road walk priced at 0.8 of its yards (Roads style: 0.5)
-	-- beat a flight up to a fifth faster (#1603). nw[v]: no
+	-- (times and measures it); nil to keep the straight estimate. With
+	-- p.timeWalks a cost below its yards (a road's) is its yards (Nav.PlanRoute,
+	-- #1603); `discounted`: some measured cost was below its yards. nw[v]: no
 	-- walk from v to the target at all (a portal's end the engine found no
 	-- walk from, p.noDirect's start): the Rut'theran portal's landing priced
 	-- straight up the tree sent players in Darnassus back down the portal, and
@@ -743,7 +739,7 @@ local function planRoute(p)
 	-- Walk.Measure: the player, flight masters, docks and portal ends, the inn and
 	-- teleport landings, crossing ends and chain mouths (a walk from those stays
 	-- hand-made, drawn straight; only its price is the engine's).
-	local tw, ty, nw = {}, {}, {}
+	local tw, ty, nw, discounted = {}, {}, {}, false
 	if p.noDirect then nw[1] = true end
 	local walkCost, places = p.walkCost, p.places
 	if walkCost or places then
@@ -755,7 +751,11 @@ local function planRoute(p)
 					local cost, yd = walkCost(vc[v], vx[v], vy[v], v == 1)
 					if type(cost) == "number" then
 						local y = type(yd) == "number" and yd or cost
-						tw[v], ty[v] = cost > y and cost or y, y
+						if cost < y then
+							discounted = true
+							if p.timeWalks then cost = y end
+						end
+						tw[v], ty[v] = cost, y
 					elseif cost == false and portalV[v] then
 						nw[v] = true
 					end
@@ -1198,7 +1198,7 @@ local function planRoute(p)
 		legs[k].rest = rest
 		rest = rest + legs[k].seconds
 	end
-	return legs
+	return legs, nil, discounted
 end
 
 ---------------------------------------------------------------------------
@@ -1975,12 +1975,36 @@ local function chainLifts(route)
 	return route
 end
 
+-- A walk the walking engine measured chooses by the router's cost, a road's
+-- yards at 0.8 (Roads style: 0.5), while flights, rides and the Hearthstone
+-- cost their real seconds: a road walk beat a flight a fifth faster (#1603).
+-- A plan that only walks, with such a walk measured, is planned once more
+-- with every measured walk costing at least its yards, and that plan is
+-- taken when it flies, rides or hearths and gets there sooner. Choices
+-- between walks (which landing a flight takes, which way a walk goes) stay
+-- the router's.
 -- The search weighs the Hearthstone by HEARTH_MARGIN; a route it chose is
 -- held against the way without it, in seconds: kept only while that takes at
 -- least HEARTH_MIN_TRIP and the hearth saves at least HEARTH_MARGIN, its
 -- label then saying how much ("Hearth to Sentinel Hill: saves 6 min").
+local function walksOnly(legs)
+	for _, l in ipairs(legs) do
+		if l.kind ~= "walk" then return false end
+	end
+	return true
+end
+local function total(legs)
+	return legs[1].seconds + legs[1].rest
+end
 function Nav.PlanRoute(p)
-	local legs = planRoute(p)
+	local legs, _, discounted = planRoute(p)
+	if discounted and legs and legs[1] and not p.walkOnly and walksOnly(legs) then
+		local q = {}
+		for k, v in pairs(p) do q[k] = v end
+		q.timeWalks, q.places = true, nil -- places: the first plan listed them
+		local timed = planRoute(q)
+		if timed and timed[1] and not walksOnly(timed) and total(timed) < total(legs) then legs, p = timed, q end
+	end
 	local first = legs and legs[1]
 	if first and first.kind == "hearth" then
 		local q = {}
