@@ -6255,10 +6255,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   last notch the window is back on the live step unless the player moved
   on from there or did some of that step's work meanwhile (a goal's status
   or count changed: then it stays, as after Next); in combat it waits for
-  the fight to end. A click on it lists the steps around it (`GF.ShowOverview`,
-  five before and ten after, those for this character): done ones ticked
-  and dimmed, skipped ones dimmed, the live one marked with a chevron, the
-  one on screen in the accent; a click looks at that step.
+  the fight to end. A click on it opens the step browser (Step browser,
+  below) in place of the card; a second click closes it.
 - **Class-quest card** (`UI/ClassCard.lua`): over the person and goals of
   a step whose accept (else turn-in) is one of the character's class quests:
   `UI/ClassRewards.lua` limits the quest to a few classes, the character's
@@ -6864,6 +6862,33 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `/polestar discord` (`UI.ShowDiscord`, `SHOW_DISCORD`).
 - **Per-character UI state** in `CharState().ui`: `recentGuides` (ids, newest
   first, at most 10), `favoriteGuides` (id -> true), `pickerSelected` (id).
+
+### Step browser
+
+`UI/StepList.lua` (`UI.StepList`) lists every step of the guide in the
+guide window, in place of the step card, the "Then:" lines and the journey,
+in every look and in compact mode. A click on the step number opens it
+(`StepList.Toggle`); a second click, a click on a card or Escape
+(`PolestarStepList` in `UISpecialFrames`) closes it. A hide the layout did
+not ask for (Escape) closes it; a hide of the whole window (Alt-Z, combat)
+does not: the list hides its own frame too, so the next Escape is not spent
+on it, and comes back with the window. Under the gamepad UI Escape does not
+reach it (`ns.CloseOnEscape` adds nothing there); the step number closes it.
+The guide finishing or another guide opening closes it, so the next guide
+opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepList.Place(body, steps)` for its frame
+and stacks it at `StepList.Layout(width, room)`, as tall as its cards up to
+the window's cap (`ui.maxHeight`, the screen's top with Grow upward).
+`StepList.Fill` reads `Engine.GetStepView` for each step not hidden for this
+character (`UI.StepHidden`) and not `na`: all of them when the guide, the
+step on screen, the live step or the progress moved, else only the live and
+the viewed step's cards; the cards are measured again only when what one
+says, the width, the style or the font changed. A card is a "N · title"
+header, then a line per person and goal in written order as the step card
+words them (`UI.GroupName`, `UI.GoalLine`, `UI.ReadingGoal`), a first goal the
+title already says left out, six lines at most then "+N more". A finished step
+other than the one on screen is its header alone. A click on a card looks at
+that step (`GF.LookAt`, so nothing is un-skipped). On opening the step on
+screen (else the live one) scrolls to the top.
 
 ### Journey panel
 

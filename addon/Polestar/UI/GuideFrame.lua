@@ -1571,32 +1571,6 @@ function GF.Scrub(delta)
 	ns.After(SCRUB_BACK, back)
 end
 
--- A click on the step number: the steps around the one on screen, done ones
--- dimmed and ticked, the live one marked; a click looks at that step.
-local OVERVIEW_BEFORE, OVERVIEW_AFTER = 5, 10
-function GF.ShowOverview(anchor)
-	local E = Engine()
-	local at = E and E.GetStepIndex and E.GetStepIndex()
-	if not at then return end
-	scrubAt = nil
-	local live, count, items = E.GetLiveStep(), E.GetStepCount(), {}
-	for i = math.max(1, at - OVERVIEW_BEFORE), math.min(count, at + OVERVIEW_AFTER) do
-		local v = not UI.StepHidden(i) and E.GetStepView(i)
-		if v and v.status ~= "na" then
-			local no = UI.StepNo(i)
-			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
-			items[#items + 1] = {
-				text = no .. "  " .. title,
-				icon = i == live and "chevron-right" or nil,
-				checked = v.status == "done" or nil,
-				color = (v.status == "done" or v.status == "skipped") and "textMuted" or (i == at and "accent" or nil),
-				onClick = function() GF.LookAt(i) end,
-			}
-		end
-	end
-	if #items > 0 then W.ShowMenu(anchor, items, { point = "TOPLEFT", relPoint = "BOTTOMLEFT", minWidth = 260 }) end
-end
-
 -- PLAYER_SKIPPED_STEP(guideId, step): from the window or /polestar skip, the
 -- banner offers the undo for SKIPPED_SECONDS.
 ns.On("PLAYER_SKIPPED_STEP", function(guideId, step)
@@ -2410,7 +2384,12 @@ function GF.Layout()
 	end
 	fit.n = 0
 	local content = 0
-	if state == "steps" then
+	-- The step browser (UI/StepList.lua) in place of the card and what follows it.
+	local list = UI.StepList and UI.StepList.Place(body, state == "steps")
+	if list then
+		for _, f in ipairs({ card, after, along, GF.here, upnext, UI.JourneyPanel and UI.JourneyPanel.frame }) do f:Hide() end
+		y = stack(list, y, UI.StepList.Layout(width, min(capHeight(), roomAbove() or math.huge) - ((showStrip and TAB_H or 0) + NAV_H + PROG_H + y)))
+	elseif state == "steps" then
 		fit.fixed = layoutCard(width)
 		fit.top = y
 		-- The card animates its own offset; keep its anchor's base in step.
@@ -2432,13 +2411,13 @@ function GF.Layout()
 		y = stack(empty, y, layoutEmpty(width))
 		y = stackJourney(y, width)
 	end
-	if GF.party.psText and not isCompact and state == "steps" then
+	if GF.party.psText and not isCompact and state == "steps" and not list then
 		GF.party:Show()
 		y = stack(GF.party, y, GF.party:GetHeight())
 	else
 		GF.party:Hide()
 	end
-	if GF.xp.psHas and not isCompact and state == "steps" then
+	if GF.xp.psHas and not isCompact and state == "steps" and not list then
 		GF.xp:Show()
 		y = stack(GF.xp, y, GF.xp:GetHeight())
 	else
@@ -4712,12 +4691,14 @@ local function build()
 	end)
 	countHit:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	-- The wheel over the step number scrubs through the steps (GF.Scrub); a
-	-- click opens the steps around it (GF.ShowOverview).
+	-- click opens and closes the step browser (UI/StepList.lua).
 	nav.Steps.Hit = countHit
 	countHit:EnableMouseWheel(true)
 	countHit:SetScript("OnMouseWheel", function(_, delta) GF.Scrub(delta) end)
-	countHit:SetScript("OnMouseUp", function(self, button)
-		if button == "LeftButton" then GF.ShowOverview(self) end
+	countHit:SetScript("OnMouseUp", function(_, button)
+		if button ~= "LeftButton" or not UI.StepList then return end
+		scrubAt = nil
+		UI.StepList.Toggle()
 	end)
 	for _, b in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
 	-- Transparent chrome: the step number fades with its chevrons (nav.Steps
