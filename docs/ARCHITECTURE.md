@@ -3052,15 +3052,17 @@ change hides them:
   (`Polestar_Looks/Parts.lua`), given as a skin addon's `media` is and read
   through the same lookup (`Theme.SkinMedia`; an `atlas:` part drawn by
   `Theme.SetArt`): Forever's quest arrow and the campaign quest's shield,
-  Blizzard's world map arrow (`UI-WorldMapArrow`, the client's sharpest
-  arrow at 64 px; the navigation arrow is 22 by 18 and soft at the dart's
-  size) and quest marker, Classic's vanilla world map arrow on the
-  minimap's dark disc. A look's dart (`dartArt`) shows in its own colours
-  with no edge while far and takes the arrival colour (or the player's own
-  arrow colour) as the house dart does. Every dart is square art pointing
-  straight up, turned by the heading alone. The client's art sits in its own
-  outline and shadow margin, so a part is drawn larger or smaller than its
-  square (`dartScale`, `medallionScale`) to show at Polestar's size.
+  Classic's world map arrow (`UI-WorldMapArrow`, the vanilla silver arrow
+  at 64 px, the client's sharpest) and the minimap's dark disc, Blizzard's
+  Polestar's own dart in its accent, the damage meter's light grey, edged in
+  the meter's black (`dartEdgeTint`), and the quest marker: the client has
+  no crisp neutral arrow (its navigation arrow is 22 by 18). A dart of the
+  client's (`dartArt`) shows in its own colours with no edge while far; each
+  takes the arrival colour (or the player's own arrow colour) as the house
+  dart does. Every dart is square art pointing straight up, turned by the
+  heading alone. The client's art sits in its own outline and shadow margin,
+  so a part is drawn larger than its square (`dartScale`, `medallionScale`)
+  to show at Polestar's size.
 
 Sources: `forever` names atlas elements (the Forever client draws its own
 -c60 art for them); `blizzard` draws the same elements in their retail art,

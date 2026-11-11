@@ -44,26 +44,29 @@ METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad 
 METRICS.blizzard = setmetatable({ guideTabClosePad = 22 }, { __index = GAME_METRICS })
 METRICS.classic = setmetatable({ guideTabCloseRest = 1 }, { __index = GAME_METRICS })
 
--- Each game look's waypoint arrow and map pins, by the client's own art
--- ("atlas:<name>": an atlas as the client draws it, Theme.SetArt): its dart
--- (dartArt: in the art's own colours while far, tinted up close and when
--- the player picks an arrow colour; no Polestar edge round it) and the
--- medallion under the map pins' glyphs (while the map icons follow the
--- skin). WoW Forever: its quest arrow on the campaign quest's shield;
--- Blizzard: the world map's arrow, the client's sharpest (64 px: the
--- navigation arrow is 22 by 18, soft at this size), on the quest marker;
--- Classic: the vanilla world map's arrow on the minimap's dark disc. Every
--- dart is square art pointing straight up, as Polestar's: it turns about
--- its centre by the heading alone. The client's art sits in a margin of
--- its own (its outline and shadow, which read as ground), so a part is
--- drawn dartScale or medallionScale times its square: what shows of it is
--- then Polestar's size (a dart's picture is 0.82 of its square tall, a
--- medallion the whole of it).
+-- Each game look's waypoint arrow and map pins: its dart and the medallion
+-- under the map pins' glyphs (while the map icons follow the skin), mostly
+-- the client's own art ("atlas:<name>": an atlas as the client draws it,
+-- Theme.SetArt). A dart of the client's (dartArt) shows in the art's own
+-- colours while far, tinted up close and when the player picks an arrow
+-- colour, with no Polestar edge round it. WoW Forever: its quest arrow and
+-- the campaign quest's shield. Classic: the world map's arrow (the vanilla
+-- silver arrow, at 64 px the client's sharpest) and the minimap's dark
+-- disc. Blizzard: Polestar's own dart in the accent, the damage meter's
+-- light grey (the client has no crisp neutral arrow; its navigation arrow
+-- is 22 by 18), edged in the meter's black (dartEdgeTint) in place of
+-- Hearth's brown, and the quest marker. Every dart is square art
+-- pointing straight up, as Polestar's: it turns about its centre by
+-- the heading alone. The client's art sits in a margin of its own (its
+-- outline and shadow, which read as ground), so a part is drawn dartScale
+-- or medallionScale times its square: what shows of it is then Polestar's
+-- size (a dart's picture is 0.82 of its square tall, a medallion the whole
+-- of it).
 local PARTS = {
 	forever = { dart = "atlas:Minimap-QuestArrow", dartArt = true, dartScale = 1.3,
 		medallion = "atlas:UI-QuestPoiCampaign-QuestNumber", medallionScale = 1.35 },
-	blizzard = { dart = "atlas:UI-WorldMapArrow", dartArt = true, dartScale = 1.1, medallion = "atlas:UI-QuestPoi-QuestNumber", medallionScale = 1.55 },
-	classic = { dart = "Interface\\WorldMap\\WorldMapArrow", dartArt = true, dartScale = 1.2, medallion = "Interface\\Minimap\\UI-Minimap-Background" },
+	blizzard = { dart = Theme.Media("dart"), dartEdgeTint = { 0.08, 0.08, 0.08 }, medallion = "atlas:UI-QuestPoi-QuestNumber", medallionScale = 1.55 },
+	classic = { dart = "atlas:UI-WorldMapArrow", dartArt = true, dartScale = 1.1, medallion = "Interface\\Minimap\\UI-Minimap-Background" },
 }
 for id, media in pairs(PARTS) do
 	local s = I.SKINS[id]

@@ -319,8 +319,9 @@ end
 -- arrow, behind the arrival ring and a travel instruction's sign), read on
 -- each change of theme (OnTheme); nil for Polestar's. A game look's dart is
 -- the client's art (media.dartArt): in its own colours, with no edge, drawn
--- media.dartScale times the dart's square (the art's own margin).
-local skinDart, skinDartEdge, skinDartArt, skinDartScale
+-- media.dartScale times the dart's square (the art's own margin). A game
+-- look's edge may take a colour of its own (media.dartEdgeTint: r, g, b).
+local skinDart, skinDartEdge, skinDartArt, skinDartScale, skinDartEdgeTint
 local skinGlow = {} -- r, g, b of the skin's glow token, or empty
 local function readSkinDart()
 	local Theme = ns.Theme
@@ -329,6 +330,7 @@ local function readSkinDart()
 	skinDartEdge = media and media("dartEdge") or nil
 	skinDartArt = media and media("dartArt") or nil
 	skinDartScale = media and tonumber(media("dartScale")) or nil
+	skinDartEdgeTint = media and media("dartEdgeTint") or nil
 	local r, g, b
 	if Theme and Theme.SkinToken then r, g, b = Theme.SkinToken("glow") end
 	skinGlow[1], skinGlow[2], skinGlow[3] = r, g, b
@@ -381,7 +383,7 @@ local function dialTint(d, r, g, b, lk)
 			d.dartEdgeTex = edge
 			d.dartEdge:SetTexture(edge)
 		end
-		local e = EDGE[s == "halo" and (d.near and "haloNear" or "halo") or "hearth"]
+		local e = skinDartEdgeTint or EDGE[s == "halo" and (d.near and "haloNear" or "halo") or "hearth"]
 		d.dartEdge:SetVertexColor(e[1], e[2], e[3], 1)
 	end
 end
