@@ -4855,6 +4855,30 @@
 				],
 				"faction": "Horde",
 				"why": "#1644 (0.3.7, flow): Altered Beings (880) is taken on the Crossroads stop after the Verog pass, where the seed test (877) is handed in, and its Oasis Snapjaws are collected at Lushwater Oasis on the Hezrul step (15 of their 24 spawns are in Lushwater's water, 45.7-48.1,38.3-40.6, where players' recordings show them killed; deliberate.together 852/880), handed to Tonga on the Crossroads stop before Counterattack!."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"task",
+					385
+				],
+				"faction": "Alliance",
+				"why": "#1833 (0.3.7, timed): A Hunter's Challenge (258) must be handed back to Daryl the Youngling within 12 minutes (quests.json limit 720). The route killed the Elder Mountain Boars and then gathered Crocolisk Hunting's eleven items and Daggerfang's knife on the shore before going back, so the timer ran during the crocolisks: players' recordings on Polestar 0.3.5 and later show 12 hand-ins and 3 fails at 12:00 out of 17 accepts, the hand-ins up to 11.9 minutes in. The boars come first, 258 goes straight back to Daryl, then the shore."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"task",
+					86758
+				],
+				"faction": "Alliance",
+				"why": "#1833: Daggerfang (Twisting the Knife) patrols the same shore as the Loch Crocolisks; taken after A Hunter's Challenge is handed in, with Crocolisk Hunting (see the 258 -> 385 pair)."
 			}
 		],
 		"notes": [
