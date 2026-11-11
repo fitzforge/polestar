@@ -322,7 +322,12 @@ named; caps on length, payload, settings, texts and names. The areas: `look`
 (controls on the Look pages: a page's `group = "look"` or order 20–29),
 `positions`, `guiding` (the rest). A string from before a migration is
 migrated as it is read. The Profiles page (`UI/Profiles.lua`, settings window,
-Setup) shows all of it.
+Setup) shows all of it. The strings' code is the settings' addon's
+(`Polestar_Options/Core/ProfileStrings.lua`), never in memory at login: core's
+`Export`, `Import`, `Apply`, `Portable`, `FreeName`, `Pack`, `AreaOf` and
+`Same` load it on their first call (`UI.LoadOptions`; in a fight they answer
+`nil, "combat"`) and it takes their place; `RegisterPosition` keeps a shape
+for it until then.
 
 ### Commands
 
