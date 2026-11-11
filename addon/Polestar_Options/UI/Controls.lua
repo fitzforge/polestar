@@ -39,26 +39,10 @@ local RECENT_W = RECENT_N * (RECENT_SIZE + RECENT_GAP) - RECENT_GAP
 local swatches = setmetatable({}, { __mode = "k" })
 
 -- A colour chip's edge: a light hairline, so a dark colour still reads as a
--- chip on the dark row ground; inside it a light ring round the colour, so
--- a near-black colour reads as a chip of that colour, never as an empty
--- box (an unticked tick box beside a slider).
-local function chipRing(chip)
-	local t = chip:CreateTexture(nil, "BORDER", nil, -2)
-	t:SetTexture(WHITE)
-	t:SetPoint("TOPLEFT", chip, "TOPLEFT", 1, -1)
-	t:SetPoint("BOTTOMRIGHT", chip, "BOTTOMRIGHT", -1, 1)
-	chip.psRing = t
-	return t
-end
-
+-- chip on the dark row ground.
 local function chipEdge(f)
 	local r, g, b = Theme.Color("textDim")
 	Theme.Border(f, r, g, b, 0.45)
-	local ring = rawget(f, "psRing")
-	if ring then
-		local tr, tg, tb = Theme.Color("text")
-		ring:SetVertexColor(tr, tg, tb, 0.75)
-	end
 end
 
 local function swatchColor(self)
@@ -293,7 +277,6 @@ function W.Swatch(parent, label, path, desc, opts)
 	fillTex:SetTexture(WHITE)
 	fillTex:SetPoint("TOPLEFT", chip, "TOPLEFT", 2, -2)
 	fillTex:SetPoint("BOTTOMRIGHT", chip, "BOTTOMRIGHT", -2, 2)
-	chipRing(chip)
 	W.Painter(chip, chipEdge)
 	row.Chip, row.ChipFrame = fillTex, chip
 	local fixed = right + HEX_W + 8 + 34 + 8
@@ -543,7 +526,6 @@ function W.InlineSwatch(parent, path, label, tip, opts)
 	b.Fill:SetTexture(WHITE)
 	b.Fill:SetPoint("TOPLEFT", b, "TOPLEFT", 2, -2)
 	b.Fill:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 2)
-	chipRing(b)
 	W.Painter(b, chipEdge)
 	inlineCommon(b, path, label, tip)
 	b:SetScript("OnClick", function(self, button)
