@@ -382,10 +382,20 @@ fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_a
 		}
 	}
 	for kind in ["flight", "instances", "party"] {
-		for prop in ["scale", "width", "alpha", "bgAlpha", "bg", "border", "borderSize", "combat", "instance", "titleSize", "bodySize", "outline"] {
+		for prop in ["scale", "width", "alpha", "bgAlpha", "bg", "border", "borderSize", "titleSize", "bodySize", "outline"] {
 			let key = format!("trackers.{kind}.{prop}");
 			assert!(keys.contains(&key.as_str()), "{key} is on the page");
 		}
+	}
+	// What a tracker does in a fight and inside an instance; the flight timer has neither: it shows only on a flight
+	// path, never in a fight or inside an instance.
+	for prop in ["combat", "instance"] {
+		for kind in ["instances", "party"] {
+			let key = format!("trackers.{kind}.{prop}");
+			assert!(keys.contains(&key.as_str()), "{key} is on the page");
+		}
+		let key = format!("trackers.flight.{prop}");
+		assert!(!keys.contains(&key.as_str()), "{key} is not on the page");
 	}
 	for key in [
 		"rares.toastSeconds",

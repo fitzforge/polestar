@@ -11,7 +11,9 @@
 -- now (trackers.<kind>.combat: show, fade or hide in a fight;
 -- trackers.<kind>.instance: show or hide inside an instance); a fight
 -- starting or ending, or entering or leaving an instance, asks each again
--- (its `refresh`). The XP mark reads its own settings (QoL/XPMark.lua).
+-- (its `refresh`). The flight timer has neither: it shows only on a flight
+-- path, never in a fight or inside an instance. The XP mark reads its own
+-- settings (QoL/XPMark.lua).
 --
 --   UI.Trackers.Get(kind, prop)
 --   UI.Trackers.Attach(kind, frame, { titles, bodies, bar, relayout(frame), refresh(), sandbox })
@@ -33,16 +35,16 @@ TR.FADED = FADED
 
 local function panel(width, extra)
 	local t = { scale = 1, alpha = 1, width = width, titleSize = 1, bodySize = 1, outline = false,
-		bgAlpha = 1, bg = false, border = false, borderSize = 0, combat = "show", instance = "show" }
+		bgAlpha = 1, bg = false, border = false, borderSize = 0 }
 	for k, v in pairs(extra or {}) do t[k] = v end
 	return t
 end
 
 local DEFAULTS = {
 	flight = panel(220, { barHeight = 2, barColor = false, bar = true, format = "left" }),
-	instances = panel(230),
+	instances = panel(230, { combat = "show", instance = "show" }),
 	-- combat "guide": as the guide window does in a fight (ui.combat).
-	party = panel(260, { combat = "guide" }),
+	party = panel(260, { combat = "guide", instance = "show" }),
 	xp = { tickWidth = 2, tickColor = false, label = true, labelSize = 1, outline = true },
 	-- The guide window's journey (UI/JourneyPanel.lua): how many legs it lists, their numbers.
 	journey = { rows = 8, numbers = true },

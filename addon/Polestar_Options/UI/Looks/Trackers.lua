@@ -194,7 +194,8 @@ end
 -- A tracker panel's one section, in its anatomy's order: its on/off in the
 -- header; size, width, opacity, ground with its colour, border with its
 -- colour, its bar when it has one, its type (outline behind the size's cog),
--- when it shows.
+-- when it shows (noRules: none, for the flight timer, which shows only on a
+-- flight path: never in a fight, never inside an instance).
 local function panelPage(tab, kind, what, spec, opts)
 	opts = opts or {}
 	local k = "trackers." .. kind .. "."
@@ -264,15 +265,17 @@ local function panelPage(tab, kind, what, spec, opts)
 			help = L["The size of its other lines against Polestar's text size."],
 			search = "font size, bigger text, smaller text, readability, " .. what },
 	}) do controls[#controls + 1] = c end
-	for _, c in ipairs({
-		{ kind = "dropdown", key = k .. "combat", label = L["In combat"], new = NEW, choices = combat,
-			help = format(L["What the %s does while you fight."], what),
-			search = "combat, fight, hide in combat, fade in combat, visibility, " .. what },
-		{ kind = "dropdown", key = k .. "instance", label = L["In instances"], new = NEW,
-			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } },
-			help = format(L["Whether the %s shows inside dungeons, raids, battlegrounds and arenas."], what),
-			search = "dungeon, raid, instance, battleground, arena, hide, visibility, " .. what },
-	}) do controls[#controls + 1] = c end
+	if not opts.noRules then
+		for _, c in ipairs({
+			{ kind = "dropdown", key = k .. "combat", label = L["In combat"], new = NEW, choices = combat,
+				help = format(L["What the %s does while you fight."], what),
+				search = "combat, fight, hide in combat, fade in combat, visibility, " .. what },
+			{ kind = "dropdown", key = k .. "instance", label = L["In instances"], new = NEW,
+				choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } },
+				help = format(L["Whether the %s shows inside dungeons, raids, battlegrounds and arenas."], what),
+				search = "dungeon, raid, instance, battleground, arena, hide, visibility, " .. what },
+		}) do controls[#controls + 1] = c end
+	end
 	spec.tab, spec.controls = tab, controls
 	register(spec)
 end
@@ -284,7 +287,7 @@ panelPage(TRAVEL, "flight", L["flight timer"], {
 	subtitle = L["The flight timer, the journey, the instance tracker, the guide's mark on the XP bar and the party panel: their size, look and when they show."],
 	toggle = { kind = "toggle", key = "maps.flightTimer", label = L["Flight timer"], search = "flight, taxi, timer, time left", needs = function() return ns.Maps end,
 		help = L["While flying, shows the destination and the time left. Learns each route's real duration for this character; drag to move."] },
-}, { bar = true, titleLabel = L["Time size"], titleHelp = L["The size of the time against Polestar's text size."],
+}, { bar = true, noRules = true, titleLabel = L["Time size"], titleHelp = L["The size of the time against Polestar's text size."],
 	format = { kind = "dropdown", key = "trackers.flight.format", label = L["Time shows"], new = NEW,
 		help = L["The time left (with ~ while it is an estimate), how far along the flight is, or both."],
 		search = "format, percent, time left, countdown, display, numbers, flight",
