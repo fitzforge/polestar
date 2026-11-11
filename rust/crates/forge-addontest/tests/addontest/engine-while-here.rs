@@ -1336,11 +1336,14 @@ fn a_timer_the_quest_log_reports_without_the_old_timer_list_offers_no_detour_eit
 		GetQuestTimers = nil
 		at(47.6, 37.6); emit(here())
 		C_QuestLog.GetTimeAllowed = function(q) if q == 33 then return 900, 600 end return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
 		C_QuestLog.IsFailed = function() return true end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
 		C_QuestLog.IsFailed = nil
 		C_QuestLog.GetTimeAllowed = function() return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
 	"#);
 	let v = "2:1 Kill Kobold Vermin, 2 more 50";
@@ -1357,9 +1360,11 @@ fn a_running_timer_keeps_its_own_quests_lines_and_parks_the_rest_until_it_stops(
 		GetQuestTimers = nil
 		at(47.6, 37.6); emit(lines())                   -- rows 10, 20, 30 yd; row 5 (quest 305) at 50 waits
 		TIMER
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(lines())                -- 305's clock: its line alone
 		GetQuestTimers, GetQuestIndexForTimer = nil, nil
 		C_QuestLog.GetTimeAllowed = function() return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(lines())
 	"#;
 	let log = r#"C_QuestLog.GetTimeAllowed = function(q) if q == 305 then return 600, 10 end return 0 end"#;
