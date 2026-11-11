@@ -628,8 +628,11 @@ function Theme.SkinId()
 end
 
 -- The skin choices for the options: the built-in skins, then the skins other
--- addons registered, each with its addon. -> { { value, text, addon?, desc?, author? } }
+-- addons registered, each with its addon. Installed skin addons that load
+-- on demand load first (Theme.LoadInstalledSkins, Theme/SkinApi.lua), so
+-- every skin the player has is listed. -> { { value, text, addon?, desc?, author? } }
 function Theme.SkinChoices()
+	if Theme.LoadInstalledSkins then Theme.LoadInstalledSkins() end
 	local out = {}
 	for _, id in ipairs(Theme.SKIN_ORDER) do
 		local s = SKINS[id]
@@ -798,6 +801,10 @@ local function effective(s)
 	return t, m
 end
 
+-- The tokens a registered skin set (its own, its variant's, its resolver's)
+-- for each palette built with it (Theme.SkinToken).
+local givenBy = setmetatable({}, { __mode = "k" })
+
 -- A skin's palette, with the player's own accent, window border and arrow
 -- colours over it. A registered skin's tokens (with its variant and
 -- resolver) lie over the look it extends, and its grounds stay legible
@@ -813,6 +820,7 @@ local function resolveSkin(skin)
 		local _media, failed
 		stoks, _media, failed = effective(s)
 		if failed then return nil end
+		givenBy[out] = stoks
 		for name, c in pairs(SKIN_PALETTES[baseOf(s)]) do out[name] = copy(c) end
 		local need = math.min(1, legibility(out))
 		for name, c in pairs(stoks or {}) do out[name] = copy(c) end
@@ -885,6 +893,7 @@ local function resolve(id, schemeKey)
 		local _media, failed
 		stoks, _media, failed = effective(s)
 		if failed then return resolve("polestar", schemeKey) end
+		givenBy[out] = stoks
 		for name, c in pairs(stoks or {}) do
 			if name == "accent" then skinAccent = c else out[name] = copy(c) end
 		end
@@ -1083,19 +1092,14 @@ function Theme.SkinMedia(name)
 	return s.media and s.media[name] or nil
 end
 
--- A colour token the skin in use gives itself (its tokens or its
--- variant's), or nil when it leaves it to Polestar (a module's own default,
--- e.g. the pins' rim: pinRing, pinFill). -> r, g, b, a | nil
--- Tokens only a skin gives (no house value): present in the palette only
--- when the skin, its variant or its resolver set them.
-local SKIN_ONLY_TOKENS = { pinRing = true, pinFill = true }
+-- A colour token the skin in use gives itself (its tokens, its variant's or
+-- its resolver's), or nil when it leaves it to Polestar (a module's own
+-- default, e.g. the pins' rim: pinRing, pinFill; the arrow's glow). The
+-- colour is the palette's, as resolved. -> r, g, b, a | nil
 function Theme.SkinToken(name)
-	local s = SKINS[Theme.SkinId()]
-	if not s or s.builtin then return nil end
-	local v = s.variants and s.variantBy[variantOf(s)]
-	local given = (v and v.tokens and v.tokens[name]) or (s.tokens and s.tokens[name])
-	local pal = Theme.Palette() -- the resolved colour (the resolver may have moved it)
-	local c = (given or SKIN_ONLY_TOKENS[name]) and pal[name] or nil
+	local pal = Theme.Palette()
+	local given = givenBy[pal]
+	local c = given and given[name] and pal[name] or nil
 	if not c then return nil end
 	return c[1], c[2], c[3], c[4] or 1
 end
@@ -2212,15 +2216,29 @@ Theme.SKIN_PAINT = SKIN_PAINT
 -- The paint helpers Theme/GameSkins.lua builds the game's looks from.
 Theme.Paint = { fill = fill, hoverWash = hoverWash, bare = bare, hideBorder = hideBorder, redButton = redButton, house = HOUSE_PAINT }
 
--- What a registered skin's painters may build with (docs/SKINS-API.md,
--- "The paint kit"): the house fills, borders and washes, and store(f), a
--- table on the frame for the skin's own pieces, hidden whenever another skin
--- paints the frame.
+-- What a registered skin's painters and hooks may build with
+-- (docs/skins/reference.md, "The paint kit"): the house fills, borders and
+-- washes, and store(f), a table on the frame for the skin's own pieces, one
+-- per skin. A painted frame's are hidden whenever another look paints it; a
+-- hooked frame's (the arrow, a pin, a button, a toast's parts...) as the skin
+-- in use changes (switchSkin).
+local hookKits = setmetatable({}, { __mode = "k" }) -- frame (not painted) -> its kit
 local function skinStore(f)
-	local d = f.psSkin
-	d.kit = d.kit or {}
-	d.kit.api = d.kit.api or {}
-	return d.kit.api
+	local kit
+	if skinned[f] then
+		local d = f.psSkin
+		kit = d.kit
+		if not kit then kit = {}; d.kit = kit end
+	else
+		kit = hookKits[f]
+		if not kit then kit = {}; hookKits[f] = kit end
+	end
+	local api = kit.api
+	if not api then api = {}; kit.api = api end
+	local id = Theme.SkinId()
+	local own = api[id]
+	if not own then own = {}; api[id] = own end
+	return own
 end
 
 -- A colour as a kit option gives it: a token name or { r, g, b[, a] }.
@@ -2420,7 +2438,8 @@ local function kitTintArt(f, o)
 	local function each(t, depth)
 		if type(t) ~= "table" or depth > 6 then return end
 		if t.GetObjectType then
-			if t.SetVertexColor and t:GetObjectType() == "Texture" then
+			-- Art the base drew through Theme.TintArt is tinted already.
+			if t.SetVertexColor and t:GetObjectType() == "Texture" and not t.psArtTinted then
 				local rec = d.tinted[t]
 				local cr, cg, cb, ca = t:GetVertexColor()
 				-- What the base set since our last tint is the new original.
@@ -2497,6 +2516,34 @@ end
 
 -- The base look's art a skin built on the game's art may tint.
 local ART_BASES = { hearth = true, forever = true, blizzard = true, classic = true }
+
+-- The art tint of the skin in use (its artTint, or its variant's) while it
+-- is drawn from a game look's art, else nil.
+local function artTintNow()
+	local s = SKINS[Theme.SkinId()]
+	if not s or s.builtin or not ART_BASES[baseOf(s)] then return nil end
+	return field(s, "artTint")
+end
+
+-- A piece of the base look's art in colour r, g, b, a (white when nil), with
+-- the skin in use's artTint over it (spec.artTint: tinted, brighter or
+-- darker, desaturated); without one, as given and fully saturated. The game
+-- looks draw every piece of their art through this (Theme/GameSkins.lua), so
+-- the tint reaches it all and goes when the skin does.
+function Theme.TintArt(t, r, g, b, a)
+	r, g, b, a = r or 1, g or 1, b or 1, a or 1
+	local o = artTintNow()
+	local desat = 0
+	if o then
+		local tr, tg, tb = kitColor(o.tint, { 1, 1, 1, 1 })
+		local k = 1 + math.max(-1, math.min(1, tonumber(o.brightness) or 0))
+		r, g, b = math.min(1, r * tr * k), math.min(1, g * tg * k), math.min(1, b * tb * k)
+		desat = math.max(0, math.min(1, tonumber(o.desaturate) or 0))
+	end
+	t:SetVertexColor(r, g, b, a)
+	desaturate(t, desat)
+	t.psArtTinted = o and true or nil
+end
 
 -- After a frame's painter: a registered skin's own window shadow
 -- (spec.shadow) and its tint of the base look's art (spec.artTint).
@@ -2591,6 +2638,11 @@ local function switchSkin()
 	if id == applied then return end
 	local was = applied and SKINS[applied]
 	applied = id
+	-- The Skin API's hook table follows the skin in use (Theme/SkinApi.lua).
+	local internal = ns.ThemeInternal
+	if internal and internal.onSwitch then internal.onSwitch(id) end
+	-- The skin that leaves takes its own pieces off the frames it was handed.
+	for _, kit in pairs(hookKits) do hideAll(kit) end
 	for _, step in ipairs({ { was, "onLeave" }, { SKINS[id], "onApply" } }) do
 		local s, name = step[1], step[2]
 		if s and type(s[name]) == "function" then
