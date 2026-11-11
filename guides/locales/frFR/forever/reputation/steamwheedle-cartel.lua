@@ -93,7 +93,7 @@ return {
 	-- {item:18250} Gordok Shackle Key
 	["{item:18250}, Gordok ogres"] = "{item:18250}, ogres Gordok",
 	-- {quest:5525} Free Knot! · {npc:14338} Knot Thimblejack
-	["{quest:5525}: 150 to every town, handed in from {npc:14338}'s window"] = "",
+	["{quest:5525}: 150 to every town, handed in from {npc:14338}'s window"] = "{quest:5525} : 150 pour chaque ville, rendue depuis la fenêtre de {npc:14338}",
 	-- {quest:5525} Free Knot!
 	["{quest:5525}, again on every later run: 150"] = "{quest:5525}, à nouveau à chaque visite suivante : 150",
 

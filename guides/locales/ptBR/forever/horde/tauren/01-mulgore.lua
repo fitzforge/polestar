@@ -36,10 +36,10 @@ return {
 	-- Step 5: The Hunt Continues
 	-- {npc:6775} Antur Fallow
 	-- plural, as words: Mountain Cougars = {npc:2961} Mountain Cougar
-	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot."] = "",
+	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot."] = "{npc:6775} fica no extremo oeste do acampamento, no canto noroeste das colinas onde rondam os Pumas da Montanha: pegue a missão dele e depois cace os pumas para o sul pelas colinas, rumo à tenda do Vidente no sopé delas.",
 
 	-- Step 6: Seer Graytongue
-	["The Seer's tent stands at the foot of the cougars' hills."] = "",
+	["The Seer's tent stands at the foot of the cougars' hills."] = "A tenda do Vidente fica no sopé das colinas dos pumas.",
 
 	-- Step 7: The shrine of An'she and Mu'sha
 	["The shrine of An'she and Mu'sha"] = "O santuário de An'she e Mu'sha",
@@ -48,7 +48,7 @@ return {
 
 	-- Step 8: Grull Hawkwind
 	-- {area:221} Camp Narache
-	["Back north-west up to {area:221}."] = "",
+	["Back north-west up to {area:221}."] = "Volte para noroeste, subindo até {area:221}.",
 	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
 	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "{npc:3209}, ao lado de {npc:2980}; anda por {area:221}: procure dentro do círculo no mapa",
 
@@ -354,7 +354,7 @@ return {
 	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
 	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418}: para {npc:3429}, na Encruzilhada",
 	-- {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
-	["{npc:10378}, beside {npc:3418}"] = "",
+	["{npc:10378}, beside {npc:3418}"] = "{npc:10378}, ao lado de {npc:3418}",
 
 	-- Step 83: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens

@@ -34,7 +34,7 @@ return {
 	["Razormane camp: {npc:3429}'s quilboar"] = "",
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Wenn du schon im Lager bist: die Wassersucher und Dornenwirker für {npc:3429} in der westlichen Hälfte, die Jäger in der Mitte, die Vorratskisten am östlichen Ende.\nVorsicht: Fleischfresser und Berserker der Grimmhauer (18-19) sind Elites; sie stehen im Nordosten des Lagers neben den Vorratskisten: Zieh die Stacheleber einzeln von ihnen weg.",
 
 	-- Step 8: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -64,7 +64,7 @@ return {
 
 	-- Step 15: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Im Lager halten Wassersucher und Dornenwirker die westliche Hälfte, Jäger die Mitte; die Vorratskisten stehen am östlichen Ende.\nEbenenschreiter hier zählen für die Schnäbel.\nVorsicht: Fleischfresser und Berserker der Grimmhauer (18-19) sind Elites; sie stehen im Nordosten des Lagers neben den Vorratskisten: Zieh die Stacheleber einzeln von ihnen weg.",
 
 	-- Step 16: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -91,7 +91,7 @@ return {
 	["Thunder lizards across the river"] = "Donnerechsen jenseits des Flusses",
 	-- {area:379} Far Watch Post · {area:369} Thunder Ridge
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "",
+	["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Donnerechsen und Blitzechsen grasen gleich jenseits der Brücke unterhalb von {area:379}.\nVorsicht: Halikor, eine Elite der Stufe 12, streift zwischen den Echsen über {area:369}: Achte auf ihn, bevor du pullst.",
 
 	-- Step 27: Telf Joolam
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1411} Durotar · {npc:5900} Telf Joolam
@@ -116,7 +116,7 @@ return {
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: Die Konsole ist in {area:382}, später",
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
-	["{npc:16227}, beside {npc:3442}"] = "",
+	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}, neben {npc:3442}",
 	-- {object:3972} WANTED
 	["{object:3972} poster"] = "Plakat „{object:3972}“",
 	-- {quest:1492} Wharfmaster Dizzywig
@@ -167,7 +167,7 @@ return {
 	-- Step 43: The Disruption Ends
 	-- {npc:3438} Kreenig Snarlsnout
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near {npc:3438}: pull {npc:3438} and the quilboar away from them one at a time."] = "",
+	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near {npc:3438}: pull {npc:3438} and the quilboar away from them one at a time."] = "Zurück zum Lager der Grimmhauer. Geomanten und Verteidiger halten die östliche Hälfte; {npc:3438} läuft zwischen ihnen herum.\nVorsicht: Fleischfresser und Berserker der Grimmhauer (18-19) sind Elites im Nordosten des Lagers, nahe {npc:3438}: Zieh {npc:3438} und die Stacheleber einzeln von ihnen weg.",
 
 	-- Step 45: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -178,11 +178,11 @@ return {
 
 	-- Step 48: The Crossroads
 	-- {npc:3338} Sergra Darkthorn · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3432} Mankrik · {npc:3448} Tonga Runetotem · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {area:383} Dry Hills · {quest:853} Apothecary Zamah · {zone:1456} Thunder Bluff
-	["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate last. His seed test waits for the {npc:3395} pass at the {area:388}: go straight on north-west to the {area:383}. After the spores Helbrim offers {quest:853}, a delivery to {zone:1456} within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to {zone:1456})."] = "",
+	["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate last. His seed test waits for the {npc:3395} pass at the {area:388}: go straight on north-west to the {area:383}. After the spores Helbrim offers {quest:853}, a delivery to {zone:1456} within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to {zone:1456})."] = "Zuerst {npc:3338} beim Gasthaus, dann der Gastwirt, Helbrim beim Nordtor, {npc:3429} und {npc:3449} auf der Turmplattform, {npc:3432} beim Gasthaus und zuletzt {npc:3448} am Südtor. Sein Samentest wartet auf den Abstecher zu {npc:3395} bei {area:388}: Geh direkt weiter nach Nordwesten zu {area:383}. Nach den Sporen bietet Helbrim {quest:853} an, eine Lieferung nach {zone:1456} innerhalb von 45 Minuten: Diese Route geht nicht dorthin, also lass sie liegen (Druiden nehmen sie beim nächsten Halt in Crossroads an, direkt vor ihrem Flug nach {zone:1456}).",
 	-- {npc:3432} Mankrik
 	["{npc:3432}: his wife lies at the north edge of the Bristleback camps, later"] = "",
 	-- {npc:3448} Tonga Runetotem · {area:388} Stagnant Oasis · {npc:3395} Verog the Dervish
-	["{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass"] = "",
+	["{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass"] = "{npc:3448}: die blubbernde Spalte bei {area:388}, beim Abstecher zu {npc:3395}",
 
 	-- Step 49: Harpy Lieutenants
 	-- {area:383} Dry Hills
@@ -207,11 +207,11 @@ return {
 
 	-- Step 54: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
-	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "",
+	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "Durch das Nordtor hinein: zuerst {npc:3464}, {npc:3338} beim Gasthaus, dann hinauf zu {npc:3449} und {npc:3429} auf der Turmplattform, wo der Flugmeister steht.",
 	-- {npc:3464} Gazrog · {quest:3281} Stolen Silver · {area:385} Northwatch Hold
 	["{npc:3464}: the {quest:3281}, in a raptor nest north-west of {area:385}"] = "",
 	-- {npc:3390} Apothecary Helbrim · {zone:1456} Thunder Bluff
-	["{npc:3390}: 45 minutes, for Zamah on the {zone:1456} step next"] = "",
+	["{npc:3390}: 45 minutes, for Zamah on the {zone:1456} step next"] = "{npc:3390}: 45 Minuten, für Zamah im nächsten Schritt in {zone:1456}",
 	-- {npc:3338} Sergra Darkthorn
 	["{npc:3338}: the raptor nests south of the Crossroads"] = "",
 	-- {npc:3449} Darsok Swiftdagger · {quest:876} Serena Bloodfeather · {area:383} Dry Hills
@@ -221,9 +221,9 @@ return {
 
 	-- Step 55: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {quest:853} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "",
+	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "Flieg von Crossroads nach {area:1638}. {quest:853} wartet in {area:2197}, der Höhle unter {area:1640}: Gib dort zuerst die Sporen ab, solange ihre Zeit läuft. Dann lässt dich {npc:3033} auf {area:1639} trainieren.",
 	-- {quest:853} Apothecary Zamah · {area:2197} Pools of Vision
-	["{quest:853}, in the {area:2197}"] = "",
+	["{quest:853}, in the {area:2197}"] = "{quest:853}, in {area:2197}",
 
 	-- Step 56: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -379,7 +379,7 @@ return {
 
 	-- Step 94: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "",
+	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} läuft zwischen den Kolkar bei {area:388} südöstlich von Crossroads herum. Teste die Samen von {npc:3448} an der blubbernden Spalte am Ostufer der Oase, wenn du schon dort bist.",
 	["Underwater"] = "",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "",
@@ -406,7 +406,7 @@ return {
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate. Keep the {item:5075}: {npc:3430} takes it on the next stop in {area:378}."] = "Die {area:458} hinauf nach Norden zum Wegekreuz: {npc:3448} am Südtor, {npc:3432} beim Gasthaus, {npc:3428} westlich des Nordtors. Behalte {item:5075}: {npc:3430} nimmt ihn beim nächsten Halt im {area:378} entgegen.",
 	-- {npc:3448} Tonga Runetotem · {area:387} Lushwater Oasis · {npc:3396} Hezrul Bloodmark · {zone:1454} Orgrimmar
 	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["{npc:3448}: the Oasis Snapjaws at {area:387}, with {npc:3396} after the {zone:1454} trip"] = "",
+	["{npc:3448}: the Oasis Snapjaws at {area:387}, with {npc:3396} after the {zone:1454} trip"] = "{npc:3448}: die Oasenschnappkiefer bei {area:387}, mit {npc:3396} nach dem Ausflug nach {zone:1454}",
 	-- {npc:3432} Mankrik · {quest:95774} Her Name Is Olgra · {quest:4921} Lost in Battle
 	["{npc:3432} offers {quest:95774} once {quest:4921} is handed in"] = "{npc:3432} bietet {quest:95774} an, sobald {quest:4921} abgegeben ist",
 	-- {npc:3428} Korran · {area:390} Field of Giants · {area:378} Camp Taurajo · {zone:1454} Orgrimmar
@@ -492,7 +492,7 @@ return {
 	-- Step 120: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
 	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "",
+	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "{npc:3396} führt die Kolkar am Westufer von {area:387} an, südlich von {npc:3389}. Er läuft dieses Ufer ab, von etwa 46,36 im Norden bis 46,42 im Süden: Ist er nicht am Pfeil, folge dem Ufer, bis du ihn triffst. Gib seinen Kopf bei deinem letzten Halt in Crossroads bei {npc:3389} ab. Oasenschnappkiefer kriechen dort im Wasser der Oase: Ihre Panzer sind für {npc:3448}.",
 
 	-- Step 121: Olgra's Adornments
 	-- {area:458} Gold Road · {area:378} Camp Taurajo · {item:277277} Olgra's Adornments · {npc:3432} Mankrik
@@ -551,7 +551,7 @@ return {
 
 	-- Step 132: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
-	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "",
+	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "Nach Norden die {area:458} hinauf nach Crossroads: {npc:3448} am Südtor, {npc:3432} beim Gasthaus, {npc:3428} westlich des Nordtors.",
 
 	-- Step 133: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze

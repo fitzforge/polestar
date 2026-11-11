@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {quest:205} Troll Witchery
-	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "",
+	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "Para personagens de nível 35 a 36, mas várias missões aqui são de nível 37-41: de propósito, pela experiência. Os trolls Rachacrânio de {quest:205} são de nível 39-42, então puxe um de cada vez.",
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
@@ -107,7 +107,7 @@ return {
 	["{npc:773}, upstairs"] = "{npc:773}, no andar de cima",
 	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
-	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "",
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}, no andar de cima: esta missão opcional pede quatro {item:4278}. Minere Depósitos de Pedra-sangrenta Menor em {zone:1417} com {skill:186} 75, ou compre o minério na Casa de Leilões ou peça a um amigo minerador. Os kobolds não o deixam cair; pule esta missão se não conseguir o minério.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley \"Lobo do Mar\", no último andar",

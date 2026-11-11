@@ -11,13 +11,13 @@ return {
 	["Learn {skill:129}"] = "Lerne {skill:129}",
 	-- {skill:129} First Aid · {item:118} Minor Healing Potion · {item:2447} Peacebloom · {item:2678} Mild Spices · {item:3371} Empty Vial · {skill:182} Herbalism
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (any character level, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "",
+	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (any character level, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Jeder {skill:129}-Lehrer deiner Fraktion lehrt Lehrling in {skill:129} (jede Charakterstufe, 1s); der Pfeil wählt den nächsten. Forever lehrt dazu {item:118}: {item:2447}, {item:2678} und {item:3371}, orange bis 55. Mit {skill:182} kann es die Leinenverbände unten ersetzen.",
 
 	-- Step 2: Linen Bandage: cloth
 	-- {item:1251} Linen Bandage
 	["{item:1251}: cloth"] = "{item:1251}: Stoff",
 	-- {item:2589} Linen Cloth
-	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:2589} ist Beute von Humanoiden der Stufen 5-20: Behalte, was du beim Leveln erbeutest, hol es aus deiner Bank oder kauf es im Auktionshaus.",
 
 	-- Step 3: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
@@ -36,7 +36,7 @@ return {
 	-- {skill:129} First Aid
 	["Journeyman {skill:129}"] = "{skill:129} (Geselle)",
 	-- {skill:129} First Aid
-	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "",
+	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Geselle in {skill:129} hebt die Obergrenze auf 150 an; er braucht Fertigkeit 50 und keine Charakterstufe: Der Pfeil wählt den nächsten {skill:129}-Lehrer deiner Fraktion; die Ausbildung kostet 5s.",
 
 	-- Step 8: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
@@ -46,7 +46,7 @@ return {
 	-- {spell:3277} Wool Bandage
 	["{spell:3277}: cloth"] = "{spell:3277}: Stoff",
 	-- {item:2592} Wool Cloth
-	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:2592} ist Beute von Humanoiden der Stufen 15-30: Behalte, was du beim Leveln erbeutest, hol es aus deiner Bank oder kauf es im Auktionshaus.",
 
 	-- Step 10: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
@@ -76,7 +76,7 @@ return {
 	-- {item:6450} Silk Bandage
 	["{item:6450}: cloth"] = "{item:6450}: Stoff",
 	-- {item:4306} Silk Cloth
-	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:4306} ist Beute von Humanoiden der Stufen 25-45: Behalte, was du beim Leveln erbeutest, hol es aus deiner Bank oder kauf es im Auktionshaus.",
 
 	-- Step 17: Silk Bandage (150-180)
 	-- {item:6450} Silk Bandage · {skill:129} First Aid
@@ -94,7 +94,7 @@ return {
 	-- {item:8544} Mageweave Bandage
 	["{item:8544}: cloth"] = "{item:8544}: Stoff",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:4338} ist Beute von Humanoiden der Stufen 35-50: Behalte, was du beim Leveln erbeutest, hol es aus deiner Bank oder kauf es im Auktionshaus.",
 
 	-- Step 21: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage
@@ -146,7 +146,7 @@ return {
 	-- {item:14529} Runecloth Bandage
 	["{item:14529}: cloth"] = "{item:14529}: Stoff",
 	-- {item:14047} Runecloth
-	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:14047} ist Beute von Humanoiden der Stufen 45-60: Behalte, was du beim Leveln erbeutest, hol es aus deiner Bank oder kauf es im Auktionshaus.",
 
 	-- Step 33: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage

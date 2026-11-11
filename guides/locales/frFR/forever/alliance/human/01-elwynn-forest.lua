@@ -84,7 +84,7 @@ return {
 	["Inside {area:34}"] = "Dans la {area:34}",
 	-- {npc:248362} Shinyfinder Narf
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Les Travailleurs kobolds creusent les tunnels de la mine. {npc:248362} attend au fond du deuxième embranchement à droite.\nAttention : {npc:248362} (3) est un élite : laissez-le tranquille, sauf si vous avez un ami avec vous.",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} se promène autour de {area:34} : cherchez dans le cercle sur la carte",
 
@@ -256,7 +256,7 @@ return {
 	-- Step 50: Goldtooth
 	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed · {npc:248464} Nimsy · {npc:79} Narg the Taskmaster
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
-	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "",
+	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "{quest:87} se trouve dans la {area:57}, pas sur la colline au-dessus : entrez par l'ouverture et gardez votre gauche jusqu'au fond du niveau inférieur de la mine ; ne prenez pas l'escalier qui monte. Les Bandits défias autour des vignes laissent tomber de temps en temps un {item:1972} : faites un clic droit dessus.\nAttention : {npc:248464} (6), un kobold au fond de la mine, est un élite, et {npc:79} (10, rare) parcourt les tunnels : attirez les kobolds un par un.",
 	-- {item:981} Bernice's Necklace
 	["{item:981}; below ground"] = "{item:981} ; sous terre",
 
@@ -355,7 +355,7 @@ return {
 	["{area:54}: kill these as you meet them"] = "{area:54} : tuez-les au passage",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
 	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "",
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "La mine se trouve au sud-ouest des camps gnolls. Les {item:247816} traînent près de l'entrée ; les Géomanciens kobolds occupent les tunnels.\nAttention : {npc:471} (7-10), les Araignées minières (7-9) et {npc:248474} (7) sont des élites au fond de la mine : attirez les kobolds un par un près de l'entrée et ressortez si un élite arrive ; ils sont plus faciles avec un ami.",
 	["Walk into the mine"] = "Entrez dans la mine",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} se promène autour de {area:54} : cherchez dans le cercle sur la carte",

@@ -48,7 +48,7 @@ return {
 	["Hillsbrad Miners"] = "Mineurs d'Hillsbrad ({npc:2269})",
 	-- {item:7127} Powdered Azurite · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "",
+	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "Il vous faut 10 {item:7127}. Le guide attend d'abord le niveau 25. Les Mineurs d'Hillsbrad (niveau 26-27) travaillent dans la mine des collines à l'ouest d'{area:271} et lâchent l'azurite quatre fois sur cinq ; ils combattent en {spell:71}, fracassent votre armure et fuient chercher de l'aide à 30 % de vie. Volez jusqu'à {area:272} et allez vers le sud-ouest.",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["{item:7127}, from the Hillsbrad Miners"] = "{item:7127}, sur les Mineurs d'Hillsbrad",
@@ -57,7 +57,7 @@ return {
 	-- {area:1717} Razorfen Kraul
 	["Roogug in {area:1717}"] = "Roogug dans {area:1717}",
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "",
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "Roogug est un huran élite (niveau 28) dans le {area:1717}, le donjon au sud des {zone:1413} ; un donjon à cinq joueurs : il faut un groupe de cinq, ses gardes viennent avec lui. Le guide attend d'abord le niveau 26. À l'intérieur, prenez à gauche au premier embranchement, traversez le pont de lianes au-dessus des enclos à cochons, dépassez la salle au grand chaudron : il attend dans la salle de droite. Il lance {spell:403} et appelle des Grondeurs de terre. La fiole tombe toujours.",
 	-- {item:6841} Vial of Phlogiston
 	["{item:6841}, from Roogug"] = "{item:6841}, sur Roogug",
 

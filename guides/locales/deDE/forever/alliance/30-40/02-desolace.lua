@@ -12,7 +12,7 @@ return {
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: Die Truhe des Wracks liegt unterhalb von {npc:11863}s Turm, auf dem Weg nach {area:599}",
 	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "",
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, neben {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Truhe der Malems",
