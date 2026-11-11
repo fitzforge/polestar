@@ -29,6 +29,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "routes", src: include_str!("effects/routes.lua") },
 	Group { name: "theme", src: include_str!("effects/theme.lua") },
 	Group { name: "guidewindow", src: include_str!("effects/guidewindow.lua") },
+	Group { name: "integrations", src: include_str!("effects/integrations.lua") },
 ];
 
 // The runner: the group's probes over the control specs (the registry's, and the settings window's own pages
@@ -207,6 +208,8 @@ fn env(name: &str) -> Env {
 			login: false,
 			prelude: "uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\n".into(),
 		},
+		// The whole addon with EllesmereUI installed before it loads (theme.rs).
+		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
 		// The whole addon on the world stub, the settings window's addon loaded.
 		_ => Env {
 			stubs: vec!["stub_world.lua"],
@@ -269,6 +272,11 @@ fn theme() {
 #[test]
 fn guidewindow() {
 	check("guidewindow");
+}
+
+#[test]
+fn integrations() {
+	check("integrations");
 }
 
 // Every control of the settings window has an effect check, and every check is a control's.
