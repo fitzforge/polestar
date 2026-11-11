@@ -898,8 +898,9 @@ fn rare_card_the_founder_s_card_shows_his_crest_alone_and_bigger_other_cards_the
 		"",
 		r#"
 Polestar.Codex.Load()
-local f = PolestarRareToast
+-- The card is built on its first alert, so look it up each time.
 local function glyph()
+	local f = PolestarRareToast
 	local r, g, b, a = f.Glyph:GetVertexColor()
 	local tr, tg, tb = Polestar.Theme.Color(R.ColorName("rare"))
 	local w, h = f.Glyph:GetSize()
