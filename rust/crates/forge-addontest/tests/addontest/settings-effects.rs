@@ -38,6 +38,8 @@ const GROUPS: &[Group] = &[
 	Group { name: "gamepad", src: include_str!("effects/gamepad.lua") },
 	Group { name: "qol", src: include_str!("effects/qol.lua") },
 	Group { name: "qol_maps", src: include_str!("effects/qol-maps.lua") },
+	Group { name: "buttons", src: include_str!("effects/buttons.lua") },
+	Group { name: "buttons_world", src: include_str!("effects/buttons-world.lua") },
 ];
 
 // The runner: the group's probes over the control specs (the registry's, and the settings window's own pages
@@ -335,6 +337,16 @@ fn qol() {
 #[test]
 fn qol_maps() {
 	check("qol_maps");
+}
+
+#[test]
+fn buttons() {
+	check("buttons");
+}
+
+#[test]
+fn buttons_world() {
+	check("buttons_world");
 }
 
 // Every control of the settings window has an effect check, and every check is a control's.
