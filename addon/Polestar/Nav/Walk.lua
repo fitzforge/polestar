@@ -1048,6 +1048,7 @@ end
 
 local MEASURE_YARDS = 3000  -- straight yards from the target: places farther keep the estimate
 local MEASURE_MAX = 16      -- places measured, nearest first
+local MEASURE_CHOSEN = 6000 -- straight yards: a place the plan rides to and walks on from is measured up to this far
 local MEASURE_KEEP = 4      -- targets whose measures are kept
 local START_NEAR = 50       -- yards from where the player's walk was measured: its measure holds
 local MEASURE_NEAR = 400    -- straight yards from the player: a nearer target is not measured
@@ -1246,28 +1247,35 @@ end
 -- Measure the walks into the target (c, x, y) from the plan's places (Travel's
 -- p.places), unless they are measured or being measured, or c's walking maps
 -- may not be searched yet (canSearch: the target is on another continent).
+-- A place marked `chosen` (the landing the plan rides to and walks on from,
+-- its walk still the straight estimate) is measured too up to MEASURE_CHOSEN
+-- yards away, past MEASURE_YARDS and MEASURE_MAX: a landing out of reach was
+-- never measured, and its straight estimate beat the player's own measured
+-- walk, priced by its ground (#1728: from Camp Taurajo the plan flew back to
+-- the Crossroads, 3,800 yd from the target, to walk on from there).
+-- -> true while a measure of this target is being taken.
 function Walk.Measure(c, x, y, water, places)
 	water = water or false
 	if measuring and not sameTarget(measuring, c, x, y, water) then cancelMeasure() end
 	local P = engine()
-	if not (P and P.FindMany) or type(places) ~= "table" or not canSearch(P, c) then return end
+	if not (P and P.FindMany) or type(places) ~= "table" or not canSearch(P, c) then return false end
 	-- A near target: the straight estimates (the player's place is the plan's start).
 	for _, p in ipairs(places) do
 		if p.start then
 			local dx, dy = p.wx - x, p.wy - y
 			if dx * dx + dy * dy < MEASURE_NEAR * MEASURE_NEAR then
 				measureOwed = nil
-				return
+				return false
 			end
 			break
 		end
 	end
 	if inCombat() then
 		measureOwed = { c = c, x = x, y = y, water = water, places = places }
-		return
+		return false
 	end
 	measureOwed = nil
-	if measuring then return end
+	if measuring then return true end
 	-- The nearest places within MEASURE_YARDS, nearest first.
 	local pick, far = {}, {}
 	local reach = MEASURE_YARDS * MEASURE_YARDS
@@ -1285,10 +1293,16 @@ function Walk.Measure(c, x, y, water, places)
 			if #pick > MEASURE_MAX then pick[#pick], far[#far] = nil, nil end
 		end
 	end
+	local chosen = MEASURE_CHOSEN * MEASURE_CHOSEN
+	for _, p in ipairs(places) do
+		local dx, dy = p.wx - x, p.wy - y
+		local d = dx * dx + dy * dy
+		if p.chosen and not p.start and d > reach and d <= chosen then pick[#pick + 1] = p end
+	end
 	for _, p in ipairs(pick) do
 		if not p.start then others = true end
 	end
-	if not others then return end
+	if not others then return false end
 	local e = findMeasure(c, x, y, water)
 	if e then
 		local start, other = nil, false
@@ -1302,8 +1316,8 @@ function Walk.Measure(c, x, y, water, places)
 				break
 			end
 		end
-		if not (start or other) then return end
-		if start and not other and remeasureStart(P, e, c, x, y, water, start) then return end
+		if not (start or other) then return false end
+		if start and not other and remeasureStart(P, e, c, x, y, water, start) then return true end
 	end
 	-- The places picked, the player's walk, and those the last measure had.
 	local pts, si = {}, nil
@@ -1326,6 +1340,7 @@ function Walk.Measure(c, x, y, water, places)
 	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = si and pts[si].x, sy = si and pts[si].y }
 	measuring = mine
 	batch(P, mine, targetZ(c, x, y))
+	return measuring == mine
 end
 
 ---------------------------------------------------------------------------

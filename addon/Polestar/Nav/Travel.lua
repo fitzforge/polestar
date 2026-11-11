@@ -1688,8 +1688,24 @@ local function plan(target)
 		walkDanger = walkDanger(pc, px, py, tc, twx, twy),
 		places = places,
 	})
-	if places then W.Measure(tc, twx, twy, ghost, places) end
-	return route, pc, px, py
+	-- The route rides to a landing and walks on from there, the walk still the
+	-- straight estimate while the target's walks are measured (a landing past
+	-- Walk.Measure's reach): that landing is measured too (`chosen`), and the
+	-- caller that has a route waits for it (Travel.Remeasured, #1728).
+	local landing = false
+	if places and walkCost and route and #route > 1 then
+		local last = route[#route]
+		local from = last.kind == "walk" and last.engine ~= "cost" and last.from
+		if from then
+			for _, q in ipairs(places) do
+				if not q.start and q.wx == from.wx and q.wy == from.wy then
+					q.chosen, landing = true, true
+				end
+			end
+		end
+	end
+	local pending = places and W.Measure(tc, twx, twy, ghost, places) or false
+	return route, pc, px, py, landing and pending
 end
 
 function Travel.Replan()
@@ -2448,10 +2464,16 @@ function Travel.Remeasured()
 		Travel.Replan()
 		return legs ~= nil
 	end
-	local fresh, pc, px, py = plan(Nav.GetTarget())
+	local fresh, pc, px, py, owed = plan(Nav.GetTarget())
 	if not fresh then return false end
 	if sameWay(fresh, 1, legs, ci) then
 		if not takePrices(fresh) then return false end
+	elseif owed then
+		-- Another way that rides to a landing whose walk into the target is
+		-- being measured: kept until that measure lands (it plans again then).
+		-- Priced by its straight estimate against the player's measured walk,
+		-- it flew a player at Camp Taurajo back to the Crossroads (#1728).
+		return false
 	else
 		legs, ci, boarded, progressYards, legSince = fresh, 1, false, nil, GetTime()
 		planAt, planC, planX, planY = GetTime(), pc, px, py
