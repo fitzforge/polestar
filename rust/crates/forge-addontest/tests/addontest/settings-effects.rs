@@ -385,7 +385,9 @@ fn map_codex() {
 	check("map_codex");
 }
 
-// Every control of the settings window has an effect check, and every check is a control's.
+// Every control of the settings window has an effect check, and every check is a registered control's. A later
+// release's control (settings-controls.json, as the coverage test reads it: its row placed in the window ahead of the
+// setting it needs) needs its check once this build is that release.
 #[test]
 #[ignore = "effect checks still to write: the Buttons, Alerts and Trackers pages and the Guiding pages"]
 fn every_control_has_an_effect_check() {
@@ -403,28 +405,40 @@ fn every_control_has_an_effect_check() {
 			assert!(checked.insert(id.clone()), "{id} is checked in two groups");
 		}
 	}
+	let (_, ahead) = crate::settings_coverage::due_and_ahead();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		addons: vec![Addon::name("Polestar")],
 		login: true,
-		script: r#"
+		script: format!(
+			r#"
 			stub.advance(1)
 			assert(Polestar.UI.LoadOptions())
 			local O = Polestar.UI.Options
+			local later = {{}}
+			for _, id in ipairs({ahead}) do later[id] = true end
 			local function labelOf(c) if type(c.label) == "function" then return c.label() end return c.label end
-			local ids, seen = {}, {}
+			local ids, due, seen = {{}}, {{}}, {{}}
 			for _, c in ipairs(O.AllControls()) do
 				local id = c.key or (c.kind == "binding" and ("action:" .. tostring(c.action))) or (c.page.name .. ":" .. tostring(labelOf(c)))
-				if not seen[id] then seen[id] = true; ids[#ids + 1] = id end
+				if not seen[id] then
+					seen[id] = true
+					ids[#ids + 1] = id
+					-- The manifest's name for it (settings-coverage.rs idOf).
+					local listed = c.key or (c.kind == "binding" and ("action:" .. tostring(c.action))) or ("label:" .. tostring(labelOf(c)))
+					if not later[listed] then due[#due + 1] = id end
+				end
 			end
-			emit(ids)"#
-			.into(),
+			emit({{ ids = ids, due = due }})"#,
+			ahead = forge_addontest::run::lua_value(&Value::Array(ahead))
+		),
 		..Default::default()
 	})
 	.remove(0);
-	let controls: std::collections::BTreeSet<String> = out.as_array().unwrap().iter().map(|x| x.as_str().unwrap().to_string()).collect();
-	let missing: Vec<&String> = controls.difference(&checked).collect();
+	let set = |v: &Value| -> std::collections::BTreeSet<String> { v.as_array().unwrap().iter().map(|x| x.as_str().unwrap().to_string()).collect() };
+	let (controls, due) = (set(&out["ids"]), set(&out["due"]));
+	let missing: Vec<&String> = due.difference(&checked).collect();
 	let stale: Vec<&String> = checked.difference(&controls).collect();
 	assert!(stale.is_empty(), "checks for controls the window no longer has: {stale:?}");
-	assert!(missing.is_empty(), "{} of {} controls have no effect check:\n{}", missing.len(), controls.len(), missing.iter().map(|s| s.as_str()).collect::<Vec<_>>().join("\n"));
+	assert!(missing.is_empty(), "{} of {} controls have no effect check:\n{}", missing.len(), due.len(), missing.iter().map(|s| s.as_str()).collect::<Vec<_>>().join("\n"));
 }
