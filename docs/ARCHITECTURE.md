@@ -2905,26 +2905,33 @@ Polestar.Theme.FontKey() -> "opensans" | "game" | "inter" | "fira"   -- ui.font,
 style everything below describes (the default); the two directions of the
 design handoff, `halo` (Forever · Halo: no frame, a dark veil with soft edges,
 an off-white ladder, the game's gold, Fira Sans) and `hearth` (Forever ·
-Hearth: warm game colours, a brown gradient window, the client's buttons, font
-and text colours); and the game's own looks, `forever`, `blizzard` and
-`classic` (below). `Theme.GameSkin()` is true for Hearth and the game's looks:
-the client's check boxes, sliders and red buttons, its font and hard shadow. A
+Hearth: an inn by the fire, in Polestar's own art: walnut grounds lit from
+above by an ember light, parchment text, copper hairlines, an ember accent,
+the game's font); and the game's own looks, `forever`, `blizzard` and
+`classic` (below). `Theme.GameSkin()` is true for the game's looks alone: the
+client's check boxes, sliders and red buttons, its font and hard shadow. A
 skin brings:
 - its palette (`Theme.SKIN_PALETTES`: the handoff's tokens as given, washes
-  included); the scheme, ground colour, brightness, band and shadow are the
-  house style's (their options are greyed out in a skin); the player's own
-  accent, window border and arrow colours win in every skin. Tokens the skins
-  added (`textOff`, `title`, `link`, `todo`, `later`, `manual`, `skipped`,
+  included; the game's looks start from `GAME_BASE`, the client's colours);
+  the scheme, ground colour, brightness, band and shadow are the house
+  style's (their options are greyed out in a skin); the player's own accent,
+  window border and arrow colours win in every skin. Tokens the skins added
+  (`textOff`, `title`, `link`, `todo`, `later`, `manual`, `skipped`,
   `arrive`, `veil`, `veilWindow`, `menuBg`, `inputBg`, `control`,
   `accentLine`, `padSelect`, `chipAccent`, `separator`, `rowLine`, `icon`,
   `iconHover`, `buttonText`, `personName`, `tabRest`) exist in the house
-  style too, as their house equivalents;
+  style too, as their house equivalents; `ember` (the firelight) is read by
+  Hearth's own painters alone;
 - its paints (`Theme.SKIN_PAINT`, falling back to the house paint): Halo's
-  veil (Media/UI/veil-soft, nine slices laid 24 units out); Hearth's flat
-  brown gradient windows edged by the window border setting (a #5C4518
-  hairline by default; no game frame) and the game's `UI-Panel-Button-*`. A
-  frame painted in another skin is cleared first, so a switch and back leaves it
-  as it was;
+  veil (Media/UI/veil-soft, nine slices laid 24 units out); Hearth's board (a
+  bg → bgBottom gradient on its own texture, `psSkin.kit.board`, so the house
+  fill stays flat), the ember light along every window's top edge (the lower
+  half of Media/UI/glow, added, `psSkin.kit.ember`), planks for its buttons
+  and dropdowns, recesses for tiles and tick boxes, a copper hairline by the
+  window border setting (#7A4A22 by default) and the house drop shadow; the
+  guide window's mantel band and tab planks are its own (UI/GuideFrame.lua).
+  A frame painted in another skin is cleared first, so a switch and back
+  leaves it as it was;
 - its fonts (`ui.font` "skin", the default: the game's in the house style,
   Fira Sans in Halo, the game's in Hearth and the game's looks), its type sizes and text shadow;
 - its sizes (`Theme.Metric`): setting rows, buttons, menus, dropdowns,
@@ -2934,8 +2941,9 @@ skin brings:
 
 The arrow follows the skin (`nav.arrowStyle` "skin", the default: 3D in the
 house style, the `halo` dart in Halo, the `hearth` dart in Hearth and the
-game's looks; Nav/Arrow.lua). The skins' textures are drawn by
-`tools/media/skins.js`.
+game's looks; Nav/Arrow.lua). The game's looks' far dart is its baked gold;
+Hearth's is tinted in the accent (ember by default), as Halo's and every
+dart up close. The skins' textures are drawn by `tools/media/skins.js`.
 
 **Skins and schemes from other addons** (the Skin API, version 2:
 [SKINS-API.md](SKINS-API.md), [docs/skins](skins/README.md)). Three files:

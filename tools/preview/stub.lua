@@ -272,7 +272,6 @@ local function entry(o)
 		e.barTexture = idOf(o.barTexture)
 		e.mask = idOf(o.mask)
 		e.value, e.minValue, e.maxValue = o.value, o.minValue, o.maxValue
-		e.barTexture = idOf(o.barTexture)
 		e.euiSkin = o.euiSkin
 		e.euiOpts = o.euiOpts
 		e.euiSelected = o.euiSelected
@@ -357,7 +356,6 @@ function preview.dump(opts)
 			add(o.thumbTexture)
 			add(o.barTexture)
 			add(o.checkedTexture)
-			add(o.barTexture)
 		end
 		return out
 	end

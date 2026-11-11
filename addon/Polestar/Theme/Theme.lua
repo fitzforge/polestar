@@ -149,9 +149,9 @@ Theme.HexColor = hex
 -- (docs/ARCHITECTURE.md, "Skins"):
 --   "halo"      Forever · Halo: no frame, a dark veil with soft edges under
 --               the text, an off-white ladder, the game's gold, Fira Sans
---   "hearth"    Forever · Hearth: Polestar in warm game colours, a brown
---               gradient window, the client's red buttons, font and text
---               colours
+--   "hearth"    Forever · Hearth: an inn by the fire. Walnut grounds lit
+--               from above, parchment text, copper hairlines and an ember
+--               accent, drawn in Polestar's own art (no client textures)
 --   "forever", "blizzard", "classic"   the client's own art: WoW Forever's,
 --               the retail art (Blizzard Style) and the vanilla files
 --               (Theme/GameSkins.lua draws them)
@@ -185,6 +185,45 @@ local SKIN_PALETTES = {
 		rare = hex("FF8052"), dungeon = hex("A385FF"), discord = hex("5865F2"),
 	},
 	hearth = {
+		-- Grounds: the window a walnut board, lit at the top (bg) and in
+		-- shadow at its foot (bgBottom); sky/skyBottom the lit mantel band
+		-- under the tabs; panel the menus and detail panes; panelAlt the
+		-- controls' plank; the rail and footer the darkest wood.
+		bg = hex("2A1A0F", 0.95), bgBottom = hex("160D07", 0.95), panel = hex("2C1A0F", 0.97), panelAlt = hex("3B2616"),
+		sidebar = hex("1C1109"), footer = hex("1A1009"), sky = hex("432814"), skyBottom = hex("2A1A0F"),
+		-- Parchment: the text ladder is cream, not white; headings, the
+		-- person's name and the active tab take the firelit gold.
+		text = hex("F5E9D3"), textDim = hex("D2BE9C"), textMuted = hex("B39D79"), textOff = hex("85705A"),
+		title = hex("FFD9A0"), ink = hex("FFF4E0"), star = hex("FFFFFF", 0), shade = hex("140A04"),
+		scrim = hex("1A0F08"), onAccent = hex("1F120A"), shadow = hex("0D0704", 0.7),
+		-- Ember: the accent (controls, the lit goal, the progress bar) and the
+		-- light that falls on every window's top edge (SKIN_PAINT.hearth).
+		accent = hex("FF9440"), ember = hex("FF7A2E"),
+		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("2C1A0F", 0.97),
+		inputBg = hex("140A04", 0.55), control = hex("3B2616"),
+		accentLine = hex("FF9440", 0.5), padSelect = hex("FF9440", 0.14), chipAccent = hex("FF9440", 0.18),
+		-- Copper: every hairline, edge and rule.
+		separator = hex("C8905A", 0.35), rowLine = hex("FFE0B0", 0.06),
+		border = hex("8A5A2B", 0.55), windowEdge = hex("7A4A22"), divider = hex("C8905A", 0.22), hover = hex("FFB070", 0.1),
+		selected = hex("FF9440", 0.12), toggle = hex("FFE0B0", 0.14), track = hex("FFE0B0", 0.14),
+		progress = hex("140A04", 0.55), chip = hex("FFE0B0", 0.08), box = hex("B07A3C"),
+		thumb = hex("C8905A", 0.6), swatch = hex("FFFFFF", 0.25), watermark = hex("FFD9A0", 0.035), mover = hex("FF9440", 0.12),
+		frameEdge = hex("B07A3C"), frameEdgeDark = hex("5A3618"), titleLine = hex("9A6430"),
+		-- Status, warmed to the wood: a leaf green, amber, a coal red.
+		success = hex("8FD66E"), arrive = hex("8FD66E"), todo = hex("FF9440"), warning = hex("FFB84D"),
+		later = hex("FFB84D"), danger = hex("FF7A5C"), manual = hex("D6A6FF"), skipped = hex("7FD0E0"),
+		icon = hex("D2BE9C"), iconHover = hex("FFD9A0"), buttonText = hex("F5E9D3"), personName = hex("FFD9A0"), tabRest = hex("B39D79"),
+		rowLabel = hex("F5E9D3"), navRest = hex("D2BE9C"),
+		link = hex("FFB070"), discord = hex("5865F2"),
+	},
+}
+
+-- The game's looks start from the game's own colours (white text, gold
+-- titles, the client's quality greens and oranges, the options list's blue
+-- selection) with their own grounds, glyph tints and rules.
+local gamePalette
+do
+	local GAME_BASE = {
 		bg = hex("1E170D", 0.95), bgBottom = hex("090704", 0.95), panel = hex("000000", 0.92), panelAlt = hex("000000"),
 		sidebar = hex("000000", 0.3), footer = hex("000000", 0), sky = hex("2C200C"), skyBottom = hex("150F06"),
 		text = hex("FFFFFF"), textDim = hex("CCCCCC"), textMuted = hex("9D9D9D"), textOff = hex("808080"),
@@ -205,17 +244,13 @@ local SKIN_PALETTES = {
 		icon = hex("FFD100"), iconHover = hex("FFD100"), buttonText = hex("FFD100"), personName = hex("FFD100"), tabRest = hex("A38D58"),
 		rowLabel = hex("FFFFFF"), navRest = hex("CCCCCC"),
 		link = hex("FFD100"), npc = hex("FFFFFF"), discord = hex("5865F2"),
-	},
-}
-
--- The game's looks start from Hearth's game colours (white text, gold
--- titles, the client's quality greens and oranges) with their own grounds,
--- glyph tints and rules.
-local function gamePalette(over)
-	local p = {}
-	for k, v in pairs(SKIN_PALETTES.hearth) do p[k] = v end
-	for k, v in pairs(over) do p[k] = v end
-	return p
+	}
+	function gamePalette(over)
+		local p = {}
+		for k, v in pairs(GAME_BASE) do p[k] = v end
+		for k, v in pairs(over) do p[k] = v end
+		return p
+	end
 end
 SKIN_PALETTES.forever = gamePalette({
 	bg = hex("000000", 0.96), bgBottom = hex("000000", 0.96), sidebar = hex("000000", 0.25),
@@ -257,9 +292,9 @@ Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "class
 local HIDDEN_SKINS = {}
 -- Tests may set Theme._testShowHidden = true to render hidden skins directly.
 Theme._testShowHidden = false
--- The skins drawn in game colours and controls (the client's check boxes,
--- sliders, red buttons, the game font with its hard shadow).
-local GAME_SKINS = { hearth = true, forever = true, blizzard = true, classic = true }
+-- The skins drawn in the game's own colours and controls (Theme/GameSkins.lua:
+-- the client's check boxes, sliders, red buttons, its font and hard shadow).
+local GAME_SKINS = { forever = true, blizzard = true, classic = true }
 -- The Skin API's registries (Theme.RegisterSkin / Theme.RegisterScheme at the
 -- end of this file, docs/SKINS-API.md): skin id -> its spec as registered
 -- (the built-in six too), scheme id -> its name, addon and accent, and the
@@ -353,6 +388,9 @@ local function shifted(c, dL, k)
 	local r, g, bb = fromLab(L, a * k, b * k)
 	return { r, g, bb, c[4] or 1 }
 end
+-- `c` with its OKLab lightness moved by dL, for the modules' own skin
+-- paints (Hearth's lit tab in UI/GuideFrame.lua). -> { r, g, b, a }
+Theme.Shifted = shifted
 
 -- Grounds around one colour (a custom ground, EllesmereUI's panel colour):
 -- the same lightness steps Dusk takes around its window ground.
@@ -641,6 +679,7 @@ function Theme.SkinId()
 	if SKINS[k] and not FAILED[k] and (Theme._testShowHidden or not HIDDEN_SKINS[k]) then return k end
 	return "polestar"
 end
+
 
 -- The skin choices for the options: the built-in skins, then the skins other
 -- addons registered, each with its addon. Installed skin addons that load
@@ -1274,7 +1313,27 @@ local METRICS = {
 		guideIconBtnW = 24, guideIconBtnH = 22, guideIcon = 13, guideRow = 22, guideCheck = 16,
 		guideProgress = 3, guideGrip = 8, guideFoot = 17, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 2,
 	},
+	-- Hearth: planks a touch roomier than the game's rows, the house's slim
+	-- footer and progress line (in the ember accent).
 	hearth = {
+		row = 32, menuRow = 24, menuPad = 6, menuWidth = 260, servicesWidth = 290,
+		buttonH = 26, buttonPad = 14, dropdownW = 170, dropdownH = 26, chevron = 10, chevronInset = 8,
+		sliderW = 120, valueW = 56, checkbox = 16,
+		shellW = 930, shellH = 690, shellSidebar = 200, shellTabs = 32, shellPad = 28, shellFooter = 56,
+		pickerW = 1100, pickerH = 640, pickerDetail = 380, pickerSidebar = 230,
+		guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 22, guideNavIcon = 12,
+		guideIconBtnW = 24, guideIconBtnH = 22, guideIcon = 12, guideRow = 22, guideCheck = 15,
+		guideProgress = 3, guideGrip = 8, guideFoot = 20, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 4,
+	},
+}
+-- The game's looks: the client's sizes (the Settings panel's rows and
+-- controls, the 14-high status bar); WoW Forever's guide window keeps its
+-- rows and the lit goal clear of its bronze border (#306), and its tab
+-- strip is 30 high so the Settings tab outlines stand clear of the
+-- window's edge (#312, GameSkins' tabClear).
+do
+	local GAME_ROLES = { hero = { "semibold", 24 } }
+	local GAME_METRICS = {
 		row = 28, menuRow = 22, menuPad = 6, menuWidth = 260, servicesWidth = 290,
 		buttonH = 22, buttonPad = 14, dropdownW = 170, dropdownH = 24, chevron = 10, chevronInset = 6,
 		sliderW = 120, valueW = 56, checkbox = 18,
@@ -1283,17 +1342,14 @@ local METRICS = {
 		guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 20, guideNavIcon = 12,
 		guideIconBtnW = 20, guideIconBtnH = 20, guideIcon = 11, guideRow = 22, guideCheck = 15,
 		guideProgress = 14, guideGrip = 8, guideFoot = 28, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 4,
-	},
-}
--- The game's looks take Hearth's sizes and type; WoW Forever's guide window
--- keeps its rows and the lit goal clear of its bronze border (#306), and its
--- tab strip is 30 high so the Settings tab outlines stand clear of the
--- window's edge (#312, GameSkins' tabClear).
-for _, k in ipairs({ "forever", "blizzard", "classic" }) do
-	METRICS[k] = METRICS.hearth
-	SKIN_ROLES[k] = SKIN_ROLES.hearth
+	}
+	for _, k in ipairs({ "forever", "blizzard", "classic" }) do
+		METRICS[k] = GAME_METRICS
+		SKIN_ROLES[k] = GAME_ROLES
+	end
+	METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true, guideTabs = 30 },
+		{ __index = GAME_METRICS })
 end
-METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true, guideTabs = 30 }, { __index = METRICS.hearth })
 Theme.METRICS = METRICS
 
 function Theme.Metric(key, house)
@@ -1451,10 +1507,11 @@ local scaled = setmetatable({}, { __mode = "k" }) -- fontString -> its own size 
 local flat = setmetatable({}, { __mode = "k" }) -- fontString -> true: no drop shadow
 local scripted = setmetatable({}, { __mode = "k" }) -- fontString -> its text's script font, or false
 
--- Text shadows: the house style's soft 1, -1; Halo's 1 down at 90 % black
--- (DIRECTION_B_HALO.md §2); Blizzard's hard 1, -1 black, as the game's.
+-- Text shadows: the house style's soft 1, -1 in the scheme's shade (Hearth
+-- too, in its warm shade); Halo's 1 down at 90 % black (DIRECTION_B_HALO.md
+-- §2); the game's looks' hard 1, -1 black, as the game's.
 local HARD = { 1, -1, 1 }
-local SKIN_SHADOW = { halo = { 0, -1, 0.9 }, hearth = HARD, forever = HARD, blizzard = HARD, classic = HARD }
+local SKIN_SHADOW = { halo = { 0, -1, 0.9 }, forever = HARD, blizzard = HARD, classic = HARD }
 
 -- ui.textShadow: "skin" (the default: the skin's own), "soft", "hard" or
 -- "none" for every Polestar string.
@@ -2103,6 +2160,93 @@ local function veilAlpha(f, token)
 	return math.min(1, a * scale)
 end
 
+-- Hearth's painters. Its pieces live in the frame's kit store
+-- (frame.psSkin.kit, as the game's looks keep theirs), so Theme's clearSkin
+-- hides them when another skin paints the frame. A gradient set on a
+-- texture outlives a flat SetVertexColor, so the boards and planks draw on
+-- their own texture and leave the house fill (psSkin.bg) flat for the
+-- skins that use it so.
+local HEARTH = {}
+do
+	local function store(f)
+		local d = f.psSkin
+		d.kit = d.kit or {}
+		return d.kit
+	end
+
+	-- The board: `top` shading to `bottom` over the whole frame, on the
+	-- house fill's layer; the house fill itself out of sight.
+	function HEARTH.board(f, top, bottom)
+		local k = store(f)
+		local t = k.board
+		if not t then
+			t = f:CreateTexture(nil, "BACKGROUND", nil, -7)
+			t:SetTexture(Theme.Media("white"))
+			t:SetAllPoints(f)
+			k.board = t
+		end
+		if f.psSkin.bg then f.psSkin.bg:Hide() end
+		if t.SetGradient and CreateColor then
+			t:SetGradient("VERTICAL", CreateColor(bottom[1], bottom[2], bottom[3], bottom[4] or 1), CreateColor(top[1], top[2], top[3], top[4] or 1))
+		else
+			t:SetVertexColor(top[1], top[2], top[3], top[4] or 1)
+		end
+		t:Show()
+		return t
+	end
+
+	-- The firelight: the lower half of Media/UI/glow (a soft radial) laid
+	-- along a window's top edge in the ember colour, added to the ground, so
+	-- the board reads lit from above and fades into shadow.
+	local EMBER_H = 120
+	function HEARTH.ember(f, alpha)
+		local k = store(f)
+		local g = k.ember
+		if not g then
+			g = f:CreateTexture(nil, "BACKGROUND", nil, -6)
+			g:SetTexture(Theme.Media("glow"))
+			g:SetTexCoord(0, 1, 0.5, 1)
+			g:SetBlendMode("ADD")
+			g:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+			g:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+			k.ember = g
+		end
+		local h = f.GetHeight and f:GetHeight() or 0
+		g:SetHeight(h > 0 and math.min(EMBER_H, h) or EMBER_H)
+		local r, gg, b = Theme.Color("ember")
+		g:SetVertexColor(r, gg, b, alpha)
+		g:Show()
+		return g
+	end
+
+	-- Hearth's transparent window: bare, its board and ember light out too.
+	function HEARTH.bare(f)
+		bare(f)
+		local k = f.psSkin.kit
+		if k then
+			if k.board then k.board:Hide() end
+			if k.ember then k.ember:Hide() end
+		end
+	end
+
+	-- Hearth's plank: a control's ground shading down to its foot, edged in
+	-- copper. A primary button keeps the flat house fill for the accent
+	-- W.Button lays on it.
+	function HEARTH.plank(f)
+		if f.psPrimary then
+			local k = f.psSkin.kit
+			if k and k.board then k.board:Hide() end
+			fill(f):SetVertexColor(Theme.Color("control"))
+		else
+			local top = { Theme.Color("control") }
+			HEARTH.board(f, top, shifted(top, -0.06))
+		end
+		local r, g, b = Theme.Color("frameEdge")
+		Theme.Border(f, r, g, b, 0.6)
+		hoverWash(f)
+	end
+end
+
 local SKIN_PAINT = {
 	halo = {
 		window = function(f)
@@ -2159,11 +2303,13 @@ local SKIN_PAINT = {
 		end,
 	},
 	hearth = {
-		-- Flat windows (Yendi, after playing it): the handoff's brown gradient
-		-- without the game's metal frame, edged by the window border setting
-		-- in a brown hairline (#5C4518) unless the player picked their own.
+		-- A walnut board lit from above: the bg -> bgBottom gradient at the
+		-- player's opacity (their own ground colour darkened toward its
+		-- foot when they picked one), the ember light along its top edge, a
+		-- copper hairline by the window border setting (the player's own
+		-- colour wins) and the house drop shadow in Hearth's warm shade.
 		window = function(f)
-			if f.psBare then return bare(f) end
+			if f.psBare then return HEARTH.bare(f) end
 			local a = veilAlpha(f, "bg")
 			local top, bottom = { Theme.Color("bg") }, { Theme.Color("bgBottom") }
 			if isColor(f.psBgColor) then
@@ -2171,7 +2317,10 @@ local SKIN_PAINT = {
 				bottom = shifted(top, -0.08)
 			end
 			top[4], bottom[4] = a, a
-			gradientFill(f, top, bottom)
+			HEARTH.board(f, top, bottom)
+			-- Small boards (the guide window, the toasts) sit closer to the
+			-- fire than the big windows.
+			HEARTH.ember(f, ((f.psGuide or f.psLight) and 0.2 or 0.16) * math.min(1, a + 0.2))
 			local shown, size = Theme.WindowBorder()
 			if shown and not f.psNoBorder then
 				local br, bg, bb, ba = Theme.Color("windowBorder")
@@ -2179,16 +2328,26 @@ local SKIN_PAINT = {
 			else
 				hideBorder(f)
 			end
+			if get("ui.shadow") == false then
+				if f.psShadow then f.psShadow:Hide() end
+				return
+			end
+			local s = shadowFor(f)
+			local sr, sg, sb, sa = Theme.Color("shadow")
+			for i = 1, #s.parts do s.parts[i]:SetVertexColor(sr, sg, sb, sa * math.min(1, a + 0.1)) end
+			s:Show()
 		end,
+		-- Menus and detail panes: a flat, slightly lighter board with a
+		-- dark copper edge.
 		panel = function(f)
 			if f.psBare then return bare(f) end
-			local top, bottom = { Theme.Color("bg") }, { Theme.Color("bgBottom") }
-			top[4], bottom[4] = 0.97, 0.97
-			gradientFill(f, top, bottom)
+			fill(f):SetVertexColor(Theme.Color("panel"))
 			Theme.Border(f, Theme.Color("frameEdgeDark"))
 		end,
+		-- Action tiles: a shaded recess in the board.
 		tile = function(f)
-			fill(f):SetVertexColor(0, 0, 0, 0.4)
+			local r, g, b = Theme.Color("shade")
+			fill(f):SetVertexColor(r, g, b, 0.35)
 			Theme.Border(f, Theme.Color("titleLine"))
 			hoverWash(f)
 		end,
@@ -2196,36 +2355,39 @@ local SKIN_PAINT = {
 			fill(f):SetVertexColor(Theme.Color("sidebar"))
 		end,
 		inset = function(f)
-			fill(f):SetVertexColor(0, 0, 0, 0.45)
+			local r, g, b = Theme.Color("shade")
+			fill(f):SetVertexColor(r, g, b, 0.4)
+			hideBorder(f)
 		end,
-		-- The game's red button for text buttons (W.Button) alone; anything
-		-- else painted as a button (cards, rows, tiles) is a dark well edged
-		-- in brown.
+		-- Text buttons (W.Button) and dropdowns are planks: the control
+		-- ground shading down, a copper edge; primary buttons take the
+		-- accent fill the house gives them. Anything else painted as a
+		-- button (cards, rows) is a shaded recess.
 		button = function(f)
-			if f.psTextButton then return redButton(f) end
-			fill(f):SetVertexColor(0, 0, 0, 0.4)
+			if f.psTextButton then return HEARTH.plank(f) end
+			local r, g, b = Theme.Color("shade")
+			fill(f):SetVertexColor(r, g, b, 0.35)
 			Theme.Border(f, Theme.Color("titleLine"))
 			hoverWash(f)
 		end,
-		dropdown = function(f)
-			fill(f):SetVertexColor(Theme.Color("control"))
-			Theme.Border(f, Theme.Color("border"))
-			hoverWash(f)
-		end,
+		dropdown = HEARTH.plank,
 		editbox = function(f)
 			fill(f):SetVertexColor(Theme.Color("inputBg"))
 			if f.psFocused then
 				local r, g, b = Theme.Accent()
 				Theme.Border(f, r, g, b, 0.8)
 			else
-				Theme.Border(f, Theme.Color("border"))
+				Theme.Border(f, Theme.Color("frameEdgeDark"))
 			end
 		end,
+		-- The tick box: a recess edged in copper, the house check in the
+		-- accent inside it.
 		checkbox = function(f)
 			HOUSE_PAINT.checkbox(f)
 			local d = f.psSkin
 			d.box:SetSize(15, 15)
-			gradientFill(d.box, { 0, 0, 0, 1 }, { 0.11, 0.11, 0.11, 1 })
+			if f.psOnWorld then return end
+			fill(d.box):SetVertexColor(Theme.Color("inputBg"))
 			Theme.Border(d.box, Theme.Color("box"))
 		end,
 	},

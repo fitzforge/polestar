@@ -358,11 +358,12 @@ local function dialTint(d, r, g, b, lk)
 	d.sheet:SetVertexColor(r, g, b, 1)
 	local s = d.style
 	if isSkin(s) then
-		-- Hearth's far dart is its baked gold, unless the player picked
-		-- their own arrow colour or the skin brings its own dart; up close
-		-- (and Halo's always) it is tinted.
+		-- The game's looks' far dart is its baked gold, unless the player
+		-- picked their own arrow colour or the skin brings its own dart;
+		-- Hearth's (the dart is its own) and Halo's, and every dart up close,
+		-- are tinted.
 		local own = type(ns.Get("nav.arrowColor")) == "table"
-		local gold = s == "hearth" and not d.near and not own and not skinDart
+		local gold = s == "hearth" and not d.near and not own and not skinDart and ns.Theme.SkinKey() ~= "hearth"
 		local tex = skinDart or (UI_DIR .. (gold and "dart-gold" or "dart"))
 		if d.dartTex ~= tex then
 			d.dartTex = tex

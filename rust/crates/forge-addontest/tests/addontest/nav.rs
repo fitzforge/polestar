@@ -382,7 +382,7 @@ fn during_the_catch_up_the_arrow_shows_an_hourglass_turning_over_then_comes_back
 }
 
 #[test]
-fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_within_40_m_hearth_s_baked_gold_then_the_ring_and_the_check() {
+fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_within_40_m_hearth_s_ember_the_game_looks_baked_gold_then_the_ring_and_the_check() {
 	let out = run_themed(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
@@ -401,6 +401,13 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 		nav.place(300, 0)
 		stub.advance(0.2)
 		out.bliz = { style = A.GetStyle(), tex = tex(A.dart), tint = rgb(A.dart), edge = rgb(A.dartEdge) }
+		-- The game's looks draw Hearth's dart in their baked gold.
+		Polestar.Theme._testShowHidden = true
+		Polestar.Set("ui.skin", "forever")
+		stub.advance(0.2)
+		out.lookFar = { style = A.GetStyle(), tex = tex(A.dart), tint = rgb(A.dart) }
+		Polestar.Set("ui.skin", "hearth")
+		stub.advance(0.2)
 		nav.place(300, 360)
 		stub.advance(0.2)
 		out.blizNear = { tex = tex(A.dart), tint = rgb(A.dart) }
@@ -413,7 +420,6 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 		out.flat = A.GetStyle()
 		Polestar.Set("nav.arrowStyle", "skin")
 		out.looks = {}
-		Polestar.Theme._testShowHidden = true
 		for _, k in ipairs({ "forever", "blizzard", "classic" }) do
 			Polestar.Set("ui.skin", k)
 			out.looks[#out.looks + 1] = A.GetStyle()
@@ -430,8 +436,13 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 	let mut bliz = out["bliz"].clone();
 	bliz["tint"] = r3(&out["bliz"]["tint"]);
 	bliz["edge"] = r3(&out["bliz"]["edge"]);
-	assert_eq!(bliz, json!({ "style": "hearth", "tex": "dart-gold", "tint": [1, 1, 1], "edge": [0.165, 0.102, 0] }), "Hearth: the baked gold gradient, edged #2A1A00");
-	assert_eq!(json!({ "tex": out["blizNear"]["tex"], "tint": r3(&out["blizNear"]["tint"]) }), json!({ "tex": "dart", "tint": [0.345, 0.753, 0.29] }), "up close: #58C04A");
+	assert_eq!(bliz, json!({ "style": "hearth", "tex": "dart", "tint": [1, 0.58, 0.251], "edge": [0.165, 0.102, 0] }), "Hearth: its own dart in the ember accent #FF9440, edged #2A1A00");
+	assert_eq!(
+		json!({ "style": out["lookFar"]["style"], "tex": out["lookFar"]["tex"], "tint": r3(&out["lookFar"]["tint"]) }),
+		json!({ "style": "hearth", "tex": "dart-gold", "tint": [1, 1, 1] }),
+		"the game's looks: the baked gold gradient"
+	);
+	assert_eq!(json!({ "tex": out["blizNear"]["tex"], "tint": r3(&out["blizNear"]["tint"]) }), json!({ "tex": "dart", "tint": [0.561, 0.839, 0.431] }), "up close: Hearth's arrival leaf green #8FD66E");
 	assert_eq!(out["arrived"], json!({ "mode": "arrived", "ring": true, "houseRing": false, "check": false, "dart": false }));
 	assert_eq!(out["checked"], true, "the check follows the ring");
 	assert_eq!(out["flat"], "flat", "a style picked by hand stays");
@@ -439,15 +450,15 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 }
 
 // Skin API 2: a skin's own dart and its edge (media.dart, media.dartEdge) stand in for Polestar's in the skin
-// arrow styles, tinted like the house dart (never Hearth's baked gold, which is Polestar's own picture); the next
-// skin's dart is Polestar's again.
+// arrow styles, tinted like the house dart (never the game looks' baked gold, which is Polestar's own picture,
+// even on a game look's base); the next skin's dart is Polestar's again.
 #[test]
 fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gold() {
 	let out = run_themed(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
 		local function tex(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
-		local ok, why = Polestar.Theme.RegisterSkin("darts", { name = "Darts", addon = "Test", base = "hearth",
+		local ok, why = Polestar.Theme.RegisterSkin("darts", { name = "Darts", addon = "Test", base = "forever",
 			media = { dart = "Interface\\AddOns\\Test\\my-dart", dartEdge = "Interface\\AddOns\\Test\\my-edge" } })
 		target(300, 400)
 		stub.advance(0.2)
@@ -455,7 +466,7 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 		nav.place(300, 0)
 		stub.advance(0.2)
 		local far = { ok = ok, style = A.GetStyle(), tex = tex(A.dart), edge = tex(A.dartEdge), white = table.concat(rgb(A.dart), ",") == "1,1,1" }
-		Polestar.Set("ui.skin", "hearth")
+		Polestar.Set("ui.skin", "forever")
 		stub.advance(0.2)
 		emit({ far = far, back = { tex = tex(A.dart), edge = tex(A.dartEdge) } })"#,
 	);

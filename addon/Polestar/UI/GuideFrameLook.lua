@@ -277,32 +277,35 @@ end
 -- drawn from (a skin's variant may change that look while the skin stays).
 local skinShown
 
--- Hearth's tab: framed, gold on the active one (DIRECTION_A_BLIZZARD.md §3);
--- the game's looks: their kit's tab art.
+-- Hearth's tab: the active one a plank standing on the mantel band (sky,
+-- lit a little at its top), its label in the firelit gold and the house
+-- accent bar along the seam; the others bare, in tabRest. The game's
+-- looks: their kit's tab art.
 function GF.PaintTab(b)
 	local kit = Theme.KitTab(b, b.psActive, nil, true)
-	local bliz = Theme.SkinKey() == "hearth"
+	local hearth = Theme.SkinKey() == "hearth"
 	local f = rawget(b, "psFrameTex")
-	if bliz and not f then
+	if hearth and not f then
 		f = b:CreateTexture(nil, "BACKGROUND", nil, -7)
 		f:SetTexture(Theme.Media("white"))
+		f:SetAllPoints(b)
 		b.psFrameTex = f
 	end
 	if f then
-		f:SetShown(bliz)
-		f:ClearAllPoints()
-		f:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
-		f:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
-		f:SetHeight(b.psActive and 24 or 21)
-		local top = b.psActive and { 0.231, 0.176, 0.078 } or { 0.122, 0.094, 0.047 }
-		local bottom = b.psActive and { 0.09, 0.067, 0.039 } or { 0.051, 0.039, 0.02 }
+		f:SetShown(hearth and b.psActive)
+		local sky = { Theme.Color("sky") }
+		local top, bottom = Theme.Shifted(sky, 0.16), Theme.Shifted(sky, 0.08)
 		if f.SetGradient and CreateColor then
 			f:SetGradient("VERTICAL", CreateColor(bottom[1], bottom[2], bottom[3], 1), CreateColor(top[1], top[2], top[3], 1))
 		else
 			f:SetVertexColor(top[1], top[2], top[3], 1)
 		end
 	end
-	if bliz or kit then
+	if hearth then
+		b.Selected:Hide()
+		b.Bar:SetShown(b.psActive)
+		W.Color(b.Label, b.psActive and "title" or "tabRest")
+	elseif kit then
 		b.Selected:Hide()
 		b.Bar:Hide()
 		W.Color(b.Label, b.psActive and "title" or "tabRest")
