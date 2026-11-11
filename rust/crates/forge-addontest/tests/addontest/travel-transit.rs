@@ -201,6 +201,49 @@ fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
 	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", true]]));
 }
 
+// #1834: the same walk through the portal with TomTom's arrow guiding (nav.useTomTomArrow, the target's continent):
+// TomTom's one waypoint is the current leg's stop (the portal) and the goal once the last walk begins, as Waypoint
+// UI's pin is (#1741). `arrow` false: TomTom only mirrors, and its waypoint stays on the goal throughout.
+fn portal_turn_in_with_tomtom(arrow: bool) -> Value {
+	run(&format!(
+		r#"
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", {arrow})
+		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,
+			a = {{ "West Portal", 0, 0, 900, 9000, 5, 50 }}, b = {{ "Far Gate", 0, 0, -400, 9000, 70, 50 }} }} }} }})
+		nav.place(0, 850)
+		nav.setWaypoint({{ map = 9000, x = 90, y = 50, label = "Turn in The Damned", kind = "turnin", quest = 376,
+			stepIndex = 1, goalIndex = 1, r = 8 }})
+		local r = {{ route = route() }}
+		nav.place(0, 899)                                 -- at the portal: the next leg
+		N.Sample()
+		nav.place(0, -400)                                -- through it: the last walk, to the turn-in
+		N.Sample()
+		-- (TomTom's waypoints in order, a re-announced unchanged one counted once)
+		local adds = {{}}
+		for _, c in ipairs(TomTom.calls) do
+			local last = adds[#adds]
+			if c.op == "add" and not (last and last[1] == c.title and last[2] == c.x and last[3] == c.y) then adds[#adds + 1] = {{ c.title, c.x, c.y }} end
+		end
+		r.adds = adds
+		emit(r)"#
+	))
+}
+
+#[test]
+fn issue_1834_with_tomtom_s_arrow_tomtom_s_waypoint_is_the_current_leg_s_stop_then_the_goal() {
+	let out = portal_turn_in_with_tomtom(true);
+	assert_eq!(out["route"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Turn in The Damned"]));
+	assert_eq!(out["adds"], json!([["Walk to the portal", 0.05, 0.5], ["Take the portal to Far Gate", 0.05, 0.5], ["Turn in The Damned", 0.9, 0.5]]));
+}
+
+#[test]
+fn issue_1834_tomtom_as_a_mirror_only_keeps_its_waypoint_on_the_goal() {
+	let out = portal_turn_in_with_tomtom(false);
+	let adds = out["adds"].as_array().unwrap();
+	assert!(!adds.is_empty() && adds.iter().all(|a| a[0] == "Turn in The Damned"), "{adds:?}");
+}
+
 #[test]
 fn t_11_skipping_a_hearth_leg_plans_this_target_without_the_hearthstone_another_target_may_hearth_again() {
 	let out = run(r#"

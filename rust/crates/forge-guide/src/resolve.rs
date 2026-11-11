@@ -1496,6 +1496,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	if route_needs_group(&gsteps.items()) {
 		guide.set("group", true);
 	}
+	crate::heights::goto_heights(r.data, &gsteps.items());
 	check_labels(&steps, r);
 	check_along_goals(&gsteps.items(), r);
 	check_background(&steps, &gsteps.items(), r);
