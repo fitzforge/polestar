@@ -211,12 +211,18 @@ fn the_release_zip_includes_the_built_data_addons_and_leaves_out_ones_not_built(
 	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_Codex"]);
 	fake_addons(&root.join("addon"), &["Polestar_ItemDB"]);
 	assert_eq!(pack_ours(&root, &dist).status, 0);
-	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex"]);
+	assert_eq!(
+		tops(&zip),
+		["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex"]
+	);
 	// The language folders last; the folders they replaced are named, never shipped.
 	fake_addons(&root.join("addon"), &["Polestar_frFR", "Polestar_Guides_deDE", "Polestar_Names_deDE"]);
 	let r = pack_ours(&root, &dist);
 	assert_eq!(r.status, 0, "{}", r.out());
-	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex", "Polestar_frFR"]);
+	assert_eq!(
+		tops(&zip),
+		["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex", "Polestar_frFR"]
+	);
 	for old in ["Polestar_Guides_deDE", "Polestar_Names_deDE"] {
 		assert!(r.stdout.contains(&format!("note: {old} is left from before 0.3.0")), "{}", r.out());
 	}

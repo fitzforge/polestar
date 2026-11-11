@@ -66,13 +66,7 @@ const AS_IN_0_3_7: &str = r#"{"Act": {"at": "", "h": 28, "shown": false, "text":
 
 fn run(script: &str) -> Value {
 	let pre = crate::class_quests::TOAST_PRE;
-	emitted(&RunAddon {
-		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &UI_FILES)],
-		script: format!("{pre}{DUMP}{script}"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_ui.lua"], addons: vec![Addon::files("Polestar", &UI_FILES)], script: format!("{pre}{DUMP}{script}"), ..Default::default() }).remove(0)
 }
 
 // A player who never touches the card's options sees it exactly as before they existed: above the window, as
