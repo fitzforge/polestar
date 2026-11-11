@@ -4167,6 +4167,16 @@ walk stays inside one zone; between zones it goes only through
   to the south lift's top and bottom landings, both ends mouths; the other
   lifts serve walks inside the city.
 
+One exception: the start walks straight to a target within 400 yd over a
+closed zone border (#1543). The walking engine measures no walk that near
+(`Walk.lua` `MEASURE_NEAR`) and the arrow's own search draws it, so the
+border's crossing is no better a guess: on the Barrens' side of the Great
+Lift, Lakota Windsong on Darkcloud Pinnacle is a walk along the plateau, and
+the crossing sent players down the lift and its foot's walk up it again. Not
+when the engine found no walk from the player (`noDirect`), not from or to a
+chain's inside, and not when a chain joins the two zones (its hand-made way
+stays the way: the Undercity's south lift).
+
 A point's zone is its uiMap when the crossing data knows that zone; a zone
 the data lists as `wild` (no crossing data, e.g. the zones only Forever has)
 walks as before. The player on a continent's map (the client puts them on no
