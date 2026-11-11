@@ -833,3 +833,42 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Ashenvale", fac
 	assert_eq!(out["live"], 2, "the paw is no work while its quest can't be taken: {out}");
 	assert!(out["ursangous"][0].as_str().unwrap().starts_with("skipped:pre"), "{out}");
 }
+
+// #1724 (Fyurie, 0.3.6, Night Elf Warrior 38): "Engine.lua:6765: table index is nil". When the route moved past a
+// step whose quest-starting item (a `collect` with no quest, beside its `accept … item`) waited with a quest that
+// can't be taken, the passed-over notice keyed the collect's nil quest and stopped the evaluation. The item speaks
+// for the quest it starts: the notice names that quest once.
+#[test]
+fn moving_past_a_quest_s_starting_item_names_the_quest_it_starts_no_nil_index_1724() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", faction = "Alliance", minLevel = 30, maxLevel = 40, steps = {
+	{ title = "Syndicate", goals = {
+		{ t = "collect", item = 3668, itemName = "Assassin's Contract", map = 1413, x = 40, y = 40 },
+		{ t = "accept", quest = 522, title = "Assassin's Plot", item = 3668, closedBy = { 95 }, preTitles = { [95] = "Sven's Revenge" } },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+		local w = stub.world
+		local events = {}
+		Polestar.On("STEP_SKIPPED", function(from, to, skips)
+			local quests = {}
+			for i, k in ipairs(skips) do quests[i] = tostring(k.quest) .. ":" .. tostring(k.title) .. ":" .. tostring(k.reason) end
+			events[#events + 1] = { from = from, to = to, quests = quests }
+		end)
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		local start = E.GetLiveStep()
+		-- Taking the quest that closes it for good: the contract no longer leads anywhere and the route moves on.
+		local ok, err = pcall(function() w.accept(95, { 1 }); flush(); flush() end)
+		emit({ start = start, ok = ok, err = tostring(err), live = E.GetLiveStep(), events = events })
+	"#,
+	);
+	assert_eq!(out["start"], 1, "{out}");
+	assert_eq!(out["ok"], true, "no Lua error: {out}");
+	assert_eq!(out["live"], 2, "{out}");
+	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
+}
