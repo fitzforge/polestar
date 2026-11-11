@@ -86,3 +86,55 @@ fn every_bundled_skin_registers_as_given_and_paints_polestar_in_each_variant_wit
 		assert_eq!(s["legible"], true, "{key}: legible as painted");
 	}
 }
+
+// Aurora's own light (Polestar_Skin_Aurora/Media): the aurora over the guide window's band, flipped when the bars
+// sit at the window's foot, the veil on a window with no band (the transport banner), and both put away by the
+// transparent style and by another skin.
+#[test]
+fn aurora_lays_its_aurora_over_the_band_the_veil_on_other_windows_and_puts_both_away() {
+	let script = r#"
+local T = Polestar.Theme
+Polestar.Set("ui.shown", true)
+Polestar.Set("ui.skin", "aurora")
+local function layout() Polestar.UI.GuideFrame.Layout(); stub.advance(1) end
+layout()
+local P = T.GuideParts()
+local own = T.SkinKit.store(P.window)
+local function on(t) return t ~= nil and t:IsShown() end
+local function tex(t) return t and (t:GetTexture() or ""):match("([^\\]+)$") or false end
+local out = { inUse = T.SkinId() == "aurora" }
+-- The texture's top coordinate as set (SetTexCoord(left, right, top, bottom)): 1 is the picture upside down.
+local function top(t) return t and t.texCoord and t.texCoord[3] or false end
+out.band = { curtain = on(own.curtain), tex = tex(own.curtain), veil = on(own.veil), top = top(own.curtain) }
+Polestar.Set("ui.growUp", true)
+Polestar.Set("ui.barsBottom", true)
+layout()
+out.foot = { curtain = on(own.curtain), top = top(own.curtain) }
+Polestar.Set("ui.barsBottom", nil)
+Polestar.Set("ui.growUp", nil)
+layout()
+Polestar.Nav.alerts.ShowSample()
+stub.advance(1)
+local a = T.SkinKit.store(PolestarAlert)
+out.toast = { veil = on(a.veil), tex = tex(a.veil), curtain = on(a.curtain) }
+Polestar.Set("ui.style", "transparent")
+layout()
+out.bare = { curtain = on(own.curtain), veil = on(own.veil), progress = on(own.progress), rule = on(own.ruleLine) }
+Polestar.Set("ui.style", nil)
+layout()
+out.back = on(own.curtain)
+Polestar.Set("ui.skin", "polestar")
+layout()
+out.other = { curtain = on(own.curtain), veil = on(own.veil), toast = on(a.veil) }
+emit(out)
+"#;
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Aurora")];
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
+	assert_eq!(out["inUse"], true);
+	assert_eq!(out["band"], serde_json::json!({ "curtain": true, "tex": "curtain", "veil": false, "top": 0 }), "the aurora over the band, not the veil");
+	assert_eq!(out["foot"], serde_json::json!({ "curtain": true, "top": 1 }), "flipped with the bars at the foot");
+	assert_eq!(out["toast"], serde_json::json!({ "veil": true, "tex": "veil", "curtain": false }), "a window with no band takes the veil");
+	assert_eq!(out["bare"], serde_json::json!({ "curtain": false, "veil": false, "progress": false, "rule": false }), "the transparent style puts it all away");
+	assert_eq!(out["back"], true, "back in the standard style, the aurora is back");
+	assert_eq!(out["other"], serde_json::json!({ "curtain": false, "veil": false, "toast": false }), "another skin hides every piece");
+}

@@ -1,10 +1,11 @@
 -- Lumen: a head-up skin for Polestar through its Skin API
 -- (docs/skins in the Polestar repository). The guide as part of the
--- game's own HUD: no frame and no band, a cool white ladder in Fira Sans a
--- size down, one cyan line along the top of every window and a short tick
--- at each corner marking its extent, the flat arrow and Halo's map icons.
--- Its layout preset puts the guide window into transparent mode, compact,
--- with the ticks staying as faint marks of where the window is.
+-- game's own HUD: no border and no band, dark glass, a cool white ladder in
+-- Fira Sans a size down, one cyan line along the top of every window and a
+-- lit tick at each corner, just outside it, marking its extent; the flat
+-- arrow and Halo's map icons. Its layout preset makes every window dark
+-- glass with the ticks for its frame; a transparent guide window keeps the
+-- ticks as marks of where the window is.
 --
 -- What this example shows, beyond Moonlit (addon/Polestar_Skin_Example):
 --   * a skin that is mostly a FRAME TREATMENT: its own pieces (lines and
@@ -48,10 +49,12 @@ local TOKENS = {
 
 ---------------------------------------------------------------------------
 -- The HUD frame: a line along the top edge and a tick at each corner, 1
--- unit thick, in the accent (so the player's own accent colours them too).
+-- unit thick, in the accent (so the player's own accent colours them too),
+-- the ticks OUT units outside the frame like a sight's corners, clear of
+-- whatever sits on the frame's edge (a card's class bar).
 ---------------------------------------------------------------------------
 
-local TICK = 10
+local TICK, OUT = 10, 3
 
 local CORNERS = { "TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT" }
 
@@ -68,11 +71,13 @@ local function hudFrame(frame, kit)
 		-- A texture anchored by its own corner to the frame's grows away
 		-- from it, so the same two lines serve every corner.
 		for _, corner in ipairs(CORNERS) do
+			local dx = corner:find("LEFT") and -OUT or OUT
+			local dy = corner:find("TOP") and OUT or -OUT
 			local h = white(frame)
-			h:SetPoint(corner, frame, corner, 0, 0)
+			h:SetPoint(corner, frame, corner, dx, dy)
 			h:SetSize(TICK, 1)
 			local v = white(frame)
-			v:SetPoint(corner, frame, corner, 0, 0)
+			v:SetPoint(corner, frame, corner, dx, dy)
 			v:SetSize(1, TICK)
 			own.ticks[#own.ticks + 1] = h
 			own.ticks[#own.ticks + 1] = v
@@ -89,7 +94,9 @@ end
 -- only (kit.glow, kept in the frame's store with the ticks).
 local function cornerGlows(frame, kit, r, g, b, alpha)
 	for _, corner in ipairs(CORNERS) do
-		kit.glow(frame, { key = "tick" .. corner, point = corner, size = 28, color = { r, g, b, alpha }, layer = "BORDER", sub = 2 })
+		local dx = corner:find("LEFT") and -OUT or OUT
+		local dy = corner:find("TOP") and OUT or -OUT
+		kit.glow(frame, { key = "tick" .. corner, point = corner, offset = { dx, dy }, size = 28, color = { r, g, b, alpha }, layer = "BORDER", sub = 2 })
 	end
 end
 
@@ -181,14 +188,17 @@ local PAINT = {
 
 ---------------------------------------------------------------------------
 -- The head-up layout, offered on the Theme page where this Polestar has
--- presets (capability "preset").
+-- presets (capability "preset"): every window dark glass, the ticks its
+-- only frame, every control of the guide window kept.
 ---------------------------------------------------------------------------
 
 local PRESET = {
-	["ui.style"] = "transparent", ["ui.backing"] = "soft", ["ui.compact"] = true,
-	["ui.bgOpacity"] = 0.8,                           -- the other windows: dark glass
+	["ui.style"] = "standard", ["ui.bgOpacity"] = 0.78,
 	["ui.band"] = false, ["ui.shadow"] = false, ["ui.border"] = false, -- the ticks are the frame
-	["guideWindow.outline"] = "outline", ["guideWindow.progressHeight"] = 2, ["guideWindow.rules"] = false,
+	-- Should the player take the guide window transparent: a soft shade
+	-- and an outline under each line over the world.
+	["ui.backing"] = "soft", ["guideWindow.outline"] = "outline",
+	["guideWindow.progressHeight"] = 2, ["guideWindow.rules"] = false,
 	["nav.arrowBacking"] = false, ["nav.arrowGlow"] = true,
 	["nav.lineStyle"] = "line", ["nav.lineWidth"] = 3, ["nav.routeChevrons"] = true,
 }
@@ -198,7 +208,7 @@ check("skin lumen", Theme.RegisterSkin("lumen", {
 	name = "Lumen",
 	addon = ADDON,
 	author = "Polestar",
-	desc = "Head-up: no frame, a cyan line and corner ticks, compact Fira Sans over the world.",
+	desc = "Head-up: dark glass, no border, a cyan line and lit corner ticks, Fira Sans a size down.",
 	base = "polestar",
 	tokens = TOKENS,
 	font = "fira",

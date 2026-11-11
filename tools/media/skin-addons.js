@@ -65,14 +65,16 @@ function curtain(w = 512, h = 128) {
 	const c = new Canvas(w, h);
 	for (let x = 0; x < w; x++) {
 		const u = (x + 0.5) / w;
-		const hem = 0.54 + (fold1(x, 0) - 0.5) * 0.3 + (fold2(x, 0) - 0.5) * 0.14;
+		// The hem in the top half (the guide window's tab strip), so the
+		// navigator under it keeps a dark ground for its controls.
+		const hem = 0.4 + (fold1(x, 0) - 0.5) * 0.2 + (fold2(x, 0) - 0.5) * 0.08;
 		const ray = (0.4 + 0.4 * ray1(x, 0) + 0.2 * ray2(x, 0)) * (0.68 + 0.32 * swell(x, 0));
 		for (let y = 0; y < h; y++) {
 			const above = hem - (y + 0.5) / h; // > 0 above the hem
 			const i = above >= 0
 				? ray * (0.25 + 0.75 * Math.exp(-above / 0.32)) + 0.22 * Math.exp(-((above / 0.05) ** 2)) * (0.6 + 0.4 * ray)
-				: Math.exp(-((above / 0.08) ** 2)) * (0.3 + 0.35 * ray);
-			const t = Math.max(0, Math.min(1, above / 0.4));
+				: Math.exp(-((above / 0.06) ** 2)) * (0.25 + 0.3 * ray);
+			const t = Math.max(0, Math.min(1, above / 0.32));
 			let col = mix(TEAL, VIOLET, t * t * (3 - 2 * t));
 			if (Math.abs(above) < 0.05) col = mix(HEM, col, Math.abs(above) / 0.05);
 			col = mix(col, ORCHID, 0.35 * u * t);

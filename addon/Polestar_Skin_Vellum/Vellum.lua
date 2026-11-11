@@ -178,9 +178,11 @@ local PRESET = {
 	-- behind each line and a shadow, not a black outline.
 	["ui.backing"] = "soft", ["guideWindow.outline"] = "shadow",
 	-- The arrow's words over the world: paper-coloured on a dark plate (the
-	-- skin's own ink would vanish over a night zone).
+	-- skin's own ink would vanish over a night zone); the dart a brighter
+	-- sealing-wax red than the ink's, to hold over the world.
 	["nav.arrowBacking"] = true, ["nav.arrowBackingAlpha"] = 0.55,
 	["nav.arrowDistColor"] = PAPER, ["nav.arrowLabelColor"] = PAPER, ["nav.arrowEtaColor"] = PAPER,
+	["nav.arrowColor"] = { 0.84, 0.27, 0.18 },
 	["nav.lineStyle"] = "dots",   -- a dotted course on the map, as on a chart
 }
 
@@ -197,8 +199,9 @@ check("skin vellum", Theme.RegisterSkin("vellum", {
 	textShadow = false,
 	-- The report glyph as a flag, as the game looks draw it.
 	icons = { bug = "flag" },
-	-- The warm game designs for the arrow and the map pins.
-	arrow = "hearth",
+	-- A dart in the sealing-wax red (Halo's tinted dart, not the game
+	-- looks' gold), and the warm map pins.
+	arrow = "halo",
 	mapIcons = "hearth",
 	paint = PAINT,
 	preset = PRESET,

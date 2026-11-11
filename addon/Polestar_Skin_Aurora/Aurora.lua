@@ -129,12 +129,12 @@ local function depth(frame, kit, alpha)
 		{ r * 0.5, g * 0.5, b * 0.6, alpha })
 end
 
--- The veil: the aurora's light along a window's top edge, a third of the
--- window tall at most (36 units), kept to that as the window resizes.
+-- The veil: the aurora's light along a window's top edge, two fifths of the
+-- window tall at most (44 units), kept to that as the window resizes.
 local function veilHeight(frame)
 	local h = frame:GetHeight() or 0
-	if h <= 0 then return 36 end
-	return math.min(36, math.max(16, math.floor(h * 0.34 + 0.5)))
+	if h <= 0 then return 44 end
+	return math.min(44, math.max(18, math.floor(h * 0.4 + 0.5)))
 end
 
 local function veil(frame, kit)
@@ -152,7 +152,7 @@ local function veil(frame, kit)
 		end
 	end
 	t:SetHeight(veilHeight(frame))
-	t:SetVertexColor(1, 1, 1, 0.6)
+	t:SetVertexColor(1, 1, 1, 0.9)
 	t:Show()
 end
 
@@ -248,7 +248,7 @@ local HOOKS = {
 			local on = Theme.ShowsBand()
 			local flip = Polestar.Get("ui.growUp") and Polestar.Get("ui.barsBottom")
 			c:SetTexCoord(0, 1, flip and 1 or 0, flip and 0 or 1)
-			c:SetVertexColor(1, 1, 1, 0.9)
+			c:SetVertexColor(1, 1, 1, 0.85)
 			c:SetShown(on)
 			if own.veil then own.veil:SetShown(not on) end
 		end
@@ -299,7 +299,7 @@ local HOOKS = {
 local PRESET = {
 	["ui.style"] = "standard", ["ui.band"] = true, ["ui.shadow"] = true, ["ui.haze"] = true, ["ui.rim"] = true,
 	["ui.border"] = true, ["ui.starAlpha"] = 1, ["ui.shadowStrength"] = 1.3,
-	["nav.lineStyle"] = "line", ["nav.walkColor"] = { 0.69, 0.55, 1 },
+	["nav.lineStyle"] = "line", ["nav.walkColor"] = { 0.8, 0.69, 1 }, ["nav.lineOutline"] = 1.6,
 }
 
 check("skin aurora", Theme.RegisterSkin("aurora", {
