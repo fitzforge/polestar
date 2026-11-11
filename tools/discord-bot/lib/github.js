@@ -86,6 +86,12 @@ function createGitHub({ token, repo, api = API, fetch: fetchImpl = fetch }) {
 			if (err.status !== 404) throw err;
 		}),
 		releases: () => list(`${r}/releases`, 100),
+		// The latest published full release (GitHub's choice: never a draft or
+		// a prerelease), null when there is none.
+		latestRelease: () => request('GET', `${r}/releases/latest`).catch((err) => {
+			if (err.status !== 404) throw err;
+			return null;
+		}),
 		// An issue's timeline: its events, closes and cross-references included.
 		timeline: (n) => list(`${r}/issues/${n}/timeline`, 1000),
 		pull: (n) => request('GET', `${r}/pulls/${n}`),
