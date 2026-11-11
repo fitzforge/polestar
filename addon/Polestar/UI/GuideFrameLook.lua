@@ -283,6 +283,9 @@ local skinShown
 -- looks: their kit's tab art.
 function GF.PaintTab(b)
 	local kit = Theme.KitTab(b, b.psActive, nil, true)
+	-- The close button inside a tab outline that stands in from the sides.
+	b.Close:ClearAllPoints()
+	b.Close:SetPoint("RIGHT", b, "RIGHT", -3 - Theme.Metric("guideTabInset", 0), 0)
 	local hearth = Theme.SkinKey() == "hearth"
 	local f = rawget(b, "psFrameTex")
 	if hearth and not f then

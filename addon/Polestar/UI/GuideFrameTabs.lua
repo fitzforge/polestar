@@ -55,7 +55,9 @@ local TAB_CLOSE_PAD = 20
 -- The close button at rest: faint, so players find it; in full under the pointer.
 local TAB_CLOSE_REST = 0.35
 local function layoutTab(b)
-	local room = b:GetWidth() - TAB_TEXT_X - TAB_CLOSE_PAD
+	-- A skin whose tab outline stands in from the tab's sides (WoW Forever's,
+	-- metric guideTabInset) keeps the close button and the text inside it.
+	local room = b:GetWidth() - TAB_TEXT_X - TAB_CLOSE_PAD - Theme.Metric("guideTabInset", 0)
 	local rangeW = b.psRange and (floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP) or 0
 	local fits = rangeW <= room
 	local titleW = fits and min(b.psTitleW, room - rangeW) or 0

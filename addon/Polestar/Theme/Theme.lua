@@ -1328,9 +1328,11 @@ local METRICS = {
 }
 -- The game's looks: the client's sizes (the Settings panel's rows and
 -- controls, the 14-high status bar); WoW Forever's guide window keeps its
--- rows and the lit goal clear of its bronze border (#306), and its tab
--- strip is 30 high so the Settings tab outlines stand clear of the
--- window's edge (#312, GameSkins' tabClear).
+-- rows and the lit goal clear of its bronze border (#306), its tab strip is
+-- 30 high so the Settings tab outlines stand clear of the window's edge
+-- (#312, GameSkins' tabClear), and a tab's close button and text stay
+-- inside its outline, 5 in from the tab's sides (guideTabInset: GameSkins'
+-- tabGap).
 do
 	local GAME_ROLES = { hero = { "semibold", 24 } }
 	local GAME_METRICS = {
@@ -1347,8 +1349,8 @@ do
 		METRICS[k] = GAME_METRICS
 		SKIN_ROLES[k] = GAME_ROLES
 	end
-	METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true, guideTabs = 30 },
-		{ __index = GAME_METRICS })
+	METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true, guideTabs = 30,
+		guideTabInset = 5 }, { __index = GAME_METRICS })
 end
 Theme.METRICS = METRICS
 
