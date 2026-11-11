@@ -2063,3 +2063,80 @@ emit({ id = id, before = before, after = after, same = same, tabs = tabIds(), fa
 	assert!(far.iter().any(|g| g.contains("accept:1016")) && !far.iter().any(|g| g.contains("turnin:1016")), "no trip across the sea: {far:?}");
 	assert_eq!(out["stale"], false, "up to date: nothing to rebuild");
 }
+
+// #1817 (Onrevax, Excavation Site: Wetlands): the Titan Relic from the end of the dungeon starts Lost Relic Carry
+// (95810), turned in to Prospector Whelgar, who then gives Prehistoric Prism (98824) for High Explorer Magellas in
+// Ironforge. The hand-in guide took Prehistoric Prism at Whelgar and ended there: only a follow-up with no
+// objectives was handed in on the route (#1748), and Prehistoric Prism asks for the Titan Relic. A follow-up is now
+// handed in on the route when nothing is left to do once it is taken (no objectives, or only items the bags hold)
+// and its ender is known: Magellas after Whelgar, whose step hands in Lost Relic Carry before it takes Prehistoric
+// Prism (players' recordings: he does not offer it while Lost Relic Carry is in the log). Without the relic in the
+// bags, or with an ender the Codex does not place, the follow-up is only taken.
+#[test]
+fn a_follow_up_asking_only_for_an_item_in_the_bags_is_handed_in_at_its_ender_after_the_stop_that_gives_it_1817_prehistoric_prism() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["frames"]["1437"] = json!({ "c": 0, "left": -389.583, "right": -4525, "top": -2147.917, "bottom": -4904.167 });
+	c["zones"]["1437"] = json!({ "id": 1437, "name": "Wetlands" });
+	c["frames"]["1455"] = json!({ "c": 0, "left": -713.591, "right": -1504.216, "top": -4569.241, "bottom": -5096.846 });
+	c["zones"]["1455"] = json!({ "id": 1455, "name": "Ironforge" });
+	let npc = |id: i32, name: &str, map: i32, x: f64, y: f64| {
+		json!({ "id": id, "name": name, "level": 30, "levelMax": null, "faction": "A", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": map, "x": x, "y": y, "f": "e" }] })
+	};
+	c["npcs"]["1077"] = npc(1077, "Prospector Whelgar", 1437, 38.8, 52.4);
+	c["npcs"]["5387"] = npc(5387, "High Explorer Magellas", 1455, 69.9, 18.6);
+	c["items"]["270865"] = json!({ "id": 270865, "name": "Titan Relic", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	let quest = |id: i32, title: &str, start: Value, ender: i32, pre_any: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 31, "minLevel": 24, "faction": "A", "races": null, "classes": null,
+			"start": start, "end": { "npc": [ender], "object": [] },
+			"objectives": [{ "type": "item", "id": 270865, "count": 1, "text": "Titan Relic" }],
+			"pre": [], "zone": 1437, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	c["quests"]["95810"] = quest(95810, "Lost Relic Carry", json!({ "npc": [], "object": [], "item": [270865] }), 1077, &[]);
+	c["quests"]["98824"] = quest(98824, "Prehistoric Prism", json!({ "npc": [1077], "object": [], "item": [] }), 5387, &[95810]);
+	i["forever"]["quests"]["95810"] = json!({ "area": 209 });
+	i["forever"]["quests"]["98824"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let out = run(
+		&own,
+		&k(r#"
+-- The era frame the guides pack gives Wetlands in game (Ironforge's comes with the addon).
+Polestar.RegisterMapFrames({ era = { [1437] = { c = 0, left = -389.583, right = -4525, top = -2147.917, bottom = -4904.167 } } })
+local function at(def)
+	for _, s in ipairs(def.steps) do
+		for _, g in ipairs(s.goals) do
+			if g.t == "turnin" and g.quest == 98824 then return { npc = g.npc, name = g.npcName, map = g.map, x = g.x, y = g.y } end
+		end
+	end
+	return false
+end
+stub.world.addItem(270865, 1)
+local def = D.HandinGuide("{KEY}")
+local carried, magellas = describe(def), at(def)
+stub.world.removeItem(270865)
+local without = describe(D.HandinGuide("{KEY}"))
+stub.world.addItem(270865, 1)
+-- Held, so the Codex keeps this record while its ender is changed to an NPC it does not know.
+local prism = Polestar.Codex.Quest(98824)
+prism["end"].npc = { 99999 }
+emit({ carried = carried, magellas = magellas, without = without, unknown = describe(D.HandinGuide("{KEY}")) })"#),
+		Opts { level: 28, race: "Dwarf", faction: "Alliance", cls: "PALADIN", at: None, done: vec![], log: vec![], ready: vec![95810], ..Default::default() },
+	)
+	.remove(0);
+	assert_eq!(
+		out["carried"],
+		json!([
+			{ "title": "Prospector Whelgar", "goals": "turnin:95810 accept:98824" },
+			{ "title": "High Explorer Magellas", "goals": "turnin:98824" },
+		]),
+		"Lost Relic Carry handed in before Prehistoric Prism is taken, then Magellas"
+	);
+	assert_eq!(out["magellas"], json!({ "npc": 5387, "name": "High Explorer Magellas", "map": 1455, "x": 69.9, "y": 18.6 }), "the arrow on Magellas in Ironforge");
+	let only_taken = json!([{ "title": "Prospector Whelgar", "goals": "turnin:95810 accept:98824" }]);
+	assert_eq!(out["without"], only_taken, "no relic in the bags: Prehistoric Prism still asks for it, so it is only taken");
+	assert_eq!(out["unknown"], only_taken, "an ender with no known place: no stop for it");
+}

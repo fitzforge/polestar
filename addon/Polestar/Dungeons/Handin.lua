@@ -26,9 +26,10 @@
 --       this character can take (Lookup.QuestBlock: faction, race, class,
 --       level), not done or in the log, from a giver (NPC or object) that is
 --       the one a quest of `after` is turned in to or within NEAR seconds of
---       it (ns.TravelCost); ender: where a delivery (no objectives) among
---       them is turned in, this character's side's, on the giver's continent
---       (Earthen Echo, #1748)
+--       it (ns.TravelCost); ender: where one among them is turned in when
+--       nothing is left to do once it is taken (no objectives: Earthen Echo,
+--       #1748; only items the bags hold: Prehistoric Prism, #1817), this
+--       character's side's, on the giver's continent
 --   Dungeons.HandinGuide(key) -> def | nil, reason   -- "nothing" when no quest can be handed in
 --   Dungeons.HandIn(key) -> guideId | nil, reason    -- builds, registers and opens it
 --   Dungeons.HandinText(plan) -> text                -- why nothing can be handed in, one line
@@ -40,9 +41,9 @@
 -- there, then the follow-ups that place gives once what they wait on is
 -- turned in there), one per NPC a quest's talk line is at (before the
 -- place it is turned in), one per other giver of follow-ups (after the
--- turn-ins they wait on), and one per follow-up delivery's ender (after the
--- stop that gives it), in the order of Dungeons.OrderStops from where the
--- player stands, with no fixed end (kept per character as
+-- turn-ins they wait on), and one per ender of a follow-up handed in on the
+-- way (after the stop that gives it), in the order of Dungeons.OrderStops
+-- from where the player stands, with no fixed end (kept per character as
 -- CharState().dungeonHandin[key]). Stops at the same NPC in a row are one
 -- step. The last step lists the quests not handed in as notes.
 
@@ -79,6 +80,17 @@ local function finished(id, rec)
 	local C = ns.Compat
 	if C.IsQuestReadyForTurnIn(id) then return true end
 	return rec ~= nil and #(rec.objectives or {}) == 0 and C.GetQuestObjectives(id) == nil
+end
+
+-- Nothing left to do once quest record `rec` is taken: it has no objectives
+-- (a delivery), or only items the bags hold enough of (Prehistoric Prism
+-- asks for the Titan Relic that Lost Relic Carry was, #1817).
+local function carried(rec)
+	local C = ns.Compat
+	for _, o in ipairs(rec.objectives or {}) do
+		if not (o.type == "item" and o.id and C.GetItemCount(o.id) >= (o.count or 1)) then return false end
+	end
+	return true
 end
 
 -- The talks left before quest `id` can be handed in: its open quest-log
@@ -177,10 +189,13 @@ function Dungeons.HandinFollowUps(plan)
 					end
 				end
 				if near then
-					-- A delivery (no objectives: Earthen Echo, from Bashana to Muln
-					-- Earthfury, #1748) is handed in on the same route, when its
-					-- ender is on the giver's continent (no trip across the sea).
-					local e = #(f.objectives or {}) == 0 and Lk.QuestEnd(f["end"], giver, p) or nil
+					-- Handed in on the same route when nothing is left to do
+					-- once it is taken (Earthen Echo, from Bashana to Muln
+					-- Earthfury, #1748; Prehistoric Prism, the Titan Relic from
+					-- Prospector Whelgar to High Explorer Magellas, #1817) and
+					-- its ender is on the giver's continent (no trip across the
+					-- sea).
+					local e = carried(f) and Lk.QuestEnd(f["end"], giver, p) or nil
 					local ender = e and not e.hostile and endPoint(e) or nil
 					if ender and continentOf(ender) ~= continentOf(giver) then ender = nil end
 					out[#out + 1] = { rec = f, giver = giver, after = after, ender = ender }
@@ -207,8 +222,8 @@ end
 -- plan, follow-ups -> stops: one per place a quest is turned in, the
 -- follow-ups its NPC gives once what they wait on is turned in there, after
 -- the stops at the NPCs its quests' talk lines are at; one per other giver
--- and set of turn-ins its follow-ups wait on; one per follow-up delivery's
--- ender, after the stop that gives it.
+-- and set of turn-ins its follow-ups wait on; one per ender of a follow-up
+-- handed in on the way, after the stop that gives it.
 local function stopsOf(plan, follow)
 	local stops, byKey = {}, {}
 	local function add(s)
@@ -259,7 +274,7 @@ local function stopsOf(plan, follow)
 				deps = deps, talks = {}, turnins = {}, accepts = {} })
 		end
 		s.accepts[#s.accepts + 1] = f
-		-- A delivery taken here is handed in after it, at its ender.
+		-- A follow-up handed in on the way: after it, at its ender.
 		if f.ender then
 			local k = "d" .. pointKey(f.ender) .. "<" .. s.key
 			local d = stops[byKey[k] or 0] or add({ key = k, npcKey = pointKey(f.ender), at = f.ender, inP = f.ender, outP = f.ender,
