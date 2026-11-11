@@ -1453,7 +1453,7 @@ L["Turn on Polestar Guides and reload"] = "Включить Polestar Guides и �
 L["Keep these, a later guide hands them in: %s"] = "Не отменяйте эти задания, их сдают в одном из следующих гайдов: %s"
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "Нажмите %s или щёлкните правой кнопкой по кнопке у миникарты и выберите «Окно гайда», чтобы показать его."
 L["Right-click the minimap button and pick Guide window to show it."] = "Щёлкните правой кнопкой по кнопке у миникарты и выберите «Окно гайда», чтобы показать его."
--- L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = ""
+L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "Сбрасывает ручные отметки и пропущенные шаги этого гайда начиная с последнего продвижения по заданиям. Гайд остается там, куда вас привели задания."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2259,9 +2259,9 @@ L["Flight paths you pass"] = "Маршруты полета по пути"
 L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."] = "Также дружественный распорядитель полетов рядом с вами, чей маршрут полета вы еще не изучили. Если изучить его, более поздний шаг гайда для него тоже будет отмечен."
 L["Detour captions"] = "Подписи об обходе"
 L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = "Под пешим участком пути пишет, когда он обходит город другой фракции: «Обход: Южнобережье». Только пишет: маршрут и стрелка не меняются."
--- L["Manual check-offs and skips, current guide, from your last quest progress on."] = ""
--- L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
--- L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
+L["Manual check-offs and skips, current guide, from your last quest progress on."] = "Ручные отметки и пропуски, текущий гайд, начиная с последнего продвижения по заданиям."
+L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Ваши ручные отметки и пропущенные шаги в гайде %s будут удалены начиная с последнего продвижения по заданиям. Выполненные задания останутся выполненными, а гайд останется там, куда они вас привели."
+L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Ваши ручные отметки и пропущенные шаги в текущем гайде будут удалены начиная с последнего продвижения по заданиям. Выполненные задания останутся выполненными, а гайд останется там, куда они вас привели."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3406,7 +3406,3 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Маленькая кнопка Polestar, которую можно разместить в любом месте экрана. Щелчок показывает или скрывает гайд, ПКМ — меню, перетаскивание перемещает ее. Она скрывается вместе с окном в бою и в подземельях, если для них выбрано «Скрыть»."
 -- L["Click: show or hide the guide"] = "Щелчок: показать или скрыть гайд"
 -- L["Show window"] = "Показать окно"
--- L["Clears your manual check-offs and skipped steps for this guide."] = "Сбрасывает ручные отметки и пропущенные шаги этого гайда."
--- L["Manual check-offs and skips, current guide."] = "Ручные отметки и пропуски, текущий гайд."
--- L["Your manual check-offs and skipped steps in %s are cleared. Quests you have done stay done."] = "Ваши ручные отметки и пропущенные шаги в гайде %s будут удалены. Выполненные задания останутся выполненными."
--- L["Your manual check-offs and skipped steps in the current guide are cleared. Quests you have done stay done."] = "Ваши ручные отметки и пропущенные шаги в текущем гайде будут удалены. Выполненные задания останутся выполненными."
