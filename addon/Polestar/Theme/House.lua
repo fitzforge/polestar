@@ -139,6 +139,7 @@ House.ROLES = ROLES
 --                this share
 --   openSections the guide window's body sections go without hairlines
 --   loneTab      a lone guide tab takes the room its title needs
+--   well         a tick box's well: shade at this share
 ---------------------------------------------------------------------------
 
 local TOKENS = {
@@ -151,6 +152,7 @@ local TOKENS = {
 	edgeKey = 0.42,
 	openSections = true,
 	loneTab = true,
+	well = 0.12,
 }
 
 ---------------------------------------------------------------------------
@@ -326,8 +328,10 @@ local HOUSE_PAINT = {
 			local tr, tg, tb = Theme.Color("textDim")
 			Theme.Border(d.box, tr, tg, tb, 0.7)
 		else
+			-- The well: the house look's light one (Theme.House "well"), else
+			-- 0.35 of the shade.
 			local r, g, b = Theme.Color("shade")
-			fill(d.box):SetVertexColor(r, g, b, 0.35)
+			fill(d.box):SetVertexColor(r, g, b, Theme.House("well") or 0.35)
 			Theme.Border(d.box, Theme.Wash("box"))
 		end
 		if d.check then d.check:SetVertexColor(Theme.Accent()) end

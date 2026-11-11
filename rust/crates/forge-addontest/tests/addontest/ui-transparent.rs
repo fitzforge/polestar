@@ -273,7 +273,7 @@ fn tick_boxes_on_the_world_get_the_scrim_inside_and_an_ink_edge_and_the_standard
 		assert_eq!(out[case]["edge"][3], 0.7, "{case}");
 	}
 	assert_eq!(out["after"], out["before"], "back in Standard, the house box");
-	assert_eq!(out["before"]["fill"][3], 0.35);
+	assert_eq!(out["before"]["fill"][3], 0.12, "the house look's light well (since 0.3.8; 0.35 in the other looks)");
 }
 
 #[test]

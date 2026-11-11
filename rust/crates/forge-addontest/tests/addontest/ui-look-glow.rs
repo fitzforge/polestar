@@ -654,3 +654,31 @@ fn a_lone_tab_shows_its_whole_title_in_the_house_look_at_every_width_and_scale()
 		assert_eq!(c["two"], other["two"], "{at}: two tabs share the strip alike in every look");
 	}
 }
+
+// The tick boxes: the house look's well is the shade at 12% (it was 35%, a column of black squares down the window's
+// edge); a skin built on the house look keeps 35%, Halo its own input ground, and on the world (the transparent
+// style) every look keeps the scrim inside.
+#[test]
+fn the_house_look_draws_a_lighter_tick_box_well() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		Polestar.Set("ui.shown", true)
+		local function well()
+			for _, r in ipairs(GF.rows) do
+				if r:IsShown() and r.Check:IsShown() then return rgba(r.Check.psSkin.box.psSkin.bg:GetVertexColor()) end
+			end
+		end
+		local out = { looks = eachLook(function() return { well = well(), shade = rgba(T.Color("shade")), input = rgba(T.Color("inputBg")) } end) }
+		Polestar.Set("ui.skin", "polestar")
+		Polestar.Set("ui.style", "transparent"); layout()
+		out.clear = well()
+		emit(out)"#);
+	let looks = out["looks"].as_array().unwrap();
+	let s = &looks[0]["shade"];
+	assert_eq!(looks[0]["well"], json!([s[0], s[1], s[2], 0.12]), "the house look: the shade at 12%");
+	assert_eq!(looks[1]["well"], looks[1]["input"], "Halo: its own input ground");
+	let s = &looks[2]["shade"];
+	assert_eq!(looks[2]["well"], json!([s[0], s[1], s[2], 0.35]), "a skin on the house look: 35%, as before");
+	assert_eq!(looks[3]["well"], looks[0]["well"], "back on the house skin");
+	assert_eq!(out["clear"][3], 0.6, "on the world: the scrim inside, as before");
+}
