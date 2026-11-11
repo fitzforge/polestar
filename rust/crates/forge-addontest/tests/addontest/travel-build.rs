@@ -254,6 +254,44 @@ fn the_committed_traveldata_lua_has_the_riverglades_inns_and_a_character_bound_a
 	assert_eq!(hearth("Alliance", "Powderfuse Port", 78.5, 54.4), json!(["hearth", 255894]));
 }
 
+// Zephras Isle's airships (Forever TaxiPaths 11398 and 11457): with nothing else off the isle, an Alliance Skyborne at
+// the Valanaar Skydocks bound for the Kirin Tor camp west of Dalaran rides the skycutter, and a Horde one bound for
+// northern Mulgore the airship. Before, the planner knew no way off the isle (and no Hearthstone here).
+#[test]
+fn from_the_valanaar_skydocks_the_skyborne_ride_the_airships_to_dalaran_and_to_northern_mulgore() {
+	let ride = |faction: &str, map: u32, x: f64, y: f64, f: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+			login: true,
+			script: format!(
+				r#"
+				local nav = stub.nav
+				nav.maps[2521] = {{ c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25, name = "Zephras Isle" }}
+				nav.maps[1412] = {{ c = 1, top = 266.666, bottom = -3835.416, left = 2479.167, right = -3675, name = "Mulgore" }}
+				nav.era[1416] = {{ c = 0, top = 1500, bottom = -366.667, left = 783.333, right = -2016.667, name = "Alterac Mountains" }}
+				nav.faction = "{faction}"
+				local _, wx, wy = nav.Compat.MapToWorld(2521, 61.8, 82.4, "l") -- between the two skydocks
+				nav.place(wx, wy, 2991)
+				Polestar.Nav.SetTarget({map}, {x}, {y}, "There", {f})
+				local legs = Polestar.Nav.GetRoute()
+				local out = {{}}
+				for _, l in ipairs(legs or {{}}) do
+					out[#out + 1] = {{ l.kind, l.transport and l.transport.id or false }}
+				end
+				emit(out)"#
+			),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	let rides = |out: &Value| out.as_array().unwrap().iter().filter(|l| l[0] != "walk").cloned().collect::<Vec<Value>>();
+	let alliance = ride("Alliance", 1416, 13.6, 51.6, "\"e\"");
+	assert_eq!(rides(&alliance), vec![json!(["airship", "airship-zephras-dalaran"])], "{alliance}");
+	let horde = ride("Horde", 1412, 34.8, 26.8, "nil");
+	assert_eq!(rides(&horde), vec![json!(["airship", "airship-zephras-mulgore"])], "{horde}");
+}
+
 // #1674 (Megabite): on the Rohashi Spires after Lorthuna, the next step's turn-in at Elaadrin Evengale in
 // Valanaar said to hearth: the planner knew no way down but walking. The Portal to Valanaar beside her
 // sets the player down beside Elaadrin in five seconds. Zephras Isle (uiMap 2521, continent 2991) on its
