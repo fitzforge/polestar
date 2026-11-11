@@ -226,14 +226,23 @@ fn env(name: &str) -> Env {
 		// The whole addon with EllesmereUI installed before it loads (theme.rs).
 		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
 		// The real QoL against tests/lua/stub_qol.lua's client and its fake Engine, Nav and Pins (qol.rs,
-		// qol-items.rs, ui-look-buttons.rs), with the Buttons page that sets the action buttons' looks. The whole
-		// addon's guide window can't draw the fake Engine's steps, so not the world environment.
+		// qol-items.rs, ui-look-buttons.rs), with its rows (the settings' addon's QoL/Options.lua) and the Buttons
+		// page that sets the action buttons' looks. The whole addon's guide window can't draw the fake Engine's
+		// steps, so not the world environment.
 		"qol" => Env {
 			stubs: vec!["stub_qol.lua"],
 			before: "",
 			addons: vec![Addon::files(
 				"Polestar",
-				&["Core/Init.lua", "Core/Compat.lua", "Core/Hooks.lua", "Theme/Theme.xml", "QoL/QoL.xml", &page("Polestar_Options/QoL/ButtonsOptions.lua")],
+				&[
+					"Core/Init.lua",
+					"Core/Compat.lua",
+					"Core/Hooks.lua",
+					"Theme/Theme.xml",
+					"QoL/QoL.xml",
+					&page("Polestar_Options/QoL/Options.lua"),
+					&page("Polestar_Options/QoL/ButtonsOptions.lua"),
+				],
 			)],
 			login: true,
 			prelude: "stub.advance(1)\n".into(),
