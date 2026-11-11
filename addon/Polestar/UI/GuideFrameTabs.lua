@@ -104,6 +104,9 @@ local function tabButton(i)
 		if E and E.CloseTab then E.CloseTab(self:GetParent().psIndex) end
 	end, 9)
 	b.Close:SetPoint("RIGHT", b, "RIGHT", -3, 0)
+	-- The game's looks draw a tab's close art at one size (Theme.KitIconButton).
+	b.Close.psTabClose = true
+	Theme.KitIconButton(b.Close)
 	b.Close:SetAlpha(TAB_CLOSE_REST)
 	b.Close.psOnEnter = function(c) c:SetAlpha(1) end
 	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(TAB_CLOSE_REST) end end

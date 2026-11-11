@@ -1229,7 +1229,7 @@ fn a_skin_s_art_tint_dims_the_guide_window_s_lit_goal_and_progress_bar_in_every_
 				local t = r.psSkin and r.psSkin.kit and r.psSkin.kit.rowLit
 				if t and t:IsShown() then lit = t end
 			end
-			for _, key in ipairs({ "statusArt", "statusNine" }) do
+			for _, key in ipairs({ "statusArt", "statusShadow", "statusNine" }) do
 				local p = k[key] and k[key][1]
 				if p and p:IsShown() then frame = p end
 			end
@@ -1275,6 +1275,69 @@ fn a_skin_s_art_tint_dims_the_guide_window_s_lit_goal_and_progress_bar_in_every_
 		want([white(50), json!(["94008c", 100, 0]), white(100), json!(["000000", 50, 0])], [dusk(50), json!(["250046", 100, 80]), dusk(100), json!(["000000", 50, 80])]),
 		"Classic"
 	);
+}
+
+// A guide window tab's close button: the red button 14 high in every game look (Classic's art, whose button fills
+// 19 of its 32 units, drawn bigger to match), on the middle of the tab's art where the tab has art: WoW Forever's
+// outline and Classic's chat tab stand lower than the strip's middle. Blizzard's resting tab is its label alone.
+#[test]
+fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the_tab_s_art() {
+	let out = run_with(
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
+		local out = {}
+		for _, look in ipairs({ "forever", "blizzard", "classic" }) do
+			Polestar.Set("ui.skin", look)
+			local function tab(b)
+				local art = b.Close.psSkin.kit.closeN
+				local ink = look == "classic" and 19 / 32 or 1
+				local _, rel = b.Close:GetPoint(1)
+				return { button = math.floor(art:GetHeight() * ink * 100 + 0.5) / 100, onArt = rel == b.psSkin.kit.tab }
+			end
+			out[look] = { active = tab(GF.tabs[1]), rest = tab(GF.tabs[2]) }
+		end
+		emit(out)"#,
+		r#"C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 18, height = 19 }
+		end }"#,
+	);
+	let on = |art: bool| json!({ "button": 14, "onArt": art });
+	assert_eq!(out["forever"], json!({ "active": on(true), "rest": on(true) }), "Forever");
+	assert_eq!(out["blizzard"], json!({ "active": on(true), "rest": on(false) }), "Blizzard");
+	assert_eq!(out["classic"], json!({ "active": on(true), "rest": on(true) }), "Classic");
+}
+
+// Blizzard is the game's own damage meter, not WoW Forever in grey: the guide window's ground is the meter's window
+// art (no fill under it), the navigator's buttons are their glyphs alone and nothing lies under the focus; WoW
+// Forever keeps its black body, its square plates and its bronze rods.
+#[test]
+fn skins_blizzard_s_guide_window_is_the_damage_meter_apart_from_wow_forever_s() {
+	let out = run_with(
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		local F = PolestarGuideFrame
+		local function look()
+			local k = F.psSkin.kit
+			local prev = GF.parts.nav.Prev
+			local plate = prev.psSkin and prev.psSkin.kit and prev.psSkin.kit.plate
+			local header = GF.parts.person.psSkin and GF.parts.person.psSkin.kit and GF.parts.person.psSkin.kit.header
+			return { ground = k.meterArt ~= nil and k.meterArt[1]:IsShown() and k.meterArt[1].texture or false,
+				fill = F.psSkin.bg ~= nil and F.psSkin.bg:IsShown(), plate = plate ~= nil and plate:IsShown(),
+				glyph = prev.Icon:GetAlpha(), header = header ~= nil and header[2]:IsShown() }
+		end
+		Polestar.Set("ui.skin", "blizzard")
+		local out = { blizzard = look() }
+		Polestar.Set("ui.skin", "forever")
+		out.forever = look()
+		emit(out)"#,
+		r#"C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 110, height = 110 }
+		end }"#,
+	);
+	assert_eq!(out["blizzard"], json!({ "ground": 7499559, "fill": false, "plate": false, "glyph": 1, "header": false }), "the meter's window");
+	assert_eq!(out["forever"], json!({ "ground": false, "fill": true, "plate": true, "glyph": 1, "header": true }), "the Settings panel's parts");
 }
 
 #[test]

@@ -105,10 +105,13 @@ local function settingsParts(k)
 	k.dropdown, k.dropdownLit, k.dropdownArrow = "common-dropdown-c-button", "common-dropdown-c-button-hover-1", "common-dropdown-c-button-hover-arrow"
 	k.menu = "common-dropdown-bg"
 	k.close, k.closeDown, k.closeLit = "RedButton-Exit", "RedButton-exit-pressed", "RedButton-Highlight"
-	k.plate, k.plateHover = "common-button-tertiary-square-normal", "common-button-tertiary-square-hover"
+	-- A kit with bareIcons draws its icon buttons as their glyph alone.
+	if not k.bareIcons then k.plate, k.plateHover = "common-button-tertiary-square-normal", "common-button-tertiary-square-hover" end
 	k.navLit, k.navHover = "Options_List_Active", "Options_List_Hover"
 	k.streaks = "_UI-Frame-TopTileStreaks"
-	k.header = "UI-QuestTracker-Primary-Objective-Header"
+	-- The quest tracker's header behind the guide window's focus, unless the
+	-- kit says it has none (false).
+	if k.header == nil then k.header = "UI-QuestTracker-Primary-Objective-Header" end
 	k.scroll = { track = { "minimal-scrollbar-track-top", "!minimal-scrollbar-track-middle", "minimal-scrollbar-track-bottom" },
 		thumb = { "minimal-scrollbar-small-thumb-top", "minimal-scrollbar-small-thumb-middle", "minimal-scrollbar-small-thumb-bottom" },
 		up = "minimal-scrollbar-arrow-top", down = "minimal-scrollbar-arrow-bottom", width = 8, inset = 19 }
@@ -143,20 +146,22 @@ local KITS = {
 		status = { bg = "Legacy-Progressbar-BG", fill = "Legacy-Progressbar-Fill", frame = "Legacy-Progressbar-Frame" },
 	}),
 	-- ButtonFrameTemplateNoPortrait's mainline offsets, the retail art. The
-	-- guide window wears SimplePanelTemplate's thin metal (one corner and two
-	-- edges, the rest their mirror images, as NineSliceUtil mirrors them), the
-	-- toasts and cards the alert toasts' frame, the tab strip and navigator
-	-- the damage meter's header bar, the current goal the Settings list's
-	-- selected row, the text buttons the 128-RedButton.
+	-- guide window is Blizzard's own damage meter, as the meter draws it: its
+	-- window's ground (black under a grey light that falls from the top,
+	-- the corners rounded), its header bar over the tab strip and the
+	-- navigator, its bars, and its header's buttons as their glyphs alone;
+	-- no ornament under the focus. The toasts and cards wear the alert
+	-- toasts' frame, the current goal is the Settings list's selected row,
+	-- the text buttons the 128-RedButton.
 	blizzard = settingsParts({
 		source = "retail",
 		metalOut = { 8, 16, 4, 3 },
 		closeSize = 24, closeAt = { 1, 0 },
-		simple = { corner = "UI-Frame-SimpleMetal-CornerTopLeft", top = "_UI-Frame-SimpleMetal-EdgeTop", left = "!UI-Frame-SimpleMetal-EdgeLeft" },
+		meter = "damagemeters-background",
 		toast = { "Toast-NineSlice-CornerTopLeft", "_Toast-NineSlice-EdgeTop", "Toast-NineSlice-CornerTopRight",
 			"!Toast-NineSlice-EdgeLeft", false, "!Toast-NineSlice-EdgeRight",
 			"Toast-NineSlice-CornerBottomLeft", "_Toast-NineSlice-EdgeBottom", "Toast-NineSlice-CornerBottomRight" },
-		headerBar = "ui-damagemeters-header-bar", headerCap = 25,
+		headerBar = "ui-damagemeters-header-bar", header = false, bareIcons = true,
 		rowLit = "Options_List_Active", flushBare = true,
 		redButton = { "128-RedButton-Left", "_128-RedButton-Center", "128-RedButton-Right",
 			pressed = { "128-RedButton-Left-Pressed", "_128-RedButton-Center-Pressed", "128-RedButton-Right-Pressed" },
@@ -171,6 +176,8 @@ local KITS = {
 		source = "file",
 		tab = { "tab" }, tabActive = { "tabActive" }, chatTab = "chatTab",
 		check = "check", checkOn = "checkOn", checkLit = "checkLit",
+		-- UIPanelCloseButton's red button fills 19 of its art's 32 units.
+		closeInk = 19 / 32,
 		slThumb = "slThumb",
 		ddArrow = "ddArrow",
 		close = "close", closeDown = "closeDown", closeLit = "closeLit",
@@ -321,42 +328,6 @@ local function nine(f, key, kit, names, host, out, layer, sub, sizes)
 	p[5]:SetPoint("TOPLEFT", p[1], "BOTTOMRIGHT"); p[5]:SetPoint("BOTTOMRIGHT", p[9], "TOPLEFT")
 	return p
 end
-
--- A frame of one corner and two edges, the other corners and edges their
--- mirror images (NineSliceUtil's mirrorLayout: SimplePanelTemplate).
--- parts = { corner, top, left }; `cut` the share of each piece's box that
--- holds the rail, drawn `size` units a side (the edges as thick); out =
--- { l, t, r, b } past host's edges. -> the eight textures (p[5] unused)
-local function mirrored(f, key, kit, parts, cut, size, host, out, layer, sub)
-	out = out or { 0, 0, 0, 0 }
-	local k = store(f)
-	local p = k[key]
-	if not p then
-		p = {}
-		for i = 1, 9 do if i ~= 5 then p[i] = host:CreateTexture(nil, layer or "BORDER", nil, sub or 0) end end
-		k[key] = p
-	end
-	-- Texture coordinates run backwards on a mirrored piece.
-	draw(p[1], kit, parts.corner, 0, cut, 0, cut)
-	draw(p[3], kit, parts.corner, cut, 0, 0, cut)
-	draw(p[7], kit, parts.corner, 0, cut, cut, 0)
-	draw(p[9], kit, parts.corner, cut, 0, cut, 0)
-	draw(p[2], kit, parts.top, 0, 1, 0, cut)
-	draw(p[8], kit, parts.top, 0, 1, cut, 0)
-	draw(p[4], kit, parts.left, 0, cut, 0, 1)
-	draw(p[6], kit, parts.left, cut, 0, 0, 1)
-	for i = 1, 9 do if p[i] then p[i]:ClearAllPoints() end end
-	p[1]:SetPoint("TOPLEFT", host, "TOPLEFT", -out[1], out[2]); p[1]:SetSize(size, size)
-	p[3]:SetPoint("TOPRIGHT", host, "TOPRIGHT", out[3], out[2]); p[3]:SetSize(size, size)
-	p[7]:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", -out[1], -out[4]); p[7]:SetSize(size, size)
-	p[9]:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", out[3], -out[4]); p[9]:SetSize(size, size)
-	p[2]:SetPoint("TOPLEFT", p[1], "TOPRIGHT"); p[2]:SetPoint("TOPRIGHT", p[3], "TOPLEFT"); p[2]:SetHeight(size)
-	p[8]:SetPoint("BOTTOMLEFT", p[7], "BOTTOMRIGHT"); p[8]:SetPoint("BOTTOMRIGHT", p[9], "BOTTOMLEFT"); p[8]:SetHeight(size)
-	p[4]:SetPoint("TOPLEFT", p[1], "BOTTOMLEFT"); p[4]:SetPoint("BOTTOMLEFT", p[7], "TOPLEFT"); p[4]:SetWidth(size)
-	p[6]:SetPoint("TOPRIGHT", p[3], "BOTTOMRIGHT"); p[6]:SetPoint("BOTTOMRIGHT", p[9], "TOPRIGHT"); p[6]:SetWidth(size)
-	return p
-end
-Theme.KitMirrored = mirrored
 
 -- One piece of art cut into nine: corners `cu` x `cv` of its box (fractions),
 -- drawn `cw` x `ch` units.
@@ -628,6 +599,10 @@ local function closeArt(b, kit, size)
 	l:SetBlendMode("ADD")
 end
 
+-- A guide window tab's close button: the red button 14 high in every look,
+-- clear of the tab's outline above and below.
+local TAB_CLOSE = 14
+
 ---------------------------------------------------------------------------
 -- Windows
 ---------------------------------------------------------------------------
@@ -727,25 +702,29 @@ local GUIDE = {
 		o:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, 0)
 		sliced(f, "slim", kit, kit.slim, o, { 3, 3, 3, 3 }, "BORDER", 0, true)
 	end,
-	-- The damage meter's window: a black body, under SimplePanelTemplate's
-	-- thin metal rail on the guide window (its 2-unit rail astride the
-	-- window's edge: the corner art's rail starts 4 in, so the pieces lie 5
-	-- out), the alert toasts' frame on the toasts and cards (its rail's outer
-	-- edge one unit outside: the corner art's rail starts 3 in, so 4 out).
-	-- The frame sits at the window's own level: the content draws over it.
+	-- The damage meter's window on the guide window: the meter's own ground
+	-- (no other fill under it), cut at its slices so its light keeps its
+	-- height and its corners their round, the slices at three quarters so
+	-- the light falls over the tab strip and the navigator (60 units, the
+	-- meter's header), at the window's opacity. The toasts and cards: a
+	-- black body under the alert toasts' frame (its rail's outer edge one
+	-- unit outside: the corner art's rail starts 3 in, so 4 out). Both at
+	-- the window's own level: the content draws over them.
 	blizzard = function(f, kit)
 		local a = opacity(f)
-		body(f, 0, 0, 0, 0.96 * a)
 		hideKey(f, "band")
 		local o = child(f, "edge", 0)
 		o:EnableMouse(false)
 		o:ClearAllPoints()
 		o:SetAllPoints(f)
 		if f.psGuide then
+			P.fill(f):Hide()
 			hideKey(f, "toastArt")
-			mirrored(f, "simpleArt", kit, kit.simple, 24 / 64, 24, o, { 5, 5, 5, 5 }, "BORDER", 0)
+			local p = sliced(f, "meterArt", kit, kit.meter, o, nil, "BACKGROUND", 0, false, 0.75)
+			for i = 1, 9 do p[i]:SetAlpha(0.96 * a) end
 		else
-			hideKey(f, "simpleArt")
+			body(f, 0, 0, 0, 0.96 * a)
+			hideKey(f, "meterArt")
 			nine(f, "toastArt", kit, kit.toast, o, { 4, 4, 4, 4 }, "BORDER", 0)
 		end
 	end,
@@ -1179,7 +1158,8 @@ local function veil(icon, hidden)
 end
 
 -- An icon button in a kit: the close art, a plate under the glyph (or, in
--- Classic, the page arrows for ‹ ›). -> true when the kit drew it.
+-- Classic, the page arrows for ‹ ›; with kit.bareIcons the glyph alone, as
+-- the damage meter's header draws its buttons). -> true when the kit drew it.
 function Theme.KitIconButton(b)
 	local kit = Theme.Kit()
 	local framed = rawget(b, "psFramed")
@@ -1190,7 +1170,11 @@ function Theme.KitIconButton(b)
 		return false
 	end
 	if isClose then
-		closeArt(b, kit, min(32, b:GetWidth() + 2))
+		-- The red button the same size in every look: a tab's TAB_CLOSE,
+		-- another close button's width and 2; Classic's art grown by its
+		-- margin (kit.closeInk), never past the art's own 32.
+		local want = rawget(b, "psTabClose") and TAB_CLOSE or b:GetWidth() + 2
+		closeArt(b, kit, min(32, want / (kit.closeInk or 1)))
 		veil(b.Icon, true)
 		return true
 	end
@@ -1205,6 +1189,10 @@ function Theme.KitIconButton(b)
 		else
 			veil(b.Icon, false)
 		end
+		return true
+	end
+	if kit.bareIcons then
+		veil(b.Icon, false)
 		return true
 	end
 	local t = tex(b, "plate", "BACKGROUND", -6)
@@ -1325,7 +1313,10 @@ end
 -- without one lights the active tab as the Settings list's selected row.
 -- Blizzard's strip is the damage meter's header bar: the active tab is the
 -- selected row too, and the resting tabs their label alone (kit.flushBare).
-function Theme.KitTab(b, active, label, flush)
+-- `close` (the guide window's tab close button) goes on the middle of the
+-- tab's art, 3 in from its right side: a tab art that stops under the
+-- strip's top (or rises from its foot) is lower than the strip's middle.
+function Theme.KitTab(b, active, label, flush, close)
 	local kit = Theme.Kit()
 	if not kit then
 		hideKey(b, "tab")
@@ -1372,6 +1363,10 @@ function Theme.KitTab(b, active, label, flush)
 		b.psKitLabel = true
 		label:ClearAllPoints()
 		label:SetPoint("BOTTOM", b, "BOTTOM", 0, active and 6 or 4)
+	end
+	if close and not (flush and kit.flushBare and not lit) then
+		close:ClearAllPoints()
+		close:SetPoint("RIGHT", host, "RIGHT", -3, 0)
 	end
 	return true
 end
@@ -1436,7 +1431,7 @@ function Theme.KitRowLit(r, shown, key, inset)
 end
 
 -- The quest tracker's header behind the guide window's focus (Forever's
--- bronze rods, Blizzard's gold filigree). -> true when drawn
+-- bronze rods; a kit with header false has none). -> true when drawn
 function Theme.KitHeader(f, shown)
 	local kit = Theme.Kit()
 	if not (kit and kit.header and shown) then
@@ -1445,18 +1440,14 @@ function Theme.KitHeader(f, shown)
 	end
 	-- The band's own rows: 4..39 of its 40; its ends (the curl that opens the
 	-- lines at the left, their fade at the right) 25 of its 300, drawn at
-	-- that width (kit.headerCap: 12 squeezes them, Forever's rods).
-	local parts = three(f, "header", kit, kit.header, f, kit.headerCap or 12, 25 / 300, "BACKGROUND", -3)
+	-- that width (12 squeezes them, Forever's rods).
+	local parts = three(f, "header", kit, kit.header, f, 12, 25 / 300, "BACKGROUND", -3)
 	local _, l, r, tp, b = region(kit, kit.header)
 	if l then
 		local du, dv = r - l, b - tp
 		local us = { { 0, 25 / 300 }, { 25 / 300, 1 - 25 / 300 }, { 1 - 25 / 300, 1 } }
 		for i = 1, 3 do parts[i]:SetTexCoord(l + du * us[i][1], l + du * us[i][2], tp + dv * 4 / 40, tp + dv * 39 / 40) end
 	end
-	-- Blizzard's filigree runs under the person's name and place: an
-	-- ornament under text, so it stays faint.
-	local a = kit.source == "retail" and 0.45 or 1
-	for i = 1, 3 do Theme.TintArt(parts[i], 1, 1, 1, a) end
 	return true
 end
 
@@ -1565,7 +1556,7 @@ end
 Theme.KitPaintFill = paintFill
 function Theme.KitStatus(b)
 	local kit = Theme.Kit()
-	for _, key in ipairs({ "statusFrame", "statusEdge", "statusArt", "statusNine", "statusFill", "statusTrack", "statusRim" }) do hideKey(b, key) end
+	for _, key in ipairs({ "statusFrame", "statusEdge", "statusArt", "statusShadow", "statusNine", "statusFill", "statusTrack", "statusRim" }) do hideKey(b, key) end
 	-- Blizzard's branch re-anchors the bar's ground between its caps; every
 	-- kit (and the house bar after them) expects it over the whole bar.
 	b.Bg:ClearAllPoints()
@@ -1614,7 +1605,7 @@ function Theme.KitStatus(b)
 		track:SetPoint("TOPLEFT", b, "TOPLEFT", -2, 2)
 		track:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 2, -2)
 		track:SetFrameLevel(b:GetFrameLevel())
-		three(b, "statusArt", kit, kit.status.bg, track, 7, 7 / 128, "BACKGROUND", -1)
+		three(b, "statusShadow", kit, kit.status.bg, track, 7, 7 / 128, "BACKGROUND", -1)
 		local rim = child(b, "statusRim", 3)
 		rim:EnableMouse(false)
 		rim:SetAllPoints(track)

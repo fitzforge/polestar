@@ -21,7 +21,7 @@ const { pickBuild, cachedTable, fetchText } = require('../lib/data/wago');
 // The client tables this reads (and caches under data/sources/wago/<build>/).
 const TABLES = ['UiTextureAtlas', 'UiTextureAtlasElement', 'UiTextureAtlasMember', 'UiTextureAtlasElementSliceData'];
 
-// The atlas elements the Blizzard skin draws (Theme/Kits.lua names them).
+// The atlas elements the Blizzard skin draws (Polestar_Looks/GameSkins.lua names them).
 const ELEMENTS = [
 	'UI-Frame-Metal-CornerTopLeft', 'UI-Frame-Metal-CornerTopRight', 'UI-Frame-Metal-CornerBottomLeft',
 	'UI-Frame-Metal-CornerBottomRight', '_UI-Frame-Metal-EdgeTop', '_UI-Frame-Metal-EdgeBottom',
@@ -33,15 +33,14 @@ const ELEMENTS = [
 	'Options_Tab_Active_Left', 'Options_Tab_Active_Middle', 'Options_Tab_Active_Right', 'Options_HorizontalDivider',
 	'checkbox-minimal', 'checkmark-minimal',
 	'Minimal_SliderBar_Left', '_Minimal_SliderBar_Middle', 'Minimal_SliderBar_Right', 'Minimal_SliderBar_Button',
-	'common-dropdown-a-button', 'common-dropdown-a-button-hover', 'common-dropdown-a-button-pressed',
 	'common-search-border-left', 'common-search-border-middle', 'common-search-border-right',
 	'128-RedButton-Left', '_128-RedButton-Center', '128-RedButton-Right',
 	'128-RedButton-Left-Pressed', '_128-RedButton-Center-Pressed', '128-RedButton-Right-Pressed',
 	'128-RedButton-Left-Disabled', '_128-RedButton-Center-Disabled', '128-RedButton-Right-Disabled',
 	'128-RedButton-Highlight', 'RedButton-Exit', 'RedButton-exit-pressed',
-	'common-button-tertiary-square-normal', 'common-button-tertiary-square-hover', 'common-button-tertiary-square-depressed-normal',
-	'UI-QuestTracker-Primary-Objective-Header',
-	'ui-damagemeters-header-bar', 'ui-damagemeters-bar-shadowbg', 'ui-damagemeters-bar-shadowedge',
+	// The damage meter: its window's ground, the header bar over its tabs and
+	// navigator, its bars' shadowed track and edge.
+	'damagemeters-background', 'ui-damagemeters-header-bar', 'ui-damagemeters-bar-shadowbg', 'ui-damagemeters-bar-shadowedge',
 	// The Settings panel's parts (SettingsPanel, its category list and rows).
 	'Options_List_Active', 'Options_List_Hover', 'RedButton-Highlight', '_UI-Frame-TopTileStreaks',
 	'UI-Frame-InnerTopLeft', 'UI-Frame-InnerTopRight', 'UI-Frame-InnerBotLeftCorner', 'UI-Frame-InnerBotRight',
@@ -51,15 +50,10 @@ const ELEMENTS = [
 	'minimal-scrollbar-track-top', '!minimal-scrollbar-track-middle', 'minimal-scrollbar-track-bottom',
 	'minimal-scrollbar-small-thumb-top', 'minimal-scrollbar-small-thumb-middle', 'minimal-scrollbar-small-thumb-bottom',
 	'minimal-scrollbar-arrow-top', 'minimal-scrollbar-arrow-bottom',
-	// The small windows' frames: SimplePanelTemplate's thin metal (one corner
-	// and two edges, mirrored as NineSliceUtil mirrors them) round the guide
-	// window, the alert toasts' frame round the toasts and cards; the objective
-	// tracker's check mark and secondary header.
-	'UI-Frame-SimpleMetal-CornerTopLeft', '_UI-Frame-SimpleMetal-EdgeTop', '!UI-Frame-SimpleMetal-EdgeLeft',
+	// The alert toasts' frame round the toasts and cards.
 	'Toast-NineSlice-CornerTopLeft', 'Toast-NineSlice-CornerTopRight', 'Toast-NineSlice-CornerBottomLeft',
 	'Toast-NineSlice-CornerBottomRight', '_Toast-NineSlice-EdgeTop', '_Toast-NineSlice-EdgeBottom',
 	'!Toast-NineSlice-EdgeLeft', '!Toast-NineSlice-EdgeRight',
-	'UI-QuestTracker-Secondary-Objective-Header', 'UI-QuestTracker-Tracker-Check',
 ];
 
 // Relative to the addon folder the generator is given (addon/Polestar).
@@ -118,7 +112,7 @@ function sliceData(tables, elements) {
 const SLICED = [
 	'common-dropdown-bg', 'common-dropdown-c-button', 'common-dropdown-c-button-hover-1',
 	'common-button-list-small', 'common-button-list-small-hover', 'common-button-list-small-selected',
-	'Legacy-Progressbar-Frame', 'UI-HUD-ActionBar-Frame',
+	'Legacy-Progressbar-Frame', 'UI-HUD-ActionBar-Frame', 'damagemeters-background',
 ];
 
 function toLua(art, build, slices = {}) {

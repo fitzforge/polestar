@@ -3029,14 +3029,19 @@ change hides them:
   the Settings panel's flat black ground (SettingsFrameTemplate, where the
   Settings tabs and controls are at home), Blizzard the rock with its top
   streaks;
-- the guide window and the toasts (`psLight`) keep EllesmereUI's small-window
-  looks: Forever's bronze micro menu line round the whole window, tab strip
-  included, with the Settings tabs on the Settings divider at the strip's
-  foot (each tab's outline stops `tabClear` under the window's edge and
-  `tabGap` in from its sides, so it closes as a tab does: #312), Blizzard's
-  black body under a fade with the damage meter's header bar, Classic's chat
-  frame (the tooltip tile in the window colour under the chat tab's rim, its
-  tabs cut from the chat tab sheet) with a toast as the game's tooltip;
+- the guide window and the toasts (`psLight`): Forever's bronze micro menu
+  line round the whole window, tab strip included, with the Settings tabs on
+  the Settings divider at the strip's foot (each tab's outline stops
+  `tabClear` under the window's edge and `tabGap` in from its sides, so it
+  closes as a tab does: #312); Blizzard's own damage meter, apart from
+  Forever's look (its window's ground cut at its slices with no other fill,
+  its header bar over the tab strip and navigator, the header's buttons as
+  their glyphs alone, `kit.bareIcons`, no ornament under the focus,
+  `header = false`), the toasts and cards in the alert toasts' frame;
+  Classic's chat frame (the tooltip tile in the window colour under the chat
+  tab's rim, its tabs cut from the chat tab sheet) with a toast as the
+  game's tooltip. A tab's close button is 14 high in every look, on the
+  middle of its tab's art;
 - atlases the client draws sliced (UiTextureAtlasElementSliceData) are cut at
   the same margins (`ns.GameArtSlice`).
 
