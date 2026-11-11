@@ -4806,7 +4806,7 @@ local function findWaypoint()
 		local wp = Own.lostAim() or Own.partyAim(current)
 		if wp then return wp end
 	end
-	local fly = Own.flyAim(current)
+	local fly = Own.flyAim(current) or Own.flyFromAim(current)
 	if fly then return fly end
 	local groups, focus = stepGroups(current)
 	local grp = focus and groups[focus]
@@ -8950,6 +8950,56 @@ function Own.flyAim(s)
 		map = node.map, x = node.x, y = node.y, f = node.f,
 		label = goalText(goal, verb, subject, detail),
 		stepIndex = s, goalIndex = g, kind = goal.t, r = DEFAULT_RADIUS,
+	}
+end
+
+-- With TomTom's arrow leading (Own.plannerFlies is off for it; the travel
+-- route on), a flight step holds as written: its goto leads to the flight
+-- master the guide names, where the route expected the player to be.
+-- A player elsewhere (#1756: in Mulgore, sent to Ratchet's flight master for
+-- Freewind Post, which Thunder Bluff's reaches) is led instead to the nearest
+-- flight master they know on their continent that serves them, when it is
+-- FLY_FROM_MARGIN yards nearer than the named one and at most FLY_FROM_SHARE
+-- of its distance, and the flight's landing is known and on that continent.
+-- The flight's landing still finishes the step.
+Own.FLY_FROM_MARGIN, Own.FLY_FROM_SHARE = 300, 0.5
+function Own.flyFromAim(s)
+	local nav = ns.Nav
+	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and nav.UsingTomTomArrow and nav.UsingTomTomArrow()) then return nil end
+	if not ns.Get("nav.travel") or Own.transitKind(s) ~= "fly" then return nil end
+	local goal, g = Own.flyGoal(s)
+	local landing = Own.knownLanding(goal)
+	if not landing then return nil end
+	-- The open goto before the flight: the flight master the guide names.
+	local C, named, ng = Compat(), nil, nil
+	for j = g - 1, 1, -1 do
+		local o = guide.steps[s].goals[j]
+		if o.t == "goto" and o.map and o.x and o.y and goalApplies(o) and not goalDone(s, j, o) then named, ng = o, j break end
+	end
+	if not named then return nil end
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if not pc or pc ~= landing.c then return nil end
+	local nc, nx, ny = C.MapToWorld(named.map, named.x, named.y, named.f)
+	local function dist(c, x, y)
+		if c ~= pc or not (x and y) then return math.huge end
+		return math.sqrt((x - px) ^ 2 + (y - py) ^ 2)
+	end
+	local namedD = dist(nc, nx, ny)
+	local mask = player.faction == "Alliance" and 1 or player.faction == "Horde" and 2 or 0
+	local best, bestD
+	for id in pairs(nav.GetKnownTaxiNodes()) do
+		local node = nav.GetTaxiNode(id)
+		if node and id ~= goal.node and node.map and node.x and node.y and (mask == 0 or not node.faction or node.faction % (2 * mask) >= mask)
+			and (not node.class or node.class == player.class) then
+			local d = dist(C.MapToWorld(node.map, node.x, node.y, node.f))
+			if not bestD or d < bestD then best, bestD = node, d end
+		end
+	end
+	if not best or bestD + Own.FLY_FROM_MARGIN >= namedD or bestD >= namedD * Own.FLY_FROM_SHARE then return nil end
+	return {
+		map = best.map, x = best.x, y = best.y, f = best.f,
+		label = L["Walk to the flight master"],
+		stepIndex = s, goalIndex = ng, kind = "goto", r = DEFAULT_RADIUS,
 	}
 end
 
