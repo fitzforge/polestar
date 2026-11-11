@@ -50,9 +50,9 @@ step The Harborage
   accept 1389                         -- Magtoor
 
 step Fallow Sanctuary
-  tip East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals; Noboru walks the ruins and drops his cudgel.
-  collect 6196 "Noboru's Cudgel"
-  accept 1392
+  tip East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.
+  collect 6196 "Noboru's Cudgel" optional -- from Noboru the Cudgel: he walks a path through the ruins
+  accept 1392 optional
   collect 6071 quest 1389             -- Draenethyst Crystal
 
 step The Lost Caravan
