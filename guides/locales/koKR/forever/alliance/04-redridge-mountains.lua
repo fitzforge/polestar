@@ -71,7 +71,7 @@ return {
 
 	-- Step 14: Darkshire
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "",
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, 마을 북쪽 끝",
 	-- {npc:265} Madame Eva
@@ -90,8 +90,6 @@ return {
 	["{npc:633}, at the south end of town; inside"] = "",
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "",
-	-- {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump
-	["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}, 없다면 {npc:3133}에게서",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
 	-- {npc:302} Blind Mary
@@ -293,6 +291,7 @@ return {
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}: 붉은마루일족 약탈자",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: 아무 검은바위부족 오크",
 	-- ["{item:3014}: the Blackrock Renegades at the mill"] = "{item:3014}: 방앗간의 검은바위부족 보초병",
+	-- ["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}, 없다면 {npc:3133}에게서",
 	-- ["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: {area:442}에서 온 툰드리스의 편지",
 	-- ["{npc:266}, by the docks"] = "{npc:266}, 부두 옆",
 	-- ["{npc:332} is at SI:7 in {object:2100}, {npc:6122} in the {object:2164}'s cellar in the {object:2101}, {npc:376} in the Cathedral of Light."] = "{npc:332}은(는) {object:2100}의 SI:7에, {npc:6122}은(는) {object:2101}에 있는 {object:2164}의 지하실에, {npc:376}은(는) 빛의 대성당에 있습니다.",

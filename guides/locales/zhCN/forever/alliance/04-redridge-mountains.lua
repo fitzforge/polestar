@@ -71,7 +71,7 @@ return {
 
 	-- Step 14: Darkshire
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "",
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}，在镇子北端",
 	-- {npc:265} Madame Eva
@@ -90,8 +90,6 @@ return {
 	["{npc:633}, at the south end of town; inside"] = "{npc:633}，位于城镇南端的屋内",
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "{npc:633}：去{quest:163}找{npc:288}",
-	-- {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump
-	["{item:4371}, from {npc:3133}, if you have none"] = "如果没有{item:4371}，向{npc:3133}购买",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}：在屋内",
 	-- {npc:302} Blind Mary
@@ -300,6 +298,7 @@ return {
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}：赤脊山鞭笞者",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}：任何黑石兽人",
 	-- ["{item:3014}: the Blackrock Renegades at the mill"] = "{item:3014}：磨坊的黑石叛节者",
+	-- ["{item:4371}, from {npc:3133}, if you have none"] = "如果没有{item:4371}，向{npc:3133}购买",
 	-- ["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：来自{area:442}的桑迪斯的信",
 	-- ["{npc:266}, by the docks"] = "{npc:266}，在码头旁",
 	-- ["{npc:332} is at SI:7 in {object:2100}, {npc:6122} in the {object:2164}'s cellar in the {object:2101}, {npc:376} in the Cathedral of Light."] = "{npc:332}在{object:2100}的军情七处，{npc:6122}在{object:2101}{object:2164}的地下室，{npc:376}在光明大教堂。",
