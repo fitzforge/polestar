@@ -42,6 +42,9 @@ const GROUPS: &[Group] = &[
 	Group { name: "qol_maps", src: include_str!("effects/qol-maps.lua") },
 	Group { name: "buttons", src: include_str!("effects/buttons.lua") },
 	Group { name: "buttons_world", src: include_str!("effects/buttons-world.lua") },
+	Group { name: "map_quests", src: include_str!("effects/map-quests.lua") },
+	Group { name: "map_travel", src: include_str!("effects/map-travel.lua") },
+	Group { name: "map_codex", src: include_str!("effects/map-codex.lua") },
 ];
 
 // The runner: the group's probes over the control specs (the registry's, and the settings window's own pages
@@ -356,6 +359,21 @@ fn buttons() {
 #[test]
 fn buttons_world() {
 	check("buttons_world");
+}
+
+#[test]
+fn map_quests() {
+	check("map_quests");
+}
+
+#[test]
+fn map_travel() {
+	check("map_travel");
+}
+
+#[test]
+fn map_codex() {
+	check("map_codex");
 }
 
 // Every control of the settings window has an effect check, and every check is a control's.
