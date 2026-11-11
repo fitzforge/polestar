@@ -134,13 +134,13 @@ return {
 
 	-- Step 29: Heavy Hide (Alliance)
 	-- {item:4235} Heavy Hide
-	["{item:4235} (Alliance)"] = "",
+	["{item:4235} (Alliance)"] = "{item:4235} (Allianz)",
 	-- {item:4235} Heavy Hide · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti
 	["22 {item:4235} for {item:5964} and {item:5966}: {skill:393}: beasts of level 28-40; or the Auction House. Skin {npc:2248}, {npc:2249}, {npc:2251}, {npc:2407}, {npc:2406}, {npc:2250} and Snapjaw here (level 28-40); the {skill:393} guide routes this."] = "",
 
 	-- Step 30: Heavy Hide (Horde)
 	-- {item:4235} Heavy Hide
-	["{item:4235} (Horde)"] = "",
+	["{item:4235} (Horde)"] = "{item:4235} (Horde)",
 	-- {item:4235} Heavy Hide · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:4107} Highperch Wyvern · {npc:4147} Saltstone Basilisk · {npc:4140} Scorpid Reaver · {npc:4139} Scorpid Terror · {npc:4143} Sparkleshell Snapper · {npc:4142} Sparkleshell Tortoise
 	["22 {item:4235} for {item:5964} and {item:5966}: {skill:393}: beasts of level 28-40; or the Auction House. Skin {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} and {npc:4142} here (level 28-40); the {skill:393} guide routes this."] = "",
 
