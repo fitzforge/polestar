@@ -13,7 +13,8 @@ next forever/horde/40-50/01-stranglethorn-vale
 # players' recordings (3-14 people per quest), with Forever's quest data for titles, levels and objectives.
 # Order: Tran'gul's first errand in Sunnyglade (the Twilight cult's farm town) and back; Na'zok's camp and the ogres
 # of Bolder'ok in the hills to the north (levels 40-41); Powderfuse Port and one loop round its coasts (the murlocs
-# south-west, the crawlers, Trapclaw and the Eastsea pirates north-east, levels 40-43); the hearth to Rog'mar;
+# south-west, the crawlers, Trapclaw and the Eastsea pirates north-east, levels 40-43), Smuggler's Special out to the
+# pirates' far camp and the hearth from there to Rog'mar;
 # Clubtoe's quests in Sunnyglade; then out through Twilight's Shroud to Kargath (its flight path), where our
 # Stranglethorn Vale & Swamp of Sorrows guide (39-43) flies on to Grom'gol.
 # Offered only after another quest is handed in (players' recordings, 3-14 people each): Tran'gul's quests after
@@ -28,8 +29,8 @@ next forever/horde/40-50/01-stranglethorn-vale
 #   Ogre Friend (94733), A Boar's Delight (94734) and A Treat for a Friend (94737) come only after those bouts.
 # - Step One: Rock (95183): every recorded player got it from Hamur only after Might Makes Right was handed in,
 #   when the rocks lie back east in the hills: left out.
-# - Smuggler's Special (95293) and Smuggler's Bargain (95294): Friz offers the first only once Smuggler's Paradise
-#   is handed in, and it sends you back out to the pirates' far camp, then back to Friz again.
+# - Smuggler's Bargain (95294): Captain Haynes sends you back to Friz once more, after the hearth has taken you
+#   home. Smuggler's Special is in: you hearth from the pirates' camp right after delivering it.
 # - Unworthy Champion (95425): its Skullbasher comes from a fight nobody recorded solo.
 # - The Eastsea pirates' second wave (95122, 95123, 95165, 95124): levels 44-45, above this leg.
 # - The Wayward Warrior (94744) and Da'grosh's quests: two to three recorded players, levels 41-43.
@@ -126,6 +127,11 @@ step Powderfuse Port
   turnin 95254                          -- Fimbo Greasemitz
   turnin 95121
   turnin 95288                          -- Friz Frazzlespark
+  accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp
+
+step Captain Bentcoin
+  tip Back out along the coast to the far end of the pirates' camp: Captain Bentcoin waits by the water. Then hearth from there.
+  turnin 95293 @91.2,39.8
 
 step Hearth to Rog'mar
   hearth "Rog'mar"
