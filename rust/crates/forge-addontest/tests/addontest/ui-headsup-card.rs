@@ -17,8 +17,11 @@ local function pts(o)
 	local out = {}
 	for i = 1, (o.GetNumPoints and o:GetNumPoints() or 0) do
 		local p, rel, rp, x, y = o:GetPoint(i)
-		local relName = rel == CT.frame and "card" or rel == GF.frame and "window" or rel == UIParent and "screen" or false
+		-- A part of the card by its field name; the card, the window and the screen by theirs (the screen last:
+		-- a frame's own parent field is UIParent too).
+		local relName = false
 		for k, v in pairs(CT.frame) do if v == rel then relName = k end end
+		relName = rel == CT.frame and "card" or rel == GF.frame and "window" or rel == UIParent and "screen" or relName
 		out[i] = p .. ">" .. tostring(relName) .. "." .. tostring(rp) .. "@" .. r(x) .. "," .. r(y)
 	end
 	return table.concat(out, " ")
