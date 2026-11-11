@@ -25,6 +25,7 @@ one into the other. The addons:
 |---|---|---|---|---|
 | `Polestar` (`addon/Polestar/`) | The addon: engine, navigation, quests, gear, maps, quality of life, Lookup, Dungeons, Rares and every window | hand-written, plus a few generated data files | yes | yes |
 | `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8") | `compile`, from `guides/` | yes (generated) | yes |
+| `Polestar_Experimental` (`addon/Polestar_Experimental/`) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha); loaded on demand, off until the player switches it on (Community guides), never suggested (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
 | `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
 | `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: Polestar's interface strings (`Interface.lua`, for `Polestar.L`; translators and `forge i18n sync`), our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`) and the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`); loaded on demand by `Core/Locale.lua`, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`, from the client's tables, DingDB (pinned) and pfQuest); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the other's file alone | yes (generated) | yes |
@@ -1167,7 +1168,9 @@ and their statuses) are in PACK_FORMAT.md, "Rules Polestar enforces"; lint
 applies the same ones (`rust/crates/forge-addontest/tests/addontest/packs-parity.rs`). Where `Core/Guides.lua`
 implements them:
 
-- Ids: `Guides.RESERVED` (reserved pack ids) and `Guides.OwnsId` (which
+- Ids: `Guides.RESERVED` (reserved pack ids, as forge's `RESERVED_IDS`; only
+  `guides` from `Polestar_Guides` and `polestar-experimental` from
+  `Polestar_Experimental` may register theirs) and `Guides.OwnsId` (which
   prefix a pack owns: `forever/` and `draft/` for `guides`, `lookup/` for the
   internal `lookup` pack, registered with `internal = true` and never listed
   or switchable, every `<author>/` that is a valid, unreserved pack id for
@@ -1186,13 +1189,23 @@ implements them:
 - Literal text: `ns.EscapeText` (`|` doubled), ids excepted.
 - Packs on disk: `Guides.ScanInstalled`, at login before `GUIDES_REGISTERED`,
   gives every addon whose TOC has `X-Polestar-Pack` and never registered a
-  record from its TOC.
+  record from its TOC (`tocOnly`).
+- Packs that load on demand (`## LoadOnDemand: 1`; `Own.demand`, pack id ->
+  addon; PACK_FORMAT rule 10): off until switched on (`PolestarDB.packs[id].on`);
+  `SetPackShown(id, true)` and the login handler (after the scan, before the
+  Engine reopens the saved tabs) load the addon through `Data.Pack`, a load
+  refused in combat waits for `PLAYER_REGEN_ENABLED`; the scan then merges
+  the registered record in place of its TOC's.
+- Never suggested: `Guides.NEVER_SUGGESTED` (`polestar-experimental`) is
+  never a suggestion source, and its guides never in `OfferedBy`.
 
 A pack record: `id`, `addon`, `format`, `title`, `author`, `version`,
 `license`, `website`, `source`, `notes`, `official` (ours), `imported` (the
-imported guides' pack), `status` (the
-statuses of PACK_FORMAT rule 9; `off` from `PolestarDB.packs[id].off`),
-`reason`, `needs`, `problems`, `guides` (ids), `guideCount`.
+imported guides' pack), `tocOnly` (made from its TOC: its guides are not
+in), `status` (the statuses of PACK_FORMAT rule 9; `off` from
+`PolestarDB.packs[id].off`, or for a pack that loads on demand from no
+`PolestarDB.packs[id].on`), `reason`, `needs`, `problems`, `guides` (ids),
+`guideCount`.
 
 ```lua
 Polestar.RegisterPack(meta) -> ok, err
@@ -1201,12 +1214,12 @@ Polestar.RegisterMapFrames(frames, packId)
 Polestar.Guides.Packs() -> { record, ... }  -- every pack but internal ones and `imported`, ours first, then by title
 Polestar.Guides.Pack(id) -> record | nil
 Polestar.Guides.PackShown(id) -> bool
-Polestar.Guides.SetPackShown(id, shown)     -- PolestarDB.packs[id].off; fires PACKS_CHANGED(id)
+Polestar.Guides.SetPackShown(id, shown)     -- PolestarDB.packs[id].off (.on for a pack that loads on demand: on loads it); fires PACKS_CHANGED(id)
 Polestar.Guides.ProblemCount() -> n         -- over every listed pack (the Options dot)
 Polestar.Guides.OwnsId(packId, guideId) -> bool
-Polestar.Guides.SuggestSources() -> { packId, ... }  -- "guides", then shown packs with leveling guides (never `imported`)
+Polestar.Guides.SuggestSources() -> { packId, ... }  -- "guides", then shown packs with leveling guides (never `imported` nor NEVER_SUGGESTED)
 Polestar.Guides.SuggestSource() -> packId   -- behavior.suggestFrom when it can, else "guides"
-Polestar.Guides.OfferedBy(id) -> { guide, ... }      -- shown guides whose route choice offers id now (Engine.RouteOffered)
+Polestar.Guides.OfferedBy(id) -> { guide, ... }      -- shown guides whose route choice offers id now (Engine.RouteOffered), none of a NEVER_SUGGESTED pack
 Polestar.Guides.DropImported(id) -> bool    -- takes an imported guide out (Import.Delete), nothing else
 ```
 

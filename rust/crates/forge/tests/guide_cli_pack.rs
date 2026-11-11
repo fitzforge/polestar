@@ -450,3 +450,59 @@ fn a_packs_license_placeholder_line_warns_until_replaced() {
 	std::fs::write(&file, "The full licence text.\n").unwrap();
 	assert!(!pack_cmd("lint", &dir, &[]).stderr.contains("placeholder"));
 }
+
+/// Polestar's own experimental pack: `experimental/` in a checkout is linted and compiled as another pack (our
+/// guides as context, a community pack's pack.json, but its reserved id allowed) and written to the checkout's
+/// addon/Polestar_Experimental with Polestar's TOC, loaded on demand. Its pack.json may not name a Polestar_
+/// folder nor another author; the same pack anywhere else is a community pack, refused for the reserved id.
+#[test]
+fn the_checkout_s_experimental_pack_compiles_into_addon_polestar_experimental_as_polestar_s() {
+	let root = tmp("experimental-checkout");
+	std::fs::create_dir_all(root.join("addon/Polestar")).unwrap();
+	std::fs::copy(repo().join("addon/Polestar/Polestar.toc"), root.join("addon/Polestar/Polestar.toc")).unwrap();
+	std::fs::create_dir_all(root.join("guides")).unwrap();
+	std::fs::copy(repo().join("guides/pack.json"), root.join("guides/pack.json")).unwrap();
+	let exp = root.join("experimental");
+	std::fs::create_dir_all(exp.join("guides")).unwrap();
+	let manifest = "{\n\t\"id\": \"polestar-experimental\",\n\t\"title\": \"Polestar Experimental\",\n\t\"author\": \"Polestar\",\n\t\"version\": \"1.0.0\",\n\t\"license\": \"GPL-3.0-only\"\n}\n";
+	std::fs::write(exp.join("pack.json"), manifest).unwrap();
+	std::fs::write(exp.join("guides/elwynn.guide"), guide("polestar-experimental/elwynn", &["", "step Kobold camp", "  goto 47.6,35.1 \"Kobold camp\""])).unwrap();
+	let (d, c, r, e) = (data(), context(), s(&root), s(&exp));
+	let go = |cmd: &str| run(&[cmd, &e, "--root", &r, "--data", &d, "--context", &c, "--context-data", &d]);
+	let lint = go("lint");
+	assert_eq!(lint.status, 0, "{}", lint.stderr);
+	let compiled = go("compile");
+	assert_eq!(compiled.status, 0, "{}", compiled.stderr);
+	let toc = std::fs::read_to_string(root.join("addon/Polestar_Experimental/Polestar_Experimental.toc")).unwrap();
+	has(&toc, r"(?m)^## Title: Polestar Experimental$");
+	has(&toc, r"(?m)^## Notes: Part of Polestar\.$");
+	has(&toc, r"(?m)^## Title-frFR: Polestar : guides expérimentaux$");
+	has(&toc, r"(?m)^## Author: Polestar$");
+	has(&toc, r"(?m)^## LoadOnDemand: 1$");
+	has(&toc, r"(?m)^## X-Polestar-Pack: polestar-experimental$");
+	assert!(!exp.join("dist").exists(), "never into experimental/dist");
+	// A Polestar_ folder in its pack.json is refused as for any pack, and so is another author.
+	std::fs::write(exp.join("pack.json"), manifest.replace("\"version\"", "\"folder\": \"Polestar_Experimental\",\n\t\"version\"")).unwrap();
+	let named = go("lint");
+	assert_eq!(named.status, 1, "{}", named.stderr);
+	has(&named.stderr, r#"folder "Polestar_Experimental" looks like one of Polestar's own addons"#);
+	std::fs::write(exp.join("pack.json"), manifest.replace("\"author\": \"Polestar\"", "\"author\": \"Joe\"")).unwrap();
+	let joe = go("compile");
+	assert_eq!(joe.status, 1, "{}", joe.stderr);
+	has(&joe.stderr, r#"experimental/pack\.json: author is "Joe"; Polestar_Experimental is Polestar's own"#);
+	// The same pack anywhere else is a community pack: the reserved id is refused; under an id of its own it
+	// builds as one ("Polestar Community: …", loaded with the game).
+	std::fs::write(exp.join("pack.json"), manifest).unwrap();
+	let elsewhere = tmp("experimental-elsewhere").join("x");
+	copy_dir(&exp, &elsewhere);
+	let taken = pack_cmd("lint", &s(&elsewhere), &[]);
+	assert_eq!(taken.status, 1, "{}", taken.stderr);
+	has(&taken.stderr, r#"pack id "polestar-experimental" is reserved for Polestar \("guides", .*"polestar-experimental" are\)"#);
+	std::fs::write(elsewhere.join("pack.json"), manifest.replace("polestar-experimental", "ann-experimental")).unwrap();
+	std::fs::write(elsewhere.join("guides/elwynn.guide"), guide("ann-experimental/elwynn", &["", "step Kobold camp", "  goto 47.6,35.1 \"Kobold camp\""])).unwrap();
+	let community = pack_cmd("compile", &s(&elsewhere), &[]);
+	assert_eq!(community.status, 0, "{}", community.stderr);
+	let toc = std::fs::read_to_string(elsewhere.join("dist/PolestarPack_PolestarExperimental/PolestarPack_PolestarExperimental.toc")).unwrap();
+	has(&toc, r"(?m)^## Title: Polestar Community: Polestar Experimental$");
+	assert!(!toc.contains("LoadOnDemand"), "{toc}");
+}
