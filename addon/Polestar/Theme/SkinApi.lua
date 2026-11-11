@@ -24,14 +24,19 @@ local batch = I.batch
 -- is off for the session and the house style stands in (failSkin above).
 ---------------------------------------------------------------------------
 
-Theme.API_VERSION = 1
+Theme.API_VERSION = 2
 
 -- The surfaces a skin may paint: the kinds of Theme.Skin (a window marked
 -- psGuide is the guide window, psLight a toast), and the art modules paint
 -- themselves and hand to a skin's hook (Theme.SkinHook).
 local PAINT_KINDS = { window = true, guide = true, toast = true, panel = true, sidebar = true, inset = true, button = true,
 	dropdown = true, tile = true, editbox = true, checkbox = true, tab = true, close = true, scrollbar = true }
-local HOOKS = { arrow = true, pin = true, guideTitle = true }
+-- The guide window's own (Skin API 2): its title (guideTitle), a goal row
+-- once painted (guideRow), its layout (guideLayout: room of the skin's own
+-- under the window's parts), the step on screen (guideRender), its progress
+-- (guideProgress) and the frame the heads-up card sits on (guideAnchor).
+local HOOKS = { arrow = true, pin = true, guideTitle = true, guideRow = true, guideLayout = true, guideRender = true,
+	guideProgress = true, guideAnchor = true }
 local SKIN_MEDIA = { band = true, bandStars = true, medallion = true }
 local ARROW_STYLES = { ["3d"] = true, flat = true, halo = true, hearth = true }
 local MAP_ICONS = { polestar = true, halo = true, hearth = true }
@@ -43,7 +48,7 @@ local SCHEME_MAY = { "ink", "star", "shade", "scrim", "onAccent", "shadow" }
 
 local CAPABILITIES = {}
 for _, c in ipairs({ "schemes", "skins", "tokens", "legibility", "fonts", "fontSizes", "textShadow", "icons", "media.band",
-	"media.bandStars", "media.medallion", "arrow.style", "mapIcons", "events", "preview", "preset", "lightSchemes" }) do CAPABILITIES[c] = true end
+	"media.bandStars", "media.medallion", "arrow.style", "mapIcons", "events", "preview", "preset", "lightSchemes", "guideParts" }) do CAPABILITIES[c] = true end
 for kind in pairs(PAINT_KINDS) do CAPABILITIES["surfaces." .. kind] = true end
 for name in pairs(HOOKS) do CAPABILITIES["surfaces." .. name] = true end
 
@@ -632,6 +637,39 @@ function Theme.SkinHook(surface, ...)
 		return false
 	end
 	return true
+end
+
+-- The skin's hook for `surface` with its answer: -> true, its first result
+-- when the hook ran (false and nothing when there is none or it failed, the
+-- skin then off as with Theme.SkinHook).
+function Theme.SkinHookValue(surface, ...)
+	local id = Theme.SkinId()
+	local s = SKINS[id]
+	local fn = s and s.hooks and s.hooks[surface]
+	if not fn then return false end
+	local ok, v = pcall(fn, ...)
+	if not ok then
+		failSkin(id, v)
+		return false
+	end
+	return true, v
+end
+
+-- The guide window's parts for a skin's hooks and its own frames (Skin API 2,
+-- capability "guideParts"): window, strip (tabs), nav (the step bar), body,
+-- card (the step), person (its header), goals (the scroll of goal rows), rows
+-- (the goal rows, pooled), tip, after ("Then:"), along, upnext, empty, banner,
+-- foot (the progress), here (While you're here). Frames to place things by
+-- and to restyle; nil before the window is built. One table, made once.
+local guideParts
+function Theme.GuideParts()
+	if guideParts then return guideParts end
+	local G = ns.UI and ns.UI.GuideFrame
+	local p = G and G.parts
+	if not (p and G.frame) then return nil end
+	guideParts = { window = G.frame, rows = G.rows }
+	for k, v in pairs(p) do guideParts[k] = v end
+	return guideParts
 end
 
 -- The palette skin `id` would give, with the player's own colours (a card's
