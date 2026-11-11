@@ -4305,9 +4305,10 @@ function Own.hearthPlan(goal)
 	return wait, inn, trip, go
 end
 
--- "under a minute", "23 min".
+-- "under a minute", "23 min" (to the millisecond first, so a clock a hair past
+-- a minute does not round one more up).
 function Own.minutes(seconds)
-	return seconds < 60 and L["under a minute"] or L["%d min"]:format(math.ceil(seconds / 60))
+	return seconds < 60 and L["under a minute"] or L["%d min"]:format(math.ceil(math.floor(seconds * 1000 + 0.5) / 60000))
 end
 
 -- The line under a hearth goal: how long the Hearthstone waits and, where
