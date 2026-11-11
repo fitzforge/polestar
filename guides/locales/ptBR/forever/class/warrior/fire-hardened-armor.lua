@@ -48,7 +48,7 @@ return {
 	["Charred and Galvanized Horns"] = "Chifres Calcinados e Galvanizados",
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "",
+	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "As quimeras vivem a sudoeste de {area:460}, em {area:465}; o guia espera o nível 26 antes. Você precisa de 12 Chifres Calcinados das Quimeras Filhotes (nível 25-27) e Jovens (23-25), quatro mortes em cinco, e de {item:6840} de {npc:6167} (28, a grande), também quatro em cinco. Só vivem lá três Filhotes, duas Jovens e uma Matriarca, cada uma volta em 5 minutos, então você vai ter de esperar. Os Filhotes e a Matriarca cospem {spell:3396}, as Jovens lançam {spell:403}. Aliança: voe para {area:467} e siga para o sul.",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "{item:6839}, das quimeras jovens",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
@@ -72,13 +72,13 @@ return {
 
 	-- Step 12: Burning Blood
 	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "",
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "Os worgens Nocturnos de {zone:1431} (Corretrevas, Presas Torpes, Tece-sombras, Worgens e Maculados, nível 26-31) ao sul e a oeste de {area:42} soltam {quest:1705} em quatro de cada cinco mortes. Os Maculados envenenam e uivam; as Presas Torpes causam {spell:3427}.",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "{quest:1705}, dos worgen Nightbane",
 
 	-- Step 13: Gutspill
 	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
-	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "",
+	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170} (nível 32, não elite) carrega {item:6845}, quatro mortes em cinco; o guia espera o nível 30 antes. Ele anda entre o interior e a boca da mina de {area:2161}, ao sudeste de {area:42}, então espere na entrada e puxe-o para fora. Ele envenena e uiva.",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "{item:6845}, de {npc:6170}",
 

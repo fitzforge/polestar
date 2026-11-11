@@ -38,7 +38,7 @@ return {
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "",
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "Geh nach Norden durch Elwynn nach {zone:1453}; Mathias Shaw ist oben im SI:7. Er bringt dir Gifte bei und gibt dir das Rezept {item:7676}. Gifte werden hergestellt, nicht gekauft: Jede Charge {spell:8681} braucht {item:2928} und {item:3371}, die {npc:1325} und {npc:1326} in {object:2100} neben dem SI:7 verkaufen. Kaufe von jedem einen Stapel, öffne Gifte in deinem Zauberbuch, um sie herzustellen, und benutze dann ein Gift auf deiner Waffe.",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "{npc:332}: Gifte",
 

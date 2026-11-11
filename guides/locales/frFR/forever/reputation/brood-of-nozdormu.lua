@@ -203,7 +203,7 @@ return {
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "{item:21229}, boss du Temple",
 	-- {npc:15503} Kandrostrasz
-	["{npc:15503}: 500, handed in from his window"] = "",
+	["{npc:15503}: 500, handed in from his window"] = "{npc:15503} : 500, rendue depuis sa fenêtre",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "L'anneau à Amical",

@@ -48,7 +48,7 @@ return {
 	["Charred and Galvanized Horns"] = "Cornes carbonisées et Cornes galvanisées",
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "",
+	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "Les chimères vivent au sud-ouest de la {area:460}, dans le {area:465} ; le guide attend d'abord le niveau 26. Il vous faut 12 Cornes carbonisées, sur les Petites chimères (niveau 25-27) et les Jeunes chimères (23-25), quatre fois sur cinq, et la {item:6840} sur la {npc:6167} (28, la grande), quatre fois sur cinq aussi. Seules trois Petites chimères, deux Jeunes et une Matriarche vivent là, chacune de retour en 5 minutes : attendez-vous à patienter. Les Petites chimères et la Matriarche crachent {spell:3396}, les Jeunes lancent {spell:403}. Alliance : volez jusqu'au {area:467} et allez vers le sud.",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "{item:6839}, sur les jeunes chimères",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
@@ -72,13 +72,13 @@ return {
 
 	-- Step 12: Burning Blood
 	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "",
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "Les worgens Plaie-de-nuit du {zone:1431} (Messagers, Crocs noirs, Tisseurs d'ombre, Worgens et Contaminés, niveau 26-31) au sud et à l'ouest de {area:42} lâchent le {quest:1705} quatre fois sur cinq. Les Contaminés empoisonnent et hurlent ; les Crocs noirs infligent {spell:3427}.",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "{quest:1705}, sur les worgens Plaie-de-nuit",
 
 	-- Step 13: Gutspill
 	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
-	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "",
+	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170} (niveau 32, pas élite) porte la {item:6845}, quatre fois sur cinq ; le guide attend d'abord le niveau 30. Il fait des allers-retours entre l'intérieur et l'entrée de la mine du {area:2161}, au sud-est de {area:42} ; attendez donc à l'entrée et attirez-le dehors. Il empoisonne et hurle.",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "{item:6845}, sur {npc:6170}",
 

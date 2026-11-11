@@ -48,7 +48,7 @@ return {
 	["Charred and Galvanized Horns"] = "Verkohlte und Galvanisierte Hörner",
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "",
+	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "Die Schimären leben südwestlich von {area:460} in {area:465}; der Guide wartet zuerst auf Stufe 26. Du brauchst 12 Verkohlte Hörner von den Schimärenjungen (Stufe 25-27) und Jungen Schimären (23-25), bei vier von fünf Kills, und {item:6840} von {npc:6167} (28, die große), ebenfalls vier von fünf. Es leben dort nur drei Schimärenjunge, zwei Junge Schimären und eine Matriarchin, jede nach 5 Minuten zurück, rechne also mit Warten. Die Schimärenjungen und die Matriarchin spucken {spell:3396}, die Jungen Schimären wirken {spell:403}. Allianz: Flieg nach {area:467} und geh nach Süden.",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "{item:6839}, von den jungen Chimären",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
@@ -72,13 +72,13 @@ return {
 
 	-- Step 12: Burning Blood
 	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "",
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "Die Worgen der Nachtheuler in {zone:1431} (Dunkelläufer, Faulreißer, Schattenwirker, Worgs und Besudelte, Stufe 26-31) südlich und westlich von {area:42} lassen {quest:1705} bei vier von fünf Kills fallen. Die Besudelten vergiften und heulen; Faulreißer verursachen {spell:3427}.",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "{quest:1705}, von den Nightbane-Worgen",
 
 	-- Step 13: Gutspill
 	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
-	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "",
+	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170} (Stufe 32, kein Elite) trägt {item:6845}, bei vier von fünf Kills; der Guide wartet zuerst auf Stufe 30. Er läuft zwischen dem Inneren und dem Eingang der Mine {area:2161} südöstlich von {area:42} hin und her, warte also am Eingang und zieh ihn nach draußen. Er vergiftet und heult.",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "{item:6845}, von {npc:6170}",
 

@@ -10,7 +10,7 @@ return {
 	-- {skill:185} Cooking
 	["Learn {skill:185}"] = "Lerne {skill:185}",
 	-- {skill:185} Cooking · {object:29784} Basic Campfire · {item:279981} Basic Campfire Kit · {item:4470} Simple Wood · {item:4471} Flint and Tinder
-	["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (any character level, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "",
+	["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (any character level, 1s); the arrow picks the nearest. Forever: every cook knows {object:29784}. Craft a {item:279981} from one {item:4470} (38c) with {item:4471} (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise {skill:185} to about 5. The Camping 101: {skill:185} quest at your starting area's camp sends you to this trainer."] = "Jeder {skill:185}-Lehrer deiner Fraktion bringt dir die Lehrlingsstufe von {skill:185} bei (jede Charakterstufe, 1s); der Pfeil wählt den nächsten. Forever: Jeder Koch kennt {object:29784}. Stell aus einem {item:4470} (38c) mit {item:4471} (1s 35c, in deinen Taschen aufbewahrt) ein {item:279981} her, dann stell das Set auf, um irgendwo ein Kochfeuer zu entzünden; stell vorab ein paar her (eine Nutzung alle 5 Minuten). Die ersten Sets heben {skill:185} auch auf etwa 5. Die Quest Camping 101: {skill:185} am Lager deines Startgebiets schickt dich zu diesem Lehrer.",
 
 	-- Step 2: Charred Wolf Meat: ingredients
 	-- {spell:2538} Charred Wolf Meat
@@ -73,7 +73,7 @@ return {
 	-- {skill:185} Cooking
 	["Journeyman {skill:185}"] = "Geselle: {skill:185}",
 	-- {skill:185} Cooking
-	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "",
+	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "Die Gesellenstufe von {skill:185} erhöht das Limit auf 150; sie erfordert Fertigkeit 50 und keine Charakterstufe: Der Pfeil wählt den nächsten {skill:185}-Lehrer deiner Fraktion; die Ausbildung kostet 5s.",
 
 	-- Step 18: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak

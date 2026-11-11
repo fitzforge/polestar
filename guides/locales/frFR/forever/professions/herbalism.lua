@@ -26,7 +26,7 @@ return {
 
 	-- Step 7: Peacebloom & Silverleaf: Mulgore (1-50)
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "Cueillez chaque {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (dès 15) sur votre passage et faites le tour des points de passage jusqu'à {skill:182} 50. Zone de niveau 1-10. Comptez environ 60 herbes pour ces 49 points.",
 
 	-- Step 9: Journeyman Herbalism
 	-- {skill:182} Herbalism
