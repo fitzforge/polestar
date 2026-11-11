@@ -1024,7 +1024,9 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 	let targets: Vec<V> = goals
 		.iter()
 		.enumerate()
-		.filter(|(i, g)| g.get("t").as_str().is_some_and(|t| LOOP_VERBS.contains(&t)) && !sgoals.at(*i).get("explicitCoords").truthy() && !g.get("candidates").truthy())
+		.filter(|(i, g)| {
+			g.get("t").as_str().is_some_and(|t| LOOP_VERBS.contains(&t)) && !sgoals.at(*i).get("explicitCoords").truthy() && !sgoals.at(*i).get("anywhere").truthy() && !g.get("candidates").truthy()
+		})
 		.map(|(_, g)| g.clone())
 		.collect();
 	if targets.is_empty() {
@@ -1240,7 +1242,11 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				out.set("skill", sec.get("skill"));
 				r.warn(
 					&ln,
-					format!("profession \"{}\" is not in data{}; using the explicit name (new Forever content?)", sec.get("skill"), if data.has_professions { "" } else { " (professions.json missing)" }),
+					format!(
+						"profession \"{}\" is not in data{}; using the explicit name (new Forever content?)",
+						sec.get("skill"),
+						if data.has_professions { "" } else { " (professions.json missing)" }
+					),
 					None,
 				);
 			} else {
@@ -2360,6 +2366,21 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					};
 					ord(jor(d, tie))
 				});
+				// `anywhere`: a bag count with no place (cloth a profession guide counts as you loot it while
+				// levelling): no source is picked, so the arrow never leads to one dropper of hundreds; the
+				// step's tip says where it comes from.
+				if g.get("anywhere").truthy() {
+					if !g.get("quest").is_undef() {
+						r.err(&ln, "`collect … anywhere` is a bag count; drop `quest` (quest objectives use the quest’s own targets)", None);
+					}
+					if g.get("count").is_undef() {
+						r.err(&ln, "`collect … anywhere` needs a count: `collect <item> xN anywhere`", None);
+					}
+					if g.get("nearest").truthy() || g.get("explicitCoords").truthy() || !g.get("npc").is_undef() {
+						r.err(&ln, "`collect … anywhere` has no place: drop `nearest`, `npc` or the coordinates", None);
+					}
+					break 'sw;
+				}
 				if g.get("nearest").truthy() {
 					if !g.get("quest").is_undef() {
 						r.err(&ln, "`collect … nearest` farms by bag count; drop `quest` (quest objectives use the quest’s own targets)", None);
@@ -3127,6 +3148,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		&& goal.get("x").is_undef()
 		&& !goal.get("candidates").truthy()
 		&& !g.get("nearest").truthy()
+		&& !g.get("anywhere").truthy()
 		&& !(ctx.loop_ && LOOP_VERBS.contains(&v))
 	{
 		r.warn(

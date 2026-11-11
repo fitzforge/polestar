@@ -23,11 +23,13 @@ zone Azeroth
 # camp station from a blueprint Gilnid drops in the Deadmines. The skill-300 Master Forge has no
 # known blueprint source, and about 60 late plans need it.
 #
-# Ranks: Journeyman needs character level 10 (Forever's sniffed lists). Expert is taught only by
-# Bengus Deepforge (Ironforge), Saru Steelfury (Orgrimmar) and Brikk Keencraft (Booty Bay); Artisan
-# only by Brikk Keencraft. Specialisation at 200 and level 40: Armorsmith (Grumnus Steelshaper,
-# Ironforge / Okothos Ironrager, Orgrimmar) or Weaponsmith (Ironus Coldsteel, Ironforge / Borgosh
-# Corebender, Orgrimmar), with the axe, hammer and sword masters in Everlook at 250 and level 50.
+# Ranks: Journeyman needs character level 10 (Forever's sniffed lists). Trainers teach by tier and
+# train only from their tier's skill: Journeyman at the city trainers, from skill 50; Expert only at
+# Bengus Deepforge (Ironforge) and Saru Steelfury (Orgrimmar), from 125; Artisan only at Brikk
+# Keencraft (Booty Bay), from 200. Specialisation at 200 and level 40: Armorsmith (Grumnus
+# Steelshaper, Ironforge / Okothos Ironrager, Orgrimmar) or Weaponsmith (Ironus Coldsteel, Ironforge
+# / Borgosh Corebender, Orgrimmar), with the axe, hammer and sword masters in Everlook at 250 and
+# level 50.
 #
 # Route (crafts are expected counts; yellow and green crafts can take more):
 #     1-35  Rough Sharpening Stone, about 42 (known): 1 Rough Stone each
@@ -147,7 +149,7 @@ step Rough Grinding Stone to 75
 section Blacksmithing 75-150
 
 step Journeyman Blacksmithing
-  tip Journeyman raises the cap from 75 to 150 for 5s; it needs Blacksmithing 50 and character level 10, so you can take it on any visit from 50. Not every Blacksmithing trainer teaches it: Alliance Bengus Deepforge (Ironforge), Brikk Keencraft (Stranglethorn Vale), Clarise Gnarltree (Duskwood), Daeann Steelwind (Zephras Isle), Rotgath Stonebeard (Ironforge) and Therum Deepforge (Stormwind City); Horde Brikk Keencraft (Stranglethorn Vale), Daeann Steelwind (Zephras Isle), James Van Brunt (Undercity), Karn Stonehoof (Thunder Bluff), Saru Steelfury (Orgrimmar), Snarl (Orgrimmar) and Traugh (The Barrens). The arrow picks the nearest of your faction. Learn now: Runed Copper Belt (from 45, 2s) and Coarse Grinding Stone (from 50, 2s 50c). 75-150 takes about 19s 50c of recipes and 18c of vendor goods, plus 256 Coarse Stone, 28 Heavy Stone, 210 Copper Bar and 320 Bronze Bar to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 5s; it needs Blacksmithing 50 and character level 10, so you can take it on any visit from 50. Not every Blacksmithing trainer teaches it: Alliance Clarise Gnarltree (Duskwood), Daeann Steelwind (Zephras Isle), Rotgath Stonebeard (Ironforge) and Therum Deepforge (Stormwind City); Horde Angus Hammerhand (Tirisfal Glades), Daeann Steelwind (Zephras Isle), James Van Brunt (Undercity), Karn Stonehoof (Thunder Bluff), Snarl (Orgrimmar) and Traugh (The Barrens). The arrow picks the nearest of your faction. Learn now: Runed Copper Belt (from 45, 2s) and Coarse Grinding Stone (from 50, 2s 50c). 75-150 takes about 19s 50c of recipes and 18c of vendor goods, plus 256 Coarse Stone, 28 Heavy Stone, 210 Copper Bar and 320 Bronze Bar to gather or buy.
   level 10
   train Blacksmithing Journeyman
   learn 2666
@@ -242,7 +244,7 @@ step Patterned Bronze Bracers to 150
 section Blacksmithing 150-225
 
 step Expert Blacksmithing
-  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Blacksmithing 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Bengus Deepforge (Ironforge) and Brikk Keencraft (Stranglethorn Vale); Horde Brikk Keencraft (Stranglethorn Vale) and Saru Steelfury (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Green Iron Bracers (from 140) and Heavy Grinding Stone (from 100, 10s). 150-225 takes about 10s of recipes and 28s of vendor goods, plus 234 Heavy Stone, 168 Iron Bar, 195 Steel Bar, 320 Mithril Bar and 30 Solid Stone to gather or buy.
+  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Blacksmithing 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Bengus Deepforge (Ironforge); Horde Saru Steelfury (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Green Iron Bracers (from 140) and Heavy Grinding Stone (from 100, 10s). 150-225 takes about 10s of recipes and 28s of vendor goods, plus 234 Heavy Stone, 168 Iron Bar, 195 Steel Bar, 320 Mithril Bar and 30 Solid Stone to gather or buy.
   level 20
   train Blacksmithing Expert
   learn 3501
@@ -355,9 +357,9 @@ step Solid Stone (Horde)
 
 step Rugged Leather (Alliance)
   only Alliance
-  zone Western Plaguelands
-  tip 206 Rugged Leather for Ornate Thorium Handaxe and Huge Thorium Battleaxe: Skinning: beasts of level 48-60; or the Auction House. Skin Diseased Black Bear, Diseased Grizzly and Diseased Wolf here (level 48-60); the Skinning guide routes this.
-  collect 8170 x206 @34.2,62.1 era
+  zone Eastern Plaguelands
+  tip 206 Rugged Leather for Ornate Thorium Handaxe and Huge Thorium Battleaxe: Skinning: beasts of level 48-60; or the Auction House. Skin Frenzied Plaguehound, Plaguehound and Plaguehound Runt here (level 48-60); the Skinning guide routes this.
+  collect 8170 x206 @56,46.8 live
 
 step Rugged Leather (Horde)
   only Horde

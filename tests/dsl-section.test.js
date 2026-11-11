@@ -55,3 +55,13 @@ test('the generators write a section per ranged banner (a rangeless one leads in
 	assert.deepEqual(bands.split('\n').filter((l) => /^section|^step/.test(l)), ['section First Aid 1-40', 'step Learn', 'step Cloth', 'step Linen', 'section First Aid 40-80', 'step Journeyman', 'step Gate', 'step Heavy', 'step Note']);
 	assert.equal(byBanners(banners, 'Mining'), banners, 'idempotent');
 });
+
+test('a section\'s cloth counted with `collect … xN anywhere` gets no place; a quest, no count or a place are errors', () => {
+	const r = compile(text(['section First Aid 1-40', 'step Cloth', '  collect 2589 x41 anywhere', 'step Linen', '  craft 3275 until 40']));
+	assert.deepEqual([r.errors, r.warnings], [[], []], r.text);
+	const cloth = plain(r.guides[0]).steps[0].goals[0];
+	assert.deepEqual([cloth.t, cloth.item, cloth.count, cloth.map, cloth.x, cloth.candidates, cloth.fromNpcs], ['collect', 2589, 41, undefined, undefined, undefined, undefined]);
+	const errs = compile(text(['step Cloth', '  collect 2589 anywhere', '  collect 2589 x2 anywhere nearest', '  collect 2589 x2 anywhere @40,50'])).errors.join('\n');
+	assert.match(errs, /`collect … anywhere` needs a count: `collect <item> xN anywhere`/);
+	assert.match(errs, /`collect … anywhere` has no place: drop `nearest`, `npc` or the coordinates/);
+});

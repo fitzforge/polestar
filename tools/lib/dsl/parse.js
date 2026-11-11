@@ -60,7 +60,7 @@ const MODS = {
 	abandon: ['text', 'optional', 'only'],
 	destroy: ['text', 'optional', 'only'],
 	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
-	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest'],
+	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere'],
 	goto: [...COMMON, 'map', 'r', 'frame'],
 	talk: [...COMMON, ...COORDS, 'gossip', 'quest'],
 	interact: [...COMMON, ...COORDS, 'quest'],
@@ -95,7 +95,7 @@ const MODS = {
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -1066,6 +1066,11 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 			case 'nearest':
 				if (!use('nearest')) return null;
 				goal.nearest = true;
+				i++;
+				continue;
+			case 'anywhere':
+				if (!use('anywhere')) return null;
+				goal.anywhere = true;
 				i++;
 				continue;
 			case 'optional':

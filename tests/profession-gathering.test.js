@@ -173,6 +173,11 @@ test('pooled node points count for the nodes the server keeps up: a point listed
 	assert.ok(pooled[0].w > pooled[2].w * 4, 'yellow Iron outweighs rare orange Gold');
 	// A kind the zone's table does not have counts nothing.
 	assert.equal(R.nodePoints(objects, project, { table: T.MINING_NODES, role: 'mine', map: 1, from: 155, to: 175, abundance: { 'Iron Deposit': { up: 2 } } }).length, 2);
+	// A zone whose table holds none of the profession's kinds (Teldrassil lists its herbs, not its Amber)
+	// splits points as a zone without a table does: Forever's Chunks of Amber are mined there from skill 1.
+	const amber = { 4: { id: 4, name: 'Chunk of Amber', spawns: { 1: { f: 'e', pts: [[20, 20]] } } }, 5: { id: 5, name: 'Large Chunk of Amber', spawns: { 1: { f: 'e', pts: [[40, 40]] } } } };
+	const herbsOnly = { Peacebloom: { up: 20 } };
+	assert.deepEqual(R.nodePoints(amber, project, { table: T.MINING_NODES, role: 'mine', map: 1, from: 1, to: 50, abundance: herbsOnly }).map((p) => [p.name, p.up]), [['Chunk of Amber', 1], ['Large Chunk of Amber', 1]]);
 });
 
 test('pool odds: a member holds its share of the pool\'s slots, scaled by how often its parent pool picks it', () => {

@@ -25,12 +25,13 @@ zone Azeroth
 # blueprint from Rath'mael, Ruins of Lordaeron) improves disenchanting at a camp and needs the Runed
 # Truesilver Rod; the skill-300 Arcane Forge has no known blueprint source.
 #
-# Ranks: Expert is taught only by Kitta Firewind (Tower of Azora, Elwynn Forest) and Hgarth (Sun
-# Rock Retreat, Stonetalon Mountains). Artisan is taught only by Annora inside Uldaman: enter by the
-# back door (Badlands), clear the scorpids in her room until she appears, and learn every formula up
-# to 250 on that visit. The new starter quests An Enchanting Lesson (Kitta Firewind, Alliance) and A
-# Pain in the Neck (Pa'zula, Sen'jin Village, Horde) teach Disenchant on a quest item. Enchanting
-# has no specialisation.
+# Ranks: trainers teach by tier and train only from their tier's skill: Journeyman at the city
+# trainers, from skill 50; Expert only at Kitta Firewind (Tower of Azora, Elwynn Forest) and Hgarth
+# (Sun Rock Retreat, Stonetalon Mountains), from 125. Artisan is taught only by Annora inside
+# Uldaman: enter by the back door (Badlands), clear the scorpids in her room until she appears, and
+# learn every formula up to 250 on that visit. The new starter quests An Enchanting Lesson (Kitta
+# Firewind, Alliance) and A Pain in the Neck (Pa'zula, Sen'jin Village, Horde) teach Disenchant on a
+# quest item. Enchanting has no specialisation.
 #
 # Route (crafts are expected counts; yellow and green crafts can take more):
 #     1-25  Enchant Bracer - Inferior Stamina, about 31 (known): 1 Mote of Magic each
@@ -75,7 +76,7 @@ zone Azeroth
 section Enchanting 1-75
 
 step Learn Enchanting
-  tip Apprentice Enchanting lets you craft up to 75 for 10c, at any character level. Not every Enchanting trainer teaches it: Alliance Alanna Raveneye (Teldrassil), Betty Quin (Stormwind City), Eaysaa Brightgust (Zephras Isle), Gimble Thistlefuzz (Ironforge), Kitta Firewind (Elwynn Forest), Lalina Summermoon (Darnassus), Lucan Cordell (Stormwind City), Nasalanna Windsinger (Zephras Isle), Taladan (Darnassus), Thonys Pillarstone (Ironforge), Tilli Thistlefuzz (Ironforge) and Xylinnia Starshine (Feralas); Horde Eaysaa Brightgust (Zephras Isle), Godan (Orgrimmar), Hgarth (Stonetalon Mountains), Jhag (Orgrimmar), Lavinia Crowe (Undercity), Malcomb Wynn (Undercity), Mot Dawnstrider (Thunder Bluff), Nasalanna Windsinger (Zephras Isle), Teg Dawnstrider (Thunder Bluff) and Vance Undergloom (Tirisfal Glades). The arrow picks the nearest of your faction. Buy a Copper Rod and Mote of Magic from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from Kitta Firewind (Tower of Azora, Elwynn Forest) and A Pain in the Neck from Pa'zula (Sen'jin Village, Durotar). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 Strange Dust to gather or buy.
+  tip Apprentice Enchanting lets you craft up to 75 for 10c, at any character level. Not every Enchanting trainer teaches it: Alliance Alanna Raveneye (Teldrassil), Betty Quin (Stormwind City), Eaysaa Brightgust (Zephras Isle), Lalina Summermoon (Darnassus), Nasalanna Windsinger (Zephras Isle) and Thonys Pillarstone (Ironforge); Horde Eaysaa Brightgust (Zephras Isle), Jhag (Orgrimmar), Malcomb Wynn (Undercity), Mot Dawnstrider (Thunder Bluff), Nasalanna Windsinger (Zephras Isle), Pa'zula (Durotar) and Vance Undergloom (Tirisfal Glades). The arrow picks the nearest of your faction. Buy a Copper Rod and Mote of Magic from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from Kitta Firewind (Tower of Azora, Elwynn Forest) and A Pain in the Neck from Pa'zula (Sen'jin Village, Durotar). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 Strange Dust to gather or buy.
   train Enchanting Apprentice
   skill Enchanting 1
 
@@ -103,7 +104,7 @@ step Enchant Chest - Inferior Stamina to 75
 section Enchanting 75-150
 
 step Journeyman Enchanting
-  tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Enchanting 50 and character level 10, so you can take it on any visit from 50. Not every Enchanting trainer teaches it: Alliance Gimble Thistlefuzz (Ironforge), Kitta Firewind (Elwynn Forest), Lucan Cordell (Stormwind City), Taladan (Darnassus) and Xylinnia Starshine (Feralas); Horde Godan (Orgrimmar), Hgarth (Stonetalon Mountains), Lavinia Crowe (Undercity) and Teg Dawnstrider (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Enchant Cloak - Minor Protection (from 70, 2s). 75-150 takes about 2s of recipes, plus 1 Shadowgem, 1 Silver Rod, 4 Lesser Magic Essence, 121 Strange Dust and 20 Soul Dust to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Enchanting 50 and character level 10, so you can take it on any visit from 50. Not every Enchanting trainer teaches it: Alliance Gimble Thistlefuzz (Ironforge), Lucan Cordell (Stormwind City), Taladan (Darnassus) and Xylinnia Starshine (Feralas); Horde Godan (Orgrimmar), Lavinia Crowe (Undercity) and Teg Dawnstrider (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Enchant Cloak - Minor Protection (from 70, 2s). 75-150 takes about 2s of recipes, plus 1 Shadowgem, 1 Silver Rod, 4 Lesser Magic Essence, 121 Strange Dust and 20 Soul Dust to gather or buy.
   level 10
   train Enchanting Journeyman
   learn 7771

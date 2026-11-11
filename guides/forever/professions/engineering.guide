@@ -23,10 +23,11 @@ zone Azeroth
 # come at 30 and 50, so it gives no points. The Repair Bot (skill 140) comes from a blueprint Sneed
 # drops in the Deadmines; the skill-300 Anarchist's Workbench has no known source.
 #
-# Ranks: Expert is taught only by Springspindle Fizzlegear (Ironforge), Roxxik (Orgrimmar) and
-# Buzzek Bracketswing (Gadgetzan); Artisan only by Buzzek Bracketswing. Specialisation at 200 and
-# level 30: Gnomish (Tinkmaster Overspark, Ironforge / Oglethorpe Obnoticus, Booty Bay) or Goblin
-# (Nixx Sprocketspring, Gadgetzan).
+# Ranks: trainers teach by tier and train only from their tier's skill: Journeyman at the city
+# trainers, from skill 50; Expert only at Springspindle Fizzlegear (Ironforge) and Roxxik
+# (Orgrimmar), from 125; Artisan only at Buzzek Bracketswing (Gadgetzan), from 200. Specialisation
+# at 200 and level 30: Gnomish (Tinkmaster Overspark, Ironforge / Oglethorpe Obnoticus, Booty Bay)
+# or Goblin (Nixx Sprocketspring, Gadgetzan).
 #
 # Route (crafts are expected counts; yellow and green crafts can take more):
 #     1-35  Rough Blasting Powder, about 46 (known): 1 Rough Stone each
@@ -159,7 +160,7 @@ step Copper Tube to 75
 section Engineering 75-150
 
 step Journeyman Engineering
-  tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Engineering 50 and character level 10, so you can take it on any visit from 50. Not every Engineering trainer teaches it: Alliance Buzzek Bracketswing (Tanaris), Finbus Geargrind (Duskwood), Lilliam Sparkspindle (Stormwind City), Springspindle Fizzlegear (Ironforge) and Trixie Quikswitch (Ironforge); Horde Buzzek Bracketswing (Tanaris), Franklin Lloyd (Undercity), Nogg (Orgrimmar) and Roxxik (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Coarse Blasting Powder (from 75, 2s 50c) and Crafted Heavy Shot (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 Coarse Stone, 27 Heavy Stone, 72 Copper Bar, 61 Bronze Bar and 2 Silver Bar to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Engineering 50 and character level 10, so you can take it on any visit from 50. Not every Engineering trainer teaches it: Alliance Finbus Geargrind (Duskwood), Lilliam Sparkspindle (Stormwind City) and Trixie Quikswitch (Ironforge); Horde Franklin Lloyd (Undercity) and Nogg (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Coarse Blasting Powder (from 75, 2s 50c) and Crafted Heavy Shot (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 Coarse Stone, 27 Heavy Stone, 72 Copper Bar, 61 Bronze Bar and 2 Silver Bar to gather or buy.
   level 10
   train Engineering Journeyman
   learn 3929
@@ -265,7 +266,7 @@ step Big Bronze Bomb to 150
 section Engineering 150-225
 
 step Expert Engineering
-  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Engineering 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Buzzek Bracketswing (Tanaris) and Springspindle Fizzlegear (Ironforge); Horde Buzzek Bracketswing (Tanaris) and Roxxik (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Aquadynamic Fish Attractor (from 150) and Bronze Framework (from 145). 150-225 takes about 31s of vendor goods, plus 19 Medium Leather, 19 Wool Cloth, 31 Coarse Stone, 74 Heavy Stone, 100 Bronze Bar, 6 Silver Bar, 81 Iron Bar, 19 Mithril Bar and 62 Solid Stone to gather or buy.
+  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Engineering 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Springspindle Fizzlegear (Ironforge); Horde Roxxik (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Aquadynamic Fish Attractor (from 150) and Bronze Framework (from 145). 150-225 takes about 31s of vendor goods, plus 19 Medium Leather, 19 Wool Cloth, 31 Coarse Stone, 74 Heavy Stone, 100 Bronze Bar, 6 Silver Bar, 81 Iron Bar, 19 Mithril Bar and 62 Solid Stone to gather or buy.
   level 20
   train Engineering Expert
   learn 9271
@@ -289,8 +290,8 @@ step Medium Leather (Horde)
 
 step Wool Cloth
   zone Azeroth
-  tip 19 Wool Cloth for Bronze Framework: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction.
-  collect 2592 x19 nearest
+  tip 19 Wool Cloth for Bronze Framework: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2592 x19 anywhere
 
 step Coarse Stone (Alliance)
   only Alliance
@@ -378,7 +379,7 @@ step Schematic: Thorium Widget
   buy 16042 nearest
 
 step Schematic: Thorium Tube
-  tip Schematic: Thorium Tube teaches Thorium Tube (Engineering 275) for 1g 60s. Sold by Alliance: Kor'gar (Riverglades) and Xizzer Fizzbolt (Winterspring), limited stock; Horde: Xizzer Fizzbolt (Winterspring), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it.
+  tip Schematic: Thorium Tube teaches Thorium Tube (Engineering 275) for 1g 60s. Sold by Kor'gar (Riverglades) and Xizzer Fizzbolt (Winterspring), limited stock.
   buy 16047 nearest
 
 step Solid Stone (Alliance)
@@ -393,20 +394,12 @@ step Solid Stone (Horde)
   tip 212 Solid Stone for Hi-Impact Mithril Slugs and Mithril Gyro-Shot: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50); or the Auction House. The densest cluster of Mithril Deposit in Desolace is marked.
   collect 7912 x212 @31.5,59.4 era
 
-step Runecloth (Alliance)
-  only Alliance
-  zone Burning Steppes
-  tip 24 Runecloth for Thorium Widget: humanoids of level 45-60 drop it; or the Auction House. It drops from Blackrock Slayer (level 56-57) here.
-  collect 14047 x24 @49.8,54.7 era
-
-step Runecloth (Horde)
-  only Horde
-  zone Silithus
-  tip 24 Runecloth for Thorium Widget: humanoids of level 45-60 drop it; or the Auction House. It drops from Twilight Avenger (level 57-59) here.
-  collect 14047 x24 @23.7,35.5 era
+step Runecloth
+  zone Azeroth
+  tip 24 Runecloth for Thorium Widget: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 14047 x24 anywhere
 
 step Hi-Impact Mithril Slugs to 245
-  zone Azeroth
   tip Hi-Impact Mithril Slugs is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Make the 50 Solid Blasting Powder first. Use the 12 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. Mithril Bar (118 for 225-300): Mining: smelt Mithril Ore; or the Auction House.
   craft 12585 x50
   craft 12596 until 245

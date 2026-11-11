@@ -12,7 +12,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::jsv::{arr, math_round, nums};
 
-pub const SCHEMA: f64 = 11.0;
+pub const SCHEMA: f64 = 12.0;
 pub const SNIFFED: i64 = 70000;
 const REPO_URL: &str = "https://github.com/advocaite/TrinityCore/tree/forever";
 const SPAWN_MAPS: &str = "0,1,2991,2997";
@@ -646,7 +646,10 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	}
 	// The same for the older (Classic) lists, VerifiedBuild below SNIFFED: Forever kept each recipe's
 	// distance from learn skill to yellow when it moved thresholds, so these place the recipes no
-	// sniffed list reaches (professions extract.rs, `learnedAtFrom: "classic"`).
+	// sniffed list reaches (professions extract.rs, `learnedAtFrom: "classic"`). The highest skill any
+	// list asks: on the 18 spells where the Classic lists disagree, the highest is Classic's own trainer
+	// skill and the lower ones are stray lists (Thick Leather 180 for 200, which put it at 155 on
+	// Forever: #1553; Rugged Leather 230 for 250).
 	let mut classic: IndexMap<i64, (f64, f64)> = IndexMap::new();
 	for r in all(
 		&db,
@@ -655,7 +658,7 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	)? {
 		let (k, m) = (r.n0("k"), r.n0("m"));
 		let e = classic.entry(r.i("s")).or_insert((k, m));
-		e.0 = e.0.min(k);
+		e.0 = e.0.max(k);
 		e.1 = e.1.min(m);
 	}
 	let pc = Obj::new();

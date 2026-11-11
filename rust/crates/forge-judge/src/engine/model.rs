@@ -338,11 +338,7 @@ impl Goal {
 			until_skill: num(v, "untilSkill"),
 			yellow: num(v, "yellow"),
 			grey: num(v, "grey"),
-			reagents: v
-				.get("reagents")
-				.as_arr()
-				.map(|a| a.to_vec().iter().filter_map(|r| id(r, "item").map(|i| (i, num(r, "count").unwrap_or(1.0)))).collect())
-				.unwrap_or_default(),
+			reagents: v.get("reagents").as_arr().map(|a| a.to_vec().iter().filter_map(|r| id(r, "item").map(|i| (i, num(r, "count").unwrap_or(1.0)))).collect()).unwrap_or_default(),
 			location: text(v, "location"),
 			min_level: tonumber(&v.get("minLevel")),
 			qlvl: tonumber(&v.get("qlvl")),
@@ -479,12 +475,7 @@ impl Guide {
 			sections: v
 				.get("sections")
 				.as_arr()
-				.map(|a| {
-					a.to_vec()
-						.iter()
-						.map(|s| Section { skill: text(s, "skill"), skill_line: id(s, "skillLine"), from: num(s, "from").unwrap_or(0.0), to: num(s, "to").unwrap_or(0.0) })
-						.collect()
-				})
+				.map(|a| a.to_vec().iter().map(|s| Section { skill: text(s, "skill"), skill_line: id(s, "skillLine"), from: num(s, "from").unwrap_or(0.0), to: num(s, "to").unwrap_or(0.0) }).collect())
 				.unwrap_or_default(),
 			next: text(v, "next"),
 			next_choices,

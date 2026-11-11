@@ -72,7 +72,7 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("abandon", &["text", "optional", "only"]),
 	("destroy", &["text", "optional", "only"]),
 	("kill", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count"]),
-	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest"]),
+	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere"]),
 	("goto", &["text", "optional", "only", "group", "map", "r", "frame"]),
 	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame", "gossip", "quest"]),
 	("interact", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
@@ -131,8 +131,10 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 22] =
-	["map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "reward", "choose", "xp", "money", "group", "direct", "gossip", "grind"];
+pub const MOD_WORDS: [&str; 23] = [
+	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "reward", "choose", "xp", "money", "group", "direct", "gossip",
+	"grind",
+];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
 const GROUP_MAX: f64 = 40.0;
@@ -1450,6 +1452,12 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 			"nearest" => {
 				use_!("nearest");
 				goal.set("nearest", true);
+				i += 1;
+				continue;
+			}
+			"anywhere" => {
+				use_!("anywhere");
+				goal.set("anywhere", true);
 				i += 1;
 				continue;
 			}

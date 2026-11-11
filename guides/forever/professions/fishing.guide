@@ -20,10 +20,10 @@ zone Ironforge
 # from the Forever client tables (`forge data professions`).
 # ASSUMED: past level 30 (the beta's cap) Forever's spawns are Classic's; nothing
 # confirms them yet. In-game check: refine with Polestar_Recorder sessions.
-# ASSUMED: rank level gates are Classic's (Journeyman 10, Expert 20, Artisan 35);
-# Forever's sniffed trainer lists show none (the gate sits on the rank spell, a
-# table we lack); only Journeyman Fishing is sniffed at level 10. In-game check:
-# the level a trainer asks for each rank.
+# Rank level gates: Journeyman Fishing asks level 10 (Forever's sniffed trainer
+# list); Cooking's and First Aid's Journeyman ask none (their sniffed lists, and
+# players' recordings train them at 6 and 7). In-game check: reading an Expert
+# book below level 20.
 # Waypoints are Era-frame (`coords era`); the engine converts them where Forever
 # changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 # ASSUMED: catches per point follow Classic's rate (every catch below 75, then
@@ -36,8 +36,7 @@ zone Ironforge
 section Fishing 1-50
 
 step Learn Fishing
-  tip Any Fishing trainer of your faction teaches Apprentice Fishing (character level 5, 1s); the arrow picks the nearest, and every starting area has one on its lake or shore. Buy a Fishing Pole (23c) from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles (+25, 50c each): a lure adds its bonus to your skill for ten minutes, so fewer fish get away at the start. If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Fishing, handed in to the fishing trainer it names at skill 20 for the Fish Bowl recipe.
-  level 5
+  tip Any Fishing trainer of your faction teaches Apprentice Fishing at any character level (1s); the arrow picks the nearest, and every starting area has one on its lake or shore. Buy a Fishing Pole (23c) from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles (+25, 50c each): a lure adds its bonus to your skill for ten minutes, so fewer fish get away at the start. If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Fishing, handed in to the fishing trainer it names at skill 20 for the Fish Bowl recipe.
   train Fishing Apprentice
   buy 6256 x1 nearest
 
