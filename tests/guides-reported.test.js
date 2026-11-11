@@ -11340,3 +11340,20 @@ test(`${LOCH_MODAN}: #1833: A Hunter's Challenge is handed in before the crocoli
 	assert.ok(back < at(list, 'Crocolisk Meat', (g) => g.t === 'collect' && g.item === 2924), 'the crocolisks after the hand-in');
 	assert.ok(back < at(list, "Marek's Croc-Hunting Knife", (g) => g.t === 'collect' && g.item === 279591), 'Daggerfang after the hand-in');
 });
+
+// #1866 (ǝxǝ.ozuǝɹnɐๅ, NightElf Druid 28, 0.3.7): the Tome of Mel'Thandris (The Howling Vale, 1022) was read on the
+// first visit to Shael'dryn's moonwell, among the Terrowulf packs (28-30) and their rare Packlord (32), with no warning
+// (players' recordings: reads at 28-32, median 29; 2 deaths in the vale at 28 and 29). It is read on the later visit,
+// after the Hidden Shrine (1055 handed in at 29-30), and the step warns of the packs and the Packlord.
+test(`${WETLANDS}: #1866: the Tome of Mel'Thandris is read on the later moonwell visit, with a warning`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const tome = at(list, 'interact 19027 (Tome of Mel\'Thandris)', (g) => g.t === 'interact' && g.object === 19027 && g.quest === 1022);
+	assert.ok(tome > at(list, 'turnin 1055 (the Hidden Shrine)', is('turnin', 1055)), 'after the Hidden Shrine, on the later moonwell visit');
+	assert.ok(tome > at(list, 'turnin 1026', is('turnin', 1026)), 'not on the first visit');
+	assert.ok(tome < at(list, 'turnin 1022', is('turnin', 1022)), 'before Melyria takes it');
+	const tip = [].concat(list[tome].step.note || []).join(' ');
+	assert.match(tip, /Careful:.*Packlord/, tip);
+	assert.match(tip, /tunnel/, tip);
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'turnin,1055' && `${p.b}` === 'task,1022'), 'a record the build keeps');
+});
