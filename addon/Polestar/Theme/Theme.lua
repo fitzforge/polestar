@@ -1163,9 +1163,16 @@ function Theme.SkinMedia(name)
 end
 
 -- A part's art on texture `t`: a file, or an atlas of the client's
--- ("atlas:<name>": the game's looks' own parts).
+-- ("atlas:<name>": the game's looks' own parts). -> an atlas's width and
+-- height, to keep its proportions (nil for a file)
 function Theme.SetArt(t, art)
-	if type(art) == "string" and art:sub(1, 6) == "atlas:" then return t:SetAtlas(art:sub(7)) end
+	if type(art) == "string" and art:sub(1, 6) == "atlas:" then
+		local name = art:sub(7)
+		t:SetAtlas(name)
+		local info = C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(name)
+		if info then return info.width, info.height end
+		return nil
+	end
 	t:SetTexture(art)
 	t:SetTexCoord(0, 1, 0, 1)
 end

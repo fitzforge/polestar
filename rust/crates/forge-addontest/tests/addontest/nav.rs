@@ -481,19 +481,26 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 // The game's looks draw their own waypoint arrow and map pins from the client's own art, through the parts a skin
 // addon gives (Skin API 2's media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the vanilla minimap
 // arrow on the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield, Blizzard the
-// retail navigation arrow and quest marker. Each dart shows in its own colours with no edge while far, and is
-// tinted up close and in the player's own arrow colour. Polestar's own look, Hearth and a skin addon keep theirs:
-// a skin on a game look's base draws its own parts, or Polestar's where it brings none.
+// retail navigation arrow and quest marker. Each dart shows in its own colours with no edge while far (an atlas
+// keeps its proportions in the dart's square: the client's sizes stand in here), and is tinted up close and in the
+// player's own arrow colour. Polestar's own look, Hearth and a skin addon keep theirs: a skin on a game look's base
+// draws its own parts, or Polestar's where it brings none.
 #[test]
 fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_polestar_hearth_and_skin_addons_keep_theirs() {
 	let out = run_themed(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return string.format("%.2f,%.2f,%.2f", r, g, b) end
 		local function file(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
+		-- The client's own sizes of the looks' atlases (the stub has no atlas table).
+		local SIZES = { ["Minimap-QuestArrow"] = { 32, 32 }, ["Navigation-Tracked-Arrow"] = { 22, 18 } }
+		C_Texture = C_Texture or {}
+		C_Texture.GetAtlasInfo = function(n) local s = SIZES[n]; return s and { width = s[1], height = s[2] } or nil end
 		local function look()
 			local pin = targetPin()
+			local w, h = A.dart:GetSize()
 			return { style = A.GetStyle(), dart = file(A.dart), dartAtlas = A.dart:GetAtlas() or false, tint = rgb(A.dart),
-				edge = A.dartEdge:IsShown(), medal = file(pin.medal), medalAtlas = pin.medal:GetAtlas() or false }
+				edge = A.dartEdge:IsShown(), medal = file(pin.medal), medalAtlas = pin.medal:GetAtlas() or false,
+				size = string.format("%.1fx%.1f", w, h) }
 		end
 		local out = {}
 		target(300, 400)
@@ -533,19 +540,19 @@ fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_pol
 		"Hearth keeps its ember dart and its own medallion"
 	);
 	assert_eq!(
-		pick("classic", &["style", "dart", "tint", "edge", "medal"]),
-		json!({ "style": "hearth", "dart": "MinimapArrow", "tint": WHITE, "edge": false, "medal": "UI-Minimap-Background" }),
+		pick("classic", &["style", "dart", "tint", "edge", "medal", "size"]),
+		json!({ "style": "hearth", "dart": "MinimapArrow", "tint": WHITE, "edge": false, "medal": "UI-Minimap-Background", "size": "54.0x54.0" }),
 		"Classic: the vanilla minimap arrow on the minimap's dark disc"
 	);
 	assert_eq!(
-		pick("forever", &["dartAtlas", "tint", "edge", "medalAtlas"]),
-		json!({ "dartAtlas": "Minimap-QuestArrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoiCampaign-QuestNumber" }),
+		pick("forever", &["dartAtlas", "tint", "edge", "medalAtlas", "size"]),
+		json!({ "dartAtlas": "Minimap-QuestArrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoiCampaign-QuestNumber", "size": "54.0x54.0" }),
 		"WoW Forever: its quest arrow and the campaign quest's shield"
 	);
 	assert_eq!(
-		pick("blizzard", &["dartAtlas", "tint", "edge", "medalAtlas"]),
-		json!({ "dartAtlas": "Navigation-Tracked-Arrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoi-QuestNumber" }),
-		"Blizzard: the retail navigation arrow and quest marker"
+		pick("blizzard", &["dartAtlas", "tint", "edge", "medalAtlas", "size"]),
+		json!({ "dartAtlas": "Navigation-Tracked-Arrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoi-QuestNumber", "size": "54.0x44.2" }),
+		"Blizzard: the retail navigation arrow (22 x 18, kept) and quest marker"
 	);
 	assert_eq!(out["near"]["dartAtlas"], "Navigation-Tracked-Arrow");
 	assert_ne!(out["near"]["tint"], WHITE, "up close the look's dart takes the arrival colour");
