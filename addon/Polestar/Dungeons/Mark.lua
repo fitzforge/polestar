@@ -8,9 +8,10 @@
 -- Lordaeron", "Part of the Ruins of Lordaeron quests"). Not the "Then:"
 -- lines, the along-the-way rows or the step list.
 --
---   Dungeons.QuestMark(id) -> { key, quest = id | nil } | nil
+--   Dungeons.QuestMark(id) -> { key, quest = id | nil, breadcrumb = true | nil } | nil
 --       key: the dungeon; quest: the dungeon quest it is needed for (nil:
---       it is one)
+--       it is one); breadcrumb: it only leads there (the pick-up guide's
+--       "Leads to"), the tooltip says so instead of "Needed for"
 --   Dungeons.MarkAfter(id) -> " <glyph>" | ""     -- to put after quest id's name
 --   Dungeons.MarkTooltip(id) -> text | nil         -- the tooltip line, glyph first
 --
@@ -27,15 +28,16 @@ local L = ns.L
 
 local format, floor, tonumber, gmatch = string.format, math.floor, tonumber, string.gmatch
 
-local marks -- quest id -> { key, quest }; nil until read
+local marks -- quest id -> { key, quest, breadcrumb }; nil until read
 
 local function read()
 	local all = Dungeons.marks
 	if type(all) ~= "table" or not Dungeons.IsEnabled() then return nil end
 	local s = all[UnitFactionGroup("player") == "Horde" and "H" or "A"]
 	local out = {}
-	for id, key, quest in gmatch(type(s) == "string" and s or "", "(%d+):([^:;]+):?(%d*)") do
-		out[tonumber(id)] = { key = key, quest = tonumber(quest) }
+	-- "id:key", "id:key:quest" or "id:key:quest:b" (a breadcrumb), ";"-separated.
+	for id, key, quest, crumb in gmatch(type(s) == "string" and s or "", "(%d+):([^:;]+):?(%d*):?(b?)") do
+		out[tonumber(id)] = { key = key, quest = tonumber(quest), breadcrumb = crumb == "b" or nil }
 	end
 	return out
 end
@@ -84,7 +86,7 @@ function Dungeons.MarkTooltip(id)
 			title = rec and rec.title
 		end
 		title = title or ("#" .. m.quest)
-		text = format(L["Needed for %s in %s"], ns.Quoted(title), name)
+		text = m.breadcrumb and format(L["Leads to %s."], ns.Quoted(title)) or format(L["Needed for %s in %s"], ns.Quoted(title), name)
 	else
 		text = format(L["Part of the %s quests"], name)
 	end

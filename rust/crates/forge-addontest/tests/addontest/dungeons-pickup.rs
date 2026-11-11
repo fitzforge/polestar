@@ -2119,3 +2119,37 @@ emit({ marks = marks, row = UI.GoalLine(goal, nil, true), plain = UI.GoalLine(go
 	assert!(out["own"].as_str().unwrap().ends_with("|t Part of the Shadowfang Keep quests"), "{}", out["own"]);
 	assert_eq!(json!([out["none"], out["after"]]), json!([false, ""]));
 }
+
+// A breadcrumb before a dungeon quest (Forever's `breadcrumbs`) is no prerequisite: it only leads there, and the
+// pick-up guide says "Leads to". Its mark says the same. Here The Dungeon Quest (90706) wants Errand 5 (90705), and
+// Rumours (90707) is its breadcrumb.
+#[test]
+fn a_breadcrumb_s_dungeon_mark_says_it_leads_to_the_dungeon_quest() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90710"] = json!({
+		"id": 90710, "name": "Chain Giver", "level": 11, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	let quest = |id: i32, title: &str, pre: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 14, "minLevel": 10, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90710], "object": [], "item": [] }, "end": { "npc": [90710], "object": [] },
+			"objectives": [], "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90705"] = quest(90705, "Errand 5", &[]);
+	c["quests"]["90706"] = quest(90706, "The Dungeon Quest", &[90705]);
+	c["quests"]["90707"] = quest(90707, "Rumours", &[]);
+	i["forever"]["quests"]["90706"] = json!({ "area": 209, "breadcrumbs": [90707] });
+	let script = r#"
+local D = Polestar.Dungeons
+D.Load()
+local m = D.QuestMark(90707)
+emit({ crumb = m and m.breadcrumb or false, needed = D.MarkTooltip(90705), leads = D.MarkTooltip(90707) })"#;
+	let out = run(&pack_of(&c, &i), script, Opts { whole: true, ..Default::default() }).remove(0);
+	assert_eq!(out["crumb"], true, "the build flags it");
+	assert!(out["needed"].as_str().unwrap().ends_with("|t Needed for “The Dungeon Quest” in Shadowfang Keep"), "{}", out["needed"]);
+	assert!(out["leads"].as_str().unwrap().ends_with("|t Leads to “The Dungeon Quest”."), "the breadcrumb: {}", out["leads"]);
+}

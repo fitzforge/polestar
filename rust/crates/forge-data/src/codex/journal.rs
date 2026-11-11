@@ -372,6 +372,12 @@ pub fn build_journal(inp: &JournalInputs, codex: &Codex) -> (V, Vec<String>) {
 	meta.set("counts", V::Obj(counts));
 	let out = Obj::new();
 	out.set("meta", V::Obj(meta));
+	// The dungeon marks per side (marks_of), from the quests' own prerequisites.
+	let (a, h) = marks_of(&V::Obj(dungeons.clone()), &codex.quests, inp.fv_quests);
+	let marks = Obj::new();
+	marks.set("A", a);
+	marks.set("H", h);
+	out.set("marks", V::Obj(marks));
 	out.set("dungeons", V::Obj(dungeons));
 	warnings.extend(att_warnings);
 	(V::Obj(out), warnings)
@@ -1229,15 +1235,19 @@ fn summary_of(p: &V) -> V {
 	V::Obj(o)
 }
 
-/// The prerequisites before a dungeon's quest that carry its dungeon mark: the nearest this many in its chain.
+/// The prerequisites before a dungeon's quest that carry its dungeon mark: the nearest this many.
 pub const MARK_NEAREST: usize = 3;
 
 /// The dungeon marks (Polestar/Dungeons/Mark.lua), per side ("A", "H"): every page quest of the side, and the
-/// MARK_NEAREST last quests of its chain (those the side may take), as `id:key` (a dungeon's own quest) or
-/// `id:key:quest` (needed for that page quest), `;`-separated. A dungeon's own quest keeps its mark over a
-/// prerequisite's; a prerequisite of several keeps the first dungeon's, lowest `minLevel` first (then name, key:
-/// the Dungeons list's order); page quests in page order.
-pub fn marks_of(dungeons: &V) -> (String, String) {
+/// MARK_NEAREST nearest quests before it that the side may take, as `id:key` (a dungeon's own quest), `id:key:quest`
+/// (needed for that page quest) or `id:key:quest:b` (a breadcrumb that leads to it, or to a quest before it),
+/// `;`-separated. Nearest: breadth-first from the page quest through its prerequisites as `chain_of` reads them
+/// (the Codex's `pre`, `preAny`; Forever's `pre`, `preAll`, `preAny`, `breadcrumbs`), in list order, each quest once;
+/// a breadcrumb counts but its own prerequisites don't (it is no step to the quest). Not the page's capped `chain`:
+/// `chain_of` keeps the farthest quests first and drops the nearest past CHAIN_MAX. A dungeon's own quest keeps its
+/// mark over a prerequisite's; a prerequisite of several keeps the first dungeon's, lowest `minLevel` first (then
+/// name, key: the Dungeons list's order); page quests in page order.
+pub fn marks_of(dungeons: &V, cq: &V, fq: &V) -> (String, String) {
 	let mut keys: Vec<String> = dungeons.keys().iter().map(|k| k.to_string()).collect();
 	keys.sort_by(|a, b| {
 		let (pa, pb) = (dungeons.get(a), dungeons.get(b));
@@ -1248,8 +1258,29 @@ pub fn marks_of(dungeons: &V) -> (String, String) {
 			.then_with(|| forge_guide::js::cmp_utf16(&pa.get("name").to_js_string(), &pb.get("name").to_js_string()))
 			.then_with(|| forge_guide::js::cmp_utf16(a, b))
 	});
+	// A quest's prerequisites in chain_of's order: (id, is a breadcrumb).
+	let before = |id: &str| -> Vec<(V, bool)> {
+		let (c, f) = (cq.get(id), fq.get(id));
+		let mut list: Vec<(V, bool)> = Vec::new();
+		for l in [c.get("pre"), f.get("pre"), f.get("preAll"), c.get("preAny"), f.get("preAny")] {
+			list.extend(l.items().into_iter().map(|x| (x, false)));
+		}
+		list.extend(f.get("breadcrumbs").items().into_iter().map(|x| (x, true)));
+		list
+	};
+	let rec_of = |id: &str| {
+		let c = cq.get(id);
+		if c.truthy() {
+			c
+		} else {
+			fq.get(id)
+		}
+	};
 	let side_of = |sd: &str| {
-		let takes = |f: &V| !f.truthy() || f.as_str() == Some(sd);
+		let takes = |f: &V| {
+			let s = side(f);
+			!s.truthy() || s.as_str() == Some(sd)
+		};
 		let mut out: Vec<String> = Vec::new();
 		let mut seen: FxHashSet<String> = FxHashSet::default();
 		for k in &keys {
@@ -1261,18 +1292,41 @@ pub fn marks_of(dungeons: &V) -> (String, String) {
 			}
 		}
 		for k in &keys {
-			let p = dungeons.get(k);
-			let chain_recs = p.get("chain");
-			for q in p.get("quests").items() {
+			for q in dungeons.get(k).get("quests").items() {
 				if !takes(&q.get("faction")) {
 					continue;
 				}
 				let qid = kstr(&q.get("id"));
-				let chain: Vec<V> = q.get("chain").items().into_iter().filter(|c| takes(&chain_recs.get(&kstr(c)).get("faction"))).collect();
-				for c in chain.iter().rev().take(MARK_NEAREST) {
-					let id = kstr(c);
+				let mut walked: FxHashSet<String> = FxHashSet::default();
+				walked.insert(qid.clone());
+				let mut taken: Vec<(String, bool)> = Vec::new();
+				let mut frontier: Vec<String> = vec![qid.clone()];
+				while taken.len() < MARK_NEAREST && !frontier.is_empty() {
+					let mut next: Vec<String> = Vec::new();
+					'level: for at in &frontier {
+						for (pre, crumb) in before(at) {
+							let id = kstr(&pre);
+							if !walked.insert(id.clone()) {
+								continue;
+							}
+							let r = rec_of(&id);
+							if !r.truthy() || !takes(&r.get("faction")) {
+								continue;
+							}
+							taken.push((id.clone(), crumb));
+							if taken.len() >= MARK_NEAREST {
+								break 'level;
+							}
+							if !crumb {
+								next.push(id);
+							}
+						}
+					}
+					frontier = next;
+				}
+				for (id, crumb) in taken {
 					if seen.insert(id.clone()) {
-						out.push(format!("{id}:{k}:{qid}"));
+						out.push(if crumb { format!("{id}:{k}:{qid}:b") } else { format!("{id}:{k}:{qid}") });
 					}
 				}
 			}
@@ -1295,10 +1349,11 @@ pub fn emit_journal(journal: &V) -> String {
 	];
 	lines.push(format!("D.Register(\"meta\", {})", lua_s(&journal.get("meta"))));
 	lines.push(String::new());
-	let dungeons = journal.get("dungeons");
-	let (a, h) = marks_of(&dungeons);
-	lines.push(format!("D.Register(\"marks\", {{ A = {}, H = {} }})", lua_str(&a), lua_str(&h)));
+	let marks = journal.get("marks");
+	let side = |s: &str| if marks.get(s).is_str() { marks.get(s).to_js_string() } else { String::new() };
+	lines.push(format!("D.Register(\"marks\", {{ A = {}, H = {} }})", lua_str(&side("A")), lua_str(&side("H"))));
 	lines.push(String::new());
+	let dungeons = journal.get("dungeons");
 	let mut keys: Vec<String> = dungeons.keys().iter().map(|k| k.to_string()).collect();
 	keys.sort_by(|a, b| forge_guide::js::cmp_utf16(a, b));
 	lines.push("D.Register(\"dungeon\", {".into());
@@ -1324,26 +1379,48 @@ mod tests {
 	use super::*;
 
 	// Fitz, 0.3.8: a dungeon's quests and the three nearest prerequisites before each carry its mark, decided at
-	// build time. A five-quest chain marks its last three; a quest of the dungeon keeps its own mark; a
-	// prerequisite of two dungeons keeps the lower one's; a side's mark leaves out the other side's quests.
+	// build time. Nearest is breadth-first through the quests' own prerequisites: a quest of the dungeon keeps its
+	// own mark; a prerequisite of two dungeons keeps the lower one's; a side's mark leaves out the other side's
+	// quests; a chain longer than the page chain's cap (CHAIN_MAX) still marks the three right before the quest; two
+	// branches give the direct ones first; a breadcrumb is flagged, and what comes before it is no step.
 	#[test]
 	fn the_marks_are_a_dungeon_s_quests_and_the_nearest_three_prerequisites_per_side() {
 		let dungeons = parse_json(
 			r#"{
-			"high": { "name": "High Halls", "minLevel": 30, "chain": { "5": { "faction": null } },
-				"quests": [ { "id": 20, "faction": null, "chain": [5] } ] },
-			"low": { "name": "Low Deeps", "minLevel": 15, "chain": {
-					"1": { "faction": null }, "2": { "faction": null }, "3": { "faction": null }, "4": { "faction": "A" }, "5": { "faction": null }, "11": { "faction": null } },
-				"quests": [
-					{ "id": 10, "faction": null, "chain": [1, 2, 3, 4, 5] },
-					{ "id": 11, "faction": "H", "chain": [] },
-					{ "id": 12, "faction": "H", "chain": [11] } ] }
+			"high": { "name": "High Halls", "minLevel": 30, "quests": [ { "id": 20, "faction": null } ] },
+			"low": { "name": "Low Deeps", "minLevel": 15, "quests": [ { "id": 10, "faction": null }, { "id": 11, "faction": "H" }, { "id": 12, "faction": "H" } ] }
 		}"#,
 		)
 		.unwrap();
-		let (a, h) = marks_of(&dungeons);
+		let cq = parse_json(
+			r#"{
+			"1": { "pre": [] }, "2": { "pre": [1] }, "3": { "pre": [2] }, "4": { "pre": [3], "faction": "A" }, "5": { "pre": [4] },
+			"10": { "pre": [5] }, "11": { "pre": [] }, "12": { "pre": [11] }, "20": { "pre": [5] }
+		}"#,
+		)
+		.unwrap();
+		let (a, h) = marks_of(&dungeons, &cq, &V::obj());
 		assert_eq!(a, "10:low;20:high;5:low:10;4:low:10;3:low:10");
-		// Horde: 4 is the Alliance's, so 2 comes in; 11 is a quest of the dungeon itself, not 12's prerequisite.
-		assert_eq!(h, "10:low;11:low;12:low;20:high;5:low:10;3:low:10;2:low:10");
+		// Horde: 4 is the Alliance's (and nothing before it is reached), so only 5 comes in; 11 is a quest of the
+		// dungeon itself, not 12's prerequisite.
+		assert_eq!(h, "10:low;11:low;12:low;20:high;5:low:10");
+	}
+
+	#[test]
+	fn a_chain_longer_than_the_page_cap_marks_the_three_right_before_the_quest_branches_and_breadcrumbs() {
+		let dungeons =
+			parse_json(r#"{ "deep": { "name": "Deep", "minLevel": 58, "quests": [ { "id": 200, "faction": null }, { "id": 300, "faction": null }, { "id": 400, "faction": null } ] } }"#).unwrap();
+		// 100 <- 101 <- ... <- 129 <- 200: thirty quests, past CHAIN_MAX.
+		let mut quests: Vec<String> = (100..130).map(|i| format!(r#""{i}": {{ "pre": [{}] }}"#, if i == 100 { String::new() } else { (i - 1).to_string() })).collect();
+		quests.push(r#""200": { "pre": [129] }"#.into());
+		// 300 wants 301 and 302; 301 wants 303, 303 wants 304.
+		quests.extend([r#""300": { "pre": [301, 302] }"#, r#""301": { "pre": [303] }"#, r#""302": {}"#, r#""303": { "pre": [304] }"#, r#""304": {}"#].map(String::from));
+		// 400 wants 403; Forever has 401 as its breadcrumb, and 402 before 401.
+		quests.extend([r#""400": { "pre": [403] }"#, r#""401": { "pre": [402] }"#, r#""402": {}"#, r#""403": {}"#].map(String::from));
+		let cq = parse_json(&format!("{{ {} }}", quests.join(", "))).unwrap();
+		let fq = parse_json(r#"{ "400": { "breadcrumbs": [401] } }"#).unwrap();
+		assert!(CHAIN_MAX < 30);
+		let (a, _) = marks_of(&dungeons, &cq, &fq);
+		assert_eq!(a, "200:deep;300:deep;400:deep;129:deep:200;128:deep:200;127:deep:200;301:deep:300;302:deep:300;303:deep:300;403:deep:400;401:deep:400:b");
 	}
 }

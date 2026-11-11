@@ -3137,6 +3137,10 @@
 			"zoneName": "Stranglethorn Vale"
 		}
 	},
+	"marks": {
+		"A": "5728:ragefire-chasm;3636:razorfen-downs;4003:blackrock-depths;5727:ragefire-chasm:5728;5726:ragefire-chasm:5728;4002:blackrock-depths:4003;4001:blackrock-depths:4003",
+		"H": "5728:ragefire-chasm;3636:razorfen-downs;4003:blackrock-depths;5727:ragefire-chasm:5728;5726:ragefire-chasm:5728;4002:blackrock-depths:4003;4001:blackrock-depths:4003"
+	},
 	"meta": {
 		"counts": {
 			"attunements": 0,
