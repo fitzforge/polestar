@@ -28,13 +28,7 @@ local function key(k) stub.RunScript(root(), "OnKeyDown", k) end
 "#;
 
 fn run(script: &str) -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
-		addons: vec![Addon::name("Polestar")],
-		script: format!("{PRELUDE}{script}"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], script: format!("{PRELUDE}{script}"), ..Default::default() }).remove(0)
 }
 
 const ALL: [&str; 10] = ["guide", "arrow", "launcher", "buttons", "flightTimer", "instances", "party", "rareAlert", "transportAlert", "whileHere"];

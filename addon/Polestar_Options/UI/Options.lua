@@ -843,7 +843,7 @@ end
 O.Control = makeControl
 
 ---------------------------------------------------------------------------
--- New settings. A control's `new` (the release it came in: "0.3.7") puts a
+-- New settings. A control's `new` (the release it came in: "0.3.8") puts a
 -- New badge on its row, and its page's row in the sidebar counts them until
 -- the page is opened. PolestarDB.optionsSeen[page key] holds the newest
 -- release whose settings the player has seen on that page (account-wide,

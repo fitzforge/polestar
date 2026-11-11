@@ -17,7 +17,7 @@ local L = ns.L
 local floor, max, min, ipairs = math.floor, math.max, math.min, ipairs
 
 local PAGE = L["Theme"]
-local NEW = "0.3.7"
+local NEW = "0.3.8"
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 local function signed(v)

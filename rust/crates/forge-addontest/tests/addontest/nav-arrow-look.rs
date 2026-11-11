@@ -240,18 +240,41 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 	assert!(out["infos"].as_i64().unwrap() <= 2, "at most two (i) marks");
 	assert_eq!(out.get("crowded"), None, "at most one switch and one swatch beside a control");
 	assert_eq!(out.get("thin"), None, "no one-row sections");
-	assert_eq!(
-		out["sections"],
-		json!(["Look/Arrow [nav.arrow]", "Look/Arrival", "Look/Visibility", "Text/Text"]),
-		"the arrow, its arrival and when it shows, then its text in one card"
-	);
+	assert_eq!(out["sections"], json!(["Look/Arrow [nav.arrow]", "Look/Arrival", "Look/Visibility", "Text/Text"]), "the arrow, its arrival and when it shows, then its text in one card");
 	let keys = out["keys"].as_str().unwrap();
 	for k in [
-		"nav.arrow", "nav.arrowStyle", "nav.arrowScale", "nav.arrowAlpha", "nav.arrowColor", "nav.arrowNearColor", "nav.arrowNearRange",
-		"nav.arrowTurn", "nav.arrowGlow", "nav.arrowGlowStrength", "nav.arrowRingColor", "nav.arrowPulse", "nav.arrivalSound",
-		"nav.hideArrowWithGuide", "nav.arrowNoTarget", "nav.arrowCombatAlpha", "nav.arrowDistance", "nav.arrowDistSize", "nav.arrowDistColor",
-		"nav.distanceUnit", "nav.arrowLabelLines", "nav.arrowLabelSize", "nav.arrowLabelColor", "nav.arrowLabelWidth", "nav.arrowEta",
-		"nav.arrowEtaSize", "nav.arrowEtaColor", "nav.arrowFont", "nav.arrowOutline", "nav.arrowTextPos", "nav.arrowBacking", "nav.arrowBackingAlpha",
+		"nav.arrow",
+		"nav.arrowStyle",
+		"nav.arrowScale",
+		"nav.arrowAlpha",
+		"nav.arrowColor",
+		"nav.arrowNearColor",
+		"nav.arrowNearRange",
+		"nav.arrowTurn",
+		"nav.arrowGlow",
+		"nav.arrowGlowStrength",
+		"nav.arrowRingColor",
+		"nav.arrowPulse",
+		"nav.arrivalSound",
+		"nav.hideArrowWithGuide",
+		"nav.arrowNoTarget",
+		"nav.arrowCombatAlpha",
+		"nav.arrowDistance",
+		"nav.arrowDistSize",
+		"nav.arrowDistColor",
+		"nav.distanceUnit",
+		"nav.arrowLabelLines",
+		"nav.arrowLabelSize",
+		"nav.arrowLabelColor",
+		"nav.arrowLabelWidth",
+		"nav.arrowEta",
+		"nav.arrowEtaSize",
+		"nav.arrowEtaColor",
+		"nav.arrowFont",
+		"nav.arrowOutline",
+		"nav.arrowTextPos",
+		"nav.arrowBacking",
+		"nav.arrowBackingAlpha",
 	] {
 		assert!(keys.split(' ').any(|x| x == k), "{k} is still settable on the page");
 	}

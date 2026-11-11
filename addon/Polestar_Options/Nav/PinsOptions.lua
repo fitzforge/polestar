@@ -34,7 +34,7 @@ if not (Pins and Pins.BuildLook and Upcoming and Upcoming.Look and Layers and La
 local floor, min, max, sqrt = math.floor, math.min, math.max, math.sqrt
 
 local PAGE = L["Map pins"]
-local NEW = "0.3.7"
+local NEW = "0.3.8"
 local NAV_MEDIA = "Interface\\AddOns\\Polestar\\Media\\Nav\\"
 local MAP_MEDIA = "Interface\\AddOns\\Polestar\\Media\\Map\\"
 

@@ -170,11 +170,7 @@ fn parts_colours_ground_and_border_follow_their_settings() {
 	assert_eq!(h["skip"], false);
 	assert_eq!(h["report"], false);
 	assert_eq!(h["foot"], false, "no progress bar");
-	assert_eq!(
-		h["height"].as_f64().unwrap(),
-		b["height"].as_f64().unwrap() - 28.0 - 26.0,
-		"the window loses the tab bar's and the progress bar's height"
-	);
+	assert_eq!(h["height"].as_f64().unwrap(), b["height"].as_f64().unwrap() - 28.0 - 26.0, "the window loses the tab bar's and the progress bar's height");
 	assert_eq!(out["noPct"]["pct"], false);
 	assert_eq!(out["painted"]["markW"], 4);
 	assert_eq!(out["painted"]["personMarkW"], 4, "the person's bar too");
@@ -316,23 +312,24 @@ fn the_settings_window_lays_the_page_out_by_element_with_inline_switches_swatche
 			styleMore = styleMore, slideMore = slideMore })"#);
 	assert_eq!(out["tabs"], json!(["Window", "Parts"]), "the frame as a whole, then its parts in the window's order");
 	let has = |list: &str, k: &str| out[list].as_array().unwrap().iter().any(|v| v == k);
-	for k in [
-		"ui.style", "ui.scale", "ui.width", "ui.opacity", "guideWindow.idleAlpha", "guideWindow.bgOpacity",
-		"guideWindow.bgColor", "ui.combat", "guideWindow.hideTaxi",
-	] {
+	for k in ["ui.style", "ui.scale", "ui.width", "ui.opacity", "guideWindow.idleAlpha", "guideWindow.bgOpacity", "guideWindow.bgColor", "ui.combat", "guideWindow.hideTaxi"] {
 		assert!(has("window", k), "{k} on the Window tab: {}", out["window"]);
 	}
 	for k in [
-		"guideWindow.tabs", "guideWindow.targetBar", "guideWindow.targetBarColor", "guideWindow.progress", "guideWindow.progressColor",
-		"ui.showNotes", "guideWindow.goalSize", "guideWindow.titleSize", "ui.upcoming", "guideWindow.noteSize",
+		"guideWindow.tabs",
+		"guideWindow.targetBar",
+		"guideWindow.targetBarColor",
+		"guideWindow.progress",
+		"guideWindow.progressColor",
+		"ui.showNotes",
+		"guideWindow.goalSize",
+		"guideWindow.titleSize",
+		"ui.upcoming",
+		"guideWindow.noteSize",
 	] {
 		assert!(has("parts", k), "{k} on the Parts tab (inline switches and swatches included): {}", out["parts"]);
 	}
-	assert_eq!(
-		out["styleMore"],
-		json!(["guideWindow.outline", "guideWindow.shade", "guideWindow.veil", "ui.backing", "ui.barShown"]),
-		"the transparent style's settings in the Style cog"
-	);
+	assert_eq!(out["styleMore"], json!(["guideWindow.outline", "guideWindow.shade", "guideWindow.veil", "ui.backing", "ui.barShown"]), "the transparent style's settings in the Style cog");
 	assert_eq!(out["slideMore"], json!(["guideWindow.animSpeed"]), "the slide's speed in its cog");
 }
 
@@ -437,7 +434,11 @@ fn a_registered_skin_s_guide_window_hooks_dress_rows_add_room_follow_renders_and
 	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
 	assert_eq!(out["v"], 2);
 	assert_eq!(out["caps"], json!([true, true, true, true, true, true]));
-	assert_eq!((out["rows"].clone(), out["renders"].clone(), out["parts"].clone(), out["frac"].clone(), out["layoutY"].clone()), (json!(true), json!(true), json!(true), json!(true), json!(true)), "{out}");
+	assert_eq!(
+		(out["rows"].clone(), out["renders"].clone(), out["parts"].clone(), out["frac"].clone(), out["layoutY"].clone()),
+		(json!(true), json!(true), json!(true), json!(true), json!(true)),
+		"{out}"
+	);
 	assert!(out["dense"].as_str().unwrap_or("").len() > 1, "the row was dressed: {}", out["dense"]);
 	assert_eq!(out["step"], 3, "the step on screen");
 	assert_eq!(n(&out["after"]) - n(&out["before"]), 20.0, "the window grew by the skin's room");

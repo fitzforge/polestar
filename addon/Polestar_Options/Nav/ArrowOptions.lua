@@ -20,7 +20,7 @@ if not (Arrow and Arrow.BuildDial and ns.RegisterOptions and Theme and W) then r
 local floor, min, max = math.floor, math.min, math.max
 
 local PAGE = L["Arrow"]
-local NEW = "0.3.7"
+local NEW = "0.3.8"
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 -- Guidance options with no effect while Shortest Path Forever guides (Nav/Handoff.lua).

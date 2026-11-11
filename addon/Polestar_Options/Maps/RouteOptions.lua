@@ -30,7 +30,7 @@ if not (R and Strokes and R.Look) then return end
 local Theme, W, L = ns.Theme, ns.Widgets, ns.L
 local floor, max, min, atan2 = math.floor, math.max, math.min, math.atan2 or math.atan
 
-local NEW = "0.3.7"
+local NEW = "0.3.8"
 local PAGE, KEY, ORDER, ICON = L["Route lines"], "routelines", 24, "icon-goto"
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
