@@ -22,7 +22,7 @@ next forever/horde/04-the-barrens
 # Blossoms, Masoj and the southern peak -> Hillsbrad town's smithy -> the western peak -> Tarren
 # Mill -> the northern peak -> Masoj -> fly to the Sepulcher (Allister: Beren's Peril, Watching the
 # Roads) -> the Undercity (Faranell, training) -> zeppelin to Orgrimmar. The next guide flies from
-# Orgrimmar to the Crossroads. Tauren Druids with Trial of the Sea Lion go from the Undercity to
+# Orgrimmar to the Crossroads. Tauren and Skyborne Druids with Trial of the Sea Lion go from the Undercity to
 # Moonglade, Thunder Bluff and the Crossroads instead.
 #
 # Class quests: Shamans fill the Empty Red Waterskin at the Spring Well beside the inn (Call of Water,
@@ -235,11 +235,11 @@ step Archibald
   tip While you're here: learn Swords from Archibald (War Quarter, 10 silver); a sword in the main hand levels a Rogue steadily.
   train 11870                         -- Archibald
 
-# ---------------------------------------------------------------- Tauren Druids: Aquatic Form
+# ---------------------------------------------------------------- Tauren and Skyborne Druids: Aquatic Form
 # Three steps, so no step's `when` turns false before its last goal is done: the hand-in of 30
 # ends the first, the hand-in of 31 the second, and the third holds only in Thunder Bluff.
 step Trial of the Sea Lion
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Moonglade
   when onquest 30
   tip Cast Teleport: Moonglade. Join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
@@ -247,7 +247,7 @@ step Trial of the Sea Lion
   turnin 30                             -- Dendrite Starblaze
 
 step Aquatic Form
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Thunder Bluff
   when turnedin 30
   when !turnedin 31
@@ -257,7 +257,7 @@ step Aquatic Form
   turnin 31                             -- Turak Runetotem: Aquatic Form
 
 step Back to the Crossroads
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Thunder Bluff
   when zone "Thunder Bluff"
   tip Train with Turak Runetotem, then fly on to the Crossroads, where the next guide starts.
