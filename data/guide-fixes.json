@@ -20,6 +20,18 @@
 			"issue": 1550
 		},
 		{
+			"id": "1752-jungle-secrets-optional",
+			"faction": "Alliance",
+			"at": { "quest": 215, "goal": "accept" },
+			"optional": true,
+			"note": "#1752: Private Thorsen offers Jungle Secrets only while he is out of the Rebel Camp, at the foot of its path for a few minutes of each half-hour round (see places.json 1752-stv-thorsen-road-giver). A player who doesn't meet him there is not held at the Rebel Camp; the guide passes Bookie Herod (200, after 215) and The Hidden Key (328) with it.",
+			"source": [
+				{ "kind": "tdb", "ref": "conditions: quest 215 available only while Private Thorsen is not in area 99 (the Rebel Camp)" },
+				{ "kind": "recording", "ref": "Private Thorsen's (738) windows in players' recordings: 9 offered Jungle Secrets, all at 40.3,8.4; refusals at the camp spot" }
+			],
+			"issue": 1752
+		},
+		{
 			"id": "1550-krazek-optional-pickup",
 			"faction": "Alliance",
 			"at": { "quest": 627, "goal": "accept" },

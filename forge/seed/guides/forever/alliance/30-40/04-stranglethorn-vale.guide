@@ -83,8 +83,8 @@ step Sir S. J. Erlgadin
 
 step Rebel Camp
   tip Take the road north; the camp sits in the hills to the west.
-  tip Private Thorsen spends most of his time at the top of the Rebel Camp's path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path.
-  accept 215 @38.0,3.4                -- Private Thorsen
+  tip Private Thorsen offers Jungle Secrets only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes Bookie Herod, which follows from it, as well.
+  accept 215 @40.3,8.4 optional       -- Private Thorsen, at the foot of the path
   turnin 215                          -- Lieutenant Doren, in the hut
   accept 200                          -- Lieutenant Doren: Bookie Herod's records lie at the edge of Kurzen's Compound, next
   accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay, later in this guide
