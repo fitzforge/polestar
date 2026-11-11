@@ -967,7 +967,6 @@ out.nobody = { T.LoadSkinAddon("nobody") }
 out.again = { T.LoadSkinAddon("glass") }
 emit(out)"##
 			.into(),
-		..Default::default()
 	})
 	.remove(0);
 	assert_eq!(out["login"], json!(["ember", "Test_Ember"]), "the saved skin's addon loaded at login, and the choice shows");

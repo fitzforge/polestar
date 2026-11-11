@@ -385,7 +385,3 @@ fn a_registered_skin_s_guide_title_hook_dresses_the_navigator() {
 	assert_eq!((c["bar"].clone(), c["close"].clone(), c["band"].clone()), (json!(false), json!(false), json!(false)), "the transparent window draws no title: {c}");
 	assert_eq!(out["back"], out["house"], "back on the house skin, its own title");
 }
-
-fn n(v: &Value) -> f64 {
-	v.as_f64().unwrap_or_else(|| panic!("not a number: {v}"))
-}
