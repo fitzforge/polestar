@@ -1,4 +1,4 @@
-//! Quick settings (addon/Polestar/UI/QuickSettings.lua): the guide window menu's first entry opens a small popover
+//! Quick settings (addon/Polestar/UI/QuickSettings.lua): the guide window menu's entry before Options opens a small popover
 //! by the menu button with the settings changed mid-play (lock, opacity, arrow, auto-accept, auto turn-in, route
 //! lines), each writing its setting; "All settings…" opens the settings window; Escape's list, a click outside and
 //! the gamepad's B close it. Core only: against the real Core + Theme + UI manifests and the fake Engine
@@ -37,12 +37,13 @@ end
 }
 
 #[test]
-fn the_menu_s_first_entry_opens_the_popover_by_the_button_with_the_mid_play_settings() {
+fn the_menu_s_entry_before_options_opens_the_popover_by_the_button_with_the_mid_play_settings() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		local built = PolestarQuickSettings ~= nil
 		GF.menuButton:Click()
-		local first = menuItems()[1]
+		local items, first = menuItems(), nil
+		for i, t in ipairs(items) do if t == "Options" then first = items[i - 1] end end
 		W.HideMenu()
 		menuPick("Quick settings")
 		local P = PolestarQuickSettings
@@ -55,7 +56,7 @@ fn the_menu_s_first_entry_opens_the_popover_by_the_button_with_the_mid_play_sett
 			labels = { rows["ui.locked"].Label:GetText(), rows["ui.opacity"].Label:GetText(), rows["behavior.autoTurnin"].Label:GetText() },
 			all = P.All.Label and P.All.Label:GetText() or P.All:GetText() })"#);
 	assert_eq!(out["built"], false, "nothing built before first open");
-	assert_eq!(out["first"], "Quick settings");
+	assert_eq!(out["first"], "Quick settings", "just before Options: the menu's other entries keep their places");
 	assert_eq!(out["shown"], true);
 	assert_eq!(out["menu"], false, "the menu closes for it");
 	assert_eq!(out["anchored"], true, "it opens by the menu button");
