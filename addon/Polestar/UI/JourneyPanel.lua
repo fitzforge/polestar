@@ -11,7 +11,8 @@
 --
 -- Shown while the route has more than one leg (Nav.travel.Active()): a lone
 -- walk is the arrow's own distance and time, so a one-line journey would
--- only repeat it. Finished legs drop off; times count down once a second
+-- only repeat it. Consecutive walks with the same caption are one row
+-- (JP.Rows: the walk to a zone crossing and the walk across it). Finished legs drop off; times count down once a second
 -- while the panel is on screen and nothing runs while it is not. Each step's
 -- time is whole seconds and the header adds up the steps, so the totals
 -- always match what the rows say. Clicking the current step opens the skip
@@ -160,6 +161,42 @@ end
 local view = { n = 0, total = 0, yards = 0, secs = {}, wait = {}, ride = {}, timed = {}, board = {}, dep = {} }
 JP.view = view
 
+-- The rows from the current leg on. Consecutive walks with the same line
+-- are one row (Fitz, 0.3.7: "Go to Durotar" twice, the walk to a zone
+-- crossing and the walk across it): row k covers legs first[k]..last[k],
+-- its number its place among the route's rows (num[k]), its time and
+-- yards their sum. Kept until the route, the current leg or its length
+-- changes; allocation-free otherwise.
+local plan = { n = 0, first = {}, last = {}, num = {}, legs = nil, ci = nil, len = nil }
+JP.plan = plan
+
+-- Whether leg i reads as the same walk as the leg before it.
+local function sameWalk(legs, i)
+	local a, b = legs[i - 1], legs[i]
+	return a ~= nil and a.kind == "walk" and b.kind == "walk" and JP.StepText(a) == JP.StepText(b)
+		and hubText(a) == hubText(b) and detourText(a) == detourText(b)
+end
+
+function JP.Rows(legs, ci)
+	if plan.legs == legs and plan.ci == ci and plan.len == #legs then return plan end
+	local first, last, num = plan.first, plan.last, plan.num
+	local ord = 0
+	for i = 1, ci do
+		if not sameWalk(legs, i) then ord = ord + 1 end
+	end
+	local n = 0
+	for i = ci, #legs do
+		if i == ci or not sameWalk(legs, i) then
+			n = n + 1
+			first[n], num[n] = i, n == 1 and ord or num[n - 1] + 1
+		end
+		last[n] = i
+	end
+	for k = n + 1, #first do first[k], last[k], num[k] = nil, nil, nil end
+	plan.n, plan.legs, plan.ci, plan.len = n, legs, ci, #legs
+	return plan
+end
+
 local DOCK = 60 -- yards from where a ride leaves: at the dock (Travel's BOARD)
 
 -- The current leg and when it became current, stamped on every route event
@@ -233,40 +270,43 @@ local function progress(leg)
 	return s, leg.yards
 end
 
--- Fill `view` from legs[ci..]: per step whole seconds (waits included), the
--- departure line's parts, and the totals.
+-- Fill `view` from legs[ci..], a row at a time (JP.Rows): per row whole
+-- seconds (waits included), the departure line's parts, and the totals.
 function JP.Compute(legs, ci)
 	local at = transitNow()
-	local n, total, yards = 0, 0, 0
-	for i = ci, #legs do
-		local leg = legs[i]
-		n = n + 1
-		local s, y
-		if i == ci then s, y = progress(leg) else s, y = leg.seconds, leg.yards end
+	local p = JP.Rows(legs, ci)
+	local total, yards = 0, 0
+	for n = 1, p.n do
 		local hasDep, wait, ride, timed, board = false, 0, 0, false, false
-		if serviceOf(leg) then
-			hasDep = true
-			local X = ns.Transit
-			local riding = i == ci and X and X.Riding and X.Riding(at)
-			if type(riding) == "table" and riding.kind == leg.kind and finite(riding.arriveIn) then
-				board, ride = true, riding.arriveIn
-			else
-				local w, r, t = departure(leg, at + total, i == ci and atDock(leg))
-				if w then
-					wait, ride, timed = w, r, t
+		local rowSecs = 0
+		for i = p.first[n], p.last[n] do
+			local leg = legs[i]
+			local s, y
+			if i == ci then s, y = progress(leg) else s, y = leg.seconds, leg.yards end
+			if serviceOf(leg) then
+				hasDep = true
+				local X = ns.Transit
+				local riding = i == ci and X and X.Riding and X.Riding(at)
+				if type(riding) == "table" and riding.kind == leg.kind and finite(riding.arriveIn) then
+					board, ride = true, riding.arriveIn
 				else
-					hasDep = false
+					local w, r, t = departure(leg, at + total + rowSecs, i == ci and atDock(leg))
+					if w then
+						wait, ride, timed = w, r, t
+					else
+						hasDep = false
+					end
 				end
+				if hasDep then s = whole(wait) + whole(ride) end
 			end
-			if hasDep then s = whole(wait) + whole(ride) end
+			rowSecs = rowSecs + whole(s)
+			if finite(y) and y > 0 then yards = yards + y end
 		end
-		s = whole(s)
-		view.secs[n], view.dep[n] = s, hasDep
+		view.secs[n], view.dep[n] = rowSecs, hasDep
 		view.wait[n], view.ride[n], view.timed[n], view.board[n] = whole(wait), whole(ride), timed, board
-		total = total + s
-		if finite(y) and y > 0 then yards = yards + y end
+		total = total + rowSecs
 	end
-	view.n, view.total, view.yards = n, total, yards
+	view.n, view.total, view.yards = p.n, total, yards
 	return view
 end
 
@@ -449,15 +489,16 @@ end
 
 -- Labels, glyphs and colours: only when the steps themselves change.
 local function fillStructure(legs, ci)
-	local n = #legs - ci + 1
+	local p = JP.Rows(legs, ci)
+	local n = p.n
 	local shown = n > MAX_ROWS and MAX_ROWS or n
 	for i = 1, shown do
-		local leg = legs[ci + i - 1]
+		local leg = legs[p.first[i]]
 		local r = row(i)
 		local current = i == 1
 		r.psCurrent = current
-		r.psLeg = ci + i - 1
-		r.Num:SetFormattedText("%d", ci + i - 1)
+		r.psLeg = p.first[i]
+		r.Num:SetFormattedText("%d", p.num[i])
 		r.Icon:SetTexture(Theme.Media(glyphOf(leg)))
 		r.Text:SetText(JP.StepText(leg))
 		r.Bar:SetShown(current)
@@ -480,7 +521,7 @@ local function fillStructure(legs, ci)
 		more:SetText(left == 1 and L["1 more step"] or format(L["%d more steps"], left))
 	end
 	dest:SetText(format(L["To %s"], "|c" .. Theme.Hex("place") .. destination(legs) .. "|r"))
-	shownLegs, shownCi, shownN = legs, ci, n
+	shownLegs, shownCi, shownN = legs, ci, #legs
 end
 
 -- Times only: once a second and on transit news. Never changes a height.
@@ -518,8 +559,9 @@ function JP.Refresh(force)
 		return
 	end
 	F.psHas = true
-	local changed = force or legs ~= shownLegs or ci ~= shownCi or #legs - ci + 1 ~= shownN
+	local changed = force or legs ~= shownLegs or ci ~= shownCi or #legs ~= shownN
 	stamp(legs, ci)
+	if force then plan.legs = nil end
 	if changed then fillStructure(legs, ci) end
 	head.Icon:SetTexture(Theme.Media(open() and "chevron-up" or "chevron-down"))
 	-- The x while the journey leads to a point of your own; the chevron moves over for it.

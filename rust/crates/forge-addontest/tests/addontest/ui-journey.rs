@@ -367,3 +367,52 @@ fn a_walk_that_enters_a_hostile_town_says_so_under_its_step_hostile_town_southsh
 	assert_eq!(s["rows"][1]["sub"], "average wait 0:15 \u{b7} ride 0:10", "a ride keeps its departure line");
 	assert!(num(&s["rows"][2]["h"]) > 24.0, "the warning has its own line");
 }
+
+// Fitz, 0.3.7 (a First Aid trip from Orgrimmar to Stonetalon): the journey read "Go to Durotar" twice and "Go to
+// Stonetalon Mountains" twice, the walk to each zone crossing and the walk across it. Consecutive walks with the same
+// line are one row, their times added; a row's number is its place in the route, a walk half done keeps its row and
+// number. A walk through a hostile town keeps a row of its own.
+const CROSSINGS: &str = r#"
+R.legs = {
+	{ kind = "walk", step = "crossing", label = "Walk to Durotar", seconds = 28, yards = 180 },
+	{ kind = "walk", step = "crossing", label = "Walk to Durotar", seconds = 21, yards = 140 },
+	{ kind = "walk", step = "crossing", label = "Walk to Stonetalon Mountains", seconds = 622, yards = 4300 },
+	{ kind = "walk", step = "crossing", label = "Walk to Stonetalon Mountains", seconds = 106, yards = 700 },
+	{ kind = "walk", label = "Collect Wool Cloth", seconds = 208, yards = 1500 },
+}
+R.ps, R.py = 28, 180
+Polestar.Fire("ROUTE_CHANGED", R.legs)
+"#;
+
+#[test]
+fn consecutive_walks_to_the_same_place_are_one_row_with_their_times_added() {
+	let out = run(&format!(
+		r#"{CROSSINGS}
+		emit(shot())
+		R.ci, R.ps, R.py = 2, 21, 140; Polestar.Fire("ROUTE_ADVANCED", R.legs, 2); emit(shot())
+		R.ci, R.ps, R.py = 3, 622, 4300; Polestar.Fire("ROUTE_ADVANCED", R.legs, 3); emit(shot())"#
+	));
+	assert_eq!(
+		pick(&out[0], &["num", "text", "time", "bar"]),
+		json!([["1", "Walk to Durotar", "0:49", true], ["2", "Walk to Stonetalon Mountains", "12:08", false], ["3", "Collect Wool Cloth", "3:28", false]])
+	);
+	assert_eq!(out[0]["time"], "16:25");
+	assert_eq!(pick(&out[1], &["num", "text", "time"]), json!([["1", "Walk to Durotar", "0:21"], ["2", "Walk to Stonetalon Mountains", "12:08"], ["3", "Collect Wool Cloth", "3:28"]]), "half done: its row and number");
+	assert_eq!(pick(&out[2], &["num", "text", "time"]), json!([["2", "Walk to Stonetalon Mountains", "12:08"], ["3", "Collect Wool Cloth", "3:28"]]));
+}
+
+#[test]
+fn a_walk_through_a_hostile_town_keeps_a_row_of_its_own() {
+	let out = run(&format!(
+		r#"{CROSSINGS}
+		Polestar.Nav.travel.HubText = function(leg) return leg.hubs and "Hostile town: Crossroads" or nil end
+		R.legs[4].hubs = {{ "Crossroads" }}
+		R.legs = {{ R.legs[1], R.legs[2], R.legs[3], R.legs[4], R.legs[5] }}
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())"#
+	));
+	assert_eq!(
+		pick(&out[0], &["num", "text", "time"]),
+		json!([["1", "Walk to Durotar", "0:49"], ["2", "Walk to Stonetalon Mountains", "10:22"], ["3", "Walk to Stonetalon Mountains", "1:46"], ["4", "Collect Wool Cloth", "3:28"]])
+	);
+	assert_eq!(out[0]["rows"][2]["sub"], "Hostile town: Crossroads");
+}

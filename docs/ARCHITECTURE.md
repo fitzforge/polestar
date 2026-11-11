@@ -3792,7 +3792,7 @@ walk stays inside one zone; between zones it goes only through
   or lift, each with an arrival radius and optionally the height of its floor
   (`z`: a walk to that end ends there, the Undercity's entrance hall rather
   than the city under it), joined by an explicit walk link, with a
-  caption per direction (`ab`, `ba`; else "Go to <zone>"), optionally one way;
+  caption per direction (`ab`, `ba`; else "Walk to <zone>", "Go to <zone>" before 0.3.7), optionally one way;
 - an open-ground pair: two zones whose shared border is walkable anywhere
   (optionally one way);
 - an approach chain: ordered nodes with radius and caption (a cave, a climb, a
@@ -6264,7 +6264,12 @@ a chevron; a click collapses it, `nav.journeyOpen`), "To <destination>"
 current one on (at most eight, then "3 more steps"): the leg's number in
 the route, its glyph (by `leg.kind`, or `leg.step` for a walk's chokepoint:
 lift, gate, bridge, cave, pass), its caption (`leg.label`; without one the
-kind's words and where it ends, never "Unknown") and its time. Boats,
+kind's words and where it ends, never "Unknown") and its time. Consecutive
+walks with the same caption and the same hostile-town and detour lines are
+one row, their times and yards added (0.3.7, `JP.Rows`; Fitz saw "Go to
+Durotar" twice, the walk to a zone crossing and the walk across it): its
+number is its place among the route's rows, a walk half done keeps its row,
+and the arrow still walks each leg. Boats,
 zeppelins, the tram and lifts add a line, "average wait 0:15 · ride 0:10"
 ("leaves in" once a ride timed the loop; "on board · 0:42" while riding).
 A walk whose engine path enters the other faction's towns (`leg.hubs`) adds

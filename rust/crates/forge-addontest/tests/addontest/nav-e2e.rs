@@ -1863,7 +1863,7 @@ fn far_waypoints_from_mulgore_below_thunder_bluff_to_stonetalon_every_walk_leg_f
 		true,
 	);
 	check_shapes(&out, 4);
-	assert!(out.as_array().unwrap().iter().any(|l| l["label"] == "Go to Stonetalon Mountains" && l["handmade"] != true), "the walk on from the Barrens crossing is the engine's");
+	assert!(out.as_array().unwrap().iter().any(|l| l["label"] == "Walk to Stonetalon Mountains" && l["handmade"] != true), "the walk on from the Barrens crossing is the engine's");
 }
 
 #[test]
