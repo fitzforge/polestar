@@ -1224,4 +1224,8 @@ N.RegisterCrossings({
 			{ map = 1441, c = 1, wx = -5013.9, wy = -2107.1, z = 84, r = 12 },
 		} },
 	},
+	-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy)
+	areas = {
+		{ id = "rutheran-village", name = "Rut'theran Village", map = 1438, c = 1, top = 9065.3, bottom = 8437.5, left = 1523.3, right = 352.3 },
+	},
 })

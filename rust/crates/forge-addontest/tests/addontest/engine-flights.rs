@@ -648,3 +648,54 @@ fn a_step_with_work_of_its_own_or_one_looked_at_ahead_has_no_purpose_line() {
 	);
 	assert_eq!(out, json!({ "live": false, "ahead": false }));
 }
+
+// #1756 (Konky88, 0.3.6, Troll Shaman 33, TomTom's arrow): Thousand Needles' "Fly to Freewind Post" leads to
+// Ratchet's flight master, where the route expected the player after Islen Waterseer. He stood in Mulgore, 1,100
+// yd from Thunder Bluff's flight master, knowing Freewind Post. With TomTom's arrow leading (the planner's flight
+// handling is Polestar's own arrow's) the step still holds as written, but its arrow leads to the nearest flight
+// master the character knows when it is clearly nearer than the named one; the landing still finishes the step.
+// Near the named flight master, or with the landing not known, the step leads there as before.
+const FREEWIND: &str = r#"
+Polestar.RegisterGuide({ id = "test/needles", pack = "test", title = "Thousand Needles", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Fly to Freewind Post", goals = {
+		{ t = "goto", map = 1442, x = 90, y = 50, text = "Ratchet flight master" },
+		{ t = "fly", location = "Freewind Post", node = 30 },
+	} },
+	{ title = "Freewind Post", goals = { { t = "goto", map = 1412, x = 10, y = 90, text = "Freewind Post" } } },
+} })
+"#;
+
+#[test]
+fn a_flight_step_off_the_planner_leads_to_a_clearly_nearer_known_flight_master_not_the_named_one_1756() {
+	let out = run(
+		FREEWIND,
+		r#"
+		local w = stub.world
+		-- (This world's maps are live frames only: the nodes here too.)
+		NODES[30] = { id = 30, name = "Freewind Post, Thousand Needles", c = 1, map = 1412, x = 10, y = 90 }
+		NODES[22] = { id = 22, name = "Thunder Bluff, Mulgore", c = 1, map = 1412, x = 47, y = 50 }
+		local r = {}
+		local function aim()
+			local wp = E.GetWaypoint()
+			return { E.GetStepIndex(), wp and wp.map, wp and wp.x, wp and wp.kind, wp and wp.label }
+		end
+		-- TomTom's arrow leads (no planner), in Mulgore beside Thunder Bluff, knowing Thunder Bluff and Freewind Post.
+		TOMTOM = true
+		KNOWN = { [22] = true, [30] = true }
+		w.moveTo(1412, 50, 50)
+		E.SetGuide("test/needles"); flush()
+		r.mulgore = aim()
+		-- Beside the named flight master: it leads there.
+		w.moveTo(1442, 88, 50); stub.fire("QUEST_LOG_UPDATE"); flush()
+		r.named = aim()
+		-- Freewind Post not learned yet: the step holds as written.
+		KNOWN = { [22] = true }
+		w.moveTo(1412, 50, 50); stub.fire("QUEST_LOG_UPDATE"); flush()
+		r.unknown = aim()
+		emit(r)
+		"#,
+	);
+	assert_eq!(out["mulgore"], json!([1, 1412, 47, "goto", "Walk to the flight master"]), "Thunder Bluff's flight master: {out}");
+	assert_eq!(out["named"][1], 1442, "near the named flight master it leads there: {out}");
+	assert_eq!(out["unknown"][1], 1442, "a landing not known keeps the step as written: {out}");
+}
