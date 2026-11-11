@@ -160,6 +160,17 @@ test('planner: a vendor recipe whose only seller has no faction is left out (Pex
 	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
 });
 
+test('planner: a faction-less vendor Classic knows serves both sides (Kania\'s Formula: Lesser Mana Oil in Cenarion Hold)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 1, 70, 90, 10, { source: 'vendor', recipeItem: 50, cost: 100 })]);
+	prof.materials[50] = { name: 'Formula: Oil', buy: 100, buyCount: 1, sell: 25, quality: 1, vendors: { Alliance: [9], Horde: [9] } };
+	// The data carries no side for a neutral town's NPC; pfQuest knows it, so it is a Classic one.
+	data.npcs = { 9: { id: 9, name: 'Kania', faction: null, source: ['pfquest', 'questie-forever'] } };
+	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
+	// A Forever-new NPC with no side still counts for neither (Pexmit).
+	data.npcs[9].source = ['questie-forever'];
+	assert.ok(planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2 && /one faction only/.test(e.why)));
+});
+
 test('planner and draft: a quest-reward plan is usable from the quest\'s skill and costs its hand-in (Derotain\'s Imperial Plate plans)', () => {
 	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 30, 70, 90, 10, { source: 'item', recipeItem: 77 })]);
 	prof.materials[77] = { name: 'Plans: Boots', sell: 1, buy: 4, quality: 2, bop: true };
