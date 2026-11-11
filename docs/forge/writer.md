@@ -870,6 +870,15 @@ portals and hearths. A lift counts as part of the walk.
   is still written. In the step it arrives for, v1's own `getfp` for everyone
   is the route's: written where v1 has it, not first in the step (Sentinel
   Hill's after the tower's quests, #727).
+- A flight path is learnt on the first visit to its flight master (#1611,
+  `post::first_visit_flight_paths`, after every pass that moves steps): a
+  `getfp` goes into the first step before it, in play order, with a goal
+  within 60 yd of the flight master, right after the goal nearest it (Ratchet's
+  beside Sputtervalve on the Barrens' first Ratchet stop, not on the fly step
+  after the beach loop). It moves when that step is for all its players, else
+  it is copied there for that step's players and stays for the others (Camp
+  Taurajo's at Kirge Sternhorn, 54 yd from Omusa Thunderhorn, in the Tauren's
+  Mulgore guide; the Barrens' Camp Taurajo stop keeps it for everyone else).
 - v1's step that only learns a flight path, over the sea from where the route
   is, gets no crossing (v1's Ratchet stop between Theramore and Booty Bay, which
   the route reaches by air): the route learns that flight path where its own way

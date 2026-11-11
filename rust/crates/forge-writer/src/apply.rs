@@ -5565,6 +5565,15 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		*t = post::no_class_round_trips(t.split('\n').map(str::to_string).collect()).join("\n");
 		*t = re!(r"\n{3,}").replace_all(t, "\n\n").into_owned();
 	}
+	// (A flight path is learnt on the first visit to its flight master, after every pass that moves or
+	// merges steps: Ratchet's beside Sputtervalve on the first Ratchet stop, Camp Taurajo's at Kirge
+	// Sternhorn for Tauren, #1611.)
+	if cx.route_travel {
+		let fm = |name: &str| cx.fp_by_name(name).and_then(|f| cx.w(cx.world.nodes[f].pt));
+		for (fi, name, moved) in post::first_visit_flight_paths(&mut texts, &may, &fm, &work_place, post::FIRST_VISIT_FP_YD) {
+			log.push(format!("first-visit flight path: {} getfp \"{name}\" {}", chain[fi], if moved { "moved there" } else { "copied there" }));
+		}
+	}
 	for (f, t) in files.iter_mut().zip(texts) {
 		f.1 = t;
 	}
