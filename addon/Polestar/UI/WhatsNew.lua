@@ -42,6 +42,41 @@ end
 -- theme's colours when shown).
 local NOTES = {
 	{
+		version = "0.3.7",
+		notes = {
+			{ glyph = "dart", color = "accent", head = L["A steadier arrow"], text = function()
+				return L["Keeps up on slopes and ledges, takes the faster flight, and no turning back after you land."]
+			end },
+			{ glyph = "bolt", color = "accent", head = L["Smoother indoors"], text = function()
+				return L["No more stutter in the Undercity, buildings and caves; less work in the background."]
+			end },
+			{ glyph = "reload", color = "accent", head = L["Update notice"], text = function()
+				return L["At login, a card says when a newer Polestar is out and how to update."]
+			end },
+			{ glyph = "icon-train", color = "accent", head = L["New spells"], text = function()
+				return L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."]:format(cmd(L["Train All"]), cmd(L["Upgrade"]))
+			end },
+			{ glyph = "icon-accept", color = "accent", head = L["Quest helpers"], text = function()
+				return L["Loot that starts a quest glows on the quest item button; timed quests count down."]
+			end },
+			{ glyph = "emblem", color = "accent", head = L["Hide it all"], text = function()
+				return L["A click on the minimap button hides all of Polestar; another brings it back."]
+			end },
+			{ glyph = "menu", color = "accent", head = L["Browse all steps"], text = function()
+				return L["Click the step number to see every step of the guide (thanks TTik3r and aalejandrofer)."]
+			end },
+			{ glyph = "icon-craft", color = "accent", head = L["Profession guides"], text = function()
+				return L["Rebuilt on Forever's trainers, and they start where your skill is."]
+			end },
+			{ glyph = "icon-talk", color = "accent", head = L["Fully translated"], text = function()
+				return L["All of 0.3.7 in 9 languages, with thanks to our translators."]
+			end },
+			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
+				return L["Routes, trainers, dungeons and more. Found something off? Type %s."]:format(cmd("/polestar report"))
+			end },
+		},
+	},
+	{
 		version = "0.3.6",
 		notes = {
 			{ glyph = "guides", color = "accent", head = L["Every route reviewed"], text = function()

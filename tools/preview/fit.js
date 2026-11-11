@@ -264,7 +264,7 @@ function fitLocales(targets, { slack = 1 } = {}) {
 	});
 }
 
-module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales };
+module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, localeLua };
 
 // One locale's findings as JSON, for fitLocales: node fit.js <locale>[=<file>] <slack>
 if (require.main === module) {
