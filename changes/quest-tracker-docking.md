@@ -5,3 +5,4 @@ section: players
   Tracker. Switch between Quests and Polestar, using the tracker's maximum
   height before scrolling. Supports EllesmereUI and shares FTA's tab row.
   The separate Polestar Tracker Dock addon takes priority while enabled.
+  Its reload confirmation uses a secure button and waits for combat to end.

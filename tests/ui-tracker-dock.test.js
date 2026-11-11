@@ -5,6 +5,40 @@ const { runAddon } = require('./helpers/lua');
 
 const TRACKER = `
 C_Texture = { GetAtlasInfo = function() return {} end }
+local createFrame=CreateFrame
+function CreateFrame(kind,name,parent,template,...)
+	local frame=createFrame(kind,name,parent,template,...)
+	if type(template)=="string" and template:find("SecureActionButtonTemplate") then
+		frame.secure=true
+		if parent and parent:GetName()=="PolestarTrackerDockReload" then parent.secure=true end
+	end
+	return frame
+end
+for _,method in ipairs({"Show","Hide","SetPoint","SetSize","SetAttribute"}) do
+	local original=stub.Methods[method]
+	stub.Methods[method]=function(self,...)
+		if self.secure and stub.inCombat then error("protected reload control changed in combat: "..method) end
+		return original(self,...)
+	end
+end
+local drivers={}
+function RegisterStateDriver(frame,state,condition)
+	assert(not stub.inCombat,"state driver registration during combat")
+	assert(state=="visibility" and condition=="[combat] hide; show")
+	drivers[frame]=true
+	frame:Show()
+end
+function UnregisterStateDriver(frame,state)
+	assert(not stub.inCombat,"state driver removal during combat")
+	drivers[frame]=nil
+end
+function setDockCombat(combat)
+	stub.inCombat=combat
+	for frame in pairs(drivers) do frame.shown=not combat end
+	stub.fire(combat and "PLAYER_REGEN_DISABLED" or "PLAYER_REGEN_ENABLED")
+end
+function ReloadUI() error("insecure ReloadUI call") end
+
 C_AddOns.DoesAddOnExist = function(name)
 	for _, addon in ipairs(stub.addons) do if addon.name == name then return true end end
 	return false
@@ -103,7 +137,7 @@ test('FTA hosts the Polestar tab once and the built-in dock creates no second ro
 test('the docking toggle asks for reload and does not reparent the guide mid-session', () => {
 	const [out]=run(`
 	Polestar.Set("ui.trackerDock",true)
-	emit({prompt=Polestar.Widgets.ModalShown(),attached=GF.dock~=nil})`,{enabled:false});
+	emit({prompt=PolestarTrackerDockReload and PolestarTrackerDockReload:IsShown(),attached=GF.dock~=nil})`,{enabled:false});
 	assert.deepEqual(out,{prompt:true,attached:false});
 });
 
@@ -156,3 +190,32 @@ for (const custom of [false,true]) {
 		assert.equal(out.available,custom?646:596);
 	});
 }
+
+for (const keyDown of [false,true]) {
+	test(`reload confirmation executes the secure macro once on release (${keyDown})`,()=>{
+		const [out]=run(`
+		stub.cvars.ActionButtonUseKeyDown=${keyDown ? '"1"' : '"0"'}
+		Polestar.Set("ui.trackerDock",true)
+		local prompt=PolestarTrackerDockReload
+		local actions={}
+		stub.mouseClick(prompt.Reload,actions)
+		emit({actions=actions,closed=not prompt:IsShown(),saved=Polestar.Get("ui.trackerDock")})`,{enabled:false});
+		assert.deepEqual(out,{actions:[['macro','/reload']],closed:true,saved:true});
+	});
+}
+
+test('reload prompt waits for combat and Later keeps the setting without reloading',()=>{
+	const [out]=run(`
+	setDockCombat(true)
+	Polestar.Set("ui.trackerDock",true)
+	local deferred=PolestarTrackerDockReload==nil
+	setDockCombat(false)
+	local prompt=PolestarTrackerDockReload
+	local opened=prompt:IsShown()
+	setDockCombat(true)
+	local hiddenInCombat=not prompt:IsShown()
+	setDockCombat(false)
+	prompt.Later:Click()
+	emit({deferred=deferred,opened=opened,hiddenInCombat=hiddenInCombat,closed=not prompt:IsShown(),saved=Polestar.Get("ui.trackerDock")})`,{enabled:false});
+	assert.deepEqual(out,{deferred:true,opened:true,hiddenInCombat:true,closed:true,saved:true});
+});
