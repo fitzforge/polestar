@@ -9,9 +9,10 @@ use serde_json::{json, Value};
 
 const HELPERS: &str = r#"
 local UI = Polestar.UI
-local P, O = UI.Preview, UI.Options
 Polestar.Fire("SHOW_OPTIONS")
 stub.advance(0.5)
+-- Both are the settings' addon's: there once the window has opened.
+local P, O = UI.Preview, UI.Options
 -- The frame the preview on screen draws (its host's), after a page and tab are selected.
 local function shown(key, tab)
 	O.Select(key, tab)
@@ -78,7 +79,7 @@ fn the_backdrop_chip_cycles_the_world_the_night_sky_and_plain_for_every_preview_
 }
 
 // A stage repaints on its own settings at once while it shows, on its next show when it was hidden, and not on
-// other settings.
+// other settings (one with no look: a scale or a theme setting repaints every stage through Theme.Refresh).
 #[test]
 fn a_stage_repaints_at_once_on_its_settings_while_shown_and_on_its_next_show_else() {
 	let out = run(r#"
@@ -90,7 +91,7 @@ fn a_stage_repaints_at_once_on_its_settings_while_shown_and_on_its_next_show_els
 		local base = paints
 		Polestar.Set("nav.arrowScale", 1.4)
 		local shownPaint = paints - base
-		Polestar.Set("ui.scale", 1.1)
+		Polestar.Set("behavior.autoAccept", false)
 		local other = paints - base - shownPaint
 		s:Hide()
 		Polestar.Set("nav.arrowScale", 1.2)
