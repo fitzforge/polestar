@@ -588,11 +588,12 @@ emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Pol
 			"Questing/Group/party.waitForGroup",
 			"Questing/Group/party.lootNeeds",
 			"Questing/Group/party.panel",
-			"Questing/Group/party.chat",
-			"Questing/Group/party.chatLoot",
-			"Questing/Group/party.chatEcho",
-			"Questing/Group/party.chatHideOthers",
-			"Questing/Group/party.chatOnlyNeeded",
+			// What Polestar says in party chat has its own section.
+			"Questing/Party chat/party.chat",
+			"Questing/Party chat/party.chatLoot",
+			"Questing/Party chat/party.chatEcho",
+			"Questing/Party chat/party.chatOnlyNeeded",
+			"Questing/Party chat/party.chatHideOthers",
 			// The panel's switch also heads its look tab (Options > Trackers > Party panel), registered with the
 			// settings window's addon (Polestar_Options/UI/Looks/Trackers.lua).
 			"Trackers/Party panel/party.panel"
