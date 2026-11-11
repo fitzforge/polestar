@@ -374,6 +374,26 @@ test('the guide window\'s menu and /polestar report open it too; Escape closes i
 	assert.deepEqual(out, { fromMenu: true, fromCommand: true, special: true });
 });
 
+// The game gives addons no clipboard: Copy report selects the report, and a line over it says to press Ctrl+C
+// (Cmd+C on a Mac) (#1826).
+test('Copy report selects the report and says over it how to copy it: Ctrl+C, or Cmd+C on a Mac', () => {
+	const script = `
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText("The vermin were all by the tents.")
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local before = F.CopyHint:IsShown()
+		F.Copy:Click()
+		stub.advance(0.1)
+		local hl = F.Box.highlight
+		emit({ before = before, hint = F.CopyHint:IsShown() and F.CopyHint:GetText() or false,
+			selected = stub.focus == F.Box and hl ~= nil and hl[1] == 0 and hl[2] == #F.Box:GetText(),
+			over = select(5, F.CopyHint:GetPoint()) > select(5, F.BoxWell:GetPoint()) })`;
+	assert.deepEqual(run(script)[0], { before: false, hint: 'Selected: press Ctrl+C to copy.', selected: true, over: true });
+	assert.equal(run(script, 'function IsMacClient() return true end')[0].hint, 'Selected: press Cmd+C to copy.');
+});
+
 test('the hub and the settings carry the Polestar Discord at the foot of the sidebar: Discord\'s mark in its own colour, the invite selected on a click', () => {
 	const [out] = run(`
 		local T = Polestar.Theme
