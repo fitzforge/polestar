@@ -2989,6 +2989,7 @@ Polestar.Theme.SkinHook(surface, ...), SkinHookValue(surface, ...) -> ran, answe
 Polestar.Theme.DrawSkinCard(frame, id, variant?), DrawSchemeCard(frame, id)   -- the Theme page's picker cards (Polestar_Options/Theme/SkinPicker.lua)
 Polestar.Theme.PaletteFor(id)
 Polestar.Theme.Metric(key, house) -> n   -- a size in the skin in use; `house` in the house style
+Polestar.Theme.House(key) -> token | nil   -- the house look's own (Theme/House.lua); nil in every other look
 Polestar.Theme.Icon(name) -> name        -- a glyph a skin draws its own way ("bug" -> "flag")
 Polestar.Theme.FontKey() -> "opensans" | "game" | "inter" | "fira"   -- ui.font, "skin" resolved
 ```
@@ -2999,7 +3000,12 @@ Polestar gold, the status and subject colours every look starts from
 the frame painters (`HOUSE_PAINT`, handed Theme.lua's paint helpers by
 `House.Bind` as Theme.lua loads). Theme.lua takes them as its own locals; the
 Skin API fills the same tables. The house's sizes stay each module's own
-constants, read through `Theme.Metric(key, house)`.
+constants, read through `Theme.Metric(key, house)`. What the house look alone
+draws (the 0.3.8 glow-up, docs/DESIGN.md "The House Look's Own Touches") is
+its own `TOKENS`, read through `Theme.House(key)`: the token while the house
+skin itself is drawn (`Theme.SkinId()` is `polestar`), nil for every other
+look, a skin built on the house look and a picker card of another skin
+included, where the caller keeps its own way.
 
 **Skins** (`ui.skin`, Appearance > Windows > Frame): `polestar`, the house
 style everything below describes (the default); the two directions of the
@@ -7124,7 +7130,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   with a 2 px accent edge and a "While you're here" label in the accent, then
   one goal row per line (`GF.HereRow`): the verb's glyph, `UI.GoalLine` of
   the later step's goal (a hand-in its `hereText`), wrapping, "Step N" under
-  it, the distance in textMuted and a close button. The panel slides 8 px in
+  it, the distance in textMuted and a close button. In the house look
+  (`Theme.House("raised")`) the panel is a raised card instead: the control
+  ground at 85% under a hairline (its frame made on the card's first
+  showing), no accent edge, the rows in Body. The panel slides 8 px in
   from the left as it fades in (`Anim.BASE`, ease-out) and slides back and
   fades faster (`Anim.FAST`) when its last line goes, before the window
   closes the gap; rows coming and going inside it do not slide it; under
@@ -7133,7 +7142,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `Engine.DismissWhileHere(i)`; `WHILE_HERE_MOVED(yards, i)` moves its
   distance. In the compact window the rows drop their "Step N" line; in the
   transparent style the ground is the accent alone at `GF.HERE_CLEAR` (0.18)
-  under the outlined text. With the window hidden, the toast (UI/WhileHere.lua,
+  (the house look: the scrim at `clearShade`, 0.32) under the outlined text.
+  With the window hidden, the toast (UI/WhileHere.lua,
   `UI.WhileHereToast`) says a new line once, slides down into place as it
   fades in, and leaves after 8 s (`toasts.whilehere.seconds`, Stays for in
   the Guide page's Dynamic Questing section; held under the cursor) or with

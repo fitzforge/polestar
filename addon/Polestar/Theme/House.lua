@@ -119,6 +119,22 @@ local ROLES = {
 House.ROLES = ROLES
 
 ---------------------------------------------------------------------------
+-- The house look's own tokens (the 0.3.8 glow-up, docs/DESIGN.md): what the
+-- house look draws that no other look does. Theme.House(key) answers them
+-- only while the built-in house skin is the one drawn (Theme.SkinId() is
+-- "polestar"); a skin registered on the house look, Halo, Hearth, the
+-- game's looks and a picker card of another skin get nil, and the code
+-- asking keeps its own way, so no other look changes with these.
+--   raised       While you're here's card: the control ground at this share
+--   clearShade   ... in the transparent style: the scrim at this share
+---------------------------------------------------------------------------
+
+local TOKENS = {
+	raised = 0.85,
+	clearShade = 0.32,
+}
+
+---------------------------------------------------------------------------
 -- The painters, one per frame kind (Theme.Skin(frame, kind)), with
 -- Theme.lua's paint helpers, handed over by House.Bind as it loads.
 ---------------------------------------------------------------------------
@@ -127,6 +143,10 @@ local Theme, fill, hoverWash, glyph, bare, hideBorder, shadowFor, isColor, get
 function House.Bind(t)
 	Theme, fill, hoverWash, glyph, bare, hideBorder = t.Theme, t.fill, t.hoverWash, t.glyph, t.bare, t.hideBorder
 	shadowFor, isColor, get = t.shadowFor, t.isColor, t.get
+	function Theme.House(key)
+		if Theme.SkinId() ~= "polestar" then return nil end
+		return TOKENS[key]
+	end
 	House.Bind = nil
 end
 

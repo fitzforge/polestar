@@ -20,19 +20,46 @@ end)
 -- under its text, its distance and close button on its first line's right.
 -- -> its height.
 GF.HERE_H = 28
--- The panel's ground: HERE_TINT of the accent in the window ground
--- (Theme.AccentGround); in the transparent style, which has no ground, the
--- accent alone at HERE_CLEAR, a light tint over the world (the text there is
--- outlined, GF.ApplyStyle). Painted again on a look or style change.
+-- The panel's ground: in the house look a raised card (the control ground at
+-- the house's `raised` share under a hairline, Theme.House), its rows a size
+-- under the step's goals (body), so the step leads; in the other looks
+-- HERE_TINT of the accent in the window ground (Theme.AccentGround) with the
+-- accent edge. In the transparent style, which has no ground: the house
+-- look's light scrim shade (`clearShade`), else the accent alone at
+-- HERE_CLEAR, a light tint over the world (the text there is outlined,
+-- GF.ApplyStyle). Painted again on a look or style change, and on the panel's
+-- first showing: the hairline's frame is made then, not at login.
 GF.HERE_TINT = 0.22
 GF.HERE_CLEAR = 0.18
 function GF.PaintHerePanel(t)
-	if transparent() then
+	local raised, clear = Theme.House("raised"), transparent()
+	if clear and raised then
+		local r, g, b = Theme.Color("scrim")
+		t:SetVertexColor(r, g, b, Theme.House("clearShade"))
+	elseif clear then
 		local r, g, b = Theme.Accent()
 		t:SetVertexColor(r, g, b, GF.HERE_CLEAR)
+	elseif raised then
+		local r, g, b = Theme.Color("panelAlt")
+		t:SetVertexColor(r, g, b, raised)
 	else
 		t:SetVertexColor(Theme.AccentGround(GF.HERE_TINT))
 	end
+	local here = GF.here
+	local edge = here.psHairline
+	if raised and not clear and not edge and here.psKey then
+		edge = CreateFrame("Frame", nil, here.Body)
+		edge:SetPoint("TOPLEFT", t, "TOPLEFT", 0, 0)
+		edge:SetPoint("BOTTOMRIGHT", t, "BOTTOMRIGHT", 0, 0)
+		here.psHairline = edge
+	end
+	if edge and raised and not clear then
+		Theme.Border(edge, Theme.Color("border"))
+	elseif edge then
+		for _, e in ipairs(edge.psBorder or {}) do e:Hide() end
+	end
+	here.Edge:SetShown(not raised)
+	for _, r in ipairs(here.Rows) do Theme.Font(r.Text, raised and "body" or "goal") end
 end
 function GF.LayoutHere(width)
 	local here = GF.here
@@ -160,6 +187,8 @@ function GF.FillHere(E)
 	local wasShown = here:IsShown()
 	here.psKey = table.concat(keys, " ")
 	here:Show()
+	-- The house card's hairline is made on its first showing (GF.PaintHerePanel).
+	if not wasShown and not here.psHairline and Theme.House("raised") then GF.PaintHerePanel(here.Panel) end
 	if fresh and F:IsVisible() and not GF.catchingUp then
 		Anim.To(body, "alpha", wasShown and body:GetAlpha() or 0, 1, Anim.BASE, "out")
 		Anim.To(body, "offsetX", -8, 0, Anim.BASE, "out")
@@ -213,7 +242,7 @@ function GF.HereRow(i)
 	end)
 	r.Dist = T(r, "small", "textMuted")
 	r.Dist:SetJustifyH("RIGHT")
-	r.Text = GF.SizeAs(T(r, "goal", "text"), "goal", 0)
+	r.Text = GF.SizeAs(T(r, Theme.House("raised") and "body" or "goal", "text"), "goal", 0)
 	r.Text:SetWordWrap(true)
 	r.Text:SetJustifyV("TOP")
 	r.Sub = GF.SizeAs(T(r, "small", "textMuted"), "detail")
@@ -268,10 +297,9 @@ end
 
 function GF.BuildHere()
 	-- While you're here (fillHere): its own section under the step's goals,
-	-- a panel in the player's accent, dulled (GF.PaintHerePanel: painted
-	-- again when the accent or the window style changes), with the accent edge
-	-- and a small "While you're here" label, then one row per suggestion
-	-- (GF.HereRow). `Body` carries what moves.
+	-- a panel (GF.PaintHerePanel: painted again when the look, the accent or
+	-- the window style changes) with a small "While you're here" label, then
+	-- one row per suggestion (GF.HereRow). `Body` carries what moves.
 	local here = CreateFrame("Frame", nil, body)
 	GF.here = here
 	here.Rows = {}
@@ -282,15 +310,16 @@ function GF.BuildHere()
 	here.Body = hb
 	here.Panel = hb:CreateTexture(nil, "BACKGROUND", nil, -6)
 	here.Panel:SetTexture(Theme.Media("white"))
-	W.Painter(here.Panel, GF.PaintHerePanel)
 	here.Panel:SetPoint("TOPLEFT", hb, "TOPLEFT", PAD - 6, -3)
 	here.Panel:SetPoint("BOTTOMRIGHT", hb, "BOTTOMRIGHT", -(PAD - 6), 3)
+	-- The other looks' accent edge. The house card's hairline: GF.PaintHerePanel.
 	here.Edge = hb:CreateTexture(nil, "ARTWORK")
 	here.Edge:SetTexture(Theme.Media("white"))
 	W.Color(here.Edge, "accent", 0.9)
 	here.Edge:SetPoint("TOPLEFT", here.Panel, "TOPLEFT", 0, 0)
 	here.Edge:SetPoint("BOTTOMLEFT", here.Panel, "BOTTOMLEFT", 0, 0)
 	here.Edge:SetWidth(2)
+	W.Painter(here.Panel, GF.PaintHerePanel)
 	here.Label = T(hb, "small", "accent")
 	here.Label:SetText(L["While you're here"])
 	here:Hide()

@@ -110,11 +110,14 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 // panel in the player's accent, dulled into the window ground so the text still reads at 7:1, following an accent
 // change live, with a "While you're here" label, then the suggestion as a goal row, its glyph, distance and close
 // button on the first line; in a narrow window the text wraps onto another line and the panel grows, never cut.
+// Since 0.3.8 the house look draws a raised card instead (ui-look-glow.rs); every other look keeps this panel, here
+// Halo's.
 #[test]
 fn the_suggestion_is_a_goal_row_in_a_dulled_accent_panel_that_follows_the_accent_and_wraps_in_a_narrow_window_never_cut() {
 	let out = run(
 		"",
 		r#"
+		Polestar.Set("ui.skin", "halo")
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
 		local T = Polestar.Theme
 		local R = row(1)
@@ -158,12 +161,14 @@ fn the_suggestion_is_a_goal_row_in_a_dulled_accent_panel_that_follows_the_accent
 
 // Fitz, 0.3.5: in the transparent style the panel was a solid box over the world. There it is a light tint of
 // the accent, well below opaque, its text outlined like the window's other text; back in the standard style it
-// takes its dulled accent ground again.
+// takes its dulled accent ground again. In every look but the house look (a light shade there, ui-look-glow.rs),
+// here Halo.
 #[test]
 fn in_the_transparent_style_the_panel_is_a_light_accent_tint_with_outlined_text_not_an_opaque_box() {
 	let out = run(
 		"",
 		r#"
+		Polestar.Set("ui.skin", "halo")
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
 		local T = Polestar.Theme
 		local function paint() local r, g, b, a = H.Panel:GetVertexColor(); return { r, g, b, a } end
