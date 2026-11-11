@@ -39,12 +39,14 @@ local colored = setmetatable({}, { __mode = "k" }) -- region -> colour name
 local painters = setmetatable({}, { __mode = "k" }) -- object -> fn(object)
 
 -- Colour a font string or texture by palette name, and keep it coloured
--- through theme changes. alpha multiplies the palette alpha.
+-- through theme changes. alpha multiplies the palette alpha. A texture a kit
+-- hides under its own art (psVeiled, GameSkins) stays at 0: in the client
+-- the colour's alpha is the texture's alpha (#1684).
 function W.Color(region, name, alpha)
 	colored[region] = name
 	region.psAlpha = alpha
 	local r, g, b, a = Theme.Color(name)
-	a = (a or 1) * (alpha or 1)
+	a = region.psVeiled and 0 or (a or 1) * (alpha or 1)
 	if region:GetObjectType() == "Texture" then
 		region:SetVertexColor(r, g, b, a)
 	else
@@ -56,6 +58,25 @@ end
 -- Stop following the theme (the caller colours the region itself).
 function W.Uncolor(region)
 	colored[region] = nil
+end
+
+-- Put a region's palette colour (and its W.Color alpha) back on: after a
+-- SetAlpha that shows a texture again, which in the client also set its
+-- colour's alpha (#1684).
+function W.Recolor(region)
+	local name = colored[region]
+	if name then W.Color(region, name, region.psAlpha) end
+	return region
+end
+
+-- A texture whose strength is its colour's alpha (W.Color) keeps it when
+-- something else sets its alpha: in the client a texture's SetAlpha sets
+-- that same alpha, so a button bar showing our regions at full alpha turned
+-- a 25 % hover into an opaque disc (#1684). The colour goes back on after
+-- any SetAlpha.
+function W.HoldColorAlpha(tex)
+	hooksecurefunc(tex, "SetAlpha", W.Recolor)
+	return tex
 end
 
 -- Run fn(obj) now and on every theme change.
@@ -2101,8 +2122,10 @@ local function buildModal()
 	s:SetFrameStrata("FULLSCREEN_DIALOG")
 	s:EnableMouse(true)
 	s:Hide()
-	s.Scrim = W.Fill(s, "scrim", "BACKGROUND")
-	s.Scrim:SetAlpha(MODAL_SCRIM)
+	-- Its strength in the colour (W.Color's alpha, kept through theme
+	-- changes), never SetAlpha: in the client a texture's alpha is its vertex
+	-- colour's, so the repaint on a theme change made a SetAlpha'd scrim solid.
+	s.Scrim = W.Color(W.Fill(s, "scrim", "BACKGROUND"), "scrim", MODAL_SCRIM)
 	s:SetScript("OnClick", function() closeModal(false) end)
 	local box = CreateFrame("Frame", nil, s)
 	box:SetWidth(MODAL_W)

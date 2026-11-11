@@ -136,11 +136,11 @@ local function build()
 	logo:SetPoint("CENTER", button, "CENTER", 0, 0)
 	button.Icon = logo
 	-- The hover: the accent at 25 %, the strength in its colour (W.Color's
-	-- alpha, kept through theme repaints), not in the region's own alpha, so a
-	-- button bar that shows our regions again at full alpha cannot turn it into
-	-- an opaque disc over the logo.
-	local hover = W.Tex(button, "HIGHLIGHT", "circle")
-	W.Color(hover, "accent", 0.25)
+	-- alpha, kept through theme repaints) and put back after any SetAlpha
+	-- (W.HoldColorAlpha): in the client a texture's SetAlpha sets that same
+	-- alpha, so a button bar showing our regions again at full alpha turned
+	-- it into an opaque disc over the logo.
+	local hover = W.HoldColorAlpha(W.Color(W.Tex(button, "HIGHLIGHT", "circle"), "accent", 0.25))
 	hover:SetAllPoints(button)
 	button.Hover = hover
 	button:SetScript("OnClick", function(self, which)
