@@ -662,7 +662,50 @@ function crowded({ desc = 'Guide is throwing lua errors and the report a problem
 		F.Desc:SetText(${JSON.stringify(desc)})
 		stub.RunScript(F.Desc, "OnTextChanged", true)
 		F.Copy:Click()
+		stub.advance(0.1)
+		-- Selected for Ctrl+C: in focus, all of it, once the frame has passed.
+		local function sel() return { focus = stub.focus == F.Box, from = F.Box.highlight and F.Box.highlight[1] or false, to = F.Box.highlight and F.Box.highlight[2] or false } end
+		local copied = sel()
+		-- Ctrl+A in the box selects all of it again; so does a click in it.
+		F.Box:HighlightText(0, 0)
+		local ctrl = IsControlKeyDown
+		IsControlKeyDown = function() return true end
+		stub.RunScript(F.Box, "OnKeyDown", "A")
+		IsControlKeyDown = ctrl
+		local ctrlA = sel()
+		F.Box:HighlightText(0, 0)
+		F.Desc:SetFocus()
+		stub.RunScript(F.Box, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local clicked = sel()
+		-- A click on the well around it (its insets, the space under a short
+		-- report) does too.
+		F.Box:HighlightText(0, 0)
+		F.Desc:SetFocus()
+		stub.RunScript(F.BoxWell, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local wellClicked = sel()
+		-- Each box is its view's own scroll child, as the game's scrolling
+		-- input boxes are: nested in a child frame, rc1's took no click.
+		local scroll = rawget(F, "BoxScroll")
+		local children = { report = scroll ~= nil and scroll:GetScrollChild() == F.Box, description = F.DescScroll:GetScrollChild() == F.Desc }
+		-- Selected, nothing sets the box's text or cursor again: not a compose
+		-- for the description's box, not a theme repaint, not another click on
+		-- the well, not the frames after (0.3.7-rc2 in game: the selection
+		-- flashed, then the cursor sat at the start).
+		Polestar.Widgets.SelectCopy(F.Box)
+		stub.advance(0.1)
+		local sets = {}
+		local setText, setCursor = F.Box.SetText, F.Box.SetCursorPosition
+		F.Box.SetText = function(self, t) sets[#sets + 1] = "SetText"; return setText(self, t) end
+		F.Box.SetCursorPosition = function(self, p) sets[#sets + 1] = "SetCursorPosition"; return setCursor(self, p) end
+		stub.RunScript(F.Desc, "OnTextChanged", false)
 		Polestar.Theme.Refresh()
+		stub.RunScript(F.BoxWell, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local kept = sel()
+		kept.sets = table.concat(sets, ",")
+		F.Box.SetText, F.Box.SetCursorPosition = setText, setCursor
 		-- Every font string drawn in the window, by its text.
 		local drawn = {}
 		local function walk(f)
@@ -676,14 +719,13 @@ function crowded({ desc = 'Guide is throwing lua errors and the report a problem
 		local function span(o) local y = select(5, o:GetPoint(1)); return { -y, -y + o:GetHeight() } end
 		-- Before #1753 the box had no well of its own: the box stands for it.
 		local well = rawget(F, "BoxWell") or F.Box
-		local scroll = rawget(F, "BoxScroll")
-		emit({ report = F.Box:GetText(), drawn = drawn, window = F:GetHeight(), boxShown = F.Box:IsShown(),
+		emit({ report = F.Box:GetText(), bytes = #F.Box:GetText(), copied = copied, ctrlA = ctrlA, clicked = clicked, wellClicked = wellClicked, children = children, kept = kept, drawn = drawn, window = F:GetHeight(), boxShown = F.Box:IsShown(),
 			box = F.Box:GetHeight(), view = well:GetHeight(), content = scroll and scroll.psContent or F.Box:GetHeight(),
 			copy = span(F.Copy), well = span(well), rule = span(F.GitHubRule), github = span(F.GitHub),
 			desc = span(F.DescWell), mark = span(F.Mark) })`)[0];
 }
 
-test('a long report with many addons and an error caught 63 times stays in its box: the box scrolls under Copy report, nothing draws over the form, the window fits a 720-unit screen (#1753)', () => {
+test('a long report with many addons and an error caught 63 times stays in its box: the box scrolls under Copy report, selected whole for Ctrl+C, nothing draws over the form, the window fits a 720-unit screen (#1753)', () => {
 	const cases = [
 		['short, one addon', { addons: 1, errors: 1 }],
 		['the reporter\'s', {}],
@@ -695,6 +737,16 @@ test('a long report with many addons and an error caught 63 times stays in its b
 		const out = crowded(opts);
 		assert.equal(out.boxShown, true, name);
 		assert.ok(out.report.length > 0 && out.report.length <= 2000, `${name}: ${out.report.length}`);
+		// Copy report puts the box in focus with all of the report selected
+		// (0.3.7-rc1: not selected in the scrolling box); Ctrl+A and a click
+		// select it all again.
+		const all = { focus: true, from: 0, to: out.bytes };
+		assert.deepEqual(out.copied, all, `${name}: Copy report selects the whole report`);
+		assert.deepEqual(out.ctrlA, all, `${name}: Ctrl+A selects the whole report`);
+		assert.deepEqual(out.clicked, all, `${name}: a click in the box selects the whole report`);
+		assert.deepEqual(out.wellClicked, all, `${name}: a click on its well selects the whole report`);
+		assert.deepEqual(out.children, { report: true, description: true }, `${name}: each box is its view's scroll child`);
+		assert.deepEqual(out.kept, { ...all, sets: '' }, `${name}: the selection stays; nothing sets the box's text or cursor again`);
 		// The bug: the box's measuring string drew the report over the window
 		// once a theme repaint gave it its colour's alpha back.
 		for (const s of out.drawn) {

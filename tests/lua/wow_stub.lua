@@ -252,7 +252,10 @@ function Methods.IsMouseOver() return false end
 function Methods.Click(self, button) RunScript(self, "OnClick", button or "LeftButton", false) end
 
 -- Text
-function Methods.SetText(self, t) self.text = t == nil and nil or tostring(t) end
+function Methods.SetText(self, t)
+	self.text = t == nil and nil or tostring(t)
+	self.highlight = nil
+end
 function Methods.GetText(self) return self.text end
 function Methods.SetFormattedText(self, fmt, ...) self.text = string.format(fmt, ...) end
 function Methods.SetFont(self, path, size, flags) self.font = { path, size, flags }; return true end
@@ -423,6 +426,15 @@ end
 function Methods.SetFocus(self) stub.focus = self end
 function Methods.ClearFocus(self) if stub.focus == self then stub.focus = nil end end
 function Methods.HasFocus(self) return stub.focus == self end
+-- An edit box's selection, as in the client: HighlightText() selects all of
+-- it, (0, 0) none, (s, e) from s to e (-1: the end); new text drops it.
+-- self.highlight = { s, e } or nil.
+function Methods.HighlightText(self, s, e)
+	local n = #(self.text or "")
+	s, e = s or 0, e or n
+	if e < 0 or e > n then e = n end
+	self.highlight = e > s and { s, e } or nil
+end
 function Methods.Insert(self, t) self.text = (self.text or "") .. tostring(t) end
 function Methods.SetVerticalScroll(self, v) self.scroll = v end
 function Methods.GetVerticalScroll(self) return self.scroll or 0 end

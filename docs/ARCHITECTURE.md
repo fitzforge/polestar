@@ -7049,7 +7049,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   the addons field lists as many as fit after a line that
   counts them. Copy report and Open on GitHub wait until the description
   holds `UI.Report.DESC_MIN` characters. The game opens no links and has no
-  clipboard for addons, so every text to take away is selected for Ctrl+C.
+  clipboard for addons, so every text to take away is selected for Ctrl+C
+  (`W.SelectCopy`: focused and selected, then again a frame later, once a
+  box shown inside a scroll view is laid out); Ctrl+A (Cmd+A) or a click in
+  a copy box selects it all again.
   A gamepad starts on "Copy report", or on "Mark the right spot" while it
   waits. The details, the issue's fields and the right spot are taken when
   the window opens or the spot is marked, so the guide moving on changes

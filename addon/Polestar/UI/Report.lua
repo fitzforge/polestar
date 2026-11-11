@@ -895,15 +895,20 @@ local function gate()
 end
 
 -- The report box is as tall as its text, measured in its own font at its
--- inner width, so it is copied whole; it scrolls in its well (layout).
+-- inner width (never under a line per line of the report), so it is copied
+-- whole; it scrolls in its well (layout). The box, its height and its
+-- scroll are touched only when the report changed: a compose for anything
+-- else (the description's box, the spot) leaves a selection in it alone.
 local function compose()
 	showSpot()
 	gate()
 	local report = R.Text(F.Desc:GetText(), F.details, F.spot)
-	W.SetCopyText(F.Box, report)
-	F.Measure:SetText(report)
-	F.Box:SetHeight(floor(F.Measure:GetStringHeight() + 16 + 0.5))
-	W.ScrollTo(F.BoxScroll, 0)
+	if W.SetCopyText(F.Box, report) then
+		F.Measure:SetText(report)
+		local _, breaks = report:gsub("\n", "")
+		F.Box:SetHeight(floor(max(F.Measure:GetStringHeight(), (breaks + 1) * 12) + 16 + 0.5))
+		W.ScrollTo(F.BoxScroll, 0)
+	end
 	layout()
 end
 
@@ -912,8 +917,7 @@ local function copyReport()
 	if not gate() then return end
 	showBox(true)
 	layout()
-	F.Box:SetFocus()
-	F.Box:HighlightText()
+	W.SelectCopy(F.Box)
 end
 
 local function openGitHub()
@@ -1002,8 +1006,11 @@ local function textArea()
 	local sf = W.Scroll(well)
 	sf:SetAllPoints(well)
 	F.DescScroll = sf
-	local e = CreateFrame("EditBox", nil, sf.Child)
-	e:SetPoint("TOPLEFT", sf.Child, "TOPLEFT", 0, 0)
+	-- The box is the view's scroll child, as the report box (W.ScrollChild);
+	-- a click anywhere on the well puts the cursor in it.
+	local e = W.ScrollChild(sf, CreateFrame("EditBox", nil, sf))
+	well:EnableMouse(true)
+	well:SetScript("OnMouseUp", function() e:SetFocus() end)
 	e:SetAutoFocus(false)
 	e:SetMultiLine(true)
 	e:SetMaxLetters(R.DESC_MAX)
@@ -1012,7 +1019,6 @@ local function textArea()
 	e:SetWidth(BOX_W)
 	e:SetHeight(DESC_LINES * LINE_H + 16)
 	e:SetTextInsets(10, 10, 8, 8)
-	sf.Child:SetWidth(BOX_W)
 	-- The text in the box's font at its inner width: what the well's height
 	-- is measured on. Hidden, never alpha 0 (F.Measure, #1753).
 	F.DescMeasure = W.Text(F, "label", "text")
@@ -1110,17 +1116,18 @@ local function build()
 	F.Clear:Hide()
 
 	-- The report for Discord: its well, a view the report scrolls in (#1753:
-	-- a long report drawn past its box, over the form), and the box itself.
+	-- a long report drawn past its box, over the form), and the box itself,
+	-- the view's scroll child. A click anywhere on the well selects it all.
 	F.BoxWell = CreateFrame("Frame", nil, F)
 	F.BoxWell:SetWidth(BOX_W)
 	F.BoxScroll = W.Scroll(F.BoxWell)
 	F.BoxScroll:SetAllPoints(F.BoxWell)
-	F.BoxScroll.Child:SetWidth(BOX_W)
-	F.Box = W.CopyBox(F.BoxScroll.Child, { lines = 2, well = F.BoxWell })
-	F.Box:SetPoint("TOPLEFT", F.BoxScroll.Child, "TOPLEFT", 0, 0)
+	F.Box = W.ScrollChild(F.BoxScroll, W.CopyBox(F.BoxScroll, { lines = 2, well = F.BoxWell }))
 	Theme.Font(F.Box, "small")
 	F.Box:SetWidth(BOX_W)
 	F.Box:SetScript("OnTabPressed", function() F.Desc:SetFocus() end)
+	F.BoxWell:EnableMouse(true)
+	F.BoxWell:SetScript("OnMouseUp", function() W.SelectCopy(F.Box) end)
 	showBox(false)
 	-- The report's text in the box's font at its inner width: what the box's
 	-- height is measured on. Hidden, never alpha 0: a theme repaint gives a
