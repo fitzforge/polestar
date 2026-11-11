@@ -93,6 +93,16 @@ function fakeDiscord() {
 			edits.push({ channel, message: id, content });
 			return structuredClone(m);
 		},
+		async me() {
+			return { id: BOT, username: 'Polestar Bot', bot: true };
+		},
+		async deleteMessage(channel, id) {
+			const list = messages.get(channel) || [];
+			const i = list.findIndex((x) => x.id === id);
+			if (i < 0) throw httpError(404);
+			list.splice(i, 1);
+			edits.push({ channel, message: id, deleted: true });
+		},
 		async editThread(id, fields) {
 			edits.push({ id, ...fields });
 			const c = channels.get(id);

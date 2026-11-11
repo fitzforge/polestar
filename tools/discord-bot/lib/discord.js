@@ -48,6 +48,7 @@ function createDiscord({ token, api = API, fetch: fetchImpl = fetch }) {
 	return {
 		request,
 		gatewayUrl: async () => (await request('GET', '/gateway/bot')).url,
+		me: () => request('GET', '/users/@me'),
 		getChannel: (id) => request('GET', `/channels/${id}`),
 		getMessage: (channel, id) => request('GET', `/channels/${channel}/messages/${id}`),
 		getMessages: (channel, limit = 50) => request('GET', `/channels/${channel}/messages?limit=${limit}`),
@@ -58,6 +59,7 @@ function createDiscord({ token, api = API, fetch: fetchImpl = fetch }) {
 			request('POST', `/channels/${channel}/messages`, { content, allowed_mentions: mentions(users, roles), flags: 4 }),
 		editMessage: (channel, id, content) =>
 			request('PATCH', `/channels/${channel}/messages/${id}`, { content, allowed_mentions: mentions(), flags: 4 }),
+		deleteMessage: (channel, id) => request('DELETE', `/channels/${channel}/messages/${id}`),
 		editThread: (id, fields) => request('PATCH', `/channels/${id}`, fields),
 	};
 }

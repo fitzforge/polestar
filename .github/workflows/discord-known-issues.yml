@@ -1,0 +1,62 @@
+name: Discord known issues
+
+# Keeps the #known-issues board (KNOWN_ISSUES_CHANNEL_ID) up to date: the
+# issues labelled known-issue, each with its workaround, written again from
+# GitHub and edited in place. Runs when such an issue changes, when a
+# maintainer comments a `Known issue:` or `Workaround:` line on one, when a
+# release is published, daily (a fix shown as "fixed in X" drops off a week
+# after X), and by hand. tools/discord-bot/README.md has the rules.
+
+on:
+  issues:
+    types: [labeled, unlabeled, closed, reopened, edited]
+  issue_comment:
+    types: [created, edited]
+  release:
+    types: [published]
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: discord-known-issues
+
+jobs:
+  board:
+    name: Write the board
+    if: >
+      vars.KNOWN_ISSUES_CHANNEL_ID != '' && (
+        (github.event_name != 'issues' && github.event_name != 'issue_comment') ||
+        (github.event_name == 'issues' &&
+          (contains(github.event.issue.labels.*.name, 'known-issue') || github.event.label.name == 'known-issue')) ||
+        (github.event_name == 'issue_comment' && !github.event.issue.pull_request &&
+          contains(github.event.issue.labels.*.name, 'known-issue') &&
+          contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
+          (contains(github.event.comment.body, 'Known issue:') || contains(github.event.comment.body, 'Workaround:'))))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: read
+    steps:
+      # The default branch's bot, whatever the event's ref (a release tag).
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.event.repository.default_branch || github.ref }}
+          sparse-checkout: tools/discord-bot
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Write
+        run: node tools/discord-bot/known.js
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_FORUM_ID: ${{ vars.DISCORD_FORUM_ID }}
+          KNOWN_ISSUES_CHANNEL_ID: ${{ vars.KNOWN_ISSUES_CHANNEL_ID }}
+          GITHUB_TOKEN: ${{ github.token }}
