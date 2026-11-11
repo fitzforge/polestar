@@ -119,6 +119,7 @@ L["Hearthstone ready in %s: walk to the inn, or wait for it"] = "%s 후 귀환�
 L["Hearthstone ready in %s"] = "%s 후 귀환석 사용 가능"
 L["%s isn't in your quest log"] = "%s 퀘스트가 퀘스트 목록에 없습니다"
 L["Not offered by %s? Report it with /polestar"] = "%s에게서 제공되지 않나요? /polestar로 신고하십시오"
+L["Not in %s's quest list: try a chat option, or report it with /polestar if none offers it"] = "%s의 퀘스트 목록에 없습니다: 대화 선택지를 눌러 보고, 어느 것도 제공하지 않으면 /polestar로 신고하십시오"
 L["The inn is only %s away: travel there and keep the Hearthstone"] = "여관까지 %s 거리입니다: 걸어가서 귀환석을 아끼십시오"
 L["Hearthstone ready in %s; the trip takes %s: set off now"] = "귀환석 사용 가능까지 %s, 이동에는 %s 걸립니다: 지금 출발하십시오"
 L["Hearthstone ready in %s, sooner than the %s trip: wait for it"] = "귀환석 사용 가능까지 %s, %s 이동보다 빠릅니다: 기다리십시오"

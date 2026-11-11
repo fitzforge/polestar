@@ -267,6 +267,47 @@ fn t_127_a_quest_the_giver_s_window_lists_as_active_is_taken_not_refused_before_
 }
 
 #[test]
+fn t_1762_a_giver_whose_window_lists_no_quest_but_has_a_chat_option_says_to_try_it_its_detail_window_clears_the_line() {
+	// #1762 (0.3.6): Sovik's window lists no quest. Chief Engineer Scooty (2842) sits behind his chat option
+	// (gossip option 95758; 11 people in the recordings took it that way, none from the list). The line said
+	// "Not offered by Sovik? Report it with /polestar".
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Gnomeregan", faction = "Horde", minLevel = 10, maxLevel = 40, steps = {
+		{ title = "Sovik", goals = { { t = "accept", quest = 2842, title = "Chief Engineer Scooty", npc = 3413, npcName = "Sovik" } } },
+		{ goals = { { t = "level", level = 40 } } },
+	} })"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+			local w = stub.world
+			local r = {}
+			local function notice() return E.GetStepView(1).goals[1].noticeText or false end
+			local goods = { name = "I want to browse your goods.", gossipOptionID = 93031361, icon = 132060 }
+			local chat = { name = "Chat", gossipOptionID = 95758, icon = 132053 }
+			w.gossip(3413, { options = { goods, chat } }); flush()
+			r.list = { brief(1)[1], notice() }
+			-- The chat option opens the quest.
+			C_GossipInfo.SelectOption(95758); w.questDetail(3413, 2842); flush()
+			r.detail = { brief(1)[1], notice() }
+			w.close(); flush()
+			-- A window with only his goods leaves nothing to try.
+			w.gossip(3413, { options = { goods } }); w.close(); flush()
+			r.goods = { brief(1)[1], notice() }
+			-- A chat option known only by its override icon counts the same.
+			w.gossip(3413, { options = { goods, { name = "Chat", gossipOptionID = 95758, icon = 132060, overrideIconID = 132053 } } }); w.close(); flush()
+			r.override = { brief(1)[1], notice() }
+			emit(r)
+		"#,
+	);
+	let chat = "Not in Sovik's quest list: try a chat option, or report it with /polestar if none offers it";
+	assert_eq!(out["list"], json!(["active:nil:nil", chat]), "never a skip; the chat option comes first");
+	assert_eq!(out["detail"], json!(["active:nil:nil", false]), "the quest's window from his chat option ends the line");
+	assert_eq!(out["goods"], json!(["active:nil:nil", "Not offered by Sovik? Report it with /polestar"]));
+	assert_eq!(out["override"], json!(["active:nil:nil", chat]));
+}
+
+#[test]
 fn prerequisites_every_preall_must_be_done_one_pre_suffices_the_text_names_the_missing_one() {
 	// 890 needs 871 and 873 (preAll); 891 needs 871 or 873 (pre). Only 871 is done.
 	let guide = r#"

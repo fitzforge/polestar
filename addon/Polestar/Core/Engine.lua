@@ -3959,7 +3959,8 @@ end
 -- What an open accept's line says about the game's own word on it: ticked by
 -- hand while the quest is not in the log (the tick does not stand for it,
 -- #739), or its giver's window did not list it (Own.notListed: never a skip,
--- #741; the player is asked to report it). With another quest of this
+-- #741; the player is asked to report it, or first to try the giver's chat
+-- option when the window had one, #1762). With another quest of this
 -- guide by the same name in the log (every part of Call of Water is "Call
 -- of Water"), the plain line read as though that one were not taken
 -- (#1372): it says the one there is another quest.
@@ -3970,9 +3971,12 @@ function Own.acceptNotice(s, g, goal, status)
 		if Own.namesakeInLog(goal.quest, title) then return L["This %s isn't in your quest log yet: the one you have is another quest of that name"]:format(ns.Quoted(title)) end
 		return L["%s isn't in your quest log"]:format(ns.Quoted(title))
 	end
-	if Own.notListed[goal.quest] then
+	local nl = Own.notListed[goal.quest]
+	if nl then
 		local N = ns.Names
-		return L["Not offered by %s? Report it with /polestar"]:format(N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName or L["the quest giver"])
+		local who = N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName or L["the quest giver"]
+		if nl.chat then return L["Not in %s's quest list: try a chat option, or report it with /polestar if none offers it"]:format(who) end
+		return L["Not offered by %s? Report it with /polestar"]:format(who)
 	end
 	return nil
 end
@@ -12424,16 +12428,20 @@ end
 -- server lacks would take the quest and its later steps out of the guide):
 -- the accept stays open, the arrow stays on the giver, and its line says
 -- "Not offered by <giver>? Report it with /polestar" (Own.notListed, this
--- session, until the giver's window lists the quest or it is taken). Nor is
--- a refusal while the missing prerequisite is in the log ready to hand in
--- (Own.preReady): the window shows before the hand-in that opens the quest
--- (Regthar Deathgate, Kolkar Leaders then Verog the Dervish, #998). A
--- detail window opened from that giver's list, popped up by a turn-in at
--- that giver (the follow-up quest), or started by an item, says nothing
--- about the others.
+-- session, until the giver's window lists the quest or it is taken). From a
+-- gossip window with a chat option (Compat.GossipHasChat) the line says to
+-- try that option first: the quest can sit behind one, as Chief Engineer
+-- Scooty does at Sovik (#1762); its detail window then clears the line, and
+-- a page without one says "Report it" again. Nor is a refusal while the
+-- missing prerequisite is in the log ready to hand in (Own.preReady): the
+-- window shows before the hand-in that opens the quest (Regthar Deathgate,
+-- Kolkar Leaders then Verog the Dervish, #998). A detail window opened from
+-- that giver's list or chat option, popped up by a turn-in at that giver
+-- (the follow-up quest), or started by an item, says nothing about the
+-- others.
 local LIST_WINDOW = 30 -- seconds a list or a turn-in covers the detail windows opened from it
 local listedAt = {} -- npc -> GetTime() of its last gossip/greeting list or turn-in
-Own.notListed = {} -- questID -> the accept goal whose giver's window did not list it
+Own.notListed = {} -- questID -> { goal, chat }: the accept goal whose giver's window did not list it, chat: that window had a chat option
 
 local function unavailableReason(goal)
 	local lvl = tonumber(goal.minLevel)
@@ -12520,7 +12528,7 @@ local function checkOffers(source, startItem)
 	end
 	local list = C.GetOfferedQuests(source)
 	if not list then return end
-	local offered = {}
+	local offered, chat = {}, nil
 	for i = 1, #list do
 		offered[list[i]] = true
 		Own.listed(list[i])
@@ -12546,7 +12554,8 @@ local function checkOffers(source, startItem)
 					if why and not waits then
 						unavailable[q] = { reason = why, accept = goal }
 					elseif not why then
-						Own.notListed[q] = goal
+						if chat == nil then chat = source == "gossip" and C.GossipHasChat() or false end
+						Own.notListed[q] = { goal = goal, chat = chat }
 					end
 				end
 			end

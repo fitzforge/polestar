@@ -119,6 +119,7 @@ L["Hearthstone ready in %s: walk to the inn, or wait for it"] = "Камень в
 L["Hearthstone ready in %s"] = "Камень возвращения будет готов через %s"
 L["%s isn't in your quest log"] = "Задания «%s» нет в вашем журнале заданий"
 L["Not offered by %s? Report it with /polestar"] = "%s не выдает задание? Сообщите через /polestar"
+L["Not in %s's quest list: try a chat option, or report it with /polestar if none offers it"] = "%s не показывает задание в списке: попробуйте вариант диалога, а если ни один его не дает, сообщите через /polestar"
 L["The inn is only %s away: travel there and keep the Hearthstone"] = "До таверны всего %s: идите туда и сберегите камень возвращения"
 L["Hearthstone ready in %s; the trip takes %s: set off now"] = "Камень возвращения будет готов через %s, путь займет %s: отправляйтесь сейчас"
 L["Hearthstone ready in %s, sooner than the %s trip: wait for it"] = "Камень возвращения будет готов через %s, быстрее, чем путь (%s): подождите"
