@@ -150,6 +150,10 @@ pub struct Ctx<'a> {
 	pub currency: &'a FxHashSet<(i64, i64)>,
 	/// The sniffed profession trainer lists by creature: creature -> the spells it teaches.
 	pub trainer_lists: &'a FxHashMap<i64, Vec<i64>>,
+	/// The skill a trainer's "Train me." option asks for: creature -> (skill line, skill).
+	pub trainer_skill: &'a FxHashMap<i64, (i64, f64)>,
+	/// Every profession trainer list (sniffed or Classic) by creature: creature -> the spells it teaches.
+	pub trainer_any: &'a FxHashMap<i64, Vec<i64>>,
 }
 
 impl Ctx<'_> {
@@ -668,6 +672,20 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 					// Who teaches it: every creature whose sniffed list has a spell that teaches the rank,
 					// on the sides its faction serves (Zephras Isle's trainers are in no curated list).
 					if rk.get("trainers").truthy() {
+						// A curated trainer whose lists don't teach the rank isn't the rank's (Narv
+						// Hidecrafter: Journeyman Leatherworking, not Apprentice); one with no list at all
+						// (Forever's junior trainers) stays.
+						let lists = rk.get("trainers");
+						for side in lists.keys() {
+							let keep: Vec<f64> = lists
+								.get(&side)
+								.items()
+								.iter()
+								.map(|v| v.num())
+								.filter(|&c| ctx.trainer_any.get(&(c as i64)).is_none_or(|l| l.iter().any(|t| *t == s || teaches(t))))
+								.collect();
+							lists.set(&side, crate::jsv::nums(&keep));
+						}
 						for (creature, spells) in ctx.trainer_lists {
 							if spells.iter().any(teaches) {
 								add_trainer(&rk.get("trainers"), &tr.trainers, ctx, *creature);
@@ -691,7 +709,22 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 		prof.set("name", name.as_str());
 		prof.set("kind", kind);
 		prof.set("ranks", ranks);
+		// The skill each trainer of the profession starts training at, where it asks for one
+		// (`trainerSkill`, creature -> skill): the guides' training and learn steps point only at the
+		// trainers who teach at the step's skill (#1708: Doctor Herbert Halsey trains Alchemy from 125).
+		let skill = Obj::new();
+		let mut gated: Vec<(i64, f64)> = ctx.trainer_skill.iter().filter(|(_, &(l, _))| l == id).map(|(&c, &(_, k))| (c, k)).collect();
+		gated.sort_by_key(|&(c, _)| c);
+		for (c, k) in gated {
+			let listed = ["Alliance", "Horde"].iter().any(|s| tr.trainers.get(s).items().iter().any(|v| v.num() == c as f64));
+			if listed {
+				skill.set(&c.to_string(), V::Num(k));
+			}
+		}
 		prof.set("trainers", tr.trainers);
+		if !skill.is_empty() {
+			prof.set("trainerSkill", skill);
+		}
 		if !tr.main.is_empty() {
 			let main = Obj::new();
 			for (side, npc) in tr.main {

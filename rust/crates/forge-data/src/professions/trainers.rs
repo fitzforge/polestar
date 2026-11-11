@@ -92,7 +92,8 @@ const CURATED: [Curated; 12] = [
 		id: 333,
 		name: "Enchanting",
 		train: s(&["Lucan Cordell", "Kitta Firewind", "Gimble Thistlefuzz", "Taladan", "Xylinnia Starshine"], &["Godan", "Teg Dawnstrider", "Lavinia Crowe", "Hgarth"]),
-		novice: Some(s(&["Betty Quin", "Tilli Thistlefuzz", "Thonys Pillarstone", "Lalina Summermoon", "Alanna Raveneye"], &["Jhag", "Mot Dawnstrider", "Malcomb Wynn", "Vance Undergloom"])),
+		// Tilli Thistlefuzz (Ironforge) sells enchanting supplies; she has no trainer list.
+		novice: Some(s(&["Betty Quin", "Thonys Pillarstone", "Lalina Summermoon", "Alanna Raveneye"], &["Jhag", "Mot Dawnstrider", "Malcomb Wynn", "Vance Undergloom"])),
 		expert: Some(s(&["Kitta Firewind"], &["Hgarth"])),
 		// Annora teaches inside Uldaman; the reference data has no spawn for her, so she is kept by name only.
 		artisan: Some(s(&["Annora"], &["Annora"])),

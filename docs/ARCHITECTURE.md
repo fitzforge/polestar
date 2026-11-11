@@ -7148,7 +7148,11 @@ Era only fills gaps: a table wago.tools has no Forever export of (SpellTotems,
 SpellCastingRequirements, SpellFocusObject) comes whole from the newest Era
 build, and the spells and items the Forever tables lack come from Era's rows.
 Each profession also carries `mainTrainer { Alliance,
-Horde }` and `materials { itemId: { name, buy, buyCount, sell, quality,
+Horde }`, `trainerSkill { npcId: skill }` (the skill a trainer's "Train me." option asks for, from
+the world DB's conditions on its trainer menu option, the extract's `professionTrainerSkill`: Doctor
+Herbert Halsey trains Alchemy from 125, a city trainer such as Yelmak from 50; the guide compiler's
+`train` and `learn` goals leave out a trainer whose skill is above the rank's `minSkill` or the
+recipe's `learnedAt`, #1708) and `materials { itemId: { name, buy, buyCount, sell, quality,
 vendors { A, H }, limitedVendors { A, H }, currencyVendors { A, H }, bop, madeBy, gather { herb, mine, fishing },
 drops, dropCount } }` (`bop`: the client's ItemSparse binds it when picked
 up, so the Auction House never has it; `currencyVendors`: the world DB's sniffed vendor rows with an

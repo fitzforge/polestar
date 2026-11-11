@@ -159,7 +159,6 @@ warning: Enchanting Horde trainer "Hgarth": not in npcs.json for this side
 warning: Enchanting Horde trainer "Hgarth": not in npcs.json for this side
 warning: Enchanting Alliance trainer "Annora": not in npcs.json for this side
 warning: Enchanting Horde trainer "Annora": not in npcs.json for this side
-warning: Enchanting Alliance trainer "Tilli Thistlefuzz": not in npcs.json for this side
 warning: Enchanting Alliance trainer "Thonys Pillarstone": not in npcs.json for this side
 warning: Enchanting Alliance trainer "Lalina Summermoon": not in npcs.json for this side
 warning: Enchanting Alliance trainer "Alanna Raveneye": not in npcs.json for this side

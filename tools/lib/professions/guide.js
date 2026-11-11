@@ -554,7 +554,7 @@ function draftGuide(name, data, opts = {}) {
 		// to another rank's trainers (spec.taughtBy: Rugged Leather at Drakk
 		// Stonehand or Hahrana Ironhide) keeps its own trip, when it comes after the
 		// bracket's other learns.
-		const few = rankIdx >= 2 && SIDES.map((s) => D.rankTrainers(data, rank, s)).every((l) => l.length && l.length <= 4);
+		const few = rankIdx >= 2 && SIDES.map((s) => D.rankTrainers(data, rank, s, prof)).every((l) => l.length && l.length <= 4);
 		const lateAll = [];
 		for (const seg of b.segments) for (const r of needs(seg)) if (r.source === 'trainer' && !learned.has(r.spell) && !firstLearn.includes(r) && !lateAll.includes(r)) lateAll.push(r);
 		const teachesHere = (r) => {
@@ -589,7 +589,7 @@ function draftGuide(name, data, opts = {}) {
 		if (trainRank) {
 			const who = (() => {
 				if (fixed) return TRAINER_NOTES[(npcs[fixed] || {}).name] || `${D.npcPlace(data, fixed)} teaches it`;
-				const lists = SIDES.map((s) => D.rankTrainers(data, rank, s));
+				const lists = SIDES.map((s) => D.rankTrainers(data, rank, s, prof));
 				if (rankIdx >= 2 && lists.every((l) => l.length && l.length <= 4)) return `Only a few trainers teach it: Alliance ${D.list(lists[0])}; Horde ${D.list(lists[1])}. The arrow picks the nearest of your faction`;
 				// Journeyman: the starting-town trainers (Smith Argus, Dwukk) teach Apprentice only.
 				const all = SIDES.map((s) => new Set(((prof.trainers || {})[s]) || []));
@@ -855,7 +855,7 @@ function draftGuide(name, data, opts = {}) {
 				let offer = null;
 				for (const r of pinned) {
 					const { idx, rank } = onlyAt(r);
-					const who = SIDES.map((s) => `${s} ${D.list(D.rankTrainers(data, rank, s))}`).join('; ');
+					const who = SIDES.map((s) => `${s} ${D.list(D.rankTrainers(data, rank, s, prof))}`).join('; ');
 					parts.push(`${learnWhen(r)} is taught only by the ${rank.name} trainers: ${who}.`);
 					if (idx > rankIdx && seg.from >= rank.minSkill && (!offer || offer.idx < idx)) offer = { idx, rank };
 				}

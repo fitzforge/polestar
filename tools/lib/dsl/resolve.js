@@ -1204,15 +1204,30 @@ function trainProfession(g, goal, data, ctx, err, warn, smart) {
 		}
 	};
 	let what = `${p.name} ${RANK_NAMES[rank - 1]} trainer`;
-	if (rk.trainers) addSides(rk.trainers);
-	else if (rk.book && rk.book.vendors) {
+	if (rk.trainers) {
+		addSides(rk.trainers);
+		trainsAt(full, entries, minSkill(rank));
+	} else if (rk.book && rk.book.vendors) {
 		addSides(rk.book.vendors);
 		what = `vendor of the ${p.name} ${RANK_NAMES[rank - 1]} book`;
 	} else if (rk.quest && rk.quest.npcs) {
 		addSides(rk.quest.npcs);
 		what = `${p.name} ${RANK_NAMES[rank - 1]} quest giver`;
-	} else addSides(full.trainers);
+	} else {
+		addSides(full.trainers);
+		trainsAt(full, entries, minSkill(rank));
+	}
 	smart(goal, entries, `${what}${data.hasProfessions ? '' : ' (professions.json missing)'}`);
+}
+
+// Leaves out the trainers who don't train at `skill` yet: professions.json's `trainerSkill`
+// (creature -> the skill its "Train me." option asks for; Doctor Herbert Halsey trains Alchemy from
+// 125, so Journeyman, taken at 50, is Doctor Marsh's: #1708).
+function trainsAt(prof, entries, skill) {
+	const gates = prof && prof.trainerSkill;
+	if (!gates) return;
+	const keep = entries.filter((e) => gates[e.npc] === undefined || Number(gates[e.npc]) <= skill);
+	entries.splice(0, entries.length, ...keep);
 }
 
 // Factions a goal can apply to, from the guide faction and step/goal conditions.
@@ -1658,6 +1673,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 						const tag = side === 'Alliance' ? 'A' : side === 'Horde' ? 'H' : undefined;
 						for (const id of Array.isArray(bySide[side]) ? bySide[side] : []) entries.push({ npc: Number(id), side: tag });
 					}
+					trainsAt(prof, entries, at);
 					smart(goal, entries, `${prof.name}${rank && rank.name ? ` ${rank.name}` : ''} trainer`);
 				} else if (g.nearest && recipeItem !== undefined) {
 					const it = data.item(recipeItem);
