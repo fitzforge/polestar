@@ -134,6 +134,9 @@ House.ROLES = ROLES
 --   toastBand    the While you're here toast wears the alerts' anatomy:
 --                the night band, the glyph in a ring, the distance in its
 --                header, the line on up to two lines
+--   edgeLight    a window's light inside its top edge: ink at this share
+--   edgeKey      its contact line just outside, with the shadow: shade at
+--                this share
 ---------------------------------------------------------------------------
 
 local TOKENS = {
@@ -142,6 +145,8 @@ local TOKENS = {
 	lit = 0.13,
 	cardFacts = true,
 	toastBand = true,
+	edgeLight = 0.07,
+	edgeKey = 0.42,
 }
 
 ---------------------------------------------------------------------------
@@ -160,26 +165,92 @@ function House.Bind(t)
 	House.Bind = nil
 end
 
+-- The house window's edges (Theme.House "edgeLight"): a 1px light inside
+-- the top edge, under the border (ink at `edgeLight`), as light catching
+-- a pane; with the drop shadow, a 1px contact line just outside the window
+-- and its border (shade at `edgeKey`), so its edge stays crisp on bright
+-- ground. n: the border's thickness in pixels (0: none; Theme.Border lays
+-- its first pixel inside the frame, the rest outside). Kept in
+-- f.psSkin.edge (the light, then the top, bottom, left and right lines),
+-- which a skin switch hides (Theme.lua's clearSkin).
+local function edges(f, alpha, on, contact, n)
+	local d = f.psSkin
+	local e = d.edge
+	if not on then
+		if e then for i = 1, 5 do e[i]:Hide() end end
+		return
+	end
+	if not e then
+		-- Made once the window is on screen: a window is painted as it is
+		-- built and most are hidden at once, so this waits for its first
+		-- showing, or a moment after this paint if it stays shown. A window
+		-- never opened has none.
+		if not f.psEdgeNow then
+			if not f.psEdgeWait then
+				f.psEdgeWait = true
+				local function shown(self)
+					if self.psSkin.edge or not self:IsVisible() or not Theme.House("edgeLight") then return end
+					self.psEdgeNow = true
+					Theme.Repaint(self)
+				end
+				f:HookScript("OnShow", shown)
+				ns.After(0, function() shown(f) end)
+			end
+			return
+		end
+		e = {}
+		for i = 1, 5 do
+			e[i] = f:CreateTexture(nil, i == 1 and "BORDER" or "BACKGROUND", nil, i == 1 and 6 or -8)
+			e[i]:SetTexture(Theme.Media("white"))
+		end
+		d.edge = e
+	end
+	local px = Theme.Pixel(f)
+	local inner, o = n > 0 and px or 0, px * math.max(0, n - 1)
+	local light, top, bottom, left, right = e[1], e[2], e[3], e[4], e[5]
+	light:ClearAllPoints(); light:SetPoint("TOPLEFT", f, "TOPLEFT", inner, -inner); light:SetPoint("TOPRIGHT", f, "TOPRIGHT", -inner, -inner); light:SetHeight(px)
+	local ir, ig, ib = Theme.Color("ink")
+	light:SetVertexColor(ir, ig, ib, TOKENS.edgeLight * math.min(1, alpha))
+	light:Show()
+	top:ClearAllPoints(); top:SetPoint("BOTTOMLEFT", f, "TOPLEFT", -o - px, o); top:SetPoint("BOTTOMRIGHT", f, "TOPRIGHT", o + px, o); top:SetHeight(px)
+	bottom:ClearAllPoints(); bottom:SetPoint("TOPLEFT", f, "BOTTOMLEFT", -o - px, -o); bottom:SetPoint("TOPRIGHT", f, "BOTTOMRIGHT", o + px, -o); bottom:SetHeight(px)
+	left:ClearAllPoints(); left:SetPoint("TOPRIGHT", f, "TOPLEFT", -o, o); left:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", -o, -o); left:SetWidth(px)
+	right:ClearAllPoints(); right:SetPoint("TOPLEFT", f, "TOPRIGHT", o, o); right:SetPoint("BOTTOMLEFT", f, "BOTTOMRIGHT", o, -o); right:SetWidth(px)
+	local sr, sg, sb = Theme.Color("shade")
+	for i = 2, 5 do
+		e[i]:SetVertexColor(sr, sg, sb, TOKENS.edgeKey * math.min(1, alpha + 0.1))
+		e[i]:SetShown(contact)
+	end
+end
+
 local HOUSE_PAINT = {
 	-- Every window: the ground at the player's opacity, the window border
 	-- (Theme.WindowBorder: on or off, its colour and thickness) and the
 	-- drop shadow unless the player turned it off. One window may carry its
 	-- own ground colour (f.psBgColor, { r, g, b }) and go without the border
-	-- (f.psNoBorder): the guide window's own look (UI/GuideFrame.lua).
+	-- (f.psNoBorder): the guide window's own look (UI/GuideFrame.lua). In the
+	-- house look itself, its edges (edges above).
 	window = function(f)
-		if f.psBare then return bare(f) end
+		if f.psBare then
+			edges(f)
+			return bare(f)
+		end
 		local r, g, b = Theme.Color("bg")
 		if isColor(f.psBgColor) then r, g, b = f.psBgColor[1], f.psBgColor[2], f.psBgColor[3] end
 		local alpha = f.psBgAlpha or Theme.GroundAlpha()
 		fill(f):SetVertexColor(r, g, b, alpha)
 		local shown, size = Theme.WindowBorder()
+		local n = 0
 		if shown and not f.psNoBorder then
 			local br, bg, bb, ba = Theme.Color("windowBorder")
 			Theme.Border(f, br, bg, bb, ba, nil, size)
+			n = f.psBorderSize
 		else
 			hideBorder(f)
 		end
-		if get("ui.shadow") == false then
+		local shadow = get("ui.shadow") ~= false
+		edges(f, alpha, Theme.House("edgeLight") ~= nil, shadow, n)
+		if not shadow then
 			if f.psShadow then f.psShadow:Hide() end
 			return
 		end

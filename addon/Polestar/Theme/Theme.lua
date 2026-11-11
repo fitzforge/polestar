@@ -1957,6 +1957,8 @@ local function clearSkin(f)
 	if d.nine then for _, n in pairs(d.nine) do if n then n:Hide() end end end
 	if d.red then for i = 1, 3 do d.red[i]:Hide() end; d.red.hl:Hide() end
 	if d.line then d.line:Hide() end
+	-- The house look's window edges (Theme/House.lua).
+	if d.edge then hideAll(d.edge) end
 	if d.hover then d.hover:SetVertexColor(1, 1, 1, 0) end
 	-- The game's looks (Polestar_Looks/GameSkins.lua) keep their pieces here.
 	if d.kit then hideAll(d.kit) end

@@ -9,5 +9,6 @@ section: players
   case instead of capitals, and no coloured stripe down the edge. The While
   you're here toast matches the other alerts: the night band, the glyph in a
   ring, the distance beside its heading, and a long line wraps instead of
-  being cut. Skins built on Polestar's look, Halo, Hearth and the game's
+  being cut. Windows keep a crisp edge over bright ground such as sky, snow
+  and sand. Skins built on Polestar's look, Halo, Hearth and the game's
   looks are unchanged.

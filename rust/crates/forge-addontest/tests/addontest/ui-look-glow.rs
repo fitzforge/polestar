@@ -497,3 +497,66 @@ fn the_house_while_here_toast_lays_out_whole_on_one_line_or_two_at_every_scale()
 	assert_eq!(cases[3]["lines"], 2, "a long hand-in on two lines, not cut");
 	assert!(cases[3]["h"].as_f64().unwrap() > 56.0, "and the toast grows to hold them");
 }
+
+// A house window's edges (Theme/House.lua, the window painter): once it is on screen, a 1px light inside its top edge
+// under the border (ink at 7% of the ground's opacity) and, with the drop shadow, a 1px contact line just outside it
+// and its border (shade at 42%). The shadow off leaves the light; the transparent style, another look or the border's
+// thickness move or put them away as they should.
+#[test]
+fn a_house_window_carries_its_light_and_contact_edges_and_no_other_look_does() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		Polestar.Set("ui.shown", true)
+		layout()
+		local d = F.psSkin
+		local function read()
+			local e = d.edge
+			if not e then return { made = false } end
+			local function at(t, i) local p, _, rp, x, y = t:GetPoint(i); return p .. ">" .. rp .. "@" .. (x + 0) .. "," .. (y + 0) end
+			return { made = true, light = e[1]:IsShown() and rgba(e[1]:GetVertexColor()) or false, lightAt = at(e[1], 1),
+				contact = e[2]:IsShown() and rgba(e[2]:GetVertexColor()) or false, topAt = at(e[2], 1), leftAt = at(e[4], 1),
+				ink = rgba(T.Color("ink")), shade = rgba(T.Color("shade")), alpha = round(T.GroundAlpha()) }
+		end
+		local out = { house = read() }
+		Polestar.Set("ui.shadow", false); out.noShadow = read()
+		Polestar.Set("ui.shadow", nil)
+		Polestar.Set("ui.borderSize", 3); out.thick = read()
+		Polestar.Set("ui.borderSize", nil)
+		Polestar.Set("ui.style", "transparent"); layout(); out.clear = read()
+		Polestar.Set("ui.style", "standard"); layout()
+		for _, id in ipairs({ "halo", "lanterns" }) do Polestar.Set("ui.skin", id); layout(); out[id] = read() end
+		Polestar.Set("ui.skin", "polestar"); layout(); out.back = read()
+		-- A window built and hidden at once, never opened: no edges; opened: its edges.
+		-- (Built by a chunk the stub counts as the addon's, as a module builds its windows.)
+		stub.addonSources["@glow-window"] = true
+		local w = loadstring([[
+			local w = CreateFrame("Frame", nil, UIParent)
+			w:SetSize(200, 100)
+			Polestar.Theme.Skin(w, "window")
+			w:Hide()
+			return w]], "@glow-window")()
+		stub.advance(1)
+		out.unopened = w.psSkin.edge ~= nil
+		w:Show()
+		out.opened = w.psSkin.edge ~= nil and w.psSkin.edge[1]:IsShown()
+		emit(out)"#);
+	let h = &out["house"];
+	let (ink, shade, alpha) = (&h["ink"], &h["shade"], h["alpha"].as_f64().unwrap());
+	let r2 = |v: f64| (v * 100.0).round() / 100.0;
+	assert_eq!(h["light"], json!([ink[0], ink[1], ink[2], r2(0.07 * alpha.min(1.0))]), "the light: ink at 7% of the ground's opacity");
+	assert_eq!(h["contact"], json!([shade[0], shade[1], shade[2], r2(0.42 * (alpha + 0.1).min(1.0))]), "the contact line: shade at 42%");
+	assert_eq!(h["lightAt"], "TOPLEFT>TOPLEFT@1,-1", "the light under the border's pixel");
+	assert_eq!(h["topAt"], "BOTTOMLEFT>TOPLEFT@-1,0", "the contact line just outside the 1px border");
+	assert_eq!(h["leftAt"], "TOPRIGHT>TOPLEFT@0,0");
+	assert_eq!(out["noShadow"]["light"], h["light"], "the shadow off keeps the light");
+	assert_eq!(out["noShadow"]["contact"], false, "and puts the contact line away with the shadow");
+	assert_eq!(out["thick"]["topAt"], "BOTTOMLEFT>TOPLEFT@-3,2", "a 3px border: the contact line outside its outer pixel");
+	assert_eq!(out["thick"]["lightAt"], "TOPLEFT>TOPLEFT@1,-1", "the light still under its inner pixel");
+	assert_eq!((out["clear"]["light"].clone(), out["clear"]["contact"].clone()), (json!(false), json!(false)), "the transparent style: none");
+	for id in ["halo", "lanterns"] {
+		assert_eq!((out[id]["light"].clone(), out[id]["contact"].clone()), (json!(false), json!(false)), "{id}: none");
+	}
+	assert_eq!(out["back"]["light"], h["light"], "the house look again: its edges");
+	assert_eq!(out["unopened"], false, "a window never opened makes none");
+	assert_eq!(out["opened"], true, "it makes them on its first showing");
+}
