@@ -8215,8 +8215,9 @@ blesses them). Run in a copy without `data/sources`, it names `sources.areas` 13
    `in-game-check`, `client`, `eg`, `cmangos`, `tdb`, `questie`, `pfquest` or
    `factoruide`, `SOURCE_KINDS` in `forge-data`'s `corrections.rs`) and what it
    fixes in a `note`:
-   quest fields (`set`), item sources to drop (`removeDrops`, `removeVendors`) or
-   add (`addDrops`, droppers every source missed, with no rate),
+   quest fields (`set`, including `sourceItem`, the item a quest hands over),
+   item sources to drop (`removeDrops`, `removeVendors`) or add (`addDrops`,
+   droppers every source missed, with no rate),
    npc/object fields (`set`: the Forever elite and rare ranks QuestieDB's
    Forever store lacks, since it gives every Forever npc rank 0, and renamed
    Era records) and npc/object spawn maps (`addSpawns`). A fix whose only
