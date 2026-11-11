@@ -206,7 +206,7 @@ local SKIN_PALETTES = {
 		separator = hex("C8905A", 0.35), rowLine = hex("FFE0B0", 0.06),
 		border = hex("8A5A2B", 0.55), windowEdge = hex("7A4A22"), divider = hex("C8905A", 0.22), hover = hex("FFB070", 0.1),
 		selected = hex("FF9440", 0.12), toggle = hex("FFE0B0", 0.14), track = hex("FFE0B0", 0.14),
-		progress = hex("140A04", 0.55), chip = hex("FFE0B0", 0.08), box = hex("B07A3C"),
+		progress = hex("FFE0B0", 0.13), chip = hex("FFE0B0", 0.08), box = hex("B07A3C"),
 		thumb = hex("C8905A", 0.6), swatch = hex("FFFFFF", 0.25), watermark = hex("FFD9A0", 0.035), mover = hex("FF9440", 0.12),
 		frameEdge = hex("B07A3C"), frameEdgeDark = hex("5A3618"), titleLine = hex("9A6430"),
 		-- Status, warmed to the wood: a leaf green, amber, a coal red.
@@ -259,6 +259,9 @@ SKIN_PALETTES.forever = gamePalette({
 	rowLabel = hex("FFD100"), navRest = hex("FFD100"),
 	separator = hex("AE9D81", 0.35), divider = hex("AE9D81", 0.35), accentLine = hex("AE9D81", 0.5),
 	border = hex("5C4A30"), windowEdge = hex("5C4A30"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
+	-- A mechanic's violet (an escort's line) a step lighter, to read on the
+	-- lit goal's gold card as well as on black.
+	dungeon = hex("BBA6FF"),
 })
 -- Blizzard Style: the meter header's and the tracker header's own gold lines
 -- draw the window's rules, so the hairlines stay faint and white; resting

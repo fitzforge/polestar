@@ -1437,6 +1437,10 @@ function Theme.KitRowLit(r, shown, key, inset)
 	if kit.source == "file" then
 		t:SetBlendMode("ADD")
 		if key ~= "navLit" then t:SetVertexColor(1, 1, 1, 0.5) end
+	elseif kit.source == "retail" and key ~= "navLit" then
+		-- Blizzard's gold wash: its glow lines are heavier than the text's
+		-- strokes at full strength; at 60 % they frame the goal.
+		t:SetVertexColor(1, 1, 1, 0.6)
 	end
 	return true
 end
@@ -1459,6 +1463,10 @@ function Theme.KitHeader(f, shown)
 		local us = { { 0, 25 / 300 }, { 25 / 300, 1 - 25 / 300 }, { 1 - 25 / 300, 1 } }
 		for i = 1, 3 do parts[i]:SetTexCoord(l + du * us[i][1], l + du * us[i][2], tp + dv * 4 / 40, tp + dv * 39 / 40) end
 	end
+	-- Blizzard's filigree runs under the person's name and place: an
+	-- ornament under text, so it stays faint.
+	local a = kit.source == "retail" and 0.45 or 1
+	for i = 1, 3 do parts[i]:SetVertexColor(1, 1, 1, a) end
 	return true
 end
 

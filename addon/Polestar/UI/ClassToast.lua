@@ -579,11 +579,14 @@ function layout(f, width)
 	sizeRing(f, 1)
 	f:SetWidth(width)
 	local x = PAD + STRIPE + RING + 12
-	local closeW = f.Close:GetWidth() + 6
+	-- The close button inside the frame: the game looks' frames are thicker
+	-- than the house edge, so their close box sits further in.
+	local inset = Theme.Kit() and 10 or 6
+	local closeW = f.Close:GetWidth() + inset
 	f.Ring:ClearAllPoints()
 	f.Ring:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -PAD)
 	f.Close:ClearAllPoints()
-	f.Close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -6, -6)
+	f.Close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -inset, -inset)
 	-- The chip sits beside the header; on a window too narrow for both on
 	-- one line ("LEVEL 19 · DUNGEON" and "+1.1 LEVELS"), under it.
 	local headW = width - x - closeW - 4
@@ -594,7 +597,8 @@ function layout(f, width)
 		f.Badge:ClearAllPoints()
 		beside = W.TextWidth(f.Head) <= headW - badgeW - 8
 		if beside then
-			f.Badge:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(closeW + 4), -PAD + 2)
+			-- level with the close button, its middle on the button's
+			f.Badge:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(closeW + 4), -(inset + floor((f.Close:GetHeight() - 18) / 2 + 0.5)))
 			headW = headW - badgeW - 8
 		end
 	end
