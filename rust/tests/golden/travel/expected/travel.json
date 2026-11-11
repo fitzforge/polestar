@@ -26,12 +26,16 @@
 			"name": "WoW Forever client tables (wago.tools)",
 			"build": "1.60.1.70450",
 			"tables": [
+				"TaxiNodes",
+				"TaxiPath",
 				"TaxiPathNode"
 			],
 			"urls": {
+				"TaxiNodes": "https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70450",
+				"TaxiPath": "https://wago.tools/db2/TaxiPath/csv?build=1.60.1.70450",
 				"TaxiPathNode": "https://wago.tools/db2/TaxiPathNode/csv?build=1.60.1.70450"
 			},
-			"use": "ship loops Forever added"
+			"use": "flight points and ship loops Forever added"
 		},
 		{
 			"name": "WoW Forever client tables (wago.tools)",
@@ -101,8 +105,8 @@
 		}
 	],
 	"counts": {
-		"taxiNodes": 63,
-		"flights": 14,
+		"taxiNodes": 67,
+		"flights": 34,
 		"transports": 6,
 		"inns": 2,
 		"pathNodes": 10,
@@ -998,6 +1002,66 @@
 				"faction": 3,
 				"npc": null,
 				"npcName": null
+			},
+			{
+				"id": 559,
+				"name": "Summit of Eternity, Mount Hyjal",
+				"short": "Summit of Eternity",
+				"c": 1,
+				"wx": 5283.2,
+				"wy": -3306.7,
+				"map": 2482,
+				"x": 68.64,
+				"y": 44.11,
+				"faction": 3,
+				"npc": null,
+				"npcName": null,
+				"f": "l"
+			},
+			{
+				"id": 3203,
+				"name": "Rog'mar, Riverglades",
+				"short": "Rog'mar",
+				"c": 0,
+				"wx": -7923.7,
+				"wy": -4783,
+				"map": 2548,
+				"x": 59.61,
+				"y": 45.06,
+				"faction": 2,
+				"npc": null,
+				"npcName": null,
+				"f": "l"
+			},
+			{
+				"id": 3242,
+				"name": "Tainted Foothills, Mount Hyjal",
+				"short": "Tainted Foothills",
+				"c": 1,
+				"wx": 4393.5,
+				"wy": -2836.4,
+				"map": 2482,
+				"x": 55.1,
+				"y": 82.55,
+				"faction": 3,
+				"npc": null,
+				"npcName": null,
+				"f": "l"
+			},
+			{
+				"id": 3276,
+				"name": "Farholde Keep, Riverglades",
+				"short": "Farholde Keep",
+				"c": 0,
+				"wx": -9104.1,
+				"wy": -4830.5,
+				"map": 2548,
+				"x": 60.59,
+				"y": 81.57,
+				"faction": 1,
+				"npc": null,
+				"npcName": null,
+				"f": "l"
 			}
 		],
 		"legs": [
@@ -1051,11 +1115,39 @@
 				"cost": 110
 			},
 			{
+				"path": 11585,
+				"from": 5,
+				"to": 3276,
+				"yards": 3962,
+				"cost": 630
+			},
+			{
 				"path": 12,
 				"from": 6,
 				"to": 2,
 				"yards": 6307,
 				"cost": 50
+			},
+			{
+				"path": 11589,
+				"from": 8,
+				"to": 3276,
+				"yards": 5531,
+				"cost": 630
+			},
+			{
+				"path": 11581,
+				"from": 17,
+				"to": 3203,
+				"yards": 9767,
+				"cost": 830
+			},
+			{
+				"path": 11577,
+				"from": 21,
+				"to": 3203,
+				"yards": 3821,
+				"cost": 630
 			},
 			{
 				"path": 387,
@@ -1098,6 +1190,118 @@
 				"to": 23,
 				"yards": 4252,
 				"cost": 110
+			},
+			{
+				"path": 11530,
+				"from": 52,
+				"to": 3242,
+				"yards": 4057,
+				"cost": 330
+			},
+			{
+				"path": 11525,
+				"from": 53,
+				"to": 3242,
+				"yards": 4078,
+				"cost": 330
+			},
+			{
+				"path": 11575,
+				"from": 56,
+				"to": 3203,
+				"yards": 5085,
+				"cost": 630
+			},
+			{
+				"path": 11579,
+				"from": 70,
+				"to": 3203,
+				"yards": 4113,
+				"cost": 630
+			},
+			{
+				"path": 11587,
+				"from": 71,
+				"to": 3276,
+				"yards": 3936,
+				"cost": 630
+			},
+			{
+				"path": 11524,
+				"from": 559,
+				"to": 3242,
+				"yards": 1866,
+				"cost": 510
+			},
+			{
+				"path": 11580,
+				"from": 3203,
+				"to": 17,
+				"yards": 9845,
+				"cost": 830
+			},
+			{
+				"path": 11576,
+				"from": 3203,
+				"to": 21,
+				"yards": 3607,
+				"cost": 630
+			},
+			{
+				"path": 11574,
+				"from": 3203,
+				"to": 56,
+				"yards": 4624,
+				"cost": 630
+			},
+			{
+				"path": 11578,
+				"from": 3203,
+				"to": 70,
+				"yards": 3993,
+				"cost": 630
+			},
+			{
+				"path": 11529,
+				"from": 3242,
+				"to": 52,
+				"yards": 3745,
+				"cost": 1020
+			},
+			{
+				"path": 11526,
+				"from": 3242,
+				"to": 53,
+				"yards": 3967,
+				"cost": 1020
+			},
+			{
+				"path": 11528,
+				"from": 3242,
+				"to": 559,
+				"yards": 1849,
+				"cost": 510
+			},
+			{
+				"path": 11584,
+				"from": 3276,
+				"to": 5,
+				"yards": 3917,
+				"cost": 630
+			},
+			{
+				"path": 11588,
+				"from": 3276,
+				"to": 8,
+				"yards": 5193,
+				"cost": 630
+			},
+			{
+				"path": 11586,
+				"from": 3276,
+				"to": 71,
+				"yards": 3676,
+				"cost": 630
 			}
 		]
 	},
@@ -6551,6 +6755,10 @@
 		"taxi node 77 \"Camp Taurajo, The Barrens\": no flight master NPC within 60 yd",
 		"taxi node 79 \"Marshal's Refuge, Un'Goro Crater\": no flight master NPC within 60 yd",
 		"taxi node 80 \"Ratchet, The Barrens\": no flight master NPC within 60 yd",
+		"taxi node 559 \"Summit of Eternity, Mount Hyjal\": no flight master NPC within 60 yd",
+		"taxi node 3203 \"Rog'mar, Riverglades\": no flight master NPC within 60 yd",
+		"taxi node 3242 \"Tainted Foothills, Mount Hyjal\": no flight master NPC within 60 yd",
+		"taxi node 3276 \"Farholde Keep, Riverglades\": no flight master NPC within 60 yd",
 		"no navigation grid: the transports and portals get no board points or heights (`nav build`, or --grid)",
 		"boat-bootybay-ratchet: TaxiPath 241 has no points, skipped",
 		"boat-menethil-theramore: TaxiPath 292 has no points, skipped",

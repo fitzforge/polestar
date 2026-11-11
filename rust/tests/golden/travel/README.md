@@ -3,7 +3,7 @@
 JS: a checkout of next at eb7b47840 (next pipeline).
 Command: `sh regen.sh $POLESTAR_V1` (`travel build --offline --grid none`, data ../data/expected, everything else from input/).
 Inputs (`node slice.js <data/sources> input` plus hand-written files):
-- sources/wago: Blizzard client table rows: Era TaxiNodes/AreaTrigger whole, TaxiPath/TaxiPathNode for 7 flight masters; Forever TaxiNodes, TaxiPathNode (those paths + Forever-only), TransportAnimation, SpellCastTimes, teleport spells' rows, AreaTable cut.
+- sources/wago: Blizzard client table rows: Era TaxiNodes/AreaTrigger whole, TaxiPath/TaxiPathNode for 7 flight masters; Forever TaxiNodes, TaxiPath (Forever-only), TaxiPathNode (those paths + Forever-only), TransportAnimation, SpellCastTimes, teleport spells' rows, AreaTable cut.
 - sources/cmangos/22b51464f162/transit.json: CMaNGOS classic-db (GPL facts) cached extract, whole.
 - crossings.json: data/crossings.json (ours); local/crossings.json and recordings/: synthetic (ours).
 - package.json: version 0.2.6 = the JS checkout's (Polestar_Travel TOC).
@@ -13,5 +13,7 @@ When the shipped crossings file moved out of tools/ to data/crossings.json, expe
 When the Rust builder's inn list gained Zephras Isle's two inns (Shen'dar Village, Valanaar; 2026-10-27), expected/travel.json's warnings gained their two "not in npcs.json" lines by hand (the slice has neither innkeeper); nothing else changed.
 
 When the Rust builder gained the walk-in portals that are game objects (Zephras Isle's Portal To Rohashi Spires and Portal to Valanaar; #1674, placed on the map's live frame), expected/TravelData.lua and travel.json gained their two portals from the Rust builder (FORGE_GOLDEN_BLESS); the JavaScript builder has no such portals. Nothing else changed.
+
+When the Rust builder gained the flight points the Forever client adds (Rog'mar and Farholde Keep on the Riverglades, the Summit of Eternity and the Tainted Foothills on Mount Hyjal, with their 20 flights), input/sources/wago/1.60.1.70450 gained Forever's TaxiPath, its Forever-only rows (slice.js; the build's TaxiPath equals 1.60.1.70532's), and expected/TravelData.lua, FlightPaths.lua and travel.json gained the four nodes, their flights and tracks, the "no flight master" warnings for them (the data golden has no such NPC) and the Forever tables' `use` from the Rust builder (FORGE_GOLDEN_BLESS); the JavaScript builder has no such nodes. Every Era node and flight is as before.
 
 Test: rust/crates/forge-data/tests/travel.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.

@@ -2,6 +2,7 @@
 -- Blizzard Classic Era client tables (wago.tools build 1.15.9.70003): TaxiNodes, TaxiPath,
 -- TaxiPathNode, AreaTrigger; WoW Forever client TaxiPathNode (wago.tools build
 -- 1.60.1.70450) for the ships Forever added; docks and inns placed from data/forever (pfQuest, MIT);
+-- the flight points Forever added, with their flights: WoW Forever client TaxiNodes, TaxiPath and TaxiPathNode (that build);
 -- learned walking paths from 2 recorded session(s).
 -- Timetables, portals and teleports: WoW Forever TransportAnimation and spell tables (wago.tools build
 -- 1.60.1.70450), CMaNGOS classic-db 22b5146 (spawns, areatrigger_teleport,
@@ -16,6 +17,7 @@ if not (N and N.RegisterTravelData) then return end
 N.RegisterTravelData({
 	build = "1.15.9.70003",
 	-- id, continent, wx, wy, uiMapID, x, y (Era frame), faction mask (1 Alliance, 2 Horde), name[, the one class that flies from it]
+	-- (then "l", after the class or nil: x, y on the live frame of a map Forever added, which has no Era frame)
 	taxi = {
 		{2,0,-8840.6,489.7,1429,30.13,38.93,1,"Stormwind, Elwynn"},
 		{4,0,-10628.9,1036.7,1436,56.57,52.67,1,"Sentinel Hill, Westfall"},
@@ -80,6 +82,10 @@ N.RegisterTravelData({
 		{77,1,-2380.7,-1882.7,1413,44.46,59.1,2,"Camp Taurajo, The Barrens"},
 		{79,1,-6113.8,-1142.7,1449,45.3,5.97,3,"Marshal's Refuge, Un'Goro Crater"},
 		{80,1,-894.6,-3773,1413,63.12,37.11,3,"Ratchet, The Barrens"},
+		{559,1,5283.2,-3306.7,2482,68.64,44.11,3,"Summit of Eternity, Mount Hyjal",nil,"l"},
+		{3203,0,-7923.7,-4783,2548,59.61,45.06,2,"Rog'mar, Riverglades",nil,"l"},
+		{3242,1,4393.5,-2836.4,2482,55.1,82.55,3,"Tainted Foothills, Mount Hyjal",nil,"l"},
+		{3276,0,-9104.1,-4830.5,2548,60.59,81.57,1,"Farholde Keep, Riverglades",nil,"l"},
 	},
 	-- one-way flights: from, to, yards flown
 	flights = {
@@ -90,13 +96,33 @@ N.RegisterTravelData({
 		4,5,3890,
 		5,2,3374,
 		5,4,4003,
+		5,3276,3962,
 		6,2,6307,
+		8,3276,5531,
+		17,3203,9767,
+		21,3203,3821,
 		22,23,6213,
 		22,25,4752,
 		23,22,6745,
 		23,25,3304,
 		25,22,5461,
 		25,23,4252,
+		52,3242,4057,
+		53,3242,4078,
+		56,3203,5085,
+		70,3203,4113,
+		71,3276,3936,
+		559,3242,1866,
+		3203,17,9845,
+		3203,21,3607,
+		3203,56,4624,
+		3203,70,3993,
+		3242,52,3745,
+		3242,53,3967,
+		3242,559,1849,
+		3276,5,3917,
+		3276,8,5193,
+		3276,71,3676,
 	},
 	-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live), AreaTable area (its name in the client's language)
 	-- [, board = { wx, wy, z }: where a ship lying off its pier is boarded, on the deck; or z: the height of the floor the walk to the end ends on]; seconds riding a->b, b->a and waiting at a, b

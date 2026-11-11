@@ -189,8 +189,10 @@ version throughout.
    its `x.y.z-rcN` the same way).
 
    Don't regenerate `addon/Polestar/Nav/TravelData.lua` (`forge data
-   travel`) on a release build unless its output keeps every portal of the
-   committed file: check `git diff` before committing.
+   travel`) on a release build unless its output keeps every portal and
+   every flight point of the committed file (the Forever ones need the
+   Forever build's TaxiNodes and TaxiPath in `data/sources`: `forge data
+   sources --only builders`): check `git diff` before committing.
 
    Pass `--questie` explicitly on a release build. Without it the build
    picks the first QuestieDB it finds among the installed clients, so a
