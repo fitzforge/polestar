@@ -290,6 +290,47 @@ fn a_stray_drop_chance_beside_a_dropper_with_none_known_is_not_estimated_1697() 
 	assert_eq!(s["kills"], 50 + 50 + 50 + 10);
 }
 
+// A step change moves every span's start (the pace line, its hard-quest look, While-here's planned levels): the
+// steps' Codex records are read once per guide and character, and a span from any start sums the same as one
+// worked out afresh. A quest done since still counts when the span is asked again.
+#[test]
+fn spans_from_a_later_start_read_no_codex_record_again_and_sum_as_a_fresh_one() {
+	let out = lua(&[
+		KILLS,
+		r#"local reads = 0
+local npc, item = Polestar.Codex.Npc, Polestar.Codex.Item
+Polestar.Codex.Npc = function(id) reads = reads + 1; return npc(id) end
+Polestar.Codex.Item = function(id) reads = reads + 1; return item(id) end
+local p = { level = 10, xp = 0, class = "MAGE", race = "Human", faction = "Alliance" }
+local function sum(s) return { s.kills, s.killXP, s.killsUnknown, s.to.level, s.to.xp } end
+local first = sum(Lv.ForGuide("hunt", p, 1, nil))
+local r1 = reads
+local later = { sum(Lv.ForGuide("hunt", p, 2, nil)), sum(Lv.ForGuide("hunt", p, 3, 5)), sum(Lv.ForGuide("hunt", p, 1, 3)) }
+local r2 = reads - r1
+-- Quest 20 done now: the spans go (QUEST_TURNED_IN), the rows stay; and the same spans from nothing.
+Polestar.Compat.IsQuestCompleted = function(id) return id == 21 or id == 20 end
+stub.fire("QUEST_TURNED_IN", 20)
+local again = sum(Lv.ForGuide("hunt", p, 1, nil))
+local r3 = reads - r1 - r2
+Polestar.Fire("CODEX_LOADED")
+local fresh = { sum(Lv.ForGuide("hunt", p, 1, nil)) }
+Polestar.Compat.IsQuestCompleted = function(id) return id == 21 end
+Polestar.Fire("CODEX_LOADED")
+for _, span in ipairs({ { 2 }, { 3, 5 }, { 1, 3 } }) do fresh[#fresh + 1] = sum(Lv.ForGuide("hunt", p, span[1], span[2])) end
+emit({ first = first, reads = { r1, r2, r3 }, later = later, again = again, fresh = fresh })"#,
+	]
+	.join("\n"))
+	.remove(0);
+	assert!(out["reads"][0].as_i64().unwrap() > 0, "the first span reads the records: {out}");
+	assert_eq!(out["reads"][1], 0, "later spans read none again: {out}");
+	assert_eq!(out["reads"][2], 0, "a hand-in drops the sums, not the records: {out}");
+	assert_eq!(out["fresh"][0], out["again"], "quest 20 done: its kills drop out, as in a fresh span");
+	assert_eq!(out["fresh"][1], out["later"][0]);
+	assert_eq!(out["fresh"][2], out["later"][1]);
+	assert_eq!(out["fresh"][3], out["later"][2]);
+	assert_ne!(out["again"], out["first"], "the hand-in changed the sums");
+}
+
 #[test]
 fn pace_the_route_from_the_live_step_to_the_next_level_target_says_how_many_bars_short_or_on_pace() {
 	let out = lua(&[
@@ -342,14 +383,17 @@ local p = { level = 19, xp = 14550, xpMax = 19400, class = "WARRIOR", race = "Hu
 "#;
 
 // The guide window asks for the pace line on every PLAYER_XP_UPDATE. The route's quests and kills only change with
-// a turn-in, a level, or the guide itself: a kill's XP reruns the sums, not the scan of every step left.
+// a turn-in, a level, or the guide itself: a kill's XP reruns the sums, not the scan of every step left. A turn-in or
+// a level sums the route again from the records already read (each step's are kept until the guide or the Codex
+// changes), and says what a fresh read says.
 #[test]
-fn pace_a_kill_s_xp_reruns_the_sums_without_scanning_the_route_again_a_turn_in_or_a_level_does_scan() {
+fn pace_a_kill_s_xp_reruns_the_sums_a_turn_in_or_a_level_sums_again_from_the_records_read_once() {
 	let out = lua(&[
 		RIDGE,
 		r#"local reads = 0
 local quest = Polestar.Codex.Quest
 Polestar.Codex.Quest = function(id) reads = reads + 1 return quest(id) end
+local function line(s) return { s.reach, s.short, s.xp, s.hard and s.hard.quest or false } end
 local first = Lv.Pace(p)
 local scan = reads
 p.xp = p.xp + 300
@@ -357,21 +401,30 @@ local kill0 = reads
 local second = Lv.Pace(p)
 local kill = reads - kill0
 local before = reads
+done[11] = true
 stub.fire("QUEST_TURNED_IN", 11, 0, 0)
-Lv.Pace(p)
+local afterTurnin = line(Lv.Pace(p))
 local turnin = reads - before
 before = reads
+p.level, p.xp, p.xpMax = 20, 100, 20800
 stub.fire("PLAYER_LEVEL_UP", 20)
-Lv.Pace(p)
-emit({ scan = scan, kill = kill, turnin = turnin, levelup = reads - before, moved = second.reach > first.reach })"#,
+local afterLevel = line(Lv.Pace(p))
+local levelup = reads - before
+Polestar.Fire("CODEX_LOADED")
+local fresh = line(Lv.Pace(p))
+emit({ scan = scan, kill = kill, turnin = turnin, levelup = levelup, moved = second.reach > first.reach,
+	afterLevel = afterLevel, fresh = fresh, freshReads = reads - before - levelup, turnedIn = afterTurnin[1] ~= line(second)[1] })"#,
 	]
 	.join("\n"))
 	.remove(0);
 	assert!(out["scan"].as_i64().unwrap() > 0, "the first pace line reads the route's quests");
 	assert_eq!(out["kill"], 0, "a kill's XP reads none of them again");
 	assert_eq!(out["moved"], true, "and the line still moves with the XP");
-	assert!(out["turnin"].as_i64().unwrap() > 0, "a turn-in reads the route again");
-	assert!(out["levelup"].as_i64().unwrap() > 0, "so does a level");
+	assert_eq!(out["turnin"], 0, "a turn-in sums again from the records read: {out}");
+	assert_eq!(out["turnedIn"], true, "and the line follows the hand-in: {out}");
+	assert_eq!(out["levelup"], 0, "so does a level: {out}");
+	assert!(out["freshReads"].as_i64().unwrap() > 0, "a Codex change reads them again");
+	assert_eq!(out["afterLevel"], out["fresh"], "what the kept records say is what a fresh read says");
 }
 
 /// Levels 19 to `to`, from 19,050 of 19,400 into 19: what is left of 19, then each whole level's XP.

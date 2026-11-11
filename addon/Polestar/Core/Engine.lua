@@ -6425,10 +6425,10 @@ local function persist()
 end
 
 -- Done and total applicable steps of the loaded tab; steps the player skipped
--- count as done. Counting runs the done
--- rules over every step after the current one, so the result is kept on the
--- tab until the next evaluation (or until its guide or current step moves):
--- the guide frame, tab strip and picker all ask for it on every repaint.
+-- count as done. Counting runs the done rules over every step after the
+-- current one, so the result is kept on the tab until the next evaluation
+-- (or until its guide or current step moves): the tab tooltip and the guide
+-- menu ask for it on every repaint (Engine.GetTabs(true)).
 local function progressLoaded()
 	if not guide then return 0, 0 end
 	local t = loaded
@@ -6436,8 +6436,9 @@ local function progressLoaded()
 		return t.progDone, t.progTotal
 	end
 	local done, total = 0, 0
+	local hidden = Own.numbersOf(guide).hidden
 	for s, step in ipairs(guide.steps) do
-		if stepApplies(step) and not Own.numbersOf(guide).hidden[s] then
+		if stepApplies(step) and not hidden[s] then
 			total = total + 1
 			if (not computed or s < computed) or isSkipped(s) or stepDone(s) then done = done + 1 end
 		end
@@ -6456,7 +6457,11 @@ function Engine.TabIds()
 	return out
 end
 
-function Engine.GetTabs()
+-- counts: also each tab's done and total (progressLoaded: the done rules over
+-- every step of its guide), for the views that show them (the tab tooltip,
+-- the guide menu); left out otherwise, as the tab strip's every repaint and
+-- TABS_CHANGED after each step change have no use for them.
+function Engine.GetTabs(counts)
 	sync()
 	if not player and #tabs > 0 then refreshPlayer() end
 	local out = {}
@@ -6464,7 +6469,8 @@ function Engine.GetTabs()
 		local t = tabs[i]
 		use(t)
 		local g = t.guide
-		local done, total = progressLoaded()
+		local done, total
+		if counts then done, total = progressLoaded() end
 		out[i] = {
 			guideId = g.id, title = g.title, category = g.category or "Leveling",
 			stepIndex = t.current, stepCount = #g.steps, done = done, total = total, complete = t.computed == nil,
