@@ -4266,31 +4266,34 @@ end
 Own.PURPOSE_STEPS = 6
 
 -- What step n's open work is for, as above, or nil (nothing open there).
+-- No tables: the first two names (or quests) and whether there are more.
 function Own.purposeOf(n)
 	local N = ns.Names
-	local who, quests, seen = {}, {}, {}
+	local w1, w2, wMore, g1, g2
 	for g, goal in ipairs(guide.steps[n].goals) do
 		local t, q = goal.t, goal.quest
 		if q and blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(n, g) and not goalDone(n, g, goal) then
 			if t == "accept" or t == "turnin" then
 				local npc, name = npcOf(goal)
 				name = name or (npc and N.Npc(npc)) or (goal.object and (N.Object(goal.object) or goal.objName)) or nil
-				if name and not seen[name] then
-					seen[name] = true
-					who[#who + 1] = name
+				if name and name ~= w1 and name ~= w2 then
+					if not w1 then w1 = name elseif not w2 then w2 = name else wMore = true end
 				end
-			elseif not seen[q] then
-				seen[q] = true
-				quests[#quests + 1] = ns.Quoted(questTitle(goal) or titleOfQuest(q))
+			elseif not (g1 and g1.quest == q) and not (g2 and g2.quest == q) then
+				if not g1 then g1 = goal elseif not g2 then g2 = goal end
 			end
 		end
 	end
-	if #who == 1 then return L["For %s's quests"]:format(who[1]) end
-	if #who == 2 then return L["For quests from %s and %s"]:format(who[1], who[2]) end
-	if #who > 2 then return L["For quests from %s, %s and more"]:format(who[1], who[2]) end
-	if #quests == 1 then return L["For %s"]:format(quests[1]) end
-	if #quests > 1 then return L["For %s and %s"]:format(quests[1], quests[2]) end
+	if w2 then return (wMore and L["For quests from %s, %s and more"] or L["For quests from %s and %s"]):format(w1, w2) end
+	if w1 then return L["For %s's quests"]:format(w1) end
+	if g2 then return L["For %s and %s"]:format(Own.purposeTitle(g1), Own.purposeTitle(g2)) end
+	if g1 then return L["For %s"]:format(Own.purposeTitle(g1)) end
 	return nil
+end
+
+-- A purpose line's quest name, quoted.
+function Own.purposeTitle(goal)
+	return ns.Quoted(questTitle(goal) or titleOfQuest(goal.quest))
 end
 
 -- What travel step s is for (see above), or nil; only for goal g, its last
