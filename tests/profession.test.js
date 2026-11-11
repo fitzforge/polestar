@@ -235,11 +235,17 @@ test('materials: a smelted bar is worth at least what goes into it (Steel Bar: a
 
 test('materials: disenchanted, fished, cloth and other professions\' goods are valued above their sell price', () => {
 	const ctx = { professions: { 171: { name: 'Alchemy', recipes: [{ spell: 3171, name: 'Elixir of Wisdom', reagents: [] }] } }, npcs: {}, objects: {}, zones: {}, self: 197 };
-	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', ctx).cost, 800);
-	// Strange Dust sold at 8s stays a disenchanting material (worth 5s); a cheaper vendor wins.
-	const dust = (buy) => sourceOf(1, { name: 'Strange Dust', sell: 1, buy, quality: 1, vendors: { Alliance: [7] } }, 'Alliance', ctx);
+	const enchanter = { ...ctx, self: 333 };
+	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', enchanter).cost, 800);
+	// Strange Dust sold at 8s stays a disenchanting material to an enchanter (worth 5s); a cheaper vendor wins.
+	const dust = (buy, c = enchanter) => sourceOf(1, { name: 'Strange Dust', sell: 1, buy, quality: 1, vendors: { Alliance: [7] } }, 'Alliance', c);
 	assert.deepEqual([dust(800).kind, dust(800).cost], ['disenchant', 500]);
 	assert.deepEqual([dust(100).kind, dust(100).cost], ['vendor', 100]);
+	// To any other profession they are an enchanter's goods (a friend or the Auction House), six times
+	// that: the 8s vendor wins, and a leatherworker's 2 Soul Dust a craft lose to plain leather.
+	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', ctx).cost, 800 * 6);
+	assert.deepEqual([dust(800, ctx).kind, dust(800, ctx).cost], ['vendor', 800]);
+	assert.deepEqual([dust(4000, ctx).kind, dust(4000, ctx).cost], ['disenchant', 500 * 6]);
 	assert.equal(sourceOf(1, { name: 'Raw Fish', sell: 1, quality: 1, gather: { fishing: [1] } }, 'Alliance', ctx).cost, 400);
 	assert.ok(Math.abs(sourceOf(1, { name: 'Wool Cloth', sell: 33, quality: 1, dropCount: 50, drops: [{ npc: 1, chance: 20 }] }, 'Alliance', ctx).cost - 100 * Math.sqrt(0.33) * 4 * 3) < 1e-9);
 	const elixir = sourceOf(1, { name: 'Elixir of Wisdom', sell: 25, quality: 1, madeBy: [{ skillLine: 171, spell: 3171 }] }, 'Alliance', ctx);

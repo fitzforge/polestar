@@ -51,6 +51,10 @@ const TIERED_BASE = 100;
 // price says nothing about what they take: copper per unit by tier (relative
 // Auction House worth in Classic; dusts cheapest, then essences, then shards).
 // Only their ranking against each other and against gathered materials matters.
+// That is their worth to an enchanter, who breaks greens for them; any other
+// profession gets them from an enchanter or the Auction House, like another
+// profession's goods (CROSS_FACTOR): a leatherworker's Mystic Heavy Armor Kit
+// at 2 Soul Dust a craft loses to plain leather.
 const DISENCHANT_VALUE = {
 	'Strange Dust': 500,
 	'Lesser Magic Essence': 800,
@@ -76,6 +80,14 @@ const DISENCHANT_VALUE = {
 	'Greater Eternal Essence': 45000,
 	'Large Brilliant Shard': 150000,
 };
+
+const ENCHANTING = 333;
+
+// A disenchanted material's worth to the profession being planned (`ctx.self`).
+function disenchantValue(name, ctx) {
+	const v = DISENCHANT_VALUE[name];
+	return v && ctx.self !== ENCHANTING ? v * CROSS_FACTOR : v;
+}
 
 // Skinning products by name (the data has no skinning loot): leathers, hides,
 // scales. Cured hides are tanned by Leatherworking and Enchanted Leather is
@@ -157,10 +169,10 @@ function barCost(item, m, side, ctx, depth = 0) {
 function sourceOf(id, m, side, ctx) {
 	if (!m) return { kind: 'unknown', cost: Infinity, note: 'no source in the reference data' };
 	const vendors = (m.vendors && m.vendors[side]) || [];
-	// A dust or essence that a vendor sells for more than it is worth (Strange
-	// Dust at 8s; most of its sellers keep one to four) stays a disenchanting
-	// material: an enchanter breaks greens for it.
-	const deValue = DISENCHANTED.test(m.name || '') ? DISENCHANT_VALUE[m.name] : null;
+	// A dust or essence that a vendor sells for more than it is worth to the
+	// profession (Strange Dust at 8s to an enchanter; most of its sellers keep
+	// one to four) stays a disenchanting material: an enchanter breaks greens for it.
+	const deValue = DISENCHANTED.test(m.name || '') ? disenchantValue(m.name, ctx) : null;
 	if (vendors.length && m.buy >= 0 && !(deValue && deValue < m.buy / (m.buyCount || 1))) {
 		const remote = !vendors.some((v) => CITY_MAPS.has(homeMap((ctx.npcs || {})[v])));
 		return { kind: 'vendor', cost: m.buy / (m.buyCount || 1), vendors, remote, note: 'sold by trade supplies vendors' };
@@ -190,7 +202,7 @@ function sourceOf(id, m, side, ctx) {
 		const veins = objectNames(m.gather.mine, ctx.objects);
 		return { kind: 'mine', cost, note: `Mining${veins.length ? `: ${veins[0]}` : ''} (or the Auction House)` };
 	}
-	if (DISENCHANTED.test(name)) return { kind: 'disenchant', cost: DISENCHANT_VALUE[name] || cost, note: 'Enchanting: disenchant uncommon (green) gear (or the Auction House)' };
+	if (DISENCHANTED.test(name)) return { kind: 'disenchant', cost: disenchantValue(name, ctx) || cost, note: 'Enchanting: disenchant uncommon (green) gear (or the Auction House)' };
 	if (m.gather && m.gather.fishing) return { kind: 'fishing', cost: Math.max(cost * FISHING_FACTOR, MIN_FISH_COST), note: 'Fishing (or the Auction House)' };
 	if (CLOTH.test(name) && (m.dropCount || 0) >= 20) return { kind: 'cloth', cost: cost * CLOTH_FACTOR, note: 'drops from humanoid mobs (or the Auction House)' };
 	if (m.drops && m.drops.length) {
