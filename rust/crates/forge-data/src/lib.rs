@@ -7,8 +7,8 @@
 //! Library: [`build::run`] (`Options` -> `Output`, the files' texts) and [`build::write`].
 
 pub mod build;
-pub mod client;
 pub mod class_spells;
+pub mod client;
 pub mod cmangos;
 pub mod codex;
 pub mod corrections;

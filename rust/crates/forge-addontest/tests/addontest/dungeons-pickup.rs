@@ -1999,7 +1999,8 @@ emit({ steps = describe(def), notes = notes, groups = groups, view = { note = v.
 	};
 	c["npcs"]["90601"] = mob(90601, "Riptear", 13, true);
 	c["npcs"]["90603"] = mob(90603, "Worg", 20, false);
-	let item = |id: i32, name: &str, npc: i32| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": npc, "chance": 100.0 }] });
+	let item =
+		|id: i32, name: &str, npc: i32| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": npc, "chance": 100.0 }] });
 	c["items"]["90600"] = item(90600, "Riptear's Heart", 90601);
 	c["items"]["90602"] = item(90602, "Worg Claw", 90603);
 	c["quests"]["1010"]["objectives"] = json!([{ "type": "item", "id": 90600, "count": 1, "text": "Riptear's Heart" }, { "type": "item", "id": 90602, "count": 1, "text": "Worg Claw" }]);

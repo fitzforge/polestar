@@ -74,29 +74,6 @@ fn checked_learn(spell: i64) -> Option<(i64, &'static str)> {
 /// (Leatherworking's tier-2 camp item) was lowered to 125 by Forever's 2026-11-06 hotfixes.
 const HOTFIXES: [(i64, i64, i64, i64, i64); 1] = [(1263031, 125, 125, 127, 130)];
 
-#[cfg(test)]
-mod checked_learn_tests {
-	use super::*;
-
-	// #1553: the leg the Leatherworking guide planned on Thick Leather at 155 could not be done; these hold the
-	// skills Forever's trainer asks, so a rebuilt professions.json (and a guide drafted from it) keeps them.
-	#[test]
-	fn thick_leather_and_its_kin_keep_the_skill_forevers_trainer_asks_1553() {
-		assert_eq!([20650, 10482, 10487, 7156, 9201].map(|s| checked_learn(s).map(|c| c.0)), [Some(175), Some(175), Some(175), Some(165), Some(170)]);
-		assert_eq!(checked_learn(2152), None, "Light Armor Kit: no check, the build's own source stands");
-	}
-
-	// The 0.3.7 profession research: what players' recordings and Classic's list show where nothing else does.
-	#[test]
-	fn recorded_and_classic_learn_skills() {
-		assert_eq!(checked_learn(1255133), Some((75, "recordings")), "Totemic Leather Armor: learned at 75");
-		assert_eq!(checked_learn(1255114), Some((100, "recordings")), "Trapper's Leather Pants: learned at 100");
-		assert_eq!(checked_learn(1249631), Some((120, "recordings")), "Magenta Dye: learned at 120");
-		assert_eq!(checked_learn(13028), Some((175, "classic")), "Goldthorn Tea: Classic's 175");
-		assert_eq!(HOTFIXES[0], (1263031, 125, 125, 127, 130), "Tanning Rack at 125");
-	}
-}
-
 const GOBLIN_ENGINEER: i64 = 20222;
 const GNOMISH_ENGINEER: i64 = 20219;
 
@@ -820,4 +797,27 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 		professions.push((id, prof));
 	}
 	Extracted { professions, report, warnings }
+}
+
+#[cfg(test)]
+mod checked_learn_tests {
+	use super::*;
+
+	// #1553: the leg the Leatherworking guide planned on Thick Leather at 155 could not be done; these hold the
+	// skills Forever's trainer asks, so a rebuilt professions.json (and a guide drafted from it) keeps them.
+	#[test]
+	fn thick_leather_and_its_kin_keep_the_skill_forevers_trainer_asks_1553() {
+		assert_eq!([20650, 10482, 10487, 7156, 9201].map(|s| checked_learn(s).map(|c| c.0)), [Some(175), Some(175), Some(175), Some(165), Some(170)]);
+		assert_eq!(checked_learn(2152), None, "Light Armor Kit: no check, the build's own source stands");
+	}
+
+	// The 0.3.7 profession research: what players' recordings and Classic's list show where nothing else does.
+	#[test]
+	fn recorded_and_classic_learn_skills() {
+		assert_eq!(checked_learn(1255133), Some((75, "recordings")), "Totemic Leather Armor: learned at 75");
+		assert_eq!(checked_learn(1255114), Some((100, "recordings")), "Trapper's Leather Pants: learned at 100");
+		assert_eq!(checked_learn(1249631), Some((120, "recordings")), "Magenta Dye: learned at 120");
+		assert_eq!(checked_learn(13028), Some((175, "classic")), "Goldthorn Tea: Classic's 175");
+		assert_eq!(HOTFIXES[0], (1263031, 125, 125, 127, 130), "Tanning Rack at 125");
+	}
 }

@@ -545,8 +545,7 @@ fn a_collect_whose_spots_hold_more_sources_than_its_point_names_lists_each_spots
 		let drops: Map<String, Value> = CAMPS.iter().map(|c| (c.0.to_string(), json!(20))).collect();
 		raw.get_mut("items.json").unwrap()["95900"] = json!({ "id": 95900, "name": "Camp Token", "drops": { "npc": drops, "object": {} }, "vendors": [] });
 		for (id, name, x, y) in CAMPS {
-			raw.get_mut("npcs.json").unwrap()[id.to_string()] =
-				json!({ "id": id, "name": name, "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": [[x, y], [x + 0.2, y + 0.1]] } } });
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": name, "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": [[x, y], [x + 0.2, y + 0.1]] } } });
 		}
 	});
 	let r = compile_with(&guide_text(&["step One", "  collect 95900 x5"]), &forge_guide::data::load_data(&dir).unwrap());

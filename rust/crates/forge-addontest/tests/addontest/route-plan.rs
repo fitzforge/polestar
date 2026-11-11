@@ -547,10 +547,8 @@ fn grey_quests_are_listed_as_grey_unless_the_route_still_hands_them_in() {
 	assert_eq!(out["off"], json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "Skip grey off: the next guide hands Five in");
 	assert_eq!(out["on"], json!({ "titles": ["One", "Five", "Stray"], "why": ["missed", "grey", "grey"] }));
 	// Westfall's own accept of 6 (level 18, not grey) needs Five first.
-	let needed = run(
-		&format!("{ROOM}{GREY}{room}{}", r#"table.insert(guideB.steps, 1, { goals = { { t="accept", quest=6, qlvl=18, pre={5} } } }); P.Set("behavior.skipGrey", true); emit(room())"#),
-		false,
-	);
+	let needed =
+		run(&format!("{ROOM}{GREY}{room}{}", r#"table.insert(guideB.steps, 1, { goals = { { t="accept", quest=6, qlvl=18, pre={5} } } }); P.Set("behavior.skipGrey", true); emit(room())"#), false);
 	assert_eq!(needed, json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "a later quest needs Five");
 	// Westfall's route choice, the other option not loaded: what it needs is unknown, so Five stays.
 	let unknown = run(

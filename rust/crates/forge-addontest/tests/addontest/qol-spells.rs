@@ -171,10 +171,7 @@ fn upgrade_replaces_only_that_slot_and_leaves_macros_and_items_alone() {
 		emit({ done = done, s5 = ACTIONS[5][2], s17 = ACTIONS[17][2], macro = ACTIONS[6], item = ACTIONS[7], shoot = ACTIONS[8][2],
 			placed = PLACED, cursor = CURSOR or false, last = ranks[#ranks] })"#,
 	);
-	assert_eq!(
-		out[0],
-		json!({ "done": 1, "s5": 6074, "s17": 6074, "macro": ["macro", 12], "item": ["item", 6948], "shoot": 9999, "placed": [5], "cursor": false, "last": false })
-	);
+	assert_eq!(out[0], json!({ "done": 1, "s5": 6074, "s17": 6074, "macro": ["macro", 12], "item": ["item", 6948], "shoot": 9999, "placed": [5], "cursor": false, "last": false }));
 }
 
 #[test]

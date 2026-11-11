@@ -83,10 +83,7 @@ pub fn class_spells_lua(training: &serde_json::Value, spell_name: &[Row], spell:
 		let mut by_level: BTreeMap<i64, Vec<(i64, i64)>> = BTreeMap::new();
 		for (l, list) in levels {
 			let lvl: i64 = l.parse().map_err(|_| format!("extract.json: trainingSpells.{cls}: level {l}"))?;
-			let mut v: Vec<(i64, i64)> = list
-				.as_array()
-				.map(|a| a.iter().filter_map(|e| Some((e.get(0)?.as_f64()? as i64, e.get(1)?.as_f64()? as i64))).collect())
-				.unwrap_or_default();
+			let mut v: Vec<(i64, i64)> = list.as_array().map(|a| a.iter().filter_map(|e| Some((e.get(0)?.as_f64()? as i64, e.get(1)?.as_f64()? as i64))).collect()).unwrap_or_default();
 			v.sort_unstable();
 			by_level.insert(lvl, v);
 		}
@@ -131,6 +128,6 @@ pub fn run(sources: &Path, build: Option<&str>) -> Result<(String, usize, String
 	let training = extract.get("trainingSpells").ok_or_else(|| format!("{}: no trainingSpells", file.display()))?;
 	let t = tables::load(sources, &tables::CLASS_SPELLS, build, &Source::Wago, &|_| {})?;
 	let get = |n: &str| t.get(n).map(Vec::as_slice).unwrap_or(&[]);
-	let (lua, n) = class_spells_lua(training, &get("SpellName"), &get("Spell"), &get("SkillLineAbility"))?;
+	let (lua, n) = class_spells_lua(training, get("SpellName"), get("Spell"), get("SkillLineAbility"))?;
 	Ok((lua, n, t.build))
 }

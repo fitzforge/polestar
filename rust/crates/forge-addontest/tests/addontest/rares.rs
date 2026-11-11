@@ -1125,7 +1125,7 @@ fn founder_run(scene: &str) -> Vec<Value> {
 fn founder_run_saved(scene: &str, saved: Option<String>) -> Vec<Value> {
 	run_saved(
 		&format!(
-		r#"local U = stub.rares
+			r#"local U = stub.rares
 U.me = {{ "Ana", "Smith" }}
 local function fitz(token, o)
 	o = o or {{}}

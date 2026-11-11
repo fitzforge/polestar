@@ -529,7 +529,10 @@ fn quest_work_handed_in_only_by_a_later_guide_carries_that_guides_id() {
 	]);
 	assert_eq!(carried(&dropped, "t/one")[1], Value::Null);
 	// Handed in later in the same guide: nothing carried.
-	let here = compile_map(&[("1.guide", &text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1", "step T", "  turnin 7"], &["next t/two"])), ("2.guide", &text("t/two", &["step S", "  turnin 7"], &[]))]);
+	let here = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7", "  kill 6 quest 7.1", "step T", "  turnin 7"], &["next t/two"])),
+		("2.guide", &text("t/two", &["step S", "  turnin 7"], &[])),
+	]);
 	assert_eq!(carried(&here, "t/one")[1], Value::Null);
 }
 

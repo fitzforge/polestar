@@ -417,7 +417,11 @@ fn consecutive_walks_to_the_same_place_are_one_row_with_their_times_added() {
 		json!([["1", "Walk to Durotar", "0:49", true], ["2", "Walk to Stonetalon Mountains", "12:08", false], ["3", "Collect Wool Cloth", "3:28", false]])
 	);
 	assert_eq!(out[0]["time"], "16:25");
-	assert_eq!(pick(&out[1], &["num", "text", "time"]), json!([["1", "Walk to Durotar", "0:21"], ["2", "Walk to Stonetalon Mountains", "12:08"], ["3", "Collect Wool Cloth", "3:28"]]), "half done: its row and number");
+	assert_eq!(
+		pick(&out[1], &["num", "text", "time"]),
+		json!([["1", "Walk to Durotar", "0:21"], ["2", "Walk to Stonetalon Mountains", "12:08"], ["3", "Collect Wool Cloth", "3:28"]]),
+		"half done: its row and number"
+	);
 	assert_eq!(pick(&out[2], &["num", "text", "time"]), json!([["2", "Walk to Stonetalon Mountains", "12:08"], ["3", "Collect Wool Cloth", "3:28"]]));
 }
 

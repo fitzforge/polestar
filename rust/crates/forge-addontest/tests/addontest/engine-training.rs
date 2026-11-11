@@ -466,10 +466,7 @@ fn trains_at(at: usize) -> String {
 			.into(),
 	);
 	steps.push(r#"{ goals = { { t = "level", level = 20 } } }"#.into());
-	format!(
-		r#"Polestar.RegisterGuide({{ id = "test/orgrimmar-{at}", pack = "test", title = "To Orgrimmar", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {{ {} }} }})"#,
-		steps.join(", ")
-	)
+	format!(r#"Polestar.RegisterGuide({{ id = "test/orgrimmar-{at}", pack = "test", title = "To Orgrimmar", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {{ {} }} }})"#, steps.join(", "))
 }
 
 const ADVICE: &str = r#"stub.advance(0.5)

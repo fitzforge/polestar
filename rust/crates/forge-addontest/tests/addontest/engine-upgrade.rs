@@ -179,10 +179,7 @@ const TURNIN_AHEAD_TO: &str = r#"{ title = "New ahead", goals = { a(110, 70) } }
 #[test]
 fn a_carried_quest_whose_work_the_update_put_behind_them_is_still_to_do_when_its_hand_in_is_ahead() {
 	let guide = GUIDE
-		.replace(
-			BEHIND_GUIDE_FROM,
-			r#"{ title = "New behind", goals = { a(108, 40), { t = "kill", target = "Wolf", npc = 299, count = 5, quest = 108, oi = 1, map = M, x = 49, y = 50 } } },"#,
-		)
+		.replace(BEHIND_GUIDE_FROM, r#"{ title = "New behind", goals = { a(108, 40), { t = "kill", target = "Wolf", npc = 299, count = 5, quest = 108, oi = 1, map = M, x = 49, y = 50 } } },"#)
 		.replace(TURNIN_AHEAD_FROM, TURNIN_AHEAD_TO);
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
@@ -190,9 +187,7 @@ fn a_carried_quest_whose_work_the_update_put_behind_them_is_still_to_do_when_its
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".to_string(), saved(""))],
 		login: false,
-		script: format!(
-			"{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{SCRIPT}\nlocal b = E.GetBehind()[1]\nemit({{ behind = b and b.quest or false, step = b and b.step or false }})"
-		),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{SCRIPT}\nlocal b = E.GetBehind()[1]\nemit({{ behind = b and b.quest or false, step = b and b.step or false }})"),
 	});
 	let (at, behind) = (&out[0], &out[1]);
 	assert_eq!(at["live"], 8, "the player stays at 103's hand-in: {at}");

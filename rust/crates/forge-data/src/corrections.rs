@@ -1736,8 +1736,10 @@ mod tests {
 				"52": { "addDrops": { "npc": [9] } } } }"#,
 		)
 		.unwrap();
-		let items = parse_json(r#"{ "50": { "id": 50, "drops": { "npc": { "7": null, "8": 25 }, "object": {} } }, "51": { "id": 51 },
-			"52": { "id": 52, "drops": { "npc": { "9": null } } } }"#)
+		let items = parse_json(
+			r#"{ "50": { "id": 50, "drops": { "npc": { "7": null, "8": 25 }, "object": {} } }, "51": { "id": 51 },
+			"52": { "id": 52, "drops": { "npc": { "9": null } } } }"#,
+		)
 		.unwrap();
 		let Some(i) = items.as_obj() else { panic!() };
 		let a = apply(&c, &Obj::new(), &Obj::new(), &Obj::new(), i, false);
