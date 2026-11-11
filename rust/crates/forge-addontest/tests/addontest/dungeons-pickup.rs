@@ -1896,6 +1896,7 @@ for s, step in ipairs(g.steps) do
 			out.collect = { from = goal.from or false, fromId = goal.fromId or false, also = goal.fromAlso or false, alsoId = goal.fromAlsoId or false, text = v.text }
 		end
 		if goal.t == "talk" and goal.quest == 90602 then out.talkNote = step.note or false end
+		if goal.t == "accept" and goal.quest == 90602 then out.acceptNote = goal.note or false end
 	end
 end
 emit(out)"#);
@@ -1906,8 +1907,9 @@ emit(out)"#);
 			"text": "Kill Burning Blade Fanatic or Burning Blade Apprentice for Lieutenant's Insignia" }),
 		"both droppers named, the lower id first at the same chance; no faction: mobs to kill"
 	);
-	// The step is a prerequisite of the dungeon quest too: why it is in the guide comes first, then how to do it.
-	assert_eq!(out["talkNote"], "Needed for “The Dungeon Quest”. Neeru Fireblade: click through what they say until the quest's line is done.");
+	// The step is a prerequisite of the dungeon quest too: its accept says so, the step's note how to do it.
+	assert_eq!(out["acceptNote"], "Needed for “The Dungeon Quest”.");
+	assert_eq!(out["talkNote"], "Neeru Fireblade: click through what they say until the quest's line is done.");
 
 	// A third dropper, none at 50%: the item drops all around, no source is named (as compiled guides do).
 	let mut wide = c.clone();
@@ -1963,15 +1965,20 @@ fn a_stop_at_hand_comes_first_out_of_ragefire_chasm_neeru_fireblade_beside_the_p
 // compiled guides' group (the step's "Elite: group advised" line, as in the leveling guides). Here Orders from
 // the Undercity (1010) and The Dalaran Inquiry (1011) come before Arugal Must Die (1014); in the second pack
 // Orders from the Undercity also wants a heart an elite in Silverpine drops, and a claw an ordinary wolf drops.
+// Fitz, 0.3.7-rc1 (the same guide, A Recipe For Death before The New Plague): the line sat in the step's folded
+// tip, so nothing in sight said why. It is now the accept's own line, under the goal, and the first goal says how
+// many of the steps are prerequisites and about how long they take.
 #[test]
 fn a_prerequisite_step_says_which_dungeon_quest_it_is_needed_for_and_an_elite_s_drop_says_group_advised() {
 	let script = k(r#"
 local def = D.PickupGuide("{KEY}")
-local notes, groups = {}, {}
+local notes, accepts, groups = {}, {}, {}
 for i, s in ipairs(def.steps) do
 	notes[i] = s.note or false
+	accepts[i] = false
 	for _, g in ipairs(s.goals) do
 		if g.t == "collect" or g.t == "kill" then groups[tostring(g.item or g.npc)] = g.group or false end
+		if g.t == "accept" and accepts[i] == false then accepts[i] = g.note or false end
 	end
 end
 D.PickUp("{KEY}")
@@ -1979,15 +1986,31 @@ local E = Polestar.Engine
 local v = E.GetStepView(1)
 local party = false
 for _, g in ipairs(v.goals) do if g.t == "collect" and g.party then party = g.party end end
-emit({ steps = describe(def), notes = notes, groups = groups, view = { note = v.note or false, party = party } })"#);
+emit({ steps = describe(def), notes = notes, accepts = accepts, groups = groups,
+	view = { note = v.note or false, party = party, first = v.goals[1].note or false, second = E.GetStepView(2).goals[1].note or false } })"#);
 	let plain = run(&default_pack(), &script, Opts::default()).remove(0);
 	assert_eq!(plain["steps"], json!(from_undercity()));
 	assert_eq!(
 		plain["notes"],
-		json!(["Needed for “Arugal Must Die”.", "Needed for “Arugal Must Die”.", false, false, "In your log already: “The Book of Ur”"]),
-		"the two quests before Dalar's; not the givers' steps; the entrance keeps its own note (#1591)"
+		json!([false, false, false, false, "In your log already: “The Book of Ur”"]),
+		"the steps' own notes (their folded tips) keep only what they had; the entrance its own (#1591)"
 	);
-	assert_eq!(plain["view"]["note"], "Needed for “Arugal Must Die”.", "the guide window shows it on the step");
+	let head = |v: &Value| {
+		let s = v.as_str().unwrap_or_default().to_string();
+		let rest = s.strip_prefix("Prerequisite quests: 2 of 5 steps, about ").unwrap_or_else(|| panic!("the count first: {s}"));
+		let (time, tail) = rest.split_once(". ").unwrap_or_else(|| panic!("then the time: {s}"));
+		assert!(time.ends_with(" min") && time.split(' ').next().unwrap().parse::<u32>().is_ok_and(|m| m >= 5 && m % 5 == 0), "about whole 5 minutes: {s}");
+		tail.to_string()
+	};
+	assert_eq!(head(&plain["accepts"][0]), "Needed for “Arugal Must Die”.", "the guide's first goal: the count and time, then why");
+	assert_eq!(
+		json!([plain["accepts"][1], plain["accepts"][2], plain["accepts"][3]]),
+		json!(["Needed for “Arugal Must Die”.", false, false]),
+		"the second quest before Dalar's says why too; not the givers' accepts"
+	);
+	assert_eq!(head(&plain["view"]["first"]), "Needed for “Arugal Must Die”.", "the guide window shows it under the goal");
+	assert_eq!(plain["view"]["second"], "Needed for “Arugal Must Die”.");
+	assert_eq!(plain["view"]["note"], false, "not in the folded tip");
 
 	let (codex, inputs) = fixture_parts();
 	let mut c = codex.clone();
@@ -2009,5 +2032,32 @@ emit({ steps = describe(def), notes = notes, groups = groups, view = { note = v.
 	assert_eq!(elite["groups"]["90600"], json!({ "kind": "elite", "rank": 1, "lvl": 13 }), "the elite's drop");
 	assert_eq!(elite["groups"]["90602"], false, "an ordinary wolf's claw needs no group");
 	assert_eq!(elite["view"]["party"], json!({ "kind": "elite", "rank": 1, "lvl": 13 }), "the engine's view carries it: \"Elite: group advised\"");
-	assert_eq!(elite["notes"][0], "Needed for “Arugal Must Die”.");
+	assert_eq!(head(&elite["accepts"][0]), "Needed for “Arugal Must Die”.");
+}
+
+// The prerequisites' time on the pick-up guide's first goal is rough: whole 5 minutes, at least 5, hours past 60.
+#[test]
+fn the_prerequisites_time_reads_in_whole_five_minutes_at_least_five() {
+	let out = run(&default_pack(), "emit({ D.PrereqTime(0), D.PrereqTime(400), D.PrereqTime(1000), D.PrereqTime(4200), D.PrereqTime(nil) })", Opts::default()).remove(0);
+	assert_eq!(out, json!(["5 min", "5 min", "15 min", "1 h 10 min", "5 min"]));
+}
+
+// An objective's rough time: a kill per count; an item the kills its best drop chance takes; anything else a use.
+#[test]
+fn an_objective_s_time_counts_kills_by_the_best_drop_chance() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let item = |id: i32, sources: Value| json!({ "id": id, "name": "Moss", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": sources });
+	c["items"]["90630"] = item(90630, json!([{ "type": "drop", "npc": 1, "chance": 50.0 }, { "type": "drop", "npc": 2, "chance": 60.0 }]));
+	c["items"]["90631"] = item(90631, json!([{ "type": "drop", "npc": 3, "chance": 0.5 }]));
+	let script = r#"emit({
+		D.ObjectiveSeconds({ type = "kill", id = 1, count = 8 }),
+		D.ObjectiveSeconds({ type = "item", id = 90630, count = 6 }),
+		D.ObjectiveSeconds({ type = "item", id = 90631, count = 1 }),
+		D.ObjectiveSeconds({ type = "item", id = 90699, count = 2 }),
+		D.ObjectiveSeconds({ type = "object", id = 5, count = 1 }),
+	})"#;
+	let out = run(&pack_of(&c, &inputs), script, Opts::default()).remove(0);
+	// 8 kills; 6 at 60% (the better source): 10 kills; 0.5% counts as 2%: 50 kills; an item no NPC drops and an object: uses.
+	assert_eq!(out, json!([320, 400, 2000, 60, 30]));
 }

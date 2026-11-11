@@ -66,11 +66,26 @@
 --   Dungeons.WaitingLines(plan) -> { text }   -- one per waiting quest: why it waits (its level,
 --       the prerequisite it needs first)
 --   Dungeons.OpensNote(quests, breadcrumb, note) -> text | note
---       a prerequisite step's note: "Needed for “A”, “B”." (a breadcrumb:
+--       a prerequisite's line: "Needed for “A”, “B”." (a breadcrumb:
 --       "Leads to “A”."), the quests ({ title }, ...) it comes before, then
---       the step's own note; `note` unchanged when there are none. The
---       pick-up and attunement guides put it on every quest they add to
---       reach one of theirs.
+--       `note`; `note` unchanged when there are none.
+--   Dungeons.MarkOpens(step, quest, opens, breadcrumb)
+--       puts OpensNote's line on the step's accept of `quest` (else its first
+--       goal) as that goal's note, before the goal's own: the guide window
+--       shows it under the goal, compact mode too, where the step's note (its
+--       tip) is folded away. The pick-up and attunement guides mark every
+--       quest they add to reach one of theirs (Fitz, 0.3.7-rc1: nothing on
+--       A Recipe For Death's steps said they were there for the Ruins of
+--       Lordaeron's The New Plague).
+--   The pick-up guide's first goal also says how many of its steps are such
+--   prerequisites and about how long they take: "Prerequisite quests: 5 of 10
+--   steps, about 1 h 15 min." (Dungeons.PrereqTime: the travel along the
+--   route's order, LK().Travel, plus each quest's objectives,
+--   Dungeons.ObjectiveSeconds; rounded to 5 minutes).
+--   Dungeons.ObjectiveSeconds(o) -> seconds   -- a Codex quest objective's rough time:
+--       KILL_SECONDS a kill, and for an item NPCs drop the kills its best drop
+--       chance takes (6 Lake Skulker Moss at 60%: 10 kills); USE_SECONDS
+--       anything else (an object, a talk, an item no NPC drops), per count
 --   The guide lists the waiting quests at the entrance, "Comes back at level N" in the accent. When
 --   the character reaches one's level while that pick-up guide is the open tab, a chat line says
 --   so and its giver (the first open prerequisite's) gets a pin on the map and minimap; the arrow
@@ -1091,8 +1106,68 @@ function Dungeons.OpensNote(quests, breadcrumb, note)
 	return note and (text .. " " .. note) or text
 end
 
+function Dungeons.MarkOpens(step, quest, opens, breadcrumb)
+	local goals = step and step.goals
+	if type(goals) ~= "table" then return end
+	local target = goals[1]
+	for _, g in ipairs(goals) do
+		if g.t == "accept" and g.quest == quest then
+			target = g
+			break
+		end
+	end
+	if target then target.note = Dungeons.OpensNote(opens, breadcrumb, target.note) end
+end
+
+-- A quest's mob: the kill and the walk to the next one. Anything else (an
+-- object to use or loot, a talk, an event) per count. The Ruins of
+-- Lordaeron's five Horde prerequisites (A Recipe For Death 447, 450, 451,
+-- Rear Guard Patrol 356, 99156), from the Crossroads, come to about 1 h 15
+-- min; players' recordings take 97 minutes from accept to hand-in for the
+-- low quarter of each (with other work in between), 120 at the median.
+local KILL_SECONDS = 40
+local USE_SECONDS = 30
+local MIN_CHANCE = 2 -- percent: a rarer drop counts as this (no hour-long farms)
+
+function Dungeons.ObjectiveSeconds(o)
+	local n = math.max(1, tonumber(o and o.count) or 1)
+	if o.type == "kill" then return n * KILL_SECONDS end
+	if o.type == "item" then
+		local C = ns.Codex
+		local it = C and C.Item and C.Item(o.id)
+		local best
+		for _, src in ipairs(it and it.sources or {}) do
+			local c = src.type == "drop" and src.npc and tonumber(src.chance)
+			if c and c > 0 and (not best or c > best) then best = c end
+		end
+		if best then return n * KILL_SECONDS * 100 / math.max(MIN_CHANCE, math.min(100, best)) end
+	end
+	return n * USE_SECONDS
+end
+
+-- A prerequisite stop's rough time: the travel from `pos` to where it starts
+-- and on to where it ends (LK().Travel; unknown: none), plus its quest's
+-- objectives (Dungeons.ObjectiveSeconds).
+local function prereqSeconds(pos, s)
+	local Lk = LK()
+	local t = 0
+	if Lk and Lk.Travel then
+		t = t + (Lk.Travel(pos, s.inP) or 0) + (s.inP and s.outP and Lk.Travel(s.inP, s.outP) or 0)
+	end
+	for _, o in ipairs(s.rec and s.rec.objectives or {}) do t = t + Dungeons.ObjectiveSeconds(o) end
+	return t
+end
+
+-- Seconds as "about" minutes: to 5 minutes, at least 5. -> text
+function Dungeons.PrereqTime(seconds)
+	local m = math.max(5, math.floor(((tonumber(seconds) or 0) / 60 + 2.5) / 5) * 5)
+	if m >= 60 then return format(L["%d h %d min"], math.floor(m / 60), m % 60) end
+	return format(L["%d min"], m)
+end
+
 -- plan -> steps (the givers and prerequisites in route order): the
--- cheapest path to the entrance, or the order kept for the character.
+-- cheapest path to the entrance, or the order kept for the character;
+-- and the prerequisites among them: { n, seconds }.
 local function route(key, plan)
 	local Lk = LK()
 	local from = ns.PlayerPoint()
@@ -1101,6 +1176,7 @@ local function route(key, plan)
 	local finish = located(e) and { map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil } or nil
 	local order = Dungeons.OrderStops(stops, from, finish, "dungeonPickup", key)
 	local steps, pos, lastGiver = {}, from, nil
+	local pre = { n = 0, seconds = 0 }
 	for _, i in ipairs(order) do
 		local s = stops[i]
 		if s.giver then
@@ -1129,13 +1205,17 @@ local function route(key, plan)
 			-- Why the step is in a dungeon's guide: the page quests it opens (a
 			-- breadcrumb: leads to), so a quest out in the world is not a mystery
 			-- (Rear Guard Patrol before the Ruins of Lordaeron's The Wrath of Rath'mael).
-			if step then step.note = Dungeons.OpensNote(s.opens, by ~= nil, step.note) end
+			if step then
+				Dungeons.MarkOpens(step, s.rec.id, s.opens, by ~= nil)
+				pre.n = pre.n + 1
+				pre.seconds = pre.seconds + prereqSeconds(pos, s)
+			end
 			steps[#steps + 1] = step
 			lastGiver = nil
 		end
 		pos = s.outP or pos
 	end
-	return steps
+	return steps, pre
 end
 
 -- The dungeons whose pick-up guide the heads-up opened (the offer rule):
@@ -1159,7 +1239,7 @@ function Dungeons.PickupGuide(key)
 	if not plan then return nil, err end
 	if #plan.take == 0 then return nil, "nothing" end
 	local d = plan.dungeon
-	local steps = route(key, plan)
+	local steps, pre = route(key, plan)
 	if #steps == 0 then return nil, "nothing" end
 	local last = { title = d.name, goals = {} }
 	-- The quests already in the log: one line in the step's note, not a row
@@ -1191,6 +1271,13 @@ function Dungeons.PickupGuide(key)
 	-- so does the dungeon's page.
 	last.goals[#last.goals + 1] = { t = "note", text = L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] }
 	steps[#steps + 1] = last
+	-- How much of the way is prerequisites, and about how long they take: on
+	-- the first goal, the first thing the window says.
+	local first = steps[1] and steps[1].goals and steps[1].goals[1]
+	if pre.n > 0 and first then
+		local head = format(L["Prerequisite quests: %d of %d steps, about %s."], pre.n, #steps, Dungeons.PrereqTime(pre.seconds))
+		first.note = first.note and (head .. " " .. first.note) or head
+	end
 	return { title = format(L["%s: pick up the quests"], d.name), steps = steps, dungeon = key }
 end
 
