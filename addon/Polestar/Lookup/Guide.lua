@@ -30,7 +30,9 @@
 --       elite, rare elite or boss out in the world, or an item it drops,
 --       carries the compiled guides' `group` ({ kind = "elite", rank, lvl }),
 --       so the step says "Elite: group advised" (Rear Guard Patrol's Riptear,
---       before the Ruins of Lordaeron's The Wrath of Rath'mael)
+--       before the Ruins of Lordaeron's The Wrath of Rath'mael); so does an
+--       object's work among hostile elites, as the Codex build marks it
+--       (Berard's Bookshelf in Pyrewood Village, #1778)
 --   Lookup.AcceptPre(goal, quest) -> goal
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
@@ -301,6 +303,18 @@ local function eliteGroup(npc)
 	return { kind = "elite", rank = npc.boss and 3 or (npc.rare and 2) or 1, lvl = npc.level }
 end
 
+-- An objective's hostile elites for the character's side, as the Codex build
+-- marked them (objective.elites[side] = { rank, lvl }: an object to use, or
+-- an item only objects give, among elites; forge-data codex/elites.rs) ->
+-- the same `group` as an elite target's, else nil. Read, never searched
+-- for in game (#1778: Berard's Bookshelf in Pyrewood Village).
+local function eliteMark(o)
+	local code = o.elites and Lookup.PlayerInfo().code
+	local e = code and o.elites[code]
+	if not (e and e.rank) then return nil end
+	return { kind = "elite", rank = e.rank, lvl = e.lvl }
+end
+
 -- Spawn areas (docs/GUIDE_FORMAT.md, "Spawn areas"), as compiled goals get
 -- them (tools/lib/dsl/resolve.js, spawnSpots), for a kill, collect or interact
 -- goal placed at one of its target's spawns: every Codex spawn of the target
@@ -564,7 +578,7 @@ local function questStep(q, from, isTarget, opts)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
 			if source then mark(s, name) end
 			goals[#goals + 1] = spawnSpots(at(itemFrom({ t = "collect", item = o.id, itemName = name,
-				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) }, o.id), s), spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) or eliteMark(o) }, o.id), s), spawns)
 		elseif o.type == "talk" and o.id then
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
@@ -586,7 +600,7 @@ local function questStep(q, from, isTarget, opts)
 				mark(s, objName)
 			end
 			goals[#goals + 1] = spawnSpots(at({ t = "interact", object = o.id, objName = objName,
-				quest = q.id, oi = oi, count = count, title = q.title }, s), obj and obj.spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteMark(o) }, s), obj and obj.spawns)
 		else
 			event = event or o
 		end
