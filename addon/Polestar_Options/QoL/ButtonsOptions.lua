@@ -404,10 +404,10 @@ local SPECS = {
 	-- The floating button and the minimap button: each on/off beside its size.
 	{ page = PAGE, tab = OTHER, section = L["Floating & minimap"], preview = buildLauncherPreview, controls = {
 		{ kind = "slider", key = "ui.launcherSize", label = L["Floating button"], min = 16, max = 96, step = 1, format = px, new = NEW,
-			help = L["The floating button's size. The switch beside it shows it: a small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it."],
+			help = L["The floating button's size. The switch beside it shows it: a small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it."],
 			search = "launcher size, floating button size, bigger, smaller, huge, tiny",
 			extras = { { kind = "toggle", key = "ui.launcher", label = L["Floating button"],
-				help = L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
+				help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
 				search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" } } },
 		{ kind = "slider", key = "ui.launcherAlpha", label = L["Opacity"], min = 0.1, max = 1, step = 0.05, format = percent, new = NEW,
 			help = L["How solid the floating button is."],
