@@ -248,6 +248,28 @@ fn it_waits_out_combat_an_instance_and_a_fresh_installs_first_two_minutes() {
 	assert_eq!(fresh, vec![json!({ "early": false }), json!({ "after": true })]);
 }
 
+// The login check lays the guide window out again only when the line would read otherwise: nothing known, or
+// the line already showing what is known, costs no layout (a layout redraws the whole window; ui-journey.rs's
+// position updates count them). A newer release heard later does lay it out.
+#[test]
+fn the_login_check_lays_the_guide_window_out_only_when_the_line_changes() {
+	let script = r#"
+		local GF2, layouts = Polestar.UI.GuideFrame, 0
+		local layout = GF2.Layout
+		GF2.Layout = function(...) layouts = layouts + 1; return layout(...) end
+		stub.login()
+		uistub.setGuide(uistub.elwynn, 3)
+		layouts = 0
+		stub.advance(11)
+		local quiet = layouts
+		U.NotePeer("0.3.8")
+		emit({ quiet = quiet, heard = layouts, line = banner() ~= false })"#;
+	let nothing = run(script, account("", ""));
+	assert_eq!(nothing[0], json!({ "quiet": 0, "heard": 1, "line": true }), "nothing known at login: no layout; 0.3.8 heard: one");
+	let known = run(&format!(r#"client("0.3.7", {{ "0.3.7", "0.3.6" }}){script}"#), account("", ""));
+	assert_eq!(known[0]["quiet"], 0, "the line already says 0.3.7: no layout at the login check");
+}
+
 #[test]
 fn whats_new_copies_the_release_notes_link_and_the_lines_update_brings_the_card_back() {
 	let out = run(

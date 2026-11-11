@@ -157,7 +157,9 @@ Messages:
 `UPDATE_KNOWN` (latest version) is fired by Core/Update.lua when a newer
 release than any known becomes known during a session (a party or guild
 member's version): the guide window's update line and the update card look
-again ("Update notices", under UI).
+again ("Update notices", under UI). The update line lays the guide window
+out again (`GF.Layout`) only when its text would change, never for the login
+check alone.
 
 Modules fire their own (`TABS_CHANGED`, `ROUTE_*`, `TRAIN_DUE`,
 `CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `QUESTDB_*`, `CODEX_LOADED`,
