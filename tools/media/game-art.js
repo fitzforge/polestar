@@ -1,6 +1,8 @@
 'use strict';
 // Where the client keeps the retail art of the atlases the Blizzard skin draws
-// (Polestar.Theme, "Skins"): addon/Polestar/Theme/GameArt.lua.
+// (Polestar.Theme, "Skins"): addon/Polestar_Looks/GameArt.lua, in the part
+// that holds the game looks (loaded on demand: it reads Polestar's namespace
+// through the Polestar global).
 //
 // The Forever client swaps many atlas names for its own art (the "-c60"
 // members of an atlas element), so SetAtlas draws Forever's bronze there. The
@@ -60,7 +62,8 @@ const ELEMENTS = [
 	'UI-QuestTracker-Secondary-Objective-Header', 'UI-QuestTracker-Tracker-Check',
 ];
 
-const OUT = path.join('Theme', 'GameArt.lua');
+// Relative to the addon folder the generator is given (addon/Polestar).
+const OUT = path.join('..', 'Polestar_Looks', 'GameArt.lua');
 
 const round = (n) => Math.round(n * 1e7) / 1e7;
 
@@ -125,7 +128,7 @@ function toLua(art, build, slices = {}) {
 		'-- The retail art of the atlases the Blizzard skin draws: file ID, size at',
 		'-- 1x, texture coordinates (left, right, top, bottom).',
 		'',
-		'local _, ns = ...',
+		'local ns = Polestar',
 		'ns.GameArt = {',
 	];
 	for (const name of Object.keys(art).sort()) {

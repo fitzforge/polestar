@@ -287,7 +287,7 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	let check = |addons: &str| {
 		run(Opts {
 			before: format!(
-				r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}, {{ name = "Polestar_Options" }}{addons} }}"#
+				r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}, {{ name = "Polestar_Options" }}, {{ name = "Polestar_Looks" }}{addons} }}"#
 			),
 			script: script.into(),
 			..Default::default()
@@ -297,7 +297,7 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	assert_eq!(check(""), json!(["", ""]));
 	assert_eq!(check(r#", { name = "Polestar_frFR" }"#), json!(["", ""]));
 	let stale = run(Opts {
-		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Guides_Alliance\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_frFR\" } }\nstub.addonMeta[\"Polestar_frFR\"] = { Version = \"0.0.1\" }".into(),
+		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Guides_Alliance\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Looks\" }, { name = \"Polestar_frFR\" } }\nstub.addonMeta[\"Polestar_frFR\"] = { Version = \"0.0.1\" }".into(),
 		script: script.into(),
 		..Default::default()
 	});

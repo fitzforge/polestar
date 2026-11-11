@@ -40,6 +40,7 @@ fn the_translations_keep_polestars_name_fill_every_locale_and_the_language_folde
 		"Polestar_Codex",
 		"Polestar_Guides",
 		"Polestar_ItemDB",
+		"Polestar_Looks",
 		"Polestar_Nav",
 		"Polestar_Options",
 		"Polestar_QuestDB",

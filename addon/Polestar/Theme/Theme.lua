@@ -154,7 +154,7 @@ Theme.HexColor = hex
 --               accent, drawn in Polestar's own art (no client textures)
 --   "forever", "blizzard", "classic"   the client's own art: WoW Forever's,
 --               the retail art (Blizzard Style) and the vanilla files
---               (Theme/GameSkins.lua draws them)
+--               (Polestar_Looks/GameSkins.lua draws them)
 -- A skin brings its whole palette, its fonts, its frame paints and its sizes.
 -- The colour scheme, ground colour and brightness belong to the house style;
 -- the player's own accent, window border and arrow colours win in every skin.
@@ -295,7 +295,7 @@ Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "class
 local HIDDEN_SKINS = {}
 -- Tests may set Theme._testShowHidden = true to render hidden skins directly.
 Theme._testShowHidden = false
--- The skins drawn in the game's own colours and controls (Theme/GameSkins.lua:
+-- The skins drawn in the game's own colours and controls (Polestar_Looks/GameSkins.lua:
 -- the client's check boxes, sliders, red buttons, its font and hard shadow).
 local GAME_SKINS = { forever = true, blizzard = true, classic = true }
 -- The Skin API's registries (Theme.RegisterSkin / Theme.RegisterScheme at the
@@ -1970,7 +1970,7 @@ local HOUSE_PAINT = {
 		hoverWash(f):SetVertexColor(Theme.Wash("hover"))
 	end,
 	scrollbar = function(f)
-		-- Back from a game look's scroll bar (Theme/GameSkins.lua): the slim
+		-- Back from a game look's scroll bar (Polestar_Looks/GameSkins.lua): the slim
 		-- white thumb over the whole bar.
 		local thumb = f.thumb or f.psThumb
 		if f.psInset then
@@ -2139,7 +2139,7 @@ local function clearSkin(f)
 	if d.red then for i = 1, 3 do d.red[i]:Hide() end; d.red.hl:Hide() end
 	if d.line then d.line:Hide() end
 	if d.hover then d.hover:SetVertexColor(1, 1, 1, 0) end
-	-- The game's looks (Theme/GameSkins.lua) keep their pieces here.
+	-- The game's looks (Polestar_Looks/GameSkins.lua) keep their pieces here.
 	if d.kit then hideAll(d.kit) end
 end
 
@@ -2165,90 +2165,44 @@ local function veilAlpha(f, token)
 	return math.min(1, a * scale)
 end
 
--- Hearth's painters. Its pieces live in the frame's kit store
--- (frame.psSkin.kit, as the game's looks keep theirs), so Theme's clearSkin
--- hides them when another skin paints the frame. A gradient set on a
--- texture outlives a flat SetVertexColor, so the boards and planks draw on
--- their own texture and leave the house fill (psSkin.bg) flat for the
--- skins that use it so.
-local HEARTH = {}
+-- The game's looks (WoW Forever, Blizzard, Classic: their kits and painters)
+-- and Hearth's painters live in their own part, Polestar_Looks (load on
+-- demand), loaded the first time one of them is painted: a player on the
+-- house look never pays for them at login. Until then Theme.Kit is nil and
+-- the Theme.Kit* calls draw nothing; the part replaces them as it loads
+-- (Polestar_Looks/GameSkins.lua, Hearth.lua).
+local loadLooks
 do
-	local function store(f)
-		local d = f.psSkin
-		d.kit = d.kit or {}
-		return d.kit
+	local LOOKS, BASES = "Polestar_Looks", { hearth = true, forever = true, blizzard = true, classic = true }
+	local tried = false
+	-- Loads the part when `base` is one of its looks (once: a part that is
+	-- missing or disabled leaves the house look standing). -> whether it is in
+	function loadLooks(base)
+		if Theme.KITS then return true end
+		if not BASES[base] or tried then return false end
+		tried = true
+		local A = C_AddOns
+		local load = A and A.LoadAddOn or LoadAddOn
+		if load then pcall(load, LOOKS) end
+		return Theme.KITS ~= nil
 	end
-
-	-- The board: `top` shading to `bottom` over the whole frame, on the
-	-- house fill's layer; the house fill itself out of sight.
-	function HEARTH.board(f, top, bottom)
-		local k = store(f)
-		local t = k.board
-		if not t then
-			t = f:CreateTexture(nil, "BACKGROUND", nil, -7)
-			t:SetTexture(Theme.Media("white"))
-			t:SetAllPoints(f)
-			k.board = t
-		end
-		if f.psSkin.bg then f.psSkin.bg:Hide() end
-		if t.SetGradient and CreateColor then
-			t:SetGradient("VERTICAL", CreateColor(bottom[1], bottom[2], bottom[3], bottom[4] or 1), CreateColor(top[1], top[2], top[3], top[4] or 1))
-		else
-			t:SetVertexColor(top[1], top[2], top[3], top[4] or 1)
-		end
-		t:Show()
-		return t
+	Theme.LoadLooks = loadLooks
+	-- The kit of the skin in use, or nil (the house style, Halo, Hearth).
+	function Theme.Kit()
+		local key = Theme.SkinKey()
+		if not GAME_SKINS[key] or not loadLooks(key) then return nil end
+		return Theme.KITS[key]
 	end
-
-	-- The firelight: the lower half of Media/UI/glow (a soft radial) laid
-	-- along a window's top edge in the ember colour, added to the ground, so
-	-- the board reads lit from above and fades into shadow.
-	local EMBER_H = 120
-	function HEARTH.ember(f, alpha)
-		local k = store(f)
-		local g = k.ember
-		if not g then
-			g = f:CreateTexture(nil, "BACKGROUND", nil, -6)
-			g:SetTexture(Theme.Media("glow"))
-			g:SetTexCoord(0, 1, 0.5, 1)
-			g:SetBlendMode("ADD")
-			g:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
-			g:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
-			k.ember = g
+	-- The kit calls the guide window and the widgets make, in the house
+	-- look: nothing drawn, until a game look brings the part in.
+	for _, name in ipairs({ "KitTab", "KitRowLit", "KitHeader", "KitStrip", "KitStatus", "KitCheck", "KitSlider",
+		"KitDropArrow", "KitIconButton", "KitHide" }) do
+		local standIn
+		standIn = function(...)
+			if loadLooks(Theme.SkinKey()) and Theme[name] ~= standIn then return Theme[name](...) end
+			return false
 		end
-		local h = f.GetHeight and f:GetHeight() or 0
-		g:SetHeight(h > 0 and math.min(EMBER_H, h) or EMBER_H)
-		local r, gg, b = Theme.Color("ember")
-		g:SetVertexColor(r, gg, b, alpha)
-		g:Show()
-		return g
-	end
-
-	-- Hearth's transparent window: bare, its board and ember light out too.
-	function HEARTH.bare(f)
-		bare(f)
-		local k = f.psSkin.kit
-		if k then
-			if k.board then k.board:Hide() end
-			if k.ember then k.ember:Hide() end
-		end
-	end
-
-	-- Hearth's plank: a control's ground shading down to its foot, edged in
-	-- copper. A primary button keeps the flat house fill for the accent
-	-- W.Button lays on it.
-	function HEARTH.plank(f)
-		if f.psPrimary then
-			local k = f.psSkin.kit
-			if k and k.board then k.board:Hide() end
-			fill(f):SetVertexColor(Theme.Color("control"))
-		else
-			local top = { Theme.Color("control") }
-			HEARTH.board(f, top, shifted(top, -0.06))
-		end
-		local r, g, b = Theme.Color("frameEdge")
-		Theme.Border(f, r, g, b, 0.6)
-		hoverWash(f)
+		Theme[name] = standIn
 	end
 end
 
@@ -2307,98 +2261,9 @@ local SKIN_PAINT = {
 			Theme.Border(d.box, Theme.Color("box"))
 		end,
 	},
-	hearth = {
-		-- A walnut board lit from above: the bg -> bgBottom gradient at the
-		-- player's opacity (their own ground colour darkened toward its
-		-- foot when they picked one), the ember light along its top edge, a
-		-- copper hairline by the window border setting (the player's own
-		-- colour wins) and the house drop shadow in Hearth's warm shade.
-		window = function(f)
-			if f.psBare then return HEARTH.bare(f) end
-			local a = veilAlpha(f, "bg")
-			local top, bottom = { Theme.Color("bg") }, { Theme.Color("bgBottom") }
-			if isColor(f.psBgColor) then
-				top = { f.psBgColor[1], f.psBgColor[2], f.psBgColor[3] }
-				bottom = shifted(top, -0.08)
-			end
-			top[4], bottom[4] = a, a
-			HEARTH.board(f, top, bottom)
-			-- Small boards (the guide window, the toasts) sit closer to the
-			-- fire than the big windows.
-			HEARTH.ember(f, ((f.psGuide or f.psLight) and 0.2 or 0.16) * math.min(1, a + 0.2))
-			local shown, size = Theme.WindowBorder()
-			if shown and not f.psNoBorder then
-				local br, bg, bb, ba = Theme.Color("windowBorder")
-				Theme.Border(f, br, bg, bb, ba, nil, size)
-			else
-				hideBorder(f)
-			end
-			if get("ui.shadow") == false then
-				if f.psShadow then f.psShadow:Hide() end
-				return
-			end
-			local s = shadowFor(f)
-			local sr, sg, sb, sa = Theme.Color("shadow")
-			for i = 1, #s.parts do s.parts[i]:SetVertexColor(sr, sg, sb, sa * math.min(1, a + 0.1)) end
-			s:Show()
-		end,
-		-- Menus and detail panes: a flat, slightly lighter board with a
-		-- dark copper edge.
-		panel = function(f)
-			if f.psBare then return bare(f) end
-			fill(f):SetVertexColor(Theme.Color("panel"))
-			Theme.Border(f, Theme.Color("frameEdgeDark"))
-		end,
-		-- Action tiles: a shaded recess in the board.
-		tile = function(f)
-			local r, g, b = Theme.Color("shade")
-			fill(f):SetVertexColor(r, g, b, 0.35)
-			Theme.Border(f, Theme.Color("titleLine"))
-			hoverWash(f)
-		end,
-		sidebar = function(f)
-			fill(f):SetVertexColor(Theme.Color("sidebar"))
-		end,
-		inset = function(f)
-			local r, g, b = Theme.Color("shade")
-			fill(f):SetVertexColor(r, g, b, 0.4)
-			hideBorder(f)
-		end,
-		-- Text buttons (W.Button) and dropdowns are planks: the control
-		-- ground shading down, a copper edge; primary buttons take the
-		-- accent fill the house gives them. Anything else painted as a
-		-- button (cards, rows) is a shaded recess.
-		button = function(f)
-			if f.psTextButton then return HEARTH.plank(f) end
-			local r, g, b = Theme.Color("shade")
-			fill(f):SetVertexColor(r, g, b, 0.35)
-			Theme.Border(f, Theme.Color("titleLine"))
-			hoverWash(f)
-		end,
-		dropdown = HEARTH.plank,
-		editbox = function(f)
-			fill(f):SetVertexColor(Theme.Color("inputBg"))
-			if f.psFocused then
-				local r, g, b = Theme.Accent()
-				Theme.Border(f, r, g, b, 0.8)
-			else
-				Theme.Border(f, Theme.Color("frameEdgeDark"))
-			end
-		end,
-		-- The tick box: a recess edged in copper, the house check in the
-		-- accent inside it.
-		checkbox = function(f)
-			HOUSE_PAINT.checkbox(f)
-			local d = f.psSkin
-			d.box:SetSize(15, 15)
-			if f.psOnWorld then return end
-			fill(d.box):SetVertexColor(Theme.Color("inputBg"))
-			Theme.Border(d.box, Theme.Color("box"))
-		end,
-	},
 }
 Theme.SKIN_PAINT = SKIN_PAINT
--- The paint helpers Theme/GameSkins.lua builds the game's looks from.
+-- The paint helpers the game's looks and Hearth build from (Polestar_Looks).
 Theme.Paint = { fill = fill, hoverWash = hoverWash, bare = bare, hideBorder = hideBorder, redButton = redButton, house = HOUSE_PAINT }
 
 -- What a registered skin's painters and hooks may build with
@@ -2608,7 +2473,7 @@ local function kitCrossfade(tex, file, seconds)
 	end)
 end
 
--- kit.tintArt: the game art a base look drew on the frame (Theme/GameSkins.lua:
+-- kit.tintArt: the game art a base look drew on the frame (Polestar_Looks/GameSkins.lua:
 -- its nine-slices, plates and the red buttons), desaturated (0-1), brighter
 -- or darker (brightness -1..1) and tinted. What the base sets again on its
 -- next paint is tinted again from there; another skin puts it all back.
@@ -2713,7 +2578,7 @@ end
 -- A piece of the base look's art in colour r, g, b, a (white when nil), with
 -- the skin in use's artTint over it (spec.artTint: tinted, brighter or
 -- darker, desaturated); without one, as given and fully saturated. The game
--- looks draw every piece of their art through this (Theme/GameSkins.lua), so
+-- looks draw every piece of their art through this (Polestar_Looks/GameSkins.lua), so
 -- the tint reaches it all and goes when the skin does.
 function Theme.TintArt(t, r, g, b, a)
 	r, g, b, a = r or 1, g or 1, b or 1, a or 1
@@ -2762,6 +2627,7 @@ local function paint(frame, kind)
 		if frame.psSkin.skin then clearSkin(frame) end
 		frame.psSkin.skin = look
 	end
+	if not SKIN_PAINT[base] then loadLooks(base) end
 	local own = SKIN_PAINT[base]
 	local fn = (own and own[kind]) or HOUSE_PAINT[kind] or HOUSE_PAINT.panel
 	local registered = s and not s.builtin
@@ -3092,6 +2958,8 @@ ns.ThemeInternal = {
 	pcall = pcall,
 	resolve = resolve,
 	shifted = shifted,
+	shadowFor = shadowFor,
+	veilAlpha = veilAlpha,
 	switchSkin = switchSkin,
 	type = type,
 	batch = batch,

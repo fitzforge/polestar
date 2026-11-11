@@ -177,6 +177,21 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：其他插件提供的皮膚需通過的檢查。使用皮膚時載入。',
 		},
 	},
+	// The game looks (WoW Forever, Blizzard, Classic) and Hearth: loaded the first time one is painted.
+	Polestar_Looks: {
+		title: { deDE: 'Polestar: Designs', esES: 'Polestar: temas', esMX: 'Polestar: temas', frFR: 'Polestar : habillages', koKR: 'Polestar 스킨', ptBR: 'Polestar: temas', ruRU: 'Polestar: оформления', zhCN: 'Polestar 皮肤', zhTW: 'Polestar 皮膚' },
+		notes: {
+			deDE: 'Teil von Polestar: die Designs WoW Forever, Blizzard, Classic und Hearth. Wird geladen, wenn du eines auswählst.',
+			esES: 'Parte de Polestar: los temas WoW Forever, Blizzard, Classic y Hearth. Se carga cuando eliges uno.',
+			esMX: 'Parte de Polestar: los temas WoW Forever, Blizzard, Classic y Hearth. Se carga cuando eliges uno.',
+			frFR: 'Fait partie de Polestar : les habillages WoW Forever, Blizzard, Classic et Hearth. Chargé quand vous en choisissez un.',
+			koKR: 'Polestar의 일부: WoW Forever, Blizzard, Classic, Hearth 스킨. 하나를 고를 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: os temas WoW Forever, Blizzard, Classic e Hearth. Carregado quando você escolhe um.',
+			ruRU: 'Часть Polestar: оформления WoW Forever, Blizzard, Classic и Hearth. Загружается, когда вы выбираете одно из них.',
+			zhCN: 'Polestar 的组成部分：WoW Forever、Blizzard、Classic 和 Hearth 皮肤。选择其中一个时加载。',
+			zhTW: 'Polestar 的一部分：WoW Forever、Blizzard、Classic 和 Hearth 皮膚。選擇其中一個時載入。',
+		},
+	},
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	Polestar_Skin_Example: {
 		title: { deDE: 'Polestar: Design-Beispiel', esES: 'Polestar: tema de ejemplo', esMX: 'Polestar: tema de ejemplo', frFR: "Polestar : habillage d'exemple", koKR: 'Polestar 스킨 예제', ptBR: 'Polestar: tema de exemplo', ruRU: 'Polestar: пример оформления', zhCN: 'Polestar 皮肤示例', zhTW: 'Polestar 皮膚範例' },

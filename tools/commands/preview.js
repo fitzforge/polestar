@@ -658,7 +658,7 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end
 // { file, w, h, l, r, t, b } }, the Forever client's members) and files.json
 // ({ [lower-case "interface\\...\\name"]: fileID }), the game's own UI art is
 // drawn too: SetAtlas, C_Texture.GetAtlasInfo and SetTexture by path resolve
-// to file IDs, so the game's looks (Theme/GameSkins.lua) can be checked
+// to file IDs, so the game's looks (Polestar_Looks/GameSkins.lua) can be checked
 // before a client run. Only textures decoded into the folder are listed.
 let uiArtLua;
 function clientUiArtLua() {

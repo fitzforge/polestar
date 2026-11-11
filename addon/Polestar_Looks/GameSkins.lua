@@ -1,4 +1,4 @@
--- Polestar.Theme, the game's own skins (docs/ARCHITECTURE.md, "Skins"):
+-- Polestar_Looks (load on demand), the game's own skins (docs/ARCHITECTURE.md, "Skins"):
 -- Polestar drawn in the client's art, the three looks EllesmereUI offers on
 -- the Forever client (only their visual spec is followed; nothing of that
 -- addon is used), composed the way the client's own templates compose them
@@ -20,9 +20,12 @@
 --               the cast bar's frame. Every backdrop is drawn piece by
 --               piece (Theme.KitEdge), as the client cuts its edge files.
 -- Every piece drawn here lives in frame.psSkin.kit, so Theme's clearSkin
--- hides it when another skin paints the frame.
+-- hides it when another skin paints the frame. Polestar loads this part the
+-- first time one of these looks (or Hearth, Hearth.lua) is painted
+-- (Theme.LoadLooks): a player on the house look never pays for it. It
+-- replaces the core's stand-ins for Theme.Kit and the Theme.Kit* calls.
 
-local _, ns = ...
+local ns = Polestar
 local Theme = ns.Theme
 local P = Theme.Paint
 

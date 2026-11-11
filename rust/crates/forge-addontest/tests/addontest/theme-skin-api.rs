@@ -12,9 +12,10 @@ use forge_addontest::run::addons_dir;
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
-// Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, GameSkins.lua, the widgets); its
-// checks (Polestar_SkinAPI) load on demand with the first registration, and the picker's cards and the presets
-// load with the settings window (Polestar_Options/Theme/SkinPicker.lua).
+// Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, the Skin API, the widgets); its
+// checks (Polestar_SkinAPI) load on demand with the first registration, the game looks and Hearth
+// (Polestar_Looks) the first time one is painted, and the picker's cards and the presets load with the settings
+// window (Polestar_Options/Theme/SkinPicker.lua).
 const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml"];
 
 fn picker() -> Addon {

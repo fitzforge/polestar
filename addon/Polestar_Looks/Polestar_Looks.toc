@@ -1,0 +1,33 @@
+## Interface: 16001
+## Title: Polestar Looks
+## Notes: Part of Polestar: the WoW Forever, Blizzard, Classic and Hearth skins. Loaded when you pick one.
+## Title-deDE: Polestar: Designs
+## Notes-deDE: Teil von Polestar: die Designs WoW Forever, Blizzard, Classic und Hearth. Wird geladen, wenn du eines auswählst.
+## Title-esES: Polestar: temas
+## Notes-esES: Parte de Polestar: los temas WoW Forever, Blizzard, Classic y Hearth. Se carga cuando eliges uno.
+## Title-esMX: Polestar: temas
+## Notes-esMX: Parte de Polestar: los temas WoW Forever, Blizzard, Classic y Hearth. Se carga cuando eliges uno.
+## Title-frFR: Polestar : habillages
+## Notes-frFR: Fait partie de Polestar : les habillages WoW Forever, Blizzard, Classic et Hearth. Chargé quand vous en choisissez un.
+## Title-koKR: Polestar 스킨
+## Notes-koKR: Polestar의 일부: WoW Forever, Blizzard, Classic, Hearth 스킨. 하나를 고를 때 불러옵니다.
+## Title-ptBR: Polestar: temas
+## Notes-ptBR: Parte do Polestar: os temas WoW Forever, Blizzard, Classic e Hearth. Carregado quando você escolhe um.
+## Title-ruRU: Polestar: оформления
+## Notes-ruRU: Часть Polestar: оформления WoW Forever, Blizzard, Classic и Hearth. Загружается, когда вы выбираете одно из них.
+## Title-zhCN: Polestar 皮肤
+## Notes-zhCN: Polestar 的组成部分：WoW Forever、Blizzard、Classic 和 Hearth 皮肤。选择其中一个时加载。
+## Title-zhTW: Polestar 皮膚
+## Notes-zhTW: Polestar 的一部分：WoW Forever、Blizzard、Classic 和 Hearth 皮膚。選擇其中一個時載入。
+## Author: Polestar
+## Version: 0.3.6
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+GameArt.lua
+GameSkins.lua
+Hearth.lua

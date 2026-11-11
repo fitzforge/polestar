@@ -2160,7 +2160,7 @@ local function scrollUpdate(sf)
 	end
 	bar:Show()
 	-- A game look's scroll bar keeps its arrow buttons at the ends
-	-- (bar.psInset, Theme/GameSkins.lua): the thumb runs between them.
+	-- (bar.psInset, Polestar_Looks/GameSkins.lua): the thumb runs between them.
 	local inset = bar.psInset or 0
 	local track = max(1, view - 2 * inset)
 	local h = max(24, track * view / content)

@@ -866,7 +866,7 @@ fn guiding_stars_a_chinese_contributor_name_is_drawn_in_a_chinese_font_on_every_
 	}
 }
 
-// The game's looks (Theme/GameSkins.lua): each draws its own art source, and a window taken through all three
+// The game's looks (Polestar_Looks/GameSkins.lua): each draws its own art source, and a window taken through all three
 // comes back to the house style as it was.
 #[test]
 fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_the_vanilla_dialog_a_window_goes_through_them_and_back() {
@@ -911,7 +911,7 @@ fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_
 	assert_eq!(out["game"], true);
 	assert_eq!(out["close"], json!({ "frame": true, "shell": false }), "the close button sits on the frame corner");
 	assert_eq!(out["drag"], true, "the title bar drags the window");
-	assert_eq!(out["blizzardCorner"], 2406979, "Blizzard: the retail sheet by file ID (Theme/GameArt.lua)");
+	assert_eq!(out["blizzardCorner"], 2406979, "Blizzard: the retail sheet by file ID (Polestar_Looks/GameArt.lua)");
 	assert_eq!(out["forever"]["metal"], true);
 	assert_eq!(out["blizzard"]["metal"], true);
 	assert_eq!(json!({ "metal": out["classic"]["metal"].clone(), "dialog": out["classic"]["dialog"].clone() }), json!({ "metal": false, "dialog": true }), "Classic: the dialog box, no metal");
@@ -1007,7 +1007,7 @@ fn skins_forever_hover_plates_use_add_blend_306c() {
 	assert_eq!(out["platBlend"], "ADD", "plateLit ADD");
 }
 
-// Classic (Theme/GameSkins.lua, 0.3.7): the vanilla files composed as the client composes them, every backdrop
+// Classic (Polestar_Looks/GameSkins.lua, 0.3.7): the vanilla files composed as the client composes them, every backdrop
 // drawn piece by piece from its edge file (no BackdropTemplate frame, so the previews draw it too). The settings
 // window wears the dialog box with its header plate and its boxed sidebar; the guide window is a chat frame (the
 // tooltip tile under the chat tab's rim, its tabs cut from the chat tab sheet, the XP bar's purple progress in the
@@ -1212,4 +1212,41 @@ fn text_size_scales_every_role_at_once_apart_from_the_window_scale_within_80_to_
 	assert_eq!(out["spec"], true);
 	assert!((out["capped"].as_f64().unwrap() - 1.4).abs() < 0.05, "at most 140%: {}", out["capped"]);
 	assert_eq!(out["scale"], 1, "the window scale is left alone");
+}
+
+// The game looks (WoW Forever, Blizzard, Classic) and Hearth's painters live in a part loaded on demand
+// (Polestar_Looks): on the house look nothing of it is loaded and the kit calls draw nothing; the first of them
+// painted loads it, once, with every look's kit, painter and art table; back on the house look no kit is in use.
+#[test]
+fn the_game_looks_and_hearth_load_on_demand_the_first_time_one_is_painted_and_only_once() {
+	let out = run(r#"
+		local loads = 0
+		local load = C_AddOns.LoadAddOn
+		function C_AddOns.LoadAddOn(name, ...)
+			if name == "Polestar_Looks" then loads = loads + 1 end
+			return load(name, ...)
+		end
+		local house = { loaded = stub.addonsLoaded.Polestar_Looks == true, kits = T.KITS ~= nil, kit = T.Kit() ~= nil,
+			hearth = T.SKIN_PAINT.hearth ~= nil, forever = T.SKIN_PAINT.forever ~= nil, art = Polestar.GameArt ~= nil,
+			tab = T.KitTab(CreateFrame("Button"), "x"), loads = loads }
+		Polestar.Set("ui.skin", "hearth")
+		local hearth = { loads = loads, loaded = stub.addonsLoaded.Polestar_Looks == true, painter = T.SKIN_PAINT.hearth ~= nil,
+			kit = T.Kit() ~= nil }
+		Polestar.Set("ui.skin", "classic")
+		local classic = { loads = loads, kit = T.Kit() ~= nil and T.Kit() == T.KITS.classic, forever = T.SKIN_PAINT.forever ~= nil,
+			blizzard = T.SKIN_PAINT.blizzard ~= nil, art = Polestar.GameArt ~= nil }
+		Polestar.Set("ui.skin", "polestar")
+		emit({ house = house, hearth = hearth, classic = classic, back = { loads = loads, kit = T.Kit() ~= nil } })"#);
+	assert_eq!(
+		out["house"],
+		json!({ "loaded": false, "kits": false, "kit": false, "hearth": false, "forever": false, "art": false, "tab": false, "loads": 0 }),
+		"the house look loads nothing of the game looks"
+	);
+	assert_eq!(out["hearth"], json!({ "loads": 1, "loaded": true, "painter": true, "kit": false }), "Hearth brings the part in, with no kit");
+	assert_eq!(
+		out["classic"],
+		json!({ "loads": 1, "kit": true, "forever": true, "blizzard": true, "art": true }),
+		"a game look finds it in, loaded once"
+	);
+	assert_eq!(out["back"], json!({ "loads": 1, "kit": false }));
 }

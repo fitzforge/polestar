@@ -366,7 +366,7 @@ if ns.On then
 end
 
 -- The built-in schemes and skins (their tokens are Theme.lua's tables;
--- Theme/GameSkins.lua adds the game looks' painters), taken as they are:
+-- Polestar_Looks/GameSkins.lua adds the game looks' painters), taken as they are:
 -- tests/theme holds each to the legibility rule, so login checks nothing.
 local BUILTIN_SCHEME_LABEL = {
 	dusk = function() return ns.L["Dusk"] end,

@@ -3,7 +3,7 @@
 -- The retail art of the atlases the Blizzard skin draws: file ID, size at
 -- 1x, texture coordinates (left, right, top, bottom).
 
-local _, ns = ...
+local ns = Polestar
 ns.GameArt = {
 	["!Toast-NineSlice-EdgeLeft"] = { 4188847, 16, 16, 0.015625, 0.265625, 0, 1 },
 	["!Toast-NineSlice-EdgeRight"] = { 4188847, 16, 16, 0.296875, 0.546875, 0, 1 },

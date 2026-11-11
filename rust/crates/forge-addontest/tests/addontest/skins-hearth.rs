@@ -1,5 +1,5 @@
-//! The Hearth skin (Theme.lua SKIN_PALETTES.hearth and SKIN_PAINT.hearth, the hearth branches of
-//! Theme/Widgets.lua and UI/GuideFrame.lua): an inn by the fire, drawn in Polestar's own art. Every surface
+//! The Hearth skin (Theme.lua SKIN_PALETTES.hearth, its painters in Polestar_Looks/Hearth.lua, the hearth
+//! branches of Theme/Widgets.lua and UI/GuideFrame.lua): an inn by the fire, drawn in Polestar's own art. Every surface
 //! takes it: the guide window (its tabs, mantel, framed buttons, tick boxes and progress line), the controls
 //! (planks, switches, sliders, dropdowns, edit boxes, scroll bars), menus and the toasts; the transparent style
 //! puts the board and its light away; the game's looks are untouched by it.
