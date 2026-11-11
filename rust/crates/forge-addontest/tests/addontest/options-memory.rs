@@ -11,7 +11,7 @@
 //!   peak      the heap grown while loading it, with the collector stopped
 //!
 //! Login (0.3.8: the settings overhaul costs nothing a player notices at login): at most the 0.3.7 base's
-//! figure and 50 KiB. The base is next at 0df6f58ab (2026-11-10), measured with this test's script
+//! figure and 50 KiB. The base is next at c0c99712a (0.3.7 final, 2026-11-11), measured with this test's script
 //! (LOGIN_BASE). Rebased on a later release, measure that release's tree the same way and set LOGIN_BASE to
 //! it, with the date and sha. What the overhaul put out of the login, into Polestar_Options: the window, its
 //! pages and previews, the settings-only widgets (UI/Controls.lua), every module's rows (<Module>/Options.lua
@@ -25,8 +25,8 @@
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
-/// The 0.3.7 base's core at login: next at 0df6f58ab, this test's script, 2026-11-11: 10,428.4 KiB.
-const LOGIN_BASE: f64 = 10428.4;
+/// The 0.3.7 base's core at login: next at c0c99712a (0.3.7 final), this test's script, 2026-11-11: 11,003 KiB.
+const LOGIN_BASE: f64 = 11003.0;
 /// At most 50 KiB over the base.
 const LOGIN: f64 = LOGIN_BASE + 50.0;
 /// Loaded, 1,511 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
