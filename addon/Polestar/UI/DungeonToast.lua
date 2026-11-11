@@ -8,7 +8,7 @@
 -- (Dungeons.PickUp), so the leveling guide keeps its own; "Open in
 -- Dungeons" opens the dungeon's page in the hub's Dungeons section
 -- (Dungeons.Open); "Later" and the close button dismiss it; "Turn these off"
--- sets dungeons.headsUp off (also under Options > Discovery > Dungeons).
+-- sets dungeons.headsUp off (also under Options > Discovery > Lookup).
 -- The dungeon counts as told once the card is on screen or dismissed: a
 -- card waiting for a hidden guide window shows when the window does.
 --
@@ -202,7 +202,7 @@ end
 
 function DT.TurnOff()
 	ns.Set("dungeons.headsUp", false)
-	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."])
+	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."])
 end
 
 -- The checks that have to wait (combat, another heads-up on the card), in

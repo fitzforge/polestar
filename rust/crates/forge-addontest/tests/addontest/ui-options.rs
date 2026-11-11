@@ -297,13 +297,15 @@ fn old_page_keys_open_the_page_and_tab_that_hold_their_settings_now() {
 		..Default::default()
 	})
 	.remove(0);
+	// dungeons: the Dungeons tab holds the dungeons of this character's guides (none here), so the page's first tab,
+	// with the Dungeon Journal's switch.
 	assert_eq!(
 		mods,
 		json!({
 			"quests": "Questing > Quests",
 			"gear": "Questing > Rewards & gear",
 			"lookup": "Discovery > Lookup",
-			"dungeons": "Discovery > Dungeons",
+			"dungeons": "Discovery > Lookup",
 			"rares": "Discovery > Rares",
 			"qualityoflife": "Quality of Life > Quests",
 		})
@@ -1148,7 +1150,7 @@ fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_sett
 				"qol.rewardAutoPick", "qol.rewardEquip", "qol.itemButton", "qol.stepInteract", "qol.hideQuestTracker" }),
 			travel = missing("qualityoflife", "Travel", { "qol.hearthButton", "nav.castPrompt", "nav.alerts", "nav.nearbyButton", "nav.nearbyMenu" }),
 			vendors = missing("qualityoflife", "Vendors", { "behavior.trainReminder", "qol.trainAll" }),
-			map = missing("qualityoflife", "Map", { "maps.minimapButton", "maps.coords", "maps.minimapCoords" }),
+			map = missing("qualityoflife", "Trackers & map", { "maps.minimapButton", "maps.coords", "maps.minimapCoords" }),
 			questing = missing("questing", "Quests", { "qol.fastLoot", "qol.hideQuestTracker" }),
 			buttons = missing("questing", "Buttons", { "qol.itemButton", "qol.stepInteract", "qol.hearthButton" }),
 			guide = missing("guide", "Automation", { "behavior.trainReminder" }),
@@ -1161,8 +1163,8 @@ fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_sett
 		O.Select("questing", "Quests")
 		r.questingShows = O.Controls("questing", "Quests")["qol.fastLoot"].checked
 		local before = Polestar.Get("maps.minimapButton")
-		O.Select("qualityoflife", "Map")
-		O.Controls("qualityoflife", "Map")["maps.minimapButton"]:Click()
+		O.Select("qualityoflife", "Trackers & map")
+		O.Controls("qualityoflife", "Trackers & map")["maps.minimapButton"]:Click()
 		r.minimapFlipped = Polestar.Get("maps.minimapButton") ~= before
 		O.Select("map", "Guide & quests")
 		r.mapShows = O.Controls("map", "Guide & quests")["maps.minimapButton"].checked == Polestar.Get("maps.minimapButton")
@@ -1970,18 +1972,25 @@ fn the_first_open_says_hover_and_right_click_once_until_dismissed_for_good() {
 	assert_eq!(next["first"]["shown"], false, "for good");
 }
 
-// Every Look page and tab, at defaults, keeps the layout rules (FIXES-V2 R1-R4, R7): no shown section with fewer
-// than two rows, no half with two switches or two swatches inline, no tab whose every row is off, no slider value
-// (at its default, least and most) wider than its box.
+// Every page and tab, Guiding and Setup as the Look pages, at defaults, keeps the window's layout rules: no shown
+// section with fewer than two rows, no half with two switches or two swatches inline, no tab whose every row is off,
+// no slider value (at its default, least and most) wider than its box. Integrations is a section
+// per addon Polestar works with, shown while that addon is installed: one row is that addon's. Custom pages
+// (Profiles, Community guides, Guiding Stars, Recorder, About) lay out their own parts.
 #[test]
-fn every_look_page_keeps_the_layout_rules_at_defaults() {
-	let out = run_mods(
-		"",
-		r#"
+fn every_page_keeps_the_layout_rules_at_defaults() {
+	let files: Vec<&str> = ALL.iter().copied().chain(["Alts/Alts.xml"]).collect();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &files)],
+		script: r#"Polestar.UI.LoadOptions()
+		uistub.install()
+		stub.login()
+		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
 		local bad, seen = {}, 0
 		for _, p in ipairs(O.Pages()) do
-			if p.group == "look" then
+			do
 				for _, tab in ipairs(p.tabs) do
 					O.Select(p.key, tab)
 					local v = O.view
@@ -2022,15 +2031,18 @@ fn every_look_page_keeps_the_layout_rules_at_defaults() {
 						local s = card:IsShown() and card.psSection
 						local lines = 0
 						for _ in pairs(s and per[s] or {}) do lines = lines + 1 end
-						if s and lines < 2 and not cardsOnly[s] then bad[#bad + 1] = where .. ": section \"" .. tostring(s.name) .. "\" has " .. lines .. " row" end
+						if s and lines < 2 and not cardsOnly[s] and p.key ~= "integrations" then bad[#bad + 1] = where .. ": section \"" .. tostring(s.name) .. "\" has " .. lines .. " row" end
 					end
 					if rows > 0 and on == 0 then bad[#bad + 1] = where .. ": every row is off at defaults" end
 				end
 			end
 		end
-		emit({ bad = table.concat(bad, "\n"), seen = seen })"#,
-	);
-	assert!(n(&out["seen"]) >= 8.0, "the Look pages' tabs walked: {}", out["seen"]);
+		emit({ bad = table.concat(bad, "\n"), seen = seen })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert!(n(&out["seen"]) >= 40.0, "every page's tabs walked: {}", out["seen"]);
 	assert_eq!(out["bad"], "", "layout rules broken:\n{}", out["bad"].as_str().unwrap_or_default());
 }
 

@@ -36,11 +36,12 @@ local function register(spec)
 	if not ok and geterrorhandler then geterrorhandler()(err) end
 end
 
+-- rares.enabled, the whole module's switch, in the first section's header.
 register({
 	section = L["When a rare shows up"],
+	toggle = { kind = "toggle", key = "rares.enabled", label = L["Rares"], search = "rare, elite, silver dragon, rare spawn, treasure, chest",
+		help = L["Watch for rare NPCs and treasures and keep when you last met them (/pole rares). Their map pins are under Map, off by default."] },
 	controls = {
-		{ kind = "toggle", key = "rares.enabled", label = L["Rares"], search = "rare, elite, silver dragon, rare spawn, treasure, chest",
-			help = L["Watch for rare NPCs and treasures and keep when you last met them (/pole rares). Their map pins are under Map, off by default."] },
 		{ kind = "toggle", key = "rares.alerts", label = L["Alert for rares"], disabled = off, search = "rare alert, rare spawn, notification, warning, popup",
 			help = L["A card with its name, level and distance, and a waypoint to it."] },
 		{ kind = "toggle", key = "rares.treasureAlerts", label = L["Alert for treasures"], disabled = alertsOff, child = true,
@@ -57,13 +58,14 @@ register({
 			help = L["Played through the Master channel."] },
 		{ kind = "toggle", key = "rares.founder", label = L["Say when Polestar's founder is nearby"], disabled = off,
 			search = "founder, fitz, wave, hello, say hi",
-			help = string.format(L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."], Rares.FOUNDER) },
+			help = string.format(L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once a day, never in combat or instances."], Rares.FOUNDER) },
 		{ kind = "button", button = L["Show"], label = L["Show a sample alert"], disabled = off,
 			help = L["See where the alert sits; drag it to move it."],
 			onClick = function() Rares.ShowSample() end },
 	},
 })
 
+-- How rares are noticed, and forgetting the rares met so far.
 register({
 	section = L["How rares are noticed"],
 	controls = {
@@ -75,30 +77,25 @@ register({
 			help = L["Targeting a rare."] },
 		{ kind = "toggle", key = "rares.mouseover", label = L["Under the cursor"], disabled = off,
 			help = L["Pointing at a rare in the world."] },
+		{ kind = "button", button = L["Forget"], label = L["Forget rares met on this realm"], disabled = off,
+			help = L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."],
+			onClick = function() Rares.ClearHistory() end },
 	},
 })
 
+-- The spawn pins, each map's beside the other's.
 register({
-	page = L["Map"], tab = L["Rares & travel"], section = L["Rares and treasures"],
+	page = L["Map"], tab = L["Rares, travel & zones"], section = L["Rares and treasures"],
 	controls = {
 		{ kind = "toggle", key = "rares.worldRares", label = L["Rares on the world map"], disabled = off,
 			help = L["Every known spawn point. Click one to see it in Rares; Shift-click for a waypoint."] },
-		{ kind = "toggle", key = "rares.worldTreasures", label = L["Treasures on the world map"], disabled = off,
-			help = L["Every known treasure spot."] },
 		{ kind = "toggle", key = "rares.minimapRares", label = L["Rares on the minimap"], disabled = off,
 			help = L["Loads the Codex at login."] },
+		{ kind = "toggle", key = "rares.worldTreasures", label = L["Treasures on the world map"], disabled = off,
+			help = L["Every known treasure spot."] },
 		{ kind = "toggle", key = "rares.minimapTreasures", label = L["Treasures on the minimap"], disabled = off,
 			help = L["Loads the Codex at login."] },
 		{ kind = "toggle", key = "rares.hideGrey", label = L["Hide rares below your level"], disabled = off,
 			help = L["Rares too low to give experience leave the map."] },
-	},
-})
-
-register({
-	section = L["History"],
-	controls = {
-		{ kind = "button", button = L["Forget"], label = L["Forget rares met on this realm"], disabled = off,
-			help = L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."],
-			onClick = function() Rares.ClearHistory() end },
 	},
 })

@@ -2173,7 +2173,7 @@ local function renderEmpty(reason)
 	home.Watermark:Show()
 	local text
 	if reason == "off" then
-		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Dungeons."]
+		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."]
 	else
 		local LK = UI.Lookup
 		text = REASON[reason] or (LK and LK.ReasonText and LK.ReasonText(reason)) or tostring(reason)

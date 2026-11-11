@@ -316,13 +316,13 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 		..Default::default()
 	});
 	let out = &out[0];
-	assert_eq!(out["tabs"], json!(["Guide & quests", "Rares & travel", "Zones"]));
+	// The second tab holds the rest of the map: rares, travel, NPC services and zones (no tab of one card).
+	assert_eq!(out["tabs"], json!(["Guide & quests", "Rares, travel & zones"]));
 	assert_eq!(
 		out["sections"],
 		json!({
 			"Guide & quests": ["Guide", "Quest markers"],
-			"Rares & travel": ["Rares and treasures", "Dungeons and travel", "NPC services"],
-			"Zones": ["Zones", "Coordinates"],
+			"Rares, travel & zones": ["Rares and treasures", "Dungeons and travel", "NPC services", "Zones and coordinates"],
 		})
 	);
 	assert_eq!(
@@ -353,7 +353,7 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 		["repair", "mailbox", "class", "weapon", "auctioneer", "banker", "battlemaster", "spirithealer", "stablemaster", "trainer", "vendor"].iter().map(|key| format!("maps.serviceFilters.{key}")),
 	);
 	rares.extend(["rares.hideGrey", "rares.minimapRares", "rares.minimapTreasures", "rares.worldRares", "rares.worldTreasures"].iter().map(|s| s.to_string()));
+	rares.extend(["maps.coords", "maps.minimapCoords", "maps.reveal", "maps.zoneLevels"].iter().map(|s| s.to_string()));
 	rares.sort();
-	assert_eq!(out["keys"]["Rares & travel"], json!(rares));
-	assert_eq!(out["keys"]["Zones"], json!(["maps.coords", "maps.minimapCoords", "maps.reveal", "maps.zoneLevels"]));
+	assert_eq!(out["keys"]["Rares, travel & zones"], json!(rares));
 }

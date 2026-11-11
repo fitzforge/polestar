@@ -585,8 +585,8 @@ guides you there instead.
   under **Map** in the options; the arrow's target, its route and the
   regions the guide step's mobs and objects spawn in (shaded on the world map
   and the minimap) always show.
-- **NPC services and mailboxes** on zone and city maps (Map, Rares & travel,
-  NPC services; off by default): class trainers and mailboxes, with repair,
+- **NPC services and mailboxes** on zone and city maps (Map > Rares, travel &
+  zones > NPC services; off by default): class trainers and mailboxes, with repair,
   vendors, bankers, profession trainers, weapon masters and the rest one
   click away. A click sets the arrow there.
 - **A world map without fog of war**, with coordinates and zone level ranges.

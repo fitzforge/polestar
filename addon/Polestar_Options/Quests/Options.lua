@@ -1,7 +1,7 @@
 -- The quest settings' rows (docs/ARCHITECTURE.md, "Options registry"): the
 -- Questing page's Quests tab (the page and its tabs are declared in
 -- UI/Options.lua), the quest markers' section of the Map page, and the Group
--- section after them (Quests/Party.lua's settings). Part of the settings'
+-- and Party chat sections after them (Quests/Party.lua's settings). Part of the settings'
 -- addon: none of it is in memory before the settings open.
 
 local ns = Polestar
@@ -30,13 +30,6 @@ local function percent(v) return math.floor((tonumber(v) or 0) * 100 + 0.5) .. "
 -- The quest database's settings (Quests/QuestDB.lua) and what builds on it.
 if Q then
 	for _, spec in ipairs({
-		{
-			page = L["Questing"], tab = L["Quests"], section = L["Quest database"],
-			controls = {
-				{ kind = "toggle", key = "qol.questDB", label = L["Quest database"], search = "memory, ram, quest data",
-					help = L["Quest, NPC and item data for markers and tooltips, loaded when one of them is on (about 5 MB of memory)."] },
-			},
-		},
 		-- The markers live with every other map icon, on the Map page.
 		{
 			page = L["Map"], tab = L["Guide & quests"], section = L["Quest markers"],
@@ -70,9 +63,13 @@ if Q then
 					help = L["While a guide runs, fade every quest marker that is not part of its current step."] },
 			},
 		},
+		-- The database itself, then what reads from it in tooltips, bags,
+		-- nameplates and the quest log (QoL adds the tracker's rows before them).
 		{
-			page = L["Questing"], tab = L["Quests"], section = L["Tooltips and quest log"],
+			page = L["Questing"], tab = L["Quests"], section = L["Quest log and tooltips"],
 			controls = {
+				{ kind = "toggle", key = "qol.questDB", label = L["Quest database"], search = "memory, ram, quest data",
+					help = L["Quest, NPC and item data for markers and tooltips, loaded when one of them is on (about 5 MB of memory)."] },
 				{ kind = "toggle", key = "qol.questTooltips", label = L["Quest tooltips"], disabled = dbOff, search = "tooltip, quest progress, mob quests",
 					help = L["Name the quests a mob, item or object is for, with your progress."] },
 				{ kind = "toggle", key = "qol.questBagMarks", label = L["Quest marks in bags"], disabled = dbOff,
@@ -96,9 +93,9 @@ if Q then
 	end
 end
 
--- The Group section of the Questing page (its Quests tab), after the quest
--- settings. `search`: more words the settings search finds them by (English,
--- as the other controls' `search`).
+-- The Group and Party chat sections of the Questing page (its Quests tab),
+-- after the quest settings. `search`: more words the settings search finds
+-- them by (English, as the other controls' `search`).
 if ns.Party then
 	local SEARCH = "group, party, sync, friends, together"
 	local function notShown() return not ns.Get("party.show") end
@@ -108,6 +105,10 @@ if ns.Party then
 		controls = {
 			{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"], search = SEARCH,
 				help = L["Party members who run Polestar see your counts under their quest goals, your step and your level. Hidden addon messages to your party only; nothing goes to chat."] },
+			-- Core/Update.lua's version probe (0.3.7): off with sharing off too.
+			{ kind = "toggle", key = "update.probe", label = L["Ask other players' Polestar which version it is"], search = SEARCH .. ", update, version, new version",
+				child = true, disabled = function() return not ns.Get("party.share") end,
+				help = L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] },
 			{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"], search = SEARCH,
 				help = L["Their counts under your quest goals, and who lacks a quest you took, with a Share button."] },
 			{ kind = "toggle", key = "party.waitForGroup", label = L["Wait for the group"], search = SEARCH, disabled = notShown,
@@ -116,16 +117,22 @@ if ns.Party then
 				help = L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] },
 			{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH,
 				help = L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] },
+		},
+	})
+	-- What Polestar says in party chat for you, and what it shows of the others'.
+	ns.RegisterOptions({
+		page = L["Questing"], tab = L["Quests"], section = L["Party chat"],
+		controls = {
 			{ kind = "toggle", key = "party.chat", label = L["Tell my party about objectives and ready quests"], search = SEARCH .. ", chat, announce, objective, tell",
 				help = L["A party chat line with the quest's link when you finish its objectives, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] },
 			{ kind = "toggle", key = "party.chatLoot", label = L["Tell my party when I loot an item that starts a quest"], search = SEARCH .. ", chat, announce, loot, item, tell",
 				help = L["A party chat line with the item's link and the quest it starts."] },
 			{ kind = "toggle", key = "party.chatEcho", label = L["Show my own lines in my chat too"], search = SEARCH .. ", chat, announce", disabled = noChat,
 				help = L["Off: your party sees the lines Polestar says for you, and your chat stays clear of them."] },
-			{ kind = "toggle", key = "party.chatHideOthers", label = L["Hide other players' Polestar lines"], search = SEARCH .. ", chat, announce, hide",
-				help = L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] },
 			{ kind = "toggle", key = "party.chatOnlyNeeded", label = L["Only when someone in the party doesn't have Polestar"], search = SEARCH .. ", chat, announce", disabled = noChat,
 				help = L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] },
+			{ kind = "toggle", key = "party.chatHideOthers", label = L["Hide other players' Polestar lines"], search = SEARCH .. ", chat, announce, hide",
+				help = L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] },
 		},
 	})
 end

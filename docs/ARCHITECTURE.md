@@ -4918,7 +4918,7 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
 
 ## Maps — the world map
 
-Each feature is a setting on the Map page (Rares & travel, Zones), and none of
+Each feature is a setting on the Map page (Rares, travel & zones), and none of
 them makes a frame or loads data until it's on. The icon layers (dungeon
 entrances, flight masters `maps.taxiPins`, docks `maps.dockPins`, inns
 `maps.innPins`, NPC services `maps.servicePins`, and `maps.travelMinimap` for
@@ -4948,7 +4948,7 @@ flight timer and the instance tracker are set under Quality of Life.
   with either role is left to the travel layers (`maps.taxiPins`,
   `maps.innPins`) so nothing is drawn twice. `maps.serviceMinimap` opts
   into minimap icons. Both tracking menus have a Polestar service submenu;
-  the same settings live under Map, Rares & travel, NPC services. Class trainers
+  the same settings live under Map > Rares, travel & zones > NPC services. Class trainers
   are restricted to the character's class. A repair vendor has one icon, using
   the first enabled category it offers, and remains a vendor when repair is off.
   `Maps/ServiceData.lua` reads the bundled Codex role index and mailbox objects,
@@ -5936,9 +5936,10 @@ page and tab, scrolls its row to 40px under the top and lights it a moment
 Reduce motion; nothing runs after).
 
 The built-in pages are grouped by what the player is doing: **Guide** (10:
-Window, Arrow & routes, Automation), **Map** (30), **Questing** (40: Quests, Rewards & gear,
-Talents, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Characters), **Quality of Life** (60:
-Quests, Travel, Social, Vendors, Trackers, Map), **Community guides** (70, a custom page:
+Window, Arrow & routes, Automation), **Map** (30: Guide & quests, Rares, travel & zones), **Questing**
+(40: Quests, Rewards & gear, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Group quests; Dungeons
+and Group quests while this character's guides have dungeon or group steps to choose), **Quality of Life** (60:
+Quests, Travel, Social, Vendors, Trackers & map), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
 `UI/Thanks.lua`: three columns, the top supporter, the top contributor and the
@@ -5958,12 +5959,15 @@ preview of the real element. The options window
 declares every tab and section of the module-filled pages, in order, and the
 modules register their controls into them by name (`page = L["Questing"]`,
 `tab = L["Rewards & gear"]`, `section = L["Gear advice"]`): Quests, QoL,
-Gear and Talents fill Questing; Lookup, Dungeons, Rares and Characters fill Discovery; QoL, Maps
+Gear and Talents fill Questing; Lookup, Alts, Dungeons and Rares fill Discovery (the switches of the hub's
+Dungeons and Characters sections stand on Lookup, beside Lookup's own); QoL, Maps
 (flight timer, instances, coordinates, minimap button), Nav (travel button, transport alerts, nearby
 services) and the options window (trainer reminders) fill Quality of Life. On the **Map** page (Guide &
-quests: Guide, Quest markers; Rares & travel: Rares and treasures, Dungeons and
-travel; Zones: Zones, Coordinates) Nav, Quests, Rares and Maps place every map
-and minimap setting.
+quests: Guide, Quest markers; Rares, travel & zones: Rares and treasures, Dungeons and travel, NPC services,
+Zones and coordinates) Nav, Quests, Rares and Maps place every map and minimap setting. Every page keeps the
+window's layout rules: a section has two rows or more, two halves of a row pair related settings, a feature's
+on/off stands in its section's header, and a tab nearly empty folds into a neighbour (checked at defaults by
+`every_page_keeps_the_layout_rules_at_defaults`).
 
 A page is opened by its key (`/polestar options <key>`, `UI.ShowOptions(key)`,
 `Options.Select`), not its title: the built-in pages give English keys
@@ -5971,10 +5975,11 @@ A page is opened by its key (`/polestar options <key>`, `UI.ShowOptions(key)`,
 `guidepacks`, `recorder`, `about`) so a translated title does not move them;
 a registered page without `key` takes one made from its title. Old page keys
 (`guidewindow`, `navigation`, `automation`, `quests`, `gear`, `lookup`,
-`dungeons`, `rares`, `appearance` and `look` for the Theme page, …) reach the
-page and tab that now hold their settings (`ALIASES` in UI/Options.lua); a
-page's own key wins over an alias (`arrow` and `guidewindow` open the Look
-pages).
+`dungeons`, `rares`; `characters` and `alts` for Discovery's Lookup tab;
+`appearance` and `look` for the Theme page, …) reach the page and tab that now
+hold their settings (`ALIASES` in UI/Options.lua; a tab not shown, as Dungeons
+without dungeon steps to choose, gives the page's first); a page's own key wins
+over an alias (`arrow` and `guidewindow` open the Look pages).
 
 The sidebar's page list is its own scroll area (`f.NavScroll`, `W.ShellNav`)
 from 12px under the search (or under the band, where the search is in the
@@ -6292,7 +6297,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   of `Dungeons.QuestXP`), **Pick up the quests** (`Dungeons.PickUp`: the
   pickup guide in a new tab), **Open in Dungeons** (`Dungeons.Open`: its
   page in the hub), **Later** and **Turn these off**
-  (`dungeons.headsUp` off; also under Options > Discovery > Dungeons). It
+  (`dungeons.headsUp` off; also under Options > Discovery > Lookup). It
   tells a dungeon, not a raid, with quests for the character's faction, the
   character's level in its range, whose pickup plan has a quest to take now
   and none left for later levels or at least 3 to take; once per dungeon per
@@ -6950,8 +6955,8 @@ Polestar.Gamepad.HasWindow() -> bool                        -- a Polestar window
 `addon/Polestar/Rares/` (`Rares\Rares.xml`, loaded after `UI\UI.xml`):
 `Rares.lua` (settings `rares.*`, history, the decision), `Detect.lua` (client
 events), `Pins.lua` (map layers), `Toast.lua` (the alert), `Options.lua`
-(Discovery → Rares: When a rare shows up, How rares are noticed, History; Map
-→ Rares & travel → Rares and treasures), `View.lua` (the hub section).
+(Discovery → Rares: When a rare shows up, How rares are noticed; Map
+→ Rares, travel & zones → Rares and treasures), `View.lua` (the hub section).
 Everything is off with `rares.enabled`; a detection path that is off has no
 event registered.
 
@@ -7034,7 +7039,7 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   unique names are off), `/wave`. Only the player's click runs it.
 - **Pins**: layers `rares.rare` and `rares.treasure` through `Polestar.Pins`,
   world map and minimap per kind (`rares.worldRares`, `worldTreasures`,
-  `minimapRares`, `minimapTreasures`; all off by default, Map → Rares & travel →
+  `minimapRares`, `minimapTreasures`; all off by default, Map → Rares, travel & zones →
   Rares and treasures); one pin per distinct spawn (spawns of
   one rare within 1.5 map percent share it), rares at grey levels left out
   with `rares.hideGrey`, elites ringed, ones seen in the last two hours
@@ -7120,7 +7125,7 @@ Polestar.Talents.Show()                                     -- SHOW_TALENTS; /po
 
 `addon/Polestar/Alts/` (`Alts\Alts.xml`, loaded after `Talents\Talents.xml`):
 `Snapshot.lua` (`Polestar.Alts`: the saved snapshots, the events that write
-them, the `alts` command), `Options.lua` (Discovery → Characters),
+them, the `alts` command), `Options.lua` (Discovery → Lookup),
 `View.lua` (the hub section, order 60).
 
 ```
