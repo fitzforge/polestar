@@ -2942,8 +2942,8 @@ function GF.FillHere(E)
 		r.psView, r.psOff, r.psAt = v, nil, i
 		keys[nOff + i] = v.step .. ":" .. v.index
 		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
-		UI.SetCounted(r.Text, (v.here == "turnin" or v.here == "take") and UI.HereText(v) or UI.GoalLine(v))
-		r.Sub:SetText(string.format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step)))
+		UI.SetCounted(r.Text, v.here ~= "work" and UI.HereText(v) or UI.GoalLine(v))
+		r.Sub:SetText(UI.HereStep(v))
 		r.Sub:SetShown(not tight)
 		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
 		r:Show()
@@ -4497,9 +4497,7 @@ function GF.HereRow(i)
 		end
 		local v = self.psView
 		if not v then return end
-		local lines = {
-			string.format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.firstStep or v.step)),
-		}
+		local lines = { UI.HereStep(v, true) }
 		local new = (v.here == "turnin" or v.here == "take") and ns.NewQuests and ns.NewQuests.TooltipText(v.quest)
 		if new then lines[#lines + 1] = { new, Theme.Accent() } end
 		lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
