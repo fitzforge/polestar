@@ -4288,7 +4288,7 @@
 				"ref": "players' in-game recordings to 2026-11-09 (#1490): 27 characters were refused it at its giver while The Adventurer (96627) was still in their log, and 13 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96627) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (the Codex and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96627."
+		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96627) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96627."
 	},
 	"96101": {
 		"set": {
@@ -4332,7 +4332,7 @@
 				"ref": "players' in-game recordings to 2026-11-09 (#1490): 14 characters were refused it at its giver while The Adventurer (96638) was still in their log, and 10 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96638) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (the Codex and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96638."
+		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96638) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96638."
 	},
 	"96204": {
 		"set": {
@@ -4549,7 +4549,7 @@
 				"ref": "The Adventurer (96652) ends at this quest's giver and leads to it (its breadcrumb link)"
 			}
 		],
-		"note": "The Great Outdoors (Durotar, Brakk): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96652), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so the Codex and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96652."
+		"note": "The Great Outdoors (Durotar, Brakk): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96652), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96652."
 	},
 	"96605": {
 		"set": {
@@ -4589,7 +4589,7 @@
 				"ref": "The Adventurer (96659) ends at this quest's giver and leads to it (its breadcrumb link)"
 			}
 		],
-		"note": "The Great Outdoors (Mulgore, Kaga Wildhoof): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96659), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so the Codex and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96659."
+		"note": "The Great Outdoors (Mulgore, Kaga Wildhoof): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96659), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96659."
 	},
 	"96606": {
 		"set": {
@@ -4629,7 +4629,7 @@
 				"ref": "The Adventurer (96630) ends at this quest's giver and leads to it (its breadcrumb link)"
 			}
 		],
-		"note": "The Great Outdoors (Teldrassil, Lyreena): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96630), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so the Codex and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96630."
+		"note": "The Great Outdoors (Teldrassil, Lyreena): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96630), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96630."
 	},
 	"96607": {
 		"set": {
@@ -4669,7 +4669,7 @@
 				"ref": "players' in-game recordings to 2026-11-09 (#1490): 30 characters were refused it at its giver while The Adventurer (96656) was still in their log, and 24 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in. The Great Outdoors (Tirisfal Glades, Eleanor Shackleton): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The quest data also names The Adventurer (96656) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (the Codex and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96656."
+		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in. The Great Outdoors (Tirisfal Glades, Eleanor Shackleton): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The quest data also names The Adventurer (96656) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96656."
 	},
 	"96608": {
 		"set": {
@@ -4713,7 +4713,7 @@
 				"ref": "players' in-game recordings to 2026-11-09 (#1490): 22 characters were refused it at its giver while The Adventurer (96628) was still in their log, and 15 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96628) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96628) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (the Codex and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96628."
+		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96628) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96628) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96628."
 	},
 	"96655": {
 		"set": {

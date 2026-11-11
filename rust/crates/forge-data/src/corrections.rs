@@ -865,7 +865,11 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 			let data_q = |q: &str| ck.table("quests").map(|t| t.get(q)).unwrap_or(V::Undef);
 			let field = |q: &str, f: &str| {
 				let cs = c.get("quests").get(q).get("set");
-				if cs.has(f) { cs.get(f) } else { data_q(q).get(f) }
+				if cs.has(f) {
+					cs.get(f)
+				} else {
+					data_q(q).get(f)
+				}
 			};
 			let crumbs: Vec<String> = field(&id, "breadcrumbs").items().iter().map(|x| num_str(x.num())).collect();
 			let mut out = Vec::new();
