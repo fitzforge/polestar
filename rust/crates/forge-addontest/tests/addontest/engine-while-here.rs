@@ -729,21 +729,22 @@ fn a_hand_in_the_route_reaches_next_without_leading_away_shows_only_at_its_npc()
 	assert_eq!(namesake[1], json!("2:1 Hand in “Marshal Dughan” to them 10"), "{namesake:?}");
 }
 
-// Fitz on 0.3.6 (build f5fbd242a), his /polestar report: a level 3 Tauren Warrior on Mulgore's step 6 of 51 (Grull
-// Hawkwind: hand in The Hunt Continues, 750; the arrow 411 yd north at 44.47,77.50), standing at 42.79,87.19 on Red
-// Cloud Mesa, 121 yd from Seer Graytongue (2982, 42.54,90.13), with Rites of the Earthmother (755), 750 and 1656 ready:
-// "While here: none · 1 candidates · nearest quest 1656". 755's hand-in is the very next step (7), and #1393's
-// next-two-steps rule left it to the route, which goes to Grull first and comes back south ("I'm here and you'd
-// expect it to send me backwards to grab the dynamic quest behind"). Now the route leading away first makes it no
-// "soon" hand-in, and step 7 is the whole Seer visit (755 in, Grace of An'she and Mu'sha and Rite of Strength out):
-// doing it now saves the trip back from Grull (93 s against a 43 s detour), so it shows at the shipped 20 s. At the
-// Seer, auto turn-in hands 755 in and auto-accept takes both quests of step 7; the live step stays 6, the arrow on
-// it, step 7 done. Grace is timed (ten minutes, its `limit`): the walk Seer, Grull, Ritual Fire fits; with a
-// two-minute limit it would not, so no visit (no credit: the 43 s detour is too far) and no early accept. On the
-// cougar step (5) around the Seer the line shows too; at Grull's tent nothing. The guide as shipped
-// (guides/forever/horde/tauren/01-mulgore.guide, compiled with data/forever; skipped with a note without it).
+// Fitz on 0.3.6 (build f5fbd242a), his /polestar report: a level 3 Tauren Warrior on Mulgore's Grull Hawkwind step
+// (hand in The Hunt Continues, 750; the arrow 411 yd north at 44.47,77.50), standing at 42.79,87.19 on Red Cloud Mesa,
+// 121 yd from Seer Graytongue (2982, 42.54,90.13), with Rites of the Earthmother (755), 750 and 1656 ready: "While
+// here: none" while the route went to Grull first and came back south ("I'm here and you'd expect it to send me
+// backwards to grab the dynamic quest behind"). Since 0.3.7 the route itself goes there: the Seer's visit (755 in,
+// Grace of An'she and Mu'sha and Rite of Strength out) and the shrine's Ritual Fire come at the end of the cougar
+// hunt, then Grull. With the pelts done the live step is the Seer's, its arrow on her, from his spot and from
+// Grull's tent alike; at her window auto turn-in hands 755 in and auto-accept takes both quests, and the route goes
+// on to the shrine. Still hunting cougars beside her tent (6 pelts of 10), the hunt leads on away from her, so the
+// whole visit shows, as on Fitz's 0.3.6 report: at her window the hand-in and both accepts are taken ahead, the live
+// step stays the hunt and her step reads done. Grace is timed (ten minutes, its `limit`): the walk on to the Ritual
+// Fire fits; with a two-minute limit it would not, so Grace is not taken ahead.
+// The guide as shipped (guides/forever/horde/tauren/01-mulgore.guide, compiled with data/forever; skipped with a
+// note without it).
 #[test]
-fn mulgore_fitz_walking_past_seer_graytongue_with_rites_of_the_earthmother_ready_is_offered_the_whole_visit() {
+fn mulgore_fitz_walking_past_seer_graytongue_with_rites_of_the_earthmother_ready_is_led_to_her_by_the_route() {
 	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
 	use forge_addontest::run::root;
 	let data_dir = root().join("data/forever");
@@ -758,7 +759,7 @@ fn mulgore_fitz_walking_past_seer_graytongue_with_rites_of_the_earthmother_ready
 	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
 	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
 	let f = data.map_frames.get("forever").get("1412");
-	// pelts: 750's count (10: ready, step 6 live); limit: Grace's seconds (the data's 600 once rebuilt with its
+	// pelts: 750's count (10: ready, the hunt done); limit: Grace's seconds (the data's 600 once rebuilt with its
 	// correction; set here so the test does not wait for the data build).
 	let run = |pelts: u32, limit: u32| {
 		let before = format!(
@@ -786,19 +787,22 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 {HELPERS}
 E.SetGuide("forever/horde/tauren/01-mulgore"); flush()
-for _, g in ipairs(E.GetGuide().steps[7].goals) do if g.quest == 95805 then g.limit = {limit} end end
+stub.fire("QUEST_LOG_UPDATE"); flush()
+local steps = E.GetGuide().steps
+local seer
+for i, st in ipairs(steps) do if not seer then for _, g in ipairs(st.goals) do if g.t == "turnin" and g.quest == 755 then seer = i end end end end
+for _, g in ipairs(steps[seer].goals) do if g.quest == 95805 then g.limit = {limit} end end
 stub.fire("QUEST_LOG_UPDATE"); flush()
 local function mg(x, y) w.moveTo(1412, x, y); stub.advance(0.6); stub.advance(0.6) end
 local function state()
 	local st = E.WhileHereState()
 	local v = E.GetWhileHere()
-	local credit = false
-	for _, c in ipairs(E.GetWhileHereCandidates()) do if c.step == 7 and c.credit then credit = math.floor(c.credit + 0.5) end end
-	return {{ live = E.GetLiveStep(), arrow = wp(), here = v and (v.step .. ":" .. v.index .. " " .. v.hereText) or "none", why = st.why or false, credit = credit }}
+	local live = E.GetLiveStep()
+	return {{ live = live, title = steps[live] and steps[live].title or false, arrow = wp(), here = v and (v.step .. ":" .. v.index .. " " .. v.hereText) or "none", why = st.why or false }}
 end
 mg(44.47, 79.0); local camp = state()
 mg(42.79, 87.19); local report = state()
--- At the Seer: his windows, as the game opens them after each hand-in and accept.
+-- At the Seer: her windows, as the game opens them after each hand-in and accept.
 mg(42.54, 89.95)
 w.calls = {{}}
 w.questProgress(2982, 755); flush()
@@ -807,31 +811,40 @@ w.questDetail(2982, 757); flush()
 local calls = {{}}
 for i, x in ipairs(w.calls) do calls[i] = tostring(x[1]) .. " " .. tostring(x[2]) end
 local done = {{}}
-for g = 1, #E.GetGuide().steps[7].goals do done[g] = E.GoalDone(7, g) end
-emit({{ camp = camp, report = report, calls = table.concat(calls, ", "), live = E.GetLiveStep(), arrow = wp(), done = done }})
+for g = 1, #steps[seer].goals do done[g] = E.GoalDone(seer, g) end
+local after = state()
+emit({{ seer = seer, camp = camp, report = report, calls = table.concat(calls, ", "), after = after, done = done }})
 "#,
 			loads.join("\n")
 		);
 		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0)
 	};
-	let visit = "7:1 Hand in “Rites of the Earthmother” to Seer Graytongue, then take “Grace of An'she and Mu'sha”, “Rite of Strength”: saves a trip back";
 	let fitz = run(10, 600);
-	assert_eq!(fitz["report"]["live"], 6, "Grull Hawkwind's step is live: {fitz}");
-	assert_eq!(fitz["report"]["here"], visit, "121 yd from the Seer, the whole visit shows at the shipped settings: {fitz}");
-	assert!(fitz["report"]["credit"].as_f64().is_some_and(|c| c > 43.0), "its credit outweighs the 43 s detour: {fitz}");
-	assert_eq!(fitz["camp"]["here"], "none", "at Grull's tent, 530 yd off, nothing: {fitz}");
+	let seer = fitz["seer"].as_u64().expect("a step hands 755 in");
+	assert_eq!(fitz["report"]["live"], seer, "121 yd from the Seer, her step is live: {fitz}");
+	assert_eq!(fitz["report"]["title"], "Seer Graytongue", "{fitz}");
+	assert!(fitz["report"]["arrow"].as_str().unwrap().starts_with(&format!("{seer}:")), "the arrow on the Seer, not 411 yd north at Grull: {fitz}");
+	assert_eq!(fitz["report"]["here"], "none", "the route itself is there: no While-here line: {fitz}");
+	assert_eq!(fitz["camp"]["live"], seer, "from Grull's tent the route sends him south to the Seer before Grull: {fitz}");
 	let calls = fitz["calls"].as_str().unwrap();
 	assert!(calls.contains("GetQuestReward 755") && calls.contains("AcceptQuest 95805") && calls.contains("AcceptQuest 757"), "hand-in and both accepts: {calls}");
-	assert_eq!(fitz["live"], 6, "the live step stays: {fitz}");
-	assert!(fitz["arrow"].as_str().unwrap().starts_with("6:"), "the arrow stays on it: {fitz}");
-	assert_eq!(fitz["done"], json!([true, true, true]), "step 7 is done: no trip back: {fitz}");
-	let short = run(10, 120);
-	assert_eq!(short["report"]["here"], "none", "a two-minute Grace: no visit, the bare hand-in 43 s out of the way: {short}");
-	assert_eq!(short["report"]["why"], "out of the way (43 s, over 20 s)", "{short}");
-	assert!(!short["calls"].as_str().unwrap().contains("AcceptQuest 95805"), "Grace not taken ahead: {short}");
+	assert_eq!(fitz["done"], json!([true, true, true]), "her step is done: {fitz}");
+	assert_eq!(fitz["after"]["live"], seer + 1, "on to the next step: {fitz}");
+	assert_eq!(fitz["after"]["title"], "The shrine of An'she and Mu'sha", "the shrine next, not back north to Grull: {fitz}");
+	let visit = format!("{seer}:1 Hand in “Rites of the Earthmother” to Seer Graytongue, then take “Grace of An'she and Mu'sha”, “Rite of Strength”: saves a trip back");
 	let cougars = run(6, 600);
-	assert_eq!(cougars["report"]["live"], 5, "the cougar step is live: {cougars}");
-	assert_eq!(cougars["report"]["here"], visit, "hunting cougars around the Seer, the visit shows: {cougars}");
+	assert_eq!(cougars["report"]["live"], seer - 1, "the cougar step is live: {cougars}");
+	assert_eq!(cougars["report"]["title"], "The Hunt Continues", "{cougars}");
+	assert_eq!(cougars["report"]["here"], visit.as_str(), "hunting cougars around her tent, the whole visit shows: {cougars}");
+	let calls = cougars["calls"].as_str().unwrap();
+	assert!(calls.contains("GetQuestReward 755") && calls.contains("AcceptQuest 95805") && calls.contains("AcceptQuest 757"), "hand-in and both accepts ahead: {calls}");
+	assert_eq!(cougars["after"]["live"], seer - 1, "the hunt stays live: {cougars}");
+	assert_eq!(cougars["done"], json!([true, true, true]), "her step is done: no trip back: {cougars}");
+	let short = run(6, 120);
+	assert_eq!(short["report"]["here"], "none", "a two-minute Grace: no visit, the bare hand-in out of the way: {short}");
+	assert_eq!(short["report"]["why"], "out of the way (37 s, over 20 s)", "{short}");
+	let calls = short["calls"].as_str().unwrap();
+	assert!(!calls.contains("AcceptQuest 95805") && calls.contains("AcceptQuest 757"), "Grace not taken ahead, Rite of Strength is: {calls}");
 }
 
 // The Barrens as shipped: an Orc Warrior at 14, in from Far Watch Post on the road west, 60 yd past Thun'grim Firegaze
