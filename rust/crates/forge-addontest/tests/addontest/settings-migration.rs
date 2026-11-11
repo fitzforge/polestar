@@ -196,7 +196,6 @@ end
 stub.advance(1)
 {script}"#
 		),
-		..Default::default()
 	})
 	.remove(0)
 }

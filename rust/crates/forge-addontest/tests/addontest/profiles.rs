@@ -144,7 +144,7 @@ fn switch_copy_rename_and_delete_keep_each_profile_s_own_values_and_repaint_on_a
 }
 
 fn reload(db: &Value, char: Option<&Value>, script: &str) -> Value {
-	let saved = format!("{}\n{}", text(&db), char.map(|c| text(c).to_string()).unwrap_or_default());
+	let saved = format!("{}\n{}", text(db), char.map(|c| text(c).to_string()).unwrap_or_default());
 	run_with(Some(saved), &format!("{script}\nemit(saved())")).into_iter().collect::<Value>()
 }
 
