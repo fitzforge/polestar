@@ -434,13 +434,14 @@ How each surface hides:
   played, not sounded on the way back.
 - Marks on the game's frames and lines in its tooltips and menus: the bag
   arrows and glow, the quest bag marks, quest levels, nameplate icons, the
-  quest tracker's captions (Questie), the talent overlay, the XP bar mark,
-  the reward marks, the flight map's node mark (the step key still flies
-  there), the restock button, the trainer window's Train All button, tooltip
-  lines (`Hooks.decorate`), item clicks, and Polestar's entries in the quest
-  log, map tracking and minimap menus: each asks `Hidden()` and redraws on
-  `POLESTAR_HIDDEN`. The Quick Keybind Mode shows none of Polestar's buttons
-  while it is hidden (`mayForce`), and its key catcher hangs off the layer.
+  turn-in captions in another addon's quest tracker, the talent overlay, the
+  XP bar mark, the reward marks, the flight map's node mark (the step key
+  still flies there), the restock button, the trainer window's Train All
+  button, tooltip lines (`Hooks.decorate`), item clicks, and Polestar's
+  entries in the quest log, map tracking and minimap menus: each asks
+  `Hidden()` and redraws on `POLESTAR_HIDDEN`. The Quick Keybind Mode shows
+  none of Polestar's buttons while it is hidden (`mayForce`), and its key
+  catcher hangs off the layer.
 - Sounds go through `Polestar.PlaySound` / `PlaySoundFile`: silent while
   hidden; one passed `arrow` (the arrival chime) is silent only while
   `ArrowHidden()`. Toasts and banners showing as Polestar hides are taken
