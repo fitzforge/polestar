@@ -8378,7 +8378,9 @@ archive every chunk per contributor as
 beside it: the contributor owning the folder and the install's map table; a
 pulled line whose folder names another contributor is skipped), then normalise
 every (contributor, install) that got a chunk again from its whole archive
-(`normalize::sessions`). One contributor claiming another's install id lands in
+(`normalize::sessions`), one archive at a time per worker (`--jobs`, at most 12):
+an archive's sessions depend on its own chunks only, so memory holds a few
+archives, never all of them. One contributor claiming another's install id lands in
 its own folder and its own sessions. A session is the consecutive chunks of one
 (contributor, install, character id) with gaps under 30 minutes; a session file
 the new normalisation no longer has (a late chunk joined two sessions) is
@@ -8501,8 +8503,15 @@ by a recording's own. Schema 1 sessions (no contributor, no locale) count as
 corrected value back when it is done (`corrections::reassert`), whatever the
 recordings' evidence, and the build warns with each value the recordings
 disagreed with; the knowledge base ranks `correction` (0) above `recorder`
-(0.5). `forge record resession` normalises every archive in `raw/` again, for
-record kinds an older forge skipped.
+(0.5). `forge record resession` normalises the archives in `raw/` again, for
+record kinds an older forge skipped. Each archive's `install.json` carries a
+stamp of what its sessions were made from (`sessioned`: a hash of
+polestar-recording and `record.rs` built into forge, the chunk count, a digest
+of the chunks, the map table, the receive times and the contributor's figures,
+and the session files written); resession leaves an archive whose stamp
+matches and whose session files are all there as it is, so a rerun with the
+same forge is quick and a forge with changed recording code sessions every
+archive again (`--all` does every archive whatever the stamps say).
 
 `record trail <session|file> [--out file.json]` writes a session's `/psrec
 trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,

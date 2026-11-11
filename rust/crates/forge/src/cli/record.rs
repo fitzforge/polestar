@@ -7,11 +7,14 @@
 //! overwrite, another's even when both claim the same install id. Then every (contributor, install)
 //! that got a new chunk is normalised again from its whole archive into `<session>.json` files
 //! (polestar-recording's normalize; the session id names the install, and the contributor when it
-//! is not `local`); a session file of that archive the new normalisation no longer has (two
-//! sessions joined by a late chunk) is removed. A pulled session's header also carries `received`
-//! (the latest the server received one of its chunks), its contributor's `contributorSince`,
-//! `contributorChunks`, `uploadDays` and `cohort` (from `raw/contributors.json`, the export's
-//! figures), which the data build's trust reads (forge-data recordings.rs `establish`).
+//! is not `local`), one archive at a time per worker (an archive's sessions depend on its own
+//! chunks only); a session file of that archive the new normalisation no longer has (two
+//! sessions joined by a late chunk) is removed. The archive's install.json is then stamped with
+//! what its sessions were made from (the normaliser, the chunk count, a digest of the inputs), so
+//! `resession` leaves archives whose stamp still matches as they are. A pulled session's header
+//! also carries `received` (the latest the server received one of its chunks), its contributor's
+//! `contributorSince`, `contributorChunks`, `uploadDays` and `cohort` (from `raw/contributors.json`,
+//! the export's figures), which the data build's trust reads (forge-data recordings.rs `establish`).
 //! Contributors the server tombstones (deleted or blocked), and server contributors first seen over
 //! `expireDays` (config.json, default 30) days ago that never became established, are moved to
 //! `raw/.purged/<UTC date>/` (deleted after 30 days) and their sessions removed on pull. A
@@ -30,6 +33,7 @@ use std::path::{Path, PathBuf};
 use polestar_recording::api::{ExportLine, Tombstone};
 use polestar_recording::normalize::{self, Source};
 use polestar_recording::{install, record, scrub, sv};
+use rayon::prelude::*;
 use serde::Serialize;
 use serde_json::Value;
 use sha2::{Digest, Sha256};
@@ -37,8 +41,8 @@ use sha2::{Digest, Sha256};
 use super::{check_args, usage, Fail};
 
 pub const USAGE: &str = "usage: forge record import [--wtf <path>] [--vouch <name> | --anonymize] [--root <checkout>] [--out <dir>]
-       forge record pull [--server <url>] [--key-file <path>] [--root <checkout>] [--out <dir>]
-       forge record resession [--root <checkout>] [--out <dir>]
+       forge record pull [--server <url>] [--key-file <path>] [--jobs <n>] [--root <checkout>] [--out <dir>]
+       forge record resession [--all] [--jobs <n>] [--root <checkout>] [--out <dir>]
        forge record learn [--scope forever-new] [--archive <dir>] [--data <dir>] [--verdicts <verdict.json>]
                           [--out <dir>] [--report <dir>] [--sources <dir>] [--offline] [--root <checkout>]
 
@@ -71,9 +75,17 @@ server); --key-file: the maintainer key (default <root>/data/local/ingest/mainta
 server flagged (a build it does not accept) or found suspect are skipped, and so are malformed ones and
 ones whose install folder another contributor owns.
 
-resession: normalise every archive in <out>/raw/ again and rewrite its sessions, nothing fetched or
+resession: normalise the archives in <out>/raw/ again and rewrite their sessions, nothing fetched or
 acknowledged. Run it after updating forge, so record kinds an older forge skipped (it drops kinds it
-does not know) reach the sessions from the chunks already archived.
+does not know) reach the sessions from the chunks already archived. Each archive's install.json is
+stamped with what its sessions were made from (this forge's normaliser, its chunk count and a digest
+of its chunks, maps, receive times and contributor figures); an archive whose stamp still matches,
+with every session file it wrote in place, is left as it is, so a rerun with the same forge is quick
+and a forge whose recording code changed sessions every archive again. --all: every archive,
+stamped or not.
+
+--jobs: archives normalised at once by pull and resession (default: the cores, at most 12; more is
+capped at 12). Each holds one archive in memory at a time, never all of them.
 
 --out: the recordings folder (default <root>/data/recordings); --root: the Polestar checkout (default:
 the one above the current folder). A recordings folder of the older layout (raw/<install>/) is moved to
@@ -146,26 +158,47 @@ fn run() -> Result<(), Fail> {
 			import(&out, wtf.as_deref().map(Path::new), &who)
 		}
 		"pull" => {
-			check_args(rest, &["--server", "--key-file", "--root", "--out"], &[], 0).map_err(usage)?;
+			check_args(rest, &["--server", "--key-file", "--jobs", "--root", "--out"], &[], 0).map_err(usage)?;
+			let jobs = jobs(rest)?;
 			let out = out_dir(rest)?;
 			let key_file = match opt(rest, "--key-file") {
 				Some(k) => PathBuf::from(k),
 				None => root(rest)?.join("data").join("local").join("ingest").join("maintainer.key"),
 			};
 			migrate(&out)?;
-			pull(&out, opt(rest, "--server"), &key_file)
+			pull(&out, opt(rest, "--server"), &key_file, jobs)
 		}
 		"resession" => {
-			check_args(rest, &["--root", "--out"], &[], 0).map_err(usage)?;
+			check_args(rest, &["--jobs", "--root", "--out"], &["--all"], 0).map_err(usage)?;
+			let jobs = jobs(rest)?;
 			let out = out_dir(rest)?;
 			migrate(&out)?;
-			resession(&out)
+			resession(&out, jobs, rest.iter().any(|x| x == "--all"))
 		}
 		"learn" => {
 			check_args(rest, &["--scope", "--archive", "--data", "--sources", "--verdicts", "--out", "--report", "--root"], &["--offline"], 0).map_err(usage)?;
 			learn(rest)
 		}
 		x => Err(usage(format!("unknown subcommand {x}: import, pull, resession or learn"))),
+	}
+}
+
+/// The most archives normalised at once.
+const MAX_JOBS: usize = 12;
+
+/// The cores, at most [`MAX_JOBS`].
+fn default_jobs() -> usize {
+	std::thread::available_parallelism().map_or(1, |n| n.get()).min(MAX_JOBS)
+}
+
+/// `--jobs <n>`: at least 1, capped at [`MAX_JOBS`].
+fn jobs(args: &[String]) -> Result<usize, Fail> {
+	match opt(args, "--jobs") {
+		None => Ok(default_jobs()),
+		Some(j) => match j.parse::<usize>() {
+			Ok(n) if n > 0 => Ok(n.min(MAX_JOBS)),
+			_ => Err(usage(format!("--jobs {j}: a whole number from 1 (at most {MAX_JOBS} are used)"))),
+		},
 	}
 }
 
@@ -229,6 +262,25 @@ struct InstallMeta {
 	/// seq -> when the server received the chunk (unix seconds; pulled chunks only).
 	#[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
 	received: BTreeMap<u64, i64>,
+	/// What the sessions were last made from; None before the first sessioning with a stamp.
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	sessioned: Option<Sessioned>,
+}
+
+/// The normaliser this forge sessions with: a hash of polestar-recording and this file (build.rs).
+const NORMALIZER: &str = env!("FORGE_RECORDING_HASH");
+
+/// What an archive's sessions were made from, stamped in its install.json once they are written:
+/// the normaliser, the chunk count, a digest of every input (the archive's ids and chunks, its maps
+/// and receive times, its contributor's figures) and the session files written. An archive whose
+/// stamp still matches, with those files in place, is not normalised again.
+#[derive(Clone, Default, PartialEq, Serialize, serde::Deserialize)]
+struct Sessioned {
+	normalizer: String,
+	chunks: usize,
+	inputs: String,
+	#[serde(default)]
+	sessions: Vec<String>,
 }
 
 /// What the server's export said of a contributor: first seen (unix seconds, the earliest
@@ -321,22 +373,46 @@ fn archive_chunk(out: &Path, contributor: &str, install: &str, seq: u64, text: &
 	Ok(true)
 }
 
-/// An archive, decoded (chunks that do not decode are reported and left out).
-fn load_source(out: &Path, contributor: &str, install: &str) -> Result<Source, String> {
+/// An archive read (not decoded): its install.json, its chunks' texts by seq and the stamp its
+/// sessions would get (no session files yet).
+struct Archive {
+	meta: InstallMeta,
+	texts: Vec<(u64, String)>,
+	stamp: Sessioned,
+}
+
+fn read_archive(out: &Path, (contributor, install): &Key, normalizer: &str, who: Option<&ContributorMeta>) -> Result<Archive, String> {
 	let dir = raw_dir(out, contributor, install);
 	let meta = read_meta(out, contributor, install)?.ok_or_else(|| format!("{}: no install.json", dir.display()))?;
-	let mut chunks = Vec::new();
 	let rd = std::fs::read_dir(&dir).map_err(|e| format!("{}: {e}", dir.display()))?;
 	let mut files: Vec<(u64, PathBuf)> = rd.flatten().filter_map(|e| Some((e.file_name().to_str()?.strip_suffix(".txt")?.parse().ok()?, e.path()))).collect();
 	files.sort();
+	let mut h = blake3::Hasher::new();
+	for part in [contributor, install] {
+		h.update(part.as_bytes());
+		h.update(b"\0");
+	}
+	let mut texts = Vec::with_capacity(files.len());
 	for (seq, f) in files {
 		let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
-		match record::decode_chunk(&text) {
-			Ok(c) => chunks.push(c),
-			Err(e) => eprintln!("warning: {contributor}/{install} chunk {seq}: {e}; left out"),
-		}
+		h.update(&seq.to_le_bytes());
+		h.update(&(text.len() as u64).to_le_bytes());
+		h.update(text.as_bytes());
+		texts.push((seq, text));
 	}
-	Ok(Source { contributor: contributor.to_string(), install: install.to_string(), chunks, maps: meta.maps })
+	for part in [serde_json::to_string(&meta.maps), serde_json::to_string(&meta.received), serde_json::to_string(&who)] {
+		h.update(part.map_err(|e| e.to_string())?.as_bytes());
+		h.update(b"\0");
+	}
+	let stamp = Sessioned { normalizer: normalizer.to_string(), chunks: texts.len(), inputs: h.finalize().to_hex().to_string(), sessions: Vec::new() };
+	Ok(Archive { meta, texts, stamp })
+}
+
+/// The session files the archive's stamp lists when it matches its inputs now and every one of
+/// them is in place: its sessions are up to date. None when it needs sessioning.
+fn up_to_date(out: &Path, a: &Archive) -> Option<usize> {
+	let s = a.meta.sessioned.as_ref()?;
+	(s.normalizer == a.stamp.normalizer && s.chunks == a.stamp.chunks && s.inputs == a.stamp.inputs && s.sessions.iter().all(|n| out.join(n).is_file())).then_some(s.sessions.len())
 }
 
 #[derive(Default)]
@@ -345,6 +421,20 @@ struct Written {
 	updated: usize,
 	unchanged: usize,
 	removed: usize,
+	/// Archives normalised again, and left as they were (their stamp matched).
+	normalised: usize,
+	skipped: usize,
+}
+
+impl Written {
+	fn add(&mut self, w: &Written) {
+		self.new += w.new;
+		self.updated += w.updated;
+		self.unchanged += w.unchanged;
+		self.removed += w.removed;
+		self.normalised += w.normalised;
+		self.skipped += w.skipped;
+	}
 }
 
 fn pretty(v: &Value) -> String {
@@ -352,6 +442,17 @@ fn pretty(v: &Value) -> String {
 	let mut ser = serde_json::Serializer::with_formatter(&mut buf, serde_json::ser::PrettyFormatter::with_indent(b"\t"));
 	v.serialize(&mut ser).expect("JSON values serialize");
 	String::from_utf8(buf).expect("JSON is UTF-8") + "\n"
+}
+
+/// The header fields `session_files` reads, without building the rest of the session (events).
+#[derive(serde::Deserialize)]
+struct SessionHead {
+	#[serde(default)]
+	schema: Value,
+	#[serde(default)]
+	install: Value,
+	#[serde(default)]
+	contributor: Value,
 }
 
 /// Session files in `out`: (file name, contributor, install) of every schema 2 session.
@@ -363,10 +464,10 @@ fn session_files(out: &Path) -> Vec<(String, String, String)> {
 		if !name.ends_with(".json") || name.starts_with('.') || name == "config.json" {
 			continue;
 		}
-		let Some(v) = std::fs::read_to_string(e.path()).ok().and_then(|t| serde_json::from_str::<Value>(&t).ok()) else { continue };
-		if v["schema"] == 2 {
-			if let Some(i) = v["install"].as_str() {
-				list.push((name, v["contributor"].as_str().unwrap_or("local").to_string(), i.to_string()));
+		let Some(v) = std::fs::read_to_string(e.path()).ok().and_then(|t| serde_json::from_str::<SessionHead>(&t).ok()) else { continue };
+		if v.schema == 2 {
+			if let Some(i) = v.install.as_str() {
+				list.push((name, v.contributor.as_str().unwrap_or("local").to_string(), i.to_string()));
 			}
 		}
 	}
@@ -385,35 +486,42 @@ fn remove_sessions(out: &Path, gone: impl Fn(&str, &str) -> bool) -> Result<usiz
 	Ok(n)
 }
 
-/// Normalises the archives again and writes their sessions, a pulled session's header with
-/// `received` and its contributor's `contributorSince`, `contributorChunks`, `uploadDays` and `cohort`.
-fn write_sessions(out: &Path, keys: &BTreeSet<Key>) -> Result<Written, String> {
-	let mut sources = Vec::new();
-	let mut received: BTreeMap<&Key, BTreeMap<u64, i64>> = BTreeMap::new();
-	for k in keys {
-		sources.push(load_source(out, &k.0, &k.1)?);
-		received.insert(k, read_meta(out, &k.0, &k.1)?.map(|m| m.received).unwrap_or_default());
-	}
-	let contributors = read_contributors(out)?;
-	let mut w = Written::default();
-	let mut keep = BTreeSet::new();
-	for mut s in normalize::sessions(&sources) {
-		let key = (s["contributor"].as_str().unwrap_or_default().to_string(), s["install"].as_str().unwrap_or_default().to_string());
-		let at = received.get(&key).and_then(|r| s["chunks"].as_array()?.iter().filter_map(|c| r.get(&c.as_u64()?)).max().copied());
-		let who = contributors.get(&key.0).cloned();
-		if let Some(h) = s.as_object_mut() {
-			if let Some(at) = at {
-				h.insert("received".into(), at.into());
-			}
-			if let Some(c) = who {
-				h.insert("contributorSince".into(), c.since.into());
-				h.insert("contributorChunks".into(), c.chunks.into());
-				h.insert("uploadDays".into(), c.upload_days.into());
-				if is_contributor(&c.cohort) {
-					h.insert("cohort".into(), c.cohort.into());
-				}
+/// A pulled session's header gets `received` (the latest the server received one of its chunks)
+/// and its contributor's `contributorSince`, `contributorChunks`, `uploadDays` and `cohort`.
+fn decorate(s: &mut Value, received: &BTreeMap<u64, i64>, who: Option<&ContributorMeta>) {
+	let at = s["chunks"].as_array().and_then(|c| c.iter().filter_map(|c| received.get(&c.as_u64()?)).max().copied());
+	if let Some(h) = s.as_object_mut() {
+		if let Some(at) = at {
+			h.insert("received".into(), at.into());
+		}
+		if let Some(c) = who {
+			h.insert("contributorSince".into(), c.since.into());
+			h.insert("contributorChunks".into(), c.chunks.into());
+			h.insert("uploadDays".into(), c.upload_days.into());
+			if is_contributor(&c.cohort) {
+				h.insert("cohort".into(), c.cohort.clone().into());
 			}
 		}
+	}
+}
+
+/// Normalises one archive again from its chunks and writes its sessions; of `owned` (its session
+/// files before), the ones the new normalisation no longer has are removed. Stamps the archive
+/// last, so one cut short is sessioned again by the next run.
+fn session_archive(out: &Path, key: &Key, normalizer: &str, who: Option<&ContributorMeta>, owned: &[String]) -> Result<Written, String> {
+	let mut a = read_archive(out, key, normalizer, who)?;
+	let mut chunks = Vec::with_capacity(a.texts.len());
+	for (seq, text) in std::mem::take(&mut a.texts) {
+		match record::decode_chunk(&text) {
+			Ok(c) => chunks.push(c),
+			Err(e) => eprintln!("warning: {}/{} chunk {seq}: {e}; left out", key.0, key.1),
+		}
+	}
+	let src = Source { contributor: key.0.clone(), install: key.1.clone(), chunks, maps: a.meta.maps.clone() };
+	let mut w = Written { normalised: 1, ..Written::default() };
+	let mut keep = BTreeSet::new();
+	for mut s in normalize::sessions(std::slice::from_ref(&src)) {
+		decorate(&mut s, &a.meta.received, who);
 		let id = s["session"].as_str().unwrap_or_default().to_string();
 		let name = format!("{id}.json");
 		let file = out.join(&name);
@@ -431,13 +539,53 @@ fn write_sessions(out: &Path, keys: &BTreeSet<Key>) -> Result<Written, String> {
 		}
 		keep.insert(name);
 	}
-	for (name, contributor, install) in session_files(out) {
-		if keys.contains(&(contributor, install)) && !keep.contains(&name) {
-			std::fs::remove_file(out.join(&name)).map_err(|e| format!("{name}: {e}"))?;
-			w.removed += 1;
-		}
+	drop(src);
+	for name in owned.iter().filter(|n| !keep.contains(*n)) {
+		std::fs::remove_file(out.join(name)).map_err(|e| format!("{name}: {e}"))?;
+		w.removed += 1;
 	}
+	a.stamp.sessions = keep.into_iter().collect();
+	a.meta.sessioned = Some(a.stamp);
+	write_meta(out, &key.0, &key.1, &a.meta)?;
 	Ok(w)
+}
+
+/// Normalises the archives again and writes their sessions, `jobs` archives at once, each on its
+/// own (an archive's sessions depend on its own chunks only, so memory holds `jobs` archives, never
+/// all of them). An archive whose stamp matches (sessioned by `normalizer` from the same inputs,
+/// its session files in place) is left as it is, unless `all`.
+fn session_archives(out: &Path, keys: &BTreeSet<Key>, normalizer: &str, jobs: usize, all: bool) -> Result<Written, String> {
+	let contributors = read_contributors(out)?;
+	let pool = rayon::ThreadPoolBuilder::new().num_threads(jobs.clamp(1, MAX_JOBS)).build().map_err(|e| e.to_string())?;
+	pool.install(|| {
+		let keys: Vec<&Key> = keys.iter().collect();
+		let checked: Vec<Result<Option<usize>, String>> =
+			keys.par_iter().map(|k| if all { Ok(None) } else { read_archive(out, k, normalizer, contributors.get(&k.0)).map(|a| up_to_date(out, &a)) }).collect();
+		let mut w = Written::default();
+		let mut todo = Vec::new();
+		for (k, c) in keys.into_iter().zip(checked) {
+			match c? {
+				Some(n) => {
+					w.skipped += 1;
+					w.unchanged += n;
+				}
+				None => todo.push(k),
+			}
+		}
+		if todo.is_empty() {
+			return Ok(w);
+		}
+		// Each archive's session files now, read once for all of them.
+		let mut owned: BTreeMap<Key, Vec<String>> = BTreeMap::new();
+		for (name, contributor, install) in session_files(out) {
+			owned.entry((contributor, install)).or_default().push(name);
+		}
+		let done: Vec<Result<Written, String>> = todo.par_iter().map(|k| session_archive(out, k, normalizer, contributors.get(&k.0), owned.get(*k).map_or(&[][..], Vec::as_slice))).collect();
+		for d in done {
+			w.add(&d?);
+		}
+		Ok(w)
+	})
 }
 
 fn report(out: &Path, archived: usize, w: &Written) {
@@ -504,7 +652,7 @@ fn migrate(out: &Path) -> Result<(), Fail> {
 		return Ok(());
 	}
 	remove_sessions(out, |c, i| old.contains(&(c.to_string(), i.to_string())))?;
-	let w = write_sessions(out, &moved)?;
+	let w = session_archives(out, &moved, NORMALIZER, default_jobs(), false)?;
 	println!("{} archive(s) moved to raw/<contributor>/<install>/; {} session(s) written again", moved.len(), w.new + w.updated + w.unchanged);
 	Ok(())
 }
@@ -606,7 +754,7 @@ fn import(out: &Path, wtf: Option<&Path>, who: &Who) -> Result<(), Fail> {
 		archived += n;
 		touched.insert((contributor, db.install));
 	}
-	let w = write_sessions(out, &touched)?;
+	let w = session_archives(out, &touched, NORMALIZER, default_jobs(), false)?;
 	report(out, archived, &w);
 	Ok(())
 }
@@ -969,25 +1117,18 @@ fn archives(out: &Path) -> Vec<Key> {
 	keys
 }
 
-/// `forge record resession`: every archive normalised again from its chunks, one at a time (an
-/// archive's sessions depend on its own chunks only), so the sessions carry every record kind this
-/// forge knows.
-fn resession(out: &Path) -> Result<(), Fail> {
-	let keys = archives(out);
-	let mut total = Written::default();
-	for k in &keys {
-		let w = write_sessions(out, &BTreeSet::from([k.clone()]))?;
-		total.new += w.new;
-		total.updated += w.updated;
-		total.unchanged += w.unchanged;
-		total.removed += w.removed;
-	}
-	println!("{} archive(s) normalised again", keys.len());
-	report(out, 0, &total);
+/// `forge record resession`: the archives normalised again from their chunks, `jobs` at once, so
+/// the sessions carry every record kind this forge knows; those whose stamp matches are left as
+/// they are unless `all`.
+fn resession(out: &Path, jobs: usize, all: bool) -> Result<(), Fail> {
+	let keys: BTreeSet<Key> = archives(out).into_iter().collect();
+	let w = session_archives(out, &keys, NORMALIZER, jobs, all)?;
+	println!("{} archive(s) normalised again, {} left as they were (sessioned by this forge from the same chunks)", w.normalised, w.skipped);
+	report(out, 0, &w);
 	Ok(())
 }
 
-fn pull(out: &Path, server: Option<String>, key_file: &Path) -> Result<(), Fail> {
+fn pull(out: &Path, server: Option<String>, key_file: &Path, jobs: usize) -> Result<(), Fail> {
 	let state_file = out.join(".pull-state.json");
 	let mut state: PullState = read_json(&state_file)?;
 	let server = server.or_else(|| std::env::var("POLESTAR_INGEST_URL").ok().filter(|s| !s.is_empty())).unwrap_or_else(|| DEFAULT_SERVER.to_string());
@@ -1026,7 +1167,7 @@ fn pull(out: &Path, server: Option<String>, key_file: &Path) -> Result<(), Fail>
 		skipped(t.bad, "malformed or not their install's"),
 		if gone.is_empty() { String::new() } else { format!("; {} deleted or blocked contributor(s) purged", gone.len()) }
 	);
-	let w = write_sessions(out, &t.touched)?;
+	let w = session_archives(out, &t.touched, NORMALIZER, jobs, false)?;
 	report(out, t.archived, &w);
 	for (c, n) in &t.capped {
 		println!("{c}: {n} chunk(s) skipped: its archive would pass maxContributorMB ({max_mb} MB)");
@@ -1107,7 +1248,7 @@ mod tests {
 		let (mut state, mut contributors, mut t) = (PullState::default(), read_contributors(out).unwrap(), Tally::default());
 		take_page(out, body, &mut state, &mut contributors, &mut t).unwrap();
 		write_contributors(out, &contributors).unwrap();
-		write_sessions(out, &t.touched).unwrap();
+		session_archives(out, &t.touched, NORMALIZER, 2, false).unwrap();
 		t
 	}
 
@@ -1233,19 +1374,231 @@ mod tests {
 		let out = scratch("resession");
 		let text = format!("{}{}", chunk(1, 1_799_990_000, 1), "group\t5\t2\t0\nrefuse\t9\t1429\t5020\t5000\tc\t1568\tERR_QUEST_NEED_PREREQS\n");
 		pull_page(&out, &line(1, VICTIM, "c0ffee00c0ffee00", 1, &text));
-		// An older forge wrote the session without the kinds it did not know: strip them.
+		// An older forge wrote the session without the kinds it did not know (and stamped nothing):
+		// strip them, and the stamp.
 		let (name, _, _) = session_files(&out).remove(0);
 		let file = out.join(&name);
 		let mut s: Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
 		let header = s.clone();
 		s["events"].as_array_mut().unwrap().retain(|e| !["group", "refuse"].contains(&e["e"].as_str().unwrap_or("")));
 		std::fs::write(&file, pretty(&s)).unwrap();
+		let mut meta = read_meta(&out, VICTIM, INSTALL).unwrap().unwrap();
+		assert!(meta.sessioned.take().is_some(), "the pull stamped the archive");
+		write_meta(&out, VICTIM, INSTALL, &meta).unwrap();
 		// A stray dot folder (the purge quarantine) is no archive.
 		std::fs::create_dir_all(out.join("raw/.purged/2026-11-07/x/y")).unwrap();
-		resession(&out).unwrap();
+		resession(&out, 2, false).unwrap();
 		let again: Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
 		assert_eq!(again, header, "the session is whole again, header (cohort, upload days) included");
 		assert_eq!(sessions(&out).len(), 1);
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	/// A chunk of `char_id` at `epoch`, `body` after its session record.
+	fn chunk_of(seq: u64, epoch: i64, char_id: &str, body: &str) -> String {
+		format!("chunk\t0\t{seq}\t{epoch}\t{char_id}\nsession\t0\t{char_id}\tHuman\tWARRIOR\tAlliance\t2\t1\tenUS\t70338\t16001\t3\t\t0.1.0\t\t\n{body}")
+	}
+
+	/// Records for a fixture chunk: a map record, a group, `n` positions and a kill (the last, 2 s in).
+	fn body(n: usize) -> String {
+		let mut s = "map\t0\t1420\t3\t1415\t0\t1000\t1000\t0\t0\ngroup\t1\t2\t0\n".to_string();
+		for i in 0..n {
+			s += &format!("pos\t{}\t1420\t{}\t5000\t65\t71\n", 2 + i, 5000 + i);
+		}
+		s + "kill\t20\t1501\t2\tn\t1420\t3200\t6500\t40\t\t0\t\n"
+	}
+
+	const OTHER: &str = "3333333333333333";
+
+	/// Archives a fixture chunk, with its receive time for a server contributor's.
+	fn put_chunk(out: &Path, contributor: &str, install: &str, seq: u64, epoch: i64, char_id: &str) {
+		assert!(archive_meta(out, contributor, install, &BTreeMap::from([(1415, "1415\t2\t\t0\t5\t5\t0\t0".to_string())])).unwrap());
+		archive_chunk(out, contributor, install, seq, &chunk_of(seq, epoch, char_id, &body(seq as usize))).unwrap();
+		if is_contributor(contributor) {
+			let mut meta = read_meta(out, contributor, install).unwrap().unwrap();
+			meta.received.insert(seq, 1_800_000_000 + seq as i64 * 10);
+			write_meta(out, contributor, install, &meta).unwrap();
+		}
+	}
+
+	/// An archive set with everything sessioning reads: server contributors (one with two installs,
+	/// one missing from contributors.json), a `local` and a `sent-` archive, a map table and map
+	/// records, two characters in one install, a gap that splits a character's sessions, receive
+	/// times and a chunk that does not decode. Its archives.
+	fn fixture(out: &Path) -> Vec<Key> {
+		for (c, i, seq, epoch, ch) in [
+			(VICTIM, INSTALL, 1, 1_799_990_000, "char000001"),
+			(VICTIM, INSTALL, 2, 1_799_990_300, "char000001"),
+			// About 2,700 s after chunk 2's last record: a session of its own.
+			(VICTIM, INSTALL, 3, 1_799_993_000, "char000001"),
+			(VICTIM, INSTALL, 4, 1_799_990_100, "char000002"),
+			(ATTACKER, INSTALL, 1, 1_799_990_000, "char000001"),
+			(ATTACKER, INSTALL, 2, 1_799_990_200, "char000001"),
+			(ATTACKER, "installtwo01", 7, 1_799_980_000, "char000009"),
+			(OTHER, "otherinstal1", 1, 1_799_970_000, "char000003"),
+			("local", "localinstal1", 1, 1_799_960_000, "char000004"),
+			("local", "localinstal1", 2, 1_799_960_500, "char000004"),
+			("sent-alice", "aliceinstal1", 3, 1_799_950_000, "char000005"),
+		] {
+			put_chunk(out, c, i, seq, epoch, ch);
+		}
+		std::fs::write(raw_dir(out, VICTIM, INSTALL).join("9.txt"), "not a chunk\n").unwrap();
+		let who = |chunks, cohort: &str| ContributorMeta { since: 1_790_000_000, chunks, upload_days: chunks / 4, cohort: cohort.into() };
+		write_contributors(out, &BTreeMap::from([(VICTIM.to_string(), who(40, "aaaaaaaaaaaaaaaa")), (ATTACKER.to_string(), who(12, ""))])).unwrap();
+		archives(out)
+	}
+
+	/// The 0.3.7 sessioning, kept as the reference for the per-archive one: every archive of `keys`
+	/// loaded at once and normalised together.
+	fn old_load_source(out: &Path, contributor: &str, install: &str) -> Result<Source, String> {
+		let dir = raw_dir(out, contributor, install);
+		let meta = read_meta(out, contributor, install)?.ok_or_else(|| format!("{}: no install.json", dir.display()))?;
+		let mut chunks = Vec::new();
+		let rd = std::fs::read_dir(&dir).map_err(|e| format!("{}: {e}", dir.display()))?;
+		let mut files: Vec<(u64, PathBuf)> = rd.flatten().filter_map(|e| Some((e.file_name().to_str()?.strip_suffix(".txt")?.parse().ok()?, e.path()))).collect();
+		files.sort();
+		for (seq, f) in files {
+			let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
+			match record::decode_chunk(&text) {
+				Ok(c) => chunks.push(c),
+				Err(e) => eprintln!("warning: {contributor}/{install} chunk {seq}: {e}; left out"),
+			}
+		}
+		Ok(Source { contributor: contributor.to_string(), install: install.to_string(), chunks, maps: meta.maps })
+	}
+
+	fn old_write_sessions(out: &Path, keys: &BTreeSet<Key>) -> Result<Written, String> {
+		let mut sources = Vec::new();
+		let mut received: BTreeMap<&Key, BTreeMap<u64, i64>> = BTreeMap::new();
+		for k in keys {
+			sources.push(old_load_source(out, &k.0, &k.1)?);
+			received.insert(k, read_meta(out, &k.0, &k.1)?.map(|m| m.received).unwrap_or_default());
+		}
+		let contributors = read_contributors(out)?;
+		let mut w = Written::default();
+		let mut keep = BTreeSet::new();
+		for mut s in normalize::sessions(&sources) {
+			let key = (s["contributor"].as_str().unwrap_or_default().to_string(), s["install"].as_str().unwrap_or_default().to_string());
+			let at = received.get(&key).and_then(|r| s["chunks"].as_array()?.iter().filter_map(|c| r.get(&c.as_u64()?)).max().copied());
+			let who = contributors.get(&key.0).cloned();
+			if let Some(h) = s.as_object_mut() {
+				if let Some(at) = at {
+					h.insert("received".into(), at.into());
+				}
+				if let Some(c) = who {
+					h.insert("contributorSince".into(), c.since.into());
+					h.insert("contributorChunks".into(), c.chunks.into());
+					h.insert("uploadDays".into(), c.upload_days.into());
+					if is_contributor(&c.cohort) {
+						h.insert("cohort".into(), c.cohort.into());
+					}
+				}
+			}
+			let id = s["session"].as_str().unwrap_or_default().to_string();
+			let name = format!("{id}.json");
+			let file = out.join(&name);
+			let text = pretty(&s);
+			match std::fs::read_to_string(&file) {
+				Ok(old) if old == text => w.unchanged += 1,
+				Ok(_) => {
+					std::fs::write(&file, text).map_err(|e| format!("{}: {e}", file.display()))?;
+					w.updated += 1;
+				}
+				Err(_) => {
+					std::fs::write(&file, text).map_err(|e| format!("{}: {e}", file.display()))?;
+					w.new += 1;
+				}
+			}
+			keep.insert(name);
+		}
+		for (name, contributor, install) in session_files(out) {
+			if keys.contains(&(contributor, install)) && !keep.contains(&name) {
+				std::fs::remove_file(out.join(&name)).map_err(|e| format!("{name}: {e}"))?;
+				w.removed += 1;
+			}
+		}
+		Ok(w)
+	}
+
+	/// The session files: name -> text.
+	fn session_texts(out: &Path) -> BTreeMap<String, String> {
+		session_files(out).into_iter().map(|(n, _, _)| (n.clone(), std::fs::read_to_string(out.join(n)).unwrap())).collect()
+	}
+
+	#[test]
+	fn per_archive_sessioning_writes_the_same_files_as_all_archives_at_once() {
+		let (old, new) = (scratch("old-path"), scratch("new-path"));
+		let keys = fixture(&old);
+		assert_eq!(fixture(&new), keys);
+		let all: BTreeSet<Key> = keys.iter().cloned().collect();
+		old_write_sessions(&old, &all).unwrap();
+		resession(&new, 3, false).unwrap();
+		let first = session_texts(&old);
+		assert_eq!(first.len(), 8, "{:?}", first.keys());
+		assert!(first == session_texts(&new), "a full pass: the same session files, byte for byte");
+		// A pull: a late chunk joins char000001's two sessions in VICTIM's archive, and both server
+		// contributors' figures move (ATTACKER's archives get nothing new).
+		for out in [&old, &new] {
+			put_chunk(out, VICTIM, INSTALL, 5, 1_799_991_600, "char000001");
+			let mut c = read_contributors(out).unwrap();
+			c.get_mut(VICTIM).unwrap().chunks = 41;
+			c.get_mut(ATTACKER).unwrap().upload_days = 9;
+			write_contributors(out, &c).unwrap();
+		}
+		let touched = BTreeSet::from([(VICTIM.to_string(), INSTALL.to_string())]);
+		let was = old_write_sessions(&old, &touched).unwrap();
+		let now = session_archives(&new, &touched, NORMALIZER, 3, false).unwrap();
+		assert_eq!((was.removed, now.removed, now.normalised), (1, 1, 1), "the joined session's old file is removed");
+		assert!(session_texts(&old) == session_texts(&new), "a pull: the same session files");
+		// A full pass again: the stamps send ATTACKER's archives (their figures moved) and none else.
+		old_write_sessions(&old, &all).unwrap();
+		let w = session_archives(&new, &all, NORMALIZER, 3, false).unwrap();
+		assert_eq!((w.normalised, w.skipped), (2, keys.len() - 2));
+		assert!(session_texts(&old) == session_texts(&new), "a stamped pass: the same session files as a full one");
+		for out in [old, new] {
+			std::fs::remove_dir_all(out).unwrap();
+		}
+	}
+
+	#[test]
+	fn resession_leaves_archives_sessioned_from_the_same_inputs_as_they_are() {
+		let out = scratch("stamps");
+		let keys: BTreeSet<Key> = fixture(&out).into_iter().collect();
+		resession(&out, 2, false).unwrap();
+		let of = |c: &str, i: &str| session_files(&out).into_iter().filter(|(_, sc, si)| sc == c && si == i).map(|(n, _, _)| n).collect::<Vec<_>>();
+		// A mark in one session file of each of two archives: gone once that archive is sessioned again.
+		let mark = |name: &str| {
+			let mut s: Value = serde_json::from_str(&std::fs::read_to_string(out.join(name)).unwrap()).unwrap();
+			s["mark"] = true.into();
+			std::fs::write(out.join(name), pretty(&s)).unwrap();
+		};
+		let marked = |name: &str| std::fs::read_to_string(out.join(name)).unwrap().contains("\"mark\"");
+		let (v, a) = (of(VICTIM, INSTALL)[0].clone(), of(ATTACKER, INSTALL)[0].clone());
+		mark(&v);
+		mark(&a);
+		resession(&out, 2, false).unwrap();
+		assert!(marked(&v) && marked(&a), "nothing changed: no archive is normalised again");
+		// A longer copy of a chunk (the same count): that archive only.
+		archive_chunk(&out, VICTIM, INSTALL, 2, &format!("{}pos\t21\t1420\t5100\t5000\t65\t71\n", chunk_of(2, 1_799_990_300, "char000001", &body(2)))).unwrap();
+		let w = session_archives(&out, &keys, NORMALIZER, 2, false).unwrap();
+		assert_eq!((w.normalised, w.skipped, marked(&v), marked(&a)), (1, keys.len() - 1, false, true));
+		// The contributor's figures.
+		let mut c = read_contributors(&out).unwrap();
+		c.get_mut(ATTACKER).unwrap().cohort = "bbbbbbbbbbbbbbbb".into();
+		write_contributors(&out, &c).unwrap();
+		let w = session_archives(&out, &keys, NORMALIZER, 2, false).unwrap();
+		assert_eq!((w.normalised, marked(&a)), (2, false), "both of ATTACKER's archives");
+		// A session file gone.
+		std::fs::remove_file(out.join(&v)).unwrap();
+		mark(&a);
+		assert_eq!(session_archives(&out, &keys, NORMALIZER, 2, false).unwrap().normalised, 1);
+		assert!(out.join(&v).is_file() && marked(&a));
+		// Another normaliser, or --all: every archive.
+		assert_eq!(session_archives(&out, &keys, "another normaliser", 2, false).unwrap().normalised, keys.len());
+		assert!(!marked(&a));
+		mark(&a);
+		assert_eq!(session_archives(&out, &keys, "another normaliser", 2, true).unwrap().normalised, keys.len());
+		assert!(!marked(&a));
 		std::fs::remove_dir_all(&out).unwrap();
 	}
 
@@ -1360,7 +1713,7 @@ mod tests {
 		std::fs::write(out.join(".pull-state.json"), "nope").unwrap();
 		let key = out.join("maintainer.key");
 		std::fs::write(&key, "k").unwrap();
-		let e = pull(&out, Some("http://127.0.0.1:9".into()), &key).unwrap_err();
+		let e = pull(&out, Some("http://127.0.0.1:9".into()), &key, 2).unwrap_err();
 		assert!(format!("{e:?}").contains(".pull-state.json"), "{e:?}");
 		std::fs::remove_dir_all(&out).unwrap();
 	}
@@ -1472,14 +1825,14 @@ mod tests {
 		std::fs::write(out.join("config.json"), r#"{"expireDays":1000000}"#).unwrap();
 		let export = format!("{}\n{}\n", line(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2)), line(2, VICTIM, "", 2, &chunk(2, 1_799_990_100, 2)));
 		let (url, acks) = fake_server(out.clone(), export);
-		pull(&out, Some(url), &key).unwrap();
+		pull(&out, Some(url), &key, 2).unwrap();
 		assert_eq!(*acks.lock().unwrap(), [(r#"{"upto":2}"#.to_owned(), true)]);
 
 		// A pull that fails part way acknowledges nothing.
 		let out = scratch("ack-failed");
 		std::fs::write(&key, "k".repeat(64)).unwrap();
 		let (url, acks) = fake_server(out.clone(), format!("{}\nnot json\n", line(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2))));
-		assert!(pull(&out, Some(url), &key).is_err());
+		assert!(pull(&out, Some(url), &key, 2).is_err());
 		assert!(acks.lock().unwrap().is_empty());
 	}
 }
