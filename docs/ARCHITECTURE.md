@@ -6530,15 +6530,23 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   page in the hub), **Later** and **Turn these off**
   (`dungeons.headsUp` off; also under Options > Discovery > Dungeons). It
   tells a dungeon, not a raid, with quests for the character's faction, the
-  character's level in its range, whose pickup plan by the offer rule
+  character's level at or past the dungeon's best-at level
+  (`Dungeons.BestAt`; the Dungeons window still picks its quests up from the
+  range's start) and inside its range, whose pickup plan by the offer rule
   (`Dungeons.PickupPlan(key, true)`: a quest more than one level above the
   character waits for its level less one, `Dungeons.OfferLevel`; 0.3.7, the
   game gives many 3-5 levels early) has a quest to take now
-  and none left for later levels or at least 3 to take; once per dungeon per
-  character (`CharState().dungeonToastSeen`, set once the card is on screen
+  and none left for later levels or at least 3 to take, and whose quests to
+  take now are worth at least a tenth of a level to the character
+  (`MIN_WORTH`, `Levels.Run`; not judged when one's XP is unknown); once per dungeon per
+  character (`CharState().dungeonToastSeen[key] = true`, set once the card is on screen
   or dismissed: a card waiting for the hidden guide window is told when the
-  window shows it); of several, the one that came due last (its range's
-  start or its first quest's offer level). Its **Pick up the quests** opens
+  window shows it). A card dismissed with **Later** below best-at (one the
+  command showed) is `"later"` and comes back once at best-at; on a
+  character's first check with the Codex loaded, dungeons told before the
+  best-at rule whose best-at it hasn't reached become `"later"` too
+  (`CharState().dungeonToastBestAt` marks it done). Of several, the one that
+  came due last (its best-at level or its first quest's offer level). Its **Pick up the quests** opens
   the guide by the same rule (`Dungeons.PickUp(key, true)`, kept in
   `CharState().pickupOffer` for the rebuild after /reload); the page's own
   button picks up everything the game gives. It checks 1.5 s after `PLAYER_LEVEL_UP`, so the class quest
