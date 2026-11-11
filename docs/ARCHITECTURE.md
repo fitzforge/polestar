@@ -5801,18 +5801,38 @@ page's new settings until the page is opened:
 through the session the page is first opened in (they read the seen state as
 it was when the window first opened), and go the next.
 
-**The pinned preview.** A tab's `preview(host)` is called the first time the
-tab shows, with a host frame in the shell's preview slot (`W.ShellPreview`,
-between the tab band and the scrolling rows); it returns a frame `f` with
-`f:Layout(width) -> height`, laid out across the whole main column and pinned
-there: the rows scroll under it, and the scroll area is anchored anew when
-its height changes (`Layout` runs again after every setting change while the
-window is shown, and on a new size or font). It is at most 45% of the body's
-height and clipped past that. The window draws its chrome over it: "Preview"
-and the frame's `f.caption` (a string or a function) at the top left, the
-Live mark at the top right. A preview draws the real element with the current
-values in a sandbox of its own (the module's own builder or paint code, never
-the live instance) and repaints itself only while shown.
+**The pinned preview** (`Polestar_Options/UI/Preview.lua`, `UI.Preview`). A
+tab's `preview(host)` is called the first time the tab shows, with a host
+frame in the shell's preview slot (`W.ShellPreview`, between the tab band and
+the scrolling rows); it returns a frame `f` with `f:Layout(width) -> height`,
+laid out across the whole main column and pinned there: the rows scroll under
+it, and the scroll area is anchored anew when its height changes (`Layout`
+runs again after every setting change while the window is shown, and on a new
+size or font). It is at most 45% of the body's height and never cut off: past
+that it is shown whole at the scale that fits, laid out for the width that
+scale gives, and its caption says by how much ("Shown at 81% to fit"). The
+window draws its chrome over it: "Preview" and the frame's `f.caption` (a
+string or a function) at the top left, the Live mark and the backdrop's chip
+at the top right. A preview draws the real element with the current values in
+a sandbox of its own (the module's own builder or paint code, never the live
+instance) and repaints itself only while shown.
+
+Every page draws its preview on the one stage, `P.Stage(parent, opts)`: a
+backdrop under the page's parts (`s.Content`), the player's pick for every
+preview through the chip (`PolestarDB.optionsBackdrop`, not a setting): the
+zone they stand in, painted from their own client's world map art (dimmed,
+cooled and half desaturated, a soft dark edge, so its lettering sits back),
+the night sky, or the plain ground; `opts.backdrop` is the page's own when
+none is picked, and `opts.fixed` keeps it for a scene that is a painting of
+its own (the map pins', the route lines': no chip there). `opts.watch` lists
+the setting prefixes that repaint it (`s:Paint()`) at once while it shows and
+on its next show otherwise; a theme change repaints every stage. `s:Fit`
+places a part as large as the stage holds below the chrome, `s:Snap` and
+`P.Snap` put a point on a whole physical pixel, `s:Hot` makes a hotspot, and
+`s:Animate(fn)` runs only while the stage shows. A page that crops its scene
+(the Guide window page's window, scrolled to the part a hovered row edits)
+calls `s:SetCut(true)` while the scene runs past the stage's foot, and the
+stage fades it out over its last 28 px.
 
 One setting may show on two pages: a convenience on its home page and on
 Quality of Life, where players look for it (the quest automation toggles,
