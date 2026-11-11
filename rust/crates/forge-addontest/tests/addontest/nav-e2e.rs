@@ -2422,3 +2422,92 @@ fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_wa
 	assert!(out["yards"]["1420"].as_f64().unwrap_or(0.0) > 0.0, "to Tirisfal: {}", out["yards"]);
 	assert_eq!(out["yards"]["1422"].as_f64().unwrap_or(0.0), 0.0, "no yard of Western Plaguelands (51-57): {}", out["yards"]);
 }
+
+// #1728 (PSYzera, 0.3.6, Tauren Shaman 27, ptBR): just landed at Camp Taurajo (Barrens 44.64,58.88), guided to Feegly
+// the Exiled for The Tear of the Moons (Barrens 48.97,86.31, 1,904 yd south). The arrow sent him back to the
+// Crossroads by air and only from there on foot. The walk from where he stood measures 3,162 yd, priced by its ground
+// (cost 5,660); the Crossroads lies 3,786 yd from the target, past the measure's reach (3,000 yd), so its walk kept the
+// straight estimate (x1.25, cost 4,733), and walk + flight + that estimate beat the measured walk. The landing the plan
+// rides to is measured now however far (5,865 yd, cost 7,380), and the plan waits for that measure: he walks south,
+// and no plan along the way shows the flight back.
+#[test]
+fn camp_taurajo_to_feegly_walks_south_never_flies_back_to_the_crossroads_1728() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(27)
+		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [77] = true }
+		local _, px, py = C.MapToWorld(1413, 44.64, 58.88, "e")
+		place(1413, px, py, 0)
+		N.SetTarget(1413, 48.97, 86.31, "Accept The Tear of the Moons", "e")
+		aim()
+		local function route()
+			local legs, ci = N.GetRoute()
+			local out = {}
+			for i = ci or 1, legs and #legs or 0 do
+				local l = legs[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.engine)
+			end
+			return out
+		end
+		local flew = {}
+		local function look()
+			for _, l in ipairs(route()) do if l:find("^fly") then flew[#flew + 1] = table.concat(route(), " ") end end
+		end
+		local tc, tx, ty = N.GetTargetWorld()
+		local by = {}
+		for _, nd in ipairs(N.GetTravelData().taxi) do by[nd.id] = nd end
+		local xr = by[25]
+		local n = 0
+		local function crossroads() local cost = N.walk.Measured(tc, tx, ty, false) return cost and cost(1, xr.wx, xr.wy, false) end
+		while n < 1200 and type(crossroads()) ~= "number" do stub.advance(0.05); aim(); look(); n = n + 1 end
+		for _ = 1, 200 do stub.advance(0.05); aim(); look() end
+		local cost = N.walk.Measured(tc, tx, ty, false)
+		local pc, py_ = cost(1, px, py, true)
+		local xc, xy = cost(1, xr.wx, xr.wy, false)
+		emit({ after = route(), flew = flew, player = { pc, py_ }, crossroads = { xc, xy }, straight = dist(xr.wx, xr.wy, tx, ty) })"#,
+		true,
+	);
+	assert_eq!(out["after"], serde_json::json!(["walk|cost"]), "a walk south, priced by its measure: {out}");
+	assert!(out["flew"].as_array().map_or(out["flew"] == serde_json::json!({}), |a| a.is_empty()), "no plan along the way flies back: {out}");
+	assert!(f(&out["straight"]) > 3000.0, "the Crossroads lies past the measure's own reach: {out}");
+	assert!(f(&out["crossroads"][1]) > f(&out["player"][1]), "the Crossroads' walk in, measured, is the longer: {out}");
+}
+
+// A later walk's own search that finds nothing (its answer kept as `false`) while that walk's sketch
+// (Path.FindCoarse) is still out: the sketch's answer indexed the `false` and raised "attempt to index local
+// 'was' (a boolean value)" (Nav/Walk.lua pumpShapes, found replaying players' walks). The sketch never goes over the
+// walk's own answer, a failed one included.
+#[test]
+fn a_later_walks_failed_search_answered_before_its_sketch_is_kept_and_raises_no_error() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(20)
+		w.faction = "Horde"
+		local held, failed = {}, 0
+		local realFind = E.Find
+		E.FindCoarse = function(map, from, to, callback) held[#held + 1] = callback return { held = true } end
+		E.Find = function(map, from, to, callback, opts)
+			local _, px, py = C.GetPlayerWorldPosition()
+			if math.sqrt((from.x - px) ^ 2 + (from.y - py) ^ 2) < 30 then return realFind(map, from, to, callback, opts) end
+			failed = failed + 1
+			C_Timer.After(0, function() callback(nil) end)
+			return { failed = true }
+		end
+		place(1412, -975, -107, nil)
+		N.SetTarget(1442, 47.5, 61.5, "Stonetalon", "e")
+		for _ = 1, 600 do aim(); stub.advance(0.05) end
+		local errors = {}
+		for _, cb in ipairs(held) do
+			local ok, err = pcall(cb, nil, "none")
+			if not ok then errors[#errors + 1] = tostring(err) end
+		end
+		for _ = 1, 20 do aim(); stub.advance(0.05) end
+		emit({ held = #held, failed = failed, errors = errors })"#,
+		false,
+	);
+	assert!(f(&out["held"]) >= 1.0 && f(&out["failed"]) >= 1.0, "a sketch out and a later walk's search failed: {out}");
+	assert!(out["errors"].as_array().map_or(out["errors"] == serde_json::json!({}), |a| a.is_empty()), "no Lua error: {out}");
+}
