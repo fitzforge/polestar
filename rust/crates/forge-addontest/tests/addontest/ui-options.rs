@@ -109,8 +109,8 @@ fn pages_by_order_a_page_with_nothing_to_set_left_out_recorder_and_about_last_ta
 	assert_eq!(out["footer"], json!(["Reset page", "Reload UI", "Close"]));
 }
 
-// Options > Integrations: a section per supported addon, there only while that addon is installed or loaded;
-// with none, one line says so.
+// Options > Integrations always offers the built-in quest tracker dock. Other addons' sections appear only
+// while their addon is installed or loaded.
 const SHOW: &str = r#"
 		UI.ShowOptions("integrations")
 		local headers = {}
@@ -133,11 +133,11 @@ fn integrations_lists_spoken_with_its_wait_off_only_while_spoken_quests_is_there
 	let without = run(script);
 	assert_eq!(without["toggle"], false);
 	let with = run(&format!("stub.addonsLoaded.Spoken_Quests = true\n{script}"));
-	assert_eq!(with, json!({ "headers": ["Spoken"], "toggle": true, "on": true }));
+	assert_eq!(with, json!({ "headers": ["Quest Tracker", "Spoken"], "toggle": true, "on": true }));
 }
 
 #[test]
-fn integrations_lists_questie_only_when_it_is_installed_or_loaded_else_says_none_is() {
+fn integrations_always_lists_quest_tracker_and_questie_only_when_it_is_installed_or_loaded() {
 	let none = run(SHOW);
 	assert_eq!(none["title"], "Integrations");
 	assert!(includes(&none["nav"], "Integrations"));
@@ -146,13 +146,13 @@ fn integrations_lists_questie_only_when_it_is_installed_or_loaded_else_says_none
 		Value::Object(o) => o.values().cloned().collect(),
 		other => panic!("headers: {other}"),
 	};
-	assert_eq!(values, Vec::<Value>::new());
-	assert_eq!(none["empty"], true);
-	assert_eq!(none["line"], "None of the addons Polestar works with is installed.");
+	assert_eq!(values, vec![json!("Quest Tracker")]);
+	assert_eq!(none["empty"], false);
+	assert!(none["line"].is_null());
 	assert_eq!(none["toggle"], false);
 
 	let loaded = run(&format!("stub.addonsLoaded.Questie = true\n{SHOW}"));
-	assert_eq!(loaded["headers"], json!(["Questie"]));
+	assert_eq!(loaded["headers"], json!(["Quest Tracker", "Questie"]));
 	assert_eq!(loaded["empty"], false);
 	assert!(loaded["line"].is_null());
 	assert_eq!(loaded["toggle"], true);
@@ -165,7 +165,7 @@ fn integrations_lists_questie_only_when_it_is_installed_or_loaded_else_says_none
 		"#
 	.to_string()
 		+ SHOW));
-	assert_eq!(installed["headers"], json!(["Questie"]));
+	assert_eq!(installed["headers"], json!(["Quest Tracker", "Questie"]));
 	assert_eq!(installed["toggle"], true);
 }
 

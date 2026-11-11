@@ -219,3 +219,36 @@ test('reload prompt waits for combat and Later keeps the setting without reloadi
 	emit({deferred=deferred,opened=opened,hiddenInCombat=hiddenInCombat,closed=not prompt:IsShown(),saved=Polestar.Get("ui.trackerDock")})`,{enabled:false});
 	assert.deepEqual(out,{deferred:true,opened:true,hiddenInCombat:true,closed:true,saved:true});
 });
+
+test('hiding Polestar restores quests, hides the dock and stops its update loop',()=>{
+	const [out]=run(`
+	local tabs=PolestarTrackerDockTabs
+	for _,button in ipairs({tabs:GetChildren()}) do
+		if button.label and button.label:GetText()=="Polestar" then button:Click() end
+	end
+	local updater
+	for _,frame in ipairs(stub.frames) do
+		if frame:GetParent()==Polestar.UIParent and frame:GetScript("OnUpdate") and frame:GetScript("OnEvent") then updater=frame end
+	end
+	assert(updater)
+	local ticks=0
+	updater:HookScript("OnUpdate",function() ticks=ticks+1 end)
+	Polestar.SetHidden(true)
+	local hidden=not tabs:IsVisible() and not GF.frame:IsVisible()
+	local quests=ObjectiveTrackerFrame:GetAlpha()
+	stub.advance(0.5)
+	local stopped=ticks==0
+	Polestar.SetHidden(false)
+	emit({hidden=hidden,quests=quests,stopped=stopped,restored=tabs:IsVisible() and GF.frame:IsVisible(),selected=ObjectiveTrackerFrame:GetAlpha()==0})`);
+	assert.deepEqual(out,{hidden:true,quests:1,stopped:true,restored:true,selected:true});
+});
+
+test('hiding Polestar in combat dismisses the secure reload prompt after combat',()=>{
+	const [out]=run(`
+	Polestar.Set("ui.trackerDock",true)
+	setDockCombat(true)
+	Polestar.SetHidden(true)
+	setDockCombat(false)
+	emit({closed=not PolestarTrackerDockReload:IsShown(),hidden=Polestar.Hidden()})`,{enabled:false});
+	assert.deepEqual(out,{closed:true,hidden:true});
+});

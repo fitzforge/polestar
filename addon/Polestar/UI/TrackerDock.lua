@@ -39,7 +39,7 @@ local function SuppressTexture(tex)
 	hooksecurefunc(tex, "SetAlpha", function(self, alpha)
 		if writing then return end
 		textures[self] = alpha
-		if active then
+		if active and not ns.Hidden() then
 			writing = true
 			self:SetAlpha(0)
 			writing = false
@@ -160,6 +160,9 @@ end
 local function Layout()
 	if not strip or InCombat() then return end
 	writing = true
+	local suppress = active and not ns.Hidden()
+	tracker:SetAlpha(suppress and 0 or desiredAlpha)
+	for tex, alpha in pairs(textures) do tex:SetAlpha(suppress and 0 or alpha) end
 	-- Stay in the tracker's window layer. HIGH strata put the tab strip over
 	-- unrelated windows; a small level offset is enough to keep tabs clickable.
 	local strata = tracker:GetFrameStrata() or "LOW"
@@ -181,8 +184,6 @@ local function Select(mode)
 	if mode == "polestar" and not polestarDock then return end
 	active = mode ~= "quests"
 	writing = true
-	tracker:SetAlpha(active and 0 or desiredAlpha)
-	for tex, alpha in pairs(textures) do tex:SetAlpha(active and 0 or alpha) end
 	holder:SetShown(active)
 	if polestarDock then polestarDock:SetSelected(active, active) end
 	writing = false
@@ -190,7 +191,7 @@ local function Select(mode)
 end
 
 local function Surface(name)
-	local frame = CreateFrame("Frame", name, UIParent, "BackdropTemplate")
+	local frame = CreateFrame("Frame", name, ns.UIParent, "BackdropTemplate")
 	frame:SetFrameStrata(tracker:GetFrameStrata() or "LOW")
 	frame.fill = frame:CreateTexture(nil, "BACKGROUND")
 	frame.fill:SetAllPoints()
@@ -242,7 +243,7 @@ local function Initialize()
 		-- 30px left and 5px right of ObjectiveTrackerFrame. Use our own FRAME
 		-- as the anchor, never a region or protected tracker child.
 		nativeTracker = true
-		background = CreateFrame("Frame", "PolestarTrackerDockNativeAnchor", UIParent)
+		background = CreateFrame("Frame", "PolestarTrackerDockNativeAnchor", ns.UIParent)
 		background:SetPoint("TOPLEFT", tracker, "TOPLEFT", -30, 0)
 		background:SetPoint("TOPRIGHT", tracker, "TOPRIGHT", 5, 0)
 		background:SetHeight(1)
@@ -288,7 +289,7 @@ local function Initialize()
 	hooksecurefunc(tracker, "SetAlpha", function(self, alpha)
 		if writing then return end
 		desiredAlpha = alpha
-		if active then
+		if active and not ns.Hidden() then
 			writing = true
 			self:SetAlpha(0)
 			writing = false
@@ -337,6 +338,7 @@ local function CloseReloadPrompt()
 end
 
 local function ShowReloadPrompt()
+	if ns.Hidden() then return end
 	if InCombat() then
 		reloadPending = true
 		return
@@ -394,7 +396,12 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "ui.trackerDock" then ShowReloadPrompt() end
 end)
 
-local events = CreateFrame("Frame")
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if hidden then CloseReloadPrompt() end
+	Layout()
+end)
+
+local events = CreateFrame("Frame", nil, ns.UIParent)
 events:RegisterEvent("ADDON_LOADED")
 events:RegisterEvent("PLAYER_LOGIN")
 events:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -410,7 +417,8 @@ events:SetScript("OnEvent", function(self, event, addon)
 			Initialize()
 		end)
 	elseif event == "PLAYER_REGEN_ENABLED" then
-		if reloadPending then ShowReloadPrompt() end
+		if ns.Hidden() then CloseReloadPrompt()
+		elseif reloadPending then ShowReloadPrompt() end
 		if pending then
 			local mode = pending
 			pending = nil
