@@ -81,25 +81,50 @@ class TextureCache {
 			// "Nav/<name>", "Map/<name>": Polestar's Media/Nav textures (pins,
 			// glow, arrow) and Media/Map ones (medallions, map glyphs).
 			const sub = /^(Nav|Map)\/([\w-]+)$/.exec(name);
+			// "addon:<Folder>/<path>": another addon's texture (a skin addon's
+			// Media, docs/SKINS-API.md), under the addon folder beside Polestar's.
+			const other = /^addon:([\w-]+)\/(.+)$/.exec(name);
 			const file = fid ? (this.clientArt ? path.join(this.clientArt, `${fid[1]}.tga`) : null)
+				: other ? path.join(this.dir, '..', '..', '..', other[1], other[2] + '.tga')
 				: sub ? path.join(this.dir, '..', sub[1], sub[2] + '.tga') : path.join(this.dir, name + '.tga');
 			this.src.set(name, file && fs.existsSync(file) ? readTGA(file) : null);
 		}
 		return this.src.get(name);
 	}
-	// A tinted, cropped (and optionally desaturated) PNG data URI.
+	// A tinted, cropped (and optionally desaturated) PNG data URI. Eight
+	// coordinates (SetTexCoord's corner form: upper left, lower left, upper
+	// right, lower right) map the piece's own axes onto the texture, so a
+	// turned or mirrored piece (a backdrop's top edge, stored on its side)
+	// is sampled along those axes.
 	uri(name, tint, tc, desat = 0) {
 		const key = `${name}|${tint.join(',')}|${tc ? tc.join(',') : ''}|${desat}`;
 		if (this.uris.has(key)) return this.uris.get(key);
 		const t = this.load(name);
 		if (!t) return null;
-		let [l, r, top, bottom] = tc ? (tc.length >= 8 ? [tc[0], tc[6], tc[1], tc[7]] : tc) : [0, 1, 0, 1];
-		const x0 = Math.round(l * t.w), x1 = Math.round(r * t.w), y0 = Math.round(top * t.h), y1 = Math.round(bottom * t.h);
-		const w = Math.max(1, x1 - x0), h = Math.max(1, y1 - y0);
+		// Four coordinates are the corners' rectangle, cut on whole pixels;
+		// coordinates running backwards mirror the piece (the game's
+		// NineSliceUtil mirrorLayout draws one corner four ways), which the
+		// corner form samples along its own axes, as a turned piece.
+		const [l, r, top, bottom] = tc && tc.length >= 8 ? [] : tc || [0, 1, 0, 1];
+		let w, h, at;
+		if (!(tc && tc.length >= 8) && l <= r && top <= bottom) {
+			const x0 = Math.round(l * t.w), x1 = Math.round(r * t.w), y0 = Math.round(top * t.h), y1 = Math.round(bottom * t.h);
+			w = Math.max(1, x1 - x0); h = Math.max(1, y1 - y0);
+			at = (x, y) => ((y0 + y) * t.w + (x0 + x)) * 4;
+		} else {
+			const [ulx, uly, llx, lly, urx, ury] = tc && tc.length >= 8 ? tc : [l, top, l, bottom, r, top];
+			w = Math.max(1, Math.round(Math.hypot((urx - ulx) * t.w, (ury - uly) * t.h)));
+			h = Math.max(1, Math.round(Math.hypot((llx - ulx) * t.w, (lly - uly) * t.h)));
+			at = (x, y) => {
+				const fx = (x + 0.5) / w, fy = (y + 0.5) / h;
+				const u = ulx + (urx - ulx) * fx + (llx - ulx) * fy, v = uly + (ury - uly) * fx + (lly - uly) * fy;
+				return (Math.min(t.h - 1, Math.max(0, Math.floor(v * t.h))) * t.w + Math.min(t.w - 1, Math.max(0, Math.floor(u * t.w)))) * 4;
+			};
+		}
 		const out = Buffer.alloc(w * h * 4);
 		for (let y = 0; y < h; y++) {
 			for (let x = 0; x < w; x++) {
-				const s = ((y0 + y) * t.w + (x0 + x)) * 4, d = (y * w + x) * 4;
+				const s = at(x, y), d = (y * w + x) * 4;
 				let cr = t.px[s], cg = t.px[s + 1], cb = t.px[s + 2];
 				if (desat > 0) {
 					const lum = 0.299 * cr + 0.587 * cg + 0.114 * cb;
@@ -116,6 +141,13 @@ class TextureCache {
 		const u = 'data:image/png;base64,' + png(w, h, out).toString('base64');
 		this.uris.set(key, u);
 		return u;
+	}
+	// The size, in texels, of a texture's crop (for tiling it at its own size).
+	size(name, tc) {
+		const t = this.load(name);
+		if (!t) return null;
+		const [l, r, top, bottom] = tc && tc.length < 8 ? tc : [0, 1, 0, 1];
+		return { w: Math.max(1, Math.round((r - l) * t.w)), h: Math.max(1, Math.round((bottom - top) * t.h)) };
 	}
 }
 
@@ -219,6 +251,8 @@ function resolve(objects, fonts) {
 				const lw = w / s;
 				const lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw, o.nonSpace) : o.plain.split('\n');
 				o.lines = o.maxLines ? lines.slice(0, o.maxLines) : lines;
+				// Text cut short by SetMaxLines ends its last line in "...", as the client draws it.
+				o.cutShort = o.maxLines > 0 && lines.length > o.maxLines;
 				if (h == null) h = (o.lines.length * o.font[1] + (o.lines.length - 1) * (o.spacing || 0)) * s;
 			}
 			w = w ?? 0;
@@ -248,6 +282,17 @@ function resolve(objects, fonts) {
 		const frac = hi > lo ? Math.min(1, Math.max(0, ((o.value ?? lo) - lo) / (hi - lo))) : 0;
 		rects.set(t.id, { x: sr.x + frac * (sr.w - tw), y: sr.y + (sr.h - th) / 2, w: tw, h: th });
 	}
+	// A status bar's fill (SetStatusBarTexture) covers its value's share of
+	// the bar from the left.
+	for (const o of objects) {
+		if (!o.barTexture) continue;
+		const t = byId.get(o.barTexture);
+		const sr = rects.get(o.id);
+		if (!t || !sr) continue;
+		const lo = o.minValue ?? 0, hi = o.maxValue ?? 1;
+		const frac = hi > lo ? Math.min(1, Math.max(0, ((o.value ?? lo) - lo) / (hi - lo))) : 0;
+		rects.set(t.id, { x: sr.x, y: sr.y, w: sr.w * frac, h: sr.h });
+	}
 	return { byId, rects, scaleOf };
 }
 
@@ -268,6 +313,10 @@ function textureName(p) {
 	if (m) return m[1];
 	const sub = /Polestar\\Media\\(Nav|Map)\\([\w-]+)$/.exec(p);
 	if (sub) return `${sub[1]}/${sub[2]}`;
+	// Another addon's own texture (a skin addon's, docs/SKINS-API.md):
+	// "Interface\AddOns\<Folder>\<path>" -> "addon:<Folder>/<path>".
+	const own = /AddOns\\((?!Polestar\\)[\w-]+)\\([\w\\-]+)$/.exec(p);
+	if (own) return `addon:${own[1]}/${own[2].replace(/\\/g, '/')}`;
 	if (/WHITE8X8/i.test(p)) return 'white';
 	return null;
 }
@@ -552,18 +601,46 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 			rect(r, vc, a * own, clip);
 			return;
 		}
-		const uri = textures.uri(name, [vc[0], vc[1], vc[2], 1], t.texCoord, t.desaturation || 0);
+		// SetGradient on a picture (a skin's faded art): its colour across the
+		// two ends (their mean tints it) and its alpha running from one end to
+		// the other, as a mask.
+		const g = t.gradient;
+		let gmask = '';
+		let tint = [vc[0], vc[1], vc[2], 1];
+		let alpha0 = vc[3] ?? 1;
+		if (g) {
+			tint = [0, 1, 2].map((i) => (g.min[i] + g.max[i]) / 2).concat(1);
+			alpha0 = 1;
+			const id = `${prefix}gm${t.id}`;
+			const vertical = g.orientation === 'VERTICAL';
+			defs.push(`<linearGradient id="${id}g" x1="0" y1="${vertical ? 1 : 0}" x2="${vertical ? 0 : 1}" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="${f2(g.min[3] ?? 1)}"/><stop offset="1" stop-color="#fff" stop-opacity="${f2(g.max[3] ?? 1)}"/></linearGradient>`
+				+ `<mask id="${id}" maskUnits="userSpaceOnUse" x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}"><rect x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}" fill="url(#${id}g)"/></mask>`);
+			gmask = ` mask="url(#${id})"`;
+		}
+		const uri = textures.uri(name, tint, t.texCoord, t.desaturation || 0);
 		if (!uri) return;
-		const op = Math.max(0, Math.min(1, (vc[3] ?? 1) * a * own));
+		const op = Math.max(0, Math.min(1, alpha0 * a * own));
 		if (op <= 0.001) return;
 		// SetRotation (radians, counter-clockwise) turns about the centre;
 		// ADD blending lightens what is under it.
 		const turn = t.rotation ? ` transform="rotate(${f2((-t.rotation * 180) / Math.PI)} ${f2(r.x - ox + r.w / 2)} ${f2(r.y - oy + r.h / 2)})"` : '';
 		const blend = t.blend === 'ADD' ? ' style="mix-blend-mode:screen"' : '';
+		// A tiled texture (SetHorizTile / SetVertTile) repeats at its own size
+		// from the region's top-left corner, as the client's backdrop tiles do.
+		if (t.horizTile || t.vertTile) {
+			const sz = textures.size(name, t.texCoord);
+			const s = scaleOf(t);
+			const tw = t.horizTile ? sz.w * s : r.w, th = t.vertTile ? sz.h * s : r.h;
+			const id = `${prefix}t${t.id}`;
+			defs.push(`<pattern id="${id}" patternUnits="userSpaceOnUse" x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(tw)}" height="${f2(th)}"><image width="${f2(tw)}" height="${f2(th)}" preserveAspectRatio="none" href="${uri}"/></pattern>`);
+			body.push(`<rect x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}" fill="url(#${id})" opacity="${f2(op)}"${blend}${clip}/>`);
+			return;
+		}
 		// A clip path resolves in the user space of the element using it, so a
 		// turned image is clipped on an untransformed wrapper.
 		const img = (own) => `<image x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}" preserveAspectRatio="none" opacity="${f2(op)}" href="${uri}"${turn}${blend}${own}/>`;
-		body.push(turn && clip ? `<g${clip}>${img('')}</g>` : img(clip));
+		const drawn = turn && clip ? `<g${clip}>${img('')}</g>` : img(clip);
+		body.push(gmask ? `<g${gmask}>${drawn}</g>` : drawn);
 	}
 
 	// A Line: a stroke `thickness` wide between its two ends, each a point of
@@ -613,14 +690,17 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 		const alpha = a * (t.alpha ?? 1);
 		if (alpha <= 0.001) return;
 		let lines = t.lines;
-		// Non-wrapping text wider than its box truncates with an ellipsis.
+		// Non-wrapping text wider than its box, and wrapped text cut short by
+		// SetMaxLines (its last line), truncate with an ellipsis.
+		const ellipsis = (l) => {
+			let cut = l;
+			while (cut.length && measure(fonts, t.font, cut + '...') * s > r.w) cut = cut.slice(0, -1);
+			return cut.replace(/\s+$/, '') + '...';
+		};
 		if (!t.wrap && r.w > 0) {
-			lines = lines.map((l) => {
-				if (measure(fonts, t.font, l) * s <= r.w + 0.5) return l;
-				let cut = l;
-				while (cut.length && measure(fonts, t.font, cut + '...') * s > r.w) cut = cut.slice(0, -1);
-				return cut.replace(/\s+$/, '') + '...';
-			});
+			lines = lines.map((l) => (measure(fonts, t.font, l) * s <= r.w + 0.5 ? l : ellipsis(l)));
+		} else if (t.cutShort && r.w > 0 && lines.length) {
+			lines = [...lines.slice(0, -1), ellipsis(`${lines[lines.length - 1]} `)];
 		}
 		const colored = colouredLines(t.text, lines, base);
 		const lineH = t.font[1] * s;
