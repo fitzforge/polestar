@@ -217,3 +217,22 @@ fn key_bindings_sit_in_a_polestar_section_with_the_search_tag_and_short_names() 
 		assert!(label.chars().count() <= 22, "Recorder: '{label}' is cut in the list");
 	}
 }
+
+// #1684's sweep: in the client a texture's SetAlpha sets its colour's alpha too. The highlight was coloured at 60 %
+// and then SetAlpha'd to 0.5 or 1, so on hover it drew the accent wash at full strength. Its strength is now in its
+// colour: 60 % hovered, 30 % at rest.
+#[test]
+fn quick_keybind_the_highlight_is_a_60_percent_wash_on_hover_and_half_that_at_rest() {
+	let out = run(r#"
+		k.open()
+		local hl
+		for _, r in ipairs(T.regions) do if r.blend == "ADD" and r:GetDrawLayer() == "OVERLAY" then hl = r end end
+		local rest = select(4, hl:GetVertexColor())
+		stub.RunScript(T, "OnEnter")
+		emit({ rest = rest, hover = select(4, hl:GetVertexColor()), shown = hl:IsShown() })
+		k.close()
+	"#);
+	assert_eq!(out[0]["shown"], true);
+	assert!((out[0]["rest"].as_f64().unwrap() - 0.3).abs() < 1e-9, "{}", out[0]);
+	assert!((out[0]["hover"].as_f64().unwrap() - 0.6).abs() < 1e-9, "{}", out[0]);
+}
