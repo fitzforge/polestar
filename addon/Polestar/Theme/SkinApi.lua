@@ -1,27 +1,30 @@
 -- The Skin API: other addons' colour schemes and skins (docs/skins), split from
--- Theme/Theme.lua, whose locals it reads through ns.ThemeInternal.
+-- Theme/Theme.lua, whose locals it reads through ns.ThemeInternal. What
+-- Polestar needs at login lives here: the version and the capabilities, the
+-- built-in schemes and skins, the hooks' dispatch and the facts a picker
+-- shows. The checks a scheme or skin from another addon goes through (its
+-- fields, colours, legibility, variants, preset) load on demand with the
+-- first one registered (Polestar_SkinAPI/SkinCheck.lua), and the settings
+-- window's side of the API (the picker's cards, a preset applied and undone)
+-- loads with the settings (Polestar_Options/Theme/SkinPicker.lua): a player
+-- who uses no other addon's skin loads neither.
 
-local ADDON, ns = ...
+local _, ns = ...
 local Theme = ns.Theme
 local I = ns.ThemeInternal
-local ART, BRAND, DEFAULT_ACCENT, FAILED, FAMILIES, GAME_SKINS = I.ART, I.BRAND, I.DEFAULT_ACCENT, I.FAILED, I.FAMILIES, I.GAME_SKINS
-local HOUSE_EXTRA, METRICS, RIVALS, ROLES, SCHEMES, SCHEME_INFO = I.HOUSE_EXTRA, I.METRICS, I.RIVALS, I.ROLES, I.SCHEMES, I.SCHEME_INFO
-local SCHEME_WASH, SHARED, SKINS, SKIN_FONT, SKIN_ICON, SKIN_PALETTES = I.SCHEME_WASH, I.SHARED, I.SKINS, I.SKIN_FONT, I.SKIN_ICON, I.SKIN_PALETTES
-local SKIN_ROLES, SKIN_SHADOW, WASH, copy, failSkin, floor = I.SKIN_ROLES, I.SKIN_SHADOW, I.WASH, I.copy, I.failSkin, I.floor
-local format, gameFont, get, ipairs, isColor, isLight = I.format, I.gameFont, I.get, I.ipairs, I.isColor, I.isLight
-local pairs, pcall, resolve, shifted, switchSkin, type = I.pairs, I.pcall, I.resolve, I.shifted, I.switchSkin, I.type
-local batch, field, variantOf, previewing = I.batch, I.field, I.variantOf, I.previewing
+local FAILED, SCHEME_INFO, SKINS = I.FAILED, I.SCHEME_INFO, I.SKINS
+local failSkin, field, format, ipairs, pairs, pcall = I.failSkin, I.field, I.format, I.ipairs, I.pairs, I.pcall
+local resolve, switchSkin, type, variantOf = I.resolve, I.switchSkin, I.type, I.variantOf
 
 ---------------------------------------------------------------------------
--- The Skin API (docs/SKINS-API.md): other addons add colour schemes and
--- skins without touching Polestar, and the built-in ones register through
--- the same two functions.
+-- The Skin API (docs/skins/reference.md): other addons add colour schemes
+-- and skins without touching Polestar.
 --   Theme.RegisterScheme(id, spec) -> ok, message
 --   Theme.RegisterSkin(id, spec)   -> ok, message
 -- ok false: refused, message says why. ok true: message is nil, or says
 -- what was corrected (grounds darkened until the text reads). A skin's
 -- painters and hooks run under pcall: the first error is noted, the skin
--- is off for the session and the house style stands in (failSkin above).
+-- is off for the session and the house style stands in (failSkin).
 ---------------------------------------------------------------------------
 
 Theme.API_VERSION = 2
@@ -37,14 +40,8 @@ local PAINT_KINDS = { window = true, guide = true, toast = true, panel = true, s
 -- (guideProgress) and the frame the heads-up card sits on (guideAnchor).
 local HOOKS = { arrow = true, pin = true, guideTitle = true, guideRow = true, guideLayout = true, guideRender = true,
 	guideProgress = true, guideAnchor = true }
-local SKIN_MEDIA = { band = true, bandStars = true, medallion = true, dart = true, dartEdge = true }
-local ARROW_STYLES = { ["3d"] = true, flat = true, halo = true, hearth = true }
-local MAP_ICONS = { polestar = true, halo = true, hearth = true }
-local FONT_KEYS = { game = true, inter = true, fira = true, opensans = true }
--- The scheme tokens a scheme must give (the grounds and the text ladder),
--- and those it may (Dusk's stand in).
-local SCHEME_NEEDS = { "bg", "panel", "panelAlt", "sidebar", "footer", "sky", "text", "textDim", "textMuted" }
-local SCHEME_MAY = { "ink", "star", "shade", "scrim", "onAccent", "shadow" }
+-- The checks read them too (Polestar_SkinAPI/SkinCheck.lua).
+I.PAINT_KINDS, I.HOOKS = PAINT_KINDS, HOOKS
 
 local CAPABILITIES = {}
 for _, c in ipairs({ "schemes", "skins", "tokens", "legibility", "fonts", "fontSizes", "textShadow", "icons", "media.band",
@@ -69,606 +66,39 @@ function Theme.Capabilities()
 	return out
 end
 
--- A colour as a spec may give it: { r, g, b[, a] } or { r =, g =, b =[, a =] }
--- in 0-1, or "#rrggbb" / "#rrggbbaa". -> { r, g, b, a } | nil
-local function specColor(v)
-	if type(v) == "string" then
-		local h = v:match("^#?(%x+)$")
-		if not h or (#h ~= 6 and #h ~= 8) then return nil end
-		local function byte(i) return tonumber(h:sub(i, i + 1), 16) / 255 end
-		return { byte(1), byte(3), byte(5), #h == 8 and byte(7) or 1 }
-	end
-	if type(v) ~= "table" then return nil end
-	local r, g, b, a = v[1] or v.r, v[2] or v.g, v[3] or v.b, v[4] or v.a
-	if a == nil then a = 1 end
-	for _, x in ipairs({ r, g, b, a }) do
-		if type(x) ~= "number" or x ~= x or x < 0 or x > 1 then return nil end
-	end
-	return { r, g, b, a }
-end
-
--- Every token name a palette has (a spec naming another is a typo).
-local known
-local function knownTokens()
-	if known then return known end
-	known = { accent = true, windowBorder = true }
-	for _, t in ipairs({ SCHEMES.dusk, SHARED, ART, BRAND, WASH, HOUSE_EXTRA }) do
-		for k in pairs(t) do known[k] = true end
-	end
-	for _, pal in pairs(SKIN_PALETTES) do
-		for k in pairs(pal) do known[k] = true end
-	end
-	return known
-end
-
--- `tokens` checked and copied as colours. -> table | nil, why
-local function readTokens(tokens, what)
-	if tokens == nil then return {} end
-	if type(tokens) ~= "table" then return nil, what .. " must be a table" end
-	local out, names = {}, knownTokens()
-	for k, v in pairs(tokens) do
-		if type(k) ~= "string" or not names[k] then return nil, format("unknown token %q in %s", tostring(k), what) end
-		local c = specColor(v)
-		if not c then return nil, format("token %q is not a colour (give { r, g, b[, a] } in 0-1 or \"#rrggbb\")", k) end
-		out[k] = c
-	end
-	return out
-end
-
--- The grounds as text sees them: the window ground over black, every other
--- ground over the window ground at its own alpha (a skin's translucent
--- washes, Halo's controls).
-local function seen(pal)
-	local out = {}
-	for k, v in pairs(pal) do out[k] = v end
-	local bg = pal.bg
-	local a = bg[4] or 1
-	local under = { bg[1] * a, bg[2] * a, bg[3] * a, 1 }
-	out.bg = under
-	for _, g in ipairs(Theme.GROUNDS) do
-		if g ~= "bg" then
-			local c = pal[g]
-			local ca = c[4] or 1
-			out[g] = { c[1] * ca + under[1] * (1 - ca), c[2] * ca + under[2] * (1 - ca), c[3] * ca + under[3] * (1 - ca), 1 }
-		end
-	end
-	return out
-end
-
--- The text role that reads worst on a ground, against its floor (the rule
--- Theme.Legibility holds the schemes to: the text ladder on every ground,
--- the subject colours on every ground but the band). -> ratio of its floor,
--- role, ground, contrast, floor
-local SUBJECT_ORDER = {}
-for k in pairs(SHARED) do SUBJECT_ORDER[#SUBJECT_ORDER + 1] = k end
-table.sort(SUBJECT_ORDER)
-local function weakest(pal)
-	local worst, role, ground, ratio, need = math.huge
-	local function try(r, g, floorRatio)
-		local c = Theme.Contrast(pal[r], pal[g])
-		if c / floorRatio < worst then worst, role, ground, ratio, need = c / floorRatio, r, g, c, floorRatio end
-	end
-	for _, g in ipairs(Theme.GROUNDS) do
-		for _, r in ipairs({ "text", "textDim", "textMuted" }) do try(r, g, Theme.LEGIBLE[r]) end
-		if g ~= "sky" then
-			for _, r in ipairs(SUBJECT_ORDER) do try(r, g, 4.5) end
-		end
-	end
-	return worst, role, ground, ratio, need
-end
-
--- `pal` legible as given, or its grounds moved together (alpha kept) by the
--- least that makes it so: darkened under light text, lifted under dark text
--- (a light palette, Theme.IsLightPalette); nil when even the darkest (or
--- lightest) grounds would not carry the text. -> grounds | nil, why, corrected
-local function legibleGrounds(pal, strict)
-	local worst, role, ground, ratio, need = weakest(seen(pal))
-	if worst >= 1 then return pal, nil, false end
-	local why = format("%s on %s reads %.1f:1, needs %g:1", role, ground, ratio, need)
-	if strict then return nil, why end
-	local light = isLight(pal)
-	local far = light and 1 or -1
-	local base, trial = {}, {}
-	for k, v in pairs(pal) do trial[k] = v end
-	for _, g in ipairs(Theme.GROUNDS) do base[g] = pal[g] end
-	local function at(dL)
-		for _, g in ipairs(Theme.GROUNDS) do trial[g] = shifted(base[g], dL) end
-		return weakest(seen(trial)) >= 1
-	end
-	if not at(far) then return nil, why .. (light and " even with the grounds at their lightest" or " even with the grounds at their darkest") end
-	local lo, hi = far, 0
-	for _ = 1, 14 do
-		local mid = (lo + hi) / 2
-		if at(mid) then lo = mid else hi = mid end
-	end
-	at(lo)
-	return trial, why .. format("; the grounds were %s (%.2f) until the text reads", light and "lightened" or "darkened", lo), true
-end
-
-local function apiCheck(spec)
-	local api = spec.api
-	if api == nil then return true end
-	if type(api) ~= "number" or api < 1 or api ~= floor(api) then return false, "api must be a whole number from 1" end
-	if api > Theme.API_VERSION then
-		return false, format("needs Skin API %d; this Polestar has %d (update Polestar)", api, Theme.API_VERSION)
-	end
-	return true
-end
-
-local function idCheck(id, taken)
-	if type(id) ~= "string" or not id:match("^[%a][%w_%-]*$") or #id > 32 then
-		return false, "the id must be a word of letters, digits, _ or - (32 at most), starting with a letter"
-	end
-	if taken then return false, format("the id %q is taken (%s)", id, taken) end
-	return true
-end
-
-local function textField(spec, key, need, what)
-	local v = spec[key]
-	if v == nil and not need then return true end
-	if type(v) ~= "string" or v == "" or #v > (key == "desc" and 200 or 40) then
-		return false, format("%s must be %s", key, what)
-	end
-	return true
-end
-
--- The spec fields each kind of spec may have (any other is a typo).
-local SCHEME_FIELDS = { api = true, name = true, addon = true, author = true, version = true, desc = true, tokens = true,
-	accent = true, washes = true, strict = true }
-local SKIN_FIELDS = { api = true, name = true, addon = true, author = true, version = true, desc = true, base = true,
-	scheme = true, tokens = true, font = true, fontSizes = true, textShadow = true, icons = true, media = true, arrow = true,
-	mapIcons = true, paint = true, hooks = true, onApply = true, onLeave = true, strict = true, preset = true,
-	-- Skin API 2
-	variants = true, defaultVariant = true, resolve = true, shadow = true, artTint = true }
--- A variant's own (spec.variants, Skin API 2): what it changes of the skin.
-local VARIANT_FIELDS = { id = true, name = true, desc = true, base = true, scheme = true, tokens = true, media = true,
-	arrow = true, preset = true, artTint = true, shadow = true }
-
--- A preset may hold the look's settings, never what Polestar does: these
--- sections are behaviour (automation, gear, talents...), and ui.skin is the
--- choice the preset belongs to.
-local PRESET_DENIED_SECTIONS = { behavior = true, gear = true, talents = true, alts = true, party = true, lookup = true,
-	routePlan = true, gamepad = true, dungeons = true }
-local PRESET_DENIED_KEYS = { ["ui.skin"] = true }
-
--- A preset value as its setting holds it, checked against the setting's
--- default: the same type; a colour setting (default false) takes a colour.
--- -> value | nil, why
-local function presetValue(path, v)
-	if type(path) ~= "string" or not path:match("^[%a][%w_]*%.[%w_.]+$") then
-		return nil, format("preset key %q is not a setting path (like \"ui.scale\")", tostring(path))
-	end
-	if PRESET_DENIED_KEYS[path] or PRESET_DENIED_SECTIONS[path:match("^[^.]+")] then
-		return nil, format("preset.%s is not a look setting (a preset changes how Polestar looks, never what it does)", path)
-	end
-	local d = ns.GetDefault and ns.GetDefault(path)
-	if d == nil then return nil, format("preset: Polestar has no setting %q", path) end
-	if d == false and type(v) ~= "boolean" then
-		local c = specColor(v)
-		if not c then return nil, format("preset.%s must be false or a colour", path) end
-		return c
-	end
-	if type(v) ~= type(d) then return nil, format("preset.%s must be a %s, like its default", path, type(d)) end
-	if type(v) == "number" and (v ~= v or v == math.huge or v == -math.huge) then return nil, format("preset.%s is not a number", path) end
-	if type(v) == "table" then
-		local c = {}
-		for k, x in pairs(v) do
-			if type(x) == "table" or type(x) == "function" then return nil, format("preset.%s holds a nested table", path) end
-			c[k] = x
-		end
-		return c
-	end
-	return v
-end
-
-local function readPreset(preset)
-	if preset == nil then return true end
-	if type(preset) ~= "table" then return false, "preset must be a table of setting = value" end
-	local out, any = {}, false
-	for path, v in pairs(preset) do
-		local value, why = presetValue(path, v)
-		if value == nil then return false, why end
-		out[path], any = value, true
-	end
-	if not any then return false, "preset is empty" end
-	return true, out
-end
-
-local function fieldsCheck(spec, allowed)
-	for k in pairs(spec) do
-		if not allowed[k] then return false, format("unknown field %q", tostring(k)) end
-	end
-	return true
-end
-
-local function metaCheck(spec, builtin)
-	local ok, why = apiCheck(spec)
-	if not ok then return false, why end
-	if not builtin then
-		for _, f in ipairs({ { "name", true, "a name of 1-40 characters" }, { "addon", true, "your addon's folder name" },
-			{ "author", false, "a string" }, { "version", false, "a string" }, { "desc", false, "a string of 200 characters at most" } }) do
-			ok, why = textField(spec, f[1], f[2], f[3])
-			if not ok then return false, why end
-		end
-	end
-	return true
-end
-
+-- A registration's note or refusal, in the debug log (/polestar debug).
 local function report(kind, id, spec, msg)
 	if ns.Debug then ns.Debug(format("%s %s (%s): %s", kind, tostring(id), type(spec) == "table" and tostring(spec.addon) or "?", msg)) end
 end
+I.report = report
 
-local BUILTIN_SCHEME_LABEL = {
-	dusk = function() return ns.L["Dusk"] end,
-	night = function() return ns.L["Night"] end,
-	graphite = function() return ns.L["Graphite"] end,
-}
-
-local function registerScheme(id, spec, builtin)
-	if type(spec) ~= "table" then return false, "the spec must be a table" end
-	local ok, why = fieldsCheck(spec, SCHEME_FIELDS)
-	if ok then
-		local info = SCHEME_INFO[id]
-		ok, why = idCheck(id, id == "ellesmere" and "EllesmereUI's" or info and (info.addon or "Polestar"))
-	end
-	if ok then ok, why = metaCheck(spec, builtin) end
-	if not ok then return false, why end
-	local tokens
-	tokens, why = readTokens(spec.tokens, "tokens")
-	if not tokens then return false, why end
-	for _, k in ipairs(SCHEME_NEEDS) do
-		if not tokens[k] then return false, format("tokens.%s is missing (a scheme gives %s)", k, table.concat(SCHEME_NEEDS, ", ")) end
-	end
-	for _, k in ipairs(SCHEME_MAY) do
-		if not tokens[k] then tokens[k] = copy(SCHEMES.dusk[k]) end
-	end
-	-- The status and subject colours (quest gold, NPC blue...) are the same in
-	-- every dark scheme; a scheme may give its own (a light one must: they
-	-- are drawn for night grounds).
-	for k in pairs(tokens) do
-		if ART[k] or BRAND[k] or WASH[k] or HOUSE_EXTRA[k] or k == "accent" or k == "windowBorder" then
-			return false, format("tokens.%s belongs to a skin, not a scheme (a scheme gives the grounds, the text ladder and the subject colours)", k)
-		end
-	end
-	local accent
-	if spec.accent ~= nil then
-		accent = specColor(spec.accent)
-		if not accent then return false, "accent is not a colour" end
-	end
-	local washes
-	if spec.washes ~= nil then
-		if type(spec.washes) ~= "table" then return false, "washes must be a table" end
-		washes = {}
-		for k, a in pairs(spec.washes) do
-			if not WASH[k] then return false, format("unknown wash %q", tostring(k)) end
-			if type(a) ~= "number" or a < 0 or a > 1 then return false, format("washes.%s must be an alpha from 0 to 1", k) end
-			washes[k] = a
-		end
-	end
-	local pal = {}
-	for k, c in pairs(SHARED) do pal[k] = c end
-	for k, c in pairs(tokens) do pal[k] = c end
-	local fixed, note, corrected = legibleGrounds(pal, builtin or spec.strict)
-	-- A built-in palette is taken as it is (tests/theme holds it to the rule).
-	if not fixed and not builtin then return false, note end
-	if corrected then
-		for _, g in ipairs(Theme.GROUNDS) do tokens[g] = fixed[g] end
-	end
-	if builtin then
-		SCHEME_INFO[id] = { id = id, builtin = true, label = BUILTIN_SCHEME_LABEL[id] }
-	else
-		SCHEMES[id] = tokens
-		SCHEME_INFO[id] = { id = id, name = spec.name, addon = spec.addon, author = spec.author, version = spec.version,
-			desc = spec.desc, accent = accent }
-		if washes then SCHEME_WASH[id] = washes end
-	end
-	local listed = false
-	for _, k in ipairs(Theme.SCHEME_ORDER) do if k == id then listed = true end end
-	if not listed then Theme.SCHEME_ORDER[#Theme.SCHEME_ORDER + 1] = id end
-	if note then report("scheme", id, spec, note) end
-	-- A saved choice waiting for this scheme shows now.
-	if not builtin and (get("ui.scheme") == id or (SKINS[Theme.SkinId()] or {}).scheme == id) then Theme.Refresh() end
-	return true, note
+-- The checks a scheme or skin from another addon goes through, loaded with
+-- the first one registered (it registers them as I.register). -> the checks,
+-- or nil when the addon holding them is missing or disabled.
+local CHECKS = "Polestar_SkinAPI"
+local MISSING = "the Skin API's checks did not load (is the " .. CHECKS .. " folder installed and enabled?)"
+local function checks()
+	if I.register then return I.register end
+	local A = C_AddOns
+	local load = A and A.LoadAddOn or LoadAddOn
+	if load then pcall(load, CHECKS) end
+	return I.register
 end
 
--- Register colour scheme `id` (spec: docs/SKINS-API.md, "RegisterScheme").
+-- Register colour scheme `id` (spec: docs/skins/reference.md, "RegisterScheme").
 function Theme.RegisterScheme(id, spec)
-	local ok, msg = registerScheme(id, spec, false)
+	local c = checks()
+	local ok, msg
+	if c then ok, msg = c.scheme(id, spec) else ok, msg = false, MISSING end
 	if not ok then report("scheme", id, spec, "refused: " .. tostring(msg)) end
 	return ok, msg
 end
 
-local BUILTIN_SKIN_LABEL = {
-	polestar = function() return ns.L["Polestar"] end,
-	halo = function() return ns.L["Halo"] end,
-	hearth = function() return ns.L["Hearth"] end,
-	forever = function() return ns.L["WoW Forever"] end,
-	blizzard = function() return ns.L["Blizzard"] end,
-	classic = function() return ns.L["Classic"] end,
-}
-
-local function readFont(font, id)
-	if font == nil then return true end
-	if type(font) == "string" then
-		if not FONT_KEYS[font] then return false, "font must be \"game\", \"inter\", \"fira\", \"opensans\" or a table of font files" end
-		return true, font
-	end
-	if type(font) ~= "table" or type(font.regular) ~= "string" then
-		return false, "a font table needs regular = \"Interface\\\\AddOns\\\\...\\\\file.ttf\" (medium, semibold optional)"
-	end
-	for _, w in ipairs({ "medium", "semibold" }) do
-		if font[w] ~= nil and type(font[w]) ~= "string" then return false, "font." .. w .. " must be a file path" end
-	end
-	local key = "skin:" .. id
-	return true, key, { regular = font.regular, medium = font.medium or font.regular, semibold = font.semibold or font.medium or font.regular }
-end
-
-local function readMap(t, what, allowedKeys, check)
-	if t == nil then return true end
-	if type(t) ~= "table" then return false, what .. " must be a table" end
-	for k, v in pairs(t) do
-		if allowedKeys and not allowedKeys[k] then return false, format("unknown %s %q", what, tostring(k)) end
-		if not check(v) then return false, format("%s.%s has the wrong type", what, tostring(k)) end
-	end
-	return true
-end
-
-local function isFunction(v) return type(v) == "function" end
-local function isString(v) return type(v) == "string" and v ~= "" end
-
--- A colour as a spec may give it, or a token's name (the kit's colours).
-local function tokenOrColor(v)
-	if type(v) == "string" and knownTokens()[v] then return v end
-	return specColor(v)
-end
-
--- spec.shadow (Skin API 2): the window's drop shadow, { size, drop, alpha,
--- color } (each optional: the house's size and drop, alpha 0.6, the shadow
--- token), or false for none. -> true, value | false, why
-local function readShadow(v, what)
-	if v == nil then return true, nil end
-	if v == false then return true, false end
-	if type(v) ~= "table" then return false, what .. " must be { size, drop, alpha, color } or false" end
-	for k in pairs(v) do
-		if k ~= "size" and k ~= "drop" and k ~= "alpha" and k ~= "color" then return false, format("unknown field %q in %s", tostring(k), what) end
-	end
-	local function num(k, lo, hi) local x = v[k]; return x == nil or (type(x) == "number" and x == x and x >= lo and x <= hi) end
-	if not num("size", 0, 64) then return false, what .. ".size must be a number from 0 to 64" end
-	if not num("drop", -32, 32) then return false, what .. ".drop must be a number from -32 to 32" end
-	if not num("alpha", 0, 1) then return false, what .. ".alpha must be a number from 0 to 1" end
-	local color
-	if v.color ~= nil then
-		color = tokenOrColor(v.color)
-		if not color then return false, what .. ".color must be a token's name or a colour" end
-	end
-	return true, { size = v.size, drop = v.drop, alpha = v.alpha or 0.6, color = color }
-end
-
--- spec.artTint (Skin API 2): a tint over a game look's art, { tint,
--- brightness (-1 to 1), desaturate (0 to 1) } (kit.tintArt). -> true, value | false, why
-local function readArtTint(v, what)
-	if v == nil then return true, nil end
-	if type(v) ~= "table" then return false, what .. " must be { tint, brightness, desaturate }" end
-	for k in pairs(v) do
-		if k ~= "tint" and k ~= "brightness" and k ~= "desaturate" then return false, format("unknown field %q in %s", tostring(k), what) end
-	end
-	local tint
-	if v.tint ~= nil then
-		tint = tokenOrColor(v.tint)
-		if not tint then return false, what .. ".tint must be a token's name or a colour" end
-	end
-	local b, d = v.brightness, v.desaturate
-	if b ~= nil and (type(b) ~= "number" or b ~= b or b < -1 or b > 1) then return false, what .. ".brightness must be a number from -1 to 1" end
-	if d ~= nil and (type(d) ~= "number" or d ~= d or d < 0 or d > 1) then return false, what .. ".desaturate must be a number from 0 to 1" end
-	return true, { tint = tint, brightness = b, desaturate = d }
-end
-
-
--- spec.variants (Skin API 2): one design in several versions, the player's
--- pick under the skin's card (ui.skinVariants.<id>): a list of { id, name,
--- desc, and what the variant changes: base, scheme, tokens (over the skin's),
--- media, arrow, preset, artTint, shadow }. -> true, ids, byId, default | false, why
-local function readVariants(spec)
-	local list = spec.variants
-	if list == nil then
-		if spec.defaultVariant ~= nil then return false, "defaultVariant goes with variants" end
-		return true
-	end
-	if type(list) ~= "table" or #list == 0 then return false, "variants must be a list of { id, name, ... }" end
-	local ids, by = {}, {}
-	for i, v in ipairs(list) do
-		local what = "variants[" .. i .. "]"
-		if type(v) ~= "table" then return false, what .. " must be a table" end
-		for k in pairs(v) do
-			if not VARIANT_FIELDS[k] then return false, format("unknown field %q in %s", tostring(k), what) end
-		end
-		if type(v.id) ~= "string" or not v.id:match("^[%a][%w_%-]*$") or #v.id > 32 then
-			return false, what .. ".id must be a word of letters, digits, _ or - (32 at most), starting with a letter"
-		end
-		if by[v.id] then return false, format("the variant id %q is given twice", v.id) end
-		if type(v.name) ~= "string" or v.name == "" or #v.name > 40 then return false, what .. ".name must be a string of 40 characters at most" end
-		if v.desc ~= nil and (type(v.desc) ~= "string" or #v.desc > 200) then return false, what .. ".desc must be a string of 200 characters at most" end
-		local rec = { id = v.id, name = v.name, desc = v.desc }
-		if v.base ~= nil then
-			if not (SKINS[v.base] and SKINS[v.base].builtin) then
-				return false, what .. ".base must be one of Polestar's skins: polestar, halo, hearth, forever, blizzard, classic"
-			end
-			rec.base = v.base
-		end
-		local base = rec.base or spec.base or "polestar"
-		if v.scheme ~= nil then
-			if base ~= "polestar" then return false, what .. ".scheme goes with base \"polestar\"" end
-			if not (type(v.scheme) == "string" and SCHEMES[v.scheme] and SCHEME_INFO[v.scheme]) then
-				return false, format("%s.scheme %q is not registered (register it first)", what, tostring(v.scheme))
-			end
-			rec.scheme = v.scheme
-		end
-		if v.tokens ~= nil then
-			local t, why = readTokens(v.tokens, what .. ".tokens")
-			if not t then return false, why end
-			rec.tokens = t
-		end
-		local ok, why = readMap(v.media, what .. ".media", SKIN_MEDIA, isString)
-		if not ok then return false, why end
-		if v.media then
-			rec.media = {}
-			for k, p in pairs(v.media) do rec.media[k] = p end
-		end
-		if v.arrow ~= nil then
-			if not ARROW_STYLES[v.arrow] then return false, what .. ".arrow must be \"3d\", \"flat\", \"halo\" or \"hearth\"" end
-			rec.arrow = v.arrow
-		end
-		if v.preset ~= nil then
-			local pok, preset = readPreset(v.preset)
-			if not pok then return false, what .. ": " .. tostring(preset) end
-			rec.preset = preset
-		end
-		ok, why = readArtTint(v.artTint, what .. ".artTint")
-		if not ok then return false, why end
-		rec.artTint = why
-		ok, why = readShadow(v.shadow, what .. ".shadow")
-		if not ok then return false, why end
-		rec.shadow = why
-		ids[#ids + 1] = v.id
-		by[v.id] = rec
-	end
-	local default = spec.defaultVariant
-	if default == nil then
-		default = ids[1]
-	elseif not by[default] then
-		return false, "defaultVariant must be one of the variants' ids"
-	end
-	return true, ids, by, default
-end
-
-local function registerSkin(id, spec, builtin)
-	if type(spec) ~= "table" then return false, "the spec must be a table" end
-	local ok, why = fieldsCheck(spec, SKIN_FIELDS)
-	if ok then ok, why = idCheck(id, SKINS[id] and (SKINS[id].addon or "Polestar")) end
-	if ok then ok, why = metaCheck(spec, builtin) end
-	if not ok then return false, why end
-	local base = spec.base or "polestar"
-	if builtin then
-		base = id
-	elseif not (SKINS[base] and SKINS[base].builtin) then
-		return false, "base must be one of Polestar's skins: polestar, halo, hearth, forever, blizzard, classic"
-	end
-	if spec.scheme ~= nil then
-		if base ~= "polestar" then return false, "scheme goes with base \"polestar\" (the other looks bring their own grounds)" end
-		if not (type(spec.scheme) == "string" and SCHEMES[spec.scheme] and SCHEME_INFO[spec.scheme]) then
-			return false, format("scheme %q is not registered (register it first)", tostring(spec.scheme))
-		end
-	end
-	local tokens
-	tokens, why = readTokens(spec.tokens, "tokens")
-	if not tokens then return false, why end
-	local fontKey, family
-	ok, fontKey, family = readFont(spec.font, id)
-	if not ok then return false, fontKey end
-	ok, why = readMap(spec.fontSizes, "fontSizes", ROLES, function(v) return type(v) == "number" and v >= 6 and v <= 40 end)
-	if ok then
-		ok, why = readMap(spec.icons, "icons", nil, isString)
-	end
-	if ok then ok, why = readMap(spec.media, "media", SKIN_MEDIA, isString) end
-	if ok then ok, why = readMap(spec.paint, "paint", PAINT_KINDS, isFunction) end
-	if ok then ok, why = readMap(spec.hooks, "hooks", HOOKS, isFunction) end
-	if not ok then return false, why end
-	if spec.textShadow ~= nil and spec.textShadow ~= false then
-		local s = spec.textShadow
-		if type(s) ~= "table" or type(s[1]) ~= "number" or type(s[2]) ~= "number" or type(s[3]) ~= "number" then
-			return false, "textShadow must be { x, y, alpha } or false"
-		end
-	end
-	if spec.arrow ~= nil and not ARROW_STYLES[spec.arrow] then return false, "arrow must be \"3d\", \"flat\", \"halo\" or \"hearth\"" end
-	if spec.mapIcons ~= nil and not MAP_ICONS[spec.mapIcons] then return false, "mapIcons must be \"polestar\", \"halo\" or \"hearth\"" end
-	local preset
-	ok, preset = readPreset(spec.preset)
-	if not ok then return false, preset end
-	for _, k in ipairs({ "onApply", "onLeave", "resolve" }) do
-		if spec[k] ~= nil and type(spec[k]) ~= "function" then return false, k .. " must be a function" end
-	end
-	local shadow, artTint, variantIds, variantBy, defaultVariant
-	ok, shadow = readShadow(spec.shadow, "shadow")
-	if not ok then return false, shadow end
-	ok, artTint = readArtTint(spec.artTint, "artTint")
-	if not ok then return false, artTint end
-	ok, variantIds, variantBy, defaultVariant = readVariants(spec)
-	if not ok then return false, variantIds end
-	-- What the text sits on: the skin's palette with the house's subject
-	-- colours (a skin on the house style: its scheme, else Dusk).
-	local pal = {}
-	for k, c in pairs(SHARED) do pal[k] = c end
-	local under = base == "polestar" and SCHEMES[spec.scheme or "dusk"] or SKIN_PALETTES[base]
-	for k, c in pairs(under) do pal[k] = c end
-	for k, c in pairs(tokens) do pal[k] = c end
-	local fixed, note, corrected = legibleGrounds(pal, builtin or spec.strict)
-	if not fixed and not builtin then return false, note end
-	if corrected then
-		for _, g in ipairs(Theme.GROUNDS) do tokens[g] = fixed[g] end
-	end
-	-- Each variant's grounds held to the same rule, on the look it is drawn
-	-- from, with the skin's tokens and its own over it.
-	for i, vid in ipairs(variantIds or {}) do
-		local v = variantBy[vid]
-		if v.base or v.scheme or v.tokens then
-			local vbase = v.base or base
-			local vpal = {}
-			for k, c in pairs(SHARED) do vpal[k] = c end
-			for k, c in pairs(vbase == "polestar" and SCHEMES[v.scheme or spec.scheme or "dusk"] or SKIN_PALETTES[vbase]) do vpal[k] = c end
-			for k, c in pairs(tokens) do vpal[k] = c end
-			for k, c in pairs(v.tokens or {}) do vpal[k] = c end
-			local vfixed, vnote, vcorrected = legibleGrounds(vpal, spec.strict)
-			if not vfixed then return false, format("variants[%d]: %s", i, vnote) end
-			if vcorrected then
-				v.tokens = v.tokens or {}
-				for _, g in ipairs(Theme.GROUNDS) do v.tokens[g] = vfixed[g] end
-				vnote = format("variants[%d]: %s", i, vnote)
-				note = note and (note .. "; " .. vnote) or vnote
-			end
-		end
-	end
-	local s = { id = id, base = base, builtin = builtin or nil }
-	if builtin then
-		s.label = BUILTIN_SKIN_LABEL[id]
-	else
-		s.name, s.addon, s.author, s.version, s.desc = spec.name, spec.addon, spec.author, spec.version, spec.desc
-		s.scheme, s.tokens, s.arrow, s.mapIcons = spec.scheme, tokens, spec.arrow, spec.mapIcons
-		s.paint, s.hooks, s.onApply, s.onLeave, s.preset = spec.paint, spec.hooks, spec.onApply, spec.onLeave, preset
-		s.resolve, s.shadow, s.artTint = spec.resolve, shadow, artTint
-		s.variants, s.variantBy, s.defaultVariant = variantIds, variantBy, defaultVariant
-		if spec.media then
-			s.media = {}
-			for k, v in pairs(spec.media) do s.media[k] = v end
-		end
-		-- Only what the skin gives itself: the rest is read from the look it
-		-- is drawn from now (Theme.SkinKey: its base, or its variant's).
-		if family then FAMILIES[fontKey] = family end
-		SKIN_FONT[id] = fontKey
-		local roles = {}
-		for role, size in pairs(spec.fontSizes or {}) do roles[role] = { ROLES[role][1], size } end
-		SKIN_ROLES[id] = roles
-		if spec.textShadow == false then
-			SKIN_SHADOW[id] = { 0, 0, 0 }
-		elseif spec.textShadow then
-			SKIN_SHADOW[id] = { spec.textShadow[1], spec.textShadow[2], spec.textShadow[3] }
-		end
-		local icons = {}
-		for k, v in pairs(spec.icons or {}) do icons[k] = v end
-		SKIN_ICON[id] = icons
-	end
-	SKINS[id] = s
-	local listed = false
-	for _, k in ipairs(Theme.SKIN_ORDER) do if k == id then listed = true end end
-	if not listed then Theme.SKIN_ORDER[#Theme.SKIN_ORDER + 1] = id end
-	if note then report("skin", id, spec, note) end
-	-- A saved choice waiting for this skin (its addon loaded late) shows now.
-	if not builtin and get("ui.skin") == id then Theme.Refresh() end
-	return true, note
-end
-
--- Register skin `id` (spec: docs/SKINS-API.md, "RegisterSkin").
+-- Register skin `id` (spec: docs/skins/reference.md, "RegisterSkin").
 function Theme.RegisterSkin(id, spec)
-	local ok, msg = registerSkin(id, spec, false)
+	local c = checks()
+	local ok, msg
+	if c then ok, msg = c.skin(id, spec) else ok, msg = false, MISSING end
 	if not ok then report("skin", id, spec, "refused: " .. tostring(msg)) end
 	return ok, msg
 end
@@ -729,89 +159,6 @@ function Theme.SkinMapIcons()
 	return s and s.mapIcons or nil
 end
 
--- A skin's preset (spec.preset): the settings it recommends, as a copy, or
--- nil. Never applied by itself: the player applies it (the Theme page's
--- "Apply <skin>'s layout") and may undo it.
-local function copyValue(v)
-	if type(v) ~= "table" then return v end
-	local c = {}
-	for k, x in pairs(v) do c[k] = x end
-	return c
-end
-
--- A registered skin's preset with its variant's over it (spec.variants[i].preset).
-local function presetOf(s)
-	local v = s.variants and s.variantBy[variantOf(s)]
-	if not (v and v.preset) then return s.preset end
-	local out = {}
-	for path, x in pairs(s.preset or {}) do out[path] = x end
-	for path, x in pairs(v.preset) do out[path] = x end
-	return out
-end
-
-function Theme.SkinPreset(id)
-	local s = SKINS[id]
-	local preset = s and presetOf(s)
-	if not preset then return nil end
-	local out = {}
-	for path, v in pairs(preset) do out[path] = copyValue(v) end
-	return out
-end
-
--- The settings an applied preset changed, as they were before: one level of
--- undo for the session (a reload forgets it; the profiles keep a copy).
-local presetUndo -- { id = skin id, values = { [path] = value before } }
-
--- Apply skin `id`'s preset through ns.Set (so each setting fires its own
--- change and a value equal to its default is not stored), remembering what
--- each setting (and the colour sources it turns off) was. Applying another
--- preset before undoing keeps the oldest values, so Undo goes back to before
--- the first. -> ok, why
-function Theme.ApplySkinPreset(id)
-	local s = SKINS[id]
-	if not s then return false, "no such skin" end
-	local preset = presetOf(s)
-	if not preset then return false, "this skin has no preset" end
-	local undo = presetUndo or { values = {} }
-	local function remember(path)
-		if undo.values[path] == nil then
-			local v = ns.Get(path)
-			undo.values[path] = v == nil and false or copyValue(v)
-		end
-	end
-	for path in pairs(preset) do
-		remember(path)
-		for _, rival in ipairs(RIVALS[path] or {}) do remember(rival) end
-	end
-	undo.id = id
-	presetUndo = undo
-	local ok, err = batch(function()
-		for path, v in pairs(preset) do ns.Set(path, copyValue(v)) end
-	end)
-	if not ok then
-		if ns.NoteError then ns.NoteError(err) end
-		return false, tostring(err)
-	end
-	return true
-end
-
--- The skin whose preset Undo would take back, or nil.
-function Theme.SkinPresetApplied()
-	return presetUndo and presetUndo.id or nil
-end
-
--- Put back every setting the last applied preset(s) changed. -> ok
-function Theme.UndoSkinPreset()
-	local undo = presetUndo
-	if not undo then return false end
-	presetUndo = nil
-	local ok, err = batch(function()
-		for path, v in pairs(undo.values) do ns.Set(path, copyValue(v)) end
-	end)
-	if not ok and ns.NoteError then ns.NoteError(err) end
-	return ok
-end
-
 -- A module's own art handed to the skin in use (Nav/Arrow.lua: "arrow",
 -- Nav/Pins.lua: "pin"), after the module painted it. -> true when a hook ran
 function Theme.SkinHook(surface, ...)
@@ -867,141 +214,23 @@ function Theme.PaletteFor(id)
 	return resolve(id)
 end
 
--- A small picture of a palette on `card`: the window ground with the band
--- across its top, a title and a dimmer line in `face`, an accent bar and a
--- button, edged by the window border. Textures and strings on the card
--- itself, 4 units in from its edges (the card's own border and selection
--- stay the picker's), made on its first draw.
-local CARD_IN = 4
-local function cardParts(card)
-	local p = card.psSkinCard
-	if p then return p end
-	local function tex(layer, sub)
-		local t = card:CreateTexture(nil, layer, nil, sub)
-		t:SetTexture(Theme.Media("white"))
-		return t
-	end
-	p = {}
-	p.ground = tex("BACKGROUND", -6)
-	p.ground:SetPoint("TOPLEFT", card, "TOPLEFT", CARD_IN, -CARD_IN)
-	p.ground:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -CARD_IN, CARD_IN)
-	p.band = card:CreateTexture(nil, "BACKGROUND", nil, -5)
-	p.band:SetPoint("TOPLEFT", p.ground, "TOPLEFT", 0, 0)
-	p.band:SetPoint("TOPRIGHT", p.ground, "TOPRIGHT", 0, 0)
-	p.stars = card:CreateTexture(nil, "BACKGROUND", nil, -4)
-	p.stars:SetAllPoints(p.band)
-	-- The window border: four 1-unit edges round the ground.
-	p.edges = {}
-	for i, pts in ipairs({ { "TOPLEFT", "TOPRIGHT" }, { "BOTTOMLEFT", "BOTTOMRIGHT" }, { "TOPLEFT", "BOTTOMLEFT" }, { "TOPRIGHT", "BOTTOMRIGHT" } }) do
-		local e = tex("BORDER", 1)
-		e:SetPoint(pts[1], p.ground, pts[1], 0, 0)
-		e:SetPoint(pts[2], p.ground, pts[2], 0, 0)
-		if i <= 2 then e:SetHeight(1) else e:SetWidth(1) end
-		p.edges[i] = e
-	end
-	p.panel = tex("BORDER", 0)
-	p.title = card:CreateFontString(nil, "OVERLAY")
-	p.title:SetPoint("TOPLEFT", p.ground, "TOPLEFT", 8, -8)
-	p.line = card:CreateFontString(nil, "OVERLAY")
-	p.line:SetPoint("TOPLEFT", p.title, "BOTTOMLEFT", 0, -3)
-	p.accent = tex("ARTWORK", 0)
-	p.accent:SetPoint("BOTTOMLEFT", p.ground, "BOTTOMLEFT", 8, 8)
-	p.accent:SetHeight(3)
-	p.button = tex("ARTWORK", 0)
-	p.button:SetPoint("BOTTOMRIGHT", p.ground, "BOTTOMRIGHT", -8, 6)
-	p.panel:SetPoint("TOPLEFT", p.button, "TOPLEFT", -1, 1)
-	p.panel:SetPoint("BOTTOMRIGHT", p.button, "BOTTOMRIGHT", 1, -1)
-	card.psSkinCard = p
-	return p
-end
-
-local function drawCard(card, pal, face, band, stars)
-	if type(card) ~= "table" or not card.CreateTexture or not pal then return end
-	local p = cardParts(card)
-	local w, h = (card:GetWidth() or 0) - CARD_IN * 2, (card:GetHeight() or 0) - CARD_IN * 2
-	if w < 24 then w = 96 end
-	if h < 24 then h = 60 end
-	local function tint(t, c, a) t:SetVertexColor(c[1], c[2], c[3], a or c[4] or 1) end
-	tint(p.ground, pal.bg, math.max(0.85, pal.bg[4] or 1))
-	p.band:SetTexture(band)
-	p.stars:SetTexture(stars)
-	local bandH = math.floor(h * 0.4)
-	p.band:SetHeight(bandH)
-	p.band:SetTexCoord(Theme.BandCoords(w, bandH))
-	p.stars:SetTexCoord(Theme.BandCoords(w, bandH))
-	tint(p.band, pal.sky, 1)
-	tint(p.stars, pal.star)
-	Theme.SetFace(p.title, face.semibold, 13, "")
-	Theme.SetFace(p.line, face.medium, 10, "")
-	p.title:SetText("Aa")
-	p.line:SetText("Polestar")
-	local t, d = pal.title or pal.text, pal.textDim
-	p.title:SetTextColor(t[1], t[2], t[3], 1)
-	p.line:SetTextColor(d[1], d[2], d[3], 1)
-	p.accent:SetWidth(math.max(8, math.floor(w * 0.35)))
-	tint(p.accent, pal.accent, 1)
-	p.button:SetSize(math.max(10, math.floor(w * 0.25)), 10)
-	tint(p.button, pal.control or pal.panelAlt)
-	tint(p.panel, pal.border)
-	for i = 1, 4 do tint(p.edges[i], pal.windowBorder) end
-end
-
--- The faces of a font key at the card's weights.
-local function cardFace(key)
-	local fam = FAMILIES[key]
-	if not fam then
-		local g = gameFont()
-		return { semibold = g, medium = g }
-	end
-	return { semibold = fam.semibold or fam.regular, medium = fam.medium or fam.regular }
-end
-
--- The skin picker's card (UI/Looks/Theme.lua): skin `id` drawn on `card`
--- with its own palette, face and band, the player's own colours over it;
--- the live skin is left alone. `variant`: one of the skin's variants (its
--- variant cards), else the one in use. Call it again on every redraw.
-function Theme.DrawSkinCard(card, id, variant)
-	local s = SKINS[id]
-	if not s then return end
-	previewing[id] = variant
-	local pal = resolve(id)
-	local v = s.variants and s.variantBy[variantOf(s)]
-	local base = s.builtin and id or field(s, "base") or "polestar"
-	previewing[id] = nil
-	local own, media = v and v.media or {}, s.media or {}
-	drawCard(card, pal, cardFace(SKIN_FONT[id] or SKIN_FONT[base]), own.band or media.band or Theme.Media("band"),
-		own.bandStars or media.bandStars or Theme.Media("band-stars"))
-end
-
--- A scheme's card: its own grounds and text in the house style, with the
--- accent in use.
-function Theme.DrawSchemeCard(card, id)
-	local src = id == "ellesmere" and Theme.SchemeKey() == "ellesmere" and Theme.Palette() or SCHEMES[id]
-	if not src then return end
-	local pal = {}
-	for k, c in pairs(src) do pal[k] = c end
-	local info = SCHEME_INFO[id]
-	local own = get("ui.accent")
-	pal.accent = isColor(own) and { own[1], own[2], own[3], 1 } or (info and info.accent) or { DEFAULT_ACCENT[1], DEFAULT_ACCENT[2], DEFAULT_ACCENT[3], 1 }
-	local wash = (SCHEME_WASH[id] and SCHEME_WASH[id].border) or WASH.border
-	pal.border = pal.border or { pal.ink[1], pal.ink[2], pal.ink[3], wash }
-	pal.windowBorder = pal.windowBorder or pal.border
-	drawCard(card, pal, cardFace(SKIN_FONT.polestar), Theme.Media("band"), Theme.Media("band-stars"))
-end
-
--- The built-in schemes and skins, through the same registration (their
--- tokens are the tables above; Theme/GameSkins.lua adds the game looks'
--- painters). Each is held to the legibility rule as it is, never corrected.
-for _, id in ipairs({ "dusk", "night", "graphite" }) do
-	local ok, why = registerScheme(id, { tokens = SCHEMES[id] }, true)
-	if not ok then error("Polestar scheme " .. id .. ": " .. tostring(why)) end
-end
-for _, id in ipairs({ "polestar", "halo", "hearth", "forever", "blizzard", "classic" }) do
-	local ok, why = registerSkin(id, { tokens = id ~= "polestar" and SKIN_PALETTES[id] or nil }, true)
-	if not ok then error("Polestar skin " .. id .. ": " .. tostring(why)) end
-end
+-- The built-in schemes and skins (their tokens are Theme.lua's tables;
+-- Theme/GameSkins.lua adds the game looks' painters), taken as they are:
+-- tests/theme holds each to the legibility rule, so login checks nothing.
+local BUILTIN_SCHEME_LABEL = {
+	dusk = function() return ns.L["Dusk"] end,
+	night = function() return ns.L["Night"] end,
+	graphite = function() return ns.L["Graphite"] end,
+}
+local BUILTIN_SKIN_LABEL = {
+	polestar = function() return ns.L["Polestar"] end,
+	halo = function() return ns.L["Halo"] end,
+	hearth = function() return ns.L["Hearth"] end,
+	forever = function() return ns.L["WoW Forever"] end,
+	blizzard = function() return ns.L["Blizzard"] end,
+	classic = function() return ns.L["Classic"] end,
+}
+for id, label in pairs(BUILTIN_SCHEME_LABEL) do SCHEME_INFO[id] = { id = id, builtin = true, label = label } end
+for id, label in pairs(BUILTIN_SKIN_LABEL) do SKINS[id] = { id = id, base = id, builtin = true, label = label } end
 -- A skin chosen before login runs its onApply once settings are read.
 if ns.OnLogin then ns.OnLogin(switchSkin) end
-
--- Theme.lua's resolver reads a resolver's tokens and font with these.
-I.provide(readTokens, readFont)

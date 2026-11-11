@@ -42,6 +42,7 @@ Talents\Options.lua
 Alts\Options.lua
 Quests\Options.lua
 Gear\Options.lua
+Theme\SkinPicker.lua
 UI\Options.lua
 UI\Profiles.lua
 UI\Looks\Theme.lua

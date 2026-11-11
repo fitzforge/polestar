@@ -104,12 +104,14 @@ end
 
 -- Folders the release zip puts beside Polestar. The first three must be
 -- there (the settings window, Polestar_Options, loads on demand but is part
--- of every release); the walking routes (Polestar_Nav), quest and item packs and the language
--- folder of the client's language (Names.PackName(), none in English) are optional
--- (the arrow falls back to straight lines, the interface, names and guide texts to English; a source
--- install may not build the packs), but when present they must be the same
--- version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Nav", "Polestar_QuestDB", "Polestar_ItemDB" }
+-- of every release); the walking routes (Polestar_Nav), the Skin API's checks
+-- (Polestar_SkinAPI: only another addon's skin needs them, and says so when
+-- they are missing), quest and item packs and the language folder of the
+-- client's language (Names.PackName(), none in English) are optional (the
+-- arrow falls back to straight lines, the interface, names and guide texts
+-- to English; a source install may not build the packs), but when present
+-- they must be the same version.
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_QuestDB", "Polestar_ItemDB" }
 local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true }
 
 local function installed(name)

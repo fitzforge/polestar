@@ -10,11 +10,13 @@ use forge_addontest::run::addons_dir;
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-// Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, GameSkins.lua, the widgets).
+// Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, GameSkins.lua, the widgets); its
+// checks (Polestar_SkinAPI) load on demand with the first registration, and the picker's cards and the presets
+// load with the settings window (Polestar_Options/Theme/SkinPicker.lua).
 const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml"];
 
 fn run_full(script: &str, example: bool, saved: &str) -> Value {
-	let mut addons = vec![Addon::files("Polestar", FILES)];
+	let mut addons = vec![Addon::files("Polestar", FILES), Addon::files("Polestar_Options", &["Theme/SkinPicker.lua"])];
 	if example {
 		addons.push(Addon::name("Polestar_Skin_Example"));
 	}
@@ -618,6 +620,10 @@ fn a_resolver_is_asked_with_the_player_s_context_and_a_new_zone_repaints_only_wh
 		}
 		local zone = 1411
 		C_Map = { GetBestMapForUnit = function() return zone end, GetMapInfo = function(id) return MAPS[id] end }
+		-- The client's class and faction (this run loads Core and Theme only, without the stubbed world).
+		UnitClass = function() return "Warrior", "WARRIOR" end
+		UnitFactionGroup = function() return "Horde", "Horde" end
+		RAID_CLASS_COLORS = { WARRIOR = { r = 0.78, g = 0.61, b = 0.43 } }
 		local asks, seen = 0, nil
 		local ok, why = T.RegisterSkin("way", { name = "Waymark", addon = "Test", resolve = function(ctx)
 			asks = asks + 1
