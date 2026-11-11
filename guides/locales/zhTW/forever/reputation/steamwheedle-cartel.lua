@@ -93,7 +93,7 @@ return {
 	-- {item:18250} Gordok Shackle Key
 	["{item:18250}, Gordok ogres"] = "",
 	-- {quest:5525} Free Knot! · {npc:14338} Knot Thimblejack
-	["{quest:5525}: 150 to every town, handed in from {npc:14338}'s window"] = "",
+	["{quest:5525}: 150 to every town, handed in from {npc:14338}'s window"] = "{quest:5525}：每座城鎮150點聲望，在{npc:14338}的視窗中直接繳交",
 	-- {quest:5525} Free Knot!
 	["{quest:5525}, again on every later run: 150"] = "",
 

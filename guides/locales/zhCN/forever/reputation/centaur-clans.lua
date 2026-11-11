@@ -11,32 +11,32 @@ return {
 	-- {zone:1443} Desolace
 	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "{zone:1443}的敌对部族，在无限中经过重制：选择其一，换取其友谊，并用图腾交换配方。",
 	-- {quest:93224} Carved Centaur Totems
-	["12 recipes for {quest:93224} at the clan quartermasters, no standing needed"] = "",
+	["12 recipes for {quest:93224} at the clan quartermasters, no standing needed"] = "部族军需官处可用{quest:93224}兑换12种配方，无需声望",
 	-- {npc:5601} Khan Jehn
 	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "{npc:5601}的任务：一个部族头衔，以及三把35级稀有武器任选其一",
 
 	-- Step 1: Pick your clan
 	["Pick your clan"] = "选择氏族",
 	-- {zone:1443} Desolace · {npc:5396} Captain Pentigast · {area:608} Nijel's Point · {quest:1382} Strange Alliance · {quest:1385} Brutal Politics · {npc:5412} Gurda Wildmane · {quest:1368} Gelkis Alliance · {quest:1367} Magram Alliance · {quest:93224} Carved Centaur Totems
-	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "",
+	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "吉尔吉斯（{zone:1443} 西南）与玛格拉姆（东南）正在交战：每杀一名某部族成员，会给另一部族增加 20 点声望，同时扣除被杀部族 100 点，因此只能提升其中一方。两者初始都是中立。现在无限的任务奖励远高于击杀，而且选择部族的任务已不会扣除另一方声望。联盟：{area:608} 的 {npc:5396} 提供 {quest:1382}（吉尔吉斯）和 {quest:1385}（玛格拉姆）。部落：{npc:5412} 提供 {quest:1368} 和 {quest:1367}。接受你所选部族的任务和 {quest:93224}：带回图腾后，就会提供该部族的“收买友谊”（3,000 点）。然后勾选此项。指南接下来按吉尔吉斯路线进行；改接玛格拉姆的任务，就会跳到玛格拉姆部分。无限中，这些任务在任何等级都给予全额奖励。",
 	-- {quest:1382} Strange Alliance
 	["{quest:1382}: Gelkis"] = "{quest:1382}：吉尔吉斯",
 	["Take the quests of one clan"] = "接取一个氏族的任务",
 
 	-- Step 2: Carved Centaur Totems
 	-- {area:608} Nijel's Point
-	["The Kolkar centaurs (level 30-33) in the camps along the eastern road, south of {area:608}, drop the totems, and so do the Magram and the Maraudine. Bring five back, then take your clan's Buying Friendship (Gelkis below; the Magram's instead for the Magram)."] = "",
+	["The Kolkar centaurs (level 30-33) in the camps along the eastern road, south of {area:608}, drop the totems, and so do the Magram and the Maraudine. Bring five back, then take your clan's Buying Friendship (Gelkis below; the Magram's instead for the Magram)."] = "{area:608}以南、东边道路沿线营地里的科卡尔半人马（30-33级）会掉落图腾，玛格拉姆和玛洛迪半人马也会掉。带回五个，然后接你所选部族的“收买友谊”（下面是吉尔吉斯的；玛格拉姆则接玛格拉姆的）。",
 	-- {item:254432} Carved Centaur Totem
-	["{item:254432}: Kolkar centaurs"] = "",
+	["{item:254432}: Kolkar centaurs"] = "{item:254432}：科卡尔半人马",
 
 	-- Step 3: Gelkis or Magram
-	["Gelkis or Magram"] = "",
-	["No clan's quests in your log: the guide goes on with the Gelkis. For the Magram, take their choice quest and Buying Friendship and the guide goes to the Magram half."] = "",
+	["Gelkis or Magram"] = "吉尔吉斯或玛格拉姆",
+	["No clan's quests in your log: the guide goes on with the Gelkis. For the Magram, take their choice quest and Buying Friendship and the guide goes to the Magram half."] = "任务日志中没有任何部族的任务：指南按吉尔吉斯路线继续。若选玛格拉姆，接下他们的选择任务和“收买友谊”，指南就会跳到玛格拉姆部分。",
 
 	-- Step 4: Gelkis: the choice quest
-	["Gelkis: the choice quest"] = "",
+	["Gelkis: the choice quest"] = "吉尔吉斯：选择任务",
 	-- {npc:5397} Uthek the Wise · {area:606} Gelkis Village
-	["The Gelkis half starts with the clan's choice quest from the giver you just handed the totems to: {npc:5397}'s quests in {area:606} follow from it, and Buying Friendship alone does not open them."] = "",
+	["The Gelkis half starts with the clan's choice quest from the giver you just handed the totems to: {npc:5397}'s quests in {area:606} follow from it, and Buying Friendship alone does not open them."] = "吉尔吉斯部分从你刚交图腾的那位任务给予者提供的部族选择任务开始：{area:606}的{npc:5397}的任务由此展开，仅完成“收买友谊”并不能开启它们。",
 
 	-- Step 5: Gelkis Village: Uthek the Wise and Molkar
 	-- {area:606} Gelkis Village · {npc:5397} Uthek the Wise · {npc:253140} Molkar
@@ -73,7 +73,7 @@ return {
 	["Gelkis: totems and kills to Honored"] = "吉尔吉斯：交还图腾并击杀敌人至尊敬",
 	-- {npc:253140} Molkar · {quest:92812} Economic Warfare · {quest:93224} Carved Centaur Totems · {zone:1443} Desolace · {item:10008} White Bandit Mask · {item:5739} Barbaric Harness
 	-- plural, as words: Greater Mystic Essences = {item:11135} Greater Mystic Essence
-	["Friendly to Honored is 6,000; after the clan's quests you are about 4,000 into it, so 2,000 to go. {npc:253140}'s {quest:92812} takes 5 {quest:93224} for 750, again and again: three turn-ins, 15 totems. The Maraudine centaurs (level 36-40) of western {zone:1443} drop them; the totems do not bind, so the auction house is the other source. Magram kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village also has three craft orders for 1,000 each: Halea wants 3 Greater Mystic Essences, {npc:253140} a {item:10008} (tailoring) and Talra a {item:5739} (leatherworking). Legacy Diplomat adds up to 10%."] = "",
+	["Friendly to Honored is 6,000; after the clan's quests you are about 4,000 into it, so 2,000 to go. {npc:253140}'s {quest:92812} takes 5 {quest:93224} for 750, again and again: three turn-ins, 15 totems. The Maraudine centaurs (level 36-40) of western {zone:1443} drop them; the totems do not bind, so the auction house is the other source. Magram kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village also has three craft orders for 1,000 each: Halea wants 3 Greater Mystic Essences, {npc:253140} a {item:10008} (tailoring) and Talra a {item:5739} (leatherworking). Legacy Diplomat adds up to 10%."] = "友善到尊敬需要6,000；完成部族任务后约已有4,000，还差2,000。{npc:253140}的{quest:92812}每次收取5个{quest:93224}，奖励750声望，可反复交还：共需三次、15个图腾。{zone:1443}西部的玛洛迪半人马（36-40级）会掉落；图腾不绑定，因此也可从拍卖行购买。每杀一个玛格拉姆半人马增加20，但无限服的击杀数据将上限设在友善末尾，距尊敬还差1点。友善时，村里还会开放三项制作订单，每项奖励1,000：Halea需要3个强效秘法精华，{npc:253140}需要一件{item:10008}（裁缝），Talra需要一件{item:5739}（制皮）。传承的外交家最多增加10%。",
 	-- {item:254432} Carved Centaur Totem
 	["{item:254432}: Maraudine centaurs"] = "{item:254432}：玛洛迪半人马。",
 
@@ -95,8 +95,8 @@ return {
 	["From Revered on only {quest:92812} is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems. Nothing is sold for standing; the recipes below need only totems."] = "达到崇敬后，只剩{quest:92812}：崇敬到崇拜需要21,000，即交还28次、140个图腾。声望等级不会解锁商品；下方配方仅需图腾。",
 
 	-- Step 13: Gelkis done
-	["Gelkis done"] = "",
-	["No Gelkis quests done: on to the Magram, south-east."] = "",
+	["Gelkis done"] = "吉尔吉斯完成",
+	["No Gelkis quests done: on to the Magram, south-east."] = "没有完成任何吉尔吉斯任务：前往东南方的玛格拉姆。",
 
 	-- Step 14: Magram Village: Warug and Gorhak
 	-- {area:604} Magram Village · {npc:5398} Warug · {npc:253139} Gorhak
@@ -133,7 +133,7 @@ return {
 	["Magram: totems and kills to Honored"] = "玛格拉姆：交图腾并击杀敌人至尊敬",
 	-- {quest:1371} Gizmo for Warug · {npc:253139} Gorhak · {quest:92811} Economic Warfare · {quest:93224} Carved Centaur Totems · {zone:1443} Desolace · {npc:5398} Warug · {quest:92743} A Conqueror's Crown · {item:254392} Conqueror's Helm · {zone:1418} Badlands · {quest:92841} Valley of Bones
 	-- plural, as words: Greater Shadow Protection Potions = {item:13459} Greater Shadow Protection Potion · Massive Iron Axes = {item:3855} Massive Iron Axe
-	["Friendly to Honored is 6,000; after the clan's quests you are about 3,000 into it (4,000 with {quest:1371}), so 2,000 to 3,000 to go. {npc:253139}'s {quest:92811} takes 5 {quest:93224} for 750, again and again; the Maraudine centaurs (level 36-40) of western {zone:1443} drop them, and the totems do not bind, so the auction house is the other source. Gelkis kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village has two craft orders for 1,000 each: Mirda's 3 Greater Shadow Protection Potions and Grolkar's 2 Massive Iron Axes (blacksmithing). {npc:5398}'s {quest:92743} (1,000) is no craft order: he wants a {item:254392} from a crypt in the {zone:1418}, and Forever's quest pages put it in his chain before the {quest:92841}, so bring it before you reach Honored. Legacy Diplomat adds up to 10%."] = "",
+	["Friendly to Honored is 6,000; after the clan's quests you are about 3,000 into it (4,000 with {quest:1371}), so 2,000 to 3,000 to go. {npc:253139}'s {quest:92811} takes 5 {quest:93224} for 750, again and again; the Maraudine centaurs (level 36-40) of western {zone:1443} drop them, and the totems do not bind, so the auction house is the other source. Gelkis kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village has two craft orders for 1,000 each: Mirda's 3 Greater Shadow Protection Potions and Grolkar's 2 Massive Iron Axes (blacksmithing). {npc:5398}'s {quest:92743} (1,000) is no craft order: he wants a {item:254392} from a crypt in the {zone:1418}, and Forever's quest pages put it in his chain before the {quest:92841}, so bring it before you reach Honored. Legacy Diplomat adds up to 10%."] = "友善到尊敬需要 6,000 点；完成部族任务后大约已有 3,000 点（做了 {quest:1371} 则有 4,000 点），还差 2,000 至 3,000 点。{npc:253139} 的 {quest:92811} 可反复交还，每次收取 5 个 {quest:93224}，奖励 750 点；图腾由 {zone:1443} 西部的玛洛迪半人马（36-40 级）掉落，不绑定，也可以从拍卖行购买。击杀吉尔吉斯每名增加 20 点，但无限的击杀数据表明，到友善末尾、差 1 点尊敬时就会停止。友善后村里有两个制造订单，每个奖励 1,000 点：Mirda 要 3 瓶强效暗影防护药水，Grolkar 要 2 把巨型铁斧（锻造）。{npc:5398} 的 {quest:92743}（1,000 点）不是制造订单：他需要 {zone:1418} 一处墓穴里的 {item:254392}，无限任务页面将它放在 {quest:92841} 之前的任务链中，所以尊敬前就带来。传承天赋“外交家”最多额外提高 10%。",
 
 	-- Step 19: Magram: the Valley of Bones
 	-- {quest:92841} Valley of Bones
@@ -155,7 +155,7 @@ return {
 	-- Step 22: The totem recipes
 	["The totem recipes"] = "图腾配方",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
-	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "",
+	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "两名军需官都出售相同的12种配方，用{quest:93224}兑换，无声望等级要求：{item:273613}和附魔护腕 - 次级治疗强度；强效法术爆破药水和{item:250941}；{item:250538}和{item:250606}设计图；{item:252462}、{item:253973}、{item:10011}和{item:274490}图样；以及{item:269900}和{item:269902}结构图。先留足兑换所需图腾，再交还其余的。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "部族军需官处可用{item:254432}兑换12种配方，无需声望",

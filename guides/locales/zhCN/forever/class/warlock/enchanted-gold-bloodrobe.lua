@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "一件适合30多级的稀有布甲长袍，由{npc:6266}制作；最后几样材料要等到35级和37级。",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -52,15 +52,15 @@ return {
 	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "暂时不需要线：接下来{npc:6266}要你去{zone:1443}收集恶魔的身体部件。",
 
 	-- Step 9: Hatefury satyrs
-	["Hatefury satyrs"] = "",
+	["Hatefury satyrs"] = "怨怒萨特",
 	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point
-	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "",
+	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "怨怒萨特（31-32级）盘踞在{zone:1443}最东北端、{area:608}后面的{area:603}：约五只出两瓶，预计需要击杀25只左右。",
 	["Vials of Hatefury Blood"] = "怨怒萨特之血",
 
 	-- Step 10: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
 	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "",
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "{zone:1443}南部{area:602}的次级地狱火（36-37级）和恶魔之门的卫士（38级）掉石头的概率为一半。指南会先等到35级：31级时它们太强，无法单刷。它们有火焰抗性，因此使用{spell:686}和腐蚀术。",
 
 	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
@@ -70,12 +70,12 @@ return {
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
 	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "返回 {area:35} 的 {npc:2670} 处：他提供的 {quest:4785} 可以接到后立即交还。他可能没有任务标记，仍然要与他交谈。",
 	-- {npc:2670} Xizk Goodstitch · {quest:4785} Fine Gold Thread
-	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "",
+	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "{npc:2670}：{quest:4785}，当场交还（#1699 排查）",
 
 	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "烈焰流放者（38—39级）是 {zone:1417} 西部 {area:334} 的火元素，煤炭掉率约为三分之一。指南会先等到37级：低于这个等级时，它们打人太痛，无法单刷。它们抵抗火焰：使用 {spell:686} 和腐蚀术。先打伤它们，再使用 {area:321} 附近水浪流放者掉落的海浪咒符，就能将其消灭。路上用 {spell:1120} 制作一块 {item:6265}。",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "{item:6265}：在一只流放者即将死亡时对其使用 {spell:1120}。",
 

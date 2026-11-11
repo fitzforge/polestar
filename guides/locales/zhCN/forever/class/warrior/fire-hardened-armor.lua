@@ -48,7 +48,7 @@ return {
 	["Charred and Galvanized Horns"] = "烧焦的奇美拉角和{item:6840}",
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "",
+	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "奇美拉生活在{area:460}西南方的{area:465}；指南会先等到26级。你需要从奇美拉雏兽（25-27级）和奇美拉幼崽（23-25级）身上取得12个烧焦的奇美拉角，掉率为五只出四个；还需要从{npc:6167}（28级，体型最大的那只）身上取得{item:6840}，掉率同样为五只出四个。那里只有三只奇美拉雏兽、两只幼崽和一只雌兽，每只五分钟刷新，因此要做好等待的准备。奇美拉雏兽和雌兽会喷吐{spell:3396}，幼崽会施放{spell:403}。联盟：飞往{area:467}后向南走。",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "{item:6839}，由奇美拉幼崽掉落",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
@@ -72,13 +72,13 @@ return {
 
 	-- Step 12: Burning Blood
 	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "",
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "{zone:1431} 的 {area:42} 南边和西边分布着夜行狼人（夜行黑暗狼人、夜行邪齿狼人、夜行织影狼人、夜行狼人和夜行堕落狼人，26-31 级），约每五次击杀有四次掉落 {quest:1705}。夜行堕落狼人会下毒和嚎叫；夜行邪齿狼人会造成 {spell:3427}。",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "从夜行狼人处获取 {quest:1705}。",
 
 	-- Step 13: Gutspill
 	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
-	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "",
+	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170}（32 级，非精英）携带 {item:6845}，约每五次击杀有四次掉落；指南会先等到 30 级。他在 {area:42} 东南的 {area:2161} 矿洞内与洞口之间巡逻，可在入口等候，把他引到外面。他会下毒和嚎叫。",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "{item:6845}，由{npc:6170}掉落",
 

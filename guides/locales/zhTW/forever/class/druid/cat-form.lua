@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {zone:1457} Darnassus · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
-	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "",
+	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "{npc:4217}站在{area:1658}。天裔精靈角色若離{zone:1457}很遠：施放{spell:18960}，搭乘{area:2361}中央{npc:11800}的航班（她會將德魯伊送到{area:702}，無需學會飛行路線），然後通過傳送門上去。還沒有{spell:1066}？也向他接取「一堂必修的課程」：這個任務同樣要找{npc:11802}，後續的「湖中試煉」（見{spell:1066}指南）也在同一個{area:493}完成。",
 
 	-- Step 3: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -35,7 +35,7 @@ return {
 
 	-- Step 8: The Great Cat Spirit
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
-	["{npc:3033} stands in the druids' hut on {area:1639}. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "{npc:3033}站在{area:1639}的德魯伊小屋內。還沒學會{spell:1066}？也從他那裡接取「一堂必修的課程」：同樣是去找{npc:11802}，後續的「湖中試煉」（{spell:1066}指南）也在同一個{area:493}。",
 
 	-- Step 9: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven

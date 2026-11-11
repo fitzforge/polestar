@@ -42,7 +42,7 @@ return {
 
 	-- Step 6: Nelson the Nice
 	-- {npc:14536} Nelson the Nice · {area:3428} Ahn'Qiraj · {zone:1451} Silithus · {npc:14530} Solenor the Slayer · {spell:23272} Soul Flame · {spell:13809} Frost Trap · {spell:5384} Feign Death · {spell:2974} Wing Clip · {npc:14761} Creeping Doom · {spell:2643} Multi-Shot
-	["{npc:14536}, a gnome, walks around the gates of {area:3428} in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with {spell:23272} as he turns: drop a {spell:13809}, {spell:5384}, and he resets without the enrage. {spell:2974} roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and {spell:2643} before they wear you down."] = "",
+	["{npc:14536}, a gnome, walks around the gates of {area:3428} in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with {spell:23272} as he turns: drop a {spell:13809}, {spell:5384}, and he resets without the enrage. {spell:2974} roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and {spell:2643} before they wear you down."] = "{npc:14536} 是个侏儒，在 {zone:1451} 最西南方的 {area:3428} 大门附近走动。与他交谈，他会变成 {npc:14530}。变身时他会施放 {spell:23272} 进入狂暴：放下一个 {spell:13809}，再用 {spell:5384}，即可让他重置并消除狂暴。{spell:2974} 能长时间将他定身；被定身时，他会恐惧你并召来甲虫（{npc:14761}）：用陷阱和 {spell:2643} 迅速消灭它们，以免被持续消耗。",
 
 	-- Step 7: Artorius the Amiable
 	-- {npc:14531} Artorius the Amiable · {zone:1452} Winterspring · {area:2255} Everlook · {npc:14535} Artorius the Doombringer · {spell:23298} Demonic Doom · {spell:5118} Aspect of the Cheetah · {spell:1978} Serpent Sting · {spell:23299} Stinging Trauma · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot

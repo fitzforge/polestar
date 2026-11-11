@@ -30,13 +30,13 @@ return {
 
 	-- Step 5: The Exorcism
 	-- {npc:6546} Tabetha · {quest:1955} The Exorcism · {npc:6549} Demon of the Orb
-	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "",
+	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "{npc:6546}에게 돌아가세요. 지금 보주를 제출하세요. {quest:1955}은(는) 38레벨이 될 때까지 기다립니다. 먼저 오두막 주변의 동물들을 처치하세요. 전투에 끼어듭니다. {quest:1955}을(를) 수락하면 3분 타이머가 시작되고, {npc:6546}이(가) 정원으로 {npc:6549}을(를) 불러냅니다. 많은 주문, 이동 불가, 감속에 저항하는 40레벨 정예입니다. 파티를 권장합니다. 40레벨 마법사는 도움이나 물약이 필요할 수 있고, 45레벨쯤이면 혼자 잡을 수 있습니다. 부두에서 원거리로 끌어올 수 있습니다. 처치한 뒤에도 타이머는 계속 흐르니 바로 퀘스트를 제출하세요. 시간이 다 되면 퀘스트를 포기하고 다시 받으세요. 그녀가 악마를 다시 불러냅니다.",
 	-- {npc:6549} Demon of the Orb
 	["{npc:6549} (elite, 40)"] = "",
 
 	-- Step 6: Power in Uldaman
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {area:1898} Dustwind Gulch · {npc:7023} Obsidian Sentinel · {npc:7209} Obsidian Shard
-	["{area:1517} is a dungeon in the northern {zone:1418}: a group of five, from level 40 here. Go in by the rear entrance, a cave in {area:1898} south-east of the main entrance (elite dragons fly nearby): the {npc:7023} (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an {npc:7209}, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back."] = "",
+	["{area:1517} is a dungeon in the northern {zone:1418}: a group of five, from level 40 here. Go in by the rear entrance, a cave in {area:1898} south-east of the main entrance (elite dragons fly nearby): the {npc:7023} (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an {npc:7209}, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back."] = "{area:1517}은(는) {zone:1418} 북부의 던전입니다. 5인 파티가 필요하며, 이 가이드는 40레벨부터 갑니다. 정문 남동쪽 {area:1898}의 동굴인 뒷문으로 들어가세요(근처에 정예 용이 날아다닙니다). {npc:7023}(42레벨 정예)은(는) 첫 번째 문 바로 뒤에 서 있습니다. 생명력 80, 60, 40, 20%에서 역시 정예인 {npc:7209}을(를) 떼어 냅니다. 파편이 살아 있는 동안 둘 다 대상 지정 주문을 반사하므로 광역 주문과 마법봉을 쓰세요. 혼자 하는 요령: 파편이 나타날 때마다 근처의 지역 경계 밖으로 나가세요. 파수병은 회복하지만 계속 작아집니다. 동력원은 항상 떨어지며, 다시 나타나는 데 2시간이 걸립니다.",
 
 	-- Step 7: Mana Surges
 	-- {npc:6546} Tabetha · {quest:1957} Mana Surges · {spell:403} Lightning Bolt
@@ -48,13 +48,13 @@ return {
 	-- {quest:2861} Tabetha's Task
 	["{quest:2861} (optional)"] = "",
 	-- {npc:6546} Tabetha · {npc:5497} Jennea Cannon · {npc:4568} Anastasia Hartwell · {npc:5885} Deino · {quest:2861} Tabetha's Task · {quest:2846} Tiara of the Deep · {npc:7795} Hydromancer Velratha · {area:978} Zul'Farrak · {zone:1446} Tanaris · {item:9527} Spellshifter Rod · {item:9531} Gemshale Pauldrons
-	["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. The reward window shows the {item:9527} and the {item:9531}."] = "",
+	["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. The reward window shows the {item:9527} and the {item:9531}."] = "40레벨이 되면 {npc:6546}에게 보내 주는 마법사 상급자들({npc:5497}, 빙크, {npc:4568}, {npc:5885})이 어느 직업이나 할 수 있는 {quest:2861}도 줍니다. 그다음 {npc:6546}은(는) {zone:1446} 북서쪽의 트롤 던전 {area:978}에 있는 46레벨 정예 나가 {npc:7795}의 {quest:2846}을(를) 원합니다. 5인 파티, 44-54레벨 던전입니다. 보상 창에 {item:9527}와(과) {item:9531}이(가) 표시됩니다.",
 
 	-- Step 9: Tiara of the Deep in Zul'Farrak
 	-- {quest:2846} Tiara of the Deep · {area:978} Zul'Farrak
-	["{quest:2846} in {area:978}"] = "",
+	["{quest:2846} in {area:978}"] = "{area:978}의 {quest:2846}",
 	-- {area:978} Zul'Farrak · {zone:1446} Tanaris · {npc:7795} Hydromancer Velratha
-	["{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 44. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops."] = "",
+	["{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 44. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops."] = "{zone:1446} 북서쪽의 트롤 던전 {area:978}은(는) 5인 파티가 필요합니다. 가이드는 44레벨까지 기다립니다. {npc:7795}은(는) 신성한 연못 옆의 우두머리 중 하나이며, 보관은 항상 떨어집니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:6546}. She opens a mana rift beside her cottage: kill twelve {quest:1957} within ten minutes."] = "{npc:6546}에게 돌아가세요. 그녀가 오두막 옆에 마나 균열을 엽니다. 10분 안에 {quest:1957} 12마리를 처치하세요.",

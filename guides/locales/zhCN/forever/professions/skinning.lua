@@ -17,7 +17,7 @@ return {
 	["Beasts 1-9: {zone:1429} (1-50)"] = "1-9级野兽：{zone:1429}（1-50）",
 	-- {npc:1922} Gray Forest Wolf · {npc:525} Mangy Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:69} Timber Wolf · {npc:822} Young Forest Bear · {npc:299} Young Wolf · {skill:393} Skinning · {npc:6306} Helene Peltskinner
 	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
-	["Kill and skin {npc:1922} (7), {npc:525} (5), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "",
+	["Kill and skin {npc:1922} (7), {npc:525} (5), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "沿环线击杀并剥取 {npc:1922}（7 级）、{npc:525}（5 级）、觅食的灰狼（9 级）、{npc:524}（7 级）、{npc:113}（5 级）、{npc:69}（2 级）、{npc:822}（8 级）、{npc:299}（1 级）的皮，直到 {skill:393} 达到 50；先拾取每具尸体，再剥皮，并优先选择当前技能允许剥皮的最高等级野兽。等级为 L 的野兽，20 级及以下需要技能 (L-10)x10，更高等级需要 Lx5。这里有一个任务需要 {skill:393}：“粗糙的狼皮”（8 级，{npc:6306}）。地区等级为 1-10 级。提升这 49 点预计需要约 60 只野兽。",
 	-- {npc:822} Young Forest Bear
 	["{npc:822}, Prowler"] = "{npc:822}、森林狼",
 	-- {npc:822} Young Forest Bear
@@ -42,10 +42,10 @@ return {
 	-- {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:250873} Juvenile Vuldren · {npc:251707} Ornery Galestrider · {npc:250926} Scrawny Ursera · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250937} Ursera Scavenger · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler · {skill:393} Skinning
 	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "沿环线击杀并剥取踏云兽（6级）、疾风陆行鸟（5级）、{npc:250928}（7级）、{npc:251284}（6级）、{npc:251291}（6级）、{npc:250873}（1级）、{npc:251707}（8级）、傲爪（5级）、{npc:250926}（3级）、{npc:256092}（10级）、{npc:253282}（8级）、{npc:250937}（4级）、瓦尔德伦（6级）、{npc:250874}（10级）、{npc:254588}（8级），直到 {skill:393} 50；每具尸体先拾取再剥皮，优先剥取技能允许的最高等级野兽。等级为L的野兽，20级及以下所需技能为 (L-10)x10，20级以上为巨翼双足飞龙。地区等级1—15。提升这49点预计需要约60只野兽。",
 	-- {npc:251291} Hippogryph Youth
-	["{npc:251291}, Prideclaw"] = "",
+	["{npc:251291}, Prideclaw"] = "{npc:251291}、傲爪",
 	["Prideclaw, Vuldren"] = "傲爪、瓦尔德伦",
 	["Prideclaw, Galestrider"] = "傲爪、疾风陆行鸟",
-	["Galestrider, Vuldren"] = "",
+	["Galestrider, Vuldren"] = "疾风陆行鸟、瓦尔德伦",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -63,7 +63,7 @@ return {
 	["Battleboar, {npc:2961}"] = "斗猪、{npc:2961}",
 	-- {npc:2961} Mountain Cougar
 	["{npc:2961}, Plainstrider"] = "{npc:2961}、平原陆行鸟",
-	["Plainstrider"] = "",
+	["Plainstrider"] = "平原陆行鸟",
 
 	-- Step 8: Beasts 1-9: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -106,7 +106,7 @@ return {
 	-- {zone:1439} Darkshore
 	["Beasts 11-19: {zone:1439} (50-100)"] = "11-19级野兽：{zone:1439}（50-100）",
 	-- {npc:2070} Moonstalker Runt · {npc:2163} Thistle Bear · {npc:2164} Rabid Thistle Bear · {npc:2165} Grizzled Thistle Bear · {npc:2237} Moonstalker Sire · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch · {skill:393} Skinning
-	["Kill and skin {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "",
+	["Kill and skin {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "沿环线击杀并剥取{npc:2070}（11级）、{npc:2163}（11级）、{npc:2164}（13级）、月夜猛虎（14级）、{npc:2165}（16级，需要技能60）、{npc:2237}（17级，需要技能70）、{npc:3823}（19级，需要技能90）和{npc:2071}（19级，需要技能90），直到{skill:393}100；先拾取每具尸体，再剥皮，并优先剥取技能允许的最高等级野兽。等级为 L 的野兽，在20级及以下需要技能 (L-10)x10，更高等级需要 Lx5。地区等级10-20。这50点预计需剥取约120只野兽。",
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164}, Moonstalker"] = "{npc:2164}、月夜猛虎",
 	-- {npc:2165} Grizzled Thistle Bear
