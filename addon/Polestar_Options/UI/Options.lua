@@ -2482,18 +2482,30 @@ local function build()
 	O.frame = win
 	applySize()
 	UI.Report.SidebarLink(win)
-	-- "Special thanks to" sits in the footer, left of its right-hand buttons:
-	-- the header holds the search.
+	-- "Special thanks to" sits in the footer, left of its right-hand buttons
+	-- (the header holds the search), while it fits between them and the
+	-- left-hand ones with room to spare; a window too narrow for it (its
+	-- least width, a long translation) leaves it out rather than let it run
+	-- over them. Placed again as the window's size or the buttons change.
 	win.psPlaceThanks = function(b)
-		local anchor
-		for _, fb in ipairs(win.footerButtons.right) do if fb:IsShown() then anchor = fb end end
+		local anchor, used = nil, 2 * SH.pad
+		for _, side in ipairs({ "left", "right" }) do
+			for _, fb in ipairs(win.footerButtons[side]) do
+				if fb:IsShown() then
+					used = used + fb:GetWidth() + 8
+					if side == "right" then anchor = fb end
+				end
+			end
+		end
 		if anchor then
 			b:SetPoint("RIGHT", anchor, "LEFT", -16, 0)
 		else
 			b:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0)
 		end
+		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= win.Footer:GetWidth())
 	end
 	UI.Thanks.HeaderLink(win)
+	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
 		if path == "ui.optionsSize" or path == "ui.menuScale" or path == "" or path == "ui" then
