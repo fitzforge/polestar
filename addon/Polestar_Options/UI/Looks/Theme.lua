@@ -488,6 +488,24 @@ local SPECS = {
 	} },
 }
 
+-- Essentials (the page's lead tab): the skins, then the ten settings most
+-- looks are made of, each a reference to its row on Colour, Text or Frames.
+local O = ns.UI and ns.UI.Options
+if O and O.Ref then
+	local R = O.Ref
+	local ESSENTIALS = L["Essentials"]
+	local list = {
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Skin"], preview = buildPreview,
+			controls = { R(skinCards and "cards" or "dropdown", "ui.skin") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Colour & frames"], jump = { tab = L["Colour"], section = L["Skin & accent"] },
+			controls = { R("color", "ui.accent"), R("dropdown", "ui.scheme", { wide = false }), R("slider", "ui.bgOpacity"), R("slider", "ui.brightness"),
+				R("slider", "ui.borderSize"), R("toggle", "ui.reduceMotion") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Text"], jump = { tab = L["Text"], section = L["Text"] },
+			controls = { R("font", "ui.font"), R("slider", "ui.textSize"), R("dropdown", "ui.fontOutline"), R("dropdown", "ui.textShadow") } },
+	}
+	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end
+end
+
 for _, spec in ipairs(SPECS) do
 	local ok, err = ns.RegisterOptions(spec)
 	if not ok and geterrorhandler then geterrorhandler()(err) end

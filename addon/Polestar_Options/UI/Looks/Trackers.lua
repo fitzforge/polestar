@@ -356,3 +356,66 @@ panelPage(PARTY, "party", L["party panel"], {
 		help = L["A small panel with your party members who run Polestar: their level, step and what they still need. Opens by itself in a party."] },
 }, { minW = 200, maxW = 460, guideRule = true, titleLabel = L["Name size"],
 	titleHelp = L["The size of the members' names and the panel's title against Polestar's text size."] })
+
+---------------------------------------------------------------------------
+-- Essentials (the page's lead tab): three sizes of the trackers as picture
+-- cards, then each tracker's size and on/off and the guide's own trackers,
+-- each a reference to its row on Travel, Instances & XP or Party panel.
+---------------------------------------------------------------------------
+
+local O = UI.Options
+if O and O.PresetCards and O.Ref then
+	local R = O.Ref
+	local PANELS = { "flight", "instances", "party" }
+	-- A preset's card: the flight timer as the preset paints it (its own
+	-- builder and TR.ApplyLook, at a share of its scale so a bigger one shows
+	-- bigger), fitted to the card.
+	local function drawTrackerCard(art, _, values)
+		local cw, ch = art:GetWidth(), art:GetHeight()
+		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
+		if not (ch and ch > 0) then ch = W.CARD_ART end
+		if art.psBuilt == nil then
+			W.Fill(art, "scrim", "BACKGROUND", -6)
+			art.psTimer = BUILD.flight(art)
+			art.psBuilt = true
+		end
+		local f = art.psTimer
+		if not f then return end
+		O.WithSettings(values, function()
+			f.psFit = nil
+			TR.ApplyLook(f)
+			f:Fill()
+			local k = 0.42 * num("flight", "scale", 0.4, 2.5)
+			k = min(k, (cw - 12) / max(1, f:GetWidth()), (ch - 12) / max(1, f:GetHeight()))
+			f:SetScale(max(0.05, k))
+			f:SetAlpha(num("flight", "alpha", 0.1, 1))
+			f:ClearAllPoints()
+			f:SetPoint("CENTER", art, "CENTER", 0, 0)
+			f:Show()
+		end)
+	end
+	local compact, large = { ["trackers.flight.bar"] = false }, {}
+	for _, p in ipairs(PANELS) do
+		compact["trackers." .. p .. ".scale"] = 0.85
+		large["trackers." .. p .. ".scale"], large["trackers." .. p .. ".titleSize"], large["trackers." .. p .. ".bodySize"] = 1.25, 1.2, 1.15
+	end
+	local PRESETS = {
+		{ value = "polestar", label = L["Polestar"], set = {}, draw = drawTrackerCard },
+		{ value = "compact", label = L["Compact"], set = compact, draw = drawTrackerCard,
+			help = L["Every tracker smaller, the flight timer without its bar."] },
+		{ value = "large", label = L["Large"], set = large, draw = drawTrackerCard,
+			help = L["Every tracker bigger, its text with it."] },
+	}
+	local function off(key) return function() return not ns.Get(key) end end
+	local ESSENTIALS = L["Essentials"]
+	register({ tab = ESSENTIALS, lead = true, section = L["Presets"], preview = function(view) return TR.Preview(view, "flight") end,
+		controls = { O.PresetCards({ presets = PRESETS }) } })
+	register({ tab = ESSENTIALS, section = L["Trackers"], jump = { tab = TRAVEL, section = L["Flight timer"] }, controls = {
+		R("slider", "trackers.flight.scale", { label = L["Flight timer"], disabled = off("maps.flightTimer"), extras = { R("toggle", "maps.flightTimer") } }),
+		R("slider", "trackers.instances.scale", { label = L["Instance tracker"], disabled = off("maps.instances"), extras = { R("toggle", "maps.instances") } }),
+		R("slider", "trackers.party.scale", { label = L["Party panel"], disabled = off("party.panel"), extras = { R("toggle", "party.panel") } }),
+		R("dropdown", "trackers.flight.format"),
+		R("slider", "trackers.journey.rows", { label = L["Journey"], disabled = off("nav.journeySteps"), extras = { R("toggle", "nav.journeySteps") } }),
+		R("toggle", "qol.xpTargetMark"),
+	} })
+end

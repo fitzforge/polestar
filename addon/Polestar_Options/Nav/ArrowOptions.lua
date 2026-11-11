@@ -385,6 +385,25 @@ local SPECS = {
 	} },
 }
 
+-- Essentials (the page's lead tab): the arrow's styles, then the ten
+-- settings players change most, each a reference to its row on Look or Text.
+local O = ns.UI and ns.UI.Options
+if O and O.Ref then
+	local R = O.Ref
+	local ESSENTIALS = L["Essentials"]
+	local list = {
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Style"], preview = buildPreview,
+			controls = { R("cards", "nav.arrowStyle") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Arrow"], jump = { tab = L["Look"], section = L["Arrow"] },
+			toggle = R("toggle", "nav.arrow"),
+			controls = { R("slider", "nav.arrowScale"), R("slider", "nav.arrowAlpha"), R("color", "nav.arrowNearColor"), R("slider", "nav.arrowGlowStrength"),
+				R("toggle", "nav.hideArrowWithGuide"), R("slider", "nav.arrowCombatAlpha") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Text"], jump = { tab = L["Text"], section = L["Text"] },
+			controls = { R("slider", "nav.arrowDistSize"), R("slider", "nav.arrowLabelLines"), R("slider", "nav.arrowEtaSize"), R("dropdown", "nav.distanceUnit") } },
+	}
+	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end
+end
+
 for _, spec in ipairs(SPECS) do
 	local ok, err = ns.RegisterOptions(spec)
 	if not ok and geterrorhandler then geterrorhandler()(err) end

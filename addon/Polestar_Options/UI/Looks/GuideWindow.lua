@@ -766,6 +766,122 @@ local SPECS = {
 	} },
 }
 
+---------------------------------------------------------------------------
+-- Essentials (the page's lead tab): four looks as picture cards, then the
+-- ten settings players change most, each a reference to its row on Window
+-- or Parts.
+---------------------------------------------------------------------------
+
+local O = UI.Options
+if O and O.PresetCards and O.Ref then
+	local R = O.Ref
+	-- A string of the miniature at its role's size times its group's setting
+	-- (and the transparent style's outline), not following the theme's text
+	-- size changes: the card is drawn once, with the preset's values.
+	local function sized(fs, role, k, outline)
+		local path, size, flags = Theme.FontSpec(role)
+		if outline then flags = GF().Outline() == "thick" and "THICKOUTLINE" or "OUTLINE" end
+		fs:SetFont(path, (size or 13) * (k or 1), flags or "")
+	end
+	-- A preset's card: the guide window in miniature with the preset's values
+	-- (its width, style, padding, the person's name, three goals with their
+	-- tick boxes and spacing, the progress bar), from the window's own metrics
+	-- (GF.Metrics, read again after for the live window), scaled to the card.
+	local function drawWindowCard(art, _, values)
+		local cw, ch = art:GetWidth(), art:GetHeight()
+		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
+		if not (ch and ch > 0) then ch = W.CARD_ART end
+		local m = art.psMini
+		if not m then
+			local sky = Theme.Band(art, "BACKGROUND", -6)
+			sky:SetAllPoints(art)
+			m = CreateFrame("Frame", nil, art)
+			m.Ground = CreateFrame("Frame", nil, m)
+			m.Ground:SetAllPoints(m)
+			Theme.Skin(m.Ground, "window")
+			m.Name = m:CreateFontString(nil, "OVERLAY")
+			m.Goals, m.Ticks = {}, {}
+			for i = 1, 3 do
+				m.Goals[i] = m:CreateFontString(nil, "OVERLAY")
+				m.Ticks[i] = W.Tex(m, "ARTWORK", i == 1 and "check" or "circle", i == 1 and "success" or "textMuted")
+			end
+			m.Bar = W.Tex(m, "ARTWORK", nil, "accent")
+			art.psMini = m
+		end
+		local G = GF()
+		O.WithSettings(values, function()
+			local mt = G and G.Metrics and G.Metrics() or { pad = 14, check = 18, rowMin = 24 }
+			local width = tonumber(ns.Get("ui.width")) or 340
+			local clear = ns.Get("ui.style") == "transparent"
+			local pad = mt.pad or 14
+			local gap = tonumber(ns.Get("guideWindow.rowSpacing")) or 0
+			m.Ground:SetShown(not clear)
+			local y = pad
+			sized(m.Name, "title", G and G.Num("titleSize") or 1, clear)
+			W.Color(m.Name, "text")
+			m.Name:SetText(L["Marshal Dughan"])
+			m.Name:ClearAllPoints()
+			m.Name:SetPoint("TOPLEFT", m, "TOPLEFT", pad, -y)
+			y = y + (m.Name:GetStringHeight() or 16) + 8
+			local goalK = G and G.Num("goalSize") or 1
+			local check = (mt.check or 18) * (G and G.Num("checkSize") or 1)
+			local lines = { L["Kill"] .. " " .. L["Kobold Vermin"], L["Kill"] .. " " .. L["Kobold Worker"], L["Collect"] .. " " .. L["Gold Dust"] }
+			for i, fs in ipairs(m.Goals) do
+				sized(fs, "goal", goalK, clear)
+				W.Color(fs, i == 1 and "textMuted" or "text")
+				fs:SetText(lines[i])
+				local tick = m.Ticks[i]
+				tick:SetSize(check * 0.7, check * 0.7)
+				tick:ClearAllPoints()
+				tick:SetPoint("TOPLEFT", m, "TOPLEFT", pad, -(y + 1))
+				fs:ClearAllPoints()
+				fs:SetPoint("TOPLEFT", m, "TOPLEFT", pad + check + 4, -y)
+				y = y + max(check, fs:GetStringHeight() or 14) + 4 + gap
+			end
+			local bar = G and G.On("progress") and (tonumber(ns.Get("guideWindow.progressHeight")) or 3) or 0
+			m.Bar:SetShown(bar > 0)
+			y = y + 4
+			m.Bar:ClearAllPoints()
+			m.Bar:SetPoint("TOPLEFT", m, "TOPLEFT", 1, -y)
+			m.Bar:SetSize(max(1, (width - 2) * 0.62), max(1, bar))
+			local height = y + bar + (clear and 0 or 2)
+			m:SetSize(width, height)
+			local k = min((cw - 16) / width, (ch - 12) / height)
+			m:SetScale(max(0.05, k))
+			m:ClearAllPoints()
+			m:SetPoint("CENTER", art, "CENTER", 0, 0)
+		end)
+		if G and G.Metrics then G.Metrics() end
+	end
+	local LARGE = 1.2
+	local PRESETS = {
+		{ value = "standard", label = L["Standard"], set = {}, draw = drawWindowCard },
+		{ value = "compact", label = L["Compact"], draw = drawWindowCard,
+			help = L["Only the header and the step's goals, narrower and closer together."],
+			set = { ["ui.compact"] = true, ["ui.width"] = 300, ["guideWindow.padding"] = 8, ["guideWindow.rowSpacing"] = 2 } },
+		{ value = "transparent", label = L["Transparent"], draw = drawWindowCard,
+			help = L["No background or border: outlined text over the world, a soft shade behind each line."],
+			set = { ["ui.style"] = "transparent", ["ui.backing"] = "soft" } },
+		{ value = "large", label = L["Large text"], draw = drawWindowCard,
+			help = L["Every text of the window bigger, the window wider to hold it."],
+			set = { ["guideWindow.titleSize"] = 1.25, ["guideWindow.goalSize"] = 1.25, ["guideWindow.detailSize"] = LARGE, ["guideWindow.noteSize"] = LARGE,
+				["guideWindow.upSize"] = LARGE, ["guideWindow.glyphSize"] = LARGE, ["guideWindow.checkSize"] = LARGE, ["guideWindow.barTextSize"] = 1.15,
+				["ui.width"] = 400 } },
+	}
+	local ESSENTIALS = L["Essentials"]
+	local list = {
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildPreview,
+			controls = { O.PresetCards({ presets = PRESETS }) } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Window"], jump = { tab = L["Window"], section = L["Window"] },
+			controls = { R("slider", "ui.scale"), R("slider", "ui.width"), R("slider", "guideWindow.bgOpacity"), R("slider", "guideWindow.idleAlpha"),
+				R("dropdown", "ui.combat"), R("dropdown", "ui.instance") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Step"], jump = { tab = L["Parts"], section = L["Step card"] },
+			controls = { R("slider", "guideWindow.goalSize"), R("slider", "ui.upcoming"), R("toggle", "ui.showNotes", { label = L["Step tips"] }),
+				R("toggle", "guideWindow.progress", { label = L["Progress bar"] }) } },
+	}
+	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end
+end
+
 for _, spec in ipairs(SPECS) do
 	local ok, err = ns.RegisterOptions(spec)
 	if not ok and geterrorhandler then geterrorhandler()(err) end
