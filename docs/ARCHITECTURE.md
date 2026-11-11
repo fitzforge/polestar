@@ -7522,17 +7522,21 @@ Each call fires `GUIDE_VISIBILITY`.
   (`logo`, or the `emblem` glyph in the accent or white) and `ui.launcherBack`
   (the disc), painted by `Launcher.Paint` on the face `Launcher.Face` builds,
   which the Buttons page's preview draws on a plain button of its own.
-- Unlock mode (`UI/Movers.lua`, `ns.Movers`; `/polestar unlock`, again or
-  `/polestar lock` to lock, Options, Guide, Window, Position, Move frames):
-  a dim box with an accent hairline, the frame's name and its size over every
-  registered frame whose feature is on, hidden ones at their default size.
-  `Movers.Register({ key, label, frame, size, get, set, reset, anchor?,
-  enabled?, fixedSize? })`: `get` and `set` speak a point on `UIParent` in its
-  units, and each frame keeps its own saved key and format (`ui.pos`,
-  `nav.arrowPos`, `ui.launcherPos`, the character's `qol.buttonPos`,
+- Unlock mode (`Polestar_Options/UI/Movers.lua`, `ns.Movers`; `/polestar
+  unlock`, again or `/polestar lock` to lock, Options, Guide, Window,
+  Position, Move frames): a dim box with an accent hairline, the frame's name
+  and its size over every registered frame whose feature is on, hidden ones
+  at their default size. The mode is the settings' addon's: core keeps its
+  door (`UI/Movers.lua`: the commands, `movers.*`'s defaults and `ns.Movers`,
+  whose functions load the mode on their first call and which keeps the specs
+  registered before it, `Movers.pending`; in a fight `Unlock` says no and
+  nothing loads). `Movers.Register({ key, label, frame, size, get, set, reset,
+  anchor?, enabled?, fixedSize? })`: `get` and `set` speak a point on
+  `UIParent` in its units, and each frame keeps its own saved key and format
+  (`ui.pos`, `nav.arrowPos`, `ui.launcherPos`, the character's `qol.buttonPos`,
   `maps.timerPos`, `maps.trackerPos`, `party.panelPos`, `rares.toastPoint`,
-  `toasts.transport.point`, `toasts.whilehere.point`; UI/Looks/Toasts.lua
-  adds the stacked alerts' line). A drag moves the live frame along and, on
+  `toasts.transport.point`, `toasts.whilehere.point`; UI/Toasts.lua adds the
+  stacked alerts' line). A drag moves the live frame along and, on
   the drop, saves through `set` (`Movers.MoveTo`); it snaps (`Movers.Snap`,
   pure) to the screen's centre lines and the other boxes' edges and centres
   within 6 px with an accent guide (`movers.snap`), else to the grid out from

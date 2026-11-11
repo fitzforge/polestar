@@ -1,4 +1,5 @@
-//! Unlock mode (addon/Polestar/UI/Movers.lua): a box over every movable Polestar frame, dragged with a grid and
+//! Unlock mode (addon/Polestar_Options/UI/Movers.lua, loaded on its first use through core's door,
+//! addon/Polestar/UI/Movers.lua): a box over every movable Polestar frame, dragged with a grid and
 //! snapping, each frame's spot kept in its own saved key and format, against the whole addon.
 
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -102,10 +103,10 @@ fn with_nothing_saved_each_box_stands_where_its_module_puts_the_frame() {
 		assert_eq!(out[k], out[format!("{k}Frame")], "{k}: the box stands where the frame does");
 	}
 	// The compact frames are built only in flight, in an instance or a group: their defaults are the
-	// arguments of their Maps.CompactFrame calls.
+	// arguments of their Maps.CompactFrame calls. Unlock mode is the settings' addon's (core keeps its door).
 	let root = env!("CARGO_MANIFEST_DIR").to_string() + "/../../../addon/Polestar/";
 	let read = |p: &str| std::fs::read_to_string(root.clone() + p).unwrap();
-	let movers = read("UI/Movers.lua");
+	let movers = read("../Polestar_Options/UI/Movers.lua");
 	for (file, call, default) in [
 		("Maps/FlightTimer.lua", r#"CompactFrame("PolestarFlightTimer", "maps.timerPos", "TOP", 0, -140)"#, r#""maps.timerPos", { "TOP", 0, -140 })"#),
 		("Maps/Instances.lua", r#"CompactFrame("PolestarInstanceTracker", "maps.trackerPos", "TOPRIGHT", -220, -220)"#, r#""maps.trackerPos", { "TOPRIGHT", -220, -220 })"#),
