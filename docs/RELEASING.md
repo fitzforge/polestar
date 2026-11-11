@@ -202,6 +202,16 @@ version throughout.
    purpose; the data build's statistics check stops a build whose QuestieDB
    changed underneath it.
 
+   A newer QuestieDB can narrow quests' races: its generated Forever quest
+   base takes a web-database scrape's race lists, which can leave out races
+   that take the quest in game (1.0.14 narrowed 75 quests; corrections set
+   them back). Before a release moves to one, build it once into a copy of
+   `data/forever` (`--out <copy>`), lint every guide on that build, and read
+   the statistics report's `quests.races.*` lines. Build into a copy, never
+   an empty folder: the knowledge base adds the Forever world database's
+   class trainers to the `trainers.json` it finds in the output folder, and
+   the statistics check compiles the guides with the files already there.
+
    `forge i18n guides sync` and `forge guide compile` read the client's
    AreaTable from `data/sources/wago/<build>/AreaTable.csv`, found beside
    the reference data (`<data>/../sources`). Without it they still run, but
