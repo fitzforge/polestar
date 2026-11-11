@@ -87,7 +87,7 @@ fn captions_follow_the_direction_a_crossing_without_one_says_where_it_goes() {
 		nav.place(-500, -500)                            -- East Vale, heading west
 		target(-500, 500)
 		emit(route())"#);
-	assert_eq!(out, json!(["walk|Go to West Vale", "walk|Go to West Vale", "walk|Target"]));
+	assert_eq!(out, json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
 }
 
 #[test]
@@ -110,7 +110,7 @@ fn an_open_ground_pair_walks_straight_across_the_border_a_one_way_pair_only_one_
 		emit(r)"#);
 	assert_eq!(out["open"], json!(["walk|Target"]));
 	assert_eq!(out["oneWayWith"], json!(["walk|Target"]));
-	assert_eq!(out["oneWayAgainst"], json!(["walk|Go to West Vale", "walk|Go to West Vale", "walk|Target"]));
+	assert_eq!(out["oneWayAgainst"], json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
 }
 
 #[test]
@@ -427,8 +427,8 @@ fn a_start_already_past_a_crossing_s_near_end_walks_on_to_its_far_end_never_back
 		local off = N.GetRoute()
 		r.offTo = { off[1].to.wx, off[1].to.wy }
 		emit(r)"#);
-	assert_eq!(out["before"], json!(["walk|Go to East Vale", "walk|Go to East Vale", "walk|Kobolds"]));
-	assert_eq!(out["on"], json!(["walk|Go to East Vale", "walk|Kobolds"]), "straight on to the far end");
+	assert_eq!(out["before"], json!(["walk|Walk to East Vale", "walk|Walk to East Vale", "walk|Kobolds"]));
+	assert_eq!(out["on"], json!(["walk|Walk to East Vale", "walk|Kobolds"]), "straight on to the far end");
 	assert_eq!(out["firstTo"], json!([600, -300, 15, true]));
 	assert_eq!(out["offTo"], json!([600, 300]), "off the road the near end comes first, as before");
 }
@@ -463,7 +463,7 @@ fn skipping_a_crossing_s_near_end_walks_on_later_plans_near_the_crossing_walk_on
 		r.other = first()
 		emit(r)"#);
 	assert_eq!(out["replanned"], 0, "skipping the near end moves on without planning back to it");
-	assert_eq!(out["skip"], json!(["walk|Go to East Vale", "walk|Kobolds"]));
+	assert_eq!(out["skip"], json!(["walk|Walk to East Vale", "walk|Kobolds"]));
 	assert_eq!(out["near"], json!([600, -300]), "near the crossing the skipped end stays skipped");
 	assert_eq!(out["far"], json!([600, 300]), "far from it the skip never walks straight over the zone border");
 	assert_eq!(out["other"], json!([600, 300]));

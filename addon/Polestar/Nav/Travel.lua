@@ -533,9 +533,11 @@ local function insideChain(c, wx, wy, z, loose, floors)
 	return best
 end
 
--- Walking from crossing end `e` to its partner.
+-- Walking from crossing end `e` to its partner: its data caption, else
+-- "Walk to <zone>" (0.3.7; it read "Go to <zone>", the Journey's twice
+-- over: the walk to the crossing and the walk across it).
 local function crossCaption(e)
-	return e.caption or format(L["Go to %s"], zoneName(e.partner.map))
+	return e.caption or format(L["Walk to %s"], zoneName(e.partner.map))
 end
 
 -- The captions of the legs to and on a boat, zeppelin, tram or portal,
