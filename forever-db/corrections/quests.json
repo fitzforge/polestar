@@ -2648,7 +2648,13 @@
 					"count": 5,
 					"text": "Twisted Air Totem"
 				}
-			]
+			],
+			"end": {
+				"npc": [
+					5905
+				],
+				"object": []
+			}
 		},
 		"source": [
 			{
@@ -2657,10 +2663,66 @@
 			},
 			{
 				"kind": "eg",
-				"ref": "players' caches (EG Link): objectives"
+				"ref": "players' caches (EG Link): objectives; ender"
 			}
 		],
-		"note": "Storm, Earth, and Fire (the Horde Shaman chain's copy) lists the Water, Earth, Fire and Air totems in that order, as the Alliance copy (79358) does (the world database and players' caches agree). The merged data listed Air first and Water last, so forever/class/shaman/call-of-air-horde counted the Air totems on the Water line and the Water totems on the Air line."
+		"note": "Storm, Earth, and Fire (the Horde Shaman chain's copy) lists the Water, Earth, Fire and Air totems in that order, as the Alliance copy (79358) does (the world database and players' caches agree). The merged data listed Air first and Water last, so forever/class/shaman/call-of-air-horde counted the Air totems on the Water line and the Water totems on the Air line. It ends with Prate Cloudseer (npc 5905), who starts it (its totems are \"for Prate Cloudseer\"; players' caches name her alone); the merged data also listed Bath'rah the Windwatcher (npc 6176), first, from the Season of Discovery version of the chain (#1760)."
+	},
+	"79360": {
+		"set": {
+			"start": {
+				"npc": [
+					5905
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					4722
+				],
+				"object": []
+			},
+			"pre": [
+				1531,
+				1532,
+				96136
+			],
+			"preAny": [
+				1531,
+				1532,
+				96136
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Elemental Aid accepted from Prate Cloudseer (npc 5905) by 2 people, offered there on the Call of Air hand-in (1531 handed in to her, then 79360 taken; 1532 in the log as she offered it); handed in to Rau Cliffrunner (npc 4722) by 3 people; Rau Cliffrunner never offered it and refused it once to a level 33 Shaman who could take it, who took it from Prate"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest row: prerequisites 1531, 1532, 96136 (the Call of Air quests, one per race group)"
+			}
+		],
+		"note": "Elemental Aid (the Horde Shaman chain after Call of Air, Charlga Razorflank's Tattered Note in Razorfen Kraul) is given by Prate Cloudseer near Freewind Post once Call of Air is handed in to her, and handed in to Rau Cliffrunner at Freewind Post, as forever/class/shaman/call-of-air-horde does it. The merged data also listed Rau as a giver (first) and Bath'rah the Windwatcher in Alterac Mountains as its ender, from the Season of Discovery version of the chain, and no prerequisite, so the Razorfen Kraul page and its pick-up guide sent Shamans to Rau for it and to Alterac Mountains to hand it in (#1760). Call of Air comes in three copies, one per race group (Searn Firewarder's 1531, Xanis Flameweaver's 1532, Alaana Stormwalker's 96136 for Skyborne): any one of them opens it."
+	},
+	"79366": {
+		"set": {
+			"start": {
+				"npc": [
+					5905
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): starter"
+			}
+		],
+		"note": "Heed My Call (the Horde Shaman chain) is given by Prate Cloudseer (npc 5905) on the Storm, Earth, and Fire hand-in and sends you to report to Rau Cliffrunner, its ender, as forever/class/shaman/call-of-air-horde does it; the merged data also listed Rau (first) as its giver, from the Season of Discovery version of the chain (#1760)."
 	},
 	"79535": {
 		"set": {
