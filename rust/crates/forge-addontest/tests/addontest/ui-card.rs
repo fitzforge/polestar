@@ -403,6 +403,143 @@ fn the_window_stops_at_its_height_cap_the_goals_scroll_and_the_current_goal_is_s
 	assert!(f(&out["calm"]["h"]) <= f(&c["cap"]) + 0.5);
 }
 
+// Every goal kind with a long name, so each wraps at the narrow widths: the Barrens' "Kill Kreenig Snarlsnout for
+// Kreenig Snarlsnout's Tusk" (an item in its colour) was cut in half where the height cap ended the goals area.
+const EVERY_KIND: &str = r#"
+local function everyKind()
+	local function G(t, f) f.t = t; f.status = f.status or "active"; return f end
+	local B = 1413
+	local steps = uistub.guides[uistub.elwynn].steps
+	steps[#steps + 1] = { title = "The Disruption Ends", note = "Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them.", goals = {
+		G("kill", { verb = "Kill", subject = "Razormane Defender", subjectKind = "npc", npc = 3266, quest = 893, progress = { cur = 0, max = 8 } }),
+		G("collect", { verb = "Kill Kreenig Snarlsnout for", subject = "Kreenig Snarlsnout's Tusk", subjectKind = "item", item = 5063, npc = 3438, quest = 893, progress = { cur = 0, max = 1 } }),
+		G("accept", { verb = "Accept", subject = "Report to Kadrak at Mor'shan Rampart", subjectKind = "quest", quest = 6541, npc = 3429, npcName = "Thork", map = B, x = 51.4, y = 30.2 }),
+		G("turnin", { verb = "Turn in", subject = "The Forgotten Pools of the Barrens", subjectKind = "quest", quest = 870, npc = 3448, npcName = "Tonga Runetotem", map = B, x = 52.3, y = 31.9 }),
+		G("complete", { verb = "Complete", subject = "Plainstrider Menace in the Northern Barrens", subjectKind = "quest", quest = 844 }),
+		G("goto", { verb = "Go to", subject = "the Razormane camp east of the Crossroads road", subjectKind = "place", map = B, x = 56.1, y = 23.4 }),
+		G("talk", { verb = "Talk to", subject = "Apothecary Helbrim at the Crossroads inn", subjectKind = "npc", npc = 3390 }),
+		G("interact", { verb = "Click", subject = "the Sealed Supply Crate behind the tents", subjectKind = "object", map = B, x = 55.2, y = 26.6, progress = { cur = 0, max = 3 } }),
+		G("use", { verb = "Use", subject = "the Bottle of Disease-Ridden Water at the Forgotten Pools", subjectKind = "item", item = 5052 }),
+		G("enter", { verb = "Enter", subject = "the Wailing Caverns through the Mouth of the Serpent", subjectKind = "place", map = B, x = 46.0, y = 35.7 }),
+		G("sethome", { verb = "Set your hearthstone at", subject = "Innkeeper Boorand Plainswind", subjectKind = "npc", npc = 3934 }),
+		G("getfp", { verb = "Learn the flight path at", subject = "the Crossroads flight master Devrak", subjectKind = "npc", npc = 3615 }),
+		G("fly", { verb = "Fly to", subject = "Ratchet on the coast of the Southern Barrens", subjectKind = "place", map = B, x = 63.1, y = 37.2 }),
+		G("train", { verb = "Train at", subject = "Thotar, the Crossroads hunter trainer", subjectKind = "npc", npc = 3171 }),
+		G("buy", { verb = "Buy", subject = "Refreshing Spring Water from Innkeeper Boorand Plainswind", subjectKind = "item", item = 159, progress = { cur = 0, max = 20 } }),
+		G("note", { verb = "", subject = "Grind on the quilboar around the camp until you are halfway into level 19 before you go on", subjectKind = "note" }),
+		G("kill", { verb = "Kill", subject = "Razormane Geomancer", subjectKind = "npc", npc = 3269, quest = 893, optional = true, progress = { cur = 0, max = 8 } }),
+		G("collect", { verb = "Collect", subject = "Plainstrider Beaks from the Plainstriders near the road", subjectKind = "item", item = 5087, quest = 844, progress = { cur = 3, max = 7 } }),
+	} }
+	return #steps
+end
+-- From the top of `item` to the top of `f` (anchored down a chain of TOP points to it); nil for other anchors.
+local function height(f) return f.GetStringHeight and f:GetStringHeight() or f:GetHeight() end
+local function depth(f, item)
+	local p, rel, rp, _, y = f:GetPoint(1)
+	if not p or not p:find("^TOP") then return nil end
+	if rel == item or rel == nil then return rp:find("^TOP") and -y or nil end
+	local base = depth(rel, item)
+	if not base then return nil end
+	return base + (rp:find("^BOTTOM") and height(rel) or 0) - y
+end
+-- Checks the goals area as laid out now (scroll 0), adding what is wrong to `bad` (`at` names the run): no item's
+-- text, sub line or bar runs past the top of the next item, and past the cap the area's bottom cuts no item.
+-- -> whether the cap binds, whether the floor took the window past the cap, the goal rows whose text wraps.
+local function checkCard(at, bad)
+	local goals = GF.parts.goals
+	local items, content, view = GF.CardItems(), goals.psContentH, goals.psViewH
+	local wrapped = 0
+	for i, item in ipairs(items) do
+		local top = GF.ItemTop(item)
+		local room = (items[i + 1] and GF.ItemTop(items[i + 1]) or content) - top
+		for _, part in ipairs({ item.Text, item.Sub, item.psBar }) do
+			local d = part and part:IsShown() and depth(part, item)
+			if d and d + height(part) > room + 0.5 then
+				bad[#bad + 1] = ("%s: item %d's text ends at %.1f, the next item starts at %.1f (%s)"):format(at, i, d + height(part), room, plain(item.Text:GetText()))
+			end
+		end
+		if item.psGoal and item.Text:GetStringHeight() > item.Text:GetLineHeight() then wrapped = wrapped + 1 end
+		if content > view + 0.5 and top < view - 0.5 and top + room > view + 0.5 then
+			bad[#bad + 1] = ("%s: the goals area ends at %.1f, inside item %d (%.1f to %.1f: %s)"):format(at, view, i, top, top + room, plain(item.Text:GetText()))
+		end
+	end
+	local capped = content > view + 0.5 or F:GetHeight() > GF.CapHeight() + 0.5
+	return capped, F:GetHeight() > GF.CapHeight() + 0.5, wrapped
+end
+"#;
+
+// A Lua list of findings: an empty one arrives as {}.
+fn findings(v: &Value) -> Vec<String> {
+	v.as_array().map_or_else(Vec::new, |_| strings(v))
+}
+
+#[test]
+fn under_the_height_cap_the_goals_area_ends_on_a_whole_row_and_no_row_s_text_runs_into_the_next_at_any_width_or_scale() {
+	let out = run(&format!(
+		r#"{EVERY_KIND}
+		local s = everyKind()
+		Polestar.Set("ui.wholeStep", true)
+		uistub.setGuide(uistub.elwynn, s)
+		local bad, runs, capped, wrapped = {{}}, 0, 0, 0
+		for _, ui in ipairs({{ 0.65, 1 }}) do
+			UIParent:SetScale(ui)
+			for _, scale in ipairs({{ 0.65, 1, 1.25 }}) do
+				Polestar.Set("ui.scale", scale)
+				for _, cap in ipairs({{ 0.3, 0.5, 0.9 }}) do
+					Polestar.Set("ui.maxHeight", cap)
+					for _, width in ipairs({{ 260, 340, 450, 560 }}) do
+						Polestar.Set("ui.width", width)
+						stub.advance(0.5)
+						runs = runs + 1
+						local c, _, w = checkCard(("ui %.2f, scale %.2f, cap %.1f, width %d"):format(ui, scale, cap, width), bad)
+						if c then capped = capped + 1 end
+						wrapped = wrapped + w
+					end
+				end
+			end
+		end
+		emit({{ bad = bad, runs = runs, capped = capped, wrapped = wrapped }})"#
+	))
+	.remove(0);
+	let bad = findings(&out["bad"]);
+	assert!(bad.is_empty(), "{} cut or overlapping:\n{}", bad.len(), bad.join("\n"));
+	assert_eq!(f(&out["runs"]), 72.0);
+	assert!(f(&out["capped"]) >= 12.0, "the cap binds in many of the runs: {}", out["capped"]);
+	assert!(f(&out["wrapped"]) > 0.0, "goal lines wrap");
+}
+
+// The Barrens' field step as the window showed it (Tauren Hunter at 18): two kills and Kreenig's tusk, the tip under
+// them, so little room under the cap that the goals area's floor (CARD.minView) holds: it grows to the tusk's bottom
+// rather than end inside its second line.
+#[test]
+fn where_the_goals_area_s_floor_outranks_the_cap_it_still_ends_on_a_whole_row() {
+	let out = run(&format!(
+		r#"{EVERY_KIND}
+		local steps = uistub.guides[uistub.elwynn].steps
+		local k = steps[everyKind()]
+		k.goals = {{ k.goals[1], k.goals[2], k.goals[17] }}
+		uistub.setGuide(uistub.elwynn, #steps)
+		Polestar.Set("ui.maxHeight", 0.3)
+		local bad, floored, wrapped = {{}}, 0, 0
+		for _, scale in ipairs({{ 1.4, 1.5, 1.6 }}) do
+			Polestar.Set("ui.scale", scale)
+			for _, width in ipairs({{ 260, 340, 450, 560 }}) do
+				Polestar.Set("ui.width", width)
+				stub.advance(0.5)
+				local _, fl, w = checkCard(("scale %.2f, width %d"):format(scale, width), bad)
+				if fl then floored = floored + 1 end
+				wrapped = wrapped + w
+			end
+		end
+		emit({{ bad = bad, floored = floored, wrapped = wrapped }})"#
+	))
+	.remove(0);
+	let bad = findings(&out["bad"]);
+	assert!(bad.is_empty(), "{} cut or overlapping:\n{}", bad.len(), bad.join("\n"));
+	assert!(f(&out["floored"]) >= 1.0, "the floor holds past the cap in some runs");
+	assert!(f(&out["wrapped"]) > 0.0, "the tusk's line wraps");
+}
+
 #[test]
 fn along_the_way_leaves_out_goals_the_step_on_screen_lists_itself() {
 	let out = run(r#"
