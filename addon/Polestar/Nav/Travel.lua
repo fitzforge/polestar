@@ -66,7 +66,7 @@ local format, lower = string.format, string.lower
 local Travel = { version = 0 }
 Nav.travel = Travel
 
-ns.RegisterDefaults("nav", { travel = true })
+ns.RegisterDefaults("nav", { travel = true, detourCaption = false })
 
 local RUN_SPEED = 7          -- yd/s, unmounted run speed
 local MIN_SPEED, MAX_SPEED = 4, 14
@@ -1482,13 +1482,17 @@ function Travel.WalkCostHook(fn)
 end
 
 -- The same hostile towns, by id, in order (a fresh search gives a new table).
-local function sameHubs(a, b)
+local function sameIds(a, b)
 	local na, nb = a and #a or 0, b and #b or 0
 	if na ~= nb then return false end
 	for i = 1, na do
 		if type(a[i]) ~= "table" or type(b[i]) ~= "table" or a[i].id ~= b[i].id then return false end
 	end
 	return true
+end
+-- ... and the ones it goes round (hubs.avoided).
+local function sameHubs(a, b)
+	return sameIds(a, b) and sameIds(a and a.avoided, b and b.avoided)
 end
 
 -- "Hostile town: <names>" for a walk whose engine path enters the other
@@ -1510,6 +1514,26 @@ function Travel.HubText(leg)
 	end
 	if #names == 0 then return nil end
 	return format(L["Hostile town: %s"], table.concat(names, ", "))
+end
+
+-- "Detour around <names>" for a walk that goes round the other faction's towns (leg.hubs.avoided, from Find's
+-- job.avoided: the towns the straight line would enter and the path does not), else nil. Named as HubText names them.
+-- Display only: the walk is the same with or without this text.
+function Travel.AvoidText(leg)
+	local hubs = type(leg) == "table" and leg.hubs
+	local avoided = type(hubs) == "table" and hubs.avoided
+	if type(avoided) ~= "table" or #avoided == 0 then return nil end
+	local C = ns.Compat
+	local names, seen = {}, {}
+	for _, h in ipairs(avoided) do
+		local name = type(h) == "table" and (C and C.GetAreaName and C.GetAreaName(h.areaId) or h.name)
+		if type(name) == "string" and name ~= "" and not seen[name] then
+			seen[name] = true
+			names[#names + 1] = name
+		end
+	end
+	if #names == 0 then return nil end
+	return format(L["Detour around %s"], table.concat(names, ", "))
 end
 
 -- The warning the arrow says once when a walk starts: the current walk's
@@ -2152,6 +2176,44 @@ end
 -- the path's time at run speed. With no stops the walk stays one leg and
 -- takes the path's measure (yards, seconds), its straight estimate kept in
 -- straightYards/straightSeconds for Travel.RestoreWalk (second review).
+-- The detour caption goes on one piece of a split walk (one caption per detour): each town the walk goes round
+-- (hubs.avoided) is kept by the walk piece whose stretch passes nearest its place (x, y), the first walk piece when
+-- it has none; every piece still carries the towns the walk enters. No avoided town: the pieces share hubs as before.
+local function spreadAvoided(pieces, hubs)
+	local avoided = type(hubs) == "table" and hubs.avoided
+	if type(avoided) ~= "table" or #avoided == 0 then return end
+	local walks, mine = {}, {}
+	for _, piece in ipairs(pieces) do
+		if piece.kind == "walk" then
+			walks[#walks + 1] = piece
+			mine[piece] = {}
+		end
+	end
+	if #walks == 0 then return end
+	for _, town in ipairs(avoided) do
+		local best, near = walks[1], huge
+		if type(town.x) == "number" and type(town.y) == "number" then
+			for _, piece in ipairs(walks) do
+				local a, b = piece.from, piece.to
+				local dx, dy = b.wx - a.wx, b.wy - a.wy
+				local len = dx * dx + dy * dy
+				local t = len > 0 and ((town.x - a.wx) * dx + (town.y - a.wy) * dy) / len or 0
+				t = t < 0 and 0 or (t > 1 and 1 or t)
+				local ex, ey = a.wx + dx * t - town.x, a.wy + dy * t - town.y
+				local d = ex * ex + ey * ey
+				if d < near then best, near = piece, d end
+			end
+		end
+		mine[best][#mine[best] + 1] = town
+	end
+	for _, piece in ipairs(walks) do
+		local own = {}
+		for i = 1, #hubs do own[i] = hubs[i] end
+		if #mine[piece] > 0 then own.avoided = mine[piece] end
+		piece.hubs = (#own > 0 or own.avoided) and own or nil
+	end
+end
+
 -- `hubs` = the other faction's towns the path enters (Find's job.hubs): on
 -- the unsplit walk, or on every piece of the split one (the walk enters them).
 -- -> true when the route changed.
@@ -2162,7 +2224,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	local whole = parent and parent.leg or leg
 	local to = whole.to
 	if to.c ~= c or (to.wx - x) * (to.wx - x) + (to.wy - y) * (to.wy - y) > 1 then return false end
-	if type(hubs) ~= "table" or #hubs == 0 then hubs = nil end
+	if type(hubs) ~= "table" or (#hubs == 0 and not (type(hubs.avoided) == "table" and #hubs.avoided > 0)) then hubs = nil end
 	local kept = {}
 	for _, s in ipairs(stops) do
 		if s.kind == "lift" or not handmadeNear(c, s.wx, s.wy, whole) then kept[#kept + 1] = s end
@@ -2212,6 +2274,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 		hubs = hubs,
 	}
 
+	spreadAvoided(pieces, hubs)
 	local m = ci
 	if parent then
 		while legs[m + 1] and legs[m + 1].parent == parent do m = m + 1 end

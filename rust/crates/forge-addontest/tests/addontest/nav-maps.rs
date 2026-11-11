@@ -931,3 +931,38 @@ emit({ diffs = diffs, full = full, bounded = bounded, both = both })"#,
 	let (f, b) = (got["full"].as_i64().unwrap(), got["bounded"].as_i64().unwrap());
 	assert!(b <= f, "no more work than the full search: {b} against {f}");
 }
+
+// A walk that goes round a town of the other faction says so (job.avoided, display only): across Hillsbrad west to
+// east the straight line meets Southshore; the Horde's path keeps out of it, the Alliance's own town is no detour, and
+// a walk that does enter it lists it as entered (job.hubs), not as avoided.
+#[test]
+fn a_horde_walk_past_southshore_on_the_shipped_maps_reports_the_town_it_goes_round_the_alliance_and_a_walk_in_none() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local got = {}
+local function walk(key, from, to, profile)
+	Path.Find(0, from, to, function(points, cost, job)
+		got[key] = { found = points ~= nil, hubs = job and job.hubs, avoided = job and job.avoided }
+	end, { profile = profile })
+	while #frames > 0 do table.remove(frames, 1)() end
+end
+walk("horde", { x = -500, y = -560 }, { x = -1200, y = -540 }, "Horde")
+walk("alliance", { x = -500, y = -560 }, { x = -1200, y = -540 }, "Alliance")
+walk("into", { x = -500, y = -560 }, { x = -850, y = -540 }, "Horde")
+emit(got)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["horde"]["found"], true);
+	assert_eq!(got["horde"]["hubs"], json!({}), "the path keeps out of the town");
+	let avoided = got["horde"]["avoided"].as_array().unwrap();
+	assert_eq!(avoided.len(), 1);
+	assert_eq!((&avoided[0]["id"], &avoided[0]["name"], &avoided[0]["areaId"]), (&json!("alliance-southshore"), &json!("Southshore"), &json!(271)));
+	assert!(avoided[0]["x"].is_number() && avoided[0]["y"].is_number(), "the town has a place, for the walk piece that passes it");
+	assert_eq!(got["alliance"]["avoided"], json!({}), "the Alliance's own town is no detour");
+	assert_eq!(got["into"]["hubs"], json!([{ "id": "alliance-southshore", "name": "Southshore", "areaId": 271 }]));
+	assert_eq!(got["into"]["avoided"], json!({}), "a town the walk enters is not one it goes round");
+}

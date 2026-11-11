@@ -942,6 +942,66 @@ local function hubsOn(hubs, points, profile)
 	end
 	return out
 end
+-- The hostile hubs the walk goes round (display only; nothing here prices or changes the path): the ones the straight
+-- line between its ends would enter and the drawn line does not (it is not in entered, hubsOn's list), and that the
+-- drawn line passes within AVOID_NEAR yards of, so a bend the ground forced elsewhere is not called a detour.
+-- -> { { id, name, areaId, x, y }, ... } in the order the straight line meets them (x, y: the town's place); {} without
+-- hubs, a profile or a line.
+local AVOID_NEAR = 100
+
+local function distanceToSegment(a, b, cx, cy)
+	local dx, dy = b.x - a.x, b.y - a.y
+	local A = dx * dx + dy * dy
+	local t = A > 0 and ((cx - a.x) * dx + (cy - a.y) * dy) / A or 0
+	t = t < 0 and 0 or (t > 1 and 1 or t)
+	local px, py = a.x + dx * t - cx, a.y + dy * t - cy
+	return sqrt(px * px + py * py)
+end
+
+local function passesNear(points, disks)
+	for _, d in ipairs(disks) do
+		for i = 2, #points do
+			if distanceToSegment(points[i - 1], points[i], d[1], d[2]) <= d[3] + AVOID_NEAR then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+local function hubsAvoided(hubs, points, profile, entered)
+	local out = {}
+	profile = Costs.Profile(profile)
+	if not hubs or not profile or #points < 2 then
+		return out
+	end
+	local inside = {}
+	for _, h in ipairs(entered) do
+		inside[h.id] = true
+	end
+	local hits = {}
+	for order, hub in ipairs(hubs) do
+		if hub.side ~= profile and Costs.Profile(hub.side) and not inside[hub.id] then
+			local disks = hub.disks or {}
+			local t = enters(points[1], points[#points], disks)
+			if t and passesNear(points, disks) then
+				hits[#hits + 1] = { t = t, order = order, hub = hub }
+			end
+		end
+	end
+	table.sort(hits, function(p, q)
+		return p.t < q.t or (p.t == q.t and p.order < q.order)
+	end)
+	for _, hit in ipairs(hits) do
+		local sx, sy, n = 0, 0, 0
+		for _, d in ipairs(hit.hub.disks or {}) do
+			sx, sy, n = sx + d[1], sy + d[2], n + 1
+		end
+		-- x, y: the town's place (the mean of its disks' centres), for the walk piece that passes it
+		out[#out + 1] = { id = hit.hub.id, name = hit.hub.name, areaId = hit.hub.areaId, x = n > 0 and sx / n or nil, y = n > 0 and sy / n or nil }
+	end
+	return out
+end
 -- Sliced A* and refinement share scratch trees; splitting adds hot-path calls and upvalues
 local function run(map, from, to, waterWalking, costOnly, profile, job, style, danger)
 	runStamp = runStamp + 1
@@ -1405,6 +1465,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 	end
 	points.wet = wetYards
 	job.yards, job.hubs = drawnYards, hubsOn(st.D.hubs, points, job.report or profile)
+	job.avoided = hubsAvoided(st.D.hubs, points, job.report or profile, job.hubs)
 	-- Smoothing only changes drawing: planning and FindMany use the identical graph cost.
 	return points, cost
 end

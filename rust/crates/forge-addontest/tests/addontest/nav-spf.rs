@@ -74,7 +74,7 @@ end
 local function answer(job, xy)
 	local points = {}
 	for i = 1, #xy - 1, 2 do points[#points + 1] = { map = job.map, x = xy[i], y = xy[i + 1] } end
-	job.yards, job.hubs = length(points), fake.hubs or {}
+	job.yards, job.hubs, job.avoided = length(points), fake.hubs or {}, fake.avoided or {}
 	job.callback(points, 100, job)
 end
 fake.answerXY = answer
@@ -2384,6 +2384,70 @@ fn hostile_towns_a_walk_whose_path_enters_one_carries_it_leg_hubs_the_arrow_says
 	assert_eq!(out["said"], "Walk to the flight master\nHostile town: Southshore");
 	assert_eq!(out["after"], "Walk to the flight master", "said once, then the step alone");
 	assert_eq!(out["again"], "Walk to the flight master", "a fresh plan of the same walk does not say it again");
+}
+
+#[test]
+fn detours_a_walk_that_goes_round_a_hostile_town_carries_it_as_leg_hubs_avoided_text_for_the_journey_and_no_warning_from_the_arrow() {
+	let out = run_many(
+		&[
+			CROSSING,
+			r#"
+		local r = {}
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		fake.settle(fake.of(true)[1], function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end)
+		fake.avoided = { { id = 12, name = "Southshore" } }
+		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
+		fake.avoided = nil
+		local legs, ci = N.GetRoute()
+		local leg = legs[ci]
+		r.avoided = leg.hubs and leg.hubs.avoided and leg.hubs.avoided[1].name or false
+		r.entered = leg.hubs and #leg.hubs or false
+		r.hostile = T.HubText(leg) or false
+		r.text = T.AvoidText(leg) or false
+		r.noneElsewhere = legs[ci + 1].hubs == nil
+		stub.advance(0.3)
+		r.said = N.arrow.labelText:GetText()
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["avoided"], "Southshore", "the walk's leg carries the town it goes round");
+	assert_eq!(out["entered"], 0, "it enters none");
+	assert_eq!(out["hostile"], false, "so there is no hostile-town text");
+	assert_eq!(out["text"], "Detour around Southshore");
+	assert_eq!(out["noneElsewhere"], true, "a walk with no detour carries none");
+	assert_eq!(out["said"], "Walk to the flight master", "the arrow says nothing of it: the caption is display only");
+}
+
+#[test]
+fn detours_a_split_walk_shows_the_detour_on_the_one_piece_that_passes_the_town_every_piece_still_carries_the_towns_it_enters() {
+	let out = run(&format!(
+		"{}{}{}",
+		r#"
+		fake.hubs = { { id = 13, name = "Tarren Mill" } }
+		fake.avoided = { { id = 12, name = "Southshore", x = 0, y = -300 } }
+		"#,
+		split(),
+		r#"
+		fake.hubs, fake.avoided = nil, nil
+		local T = N.travel
+		local legs, ci = N.GetRoute()
+		local walks, shown, entered = 0, {}, 0
+		for i = 1, #legs do
+			if legs[i].kind == "walk" then
+				walks = walks + 1
+				if T.AvoidText(legs[i]) then shown[#shown + 1] = i end
+				if T.HubText(legs[i]) then entered = entered + 1 end
+			end
+		end
+		emit({ walks = walks, shown = shown, entered = entered, text = T.AvoidText(legs[shown[1] or 1]) or false, label = shown[1] and legs[shown[1]].label or false })"#
+	));
+	assert_eq!(out["walks"], 4, "the bridge, the cave, the lift's foot and the target");
+	assert_eq!(out["shown"], json!([2]), "once, on the piece from the bridge to the cave mouth, which passes (0, -300)");
+	assert_eq!(out["text"], "Detour around Southshore");
+	assert_eq!(out["entered"], 4, "the town the path enters stays on every piece");
 }
 
 #[test]
