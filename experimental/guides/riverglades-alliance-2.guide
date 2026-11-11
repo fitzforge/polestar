@@ -141,6 +141,12 @@ step Farholde Keep
   turnin 94884
   turnin 95975                          -- Tessa Dawnbright, by the orchard
 
-step On to Theramore
-  tip The next guide starts in Theramore: fly from Gretchen Mayberry to Menethil Harbor and take the boat across, or hearth if you are bound in Theramore.
-  goto 60.9,80.8 "Gretchen Mayberry, gryphon master"
+step Fly to Menethil Harbor
+  tip The next guide starts in Theramore: Gretchen Mayberry flies to Menethil Harbor by way of Thelsamar, and the boat crosses to Theramore from there.
+  goto 60.6,81.6 "Gretchen Mayberry, gryphon master"
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Boat to Theramore
+  zone Wetlands
+  goto 5.13,63.61 "Boat to Theramore"

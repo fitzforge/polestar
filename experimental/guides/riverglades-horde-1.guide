@@ -32,7 +32,7 @@ step Into the Riverglades
 
 step Rog'mar
   tip South-east down the valley to Rog'mar, the Horde's fort in the middle of the zone. Grakna, the wind rider master, stands in the middle of the fort: talk to her to learn the flight path.
-  talk 255993                           -- Grakna: learn the Rog'mar flight path
+  getfp "Rog'mar" npc 255993            -- Grakna, in the middle of the fort
   accept 93786                          -- Krom'rosh: A Message in Blood
   accept 93787                          -- Food for the Taking
   accept 94480                          -- A Gift From Our Enemies

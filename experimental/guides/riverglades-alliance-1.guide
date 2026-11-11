@@ -108,7 +108,7 @@ step Wheeler's Grange
 
 step Farholde Keep
   tip Keep east along the road to Farholde Keep. Gretchen Mayberry, the gryphon master, stands at its western gate: talk to her to learn the flight path. The inn is inside the walls to the south.
-  talk 257087                           -- Gretchen Mayberry: learn the Farholde Keep flight path
+  getfp "Farholde Keep" npc 257087      -- Gretchen Mayberry, at the western gate
   turnin 95148                          -- Demar Brant, in the keep
   accept 94613                          -- My Kingdom for a Horse
   accept 95329                          -- Out in the Field

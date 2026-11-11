@@ -177,7 +177,8 @@ step Gobam
 step Rog'mar
   turnin 95428                          -- Krom'rosh
 
-step On to Kargath
+step Fly to Kargath
   tip The next guide starts at Kargath in the Badlands: Grakna, Rog'mar's wind rider master, flies there.
+  goto 59.6,45.1 "Grakna, wind rider master"
+  fly "Kargath"
   zone Badlands
-  goto 4.1,44.9 "Kargath"
