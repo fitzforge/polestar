@@ -9234,6 +9234,11 @@
 				"q": 498,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): The Rescue (Durnholde Keep), `when !turnedin 498`; it opens Infiltration 533 (and Valik) on the guide's first Tarren Mill stop. See 527.",
 				"issue": "#1660"
+			},
+			{
+				"q": 567,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1776): Dangerous! is taken from the poster in the 22-25 guide, which kills Farmer Kalaba (567.4) with the peasants (528) and Citizen Wilkes (567.2) at the smithy (529), and leaves the clerk (567.1, the town hall with 532) and the miner (567.3, Azurelode Mine with 539) to this guide. A character who carries it but left the 22-25 guide before the smithy had no step for Kalaba or Wilkes here: the catch-up's peasants and smithy steps (`when !turnedin 529`) now list them, as the 22-25 guide does. Kolbi (Skyborne Druid 31, 0.3.6) had 567 at 2/4, with 529 neither in the log nor handed in.",
+				"issue": "#1776"
 			}
 		],
 		"skip": [
