@@ -3116,8 +3116,9 @@ test(`${STONETALON_HORDE}: #246: Kadrak's goals are on the Barrens' map, and the
 	// (The Warsong Reports, 6543, is left out since the final route review; Kadrak keeps Report to Kadrak.)
 	const kadrak = list[at(list, 'turnin 6541', is('turnin', 6541))].goal;
 	assert.equal(kadrak.map, 1413, `${kadrak.t} ${kadrak.quest} is on The Barrens (1413), not ${kadrak.map}`);
-	const outrunners = list[at(list, 'the Ashenvale Outrunners', (g) => g.t === 'kill' && g.npc === 12856)].goal;
-	assert.equal(outrunners.map, 1440, 'the Outrunners are still in Ashenvale');
+	// (Ashenvale Outrunners, the old anchor here, waits for the 26 visit since 0.3.7.)
+	const senani = list[at(list, 'turnin 6382', is('turnin', 6382))].goal;
+	assert.equal(senani.map, 1440, 'Senani at Splintertree is still in Ashenvale');
 });
 
 // Tirion's quests have two givers in the data: Tirion Fordring (1855) at his
@@ -6008,24 +6009,26 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 	assert.ok(!/back to the Crossroads/.test(jinzil.note || ''), 'no walk back to the Crossroads');
 });
 
-// Discord report (2026-11-08): "Ashenvale & Silverpine is labeled 21-22 but the steps tell me I'm behind for not being
-// level 24". Ashenvale Outrunners (level 24, its Outrunners 23-24) was the first Ashenvale step, at 21, where the level
-// model has every start but Skyborne at 21.2-21.7: the pace line's "Behind: Ashenvale Outrunners (24) ... reach 22 first"
-// for players on the route's own pace. It waits for the way back, after Ruul's hand-in at Splintertree (22-23), and is
-// still handed in on the spot, before the flight to Orgrimmar.
-test(`${STONETALON}: Discord report: Ashenvale Outrunners on the way back from Thistlefur, not at 21 on the way in`, { skip }, () => {
-	const list = goals(STONETALON);
-	const senani = at(list, 'turnin 6382', is('turnin', 6382));
-	const ruul = at(list, 'turnin 6482', is('turnin', 6482));
+// Discord reports (2026-11-08, 2026-11-09): "Ashenvale & Silverpine is labeled 21-22 but the steps tell me I'm behind for
+// not being level 24". Ashenvale Outrunners (level 24, its Outrunners 23-24) was the first Ashenvale step at 21, then
+// (0.3.6) the step after Ruul's hand-in at 22-23, still 1-1.5 levels under it on the level model. 0.3.7:
+// it waits for the second Ashenvale visit at 26, at Kuray'bin's lumber camp between Torek's assault and Sharptalon's
+// woods, and is handed in on the spot before Splintertree.
+test(`${STONETALON}: Discord reports: Ashenvale Outrunners waits for the 26 Ashenvale visit, taken by Torek and Sharptalon`, { skip }, () => {
+	assert.ok(!goals(STONETALON).some(({ goal }) => goal.quest === 6503), 'not on the first Ashenvale visit at 21');
+	const list = goals(ASHENVALE_HORDE);
+	const torek = at(list, 'accept 6544', is('accept', 6544));
 	const take = at(list, 'accept 6503', is('accept', 6503));
 	const kill = list.findIndex(({ goal }) => goal.t === 'kill' && goal.quest === 6503);
+	const claw = at(list, 'collect 16305', (g) => g.t === 'collect' && g.item === 16305);
 	const hand = at(list, 'turnin 6503', is('turnin', 6503));
-	const fly = list.findIndex(({ goal }, i) => i > hand && goal.t === 'fly');
-	assert.ok(senani < ruul && ruul < take && take < kill && kill < hand, 'Senani, Thistlefur and Ruul first, then the Outrunners');
-	assert.ok(fly > hand && list[fly].goal.location === 'Orgrimmar', 'handed in before the flight to Orgrimmar');
+	const ertog = at(list, 'turnin 6544', is('turnin', 6544));
+	assert.ok(torek < take && take < kill && kill < hand && hand < ertog, 'Torek, Kuray\'bin, the Outrunners, Kuray\'bin, then Splintertree');
+	assert.ok(kill < claw && list[claw].s - list[kill].s === 1, 'the Outrunners in the woods right before Sharptalon\'s');
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
-	assert.ok(pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 6482 && p.b[0] === 'accept' && p.b[1] === 6503), 'a route-fixes pair keeps the order');
-	assert.ok(!pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 6503 && p.b[0] === 'turnin' && p.b[1] === 6382), 'no pair puts it before Senani');
+	const pair = (a, b) => pairs.some((p) => p.a[0] === a[0] && p.a[1] === a[1] && p.b[0] === b[0] && p.b[1] === b[1]);
+	assert.ok(pair(['accept', 6544], ['accept', 6503]) && pair(['turnin', 6503], ['turnin', 6544]), 'route-fixes pairs keep the order');
+	assert.ok(!pair(['turnin', 6482], ['accept', 6503]) && !pair(['turnin', 6503], ['accept', 493]), 'no pair holds it on the first visit');
 });
 
 // Thin-data audit (#1317): The Offering of Blood's quest log has three lines, Willingly offer blood, Release Tortured
