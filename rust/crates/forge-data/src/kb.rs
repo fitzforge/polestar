@@ -2058,7 +2058,11 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					bump(&tdb_report, "countsFilled", 1.0);
 				} else if mn > 0.0 && sniffed && count.num() != mn {
 					let has = |n: &str| count_in_text(&text, n);
-					if has(&num_str(mn)) && !has(&count.to_js_string()) {
+					// A count from a source that ranks above the TDB (a correction, a recording) stays, as in
+					// the fact check above: the TDB's count is only listed against it (Mercy Falls on Deaf
+					// Ears 93165: the correction's 5 ears, the TDB's and the objective text's 10).
+					let outranked = tier_of(project_quest_source(&q, "objectives", &corr), "objectives") < tier_of("tdb", "objectives");
+					if !outranked && has(&num_str(mn)) && !has(&count.to_js_string()) {
 						kb.change("quests", qidn, &label, count, V::Num(mn), "tdb");
 						o.set("count", mn);
 						tag(&q, "kb:tdb:count");
@@ -3595,6 +3599,52 @@ mod tests {
 		assert!(!tdb_direct(&parse_json(r#"{ "id": 1714, "direct": false }"#).unwrap(), &tq), "a correction's false stands");
 		// An ordinary quest (QuestType 2: taken into the log) is not.
 		assert!(!tdb_direct(&parse_json(r#"{ "id": 1712 }"#).unwrap(), &parse_json(r#"{ "sniffed": false, "obj": [] }"#).unwrap()));
+	}
+
+	#[test]
+	fn the_tdbs_objective_count_never_replaces_a_corrected_one() {
+		// Mercy Falls on Deaf Ears 93165: the correction asks for 5 ears (players' quest logs); the TDB's
+		// sniffed row and the old objective text say 10. Quest 900001, the same with no correction: the
+		// TDB's count, which the text backs, wins over QuestieDB's.
+		let text = "Collect 10 Al'Aketh Cultist's Ears.";
+		let world = parse_json(&format!(
+			r#"{{ "93165": {{ "id": 93165, "objectiveText": "{text}", "objectives": [{{ "type": "item", "id": 258771, "count": 5 }}], "source": ["questie-forever", "polestar-correction"] }},
+			"900001": {{ "id": 900001, "objectiveText": "{text}", "objectives": [{{ "type": "item", "id": 258771, "count": 5 }}], "source": ["questie-forever"] }} }}"#
+		))
+		.unwrap();
+		let corrections = parse_json(r#"{ "quests": { "93165": { "set": { "objectives": [{ "type": "item", "id": 258771, "count": 5 }] } } } }"#).unwrap();
+		let tdb = parse_json(r#"{ "schema": 2, "quests": { "93165": { "sniffed": true, "obj": [[1, 258771, 10]] }, "900001": { "sniffed": true, "obj": [[1, 258771, 10]] } } }"#).unwrap();
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let inp = KbInputs {
+			quests: world.as_obj().unwrap(),
+			npcs: &empty,
+			objects: &empty,
+			items: &empty,
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections,
+			facts_file: None,
+			tdb: Some(tdb),
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: None,
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let count = |id: &str| world.get(id).get("objectives").at(0).get("count").num();
+		assert_eq!(count("93165"), 5.0, "the correction's count stays");
+		assert_eq!(count("900001"), 10.0, "with no higher source, the TDB's count wins");
 	}
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {
