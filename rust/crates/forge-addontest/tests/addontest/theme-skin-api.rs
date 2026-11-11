@@ -548,10 +548,12 @@ fn a_light_scheme_is_lifted_not_darkened_so_brightness_or_a_dark_ground_never_se
 	assert_eq!(out["duskBright"], json!([true, true]));
 }
 
+// The example skin never ships (Polestar's own skin addons may: they are not the example), and the install check
+// leaves another addon's skin alone: its version is its own.
 #[test]
 fn the_example_is_never_in_a_release_and_the_install_check_leaves_skin_addons_alone() {
 	let release = forge_release::addons::release_addons(&addons_dir());
-	assert!(!release.names.iter().any(|n| n.starts_with("Polestar_Skin_")), "{:?}", release.names);
+	assert!(!release.names.iter().any(|n| n == "Polestar_Skin_Example"), "{:?}", release.names);
 	assert!(addons_dir().join("Polestar_Skin_Example/Polestar_Skin_Example.toc").exists());
 	let out = emitted(&RunAddon {
 		before: r##"stub.addons = { { name = "Polestar" }, { name = "Polestar_Nav" }, { name = "Polestar_Skin_Example" }, { name = "Polestar_Skin_Moonlit" } }
@@ -1137,4 +1139,75 @@ fn a_registered_skin_s_guide_window_hooks_dress_rows_add_room_follow_renders_and
 	assert_eq!(n(&out["after"]) - n(&out["before"]), 20.0, "the window grew by the skin's room");
 	assert_eq!(out["onCards"], true, "the heads-up card sits on the skin's frame");
 	assert_eq!(out["back"], out["before"], "back on the house skin, its own height");
+}
+
+// Skin API 2's guidePlace: each part about to be placed is offered to the skin with its height; one the skin claims
+// (its answer true) leaves the window: the window is shorter by that part ("Then:" by its height, the card's tip
+// with its gap) and the part stays where the skin put it. Claimed no more, the part goes back under its own frame
+// and the window gets its height back; a skin that claims nothing changes nothing.
+#[test]
+fn a_part_a_skin_places_itself_leaves_the_guide_window_s_height_and_comes_back_when_no_skin_claims_it() {
+	let out = run_ui(
+		r##"
+		local T = Polestar.Theme
+		local P = GF.parts
+		local mine = CreateFrame("Frame", nil, UIParent)
+		mine:SetSize(240, 120)
+		local claim, offered = {}, {}
+		local ok, why = T.RegisterSkin("cards", { name = "Cards", addon = "Test_Cards", base = "polestar",
+			hooks = {
+				guidePlace = function(name, frame, width, height)
+					offered[name] = { width = width, height = height }
+					if not claim[name] then return false end
+					frame:SetParent(mine)
+					frame:ClearAllPoints()
+					frame:SetPoint("TOPLEFT", mine, "TOPLEFT", 0, 0)
+					return true
+				end,
+			} })
+		uistub.openTabs(TABS, 1)
+		local function h() return math.floor(F:GetHeight() + 0.5) end
+		local house = h()
+		local homes = { after = P.after:GetParent(), tip = P.tip:GetParent() }
+		Polestar.Set("ui.skin", "cards")
+		GF.Render()
+		local hooked = h()
+		local function offer(name)
+			local o = offered[name]
+			return o and o.width > 0 and o.height or false
+		end
+		local seen = { after = offer("after"), tip = offer("tip") }
+		claim.after = true
+		GF.Render()
+		local _, rel = P.after:GetPoint(1)
+		local noAfter = { h = h(), parent = P.after:GetParent() == mine, rel = rel == mine, shown = P.after:IsShown() }
+		claim.tip = true
+		GF.Render()
+		local noTip = { h = h(), parent = P.tip:GetParent() == mine }
+		claim.after, claim.tip = nil, nil
+		GF.Render()
+		local back = { h = h(), after = P.after:GetParent() == homes.after, tip = P.tip:GetParent() == homes.tip }
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render()
+		emit({ ok = ok, why = why or false, house = house, hooked = hooked, seen = seen, noAfter = noAfter, noTip = noTip,
+			back = back, off = h() })"##,
+	);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["hooked"], out["house"], "a skin that claims nothing leaves the layout as it was");
+	let offered = |part: &str| out["seen"][part].as_f64().filter(|h| *h > 0.0);
+	let (Some(after), Some(tip)) = (offered("after"), offered("tip")) else {
+		panic!("both parts are offered to the skin with their height: {}", out["seen"]);
+	};
+	let lost = n(&out["hooked"]) - n(&out["noAfter"]["h"]);
+	assert!((lost - after).abs() <= 1.0, "\"Then:\" claimed: the window is {lost} shorter, the part is {after} high");
+	assert_eq!(
+		(out["noAfter"]["parent"].clone(), out["noAfter"]["rel"].clone(), out["noAfter"]["shown"].clone()),
+		(json!(true), json!(true), json!(true)),
+		"the claimed part stays where the skin put it"
+	);
+	let lost = n(&out["noAfter"]["h"]) - n(&out["noTip"]["h"]);
+	assert!((lost - (tip + 2.0)).abs() <= 1.0, "the tip claimed: the window is {lost} shorter, the tip is {tip} high with its 2 of gap");
+	assert_eq!(out["noTip"]["parent"], true);
+	assert_eq!(out["back"], json!({ "h": out["house"].clone(), "after": true, "tip": true }), "claimed no more: back under its own frame, the window its height again");
+	assert_eq!(out["off"], out["house"], "Polestar's own look: the house layout");
 }
