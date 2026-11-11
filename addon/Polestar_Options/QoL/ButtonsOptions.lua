@@ -101,8 +101,11 @@ end
 
 ---------------------------------------------------------------------------
 -- Action buttons: the whole set as it lines up when every button shows
--- (bag, Hearthstone, quest item, target, rare), out of combat, and the quest
--- item button in combat. A button turned off is drawn faint.
+-- (bag, Hearthstone, quest item, target, rare), out of combat, over the
+-- world it acts on: the mob the target button names (your target, its raid
+-- mark when Mark target is on) and the rare the rare button names, further
+-- off; and the quest item button in combat. A button turned off is drawn
+-- faint.
 ---------------------------------------------------------------------------
 
 local DEMO_ITEM_ICON = "Interface\\Icons\\INV_Misc_Note_01"
@@ -154,6 +157,14 @@ local function buildSet(f)
 	hotspot(f, target, "buttons.targetSize")
 	hotspot(f, target.Label, "qol.buttonTextSide")
 	hotspot(f, set.combat, "buttons.alpha")
+	-- The world: the target's mob near the set, the rare further off and
+	-- smaller (UI.Preview.Mob: a nameplate and its spot on the ground).
+	local P, lv = ns.UI.Preview, ns.Levels and ns.Levels.Player and ns.Levels.Player() or {}
+	lv = max(1, lv.level or 18)
+	set.mob = P.Mob(f, { name = target.aList[1], level = lv, health = 0.64, target = true, mark = 8 })
+	set.far = P.Mob(f, { name = faces.rare.Label:GetText(), level = lv, ring = { Theme.Color("rare") } })
+	f:Light("qol.targetButton", set.mob)
+	f:Light("qol.rareButton", set.far)
 	-- The pointer on a setting's row lights the parts it changes.
 	local all = { faces.bag, faces.hearth, faces.item, target, faces.rare, set.combat }
 	local names = { target.Label, faces.rare.Label }
@@ -220,18 +231,39 @@ local function setColumns(f, set, combat)
 	local right = (side == "right" or side == nil) and NAME_W or 0
 	local up = side == "above" and NAME_H or 0
 	local down = side == "below" and NAME_H or 0
-	local s = (tonumber(ns.Get("qol.buttonScale")) or 1) * f:TrueScale()
+	local t = f:TrueScale()
+	local s = (tonumber(ns.Get("qol.buttonScale")) or 1) * t
+	-- The world it acts on: the target's raid mark while Mark target is on,
+	-- the rare's ring in the rares' colour.
+	local mob, far = set.mob, set.far
+	local mark = tonumber(ns.Get("qol.markMob"))
+	mob.Mark:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_" .. ((mark and mark >= 1 and mark <= 8) and floor(mark) or 8))
+	mob.Mark:SetShown(QoL.On("markTarget") and true or false)
+	far:Tint(Theme.Color("rare"))
+	-- In stage units at k = 1 from the quest item button's centre (y up):
+	-- the set with its names; the target a little left of it, its plate
+	-- level with the set's top; the rare further left, further off (smaller
+	-- and higher up), as they stand around you when the buttons name them.
+	local FAR = 0.8
+	local sx0, sx1, sy0, sy1 = (x0 - left) * s, (x1 + right) * s, (y0 - down) * s, (y1 + up) * s
+	local mx, my = sx0 - (mob.HALF + 64) * t, sy1 - (mob.UP + 8) * t
+	local fx, fy = mx - (mob.HALF + far.HALF * FAR + 36) * t, my + 34 * t
+	local L, R = min(sx0, fx - far.HALF * FAR * t), sx1
+	local T = max(sy1, my + mob.UP * t, fy + far.UP * FAR * t)
+	local B = min(sy0, my - 18 * t, fy - 18 * FAR * t)
 	local cols = {}
-	cols[1] = { w = (x1 - x0 + left + right) * s, h = (y1 - y0 + up + down) * s, foot = set.box, caption = set.idle,
-		place = function(k, l, t)
-			local g = s * k
+	cols[1] = { w = R - L, h = T - B, foot = set.box, caption = set.idle,
+		place = function(k, l, top)
+			-- The quest item button's centre on the stage.
+			local cx, cy, g = l - L * k, top + T * k, s * k
 			set.group:SetScale(g)
 			set.group:ClearAllPoints()
-			-- The group's centre where the box puts the buttons' middle.
-			set.group:SetPoint("CENTER", f, "TOPLEFT", (l + (left - x0) * g) / g, -(t + (y1 + up) * g) / g)
+			set.group:SetPoint("CENTER", f, "TOPLEFT", cx / g, -cy / g)
 			set.box:ClearAllPoints()
-			set.box:SetPoint("TOPLEFT", f, "TOPLEFT", l + left * g, -(t + up * g))
+			set.box:SetPoint("TOPLEFT", f, "TOPLEFT", cx + x0 * g, -(cy - y1 * g))
 			set.box:SetSize((x1 - x0) * g, (y1 - y0) * g)
+			mob:Stand(cx + mx * k, cy - my * k, t * k)
+			far:Stand(cx + fx * k, cy - fy * k, t * k * FAR)
 		end }
 	set.fight:SetShown(combat and true or false)
 	set.single:SetShown(combat and true or false)
@@ -337,7 +369,8 @@ local function otherColumns(f, o)
 	return cols
 end
 
--- The Action buttons tab: the set and the combat button.
+-- The Action buttons tab: the set over its world, and the combat button.
+-- f.Faces, f.Mobs: its parts, for the tests.
 local function buildActionPreview(view)
 	local set
 	local f = stage(view, function(f)
@@ -345,6 +378,7 @@ local function buildActionPreview(view)
 		lineUp(f, setColumns(f, set, true))
 	end)
 	f.Faces = function() return set and set.faces, set and set.combat end
+	f.Mobs = function() return set and set.mob, set and set.far end
 	return f
 end
 
@@ -359,7 +393,7 @@ local function buildLauncherPreview(view)
 	return f
 end
 
--- Essentials: the set out of combat, the floating button and the minimap
+-- Essentials: the set over its world, the floating button and the minimap
 -- button, side by side.
 local function buildEssentialsPreview(view)
 	local set, o
@@ -371,6 +405,7 @@ local function buildEssentialsPreview(view)
 		lineUp(f, cols)
 	end)
 	f.Faces = function() return set and set.faces, set and set.combat end
+	f.Mobs = function() return set and set.mob, set and set.far end
 	return f
 end
 

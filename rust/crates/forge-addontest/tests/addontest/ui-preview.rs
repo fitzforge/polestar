@@ -41,8 +41,8 @@ fn every_page_s_preview_is_drawn_on_the_settings_window_s_one_stage() {
 				end
 			end
 		end
-		emit({ stages = stages, others = others })"#);
-	assert_eq!(out["others"], json!([]), "a preview not on the stage");
+		emit({ stages = stages, others = table.concat(others, ", ") })"#);
+	assert_eq!(out["others"], "", "a preview not on the stage");
 	let stages: Vec<&str> = out["stages"].as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect();
 	for page in ["theme/", "guidewindow/", "arrow/", "mappins/", "routelines/", "buttons/", "alerts/", "trackers/"] {
 		assert!(stages.iter().any(|s| s.starts_with(page)), "{page}'s preview is on the stage: {stages:?}");
@@ -217,6 +217,127 @@ fn every_look_page_setting_lights_a_part_of_its_tab_s_preview() {
 		emit({ dark = table.concat(dark, "\n"), seen = seen })"#);
 	assert!(out["seen"].as_f64().unwrap() > 300.0, "every Look page's rows walked: {}", out["seen"]);
 	assert_eq!(out["dark"], "", "settings that light nothing on their preview:\n{}", out["dark"].as_str().unwrap_or_default());
+}
+
+// A setting that paints every surface lights every surface it paints: the pointer on Theme > Accent lights, in the
+// scene, the guide window's open tab (underline and icon), the current goal's bar and glyph, the progress bar, the
+// heads-up card's stripe, ring, headline, badge and primary button, the rare alert's primary button and time bar and
+// the arrow; and the settings window's own accent parts as they show: the emblem, the open page's row, the open tab's
+// underline (not the others'), the sliders' fills and the switches that are on. A part the accent does not paint
+// stays dark.
+#[test]
+fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the_settings_window() {
+	let out = run(r#"
+		local f, host = shown("theme", "Colour")
+		local rows = O.Controls("theme", "Colour")
+		stub.RunScript(rows["ui.accent"], "OnEnter")
+		local lit = {}
+		for _, rec in ipairs(host.psByKey["ui.accent"] or {}) do
+			local l = rawget(rec, "Frame")
+			if rawget(rec, "psRegion") and l and l.psLit then lit[rec.psRegion] = true end
+			for region, made in pairs(rawget(rec, "psMade") or {}) do
+				if made.psLit then lit[region] = true end
+			end
+		end
+		local G, heads, toast, win = f.Scene, f.Heads, f.Toast, PolestarOptions
+		local scene = {
+			tab = lit[G.Strip.Bar] and lit[G.Strip.Icon], goal = lit[G.Rows[2].Mark] and lit[G.Rows[2].Icon],
+			progress = lit[G.Foot.Line], stripe = lit[heads.Stripe] and lit[heads.Ring] and lit[heads.Head] and lit[heads.Badge],
+			primaries = lit[heads.Act] and lit[toast.Waypoint], timer = lit[toast.Timer], arrow = false,
+			dark = not lit[G.Rows[3].Text] and not lit[G.Person.Name],
+		}
+		for region in pairs(lit) do
+			local p = region.GetParent and region:GetParent()
+			while p and not scene.arrow do
+				scene.arrow = p == f.Arrow
+				p = p:GetParent()
+			end
+		end
+		local tabs, others, fills, tracks, row = 0, 0, 0, 0, false
+		for _, t in ipairs(win.tabButtons) do
+			local bar = rawget(t, "psSkin") and t.psSkin.bar
+			if bar and lit[bar] then if t.psSelected then tabs = tabs + 1 else others = others + 1 end end
+		end
+		for _, b in ipairs(win.navButtons) do
+			if lit[b.Bar] then row = b.Bar:IsShown() end
+		end
+		for region in pairs(lit) do
+			local p = region.GetParent and region:GetParent()
+			if p and rawget(p, "Track") == region and rawget(p, "psOn") == true then tracks = tracks + 1 end
+		end
+		-- The sliders' fills: the menu scale's in the header.
+		fills = lit[win.HeaderTools.Fill] and 1 or 0
+		-- A switch turned on lights too.
+		stub.RunScript(rows["ui.accent"], "OnLeave")
+		Polestar.Set("ui.classAccent", true)
+		stub.advance(0.1)
+		stub.RunScript(rows["ui.accent"], "OnEnter")
+		for _, rec in ipairs(host.psByKey["ui.accent"] or {}) do
+			for region, made in pairs(rawget(rec, "psMade") or {}) do
+				local p = made.psLit and region.GetParent and region:GetParent()
+				if p and rawget(p, "Track") == region and rawget(p, "psOn") == true then tracks = tracks + 1 end
+			end
+		end
+		emit({ scene = scene, window = { emblem = lit[win.Emblem] == true, row = row, tab = tabs, otherTabs = others,
+			fills = fills > 0, tracks = tracks > 0 } })"#);
+	assert_eq!(
+		out["scene"],
+		json!({ "tab": true, "goal": true, "progress": true, "stripe": true, "primaries": true, "timer": true, "arrow": true, "dark": true }),
+		"the scene's accent parts"
+	);
+	assert_eq!(
+		out["window"],
+		json!({ "emblem": true, "row": true, "tab": 1, "otherTabs": 0, "fills": true, "tracks": true }),
+		"the settings window's own accent parts"
+	);
+}
+
+// The Buttons hero and the single alerts stand in the world they act in: the button set with the mob the target
+// button names (your target: its ring, and its raid mark while Mark target is on) and the rare the rare button
+// names; the rare alert and the transport banner at the top with the arrow under them and the guide window's edge
+// at the right, run on past the hero and faded there, the rare in the world at its level; While you're here with no
+// guide window (it comes while the window is hidden) and two of the mobs it names, your target among them. The mobs
+// light with the settings that act on them; a narrow page leaves the guide window out and keeps the card.
+#[test]
+fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
+	let out = run(r#"
+		local f = shown("buttons", "Action buttons")
+		local mob, far = f.Mobs()
+		local faces = f.Faces()
+		local buttons = { mob = mob:IsShown() and mob.Name:GetText() == faces.target.Label:GetText(), ring = rawget(mob, "Ring") ~= nil,
+			far = far:IsShown() and far.Name:GetText() == faces.rare.Label:GetText(), markOff = mob.Mark:IsShown() }
+		Polestar.Set("qol.markTarget", true)
+		f.Paint()
+		buttons.markOn = mob.Mark:IsShown()
+		Polestar.Set("qol.markTarget", false)
+		local _, host = shown("buttons", "Action buttons")
+		buttons.lit = host.psByKey["qol.targetButton"] ~= nil and host.psByKey["qol.rareButton"] ~= nil
+		local alerts = {}
+		for key, tab in pairs({ rare = "Rare alert", transport = "Transport alert", whilehere = "While you're here" }) do
+			local s, h = shown("alerts", tab)
+			local w = s.World
+			local a = { guide = w.G ~= nil and w.G:IsShown(), fade = s.FadeRight:IsShown(), arrow = w.arrow ~= nil and w.arrow.holder:IsShown(),
+				card = s.Card:IsShown() }
+			if w.left then a.rare = w.left:IsShown() and w.left.Name:GetText() == s.Card.Name:GetText() and s.Card.Facts:GetText():find(w.left.Level:GetText(), 1, true) ~= nil end
+			if w.pair then a.pair = w.pair[1]:IsShown() and w.pair[2]:IsShown() and rawget(w.pair[1], "Ring") ~= nil and rawget(w.pair[2], "Ring") == nil end
+			if key == "rare" then
+				s:Layout(420, s.psHeight)
+				a.narrow = { guide = w.G:IsShown(), fade = s.FadeRight:IsShown(), card = s.Card:IsShown() }
+				a.lit = h.psByKey["rares.alerts"] ~= nil
+			end
+			alerts[key] = a
+		end
+		emit({ buttons = buttons, alerts = alerts })"#);
+	assert_eq!(out["buttons"], json!({ "mob": true, "ring": true, "far": true, "markOff": false, "markOn": true, "lit": true }), "{out}");
+	assert_eq!(
+		out["alerts"],
+		json!({
+			"rare": { "guide": true, "fade": true, "arrow": true, "card": true, "rare": true,
+				"narrow": { "guide": false, "fade": false, "card": true }, "lit": true },
+			"transport": { "guide": true, "fade": true, "arrow": true, "card": true },
+			"whilehere": { "guide": false, "fade": false, "arrow": false, "card": true, "pair": true },
+		})
+	);
 }
 
 // A stage repaints on its own settings at once while it shows, on its next show when it was hidden, and not on

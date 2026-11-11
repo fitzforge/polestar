@@ -2704,6 +2704,9 @@ local function applySize()
 	if win:GetWidth() == w and win:GetHeight() == h then return false end
 	win:SetSize(w, h)
 	W.ShellLayout(win)
+	-- The footer's thanks for the main column's new width (a size change's
+	-- own hook may run before the shell has measured it).
+	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 	return true
 end
 
@@ -2791,7 +2794,10 @@ local function build()
 		else
 			b:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0)
 		end
-		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= win.Footer:GetWidth())
+		-- The footer runs the main column's width (the shell's own number: the
+		-- footer's anchored rect may not be laid out yet as the window opens).
+		local room = tonumber(rawget(win, "psMainW")) or win.Footer:GetWidth()
+		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room)
 	end
 	UI.Thanks.HeaderLink(win)
 	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)

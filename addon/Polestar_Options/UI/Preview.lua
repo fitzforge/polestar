@@ -48,7 +48,11 @@
 --   s:Hot(region, key)  a click on region finds setting `key`'s row
 --   s:Light(key, region, ...)  regions lit with key's row (below), no click;
 --                  s:LightEdge: an outline alone (a big part, or one outside
---                  the stage: the settings window's own sidebar or header)
+--                  the stage: the settings window's own sidebar or header);
+--                  s:LightRing: an outline standing off a part drawn in the
+--                  accent itself; s:LightEach(key, fn[, ring]): fn() -> the
+--                  parts to outline, found as the row is hovered (the
+--                  window's own, which come and go)
 --   s:Floor(frame[, pad])  a soft shadow on the ground under a surface of
 --                  the scene (pad: how far past its sides, 18)
 --   s:SideBySide(items, opts)  the scene's surfaces at their true size side
@@ -59,7 +63,10 @@
 --                  returns false
 --   s.Content      the frame the page's parts go on (above the backdrop)
 --   s:SetCut(cut)  the page's scene runs past the stage's foot (cropped):
---                  it fades out over the last CUT_FADE px while cut is true
+--                  it fades out over the last CUT_FADE px while cut is true;
+--                  s:SetCutRight(cut) the same at its right edge
+--   P.Mob(s, opts) a mob in the world under the scene: its nameplate and its
+--                  spot on the ground (the target's ring), m:Stand(x, y, k)
 --
 -- Preview hotspots: a part of a preview that a click takes to its setting.
 --   P.Hotspot(frame, region, key) (O.PreviewHotspot, host:Hotspot or
@@ -241,6 +248,7 @@ local function paintEdges(s)
 	-- A scene cropped at the stage's foot (s:SetCut) fades into the ground
 	-- over its last pixels, so the cut reads as the scene going on below.
 	gradient(s.Fade, "VERTICAL", r, g, b, 0.92, 0)
+	gradient(s.FadeRight, "HORIZONTAL", r, g, b, 0, 0.92)
 	for _, t in pairs(rawget(s, "psFloors") or {}) do
 		t:SetVertexColor(0, 0, 0, FLOOR_ALPHA)
 	end
@@ -380,10 +388,21 @@ function P.Stage(parent, opts)
 	s.Fade:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", 0, 0)
 	s.Fade:SetHeight(CUT_FADE)
 	s.Fade:Hide()
+	-- The same at the stage's right edge, for a surface running past it (the
+	-- guide window at the screen's side: s:SetCutRight(true)).
+	s.FadeRight = over:CreateTexture(nil, "OVERLAY")
+	s.FadeRight:SetTexture(Theme.Media("white"))
+	s.FadeRight:SetPoint("TOPRIGHT", s, "TOPRIGHT", 0, 0)
+	s.FadeRight:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", 0, 0)
+	s.FadeRight:SetWidth(CUT_FADE)
+	s.FadeRight:Hide()
 	function s:SetCut(cut) self.Fade:SetShown(cut and true or false) end
+	function s:SetCutRight(cut) self.FadeRight:SetShown(cut and true or false) end
 	function s:Floor(frame, pad) return floorOf(self, frame, pad) end
 	function s:NoFloor(frame) return P.NoFloor(self, frame) end
 	function s:Light(key, ...) return P.Light(self, key, ...) end
+	function s:LightEach(key, fn, ring) return P.LightEach(self, key, fn, ring) end
+	function s:LightRing(key, ...) return P.LightRing(self, key, ...) end
 	function s:LightEdge(key, ...) return P.LightEdge(self, key, ...) end
 	function s:Hot(region, key) return P.Hot(self, region, key) end
 	function s:TrueScale() return P.TrueScale(self) end
@@ -580,6 +599,92 @@ function P.Animate(s, fn)
 end
 
 ---------------------------------------------------------------------------
+-- A mob in the world under a scene
+---------------------------------------------------------------------------
+
+-- A mob as the game shows one, where a scene's surfaces act on it (the
+-- target button's name, a rare alert's rare): its nameplate (its name over
+-- a health bar, its level beside it, in the game's font, a raid mark over
+-- it) and, STAND px under the bar, its spot on the ground: a soft shadow
+-- and a ring (the selection ring while it is your target). Plain frames, no
+-- unit. opts: name, level, health (0-1), target (the ring red and the
+-- plate's white edge), mark (a raid mark, 1-8), ring ({ r, g, b }: a ring
+-- of that colour). -> m; m:Stand(x, y, k) puts its ground spot at (x, y) on
+-- the stage (y down from its top), drawn at scale k; m.UP, m.HALF: how far
+-- it reaches up and to each side of that spot at k = 1.
+local PLATE_W, BAR_H, STAND, GROUND = 112, 7, 38, 12
+-- The UI's own textures, but for the raid mark (the Buttons page's alone).
+local RAID_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_"
+function P.Mob(s, opts)
+	local m = CreateFrame("Frame", nil, s)
+	local font, white = STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", Theme.Media("white")
+	m.Shadow = m:CreateTexture(nil, "BACKGROUND")
+	m.Shadow:SetTexture(Theme.Media("glow"))
+	m.Shadow:SetVertexColor(0, 0, 0, 0.75)
+	m.Shadow:SetSize(90, 32)
+	m.Shadow:SetPoint("CENTER", m, "BOTTOM", 0, GROUND)
+	local c = opts.ring or (opts.target and { 0.92, 0.16, 0.1 })
+	if c then
+		-- The ring and a soft glow of its colour inside it, flat on the ground.
+		m.Spot = m:CreateTexture(nil, "BORDER")
+		m.Spot:SetTexture(Theme.Media("glow"))
+		m.Spot:SetSize(70, 24)
+		m.Spot:SetPoint("CENTER", m, "BOTTOM", 0, GROUND)
+		m.Ring = m:CreateTexture(nil, "ARTWORK")
+		m.Ring:SetTexture(Theme.Media("qol-ring"))
+		m.Ring:SetSize(72, 25)
+		m.Ring:SetPoint("CENTER", m, "BOTTOM", 0, GROUND)
+	end
+	-- The ring's colour (r, g, b), its glow's with it.
+	function m:Tint(r, g, b)
+		if not rawget(self, "Ring") then return end
+		self.Ring:SetVertexColor(r, g, b, 0.95)
+		self.Spot:SetVertexColor(r, g, b, 0.3)
+	end
+	if c then m:Tint(c[1], c[2], c[3]) end
+	local bar = CreateFrame("Frame", nil, m)
+	bar:SetSize(PLATE_W, BAR_H)
+	bar:SetPoint("BOTTOM", m, "BOTTOM", 0, GROUND + STAND)
+	local bg = bar:CreateTexture(nil, "BACKGROUND")
+	bg:SetTexture(white)
+	bg:SetAllPoints(bar)
+	bg:SetVertexColor(0, 0, 0, 0.72)
+	m.Fill = bar:CreateTexture(nil, "ARTWORK")
+	m.Fill:SetTexture(white)
+	m.Fill:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, 0)
+	m.Fill:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, 0)
+	m.Fill:SetWidth(max(1, PLATE_W * (opts.health or 1)))
+	m.Fill:SetVertexColor(0.82, 0.1, 0.06, 1)
+	if opts.target then Theme.Border(bar, 1, 1, 1, 0.9) else Theme.Border(bar, 0, 0, 0, 1) end
+	m.Bar = bar
+	m.Name = m:CreateFontString(nil, "OVERLAY")
+	m.Name:SetFont(font, 10, "OUTLINE")
+	m.Name:SetTextColor(1, 1, 1, 1)
+	m.Name:SetPoint("BOTTOM", bar, "TOP", 0, 3)
+	m.Name:SetText(opts.name or "")
+	m.Level = m:CreateFontString(nil, "OVERLAY")
+	m.Level:SetFont(font, 9, "OUTLINE")
+	m.Level:SetTextColor(1, 0.82, 0, 1)
+	m.Level:SetPoint("LEFT", bar, "RIGHT", 4, 0)
+	m.Level:SetText(opts.level and tostring(opts.level) or "")
+	if opts.mark then
+		m.Mark = m:CreateTexture(nil, "OVERLAY")
+		m.Mark:SetTexture(RAID_ICON .. opts.mark)
+		m.Mark:SetSize(20, 20)
+		m.Mark:SetPoint("BOTTOM", m.Name, "TOP", 0, 2)
+	end
+	m.UP = STAND + BAR_H + 3 + 12 + (opts.mark and 22 or 0)
+	m.HALF = PLATE_W / 2 + 18
+	m:SetSize(PLATE_W + 36, GROUND + m.UP)
+	function m:Stand(x, y, k)
+		self:SetScale(k)
+		self:ClearAllPoints()
+		self:SetPoint("BOTTOM", s, "TOPLEFT", x / k, -(y / k + GROUND))
+	end
+	return m
+end
+
+---------------------------------------------------------------------------
 -- Hotspots
 ---------------------------------------------------------------------------
 
@@ -696,6 +801,7 @@ end
 -- A light's frame, made the first time it lights: over its region, above
 -- the stage's parts; for a part outside the stage (the settings window's
 -- own: its sidebar, its header's band), above that part, an outline only.
+-- A ring (rec.psOut) stands that far off the part all round.
 local function lightFrame(rec)
 	local region, s = rec.psRegion, rec.psStage
 	local parent = s
@@ -703,7 +809,9 @@ local function lightFrame(rec)
 		parent = (region.IsObjectType and region:IsObjectType("Frame")) and region or region:GetParent()
 	end
 	local l = CreateFrame("Frame", nil, parent)
-	l:SetAllPoints(region)
+	local o = rec.psOut or 0
+	l:SetPoint("TOPLEFT", region, "TOPLEFT", -o, o)
+	l:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", o, -o)
 	-- Over the scene's parts; over a window part's children (its rows).
 	l:SetFrameLevel(parent:GetFrameLevel() + (parent == s and 18 or 60))
 	l:EnableMouse(false)
@@ -714,23 +822,43 @@ end
 -- Parts of the scene a setting changes, lit (outline and accent wash) while
 -- the pointer is on that setting's row, without being a click target of
 -- their own: s:Light(key, region, ...); s:LightEdge for an outline alone (a
--- big part, or one outside the stage). Each light's frame is made the first
--- time it lights (rec.Frame). -> the lights
-local function addLights(s, key, edge, ...)
+-- big part, or one outside the stage); s:LightRing for a part drawn in the
+-- accent itself, where an outline on it would not show: an outline RING px
+-- off it all round. Each light's frame is made the first time it lights
+-- (rec.Frame). -> the lights
+local RING = 3
+local function addLights(s, key, edge, out, ...)
 	local list = byKey(hostOf(s) or s, key)
 	local made = {}
 	for i = 1, select("#", ...) do
 		local region = select(i, ...)
 		if region then
-			local rec = { psRegion = region, psStage = s, psKey = key, psEdgeOnly = edge or nil }
+			local rec = { psRegion = region, psStage = s, psKey = key, psEdgeOnly = edge or nil, psOut = out }
 			list[#list + 1] = rec
 			made[#made + 1] = rec
 		end
 	end
 	return made
 end
-function P.Light(s, key, ...) return addLights(s, key, false, ...) end
-function P.LightEdge(s, key, ...) return addLights(s, key, true, ...) end
+function P.Light(s, key, ...) return addLights(s, key, false, nil, ...) end
+function P.LightEdge(s, key, ...) return addLights(s, key, true, nil, ...) end
+function P.LightRing(s, key, ...) return addLights(s, key, true, RING, ...) end
+
+-- Parts found as the row is hovered, each outlined alone: what comes and
+-- goes with the page or tab on screen (the settings window's own controls
+-- in the accent). s:LightEach(key, fn[, ring]): fn() -> a list of regions;
+-- each one's light is made the first time it lights, a ring off it with
+-- `ring` (as s:LightRing). -> the record
+function P.LightEach(s, key, fn, ring)
+	local list = byKey(hostOf(s) or s, key)
+	local rec = { psEach = fn, psStage = s, psKey = key, psOut = ring and RING or nil, psMade = setmetatable({}, { __mode = "k" }) }
+	list[#list + 1] = rec
+	return rec
+end
+
+local function showing(region)
+	return not (region.IsVisible and not region:IsVisible())
+end
 
 -- The frame that shows a hotspot or a light (a light's made now if need be).
 local function shownBy(b, make)
@@ -744,27 +872,44 @@ local function shownBy(b, make)
 end
 
 -- Lights setting `key`'s parts on the preview `owner` holds (its host, or the
--- stage itself), and puts out the ones lit before; nil puts them all out.
--- -> how many it lit
+-- stage itself), and puts out the ones lit before; nil puts them all out. A
+-- light whose part is not showing (a surface a narrow page leaves out, a
+-- tab's underline while another tab is open) stays dark. -> how many it lit
 function P.LightUp(owner, key)
 	if not owner then return 0 end
-	for _, b in ipairs(rawget(owner, "psLitList") or {}) do
-		local l = shownBy(b, false)
-		if l then
-			l.psLit = nil
-			hotspotEdge(l, false)
-		end
+	for _, l in ipairs(rawget(owner, "psLitList") or {}) do
+		l.psLit = nil
+		hotspotEdge(l, false)
 	end
 	owner.psLitList = nil
 	local list = key and rawget(owner, "psByKey") and owner.psByKey[key]
 	if not list then return 0 end
+	local lit = {}
 	for _, b in ipairs(list) do
-		local l = shownBy(b, true)
+		local each = rawget(b, "psEach")
+		if each then
+			local ok, parts = pcall(each)
+			if not ok then report(parts) end
+			for _, region in ipairs(ok and type(parts) == "table" and parts or {}) do
+				if showing(region) then
+					local l = b.psMade[region]
+					if not l then
+						l = lightFrame({ psRegion = region, psStage = b.psStage, psKey = key, psEdgeOnly = true, psOut = b.psOut })
+						b.psMade[region] = l
+					end
+					lit[#lit + 1] = l
+				end
+			end
+		elseif not rawget(b, "psRegion") or showing(b.psRegion) then
+			lit[#lit + 1] = shownBy(b, true)
+		end
+	end
+	for _, l in ipairs(lit) do
 		l.psLit = true
 		hotspotEdge(l, false)
 	end
-	owner.psLitList = list
-	return #list
+	owner.psLitList = lit
+	return #lit
 end
 
 ---------------------------------------------------------------------------

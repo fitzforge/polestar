@@ -6513,7 +6513,19 @@ page lights for it, `s:Light(key, region, ...)`, an accent outline and a soft
 wash, until it leaves (`O.PreviewFocus` -> `P.Focus` -> `P.LightUp`); a light's
 frame is made the first time it lights. `s:LightEdge` lights with the outline
 alone: a big part, or one outside the stage (the Theme page lights the
-settings window's own sidebar, border, header band, haze and rim). Every
+settings window's own sidebar, border, header band, haze and rim);
+`s:LightRing` with an outline standing 3 px off a part drawn in the accent
+itself, where an outline on it would not show; `s:LightEach(key, fn[, ring])`
+lights the parts `fn()` returns as the row is hovered (what comes and goes
+with the page on screen). A light whose part is not showing stays dark. A
+setting that paints every surface lights every surface it paints: Theme >
+Accent rings the scene's accent parts (the guide window's open tab, the
+current goal's bar and glyph, the progress bar, the heads-up card's stripe,
+ring, headline and badge, the cards' primary buttons, the rare alert's time
+bar, the arrow) and every part of the settings window in the accent at that
+moment (the emblem, the open page's row, the open tab's underline, the
+sliders' fills, the switches that are on, the chips, a focused box's ring)
+and the gamepad's focus ring. Every
 setting on a Look page lights at least one part of its tab's preview (a test
 walks them all; the game menu's button, drawn in the game's own menu, is the
 one exemption). The pointer on a row also calls the preview frame's optional
@@ -6582,17 +6594,30 @@ on a whole physical pixel), `s:Hot`, `s:Light`, and `s:Animate(fn)` (runs
 only while the stage shows). A page that crops its scene (the Guide window
 page's window, scrolled to the part a hovered row edits) calls
 `s:SetCut(true)` while the scene runs past the stage's foot, and the stage
-fades it out over its last 28 px.
+fades it out over its last 28 px (`s:SetCutRight` at its right edge). A
+scene's world: `P.Mob(s, opts)` draws a mob as the game shows one, its
+nameplate (name, health bar, level, a raid mark) over its spot on the ground
+(its ring while it is your target, or in a colour of the scene's), placed
+with `m:Stand(x, y, k)`.
 
 The Look pages' scenes: Theme, the guide window (drawn by the Guide window
 page's own code, `UI.GuideWindowScene`) with the heads-up card on its top
 edge, a rare alert, the arrow and the two kinds of button (the Names tab: a
 card of every subject's name in its colour); Guide window, the window alone;
 Arrow, its three states; Map pins and Route lines, their paintings and a
-minimap; Buttons, the whole set, the floating and the minimap button; Alerts
-& toasts and Trackers, each tab's own surface, every one together on
-Essentials (the alerts in their line while they line up; the journey and the
-XP bar's mark with the trackers).
+minimap; Buttons, the whole set over the world it acts on (the mob the
+target button names, your target with its ring and its raid mark while Mark
+target is on, and the rare the rare button names, further off), the
+floating and the minimap button; Alerts & toasts, the rare alert and the
+transport banner at the top of the world, the arrow under them pointing to
+what they are about and the guide window's edge at the right, run on past
+the hero (the rare in the world beside it), While you're here with two of
+the mobs it names and no guide window (it comes while the window is
+hidden), the heads-up and class quest cards each alone, every one together
+on Essentials (the alerts in their line while they line up); Trackers, each
+tab's own surface, every one together on Essentials (the journey and the XP
+bar's mark with the trackers). A page too narrow for a part of its scene
+leaves it out.
 
 One setting may show on two pages: a convenience on its home page and on
 Quality of Life, where players look for it (the quest automation toggles,

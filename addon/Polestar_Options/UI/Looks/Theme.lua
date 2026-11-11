@@ -282,13 +282,66 @@ local function buildScene(view, names)
 	local grounds = { f.Guide, heads, toast }
 	for _, key in ipairs({ "ui.bgOpacity", "ui.bgColor" }) do light(key, unpack(grounds)) end
 	light("ui.panelColor", toast, heads, card)
-	local accents = { unpack(primaries) }
-	if G then
-		accents[#accents + 1], accents[#accents + 2], accents[#accents + 3] = G.Strip.Bar, G.Rows[2].Mark, G.Foot.Line
+	-- Every part the accent paints: in the scene the guide window's open tab
+	-- (its underline and icon), the current goal's bar and glyph and the
+	-- progress bar; the heads-up card's stripe, ring, headline, badge and
+	-- primary button; the rare alert's primary button and time bar (While
+	-- you're here's edge, glyph and headline); the arrow, which the accent
+	-- tints unless it has a colour of its own.
+	local accents = {}
+	local function accent(...)
+		for i = 1, select("#", ...) do
+			local r = select(i, ...)
+			if r then accents[#accents + 1] = r end
+		end
 	end
-	if arrow then accents[#accents + 1] = arrow.dial.dial end
-	light("ui.accent", unpack(accents))
-	light("ui.classAccent", unpack(accents))
+	accent(unpack(primaries))
+	if G then accent(G.Strip.Bar, G.Strip.Icon, G.Rows[2].Mark, G.Rows[2].Icon, G.Foot.Line) end
+	if heads then accent(rawget(heads, "Stripe"), rawget(heads, "Ring"), rawget(heads, "Head"), rawget(heads, "Badge")) end
+	if toast and toastKind == "whilehere" then
+		accent(rawget(toast, "Edge"), rawget(toast, "Icon"), rawget(toast, "Head"))
+	elseif toast then
+		accent(rawget(toast, "Timer"))
+	end
+	if arrow then accent(arrow.dial.dial) end
+	-- Rings off them: an outline on a part in the accent would not show.
+	f:LightRing("ui.accent", unpack(accents))
+	f:LightRing("ui.classAccent", unpack(accents))
+	-- And every part of the settings window drawn in the accent as the row is
+	-- hovered (the emblem, the open page's row, the open tab's underline, the
+	-- sliders' fills, the switches that are on, chips, primary buttons, a
+	-- focused box's ring) and the gamepad's focus ring: a region in the
+	-- accent, at least half opaque; a frame's border by its frame.
+	if win then
+		local P = ns.UI.Preview
+		local function windowAccents()
+			local out, seen, ar, ag, ab = {}, {}, Theme.Accent()
+			local function walk(fr)
+				if not fr:IsVisible() or P.IsStage(fr) then return end
+				-- A border's pieces or a pill's (a switch's track) by their frame.
+				local own = {}
+				for _, t in ipairs(rawget(fr, "psBorder") or {}) do own[t] = true end
+				for _, t in ipairs(rawget(fr, "parts") or {}) do own[t] = true end
+				for _, r in ipairs({ fr:GetRegions() }) do
+					local cr, cg, cb, ca
+					if r:GetObjectType() == "FontString" then cr, cg, cb, ca = r:GetTextColor() else cr, cg, cb, ca = r:GetVertexColor() end
+					if cr and (ca or 1) >= 0.5 and r:IsShown() and math.abs(cr - ar) + math.abs(cg - ag) + math.abs(cb - ab) < 0.02 then
+						local part = own[r] and fr or r
+						if not seen[part] then
+							seen[part] = true
+							out[#out + 1] = part
+						end
+					end
+				end
+				for _, c in ipairs({ fr:GetChildren() }) do walk(c) end
+			end
+			walk(win)
+			if _G.PolestarPadRing then walk(_G.PolestarPadRing) end
+			return out
+		end
+		f:LightEach("ui.accent", windowAccents, true)
+		f:LightEach("ui.classAccent", windowAccents, true)
+	end
 	if win then
 		local part = function(name) return rawget(win, name) end
 		outside("ui.sidebarColor", part("Rail"), part("Sidebar"))

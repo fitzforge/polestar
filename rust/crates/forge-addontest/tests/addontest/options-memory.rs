@@ -39,15 +39,20 @@ const LOGIN: f64 = LOGIN_BASE + 50.0;
 /// references, presets and the Guiding pages' layout (+27), 0.3.7's Quality of Life rows (+11). Then the
 /// previews as the page's hero (+67): each Look page's scene of real surfaces at their true size, every alert
 /// and tracker and the journey on Essentials, and every setting's lights (Trackers +16, Alerts & toasts +10,
-/// Buttons +10, the stage +10, Theme +7, Guide window +7, Route lines +4, Map pins +3).
-const LOADED: f64 = 1840.0;
+/// Buttons +10, the stage +10, Theme +7, Guide window +7, Route lines +4, Map pins +3). Then the Buttons and
+/// single-alert scenes and the Accent lights (+26, 1,817): the button set over the mobs it names, the rare and
+/// transport alerts over the world with the arrow and the guide window's edge, While you're here's mobs, a mob's
+/// nameplate on the stage, and Theme > Accent lighting every part drawn in the accent.
+const LOADED: f64 = 1866.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
-/// the rest moved in, then the pages' +155, then the hero previews' +67).
-const OPENED: f64 = 4220.0;
+/// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
+/// scenes and the Accent lights' +26, to 4,151).
+const OPENED: f64 = 4246.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
-/// then the hero previews' (+150, the same).
-const PEAK: f64 = 4060.0;
+/// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
+/// (+65, the same, to 4,030).
+const PEAK: f64 = 4125.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),

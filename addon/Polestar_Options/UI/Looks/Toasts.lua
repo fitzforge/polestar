@@ -218,9 +218,124 @@ local function emptyStage(s)
 end
 
 -- One toast kind's stage: its sandbox toast at its true size on a soft
--- shadow, Play (the entrance again, and the sound when it is on).
+-- shadow, Play (the entrance again, and the sound when it is on). The
+-- single alerts stand in the world they come up in (SCENE): the card at the
+-- top of the screen, where the game shows it; under it the arrow toward
+-- what it is about; the guide window at the screen's right, its edge in the
+-- hero, running on past it (none for While you're here, which comes as a
+-- toast while the window is hidden); the mobs it names, in the world
+-- (UI.Preview.Mob). A page too narrow or too low for a part leaves it out.
 local HEIGHT = { rare = 190, transport = 150, whilehere = 140, headsup = 210 }
 local PLAY_ROOM = 40 -- Play's line at the stage's foot
+local SCENE = {
+	rare = { guide = true, arrow = { 1.35, 85, L["Thuros Lightfingers"] }, left = L["Thuros Lightfingers"] },
+	transport = { guide = true, arrow = { 0.3, 240, L["Menethil Harbor"] } },
+	whilehere = { pair = L["Kobold Vermin"] },
+}
+-- The guide window's edge in the hero (px at true size), the room either
+-- side of its box for its shadow, the gaps between the parts.
+local GUIDE_SHOW, SHADOW_ROOM, GAP, ARROW_GAP = 210, 40, 36, 12
+
+-- The scene's parts on stage s: the guide window, the arrow, the mobs.
+local function buildWorld(s, kind)
+	local sc, P = SCENE[kind], UI.Preview
+	local w = { sc = sc }
+	local lv = ns.Levels and ns.Levels.Player and ns.Levels.Player() or {}
+	lv = max(1, lv.level or 18)
+	if sc.guide and UI.GuideWindowScene then w.G = UI.GuideWindowScene(s) end
+	local A = ns.Nav and ns.Nav.arrow
+	if sc.arrow and A and A.BuildDial then
+		local holder = CreateFrame("Frame", nil, s)
+		holder:SetSize(A.WIDTH, A.HEIGHT)
+		w.A, w.arrow = A, { holder = holder, dial = A.BuildDial(holder), look = {} }
+		s.psWatch = { "nav.arrow" }
+	end
+	if sc.left then
+		w.left = P.Mob(s, { name = sc.left, level = lv, health = 1, ring = { Theme.Color("rare") } })
+		s:Light("rares.alerts", w.left)
+	end
+	if sc.pair then
+		w.pair = { P.Mob(s, { name = sc.pair, level = max(1, lv - 2), health = 0.7, target = true }),
+			P.Mob(s, { name = sc.pair, level = max(1, lv - 2), health = 1 }) }
+		s:Light("behavior.whileHere", unpack(w.pair))
+	end
+	return w
+end
+
+-- The scene laid out across stage s (its psWidth x psHeight): the card at
+-- the top of the room left of the guide window's edge, at its true size
+-- (smaller only where it would not fit, and the caption says so).
+local function layWorld(s, kind, card, w)
+	local width, height, t, snap = s.psWidth, s.psHeight, s:TrueScale(), UI.Preview.Snap
+	local top, bottom, pad = UI.Preview.CHROME + 6, PLAY_ROOM, 28
+	local k0 = TS.Scale(kind) * t
+	local cw, ch = card:GetWidth() * k0, card:GetHeight() * k0
+	-- The guide window's edge at the right, while the room left of it holds
+	-- the card.
+	local G = w.G
+	local edge = G and GUIDE_SHOW * t or 0
+	if G and width - 2 * pad - edge - GAP < cw then edge = 0 end
+	if G then G:SetShown(edge > 0) end
+	s:SetCutRight(edge > 0)
+	local roomR = width - pad - (edge > 0 and edge + GAP or 0)
+	-- A mob at the left, while the room beside the card holds it.
+	local mobW = w.left and 2 * w.left.HALF * t or 0
+	if w.left and roomR - pad - mobW - GAP < cw then mobW = 0 end
+	if w.left then w.left:SetShown(mobW > 0) end
+	local roomL = pad + (mobW > 0 and mobW + GAP or 0)
+	local k = min(1, (roomR - roomL) / max(1, cw), (height - top - bottom) / max(1, ch))
+	local g = k0 * k
+	local cx = (roomL + roomR) / 2
+	card:SetScale(g)
+	Anim.Anchor(card, "TOPLEFT", s, "TOPLEFT", snap(card, (cx - cw * k / 2) / g), snap(card, -top / g))
+	s:Floor(card)
+	s.psNote = k < 0.995 and format(L["Shown at %d%% to fit"], floor(k * 100 + 0.5)) or ""
+	local below = top + ch * k + ARROW_GAP
+	-- The arrow under the card, at its true size while the room holds it.
+	local ar, A = w.arrow, w.A
+	if ar then
+		local ak = t * min(1, (height - bottom - below) / A.HEIGHT)
+		ar.holder:SetShown(ak >= t * 0.6)
+		if ak >= t * 0.6 then
+			local a = w.sc.arrow
+			A.ReadLook(ar.look)
+			A.PaintDial(ar.dial, ar.look, A.StyleFor(ns.Get("nav.arrowStyle")), "travel", a[1], a[2], a[3], 40)
+			ar.holder:SetScale(ak)
+			ar.holder:ClearAllPoints()
+			ar.holder:SetPoint("TOP", s, "TOPLEFT", snap(ar.holder, cx / ak), snap(ar.holder, -below / ak))
+			s:Floor(ar.holder, -floor(max(0, A.WIDTH * ak - 150) / 2))
+		end
+	end
+	-- The rare in the world at the left, level with the arrow's middle (it
+	-- points there); While you're here's pair either side under the toast.
+	if w.left and mobW > 0 then
+		w.left:Tint(Theme.Color("rare"))
+		w.left:Stand(pad + mobW / 2, min(height - bottom - 4, below + (w.left.UP + 10) * t), t)
+	end
+	if w.pair then
+		-- Your target near, lower left; another further off, right and higher.
+		local foot = height - bottom - 4
+		local near, far = w.pair[1], w.pair[2]
+		local show = foot - below >= near.UP * t
+		near:SetShown(show)
+		far:SetShown(show)
+		if show then
+			near:Stand(cx - cw * k / 2 + 40 * t, min(foot, below + (near.UP + 60) * t), t)
+			far:Stand(cx + cw * k / 2 - 10 * t, min(foot - 24 * t, below + (far.UP * 0.85 + 12) * t), t * 0.85)
+		end
+	end
+	if G and edge > 0 then
+		local scale = (tonumber(ns.Get("ui.scale")) or 1) * t
+		local winW = 340 * scale
+		G:Layout(winW + 2 * SHADOW_ROOM, height)
+		winW = G.Window:GetWidth() * scale
+		local gtop = top + 18
+		G:ClearAllPoints()
+		G:SetPoint("TOPLEFT", s, "TOPLEFT", snap(s, width - edge - SHADOW_ROOM), -snap(s, gtop))
+		G:SetSize(winW + 2 * SHADOW_ROOM, max(1, height - gtop))
+		G:Layout(winW + 2 * SHADOW_ROOM, max(1, height - gtop))
+	end
+end
 
 local function toastStage(view, kind)
 	local s = newStage(view, HEIGHT[kind])
@@ -229,6 +344,8 @@ local function toastStage(view, kind)
 	if not card then return emptyStage(s) end
 	card:Show()
 	card:SetAlpha(TS.Alpha(kind))
+	local world = SCENE[kind] and buildWorld(s, kind)
+	s.World = world
 	-- The card finds its look's rows; its title and other lines their sizes.
 	local t, k = card.psToast, "toasts." .. kind .. "."
 	s:Hot(card, k .. "scale")
@@ -238,7 +355,11 @@ local function toastStage(view, kind)
 		local fill = REFILL[kind]
 		TS.ApplyLook(card, true)
 		if fill then fill(card) end
-		self:SideBySide({ cardItem(self, kind, card) }, { bottom = PLAY_ROOM })
+		if world then
+			layWorld(self, kind, card, world)
+		else
+			self:SideBySide({ cardItem(self, kind, card) }, { bottom = PLAY_ROOM })
+		end
 		if not Anim.IsRunning(card, "alpha") then card:SetAlpha(TS.Alpha(kind)) end
 	end
 	s.Play = W.Button(s, L["Play"], function()
@@ -246,7 +367,13 @@ local function toastStage(view, kind)
 		local play = SOUNDS[kind]
 		if play then play() end
 	end, { height = 22 })
-	s.Play:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", -12, 10)
+	-- Bottom left in a scene (the guide window takes the right).
+	if world then
+		s.Play:SetPoint("BOTTOMLEFT", s, "BOTTOMLEFT", 12, 10)
+	else
+		s.Play:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", -12, 10)
+	end
+	s.Play:SetFrameLevel(s:GetFrameLevel() + 30)
 	lightCard(s, kind, card, s.Play)
 	function s:Layout(width, height)
 		self:SetWidth(width)
