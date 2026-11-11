@@ -714,6 +714,19 @@ function draftGuide(name, data, opts = {}) {
 			const need = SIDES.filter((side, i) => kinds[i] !== 'vendor');
 			const ahead = (t.ahead || []).map((a) => `${a.count} of them for ${a.from}-${a.cap}`);
 			const forWhat = `${t.count} ${matName(t.item)} for ${D.list(t.uses)}${ahead.length ? ` (${D.list(ahead)}: pick them all now)` : ''}`;
+			// Cloth: counted in the bags, from humanoids of its band as the character
+			// levels, or the Auction House. No farm spot: a trip to a named camp is a
+			// long journey for what the player loots anyway.
+			if (need.every((side) => t.src[side].kind === 'cloth')) {
+				const lv = D.CLOTH_LEVELS[matName(t.item)];
+				line('');
+				line(`step ${matName(t.item)}`);
+				world();
+				if (need.length === 1) line(`  only ${need[0]}`);
+				line(`  tip ${forWhat}: humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.`);
+				line(`  collect ${t.item} x${t.count}`);
+				continue;
+			}
 			// The engine skips spots whose mobs are 3+ levels above the player; the
 			// player is at least at the last `level` gate here.
 			const ok = data.farmable ? data.farmable(t.item) : null;

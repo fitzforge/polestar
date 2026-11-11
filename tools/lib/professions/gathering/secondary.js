@@ -251,26 +251,25 @@ function renderGuide(ctx, P) {
 // ------------------------------------------------------------------ First Aid
 
 // Cloth level bands are general game knowledge (humanoids drop the cloth of
-// their level).
+// their level). What the bags (and bank) hold counts; the rest drops as the
+// character levels, or comes from the Auction House. No farm trip by default:
+// a named farm spot can be a long journey for a few pieces the player picks
+// up anyway.
 const CLOTH = {
-	2589: 'humanoids of level 5-20 drop Linen Cloth (or buy it at the Auction House).',
-	2592: 'humanoids of level 15-30 drop Wool Cloth (or buy it at the Auction House).',
-	4306: 'humanoids of level 25-45 drop Silk Cloth (or buy it at the Auction House).',
-	4338: 'humanoids of level 35-50 drop Mageweave Cloth (or buy it at the Auction House).',
-	14047: 'humanoids of level 45-60 drop Runecloth (or buy it at the Auction House).',
+	2589: 'Linen Cloth drops from humanoids of level 5-20',
+	2592: 'Wool Cloth drops from humanoids of level 15-30',
+	4306: 'Silk Cloth drops from humanoids of level 25-45',
+	4338: 'Mageweave Cloth drops from humanoids of level 35-50',
+	14047: 'Runecloth drops from humanoids of level 45-60',
 };
-const clothSources = Object.fromEntries(Object.entries(CLOTH).map(([id, note]) => [id, { note }]));
 
-// Bandages: crafted anywhere, so one gathering step (cloth from the nearest
-// farm spot the engine picks) and one crafting step for everyone.
+// Bandages: crafted anywhere, so one gathering step (the cloth, counted in the
+// bags) and one crafting step for everyone.
 function renderBandage(ctx, P, e, L) {
 	const recipe = recipeOf(ctx, e.spell);
 	const crafts = expectedCrafts(recipe, e.from, e.to);
-	step(
-		L,
-		`${recipe.name}: cloth`,
-		recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} nearest     -- ${clothSources[rg.item].note}`),
-	);
+	const tip = recipe.reagents.map((rg) => `${CLOTH[rg.item]}: keep what you loot as you level, take it from your bank, or buy it at the Auction House.`).join(' ');
+	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count}`)]);
 	// A recipe learned in this step: where and what it costs (sniffed trainer lists).
 	const learnTip = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc ')) && recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.` : '';
 	const lines = [craftTip(P, recipe, e.from, e.to, crafts, [learnTip, e.tip].filter(Boolean).join(' '))];

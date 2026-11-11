@@ -556,6 +556,18 @@ test('an NPC listed on two maps stands on its interior map; a capital beats its 
 	assert.equal(homeMap({ spawns: {} }), null);
 });
 
+test('draft: cloth is counted in the bags, from humanoids as you level or the Auction House, never a farm trip', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 70, 90, 2589)]);
+	prof.materials[2589] = { name: 'Linen Cloth', buy: 55, buyCount: 1, sell: 13, quality: 1, dropCount: 40, drops: [{ npc: 3, chance: 30 }] };
+	data.npcs = { 3: { id: 3, name: 'Defias Thug', level: 9, faction: null, spawns: { 1429: { f: 'e', pts: [[50, 40]] } } } };
+	data.zones = { 1429: { name: 'Elwynn Forest', type: 3 } };
+	data.mapFrames = { era: { 1429: { c: 0 } } };
+	data.items = {};
+	const { text } = draftGuide('Tailoring', { ...data, farmable: () => ({ Alliance: 9, Horde: 9 }) }, { to: 75, spec: {} });
+	assert.match(text, /\n {2}tip \d+ Linen Cloth for [^\n]*: humanoids of level 5-20 drop it\. Keep what you loot as you level, take it from your bank, or buy it at the Auction House\.\n {2}collect 2589 x\d+\n/);
+	assert.doesNotMatch(text, /collect 2589 x\d+ (nearest|@)/);
+});
+
 test('draft: mob drops the compiler can place become one `collect … nearest` step', async () => {
 	const base = {
 		professions: JSON.parse(fs.readFileSync(PROFESSIONS, 'utf8')),
