@@ -6909,7 +6909,16 @@
 		"optional": [
 			{
 				"q": 1392,
-				"why": "Roaming-NPC sweep: Noboru the Cudgel starts from Noboru's Cudgel (6196), which only Noboru the Cudgel (5477) drops: one creature that walks a 56-node waypoint path through the Fallow Sanctuary ruins in the Swamp of Sorrows (Forever's server data: MovementType 2, path 810054770, about 220 x 540 yd). A required collect and accept held the 'Fallow Sanctuary' step (alliance/30-40/05-arathi-highlands) until he came by. Optional for the cudgel and the accept (take it if you meet him); the hand-in at Magtoor stays a plain goal for whoever carries it."
+				"faction": "Alliance",
+				"why": "Roaming-NPC sweep (0.3.7, with #1542): Noboru the Cudgel starts from Noboru's Cudgel (6196), which only Noboru the Cudgel (5477) drops: one creature that walks a 56-node waypoint path through the Fallow Sanctuary ruins in the Swamp of Sorrows (Forever's server data: MovementType 2, path 810054770, about 220 x 540 yd). A required collect and accept held the Alliance 'Fallow Sanctuary' step (alliance/30-40/05-arathi-highlands) until he came by. Optional for the cudgel and the accept (take it if you meet him); the hand-in at Magtoor stays a plain goal for whoever carries it. Alliance only: the Horde route goes for him on a step of its own (overrides.include 1392, horde/40-50/01-stranglethorn-vale)."
+			},
+			{
+				"q": 522,
+				"why": "#1542: Assassin's Contract starts from the contract (3668) that only the Shadowy Assassin (2434) drops: one stealthed mob on the edge of Southshore (players' recordings to 2026-11-10: seen by 5 people and killed by 4 in all, at spots spread from 47,62 to 55,54 on Hillsbrad's map). A required kill, collect and accept held the Southshore step of alliance/30-40/05-arathi-highlands until he showed up. Optional (take it if you spot him); the hand-in at Magistrate Henry Maleb stays a plain goal for whoever carries it."
+			},
+			{
+				"q": 523,
+				"why": "#1542: Baron's Demise follows Assassin's Contract (522), whose start drops only from the stealthed Shadowy Assassin; optional with it, so the route does not count on it. Its Strahnbrad objective and Southshore hand-in stay plain goals for whoever carries it."
 			},
 			{
 				"q": 4881,
