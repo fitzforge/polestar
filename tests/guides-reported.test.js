@@ -9319,13 +9319,15 @@ test('Alliance 30-40 audit: Retrieval for Mauren on the Raceway basilisks, hande
 test("Fyurie's report (#1425): Private Thorsen is looked for at the top of the Rebel Camp's path, with his walk in the tip", { skip }, () => {
 	const guide = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
 	const list = goals(guide);
-	for (const [t, q] of [['accept', 215], ['turnin', 198]]) {
+	// Jungle Secrets (215) is offered only at the road end since #1752 (its own case below).
+	for (const [t, q] of [['turnin', 198]]) {
 		const { goal, step } = list[at(list, `${t} ${q}`, is(t, q))];
 		assert.ok(goal.map === 1434 && Math.abs(goal.x - 38.0) < 0.3 && Math.abs(goal.y - 3.4) < 0.3, `${t} ${q} at his camp spot (${goal.x},${goal.y})`);
 		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /walks down it to the road/, `${t} ${q}: the tip says he walks`);
 	}
 	const pl = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
-	for (const [q, o] of [[215, 'giver'], [198, 'ender']]) assert.ok(pl.some((p) => p.quest === q && p.objective === o && p.issue === 1425), `${q} ${o} place recorded`);
+	assert.ok(pl.some((p) => p.quest === 198 && p.objective === 'ender' && p.issue === 1425), '198 ender place recorded');
+	assert.ok(pl.some((p) => p.quest === 215 && p.objective === 'giver' && p.issue === 1752 && p.at.x === 40.3), '215 giver place at the road end (#1752)');
 });
 
 // --- Horde 30-40 audit (2026-11-09, AuditHorde3040): Lydon's Shindigger keg is in Dun Garok's elite cellar, so Elixir
@@ -11250,4 +11252,26 @@ test('Alliance Wetlands & Ashenvale: the Wooden Key line names the Ancients that
 	const { goal } = list[at(list, 'collect 5475', (g) => g.t === 'collect' && g.item === 5475)];
 	assert.deepEqual([goal.fromId, goal.fromAlsoId].sort((a, b) => a - b), [3834, 3919], 'both Ancients are named');
 	assert.equal(goal.fromKind, 'npc');
+});
+
+// mutaka's report (#1752): Private Thorsen did not offer Jungle Secrets (215) at the arrow, his camp spot. The game
+// offers it only while he is out of the Rebel Camp (a quest condition on his area): at the foot of the path, where
+// two Kurzen's Agents ambush him for a few minutes of each half-hour round. All 9 recorded offers were there, none at
+// the camp. The accept points there, is optional (he is often not), and Bookie Herod after it goes with it.
+test("mutaka's report (#1752): Jungle Secrets from Private Thorsen at the foot of the Rebel Camp's path, optional", { skip }, () => {
+	const guide = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
+	const list = goals(guide);
+	const take = list[at(list, 'accept 215', is('accept', 215))];
+	assert.equal(take.goal.optional, true, 'optional: he offers it only a few minutes of each round');
+	assert.ok(Math.abs(take.goal.x - 40.3) < 0.3 && Math.abs(take.goal.y - 8.4) < 0.3, `at the foot of the path, not the camp: ${take.goal.x},${take.goal.y}`);
+	const s = take.s;
+	const who = { race: 'Dwarf', raceName: 'Dwarf', faction: 'Alliance', cls: 'SHAMAN', className: 'Shaman', level: 37 };
+	const view = engineRun(guide, who, {
+		before: 'w.onQuest(210, { 1 }); w.onQuest(203, { 1 }); w.onQuest(204, { 1 })',
+		script: `local out = {}
+			for _, g in ipairs(E.GetStepView(${s}).goals) do if g.quest == 215 or g.quest == 200 then out[#out + 1] = g.t .. " " .. g.quest .. " " .. g.status end end
+			emit(out)`,
+	});
+	// Without Jungle Secrets nothing of it holds the step: its hand-in is not this character's, Bookie Herod waits on it.
+	assert.deepEqual(Object.values(view).filter((v) => !v.startsWith('accept 215')).map((v) => v.replace(/ (na|skipped)$/, ' passed')), ['turnin 215 passed', 'accept 200 passed']);
 });
