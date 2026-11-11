@@ -9,7 +9,7 @@ why Forever's new zone, an alpha route written from players' recordings.
 keywords riverglades, powderfuse port, sunnyglade, bolder'ok, rog'mar, experimental, alpha
 next forever/horde/40-50/01-stranglethorn-vale
 
-# Polestar Experimental, Riverglades for the Horde, part 2 of 2 (NewZones038, 2026-11-11). Hand-written from
+# Polestar Experimental, Riverglades for the Horde, part 2 of 2 (2026-11-11). Hand-written from
 # players' recordings (3-14 people per quest), with Forever's quest data for titles, levels and objectives.
 # Order: Powderfuse Port (the neutral goblin port) and its coasts, Sleebo's workshop, Sunnyglade (Tran'gul's and
 # Clubtoe's Twilight cult quests), the ogres of Bolder'ok and Na'zok's camp in the north, back to Rog'mar, then
@@ -21,8 +21,6 @@ next forever/horde/40-50/01-stranglethorn-vale
 # - Unworthy Champion (95425): its Skullbasher comes from a fight nobody recorded solo.
 # - The Eastsea pirates' second wave (95122, 95123, 95165, 95124): levels 44-45, above this leg.
 # - The Wayward Warrior (94744) and Da'grosh's quests: two to three recorded players, levels 41-43.
-# - Paletusk Harvesting (95162): its Chunks of Boar Meat drop from Forever's Paletusk boars, which our item data
-#   doesn't list as droppers yet (an item correction can't add a dropper).
 
 step Powderfuse Port
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
@@ -103,8 +101,9 @@ step Tran'gul
   accept 94727                          -- Digging for Answers
 
 step Clubtoe
-  tip Clubtoe, a Twilight miner who wants out, waits at the eastern edge of Sunnyglade.
-  turnin 94727                          -- Clubtoe
+  tip Clubtoe, a Twilight miner who wants out, waits at the eastern edge of Sunnyglade: talk him round, then hand Tran'gul's quest in.
+  complete 94727 @49.9,46.9             -- talk Clubtoe round
+  turnin 94727
   accept 95417                          -- The Purple Ones
   accept 95602                          -- Sickening Lights
   turnin 95417 @49.3,46.8               -- Twilight Brute, a few steps west
@@ -146,17 +145,20 @@ step Bolder'ok
 step Na'zok's camp
   tip East of Bolder'ok, Na'zok watches the Paletusk boars.
   accept 95163                          -- Drive Them Back
+  accept 95162                          -- Paletusk Harvesting
 
 step The hills east of Bolder'ok
-  tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. The Young Paletusks wander the hills south of it: tap them with Na'zok's staff to send them home; The good rocks lie along the hills, the sweetberries grow on the bushes to the south-east.
+  tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. The Young Paletusks wander the hills south of it: tap them with Na'zok's staff to send them home. The Mature Paletusks around Na'zok's camp drop the boar meat; the good rocks lie along the hills, the sweetberries grow on the bushes to the south-east.
   kill 260968 x7 quest 95424.1          -- Twilight Mauler
   kill 261497 x7 quest 95424.2 @75.7,26.9  -- Twilight Firecaller
   use 268521 quest 95163.1 @72.8,39.5   -- Swineherd's Staff, on the Young Paletusks
+  collect 769 x10 quest 95162.1 @70.3,31.6  -- Chunk of Boar Meat, from the Mature Paletusks
   collect 271892 x10 quest 95183.1 @73.7,33.7  -- Good Rock
   collect 265808 x8 quest 94734.1 @78.9,37.3  -- Sweetberry
 
 step Na'zok
   turnin 95163
+  turnin 95162
 
 step Bolder'ok
   turnin 95424                          -- Clugfist
@@ -175,7 +177,7 @@ step Gobam
 step Rog'mar
   turnin 95428                          -- Krom'rosh
 
-step Fly to Kargath
-  tip Grakna, Rog'mar's wind rider master, flies to Kargath in the Badlands, where the next guide starts.
-  fly "Kargath"
+step On to Kargath
+  tip The next guide starts at Kargath in the Badlands: Grakna, Rog'mar's wind rider master, flies there.
   zone Badlands
+  goto 4.1,44.9 "Kargath"

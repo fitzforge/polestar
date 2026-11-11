@@ -4,6 +4,6 @@
 	"author": "Polestar",
 	"version": "0.3.6",
 	"license": "GPL-3.0-only",
-	"notes": "Experimental routes through Forever's new zones (alpha). Off unless you turn it on.",
+	"notes": "Part of Polestar: experimental guides for Forever's new zones (alpha). Off until you switch it on under Options, Community guides.",
 	"source": "Written from players' recordings of the zone and Forever's quest data"
 }

@@ -9,7 +9,7 @@ why Forever's new zone, an alpha route written from players' recordings.
 keywords riverglades, powderfuse port, sunnyglade, farholde, experimental, alpha
 next forever/alliance/40-50/01-stranglethorn-vale
 
-# Polestar Experimental, Riverglades for the Alliance, part 2 of 2 (NewZones038, 2026-11-11). Hand-written from
+# Polestar Experimental, Riverglades for the Alliance, part 2 of 2 (2026-11-11). Hand-written from
 # players' recordings (4-14 people per quest), with Forever's quest data for titles, levels and objectives.
 # Order: Powderfuse Port (the neutral goblin port), its south and east coast, Sleebo's workshop, Sunnyglade
 # (the Twilight cult's farm town) and back to Farholde Keep. Players leave the zone at about 40-41: our Stranglethorn
@@ -21,6 +21,7 @@ next forever/alliance/40-50/01-stranglethorn-vale
 #   Scallywags! 95165, Admiral Lamora 95124): levels 44-45, above this leg.
 # - Terrors From the Deep (95260): it starts at an object no source names yet.
 # - Not My Circus (95982), From Port to Port (95219): almost nobody recorded handing them in.
+# - Field Marshal's Log (94885): it starts from a log only some Twilight cultists drop (three recorded players found it).
 # - The Tanaris errands (I Know a Guy 95295, Shipping and Handling 95296): they end across the sea.
 
 step Powderfuse Port
@@ -95,7 +96,7 @@ step Sunnyglade
   accept 94858                          -- All That's Left
 
 step The Twilight cult
-  tip The cultists fill the streets and fields of Sunnyglade. Fill Claire's catalyst at the ritual circles, bury the farmers' mementos in the loose soil, and pick up the doll and the locket in the burnt farmhouse. The Field Marshal's Log drops from the cultists: it starts a quest of its own.
+  tip The cultists fill the streets and fields of Sunnyglade. Fill Claire's catalyst at the ritual circles, bury the farmers' mementos in the loose soil, and pick up the doll and the locket in the burnt farmhouse.
   kill 256952 x8 quest 94877.1          -- Twilight Raider
   kill 254560 x8 quest 94877.2          -- Twilight Shadowmancer
   kill 256798 x8 quest 94877.3          -- Twilight Neophyte
@@ -107,7 +108,6 @@ step The Twilight cult
   complete 95642 @47.7,50.0             -- fill the Crystal Catalyst at the ritual circles
   complete 94829 @48.1,44.7             -- bury the mementos in the loose soil
   complete 94858 @53.6,44.9             -- the doll and the locket
-  accept 94885                          -- Field Marshal's Log, from the cultists
 
 step Apprentice Claire
   turnin 95642
@@ -136,7 +136,6 @@ step Farholde Keep
   tip South-east back to Farholde Keep: a long walk down the road past Terral's Watch.
   turnin 95059                          -- Demar Brant
   turnin 94877
-  turnin 94885
   turnin 94881                          -- Ashe Amberhall
   turnin 94879
   turnin 94884

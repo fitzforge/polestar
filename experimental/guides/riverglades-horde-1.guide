@@ -9,7 +9,7 @@ why Forever's new zone, an alpha route written from players' recordings.
 keywords riverglades, rog'mar, bristle hills, meadowsbrook, experimental, alpha
 next polestar-experimental/riverglades-horde-2
 
-# Polestar Experimental, Riverglades for the Horde, part 1 of 2 (NewZones038, 2026-11-11). Hand-written from
+# Polestar Experimental, Riverglades for the Horde, part 1 of 2 (2026-11-11). Hand-written from
 # players' recordings (4-7 people per quest on this leg), with Forever's quest data for titles, levels and
 # objectives.
 # Order: the way in from the Badlands, Rog'mar's quests in one pass, the training grounds, the plains east of
@@ -77,9 +77,10 @@ step The lions
   collect 266888 x6 quest 96109.1 @59.7,53.2  -- Prized Lion Hide
 
 step Turner's Logging Camp
-  tip South-west across the river to the Alliance lumber camp. The lumberjacks carry the axes; the makeshift spears lie stacked around the camp.
+  tip South-west across the river to the Alliance lumber camp. The lumberjacks carry the axes. Loot Wood Bundles from the Peasant Woodpiles around the camp and use them to fletch Makeshift Stickin' Spears.
   collect 263972 x10 quest 93788.1 @41.1,62.1  -- Woodworker's Axe
-  collect 271630 x20 quest 95951.1 @39.2,62.8  -- Makeshift Stickin' Spear
+  collect 271629 @39.2,62.8             -- Wood Bundle, from the Peasant Woodpiles
+  use 271629 quest 95951.1 @39.2,62.8   -- Wood Bundle: fletch it into Makeshift Stickin' Spears
 
 step The Bristle Hills
   tip West into the Bristle Hills: the Redridge gnolls camp along the slopes and carry the stolen ore.
