@@ -201,3 +201,57 @@ emit({ BINDING_NAME_POLESTAR_NEXT, L["Previous step"], N.PackName() or false, N.
 		"the folder loaded once, early (the key binding's name is German), and code outside Polestar still reads enUS"
 	);
 }
+
+#[test]
+fn a_translation_that_puts_the_arguments_in_its_own_order_formats_as_the_client_does() {
+	let out = emitted(&RunAddon {
+		before: forge_addontest::fake_locale("itIT", &[("Kill %s for %s", "Per %2$s uccidi %1$s")]),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: r#"emit(Polestar.L["Kill %s for %s"]:format("Hogger", "Gryan Stoutmantle"))"#.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], "Per Gryan Stoutmantle uccidi Hogger");
+}
+
+#[test]
+fn every_shipped_translation_with_positional_arguments_renders_with_its_english_keys_arguments() {
+	// Each translation using %1$s-style arguments is formatted with the arguments its English key takes
+	// (a "<n>" string per %s, n per number), as the client formats it: every string argument shows up.
+	let locales = forge_guide::locales::LOCALE_CODES.iter().map(|l| lua_string(l)).collect::<Vec<_>>().join(", ");
+	let files = forge_guide::locales::LOCALE_CODES
+		.iter()
+		.map(|l| lua_string(&root().join("addon").join(forge_guide::toc::language_addon(l)).join(forge_guide::toc::INTERFACE_FILE).to_string_lossy()))
+		.collect::<Vec<_>>()
+		.join(", ");
+	let out = emitted(&RunAddon {
+		script: format!(
+			r#"
+local locales, files, count, bad = {{ {locales} }}, {{ {files} }}, 0, {{}}
+for i, loc in ipairs(locales) do
+	local L = {{}}
+	Polestar = {{ L = L }}
+	function GetLocale() return loc end
+	dofile(files[i])
+	for key, text in pairs(L) do
+		if type(text) == "string" and text:find("%%%d+%$") then
+			count = count + 1
+			local args = {{}}
+			for conv in key:gsub("%%%%", ""):gmatch("%%[-+ #0]*%d*%.?%d*(%a)") do
+				args[#args + 1] = conv == "s" and ("<" .. (#args + 1) .. ">") or (#args + 1)
+			end
+			local ok, s = pcall(string.format, text, unpack(args))
+			for _, a in ipairs(args) do
+				if ok and type(a) == "string" and not s:find(a, 1, true) then ok, s = false, "no " .. a .. " in " .. s end
+			end
+			if not ok then bad[#bad + 1] = loc .. " " .. key .. ": " .. tostring(s) end
+		end
+	end
+end
+table.sort(bad)
+emit({{ count = count, bad = bad }})"#
+		),
+		..Default::default()
+	});
+	assert!(out[0]["count"].as_u64().unwrap() > 0, "no translation uses positional arguments: {}", out[0]);
+	assert_eq!(out[0]["bad"], json!([]), "{}", out[0]);
+}

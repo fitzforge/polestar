@@ -988,6 +988,44 @@ function CopyTable(t)
 	for k, v in pairs(t) do c[k] = type(v) == "table" and CopyTable(v) or v end
 	return c
 end
+-- The client's string.format takes positional arguments ("%2$s de %1$s"), as translations use to put
+-- a sentence's parts in their own order; PUC Lua 5.1's has none. A format without one goes straight
+-- through; one with them is rewritten to plain specs with the arguments picked in that order (plain
+-- specs mixed in take the arguments in turn). The string library's own table is changed, so
+-- ("..."):format(...), format(...) and SetFormattedText all read it, as in the game.
+do
+	local plainFormat, find, match, sub, concat, unpack, select = string.format, string.find, string.match, string.sub, table.concat, unpack, select
+	function string.format(fmt, ...)
+		if type(fmt) ~= "string" or not find(fmt, "%%%d+%$") then return plainFormat(fmt, ...) end
+		local n, args, parts, picked, turn, at = select("#", ...), { ... }, {}, {}, 0, 1
+		while true do
+			local s = find(fmt, "%", at, true)
+			if not s then
+				parts[#parts + 1] = sub(fmt, at)
+				break
+			end
+			parts[#parts + 1] = sub(fmt, at, s - 1)
+			if sub(fmt, s + 1, s + 1) == "%" then
+				parts[#parts + 1] = "%%"
+				at = s + 2
+			else
+				local pos, spec, after = match(fmt, "^(%d+)%$([-+ #0]*%d*%.?%d*%a)()", s + 1)
+				if not pos then
+					spec, after = match(fmt, "^([-+ #0]*%d*%.?%d*%a)()", s + 1)
+					if not spec then return plainFormat(fmt, ...) end -- Lua's own error for a bad spec
+					turn = turn + 1
+					pos = turn
+				end
+				pos = tonumber(pos)
+				if pos < 1 or pos > n then error(("bad argument #%d to 'format' (no value)"):format(pos + 1), 2) end
+				picked[#picked + 1] = args[pos]
+				parts[#parts + 1] = "%" .. spec
+				at = after
+			end
+		end
+		return plainFormat(concat(parts), unpack(picked, 1, #picked))
+	end
+end
 format = string.format
 strfind, strmatch, strsub, gsub = string.find, string.match, string.sub, string.gsub
 strlower, strupper, strlen, strrep, strbyte, strchar = string.lower, string.upper, string.len, string.rep, string.byte, string.char
