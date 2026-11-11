@@ -292,10 +292,16 @@ local SPECS = {
 			-- The skin drawn (a saved skin whose addon is gone draws Polestar;
 			-- the saved choice is kept for when it returns).
 			get = Theme.SkinId and function() return Theme.SkinId() end or nil,
+			-- A card shows the skin's name alone; a skin addon's folder is in its tooltip.
 			choices = function()
 				local list = {}
 				for i, c in ipairs(Theme.SkinChoices()) do
-					list[i] = { value = c.value, label = c.text, note = c.addon, tip = c.desc,
+					local tip = c.desc
+					if c.addon then
+						local from = string.format(L["From the addon %s"], c.addon)
+						tip = tip and (tip .. "\n" .. from) or from
+					end
+					list[i] = { value = c.value, label = c.text, tip = tip,
 						draw = skinCards and function(card, v) Theme.DrawSkinCard(card, v) end or nil }
 				end
 				return list
