@@ -111,7 +111,7 @@ return {
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "",
+	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Rüste {item:268484} aus. {quest:95140}, der große Worgen, streift durch die Wälder südlich von {area:228} in Richtung der Tore von {area:17065}. Er ist Elite (Stufe 25): Der Guide wartet zuerst auf Stufe 22, und sich zu gruppieren ist empfehlenswert; Spieler haben ihn ab Stufe 22 getötet, einer brauchte einen zweiten, ein anderer hat ihn solo auf Stufe 25 geschafft. Ein violetter Schild schützt ihn, bis dein erster Schlag mit der Klinge trifft: Eine Meldung verrät dir, dass er zerbrochen ist.",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "{quest:95140}, mit ausgerüstetem {item:268484}",
 

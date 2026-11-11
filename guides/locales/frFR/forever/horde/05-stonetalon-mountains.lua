@@ -25,7 +25,7 @@ return {
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {zone:1440} Ashenvale
 	-- plural, as words: Ashenvale Outrunners = {npc:12856} Ashenvale Outrunner
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "",
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "Le {area:431} est juste au nord, en remontant la route. En arrivant du sud, le maître de vol et le tableau de chasse de {npc:12696} à {area:428} viennent d'abord, puis les marchands. {npc:12867}, au camp de bûcherons, propose « Les estafettes d'Ashenvale » : gardez-la pour la prochaine visite en {zone:1440}, au niveau 26.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "",
 
@@ -86,7 +86,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
 	-- {area:431} Splintertree Post · {area:1637} Orgrimmar
-	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "",
+	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "Sortez de l'auberge, allez au maître de vol du {area:431} et volez jusqu'à {area:1637}.",
 	-- {area:431} Splintertree Post
 	["{area:431} flight master"] = "",
 

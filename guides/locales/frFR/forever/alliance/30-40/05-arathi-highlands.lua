@@ -29,9 +29,9 @@ return {
 
 	-- Step 7: Fallow Sanctuary
 	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One · {quest:1392} Noboru the Cudgel · {npc:1776} Magtoor
-	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "",
+	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "Suivez la route vers l'est jusqu'à {area:76}. Les ennemis {npc:256028} laissent tomber les cristaux. {quest:1392} parcourt un long chemin à travers les ruines : si vous le croisez, tuez-le, son gourdin lance une quête pour {npc:1776}. Ne l'attendez pas.",
 	-- {quest:1392} Noboru the Cudgel
-	["from {quest:1392}: he walks a path through the ruins"] = "",
+	["from {quest:1392}: he walks a path through the ruins"] = "sur {quest:1392} : il parcourt un chemin à travers les ruines",
 
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
@@ -94,9 +94,9 @@ return {
 
 	-- Step 22: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
-	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "",
+	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "Un {npc:2434} rôde, camouflé, en bordure d'{area:271}, et peu de joueurs le trouvent. Si vous le repérez, tuez-le et lisez le contrat qu'il porte : {npc:2276} le prend. Ne l'attendez pas : le reste de cette étape n'a pas besoin de lui.",
 	-- {npc:2434} Shadowy Assassin
-	["{npc:2434}, if you spot him"] = "",
+	["{npc:2434}, if you spot him"] = "{npc:2434}, si vous le repérez",
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "{npc:2276}, à l'intérieur",
 
@@ -125,7 +125,7 @@ return {
 	["{area:318}: kill these as you meet them"] = "{area:318} : tuez-les au passage",
 	-- {area:321} Hammerfall · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
-	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "",
+	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Les kobolds Sèche-moustache creusent dans la gorge à l'est de {area:321} (Horde) ; contournez la ville par le nord. Ils lâchent les Poussières de Myzrael, pas le minerai de Krazek. Les Gisements de pierre de sang inférieure demandent {skill:186} 75 : minez quatre minerais, achetez-les à l'hôtel des ventes ou demandez à un ami mineur. L'objectif du minerai est facultatif ; continuez avec Myzrael si vous ne pouvez pas l'obtenir. Attention : chaque type de kobold s'enfuit chercher de l'aide quand sa vie est basse (les Kobolds à 30 %, les Géomètres et les Terrassiers à 15 %), ce qui peut en attirer d'autres.",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "",
 

@@ -56,21 +56,21 @@ return {
 	["Keep east on the road. {npc:12858} waits south-west of the Warsong lumber camp. He and his grunts storm the {area:2360}: let them take aggro and stay with {npc:12858} until {npc:12860} is dead."] = "Continue para leste pela estrada. {npc:12858} espera a sudoeste do Acampamento de Lenhadores Brado Guerreiro. Ele e seus peões invadem o {area:2360}: deixe que eles atraiam a ameaça e fique com {npc:12858} até {npc:12860} morrer.",
 
 	-- Step 11: Warsong lumber camp
-	["Warsong lumber camp"] = "",
+	["Warsong lumber camp"] = "Acampamento de Lenhadores Brado Guerreiro",
 	-- {area:2360} Silverwing Outpost · {npc:12867} Kuray'bin
-	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "",
+	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "De {area:2360}, siga para nordeste até o Acampamento de Lenhadores Brado Guerreiro, na estrada: {npc:12867} fica lá.",
 
 	-- Step 12: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "",
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), elfos noturnos, rondam a mata ao sul e a sudeste do acampamento de lenhadores; eles ficam furtivos, então fique atento.",
 
 	-- Step 13: Sharptalon
 	-- {npc:12676} Sharptalon
-	["{npc:12676}, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest."] = "",
+	["{npc:12676}, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest."] = "{npc:12676}, uma grande sabre-da-noite, ronda a mesma mata mais a leste, no caminho para o norte, rumo ao Posto Machadada. A garra dela inicia a próxima missão de caça.",
 
 	-- Step 14: Warsong lumber camp
 	-- {npc:12867} Kuray'bin
-	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "",
+	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "De volta a {npc:12867} no acampamento madeireiro, na estrada para o norte, rumo ao Posto Machadada.",
 
 	-- Step 16: Senani Thunderheart
 	-- {npc:12696} Senani Thunderheart · {area:428} Night Run · {quest:6383} The Ashenvale Hunt · {npc:12678} Ursangous · {npc:12676} Sharptalon · {npc:12677} Shadumbra
@@ -248,7 +248,7 @@ return {
 	-- Step 56: Galak centaurs
 	["Galak centaurs"] = "Centauros Galath",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
-	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him."] = "",
+	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him."] = "Os acampamentos Galath enchem o cânion ao norte da Aldeia Vento Livre; Batedores, Cavalgantes e Ventilhãs dividem todos os acampamentos. Um {npc:10617} solitário percorre um longo caminho entre os acampamentos: se você o encontrar, mate-o; o bilhete dele inicia uma missão para o {area:2237}. Não espere por ele.",
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{quest:4881} de {npc:10617}, se você o encontrar",
 

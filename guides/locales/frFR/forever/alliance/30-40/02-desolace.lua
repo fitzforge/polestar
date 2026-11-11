@@ -12,7 +12,7 @@ return {
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638} : le coffre de l'épave se trouve en contrebas de la tour d'{npc:11863}, sur le chemin de {area:599}",
 	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "",
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, à côté de {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Coffre de Malem",

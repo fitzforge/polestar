@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "Um manto de tecido raro para seus 30 e poucos, feito por {npc:6266}; as últimas partes esperam os níveis 35 e 37.",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -52,15 +52,15 @@ return {
 	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "Você ainda não precisa da linha: {npc:6266} quer partes de demônio de {zone:1443} a seguir.",
 
 	-- Step 9: Hatefury satyrs
-	["Hatefury satyrs"] = "",
+	["Hatefury satyrs"] = "Sátiros Furiódio",
 	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point
-	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "",
+	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "Os sátiros Furiódio (nível 31-32) ocupam {area:603}, no extremo nordeste de {zone:1443}, depois de {area:608}: duas mortes em cinco soltam um frasco, então conte com umas 25.",
 	["Vials of Hatefury Blood"] = "Ampolas de Sangue de Furiódio",
 
 	-- Step 10: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
 	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "",
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "Os Infernais Menores (36-37) e os Guardiões do Portal Demoníaco (38) de {area:602}, no sul de {zone:1443}, soltam a pedra em metade das vezes. O guia espera o nível 35 antes: no 31 eles são fortes demais para encarar sozinho. Eles resistem a fogo, então use {spell:686} e Corrupção.",
 
 	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
@@ -70,12 +70,12 @@ return {
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
 	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "De volta a {npc:2670}, em {area:35}: ele oferece {quest:4785} como uma missão que você devolve direto a ele. Pode não ter marcador de missão; fale com ele mesmo assim.",
 	-- {npc:2670} Xizk Goodstitch · {quest:4785} Fine Gold Thread
-	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "",
+	["{npc:2670}: {quest:4785}, handed straight back (#1699 sweep)"] = "{npc:2670}: {quest:4785}, entregue de volta na hora (revisão #1699)",
 
 	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "Os Exilados em Chamas (nível 38-39), elementais de fogo em {area:334}, no oeste de {zone:1417}, soltam o carvão cerca de uma vez em três. O guia espera o nível 37 antes: abaixo dele, eles batem forte demais para encarar sozinho. Eles resistem a fogo: {spell:686} e Corrupção. Os Patuás Pontudos dos Exilados Vagalhantes perto de {area:321} acabam com um deles depois que você o machuca. Faça {item:6265} com {spell:1120} no caminho.",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "{item:6265}: {spell:1120} num Exilado enquanto ele morre",
 

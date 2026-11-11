@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
 	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "",
+	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Minez chaque {object:656332} (1, orange) et {object:656333} (1, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 50. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70) donne aussi des points. Zone de niveau 1-10. Comptez environ 60 gisements pour ces 49 points.",
 
 	-- Step 5: Copper: Zephras Isle (1-50)
 	-- {zone:2521} Zephras Isle
@@ -44,7 +44,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (1-50)"] = "Cuivre : {zone:1412} (1-50)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "",
+	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Minez chaque gisement de cuivre (1, orange) ou de cuivre pauvre (1, orange, rare) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 50. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70) donne aussi des points. Zone de niveau 1-10. Comptez environ 60 gisements pour ces 49 points.",
 
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -69,9 +69,9 @@ return {
 
 	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
 	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {zone:1438} Teldrassil
-	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "",
+	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} et {object:656333} : {zone:1438} (50-65) (suite)",
 	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "",
+	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Minez chaque {object:656332} (1, jaune) et {object:656333} (1, jaune) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 65. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70) donne aussi des points. Zone de niveau 1-10. Comptez environ 80 gisements pour ces 15 points.",
 
 	-- Step 13: Copper: Zephras Isle (50-65) cont.
 	-- {zone:2521} Zephras Isle
@@ -87,7 +87,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (50-65) cont."] = "Cuivre : {zone:1412} (50-65) (suite)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "",
+	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Minez chaque gisement de cuivre (1, jaune) ou de cuivre pauvre (1, jaune, rare) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 65. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70) donne aussi des points. Zone de niveau 1-10. Comptez environ 80 gisements pour ces 15 points.",
 
 	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
 	-- {zone:1420} Tirisfal Glades
@@ -137,7 +137,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Minez chaque gisement d'étain (65, vert), pierre de sang inférieure (75, vert), argent (75, vert, rare), fer (125, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 155. Fondez à une forge quand vos sacs sont pleins : {spell:3307} (orange jusqu'à 130, gris à 140) donne aussi des points. Zone de niveau 30-40. Comptez environ 50 gisements pour ces 30 points.",
 	["Iron, Tin"] = "Fer, étain",
-	["Lesser Bloodstone"] = "",
+	["Lesser Bloodstone"] = "Pierre de sang inférieure",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands

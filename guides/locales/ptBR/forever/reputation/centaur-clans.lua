@@ -11,32 +11,32 @@ return {
 	-- {zone:1443} Desolace
 	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "Os clãs rivais de {zone:1443}, reformulados no Forever: escolha um, compre a amizade dele e troque totens por receitas.",
 	-- {quest:93224} Carved Centaur Totems
-	["12 recipes for {quest:93224} at the clan quartermasters, no standing needed"] = "",
+	["12 recipes for {quest:93224} at the clan quartermasters, no standing needed"] = "12 receitas de {quest:93224} com os intendentes dos clãs, sem exigir reputação",
 	-- {npc:5601} Khan Jehn
 	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "Missão de {npc:5601}: um título do clã e a escolha entre três armas raras de nível 35",
 
 	-- Step 1: Pick your clan
 	["Pick your clan"] = "Escolha seu clã",
 	-- {zone:1443} Desolace · {npc:5396} Captain Pentigast · {area:608} Nijel's Point · {quest:1382} Strange Alliance · {quest:1385} Brutal Politics · {npc:5412} Gurda Wildmane · {quest:1368} Gelkis Alliance · {quest:1367} Magram Alliance · {quest:93224} Carved Centaur Totems
-	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "",
+	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "Os Gelkis (sudoeste de {zone:1443}) e os Magram (sudeste) estão em guerra: cada morte de um clã dá 20 ao outro e custa 100 ao seu próprio clã, então você só consegue subir com um. Os dois começam Neutros. As missões do Forever valem muito mais que as mortes agora, e as missões de escolha já não custam nada ao outro clã. Aliança: {npc:5396} em {area:608} oferece {quest:1382} (Gelkis) e {quest:1385} (Magram). Horda: {npc:5412} oferece {quest:1368} e {quest:1367}. Pegue a do seu clã e {quest:93224}: a Comprando Amizade de cada clã (3.000) é oferecida assim que você traz os totens de volta. Depois marque a tarefa. O guia segue com os Gelkis; pegue as missões dos Magram e ele vai para a metade dos Magram. O Forever paga estas missões por inteiro em qualquer nível.",
 	-- {quest:1382} Strange Alliance
 	["{quest:1382}: Gelkis"] = "{quest:1382}: Gelkis",
 	["Take the quests of one clan"] = "Pegue as missões de um clã",
 
 	-- Step 2: Carved Centaur Totems
 	-- {area:608} Nijel's Point
-	["The Kolkar centaurs (level 30-33) in the camps along the eastern road, south of {area:608}, drop the totems, and so do the Magram and the Maraudine. Bring five back, then take your clan's Buying Friendship (Gelkis below; the Magram's instead for the Magram)."] = "",
+	["The Kolkar centaurs (level 30-33) in the camps along the eastern road, south of {area:608}, drop the totems, and so do the Magram and the Maraudine. Bring five back, then take your clan's Buying Friendship (Gelkis below; the Magram's instead for the Magram)."] = "Os centauros Kolkar (nível 30-33) dos acampamentos ao longo da estrada leste, ao sul de {area:608}, soltam os totens, assim como os Magram e os Maraudinos. Traga cinco de volta e depois pegue a Comprando Amizade do seu clã (Gelkis abaixo; a dos Magram, no lugar, para os Magram).",
 	-- {item:254432} Carved Centaur Totem
-	["{item:254432}: Kolkar centaurs"] = "",
+	["{item:254432}: Kolkar centaurs"] = "{item:254432}: centauros Kolkar",
 
 	-- Step 3: Gelkis or Magram
-	["Gelkis or Magram"] = "",
-	["No clan's quests in your log: the guide goes on with the Gelkis. For the Magram, take their choice quest and Buying Friendship and the guide goes to the Magram half."] = "",
+	["Gelkis or Magram"] = "Gelkis ou Magram",
+	["No clan's quests in your log: the guide goes on with the Gelkis. For the Magram, take their choice quest and Buying Friendship and the guide goes to the Magram half."] = "Nenhuma missão de clã no seu registro de missões: o guia segue com os Gelkis. Para os Magram, pegue a missão de escolha deles e Comprando Amizade, e o guia vai para a metade dos Magram.",
 
 	-- Step 4: Gelkis: the choice quest
-	["Gelkis: the choice quest"] = "",
+	["Gelkis: the choice quest"] = "Gelkis: a missão de escolha",
 	-- {npc:5397} Uthek the Wise · {area:606} Gelkis Village
-	["The Gelkis half starts with the clan's choice quest from the giver you just handed the totems to: {npc:5397}'s quests in {area:606} follow from it, and Buying Friendship alone does not open them."] = "",
+	["The Gelkis half starts with the clan's choice quest from the giver you just handed the totems to: {npc:5397}'s quests in {area:606} follow from it, and Buying Friendship alone does not open them."] = "A metade dos Gelkis começa com a missão de escolha do clã, com o recrutador de missões a quem você acabou de entregar os totens: as missões de {npc:5397} em {area:606} vêm dela, e Comprando Amizade sozinha não as libera.",
 
 	-- Step 5: Gelkis Village: Uthek the Wise and Molkar
 	-- {area:606} Gelkis Village · {npc:5397} Uthek the Wise · {npc:253140} Molkar
@@ -73,7 +73,7 @@ return {
 	["Gelkis: totems and kills to Honored"] = "Gelkis: totens e mortes até Honrado",
 	-- {npc:253140} Molkar · {quest:92812} Economic Warfare · {quest:93224} Carved Centaur Totems · {zone:1443} Desolace · {item:10008} White Bandit Mask · {item:5739} Barbaric Harness
 	-- plural, as words: Greater Mystic Essences = {item:11135} Greater Mystic Essence
-	["Friendly to Honored is 6,000; after the clan's quests you are about 4,000 into it, so 2,000 to go. {npc:253140}'s {quest:92812} takes 5 {quest:93224} for 750, again and again: three turn-ins, 15 totems. The Maraudine centaurs (level 36-40) of western {zone:1443} drop them; the totems do not bind, so the auction house is the other source. Magram kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village also has three craft orders for 1,000 each: Halea wants 3 Greater Mystic Essences, {npc:253140} a {item:10008} (tailoring) and Talra a {item:5739} (leatherworking). Legacy Diplomat adds up to 10%."] = "",
+	["Friendly to Honored is 6,000; after the clan's quests you are about 4,000 into it, so 2,000 to go. {npc:253140}'s {quest:92812} takes 5 {quest:93224} for 750, again and again: three turn-ins, 15 totems. The Maraudine centaurs (level 36-40) of western {zone:1443} drop them; the totems do not bind, so the auction house is the other source. Magram kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village also has three craft orders for 1,000 each: Halea wants 3 Greater Mystic Essences, {npc:253140} a {item:10008} (tailoring) and Talra a {item:5739} (leatherworking). Legacy Diplomat adds up to 10%."] = "De Amigável a Honrado são 6.000; depois das missões do clã você já tem cerca de 4.000 disso, então faltam 2.000. {quest:92812} de {npc:253140} aceita 5 {quest:93224} por 750, várias vezes: três entregas, 15 totens. Os centauros Maraudinos (nível 36-40) do oeste de {zone:1443} os soltam; os totens não são vinculados, então a Casa de Leilões é a outra fonte. As mortes de Magram dão 20 cada, mas os dados de mortes do Forever os param no fim de Amigável, 1 antes de Honrado. Em Amigável, a vila também tem três encomendas de ofício por 1.000 cada: Halea quer 3 Essências Místicas Maiores, {npc:253140} quer uma {item:10008} (alfaiataria) e Talra quer um {item:5739} (couraria). O Legado Diplomata soma até 10%.",
 	-- {item:254432} Carved Centaur Totem
 	["{item:254432}: Maraudine centaurs"] = "{item:254432}: centauros Maraudinos",
 
@@ -95,8 +95,8 @@ return {
 	["From Revered on only {quest:92812} is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems. Nothing is sold for standing; the recipes below need only totems."] = "De Reverenciado em diante só resta {quest:92812}: de Reverenciado a Exaltado são 21.000, 28 entregas, 140 totens. Nada é vendido por reputação; as receitas abaixo só precisam de totens.",
 
 	-- Step 13: Gelkis done
-	["Gelkis done"] = "",
-	["No Gelkis quests done: on to the Magram, south-east."] = "",
+	["Gelkis done"] = "Gelkis concluídos",
+	["No Gelkis quests done: on to the Magram, south-east."] = "Nenhuma missão dos Gelkis feita: siga para os Magram, a sudeste.",
 
 	-- Step 14: Magram Village: Warug and Gorhak
 	-- {area:604} Magram Village · {npc:5398} Warug · {npc:253139} Gorhak
@@ -133,7 +133,7 @@ return {
 	["Magram: totems and kills to Honored"] = "Magram: totens e mortes até Honrado",
 	-- {quest:1371} Gizmo for Warug · {npc:253139} Gorhak · {quest:92811} Economic Warfare · {quest:93224} Carved Centaur Totems · {zone:1443} Desolace · {npc:5398} Warug · {quest:92743} A Conqueror's Crown · {item:254392} Conqueror's Helm · {zone:1418} Badlands · {quest:92841} Valley of Bones
 	-- plural, as words: Greater Shadow Protection Potions = {item:13459} Greater Shadow Protection Potion · Massive Iron Axes = {item:3855} Massive Iron Axe
-	["Friendly to Honored is 6,000; after the clan's quests you are about 3,000 into it (4,000 with {quest:1371}), so 2,000 to 3,000 to go. {npc:253139}'s {quest:92811} takes 5 {quest:93224} for 750, again and again; the Maraudine centaurs (level 36-40) of western {zone:1443} drop them, and the totems do not bind, so the auction house is the other source. Gelkis kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village has two craft orders for 1,000 each: Mirda's 3 Greater Shadow Protection Potions and Grolkar's 2 Massive Iron Axes (blacksmithing). {npc:5398}'s {quest:92743} (1,000) is no craft order: he wants a {item:254392} from a crypt in the {zone:1418}, and Forever's quest pages put it in his chain before the {quest:92841}, so bring it before you reach Honored. Legacy Diplomat adds up to 10%."] = "",
+	["Friendly to Honored is 6,000; after the clan's quests you are about 3,000 into it (4,000 with {quest:1371}), so 2,000 to 3,000 to go. {npc:253139}'s {quest:92811} takes 5 {quest:93224} for 750, again and again; the Maraudine centaurs (level 36-40) of western {zone:1443} drop them, and the totems do not bind, so the auction house is the other source. Gelkis kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village has two craft orders for 1,000 each: Mirda's 3 Greater Shadow Protection Potions and Grolkar's 2 Massive Iron Axes (blacksmithing). {npc:5398}'s {quest:92743} (1,000) is no craft order: he wants a {item:254392} from a crypt in the {zone:1418}, and Forever's quest pages put it in his chain before the {quest:92841}, so bring it before you reach Honored. Legacy Diplomat adds up to 10%."] = "De Amigável a Honrado são 6.000; depois das missões do clã você já tem cerca de 3.000 disso (4.000 com {quest:1371}), então faltam 2.000 a 3.000. {quest:92811} de {npc:253139} aceita 5 {quest:93224} por 750, várias vezes; os centauros Maraudinos (nível 36-40) do oeste de {zone:1443} os soltam, e os totens não são vinculados, então a Casa de Leilões é a outra fonte. As mortes de Gelkis dão 20 cada, mas os dados de mortes do Forever os param no fim de Amigável, 1 antes de Honrado. Em Amigável, a vila tem duas encomendas de ofício por 1.000 cada: 3 Poções Maiores de Proteção contra a Sombra de Mirda e 2 Machados Sólidos de Ferro de Grolkar (ferraria). {quest:92743} de {npc:5398} (1.000) não é encomenda de ofício: ele quer um {item:254392} de uma cripta em {zone:1418}, e as páginas de missões do Forever o põem na cadeia dele antes de {quest:92841}, então traga-o antes de chegar a Honrado. O Legado Diplomata soma até 10%.",
 
 	-- Step 19: Magram: the Valley of Bones
 	-- {quest:92841} Valley of Bones
@@ -155,7 +155,7 @@ return {
 	-- Step 22: The totem recipes
 	["The totem recipes"] = "As receitas de totens",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
-	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "",
+	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "Os dois intendentes vendem as mesmas 12 receitas por {quest:93224}, sem exigir reputação: {item:273613} e - Poder de Cura Menor; Explosão de Feitiço Maior e {item:250941}; plantas de {item:250538} e {item:250606}; moldes de {item:252462}, {item:253973}, {item:10011} e {item:274490}; os esquemas de {item:269900} e {item:269902}. Guarde os totens de que precisar para elas antes de entregar o resto.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "12 receitas de Totem de Centauro Entalhado com os intendentes dos clãs, sem exigir reputação",
