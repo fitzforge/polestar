@@ -551,7 +551,7 @@ add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trai
 -- installed addons show. The page stays in the list with none (`empty`:
 -- the line it shows then).
 add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
-	subtitle = L["Quest tracker docking and settings for other addons Polestar works with."],
+	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
 	empty = L["None of the addons Polestar works with is installed."] }, true)
 add({ page = L["Integrations"], section = L["Quest Tracker"], controls = {
 	{ kind = "toggle", key = "ui.trackerDock", label = L["Dock guide into the quest tracker"],
