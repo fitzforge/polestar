@@ -10,9 +10,10 @@
 //! trail dots). A button's check (`press`) reads, presses it, and reads a change; a key binding's sets a key and
 //! reads it bound, then cleared.
 //!
-//! Each group file returns { env = <one of ENV>, setup = fn?, settle = seconds?, probes = { [id] = probe | { probe,
-//! value?, with?, press?, bind? } } } where id is the control's setting key, "action:<binding action>" or
-//! "label:<English label>" for a control with neither.
+//! Each group file starts with the environment it runs in, `-- env: <name> [stub file...]` (one of env()'s, with
+//! more of tests/lua's stubs after its own: `-- env: world stub_rares.lua`), and returns { setup = fn?, settle =
+//! seconds?, probes = { [id] = probe | { probe, value?, with?, press?, bind? } } } where id is the control's setting
+//! key, "action:<binding action>" or "label:<English label>" for a control with neither.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
@@ -218,9 +219,15 @@ fn env(name: &str) -> Env {
 }
 
 fn run_group(g: &Group) -> Value {
-	// The group's environment: its first line names it ("-- env: nav").
-	let name = g.src.lines().find_map(|l| l.strip_prefix("-- env: ")).unwrap_or("world").trim().to_string();
-	let e = env(&name);
+	// The group's environment: its first line names it ("-- env: nav"), and may add stubs to it ("-- env: world
+	// stub_rares.lua").
+	let mut words = g.src.lines().find_map(|l| l.strip_prefix("-- env: ")).unwrap_or("world").split_whitespace();
+	let mut e = env(words.next().unwrap_or("world"));
+	for s in words {
+		if !e.stubs.contains(&s) {
+			e.stubs.push(s);
+		}
+	}
 	emitted(&RunAddon {
 		stubs: e.stubs,
 		before: e.before.into(),
