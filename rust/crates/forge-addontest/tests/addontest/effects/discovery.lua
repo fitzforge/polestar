@@ -63,7 +63,7 @@ return {
 			T.Hide()
 			return again
 		end },
-		-- The founder comes into view: his card; then he leaves and the half hour between his alerts passes.
+		-- The founder comes into view: his card; then he leaves and the day between his alerts passes.
 		["rares.founder"] = function()
 			n = n + 1
 			T.Hide()
@@ -73,7 +73,7 @@ return {
 			local shown = card()
 			U.clear("nameplate3")
 			T.Hide()
-			stub.now = stub.now + 31 * 60
+			stub.now = stub.now + 24 * 60 * 60 + 60
 			stub.advance(0.2)
 			return shown
 		end,

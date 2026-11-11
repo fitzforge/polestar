@@ -19,15 +19,25 @@ end
 local function minimap(layer) stub.advance(0.3); return #P.GetMinimapFrames(layer) end
 local SERVICES = { ["maps.servicePins"] = true }
 local function service(category) return { with = SERVICES, probe = function() return drawn("maps.services", category) end } end
--- Every shown texture of Polestar's on the canvas (the unexplored areas' tiles): how many, and their tint.
+-- A frame of Polestar's on the canvas: under it, at any depth (the map's view frame holds the drawings, as
+-- maps-reveal.rs has it).
+local function onCanvas(f)
+	local p = f.parent
+	while p do
+		if p == m.canvas then return true end
+		p = p.parent
+	end
+	return false
+end
+-- The unexplored areas' tiles on the canvas (the client's art, by file id): how many, and their tint.
 local function revealed()
 	m.showMap(9000)
 	stub.advance(0.3)
 	local n, tint = 0, false
 	for _, f in ipairs(stub.frames) do
-		if f.parent == m.canvas and f.regions and f:IsShown() then
+		if onCanvas(f) and f.regions and f:IsShown() then
 			for _, t in ipairs(f.regions) do
-				if t.IsShown and t:IsShown() and t.texture and t.vertexColor then n = n + 1; tint = t.vertexColor end
+				if t.IsShown and t:IsShown() and type(t.texture) == "number" and t.vertexColor then n = n + 1; tint = t.vertexColor end
 			end
 		end
 	end

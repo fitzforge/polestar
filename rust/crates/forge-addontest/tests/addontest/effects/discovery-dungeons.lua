@@ -14,7 +14,10 @@ return {
 		Dg.List = function()
 			return { { key = "rfc", name = "Ragefire Chasm", zoneName = "Orgrimmar", kind = "dungeon", minLevel = 13, maxLevel = 22, quests = { A = 3, H = 3 } } }
 		end
-		Dg.PickupPlan = function() return { take = { {}, {}, {} }, later = 0, waiting = {} } end
+		-- Its three quests to take, each with the level the heads-up offers it from (Dungeons.OfferLevel).
+		local take = {}
+		for i = 1, 3 do take[i] = { quest = { id = 5720 + i, level = 15, minLevel = 13 }, pre = {} } end
+		Dg.PickupPlan = function() return { take = take, later = 0, waiting = {} } end
 	end,
 	probes = {
 		-- The hub's Dungeons section, as it opens.
