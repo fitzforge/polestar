@@ -627,6 +627,17 @@ local function connect(st, swim, mult, k, node, back)
 	return entry.node, entry.edges, entry.tree, entry.yards, entry
 end
 
+-- The endpoint tree a start surface already has from an earlier Find (connect's), when it ran dry from that very node
+-- (not settled elsewhere, not given back to the pool): every node the start can reach is in it, so a goal it never
+-- reached is out of reach. nil otherwise. Reading it searches nothing.
+local function keptDry(st, swim, mult, k, node)
+	local entry = st.ends and st.ends[k .. ":" .. node .. ":" .. swim .. ":" .. (mult and mult.tag or "")]
+	local tree = entry and entry.node == node and entry.tree
+	if tree and tree.k == k and tree.whole == tree.gen then
+		return tree
+	end
+end
+
 -- A point without a height (a map click, or the player while Polestar's walking floor is unknown: UnitPosition's
 -- height is a placeholder 0, so Nav/Walk.lua usually sends the floor it follows under the player, Path.SurfacesAt)
 -- could stand on any surface at its spot, so it starts from each one within a cell of it at a distinct height and the
@@ -1002,8 +1013,12 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			local all = true
 			for _, a in ipairs(starts0) do
 				local reaches = false
+				-- (a goal surface the start's kept endpoint tree never reached when it ran dry is out of reach: no A*
+				-- for it, as in the full search; Ironforge's city floors under the mountain's ground)
+				local dry = keptDry(st, swim, mult, sk, a)
 				for _, b in ipairs(goals) do
-					if search(st, sk, swim, mult, a, S, b.node, nil, nil, nil, bound) and S.g[b.node + 1] <= bound then
+					if not (dry and not reached(dry, b.node))
+						and search(st, sk, swim, mult, a, S, b.node, nil, nil, nil, bound) and S.g[b.node + 1] <= bound then
 						reaches = true
 						if not cost or S.g[b.node + 1] < cost then
 							cost, yards, directFrom, directTo = S.g[b.node + 1], yardsAt(st, S, b.node), a, b.node
