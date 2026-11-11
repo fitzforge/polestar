@@ -300,15 +300,66 @@ fn a_saved_skin_whose_addon_is_missing_draws_polestar_keeps_the_choice_and_appli
 }
 
 #[test]
+fn a_skin_s_own_window_border_token_edges_its_windows_under_the_player_s_border_colour() {
+	let out = run(r##"
+		local out = {}
+		for _, base in ipairs({ "polestar", "hearth" }) do
+			local id = "edged" .. base
+			out[base] = { reg = T.RegisterSkin(id, { name = "Edged", addon = "Test_Edged", base = base, tokens = { windowBorder = "#5e4a2c" } }) }
+			Polestar.Set("ui.skin", id)
+			out[base].own = hexOf(T.Palette().windowBorder)
+			Polestar.Set("ui.borderColor", { 0.2, 0.4, 0.6 })
+			out[base].player = hexOf(T.Palette().windowBorder)
+			Polestar.Set("ui.borderColor", false)
+		end
+		Polestar.Set("ui.skin", "polestar")
+		out.house = hexOf(T.Palette().windowBorder) == hexOf(T.Palette().border)
+		emit(out)"##);
+	for base in ["polestar", "hearth"] {
+		let o = &out[base];
+		assert_eq!(o["reg"], true, "{base}");
+		assert_eq!(o["own"], "5e4a2c", "the skin's windowBorder on base {base}");
+		assert_eq!(o["player"], "336699", "the player's border colour wins on base {base}");
+	}
+	assert_eq!(out["house"], true, "the house style keeps its hairline");
+}
+
+// The guide window's close square (the guideTitle hook shows it) reads closeFill, closeEdge and closeGlyph: a skin's
+// own, else danger, border and text on every base.
+#[test]
+fn the_close_square_tokens_fall_back_on_danger_border_and_text_on_every_base() {
+	let out = run(r##"
+		local out = {}
+		for _, base in ipairs({ "polestar", "hearth", "halo" }) do
+			local plain, own = "plain" .. base, "own" .. base
+			T.RegisterSkin(plain, { name = "Plain", addon = "Test_Plain", base = base })
+			T.RegisterSkin(own, { name = "Own", addon = "Test_Own", base = base, tokens = { closeFill = "#9c211d", closeEdge = "#43331e", closeGlyph = "#f0e6d2" } })
+			Polestar.Set("ui.skin", plain)
+			local p = T.Palette()
+			out[base] = { fill = hexOf(p.closeFill) == hexOf(p.danger), edge = hexOf(p.closeEdge) == hexOf(p.border), glyph = hexOf(p.closeGlyph) == hexOf(p.text) }
+			Polestar.Set("ui.skin", own)
+			p = T.Palette()
+			out[base].own = { hexOf(p.closeFill), hexOf(p.closeEdge), hexOf(p.closeGlyph) }
+		end
+		Polestar.Set("ui.skin", "polestar")
+		emit(out)"##);
+	for base in ["polestar", "hearth", "halo"] {
+		let o = &out[base];
+		assert_eq!((o["fill"].clone(), o["edge"].clone(), o["glyph"].clone()), (json!(true), json!(true), json!(true)), "the fallbacks on base {base}: {o}");
+		assert_eq!(o["own"], json!(["9c211d", "43331e", "f0e6d2"]), "the skin's own on base {base}");
+	}
+}
+
+#[test]
 fn api_version_and_capabilities_say_what_this_polestar_offers() {
 	let out = run(r##"
 		emit({ v = T.API_VERSION, skins = T.HasCapability("skins"), schemes = T.HasCapability("schemes"),
 			window = T.HasCapability("surfaces.window"), toast = T.HasCapability("surfaces.toast"),
 			arrow = T.HasCapability("surfaces.arrow"), pin = T.HasCapability("surfaces.pin"), fonts = T.HasCapability("fonts"),
-			preset = T.HasCapability("preset"), light = T.HasCapability("lightSchemes"),
+			preset = T.HasCapability("preset"), light = T.HasCapability("lightSchemes"), title = T.HasCapability("surfaces.guideTitle"),
 			nope = T.HasCapability("surfaces.nope"), odd = T.HasCapability(nil), n = #T.Capabilities() })"##);
 	assert_eq!(out["v"], 1);
-	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts", "preset", "light"] {
+	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts", "preset", "light", "title"] {
 		assert_eq!(out[k], true, "{k}");
 	}
 	assert_eq!((out["nope"].clone(), out["odd"].clone()), (json!(false), json!(false)));

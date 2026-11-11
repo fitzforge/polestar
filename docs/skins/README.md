@@ -136,9 +136,10 @@ look's painter for that kind, and a **paint kit** (a fill, a gradient, a
 pixel-exact border, a hover wash, and a store for the skin's own pieces).
 Call the base painter and add to it, or paint the frame from scratch.
 
-Two **hooks** reach the art Polestar's navigation modules draw themselves:
-`arrow` (after the waypoint arrow repaints) and `pin` (after a map pin is
-built or restyled).
+Three **hooks** reach the art Polestar's modules draw themselves: `arrow`
+(after the waypoint arrow repaints), `pin` (after a map pin is built or
+restyled) and `guideTitle` (after the guide window's style is applied: a
+title bar and a close square in place of the band).
 
 Painters run again whenever anything they depend on changes, so they must be
 idempotent: create once, then show, hide, tint and place.

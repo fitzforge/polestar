@@ -651,7 +651,11 @@ local HOUSE_EXTRA = {
 	manual = "item", skipped = "spell", separator = "divider", rowLine = "divider", veil = "bg", veilWindow = "bg",
 	menuBg = "panel", control = "panelAlt", icon = "textDim", iconHover = "text", buttonText = "text",
 	personName = "npc", tabRest = "textDim", rowLabel = "text", navRest = "textDim",
+	-- A close square a skin shows on the guide window's title (the guideTitle hook).
+	closeFill = "danger", closeEdge = "border", closeGlyph = "text",
 }
+-- Those a non-house skin falls back on too.
+local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
 
 -- The variant of registered skin `s` in use (spec.variants, Skin API 2):
 -- the player's pick (ui.skinVariants.<id>) while the skin has it, else the
@@ -797,6 +801,9 @@ local function resolveSkin(skin)
 		out.windowBorder = { r, g, b, 0.8 }
 	else
 		out.windowBorder = copy(stoks and stoks.windowBorder or out.windowEdge or out.border)
+	end
+	for _, name in ipairs(SKIN_EXTRA) do
+		if not out[name] then out[name] = copy(out[HOUSE_EXTRA[name]] or out.text) end
 	end
 	-- The second accent (a duotone skin's; else the accent) and the arrival
 	-- glow (its glow token; else the arrival colour).

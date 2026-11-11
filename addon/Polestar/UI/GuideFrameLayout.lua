@@ -338,7 +338,7 @@ function GF.Layout()
 	local skipW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
 	local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
 	local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
-	nav.Title:SetWidth(max(40, width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - skipW - reportW - nearbyW))
+	nav.Title:SetWidth(max(40, width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - skipW - reportW - nearbyW))
 	card:SetWidth(width)
 
 	local y = 0
