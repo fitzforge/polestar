@@ -336,8 +336,11 @@ the game's error handler: wrapping it would shift the stack the game and
 and `ADDON_ACTION_FORBIDDEN` (the addon blamed, then the function) go to
 `NoteBlocked`, which keeps those blaming Polestar or a `Polestar_*` addon
 with the addon, how often and the time it last came (`%H:%M:%S`), so a
-report on a broken gamepad or button does not read "Errors: none". `seq`,
-one counter for both lists, says which came last.
+report on a broken gamepad or button does not read "Errors: none". Each also
+says where: the first line of ours on the stack (the event fires inside the
+blocked call), or, with none of ours on it, "via <function> <file:line>": the
+blocked C function and the game's own line that called it, tainted by ours
+earlier. `seq`, one counter for both lists, says which came last.
 
 OnUpdate scripts and timer callbacks are run by the client, not the bus:
 each goes through `Polestar.Safe` / `Polestar.After`, so their errors are

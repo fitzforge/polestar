@@ -342,6 +342,31 @@ test('a blocked call says which line of ours made it, so "UNKNOWN()" can be trac
 	]);
 });
 
+// Xaden Ryan's report (#1883, 0.3.7) had "1x blocked in Polestar: UNKNOWN()" with no line of ours: the game's own
+// code made the call, tainted by ours earlier. The report then names the blocked function and the game's line that
+// called it, so it can still be traced; with nothing to name it stays as before.
+test('a blocked call with none of our lines under it names the game\'s function and line instead', () => {
+	const [out] = run(`
+		debugstack = function() return
+			'[string "@Interface/AddOns/Polestar/Core/Init.lua"]:768: in function <Interface/AddOns/Polestar/Core/Init.lua:768>\\n' ..
+			'[C]: in function \\'xpcall\\'\\n' ..
+			'[string "@Interface/AddOns/Polestar/Core/Init.lua"]:120: in function <Interface/AddOns/Polestar/Core/Init.lua:110>\\n' ..
+			'[C]: in function \\'Show\\'\\n' ..
+			'[string "@Interface/AddOns/Blizzard_UIParent/Shared/UIParent.lua"]:2125: in function \\'ShowUIPanel\\'\\n' ..
+			'[string "@Interface/AddOns/Blizzard_QuestLog/QuestLogFrame.lua"]:88: in function <...>\\n'
+		end
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		debugstack = function() return '[C]: ?\\n' end
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ text = PolestarReport.Box:GetText(), at = date("%H:%M:%S") })`);
+	assert.deepEqual(out.text.split('\n').filter((l) => l.startsWith('  ')), [
+		`  1x blocked in Polestar: UNKNOWN() via Show Blizzard_UIParent/Shared/UIParent.lua:2125 (${out.at})`,
+		`  1x blocked in Polestar: UNKNOWN() (${out.at})`,
+	]);
+});
+
 test('what the player typed stays while it is the same step; a report on another step starts empty', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
