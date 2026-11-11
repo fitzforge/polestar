@@ -8,3 +8,6 @@ section: players
   Its reload confirmation uses a secure button and waits for combat to end.
   Hiding Polestar returns the tracker to quests and pauses the dock until
   Polestar is shown again.
+  With Questie's tracker enabled, the guide docks above Questie and follows
+  its font and height settings. Older FTA dock versions that cannot host
+  Questie leave Polestar to provide its own tabs.

@@ -555,7 +555,7 @@ add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 	empty = L["None of the addons Polestar works with is installed."] }, true)
 add({ page = L["Integrations"], section = L["Quest Tracker"], controls = {
 	{ kind = "toggle", key = "ui.trackerDock", label = L["Dock guide into the quest tracker"],
-		help = L["Adds a Polestar tab to the quest tracker. Supports EllesmereUI and the default tracker. Reload to apply changes. If Polestar Tracker Dock is enabled, it manages docking instead."],
+		help = L["Adds a Polestar tab to the quest tracker. Supports Questie, EllesmereUI and the default tracker. Reload to apply changes. If Polestar Tracker Dock is enabled, it manages docking instead."],
 		disabled = function() return ns.Compat.AddOnPresent("Polestartrackerdock") end,
 		search = "dock, tracker, quests, EllesmereUI, FTA" },
 } }, true)

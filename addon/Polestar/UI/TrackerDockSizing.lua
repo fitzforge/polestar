@@ -22,6 +22,18 @@ function Skin.DockAvailableHeight(holder, tracker, customTracker)
 	local holderScale = Scale(holder)
 	local top = Read(holder, "GetTop")
 	local bottom
+	if tracker == _G.Questie_BaseFrame then
+		local profile = _G.Questie and Questie.db and Questie.db.profile
+		local limit = profile and Number(profile.TrackerHeight)
+		if profile and (not limit or limit <= 0) then
+			local screenHeight = GetScreenHeight and Number(GetScreenHeight()) or Read(UIParent, "GetHeight")
+			limit = screenHeight and screenHeight * (Number(profile.trackerHeightRatio) or 0.5)
+		end
+		local trackerTop = Read(tracker, "GetTop")
+		if trackerTop and limit and limit > 0 then
+			bottom = (trackerTop - limit) * Scale(tracker) / holderScale
+		end
+	end
 	if customTracker then
 		local eqt = _G.EllesmereUIQuestTracker
 		local cfg = eqt and eqt.DB and eqt.DB()
@@ -36,7 +48,7 @@ function Skin.DockAvailableHeight(holder, tracker, customTracker)
 	if not bottom then
 		-- Blizzard's container height is the Edit Mode maximum, unlike its
 		-- content-sized skin/background. This is the boundary MidnightChores uses.
-		local container = _G.ObjectiveTrackerFrame or tracker
+		local container = tracker == _G.Questie_BaseFrame and tracker or _G.ObjectiveTrackerFrame or tracker
 		local rawBottom = Read(container, "GetBottom")
 		if rawBottom then bottom = rawBottom * Scale(container) / holderScale end
 	end

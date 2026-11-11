@@ -252,3 +252,63 @@ test('hiding Polestar in combat dismisses the secure reload prompt after combat'
 	emit({closed=not PolestarTrackerDockReload:IsShown(),hidden=Polestar.Hidden()})`,{enabled:false});
 	assert.deepEqual(out,{closed:true,hidden:true});
 });
+
+const QUESTIE = `
+Questie={db={profile={trackerEnabled=true,TrackerHeight=600,trackerHeightRatio=0.5,
+	trackerBackdropEnabled=true,trackerBackdropColor={r=0.1,g=0.2,b=0.3,a=0.4}}}}
+Questie_BaseFrame=CreateFrame("Frame",nil,UIParent)
+Questie_BaseFrame:SetSize(300,200)
+Questie_BaseFrame.y=700
+Questie_HeaderFrame={trackedQuests={label={GetFont=function() return "questie-font",14,"OUTLINE" end}}}
+ObjectiveTrackerFrame:Hide()
+`;
+
+test('Questie hosts the tabs when it replaces the Blizzard tracker, using its font and height limits',()=>{
+	const [out]=run(`
+	local tabs=PolestarTrackerDockTabs
+	local _,anchor,_,x=PolestarTrackerDockNativeAnchor:GetPoint(1)
+	local quests,guide
+	for _,button in ipairs({tabs:GetChildren()}) do
+		if button.label:GetText()=="Quests" then quests=button else guide=button end
+	end
+	local font,size,flags=guide.label:GetFont()
+	guide:Click()
+	local manual=GF.dock.available
+	local selected=GF.dock.pane:IsShown() and Questie_BaseFrame:GetAlpha()==0
+	Questie.db.profile.TrackerHeight=0
+	stub.advance(0.3)
+	local automatic=GF.dock.available
+	Questie_BaseFrame:Hide();stub.advance(0.3)
+	local hidden=not tabs:IsShown()
+	Questie_BaseFrame:Show();stub.advance(0.3)
+	quests:Click()
+	emit({questieAnchor=anchor==Questie_BaseFrame,x=x,font=font,size=size,flags=flags,
+		manual=manual,automatic=automatic,selected=selected,hidden=hidden,shown=tabs:IsShown(),
+		restored=Questie_BaseFrame:GetAlpha()==1,blizzardHidden=not ObjectiveTrackerFrame:IsShown()})`,{before:QUESTIE});
+	assert.deepEqual(out,{questieAnchor:true,x:0,font:'questie-font',size:14,flags:'OUTLINE',manual:596,
+		automatic:536,selected:true,hidden:true,shown:true,restored:true,blizzardHidden:true});
+});
+
+test('Questie initialization is awaited instead of binding to the tracker it hides',()=>{
+	const [out]=run(`
+	local waited=PolestarTrackerDockTabs==nil
+	Questie_BaseFrame=waitingQuestie
+	Questie_BaseFrame:SetWidth(25);stub.advance(0.3)
+	local sizing=PolestarTrackerDockTabs==nil
+	Questie_BaseFrame:SetWidth(300);stub.advance(0.3)
+	emit({waited=waited,sizing=sizing,attached=GF.dock~=nil})`,{
+		before:QUESTIE+'waitingQuestie=Questie_BaseFrame;Questie_BaseFrame=nil',
+	});
+	assert.deepEqual(out,{waited:true,sizing:true,attached:true});
+});
+
+for (const supported of [false,true]) {
+	test(`shared Questie tabs require an FTA host with Questie support (${supported})`,()=>{
+		const [out]=run(`emit({registered=hostRegistrations,ownTabs=PolestarTrackerDockTabs~=nil})`,{
+			before:QUESTIE+`hostRegistrations=0
+	FTAEllesmereTrackerDock={SupportsQuestie=${supported},CanDock=function() return true end,
+	RegisterGuide=function() hostRegistrations=hostRegistrations+1 end}`,
+		});
+		assert.deepEqual(out,{registered:supported?1:0,ownTabs:!supported});
+	});
+}

@@ -7,7 +7,7 @@ local active = false
 local polestarDock
 local tabOrder = {}
 local strip, holder, tracker, background
-local customTracker, nativeTracker, backgroundTexture, backgroundDivider
+local customTracker, nativeTracker, questieTracker, backgroundTexture, backgroundDivider
 local buttons = {}
 local writing = false
 local desiredAlpha = 1
@@ -63,6 +63,7 @@ local NATIVE_BACKDROP = {
 	insets = {left = 3, right = 3, top = 3, bottom = 3},
 }
 local function EllesmereStyle()
+	if questieTracker then return false end
 	local eqt = _G.EllesmereUIQuestTracker
 	if eqt and eqt.Blizz then return not eqt.Blizz() end
 	return not nativeTracker and EllesmereUI ~= nil
@@ -74,15 +75,17 @@ local OBJECTIVES_HEADER_LEFT_INSET = 10
 
 local function Paint()
 	local themed = EllesmereStyle()
-	local useHeaderArt = not themed and C_Texture and C_Texture.GetAtlasInfo
+	local useHeaderArt = not themed and not questieTracker and C_Texture and C_Texture.GetAtlasInfo
 		and C_Texture.GetAtlasInfo(OBJECTIVES_HEADER_ATLAS)
-	local header = not themed and (tracker.HeaderMenu or tracker.Header)
+	local questieHeader = questieTracker and _G.Questie_HeaderFrame
+	local header = not themed and not questieTracker and (tracker.HeaderMenu or tracker.Header)
 	local art = useHeaderArt and header and header.Background
 	local artHeight = art and art:GetHeight()
 	local matchHeader = artHeight and artHeight > 0
 	local tabAnchor = matchHeader and art or (nativeTracker and tracker or background)
 	local rowHeight = matchHeader and artHeight or 26
 	local rowScale = matchHeader and header:GetEffectiveScale() / UIParent:GetEffectiveScale() or 1
+	if questieTracker then rowScale = tracker:GetEffectiveScale() / UIParent:GetEffectiveScale() end
 	if strip:GetScale() ~= rowScale then strip:SetScale(rowScale) end
 	if strip:GetHeight() ~= rowHeight then strip:SetHeight(rowHeight) end
 	local leftExtension = 0
@@ -110,8 +113,14 @@ local function Paint()
 	local cr, cg, cb, ca = cfg.bgR or 0.035, cfg.bgG or 0.035,
 		cfg.bgB or 0.035, cfg.bgAlpha or 0.75
 	if not themed then cr, cg, cb, ca = 0.08, 0.06, 0.03, 0.8 end
+	if questieTracker then
+		local profile = Questie.db.profile
+		local color = profile.trackerBackdropColor or {}
+		cr, cg, cb = color.r or 0, color.g or 0, color.b or 0
+		ca = profile.trackerBackdropEnabled and (color.a or 0.75) or 0
+	end
 	for _, panel in ipairs({strip, holder}) do
-		if themed or (panel == strip and useHeaderArt) then
+		if themed or questieTracker or (panel == strip and useHeaderArt) then
 			panel:SetBackdrop(nil)
 		else
 			panel:SetBackdrop(NATIVE_BACKDROP)
@@ -133,8 +142,9 @@ local function Paint()
 	for _, key in ipairs(tabOrder) do
 		local button = buttons[key]
 		local selected = (key == "quests" and not active) or (active and key == "polestar")
-		local fontObject = not themed and ((header and header.Text)
-			or _G.ObjectiveTrackerHeaderFont or _G.GameFontNormalSmall)
+		local questieFont = questieHeader and questieHeader.trackedQuests and questieHeader.trackedQuests.label
+		local fontObject = questieFont or (not themed and ((header and header.Text)
+			or _G.ObjectiveTrackerHeaderFont or _G.GameFontNormalSmall))
 		if fontObject and fontObject.GetFont then
 			local path, size, flags = fontObject:GetFont()
 			if path and size then button.label:SetFont(path, size, flags or "") end
@@ -227,6 +237,7 @@ local function Initialize()
 	-- Forever's custom tracker replaces the Blizzard skin entirely. It has
 	-- its own frame and bg/topLine textures, not EllesmereUIQTBackground.
 	customTracker = _G.EUI_CustomQuestTracker ~= nil
+	questieTracker = false
 	tracker = customTracker and _G.EUI_CustomQuestTracker or _G.ObjectiveTrackerFrame
 	background = customTracker and tracker or _G.EllesmereUIQTBackground
 	if not tracker then
@@ -242,14 +253,20 @@ local function Initialize()
 		-- MidnightChores' native docking bounds: the visible NineSlice extends
 		-- 30px left and 5px right of ObjectiveTrackerFrame. Use our own FRAME
 		-- as the anchor, never a region or protected tracker child.
-		nativeTracker = true
+		local profile = _G.Questie and Questie.db and Questie.db.profile
+		questieTracker = profile and profile.trackerEnabled == true
+		if questieTracker then
+			tracker = _G.Questie_BaseFrame
+			if not tracker or tracker:GetWidth() <= 25 then return false end
+		end
+		nativeTracker = not questieTracker
 		background = CreateFrame("Frame", "PolestarTrackerDockNativeAnchor", ns.UIParent)
-		background:SetPoint("TOPLEFT", tracker, "TOPLEFT", -30, 0)
-		background:SetPoint("TOPRIGHT", tracker, "TOPRIGHT", 5, 0)
+		background:SetPoint("TOPLEFT", tracker, "TOPLEFT", nativeTracker and -30 or 0, 0)
+		background:SetPoint("TOPRIGHT", tracker, "TOPRIGHT", nativeTracker and 5 or 0, 0)
 		background:SetHeight(1)
 		background:EnableMouse(false)
 	end
-	if not nativeTracker then
+	if not nativeTracker and not questieTracker then
 		backgroundTexture = customTracker and tracker.bg or background._tex
 		backgroundDivider = customTracker and tracker.topLine or background._divider
 	end
@@ -311,7 +328,16 @@ function Skin.Enabled()
 end
 
 local function Host()
-	return _G.FTAEllesmereTrackerDock
+	local host = _G.FTAEllesmereTrackerDock
+	if not host or host.SupportsQuestie then return host end
+	local profile = _G.Questie and Questie.db and Questie.db.profile
+	local eqt = _G.EllesmereUIQuestTracker
+	local waitingForEllesmere = Loaded("EllesmereUIQuestTracker") and eqt and eqt.Blizz and not eqt.Blizz()
+	if profile and profile.trackerEnabled and not _G.EUI_CustomQuestTracker
+	    and not _G.EllesmereUIQTBackground and not waitingForEllesmere then
+	    return nil
+	end
+	return host
 end
 
 function Skin.SharedHost()
