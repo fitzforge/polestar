@@ -318,8 +318,9 @@ end
 -- Skin API 2) and its glow (the glow token: the light under the flat
 -- arrow, behind the arrival ring and a travel instruction's sign), read on
 -- each change of theme (OnTheme); nil for Polestar's. A game look's dart is
--- the client's art (media.dartArt): in its own colours, with no edge.
-local skinDart, skinDartEdge, skinDartArt
+-- the client's art (media.dartArt): in its own colours, with no edge, drawn
+-- media.dartScale times the dart's square (the art's own margin).
+local skinDart, skinDartEdge, skinDartArt, skinDartScale
 local skinGlow = {} -- r, g, b of the skin's glow token, or empty
 local function readSkinDart()
 	local Theme = ns.Theme
@@ -327,6 +328,7 @@ local function readSkinDart()
 	skinDart = media and media("dart") or nil
 	skinDartEdge = media and media("dartEdge") or nil
 	skinDartArt = media and media("dartArt") or nil
+	skinDartScale = media and tonumber(media("dartScale")) or nil
 	local r, g, b
 	if Theme and Theme.SkinToken then r, g, b = Theme.SkinToken("glow") end
 	skinGlow[1], skinGlow[2], skinGlow[3] = r, g, b
@@ -367,12 +369,14 @@ local function dialTint(d, r, g, b, lk)
 		local own = type(ns.Get("nav.arrowColor")) == "table"
 		local baked = not d.near and not own and (skinDartArt or (s == "hearth" and not skinDart and ns.Theme.SkinKey() ~= "hearth"))
 		local tex = skinDart or (UI_DIR .. (baked and "dart-gold" or "dart"))
-		if d.dartTex ~= tex then
-			d.dartTex = tex
+		local k = tex == skinDart and skinDartScale or 1
+		if d.dartTex ~= tex or d.dartScale ~= k then
+			d.dartTex, d.dartScale = tex, k
 			-- An atlas dart keeps its own proportions within the dart's square.
 			local w, h = ns.Theme.SetArt(d.dart, tex)
 			local m = w and h and max(w, h)
-			if m and m > 0 then d.dart:SetSize(DART * w / m, DART * h / m) else d.dart:SetSize(DART, DART) end
+			local sz = DART * k
+			if m and m > 0 then d.dart:SetSize(sz * w / m, sz * h / m) else d.dart:SetSize(sz, sz) end
 		end
 		if baked then d.dart:SetVertexColor(1, 1, 1, 1) else d.dart:SetVertexColor(r, g, b, 1) end
 		local edge = skinDartEdge or (UI_DIR .. "dart-edge")

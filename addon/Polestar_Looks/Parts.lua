@@ -51,11 +51,17 @@ METRICS.classic = setmetatable({ guideTabCloseRest = 1 }, { __index = GAME_METRI
 -- medallion under the map pins' glyphs (while the map icons follow the
 -- skin). WoW Forever: its quest arrow and the campaign quest's shield;
 -- Blizzard: the retail navigation arrow and quest marker; Classic: the
--- vanilla minimap arrow on the minimap's dark disc.
+-- vanilla minimap arrow on the minimap's dark disc. The client's art sits
+-- in a margin of its own (its shadow), so a part is drawn dartScale or
+-- medallionScale times its square: its picture is then Polestar's size (a
+-- dart 0.82 of its square tall, a medallion the whole of it; the
+-- quest arrow's is 0.62, the minimap arrow's 0.56, the quest marker's 0.62,
+-- the shield's 0.72).
 local PARTS = {
-	forever = { dart = "atlas:Minimap-QuestArrow", dartArt = true, medallion = "atlas:UI-QuestPoiCampaign-QuestNumber" },
-	blizzard = { dart = "atlas:Navigation-Tracked-Arrow", dartArt = true, medallion = "atlas:UI-QuestPoi-QuestNumber" },
-	classic = { dart = "Interface\\Minimap\\MinimapArrow", dartArt = true, medallion = "Interface\\Minimap\\UI-Minimap-Background" },
+	forever = { dart = "atlas:Minimap-QuestArrow", dartArt = true, dartScale = 1.3,
+		medallion = "atlas:UI-QuestPoiCampaign-QuestNumber", medallionScale = 1.35 },
+	blizzard = { dart = "atlas:Navigation-Tracked-Arrow", dartArt = true, medallion = "atlas:UI-QuestPoi-QuestNumber", medallionScale = 1.55 },
+	classic = { dart = "Interface\\Minimap\\MinimapArrow", dartArt = true, dartScale = 1.45, medallion = "Interface\\Minimap\\UI-Minimap-Background" },
 }
 for id, media in pairs(PARTS) do
 	local s = I.SKINS[id]

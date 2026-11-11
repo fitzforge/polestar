@@ -481,10 +481,12 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 // The game's looks draw their own waypoint arrow and map pins from the client's own art, through the parts a skin
 // addon gives (Skin API 2's media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the vanilla minimap
 // arrow on the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield, Blizzard the
-// retail navigation arrow and quest marker. Each dart shows in its own colours with no edge while far (an atlas
-// keeps its proportions in the dart's square: the client's sizes stand in here), and is tinted up close and in the
-// player's own arrow colour. Polestar's own look, Hearth and a skin addon keep theirs: a skin on a game look's base
-// draws its own parts, or Polestar's where it brings none.
+// retail navigation arrow and quest marker. Each dart shows in its own colours with no edge while far, and is
+// tinted up close and in the player's own arrow colour. The client's art sits in a margin of its own, so each part
+// is drawn larger than its square where the picture would come out smaller than Polestar's (WoW Forever's arrow and
+// shield, Classic's arrow, Blizzard's marker), and an atlas keeps its proportions (the client's sizes stand in
+// here). Polestar's own look, Hearth and a skin addon keep theirs: a skin on a game look's base draws its own parts,
+// or Polestar's where it brings none.
 #[test]
 fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_polestar_hearth_and_skin_addons_keep_theirs() {
 	let out = run_themed(
@@ -498,9 +500,10 @@ fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_pol
 		local function look()
 			local pin = targetPin()
 			local w, h = A.dart:GetSize()
+			local mw = pin.medal:GetSize()
 			return { style = A.GetStyle(), dart = file(A.dart), dartAtlas = A.dart:GetAtlas() or false, tint = rgb(A.dart),
 				edge = A.dartEdge:IsShown(), medal = file(pin.medal), medalAtlas = pin.medal:GetAtlas() or false,
-				size = string.format("%.1fx%.1f", w, h) }
+				size = string.format("%.1fx%.1f", w, h), medalScale = string.format("%.2f", mw / pin.medalPx) }
 		end
 		local out = {}
 		target(300, 400)
@@ -533,39 +536,43 @@ fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_pol
 	);
 	let pick = |k: &str, keys: &[&str]| -> Value { keys.iter().map(|f| ((*f).to_string(), out[k][*f].clone())).collect::<serde_json::Map<_, _>>().into() };
 	const WHITE: &str = "1.00,1.00,1.00";
-	assert_eq!(pick("polestar", &["style", "medal"]), json!({ "style": "3d", "medal": "medallion-polestar" }), "Polestar's own look");
+	assert_eq!(pick("polestar", &["style", "medal", "medalScale"]), json!({ "style": "3d", "medal": "medallion-polestar", "medalScale": "1.00" }), "Polestar's own look");
 	assert_eq!(
-		pick("hearth", &["style", "dart", "tint", "edge", "medal"]),
-		json!({ "style": "hearth", "dart": "dart", "tint": "1.00,0.58,0.25", "edge": true, "medal": "medallion-hearth" }),
+		pick("hearth", &["style", "dart", "tint", "edge", "medal", "size", "medalScale"]),
+		json!({ "style": "hearth", "dart": "dart", "tint": "1.00,0.58,0.25", "edge": true, "medal": "medallion-hearth", "size": "54.0x54.0", "medalScale": "1.00" }),
 		"Hearth keeps its ember dart and its own medallion"
 	);
 	assert_eq!(
-		pick("classic", &["style", "dart", "tint", "edge", "medal", "size"]),
-		json!({ "style": "hearth", "dart": "MinimapArrow", "tint": WHITE, "edge": false, "medal": "UI-Minimap-Background", "size": "54.0x54.0" }),
-		"Classic: the vanilla minimap arrow on the minimap's dark disc"
+		pick("classic", &["style", "dart", "tint", "edge", "medal", "size", "medalScale"]),
+		json!({ "style": "hearth", "dart": "MinimapArrow", "tint": WHITE, "edge": false, "medal": "UI-Minimap-Background", "size": "78.3x78.3", "medalScale": "1.00" }),
+		"Classic: the vanilla minimap arrow (1.45 times the square) on the minimap's dark disc"
 	);
 	assert_eq!(
-		pick("forever", &["dartAtlas", "tint", "edge", "medalAtlas", "size"]),
-		json!({ "dartAtlas": "Minimap-QuestArrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoiCampaign-QuestNumber", "size": "54.0x54.0" }),
-		"WoW Forever: its quest arrow and the campaign quest's shield"
+		pick("forever", &["dartAtlas", "tint", "edge", "medalAtlas", "size", "medalScale"]),
+		json!({ "dartAtlas": "Minimap-QuestArrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoiCampaign-QuestNumber", "size": "70.2x70.2", "medalScale": "1.35" }),
+		"WoW Forever: its quest arrow and the campaign quest's shield, both drawn larger"
 	);
 	assert_eq!(
-		pick("blizzard", &["dartAtlas", "tint", "edge", "medalAtlas", "size"]),
-		json!({ "dartAtlas": "Navigation-Tracked-Arrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoi-QuestNumber", "size": "54.0x44.2" }),
-		"Blizzard: the retail navigation arrow (22 x 18, kept) and quest marker"
+		pick("blizzard", &["dartAtlas", "tint", "edge", "medalAtlas", "size", "medalScale"]),
+		json!({ "dartAtlas": "Navigation-Tracked-Arrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoi-QuestNumber", "size": "54.0x44.2", "medalScale": "1.55" }),
+		"Blizzard: the retail navigation arrow (22 x 18, kept) and the quest marker, drawn larger"
 	);
 	assert_eq!(out["near"]["dartAtlas"], "Navigation-Tracked-Arrow");
 	assert_ne!(out["near"]["tint"], WHITE, "up close the look's dart takes the arrival colour");
 	assert_eq!(out["own"]["tint"], "0.20,0.60,1.00", "and the player's own arrow colour");
 	assert_eq!(out["ok"], json!([true, true]));
-	assert_eq!(pick("dartsAfter", &["dart", "edge", "medal"]), json!({ "dart": "my-dart", "edge": true, "medal": "medallion-hearth" }), "a skin addon on Classic's base: its own dart, tinted, edged");
+	assert_eq!(
+		pick("dartsAfter", &["dart", "edge", "medal", "size"]),
+		json!({ "dart": "my-dart", "edge": true, "medal": "medallion-hearth", "size": "54.0x54.0" }),
+		"a skin addon on Classic's base: its own dart in the square, tinted, edged"
+	);
 	assert_ne!(out["dartsAfter"]["tint"], WHITE);
 	assert_eq!(
-		pick("plainAfter", &["dart", "tint", "edge", "medal"]),
-		json!({ "dart": "dart-gold", "tint": WHITE, "edge": true, "medal": "medallion-hearth" }),
-		"one bringing none on Blizzard's base: Polestar's gold dart and medallion, as before"
+		pick("plainAfter", &["dart", "tint", "edge", "medal", "size", "medalScale"]),
+		json!({ "dart": "dart-gold", "tint": WHITE, "edge": true, "medal": "medallion-hearth", "size": "54.0x54.0", "medalScale": "1.00" }),
+		"one bringing none on Blizzard's base: Polestar's gold dart and medallion at their own size, as before"
 	);
-	assert_eq!(pick("polestarAfter", &["style", "medal"]), json!({ "style": "3d", "medal": "medallion-polestar" }));
+	assert_eq!(pick("polestarAfter", &["style", "medal", "medalScale"]), json!({ "style": "3d", "medal": "medallion-polestar", "medalScale": "1.00" }));
 }
 
 // Skin API 2's arrow and pin tokens and masks: a skin's glow token lights the flat arrow's glow and the arrival

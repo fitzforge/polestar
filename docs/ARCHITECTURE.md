@@ -3055,7 +3055,10 @@ change hides them:
   Blizzard's retail navigation arrow and quest marker, Classic's vanilla
   minimap arrow on the minimap's dark disc. A look's dart (`dartArt`) shows
   in its own colours with no edge while far and takes the arrival colour (or
-  the player's own arrow colour) as the house dart does.
+  the player's own arrow colour) as the house dart does. The client's art
+  sits in its own shadow margin, so a part may be drawn larger than its
+  square (`dartScale`, `medallionScale`) to show at Polestar's size; an
+  atlas dart keeps its proportions.
 
 Sources: `forever` names atlas elements (the Forever client draws its own
 -c60 art for them); `blizzard` draws the same elements in their retail art,
