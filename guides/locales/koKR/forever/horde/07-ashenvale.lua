@@ -56,21 +56,21 @@ return {
 	["Keep east on the road. {npc:12858} waits south-west of the Warsong lumber camp. He and his grunts storm the {area:2360}: let them take aggro and stay with {npc:12858} until {npc:12860} is dead."] = "길을 따라 계속 동쪽으로 가세요. {npc:12858}은(는) 전쟁노래부족 벌목기지 남서쪽에서 기다립니다. 그와 그의 부하들이 {area:2360}을(를) 습격합니다. 그들이 어그로를 끌게 하고 {npc:12860}이(가) 죽을 때까지 {npc:12858} 곁에 있으세요.",
 
 	-- Step 11: Warsong lumber camp
-	["Warsong lumber camp"] = "",
+	["Warsong lumber camp"] = "전쟁노래부족 벌목기지",
 	-- {area:2360} Silverwing Outpost · {npc:12867} Kuray'bin
-	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "",
+	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "{area:2360}에서 북동쪽으로, 길가의 전쟁노래부족 벌목기지로 가세요. {npc:12867}이(가) 그곳에 서 있습니다.",
 
 	-- Step 12: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "",
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "나이트 엘프 {quest:6503}(23-24)이(가) 벌목기지 남쪽과 남동쪽 숲에 숨어 다닙니다. 은신하므로 주의하세요.",
 
 	-- Step 13: Sharptalon
 	-- {npc:12676} Sharptalon
-	["{npc:12676}, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest."] = "",
+	["{npc:12676}, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest."] = "커다란 밤호랑이 {npc:12676}은(는) 같은 숲의 더 동쪽, 북쪽의 토막나무 주둔지로 가는 길에 돌아다닙니다. 그녀의 발톱이 다음 사냥 퀘스트를 시작합니다.",
 
 	-- Step 14: Warsong lumber camp
 	-- {npc:12867} Kuray'bin
-	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "",
+	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "북쪽 토막나무 주둔지로 가는 길가의 벌목기지에 있는 {npc:12867}에게 돌아가세요.",
 
 	-- Step 16: Senani Thunderheart
 	-- {npc:12696} Senani Thunderheart · {area:428} Night Run · {quest:6383} The Ashenvale Hunt · {npc:12678} Ursangous · {npc:12676} Sharptalon · {npc:12677} Shadumbra
@@ -248,7 +248,7 @@ return {
 	-- Step 56: Galak centaurs
 	["Galak centaurs"] = "갈라크일족 켄타우로스",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
-	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him."] = "",
+	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him."] = "갈라크일족 야영지가 높새바람 봉우리 북쪽 협곡을 가득 메우고 있으며, 모든 야영지에 척후병, 사냥꾼, 바람전사가 함께 있습니다. 홀로 다니는 {npc:10617}이(가) 야영지 사이의 긴 길을 오갑니다. 마주치면 처치하세요. 그의 쪽지가 {area:2237} 퀘스트를 시작합니다. 그를 기다리지는 마세요.",
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{npc:10617}의 {quest:4881}, 만나면",
 

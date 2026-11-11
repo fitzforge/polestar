@@ -26,7 +26,7 @@ return {
 
 	-- Step 7: Peacebloom & Silverleaf: Mulgore (1-50)
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "採集沿途經過的每一株{item:2447}（1，橙色）、{item:765}（1，橙色）、矮小的銀葉草（1，橙色，稀有）、枯萎的寧神花（1，橙色，稀有）、{item:2449}（15起），並繞著路徑點循環，直到{skill:182}50。地區等級1-10。這49點預計要採約60株草藥。",
 
 	-- Step 9: Journeyman Herbalism
 	-- {skill:182} Herbalism

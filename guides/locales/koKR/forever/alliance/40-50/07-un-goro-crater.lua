@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "",
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "49~50레벨 캐릭터용이지만, 여기 퀘스트 대부분은 51-53레벨입니다. 경험치를 위해 일부러 넣었습니다. 분화구의 야수는 48-55레벨, 고리쉬 실리시드는 51-54레벨이니 하나씩 끌어오세요.",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor

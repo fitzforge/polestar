@@ -25,7 +25,7 @@ return {
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {zone:1440} Ashenvale
 	-- plural, as words: Ashenvale Outrunners = {npc:12856} Ashenvale Outrunner
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "",
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "{area:431}은(는) 길을 따라 북쪽으로 조금만 가면 있습니다. 남쪽에서 들어오면 비행 조련사와 {area:428}의 {npc:12696} 사냥 게시판이 먼저 나오고, 그다음 상인들이 있습니다. 벌목기지의 {npc:12867}이(가) '잿빛골짜기 정찰꾼'을 주지만, 다음 {zone:1440} 방문 때인 26레벨로 미루세요.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "",
 
@@ -86,7 +86,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:431} Splintertree Post · {area:1637} Orgrimmar
-	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "",
+	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "여관에서 나와 {area:431}의 비행 조련사에게 가서 {area:1637}(으)로 날아가세요.",
 	-- {area:431} Splintertree Post
 	["{area:431} flight master"] = "",
 

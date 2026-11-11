@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Riggle Bassbait
 	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {npc:15077} Riggle Bassbait · {quest:8193} Master Angler · {skill:356} Fishing
-	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "",
+	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275}需要一个{item:274026}兑换，后者是赢得荆棘谷钓鱼大赛的奖励。比赛时间为服务器时间每周日下午2点到4点：比赛开始时站在{area:35}码头的{npc:15077}旁边。{quest:8193}不是需要接取的任务：你带着鱼来时，{npc:15077}会直接在他的窗口收下。尽量提高{skill:356}技能并带上鱼饵，避免鱼逃脱；带上坐骑、腾空背包，并将炉石绑定在{area:35}。",
 
 	-- Step 2: Schools of Tastyfish
 	["Schools of Tastyfish"] = "可口鱼群",

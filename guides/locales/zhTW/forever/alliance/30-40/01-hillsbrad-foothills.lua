@@ -190,7 +190,7 @@ return {
 	["Yeti cave"] = "雪人洞穴",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "",
+	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北邊山丘上的洞穴裡，就在往北去辛迪加營地的路上。\n待在{area:277}裡：更北邊的洞穴裡有成對出現的山嶺雪人和巨型雪人（32-34級），以及36級精英{npc:13602}。",
 
 	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "辛迪加營地",

@@ -26,7 +26,7 @@ return {
 
 	-- Step 3: Divine Grace: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul · {spell:13908} Desperate Prayer
-	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "",
+	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "10 级时，前往 {zone:1453} 的 {object:2098}，在圣光大教堂祭坛旁找 {npc:376} 接任务：她会当场教你 {quest:94773}。不需要介绍信；其他训练师给的信也可以（见后续步骤）。{quest:94773} 能立即治疗一名生命值低于一半的友方，并清除 {spell:6788}，让你可以再次给其套盾（冷却 5 分钟）；不能对自己使用。无限的人类牧师没有 {spell:13908}，改为使用这个法术。",
 
 	-- Step 4: Divine Grace: Josetta's letter
 	-- {quest:94774} Divine Grace

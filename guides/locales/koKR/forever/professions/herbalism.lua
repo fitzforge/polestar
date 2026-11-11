@@ -26,7 +26,7 @@ return {
 
 	-- Step 7: Peacebloom & Silverleaf: Mulgore (1-50)
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "지나가는 {item:2447}(1, 주황색), {item:765}(1, 주황색), 왜소한 은엽수잎(1, 주황색, 희귀), 시든 평온초(1, 주황색, 희귀), {item:2449}(15부터)을(를) 모두 채집하고, {skill:182} 50까지 경유지를 도세요. 지역 레벨 1-10. 이 49포인트에 약초 60개쯤 예상하세요.",
 
 	-- Step 9: Journeyman Herbalism
 	-- {skill:182} Herbalism

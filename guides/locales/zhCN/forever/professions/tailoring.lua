@@ -16,11 +16,11 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 1-75: vendor goods"] = "{skill:197} 1–75：商人材料",
 	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐整个阶段的用量：72个{item:2320}（7银20铜）；合计约7银20铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、菲利卡和{npc:5817}）。",
 
 	-- Step 3: Linen Cloth
 	-- {item:2589} Linen Cloth · {spell:2387} Linen Cloak · {item:7026} Linen Belt
-	["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "为{spell:2387}和{item:7026}准备144个{item:2589}：5-20级的人型生物会掉落。升级时把拾取到的留着，从银行取出，或在拍卖行购买。",
 
 	-- Step 4: Linen Cloak to 15
 	-- {spell:2387} Linen Cloak
@@ -44,21 +44,21 @@ return {
 	-- {skill:197} Tailoring
 	["Journeyman {skill:197}"] = "中级{skill:197}",
 	-- {skill:197} Tailoring · {npc:2627} Grarnik Goodstitch · {zone:1434} Stranglethorn Vale · {npc:5153} Jormund Stonebrow · {zone:1455} Ironforge · {npc:4159} Me'lynn · {zone:1457} Darnassus · {npc:252380} Othesia Evengale · {npc:5567} Sellandus · {zone:1453} Stormwind City · {npc:251991} Taleen Shimmerthread · {npc:3363} Magar · {zone:1454} Orgrimmar · {npc:3704} Mahani · {zone:1413} The Barrens · {npc:11049} Rhiannon Davis · {zone:1458} Undercity · {npc:3004} Tepa · {zone:1456} Thunder Bluff · {spell:2964} Bolt of Woolen Cloth · {spell:2402} Woolen Cape · {spell:1229504} Faction Banner · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread · {item:2592} Wool Cloth · {item:4306} Silk Cloth
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), {npc:5567} ({zone:1453}) and {npc:251991} (Zephras Isle); Horde {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and {npc:3004} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2964} (from 55, 1s) and {spell:2402} (from 55, 2s 50c). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 {item:2592} and 204 {item:4306} to gather or buy."] = "",
+	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), {npc:5567} ({zone:1453}) and {npc:251991} (Zephras Isle); Horde {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and {npc:3004} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2964} (from 55, 1s) and {spell:2402} (from 55, 2s 50c). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 {item:2592} and 204 {item:4306} to gather or buy."] = "中级裁缝可将上限从75提高到150，费用5银；需要{skill:197} 50及角色10级，因此技能达到50后，任意一次拜访都可学习。并非所有{skill:197}训练师都教：联盟有{npc:2627}（{zone:1434}）、{npc:5153}（{zone:1455}）、{npc:4159}（{zone:1457}）、{npc:252380}（泽风岛）、{npc:5567}（{zone:1453}）和{npc:251991}（泽风岛）；部落有{npc:2627}（{zone:1434}）、{npc:3363}（{zone:1454}）、{npc:3704}（{zone:1413}）、{npc:252380}（泽风岛）、{npc:11049}（{zone:1458}）、{npc:251991}（泽风岛）和{npc:3004}（{zone:1456}）。箭头会选择你阵营最近的训练师。现在学习：{spell:2964}（55起可学，1银）和{spell:2402}（55起可学，2银50铜）。再学{spell:1229504}（1银）：这是无限服的{skill:197}露营物品，需要一份{spell:2963}和一根{item:2320}，每个阵营各有自己的版本。起始地区露营向导提供的“露营基础：{skill:197}”任务（完成“广阔天地”后）会引导你去找可免费教授此技能的裁缝训练师。75-150大约需要11银学习配方、1金65银50铜购买商人物资，另需收集或购买567份{item:2592}和204份{item:4306}。",
 
 	-- Step 8: Tailoring 75-150: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 75-150: vendor goods"] = "{skill:197} 75–150：商人材料",
 	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐这个技能阶段所需的物资：108 个 {item:2321}（1 金 8 银）、34 个 {item:2324}（8 银 50 铜）和 98 个 {item:2604}（49 银币）；总计约 1 金 65 银 50 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、菲利卡和 {npc:5817}）。",
 
 	-- Step 9: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt
-	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "为{spell:2402}和{spell:3866}准备567个{item:2592}：15-30级的人型生物会掉落。升级时把拾取到的留着，从银行取出，或在拍卖行购买。",
 
 	-- Step 10: Silk Cloth
 	-- {item:4306} Silk Cloth · {spell:3871} Formal White Shirt
-	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "为{spell:3871}准备204个{item:4306}：25-45级的人型生物会掉落。升级时把拾取到的留着，从银行取出，或在拍卖行购买。",
 
 	-- Step 11: Woolen Cape to 104
 	-- {spell:2402} Woolen Cape
@@ -94,7 +94,7 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150–225：商人材料",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐本阶段的用量：44根 {item:2321}（44银币）、90根 {item:4291}（4金币50银币）、44份 {item:6260}（22银币）和80根 {item:8343}（16金币）；总计约21金币16银币。箭头会指向本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、菲利卡和 {npc:5817}）。",
 
 	-- Step 17: Pattern: Azure Silk Cloak
 	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
@@ -102,17 +102,17 @@ return {
 
 	-- Step 18: Silk Cloth
 	-- {item:4306} Silk Cloth · {item:7053} Azure Silk Cloak
-	["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "为{item:7053}准备264个{item:4306}：25-45级的人型生物会掉落。升级时把拾取到的留着，从银行取出，或在拍卖行购买。",
 
 	-- Step 19: Mageweave Cloth
 	-- {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "为{item:9998}和{item:10024}准备900个{item:4338}：35-50级的人型生物会掉落。升级时把拾取到的留着，从银行取出，或在拍卖行购买。",
 
 	-- Step 20: Expert Tailoring
 	-- {skill:197} Tailoring
 	["Expert {skill:197}"] = "高级{skill:197}",
 	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170) and {item:10024} (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
+	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170) and {item:10024} (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "高级将上限从150提高到225；需要{skill:197}125、角色20级，因此达到125后每次路过都可学习。只有少数训练师教授：联盟为{npc:1346}（{zone:1453}）；部落为{npc:4576}（{zone:1458}）。箭头会选择本阵营最近的一位。现在学习：{spell:3865}（140起）。150-225约需15银学习配方、21金16银购买商人物品，另需收集或购买264个{item:4306}和900个{item:4338}。来之前把材料全部放进背包（按上面的步骤准备，其余从拍卖行购买）：这些训练师也教授{item:9998}（170起）和{item:10024}（190起），而制作无需工作台，因此可以就在这里制作，达到所需技能时就学新配方。原本要跑 3 趟的事，现在一趟即可完成。",
 
 	-- Step 21: Azure Silk Cloak to 170
 	-- {item:7053} Azure Silk Cloak
@@ -155,7 +155,7 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 225-300: vendor goods"] = "{skill:197} 225–300：商人材料",
 	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐整个阶段的用量：116个{item:14341}（58金币）；合计约58金币。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、菲利卡和{npc:5817}）。",
 
 	-- Step 28: Pattern: Runecloth Gloves
 	-- {item:14481} Pattern: Runecloth Gloves · {item:13863} Runecloth Gloves · {skill:197} Tailoring · {npc:11189} Qia · {zone:1452} Winterspring
@@ -165,7 +165,7 @@ return {
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Alliance)"] = "{item:8170}（联盟）",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "为{item:13863}和{item:13867}准备420张{item:8170}：{skill:393}：剥取48-60级野兽；或从拍卖行购买。在这里剥取{npc:8598}、瘟疫犬和{npc:8596}（48-60级）；{skill:393}指南有对应路线。",
 
 	-- Step 30: Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
@@ -175,7 +175,7 @@ return {
 
 	-- Step 31: Runecloth
 	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
-	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "",
+	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "为{item:13856}、{item:13863}和{item:13867}准备3195个{item:14047}：45-60级的人型生物会掉落。升级时把拾取到的留着，从银行取出，或在拍卖行购买。",
 
 	-- Step 32: Ironweb Spider Silk (Alliance)
 	-- {item:14227} Ironweb Spider Silk

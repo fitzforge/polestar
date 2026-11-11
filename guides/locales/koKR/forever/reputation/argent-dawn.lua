@@ -54,7 +54,7 @@ return {
 	-- {item:13320} Arcane Quickener
 	["{item:13320}, 50 silver"] = "",
 	-- {area:201} Gahrron's Withering
-	["the cauldron at {area:201}: handed in from its window, never in the log"] = "",
+	["the cauldron at {area:201}: handed in from its window, never in the log"] = "{area:201}의 가마솥: 창에서 바로 제출하며, 퀘스트 목록에는 나타나지 않습니다",
 
 	-- Step 5: Light's Hope Chapel quests
 	-- {area:2268} Light's Hope Chapel

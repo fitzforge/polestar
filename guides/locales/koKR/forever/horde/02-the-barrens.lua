@@ -34,7 +34,7 @@ return {
 	["Razormane camp: {npc:3429}'s quilboar"] = "",
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 풍수사와 가시마술사는 서쪽 절반에, 사냥꾼은 가운데에, 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
 
 	-- Step 8: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -64,7 +64,7 @@ return {
 
 	-- Step 15: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서는 풍수사와 가시마술사가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자는 동쪽 끝에 있습니다.\n여기 초원타조도 부리 수집에 포함됩니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
 
 	-- Step 16: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -91,7 +91,7 @@ return {
 	["Thunder lizards across the river"] = "강 건너편의 천둥도마뱀",
 	-- {area:379} Far Watch Post · {area:369} Thunder Ridge
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "",
+	["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "천둥도마뱀과 번개도마뱀은 {area:379} 아래 다리 바로 건너편에서 풀을 뜯습니다.\n주의: 12레벨 정예 할리코르가 도마뱀들 사이로 {area:369}을(를) 돌아다닙니다. 끌어오기 전에 그를 살피세요.",
 
 	-- Step 27: Telf Joolam
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1411} Durotar · {npc:5900} Telf Joolam
@@ -116,7 +116,7 @@ return {
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: 제어판은 나중에 {area:382}에서 처리합니다",
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
-	["{npc:16227}, beside {npc:3442}"] = "",
+	["{npc:16227}, beside {npc:3442}"] = "{npc:3442} 옆의 {npc:16227}",
 	-- {object:3972} WANTED
 	["{object:3972} poster"] = "{object:3972} 게시판",
 	-- {quest:1492} Wharfmaster Dizzywig
@@ -167,7 +167,7 @@ return {
 	-- Step 43: The Disruption Ends
 	-- {npc:3438} Kreenig Snarlsnout
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near {npc:3438}: pull {npc:3438} and the quilboar away from them one at a time."] = "",
+	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near {npc:3438}: pull {npc:3438} and the quilboar away from them one at a time."] = "서슬갈기일족 야영지로 돌아가세요. 흙점쟁이와 파수병이 동쪽 절반을 차지하고 있고, {npc:3438}은(는) 그들 사이를 걸어 다닙니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 야영지 북동쪽, {npc:3438} 근처에 있는 정예입니다. {npc:3438}와(과) 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
 
 	-- Step 45: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -178,11 +178,11 @@ return {
 
 	-- Step 48: The Crossroads
 	-- {npc:3338} Sergra Darkthorn · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3432} Mankrik · {npc:3448} Tonga Runetotem · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {area:383} Dry Hills · {quest:853} Apothecary Zamah · {zone:1456} Thunder Bluff
-	["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate last. His seed test waits for the {npc:3395} pass at the {area:388}: go straight on north-west to the {area:383}. After the spores Helbrim offers {quest:853}, a delivery to {zone:1456} within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to {zone:1456})."] = "",
+	["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate last. His seed test waits for the {npc:3395} pass at the {area:388}: go straight on north-west to the {area:383}. After the spores Helbrim offers {quest:853}, a delivery to {zone:1456} within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to {zone:1456})."] = "먼저 여관 옆의 {npc:3338}, 그다음 여관주인, 북문 옆의 헬브림, 탑 승강장의 {npc:3429}와(과) {npc:3449}, 여관 옆의 {npc:3432}, 마지막으로 남문의 {npc:3448}을(를) 찾아가세요. 그의 씨앗 시험은 {area:388}의 {npc:3395}에게 가는 길까지 기다립니다. 지금은 곧장 북서쪽의 {area:383}(으)로 가세요. 포자를 제출하면 헬브림이 {quest:853}을(를) 주는데, 45분 안에 {zone:1456}까지 배달하는 퀘스트입니다. 이 경로는 그곳에 가지 않으니 받지 마세요(드루이드는 다음 크로스로드 방문 때, {zone:1456}(으)로 날아가기 직전에 받습니다).",
 	-- {npc:3432} Mankrik
 	["{npc:3432}: his wife lies at the north edge of the Bristleback camps, later"] = "",
 	-- {npc:3448} Tonga Runetotem · {area:388} Stagnant Oasis · {npc:3395} Verog the Dervish
-	["{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass"] = "",
+	["{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass"] = "{npc:3448}: {npc:3395}에게 가는 길에 {area:388}의 거품이 이는 균열",
 
 	-- Step 49: Harpy Lieutenants
 	-- {area:383} Dry Hills
@@ -207,11 +207,11 @@ return {
 
 	-- Step 54: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
-	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "",
+	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "북문으로 들어가서 먼저 {npc:3464}, 여관 옆의 {npc:3338}을(를) 찾은 다음, 비행 조련사가 있는 탑 승강장으로 올라가 {npc:3449}와(과) {npc:3429}을(를) 찾으세요.",
 	-- {npc:3464} Gazrog · {quest:3281} Stolen Silver · {area:385} Northwatch Hold
 	["{npc:3464}: the {quest:3281}, in a raptor nest north-west of {area:385}"] = "",
 	-- {npc:3390} Apothecary Helbrim · {zone:1456} Thunder Bluff
-	["{npc:3390}: 45 minutes, for Zamah on the {zone:1456} step next"] = "",
+	["{npc:3390}: 45 minutes, for Zamah on the {zone:1456} step next"] = "{npc:3390}: 45분, 바로 다음 {zone:1456} 단계의 자마에게",
 	-- {npc:3338} Sergra Darkthorn
 	["{npc:3338}: the raptor nests south of the Crossroads"] = "",
 	-- {npc:3449} Darsok Swiftdagger · {quest:876} Serena Bloodfeather · {area:383} Dry Hills
@@ -221,9 +221,9 @@ return {
 
 	-- Step 55: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {quest:853} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "",
+	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "크로스로드에서 {area:1638}(으)로 날아가세요. {quest:853}은(는) {area:1640} 아래 동굴인 {area:2197}에서 기다립니다. 제한 시간이 흐르는 동안 먼저 그곳에 포자를 제출하세요. 그다음 {area:1639}에서 {npc:3033}이(가) 훈련해 줍니다.",
 	-- {quest:853} Apothecary Zamah · {area:2197} Pools of Vision
-	["{quest:853}, in the {area:2197}"] = "",
+	["{quest:853}, in the {area:2197}"] = "{area:2197}의 {quest:853}",
 
 	-- Step 56: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -379,7 +379,7 @@ return {
 
 	-- Step 94: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "",
+	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}은(는) 크로스로드 남동쪽 {area:388}의 콜카르일족 사이를 걸어 다닙니다. 그곳에 있는 동안 오아시스 동쪽 기슭의 부글거리는 균열에서 {npc:3448}의 씨앗을 시험하세요.",
 	["Underwater"] = "",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "",
@@ -406,7 +406,7 @@ return {
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate. Keep the {item:5075}: {npc:3430} takes it on the next stop in {area:378}."] = "{area:458}을(를) 따라 북쪽 십자로로 가십시오. {npc:3448}은(는) 남문에, {npc:3432}은(는) 여관 옆에, {npc:3428}은(는) 북문 서쪽에 있습니다. {item:5075}은(는) 보관하십시오. 다음에 {area:378}에 들를 때 {npc:3430}에게 줍니다.",
 	-- {npc:3448} Tonga Runetotem · {area:387} Lushwater Oasis · {npc:3396} Hezrul Bloodmark · {zone:1454} Orgrimmar
 	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["{npc:3448}: the Oasis Snapjaws at {area:387}, with {npc:3396} after the {zone:1454} trip"] = "",
+	["{npc:3448}: the Oasis Snapjaws at {area:387}, with {npc:3396} after the {zone:1454} trip"] = "{npc:3448}: {area:387}의 오아시스 무쇠턱거북, {zone:1454}에 다녀온 뒤 {npc:3396}와(과) 함께",
 	-- {npc:3432} Mankrik · {quest:95774} Her Name Is Olgra · {quest:4921} Lost in Battle
 	["{npc:3432} offers {quest:95774} once {quest:4921} is handed in"] = "{quest:4921}을(를) 제출하면 {npc:3432}이(가) {quest:95774}을(를) 줍니다",
 	-- {npc:3428} Korran · {area:390} Field of Giants · {area:378} Camp Taurajo · {zone:1454} Orgrimmar
@@ -492,7 +492,7 @@ return {
 	-- Step 120: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
 	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "",
+	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "{npc:3396}은(는) {npc:3389}의 남쪽, {area:387} 서쪽 기슭에서 콜카르일족을 이끕니다. 그는 북쪽 46,36부터 남쪽 46,42까지 그 기슭을 걸어 다닙니다. 화살표 위치에 없으면 만날 때까지 기슭을 따라가세요. 마지막 크로스로드 방문 때 그의 머리를 {npc:3389}에게 주세요. 그곳 오아시스 물속에는 오아시스 무쇠턱거북이 기어 다닙니다. 그 껍질은 {npc:3448}에게 줄 것입니다.",
 
 	-- Step 121: Olgra's Adornments
 	-- {area:458} Gold Road · {area:378} Camp Taurajo · {item:277277} Olgra's Adornments · {npc:3432} Mankrik
@@ -551,7 +551,7 @@ return {
 
 	-- Step 132: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
-	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "",
+	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "{area:458}을(를) 따라 북쪽의 크로스로드로 가세요. {npc:3448}은(는) 남문에, {npc:3432}은(는) 여관 옆에, {npc:3428}은(는) 북문 서쪽에 있습니다.",
 
 	-- Step 133: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze
