@@ -359,6 +359,8 @@ mod skins_bundled;
 mod skins_concepts;
 #[path = "skins-hearth.rs"]
 mod skins_hearth;
+#[path = "skins-login.rs"]
+mod skins_login;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
 mod stranded;

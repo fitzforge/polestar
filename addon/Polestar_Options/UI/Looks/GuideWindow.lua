@@ -891,6 +891,9 @@ if O and O.PresetCards and O.Ref then
 			m = CreateFrame("Frame", nil, art)
 			m.Ground = CreateFrame("Frame", nil, m)
 			m.Ground:SetAllPoints(m)
+			-- The guide window's paint, not a big window's (title bar, drag
+			-- strip and metal over the card, #1802).
+			m.Ground.psGuide = true
 			Theme.Skin(m.Ground, "window")
 			-- The text, ticks and bar over the window's ground (a child frame
 			-- draws over its parent's own regions).

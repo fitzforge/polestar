@@ -2478,6 +2478,11 @@ local function build()
 	F:SetMovable(true)
 	F:EnableMouse(true)
 	F:SetSize(ns.Get("ui.width") or 340, 200)
+	-- The guide window's own frame in the game's looks from its first paint
+	-- (Polestar_Looks/GameSkins.lua GUIDE): painted before the flag, it took
+	-- the big windows' title bar and drag strip, which lay over the card above
+	-- it (#1802).
+	F.psGuide = true
 	Theme.Skin(F, "window")
 	F:SetScript("OnEnter", function() GF.HoverIn() end)
 	GF.frame = F

@@ -390,7 +390,6 @@ function GF.ApplySkin()
 	GF.ApplyFonts()
 	local skin = Theme.SkinKey()
 	skinShown = Theme.SkinId() .. "/" .. skin
-	F.psGuide = true
 	Theme.Repaint(F)
 	strip:SetHeight(TAB_H)
 	nav:SetHeight(NAV_H)
