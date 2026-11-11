@@ -2,6 +2,16 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "horde-thousand-needles-galak-messenger-roams",
+			"faction": "Horde",
+			"at": { "quest": 4841, "goal": "objective", "objective": 1 },
+			"tip": "The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him.",
+			"note": "Discord question (2026-11-09): the Galak Messenger (10617), whose note (12564) starts Assassination Plot (4881), walks a waypoint path of about 1,300 yd between the camps. The note and the accept are optional (route-fixes deliberate.optional 4881); the tip says not to wait for him. Kanati Greycloud's hand-in has its own step for whoever carries the plot.",
+			"source": [
+				{ "kind": "tdb", "ref": "creature 10617: MovementType 2, waypoint path 810106170 (66 nodes, 487 x 1215 yd)" }
+			]
+		},
+		{
 			"id": "elwynn-crystal-lake-murloc-packs-99128",
 			"faction": "Alliance",
 			"at": { "quest": 99128, "goal": "objective", "objective": 1 },

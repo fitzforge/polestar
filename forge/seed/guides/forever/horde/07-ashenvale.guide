@@ -354,7 +354,7 @@ step Alien Egg
   collect 12467 quest 4821 @37.6,56.1 map 1441
 
 step Galak centaurs
-  tip The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks between the camps: kill him when you meet him, his note starts a quest for Whitereach Post.
+  tip The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him.
   kill 4094 quest 4841.1
   kill 4093 quest 4841.2
   kill 4096 quest 4841.3

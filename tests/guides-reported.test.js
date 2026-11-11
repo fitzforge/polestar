@@ -9335,6 +9335,13 @@ test('Horde Thousand Needles: the Galak Messenger never holds the centaur step',
 	for (const { step, goal } of list.filter(({ goal }) => goal.quest === 4966 || (goal.t === 'turnin' && goal.quest === 4881))) {
 		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg), `${goal.t} ${goal.quest}: only while the plot's quest chain is in the log`);
 	}
+	// The decision is kept in records (a rebuild writes it back), and the step says not to wait for him.
+	const optional = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
+	assert.ok(optional.some((o) => o.q === 4881), 'a route-fixes record keeps 4881 optional');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 4841 && /Don't wait for him/.test(f.tip || '')), 'the tip is a guide-fixes record');
+	const { step } = list[at(list, 'the Galak camps', (g) => g.t === 'kill' && g.quest === 4841)];
+	assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Don't wait for him/);
 });
 
 // Final route review (0.3.6): the Tauren Shaman's first Telf Joolam step said he waits on the riverbank; he keeps his

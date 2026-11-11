@@ -6843,6 +6843,10 @@
 		],
 		"optional": [
 			{
+				"q": 4881,
+				"why": "Discord question (2026-11-09): Assassination Plot starts from the Assassination Note (12564), which only the Galak Messenger (10617) drops: one creature that walks a waypoint path about 1,300 yd long between the Galak camps of Thousand Needles (Forever's server data: MovementType 2, path 810106170, 66 nodes). Optional for the note and the accept (take it if you meet him); Kanati Greycloud's hand-in at Whitereach Post has its own step for whoever carries it, so it is never carried past."
+			},
+			{
 				"q": 565,
 				"why": "Final route review 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak needs a Hillman's Cloak (3719, Leatherworking) and a Bolt of Woolen Cloth (2997, Tailoring) besides the yeti fur and Fine Thread; no vendor sells either (Forever's item data: no vendors), and the route has no step that gets them. Optional, so the route does not count on it and the yeti cave is only for players who take it."
 			},
