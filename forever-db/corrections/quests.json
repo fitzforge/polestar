@@ -2533,13 +2533,31 @@
 	},
 	"78261": {
 		"set": {
-			"classes": 8
+			"classes": 8,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 210183,
+					"count": 1,
+					"text": "Horn of Xelthos"
+				}
+			]
 		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row: class mask 8 (Rogue), seen in game"
-		},
-		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 8 (Rogue), seen in game"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): one objective, Horn of Xelthos (210183) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: the one recorded accept listed the item x1 and an optional 'Find Veenix' line; both hand-ins were at the Dead Drop (410369)"
+			}
+		],
+		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it. Its objective is the Horn of Xelthos (210183) x1; the public data kept it only from players' caches, so this correction holds it when the quest database moves to a version without it (#1361 review)."
 	},
 	"78307": {
 		"set": {
@@ -3328,7 +3346,8 @@
 	},
 	"92750": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"xp": 120
 		},
 		"source": [
 			{
@@ -3338,13 +3357,22 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 21 people handed it in at a full-XP level (level up to the quest's 16 + 5); 21 of 21 hand-ins paid 120 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 115 (player traces, can be 5 off)"
 			}
 		],
-		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Detonation at a Distance rewards 120 XP on Forever, as players' hand-ins at a full-XP level show; the data had 575, which skewed the level model."
 	},
 	"92751": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"xp": 120
 		},
 		"source": [
 			{
@@ -3354,9 +3382,17 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 21 people handed it in at a full-XP level (level up to the quest's 16 + 5); 21 of 21 hand-ins paid 120 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 115 (player traces, can be 5 off)"
 			}
 		],
-		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Detonation at a Distance rewards 120 XP on Forever, as players' hand-ins at a full-XP level show; the data had 575, which skewed the level model."
 	},
 	"92752": {
 		"set": {
@@ -3778,13 +3814,32 @@
 	},
 	"94449": {
 		"set": {
-			"next": 94465
+			"next": 94465,
+			"start": {
+				"npc": [
+					258098,
+					258113,
+					257446
+				],
+				"object": [],
+				"item": []
+			}
 		},
-		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon 94465 PrevQuestID 94449 (BreadcrumbForQuestId 0)"
-		},
-		"note": "Call of Fire (Kharanos, Dwarf Shaman) leads on to Bruegs Kindleborn's Call of Fire 94465."
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 94465 PrevQuestID 94449 (BreadcrumbForQuestId 0)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: of 9 Dwarf Shamans' accepts, 1 was at Teo Hammerstorm (257446, Dun Morogh 28.8, 66.2), 2 at Ingrid Dunwald (258113), 1 at Eldrun Stormbreaker (258098)"
+			},
+			{
+				"kind": "questie",
+				"ref": "1.0.13 lists Teo Hammerstorm (257446) as a giver of Call of Fire"
+			}
+		],
+		"note": "Call of Fire (Kharanos, Dwarf Shaman) leads on to Bruegs Kindleborn's Call of Fire 94465. Teo Hammerstorm (257446) in Dun Morogh gives it too; the data had only Ingrid Dunwald (258113) and Eldrun Stormbreaker (258098)."
 	},
 	"94465": {
 		"set": {
@@ -4307,7 +4362,8 @@
 			],
 			"preAny": [
 				96627
-			]
+			],
+			"breadcrumbs": []
 		},
 		"source": [
 			{
@@ -4329,9 +4385,13 @@
 			{
 				"kind": "tdb",
 				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96627"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 27 characters were refused it at its giver while The Adventurer (96627) was still in their log, and 13 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite."
+		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96627) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96627."
 	},
 	"96101": {
 		"set": {
@@ -4354,7 +4414,8 @@
 			],
 			"preAny": [
 				96638
-			]
+			],
+			"breadcrumbs": []
 		},
 		"source": [
 			{
@@ -4368,9 +4429,13 @@
 			{
 				"kind": "tdb",
 				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96638"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 14 characters were refused it at its giver while The Adventurer (96638) was still in their log, and 10 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite."
+		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96638) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96638."
 	},
 	"96204": {
 		"set": {
@@ -4564,13 +4629,30 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"breadcrumbs": [],
+			"pre": [
+				96652
+			],
+			"preAny": [
+				96652
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231052Z-4d004155964992bc-xer0elrxvlpz-ykzshyaxdi, 20261104T231115Z-393c799db23f1aed-ck5nv2mx4gk3-b77l9bbshx, 20261104T231717Z-2dea17d83f0a53ac-ufi7fhjdwp58-2ed708dozh): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Durotar, Brakk): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231052Z-4d004155964992bc-xer0elrxvlpz-ykzshyaxdi, 20261104T231115Z-393c799db23f1aed-ck5nv2mx4gk3-b77l9bbshx, 20261104T231717Z-2dea17d83f0a53ac-ufi7fhjdwp58-2ed708dozh): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 24 characters were refused it at its giver while The Adventurer (96652) was still in their log, and 13 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "questie",
+				"ref": "The Adventurer (96652) ends at this quest's giver and leads to it (its breadcrumb link)"
+			}
+		],
+		"note": "The Great Outdoors (Durotar, Brakk): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96652), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96652."
 	},
 	"96605": {
 		"set": {
@@ -4587,13 +4669,30 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"breadcrumbs": [],
+			"pre": [
+				96659
+			],
+			"preAny": [
+				96659
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231308Z-0d4b1ec3b4db1afb-o2vokrnm57ik-7yf14jv091, 20261104T231707Z-c7c1676602f96700-mzwfbhydidtm-aeo3x67q3r, 20261104T231916Z-61fc8ceaa41acb96-cozqfy0ds8xv-cg0o5vr0mt): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Mulgore, Kaga Wildhoof): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231308Z-0d4b1ec3b4db1afb-o2vokrnm57ik-7yf14jv091, 20261104T231707Z-c7c1676602f96700-mzwfbhydidtm-aeo3x67q3r, 20261104T231916Z-61fc8ceaa41acb96-cozqfy0ds8xv-cg0o5vr0mt): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 9 characters were refused it at its giver while The Adventurer (96659) was still in their log, and 5 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "questie",
+				"ref": "The Adventurer (96659) ends at this quest's giver and leads to it (its breadcrumb link)"
+			}
+		],
+		"note": "The Great Outdoors (Mulgore, Kaga Wildhoof): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96659), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96659."
 	},
 	"96606": {
 		"set": {
@@ -4610,13 +4709,30 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"breadcrumbs": [],
+			"pre": [
+				96630
+			],
+			"preAny": [
+				96630
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231552Z-0a57c3bc4bfa30fa-m2wze6d8fqub-rjaqhquzne, 20261104T231630Z-74e1f22415d07c26-ophl7p6vkebl-pfuf2h9n1p, 20261104T231922Z-ab351786de0672c8-hijimn9x1nw7-zw7iub6xr2): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Teldrassil, Lyreena): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231552Z-0a57c3bc4bfa30fa-m2wze6d8fqub-rjaqhquzne, 20261104T231630Z-74e1f22415d07c26-ophl7p6vkebl-pfuf2h9n1p, 20261104T231922Z-ab351786de0672c8-hijimn9x1nw7-zw7iub6xr2): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 20 characters were refused it at its giver while The Adventurer (96630) was still in their log, and 14 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "questie",
+				"ref": "The Adventurer (96630) ends at this quest's giver and leads to it (its breadcrumb link)"
+			}
+		],
+		"note": "The Great Outdoors (Teldrassil, Lyreena): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96630), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96630."
 	},
 	"96607": {
 		"set": {
@@ -4639,7 +4755,8 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
-			]
+			],
+			"breadcrumbs": []
 		},
 		"source": [
 			{
@@ -4649,9 +4766,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (20261104T231310Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz, 20261104T231622Z-8bba550a7cd44bb5-roxpo93fzpkh-tgrecl06yt, 20261104T231818Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 30 characters were refused it at its giver while The Adventurer (96656) was still in their log, and 24 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in. The Great Outdoors (Tirisfal Glades, Eleanor Shackleton): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in. The Great Outdoors (Tirisfal Glades, Eleanor Shackleton): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The quest data also names The Adventurer (96656) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96656."
 	},
 	"96608": {
 		"set": {
@@ -4674,7 +4795,8 @@
 			],
 			"preAny": [
 				96628
-			]
+			],
+			"breadcrumbs": []
 		},
 		"source": [
 			{
@@ -4688,9 +4810,13 @@
 			{
 				"kind": "tdb",
 				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96628"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 22 characters were refused it at its giver while The Adventurer (96628) was still in their log, and 15 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96628) is handed in at the same camp, so it now needs it; our data had no prerequisite."
+		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96628) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96628) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96628."
 	},
 	"96655": {
 		"set": {
@@ -4715,7 +4841,8 @@
 			],
 			"preAny": [
 				382
-			]
+			],
+			"breadcrumbFor": null
 		},
 		"source": [
 			{
@@ -4729,9 +4856,13 @@
 			{
 				"kind": "in-game-check",
 				"ref": "#792"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96607), 30 characters were refused it at its giver while The Adventurer (96656) was still in their log, and 24 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Adventurer (Tirisfal, Executor Arren) is offered once The Red Messenger 382 is handed in, per ForeverTDB and QuestieDB. Three players at level 4 with Night Web's Hollow 380 still open were not offered it (#792, #793, #794); petllama saw Arren offer it in game once 382 was handed in (#792). The merged data had no prerequisite, so the Undead route took it at step 8, long before 382."
+		"note": "The Adventurer (Tirisfal, Executor Arren) is offered once The Red Messenger 382 is handed in, per ForeverTDB and QuestieDB. Three players at level 4 with Night Web's Hollow 380 still open were not offered it (#792, #793, #794); petllama saw Arren offer it in game once 382 was handed in (#792). The merged data had no prerequisite, so the Undead route took it at step 8, long before 382. The Adventurer (96656) is a prerequisite of The Great Outdoors (96607), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96607 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
 	},
 	"96821": {
 		"set": {
@@ -4875,7 +5006,8 @@
 			],
 			"preAny": [
 				97281
-			]
+			],
+			"races": 8589934770
 		},
 		"source": [
 			{
@@ -4893,9 +5025,13 @@
 			{
 				"kind": "recording",
 				"ref": "Horde 1-30 audit (#1414), xp: 19 hand-ins at a full-XP level paid 850 XP (QuestieDB 1.0.13's traces: 840); the data had 875"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 19 characters took it, every one an Orc or a Troll; no Alliance character is recorded with it"
 			}
 		],
-		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop)."
+		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop). It is a Horde quest: newer quest data drops the race mask and players' caches say every race, so this correction keeps it Horde only (#1361 review)."
 	},
 	"97284": {
 		"set": {
@@ -5020,7 +5156,8 @@
 			],
 			"preAny": [
 				97914
-			]
+			],
+			"xp": 625
 		},
 		"source": [
 			{
@@ -5030,9 +5167,17 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_all 97914"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 23 people handed it in at a full-XP level (level up to the quest's 17 + 5); 22 of 23 hand-ins paid 625 XP, the others 643 (1) (a 3% bonus on the base, or a level-reduced reward)"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 630 (player traces, can be 5 off)"
 			}
 		],
-		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs."
+		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs. Making Do rewards 625 XP on Forever, as players' hand-ins at a full-XP level show; the data had 130, which skewed the level model."
 	},
 	"98059": {
 		"set": {
@@ -5278,13 +5423,24 @@
 					"count": 1,
 					"text": "Mountaineer Cornelius found"
 				}
-			]
+			],
+			"xp": 350
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261105T014628Z-28c07733fef17d53-mnvhmrdot3xh-sykntogm9l): the game lists the objective as an event (\"Mountaineer Cornelius found\") at the accept, and it ticks with no object clicked"
-		},
-		"note": "Secure the Mountain: finding Mountaineer Cornelius in the Grizzled Den is an event in the game's quest log; the data had it as clicking an object named after him. The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261105T014628Z-28c07733fef17d53-mnvhmrdot3xh-sykntogm9l): the game lists the objective as an event (\"Mountaineer Cornelius found\") at the accept, and it ticks with no object clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 23 people handed it in at a full-XP level (level up to the quest's 8 + 5); 25 of 25 hand-ins paid 350 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 350 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Secure the Mountain: finding Mountaineer Cornelius in the Grizzled Den is an event in the game's quest log; the data had it as clicking an object named after him. The guides keep `complete` for it (#956). Secure the Mountain rewards 350 XP on Forever, as players' hand-ins at a full-XP level show; the data had 180, which skewed the level model."
 	},
 	"98389": {
 		"set": {
@@ -7382,5 +7538,349 @@
 			}
 		],
 		"note": "Sentiments of the Lost (Essene Villard to Corma Villard, Wetlands), the last of the Hearts of the Lost chain (87318, #1565), is not in the live game either. The quest leaves the data."
+	},
+	"96627": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (95998), 27 characters were refused it at its giver while The Adventurer (96627) was still in their log, and 13 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96627) is a prerequisite of The Great Outdoors (95998), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 95998 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96638": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96101), 14 characters were refused it at its giver while The Adventurer (96638) was still in their log, and 10 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96638) is a prerequisite of The Great Outdoors (96101), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96101 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96652": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96604), 24 characters were refused it at its giver while The Adventurer (96652) was still in their log, and 13 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96652) is a prerequisite of The Great Outdoors (96604), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96604 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96659": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96605), 9 characters were refused it at its giver while The Adventurer (96659) was still in their log, and 5 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96659) is a prerequisite of The Great Outdoors (96605), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96605 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96630": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96606), 20 characters were refused it at its giver while The Adventurer (96630) was still in their log, and 14 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96630) is a prerequisite of The Great Outdoors (96606), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96606 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96628": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96608), 22 characters were refused it at its giver while The Adventurer (96628) was still in their log, and 15 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96628) is a prerequisite of The Great Outdoors (96608), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96608 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"91723": {
+		"set": {
+			"xp": 525
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 21 people handed it in at a full-XP level (level up to the quest's 10 + 5); 21 of 23 hand-ins paid 525 XP, the others 420 (2) (a 3% bonus on the base, or a level-reduced reward)"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 530 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Delicate Instruments rewards 525 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"91732": {
+		"set": {
+			"xp": 320
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 18 people handed it in at a full-XP level (level up to the quest's 7 + 5); 18 of 18 hand-ins paid 320 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 315 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Good Steel rewards 320 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"91740": {
+		"set": {
+			"xp": 875
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 12 people handed it in at a full-XP level (level up to the quest's 11 + 5); 12 of 12 hand-ins paid 875 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 880 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Croaky's Head rewards 875 XP on Forever, as players' hand-ins at a full-XP level show; the data had 850, which skewed the level model."
+	},
+	"91745": {
+		"set": {
+			"xp": 25
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 21 people handed it in at a full-XP level (level up to the quest's 3 + 5); 24 of 24 hand-ins paid 25 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 25 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Mining Consultant rewards 25 XP on Forever, as players' hand-ins at a full-XP level show; the data had 130, which skewed the level model."
+	},
+	"91758": {
+		"set": {
+			"xp": 35
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 17 people handed it in at a full-XP level (level up to the quest's 4 + 5); 20 of 20 hand-ins paid 35 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 35 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Follow That Kobold! rewards 35 XP on Forever, as players' hand-ins at a full-XP level show; the data had 180, which skewed the level model."
+	},
+	"91772": {
+		"set": {
+			"xp": 360
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 16 people handed it in at a full-XP level (level up to the quest's 4 + 5); 19 of 19 hand-ins paid 360 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 355 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Shhh! We're Hunting Kobolds rewards 360 XP on Forever, as players' hand-ins at a full-XP level show; the data had 270, which skewed the level model."
+	},
+	"96139": {
+		"set": {
+			"xp": 1400
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 26 people handed it in at a full-XP level (level up to the quest's 23 + 5); 17 of 26 hand-ins paid 1,400 XP, the others 1442 (9) (a 3% bonus on the base, or a level-reduced reward)"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 1,400 (player traces, can be 5 off)"
+			}
+		],
+		"note": "The Valor Family rewards 1,400 XP on Forever, as players' hand-ins at a full-XP level show; the data had 1,750, which skewed the level model."
+	},
+	"96874": {
+		"set": {
+			"xp": 850
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790): 1 person handed it in at a full-XP level (level up to the quest's 10 + 5); 1 of 1 hand-ins paid 850 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 840 (player traces, can be 5 off)"
+			}
+		],
+		"note": "This Is Spinal Axe rewards 850 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"97914": {
+		"set": {
+			"xp": 625
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 36 people handed it in at a full-XP level (level up to the quest's 17 + 5); 35 of 36 hand-ins paid 625 XP, the others 643 (1) (a 3% bonus on the base, or a level-reduced reward)"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 630 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Expanding Horizons rewards 625 XP on Forever, as players' hand-ins at a full-XP level show; the data had 130, which skewed the level model."
+	},
+	"97944": {
+		"set": {
+			"xp": 270
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 4 people handed it in at a full-XP level (level up to the quest's 6 + 5); 4 of 4 hand-ins paid 270 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 270 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Camping 101: Herbalism rewards 270 XP on Forever, as players' hand-ins at a full-XP level show; the data had 220, which skewed the level model."
+	},
+	"98298": {
+		"set": {
+			"xp": 1150
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 1 person handed it in at a full-XP level (level up to the quest's 16 + 5), paid 1,184 XP, the 1,150 base with the 3% bonus some hand-ins carry"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 1,150 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Arugal's Folly rewards 1,150 XP on Forever, as players' hand-ins at a full-XP level show; the data had 575, which skewed the level model."
+	},
+	"99127": {
+		"set": {
+			"xp": 480
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 26 people handed it in at a full-XP level (level up to the quest's 7 + 5); 29 of 29 hand-ins paid 480 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 475 (player traces, can be 5 off)"
+			}
+		],
+		"note": "A Net Disaster rewards 480 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"99131": {
+		"set": {
+			"xp": 65
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 24 people handed it in at a full-XP level (level up to the quest's 7 + 5); 24 of 24 hand-ins paid 65 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 65 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Baited for Success rewards 65 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"99143": {
+		"set": {
+			"xp": 480
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 28 people handed it in at a full-XP level (level up to the quest's 7 + 5); 31 of 31 hand-ins paid 480 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 475 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Bottles and Baubles rewards 480 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"99159": {
+		"set": {
+			"xp": 350
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 13 people handed it in at a full-XP level (level up to the quest's 8 + 5); 15 of 15 hand-ins paid 350 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 350 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Finding Warmth rewards 350 XP on Forever, as players' hand-ins at a full-XP level show; the data had 700, which skewed the level model."
+	},
+	"99160": {
+		"set": {
+			"xp": 525
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 16 people handed it in at a full-XP level (level up to the quest's 8 + 5); 18 of 18 hand-ins paid 525 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 530 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Rime's Wrath rewards 525 XP on Forever, as players' hand-ins at a full-XP level show; the data had 700, which skewed the level model."
+	},
+	"97281": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 22 characters took it, every one an Orc or a Troll; no Alliance character is recorded with it"
+			},
+			{
+				"kind": "questie",
+				"ref": "1.0.10: Horde races only"
+			}
+		],
+		"note": "A Simmering Storm (Durotar: the Dull Storm Orb, a drop of the Dustwind Storm Witches, handed to Rezlak) is a Horde quest. Newer quest data drops the race mask and players' caches say every race, so this correction keeps it Horde only (#1361 review)."
 	}
 }

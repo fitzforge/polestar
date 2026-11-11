@@ -217,3 +217,42 @@ test('class quests the data left open are locked to their class, and Magma or La
 	assert.ok('races' in lava && lava.races === null, 'Magma or Lava?: no race limit');
 	assert.deepEqual(lava.end, { npc: [5497, 7825], object: [] }, 'its enders stay');
 });
+
+// #1490: The Great Outdoors' corrections gave it The Adventurer as its prerequisite, but the quest data also names The
+// Adventurer as its breadcrumb (The Great Outdoors' `breadcrumbs`, The Adventurer's `breadcrumbFor`), and a breadcrumb
+// never blocks, so the Codex had no prerequisite. Players' recordings: every Great Outdoors giver refuses it until The
+// Adventurer is handed in. The corrections clear both breadcrumb links, so the prerequisite stands over the data's.
+test('The Great Outdoors waits for The Adventurer, whatever breadcrumb links the data has (#1490)', () => {
+	const pairs = { 95998: 96627, 96101: 96638, 96604: 96652, 96605: 96659, 96606: 96630, 96607: 96656, 96608: 96628 };
+	for (const [g, a] of Object.entries(pairs).map(([g, a]) => [Number(g), a])) {
+		const ge = corrections.quests[g];
+		const ae = corrections.quests[a];
+		assert.ok(ge && ae, `corrections for ${g} and ${a}`);
+		// The records as the merged data has them (questie: breadcrumb links both ways), with the corrections applied.
+		const quest = { id: g, start: { npc: [1] }, breadcrumbs: [a], ...ge.set };
+		const adventurer = { id: a, start: { npc: [2] }, breadcrumbFor: g, ...ae.set };
+		const { all, any } = blockingPrereqs(quest, (id) => (id === a ? adventurer : null));
+		assert.deepEqual({ all, any }, { all: [], any: [a] }, `${g} after ${a}`);
+	}
+});
+
+// The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
+// players' recorded hand-ins at a full-XP level, but for Harvesting the Harvesters (92911): one hand-in in the 2026-11-08
+// count and none in the recordings archive now, so it stays as the data has it until a second source agrees. The corrections hold the recorded values, so the level model gets them.
+test('quest XP the recordings confirm is held by the corrections (1.0.13 trace XP check)', () => {
+	const xp = {
+		91723: 525, 91732: 320, 91740: 875, 91745: 25, 91758: 35, 91772: 360, 92750: 120, 92751: 120, 95495: 140, 95507: 1000,
+		95508: 1350, 95805: 360, 96130: 340, 96139: 1400, 96241: 2350, 96259: 2350, 96260: 1750, 96825: 550, 96874: 850, 97242: 110,
+		97246: 110, 97249: 110, 97253: 1050, 97282: 850, 97326: 550, 97914: 625, 97926: 625, 97944: 270, 98094: 1000, 98251: 1400,
+		98252: 925, 98298: 1150, 98319: 350, 99048: 80, 99049: 390, 99052: 1100, 99080: 875, 99082: 90, 99108: 270, 99127: 480,
+		99131: 65, 99143: 480, 99159: 350, 99160: 525,
+	};
+	const got = Object.fromEntries(Object.keys(xp).map((q) => [q, corrections.quests[q] && corrections.quests[q].set.xp]));
+	assert.deepEqual(got, Object.fromEntries(Object.entries(xp).map(([q, v]) => [q, v])));
+});
+
+test('Call of Fire has its third giver, The Horn of Xelthos its horn, and A Simmering Storm\'s chain stays Horde only (1.0.13 review)', () => {
+	assert.deepEqual(corrections.quests[94449].set.start.npc, [258098, 258113, 257446], 'Teo Hammerstorm in Dun Morogh gives Call of Fire too');
+	assert.deepEqual(corrections.quests[78261].set.objectives, [{ type: 'item', id: 210183, count: 1, text: 'Horn of Xelthos' }]);
+	for (const q of [97281, 97282]) assert.equal(corrections.quests[q] && corrections.quests[q].set.races, 8589934770, `${q}: Horde races`);
+});

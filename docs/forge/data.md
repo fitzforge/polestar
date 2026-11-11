@@ -370,6 +370,10 @@ Rules:
 - Mechanics corrections are applied last, and they always drive the route.
 - `tests/data-corrections.test.js` checks that every prerequisite correction really blocks the
   quest.
+- A breadcrumb never blocks: a prerequisite a correction sets that the data also names as the
+  quest's breadcrumb (its `breadcrumbs`, or the other quest's `breadcrumbFor`) is dropped, and
+  `forge data check-corrections` warns. When it is a real prerequisite, also set `breadcrumbs`
+  without it and `breadcrumbFor: null` on the other quest (#1490, The Great Outdoors).
 
 After editing, run `forge data check-corrections`, then `forge data build`, and look at the changed
 record in `data/forever`.

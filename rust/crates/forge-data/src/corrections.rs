@@ -886,6 +886,40 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 				ck.err(format!("{at}.set.{k}"), format!("quest {id} cannot list itself"));
 			}
 		}
+		// A prerequisite this correction sets that is also one of the quest's breadcrumbs (its `breadcrumbs`, or the
+		// other quest's `breadcrumbFor`, as the correction or else the data has them): every prerequisite reader
+		// drops breadcrumbs (forge-guide prereqs), so it never blocks (#1490: The Great Outdoors after The Adventurer).
+		let found: Vec<(String, String)> = {
+			let data_q = |q: &str| ck.table("quests").map(|t| t.get(q)).unwrap_or(V::Undef);
+			let field = |q: &str, f: &str| {
+				let cs = c.get("quests").get(q).get("set");
+				if cs.has(f) {
+					cs.get(f)
+				} else {
+					data_q(q).get(f)
+				}
+			};
+			let crumbs: Vec<String> = field(&id, "breadcrumbs").items().iter().map(|x| num_str(x.num())).collect();
+			let mut out = Vec::new();
+			for k in ["pre", "preAny", "preAll"] {
+				for p in set.get(k).items().iter().map(|x| num_str(x.num())) {
+					let how = if crumbs.contains(&p) {
+						Some(format!("quest {id}'s `breadcrumbs` list it"))
+					} else if num_str(field(&p, "breadcrumbFor").num()) == id {
+						Some(format!("its `breadcrumbFor` is {id}"))
+					} else {
+						None
+					};
+					if let Some(how) = how {
+						out.push((format!("{at}.set.{k}"), format!("quest {p} is a prerequisite and a breadcrumb ({how}): breadcrumbs never block, so this prerequisite is dropped. A real prerequisite: set `breadcrumbs` without it here and `breadcrumbFor` null on quest {p}; only a breadcrumb: leave it out of {k}")));
+					}
+				}
+			}
+			out
+		};
+		for (a, m) in found {
+			ck.warn(a, m);
+		}
 	}
 	for kind in ["npcs", "objects"] {
 		for (id, e) in ck.section_ids(kind, &c.get(kind)) {
@@ -1785,6 +1819,31 @@ mod tests {
 		let o = r#"{ "about": "", "deliberate": { "pairs": [{ "a": ["turnin", 11], "b": ["task", 10], "why": "a report" }], "keep": [{ "q": 10 }] },
 			"overrides": { "include": [{ "q": 10, "after": ["turnin", 11], "reason": "players do" }], "skip": [], "revert": [] } }"#;
 		assert_eq!(findings(Some(c), Some(m), Some(o)), Vec::<String>::new());
+	}
+
+	// #1490: a correction set The Great Outdoors' `pre` to The Adventurer, which the data names as its breadcrumb (the
+	// quest's `breadcrumbs` and The Adventurer's `breadcrumbFor`): prerequisite readers drop breadcrumbs, so the Codex
+	// had no prerequisite. The check warns until both breadcrumb links are cleared, by the correction or in the data.
+	#[test]
+	fn a_prerequisite_that_is_also_a_breadcrumb_warns_until_both_links_are_cleared() {
+		let mut t = tables();
+		t.quests = parse_json(r#"{ "10": { "id": 10, "breadcrumbs": [11] }, "11": { "id": 11, "breadcrumbFor": 10 }, "12": { "id": 12 } }"#).unwrap();
+		let run = |c: &str| -> Vec<String> {
+			check(&CheckInputs { corrections: Some(("c", c)), mechanics: None, route_fixes: None, places: None, guide_fixes: None, data: Some(&t) })
+				.into_iter()
+				.map(|f| format!("{} {}: {}", f.severity, f.at, f.message))
+				.collect()
+		};
+		let src = r#""source": { "kind": "recording", "ref": "refused before, offered after" }, "note": "a prerequisite""#;
+		let pre = |extra: &str, other: &str| format!(r#"{{ "quests": {{ "10": {{ "set": {{ "pre": [11], "preAny": [11]{extra} }}, {src} }}{other} }} }}"#);
+		let f = run(&pre("", ""));
+		assert_eq!(f.len(), 2, "{f:#?}");
+		assert!(f[0].starts_with("warning quests.10.set.pre: quest 11 is a prerequisite and a breadcrumb (quest 10's `breadcrumbs` list it)"), "{f:#?}");
+		let f = run(&pre(r#", "breadcrumbs": []"#, ""));
+		assert!(f.len() == 2 && f[1].contains("(its `breadcrumbFor` is 10)"), "{f:#?}");
+		let cleared = format!(r#", "11": {{ "set": {{ "breadcrumbFor": null }}, {src} }}"#);
+		assert_eq!(run(&pre(r#", "breadcrumbs": []"#, &cleared)), Vec::<String>::new());
+		assert_eq!(run(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "pre": [12] }}, {src} }} }} }}"#)), Vec::<String>::new());
 	}
 
 	fn record_findings(p: Option<&str>, g: Option<&str>) -> Vec<String> {
