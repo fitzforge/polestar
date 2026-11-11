@@ -1257,5 +1257,24 @@
 			}
 		],
 		"note": "Lady Jaina Proudmoore stands in Theramore's tower (the merged data's only spawn) and beside North Point Tower, where players hand her The Missing Diplomat (1267); Forever's NPC page lists both. Without the second spot the guide's hand-in there drew a lint warning."
+	},
+	"5814": {
+		"set": {
+			"roles": [
+				"innkeeper",
+				"vendor"
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature_template npcflag 65667 for entry 5814: gossip, quest giver, vendor and innkeeper, no repair"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 npcFlags 135 for npc 5814: vendor and innkeeper, no repair"
+			}
+		],
+		"note": "Innkeeper Thulbek at Grom'gol is an innkeeper who sells food and drink; he does not repair. Only pfQuest lists him among the repairers, so the merged data gave him a repair role (#1820)."
 	}
 }

@@ -269,3 +269,22 @@ test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s ra
 	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
 	assert.deepEqual([79361, 79442].map(races), [HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
 });
+
+// #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
+// fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
+// vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
+// (TDB, QuestieDB 1.0.14, recorded windows): he is the only spawned one.
+test('Innkeeper Thulbek sells no bow or gun and does not repair (#1820)', () => {
+	assert.deepEqual(corrections.items[2511].removeVendors, [5814]);
+	assert.deepEqual(corrections.npcs[5814].set.roles, ['innkeeper', 'vendor']);
+});
+
+test('the release data and Codex give Innkeeper Thulbek no Bows & guns or repair role (#1820)', (t) => {
+	const dir = path.join(__dirname, '..', 'data', 'forever');
+	if (!fs.existsSync(path.join(dir, 'items.json'))) return t.skip('no data/forever');
+	const read = (f) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+	assert.ok(!read('items.json')[2511].vendors.includes(5814), "Hunter's Boomstick: not sold by him");
+	assert.deepEqual(read('npcs.json')[5814].roles, ['innkeeper', 'vendor']);
+	const codex = path.join(dir, 'codex', 'npcs.json');
+	if (fs.existsSync(codex)) assert.deepEqual(JSON.parse(fs.readFileSync(codex, 'utf8'))[5814].roles, ['innkeeper', 'sells:food', 'vendor']);
+});
