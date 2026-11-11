@@ -7774,7 +7774,13 @@
 				"object": []
 			},
 			"minLevel": 24,
-			"objectiveText": "Speak with the Image of Archmage Modera near Dalaran."
+			"objectiveText": "Speak with the Image of Archmage Modera near Dalaran.",
+			"pre": [
+				96984
+			],
+			"preAny": [
+				96984
+			]
 		},
 		"source": [
 			{
@@ -7784,9 +7790,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB 1.0.10 (Forever) gives minimum level 24; EG Link's caches have no quest record for it"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Magus Wordeen Voidglare refused Shrewd Negotiations to 27 people (10 established) before they had handed in Heart of Disruption (96984), and offered it to 15, every one after handing it in (#1837 sweep)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest row: prerequisite (all of) 96984"
 			}
 		],
-		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city. Minimum level: recordings suggest 31, unconfirmed; review 0.3.7. Pinned at 24 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
+		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city. Minimum level: recordings suggest 31, unconfirmed; review 0.3.7. Pinned at 24 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees. It follows Heart of Disruption (96984), handed in to Voidglare, which the merged data did not say."
 	},
 	"870": {
 		"set": {
@@ -9358,5 +9372,29 @@
 			}
 		],
 		"note": "Prehistoric Prism (Prospector Whelgar to High Explorer Magellas) carries the Titan Relic Whelgar hands over (item 287959). The merged data asked for item 270865, the relic Lost Relic Carry (95810) already took back, so lint warned that no goal gets it before Magellas."
+	},
+	"545": {
+		"set": {
+			"pre": [
+				544,
+				93680
+			],
+			"preAll": [
+				544,
+				93680
+			],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): 27 people (12 established) took Dalaran Patrols, every one after handing in both Prison Break In (544) and Key to the City (93680); the 21 who handed in Prison Break In first were each given it within 10 seconds of handing in Key to the City and never at Prison Break In's hand-in, 4 of them 13 minutes to 32 hours later"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1837: with Prison Break In handed in and Key to the City still in the log, Magus Wordeen Voidglare did not offer Dalaran Patrols; once Key to the City was handed in, he did"
+			}
+		],
+		"note": "Dalaran Patrols (Magus Wordeen Voidglare, Tarren Mill) opens only once both of his first quests are handed in: Prison Break In (544) and Key to the City (93680). QuestieDB, the world DB and Forever's quest data list Prison Break In only, so the City of Dalaran pick-up guide sent players to him for it while Key to the City was still open (#1837)."
 	}
 }

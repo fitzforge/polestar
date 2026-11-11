@@ -221,6 +221,12 @@ test('dungeon quests started or handed in inside the dungeon name the NPC there,
 	assert.deepEqual(q(98824).objectives, [{ type: 'item', id: 287959, count: 1, text: 'Titan Relic' }], "Prehistoric Prism: the relic Whelgar hands over, not Lost Relic Carry's");
 });
 
+test('Dalaran Patrols waits for both Prison Break In and Key to the City, Shrewd Negotiations for Heart of Disruption (#1837)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [2410] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(545), { all: [544, 93680], any: [] }, 'Magus Wordeen Voidglare: Dalaran Patrols');
+	assert.deepEqual(blocks(97287), { all: [], any: [96984] }, 'Magus Wordeen Voidglare: Shrewd Negotiations');
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
