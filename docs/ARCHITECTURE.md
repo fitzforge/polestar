@@ -1866,11 +1866,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   quest's chain in the guides leading here (`next` or a route choice, back
   8 guides; a quest in the log only handed in). A chain goes in when it
   opens an accept that is not grey, all its places are in the guide's own
-  zones, and, done before the first accept it opens, it costs at most 5
-  minutes (`Own.feedCost`: a straight-run detour there and back from the
-  nearest place the guide and the feeder steps already in go before that
-  accept, plus 90 s per objective); its source steps, with its goals only,
-  go after the guide's nearest step before that accept. Every other such
+  zones, it holds no step of a dungeon run (`when dungeon`, chosen or not)
+  and no group quest (one its step asks about, `when group`, or a goal's
+  compiled `group`: a dungeon or raid quest, an elite), it crosses no step on
+  a group quest the character skipped (`Own.choicesHold`, which the planner
+  also applies, with the dungeon choice, to the guide's own steps; a feeder
+  step does not carry its source step's `when`), and, done before the first
+  accept it opens, it costs at most 5 minutes (`Own.feedCost`: a straight-run
+  detour there and back from the nearest place the guide and the feeder
+  steps already in go before that accept, plus 90 s per objective); its
+  source steps, with its goals only, go after the guide's nearest step
+  before that accept. Every other such
   accept is left out with all of its quest's goals, and a step left with no
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept

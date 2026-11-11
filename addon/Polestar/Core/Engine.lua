@@ -1343,13 +1343,27 @@ function Own.goneSource(g, idx)
 	end
 end
 
+-- Whether a step's conditions on the character's own choices hold now, as
+-- the step reads them (Own.predicateHolds): a dungeon run they chose (`when
+-- dungeon`, Engine.DungeonChosen) and a group quest they did not skip (`when
+-- group`). A dungeon's steps in a leveling guide are not the route of a
+-- character who skips that dungeon, in the guide's own plan or as a feeder.
+function Own.choicesHold(step)
+	for _, p in ipairs(step.when or NONE) do
+		if (p.k == "dungeon" or p.k == "group") and not Own.predicateHolds(p) then return false end
+	end
+	return true
+end
+
 -- Whether a step's quest conditions (`when onquest`, `complete`, `turnedin`,
--- negated or not) can hold for the character now, for the planner, which
+-- negated or not) and its conditions on the character's choices
+-- (Own.choicesHold) can hold for the character now, for the planner, which
 -- reads guides no tab shows: a step for those who carry a quest (Loch Modan's
 -- hand-in of Expanding Horizons, `when onquest 97914`) is not the route of a
 -- character without it, so it neither brings its quests nor asks for feeders
 -- (#1353 upgrade). Other conditions are taken to hold.
 function Own.whenMayHold(step)
+	if not Own.choicesHold(step) then return false end
 	local C = Compat()
 	for _, p in ipairs(step.when or NONE) do
 		local qs = type(p.q) == "table" and p.q or (p.q and { p.q }) or NONE
@@ -1380,16 +1394,16 @@ end
 -- (Own.feederChain; none: a gap of the route, left as it is). A chain goes
 -- in when it opens an accept here that is not grey for the character, every
 -- goal of its steps with a place is in one of g's own zones (the maps of its
--- steps), and done before the first accept it opens it adds at most
--- FEED_LOCAL to the route from where g and the feeder steps already in go
--- before that accept (Own.feedCost; the feeder quests themselves may be
--- grey); chains opening the most go first. Its steps (those of the guides
--- leading here holding its goals, with those goals only, in route order,
--- each titled as in its guide, with `feeder` = that guide's id and
--- `feederStep` = its step there) go after the step of g before that accept
--- nearest each, in order. The accepts of every other chain are left out,
--- with all of their quest's goals; a step that loses a goal that way and has
--- no quest goal left goes.
+-- steps), it holds no dungeon run's step and no group quest (`keepable`),
+-- and done before the first accept it opens it adds at most FEED_LOCAL to
+-- the route from where g and the feeder steps already in go before that
+-- accept (Own.feedCost; the feeder quests themselves may be grey); chains
+-- opening the most go first. Its steps (those of the guides leading here
+-- holding its goals, with those goals only, in route order, each titled as
+-- in its guide, with `feeder` = that guide's id and `feederStep` = its step
+-- there) go after the step of g before that accept nearest each, in order.
+-- The accepts of every other chain are left out, with all of their quest's
+-- goals; a step that loses a goal that way and has no quest goal left goes.
 -- -> { steps, feeders (steps put in), hidden = { [quest] = { title, need,
 -- needTitle, from (guide title) } }, cost, fromBase (g's step -> new step),
 -- legs (g's step -> true where its baked leg still leads in) }
@@ -1589,6 +1603,24 @@ function Own.feederPlan(g)
 		end
 		return true
 	end
+	-- Never a feeder: a chain through a step of a dungeon run (`when dungeon`,
+	-- chosen or not: Own.dungeonStep) or a step on a group quest the character
+	-- skipped (Own.choicesHold); a chain holding a group quest (one its step
+	-- asks about, `when group`) or group content among its goals (compiled
+	-- `group`: a dungeon or raid quest, an elite). A feeder step does not
+	-- carry its source step's `when`.
+	local function keepable(ch, steps)
+		for _, st in ipairs(steps) do
+			if Own.dungeonStep(st.step) or not Own.choicesHold(st.step) then return false end
+			for _, p in ipairs(st.step.when or NONE) do
+				if p.k == "group" and ch.quests[p.q] then return false end
+			end
+			for _, goal in ipairs(st.goals) do
+				if type(goal.group) == "table" and type(goal.group.kind) == "string" then return false end
+			end
+		end
+		return true
+	end
 	local function opens(ch)
 		local n = 0
 		for _, d in ipairs(ch.deps) do
@@ -1609,7 +1641,7 @@ function Own.feederPlan(g)
 	local gaps, placed, placedAt, cost = {}, {}, {}, 0
 	for _, ch in ipairs(list) do
 		local mine = ch.ok and opens(ch) > 0 and stepsOf(ch.quests)
-		if mine and local_(mine) then
+		if mine and local_(mine) and keepable(ch, mine) then
 			local U = #g.steps + 1
 			for _, d in ipairs(ch.deps) do
 				if d.s < U then U = d.s end

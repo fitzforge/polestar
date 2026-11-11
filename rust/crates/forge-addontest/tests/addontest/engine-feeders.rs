@@ -632,3 +632,79 @@ fn t_1442_darkshore_s_follow_ups_for_a_night_elf_who_skipped_its_own_darkshore_a
 	let route = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_DARKSHORE_DONE, NE_DARKSHORE_LOG, "forever/alliance/03-darkshore", ALL_MINE);
 	assert!(lines(&route["feeders"]).is_empty() && ids(&route["hidden"]).is_empty(), "{route}");
 }
+
+// Dungeon runs and group content are never feeders. An earlier guide (test/d1) does The Deep Fathoms (7001),
+// its steps' `when` WHEN (a dungeon run, or a group quest's question) and its goals' compiled `group` GROUP (KILL
+// on the kill alone); the guide after it (test/d2) takes After the Deeps (7002), which needs it, and Naga Scales
+// (7003), which needs nothing. Every place is a few yards from the guide's own stop, so only the guard keeps the
+// chain out: the copy of a step leaves its `when` behind, and the cost of a dungeon run, its objective at the
+// door, reads as a short walk.
+const DEEPS: &str = r#"
+local A = 1440
+local function at(t) t.map, t.x, t.y = A, t.x or 70, t.y or 66 return t end
+Polestar.RegisterGuide({ id = "test/d1", pack = "test", title = "Ashenvale Shore", faction = "Horde", minLevel = 20, maxLevel = 22, next = "test/d2", steps = {
+	{ title = "Zoram'gar Outpost", when = WHEN, goals = { at({ t = "accept", quest = 7001, title = "The Deep Fathoms", qlvl = 24, group = GROUP }) } },
+	{ title = "The Deeps", when = WHEN, goals = { at({ t = "kill", quest = 7001, oi = 1, target = "Twilight Lord", count = 1, x = 71, y = 64, group = KILL or GROUP }) } },
+	{ title = "Zoram'gar Outpost", when = WHEN, goals = { at({ t = "turnin", quest = 7001, title = "The Deep Fathoms", group = GROUP }) } },
+} })
+Polestar.RegisterGuide({ id = "test/d2", pack = "test", title = "Ashenvale Coast", faction = "Horde", minLevel = 22, maxLevel = 26, steps = {
+	{ title = "Zoram'gar Outpost", goals = { at({ t = "accept", quest = 7003, title = "Naga Scales", qlvl = 24 }) } },
+	{ title = "Zoram'gar Outpost", goals = { at({ t = "accept", quest = 7002, title = "After the Deeps", pre = { 7001 }, qlvl = 24 }) } },
+	{ title = "Zoram'gar Outpost", goals = { at({ t = "turnin", quest = 7002, title = "After the Deeps" }), at({ t = "turnin", quest = 7003, title = "Naga Scales" }) } },
+} })
+"#;
+
+const RUN: &str = r#"WHEN = { { k = "dungeon", name = "Blackfathom Deeps", map = 221 } }; GROUP = { kind = "dungeon", name = "Blackfathom Deeps", map = 221 }"#;
+
+// The guide after the chain, opened by a character fresh at 26 (`chosen`: they run Blackfathom Deeps).
+fn deeps(setup: &str, chosen: bool) -> Value {
+	let choose = if chosen { "E.ChooseDungeon(221, true)\n" } else { "" };
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{setup}
+{DEEPS}
+{HELPERS}
+{choose}E.SetGuide("test/d2"); flush()
+local g = E.GetGuide()
+local r = {{ shape = shape(), feeders = g.feeders or 0, hidden = {{}} }}
+for q in pairs(g.hidden or {{}}) do r.hidden[#r.hidden + 1] = q end
+table.sort(r.hidden)
+emit(r)"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+// (feeder steps put in, quests left out)
+fn planned(out: &Value) -> (u64, Vec<u64>) {
+	(out["feeders"].as_u64().unwrap_or(0), ids(&out["hidden"]))
+}
+
+#[test]
+fn a_dungeon_run_s_steps_are_never_feeders_and_what_needs_them_stays_left_out() {
+	// The same chain as plain quests: a cheap local feeder, After the Deeps open.
+	let plain = deeps("WHEN, GROUP, KILL = nil, nil, nil", false);
+	assert_eq!(planned(&plain), (3, vec![]), "{plain}");
+	// A character who skips Blackfathom Deeps: none of the run's steps is copied in; After the Deeps is left out.
+	let skip = deeps(RUN, false);
+	assert_eq!(planned(&skip), (0, vec![7002]), "{skip}");
+	assert!(!lines(&skip["shape"]).iter().any(|s| s.contains("<test/d1")), "{skip}");
+	// One who runs it: still no feeder (a dungeon quest is group content), After the Deeps still left out.
+	let run = deeps(RUN, true);
+	assert_eq!(planned(&run), (0, vec![7002]), "{run}");
+}
+
+#[test]
+fn a_chain_with_a_group_quest_or_an_elite_objective_is_never_a_feeder() {
+	// A group quest by its steps' question (`when group`), unanswered: the source guide asks first; no copy.
+	let asked = deeps(r#"WHEN = { { k = "group", q = 7001 } }; GROUP, KILL = nil, nil"#, false);
+	assert_eq!(planned(&asked), (0, vec![7002]), "{asked}");
+	let elite = deeps(r#"WHEN, GROUP = nil, nil; KILL = { kind = "elite", rank = 1, lvl = 25 }"#, false);
+	assert_eq!(planned(&elite), (0, vec![7002]), "{elite}");
+}
