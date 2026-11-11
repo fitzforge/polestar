@@ -215,6 +215,8 @@ mod locale_load;
 mod lookup;
 #[path = "lookup-codex.rs"]
 mod lookup_codex;
+#[path = "lookup-elites.rs"]
+mod lookup_elites;
 #[path = "lookup-guides.rs"]
 mod lookup_guides;
 #[path = "lookup-tooltip-performance.rs"]
