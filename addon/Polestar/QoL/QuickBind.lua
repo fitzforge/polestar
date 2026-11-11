@@ -225,16 +225,21 @@ end
 local function newHighlight(b)
 	local hl = b:CreateTexture(nil, "OVERLAY", nil, 7)
 	hl:SetAllPoints(b)
+	-- Its colour and strength (psColor: r, g, b, alpha at full hover), set
+	-- whole on each paint: in the client a texture's SetAlpha sets its
+	-- colour's alpha, so SetAlpha(1) on hover drew the 60 % wash at full
+	-- strength (#1684).
 	local atlas = C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(HL_ATLAS)
 	if atlas then
 		hl:SetAtlas(HL_ATLAS)
+		hl.psColor = { 1, 1, 1, 1 }
 	else
 		local T = ns.Theme
 		hl:SetTexture(T and T.Media and T.Media("white") or "Interface\\Buttons\\WHITE8X8")
 		hl:SetBlendMode("ADD")
 		local r, g, bl = 1, 0.82, 0
 		if T and T.Accent then r, g, bl = T.Accent() end
-		hl:SetVertexColor(r, g, bl, 0.6)
+		hl.psColor = { r, g, bl, 0.6 }
 	end
 	hl:Hide()
 	return hl
@@ -243,7 +248,10 @@ end
 local function paint(e)
 	local on = active and e.button:IsShown()
 	e.hl:SetShown(on)
-	if on then e.hl:SetAlpha(hovered == e and HOVER_ALPHA or IDLE_ALPHA) end
+	if on then
+		local c = e.hl.psColor
+		e.hl:SetVertexColor(c[1], c[2], c[3], c[4] * (hovered == e and HOVER_ALPHA or IDLE_ALPHA))
+	end
 end
 
 local function wanted(e)
