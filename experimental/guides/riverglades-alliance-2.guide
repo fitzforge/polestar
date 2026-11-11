@@ -84,7 +84,7 @@ step Farmer Elbrim
 step Sleebo's workshop
   tip East to Sleebo Fizzlespout's workshop on the hill beyond Rog'mar. Rog'mar is the Horde's fort, its grunts far above your level: go round its south side, across the plains.
   goto 60.0,53.0 "The plains south of Rog'mar"
-  accept 96063                          -- Gaseous Gold
+  accept 96063 @68.2,48.6               -- Gaseous Gold
 
 step The tallstriders and the marsh
   tip The Roving Tallstriders graze the meadows south-west of the workshop; further south-west the marsh bubbles with gas: fill the vials at the vents.
@@ -97,10 +97,10 @@ step Terral's Watch
 
 step Sleebo Fizzlespout
   tip Back north-east to the workshop.
-  turnin 96063
-  accept 96067                          -- Rock 'em and Sock 'em
+  turnin 96063 @68.2,48.6
+  accept 96067 @68.2,48.6               -- Rock 'em and Sock 'em
   complete 96067 @68.2,48.6             -- the stress test: fight G45-B4G beside the workshop
-  turnin 96067
+  turnin 96067 @68.2,48.6
 
 step Powderfuse Port
   tip East down the road to Powderfuse Port, the goblins' harbour. Friz Frazzlespark keeps a stall at the west end of the docks; Gray Dawnbright, Innkeeper Zizplink and Gritta Chumwater are at the inn, Fimbo Greasemitz cooks beside it, and Wharfmaster Whizzbuzz works the north pier. Zizplink's drink needs three things the port's traders sell: the chum from Gritta, the degreaser and the old poison from Kor'gar and Krikshank, just north of Friz's stall.

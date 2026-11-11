@@ -40,6 +40,7 @@ step Into the Riverglades
   goto 16.0,68.5 "The western Riverglades"
 
 step Scout Bolain
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Scout Bolain waits beside the road east of the pass.
   accept 95147                          -- The Lost Scout
 
@@ -122,7 +123,7 @@ step Farholde Keep
   accept 94877                          -- Saving Sunnyglade: for part 2
   accept 94881                          -- Ashe Amberhall: Curious Trinkets, for part 2
   accept 94879                          -- Scraps of Knowledge, for part 2
-  sethome "Farholde Keep"               -- Barracks Master Harlan, at the inn
+  sethome "Farholde Keep" npc 257595   -- Barracks Master Harlan, at the inn
 
 step Tessa Dawnbright
   tip Tessa Dawnbright stands west of the inn, by the orchard: the apples hang on the trees around it.

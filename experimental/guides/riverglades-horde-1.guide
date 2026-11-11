@@ -49,12 +49,13 @@ step Boat to Powderfuse Port
 
 step Powderfuse Port
   zone Riverglades
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Friz Frazzlespark keeps a stall at the west end of the docks. The port's other jobs are for later (part 2): this crate goes to the Horde's fort.
   accept 95062                          -- Frazzlespark's Crate: for Krom'rosh in Rog'mar
 
 step Sleebo's workshop
   tip West up the road from the port: Sleebo Fizzlespout has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for Neza.
-  accept 96063                          -- Gaseous Gold
+  accept 96063 @68.2,48.6               -- Gaseous Gold
 
 step Rog'mar
   tip West to Rog'mar, the Horde's fort in the middle of the zone. Neza Bloodsnout stands on its east side, Kreza Darkthorn and Krom'rosh in the middle with Grakna, the wind rider master; Innkeeper Toka and Tan'jani on the west side.
@@ -64,7 +65,7 @@ step Rog'mar
   accept 93786                          -- A Message in Blood
   accept 93787                          -- Food for the Taking
   getfp "Rog'mar" npc 255993            -- Grakna, in the middle of the fort
-  sethome "Rog'mar"                     -- Innkeeper Toka
+  sethome "Rog'mar" npc 256675         -- Innkeeper Toka
   accept 95951                          -- Tan'jani: Fetch 'n' Fletch
 
 step The plains and the marsh
@@ -75,10 +76,10 @@ step The plains and the marsh
 
 step Sleebo Fizzlespout
   tip North-east to the workshop.
-  turnin 96063
-  accept 96067                          -- Rock 'em and Sock 'em
+  turnin 96063 @68.2,48.6
+  accept 96067 @68.2,48.6               -- Rock 'em and Sock 'em
   complete 96067 @68.2,48.6             -- the stress test: fight G45-B4G beside the workshop
-  turnin 96067
+  turnin 96067 @68.2,48.6
 
 step Neza Bloodsnout
   tip West back to Rog'mar's east side.

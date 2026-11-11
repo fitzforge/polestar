@@ -61,7 +61,7 @@ step Na'zok's camp
 
 step Bolder'ok
   tip North-west to Bolder'ok, the ogres' town. Clugfist, its chieftain, sits on the hill. The ogres are friendly while you leave them alone.
-  accept 95424                          -- Clugfist: Might Makes Right
+  accept 95424 @64.5,14.9               -- Clugfist: Might Makes Right
 
 step The hills east of Bolder'ok
   tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. The Young Paletusks wander the hills south of it: tap them with Na'zok's staff to send them home. The Mature Paletusks around Na'zok's camp drop the boar meat.
@@ -76,9 +76,9 @@ step Na'zok
 
 step Bolder'ok
   tip Back to Clugfist on his hill. Jezap Jinglesprocket runs the Bloodmaster's Ring just below it.
-  turnin 95424                          -- Clugfist
-  accept 95428                          -- Clugfist's Decree: for Krom'rosh in Rog'mar, at the end of the port loop
-  accept 94668                          -- Bloodmaster's Ring
+  turnin 95424 @64.5,14.9               -- Clugfist
+  accept 95428 @64.5,14.9               -- Clugfist's Decree: for Krom'rosh in Rog'mar, at the end of the port loop
+  accept 94668 @64.5,14.9               -- Bloodmaster's Ring
   turnin 94668                          -- Jezap Jinglesprocket
 
 step Powderfuse Port
