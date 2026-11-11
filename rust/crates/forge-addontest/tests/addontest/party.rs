@@ -1261,6 +1261,84 @@ emit(PP.Frame():IsShown())"#
 	assert_eq!(out[8], false, "solo: hidden");
 }
 
+// The panel's own rules (Options > Trackers > Party panel): inside an instance it is kept or hidden as set, whatever
+// its fight rule; in a fight it is kept or hidden as set, or at "As the guide window" (the default) hidden only when
+// the guide window hides in fights. The guide window is kept inside instances here, so the panel's own rule decides
+// there. Each line: the panel's fight rule, the guide window's, the panel's in instances; then whether it shows out of
+// a fight and in one, outside a dungeon and inside. /polestar party says why it cannot show.
+#[test]
+fn party_the_panel_hides_inside_an_instance_when_set_to_whatever_its_fight_rule_and_as_the_guide_window_in_a_fight() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+p.join("Ana")
+p.receive("Ana-TestRealm", "1P|5|0.0.1|test|3|test/g")
+p.receive("Ana-TestRealm", "1|33:3/8")
+stub.advance(1)
+-- The guide window kept inside instances: there the panel's own rule decides.
+Polestar.Set("ui.instance", "show")
+local function inside(on) w.inInstance = on; stub.fire("PLAYER_ENTERING_WORLD", false, false) end
+local function fight(on) stub.inCombat = on; stub.fire(on and "PLAYER_REGEN_DISABLED" or "PLAYER_REGEN_ENABLED") end
+local out = {}
+for _, rule in ipairs({ "guide", "show", "hide" }) do
+	Polestar.Set("trackers.party.combat", rule)
+	for _, guide in ipairs({ "show", "hide" }) do
+		Polestar.Set("ui.combat", guide)
+		for _, there in ipairs({ "show", "hide" }) do
+			Polestar.Set("trackers.party.instance", there)
+			local seen = ""
+			for _, dungeon in ipairs({ false, true }) do
+				inside(dungeon)
+				for _, combat in ipairs({ false, true }) do
+					fight(combat)
+					seen = seen .. (PP.Frame():IsShown() and "1" or "0")
+					fight(false)
+				end
+			end
+			inside(false)
+			out[#out + 1] = rule .. " " .. guide .. " " .. there .. " " .. seen
+		end
+	end
+end
+emit(out)
+-- /polestar party says why it cannot show: inside a dungeon, or until the fight ends.
+Polestar.Set("trackers.party.combat", "guide")
+inside(true)
+stub.messages = {}
+Polestar.RunCommand("party")
+local why = { stub.messages[#stub.messages] or false }
+inside(false)
+fight(true)
+stub.messages = {}
+Polestar.RunCommand("party")
+why[2] = stub.messages[#stub.messages] or false
+fight(false)
+emit(why)"#
+	));
+	assert_eq!(
+		out[0],
+		json!([
+			"guide show show 1111",
+			"guide show hide 1100",
+			"guide hide show 1010",
+			"guide hide hide 1000",
+			"show show show 1111",
+			"show show hide 1100",
+			"show hide show 1111",
+			"show hide hide 1100",
+			"hide show show 1010",
+			"hide show hide 1000",
+			"hide hide show 1010",
+			"hide hide hide 1000"
+		])
+	);
+	assert_eq!(
+		out[1],
+		json!(["|cff4fd1c5Polestar|r: The party panel is hidden inside instances: Options > Trackers > Party panel.", "|cff4fd1c5Polestar|r: The party panel comes back after combat."])
+	);
+}
+
 #[test]
 fn party_a_collect_goal_and_the_loot_window_say_who_still_needs_an_item_you_do_not() {
 	let out = group(
