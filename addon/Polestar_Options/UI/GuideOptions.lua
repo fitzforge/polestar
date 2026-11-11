@@ -55,9 +55,11 @@ if G and G.BindingRow then
 	end
 end
 
--- The journey's steps in the guide window (Guide > Arrow & routes > Routes).
+-- The journey's steps in the guide window (Guide > Arrow & routes > Routes),
+-- with Polestar's own Nav loaded (its Nav.HandoffOption; a stand-in Nav
+-- table has no rows to offer).
 local Nav, UI = ns.Nav, ns.UI
-if Nav and UI and UI.JourneyPanel then
+if Nav and Nav.HandoffOption and UI and UI.JourneyPanel then
 	register({
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
 		controls = {

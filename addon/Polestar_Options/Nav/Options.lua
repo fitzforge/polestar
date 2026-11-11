@@ -10,7 +10,9 @@ local ns = Polestar
 local Nav = ns.Nav
 local L = ns.L
 
-if not (Nav and ns.RegisterOptions) then return end
+-- Polestar's own Nav (Nav/Nav.lua's Nav.HandoffOption): a stand-in Nav table
+-- has no rows to offer.
+if not (Nav and Nav.HandoffOption and ns.RegisterOptions) then return end
 
 local H = Nav.HandoffOption
 
