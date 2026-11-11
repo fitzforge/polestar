@@ -10,6 +10,10 @@ next forever/alliance/50-60/02-felwood
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: A Taste of Flame (4023).
+# A Taste of Flame (4022) instead for the group that did Velarok's chain to Trinkets... (3481) in 40-50/06: the hoard it
+# gives holds the Black Dragonflight Molt, so Cyrus takes it at once with no drake to fight.
+# Petty Squabbles (2783) and A Tale of Sorrow (2801), 5,100 XP: Ardalan in Nethergarde Keep, where the flight lands,
+# and the Fallen Hero just over the Swamp of Sorrows border, on the Blasted Lands stop before the hearth.
 # Left out: Dark Iron Legacy (3801).
 
 # ---------------------------------------------------------------- Azshara
@@ -65,10 +69,10 @@ step Ogtinc
 
 step Sanath Lim-yo
   zone Azshara
-  tip Optional: Sanath Lim-yo wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it.
-  accept 3381 optional
-  collect 10450 quest 3381.1 optional
-  turnin 3381 optional
+  tip Sanath Lim-yo wants two Undamaged Hippogryph Feathers from the Thunderhead hippogryphs around his camp, the ones you top up on here: about one in three carries one.
+  accept 3381
+  collect 10450 quest 3381.1
+  turnin 3381
   level 50.56 grind 6375               -- grind on Thunderhead Hippogryph
 
 step Sanath Lim-yo
@@ -119,6 +123,7 @@ step Rubbing: Rune of Sael'hai
 step Sanath Lim-yo
   zone Azshara
   only Mage
+  when onquest 8251
   tip Ride back west to Sanath's camp and get off your mount: he teleports you up to Xylem again.
   goto 28.1,50.1 "Sanath Lim-yo"
 
@@ -146,7 +151,7 @@ step Ogtinc
   turnin 8256 only Priest -- Ogtinc
 
 step Ravencrest Monument
-  tip Swim to the small island off the southern tip of Azshara: Pilot Xiggs Fuselighter waits by the monument.
+  tip Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.
   turnin 3449
   accept 3461
 
@@ -170,7 +175,7 @@ step Royal Historian Archesonus
   zone Ironforge
   tip Archesonus stands beside King Magni in the High Seat.
   accept 3702
-  complete 3702
+  talk 8879 quest 3702.1
   turnin 3702
   accept 3701                         -- The relics are in the Burning Steppes: keep it
 
@@ -190,6 +195,7 @@ step Wildkin feathers
 step The Super Snapper FX
   when group 2944
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
+  tip Gammerita walks the Hinterlands shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.
   collect 9330 quest 2944.1 @80.4,58.2 map 1425 group 2
   use 9328 quest 2944.1 @80.4,58.2 map 1425
 
@@ -300,15 +306,26 @@ step Flame Crest
   turnin 4296                         -- Maxwort Uberglint
 
 step Cyrus Therepentous
+  when turnedin 3481
+  tip Open the Hoard of the Black Dragonflight from Searing Gorge for its Black Dragonflight Molt, then tell Cyrus you bring proof of your deeds: no drake to fight.
+  accept 4022                         -- Below ground
+  collect 10575 quest 4022.1          -- Black Dragonflight Molt, from the hoard
+  talk 9459 quest 4022.2 @95.1,31.6 map 1428
+  turnin 4022
+
+step Cyrus Therepentous
+  when !turnedin 3481
   when group 4023
   accept 4023                         -- Below ground
 
 step A Taste of Flame
+  when !turnedin 3481
   when group 4023
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Frenzied Black Drake is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back.
   collect 10575 quest 4023.1 @94.4,31.8 map 1428
 
 step Cyrus Therepentous
+  when !turnedin 3481
   when group 4023
   turnin 4023                         -- Below ground
 
@@ -351,6 +368,26 @@ step Fly to Nethergarde Keep
 
 # ---------------------------------------------------------------- Blasted Lands
 
+step Ambassador Ardalan
+  tip Ardalan is inside Nethergarde Keep.
+  accept 2783 @67.6,19.3 map 1419
+
+step Swamp of Sorrows
+  zone Swamp of Sorrows
+  tip Ride north out of the Blasted Lands into the Swamp of Sorrows: the Fallen Hero stands by the road from the Blasted Lands. Keep clear of Stonard, the Horde town to the north-east.
+  goto 34.3,66.1 "Fallen Hero of the Horde"
+
+step Fallen Hero of the Horde
+  tip Listen to his tale, then ride back south to Kum'isha.
+  turnin 2783
+  accept 2801
+  talk 7572 quest 2801.1 @34.3,66.1
+  turnin 2801
+
+step Blasted Lands
+  zone Blasted Lands
+  goto 52.0,35.7 "Rise of the Defiler"
+
 step Kum'isha the Collector
   tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.
   tip Careful: Felcular, Razelikh the Defiler and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds Razelikh's Tear, Flames of Chaos and then Enrage at 15%.
@@ -364,6 +401,7 @@ step To Stoutlager Inn
 
 step Loch Modan
   when group 3181
+  when onquest 3181
   zone Loch Modan
   goto 18.2,84.0 "Loch Modan"
 
@@ -390,6 +428,11 @@ step Ironforge
   only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Ironforge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Royal Historian Archesonus
+  zone Ironforge
+  tip Archesonus stands beside King Magni in the High Seat: the relics you read in the Steppes are his.
+  turnin 3701
 
 step Fly to Menethil Harbor
   zone Ironforge

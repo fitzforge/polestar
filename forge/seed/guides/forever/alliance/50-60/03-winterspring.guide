@@ -25,9 +25,13 @@ step Winterspring
 
 # ---------------------------------------------------------------- Everlook
 
+step Everlook's inn
+  when !bound "Stoutlager Inn"
+  tip Your Hearthstone is not set at Thelsamar (the Hinterlands guide binds there at 47, and this guide leaves Winterspring through it): bind at Everlook instead, for the trips back to town.
+  sethome "Everlook" npc 11118        -- Innkeeper Vizzie
+
 step Everlook
   getfp "Everlook"
-  sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
   accept 5601                         -- Jessica Redpath: keep it for Darrowshire; inside
   accept 6028                         -- Gregor Greystone: keep both for the Plaguelands; inside
   accept 6030
@@ -115,7 +119,7 @@ step Everlook
   turnin 977
   accept 5163
   use 12928 @61.5,38.6 "Umi's Mechanical Yeti" -- On Legacki, by the inn
-  kill 10978 quest 5163.1             -- Legacki: Sprinkle and Quixxil come later
+  kill 10978 quest 5163.1 "Scare Legacki with Umi's Mechanical Yeti" -- Legacki: Sprinkle and Quixxil come later
 
 step Winterspring
   zone Winterspring

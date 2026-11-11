@@ -7,9 +7,9 @@ zone Felwood
 # machine-checked with lint; not play-tested on Forever yet. The end of the
 # Horde leveling chain.
 #
-# Optional here: Toxic Horrors and Winterfall Runners (5086, 5087), which
-# follow a rare Winterspring drop, and Runecloth (6031), which Meilosh takes
-# only at Neutral with the Timbermaw.
+# Toxic Horrors and Winterfall Runners (5086, 5087) end the Winterfall
+# Firewater chain from 03-winterspring (taken since 0.3.7). Optional here:
+# Runecloth (6031), which Meilosh takes only at Neutral with the Timbermaw.
 #
 # Flow: the Undercity -> zeppelin to Orgrimmar (cloth donations) -> fly to
 # Splintertree Post -> ride north into Felwood: the Emerald Sanctuary (Greta,
@@ -57,9 +57,9 @@ zone Felwood
 
 # ---------------------------------------------------------------- Orgrimmar
 
-step Zeppelin to Orgrimmar
+step Vehena
   zone Orgrimmar
-  tip From the Undercity, take the zeppelin from the tower outside the city to Orgrimmar.
+  tip In the Valley of Spirits.
   turnin 7836 optional                -- sixty Runecloth, if you carry them
   turnin 7824 optional
 
@@ -105,8 +105,8 @@ step Bloodvenom Post
   note Trull's next Wild Guardians would bring you back here from Winterspring. Skip it.
 
 step Toxic Horrors
-  tip Only if Donova gave you Toxic Horrors: ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees.
-  collect 12822 quest 5086.1 optional
+  tip Ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees, and most of them drop a droplet.
+  collect 12822 quest 5086.1
 
 step Meilosh
   tip Only with 30 Runecloth, and only at Neutral with the Timbermaw: follow the road north to Timbermaw Hold; Meilosh trades just inside the entrance.
@@ -134,13 +134,13 @@ step Umber
 step Donova Snowden
   zone Winterspring
   tip Back into the Timbermaw tunnel and take the Winterspring exit; Donova camps by the hot springs just outside.
-  turnin 5086 optional
-  accept 5087 optional
+  turnin 5086
+  accept 5087
 
 step Winterfall Runners
-  tip Only if you carry Winterfall Runners: the runners walk the road from Timbermaw Hold toward Winterfall Village in small groups; wait by the road near Donova and kill them as they pass. Each one carries a crate.
-  collect 12829 quest 5087.1 optional
-  turnin 5087 optional                -- Donova Snowden
+  tip The runners walk the road from Timbermaw Hold toward Winterfall Village in small groups; wait by the road near Donova and kill them as they pass. Each one carries a crate.
+  collect 12829 quest 5087.1
+  turnin 5087                         -- Donova Snowden
   note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
 
 step Everlook
