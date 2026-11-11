@@ -597,8 +597,12 @@ function layout(f, width)
 		f.Badge:ClearAllPoints()
 		beside = W.TextWidth(f.Head) <= headW - badgeW - 8
 		if beside then
-			-- level with the close button, its middle on the button's
-			f.Badge:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(closeW + 4), -(inset + floor((f.Close:GetHeight() - 18) / 2 + 0.5)))
+			-- A look that draws its own close box (the game's looks, Hearth):
+			-- level with it, its middle on the box's. Polestar's own look keeps
+			-- 0.3.7's place.
+			local own = Theme.Kit() or Theme.SkinKey() == "hearth"
+			local y = own and -(inset + floor((f.Close:GetHeight() - 18) / 2 + 0.5)) or -PAD + 2
+			f.Badge:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(closeW + 4), y)
 			headW = headW - badgeW - 8
 		end
 	end
