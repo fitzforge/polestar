@@ -1454,7 +1454,7 @@ L["Turn on Polestar Guides and reload"] = "Ativar Polestar Guides e recarregar"
 L["Keep these, a later guide hands them in: %s"] = "Guarde estas missões, um guia posterior as entrega: %s"
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "Pressione %s, ou clique com o botão direito no botão do minimapa e escolha \"Janela do guia\", para mostrá-la."
 L["Right-click the minimap button and pick Guide window to show it."] = "Clique com o botão direito no botão do minimapa e escolha \"Janela do guia\" para mostrá-la."
--- L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = ""
+L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "Limpa suas marcações manuais e etapas puladas neste guia a partir do seu último progresso de missão. O guia fica onde suas missões colocaram você."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -2259,9 +2259,9 @@ L["Flight paths you pass"] = "Rotas de voo no caminho"
 L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."] = "Também um mestre de voo amistoso perto de você cuja rota de voo você ainda não aprendeu. Aprendê-la também marca a etapa posterior do guia para ela."
 L["Detour captions"] = "Legendas de desvio"
 L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."] = "Sob uma caminhada da viagem, avisa quando ela contorna uma cidade da outra facção: \"Contornando Costa Sul\". Só avisa: a rota e a seta continuam iguais."
--- L["Manual check-offs and skips, current guide, from your last quest progress on."] = ""
--- L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
--- L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = ""
+L["Manual check-offs and skips, current guide, from your last quest progress on."] = "Marcações manuais e etapas puladas, guia atual, a partir do seu último progresso de missão."
+L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Suas marcações manuais e etapas puladas em %s são apagadas a partir do seu último progresso de missão. As missões que você fez continuam feitas, e o guia fica onde elas colocaram você."
+L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Suas marcações manuais e etapas puladas no guia atual são apagadas a partir do seu último progresso de missão. As missões que você fez continuam feitas, e o guia fica onde elas colocaram você."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
