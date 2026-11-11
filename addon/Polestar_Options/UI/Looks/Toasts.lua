@@ -74,6 +74,7 @@ local function demoHeadsUp()
 	local LT = UI.LevelTip
 	local m = { icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
 	m.head = format(L["LEVEL %d · DUNGEON"], 18)
+	m.facts = format(L["Level %d · Dungeon"], 18)
 	m.title = format(L["%s is open to you"], L["The Deadmines"])
 	m.giver = format(L["%d quests to pick up"], 4) .. "  \194\183  " .. L["Westfall"]
 	if LT and LT.Text then m.badge = LT.Text(1.4):upper() end

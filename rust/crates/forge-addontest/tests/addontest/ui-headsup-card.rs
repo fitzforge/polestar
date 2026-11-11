@@ -1,8 +1,9 @@
 //! The heads-up card over the guide window (addon/Polestar/UI/ClassToast.lua: the class quest's, a dungeon's and
-//! the others it carries): a fresh install draws it exactly as 0.3.7 did; where it goes (toasts.headsup.place:
-//! above the window, below it, or a spot of its own) and its compact style (toasts.headsup.compact) are options
-//! that change the live card. The class quest scene of class-quests.rs: an Orc Warlock at 10, the Durotar guide
-//! open, Gan'rul's Summons ready.
+//! the others it carries): a fresh install draws it in the house look's own way since 0.3.8 (the title first, the
+//! facts under it in sentence case with the chip, no stripe); a skin built on the house look draws it exactly as
+//! 0.3.7 did; where it goes (toasts.headsup.place: above the window, below it, or a spot of its own) and its compact
+//! style (toasts.headsup.compact) are options that change the live card. The class quest scene of class-quests.rs:
+//! an Orc Warlock at 10, the Durotar guide open, Gan'rul's Summons ready.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
@@ -43,7 +44,7 @@ who("WARLOCK", "Orc", "Horde", 10)
 uistub.openTabs({ { "test/durotar", 1 } }, 1)
 "#;
 
-// The card at a fresh install's settings, as 0.3.7 drew it (next at 0df6f58ab, this scene, 2026-11-11).
+// The card as 0.3.7 drew it (next at 0df6f58ab, this scene, 2026-11-11): every look but the house look keeps it.
 const AS_IN_0_3_7: &str = r#"{"Act": {"at": "", "h": 28, "shown": false, "text": false, "w": 72},
 "Badge": {"at": "TOPRIGHT>card.TOPRIGHT@-34,-12", "h": 18, "shown": true, "text": false, "w": 53},
 "Close": {"at": "TOPRIGHT>card.TOPRIGHT@-6,-6", "h": 24, "shown": true, "text": false, "w": 24},
@@ -64,23 +65,60 @@ const AS_IN_0_3_7: &str = r#"{"Act": {"at": "", "h": 28, "shown": false, "text":
 "card": {"at": "BOTTOMLEFT>window.TOPLEFT@0,-1", "h": 138, "shown": true, "text": false, "w": 340},
 "scale": 1, "side": "above"}"#;
 
+// The house look's card since 0.3.8 (glowup-038, this scene, 2026-11-12): the title at the top, "Level 10 · Warlock"
+// under it on the chip's middle with the chip after it, no stripe, everything 4px further left.
+const HOUSE_0_3_8: &str = r#"{"Act": {"at": "", "h": 28, "shown": false, "text": false, "w": 72},
+"Badge": {"at": "TOPLEFT>card.TOPLEFT@173,-32", "h": 18, "shown": true, "text": false, "w": 53},
+"Close": {"at": "TOPRIGHT>card.TOPRIGHT@-6,-6", "h": 24, "shown": true, "text": false, "w": 24},
+"Disc": {"at": "CENTER>Ring.CENTER@0,0", "h": 36, "shown": true, "text": false, "w": 36},
+"Giver": {"at": "TOPLEFT>card.TOPLEFT@66,-54", "h": 0, "shown": true, "text": "Get it from Ophek, Durotar.", "w": 260},
+"Head": {"at": "LEFT>card.TOPLEFT@66,-41", "h": 0, "shown": true, "text": "Level 10 · Warlock", "w": 260},
+"Icon": {"at": "CENTER>Ring.CENTER@0,0", "h": 32, "shown": true, "text": false, "w": 32},
+"Later": {"at": "LEFT>Open.RIGHT@8,0", "h": 28, "shown": true, "text": false, "w": 72},
+"More": {"at": "", "h": 28, "shown": false, "text": false, "w": 72},
+"Off": {"at": "", "h": 28, "shown": false, "text": false, "w": 72},
+"Open": {"at": "TOPLEFT>card.TOPLEFT@14,-102", "h": 28, "shown": true, "text": false, "w": 134},
+"Ring": {"at": "TOPLEFT>card.TOPLEFT@14,-14", "h": 40, "shown": true, "text": false, "w": 40},
+"Route": {"at": "TOPLEFT>card.TOPLEFT@66,-68", "h": 0, "shown": true, "text": "Your route takes you there at Orgrimmar.", "w": 260},
+"Rule": {"at": "TOPLEFT>card.TOPLEFT@14,-92 TOPRIGHT>card.TOPRIGHT@-14,-92", "h": 1, "shown": true, "text": false, "w": 0},
+"ShowMe": {"at": "", "h": 28, "shown": false, "text": false, "w": 74},
+"Stripe": {"at": "TOPLEFT>card.TOPLEFT@1,-1 BOTTOMLEFT>card.BOTTOMLEFT@1,1", "h": 0, "shown": false, "text": false, "w": 4},
+"Title": {"at": "TOPLEFT>card.TOPLEFT@66,-14", "h": 0, "shown": true, "text": "Voidwalker ready", "w": 244},
+"card": {"at": "BOTTOMLEFT>window.TOPLEFT@0,-1", "h": 144, "shown": true, "text": false, "w": 340},
+"scale": 1, "side": "above"}"#;
+
 fn run(script: &str) -> Value {
 	let pre = crate::class_quests::TOAST_PRE;
 	emitted(&RunAddon { stubs: vec!["stub_ui.lua"], addons: vec![Addon::files("Polestar", &UI_FILES)], script: format!("{pre}{DUMP}{script}"), ..Default::default() }).remove(0)
 }
 
-// A player who never touches the card's options sees it exactly as before they existed: above the window, as
-// wide as it, every part where it was.
+// A player who never touches the card's options sees it above the window, as wide as it, in the house look's own
+// way.
 #[test]
-fn a_fresh_install_draws_the_heads_up_card_exactly_as_0_3_7_did() {
+fn a_fresh_install_draws_the_heads_up_card_in_the_house_looks_own_way() {
 	let out = run(r#"
 		CT.Show(1506)
 		stub.advance(1)
 		emit({ dump = DUMP(), place = Polestar.Get("toasts.headsup.place"), compact = Polestar.Get("toasts.headsup.compact") })"#);
-	let want: Value = serde_json::from_str(AS_IN_0_3_7).unwrap();
+	let want: Value = serde_json::from_str(HOUSE_0_3_8).unwrap();
 	assert_eq!(out["dump"], want, "the card at a fresh install");
 	assert_eq!(out["place"], "above");
 	assert_eq!(out["compact"], false);
+}
+
+// A skin built on the house look (here one registered with nothing of its own) gets none of the house look's own
+// touches: every part where 0.3.7 put it, the header over the title, the stripe.
+#[test]
+fn a_skin_on_the_house_look_draws_the_heads_up_card_exactly_as_0_3_7_did() {
+	let out = run(r#"
+		Polestar.Theme.RegisterSkin("plain", { name = "Plain", addon = "Test_Plain" })
+		Polestar.Set("ui.skin", "plain")
+		CT.Show(1506)
+		stub.advance(1)
+		emit({ dump = DUMP(), skin = Polestar.Theme.SkinId(), base = Polestar.Theme.SkinKey() })"#);
+	assert_eq!((out["skin"].as_str(), out["base"].as_str()), (Some("plain"), Some("polestar")), "a skin on the house look");
+	let want: Value = serde_json::from_str(AS_IN_0_3_7).unwrap();
+	assert_eq!(out["dump"], want, "the card as 0.3.7 drew it");
 }
 
 // Below: under the window's bottom edge, sliding out from behind it; over it again where the screen has no room

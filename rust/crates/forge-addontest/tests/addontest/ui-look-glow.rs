@@ -52,6 +52,8 @@ local function rectOf(r)
 		if p.point:find("LEFT") then L = px elseif p.point:find("RIGHT") then R = px else cx = px end
 		if p.point:find("TOP") then Tp = py elseif p.point:find("BOTTOM") then B = py else cy = py end
 	end
+	-- Anchored on both sides, its width is the anchors' (`both`).
+	local both = L ~= nil and R ~= nil
 	local w, h = r:GetWidth(), r:GetHeight()
 	-- A string with no size of its own takes its text's, as in the client.
 	if r.GetStringHeight then
@@ -62,7 +64,7 @@ local function rectOf(r)
 	R = R or L + w
 	Tp = Tp or (B and B + h) or (cy or 0) + h / 2
 	B = B or Tp - h
-	return { l = L, r = R, t = Tp, b = B }
+	return { l = L, r = R, t = Tp, b = B, both = both }
 end
 -- A string's text as drawn, colour codes and textures left out (the stub measures them as letters), and its width
 -- at the stub's half a font size per letter.
@@ -71,11 +73,19 @@ local function shownWidth(fs)
 	local n = #s - select(2, s:gsub("[\128-\191]", ""))
 	return n * select(2, fs:GetFont()) * 0.5
 end
+-- A string's own width: between its left and right anchors (which win over a set width, as in the client), else
+-- its set width; nil where it has none.
+local function boxWidth(fs, q)
+	q = q or rectOf(fs)
+	if q.both then return math.max(0, q.r - q.l) end
+	if fs:GetWidth() > 0 then return fs:GetWidth() end
+end
 -- A string's drawn rect: its text's width (at most its own, where it wraps or is cut) from its left, right or centre,
 -- its lines' height down from its top.
 local function textRect(fs)
 	local q = rectOf(fs)
-	local w = fs:GetWidth() > 0 and math.min(shownWidth(fs), fs:GetWidth()) or shownWidth(fs)
+	local own = boxWidth(fs, q)
+	local w = own and math.min(shownWidth(fs), own) or shownWidth(fs)
 	local j = fs:GetJustifyH()
 	if j == "RIGHT" then q.l = q.r - w elseif j == "CENTER" then local c = (q.l + q.r) / 2; q.l, q.r = c - w / 2, c + w / 2 else q.r = q.l + w end
 	q.b = q.t - fs:GetStringHeight()
@@ -92,7 +102,8 @@ local function breaks(card, parts)
 	for i, p in ipairs(parts) do
 		local x, kind = p[1], p[2]
 		if kind then
-			if kind == "text" and x:GetWordWrap() == false and x:GetWidth() > 0 and shownWidth(x) > x:GetWidth() + 0.5 then bad[#bad + 1] = "cut: " .. name(x) end
+			local own = boxWidth(x)
+			if kind == "text" and x:GetWordWrap() == false and own and shownWidth(x) > own + 0.5 then bad[#bad + 1] = "cut: " .. name(x) end
 			rects[i] = textRect(x)
 		else
 			rects[i] = rectOf(x)
@@ -315,5 +326,95 @@ fn the_lit_goal_spans_its_row_from_the_bar_at_every_width_and_scale() {
 		assert_eq!(c["bad"], "", "{at}: inside its row");
 		assert_eq!(c["fromBar"], true, "{at}: over the bar's height, from the bar");
 		assert_eq!(c["toEdge"], true, "{at}: to the row's right edge");
+	}
+}
+
+// The heads-up card's model as a dungeon's (UI/DungeonToast.lua) gives it: both the header the other looks show over
+// the title and the house look's facts line.
+const CARD: &str = r#"
+local CT = Polestar.UI.ClassToast
+local function model()
+	return { head = "LEVEL 18 · DUNGEON", facts = "Level 18 · Dungeon", title = "The Deadmines is open to you",
+		giver = "4 quests to pick up  ·  Levels 17–24  ·  Westfall", badge = "+1.4 LEVELS", icon = T.Media("icon-dungeon"), iconColor = "dungeon",
+		titleColor = "text", act = { label = "Pick up the quests" }, more = { label = "Open in Dungeons" }, off = { label = "Turn these off" } }
+end
+local function names(c)
+	c.Title.psName, c.Head.psName, c.Giver.psName, c.Badge.psName, c.Ring.psName, c.Close.psName = "title", "facts", "giver", "chip", "ring", "close"
+	c.Act.psName, c.More.psName, c.Later.psName, c.Off.psName, c.Rule.psName = "act", "more", "later", "off", "rule"
+	return c
+end
+"#;
+
+// The house look leads the card with its title and puts the facts under it in sentence case, the chip riding the
+// facts line, with no stripe down the edge; the other looks keep 0.3.7's card: the header in capitals over the title,
+// the chip beside it, the stripe.
+#[test]
+fn the_heads_up_card_leads_with_its_title_and_its_facts_under_it_in_the_house_look_only() {
+	let out = run(&format!(
+		r#"{CARD}
+		local c = names(CT.NewCard(UIParent))
+		local function y(r) return select(5, r:GetPoint(1)) end
+		emit(eachLook(function()
+			CT.FillCard(c, model(), 340)
+			return {{ head = c.Head:GetText(), stripe = c.Stripe:IsShown(), titleFirst = y(c.Title) > y(c.Head), ringX = select(4, c.Ring:GetPoint(1)),
+				chipOnFacts = c.Badge:GetPoint(1) == "TOPLEFT" and select(4, c.Badge:GetPoint(1)) > select(4, c.Head:GetPoint(1)) }}
+		end))"#
+	));
+	let looks = out.as_array().unwrap();
+	assert_eq!(looks[0], json!({ "head": "Level 18 · Dungeon", "stripe": false, "titleFirst": true, "ringX": 14, "chipOnFacts": true, "skin": "polestar" }));
+	for l in &looks[1..3] {
+		let skin = &l["skin"];
+		assert_eq!(l["head"], "LEVEL 18 · DUNGEON", "{skin}: the header in capitals");
+		assert_eq!(l["stripe"], true, "{skin}: the stripe");
+		assert_eq!(l["titleFirst"], false, "{skin}: the header over the title");
+		assert_eq!(l["ringX"], 18, "{skin}: the ring beside the stripe");
+		assert_eq!(l["chipOnFacts"], false, "{skin}: the chip beside the header, at the top right");
+	}
+	assert_eq!(looks[3], looks[0], "back on the house skin");
+}
+
+// A model without the facts line (an add-on's own heads-up) keeps its header in the house look too, under the title.
+#[test]
+fn a_heads_up_without_facts_shows_its_header_under_the_title_in_the_house_look() {
+	let out = run(&format!(
+		r#"{CARD}
+		local c = CT.NewCard(UIParent)
+		local m = model()
+		m.facts = nil
+		CT.FillCard(c, m, 340)
+		emit({{ head = c.Head:GetText(), titleFirst = select(5, c.Title:GetPoint(1)) > select(5, c.Head:GetPoint(1)) }})"#
+	));
+	assert_eq!(out, json!({ "head": "LEVEL 18 · DUNGEON", "titleFirst": true }));
+}
+
+#[test]
+fn the_heads_up_card_lays_out_whole_at_every_width_and_scale_full_and_compact() {
+	let out = run(&format!(
+		r#"{CARD}
+		local c = names(CT.NewCard(UIParent))
+		local out = {{}}
+		for _, id in ipairs({{ "polestar", "lanterns" }}) do
+			Polestar.Set("ui.skin", id)
+			for _, compact in ipairs({{ false, true }}) do
+				Polestar.Set("toasts.headsup.compact", compact or nil)
+				for _, width in ipairs({{ 260, 560 }}) do
+					for _, scale in ipairs({{ 0.65, 1, 1.25 }}) do
+						c:SetScale(scale)
+						CT.FillCard(c, model(), width)
+						local parts = {{ {{ c.Ring }}, {{ c.Title, compact and "trim" or "text" }}, {{ c.Close }} }}
+						for _, p in ipairs({{ {{ c.Head, "text" }}, {{ c.Badge }}, {{ c.Giver, "text" }}, {{ c.Act }}, {{ c.More }}, {{ c.Later }}, {{ c.Off }}, {{ c.Extra }} }}) do
+							if p[1]:IsShown() then parts[#parts + 1] = p end
+						end
+						out[#out + 1] = {{ at = id .. (compact and " compact " or " ") .. width .. " x" .. scale, bad = table.concat(breaks(c, parts), " | ") }}
+					end
+				end
+			end
+		end
+		emit(out)"#
+	));
+	let cases = out.as_array().unwrap();
+	assert_eq!(cases.len(), 24);
+	for c in cases {
+		assert_eq!(c["bad"], "", "{}: nothing cut, overlapping or outside the card", c["at"]);
 	}
 }

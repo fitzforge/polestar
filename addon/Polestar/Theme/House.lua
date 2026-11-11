@@ -129,12 +129,15 @@ House.ROLES = ROLES
 --   clearShade   ... in the transparent style: the scrim at this share
 --   lit          the arrow's goal: the target bar's colour at this share,
 --                fading out across its row
+--   cardFacts    the heads-up card leads with its title, its facts under
+--                it in sentence case, and draws no stripe
 ---------------------------------------------------------------------------
 
 local TOKENS = {
 	raised = 0.85,
 	clearShade = 0.32,
 	lit = 0.13,
+	cardFacts = true,
 }
 
 ---------------------------------------------------------------------------
