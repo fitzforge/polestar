@@ -52,7 +52,7 @@ why Mulgore quests while you level, Winterspring quests and Morrowgrain from 55,
 step Thunder Bluff: how it works
   tip Thunder Bluff reputation comes from quests, Morrowgrain and cloth. Rumstag Proudstrider, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with Thunder Bluff also gives a quarter as much to Orgrimmar, the Undercity and the Darkspear Trolls. While you level, do Thunder Bluff's quests within 5 levels of them: Mulgore at 1 to 12, Camp Taurajo and the Crossroads at 13 to 22, Thousand Needles at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. Thunder Bluff has no tabard or other reward.
   zone Thunder Bluff
-  goto 43.1,42.7 "Rumstag Proudstrider" -- his donations are handed in from his window and never enter the log (#1699 sweep)
+  goto 43.1,42.7 "Rumstag Proudstrider" -- his donations are handed in from his window and never enter the log
 
 step Camp Narache (optional hub)
   label narache

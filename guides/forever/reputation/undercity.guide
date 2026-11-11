@@ -46,7 +46,7 @@ why Tirisfal quests while you level, the Plaguelands quests from 55, then Runecl
 step Undercity: how it works
   tip Undercity reputation comes from quests and cloth. Ralston Farnsley, the cloth quartermaster, stands in the Magic Quarter beside the tailors. He takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with the Undercity also gives a quarter as much to Orgrimmar, Thunder Bluff and the Darkspear Trolls. While you level, do the Undercity's quests within 5 levels of them: Tirisfal at 1 to 12, Silverpine at 10 to 20, Hillsbrad and Tarren Mill at 20 to 33. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Undercity's merchants sell to you for 10% less (the Classic rule), the horse vendor included; at Exalted other races can buy the skeletal horses: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse, once you have mount training. The Undercity has no tabard or other reward.
   zone Undercity
-  goto 71.7,29.2 "Ralston Farnsley"   -- his donations are handed in from his window and never enter the log (#1699 sweep)
+  goto 71.7,29.2 "Ralston Farnsley"   -- his donations are handed in from his window and never enter the log
 
 step Deathknell (optional hub)
   label deathknell

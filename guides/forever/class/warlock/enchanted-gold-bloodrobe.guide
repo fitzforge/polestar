@@ -115,7 +115,7 @@ step Menara again
 step Fine Gold Thread
   zone Stranglethorn Vale
   tip Back to Xizk in Booty Bay: he offers Fine Gold Thread as a quest you hand straight back to him. He may show no quest marker; talk to him anyway.
-  turnin 4785 direct                  -- Xizk Goodstitch: Fine Gold Thread, handed straight back (#1699 sweep)
+  turnin 4785 direct                  -- Xizk Goodstitch: Fine Gold Thread, handed straight back
   collect 12293 quest 4784.1          -- Fine Gold Thread
 
 step Smoldering Coal
