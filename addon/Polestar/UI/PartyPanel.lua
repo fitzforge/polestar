@@ -152,9 +152,10 @@ local function refresh(list)
 		r.Step:SetText(step or "")
 		local hasStep = step ~= nil and step ~= ""
 		r.Step:SetShown(hasStep)
-		r.Needs:SetText(needs or "")
+		UI.SetCounted(r.Needs, needs or "")
 		r.Needs:SetShown(needs ~= nil)
 		r.Needs:SetWidth(WIDTH - PAD * 2)
+		UI.FitCounts(r.Needs)
 		-- The needs line hangs under the step line only while that shows: a
 		-- hidden region still holds its place in an anchor chain, and an empty
 		-- one may keep a line's height, which the row's height below leaves out.
