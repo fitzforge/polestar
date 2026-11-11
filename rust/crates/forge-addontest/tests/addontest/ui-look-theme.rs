@@ -371,3 +371,20 @@ fn a_skin_with_a_preset_offers_apply_and_undo_under_the_skin_cards_which_set_and
 	assert_eq!(out["undone"]["outline"], "none", "Undo puts the settings back");
 	assert_eq!(out["undone"]["heading"], 1);
 }
+
+// A skin addon's card shows the skin's name alone (its folder next to it ran the two together: "Umbrablestar_Skin_
+// Umbra"); the folder is in the card's tooltip, after the skin's own description.
+#[test]
+fn a_skin_addon_s_card_shows_its_name_alone_and_its_folder_in_the_tooltip() {
+	let out = run(r#"
+		assert(T.RegisterSkin("umbra", { name = "Umbra", addon = "Polestar_Skin_Umbra", desc = "Deep shade, soft light." }))
+		local O = Polestar.UI.Options
+		Polestar.UI.ShowOptions("theme")
+		O.Select("theme", "Colour")
+		local row = O.Controls("theme", "Colour")["ui.skin"]
+		local card = row.psCardBy.umbra
+		emit({ name = card.Name:GetText(), note = card.Note:GetText(), tip = card.psTipLines and card.psTipLines[1] or false })"#);
+	assert_eq!(out["name"], "Umbra");
+	assert_eq!(out["note"], "", "nothing beside the name");
+	assert_eq!(out["tip"], "Deep shade, soft light.\nFrom the addon Polestar_Skin_Umbra", "the folder in the tooltip");
+}
