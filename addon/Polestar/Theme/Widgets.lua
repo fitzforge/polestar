@@ -3351,8 +3351,8 @@ function W.Shell(name, opts)
 		end
 	end
 	-- The gold rim along the window's top, its light thrown under the
-	-- main column.
-	W.Rim(f, { offset = Wd * 0.1 })
+	-- main column (f.Rim: the settings' Theme page lights it).
+	f.Rim = W.Rim(f, { offset = Wd * 0.1 })
 
 	-- Tab row: tabs sit on its bottom hairline.
 	f.TabRow = CreateFrame("Frame", nil, main)

@@ -98,8 +98,9 @@ fn a_painted_scene_has_no_backdrop_chip_and_a_cropped_one_fades_out_at_the_stage
 }
 
 // The preview is the page's hero: on every Look page the stage stands on a backdrop at least 40% of the window's
-// height across the slot, the page's scene centred on it, over the zone you stand in until another backdrop is
-// picked (the map pins' and route lines' paintings keep their plain ground).
+// height across the slot, the page's scene centred on it (as much hero above it as below, by its anchor and the
+// height its page laid it out at), over the zone you stand in until another backdrop is picked (the map pins' and
+// route lines' paintings keep their plain ground).
 #[test]
 fn every_look_page_s_preview_is_the_hero_at_least_40_percent_of_the_window_over_the_zone_you_stand_in() {
 	let out = run(r#"
@@ -107,9 +108,12 @@ fn every_look_page_s_preview_is_the_hero_at_least_40_percent_of_the_window_over_
 		for _, key in ipairs({ "theme", "guidewindow", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers" }) do
 			local f, host = shown(key)
 			local H = f.Hero
-			local above, below = H:GetTop() - f:GetTop(), f:GetBottom() - H:GetBottom()
+			local _, rel, _, _, y = f:GetPoint(1)
+			local k = f:GetScale()
+			local above = -(y or 0) * k
+			local below = H:GetHeight() - above - f:GetHeight() * k
 			out[key] = { hero = math.floor(H:GetHeight() / win:GetHeight() * 1000 + 0.5) / 1000, inSlot = host:GetHeight() >= H:GetHeight() - 0.5,
-				centred = math.abs(above - below) <= 1.5 or (above <= 0.5 and below <= 0.5), backdrop = P.BackdropOf(f) }
+				centred = rel == host and math.abs(above - below) <= 1.5 and below >= -0.5, backdrop = P.BackdropOf(f) }
 		end
 		emit(out)"#);
 	for key in ["theme", "guidewindow", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers"] {
@@ -122,8 +126,8 @@ fn every_look_page_s_preview_is_the_hero_at_least_40_percent_of_the_window_over_
 	}
 }
 
-// A surface of the scene stands on a soft floor shadow (s:Floor): under its foot, wider than it, dark, on the
-// hero's floor layer (over the backdrop, under the surface).
+// A surface of the scene stands on a soft floor shadow (s:Floor): under its foot (its top over the foot, the rest
+// below it), wider than it on both sides, dark, on the hero's floor layer (over the backdrop, under the surface).
 #[test]
 fn a_surface_stands_on_a_soft_floor_shadow_under_its_foot() {
 	let out = run(r#"
@@ -136,14 +140,18 @@ fn a_surface_stands_on_a_soft_floor_shadow_under_its_foot() {
 		box:SetPoint("TOPLEFT", s, "TOPLEFT", 50, -40)
 		local t = s:Floor(box)
 		local _, _, _, a = t:GetVertexColor()
-		emit({ under = t:GetTop() >= box:GetBottom() and t:GetBottom() < box:GetBottom(), wider = t:GetWidth() > box:GetWidth(),
+		local p1, r1, rp1, x1, y1 = t:GetPoint(1)
+		local p2, r2, rp2, x2, y2 = t:GetPoint(2)
+		local h = t:GetHeight()
+		emit({ under = r1 == box and rp1 == "BOTTOMLEFT" and y1 > 0 and h - y1 > 0 and r2 == box and rp2 == "BOTTOMRIGHT" and y2 == y1,
+			wider = p1 == "TOPLEFT" and p2 == "TOPRIGHT" and x1 < 0 and x2 > 0,
 			dark = a >= 0.4, layer = t:GetParent() == s.FloorLayer, again = s:Floor(box) == t })"#);
 	assert_eq!(out, json!({ "under": true, "wider": true, "dark": true, "layer": true, "again": true }));
 }
 
 // The pointer on a setting's row lights the parts of the preview it changes: every hotspot of that setting and
-// every part the page lights for it (s:Light), an accent outline and wash; the others stay dark, and off the row
-// the lights go out.
+// every part the page lights for it (s:Light, its frame made the first time it lights), an accent outline and
+// wash; the others stay dark, and off the row the lights go out.
 #[test]
 fn hovering_a_row_lights_the_parts_of_the_preview_its_setting_changes_and_leaving_puts_them_out() {
 	let out = run(r#"
@@ -152,7 +160,8 @@ fn hovering_a_row_lights_the_parts_of_the_preview_its_setting_changes_and_leavin
 		local function lit(key)
 			local n = 0
 			for _, b in ipairs(host.psByKey[key] or {}) do
-				if b.psLit and b.Wash and b.Wash:IsShown() then n = n + 1 end
+				local l = rawget(b, "psRegion") and rawget(b, "Frame") or b
+				if rawget(l, "psLit") and l.Wash and l.Wash:IsShown() then n = n + 1 end
 			end
 			return n
 		end
@@ -160,14 +169,54 @@ fn hovering_a_row_lights_the_parts_of_the_preview_its_setting_changes_and_leavin
 		local on = { scale = lit("nav.arrowScale"), ring = lit("nav.arrowRingColor") }
 		stub.RunScript(rows["nav.arrowScale"], "OnLeave")
 		local off = lit("nav.arrowScale")
+		stub.RunScript(rows["nav.arrowAlpha"], "OnEnter")
+		local before = lit("nav.arrowAlpha")
+		stub.RunScript(rows["nav.arrowAlpha"], "OnLeave")
 		local own = f:Light("nav.arrowAlpha", f.Dials[1].holder)
 		stub.RunScript(rows["nav.arrowAlpha"], "OnEnter")
-		emit({ on = on, off = off, own = lit("nav.arrowAlpha"), made = #own })"#);
+		emit({ on = on, off = off, before = before, own = lit("nav.arrowAlpha"), made = #own,
+			ownLit = own[1] and own[1].Frame ~= nil and own[1].Frame.psLit == true })"#);
 	assert!(out["on"]["scale"].as_i64().unwrap() >= 1, "the setting's part lit: {}", out["on"]);
 	assert_eq!(out["on"]["ring"], 0, "another setting's part stays dark");
 	assert_eq!(out["off"], 0, "off the row the lights go out");
 	assert_eq!(out["made"], 1);
-	assert_eq!(out["own"], 1, "a part the page lights for a setting");
+	assert_eq!(out["own"].as_i64().unwrap(), out["before"].as_i64().unwrap() + 1, "a part the page lights for a setting: {out}");
+	assert_eq!(out["ownLit"], true);
+}
+
+// Every setting on a Look page shows what it changes: the pointer on its row (or on the switch or swatch beside it)
+// lights at least one part of that tab's preview, a hotspot or a part the page lights for it (s:Light). Exempt: the
+// game menu's button, which lives in the game's own menu and draws nothing on a preview.
+#[test]
+fn every_look_page_setting_lights_a_part_of_its_tab_s_preview() {
+	let out = run(r#"
+		local EXEMPT = { ["ui.gameMenuButton"] = true }
+		local dark, seen = {}, 0
+		for _, p in ipairs(O.Pages()) do
+			if p.group == "look" then
+				for _, tab in ipairs(p.tabs) do
+					local _, host = shown(p.key, tab)
+					local map = host and rawget(host, "psByKey") or {}
+					for c, w in pairs(O.view.cache) do
+						if w:IsShown() then
+							local keys = { c.key }
+							for _, x in ipairs(rawget(w, "psExtras") or {}) do
+								local xc = rawget(x, "psControl")
+								if xc and xc.key and x:IsShown() then keys[#keys + 1] = xc.key end
+							end
+							for _, key in pairs(keys) do
+								seen = seen + 1
+								if not (map[key] and #map[key] > 0) and not EXEMPT[key] then dark[#dark + 1] = p.key .. "/" .. tab .. ": " .. key end
+							end
+						end
+					end
+				end
+			end
+		end
+		table.sort(dark)
+		emit({ dark = table.concat(dark, "\n"), seen = seen })"#);
+	assert!(out["seen"].as_f64().unwrap() > 300.0, "every Look page's rows walked: {}", out["seen"]);
+	assert_eq!(out["dark"], "", "settings that light nothing on their preview:\n{}", out["dark"].as_str().unwrap_or_default());
 }
 
 // A stage repaints on its own settings at once while it shows, on its next show when it was hidden, and not on
