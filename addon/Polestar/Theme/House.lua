@@ -138,6 +138,7 @@ House.ROLES = ROLES
 --   edgeKey      its contact line just outside, with the shadow: shade at
 --                this share
 --   openSections the guide window's body sections go without hairlines
+--   loneTab      a lone guide tab takes the room its title needs
 ---------------------------------------------------------------------------
 
 local TOKENS = {
@@ -149,6 +150,7 @@ local TOKENS = {
 	edgeLight = 0.07,
 	edgeKey = 0.42,
 	openSections = true,
+	loneTab = true,
 }
 
 ---------------------------------------------------------------------------

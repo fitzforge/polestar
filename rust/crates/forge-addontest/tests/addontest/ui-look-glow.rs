@@ -601,3 +601,56 @@ fn the_house_look_keeps_the_chrome_hairlines_and_drops_the_body_sections_ones() 
 		assert_eq!((l["strip"].as_bool(), l["nav"].as_bool()), (Some(false), Some(false)), "{skin}");
 	}
 }
+
+// A lone tab: in the house look it takes the room its title and range need, up to the strip, so "Elwynn Forest
+// (1–13)" reads whole instead of cut beside an empty strip; a title longer than the strip truncates inside it. Every
+// other look keeps the 150-unit tab, and two tabs share the strip as before in every look.
+#[test]
+fn a_lone_tab_shows_its_whole_title_in_the_house_look_at_every_width_and_scale() {
+	let out = run(r#"
+		Polestar.Set("ui.shown", true)
+		local LONG = "forever/exploration/eastern-kingdoms-1-30"
+		local function tab(i)
+			local b = GF.tabs[i]
+			return { w = b:GetWidth(), whole = b.Label:IsShown() and b.Label:GetWidth() >= b.psTitleW, range = b.Range:IsShown(),
+				inside = rectOf(b).r <= rectOf(GF.parts.strip).r + 0.5, avail = F:GetWidth() - 32 }
+		end
+		local out = {}
+		for _, id in ipairs({ "polestar", "lanterns" }) do
+			Polestar.Set("ui.skin", id)
+			for _, width in ipairs({ 260, 560 }) do
+				for _, scale in ipairs({ 0.64, 0.65, 1, 1.25, 1.5 }) do
+					Polestar.Set("ui.width", width)
+					Polestar.Set("ui.scale", scale)
+					uistub.openTabs({ { uistub.elwynn, 3 } }, 1); layout()
+					local short = tab(1)
+					uistub.openTabs({ { LONG, 1 } }, 1); layout()
+					local long = tab(1)
+					uistub.openTabs(TABS, 1); layout()
+					out[#out + 1] = { look = id, width = width, scale = scale, short = short, long = long, two = { tab(1).w, tab(2).w } }
+				end
+			end
+		end
+		emit(out)"#);
+	let cases = out.as_array().unwrap();
+	for c in cases {
+		let at = format!("{} {} x{}", c["look"], c["width"], c["scale"]);
+		let (short, long) = (&c["short"], &c["long"]);
+		assert_eq!(short["inside"], true, "{at}: the tab inside the strip");
+		assert_eq!(long["inside"], true, "{at}: a long title's tab inside the strip");
+		if c["look"] == "polestar" {
+			assert!(short["w"].as_f64().unwrap() > 150.0, "{at}: wider than the shared tab: {short}");
+			assert_eq!((short["whole"].as_bool(), short["range"].as_bool()), (Some(true), Some(true)), "{at}: the whole title and its range");
+			if c["width"] == 560 {
+				assert_eq!(long["whole"], true, "{at}: room for the long title");
+			} else {
+				assert_eq!(long["w"], long["avail"], "{at}: the long title takes the whole strip and truncates there");
+			}
+		} else {
+			assert_eq!(short["w"], 150, "{at}: the shared tab's width");
+			assert_eq!(short["whole"], false, "{at}: its title cut, as before");
+		}
+		let other = cases.iter().find(|o| o["look"] != c["look"] && o["width"] == c["width"] && o["scale"] == c["scale"]).unwrap();
+		assert_eq!(c["two"], other["two"], "{at}: two tabs share the strip alike in every look");
+	}
+}

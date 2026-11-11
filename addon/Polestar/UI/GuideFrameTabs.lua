@@ -186,6 +186,13 @@ function GF.RenderTabs()
 		b.Bar:SetShown(b.psActive)
 		GF.PaintTab(b)
 		local w = b.psActive and activeW or otherW
+		-- A lone tab in the house look takes the room its title and range need,
+		-- up to the strip (Theme.House "loneTab"), never "The Barre…" beside an
+		-- empty strip.
+		if n == 1 and Theme.House("loneTab") then
+			local need = TAB_TEXT_X + b.psTitleW + (b.psRange and floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP or 0) + TAB_CLOSE_PAD
+			w = min(avail, max(w, need))
+		end
 		b:SetWidth(w)
 		layoutTab(b)
 		b:ClearAllPoints()
