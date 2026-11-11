@@ -5248,7 +5248,10 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
 - **Codex records** use the field names of `data/forever/codex/*.json` (see
   Toolchain, "Codex"); the pack holds one compact string per record plus an
   id → name table per group, so search never decodes records, and decoded
-  records are cached weakly.
+  records are cached weakly. The pack writes each chunk's lines in id order,
+  so a number id is found by halving the chunk (a string id, or a chunk not
+  in that form, by a plain find), and an id a group lacks is remembered as
+  absent until its chunks change.
 - **Ranking.** A row is unavailable (kept, dimmed, `why` = `faction`, `race`,
   `class`, `level`, `profession`, `reputation`, `done` or `retired`) when the character
   cannot use it now; available rows come first, then by `cost` = travel
