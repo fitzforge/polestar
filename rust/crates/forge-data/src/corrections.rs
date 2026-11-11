@@ -5,7 +5,8 @@
 //! What "enough" means:
 //! - a quest: `set` gives `title`, `start` and `end`;
 //! - an NPC or an object: `set` gives `name`, and `addSpawns` (or `set.spawns`) gives where it is;
-//! - an item: never (an item correction only removes wrong sources from an existing record).
+//! - an item: never (an item correction adds sources to an existing record, `addDrops`, or removes
+//!   wrong ones, `removeDrops` / `removeVendors`).
 
 use forge_guide::js::{num_str, str_to_num, stringify, Obj, Str, V};
 
@@ -505,7 +506,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 23] = [
+const QUEST_FIELDS: [&str; 24] = [
 	"title",
 	"level",
 	"minLevel",
@@ -531,6 +532,8 @@ const QUEST_FIELDS: [&str; 23] = [
 	"breadcrumbs",
 	// Seconds the quest allows once taken (the TDB's TimeAllowed; a Forever quest's from its text).
 	"limit",
+	// The item the quest hands over when it is taken (a kit, a staff, a bundle of candles to use).
+	"sourceItem",
 ];
 
 struct Ck<'a> {
@@ -848,6 +851,11 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 				"next" | "breadcrumbFor" => {
 					if !v.is_nullish() {
 						ck.refers(&a, "quests", &v);
+					}
+				}
+				"sourceItem" => {
+					if !v.is_nullish() {
+						ck.refers(&a, "items", &v);
 					}
 				}
 				"objectives" => {
@@ -1793,6 +1801,45 @@ mod tests {
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	#[test]
+	fn a_quest_hands_over_its_item_and_an_item_gains_a_forever_dropper() {
+		// Riverglades (2026-11-11): From Seed to Sprout hands over Halligan's Tree Sprouting Kit, and
+		// Sootfur's Pelt drops from Sootfur, a creature the merged item data doesn't list.
+		let c = parse_json(
+			r#"{ "quests": { "10": { "set": { "sourceItem": 40 } } },
+			"items": { "40": { "addDrops": { "npc": [20], "object": [30] } }, "41": { "addDrops": { "npc": [20] } } } }"#,
+		)
+		.unwrap();
+		let quests = parse_json(r#"{ "10": { "id": 10 } }"#).unwrap();
+		let items = parse_json(r#"{ "40": { "id": 40, "drops": { "npc": { "5": 50 } } }, "41": { "id": 41, "drops": { "npc": { "20": 25 } } } }"#).unwrap();
+		let (Some(q), Some(i)) = (quests.as_obj(), items.as_obj()) else { panic!() };
+		let a = apply(&c, q, &Obj::new(), &Obj::new(), i, false);
+		assert_eq!(q.get("10").get("sourceItem").num(), 40.0, "the quest hands over item 40");
+		let it = i.get("40");
+		assert!(it.get("drops").get("npc").has("20") && it.get("drops").get("npc").get("20").is_nullish(), "npc 20 drops it, rate unknown");
+		assert!(it.get("drops").get("object").has("30"), "object 30 holds it");
+		assert_eq!(it.get("drops").get("npc").get("5").num(), 50.0, "the merged dropper stays");
+		assert_eq!(i.get("41").get("drops").get("npc").get("20").num(), 25.0, "a known dropper keeps its rate");
+		let st: Vec<(String, &str)> = a.entries.iter().map(|e| (format!("{} {}", e.section, e.id), e.state)).collect();
+		assert_eq!(st, vec![("quests 10".into(), "applied"), ("items 40".into(), "applied"), ("items 41".into(), "redundant")]);
+	}
+
+	#[test]
+	fn source_item_and_add_drops_name_ids_the_data_has() {
+		let src = r#""source": [{ "kind": "eg", "ref": "objective records" }, { "kind": "recording", "ref": "3 people" }], "note": "handed over""#;
+		let ok = format!(r#"{{ "quests": {{ "10": {{ "set": {{ "sourceItem": 40 }}, {src} }} }}, "items": {{ "40": {{ "addDrops": {{ "npc": [20], "object": [30] }}, {src} }} }} }}"#);
+		assert_eq!(findings(Some(&ok), None, None), Vec::<String>::new());
+		let bad = findings(
+			Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "sourceItem": 41 }}, {src} }} }}, "items": {{ "40": {{ "addDrops": {{ "npc": [21], "creature": [20] }}, {src} }} }} }}"#)),
+			None,
+			None,
+		);
+		assert_eq!(bad.len(), 3, "{bad:?}");
+		assert!(bad.iter().any(|f| f.contains("quests.10.set.sourceItem")), "{bad:?}");
+		assert!(bad.iter().any(|f| f.contains("items.40.addDrops.npc")), "{bad:?}");
+		assert!(bad.iter().any(|f| f.contains("items.40.addDrops.creature")), "{bad:?}");
 	}
 
 	#[test]
