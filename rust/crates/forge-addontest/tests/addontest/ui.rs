@@ -860,10 +860,15 @@ fn grow_upward_the_window_ends_at_the_top_of_the_screen_and_keeps_its_bottom_edg
 	assert_eq!(out["fullOver"], false, "with room the goals area shows everything");
 	for k in ["near", "tight"] {
 		let s = &out[k];
-		assert_eq!(f(&s["h"]), top - f(&s["y"]), "{k}: the window ends at the top of the screen, not past it ({s})");
 		assert_eq!(s["point"][0], "BOTTOMLEFT", "{k}: still pinned by its bottom-left corner");
 		assert_eq!(s["point"][2], s["y"], "{k}: where the player put it");
 	}
+	// 20 px short, the goals area ends on a whole goal under the top of the screen (as under the height cap), so the
+	// window ends at most a goal row below it; with 150 px it is clipped at the top of the screen.
+	let near = &out["near"];
+	let room = top - f(&near["y"]);
+	assert!(f(&near["h"]) <= room && f(&near["h"]) > room - 60.0, "near: the window ends at the top of the screen or a row under it, not past it ({near})");
+	assert_eq!(f(&out["tight"]["h"]), top - f(&out["tight"]["y"]), "tight: the window ends at the top of the screen ({})", out["tight"]);
 	assert_eq!(out["near"]["over"], true, "20 px short: the goals area scrolls ({})", out["near"]);
 	assert_eq!(out["near"]["cut"], false, "and nothing is clipped");
 	assert_eq!(out["tight"]["cut"], true, "150 px of room: the step list is clipped at the bars ({})", out["tight"]);
