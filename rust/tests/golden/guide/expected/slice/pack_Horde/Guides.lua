@@ -906,7 +906,7 @@ do
 					note = "{npc:3193}'s hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}.",
 					goals = {
 						{ t = "accept", quest = 816, title = "Lost But Not Forgotten", npc = 3193, npcName = "Misha Tor'kren", minLevel = 8, qlvl = 11, map = 1411, x = 43.1, y = 30.2, z = 18.8, f = "e" },
-						{ t = "collect", quest = 816, title = "Lost But Not Forgotten", item = 4891, itemName = "Kron's Amulet", oi = 1, map = 1411, x = 35.2, y = 30.1, f = "e", spotsPacked = "35,29.1,,44,3;34.3,36,,44,2;35.1,39.2,,44,1;34,46.1,,73,6;34,51.5,,61,6,,12;34.8,55,,50,4;35.7,58.2,,44,2;36.7,61.7,,44,2;37.5,67.1,,44,2;38.2,70.7,,44,2;36.2,22,,56,5;37,16.5,,44,2;34.4,32.3,,44,1,1;34.9,25.8,,52,6,1,12", spread = true, lvl = 11, fromNpcs = { { npc = 3110, npcName = "Dreadmaw Crocolisk" }, { npc = 3231, npcName = "Corrupted Dreadmaw Crocolisk" } } },
+						{ t = "collect", quest = 816, title = "Lost But Not Forgotten", item = 4891, itemName = "Kron's Amulet", oi = 1, map = 1411, x = 35.2, y = 30.1, f = "e", spotsPacked = "35,29.1,,44,3;34.3,36,,44,2;35.1,39.2,,44,1;34,46.1,,73,6;34,51.5,,61,6,,12;34.8,55,,50,4;35.7,58.2,,44,2;36.7,61.7,,44,2;37.5,67.1,,44,2;38.2,70.7,,44,2;36.2,22,,56,5;37,16.5,,44,2;34.4,32.3,,44,1,1;34.9,25.8,,52,6,1,12", spread = true, lvl = 11, from = "Dreadmaw Crocolisk", fromKind = "npc", fromAlso = "Corrupted Dreadmaw Crocolisk", fromId = 3110, fromAlsoId = 3231, fromNpcs = { { npc = 3110, npcName = "Dreadmaw Crocolisk" }, { npc = 3231, npcName = "Corrupted Dreadmaw Crocolisk" } } },
 						{ t = "turnin", quest = 816, title = "Lost But Not Forgotten", npc = 3193, npcName = "Misha Tor'kren", map = 1411, x = 43.1, y = 30.2, z = 18.8, f = "e" },
 					},
 				},
