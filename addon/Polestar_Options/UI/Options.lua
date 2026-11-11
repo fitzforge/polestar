@@ -445,9 +445,10 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("nav.minimapPins") end }),
 		{ kind = "toggle", key = "nav.upcomingPins", label = L["Numbered pins for the steps ahead"],
 			help = L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] },
+		-- The trail stands in for route lines: shown while they are off, as on Map pins.
 		H({ kind = "toggle", key = "nav.trailDots", label = L["Trail dots along the travel route"],
 			help = L["Moving dots from you to the target on the world map and the minimap, along the travel route, while route lines are off."],
-			disabled = function() return ns.Get("nav.routeLines") end }),
+			needs = function() return not ns.Get("nav.routeLines") end }),
 	} },
 	{ page = MAP, tab = L["Guide & quests"], section = L["Quest markers"], controls = {} },
 	{ page = MAP, tab = L["Rares, travel & zones"], section = L["Rares and treasures"], controls = {} },
