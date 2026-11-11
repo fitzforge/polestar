@@ -491,6 +491,10 @@ function ns.Fire(msg, ...)
 	end
 end
 
+-- Whether a message is being handed out now (one of its handlers runs):
+-- Polestar.API refuses calls made from there (docs/API.md).
+function ns.Dispatching() return busDepth > 0 end
+
 ---------------------------------------------------------------------------
 -- Game events, all through one hidden frame.
 ---------------------------------------------------------------------------

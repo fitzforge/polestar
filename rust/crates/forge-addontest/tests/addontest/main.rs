@@ -2,6 +2,7 @@
 //! test binary each, which cost a link per file).
 #![recursion_limit = "512"]
 mod alts;
+mod api;
 mod automation;
 #[path = "automation-accept-off.rs"]
 mod automation_accept_off;

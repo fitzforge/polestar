@@ -83,6 +83,7 @@ never in saved variables.
 | `Guides.lua` | `Guides` | The guide registry: packs, guides and map frames registered at load time, and the queries behind the guide menu (lists, suggestions) |
 | `Search.lua` | `Search` | One search over guides and every Codex entity, for the hub's search box and Lookup |
 | `Engine.lua` | `Engine` | The guide engine: the current step, each goal's status, where the waypoint points; progress recomputed from live client state |
+| `API.lua` | `API` | What other addons may build on, versioned by `API.version` ([docs/API.md](../docs/API.md)); `ReplaceSteps` gives a registered guide new steps in its own tab |
 | `ClassTrainers.lua` | (registers data) | Generated: one class trainer per town and class, for the class-training reminder |
 | `Automation.lua` | `Automation` | Accepts and turns in the quests the guide wants right now |
 | `Commands.lua` | `Bindings` | Guide slash commands and key binding labels |
