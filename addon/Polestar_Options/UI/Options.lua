@@ -296,6 +296,13 @@ local BUILTIN = {
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
+		-- The toast that says a new suggestion while the guide window is hidden (UI/WhileHere.lua): how long it
+		-- stays. It has no look of its own (the theme's, the shared toast style).
+		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Stays for"], min = 3, max = 30, step = 1, new = "0.3.8",
+			format = function(v) return L["%d s"]:format(v) end,
+			help = L["How long the toast stays while the guide window is hidden. Hovering it holds it."],
+			search = "duration, how long, seconds, time on screen, stays, timeout, toast, while you're here, dynamic questing",
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereStepKey", label = L["Step key targets their mobs"],
 			help = L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."],
 			search = "step key, target, targetexact, keybind, binding",

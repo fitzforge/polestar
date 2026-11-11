@@ -1,19 +1,16 @@
 -- env: world
--- The Alerts & toasts page's Transport alert, While you're here and Heads-up card tabs (Polestar_Options/UI/Looks/
--- Toasts.lua; UI/Toasts.lua, Nav/Alerts.lua, UI/WhileHere.lua, UI/ClassToast.lua) on the whole addon, as
--- ui-look-toasts.rs plays them: the transport banner for a boat 20 s out (3 s, for how long it stays after the
--- arrival), the While you're here toast for the kobolds, and the heads-up card for a dungeon on the guide window,
--- each shown afresh and read as drawn: how long it stays, its place, its size, ground, border, type, accent and
--- entrance.
-local A, H, CT, M
-local HERE = { t = "kill", hereText = "Kill Kobold Vermin  8/10", yards = 50, step = 2, index = 1 }
+-- The Alerts & toasts page's Transport alert and Heads-up card tabs (Polestar_Options/UI/Looks/Toasts.lua;
+-- UI/Toasts.lua, Nav/Alerts.lua, UI/ClassToast.lua) on the whole addon, as ui-look-toasts.rs plays them: the
+-- transport banner for a boat 20 s out (3 s, for how long it stays after the arrival) and the heads-up card for a
+-- dungeon on the guide window, each shown afresh and read as drawn: how long it stays, its place, its size, ground,
+-- border, type and entrance.
+local A, CT, M
 local CARD = { head = "LEVEL 18 \194\183 DUNGEON", title = "The Deadmines is open to you", giver = "Gryan Stoutmantle, Sentinel Hill", route = "Westfall",
 	icon = "x", iconColor = "dungeon", act = { label = "Pick up the quests", run = function() end } }
 local function rgba(t) local r, g, b, a = t:GetVertexColor(); return { r, g, b, a } end
 local function size(fs) return (select(2, fs:GetFont())) end
 local function hideAll()
 	if PolestarAlert then PolestarAlert:Hide() end
-	if PolestarWhileHereToast then PolestarWhileHereToast:Hide() end
 	CT.Hide()
 end
 local function ground(f) return { f.psBgAlpha or false, rgba(f.psSkin.bg) } end
@@ -36,7 +33,6 @@ local function shown(show, frame)
 	end
 end
 local banner = shown(function() A.ShowBanner("Boat to Menethil Harbor", "Arrives in %s", 20) end, "PolestarAlert")
-local toast = shown(function() H.Show(HERE) end, "PolestarWhileHereToast")
 local card = shown(function() CT.ShowCard(CARD) end, "PolestarClassToast")
 -- The probes every card has, on `kind`'s card: its title's and its other lines' strings.
 local function look(probes, kind, at, title, body)
@@ -63,10 +59,6 @@ local probes = {
 		hideAll()
 		return out
 	end,
-	-- The toast still there 10 s on; its heading in the accent (its edge and glyph take it too in the client: the
-	-- stub's textures answer SetTextColor, so there the toast's code colours them as text).
-	["toasts.whilehere.seconds"] = function() return toast(function(f) return f:IsShown() end, 10) end,
-	["toasts.whilehere.accent"] = function() return toast(function(f) return { f.Head:GetTextColor() } end) end,
 	-- The heads-up card still there 6 s on; where it sits on the window (the window in the middle of the screen: its
 	-- rectangle, which the stub does not work out from its anchors); one line or the whole card.
 	["toasts.headsup.seconds"] = { value = 5, probe = function() return card(function(f) return f:IsShown() end, 6) end },
@@ -79,17 +71,15 @@ local probes = {
 	end },
 }
 look(probes, "transport", banner, "Title", "When")
-look(probes, "whilehere", toast, "Head", "Text")
 look(probes, "headsup", card, "Title", "Head")
 return {
 	setup = function()
-		A, H, CT, M = Polestar.Nav.alerts, Polestar.UI.WhileHereToast, Polestar.UI.ClassToast, Polestar.Movers
+		A, CT, M = Polestar.Nav.alerts, Polestar.UI.ClassToast, Polestar.Movers
 		-- The guide window up: the heads-up card sits on it.
 		Polestar.Set("ui.shown", true)
 		Polestar.UI.GuideFrame.frame:Show()
 		-- The cards built once, and unlock mode (the settings' addon's).
 		A.ShowBanner("Boat to Menethil Harbor", "Arrives in %s", 20)
-		H.Show(HERE)
 		CT.ShowCard(CARD)
 		stub.advance(1)
 		hideAll()

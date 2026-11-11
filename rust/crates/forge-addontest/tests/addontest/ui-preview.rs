@@ -287,9 +287,8 @@ fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the
 // The Buttons hero and the single alerts stand in the world they act in: the button set with the mob the target
 // button names (your target: its ring, and its raid mark while Mark target is on) and the rare the rare button
 // names; the rare alert and the transport banner at the top with the arrow under them and the guide window whole
-// at the right, cropped at the hero's foot, the rare in the world at its level; While you're here with no guide
-// window (it comes while the window is hidden) and two of the mobs it names, your target among them. The mobs
-// light with the settings that act on them; a narrow page leaves the guide window out and keeps the card.
+// at the right, cropped at the hero's foot, the rare in the world at its level. The mobs light with the settings
+// that act on them; a narrow page leaves the guide window out and keeps the card.
 #[test]
 fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
 	let out = run(r#"
@@ -305,7 +304,7 @@ fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
 		local _, host = shown("buttons", "Action buttons")
 		buttons.lit = host.psByKey["qol.targetButton"] ~= nil and host.psByKey["qol.rareButton"] ~= nil
 		local alerts = {}
-		for key, tab in pairs({ rare = "Rare alert", transport = "Transport alert", whilehere = "While you're here" }) do
+		for key, tab in pairs({ rare = "Rare alert", transport = "Transport alert" }) do
 			local s, h = shown("alerts", tab)
 			local w = s.World
 			-- The window inside the stage: its box reaches 40 px (its shadow's room) past its right edge.
@@ -317,7 +316,6 @@ fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
 			local a = { guide = w.G ~= nil and w.G:IsShown(), whole = whole, arrow = w.arrow ~= nil and w.arrow.holder:IsShown(),
 				card = s.Card:IsShown() }
 			if w.left then a.rare = w.left:IsShown() and w.left.Name:GetText() == s.Card.Name:GetText() and s.Card.Facts:GetText():find(w.left.Level:GetText(), 1, true) ~= nil end
-			if w.pair then a.pair = w.pair[1]:IsShown() and w.pair[2]:IsShown() and rawget(w.pair[1], "Ring") ~= nil and rawget(w.pair[2], "Ring") == nil end
 			if key == "rare" then
 				s:Layout(420, s.psHeight)
 				a.narrow = { guide = w.G:IsShown(), card = s.Card:IsShown() }
@@ -333,7 +331,6 @@ fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
 			"rare": { "guide": true, "whole": true, "arrow": true, "card": true, "rare": true,
 				"narrow": { "guide": false, "card": true }, "lit": true },
 			"transport": { "guide": true, "whole": true, "arrow": true, "card": true },
-			"whilehere": { "guide": false, "whole": false, "arrow": false, "card": true, "pair": true },
 		})
 	);
 }

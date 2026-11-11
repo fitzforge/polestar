@@ -1,6 +1,7 @@
 //! Alerts & toasts and Trackers (addon/Polestar/UI/Toasts.lua, UI/Trackers.lua; their pages and previews in Polestar_Options/UI/Looks/): the player's scale,
 //! opacity, type sizes, duration, entrance and stacking reach the real rare alert (Rares/Toast.lua), transport
-//! banner (Nav/Alerts.lua), While you're here toast (UI/WhileHere.lua) and heads-up card (UI/ClassToast.lua); the
+//! banner (Nav/Alerts.lua) and heads-up card (UI/ClassToast.lua); the While you're here toast (UI/WhileHere.lua) keeps
+//! only its time and place, in the theme's look; the
 //! tracker settings reach the real flight timer (Maps/FlightTimer.lua), instance tracker (Maps/Instances.lua), party
 //! panel (UI/PartyPanel.lua) and the guide's mark on the XP bar (QoL/XPMark.lua); the pages' previews are sandbox
 //! copies of those builders that fire nothing, play no sound until Play is pressed, and run nothing while hidden.
@@ -22,7 +23,7 @@ fn run(script: &str) -> Vec<Value> {
 }
 
 #[test]
-fn scale_opacity_type_sizes_and_time_on_screen_reach_the_real_rare_alert_banner_and_while_here_toast() {
+fn scale_opacity_type_sizes_and_time_on_screen_reach_the_real_rare_alert_and_banner_while_here_keeps_only_its_time() {
 	let out = run(r#"
 		-- The rare alert, as the player left it, then changed while it shows.
 		Polestar.Rares.Toast.Show(RARE)
@@ -63,20 +64,21 @@ fn scale_opacity_type_sizes_and_time_on_screen_reach_the_real_rare_alert_banner_
 		stub.advance(5)
 		emit({ scale = bscale, lingerZero = lingerZero, lingerDefault = lingerDefault, goneAfter = not b:IsShown() })
 
-		-- While you're here: its own time and size; larger type grows it.
+		-- While you're here: its own time; no look of its own (a value its old tab saved is not read).
 		local W = UI.WhileHereToast
 		Polestar.Set("toasts.whilehere.seconds", 3)
 		Polestar.Set("toasts.whilehere.scale", 0.8)
+		Polestar.Set("toasts.whilehere.alpha", 0.5)
 		W.Show(HERE)
 		local t = PolestarWhileHereToast
-		local h0 = t:GetHeight()
+		local s0 = size(t.Head)
 		Polestar.Set("toasts.whilehere.titleSize", 1.6)
-		Polestar.Set("toasts.whilehere.bodySize", 1.6)
-		local h1 = t:GetHeight()
-		stub.advance(2.5)
+		stub.advance(0.5)
+		local s1, alpha = size(t.Head), r2(t:GetAlpha())
+		stub.advance(2)
 		local shown = t:IsShown()
 		stub.advance(1)
-		emit({ scale = r2(t:GetScale()), h0 = h0, h1 = h1, shown = shown, gone = not t:IsShown() })
+		emit({ scale = r2(t:GetScale()), same = s0 == s1, alpha = alpha, shown = shown, gone = not t:IsShown() })
 	"#);
 	let rare = &out[0];
 	assert_eq!(rare["before"]["scale"], 1.0);
@@ -89,10 +91,7 @@ fn scale_opacity_type_sizes_and_time_on_screen_reach_the_real_rare_alert_banner_
 	assert_eq!(out[1], json!({ "at": { "alpha": 0.6, "sliding": false }, "still": true, "gone": true }), "5 s, no entrance");
 	assert_eq!(out[2], json!({ "scale": 1.3, "lingerZero": false, "lingerDefault": true, "goneAfter": true }), "0 s, then the 6 s default");
 	let here = &out[3];
-	assert_eq!(here["scale"], 0.8);
-	assert!(here["h1"].as_f64().unwrap() > here["h0"].as_f64().unwrap(), "larger type grows the toast: {here}");
-	assert_eq!(here["shown"], true);
-	assert_eq!(here["gone"], true, "gone after 3 s: {here}");
+	assert_eq!(here, &json!({ "scale": 1, "same": true, "alpha": 1, "shown": true, "gone": true }), "3 s, the shared look: {here}");
 }
 
 #[test]
@@ -210,7 +209,7 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		local host = TS.NewStage(UIParent)
 		host:SetSize(700, 400)
 		local stages, heights = {}, {}
-		for _, tab in ipairs({ "rare", "transport", "whilehere", "headsup", "classcard" }) do
+		for _, tab in ipairs({ "rare", "transport", "headsup", "classcard" }) do
 			local s = TS.Preview(host, tab)
 			heights[#heights + 1] = s:Layout(640)
 			stages[tab] = s
@@ -225,7 +224,6 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 			sandbox = rare ~= PolestarRareToast and rare:GetName() == nil,
 			name = rare.Name:GetText(),
 			banner = stages.transport.Card:GetName() == nil and stages.transport.Card.Title:GetText(),
-			here = stages.whilehere.Card.Text:GetText(),
 			heads = stages.headsup.Card.Title:GetText(),
 			card = stages.classcard.Card.Title:GetText(),
 			flight = stages.flight.Tracker.Dest:GetText(),
@@ -273,7 +271,7 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 	assert_eq!(
 		first["live"],
 		json!({
-			"sandbox": true, "name": "Thuros Lightfingers", "banner": "Boat to Menethil Harbor", "here": "Kill Kobold Vermin  8/10  \u{b7}  50 yd",
+			"sandbox": true, "name": "Thuros Lightfingers", "banner": "Boat to Menethil Harbor",
 			"heads": "The Deadmines is open to you", "card": "The Binding", "flight": "Sentinel Hill", "instances": "3/5 this hour", "party": "Step 39",
 			"xp": "Guide: 14 (2 levels)",
 			"hots": [
@@ -305,7 +303,7 @@ fn the_look_pages_list_their_tabs_and_the_settings_they_hold() {
 	assert_eq!(
 		out[0],
 		json!({
-			"alerts": ["Essentials", "Rare alert", "Transport alert", "While you're here", "Heads-up card", "Class quest card"],
+			"alerts": ["Essentials", "Rare alert", "Transport alert", "Heads-up card", "Class quest card"],
 			"trackers": ["Essentials", "Travel", "Instances & XP", "Party panel"]
 		})
 	);
@@ -313,7 +311,8 @@ fn the_look_pages_list_their_tabs_and_the_settings_they_hold() {
 
 // Layout v2: each section is one element; its on/off sits in its header; a colour rides on its slider's row and
 // secondary knobs behind the cog; row labels are short; every control, extra and cog row keeps its tooltip
-// (help), its search words and its "New" mark; and nothing a player could set before is gone from the pages.
+// (help), its search words and its "New" mark; and nothing a player could set before is gone from the pages
+// (0.3.8: the While you're here toast's look went; its switches are on Guide > Window's Dynamic Questing).
 #[test]
 fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_and_keep_every_setting() {
 	let out = run(r#"
@@ -375,11 +374,15 @@ fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_a
 	assert_eq!(o["more"]["trackers.flight.titleSize"], "trackers.flight.format", "the time's outline and format behind its size's cog");
 	assert_eq!(o["more"]["trackers.xp.labelSize"], "trackers.xp.outline");
 	let keys: Vec<&str> = o["keys"].as_array().unwrap().iter().map(|k| k.as_str().unwrap()).collect();
-	for kind in ["rare", "transport", "whilehere", "headsup"] {
+	for kind in ["rare", "transport", "headsup"] {
 		for prop in ["scale", "alpha", "bgAlpha", "bg", "border", "borderSize", "enter", "speed", "titleSize", "bodySize"] {
 			let key = format!("toasts.{kind}.{prop}");
 			assert!(keys.contains(&key.as_str()), "{key} is on the page");
 		}
+	}
+	for prop in ["scale", "alpha", "bgAlpha", "bg", "border", "borderSize", "enter", "speed", "titleSize", "bodySize", "accent", "seconds"] {
+		let key = format!("toasts.whilehere.{prop}");
+		assert!(!keys.contains(&key.as_str()), "{key} is not on the page");
 	}
 	for kind in ["flight", "instances", "party"] {
 		for prop in ["scale", "width", "alpha", "bgAlpha", "bg", "border", "borderSize", "titleSize", "bodySize", "outline"] {
@@ -405,9 +408,6 @@ fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_a
 		"nav.alertSound",
 		"nav.alertFlash",
 		"toasts.transport.linger",
-		"toasts.whilehere.seconds",
-		"toasts.whilehere.accent",
-		"behavior.whileHereSound",
 		"toasts.headsup.seconds",
 		"dungeons.headsUp",
 		"ui.classCardSound",

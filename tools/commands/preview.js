@@ -554,7 +554,7 @@ const LOOK_PAGES = [
 	['mappins', 'Settings: Map pins (Pins, Icons), the numbered pins on: the target pin, then the numbered step pins\' size, colour, numbers and fading (Silverina\'s request) with a size comparison in the preview; world-map and minimap icon sizes, medallions', 2, 'Polestar.Set("nav.upcomingPins", true)\n'],
 	['routelines', 'Settings: Route lines: style cards, then the settings of the style in use (here the line: walk colour, thickness, fading, marks), flights and rides, the minimap', 1],
 	['buttons', 'Settings: Buttons (Action buttons, Launcher & minimap): sizes, layout, backing and border, text, opacity and glow; the floating and minimap buttons', 2],
-	['alerts', 'Settings: Alerts & toasts (Rare alert with the alert line, Transport alert, While you\'re here, Heads-up card, Class quest card): each card\'s scale, opacity, background, border, text and entrance', 5],
+	['alerts', 'Settings: Alerts & toasts (Rare alert with the alert line, Transport alert, Heads-up card, Class quest card): each card\'s scale, opacity, background, border, text and entrance', 5],
 	['trackers', 'Settings: Trackers (Travel, Instances & XP, Party panel): the flight timer and journey, the instance tracker and the level mark on the XP bar, the party panel', 3],
 ];
 // The Community guides page over the real registry (uistub.realGuides in place

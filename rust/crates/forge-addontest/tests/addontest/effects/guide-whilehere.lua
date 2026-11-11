@@ -1,7 +1,8 @@
 -- env: world
--- The Guide page's Dynamic Questing (Core/Engine.lua's While you're here; UI/GuideFrame.lua's panel; QoL/Buttons.lua's
--- step key) on the whole addon, as ui-while-here.rs plays it: a guide at a wolf step far away, with Kobold Camp
--- Cleanup's vermin (8 of 10) and Candles' candles at later steps; the player walks up to the vermin's camp.
+-- The Guide page's Dynamic Questing (Core/Engine.lua's While you're here; UI/GuideFrame.lua's panel; UI/WhileHere.lua's
+-- toast; QoL/Buttons.lua's step key) on the whole addon, as ui-while-here.rs plays it: a guide at a wolf step far away,
+-- with Kobold Camp Cleanup's vermin (8 of 10) and Candles' candles at later steps; the player walks up to the vermin's
+-- camp.
 local w, GF, H
 local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 local function at(x, y) w.moveTo(1429, x, y); stub.advance(0.6) end
@@ -55,6 +56,17 @@ return {
 			local before = chimes()
 			panel(47.6, 37.6)
 			return chimes() - before
+		end,
+		-- The toast that says a suggestion while the window is hidden (UI/WhileHere.lua), shown afresh: still there
+		-- 10 s on.
+		["toasts.whilehere.seconds"] = function()
+			local T = Polestar.UI.WhileHereToast
+			T.Show({ t = "kill", hereText = "Kill Kobold Vermin  8/10", yards = 50, step = 2, index = 1 })
+			stub.advance(10)
+			local out = PolestarWhileHereToast:IsShown()
+			T.Hide()
+			stub.advance(1)
+			return out
 		end,
 		-- By the vermin: the step key's macro tries them after the step's own wolves.
 		["behavior.whileHereStepKey"] = function()

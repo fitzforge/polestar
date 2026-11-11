@@ -105,13 +105,7 @@ local function buildScene(view, names)
 	f.StepTitle = G and G.Person.Name
 	-- The heads-up card on its top edge, a rare alert: their own builders.
 	local heads = TS and TS.Sandbox and TS.Sandbox("headsup", f)
-	-- A rare alert (While you're here's toast where Rares is not loaded).
-	local toastKind = "rare"
 	local toast = TS and TS.Sandbox and TS.Sandbox("rare", f)
-	if not toast and TS and TS.Sandbox then
-		toastKind = "whilehere"
-		toast = TS.Sandbox("whilehere", f)
-	end
 	f.Heads, f.Toast = heads, toast
 	if heads then heads:Show() end
 	if toast then toast:Show() end
@@ -150,7 +144,7 @@ local function buildScene(view, names)
 		end
 		if toast then
 			TS.ApplyLook(toast, true)
-			toast:SetAlpha(TS.Alpha(toastKind))
+			toast:SetAlpha(TS.Alpha("rare"))
 		end
 		if arrow then
 			A.ReadLook(arrow.look)
@@ -180,7 +174,7 @@ local function buildScene(view, names)
 		local hk = heads and scale * TS.Scale("headsup") or 0
 		local hw, hh = heads and heads:GetWidth() * hk or 0, heads and heads:GetHeight() * hk or 0
 		local leftW = max(winW, hw)
-		local tk = toast and TS.Scale(toastKind) * t or 0
+		local tk = toast and TS.Scale("rare") * t or 0
 		local tw, th = toast and toast:GetWidth() * tk or 0, toast and toast:GetHeight() * tk or 0
 		local rightX = PAD + leftW + GAP
 		local rightW = width - PAD - rightX
@@ -285,9 +279,8 @@ local function buildScene(view, names)
 	-- Every part the accent paints: in the scene the guide window's open tab
 	-- (its underline and icon), the current goal's bar and glyph and the
 	-- progress bar; the heads-up card's stripe, ring, headline, badge and
-	-- primary button; the rare alert's primary button and time bar (While
-	-- you're here's edge, glyph and headline); the arrow, which the accent
-	-- tints unless it has a colour of its own.
+	-- primary button; the rare alert's primary button and time bar; the
+	-- arrow, which the accent tints unless it has a colour of its own.
 	local accents = {}
 	local function accent(...)
 		for i = 1, select("#", ...) do
@@ -298,11 +291,7 @@ local function buildScene(view, names)
 	accent(unpack(primaries))
 	if G then accent(G.Strip.Bar, G.Strip.Icon, G.Rows[2].Mark, G.Rows[2].Icon, G.Foot.Line) end
 	if heads then accent(rawget(heads, "Stripe"), rawget(heads, "Ring"), rawget(heads, "Head"), rawget(heads, "Badge")) end
-	if toast and toastKind == "whilehere" then
-		accent(rawget(toast, "Edge"), rawget(toast, "Icon"), rawget(toast, "Head"))
-	elseif toast then
-		accent(rawget(toast, "Timer"))
-	end
+	if toast then accent(rawget(toast, "Timer")) end
 	if arrow then accent(arrow.dial.dial) end
 	-- Rings off them: an outline on a part in the accent would not show.
 	f:LightRing("ui.accent", unpack(accents))
@@ -378,7 +367,7 @@ local function buildScene(view, names)
 		light("ui.colors.quest", G.Up)
 	end
 	if heads then light("ui.colors.dungeon", heads) end
-	if toast and toastKind == "rare" then light("ui.colors.rare", toast) end
+	if toast then light("ui.colors.rare", toast) end
 	if card then
 		for _, word in ipairs(card.Words) do light("ui.colors." .. word.name, word.fs) end
 	end

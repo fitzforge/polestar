@@ -8,7 +8,7 @@
 --   UI.Toasts.NewStage(view[, height])     a preview's stage (the trackers' too)
 --
 -- Previews draw the toasts' own builders in a sandbox (Rares.Toast.NewCard,
--- Nav.alerts.NewBanner, WhileHereToast.NewCard, ClassToast.NewCard,
+-- Nav.alerts.NewBanner, ClassToast.NewCard,
 -- ClassCard.NewCard) fed made-up content: no event, no waypoint, no sound
 -- unless the player presses Play. Nothing is built before the page shows;
 -- nothing runs while it is hidden (a change then is applied when it shows).
@@ -40,7 +40,6 @@ end)
 ---------------------------------------------------------------------------
 
 local STAGE_H = 210
-local SOUND_HERE = "Interface\\AddOns\\Polestar\\Media\\Sounds\\while-here.ogg"
 
 local function classChime()
 	local CC = UI.ClassCard
@@ -58,9 +57,6 @@ local SOUNDS = {
 	transport = function()
 		local A = ns.Nav and ns.Nav.alerts
 		if ns.Get("nav.alertSound") and A and A.SOUND and PlaySoundFile then PlaySoundFile(A.SOUND.boat, "Master") end
-	end,
-	whilehere = function()
-		if ns.Get("behavior.whileHereSound") and PlaySoundFile then PlaySoundFile(SOUND_HERE, "SFX") end
 	end,
 	headsup = classChime,
 	classcard = classChime,
@@ -115,13 +111,6 @@ local BUILD = {
 		if not (A and A.NewBanner) then return nil end
 		local c = A.NewBanner(parent)
 		A.FillBanner(c, false, format(L["Boat to %s"], L["Menethil Harbor"]), format(L["Arrives in %s"], "0:24"), 0.8)
-		return c
-	end,
-	whilehere = function(parent)
-		local T = UI.WhileHereToast
-		if not (T and T.NewCard) then return nil end
-		local c = T.NewCard(parent)
-		T.FillCard(c, { t = "kill", hereText = format(L["Kill %s"], L["Kobold Vermin"]) .. "  8/10", yards = 50 })
 		return c
 	end,
 	headsup = function(parent)
@@ -188,7 +177,6 @@ local OWN_KEYS = {
 	rare = { card = { "rares.alerts", "rares.toastSeconds", "rares.treasureAlerts", "rares.combatAlerts",
 		"toasts.stack", "toasts.growth", "toasts.spacing", "toasts.max" }, play = { "rares.soundKit", "rares.sound" } },
 	transport = { card = { "nav.alerts", "nav.alertBanner", "toasts.transport.linger" }, play = { "nav.alertSound", "nav.alertFlash" } },
-	whilehere = { card = { "behavior.whileHere", "toasts.whilehere.seconds", "toasts.whilehere.accent" }, play = { "behavior.whileHereSound" } },
 	headsup = { card = { "dungeons.headsUp", "toasts.headsup.seconds", "toasts.headsup.place", "toasts.headsup.compact", "ui.classCardSound" } },
 }
 
@@ -222,15 +210,13 @@ end
 -- single alerts stand in the world they come up in (SCENE): the card at the
 -- top of the screen, where the game shows it; under it the arrow toward
 -- what it is about; the guide window at the screen's right, cropped at the
--- hero's foot (none for While you're here, which comes as a toast while the
--- window is hidden); the mobs it names, in the world (UI.Preview.Mob). A
--- page too narrow or too low for a part leaves it out.
-local HEIGHT = { rare = 190, transport = 150, whilehere = 140, headsup = 210 }
+-- hero's foot; the rare it names, in the world (UI.Preview.Mob). A page too
+-- narrow or too low for a part leaves it out.
+local HEIGHT = { rare = 190, transport = 150, headsup = 210 }
 local PLAY_ROOM = 40 -- Play's line at the stage's foot
 local SCENE = {
 	rare = { guide = true, arrow = { 1.35, 85, L["Thuros Lightfingers"] }, left = L["Thuros Lightfingers"] },
 	transport = { guide = true, arrow = { 0.3, 240, L["Menethil Harbor"] } },
-	whilehere = { pair = L["Kobold Vermin"] },
 }
 -- The room either side of the guide window's box for its shadow, the gaps
 -- between the parts.
@@ -253,11 +239,6 @@ local function buildWorld(s, kind)
 	if sc.left then
 		w.left = P.Mob(s, { name = sc.left, level = lv, health = 1, ring = { Theme.Color("rare") } })
 		s:Light("rares.alerts", w.left)
-	end
-	if sc.pair then
-		w.pair = { P.Mob(s, { name = sc.pair, level = max(1, lv - 2), health = 0.7, target = true }),
-			P.Mob(s, { name = sc.pair, level = max(1, lv - 2), health = 1 }) }
-		s:Light("behavior.whileHere", unpack(w.pair))
 	end
 	return w
 end
@@ -309,22 +290,10 @@ local function layWorld(s, kind, card, w)
 		end
 	end
 	-- The rare in the world at the left, level with the arrow's middle (it
-	-- points there); While you're here's pair either side under the toast.
+	-- points there).
 	if w.left and mobW > 0 then
 		w.left:Tint(Theme.Color("rare"))
 		w.left:Stand(pad + mobW / 2, min(height - bottom - 4, below + (w.left.UP + 10) * t), t)
-	end
-	if w.pair then
-		-- Your target near, lower left; another further off, right and higher.
-		local foot = height - bottom - 4
-		local near, far = w.pair[1], w.pair[2]
-		local show = foot - below >= near.UP * t
-		near:SetShown(show)
-		far:SetShown(show)
-		if show then
-			near:Stand(cx - cw * k / 2 + 40 * t, min(foot, below + (near.UP + 60) * t), t)
-			far:Stand(cx + cw * k / 2 - 10 * t, min(foot - 24 * t, below + (far.UP * 0.85 + 12) * t), t * 0.85)
-		end
 	end
 	if G and winW > 0 then
 		local gtop = top + 18
@@ -435,12 +404,12 @@ local function classCardStage(view)
 	return s
 end
 
--- Essentials: every alert and card side by side, each with its name, the
--- rare alert, the transport banner and While you're here in one column
--- while alerts line up (toasts.stack: its growth and spacing).
-local KINDS = { "rare", "transport", "whilehere", "headsup" }
-local NAMES = { rare = L["Rare alert"], transport = L["Transport alert"], whilehere = L["While you're here"], headsup = L["Heads-up card"] }
-local LINED = { rare = true, transport = true, whilehere = true }
+-- Essentials: every alert and card with a look of its own side by side, each
+-- with its name, the rare alert and the transport banner in one column while
+-- alerts line up (toasts.stack: its growth and spacing).
+local KINDS = { "rare", "transport", "headsup" }
+local NAMES = { rare = L["Rare alert"], transport = L["Transport alert"], headsup = L["Heads-up card"] }
+local LINED = { rare = true, transport = true }
 
 local function allStage(view)
 	local s = newStage(view)
@@ -510,7 +479,7 @@ local function allStage(view)
 	return s
 end
 
--- tab: "rare" | "transport" | "whilehere" | "headsup" | "classcard" | "all"
+-- tab: "rare" | "transport" | "headsup" | "classcard" | "all"
 function TS.Preview(view, tab)
 	if tab == "classcard" then return classCardStage(view) end
 	if tab == "all" then return allStage(view) end
@@ -605,7 +574,7 @@ local function rares() return ns.Rares end
 -- Rare alert: when it comes, its card, then the line the alerts may share.
 local RARE = L["Rare alert"]
 register({ tab = RARE, section = L["Rare alert"], preview = function(view) return TS.Preview(view, "rare") end,
-	subtitle = L["The rare alert, the transport banner, While you're here, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."],
+	subtitle = L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."],
 	toggle = { kind = "toggle", key = "rares.alerts", label = L["Alert for rares"], needs = rares,
 		search = "rare alert, rare spawn, notification, warning, popup",
 		help = L["A card with its name, level and distance, and a waypoint to it."] },
@@ -679,26 +648,6 @@ register({ tab = TRANSPORT, section = L["Transport alert"], preview = function(v
 	} })
 cardSection(TRANSPORT, "transport", L["transport banner"])
 
--- While you're here: the toast of Dynamic Questing (Guide > Window), which
--- this page only shows or hides.
-local HERE = L["While you're here"]
-register({ tab = HERE, section = L["While you're here"], preview = function(view) return TS.Preview(view, "whilehere") end, controls = {
-	{ kind = "toggle", key = "behavior.whileHere", label = L["While you're here"],
-		search = "while you're here, nearby objective, dynamic questing, suggestion",
-		help = L["Dynamic Questing (Guide, Window): objectives from later steps when you are near them. With the guide window hidden, each new one comes as this toast."] },
-	{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Stays for"], min = 3, max = 30, step = 1, format = secs, new = NEW,
-		help = L["How long the toast stays while the guide window is hidden. Hovering it holds it."],
-		search = "duration, how long, seconds, time on screen, stays, timeout, while you're here, dynamic questing" },
-	{ kind = "toggle", key = "behavior.whileHereSound", label = L["Chime"],
-		help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
-		search = "chime, sound, audio, ding, alert" },
-	{ kind = "color", key = "toasts.whilehere.accent", label = L["Accent"], new = NEW,
-		help = L["The toast's edge, glyph and heading; the accent when reset."],
-		search = "accent, colour, highlight, edge, while you're here toast",
-		shown = function() return Theme.Accent() end, source = function() return L["Accent"] end },
-} })
-cardSection(HERE, "whilehere", L["While you're here toast"])
-
 -- Heads-up card
 local HEADS = L["Heads-up card"]
 cardSection(HEADS, "headsup", L["heads-up card"], { scaleNote = " " .. L["It sits on the guide window, at the window's scale times this."],
@@ -761,7 +710,7 @@ register({ tab = CARD, section = L["Card"], preview = function(view) return TS.P
 local O = UI.Options
 if O and O.PresetCards and O.Ref then
 	local R = O.Ref
-	local KINDS4 = { "rare", "transport", "whilehere", "headsup" }
+	local LOOKED = { "rare", "transport", "headsup" } -- the alerts with a look of their own
 	-- A preset's card: the rare alert as the preset paints it (its own card
 	-- code, Rares' NewCard and TS.ApplyLook, at a share of its scale so a
 	-- bigger one shows bigger), the transport banner under it while alerts
@@ -819,7 +768,7 @@ if O and O.PresetCards and O.Ref then
 	local quiet = { ["rares.sound"] = false, ["nav.alertSound"] = false, ["nav.alertFlash"] = false, ["behavior.whileHereSound"] = false,
 		["ui.classCardSound"] = false }
 	local large = {}
-	for _, k in ipairs(KINDS4) do
+	for _, k in ipairs(LOOKED) do
 		quiet["toasts." .. k .. ".enter"] = "fade"
 		large["toasts." .. k .. ".scale"], large["toasts." .. k .. ".titleSize"], large["toasts." .. k .. ".bodySize"] = 1.25, 1.15, 1.15
 	end
@@ -837,11 +786,11 @@ if O and O.PresetCards and O.Ref then
 		controls = { O.PresetCards({ presets = PRESETS }) } })
 	register({ tab = ESSENTIALS, section = L["Alerts"], jump = { tab = RARE, section = L["Rare alert"] }, controls = {
 		R("toggle", "rares.alerts", { label = L["Rares"] }), R("toggle", "nav.alerts", { label = L["Transport"] }),
-		R("toggle", "behavior.whileHere"), R("toggle", "dungeons.headsUp"),
+		R("toggle", "dungeons.headsUp"),
 		R("toggle", "toasts.stack"), R("dropdown", "toasts.growth"),
 	} })
 	register({ tab = ESSENTIALS, section = L["Sound"], jump = { tab = RARE, section = L["Rare alert"] }, controls = {
 		R("dropdown", "rares.soundKit"), R("toggle", "nav.alertSound", { label = L["Transport sound"] }),
-		R("toggle", "behavior.whileHereSound", { label = L["Nearby chime"] }), R("toggle", "ui.classCardSound", { label = L["Class quest chime"] }),
+		R("toggle", "ui.classCardSound", { label = L["Class quest chime"] }),
 	} })
 end

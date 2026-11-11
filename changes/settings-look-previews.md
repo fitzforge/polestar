@@ -11,7 +11,7 @@ section: players
   the target button names, marked when Mark target is on, and the rare the
   rare button names. The rare alert and the transport alert come up at the
   top of the world with the arrow under them and the guide window at the
-  side; While you're here shows the mobs it names.
+  side.
 - Point at a setting and the parts of the preview it changes light up. On
   the Theme page, the settings that dress the settings window itself (its
   sidebar, border, header band, haze and rim) light those parts too, and

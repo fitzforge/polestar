@@ -6614,9 +6614,8 @@ button under the arrow (the Hearthstone's other button, a plain frame in its
 look under Nav's own dial), the floating and the minimap button; Alerts & toasts, the rare alert and the
 transport banner at the top of the world, the arrow under them pointing to
 what they are about and the guide window at the right, cropped at the
-hero's foot (the rare in the world beside them), While you're here with two of
-the mobs it names and no guide window (it comes while the window is
-hidden), the heads-up and class quest cards each alone, every one together
+hero's foot (the rare in the world beside them), the heads-up and class
+quest cards each alone, every one together
 on Essentials (the alerts in their line while they line up); Trackers, each
 tab's own surface, every one together on Essentials (the journey and the XP
 bar's mark with the trackers). A page too narrow for a part of its scene
@@ -6863,7 +6862,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   transparent style the ground is the accent alone at `GF.HERE_CLEAR` (0.18)
   under the outlined text. With the window hidden, the toast (UI/WhileHere.lua,
   `UI.WhileHereToast`) says a new line once, slides down into place as it
-  fades in, and leaves after 8 s (held under the cursor) or with the line.
+  fades in, and leaves after 8 s (`toasts.whilehere.seconds`, Stays for in
+  the Guide page's Dynamic Questing section; held under the cursor) or with
+  the line. It has no look of its own (0.3.8): the theme's and the shared
+  toast style (`UI.Toasts.Attach(..., { shared = true })`); only its time and
+  its place (`toasts.whilehere.point`, a mover) are the player's.
   An object named like one of its quests while it gives another too (one
   poster for two WANTED quests) is headed by the first goal note that names
   it, else "The object here" (`UI.GroupName`, #942). A click
@@ -7723,17 +7726,20 @@ Tests: `ui.rs` (`in_dungeons_and_battlegrounds_*`, `floating_button_*`),
 
 Two Look pages (`alerts` 26, `trackers` 27). Each toast builds its frame
 with its own builder and hands it to `UI.Toasts.Attach(kind, frame, { titles,
-bodies, accents, relayout, hide, sandbox })`: the rare alert (`rare`), the
-transport banner and notices (`transport`), While you're here (`whilehere`),
-the class and dungeon heads-up card (`headsup`, scaled over the guide
-window's scale) and the class quest card in the guide window (`classcard`,
-inline: type, glow, stripe, shine, note only). From then on
+bodies, accents, relayout, hide, sandbox, shared })`: the rare alert
+(`rare`), the transport banner and notices (`transport`), the class and
+dungeon heads-up card (`headsup`, scaled over the guide window's scale) and
+the class quest card in the guide window (`classcard`, inline: type, glow,
+stripe, shine, note only). While you're here's toast (`whilehere`) is
+`shared`: it lines up with the others and keeps its place, but wears the
+theme's look and no `toasts.whilehere.*` but `seconds` and `point` (on the
+Guide page since 0.3.8; the page has no tab for it). From then on
 `toasts.<kind>.*` apply live: `scale`, `alpha`, `titleSize`/`bodySize`
 (`Theme.SetFontScale`), `bgAlpha` (a share of `Theme.GroundAlpha`), `bg`,
 `border`, `borderSize` (`UI.Toasts.PaintGround`), `enter` (slide, fade,
 none) and `speed` (`UI.Toasts.Enter`/`Leave`), plus each one's time on
 screen (`rares.toastSeconds`, `toasts.transport.linger`,
-`toasts.whilehere.seconds`, `toasts.headsup.seconds` 0 = until answered).
+`toasts.headsup.seconds` 0 = until answered).
 `toasts.stack` lines the three top-of-screen alerts up from the
 `PolestarToastLine` anchor (`toasts.stackPoint`, a mover), `growth` down or
 up, `spacing` apart, at most `max` (the oldest goes through its own hide).
@@ -7744,7 +7750,7 @@ The trackers do the same through `UI.Trackers.Attach` (`trackers.<kind>.*`:
 `UI.Trackers.Allowed`); the XP mark reads `trackers.xp.*` itself. The
 previews (`UI.Toasts.Preview`, `UI.Trackers.Preview`) are sandbox frames from
 the same builders (`Rares.Toast.NewCard`, `Nav.alerts.NewBanner`,
-`WhileHereToast.NewCard`, `ClassToast.NewCard`, `ClassCard.NewCard`,
+`ClassToast.NewCard`, `ClassCard.NewCard`,
 `Maps.NewFlightTimer`, `Maps.NewInstanceTracker`, `PartyPanel.NewPanel`,
 `XPMark.NewDemo`) with made-up content: no event, waypoint or sound until
 Play, no `OnUpdate`, and a change while hidden waits for the next show.

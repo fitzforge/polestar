@@ -6,13 +6,21 @@ use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
 const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
+// With Rares, for the preview's rare alert.
+fn run_with_rares(script: &str) -> Value {
+	run_files(&["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Rares/Rares.xml"], script)
+}
 const INTER_SEMIBOLD: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-SemiBold.ttf";
 const GAME_FONT: &str = "Fonts\\FRIZQT__.TTF";
 
 fn run(script: &str) -> Value {
+	run_files(FILES, script)
+}
+
+fn run_files(files: &[&str], script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", FILES)],
+		addons: vec![Addon::files("Polestar", files)],
 		script: format!("uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal T, W = Polestar.Theme, Polestar.Widgets\n{script}"),
 		..Default::default()
 	})
@@ -287,11 +295,12 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 }
 
 // The preview is the real surfaces in the theme: the guide window (drawn by its own page's code, never the live
-// window) under its heads-up card, a toast, no loose buttons (the accent lights the cards' own); a change repaints
-// them live; a narrow page keeps the guide window.
+// window) under its heads-up card, the rare alert (Rares' own card), no loose buttons (the accent lights the
+// cards' own); a change repaints them live; a narrow page keeps the guide window.
 #[test]
 fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
-	let out = run(r#"
+	let out = run_with_rares(
+		r#"
 		local f = Polestar.UI.ThemePreview(UIParent)
 		local h = f:Layout(900)
 		local hots = 0
@@ -305,7 +314,8 @@ fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 		f:Layout(420)
 		out.narrowToast = f.Toast:IsShown()
 		out.narrowGuide = f.Guide:IsShown()
-		emit(out)"#);
+		emit(out)"#,
+	);
 	assert_eq!(out["h"], 196);
 	assert_eq!(out["toast"], true);
 	assert_eq!(out["heads"], true, "the heads-up card on the window's top edge");
