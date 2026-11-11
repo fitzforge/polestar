@@ -186,7 +186,7 @@ local tip
 
 local function tipFrame()
 	if tip then return tip end
-	tip = CreateFrame("Frame", "PolestarTip", UIParent)
+	tip = CreateFrame("Frame", "PolestarTip", ns.UIParent)
 	tip:SetFrameStrata("TOOLTIP")
 	tip:SetClampedToScreen(true)
 	tip:EnableMouse(false)

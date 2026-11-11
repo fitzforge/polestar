@@ -1305,7 +1305,7 @@ end
 local more
 
 local function buildMore()
-	more = CreateFrame("Frame", "PolestarOptionsMore", UIParent)
+	more = CreateFrame("Frame", "PolestarOptionsMore", ns.UIParent)
 	more:SetFrameStrata("FULLSCREEN_DIALOG")
 	more:SetFrameLevel(10)
 	more:SetClampedToScreen(true)
@@ -1319,7 +1319,7 @@ local function buildMore()
 	more.Rule = W.Divider(more)
 	more.Rule:SetPoint("TOPLEFT", more, "TOPLEFT", 1, -W.CARD_HEADER)
 	more.Rule:SetPoint("TOPRIGHT", more, "TOPRIGHT", -1, -W.CARD_HEADER)
-	local catcher = CreateFrame("Button", nil, UIParent)
+	local catcher = CreateFrame("Button", nil, ns.UIParent)
 	catcher:SetAllPoints(UIParent)
 	catcher:SetFrameStrata("FULLSCREEN_DIALOG")
 	catcher:SetFrameLevel(1)

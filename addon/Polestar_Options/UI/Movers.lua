@@ -681,7 +681,7 @@ local function onKey(self, key)
 end
 
 local function build()
-	root = CreateFrame("Frame", "PolestarMovers", UIParent)
+	root = CreateFrame("Frame", "PolestarMovers", ns.UIParent)
 	root:SetAllPoints(UIParent)
 	root:SetFrameStrata("DIALOG")
 	root:EnableMouse(false)

@@ -181,7 +181,7 @@ end
 -- The line's place: an empty frame the toasts hang from (the movers move it).
 function TS.StackAnchor()
 	if not anchor then
-		anchor = CreateFrame("Frame", "PolestarToastLine", UIParent)
+		anchor = CreateFrame("Frame", "PolestarToastLine", ns.UIParent)
 		anchor:SetSize(320, 8)
 		placeAnchor()
 	end

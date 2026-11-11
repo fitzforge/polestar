@@ -35,7 +35,7 @@ QS.ROWS = {
 local pop
 
 local function build()
-	pop = CreateFrame("Frame", "PolestarQuickSettings", UIParent)
+	pop = CreateFrame("Frame", "PolestarQuickSettings", ns.UIParent)
 	pop:SetFrameStrata("DIALOG")
 	pop:SetFrameLevel(20)
 	pop:SetClampedToScreen(true)
@@ -72,7 +72,7 @@ local function build()
 	pop.All = all
 	pop:SetSize(WIDTH, y + FOOT_H)
 	-- A click anywhere else closes it.
-	local catcher = CreateFrame("Button", nil, UIParent)
+	local catcher = CreateFrame("Button", nil, ns.UIParent)
 	catcher:SetAllPoints(UIParent)
 	catcher:SetFrameStrata("DIALOG")
 	catcher:SetFrameLevel(1)
