@@ -104,3 +104,34 @@ for (const c of CASES) {
 		assert.match(goals[at].step.note || '', c.tip);
 	});
 }
+
+// Goals underground where the walking maps do join the cave or mine: the goal carries its floor's height, so the
+// arrow's walk goes in through the mouth instead of ending on the hill over the target (heights.js: an objective's
+// object or creature, a collect's sources, a goto leading to a goal with one). Each case is a player report.
+const FLOORS = [
+	{
+		// Redrett (#1782): the Rod of Helcular at the Flames of Azel and Veraz, in the Foothill Caverns under Darrow Hill.
+		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
+		target: (g) => g.t === 'use' && g.quest === 553 && g.oi === 1,
+		z: 72.9, // the Flame of Azel's spawn (spawnz.json)
+	},
+	{
+		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
+		target: (g) => g.t === 'use' && g.quest === 553 && g.oi === 2,
+		z: 53.5, // the Flame of Veraz, a level down
+	},
+	{
+		// Redrett (#1786): "Azurelode Mine" leads to the Hillsbrad Miners inside, not onto the hill over the tunnels.
+		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
+		target: (g) => g.t === 'goto' && g.area === 288 && g.x === 28.5 && g.y === 55,
+		z: 21.3, // the miners' kill goal it leads to
+	},
+];
+
+for (const c of FLOORS) {
+	test(`${c.guide}: a goal underground carries its floor's height (${c.z})`, { skip }, () => {
+		const goal = compiled(c.guide).steps.flatMap((step) => step.goals).find(c.target);
+		assert.ok(goal, 'the target goal is in the guide');
+		assert.equal(goal.z, c.z, JSON.stringify(goal));
+	});
+}
