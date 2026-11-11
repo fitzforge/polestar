@@ -118,9 +118,10 @@ art.
 ## More to read: the skins in the download
 
 Beside Moonlit, the release carries complete skins, each an addon of its
-own (`addon/Polestar_Skin_<Name>`) that a player turns on in the game's
-AddOns list, and each built only through this API. Each shows one more thing
-the API can do; they are the best place to copy from.
+own (`addon/Polestar_Skin_<Name>`) that loads on demand (its TOC declares
+its ids with `## X-Polestar-Skin`), and each built only through this API.
+Each shows one more thing the API can do; they are the best place to copy
+from.
 
 | Skin | What it is | What it shows |
 |---|---|---|

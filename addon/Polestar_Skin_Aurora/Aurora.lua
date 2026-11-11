@@ -299,7 +299,7 @@ local HOOKS = {
 local PRESET = {
 	["ui.style"] = "standard", ["ui.band"] = true, ["ui.shadow"] = true, ["ui.haze"] = true, ["ui.rim"] = true,
 	["ui.border"] = true, ["ui.starAlpha"] = 1, ["ui.shadowStrength"] = 1.3,
-	["nav.lineStyle"] = "line", ["nav.walkColor"] = { 0.8, 0.69, 1 }, ["nav.lineOutline"] = 1.6,
+	["nav.lineStyle"] = "line", ["nav.walkColor"] = { 0.86, 0.78, 1 }, ["nav.lineWidth"] = 5, ["nav.lineOutline"] = 1.6,
 }
 
 check("skin aurora", Theme.RegisterSkin("aurora", {

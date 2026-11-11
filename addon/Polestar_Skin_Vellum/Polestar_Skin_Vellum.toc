@@ -26,5 +26,7 @@
 ## Category: Polestar
 ## Group: Polestar
 ## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: vellum
 
 Vellum.lua
