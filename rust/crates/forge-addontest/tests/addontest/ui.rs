@@ -1067,7 +1067,7 @@ fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_th
 	}
 }
 
-// The skins' design review (0.3.8): in the game looks a narrow tab's title and range ran up to its close, 2 units
+// The skins' design review (0.3.8): in the game looks a narrow tab's title and range ran up to its close, 3 units
 // short of the red button. Its text ends 6 clear of the close's ink in every one (Blizzard's close is now its
 // glyph, as the damage meter's header buttons are), and Classic's red button rests at full strength, not faded to
 // mud; the others keep the house's faint rest.
@@ -1082,12 +1082,21 @@ fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s
 			GF.Render()
 			local b = shownTabs()[1]
 			local c = b.Close
-			-- The close's ink: Blizzard's glyph, else the red button's 14 on the button's middle.
-			local inkLeft = look == "blizzard" and c.Icon:GetLeft() or (c:GetLeft() + c:GetRight()) / 2 - 7
-			out[look] = { gap = inkLeft - (b.Range:GetLeft() + b.Range:GetStringWidth()), range = b.Range:IsShown(),
+			-- Along the tab, from its left edge (the stub lays out no frames: the anchors' offsets). The range's
+			-- right end: the glyph 9 in and 12 wide, the range its offset right of the glyph.
+			local _, _, _, rx = b.Range:GetPoint(1)
+			local rangeRight = 9 + 12 + rx + b.Range:GetStringWidth()
+			-- The close's right side: its offset from the tab's right (or from its art's host, inset from it).
+			local _, rel, _, cx = c:GetPoint(1)
+			local hostIn = 0
+			if rel ~= b then local _, _, _, hx = rel:GetPoint(2); hostIn = hx end
+			local closeRight = b:GetWidth() + cx + hostIn
+			-- The close's ink: Blizzard's glyph, else the red button's 14, on the button's middle.
+			local ink = look == "blizzard" and c.Icon:GetWidth() or 14
+			local inkLeft = closeRight - c:GetWidth() / 2 - ink / 2
+			out[look] = { gap = inkLeft - rangeRight, range = b.Range:IsShown(),
 				cut = b.Label:IsShown() and b.Label:GetStringWidth() < b.Label:GetUnboundedStringWidth(), rest = c:GetAlpha(),
-				glyph = c.Icon:GetAlpha(), tab = { b:GetLeft(), b:GetRight() }, close = { c:GetLeft(), c:GetRight() },
-				rangeAt = { b.Range:GetLeft(), b.Range:GetStringWidth() }, label = { b.Label:GetLeft(), b.Label:GetWidth() } }
+				glyph = c.Icon:GetAlpha(), at = { rx, cx, hostIn, b:GetWidth(), c:GetWidth(), ink } }
 		end
 		emit(out)"#)
 	.remove(0);
