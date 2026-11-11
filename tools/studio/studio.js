@@ -198,7 +198,8 @@ return Polestar.Engine.GetStepIndex()`;
 }
 
 // The screen box of the frames named and everything drawn inside them
-// (labels hanging out of a button count), shown ones only.
+// (labels hanging out of a button count), shown ones only, each cut to the
+// frames that clip it (a scroll frame, a zoomed map canvas) as it is drawn.
 function bbox(layout, names) {
 	const box = [Infinity, Infinity, -Infinity, -Infinity];
 	const roots = new Set();
@@ -214,8 +215,16 @@ function bbox(layout, names) {
 		if (!inside(o)) continue;
 		const r = layout.rects.get(o.id);
 		if (!r || !r.w || !r.h) continue;
-		box[0] = Math.min(box[0], r.x - layout.ox); box[1] = Math.min(box[1], r.y - layout.oy);
-		box[2] = Math.max(box[2], r.x + r.w - layout.ox); box[3] = Math.max(box[3], r.y + r.h - layout.oy);
+		let x0 = r.x, y0 = r.y, x1 = r.x + r.w, y1 = r.y + r.h;
+		for (let c = layout.clipOf(o); c; c = layout.clipOf(c)) {
+			const cr = layout.rects.get(c.id);
+			if (!cr) continue;
+			x0 = Math.max(x0, cr.x); y0 = Math.max(y0, cr.y);
+			x1 = Math.min(x1, cr.x + cr.w); y1 = Math.min(y1, cr.y + cr.h);
+		}
+		if (x1 <= x0 || y1 <= y0) continue;
+		box[0] = Math.min(box[0], x0 - layout.ox); box[1] = Math.min(box[1], y0 - layout.oy);
+		box[2] = Math.max(box[2], x1 - layout.ox); box[3] = Math.max(box[3], y1 - layout.oy);
 	}
 	return Number.isFinite(box[0]) ? box : null;
 }
