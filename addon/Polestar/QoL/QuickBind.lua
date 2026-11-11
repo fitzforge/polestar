@@ -17,8 +17,9 @@
 --   * a button hidden now (no target, quest item or rare, bags not full)
 --     shows in its slot, dimmed, with its binding's name as its label, and
 --     goes again when the window closes. One turned off in the options stays
---     hidden. A button the guide needs while the window is open gets its own
---     look back.
+--     hidden, and so do all of them while Polestar is hidden (ns.Hidden;
+--     docs/ARCHITECTURE.md, "Hiding Polestar"). A button the guide needs
+--     while the window is open gets its own look back.
 -- Keys are read by a plain frame of Polestar's own laid over the hovered
 -- button, never by the window's listener: the key goes no further, and
 -- nothing of the game's secure binding code runs from addon code. A click
@@ -260,9 +261,10 @@ local function wanted(e)
 	return e.button:GetAttribute("type") ~= nil
 end
 
+-- Not while Polestar is hidden: its buttons stay out of the mode then too.
 local function mayForce(e)
 	local o = e.opts
-	return o.force and (not o.enabled or o.enabled()) and true or false
+	return o.force and not ns.Hidden() and (not o.enabled or o.enabled()) and true or false
 end
 
 -- The dimmed look and the binding's name as the label (the label it had is
@@ -338,7 +340,7 @@ local function getOverlay()
 	if overlay then return overlay end
 	-- Above the window itself (DIALOG), so the key reaches this frame first
 	-- and goes no further.
-	local f = CreateFrame("Frame", nil, UIParent)
+	local f = CreateFrame("Frame", nil, ns.UIParent)
 	f:SetFrameStrata("FULLSCREEN_DIALOG")
 	f:SetFrameLevel(100)
 	f:EnableMouse(true)
