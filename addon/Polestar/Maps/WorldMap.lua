@@ -12,13 +12,14 @@
 -- Polestar's own frames on the canvas, counter-scaled so they keep their
 -- size when zooming. The info bar, Polestar's frame on the map, ticks ten
 -- times a second while the map is open and repaints only when a shown
--- number changed.
+-- number changed. Its text keeps clear of the buttons in the view's bottom
+-- corners (the game's quest log toggle, other addons' buttons).
 
 local ADDON, ns = ...
 local Maps = ns.Maps
 local L = ns.L
 
-local type, pairs, floor = type, pairs, math.floor
+local type, pairs, floor, max = type, pairs, math.floor, math.max
 
 local CONTINENT, ZONE = 2, 3 -- Enum.UIMapType
 local TICK = 0.1
@@ -162,6 +163,76 @@ local bar
 local shownZone, shownPX, shownPY, shownCX, shownCY
 local acc = 0
 
+-- Buttons in the bar's corners. The game keeps its quest log toggle in the
+-- bottom-right corner of the map's view (32 x 32, 2 px in), and other addons
+-- put buttons in either corner, some raised over the map's pins and so over
+-- the bar. The coordinates stay left of what shows in the right half, the
+-- zone's range right of what shows in the left half. The map's own child
+-- frames of a button's size are listed when the map opens or changes size
+-- (read only: no hook on the map or its frames), and a tick only asks those
+-- whether one came or went.
+local PAD, GAP = 10, 6
+local BUTTON_W, BUTTON_H = 240, 96
+local corner, cornerShown = {}, {}
+local insetL, insetR = PAD, PAD
+local refit = false
+local hostW, hostH -- the view's size at the last fit
+
+local function listCorner()
+	local n = 0
+	local host = owner.ScrollContainer
+	for _, f in ipairs({ owner:GetChildren() }) do
+		if f ~= bar and f ~= host and f:GetWidth() <= BUTTON_W and f:GetHeight() <= BUTTON_H then
+			n = n + 1
+			corner[n] = f
+		end
+	end
+	for i = #corner, n + 1, -1 do corner[i] = nil end
+end
+
+local function cornerChanged()
+	for i = 1, #corner do
+		if corner[i]:IsVisible() ~= cornerShown[i] then return true end
+	end
+	return false
+end
+
+-- The bar is the view's foot (its left, right and bottom), its text centred
+-- on it: a shown frame overlapping the text's line pushes that side's text.
+local function fitBar()
+	refit = false
+	local host = owner.ScrollContainer or owner
+	local left, right, bottom = host:GetLeft(), host:GetRight(), host:GetBottom()
+	local l, r = PAD, PAD
+	for i = 1, #corner do cornerShown[i] = corner[i]:IsVisible() end
+	if left and right and bottom then
+		local scale = host:GetEffectiveScale()
+		local mid = (left + right) / 2
+		local half = max(bar.Coords:GetStringHeight() or 0, bar.Zone:GetStringHeight() or 0, 10) / 2
+		local line = bottom + bar:GetHeight() / 2
+		for i = 1, #corner do
+			local f = corner[i]
+			local fl, fb, fw, fh
+			if cornerShown[i] then fl, fb, fw, fh = f:GetRect() end
+			if fl then
+				local k = f:GetEffectiveScale() / scale
+				fl, fb, fw, fh = fl * k, fb * k, fw * k, fh * k
+				if fw > 0 and fw <= BUTTON_W and fh <= BUTTON_H and fl < right and fl + fw > left
+					and fb < line + half and fb + fh > line - half then
+					if fl + fw / 2 > mid then
+						r = max(r, right - fl + GAP)
+					else
+						l = max(l, fl + fw - left + GAP)
+					end
+				end
+			end
+		end
+	end
+	l, r = floor(l + 0.5), floor(r + 0.5)
+	if l ~= insetL then insetL = l; bar.Zone:SetPoint("LEFT", bar, "LEFT", l, 0) end
+	if r ~= insetR then insetR = r; bar.Coords:SetPoint("RIGHT", bar, "RIGHT", -r, 0) end
+end
+
 local function tenth(v)
 	return v and floor(v * 10 + 0.5) or nil
 end
@@ -257,16 +328,26 @@ local function buildBar()
 	rule:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, 0)
 	rule:SetPoint("TOPRIGHT", bar, "TOPRIGHT", 0, 0)
 	bar.Zone = W.Text(bar, "small", "quest")
-	bar.Zone:SetPoint("LEFT", bar, "LEFT", 10, 0)
+	bar.Zone:SetPoint("LEFT", bar, "LEFT", insetL, 0)
 	bar.Coords = W.Text(bar, "small", "textDim")
-	bar.Coords:SetPoint("RIGHT", bar, "RIGHT", -10, 0)
+	bar.Coords:SetPoint("RIGHT", bar, "RIGHT", -insetR, 0)
 	bar.Coords:SetJustifyH("RIGHT")
 	bar:SetScript("OnUpdate", ns.Safe(function(_, dt)
 		acc = acc + dt
 		if acc < TICK then return end
 		acc = 0
 		update(false)
+		if refit or cornerChanged() then fitBar() end
 	end))
+end
+
+-- Fit now, and again on the next tick, after other addons place their
+-- buttons as the map opens.
+local function refitBar()
+	hostW, hostH = (owner.ScrollContainer or owner):GetSize()
+	listCorner()
+	fitBar()
+	refit = true
 end
 
 local function refreshBar()
@@ -274,6 +355,7 @@ local function refreshBar()
 	if barWanted() then
 		bar:Show()
 		update(true)
+		refitBar()
 	else
 		bar:Hide()
 	end
@@ -289,6 +371,12 @@ local function onView(_, what)
 		refreshBar()
 	elseif what == "size" or what == "scale" then
 		placeLabels()
+		-- Zooming moves the canvas, not the buttons on the view: only a new
+		-- view size (full screen and back, the quest log beside it) refits.
+		if bar and bar:IsShown() then
+			local w, h = (owner.ScrollContainer or owner):GetSize()
+			if w ~= hostW or h ~= hostH then refitBar() end
+		end
 	end
 end
 

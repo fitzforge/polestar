@@ -3334,7 +3334,10 @@ from map percent times the canvas size, and the map is only read through
 field or works one out, writing nothing; not `GetViewRect`, which caches) and
 the canvas's `GetWidth` / `GetHeight`; Maps' info bar also reads
 `GetNormalizedCursorPosition`, `IsCanvasMouseFocus` and `ScrollContainer`
-(to sit at its foot), and Pins the canvas's `GetLeft`, `GetTop` and
+(to sit at its foot) and `GetChildren` (the size, place and visibility of
+the map's own buttons in the view's bottom corners, the game's quest log
+toggle among them, to keep its text clear of them: listed as the map opens
+or changes size, never hooked), and Pins the canvas's `GetLeft`, `GetTop` and
 `GetEffectiveScale` and the gamepad cursor's place (`SoftCursor:IsShown`,
 `GetCenter`, `GetEffectiveScale`). Frames on the canvas carry no field the client's code
 reads on the frames it finds there (`owningMap` on the mouse focus,
