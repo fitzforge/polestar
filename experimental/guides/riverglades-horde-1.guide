@@ -6,64 +6,89 @@ zone Riverglades
 coords live
 folder Riverglades · Experimental
 why Forever's new zone, an alpha route written from players' recordings.
-keywords riverglades, rog'mar, bristle hills, meadowsbrook, experimental, alpha
+keywords riverglades, rog'mar, powderfuse port, bristle hills, meadowsbrook, experimental, alpha
 next polestar-experimental/riverglades-horde-2
 
 # Polestar Experimental, Riverglades for the Horde, part 1 of 2 (2026-11-11). Hand-written from
 # players' recordings (4-7 people per quest on this leg), with Forever's quest data for titles, levels and
 # objectives.
-# Order: the way in from the Badlands, Rog'mar's quests in one pass, the training grounds, the plains east of
-# town, a western loop (Turner's Logging Camp, the Bristle Hills, Meadowsbrook), back to Rog'mar, then the river
-# and the Farholde training camp.
+# Order: the way in by the goblin boat from Tanaris (how most recorded Horde players arrived; Kargath's flight
+# path, the other way in, comes only with our later Badlands guide), Powderfuse Port, Sleebo's workshop, Rog'mar
+# (flight path, inn), Neza Bloodsnout's three hunts on the plains with Sleebo's marsh on the first one, a western
+# loop (Turner's Logging Camp, the Bristle Hills, Meadowsbrook) and the hearth home, the training grounds, then the
+# river and the Farholde training camp.
+# Offered only after another quest is handed in (players' recordings, 4-12 people each): Poison Tips after
+# Feathers for Fletching, A Hunter's Quiver after Poison Tips, Gnoll Infestation and Bristle Hills Bandits after
+# A Hunter's Quiver; A Gift From Our Enemies and Show Them How It's Done after Food for the Taking; Rock 'em and
+# Sock 'em after Gaseous Gold; Tran'gul's quests after Show Them How It's Done (part 2).
 # Left out on purpose:
 # - Snargl's Snout (94533), King of the Wild Plains (96105), WANTED: Ghostmaw (95992), WANTED: Scoutmaster Vargas
-#   (95882): Snargl, Ombassa, Ghostmaw and Vargas are elites (levels 40-42): each behind a group choice only.
+#   (95882): Snargl, Ombassa, Ghostmaw and Vargas are elites (levels 40-42): Snargl behind a group choice, the rest
+#   left out.
 # - On the Other Side (95033): nobody recorded handing it in.
 # - The breadcrumbs from other zones (Report to Rog'mar 95141, Finding Tan'jani 95143): this guide doesn't assume
 #   you carry them; While-you're-here hands them in when you have them.
 
-step Into the Riverglades
+step Fly to Freewind Post
   when !zone "Riverglades"
   tip Experimental route (alpha). It follows what players did in the Riverglades and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip Fly to Kargath in the Badlands, then cross the Badlands south-east past Agmond's End: the way down into the Riverglades opens at Twilight's Shroud. (The goblin boat from Steamwheedle Port in Tanaris lands at Powderfuse Port, on the zone's east coast, too.)
-  fly "Kargath"
+  tip The Riverglades lie across the sea from Tanaris: a goblin boat sails from Steamwheedle Port, north-east of Gadgetzan, to Powderfuse Port. Fly to Freewind Post in Thousand Needles and head south-east through the Shimmering Flats to Gadgetzan. (If you already know Kargath in the Badlands, the way in through Twilight's Shroud works too.)
+  fly "Freewind Post"
+
+step Gadgetzan
+  when !zone "Riverglades"
+  zone Tanaris
+  tip Learn Gadgetzan's flight path: it saves the ride next time.
+  getfp "Gadgetzan"
+
+step Boat to Powderfuse Port
+  when !zone "Riverglades"
+  zone Tanaris
+  tip Steamwheedle Port is on the coast north-east of Gadgetzan: wait on the pier for the goblin boat to Powderfuse Port.
+  goto 67.57,23.1 "Boat to Powderfuse Port"
+
+step Powderfuse Port
   zone Riverglades
-  goto 32.0,29.9 "Twilight's Shroud"
+  tip Friz Frazzlespark keeps a stall at the west end of the docks. The port's other jobs are for later (part 2): this crate goes to the Horde's fort.
+  accept 95062                          -- Frazzlespark's Crate: for Krom'rosh in Rog'mar
+
+step Sleebo's workshop
+  tip West up the road from the port: Sleebo Fizzlespout has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for Neza.
+  accept 96063                          -- Gaseous Gold
 
 step Rog'mar
-  tip South-east down the valley to Rog'mar, the Horde's fort in the middle of the zone. Grakna, the wind rider master, stands in the middle of the fort: talk to her to learn the flight path.
-  getfp "Rog'mar" npc 255993            -- Grakna, in the middle of the fort
-  accept 93786                          -- Krom'rosh: A Message in Blood
-  accept 93787                          -- Food for the Taking
-  accept 94480                          -- A Gift From Our Enemies
+  tip West to Rog'mar, the Horde's fort in the middle of the zone. Neza Bloodsnout stands on its east side, Kreza Darkthorn and Krom'rosh in the middle with Grakna, the wind rider master; Innkeeper Toka and Tan'jani on the west side.
+  accept 96107                          -- Neza Bloodsnout: Feathers for Fletching
   accept 93788                          -- Kreza Darkthorn: Borrowed Blades
-  accept 94535                          -- Bristle Hills Bandits
-  accept 94532                          -- Neza Bloodsnout: Gnoll Infestation
-  accept 96107                          -- Feathers for Fletching
+  turnin 95062                          -- Krom'rosh
+  accept 93786                          -- A Message in Blood
+  accept 93787                          -- Food for the Taking
+  getfp "Rog'mar" npc 255993            -- Grakna, in the middle of the fort
+  sethome "Rog'mar"                     -- Innkeeper Toka
   accept 95951                          -- Tan'jani: Fetch 'n' Fletch
-  turnin 94480                          -- Gorg, by the cook fire
-  accept 94481                          -- A Serving of Strength
 
-step The training grounds
-  tip North of the fort the Rog'mar Trainees drill: use Gorg's Hearty Stew on them.
-  use 265066 quest 94481.1 @60.1,39.0   -- Hearty Stew
-
-step Gorg
-  turnin 94481
-
-step The plains
-  tip South-east of Rog'mar the plains run down to Terral's Watch. The Low Plains Buzzards circle everywhere; a picked carcass lies in the grass: its skull starts A Feast for Buzzards.
-  accept 96103 @61.6,58.8               -- Picked Carcass: A Feast for Buzzards
+step The plains and the marsh
+  tip South-east of Rog'mar the plains run down to Terral's Watch. The Low Plains Buzzards circle everywhere; a picked carcass lies in the grass (its skull starts A Feast for Buzzards), and the marsh vents are just past it.
   collect 271793 x6 quest 96107.1       -- Plains Buzzard Feather
+  accept 96103 @61.6,58.8               -- Picked Carcass: A Feast for Buzzards
+  collect 272004 x8 quest 96063.1 @62.2,58.7  -- Marsh Gas Vial
+
+step Sleebo Fizzlespout
+  tip North-east to the workshop.
+  turnin 96063
+  accept 96067                          -- Rock 'em and Sock 'em
+  complete 96067 @68.2,48.6             -- the stress test: fight G45-B4G beside the workshop
+  turnin 96067
 
 step Neza Bloodsnout
+  tip West back to Rog'mar's east side.
   turnin 96107
   accept 96108                          -- Poison Tips
   turnin 96103
   accept 96104                          -- Song of the Strider
 
-step The plains
-  tip The Glade Vipers hide in the long grass south-east of town; the Roving Tallstriders graze further east.
+step The vipers and the tallstriders
+  tip The Glade Vipers hide in the long grass south-east of town; the Roving Tallstriders graze beside them.
   collect 271776 x4 quest 96108.1       -- Glade Viper Venom
   collect 271778 quest 96104.1 @64.7,58.4  -- Intact Tallstrider Beak
 
@@ -73,8 +98,20 @@ step Neza Bloodsnout
   turnin 96104
 
 step The lions
-  tip The Wildplains lions roam the plains south of Rog'mar.
+  tip The Wildplains lions roam the plains just south of Rog'mar.
   collect 266888 x6 quest 96109.1 @59.7,53.2  -- Prized Lion Hide
+
+step Neza Bloodsnout
+  turnin 96109
+  accept 94532                          -- Gnoll Infestation
+
+step Snargl's Snout
+  when group 94533
+  tip Snargl is an elite gnoll (level 40) in the south-western camp of the Bristle Hills: grouping up is advised.
+  accept 94533                          -- Neza Bloodsnout
+
+step Kreza Darkthorn
+  accept 94535                          -- Bristle Hills Bandits
 
 step Turner's Logging Camp
   tip South-west across the river to the Alliance lumber camp. The lumberjacks carry the axes. Loot Wood Bundles from the Peasant Woodpiles around the camp and use them to fletch Makeshift Stickin' Spears.
@@ -89,29 +126,49 @@ step The Bristle Hills
   kill 255769 x6 quest 94532.3          -- Redridge Brute
   collect 265358 x40 quest 94535.1      -- Stolen Ore
 
+step Snargl
+  when onquest 94533
+  collect 265357 quest 94533.1 @16.1,73.2  -- Snargl's Snout
+
 step Meadowsbrook
-  tip South-east to Meadowsbrook, the Alliance farm by the river: the farmhands work the fields and the feed satchels lie by the barns.
+  tip South-east to Meadowsbrook, the Alliance farm by the river: the farmhands work the fields and the feed satchels lie by the barns. Southern Watch, the Alliance outpost on the road east of the hills, has guards: pass south of it.
   kill 256383 x12 quest 93786.1         -- Meadowsbrook Farmhand
   collect 262640 x6 quest 93787.1 @45.9,81.8  -- Feed Satchel
 
+step Hearth to Rog'mar
+  hearth "Rog'mar"
+
 step Rog'mar
-  tip North back to Rog'mar.
-  turnin 96109                          -- Neza Bloodsnout
-  turnin 94532
-  turnin 93788                          -- Kreza Darkthorn
-  turnin 94535
-  accept 93976                          -- The Goblin Trader: for Friz Frazzlespark in Powderfuse Port, keep it
+  tip Your hearth lands by Innkeeper Toka on the fort's west side: Tan'jani first, then Krom'rosh, Gorg by the cook fire, Kreza and Neza on your way east through the fort.
   turnin 95951                          -- Tan'jani
   accept 95955                          -- Stick 'Em
   turnin 93786                          -- Krom'rosh
   turnin 93787
+  accept 94480                          -- A Gift From Our Enemies
   accept 94483                          -- Show Them How It's Done
+  turnin 94480                          -- Gorg, by the cook fire
+  accept 94481                          -- A Serving of Strength
+  turnin 93788                          -- Kreza Darkthorn
+  turnin 94535
+  accept 93976                          -- The Goblin Trader: for Friz Frazzlespark in Powderfuse Port, keep it
+  turnin 94532                          -- Neza Bloodsnout
+
+step Neza Bloodsnout
+  when onquest 94533
+  turnin 94533
+
+step The training grounds
+  tip North of the fort the Rog'mar Trainees drill: use Gorg's Hearty Stew on them.
+  use 265066 quest 94481.1 @60.1,39.0   -- Hearty Stew
+
+step Gorg
+  turnin 94481
 
 step The river and the Farholde camp
   tip South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with Tan'jani's spears. The Alliance trains its scouts and priests at a camp on the far bank.
-  kill 257926 x12 quest 94483.2         -- Farholde Scout
-  kill 270667 x8 quest 94483.1          -- Farholde Priest
   complete 95955 @49.7,58.6             -- impale 10 Freshwater Crocolisks with the spears
+  kill 270667 x8 quest 94483.1          -- Farholde Priest
+  kill 257926 x12 quest 94483.2         -- Farholde Scout
 
 step Rog'mar
   turnin 95955                          -- Tan'jani

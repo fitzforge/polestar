@@ -1,107 +1,140 @@
 guide polestar-experimental/riverglades-horde-2
-title Riverglades 2: Powderfuse Port, Sunnyglade and Bolder'ok (experimental)
+title Riverglades 2: Sunnyglade, Bolder'ok and Powderfuse Port (experimental)
 faction Horde
 levels 38-41
 zone Riverglades
 coords live
 folder Riverglades · Experimental
 why Forever's new zone, an alpha route written from players' recordings.
-keywords riverglades, powderfuse port, sunnyglade, bolder'ok, rog'mar, experimental, alpha
+keywords riverglades, powderfuse port, sunnyglade, bolder'ok, rog'mar, kargath, experimental, alpha
 next forever/horde/40-50/01-stranglethorn-vale
 
 # Polestar Experimental, Riverglades for the Horde, part 2 of 2 (2026-11-11). Hand-written from
 # players' recordings (3-14 people per quest), with Forever's quest data for titles, levels and objectives.
-# Order: Powderfuse Port (the neutral goblin port) and its coasts, Sleebo's workshop, Sunnyglade (Tran'gul's and
-# Clubtoe's Twilight cult quests), the ogres of Bolder'ok and Na'zok's camp in the north, back to Rog'mar, then
-# the flight to Kargath, where our Stranglethorn Vale & Swamp of Sorrows guide (39-43) starts.
+# Order: Tran'gul's first errand in Sunnyglade (the Twilight cult's farm town) and back; Na'zok's camp and the ogres
+# of Bolder'ok in the hills to the north (levels 40-41); Powderfuse Port and one loop round its coasts (the murlocs
+# south-west, the crawlers, Trapclaw and the Eastsea pirates north-east, levels 40-43); the hearth to Rog'mar;
+# Clubtoe's quests in Sunnyglade; then out through Twilight's Shroud to Kargath (its flight path), where our
+# Stranglethorn Vale & Swamp of Sorrows guide (39-43) flies on to Grom'gol.
+# Offered only after another quest is handed in (players' recordings, 3-14 people each): Tran'gul's quests after
+# Show Them How It's Done (part 1); Digging for Answers after Twilight Missives; Smuggler's Paradise after The
+# Goblin Trader; Smuggler's Special after Smuggler's Paradise; Clugfist's Decree and Bloodmaster's Ring after Might
+# Makes Right; Our Ogre Friend only after the Bloodmaster's Ring bouts.
 # Left out on purpose:
-# - WANTED: Old Rot-Chum (95120), Spread the Word (95418), Land of Giants (95420), Twilight No More! (95427):
-#   Old Rot-Chum and Chogg'Zac are elites (levels 41-42): each behind a group choice only.
-# - The Bloodmaster's Ring fights (Pay to Play 94669 and the bouts after it): elite arena fights, for a group.
+# - WANTED: Old Rot-Chum (95120), Twilight No More! (95427): Old Rot-Chum and Chogg'Zac are elites (levels 41-42):
+#   each behind a group choice only. Spread the Word (95418) and Land of Giants (95420) after Chogg'Zac send you
+#   back across the zone to Rog'mar and Bolder'ok: left out.
+# - The Bloodmaster's Ring fights (Pay to Play 94669 and the bouts after it): elite arena fights, for a group. Our
+#   Ogre Friend (94733), A Boar's Delight (94734) and A Treat for a Friend (94737) come only after those bouts.
+# - Step One: Rock (95183): every recorded player got it from Hamur only after Might Makes Right was handed in,
+#   when the rocks lie back east in the hills: left out.
+# - Smuggler's Special (95293) and Smuggler's Bargain (95294): Friz offers the first only once Smuggler's Paradise
+#   is handed in, and it sends you back out to the pirates' far camp, then back to Friz again.
 # - Unworthy Champion (95425): its Skullbasher comes from a fight nobody recorded solo.
 # - The Eastsea pirates' second wave (95122, 95123, 95165, 95124): levels 44-45, above this leg.
 # - The Wayward Warrior (94744) and Da'grosh's quests: two to three recorded players, levels 41-43.
 
-step Powderfuse Port
+step Tran'gul
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip East down the road from Rog'mar to Powderfuse Port, the goblins' harbour on the coast. Friz Frazzlespark keeps a stall in the middle of the docks, Fimbo Greasemitz cooks by the inn, Wharfmaster Whizzbuzz and Argo Brinewhistle work the north pier.
-  turnin 93976                          -- Friz Frazzlespark: The Goblin Trader
-  accept 95288                          -- Smuggler's Paradise
-  accept 95293                          -- Smuggler's Special
-  accept 95062                          -- Frazzlespark's Crate: for Krom'rosh in Rog'mar, keep it
-  accept 95121                          -- Fimbo Greasemitz: A Taste of the Sea
-  accept 95118                          -- Wharfmaster Whizzbuzz: Saltwater Savages
-  accept 95119                          -- Unfriendly Competition
-  accept 95254 @78.5,53.9               -- The WANTED! poster by the inn: Trapclaw
-
-step The south coast
-  tip South along the shore from the port: the saltwater murlocs camp on the beaches; the sand crawlers drop the meat.
-  kill 256801 x8 quest 95118.1          -- Murloc Warrior
-  kill 255898 x8 quest 95118.2          -- Murloc Oracle
-  collect 268344 x12 quest 95121.1 @72.5,67.7  -- Saltwater Murloc Eye
-  collect 268345 x6 quest 95121.2 @78.7,49.0  -- Sand Crawler Meat
-
-step Old Rot-Chum
-  when group 95120
-  tip Old Rot-Chum is an elite (level 42) on the south shore: grouping up is advised.
-  accept 95120 @78.5,53.9               -- The WANTED! poster by the inn
-  collect 268341 quest 95120.1 @77.6,72.0  -- Rot-Covered Harpoon
-  turnin 95120                          -- Wharfmaster Whizzbuzz
-
-step Trapclaw
-  tip Trapclaw, a big crab, scuttles along the rocks east of the port.
-  collect 268586 quest 95254.1 @83.0,50.5  -- Trapclaw's Pincer
-
-step The Eastsea pirates
-  tip North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. Captain Bentcoin and Captain Haynes wait at the far end of the camp, by the water.
-  kill 257901 x10 quest 95119.1         -- Eastsea Buccaneer
-  kill 257910 x10 quest 95119.2         -- Eastsea Musketeer
-  collect 268796 x8 quest 95288.1 @86.4,38.1  -- Smuggled Goods
-  turnin 95293 @91.2,39.8               -- Captain Bentcoin
-  accept 95294 @91.2,39.8               -- Captain Haynes: Smuggler's Bargain
-
-step Powderfuse Port
-  turnin 95118                          -- Wharfmaster Whizzbuzz
-  turnin 95119
-  turnin 95254                          -- Fimbo Greasemitz
-  turnin 95121
-  turnin 95288                          -- Friz Frazzlespark
-  turnin 95294
-
-step Sleebo's workshop
-  tip West up the road from the port: Sleebo Fizzlespout has his workshop on the hill.
-  accept 96063                          -- Gaseous Gold
-  accept 96067                          -- Rock 'em and Sock 'em
-  complete 96067 @68.2,48.6             -- the stress test: fight G45-B4G beside the workshop
-
-step The marsh
-  tip South-west of the workshop the marsh bubbles with gas: fill the vials at the vents.
-  collect 272004 x8 quest 96063.1 @62.2,58.7  -- Marsh Gas Vial
-
-step Sleebo Fizzlespout
-  turnin 96063
-  turnin 96067
-
-step Rog'mar
-  tip West back to Rog'mar.
-  turnin 95062                          -- Krom'rosh
-  accept 94672                          -- Tran'gul: Encroaching Twilight
+  tip Tran'gul stands beside Krom'rosh in the middle of Rog'mar: now that the Farholde camp has had its lesson, he has work in Sunnyglade.
+  accept 94672                          -- Encroaching Twilight
   accept 94680                          -- Twilight Missives
 
 step Sunnyglade
-  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. The Shadowmancers carry the missives.
+  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. The Shadowmancers on its northern side carry the missives.
   kill 256952 x8 quest 94672.1          -- Twilight Raider
   kill 254560 x8 quest 94672.2          -- Twilight Shadowmancer
   kill 256798 x8 quest 94672.3          -- Twilight Neophyte
   collect 265745 x3 quest 94680.1 @48.1,47.0  -- Twilight Missive
 
 step Tran'gul
+  tip East back to Rog'mar.
   turnin 94672
   turnin 94680
-  accept 94727                          -- Digging for Answers
+  accept 94727                          -- Digging for Answers: for Clubtoe in Sunnyglade, at the end of this guide
+
+step Na'zok's camp
+  tip North-east from Rog'mar up into the hills: Na'zok watches the Paletusk boars from his camp.
+  accept 95163                          -- Drive Them Back
+  accept 95162                          -- Paletusk Harvesting
+
+step Bolder'ok
+  tip North-west to Bolder'ok, the ogres' town. Clugfist, its chieftain, sits on the hill. The ogres are friendly while you leave them alone.
+  accept 95424                          -- Clugfist: Might Makes Right
+
+step The hills east of Bolder'ok
+  tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. The Young Paletusks wander the hills south of it: tap them with Na'zok's staff to send them home. The Mature Paletusks around Na'zok's camp drop the boar meat.
+  kill 261497 x7 quest 95424.2 @75.7,26.9  -- Twilight Firecaller
+  kill 260968 x7 quest 95424.1          -- Twilight Mauler
+  use 268521 quest 95163.1 @72.8,39.5   -- Swineherd's Staff, on the Young Paletusks
+  collect 769 x10 quest 95162.1 @70.3,31.6  -- Chunk of Boar Meat, from the Mature Paletusks
+
+step Na'zok
+  turnin 95163
+  turnin 95162
+
+step Bolder'ok
+  tip Back to Clugfist on his hill. Jezap Jinglesprocket runs the Bloodmaster's Ring just below it.
+  turnin 95424                          -- Clugfist
+  accept 95428                          -- Clugfist's Decree: for Krom'rosh in Rog'mar, at the end of the port loop
+  accept 94668                          -- Bloodmaster's Ring
+  turnin 94668                          -- Jezap Jinglesprocket
+
+step Powderfuse Port
+  tip South-east down out of the hills to Powderfuse Port, the goblins' harbour on the coast. Friz Frazzlespark keeps a stall at the west end of the docks, Fimbo Greasemitz cooks by the inn, Wharfmaster Whizzbuzz works the north pier.
+  turnin 93976                          -- Friz Frazzlespark: The Goblin Trader
+  accept 95288                          -- Smuggler's Paradise
+  accept 95121                          -- Fimbo Greasemitz: A Taste of the Sea
+  accept 95254 @78.5,53.9               -- The WANTED! poster by the inn: Trapclaw
+  accept 95118                          -- Wharfmaster Whizzbuzz: Saltwater Savages
+  accept 95119                          -- Unfriendly Competition
+
+step WANTED: Old Rot-Chum
+  when group 95120
+  tip Old Rot-Chum is an elite (level 42) on the south shore: grouping up is advised.
+  accept 95120 @78.5,53.9               -- The WANTED! poster by the inn
+
+step The murlocs, south-west
+  tip South-west along the shore from the port: the saltwater murlocs camp on the beaches. The Saltwater Murloc Eyes drop from all of them.
+  collect 268344 x12 quest 95121.1 @72.5,67.7  -- Saltwater Murloc Eye
+  kill 256801 x8 quest 95118.1          -- Murloc Warrior
+  kill 255898 x8 quest 95118.2          -- Murloc Oracle
+
+step Old Rot-Chum
+  when onquest 95120
+  collect 268341 quest 95120.1 @77.6,72.0  -- Rot-Covered Harpoon
+
+step The crawlers and Trapclaw
+  tip Back past the port and north along the beach: the Shore Crawlers drop the meat. Trapclaw, a big crab, scuttles along the rocks east of the docks.
+  collect 268345 x6 quest 95121.2 @78.7,49.0  -- Sand Crawler Meat
+  collect 268586 quest 95254.1 @83.0,50.5  -- Trapclaw's Pincer
+
+step The Eastsea pirates
+  tip North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods.
+  kill 257901 x10 quest 95119.1         -- Eastsea Buccaneer
+  kill 257910 x10 quest 95119.2         -- Eastsea Musketeer
+  collect 268796 x8 quest 95288.1 @86.4,38.1  -- Smuggled Goods
+
+step Wharfmaster Whizzbuzz
+  when onquest 95120
+  turnin 95120
+
+step Powderfuse Port
+  tip Back to the port.
+  turnin 95118                          -- Wharfmaster Whizzbuzz
+  turnin 95119
+  turnin 95254                          -- Fimbo Greasemitz
+  turnin 95121
+  turnin 95288                          -- Friz Frazzlespark
+
+step Hearth to Rog'mar
+  hearth "Rog'mar"
+
+step Krom'rosh
+  turnin 95428
 
 step Clubtoe
-  tip Clubtoe, a Twilight miner who wants out, waits at the eastern edge of Sunnyglade: talk him round, then hand Tran'gul's quest in.
+  tip West to Sunnyglade again: Clubtoe, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand Tran'gul's quest in.
   complete 94727 @49.9,46.9             -- talk Clubtoe round
   turnin 94727
   accept 95417                          -- The Purple Ones
@@ -120,65 +153,19 @@ step Clubtoe
   turnin 95602
 
 step Chogg'Zac
-  when group 95418
-  tip Chogg'Zac, the two-headed ogre, is an elite (level 41) at the western edge of Sunnyglade: grouping up is advised. His heads go to Tran'gul and on to the ogres of Bolder'ok.
-  accept 95418                          -- Clubtoe: Spread the Word
-  accept 95427                          -- Twilight No More!
+  when group 95427
+  tip Chogg'Zac, the two-headed ogre, is an elite (level 41) at the western edge of Sunnyglade: grouping up is advised.
+  accept 95427                          -- Clubtoe: Twilight No More!
   collect 265750 quest 95427.2 @44.8,51.2  -- Chogg's Head
   collect 265751 quest 95427.1 @44.8,51.2  -- Zac's Head
   turnin 95427                          -- Clubtoe
-  turnin 95418                          -- Tran'gul, in Rog'mar
-  accept 95420                          -- Land of Giants
-  turnin 95420                          -- Clugfist, in Bolder'ok
 
-step Bolder'ok
-  tip North up the valley to Bolder'ok, the ogres' town. Clugfist, its chieftain, sits on the hill; Jezap Jinglesprocket runs the Bloodmaster's Ring below; Gobam and Hamur stand nearby. The ogres are friendly while you leave them alone.
-  accept 95424                          -- Clugfist: Might Makes Right
-  accept 95428                          -- Clugfist's Decree: for Krom'rosh in Rog'mar, keep it
-  accept 94668                          -- Bloodmaster's Ring
-  turnin 94668                          -- Jezap Jinglesprocket
-  accept 94733                          -- Our Ogre Friend
-  turnin 94733                          -- Gobam
-  accept 94734                          -- A Boar's Delight
-  accept 95183                          -- Hamur: Step One: Rock
+step Twilight's Shroud
+  tip The next guide flies from Kargath in the Badlands: walk there and learn its flight path if you don't have it yet. North-west out of Sunnyglade and up the valley to Twilight's Shroud, the way through to the Badlands.
+  goto 32.0,29.9 "Twilight's Shroud"
 
-step Na'zok's camp
-  tip East of Bolder'ok, Na'zok watches the Paletusk boars.
-  accept 95163                          -- Drive Them Back
-  accept 95162                          -- Paletusk Harvesting
-
-step The hills east of Bolder'ok
-  tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. The Young Paletusks wander the hills south of it: tap them with Na'zok's staff to send them home. The Mature Paletusks around Na'zok's camp drop the boar meat; the good rocks lie along the hills, the sweetberries grow on the bushes to the south-east.
-  kill 260968 x7 quest 95424.1          -- Twilight Mauler
-  kill 261497 x7 quest 95424.2 @75.7,26.9  -- Twilight Firecaller
-  use 268521 quest 95163.1 @72.8,39.5   -- Swineherd's Staff, on the Young Paletusks
-  collect 769 x10 quest 95162.1 @70.3,31.6  -- Chunk of Boar Meat, from the Mature Paletusks
-  collect 271892 x10 quest 95183.1 @73.7,33.7  -- Good Rock
-  collect 265808 x8 quest 94734.1 @78.9,37.3  -- Sweetberry
-
-step Na'zok
-  turnin 95163
-  turnin 95162
-
-step Bolder'ok
-  turnin 95424                          -- Clugfist
-  turnin 95183                          -- Hamur
-
-step The riverweed
-  tip The riverweed grows along the river between Bolder'ok and Rog'mar, on the way south.
-  collect 265806 x12 quest 94734.2 @56.1,44.9  -- Riverweed
-
-step Gobam
-  tip Back north to Gobam for his treat, then down to Rog'mar.
-  turnin 94734
-  accept 94737                          -- A Treat for a Friend
-  turnin 94737                          -- Jezap Jinglesprocket
-
-step Rog'mar
-  turnin 95428                          -- Krom'rosh
-
-step Fly to Kargath
-  tip The next guide starts at Kargath in the Badlands: Grakna, Rog'mar's wind rider master, flies there.
-  goto 59.6,45.1 "Grakna, wind rider master"
-  fly "Kargath"
+step Kargath
+  tip Across the Badlands to Kargath, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress.
+  enter "Badlands"
   zone Badlands
+  getfp "Kargath"
