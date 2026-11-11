@@ -4,7 +4,11 @@
 -- guide is a Lookup planner kind ("pickup", Lookup/Guide.lua): registered as
 -- "lookup/pickup/<key>", opened in a new tab, rebuilt after /reload.
 --
---   Dungeons.PickupPlan(key) -> plan | nil, reason
+--   Dungeons.PickupPlan(key, offer) -> plan | nil, reason
+--       offer: the heads-up's rule (UI/DungeonToast.lua; the guide it opens):
+--       a quest more than one level above the character (Dungeons.OFFER_MARGIN)
+--       waits for its level less one, as `later`; without it (the dungeon's
+--       page) every quest the game gives now or by the dungeon's lowest level.
 --       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... },
 --         done = n, later = n, waiting = { { quest, level, needs = rec | nil } }, closedBy = { [questId] = { questId } },
 --         breadcrumbs = { { id, targets = { questId }, detour = seconds | nil, far, sea, taken } } | nil }
@@ -52,8 +56,11 @@
 --       Dungeons.DropPoint): the step collects the item there, then takes
 --       the quest from it. Each accept carries the page's `closedBy`, so the
 --       Engine passes it once taken on the way.
---   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take
---   Dungeons.PickUp(key) -> guideId | nil, reason    -- builds, registers and opens it in a new tab
+--   Dungeons.OfferLevel(pq, rec) -> level   -- the level the heads-up offers page quest pq from
+--   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take;
+--       the offer rule when the heads-up opened it (CharState().pickupOffer[key])
+--   Dungeons.PickUp(key, offer) -> guideId | nil, reason    -- builds, registers and opens it in a new tab
+--       (offer: from the heads-up, kept for the rebuild after /reload; the page's button clears it)
 --   Dungeons.PickupLabel(plan) -> text   -- the button: "Pick up the quests", with the quests that
 --       wait "(3 now · 2 at level 16)", none open now "Pick up the quests from level 16"
 --   Dungeons.WaitingLines(plan) -> { text }   -- one per waiting quest: why it waits (its level,
@@ -127,6 +134,8 @@ local KIND = "pickup"
 local FAR = 1e9
 local MIN_DROP = 25 -- percent: a rarer drop (or one of no known chance) is left for the run, when the run can drop it; the Damp Note drops one in three
 local SAME_SPOT = 10 -- seconds of travel: closer than this, a spawn on the entrance's zone is the one
+-- The heads-up offers a quest from this many levels below its quest level.
+Dungeons.OFFER_MARGIN = 1
 
 local function LK() return ns.Lookup end
 
@@ -599,7 +608,16 @@ local function dropDetours(plan, from, p)
 	return plan
 end
 
-function Dungeons.PickupPlan(key)
+-- The level from which the heads-up offers page quest pq (rec: its Codex
+-- quest): one below its quest level (Fitz, 2026-11-10: the game offers many
+-- 3-5 levels early, and the dungeon cards stacked up there), never below the
+-- level the game takes it at.
+function Dungeons.OfferLevel(pq, rec)
+	local qlvl = (rec and tonumber(rec.level)) or tonumber(pq.level) or 0
+	return max(qlvl - Dungeons.OFFER_MARGIN, (rec and rec.minLevel) or pq.minLevel or 1)
+end
+
+function Dungeons.PickupPlan(key, offer)
 	local d = Dungeons.Get(key)
 	if not d then return nil, "unknown" end
 	local Lk, C = LK(), ns.Codex
@@ -653,6 +671,10 @@ function Dungeons.PickupPlan(key)
 				-- One that starts inside (no giver out here, no drop outside)
 				-- never comes to the pick-up guide: it does not wait for it.
 				if Dungeons.Giver(pq, from, rec) or Dungeons.DropPoint(key, pq, from, rec) then wait(pq, (rec and rec.minLevel) or pq.minLevel) end
+			elseif offer and Dungeons.OfferLevel(pq, rec) > (p.level or 1) then
+				-- Offered (the heads-up's guide): one more than a level above
+				-- the character waits for its level less one.
+				if Dungeons.Giver(pq, from, rec) or Dungeons.DropPoint(key, pq, from, rec) then wait(pq, Dungeons.OfferLevel(pq, rec)) end
 			else
 				-- No giver: an item that drops outside starts it, once its
 				-- own prerequisites are done (no trip for those, #1380).
@@ -1065,8 +1087,24 @@ local function route(key, plan)
 	return steps
 end
 
+-- The dungeons whose pick-up guide the heads-up opened (the offer rule):
+-- CharState().pickupOffer[key], kept so a rebuild after /reload matches.
+local function offered(key, set)
+	local st = ns.CharState()
+	if set ~= nil then
+		if set then
+			st.pickupOffer = st.pickupOffer or {}
+			st.pickupOffer[key] = true
+		elseif st.pickupOffer then
+			st.pickupOffer[key] = nil
+			if next(st.pickupOffer) == nil then st.pickupOffer = nil end
+		end
+	end
+	return st.pickupOffer ~= nil and st.pickupOffer[key] == true
+end
+
 function Dungeons.PickupGuide(key)
-	local plan, err = Dungeons.PickupPlan(key)
+	local plan, err = Dungeons.PickupPlan(key, offered(key))
 	if not plan then return nil, err end
 	if #plan.take == 0 then return nil, "nothing" end
 	local d = plan.dungeon
@@ -1101,10 +1139,11 @@ function Dungeons.PickupGuide(key)
 	return { title = format(L["%s: pick up the quests"], d.name), steps = steps, dungeon = key }
 end
 
-function Dungeons.PickUp(key)
+function Dungeons.PickUp(key, offer)
 	if not Dungeons.IsEnabled() then return nil, "off" end
 	local Lk = LK()
 	if not (Lk and Lk.Guide) then return nil, "missing" end
+	offered(key, offer and true or false)
 	return Lk.Guide(KIND, key)
 end
 

@@ -236,6 +236,34 @@ fn a_short_chain_with_low_mobs_has_no_heads_up_line() {
 	assert_eq!(out[0], true);
 }
 
+// Discord feedback via Fitz (2026-11-10): the game offers The Eye of Bhossca (level 35) at 30, and class cards
+// stacked up there. A chain is offered from one level below its first quest's level; the guide list still opens it
+// as soon as its gate does (Engine.StartGate is not touched).
+#[test]
+fn a_chain_is_offered_one_level_below_its_first_quest_s_level_not_when_the_game_first_allows_it() {
+	let out = run_qol(
+		r#"
+		levelUp(20)
+		CQ.Resolve("c/fire")
+		local g = { id = "c/eye", title = "The Eye", category = "Class", classes = { "SHAMAN" }, minLevel = 30, steps = {
+			{ goals = { { t = "level", level = 30 }, { t = "accept", quest = 78676, minLevel = 30, qlvl = 35 } } },
+			{ goals = { { t = "accept", quest = 78699, qlvl = 35 } } },
+		} }
+		guides[#guides + 1] = g
+		byId[g.id] = g
+		local seen = {}
+		for _, n in ipairs({ 30, 31, 32, 33, 34 }) do
+			local before = #offers
+			levelUp(n)
+			seen[#seen + 1] = #offers > before and offers[#offers].guideId or false
+		end
+		emit(seen)
+		emit(CQ.Heads(g, { class = "SHAMAN" }).firstLevel)"#,
+	);
+	assert_eq!(out[0], json!([false, false, false, false, "c/eye"]), "not at 30-33, at 34");
+	assert_eq!(out[1], 35);
+}
+
 // ---------------------------------------------------------------------------
 // Section 3: the class-quest card (UI/ClassCard.lua) over a class quest's step
 // ---------------------------------------------------------------------------

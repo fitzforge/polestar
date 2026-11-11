@@ -15,10 +15,15 @@
 -- When it shows (DT.Candidates): a dungeon, not a raid, the character's level
 -- in its range, with quests for the character's faction, not told before
 -- (CharState().dungeonToastSeen, once per dungeon per character), whose
--- pickup plan (Dungeons.PickupPlan) has a quest to take now and either none
--- left for later levels or at least MIN_OPEN to take. At a level-up, after
+-- pickup plan by the offer rule (Dungeons.PickupPlan(key, true): a quest is
+-- offered from one level below its quest level, Fitz 2026-11-10, not 3-5
+-- levels early as the game allows) has a quest to take now and either none
+-- left for later levels or at least MIN_OPEN to take. Its "Pick up the
+-- quests" opens the guide by the same rule; the dungeon's page still picks
+-- up everything the game gives. At a level-up, after
 -- DELAY seconds so the class quest heads-up goes first; at login, only for a
--- dungeon whose range began within LOGIN_LEVELS levels, after the class
+-- dungeon that came due (its range began and its first quest's offer level
+-- was reached) within LOGIN_LEVELS levels, after the class
 -- quest heads-up and the class guide banner; after a quest of a dungeon's
 -- page is handed in (a prerequisite: its follow-ups there may open), only for
 -- that dungeon, after DELAY seconds so the completed flag has caught up.
@@ -27,12 +32,12 @@
 -- then is told at the next level-up instead. Never in combat (the Codex may
 -- have to load): it waits for combat to end, and while another heads-up is
 -- on the card it waits for that one to be dismissed (HEADS_UP_HIDDEN). Of
--- several, the one whose range began last.
+-- several, the one that came due last.
 --
 --   UI.DungeonToast.Candidates(level, mode, questId)
 --       mode "levelup" | "login" | "turnin" (questId handed in) | "any"
 --   UI.DungeonToast.Check(level, mode, questId)  show the first candidate
---   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key), .SeePage(key)
+--   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key, all), .SeePage(key)
 --   /polestar dungeontoast [dungeon]         show it again
 
 local ADDON, ns = ...
@@ -76,10 +81,24 @@ local function on()
 	return Dg and Dg.IsEnabled and Dg.IsEnabled() and ns.Get("dungeons.headsUp") and true or false
 end
 
+-- At login, before any plan is made: whether dungeon d can have come due
+-- within LOGIN_LEVELS levels (its range began, or one of its page quests'
+-- offer level was reached, that recently).
+local function recent(d, level)
+	if level - d.minLevel <= LOGIN_LEVELS then return true end
+	local Dg = D()
+	for _, q in ipairs(Dg.Quests(d.key)) do
+		local at = Dg.OfferLevel(q)
+		if at <= level and level - at <= LOGIN_LEVELS then return true end
+	end
+	return false
+end
+
 -- The dungeons to tell this character about at `level` (the character's when
--- nil), the one whose range began last first ("any": told ones too, for the
+-- nil), the one that came due last first ("any": told ones too, for the
 -- command; "turnin": only dungeons whose page has questId): { key, name,
--- zoneName, minLevel, maxLevel, take, level }.
+-- zoneName, minLevel, maxLevel, take, level, due }. due: the level it came
+-- due at (its range's start, or its first offered quest's offer level).
 function DT.Candidates(level, mode, questId)
 	local Dg = D()
 	if not (on() and Dg.List and Dg.PickupPlan and Dg.Quests) then return {} end
@@ -91,18 +110,25 @@ function DT.Candidates(level, mode, questId)
 	for _, d in ipairs(Dg.List()) do
 		local min, max = d.minLevel, d.maxLevel
 		if d.kind == "dungeon" and (mode == "any" or not told[d.key]) and min and level >= min and (not max or level <= max)
-			and (d.quests[side] or 0) > 0 and (mode ~= "login" or level - min <= LOGIN_LEVELS)
-			and (mode ~= "turnin" or onPage(d.key, questId)) then
-			local plan = Dg.PickupPlan(d.key)
+			and (d.quests[side] or 0) > 0 and (mode ~= "turnin" or onPage(d.key, questId)) and (mode ~= "login" or recent(d, level)) then
+			local plan = Dg.PickupPlan(d.key, true)
 			local take = plan and #plan.take or 0
 			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) then
-				out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level,
-					pickLabel = Dg.PickupLabel and Dg.PickupLabel(plan) or nil }
+				local due
+				for _, t in ipairs(plan.take) do
+					local at = Dg.OfferLevel(t.quest, t.rec)
+					if not due or at < due then due = at end
+				end
+				due = math.max(min, due or min)
+				if mode ~= "login" or level - due <= LOGIN_LEVELS then
+					out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level,
+						due = due, pickLabel = Dg.PickupLabel and Dg.PickupLabel(plan) or nil }
+				end
 			end
 		end
 	end
 	sort(out, function(a, b)
-		if a.minLevel ~= b.minLevel then return a.minLevel > b.minLevel end
+		if a.due ~= b.due then return a.due > b.due end
 		return a.key < b.key
 	end)
 	return out
@@ -130,7 +156,7 @@ function DT.Model(c)
 	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
 	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
-	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
+	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key, c.all) end }
 	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }
@@ -181,10 +207,10 @@ function DT.SeePage(key)
 end
 
 -- "Pick up the quests": the dungeon's pickup guide in a new tab, as its page's
--- button does.
-function DT.PickUp(key)
+-- button does, by the offer rule unless `all` (Dungeons.PickUp).
+function DT.PickUp(key, all)
 	local Dg = D()
-	local gid, reason = Dg.PickUp(key)
+	local gid, reason = Dg.PickUp(key, not all)
 	if gid then
 		ns.Set("ui.shown", true)
 		CT().Hide()
@@ -301,7 +327,7 @@ ns.RegisterCommand("dungeontoast", function(rest)
 		local take, level = plan and #plan.take or 0, player().level
 		if take == 0 then return ns.Print(L["Nothing to pick up"]) end
 		if type(level) == "number" then
-			c = { key = key, name = d.name, zoneName = d.zoneName, minLevel = d.minLevel, maxLevel = d.maxLevel, take = take, level = level }
+			c = { key = key, name = d.name, zoneName = d.zoneName, minLevel = d.minLevel, maxLevel = d.maxLevel, take = take, level = level, all = true }
 		end
 	end
 	if not (c and DT.Show(c)) then ns.Print(L["No dungeon has opened up for this character."]) end
