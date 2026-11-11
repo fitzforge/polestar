@@ -367,7 +367,7 @@ fn buttons_previews_draw_the_real_faces_on_plain_frames_and_make_no_secure_frame
 	);
 }
 
-// Essentials, a band: the action button set as the player laid it out (Fitz's 4a), a column by default and a row
+// Essentials, a band: the action button set as the player laid it out, a column by default and a row
 // when set, the names on their side; a button turned off is not drawn; centred on the buttons, the names hanging
 // to the side. Its dropdown picks the floating button or the minimap button instead, each alone.
 #[test]

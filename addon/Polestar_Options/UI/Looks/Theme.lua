@@ -71,13 +71,13 @@ local SUBJECT = {
 }
 
 ---------------------------------------------------------------------------
--- The preview: the real surfaces at their true size over the zone you stand
--- in. The guide window (the Guide window page's own drawing,
+-- The Names tab's preview: the real surfaces at their true size over the
+-- zone you stand in. The guide window (the Guide window page's own drawing,
 -- UI.GuideWindowScene) with the heads-up card on its top edge, cropped at
--- the hero's foot; a rare alert and the arrow (their own builders); on the
--- Names tab a card of every subject's name in its colour instead of the
--- arrow. Settings that dress the settings window itself (its sidebar, its
--- header's band, haze and rim, its border) light its own parts too.
+-- the hero's foot; a rare alert (its own builder) and a card of every
+-- subject's name in its colour. Settings that dress the settings window
+-- itself (its sidebar, its header's band, haze and rim, its border) light
+-- its own parts too.
 ---------------------------------------------------------------------------
 
 -- The stage's height laid out alone (the window gives its hero's); the
@@ -88,7 +88,7 @@ local NAME_ROW = 22 -- a line of the names card
 local SHADOW_ROOM = 40 -- each side of the guide window's box, for its drop shadow
 
 local lightParts
-local function buildScene(view, names)
+local function buildNamesPreview(view)
 	local UI, P = ns.UI, ns.UI.Preview
 	local TS = UI.Toasts
 	local f = P.Stage(view, { height = PREVIEW_H, backdrop = "world" })
@@ -110,33 +110,21 @@ local function buildScene(view, names)
 	f.Heads, f.Toast = heads, toast
 	if heads then heads:Show() end
 	if toast then toast:Show() end
-	-- The arrow toward the goal (Nav's own dial).
-	local A = ns.Nav and ns.Nav.arrow
-	local arrow
-	if not names and A and A.BuildDial then
-		local holder = CreateFrame("Frame", nil, f)
-		holder:SetSize(A.WIDTH, A.HEIGHT)
-		arrow = { holder = holder, dial = A.BuildDial(holder), look = {} }
-	end
-	f.Arrow = arrow and arrow.holder
 	-- The names card: each subject's name in its own colour.
-	local card
-	if names then
-		card = CreateFrame("Frame", nil, f)
-		Theme.Skin(card, "panel")
-		card.Words = {}
-		for _, name in ipairs(Theme.SUBJECTS) do
-			local s = SUBJECT[name]
-			if s then
-				local fs = W.Text(card, "label", name)
-				fs:SetText(s[1])
-				card.Words[#card.Words + 1] = { fs = fs, name = name }
-			end
+	local card = CreateFrame("Frame", nil, f)
+	Theme.Skin(card, "panel")
+	card.Words = {}
+	for _, name in ipairs(Theme.SUBJECTS) do
+		local s = SUBJECT[name]
+		if s then
+			local fs = W.Text(card, "label", name)
+			fs:SetText(s[1])
+			card.Words[#card.Words + 1] = { fs = fs, name = name }
 		end
 	end
 	f.Names = card
 
-	-- Their paint from the settings (the toasts' and the arrow's own).
+	-- Their paint from the settings (the toasts' own).
 	local function paint()
 		if heads then
 			TS.ApplyLook(heads, true)
@@ -147,18 +135,14 @@ local function buildScene(view, names)
 			TS.ApplyLook(toast, true)
 			toast:SetAlpha(TS.Alpha("rare"))
 		end
-		if arrow then
-			A.ReadLook(arrow.look)
-			A.PaintDial(arrow.dial, arrow.look, A.StyleFor(ns.Get("nav.arrowStyle")), "travel", -0.35, 381, L["Brill"], 95)
-		end
 	end
 	f.Paint = paint
-	f.psWatch = { "toasts.", "nav.arrow", "ui." }
+	f.psWatch = { "toasts.", "ui." }
 
 	-- -> the hero's height (PREVIEW_H laid out alone): the guide window at
 	-- the left under its heads-up card, cropped at the hero's foot; at the
-	-- right the rare alert, then the arrow or the names. A page too narrow
-	-- for both keeps the window and the arrow.
+	-- right the rare alert, then the names. A page too narrow for both keeps
+	-- the window.
 	function f:Layout(width, height)
 		height = height or PREVIEW_H
 		self:SetWidth(width)
@@ -182,7 +166,7 @@ local function buildScene(view, names)
 		local wide = toast ~= nil and rightW >= tw * 0.75
 		local snap = P.Snap
 		-- Left: the heads-up card, the window under it to the foot.
-		local leftX = wide and PAD or max(PAD, floor((width - leftW - (arrow and (GAP + A.WIDTH * t) or 0)) / 2))
+		local leftX = wide and PAD or max(PAD, floor((width - leftW) / 2))
 		if heads then
 			heads:SetScale(hk)
 			heads:ClearAllPoints()
@@ -197,9 +181,9 @@ local function buildScene(view, names)
 			G:SetSize(winW + 2 * SHADOW_ROOM, max(1, height - top))
 			G:Layout(winW + 2 * SHADOW_ROOM, max(1, height - top))
 		end
-		-- Right: the rare alert, then the arrow or the names.
+		-- Right: the rare alert, then the names.
 		if toast then toast:SetShown(wide) end
-		if card then card:SetShown(wide) end
+		card:SetShown(wide)
 		local y = TOP
 		if wide then
 			local k = min(1, rightW / max(1, tw))
@@ -209,7 +193,7 @@ local function buildScene(view, names)
 			self:Floor(toast)
 			y = y + th * k + 24
 		end
-		if card and wide then
+		if wide then
 			-- Two columns of names, as many lines as the room under the alert holds.
 			local cw = min(rightW, max(tw * min(1, rightW / max(1, tw)), 240))
 			local lines = math.ceil(#card.Words / 2)
@@ -224,16 +208,6 @@ local function buildScene(view, names)
 			card:ClearAllPoints()
 			card:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, rightX), -snap(self, y))
 			self:Floor(card)
-		elseif arrow then
-			-- The arrow at its true size in what is left: under the alert, or
-			-- beside the window on a narrow page.
-			local ax, aw = wide and rightX or (leftX + leftW + GAP), wide and rightW or A.WIDTH * t
-			local roomH = height - y - BOTTOM
-			local ak = t * min(1, roomH / A.HEIGHT, aw / A.WIDTH)
-			arrow.holder:SetScale(max(0.2, ak))
-			arrow.holder:ClearAllPoints()
-			arrow.holder:SetPoint("TOP", self, "TOPLEFT", snap(arrow.holder, (ax + aw / 2) / ak), snap(arrow.holder, -(wide and y or TOP) / ak))
-			self:Floor(arrow.holder, -floor(max(0, A.WIDTH * ak - 150) / 2))
 		end
 		return height
 	end
@@ -449,9 +423,6 @@ local function buildPreview(view)
 	return f
 end
 
--- The Names tab: the guide window and the rare alert with every subject's
--- name in its colour (the stage, until its band).
-local function buildNamesPreview(view) return buildScene(view, true) end
 -- The preview, for the other pages and the tests: buildPreview(parent) -> f.
 ns.UI.ThemePreview = buildPreview
 

@@ -1004,7 +1004,7 @@ local function newPicker(f)
 	return b
 end
 
--- The tab's preview as a band (Fitz's EllesmereUI pattern): the element the
+-- The tab's preview as a band: the element the
 -- tab sets, alone, at its real size (1:1 on the game's UI scale), centred on
 -- the window's plain ground, the band only as tall as it. opts:
 --   picker  { choices, get, set }: a centred dropdown over the element (a
