@@ -36,6 +36,8 @@ const GROUPS: &[Group] = &[
 	Group { name: "discovery_lookup", src: include_str!("effects/discovery-lookup.lua") },
 	Group { name: "discovery_dungeons", src: include_str!("effects/discovery-dungeons.lua") },
 	Group { name: "gamepad", src: include_str!("effects/gamepad.lua") },
+	Group { name: "qol", src: include_str!("effects/qol.lua") },
+	Group { name: "qol_maps", src: include_str!("effects/qol-maps.lua") },
 ];
 
 // The runner: the group's probes over the control specs (the registry's, and the settings window's own pages
@@ -216,6 +218,19 @@ fn env(name: &str) -> Env {
 		},
 		// The whole addon with EllesmereUI installed before it loads (theme.rs).
 		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
+		// The real QoL against tests/lua/stub_qol.lua's client and its fake Engine, Nav and Pins (qol.rs,
+		// qol-items.rs, ui-look-buttons.rs), with the Buttons page that sets the action buttons' looks. The whole
+		// addon's guide window can't draw the fake Engine's steps, so not the world environment.
+		"qol" => Env {
+			stubs: vec!["stub_qol.lua"],
+			before: "",
+			addons: vec![Addon::files(
+				"Polestar",
+				&["Core/Init.lua", "Core/Compat.lua", "Core/Hooks.lua", "Theme/Theme.xml", "QoL/QoL.xml", &page("Polestar_Options/QoL/ButtonsOptions.lua")],
+			)],
+			login: true,
+			prelude: "stub.advance(1)\n".into(),
+		},
 		// The whole addon on the world stub, the settings window's addon loaded.
 		_ => Env {
 			stubs: vec!["stub_world.lua"],
@@ -310,6 +325,16 @@ fn discovery_dungeons() {
 #[test]
 fn gamepad() {
 	check("gamepad");
+}
+
+#[test]
+fn qol() {
+	check("qol");
+}
+
+#[test]
+fn qol_maps() {
+	check("qol_maps");
 }
 
 // Every control of the settings window has an effect check, and every check is a control's.
