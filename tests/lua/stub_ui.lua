@@ -700,7 +700,33 @@ function Nav.ReleaseTarget()
 end
 function Nav.GetTarget() return uistub.target or Engine.GetWaypoint() end
 function Nav.GetDistance() return 42 end
+-- A point of the player's own: uistub.target, set by SetTarget or the scenes.
+function Nav.IsOverride() return uistub.target ~= nil end
+function Nav.BackToGuide()
+	record("BackToGuide")
+	if not uistub.target then return false end
+	uistub.trip = nil
+	Nav.ReleaseTarget()
+	return true
+end
 function Nav.ResetArrowPosition() record("ResetArrowPosition") end
+-- Trips (Nav.StartTrip): uistub.trip, the trip under way ({ name, label }), set by
+-- StartTrip or by the scenes.
+function Nav.StartTrip(t, name, label, ends)
+	if not t then return nil end
+	record("StartTrip", name or t.label, label, ends)
+	uistub.trip = { target = t, name = name or t.label, label = label, ends = ends or "arrive" }
+	Polestar.Fire("NAV_TRIP", uistub.trip)
+	return uistub.trip
+end
+function Nav.Trip() return uistub.trip end
+function Nav.EndTrip()
+	record("EndTrip")
+	local was = uistub.trip ~= nil
+	uistub.trip = nil
+	Polestar.Fire("NAV_TRIP", nil)
+	return was
+end
 -- Nearby services (Nav/Nearby.lua): the guide window's list, and Go.
 Nav.nearby = {
 	MenuItems = function()
@@ -716,15 +742,6 @@ Nav.nearby = {
 			{ separator = true }, { key = "bank", label = "Bank" } }
 	end,
 	Go = function(key, line) record("NearbyGo", key, line); return true end,
-	-- uistub.trip: the trip under way ({ name, label }), set by the scenes.
-	Trip = function() return uistub.trip end,
-	EndTrip = function()
-		record("NearbyEndTrip")
-		local was = uistub.trip ~= nil
-		uistub.trip = nil
-		Polestar.Fire("NEARBY_TRIP", nil)
-		return was
-	end,
 }
 
 local MAPS = {

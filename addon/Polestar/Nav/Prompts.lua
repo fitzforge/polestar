@@ -24,7 +24,12 @@
 --   /polestar skipleg. A Hearthstone, teleport, flight, ride or portal leg
 --   ("Skip this leg") is left out and the rest of this trip planned without
 --   it; a walk or lift step ("Mark this leg done") is marked done and the
---   arrow moves on (Nav.travel.SkipLeg, Nav.travel.SkipReplans).
+--   arrow moves on (Nav.travel.SkipLeg, Nav.travel.SkipReplans). The route
+--   is planned from where you stand, so a leg marked done before you are
+--   past it comes back. While the arrow is on a point of your own (picked
+--   on the map, a "Guide me" or "Show me"), the same menu has "Back to the
+--   guide" (Nav.BackToGuide): that point lets go, and its journey with it
+--   (#1686).
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -384,15 +389,26 @@ end
 
 local function skip() Prompts.SkipLeg() end
 
--- The menu's rows for the current leg, or nil when nothing can be skipped.
+-- Whether the current leg can be skipped (the journey panel words its tip by it).
+function Prompts.CanSkip() return skippable() ~= nil end
+
+-- The menu's rows: the current leg's skip, then "Back to the guide" while
+-- the arrow is on a point of your own; nil when there is neither.
 function Prompts.MenuItems()
+	local items = {}
 	local leg = skippable()
-	if not leg then return nil end
-	local T = Nav.travel
-	if T.SkipReplans and T.SkipReplans(leg) then
-		return { { text = L["Skip this leg"], tip = L["Plans the rest of this trip without it."], onClick = skip } }
+	if leg then
+		local T = Nav.travel
+		if T.SkipReplans and T.SkipReplans(leg) then
+			items[1] = { text = L["Skip this leg"], tip = L["Plans the rest of this trip without it."], onClick = skip }
+		else
+			items[1] = { text = L["Mark this leg done"], tip = L["The arrow moves on to the next leg."], onClick = skip }
+		end
 	end
-	return { { text = L["Mark this leg done"], tip = L["The arrow moves on to the next leg."], onClick = skip } }
+	if Nav.IsOverride() then
+		items[#items + 1] = { text = L["Back to the guide"], icon = "chevron-left", onClick = function() Nav.BackToGuide() end }
+	end
+	return items[1] and items or nil
 end
 
 ns.RegisterCommand("skipleg", function()

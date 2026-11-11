@@ -1799,35 +1799,57 @@ function Party.Roster()
 	return out
 end
 
--- Point the arrow at a party member, where the client gives their place on
--- the map (the open world; not in an instance), and follow them while it
--- stays the arrow's target. False when it does not.
+-- Lead the arrow to a party member, where the client gives their place on
+-- the map (the open world; not in an instance), following them as they
+-- move (Nav.MoveTarget: one arrival, one chime). A trip (Nav.StartTrip):
+-- it ends when you reach them, on "Back to the guide" (the guide window's
+-- banner, the arrow's menu, the journey's x), or once they leave the party,
+-- go offline or the client gives their place no more. False when there is
+-- no place to lead to.
 local FOLLOW = 3 -- seconds between looks at where they are
-local follow -- { unit, label, target, map, x, y, ticker }
+local follow -- { key, target, ticker }
 local function stopFollow()
 	if follow and follow.ticker then follow.ticker:Cancel() end
 	follow = nil
 end
+
+-- The unit that is member `key` now (the party's slots move up when someone
+-- leaves), or nil once they are gone.
+local function unitOfMember(key)
+	local n = GetNumSubgroupMembers and GetNumSubgroupMembers() or 0
+	for i = 1, n do
+		local unit = "party" .. i
+		if memberKey(unit) == key then return unit end
+	end
+	return nil
+end
+
+local function followTick()
+	local Nav = ns.Nav
+	if not follow or Nav.GetTarget() ~= follow.target then return stopFollow() end
+	local unit = follow.key and unitOfMember(follow.key)
+	local map, x, y
+	if unit and not (UnitIsConnected and not UnitIsConnected(unit)) then map, x, y = ns.Compat.GetUnitMapPosition(unit) end
+	if not map then
+		stopFollow()
+		if not Nav.EndTrip() then Nav.ReleaseTarget() end
+		return
+	end
+	local t = follow.target
+	if map ~= t.map or math.abs(x - t.x) + math.abs(y - t.y) > 0.5 then Nav.MoveTarget(t, map, x, y) end
+end
+
 function Party.PointAt(unit)
 	local Nav = ns.Nav
 	local map, x, y = ns.Compat.GetUnitMapPosition(unit)
 	if not (map and Nav and Nav.SetTarget) then return false end
-	local _, name = memberKey(unit)
+	local key, name = memberKey(unit)
 	stopFollow()
-	local label = name and L["Party: %s"]:format(name) or L["Party"]
-	local target = Nav.SetTarget(map, x, y, label)
+	local target = Nav.SetTarget(map, x, y, name and L["Party: %s"]:format(name) or L["Party"])
 	if not target then return false end
-	follow = { unit = unit, label = label, target = target, map = map, x = x, y = y }
-	if C_Timer and C_Timer.NewTicker then
-		follow.ticker = ns.NewTicker(FOLLOW, function()
-			if not follow or Nav.GetTarget() ~= follow.target then return stopFollow() end
-			local m2, x2, y2 = ns.Compat.GetUnitMapPosition(follow.unit)
-			if not m2 then return end
-			if m2 ~= follow.map or math.abs(x2 - follow.x) + math.abs(y2 - follow.y) > 0.5 then
-				follow.target, follow.map, follow.x, follow.y = Nav.SetTarget(m2, x2, y2, follow.label), m2, x2, y2
-			end
-		end)
-	end
+	Nav.StartTrip(target, name, L["Party"])
+	follow = { key = key, target = target }
+	if C_Timer and C_Timer.NewTicker then follow.ticker = ns.NewTicker(FOLLOW, followTick) end
 	return true
 end
 

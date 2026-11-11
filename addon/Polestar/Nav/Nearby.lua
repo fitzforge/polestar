@@ -450,43 +450,6 @@ local function kindLabel(key, line)
 	return BY_KEY[key].label
 end
 
--- A trip to a service: the arrow's target until the player gets there, or
--- picks "Back to the guide" (the guide window's banner, the Nearby menu).
--- Then the arrow is back on the guide's step. Any other target (a step change,
--- a goal clicked, a map click) ends it too.
-local trip
-
--- The trip under way: { target, name, label }, or nil.
-function Nearby.Trip()
-	if trip and not (Nav.IsOverride() and Nav.GetTarget() == trip.target) then trip = nil end
-	return trip
-end
-
--- Back to the guide: the trip's target lets go. `arrived`: said as "At <name>".
--- False when there is no trip.
-function Nearby.EndTrip(arrived)
-	local t = Nearby.Trip()
-	if not t then return false end
-	trip = nil
-	Nav.ReleaseTarget()
-	ns.Print(arrived and format(L["At %s: the arrow is back on the guide."], t.name) or L["The arrow is back on the guide."])
-	ns.Fire("NEARBY_TRIP", nil)
-	return true
-end
-
--- There: the arrow goes back to the guide, after the arrival is drawn.
-ns.On("NAV_ARRIVED", function(target)
-	if not (trip and trip.target == target) then return end
-	ns.After(0, function()
-		if trip and trip.target == target then Nearby.EndTrip(true) end
-	end)
-end)
-
--- Another target took over: the trip is over, without a word.
-ns.On("WAYPOINT_CHANGED", function()
-	if trip and not Nearby.Trip() then ns.Fire("NEARBY_TRIP", nil) end
-end)
-
 function Nearby.Go(key, line)
 	key = ALIAS[key] or key
 	local place, seconds = Nearby.Find(key, line)
@@ -511,10 +474,10 @@ function Nearby.Go(key, line)
 	end
 	local name = place.name
 	if BY_KEY[key].titled and place.sub and place.sub ~= "" then name = format("%s (%s)", name, place.sub) end
+	-- A trip (Nav.StartTrip): it ends at the service, or on "Back to the guide".
 	local target = Nav.SetTarget(place.map, place.x, place.y, name, place.f, BY_KEY[key].stop, place.z)
 	if not target then return false end
-	trip = { target = target, name = name, label = kindLabel(key, line) }
-	ns.Fire("NEARBY_TRIP", trip)
+	Nav.StartTrip(target, name, kindLabel(key, line))
 	local zone = ns.Compat.GetMapName(place.map) or "?"
 	local Q = ns.QoL
 	local time = seconds and Q and Q.Duration and Q.Duration(seconds)

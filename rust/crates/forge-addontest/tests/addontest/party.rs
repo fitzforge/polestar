@@ -1230,7 +1230,7 @@ emit(PP.Frame():IsShown())
 stub.fire("PLAYER_REGEN_ENABLED")
 emit(PP.Frame():IsShown())
 local t
-Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return t end, GetTarget = function() return t end }
+Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return t end, GetTarget = function() return t end, StartTrip = function() end }
 emit({ P.PointAt("party1"), t, P.PointAt("party2") })
 p.disband()
 emit(PP.Frame():IsShown())"#
@@ -1251,6 +1251,60 @@ emit(PP.Frame():IsShown())"#
 	assert_eq!(out[6], true);
 	assert_eq!(out[7], json!([true, [1429, 40, 50, "Party: Ana"], false]), "Ben's place is not known: no arrow");
 	assert_eq!(out[8], false, "solo: hidden");
+}
+
+// A player report (Discord, via Fitz): following a party member from the party panel could not be cancelled, and
+// the arrival chime played over and over while standing by them; only opening another guide stopped it. Each look
+// at where they were set a new target, which re-armed the arrival. Now the follow is a trip (Nav.StartTrip: it ends
+// on arrival, and "Back to the guide" cancels it) whose one target moves with them (Nav.MoveTarget), and it ends
+// once they leave the party (their slot taken by someone else), go offline, or have no place the client gives.
+#[test]
+fn party_following_a_member_is_one_moving_trip_that_ends_when_they_leave_go_offline_or_lose_their_place() {
+	let out = group(
+		r#"
+local calls, t = {}, nil
+local function log(s) calls[#calls + 1] = s end
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label) t = { map = map, x = x, y = y, label = label }; log("set " .. label); return t end,
+	GetTarget = function() return t end,
+	StartTrip = function(target, name, label) log("trip " .. tostring(name) .. " (" .. label .. ")") end,
+	MoveTarget = function(target, map, x, y) target.map, target.x, target.y = map, x, y; log(("move %d %g %g"):format(map, x, y)); return true end,
+	EndTrip = function() log("end"); t = nil; return true end,
+	ReleaseTarget = function() log("release"); t = nil end,
+}
+local function follow(unit, setup)
+	calls = {}
+	P.PointAt(unit)
+	local first = t
+	stub.advance(3.1)                       -- not moved: nothing
+	p.set("Ana", { x = 41 })
+	stub.advance(3.1)                       -- moved: the same target goes with her
+	local same = t == first
+	setup()
+	stub.advance(3.1)
+	stub.advance(3.1)                       -- over: no more looks
+	p.set("Ana", { map = 1429, x = 40 })
+	return { calls = calls, same = same }
+end
+p.join("Ana"); p.join("Ben")
+p.set("Ana", { map = 1429, x = 40, y = 50 }); p.set("Ben", { map = 1429, x = 60, y = 60 })
+local left = follow("party1", function() p.leave("Ana") end) -- Ben moves up to party1: never followed instead
+p.join("Ana"); p.set("Ana", { map = 1429, x = 40, y = 50 }) -- party2 now
+local offline = follow("party2", function() p.connect("Ana", false) end)
+p.connect("Ana", true)
+local lost = follow("party2", function() p.set("Ana", { map = false }) end) -- no place the client gives
+calls = {}
+P.PointAt("party2")
+t = { label = "Elsewhere" }                  -- another target took over: the follow stops quietly
+stub.advance(3.1)
+emit({ left = left, offline = offline, lost = lost, replaced = calls })"#,
+	);
+	let out = &out[0];
+	let followed = |end: &str| json!({ "calls": ["set Party: Ana", "trip Ana (Party)", "move 1429 41 50", end], "same": true });
+	assert_eq!(out["left"], followed("end"), "she left: the trip ends, the arrow never jumps to Ben");
+	assert_eq!(out["offline"], followed("end"));
+	assert_eq!(out["lost"], followed("end"));
+	assert_eq!(out["replaced"], json!(["set Party: Ana", "trip Ana (Party)"]), "no move, no end: it stops without a word");
 }
 
 #[test]

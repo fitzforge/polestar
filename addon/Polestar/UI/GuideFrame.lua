@@ -1415,9 +1415,9 @@ local function awayNotice(E, g)
 	return a
 end
 
-local function nearbyTrip()
-	local Nearby = ns.Nav and ns.Nav.nearby
-	return Nearby and Nearby.Trip and Nearby.Trip() or nil
+local function navTrip()
+	local nav = ns.Nav
+	return nav and nav.Trip and nav.Trip() or nil
 end
 
 -- The end of the active leveling guide reached while steps are still open
@@ -1444,8 +1444,8 @@ end
 local function bannerNotice()
 	local E = Engine()
 	local g = E and E.GetGuide and E.GetGuide()
-	-- On the way to a nearby service (Nav/Nearby.lua): the way back first.
-	local t = nearbyTrip()
+	-- On the way to a nearby service, a dungeon or a trainer (Nav.StartTrip): the way back first.
+	local t = navTrip()
 	if t then return "trip", t end
 	-- The tab just closed, until it is open again.
 	local ct = notices.closedTab
@@ -1855,12 +1855,12 @@ end
 
 -- The banner's main action: undo the skip, unskip the step on screen or go
 -- back to the live step, load the suggested guide into the current tab, or
--- point the arrow at the trainer (until the step changes).
+-- take the player to the trainer (a trip: until they get there).
 function GF.TakeBanner()
 	local kind, n = bannerNotice()
 	local E = Engine()
 	if kind == "trip" then
-		ns.Nav.nearby.EndTrip()
+		ns.Nav.EndTrip()
 	elseif kind == "closedTab" then
 		notices.closedTab = nil
 		if E and E.ReopenClosedTab then E.ReopenClosedTab(n.guideId) end
@@ -1898,13 +1898,13 @@ function GF.TakeBanner()
 		notices.train = nil
 		local t, nav2 = n.trainer, ns.Nav
 		if t and t.map and t.x and nav2 and nav2.SetTarget then
-			nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z)
+			nav2.StartTrip(nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z), nil, L["Class trainer"])
 		end
 	elseif kind == "riding" then
 		notices.riding = nil
 		local t, nav2 = n.trainer, ns.Nav
 		if t and t.map and t.x and nav2 and nav2.SetTarget then
-			nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Riding trainer"], t.f, "trainer")
+			nav2.StartTrip(nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Riding trainer"], t.f, "trainer"), nil, L["Riding trainer"])
 		end
 		local R = ns.QoL and ns.QoL.Riding
 		if R and R.OnResolve then R.OnResolve(n.tier) end
@@ -1949,7 +1949,7 @@ end
 function GF.DismissBanner(later)
 	local kind, n = bannerNotice()
 	if kind == "trip" then
-		ns.Nav.nearby.EndTrip()
+		ns.Nav.EndTrip()
 	elseif kind == "away" then
 		-- Looking ahead or back: closed for this step (awayNotice), another step has its own
 		notices.away = n.guideId .. ":" .. n.index
@@ -4325,8 +4325,8 @@ function openNearby(button)
 	if not (Nearby and Nearby.MenuItems) then return end
 	local fight = InCombatLockdown and InCombatLockdown()
 	local items = {}
-	if Nearby.Trip and Nearby.Trip() then
-		items[1] = { text = L["Back to the guide"], icon = "chevron-left", onClick = function() Nearby.EndTrip() end }
+	if ns.Nav.Trip() then
+		items[1] = { text = L["Back to the guide"], icon = "chevron-left", onClick = function() ns.Nav.EndTrip() end }
 		items[2] = { separator = true }
 	end
 	for _, e in ipairs(Nearby.MenuItems()) do
@@ -5279,8 +5279,8 @@ ns.On("CLASS_TRAINED", function()
 	if ns.IsLoggedIn() then GF.Layout() end
 end)
 
--- A trip to a nearby service began or ended: its banner shows or goes.
-ns.On("NEARBY_TRIP", function()
+-- A trip (Nav.StartTrip) began or ended: its banner shows or goes.
+ns.On("NAV_TRIP", function()
 	if F and ns.IsLoggedIn() then GF.Layout() end
 end)
 
