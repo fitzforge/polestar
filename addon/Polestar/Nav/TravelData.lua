@@ -2,6 +2,7 @@
 -- Blizzard Classic Era client tables (wago.tools build 1.15.9.70576): TaxiNodes, TaxiPath,
 -- TaxiPathNode, AreaTrigger; WoW Forever client TaxiPathNode (wago.tools build
 -- 1.60.1.70532) for the ships Forever added; docks and inns placed from data/forever (pfQuest, MIT);
+-- the flight points Forever added, with their flights: WoW Forever client TaxiNodes, TaxiPath and TaxiPathNode (that build);
 -- learned walking paths from 0 recorded session(s).
 -- Timetables, portals and teleports: WoW Forever TransportAnimation and spell tables (wago.tools build
 -- 1.60.1.70532), CMaNGOS classic-db 22b5146 (spawns, areatrigger_teleport,
@@ -16,6 +17,7 @@ if not (N and N.RegisterTravelData) then return end
 N.RegisterTravelData({
 	build = "1.15.9.70576",
 	-- id, continent, wx, wy, uiMapID, x, y (Era frame), faction mask (1 Alliance, 2 Horde), name[, the one class that flies from it]
+	-- (then "l", after the class or nil: x, y on the live frame of a map Forever added, which has no Era frame)
 	taxi = {
 		{2,0,-8840.6,489.7,1453,66.3,62.67,1,"Stormwind, Elwynn"},
 		{4,0,-10628.9,1036.7,1436,56.57,52.67,1,"Sentinel Hill, Westfall"},
@@ -80,6 +82,10 @@ N.RegisterTravelData({
 		{77,1,-2380.7,-1882.7,1413,44.46,59.1,2,"Camp Taurajo, The Barrens"},
 		{79,1,-6113.8,-1142.7,1449,45.3,5.97,3,"Marshal's Refuge, Un'Goro Crater"},
 		{80,1,-894.6,-3773,1413,63.12,37.11,3,"Ratchet, The Barrens"},
+		{559,1,5283.2,-3306.7,2482,68.64,44.11,3,"Summit of Eternity, Mount Hyjal",nil,"l"},
+		{3203,0,-7923.7,-4783,2548,59.61,45.06,2,"Rog'mar, Riverglades",nil,"l"},
+		{3242,1,4393.5,-2836.4,2482,55.1,82.55,3,"Tainted Foothills, Mount Hyjal",nil,"l"},
+		{3276,0,-9104.1,-4830.5,2548,60.59,81.57,1,"Farholde Keep, Riverglades",nil,"l"},
 	},
 	-- one-way flights: from, to, yards flown
 	flights = {
@@ -98,6 +104,7 @@ N.RegisterTravelData({
 		5,4,4003,
 		5,12,1812,
 		5,71,1825,
+		5,3276,3962,
 		6,2,6307,
 		6,7,3861,
 		6,8,3037,
@@ -114,6 +121,7 @@ N.RegisterTravelData({
 		8,6,3266,
 		8,7,4564,
 		8,16,4902,
+		8,3276,5531,
 		10,11,3345,
 		10,13,2847,
 		11,10,3180,
@@ -145,6 +153,7 @@ N.RegisterTravelData({
 		17,13,3493,
 		17,21,7760,
 		17,76,2705,
+		17,3203,9767,
 		18,20,3047,
 		18,21,12190,
 		18,56,7986,
@@ -161,6 +170,7 @@ N.RegisterTravelData({
 		21,56,8424,
 		21,70,2593,
 		21,75,1682,
+		21,3203,3821,
 		22,23,6213,
 		22,25,4752,
 		22,29,5439,
@@ -279,10 +289,12 @@ N.RegisterTravelData({
 		52,49,3639,
 		52,64,5265,
 		52,65,3670,
+		52,3242,4057,
 		53,23,9115,
 		53,44,4041,
 		53,48,5853,
 		53,69,4016,
+		53,3242,4078,
 		55,22,6729,
 		55,23,6496,
 		55,25,4848,
@@ -291,6 +303,7 @@ N.RegisterTravelData({
 		56,20,5646,
 		56,21,8555,
 		56,70,5916,
+		56,3203,5085,
 		58,25,6827,
 		58,61,5013,
 		61,23,2869,
@@ -323,10 +336,12 @@ N.RegisterTravelData({
 		70,21,2994,
 		70,56,6376,
 		70,75,2154,
+		70,3203,4113,
 		71,2,4528,
 		71,5,1884,
 		71,45,6288,
 		71,74,3090,
+		71,3276,3936,
 		72,40,7224,
 		72,42,3895,
 		72,79,2896,
@@ -351,6 +366,17 @@ N.RegisterTravelData({
 		80,25,2041,
 		80,32,3149,
 		80,64,3960,
+		559,3242,1866,
+		3203,17,9845,
+		3203,21,3607,
+		3203,56,4624,
+		3203,70,3993,
+		3242,52,3745,
+		3242,53,3967,
+		3242,559,1849,
+		3276,5,3917,
+		3276,8,5193,
+		3276,71,3676,
 	},
 	-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live), AreaTable area (its name in the client's language)
 	-- [, board = { wx, wy, z }: where a ship lying off its pier is boarded, on the deck; or z: the height of the floor the walk to the end ends on]; seconds riding a->b, b->a and waiting at a, b

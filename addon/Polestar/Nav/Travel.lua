@@ -181,7 +181,9 @@ function Nav.RegisterTravelData(d, replace)
 	if replace then clearData() end
 	Travel.build = d.build
 	for _, t in ipairs(d.taxi or {}) do
-		local node = point(t[9], t[2], t[3], t[4], t[5], t[6], t[7], "e")
+		-- x, y on the map's Era frame; t[11] "l": on its live frame (f nil), a map Forever added with
+		-- no Era frame (Rog'mar, Farholde Keep on the Riverglades).
+		local node = point(t[9], t[2], t[3], t[4], t[5], t[6], t[7], t[11] ~= "l" and "e" or nil)
 		node.id, node.faction, node.short = t[1], t[8], shortName(t[9])
 		-- The one class that flies from it (the Druids' Nighthaven flight masters), else nil.
 		node.class = t[10]
@@ -350,6 +352,7 @@ end
 
 -- The loaded network, read-only (the live tables, not copies):
 --   taxi = { node, ... }, taxiById = { [id] = node }    node = { id, name, short, c, wx, wy, map, x, y, f, faction }
+--     (f "e": x, y on the map's Era frame; nil: on its live frame, a map Forever added)
 --   flights = { [fromId] = { toId, yards, toId, yards, ... } }
 --   transports = { { id, kind, faction, a, b, ab, ba, waitA, waitB }, ... }, inns = { inn, ... },
 --     (a, b: the ends, at the ship's stop; end.board = { name, c, wx, wy, map, z }: where a ship
