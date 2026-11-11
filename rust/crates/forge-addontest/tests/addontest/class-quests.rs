@@ -894,3 +894,37 @@ fn the_class_card_title_starts_below_the_reward_badge() {
 	assert_eq!(r["badge"], true, "{r}");
 	assert!(r["titleTop"].as_f64().unwrap() >= r["badgeBottom"].as_f64().unwrap() + 4.0, "{r}");
 }
+
+// The shipped pack (Polestar_Guides): The Eye of Bhossca's first accept carries its compiled quest level, so the
+// heads-up reads 35 from the pack itself, with no quest database or client answer needed, and a Rogue past the horn
+// job is offered it at 34, not at 30-33.
+#[test]
+fn the_shipped_eye_of_bhossca_is_offered_at_34_from_its_compiled_quest_level() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"
+local w = stub.world
+w.addMap(1421, { name = "Silverpine Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.race, w.raceName, w.raceID, w.class, w.className, w.classID, w.faction, w.level = "Human", "Human", 1, "ROGUE", "Rogue", 4, "Alliance", 30
+w.moveTo(1421, 47, 70)
+w.complete({ 78261, 78270, 78307 })
+"#
+		.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides")],
+		saved: vec![("Polestar".into(), "PolestarCharDB = { schema = 1 }".into())],
+		login: true,
+		script: r#"
+local G, CQ = Polestar.Guides, Polestar.QoL.ClassQuests
+local id = "forever/class/rogue/the-eye-of-bhossca"
+local function ready()
+	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
+	return false
+end
+local r = { first = CQ.Heads(G.Get(id), Polestar.Compat.GetPlayerInfo()).firstLevel }
+for _, n in ipairs({ 30, 33, 34 }) do stub.world.level = n; r["at" .. n] = ready() end
+emit(r)"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "first": 35, "at30": false, "at33": false, "at34": true }));
+}
