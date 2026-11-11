@@ -145,12 +145,13 @@ end
 
 -- Every accept of a guide and of the guides after it (`next`, every route
 -- choice), and each quest's prerequisite lists: { accepts, pres }. Cached
--- per guide. A `next` option whose `when` can no longer hold
--- (Own.optionClosed) is left out; one that may still hold at the hand-off
--- stays, and the cache is built again once it is closed.
+-- per guide's steps table (a guide whose deferred steps are read in again,
+-- Guides.Steps, builds it again). A `next` option whose `when` can no longer
+-- hold (Own.optionClosed) is left out; one that may still hold at the
+-- hand-off stays, and the cache is built again once it is closed.
 local chainNeedsCache = setmetatable({}, { __mode = "k" })
 function Own.chainOf(g)
-	local c = chainNeedsCache[g]
+	local c = chainNeedsCache[g.steps]
 	if c and c.chain then
 		local stale = false
 		for _, o in ipairs(c.open) do
@@ -164,7 +165,7 @@ function Own.chainOf(g)
 	end
 	if not c then
 		c = {}
-		chainNeedsCache[g] = c
+		chainNeedsCache[g.steps] = c
 	end
 	local open = {}
 	local pres, accepts = {}, {}
@@ -245,7 +246,7 @@ end
 -- (the first in guide order among equals). Cached per guide and level.
 local function chainNeeds(g, level)
 	local chain = Own.chainOf(g)
-	local c = chainNeedsCache[g]
+	local c = chainNeedsCache[g.steps]
 	local set = c[level]
 	if set then return set end
 	local C = Compat()
@@ -298,7 +299,8 @@ function Engine.GreyLeftOut(id, q, level)
 	return chainNeeds(g, level)[q] == nil
 end
 
--- Per guide: each goal's step index, each quest's accept, turn-in and
+-- Per guide, by its steps table (deferred steps read in again are new
+-- tables): each goal's step index, each quest's accept, turn-in and
 -- abandon goals ({ s, key = "s:g", step, goal }), and `starters`: a plain
 -- `collect` of an item (no quest) -> the accept after it in its step that
 -- the item starts (`accept <q> item <item>`, no giver: Ursangous's Paw
@@ -306,7 +308,7 @@ end
 local NONE = {}
 local layoutCache = setmetatable({}, { __mode = "k" })
 local function layoutOf(g)
-	local l = layoutCache[g]
+	local l = layoutCache[g.steps]
 	if l then return l end
 	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {}, starters = {} }
 	for s, step in ipairs(g.steps) do
@@ -332,7 +334,7 @@ local function layoutOf(g)
 			end
 		end
 	end
-	layoutCache[g] = l
+	layoutCache[g.steps] = l
 	return l
 end
 
@@ -819,15 +821,16 @@ function Own.optionClosed(from, id)
 	return false
 end
 
--- The loaded guide's step numbers by step table, built once per guide.
+-- The loaded guide's step numbers by step table, built once per steps table
+-- (deferred steps read in again, Guides.Steps, are new tables).
 Own.stepNumbers = setmetatable({}, { __mode = "k" })
 function Own.stepNumber(step)
 	if not guide then return nil end
-	local map = Own.stepNumbers[guide]
+	local map = Own.stepNumbers[guide.steps]
 	if not map then
 		map = {}
 		for s, st in ipairs(guide.steps) do map[st] = s end
-		Own.stepNumbers[guide] = map
+		Own.stepNumbers[guide.steps] = map
 	end
 	return map[step]
 end
@@ -3338,7 +3341,7 @@ Own.CHAIN_WORTH = 3
 function Own.catchUpPast(level)
 	local C = Compat()
 	local chain = Own.chainOf(guide)
-	local cache = chainNeedsCache[guide]
+	local cache = chainNeedsCache[guide.steps]
 	local key = "past:" .. level
 	local counts = cache[key]
 	if not counts then

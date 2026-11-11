@@ -221,7 +221,9 @@ local function haystack(g)
 	return table.concat(parts, " "):lower()
 end
 
--- Match IDs, not translated titles: two quests can share a name.
+-- Match IDs, not translated titles: two quests can share a name. A hit
+-- keeps the step's title and note, not the step: a side-shelf guide's steps
+-- are read in for the search and given back (Guides.Peek).
 local function questSteps(g)
 	local cached = questContext.steps[g.id]
 	if cached then return cached end
@@ -232,16 +234,18 @@ local function questSteps(g)
 	questContext.steps[g.id] = found
 	if not full or (G.GuideMatches and not G.GuideMatches(g, player) and not (G.OtherStart and G.OtherStart(g, player))) then return found end
 	local function applies(only) return not G.Matches or G.Matches(only, player) end
-	for i, step in ipairs(full.steps or {}) do
+	local steps, fresh = G.Peek(g.id)
+	for i, step in ipairs(steps or {}) do
 		if applies(step.only) then
 			for _, goal in ipairs(step.goals or {}) do
 				if goal.quest == questContext.id and applies(goal.only) then
-					found[#found + 1] = { index = i, step = step }
+					found[#found + 1] = { index = i, step = { title = step.title, note = step.note } }
 					break
 				end
 			end
 		end
 	end
+	G.Unpeek(g.id, fresh)
 	return found
 end
 
@@ -480,7 +484,8 @@ local function guideFacts(g)
 	if f then return f end
 	f = { quests = 0, zones = {} }
 	local G, C = ns.Guides, ns.Compat
-	local full = G and G.Get and G.Get(g.id)
+	local full, fresh = nil, false
+	if G and G.Peek then full, fresh = G.Peek(g.id) end
 	local player
 	if C and C.GetPlayerInfo then
 		local ok, info = pcall(C.GetPlayerInfo)
@@ -492,7 +497,7 @@ local function guideFacts(g)
 		return player ~= nil and fits(only, player)
 	end
 	local seen = {}
-	for _, step in ipairs(full and type(full.steps) == "table" and full.steps or {}) do
+	for _, step in ipairs(type(full) == "table" and full or {}) do
 		if applies(step.only) and type(step.goals) == "table" then
 			for _, goal in ipairs(step.goals) do
 				if applies(goal.only) then
@@ -506,6 +511,7 @@ local function guideFacts(g)
 			end
 		end
 	end
+	if G and G.Peek then G.Unpeek(g.id, fresh) end
 	if #f.zones == 0 then f.zones[1] = UI.GuidePlace(g) end
 	if player then factCache[g.id] = f end
 	return f
@@ -1386,10 +1392,14 @@ local function renderDetails(byId, tabs, active)
 	-- A Class guide: the same heads-up the class-quest card gives (QoL/ClassQuests.lua).
 	local CQ, G = ns.QoL and ns.QoL.ClassQuests, ns.Guides
 	local full = g.category == "Class" and CQ and CQ.Heads and G and G.Get and G.Get(g.id)
-	if type(full) == "table" and type(full.steps) == "table" then
-		local okP, player = pcall(ns.Compat.GetPlayerInfo)
-		local heads = CQ.HeadsLine(CQ.Heads(full, okP and type(player) == "table" and player or {}), full)
-		if heads then facts[#facts + 1] = { L["Heads-up"], heads } end
+	if type(full) == "table" then
+		local steps, fresh = G.Peek(g.id)
+		if type(steps) == "table" then
+			local okP, player = pcall(ns.Compat.GetPlayerInfo)
+			local heads = CQ.HeadsLine(CQ.Heads(full, okP and type(player) == "table" and player or {}), full)
+			if heads then facts[#facts + 1] = { L["Heads-up"], heads } end
+		end
+		G.Unpeek(g.id, fresh)
 	end
 	if g.stepCount then facts[#facts + 1] = { L["Steps"], tostring(g.stepCount) } end
 	if info.quests > 0 then facts[#facts + 1] = { L["Quests"], tostring(info.quests) } end
@@ -1483,8 +1493,10 @@ local function renderDetails(byId, tabs, active)
 	local pitch = g.pitch
 	if questContext then
 		local text = {}
-		local E, full = ns.Engine, ns.Guides.Get(g.id)
+		local E, G = ns.Engine, ns.Guides
+		local full = G.Get(g.id)
 		local numbered = E and E.StepNumberOf and full
+		local _, fresh = G.Peek(g.id)
 		for _, hit in ipairs(questSteps(g)) do
 			-- As the player counts the steps (#942).
 			local no = numbered and (E.StepNumberOf(full, hit.index)) or hit.index
@@ -1492,6 +1504,7 @@ local function renderDetails(byId, tabs, active)
 			text[#text + 1] = string.format(L["Step %d of %d: %s"], no, total, hit.step.title or questContext.query)
 			if type(hit.step.note) == "string" and hit.step.note ~= "" then text[#text + 1] = hit.step.note end
 		end
+		G.Unpeek(g.id, fresh)
 		if #text > 0 then
 			if type(pitch) == "string" and pitch ~= "" then text[#text + 1] = pitch end
 			pitch = table.concat(text, "\n\n")

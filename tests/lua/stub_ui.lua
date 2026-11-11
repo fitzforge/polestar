@@ -692,6 +692,12 @@ function Guides.SuggestSource() return "guides" end
 function Guides.GuideMatches(g, player) return uistub.realGuides.GuideMatches(g, player) end
 function Guides.Matches(only, player) return uistub.realGuides.Matches(only, player) end
 function Guides.OtherStart(g, player) return uistub.realGuides.OtherStart(g, player) end
+-- The scenes' guides carry their steps: a look reads nothing in (Guides.Peek).
+function Guides.Peek(id)
+	local g = Guides.Get(id)
+	return g and g.steps, false
+end
+function Guides.Unpeek() end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)
