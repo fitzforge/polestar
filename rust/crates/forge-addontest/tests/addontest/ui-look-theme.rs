@@ -287,8 +287,8 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 }
 
 // The preview is the real surfaces in the theme: the guide window (drawn by its own page's code, never the live
-// window) under its heads-up card, a toast, the two buttons; a change repaints them live; a narrow page keeps the
-// guide window.
+// window) under its heads-up card, a toast, no loose buttons (the accent lights the cards' own); a change repaints
+// them live; a narrow page keeps the guide window.
 #[test]
 fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 	let out = run(r#"
@@ -297,7 +297,7 @@ fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 		local hots = 0
 		for _ in pairs(rawget(f, "Hots") or {}) do hots = hots + 1 end
 		local out = { h = h, toast = f.Toast ~= nil and f.Toast:IsShown(), heads = f.Heads ~= nil and f.Heads:IsShown(),
-			guide = f.Guide ~= nil and f.Guide ~= PolestarGuideFrame, buttons = f.Buttons[1]:IsShown() and f.Buttons[2]:IsShown(), hots = hots }
+			guide = f.Guide ~= nil and f.Guide ~= PolestarGuideFrame, buttons = rawget(f, "Buttons") == nil, hots = hots }
 		Polestar.Set("ui.colors.item", { 0.6, 1, 0.6 })
 		Polestar.Set("ui.fontOutline", "outline")
 		out.item = f.Scene.Rows[3].Text:GetText()
@@ -310,7 +310,7 @@ fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 	assert_eq!(out["toast"], true);
 	assert_eq!(out["heads"], true, "the heads-up card on the window's top edge");
 	assert_eq!(out["guide"], true, "the guide window, the preview's own");
-	assert_eq!(out["buttons"], true);
+	assert_eq!(out["buttons"], true, "no Accept / Skip pair standing alone in the scene");
 	assert!(out["hots"].as_f64().unwrap() >= 8.0, "each part of the preview leads to its setting: {}", out["hots"]);
 	assert!(out["item"].as_str().unwrap().contains("|cff99ff99"), "the goal names the item in its own colour: {}", out["item"]);
 	assert_eq!(out["titleFlags"], "OUTLINE");

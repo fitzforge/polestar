@@ -73,11 +73,11 @@ local SUBJECT = {
 ---------------------------------------------------------------------------
 -- The preview: the real surfaces at their true size over the zone you stand
 -- in. The guide window (the Guide window page's own drawing,
--- UI.GuideWindowScene) with the heads-up card on its top edge, a rare alert
--- and the arrow (their own builders), the two kinds of button; on the Names
--- tab a card of every subject's name in its colour instead of the arrow.
--- Settings that dress the settings window itself (its sidebar, its header's
--- band, haze and rim, its border) light its own parts too.
+-- UI.GuideWindowScene) with the heads-up card on its top edge, cropped at
+-- the hero's foot; a rare alert and the arrow (their own builders); on the
+-- Names tab a card of every subject's name in its colour instead of the
+-- arrow. Settings that dress the settings window itself (its sidebar, its
+-- header's band, haze and rim, its border) light its own parts too.
 ---------------------------------------------------------------------------
 
 -- The stage's height laid out alone (the window gives its hero's); the
@@ -94,8 +94,12 @@ local function buildScene(view, names)
 	-- The window draws "Preview" and "Live" over it; this names what it shows.
 	f.caption = L["Every Polestar surface, in your theme"]
 
-	-- The guide window, drawn by the Guide window page's code.
+	-- The guide window, drawn by the Guide window page's code; cropped at
+	-- the hero's foot, it fades out there as a stage's cropped scene does.
 	local G = UI.GuideWindowScene and UI.GuideWindowScene(f)
+	if G then
+		function G:SetCut(cut) f:SetCut(cut) end
+	end
 	f.Scene = G
 	f.Guide = G and G.Window
 	f.StepTitle = G and G.Person.Name
@@ -120,10 +124,6 @@ local function buildScene(view, names)
 		arrow = { holder = holder, dial = A.BuildDial(holder), look = {} }
 	end
 	f.Arrow = arrow and arrow.holder
-	-- The two kinds of button.
-	local accept = W.Button(f, L["Accept"], nil, { primary = true })
-	local skip = W.Button(f, L["Skip"])
-	f.Buttons = { accept, skip }
 	-- The names card: each subject's name in its own colour.
 	local card
 	if names then
@@ -161,9 +161,9 @@ local function buildScene(view, names)
 	f.psWatch = { "toasts.", "nav.arrow", "ui." }
 
 	-- -> the hero's height (PREVIEW_H laid out alone): the guide window at
-	-- the left under its heads-up card, cropped at the foot; at the right the
-	-- rare alert, then the arrow or the names, the buttons at the foot. A
-	-- page too narrow for both keeps the window and the arrow.
+	-- the left under its heads-up card, cropped at the hero's foot; at the
+	-- right the rare alert, then the arrow or the names. A page too narrow
+	-- for both keeps the window and the arrow.
 	function f:Layout(width, height)
 		height = height or PREVIEW_H
 		self:SetWidth(width)
@@ -197,15 +197,13 @@ local function buildScene(view, names)
 			local top = TOP + hh
 			G:ClearAllPoints()
 			-- Its box wider than the window by its shadow's room, so the box
-			-- crops only at its foot.
+			-- crops only at its foot, the hero's.
 			G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, leftX + (leftW - winW) / 2 - SHADOW_ROOM), -snap(self, top))
-			G:SetSize(winW + 2 * SHADOW_ROOM, max(1, height - top - BOTTOM))
-			G:Layout(winW + 2 * SHADOW_ROOM, max(1, height - top - BOTTOM))
+			G:SetSize(winW + 2 * SHADOW_ROOM, max(1, height - top))
+			G:Layout(winW + 2 * SHADOW_ROOM, max(1, height - top))
 		end
-		-- Right: the rare alert, the arrow or the names, the buttons.
+		-- Right: the rare alert, then the arrow or the names.
 		if toast then toast:SetShown(wide) end
-		accept:SetShown(wide)
-		skip:SetShown(wide)
 		if card then card:SetShown(wide) end
 		local y = TOP
 		if wide then
@@ -215,17 +213,13 @@ local function buildScene(view, names)
 			toast:SetPoint("TOPLEFT", self, "TOPLEFT", snap(toast, rightX / (tk * k)), snap(toast, -y / (tk * k)))
 			self:Floor(toast)
 			y = y + th * k + 24
-			skip:ClearAllPoints()
-			skip:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", snap(self, rightX + min(rightW, tw * k)), snap(self, BOTTOM + 4))
-			accept:ClearAllPoints()
-			accept:SetPoint("RIGHT", skip, "LEFT", -8, 0)
 		end
 		if card and wide then
 			-- Two columns of names, as many lines as the room under the alert holds.
 			local cw = min(rightW, max(tw * min(1, rightW / max(1, tw)), 240))
 			local lines = math.ceil(#card.Words / 2)
-			local room = height - y - BOTTOM - 34
-			local row = min(NAME_ROW, max(14, floor(room / max(1, lines))))
+			local room = height - y - BOTTOM
+			local row = min(NAME_ROW, max(14, floor((room - 16) / max(1, lines))))
 			for i, word in ipairs(card.Words) do
 				local col, line = (i - 1) % 2, floor((i - 1) / 2)
 				word.fs:ClearAllPoints()
@@ -239,7 +233,7 @@ local function buildScene(view, names)
 			-- The arrow at its true size in what is left: under the alert, or
 			-- beside the window on a narrow page.
 			local ax, aw = wide and rightX or (leftX + leftW + GAP), wide and rightW or A.WIDTH * t
-			local roomH = height - y - BOTTOM - (wide and 30 or 0)
+			local roomH = height - y - BOTTOM
 			local ak = t * min(1, roomH / A.HEIGHT, aw / A.WIDTH)
 			arrow.holder:SetScale(max(0.2, ak))
 			arrow.holder:ClearAllPoints()
@@ -269,7 +263,14 @@ local function buildScene(view, names)
 		f:Hot(arrow.dial.dial, "ui.accent")
 		f:Hot(arrow.dial.distText, "ui.textSize")
 	end
-	f:Hot(accept, "ui.accent")
+	-- The cards' own primary buttons: the heads-up's, the rare alert's.
+	local primaries = {}
+	for _, b in ipairs({ heads and rawget(heads, "Act") or false, toast and rawget(toast, "Waypoint") or false }) do
+		if b then
+			primaries[#primaries + 1] = b
+			f:Hot(b, "ui.accent")
+		end
+	end
 	local function light(key, ...) f:Light(key, ...) end
 	local function outside(key, ...) if win then f:LightEdge(key, ...) end end
 	local everything = {}
@@ -281,7 +282,7 @@ local function buildScene(view, names)
 	local grounds = { f.Guide, heads, toast }
 	for _, key in ipairs({ "ui.bgOpacity", "ui.bgColor" }) do light(key, unpack(grounds)) end
 	light("ui.panelColor", toast, heads, card)
-	local accents = { accept }
+	local accents = { unpack(primaries) }
 	if G then
 		accents[#accents + 1], accents[#accents + 2], accents[#accents + 3] = G.Strip.Bar, G.Rows[2].Mark, G.Foot.Line
 	end

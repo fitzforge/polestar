@@ -109,6 +109,9 @@ local HOME = { Alliance = 1429, Horde = 1411 }
 -- ground sit back behind the preview's parts and text.
 local DIM, DESAT = { 0.44, 0.45, 0.52 }, 0.5
 local CUT_FADE = 28 -- px: a scene cropped at the stage's foot fades out over these
+-- A floor shadow (s:Floor): the glow's soft cone in black at this opacity,
+-- reaching FLOOR_OVER px up behind the surface's foot, FLOOR_H tall.
+local FLOOR_ALPHA, FLOOR_OVER, FLOOR_H = 0.95, 10, 32
 
 local stages = setmetatable({}, { __mode = "k" })
 
@@ -239,7 +242,7 @@ local function paintEdges(s)
 	-- over its last pixels, so the cut reads as the scene going on below.
 	gradient(s.Fade, "VERTICAL", r, g, b, 0.92, 0)
 	for _, t in pairs(rawget(s, "psFloors") or {}) do
-		t:SetVertexColor(0, 0, 0, 0.55)
+		t:SetVertexColor(0, 0, 0, FLOOR_ALPHA)
 	end
 	local sr, sg, sb = Theme.Color("sky")
 	s.Lift:SetVertexColor(sr, sg, sb, 0.75)
@@ -288,7 +291,9 @@ local function repaint(s)
 end
 
 -- A soft shadow on the ground under a surface of the scene (s:Floor), on
--- the hero's floor layer: under the surface, over the backdrop.
+-- the hero's floor layer: under the surface, over the backdrop. The glow's
+-- soft cone in black, its middle a little under the surface's foot, so it
+-- reads as the shadow the surface casts where it stands.
 local function floorOf(s, frame, pad)
 	local floors = rawget(s, "psFloors")
 	if not floors then
@@ -299,14 +304,14 @@ local function floorOf(s, frame, pad)
 	if not t then
 		t = s.FloorLayer:CreateTexture(nil, "ARTWORK")
 		t:SetTexture(Theme.Media("glow"))
-		t:SetVertexColor(0, 0, 0, 0.55)
+		t:SetVertexColor(0, 0, 0, FLOOR_ALPHA)
 		floors[frame] = t
 	end
 	pad = pad or 18
 	t:ClearAllPoints()
-	t:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", -pad, 16)
-	t:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT", pad, 16)
-	t:SetHeight(34)
+	t:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", -pad, FLOOR_OVER)
+	t:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT", pad, FLOOR_OVER)
+	t:SetHeight(FLOOR_H)
 	t:Show()
 	return t
 end
