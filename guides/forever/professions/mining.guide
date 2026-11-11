@@ -130,7 +130,7 @@ step Copper & Poor Copper: Durotar (1-50)
 step Copper: Mulgore (1-50)
   only Tauren
   zone Mulgore
-  tip Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
+  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
   goto 36.7,15.4 "Copper" r 30
   goto 54.7,12.4 "Copper" r 30
   goto 60.0,30.8 "Copper" r 30
@@ -261,7 +261,7 @@ step Copper & Poor Copper: Durotar (50-65) cont.
 step Copper: Mulgore (50-65) cont.
   only Tauren
   zone Mulgore
-  tip Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
+  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
   goto 36.7,15.4 "Copper" r 30
   goto 54.7,12.4 "Copper" r 30
   goto 60.0,30.8 "Copper" r 30
