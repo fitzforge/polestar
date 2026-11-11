@@ -300,7 +300,8 @@ function Timed.OffText(q)
 	else
 		sub = format(L["%s · this guide doesn't go there"], place)
 	end
-	return name .. "  " .. countdown, sub
+	-- Timed.Countdown starts with the hourglass and its own space: "<quest> <hourglass> 44:59 left".
+	return name .. " " .. countdown, sub
 end
 
 function Timed.AimOff(q)

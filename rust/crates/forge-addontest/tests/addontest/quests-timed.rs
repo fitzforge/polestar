@@ -247,7 +247,8 @@ fn a_delivery_ready_at_the_accept_counts_down_from_the_guides_limit_and_its_fail
 // 0.3.7 (Apothecary Zamah, taken with 42:00 left on the Barrens route, which never goes to Thunder Bluff): a
 // timed quest no guide step takes counts down from the quest database's limit (QuestDB.TimeLimit, Polestar_QuestDB's
 // 20th quest field) when the client reports no timer, and the guide window's While-here panel opens with a row for it:
-// "Apothecary Zamah  44:59 left / Thunder Bluff ~6 min · this guide doesn't go there". A click points the arrow at
+// "Apothecary Zamah <hourglass> 44:59 left / Thunder Bluff ~6 min · this guide doesn't go there" (read here with the
+// icon stripped: two spaces). A click points the arrow at
 // the ender with its height (Nav.SetTarget), a right-click hides the row until the timer ends; in combat the row
 // never comes or goes (it catches up when the fight ends). The guide's own timed quest gets no such row.
 const OFF_ROUTE: &str = r#"
