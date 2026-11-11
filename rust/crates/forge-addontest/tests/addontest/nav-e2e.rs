@@ -2647,3 +2647,42 @@ fn t_1834_with_tomtom_s_arrow_tomtom_is_handed_booty_bays_flight_master_for_the_
 	let dl = (f(&landed["x"]) - 32.17).hypot(f(&landed["y"]) - 28.9);
 	assert!(dl < 0.3, "in Grom'gol it is the target: {landed}");
 }
+
+/// #1242 (joshvette001) / #1829 (derschroeb): on the way to the Deeprun Tram in Stormwind, the arrow led up into the
+/// Keep's Royal Gallery. The tram's Stormwind end lies down its building in the Dwarven District, past the door
+/// (66.47,34.03 on the game's map), under the gallery; the walking grid let the walk from the street south of the door
+/// (#1829's spot in the canals, 70.14,47.26) cut across to it, so the arrow pointed at the Keep. An approach chain
+/// (crossings.json `deeprun-tram-stormwind`, from players' recorded walks in) seals the end: the walk goes to the door,
+/// then in.
+#[test]
+fn t_1242_from_the_canals_the_walk_to_the_deeprun_tram_goes_through_its_door_not_across_to_the_end_under_the_keep() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(22)
+		local DOOR = { -8390.0, 568.0 }
+		local _, px, py = C.MapToWorld(1453, 70.14, 47.26)
+		place(1453, px, py, nil)
+		N.SetTarget(1455, 30.0, 62.0, "Ironforge")
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local legs, ci = N.GetRoute()
+		local r = { kinds = {}, viaDoor = false }
+		for i = ci or 1, #(legs or {}) do
+			local l = legs[i]
+			r.kinds[#r.kinds + 1] = l.kind
+			if l.kind == "walk" and l.to and dist(l.to.wx, l.to.wy, DOOR[1], DOOR[2]) < 8 then r.viaDoor = true end
+		end
+		-- The first search: from the canals, it must end at the door, not at the tram's end.
+		local f = finds[1]
+		local last = f and f.points and f.points[#f.points]
+		r.firstTo = last and { floor(last.x), floor(last.y) } or false
+		r.firstToDoor = last and dist(last.x, last.y, DOOR[1], DOOR[2]) or false
+		emit(r)"#,
+		true,
+	);
+	assert!(strs(&out["kinds"]).iter().any(|k| k == "tram"), "the route takes the tram ({:?})", out["kinds"]);
+	assert_eq!(out["viaDoor"], true, "a walk leg ends at the tram building's door: {out}");
+	assert!(f(&out["firstToDoor"]) < 10.0, "the first walk ends at the door: {out}");
+}
