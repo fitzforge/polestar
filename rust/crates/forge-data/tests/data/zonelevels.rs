@@ -90,6 +90,34 @@ fn forever_only_zones_pass_on_the_sparse_thresholds_the_rest_keep_the_strict_one
 	assert_eq!(ranges(&forge_data::worldmap::zone_levels(&d).unwrap().1).len(), 1, "not Forever-only: 40 is under the strict 100");
 }
 
+/// #1490: Alterac Mountains' P10 comes from a low pocket (lake murlocs, border bears) under the ground walks
+/// cross; its danger floor (forge-world DANGER_FLOORS, 30) rides along as the row's fifth value, which
+/// Nav/Danger.lua prices the zone from. A zone whose own P10 is already at its floor gets none.
+#[test]
+fn alterac_mountains_carries_its_danger_floor_as_a_fifth_value_while_its_range_keeps_the_p10() {
+	let d = crate::common::scratch("zonelevels-floor");
+	let write = |murlocs: usize| {
+		let npcs: serde_json::Map<String, Value> = [
+			npc(400, "Vile Fin Lakestalker", 19, Some(20), None, None, 1416, pts(murlocs, 10.0, 40.0)),
+			npc(401, "Crushridge Ogre", 34, Some(35), None, None, 1416, pts(60, 50.0, 45.0)),
+			npc(402, "Syndicate Footpad", 32, Some(33), None, None, 1416, pts(60, 55.0, 70.0)),
+		]
+		.into_iter()
+		.collect();
+		std::fs::create_dir_all(&d).unwrap();
+		std::fs::write(d.join("npcs.json"), Value::Object(npcs).to_string()).unwrap();
+		std::fs::write(d.join("zones.json"), json!({ "1416": { "id": 1416, "name": "Alterac Mountains", "type": 3 } }).to_string()).unwrap();
+		std::fs::write(d.join("map-frames.json"), json!({ "era": { "1416": {} }, "forever": {} }).to_string()).unwrap();
+	};
+	write(30);
+	let r = ranges(&forge_data::worldmap::zone_levels(&d).unwrap().1);
+	assert_eq!(r.len(), 1);
+	assert!(r[0].1.starts_with("{ 19, 35,") && r[0].1.ends_with(", 30 }, -- Alterac Mountains"), "the range keeps the murlocs' 19, the floor rides along: {}", r[0].1);
+	write(0);
+	let r = ranges(&forge_data::worldmap::zone_levels(&d).unwrap().1);
+	assert!(r[0].1.starts_with("{ 32, 35,") && !r[0].1.contains(", 30 }"), "no pocket, the P10 is above the floor: no fifth value: {}", r[0].1);
+}
+
 /// The committed ZoneLevels.lua against the data/forever it was built from: a check for the maintainer after a
 /// data refresh, not for every checkout (another build of data/forever gives other ranges).
 #[test]
@@ -102,6 +130,7 @@ fn zone_levels_lua_is_up_to_date_with_data_forever() {
 	assert_eq!(std::fs::read_to_string(repo.join("addon/Polestar/Maps/ZoneLevels.lua")).unwrap(), lua, "run: forge data maps build");
 	let r: std::collections::BTreeMap<u32, String> = ranges(&lua).into_iter().collect();
 	assert!(r[&1429].starts_with("{ 1, 10,"), "Elwynn Forest");
+	assert!(r[&1416].ends_with(", 30 }, -- Alterac Mountains"), "Alterac Mountains' danger floor (#1490)");
 	assert!(!r.contains_key(&1453), "Stormwind City");
 	assert!(r.contains_key(&2521) && r.contains_key(&2482), "Forever-only zones with data have ranges (Zephras Isle, Mount Hyjal)");
 }

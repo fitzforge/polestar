@@ -8807,13 +8807,17 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   for Alliance, Horde and no profile and its yards. `chokepoints.js` adds `Chokepoints.lua`
   (`PolestarNavChokepoints[map]`: lift landings, bridges, gates at passages,
   tunnels, cave and building mouths, passes, each named by its AreaTable
-  area) for the journey's named walk steps.
+  area) for the journey's named walk steps; a passage whose gate is the ground
+  under a bridge's deck over water is named a bridge (`pack/chokepoints.rs`
+  under_bridge: the Southfury River's road crossing).
 - **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
   walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
   His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
   leave open past the walkable slope, which his reader closes, are closed); his zones too. His entrance graph is
   re-encoded as the graph field (an entrance on one of his refined ports becomes the surface owning it; an entrance
-  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk). His motion
+  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk; an edge's yards
+  are his profile-free way's, as our grid's maps take theirs: he keeps a cost and a yards for each profile, and the
+  walk search stops a way past 8 times the straight line plus 2,000 yd of these yards). His motion
   stream reduces, at 4.17 yd cells, to steps inside one surface, steps his cells make, and his jumps, drops and
   climbs, each to the same or a neighbouring cell: those inside a cluster are the new `arc` field (one-way moves
   between the surfaces owning their ends, once per pair), those across a border are already his graph's. Each of his

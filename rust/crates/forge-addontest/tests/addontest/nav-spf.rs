@@ -2743,6 +2743,27 @@ fn zone_danger_x3_from_the_player_s_level_4_x20_above_10_a_zone_without_levels_o
 	assert_eq!(out["cached"], true, "kept per level and zone pair");
 }
 
+/// #1490: a zone with a danger floor (Maps.GetZoneLevels' third value: Alterac Mountains, P10 24, floor 30) is
+/// priced from the floor: dangerous from 26 down, far above under 20; the zones without one from their P10.
+#[test]
+fn zone_danger_a_zone_s_danger_floor_prices_it_alterac_at_24_with_floor_30_is_dangerous_from_26_down() {
+	let out = run_many(
+		&[
+			DANGER,
+			r#"
+		local levels = { [9001] = { 24, 39, 30 }, [9002] = { 24, 39 } }
+		Polestar.Maps.GetZoneLevels = function(id) local v = id and levels[id] if v then return v[1], v[2], v[3] or v[1] end end
+		emit({
+			floor = { D.Mult(27, 9001), D.Mult(26, 9001), D.Mult(21, 9001), D.Mult(20, 9001), D.Mult(19, 9001) },
+			plain = { D.Mult(21, 9002), D.Mult(20, 9002), D.Mult(13, 9002) },
+		})"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["floor"], json!([1, 3, 3, 3, 20]), "30 >= L + 4 from 26 down, > L + 10 under 20");
+	assert_eq!(out["plain"], json!([1, 3, 20]), "without a floor its lowest level, 24, as before");
+}
+
 #[test]
 fn zone_danger_at_level_20_every_search_carries_the_zones_far_above_x20_and_dangerous_x3_minus_the_walk_s_own_start_and_goal_zones() {
 	let out = run_many(

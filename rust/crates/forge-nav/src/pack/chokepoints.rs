@@ -16,6 +16,11 @@
 //!   separate ends; gate (from the grid): outdoor ground under a low WMO span with two ends.
 //! - A grid bridge or gate within MERGE yd of an aids entry of its kind is that entry; an aids pass
 //!   there becomes it. A grid gate elsewhere is left out.
+//! - A grid gate under a bridge makes its aids pass a bridge, not a gate: within MERGE yd of the gate, and higher
+//!   than its ground by more than STEP, stands a model deck of at least DECK_MIN columns, WET_SHARE of them over
+//!   water (the bridge rule leaves such a deck out when it is wide or its ends are not two). The gate is then the
+//!   ground under the bridge's land span (the Southfury River's road crossing between Durotar and the Barrens: its
+//!   deck over the water meets the land on one side only as the bridge rule sees it; the arrow said "Through the gate").
 
 use super::layers::{AreaName, AreaTable, Frames};
 use crate::grid::{cell_centre, cell_of, flag, Grid, CELL, DIRS, NO_LINK, STEP, TILE_CELLS};
@@ -216,8 +221,16 @@ struct Col {
 	wet: bool,
 }
 
-/// Grid scan of one continent: deck (bridge) and covered (gate) columns -> components -> entries.
-fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<Choke> {
+/// Whether a grid gate whose middle column stands at `mid` (wx, wy, z) is the ground under a bridge: a column of one of
+/// `decks` (the columns of every model deck over water of at least DECK_MIN columns, WET_SHARE of them wet: wx, wy, z)
+/// within MERGE yd of it and higher than its ground by more than STEP.
+fn under_bridge(mid: (f64, f64, f64), decks: &[(f64, f64, f32)]) -> bool {
+	decks.iter().any(|&(wx, wy, z)| js_hypot(wx - mid.0, wy - mid.1) <= MERGE && z as f64 > mid.2 + STEP)
+}
+
+/// Grid scan of one continent: deck (bridge) and covered (gate) columns -> components -> entries, each gate with
+/// whether it stands under a bridge (under_bridge).
+fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<(Choke, bool)> {
 	let c = cx.c;
 	let tiles: Vec<(i64, i64)> = grid.index["continents"][c.to_string()]["tiles"]
 		.as_array()
@@ -292,6 +305,9 @@ fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<Choke> {
 		(col, row, (j * 256 + i) as usize)
 	};
 	let mut out = Vec::new();
+	// The columns of every model deck over water big enough to be a bridge, whatever its shape (under_bridge): the
+	// decks come first, so the gates after them see every one.
+	let mut decks: Vec<(f64, f64, f32)> = Vec::new();
 	for (set, kind, min, width) in [(&deck, "bridge", DECK_MIN, DECK_WIDTH), (&cover, "gate", GATE_MIN, GATE_WIDTH)] {
 		let mut seen: rustc_hash::FxHashSet<String> = Default::default();
 		let mut starts: Vec<(&String, &Col)> = set.iter().collect();
@@ -333,6 +349,9 @@ fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<Choke> {
 			}
 			if comp.len() < min {
 				continue;
+			}
+			if kind == "bridge" && (comp.iter().filter(|q| q.wet).count() as f64) >= WET_SHARE * comp.len() as f64 {
+				decks.extend(comp.iter().map(|q| (q.wx, q.wy, q.z)));
 			}
 			let far = |a: Col| comp.iter().fold(a, |b, q| if js_hypot(q.wx - a.wx, q.wy - a.wy) > js_hypot(b.wx - a.wx, b.wy - a.wy) { *q } else { b });
 			let a = far(comp[0]);
@@ -378,7 +397,7 @@ fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<Choke> {
 				.collect();
 			let mut ch = cx.entry(round1(mid.wx), round1(mid.wy), Some(round1(mid.z as f64)), js_round(R_MAX.min(R_MIN.max(span / 2.0))), kind, (mid.wx, mid.wy));
 			ch.sides = Some(sides);
-			out.push(ch);
+			out.push((ch, kind == "gate" && under_bridge((mid.wx, mid.wy, mid.z as f64), &decks)));
 		}
 	}
 	out
@@ -484,7 +503,7 @@ pub fn chokepoints(nav: &Nav, c: u32, aids: &Value, lifts: &[Value], frames: &Fr
 		ch.sides = Some(sides);
 		list.push(ch);
 	}
-	for g in grid_chokepoints(&cx, &nav.grid) {
+	for (g, under) in grid_chokepoints(&cx, &nav.grid) {
 		if near(&list, g.wx, g.wy, &g.kind).is_some() {
 			continue;
 		}
@@ -492,7 +511,7 @@ pub fn chokepoints(nav: &Nav, c: u32, aids: &Value, lifts: &[Value], frames: &Fr
 			// The pass keeps its own ids where the grid's place has no area (the JS spreads { name: '', zone: '' }).
 			let place = cx.place(g.wx, g.wy);
 			let e = &mut list[p];
-			e.kind = g.kind.clone();
+			e.kind = if under { "bridge".into() } else { g.kind.clone() };
 			e.wx = g.wx;
 			e.wy = g.wy;
 			e.z = g.z;
@@ -674,5 +693,18 @@ mod tests {
 		assert!(matches!(indoor_mouth(&snap, &[(330.0, 280.0), (330.0, 330.0), (330.0, 345.0)]), Mouth::NoDoorway), "down the shaft onto the sunken hall");
 		assert!(matches!(indoor_mouth(&snap, &[(120.0, 120.0), (60.0, 120.0)]), Mouth::NoDoorway), "starting inside the hut");
 		assert!(matches!(indoor_mouth(&snap, &[(0.0, 0.0), (50.0, 0.0)]), Mouth::None), "never indoors");
+	}
+
+	// A gate under a bridge (under_bridge): the Southfury River's road crossing between Durotar and the Barrens, whose
+	// gate (the river bank under the bridge's land span, z 17) has the bridge's wet deck (z 36) 6.5 yd off and was
+	// named "Through the gate". Thoradin's Wall and Stromgarde Keep have no deck over water; Northwatch Hold's nearest
+	// wet deck pieces are too small to be a bridge, so it stays a gate.
+	#[test]
+	fn a_gate_with_a_bridge_deck_over_water_above_it_is_under_a_bridge() {
+		let deck: Vec<(f64, f64, f32)> = (0..6).flat_map(|i| (0..6).map(move |j| (330.0 + i as f64 * CELL, -3760.0 - j as f64 * CELL, 36.0))).collect();
+		assert!(under_bridge((324.0, -3777.0, 17.3), &deck), "the deck 9 yd off and 19 yd up");
+		assert!(!under_bridge((324.0, -3777.0, 36.0), &deck), "a gate on the deck's own level is not under it");
+		assert!(!under_bridge((324.0, -3820.0, 17.3), &deck), "a gate farther than MERGE yd from every column");
+		assert!(!under_bridge((-638.5, -1744.8, 57.1), &[]), "no deck over water");
 	}
 }

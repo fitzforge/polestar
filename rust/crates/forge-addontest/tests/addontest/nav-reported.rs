@@ -215,6 +215,28 @@ fn stormwind_the_walk_to_the_deeprun_tram_ends_at_its_entrance_not_on_the_roof_a
 	assert!((end - tram_z).abs() < 5.0, "it ends at the entrance's height ({}, the entrance {})", end, tram_z);
 }
 
+// #1238 (asymptotic1), Stormwind, Old Town, Alliance: on the way to the flight master (Dungar Longdrink, his spawn
+// at -8835.8, 490.1, z 109.7) the arrow pointed through the back of Champion's Hall (the hall's door 1453
+// 75.94,66.25, its back wall 74.15,67.63 in the client's frame), which has no way out there. The shipped maps found
+// no walk from Old Town to him ("unreachable"): every graph edge carried another edge's yards, so the search's
+// detour cutoff (8 times the straight line plus 2,000 yd of yards) dropped the way round by the Trade District,
+// and the arrow fell back to the straight line across the hall. With each edge's own yards the walk goes round.
+#[test]
+fn stormwind_the_walk_from_old_town_to_the_flight_master_is_found_both_ways_and_keeps_out_of_champions_hall_1238() {
+	let street = Pt { c: 0, x: -8733.5, y: 410.8, z: Some(97.8) };
+	let dungar = Pt { c: 0, x: -8835.8, y: 490.1, z: Some(109.7) };
+	let back_wall = Pt { c: 0, x: -8779.2, y: 434.6, z: None };
+	for (from, to, what) in [(street, dungar, "to the flight master"), (dungar, street, "back to Old Town")] {
+		let got = walk(from, to, Some("Alliance"));
+		assert!(truthy(&got), "the engine finds a walk {what}");
+		let pts = points(&got);
+		let last = pts[pts.len() - 1];
+		assert!((last.0 - to.x).hypot(last.1 - to.y) < 10.0, "{what}: it ends there");
+		let off = off_path(&pts, back_wall);
+		assert!(off > 10.0, "{what}: the line passes {:.1} yd from the hall's back wall ({} points, {} yd)", off, pts.len(), yards_of(&pts).round());
+	}
+}
+
 // #540 (EpicTibbles), Teldrassil, Alliance: from 1438 42.10,56.59 to The Sleeping Druid at Ban'ethil Barrow
 // Den (44.94,61.59) the arrow led up the hill in front of the player, which they could not climb. The client's
 // terrain there rises from 1364 to 1403 yd in the first 40 yd at 51 to 62 degrees, and the walk goes straight
