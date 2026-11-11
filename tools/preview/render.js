@@ -610,7 +610,9 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 		let alpha0 = vc[3] ?? 1;
 		if (g) {
 			tint = [0, 1, 2].map((i) => (g.min[i] + g.max[i]) / 2).concat(1);
-			alpha0 = 1;
+			// The gradient's ends replace the vertex colour, alpha included; the texture's own alpha
+			// (SetAlpha, which the stub also wrote into the vertex colour) still dims it.
+			alpha0 = t.vertexColor ? (t.alpha ?? 1) : 1;
 			const id = `${prefix}gm${t.id}`;
 			const vertical = g.orientation === 'VERTICAL';
 			defs.push(`<linearGradient id="${id}g" x1="0" y1="${vertical ? 1 : 0}" x2="${vertical ? 0 : 1}" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="${f2(g.min[3] ?? 1)}"/><stop offset="1" stop-color="#fff" stop-opacity="${f2(g.max[3] ?? 1)}"/></linearGradient>`
