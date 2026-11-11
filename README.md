@@ -167,39 +167,25 @@ scheme, then the route style (Fastest, Balanced or Roads, with a line on what
 each does); then the guide Polestar suggests for that character, the Discord
 and community guides (`/polestar welcome` shows it again).
 
-### New in 0.3.6
+### New in 0.3.7
 
-0.3.6 is the current release ([CHANGELOG.md](CHANGELOG.md) lists every
+0.3.7 is the current release ([CHANGELOG.md](CHANGELOG.md) lists every
 change, with the players who reported them):
 
-- **Every leveling guide stands on its own.** Start any leveling guide at its
-  level without the guides before it: quests that need a feeder from another
-  guide are left out instead of shown as broken steps.
-- **No quests you can't take yet.** The guide no longer points you at a
-  quest you're too low level to take: it carries on and brings the quest
-  back at its level. Hovering an accept shows **Level** (in red while you're
-  below it) and **Needs**, the quests you still have to hand in first.
-- **Smoother routes.** Alliance walking orders from 1 to 60 and several Horde
-  stretches reworked from players' reports: hand-ins you walk past are done
-  then, towns in one pass, fewer trips back.
-- **A steadier arrow.** It cycles a step's places by itself, no longer swings
-  when you walk close beside its target, ends "Fly to" steps when you land
-  and no longer asks you to cast a class teleport.
-- **Dungeons, class and reputation guides.** Pick-up and hand-in guides find
-  NPCs the data had placed nowhere; class quest cards say what a chain
-  involves (elites, zones, length) before you start it.
-- **Dynamic Questing saves trips.** While you're here also offers pick-ups
-  across the whole guide you have loaded, and at an NPC you pass it hands in
-  and takes what the next steps need.
-- **New helpers.** Timed quests count down and warn you, failed quests say
-  so, Dungeons show the level each one is best at, quests new in Forever
-  carry a small ∞ mark, the minimap button is on for everyone, a Polestar
-  button sits in the Esc menu, and in a party "Sync to my guide" offers your
-  step to the others.
-- **Gear advice** no longer suggests profession tools as weapons or
-  overrates multi-school spell damage.
-- **Polestar Client 0.1.6** sends what the Recorder's explorer mode maps in
-  Forever's new zones, and says why when it can't reach the recording server.
+- **Fixes from your reports** since 0.3.6, across the leveling guides, the
+  arrow, the profession guides and the guide window.
+- **Quieter play.** Less work in the background, so fewer hitches, and no
+  more stutter indoors.
+- **Train All.** One button in the class trainer window learns every skill
+  you can afford.
+- **Timed quests and carried quests.** A timed quest your guide doesn't hand
+  in gets its own row with its time left, and a quest you hand in only in a
+  later guide says so under its goal.
+- **Lookup and Browse all steps.** Open Lookup from the guide window's
+  toolbar, and browse every step of the guide from the step number.
+- **Profession guides rebuilt** on Forever's trainers and recipes.
+- **An update notice.** At login, a card says when a newer version is out
+  and how to update.
 
 ### Built in 0.3.0
 
