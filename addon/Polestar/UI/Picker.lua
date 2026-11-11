@@ -512,13 +512,16 @@ local function guideFacts(g)
 end
 
 -- What a guide's turn-ins are worth to this character (Levels.ForGuide),
--- kept while their level and XP stay the same: a turn-in moves the XP.
+-- kept while their level and XP stay the same (a turn-in moves the XP) and
+-- they skip nothing more or less (Engine.SkipStamp: a quest left out of the
+-- route is not counted).
 local xpCache = {}
 local function guideXP(id)
 	local Lv = ns.Levels
 	if not (Lv and Lv.ForGuide) then return nil end
 	local p = Lv.Player()
-	local key = (p.level or 0) .. ":" .. (p.xp or 0)
+	local E = ns.Engine
+	local key = (p.level or 0) .. ":" .. (p.xp or 0) .. ":" .. (E and E.SkipStamp and E.SkipStamp(id) or "")
 	local hit = xpCache[id]
 	if hit and hit.key == key then return hit.s end
 	local s = Lv.ForGuide(id, p)
@@ -2294,3 +2297,9 @@ end
 ns.On("GUIDES_REGISTERED", guidesChanged)
 ns.On("PACKS_CHANGED", guidesChanged)
 ns.On("TABS_CHANGED", function() P.Render() end)
+-- A quest skipped or brought back, here (the Guide Planner's tick) or in the
+-- guide window: the levels chip and an open planner follow. The planner's
+-- own ticks draw once when it is done with them (UI.Planner.busy).
+ns.On("SKIPS_CHANGED", function()
+	if not UI.Planner.busy then P.Render() end
+end)

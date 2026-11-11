@@ -290,14 +290,25 @@ local function ground(tex)
 	tex:SetVertexColor(r, g, b, 1)
 end
 
+-- Quests hidden (on) or brought back, then one drawing of the guide menu:
+-- the planner (PL.Place) and, beside it, the details, whose levels chip no
+-- longer counts a quest left out. PL.busy: the menu's own drawing on each
+-- SKIPS_CHANGED waits for that one.
+local function hide(quests, on)
+	local E, P = ns.Engine, UI.Picker
+	if not (E and E.SkipQuest) then return end
+	PL.busy = true
+	for _, q in ipairs(quests) do pcall(E.SkipQuest, q, on, true) end
+	PL.busy = nil
+	if P and P.Render then P.Render() else PL.Refresh() end
+end
+
 -- The quest of row r hidden or brought back; the view stays on that line.
 local function toggle(r)
 	local row = r.psRow
-	local E = ns.Engine
-	if not (row and row.toggle and row.quest and E and E.SkipQuest) then return end
+	if not (row and row.toggle and row.quest) then return end
 	PL.keep = { quest = row.quest, offset = row.y - PL.scroll:GetVerticalScroll() }
-	E.SkipQuest(row.quest, row.class ~= "hidden", true)
-	PL.Refresh()
+	hide({ row.quest }, row.class ~= "hidden")
 end
 
 local function rowClick(r)
@@ -682,9 +693,7 @@ local function build(win)
 	PL.back = W.IconButton(band, "chevron-left", 24, L["Back to the guides"], function() PL.Close() end, 12)
 	PL.back:SetPoint("LEFT", band, "LEFT", SH.pad - 6, 0)
 	PL.all = W.Button(band, L["Show all"], function()
-		local E = ns.Engine
-		for _, q in ipairs(PL.model and PL.model.counts.list or {}) do E.SkipQuest(q, false, true) end
-		PL.Refresh()
+		hide(PL.model and PL.model.counts.list or {}, false)
 	end, { ghost = true, height = 24 })
 	PL.all.psTight = true
 	PL.all.psTip = L["Put every quest you hid back in this guide's route."]

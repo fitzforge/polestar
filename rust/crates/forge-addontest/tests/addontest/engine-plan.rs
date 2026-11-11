@@ -162,3 +162,51 @@ fn the_step_card_still_leaves_out_an_accept_that_waits_for_the_level() {
 	assert_eq!(out["planned"], "4 Later: pending");
 	assert_eq!(out["card"], "na", "planning changes nothing on the step card");
 }
+
+// What the trackers read (Core/Levels.lua): the quests a skip leaves out of a guide, and a stamp of the skips.
+#[test]
+fn the_quests_a_skip_leaves_out_are_told_for_a_guide_open_or_not_and_every_skip_changes_the_stamp_and_says_so() {
+	let out = run(
+		"",
+		r#"
+			E.SetGuide("test/other"); flush()
+			local fired = 0
+			Polestar.On("SKIPS_CHANGED", function() fired = fired + 1 end)
+			local function out(id)
+				local o, list = E.QuestsOut(id), {}
+				for q, why in pairs(o or {}) do list[#list + 1] = q .. "=" .. why end
+				table.sort(list)
+				return o and table.concat(list, ",") or false
+			end
+			local none = { E.SkipStamp("test/plan"), out("test/plan") }
+			local before = saved()
+			E.SkipQuest(1, true, true); flush()
+			local hidden = { stamp = E.SkipStamp("test/plan"), out = out("test/plan"), other = out("test/other"),
+				loaded = E.GetGuide().id, saved = saved() == before, fired = fired }
+			-- The same answer where the guide is the loaded one.
+			E.SetGuide("test/plan"); flush()
+			local open = out("test/plan")
+			fired = 0
+			local step = E.Skip(); flush()
+			local skipped = { stamp = E.SkipStamp("test/plan"), other = E.SkipStamp("test/other"), fired = fired }
+			E.Unskip(step); flush()
+			local unskipped = { stamp = E.SkipStamp("test/plan"), fired = fired }
+			E.SkipQuest(1, false); flush()
+			emit({ none = none, hidden = hidden, open = open, skipped = skipped, unskipped = unskipped,
+				back = { E.SkipStamp("test/plan"), out("test/plan"), fired } })"#,
+	);
+	assert_eq!(out["none"], json!(["", false]), "nothing skipped: no stamp, nothing left out");
+	let stamp = out["hidden"]["stamp"].as_str().unwrap();
+	assert!(!stamp.is_empty());
+	assert_eq!(out["hidden"]["out"], "1=hidden,2=out,3=out", "A is hidden, B and C go with it; Other stays, and so does Later, which only waits for level 14");
+	assert_eq!(out["hidden"]["other"], false, "a guide without the quest leaves nothing out");
+	assert_eq!(out["hidden"]["loaded"], "test/other", "asking opens nothing");
+	assert_eq!(out["hidden"]["saved"], true, "and saves nothing");
+	assert_eq!(out["hidden"]["fired"], 1, "a quiet skip says so too");
+	assert_eq!(out["open"], "1=hidden,2=out,3=out");
+	assert_ne!(out["skipped"]["stamp"], stamp, "a step skipped is another stamp for its guide");
+	assert_eq!(out["skipped"]["other"], stamp, "not for another guide");
+	assert_eq!(out["skipped"]["fired"], 1);
+	assert_eq!(out["unskipped"], json!({ "stamp": stamp, "fired": 2 }), "its undo is the stamp before");
+	assert_eq!(out["back"], json!(["", false, 3]));
+}

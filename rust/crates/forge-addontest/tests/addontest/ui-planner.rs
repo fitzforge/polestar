@@ -4,7 +4,8 @@
 //! is a node with its lines under it, finished steps fold, the marker says where the character stands. A quest's
 //! tick hides it (Engine.SkipQuest, saved for the character): its other lines go, the quests that need it keep one
 //! line that names it, a step with nothing left goes whole; the tick, or "Show all", brings it back. The strip jumps
-//! to a step; a long guide gets frames only for the rows in view.
+//! to a step; a long guide gets frames only for the rows in view. What a hidden quest was worth is no longer counted
+//! beside the planner (the details' levels chip and its panel) or in the guide window's pace line.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -16,15 +17,20 @@ w.moveTo(1429, 50, 50)
 w.race, w.raceName, w.faction, w.class, w.className, w.level = "Human", "Human", "Alliance", "WARRIOR", "Warrior", 10
 "#;
 
-// A -> B -> C with Other beside A; the boars are A's alone, so their step goes with A.
+// A -> B -> C with Other beside A; the boars are A's alone, so their step goes with A. "test/leveling" is the same
+// route as a leveling guide: the details show what it is worth in levels.
 const GUIDES: &str = r#"
-Polestar.RegisterGuide({ id = "test/plan", pack = "test", title = "Plan", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
-	{ title = "Start", goals = { { t = "accept", quest = 1, title = "A", qlvl = 10 }, { t = "accept", quest = 9, title = "Other", qlvl = 10 } } },
-	{ title = "Boars", goals = { { t = "kill", quest = 1, title = "A", target = "Boar", npc = 113, count = 8, oi = 1 } } },
-	{ title = "Second", goals = { { t = "turnin", quest = 1, title = "A" }, { t = "accept", quest = 2, title = "B", qlvl = 10, pre = { 1 } }, { t = "note", text = "A tip." } } },
-	{ title = "Third", goals = { { t = "turnin", quest = 2, title = "B" }, { t = "accept", quest = 3, title = "C", qlvl = 10, pre = { 2 } } } },
-	{ title = "End", goals = { { t = "turnin", quest = 3, title = "C" }, { t = "turnin", quest = 9, title = "Other" } } },
-} })
+local function route()
+	return {
+		{ title = "Start", goals = { { t = "accept", quest = 1, title = "A", qlvl = 10 }, { t = "accept", quest = 9, title = "Other", qlvl = 10 } } },
+		{ title = "Boars", goals = { { t = "kill", quest = 1, title = "A", target = "Boar", npc = 113, count = 8, oi = 1 } } },
+		{ title = "Second", goals = { { t = "turnin", quest = 1, title = "A" }, { t = "accept", quest = 2, title = "B", qlvl = 10, pre = { 1 } }, { t = "note", text = "A tip." } } },
+		{ title = "Third", goals = { { t = "turnin", quest = 2, title = "B" }, { t = "accept", quest = 3, title = "C", qlvl = 10, pre = { 2 } } } },
+		{ title = "End", goals = { { t = "turnin", quest = 3, title = "C" }, { t = "turnin", quest = 9, title = "Other" } } },
+	}
+end
+Polestar.RegisterGuide({ id = "test/plan", pack = "test", title = "Plan", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = route() })
+Polestar.RegisterGuide({ id = "test/leveling", pack = "test", title = "Leveling plan", category = "Leveling", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = route() })
 Polestar.RegisterGuide({ id = "test/other", pack = "test", title = "Other guide", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
 	{ title = "Elsewhere", goals = { { t = "accept", quest = 8, title = "Unrelated", qlvl = 10 } } },
 } })
@@ -290,6 +296,61 @@ fn with_the_codex_the_summary_says_what_the_quests_left_out_are_worth_in_levels(
 	assert_eq!(need, 400.0);
 	assert!((lost - (7200.0 - 1500.0) / 8800.0).abs() < 0.001, "{lost}");
 	assert_eq!(out["hidden"], format!("Plan (1\u{2013}20)  \u{b7}  1 quest in your route  \u{b7}  1 hidden  \u{b7}  2 left out with them  \u{b7}  about {lost:.1} levels less quest XP"));
+}
+
+// The trackers follow the planner: Levels.ForGuide leaves out a hidden quest and what goes with it (levels.rs has
+// the sums), and a tick draws the details and the guide window's pace line again.
+#[test]
+fn the_levels_chip_beside_the_planner_and_the_guide_window_s_pace_line_stop_counting_a_hidden_quest_and_count_it_again() {
+	let out = run(
+		"",
+		r#"
+			E.SetGuide("test/leveling"); flush()
+			-- A Codex that knows every quest (level 10, 1900 XP) and every mob (level 10).
+			local Cx = Polestar.Codex
+			Cx.IsLoaded = function() return true end
+			Cx.Quest = function(q) return { id = q, level = 10, xp = 1900 } end
+			Cx.Npc = function(id) return { id = id, level = 10 } end
+			Polestar.Levels.Invalidate()
+			open("test/leveling")
+			local d, LT, GF = P.details, UI.LevelTip, UI.GuideFrame
+			local function read()
+				local chip = d.XP:IsShown() and d.XP.Text:GetText() or false
+				local note = false
+				if chip then
+					d.XP:GetScript("OnEnter")(d.XP)
+					note = LT.Frame().Notes:GetText():match("[^\n]*left out of your route[^\n]*") or false
+					d.XP:GetScript("OnLeave")(d.XP)
+				end
+				return { chip = chip, note = note, pace = plain(GF.PaceText() or ""), row = GF.xp and GF.xp:IsShown() and plain(GF.xp.Text:GetText()) or false }
+			end
+			local whole = read()
+			click(frameOf(9))
+			local other = read()
+			local pane = state().pane
+			click(frameOf(1))
+			local all = read()
+			click(PL.all)
+			emit({ whole = whole, other = other, pane = pane, all = all, back = read(), need = Polestar.Levels.Player().xpMax })"#,
+	);
+	// The stub's character needs 400 XP at level 10, then level 11's 8800. Eight boars (five at 95 XP reach 11, three
+	// more at 86) and four turn-ins of 1900 leave them 7933 into 11: 1.9 levels, 8.1 short of the guide's 20.
+	assert_eq!(out["need"], 400);
+	let behind = |by: &str| format!("Behind by {by} levels for level 20 by step 5, and no grind step ahead");
+	assert_eq!(out["whole"]["chip"], "+1.9 levels");
+	assert_eq!(out["whole"]["note"], false, "nothing left out, nothing to say");
+	assert_eq!(out["whole"]["pace"], behind("8.1"));
+	// Other hidden: 1900 less, 6033 into 11.
+	assert_eq!(out["other"]["chip"], "+1.7 levels", "the chip beside the planner follows the tick");
+	assert_eq!(out["other"]["note"], "1 quest you left out of your route is not counted.");
+	assert_eq!(out["other"]["pace"], behind("8.3"));
+	assert_eq!(out["other"]["row"], behind("8.3"), "the guide window's line is drawn again, with no XP gained in between");
+	assert_eq!(out["pane"], true, "the planner stays open as the details draw again");
+	// A too, and B and C with it: nothing left to gain, so no chip and no pace to keep.
+	assert_eq!(out["all"], json!({ "chip": false, "note": false, "pace": "", "row": false }));
+	assert_eq!(out["back"]["chip"], "+1.9 levels", "Show all: counted again");
+	assert_eq!(out["back"]["note"], false);
+	assert_eq!(out["back"]["row"], behind("8.1"));
 }
 
 #[test]

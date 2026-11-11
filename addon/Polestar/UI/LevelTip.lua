@@ -4,7 +4,8 @@
 -- tooltip: it draws a bar) with the XP, a bar of the levels it spans (one
 -- cell a level: what is earned already, what the route adds), where the
 -- character is now (or starts) and after, and what was counted: quests, the
--- kills estimated for a guide. Below the start level the panel says so first
+-- kills estimated for a guide, and the quests the player left out of their
+-- route, which are not. Below the start level the panel says so first
 -- and sums from there. The summary is Levels.Run's (Core/Levels.lua). Used by
 -- the dungeon page (UI/Dungeons.lua) and the guide menu's details
 -- (UI/Picker.lua).
@@ -185,6 +186,11 @@ local function notesOf(s)
 			or format(L["%d more have no XP known and are not counted."], s.unknown)
 	end
 	if s.done > 0 then notes[#notes + 1] = L["Quests you have done are left out."] end
+	-- A guide's (Levels.ForGuide): the quests the player skipped, and the ones that go with them.
+	if (s.out or 0) > 0 then
+		notes[#notes + 1] = s.out == 1 and L["1 quest you left out of your route is not counted."]
+			or format(L["%d quests you left out of your route are not counted."], s.out)
+	end
 	return concat(notes, "\n")
 end
 

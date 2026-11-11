@@ -5073,6 +5073,9 @@ end
 ns.On("QOL_XP_UPDATED", whenReady(function(stats) GF.UpdateXP(stats) end))
 ns.OnLogin(function() GF.UpdateXP() end)
 ns.On("STEP_CHANGED", whenReady(function() GF.UpdateXP() end))
+-- A quest skipped or brought back (here or in the Guide Planner) is XP the
+-- route no longer gives, or gives again: the pace line counts again.
+ns.On("SKIPS_CHANGED", whenReady(function() GF.UpdateXP() end))
 
 -- The party line (Quests/Party.lua, Party.StepLine): hidden without one;
 -- "Go on without them" at its end while the group waits on the step.

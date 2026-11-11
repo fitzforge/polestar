@@ -408,7 +408,9 @@ its source is in [apps/client](apps/client).
   details, shows the selected guide step by step: where you are, what is
   done, what comes. Clear a quest's tick to leave it out: the quests that
   need it go with it, steps with nothing left drop out, and the summary
-  says how much quest XP that costs. Set the tick to bring it back.
+  says how much quest XP that costs. Set the tick to bring it back. The
+  pace line and a guide's "+N levels" count the route you kept, not the
+  quests you left out.
 - **Abandoned a quest by mistake?** The guide stays on its step, greys out
   that quest's goals and points the arrow back at its giver, and asks: go
   back for it, or skip it and what follows. "When you abandon a guide
