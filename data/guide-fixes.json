@@ -1838,8 +1838,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the Field of Giants' mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo.",
-			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after).",
+			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks.",
+			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -4409,8 +4409,8 @@
 				"quest": 1824,
 				"goal": "accept"
 			},
-			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now, not earlier: it runs for 30 minutes from the accept. The thunderhawks and the eggs come first, the antennae last, then straight back to Ruga.",
-			"note": "Trial at the Field of Giants (Warrior) runs for 30 minutes; the Barrens guide took it on the first Camp Taurajo stop, before the thunder lizards, Jorn, the thunderhawks and the eggs. It is taken on Jorn's stop (route-fixes pairs) and the tip names the limit.",
+			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to Ruga; the thunderhawks after.",
+			"note": "Trial at the Field of Giants (Warrior) runs for 30 minutes; the Barrens guide took it on the first Camp Taurajo stop, before the thunder lizards, Jorn, the thunderhawks and the eggs. It is taken on Jorn's stop (route-fixes pairs) and the tip names the limit. Since 0.3.8 the thunderhawks come after the hand-in (route-fixes pair turnin 1824 -> task 913): with them before it, players' recordings on Polestar 0.3.5 and later show 6 accepts, 2 hand-ins, 2 fails and 2 abandons.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -4422,6 +4422,59 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "barrens-trial-field-of-giants-ruga-before-thunderhawks",
+			"faction": "Horde",
+			"at": {
+				"quest": 1824,
+				"goal": "turnin"
+			},
+			"tip": "Back north into Camp Taurajo before the antennae fade: Ruga Ragetotem is inside.",
+			"note": "Trial at the Field of Giants (Warrior): the hand-in has its own Camp Taurajo stop right after the antennae, before the thunderhawks (route-fixes pair turnin 1824 -> task 913).",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "quests.json limit 1800 for 1824 (the server's TimeAllowed); the antennae (7119) last 15 minutes"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-11): on Polestar 0.3.5 and later 6 accepts of 1824, 2 hand-ins, 2 fails, 2 abandons, with the thunderhawks and the eggs before the antennae"
+				}
+			]
+		},
+		{
+			"id": "barrens-thunderhawks-after-ruga",
+			"faction": "Horde",
+			"at": {
+				"quest": 913,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Thunderhawk Cloudscrapers circle over the plains south of the camp.",
+			"note": "Cry of the Thunderhawk comes after the Field of Giants (eggs, and for Warriors the antennae and Ruga), so its tip no longer says 'the same plains'.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "QuestieDB Forever spawns (data/forever npcs.json) of the Thunderhawk Cloudscrapers in the Barrens"
+				}
+			]
+		},
+		{
+			"id": "barrens-jorn-wings-after-ruga",
+			"faction": "Horde",
+			"at": {
+				"quest": 913,
+				"goal": "turnin"
+			},
+			"tip": "Back north into Camp Taurajo on the way to the Crossroads: Jorn takes the thunderhawk wings.",
+			"note": "Ruga Ragetotem's hand-in (1824, Warrior) has its own stop before the thunderhawks, so this tip no longer sends Warriors to Ruga first.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "quests.json limit 1800 for 1824"
+				}
+			]
 		},
 		{
 			"id": "1333-tear-of-the-moons-twinbraid",
@@ -6622,6 +6675,72 @@
 					"ref": "npcs 3706 Tai'jin 54.26,42.93; 266940 Turroc 53.95,42.59 (Durotar); quest 5648 reward item 16606 Juju Hex Robes"
 				}
 			]
+		},
+		{
+			"id": "1833-hunters-challenge-boars-first",
+			"faction": "Alliance",
+			"at": {
+				"quest": 258,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. A Hunter's Challenge runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after.",
+			"note": "#1833: the boars' step no longer carries the crocolisks and Daggerfang (route-fixes deliberate.pairs 258 -> 385, 258 -> 86758), so the tip says to go straight back to Daryl.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "quests.json limit 720 for 258 (the server's TimeAllowed)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (timed_recordings.py, to 2026-11-11): on Polestar 0.3.5 and later 17 accepts of 258, 12 hand-ins (3.5-11.9 minutes), 3 fails at 12:00, 2 abandons"
+				}
+			],
+			"issue": 1833
+		},
+		{
+			"id": "1833-daggerfang-shore-after-daryl",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86758,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Back down to the east shore below the boars' hills: Daggerfang, a crocolisk, patrols it among the Loch Crocolisks.",
+			"note": "#1833: the shore step comes after A Hunter's Challenge is handed in; Daggerfang's spawns (270693) and the Loch Crocolisks' (1693) share the east shore, 58-67, 33-55.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "QuestieDB Forever spawns (data/forever npcs.json) of Daggerfang (270693) and Loch Crocolisk (1693) in Loch Modan"
+				}
+			],
+			"issue": 1833
+		},
+		{
+			"id": "1866-howling-vale-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1022,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Take the tunnel into the Howling Vale; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the Terrowulf Packlord, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first.",
+			"note": "#1866: the step gave no warning. The step's earlier tip (the tunnel, the ruins at the west end) is kept in this one. The tome is read on the later Shael'dryn visit (route-fixes deliberate.pairs turnin 1055 -> task 1022).",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_classic_level: Terrowulf Fleshripper (3789) 28-29, Shadow Weaver (3791) 29-30, Packlord (3792) 32; creature_template Classification 4 (rare) for 3792; its one spawn MovementType 2 (waypoint path)"
+				},
+				{
+					"kind": "questie",
+					"ref": "QuestieDB Forever spawns (data/forever npcs.json): 10 Fleshrippers and 3 Shadow Weavers in the vale, 49.7-52.0,37.8-39.6, around the Tome of Mel'Thandris (object 19027, 50.49,39.13)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-11): 10 tome reads by 9 people at levels 28-32, the walk in from the north-east (about 54.9,34.3 then 53.0,37.4); 2 people died in the vale, at 28 and 29"
+				}
+			],
+			"issue": 1866
 		}
 	]
 }

@@ -3842,7 +3842,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after Jorn's thunderhawks south of Camp Taurajo at 21 and take them straight to Ruga; the antennae vanish 15 minutes after they drop."
+				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after the eggs, at the same mounds south of Camp Taurajo at 21, and take them straight to Ruga; the antennae vanish 15 minutes after they drop (the thunderhawks after the hand-in since 0.3.8: pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -3867,6 +3867,18 @@
 				],
 				"faction": "Horde",
 				"why": "Timed-quest check (2026-11-08): Trial at the Field of Giants (30 minutes) is taken on Jorn's stop, before the thunderhawks south of the camp, so Warriors don't walk back to Camp Taurajo for it."
+			},
+			{
+				"a": [
+					"turnin",
+					1824
+				],
+				"b": [
+					"task",
+					913
+				],
+				"faction": "Horde",
+				"why": "Trial at the Field of Giants (1824, Warrior, 30 minutes; quests.json limit 1800): the thunderhawks (Cry of the Thunderhawk) flew between the accept and the antennae, so the timer ran during them. Players' recordings on Polestar 0.3.5 and later: 6 accepts, 2 hand-ins, 2 fails, 2 abandons. The eggs and the antennae share the Field of Giants' mounds and come first, then Ruga, then the thunderhawks."
 			},
 			{
 				"a": [
@@ -4855,6 +4867,42 @@
 				],
 				"faction": "Horde",
 				"why": "#1644 (0.3.7, flow): Altered Beings (880) is taken on the Crossroads stop after the Verog pass, where the seed test (877) is handed in, and its Oasis Snapjaws are collected at Lushwater Oasis on the Hezrul step (15 of their 24 spawns are in Lushwater's water, 45.7-48.1,38.3-40.6, where players' recordings show them killed; deliberate.together 852/880), handed to Tonga on the Crossroads stop before Counterattack!."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"task",
+					385
+				],
+				"faction": "Alliance",
+				"why": "#1833 (0.3.7, timed): A Hunter's Challenge (258) must be handed back to Daryl the Youngling within 12 minutes (quests.json limit 720). The route killed the Elder Mountain Boars and then gathered Crocolisk Hunting's eleven items and Daggerfang's knife on the shore before going back, so the timer ran during the crocolisks: players' recordings on Polestar 0.3.5 and later show 12 hand-ins and 3 fails at 12:00 out of 17 accepts, the hand-ins up to 11.9 minutes in. The boars come first, 258 goes straight back to Daryl, then the shore."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"task",
+					86758
+				],
+				"faction": "Alliance",
+				"why": "#1833: Daggerfang (Twisting the Knife) patrols the same shore as the Loch Crocolisks; taken after A Hunter's Challenge is handed in, with Crocolisk Hunting (see the 258 -> 385 pair)."
+			},
+			{
+				"a": [
+					"turnin",
+					1055
+				],
+				"b": [
+					"task",
+					1022
+				],
+				"faction": "Alliance",
+				"why": "#1866: the Howling Vale's Terrowulf packs (28-30) and their rare Packlord (32) stand round the Tome of Mel'Thandris (The Howling Vale, 1022), read on the first visit to Shael'dryn's moonwell: players' recordings show it read at levels 28-32 (median 29), and 2 people died in the vale, at 28 and 29. The route comes back to the moonwell after the south-east (the Hidden Shrine, 1055), where the same recordings show players handing in 1055 at 29-30 (5 of 6; one at 24), and the vale's tunnel is beside it on the way west to Astranaar: the tome is read then, with no extra stop."
 			}
 		],
 		"notes": [
@@ -6392,15 +6440,15 @@
 			{
 				"a": [
 					"task",
-					913
-				],
-				"b": [
-					"task",
 					868,
 					0
 				],
+				"b": [
+					"task",
+					913
+				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle. Final route review (2026-11-08): the eggs right after the thunderhawk wings, not after a walk back into Camp Taurajo to hand the wings to Jorn; Jorn takes them on the way back north (overrides pair task 868 before turnin 913)"
+				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants (42.6-48.5,69.4-72.4), just south of the plains where Jorn's thunderhawks circle (44.8-50.1,60.1-67.0). Final route review (2026-11-08): no walk back into Camp Taurajo between the two; Jorn takes the wings on the way back north (overrides pair task 868 before turnin 913). Since 0.3.8 the eggs come first and the thunderhawks on the way back north, so a Warrior's antennae, at the same mounds as the eggs, reach Ruga before the 30-minute Trial at the Field of Giants runs out (pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
