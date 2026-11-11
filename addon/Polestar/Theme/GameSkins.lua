@@ -849,6 +849,11 @@ local function scrollbar(bar, kit)
 	end
 end
 
+-- What the big windows' paint (BIG) puts round a frame; the guide window's
+-- (GUIDE) hides it, so a frame painted as a big window before its psGuide or
+-- psLight was set keeps no title bar or drag strip over its neighbours (#1802).
+local BIG_KEYS = { "dialog", "frame", "metal", "streaks" }
+
 local function paints(name)
 	local kit = KITS[name]
 	return {
@@ -860,7 +865,12 @@ local function paints(name)
 			end
 			P.hideBorder(f)
 			if f.psShadow then f.psShadow:Hide() end
-			if f.psGuide or f.psLight then GUIDE[name](f, kit) else BIG[name](f, kit) end
+			if f.psGuide or f.psLight then
+				for _, key in ipairs(BIG_KEYS) do hideKey(f, key) end
+				GUIDE[name](f, kit)
+			else
+				BIG[name](f, kit)
+			end
 		end,
 		panel = function(f) panel(f, kit) end,
 		sidebar = function(f) inset(f, kit) end,

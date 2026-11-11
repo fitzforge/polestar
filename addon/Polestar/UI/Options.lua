@@ -890,9 +890,11 @@ function O.LookPreview(view)
 	dot:SetSize(6, 6)
 	dot:SetPoint("RIGHT", live, "LEFT", -6, 0)
 
-	-- The guide window, in the window paint of the skin in use.
+	-- The guide window, in the guide window's paint of the skin in use (marked
+	-- psGuide: in the game's looks it wore the big windows' title bar, #1802).
 	local gw = CreateFrame("Frame", nil, f)
 	gw:SetWidth(MINI_W)
+	gw.psGuide = true
 	Theme.Skin(gw, "window")
 	local band = Theme.Band(gw, "BACKGROUND", -5)
 	band:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, 0)

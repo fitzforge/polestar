@@ -4115,7 +4115,6 @@ function GF.ApplySkin()
 	readMetrics()
 	local skin = Theme.SkinKey()
 	skinShown = skin
-	F.psGuide = true
 	Theme.Repaint(F)
 	strip:SetHeight(TAB_H)
 	nav:SetHeight(NAV_H)
@@ -4595,6 +4594,11 @@ local function build()
 	F:SetMovable(true)
 	F:EnableMouse(true)
 	F:SetSize(ns.Get("ui.width") or 340, 200)
+	-- The guide window's own frame in the game's looks from its first paint
+	-- (Theme/GameSkins.lua GUIDE): painted before the flag, it took the big
+	-- windows' title bar and drag strip, which lay over the card above it
+	-- (#1802).
+	F.psGuide = true
 	Theme.Skin(F, "window")
 	F:SetScript("OnEnter", function() GF.HoverIn() end)
 	GF.frame = F
