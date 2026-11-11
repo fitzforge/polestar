@@ -18,14 +18,17 @@
 --                  "world"  the zone you stand in (else your faction's first
 --                           zone), painted from your own client's world map
 --                           art (UI/ZoneArt.lua: Polestar ships none of it),
---                           dimmed, with a soft dark edge; the night sky where
---                           the client has no art for it
+--                           dimmed, cooled and half desaturated, with a soft
+--                           dark edge; the night sky where the client has no
+--                           art for it
 --                  "sky"    Polestar's night band and its stars over the
 --                           deepest ground, a lift of the sky colour
 --                  "ground" the window's deepest ground alone
 --                  The chip at the top right cycles them for every preview
 --                  (PolestarDB.optionsBackdrop: not a setting, it moves
 --                  nothing in the game).
+--   opts.fixed     the page's backdrop always: its scene is a painting of
+--                  its own (the map pins', the route lines'); no chip
 --   opts.watch     setting path prefixes ("nav.", "toasts.rare."; "" every
 --                  setting): a change of one repaints the stage at once while
 --                  it shows (s:Paint(), the page's own), on its next show else;
@@ -39,6 +42,8 @@
 --   s:Animate(fn)  fn(elapsed) every frame while the stage shows, until it
 --                  returns false
 --   s.Content      the frame the page's parts go on (above the backdrop)
+--   s:SetCut(cut)  the page's scene runs past the stage's foot (cropped):
+--                  it fades out over the last CUT_FADE px while cut is true
 --
 -- Preview hotspots: a part of a preview that a click takes to its setting.
 --   P.Hotspot(frame, region, key) (O.PreviewHotspot, host:Hotspot or
