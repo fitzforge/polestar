@@ -610,6 +610,9 @@
   Valanaar. Routes now know both portals on the isle, the shrine's portal up
   to the Rohashi Spires and the Portal to Valanaar beside Lorthuna, so the
   arrow takes the portal down. (#1674)
+- Simplified Chinese: the Loch Modan, Redridge & Westfall guide (19-21)
+  has a native speaker's review, checked by playing through the route;
+  names follow Forever's own Chinese data, not retail's (thanks 山猫, #1803).
 
 ### For guide authors
 
