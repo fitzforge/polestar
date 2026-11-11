@@ -9,7 +9,7 @@ local ns = Polestar
 local Rares = ns.Rares
 local L = ns.L
 
-if not ns.RegisterOptions then return end
+if not (Rares and ns.RegisterOptions) then return end
 
 local function off() return not Rares.Get("enabled") end
 local function alertsOff() return off() or not Rares.Get("alerts") end

@@ -25,7 +25,7 @@ fn run(script: &str) -> Value {
 	let page = forge_addontest::run::addons_dir().join("Polestar_Options/Nav/ArrowOptions.lua").to_string_lossy().into_owned();
 	emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml", "UI/UI.lua", "../Polestar_Options/UI/Preview.lua", &page])],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml", "../Polestar_Options/UI/Preview.lua", &page])],
 		login: true,
 		script: format!("{PRELUDE}{script}"),
 		..Default::default()

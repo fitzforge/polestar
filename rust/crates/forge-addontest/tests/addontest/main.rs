@@ -341,6 +341,8 @@ mod ui_dungeons;
 mod ui_game_menu;
 #[path = "ui-guide-end.rs"]
 mod ui_guide_end;
+#[path = "ui-headsup-card.rs"]
+mod ui_headsup_card;
 #[path = "ui-import.rs"]
 mod ui_import;
 #[path = "ui-journey.rs"]
@@ -371,6 +373,8 @@ mod ui_picker_levels;
 mod ui_picker_packs;
 #[path = "ui-picker-scroll.rs"]
 mod ui_picker_scroll;
+#[path = "ui-preview.rs"]
+mod ui_preview;
 #[path = "ui-quest-unlocks.rs"]
 mod ui_quest_unlocks;
 #[path = "ui-quick-settings.rs"]

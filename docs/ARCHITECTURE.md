@@ -5684,14 +5684,15 @@ the entrance. Nothing left: nil, "done"; the other side's attunement: nil,
 ### Options registry
 
 Any module adds settings to the settings window without touching UI files.
-The rows are the settings window's alone, so none is built at login: a page
-of its own lives in the window's addon (`Polestar_Options`, load on demand:
-the Look pages, Quality of Life, Rares, Characters) and registers as it loads;
-a core module hands its rows over as a function,
-`Polestar.OnOptions(function() Polestar.RegisterOptions({ ... }) end)`, run
-the first time the rows are needed (the window's addon loads, or
-`Widgets.OptionsRegistry` is read: reading it loads that addon too, out of
-combat, so it holds every row). A registration made after that runs at once.
+The rows are the settings window's alone, so none is built at login: every
+page lives in the window's addon (`Polestar_Options`, load on demand) and
+registers as it loads, a core module's rows included (`<Module>/Options.lua`
+there, guarded on the module: `Nav`, `Maps`, `Quests` with the Group rows,
+`Gear`, `QoL`, `Lookup`, `Dungeons`, `Rares`, `Talents`, `Alts`, and
+`UI/GuideOptions.lua` for the Gamepad page, the journey and Questie; they load
+in core's order, before the window and its pages). Reading
+`Widgets.OptionsRegistry` loads that addon (out of combat), so it holds every
+row.
 
 ```lua
 Polestar.RegisterOptions({

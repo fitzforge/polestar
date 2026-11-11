@@ -167,12 +167,3 @@ for _, event in ipairs({ "ADDON_LOADED", "QUEST_LOG_UPDATE", "PLAYER_REGEN_ENABL
 	ns.RegisterEvent(event, onEvent)
 end
 ns.OnLogin(Integration.Refresh)
-
--- Options > Integrations > Questie, there only while Questie is installed.
-if ns.OnOptions then ns.OnOptions(function()
-	ns.RegisterOptions({ page = L["Integrations"], section = "Questie", controls = {
-		{ kind = "toggle", key = "routePlan.questie", label = L["Show planned turn-ins in Questie"],
-			help = L["Completed quests in Questie's tracker show their Polestar turn-in step. Earlier, skipped and unplanned hand-ins are flagged."],
-			needs = function() return ns.Compat.AddOnPresent("Questie") end },
-	} })
-end) end

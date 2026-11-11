@@ -14,10 +14,9 @@
 //! figure and 50 KiB. The base is next at 0df6f58ab (2026-11-10), measured with this test's script
 //! (LOGIN_BASE). Rebased on a later release, measure that release's tree the same way and set LOGIN_BASE to
 //! it, with the date and sha. What the overhaul put out of the login, into Polestar_Options: the window, its
-//! pages and previews, the settings-only widgets (UI/Controls.lua), the Quality of Life, Rares and
-//! Characters rows, Unlock mode (UI/Movers.lua; core keeps its door) and the profile strings
-//! (Core/ProfileStrings.lua); the rows core modules register are built only when the settings first need
-//! them (ns.OnOptions).
+//! pages and previews, the settings-only widgets (UI/Controls.lua), every module's rows (<Module>/Options.lua
+//! there), Unlock mode (UI/Movers.lua; core keeps its door) and the profile strings
+//! (Core/ProfileStrings.lua).
 //!
 //! The settings' addon (KiB, Lua 5.1, 64-bit) grew from 2026-11-10's figures (760 loaded, 1,890 opened,
 //! 1,190 peak) by what moved into it from the login, not by new work: the budgets' comments say by how much.

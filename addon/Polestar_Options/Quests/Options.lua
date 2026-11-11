@@ -1,12 +1,14 @@
--- The quest settings on the Questing options page (its Quests tab; the page
--- and its tabs are declared in UI/Options.lua), the quest markers' section
--- of the Map page (Polestar.RegisterOptions, defined in Theme/Widgets.lua),
--- and the /polestar questdb command.
+-- The quest settings' rows (docs/ARCHITECTURE.md, "Options registry"): the
+-- Questing page's Quests tab (the page and its tabs are declared in
+-- UI/Options.lua), the quest markers' section of the Map page, and the Group
+-- section after them (Quests/Party.lua's settings). Part of the settings'
+-- addon: none of it is in memory before the settings open.
 
-local ADDON, ns = ...
-
+local ns = Polestar
 local Q = ns.QuestDB
 local L = ns.L
+
+if not ns.RegisterOptions then return end
 
 local function dbOff() return not ns.Get("qol.questDB") end
 local function availableOff() return not ns.Get("qol.questDB") or not ns.Get("qol.availableQuests") end
@@ -25,9 +27,9 @@ end
 
 local function percent(v) return math.floor((tonumber(v) or 0) * 100 + 0.5) .. "%" end
 
--- The rows, built when the settings are first needed (ns.OnOptions).
-local function options()
-	return {
+-- The quest database's settings (Quests/QuestDB.lua) and what builds on it.
+if Q then
+	for _, spec in ipairs({
 		{
 			page = L["Questing"], tab = L["Quests"], section = L["Quest database"],
 			controls = {
@@ -89,37 +91,41 @@ local function options()
 					help = L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] },
 			},
 		},
-	}
-end
-
-local registered = false
-local function register()
-	if registered or not ns.OnOptions then return end
-	registered = true
-	ns.OnOptions(function()
-		local list = options()
-		for i = 1, #list do ns.RegisterOptions(list[i]) end
-	end)
-end
-
--- Registered once every file has loaded (ADDON_LOADED), and again at login,
--- as Gear's page is: the registry (Theme/Widgets.lua) is there by then
--- whichever files were loaded.
-ns.OnInit(register)
-ns.OnLogin(register)
-
-ns.RegisterCommand("questdb", function()
-	if not Q.IsLoaded() then
-		local msg = L["Quest database is off."]
-		if Q.IsWanted() then msg = L["Quest database not installed (Polestar_QuestDB)."] end
-		ns.Print(msg)
-		return
+	}) do
+		ns.RegisterOptions(spec)
 	end
-	local m = Q._data.meta
-	local tracked = 0
-	for _ in pairs(Q._index.npc) do tracked = tracked + 1 end
-	local info = ns.Data.Info(Q.ADDON)
-	local mem = info.memoryKB and (" (%.1f MB)"):format(info.memoryKB / 1024) or ""
-	ns.Print(("%s%s: %d %s, %d %s; %d %s, %d %s"):format(L["Quest database"], mem, m.quests or 0, L["quests"], m.npcs or 0, L["NPCs"],
-		#Q.GetAvailableQuests(), L["available now"], tracked, L["mobs tracked"]))
-end, L["Quest database status"])
+end
+
+-- The Group section of the Questing page (its Quests tab), after the quest
+-- settings. `search`: more words the settings search finds them by (English,
+-- as the other controls' `search`).
+if ns.Party then
+	local SEARCH = "group, party, sync, friends, together"
+	local function notShown() return not ns.Get("party.show") end
+	local function noChat() return not (ns.Get("party.chat") or ns.Get("party.chatLoot")) end
+	ns.RegisterOptions({
+		page = L["Questing"], tab = L["Quests"], section = L["Group"],
+		controls = {
+			{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"], search = SEARCH,
+				help = L["Party members who run Polestar see your counts under their quest goals, your step and your level. Hidden addon messages to your party only; nothing goes to chat."] },
+			{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"], search = SEARCH,
+				help = L["Their counts under your quest goals, and who lacks a quest you took, with a Share button."] },
+			{ kind = "toggle", key = "party.waitForGroup", label = L["Wait for the group"], search = SEARCH, disabled = notShown,
+				help = L["When a party member on your quest still needs an objective you finished, the step and its turn-in wait and the arrow leads to what they need. Members in another zone or offline for 2 minutes don't hold you; the party line offers Go on without them."] },
+			{ kind = "toggle", key = "party.lootNeeds", label = L["Say who still needs quest loot"], search = SEARCH, disabled = notShown,
+				help = L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] },
+			{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH,
+				help = L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] },
+			{ kind = "toggle", key = "party.chat", label = L["Tell my party about objectives and ready quests"], search = SEARCH .. ", chat, announce, objective, tell",
+				help = L["A party chat line with the quest's link when you finish its objectives, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] },
+			{ kind = "toggle", key = "party.chatLoot", label = L["Tell my party when I loot an item that starts a quest"], search = SEARCH .. ", chat, announce, loot, item, tell",
+				help = L["A party chat line with the item's link and the quest it starts."] },
+			{ kind = "toggle", key = "party.chatEcho", label = L["Show my own lines in my chat too"], search = SEARCH .. ", chat, announce", disabled = noChat,
+				help = L["Off: your party sees the lines Polestar says for you, and your chat stays clear of them."] },
+			{ kind = "toggle", key = "party.chatHideOthers", label = L["Hide other players' Polestar lines"], search = SEARCH .. ", chat, announce, hide",
+				help = L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] },
+			{ kind = "toggle", key = "party.chatOnlyNeeded", label = L["Only when someone in the party doesn't have Polestar"], search = SEARCH .. ", chat, announce", disabled = noChat,
+				help = L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] },
+		},
+	})
+end

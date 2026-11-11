@@ -8,6 +8,7 @@
 -- loads through Data.Pack, only while a quest feature wants it (Q.IsWanted).
 
 local ADDON, ns = ...
+local L = ns.L
 
 local Q = {}
 ns.QuestDB = Q
@@ -646,3 +647,21 @@ function Q.Load()
 	ns.Fire("QUESTDB_LOADED")
 	return true
 end
+
+-- /polestar questdb: whether the database is loaded, its size and what it
+-- tracks now.
+ns.RegisterCommand("questdb", function()
+	if not Q.IsLoaded() then
+		local msg = L["Quest database is off."]
+		if Q.IsWanted() then msg = L["Quest database not installed (Polestar_QuestDB)."] end
+		ns.Print(msg)
+		return
+	end
+	local m = Q._data.meta
+	local tracked = 0
+	for _ in pairs(Q._index.npc) do tracked = tracked + 1 end
+	local info = ns.Data.Info(Q.ADDON)
+	local mem = info.memoryKB and (" (%.1f MB)"):format(info.memoryKB / 1024) or ""
+	ns.Print(("%s%s: %d %s, %d %s; %d %s, %d %s"):format(L["Quest database"], mem, m.quests or 0, L["quests"], m.npcs or 0, L["NPCs"],
+		#Q.GetAvailableQuests(), L["available now"], tracked, L["mobs tracked"]))
+end, L["Quest database status"])

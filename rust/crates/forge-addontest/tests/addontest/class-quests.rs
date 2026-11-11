@@ -560,8 +560,8 @@ fn a_hand_in_in_a_later_step_reads_later_in_this_guide() {
 
 // A Warlock class guide with three chains in order (Imp, Voidwalker, Succubus: the Orc's quests,
 // Ruzan, Ophek and Gan'rul Bloodeye), a Druid one for Cat Form, and a Durotar leveling guide that
-// takes the Voidwalker chain at its third step.
-const TOAST_PRE: &str = r#"uistub.install()
+// takes the Voidwalker chain at its third step. The heads-up card's place and style (ui-headsup-card.rs) too.
+pub(crate) const TOAST_PRE: &str = r#"uistub.install()
 stub.login()
 local GF = Polestar.UI.GuideFrame
 local CT = Polestar.UI.ClassToast

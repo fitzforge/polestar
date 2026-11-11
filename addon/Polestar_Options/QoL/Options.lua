@@ -8,7 +8,7 @@ local ns = Polestar
 local L = ns.L
 local QoL = ns.QoL
 
-if not ns.RegisterOptions then return end
+if not (QoL and ns.RegisterOptions) then return end
 
 local QUESTING, QOL = L["Questing"], L["Quality of Life"]
 

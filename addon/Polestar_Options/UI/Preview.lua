@@ -49,9 +49,14 @@
 --   until the first click (PolestarDB.optionsPreviewHint).
 
 local ns = Polestar
-local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
+local Theme, W = ns.Theme, ns.Widgets
 local L = ns.L
 local type, pairs, ipairs, pcall, floor, max, min = type, pairs, ipairs, pcall, math.floor, math.max, math.min
+
+-- Core's UI table (Polestar/UI/UI.lua); a test that loads a page alone, with
+-- the module it draws but not core's UI, gets one here.
+local UI = ns.UI or {}
+ns.UI = UI
 
 local P = {}
 UI.Preview = P
@@ -305,6 +310,9 @@ Theme.OnChanged(function()
 		end
 	end
 end)
+
+-- Whether frame f is a stage (P.Stage made it).
+function P.IsStage(f) return f ~= nil and stages[f] == true end
 
 -- v on a whole physical pixel of frame f (the stage).
 function P.Snap(f, v)

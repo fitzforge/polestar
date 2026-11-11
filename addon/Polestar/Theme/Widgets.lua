@@ -3555,55 +3555,25 @@ end
 
 ---------------------------------------------------------------------------
 -- Options registry (docs/ARCHITECTURE.md, UI -> "Options registry").
--- Lives here, not in UI, because modules loading before UI.xml register at
--- file load: entries are kept in order and handed to the options window
+-- Lives here, not in UI, because anything may register before the options
+-- window exists: entries are kept in order and handed to the window
 -- whenever it exists (now or later).
 --
 -- The rows are only the settings window's, so none of them is built at
--- login: most pages register from the window's own addon (Polestar_Options,
--- load on demand), and a core module hands its rows over as a function,
--- ns.OnOptions(fn), run the first time they are needed (the window's addon
--- loads, or W.OptionsRegistry is read: reading it loads that addon too,
--- out of combat, so it holds every row).
+-- login: every page, the modules' rows included, registers from the
+-- window's own addon (Polestar_Options, load on demand: <Module>/Options.lua
+-- there). Reading W.OptionsRegistry loads that addon (out of combat), so it
+-- holds every row.
 ---------------------------------------------------------------------------
 
 local registry = {} -- { spec, ... } in registration order
 local registryListeners = {}
-local later = {} -- the ns.OnOptions functions not run yet, in order; false once they have run
 
-local function runLater(fn)
-	local ok, err = pcall(fn)
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end
-
-local function buildRegistry()
-	local fns = later
-	if not fns then return end
-	later = false
-	for i = 1, #fns do runLater(fns[i]) end
-end
-
--- fn() registers a module's settings (ns.RegisterOptions) when they are
--- first needed; at once when they already have been.
-function ns.OnOptions(fn)
-	if later then
-		later[#later + 1] = fn
-	else
-		runLater(fn)
-	end
-end
-
--- The waiting ns.OnOptions functions run now, the settings' addon left as
--- it is (a test, or anything that needs core's rows alone).
-W.BuildRegistry = buildRegistry
-
--- W.OptionsRegistry: every registration (the window's addon loaded, the
--- waiting ones run first).
+-- W.OptionsRegistry: every registration, the window's addon loaded.
 setmetatable(W, { __index = function(_, k)
 	if k == "OptionsRegistry" then
 		local UI = ns.UI
 		if UI and UI.LoadOptions and not UI.Options then UI.LoadOptions() end
-		buildRegistry()
 		return registry
 	end
 end })
@@ -3681,10 +3651,8 @@ function ns.RegisterOptions(spec)
 	return true
 end
 
--- fn(spec) for every registration so far and every later one (the waiting
--- ns.OnOptions ones run first).
+-- fn(spec) for every registration so far and every later one.
 function W.OnOptionsRegistered(fn)
-	buildRegistry()
 	registryListeners[#registryListeners + 1] = fn
 	for i = 1, #registry do fn(registry[i]) end
 end
