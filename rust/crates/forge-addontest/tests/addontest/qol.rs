@@ -3601,10 +3601,7 @@ fn trainer_button_sits_in_the_window_s_top_row_far_from_train_and_clear_of_the_m
 	"#,
 	]
 	.concat());
-	assert_eq!(
-		out[0],
-		json!({ "train": false, "farFromTrain": true, "money": false, "filter": false, "hint": false, "portrait": false, "list": false, "inside": true })
-	);
+	assert_eq!(out[0], json!({ "train": false, "farFromTrain": true, "money": false, "filter": false, "hint": false, "portrait": false, "list": false, "inside": true }));
 }
 
 #[test]
