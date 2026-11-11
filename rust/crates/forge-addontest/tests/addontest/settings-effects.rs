@@ -45,6 +45,12 @@ const GROUPS: &[Group] = &[
 	Group { name: "map_quests", src: include_str!("effects/map-quests.lua") },
 	Group { name: "map_travel", src: include_str!("effects/map-travel.lua") },
 	Group { name: "map_codex", src: include_str!("effects/map-codex.lua") },
+	Group { name: "questing_qol", src: include_str!("effects/questing-qol.lua") },
+	Group { name: "questing_world", src: include_str!("effects/questing-world.lua") },
+	Group { name: "questing_quests", src: include_str!("effects/questing-quests.lua") },
+	Group { name: "questing_party", src: include_str!("effects/questing-party.lua") },
+	Group { name: "questing_gear", src: include_str!("effects/questing-gear.lua") },
+	Group { name: "questing_bagmarks", src: include_str!("effects/questing-bagmarks.lua") },
 ];
 
 // The runner: the group's probes over the control specs (the registry's, and the settings window's own pages
@@ -383,6 +389,36 @@ fn map_travel() {
 #[test]
 fn map_codex() {
 	check("map_codex");
+}
+
+#[test]
+fn questing_qol() {
+	check("questing_qol");
+}
+
+#[test]
+fn questing_world() {
+	check("questing_world");
+}
+
+#[test]
+fn questing_quests() {
+	check("questing_quests");
+}
+
+#[test]
+fn questing_party() {
+	check("questing_party");
+}
+
+#[test]
+fn questing_gear() {
+	check("questing_gear");
+}
+
+#[test]
+fn questing_bagmarks() {
+	check("questing_bagmarks");
 }
 
 // Every control of the settings window has an effect check, and every check is a registered control's. A later
