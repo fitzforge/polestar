@@ -64,6 +64,7 @@ local defaults = {
 	bagSpace = true,         -- free bag slots: the junk button and the bags-full banner
 	bagsLow = 2,             -- ... at this many free slots or fewer
 	trainAll = false,        -- learn every spell a class trainer offers now
+	trainAllButton = true,
 	rewardHighlight = true,
 	rewardAutoPick = false,
 	rewardEquip = false,     -- wear what a turn-in gives when it is an upgrade

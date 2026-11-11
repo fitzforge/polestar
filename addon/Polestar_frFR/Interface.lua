@@ -800,6 +800,9 @@ L["Not enough money to buy %d %s (%s)."] = "Pas assez d'argent pour acheter %d %
 L["Bought %d %s for %s."] = "%d %s acheté(s) pour %s."
 
 -- QoL/Trainer.lua
+L["Train All"] = "Tout apprendre"
+L["Train %d skill for %s"] = "Apprendre %d compétence pour %s"
+L["Train %d skills for %s"] = "Apprendre %d compétences pour %s"
 L["Learned %d spell for %s."] = "%d sort appris pour %s."
 L["Learned %d spells for %s."] = "%d sorts appris pour %s."
 L["Not enough money for %d more (%s)."] = "Pas assez d'argent pour %d de plus (%s)."
@@ -913,8 +916,10 @@ L["When your guild rank may, the guild bank pays for repairs and your money cove
 L["Buy for the guide"] = "Acheter pour le guide"
 L["When the step asks you to buy something and the merchant sells it, buys what you still need after selling and repairing. Optional buys and anything over 50g are left to you. Hold Shift to skip."] = "Quand l'étape demande d'acheter quelque chose que le marchand vend, achète ce qu'il vous manque après vente et réparation. Les achats facultatifs et ceux de plus de 50 po vous sont laissés. Maintenez Maj pour passer."
 L["Trainers"] = "Maîtres"
-L["Learn new spells"] = "Apprendre les nouveaux sorts"
-L["Learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Apprend chaque sort proposé par un maître de classe que vous pouvez payer, et affiche le total. Les maîtres de métier ne sont pas concernés. Maintenez Maj pour passer."
+L["Train all button"] = "Bouton « Tout apprendre »"
+L["Adds a Train All button to the trainer window to learn all available skills."] = "Ajoute un bouton « Tout apprendre » à la fenêtre du maître pour apprendre toutes les compétences disponibles."
+L["Auto-learn new spells"] = "Apprendre automatiquement les nouveaux sorts"
+L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Apprend automatiquement tous les sorts que vous avez les moyens d'apprendre auprès d'un maître de classe et affiche le total. Les maîtres de métier ne sont pas concernés. Maintenez Maj pour passer."
 L["Experience"] = "Expérience"
 L["XP tracker"] = "Suivi d'XP"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "XP par heure, temps, victimes et quêtes avant le niveau suivant, et temps par niveau (/pole xp)."

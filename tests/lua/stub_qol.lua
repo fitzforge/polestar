@@ -535,6 +535,10 @@ function BuyTrainerService(i)
 	end)
 end
 
+ClassTrainerFrame = CreateFrame("Frame", "ClassTrainerFrame", UIParent)
+ClassTrainerTrainButton = CreateFrame("Button", "ClassTrainerTrainButton", ClassTrainerFrame)
+function ClassTrainerFrame_Update() end
+
 q.classTrainers = { [198] = true }
 function q.openTrainer(npc)
 	q.npc = npc or 198

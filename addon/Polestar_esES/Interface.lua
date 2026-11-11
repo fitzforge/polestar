@@ -799,6 +799,9 @@ L["Not enough money to buy %d %s (%s)."] = "No tienes suficiente dinero para com
 L["Bought %d %s for %s."] = "Has comprado %d %s por %s."
 
 -- QoL/Trainer.lua
+L["Train All"] = "Aprender todo"
+L["Train %d skill for %s"] = "Aprender %d habilidad por %s"
+L["Train %d skills for %s"] = "Aprender %d habilidades por %s"
 L["Learned %d spell for %s."] = "Has aprendido %d hechizo por %s."
 L["Learned %d spells for %s."] = "Has aprendido %d hechizos por %s."
 L["Not enough money for %d more (%s)."] = "No tienes suficiente dinero para %d más (%s)."
@@ -912,8 +915,10 @@ L["When your guild rank may, the guild bank pays for repairs and your money cove
 L["Buy for the guide"] = "Comprar para la guía"
 L["When the step asks you to buy something and the merchant sells it, buys what you still need after selling and repairing. Optional buys and anything over 50g are left to you. Hold Shift to skip."] = "Cuando el paso te pide comprar algo y el mercader lo vende, compra lo que aún te falta después de vender y reparar. Las compras opcionales y todo lo que pase de 50 de oro quedan a tu cargo. Mantén pulsado Mayús para saltarlo."
 L["Trainers"] = "Instructores"
-L["Learn new spells"] = "Aprender hechizos nuevos"
-L["Learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Aprende cada hechizo que ofrece un instructor de clase y que puedas pagar, y muestra el total. No toca a los instructores de profesiones. Mantén pulsado Mayús para saltarlo."
+L["Train all button"] = "Botón «Aprender todo»"
+L["Adds a Train All button to the trainer window to learn all available skills."] = "Añade el botón «Aprender todo» a la ventana del instructor para aprender todas las habilidades disponibles."
+L["Auto-learn new spells"] = "Aprender hechizos nuevos automáticamente"
+L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Aprende automáticamente todos los hechizos que puedas pagar de un instructor de clase y muestra el coste total. No se aplica a los instructores de profesión. Mantén pulsado Mayús para saltarlo."
 L["Experience"] = "Experiencia"
 L["XP tracker"] = "Rastreador de XP"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "XP por hora, tiempo, enemigos y misiones que faltan para subir de nivel, y tiempo por nivel (/pole xp)."
