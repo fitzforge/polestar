@@ -331,8 +331,9 @@ for it until then.
 
 The Profiles page (`Polestar_Options/UI/Profiles.lua`, settings window,
 Setup) has two tabs. **Profiles**: a picture card per profile, its picture
-drawn from that profile's own values by the elements' look code (its skin
-with its colours, its arrow's dial, the map's target pin; the profile in use
+drawn from that profile's own values by the elements' look code (its skin's
+guide window as the skin picker draws it, in its colours, `UI.SkinWindow`;
+its arrow's dial; the map's target pin; the profile in use
 from the live settings, drawn again as they change), "In use" on the one
 this character uses, else who else does ("Every Mage", "Whole account"),
 the last card a new one; This character (the profile in use, this
@@ -2954,7 +2955,9 @@ part and the arrow's dial (`Nav.ReadPalette`, `Arrow.ReadSkin` before and
 after) draw that skin whatever skin is in use; a painter that raises there
 stands down to the base look's paint without failing the skin. The cards
 draw again after every repaint (`Theme.OnChanged`; a card off screen when
-it shows next).
+it shows next). `UI.SkinWindow(frame, id)` draws the window alone, filling
+`frame`, once: the Profiles page's cards draw it under a profile's values
+at every layout.
 The checks validate a spec (fields, ids, colours, variants, shadow, art tint,
 preset, and the legibility floors above: grounds too close to the text are
 moved, or the spec refused with `strict`) and fill the same tables the

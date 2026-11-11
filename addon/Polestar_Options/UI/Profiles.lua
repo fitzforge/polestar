@@ -319,10 +319,10 @@ end
 
 ---------------------------------------------------------------------------
 -- A profile's card: a small picture of its look drawn from its own values
--- by the look code the elements themselves use (the skin's card with the
--- profile's colours, the arrow's dial, the map's target pin); the profile in
--- use from the live settings. Drawn again at every layout, so the card of
--- the profile in use follows its settings.
+-- by the look code the elements themselves use (the skin's guide window as
+-- the skin picker draws it, in the profile's colours; the arrow's dial; the
+-- map's target pin); the profile in use from the live settings. Drawn again
+-- at every layout, so the card of the profile in use follows its settings.
 ---------------------------------------------------------------------------
 
 local DEFAULTS = { __index = function(_, path) return ns.GetDefault(path) end }
@@ -366,7 +366,7 @@ end
 -- Where the arrow and the pin stand on the picture (fractions of it).
 local ARROW_AT, PIN_AT = { 0.75, 0.36 }, { 0.75, 0.76 }
 
--- The window: the profile's skin with its own colours. -> the palette it drew with
+-- The window: the profile's skin's guide window in its own colours. -> the palette it drew with
 local function paintWindow(art, values, w, h)
 	local win = art.psWin
 	if not win then
@@ -381,7 +381,7 @@ local function paintWindow(art, values, w, h)
 		local skin = ns.Get("ui.skin")
 		if not (type(skin) == "string" and Theme.PaletteFor and Theme.PaletteFor(skin)) then skin = "polestar" end
 		pal = Theme.PaletteFor and Theme.PaletteFor(skin)
-		if Theme.DrawSkinCard then Theme.DrawSkinCard(win, skin) end
+		if UI.SkinWindow then UI.SkinWindow(win, skin) end
 	end)
 	return pal
 end
@@ -1255,8 +1255,11 @@ local function changed()
 	end
 end
 ns.On("PROFILES_CHANGED", changed)
--- The card of the profile in use follows its settings.
+-- The card of the profile in use follows its settings; every card is drawn
+-- again after the theme's repaint (a new UI scale too), which hides the
+-- game looks' and a skin's own pieces on their windows until then.
 ns.On("SETTING_CHANGED", changed)
+if Theme.OnChanged then Theme.OnChanged(changed) end
 
 ns.RegisterOptions({ page = PAGE, key = "profiles", icon = "layers", order = 64, group = "setup", new = "0.3.8", tab = PROFILES,
 	subtitle = L["Named sets of settings: one per character, class or the whole account, and strings to share them."],

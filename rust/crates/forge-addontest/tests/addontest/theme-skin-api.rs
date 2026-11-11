@@ -1193,8 +1193,9 @@ fn a_part_a_skin_places_itself_leaves_the_guide_window_s_height_and_comes_back_w
 }
 
 // The settings window's Theme page with its picker's cards as a player gets them: the arrow (Nav, with Maps) for
-// their dials, the real Nav in place of the UI stub's, and the example skin. `cards(key)`: a card row's cards by
-// value (the Variant row has no key: its label).
+// their dials, the real Nav in place of the UI stub's, and the example skin. `showTheme()` opens the page on its
+// Colour tab (it opens on Essentials, whose scheme is a dropdown); `cards(key)`: a card row's cards there by value
+// (the Variant row has no key: its label).
 const CARD_FILES: [&str; 5] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "UI/UI.xml"];
 
 fn run_cards(script: &str) -> Value {
@@ -1202,7 +1203,7 @@ fn run_cards(script: &str) -> Value {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &CARD_FILES), Addon::name("Polestar_Skin_Example")],
 		script: format!(
-			"uistub.install({{ noNav = true }})\nstub.login()\nPolestar.UI.LoadOptions()\nlocal T, UI, O = Polestar.Theme, Polestar.UI, Polestar.UI.Options\nlocal function hexOf(c) return string.format(\"%02x%02x%02x\", math.floor(c[1] * 255 + 0.5), math.floor(c[2] * 255 + 0.5), math.floor(c[3] * 255 + 0.5)) end\nlocal function cards(key) return O.Controls(\"theme\")[key].psCardBy end\n{script}"
+			"uistub.install({{ noNav = true }})\nstub.login()\nPolestar.UI.LoadOptions()\nlocal T, UI, O = Polestar.Theme, Polestar.UI, Polestar.UI.Options\nlocal function hexOf(c) return string.format(\"%02x%02x%02x\", math.floor(c[1] * 255 + 0.5), math.floor(c[2] * 255 + 0.5), math.floor(c[3] * 255 + 0.5)) end\nlocal function showTheme() UI.ShowOptions(\"theme\"); O.Select(\"theme\", \"Colour\") end\nlocal function cards(key) return O.Controls(\"theme\", \"Colour\")[key].psCardBy end\n{script}"
 		),
 		..Default::default()
 	})
@@ -1218,7 +1219,7 @@ fn the_picker_s_cards_draw_each_skin_s_guide_window_and_arrow_as_it_draws_them_w
 	let out = run_cards(
 		r##"
 		local arrow = hexOf({ Polestar.Nav.RGB("arrow") })
-		UI.ShowOptions("theme")
+		showTheme()
 		local function card(by, id)
 			local p = by[id].Art.psSkinCard
 			local bg = p.win.psSkin.bg
@@ -1258,7 +1259,7 @@ fn a_variant_s_card_draws_the_variant_and_the_skin_s_card_follows_the_variant_in
 			{ id = "forever", name = "On WoW Forever", base = "forever" },
 		} })
 		Polestar.Set("ui.skin", "duo")
-		UI.ShowOptions("theme")
+		showTheme()
 		local function look(by, id)
 			local p = by[id].Art.psSkinCard
 			return { p.win.psSkin.skin, p.foot.Status:IsShown(), hexOf({ p.accent:GetVertexColor() }) }
@@ -1291,7 +1292,7 @@ fn a_skin_s_own_painters_paint_its_card_and_one_that_raises_there_leaves_the_ski
 		local ok1, why1 = T.RegisterSkin("own", { name = "Own", addon = "Test_Own", base = "polestar", paint = { window = mark, checkbox = mark } })
 		local ok2, why2 = T.RegisterSkin("boom", { name = "Boom", addon = "Test_Boom", base = "polestar",
 			paint = { window = function() raised = raised + 1; error("boom") end } })
-		UI.ShowOptions("theme")
+		showTheme()
 		local own, boom = cards("ui.skin").own.Art.psSkinCard, cards("ui.skin").boom.Art.psSkinCard
 		local out = { ok = { ok1, ok2, why1 or false, why2 or false },
 			own = { own.win.psSkin.skin, painted[own.win] or false, painted[own.rows[1].Check] or false },
@@ -1317,7 +1318,7 @@ fn a_variant_s_card_shows_its_own_second_accent_and_glow_beside_the_accent() {
 	let out = run_cards(
 		r##"
 		Polestar.Set("ui.skin", "moonlit")
-		UI.ShowOptions("theme")
+		showTheme()
 		local function swatches(by, id)
 			local p = by[id].Art.psSkinCard
 			local function shown(t) return t:IsShown() and hexOf({ t:GetVertexColor() }) or false end

@@ -161,13 +161,10 @@ end
 
 local redraw
 
--- The card's frames on `art` (the picker's picture area), made on its first draw.
+-- The guide window's frames on `art` (a card's picture area, or a frame the
+-- window alone is drawn on), made on its first draw.
 local function build(art)
 	local p = {}
-	-- The world behind the window: the same dusk on every card.
-	p.world = tex(art, "BACKGROUND", -8)
-	p.world:SetAllPoints(art)
-	p.world:SetVertexColor(0.055, 0.065, 0.085, 1)
 	local win = CreateFrame("Frame", nil, art)
 	win.psGuide = true
 	p.win = win
@@ -277,17 +274,25 @@ local function build(art)
 	Theme.Border(bar, 0.42, 0.329, 0.125, 1)
 	foot.Status = bar
 	p.foot = foot
-	-- The arrow: its own dial (Nav/Arrow.lua), its texts left out.
+	art.psSkinCard = p
+	return p
+end
+
+-- A card's own parts round the window, made on its first draw as a card: the
+-- world behind it (the same dusk on every card), the arrow's dial
+-- (Nav/Arrow.lua; its texts left out) and the swatches; and its repaints at
+-- a new size and on showing after a live repaint it missed.
+local function cardParts(art, p)
+	p.world = tex(art, "BACKGROUND", -8)
+	p.world:SetAllPoints(art)
+	p.world:SetVertexColor(0.055, 0.065, 0.085, 1)
 	if Arrow and Arrow.BuildDial then
 		local holder = CreateFrame("Frame", nil, art)
 		holder:SetSize(Arrow.WIDTH, Arrow.HEIGHT)
 		p.holder, p.dial = holder, Arrow.BuildDial(holder)
 	end
-	-- The skin's accent, its own second accent and its glow.
 	p.accent, p.accent2, p.glow = tex(art, "ARTWORK", 0), tex(art, "ARTWORK", 0), tex(art, "ARTWORK", 0)
 	for _, t in ipairs({ p.accent, p.accent2, p.glow }) do t:SetHeight(3) end
-	art.psSkinCard = p
-	-- Painted again at a new size, and on showing after a live repaint it missed.
 	art:HookScript("OnSizeChanged", function(self)
 		if self:IsVisible() then redraw(self) end
 	end)
@@ -297,7 +302,7 @@ local function build(art)
 			redraw(self)
 		end
 	end)
-	return p
+	p.card = true
 end
 
 -- Whether colour `c` is there and not `like` (a token the palette derived
@@ -310,10 +315,11 @@ local function own(c, like)
 	return false
 end
 
--- The window on a card `w` x `h`, in the skin the Theme answers for: its
--- parts as the window's GF.ApplySkin, GF.ApplyStyle, GF.RenderTabs,
--- GF.PaintTab and paintRow dress them.
-local function paintWindow(p, w, h)
+-- The window on `w` x `h`, in the skin the Theme answers for: its parts as
+-- the window's GF.ApplySkin, GF.ApplyStyle, GF.RenderTabs, GF.PaintTab and
+-- paintRow dress them. On a card it takes the left two thirds; `alone`, the
+-- whole of it. -> where the room right of it starts
+local function paintWindow(p, w, h, alone)
 	local M = Theme.Metric
 	local pad = max(4, M("guidePad", 14))
 	local tabH, navH, footH, rowH = M("guideTabs", 28), M("guideNav", 34), M("guideFoot", 26), M("guideRow", 24)
@@ -324,10 +330,11 @@ local function paintWindow(p, w, h)
 	local win = p.win
 	local winH = tabH + navH + PERSON_H + #p.rows * rowH + 4 + footH
 	win:SetSize(WIN_W, winH)
-	local k = min((w * 0.66 - 6) / WIN_W, (h - 8) / winH)
+	local inset = alone and 0 or 4
+	local k = alone and min(w / WIN_W, h / winH) or min((w * 0.66 - 6) / WIN_W, (h - 8) / winH)
 	win:SetScale(k)
 	win:ClearAllPoints()
-	win:SetPoint("TOPLEFT", win:GetParent(), "TOPLEFT", 4 / k, -4 / k)
+	win:SetPoint("TOPLEFT", win:GetParent(), "TOPLEFT", inset / k, -inset / k)
 	paint(win, "window")
 	-- The band: Polestar's own look's, its media the skin's.
 	local head = tabH + navH
@@ -527,34 +534,42 @@ end
 -- live repaint.
 local drawn = setmetatable({}, { __mode = "k" })
 
-local function paintCard(art, id, scheme)
+local function paintCard(art, id, scheme, alone)
 	-- The palette: a scheme's card wears it on Polestar's own look.
 	drawing.pal = resolve(id, scheme)
 	local p = art.psSkinCard or build(art)
 	local W = ns.Widgets
 	local w, h = art:GetWidth() or 0, art:GetHeight() or 0
 	if w < 40 or h < 30 then w, h = (W and W.CARD_W or 156) - 2, W and W.CARD_ART or 88 end
+	if alone then return paintWindow(p, w, h, true) end
+	if not p.card then cardParts(art, p) end
 	paintArrow(p, w, h, paintWindow(p, w, h))
 end
 
--- Draw skin `id` (its `variant`; Polestar's own look in `scheme`) on `art`.
-local function draw(art, id, variant, scheme)
+-- Draw skin `id` (its `variant`; Polestar's own look in `scheme`) on `art`:
+-- a card, drawn again after every live repaint, or (`alone`) the window
+-- alone, filling `art`, drawn once (its caller draws it again).
+local function draw(art, id, variant, scheme, alone)
 	if type(art) ~= "table" or not art.CreateTexture then return end
-	local d = drawn[art] or {}
-	drawn[art] = d
-	d.id, d.variant, d.scheme = id, variant, scheme
-	-- The live skin and its palette, built before the card's stands in.
+	if not alone then
+		local d = drawn[art] or {}
+		drawn[art] = d
+		d.id, d.variant, d.scheme = id, variant, scheme
+		-- The live palette, built before the card's stands in.
+		Theme.Palette()
+	end
 	local live = Theme.SkinId()
-	Theme.Palette()
 	local wasId, wasPal, wasVariant = drawing.id, drawing.pal, previewing[id]
 	previewing[id], drawing.id, drawing.pal = variant, id, nil
-	local ok, err = pcall(paintCard, art, id, scheme)
+	local ok, err = pcall(paintCard, art, id, scheme, alone)
 	drawing.id, drawing.pal, previewing[id] = wasId, wasPal, wasVariant
-	-- The live skin's own again: the arrow's colours, dart and glow, and a
-	-- resolver's answer for the variant in use.
-	if Nav and Nav.ReadPalette then Nav.ReadPalette() end
-	if Arrow and Arrow.ReadSkin then Arrow.ReadSkin() end
-	if id == live and SKINS[id].resolve then resolve(id) end
+	if not alone then
+		-- The live skin's own again: the arrow's colours, dart and glow, and
+		-- a resolver's answer for the variant in use.
+		if Nav and Nav.ReadPalette then Nav.ReadPalette() end
+		if Arrow and Arrow.ReadSkin then Arrow.ReadSkin() end
+		if id == live and SKINS[id].resolve then resolve(id) end
+	end
 	if not ok then error(err, 0) end
 end
 
@@ -593,4 +608,14 @@ end
 function Theme.DrawSchemeCard(card, id)
 	if not (SCHEMES[id] or id == "ellesmere") then return end
 	draw(card, "polestar", nil, id)
+end
+
+-- The settings' own pictures of a look (the Profiles page's cards, drawn
+-- under a profile's values): skin `id`'s guide window alone, filling
+-- `frame`, drawn once; its caller draws it again when it needs to.
+if UI then
+	function UI.SkinWindow(frame, id, variant)
+		if not SKINS[id] then return end
+		draw(frame, id, variant, nil, true)
+	end
 end
