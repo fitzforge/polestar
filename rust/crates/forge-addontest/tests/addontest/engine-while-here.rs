@@ -1662,3 +1662,76 @@ fn dismissing_an_objective_several_steps_hold_hides_every_copy() {
 		vec![json!("3:3:20 5:5:25 4:2:30"), json!(true), json!("3:3:20 5:5:25"), json!("3:3:55 5:5:55"), json!("3:3:55 5:5:55")]
 	);
 }
+
+// #1540: a click an item must be carried for (Marla's Grave takes Samuel's Remains, from the farm) is no line
+// until the bags hold it. The quest database says which items a quest uses without asking for them; 9100 uses item
+// 90001, which the farm step collects, at its grave right beside the player; 9101 uses nothing, at its grave beside
+// it. Without the database nothing says what a click needs: both graves count, as before. 9102 (Clam Bait's shape:
+// the Giant Softshell Clam gives the Soft-shelled Clam a use goal then opens) uses item 90005 too, but a later use
+// goal of 9102 names it: the guide brings it, from that very click, so the click is a line without it.
+const REMAINS_WORLD: &str = r#"
+w.onQuest(9100, { 1 }, "A Last Wish")
+w.onQuest(9101, { 1 }, "Another Grave")
+w.onQuest(9102, { 1 }, "A Clam")
+"#;
+const REMAINS: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/remains", pack = "test", title = "Remains", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		{ title = "The farm", goals = { { t = "collect", item = 90001, itemName = "Remains", map = 1429, x = 70, y = 70 } } },
+		{ title = "The grave", goals = { { t = "interact", quest = 9100, title = "A Last Wish", object = 90002, objName = "A Grave", oi = 1, map = 1429, x = 47.6, y = 45.5 } } },
+		{ title = "The other grave", goals = { { t = "interact", quest = 9101, title = "Another Grave", object = 90003, objName = "Another Grave", oi = 1, map = 1429, x = 47.7, y = 45.1 } } },
+		{ title = "The clam", goals = {
+			{ t = "interact", quest = 9102, title = "A Clam", object = 90004, objName = "A Clam Bed", oi = 1, map = 1429, x = 47.5, y = 45.3 },
+			{ t = "use", quest = 9102, title = "A Clam", item = 90005, itemName = "A Clam", oi = 1, map = 1429, x = 47.5, y = 45.3 },
+		} },
+	},
+})
+"#;
+const REMAINS_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[9100] = { "A Last Wish", 5, 3, nil, nil, 2, 9200, 9200, nil, nil, nil, { 3, 90002, nil }, 1429, nil, nil, nil, nil, nil, 90001 },
+	[9101] = { "Another Grave", 5, 3, nil, nil, 2, 9200, 9200, nil, nil, nil, { 3, 90003, nil }, 1429 },
+	[9102] = { "A Clam", 5, 3, nil, nil, 2, 9200, 9200, nil, nil, nil, { 3, 90004, nil }, 1429, nil, nil, nil, nil, nil, 90005 },
+})
+"#;
+const REMAINS_SCRIPT: &str = r#"
+emit(cands())
+w.addItem(90001, 1); flush()
+emit(cands())
+w.removeItem(90001); flush()
+emit(cands())
+"#;
+
+fn run_remains(db: bool) -> Vec<Value> {
+	let db = if db { format!("{}{REMAINS_DB}", forge_addontest::questdb::ADD_RECORDS_LUA) } else { String::new() };
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{REMAINS_WORLD}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Quests/QuestDB.lua"])],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/remains" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			REMAINS,
+			HELPERS,
+			&db,
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			r#"Polestar.Set("behavior.whileHereRadius", 60); stub.advance(0.6)"#,
+			REMAINS_SCRIPT,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+}
+
+#[test]
+fn a_click_that_needs_an_item_the_bags_lack_is_no_line_until_the_item_is_there_1540() {
+	let rest = json!("4:1:work:1 5:1:work:1");
+	assert_eq!(run_remains(true), vec![rest.clone(), json!("3:1:work:1 4:1:work:1 5:1:work:1"), rest]);
+	let all = json!("3:1:work:1 4:1:work:1 5:1:work:1");
+	assert_eq!(run_remains(false), vec![all.clone(), all.clone(), all]);
+}
