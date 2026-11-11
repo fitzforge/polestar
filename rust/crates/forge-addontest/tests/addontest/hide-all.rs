@@ -483,10 +483,7 @@ fn the_menu_toggles_the_window_the_arrow_hiding_and_whether_hiding_keeps_the_arr
 		emit(seen)"#,
 	)
 	.remove(0);
-	assert_eq!(
-		out[0],
-		json!(["[x] Guide window", "Hide arrow", "Hide Polestar", "Keep the arrow when hidden", "Guides", "Lookup", "Options", "Report a problem"])
-	);
+	assert_eq!(out[0], json!(["[x] Guide window", "Hide arrow", "Hide Polestar", "Keep the arrow when hidden", "Guides", "Lookup", "Options", "Report a problem"]));
 	assert_eq!(out[1], json!([true, true]), "checked, and saved for the character");
 	assert_eq!(out[2], json!(["Guide window", "Hide arrow", "Show Polestar", "[x] Keep the arrow when hidden", "Guides", "Lookup", "Options", "Report a problem"]));
 	assert_eq!(out[3], json!([false, false]), "the arrow off (nav.arrow) while hidden and kept");
@@ -506,13 +503,25 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/Core/Init.lua", "UIParent", 1, "applyLayer", "the layer itself: hiding is its Hide()"),
 	("Polestar/Nav/Arrow.lua", "UIParent", 1, "ArrowHidden", "the arrow: hidden unless Keep the arrow when hidden is on"),
 	("Polestar/Nav/Prompts.lua", "UIParent", 1, "ArrowHidden", "the travel button (secure): with the arrow, changed out of combat"),
-	("Polestar/QoL/Buttons.lua", "UIParent", 3, "GuideShown", "the quest item, Hearthstone, target, rare and bag buttons, their holder and the step key (secure): with ns.GuideShown, changed out of combat; the step key draws nothing"),
+	(
+		"Polestar/QoL/Buttons.lua",
+		"UIParent",
+		3,
+		"GuideShown",
+		"the quest item, Hearthstone, target, rare and bag buttons, their holder and the step key (secure): with ns.GuideShown, changed out of combat; the step key draws nothing",
+	),
 	("Polestar/Rares/Toast.lua", "UIParent", 1, "POLESTAR_HIDDEN", "the rare card's secure Target button: let go of with the card"),
 	("Polestar/UI/NameTargets.lua", "UIParent", 1, "POLESTAR_HIDDEN", "the guide's clickable names (secure): hidden with the window, out of combat (in a fight their driver hides them)"),
 	("Polestar/Theme/Widgets.lua", "UIParent", 2, "POLESTAR_HIDDEN", "the menu and its click-catcher: the ways back open it; one open as Polestar hides closes"),
 	("Polestar/UI/Launcher.lua", "UIParent", 1, "PaintHidden", "the floating button: a way back, dimmed"),
 	("Polestar/UI/GameMenu.lua", "UIParent", 3, "SetHidden", "the game menu's Polestar button: a way back, in the game's own menu"),
-	("Polestar/UI/Gamepad.lua", "UIParent", 6, "G.Close", "the gamepad's input frames, the buttons its bindings click, focus ring and hints: they follow the window holding the gamepad (the menu included)"),
+	(
+		"Polestar/UI/Gamepad.lua",
+		"UIParent",
+		6,
+		"G.Close",
+		"the gamepad's input frames, the buttons its bindings click, focus ring and hints: they follow the window holding the gamepad (the menu included)",
+	),
 	("Polestar/Maps/MinimapButton.lua", "Minimap", 1, "PaintHidden", "the minimap button: a way back, dimmed"),
 	("Polestar/Maps/Coords.lua", "Minimap", 1, "Hidden", "the minimap coordinates: off while hidden"),
 	("Polestar/Nav/Pins.lua", "Minimap", 3, "Hidden", "the minimap's pins, trail and areas: nothing drawn while hidden"),
