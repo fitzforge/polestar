@@ -1,0 +1,63 @@
+-- Polestar_Looks (load on demand): what the game's looks bring besides their
+-- painters (GameSkins.lua), loaded with them before Theme.SkinKey names one
+-- of them: their sizes and type ladder (Theme.Metric, Theme.FontSpec), and
+-- their own waypoint arrow and map pins in the client's own art. The arrow
+-- and the pins read them as they read a registered skin's (Skin API 2's
+-- arrow and pin parts, the skin's media: Theme.SkinMedia): one lookup of the
+-- skin in use's parts, nothing keyed by look in their code.
+
+local ns = Polestar
+local Theme = ns and ns.Theme
+local I = ns and ns.ThemeInternal
+if not (Theme and I and Theme.METRICS) then return end
+
+-- The client's sizes (the Settings panel's rows and controls, the 14-high
+-- status bar); WoW Forever's guide window keeps its rows and the lit goal
+-- clear of its bronze border (#306), its tab strip is 30 high so the
+-- Settings tab outlines stand clear of the window's edge (#312, GameSkins'
+-- tabClear), and a tab's close button and text stay inside its outline, 5
+-- in from the tab's sides (guideTabInset: GameSkins' tabGap). A tab's title
+-- ends 6 clear of its close (guideTabClosePad: the room kept right of the
+-- text for the close, 3 in from the tab's side, and the gap): the red
+-- button's 14 in WoW Forever and Classic, Blizzard's 9-unit glyph. Classic's
+-- red button rests at full strength (guideTabCloseRest), as the game draws
+-- it; faded it went to mud.
+local GAME_ROLES = { hero = { "semibold", 24 } }
+local GAME_METRICS = {
+	row = 28, menuRow = 22, menuPad = 6, menuWidth = 260, servicesWidth = 290,
+	buttonH = 22, buttonPad = 14, dropdownW = 170, dropdownH = 24, chevron = 10, chevronInset = 6,
+	sliderW = 120, valueW = 56, checkbox = 18,
+	shellW = 930, shellH = 690, shellSidebar = 200, shellTabs = 32, shellPad = 28, shellFooter = 56,
+	pickerW = 1100, pickerH = 640, pickerDetail = 380, pickerSidebar = 230,
+	guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 20, guideNavIcon = 12,
+	guideIconBtnW = 20, guideIconBtnH = 20, guideIcon = 11, guideRow = 22, guideCheck = 15,
+	guideProgress = 14, guideGrip = 8, guideFoot = 28, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 4,
+	guideTabClosePad = 24,
+}
+local METRICS = Theme.METRICS
+for _, k in ipairs({ "forever", "blizzard", "classic" }) do
+	METRICS[k] = GAME_METRICS
+	I.SKIN_ROLES[k] = GAME_ROLES
+end
+METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true, guideTabs = 30,
+	guideTabInset = 5 }, { __index = GAME_METRICS })
+METRICS.blizzard = setmetatable({ guideTabClosePad = 22 }, { __index = GAME_METRICS })
+METRICS.classic = setmetatable({ guideTabCloseRest = 1 }, { __index = GAME_METRICS })
+
+-- Each game look's waypoint arrow and map pins, by the client's own art
+-- ("atlas:<name>": an atlas as the client draws it, Theme.SetArt): its dart
+-- (dartArt: in the art's own colours while far, tinted up close and when
+-- the player picks an arrow colour; no Polestar edge round it) and the
+-- medallion under the map pins' glyphs (while the map icons follow the
+-- skin). WoW Forever: its quest arrow and the campaign quest's shield;
+-- Blizzard: the retail navigation arrow and quest marker; Classic: the
+-- vanilla minimap arrow on the minimap's dark disc.
+local PARTS = {
+	forever = { dart = "atlas:Minimap-QuestArrow", dartArt = true, medallion = "atlas:UI-QuestPoiCampaign-QuestNumber" },
+	blizzard = { dart = "atlas:Navigation-Tracked-Arrow", dartArt = true, medallion = "atlas:UI-QuestPoi-QuestNumber" },
+	classic = { dart = "Interface\\Minimap\\MinimapArrow", dartArt = true, medallion = "Interface\\Minimap\\UI-Minimap-Background" },
+}
+for id, media in pairs(PARTS) do
+	local s = I.SKINS[id]
+	if s then s.media = media end
+end

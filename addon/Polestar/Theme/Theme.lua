@@ -1149,14 +1149,25 @@ function Theme.Media(name)
 end
 
 -- A texture the skin in use brings in place of Polestar's (its media, or
--- its variant's: "band", "bandStars", "medallion"), or nil for Polestar's own.
+-- its variant's: "band", "bandStars", "medallion", the arrow's and the
+-- pins' parts), or nil for Polestar's own. The game's looks bring their
+-- arrow and map pins from the client's own art (Polestar_Looks/Parts.lua;
+-- their "dartArt": the dart in its own colours, without Polestar's edge).
 function Theme.SkinMedia(name)
 	local s = SKINS[Theme.SkinId()]
-	if not s or s.builtin then return nil end
+	if not s then return nil end
 	local v = s.variants and s.variantBy[variantOf(s)]
 	local p = v and v.media and v.media[name]
 	if p then return p end
 	return s.media and s.media[name] or nil
+end
+
+-- A part's art on texture `t`: a file, or an atlas of the client's
+-- ("atlas:<name>": the game's looks' own parts).
+function Theme.SetArt(t, art)
+	if type(art) == "string" and art:sub(1, 6) == "atlas:" then return t:SetAtlas(art:sub(7)) end
+	t:SetTexture(art)
+	t:SetTexCoord(0, 1, 0, 1)
 end
 
 -- A colour token the skin in use gives itself (its tokens, its variant's or
@@ -1338,39 +1349,8 @@ local METRICS = {
 		guideProgress = 3, guideGrip = 8, guideFoot = 20, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 4,
 	},
 }
--- The game's looks: the client's sizes (the Settings panel's rows and
--- controls, the 14-high status bar); WoW Forever's guide window keeps its
--- rows and the lit goal clear of its bronze border (#306), its tab strip is
--- 30 high so the Settings tab outlines stand clear of the window's edge
--- (#312, GameSkins' tabClear), and a tab's close button and text stay
--- inside its outline, 5 in from the tab's sides (guideTabInset: GameSkins'
--- tabGap). A tab's title ends 6 clear of its close (guideTabClosePad: the
--- room kept right of the text for the close, 3 in from the tab's side, and
--- the gap): the red button's 14 in WoW Forever and Classic, Blizzard's
--- 9-unit glyph. Classic's red button rests at full strength
--- (guideTabCloseRest), as the game draws it; faded it went to mud.
-do
-	local GAME_ROLES = { hero = { "semibold", 24 } }
-	local GAME_METRICS = {
-		row = 28, menuRow = 22, menuPad = 6, menuWidth = 260, servicesWidth = 290,
-		buttonH = 22, buttonPad = 14, dropdownW = 170, dropdownH = 24, chevron = 10, chevronInset = 6,
-		sliderW = 120, valueW = 56, checkbox = 18,
-		shellW = 930, shellH = 690, shellSidebar = 200, shellTabs = 32, shellPad = 28, shellFooter = 56,
-		pickerW = 1100, pickerH = 640, pickerDetail = 380, pickerSidebar = 230,
-		guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 20, guideNavIcon = 12,
-		guideIconBtnW = 20, guideIconBtnH = 20, guideIcon = 11, guideRow = 22, guideCheck = 15,
-		guideProgress = 14, guideGrip = 8, guideFoot = 28, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 4,
-		guideTabClosePad = 24,
-	}
-	for _, k in ipairs({ "forever", "blizzard", "classic" }) do
-		METRICS[k] = GAME_METRICS
-		SKIN_ROLES[k] = GAME_ROLES
-	end
-	METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true, guideTabs = 30,
-		guideTabInset = 5 }, { __index = GAME_METRICS })
-	METRICS.blizzard = setmetatable({ guideTabClosePad = 22 }, { __index = GAME_METRICS })
-	METRICS.classic = setmetatable({ guideTabCloseRest = 1 }, { __index = GAME_METRICS })
-end
+-- The game's looks bring their own sizes and type ladder with their part
+-- (Polestar_Looks/Parts.lua), which loads before Theme.SkinKey names one.
 Theme.METRICS = METRICS
 
 function Theme.Metric(key, house)

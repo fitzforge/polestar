@@ -647,10 +647,12 @@ local function applyMark(f, p, size, path)
 	f.bare = p.medal == false or pack == "bare"
 	if p.medal == false then medal = size end
 	f.medalPx, f.sizePx, f.footPx = medal, size, medal
-	-- The skin's own medallion art, when the pack is the skin's (Theme.SkinMedia).
+	-- The skin's own medallion art, when the pack is the skin's (Theme.SkinMedia):
+	-- a file, or the client's atlas for a game look's (Theme.SetArt).
 	local T = ns.Theme
 	local skinArt = not MEDALS[ns.Get("nav.mapIcons")] and T and T.SkinMedia and T.SkinMedia("medallion") or nil
-	f.medal:SetTexture(type(skinArt) == "string" and skinArt or MEDALS[pack] or MEDALS.polestar)
+	local art = type(skinArt) == "string" and skinArt or MEDALS[pack] or MEDALS.polestar
+	if T and T.SetArt then T.SetArt(f.medal, art) else f.medal:SetTexture(art) end
 	f.medal:SetSize(medal, medal)
 	local tint = look.medal or look.skinRim
 	if tint then f.medal:SetVertexColor(tint[1] or 1, tint[2] or 1, tint[3] or 1, a) else f.medal:SetVertexColor(1, 1, 1, a) end

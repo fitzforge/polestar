@@ -515,7 +515,7 @@ local function drawPackCard(card, value)
 	local size = (h and h > 0) and min(40, max(22, floor(h * 0.42))) or 32
 	local path = Pins.MedalPath(value)
 	medal:SetSize(size, size)
-	medal:SetTexture(path)
+	if path then Theme.SetArt(medal, path) end
 	medal:SetShown(path ~= nil)
 	local g = size / 1.4 * 27 / 24 -- the mark in its medallion (Pins' MEDAL_SCALE, GLYPH_FRAME)
 	glyph:SetSize(g, g)

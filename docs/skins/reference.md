@@ -449,6 +449,12 @@ assert(ok, message)
 Everything is optional except `name` and `addon`: `RegisterSkin("x", { name
 = "X", addon = ADDON })` is a valid skin identical to Polestar's own look.
 
+Polestar's game looks (WoW Forever, Blizzard, Classic) bring the same arrow
+and pin parts, from the client's own art: each its own `dart` (shown in its
+art's colours while far, without an edge) and `medallion`. A skin built on
+one of them (`base`) still draws its own `media`, or Polestar's where it gives
+none, never the look's.
+
 ```lua
 local ADDON = ...
 local Theme = Polestar.Theme

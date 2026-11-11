@@ -31,3 +31,4 @@
 GameArt.lua
 GameSkins.lua
 Hearth.lua
+Parts.lua

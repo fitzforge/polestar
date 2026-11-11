@@ -382,7 +382,7 @@ fn during_the_catch_up_the_arrow_shows_an_hourglass_turning_over_then_comes_back
 }
 
 #[test]
-fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_within_40_m_hearth_s_ember_the_game_looks_baked_gold_then_the_ring_and_the_check() {
+fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_within_40_m_hearth_s_ember_the_game_looks_their_own_then_the_ring_and_the_check() {
 	let out = run_themed(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
@@ -401,11 +401,11 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 		nav.place(300, 0)
 		stub.advance(0.2)
 		out.bliz = { style = A.GetStyle(), tex = tex(A.dart), tint = rgb(A.dart), edge = rgb(A.dartEdge) }
-		-- The game's looks draw Hearth's dart in their baked gold.
+		-- The game's looks draw Hearth's design with their own dart (WoW Forever's: its quest arrow), in its own colours.
 		Polestar.Theme._testShowHidden = true
 		Polestar.Set("ui.skin", "forever")
 		stub.advance(0.2)
-		out.lookFar = { style = A.GetStyle(), tex = tex(A.dart), tint = rgb(A.dart) }
+		out.lookFar = { style = A.GetStyle(), atlas = A.dart:GetAtlas(), tint = rgb(A.dart), edge = A.dartEdge:IsShown() }
 		Polestar.Set("ui.skin", "hearth")
 		stub.advance(0.2)
 		nav.place(300, 360)
@@ -438,9 +438,9 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 	bliz["edge"] = r3(&out["bliz"]["edge"]);
 	assert_eq!(bliz, json!({ "style": "hearth", "tex": "dart", "tint": [1, 0.58, 0.251], "edge": [0.165, 0.102, 0] }), "Hearth: its own dart in the ember accent #FF9440, edged #2A1A00");
 	assert_eq!(
-		json!({ "style": out["lookFar"]["style"], "tex": out["lookFar"]["tex"], "tint": r3(&out["lookFar"]["tint"]) }),
-		json!({ "style": "hearth", "tex": "dart-gold", "tint": [1, 1, 1] }),
-		"the game's looks: the baked gold gradient"
+		json!({ "style": out["lookFar"]["style"], "atlas": out["lookFar"]["atlas"], "tint": r3(&out["lookFar"]["tint"]), "edge": out["lookFar"]["edge"] }),
+		json!({ "style": "hearth", "atlas": "Minimap-QuestArrow", "tint": [1, 1, 1], "edge": false }),
+		"the game's looks: their own dart, in its own colours, no edge"
 	);
 	assert_eq!(
 		json!({ "tex": out["blizNear"]["tex"], "tint": r3(&out["blizNear"]["tint"]) }),
@@ -450,12 +450,12 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 	assert_eq!(out["arrived"], json!({ "mode": "arrived", "ring": true, "houseRing": false, "check": false, "dart": false }));
 	assert_eq!(out["checked"], true, "the check follows the ring");
 	assert_eq!(out["flat"], "flat", "a style picked by hand stays");
-	assert_eq!(out["looks"], json!(["hearth", "hearth", "hearth"]), "the game's looks take Hearth's gold dart");
+	assert_eq!(out["looks"], json!(["hearth", "hearth", "hearth"]), "the game's looks draw Hearth's design");
 }
 
 // Skin API 2: a skin's own dart and its edge (media.dart, media.dartEdge) stand in for Polestar's in the skin
-// arrow styles, tinted like the house dart (never the game looks' baked gold, which is Polestar's own picture,
-// even on a game look's base); the next skin's dart is Polestar's again.
+// arrow styles, tinted like the house dart (never the baked gold, even on a game look's base); the next skin's dart
+// is its own again (WoW Forever's quest arrow, with no edge).
 #[test]
 fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gold() {
 	let out = run_themed(
@@ -472,10 +472,93 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 		local far = { ok = ok, style = A.GetStyle(), tex = tex(A.dart), edge = tex(A.dartEdge), white = table.concat(rgb(A.dart), ",") == "1,1,1" }
 		Polestar.Set("ui.skin", "forever")
 		stub.advance(0.2)
-		emit({ far = far, back = { tex = tex(A.dart), edge = tex(A.dartEdge) } })"#,
+		emit({ far = far, back = { atlas = A.dart:GetAtlas(), edge = A.dartEdge:IsShown() } })"#,
 	);
 	assert_eq!(out["far"], json!({ "ok": true, "style": "hearth", "tex": "my-dart", "edge": "my-edge", "white": false }));
-	assert_eq!(out["back"], json!({ "tex": "dart-gold", "edge": "dart-edge" }));
+	assert_eq!(out["back"], json!({ "atlas": "Minimap-QuestArrow", "edge": false }));
+}
+
+// The game's looks draw their own waypoint arrow and map pins from the client's own art, through the parts a skin
+// addon gives (Skin API 2's media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the vanilla minimap
+// arrow on the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield, Blizzard the
+// retail navigation arrow and quest marker. Each dart shows in its own colours with no edge while far, and is
+// tinted up close and in the player's own arrow colour. Polestar's own look, Hearth and a skin addon keep theirs:
+// a skin on a game look's base draws its own parts, or Polestar's where it brings none.
+#[test]
+fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_polestar_hearth_and_skin_addons_keep_theirs() {
+	let out = run_themed(
+		r#"
+		local function rgb(t) local r, g, b = t:GetVertexColor() return string.format("%.2f,%.2f,%.2f", r, g, b) end
+		local function file(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
+		local function look()
+			local pin = targetPin()
+			return { style = A.GetStyle(), dart = file(A.dart), dartAtlas = A.dart:GetAtlas() or false, tint = rgb(A.dart),
+				edge = A.dartEdge:IsShown(), medal = file(pin.medal), medalAtlas = pin.medal:GetAtlas() or false }
+		end
+		local out = {}
+		target(300, 400)
+		stub.advance(0.2)
+		out.polestar = look()
+		Polestar.Theme._testShowHidden = true
+		for _, k in ipairs({ "hearth", "classic", "forever", "blizzard" }) do
+			Polestar.Set("ui.skin", k)
+			stub.advance(0.2)
+			out[k] = look()
+		end
+		nav.place(300, 360) -- inside 40 m
+		stub.advance(0.2)
+		out.near = look()
+		nav.place(300, 0)
+		Polestar.Set("nav.arrowColor", { 0.2, 0.6, 1 })
+		stub.advance(0.2)
+		out.own = look()
+		Polestar.Set("nav.arrowColor", nil)
+		local T = Polestar.Theme
+		local ok1 = T.RegisterSkin("darts", { name = "Darts", addon = "Test", base = "classic", media = { dart = "Interface\\AddOns\\Test\\my-dart" } })
+		local ok2 = T.RegisterSkin("plain", { name = "Plain", addon = "Test", base = "blizzard" })
+		out.ok = { ok1, ok2 }
+		for _, k in ipairs({ "darts", "plain", "polestar" }) do
+			Polestar.Set("ui.skin", k)
+			stub.advance(0.2)
+			out[k .. "After"] = look()
+		end
+		emit(out)"#,
+	);
+	let pick = |k: &str, keys: &[&str]| -> Value { keys.iter().map(|f| ((*f).to_string(), out[k][*f].clone())).collect::<serde_json::Map<_, _>>().into() };
+	const WHITE: &str = "1.00,1.00,1.00";
+	assert_eq!(pick("polestar", &["style", "medal"]), json!({ "style": "3d", "medal": "medallion-polestar" }), "Polestar's own look");
+	assert_eq!(
+		pick("hearth", &["style", "dart", "tint", "edge", "medal"]),
+		json!({ "style": "hearth", "dart": "dart", "tint": "1.00,0.58,0.25", "edge": true, "medal": "medallion-hearth" }),
+		"Hearth keeps its ember dart and its own medallion"
+	);
+	assert_eq!(
+		pick("classic", &["style", "dart", "tint", "edge", "medal"]),
+		json!({ "style": "hearth", "dart": "MinimapArrow", "tint": WHITE, "edge": false, "medal": "UI-Minimap-Background" }),
+		"Classic: the vanilla minimap arrow on the minimap's dark disc"
+	);
+	assert_eq!(
+		pick("forever", &["dartAtlas", "tint", "edge", "medalAtlas"]),
+		json!({ "dartAtlas": "Minimap-QuestArrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoiCampaign-QuestNumber" }),
+		"WoW Forever: its quest arrow and the campaign quest's shield"
+	);
+	assert_eq!(
+		pick("blizzard", &["dartAtlas", "tint", "edge", "medalAtlas"]),
+		json!({ "dartAtlas": "Navigation-Tracked-Arrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoi-QuestNumber" }),
+		"Blizzard: the retail navigation arrow and quest marker"
+	);
+	assert_eq!(out["near"]["dartAtlas"], "Navigation-Tracked-Arrow");
+	assert_ne!(out["near"]["tint"], WHITE, "up close the look's dart takes the arrival colour");
+	assert_eq!(out["own"]["tint"], "0.20,0.60,1.00", "and the player's own arrow colour");
+	assert_eq!(out["ok"], json!([true, true]));
+	assert_eq!(pick("dartsAfter", &["dart", "edge", "medal"]), json!({ "dart": "my-dart", "edge": true, "medal": "medallion-hearth" }), "a skin addon on Classic's base: its own dart, tinted, edged");
+	assert_ne!(out["dartsAfter"]["tint"], WHITE);
+	assert_eq!(
+		pick("plainAfter", &["dart", "tint", "edge", "medal"]),
+		json!({ "dart": "dart-gold", "tint": WHITE, "edge": true, "medal": "medallion-hearth" }),
+		"one bringing none on Blizzard's base: Polestar's gold dart and medallion, as before"
+	);
+	assert_eq!(pick("polestarAfter", &["style", "medal"]), json!({ "style": "3d", "medal": "medallion-polestar" }));
 }
 
 // Skin API 2's arrow and pin tokens and masks: a skin's glow token lights the flat arrow's glow and the arrival
