@@ -103,6 +103,8 @@ local function tabButton(i)
 	b.Close:SetAlpha(TAB_CLOSE_REST)
 	b.Close.psOnEnter = function(c) c:SetAlpha(1) end
 	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(TAB_CLOSE_REST) end end
+	-- Its parts for a skin's hooks.guideTab (Skin API 2), made once.
+	b.psParts = { selected = b.Selected, bar = b.Bar, label = b.Label, range = b.Range, icon = b.Icon, close = b.Close }
 	b:SetScript("OnClick", function(self, button)
 		local E = Engine()
 		if not E then return end
