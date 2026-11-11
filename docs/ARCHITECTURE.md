@@ -322,13 +322,29 @@ control says so); `ui.shown` never travels; anything else is dropped and
 named; caps on length, payload, settings, texts and names. The areas: `look`
 (controls on the Look pages: a page's `group = "look"` or order 20–29),
 `positions`, `guiding` (the rest). A string from before a migration is
-migrated as it is read. The Profiles page (`UI/Profiles.lua`, settings window,
-Setup) shows all of it. The strings' code is the settings' addon's
+migrated as it is read. The strings' code is the settings' addon's
 (`Polestar_Options/Core/ProfileStrings.lua`), never in memory at login: core's
 `Export`, `Import`, `Apply`, `Portable`, `FreeName`, `Pack`, `AreaOf` and
 `Same` load it on their first call (`UI.LoadOptions`; in a fight they answer
 `nil, "combat"`) and it takes their place; `RegisterPosition` keeps a shape
 for it until then.
+
+The Profiles page (`Polestar_Options/UI/Profiles.lua`, settings window,
+Setup) has two tabs. **Profiles**: a picture card per profile, its picture
+drawn from that profile's own values by the elements' look code (its skin
+with its colours, its arrow's dial, the map's target pin; the profile in use
+from the live settings, drawn again as they change), "In use" on the one
+this character uses, else who else does ("Every Mage", "Whole account"),
+the last card a new one; This character (the profile in use, this
+character's own choice, its class's); the selected profile (who uses it,
+how many settings are off their defaults, Share), with Use, Copy, Rename
+and Delete (a second click within three seconds). Picking a card selects
+it and Use switches, as in the guide menu; New and Copy switch to the
+profile made. **Share**: the parts to put in a string and the profile it is
+made of, the string selected for copying; a pasted string's preview (whose,
+how many settings, how many differ, the parts it holds, each switched on or
+off, what is left out), then Import as new (named, and switched to) or
+Apply to current (after a dialog).
 
 ### Commands
 
@@ -6378,6 +6394,9 @@ Polestar.RegisterOptions({
   toggle = { kind = "toggle", key = "qol.markers", label = "Markers", help = "One line." }, -- optional: the section's on/off, in its header
   shown = function() return Polestar.Get("nav.lineStyle") == "sparkle" end, -- optional: hide the section's card (a mode's settings)
   preview = function(host) return frame end,               -- optional: the tab's live preview, pinned over its rows (below)
+  lead = true,                                              -- optional: this tab is the page's lead tab (Essentials, below)
+  jump = { tab = "Markers", section = "Quest markers" },   -- optional: a More link in the section's header, to that tab and section
+  columns = { "World map", "Minimap" },                    -- optional: a caption over each half of the section's rows
   controls = {
     { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
       search = "map pins, icons, markers",                              -- optional: English words players may search with
@@ -6441,6 +6460,45 @@ for what it does. Right-click resets it.") until its close button
 section, the best first, the chevron to the row in a gutter inside the card;
 a result its section's toggle stops comes after an equally good one that
 works, its card carrying that toggle in the header.
+
+**Essentials, references and presets.** Each Look page opens on its lead
+tab, Essentials: a spec with `lead = true` puts its tab first, whatever
+registered before it, with a star before the label and a short upright
+hairline after it. Essentials holds the page's presets or style cards, then
+at most ten controls, each a **reference** to its home row on a deeper tab:
+`Polestar.UI.Options.Ref(kind, key, fields)` makes one (`ref = true`, with the
+kind and key the registry checks). A reference takes every other field from
+the home control with that key (label, help, range, choices, extras,
+disabled, needs), found on first use (`O.HomeOf`; on its own page first),
+and keeps its own `page`, `tab`, `section`, `more`, `new`, `child` and every
+`ps*` field; fields given beside `ref` win (a shorter label). A reference
+with no home is not shown. Search, New pills and `O.AllControls()` count
+homes only (`O.References()` lists the references); a reference's tooltip
+ends with its home's path, and over a whole page `O.Controls` maps a key to
+its home row. An Essentials section's `jump = { tab, section }` puts a
+"More" link with a chevron in its header that opens that tab with that
+section scrolled under the top and lit (`O.ShowSection`). `columns =
+{ left, right }` lays a 24px caption row over a section's two halves, for
+two places that take the same settings (world map | minimap).
+
+**Presets** (`Polestar_Options/UI/Presets.lua`) are a picture-cards control
+with no key of its own: `O.PresetCards{ label?, help?, presets = { { value,
+label, set = { [key] = value }, draw = fn(art, preset, values), help }, ... } }`.
+Picking a card puts every key any of the row's presets names back to its
+default, then writes the card's own values (only what changes, so each
+change paints once); keys no preset names stay as they are. A card is lit
+while the settings are exactly its values, none while the look is the
+player's own; the first preset is the defaults (`set = {}`), so it also
+undoes the others. Its tooltip lists what it sets (`O.PresetSummary`: "Pin
+size 150%, Numbers 120%"). Its picture is drawn by the element's own look
+code with the preset's values (`O.WithSettings(values, fn)`: `Polestar.Get`
+answers them while fn runs; `O.PresetValues` gives a card's values over the
+row's defaults) and drawn again after every setting or theme change while
+it shows. A control's `watch = { [key] = true }` refreshes its widget when
+one of those settings changes. The tab last opened on each page is kept in
+`PolestarDB.optionsTab[<page key>]` (account-wide, not a setting: profiles
+and resets leave it) and the page opens there again; a first visit lands on
+the lead tab.
 
 **Preview hotspots.** A preview may make its parts lead to their settings:
 `host:Hotspot(region, key)` while it is built (or
