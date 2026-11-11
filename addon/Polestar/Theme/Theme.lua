@@ -660,9 +660,12 @@ local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
 -- The variant of registered skin `s` in use (spec.variants, Skin API 2):
 -- the player's pick (ui.skinVariants.<id>) while the skin has it, else the
 -- skin's default; nil for a skin without variants.
+local previewing = {} -- skin id -> a variant drawn on its card (Theme.DrawSkinCard)
 local function variantOf(s)
 	if not s.variants then return nil end
-	local v = get("ui.skinVariants." .. s.id)
+	local v = previewing[s.id]
+	if v ~= nil and s.variantBy[v] then return v end
+	v = get("ui.skinVariants." .. s.id)
 	if v ~= nil and s.variantBy[v] then return v end
 	return s.defaultVariant
 end
@@ -696,8 +699,27 @@ function Theme.GameSkin(key)
 	return GAME_SKINS[key or Theme.SkinKey()] or false
 end
 
+-- The player's context (CTX), read when a resolver first asks and again on
+-- each new zone (the events at the end of this file).
+local ctxRead = false
+local function readContext()
+	local C = ns.Compat
+	ctxRead = true
+	if not C then return end
+	CTX.faction = C.GetPlayerFaction and C.GetPlayerFaction() or nil
+	if UnitClass then
+		local _, class = UnitClass("player")
+		CTX.class = class
+	end
+	local zone = C.GetUnitZone and C.GetUnitZone("player") or nil
+	local continent = zone and C.GetContinentMap and C.GetContinentMap(zone) or nil
+	CTX.zone, CTX.continent = zone, continent
+	CTX.continentName = continent and C.GetMapName and C.GetMapName(continent) or nil
+end
+
 -- The context a resolver is asked with (spec.resolve).
 local function contextFor(s)
+	if not ctxRead then readContext() end
 	local cr, cg, cb = classColor(CTX.class)
 	return { zone = CTX.zone, continent = CTX.continent, continentName = CTX.continentName, faction = CTX.faction,
 		class = CTX.class, classColor = cr and { cr, cg, cb } or nil, variant = variantOf(s),
@@ -707,6 +729,25 @@ end
 -- A resolver's font as a font key: one of Polestar's, or the files it gave
 -- (kept as the skin's resolved family). -> key | nil
 local resolvedFont = {} -- skin id -> font key from its resolver, for this palette
+
+-- A resolver's answer as a string, to tell whether a new zone changed it
+-- (the palette is built again only then): its tokens, sorted, and its font.
+local answered = {} -- skin id -> the answer the palette was built with
+local function flat(v)
+	if type(v) ~= "table" then return tostring(v) end
+	local keys = {}
+	for k in pairs(v) do keys[#keys + 1] = tostring(k) end
+	table.sort(keys)
+	for i, k in ipairs(keys) do
+		local x = v[k]
+		if x == nil then x = v[tonumber(k)] end
+		keys[i] = k .. "=" .. (type(x) == "table" and flat(x) or tostring(x))
+	end
+	return "{" .. table.concat(keys, ",") .. "}"
+end
+local function answerKey(tokens, font)
+	return flat(tokens) .. "|" .. flat(font)
+end
 
 -- Registered skin `s`'s tokens and media now: its own, its variant's over
 -- them, then its resolver's tokens (asked on every palette build). A resolver
@@ -725,6 +766,7 @@ local function effective(s)
 	resolvedFont[s.id] = nil
 	if not s.resolve then return t, m end
 	local ok, rt, rf = pcall(s.resolve, contextFor(s))
+	answered[s.id] = ok and answerKey(rt, rf) or nil
 	local why
 	if not ok then
 		why = tostring(rt)
@@ -933,28 +975,8 @@ local function resolve(id, schemeKey)
 end
 
 -- The whole resolved palette (read-only), e.g. for tests and the options.
--- A palette blended toward another (the crossfade on a change of context:
--- Theme.Refresh steps `fade.t` from 0 to 1). -> palette
-local fade -- { from = palette, t = 0..1 } while a crossfade runs
-local function mixPalette(a, b, t)
-	local out = {}
-	for k, v in pairs(b) do
-		local w = a[k]
-		if type(v) == "table" and type(w) == "table" and type(v[1]) == "number" and type(w[1]) == "number" then
-			out[k] = { w[1] + (v[1] - w[1]) * t, w[2] + (v[2] - w[2]) * t, w[3] + (v[3] - w[3]) * t, (w[4] or 1) + ((v[4] or 1) - (w[4] or 1)) * t }
-		else
-			out[k] = v
-		end
-	end
-	return out
-end
-
--- The whole resolved palette (read-only), e.g. for tests and the options.
 function Theme.Palette()
-	if not P then
-		P = resolve()
-		if fade then P = mixPalette(fade.from, P, fade.t) end
-	end
+	if not P then P = resolve() end
 	return P
 end
 
@@ -2665,6 +2687,7 @@ if ns.RegisterDefaults then
 		haze = true, -- the blue haze under a night header
 		rim = true, -- the accent rim and its light on the top edge of windows (Theme.ShowsRim)
 		animSpeed = 1, -- 0.5..2: every Polestar.Anim tween runs this much faster
+		skinVariants = {}, -- skin id -> the variant picked (Theme.SkinVariants); none: the skin's default
 	})
 end
 
@@ -2705,10 +2728,28 @@ if ns.On then
 			-- Each change above already repainted through its own event.
 			if changed then return end
 		end
-		if LOOKS[path] then
+		-- A variant picked for the skin in use (ui.skinVariants.<id>), or all of them reset.
+		local look = LOOKS[path] or path == "ui.skinVariants" or path:sub(1, 16) == "ui.skinVariants." and path:sub(17) == Theme.SkinId()
+		if look then
 			if batching then batchRefresh = true else Theme.Refresh() end
 		end
 	end)
+end
+
+-- A new zone: a skin with a resolver (spec.resolve) is asked again, and the
+-- palette built again only when its answer changed (one keyed to the
+-- continent repaints on a new continent, not at every zone border).
+if ns.RegisterEvent then
+	local function moved()
+		ctxRead = false
+		local s = SKINS[Theme.SkinId()]
+		if not (s and s.resolve and not FAILED[s.id]) then return end
+		readContext()
+		local ok, rt, rf = pcall(s.resolve, contextFor(s))
+		if not ok or answerKey(rt, rf) ~= answered[s.id] then Theme.Refresh() end
+	end
+	ns.RegisterEvent("PLAYER_ENTERING_WORLD", moved)
+	ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", moved)
 end
 
 -- Settings from before colour schemes: a stored accent equal to Polestar
@@ -2781,9 +2822,7 @@ ns.ThemeInternal = {
 	DEFAULT_ACCENT = DEFAULT_ACCENT,
 	FAILED = FAILED,
 	FAMILIES = FAMILIES,
-	GAME_SKINS = GAME_SKINS,
 	HOUSE_EXTRA = HOUSE_EXTRA,
-	METRICS = METRICS,
 	RIVALS = RIVALS,
 	ROLES = ROLES,
 	SCHEMES = SCHEMES,
@@ -2813,5 +2852,8 @@ ns.ThemeInternal = {
 	switchSkin = switchSkin,
 	type = type,
 	batch = batch,
+	field = field,
+	variantOf = variantOf,
+	previewing = previewing,
 	provide = function(tokens, font) readTokens, readFont = tokens, font end,
 }

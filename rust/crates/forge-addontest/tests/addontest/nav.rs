@@ -413,6 +413,31 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 	assert_eq!(out["looks"], json!(["hearth", "hearth", "hearth"]), "the game's looks take Hearth's gold dart");
 }
 
+// Skin API 2: a skin's own dart and its edge (media.dart, media.dartEdge) stand in for Polestar's in the skin
+// arrow styles, tinted like the house dart (never Hearth's baked gold, which is Polestar's own picture); the next
+// skin's dart is Polestar's again.
+#[test]
+fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gold() {
+	let out = run_themed(
+		r#"
+		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
+		local function tex(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
+		local ok, why = Polestar.Theme.RegisterSkin("darts", { name = "Darts", addon = "Test", base = "hearth",
+			media = { dart = "Interface\\AddOns\\Test\\my-dart", dartEdge = "Interface\\AddOns\\Test\\my-edge" } })
+		target(300, 400)
+		stub.advance(0.2)
+		Polestar.Set("ui.skin", "darts")
+		nav.place(300, 0)
+		stub.advance(0.2)
+		local far = { ok = ok, style = A.GetStyle(), tex = tex(A.dart), edge = tex(A.dartEdge), white = table.concat(rgb(A.dart), ",") == "1,1,1" }
+		Polestar.Set("ui.skin", "hearth")
+		stub.advance(0.2)
+		emit({ far = far, back = { tex = tex(A.dart), edge = tex(A.dartEdge) } })"#,
+	);
+	assert_eq!(out["far"], json!({ "ok": true, "style": "hearth", "tex": "my-dart", "edge": "my-edge", "white": false }));
+	assert_eq!(out["back"], json!({ "tex": "dart-gold", "edge": "dart-edge" }));
+}
+
 #[test]
 fn chosen_arrow_colours_far_and_near_both_styles_and_the_arrival_ring_the_target_pin_follows_dark_picks_stay_legible() {
 	let out = run_themed(

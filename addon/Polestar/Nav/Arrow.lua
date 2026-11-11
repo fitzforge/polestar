@@ -323,6 +323,16 @@ local function dialShowArrow(d, on, lk)
 	d.dartEdge:SetShown(own)
 end
 
+-- The skin in use's own dart and its edge (media.dart, media.dartEdge:
+-- Skin API 2), read on each change of theme (OnTheme); nil for Polestar's.
+local skinDart, skinDartEdge
+local function readSkinDart()
+	local Theme = ns.Theme
+	local media = Theme and Theme.SkinMedia
+	skinDart = media and media("dart") or nil
+	skinDartEdge = media and media("dartEdge") or nil
+end
+
 local function dialTint(d, r, g, b, lk)
 	d.body:SetVertexColor(r, g, b, 1)
 	d.glow:SetVertexColor(r, g, b, min(1, 0.45 * lk.glowStrength))
@@ -330,11 +340,21 @@ local function dialTint(d, r, g, b, lk)
 	local s = d.style
 	if isSkin(s) then
 		-- Hearth's far dart is its baked gold, unless the player picked
-		-- their own arrow colour; up close (and Halo's always) it is tinted.
+		-- their own arrow colour or the skin brings its own dart; up close
+		-- (and Halo's always) it is tinted.
 		local own = type(ns.Get("nav.arrowColor")) == "table"
-		local gold = s == "hearth" and not d.near and not own
-		d.dart:SetTexture(UI_DIR .. (gold and "dart-gold" or "dart"))
+		local gold = s == "hearth" and not d.near and not own and not skinDart
+		local tex = skinDart or (UI_DIR .. (gold and "dart-gold" or "dart"))
+		if d.dartTex ~= tex then
+			d.dartTex = tex
+			d.dart:SetTexture(tex)
+		end
 		if gold then d.dart:SetVertexColor(1, 1, 1, 1) else d.dart:SetVertexColor(r, g, b, 1) end
+		local edge = skinDartEdge or (UI_DIR .. "dart-edge")
+		if d.dartEdgeTex ~= edge then
+			d.dartEdgeTex = edge
+			d.dartEdge:SetTexture(edge)
+		end
 		local e = EDGE[s == "halo" and (d.near and "haloNear" or "halo") or "hearth"]
 		d.dartEdge:SetVertexColor(e[1], e[2], e[3], 1)
 	end
@@ -1076,6 +1096,7 @@ Arrow.SyncTimer = syncTimer
 ns.On("QUEST_TIMER", syncTimer)
 
 function Arrow:OnTheme()
+	readSkinDart()
 	applyStyle(Arrow.StyleFor(ns.Get("nav.arrowStyle")))
 	readLook(look)
 	dialText(D, look)
