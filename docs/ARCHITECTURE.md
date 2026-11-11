@@ -3120,6 +3120,12 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   distance to a waypoint on another continent and hides itself there, so on
   the way to one Polestar's own arrow and its route guide (#1325), and give
   way to TomTom's on arriving (`ZONE_CHANGED_NEW_AREA`, `Nav.Refresh`).
+  While it guides a route, the waypoint is the current leg's stop
+  (`Travel.Stop`: a flight master, a dock, a portal), moved on at every
+  `ROUTE_CHANGED` and `ROUTE_ADVANCED` (an unchanged stop is not sent again),
+  and the target once the last walk begins: from Booty Bay to Grom'gol with
+  the flight known, Booty Bay's flight master, not the far target up the
+  coast (#1834). As a mirror only (TomTom's arrow off) it stays on the target.
 - **`/way`** (with `nav.answerTomTom`): claimed at login (`SLASH_POLESTARWAY1`)
   only when TomTom is not loaded and no `SLASH_*` global spells `/way`.
   `/way [#mapID | zone] x y [title]`: the zone is any name under the player's
