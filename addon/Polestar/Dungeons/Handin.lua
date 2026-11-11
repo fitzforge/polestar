@@ -20,22 +20,28 @@
 --       still open), inside (done, turned in inside the dungeon), unplaced
 --       (done, nowhere known). No follow-up search: the Dungeons page asks
 --       for the plan on every render.
---   Dungeons.HandinFollowUps(plan) -> { { rec, giver, after = { questId, ... } } }
+--   Dungeons.HandinFollowUps(plan) -> { { rec, giver, after = { questId, ... }, ender } }
 --       the quests the `hand` quests open (Codex.FollowUps: every `pre`
 --       done or handed in here, and one of `preAny` when it has any) that
 --       this character can take (Lookup.QuestBlock: faction, race, class,
 --       level), not done or in the log, from a giver (NPC or object) that is
 --       the one a quest of `after` is turned in to or within NEAR seconds of
---       it (ns.TravelCost)
+--       it (ns.TravelCost); ender: where a delivery (no objectives) among
+--       them is turned in, this character's side's, on the giver's continent
+--       (Earthen Echo, #1748)
 --   Dungeons.HandinGuide(key) -> def | nil, reason   -- "nothing" when no quest can be handed in
 --   Dungeons.HandIn(key) -> guideId | nil, reason    -- builds, registers and opens it
 --   Dungeons.HandinText(plan) -> text                -- why nothing can be handed in, one line
+--   Dungeons.HandinStale(key, guide) -> bool         -- a quest the plan hands in now that no
+--       turn-in of `guide` does; the hand-in guide in the active tab is rebuilt in its tab then
+--       (on QUEST_ACCEPTED, QUEST_LOG_UPDATE and a tab change, half a second later)
 --
 -- Route: one stop per place a quest is turned in (every quest turned in
 -- there, then the follow-ups that place gives once what they wait on is
 -- turned in there), one per NPC a quest's talk line is at (before the
--- place it is turned in), and one per other giver of follow-ups (after the
--- turn-ins they wait on), in the order of Dungeons.OrderStops from where the
+-- place it is turned in), one per other giver of follow-ups (after the
+-- turn-ins they wait on), and one per follow-up delivery's ender (after the
+-- stop that gives it), in the order of Dungeons.OrderStops from where the
 -- player stands, with no fixed end (kept per character as
 -- CharState().dungeonHandin[key]). Stops at the same NPC in a row are one
 -- step. The last step lists the quests not handed in as notes.
@@ -62,6 +68,10 @@ local function endPoint(e)
 end
 
 local function pointKey(p) return p.kind .. p.id end
+
+local function continentOf(pt)
+	return pt and pt.map and (ns.Compat.MapToWorld(pt.map, pt.x, pt.y, pt.f)) or nil
+end
 
 -- Its objectives done: the client says so, or the quest has none (a
 -- delivery), which some clients never flag complete.
@@ -166,7 +176,15 @@ function Dungeons.HandinFollowUps(plan)
 						near = near or (t ~= nil and t <= NEAR)
 					end
 				end
-				if near then out[#out + 1] = { rec = f, giver = giver, after = after } end
+				if near then
+					-- A delivery (no objectives: Earthen Echo, from Bashana to Muln
+					-- Earthfury, #1748) is handed in on the same route, when its
+					-- ender is on the giver's continent (no trip across the sea).
+					local e = #(f.objectives or {}) == 0 and Lk.QuestEnd(f["end"], giver, p) or nil
+					local ender = e and not e.hostile and endPoint(e) or nil
+					if ender and continentOf(ender) ~= continentOf(giver) then ender = nil end
+					out[#out + 1] = { rec = f, giver = giver, after = after, ender = ender }
+				end
 			end
 		end
 	end
@@ -189,7 +207,8 @@ end
 -- plan, follow-ups -> stops: one per place a quest is turned in, the
 -- follow-ups its NPC gives once what they wait on is turned in there, after
 -- the stops at the NPCs its quests' talk lines are at; one per other giver
--- and set of turn-ins its follow-ups wait on.
+-- and set of turn-ins its follow-ups wait on; one per follow-up delivery's
+-- ender, after the stop that gives it.
 local function stopsOf(plan, follow)
 	local stops, byKey = {}, {}
 	local function add(s)
@@ -240,6 +259,13 @@ local function stopsOf(plan, follow)
 				deps = deps, talks = {}, turnins = {}, accepts = {} })
 		end
 		s.accepts[#s.accepts + 1] = f
+		-- A delivery taken here is handed in after it, at its ender.
+		if f.ender then
+			local k = "d" .. pointKey(f.ender) .. "<" .. s.key
+			local d = stops[byKey[k] or 0] or add({ key = k, npcKey = pointKey(f.ender), at = f.ender, inP = f.ender, outP = f.ender,
+				deps = { byKey[s.key] }, talks = {}, turnins = {}, accepts = {} })
+			d.turnins[#d.turnins + 1] = { quest = f.rec, rec = f.rec }
+		end
 	end
 	return stops
 end
@@ -351,6 +377,48 @@ function Dungeons.HandIn(key)
 	end
 	return gid
 end
+
+-- The hand-in guide in the active tab keeps up with the log (#1748): a page
+-- quest that becomes ready to hand in after the guide was built (Earthen
+-- Echo, taken from Bashana in Thunder Bluff once the guide was open; one
+-- finished later that the guide listed as not finished yet) and that none of
+-- its turn-ins hands in rebuilds it in its tab, so the guide is not "complete"
+-- with a quest still to hand in.
+local function openKey()
+	local E = ns.Engine
+	local g = E and E.GetGuide and E.GetGuide()
+	local id = g and g.id
+	return type(id) == "string" and id:match("^lookup/" .. KIND .. "/(.+)$") or nil, g
+end
+
+function Dungeons.HandinStale(key, guide)
+	local have = {}
+	for _, s in ipairs(type(guide) == "table" and guide.steps or {}) do
+		for _, g in ipairs(s.goals or {}) do
+			if g.t == "turnin" and g.quest then have[g.quest] = true end
+		end
+	end
+	local plan = Dungeons.HandinPlan(key)
+	for _, h in ipairs(plan and plan.hand or {}) do
+		if not have[h.quest.id] then return true end
+	end
+	return false
+end
+
+local pending = false
+local function keepUp()
+	pending = false
+	local key, guide = openKey()
+	if key and Dungeons.IsEnabled() and Dungeons.HandinStale(key, guide) then LK().Guide(KIND, key) end
+end
+local function soon()
+	if pending then return end
+	pending = true
+	ns.After(0.5, keepUp)
+end
+ns.RegisterEvent("QUEST_ACCEPTED", soon)
+ns.RegisterEvent("QUEST_LOG_UPDATE", soon)
+ns.On("GUIDE_CHANGED", soon)
 
 -- The handin kind builds only while Dungeons is on.
 if ns.Lookup and ns.Lookup.RegisterPlanner then

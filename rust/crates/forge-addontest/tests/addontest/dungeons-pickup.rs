@@ -491,13 +491,17 @@ emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
 	let open = run(&own, &script, Opts { at: Some(BARRENS), log: vec![1013, 90600, 90601], ..Default::default() }).remove(0);
 	assert_eq!(open["hand"], json!([90600]), "the shard is handed in though its talk line is open");
 	assert_eq!(open["unfinished"], json!([90601]), "a kill left outside is still unfinished");
-	assert_eq!(open["steps"], json!(["Sputtervalve talk:90600", "Falla Sagewind turnin:90600 accept:90602"]), "Sputtervalve first, then Falla Sagewind for the hand-in and the follow-up");
+	assert_eq!(
+		open["steps"],
+		json!(["Sputtervalve talk:90600", "Falla Sagewind turnin:90600 accept:90602 turnin:90602"]),
+		"Sputtervalve first, then Falla Sagewind for the hand-in and the follow-up, a delivery to her handed in on the spot (#1748)"
+	);
 	assert_eq!(open["talk"], json!({ "npc": 9030, "name": "Sputtervalve", "oi": 1, "map": 1413, "x": 62, "y": 37 }), "the talk goal is counted by the quest's first line, the arrow on Sputtervalve");
 
 	// Spoken to already: the line is done and the quest ready, so the guide goes straight to Falla Sagewind.
 	let ready = run(&own, &script, Opts { at: Some(BARRENS), ready: vec![90600], ..Default::default() }).remove(0);
 	assert_eq!(ready["hand"], json!([90600]));
-	assert_eq!(ready["steps"], json!(["Falla Sagewind turnin:90600 accept:90602"]), "no talk left");
+	assert_eq!(ready["steps"], json!(["Falla Sagewind turnin:90600 accept:90602 turnin:90602"]), "no talk left");
 }
 
 #[test]
@@ -1662,7 +1666,7 @@ emit({ hand = ids(plan.hand, function(h) return h.quest.id end), ender = { plan.
 	assert_eq!(out["unfinished"], json!([1013]));
 	assert_eq!(out["follow"], json!([1016]), "Return to Dalar, given by the NPC Arugal Must Die is turned in to");
 	assert_eq!(out["title"], "Shadowfang Keep: hand in the quests");
-	assert_eq!(out["steps"], json!([{ "title": "Dalar Dawnweaver", "goals": "turnin:1014 accept:1016 note" }]));
+	assert_eq!(out["steps"], json!([{ "title": "Dalar Dawnweaver", "goals": "turnin:1014 accept:1016 turnin:1016 note" }]), "Return to Dalar asks nothing: handed in on the spot (#1748)");
 	assert_eq!(out["note"], "Not finished yet: “The Book of Ur”");
 	assert_eq!(out["turnin"], json!(["Dalar Dawnweaver", 1421, 44.2]));
 }
@@ -1691,12 +1695,20 @@ emit(describe(D.HandinGuide("{KEY}")))"#),
 	);
 	let (barrens, near, far, low, both) = (&r[0], &r[1], &r[2], &r[3], &r[4]);
 	assert_eq!(*barrens, json!([1016]), "nearness is measured from the turn-in, not from where the player stands");
-	assert_eq!(*near, json!([{ "title": "Dalar Dawnweaver", "goals": "turnin:1014" }, { "title": "High Executor Hadrec", "goals": "accept:1016 note" }]));
+	assert_eq!(
+		*near,
+		json!([
+			{ "title": "Dalar Dawnweaver", "goals": "turnin:1014" },
+			{ "title": "High Executor Hadrec", "goals": "accept:1016" },
+			{ "title": "Dalar Dawnweaver", "goals": "turnin:1016 note" },
+		]),
+		"a delivery taken next door goes back to its ender (#1748)"
+	);
 	assert_eq!(*far, 0);
 	assert_eq!(*low, 0, "Return to Dalar needs level 18");
 	let mut goals: Vec<&str> = both.as_array().unwrap().iter().map(|s| text(&s["goals"])).collect();
 	goals.sort();
-	assert_eq!(goals, vec!["turnin:1013", "turnin:1014 accept:1016"]);
+	assert_eq!(goals, vec!["turnin:1013", "turnin:1014 accept:1016 turnin:1016"]);
 }
 
 #[test]
@@ -2010,4 +2022,44 @@ emit({ steps = describe(def), notes = notes, groups = groups, view = { note = v.
 	assert_eq!(elite["groups"]["90602"], false, "an ordinary wolf's claw needs no group");
 	assert_eq!(elite["view"]["party"], json!({ "kind": "elite", "rank": 1, "lvl": 13 }), "the engine's view carries it: \"Elite: group advised\"");
 	assert_eq!(elite["notes"][0], "Needed for “Arugal Must Die”.");
+}
+
+// #1748 (fekz, Tauren Druid 34): Excavation Site: Wetlands' hand-in guide took Earthen Echo from Bashana
+// Runetotem in Thunder Bluff, a delivery to Muln Earthfury in Mulgore, then said it was complete after Borstan:
+// nothing handed Earthen Echo in, and a quest of the page that became ready after the guide was built was never
+// added. A delivery taken on the route is now handed in at its ender when that is on the giver's continent, and
+// the hand-in guide in the active tab is rebuilt in its tab when a page quest becomes ready that none of its
+// turn-ins hands in. Here Return to Dalar (1016, no objectives) is the delivery; The Book of Ur (1013) is
+// finished after the guide is open.
+#[test]
+fn a_delivery_taken_on_the_route_is_handed_in_and_a_quest_finished_later_joins_the_open_hand_in_guide_1748() {
+	let pack = default_pack();
+	let out = run(
+		&pack,
+		&k(r#"
+local function guideSteps() return describe(Polestar.Engine.GetGuide()) end
+local id = D.HandIn("{KEY}")
+local before = guideSteps()
+stub.world.finish(1013)
+stub.advance(1)
+local after = guideSteps()
+local same = Polestar.Engine.GetGuide().id
+-- Return to Dalar handed in to Doan Karhan, in the Barrens: across the sea from Dalar, taken only.
+local dalar = Polestar.Codex.Quest(1016)
+dalar["end"].npc = { 6247 }
+emit({ id = id, before = before, after = after, same = same, tabs = tabIds(), far = describe(D.HandinGuide("{KEY}")),
+	stale = D.HandinStale("{KEY}", Polestar.Engine.GetGuide()) })"#),
+		after_run(),
+	)
+	.remove(0);
+	assert_eq!(out["id"], "lookup/handin/shadowfang-keep");
+	assert_eq!(out["before"], json!([{ "title": "Dalar Dawnweaver", "goals": "turnin:1014 accept:1016 turnin:1016 note" }]), "the delivery is handed in where it is taken");
+	let mut after: Vec<&str> = out["after"].as_array().unwrap().iter().map(|s| text(&s["goals"])).collect();
+	after.sort();
+	assert_eq!(after, vec!["turnin:1013", "turnin:1014 accept:1016 turnin:1016"], "The Book of Ur, finished later, joins the open guide");
+	assert_eq!(out["same"], "lookup/handin/shadowfang-keep");
+	assert_eq!(out["tabs"], json!(["lookup/handin/shadowfang-keep"]), "rebuilt in its own tab");
+	let far: Vec<&str> = out["far"].as_array().unwrap().iter().map(|s| text(&s["goals"])).collect();
+	assert!(far.iter().any(|g| g.contains("accept:1016")) && !far.iter().any(|g| g.contains("turnin:1016")), "no trip across the sea: {far:?}");
+	assert_eq!(out["stale"], false, "up to date: nothing to rebuild");
 }
