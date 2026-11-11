@@ -220,7 +220,7 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 		table.sort(keys)
 		out.page, out.controls, out.keys, out.sections, out.infos, out.long = page, n, table.concat(keys, " "), sections, infos, long
 		emit(out)"#);
-	assert_eq!(out["height"], json!(168));
+	assert_eq!(out["height"], json!(176), "the stage, its chrome's row (Preview, Live, the backdrop) over the dials");
 	assert_eq!(out["states"], json!([true, true, true, false]), "3D on its way and closing in, the ring on arrival");
 	assert_eq!(out["texts"], json!(["420 yd", "Arrived"]));
 	assert_eq!(out["liveDial"], true, "the preview builds its own dials");
