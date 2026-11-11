@@ -1257,5 +1257,449 @@
 			}
 		],
 		"note": "Lady Jaina Proudmoore stands in Theramore's tower (the merged data's only spawn) and beside North Point Tower, where players hand her The Missing Diplomat (1267); Forever's NPC page lists both. Without the second spot the guide's hand-in there drew a lint warning."
+	},
+	"13418": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13418, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13418 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13418 (rec.py npc 13418)"
+			}
+		],
+		"note": "Kaymard Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13420": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13420, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13420 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13420 (rec.py npc 13420)"
+			}
+		],
+		"note": "Penney Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13429": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13429, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13429 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13429 (rec.py npc 13429)"
+			}
+		],
+		"note": "Nardstrum Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13430": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13430, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13430 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13430 (rec.py npc 13430)"
+			}
+		],
+		"note": "Jaycrue Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13432": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13432, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13432 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13432 (rec.py npc 13432)"
+			}
+		],
+		"note": "Seersa Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13433": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13433, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13433 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13433 (rec.py npc 13433)"
+			}
+		],
+		"note": "Wulmort Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13434": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13434, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13434 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13434 (rec.py npc 13434)"
+			}
+		],
+		"note": "Macey Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13435": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13435, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13435 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13435 (rec.py npc 13435)"
+			}
+		],
+		"note": "Khole Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13436": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13436, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13436 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13436 (rec.py npc 13436)"
+			}
+		],
+		"note": "Guchie Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"14480": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 14480, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 14480 belongs to the world event 'Children's Week' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 14480 (rec.py npc 14480)"
+			}
+		],
+		"note": "Alowicious Czervik is a Children's Week vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"14481": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 14481, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 14481 belongs to the world event 'Children's Week' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 14481 (rec.py npc 14481)"
+			}
+		],
+		"note": "Emmithue Smails is a Children's Week vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15011": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15011, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15011 belongs to the world event 'Harvest Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15011 (rec.py npc 15011)"
+			}
+		],
+		"note": "Wagner Hammerstrike is a Harvest Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15012": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15012, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15012 belongs to the world event 'Harvest Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15012 (rec.py npc 15012)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1735: nobody at Durotar 46.1,13.8, the data's spot"
+			}
+		],
+		"note": "Javnir Nashak is a Harvest Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15197": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15197, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15197 belongs to the world event 'Hallow's End' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15197 (rec.py npc 15197)"
+			}
+		],
+		"note": "Darkcaller Yanka is a Hallow's End vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15199": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15199, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15199 belongs to the world event 'Hallow's End' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15199 (rec.py npc 15199)"
+			}
+		],
+		"note": "Sergeant Hartman is a Hallow's End vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15353": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15353, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15353 belongs to the world event 'Hallow's End' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15353 (rec.py npc 15353)"
+			}
+		],
+		"note": "Katrina Shimmerstar is a Hallow's End vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15354": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15354, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15354 belongs to the world event 'Hallow's End' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15354 (rec.py npc 15354)"
+			}
+		],
+		"note": "Rachelle Gothena is a Hallow's End vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15734": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15734, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15734 belongs to the world event 'AQ War Effort Phase 1 Item collection' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15734 (rec.py npc 15734)"
+			}
+		],
+		"note": "Ironforge Commendation Officer is a AQ War Effort Phase 1 Item collection vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15736": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15736, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15736 belongs to the world event 'AQ War Effort Phase 1 Item collection' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15736 (rec.py npc 15736)"
+			}
+		],
+		"note": "Orgrimmar Commendation Officer is a AQ War Effort Phase 1 Item collection vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15864": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15864, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15864 belongs to the world event 'Lunar Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15864 (rec.py npc 15864)"
+			}
+		],
+		"note": "Valadar Starsong is a Lunar Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15898": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15898, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15898 belongs to the world event 'Lunar Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15898 (rec.py npc 15898)"
+			}
+		],
+		"note": "Lunar Festival Vendor is a Lunar Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15909": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15909, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15909 belongs to the world event 'Lunar Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15909 (rec.py npc 15909)"
+			}
+		],
+		"note": "Fariel Starsong is a Lunar Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
 	}
 }
