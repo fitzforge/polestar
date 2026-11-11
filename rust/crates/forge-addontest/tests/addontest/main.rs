@@ -336,6 +336,8 @@ mod release;
 mod riding;
 #[path = "route-plan.rs"]
 mod route_plan;
+#[path = "settings-coverage.rs"]
+mod settings_coverage;
 #[path = "settings-essentials.rs"]
 mod settings_essentials;
 #[path = "settings-migration.rs"]
