@@ -9693,6 +9693,8 @@ end
 -- from this NPC to its hand-in fits LIMIT_SHARE of its time
 -- (Own.aheadLimitOk). An escort (`escort`) is never one: it starts walking
 -- when taken, so only its own step takes it, with its warning (#1618).
+-- Some pickups also belong on their own step because the approach is part
+-- of the route (Own.STEP_PICKUPS).
 -- Only the loaded guide's steps, never another tab's or the next guide's.
 --
 -- A While-you're-here hand-in whose NPC the route comes back to after
@@ -9708,6 +9710,12 @@ Own.AHEAD = 5 -- the route's next steps: their lines rank first ("near"), a time
 Own.LOG_SPARE = 2 -- quest log slots an accept ahead leaves free
 Own.LIMIT_SHARE = 0.6 -- a timed quest taken ahead: the walk on to its hand-in within this share of its time
 Own.GOAL_SECONDS = 10 -- seconds each open goal on that walk costs besides the walking (a talk, a click)
+
+Own.STEP_PICKUPS = {
+	[78307] = true, -- The Horn of Xelthos payment: check C's follow-up letter before returning to the Dead Drop.
+	[78699] = true, -- The Eye of Bhossca payment: same Dead Drop and follow-up letter.
+	[98223] = true, -- Old Habits: the book is at Nek'rosh, beyond the catapult that starts his kill quest.
+}
 
 -- Quests the log may still take, keeping LOG_SPARE free.
 function Own.logRoom()
@@ -9777,10 +9785,27 @@ function Own.aheadOk(i, j, a, ready, near)
 	-- An escort (compiled `escort`) starts walking the moment it is taken:
 	-- never ahead of its own step, which carries the warning (#1618).
 	if a.escort then return false, "escort" end
+	if Own.STEP_PICKUPS[q] then return false, "pickup belongs on its own step" end
 	local u = unavailableFor(a)
 	if u then return false, "unavailable (" .. tostring(u.reason) .. ")" end
 	if ready then
 		local function met(p) return questDone(p) or ready[p] end
+		-- Route planning can count a parent still to come. A pickup now needs
+		-- it in the log, and a combined visit must not hand it in first.
+		local parent = tonumber(a.parent)
+		if parent and (not C.IsOnQuest(parent) or ready[parent]) then return false, "needs active quest " .. parent end
+		-- A single object may take a quest and then offer the follow-up,
+		-- even when the data lacks that link (the Syndicate Footlocker).
+		if a.object and not (parent or a.pre or a.preAll) then
+			local goals = guide.steps[i].goals
+			for n = 1, j - 1 do
+				local before = goals[n]
+				if before.t == "turnin" and before.object == a.object and not before.optional
+					and Guides.Matches(before.only, player) and not met(before.quest) then
+					return false, "hand in " .. before.quest .. " first"
+				end
+			end
+		end
 		if type(a.preAll) == "table" then
 			for _, p in ipairs(a.preAll) do
 				if not met(p) then return false, "needs " .. p end
