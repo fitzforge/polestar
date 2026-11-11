@@ -7049,7 +7049,10 @@ words them (`UI.GroupName`, `UI.GoalLine`, `UI.ReadingGoal`), a first goal the
 title already says left out, six lines at most then "+N more". A finished step
 other than the one on screen is its header alone. A click on a card looks at
 that step (`GF.LookAt`, so nothing is un-skipped). On opening the step on
-screen (else the live one) scrolls to the top.
+screen (else the live one) scrolls to the top. In a profession guide each
+skill range (`section`, the view's `section` from `Engine.GetSection`) is a
+heading over the first card under it, the range the player's skill is in
+(`state` "current") in the accent colour, the others muted.
 
 ### Journey panel
 
