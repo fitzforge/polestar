@@ -799,6 +799,9 @@ L["Not enough money to buy %d %s (%s)."] = "Не хватает денег на 
 L["Bought %d %s for %s."] = "Куплено: %d %s за %s."
 
 -- QoL/Trainer.lua
+L["Train All"] = "Изучить всё"
+L["Train %d skill for %s"] = "Изучить %d навык за %s"
+L["Train %d skills for %s"] = "Изучить навыки (%d) за %s"
 L["Learned %d spell for %s."] = "Изучено заклинаний: %d за %s."
 L["Learned %d spells for %s."] = "Изучено заклинаний: %d за %s."
 L["Not enough money for %d more (%s)."] = "Не хватает денег еще на %d (%s)."
@@ -912,8 +915,10 @@ L["When your guild rank may, the guild bank pays for repairs and your money cove
 L["Buy for the guide"] = "Покупать для гайда"
 L["When the step asks you to buy something and the merchant sells it, buys what you still need after selling and repairing. Optional buys and anything over 50g are left to you. Hold Shift to skip."] = "Если шаг велит что-то купить, а торговец это продает, покупает недостающее после продажи и ремонта. Необязательные покупки и все дороже 50з остаются на вас. Удерживайте Shift, чтобы пропустить."
 L["Trainers"] = "Учителя"
-L["Learn new spells"] = "Изучать новые заклинания"
-L["Learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Изучает у учителя классовых навыков все доступные по деньгам заклинания и выводит сумму. Учителей профессий не трогает. Удерживайте Shift, чтобы пропустить."
+L["Train all button"] = "Кнопка «Изучить всё»"
+L["Adds a Train All button to the trainer window to learn all available skills."] = "Добавляет в окно учителя кнопку «Изучить всё» для изучения всех доступных навыков."
+L["Auto-learn new spells"] = "Автоматически изучать новые заклинания"
+L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Автоматически изучает у учителя классовых навыков все заклинания, на которые хватает денег, и выводит итоговую сумму. У учителей профессий эта функция не срабатывает. Удерживайте Shift, чтобы пропустить."
 L["Experience"] = "Опыт"
 L["XP tracker"] = "Счетчик опыта"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "Опыт в час, время, убийства и задания до уровня, а также время по уровням (/pole xp)."

@@ -4084,7 +4084,7 @@ local function goalText(goal, verb, subject, detail, kind, noBar)
 	if counted then
 		return verb .. " " .. goal.count .. " " .. tostring(subject), src
 	end
-	return verb .. " " .. tostring(subject), src
+	return ("%s %s"):format(verb, tostring(subject)), src
 end
 
 -- Quest work a later guide of the chain hands in (the compiled `carriedTo`,

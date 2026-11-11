@@ -31,10 +31,13 @@ QoL.Trainer = Trainer
 local LAND_WAIT = 2
 
 local active = false
+local auto = false
 local bought = {}         -- "name\0rank" of the spells bought this visit
 local pending, pendingCost -- the purchase that has not landed yet
 local learned, spent = 0, 0
 local purchases = 0       -- which purchase a LAND_WAIT timer belongs to
+local trainerButton
+local updateTrainerButton
 
 local function keyOf(name, rank) return name and (name .. "\0" .. (rank or "")) end
 
@@ -45,6 +48,14 @@ local function stillAvailable(key)
 		if kind == "available" and keyOf(name, rank) == key then return true end
 	end
 	return false
+end
+
+local function isClassTrainer()
+	if not (GetNumTrainerServices and GetTrainerServiceInfo and GetTrainerServiceCost and BuyTrainerService) then return false end
+	if IsTradeskillTrainer and IsTradeskillTrainer() then return false end
+	if ClassTrainerFrame and ClassTrainerFrame.trainingPoints and ClassTrainerFrame.trainingPoints:IsShown() then return false end
+	local E = ns.Engine
+	return not not (E and E.IsClassTrainer and E.IsClassTrainer(ns.Compat.GetNpcID("npc")))
 end
 
 -- The first service that can be learned now and that `money` covers:
@@ -70,12 +81,14 @@ end
 local function finish(short, shortCost)
 	if not active then return end
 	active = false
+	auto = false
 	if learned > 0 then
 		ns.Print(format(learned == 1 and L["Learned %d spell for %s."] or L["Learned %d spells for %s."], learned, QoL.Money(spent)))
 	end
 	if short and short > 0 then
 		ns.Print(format(L["Not enough money for %d more (%s)."], short, QoL.Money(shortCost)))
 	end
+	if updateTrainerButton then updateTrainerButton() end
 end
 
 local function cancel()
@@ -91,7 +104,7 @@ end
 
 local function buyNext()
 	if not active then return end
-	if not QoL.On("trainAll") or QoL.Shift() then cancel(); return end
+	if QoL.Shift() then cancel(); return end
 	if pending then
 		if stillAvailable(pending) then return end
 		learned, spent = learned + 1, spent + pendingCost
@@ -114,16 +127,85 @@ local function buyNext()
 	end
 end
 
+function Trainer.Start(fromAuto)
+	if active then return end
+	if not isClassTrainer() then return end
+	active = true
+	auto = not not fromAuto
+	if updateTrainerButton then updateTrainerButton() end
+	buyNext()
+end
+
+updateTrainerButton = function()
+	if not trainerButton or not ClassTrainerFrame then return end
+	if not QoL.On("trainAllButton") or not isClassTrainer() then
+		trainerButton:Hide()
+		return
+	end
+	trainerButton:Show()
+	local availableCount = 0
+	for i = 1, (GetNumTrainerServices and GetNumTrainerServices() or 0) do
+		local _, kind = GetTrainerServiceInfo(i)
+		if kind == "available" then
+			availableCount = availableCount + 1
+		end
+	end
+	trainerButton:SetEnabled(availableCount > 0 and not active)
+end
+
+local function initTrainerButton()
+	if not ClassTrainerFrame or trainerButton then return end
+	local btn = ns.CreateFrameUnder("Button", "PolestarTrainAllButton", ClassTrainerFrame, "UIPanelButtonTemplate")
+	btn:SetSize(80, 22)
+	if ClassTrainerTrainButton then
+		btn:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -2, 0)
+	else
+		btn:SetPoint("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT", -120, 54)
+	end
+	btn:SetText(L["Train All"])
+
+	btn:SetScript("OnEnter", function(self)
+		local count, cost = 0, 0
+		for i = 1, (GetNumTrainerServices and GetNumTrainerServices() or 0) do
+			local _, kind = GetTrainerServiceInfo(i)
+			if kind == "available" then
+				count = count + 1
+				cost = cost + (GetTrainerServiceCost(i) or 0)
+			end
+		end
+		if count > 0 then
+			GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
+			GameTooltip:ClearLines()
+			GameTooltip:AddLine(format(count == 1 and L["Train %d skill for %s"] or L["Train %d skills for %s"], count, QoL.Money(cost)))
+			GameTooltip:Show()
+		end
+	end)
+
+	btn:SetScript("OnLeave", function()
+		if GameTooltip then GameTooltip:Hide() end
+	end)
+
+	btn:SetScript("OnClick", function()
+		if not active then
+			Trainer.Start()
+		end
+	end)
+
+	if hooksecurefunc and ClassTrainerFrame_Update then
+		hooksecurefunc("ClassTrainerFrame_Update", updateTrainerButton)
+	end
+
+	trainerButton = btn
+	updateTrainerButton()
+end
+
 function Trainer.OnShow()
-	active, learned, spent, pending = false, 0, 0, nil
+	initTrainerButton()
+	updateTrainerButton()
+	active, learned, spent, pending, auto = false, 0, 0, nil, false
 	wipe(bought)
 	if QoL.Shift() or not QoL.On("trainAll") then return end
-	if not (GetNumTrainerServices and GetTrainerServiceInfo and GetTrainerServiceCost and BuyTrainerService) then return end
-	if IsTradeskillTrainer and IsTradeskillTrainer() then return end
-	local E = ns.Engine
-	if not (E and E.IsClassTrainer and E.IsClassTrainer(ns.Compat.GetNpcID("npc"))) then return end
-	active = true
-	buyNext()
+	Trainer.Start(true)
 end
 
 function Trainer.OnClosed()
@@ -132,12 +214,24 @@ function Trainer.OnClosed()
 		pending = nil
 	end
 	finish()
+	if trainerButton then trainerButton:Hide() end
 end
 
+ns.RegisterEvent("ADDON_LOADED", function(_, name)
+	if name == "Blizzard_TrainerUI" then
+		initTrainerButton()
+	end
+end)
 ns.RegisterEvent("TRAINER_SHOW", Trainer.OnShow)
-ns.RegisterEvent("TRAINER_UPDATE", buyNext)
+ns.RegisterEvent("TRAINER_UPDATE", function()
+	updateTrainerButton()
+	buyNext()
+end)
 ns.RegisterEvent("TRAINER_CLOSED", Trainer.OnClosed)
 ns.RegisterEvent("PLAYER_LOGOUT", cancel)
 ns.On("SETTING_CHANGED", function(path)
-	if (path == "qol.trainAll" or path == "qol" or path == "") and not QoL.On("trainAll") then cancel() end
+	if (path == "qol.trainAll" or path == "qol" or path == "") and not QoL.On("trainAll") and auto then cancel() end
+	if path == "qol.trainAllButton" or path == "qol" or path == "" then updateTrainerButton() end
 end)
+
+initTrainerButton()
