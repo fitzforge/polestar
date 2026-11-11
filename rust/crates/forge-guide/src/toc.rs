@@ -242,6 +242,67 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。",
 		],
 	),
+	// The skins in the download (docs/skins): each an addon of its own, enabled in the AddOns list.
+	(
+		"Polestar_Skin_Vellum",
+		["Polestar-Design: Vellum", "Polestar, tema: Vellum", "Polestar, tema: Vellum", "Polestar, habillage : Vellum", "Polestar 스킨: Vellum", "Polestar, tema: Vellum", "Polestar, оформление: Vellum", "Polestar 皮肤：Vellum", "Polestar 皮膚：Vellum"],
+		[
+			"Ein Pergament-Design für Polestar: der Guide als Seite des Questlogs, dunkle Tinte auf Papier.",
+			"Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel.",
+			"Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel.",
+			"Un habillage parchemin pour Polestar : le guide comme une page du journal de quêtes, encre sombre sur papier.",
+			"Polestar의 양피지 스킨: 퀘스트 일지의 한 페이지처럼, 종이 위의 짙은 잉크.",
+			"Um tema de pergaminho para o Polestar: o guia como uma página do registro de missões, tinta escura sobre papel.",
+			"Пергаментное оформление для Polestar: гайд как страница журнала заданий, тёмные чернила на бумаге.",
+			"Polestar 的羊皮纸皮肤：指南如同任务日志的一页，纸上深色墨迹。",
+			"Polestar 的羊皮紙皮膚：指南如同任務日誌的一頁，紙上深色墨跡。",
+		],
+	),
+	(
+		"Polestar_Skin_Lumen",
+		["Polestar-Design: Lumen", "Polestar, tema: Lumen", "Polestar, tema: Lumen", "Polestar, habillage : Lumen", "Polestar 스킨: Lumen", "Polestar, tema: Lumen", "Polestar, оформление: Lumen", "Polestar 皮肤：Lumen", "Polestar 皮膚：Lumen"],
+		[
+			"Ein Head-up-Design für Polestar: kein Rahmen, Eckmarken und eine cyanfarbene Linie, kompakte Schrift über der Spielwelt.",
+			"Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo.",
+			"Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo.",
+			"Un habillage tête haute pour Polestar : sans cadre, des repères aux coins et une ligne cyan, un texte compact sur le monde.",
+			"Polestar의 HUD 스킨: 테두리 없이 모서리 표시와 청록색 선 하나, 월드 위의 촘촘한 글자.",
+			"Um tema de HUD para o Polestar: sem moldura, marcas nos cantos e uma linha ciano, texto compacto sobre o mundo.",
+			"HUD-оформление для Polestar: без рамки, метки по углам и одна бирюзовая линия, компактный текст поверх мира.",
+			"Polestar 的抬头显示皮肤：无边框，角标和一条青色线，游戏世界上的紧凑文字。",
+			"Polestar 的抬頭顯示皮膚：無邊框，角標與一條青色線，遊戲世界上的緊湊文字。",
+		],
+	),
+	(
+		"Polestar_Skin_Beacon",
+		["Polestar-Design: Beacon", "Polestar, tema: Beacon", "Polestar, tema: Beacon", "Polestar, habillage : Beacon", "Polestar 스킨: Beacon", "Polestar, tema: Beacon", "Polestar, оформление: Beacon", "Polestar 皮肤：Beacon", "Polestar 皮膚：Beacon"],
+		[
+			"Ein kontrastreiches Design für Polestar: schwarze Flächen, größere weiße Schrift, gelber Akzent, kräftige Ränder, größere Markierungen und Pfeil.",
+			"Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes.",
+			"Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes.",
+			"Un habillage à fort contraste pour Polestar : fonds noirs, texte blanc plus grand, accent jaune, bords marqués, repères et flèche plus grands.",
+			"Polestar의 고대비 스킨: 검은 바탕, 한 단계 큰 흰 글자, 노란 강조색, 굵은 테두리, 더 큰 표시와 화살표.",
+			"Um tema de alto contraste para o Polestar: fundos pretos, texto branco maior, destaque amarelo, bordas fortes, marcadores e seta maiores.",
+			"Высококонтрастное оформление для Polestar: чёрный фон, более крупный белый текст, жёлтый акцент, чёткие края, крупнее метки и стрелка.",
+			"Polestar 的高对比度皮肤：黑色底面，更大的白色文字，黄色强调色，清晰边框，更大的标记和箭头。",
+			"Polestar 的高對比皮膚：黑色底面，更大的白色文字，黃色強調色，清晰邊框，更大的標記與箭頭。",
+		],
+	),
+	(
+		"Polestar_Skin_Aurora",
+		["Polestar-Design: Aurora", "Polestar, tema: Aurora", "Polestar, tema: Aurora", "Polestar, habillage : Aurora", "Polestar 스킨: Aurora", "Polestar, tema: Aurora", "Polestar, оформление: Aurora", "Polestar 皮肤：Aurora", "Polestar 皮膚：Aurora"],
+		[
+			"Polestars Nachthimmel mit einem Polarlicht im Band: tiefes Indigo, das zum Fuß jedes Fensters dunkler wird, ein türkis-violettes Leuchten unter den Sternen, Champagnergold.",
+			"El cielo nocturno de Polestar con una aurora en la franja: índigo profundo que se oscurece hacia el pie de cada ventana, un brillo turquesa y violeta bajo las estrellas, oro champán.",
+			"El cielo nocturno de Polestar con una aurora en la franja: índigo profundo que se oscurece hacia el pie de cada ventana, un brillo turquesa y violeta bajo las estrellas, oro champán.",
+			"Le ciel nocturne de Polestar avec une aurore dans le bandeau : un indigo profond qui s'assombrit vers le bas de chaque fenêtre, une lueur turquoise et violette sous les étoiles, un or champagne.",
+			"띠에 오로라가 드리운 Polestar의 밤하늘: 창 아래로 갈수록 짙어지는 깊은 남색, 별 아래의 청록빛과 보랏빛, 샴페인 골드.",
+			"O céu noturno do Polestar com uma aurora na faixa: índigo profundo que escurece em direção ao pé de cada janela, um brilho turquesa e violeta sob as estrelas, dourado champanhe.",
+			"Ночное небо Polestar с сиянием в полосе: глубокий индиго, темнеющий к низу каждого окна, бирюзово-фиолетовое свечение под звёздами, золото шампань.",
+			"带有极光的 Polestar 夜空：向窗底渐深的靛蓝底面，星空下的青紫光辉，香槟金。",
+			"帶有極光的 Polestar 夜空：向窗底漸深的靛藍底面，星空下的青紫光輝，香檳金。",
+		],
+	),
 ];
 
 /// The per-language folders: (prefix, [(title, notes)] in LOCALE_CODES order), %1 the locale code, %2 the

@@ -25,7 +25,9 @@ The repository has a complete, commented example,
 [`addon/Polestar_Skin_Example`](../addon/Polestar_Skin_Example) ("Moonlit": a
 scheme and a skin with two variants and a hook on every surface), which is
 never part of a Polestar release. To try it, copy (or symlink) the folder
-into the game's `Interface/AddOns/` next to Polestar.
+into the game's `Interface/AddOns/` next to Polestar. The skins in the
+release are complete examples too: [the skins in the
+download](#more-to-read-the-skins-in-the-download).
 
 ## Quick start
 
@@ -112,6 +114,23 @@ art.
   said once in chat, naming its addon.
 - **Versions and capabilities**: `api`, `API_VERSION`, `HasCapability`, so
   a skin can use a newer feature where it exists and do without elsewhere.
+
+## More to read: the skins in the download
+
+Beside Moonlit, the release carries complete skins, each an addon of its
+own (`addon/Polestar_Skin_<Name>`) that a player turns on in the game's
+AddOns list, and each built only through this API. Each shows one more thing
+the API can do; they are the best place to copy from.
+
+| Skin | What it is | What it shows |
+|---|---|---|
+| **Vellum** (`Polestar_Skin_Vellum`) | A page of the quest log: dark ink on mottled parchment, a sealing-wax accent, the game's font | A **light** skin: every token given (grounds, ladder, all sixteen subject colours as inks) and still held to the legibility floors; a texture of the skin's own (`Media/paper.tga`) tinted at paint time; painters for window, panel, sidebar, inset and editbox; a preset that puts the arrow's words on a plate |
+| **Lumen** (`Polestar_Skin_Lumen`) | Head-up: no frame, a cyan line and a tick at each corner, Fira Sans a size down, the flat arrow | A skin that is mostly a **frame treatment** from Polestar's white texture; a `guide` painter beside `window` (the ticks stay while the window is transparent); `fontSizes` for the whole ladder; a preset that turns the house chrome off |
+| **Beacon** (`Polestar_Skin_Beacon`) | High contrast: black grounds, white Open Sans a size up, a yellow accent, strong edges | A **scheme and a skin from one addon**; washes raised through tokens; a 2-unit focus ring on fields; a preset that grows the arrow, the pins and the route line |
+| **Aurora** (`Polestar_Skin_Aurora`) | Polestar's night a step further: a teal-over-violet aurora in the band, grounds that deepen toward the foot, champagne gold | A skin that **extends** the house style: `kit.gradient` for the ground, the `haze` token for the band's light, nothing else changed |
+
+Their art is drawn in code (`node tools/polestar.js media skin-addons`,
+`tools/media/skin-addons.js`).
 
 ## Rationale, compared with Details!
 

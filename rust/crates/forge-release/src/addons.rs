@@ -9,6 +9,9 @@ pub const RELEASE_ADDONS: [&str; 6] = ["Polestar", "Polestar_Guides", "Polestar_
 pub const CODEX: &str = "Polestar_Codex";
 /// The optional recorder, in a zip of its own.
 pub const RECORDER: &str = "Polestar_Recorder";
+/// The skins in the download (docs/skins), each an addon of its own the player enables in the AddOns list;
+/// shipped when present (all committed). The Skin API's example, Polestar_Skin_Example, never ships.
+pub const SKIN_ADDONS: &[&str] = &["Polestar_Skin_Vellum", "Polestar_Skin_Lumen", "Polestar_Skin_Beacon", "Polestar_Skin_Aurora"];
 
 /// The generated data addons, shipped when built: the quest and item databases, the Codex, then the
 /// language folders `Polestar_<locale>` (our guides' texts and the game's names in each language).
@@ -34,8 +37,8 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
 /// The release's folders: the six always shipped, the walking maps' part addons when written, our guides'
-/// faction parts and race parts once built, then the data addons that are built (our guides' texts are in the
-/// language folders).
+/// faction parts and race parts once built, the data addons that are built (our guides' texts are in the
+/// language folders), then the skin addons.
 pub fn release_addons(addons: &Path) -> Release {
 	let guides = forge_guide::project::OWN_FOLDER;
 	let factions = forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f));
@@ -45,6 +48,7 @@ pub fn release_addons(addons: &Path) -> Release {
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
 	names.extend(data);
+	names.extend(SKIN_ADDONS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	Release { names, skipped }
 }
 
