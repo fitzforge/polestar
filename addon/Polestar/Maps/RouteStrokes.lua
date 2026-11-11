@@ -446,6 +446,8 @@ local function modeOf(path)
 	if kind == "walk" then return lined and "line" or "dots" end
 	-- A flight in the line style: dashed, or (view.dash false) a line as the walk's, in its own colour.
 	if kind == "flight" and lined then return dashFlights and "dash" or "line" end
+	-- The way round a hostile town (RouteLines, nav.dangerLine): dashed in every style.
+	if kind == "danger" then return "dash" end
 	return "solid"
 end
 
