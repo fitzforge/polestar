@@ -72,7 +72,7 @@ generated file, whether it is committed, and the order to rebuild in.
 
 - **Hub**: Polestar's main window: a rail of sections (Guides, Lookup, Dungeons, Rares) with Options at its foot (`UI/Picker.lua`).
 - **Guide menu**: the hub's Guides section, where a player picks a guide.
-- **Guide window**: the small window that shows the current step and its goals while playing (`UI/GuideFrame.lua`).
+- **Guide window**: the small window that shows the current step and its goals while playing (`UI/GuideFrame.lua` and the `UI/GuideFrame*.lua` files beside it).
 - **Guide**: one route, written as a `.guide` file and compiled to Lua; its id reads like `forever/alliance/human/01-elwynn-forest`.
 - **Step**: one stop in a guide: a title, optional conditions and tip, and at least one goal.
 - **Goal**: one thing to do in a step, as a verb and its arguments (`accept 783`, `kill`, `goto`, `turnin`...).

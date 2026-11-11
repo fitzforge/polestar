@@ -5,6 +5,14 @@
 	<Script file="ZoneArtOverlays.lua"/>
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
+	<Script file="GuideFrameTabs.lua"/>
+	<Script file="GuideFrameBanner.lua"/>
+	<Script file="GuideFrameHere.lua"/>
+	<Script file="GuideFrameLayout.lua"/>
+	<Script file="GuideFrameLook.lua"/>
+	<Script file="GuideFrameMenu.lua"/>
+	<Script file="GuideFrameWindow.lua"/>
+	<Script file="GuideFrameStatus.lua"/>
 	<Script file="Launcher.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="WhileHere.lua"/>
