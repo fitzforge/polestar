@@ -38,6 +38,10 @@ return {
 				spots = { { x = 52.0, y = 35.1, r = 15, n = 3 }, { x = 53.0, y = 36.0, r = 10, n = 2 } } } } },
 		} })
 		Polestar.Engine.SetGuide("test/here")
+		-- A friendly flight master by the road at 30,60, its flight path not learned (Nav's travel data, its point on
+		-- the game's frame, as engine-while-here.rs's flight paths have it).
+		Polestar.Nav.RegisterTravelData({ build = "test", taxi = { { 2, 0, -700, 600, 1429, 30, 60, 1, "Brackwell Pumpkin Patch, Elwynn Forest" } } }, true)
+		Polestar.MapFrames.era[1429] = { c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }
 		-- The quests put in the log above, as the client announces a log change.
 		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6)
@@ -57,6 +61,8 @@ return {
 			panel(47.6, 37.6)
 			return chimes() - before
 		end,
+		-- 10 yd from the flight master, far from the guide's own work: its line.
+		["behavior.whileHereFlights"] = function() return panel(30, 60.5) end,
 		-- The toast that says a suggestion while the window is hidden (UI/WhileHere.lua), shown afresh: still there
 		-- 10 s on.
 		["toasts.whilehere.seconds"] = function()

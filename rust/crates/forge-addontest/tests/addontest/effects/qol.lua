@@ -212,6 +212,39 @@ return {
 			M.Set(3, nil)
 			return mark
 		end,
+		-- A class trainer with spells to learn: the Train All button under its window.
+		["qol.trainAllButton"] = function()
+			q.trainer = { tradeskill = false, services = { SPELLS[1], SPELLS[2], SPELLS[3] } }
+			q.openTrainer()
+			stub.advance(0.1)
+			local b = PolestarTrainAllButton
+			local out = b ~= nil and b:IsShown() or false
+			q.closeTrainer()
+			stub.advance(0.1)
+			return out
+		end,
+		-- The flight map on a step flying to Lakeshire, its node marked: the flight taken.
+		["qol.flightAutoTake"] = function()
+			q.step({ { t = "fly", location = "Lakeshire" } })
+			q.calls = {}
+			q.openTaxi({ "Stormwind, Elwynn", "Lakeshire, Redridge", "Sentinel Hill, Westfall" })
+			stub.runTimers()
+			local out = calls("TakeTaxiNode")
+			stub.fire("TAXIMAP_CLOSED")
+			TaxiFrame:Hide()
+			return out
+		end,
+		-- The campfire's Boosted Rest on the player (42 minutes left): its line under the guide window's XP line.
+		["qol.boostedRest"] = function()
+			q.auras[1229451] = { spellId = 1229451, duration = 3600, expirationTime = GetTime() + 2520 }
+			stub.fire("UNIT_AURA", "player")
+			stub.runTimers()
+			local out = table.concat(QoL.Rest.Parts(), " | ")
+			q.auras[1229451] = nil
+			stub.fire("UNIT_AURA", "player")
+			stub.runTimers()
+			return out
+		end,
 		-- A class trainer with two spells to learn.
 		["qol.trainAll"] = function()
 			q.trainer = { tradeskill = false, services = { SPELLS[1], { name = "Fireball", rank = "Rank 2", kind = "available", cost = 100 }, { name = "Frost Armor", rank = "Rank 1", kind = "available", cost = 200 } } }

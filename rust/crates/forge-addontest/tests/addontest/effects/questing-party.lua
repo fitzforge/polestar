@@ -26,6 +26,7 @@ local function finish()
 	stub.advance(1)
 	return said
 end
+local version -- the build's own, while a check runs on a release's
 -- What Ana's Polestar sends: her progress on both quests.
 local function heard()
 	p.receive("Ana-TestRealm", "1|7:3/10;33:3/5")
@@ -119,5 +120,26 @@ return {
 		-- Your own line in the party chat frame, and Ana's.
 		["party.chatEcho"] = function() return p.show("CHAT_MSG_PARTY", MINE, "Testchar") or "dropped" end,
 		["party.chatHideOthers"] = function() return p.show("CHAT_MSG_PARTY", "{rt1} Polestar: x", "Ana-TestRealm") or "dropped" end,
+		-- A stranger of your faction targeted out of town, half a minute after the last one (ui-update.rs's meet), on
+		-- a release build (the test build's "0.1.0-test" is none, and only a release asks): the tagged whisper that
+		-- asks their Polestar's version.
+		["update.probe"] = { prepare = function()
+			version, Polestar.version = Polestar.version, "0.3.7"
+			Polestar.Update.Listen()
+		end, cleanup = function()
+			Polestar.version = version
+			Polestar.Update.Listen()
+		end, probe = function()
+			stub.advance(31)
+			n = n + 1
+			local before = 0
+			for _, m in ipairs(p.sent) do if m.chatType == "WHISPER" and m.text:sub(1, 5) == "PSV1?" then before = before + 1 end end
+			p.stranger("target", { name = "Pr" .. string.char(96 + n % 26), surname = "Smith", faction = "Alliance", guid = "Player-1-9" .. n })
+			stub.fire("PLAYER_TARGET_CHANGED")
+			stub.advance(0.2)
+			local after = 0
+			for _, m in ipairs(p.sent) do if m.chatType == "WHISPER" and m.text:sub(1, 5) == "PSV1?" then after = after + 1 end end
+			return after - before
+		end },
 	},
 }

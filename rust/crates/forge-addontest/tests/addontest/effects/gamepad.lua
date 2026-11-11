@@ -47,6 +47,7 @@ return {
 		["action:POLESTAR_PREV_WAYPOINT"] = bound("POLESTAR_PREV_WAYPOINT"),
 		["action:POLESTAR_FOCUS"] = bound("POLESTAR_FOCUS"),
 		["action:POLESTAR_TOGGLE"] = bound("POLESTAR_TOGGLE"),
+		["action:POLESTAR_HIDE"] = bound("POLESTAR_HIDE"),
 		["action:POLESTAR_REOPEN_TAB"] = bound("POLESTAR_REOPEN_TAB"),
 		["action:POLESTAR_MENU"] = bound("POLESTAR_MENU"),
 		["action:POLESTAR_OPTIONS"] = bound("POLESTAR_OPTIONS"),

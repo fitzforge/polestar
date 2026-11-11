@@ -101,6 +101,19 @@ return {
 		["nav.travel"] = function() target("Far camp " .. stub.now); return legs() end,
 		-- The journey panel under the window: the route's steps.
 		["nav.journeySteps"] = function() target(); return JP.Route() ~= nil end,
+		-- A route whose last walk goes round a hostile town (its leg's hubs.avoided, as ui-journey.rs's route has it):
+		-- the journey panel's lines under each step.
+		["nav.detourCaption"] = function()
+			local route = { WALK, BOAT, { kind = "walk", label = "Walk to Far camp", to = { name = "Far camp", c = 1, wx = 50, wy = 30 },
+				hubs = { avoided = { { id = 12, name = "Southshore" } } } } }
+			return onRoute(route, function()
+				local out = {}
+				for _, r in ipairs(JP.rows) do
+					if r:IsShown() then out[#out + 1] = r.Sub:IsShown() and r.Sub:GetText() or "-" end
+				end
+				return table.concat(out, " | ")
+			end)
+		end,
 		-- A new goal a walk away (the player stands at Testshire 10, 50): Polestar_Nav is asked for the path.
 		["nav.navRouting"] = function()
 			local before = finds

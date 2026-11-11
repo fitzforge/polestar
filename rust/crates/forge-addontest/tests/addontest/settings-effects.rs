@@ -46,6 +46,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "discovery_dungeons", src: include_str!("effects/discovery-dungeons.lua") },
 	Group { name: "gamepad", src: include_str!("effects/gamepad.lua") },
 	Group { name: "qol", src: include_str!("effects/qol.lua") },
+	Group { name: "qol_spells", src: include_str!("effects/qol-spells.lua") },
 	Group { name: "qol_maps", src: include_str!("effects/qol-maps.lua") },
 	Group { name: "buttons", src: include_str!("effects/buttons.lua") },
 	Group { name: "buttons_world", src: include_str!("effects/buttons-world.lua") },
@@ -443,6 +444,11 @@ fn gamepad() {
 #[test]
 fn qol() {
 	check("qol");
+}
+
+#[test]
+fn qol_spells() {
+	check("qol_spells");
 }
 
 #[test]

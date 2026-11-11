@@ -33,5 +33,21 @@ return {
 		end,
 		-- The window moved, then Reset: back in its corner.
 		["Guide:Reset position"] = { press = true, prepare = function() Polestar.Set("ui.pos", { 100, 900 }) end, probe = pos },
+		-- Polestar Client knows the next release (one newer than this build: ui-update.rs's ClientInfo): the update
+		-- line in the guide window.
+		["update.card"] = { prepare = function()
+			local a, b, c = tostring(Polestar.version or ""):match("^(%d+)%.(%d+)%.(%d+)")
+			local next = a and string.format("%s.%s.%d", a, b, tonumber(c) + 1) or "99.0.0"
+			PolestarClientInfo = { latest = next, released = time() - 3 * 86400, checked = time(), releases = { next } }
+			Polestar.Fire("UPDATE_KNOWN")
+			stub.advance(0.2)
+		end, cleanup = function()
+			PolestarClientInfo = nil
+			Polestar.Fire("UPDATE_KNOWN")
+			stub.advance(0.2)
+		end, probe = function()
+			local B = P.banner
+			return B:IsShown() and B.psKind == "update" and B.Text:GetText() or false
+		end },
 	},
 }

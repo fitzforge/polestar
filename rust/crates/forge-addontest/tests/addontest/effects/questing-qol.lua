@@ -172,5 +172,50 @@ return {
 		["Questing:Reset button positions"] = { press = true,
 			prepare = function() QoL.State().buttonPos = { "CENTER", "CENTER", 0, 0 }; Polestar.Fire("SETTING_CHANGED", "buttons") end,
 			probe = function() local p, _, rp, x, y = B.Holder():GetPoint(1); return { p, rp, x, y } end },
+		-- A starter looted (A Dusty Letter, its quest one the character can take, by a quest database faked as
+		-- qol-loot-track.rs fakes it): on the quest item button, glowing.
+		["qol.questLoot"] = { prepare = function()
+			q.items[700] = { name = "A Dusty Letter", classID = 12, questID = 7700 }
+			Polestar.QuestDB = {
+				IsLoaded = function() return true end,
+				PlayerContext = function(_, ctx) ctx = ctx or {}; ctx.level = q.level; return ctx end,
+				StartedBy = function() end,
+				CheckAvailable = function(id, _, isDone, isOn)
+					if id ~= 7700 or isDone(id) or isOn(id) then return false end
+					return true
+				end,
+			}
+		end, cleanup = function() Polestar.QuestDB = nil end, probe = function()
+			local b = PolestarQuestItemButton
+			q.addItem(0, 9, 700, 1)
+			stub.fire("BAG_UPDATE_DELAYED")
+			stub.runTimers()
+			local out = { b:GetAttribute("item") or false, (b.questGlow and b.questGlow:IsShown()) and true or false }
+			q.bags[0].slots[9] = nil
+			stub.fire("BAG_UPDATE_DELAYED")
+			stub.runTimers()
+			return out
+		end },
+		-- Into Ragefire Chasm (a Dungeons journal faked as qol-loot-track.rs fakes it) with two of its quests and
+		-- two others watched: the game's quest watch list inside.
+		["qol.instanceTrack"] = { prepare = function()
+			Polestar.Dungeons = {
+				ForMap = function(map) if map == 389 then return "ragefire-chasm" end end,
+				Quests = function(key) return key == "ragefire-chasm" and { { id = 5722 }, { id = 5723 } } or {} end,
+			}
+			for _, id in ipairs({ 100, 5722, 101, 5723 }) do q.log[id] = true end
+		end, cleanup = function()
+			Polestar.Dungeons = nil
+			for _, id in ipairs({ 100, 5722, 101, 5723 }) do q.log[id] = nil end
+			q.watches = {}
+		end, probe = function()
+			q.watches = { 100, 5722, 101, 5723 }
+			q.enterInstance(389)
+			stub.runTimers()
+			local inside = table.concat(q.watches, " ")
+			q.leaveInstance()
+			stub.runTimers()
+			return inside
+		end },
 	},
 }

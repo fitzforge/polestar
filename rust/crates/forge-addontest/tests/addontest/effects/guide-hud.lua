@@ -76,6 +76,10 @@ return {
 			probe = function() return point(PolestarNavArrow) end },
 		["ui.launcher"] = function() return PolestarLauncher ~= nil and PolestarLauncher:IsShown() or false end,
 		["maps.minimapButton"] = function() return PolestarMinimapButton ~= nil and PolestarMinimapButton:IsShown() or false end,
+		-- Polestar hidden (the minimap button's click) with the step's arrow up: whether the arrow stays.
+		["Guide:Keep the arrow when hidden"] = { prepare = function() Polestar.SetHidden(true); stub.advance(0.2) end,
+			cleanup = function() Polestar.SetHidden(false); stub.advance(0.2) end,
+			probe = function() stub.runTimers(); return PolestarNavArrow:IsShown() and true or false end },
 		-- The accept's row: the quest's name with Forever's mark, or without.
 		["ui.newInForever"] = function()
 			for _, row in ipairs(GF.rows) do
