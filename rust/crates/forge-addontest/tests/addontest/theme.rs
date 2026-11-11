@@ -776,8 +776,11 @@ fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_b
 	assert_eq!(out["house"], house);
 	assert_eq!(out["halo"], json!({ "bg": false, "veil": true, "board": false, "ember": false, "border": false, "shadow": false }), "Halo: the soft veil alone");
 	assert_eq!((out["veilAlpha"].as_f64().unwrap() * 100.0).round() / 100.0, 0.84, "the big windows' veil");
-	assert_eq!(out["hearth"], json!({ "bg": false, "veil": false, "board": true, "ember": true, "border": true, "shadow": true }),
-		"Hearth: its own gradient board (the house fill stays flat and hidden), the ember light, the copper hairline and the house shadow");
+	assert_eq!(
+		out["hearth"],
+		json!({ "bg": false, "veil": false, "board": true, "ember": true, "border": true, "shadow": true }),
+		"Hearth: its own gradient board (the house fill stays flat and hidden), the ember light, the copper hairline and the house shadow"
+	);
 	let ember = round(&out["emberColor"]);
 	assert_eq!(&ember[..3], &[1.0, 0.478, 0.18], "the light is the ember token");
 	assert!((0.1..=0.2).contains(&ember[3]), "a big window glows softly ({})", ember[3]);
@@ -1016,7 +1019,9 @@ fn skins_forever_hover_plates_use_add_blend_306c() {
 #[test]
 fn skins_classic_draws_the_dialog_box_the_chat_frame_and_the_tooltip_from_the_vanilla_files_with_no_backdrop_frames() {
 	// Nav too: its transport alert is the toast it checks (uistub.realNav: the stub's Nav stands in for it).
-	let out = run_files(&["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "UI/UI.xml"], r#"
+	let out = run_files(
+		&["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "UI/UI.xml"],
+		r#"
 		T._testShowHidden = true
 		local GF = Polestar.UI.GuideFrame
 		Polestar.Set("ui.skin", "classic")
@@ -1075,7 +1080,9 @@ fn skins_classic_draws_the_dialog_box_the_chat_frame_and_the_tooltip_from_the_va
 			return false
 		end
 		out.back = { options = anyShown(k), guide = anyShown(gk), toast = anyShown(a) }
-		emit(out)"#, "");
+		emit(out)"#,
+		"",
+	);
 	assert_legible("classic", &out["pal"]);
 	assert_eq!(round(&out["bg"]), vec![0.051, 0.051, 0.11, 0.92], "the tooltip's navy as its tile draws it");
 	assert_eq!(out["dialog"]["edge"], "Interface\\DialogFrame\\UI-DialogBox-Border", "the dialog border's top edge");
@@ -1264,11 +1271,7 @@ fn a_skin_s_art_tint_dims_the_guide_window_s_lit_goal_and_progress_bar_in_every_
 	};
 	assert_eq!(out["forever"], want([white(100), white(100), white(100), white(100)], [dusk(100), dusk(100), dusk(100), dusk(100)]), "Forever");
 	// Blizzard: the gold wash at 60 %, the bar's gold fill, the light strip under the track at 10 %.
-	assert_eq!(
-		out["blizzard"],
-		want([white(60), json!(["ffd100", 100, 0]), white(100), white(10)], [dusk(60), json!(["403400", 100, 80]), dusk(100), dusk(10)]),
-		"Blizzard"
-	);
+	assert_eq!(out["blizzard"], want([white(60), json!(["ffd100", 100, 0]), white(100), white(10)], [dusk(60), json!(["403400", 100, 80]), dusk(100), dusk(10)]), "Blizzard");
 	// Classic: the quest title's light at half, the XP bar's purple, its half-black trough.
 	assert_eq!(
 		out["classic"],
@@ -1389,11 +1392,7 @@ fn the_game_looks_and_hearth_load_on_demand_the_first_time_one_is_painted_and_on
 		"the house look loads nothing of the game looks"
 	);
 	assert_eq!(out["hearth"], json!({ "loads": 1, "loaded": true, "painter": true, "kit": false }), "Hearth brings the part in, with no kit");
-	assert_eq!(
-		out["classic"],
-		json!({ "loads": 1, "kit": true, "forever": true, "blizzard": true, "art": true }),
-		"a game look finds it in, loaded once"
-	);
+	assert_eq!(out["classic"], json!({ "loads": 1, "kit": true, "forever": true, "blizzard": true, "art": true }), "a game look finds it in, loaded once");
 	assert_eq!(out["back"], json!({ "loads": 1, "kit": false }));
 }
 

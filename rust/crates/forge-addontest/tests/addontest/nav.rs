@@ -442,7 +442,11 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 		json!({ "style": "hearth", "tex": "dart-gold", "tint": [1, 1, 1] }),
 		"the game's looks: the baked gold gradient"
 	);
-	assert_eq!(json!({ "tex": out["blizNear"]["tex"], "tint": r3(&out["blizNear"]["tint"]) }), json!({ "tex": "dart", "tint": [0.561, 0.839, 0.431] }), "up close: Hearth's arrival leaf green #8FD66E");
+	assert_eq!(
+		json!({ "tex": out["blizNear"]["tex"], "tint": r3(&out["blizNear"]["tint"]) }),
+		json!({ "tex": "dart", "tint": [0.561, 0.839, 0.431] }),
+		"up close: Hearth's arrival leaf green #8FD66E"
+	);
 	assert_eq!(out["arrived"], json!({ "mode": "arrived", "ring": true, "houseRing": false, "check": false, "dart": false }));
 	assert_eq!(out["checked"], true, "the check follows the ring");
 	assert_eq!(out["flat"], "flat", "a style picked by hand stays");
