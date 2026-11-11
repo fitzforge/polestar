@@ -55,7 +55,7 @@ return {
 	["{area:54}: kill these as you meet them"] = "{area:54}: убивайте их по пути",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
 	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "",
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "Рудник – к юго-западу от лагерей гноллов. {item:247816} лежат у входа; туннели занимают кобольды-геоманты.\nОсторожно: {npc:471} (7-10), рудниковые пауки (7-9) и {npc:248474} (7) – элитные противники в глубине рудника: выманивайте кобольдов по одному у входа и отступайте, если подходит элитный; с другом проще.",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} ходит здесь: {area:54}: ищите внутри круга на карте",
 
