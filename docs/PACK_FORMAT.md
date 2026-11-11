@@ -56,6 +56,7 @@ a parent.
 | `source` | no | where the guides come from, in the author's words; at most 200 characters |
 | `notes` | no | one line for the AddOns list, shown when the player points at the pack there; at most 200 characters (default "Community addon for Polestar by <author>") |
 | `folder` | no | the addon's folder name: 1 to 64 letters, digits, `_` and `-`, not `Polestar` and not starting with `Polestar_` (in any case: those are Polestar's own, [below](#polestars-own-extra-packs)); default `PolestarPack_` and the title in CamelCase (`Joe's Routes` → `PolestarPack_JoesRoutes`), or the id when the title has no letters or digits |
+| `load` | no | `on-demand`, for a large pack: each faction's guides are written into a part of their own (`<folder>_Alliance`, `<folder>_Horde`) that Polestar loads for a character of that faction, and every guide's steps as source, read when the guide is opened and given back when no tab shows it (as our pack's side shelves, [Format 8](#format-8)). The pack is then written in format 8 at least. A guide with a `class` header that goes into a race part registers only for that class, as in any pack; elsewhere it registers for every character. Without `load` the pack is one addon loaded whole. |
 
 Every value is a string on one line. A missing required field, or a value
 that breaks these rules, is a lint error; an unknown key is a warning; a `|`
