@@ -1483,7 +1483,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   quests", shown while `GroupQuests` lists one). An unanswered `group` predicate
   holds and `stepDone` is false while `Own.groupPending` names its quest (not
   on an along step), so the route waits at the step; `Engine.GroupQuestion`
-  gives the banner the quest, and `wantsFrom` keeps automation off it. `stepApplies` reads them, so such a step counts as one
+  gives the banner the quest, and `Own.wantsFrom` keeps automation off it. `stepApplies` reads them, so such a step counts as one
   for other characters while they fail, and a turn-in whose only accept sits
   there goes with it (`orphaned`). When the route moves past a step
   (`latchPassed`), its outcome is stored per character (`Own.latchWhen`): a
@@ -5069,7 +5069,7 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   those offline under 2 minutes (kept apart from `Members`). The Engine asks
   `Party.Waiting` for the live step only (`computeCurrent`: a done step that
   `Own.partyHold` holds stays live), refuses a held quest's turn-in to
-  Automation (`wantsFrom`), and with every goal of the step done but held
+  Automation (`Own.wantsFrom`), and with every goal of the step done but held
   turn-ins aims at the nearest objective a member still needs
   (`Own.partyAim`, `Own.nearestField`, label "For Ana: ..."). It
   re-evaluates on `PARTY_PROGRESS`.
