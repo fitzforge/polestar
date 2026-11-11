@@ -45,7 +45,7 @@ A route is only as good as the way the addon plays it, so the writer writes for 
 | walk store | `walks-<faction>.bin`, walking yards between world points (around hills, not straight lines) | beside the world file |
 | v1's guides | a guides folder holding `forever/` | `<root>/guides` |
 | game data | `quests.json`, `npcs.json`, `objects.json`, `items.json`, `zones.json`, `map-frames.json` and the compiler's data | `<root>/data/forever` |
-| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`; `races`: who a goal is for by race, applied again after the shared adopt and last; `follows`, `split`, `step`: where a goal or a whole step goes, after the other records) | `<checkout>/data/` (`--checkout`, default `--root`) |
+| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`; `races`: who a goal is for by race, applied again after the shared adopt and last; `follows`, `split`, `step`: where a goal or a whole step goes, after the other records; `way`: where the walk to a step ends, after those) | `<checkout>/data/` (`--checkout`, default `--root`) |
 
 Each `order` item is one event: `t` is `accept`, `turnin`, `task` (work on an
 objective), `train`, `level` (with its fractional grind `target`) or `ride`
@@ -1301,6 +1301,12 @@ checkout's own `addon/Polestar_Guides`.
   pass moved it with `--no-engine`, `--no-route-legs` or one of the `--no-…`
   rule flags.
 - **Lint warnings about stale translations**: expected for changed lines. See above.
+- **`apply-route: warning: <guide>:<line>: the travel step "…" ends … yd from the
+  other faction's flight master at …`**: a walk (a step whose goals only travel)
+  ends within 120 yd of a flight master of the other faction whose town is not
+  shared by both (Chillwind Camp or Southshore on a Horde route, Tarren Mill on an
+  Alliance one). Move its end with a `way` guide fix (FORGE.md, "Fixing a
+  generated guide").
 - **Changing the writer**: run [the writer gate](#the-writer-gate) before it
   merges. Placement is in `src/apply.rs`, the passes in
   `src/post.rs`, travel repair in `src/travel.rs`, engine lines in

@@ -36,8 +36,11 @@
 //!   goal and the lines after it in its step a step of their own (a town stop split in walking
 //!   order, or hand-ins cut off a later stop); `step: { after: { quest, goal, objective? }, guide?,
 //!   copy?, way?, tip? }` moves the anchored goal's whole step, or a copy of it (`copy: true`), to
-//!   right after `after`'s step in the guide `guide` names ([`apply_step`]). `at.guide` narrows any
-//!   record to the guide with that id.
+//!   right after `after`'s step in the guide `guide` names ([`apply_step`]). `way: { at: { map, x, y,
+//!   frame? }, label?, title? }`, applied after those, moves the end of the walk right before the
+//!   anchored goal's step (a travel-only step for the same players): off a town of the other faction,
+//!   which the writer warns about (travel::hostile_town_ways), or to a camp's edge. `at.guide` narrows
+//!   any record to the guide with that id.
 //!
 //! A record with `faction` ("Alliance" or "Horde") applies only to that faction's routes (a quest both
 //! sides do whose fix holds for one). Every record carries `source` ({ kind, ref }), `issue` and `note`;
@@ -1052,6 +1055,40 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 	(true, true, true)
 }
 
+/// A `way` record: the travel-only step right before the anchored goal's step (the walk to it, for the
+/// same players) ends at `way.at` (its last `goto` takes the point, with `way.label`), with `way.title`
+/// as its title: a walk kept out of a town of the other faction (from Tarren Mill to Sorrow Hill, not
+/// into the Alliance's Chillwind Camp), or stopped at a camp's edge (the Dalaran crater's eastern rim,
+/// not Ricter's spawn among linked guards). -> the changed lines.
+fn apply_way(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> {
+	let w = &r["way"];
+	let Some(at) = at_of(&w["at"]) else { return Vec::new() };
+	let mut seen: FxHashSet<usize> = FxHashSet::default();
+	let mut changed = Vec::new();
+	for &i in found {
+		let Some(st) = step_body(lines, i).filter(|st| seen.insert(st.0)) else { continue };
+		let Some(&walk) = ways_before(lines, st).last() else { continue };
+		let Some(g) = (walk.0 + 1..walk.1).rev().find(|&k| re!(r"^\s+goto\s").is_match(&lines[k])) else { continue };
+		let mut line = lines[g].clone();
+		if !(typed_point(&line).is_some_and(|p| close(p, (at.x, at.y))) && typed_map(&line) == Some(at.map)) {
+			line = placed(&line, &at);
+		}
+		if let Some(label) = w["label"].as_str() {
+			let (code, rest) = split_comment(&line);
+			line = if code.contains('"') { labelled(&line, label) } else { format!("{} \"{label}\"{rest}", trim_end(code)) };
+		}
+		if line != lines[g] {
+			lines[g] = line;
+			changed.push(g);
+		}
+		if let Some(title) = w["title"].as_str().map(|t| format!("step {t}")).filter(|t| *t != lines[walk.0]) {
+			lines[walk.0] = title;
+			changed.push(walk.0);
+		}
+	}
+	changed
+}
+
 /// A line apply_fix drops once every found line is done.
 const GONE: &str = "\u{0}";
 
@@ -1179,6 +1216,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"split"
 		} else if r.get("step").is_some() {
 			"step"
+		} else if r.get("way").is_some() {
+			"way"
 		} else {
 			"level"
 		};
@@ -1188,15 +1227,18 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			file: "guide-fixes",
 			r,
 			slot: format!("{anchor:?} {kind}{}{to}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
-			want: format!("{}{}{}{}{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"], r["races"], r["follows"], r["split"], r["step"]),
+			want: format!("{}{}{}{}{}{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"], r["races"], r["follows"], r["split"], r["step"], r["way"]),
 			anchor,
 		});
 	}
 	// Records that move goals or steps after the others, so a tip or `when` set on a goal's step goes
-	// with it (a copied class step keeps its `when`); background records last: their mention tips join
-	// the tips the other records set (a tip record replaces every tip of its step).
+	// with it (a copied class step keeps its `when`); a step's walk once the steps stand where they go;
+	// background records last: their mention tips join the tips the other records set (a tip record
+	// replaces every tip of its step).
 	recs.sort_by_key(|x| {
 		if x.r.get("background").is_some() {
+			3
+		} else if x.r.get("way").is_some() {
 			2
 		} else if ["follows", "split", "step"].iter().any(|k| x.r.get(*k).is_some()) {
 			1
@@ -1240,8 +1282,11 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			guide_here = true;
 			let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
 			let mut found = anchor_lines(&lines, anchor);
-			// (A `follows` needs its goal in the same guide.)
+			// (A `follows` needs its goal in the same guide; a `way`, a walk right before the goal's step.)
 			if goal_anchor(&x.r["follows"]).is_some_and(|a| anchor_lines(&lines, &a).is_empty()) {
+				found.clear();
+			}
+			if x.r.get("way").is_some() && !found.iter().any(|&i| step_body(&lines, i).is_some_and(|st| !ways_before(&lines, st).is_empty())) {
 				found.clear();
 			}
 			if found.is_empty() {
@@ -1265,6 +1310,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				apply_follows(&mut lines, &found, x.r)
 			} else if x.r.get("split").is_some() {
 				apply_split(&mut lines, &found, x.r)
+			} else if x.r.get("way").is_some() {
+				apply_way(&mut lines, &found, x.r)
 			} else {
 				apply_fix(&mut lines, &found, x.r)
 			};
@@ -1835,5 +1882,25 @@ mod tests {
 		let (again, states) = fix_all(&files2, &fixes);
 		assert_eq!(again, out);
 		assert_eq!(states, ["redundant"; 6]);
+	}
+
+	#[test]
+	fn a_way_fix_moves_the_end_of_the_walk_to_a_step() {
+		// The walk from Tarren Mill to Sorrow Hill ended in the middle of the Alliance's Chillwind Camp
+		// (43.0,83.5); it ends at Sorrow Hill itself. A goal with no walk right before its step is stale.
+		let seed = "guide forever/a\nzone Hillsbrad Foothills\n\nstep Fly to Tarren Mill\n  fly \"Tarren Mill\"\n  zone Hillsbrad Foothills\n\nstep Western Plaguelands\n  zone Western Plaguelands\n  goto 43.0,83.5 \"Western Plaguelands\"\n\nstep Sorrow Hill\n  turnin 5152                         -- Marlene Redpath, upstairs\n\nstep Chromie\n  turnin 5153\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "sorrow-hill", "at": { "quest": 5152, "goal": "turnin" }, "way": { "at": { "map": 1422, "x": 49.2, "y": 78.6, "frame": "era" }, "label": "Sorrow Hill", "title": "To Sorrow Hill" } },
+			{ "id": "no-walk", "at": { "quest": 5153, "goal": "turnin" }, "way": { "at": { "map": 1422, "x": 1, "y": 1 } } }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(
+			out[0],
+			"guide forever/a\nzone Hillsbrad Foothills\n\nstep Fly to Tarren Mill\n  fly \"Tarren Mill\"\n  zone Hillsbrad Foothills\n\nstep To Sorrow Hill\n  zone Western Plaguelands\n  goto 49.2,78.6 map 1422 era \"Sorrow Hill\"\n\nstep Sorrow Hill\n  turnin 5152                         -- Marlene Redpath, upstairs\n\nstep Chromie\n  turnin 5153\n"
+		);
+		assert_eq!(states, ["applied", "stale"]);
+		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
+		assert_eq!(again[0], out[0]);
+		assert_eq!(states, ["redundant", "stale"]);
 	}
 }

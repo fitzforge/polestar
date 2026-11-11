@@ -546,7 +546,20 @@ carrying the quest:
 
 `step` without `copy` moves the step (Westfall's Defensive Stance from the end of the guide to the
 Thor flight's Stormwind visit); `"way": true` takes the travel-only steps right before it for the same
-players along, else they go with a move. These records run after every other guide fix.
+players along, else they go with a move. These records run after the other guide fixes.
+
+**Where a walk ends (`way`).** In Hillsbrad (Horde 30) the walk from the Flame of Uzel ended on Ricter's
+own spawn, inside the Dalaran crater's camp of linked guards, so players fought the camp with the
+travel step still showing; it ends at the crater's eastern rim, on the way in:
+
+```json
+{ "id": "way-dalaran-crater-eastern-rim", "faction": "Horde", "at": { "quest": 544, "goal": "objective", "objective": 2 },
+  "way": { "at": { "map": 1416, "x": 24.5, "y": 82.8, "frame": "era" }, "label": "The Dalaran crater's eastern rim" }, … }
+```
+
+The walk is the travel-only step right before the anchored goal's step; its last `goto` takes the
+point and the label (`way.title` retitles the step). A build warns about every walk that ends within
+120 yd of a flight master of the other faction; this record moves it.
 
 ## The knowledge base
 

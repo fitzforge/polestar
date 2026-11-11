@@ -448,6 +448,7 @@ A fix goes into a record the next build applies, whoever builds:
 | a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level; `onquest Q,...`: only while one of the quests is in the log; on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
 | who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |
 | where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step, into another guide too (`step`) | `data/guide-fixes.json` |
+| where the walk to a step ends (`way`): off a town of the other faction, or at a camp's edge | `data/guide-fixes.json` |
 
 Places and guide fixes are anchored on a quest's goal, never on a line or a step, and the writer
 applies them to the guides it writes, last:
@@ -545,6 +546,22 @@ travel-only steps right before it for the same players, the walk to it, go with 
 true`; else they go when it moves. Where the step already follows `after`'s step, only its tip is
 set. `at.guide` (a guide's id) narrows any record to that guide: these records name the guide they
 are for.
+
+`way` sets where the walk right before the anchored goal's step ends (a travel-only step for the same
+players): its last `goto` takes `way.at` (`{ map, x, y, frame }`) and `way.label`, the step
+`way.title`. The writer applies it after the records that move steps. It is how a walk is kept out of
+a town of the other faction: the walk from Tarren Mill to Marlene Redpath once ended in the middle of
+the Alliance's Chillwind Camp.
+
+```json
+{ "id": "way-sorrow-hill-not-chillwind-camp", "faction": "Horde", "at": { "quest": 5152, "goal": "turnin" },
+  "way": { "at": { "map": 1422, "x": 49.2, "y": 78.6, "frame": "era" }, "label": "Sorrow Hill", "title": "To Sorrow Hill" }, "…": "…" }
+```
+
+Every build warns about such walks: a travel step whose `goto` ends within 120 yd of a flight master of
+the other faction (one in a town both factions use, such as Booty Bay, aside) prints `apply-route:
+warning: <guide>:<line>: the travel step "…" ends … yd from the other faction's flight master at …`.
+A quest goal is never warned about: it stands where the quest is done.
 
 Each record says why, in our own words, and names its issue (`#647`) or pull request; a correction,
 place or guide fix also has its `source`. `forge data check-corrections` checks all five files. A record fix shows in the guides

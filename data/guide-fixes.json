@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). at: { quest, goal: accept | turnin | complete | objective | quest, objective?, guide? } (guide: that guide only). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at: { map, x, y, frame? }, label?, title? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge), after those. at: { quest, goal: accept | turnin | complete | objective | quest, objective?, guide? } (guide: that guide only). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "1550-krazek-pickup-mining-advice",
@@ -6034,6 +6034,56 @@
 				{
 					"kind": "questie",
 					"ref": "quest 94774 ender High Priestess Laurena (376); 399 Baros Alexston (1646)"
+				}
+			]
+		},
+		{
+			"id": "way-sorrow-hill-not-chillwind-camp",
+			"faction": "Horde",
+			"at": {
+				"quest": 5152,
+				"goal": "turnin"
+			},
+			"way": {
+				"at": {
+					"map": 1422,
+					"x": 49.2,
+					"y": 78.6,
+					"frame": "era"
+				},
+				"label": "Sorrow Hill",
+				"title": "To Sorrow Hill"
+			},
+			"note": "The walk from Tarren Mill to Marlene Redpath at Sorrow Hill (5152) ended at 43.0,83.5, on Argent Officer Pureheart in the middle of the Alliance's Chillwind Camp, with Commander Ashlam Valorfist and Weldon Barov about 20 yd away and Flint Shadowmore 40 yd. It ends at Sorrow Hill (49.2,78.6), where the next step works, so the arrow takes the road north from Tarren Mill. 0.3.6 hand edit; the writer now warns about any travel step that ends near a flight master of the other faction.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs 10840 Argent Officer Pureheart 42.97,83.55; 10838 Commander Ashlam Valorfist 42.7,84.03; 11023 Weldon Barov 43.45,83.73; 12425 Flint Shadowmore 43.61,84.51; 10927 Marlene Redpath 49.17,78.57 (Western Plaguelands)"
+				}
+			]
+		},
+		{
+			"id": "way-dalaran-crater-eastern-rim",
+			"faction": "Horde",
+			"at": {
+				"quest": 544,
+				"goal": "objective",
+				"objective": 2
+			},
+			"way": {
+				"at": {
+					"map": 1416,
+					"x": 24.5,
+					"y": 82.8,
+					"frame": "era"
+				},
+				"label": "The Dalaran crater's eastern rim"
+			},
+			"note": "Hillsbrad (Horde 30): the walk from the Flame of Uzel to the Dalaran crater pointed at Ricter's own spawn (20.2,84.3), inside the camp of linked Shield Guard and Theurgist pairs. A goto completes only on arrival, so the camp was fought with the travel step showing and the crater step's warning hidden: in players' recordings (0.3.5 and later) 3 of 6 people worked the camp for 12-35 minutes with the travel step live and 2 died there. The walk ends at the crater's eastern rim (24.5,82.8), on the line players walk in from the Uzel cave, 94-107 yd from Ricter, Alina and Dermot. 0.3.6 hand edit.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: 6 people at the Dalaran crater camp, 3 of them fighting it with the travel step live, 2 deaths"
 				}
 			]
 		}

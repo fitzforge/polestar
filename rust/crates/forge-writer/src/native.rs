@@ -351,6 +351,33 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	}
 	// (The titles: the zones each guide as written quests in, docs/forge/writer.md "Guide titles".)
 	crate::titles::guide_titles(&mut ro.tree, &written, &|z| gdata.zone_by_name.contains_key(&z.to_lowercase()));
+	// (Travel steps that end in a town of the other faction: warned about, for a `way` guide fix. A walk
+	// to the next step's quest giver or ender, where the data's spawns put them, is that goal's.)
+	let proj = forge_core::frames::Projector::new(&frames);
+	let npc_pts = |code: &str| -> Vec<forge_judge::honest::Wpt> {
+		let Some(m) = crate::re!(r"^\s+(accept|turnin)\s+(\d+)\b").captures(code) else { return Vec::new() };
+		let Some(q) = m[2].parse::<u32>().ok().and_then(|q| data.quests.get(&q)) else { return Vec::new() };
+		let ends = if &m[1] == "accept" { q.start.as_ref() } else { q.end.as_ref() };
+		let mut out = Vec::new();
+		for n in ends.map_or(&[][..], |e| e.npc.as_slice()) {
+			let Some(e) = data.npcs.get(n) else { continue };
+			for (&map, sp) in &e.spawns {
+				let f = if sp.f.as_deref() == Some("l") { forge_core::frames::Frame::Live } else { forge_core::frames::Frame::Era };
+				for p in &sp.pts {
+					let c = |i: usize| p.get(i).map_or(f64::NAN, |v| v.unwrap_or(0.0));
+					let w = proj.point(map, c(0), c(1), Some(f));
+					if w.wx.is_finite() {
+						out.push(forge_judge::honest::Wpt { c: w.c as f64, wx: w.wx, wy: w.wy });
+					}
+				}
+			}
+		}
+		out
+	};
+	for w in crate::travel::hostile_town_ways(&ro.tree, &written, &gdata, route.faction.as_deref(), &npc_pts) {
+		println!("apply-route: warning: {w}");
+		ro.log.push(format!("hostile town: {w}"));
+	}
 	let tree = &ro.tree;
 	let _ = std::fs::remove_dir_all(&out);
 	copy_tree(&guides_dir, &out).map_err(|e| format!("{}: {e}", out.display()))?;

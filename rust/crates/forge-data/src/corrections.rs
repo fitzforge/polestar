@@ -1449,7 +1449,9 @@ fn check_places(ck: &mut Ck, d: &V) {
 /// right after that goal's line), `split: { title, tip? }` (the anchored goal and the lines after it in
 /// its step become a step of their own) and `step: { after: { quest, goal, objective? }, guide?,
 /// copy?: true, way?: true, tip? }` (the anchored goal's whole step, or a copy, right after `after`'s
-/// step in the guide `guide` names). `at.guide` narrows any record to the guide with that id.
+/// step in the guide `guide` names). `way: { at: { map, x, y, frame? }, label?, title? }` (alone): the
+/// end of the walk right before the anchored goal's step. `at.guide` narrows any record to the guide
+/// with that id.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1461,11 +1463,11 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	// (Per quest with `races` records: whether one is quest-wide, how many there are, the first's path.)
 	let mut races_of: std::collections::BTreeMap<String, (bool, usize, String)> = std::collections::BTreeMap::new();
-	const KINDS: [&str; 12] = ["tip", "goalNote", "optional", "level", "along", "early", "when", "background", "races", "follows", "split", "step"];
+	const KINDS: [&str; 13] = ["tip", "goalNote", "optional", "level", "along", "early", "when", "background", "races", "follows", "split", "step", "way"];
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "goalNote", "optional", "level", "after", "only", "along", "early", "when", "background", "races", "follows", "split", "step", "faction", "note", "source", "issue", "pr"]);
-		for field in ["follows", "split", "step"] {
+		ck.keys(&at, r, &["id", "at", "tip", "goalNote", "optional", "level", "after", "only", "along", "early", "when", "background", "races", "follows", "split", "step", "way", "faction", "note", "source", "issue", "pr"]);
+		for field in ["follows", "split", "step", "way"] {
 			if !r.get(field).is_undef() && KINDS.iter().any(|k| *k != field && !r.get(k).is_undef()) {
 				ck.err(format!("{at}.{field}"), format!("a `{field}` fix uses a record of its own"));
 			}
@@ -1473,7 +1475,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		for field in ["optional", "goalNote"] {
 			let v = r.get(field);
 			if !v.is_undef() {
-				if ["tip", "level", "along", "early", "when", "background", "races", "follows", "split", "step", if field == "optional" { "goalNote" } else { "optional" }].iter().any(|k| !r.get(k).is_undef()) {
+				if ["tip", "level", "along", "early", "when", "background", "races", "follows", "split", "step", "way", if field == "optional" { "goalNote" } else { "optional" }].iter().any(|k| !r.get(k).is_undef()) {
 					ck.err(format!("{at}.{field}"), "a goal modifier or note uses a separate record");
 				}
 				if field == "optional" && !matches!(v, V::Bool(true)) {
@@ -1515,7 +1517,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 						ck.err(format!("{at}.at.{k}"), "a flight anchor names its guide id and the `fly` place");
 					}
 				}
-				let others = ["tip", "level", "along", "early", "background", "races", "follows", "split", "step"].iter().any(|k| !r.get(k).is_undef());
+				let others = ["tip", "level", "along", "early", "background", "races", "follows", "split", "step", "way"].iter().any(|k| !r.get(k).is_undef());
 				if !a.get("quest").is_undef() || r.get("when").is_undef() || others {
 					ck.err(format!("{at}.at"), "a flight anchor carries a `when` only, and no quest");
 				}
@@ -1554,6 +1556,27 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					}
 				}
 				"split"
+			}
+			(true, true) if !r.get("way").is_undef() => {
+				let w = r.get("way");
+				ck.keys(&format!("{at}.way"), &w, &["at", "label", "title"]);
+				let p = w.get("at");
+				ck.keys(&format!("{at}.way.at"), &p, &["map", "x", "y", "frame"]);
+				if p.is_obj() {
+					check_map(ck, &format!("{at}.way.at"), &p);
+					for k in ["x", "y"] {
+						if !p.get(k).as_num().is_some_and(|n| (0.0..=100.0).contains(&n)) {
+							ck.err(format!("{at}.way.at.{k}"), format!("{} must be a map coordinate, 0 to 100", show(&p.get(k))));
+						}
+					}
+				}
+				for k in ["label", "title"] {
+					let v = w.get(k);
+					if !v.is_undef() && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
+						ck.err(format!("{at}.way.{k}"), "one line of text");
+					}
+				}
+				"way"
 			}
 			(true, true) if !r.get("step").is_undef() => {
 				let s = r.get("step");
@@ -1651,7 +1674,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"level"
 			}
 			_ => {
-				ck.err(&at, "a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early`, `background`, `races`, `follows`, `split` or `step`");
+				ck.err(&at, "a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early`, `background`, `races`, `follows`, `split`, `step` or `way`");
 				"?"
 			}
 		};
@@ -2005,7 +2028,7 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early`, `background`, `races`, `follows`, `split` or `step`",
+			"fixes[0]: a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early`, `background`, `races`, `follows`, `split`, `step` or `way`",
 			"fixes[1].after: `after` is true, on a level gate",
 			"fixes[2].when: no quest 12 in the data",
 			"fixes[4].at.guide: a flight anchor names its guide id",
@@ -2061,6 +2084,21 @@ mod tests {
 			"fixes[2].step.copy: `copy` is true, or left out",
 			"fixes[2].step.after.goal: ",
 		] {
+			assert!(has(s), "{s}: {f:#?}");
+		}
+	}
+
+	#[test]
+	fn way_guide_fixes_are_checked() {
+		let src = r#""source": { "kind": "in-game-check", "ref": "r" }, "note": "checked""#;
+		let good = format!(r#"{{ "fixes": [ {{ "id": "w-1", "faction": "Horde", "at": {{ "quest": 10, "goal": "turnin" }}, "way": {{ "at": {{ "map": 1429, "x": 49.2, "y": 78.6, "frame": "era" }}, "label": "Sorrow Hill", "title": "To Sorrow Hill" }}, {src} }} ] }}"#);
+		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
+		let bad = format!(
+			r#"{{ "fixes": [ {{ "id": "w-1", "at": {{ "quest": 10, "goal": "turnin" }}, "way": {{ "at": {{ "map": 1429, "x": 140, "y": 1 }}, "label": "two\nlines" }}, {src} }}, {{ "id": "w-2", "at": {{ "quest": 11, "goal": "turnin" }}, "way": {{ "at": {{ "map": 1429, "x": 1, "y": 1 }} }}, "tip": "A tip.", {src} }} ] }}"#
+		);
+		let f = record_findings(None, Some(&bad));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		for s in ["fixes[0].way.at.x: 140 must be a map coordinate", "fixes[0].way.label: one line of text", "fixes[1].way: a `way` fix uses a record of its own"] {
 			assert!(has(s), "{s}: {f:#?}");
 		}
 	}
