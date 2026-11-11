@@ -39,6 +39,12 @@ const OPENED: f64 = 3980.0;
 /// collector stopped (+1,000).
 const PEAK: f64 = 3450.0;
 
+/// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
+/// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),
+/// +95 KiB, the window's opened figure on 0.3.7 final less on 0.3.6 (3,997 and 3,902, this test's script,
+/// 2026-11-11). Rebased on a later release, measure the window on both releases the same way and set it.
+const BASE_ROWS: f64 = 95.0;
+
 fn n(v: &Value) -> f64 {
 	v.as_f64().unwrap_or_else(|| panic!("not a number: {v}"))
 }
@@ -140,7 +146,7 @@ local opened = full() - base
 emit({ core = base, loaded = loaded, opened = opened, peak = peak, shown = PolestarOptions:IsShown() })"#);
 	assert_eq!(out["shown"], true);
 	let mut over = vec![];
-	for (k, budget) in [("loaded", LOADED), ("opened", OPENED), ("peak", PEAK)] {
+	for (k, budget) in [("loaded", LOADED), ("opened", OPENED + BASE_ROWS), ("peak", PEAK)] {
 		let v = n(&out[k]);
 		eprintln!("Polestar_Options {k}: {v:.0} KiB (budget {budget}; core at login {:.0})", n(&out["core"]));
 		if v > budget {
