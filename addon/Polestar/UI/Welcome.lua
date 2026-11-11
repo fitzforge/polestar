@@ -1820,7 +1820,7 @@ local function drag(frame)
 end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarWelcome", UIParent)
+	F = CreateFrame("Frame", "PolestarWelcome", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -1903,10 +1903,11 @@ local function build()
 	end)
 	-- Any close marks it seen, for the character and the account; stepping
 	-- aside for the route choice does not, nor does a cinematic closing it
-	-- (it comes back after the cinematic, on the same page). A close tells
-	-- the windows waiting for it (UI/WhatsNew.lua).
-	F:SetScript("OnHide", function()
-		if stepping then return end
+	-- (it comes back after the cinematic, on the same page), nor Polestar
+	-- hiding (its layer hides the window still open: it comes back as it
+	-- was). A close tells the windows waiting for it (UI/WhatsNew.lua).
+	F:SetScript("OnHide", function(self)
+		if stepping or self:IsShown() then return end
 		if inCinematic() then
 			pending = "asked"
 			return
@@ -2071,12 +2072,13 @@ end
 
 local try -- forward; defined below
 
--- Wait for the route choice to close, then try again.
+-- Wait for the route choice to close (not for Polestar hiding it with the
+-- rest: it stays open then), then try again.
 local function afterRouteChoice()
 	local RC = UI.RouteChoice
 	if not hookedRC and RC and RC.frame then
 		hookedRC = true
-		RC.frame:HookScript("OnHide", function() try() end)
+		RC.frame:HookScript("OnHide", function(self) if not self:IsShown() then try() end end)
 	end
 end
 

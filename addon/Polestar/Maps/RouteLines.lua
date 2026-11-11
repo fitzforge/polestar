@@ -182,8 +182,9 @@ local function sparklePhase(now)
 	return phase + (now - phaseAt) * (sparkleStyle and sparkleStyle.flow or 0)
 end
 
+-- Where the lines draw (world map, minimap): nowhere while Polestar is hidden.
 local function surfaces()
-	if not ns.Get("nav.routeLines") then return false, false end
+	if not ns.Get("nav.routeLines") or ns.Hidden() then return false, false end
 	return ns.Get("nav.worldPins") and true or false,
 		(ns.Get("nav.minimapPins") and ns.Get("nav.minimapRoute") ~= false) and true or false
 end
@@ -784,11 +785,12 @@ local function worldTick(pin, elapsed)
 end
 
 -- The frame for the strokes: on the canvas at its top left, under every pin,
--- no mouse; its OnUpdate runs only while the map shows it.
+-- no mouse; its OnUpdate runs only while the map shows it (a child of the
+-- map's view frame, as every frame of Polestar's on a map: Nav/MapCanvas.lua).
 local function ensureWorldPin()
 	if worldPin then return worldPin end
 	local canvas = view.canvas
-	worldPin = newOwner(ns.CreateFrameUnder("Frame", nil, canvas))
+	worldPin = newOwner(ns.CreateFrameUnder("Frame", nil, view.frame))
 	worldPin:SetPoint("TOPLEFT", canvas, "TOPLEFT", 0, 0)
 	worldPin:EnableMouse(false)
 	worldPin:SetScript("OnUpdate", ns.Safe(worldTick))
@@ -1067,6 +1069,14 @@ end
 
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	if ns.IsLoggedIn() then RouteLines.Refresh() end
+end)
+
+-- Hidden: the minimap's line goes (the map's goes with its view frame);
+-- shown again, both draw afresh.
+ns.On("POLESTAR_HIDDEN", function()
+	if not ns.IsLoggedIn() then return end
+	refreshWorld()
+	refreshMinimap()
 end)
 
 local WATCH = {

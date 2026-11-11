@@ -19,7 +19,7 @@ local HEAD_H = 56
 local F
 
 local function build()
-	F = CreateFrame("Frame", "PolestarCopy", UIParent)
+	F = CreateFrame("Frame", "PolestarCopy", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)

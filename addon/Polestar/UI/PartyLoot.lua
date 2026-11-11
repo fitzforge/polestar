@@ -70,7 +70,7 @@ local function paint()
 		return
 	end
 	if not F then
-		F = CreateFrame("Frame", "PolestarLootNeeds", UIParent)
+		F = CreateFrame("Frame", "PolestarLootNeeds", ns.UIParent)
 		F:SetFrameStrata("HIGH")
 		F:SetClampedToScreen(true)
 		if ns.Theme and ns.Theme.Skin then ns.Theme.Skin(F, "panel") end

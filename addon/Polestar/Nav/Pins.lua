@@ -1074,7 +1074,7 @@ do
 	local function worldPin(i)
 		local f = wPins[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		buildLook(f)
 		f.data = {}
 		f:EnableMouse(true)
@@ -1096,7 +1096,7 @@ do
 	local function worldArea(i)
 		local f = wAreas[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		f.tex = f:CreateTexture(nil, "BACKGROUND")
 		f.tex:SetTexture(MEDIA .. "area")
 		f.tex:SetAllPoints()
@@ -1117,7 +1117,7 @@ do
 	local function worldHull(i)
 		local f = wHulls[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		f.texs, f.used, f.outline = {}, 0, {}
 		f.get = function(k)
 			local t = f.texs[k]
@@ -1690,7 +1690,7 @@ do
 	-- in canvas units; WORLD_DOT on screen like a pin.
 	local function trailHost()
 		if wTrail then return wTrail end
-		local host = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		local host = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		host:SetPoint("TOPLEFT", wView.canvas, "TOPLEFT", 0, 0)
 		host:SetSize(1, 1)
 		wTrail = { host = host, dots = {}, n = 0 }
@@ -1789,7 +1789,9 @@ local function isSquare()
 	return GetMinimapShape ~= nil and GetMinimapShape() == "SQUARE"
 end
 
+-- Anything to draw on the minimap: nothing while Polestar is hidden.
 local function hasMinimapPins()
+	if ns.Hidden() then return false end
 	if trail and trail.minimap then return true end
 	for _, name in ipairs(order) do
 		local layer = layers[name]
@@ -2312,7 +2314,7 @@ end
 -- Compare the state the minimap pins depend on; redraw when it changed.
 -- Returns true when something changed.
 local function sample(force)
-	if not Minimap then return false end
+	if not Minimap or ns.Hidden() then return false end
 	local C = ns.Compat
 	local pc, px, py
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
@@ -2346,9 +2348,10 @@ local function wake()
 	end
 end
 
+-- The drivers hang off Polestar's layer (Core/Init.lua): hidden, they stop.
 local function ensureMinimap()
 	if driver or not Minimap then return end
-	driver = CreateFrame("Frame", nil, UIParent)
+	driver = CreateFrame("Frame", nil, ns.UIParent)
 	driver:Hide()
 	driver:SetScript("OnUpdate", ns.Safe(function(self, elapsed)
 		accum = accum + elapsed
@@ -2536,7 +2539,7 @@ end
 function updateTrailDriver()
 	if not stillTrail() and (minimapTrailShown() or world.dotsShown()) then
 		if not trailDriver then
-			trailDriver = CreateFrame("Frame", nil, UIParent)
+			trailDriver = CreateFrame("Frame", nil, ns.UIParent)
 			trailDriver:Hide()
 			trailDriver:SetScript("OnUpdate", ns.Safe(trailTick))
 			Pins.trailDriver = trailDriver
@@ -2568,6 +2571,23 @@ end
 -- nav.minimapIconSize redraws the minimap's marks.
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "nav" or path == "nav.minimapIconSize" then refreshMinimap(true) end
+end)
+
+-- Hidden: the minimap's pins, areas and dots go at once (the map's go with
+-- its view frame, Nav/MapCanvas.lua); shown again, they are drawn for where
+-- you are, and a ping announced meanwhile does not play late: news while
+-- hidden is not kept for after.
+ns.On("POLESTAR_HIDDEN", function(gone)
+	if not gone then
+		local played = Pins.PING.played
+		for _, name in ipairs(order) do
+			local layer = layers[name]
+			for _, p in ipairs(layer and layer.pins or {}) do
+				if p.ping then played[p.ping] = true end
+			end
+		end
+	end
+	refreshMinimap(false)
 end)
 
 -- ui.reduceMotion stops or restarts the crawl at once.

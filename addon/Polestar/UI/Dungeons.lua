@@ -992,7 +992,10 @@ function DS.Build(parent, shell)
 		segs[i] = b
 	end
 
-	root:SetScript("OnHide", function()
+	-- Leaving the page, not Polestar hiding (its layer hides the hub with
+	-- the page still open: it comes back as it was).
+	root:SetScript("OnHide", function(self)
+		if self:IsShown() then return end
 		restoreHeader()
 		UI.LevelTip.Hide()
 		for _, b in ipairs(segs) do b:Hide() end

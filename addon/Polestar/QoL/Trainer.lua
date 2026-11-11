@@ -136,9 +136,11 @@ function Trainer.Start(fromAuto)
 	buyNext()
 end
 
+-- The Train All button on the trainer window; not while Polestar is hidden
+-- (POLESTAR_HIDDEN puts it back).
 updateTrainerButton = function()
 	if not trainerButton or not ClassTrainerFrame then return end
-	if not QoL.On("trainAllButton") or not isClassTrainer() then
+	if not QoL.On("trainAllButton") or not isClassTrainer() or ns.Hidden() then
 		trainerButton:Hide()
 		return
 	end
@@ -233,5 +235,6 @@ ns.On("SETTING_CHANGED", function(path)
 	if (path == "qol.trainAll" or path == "qol" or path == "") and not QoL.On("trainAll") and auto then cancel() end
 	if path == "qol.trainAllButton" or path == "qol" or path == "" then updateTrainerButton() end
 end)
+ns.On("POLESTAR_HIDDEN", function() updateTrainerButton() end)
 
 initTrainerButton()

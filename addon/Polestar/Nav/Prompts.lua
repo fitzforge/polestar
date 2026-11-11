@@ -137,9 +137,10 @@ local function stepButtonHas(kind, id)
 	return b and b.itemID == id and b:IsShown() and true or false
 end
 
--- kind, id the button should hold now (nil: hidden).
+-- kind, id the button should hold now (nil: hidden). It goes with the guide
+-- window; hiding Polestar takes it with the arrow (kept with it: ns.ArrowHidden).
 function Prompts.Wanted()
-	if not ns.Get("nav.castPrompt") or not ns.GuideShown() then return nil end
+	if not ns.Get("nav.castPrompt") or not ns.GuideWindowOn() or ns.ArrowHidden() then return nil end
 	local kind, id = Prompts.ActionOf((currentLeg()))
 	if not kind or stepButtonHas(kind, id) then return nil end
 	return kind, id
@@ -421,7 +422,7 @@ end
 ns.RegisterCommand("skipleg", function()
 	if Nav.SayHandedOff() then return end
 	skip()
-end, L["Skip the travel route's current leg (a Hearthstone, teleport, flight, ride or portal: plan the rest without it; a walk or lift: mark it done)"])
+end, L["Skip the travel route's current leg (a Hearthstone, teleport, flight, ride or portal: plan the rest without it; a walk or lift: mark it done)"], true)
 
 ---------------------------------------------------------------------------
 -- Wiring

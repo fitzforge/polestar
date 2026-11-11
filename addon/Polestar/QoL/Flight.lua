@@ -172,7 +172,7 @@ local function markFrame()
 	if mark then return mark end
 	local T = ns.Theme
 	local media = function(name) return T and T.Media and T.Media(name) or nil end
-	mark = CreateFrame("Frame", nil, UIParent)
+	mark = CreateFrame("Frame", nil, ns.UIParent)
 	mark:SetSize(40, 40)
 	mark:Hide()
 	-- A soft dark halo, not a glow: the taxi map is light parchment.
@@ -371,6 +371,8 @@ local function markNode()
 	if not index and not listed then index = Flight.FindNode(dest) end
 	if not index then return end
 	Flight.destination, Flight.node = dest or (TaxiNodeName and TaxiNodeName(index)), index
+	-- While Polestar is hidden the step key still flies there; nothing is drawn.
+	if ns.Hidden() then return end
 	local anchor = nodeFrame(index)
 	if anchor then
 		local m = markFrame()
@@ -458,10 +460,13 @@ ns.RegisterEvent("TAXIMAP_CLOSED", function()
 	told = false
 	ns.Fire("FLIGHT_MARK_CHANGED", nil)
 end)
--- A route planned while the map is open (a flight path just learned).
-ns.On("ROUTE_CHANGED", function()
+-- A route planned while the map is open (a flight path just learned), and
+-- Polestar hidden or back.
+local function remark()
 	if TaxiFrame and TaxiFrame:IsShown() then Flight.Highlight() end
-end)
+end
+ns.On("ROUTE_CHANGED", remark)
+ns.On("POLESTAR_HIDDEN", remark)
 -- ui.reduceMotion stops or restarts the mark's loops at once.
 ns.On("SETTING_CHANGED", function(path)
 	if path ~= "" and path ~= "ui" and path ~= "ui.reduceMotion" then return end

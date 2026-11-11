@@ -103,7 +103,7 @@ local function paintTitle(fs)
 end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarGuideEnd", UIParent)
+	F = CreateFrame("Frame", "PolestarGuideEnd", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -355,8 +355,8 @@ function GE.Show(info)
 	layout(m)
 	if not F:IsShown() then
 		local C = UI.ClassCard
-		if C and C.GameSoundOn and C.GameSoundOn() and PlaySound then
-			pcall(PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
+		if C and C.GameSoundOn and C.GameSoundOn() then
+			pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 		end
 	end
 	F:Show()

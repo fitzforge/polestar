@@ -15,6 +15,7 @@ local Engine = ns.Engine
 -- BINDING_TAG_POLESTAR: "polestar" finds them all.
 BINDING_TAG_POLESTAR = "Polestar"
 BINDING_NAME_POLESTAR_TOGGLE = L["Toggle guide window"]
+BINDING_NAME_POLESTAR_HIDE = L["Hide/show Polestar"]
 BINDING_NAME_POLESTAR_NEXT = L["Next step"]
 BINDING_NAME_POLESTAR_PREV = L["Previous step"]
 BINDING_NAME_POLESTAR_FOCUS = L["Browse guide (gamepad)"]
@@ -36,14 +37,23 @@ _G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the travel but
 _G["BINDING_NAME_CLICK PolestarBagButton:LeftButton"] = L["Delete cheapest junk"]
 
 -- Entry points for Bindings.xml (and Polestar's gamepad chords, UI/Gamepad.lua).
+-- A key that opens a window brings a hidden Polestar back first (the toggle
+-- of the guide window does it in UI/UI.lua's TOGGLE_FRAME). -> true when it did
+local function unhide()
+	if not ns.Hidden() then return false end
+	ns.SetHidden(false)
+	return true
+end
 ns.Bindings = {
 	Toggle = function() ns.Fire("TOGGLE_FRAME") end,
+	Hide = function() ns.ToggleHidden() end,
 	Next = function() Engine.Next() end,
 	Prev = function() Engine.Prev() end,
-	Focus = function() ns.Fire("TOGGLE_FOCUS") end,
-	Menu = function() ns.Fire("TOGGLE_PICKER") end,
-	Options = function() ns.Fire("TOGGLE_OPTIONS") end,
-	Report = function() ns.Fire("SHOW_REPORT") end,
+	Focus = function() unhide(); ns.Fire("TOGGLE_FOCUS") end,
+	-- A window open out of sight comes back with Polestar: shown, not toggled shut.
+	Menu = function() ns.Fire(unhide() and "SHOW_PICKER" or "TOGGLE_PICKER") end,
+	Options = function() ns.Fire(unhide() and "SHOW_OPTIONS" or "TOGGLE_OPTIONS") end,
+	Report = function() unhide(); ns.Fire("SHOW_REPORT") end,
 	-- The arrow to the step's next or previous place: spawn spot, else goal.
 	NextWaypoint = function() Engine.CycleWaypoint(1) end,
 	PrevWaypoint = function() Engine.CycleWaypoint(-1) end,
@@ -57,13 +67,22 @@ local function needGuide()
 end
 
 ns.RegisterCommand("show", function() ns.Fire("SHOW_FRAME") end, L["Show the guide window"])
-ns.RegisterCommand("hide", function() ns.Fire("HIDE_FRAME") end, L["Hide the guide window"])
+-- Quiet: it toggles the hidden state itself (Polestar.SetHidden).
+ns.RegisterCommand("hide", function(rest)
+	if (rest or ""):lower() == "arrow" then
+		ns.SetHideKeepsArrow(not ns.HideKeepsArrow())
+		ns.Print(ns.HideKeepsArrow() and L["Hiding Polestar keeps the arrow."] or L["Hiding Polestar hides the arrow too."])
+		return
+	end
+	ns.ToggleHidden()
+	if ns.Hidden() then ns.Print(L["Polestar is hidden: /polestar hide or the minimap button shows it again."]) end
+end, L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"], true)
 ns.RegisterCommand("guides", function() ns.Fire("SHOW_PICKER") end, L["Choose a guide"])
 ns.RegisterCommand("options", function(rest) ns.Fire("SHOW_OPTIONS", rest ~= "" and rest or nil) end, L["Open settings"])
 ns.RegisterCommand("debug", function()
 	ns.debug = not ns.debug
 	ns.Print(L["Debug output"], ns.debug and L["on"] or L["off"])
-end, L["Toggle debug output"])
+end, L["Toggle debug output"], true)
 
 ns.RegisterCommand("next", function()
 	if needGuide() then Engine.Next() end
@@ -121,7 +140,7 @@ ns.RegisterCommand("status", function()
 			DEFAULT_CHAT_FRAME:AddMessage("  " .. mark .. goal.text .. progress)
 		end
 	end
-end, L["Show the current guide and step"])
+end, L["Show the current guide and step"], true)
 
 ns.RegisterCommand("tabs", function()
 	local list, active = Engine.GetTabs()
@@ -135,7 +154,7 @@ ns.RegisterCommand("tabs", function()
 		local state = t.complete and L["complete"] or (L["step %d of %d"]):format(t.stepNumber or t.stepIndex or 0, t.stepTotal or t.stepCount)
 		DEFAULT_CHAT_FRAME:AddMessage(("%s%d. %s  |cff8a8f98%s|r"):format(mark, i, t.title, state))
 	end
-end, L["List the open guide tabs"])
+end, L["List the open guide tabs"], true)
 
 ns.RegisterCommand("tab", function(rest)
 	local n = tonumber(rest and rest:match("^%s*(%d+)"))

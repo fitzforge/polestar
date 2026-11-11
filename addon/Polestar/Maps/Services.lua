@@ -230,7 +230,9 @@ function Maps.ServiceMapShown()
 	refresh()
 end
 
+-- Not while Polestar is hidden: no entry of Polestar's in the game's menus.
 local function addMenu(_, root)
+	if ns.Hidden() then return end
 	local menu = root:CreateButton(L["Polestar: NPC services"])
 	local function checkbox(parent, label, key)
 		return parent:CreateCheckbox(label, function() return ns.Get(key) == true end, function()
