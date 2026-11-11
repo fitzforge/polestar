@@ -556,7 +556,14 @@ add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 add({ page = L["Integrations"], section = L["Quest Tracker"], controls = {
 	{ kind = "toggle", key = "ui.trackerDock", label = L["Dock guide into the quest tracker"],
 		help = L["Adds a Polestar tab to the quest tracker. Supports Questie, EllesmereUI and the default tracker. Reload to apply changes. If Polestar Tracker Dock is enabled, it manages docking instead."]
-			.. " " .. L["Unavailable while Hide the game's quest tracker or the gamepad interface is enabled."],
+			.. " " .. L["Unavailable with the gamepad interface."],
+		notice = function()
+			local text = L["Reload required"]
+			if ns.Get("qol.hideQuestTracker") then
+				text = text .. "\n" .. L["Docking is unavailable while the quest tracker is hidden."]
+			end
+			return text
+		end,
 		disabled = function()
 			return ns.Get("qol.hideQuestTracker") or ns.GamepadUI() or ns.Compat.AddOnPresent("Polestartrackerdock")
 		end,
@@ -1066,6 +1073,10 @@ function O.Rows(view, controls, y, cache, panel)
 			w = makeControl(view, c)
 			W.RowDetails(w, { inset = c.child and CHILD_INSET or ROW_INSET, child = c.child })
 			cache[c] = w
+		end
+		if c.notice then
+			W.RowDetails(w, { inset = c.child and CHILD_INSET or ROW_INSET, child = c.child,
+				notice = type(c.notice) == "function" and c.notice() or c.notice })
 		end
 		w:ClearAllPoints()
 		w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)

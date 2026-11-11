@@ -82,11 +82,7 @@ end
 function C.hideQuestTracker()
 	return { kind = "toggle", key = "qol.hideQuestTracker", label = L["Hide the game's quest tracker"],
 		help = L["Hides the game's tracker on the right of the screen, with its quests, achievements and professions, as Questie can. Not with the gamepad interface."]
-			.. " " .. L["Unavailable while guide docking is active. Disable docking and reload first."],
-		disabled = function()
-			local dock = ns.UI and ns.UI.TrackerDock
-			return dock and dock.Enabled()
-		end,
+			.. " " .. L["If guide docking is active, reload to hide the tracker and return the guide to its floating window."],
 		search = "hide tracker, turn off quest tracker, tracker, objectives, objective tracker, quest watch, watch frame" }
 end
 function C.itemButton()

@@ -20,6 +20,9 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 	frame:SetFrameLevel(holder:GetFrameLevel() + 1)
 
 	local adapter = {frame = frame, pane = pane, holder = holder, overflow = 0}
+	local host = Skin.SharedHost()
+	local savedTab = ns.CharState().trackerDockTab
+	local firstSelection = true
 	gf.dock = adapter
 	gf.ApplyLock()
 	gf.ApplyStyle()
@@ -52,6 +55,10 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 		holder:SetHeight(height)
 	end
 	function adapter:SetSelected(selected, show)
+		if host and not firstSelection then
+			ns.CharState().trackerDockTab = selected and "polestar" or (show and "fta" or "quests")
+		end
+		firstSelection = false
 		pane:SetShown(selected)
 		if selected and show then
 			if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
@@ -64,5 +71,11 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 			if value then openTab() else closeTab() end
 		end
 	end)
+	if host and host.Select and (savedTab == "fta" or (savedTab == "polestar" and ns.Get("ui.shown"))) then
+		-- The host completes its default selection after attaching the guide.
+		C_Timer.After(0, function()
+			if gf.dock == adapter and not ns.Hidden() then host.Select(savedTab) end
+		end)
+	end
 	return adapter
 end

@@ -788,17 +788,23 @@ function W.LayoutRow(row, width)
 	label:ClearAllPoints()
 	label:SetWidth(lw)
 	local lh = math.ceil(label:GetStringHeight())
+	local notice = rawget(row, "HelpNotice")
+	local noticeHeight = 0
+	if notice and notice:IsShown() then
+		notice:SetWidth(min(lw, HELP_MAX))
+		noticeHeight = 2 + math.ceil(notice:GetStringHeight())
+	end
 	-- 50 at least in the house style; the other skins keep their own row.
 	local least = Theme.SkinKey() == "polestar" and ROW_MIN or W.RowH()
 	local h, top
 	if help:IsShown() then
 		help:SetWidth(min(lw, HELP_MAX))
-		local content = lh + 2 + math.ceil(help:GetStringHeight())
+		local content = lh + 2 + math.ceil(help:GetStringHeight()) + noticeHeight
 		h = max(least, content + 2 * ROW_PAD)
 		top = floor((h - content) / 2)
 	else
-		h = max(least, lh + 2 * ROW_PAD)
-		top = floor((h - lh) / 2)
+		h = max(least, lh + noticeHeight + 2 * ROW_PAD)
+		top = floor((h - lh - noticeHeight) / 2)
 	end
 	label:SetPoint("TOPLEFT", row, "TOPLEFT", inset, -top)
 	-- A child's connector: down from the row's top, then in to the label's
@@ -880,6 +886,20 @@ function W.RowDetails(row, opts)
 	local desc = row.psDesc
 	row.Help:SetText(desc or "")
 	row.Help:SetShown(desc ~= nil and desc ~= "")
+	-- A separate semibold line keeps notices readable without colour literals
+	-- or changing the weight of the description above them.
+	if opts.notice and not rawget(row, "HelpNotice") then
+		row.HelpNotice = W.Text(row, "number", "text")
+		row.HelpNotice:SetWordWrap(true)
+		row.HelpNotice:SetSpacing(2)
+		row.HelpNotice:SetJustifyV("TOP")
+	end
+	if rawget(row, "HelpNotice") then
+		row.HelpNotice:SetText(opts.notice or "")
+		row.HelpNotice:SetShown(opts.notice ~= nil and opts.notice ~= "")
+		row.HelpNotice:ClearAllPoints()
+		row.HelpNotice:SetPoint("TOPLEFT", row.Help:IsShown() and row.Help or row.Label, "BOTTOMLEFT", 0, -2)
+	end
 	if row.Help:IsShown() then row.psTip, row.psTipLines = nil, nil end
 	if opts.child and not row.psConnector then
 		local c = {}

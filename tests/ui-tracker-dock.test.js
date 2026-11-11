@@ -5,39 +5,7 @@ const { runAddon } = require('./helpers/lua');
 
 const TRACKER = `
 C_Texture = { GetAtlasInfo = function() return {} end }
-local createFrame=CreateFrame
-function CreateFrame(kind,name,parent,template,...)
-	local frame=createFrame(kind,name,parent,template,...)
-	if type(template)=="string" and template:find("SecureActionButtonTemplate") then
-		frame.secure=true
-		if parent and parent:GetName()=="PolestarTrackerDockReload" then parent.secure=true end
-	end
-	return frame
-end
-for _,method in ipairs({"Show","Hide","SetPoint","SetSize","SetAttribute"}) do
-	local original=stub.Methods[method]
-	stub.Methods[method]=function(self,...)
-		if self.secure and stub.inCombat then error("protected reload control changed in combat: "..method) end
-		return original(self,...)
-	end
-end
-local drivers={}
-function RegisterStateDriver(frame,state,condition)
-	assert(not stub.inCombat,"state driver registration during combat")
-	assert(state=="visibility" and condition=="[combat] hide; show")
-	drivers[frame]=true
-	frame:Show()
-end
-function UnregisterStateDriver(frame,state)
-	assert(not stub.inCombat,"state driver removal during combat")
-	drivers[frame]=nil
-end
-function setDockCombat(combat)
-	stub.inCombat=combat
-	for frame in pairs(drivers) do frame.shown=not combat end
-	stub.fire(combat and "PLAYER_REGEN_DISABLED" or "PLAYER_REGEN_ENABLED")
-end
-function ReloadUI() error("insecure ReloadUI call") end
+function ReloadUI() error("docking changes must not reload automatically") end
 
 C_AddOns.DoesAddOnExist = function(name)
 	for _, addon in ipairs(stub.addons) do if addon.name == name then return true end end
@@ -64,11 +32,11 @@ function M.GetWidth(self)
 	return getWidth(self)
 end
 `;
-function run(script, { enabled = true, before = '', hideTracker = false, withQoL = false } = {}) {
+function run(script, { enabled = true, before = '', hideTracker = false, withQoL = false, savedTab = 'quests', shown = true } = {}) {
 	return runAddon({
 		stubs: ['stub_ui.lua'], before: TRACKER + before,
 		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Theme/Theme.xml', ...(withQoL ? ['QoL/QoL.xml'] : []), 'UI/UI.xml'] }],
-		saved: { Polestar: `PolestarDB={schema=1,settings={ui={trackerDock=${enabled},pos={100,200},scale=1.2,growUp=true,maxHeight=0.3},qol={hideQuestTracker=${hideTracker}}}}` },
+		saved: { Polestar: `PolestarDB={schema=1,settings={ui={trackerDock=${enabled},shown=${shown},pos={100,200},scale=1.2,growUp=true,maxHeight=0.3},qol={hideQuestTracker=${hideTracker}}}};PolestarCharDB={trackerDockTab=${JSON.stringify(savedTab)}}` },
 		script: `uistub.install();stub.login();stub.advance(0.3)
 local GF=Polestar.UI.GuideFrame
 local dock=Polestar.UI.TrackerDock
@@ -134,11 +102,16 @@ test('FTA hosts the Polestar tab once and the built-in dock creates no second ro
 	assert.deepEqual(out,{registrations:1,ownTabs:false});
 });
 
-test('the docking toggle asks for reload and does not reparent the guide mid-session', () => {
+test('the docking toggle uses the existing Options reload button and does not reparent mid-session', () => {
 	const [out]=run(`
+	Polestar.UI.ShowOptions("integrations")
 	Polestar.Set("ui.trackerDock",true)
-	emit({prompt=PolestarTrackerDockReload and PolestarTrackerDockReload:IsShown(),attached=GF.dock~=nil})`,{enabled:false});
-	assert.deepEqual(out,{prompt:true,attached:false});
+	local reload=false
+	for _,button in ipairs(PolestarOptions.footerButtons.left) do
+		if button.Label:GetText()=="Reload UI" and button:IsShown() then reload=true end
+	end
+	emit({extraPrompt=PolestarTrackerDockReload~=nil,reload=reload,attached=GF.dock~=nil,saved=Polestar.Get("ui.trackerDock")})`,{enabled:false});
+	assert.deepEqual(out,{extraPrompt:false,reload:true,attached:false,saved:true});
 });
 
 for (const standalone of [false,true]) {
@@ -191,34 +164,6 @@ for (const custom of [false,true]) {
 	});
 }
 
-for (const keyDown of [false,true]) {
-	test(`reload confirmation executes the secure macro once on release (${keyDown})`,()=>{
-		const [out]=run(`
-		stub.cvars.ActionButtonUseKeyDown=${keyDown ? '"1"' : '"0"'}
-		Polestar.Set("ui.trackerDock",true)
-		local prompt=PolestarTrackerDockReload
-		local actions={}
-		stub.mouseClick(prompt.Reload,actions)
-		emit({actions=actions,closed=not prompt:IsShown(),saved=Polestar.Get("ui.trackerDock")})`,{enabled:false});
-		assert.deepEqual(out,{actions:[['macro','/reload']],closed:true,saved:true});
-	});
-}
-
-test('reload prompt waits for combat and Later keeps the setting without reloading',()=>{
-	const [out]=run(`
-	setDockCombat(true)
-	Polestar.Set("ui.trackerDock",true)
-	local deferred=PolestarTrackerDockReload==nil
-	setDockCombat(false)
-	local prompt=PolestarTrackerDockReload
-	local opened=prompt:IsShown()
-	setDockCombat(true)
-	local hiddenInCombat=not prompt:IsShown()
-	setDockCombat(false)
-	prompt.Later:Click()
-	emit({deferred=deferred,opened=opened,hiddenInCombat=hiddenInCombat,closed=not prompt:IsShown(),saved=Polestar.Get("ui.trackerDock")})`,{enabled:false});
-	assert.deepEqual(out,{deferred:true,opened:true,hiddenInCombat:true,closed:true,saved:true});
-});
 
 test('hiding Polestar restores quests, hides the dock and stops its update loop',()=>{
 	const [out]=run(`
@@ -243,15 +188,52 @@ test('hiding Polestar restores quests, hides the dock and stops its update loop'
 	assert.deepEqual(out,{hidden:true,quests:1,stopped:true,restored:true,selected:true});
 });
 
-test('hiding Polestar in combat dismisses the secure reload prompt after combat',()=>{
-	const [out]=run(`
-	Polestar.Set("ui.trackerDock",true)
-	setDockCombat(true)
-	Polestar.SetHidden(true)
-	setDockCombat(false)
-	emit({closed=not PolestarTrackerDockReload:IsShown(),hidden=Polestar.Hidden()})`,{enabled:false});
-	assert.deepEqual(out,{closed:true,hidden:true});
+
+test('the selected guide tab survives a fresh session and switching back saves Quests',()=>{
+	const [saved]=run(`
+	for _,button in ipairs({PolestarTrackerDockTabs:GetChildren()}) do
+		if button.label:GetText()=="Polestar" then button:Click() end
+	end
+	emit(Polestar.CharState().trackerDockTab)`);
+	assert.equal(saved,'polestar');
+	const [restored]=run(`
+	local visible=GF.dock.pane:IsShown() and GF.frame:IsVisible()
+	for _,button in ipairs({PolestarTrackerDockTabs:GetChildren()}) do
+		if button.label:GetText()=="Quests" then button:Click() end
+	end
+	emit({visible=visible,saved=Polestar.CharState().trackerDockTab})`,{savedTab:saved});
+	assert.deepEqual(restored,{visible:true,saved:'quests'});
+	const [quests]=run('emit({visible=GF.dock.pane:IsShown(),saved=Polestar.CharState().trackerDockTab})',{savedTab:restored.saved});
+	assert.deepEqual(quests,{visible:false,saved:'quests'});
 });
+
+test('an unavailable saved tab and a hidden guide fall back to Quests',()=>{
+	for (const options of [{savedTab:'removed-guide'},{savedTab:'polestar',shown:false}]) {
+		const [out]=run('emit({visible=GF.dock.pane:IsShown(),saved=Polestar.CharState().trackerDockTab})',options);
+		assert.deepEqual(out,{visible:false,saved:'quests'});
+	}
+});
+
+for (const savedTab of ['polestar','fta']) {
+	test(`a shared FTA row restores its saved tab after the host initializes (${savedTab})`,()=>{
+		const [out]=run(`
+	local holder=Polestar.CreateFrameUnder("Frame",nil,Polestar.UIParent)
+	holder:SetSize(300,500)
+	sharedAdapter=sharedAttach(holder,function() end,function() end)
+	FTAEllesmereTrackerDock.Select("quests")
+	stub.advance(0.1)
+	emit({selected=sharedSelected,saved=Polestar.CharState().trackerDockTab})`,{
+			savedTab,
+			before:`FTAEllesmereTrackerDock={CanDock=function() return true end,
+	RegisterGuide=function(_,_,_,attach) sharedAttach=attach end,
+	Select=function(tab)
+		sharedSelected=tab
+		sharedAdapter:SetSelected(tab=="polestar",tab~="quests")
+	end}`,
+		});
+		assert.deepEqual(out,{selected:savedTab,saved:savedTab});
+	});
+}
 
 test('a saved configuration with docking and hide-tracker enabled keeps a visible floating guide',()=>{
 	const [out]=run(`
@@ -263,13 +245,39 @@ test('a saved configuration with docking and hide-tracker enabled keeps a visibl
 	assert.deepEqual(out,{enabled:false,floating:true,trackerHidden:true,shown:true,disabled:true});
 });
 
-test('the hide-tracker control is unavailable while docking is active',()=>{
+test('hiding the tracker switches docking off and waits for reload before hiding its guide',()=>{
 	const [out]=run(`
 	Polestar.UI.ShowOptions("qualityoflife")
 	Polestar.UI.Options.Select("qualityoflife","Quests")
 	local control=Polestar.UI.Options.Controls("qualityoflife","Quests")["qol.hideQuestTracker"]
-	emit({docked=GF.dock~=nil,disabled=control~=nil and not control:IsEnabled()})`,{withQoL:true});
-	assert.deepEqual(out,{docked:true,disabled:true});
+	assert(control and control:IsEnabled())
+	assert(not rawget(control,"HelpNotice"))
+	control:Click()
+	stub.advance(0.3)
+	Polestar.UI.ShowOptions("integrations")
+	local toggle=Polestar.UI.Options.Controls("integrations")["ui.trackerDock"]
+	emit({docked=GF.dock~=nil,active=dock.Enabled(),trackerVisible=ObjectiveTrackerFrame:IsShown(),
+		hide=Polestar.Get("qol.hideQuestTracker"),savedDock=Polestar.Get("ui.trackerDock"),
+		disabled=not toggle:IsEnabled(),notice=toggle.HelpNotice:GetText(),modal=Polestar.Widgets.ModalShown()})`,{withQoL:true});
+	assert.deepEqual(out,{docked:true,active:true,trackerVisible:true,hide:true,savedDock:false,disabled:true,
+		notice:'Reload required\nDocking is unavailable while the quest tracker is hidden.',modal:false});
+	const [reloaded]=run(`emit({docked=GF.dock~=nil,floating=GF.frame:IsVisible(),
+		hidden=not ObjectiveTrackerFrame:IsShown(),savedDock=Polestar.Get("ui.trackerDock")})`,
+		{withQoL:true,hideTracker:out.hide,enabled:out.savedDock});
+	assert.deepEqual(reloaded,{docked:false,floating:true,hidden:true,savedDock:false});
+});
+
+test('the hidden-tracker restriction is conditional and its saved docking switch remains off',()=>{
+	const [hidden,visible]=run(`
+	Polestar.UI.ShowOptions("integrations")
+	local toggle=Polestar.UI.Options.Controls("integrations")["ui.trackerDock"]
+	emit({savedDock=Polestar.Get("ui.trackerDock"),disabled=not toggle:IsEnabled(),notice=toggle.HelpNotice:GetText()})
+	Polestar.Set("qol.hideQuestTracker",false)
+	Polestar.UI.ShowOptions("integrations")
+	emit({savedDock=Polestar.Get("ui.trackerDock"),disabled=not toggle:IsEnabled(),notice=toggle.HelpNotice:GetText()})`,
+		{hideTracker:true,withQoL:true});
+	assert.deepEqual(hidden,{savedDock:false,disabled:true,notice:'Reload required\nDocking is unavailable while the quest tracker is hidden.'});
+	assert.deepEqual(visible,{savedDock:false,disabled:false,notice:'Reload required'});
 });
 
 test('the gamepad interface leaves docking inactive and the guide floating',()=>{

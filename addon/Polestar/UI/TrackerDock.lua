@@ -197,6 +197,7 @@ local function Select(mode)
 	end
 	if mode == "polestar" and not polestarDock then return end
 	active = mode ~= "quests"
+	ns.CharState().trackerDockTab = mode
 	writing = true
 	holder:SetShown(active)
 	if polestarDock then polestarDock:SetSelected(active, active) end
@@ -316,9 +317,8 @@ local function Initialize()
 			writing = false
 		end
 	end)
-	-- Start on quests, preserving the host tracker's login behavior. Remembering
-	-- a guide tab across reloads is a separate user-facing policy choice.
-	Select("quests")
+	local savedTab = ns.CharState().trackerDockTab
+	Select(savedTab == "polestar" and ns.Get("ui.shown") and "polestar" or "quests")
 	return true
 end
 
@@ -362,77 +362,21 @@ local function Register()
 	end
 end
 
-local reloadDialog, reloadPending
-
-local function CloseReloadPrompt()
-	if InCombat() then return end
-	reloadPending = false
-	if not reloadDialog then return end
-	UnregisterStateDriver(reloadDialog, "visibility")
-	reloadDialog:Hide()
-end
-
-local function ShowReloadPrompt()
-	if ns.Hidden() or ns.GamepadUI() then return end
-	if InCombat() then
-		reloadPending = true
-		return
+-- Keep the saved switch consistent with the hidden tracker. An already
+-- active dock stays in place until reload, as advertised by the options.
+local function DisableDockWhenTrackerHidden()
+	if ns.Get("qol.hideQuestTracker") and ns.Get("ui.trackerDock") then
+		ns.Set("ui.trackerDock", false)
 	end
-	reloadPending = false
-	if not reloadDialog then
-		-- Reload is protected on Forever. Let the client execute /reload from
-		-- a real click on SecureActionButtonTemplate, without a Lua callback.
-		local dialog = CreateFrame("Frame", "PolestarTrackerDockReload", UIParent, "BackdropTemplate")
-		dialog:SetSize(380, 150)
-		dialog:SetPoint("CENTER", UIParent, "CENTER")
-		dialog:SetFrameStrata("FULLSCREEN_DIALOG")
-		dialog:EnableMouse(true)
-		dialog:Hide()
-		dialog:SetBackdrop(NATIVE_BACKDROP)
-		dialog:SetBackdropColor(0.04, 0.04, 0.04, 1)
-		local title = dialog:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-		title:SetPoint("TOP", dialog, "TOP", 0, -20)
-		title:SetText(L["Reload UI?"])
-		local text = dialog:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		text:SetPoint("TOPLEFT", dialog, "TOPLEFT", 24, -52)
-		text:SetWidth(332)
-		text:SetText(L["Reload to apply quest tracker docking changes."])
-		local reload = CreateFrame("Button", nil, dialog, "UIPanelButtonTemplate,SecureActionButtonTemplate")
-		reload:SetSize(140, 26)
-		reload:SetPoint("BOTTOMRIGHT", dialog, "BOTTOMRIGHT", -24, 20)
-		reload:SetText(L["Reload UI"])
-		reload:RegisterForClicks("LeftButtonDown", "LeftButtonUp")
-		reload:SetAttribute("useOnKeyDown", false)
-		reload:SetAttribute("type1", "macro")
-		reload:SetAttribute("macrotext1", "/reload")
-		reload:HookScript("PostClick", function(_, _, down)
-			if not down then CloseReloadPrompt() end
-		end)
-		local later = CreateFrame("Button", nil, dialog, "UIPanelButtonTemplate")
-		later:SetSize(140, 26)
-		later:SetPoint("BOTTOMLEFT", dialog, "BOTTOMLEFT", 24, 20)
-		later:SetText(L["Later"])
-		later:SetScript("OnClick", CloseReloadPrompt)
-		dialog.Reload, dialog.Later = reload, later
-		dialog:EnableKeyboard(true)
-		dialog:SetScript("OnKeyDown", function(self, key)
-			if InCombat() then return end
-			self:SetPropagateKeyboardInput(key ~= "ESCAPE")
-			if key == "ESCAPE" then CloseReloadPrompt() end
-		end)
-		reloadDialog = dialog
-	end
-	-- The client hides the protected dialog in combat and brings it back
-	-- afterward. No insecure Show/Hide or attribute changes run in combat.
-	RegisterStateDriver(reloadDialog, "visibility", "[combat] hide; show")
 end
-
+ns.OnInit(DisableDockWhenTrackerHidden)
 ns.On("SETTING_CHANGED", function(path)
-	if path == "ui.trackerDock" then ShowReloadPrompt() end
+	if path == "qol.hideQuestTracker" or path == "ui.trackerDock" or path == "qol" or path == "ui" or path == "" then
+		DisableDockWhenTrackerHidden()
+	end
 end)
 
-ns.On("POLESTAR_HIDDEN", function(hidden)
-	if hidden then CloseReloadPrompt() end
+ns.On("POLESTAR_HIDDEN", function()
 	Layout()
 end)
 
@@ -452,8 +396,6 @@ events:SetScript("OnEvent", function(self, event, addon)
 			Initialize()
 		end)
 	elseif event == "PLAYER_REGEN_ENABLED" then
-		if ns.Hidden() then CloseReloadPrompt()
-		elseif reloadPending then ShowReloadPrompt() end
 		if pending then
 			local mode = pending
 			pending = nil

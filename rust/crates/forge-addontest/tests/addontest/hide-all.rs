@@ -518,7 +518,6 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	),
 	("Polestar/Rares/Toast.lua", "UIParent", 1, "POLESTAR_HIDDEN", "the rare card's secure Target button: let go of with the card"),
 	("Polestar/UI/NameTargets.lua", "UIParent", 1, "POLESTAR_HIDDEN", "the guide's clickable names (secure): hidden with the window, out of combat (in a fight their driver hides them)"),
-	("Polestar/UI/TrackerDock.lua", "UIParent", 1, "POLESTAR_HIDDEN", "the secure reload confirmation closes when Polestar hides, deferred during combat"),
 	("Polestar/Theme/Widgets.lua", "UIParent", 2, "POLESTAR_HIDDEN", "the menu and its click-catcher: the ways back open it; one open as Polestar hides closes"),
 	("Polestar/UI/Launcher.lua", "UIParent", 1, "PaintHidden", "the floating button: a way back, dimmed"),
 	("Polestar/UI/GameMenu.lua", "UIParent", 3, "SetHidden", "the game menu's Polestar button: a way back, in the game's own menu"),
