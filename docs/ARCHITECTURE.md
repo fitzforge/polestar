@@ -3015,13 +3015,18 @@ widgets and the guide window call, and kept in `frame.psSkin.kit` so a skin
 change hides them:
 - the big windows (shells, dialogs) are the template's Bg: its metal frame
   lies outside them, with the title bar above (a drag strip and the title on
-  it) and the close button on its corner; rock under the content, the
-  sidebar an inset, gold setting labels and list rows (`rowLabel`,
-  `navRest`);
+  it) and the close button on its corner; the sidebar an inset, gold setting
+  labels and list rows (`rowLabel`, `navRest`). Under the content: Forever
+  the Settings panel's flat black ground (SettingsFrameTemplate, where the
+  Settings tabs and controls are at home), Blizzard the rock with its top
+  streaks;
 - the guide window and the toasts (`psLight`) keep EllesmereUI's small-window
-  looks: Forever's bronze micro menu line, Blizzard's black body under a fade
-  with the damage meter's header bar, Classic's tooltip tile under the chat
-  tab's rim;
+  looks: Forever's bronze micro menu line round the whole window, tab strip
+  included, with the Settings tabs on the Settings divider at the strip's
+  foot (each tab's outline stops `tabClear` under the window's edge and
+  `tabGap` in from its sides, so it closes as a tab does: #312), Blizzard's
+  black body under a fade with the damage meter's header bar, Classic's
+  tooltip tile under the chat tab's rim;
 - atlases the client draws sliced (UiTextureAtlasElementSliceData) are cut at
   the same margins (`ns.GameArtSlice`).
 

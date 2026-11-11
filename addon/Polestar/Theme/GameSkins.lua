@@ -91,13 +91,26 @@ end
 local KITS = {
 	-- ButtonFrameTemplateNoPortrait with the Forever client's offsets
 	-- (camelot/NineSliceLayoutOverrides.lua: the right corners 2 in, the
-	-- bottom ones 8 down) and its art's sizes (2x only: 95 a side).
+	-- bottom ones 8 down) and its art's sizes (2x only: 95 a side), round
+	-- the Settings panel's flat black ground (SettingsFrameTemplate's Bg).
+	-- The guide window is a HUD piece: the micro menu box's bronze line
+	-- round the whole of it, the Settings tabs on their divider at the
+	-- foot of its tab strip.
 	forever = settingsParts({
 		source = "atlas",
+		flat = true,
 		metalOut = { 8, 16, 2, 8 },
 		metalSize = { { 95, 95 }, { 128, 95 }, { 95, 95 }, { 95, 128 }, false, { 95, 128 }, { 95, 100 }, { 128, 100 }, { 95, 100 } },
 		closeSize = 28, closeAt = { 0, 3 },
 		slim = "UI-HUD-ActionBar-Frame",
+		strip = "Options_HorizontalDivider",
+		-- A tab on the window's edge (the guide strip) stops its outline this
+		-- far under the edge, so the top of the outline reads as a tab's
+		-- (#312): the frame's 3-unit line, then as much air. Its sides stand
+		-- tabGap in from the tab's, so neighbours' outlines are 2 gaps apart
+		-- (the Settings panel sets its tabs 5 apart) and the first tab's left
+		-- side stands clear of the frame's line.
+		tabClear = 6, tabGap = 5,
 		card = "common-button-list-small", cardHover = "common-button-list-small-hover", cardSelected = "common-button-list-small-selected",
 		rowLit = "common-button-list-small-selected",
 		status = { bg = "Legacy-Progressbar-BG", fill = "Legacy-Progressbar-Fill", frame = "Legacy-Progressbar-Frame" },
@@ -558,22 +571,18 @@ local GUIDE = {
 		body(f, 0, 0, 0, 0.96 * opacity(f))
 		-- The micro menu box's bronze line (55 units, its chamfered corners 12),
 		-- the line 3 units in from the art's edge: laid 3 out so it runs on the
-		-- window's edge. Its filled middle is left out: the body is the window's own.
-		-- The border starts at the tab strip's foot (f.psStrip), anchored so it
-		-- follows the strip as it shows and hides (compact mode) without a repaint.
-		-- At the window's own level, under its content: the art's inner shade
-		-- (all but its outer 3 units) drew over the nav row and the progress
-		-- bar at f+6 (#306).
+		-- window's edge, round the whole window, tab strip included, as the
+		-- box runs round the micro menu's buttons: one HUD piece, not a lid
+		-- over a frame (#312). Its filled middle is left out: the body is the
+		-- window's own. At the window's own level, under its content: the
+		-- art's inner shade (all but its outer 3 units) drew over the nav row
+		-- and the progress bar at f+6 (#306).
 		local o = child(f, "edge", 0)
 		o:EnableMouse(false)
 		o:ClearAllPoints()
-		if f.psStrip then
-			o:SetPoint("TOPLEFT", f.psStrip, "BOTTOMLEFT", 0, 0)
-		else
-			o:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
-		end
+		o:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
 		o:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, 0)
-		sliced(f, "slim", kit, kit.slim, o, { 3, 0, 3, 3 }, "BORDER", 0, true)
+		sliced(f, "slim", kit, kit.slim, o, { 3, 3, 3, 3 }, "BORDER", 0, true)
 	end,
 	blizzard = function(f)
 		local a = opacity(f)
@@ -642,8 +651,37 @@ local function bigMetal(f, kit)
 	closeButton(f, o, kit, kit.closeSize, "TOPRIGHT", kit.closeAt[1], kit.closeAt[2])
 end
 
+-- WoW Forever's big windows: the same metal, title bar, drag strip and
+-- corner close button round the Settings panel's ground
+-- (SettingsFrameTemplate: FlatPanelBackgroundTemplate, flat black, no rock
+-- and no streaks), so the gold labels and white text read as they do in
+-- the client's own settings.
+local function bigFlat(f, kit)
+	local a = opacity(f)
+	body(f, 0, 0, 0, a)
+	hideKey(f, "streaks")
+	local frame = child(f, "frame", 0)
+	frame:EnableMouse(false)
+	frame:ClearAllPoints()
+	frame:SetPoint("TOPLEFT", f, "TOPLEFT", -7, 21)
+	frame:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 2, -2)
+	local o = child(f, "metal", 500)
+	o:EnableMouse(false)
+	o:SetAllPoints(frame)
+	nine(f, "metalArt", kit, kit.metal, o, kit.metalOut, "OVERLAY", 0, kit.metalSize)
+	local fs = title(f, o, "TOP", o, 0, -5)
+	fs:SetPoint("LEFT", o, "LEFT", 60, 0)
+	fs:SetPoint("RIGHT", o, "RIGHT", -60, 0)
+	local bar = dragBar(f, o)
+	bar:ClearAllPoints()
+	bar:SetPoint("TOPLEFT", o, "TOPLEFT", 0, 0)
+	bar:SetPoint("TOPRIGHT", o, "TOPRIGHT", -30, 0)
+	bar:SetHeight(21)
+	closeButton(f, o, kit, kit.closeSize, "TOPRIGHT", kit.closeAt[1], kit.closeAt[2])
+end
+
 local BIG = {
-	forever = bigMetal,
+	forever = bigFlat,
 	blizzard = bigMetal,
 	-- The vanilla options window: the dialog box (its border 11 units
 	-- in), the header plate on its top edge with the title in it, the panel
@@ -1044,9 +1082,11 @@ end
 -- bottom, the active one 3 higher; the vanilla option tabs in Classic) with
 -- its label on the art: BOTTOM 0,6 when active, 0,4 otherwise. -> true
 -- `flush`: the tab's top lies on the window's edge (the guide window's
--- strip). Forever's tab art is an outline whose top and left run along that
--- edge, leaving its right side as a lone line by the rest of the strip
--- (#312); there the active tab is the Settings list's selected row instead.
+-- strip). The Settings tab art is an outline: with its top on that edge
+-- its right side stood as a lone line by the rest of the strip (#312). A
+-- kit with tabClear stops the outline that far under the edge, so it
+-- rises from the strip's foot and closes as a tab does (Forever); a kit
+-- without one lights the active tab as the Settings list's selected row.
 function Theme.KitTab(b, active, label, flush)
 	local kit = Theme.Kit()
 	if not kit then
@@ -1054,12 +1094,14 @@ function Theme.KitTab(b, active, label, flush)
 		return false
 	end
 	local isFile = kit.source == "file"
-	local lit = flush and active and kit.source == "atlas" and kit.navLit
+	local clear = flush and kit.tabClear
+	local lit = flush and active and kit.source == "atlas" and not clear and kit.navLit
+	local gap = clear and kit.tabGap or 0
 	local host = child(b, "tab", -1)
 	host:EnableMouse(false)
 	host:ClearAllPoints()
-	host:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
-	host:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
+	host:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", gap, 0)
+	host:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -gap, 0)
 	if lit then
 		host:SetPoint("TOP", b, "TOP", 0, 0)
 		hideKey(b, "tabArt")
@@ -1068,7 +1110,12 @@ function Theme.KitTab(b, active, label, flush)
 		t:SetAllPoints(host)
 	else
 		hideKey(b, "tabLit")
-		host:SetHeight(active and (isFile and 28 or 26) or (isFile and 24 or 23))
+		local h = active and (isFile and 28 or 26) or (isFile and 24 or 23)
+		if clear then
+			-- The resting tabs 3 lower than the active one, as the art is.
+			h = min(h, max(12, b:GetHeight() - clear - (active and 0 or 3)))
+		end
+		host:SetHeight(h)
 		three(b, "tabArt", kit, active and kit.tabActive or kit.tab, host, isFile and 14 or 7, isFile and 16 / 112 or nil, "BACKGROUND", 0)
 	end
 	if label then
@@ -1156,13 +1203,32 @@ function Theme.KitHeader(f, shown)
 	return true
 end
 
--- The guide window's tab strip ground: Blizzard's damage meter header bar.
+-- The guide window's tab strip ground: Blizzard's damage meter header bar;
+-- in Forever the Settings panel's line under its tabs (kit.strip,
+-- Options_HorizontalDivider: one unit high, fading out at its ends) along
+-- the strip's foot where the tabs stand, 4 in from the window's sides so
+-- its ends fade inside the frame's line. With the strip at the window's
+-- bottom (ui.barsBottom) the line runs along the strip's top.
 function Theme.KitStrip(f, shown)
 	local kit = Theme.Kit()
-	if not (kit and kit.headerBar and shown) then
+	if not (kit and (kit.headerBar or kit.strip) and shown) then
 		hideKey(f, "strip")
+		hideKey(f, "stripLine")
 		return false
 	end
+	if kit.strip then
+		hideKey(f, "strip")
+		local t = tex(f, "stripLine", "BACKGROUND", -6)
+		draw(t, kit, kit.strip)
+		local flip = ns.Get and ns.Get("ui.growUp") and ns.Get("ui.barsBottom")
+		local edge = flip and "TOP" or "BOTTOM"
+		t:ClearAllPoints()
+		t:SetPoint(edge .. "LEFT", f, edge .. "LEFT", 4, 0)
+		t:SetPoint(edge .. "RIGHT", f, edge .. "RIGHT", -4, 0)
+		t:SetHeight(1)
+		return true
+	end
+	hideKey(f, "stripLine")
 	local t = tex(f, "strip", "BACKGROUND", -6)
 	draw(t, kit, kit.headerBar)
 	t:SetAllPoints(f)
