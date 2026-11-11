@@ -37,6 +37,7 @@ zone Ironforge
 # changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
 # ---------------------------------------------------------------- Apprentice
+section Cooking 1-50
 
 step Learn Cooking
   tip Any Cooking trainer of your faction teaches Apprentice Cooking (character level 5, 1s); the arrow picks the nearest. Forever: every cook knows Basic Campfire. Craft a Basic Campfire Kit from one Simple Wood (38c) with Flint and Tinder (1s 35c, kept in your bags), then place the kit to light a cooking fire anywhere; make a few in advance (one use every 5 minutes). The first kits also raise Cooking to about 5. The Camping 101: Cooking quest at your starting area's camp sends you to this trainer.
@@ -127,12 +128,13 @@ step Charred Wolf Meat (1-50)
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
   craft 2538 until 50
 
+# ---------------------------------------------------------------- Cooking 50-130
+section Cooking 50-130
+
 step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest Cooking trainer of your faction; training costs 5s.
   level 10
   train Cooking Journeyman
-
-# ---------------------------------------------------------------- Cooking 50-130
 
 step Coyote Steak: ingredients
   only Human,Skyborne,Alliance
@@ -269,6 +271,7 @@ step Crispy Lizard Tail (100-130)
   craft 6418 until 130
 
 # ---------------------------------------------------------------- Expert Cooking
+section Cooking 130-175
 
 step Expert Cooking
   tip Expert Cooking raises the cap to 225; it needs skill 125 and character level 20: it is a book, Expert Cookbook (1g); the arrow picks its nearest seller for your faction. Buy it and read it.
@@ -314,6 +317,7 @@ step Hot Lion Chops (130-175)
   craft 3398 until 175
 
 # ---------------------------------------------------------------- Cooking 175-225
+section Cooking 175-225
 
 step Roast Raptor: shopping
   tip The arrow picks the nearest vendor of your faction for each item. You need 52 Hot Spices (20s 80c).
@@ -331,6 +335,7 @@ step Roast Raptor (175-225)
   craft 15855 until 225
 
 # ---------------------------------------------------------------- Artisan Cooking: Clamlette Surprise
+section Cooking 225-300
 
 step Dirge Quikcleave
   only Alliance

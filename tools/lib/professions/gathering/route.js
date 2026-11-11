@@ -123,9 +123,23 @@ function scorePoints(points, { perPoint = 0 } = {}) {
 }
 
 // A loop of at most `maxStops` cluster waypoints covering `cover` of the
-// zone's skill-up weight, starting from the cluster nearest `entry`.
-function loop(points, project, { radius = 110, maxStops = 12, cover = 0.85, entry = null } = {}) {
-	const cl = weightedClusters(points, radius, project);
+// zone's skill-up weight, starting from the cluster nearest `entry`. `rare`:
+// kinds that never lead a waypoint (build.js `rareKinds`): a cluster holding
+// at least half its nodes of them is left out while three others remain.
+function loop(points, project, { radius = 110, maxStops = 12, cover = 0.85, entry = null, rare = null } = {}) {
+	let cl = weightedClusters(points, radius, project);
+	if (rare && rare.size) {
+		const kept = cl.filter((c) => {
+			let all = 0;
+			let few = 0;
+			for (const [name, n] of Object.entries(c.counts)) {
+				all += n;
+				if (rare.has(name)) few += n;
+			}
+			return few * 2 < all;
+		});
+		if (kept.length >= 3) cl = kept;
+	}
 	const total = cl.reduce((s, c) => s + c.w, 0);
 	const keep = [];
 	let acc = 0;

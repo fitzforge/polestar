@@ -59,6 +59,7 @@ zone Azeroth
 # for Apprentice and 10 for Journeyman). In-game check: the level each trainer asks.
 
 # ---------------------------------------------------------------- Apprentice (1-75)
+section Tailoring 1-75
 
 step Learn Tailoring
   tip Apprentice Tailoring lets you craft up to 75 for 10c, at any character level. Any Tailoring trainer of your faction teaches it; the arrow picks the nearest. Keep every Linen Cloth you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 Linen Cloth to gather or buy.
@@ -89,6 +90,7 @@ step Linen Belt to 75
   skill Tailoring 75
 
 # ---------------------------------------------------------------- Journeyman (75-150)
+section Tailoring 75-150
 
 step Journeyman Tailoring
   tip Journeyman raises the cap from 75 to 150 for 5s; it needs Tailoring 50 and character level 10, so you can take it on any visit from 50. Not every Tailoring trainer teaches it: Alliance Georgio Bolero (Stormwind City), Grarnik Goodstitch (Stranglethorn Vale), Jormund Stonebrow (Ironforge), Me'lynn (Darnassus), Othesia Evengale (Zephras Isle), Sellandus (Stormwind City), Taleen Shimmerthread (Zephras Isle) and Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills), Grarnik Goodstitch (Stranglethorn Vale), Josef Gregorian (Undercity), Magar (Orgrimmar), Mahani (The Barrens), Othesia Evengale (Zephras Isle), Rhiannon Davis (Undercity), Taleen Shimmerthread (Zephras Isle) and Tepa (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Bolt of Woolen Cloth (from 55, 1s) and Woolen Cape (from 55, 2s 50c). Also learn Faction Banner (1s): Forever's Tailoring camp item, a Bolt of Linen Cloth and a Coarse Thread; each faction has its own. The Camping 101: Tailoring quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 Wool Cloth and 204 Silk Cloth to gather or buy.
@@ -156,6 +158,7 @@ step Formal White Shirt to 150
   skill Tailoring 150
 
 # ---------------------------------------------------------------- Expert (150-225)
+section Tailoring 150-225
 
 step Tailoring 150-225: vendor goods
   tip Buy the whole bracket's share in one go: 44 Fine Thread (44s), 90 Silken Thread (4g 50s), 44 Blue Dye (22s) and 80 Heavy Silken Thread (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
@@ -217,6 +220,7 @@ step Black Mageweave Headband to 225
   skill Tailoring 225
 
 # ---------------------------------------------------------------- Artisan (225-300)
+section Tailoring 225-300
 
 step Artisan Tailoring
   tip Artisan raises the cap from 225 to 300; it needs Tailoring 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills). The arrow picks the nearest of your faction. Learn now: Bolt of Runecloth (from 205) and Runecloth Belt (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 Rugged Leather, 3195 Runecloth and 124 Ironweb Spider Silk to gather or buy.

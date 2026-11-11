@@ -18,6 +18,7 @@ const R = require('./route');
 const { RACE_GROUPS, TWO_SIDED, raceCondition } = require('./groups');
 const { FACTIONS, GUIDE_HEADER, fmt, money, zoneName, rankInfo, vendorSpawns } = require('./common');
 const { ERA_NOTE } = require('./notes');
+const SECTIONS = require('../sections');
 
 const SIDE_OF_RACE = {};
 for (const f of FACTIONS) for (const g of RACE_GROUPS[f]) for (const r of g.races) if (!TWO_SIDED.has(r)) SIDE_OF_RACE[r] = f;
@@ -242,7 +243,9 @@ function renderGuide(ctx, P) {
 		else if (e.raw) step(L, e.title, e.raw);
 		else renderSegment(ctx, P, e, L);
 	}
-	return `${L.join('\n')}\n`;
+	// The skill ranges as sections (the guide window's headings; the guide starts at the player's skill):
+	// per bandage band for First Aid, whose every band gathers its own cloth; per banner for Cooking.
+	return `${SECTIONS[P.sections || 'byBanners'](L.join('\n'), P.skill)}\n`;
 }
 
 // ------------------------------------------------------------------ First Aid
@@ -280,6 +283,7 @@ const firstAid = {
 	file: 'first-aid',
 	skill: 'First Aid',
 	title: 'First Aid 1-300',
+	sections: 'byBands',
 	levels: '5-60',
 	craftTip: 'Bandages need no fire: craft them anywhere.',
 	header: [
@@ -448,8 +452,9 @@ const cooking = {
 			{ who: G['orc-troll'], zone: 1411, spell: roastBoar, from: 1, to: 50 },
 			{ who: G.tauren, zone: 1412, spell: charredWolf, from: 1, to: 50 },
 			{ who: G.undead, zone: 1420, spell: charredWolf, from: 1, to: 50 },
-			{ rank: 'Journeyman' },
+			// Journeyman opens 50-130 (a player past 50 who lacks it is held at its trainer there).
 			{ section: 'Cooking 50-130' },
+			{ rank: 'Journeyman' },
 			{ who: westfall, zone: 1436, spell: 2541, from: 50, to: 90, learn: 'trainer', tip: 'Coyotes roam the middle of Westfall; Salma Saldean on the farm north of Sentinel Hill also gives Westfall Stew and Goretusk Liver Pie quests that use what you loot here.' },
 			{ who: westfall, zone: 1436, spell: crabCake, from: 90, to: 130, learn: 'trainer', tip: 'Crawlers line the whole Westfall coast. Cook it to 130, where Curiously Tasty Omelet takes over.' },
 			{ who: G['dwarf-gnome'], zone: 1432, spell: 8607, from: 50, to: 80, learn: 'vendor', tip: 'Black bears roam the hills of Loch Modan.' },

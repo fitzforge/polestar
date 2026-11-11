@@ -84,6 +84,37 @@ test('loop: clusters ordered as a tour starting near the entry point', () => {
 	assert.ok(score.gain === 14 && score.score > 0);
 });
 
+test('a zone\'s rare kind (under a twentieth of the nodes) never leads or names a waypoint, but still counts beside common ones', () => {
+	const { rareKinds, label } = require('../tools/lib/professions/gathering/build');
+	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	const pts = [];
+	const at = (name, x, y, n, up) => {
+		for (let i = 0; i < n; i++) pts.push({ name, up, w: up, pt: project.point(1, x + i * 0.2, y, 'e') });
+	};
+	at('Peacebloom', 10, 10, 20, 0.1);
+	at('Silverleaf', 80, 10, 20, 0.1);
+	at('Peacebloom', 80, 80, 20, 0.1);
+	// Beside a common herb: counts there, never names it.
+	at('Stunted Silverleaf', 81, 80, 1, 0.05);
+	// Mulgore's case: a Forever node a few spots carry, beside one common herb far from the rest.
+	at('Stunted Silverleaf', 40, 60, 3, 0.05);
+	at('Silverleaf', 41, 60, 1, 0.1);
+	const rare = rareKinds({}, pts);
+	assert.equal(rareKinds({ rareLeads: true }, pts).size, 0, 'skinning: a rare beast may lead');
+	assert.deepEqual([...rare], ['Stunted Silverleaf']);
+	const atRareSpot = (loop) => loop.some((c) => Math.abs(c.pt.x - 40) < 5 && Math.abs(c.pt.y - 60) < 5);
+	assert.ok(atRareSpot(R.loop(pts, project, { radius: 40, cover: 1 })), 'without `rare` the rare spot is a waypoint');
+	const loop = R.loop(pts, project, { radius: 40, cover: 1, rare });
+	assert.equal(loop.length, 3);
+	assert.ok(!atRareSpot(loop), 'the rare spot leads no waypoint');
+	const beside = loop.find((c) => c.counts['Stunted Silverleaf']);
+	assert.ok(beside, 'a rare node beside common ones still counts in their waypoint');
+	assert.equal(label({}, beside, rare), 'Peacebloom');
+	// With fewer than three waypoints left every cluster counts.
+	const few = pts.filter((p) => !(p.name === 'Peacebloom' && p.pt.x < 20));
+	assert.ok(atRareSpot(R.loop(few, project, { radius: 40, cover: 1, rare: rareKinds({}, few) })));
+});
+
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
 	// A map Forever redrew: its live frame is offset from the Era frame and
 	// covers 800 yards instead of 1000.

@@ -203,7 +203,7 @@ end
 -- chunk stays well inside Lua 5.1's cap on locals.
 local KEYS = {
 	only = { "classes", "races", "factions" },
-	goalNumbers = { "skillLine", "untilSkill", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit" },
+	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit" },
 	goalRanks = { "rank", "qlvl" },
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
@@ -573,6 +573,18 @@ local function validate(def)
 			end
 		end
 	end
+	-- sections (`section <Profession> <from>-<to>`): a profession guide's skill-range
+	-- headings, { skill?, skillLine?, from, to }; a step's `section` is an index into them.
+	if def.sections ~= nil then
+		if type(def.sections) ~= "table" then return "bad sections" end
+		for i = 1, #def.sections do
+			local sec = def.sections[i]
+			if type(sec) ~= "table" or not (isStr(sec.skill) or isNum(sec.skillLine)) or (sec.skill ~= nil and not isStr(sec.skill))
+				or (sec.skillLine ~= nil and not isNum(sec.skillLine)) or not isNum(sec.from) or not isNum(sec.to) or sec.from >= sec.to then
+				return "bad section " .. i
+			end
+		end
+	end
 	if deferred then return nil end
 	return Own.validateSteps(def.steps)
 end
@@ -593,6 +605,7 @@ function Own.validateSteps(steps)
 			labelAt[step.label] = s
 		end
 		if not checkImage(step.image) then return ("step %d: bad image"):format(s) end
+		if step.section ~= nil and not (isNum(step.section) and step.section >= 1 and step.section % 1 == 0) then return ("step %d: bad section"):format(s) end
 		for g, goal in ipairs(step.goals) do
 			local err = checkGoal(goal)
 			if err then return ("step %d goal %d: %s"):format(s, g, err) end
