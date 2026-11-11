@@ -1,0 +1,158 @@
+'use strict';
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const { runAddon } = require('./helpers/lua');
+
+const TRACKER = `
+C_Texture = { GetAtlasInfo = function() return {} end }
+C_AddOns.DoesAddOnExist = function(name)
+	for _, addon in ipairs(stub.addons) do if addon.name == name then return true end end
+	return false
+end
+ObjectiveTrackerFrame = CreateFrame("Frame", nil, UIParent)
+ObjectiveTrackerFrame.HeaderMenu = false
+ObjectiveTrackerFrame:SetSize(260, 600)
+ObjectiveTrackerFrame.y = 300
+ObjectiveTrackerFrame.Header = CreateFrame("Frame", nil, ObjectiveTrackerFrame)
+local header = ObjectiveTrackerFrame.Header
+header.Background = header:CreateTexture(nil, "BACKGROUND")
+header.Background:SetSize(280, 32)
+header.Text = header:CreateFontString(nil, "OVERLAY")
+header.Text:SetFont("native-font", 16, "")
+local M = stub.Methods
+local getTop, getWidth = M.GetTop, M.GetWidth
+function M.GetTop(self)
+	if self:GetName() == "PolestarTrackerDockContent" then return 900 end
+	return getTop(self)
+end
+function M.GetWidth(self)
+	if self:GetName() == "PolestarTrackerDockContent" then return 295 end
+	return getWidth(self)
+end
+`;
+function run(script, { enabled = true, before = '' } = {}) {
+	return runAddon({
+		stubs: ['stub_ui.lua'], before: TRACKER + before,
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Theme/Theme.xml', 'UI/UI.xml'] }],
+		saved: { Polestar: `PolestarDB={schema=1,settings={ui={trackerDock=${enabled},pos={100,200},scale=1.2,growUp=true,maxHeight=0.3}}}` },
+		script: `uistub.install();stub.login();stub.advance(0.3)
+local GF=Polestar.UI.GuideFrame
+local dock=Polestar.UI.TrackerDock
+${script}`,
+	}).emitted;
+}
+
+test('docking is opt-in; the floating guide keeps its position and settings', () => {
+	const [out] = run(`emit({enabled=dock.Enabled(),attached=GF.dock~=nil,pos=Polestar.Get("ui.pos"),scale=Polestar.Get("ui.scale")})`, { enabled: false });
+	assert.deepEqual(out, { enabled: false, attached: false, pos: [100,200], scale: 1.2 });
+});
+
+test('docked guide follows tracker bounds, keeps floating settings, and hides its resize grip', () => {
+	const [out] = run(`
+	assert(GF.dock)
+	local adapter=GF.dock
+	adapter:SetSelected(true,true)
+	adapter:Layout(ObjectiveTrackerFrame,false,false)
+	GF.ApplyLock();GF.ApplyPosition();GF.ApplyScale();GF.SavePosition()
+	local point,rel=GF.frame:GetPoint()
+	emit({attached=GF.frame:GetParent()==adapter.pane,positioned=point=="TOPLEFT" and rel==adapter.pane,
+		grip=GF.grip:IsShown(),pos=Polestar.Get("ui.pos"),scale=Polestar.Get("ui.scale"),
+		grow=Polestar.Get("ui.growUp"),maxHeight=Polestar.Get("ui.maxHeight"),
+		cap=GF.CapHeight()*GF.frame:GetEffectiveScale()/adapter.holder:GetEffectiveScale(),
+		available=adapter.available,bare=GF.frame.psBare})`);
+	assert.equal(out.attached, true);
+	assert.equal(out.positioned, true);
+	assert.equal(out.grip, false);
+	assert.equal(out.bare, true);
+	assert.deepEqual(out.pos,[100,200]);
+	assert.equal(out.scale,1.2);
+	assert.equal(out.grow,true);
+	assert.equal(out.maxHeight,0.3);
+	assert.equal(out.available,596);
+	assert.ok(Math.abs(out.cap-out.available)<0.01);
+});
+
+for (const loaded of [false,true]) {
+	test(`the standalone addon owns docking when enabled, including before its files load (${loaded})`, () => {
+		const [out]=run('emit({enabled=dock.Enabled(),attached=GF.dock~=nil,tabs=PolestarTrackerDockTabs~=nil})', {
+			before: `stub.addons={{name="Polestartrackerdock",loaded=${loaded}}}`,
+		});
+		assert.deepEqual(out,{enabled:false,attached:false,tabs:false});
+	});
+}
+
+test('a disabled standalone addon does not block built-in docking', () => {
+	const [out]=run('emit({enabled=dock.Enabled(),attached=GF.dock~=nil})',{
+		before:'stub.addons={{name="Polestartrackerdock",reason="DISABLED",enabled=false}}',
+	});
+	assert.deepEqual(out,{enabled:true,attached:true});
+});
+
+test('FTA hosts the Polestar tab once and the built-in dock creates no second row', () => {
+	const [out]=run(`emit({registrations=hostRegistrations,ownTabs=PolestarTrackerDockTabs~=nil})`,{
+		before:`hostRegistrations=0
+	FTAEllesmereTrackerDock={CanDock=function() return true end,
+	RegisterGuide=function(key,label,getGuide,attach)
+		assert(key=="polestar" and label=="Polestar" and type(getGuide)=="function" and type(attach)=="function")
+		hostRegistrations=hostRegistrations+1
+	end}`,
+	});
+	assert.deepEqual(out,{registrations:1,ownTabs:false});
+});
+
+test('the docking toggle asks for reload and does not reparent the guide mid-session', () => {
+	const [out]=run(`
+	Polestar.Set("ui.trackerDock",true)
+	emit({prompt=Polestar.Widgets.ModalShown(),attached=GF.dock~=nil})`,{enabled:false});
+	assert.deepEqual(out,{prompt:true,attached:false});
+});
+
+for (const standalone of [false,true]) {
+	test(`the docking toggle is under Integrations and respects standalone ownership (${standalone})`, () => {
+		const [out]=run(`
+		Polestar.UI.ShowOptions("integrations")
+		local controls=Polestar.UI.Options.Controls("integrations")
+		local toggle=controls["ui.trackerDock"]
+		emit({found=toggle~=nil,enabled=toggle and toggle:IsEnabled()})`,{
+			enabled:false,
+			before:standalone?'stub.addons={{name="Polestartrackerdock"}}':'',
+		});
+		assert.deepEqual(out,{found:true,enabled:!standalone});
+	});
+}
+
+test('switching tabs restores quest opacity and queues a selection made in combat', () => {
+	const [out]=run(`
+	local tabs=PolestarTrackerDockTabs
+	local quests,guide
+	for _,button in ipairs({tabs:GetChildren()}) do
+		if button.label and button.label:GetText()=="Quests" then quests=button end
+		if button.label and button.label:GetText()=="Polestar" then guide=button end
+	end
+	guide:Click()
+	local selected=GF.dock.pane:IsShown() and ObjectiveTrackerFrame:GetAlpha()==0
+	ObjectiveTrackerFrame:SetAlpha(0.65)
+	stub.inCombat=true
+	quests:Click()
+	local queued=GF.dock.pane:IsShown() and ObjectiveTrackerFrame:GetAlpha()==0
+	stub.inCombat=false
+	stub.fire("PLAYER_REGEN_ENABLED")
+	emit({selected=selected,queued=queued,restored=ObjectiveTrackerFrame:GetAlpha(),closed=not GF.dock.pane:IsShown()})`);
+	assert.deepEqual(out,{selected:true,queued:true,restored:0.65,closed:true});
+});
+
+for (const custom of [false,true]) {
+	test(`Ellesmere docking uses its style and configured height (${custom})`, () => {
+		const [out]=run(`
+		local adapter=GF.dock
+		adapter:Layout(${custom ? 'EUI_CustomQuestTracker' : 'ObjectiveTrackerFrame'},${custom},true)
+		emit({attached=adapter~=nil,line=PolestarTrackerDockTabs.line:IsShown(),available=adapter.available})`,{
+			before:`EllesmereUI={GetAccentColor=function() return 0,0.8,0.6 end,GetFontPath=function() return "eui-font" end}
+	EllesmereUIQuestTracker={Blizz=function() return false end,DB=function() return {customMaxHeight=650} end}
+	${custom ? 'EUI_CustomQuestTracker=CreateFrame("Frame",nil,UIParent);EUI_CustomQuestTracker:SetSize(295,120);EUI_CustomQuestTracker.y=780;EUI_CustomQuestTracker.bg=EUI_CustomQuestTracker:CreateTexture(nil,"BACKGROUND");EUI_CustomQuestTracker.topLine=EUI_CustomQuestTracker:CreateTexture(nil,"OVERLAY")' : 'EllesmereUIQTBackground=CreateFrame("Frame",nil,UIParent);EllesmereUIQTBackground:SetSize(295,120);EllesmereUIQTBackground._tex=EllesmereUIQTBackground:CreateTexture(nil,"BACKGROUND");EllesmereUIQTBackground._divider=EllesmereUIQTBackground:CreateTexture(nil,"OVERLAY")'}`,
+		});
+		assert.equal(out.attached,true);
+		assert.equal(out.line,true);
+		assert.equal(out.available,custom?646:596);
+	});
+}

@@ -1301,7 +1301,7 @@ end
 -- bottom, by the edge the window is pinned to, with the progress foot above
 -- the navigator. Otherwise the order runs strip, navigator, body, foot.
 local function barsBottom()
-	return ns.Get("ui.growUp") and ns.Get("ui.barsBottom") and true or false
+	return not GF.dock and ns.Get("ui.growUp") and ns.Get("ui.barsBottom") and true or false
 end
 
 local function tabButton(i)
@@ -2291,6 +2291,9 @@ end
 -- The tallest the window may be: ui.maxHeight of the screen's height, in
 -- the window's own units (its scale and the game's UI scale applied).
 local function capHeight()
+	if GF.dock and GF.dock.available then
+		return GF.dock.available * GF.dock.holder:GetEffectiveScale() / F:GetEffectiveScale()
+	end
 	local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
 	local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
 	return screen * share / max(0.01, F:GetEffectiveScale())
@@ -2378,7 +2381,7 @@ end
 -- of the screen, in the window's scale (nil without Grow upward): the
 -- window is never taller (fit.limit, #666).
 local function roomAbove()
-	if not ns.Get("ui.growUp") then return nil end
+	if GF.dock or not ns.Get("ui.growUp") then return nil end
 	local top = UIParent:GetTop()
 	local scale, uiScale = F:GetEffectiveScale(), UIParent:GetEffectiveScale()
 	if not (top and scale and uiScale and scale > 0) then return nil end
@@ -3840,7 +3843,7 @@ end
 function GF.ApplyStyle()
 	if not F then return end
 	local clear = transparent()
-	F.psBare = clear
+	F.psBare = clear or GF.dock ~= nil
 	Theme.Repaint(F)
 	local skin = Theme.SkinKey()
 	band:SetShown(not clear and skin == "polestar")
@@ -3940,6 +3943,7 @@ end
 
 function GF.ApplyPosition()
 	if not F then return end
+	if GF.dock then return GF.dock:Place() end
 	local pos = ns.Get("ui.pos")
 	F:ClearAllPoints()
 	if type(pos) == "table" and type(pos[1]) == "number" and type(pos[2]) == "number" then
@@ -3952,7 +3956,7 @@ function GF.ApplyPosition()
 end
 
 function GF.SavePosition()
-	if not F then return end
+	if not F or GF.dock then return end
 	local l = F:GetLeft()
 	local _, y = pinCorner()
 	if l and y then ns.Set("ui.pos", { floor(l + 0.5), floor(y + 0.5) }) end
@@ -3960,7 +3964,7 @@ end
 
 function GF.ApplyLock()
 	if not F then return end
-	grip:SetShown(not ns.Get("ui.locked"))
+	grip:SetShown(not GF.dock and not ns.Get("ui.locked"))
 end
 
 function GF.ApplyWidth()
@@ -3979,6 +3983,7 @@ end
 -- Scale about the pinned corner, so the window stays where the user put
 -- it, then repaint so 1px lines land on the new pixel grid.
 function GF.ApplyScale()
+	if GF.dock then return GF.dock:Place() end
 	local new = ns.Get("ui.scale") or 1
 	local old = F:GetScale()
 	if old == new then return end
@@ -4256,7 +4261,7 @@ end
 local savePosition = GF.SavePosition
 
 local function dragStart()
-	if ns.Get("ui.locked") then return end
+	if GF.dock or ns.Get("ui.locked") then return end
 	F:StartMoving()
 end
 
@@ -4277,7 +4282,7 @@ local function resizeUpdate(self)
 end
 
 local function resizeStart(self)
-	if ns.Get("ui.locked") then return end
+	if GF.dock or ns.Get("ui.locked") then return end
 	-- Grow from the left edge: pin the window by its left corner first.
 	local l = F:GetLeft()
 	local corner, y = pinCorner()

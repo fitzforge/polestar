@@ -5,6 +5,9 @@
 	<Script file="ZoneArtOverlays.lua"/>
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
+	<Script file="TrackerDock.lua"/>
+	<Script file="TrackerDockSizing.lua"/>
+	<Script file="TrackerDockGuide.lua"/>
 	<Script file="StepList.lua"/>
 	<Script file="Launcher.lua"/>
 	<Script file="GameMenu.lua"/>

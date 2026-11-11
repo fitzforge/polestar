@@ -28,7 +28,7 @@
 ## AddonCompartmentFunc: Polestar_OnAddonCompartmentClick
 ## AddonCompartmentFuncOnEnter: Polestar_OnAddonCompartmentEnter
 ## AddonCompartmentFuncOnLeave: Polestar_OnAddonCompartmentLeave
-## OptionalDeps: EllesmereUI, TomTom, OpenMap
+## OptionalDeps: EllesmereUI, EllesmereUIQuestTracker, FTAellesmereskin, TomTom, OpenMap
 ## SavedVariables: PolestarDB
 ## SavedVariablesPerCharacter: PolestarCharDB
 

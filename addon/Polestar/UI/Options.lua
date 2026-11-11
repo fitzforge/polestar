@@ -551,8 +551,14 @@ add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trai
 -- installed addons show. The page stays in the list with none (`empty`:
 -- the line it shows then).
 add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
-	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
+	subtitle = L["Quest tracker docking and settings for other addons Polestar works with."],
 	empty = L["None of the addons Polestar works with is installed."] }, true)
+add({ page = L["Integrations"], section = L["Quest Tracker"], controls = {
+	{ kind = "toggle", key = "ui.trackerDock", label = L["Dock guide into the quest tracker"],
+		help = L["Adds a Polestar tab to the quest tracker. Supports EllesmereUI and the default tracker. Reload to apply changes. If Polestar Tracker Dock is enabled, it manages docking instead."],
+		disabled = function() return ns.Compat.AddOnPresent("Polestartrackerdock") end,
+		search = "dock, tracker, quests, EllesmereUI, FTA" },
+} }, true)
 add({ page = L["Integrations"], section = "EllesmereUI", controls = {
 	{ kind = "toggle", key = "ui.matchAccent", label = L["Match EllesmereUI accent"],
 		help = L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
