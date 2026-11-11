@@ -2504,6 +2504,8 @@ L["Hide arrow"] = "Скрыть стрелку"
 L["Show Polestar"] = "Показать Polestar"
 L["Hide Polestar"] = "Скрыть Polestar"
 L["Keep the arrow when hidden"] = "Оставлять стрелку при скрытии"
+L["Show window"] = "Показать окно"
+-- L["Settings"] = ""
 
 -- UI/Gamepad.lua
 L["D-pad up"] = "Крестовина вверх"
@@ -3141,6 +3143,7 @@ L["Show the class quest heads-up again (the next one due, or a quest id)"] = "С
 L["Show me"] = "Показать"
 L["Summon %s"] = "Призыв: %s"
 L["%s ready"] = "%s: готово"
+-- L["More"] = ""
 
 -- UI/GuideEnd.lua
 L["You've completed %s"] = "Вы завершили %s"
@@ -3252,7 +3255,6 @@ L["Rebuilt on Forever's trainers, and they start where your skill is."] = "Пе�
 L["All of 0.3.7 in 9 languages, with thanks to our translators."] = "Всё из 0.3.7 на 9 языках — спасибо нашим переводчикам."
 L["Routes, trainers, dungeons and more. Found something off? Type %s."] = "Маршруты, учителя, подземелья и не только. Нашли ошибку? Введите %s."
 -- L["A bigger settings window"] = ""
--- L["Groups in the sidebar, a live preview over each look, and a corner to drag it to any size."] = ""
 -- L["Make every part yours"] = ""
 -- L["Size, colours, opacity, fonts and borders of the guide window, arrow, map pins, routes and alerts."] = ""
 -- L["Bigger map pins"] = ""
@@ -3263,6 +3265,7 @@ L["Routes, trainers, dungeons and more. Found something off? Type %s."] = "Ма�
 -- L["Profiles and moving frames"] = ""
 -- L["Keep looks to switch between; %s lets you drag every Polestar frame into place."] = ""
 -- L["Move frames"] = ""
+-- L["A window of its own, any size, a live preview over each look; %s opens it."] = ""
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Длинная цепочка: заданий — %d, зон — %d, континентов — %d"
@@ -3365,6 +3368,7 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Upgrade"] = ""
 -- L["Right-click: keep this rank on your bars"] = ""
 -- L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = ""
+
 -- Core/Profiles.lua
 -- L["Give the profile a name."] = ""
 -- L["That name is too long."] = ""
@@ -3768,6 +3772,8 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Game menu button"] = ""
 -- L["Speed"] = ""
 -- L["How fast Polestar's windows slide, fade and pop: 2x takes half the time."] = ""
+-- L["Variant"] = ""
+-- L["This skin comes in several versions: pick yours. Each skin keeps its own."] = ""
 
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
@@ -3935,6 +3941,14 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Shine"] = ""
 -- L["Note"] = ""
 -- L["A short chime the first time a class quest chain's card or heads-up shows. Off while the game's sound effects are off."] = ""
+-- L["Place"] = ""
+-- L["Where the card goes: on the guide window's top edge (under the window when the screen has no room above), under its bottom edge (over it when there is no room below), or on a spot of its own that you move with Move frames."] = ""
+-- L["Above the window"] = ""
+-- L["Below the window"] = ""
+-- L["Its own spot"] = ""
+-- L["One line: its icon, its title and its button. Hover it for the rest; its other choices are in its menu."] = ""
+-- L["Its spot"] = ""
+-- L["Move the card in unlock mode, as /polestar unlock does. With Place on Its own spot."] = ""
 
 -- UI/Looks/Trackers.lua
 -- L["Aelindra"] = ""
@@ -4017,6 +4031,28 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Lines to line frames up on while they are unlocked; a dragged frame lands on them."] = ""
 -- L["Grid size"] = ""
 -- L["How far apart the grid's lines are."] = ""
+
+-- UI/GuideFrameMenu.lua
+-- L["Quick settings"] = ""
+
+-- UI/QuickSettings.lua
+-- L["Auto-accept"] = ""
+-- L["Accepts the guide's quests when you talk to their givers."] = ""
+-- L["Auto turn-in"] = ""
+-- L["Hands in the guide's quests when you talk to their NPCs."] = ""
+-- L["The way to the goal on the world map and the minimap."] = ""
+-- L["All settings…"] = ""
+
+-- UI/OptionsLoader.lua
+-- L["Polestar's settings open when combat ends."] = ""
+-- L["Polestar's settings could not be loaded (%s): is the Polestar_Options folder installed and enabled?"] = ""
+
+-- UI/Preview.lua
+-- L["World"] = ""
+-- L["Night sky"] = ""
+-- L["Plain"] = ""
+-- L["Backdrop"] = ""
+-- L["Previews are drawn over %s. Click for the next backdrop."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
