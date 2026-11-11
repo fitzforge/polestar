@@ -400,9 +400,14 @@ fn soft_shades_follow_each_string_its_size_its_text_shown_state_and_alpha_and_ne
 		local hidden = GF.shades[fs].shown
 		fs:Show()
 		stub.advance(0.1)
+		-- The string's alpha goes into the shade's vertex colour: in the client a texture's SetAlpha is that same
+		-- value, so SetAlpha(1) on a part drew the 20 % shade solid, a black box behind the line (#1684).
 		fs:SetAlpha(0.3)
-		local faded = GF.shades[fs].parts[5]:GetAlpha()
+		local faded = { select(4, GF.shades[fs].parts[5]:GetVertexColor()) }
 		fs:SetAlpha(1)
+		faded[2] = select(4, GF.shades[fs].parts[5]:GetVertexColor())
+		stub.advance(0.1)
+		faded[3] = select(4, GF.shades[fs].parts[1]:GetVertexColor())
 		Polestar.Set("ui.backing", "dark")
 		local dark = shownShades()
 		Polestar.Set("ui.backing", "soft")
@@ -419,7 +424,10 @@ fn soft_shades_follow_each_string_its_size_its_text_shown_state_and_alpha_and_ne
 	assert_eq!(out["emptied"], false, "an emptied string's shade goes");
 	assert_eq!(out["back"], true, "and comes back with its text");
 	assert_eq!(out["hidden"], false, "a hidden string's shade goes");
-	assert_eq!(out["faded"], 0.3, "a string's alpha carries to its shade");
+	let faded = out["faded"].as_array().unwrap();
+	assert!((faded[0].as_f64().unwrap() - 0.2 * 0.3).abs() < 1e-9, "a string's alpha carries to its shade: {}", out["faded"]);
+	assert!((faded[1].as_f64().unwrap() - 0.2).abs() < 1e-9, "and back at full alpha, the shade is at 20 %, not solid: {}", out["faded"]);
+	assert!((faded[2].as_f64().unwrap() - 0.2).abs() < 1e-9, "repainted a frame later, still 20 %: {}", out["faded"]);
 	assert_eq!(out["dark"], 0, "Dark: the box, no line shades");
 	assert_eq!(out["standard"], 0, "Standard: no shades");
 }

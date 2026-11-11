@@ -2751,3 +2751,39 @@ fn floating_button_hover_is_a_quarter_strong_accent_disc_even_with_its_regions_a
 		assert!((r[k].as_f64().unwrap() - 0.25).abs() < 1e-6, "{k}: {}", r[k]);
 	}
 }
+
+// #1684's sweep: in the client a texture's SetAlpha and its colour's alpha are one value. A kit showed the house
+// glyph of an icon button again with SetAlpha(1) after the theme had coloured it, so a disabled button's 35 % glyph
+// drew at full strength; and a glyph a kit hid under its own art (SetAlpha(0)) came back over that art as soon as the
+// button recoloured it (the cursor leaving it). Shown, the glyph takes its colour back; hidden, it stays hidden.
+#[test]
+fn an_icon_button_s_glyph_keeps_its_disabled_strength_and_stays_under_a_kit_s_art() {
+	let out = run(r#"
+		local function alpha(b) return select(4, b.Icon:GetVertexColor()) end
+		local off = W.IconButton(UIParent, "chevron-left", 22)
+		W.SetIconState(off, false, false)
+		local house = alpha(off)
+		Polestar.Theme.Refresh()
+		local refreshed = alpha(off)
+		Polestar.Set("ui.skin", "classic")
+		local arrow = W.IconButton(UIParent, "chevron-left", 22)
+		W.SetFramed(arrow, "red")
+		W.SetIconState(arrow, false, false)
+		local veiled = alpha(arrow)
+		stub.RunScript(arrow, "OnLeave")
+		local left = alpha(arrow)
+		Polestar.Set("ui.skin", "forever")
+		local close = W.IconButton(UIParent, "close", 22)
+		Polestar.Theme.Refresh()
+		stub.RunScript(close, "OnLeave")
+		local closeLeft = alpha(close)
+		Polestar.Set("ui.skin", "polestar")
+		emit({ house = house, refreshed = refreshed, veiled = veiled, left = left, closeLeft = closeLeft, back = alpha(arrow) })"#);
+	let r = &out[0];
+	assert_eq!(r["house"], 0.35, "a disabled button's glyph at 35 %");
+	assert_eq!(r["refreshed"], 0.35, "still 35 % after a theme repaint: {r}");
+	assert_eq!(r["veiled"], 0, "Classic's page arrow art stands in for the glyph: {r}");
+	assert_eq!(r["left"], 0, "and the glyph stays hidden when the button recolours it: {r}");
+	assert_eq!(r["closeLeft"], 0, "a kit's close art: the glyph stays hidden: {r}");
+	assert_eq!(r["back"], 0.35, "back in the house style, the disabled arrow's glyph shows at 35 %: {r}");
+}

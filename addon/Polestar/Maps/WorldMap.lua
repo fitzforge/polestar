@@ -248,8 +248,9 @@ local function buildBar()
 	bar:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 0, 0)
 	bar:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", 0, 0)
 	bar:SetFrameLevel((host:GetFrameLevel() or 1) + 20)
-	local bg = W.Fill(bar, "bg")
-	bg:SetAlpha(0.82)
+	-- 82 % in its colour, not SetAlpha: a texture's alpha is its vertex
+	-- colour's, and a theme change repaints that at full strength (#1684).
+	W.Color(W.Fill(bar, "bg"), "bg", 0.82)
 	local rule = W.Divider(bar)
 	rule:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, 0)
 	rule:SetPoint("TOPRIGHT", bar, "TOPRIGHT", 0, 0)

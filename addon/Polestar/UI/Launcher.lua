@@ -70,9 +70,9 @@ local function build()
 	logo:SetSize(SIZE - 10, SIZE - 10)
 	logo:SetPoint("CENTER", button, "CENTER", 0, 0)
 	button.Icon = logo
-	-- The hover's 25 % in its colour, as the minimap button's (MinimapButton.lua).
-	local hover = W.Tex(button, "HIGHLIGHT", "circle")
-	W.Color(hover, "accent", 0.25)
+	-- The hover's 25 % in its colour, held through a SetAlpha, as the minimap
+	-- button's (MinimapButton.lua).
+	local hover = W.HoldColorAlpha(W.Color(W.Tex(button, "HIGHLIGHT", "circle"), "accent", 0.25))
 	hover:SetAllPoints(button)
 	button.Hover = hover
 	button:SetScript("OnClick", function(self, which)
