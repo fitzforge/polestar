@@ -16,4 +16,6 @@ When the Rust builder gained the walk-in portals that are game objects (Zephras 
 
 When the Rust builder gained the flight points the Forever client adds (Rog'mar and Farholde Keep on the Riverglades, the Summit of Eternity and the Tainted Foothills on Mount Hyjal, with their 20 flights), input/sources/wago/1.60.1.70450 gained Forever's TaxiPath, its Forever-only rows (slice.js; the build's TaxiPath equals 1.60.1.70532's), and expected/TravelData.lua, FlightPaths.lua and travel.json gained the four nodes, their flights and tracks, the "no flight master" warnings for them (the data golden has no such NPC) and the Forever tables' `use` from the Rust builder (FORGE_GOLDEN_BLESS); the JavaScript builder has no such nodes. Every Era node and flight is as before.
 
+When the Rust builder's inn list gained the Riverglades' three inns (Powderfuse Port, Rog'mar, Farholde Keep), expected/travel.json's warnings gained their three "not in npcs.json" lines from the Rust builder (FORGE_GOLDEN_BLESS; the slice has none of the innkeepers); nothing else changed.
+
 Test: rust/crates/forge-data/tests/travel.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.

@@ -212,6 +212,48 @@ fn from_stonard_a_horde_character_who_knows_rog_mar_flies_there() {
 	assert!(fly[0][2].as_f64().is_some_and(|s| (165.0..=180.0).contains(&s)), "{out}");
 }
 
+// The Riverglades' inns (players' recordings to 2026-11-11: binds right after Innkeeper Zizplink's, Innkeeper
+// Toka's and Barracks Master Harlan's windows, the Hearthstone landing there after): on the map's live frame,
+// each with the area of the subzone its innkeeper stands in; and a character bound at one, in Orgrimmar with the
+// Hearthstone ready, is sent there by it.
+#[test]
+fn the_committed_traveldata_lua_has_the_riverglades_inns_and_a_character_bound_at_one_hearths_there() {
+	let rows = nav_run(
+		r#"
+			local out = {}
+			for _, inn in ipairs(Polestar.Nav.GetTravelData().inns) do
+				if inn.map == 2548 then out[#out + 1] = { inn.npc, inn.names[1], inn.area or false, inn.f or false } end
+			end
+			table.sort(out, function(a, b) return a[1] < b[1] end)
+			emit(out)"#,
+	);
+	assert_eq!(rows, json!([[255894, "Powderfuse Port", 16727, "l"], [256675, "Rog'mar", 16743, "l"], [257595, "Farholde Keep", 16724, "l"]]));
+	let hearth = |faction: &str, bind: &str, x: f64, y: f64| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+			login: true,
+			script: format!(
+				r#"
+				local nav = stub.nav
+				nav.maps[2548] = {{ c = 0, top = -6466.666, bottom = -9700, left = -1891.666, right = -6741.666, name = "Riverglades" }}
+				nav.faction, nav.bind = "{faction}", "{bind}"
+				nav.items[6948] = 1
+				nav.place(1806, -4382, 1) -- Orgrimmar
+				Polestar.Nav.SetTarget(2548, {x}, {y}, "{bind}")
+				local legs, ci = Polestar.Nav.GetRoute()
+				local l = legs and legs[ci or 1]
+				emit({{ l and l.kind or false, l and l.to and l.to.npc or false }})"#
+			),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(hearth("Horde", "Rog'mar", 58.3, 45.5), json!(["hearth", 256675]));
+	assert_eq!(hearth("Alliance", "Farholde Keep", 64.4, 83.4), json!(["hearth", 257595]));
+	assert_eq!(hearth("Alliance", "Powderfuse Port", 78.5, 54.4), json!(["hearth", 255894]));
+}
+
 // #1674 (Megabite): on the Rohashi Spires after Lorthuna, the next step's turn-in at Elaadrin Evengale in
 // Valanaar said to hearth: the planner knew no way down but walking. The Portal to Valanaar beside her
 // sets the player down beside Elaadrin in five seconds. Zephras Isle (uiMap 2521, continent 2991) on its

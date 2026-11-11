@@ -6816,6 +6816,9 @@
 		"inn Light's Hope Chapel: innkeeper 16256 not in npcs.json",
 		"inn Stonetalon Peak: innkeeper 16458 not in npcs.json",
 		"inn Shen'dar Village: innkeeper 254089 not in npcs.json",
-		"inn Valanaar: innkeeper 255940 not in npcs.json"
+		"inn Valanaar: innkeeper 255940 not in npcs.json",
+		"inn Powderfuse Port: innkeeper 255894 not in npcs.json",
+		"inn Rog'mar: innkeeper 256675 not in npcs.json",
+		"inn Farholde Keep: innkeeper 257595 not in npcs.json"
 	]
 }
