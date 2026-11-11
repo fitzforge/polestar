@@ -228,7 +228,7 @@ local function vgrad(t, r1, g1, b1, a1, r2, g2, b2, a2)
 end
 
 local function build()
-	f = CreateFrame("Frame", "PolestarRareToast", UIParent)
+	f = CreateFrame("Frame", "PolestarRareToast", ns.UIParent)
 	f:SetSize(WIDTH, BAND_H + ROW_H)
 	f:SetFrameStrata("HIGH")
 	f:SetClampedToScreen(true)
@@ -428,4 +428,14 @@ end)
 
 function T.Current() return current end
 
-ns.On("RARE_SPOTTED", function(a) T.Show(a) end)
+-- Not while Polestar is hidden (Rares.lua sends none then either): a
+-- sighting is news, not something to show after.
+ns.On("RARE_SPOTTED", function(a)
+	if not ns.Hidden() then T.Show(a) end
+end)
+
+-- Hiding Polestar ends the alert (and lets go of the secure button, out of
+-- combat; in a fight it was let go of as it began).
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if hidden and f and f:IsShown() then T.Hide() end
+end)

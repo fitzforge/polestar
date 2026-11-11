@@ -131,7 +131,7 @@ function Mark.Refresh()
 	-- no step scan, and the mark is left as it is. It's the bar's child, so it can't show, and it comes
 	-- back with the bar (its label one refresh out of date at worst).
 	if not (shown.IsVisible and shown:IsVisible()) then return end
-	if QoL.On("xpTargetMark") then
+	if QoL.On("xpTargetMark") and not ns.Hidden() then
 		local level = playerLevel()
 		local cap = readable(GetMaxPlayerLevel and GetMaxPlayerLevel())
 		local E = ns.Engine
@@ -168,4 +168,6 @@ ns.OnLogin(schedule)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.xpTargetMark" or path == "qol" or path == "" then schedule() end
 end)
+-- Hidden: no mark (Polestar.Hidden); back with Polestar.
+ns.On("POLESTAR_HIDDEN", schedule)
 if ns.Theme and ns.Theme.OnChanged then ns.Theme.OnChanged(paint) end

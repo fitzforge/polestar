@@ -930,7 +930,7 @@ local function markHere()
 end
 
 local function buildMark()
-	M = CreateFrame("Frame", "PolestarMark", UIParent)
+	M = CreateFrame("Frame", "PolestarMark", ns.UIParent)
 	M:SetFrameStrata("DIALOG")
 	M:SetToplevel(true)
 	M:SetClampedToScreen(true)
@@ -1031,7 +1031,7 @@ local function textArea()
 end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarReport", UIParent)
+	F = CreateFrame("Frame", "PolestarReport", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)

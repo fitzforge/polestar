@@ -547,8 +547,9 @@ end
 -- Menus
 ---------------------------------------------------------------------------
 
+-- Not while Polestar is hidden: no entry of Polestar's in the game's menus.
 local function addMenu(_, root)
-	if not ns.Get("nav.nearbyMenu") then return end
+	if ns.Hidden() or not ns.Get("nav.nearbyMenu") then return end
 	local sub = root:CreateButton(L["Nearby services"])
 	for _, k in ipairs(KINDS) do
 		if k.key == "trainer" then
@@ -630,7 +631,7 @@ ns.OnLogin(function()
 end)
 
 ns.RegisterCommand("near", Nearby.Command,
-	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"])
+	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"], true)
 
 if ns.RegisterOptions then
 	-- Also on Quality of Life > Travel > Nearby services: one setting, a fresh

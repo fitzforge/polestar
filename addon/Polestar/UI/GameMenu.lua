@@ -52,11 +52,14 @@ local GAP = 4 -- under EllesmereUI's last button, as its two buttons are apart
 local button, spacer, ref -- ref: the menu's button ours follows this opening
 local look -- our flat inset for a skinned menu: { frame, bg, edges, hl }
 
+-- A way in that stays while Polestar is hidden: it brings Polestar back,
+-- then opens the guide menu.
 function GameMenu.Open()
 	local menu = _G.GameMenuFrame
 	if menu and menu:IsShown() and not ns.GamepadUI() then
 		if HideUIPanel then HideUIPanel(menu) else menu:Hide() end
 	end
+	ns.SetHidden(false)
 	ns.Fire("SHOW_PICKER")
 end
 
@@ -69,7 +72,8 @@ local function build(menu, template)
 	button:SetSize(144, 21)
 	button:SetText("Polestar")
 	button:SetScript("OnClick", function()
-		if PlaySound and SOUNDKIT and SOUNDKIT.IG_MAINMENU_OPTION then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION) end
+		ns.SetHidden(false)
+		if SOUNDKIT and SOUNDKIT.IG_MAINMENU_OPTION then ns.PlaySound(SOUNDKIT.IG_MAINMENU_OPTION) end
 		GameMenu.Open()
 	end)
 	button:Hide()
