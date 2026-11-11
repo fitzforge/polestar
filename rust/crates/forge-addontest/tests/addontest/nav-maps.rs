@@ -735,3 +735,35 @@ fn the_packed_maps_decode_every_entrance_names_a_cell_of_its_cluster() {
 		assert!(n > 30000, "map {map}: {n} entrances");
 	}
 }
+
+// A walk that goes round a town of the other faction says so (job.avoided, display only): across Hillsbrad west to
+// east the straight line meets Southshore; the Horde's path keeps out of it, the Alliance's own town is no detour, and
+// a walk that does enter it lists it as entered (job.hubs), not as avoided.
+#[test]
+fn a_horde_walk_past_southshore_on_the_shipped_maps_reports_the_town_it_goes_round_the_alliance_and_a_walk_in_none() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local got = {}
+local function walk(key, from, to, profile)
+	Path.Find(0, from, to, function(points, cost, job)
+		got[key] = { found = points ~= nil, hubs = job and job.hubs, avoided = job and job.avoided }
+	end, { profile = profile })
+	while #frames > 0 do table.remove(frames, 1)() end
+end
+walk("horde", { x = -500, y = -560 }, { x = -1200, y = -540 }, "Horde")
+walk("alliance", { x = -500, y = -560 }, { x = -1200, y = -540 }, "Alliance")
+walk("into", { x = -500, y = -560 }, { x = -850, y = -540 }, "Horde")
+emit(got)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["horde"]["found"], true);
+	assert_eq!(got["horde"]["hubs"], json!({}), "the path keeps out of the town");
+	assert_eq!(got["horde"]["avoided"], json!([{ "id": "alliance-southshore", "name": "Southshore", "areaId": 271 }]));
+	assert_eq!(got["alliance"]["avoided"], json!({}), "the Alliance's own town is no detour");
+	assert_eq!(got["into"]["hubs"], json!([{ "id": "alliance-southshore", "name": "Southshore", "areaId": 271 }]));
+	assert_eq!(got["into"]["avoided"], json!({}), "a town the walk enters is not one it goes round");
+}

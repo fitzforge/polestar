@@ -145,6 +145,14 @@ local function hubText(leg)
 	return T and T.HubText and T.HubText(leg) or nil
 end
 
+-- "Detour around <names>" for a walk that goes round the other faction's towns (leg.hubs.avoided,
+-- Nav.travel.AvoidText), only with Options > Guide > Arrow & routes > Detour captions on, else nil. Display only.
+local function detourText(leg)
+	if leg.kind ~= "walk" or not ns.Get("nav.detourCaption") then return nil end
+	local T = ns.Nav and ns.Nav.travel
+	return T and T.AvoidText and T.AvoidText(leg) or nil
+end
+
 ---------------------------------------------------------------------------
 -- The live numbers (reused tables, filled once a second)
 ---------------------------------------------------------------------------
@@ -458,8 +466,9 @@ local function fillStructure(legs, ci)
 		W.Color(r.Time, current and "text" or "textMuted")
 		W.Color(r.Num, current and "textDim" or "textMuted")
 		-- The line under the step: a ride's departure once known, a walk's hostile towns.
-		r.psHub = hubText(leg)
-		W.Color(r.Sub, r.psHub and "warning" or "textDim")
+		local hub = hubText(leg)
+		r.psHub = hub or detourText(leg)
+		W.Color(r.Sub, hub and "warning" or "textDim")
 		r.Sub:Hide()
 		r:SetHeight(ROW_H)
 		r:Show()

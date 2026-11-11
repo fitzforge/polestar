@@ -66,7 +66,7 @@ local format, lower = string.format, string.lower
 local Travel = { version = 0 }
 Nav.travel = Travel
 
-ns.RegisterDefaults("nav", { travel = true })
+ns.RegisterDefaults("nav", { travel = true, detourCaption = false })
 
 local RUN_SPEED = 7          -- yd/s, unmounted run speed
 local MIN_SPEED, MAX_SPEED = 4, 14
@@ -1451,13 +1451,17 @@ function Travel.WalkCostHook(fn)
 end
 
 -- The same hostile towns, by id, in order (a fresh search gives a new table).
-local function sameHubs(a, b)
+local function sameIds(a, b)
 	local na, nb = a and #a or 0, b and #b or 0
 	if na ~= nb then return false end
 	for i = 1, na do
 		if type(a[i]) ~= "table" or type(b[i]) ~= "table" or a[i].id ~= b[i].id then return false end
 	end
 	return true
+end
+-- ... and the ones it goes round (hubs.avoided).
+local function sameHubs(a, b)
+	return sameIds(a, b) and sameIds(a and a.avoided, b and b.avoided)
 end
 
 -- "Hostile town: <names>" for a walk whose engine path enters the other
@@ -1479,6 +1483,26 @@ function Travel.HubText(leg)
 	end
 	if #names == 0 then return nil end
 	return format(L["Hostile town: %s"], table.concat(names, ", "))
+end
+
+-- "Detour around <names>" for a walk that goes round the other faction's towns (leg.hubs.avoided, from Find's
+-- job.avoided: the towns the straight line would enter and the path does not), else nil. Named as HubText names them.
+-- Display only: the walk is the same with or without this text.
+function Travel.AvoidText(leg)
+	local hubs = type(leg) == "table" and leg.hubs
+	local avoided = type(hubs) == "table" and hubs.avoided
+	if type(avoided) ~= "table" or #avoided == 0 then return nil end
+	local C = ns.Compat
+	local names, seen = {}, {}
+	for _, h in ipairs(avoided) do
+		local name = type(h) == "table" and (C and C.GetAreaName and C.GetAreaName(h.areaId) or h.name)
+		if type(name) == "string" and name ~= "" and not seen[name] then
+			seen[name] = true
+			names[#names + 1] = name
+		end
+	end
+	if #names == 0 then return nil end
+	return format(L["Detour around %s"], table.concat(names, ", "))
 end
 
 -- The warning the arrow says once when a walk starts: the current walk's
@@ -2107,7 +2131,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	local whole = parent and parent.leg or leg
 	local to = whole.to
 	if to.c ~= c or (to.wx - x) * (to.wx - x) + (to.wy - y) * (to.wy - y) > 1 then return false end
-	if type(hubs) ~= "table" or #hubs == 0 then hubs = nil end
+	if type(hubs) ~= "table" or (#hubs == 0 and not (type(hubs.avoided) == "table" and #hubs.avoided > 0)) then hubs = nil end
 	local kept = {}
 	for _, s in ipairs(stops) do
 		if s.kind == "lift" or not handmadeNear(c, s.wx, s.wy, whole) then kept[#kept + 1] = s end
