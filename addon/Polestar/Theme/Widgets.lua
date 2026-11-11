@@ -1880,22 +1880,32 @@ function W.CopyBox(parent, opts)
 	return e
 end
 
+-- Fill a copy box: its text, the cursor at its start. The same text again
+-- changes nothing, so a selection the player made stays: in 0.3.7-rc1 a
+-- report box clicked or Ctrl+A'd flashed its selection, then sat with the
+-- cursor at the start (#1753). -> whether the text changed.
 function W.SetCopyText(e, text)
-	e.psText = text or ""
-	e:SetText(e.psText)
+	text = text or ""
+	if e.psText == text and e:GetText() == text then return false end
+	e.psText = text
+	e:SetText(text)
 	e:SetCursorPosition(0)
+	return true
 end
 
 -- A copy box in focus with all its text selected, for Ctrl+C: now, and
--- again in the next frame. A box just shown inside a scroll view (the
--- report window's, #1753) is laid out by its scroll frame in a later frame,
--- and Fitz found the report there not selected after Copy report in 0.3.7.
+-- again in the next frame, after the game has handled the click that got
+-- here and laid out a box just shown inside a scroll view (the report
+-- window's, #1753). The next frame leaves the focus alone when the player
+-- has gone on to another edit box.
 function W.SelectCopy(e)
 	e:SetFocus()
 	e:HighlightText()
 	ns.After(0, function()
 		if not e:IsVisible() then return end
-		e:SetFocus()
+		local focus = GetCurrentKeyBoardFocus and GetCurrentKeyBoardFocus()
+		if focus and focus ~= e then return end
+		if not focus then e:SetFocus() end
 		e:HighlightText()
 	end)
 end
@@ -1994,12 +2004,16 @@ end
 -- Tell the scroll area its content and view heights (view nil = measured).
 -- UpdateScrollChildRect has the client take the child's new size at once,
 -- as the game's own scroll frames do after resizing theirs (#1753: the
--- report box, sized while its area was hidden, took no click in rc1).
+-- report box, sized while its area was hidden, took no click in rc1); only
+-- when the height changed, so an edit box scrolled in it keeps its
+-- selection through a layout that changes nothing.
 function W.SetScrollContent(sf, contentHeight, viewHeight)
+	local resized = sf.psContent ~= contentHeight or not sf.psSized
+	sf.psSized = true
 	sf.psContent = contentHeight
 	sf.psView = viewHeight
 	sf.Child:SetHeight(max(1, contentHeight))
-	if sf.UpdateScrollChildRect then sf:UpdateScrollChildRect() end
+	if resized and sf.UpdateScrollChildRect then sf:UpdateScrollChildRect() end
 	scrollUpdate(sf)
 end
 

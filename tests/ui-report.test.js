@@ -689,7 +689,23 @@ function crowded({ desc = 'Guide is throwing lua errors and the report a problem
 		-- input boxes are: nested in a child frame, rc1's took no click.
 		local scroll = rawget(F, "BoxScroll")
 		local children = { report = scroll ~= nil and scroll:GetScrollChild() == F.Box, description = F.DescScroll:GetScrollChild() == F.Desc }
+		-- Selected, nothing sets the box's text or cursor again: not a compose
+		-- for the description's box, not a theme repaint, not another click on
+		-- the well, not the frames after (0.3.7-rc2 in game: the selection
+		-- flashed, then the cursor sat at the start).
+		Polestar.Widgets.SelectCopy(F.Box)
+		stub.advance(0.1)
+		local sets = {}
+		local setText, setCursor = F.Box.SetText, F.Box.SetCursorPosition
+		F.Box.SetText = function(self, t) sets[#sets + 1] = "SetText"; return setText(self, t) end
+		F.Box.SetCursorPosition = function(self, p) sets[#sets + 1] = "SetCursorPosition"; return setCursor(self, p) end
+		stub.RunScript(F.Desc, "OnTextChanged", false)
 		Polestar.Theme.Refresh()
+		stub.RunScript(F.BoxWell, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local kept = sel()
+		kept.sets = table.concat(sets, ",")
+		F.Box.SetText, F.Box.SetCursorPosition = setText, setCursor
 		-- Every font string drawn in the window, by its text.
 		local drawn = {}
 		local function walk(f)
@@ -703,7 +719,7 @@ function crowded({ desc = 'Guide is throwing lua errors and the report a problem
 		local function span(o) local y = select(5, o:GetPoint(1)); return { -y, -y + o:GetHeight() } end
 		-- Before #1753 the box had no well of its own: the box stands for it.
 		local well = rawget(F, "BoxWell") or F.Box
-		emit({ report = F.Box:GetText(), bytes = #F.Box:GetText(), copied = copied, ctrlA = ctrlA, clicked = clicked, wellClicked = wellClicked, children = children, drawn = drawn, window = F:GetHeight(), boxShown = F.Box:IsShown(),
+		emit({ report = F.Box:GetText(), bytes = #F.Box:GetText(), copied = copied, ctrlA = ctrlA, clicked = clicked, wellClicked = wellClicked, children = children, kept = kept, drawn = drawn, window = F:GetHeight(), boxShown = F.Box:IsShown(),
 			box = F.Box:GetHeight(), view = well:GetHeight(), content = scroll and scroll.psContent or F.Box:GetHeight(),
 			copy = span(F.Copy), well = span(well), rule = span(F.GitHubRule), github = span(F.GitHub),
 			desc = span(F.DescWell), mark = span(F.Mark) })`)[0];
@@ -730,6 +746,7 @@ test('a long report with many addons and an error caught 63 times stays in its b
 		assert.deepEqual(out.clicked, all, `${name}: a click in the box selects the whole report`);
 		assert.deepEqual(out.wellClicked, all, `${name}: a click on its well selects the whole report`);
 		assert.deepEqual(out.children, { report: true, description: true }, `${name}: each box is its view's scroll child`);
+		assert.deepEqual(out.kept, { ...all, sets: '' }, `${name}: the selection stays; nothing sets the box's text or cursor again`);
 		// The bug: the box's measuring string drew the report over the window
 		// once a theme repaint gave it its colour's alpha back.
 		for (const s of out.drawn) {

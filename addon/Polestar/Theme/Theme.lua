@@ -1024,8 +1024,11 @@ local function paintShadow(fs)
 end
 
 -- Forever leaves a string blank after a new font until its text changes
--- (the options' values and tiles after a skin change): set it again.
+-- (the options' values and tiles after a skin change): set it again. Not an
+-- edit box the player is in: setting its text again drops their cursor and
+-- selection (#1753: the report box selected for Ctrl+C).
 local function textAgain(fs)
+	if fs.HasFocus and fs:HasFocus() then return end
 	local text = fs.GetText and fs:GetText()
 	if text and text ~= "" then
 		fs:SetText(text .. " ")

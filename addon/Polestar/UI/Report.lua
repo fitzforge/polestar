@@ -896,16 +896,19 @@ end
 
 -- The report box is as tall as its text, measured in its own font at its
 -- inner width (never under a line per line of the report), so it is copied
--- whole; it scrolls in its well (layout).
+-- whole; it scrolls in its well (layout). The box, its height and its
+-- scroll are touched only when the report changed: a compose for anything
+-- else (the description's box, the spot) leaves a selection in it alone.
 local function compose()
 	showSpot()
 	gate()
 	local report = R.Text(F.Desc:GetText(), F.details, F.spot)
-	W.SetCopyText(F.Box, report)
-	F.Measure:SetText(report)
-	local _, breaks = report:gsub("\n", "")
-	F.Box:SetHeight(floor(max(F.Measure:GetStringHeight(), (breaks + 1) * 12) + 16 + 0.5))
-	W.ScrollTo(F.BoxScroll, 0)
+	if W.SetCopyText(F.Box, report) then
+		F.Measure:SetText(report)
+		local _, breaks = report:gsub("\n", "")
+		F.Box:SetHeight(floor(max(F.Measure:GetStringHeight(), (breaks + 1) * 12) + 16 + 0.5))
+		W.ScrollTo(F.BoxScroll, 0)
+	end
 	layout()
 end
 
