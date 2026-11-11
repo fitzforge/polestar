@@ -35,72 +35,108 @@ body { background: rgb(13,13,13); color: rgb(153,153,153); font: 16px/1.45 Lato,
 .project-description table td{flex-direction:column;flex:1 0 0;height:20px}
 .project-description table tbody tr:nth-child(odd){background-color:var(--surface-tertiery)}
 .project-description table tbody tr:nth-child(2n){background-color:var(--surface-secondary)}
+/* Page chrome around the description (an approximation of the project page, not CurseForge's own CSS). */
+.head { width: 836px; margin: 28px auto 0; display: flex; gap: 20px; align-items: center; }
+.head img { width: 96px; height: 96px; border-radius: 8px; }
+.head h1 { color: #fff; font-size: 28px; font-weight: 700; line-height: 1.2; }
+.head p { color: rgb(153,153,153); font-size: 14px; margin-top: 6px; max-width: 560px; }
+.head .install { margin-left: auto; background: #f16436; color: #fff; font-weight: 700; padding: 10px 22px; border-radius: 6px; font-size: 15px; }
+.tabs { width: 836px; margin: 24px auto 0; display: flex; gap: 28px; border-bottom: 1px solid #262626; font-size: 15px; }
+.tabs span { padding: 10px 0; color: rgb(153,153,153); }
+.tabs span.on { color: #fff; border-bottom: 2px solid #f16436; }
 </style></head><body>
-<div class="bar">Preview at CurseForge's description width (836 px). Every image shows at the size the page gives it.</div>
+<div class="bar">Preview at CurseForge's description width (836 px), on its dark page, with its description styles. The header and tabs only stand in for the project page.</div>
+<div class="head"><img src="images/logo-400.png" alt=""><div><h1>Polestar Guides</h1><p>Free leveling guides for WoW: Forever, every race 1 to 60: a guide window that ticks off as you play and an arrow that walks real paths.</p></div><span class="install">Install</span></div>
+<div class="tabs"><span class="on">Description</span><span>Files</span><span>Images</span><span>Relations</span></div>
 <div class="page"><div class="project-description">
 <!-- description.html begins -->
-<p><img src="images/banner.png" alt="Polestar: leveling guides for World of Warcraft: Forever" width="836" height="209"></p>
-<h1>Routes that make sense.</h1>
-<p><strong>Polestar is a free, open-source guide addon for World of Warcraft: Forever.</strong> It takes every race from 1 to 60 on routes planned from the game's own data, with a guide window that keeps up with you and an arrow that walks real paths. Around the routes: class quests, professions, reputations, mounts and pets, a search for where anything comes from, a dungeon journal, and the helpers a long leveling session needs.</p>
-<hr>
-<h2>Leveling routes for every race</h2>
-<p>Every race starts in its own zone, Zephras Isle for the Skyborne included, then joins one shared route for its faction all the way to 60. The routes are built from the game's data, played through the way you would follow them, read step by step, and every problem players report is fixed for good: whole towns in one visit, quests on the road picked up as you pass, training where you already are, elite quests with a solo way past.</p>
-<p><img src="media/leveling.jpg" alt="The whole guide menu on Leveling: the rail and categories on the left, the Alliance route from 1 to 30 and the other starting zones, and Elwynn Forest's steps, quests and next guide" width="836" height="485"></p>
-<h2>The arrow walks real paths</h2>
-<p>Around cliffs, through town gates, into caves and out of the capitals by their streets, on walking maps of the whole world. Pick how it walks (fastest, balanced or on the roads); it keeps out of the other faction's towns and says when you have arrived.</p>
-<p><img src="media/arrow-walk.gif" alt="The arrow leading out of Auberdine along the walking path to the Blackwood furbolgs: the distance counts down, the arrow turns at the corners, says Arrived, and once the step is done the next one opens" width="600" height="470"></p>
+<p><img src="media/banner.png" alt="Polestar: leveling guides for World of Warcraft: Forever" width="836" height="260"></p>
+<h1>Leveling guides for every race, 1 to 60.</h1>
+<p><strong>Polestar is a free, open-source guide addon for World of Warcraft: Forever.</strong> Routes planned from the game's own data, a guide window that ticks goals off as you play, and an arrow that walks the real paths between them.</p>
+<p><img src="media/arrow-walk.gif" alt="The arrow leading a Tauren across Thunder Bluff's rises and bridges to Arch Druid Hamuul Runetotem: the yards count down, the arrow turns at each corner, says Arrived, the quest is handed in and the next step opens" width="836" height="470"></p>
+<p><strong>Get started:</strong> install with the CurseForge app or the <a href="https://polestar.guide/client">Polestar Client</a>, restart the game completely, and type <code>/polestar guides</code> to pick your start.</p>
+<p>&nbsp;</p>
+<h2>A guide window that keeps up with you</h2>
+<p>Goals tick off when the game confirms them: quests taken and handed in, kills, loot, places, trainers. In a town it shows one person at a time, folds away the people you are done with, and turns the arrow to the next.</p>
+<p><img src="media/guide-hub.gif" alt="Northshire Abbey on a new Human: Deputy Willem, Marshal McBride and Eagan Peltskinner one after another, each folding into a done line as their quests are taken and handed in, until the step moves on to the wolves" width="836" height="470"></p>
+<p>Skip a quest with undo, look ahead without losing your place, keep up to six guides open in tabs, and choose a standard, compact or transparent window. Every window answers a gamepad.</p>
+<p>&nbsp;</p>
+<h2>While you're here</h2>
+<p>Nobody follows a route exactly, so Polestar watches what is around you. Kills, items and hand-ins from other steps show up while you are close, with how far away they are, and count as you do them.</p>
+<p><img src="media/while-here.gif" alt="Hillsbrad Fields: the farmer and farmhand kills count up on the step while Mountain Lion Blood, from another step, counts up under While you're here" width="836" height="470"></p>
+<p>&nbsp;</p>
+<h2>New spells when you level up</h2>
+<p>A card lists the spells your trainer has for you, what they cost and where to train. Train All learns them in one click at the trainer, and Upgrade puts the new ranks on your action bars.</p>
+<p><img src="media/level-up.gif" alt="The level-up card above the guide window: new Hunter spells to train with their cost, a spell's tooltip, then after training the old ranks still on the action bars with an Upgrade button" width="836" height="664"></p>
+<p>&nbsp;</p>
+<h2>Routes for every race</h2>
+<p>Every race starts in its own zone, Zephras Isle for the Skyborne included, then joins one route for its faction all the way to 60: whole towns in one visit, quests on the road picked up as you pass, training where you already are, and a solo way past every elite or group quest. Each route is played through, read step by step, and every problem players report is fixed for good.</p>
+<p><img src="media/leveling.jpg" alt="The guide menu on Leveling: the Alliance route from Elwynn Forest to Duskwood, the other starting zones, and Westfall's page with its steps, quests, zones and the next guide" width="836" height="480"></p>
+<p>&nbsp;</p>
 <h2>Flights, boats and your Hearthstone</h2>
 <p>The travel planner takes flight paths, boats, zeppelins, the tram and portals when they are faster, on their real timetables, and suggests your Hearthstone when it saves a long trip. Every leg is timed, waits included.</p>
-<p><img src="media/journey.png" alt="The guide window's journey: go to Stormwind, walk to the boat, take the boat to Auberdine with its average wait, then hand in Plagued Lands" width="388" height="561"></p>
+<p><img src="media/journey.jpg" alt="Starting the Darkshore guide from Westfall: the journey to the boat to Auberdine, each leg with its time" width="836" height="470"></p>
+<p>&nbsp;</p>
 <h2>Nearby services</h2>
-<p>The nearest vendor, repair, innkeeper, flight master, trainer, bank or mailbox, one click from the guide window. The arrow takes you there and comes back to the guide when you are done.</p>
-<p><img src="media/nearby.gif" alt="Nearby services in the guide window: Vendor, then Nearest, and the arrow turns to the nearest vendor and names him" width="652" height="526"></p>
-<h2>A guide window that keeps up with you</h2>
-<p>Goals tick off when the game confirms them: quests taken and handed in, kills, loot, places, trainers. In a town it shows one person at a time, folds away what is done, and shows only your character's steps, with the quest's own objectives and counts. Work you can do on the way waits under the steps you walk to.</p>
-<p><img src="media/guide-fold.gif" alt="The guide window in Auberdine: Terenthis's goals tick off, he folds into one done line, and Sentinel Glynda Nal'Shea moves up" width="396" height="445"> <img src="media/transparent.png" alt="The same step in the transparent style: outlined text straight on the world" width="388" height="381"></p>
-<p>Skip a quest with undo, look ahead without losing your place, answer group quests once, and keep up to six guides open in tabs. Standard, compact or transparent; every window answers a gamepad.</p>
+<p>The nearest vendor, repair, innkeeper, flight master, trainer, bank or mailbox, one click from the guide window. The arrow takes you there and brings you back to the guide.</p>
+<p><img src="media/nearby.gif" alt="Nearby services opened from the guide window in Goldshire, then the arrow turning to the nearest weapon vendor and naming him" width="836" height="470"></p>
+<p>&nbsp;</p>
 <h2>Every guide in one place</h2>
-<p>Leveling for every race, class quests for every class (spells, pets, totems, forms and class mounts), all twelve professions with where every material comes from, reputations with what each turn-in or kill pays, mounts and pets, exploration, the Legacy challenges and talent plans for every spec.</p>
-<p><img src="media/picker.gif" alt="The guide menu: Browse, pick Westfall, Open in new tab, and Westfall is open in tab 2" width="836" height="483"></p>
+<p>Leveling for every race, class quests for every class, all the professions (starting where your skill is) with where every material comes from, reputations, mounts and pets, exploration, the Legacy challenges, and guides from the community.</p>
+<p><img src="media/guide-menu.gif" alt="The guide menu: Home with the guide in progress and the one suggested next, Leveling, Westfall's page, Lookup searching swift, and the Deadmines in the dungeon journal" width="836" height="480"></p>
+<p>&nbsp;</p>
 <h2>Lookup: how do I get that?</h2>
-<p>Search any item, mount, pet, recipe, quest, NPC or zone and see every place it comes from, ranked for your character. Guide me builds a guide there on the spot.</p>
-<p><img src="media/lookup.jpg" alt="Lookup searching swift: guides, mounts and items, with the Swift Ram selected" width="836" height="483"></p>
-<h2>Dungeons and Rares</h2>
-<p>Every dungeon's quests with who starts and ends them, their chains and rewards, the bosses and the entrance, and one button that guides you round to pick the quests up. Rares lists every rare and treasure by zone and tells you when one shows up.</p>
-<p><img src="media/dungeons.jpg" alt="The Deadmines in the dungeon journal: Red Silk Bandanas with its giver, chain and rewards" width="836" height="483"></p>
+<p>Search any item, mount, pet, recipe, quest, NPC or zone and see every place it comes from, ranked for your character. One click builds a guide there.</p>
+<p><img src="media/lookup.jpg" alt="Lookup searching swift: guides, mounts and items, with the Swift Ram selected" width="836" height="480"></p>
+<p>&nbsp;</p>
+<h2>Dungeons</h2>
+<p>Every dungeon's quests with who starts and ends them, their chains and rewards, the bosses and the entrance, and one button that guides you round to pick the quests up.</p>
+<p><img src="media/dungeons.jpg" alt="The Deadmines in the dungeon journal: Red Silk Bandanas with its giver, its chain and its rewards" width="836" height="480"></p>
+<p>&nbsp;</p>
 <h2>Quests on the map</h2>
-<p>Givers, objectives and turn-ins on the world map and the minimap, the step's area shaded, the route drawn, and icons on the nameplates of mobs you still need.</p>
-<p><img src="media/worldmap.jpg" alt="The Darkshore map: the route from Auberdine and the step's areas around Ameth'Aran shaded" width="836" height="592"></p>
-<h2>Quality of life</h2>
-<p>Accept and hand in guide quests, sell junk and repair, buy what a step needs, restock food and ammo, keep quest items from being sold, warn before your bags fill up, and point out gear upgrades on tooltips and quest rewards. Each one is a switch you can turn off.</p>
-<p><img src="media/quality-of-life.jpg" alt="Options, Quality of Life: accept and turn in guide quests, skip single-option gossip, faster auto-loot, hide combat errors, quest rewards" width="836" height="553"></p>
-<p>The guide window's menu lists the quests in your log the route no longer needs, grey ones included, with a button to abandon each.</p>
-<p><img src="media/questlog.png" alt="Make room in your quest log: grey quests and one the route never hands in, each with Abandon" width="428" height="472"></p>
-<h2>Play together</h2>
-<p>With friends who also run Polestar, you see each other's progress on shared quests, the step waits until everyone has what they need, and a Share button offers a quest someone is missing. A party panel shows each friend's level, step and needs, and Polestar can say in party chat when you finish an objective. Friends without Polestar see nothing.</p>
-<h2>Routes that learn from real play</h2>
-<p>The optional Polestar Recorder notes what only play can show: kill pace, drops, which quests an NPC offers, flight times. It records no character, realm or account names, and with your consent the Polestar Client sends it in, so the next routes are built on Forever's real numbers.</p>
-<h2>Polestar Client and community guides</h2>
-<p>The <a href="https://polestar.guide/client">Polestar Client</a> for Windows, macOS and Linux finds WoW: Forever, installs and updates Polestar and the Recorder, and installs community guides from <a href="https://polestar.guide">polestar.guide</a> in one click. Players publish their own routes there, and a shared guide can also be pasted in as an import string.</p>
-<p><img src="../assets/screenshots/client.webp" alt="The Polestar Client: installed community guides with their authors and versions, and an Update button" width="760" height="525"></p>
-<h2>Your language, your look</h2>
-<p>English, German, French, Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and Chinese (Simplified and Traditional), with every NPC, place, item and quest named as your game names it. Skins, colour schemes, your own accent or class colour, and EllesmereUI's look when it is installed.</p>
-<hr>
+<p>Givers, objectives and turn-ins on the world map and the minimap, the route drawn, and icons on the nameplates of mobs you still need.</p>
+<p><img src="media/worldmap.jpg" alt="The Barrens on the world map with Polestar's route and quest pins" width="836" height="586"></p>
+<p>&nbsp;</p>
+<h2>A tidy quest log</h2>
+<p>Quests the route will never hand in, and ones that no longer give XP, in one list with an Abandon button each. Open it from the guide window's menu or with <code>/polestar questlog</code>.</p>
+<p><img src="media/questlog.jpg" alt="Make room in your quest log: three quests not handed in on this route, each with Abandon" width="836" height="364"></p>
+<p>&nbsp;</p>
+<h2>And everything around it</h2>
+<table>
+<thead><tr><th>Feature</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><strong>Quest helpers</strong></td><td>Loot that starts a quest glows on the quest item button until you take it, and timed quests count down at the top of the window.</td></tr>
+<tr><td><strong>Browse all steps</strong></td><td>Click the step number to see every step of the guide.</td></tr>
+<tr><td><strong>Hide it all</strong></td><td>One click on the minimap button hides everything Polestar shows; another brings it back.</td></tr>
+<tr><td><strong>Update notice</strong></td><td>At login, a card says when a newer Polestar is out and how to update.</td></tr>
+<tr><td><strong>Play together</strong></td><td>See where friends are on the guide and who still needs what, share a quest someone is missing, and offer your step with Sync to my guide.</td></tr>
+<tr><td><strong>Class quests</strong></td><td>Spells, pets, totems, forms and class mounts for every class, with a heads-up when one opens at your level.</td></tr>
+<tr><td><strong>Rares</strong></td><td>Every rare and treasure by zone, with an alert when one shows up.</td></tr>
+<tr><td><strong>Gear</strong></td><td>Upgrades marked on tooltips and quest rewards, from your own Pawn scale if you have one.</td></tr>
+<tr><td><strong>Bags and vendors</strong></td><td>Junk and keep marks, quest items kept from being sold, selling greys, repairing and restocking food and ammo.</td></tr>
+<tr><td><strong>Quest automation</strong></td><td>Accept and hand in guide quests and pick the best reward. Each helper is a switch you can turn off.</td></tr>
+<tr><td><strong>Your pace</strong></td><td>XP per hour, time to level, and whether you will reach the guide's next level on time; Boosted Rest and your sleeping bag too.</td></tr>
+<tr><td><strong>Characters</strong></td><td>Every character on your account at a glance.</td></tr>
+<tr><td><strong>Keybinds</strong></td><td>Bind Polestar's buttons in the game's Quick Keybind Mode.</td></tr>
+<tr><td><strong>Your look</strong></td><td>Skins, colour schemes, your own accent or class colour, and EllesmereUI's look when it is installed.</td></tr>
+<tr><td><strong>Your language</strong></td><td>English, German, French, Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and Chinese (Simplified and Traditional), with every NPC, place, item and quest named as your game names it.</td></tr>
+<tr><td><strong>Polestar Client</strong></td><td>For Windows, macOS and Linux: finds WoW: Forever, installs and updates Polestar, and installs community guides in one click.</td></tr>
+<tr><td><strong>Polestar Recorder</strong></td><td>Optional. Notes kill pace, drops and flight times, never character, realm or account names, so the routes are built on Forever's real numbers. Sent only with your consent.</td></tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
 <h2>Getting started</h2>
 <ol>
-<li><strong>Install</strong> with the <a href="https://polestar.guide/client">Polestar Client</a> or the CurseForge app, then restart the game completely.</li>
+<li><strong>Install</strong> with the CurseForge app or the <a href="https://polestar.guide/client">Polestar Client</a>, then restart the game completely.</li>
 <li><strong>Open the guide menu</strong> with <code>/polestar guides</code> (a welcome opens on each new character too).</li>
 <li><strong>Pick your start</strong> and follow the arrow. Goals tick off by themselves as you play.</li>
 </ol>
 <p>Installing by hand: unzip into <code>World of Warcraft/_forever_/Interface/AddOns/</code> so the Polestar folders sit directly inside it, and restart the game. Delete the old Polestar folders before an update.</p>
 <h2>FAQ</h2>
-<p><strong>How do I close a guide tab?</strong><br>Click the × on the tab in the guide window. On the guide menu's Home, point at a card under Continue and click its ×, or right-click the card and choose Close tab.</p>
-<p><strong>How do I clean up my quest log?</strong><br>Open the guide window's ⋯ menu and choose Clean up quest log, or type <code>/polestar questlog</code>.</p>
-<p><strong>How do I stop the party messages?</strong><br>Options › Questing › Quests › Group: turn off "Tell my party in chat when I finish a quest objective".</p>
 <p><strong>Which commands are there?</strong><br><code>/polestar</code> shows the guide window, <code>/polestar guides</code> opens the guide menu, <code>/polestar options</code> holds every setting, <code>/polestar near vendor</code> points at the nearest vendor, and <code>/polestar help</code> lists the rest.</p>
-<p><strong>A step is wrong. How do I report it?</strong><br>Click the bug button on the guide window (or type <code>/polestar report</code>), copy the report, and post it on the <a href="https://discord.gg/vMbee6F2e9">Polestar Discord</a> or as a <a href="https://github.com/fitzforge/polestar/issues">GitHub issue</a>.</p>
+<p><strong>How do I close a guide tab?</strong><br>Click the × on the tab in the guide window. On the guide menu's Home, point at a card under Continue and click its ×.</p>
+<p><strong>A step is wrong. How do I report it?</strong><br>Click the bug button on the guide window (or type <code>/polestar report</code>), copy the report, and post it on the <a href="https://discord.gg/vMbee6F2e9">Polestar Discord</a> or as a <a href="https://github.com/fitzforge/polestar/issues">GitHub issue</a>. Every report becomes a fix the next build keeps.</p>
 <p><strong>How do recordings help, and how do I opt out?</strong><br>Recordings replace estimates with what really happens in Forever, so routes get faster and wrong steps get found. Sharing is on by default in the Polestar Client: turn it off there at any time, type <code>/psrec off</code>, or don't install the Recorder.</p>
-<p><strong>What changed in each version?</strong><br>See the <a href="https://github.com/fitzforge/polestar/blob/main/CHANGELOG.md">changelog</a>.</p>
 <hr>
 <h2>Links</h2>
 <ul>

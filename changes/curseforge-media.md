@@ -4,6 +4,6 @@ section: contributors
 - The CurseForge listing gets a new description for the WYSIWYG editor
   (`docs/curseforge/description.html`, with a Markdown copy and a local
   preview at CurseForge's width): an evergreen overview of the whole addon in
-  short sections, each with a picture shown at the size of the addon's own
-  windows, four GIFs recorded from the real
-  addon in the playground, and ten new 1920x1080 gallery pictures.
+  short sections, each led by a GIF or picture of the real addon at the
+  column's width, a feature table for the rest, and fifteen new 1920x1080
+  gallery pictures, all from the 0.3.7 code in Polestar's default look.
