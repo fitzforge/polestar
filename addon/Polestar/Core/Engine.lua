@@ -5874,7 +5874,7 @@ function Own.noteAdded(g, map, old)
 	for j, key in ipairs(Own.stepKeys(g)) do
 		if not kept[j] and not hereAt[key] then hereAt[key] = j end
 	end
-	local had, upTo, prev = {}, {}, 0
+	local had, upTo, prev, changed = {}, {}, 0, {}
 	for k = 1, #old do
 		local list, at, last
 		if map[k] then
@@ -5893,6 +5893,7 @@ function Own.noteAdded(g, map, old)
 			at = prev + 1
 			last = (Own.nextKept(map, k) or (#g.steps + 1)) - 1
 			if last < at then last = at end
+			changed[k] = { list = list, at = at, last = last }
 		end
 		for _, x in ipairs(list or NONE) do
 			if not had[x] or at < had[x] then had[x] = at end
@@ -5906,8 +5907,9 @@ function Own.noteAdded(g, map, old)
 	-- update coming before the last one's pass keeps the first set.
 	if type(s.passedBefore) ~= "table" then s.passedBefore = {} end
 	if not s.passedBefore[g.id] then
-		s.passedBefore[g.id] = { gone = type(s.gone) == "table" and s.gone[g.id] or nil, behind = type(s.behind) == "table" and s.behind[g.id] or nil }
+		s.passedBefore[g.id] = { gone = type(s.gone) == "table" and Own.deepCopy(s.gone[g.id]) or nil, behind = type(s.behind) == "table" and s.behind[g.id] or nil }
 	end
+	Own.carryGone(g, s.passedBefore[g.id], old, changed, parts)
 	local mine = s.added[g.id] or {}
 	local keys = Own.stepKeys(g)
 	-- Quest goals an earlier release had optional only that block now
@@ -5966,6 +5968,51 @@ function Own.noteAdded(g, map, old)
 	end
 	-- Noted even with nothing added: feeder steps planned in pass the same way.
 	s.added[g.id] = mine
+end
+
+-- What an earlier update passed in a step this update changed stays passed in
+-- the new guide: the passes are noted by step key, and a changed step has a
+-- new key. For each such old step (`changed`: old index -> its goals and the
+-- stretch of new steps it became, from Own.noteAdded), the goals passed there
+-- are passed in the new steps of that stretch that have them: the whole step
+-- when every goal of it was passed, else those goals (0.3.6 -> 0.3.7: Eastern
+-- Plaguelands' Light's Hope Chapel, Feralas' Mirage Raceway, Ashenvale's
+-- Senani Thunderheart lost a goal each). `before`: CharState().passedBefore[id].
+function Own.carryGone(g, before, old, changed, parts)
+	local gone = before and before.gone
+	if type(gone) ~= "table" then return end
+	local keys, kept = Own.stepKeys(g), {}
+	for j, key in ipairs(keys) do kept[key] = true end
+	for k, c in pairs(changed) do
+		local e = gone[old[k]]
+		if e ~= nil and not kept[old[k]] then
+			local passed = {}
+			if e == true then
+				for _, x in ipairs(c.list or NONE) do passed[x] = true end
+			elseif type(e) == "table" then
+				for x, v in pairs(e) do if v == true then passed[x] = true end end
+			end
+			for j = c.at, math.min(c.last, #g.steps) do
+				local ids, all = {}, true
+				for x in ((parts[j] or "") .. ","):gmatch("([^,]*),") do
+					if passed[x] then ids[x] = true elseif x:sub(1, 5) ~= "note:" then all = false end
+				end
+				if next(ids) then
+					local entry = all or ids
+					for _, key in ipairs({ keys[j], Own.baseKey(g, j) }) do
+						local was = gone[key]
+						if was == true or entry == true then
+							gone[key] = true
+						elseif type(was) == "table" then
+							for x in pairs(entry) do was[x] = true end
+						else
+							gone[key] = Own.deepCopy(entry)
+						end
+					end
+				end
+			end
+		end
+	end
 end
 
 -- The key of the guide-as-registered step that step j of a planned guide

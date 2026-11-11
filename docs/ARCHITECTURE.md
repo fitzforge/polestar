@@ -268,9 +268,12 @@ What earlier updates passed stays passed through the next one (0.3.5 ->
 0.3.6 -> 0.3.7): `Own.noteAdded` sets the save's `gone` and `behind` aside
 (`passedBefore`), and the new pass starts from them and adds to them; of
 them it drops only a step at or after the player's place whose passed quest
-work is open and whose quest is not handed in (`Own.backInPlay`). A save from
-before `ownShapes` existed counts a version change as an update of each of
-its guides once, as before, and keeps its passes.
+work is open and whose quest is not handed in (`Own.backInPlay`). Passes are
+noted by step key, so a passed step the new update changed takes its passes
+along: what was passed in the old step (its goals from LegacySteps.lua) is
+passed in the new steps of the stretch it became (`Own.carryGone`). A save
+from before `ownShapes` existed counts a version change as an update of each
+of its guides once, as before, and keeps its passes.
 A saved tab of a leveling guide that kept fewer than half of those steps
 (`Own.reworked`: an update reused the id for another part of the route, as
 0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`
