@@ -3835,11 +3835,13 @@ function GF.ApplyPosition()
 	end
 end
 
+-- The corner exactly where the window stands: rounded, the re-pin would move
+-- it by part of a pixel on the drop and its text would shift on the grid.
 function GF.SavePosition()
 	if not F then return end
 	local l = F:GetLeft()
 	local _, y = pinCorner()
-	if l and y then ns.Set("ui.pos", { floor(l + 0.5), floor(y + 0.5) }) end
+	if l and y then ns.Set("ui.pos", { l, y }) end
 end
 
 function GF.ApplyLock()
@@ -3872,7 +3874,7 @@ function GF.ApplyScale()
 	if l and y and type(ns.Get("ui.pos")) == "table" then
 		F:ClearAllPoints()
 		F:SetPoint(corner, UIParent, "BOTTOMLEFT", l * old / new, y * old / new)
-		ns.Set("ui.pos", { floor(l * old / new + 0.5), floor(y * old / new + 0.5) })
+		ns.Set("ui.pos", { l * old / new, y * old / new })
 	end
 	Theme.Refresh()
 end
