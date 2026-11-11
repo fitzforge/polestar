@@ -1443,3 +1443,49 @@ fn a_dungeon_whose_entrance_is_in_the_other_factions_land_says_so_on_the_heads_u
 	assert_eq!(out["wline"], "2 quests to pick up  ·  Levels 17–24  ·  The Barrens");
 	assert_eq!(out["wact"], "Pick up the quests");
 }
+
+// #1730 (danagar, Alliance, Shadowfang Keep): The Orb of Soran'ruk is the Warlocks' quest, and its card said so
+// nowhere: he worked it out from the rewards. The page's quests came without classes (the journal fills them only
+// from dungeons.json), so who a quest is for now comes from the Codex quest's class and race masks. Each card says
+// "Warlock only" with the class in its colour (races too: "Tauren only"), and for a character who may not take it
+// the state chip says "Not for your class" (or race) and the name is muted, the rule the pick-up guide leaves it
+// out by. Lookup's rows name who it is for too. Here Deviate Hides (1486) is made the Warlocks' and Trouble at the
+// Docks (959) the Taurens'; the character is a Tauren Druid, then a Tauren Warlock.
+#[test]
+fn a_quest_only_some_classes_or_races_may_take_says_who_it_is_for_and_one_not_for_you_says_so_1730() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	codex["quests"]["1486"]["classes"] = json!(256);
+	codex["quests"]["959"]["races"] = json!(32);
+	let script = r#"
+		local function card(id)
+			local b = block(id)
+			return { meta = b.Meta:GetText(), plain = plain(b.Meta:GetText()), state = b.State:IsShown() and b.State.Text:GetText() or false,
+				title = { b.Title:GetTextColor() } }
+		end
+		local Lk = Polestar.Lookup
+		local function lookup(id) local _, text = Lk.QuestBlock(Polestar.Codex.Quest(id), Lk.PlayerInfo()) return text or false end
+		Polestar.Dungeons.Open("wailing-caverns")
+		local druid = { hides = card(1486), docks = card(959), lookup = lookup(1486) }
+		uistub.player.class = "WARLOCK"
+		DS.Render()
+		local warlock = { hides = card(1486), docks = card(959), lookup = lookup(1486) }
+		uistub.player.race = "Orc"
+		DS.Render()
+		emit({ druid = druid, warlock = warlock, orc = { docks = card(959), lookup = lookup(959) } })"#;
+	let out = run_pack(script, Some(pack_of(&codex, &f["inputs"]))).remove(0);
+	let (druid, warlock, orc) = (&out["druid"], &out["warlock"], &out["orc"]);
+	let meta = druid["hides"]["meta"].as_str().unwrap();
+	assert!(is_match(druid["hides"]["plain"].as_str().unwrap(), "Warlock only"), "{meta}");
+	assert!(is_match(meta, r"\|cff[0-9a-f]{6}Warlock\|r only"), "the class in its colour: {meta}");
+	assert_eq!(druid["hides"]["state"], "Not for your class");
+	assert_ne!(druid["hides"]["title"], warlock["hides"]["title"], "muted for the Druid, the difficulty colour for the Warlock");
+	assert_eq!(druid["lookup"], "Warlock only", "Lookup's row says who it is for, not only that it isn't yours");
+	assert!(is_match(druid["docks"]["plain"].as_str().unwrap(), "Tauren only"), "{}", druid["docks"]["plain"]);
+	assert_eq!(druid["docks"]["state"], false, "a Tauren may take it");
+	assert!(is_match(warlock["hides"]["plain"].as_str().unwrap(), "Warlock only"), "still says who it is for");
+	assert_eq!(warlock["hides"]["state"], false, "a Warlock may take it: no chip");
+	assert_eq!(warlock["lookup"], false);
+	assert_eq!(orc["docks"]["state"], "Not for your race");
+	assert_eq!(orc["lookup"], "Tauren only");
+}
