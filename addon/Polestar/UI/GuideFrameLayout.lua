@@ -384,10 +384,10 @@ function GF.Layout()
 	local y = 0
 	-- With no guide open, only the tab just closed (its Reopen) and a newer
 	-- Polestar show.
-	local kind = bannerNotice()
+	local kind, notice = bannerNotice()
 	if kind and ((state ~= "noguide" and state ~= "noguides") or kind == "closedTab" or kind == "update") then
 		banner:Show()
-		y = place("banner", banner, y, GF.LayoutBanner(width), width)
+		y = place("banner", banner, y, GF.LayoutBanner(width, true, kind, notice), width)
 	else
 		banner:Hide()
 		banner.Jump.psDefault = nil
