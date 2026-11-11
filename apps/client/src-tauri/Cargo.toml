@@ -1,6 +1,6 @@
 [package]
 name = "polestar-client"
-version = "0.1.6"
+version = "0.1.7"
 description = "Polestar Client: sends the Polestar Recorder's data to the Polestar project"
 authors = ["Polestar contributors"]
 license = "GPL-3.0-only"
