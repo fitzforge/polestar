@@ -1424,3 +1424,51 @@ emit(C.SenderIsUnit("Ana Smith-TestRealm", "party1"))"#,
 	assert_eq!(out[4], 0, "no error");
 	assert_eq!(out[5], false, "a secret answer is no");
 }
+
+// #1684's sweep: the panel's "Still needs" line wraps, and the client breaks a line after "/", so "Kobold Vermin
+// 3/8" could read "3/" at a line's end and "8" under it. A count moves to the next line whole, at any name length.
+#[test]
+fn party_the_panel_s_still_needs_line_never_splits_a_count() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+local E = Polestar.Engine
+p.join("Ana")
+p.set("Ana", { class = "MAGE", level = 11 })
+p.receive("Ana-TestRealm", "1P|5|0.0.1|test|3|test/g")
+p.receive("Ana-TestRealm", "1|33:3/8")
+local probe = UIParent:CreateFontString()
+local function needsLine(f)
+	for _, r in ipairs(f.regions or {}) do
+		if r:GetObjectType() == "FontString" and r:IsShown() and (r:GetText() or ""):find("/", 1, true) then return r end
+	end
+	for _, c in ipairs(f.children or {}) do local x = needsLine(c); if x then return x end end
+end
+local split, moved, seen = {}, 0, 0
+for n = 1, 60 do
+	local subject = "Kobold " .. string.rep("v", n)
+	E.GetStepView = function(i) if i == 5 then return { goals = { { t = "kill", quest = 33, oi = 1, status = "active", subject = subject } } } end end
+	p.receive("Ana-TestRealm", "1|33:3/" .. (n % 2 == 0 and "8" or "10"))
+	stub.advance(2.1)
+	local fs = needsLine(PP.Frame())
+	if fs then
+		seen = seen + 1
+		local text = fs:GetText()
+		local s, e = text:find("%d+/%d+")
+		probe:SetFont(fs:GetFont())
+		probe:SetWidth(fs:GetWidth())
+		probe:SetText(text:sub(1, s))
+		local h1 = probe:GetStringHeight()
+		probe:SetText(text:sub(1, e))
+		if probe:GetStringHeight() ~= h1 then split[#split + 1] = text end
+		if text:find("\n", 1, true) then moved = moved + 1 end
+	end
+end
+emit({ split = table.concat(split, " | "), moved = moved, seen = seen })"#
+	));
+	let r = &out[0];
+	assert_eq!(r["split"], "", "no count starts on one line and ends on the next: {r}");
+	assert!(r["seen"].as_u64().unwrap() >= 50, "the line was on screen: {r}");
+	assert!(r["moved"].as_u64().unwrap() > 0, "some name length put the count on the next line: {r}");
+}

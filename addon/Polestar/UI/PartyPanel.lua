@@ -142,9 +142,10 @@ function PP.Refresh()
 		r.Level:SetText(level)
 		r.Step:SetText(step or "")
 		r.Step:SetShown(step ~= nil and step ~= "")
-		r.Needs:SetText(needs or "")
+		UI.SetCounted(r.Needs, needs or "")
 		r.Needs:SetShown(needs ~= nil)
 		r.Needs:SetWidth(WIDTH - PAD * 2)
+		UI.FitCounts(r.Needs)
 		local h = 6 + r.Name:GetStringHeight()
 		if r.Step:IsShown() then h = h + 2 + r.Step:GetStringHeight() end
 		if r.Needs:IsShown() then h = h + 2 + r.Needs:GetStringHeight() end
