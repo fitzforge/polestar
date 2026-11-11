@@ -53,8 +53,10 @@ local DEFAULTS = {
 	-- The banner fades in (it always did); `linger`: seconds it stays after the arrival.
 	transport = look({ enter = "fade", linger = 6, point = false }),
 	whilehere = look({ seconds = 8, accent = false, point = false }),
-	-- seconds 0: the card stays until answered.
-	headsup = look({ seconds = 0 }),
+	-- seconds 0: the card stays until answered. place: "above" the guide
+	-- window, "below" it or "free" (its own spot, pos { point, x, y }, Move
+	-- frames); compact: one line (UI/ClassToast.lua).
+	headsup = look({ seconds = 0, place = "above", compact = false, pos = false }),
 	classcard = { shine = true, glow = 1, stripe = 4, note = true, titleSize = 1, bodySize = 1 },
 	stack = false, growth = "down", spacing = 8, max = 3, stackPoint = false,
 }

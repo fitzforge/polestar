@@ -331,7 +331,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 			],
 		),
 		addons: vec![Addon::files("Polestar", &MODS)],
-		script: "uistub.install()\nstub.login()\nlocal O = Polestar.UI.Options".to_string()
+		script: "uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal O = Polestar.UI.Options".to_string()
 			+ r#"
 		local function at(cmd)
 			SlashCmdList.POLESTAR(cmd)
@@ -989,7 +989,7 @@ fn discovery_dungeons_a_toggle_per_dungeon_the_guides_have_steps_for_all_off_cho
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "UI/UI.xml"])],
-		script: format!("uistub.install()\nuistub.guideDungeons = {{ [389] = true, [36] = true }}\nstub.login()\n{HELPERS}\nlocal UI, O, E = Polestar.UI, Polestar.UI.Options, Polestar.Engine")
+		script: format!("uistub.install()\nuistub.guideDungeons = {{ [389] = true, [36] = true }}\nstub.login()\nPolestar.UI.LoadOptions()\n{HELPERS}\nlocal UI, O, E = Polestar.UI, Polestar.UI.Options, Polestar.Engine")
 			+ r#"
 		Polestar.Names.Instance = function(id) if id == 389 then return "Огненная пропасть" end end
 		Polestar.CharState().dungeons[90] = true
@@ -1039,7 +1039,7 @@ fn discovery_dungeons_with_no_guide_steps_for_any_dungeon_has_no_leveling_guides
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "UI/UI.xml"])],
-		script: format!("uistub.install()\nstub.login()\n{HELPERS}\nlocal UI, O = Polestar.UI, Polestar.UI.Options")
+		script: format!("uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\n{HELPERS}\nlocal UI, O = Polestar.UI, Polestar.UI.Options")
 			+ r#"
 		UI.ShowOptions("dungeons")
 		local c = O.Controls("discovery", "Dungeons")
@@ -1077,7 +1077,7 @@ fn the_quest_automation_toggles_are_on_questing_and_quality_of_life_and_stay_in_
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &MODS)],
-		script: "uistub.install()\nstub.login()\nlocal UI, O = Polestar.UI, Polestar.UI.Options".to_string()
+		script: "uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal UI, O = Polestar.UI, Polestar.UI.Options".to_string()
 			+ r#"
 		Polestar.Set("behavior.autoAccept", true)
 		UI.ShowOptions("qualityoflife")
@@ -1111,7 +1111,7 @@ fn run_mods(before: &str, script: &str) -> Value {
 		stubs: vec!["stub_ui.lua"],
 		before: before.into(),
 		addons: vec![Addon::files("Polestar", &ALL)],
-		script: format!("uistub.install()\nstub.login()\nlocal UI, O = Polestar.UI, Polestar.UI.Options\n{SEARCH_HELPERS}\n{script}"),
+		script: format!("uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal UI, O = Polestar.UI, Polestar.UI.Options\n{SEARCH_HELPERS}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)

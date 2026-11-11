@@ -296,7 +296,7 @@ fn a_saved_skin_whose_addon_is_missing_draws_polestar_keeps_the_choice_and_appli
 	assert_eq!(out["reg"], json!([true]));
 	assert_eq!(out["scheme"], "lateScheme");
 	assert_eq!(out["after"], json!(["late", "hearth", true]), "applied as it registers; a skin on Hearth is a game skin");
-	assert_eq!(out["ground"], "late", "the window repainted then");
+	assert_eq!(out["ground"], "late/hearth", "the window repainted then (the skin and the look it is drawn from)");
 }
 
 #[test]

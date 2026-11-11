@@ -13,7 +13,15 @@
 -- below it when there is no room above, and hides while the window is
 -- hidden. Under ui.reduceMotion it fades in instead of sliding. Its size
 -- (over the window's), opacity, type, entrance and whether it goes by itself
--- are the player's (Options > Alerts & toasts, UI/Looks/Toasts.lua).
+-- are the player's (Options > Alerts & toasts, UI/Looks/Toasts.lua), and so
+-- is where it goes (toasts.headsup.place: "above" the window, the default;
+-- "below" it, flipping above when the screen has no room below; or "free",
+-- a spot of its own, toasts.headsup.pos, moved with Move frames) and its
+-- compact style (toasts.headsup.compact, off by default: one line, its icon,
+-- its title and its action, the rest in a tooltip and a menu). The class
+-- quest card is one of the heads-ups this card carries (CT.ShowCard): the
+-- dungeons' (UI/DungeonToast.lua) and the others' place and style are the
+-- same.
 --
 -- When it shows (CT.Candidates): a chain of the character's class whose
 -- start has a giver for its race and side (ClassRewards `starts`, `r`), not
@@ -437,6 +445,13 @@ local function newCard(parent, name, sandbox)
 	f.Act = W.Button(f, "", act(function() CT.Act() end), { primary = true })
 	f.More = W.Button(f, "", act(function() CT.More() end), { ghost = true })
 	f.Off = W.Button(f, "", act(function() CT.Off() end), { ghost = true })
+	-- The compact card's other actions (its second button, its "stop these"),
+	-- in a menu.
+	f.Extra = W.IconButton(f, "menu", 24, L["More"], act(function(self) CT.ExtraMenu(self) end))
+	f.Extra:Hide()
+	-- Compact, the lines it leaves out are in a tooltip.
+	f:SetScript("OnEnter", function(self) CT.CompactTip(self) end)
+	f:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	local TS = looks()
 	if TS then
 		-- The guide window's scale stays its own: the card is CT.Place's to scale.
@@ -488,7 +503,80 @@ local function paint(f, class)
 	W.SetFramed(f.Close, "icon")
 end
 
+-- The ring and what sits in it, at `s` times their full size (the compact
+-- card's is smaller). The icon's own size is fillCard's (c.psIconSize).
+local function sizeRing(f, s)
+	f.Ring:SetSize(RING * s, RING * s)
+	f.Disc:SetSize((RING - 4) * s, (RING - 4) * s)
+	local size = (f.psIconSize or ICON) * s
+	f.Icon:SetSize(size, size)
+	f.Lift:SetSize(size, size)
+	if f.Mask then f.Mask:SetSize(max(size, ICON * s), max(size, ICON * s)) end
+end
+
+-- Which parts the full card shows for model m (the compact one leaves some out).
+local function showParts(f, m)
+	f.Head:Show()
+	f.Rule:Show()
+	f.Later:Show()
+	f.Extra:Hide()
+	f.Title:SetWordWrap(true)
+	f.Giver:SetShown(m.giver ~= nil)
+	f.Route:SetShown(m.route ~= nil)
+	f.Badge:SetShown(m.badge ~= nil)
+	f.Act:SetShown(m.act ~= nil)
+	f.More:SetShown(m.more ~= nil)
+	f.Off:SetShown(m.off ~= nil)
+	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
+	f.ShowMe:SetShown(m.act == nil and m.guideId == nil)
+end
+
+-- toasts.headsup.compact: one line.
+local function compactOn()
+	local TS = looks()
+	return TS and TS.Get("headsup", "compact") and true or false
+end
+CT.Compact = compactOn
+
+-- The compact card: the ring, the title on one line and the action, then
+-- the card's menu when it has more to offer (its second button, its "stop
+-- these") and the close button; its other lines are the tooltip's
+-- (CT.CompactTip). Later is the close button's.
+local CPAD, CRING = 8, 24
+local function compactLayout(f, width)
+	local m = f.psModel or {}
+	f:SetWidth(width)
+	sizeRing(f, CRING / RING)
+	for _, p in ipairs({ f.Head, f.Giver, f.Route, f.Badge, f.Rule, f.Later, f.More, f.Off }) do p:Hide() end
+	local act = (m.act and f.Act) or (m.guideId and f.Open) or f.ShowMe
+	for _, b in ipairs({ f.Act, f.Open, f.ShowMe }) do b:SetShown(b == act) end
+	f.Extra:SetShown(m.more ~= nil or m.off ~= nil)
+	local h = max(CRING, act:GetHeight(), f.Close:GetHeight())
+	local mid = -(CPAD + h / 2)
+	f.Ring:ClearAllPoints()
+	f.Ring:SetPoint("LEFT", f, "TOPLEFT", CPAD + STRIPE, mid)
+	f.Close:ClearAllPoints()
+	f.Close:SetPoint("RIGHT", f, "TOPRIGHT", -6, mid)
+	local right = f.Close
+	if f.Extra:IsShown() then
+		f.Extra:SetSize(f.Close:GetWidth(), f.Close:GetHeight())
+		f.Extra:ClearAllPoints()
+		f.Extra:SetPoint("RIGHT", f.Close, "LEFT", -2, 0)
+		right = f.Extra
+	end
+	act:ClearAllPoints()
+	act:SetPoint("RIGHT", right, "LEFT", -6, 0)
+	f.Title:SetWordWrap(false)
+	f.Title:ClearAllPoints()
+	f.Title:SetPoint("LEFT", f, "TOPLEFT", CPAD + STRIPE + CRING + 8, mid)
+	f.Title:SetPoint("RIGHT", act, "LEFT", -8, 0)
+	f:SetHeight(floor(CPAD * 2 + h + 0.5))
+end
+
 function layout(f, width)
+	if compactOn() then return compactLayout(f, width) end
+	if f.psModel then showParts(f, f.psModel) end
+	sizeRing(f, 1)
 	f:SetWidth(width)
 	local x = PAD + STRIPE + RING + 12
 	local closeW = f.Close:GetWidth() + 6
@@ -587,9 +675,22 @@ function layout(f, width)
 	f:SetHeight(floor(y + 0.5))
 end
 
+-- Where the card goes when its place is "free" and it was never moved: the
+-- screen's top middle, under the alerts.
+CT.FREE_AT = { "TOP", 0, -200 }
+
+-- toasts.headsup.place: "above" (the default), "below" or "free".
+function CT.PlaceSetting()
+	local TS = looks()
+	local v = TS and TS.Get("headsup", "place")
+	return (v == "below" or v == "free") and v or "above"
+end
+
 -- Put the card on the window: above its top edge, or under its bottom one
--- when the screen has no room above. animate: slide out from behind it (a
--- fade under ui.reduceMotion).
+-- when the screen has no room above (toasts.headsup.place "below": under it,
+-- over it when there is no room below), or on its own spot ("free":
+-- toasts.headsup.pos, Move frames). animate: slide out from behind the edge
+-- it sits on, or in from above on its own spot (a fade under ui.reduceMotion).
 function CT.Place(animate)
 	local w = window()
 	if not (f and w and CT.current) then return end
@@ -599,34 +700,79 @@ function CT.Place(animate)
 	end
 	local TS = looks()
 	local k = TS and TS.Scale("headsup") or 1
+	local place = CT.PlaceSetting()
 	f:SetScale((w:GetScale() or 1) * k)
 	f:SetFrameStrata(w:GetFrameStrata())
-	-- Behind the window, so it slides out from under its edge.
-	if w:GetFrameLevel() < 2 then w:SetFrameLevel(2) end
-	f:SetFrameLevel(w:GetFrameLevel() - 1)
+	if place == "free" then
+		f:SetFrameLevel(w:GetFrameLevel())
+	else
+		-- Behind the window, so it slides out from under its edge.
+		if w:GetFrameLevel() < 2 then w:SetFrameLevel(2) end
+		f:SetFrameLevel(w:GetFrameLevel() - 1)
+	end
 	-- As wide as the window, whatever the card's own scale.
 	layout(f, w:GetWidth() / k)
 	local h = f:GetHeight()
-	local top, room = w:GetTop(), UIParent:GetTop()
-	local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
-	local above = not (top and room) or (top + h * k) * s <= room * us
-	CT.side = above and "above" or "below"
-	if above then
-		Anim.Anchor(f, "BOTTOMLEFT", w, "TOPLEFT", 0, -1)
+	local dy
+	if place == "free" then
+		local p = ns.Get("toasts.headsup.pos")
+		if type(p) ~= "table" or type(p[1]) ~= "string" then p = CT.FREE_AT end
+		CT.side = "free"
+		f:SetClampedToScreen(true)
+		Anim.Anchor(f, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
+		dy = 18
 	else
-		Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, 1)
+		f:SetClampedToScreen(false)
+		local top, bottom, room = w:GetTop(), w:GetBottom(), UIParent:GetTop()
+		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
+		local fitsAbove = not (top and room) or (top + h * k) * s <= room * us
+		local above = fitsAbove
+		if place == "below" then
+			local fitsBelow = not bottom or (bottom - h * k) * s >= 0
+			above = not fitsBelow and fitsAbove
+		end
+		CT.side = above and "above" or "below"
+		if above then
+			Anim.Anchor(f, "BOTTOMLEFT", w, "TOPLEFT", 0, -1)
+		else
+			Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, 1)
+		end
+		dy = above and -h or h
 	end
 	local wasShown = f:IsShown()
 	f:Show()
 	if animate and not wasShown then
 		-- From behind the edge it sits on; the entrance, speed and opacity are the player's (Alerts & toasts).
 		if TS then
-			TS.Enter("headsup", f, above and -h or h, SLIDE)
+			TS.Enter("headsup", f, dy, SLIDE)
 		else
-			Anim.To(f, "offset", above and -h or h, 0, SLIDE, "out")
+			Anim.To(f, "offset", dy, 0, SLIDE, "out")
 			Anim.To(f, "alpha", 0, 1, SLIDE, "out")
 		end
 	end
+end
+
+-- The compact card's tooltip: what its one line leaves out.
+function CT.CompactTip(c)
+	local m = c.psModel
+	if not (m and compactOn()) then return end
+	local lines = {}
+	if m.head then lines[#lines + 1] = m.head end
+	if m.badge then lines[#lines + 1] = { m.badge, Theme.Accent() } end
+	if m.giver then lines[#lines + 1] = m.giver end
+	if m.route then lines[#lines + 1] = m.route end
+	W.Tooltip(c, CT.side == "below" and "ANCHOR_BOTTOM" or "ANCHOR_TOP", m.title or "", lines)
+end
+
+-- The compact card's menu: its second button and its "stop these".
+function CT.ExtraMenu(button)
+	local m = CT.current
+	if not m then return end
+	if W.MenuShown(button) then return W.HideMenu() end
+	local items = {}
+	if m.more then items[#items + 1] = { text = m.more.label, onClick = function() CT.More() end } end
+	if m.off then items[#items + 1] = { text = m.off.label, onClick = function() CT.Off() end } end
+	if #items > 0 then W.ShowMenu(button, items) end
 end
 
 -- Show the card for quest q (marks its reward told). -> true when shown
@@ -660,8 +806,8 @@ local function fillCard(c, m)
 	paint(c, m.class)
 	local art = m.art
 	local size = art and ART or (m.iconColor and GLYPH) or ICON
-	c.Icon:SetSize(size, size)
-	if c.Mask then c.Mask:SetSize(max(size, ICON), max(size, ICON)) end
+	-- Sized with the ring by the layout (full or compact, sizeRing).
+	c.psIconSize = size
 	if art then
 		c.Icon:SetTexture(art.file)
 		c.Icon:SetTexCoord(art.l, art.r, art.t, art.b)
@@ -673,7 +819,6 @@ local function fillCard(c, m)
 	if lift then
 		c.Lift:SetTexture(art.file)
 		c.Lift:SetTexCoord(art.l, art.r, art.t, art.b)
-		c.Lift:SetSize(size, size)
 		c.Lift:SetAlpha(lift)
 	end
 	c.Lift:SetShown(lift ~= nil)
