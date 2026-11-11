@@ -283,9 +283,9 @@ end
 local TOP, BOTTOM, INSET = 34, 30, 32
 
 local function buildPreview(host)
-	local f = CreateFrame("Frame", nil, host)
-	f:SetHeight(PREVIEW_H)
-	if f.SetClipsChildren then f:SetClipsChildren(true) end
+	-- The settings window's preview stage, on its plain ground: the world
+	-- map's painting below is the scene.
+	local f = ns.UI.Preview.Stage(host, { height = PREVIEW_H, backdrop = "ground", fixed = true })
 	-- The window's caption beside "Preview": the style drawn.
 	f.caption = function()
 		local drawn = R.Style()

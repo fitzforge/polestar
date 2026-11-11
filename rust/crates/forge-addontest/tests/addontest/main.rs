@@ -371,6 +371,8 @@ mod ui_picker_levels;
 mod ui_picker_packs;
 #[path = "ui-picker-scroll.rs"]
 mod ui_picker_scroll;
+#[path = "ui-preview.rs"]
+mod ui_preview;
 #[path = "ui-quest-unlocks.rs"]
 mod ui_quest_unlocks;
 #[path = "ui-quick-settings.rs"]

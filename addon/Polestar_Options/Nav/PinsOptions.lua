@@ -150,15 +150,12 @@ local function minimapPin(f, parent, p, scale, x, y)
 	f:Show()
 end
 
--- The stage: its ground and hairline, a painting `art` of the zone in `map`
--- (the night band without art), a layer over it for the marks, and a
--- minimap disc at the right with the player's arrow.
+-- The stage (the settings window's, UI.Preview.Stage, on its plain ground:
+-- the painting is the scene), a painting `art` of the zone in `map` (the
+-- night band without art), a layer over it for the marks, and a minimap
+-- disc at the right with the player's arrow.
 local function stage(view, mapLabel)
-	local f = CreateFrame("Frame", nil, view)
-	f:SetHeight(STAGE_H)
-	if f.SetClipsChildren then f:SetClipsChildren(true) end
-	W.Fill(f, "scrim", "BACKGROUND", -8)
-	W.Painter(f, function(self) Theme.Border(self, Theme.Wash("divider")) end)
+	local f = ns.UI.Preview.Stage(view, { height = STAGE_H, backdrop = "ground", fixed = true })
 
 	local map = CreateFrame("Frame", nil, f)
 	map:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -TOP)

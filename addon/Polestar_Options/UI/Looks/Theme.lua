@@ -55,30 +55,21 @@ end
 local PREVIEW_H, MINI_W, MINI_PAD, TOAST_W = 196, 270, 10, 232
 
 local function buildPreview(view)
-	local f = CreateFrame("Frame", nil, view)
-	f:SetHeight(PREVIEW_H)
-	if f.SetClipsChildren then f:SetClipsChildren(true) end
-	-- The sky: the deepest ground, the starlit band (gone with ui.band off),
-	-- a soft lift of the sky colour behind the window, the inner hairline.
-	W.Fill(f, "scrim", "BACKGROUND", -8)
-	f.Lift = W.Tex(f, "BACKGROUND", "glow", nil, -7)
-	W.Painter(f.Lift, function(t)
-		local r, g, b = Theme.Color("sky")
-		t:SetVertexColor(r, g, b, 0.75)
-	end)
-	f.Band = Theme.Band(f, "BACKGROUND", -6)
-	f.Band:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
-	f.Band:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
-	f.Band:SetHeight(Theme.BAND_H)
-	W.Painter(f, function(self) Theme.Border(self, Theme.Wash("divider")) end)
+	-- The settings window's preview stage, the night sky by default: the
+	-- starlit band (gone with ui.band off) and a soft lift of the sky colour
+	-- behind the window, the inner hairline.
+	local f = ns.UI.Preview.Stage(view, { height = PREVIEW_H, backdrop = "sky" })
 
 	-- The window draws "Preview" and "Live" over it; this names what it shows.
 	f.caption = L["Every Polestar surface, in your theme"]
 
-	-- The guide window, in the window paint of the skin in use, with its
-	-- header band, haze and rim.
+	-- The guide window, in the guide window's paint of the skin in use
+	-- (psGuide: a game look's big-window frame, its title plate or bar,
+	-- would sit over the preview's caption), with its header band, haze
+	-- and rim.
 	local gw = CreateFrame("Frame", nil, f)
 	gw:SetWidth(MINI_W)
+	gw.psGuide = true
 	Theme.Skin(gw, "window")
 	local band = Theme.Band(gw, "BACKGROUND", -5)
 	band:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, 0)
@@ -221,10 +212,7 @@ local function buildPreview(view)
 			skip:SetPoint("TOPRIGHT", toast, "BOTTOMRIGHT", 0, -14)
 			accept:SetPoint("RIGHT", skip, "LEFT", -8, 0)
 		end
-		f.Lift:ClearAllPoints()
-		f.Lift:SetSize(width * 0.7, PREVIEW_H * 1.6)
-		f.Lift:SetPoint("CENTER", self, "TOPLEFT", width * 0.4, -PREVIEW_H * 0.4)
-		f.Band:SetTexCoord(Theme.BandCoords(width, Theme.BAND_H))
+		-- The sky is the stage's (UI.Preview), laid across the width it is given.
 		return PREVIEW_H
 	end
 	return f
