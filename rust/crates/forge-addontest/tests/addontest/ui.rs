@@ -1111,6 +1111,52 @@ fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s
 	assert!(f(&out["forever"]["rest"]) < 0.6 && f(&out["blizzard"]["rest"]) < 0.6, "the others keep the faint rest");
 }
 
+// A look chosen with the window open lays its tabs out at once as a window opened in that look does, not in the
+// last look's fonts and sizes until the next redraw: the tabs' places and widths, their titles' cut and fonts, the
+// level range's and the close's places, the close's rest. Every look in turn, then the text grown, each against a
+// fresh window opened in it (the looks lay their tabs out differently, so the comparison has something to catch).
+#[test]
+fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it_does() {
+	const MEASURE: &str = r#"
+		local function measure()
+			local m = {}
+			for i, b in ipairs(shownTabs()) do
+				local _, _, _, x = b:GetPoint(1)
+				local _, _, _, rx = b.Range:GetPoint(1)
+				local _, host, _, cx = b.Close:GetPoint(1)
+				m[i] = { x = x, width = b:GetWidth(), height = b:GetHeight(), title = b.Label:IsShown() and b.Label:GetText(),
+					titleWidth = b.Label:GetStringWidth(), titleFont = { b.Label:GetFont() }, range = b.Range:IsShown() and rx,
+					rangeWidth = b.Range:GetStringWidth(), rangeFont = { b.Range:GetFont() }, close = cx, closeOnTab = host == b,
+					closeWidth = b.Close:GetWidth(), closeRest = b.Close:GetAlpha() }
+			end
+			return m
+		end
+		Polestar.Set("ui.width", 300)"#;
+	let looks = ["forever", "blizzard", "classic", "hearth", "halo", "polestar"];
+	let list = looks.map(|l| format!("{l:?}")).join(", ");
+	let live = run(&format!(
+		r#"{MEASURE}
+		uistub.openTabs(TABS, 1)
+		local out = {{}}
+		for _, look in ipairs({{ {list} }}) do
+			Polestar.Set("ui.skin", look)
+			out[look] = measure()
+		end
+		Polestar.Set("ui.textSize", 1.25)
+		out.grown = measure()
+		emit(out)"#
+	))
+	.remove(0);
+	let fresh = |setting: &str| run(&format!("{MEASURE}\n{setting}\nuistub.openTabs(TABS, 1)\nemit(measure())")).remove(0);
+	for look in looks {
+		let opened = fresh(&format!("Polestar.Set(\"ui.skin\", {look:?})"));
+		assert_eq!(live[look], opened, "{look}: the tabs once it is chosen, against a window opened in it");
+	}
+	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.textSize\", 1.25)"), "the text grown with the window open");
+	assert_ne!(live["forever"], live["polestar"], "the looks lay their tabs out differently");
+	assert_ne!(live["grown"], live["polestar"], "the grown text lays them out differently");
+}
+
 #[test]
 fn without_the_engine_tabs_api_the_strip_stays_hidden_and_the_navigator_names_the_guide() {
 	let out = run_with(
