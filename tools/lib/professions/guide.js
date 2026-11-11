@@ -28,6 +28,7 @@
 const { planProfession, CAPS } = require('./plan');
 const { homeMap } = require('./materials');
 const { ZONES } = require('./gathering/tables');
+const { byBanners } = require('./sections');
 const { BEASTS } = require('./gathering/skinning');
 const { RACE_GROUPS, TWO_SIDED, raceCondition, maxZoneLevel } = require('./gathering/groups');
 const { header } = require('../generated');
@@ -967,7 +968,8 @@ function draftGuide(name, data, opts = {}) {
 		line(`  tip ${spec.last || `On Forever no recipe a trainer teaches or both factions' vendors sell gives ${P} points past ${plan.reach}, so Polestar has no route for the last points.${names.length ? ` Recipes that still do: ${names.join(', ')}.` : ''}`}`);
 		line(`  skill ${pq} ${goal}`);
 	}
-	return { text: `${out.join('\n')}\n`, plan };
+	// Each bracket's range is a section (the guide window's heading; the guide starts at the player's skill).
+	return { text: `${byBanners(out.join('\n'), P)}\n`, plan };
 }
 
 module.exports = { draftGuide, farmSpot, skinSpot, money: D.money, slug };

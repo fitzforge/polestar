@@ -1571,6 +1571,7 @@ function GF.Scrub(delta)
 	ns.After(SCRUB_BACK, back)
 end
 
+
 -- PLAYER_SKIPPED_STEP(guideId, step): from the window or /polestar skip, the
 -- banner offers the undo for SKIPPED_SECONDS.
 ns.On("PLAYER_SKIPPED_STEP", function(guideId, step)
@@ -2007,6 +2008,14 @@ local function layoutCard(width)
 	-- The class-quest card (UI/ClassCard.lua) above the person and the goals.
 	local CC = UI.ClassCard
 	if CC then y = CC.Layout(width) end
+	-- A profession guide's skill-range heading over the step (fillCard).
+	local sec = card.Section
+	if sec:IsShown() then
+		sec:SetWidth(cw)
+		sec:ClearAllPoints()
+		sec:SetPoint("TOPLEFT", card, "TOPLEFT", PAD, -(y + 8))
+		y = y + 8 + sec:GetStringHeight()
+	end
 	if person:IsShown() then
 		local nameW = cw - ICON - 10
 		person.Name:SetWidth(nameW)
@@ -3184,6 +3193,13 @@ local function fillCard(sameFocus)
 		W.Color(person.Level, "textDim")
 	end
 	person.Level:SetShown(hint ~= nil)
+	-- A profession guide's section: its skill range as the heading over the
+	-- step ("First Aid 1-40"), in the accent colour while the player's skill
+	-- is in it (Engine.GetSection).
+	local sv = view.section
+	card.Section:SetText(sv and sv.title or "")
+	if sv then W.Color(card.Section, sv.state == "current" and "accent" or "textDim") end
+	card.Section:SetShown(sv ~= nil)
 	person:Show()
 	-- A class quest's step: the class card, its colour on the step's quest names.
 	local CC, E = UI.ClassCard, Engine()
@@ -4764,6 +4780,11 @@ local function build()
 	person.Level:SetJustifyH("LEFT")
 	person.Level:SetWordWrap(true)
 	person.Level:Hide()
+	-- A profession guide's skill-range heading over the person (fillCard).
+	card.Section = T(card, "label", "accent")
+	card.Section:SetJustifyH("LEFT")
+	card.Section:SetWordWrap(false)
+	card.Section:Hide()
 	-- Blizzard: a gold separator under the person, above the goals.
 	person.Rule = person:CreateTexture(nil, "ARTWORK")
 	person.Rule:SetTexture(Theme.Media("white"))
