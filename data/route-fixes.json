@@ -6499,7 +6499,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "#1644 (0.3.7, flow; 02-the-barrens): the Stagnant Oasis was walked to from the Crossroads for Tonga's seed test alone (bubbling fissure 55.6,42.7), then the route turned back north-west to the Dry Hills: about 1,800 yd of out-and-back. The seed test now goes with Verog (851), whose Kolkar walk the same oasis on the way south to the Bristlebacks, as our benchmark comparison does it."
+				"why": "#1644 (0.3.7, flow; 02-the-barrens): the Stagnant Oasis was walked to from the Crossroads for Tonga's seed test alone (bubbling fissure 55.6,42.7), then the route turned back north-west to the Dry Hills: about 1,800 yd of out-and-back. The seed test now goes with Verog (851), whose Kolkar walk the same oasis on the way south to the Bristlebacks."
 			},
 			{
 				"a": [
@@ -9180,7 +9180,7 @@
 			},
 			{
 				"q": 97538,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): Pigments for Paints (Forever, level 26, from 20, 2100 XP) from Tah Winterhoof (3024, Thunder Bluff 54.1,47.0) on 04-the-barrens' new Thunder Bluff stop (06's Thunder Bluff step for Druids); its 30 Mirkweed Pods come from the Mirkweed on the floor of Mirkfallon Lake (objects 667362/667364, 46.9-50.0,37.3-42.7) beside 04's Gaea Seeds shore, handed in on 07-ashenvale's Thunder Bluff stop. Players' recordings: 14 accepts at Tah, 8 people 30/30 and handed in; Forever's quest data agrees. Travel (travel route): Orgrimmar to Malaka'jin by Thunder Bluff 13:45 with its flight path / 20:56 without (Camp Taurajo and Mulgore) vs 8:40 direct; knowing the path saves 4:20 on 07's Zoram'gar to Skywatcher leg. With The Sacred Flame, 7,590 XP for about 8 min (flight path) / 15.5 min (without) of travel plus about 19 min on objectives, against 34 min of grind at the calibrated rate (sim 18.9k XP/h at 28, x1.4). Our comparison: the primary benchmark makes this Thunder Bluff stop at 24.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): Pigments for Paints (Forever, level 26, from 20, 2100 XP) from Tah Winterhoof (3024, Thunder Bluff 54.1,47.0) on 04-the-barrens' new Thunder Bluff stop (06's Thunder Bluff step for Druids); its 30 Mirkweed Pods come from the Mirkweed on the floor of Mirkfallon Lake (objects 667362/667364, 46.9-50.0,37.3-42.7) beside 04's Gaea Seeds shore, handed in on 07-ashenvale's Thunder Bluff stop. Players' recordings: 14 accepts at Tah, 8 people 30/30 and handed in; Forever's quest data agrees. Travel (travel route): Orgrimmar to Malaka'jin by Thunder Bluff 13:45 with its flight path / 20:56 without (Camp Taurajo and Mulgore) vs 8:40 direct; knowing the path saves 4:20 on 07's Zoram'gar to Skywatcher leg. With The Sacred Flame, 7,590 XP for about 8 min (flight path) / 15.5 min (without) of travel plus about 19 min on objectives, against 34 min of grind at the calibrated rate (sim 18.9k XP/h at 28, x1.4).",
 				"issue": "-"
 			},
 			{
