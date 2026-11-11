@@ -270,7 +270,7 @@ fn the_gear_opens_one_route_tab_where_only_the_drawn_style_s_section_shows_and_t
 	assert_eq!(out["window"], true, "the Line style window is gone");
 	assert_eq!(out["show"], true);
 	assert_eq!(out["page"], true, "the gear opens the Route lines page");
-	assert_eq!(out["tabs"], json!(["Route"]), "one tab");
+	assert_eq!(out["tabs"], json!(["Essentials", "Route"]), "Essentials first, then the one Route tab");
 	let has = |list: &str, key: &str| out[list].as_array().is_some_and(|a| a.contains(&json!(key)));
 	for key in [
 		"nav.routeLines",

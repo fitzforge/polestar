@@ -397,10 +397,10 @@ fn in_the_window_the_numbered_pins_switch_heads_its_section_and_extras_and_cogs_
 		r.ownBefore = W.Enabled(m["nav.stepColor"])
 		Polestar.Set("nav.stepColorMode", "own")
 		r.ownAfter = W.Enabled(m["nav.stepColor"])
-		-- Help is the tooltip.
+		-- Help is the tooltip (the row's own spec, not Essentials' reference to it).
 		local spec
 		for _, s in ipairs(W.OptionsRegistry) do
-			for _, c in ipairs(s.controls) do if c.key == "nav.stepPinSize" then spec = c end end
+			for _, c in ipairs(s.controls) do if c.key == "nav.stepPinSize" and not c.ref then spec = c end end
 		end
 		Polestar.Set("nav.stepPinSize", 2)
 		local tip = O.TipOf(spec)(m["nav.stepPinSize"])

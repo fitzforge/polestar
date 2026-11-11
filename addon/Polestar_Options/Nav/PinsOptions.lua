@@ -736,15 +736,16 @@ if O and O.PresetCards and O.Ref then
 			set = { ["nav.stepColorMode"] = "steps", ["nav.stepFadeTo"] = 1 } },
 	}
 	local ESSENTIALS = L["Essentials"]
+	-- The target and icons first (live at defaults), then the numbered pins (off until switched on).
 	local list = {
 		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildPinsPreview,
 			controls = { O.PresetCards({ presets = PRESETS }) } },
-		{ page = PAGE, tab = ESSENTIALS, section = L["Numbered pins"], jump = { tab = L["Pins"], section = L["Numbered pins"] },
-			toggle = R("toggle", "nav.upcomingPins"),
-			controls = { R("slider", "nav.stepPinSize"), R("slider", "nav.stepNumberSize"), R("dropdown", "nav.stepColorMode"), R("slider", "nav.upcomingCount") } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Icons and target"], jump = { tab = L["Icons"], section = L["Icons"] },
 			controls = { R("dropdown", "nav.mapIcons", { label = L["Icon pack"], wide = false }), R("slider", "nav.targetPinSize"), R("slider", "nav.worldIconSize"),
 				R("slider", "nav.minimapIconSize"), R("slider", "nav.areaAlpha"), R("toggle", "nav.targetGlow") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Numbered pins"], jump = { tab = L["Pins"], section = L["Numbered pins"] },
+			toggle = R("toggle", "nav.upcomingPins"),
+			controls = { R("slider", "nav.stepPinSize"), R("slider", "nav.stepNumberSize"), R("dropdown", "nav.stepColorMode"), R("slider", "nav.upcomingCount") } },
 	}
 	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end
 end

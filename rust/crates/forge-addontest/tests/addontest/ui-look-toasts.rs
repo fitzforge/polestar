@@ -305,8 +305,8 @@ fn the_look_pages_list_their_tabs_and_the_settings_they_hold() {
 	assert_eq!(
 		out[0],
 		json!({
-			"alerts": ["Rare alert", "Transport alert", "While you're here", "Heads-up card", "Class quest card"],
-			"trackers": ["Travel", "Instances & XP", "Party panel"]
+			"alerts": ["Essentials", "Rare alert", "Transport alert", "While you're here", "Heads-up card", "Class quest card"],
+			"trackers": ["Essentials", "Travel", "Instances & XP", "Party panel"]
 		})
 	);
 }
@@ -323,8 +323,9 @@ fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_a
 			if not (c.help and c.help ~= "") or not (c.search and c.search ~= "") then missing[#missing + 1] = c.key or c.label end
 			if row and select(2, c.label:gsub("%S+", "")) > 3 then long[#long + 1] = c.label end
 		end
+		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs).
 		Polestar.Widgets.OnOptionsRegistered(function(spec)
-			if spec.key ~= "alerts" and spec.key ~= "trackers" then return end
+			if (spec.key ~= "alerts" and spec.key ~= "trackers") or spec.tab == "Essentials" then return end
 			local where = spec.key .. "/" .. spec.tab .. "/" .. spec.section
 			if spec.toggle then
 				toggles[where] = spec.toggle.key

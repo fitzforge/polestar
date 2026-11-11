@@ -291,6 +291,7 @@ fn the_settings_window_lays_the_page_out_by_element_with_inline_switches_swatche
 	let out = run(r#"
 		Polestar.Set("ui.style", "transparent") -- the backing and its cog are for the transparent style
 		Polestar.UI.ShowOptions("guidewindow")
+		Polestar.UI.Options.Select("guidewindow", "Window")
 		local O = Polestar.UI.Options
 		local page
 		for _, p in ipairs(O.Pages()) do if p.key == "guidewindow" then page = p end end
@@ -310,7 +311,7 @@ fn the_settings_window_lays_the_page_out_by_element_with_inline_switches_swatche
 		O.Select("guidewindow", "Parts")
 		emit({ tabs = page and page.tabs or false, window = keysOf(window), parts = keysOf(O.Controls("guidewindow", "Parts")),
 			styleMore = styleMore, slideMore = slideMore })"#);
-	assert_eq!(out["tabs"], json!(["Window", "Parts"]), "the frame as a whole, then its parts in the window's order");
+	assert_eq!(out["tabs"], json!(["Essentials", "Window", "Parts"]), "Essentials, the frame as a whole, then its parts in the window's order");
 	let has = |list: &str, k: &str| out[list].as_array().unwrap().iter().any(|v| v == k);
 	for k in ["ui.style", "ui.scale", "ui.width", "ui.opacity", "guideWindow.idleAlpha", "guideWindow.bgOpacity", "guideWindow.bgColor", "ui.combat", "guideWindow.hideTaxi"] {
 		assert!(has("window", k), "{k} on the Window tab: {}", out["window"]);
