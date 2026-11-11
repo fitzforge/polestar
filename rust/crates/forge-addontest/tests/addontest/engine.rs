@@ -2164,3 +2164,73 @@ Polestar.RegisterGuide({ id = "test/hushed", pack = "test", title = "Hushed Bank
 	assert!(out["errors"].as_array().map_or(out["errors"] == json!({}), |a| a.is_empty()), "no Lua error: {out}");
 	assert_eq!(out["spot"], 2, "the spot the player went to is kept on arrival: {out}");
 }
+
+// A step view asks each goal's done state once while it is built (Own.doneMemo): the views are the ones the Engine
+// built before, goal for goal, at every point of the route, and the live check runs once per goal and view.
+#[test]
+fn a_step_view_asks_each_goal_once_and_reads_as_before_at_every_point_of_the_route() {
+	let out = run1(Run {
+		script: r#"
+			local Own
+			for _, fn in pairs(E) do
+				if type(fn) == "function" then
+					for i = 1, 255 do
+						local n, v = debug.getupvalue(fn, i)
+						if not n then break end
+						if n == "Own" and type(v) == "table" then Own = v end
+					end
+				end
+			end
+			local function ser(v, depth)
+				local t = type(v)
+				if t ~= "table" then return t == "string" and string.format("%q", v) or tostring(v) end
+				if depth > 6 then return "{...}" end
+				local keys = {}
+				for k in pairs(v) do keys[#keys + 1] = k end
+				table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+				local parts = {}
+				for _, k in ipairs(keys) do
+					if type(v[k]) ~= "function" then parts[#parts + 1] = tostring(k) .. "=" .. ser(v[k], depth + 1) end
+				end
+				return "{" .. table.concat(parts, ",") .. "}"
+			end
+			local live, calls, most = Own.goalDoneLive, {}, 0
+			Own.goalDoneLive = function(s, g, goal)
+				local k = s .. ":" .. g
+				calls[k] = (calls[k] or 0) + 1
+				if calls[k] > most then most = calls[k] end
+				return live(s, g, goal)
+			end
+			local r = { points = 0, differ = {}, mostWith = 0, mostWithout = 0 }
+			local function check()
+				r.points = r.points + 1
+				for i = 1, E.GetStepCount() do
+					calls, most = {}, 0
+					local without = ser(Own.stepView(i), 0)
+					r.mostWithout = math.max(r.mostWithout, most)
+					calls, most = {}, 0
+					local with = ser(E.GetStepView(i), 0)
+					r.mostWith = math.max(r.mostWith, most)
+					if with ~= without and #r.differ < 5 then r.differ[#r.differ + 1] = r.points .. ":" .. i end
+				end
+			end
+			check()
+			w.accept(783, {}, "A Threat Within"); flush(); check()
+			w.finish(783); flush(); check()
+			w.turnIn(783); flush(); check()
+			w.accept(7, { { required = 10 } }, "Kobold Camp Cleanup"); flush(); check()
+			w.progress(7, 1, 4); flush(); check()
+			w.moveTo(1429, 47.6, 35.1); stub.advance(0.6); check()
+			w.progress(7, 1, 10); flush(); check()
+			w.finish(7); flush(); check()
+			r.memoAfter = Own.doneMemo == nil
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["differ"], json!([]), "every view as before: {out}");
+	assert_eq!(out["points"], 9);
+	assert_eq!(out["mostWith"], 1, "each goal asked once per view: {out}");
+	assert!(out["mostWithout"].as_i64().unwrap() > 1, "without the memo a goal is asked more than once: {out}");
+	assert_eq!(out["memoAfter"], true, "the memo goes with the view");
+}
