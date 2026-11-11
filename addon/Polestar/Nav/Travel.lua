@@ -70,8 +70,6 @@ ns.RegisterDefaults("nav", { travel = true, detourCaption = false })
 
 local RUN_SPEED = 7          -- yd/s, unmounted run speed
 local MIN_SPEED, MAX_SPEED = 4, 14
-local FLIGHT_SPEED = 30      -- yd/s along the flight path (Classic gryphon/wyvern)
-local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 local HEARTH_ITEM = 6948
@@ -92,17 +90,9 @@ local BOARD = 60             -- yards: at the dock / flight master
 local LEAVE = 90             -- yards: walked away from it, plan again
 local DOCK_ARRIVE = 120      -- yards: a ride or hearth has arrived
 local LIFT_LEAVE = 30       -- yards from a lift's landing: at it (the ride is shown), or walked off it (the ride is over)
-local LINK_YARDS, MAX_LINKS = 150, 3
-local MAX_PATH_VERTICES = 1500
-local MAX_POPS = 20000
-local MAX_MS = 40
 local BIND_MATCH = 60
-local CAPTURE, CAPTURE_MIN = 2, 30 -- a point within max(2 x radius, 30) yd of a chain node past the mouth is inside it
 local REPLAN_AFTER, REPLAN_MOVED = 30, 50 -- seconds, yards: moved this far since a plan this old, plan again
 local LEARN_FP = 60          -- yards: a flight path learned this close to a flight master is that one
-
-local START, TARGET, TAXI, DOCK, INN, PATH, CROSS, CHAIN, DARK = 1, 2, 3, 4, 5, 6, 7, 8, 9
-local WALK, FLY, RIDE, HEARTH = 1, 2, 3, 4 -- HEARTH: the Hearthstone or a teleport, from the start
 
 ---------------------------------------------------------------------------
 -- Data
@@ -118,6 +108,7 @@ local zoneInfo, wildZone, covered = {}, {}, {}  -- [map] = { name, c, frame }; [
 local crossEnds, crossIds = {}, {}              -- { map, c, wx, wy, r, partner, caption, noCross }; [id] = true
 local openPair = {}                             -- [map] = { [map] = true }: walk from the first into the second
 local chains = {}                               -- { id, name, open, nodes = { { map, c, wx, wy, r, caption, back, chain, idx }, ... } }
+local areasIn = {}                              -- [map] = { { id, c, top, bottom, left, right }, ... }: parts of the zone no walk joins to the rest
 local pathZone, zoneVersion = {}, 0             -- learned path node -> zone (false: none), cached per zone data
 
 -- "Stormwind" of "Stormwind, Elwynn" (a Chinese client's names part at "，").
@@ -173,7 +164,7 @@ local function clearData()
 	pathC, pathX, pathY, pathAdj, pathMap = {}, {}, {}, {}, {}
 	pathCount = 0
 	zoneInfo, wildZone, covered = {}, {}, {}
-	crossEnds, crossIds, openPair, chains = {}, {}, {}, {}
+	crossEnds, crossIds, openPair, chains, areasIn = {}, {}, {}, {}, {}
 	pathZone, zoneVersion = {}, zoneVersion + 1
 end
 
@@ -266,6 +257,9 @@ end
 --     (z: the height of the floor a walk to that end ends on, when given: the Undercity's entrance hall, not the city below)
 --   open = { zoneA, zoneB, oneWay (0/1), ... }   shared borders walkable anywhere
 --   chains = { { id, name, open = "mouth"|"both", nodes = { { map, c, wx, wy, r, caption, back }, ... } }, ... } }
+--   areas = { { id, name, map, c, top, bottom, left, right }, ... }   parts of a zone no walk joins to the rest of it
+--     (Rut'theran Village at the foot of Teldrassil, on the tree's map): a zone of their own, reached by no crossing,
+--     only by portals, ships and flights (#1761)
 -- Calls merge; an id seen before is skipped.
 function Nav.RegisterCrossings(d)
 	if type(d) ~= "table" then return end
@@ -311,6 +305,15 @@ function Nav.RegisterCrossings(d)
 				chain.nodes[k] = n
 			end
 			chains[#chains + 1] = chain
+		end
+	end
+	for _, a in ipairs(d.areas or {}) do
+		if type(a) == "table" and type(a.id) == "string" and a.map and a.c and a.top and a.bottom and a.left and a.right
+			and not crossIds[a.id] then
+			crossIds[a.id] = true
+			local list = areasIn[a.map] or {}
+			areasIn[a.map] = list
+			list[#list + 1] = { id = a.id, c = a.c, top = a.top, bottom = a.bottom, left = a.left, right = a.right }
 		end
 	end
 	if d.complete then
@@ -438,7 +441,8 @@ local function yards(c1, x1, y1, c2, x2, y2)
 end
 
 -- The zone a point walks in on a continent with crossing data: its own map
--- when that is a zone the data knows, nil for a zone without crossing data
+-- when that is a zone the data knows (or the part of it no walk joins to the
+-- rest, an area's id: Rut'theran Village under Teldrassil, #1761), nil for a zone without crossing data
 -- (walked as before), else the walking maps' zone at the point (Nav.danger.ZoneAt:
 -- the client's area there, 33 yd chunk by chunk) when the data knows it, else
 -- the smallest known zone frame holding the point. The frames are rectangles that
@@ -465,7 +469,7 @@ local function inner(z, o)
 	if ot > ob then ot, ob = ob, ot end
 	return zl >= ol and zr <= orr and zt >= ot and zb <= ob
 end
-local function zoneOf(map, c, wx, wy, target)
+local function mapZoneOf(map, c, wx, wy, target)
 	if map then
 		local z = zoneInfo[map]
 		if z and z.c == c then
@@ -501,12 +505,26 @@ local function zoneOf(map, c, wx, wy, target)
 	end
 	return best
 end
-Travel.ZoneOf = zoneOf
+-- With the areas: a point inside one's box (top and bottom in wx, left and right in wy, either way round, as a zone
+-- frame) walks in the area. (A field, not a local: the file's main chunk is at Lua 5.1's 200 locals.)
+function Travel.ZoneOf(map, c, wx, wy, target)
+	local z = mapZoneOf(map, c, wx, wy, target)
+	local list = z and areasIn[z]
+	if list then
+		for _, a in ipairs(list) do
+			local t, b, l, r = a.top, a.bottom, a.left, a.right
+			if t > b then t, b = b, t end
+			if l > r then l, r = r, l end
+			if a.c == c and wx >= t and wx <= b and wy >= l and wy <= r then return a.id end
+		end
+	end
+	return z
+end
 
 local function pathZoneOf(i)
 	local z = pathZone[i]
 	if z == nil then
-		z = zoneOf(pathMap[i], pathC[i], pathX[i], pathY[i]) or false
+		z = Travel.ZoneOf(pathMap[i], pathC[i], pathX[i], pathY[i]) or false
 		pathZone[i] = z
 	end
 	return z or nil
@@ -542,6 +560,7 @@ local function onEvery(floors, h)
 	return near
 end
 local function insideChain(c, wx, wy, z, loose, floors)
+	local CAPTURE, CAPTURE_MIN = 2, 30 -- a point within max(2 x radius, 30) yd of a chain node past the mouth is inside it
 	local best, bestD
 	for _, ch in ipairs(chains) do
 		local nodes = ch.nodes
@@ -583,6 +602,15 @@ local TAKE = {
 }
 
 local function planRoute(p)
+	-- (planRoute's own constants: the file's main chunk keeps clear of Lua 5.1's 200 locals)
+	local FLIGHT_SPEED = 30      -- yd/s along the flight path (Classic gryphon/wyvern)
+	local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
+	local LINK_YARDS, MAX_LINKS = 150, 3
+	local MAX_PATH_VERTICES = 1500
+	local MAX_POPS = 20000
+	local MAX_MS = 40
+	local START, TARGET, TAXI, DOCK, INN, PATH, CROSS, CHAIN, DARK = 1, 2, 3, 4, 5, 6, 7, 8, 9
+	local WALK, FLY, RIDE, HEARTH = 1, 2, 3, 4 -- HEARTH: the Hearthstone or a teleport, from the start
 	local clock = debugprofilestop
 	local t0 = clock and clock()
 	local tg = p.target
@@ -599,13 +627,13 @@ local function planRoute(p)
 	local function add(kind, c, wx, wy, ref, map)
 		n = n + 1
 		vc[n], vx[n], vy[n], vkind[n], vref[n] = c, wx, wy, kind, ref
-		if covered[c] then vzone[n] = zoneOf(map, c, wx, wy) end
+		if covered[c] then vzone[n] = Travel.ZoneOf(map, c, wx, wy) end
 		return n
 	end
 	add(START, p.c, p.wx, p.wy, nil, p.map)
 	add(TARGET, tg.c, tg.wx, tg.wy, tg, tg.map)
 	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694).
-	if covered[tg.c] then vzone[2] = zoneOf(tg.map, tg.c, tg.wx, tg.wy, true) end
+	if covered[tg.c] then vzone[2] = Travel.ZoneOf(tg.map, tg.c, tg.wx, tg.wy, true) end
 	-- learnV[v]: a flight master of the player's not learnt yet, on the start's or the target's continent. Talking
 	-- to it learns it and opens its flight map, so it is walked to and flown from like a known one, never flown to
 	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174).
@@ -2165,7 +2193,7 @@ end
 local function stopZone(s, c)
 	local z = present(s.zone)
 	if z then return z end
-	local map = zoneOf(nil, c, s.wx, s.wy)
+	local map = mapZoneOf(nil, c, s.wx, s.wy)
 	if map then return present(zoneName(map)) end
 	local here = playerMap()
 	local C = ns.Compat
