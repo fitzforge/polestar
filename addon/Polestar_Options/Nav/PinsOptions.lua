@@ -56,19 +56,18 @@ local function trailShown() return ns.Get("nav.trailDots") and not ns.Get("nav.r
 
 local STAGE_H, ZONE = 196, 1429 -- Elwynn Forest, as the welcome's demo
 -- The window's chrome sits over the stage ("Preview" top left, "Live" top right): the
--- painting starts below it, inset by the body's pad.
--- BOTTOM leaves room for the window's one-time hint under the band.
-local PAD, TOP, BOTTOM = 32, 34, 28
-local MAP_H = STAGE_H - TOP - BOTTOM
-local MM, MM_COL = 104, 136 -- the minimap disc and its column
+-- painting starts below it, inset by the body's pad; the painting is the hero's height
+-- less these (STAGE_H's laid out alone).
+local PAD, TOP, BOTTOM = 32, 34, 16
+local MM, MM_COL = 140, 176 -- the minimap disc, as the game's, and its column
 local ZOOM_OUT, ZOOM_IN = 0, 1 -- the world map's zoom (Pins.WorldScale)
 local MM_ZOOM = 0.7 -- the minimap's widest zoom, its default
 local STEPS = 5 -- numbered pins in the preview, at most
 
 -- Where things sit on the Pins painting (fractions of its width and height):
--- the player, the target in its area, the numbered pins after it.
+-- the player, the target in its area, the numbered pins after it, a quest giver.
 local SPOTS = {
-	player = { 0.05, 0.84 }, target = { 0.2, 0.5 },
+	player = { 0.05, 0.84 }, target = { 0.2, 0.5 }, giver = { 0.09, 0.24 },
 	steps = { { 0.34, 0.34 }, { 0.45, 0.68 }, { 0.56, 0.36 }, { 0.67, 0.7 }, { 0.78, 0.5 } },
 }
 -- The Icons painting: the marks in a row (map mark, subject colour), one a group with a badge.
@@ -102,13 +101,11 @@ local function newPin(parent)
 	return f
 end
 
--- A click target on a part of preview f (the window's hotspots, on its
--- host `view`): hover outlines it, a click jumps to the setting's row.
--- f.psHotspots lists them: { { key, button }, ... }. (Fields on frames are
--- lower case: a frame answers capitalised names with its methods.)
-local function hotspot(f, view, region, key)
-	if not (view and view.Hotspot) then return end
-	local b = view:Hotspot(region, key)
+-- A click target on a part of preview f (the window's hotspots, s:Hot):
+-- hover outlines it, a click jumps to the setting's row. f.psHotspots lists
+-- them: { { key, button }, ... }.
+local function hotspot(f, region, key)
+	local b = f:Hot(region, key)
 	f.psHotspots = f.psHotspots or {}
 	f.psHotspots[#f.psHotspots + 1] = { key, b }
 end
@@ -159,11 +156,11 @@ local function stage(view, mapLabel)
 
 	local map = CreateFrame("Frame", nil, f)
 	map:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -TOP)
-	map:SetHeight(MAP_H)
+	map:SetHeight(STAGE_H - TOP - BOTTOM)
 	if map.SetClipsChildren then map:SetClipsChildren(true) end
 	local ZA = ns.UI and ns.UI.ZoneArt
 	if ZA then
-		f.psArt = ZA.Create(map, 400, MAP_H, "scrim")
+		f.psArt = ZA.Create(map, 400, STAGE_H - TOP - BOTTOM, "scrim")
 		f.psArt:SetPoint("TOPLEFT", map, "TOPLEFT", 0, 0)
 	else
 		f.psBand = Theme.Band(map, "BACKGROUND", -7)
@@ -199,21 +196,25 @@ local function stage(view, mapLabel)
 	mmLabel:SetPoint("TOP", mm, "BOTTOM", 0, -4)
 
 	f.MapFrame, f.Layer, f.MinimapFrame = map, layer, mm
-	f.psWidth, f.mapW, f.dirty = 0, 0, true
-	-- -> the painting's width for the stage's width, and lays it out.
+	f.psWidth, f.mapW, f.mapH, f.dirty = 0, 0, STAGE_H - TOP - BOTTOM, true
+	-- -> the painting's width and height for the stage's, and lays it out:
+	-- the painting and the minimap each on a soft shadow.
 	function f:Place(w)
-		local resized = w ~= self.psWidth
+		local mapH = self.psHeight - TOP - BOTTOM
+		local resized = w ~= self.psWidth or mapH ~= self.mapH
 		self:SetWidth(w)
 		self.psWidth = w
-		self.mapW = max(160, w - 2 * PAD - MM_COL)
-		map:SetWidth(self.mapW)
+		self.mapW, self.mapH = max(160, w - 2 * PAD - MM_COL), mapH
+		map:SetSize(self.mapW, mapH)
 		mm:ClearAllPoints()
-		mm:SetPoint("CENTER", self, "TOPLEFT", PAD + self.mapW + MM_COL / 2, -(TOP + (MAP_H - 16) / 2))
-		if self.psBand then self.psBand:SetTexCoord(Theme.BandCoords(self.mapW, MAP_H)) end
-		if self.psArt and self.paintedW ~= self.mapW then
-			self.paintedW = self.mapW
-			self.psArt.psW = self.mapW
-			self.psArt:SetWidth(self.mapW)
+		mm:SetPoint("CENTER", self, "TOPLEFT", PAD + self.mapW + MM_COL / 2, -(TOP + (mapH - 16) / 2))
+		self:Floor(map)
+		self:Floor(mm, -10)
+		if self.psBand then self.psBand:SetTexCoord(Theme.BandCoords(self.mapW, mapH)) end
+		if self.psArt and (self.paintedW ~= self.mapW or self.paintedH ~= mapH) then
+			self.paintedW, self.paintedH = self.mapW, mapH
+			self.psArt.psW, self.psArt.psH = self.mapW, mapH
+			self.psArt:SetSize(self.mapW, mapH)
 			ZA.Paint(self.psArt, ZONE, 42, 64, 2)
 		end
 		return resized
@@ -228,11 +229,13 @@ local function stage(view, mapLabel)
 			if self:IsVisible() then paint() else self.dirty = true end
 		end)
 		self:SetScript("OnShow", function() if self.dirty then paint() end end)
-		function self:Layout(w)
+		-- -> the hero's height (the window's; STAGE_H laid out alone)
+		function self:Layout(w, h)
+			self.psHeight = h or STAGE_H
 			local resized = self:Place(w)
 			-- The window lays the stage out again after every setting: its own repaint has run.
 			if self.dirty or resized then paint() end
-			return STAGE_H
+			return self.psHeight
 		end
 	end
 	return f
@@ -325,6 +328,8 @@ local function buildPinsPreview(view)
 	target:SetFrameLevel(layer:GetFrameLevel() + 3)
 	local steps = {}
 	for i = 1, STEPS do steps[i] = newPin(layer) end
+	-- A quest giver's mark: the icon pack and the world map's icon size.
+	local giver = newPin(layer)
 
 	-- "Pin size": the numbered pin at 100% beside yours, at the map's zoom.
 	local inset = CreateFrame("Frame", nil, layer)
@@ -347,7 +352,7 @@ local function buildPinsPreview(view)
 	local function paint()
 		if f.mapW <= 0 then return end -- not laid out yet: Layout paints
 		f.dirty = false
-		local w, h = f.mapW, MAP_H
+		local w, h = f.mapW, f.mapH
 		local z = zoomedIn and ZOOM_IN or ZOOM_OUT
 		local function at(spot) return spot[1] * w, spot[2] * h end
 		local arrow = rgb("arrow")
@@ -361,6 +366,8 @@ local function buildPinsPreview(view)
 		area:SetPoint("CENTER", layer, "TOPLEFT", tx, -ty)
 		area:SetVertexColor(Pins.AreaColor({ color = arrow }))
 		worldPin(target, layer, tp, scale, tx, ty, z)
+		local gx, gy = at(SPOTS.giver)
+		worldPin(giver, layer, { icon = "map:quest-available", color = rgb("quest") }, 1, gx, gy, z)
 		-- The trail from the player to the target, while it stands in for route lines.
 		local px, py = at(SPOTS.player)
 		local c = trueScale(layer)
@@ -422,12 +429,28 @@ local function buildPinsPreview(view)
 	f.Paint = paint
 	f:Watch(paint)
 
-	-- Click a part to find its setting.
-	hotspot(f, view, area, "nav.areaAlpha")
-	hotspot(f, view, target, "nav.targetPinSize")
-	for _, s in ipairs(steps) do hotspot(f, view, s, "nav.stepPinSize") end
-	hotspot(f, view, inset, "nav.stepPinSize")
-	hotspot(f, view, mm, "nav.stepMinimapSize")
+	-- Click a part to find its setting; the pointer on a setting's row lights
+	-- the parts it changes.
+	hotspot(f, area, "nav.areaAlpha")
+	hotspot(f, target, "nav.targetPinSize")
+	for _, s in ipairs(steps) do hotspot(f, s, "nav.stepPinSize") end
+	hotspot(f, inset, "nav.stepPinSize")
+	hotspot(f, mm, "nav.stepMinimapSize")
+	local numbered = { unpack(steps) }
+	for key, parts in pairs({
+		["nav.targetPinSize"] = { target, mmTarget }, ["nav.targetGlow"] = { target }, ["nav.targetPulse"] = { target },
+		["nav.pulseSeconds"] = { target }, ["nav.worldPins"] = { f.MapFrame }, ["nav.minimapPins"] = { mmTarget },
+		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.trailDotSize"] = { player, target },
+		["nav.trailDots"] = { player, target }, ["nav.trailDotAlpha"] = { player, target },
+		["nav.upcomingPins"] = numbered, ["nav.stepPinSize"] = numbered, ["nav.stepRingColor"] = numbered,
+		["nav.stepColorMode"] = numbered, ["nav.stepColor"] = numbered, ["nav.stepNumberSize"] = numbered,
+		["nav.stepNumbers"] = numbered, ["nav.stepNumberColor"] = numbered, ["nav.stepNumberOutline"] = numbered,
+		["nav.upcomingCount"] = numbered, ["nav.stepAlpha"] = { steps[1] }, ["nav.stepFadeTo"] = { steps[STEPS] },
+		["nav.upcomingMinimap"] = { mmStep }, ["nav.stepMinimapSize"] = { mmStep },
+		["nav.mapIcons"] = { giver, mmGiver }, ["nav.worldIconSize"] = { giver }, ["nav.minimapIconSize"] = { mmGiver, mmTarget },
+	}) do
+		f:Light(key, unpack(parts))
+	end
 	return f
 end
 
@@ -445,7 +468,7 @@ local function buildIconsPreview(view)
 	local function paint()
 		if f.mapW <= 0 then return end
 		f.dirty = false
-		local w, h = f.mapW, MAP_H
+		local w, h = f.mapW, f.mapH
 		local step = w / (#MARKS + 1)
 		for i, m in ipairs(MARKS) do
 			local p = { icon = m[1], color = rgb(m[2]), badge = m[3] }
@@ -459,8 +482,16 @@ local function buildIconsPreview(view)
 	f.Paint = paint
 	f:Watch(paint)
 
-	for i, m in ipairs(marks) do hotspot(f, view, m, MARKS[i][3] and "nav.badgeSize" or "nav.worldIconSize") end
-	hotspot(f, view, mm, "nav.minimapIconSize")
+	for i, m in ipairs(marks) do hotspot(f, m, MARKS[i][3] and "nav.badgeSize" or "nav.worldIconSize") end
+	hotspot(f, mm, "nav.minimapIconSize")
+	local all = { unpack(marks) }
+	for key, parts in pairs({
+		["nav.worldIconSize"] = all, ["nav.worldPinAlpha"] = all, ["nav.mapIcons"] = all, ["nav.medalColor"] = all,
+		["nav.pinBacking"] = all, ["nav.badgeSize"] = { marks[5] }, ["nav.minimapIconSize"] = mmPins,
+		["nav.minimapPinAlpha"] = mmPins, ["nav.minimapArrowFade"] = { mmPins[1] },
+	}) do
+		f:Light(key, unpack(parts))
+	end
 	return f
 end
 -- The previews, for the tests: PinsPreview(parent) -> f, PinsIconsPreview(parent) -> f.

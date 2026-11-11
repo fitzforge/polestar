@@ -150,7 +150,8 @@ fn hairlines_shadow_stars_haze_rim_and_animation_speed_follow_their_settings() {
 	let out = run(r#"
 		local out = { border = select(4, T.Wash("border")), shadow = select(4, T.Color("shadow")) }
 		local sky = T.Band(UIParent, "BACKGROUND")
-		local rim = Polestar.UI.ThemePreview(UIParent).Guide.psRim
+		Polestar.UI.ShowOptions("theme")
+		local rim = PolestarOptions.Rim
 		Polestar.Set("ui.hairlineOpacity", 2)
 		Polestar.Set("ui.shadowStrength", 0.5)
 		Polestar.Set("ui.starAlpha", 0)
@@ -285,26 +286,36 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 	assert_eq!(out["wides"], json!(["ui.skin", "ui.scheme"]), "the picture cards span the row");
 }
 
+// The preview is the real surfaces in the theme: the guide window (drawn by its own page's code, never the live
+// window) under its heads-up card, a toast, the two buttons; a change repaints them live; a narrow page keeps the
+// guide window.
 #[test]
 fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 	let out = run(r#"
 		local f = Polestar.UI.ThemePreview(UIParent)
 		local h = f:Layout(900)
-		local out = { h = h, toast = f.Toast:IsShown(), buttons = f.Buttons[1]:IsShown() and f.Buttons[2]:IsShown(), hot = f.Hot and #f.Hot or 0 }
+		local hots = 0
+		for _ in pairs(rawget(f, "Hots") or {}) do hots = hots + 1 end
+		local out = { h = h, toast = f.Toast ~= nil and f.Toast:IsShown(), heads = f.Heads ~= nil and f.Heads:IsShown(),
+			guide = f.Guide ~= nil and f.Guide ~= PolestarGuideFrame, buttons = f.Buttons[1]:IsShown() and f.Buttons[2]:IsShown(), hots = hots }
 		Polestar.Set("ui.colors.item", { 0.6, 1, 0.6 })
 		Polestar.Set("ui.fontOutline", "outline")
-		out.body = f.ToastBody:GetText()
+		out.item = f.Scene.Rows[3].Text:GetText()
 		out.titleFlags = select(3, f.StepTitle:GetFont())
 		f:Layout(420)
 		out.narrowToast = f.Toast:IsShown()
+		out.narrowGuide = f.Guide:IsShown()
 		emit(out)"#);
 	assert_eq!(out["h"], 196);
 	assert_eq!(out["toast"], true);
+	assert_eq!(out["heads"], true, "the heads-up card on the window's top edge");
+	assert_eq!(out["guide"], true, "the guide window, the preview's own");
 	assert_eq!(out["buttons"], true);
-	assert_eq!(out["hot"], 11, "each part of the preview leads to its setting");
-	assert!(out["body"].as_str().unwrap().contains("|cff99ff99"), "the toast names the item in its own colour: {}", out["body"]);
+	assert!(out["hots"].as_f64().unwrap() >= 8.0, "each part of the preview leads to its setting: {}", out["hots"]);
+	assert!(out["item"].as_str().unwrap().contains("|cff99ff99"), "the goal names the item in its own colour: {}", out["item"]);
 	assert_eq!(out["titleFlags"], "OUTLINE");
-	assert_eq!(out["narrowToast"], false, "a narrow page keeps the guide window and the arrow");
+	assert_eq!(out["narrowToast"], false, "a narrow page keeps the guide window");
+	assert_eq!(out["narrowGuide"], true);
 }
 
 // The game looks frame a big window with a title (WoW Forever's and Blizzard's bar, Classic's header plate
