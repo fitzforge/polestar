@@ -7,4 +7,4 @@ section: authors
   longer the staff, the object or plain words, so a German client shows the
   spell's name in a Cold Snap step, not the staff's. No `reward spell` line is
   needed for that; the guide's own names still come first, and a place keeps
-  its name (#1504, thanks Tom).
+  its name (#1504, thanks Tom; built by FlexusDev, #1519).
