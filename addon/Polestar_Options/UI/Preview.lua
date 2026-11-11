@@ -76,7 +76,11 @@ local BACKDROPS = { "world", "sky", "ground" }
 local BACKDROP_LABEL = { world = L["World"], sky = L["Night sky"], ground = L["Plain"] }
 -- A faction's first zone, where it has no zone of its own to show.
 local HOME = { Alliance = 1429, Horde = 1411 }
-local DIM = { 0.58, 0.58, 0.62 } -- the painting under a preview: dimmed, a little cool
+-- The painting under a preview: a backdrop, not a picture to read. Dimmed
+-- and cooled, half its colour out, so the map's own lettering and bright
+-- ground sit back behind the preview's parts and text.
+local DIM, DESAT = { 0.44, 0.45, 0.52 }, 0.5
+local CUT_FADE = 28 -- px: a scene cropped at the stage's foot fades out over these
 
 local stages = setmetatable({}, { __mode = "k" })
 
@@ -111,7 +115,7 @@ local function worldArt(s)
 	local ZA = UI.ZoneArt
 	if not (ZA and ZA.Create) then return nil end
 	a = ZA.Create(s.Back, max(1, s.psWidth), s.psHeight, "scrim")
-	a.psTint, a.psZoom = DIM, 1.35
+	a.psTint, a.psZoom, a.psDesat = DIM, 1.35, DESAT
 	a.Fade:Hide()
 	a.Top:Hide()
 	a.Rule:Hide()
@@ -177,6 +181,16 @@ local function paintEdges(s)
 			t:SetGradient("VERTICAL", CreateColor(r, g, b, top and 0 or 0.7), CreateColor(r, g, b, top and 0.7 or 0))
 		else
 			t:SetVertexColor(r, g, b, 0.35)
+		end
+	end
+	-- A scene cropped at the stage's foot (s:SetCut) fades into the ground
+	-- over its last pixels, so the cut reads as the scene going on below.
+	local fade = rawget(s, "Fade")
+	if fade then
+		if fade.SetGradient and CreateColor then
+			fade:SetGradient("VERTICAL", CreateColor(r, g, b, 0.92), CreateColor(r, g, b, 0))
+		else
+			fade:SetVertexColor(r, g, b, 0.6)
 		end
 	end
 	local sr, sg, sb = Theme.Color("sky")
@@ -255,6 +269,18 @@ function P.Stage(parent, opts)
 	s.EdgeBottom:SetTexture(Theme.Media("white"))
 	s.EdgeBottom:SetPoint("BOTTOMLEFT", s, "BOTTOMLEFT", 0, 0)
 	s.EdgeBottom:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", 0, 0)
+	-- Over the page's parts, under the window's chrome: the fade of a scene
+	-- cropped at the stage's foot (s:SetCut(true)), painted with the edges.
+	local over = CreateFrame("Frame", nil, s)
+	over:SetAllPoints(s)
+	over:SetFrameLevel(s:GetFrameLevel() + 20)
+	s.Fade = over:CreateTexture(nil, "OVERLAY")
+	s.Fade:SetTexture(Theme.Media("white"))
+	s.Fade:SetPoint("BOTTOMLEFT", s, "BOTTOMLEFT", 0, 0)
+	s.Fade:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", 0, 0)
+	s.Fade:SetHeight(CUT_FADE)
+	s.Fade:Hide()
+	function s:SetCut(cut) self.Fade:SetShown(cut and true or false) end
 	W.Painter(s, paintEdges)
 	-- The page's parts.
 	s.Content = CreateFrame("Frame", nil, s)
@@ -563,6 +589,16 @@ function P.Place(win, view, t, width, room)
 	f:SetWidth(width / scale)
 	f:Show()
 	paintChip(host)
+	-- A stage whose scene is a painting of its own (the map pins', the route
+	-- lines') keeps its ground: no backdrop to pick there, so no chip.
+	local fixed = stages[f] and f.psFixed or false
+	host.Backdrop:SetShown(not fixed)
+	host.Live:ClearAllPoints()
+	if fixed then
+		host.Live:SetPoint("RIGHT", host.Backdrop:GetParent(), "TOPRIGHT", -12, -18)
+	else
+		host.Live:SetPoint("RIGHT", host.Backdrop, "LEFT", -12, 0)
+	end
 	local cap = f.caption
 	if type(cap) == "function" then cap = cap() end
 	if scale < 0.995 then

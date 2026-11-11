@@ -78,6 +78,26 @@ fn the_backdrop_chip_cycles_the_world_the_night_sky_and_plain_for_every_preview_
 	assert_eq!(out["setting"], true, "the backdrop is not a setting");
 }
 
+// A stage whose scene is a painting of its own (the map pins', the route lines') has no backdrop to pick, so no
+// chip; the others carry it. A scene cropped at the stage's foot fades out there: the guide window's, until the
+// crop is scrolled to the window's end.
+#[test]
+fn a_painted_scene_has_no_backdrop_chip_and_a_cropped_one_fades_out_at_the_stage_s_foot() {
+	let out = run(r#"
+		local chips = {}
+		for _, key in ipairs({ "arrow", "mappins", "routelines", "alerts" }) do
+			local _, host = shown(key)
+			chips[key] = host.Backdrop:IsShown()
+		end
+		local gw = shown("guidewindow")
+		local top = gw.Fade:IsShown()
+		gw:Focus("guideWindow.progressHeight")
+		emit({ chips = chips, top = top, foot = gw.Fade:IsShown() })"#);
+	assert_eq!(out["chips"], json!({ "arrow": true, "mappins": false, "routelines": false, "alerts": true }));
+	assert_eq!(out["top"], true, "the guide window runs past the stage: its foot fades out");
+	assert_eq!(out["foot"], false, "scrolled to the window's end: nothing to fade");
+}
+
 // A stage repaints on its own settings at once while it shows, on its next show when it was hidden, and not on
 // other settings (one with no look: a scale or a theme setting repaints every stage through Theme.Refresh).
 #[test]
