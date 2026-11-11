@@ -80,7 +80,7 @@ pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 83] = [
+pub const GOAL_KEYS: [&str; 84] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -103,6 +103,8 @@ pub const GOAL_KEYS: [&str; 83] = [
 	"item",
 	"itemName",
 	"count",
+	// A `collect … gather`: the item's gather way, true or { max, min, rank, skill, skillLine } (Core/Materials.lua).
+	"gather",
 	"oi",
 	"skill",
 	"skillLine",

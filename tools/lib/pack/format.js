@@ -16,7 +16,10 @@ const MONEY_TASK_FORMAT = 5;
 // Format 6 (read, no longer written): a guide's baked legs inline (`legs`). Format 7: baked
 // legs in the race parts' Legs.lua (Polestar.RegisterLegs; legs.json, forge guide bake).
 const LEGS_FORMAT = 7;
-const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0' };
+// Format 10: the `auction` goal and a collect's `gather` (a profession guide's materials, gathered or bought:
+// Core/Materials.lua). An older Polestar refuses the pack as too new instead of each guide as "unknown verb".
+const MATERIALS_FORMAT = 10;
+const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 10: '0.3.8' };
 
 // A step with `label` or `along` (an older Polestar would stop at an along step).
 const usesAlong = (s) => s.label !== undefined || s.along !== undefined;
@@ -36,14 +39,18 @@ const needs5 = (list) => (list || []).some((p) => FORMAT5_WHEN.has(p.k));
 const usesMoneyTask = (g) => (g.steps || []).some((s) =>
 	(s.goals || []).some((goal) => MONEY_TASK_VERBS.has(goal.t)) || needs5(s.when) || (Array.isArray(s.skipto) && s.skipto.length)) ||
 	Object.values(g.nextWhen || {}).some(needs5);
+// The `auction` goal and a collect's `gather` need format 10 (MATERIALS_FORMAT).
+const usesMaterials = (g) => (g.steps || []).some((s) => (s.goals || []).some((goal) => goal.t === 'auction' || goal.gather));
 
-// The format a pack's compiled guides need: MONEY_TASK_FORMAT when a guide
+// The format a pack's compiled guides need: MATERIALS_FORMAT when a guide has an `auction` goal or a `gather`
+// collect, MONEY_TASK_FORMAT when a guide
 // uses money/task/enter/cast/abandon/destroy/die goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 // `skipto`, WHEN_FORMAT when a step
 // has `when`, `label` or `along`, a level goal has `frac`, or a `next`
 // option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 // LEGS_FORMAT (project.js buildPackFiles).
 function formatFor(guides) {
+	if ((guides || []).some(usesMaterials)) return MATERIALS_FORMAT;
 	if ((guides || []).some(usesMoneyTask)) return MONEY_TASK_FORMAT;
 	const uses = (guides || []).some((g) => (g.steps || []).some((s) => (Array.isArray(s.when) && s.when.length) || usesAlong(s)));
 	if (uses || (guides || []).some(usesLevelFrac)) return WHEN_FORMAT;
@@ -108,4 +115,4 @@ function placeholderLicense(license) {
 	return `Licensed under ${license}: ${LICENSE_PLACEHOLDER}.\n`;
 }
 
-module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, OWN_EXTRAS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };
+module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, MATERIALS_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, OWN_EXTRAS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };
