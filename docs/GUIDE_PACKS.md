@@ -36,8 +36,8 @@ menu, with the arrow, the map markers and everything else Polestar does.
 | **Where to report a problem** | the [Polestar Discord](https://discord.gg/polestar) or GitHub | the addon's author, where they publish it |
 
 A community addon only adds guides: it never replaces Polestar's own or
-another community addon's. Polestar does not ship, host or recommend any;
-you only see one if you install it yourself.
+another community addon's. Polestar hosts them, but doesn't review or
+recommend any; you only see one if you install it yourself.
 
 ### Install one
 
