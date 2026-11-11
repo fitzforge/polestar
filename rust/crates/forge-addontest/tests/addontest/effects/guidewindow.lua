@@ -20,7 +20,7 @@ local function snapshot()
 		steps = P.nav.Steps:IsShown(), title = P.nav.Title:IsShown(), skip = P.nav.Skip:IsShown(), report = P.nav.Report:IsShown(),
 		markW = r.Mark:GetWidth(), markA = r.Mark:GetAlpha(), markColor = rgba(r.Mark), fill = rgba(P.line.Fill),
 		bgColor = F.psBgColor or false, bgAlpha = F.psBgAlpha or false, noBorder = F.psNoBorder or false,
-		alpha = F:GetAlpha(), shown = F:IsShown(), rules = P.after.Rule:GetAlpha(), person = P.person:IsShown(),
+		alpha = F:GetAlpha(), shown = F:IsShown(), rules = P.after.Rule:IsShown(), person = P.person:IsShown(),
 	}
 end
 local function one(key) return function() return snapshot()[key] end end
@@ -97,7 +97,7 @@ return {
 		["ui.opacity"] = one("alpha"),
 		["guideWindow.idleAlpha"] = one("alpha"),
 		["guideWindow.border"] = one("noBorder"),
-		["guideWindow.rules"] = function() return { P.strip.Rule:IsShown(), P.after.Rule:GetAlpha() } end,
+		["guideWindow.rules"] = function() return { P.strip.Rule:IsShown(), P.after.Rule:IsShown() } end,
 		["ui.combat"] = { value = "hide", prepare = inCombat, probe = function() return { F:IsShown(), F:GetAlpha() } end, cleanup = outOfCombat },
 		["guideWindow.combatAlpha"] = { with = { ["ui.combat"] = "fade" }, prepare = inCombat, probe = function() return F:GetAlpha() end, cleanup = outOfCombat },
 		["ui.instance"] = { prepare = function() uistub.instance = "party"; stub.fire("PLAYER_ENTERING_WORLD"); stub.advance(0.5) end,
