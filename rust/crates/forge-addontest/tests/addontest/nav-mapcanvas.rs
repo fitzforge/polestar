@@ -52,19 +52,30 @@ P.SetLayer("test.marks", {
 })
 N.SetTarget(9000, 70, 60, "Somewhere")
 
+-- Polestar's frames under a canvas, at any depth (the map's view frame holds the drawings).
+local function under(f, canvas)
+	local p = f.parent
+	while p do
+		if p == canvas then return true end
+		p = p.parent
+	end
+	return false
+end
 local function tiles(map)
-	local n = 0
-	for _, f in ipairs(map:GetCanvas().children) do
-		for _, t in ipairs(f.regions or {}) do
-			if type(t.texture) == "number" and t.texture >= 501 and t.texture <= 503 and t:IsShown() and f:IsVisible() then n = n + 1 end
+	local n, canvas = 0, map:GetCanvas()
+	for _, f in ipairs(stub.frames) do
+		if under(f, canvas) then
+			for _, t in ipairs(f.regions or {}) do
+				if type(t.texture) == "number" and t.texture >= 501 and t.texture <= 503 and t:IsShown() and f:IsVisible() then n = n + 1 end
+			end
 		end
 	end
 	return n
 end
 local function drawn()
 	local labels = 0
-	for _, f in ipairs(m.canvas.children) do
-		if rawget(f, "Range") and f:IsVisible() then labels = labels + 1 end
+	for _, f in ipairs(stub.frames) do
+		if under(f, m.canvas) and rawget(f, "Range") and f:IsVisible() then labels = labels + 1 end
 	end
 	-- The way to the target: the route lines (Maps/RouteLines.lua), or the trail's dots while they draw nothing.
 	local R = Polestar.RouteLines

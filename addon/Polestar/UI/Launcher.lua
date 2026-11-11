@@ -1,16 +1,18 @@
 -- The floating button (setting ui.launcher, off by default): a small
--- Polestar button the player puts anywhere on the screen, for showing and
--- hiding the guide window without typing /polestar. It works as the minimap
--- button does (Maps/MinimapButton.lua): click shows or hides the window,
--- right-click opens Polestar's menu (Maps.ShowMenu), drag moves it (with
--- ui.lockHud on, only a Shift-drag: ns.DragLocked). Where it stands is
--- ui.launcherPos, its centre from the screen's bottom-left corner.
+-- Polestar button the player puts anywhere on the screen, for hiding and
+-- showing Polestar without typing. It works as the minimap button does
+-- (Maps/MinimapButton.lua): click hides or shows everything Polestar shows
+-- (Polestar.ToggleHidden), right-click opens Polestar's menu
+-- (Maps.ShowMenu), drag moves it (with ui.lockHud on, only a Shift-drag:
+-- ns.DragLocked). Where it stands is ui.launcherPos, its centre from the
+-- screen's bottom-left corner.
 --
 -- It follows the window's own rules (GuideFrame.RulesHide): it hides in a
 -- fight when the window does (ui.combat "hide") and in a dungeon or
 -- battleground the window waits out (ui.instance "hide"), and comes back
--- with the window there. It stays when the player hides the window: it is
--- the way to bring it back.
+-- with the window there. It stays when the player hides the window or
+-- Polestar (its logo greyed and dimmed then, Maps.PaintHidden): it is the
+-- way back.
 --
 -- Cost: nothing until the setting is first turned on (no frame exists).
 
@@ -45,12 +47,15 @@ local function place()
 	end
 end
 
+-- The minimap button's tooltip and dimmed look (Maps/MinimapButton.lua), shared.
 local function showTip(self)
-	ns.Widgets.Tooltip(self, "ANCHOR_LEFT", "Polestar", {
-		L["Click: show or hide the guide"],
-		L["Right-click: menu"],
-		ns.Get("ui.lockHud") and L["Shift-drag: move it"] or L["Drag: move it"],
-	})
+	local M = ns.Maps
+	if M and M.ButtonTip then M.ButtonTip(self, ns.Get("ui.lockHud") and L["Shift-drag: move it"] or L["Drag: move it"]) end
+end
+
+local function paintHidden()
+	local M = ns.Maps
+	if button and M and M.PaintHidden then M.PaintHidden(button) end
 end
 
 local function build()
@@ -80,7 +85,8 @@ local function build()
 			W.HideTooltip(self)
 			ns.Maps.ShowMenu(self)
 		else
-			ns.Fire("TOGGLE_FRAME")
+			ns.ToggleHidden()
+			if GameTooltip and GameTooltip:GetOwner() == self then showTip(self) end
 		end
 	end)
 	button:SetScript("OnEnter", showTip)
@@ -113,6 +119,7 @@ function Launcher.Refresh()
 	if Launcher.Wanted() then
 		if not build() then return end
 		place()
+		paintHidden()
 		button:Show()
 	elseif button then
 		button:Hide()
@@ -122,6 +129,8 @@ end
 ns.On("GUIDE_VISIBILITY", function()
 	if ns.IsLoggedIn() and (button or ns.Get("ui.launcher")) then Launcher.Refresh() end
 end)
+
+ns.On("POLESTAR_HIDDEN", paintHidden)
 
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end

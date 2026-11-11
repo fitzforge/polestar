@@ -210,5 +210,5 @@ if ns.RegisterCommand then
 		if j then
 			ns.Print(format(L["Cheapest junk: %s (%s)"], itemText(j), j.value < huge and QoL.Money(j.value) or "?"))
 		end
-	end, L["Free bag slots and the cheapest junk"])
+	end, L["Free bag slots and the cheapest junk"], true)
 end

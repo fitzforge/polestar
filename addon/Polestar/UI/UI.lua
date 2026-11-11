@@ -782,13 +782,23 @@ end
 -- Routing
 ---------------------------------------------------------------------------
 
+-- The window's toggle (its key, /polestar, the menu's Guide window) asks to
+-- see the guide: from hidden it brings Polestar back, turning the window on
+-- when it was off.
 ns.On("TOGGLE_FRAME", function()
+	if ns.Hidden() then
+		ns.SetHidden(false)
+		if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
+		return
+	end
 	local GF = UI.GuideFrame
 	if GF and GF.ToggleInside and GF.ToggleInside() then return end
 	ns.Set("ui.shown", not ns.Get("ui.shown"))
 end)
-ns.On("SHOW_FRAME", function() ns.Set("ui.shown", true) end)
-ns.On("HIDE_FRAME", function() ns.Set("ui.shown", false) end)
+ns.On("SHOW_FRAME", function()
+	ns.SetHidden(false)
+	ns.Set("ui.shown", true)
+end)
 ns.On("SHOW_PICKER", function() if UI.ShowPicker then UI.ShowPicker() end end)
 ns.On("SHOW_OPTIONS", function(section) if UI.ShowOptions then UI.ShowOptions(section) end end)
 -- The guide menu and the options from a key binding or a gamepad chord: open, or close when open.

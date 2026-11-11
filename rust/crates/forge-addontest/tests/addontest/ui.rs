@@ -1752,7 +1752,7 @@ fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_shows_once_how_to
 		enter(nil)
 		local keptVisible = told()
 		Polestar.Set("ui.instance", "hide")
-		Polestar.Fire("HIDE_FRAME")
+		Polestar.Set("ui.shown", false)
 		enter("party")
 		enter(nil)
 		local windowOff = told()
@@ -1795,8 +1795,9 @@ fn in_dungeons_and_battlegrounds_an_account_told_by_the_old_chat_line_sees_the_n
 	assert_eq!(out, json!({ "told": 1, "notices": 1, "hint": true }));
 }
 
-// The how-to names what this player has: the minimap button when it is on, the toggle's key when bound, else
-// /polestar; with the gamepad interface (no slash commands) never /polestar.
+// The how-to names what this player has: the minimap button's menu when the button is on (its click hides or
+// shows all of Polestar), the toggle's key when bound, else /polestar; with the gamepad interface (no slash
+// commands) never /polestar.
 #[test]
 fn in_dungeons_and_battlegrounds_the_hint_names_the_minimap_button_the_key_binding_or_polestar() {
 	let out = run(r#"
@@ -1816,13 +1817,13 @@ fn in_dungeons_and_battlegrounds_the_hint_names_the_minimap_button_the_key_bindi
 	assert_eq!(
 		out,
 		json!([
-			"Click the minimap button or press CTRL-P to show it.",
-			"Click the minimap button to show it.",
+			"Press CTRL-P, or right-click the minimap button and pick Guide window, to show it.",
+			"Right-click the minimap button and pick Guide window to show it.",
 			"Press CTRL-P or type /polestar to show it.",
 			"Type /polestar to show it.",
 			"Press PAD1 to show it.",
 			"Turn on the minimap button or bind a key to show it.",
-			"Click the minimap button to show it.",
+			"Right-click the minimap button and pick Guide window to show it.",
 		])
 	);
 }
@@ -1879,7 +1880,7 @@ fn in_dungeons_a_window_hidden_by_hand_stays_hidden_after_leaving() {
 		ENTER,
 		r#"
 		Polestar.Set("ui.instance", "hide")
-		Polestar.Fire("HIDE_FRAME")
+		Polestar.Set("ui.shown", false)
 		enter("party")
 		enter(nil)
 		emit({ shown = F:IsShown(), stored = Polestar.Get("ui.shown") })"#,
@@ -1895,7 +1896,7 @@ fn in_dungeons_a_window_off_on_the_way_in_opened_and_closed_there_with_polestar_
 		ENTER,
 		r#"
 		Polestar.Set("ui.instance", "hide")
-		Polestar.Fire("HIDE_FRAME")
+		Polestar.Set("ui.shown", false)
 		enter("party")
 		Polestar.Fire("TOGGLE_FRAME")
 		local opened = F:IsShown()
@@ -2443,16 +2444,16 @@ fn pointing_at_the_goals_scroll_bar_and_away_wakes_it_without_an_error_1030() {
 // The floating button (UI/Launcher.lua)
 // ---------------------------------------------------------------------------
 
-// Off by default (no frame); on, beside the window's default corner: click shows or hides the window,
-// right-click opens Polestar's menu, a drag moves it anywhere and saves where (ui.launcherPos); with
-// Lock arrow and buttons only a Shift-drag does.
+// Off by default (no frame); on, beside the window's default corner: click hides or shows all of Polestar (as
+// the minimap button does), right-click opens Polestar's menu, a drag moves it anywhere and saves where
+// (ui.launcherPos); with Lock arrow and buttons only a Shift-drag does.
 #[test]
-fn floating_button_off_by_default_on_it_toggles_the_window_opens_the_menu_and_a_drag_moves_it() {
+fn floating_button_off_by_default_on_it_hides_and_shows_polestar_opens_the_menu_and_a_drag_moves_it() {
 	let out = run(r#"
 		local before = PolestarLauncher ~= nil
 		local fired, menu = {}, nil
-		Polestar.On("TOGGLE_FRAME", function() fired[#fired + 1] = "toggle" end)
-		Polestar.Maps = { ShowMenu = function(anchor) menu = anchor end }
+		Polestar.On("POLESTAR_HIDDEN", function(hidden) fired[#fired + 1] = hidden end)
+		Polestar.Maps = { ShowMenu = function(anchor) menu = anchor end, PaintHidden = function() end, ButtonTip = function() end }
 		Polestar.Set("ui.launcher", true)
 		local b = PolestarLauncher
 		local function at() local p, rel, rp, x, y = b:GetPoint(1); return { p, rel == UIParent, rp, x, y } end
@@ -2479,7 +2480,7 @@ fn floating_button_off_by_default_on_it_toggles_the_window_opens_the_menu_and_a_
 	assert_eq!(out["before"], false, "no frame while off");
 	assert_eq!(out["start"], json!(["CENTER", true, "TOPRIGHT", -440, -256]), "beside the window's default corner");
 	assert_eq!(out["shown"], true);
-	assert_eq!(out["fired"], json!(["toggle"]));
+	assert_eq!(out["fired"], json!([true]), "a click hides Polestar; the button stays, the way back");
 	assert_eq!(out["menu"], true, "right-click opens Polestar's menu at the button");
 	assert_eq!(out["moving"], true);
 	// The 32 x 32 button's centre, from the screen's bottom-left corner.
@@ -2501,7 +2502,7 @@ fn floating_button_hides_in_combat_and_instances_as_the_window_does_and_stays_wh
 		Polestar.Set("ui.launcher", true)
 		local b = PolestarLauncher
 		local r = {}
-		Polestar.Fire("HIDE_FRAME")
+		Polestar.Set("ui.shown", false)
 		r.windowHidden = b:IsShown()
 		Polestar.Fire("SHOW_FRAME")
 		stub.fire("PLAYER_REGEN_DISABLED")

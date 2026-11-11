@@ -140,9 +140,14 @@ local function itemOf(button)
 	return C and C.GetContainerItemLink and Client.ItemIDFromLink(C.GetContainerItemLink(bag, button:GetID())) or nil
 end
 
+-- The glow and the locks: with the setting, not while Polestar is hidden.
+local function glowing()
+	return QoL.On("bagGlow") and not ns.Hidden()
+end
+
 local function updateFrame(frame)
 	if type(frame.EnumerateValidItems) ~= "function" then return end
-	local on = QoL.On("bagGlow")
+	local on = glowing()
 	for _, button in frame:EnumerateValidItems() do
 		local id = on and itemOf(button)
 		if id and wanted(id) then
@@ -205,7 +210,7 @@ local function registerBaganator()
 	if not API then return false end
 	baganator = true
 	API.RegisterCornerWidget(L["Polestar: step item"], WIDGET, function(_, details)
-		return QoL.On("bagGlow") and type(details) == "table" and wanted(details.itemID) or false
+		return glowing() and type(details) == "table" and wanted(details.itemID) or false
 	end, function(button)
 		local t = button:CreateTexture(nil, "OVERLAY")
 		local w = button.GetWidth and button:GetWidth() or 37
@@ -217,7 +222,7 @@ local function registerBaganator()
 		return t
 	end, { corner = "bottom_right", priority = 1 })
 	API.RegisterCornerWidget(L["Polestar: kept for the guide"], KEEP_WIDGET, function(_, details)
-		return QoL.On("bagGlow") and type(details) == "table" and locked(details.itemID) or false
+		return glowing() and type(details) == "table" and locked(details.itemID) or false
 	end, function(button)
 		local t = button:CreateTexture(nil, "OVERLAY")
 		t:SetSize(LOCK_SIZE, LOCK_SIZE)
@@ -261,7 +266,7 @@ end
 -- The step's items and the kept ones again; a repaint only when they changed.
 local function refresh()
 	local view, raw = QoL.CurrentStep()
-	local on = QoL.On("bagGlow")
+	local on = glowing()
 	local now = on and BagGlow.Items(view, raw) or {}
 	local keep = {}
 	local E = ns.Engine
@@ -277,13 +282,15 @@ BagGlow.Refresh = refresh
 QoL.OnStep(refreshSoon)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
 ns.RegisterEvent("QUEST_LOG_UPDATE", refreshSoon)
+local function reset()
+	items, kept = {}, {}
+	refreshSoon()
+	BagGlow.Redraw()
+end
 ns.On("SETTING_CHANGED", function(path)
-	if path == "qol.bagGlow" or path == "qol" or path == "" then
-		items, kept = {}, {}
-		refreshSoon()
-		BagGlow.Redraw()
-	end
+	if path == "qol.bagGlow" or path == "qol" or path == "" then reset() end
 end)
+ns.On("POLESTAR_HIDDEN", reset)
 
 if ns.Theme and ns.Theme.OnChanged then
 	ns.Theme.OnChanged(function()

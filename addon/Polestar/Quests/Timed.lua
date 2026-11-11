@@ -141,7 +141,7 @@ end
 local function alert(text)
 	if not ns.Get("qol.questTimerAlerts") then return end
 	ns.Print(text)
-	if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then pcall(PlaySound, SOUNDKIT.RAID_WARNING, "Master") end
+	if SOUNDKIT and SOUNDKIT.RAID_WARNING then pcall(ns.PlaySound, SOUNDKIT.RAID_WARNING, "Master") end
 end
 
 local function passed(q, mark)

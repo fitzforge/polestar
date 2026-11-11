@@ -84,10 +84,11 @@ Good to know:
 
 - `/polestar guides` opens the hub: every guide, Lookup, Dungeons, Talents
   and Rares. `/polestar options` holds every setting; quest markers on the map
-  are off until you turn them on under **Map**. The Polestar button on the
-  minimap's edge shows or hides the guide window with a click; right-click it
-  for a short menu, drag it to move it (Options, Map, Guide & quests,
-  Minimap button turns it off).
+  are off until you turn them on under **Map**. A click on the Polestar button
+  on the minimap's edge hides everything Polestar shows, and a second click
+  brings it all back; right-click it for a short menu (the guide window, the
+  arrow, whether hiding keeps the arrow), drag it to move it (Options, Map,
+  Guide & quests, Minimap button turns it off).
 - `/polestar skip` moves on for good; `/polestar next` and `prev` only look
   ahead or back.
 - **Updating:** the CurseForge app and the Polestar Client update Polestar for
@@ -469,14 +470,27 @@ its source is in [apps/client](apps/client).
   dungeons and battlegrounds; on by default): the guide window, its action
   buttons and alerts stay out of the way inside dungeons, raids,
   battlegrounds and arenas and come back when you leave. `/polestar`, the key
-  binding or the minimap button still opens it while you are inside. The
-  first time it hides, a note at the top of the screen says how to bring it
-  back.
+  binding or **Guide window** in the minimap button's menu still opens it
+  while you are inside. The first time it hides, a note at the top of the
+  screen says how to bring it back.
 - **Floating button** (Options, Guide, Window, Show and hide; off by default):
-  a small Polestar button you put anywhere on the screen. Click it to show or
-  hide the guide window, right-click it for a short menu, drag it to move it.
-  It hides with the window in combat and in dungeons when those are set to
-  hide. The minimap button's switch is there too.
+  a small Polestar button you put anywhere on the screen. It works as the
+  minimap button does: click it to hide or show Polestar, right-click it for
+  the same menu, drag it to move it. It hides with the window in combat and in
+  dungeons when those are set to hide. The minimap button's switch is there
+  too.
+- **Hiding Polestar** (a click on the minimap or floating button, Polestar in
+  the addon list on the minimap, the **Hide/show Polestar** key binding or
+  `/polestar hide`): everything Polestar shows goes at once, the guide window,
+  the arrow, the buttons, alerts and toasts, the lines and pins on the map and
+  minimap, the marks on your bags, quest windows, nameplates and tooltips,
+  and its sounds. Your guide keeps up with what you do meanwhile, and the next
+  click brings it all back as it was, also after a `/reload`. The minimap
+  button stays, dimmed. **Keep the arrow when hidden** (in the minimap
+  button's menu and under Show and hide; this character only) leaves the
+  arrow, its travel button and its arrival sound. Opening a Polestar window
+  (the guides, the options, their key bindings) brings Polestar back. In a
+  fight the action buttons go or come back when it ends.
 
 ### Navigation
 
@@ -759,16 +773,16 @@ Polestar plays with a gamepad on Forever (ported from Ding! by Yendi,
 gamepad` without the game's gamepad interface): their **Gamepad** page names
 the buttons (Xbox letters or PlayStation shapes, read off the gamepad by
 default), and its **Key bindings** tab binds every Polestar action: next and
-previous step, browse the guide, show or hide the guide window, the guide
-menu, the options, report a problem, and the quest item, target and
-Hearthstone buttons. Nothing is bound until you bind it. Press A on a row,
-then a button, or hold one button and press another for a combination:
-Polestar watches its combinations itself, keeps the second button from the
-game only while you hold the first, and never acts on one in a fight. With
-the game's gamepad interface on, LB and RB are its targeting buttons and
-every combination with them is the game's own: the row says so before it
-binds one. Tap B to cancel, hold B to bind B itself; Y unbinds. The rows take
-keys of the keyboard too.
+previous step, browse the guide, show or hide the guide window, hide or show
+all of Polestar, the guide menu, the options, report a problem, and the quest
+item, target and Hearthstone buttons. Nothing is bound until you bind it.
+Press A on a row, then a button, or hold one button and press another for a
+combination: Polestar watches its combinations itself, keeps the second
+button from the game only while you hold the first, and never acts on one in
+a fight. With the game's gamepad interface on, LB and RB are its targeting
+buttons and every combination with them is the game's own: the row says so
+before it binds one. Tap B to cancel, hold B to bind B itself; Y unbinds. The
+rows take keys of the keyboard too.
 
 The guide window never takes a button away from the game. To browse it with
 the gamepad, bind **Browse the guide with the gamepad**: the D-pad picks a
@@ -830,7 +844,8 @@ settings instead, and Polestar keeps out of the game's own windows.
 | Command | What it does |
 |---|---|
 | `help` | List every command |
-| `show`, `hide` | Show or hide the guide window, with the action buttons and the rare and transport alerts; the arrow too only with **Hide the arrow with the guide** (Options, Guide, Arrow & routes), and never the arrow back to your corpse or a Spirit Healer |
+| `show` | Show the guide window, and Polestar with it when it is hidden. `/polestar` alone shows or hides the window, with the action buttons and the rare and transport alerts; the arrow too only with **Hide the arrow with the guide** (Options, Guide, Arrow & routes), and never the arrow back to your corpse or a Spirit Healer |
+| `hide` | Hide everything Polestar shows, or bring it back, as a click on the minimap button does; `hide arrow` turns **Keep the arrow when hidden** on or off |
 | `guides` | Open the hub on Guides |
 | `options [page]` | Open the settings, optionally on a page |
 | `next`, `prev` | Look at the next or previous step (nothing is skipped) |
@@ -843,7 +858,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `skipleg` | Skip the travel route's current leg (a Hearthstone, flight or portal: plan the rest without it; a walk or lift: mark it done) |
 | `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
-| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**), these commands, `way` and `near` say so |
+| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**) or Polestar is hidden, these commands, `way` and `near` say so |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
 | `party [debug]` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need); `debug` prints what party sync sends and hears, for a report |

@@ -1419,6 +1419,13 @@ function W.MenuShown(owner)
 	return menu and menu:IsShown() and (not owner or menu.psOwner == owner) or false
 end
 
+-- The menu is on UIParent, not Polestar's layer (Core/Init.lua): the minimap
+-- button's menu works while Polestar is hidden. One open as Polestar hides
+-- (a window's dropdown, a key pressed) closes.
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if hidden then W.HideMenu() end
+end)
+
 ---------------------------------------------------------------------------
 -- Dropdown: a button showing the current choice; the list is the menu.
 -- choices: a list or a function returning one (choices that come and go).
@@ -2096,7 +2103,7 @@ local function closeModal(accept)
 end
 
 local function buildModal()
-	local s = CreateFrame("Button", "PolestarModal", UIParent)
+	local s = CreateFrame("Button", "PolestarModal", ns.UIParent)
 	s:SetAllPoints(UIParent)
 	s:SetFrameStrata("FULLSCREEN_DIALOG")
 	s:EnableMouse(true)
@@ -2697,7 +2704,7 @@ function W.Shell(name, opts)
 	local RAIL = opts.rail and SHELL.rail or 0
 	local Wd, Hd = opts.width or (SHELL.width + RAIL), opts.height or SHELL.height
 	local SB = opts.sidebar or SHELL.sidebar
-	local f = CreateFrame("Frame", name, UIParent)
+	local f = CreateFrame("Frame", name, ns.UIParent)
 	f.psSidebar = SB
 	f:SetSize(Wd, Hd)
 	f:SetPoint("CENTER", UIParent, "CENTER", 0, 20)

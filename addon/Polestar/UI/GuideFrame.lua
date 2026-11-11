@@ -4262,13 +4262,13 @@ end
 
 -- The quest log's menu on a quest (right-click its title): pin it as along
 -- the way, or unpin it (#644). Not with the gamepad interface (ns.GamepadUI),
--- as Nav/Nearby.lua's map menus.
+-- as Nav/Nearby.lua's map menus, nor while Polestar is hidden.
 ns.OnLogin(function()
 	if ns.GamepadUI() or not (Menu and Menu.ModifyMenu) then return end
 	Menu.ModifyMenu("MENU_QUEST_MAP_LOG_TITLE", function(owner, root)
 		local q = owner and owner.questID
 		local E = Engine()
-		if type(q) ~= "number" or not (E and E.PinQuest) then return end
+		if ns.Hidden() or type(q) ~= "number" or not (E and E.PinQuest) then return end
 		local pinned = E.IsPinned(q)
 		root:CreateDivider()
 		root:CreateButton(pinned and L["Unpin from along the way"] or L["Pin as along the way"], function() E.PinQuest(q, not pinned) end)
@@ -4449,7 +4449,7 @@ end
 
 local function build()
 	readMetrics()
-	F = CreateFrame("Frame", "PolestarGuideFrame", UIParent)
+	F = CreateFrame("Frame", "PolestarGuideFrame", ns.UIParent)
 	F:SetFrameStrata("MEDIUM")
 	F:SetClampedToScreen(true)
 	F:SetMovable(true)
@@ -5325,18 +5325,18 @@ local function instanceNow()
 	return (ok and inside and INSTANCE_KINDS[kind]) and true or false
 end
 
--- How to bring the window back inside: the minimap button (when on), the
--- toggle's key binding (when bound, named as the client names it: "Ctrl-P"),
--- else /polestar (never with the gamepad interface, which has no slash
--- commands).
+-- How to bring the window back inside: the minimap button's menu (when the
+-- button is on: its click hides or shows all of Polestar), the toggle's key
+-- binding (when bound, named as the client names it: "Ctrl-P"), else
+-- /polestar (never with the gamepad interface, which has no slash commands).
 function GF.HowToShow()
 	local button = ns.Get("maps.minimapButton")
 	local key = GetBindingKey and GetBindingKey("POLESTAR_TOGGLE")
 	if key == "" then key = nil end
 	local named = key and GetBindingText and GetBindingText(key)
 	if type(named) == "string" and named ~= "" then key = named end
-	if button and key then return L["Click the minimap button or press %s to show it."]:format(key) end
-	if button then return L["Click the minimap button to show it."] end
+	if button and key then return L["Press %s, or right-click the minimap button and pick Guide window, to show it."]:format(key) end
+	if button then return L["Right-click the minimap button and pick Guide window to show it."] end
 	if ns.GamepadUI() then
 		if key then return L["Press %s to show it."]:format(key) end
 		return L["Turn on the minimap button or bind a key to show it."]
@@ -5349,10 +5349,12 @@ end
 -- notice at the top of the screen (Nav/Alerts.lua) says how to bring it
 -- back for 12 seconds, and one chat line says where the setting is.
 -- Accounts told before by the chat line alone (instanceHideTold) see the
--- notice once too. (This chunk is at Lua 5.1's 200 locals: no new ones.)
+-- notice once too. Not while Polestar is hidden: the player hid it all, and
+-- the hint waits for an entry Polestar is shown on. (This chunk is at Lua
+-- 5.1's 200 locals: no new ones.)
 local function hintHiddenOnce()
 	local db = ns.DB()
-	if db.instanceHint then return end
+	if db.instanceHint or ns.Hidden() then return end
 	db.instanceHint = true
 	db.instanceHideTold = nil
 	local howTo = GF.HowToShow()

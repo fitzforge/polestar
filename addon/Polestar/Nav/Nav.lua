@@ -360,8 +360,8 @@ end
 
 local function playArrival()
 	if not ns.Get("nav.arrivalSound") or (Nav.HandedOff and Nav.HandedOff()) then return end
-	local id = (SOUNDKIT and SOUNDKIT.MAP_PING) or 3175
-	if PlaySound then PlaySound(id, "SFX") end
+	-- The arrow's own sound: it plays while hiding Polestar keeps the arrow.
+	ns.PlaySound((SOUNDKIT and SOUNDKIT.MAP_PING) or 3175, "SFX", true)
 end
 
 local function toward(C, px, py, ax, ay)
@@ -549,6 +549,7 @@ ns.On("SETTING_CHANGED", function(path)
 	end
 end)
 ns.On("GUIDE_SHOWN", function() Nav.Refresh() end) -- an instance hide (ns.GuideShown)
+ns.On("POLESTAR_HIDDEN", function() Nav.Refresh() end) -- the arrow and its travel button (ns.ArrowHidden)
 
 local function situationChanged()
 	if target and not tC then resolve() end
@@ -614,20 +615,32 @@ end
 -- Whether hiding the guide window (ui.shown) hides the arrow now: only with
 -- nav.hideArrowWithGuide on, and never while the arrow is held (Nav.Hold: the
 -- way back to your corpse or a Spirit Healer). The travel button goes with
--- the window either way (Nav/Prompts.lua).
+-- the window either way (Nav/Prompts.lua). The window's own on/off: hiding
+-- Polestar takes the arrow by ns.ArrowHidden, not by this.
 function Nav.HiddenWithGuide()
-	if ns.GuideShown() or not ns.Get("nav.hideArrowWithGuide") then return false end
+	if ns.GuideWindowOn() or not ns.Get("nav.hideArrowWithGuide") then return false end
 	return hold == nil
 end
 
--- A command that asked for the arrow while the guide hides it still takes
+-- A command that asked for the arrow while something hides it still takes
 -- effect: says why nothing shows yet.
 function Nav.SayGuideHidden()
-	if Nav.HiddenWithGuide() then
+	if ns.ArrowHidden() then
+		ns.Print(L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."])
+	elseif Nav.HiddenWithGuide() then
 		ns.Print(L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."])
 	end
 end
 
+-- The arrow on or off (nav.arrow): /polestar arrow, the minimap button's menu.
+function Nav.ToggleArrow()
+	if not ns.Get("nav.arrow") and Nav.SayHandedOff() then return end
+	ns.Set("nav.arrow", not ns.Get("nav.arrow"))
+	if ns.Get("nav.arrow") then Nav.SayGuideHidden() end
+end
+
+-- Quiet (Init.lua's RegisterCommand): the arrow's commands set the arrow and
+-- say why it does not show while Polestar is hidden.
 ns.RegisterCommand("arrow", function(rest)
 	local arg = (rest or ""):lower()
 	if arg == "reset" then
@@ -637,11 +650,9 @@ ns.RegisterCommand("arrow", function(rest)
 		ns.Set("nav.arrow", arg == "show")
 		if arg == "show" then Nav.SayGuideHidden() end
 	else
-		if not ns.Get("nav.arrow") and Nav.SayHandedOff() then return end
-		ns.Set("nav.arrow", not ns.Get("nav.arrow"))
-		if ns.Get("nav.arrow") then Nav.SayGuideHidden() end
+		Nav.ToggleArrow()
 	end
-end, L["Waypoint arrow: show, hide, reset"])
+end, L["Waypoint arrow: show, hide, reset"], true)
 
 -- Two whitespace-separated coordinates take decimal points ("45.5 30.2") or a
 -- decimal comma in both ("45,5 30,2"); otherwise a comma separates x and y
@@ -677,4 +688,4 @@ ns.RegisterCommand("way", function(rest)
 		return
 	end
 	if Nav.SetTarget(map, x, y, label ~= "" and label or nil) then Nav.SayGuideHidden() end
-end, L["Point the arrow at x y on your current map (no argument clears it)"])
+end, L["Point the arrow at x y on your current map (no argument clears it)"], true)

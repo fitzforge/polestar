@@ -130,16 +130,36 @@ function Methods.UnregisterEvent(self, ev) self.events[ev] = nil end
 function Methods.UnregisterAllEvents(self) self.events = {} end
 function Methods.IsEventRegistered(self, ev) return self.events[ev] == true end
 
--- Visibility
+-- Visibility. With stub.cascadeVisibility on, as in the client: showing or
+-- hiding a frame also runs OnShow / OnHide on every shown descendant whose
+-- visibility changed with it (a hidden parent's children are not visible).
+-- Off by default: tests written before it fire only the frame's own.
+local function cascade(self, script, seen)
+	seen = seen or {}
+	for _, c in ipairs(self.children) do
+		if c.parent == self and c.shown and not seen[c] then
+			seen[c] = true
+			RunScript(c, script)
+			cascade(c, script, seen)
+		end
+	end
+end
 function Methods.Show(self)
 	local was = self.shown
 	self.shown = true
-	if not was then RunScript(self, "OnShow") end
+	if not was then
+		RunScript(self, "OnShow")
+		if stub.cascadeVisibility and Methods.IsVisible(self) then cascade(self, "OnShow") end
+	end
 end
 function Methods.Hide(self)
 	local was = self.shown
+	local visible = was and stub.cascadeVisibility and Methods.IsVisible(self)
 	self.shown = false
-	if was then RunScript(self, "OnHide") end
+	if was then
+		RunScript(self, "OnHide")
+		if visible then cascade(self, "OnHide") end
+	end
 end
 function Methods.SetShown(self, v) if v then self:Show() else self:Hide() end end
 function Methods.IsShown(self) return self.shown end

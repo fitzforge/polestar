@@ -326,13 +326,14 @@ local function context()
 end
 Rares.Context = context
 
+-- Silent while Polestar is hidden (ns.PlaySound).
 function Rares.PlaySound()
-	if not get("sound") or not PlaySound then return end
+	if not get("sound") then return end
 	local choice = get("soundKit")
 	for _, s in ipairs(Rares.SOUNDS) do
 		if s.value == choice then
 			local id = (SOUNDKIT and SOUNDKIT[s.kit]) or s.id
-			pcall(PlaySound, id, "Master")
+			pcall(ns.PlaySound, id, "Master")
 			return
 		end
 	end

@@ -129,7 +129,7 @@ end
 
 local function build()
 	local Theme, W, Anim = ns.Theme, ns.Widgets, ns.Anim
-	local f = CreateFrame("Frame", "PolestarAlert", UIParent)
+	local f = CreateFrame("Frame", "PolestarAlert", ns.UIParent)
 	f:SetSize(WIDTH, HEIGHT)
 	f:SetFrameStrata("HIGH")
 	f:SetClampedToScreen(true)
@@ -221,7 +221,9 @@ local function build()
 	Alerts.banner = f
 end
 
+-- Nothing shows while Polestar is hidden, and nothing waits for it to come back.
 local function present(notice, seconds)
+	if ns.Hidden() then return end
 	banner.psNotice = notice
 	paintRing(banner)
 	layout(banner)
@@ -263,6 +265,12 @@ function Alerts.HideNotice()
 	if banner and banner.psNotice and banner:IsShown() then banner:Hide() end
 end
 
+-- Hiding Polestar takes the banner down, countdown or notice: news while
+-- hidden is not kept for after (Alerts.Check stays quiet until it is back).
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if hidden and banner and banner:IsShown() then banner:Hide() end
+end)
+
 ---------------------------------------------------------------------------
 -- Checking
 ---------------------------------------------------------------------------
@@ -273,7 +281,7 @@ local function alert(key, kind, title, whenFormat, seconds)
 	if last and now - last < REPEAT then return false end
 	alerted[key] = now
 	if ns.Get("nav.alertBanner") then showBanner(title, whenFormat, seconds) end
-	if ns.Get("nav.alertSound") and PlaySoundFile then PlaySoundFile(SOUND[kind], "Master") end
+	if ns.Get("nav.alertSound") then ns.PlaySoundFile(SOUND[kind], "Master") end
 	if ns.Get("nav.alertFlash") and FlashClientIcon then FlashClientIcon() end
 	ns.Fire("NAV_TRANSIT_ALERT", kind, title, seconds)
 	return true
@@ -336,7 +344,7 @@ ns.On("NAV_TRANSIT", function() Alerts.Check() end)
 -- A sample, from the options page.
 function Alerts.ShowSample()
 	showBanner(format(ARRIVES.boat, L["Menethil Harbor"]), L["Arrives in %s"], AT_DOCK)
-	if ns.Get("nav.alertSound") and PlaySoundFile then PlaySoundFile(SOUND.boat, "Master") end
+	if ns.Get("nav.alertSound") then ns.PlaySoundFile(SOUND.boat, "Master") end
 end
 
 ---------------------------------------------------------------------------

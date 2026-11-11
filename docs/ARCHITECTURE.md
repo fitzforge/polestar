@@ -140,7 +140,8 @@ Messages:
 | `GUIDE_PLACED` | guideId, stepIndex or nil, `{ guideId, ... }` | Engine, active tab, once placement of a guide just opened ends (see "Placement"; not for a guide a login or /reload brings back): where the guide resumes, and the guides passed whole on the way; the guide window goes over the steps before it, titles and count rolling (`GF.PlayCatchUp`, after `PLAYER_ENTERING_WORLD`) |
 | `CATCH_UP` | true \| false | Guide window, while its catch-up goes over the steps (`GF.PlayCatchUp`): the arrow shows an hourglass turning over in its dial's place (`Arrow.SetBusy`; Media/UI `hourglass`, `hourglass-sand`, tools/media/ui.js) |
 | `SETTING_CHANGED` | path, value | Core settings |
-| `TOGGLE_FRAME` / `SHOW_FRAME` / `HIDE_FRAME` | — | commands, keybinds → UI |
+| `TOGGLE_FRAME` / `SHOW_FRAME` | — | commands, keybinds → UI (from a hidden Polestar both show it again, the window with it) |
+| `POLESTAR_HIDDEN` | hidden (true \| false) | Core, `Polestar.SetHidden` (and true again as "Keep the arrow when hidden" changes while hidden): see "Hiding Polestar" |
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil | commands → UI |
 | `SHOW_WELCOME` | page or nil | About's "Show the welcome again", `/polestar welcome` → UI/Welcome.lua |
@@ -255,12 +256,18 @@ says so.
 ### Commands
 
 ```lua
-Polestar.RegisterCommand(name, fn(argString), help)
+Polestar.RegisterCommand(name, fn(argString), help, quiet)
 ```
 
 `/polestar` and `/pole`. No argument fires `TOGGLE_FRAME`. `help` lists
 registered commands with their `help` lines (already translated:
-`L["..."]`). Core registers (Core/Commands.lua): `guides`, `options`, `show`, `hide`,
+`L["..."]`). A command typed while Polestar is hidden brings it back first
+(`SetHidden(false)`), as it asks to see something, unless it is registered
+`quiet`: one that only prints or sets (`hide`, `status`, `tabs`, `debug`,
+`arrow`, `way`, `near`, `route`, `skipleg`, `xp`, `bags`, `questdb`,
+`instances`, `restock`). Core registers (Core/Commands.lua): `guides`,
+`options`, `show` (`SHOW_FRAME`), `hide` (hides or shows all of Polestar;
+`hide arrow` toggles "Keep the arrow when hidden", see "Hiding Polestar"),
 `next`, `prev` (look at the next/previous step; nothing changes), `skip`
 (skip the step shown, for good), `reset` (clear ticks, latches, skips and
 the saved view for the current guide), `guide <id>`, `status`, `tabs`,
@@ -332,13 +339,113 @@ panel after it). `SetParent` is not hooked. So every frame of Polestar's
 whose parent is a game frame, or is under one (the map canvases, the
 minimap, the quest reward and talent buttons, the XP bar, and the frames
 under those), is made through `CreateFrameUnder`; frames under Polestar's
-own windows, which hang off `UIParent`, are made with `CreateFrame`. No
+own windows, which hang off `Polestar.UIParent` (see "Hiding Polestar"), are made with `CreateFrame`. No
 `CreateFramePool` with a game frame either: it calls `CreateFrame` with its
 parent. `tests/lua/wow_stub.lua`'s `CreateFrame` raises on a call from addon
 code whose parent is, or is under, a frame addon code did not make
 (`stub.underGameFrames`), and `rust/crates/forge-addontest/tests/addontest/nav-mapcanvas.rs`,
 `rust/crates/forge-addontest/tests/addontest/qol.rs` (the reward marks, the XP bar mark) and
 `rust/crates/forge-addontest/tests/addontest/talents.rs` (the talent marks) check that none was made.
+
+### Hiding Polestar
+
+```lua
+Polestar.UIParent                  -- PolestarUIParent: the layer every Polestar frame on the screen hangs off
+Polestar.Hidden() -> bool          -- Polestar is hidden (this character, kept through a /reload)
+Polestar.SetHidden(on) / Polestar.ToggleHidden()
+Polestar.HideKeepsArrow() -> bool  -- "Keep the arrow when hidden" (this character)
+Polestar.SetHideKeepsArrow(on)
+Polestar.ArrowHidden() -> bool     -- hidden and not keeping the arrow: the arrow, its travel button and arrival chime go
+Polestar.GuideShown() -> bool      -- the guide window's state shown and Polestar not hidden
+Polestar.GuideWindowOn() -> bool   -- the window's own state (ui.shown, the instance wait), hidden or not
+Polestar.PlaySound(kit, channel, arrow) / Polestar.PlaySoundFile(file, channel, arrow)
+```
+
+One switch per character hides everything Polestar shows and brings it back
+as it was: a click on the minimap button (`Maps/MinimapButton.lua`), on the
+floating button (`UI/Launcher.lua`) or on Polestar's row in the addon
+compartment, the `POLESTAR_HIDE` binding ("Hide/show Polestar"; a gamepad
+chord too, `UI/Gamepad.lua`) and `/polestar hide`. `SetHidden` keeps it in
+`PolestarCharDB.hidden` (read as the addon loads, so a `/reload` or the next
+login starts hidden and nothing flashes up), then fires `POLESTAR_HIDDEN`
+(hidden), and `GUIDE_SHOWN` when `GuideShown()` changes with it. The engine,
+party sync, the Recorder, the vendor and delete guards, the quest automation
+and the navigation's own state run on, so Polestar comes back on the step the
+player reached; nothing it would have shown meanwhile is kept for later (no
+toast, alert, sound or ping waits).
+
+How each surface hides:
+
+- Frames on the screen: every Polestar frame that would hang off `UIParent`
+  is made with `Polestar.UIParent` as its parent (anchored to `UIParent` as
+  before). The layer is a plain frame the screen's size at `UIParent`'s frame
+  level; hiding is its `Hide()`, so each window, card, toast and panel keeps
+  its own shown state, their OnUpdate scripts stop, and they come back as
+  they were. A window whose OnHide closes or resets it checks
+  `self:IsShown()` first (an ancestor's hide fires it too). While hidden, the
+  windows under the layer leave `UISpecialFrames` (`CloseOnEscape` keeps the
+  list): the client's `CloseSpecialWindows` hides a listed window that
+  `IsShown`, seen or not, and Escape would close one out of sight instead of
+  opening the game menu.
+- Not under the layer: the secure buttons (the quest item, target, step,
+  Hearthstone, bag, travel, rare and name-target buttons; a protected child would
+  make the layer protected in a fight): each follows `GuideShown()` or
+  `ArrowHidden()` and changes out of combat, as before, so in a fight the
+  rest goes at once and they go when it ends (back the same way). The arrow
+  (`Nav/Arrow.lua`, `shouldShow`: `not ArrowHidden()`), which "Keep the arrow
+  when hidden" may keep, and the ways back: the minimap button (dimmed:
+  `Maps.PaintHidden`, its tooltip says how to show Polestar), the floating
+  button and the menu they open.
+- The maps: every drawing on a map canvas is made under the view's frame
+  (`view.frame`, MapCanvas), which `POLESTAR_HIDDEN` hides on every map; its
+  listeners get "hide", and "show" with fresh values when it comes back. The
+  world map's info bar and the instance and coordinates readouts check
+  `Hidden()` too.
+- The minimap (its children are the game's, and the route lines, pins, pings
+  and trail draw there): `Pins` and `RouteLines` draw nothing and sample
+  nothing while hidden (their drivers hang off the layer, so their OnUpdate
+  stops), and redraw on `POLESTAR_HIDDEN`; pings due while hidden are marked
+  played, not sounded on the way back.
+- Marks on the game's frames and lines in its tooltips and menus: the bag
+  arrows and glow, the quest bag marks, quest levels, nameplate icons, the
+  quest tracker's captions (Questie), the talent overlay, the XP bar mark,
+  the reward marks, the flight map's node mark (the step key still flies
+  there), the restock button, tooltip lines (`Hooks.decorate`), item clicks,
+  and Polestar's entries in the quest log, map tracking and minimap menus:
+  each asks `Hidden()` and redraws on `POLESTAR_HIDDEN`.
+- Sounds go through `Polestar.PlaySound` / `PlaySoundFile`: silent while
+  hidden; one passed `arrow` (the arrival chime) is silent only while
+  `ArrowHidden()`. Toasts and banners showing as Polestar hides are taken
+  down (the rare and while-here toasts, the transport banner and notices,
+  open menus), and none shows while hidden (a rare spotted, a while-here
+  line, a notice: `Alerts`' `present` returns at once).
+- `ArrowHidden()` also stops the arrow's mirrors (TomTom's and the game's
+  waypoint, `Nav/Bridges.lua`) and the hand-off to Shortest Path Forever
+  (`Nav/Handoff.lua`); the cast prompt (`Nav/Prompts.lua`) goes with the
+  arrow. `/polestar arrow`, `way` and `near` say why the arrow does not show
+  (`Nav.SayGuideHidden`).
+
+"Keep the arrow when hidden" (`PolestarCharDB.hideKeepsArrow`, off by
+default): the minimap button's menu, Options (Guide, Window, Show and hide)
+and `/polestar hide arrow`. Changed while hidden, it takes effect at once
+(`POLESTAR_HIDDEN` true again). The menu also has the guide window
+(`TOGGLE_FRAME`) and the arrow (`nav.arrow`, `Nav.ToggleArrow`) on their own.
+
+Opening a window brings Polestar back first: the toggle and show of the
+guide window (`TOGGLE_FRAME`, `SHOW_FRAME`: hidden, they show Polestar and
+turn `ui.shown` on), the menu's Guides, Lookup and Options, the bindings
+for the guide menu, the options, focus and the report, the game menu's
+Polestar button, and every command not registered `quiet`.
+
+`rust/crates/forge-addontest/tests/addontest/hide-all.rs` hides and shows a
+loaded Polestar with every surface up (the round trip restores each frame's
+shown state, nothing draws or plays while hidden, a `/reload` keeps it, a
+fight holds only the secure buttons back), and keeps a registry of every
+frame parented to `UIParent`, the minimap or a game frame and every sound
+call: a new one fails the test until it is listed, so a new surface is
+decided on. New frames on the screen take `Polestar.UIParent` as their
+parent, new sounds go through `Polestar.PlaySound`, new toasts check
+`Polestar.Hidden()`, and new map drawings hang off `view.frame`.
 
 ### Gamepad interface
 
@@ -2929,7 +3036,7 @@ Tested by `rust/crates/forge-addontest/tests/addontest/nav-handoff.rs` against a
 ```lua
 local view = Polestar.MapCanvas.Watch(map, fn)  -- map: WorldMapFrame or BattlefieldMapFrame; one view per map frame
 -- fn(view, what, elapsed): what = "show" | "map" | "size" | "scale" | "alpha" | "hide" | "tick"
--- view.map, view.canvas, view.shown, view.mapID, view.width, view.height, view.scale, view.zoom, view.pinScale, view.alpha
+-- view.map, view.canvas, view.frame, view.shown, view.mapID, view.width, view.height, view.scale, view.zoom, view.pinScale, view.alpha
 view:Level(levelType)              -- the frame level the map gives its pins of that level type
 view:PinScale(startScale, endScale) -- a map pin's scale under SetScalingLimits(1, startScale, endScale)
 Polestar.MapCanvas.Get(map) -> view | nil
@@ -2945,9 +3052,12 @@ tables taints that code and the game blocks the call ("An action was blocked
 because of taint from Polestar"). So every module draws on the maps through
 `Nav/MapCanvas.lua` and never writes into them: no data provider, no pin
 pool, no `AcquirePin`, no map method that writes, no hook on the map. Its
-frames are children of `map:GetCanvas()` (parenting is the client's, in C:
-the scroll frame clips them, they show and hide with the map), each made
-with no parent and then set under the canvas (`CreateFrameUnder`, Core,
+frames are under `map:GetCanvas()` (parenting is the client's, in C:
+the scroll frame clips them, they show and hide with the map): the view's
+own frame (`view.frame`) is the canvas's child and every drawing is made
+under it, so hiding Polestar hides them all at once (see "Hiding
+Polestar"). Each is made
+with no parent and then set under its parent (`CreateFrameUnder`, Core,
 "Frames under the game's UI"), positioned
 from map percent times the canvas size, and the map is only read through
 `GetMapID`, `GetCanvas`, `GetCanvasScale`, `HasZoomLevels`,
@@ -4814,8 +4924,13 @@ flight timer and the instance tracker are set under Quality of Life.
   turning it off stores `false`, so it stays off; `undoMinimapButtonKept` in
   `Maps/Maps.lua` clears, once, the `false` the 0.3.6 test builds stored with
   `PolestarDB.minimapButtonKept`; `Maps/MinimapButton.lua`):
-  click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu` (show or hide
-  the window, Guides, Lookup, Options, Report a problem; each fires the
+  click hides or shows all of Polestar (`Polestar.ToggleHidden`, see "Hiding
+  Polestar"; while hidden its icon is dimmed, `Maps.PaintHidden`, and its
+  tooltip, `Maps.ButtonTip`, says a click shows it), right-click opens
+  `Maps.ShowMenu` (Guide window, ticked while the window shows, `GuideShown()`,
+  fires `TOGGLE_FRAME`; Hide arrow or Show arrow, `nav.arrow`; Hide Polestar
+  or Show Polestar; Keep the arrow when hidden, ticked when on; then Guides, Lookup,
+  Options, Report a problem, which bring a hidden Polestar back and fire the
   existing event), a drag moves it
   around the minimap's edge and saves `maps.minimapButtonAngle` (degrees, 0 =
   east). A square minimap (`GetMinimapShape`) puts it on the square's edge,
@@ -4828,7 +4943,7 @@ flight timer and the instance tracker are set under Quality of Life.
   No frame exists until the setting is first on. The addon
   compartment (clients with `AddonCompartmentFrame`) gets the same through
   the .toc's `AddonCompartmentFunc*` globals (`Polestar_OnAddonCompartment*`):
-  click toggles the window, right-click opens the menu, hover the tooltip.
+  click hides or shows Polestar, right-click opens the menu, hover the tooltip.
 - Zone level ranges (`maps.zoneLevels`): labels on continent maps, and the
   hovered zone's range in the info bar. The ranges come from `forge data maps build`
   (`tools/lib/maps/zonelevels.js`). Forever-only zones (maps with Forever
@@ -6277,13 +6392,15 @@ render: `docs/preview/journey.svg`.
 own rules don't hide it now (`GuideFrame.RulesHide`): a fight with
 `ui.combat` "hide", or a dungeon, raid, battleground or arena with
 `ui.instance` "hide" (the default) until the player opens the window there
-(`GuideFrame.ToggleInside`: the minimap button, the key binding, `/polestar`).
+(`GuideFrame.ToggleInside`: Guide window in the minimap button's menu, the
+key binding, `/polestar`).
 Each call fires `GUIDE_VISIBILITY`.
 
 - The floating button (`UI/Launcher.lua`, `ui.launcher`, off by default;
   Options, Guide, Window, Show and hide, beside the minimap button's own
   toggle): a 32px `PolestarLauncher` on `UIParent` in the minimap button's
-  look. Click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu`, a drag
+  look, and works as it does: click hides or shows all of Polestar
+  (`Polestar.ToggleHidden`, dimmed while hidden), right-click opens `Maps.ShowMenu`, a drag
   (`StartMoving`; with `ui.lockHud` only a Shift-drag, `ns.DragLocked`) saves
   its centre in `ui.launcherPos` (from the screen's bottom-left; unset: beside
   the window's default corner, `TOPRIGHT` -440, -256). It refreshes on
@@ -6291,11 +6408,13 @@ Each call fires `GUIDE_VISIBILITY`.
   it goes in a fight or an instance as the window does and stays when the
   player hid the window. No frame exists until the setting is first on.
 - The instance hint: the first time on the account (`PolestarDB.instanceHint`)
-  the window hides itself on the way into an instance, `Nav.alerts.ShowNotice`
+  the window hides itself on the way into an instance (not while Polestar is
+  hidden, see "Hiding Polestar": the hint waits), `Nav.alerts.ShowNotice`
   puts "Polestar is hidden here" at the top of the screen for 12 s with
-  `GuideFrame.HowToShow()`: the minimap button when it is on, the toggle's
-  key (`GetBindingKey("POLESTAR_TOGGLE")`, named by `GetBindingText`) when bound,
-  else `/polestar` (never with the gamepad interface). One chat line repeats
+  `GuideFrame.HowToShow()`: the toggle's key (`GetBindingKey("POLESTAR_TOGGLE")`,
+  named by `GetBindingText`) when bound, and Guide window in the minimap
+  button's menu when the button is on, else `/polestar` (never with the
+  gamepad interface). One chat line repeats
   it with where the setting is. `GUIDE_SHOWN` true takes the notice down.
   Accounts told by the older chat-only line (`instanceHideTold`, cleared now)
   see the notice once.

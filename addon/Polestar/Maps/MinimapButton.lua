@@ -1,7 +1,10 @@
 -- A Polestar button on the edge of the minimap (setting maps.minimapButton,
--- on by default): click shows or hides the guide window, right-click opens
--- Polestar's menu (the guide window, the guides, Lookup, the settings, a
--- report), drag moves it around the edge. Where it sits is
+-- on by default): click hides or shows everything Polestar shows
+-- (Polestar.ToggleHidden; docs/ARCHITECTURE.md, "Hiding Polestar"), and
+-- while Polestar is hidden the button stays, its logo greyed and dimmed, as
+-- the way back; right-click opens Polestar's menu (the guide window, the
+-- arrow, hiding, the guides, Lookup, the settings, a report), drag moves it
+-- around the edge. Where it sits is
 -- maps.minimapButtonAngle, in degrees (0 = east, counter-clockwise); on a
 -- square minimap (GetMinimapShape, set by minimap addons) it rides the
 -- square's edge instead of the circle.
@@ -71,29 +74,60 @@ local function cursorAngle()
 	return floor(deg(atan2(cy / scale - my, cx / scale - mx)) + 0.5) % 360
 end
 
-local function showTip(self)
-	ns.Widgets.Tooltip(self, "ANCHOR_LEFT", "Polestar", {
-		L["Click: show or hide the guide"],
+-- The tooltip of the minimap button, the floating button (UI/Launcher.lua)
+-- and the compartment's row: what a click does now, the menu, then `drag`.
+function Maps.ButtonTip(owner, drag)
+	local T = ns.Theme
+	ns.Widgets.Tooltip(owner, "ANCHOR_LEFT", "Polestar", {
+		ns.Hidden() and { L["Polestar is hidden: click to show"], T.Accent() } or L["Click: hide Polestar"],
 		L["Right-click: menu"],
-		self == button and L["Drag: move it around the minimap"] or nil,
+		drag,
 	})
 end
 
--- Polestar's menu from the minimap button or the compartment, opening
--- beside `anchor`.
+local function showTip(self)
+	Maps.ButtonTip(self, self == button and L["Drag: move it around the minimap"] or nil)
+end
+
+-- The look of a way back (this button, the floating one) while Polestar is
+-- hidden: its logo greyed and dimmed.
+function Maps.PaintHidden(b)
+	local icon = b and b.Icon
+	if not icon then return end
+	local hidden = ns.Hidden()
+	icon:SetDesaturated(hidden)
+	icon:SetAlpha(hidden and 0.4 or 1)
+end
+
+-- Polestar's menu from the minimap button, the floating button or the
+-- compartment, opening beside `anchor`: the guide window, the arrow
+-- (nav.arrow), hiding Polestar and whether that keeps the arrow, then the
+-- windows, which bring a hidden Polestar back first.
 function Maps.ShowMenu(anchor)
 	local W = ns.Widgets
 	if not (W and W.ShowMenu and anchor) then return end
 	if W.MenuShown(anchor) then return W.HideMenu() end
-	local shown = ns.GuideShown()
-	W.ShowMenu(anchor, {
-		{ text = shown and L["Hide window"] or L["Show window"], icon = "window", onClick = function() ns.Fire("TOGGLE_FRAME") end },
-		{ text = L["Guides"], icon = "guides", onClick = function() ns.Fire("SHOW_PICKER") end },
-		{ text = L["Lookup"], icon = "search", onClick = function() ns.Fire("SHOW_LOOKUP") end },
-		{ text = L["Options"], icon = "sliders", onClick = function() ns.Fire("SHOW_OPTIONS") end },
-		{ separator = true },
-		{ text = L["Report a problem"], icon = "bug", onClick = function() ns.Fire("SHOW_REPORT") end },
-	}, { point = "TOPRIGHT", relPoint = "BOTTOMLEFT", x = 4, y = 4 })
+	local function open(msg)
+		return function()
+			ns.SetHidden(false)
+			ns.Fire(msg)
+		end
+	end
+	local items = { { text = L["Guide window"], icon = "window", checked = ns.GuideShown(), onClick = function() ns.Fire("TOGGLE_FRAME") end } }
+	local Nav = ns.Nav
+	if Nav and Nav.ToggleArrow then
+		items[#items + 1] = { text = ns.Get("nav.arrow") and L["Hide arrow"] or L["Show arrow"], icon = "dart", onClick = Nav.ToggleArrow }
+	end
+	items[#items + 1] = { text = ns.Hidden() and L["Show Polestar"] or L["Hide Polestar"], icon = "emblem", onClick = ns.ToggleHidden }
+	items[#items + 1] = { text = L["Keep the arrow when hidden"], checked = ns.HideKeepsArrow(),
+		onClick = function() ns.SetHideKeepsArrow(not ns.HideKeepsArrow()) end }
+	items[#items + 1] = { separator = true }
+	items[#items + 1] = { text = L["Guides"], icon = "guides", onClick = open("SHOW_PICKER") }
+	items[#items + 1] = { text = L["Lookup"], icon = "search", onClick = open("SHOW_LOOKUP") }
+	items[#items + 1] = { text = L["Options"], icon = "sliders", onClick = open("SHOW_OPTIONS") }
+	items[#items + 1] = { separator = true }
+	items[#items + 1] = { text = L["Report a problem"], icon = "bug", onClick = open("SHOW_REPORT") }
+	W.ShowMenu(anchor, items, { point = "TOPRIGHT", relPoint = "BOTTOMLEFT", x = 4, y = 4 })
 end
 
 -- The addon compartment's entry (Polestar.toc). The client passes the
@@ -102,7 +136,7 @@ function Polestar_OnAddonCompartmentClick(_, which, row)
 	if which == "RightButton" then
 		Maps.ShowMenu(row or UIParent)
 	else
-		ns.Fire("TOGGLE_FRAME")
+		ns.ToggleHidden()
 	end
 end
 
@@ -148,7 +182,9 @@ local function build()
 			W.HideTooltip(self)
 			Maps.ShowMenu(self)
 		else
-			ns.Fire("TOGGLE_FRAME")
+			ns.ToggleHidden()
+			-- The tooltip under the cursor says what the next click does.
+			if GameTooltip and GameTooltip:GetOwner() == self then showTip(self) end
 		end
 	end)
 	button:SetScript("OnEnter", showTip)
@@ -175,11 +211,16 @@ function Maps.RefreshMinimapButton()
 	if ns.Get("maps.minimapButton") then
 		if not build() then return end
 		place(angle())
+		Maps.PaintHidden(button)
 		button:Show()
 	elseif button then
 		button:Hide()
 	end
 end
+
+ns.On("POLESTAR_HIDDEN", function()
+	if button then Maps.PaintHidden(button) end
+end)
 
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end

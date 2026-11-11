@@ -2,6 +2,9 @@
 	<Binding name="POLESTAR_TOGGLE" header="POLESTAR" category="ADDONS">
 		Polestar.Bindings.Toggle()
 	</Binding>
+	<Binding name="POLESTAR_HIDE" category="ADDONS">
+		Polestar.Bindings.Hide()
+	</Binding>
 	<Binding name="POLESTAR_NEXT" category="ADDONS">
 		Polestar.Bindings.Next()
 	</Binding>
