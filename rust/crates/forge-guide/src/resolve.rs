@@ -1070,7 +1070,8 @@ fn opt_in_step(step: &V) -> bool {
 /// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group.
 /// Not an `optional` goal; not one in an opt-in step (opt_in_step) or of a quest accepted only in one
 /// (its later goals go with the accept, as validate's group_quests_of); not the turn-in of a dungeon or
-/// raid quest (the run was the group content, handing it in is not).
+/// raid quest (the run was the group content, handing it in is not); not an object's work among elites
+/// (`near`: a warning on the step, #1778).
 fn route_needs_group(steps: &[V]) -> bool {
 	let mut only: FxHashMap<String, bool> = FxHashMap::default();
 	for step in steps {
@@ -1090,6 +1091,7 @@ fn route_needs_group(steps: &[V]) -> bool {
 				&& !goal.get("optional").truthy()
 				&& !(!quest.is_undef() && only.get(&stringify(&quest, None)) == Some(&true))
 				&& !(goal.get("t").as_str() == Some("turnin") && matches!(group.get("kind").as_str(), Some("dungeon") | Some("raid")))
+				&& !group.get("near").truthy()
 		})
 	})
 }
