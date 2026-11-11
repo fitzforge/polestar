@@ -277,6 +277,9 @@ if STUDIO_FILES then
 	local F = STUDIO_FILES
 	local function fileOf(p)
 		if type(p) == "string" then
+			-- The plain white texture stays a path: the renderer draws it as
+			-- colour (gradients, SetVertexOffset hulls), not as a file.
+			if p:lower():find("white8x8", 1, true) then return p end
 			local fid = F[(p:lower():gsub("/", "\\"):gsub("%.blp$", ""))]
 			if fid then return fid end
 		end
