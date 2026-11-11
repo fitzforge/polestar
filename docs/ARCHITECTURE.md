@@ -7006,7 +7006,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Under it, the way to send the report: Discord's mark, "Report it on
   Discord", three numbered lines (press Copy report then Ctrl+C, open #bugs
   and press New Post, paste and post: the bot files it), "Copy report",
-  which shows the report box under it selected, and "Get the invite", which
+  which shows the report box under it selected (a view of the report that
+  scrolls, as tall as the window has room for inside a 720-unit screen,
+  #1753), and "Get the invite", which
   opens the invite (`Polestar.DiscordURL`) in the copy window. Last, for a
   player with a GitHub account, "Open on GitHub" opens in the copy window a
   link to a new issue on Polestar's GitHub,

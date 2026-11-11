@@ -39,9 +39,10 @@ local colored = setmetatable({}, { __mode = "k" }) -- region -> colour name
 local painters = setmetatable({}, { __mode = "k" }) -- object -> fn(object)
 
 -- Colour a font string or texture by palette name, and keep it coloured
--- through theme changes. alpha multiplies the palette alpha. A texture a kit
--- hides under its own art (psVeiled, GameSkins) stays at 0: in the client
--- the colour's alpha is the texture's alpha (#1684).
+-- through theme changes. alpha multiplies the palette alpha. A veiled
+-- region (psVeiled: a texture a kit hides under its own art, a string a
+-- page hides, Dungeons' header) stays at 0: in the client the colour's
+-- alpha is the region's alpha (#1684, #1753).
 function W.Color(region, name, alpha)
 	colored[region] = name
 	region.psAlpha = alpha
@@ -1835,10 +1836,13 @@ end
 -- A read-only field holding text to copy (a link, a report, a position):
 -- the search field's well and border, the text selected whenever it takes
 -- focus, typing puts the text back. opts.lines > 1: a multi-line box that
--- tall. W.SetCopyText(box, text) fills it.
+-- tall. opts.well: the frame that draws the well and lights with focus
+-- instead of the box (a box taller than its view, scrolled inside it).
+-- W.SetCopyText(box, text) fills it.
 function W.CopyBox(parent, opts)
 	opts = opts or {}
 	local e = CreateFrame("EditBox", nil, parent)
+	local well = opts.well or e
 	local lines = opts.lines or 1
 	e:SetAutoFocus(false)
 	Theme.Font(e, "label")
@@ -1851,13 +1855,13 @@ function W.CopyBox(parent, opts)
 		e:SetHeight(30)
 		e:SetTextInsets(10, 10, 0, 0)
 	end
-	Theme.Skin(e, "editbox")
+	Theme.Skin(well, "editbox")
 	e:SetScript("OnEditFocusGained", function(self)
-		Theme.SetFocused(self, true)
+		Theme.SetFocused(well, true)
 		self:HighlightText()
 	end)
 	e:SetScript("OnEditFocusLost", function(self)
-		Theme.SetFocused(self, false)
+		Theme.SetFocused(well, false)
 		self:HighlightText(0, 0)
 	end)
 	e:SetScript("OnMouseUp", function(self) self:SetFocus(); self:HighlightText() end)

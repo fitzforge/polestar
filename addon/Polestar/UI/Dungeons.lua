@@ -874,10 +874,22 @@ local function scrim(parent)
 	return t
 end
 
+-- The hub's title and subtitle, veiled over a dungeon's zone art or back:
+-- by their colour's alpha (W.Color's psVeiled), which a theme repaint keeps.
+-- A bare SetAlpha(0) did not: the repaint (a UI scale or display size
+-- change) set their colour back on, and in the client a string's colour
+-- alpha is its alpha, so they drew over the art (#1753's pattern).
+local function veilHeader(veiled)
+	for _, fs in ipairs({ hub.Title, hub.Subtitle }) do
+		fs.psVeiled = veiled or nil
+		fs:SetAlpha(veiled and 0 or 1)
+		W.Recolor(fs)
+	end
+end
+
 local function restoreHeader()
 	if not hub then return end
-	hub.Title:SetAlpha(1)
-	hub.Subtitle:SetAlpha(1)
+	veilHeader(false)
 	hub.Band:Show()
 end
 
@@ -1269,8 +1281,7 @@ local function pageHeader(d)
 	end
 	art:Show()
 	hub.Band:Hide()
-	hub.Title:SetAlpha(0)
-	hub.Subtitle:SetAlpha(0)
+	veilHeader(true)
 	hub.Close:SetFrameLevel(pg.Over:GetFrameLevel() + 2)
 	local facts = {}
 	local lv = UI.LevelRange(d.minLevel, d.maxLevel)
