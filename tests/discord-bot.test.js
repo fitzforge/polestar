@@ -627,6 +627,39 @@ test('closing as completed tells the reporter, tags Fixed and locks the thread',
 	assert.equal(t.thread_metadata.locked, true);
 });
 
+test('a fix closed when its release is already out says so, and is labelled so the next release run skips it', async () => {
+	const { discord, github, sync } = await filed();
+	for (const id of ['1002', '1003', '1004']) {
+		discord.post(id, { content: 'bug ' + id });
+		await sync.newPost(id);
+	}
+	const v036 = { id: 1, tag_name: 'v0.3.6', name: 'Polestar 0.3.6', html_url: 'https://github.com/fitzforge/polestar/releases/tag/v0.3.6', published_at: '2026-11-10T12:47:02Z' };
+	github.releasesList.push(v036);
+	const close = async (n, fields) => {
+		Object.assign(github.issues[n - 1], { state: 'closed', state_reason: 'completed', ...fields });
+		await onIssue({ discord, github, event: { action: 'closed', issue: structuredClone(github.issues[n - 1]) }, forumId: FORUM, log: quietLog });
+		return discord.sent.at(-1).content;
+	};
+	const labelled = (n) => github.issues[n - 1].labels.map((l) => l.name).filter((l) => l.startsWith('released:'));
+	// A sweep labelled it released:v0.3.6 before closing it.
+	github.issues[0].labels.push({ name: 'released:v0.3.6' });
+	assert.match(await close(1, { closed_at: '2026-11-10T12:51:29Z' }), /^<@u1> This is fixed, and the fix is out in \*\*Polestar 0\.3\.6\*\*: update Polestar to get it\. Thanks for the report! \(\[release notes\]\(<https:\/\/github\.com\/fitzforge\/polestar\/releases\/tag\/v0\.3\.6>\)/);
+	assert.deepEqual(labelled(1), ['released:v0.3.6']);
+	// Milestone 0.3.6, closed by hand a few minutes after 0.3.6 was published.
+	assert.match(await close(2, { closed_at: '2026-11-10T12:52:33Z', milestone: { title: '0.3.6' } }), /the fix is out in \*\*Polestar 0\.3\.6\*\*/);
+	assert.deepEqual(labelled(2), ['released:v0.3.6']);
+	// Closed before the release (the release run tells it), or for an update not out yet.
+	assert.match(await close(3, { closed_at: '2026-11-10T12:00:00Z', milestone: { title: '0.3.6' } }), /will ship in the next Polestar update/);
+	assert.match(await close(4, { closed_at: '2026-11-10T13:00:00Z', milestone: { title: '0.3.7' } }), /will ship in the next Polestar update/);
+	assert.deepEqual([labelled(3), labelled(4)], [[], []]);
+
+	const v037 = { id: 2, tag_name: 'v0.3.7', name: 'Polestar 0.3.7', html_url: 'https://github.com/fitzforge/polestar/releases/tag/v0.3.7', published_at: '2026-11-14T00:00:00Z' };
+	github.releasesList.push(v037);
+	const before = discord.sent.length;
+	await onRelease({ discord, github, event: { release: v037 }, log: quietLog });
+	assert.deepEqual(discord.sent.slice(before).map((s) => s.channel), ['1004'], '0.3.7 tells only the fix it ships, not the two already told they are out');
+});
+
 test("closing as not planned quotes the maintainer's last note, not a copied follow-up", async () => {
 	const { discord, github, sync } = await filed();
 	await github.comment(1, 'Trainers in Goldshire are only for level 10+, this is expected.');
@@ -756,6 +789,38 @@ test('a release tells the threads of fixes closed since the last release, once',
 	assert.ok(github.issues[1].labels.some((l) => l.name === 'released:v0.2.5'));
 
 	assert.deepEqual(await onRelease({ discord, github, event: { release }, log: quietLog }), { told: 0, failed: 0 });
+});
+
+test('a manual release run told which issues it ships tells exactly those and their duplicates, once, whatever their close time', async () => {
+	const { discord, github, sync } = setup();
+	for (const id of ['1', '2', '3', '4', '5']) {
+		discord.post(id, { content: 'bug ' + id });
+		await sync.newPost(id);
+	}
+	const close = (n, fields) => Object.assign(github.issues[n - 1], { state: 'closed', state_reason: 'completed', ...fields });
+	github.releasesList.push({ id: 1, tag_name: 'v0.3.5', published_at: '2026-11-08T00:00:00Z' });
+	const release = { id: 2, tag_name: 'v0.3.6', name: 'Polestar 0.3.6', html_url: 'https://github.com/fitzforge/polestar/releases/tag/v0.3.6', published_at: '2026-11-10T12:47:02Z' };
+	github.releasesList.push(release);
+	close(1, { closed_at: '2026-11-10T12:51:29Z' }); // closed by hand during the run
+	close(2, { closed_at: '2026-11-10T12:52:33Z' }); // the same, not listed
+	close(3, { closed_at: '2026-11-10T12:53:00Z', state_reason: 'not_planned' });
+	await github.comment(3, 'Duplicate of #1');
+	// #4 still open, listed by mistake; #5 closed as not planned, listed by mistake.
+	close(5, { closed_at: '2026-11-10T12:00:00Z', state_reason: 'not_planned' });
+	Object.assign(github.issues[3], { state: 'open' });
+
+	let before = discord.sent.length;
+	assert.deepEqual(await onRelease({ discord, github, event: { release }, log: quietLog }), { told: 0, failed: 0 }, 'the release run itself: all closed after it');
+	assert.deepEqual(await onRelease({ discord, github, event: { release }, issues: [1, 4, 5, 99], log: quietLog }), { told: 2, failed: 0 });
+	const told = discord.sent.slice(before);
+	assert.deepEqual(told.map((s) => s.channel), ['1', '3']);
+	assert.match(told[0].content, /^<@u1> The fix is out in \*\*Polestar 0\.3\.6\*\*/);
+	assert.match(told[1].content, /The fix for \[fitzforge\/polestar#1\]\S+, the same bug as yours, is out in \*\*Polestar 0\.3\.6\*\*/);
+	for (const n of [1, 3]) assert.ok(github.issues[n - 1].labels.some((l) => l.name === 'released:v0.3.6'));
+	for (const n of [2, 4, 5]) assert.ok(!github.issues[n - 1].labels.some((l) => l.name.startsWith('released:')));
+	before = discord.sent.length;
+	assert.deepEqual(await onRelease({ discord, github, event: { release }, issues: [1], log: quietLog }), { told: 0, failed: 0 }, 'once');
+	assert.equal(discord.sent.length, before);
 });
 
 test('a Forge, data, library or data pack release tells no thread and is never the release before', async () => {

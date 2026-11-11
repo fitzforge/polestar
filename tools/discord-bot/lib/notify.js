@@ -130,8 +130,9 @@ function duplicateLead(repo, of, target) {
 
 // The message and status for an issue's close or reopen. duplicate, for a
 // close as a duplicate: { of, target, note } (duplicateTarget's M, its
-// duplicateStatus, the maintainer's explanation).
-function issueMessage({ repo, issue, action, owner, comments, duplicate = null }) {
+// duplicateStatus, the maintainer's explanation). released, for a fix that
+// is out already: { tag, release } (releasedIn's).
+function issueMessage({ repo, issue, action, owner, comments, duplicate = null, released = null }) {
 	const ping = owner ? `<@${owner}> ` : '';
 	const link = issueLink(repo, issue.number);
 	if (action === 'reopened') {
@@ -151,7 +152,33 @@ function issueMessage({ repo, issue, action, owner, comments, duplicate = null }
 		content += `\nThanks for the report! (${link})`;
 		return { role: 'wontfix', locked: true, content };
 	}
+	if (released) {
+		const name = released.release ? released.release.name || released.release.tag_name : `Polestar ${released.tag.replace(/^v/, '')}`;
+		const notes = released.release && released.release.html_url ? `[release notes](<${released.release.html_url}>), ` : '';
+		return { role: 'fixed', locked: true, content: `${ping}This is fixed, and the fix is out in **${name}**: update Polestar to get it. Thanks for the report! (${notes}${link})` };
+	}
 	return { role: 'fixed', locked: true, content: `${ping}This is fixed and will ship in the next Polestar update. Thanks for the report! (${link})` };
+}
+
+// The published release a fix closed as completed is already out in, or
+// null when it ships in the next one: { tag, release, labelled }. Its
+// released:<tag> label says so (a sweep after a release labels the fixes it
+// shipped before closing them); else its milestone names a full release
+// published before the issue closed (the milestone is the update's list, and
+// a late close after the release run would otherwise be told "next update"
+// and announced again with the next release).
+async function releasedIn(github, issue) {
+	const label = labelNames(issue).find(isReleased);
+	const releases = await github.releases();
+	if (label) {
+		const tag = label.slice('released:'.length);
+		return { tag, release: releases.find((r) => r.tag_name === tag) || null, labelled: true };
+	}
+	const title = issue.milestone && issue.milestone.title;
+	if (!title) return null;
+	const closed = Date.parse(issue.closed_at);
+	const release = releases.find((r) => (r.tag_name === `v${title}` || r.tag_name === title) && !r.draft && isAddonRelease(r) && !isPrerelease(r) && Date.parse(r.published_at) < closed);
+	return release ? { tag: release.tag_name, release, labelled: false } : null;
 }
 
 // "The fix is out"; of, for a duplicate, the issue whose fix it is.
@@ -217,11 +244,18 @@ async function onIssue({ discord, github, event, forumId, log = console }) {
 	}
 	const dup = action === 'closed' ? await duplicateTarget(github, issue, comments) : null;
 	const duplicate = dup && { of: dup.of, target: dup.of ? await duplicateStatus(github, dup.of) : null, note: duplicateNote(comments) };
-	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments, duplicate });
+	const released = action === 'closed' && !dup && issue.state_reason === 'completed' ? await releasedIn(github, issue) : null;
+	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments, duplicate, released });
 	await postIn(discord, thread, msg.content, users);
 	const forum = await discord.getChannel(thread.parent_id);
 	await discord.editThread(thread.id, { applied_tags: withStatus(thread.applied_tags, statusTags(forum), msg.role), locked: msg.locked });
-	log.info(`#${issue.number} ${action} (${issue.state_reason || 'reopened'}): told thread ${thread.id}`);
+	// Told it is out: the release run must not tell it again.
+	if (released && !released.labelled) {
+		const label = `released:${released.tag}`;
+		await github.ensureLabels([label], I.labelInfo);
+		await github.addLabels(issue.number, [label]);
+	}
+	log.info(`#${issue.number} ${action} (${issue.state_reason || 'reopened'}${released ? `, out in ${released.tag}` : ''}): told thread ${thread.id}`);
 	return true;
 }
 
@@ -423,7 +457,33 @@ async function announceCandidate({ discord, github, release, forumId, testers, l
 	return true;
 }
 
-async function onRelease({ discord, github, event, forumId, testers = null, log = console }) {
+// The issues a manual run names as shipped by the release (closed after its
+// run, so the run missed them): those filed from Discord, closed as
+// completed and not told about a release yet, whatever their close time.
+async function listedIssues(github, numbers, log) {
+	const out = [];
+	for (const n of numbers) {
+		let issue;
+		try {
+			issue = await github.getIssue(n);
+		} catch (err) {
+			if (err.status !== 404) throw err;
+			log.warn(`#${n}: no such issue, skipped`);
+			continue;
+		}
+		const labels = labelNames(issue);
+		if (issue.pull_request || !labels.includes('discord')) log.warn(`#${n}: not filed from Discord, skipped`);
+		else if (issue.state !== 'closed' || issue.state_reason !== 'completed') log.warn(`#${n}: not closed as completed, skipped`);
+		else if (labels.some(isReleased)) log.info(`#${n}: told about a release already, skipped`);
+		else out.push(issue);
+	}
+	return out;
+}
+
+// A release published: its fixes' threads told. `issues` (a manual run's
+// list of numbers) names exactly what it ships instead, for issues closed
+// after the release run; their duplicates are told with them.
+async function onRelease({ discord, github, event, forumId, testers = null, issues: listed = null, log = console }) {
 	const release = event.release;
 	if (!release || release.draft || !isAddonRelease(release)) return { told: 0, failed: 0 };
 	if (isPrerelease(release)) {
@@ -431,8 +491,9 @@ async function onRelease({ discord, github, event, forumId, testers = null, log 
 		return { told: 0, failed: 0 };
 	}
 	const label = `released:${release.tag_name}`;
-	const ships = await shipCheck(github, release);
-	const issues = await shippedBy(github, release, ships);
+	const named = listed && listed.length ? new Set(listed) : null;
+	const ships = named ? async (i) => named.has(i.number) : await shipCheck(github, release);
+	const issues = named ? await listedIssues(github, named, log) : await shippedBy(github, release, ships);
 	let told = 0;
 	let failed = 0;
 	// Tells an issue's thread and labels the issue, so no run tells it again.
