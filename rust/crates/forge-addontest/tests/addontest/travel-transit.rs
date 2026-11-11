@@ -122,6 +122,63 @@ fn issue_1515_a_class_teleport_landing_in_the_zone_the_player_stands_in_is_never
 	assert_eq!(out["elsewhere"], json!(["teleport|Cast Teleport: Testshire", "walk|Quest"]));
 }
 
+// #1823: a class teleport (each of a Mage's city teleports spends a Rune of Teleportation) is cast only when it clearly
+// pays: it saves at least a minute over the best way without it, and a fifth of that way when that is more. Teleport:
+// Stormwind won by a few seconds over a flight to Darkshire.
+const TELEPORT_1823: &str = r#"
+		local landing = { name = "Testshire", c = 0, wx = 0, wy = -780, map = 9002, x = 50, y = 50 }
+		local wait = 0
+		local function teleports()
+			Polestar.Transit = { Now = function() return 0 end, Teleports = function()
+				return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = wait, to = landing } } end }
+		end
+		local function plan(wx, wy, label)
+			target(wx, wy, label)
+			local legs = N.GetRoute()
+			return { legs[1].kind, legs[1].seconds + legs[1].rest }
+		end"#;
+
+#[test]
+fn issue_1823_a_class_teleport_that_saves_less_than_a_minute_over_a_flight_is_not_cast() {
+	let out = run(&r#"
+		@TELEPORT_1823@
+		local r = {}
+		known(1, 2)
+		nav.place(0, 600)                                 -- by West Hold: the flight to East Hold and a walk
+		r.flight = plan(0, -782, "Kobolds")
+		teleports()
+		landing.wx = 420                                  -- the teleport and a walk: 85 s
+		r.seconds = plan(0, -780, "Kobolds")
+		landing.wx = 100                                  -- 28 s
+		r.minute = plan(0, -781, "Kobolds")
+		emit(r)"#
+		.replace("@TELEPORT_1823@", TELEPORT_1823));
+	assert_eq!(out["flight"], json!(["walk", 96]), "walk to the flight master, fly, walk");
+	assert_eq!(out["seconds"], json!(["walk", 97]), "12 s saved: the flight");
+	assert_eq!(out["minute"], json!(["teleport", 28]), "68 s saved: the teleport");
+}
+
+#[test]
+fn issue_1823_on_a_long_trip_a_class_teleport_must_also_save_a_fifth_of_the_way_without_it() {
+	let out = run(&r#"
+		@TELEPORT_1823@
+		local r = {}
+		nav.useTravelWorld(nil, 300)
+		nav.place(0, 0, 1)                                -- in Farland: the boat over and a walk
+		r.boat = plan(-500, -478, "Quest")
+		teleports()
+		landing.wx, landing.wy = -500, -500
+		wait = 429                                        -- castable in 429 s: 443 s with its walk
+		r.short = plan(-500, -480, "Quest")
+		wait = 409                                        -- 423 s
+		r.fifth = plan(-500, -479, "Quest")
+		emit(r)"#
+		.replace("@TELEPORT_1823@", TELEPORT_1823));
+	assert_eq!(out["boat"], json!(["walk", 542]), "walk to the pier, the boat, walk");
+	assert_eq!(out["short"], json!(["walk", 543]), "100 s saved, under a fifth of 543 s: the boat");
+	assert_eq!(out["fifth"], json!(["teleport", 423]), "119 s saved, over a fifth of 542 s: the teleport");
+}
+
 #[test]
 fn a_walk_in_portal_goes_one_way_only() {
 	let out = run(r#"
