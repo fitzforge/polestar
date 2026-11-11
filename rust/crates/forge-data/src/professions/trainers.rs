@@ -564,7 +564,10 @@ mod tests {
 	// and no Forever trainer list has him teaching Skinning (#1608's trainer sweep).
 	#[test]
 	fn undercity_skinning_trainer_is_killian_hagey() {
-		let npcs = parse_json(r#"{"1":{"id":1,"name":"Killian Hagey","faction":"H","spawns":{"1458":{"pts":[[70,59]]}}},"2":{"id":2,"name":"Killian Sanatha","faction":"H","spawns":{"1421":{"pts":[[43,40]]}}}}"#).unwrap();
+		let npcs = parse_json(
+			r#"{"1":{"id":1,"name":"Killian Hagey","faction":"H","spawns":{"1458":{"pts":[[70,59]]}}},"2":{"id":2,"name":"Killian Sanatha","faction":"H","spawns":{"1421":{"pts":[[43,40]]}}}}"#,
+		)
+		.unwrap();
 		let f = Finder::new(npcs.as_obj().unwrap());
 		let r = resolve(393, &f, "gathering");
 		assert_eq!(stringify(&r.trainers.get("Horde"), None), "[1]");

@@ -49,12 +49,12 @@ const CHECKED_LEARN: [(i64, i64, &str); 19] = [
 	(9201, 170, "in-game"),  // Dusky Bracers (#1553)
 	// Forever's own trainer patterns are taught 5 below their yellow (players learned them there; the
 	// estimate is the yellow): the leather armor sets at 75, the leather pants at 100.
-	(1255131, 75, "recordings"), // Wisdom's Leather Armor
-	(1255132, 75, "recordings"), // Stormrider's Leather Armor
-	(1255133, 75, "recordings"), // Totemic Leather Armor
-	(1255134, 75, "recordings"), // Defender's Leather Armor
-	(1255135, 75, "recordings"), // Trapper's Leather Armor
-	(1255136, 75, "recordings"), // Brawler's Leather Armor
+	(1255131, 75, "recordings"),  // Wisdom's Leather Armor
+	(1255132, 75, "recordings"),  // Stormrider's Leather Armor
+	(1255133, 75, "recordings"),  // Totemic Leather Armor
+	(1255134, 75, "recordings"),  // Defender's Leather Armor
+	(1255135, 75, "recordings"),  // Trapper's Leather Armor
+	(1255136, 75, "recordings"),  // Brawler's Leather Armor
 	(1255110, 100, "recordings"), // Wisdom's Leather Pants
 	(1255111, 100, "recordings"), // Stormrider's Leather Pants
 	(1255112, 100, "recordings"), // Totemic Leather Pants
@@ -753,13 +753,8 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 						// (Forever's junior trainers) stays.
 						let lists = rk.get("trainers");
 						for side in lists.keys() {
-							let keep: Vec<f64> = lists
-								.get(&side)
-								.items()
-								.iter()
-								.map(|v| v.num())
-								.filter(|&c| ctx.trainer_any.get(&(c as i64)).is_none_or(|l| l.iter().any(|t| *t == s || teaches(t))))
-								.collect();
+							let keep: Vec<f64> =
+								lists.get(&side).items().iter().map(|v| v.num()).filter(|&c| ctx.trainer_any.get(&(c as i64)).is_none_or(|l| l.iter().any(|t| *t == s || teaches(t)))).collect();
 							lists.set(&side, crate::jsv::nums(&keep));
 						}
 						for (creature, spells) in ctx.trainer_lists {
