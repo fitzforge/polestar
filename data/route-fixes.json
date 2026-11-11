@@ -3842,7 +3842,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after Jorn's thunderhawks south of Camp Taurajo at 21 and take them straight to Ruga; the antennae vanish 15 minutes after they drop."
+				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after the eggs, at the same mounds south of Camp Taurajo at 21, and take them straight to Ruga; the antennae vanish 15 minutes after they drop (the thunderhawks after the hand-in since 0.3.8: pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -3867,6 +3867,18 @@
 				],
 				"faction": "Horde",
 				"why": "Timed-quest check (2026-11-08): Trial at the Field of Giants (30 minutes) is taken on Jorn's stop, before the thunderhawks south of the camp, so Warriors don't walk back to Camp Taurajo for it."
+			},
+			{
+				"a": [
+					"turnin",
+					1824
+				],
+				"b": [
+					"task",
+					913
+				],
+				"faction": "Horde",
+				"why": "Trial at the Field of Giants (1824, Warrior, 30 minutes; quests.json limit 1800): the thunderhawks (Cry of the Thunderhawk) flew between the accept and the antennae, so the timer ran during them. Players' recordings on Polestar 0.3.5 and later: 6 accepts, 2 hand-ins, 2 fails, 2 abandons. The eggs and the antennae share the Field of Giants' mounds and come first, then Ruga, then the thunderhawks."
 			},
 			{
 				"a": [
@@ -6416,15 +6428,15 @@
 			{
 				"a": [
 					"task",
-					913
-				],
-				"b": [
-					"task",
 					868,
 					0
 				],
+				"b": [
+					"task",
+					913
+				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle. Final route review (2026-11-08): the eggs right after the thunderhawk wings, not after a walk back into Camp Taurajo to hand the wings to Jorn; Jorn takes them on the way back north (overrides pair task 868 before turnin 913)"
+				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants (42.6-48.5,69.4-72.4), just south of the plains where Jorn's thunderhawks circle (44.8-50.1,60.1-67.0). Final route review (2026-11-08): no walk back into Camp Taurajo between the two; Jorn takes the wings on the way back north (overrides pair task 868 before turnin 913). Since 0.3.8 the eggs come first and the thunderhawks on the way back north, so a Warrior's antennae, at the same mounds as the eggs, reach Ruga before the 30-minute Trial at the Field of Giants runs out (pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [

@@ -1838,8 +1838,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the Field of Giants' mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo.",
-			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after).",
+			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks.",
+			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -4409,8 +4409,8 @@
 				"quest": 1824,
 				"goal": "accept"
 			},
-			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now, not earlier: it runs for 30 minutes from the accept. The thunderhawks and the eggs come first, the antennae last, then straight back to Ruga.",
-			"note": "Trial at the Field of Giants (Warrior) runs for 30 minutes; the Barrens guide took it on the first Camp Taurajo stop, before the thunder lizards, Jorn, the thunderhawks and the eggs. It is taken on Jorn's stop (route-fixes pairs) and the tip names the limit.",
+			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to Ruga; the thunderhawks after.",
+			"note": "Trial at the Field of Giants (Warrior) runs for 30 minutes; the Barrens guide took it on the first Camp Taurajo stop, before the thunder lizards, Jorn, the thunderhawks and the eggs. It is taken on Jorn's stop (route-fixes pairs) and the tip names the limit. Since 0.3.8 the thunderhawks come after the hand-in (route-fixes pair turnin 1824 -> task 913): with them before it, players' recordings on Polestar 0.3.5 and later show 6 accepts, 2 hand-ins, 2 fails and 2 abandons.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -4422,6 +4422,59 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "barrens-trial-field-of-giants-ruga-before-thunderhawks",
+			"faction": "Horde",
+			"at": {
+				"quest": 1824,
+				"goal": "turnin"
+			},
+			"tip": "Back north into Camp Taurajo before the antennae fade: Ruga Ragetotem is inside.",
+			"note": "Trial at the Field of Giants (Warrior): the hand-in has its own Camp Taurajo stop right after the antennae, before the thunderhawks (route-fixes pair turnin 1824 -> task 913).",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "quests.json limit 1800 for 1824 (the server's TimeAllowed); the antennae (7119) last 15 minutes"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-11): on Polestar 0.3.5 and later 6 accepts of 1824, 2 hand-ins, 2 fails, 2 abandons, with the thunderhawks and the eggs before the antennae"
+				}
+			]
+		},
+		{
+			"id": "barrens-thunderhawks-after-ruga",
+			"faction": "Horde",
+			"at": {
+				"quest": 913,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Thunderhawk Cloudscrapers circle over the plains south of the camp.",
+			"note": "Cry of the Thunderhawk comes after the Field of Giants (eggs, and for Warriors the antennae and Ruga), so its tip no longer says 'the same plains'.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "QuestieDB Forever spawns (data/forever npcs.json) of the Thunderhawk Cloudscrapers in the Barrens"
+				}
+			]
+		},
+		{
+			"id": "barrens-jorn-wings-after-ruga",
+			"faction": "Horde",
+			"at": {
+				"quest": 913,
+				"goal": "turnin"
+			},
+			"tip": "Back north into Camp Taurajo on the way to the Crossroads: Jorn takes the thunderhawk wings.",
+			"note": "Ruga Ragetotem's hand-in (1824, Warrior) has its own stop before the thunderhawks, so this tip no longer sends Warriors to Ruga first.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "quests.json limit 1800 for 1824"
+				}
+			]
 		},
 		{
 			"id": "1333-tear-of-the-moons-twinbraid",

@@ -1431,6 +1431,22 @@ test(`${BARRENS}: a Warrior takes Trial at the Field of Giants (30 minutes) on J
 	assert.equal(list.filter(({ goal }) => is('accept', 1824)(goal)).length, 1, 'one accept');
 });
 
+// Trial at the Field of Giants (1824, Warrior, 30 minutes), from #1833's sweep of timed quests: the thunderhawks flew
+// between the accept and the antennae, so the timer ran during them (players' recordings on 0.3.5 and later: 6
+// accepts, 2 hand-ins, 2 fails, 2 abandons). The eggs and the antennae share the Field of Giants' mounds and come
+// first, then Ruga, then the thunderhawks.
+test(`${BARRENS}: Trial at the Field of Giants: the antennae go straight to Ruga, the thunderhawks after`, { skip }, () => {
+	const list = goals(BARRENS).filter(forClass('WARRIOR'));
+	const take = at(list, 'accept 1824', is('accept', 1824));
+	const back = at(list, 'turnin 1824', is('turnin', 1824));
+	assert.ok(take < back, 'taken before it is handed in');
+	const work = list.slice(take + 1, back).filter(({ goal }) => ['kill', 'collect', 'interact', 'use'].includes(goal.t) && goal.quest !== 1824);
+	assert.deepEqual([...new Set(work.map(({ goal }) => goal.quest))], [868], "only the eggs, at the antennae's own mounds, while the trial runs");
+	assert.ok(back < at(list, 'collect 5164 (Cry of the Thunderhawk)', (g) => g.t === 'collect' && g.item === 5164), 'the thunderhawks after the hand-in');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'turnin,1824' && `${p.b}` === 'task,913'), 'a record the build keeps');
+});
+
 test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tribes at War, not before it`, { skip }, () => {
 	const list = goals(BARRENS);
 	const accept = at(list, 'accept 878 (Tribes at War)', is('accept', 878));
@@ -6307,7 +6323,7 @@ test('forever/horde/02-the-barrens.guide, 04-the-barrens.guide: final route revi
 	assert.ok(at(early, 'accept 1483', is('accept', 1483)) < thalo && at(early, 'turnin 819', is('turnin', 819)) < thalo, 'Sputtervalve and Drohn before Thalo\'thas');
 	const eggs = at(early, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
 	const wings = at(early, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
-	assert.ok(eggs > wings && eggs < at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs right after Jorn\'s thunderhawks, before his hand-in and Korran');
+	assert.ok(eggs < wings && wings < at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs, then Jorn\'s thunderhawks on the way back north, before his hand-in and Korran (since 0.3.8: a Warrior\'s antennae share the eggs\' mounds)');
 	assert.ok(at(early, 'accept 865', is('accept', 865)) < at(early, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
 	const list = goals('forever/horde/04-the-barrens.guide');
 	const gann = at(list, 'accept 843', is('accept', 843));
@@ -6394,10 +6410,11 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	const wings = at(barrens, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
 	const eggs = at(barrens, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
 	const jorn = at(barrens, 'turnin 913', is('turnin', 913));
-	assert.ok(wings < eggs && eggs < jorn, 'the thunderhawks, the eggs, then Jorn on the way back north');
-	assert.ok(!barrens.slice(wings + 1, eggs).some(({ goal }) => goal.npc === barrens[jorn].goal.npc), 'no walk back to Jorn between the hawks and the eggs');
+	// Since 0.3.8 the eggs come before the thunderhawks, so a Warrior's antennae (the same mounds) reach Ruga in time.
+	assert.ok(eggs < wings && wings < jorn, 'the eggs, the thunderhawks, then Jorn on the way back north');
+	assert.ok(!barrens.slice(eggs + 1, wings).some(({ goal }) => goal.npc === barrens[jorn].goal.npc), 'no walk back to Jorn between the eggs and the hawks');
 	const warrior = barrens.filter(forClass('WARRIOR'));
-	assert.equal(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s, warrior[at(warrior, 'turnin 913', is('turnin', 913))].s, 'Ruga and Jorn on one Camp Taurajo stop');
+	assert.ok(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s < warrior[at(warrior, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164)].s, "Ruga's stop before the thunderhawks");
 	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. It is taken on
 	// the last Crossroads stop before the eggs: no other Crossroads hand-in between its accept and its work.
 	const egg = at(barrens, 'accept 868', is('accept', 868));
