@@ -128,23 +128,7 @@ local function build()
 		if point then Anim.Anchor(F, point, UIParent, relPoint, x, y) end
 	end)
 	F.Header = head
-	F.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
-	F.Night:SetTexture(Theme.Media("white"))
-	F.Night:SetAllPoints(head)
-	W.Painter(F.Night, function(t)
-		t:SetShown(Theme.SkinKey() == "polestar")
-		local tr, tg, tb = Theme.Color("scrim")
-		local br, bg, bb = Theme.Color("bg")
-		if t.SetGradient and CreateColor then
-			t:SetVertexColor(1, 1, 1, 1)
-			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
-		else
-			t:SetVertexColor(br, bg, bb, 1)
-		end
-	end)
-	if W.Haze then F.Haze = W.Haze(head, { width = WIDTH * 0.8, height = 120, sub = -6 }) end
-	F.Band = Theme.Band(head, "BACKGROUND", -5)
-	F.Band:SetAllPoints(head)
+	F.Night, F.Haze, F.Band = W.Night(head, { width = WIDTH * 0.8, height = 120, sub = -6 })
 	F.HeadRule = W.Divider(head)
 	F.HeadRule:SetPoint("BOTTOMLEFT", head, "BOTTOMLEFT", 0, 0)
 	F.HeadRule:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT", 0, 0)

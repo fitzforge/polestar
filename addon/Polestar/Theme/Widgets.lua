@@ -2431,6 +2431,32 @@ function W.Haze(parent, opts)
 	return t
 end
 
+-- The night header of an alert or a window in the house style, filling
+-- `head` (a frame over its top): the scheme's scrim fading down into the
+-- ground, the haze hung from its top (W.Haze, `haze` its opts) and the
+-- starlit band. The scrim shows in the house style (Theme.SkinKey()
+-- "polestar"); with `own` the caller shows and hides `head` instead.
+-- -> night, haze, band
+function W.Night(head, haze, own)
+	local night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
+	night:SetTexture(WHITE)
+	night:SetAllPoints(head)
+	W.Painter(night, function(t)
+		if not own then t:SetShown(Theme.SkinKey() == "polestar") end
+		local tr, tg, tb = Theme.Color("scrim")
+		local br, bg, bb = Theme.Color("bg")
+		if t.SetGradient and CreateColor then
+			t:SetVertexColor(1, 1, 1, 1)
+			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
+		else
+			t:SetVertexColor(br, bg, bb, 1)
+		end
+	end)
+	local band = Theme.Band(head, "BACKGROUND", -5)
+	band:SetAllPoints(head)
+	return night, W.Haze(head, haze), band
+end
+
 ---------------------------------------------------------------------------
 -- The shared confirm dialog: a scrim over the screen, a 400 wide box on the
 -- window ground with its hairline and the rim, a title (an optional glyph
