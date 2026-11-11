@@ -6315,6 +6315,23 @@ rail does not move.
 
 Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 
+- **Guide window files**: `UI/GuideFrame.lua` holds the window's state,
+  its goal rows and goals area, the render and the build. Its other parts
+  are files of their own, loaded right after it (`UI/UI.xml`):
+  `GuideFrameTabs.lua` (the tab strip), `GuideFrameBanner.lua` (the
+  banner's notices, the wheel and the overview over the step number),
+  `GuideFrameHere.lua` ("While you're here"), `GuideFrameLayout.lua` (where
+  each part goes, the window's height, the progress bar),
+  `GuideFrameLook.lua` (the transparent style and the skins),
+  `GuideFrameMenu.lua` (the menu and Nearby), `GuideFrameWindow.lua`
+  (position, size, scale, opacity, the lock, moving and resizing, the
+  combat and instance rules) and `GuideFrameStatus.lua` (the XP and party
+  lines). They share the module table (`UI.GuideFrame`): the core's
+  helpers are fields on it, and `GF.Bind(fn)` hands each file the window's
+  parts and sizes as its own locals (when the file loads, once the window
+  is built, and when a skin's sizes are read), so per-frame code reads
+  upvalues as before. What the window shows now comes through `GF.View()`,
+  `GF.State()` and `GF.TipOpen()`.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
   faint at rest, full under the pointer; right-click for Choose guide, Close
   tab, Move left/right; middle-click closes), a slim navigator (prev,

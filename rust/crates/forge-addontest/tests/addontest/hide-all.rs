@@ -553,7 +553,7 @@ const MARKS: &[(&str, &str)] = &[
 	("Polestar/Quests/Tooltips.lua", "quest icons on nameplates"),
 	("Polestar/UI/QuestieTurnIns.lua", "turn-in captions in another addon's quest tracker"),
 	("Polestar/UI/QuestLinks.lua", "Show in Guides in the quest log's menus"),
-	("Polestar/UI/GuideFrame.lua", "Pin as along the way in the quest log's menu"),
+	("Polestar/UI/GuideFrameMenu.lua", "Pin as along the way in the quest log's menu"),
 	("Polestar/Maps/Services.lua", "NPC services in the map's tracking menus"),
 	("Polestar/Nav/Nearby.lua", "Nearby services in the map's tracking menus"),
 	("Polestar/QoL/Flight.lua", "the flight map's mark and route"),
