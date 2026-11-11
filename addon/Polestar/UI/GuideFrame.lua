@@ -247,12 +247,46 @@ end
 
 -- The arrow's target on a goal or the person: a bar at the row's edge in
 -- the accent (or the player's colour), guideWindow.targetBarWidth wide;
--- turned off it stays laid out, unseen.
+-- turned off it stays laid out, unseen. In the house look the row is lit as
+-- well (t.psLit, GF.ShowMark): the bar's colour at the house's `lit` share,
+-- fading out across the row; off with the bar and in the transparent style,
+-- which draws no fills.
 function GF.PaintMark(t)
 	local r, g, b = GF.Rgb("targetBarColor")
 	if r then t:SetVertexColor(r, g, b, 1) else t:SetVertexColor(Theme.Color("accent")) end
 	t:SetWidth(GF.Num("targetBarWidth"))
 	t:SetAlpha(GF.On("targetBar") and 1 or 0)
+	local lit = t.psLit
+	if not lit then return end
+	if not r then r, g, b = Theme.Color("accent") end
+	local a = GF.On("targetBar") and not transparent() and Theme.House("lit") or 0
+	if lit.SetGradient and CreateColor then
+		lit:SetVertexColor(1, 1, 1, 1)
+		lit:SetGradient("HORIZONTAL", CreateColor(r, g, b, a), CreateColor(r, g, b, 0))
+	else
+		lit:SetVertexColor(r, g, b, a * 0.6)
+	end
+end
+
+-- Shows or hides row r's (or the person's) target bar, and its light in the
+-- house look, made on the first mark there (not at login), over the bar's
+-- height to the row's right edge.
+function GF.ShowMark(r, on)
+	on = on and true or false
+	local mark = r.Mark
+	mark:SetShown(on)
+	local lit = mark.psLit
+	if on and not lit and Theme.House("lit") then
+		lit = r:CreateTexture(nil, "BACKGROUND", nil, 1)
+		lit:SetTexture(Theme.Media("white"))
+		local _, _, _, _, top = mark:GetPoint(1)
+		local _, _, _, _, bottom = mark:GetPoint(2)
+		lit:SetPoint("TOPLEFT", r, "TOPLEFT", 0, top)
+		lit:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", 0, bottom)
+		mark.psLit = lit
+		GF.PaintMark(mark)
+	end
+	if lit then lit:SetShown(on) end
 end
 
 -- The guide's progress fill: the accent, or the player's colour.
@@ -1270,7 +1304,7 @@ local function paintPerson(group)
 	-- The arrow on this person marks the header; a field group's goals carry
 	-- their own marks, except the "Go to" the header stands for.
 	person.psPerson = kind ~= "here"
-	person.Mark:SetShown(personMarked(targetOf()))
+	GF.ShowMark(person, personMarked(targetOf()))
 end
 
 local function personEnter(self)
@@ -2024,7 +2058,7 @@ local function fillCard(sameFocus)
 		if escort then escortSaid = true end
 		if finder then finderSaid = true end
 		if goal.quest and goal.oi and goal.status ~= "skipped" then missingSaid[goal.quest] = true end
-		r.Mark:SetShown(goal.status ~= "done" and goal.status ~= "skipped" and isTarget(goal, t) and not person.Mark:IsShown())
+		GF.ShowMark(r, goal.status ~= "done" and goal.status ~= "skipped" and isTarget(goal, t) and not person.Mark:IsShown())
 		r.psFold = rec
 		if rec then
 			rec.row = r
@@ -2434,11 +2468,11 @@ end
 function GF.UpdateTargets()
 	if not F or state ~= "steps" or not focusGroup then return end
 	local t = targetOf()
-	person.Mark:SetShown(personMarked(t))
+	GF.ShowMark(person, personMarked(t))
 	for i = 1, #rows do
 		local r = rows[i]
 		if r:IsShown() and r.psGoal then
-			r.Mark:SetShown(r.psGoal.status ~= "done" and r.psGoal.status ~= "skipped" and isTarget(r.psGoal, t) and not person.Mark:IsShown())
+			GF.ShowMark(r, r.psGoal.status ~= "done" and r.psGoal.status ~= "skipped" and isTarget(r.psGoal, t) and not person.Mark:IsShown())
 		end
 	end
 end

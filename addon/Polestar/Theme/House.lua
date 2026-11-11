@@ -127,11 +127,14 @@ House.ROLES = ROLES
 -- asking keeps its own way, so no other look changes with these.
 --   raised       While you're here's card: the control ground at this share
 --   clearShade   ... in the transparent style: the scrim at this share
+--   lit          the arrow's goal: the target bar's colour at this share,
+--                fading out across its row
 ---------------------------------------------------------------------------
 
 local TOKENS = {
 	raised = 0.85,
 	clearShade = 0.32,
+	lit = 0.13,
 }
 
 ---------------------------------------------------------------------------

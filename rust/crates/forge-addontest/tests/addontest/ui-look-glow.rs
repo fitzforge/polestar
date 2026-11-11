@@ -19,6 +19,10 @@ local TABS = { { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }
 local function round(v) return v and math.floor(v * 100 + 0.5) / 100 end
 local function rgba(...) local c = { ... }; for i = 1, 4 do c[i] = round(c[i] or 1) end; return c end
 local function layout() GF.Layout(); stub.advance(1) end
+-- The stub keeps no gradient: a texture records its last one, colours read to two places.
+if not rawget(stub.Methods, "SetGradient") then
+	stub.Methods.SetGradient = function(self, orient, a, b) self.gradient = { orient, rgba(a:GetRGBA()), rgba(b:GetRGBA()) } end
+end
 -- The house skin, the looks that keep their own way, then the house again (a switch back restores it).
 local LOOKS = { "polestar", "halo", "lanterns", "polestar" }
 local function eachLook(f)
@@ -241,4 +245,75 @@ fn while_youre_here_lays_out_whole_at_every_width_and_scale() {
 		assert_eq!(c["bad"], "", "{at}: nothing cut, overlapping or outside its row");
 	}
 	assert!(out.as_array().unwrap().iter().any(|c| c["wraps"] == true), "the long hand-in wraps somewhere rather than being cut");
+}
+
+// The arrow's goal, lit as well as barred in the house look: the bar's colour at 13% fading to nothing across the
+// row, following the target bar's colour and switch, gone in the transparent style; never made in another look and
+// put out by a switch to one.
+#[test]
+fn the_arrows_goal_is_lit_across_its_row_in_the_house_look_only() {
+	let out = run(r#"
+		Polestar.Set("ui.skin", "lanterns")
+		uistub.openTabs(TABS, 1)
+		Polestar.Set("ui.shown", true)
+		local function rowWhere(on)
+			for _, r in ipairs(GF.rows) do if r:IsShown() and r.psGoal and r.Mark:IsShown() == on then return r end end
+		end
+		local function lit(r) local l = r and r.Mark.psLit; return l and l:IsShown() and l.gradient or false end
+		local function read() return { lit = lit(rowWhere(true)), other = lit(rowWhere(false)), accent = rgba(T.Accent()) } end
+		layout()
+		local out = { lanterns = read(), made = rowWhere(true).Mark.psLit ~= nil }
+		Polestar.Set("ui.skin", "polestar"); layout()
+		out.house = read()
+		Polestar.Set("guideWindow.targetBarColor", { 1, 0, 0 }); out.colour = read()
+		Polestar.Set("guideWindow.targetBarColor", nil)
+		Polestar.Set("guideWindow.targetBar", false); out.off = read()
+		Polestar.Set("guideWindow.targetBar", true)
+		Polestar.Set("ui.style", "transparent"); layout(); out.clear = read()
+		Polestar.Set("ui.style", "standard"); layout(); out.back = read()
+		Polestar.Set("ui.skin", "halo"); layout(); out.halo = read()
+		emit(out)"#);
+	assert_eq!(out["lanterns"]["lit"], false, "a skin on the house look: the bar alone");
+	assert_eq!(out["made"], false, "and no light made for it");
+	let a = &out["house"]["accent"];
+	assert_eq!(out["house"]["lit"], json!(["HORIZONTAL", [a[0], a[1], a[2], 0.13], [a[0], a[1], a[2], 0]]), "the house: the accent at 13%, fading out");
+	assert_eq!(out["house"]["other"], false, "only the arrow's goal is lit");
+	assert_eq!(out["colour"]["lit"], json!(["HORIZONTAL", [1, 0, 0, 0.13], [1, 0, 0, 0]]), "in the target bar's own colour");
+	let a = &out["off"]["accent"];
+	assert_eq!(out["off"]["lit"], json!(["HORIZONTAL", [a[0], a[1], a[2], 0], [a[0], a[1], a[2], 0]]), "off with the target bar");
+	assert_eq!(out["clear"]["lit"][1][3], 0, "the transparent style draws no fills");
+	assert_eq!(out["back"]["lit"], out["house"]["lit"], "lit again in the standard style");
+	assert_eq!(out["halo"]["lit"][1][3], 0, "Halo: put out");
+}
+
+#[test]
+fn the_lit_goal_spans_its_row_from_the_bar_at_every_width_and_scale() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		Polestar.Set("ui.shown", true)
+		local out = {}
+		for _, width in ipairs({ 260, 560 }) do
+			for _, scale in ipairs({ 0.65, 1, 1.25 }) do
+				Polestar.Set("ui.width", width)
+				Polestar.Set("ui.scale", scale)
+				layout()
+				for _, r in ipairs(GF.rows) do
+					local l = r.Mark.psLit
+					if r:IsShown() and l and l:IsShown() then
+						local q, m, row = rectOf(l), rectOf(r.Mark), rectOf(r)
+						out[#out + 1] = { at = width .. " x" .. scale, bad = table.concat(breaks(r, { { l } }), " | "),
+							fromBar = q.l == m.l and q.t == m.t and q.b == m.b, toEdge = q.r == row.r }
+					end
+				end
+			end
+		end
+		emit(out)"#);
+	let cases = out.as_array().unwrap();
+	assert_eq!(cases.len(), 6, "one lit goal at each width and scale: {out}");
+	for c in cases {
+		let at = &c["at"];
+		assert_eq!(c["bad"], "", "{at}: inside its row");
+		assert_eq!(c["fromBar"], true, "{at}: over the bar's height, from the bar");
+		assert_eq!(c["toEdge"], true, "{at}: to the row's right edge");
+	}
 }

@@ -608,6 +608,7 @@ A compact instrument read at a glance. From the top: the tab strip; a slim navig
 ### The House Look's Own Touches
 What the built-in house look draws that no other look does: its own tokens in `Theme/House.lua`, answered by `Theme.House(key)` only while the house skin itself is the one drawn. A skin built on the house look, Halo, Hearth, the game's looks and a picker card of another skin get none and keep their own way.
 - **While you're here:** a raised card, the control ground (`panelAlt`) at 85% under a hairline in `border`, its rows in Body (13px), one size under the step's goals so the step leads. In the transparent style: the scrim at 32%, no hairline. The other looks keep the accent at 22% in the window ground, a 2px accent edge and rows in Goal type.
+- **The arrow's goal:** lit as well as barred. The bar's colour (the accent, or the player's target bar colour) at 13% fades to nothing across the row, over the bar's height; it goes out with the target bar and in the transparent style, which draws no fills. The other looks keep the bar alone.
 
 ### Zone Art
 A zone's own world-map painting, drawn from the player's client, 20% desaturated so it sits in the night palette, zoomed past the whole map and framed around a place; a 40px shade along the top for chips and buttons, a fade over the bottom 62% into the ground. Where the art is missing, a stretch of the starlit band stands in.
