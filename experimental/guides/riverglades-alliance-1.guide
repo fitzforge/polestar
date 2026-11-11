@@ -193,7 +193,7 @@ step Terral's Watch
 step The plains
   tip The Rog'mar Poachers hunt the plains north of the tower; the Wildplains lions roam among them. A picked carcass lies in the grass east of the tower: its skull starts A Feast for Buzzards.
   accept 95983 @61.7,58.8               -- Picked Carcass: A Feast for Buzzards
-  kill 259052 x12 quest 94924.1         -- Rog'mar Poacher
+  kill 259052 x12 quest 94924.1 @58.0,59.0         -- Rog'mar Poacher
   collect 266888 x8 quest 94925.1 @59.8,53.7  -- Prized Lion Hide
 
 step Terral's Watch
