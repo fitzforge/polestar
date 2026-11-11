@@ -71,10 +71,12 @@ fn scale_opacity_type_sizes_and_time_on_screen_reach_the_real_rare_alert_and_ban
 		Polestar.Set("toasts.whilehere.alpha", 0.5)
 		W.Show(HERE)
 		local t = PolestarWhileHereToast
-		local s0 = size(t.Head)
+		-- Its header as shown: the house look's band over the card.
+		local head = ((t.psHouse and t.psHouse:IsShown()) and t.psHouse or t).Head
+		local s0 = size(head)
 		Polestar.Set("toasts.whilehere.titleSize", 1.6)
 		stub.advance(0.5)
-		local s1, alpha = size(t.Head), r2(t:GetAlpha())
+		local s1, alpha = size(head), r2(t:GetAlpha())
 		stub.advance(2)
 		local shown = t:IsShown()
 		stub.advance(1)

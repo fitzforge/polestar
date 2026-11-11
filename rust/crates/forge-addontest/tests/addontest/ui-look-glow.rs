@@ -103,7 +103,11 @@ local function breaks(card, parts)
 		local x, kind = p[1], p[2]
 		if kind then
 			local own = boxWidth(x)
-			if kind == "text" and x:GetWordWrap() == false and own and shownWidth(x) > own + 0.5 then bad[#bad + 1] = "cut: " .. name(x) end
+			if kind == "text" and own and own > 0 then
+				-- One line cut at its width, or a wrapped one with more lines than its cap.
+				local cap = x:GetWordWrap() == false and 1 or x:GetMaxLines()
+				if cap > 0 and math.ceil(shownWidth(x) / own - 0.001) > cap then bad[#bad + 1] = "cut: " .. name(x) end
+			end
 			rects[i] = textRect(x)
 		else
 			rects[i] = rectOf(x)
@@ -417,4 +421,79 @@ fn the_heads_up_card_lays_out_whole_at_every_width_and_scale_full_and_compact() 
 	for c in cases {
 		assert_eq!(c["bad"], "", "{}: nothing cut, overlapping or outside the card", c["at"]);
 	}
+}
+
+// The While you're here toast (UI/WhileHere.lua) and what it shows: in the house look its band (t.psHouse) over the
+// card, else the card itself.
+const TOAST: &str = r#"
+local WT = Polestar.UI.WhileHereToast
+local function line(text) return { step = 3, index = 1, t = "kill", here = "objective", hereText = text or "Kill Kobold Worker, 5 more", yards = 40 } end
+local function shown(t) local b = t.psHouse; return (b and b:IsShown()) and b or t end
+"#;
+
+// In the house look the toast wears the alerts' anatomy: 360 wide, the night band, the glyph in its ring, the
+// distance riding "While you're here" in textDim, the line under it; the movers' box takes its size. The other looks
+// keep 0.3.7's card: 320 by 46, the accent edge, the distance ending the line; a look switch while it shows lays it out
+// again, and a toast first shown in another look makes no band.
+#[test]
+fn the_while_here_toast_wears_the_alerts_anatomy_in_the_house_look_only() {
+	let out = run(&format!(
+		r#"{TOAST}
+		Polestar.Set("ui.skin", "lanterns")
+		WT.Show(line())
+		local t = PolestarWhileHereToast
+		local function read()
+			local p = shown(t)
+			local b = t.psHouse
+			return {{ band = p ~= t, w = t:GetWidth(), h = t:GetHeight(), edge = t.Edge:IsShown(), head = p.Head:GetText(), text = p.Text:GetText(),
+				ring = b ~= nil and b.Ring:IsVisible(), night = b ~= nil and b.Night:IsVisible(), size = {{ WT.Size() }} }}
+		end
+		local out = {{ lanterns = read(), made = t.psHouse ~= nil }}
+		Polestar.Set("ui.skin", "polestar")
+		out.house = read()
+		out.dim = T.Hex("textDim")
+		Polestar.Set("ui.skin", "halo")
+		out.halo = read()
+		emit(out)"#
+	));
+	let plain = json!({ "band": false, "w": 320, "h": 46, "edge": true, "head": "While you're here", "text": "Kill Kobold Worker, 5 more  \u{b7}  40 yd",
+		"ring": false, "night": false, "size": [320, 46] });
+	assert_eq!(out["lanterns"], plain, "a skin on the house look: 0.3.7's card");
+	assert_eq!(out["made"], false, "and no band made for it");
+	let dim = out["dim"].as_str().unwrap();
+	assert_eq!(
+		out["house"],
+		json!({ "band": true, "w": 360, "h": 56, "edge": false, "head": format!("While you're here  \u{b7}  |c{dim}40 yd|r"),
+			"text": "Kill Kobold Worker, 5 more", "ring": true, "night": true, "size": [360, 56] }),
+		"the house look: the alerts' anatomy, laid out again on the switch"
+	);
+	assert_eq!(out["halo"], plain, "Halo: 0.3.7's card again, the band put away");
+}
+
+#[test]
+fn the_house_while_here_toast_lays_out_whole_on_one_line_or_two_at_every_scale() {
+	let out = run(&format!(
+		r#"{TOAST}
+		local out = {{}}
+		for _, text in ipairs({{ "Kill Kobold Worker, 5 more", "Hand in The Fargodeep Mine and Its Many Kobold Tunnels to Marshal Dughan" }}) do
+			for _, scale in ipairs({{ 0.65, 1, 1.25 }}) do
+				Polestar.Set("ui.scale", scale)
+				WT.Show(line(text))
+				local t = PolestarWhileHereToast
+				local b = t.psHouse
+				b.Head.psName, b.Text.psName, b.Ring.psName, b.Icon.psName = "head", "line", "ring", "glyph"
+				out[#out + 1] = {{ at = #text .. " x" .. scale, bad = table.concat(breaks(t, {{ {{ b.Ring }}, {{ b.Head, "text" }}, {{ b.Text, "text" }} }}), " | "),
+					glyphInRing = select(2, b.Icon:GetPoint(1)) == b.Ring, lines = b.Text:GetNumLines(), h = t:GetHeight() }}
+			end
+		end
+		emit(out)"#
+	));
+	for c in out.as_array().unwrap() {
+		assert_eq!(c["bad"], "", "{}: nothing cut, overlapping or outside the toast", c["at"]);
+		assert_eq!(c["glyphInRing"], true);
+	}
+	let cases = out.as_array().unwrap();
+	assert_eq!((cases[0]["lines"].as_i64(), cases[0]["h"].as_i64()), (Some(1), Some(56)), "one line: 56 tall");
+	assert_eq!(cases[3]["lines"], 2, "a long hand-in on two lines, not cut");
+	assert!(cases[3]["h"].as_f64().unwrap() > 56.0, "and the toast grows to hold them");
 }

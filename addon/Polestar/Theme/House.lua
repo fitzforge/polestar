@@ -131,6 +131,9 @@ House.ROLES = ROLES
 --                fading out across its row
 --   cardFacts    the heads-up card leads with its title, its facts under
 --                it in sentence case, and draws no stripe
+--   toastBand    the While you're here toast wears the alerts' anatomy:
+--                the night band, the glyph in a ring, the distance in its
+--                header, the line on up to two lines
 ---------------------------------------------------------------------------
 
 local TOKENS = {
@@ -138,6 +141,7 @@ local TOKENS = {
 	clearShade = 0.32,
 	lit = 0.13,
 	cardFacts = true,
+	toastBand = true,
 }
 
 ---------------------------------------------------------------------------

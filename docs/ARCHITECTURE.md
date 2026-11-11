@@ -7149,7 +7149,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   the Guide page's Dynamic Questing section; held under the cursor) or with
   the line. It has no look of its own (0.3.8): the theme's and the shared
   toast style (`UI.Toasts.Attach(..., { shared = true })`); only its time and
-  its place (`toasts.whilehere.point`, a mover) are the player's.
+  its place (`toasts.whilehere.point`, a mover) are the player's. In the
+  house look (`Theme.House("toastBand")`) a band over the card says it in the
+  alerts' anatomy (`W.Night`, the glyph in a ring, the rim): 360 wide,
+  "While you're here · 15 yd" over the line, which wraps onto a second one;
+  made on its first showing there and laid out again on a look change.
+  `UI.WhileHereToast.Size()` gives the movers' box the look's size.
   An object named like one of its quests while it gives another too (one
   poster for two WANTED quests) is headed by the first goal note that names
   it, else "The object here" (`UI.GroupName`, #942). A click

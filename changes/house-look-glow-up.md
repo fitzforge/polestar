@@ -6,5 +6,8 @@ section: players
   below the step's goals so the step stays in front. The goal the arrow
   points at is lit with a soft wash of its bar's colour. Heads-up cards lead
   with their title, with the level and class (or dungeon) under it in plain
-  case instead of capitals, and no coloured stripe down the edge. Skins
-  built on Polestar's look, Halo, Hearth and the game's looks are unchanged.
+  case instead of capitals, and no coloured stripe down the edge. The While
+  you're here toast matches the other alerts: the night band, the glyph in a
+  ring, the distance beside its heading, and a long line wraps instead of
+  being cut. Skins built on Polestar's look, Halo, Hearth and the game's
+  looks are unchanged.

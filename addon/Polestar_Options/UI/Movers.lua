@@ -994,7 +994,11 @@ ns.OnInit(function()
 	end
 	pointFormat({ key = "whileHere", label = L["While you're here"], frame = G("PolestarWhileHereToast"),
 		enabled = own(function() return ns.Get("behavior.whileHere") ~= false end),
-		size = function() return 320, 46 end }, "toasts.whilehere.point", { "TOP", 0, -150 })
+		size = function()
+			local T = ns.UI and ns.UI.WhileHereToast
+			if T and T.Size then return T.Size() end
+			return 320, 46
+		end }, "toasts.whilehere.point", { "TOP", 0, -150 })
 	-- The heads-up card (UI/ClassToast.lua: a class quest, a dungeon) on a spot
 	-- of its own: only while its place is "free" (else it sits on the guide
 	-- window and follows it).
