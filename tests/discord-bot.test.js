@@ -648,6 +648,39 @@ test("a maintainer's reply on GitHub is posted in the thread once, edited there 
 	assert.equal(bot().length, before + 1);
 });
 
+test('closed with a comment: the thread hears the comment once, whichever run comes first', async () => {
+	const at = Date.parse('2026-11-11T02:00:00Z');
+	const closeWith = async (relayDuringWait) => {
+		const { discord, github } = await filed();
+		const c = { ...(await remark(github, 1, 'Not something we can change: the game decides that.')), created_at: '2026-11-11T02:00:00Z' };
+		github.commentsByIssue.get(1).at(-1).created_at = c.created_at;
+		const issue = { ...structuredClone(github.issues[0]), state: 'closed', state_reason: 'not_planned' };
+		const relay = (action = 'created', comment = c) => onComment({ discord, github, event: { action, issue, comment }, forumId: FORUM, log: quietLog });
+		let waited = 0;
+		const sleep = async (ms) => {
+			waited += ms;
+			if (relayDuringWait) await relay();
+		};
+		await onIssue({ discord, github, event: { action: 'closed', issue }, forumId: FORUM, log: quietLog, sleep, now: () => at + 5000 });
+		assert.equal(await relay(), false, 'the relay run after the close posts nothing new');
+		// An edit edits a relayed reply, and leaves a close notice that quoted the comment alone.
+		assert.equal(await relay('edited', { ...c, body: 'Edited.' }), relayDuringWait);
+		const bot = discord.messages.get('1001').filter((m) => m.author.bot).map((m) => m.content);
+		return { bot, waited, c };
+	};
+	// The close's run first: it waits for the relay, which does not come, then quotes the comment and links it.
+	let { bot, waited, c } = await closeWith(false);
+	assert.equal(waited, 20000);
+	assert.equal(bot.filter((s) => s.includes('the game decides that')).length, 1);
+	assert.match(bot.at(-1), new RegExp(`^<@u1> We've decided not to change this one\\.\\n> Not something[\\s\\S]*, \\[comment\\]\\(<[^>]+#issuecomment-${c.id}>\\)\\)$`));
+	assert.doesNotMatch(bot.at(-1), /Edited/, 'an edit leaves the close notice alone');
+	// The relay lands while the close's run waits: the close no longer quotes it.
+	({ bot, c } = await closeWith(true));
+	assert.equal(bot.filter((s) => s.includes('the game decides that') || s.endsWith('Edited.')).length, 1, 'one copy, edited in place');
+	assert.match(bot.at(-2), /^<@u1> Reply on GitHub/);
+	assert.match(bot.at(-1), /^<@u1> We've decided not to change this one\.\nThanks for the report!/);
+});
+
 test('a long reply is cut under 2000 characters with a link to the full reply, its code block closed', () => {
 	const body = 'Intro line.\n```\n' + 'x '.repeat(1500) + '\n```\nAfter.';
 	const msg = replyMessage({ repo: 'fitzforge/polestar', issue: { number: 5 }, comment: { id: 77, body }, owner: 'u1' });

@@ -55,11 +55,12 @@ function duplicateComment(comments) {
 }
 
 // A maintainer's explanation on a duplicate: their newest comment that is
-// more than the bare `Duplicate of #M` line, without that line.
+// more than the bare `Duplicate of #M` line, without that line, and that
+// comment: { text, comment }, or null.
 function duplicateNote(comments) {
 	for (const c of maintainerComments(comments)) {
 		const text = c.body.replace(/^[ \t]*duplicate of #\d+[ \t]*\.?[ \t]*$/gim, '').trim();
-		if (text) return text;
+		if (text) return { text, comment: c };
 	}
 	return null;
 }
@@ -260,6 +261,9 @@ function discordText(repo, markdown) {
 		.trim();
 }
 
+// A relayed reply as the thread shows it (with or without the reporter's ping).
+const REPLY_HEAD = /^(?:<@[^>\s]+> )?Reply on GitHub \(/;
+
 // A maintainer's reply as the thread hears it, under Discord's 2000
 // characters: cut at a line or word, a code block closed, and the link to
 // the full reply.
@@ -293,7 +297,9 @@ async function relayedIn(discord, thread) {
 // A maintainer's comment on an issue filed from Discord: posted in its
 // thread, pinging the reporter; edited there when the comment is edited.
 // Only maintainers' (author_association), never the bots' own; a re-run or
-// an edit of a comment never relayed posts nothing new.
+// an edit of a comment never relayed posts nothing new. A comment a close or
+// needs-info notice quoted already (it carries the comment's link) is not
+// posted again, and its edits leave that notice alone.
 async function onComment({ discord, github, event, forumId, log = console }) {
 	const { action, issue, comment } = event;
 	if ((action !== 'created' && action !== 'edited') || !issue || issue.pull_request || !isReply(comment)) return false;
@@ -303,7 +309,7 @@ async function onComment({ discord, github, event, forumId, log = console }) {
 	const key = commentKey(comment);
 	const posted = (await discord.getMessages(thread.id, 100)).find((m) => m.author && m.author.bot && String(m.content || '').includes(key));
 	if (posted) {
-		if (action !== 'edited' || posted.content === content) return false;
+		if (action !== 'edited' || posted.content === content || !REPLY_HEAD.test(posted.content)) return false;
 		if (thread.thread_metadata && thread.thread_metadata.archived) await discord.editThread(thread.id, { archived: false });
 		await discord.editMessage(thread.id, posted.id, content);
 		log.info(`#${issue.number}: reply ${comment.id} edited in thread ${thread.id}`);
@@ -315,7 +321,18 @@ async function onComment({ discord, github, event, forumId, log = console }) {
 	return true;
 }
 
-async function onIssue({ discord, github, event, forumId, log = console }) {
+// A notice that quotes a comment carries the comment's link, so the reply
+// relay knows the thread has it.
+function citing(content, repo, issue, comment) {
+	return comment ? content.replace(/\)$/, `, [comment](<${commentUrl(repo, issue, comment)}>))`) : content;
+}
+
+// A comment made with the close (the same action, or a moment before) has
+// its relay run racing this one: how long to give it, and how recent counts.
+const RELAY_WAIT_MS = 20 * 1000;
+const RELAY_RECENT_MS = 2 * 60 * 1000;
+
+async function onIssue({ discord, github, event, forumId, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now }) {
 	const issue = event.issue;
 	const action = event.action;
 	const asking = action === 'labeled' && event.label && event.label.name === 'needs-info';
@@ -324,24 +341,34 @@ async function onIssue({ discord, github, event, forumId, log = console }) {
 	if (!thread) return false;
 	const comments = action === 'reopened' ? [] : await github.comments(issue.number);
 	const users = thread.owner_id ? [thread.owner_id] : [];
-	// The maintainer's last word, unless the thread has it already as a relayed reply.
+	// The maintainer's last word, unless the thread has it already as a relayed
+	// reply. Just written, its relay may be on its way: give it a moment.
 	const last = maintainerComments(comments)[0];
-	const fresh = !last || !(await relayedIn(discord, thread)).has(String(last.id));
+	const relayed = async () => (await relayedIn(discord, thread)).has(String(last.id));
+	let fresh = !last || !(await relayed());
+	if (fresh && last && isReply(last) && now() - Date.parse(last.created_at) < RELAY_RECENT_MS) {
+		await sleep(RELAY_WAIT_MS);
+		fresh = !(await relayed());
+	}
 	if (asking) {
 		const note = maintainerNote(comments);
 		if (!note) {
 			log.info(`#${issue.number}: needs-info with no maintainer comment to relay`);
 			return false;
 		}
-		await postIn(discord, thread, questionMessage({ repo: github.repo, issue, owner: thread.owner_id, note: fresh ? note : null }), users);
+		const content = questionMessage({ repo: github.repo, issue, owner: thread.owner_id, note: fresh ? note : null });
+		await postIn(discord, thread, fresh ? citing(content, github.repo, issue, last) : content, users);
 		log.info(`#${issue.number} needs-info: asked in thread ${thread.id}`);
 		return true;
 	}
 	const dup = action === 'closed' ? await duplicateTarget(github, issue, comments) : null;
-	const duplicate = dup && { of: dup.of, target: dup.of ? await duplicateStatus(github, dup.of) : null, note: fresh ? duplicateNote(comments) : null };
+	const dupNote = dup && fresh ? duplicateNote(comments) : null;
+	const duplicate = dup && { of: dup.of, target: dup.of ? await duplicateStatus(github, dup.of) : null, note: dupNote ? dupNote.text : null };
 	const released = action === 'closed' && !dup && issue.state_reason === 'completed' ? await releasedIn(github, issue) : null;
 	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments: fresh ? comments : [], duplicate, released });
-	await postIn(discord, thread, msg.content, users);
+	// The comment the notice quotes, if any (a not-planned close's reason, a duplicate's explanation).
+	const quoted = dup ? dupNote && dupNote.comment : issue.state_reason === 'not_planned' && fresh ? last : null;
+	await postIn(discord, thread, citing(msg.content, github.repo, issue, quoted), users);
 	const forum = await discord.getChannel(thread.parent_id);
 	await discord.editThread(thread.id, { applied_tags: withStatus(thread.applied_tags, statusTags(forum), msg.role), locked: msg.locked });
 	// Told it is out: the release run must not tell it again.
