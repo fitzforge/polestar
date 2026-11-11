@@ -398,6 +398,61 @@ fn opening_the_flight_map_records_known_nodes_and_re_plans() {
 	assert_eq!(out["saved"], json!([true, true, false]));
 }
 
+// #1795: Polestar knows a flight path only from a flight map (on Forever the world map's flight points mark none
+// undiscovered), so on a continent where no flight map has opened yet for this character, a flight master it doesn't
+// know may be one it has: Nav.UnknownTaxiOn (While-here's "Learn the flight path" lines) lists none there. A flight
+// map on that continent lists every flight path the character has there: one it doesn't list is one it lacks, one it
+// lists is known.
+#[test]
+fn flight_masters_not_known_count_as_missing_only_once_a_flight_map_opened_on_their_continent_1795() {
+	let out = run(r#"
+		local function unknown()
+			local ids = {}
+			for _, node in ipairs(N.UnknownTaxiOn(0, {})) do ids[#ids + 1] = node.id end
+			return table.concat(ids, ",")
+		end
+		local before = { unknown = unknown(), seen = N.GetTaxiSeen()[0] == true }
+		nav.taxiMap = { mapID = 1415, nodes = { 1 } }               -- West Hold's flight map, without East Hold
+		stub.fire("TAXIMAP_OPENED", 1)
+		local scanned = { unknown = unknown(), seen = Polestar.CharState().flags.taxiSeen[0] == true }
+		nav.taxiMap = { mapID = 1415, nodes = { 1, 2 } }
+		stub.fire("TAXIMAP_OPENED", 1)
+		emit({ before = before, scanned = scanned, listed = unknown() })"#);
+	assert_eq!(out["before"], json!({ "unknown": "", "seen": false }), "no flight map yet: East Hold may be known");
+	assert_eq!(out["scanned"], json!({ "unknown": "2", "seen": true }), "West Hold's map didn't list East Hold: missing");
+	assert_eq!(out["listed"], json!(""), "listed: known (the Horde's roost is never one to learn)");
+}
+
+// A character that opened a flight map on a continent before the seen continents were kept keeps its lines: they
+// start, once, from the flight paths it already knows (each came from a flight map there). One that knows none starts
+// with none.
+#[test]
+fn the_seen_continents_start_from_the_flight_paths_already_known_1795() {
+	let run_saved = |saved: &str| -> Value {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![nav()],
+			saved: vec![("Polestar".into(), saved.into())],
+			login: true,
+			script: format!(
+				"{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld(nil)\n{}",
+				r#"
+				local ids = {}
+				for _, node in ipairs(N.UnknownTaxiOn(0, {})) do ids[#ids + 1] = node.id end
+				emit({ seen = N.GetTaxiSeen()[0] == true, unknown = table.concat(ids, ","), kept = Polestar.CharState().flags.taxiSeen ~= nil })"#
+			),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(
+		run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [1] = true } } }"),
+		json!({ "seen": true, "unknown": "2", "kept": true }),
+		"West Hold known: a flight map opened on its continent"
+	);
+	assert_eq!(run_saved("PolestarCharDB = { schema = 1 }"), json!({ "seen": false, "unknown": "", "kept": true }));
+}
+
 #[test]
 fn binding_at_an_innkeeper_teaches_nav_what_the_bind_location_means() {
 	let out = run(r#"

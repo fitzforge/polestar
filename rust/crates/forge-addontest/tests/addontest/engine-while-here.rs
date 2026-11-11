@@ -1692,7 +1692,9 @@ fn dismissing_an_objective_several_steps_hold_hides_every_copy() {
 // learns it; a click leads the arrow there. Not one of the other faction (Horde Camp), of another class (a Druid
 // grove for this Warrior), already known, or out of reach (Neutral Post, 1,200 yd off). Learning it ("New flight path
 // discovered") ends the line and ticks the guide's later getfp goal for it while the live step stays; the setting
-// turns the lines off. Nav as the addon loads it, its taxi nodes the test's.
+// turns the lines off. Nav as the addon loads it, its taxi nodes the test's (Stormwind's, far off, is where the #1795
+// test opens a flight map). The character has opened a flight map on this continent before (SEEN), unless a test
+// says otherwise (#1795).
 const FLY_GUIDE: &str = r#"
 Polestar.RegisterGuide({ id = "test/fly", pack = "test", title = "Fly", minLevel = 1, maxLevel = 10, steps = {
 	{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
@@ -1707,6 +1709,7 @@ Polestar.Nav.RegisterTravelData({ build = "test", taxi = {
 	{ 3, 0, -320, 30, 1429, 49, 41, 2, "Horde Camp, Elwynn Forest" },
 	{ 4, 0, -1100, 900, 1429, 20, 80, 3, "Neutral Post, Elwynn Forest" },
 	{ 5, 0, -300, 60, 1429, 48, 40, 3, "Grove, Elwynn Forest", "DRUID" },
+	{ 6, 0, 300, -1200, 1429, 90, 10, 1, "Stormwind, Elwynn Forest" },
 } }, true)
 Polestar.Set("behavior.whileHereRadius", 60)
 -- The travel data's points are on the game's frame ("e"): this world's Elwynn is that frame too.
@@ -1722,12 +1725,20 @@ function fly()
 end
 "#;
 
+// Saved character data: a flight map opened on Elwynn's continent before (SEEN), or none ever (UNSEEN).
+const SEEN: &str = r#"PolestarCharDB = { schema = 1, guide = "test/fly", flags = { taxiSeen = { [0] = true } } }"#;
+const UNSEEN: &str = r#"PolestarCharDB = { schema = 1, guide = "test/fly" }"#;
+
 fn run_fly(script: &str) -> Vec<Value> {
+	run_fly_as(SEEN, script)
+}
+
+fn run_fly_as(saved: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
-		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/fly" }"#.into())],
+		saved: vec![("Polestar".into(), saved.into())],
 		script: [TEST_PACK, TEST_SOURCE, FLY_GUIDE, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, FLY_NODES, script].join("\n"),
 		..Default::default()
 	})
@@ -1780,11 +1791,37 @@ fn a_known_flight_path_never_shows_nor_one_in_a_fight() {
 	assert_eq!(out, vec![json!("none"), json!([[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]]), json!("none")]);
 }
 
+// #1795: Polestar knows a flight path only from a flight map (on Forever the world map's flight points mark none
+// undiscovered), so one learnt before Polestar ran is unknown to it until a flight map opens on that continent. Until
+// then no line asks for one there: at Goldshire's flight master, no flight map opened yet, nothing. Stormwind's flight
+// map, without Goldshire on it, shows the character lacks Goldshire's: the line comes. Once a flight map lists
+// Goldshire, it goes and the guide's getfp step for it is done.
+#[test]
+fn no_flight_path_line_on_a_continent_until_a_flight_map_opens_there_1795() {
+	let out = run_fly_as(
+		UNSEEN,
+		r#"
+		at(49.6, 40.6)                                  -- 17 yd from Goldshire's flight master
+		emit(fly())
+		w.taxi(352, "Stormwind, Elwynn Forest"); flush()
+		w.close(); flush(); at(49.6, 40.6)
+		emit({ rows = fly(), seen = Polestar.Nav.GetTaxiSeen()[0] == true })
+		w.taxi(352, "Stormwind, Elwynn Forest", { "Goldshire, Elwynn Forest" }); flush()
+		w.close(); flush(); at(49.6, 40.6)
+		emit({ rows = fly(), done = E.GoalDone(2, 1) })
+	"#,
+	);
+	assert_eq!(out[0], json!("none"), "no flight map opened on this continent yet: Goldshire's may be known");
+	assert_eq!(out[1], json!({ "rows": [[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]], "seen": true }));
+	assert_eq!(out[2], json!({ "rows": "none", "done": true }), "listed on the flight map: known, the getfp step done");
+}
+
 // Fitz-style, on the addon's own travel data (Nav/TravelData.lua): a Dwarf walking through Thelsamar on Loch Modan's
 // way in, its flight path not learned, sees "Learn the flight path at Thelsamar", the guide's later getfp step under
 // it; a Tauren passing Sun Rock Retreat in Stonetalon sees Sun Rock's; neither sees the other side's. The maps'
-// frames are the game's (data/forever/map-frames.json).
-fn run_real_fly(race: &str, faction: &str, map: u32, x: f64, y: f64, node: u32, place: &str) -> Vec<Value> {
+// frames are the game's (data/forever/map-frames.json). `seen`: the character has opened a flight map on both
+// continents before (#1795).
+fn run_real_fly(race: &str, faction: &str, map: u32, x: f64, y: f64, node: u32, place: &str, seen: bool) -> Vec<Value> {
 	let before = format!(
 		r#"{WORLD}
 w.addMap(1432, {{ name = "Loch Modan", c = 0, left = -1993.75, right = -4752.083, top = -4487.5, bottom = -6327.083 }})
@@ -1799,11 +1836,12 @@ w.moveTo({map}, {x}, {y})
 	{{ title = "{place}", goals = {{ {{ t = "getfp", location = "{place}", node = {node}, map = {map}, x = {x}, y = {y} }} }} }},
 }} }})"#
 	);
+	let flags = if seen { ", flags = { taxiSeen = { [0] = true, [1] = true } }" } else { "" };
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before,
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
-		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/real" }"#.into())],
+		saved: vec![("Polestar".into(), format!(r#"PolestarCharDB = {{ schema = 1, guide = "test/real"{flags} }}"#))],
 		script: [
 			TEST_PACK,
 			TEST_SOURCE,
@@ -1825,12 +1863,14 @@ emit(#out > 0 and out or "none")"#
 
 #[test]
 fn a_dwarf_through_thelsamar_and_a_tauren_past_sun_rock_retreat_are_told_to_learn_the_flight_path() {
-	let dwarf = run_real_fly("Dwarf", "Alliance", 1432, 33.94, 50.79, 8, "Thelsamar");
+	let dwarf = run_real_fly("Dwarf", "Alliance", 1432, 33.94, 50.79, 8, "Thelsamar", true);
 	assert_eq!(dwarf, vec![json!(["Learn the flight path at Thelsamar | Step 2"])]);
-	let tauren = run_real_fly("Tauren", "Horde", 1442, 45.16, 59.89, 29, "Sun Rock Retreat");
+	let tauren = run_real_fly("Tauren", "Horde", 1442, 45.16, 59.89, 29, "Sun Rock Retreat", true);
 	assert_eq!(tauren, vec![json!(["Learn the flight path at Sun Rock Retreat | Step 2"])]);
-	let dwarf_at_sun_rock = run_real_fly("Dwarf", "Alliance", 1442, 45.16, 59.89, 29, "Sun Rock Retreat");
+	let dwarf_at_sun_rock = run_real_fly("Dwarf", "Alliance", 1442, 45.16, 59.89, 29, "Sun Rock Retreat", true);
 	assert_eq!(dwarf_at_sun_rock, vec![json!("none")], "the Horde's flight master");
+	let dwarf_unseen = run_real_fly("Dwarf", "Alliance", 1432, 33.94, 50.79, 8, "Thelsamar", false);
+	assert_eq!(dwarf_unseen, vec![json!("none")], "no flight map opened in the Eastern Kingdoms yet (#1795)");
 }
 
 // #1540: a click an item must be carried for (Marla's Grave takes Samuel's Remains, from the farm) is no line

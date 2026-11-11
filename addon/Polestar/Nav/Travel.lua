@@ -1300,6 +1300,28 @@ local function knownSet()
 	return flags.taxi
 end
 
+-- Continents a flight map has opened on for this character (CharState().flags.taxiSeen,
+-- { [continent] = true }). That map lists every flight path the character has there
+-- (recordTaxiMap), so on a seen continent a node missing from flags.taxi is one it
+-- lacks. Elsewhere Polestar can't tell: a flight path learnt before Polestar ran, or
+-- before its saved data was lost, shows only on a flight map (on Forever the world
+-- map's flight points mark none undiscovered, #1795). Made once from the nodes already
+-- known, each from a flight map on its continent, so a character that opened one there
+-- keeps what it had; never before the travel data is loaded.
+local function seenSet()
+	local flags = ns.CharState().flags
+	local seen = flags.taxiSeen
+	if type(seen) == "table" then return seen end
+	seen = {}
+	if #taxiList == 0 then return seen end
+	for id in pairs(knownSet()) do
+		local node = taxi[id]
+		if node then seen[node.c] = true end
+	end
+	flags.taxiSeen = seen
+	return seen
+end
+
 local playerFaction = 0
 local function refreshFaction()
 	local C = ns.Compat
@@ -1308,14 +1330,20 @@ local function refreshFaction()
 	playerFaction = f == "Alliance" and 1 or f == "Horde" and 2 or 0
 end
 
-local function markByName(known, name)
+-- Marks the nodes named `name` the character may fly from known, and with `seen`
+-- their continent seen. -> true when a node was added.
+local function markByName(known, name, seen)
 	local ids = name and taxiByName[lower(name)]
 	if not ids then return false end
 	local added = false
 	for _, id in ipairs(ids) do
-		if allowed(taxi[id].faction, playerFaction, taxi[id].class) and not known[id] then
-			known[id] = true
-			added = true
+		local node = taxi[id]
+		if allowed(node.faction, playerFaction, node.class) then
+			if seen then seen[node.c] = true end
+			if not known[id] then
+				known[id] = true
+				added = true
+			end
 		end
 	end
 	return added
@@ -1337,17 +1365,26 @@ function Nav.GetKnownTaxiNodes()
 	return knownNodes()
 end
 
+-- Continents a flight map has opened on for this character: { [continent] = true } (read-only).
+function Nav.GetTaxiSeen()
+	return seenSet()
+end
+
 -- The flight masters on continent c this character may fly from (its
--- faction's or neutral, its class's) whose flight path it has not learned
--- (the Engine's "Learn the flight path" lines): their nodes into `out`
--- (cleared first, reused). -> out
+-- faction's or neutral, its class's) whose flight path it does not have (the
+-- Engine's "Learn the flight path" lines): their nodes into `out` (cleared
+-- first, reused). None until a flight map has opened on c (seenSet): before
+-- that, a flight master not known may be one learnt before Polestar ran (#1795). -> out
 function Nav.UnknownTaxiOn(c, out)
 	if playerFaction == 0 then refreshFaction() end
-	local known, n = knownNodes(), 0
-	for _, node in ipairs(taxiList) do
-		if node.c == c and not known[node.id] and allowed(node.faction, playerFaction, node.class) then
-			n = n + 1
-			out[n] = node
+	local n = 0
+	if seenSet()[c] then
+		local known = knownNodes()
+		for _, node in ipairs(taxiList) do
+			if node.c == c and not known[node.id] and allowed(node.faction, playerFaction, node.class) then
+				n = n + 1
+				out[n] = node
+			end
 		end
 	end
 	for i = n + 1, #out do out[i] = nil end
@@ -1366,10 +1403,11 @@ local function discoveredState(state)
 end
 local DISCOVERED_TYPE = { CURRENT = true, REACHABLE = true, UNREACHABLE = true }
 
--- The flight map lists the nodes this character knows on that continent.
+-- The flight map lists the nodes this character knows on that continent: each
+-- is known, and its continent seen (seenSet).
 local function recordTaxiMap()
 	refreshFaction()
-	local known = knownSet()
+	local known, seen = knownSet(), seenSet()
 	local added = false
 	local mapID = GetTaxiMapID and GetTaxiMapID()
 	if mapID and C_TaxiMap and C_TaxiMap.GetAllTaxiNodes then
@@ -1377,16 +1415,20 @@ local function recordTaxiMap()
 		if ok and type(list) == "table" then
 			for _, info in ipairs(list) do
 				local id = type(info) == "table" and info.nodeID
-				if id and taxi[id] and not known[id] and discoveredState(info.state) then
-					known[id] = true
-					added = true
+				local node = id and taxi[id]
+				if node and discoveredState(info.state) then
+					seen[node.c] = true
+					if not known[id] then
+						known[id] = true
+						added = true
+					end
 				end
 			end
 		end
 	end
 	if NumTaxiNodes and TaxiNodeName and TaxiNodeGetType then
 		for i = 1, NumTaxiNodes() or 0 do
-			if DISCOVERED_TYPE[TaxiNodeGetType(i)] and markByName(known, TaxiNodeName(i)) then added = true end
+			if DISCOVERED_TYPE[TaxiNodeGetType(i)] and markByName(known, TaxiNodeName(i), seen) then added = true end
 		end
 	end
 	return added
