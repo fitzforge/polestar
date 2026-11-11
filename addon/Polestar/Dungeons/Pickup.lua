@@ -109,9 +109,10 @@
 -- prerequisite quests (each after the one before it in its chain; after one,
 -- the player stands at its turn-in) and the givers (one stop per giver with
 -- every quest whose prerequisites are behind; a giver comes up again for a
--- quest still waiting), to the entrance (Dungeons.PlanStops: exact up to 12
--- stops, else nearest-next improved by moving stops). The carried quests are
--- listed as notes at the entrance, with a note on the hand-in guide for
+-- quest still waiting), to the entrance (Dungeons.PlanStops: the stops at
+-- hand first, then exact up to 12 stops, else nearest-next improved by
+-- moving stops). The carried quests are named in one line, the entrance
+-- step's note, with a note on the hand-in guide for
 -- after the run (Dungeons/Handin.lua). Travel: ns.TravelCost. The order is
 -- kept per character, so a guide rebuilt without a position (after /reload)
 -- keeps its route.
@@ -821,13 +822,14 @@ end
 ---------------------------------------------------------------------------
 
 local EXACT = 12 -- stops searched exactly; more: nearest-next, then improved
+local AT_HAND = 15 -- seconds of travel from the player: such a stop comes first (#1593)
 
 -- stops = { { inP, outP, deps = { stopIndex, ... } }, ... }: inP where the
 -- stop starts, outP where the player stands after it, deps the stops that
 -- must come before it. from: the player's point; finish: the entrance (nil:
 -- the path ends at its last stop). travel(a, b) -> seconds | nil (nil and
--- unknown points cost FAR). -> order (stop indices), cost. Ties keep the
--- authored order.
+-- unknown points cost FAR). -> order (stop indices), cost. The stops at hand
+-- (AT_HAND) come first; ties keep the authored order.
 function Dungeons.PlanStops(stops, from, finish, travel)
 	local n = #stops
 	local memoT = {}
@@ -861,6 +863,31 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 	end
 	local order = {}
 	if n == 0 then return order, tail(0) end
+	-- Stops at hand first (#1593): a stop no more than AT_HAND seconds from
+	-- where the player stands is done before the route leaves, nearest-next
+	-- among those. Coming out of Ragefire Chasm beside Neeru Fireblade, the
+	-- hand-in guide led to Thunder Bluff first and back for Neeru later. A
+	-- stop at hand costs at most twice AT_HAND more than the cheapest path.
+	local mask0, last0, cost0 = 0, 0, 0
+	while true do
+		local here, bc, bi = outOf(last0), math.huge, nil
+		for i = 1, n do
+			if ready(mask0, i) and T(from, stops[i].inP) <= AT_HAND then
+				local v = T(here, stops[i].inP)
+				if v < bc then bc, bi = v, i end
+			end
+		end
+		if not bi then break end
+		order[#order + 1] = bi
+		mask0, last0, cost0 = mask0 + pow[bi], bi, cost0 + bc
+	end
+	local fixed = #order
+	local function prefix()
+		local o = {}
+		for k = 1, fixed do o[k] = order[k] end
+		return o
+	end
+	if fixed == n then return order, cost0 + tail(last0) end
 	if n <= EXACT then
 		-- Best cost to finish from (mask of stops done, last stop), memoised.
 		local full, memo, nextOf = 2 ^ n - 1, {}, {}
@@ -880,8 +907,8 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 			memo[id], nextOf[id] = bc, bi
 			return bc
 		end
-		local total = best(0, 0)
-		local mask, last = 0, 0
+		local total = cost0 + best(mask0, last0)
+		local mask, last = mask0, last0
 		while mask ~= full do
 			local i = nextOf[mask * (n + 1) + last]
 			if not i then break end -- a dependency cycle: the rest cannot be placed
@@ -889,11 +916,11 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 			mask, last = mask + pow[i], i
 		end
 		if #order == n then return order, total end
-		order = {}
+		order = prefix()
 	end
 	-- Many stops: nearest-next first...
-	local mask, last = 0, 0
-	for _ = 1, n do
+	local mask, last = mask0, last0
+	for _ = fixed + 1, n do
 		local bc, bi = math.huge, nil
 		for i = 1, n do
 			if ready(mask, i) then
@@ -906,7 +933,7 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 		mask, last = mask + pow[bi], bi
 	end
 	-- ...then moved one stop at a time while that shortens the path and keeps
-	-- every stop after its dependencies.
+	-- every stop after its dependencies (the stops at hand stay first).
 	local function cost(o)
 		local c, prev = 0, 0
 		for _, i in ipairs(o) do
@@ -929,8 +956,8 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 	local improved, rounds = true, 0
 	while improved and rounds < 50 do
 		improved, rounds = false, rounds + 1
-		for a = 1, #order do
-			for b = 1, #order do
+		for a = fixed + 1, #order do
+			for b = fixed + 1, #order do
 				if a ~= b then
 					local o = {}
 					for k, v in ipairs(order) do o[k] = v end
@@ -1097,9 +1124,11 @@ function Dungeons.PickupGuide(key)
 	local steps = route(key, plan)
 	if #steps == 0 then return nil, "nothing" end
 	local last = { title = d.name, goals = {} }
-	for _, pq in ipairs(plan.carried) do
-		last.goals[#last.goals + 1] = { t = "note", text = format(L["In your log already: %s"], ns.Quoted(pq.title) or "") }
-	end
+	-- The quests already in the log: one line in the step's note, not a row
+	-- each above the way in (#1591: four rows before "Enter Ragefire Chasm").
+	local notes, carried = {}, {}
+	for i, pq in ipairs(plan.carried) do carried[i] = ns.Quoted(pq.title) or "" end
+	if #carried > 0 then notes[1] = format(L["In your log already: %s"], table.concat(carried, ", ")) end
 	-- The quests that wait for a level, in the accent: they come back then
 	-- (a chat line and a map pin say so, below).
 	local Theme = ns.Theme
@@ -1115,9 +1144,10 @@ function Dungeons.PickupGuide(key)
 	if located(e) then
 		-- A way in through the other faction's land says so on the step.
 		local enemy = Dungeons.EnemyEntrance and Dungeons.EnemyEntrance(key)
-		if enemy then last.note = enemy end
+		if enemy then table.insert(notes, 1, enemy) end
 		last.goals[#last.goals + 1] = { t = "goto", text = L["Enter"] .. " " .. d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil }
 	end
+	if #notes > 0 then last.note = table.concat(notes, " ") end
 	-- The hand-in half (Dungeons/Handin.lua) is built after the run, from the
 	-- quests then finished; this guide's own end offers it too (UI/GuideFrame).
 	last.goals[#last.goals + 1] = { t = "note", text = format(L["After the run: open this dungeon's page (/polestar dungeons %s) and choose Hand in the quests."], d.name) }
