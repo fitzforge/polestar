@@ -9165,5 +9165,198 @@
 			}
 		],
 		"note": "A Simmering Storm (Durotar: the Dull Storm Orb, a drop of the Dustwind Storm Witches, handed to Rezlak) is a Horde quest. Newer quest data drops the race mask and players' caches say every race, so this correction keeps it Horde only (#1361 review)."
+	},
+	"95250": {
+		"set": {
+			"start": {
+				"npc": [
+					265701
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					265701
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest row: start and end npc 265701"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0, build 1.60.1.70862: creature 265701 is Captain Truman"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): 16 people accepted Abominable Creatures and 18 handed it in, all inside the Ruins of Lordaeron (instance 2999); one more accept was recorded in Hillsbrad Foothills, with no giver window"
+			}
+		],
+		"note": "Abominable Creatures, the Alliance's Ruins of Lordaeron quest, starts and ends inside the dungeon with Captain Truman (265701); its text sends the Head of the Baron back to him. The merged data had no giver or ender, so the dungeon's page named none."
+	},
+	"96987": {
+		"set": {
+			"start": {
+				"npc": [
+					268743
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					268743
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest row: start and end npc 268743"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): 15 people accepted Opportunistic Education inside the City of Dalaran (instance 2959, subzone Sewer) and 17 handed it in there; none handed it in outside"
+			}
+		],
+		"note": "Opportunistic Education, a Horde City of Dalaran quest, starts and ends inside the dungeon's sewer with Rexxie Copperclutch (268743), as its text says (\"for Rexxie Copperclutch near the sewer entrance\"). The merged data had no giver or ender."
+	},
+	"95647": {
+		"set": {
+			"end": {
+				"npc": [
+					262681
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 262681,
+					"count": 1,
+					"text": "Ardin Grassman"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest row: end npc 262681; objective creature 262681 x1"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0, build 1.60.1.70862: creature 262681 is Ardin Grassman; the server's quest record has one objective, talk to 262681 ('Learn what happened to Ardin Grassman') x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): 23 people handed in Lost in the Thicket Things, all inside Excavation Site: Wetlands (instance 2998), none to Caitlin Grassman; every recorded accept listed one line, 'Learn what happened to Ardin Grassman' x1 (or its translation)"
+			}
+		],
+		"note": "Lost in the Thicket Things (from Caitlin Grassman in Menethil Harbor) is done and handed in inside Excavation Site: Wetlands: talk to Ardin Grassman (262681), who takes it and gives Heartwoven (95809) next. The merged data had no objective and sent it back to Caitlin."
+	},
+	"95772": {
+		"set": {
+			"end": {
+				"npc": [
+					262465
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0, build 1.60.1.70862: creature 262465 is Daewyn Songblade, and the quest's own text sends the player to look for Daewyn in the excavation site"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): 22 people handed in Songblade Search, all inside Excavation Site: Wetlands (instance 2998); none to Dorin Songblade"
+			}
+		],
+		"note": "Songblade Search (from Dorin Songblade in Lakeshire) is handed in inside Excavation Site: Wetlands, to his brother Daewyn Songblade (262465), who gives Fallen in the Fen (95795) next. The merged data sent it back to Dorin; one Factoruide row still does."
+	},
+	"95795": {
+		"set": {
+			"start": {
+				"npc": [
+					262465
+				],
+				"object": [],
+				"item": []
+			},
+			"pre": [
+				95772
+			],
+			"preAny": [
+				95772
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest row: start npc 262465, prerequisite 95772"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): 22 people accepted Fallen in the Fen, all inside Excavation Site: Wetlands (instance 2998), every one after handing in Songblade Search (95772)"
+			}
+		],
+		"note": "Fallen in the Fen starts inside Excavation Site: Wetlands with Daewyn Songblade (262465), after Songblade Search (95772), and goes back to Dorin Songblade in Lakeshire. The merged data had no giver and no prerequisite."
+	},
+	"95809": {
+		"set": {
+			"start": {
+				"npc": [
+					262681
+				],
+				"object": [],
+				"item": []
+			},
+			"pre": [
+				95647
+			],
+			"preAny": [
+				95647
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest row: start npc 262681, prerequisite 95647"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): 23 people accepted Heartwoven, all inside Excavation Site: Wetlands (instance 2998), every one after handing in Lost in the Thicket Things (95647)"
+			}
+		],
+		"note": "Heartwoven starts inside Excavation Site: Wetlands with Ardin Grassman (262681), after Lost in the Thicket Things (95647), and goes back to Caitlin Grassman in Menethil Harbor. The merged data had no giver and no prerequisite."
+	},
+	"98824": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 287959,
+					"count": 1,
+					"text": "Titan Relic"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0, build 1.60.1.70862: the server's quest record has one objective, item 287959 (the Titan Relic the quest hands over at accept) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): 23 people accepted Prehistoric Prism from Prospector Whelgar and 22 handed it to High Explorer Magellas; every recorded accept listed the one delivery line, none an item to collect"
+			}
+		],
+		"note": "Prehistoric Prism (Prospector Whelgar to High Explorer Magellas) carries the Titan Relic Whelgar hands over (item 287959). The merged data asked for item 270865, the relic Lost Relic Carry (95810) already took back, so lint warned that no goal gets it before Magellas."
 	}
 }
