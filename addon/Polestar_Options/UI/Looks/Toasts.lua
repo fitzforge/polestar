@@ -493,6 +493,20 @@ cardSection(HEADS, "headsup", L["heads-up card"], { scaleNote = " " .. L["It sit
 	{ kind = "toggle", key = "dungeons.headsUp", label = L["Dungeons"],
 		help = L["A card on the guide window when a dungeon's quests open to you."],
 		search = "dungeon, heads up, notification, card", disabled = function() return not ns.Get("dungeons.enabled") end },
+	{ kind = "dropdown", key = "toasts.headsup.place", label = L["Place"], new = NEW,
+		help = L["Where the card goes: on the guide window's top edge (under the window when the screen has no room above), under its bottom edge (over it when there is no room below), or on a spot of its own that you move with Move frames."],
+		search = "position, place, where, above, below, under, over the tracker, detach, detached, own spot, move, heads up, card, class quest, dungeon, suggestion",
+		choices = { { value = "above", label = L["Above the window"] }, { value = "below", label = L["Below the window"] },
+			{ value = "free", label = L["Its own spot"] } } },
+	{ kind = "toggle", key = "toasts.headsup.compact", label = L["Compact"], new = NEW,
+		help = L["One line: its icon, its title and its button. Hover it for the rest; its other choices are in its menu."],
+		search = "compact, small, smaller, slim, one line, minimal, heads up, card, class quest, dungeon, suggestion" },
+	{ kind = "button", button = L["Move"], label = L["Its spot"], new = NEW,
+		help = L["Move the card in unlock mode, as /polestar unlock does. With Place on Its own spot."],
+		search = "move, position, drag, unlock, own spot, heads up, card",
+		disabled = function() return TS.Get("headsup", "place") ~= "free" end,
+		needs = function() return ns.Movers and ns.Movers.Unlock end,
+		onClick = function() ns.Movers.Unlock("headsUp") end },
 } })
 
 -- Class quest card (in the guide window: its scale, ground and opacity are the window's)

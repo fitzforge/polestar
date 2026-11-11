@@ -1,5 +1,5 @@
 -- Quick settings: a small popover from the guide window's menu ("Quick
--- settings", its first entry) with the few settings players change in the
+-- settings", just before Options) with the few settings players change in the
 -- middle of play: the window's lock and opacity, the arrow, auto-accept and
 -- auto turn-in, the route lines; then "All settings…", which opens the
 -- settings window (SHOW_OPTIONS). Core, small, built on first open: it never

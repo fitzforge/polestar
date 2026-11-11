@@ -976,7 +976,9 @@ end
 -- The alerts: the rare alert (Rares/Toast.lua, rares.toastPoint), the
 -- transport alert and Polestar's notices (Nav/Alerts.lua,
 -- toasts.transport.point) and the While you're here card (UI/WhileHere.lua,
--- toasts.whilehere.point); each module re-places its card on the change.
+-- toasts.whilehere.point), and the heads-up card when it has a spot of its
+-- own (UI/ClassToast.lua, toasts.headsup.pos); each module re-places its card
+-- on the change.
 -- While the alerts line up (toasts.stack) they hang from one line, which
 -- UI/Looks/Toasts.lua registers as its own mover, so these step aside.
 -- Registered once every file has loaded: Rares loads after UI.
@@ -995,6 +997,15 @@ ns.OnInit(function()
 	pointFormat({ key = "whileHere", label = L["While you're here"], frame = G("PolestarWhileHereToast"),
 		enabled = own(function() return ns.Get("behavior.whileHere") ~= false end),
 		size = function() return 320, 46 end }, "toasts.whilehere.point", { "TOP", 0, -150 })
+	-- The heads-up card (UI/ClassToast.lua: a class quest, a dungeon) on a spot
+	-- of its own: only while its place is "free" (else it sits on the guide
+	-- window and follows it).
+	local CT = ns.UI and ns.UI.ClassToast
+	if CT and CT.PlaceSetting then
+		pointFormat({ key = "headsUp", label = L["Heads-up card"], frame = G("PolestarClassToast"),
+			enabled = function() return CT.PlaceSetting() == "free" end,
+			size = function() return 340, CT.Compact() and 40 or 120 end }, "toasts.headsup.pos", CT.FREE_AT)
+	end
 end)
 
 ---------------------------------------------------------------------------
