@@ -489,6 +489,8 @@ local function buildPreview(view)
 		gw:ClearAllPoints()
 		gw:SetPoint("TOPLEFT", self, "TOPLEFT", snap(gw, (width / k - w) / 2), snap(gw, -TOP / k + scroll))
 		self.psScale, self.psScroll = k, scroll
+		-- A window running past the stage's foot fades out there.
+		if self.SetCut then self:SetCut(y - scroll > room + 0.5) end
 		self:Hotspots()
 	end
 
