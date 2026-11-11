@@ -311,7 +311,7 @@ local function buildPinsPreview(view)
 	local layer, mm = f.Layer, f.MinimapFrame
 	f.caption = function()
 		local where = zoomedIn and L["Elwynn Forest, zoomed in"] or L["Elwynn Forest, zoomed out"]
-		if not ns.Get("nav.upcomingPins") then return where .. " · " .. L["numbered pins as a sample"] end
+		if not ns.Get("nav.upcomingPins") then return where .. " · " .. L["numbered pins off: shown as a sample"] end
 		return where
 	end
 
