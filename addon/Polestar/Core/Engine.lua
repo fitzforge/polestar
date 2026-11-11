@@ -304,9 +304,9 @@ end
 -- the item starts (`accept <q> item <item>`, no giver: Ursangous's Paw
 -- before The Hunt Continues), as Own.starterTaken pairs them.
 local NONE = {}
-local layoutCache = setmetatable({}, { __mode = "k" })
+Own.layoutCache = setmetatable({}, { __mode = "k" })
 local function layoutOf(g)
-	local l = layoutCache[g]
+	local l = Own.layoutCache[g]
 	if l then return l end
 	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {}, starters = {} }
 	for s, step in ipairs(g.steps) do
@@ -332,7 +332,7 @@ local function layoutOf(g)
 			end
 		end
 	end
-	layoutCache[g] = l
+	Own.layoutCache[g] = l
 	return l
 end
 
@@ -1941,13 +1941,13 @@ end
 
 -- Profession `train` goals: skill line plus the rank to reach (1 Apprentice
 -- .. 4 Artisan, a rank name, or the cap itself).
-local RANK_CAPS = { 75, 150, 225, 300 }
-local RANK_NAMES = { apprentice = 1, journeyman = 2, expert = 3, artisan = 4 }
+Own.RANK_CAPS = { 75, 150, 225, 300 }
+Own.RANK_NAMES = { apprentice = 1, journeyman = 2, expert = 3, artisan = 4 }
 local function rankCap(goal)
 	local r = goal.rank
-	if type(r) == "string" then r = RANK_NAMES[r:lower()] or tonumber(r) end
+	if type(r) == "string" then r = Own.RANK_NAMES[r:lower()] or tonumber(r) end
 	if type(r) ~= "number" then return nil end
-	if r <= 4 then return RANK_CAPS[r] end
+	if r <= 4 then return Own.RANK_CAPS[r] end
 	return r
 end
 
@@ -1995,14 +1995,14 @@ local picks = setmetatable({}, { __mode = "k" }) -- goal -> { list = { candidate
 -- Barrens at Orgrimmar's training step was sent to the Valley of Trials
 -- (#1357), and the Undercity's training step, current at Orgrimmar's
 -- zeppelin tower, named Orgrimmar's trainers.
-local UNMEASURED = 1e9
-local PLANNED = 8
+Own.UNMEASURED = 1e9
+Own.PLANNED = 8
 local RUN_SPEED = 7 -- yards per second, unmounted
-local HOME_NEAR = 100
+Own.HOME_NEAR = 100
 -- Farm spots (`collect … nearest`): seconds to farm the items still missing
 -- there, and how many levels the spot's weakest mobs are above the player
 -- (3 or more: too high).
-local TOO_HIGH = 3
+Own.TOO_HIGH = 3
 local function farmSeconds(goal, c)
 	local level = player.level or 1
 	local lo, hi = level, level
@@ -2024,7 +2024,7 @@ local function farmSeconds(goal, c)
 	local need = Own.needOf(goal) - (goal.item and Compat().GetItemCount(goal.item) or 0)
 	if need < 1 then need = 1 end
 	local rate = tonumber(c.rate) or 1
-	if rate <= 0 or kpm <= 0 then return UNMEASURED, gap end
+	if rate <= 0 or kpm <= 0 then return Own.UNMEASURED, gap end
 	return need / (rate * kpm) * 60, gap
 end
 
@@ -2046,7 +2046,7 @@ local function pickFor(goal)
 			order[c] = i * 1e-6 -- stable among equals
 			if farm then
 				extra[c], gap[c] = farmSeconds(goal, c)
-				if gap[c] < TOO_HIGH then reasonable = true end
+				if gap[c] < Own.TOO_HIGH then reasonable = true end
 			else
 				extra[c], gap[c] = 0, 0
 			end
@@ -2065,7 +2065,7 @@ local function pickFor(goal)
 			-- every other choice, other continents included.
 			local zoneMin = not farm and zoneLevels and zoneLevels(c.map)
 			if zoneMin and zoneMin > (player.level or 1) + 10 then tier[c] = tier[c] + 2 end
-			cost[c] = line or ((here and c.map == here.map) and 0 or UNMEASURED)
+			cost[c] = line or ((here and c.map == here.map) and 0 or Own.UNMEASURED)
 		end
 	end
 	-- `train class`: the step's zone first, unless a trainer stands by the
@@ -2081,7 +2081,7 @@ local function pickFor(goal)
 		end
 		if has then
 			for _, c in ipairs(list) do
-				if c.map ~= home and cost[c] * RUN_SPEED > HOME_NEAR then tier[c] = tier[c] + 4 end
+				if c.map ~= home and cost[c] * RUN_SPEED > Own.HOME_NEAR then tier[c] = tier[c] + 4 end
 			end
 		end
 	end
@@ -2090,7 +2090,7 @@ local function pickFor(goal)
 	if farm and reasonable then
 		local kept = {}
 		for _, c in ipairs(list) do
-			if gap[c] < TOO_HIGH then kept[#kept + 1] = c end
+			if gap[c] < Own.TOO_HIGH then kept[#kept + 1] = c end
 		end
 		list = kept
 	end
@@ -2101,7 +2101,7 @@ local function pickFor(goal)
 	end
 	table.sort(list, better)
 	if here then
-		for k = 1, math.min(PLANNED, #list) do
+		for k = 1, math.min(Own.PLANNED, #list) do
 			local c = list[k]
 			local s = ns.TravelCost(here, c)
 			if s then cost[c] = s end
@@ -3794,7 +3794,7 @@ end
 -- first group with a blocking goal still open.
 ---------------------------------------------------------------------------
 
-local WHO_VERBS = {
+Own.WHO_VERBS = {
 	accept = true, turnin = true, talk = true, train = true, vendor = true, sethome = true,
 	getfp = true, learn = true, buy = true, interact = true,
 }
@@ -3804,8 +3804,8 @@ local WHO_VERBS = {
 -- field work done where you are, like a kill or a collect, not a visit: it
 -- shows with the step's kills instead of waiting behind them. A plain
 -- interact (no quest) is still a visit to that object.
-local function whoOf(goal)
-	if WHO_VERBS[goal.t] then
+function Own.whoOf(goal)
+	if Own.WHO_VERBS[goal.t] then
 		local npc, name = npcOf(goal)
 		if npc then return "npc", npc, name end
 		if goal.object and not (goal.t == "interact" and goal.quest) then
@@ -3842,7 +3842,7 @@ local function stepGroups(s)
 				held[#held + 1] = g
 			end
 		else
-			local kind, id, name = whoOf(goal)
+			local kind, id, name = Own.whoOf(goal)
 			if not cur or cur.kind ~= kind or cur.id ~= id then
 				cur = { index = #groups + 1, kind = kind, id = id, name = name, goals = {} }
 				groups[cur.index] = cur
@@ -4206,7 +4206,7 @@ local function tracksProgress(goal)
 end
 
 -- Display text overrides the default except where `text` names a place.
-local TEXT_IS_PLACE = { ["goto"] = true, explore = true }
+Own.TEXT_IS_PLACE = { ["goto"] = true, explore = true }
 
 -- Plain text, independent of the goal's state: "Kill Kobold Vermin" (with a
 -- progress bar), "Kill 5 Young Wolf" (manual, no tracking). Second: a
@@ -4227,7 +4227,7 @@ local function goalText(goal, verb, subject, detail, kind, noBar)
 			or (goal.fromFaction == "A" and player and player.faction == "Alliance")
 			or (goal.fromFaction == "H" and player and player.faction == "Horde")),
 	} or nil
-	if goal.text and not TEXT_IS_PLACE[goal.t] then return goal.text, src end
+	if goal.text and not Own.TEXT_IS_PLACE[goal.t] then return goal.text, src end
 	if kind == "quest" then subject = ns.Quoted(subject) end
 	if verb == "" then return subject, src end
 	if goal.t == "skill" then return verb .. " " .. tostring(subject) .. " " .. detail, src end
@@ -4806,7 +4806,7 @@ local function findWaypoint()
 		local wp = Own.lostAim() or Own.partyAim(current)
 		if wp then return wp end
 	end
-	local fly = Own.flyAim(current)
+	local fly = Own.flyAim(current) or Own.flyFromAim(current)
 	if fly then return fly end
 	local groups, focus = stepGroups(current)
 	local grp = focus and groups[focus]
@@ -5414,7 +5414,7 @@ local function tabIndexOf(id)
 end
 
 -- Guides ever opened in a tab, for the picker's "started" state.
-local function markStarted(id)
+function Own.markStarted(id)
 	local flags = ns.CharState().flags
 	if type(flags.started) ~= "table" then flags.started = {} end
 	flags.started[id] = true
@@ -5449,12 +5449,12 @@ function Own.hash(str)
 	return h
 end
 
-local shapeCache = setmetatable({}, { __mode = "k" })
+Own.shapeCache = setmetatable({}, { __mode = "k" })
 local function shapeOf(g)
-	local h = shapeCache[g]
+	local h = Own.shapeCache[g]
 	if h then return h end
 	h = #g.steps .. "-" .. Own.hash(table.concat(Own.stepParts(g), "|"))
-	shapeCache[g] = h
+	Own.shapeCache[g] = h
 	return h
 end
 
@@ -6388,14 +6388,14 @@ end
 -- stay saved, with their pins, and reopen there when the guide is back.
 local absent = {}
 
-local function forgetAbsent(id)
+function Own.forgetAbsent(id)
 	for i = #absent, 1, -1 do
 		if absent[i].id == id then table.remove(absent, i) end
 	end
 end
 
 local function rememberAbsent(id, at)
-	forgetAbsent(id)
+	Own.forgetAbsent(id)
 	absent[#absent + 1] = { id = id, at = at }
 	while #absent > MAX_TABS do table.remove(absent, 1) end
 end
@@ -6457,7 +6457,7 @@ local function persist()
 	for i = 1, #tabs do
 		ids[i] = tabs[i].guide.id
 		keep[ids[i]] = true
-		markStarted(ids[i])
+		Own.markStarted(ids[i])
 		checkShape(tabs[i].guide)
 	end
 	for i = #absent, 1, -1 do
@@ -6721,7 +6721,7 @@ function Own.arriveStep(s, c, px, py)
 end
 
 -- Loaded tab: the current step's arrivals; true if any.
-local function arriveLoaded(c, px, py)
+function Own.arriveLoaded(c, px, py)
 	if not (guide and current) then return false end
 	return Own.arriveStep(current, c, px, py)
 end
@@ -6739,7 +6739,7 @@ local function checkArrival()
 	if UnitAffectingCombat and UnitAffectingCombat("player") then Spots.noteWork(c, px, py, GetTime()) end
 	for i = 1, #tabs do
 		use(tabs[i])
-		if arriveLoaded(c, px, py) then hit = true end
+		if Own.arriveLoaded(c, px, py) then hit = true end
 	end
 	useActive()
 	-- The waypoint's field goal: a dwell at its place with no progress moves the
@@ -6775,7 +6775,7 @@ function Own.arrivalOpen(s)
 end
 
 -- The current step waits on an arrival.
-local function needsArrival()
+function Own.needsArrival()
 	return guide ~= nil and current ~= nil and Own.arrivalOpen(current)
 end
 
@@ -6783,7 +6783,7 @@ local function updateTicker()
 	local need = false
 	for i = 1, #tabs do
 		use(tabs[i])
-		if needsArrival() then
+		if Own.needsArrival() then
 			need = true
 			break
 		end
@@ -7172,7 +7172,7 @@ end
 
 local classTrainers = { candidates = {} } -- a pseudo goal, so pickFor ranks them
 local trainerClasses = {} -- npc -> { [classFile] = true }, every class trainer
-local TRAIN_LOOKAHEAD = 4 -- applicable steps, from the current one
+Own.TRAIN_LOOKAHEAD = 4 -- applicable steps, from the current one
 
 function ns.RegisterClassTrainers(list)
 	if type(list) ~= "table" then return end
@@ -7352,18 +7352,18 @@ end
 
 -- The active guide sends the character to their class trainer soon: within
 -- TRAIN_LOOKAHEAD steps of the live step.
-local function guideTrainsSoon()
+function Own.guideTrainsSoon()
 	local n = Engine.GuideTrainStop()
-	return n and n <= TRAIN_LOOKAHEAD or false
+	return n and n <= Own.TRAIN_LOOKAHEAD or false
 end
 
-local trainChecked -- the level last checked this session
+-- (Own.trainChecked: the level last checked this session)
 local function checkTrainDue()
 	local mode = ns.Get("behavior.trainReminder")
 	local every = (mode == "1" and 1) or (mode == "2" and 2) or nil
 	local level = player and player.level
-	if not (every and level) or trainChecked == level then return end
-	trainChecked = level
+	if not (every and level) or Own.trainChecked == level then return end
+	Own.trainChecked = level
 	local s = ns.CharState()
 	local last = tonumber(s.classTrainLevel)
 	if not last or last > level then
@@ -7371,7 +7371,7 @@ local function checkTrainDue()
 		return
 	end
 	if level - last < every or (every == 2 and level % 2 == 1) or tonumber(s.trainDueShown) == level then return end
-	if guideTrainsSoon() then return end
+	if Own.guideTrainsSoon() then return end
 	local t = Engine.NearestClassTrainer(true)
 	if not t then return end
 	s.trainDueShown = level
@@ -8264,7 +8264,7 @@ end
 -- Where a guide's zone art centres. A goal's place on the guide's zone map,
 -- in that map's live frame (percent; its own figures when its frame is not
 -- registered), or nil when it is elsewhere.
-local function onZone(g, goal)
+function Own.onZone(g, goal)
 	if not (g.zone and goal.map == g.zone and goal.x and goal.y) then return nil end
 	local x, y = goal.x, goal.y
 	if goal.f then
@@ -8279,23 +8279,23 @@ end
 -- The first goal of a step placed on the guide's zone map, or nil.
 local function stepFocus(g, step)
 	for _, goal in ipairs(step.goals) do
-		local f = onZone(g, goal)
+		local f = Own.onZone(g, goal)
 		if f then return f end
 	end
 	return nil
 end
 
 -- Where the guide starts: its first goal on its zone map, or nil.
-local focusCache = setmetatable({}, { __mode = "k" })
+Own.focusCache = setmetatable({}, { __mode = "k" })
 local function zoneFocus(g)
-	local f = focusCache[g]
+	local f = Own.focusCache[g]
 	if f == nil then
 		f = false
 		for _, step in ipairs(g.steps) do
 			f = stepFocus(g, step) or false
 			if f then break end
 		end
-		focusCache[g] = f
+		Own.focusCache[g] = f
 	end
 	return f or nil
 end
@@ -8950,6 +8950,56 @@ function Own.flyAim(s)
 		map = node.map, x = node.x, y = node.y, f = node.f,
 		label = goalText(goal, verb, subject, detail),
 		stepIndex = s, goalIndex = g, kind = goal.t, r = DEFAULT_RADIUS,
+	}
+end
+
+-- With TomTom's arrow leading (Own.plannerFlies is off for it; the travel
+-- route on), a flight step holds as written: its goto leads to the flight
+-- master the guide names, where the route expected the player to be.
+-- A player elsewhere (#1756: in Mulgore, sent to Ratchet's flight master for
+-- Freewind Post, which Thunder Bluff's reaches) is led instead to the nearest
+-- flight master they know on their continent that serves them, when it is
+-- FLY_FROM_MARGIN yards nearer than the named one and at most FLY_FROM_SHARE
+-- of its distance, and the flight's landing is known and on that continent.
+-- The flight's landing still finishes the step.
+Own.FLY_FROM_MARGIN, Own.FLY_FROM_SHARE = 300, 0.5
+function Own.flyFromAim(s)
+	local nav = ns.Nav
+	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and nav.UsingTomTomArrow and nav.UsingTomTomArrow()) then return nil end
+	if not ns.Get("nav.travel") or Own.transitKind(s) ~= "fly" then return nil end
+	local goal, g = Own.flyGoal(s)
+	local landing = Own.knownLanding(goal)
+	if not landing then return nil end
+	-- The open goto before the flight: the flight master the guide names.
+	local C, named, ng = Compat(), nil, nil
+	for j = g - 1, 1, -1 do
+		local o = guide.steps[s].goals[j]
+		if o.t == "goto" and o.map and o.x and o.y and goalApplies(o) and not goalDone(s, j, o) then named, ng = o, j break end
+	end
+	if not named then return nil end
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if not pc or pc ~= landing.c then return nil end
+	local nc, nx, ny = C.MapToWorld(named.map, named.x, named.y, named.f)
+	local function dist(c, x, y)
+		if c ~= pc or not (x and y) then return math.huge end
+		return math.sqrt((x - px) ^ 2 + (y - py) ^ 2)
+	end
+	local namedD = dist(nc, nx, ny)
+	local mask = player.faction == "Alliance" and 1 or player.faction == "Horde" and 2 or 0
+	local best, bestD
+	for id in pairs(nav.GetKnownTaxiNodes()) do
+		local node = nav.GetTaxiNode(id)
+		if node and id ~= goal.node and node.map and node.x and node.y and (mask == 0 or not node.faction or node.faction % (2 * mask) >= mask)
+			and (not node.class or node.class == player.class) then
+			local d = dist(C.MapToWorld(node.map, node.x, node.y, node.f))
+			if not bestD or d < bestD then best, bestD = node, d end
+		end
+	end
+	if not best or bestD + Own.FLY_FROM_MARGIN >= namedD or bestD >= namedD * Own.FLY_FROM_SHARE then return nil end
+	return {
+		map = best.map, x = best.x, y = best.y, f = best.f,
+		label = L["Walk to the flight master"],
+		stepIndex = s, goalIndex = ng, kind = "goto", r = DEFAULT_RADIUS,
 	}
 end
 
@@ -12243,12 +12293,12 @@ end
 
 -- Where the player is changed enough to re-pick candidates: a zone change or
 -- landing (control comes back after a flight).
-local function onContextEvent()
+function Own.onContextEvent()
 	contextGen = contextGen + 1
 	requestUpdate()
 end
 for _, event in ipairs({ "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" }) do
-	ns.RegisterEvent(event, onContextEvent)
+	ns.RegisterEvent(event, Own.onContextEvent)
 end
 
 -- Binding during the step completes `sethome nearest`, and a located
@@ -12439,7 +12489,7 @@ end
 -- that giver's list or chat option, popped up by a turn-in at that giver
 -- (the follow-up quest), or started by an item, says nothing about the
 -- others.
-local LIST_WINDOW = 30 -- seconds a list or a turn-in covers the detail windows opened from it
+Own.LIST_WINDOW = 30 -- seconds a list or a turn-in covers the detail windows opened from it
 local listedAt = {} -- npc -> GetTime() of its last gossip/greeting list or turn-in
 Own.notListed = {} -- questID -> { goal, chat }: the accept goal whose giver's window did not list it, chat: that window had a chat option
 
@@ -12515,7 +12565,7 @@ local function checkOffers(source, startItem)
 	if source == "detail" then
 		if startItem and startItem ~= 0 then return end
 		local t = listedAt[npc]
-		if t and GetTime() - t < LIST_WINDOW then
+		if t and GetTime() - t < Own.LIST_WINDOW then
 			local list = C.GetOfferedQuests("detail")
 			if list and list[1] then
 				Own.listed(list[1])
@@ -12615,7 +12665,7 @@ end)
 -- lists among the quests it offers rather than the ones in the log, so
 -- Automation picks it from there. A done one is not wanted: the giver of a
 -- repeatable keeps offering it, and a second visit must not hand in again.
-local function matchesVerb(goal, verb)
+function Own.matchesVerb(goal, verb)
 	if verb == "direct" then return goal.t == "turnin" and goal.direct == true end
 	return goal.t == verb
 end
@@ -12626,7 +12676,7 @@ end
 -- step, never on a step the player is only looking at (Prev/Next/Goto);
 -- ahead of it only a While-you're-here hand-in (Own.hereWants) and an
 -- accept of the next steps at the NPC the player talks to (Own.aheadWants).
-local function wantsFrom(from, verb, questID, span)
+function Own.wantsFrom(from, verb, questID, span)
 	local left = span + 1
 	local steps = guide.steps
 	for s = from, #steps do
@@ -12636,7 +12686,7 @@ local function wantsFrom(from, verb, questID, span)
 			-- nor is a quest handed in while the group waits on a member (Party.HoldsQuest).
 			local waits = Own.groupPending(step)
 			for g, goal in ipairs(step.goals) do
-				if matchesVerb(goal, verb) and goal.quest == questID and questID ~= waits and goalApplies(goal)
+				if Own.matchesVerb(goal, verb) and goal.quest == questID and questID ~= waits and goalApplies(goal)
 					and not Own.questSkipped(questID)
 					and not (verb == "direct" and goalDone(s, g, goal))
 					and not (verb ~= "accept" and ns.Party and ns.Party.HoldsQuest(questID)) then
@@ -12650,8 +12700,8 @@ local function wantsFrom(from, verb, questID, span)
 	return false
 end
 
-local function wantsLoaded(verb, questID, span)
-	return guide ~= nil and computed ~= nil and wantsFrom(computed, verb, questID, span)
+function Own.wantsLoaded(verb, questID, span)
+	return guide ~= nil and computed ~= nil and Own.wantsFrom(computed, verb, questID, span)
 end
 
 -- "turnin": a While-you're-here hand-in line up for questID in the active
@@ -12684,7 +12734,7 @@ function Engine.WantsQuest(verb, questID, span)
 	local found = false
 	for i = 1, #tabs do
 		use(tabs[i])
-		if wantsLoaded(verb, questID, span or 0) then
+		if Own.wantsLoaded(verb, questID, span or 0) then
 			found = true
 			break
 		end

@@ -1483,7 +1483,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   quests", shown while `GroupQuests` lists one). An unanswered `group` predicate
   holds and `stepDone` is false while `Own.groupPending` names its quest (not
   on an along step), so the route waits at the step; `Engine.GroupQuestion`
-  gives the banner the quest, and `wantsFrom` keeps automation off it. `stepApplies` reads them, so such a step counts as one
+  gives the banner the quest, and `Own.wantsFrom` keeps automation off it. `stepApplies` reads them, so such a step counts as one
   for other characters while they fail, and a turn-in whose only accept sits
   there goes with it (`orphaned`). When the route moves past a step
   (`latchPassed`), its outcome is stored per character (`Own.latchWhen`): a
@@ -4195,9 +4195,17 @@ walk stays inside one zone; between zones it goes only through
   Undercity's way in and out is one such chain, `undercity-south-lift` (from
   Fitz's own walk): Tirisfal's front door, the corridor and the entrance hall
   to the south lift's top and bottom landings, both ends mouths; the other
-  lifts serve walks inside the city.
+  lifts serve walks inside the city;
+- an area: a box of a zone's map no walk joins to the rest of the zone. It is
+  a zone of its own, reached by no crossing, only by portals, ships and
+  flights. Rut'theran Village, `rutheran-village`, lies on Teldrassil's map at
+  the foot of the tree: the walking grid joins neither part to the other, and
+  the fall from the rim kills, so a walk from the top down to its flight master
+  or dock goes through Darnassus and the portal (#1761), and one up takes the
+  portal back (#989).
 
-A point's zone is its uiMap when the crossing data knows that zone; a zone
+A point's zone is its uiMap when the crossing data knows that zone (the area
+whose box holds it, if the map has one); a zone
 the data lists as `wild` (no crossing data, e.g. the zones only Forever has)
 walks as before. The player on a continent's map (the client puts them on no
 zone's in some caves and instance entrances: the cave before Blackfathom
@@ -4298,16 +4306,18 @@ The crossings file (schema 1, Era map percent):
   "open": [ { "a": 1429, "b": 1431, "oneWay": false } ],
   "chains": [ { "id": "a-cave", "name": "A Cave", "open": "mouth",
                 "nodes": [ { "map": 1413, "x": 45.9, "y": 36.2, "radius": 20, "caption": "Enter the cave" },
-                           { "map": 1413, "x": 46.2, "y": 34.9, "radius": 15, "caption": "Follow the path", "back": "Climb out" } ] } ] }
+                           { "map": 1413, "x": 46.2, "y": 34.9, "radius": 15, "caption": "Follow the path", "back": "Climb out" } ] } ],
+  "areas": [ { "id": "rutheran-village", "name": "Rut'theran Village", "map": 1438,
+               "box": { "x1": 45, "y1": 81.5, "x2": 68, "y2": 100 } } ] }
 ```
 
 Validation (every error names its entry, e.g. `crossings[3] (id).a: radius
 500 outside 3-100 yd`): no unknown keys; ids lower-case, unique across
-crossings and chains; maps with an Era frame; x, y in 0-100 unless the point
+crossings, chains and areas; maps with an Era frame; x, y in 0-100 unless the point
 says `"offMap": true` (then -50-150); radius 3-100 yd; a crossing's ends on one
 continent, in different zones, at most 1000 yd apart; open pairs distinct,
 on one continent, not repeated; chains of 2+ nodes on one continent with hops
-of at most 600 yd; captions plain text of at most 160 characters (no `|`
+of at most 600 yd; an area's box x1 < x2 and y1 < y2 in 0-100; captions plain text of at most 160 characters (no `|`
 escape codes). `travel route` runs the addon planner and includes
 Polestar_Travel when it is built (`--crossings-lua none` leaves it out).
 
@@ -5062,7 +5072,7 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   those offline under 2 minutes (kept apart from `Members`). The Engine asks
   `Party.Waiting` for the live step only (`computeCurrent`: a done step that
   `Own.partyHold` holds stays live), refuses a held quest's turn-in to
-  Automation (`wantsFrom`), and with every goal of the step done but held
+  Automation (`Own.wantsFrom`), and with every goal of the step done but held
   turn-ins aims at the nearest objective a member still needs
   (`Own.partyAim`, `Own.nearestField`, label "For Ana: ..."). It
   re-evaluates on `PARTY_PROGRESS`.
@@ -8808,13 +8818,17 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   for Alliance, Horde and no profile and its yards. `chokepoints.js` adds `Chokepoints.lua`
   (`PolestarNavChokepoints[map]`: lift landings, bridges, gates at passages,
   tunnels, cave and building mouths, passes, each named by its AreaTable
-  area) for the journey's named walk steps.
+  area) for the journey's named walk steps; a passage whose gate is the ground
+  under a bridge's deck over water is named a bridge (`pack/chokepoints.rs`
+  under_bridge: the Southfury River's road crossing).
 - **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
   walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
   His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
   leave open past the walkable slope, which his reader closes, are closed); his zones too. His entrance graph is
   re-encoded as the graph field (an entrance on one of his refined ports becomes the surface owning it; an entrance
-  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk). His motion
+  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk; an edge's yards
+  are his profile-free way's, as our grid's maps take theirs: he keeps a cost and a yards for each profile, and the
+  walk search stops a way past 8 times the straight line plus 2,000 yd of these yards). His motion
   stream reduces, at 4.17 yd cells, to steps inside one surface, steps his cells make, and his jumps, drops and
   climbs, each to the same or a neighbouring cell: those inside a cluster are the new `arc` field (one-way moves
   between the surfaces owning their ends, once per pair), those across a border are already his graph's. Each of his

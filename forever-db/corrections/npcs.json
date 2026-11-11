@@ -1257,5 +1257,77 @@
 			}
 		],
 		"note": "Lady Jaina Proudmoore stands in Theramore's tower (the merged data's only spawn) and beside North Point Tower, where players hand her The Missing Diplomat (1267); Forever's NPC page lists both. Without the second spot the guide's hand-in there drew a lint warning."
+	},
+	"262681": {
+		"set": {
+			"instances": [
+				2998
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Lost in the Thicket Things (95647) handed in and Heartwoven (95809) accepted by 23 people, every time inside Excavation Site: Wetlands (instance 2998), never in the open world"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest rows name this npc as the giver or ender of those quests"
+			}
+		],
+		"note": "Ardin Grassman stands inside Excavation Site: Wetlands (instance map 2998, Forever's), so the dungeon's page places the quests there."
+	},
+	"262465": {
+		"set": {
+			"instances": [
+				2998
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Songblade Search (95772) handed in and Fallen in the Fen (95795) accepted by 22 people, every time inside Excavation Site: Wetlands (instance 2998), never in the open world"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest rows name this npc as the giver or ender of those quests"
+			}
+		],
+		"note": "Daewyn Songblade stands inside Excavation Site: Wetlands (instance map 2998, Forever's), so the dungeon's page places the quests there."
+	},
+	"265701": {
+		"set": {
+			"instances": [
+				2999
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Abominable Creatures (95250) accepted by 16 people and handed in by 18, every time inside the Ruins of Lordaeron (instance 2999), never in the open world"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest rows name this npc as the giver or ender of those quests"
+			}
+		],
+		"note": "Captain Truman stands inside the Ruins of Lordaeron (instance map 2999, Forever's), so the dungeon's page places the quests there."
+	},
+	"268743": {
+		"set": {
+			"instances": [
+				2959
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Opportunistic Education (96987) accepted by 15 people and handed in by 17, in its Sewer, every time inside the City of Dalaran (instance 2959), never in the open world"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest rows name this npc as the giver or ender of those quests"
+			}
+		],
+		"note": "Rexxie Copperclutch stands inside the City of Dalaran (instance map 2959, Forever's), so the dungeon's page places the quests there."
 	}
 }

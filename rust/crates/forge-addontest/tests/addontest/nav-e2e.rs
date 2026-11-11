@@ -1580,6 +1580,38 @@ fn t_234_floor_balanced_at_the_dens_camp_walked_in_from_the_valley_floor_the_wal
 	floor_den("balanced");
 }
 
+// #1784: Silverpine Forest's covered bridge north-east of the Sepulcher (deck 56, the river at 33, the roof and its
+// eaves at 60-64). Walked onto from the south bank (60) along its west side, the floor follow took the eave a yard or
+// two above the bank (nearer than the deck) and climbed the roof; the arrow's walk on from there to the Hardened Tumor
+// (north-east) turned back south to the bank first. Now on a bridge the follow keeps the deck.
+#[test]
+fn t_1784_floor_walked_onto_silverpines_covered_bridge_from_the_south_bank_the_walk_north_starts_on_the_deck_not_the_roof() {
+	skip_unless_ready!();
+	let script = r#"
+		Polestar.Set("nav.travel", false)
+		w.setLevel(17)
+		w.faction = "Horde"
+		local r = {}
+		-- From the bank south of the bridge (one surface, z 60), north along its west side to the middle of the deck.
+		N.SetTarget(1421, 50, 20, "North")
+		place(1421, 818, 1364, 0)
+		stub.advance(3)
+		aim()
+		walkTo(1421, { { 843, 1364 } })
+		local f = walkFor(1421, 991.9, 1043.4, "Hardened Tumor", nil)
+		local south = math.huge
+		for _, p in ipairs(f.points or {}) do if p.x < south then south = p.x end end
+		r.z = f.from[3] or false
+		r.south = south
+		r.top = highest(f, 843, 1364, 15)
+		emit(r)"#;
+	let out = run(&format!("{FLOOR_WALK}{script}"), true);
+	eprintln!("from z {}, southernmost path point {}, highest within 15 yd {}", out["z"], out["south"], out["top"]);
+	assert!((f(&out["z"]) - 56.0).abs() <= 3.0, "the walk starts on the deck ({})", out["z"]);
+	assert!(f(&out["south"]) >= 838.0, "and never turns back south off the bridge ({})", out["south"]);
+	assert!(f(&out["top"]) <= 59.0, "nor stands on the roof ({})", out["top"]);
+}
+
 // The pattern sweep's worst Undercity start (hop|forever/class/rogue/plundering-the-plunderers|17, real z -62.2, its
 // column -62/5/63): a player who rode the south lift down (the floor unknown at a lift) and walked to it along the
 // router's own way, indoors (IsIndoors), keeps the lower level.
@@ -2357,6 +2389,29 @@ fn t_989_rutheran_village_to_teldrassil_takes_the_portal_up_and_from_its_landing
 	assert_eq!(f(&down["treeWalks"]), 0.0, "from Darnassus: no walk leg joins Rut'theran to the top of the tree");
 }
 
+/// #1761 (zpectral): on Teldrassil's southern rim (60.2,71.6), bound for Vesprystus, the flight master in Rut'theran
+/// Village (58.4,93.93) at the foot of the tree, the arrow drew a walk straight down the trunk. No walk joins the two
+/// (the walking grid reaches neither from the other) and the fall from the rim kills (recorded descents); the
+/// way down is through Darnassus and its portal. Rut'theran is an area of Teldrassil's map no walk joins to the rest
+/// (crossings.json `areas`): a zone of its own to the planner. From Dolanaar too.
+fn rutheran_flight_master_from(from: (i64, f64, f64)) {
+	skip_unless_ready!();
+	let out = teldrassil_route(from, (1438, 58.4, 93.93, "Vesprystus"));
+	let (kinds, transports) = (strs(&out["kinds"]), strs(&out["transports"]));
+	assert!(transports.iter().any(|t| t == "portal-ruttheran"), "the Darnassus portal down ({}; {})", kinds.join(", "), transports.join(", "));
+	assert_eq!(f(&out["treeWalks"]), 0.0, "no walk leg joins the top of the tree to Rut'theran ({}; {})", kinds.join(", "), transports.join(", "));
+}
+
+#[test]
+fn t_1761_from_teldrassils_rim_to_the_rutheran_flight_master_the_route_takes_the_darnassus_portal_down_never_a_walk_off_the_tree() {
+	rutheran_flight_master_from((1438, 60.2, 71.6));
+}
+
+#[test]
+fn t_1761_from_dolanaar_to_the_rutheran_flight_master_the_route_takes_the_darnassus_portal_down_never_a_walk_off_the_tree() {
+	rutheran_flight_master_from((1438, 55.9, 59.8));
+}
+
 // Same pattern (controller handover): Dolanaar <-> Auberdine must not walk between the top of Teldrassil and the
 // Rut'theran dock; the way is Darnassus' portal and the boat (or a flight from Rut'theran).
 fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
@@ -2368,36 +2423,37 @@ fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
 }
 
 #[test]
-#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_dolanaar_to_auberdine_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1438, 56.73, 61.9), (1439, 36.8, 44.3, "Auberdine"));
 }
 
 #[test]
-#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1439, 36.8, 44.3), (1438, 55.9, 59.8, "Dolanaar"));
 }
 
-/// #566 (dogoku), Horde, level 24: from Tarren Mill (Hillsbrad 60.79,19.92) to Nurse Neela in Brill (Tirisfal
-/// 61.82,52.83) with no flight path known to Polestar, the route walked 1471 yd through Western Plaguelands (levels
-/// 51-57) and 1399 yd through Alterac Mountains: the planner's straight walks between zone crossings never counted
-/// the zones of their own two ends (Danger.Along), so a walk from one Plaguelands crossing to the next was safe ground.
-#[test]
-fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands() {
-	skip_unless_ready!();
-	let out = run(
-		r#"
+/// A Horde character at `level` with no flight path known walks from Tarren Mill (Hillsbrad 60.79,19.92) to
+/// `to` (uiMapID, x, y, name): the planned legs' kinds and the yards each zone's ground takes of the walk legs
+/// (by uiMapID, the router's own zone field every 20 yd), and Nav.danger.Mult at that level for Alterac Mountains.
+/// `p10`: price every zone from its P10 as before #1490 (Maps.GetZoneLevels without the danger floor).
+fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
+	run(
+		&format!(
+			r#"
+		if {p10} then
+			local get = Polestar.Maps.GetZoneLevels
+			Polestar.Maps.GetZoneLevels = function(id) local lo, hi = get(id) return lo, hi, lo end
+		end
 		w.faction = "Horde"
-		w.setLevel(24)
+		w.setLevel({level})
 		local c, wx, wy = C.MapToWorld(1424, 60.79, 19.92, "e")
 		place(1424, wx, wy)
-		Polestar.CharState().flags.taxi = {}
-		N.SetTarget(1420, 61.82, 52.83, "Nurse Neela", "e")
+		Polestar.CharState().flags.taxi = {{}}
+		N.SetTarget({}, {}, {}, "{}", "e")
 		for _ = 1, 600 do stub.advance(0.05); aim() end
 		local legs, ci = N.GetRoute()
-		local kinds, yards = {}, {}
-		for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+		local kinds, yards = {{}}, {{}}
+		for i = ci or 1, #(legs or {{}}) do kinds[#kinds + 1] = legs[i].kind end
 		for _, leg in ipairs(N.GetRouteGeometry().legs) do
 			if leg.kind == "walk" then
 				local pts = leg.pts
@@ -2414,9 +2470,24 @@ fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_wa
 			end
 		end
 		for z, y in pairs(yards) do yards[z] = floor(y + 0.5) end
-		emit({ kinds = kinds, yards = yards })"#,
+		emit({{ kinds = kinds, yards = yards, alterac = N.danger.Mult({level}, 1416) }})"#,
+			to.0,
+			js(to.1),
+			js(to.2),
+			to.3
+		),
 		true,
-	);
+	)
+}
+
+/// #566 (dogoku), Horde, level 24: from Tarren Mill (Hillsbrad 60.79,19.92) to Nurse Neela in Brill (Tirisfal
+/// 61.82,52.83) with no flight path known to Polestar, the route walked 1471 yd through Western Plaguelands (levels
+/// 51-57) and 1399 yd through Alterac Mountains: the planner's straight walks between zone crossings never counted
+/// the zones of their own two ends (Danger.Along), so a walk from one Plaguelands crossing to the next was safe ground.
+#[test]
+fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands() {
+	skip_unless_ready!();
+	let out = tarren_mill_walk(24, (1420, 61.82, 52.83, "Nurse Neela"), false);
 	let kinds = strs(&out["kinds"]);
 	assert!(!kinds.is_empty() && kinds.iter().all(|k| k == "walk"), "it walks ({})", kinds.join(", "));
 	assert!(out["yards"]["1420"].as_f64().unwrap_or(0.0) > 0.0, "to Tirisfal: {}", out["yards"]);
@@ -2510,4 +2581,22 @@ fn a_later_walks_failed_search_answered_before_its_sketch_is_kept_and_raises_no_
 	);
 	assert!(f(&out["held"]) >= 1.0 && f(&out["failed"]) >= 1.0, "a sketch out and a later walk's search failed: {out}");
 	assert!(out["errors"].as_array().map_or(out["errors"] == serde_json::json!({}), |a| a.is_empty()), "no Lua error: {out}");
+}
+
+/// #1490 (Malifax), replayed: from Tarren Mill to Archmage Modera's image at the Dalaran wall
+/// (Silverpine 68.6,45.2, where 0.3.6 places her) at level 26. Alterac Mountains' lowest level is 24 (the P10,
+/// pulled down by the Lordamere Lake murlocs and the bears on the Hillsbrad border), so from level 21 up the zone
+/// never counted as dangerous while Strahnbrad, the Crushridge ogres and the Syndicate are 30-40. With its danger
+/// floor (30) it costs x3 at 26, and the walk crosses less of it than when priced from the P10.
+#[test]
+fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to_modera_crosses_less_of_it() {
+	skip_unless_ready!();
+	let to = (1421, 68.6, 45.2, "Image of Archmage Modera");
+	let now = tarren_mill_walk(26, to, false);
+	let before = tarren_mill_walk(26, to, true);
+	eprintln!("1490 replay: floor {now}\n             P10 {before}");
+	let alterac = |v: &Value| v["yards"]["1416"].as_f64().unwrap_or(0.0);
+	assert_eq!((now["alterac"].clone(), before["alterac"].clone()), (serde_json::json!(3), serde_json::json!(1)), "x3 from the floor, x1 from the P10");
+	assert!(strs(&now["kinds"]).iter().all(|k| k == "walk"), "it walks ({})", strs(&now["kinds"]).join(", "));
+	assert!(alterac(&now) < alterac(&before), "fewer yards of Alterac Mountains: {} with the floor, {} without", alterac(&now), alterac(&before));
 }
