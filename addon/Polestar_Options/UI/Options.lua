@@ -262,55 +262,56 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
 			help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
 			search = "new in forever, infinity, new quest, forever quest, mark, badge" },
+		-- Core/Update.lua's notices (0.3.7): shown once the setting is registered.
 		{ kind = "toggle", key = "update.card", label = L["Tell me when a newer Polestar is out"],
 			help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
 			search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" },
 	} },
 	-- Core/Engine.lua, Dynamic Questing (Own.hereBuild): quick objectives of later steps close by, in the guide
 	-- window's "While you're here" panel. The setting keys keep their behavior.whileHere* names.
-	{ page = GUIDE, tab = L["Window"], section = L["Dynamic Questing"], controls = {
-		{ kind = "toggle", key = "behavior.whileHere", label = L["Dynamic Questing"],
+	-- Its switch in the section's header.
+	{ page = GUIDE, tab = L["Window"], section = L["Dynamic Questing"],
+		toggle = { kind = "toggle", key = "behavior.whileHere", label = L["Dynamic Questing"],
 			help = L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."],
 			search = "while you're here, nearby objective, grab it now, on the way, later step, opportunistic, detour" },
+		controls = {
 		{ kind = "slider", key = "behavior.whileHereRadius", label = L["How close"], min = 60, max = 400, step = 10,
 			format = function(v) return ns.FormatDistance(v) end,
 			help = L["How near the middle of its spawn area you must be for a suggestion to show. It goes again a little further out."],
-			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereTurnins", label = L["Include nearby hand-ins"],
 			help = L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."],
-			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "slider", key = "behavior.whileHereTurninSeconds", label = L["Hand-ins: how far out of your way"], min = 0, max = 60, step = 5,
 			format = function(v) return L["%d s"]:format(v) end,
 			help = L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."],
 			search = "hand in, turn in, detour, out of the way, seconds, nearby hand-ins",
 			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereTurnins")) end },
+		-- 0.3.7's flight paths you pass (Engine Own.hereBuild).
 		{ kind = "toggle", key = "behavior.whileHereFlights", label = L["Flight paths you pass"],
 			help = L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."],
 			search = "flight path, flight master, taxi, learn, discover, getfp",
-			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereSound", label = L["Sound for a new suggestion"],
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
-			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereStepKey", label = L["Step key targets their mobs"],
 			help = L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."],
 			search = "step key, target, targetexact, keybind, binding",
-			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 	} },
-	{ page = GUIDE, tab = L["Window"], section = L["Combat"], controls = {
+	-- When the window shows (in combat, in dungeons), and the ways to show and
+	-- hide Polestar without typing: UI/Launcher.lua's floating button and the
+	-- minimap button (Maps/MinimapButton.lua; also on Map and Quality of Life),
+	-- which hides everything Polestar shows (0.3.7: the arrow may stay).
+	{ page = GUIDE, tab = L["Window"], section = L["Show and hide"], controls = {
 		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."], search = "hide in combat, fade in combat, fighting",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "fade", label = L["Fade out"] }, { value = "hide", label = L["Hide"] } } },
-	} },
-	{ page = GUIDE, tab = L["Window"], section = L["Dungeons and battlegrounds"], controls = {
 		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons and battlegrounds"],
 			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."],
 			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
-	} },
-	-- Ways to show and hide Polestar without typing: UI/Launcher.lua's floating button, and the minimap
-	-- button (Maps/MinimapButton.lua; also on Map and Quality of Life), next to the rules above. Hiding
-	-- Polestar (Core/Init.lua) is per character: so is whether it keeps the arrow.
-	{ page = GUIDE, tab = L["Window"], section = L["Show and hide"], controls = {
 		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
 			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
 			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
@@ -320,6 +321,7 @@ local BUILTIN = {
 		{ kind = "toggle", label = L["Keep the arrow when hidden"],
 			help = L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."],
 			search = "hide polestar, hidden, arrow only, keep arrow, minimap button, hide all",
+			needs = function() return ns.SetHideKeepsArrow ~= nil end,
 			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
@@ -344,17 +346,14 @@ local BUILTIN = {
 			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
 			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
 	} },
+	-- The route: how it is planned and drawn. Nav adds its style and the journey's steps (Nav/Options.lua,
+	-- UI/GuideOptions.lua).
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
 		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
 			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow" }),
 		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."],
 			search = "teleport, portal, mage, druid, moonglade",
 			child = true, disabled = function() return not ns.Get("nav.travel") end }),
-		H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
-			search = "detour, enemy town, hostile town, avoid, go round, journey",
-			child = true, disabled = function() return not ns.Get("nav.travel") end }),
-		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
-			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, sparkles, dots",
 			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end } }),
@@ -364,6 +363,18 @@ local BUILTIN = {
 			choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
 			needs = function() return ns.RouteLines end,
 			child = true, disabled = function() return not ns.Get("nav.routeLines") end }),
+		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
+			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
+		-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
+		H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
+			search = "detour, enemy town, hostile town, avoid, go round, journey",
+			disabled = function() return not ns.Get("nav.travel") end }),
+	} },
+	-- Filled by Nav's travel button and transport alerts (Nav/Options.lua).
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Along the route"], controls = {} },
+	-- Ways round the world beside the arrow: boat times shared, a map click to go
+	-- somewhere, the nearest services (Nav adds those, Nav/Options.lua).
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Getting around"], controls = {
 		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."],
 			search = "boat, zeppelin, tram, ship, transport, schedule" },
 	} },
@@ -380,18 +391,18 @@ local BUILTIN = {
 			search = "missable, exclusive quests, breadcrumb, warning" },
 		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."],
 			search = "gray quests, low level quests, trivial, skip easy quests" },
-		-- The answer at a group quest (`when group`) not answered one by one
-		-- (Discovery > Group quests): ask at each, or do or skip them all.
-		{ kind = "dropdown", key = "behavior.groupQuests", label = L["Group quests"],
-			help = L["Elite and escort quests the guides mark for a group. Ask at each, or answer them all: with a group (a party levelling together) or skip them (solo). Discovery, Group quests changes one."],
-			choices = { { value = "ask", label = L["Ask me at each"] }, { value = "do", label = L["Do them with a group"] }, { value = "skip", label = L["Skip them"] } },
-			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
 		-- A quest the route had passed that leaves the log (Engine Own.holdLost,
 		-- #1365): the guide window asks, or the answer is always the same.
 		{ kind = "dropdown", key = "behavior.lostQuests", label = L["When you abandon a guide quest"],
 			help = L["Ask me: the guide stays on its step, leads you back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."],
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "back", label = L["Always go back for it"] }, { value = "skip", label = L["Always skip it"] } },
 			search = "abandon, abandoned quest, dropped quest, failed quest, quest log, go back, skip" },
+		-- The answer at a group quest (`when group`) not answered one by one
+		-- (Discovery > Group quests): ask at each, or do or skip them all.
+		{ kind = "dropdown", key = "behavior.groupQuests", label = L["Group quests"],
+			help = L["Elite and escort quests the guides mark for a group. Ask at each, or answer them all: with a group (a party levelling together) or skip them (solo). Discovery, Group quests changes one."],
+			choices = { { value = "ask", label = L["Ask me at each"] }, { value = "do", label = L["Do them with a group"] }, { value = "skip", label = L["Skip them"] } },
+			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
@@ -421,7 +432,8 @@ local BUILTIN = {
 
 	-- Everything Polestar draws on the world map and the minimap, in one
 	-- place. The sections are declared here, in this order; the Quests,
-	-- Rares and Maps modules register their controls into them by name.
+	-- Rares and Maps modules register their controls into them by name. The
+	-- second tab holds the rest of the map: rares, travel, services and zones.
 	{ page = MAP, key = "map", icon = "icon-explore", order = 30, tab = L["Guide & quests"], section = L["Guide"],
 		subtitle = L["What Polestar draws on the world map and the minimap. Quest, rare and travel icons start off."], controls = {
 		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map",
@@ -438,36 +450,33 @@ local BUILTIN = {
 			disabled = function() return ns.Get("nav.routeLines") end }),
 	} },
 	{ page = MAP, tab = L["Guide & quests"], section = L["Quest markers"], controls = {} },
-	{ page = MAP, tab = L["Rares & travel"], section = L["Rares and treasures"], controls = {} },
-	{ page = MAP, tab = L["Rares & travel"], section = L["Dungeons and travel"], controls = {} },
-	{ page = MAP, tab = L["Rares & travel"], section = L["NPC services"], controls = {} },
-	{ page = MAP, tab = L["Zones"], section = L["Zones"], controls = {} },
-	{ page = MAP, tab = L["Zones"], section = L["Coordinates"], controls = {} },
+	{ page = MAP, tab = L["Rares, travel & zones"], section = L["Rares and treasures"], controls = {} },
+	{ page = MAP, tab = L["Rares, travel & zones"], section = L["Dungeons and travel"], controls = {} },
+	{ page = MAP, tab = L["Rares, travel & zones"], section = L["NPC services"], controls = {} },
+	{ page = MAP, tab = L["Rares, travel & zones"], section = L["Zones and coordinates"], controls = {} },
 }
 
 -- Pages filled by modules alone: Quests, QoL, Gear and Talents on Questing; Lookup,
--- Dungeons, Rares and Characters on Discovery; QoL and Maps on Quality of Life.
+-- Alts, Dungeons and Rares on Discovery; QoL, Nav and Maps on Quality of Life.
 for _, list in ipairs({
 	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
-		{ L["Quests"], { L["Quest database"], L["Tooltips and quest log"], L["Faster questing"] } },
-		{ L["Rewards & gear"], { L["Quest rewards"], L["Loot and merchants"], L["Gear advice"], L["Comparison"] } },
+		{ L["Quests"], { L["Faster questing"], L["Quest log and tooltips"], L["Group"], L["Party chat"] } },
+		{ L["Rewards & gear"], { L["Quest rewards"], L["Gear advice"] } },
 		-- Talents: { L["Talents"], { L["Talent plan"] } } here once the plans are back (Talents.lua, T.SOON).
-		{ L["Buttons"], { L["Action buttons"] } },
+		{ L["Buttons"], { L["Action buttons"], L["Targeting"] } },
 	}),
 	declare(DISCOVERY, "discovery", "search", 50, L["Lookup, the dungeon journal and rares: finding things in the world."], {
-		{ L["Lookup"], { L["How to get anything"] } },
-		{ L["Dungeons"], { ENCOUNTER_JOURNAL, L["Dungeons in leveling guides"] } },
-		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"], L["History"] } },
-		{ L["Characters"], { L["Characters"] } },
+		{ L["Lookup"], { L["How to get anything"], L["Dungeons and characters"] } },
+		{ L["Dungeons"], { L["Dungeons in leveling guides"] } },
+		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"] } },
 	}),
 	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."], {
 		-- Conveniences that also live on their home pages (Questing, Guide, Map): players look for them here (Fitz, 2026-11-05).
-		{ L["Quests"], { L["Faster questing"], L["Quest rewards"], L["Action buttons"], L["Tooltips and quest log"] } },
-		{ L["Travel"], { L["Flight masters"], L["Hearthstone"], L["Flight timer"], L["Along the route"], L["Nearby services"], L["Death"] } },
+		{ L["Quests"], { L["Faster questing"], L["Rewards, buttons and tracker"] } },
+		{ L["Travel"], { L["Flights"], L["Hearth and travel"], L["Death"] } },
 		{ L["Social"], { L["Requests"], L["Blocking"] } },
 		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"], L["Trainers"] } },
-		{ L["Trackers"], { L["Experience"], L["Instances"], L["Instance limits"] } },
-		{ L["Map"], { L["Minimap"], L["Coordinates"] } },
+		{ L["Trackers & map"], { L["Experience"], L["Instances"], L["Minimap and coordinates"] } },
 	}),
 }) do
 	for _, spec in ipairs(list) do BUILTIN[#BUILTIN + 1] = spec end
@@ -779,7 +788,7 @@ local ALIASES = {
 	automation = { "guide", L["Automation"] }, behavior = { "guide", L["Automation"] }, behaviour = { "guide", L["Automation"] },
 	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] },
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
-	characters = { "discovery", L["Characters"] }, alts = { "discovery", L["Characters"] },
+	characters = { "discovery", L["Lookup"] }, alts = { "discovery", L["Lookup"] },
 	appearance = { "theme" }, look = { "theme" }, qol = { "qualityoflife" },
 }
 

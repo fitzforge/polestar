@@ -332,7 +332,7 @@ function AV.Render()
 		root.Note:Hide()
 	else
 		root.Note:SetWidth(width)
-		root.Note:SetText(L["Characters is turned off. Turn it on under Options > Discovery > Characters."])
+		root.Note:SetText(L["Characters is turned off. Turn it on under Options > Discovery > Lookup."])
 		root.Note:Show()
 		y = 12 + floor(root.Note:GetStringHeight() + 0.5) + 12
 	end
