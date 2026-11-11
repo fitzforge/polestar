@@ -1,15 +1,17 @@
--- The "Gear" options page, through the options registry
--- (Polestar.RegisterOptions, defined in Theme/Widgets.lua). Registered once every
--- file has loaded, so the registry exists whichever module defines it. The
--- weights dropdown lists the player's own class specs; the setting is kept
--- per class (gear.spec.<CLASS>), so alts of other classes keep "Automatic".
--- Imported Pawn scales (Pawn.lua) follow the specs as "Custom: <name>"; one
--- button opens the window that manages them (UI/GearScales.lua).
+-- Gear's rows on the Questing page's Rewards & gear tab (docs/ARCHITECTURE.md,
+-- "Options registry"). The weights dropdown lists the player's own class
+-- specs; the setting is kept per class (gear.spec.<CLASS>), so alts of other
+-- classes keep "Automatic". Imported Pawn scales (Pawn.lua) follow the specs
+-- as "Custom: <name>"; one button opens the window that manages them
+-- (UI/GearScales.lua). Part of the settings' addon: none of it is in memory
+-- before the settings open.
 
-local ADDON, ns = ...
+local ns = Polestar
 
 local Gear = ns.Gear
 local L = ns.L
+
+if not (Gear and ns.RegisterOptions) then return end
 
 local specChoices = { { value = "auto", label = L["Automatic (talents)"] } }
 
@@ -43,13 +45,15 @@ local function UI() return ns.UI end
 
 local registered = false
 
+-- The rows, once the class is known: it is once logged in, and the settings
+-- open after that.
 local function register()
-	if registered or not ns.RegisterOptions then return end
+	if registered then return end
 	local class = Gear.Client.PlayerClass()
 	if not class then return end
+	registered = true
 	fillChoices(class)
 	playerClass = class
-	registered = true
 	ns.RegisterOptions({
 		page = L["Questing"], tab = L["Rewards & gear"], section = L["Gear advice"],
 		controls = {
@@ -85,5 +89,5 @@ local function register()
 	})
 end
 
-ns.OnInit(register)
+register()
 ns.OnLogin(register)

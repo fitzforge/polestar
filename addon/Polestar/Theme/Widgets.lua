@@ -3640,14 +3640,28 @@ end
 
 ---------------------------------------------------------------------------
 -- Options registry (docs/ARCHITECTURE.md, UI -> "Options registry").
--- Lives here, not in UI, because modules loading before UI.xml register at
--- file load: entries are kept in order and handed to the options window
+-- Lives here, not in UI, because anything may register before the options
+-- window exists: entries are kept in order and handed to the window
 -- whenever it exists (now or later).
+--
+-- The rows are only the settings window's, so none of them is built at
+-- login: every page, the modules' rows included, registers from the
+-- window's own addon (Polestar_Options, load on demand: <Module>/Options.lua
+-- there). Reading W.OptionsRegistry loads that addon (out of combat), so it
+-- holds every row.
 ---------------------------------------------------------------------------
 
 local registry = {} -- { spec, ... } in registration order
 local registryListeners = {}
-W.OptionsRegistry = registry
+
+-- W.OptionsRegistry: every registration, the window's addon loaded.
+setmetatable(W, { __index = function(_, k)
+	if k == "OptionsRegistry" then
+		local UI = ns.UI
+		if UI and UI.LoadOptions and not UI.Options then UI.LoadOptions() end
+		return registry
+	end
+end })
 
 -- binding: a key binding row (UI/GamepadGuide.lua): { kind = "binding", action = "POLESTAR_NEXT", label, help }.
 -- cards: picture cards, choices = { { value, label, draw = function(card, value) end } }.

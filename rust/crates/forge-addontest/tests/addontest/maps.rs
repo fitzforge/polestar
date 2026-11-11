@@ -6,7 +6,8 @@
 use forge_addontest::{emitted, is_match, text, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: [&str; 4] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml"];
+// The rows are the settings' addon's (Polestar_Options/Maps/Options.lua).
+const FILES: [&str; 5] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "../Polestar_Options/Maps/Options.lua"];
 
 const PRELUDE: &str = r#"
 local M = Polestar.Maps

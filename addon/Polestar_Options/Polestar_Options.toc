@@ -31,6 +31,17 @@
 UI\Controls.lua
 UI\Preview.lua
 Core\ProfileStrings.lua
+Nav\Options.lua
+Maps\Options.lua
+QoL\Options.lua
+Lookup\Options.lua
+Dungeons\Options.lua
+UI\GuideOptions.lua
+Rares\Options.lua
+Talents\Options.lua
+Alts\Options.lua
+Quests\Options.lua
+Gear\Options.lua
 UI\Options.lua
 UI\Profiles.lua
 UI\Looks\Theme.lua

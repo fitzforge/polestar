@@ -276,7 +276,7 @@ Polestar.RegisterGuide({ id = "test/h", pack = "test", title = "H", faction = "H
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml"])],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "../Polestar_Options/Dungeons/Options.lua"])],
 		script: [
 			TEST_PACK,
 			TEST_SOURCE,

@@ -422,7 +422,7 @@ local SPECS = {
 			help = L["The minimap button's size. The switch beside it shows it on the edge of the minimap. A minimap addon that gathers buttons may size it its own way."],
 			search = "minimap button size, bigger, smaller, icon size",
 			extras = { { kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
-				help = L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."],
+				help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."],
 				search = "minimap icon, minimap button, hide button, launcher" } } },
 		{ kind = "dropdown", key = "maps.minimapButtonIcon", label = L["Minimap icon"], new = NEW,
 			help = L["The minimap button's mark: Polestar's logo, or its emblem alone in your accent colour or in white."],
