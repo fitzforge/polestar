@@ -3794,8 +3794,12 @@ a later segment that is not the next one takes over only when 4 yd nearer
 (the far side of a hairpin), and it never moves past a blocking point the
 player has not come within 5 yd of: a point on another floor than the one
 before it (stairs, a ramp, a lift's landing), and,
-on a piece of a split walk, every point after the last one before its
-chokepoint (`Travel.Aim` passes `leg.seg` as `stop`). Another floor is more
+on a piece of a split walk, every point past its chokepoint's spot on the path
+(`Travel.Aim` passes `leg.stop` as `stop`: the point before the spot plus the
+share of the way to the next, and the aim slides on to the spot, never past
+it; held at the point before it, the arrow pointed at the feet of a player
+standing there when the chokepoint lay far along a sparse path's piece, 0.3.8).
+Another floor is more
 than 6 yd (`FLOOR_STEP`) above or below; outdoors (`Walk.Aim` passes `hill`)
 it must also be steeper than 45° (`FLOOR_GRADE`, 1 yd up or down per yard
 across from the point it is measured against). 0.3.7 (Fitz in Desolace: "it

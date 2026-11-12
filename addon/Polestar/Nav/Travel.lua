@@ -437,7 +437,7 @@ end
 --         faction's towns (Travel.SplitWalk, Travel.PricePaths; Find's job.hubs;
 --         Travel.HubText names each by its areaId in the client's language) }
 -- Travel.SplitWalk later adds walk pieces (step and choke = { kind, name },
--- parent, seg, tail) and lift rides (kind "lift", lift, side), or measures an
+-- parent, seg, stop, tail) and lift rides (kind "lift", lift, side), or measures an
 -- unsplit walk along the path (straightYards, straightSeconds: the estimate here);
 -- Travel.PricePaths gives every later walk its searched path's measure.
 -- seconds are real travel time; the search orders by a cost that adds
@@ -2498,7 +2498,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 		pieces[#pieces + 1] = {
 			kind = "walk", from = from, to = at, label = stopLabel(s, c), step = s.kind,
 			choke = { kind = s.kind, name = present(s.to) or present(s.name) or stopZone(s, c) },
-			radius = s.r, seg = s.seg, tail = total - s.along, parent = P,
+			radius = s.r, seg = s.seg, stop = s.stop, tail = total - s.along, parent = P,
 			yards = floor(s.along - doneYards + 0.5), seconds = secs - doneSecs,
 			hubs = hubs,
 		}
@@ -2715,8 +2715,8 @@ function Travel.Aim(pc, px, py)
 				if W then
 					local gc, gx, gy, gz = to.c, to.wx, to.wy, to.z
 					if P then gc, gx, gy, gz = P.c, P.wx, P.wy, P.leg.to.z end
-					-- A piece aims no further than the path point before its chokepoint (leg.seg).
-					local wc, wx, wy, left = W.Aim(pc, px, py, gc, gx, gy, leg.handmade, gz, P and leg.seg)
+					-- A piece aims no further than its chokepoint's spot on the path (leg.stop, Walk.Stops).
+					local wc, wx, wy, left = W.Aim(pc, px, py, gc, gx, gy, leg.handmade, gz, P and leg.stop)
 					if wc then
 						left = left - (leg.tail or 0)
 						if left < 0 then left = 0 end

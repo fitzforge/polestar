@@ -2784,3 +2784,66 @@ fn a_near_target_over_a_closed_zone_border_with_a_long_walk_or_none_keeps_the_cr
 		assert_eq!(strs(&out[k]["later"]), first, "{k}: the same way 10 s on");
 	}
 }
+
+// The 0.3.8 border sweep's Ashenvale start 250 yd from a Darkshore goal (an Alliance player at UnitPosition (4085,
+// 109.5), the goal at Darkshore 44.7,92): the walk there is short (260 yd), so the near walk over the closed border is
+// planned (#1543), and its path, five points over open ground, is split at the Ashenvale pass, 40 yd along a piece of
+// the path past its point before the pass. The first piece aimed no further than that point, so a player following
+// the arrow stopped there, the arrow at their feet and the piece's end out of reach. It aims on to the pass's spot on
+// the path: following the arrow (7 yd a second toward its aim, on the walking maps' ground, as the sweep walks), the
+// player gets to the goal.
+#[test]
+fn following_the_arrow_from_ashenvale_to_a_darkshore_goal_250_yd_over_the_border_the_walk_split_at_the_pass_arrives() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		local G = stub.navNs.PathGrid
+		-- The walking maps' surface at (x, y) nearest height h: its height, or nil off the maps.
+		local function ground(c, x, y, h)
+			local st = G.State(c)
+			local k, lc
+			if st then k, lc = G.locate(st, x, y) end
+			if not k then return nil end
+			local n = G.snap(st, k, lc, x, y, h)
+			return n and G.zOf(G.grid(st, k), n) or nil
+		end
+		local c, x, y, z = 1, 4085, 109.5, 14
+		local map = N.danger.ZoneAt(c, x, y) or 1440
+		place(map, x, y, z)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1439, 44.7, 92, "Goal", "e")
+		local _, tx, ty = N.GetTargetWorld()
+		for _ = 1, 100 do N.Sample(); stub.advance(0.05) end
+		local pass, still, arrived, stalled = false, 0, false, false
+		for t = 1, 90 do
+			for _ = 1, 20 do N.Sample(); stub.advance(0.05) end
+			local legs, ci = N.GetRoute()
+			local leg = legs and legs[ci or 1]
+			if leg and leg.choke and leg.choke.kind == "pass" then pass = true end
+			if dist(x, y, tx, ty) <= 10 then arrived = t break end
+			local _, _, _, dn, dw = N.Sample()
+			if not dn then break end
+			local da = sqrt(dn * dn + dw * dw)
+			if da < 0.5 then still = still + 1 else still = 0 end
+			if still >= 5 then stalled = t break end
+			local step = math.min(7, da)
+			x, y = x + dn / da * step, y + dw / da * step
+			z = ground(c, x, y, z) or z
+			local zm = N.danger.ZoneAt(c, x, y) or map
+			place(zm, x, y, z)
+			if zm ~= map then
+				map = zm
+				stub.fire("ZONE_CHANGED_NEW_AREA")
+			end
+		end
+		emit({ pass = pass, arrived = arrived, stalled = stalled, left = floor(dist(x, y, tx, ty)) })"#,
+		true,
+	);
+	assert_eq!(out["pass"], true, "the walk is split at the Ashenvale pass: {out}");
+	assert_eq!(out["stalled"], false, "the arrow never stays on the player's feet: {out}");
+	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the goal: {out}");
+}

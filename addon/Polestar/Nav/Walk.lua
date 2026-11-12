@@ -134,8 +134,8 @@
 --     height, else the target's when it is the target's point): Nav/Follow.lua's
 --     aim along the path (the furthest point within 35 yd of the player and
 --     45 yd along it, sliding between points, stopped at a corner, another
---     floor and path point `stop`, a piece of a split walk's last point
---     before its chokepoint; outdoors, beside the path in open ground up to
+--     floor and `stop`, a piece of a split walk's chokepoint's spot on the path
+--     (its stop); outdoors, beside the path in open ground up to
 --     100 yd from it, the furthest point ahead up to 150 yd along it the
 --     player can walk to straight, Path.Sight checking the line); and the
 --     yards left along the path from the
@@ -1817,7 +1817,7 @@ local LOOK = 25        -- yards past a passage that tell which side is ahead
 local STOP_DZ = 30     -- yards above or below the path: a chokepoint on another floor
 local RIDE_DZ = 20     -- yards the path's height changes across a lift it rides
 
--- Nearest point on the path to (x, y): distance, segment, point, yards from the path's start.
+-- Nearest point on the path to (x, y): distance, segment, point, yards from the path's start, share of the segment.
 local function project(x, y)
 	local bestD, bestA, bestT = huge, 1, 0
 	for a = 1, count - 1 do
@@ -1835,7 +1835,7 @@ local function project(x, y)
 	end
 	local a = bestA
 	local dx, dy = ptsX[a + 1] - ptsX[a], ptsY[a + 1] - ptsY[a]
-	return sqrt(bestD), a, ptsX[a] + dx * bestT, ptsY[a] + dy * bestT, left[1] - left[a] + sqrt(dx * dx + dy * dy) * bestT
+	return sqrt(bestD), a, ptsX[a] + dx * bestT, ptsY[a] + dy * bestT, left[1] - left[a] + sqrt(dx * dx + dy * dy) * bestT, bestT
 end
 
 -- The point `along` yards from the path's start.
@@ -1898,7 +1898,7 @@ function Walk.Stops(pc, px, py)
 	local function consider(e, kind)
 		local r = tonumber(e.r) or SNAP
 		if e.wx + r < minX or e.wx - r > maxX or e.wy + r < minY or e.wy - r > maxY then return end
-		local d, a, sx, sy, along = project(e.wx, e.wy)
+		local d, a, sx, sy, along, t = project(e.wx, e.wy)
 		along = along - here
 		-- A lift the path rides is a step however near the walk's ends (the Great Lift's
 		-- bottom landing a few yards from the Thousand Needles crossing).
@@ -1909,7 +1909,10 @@ function Walk.Stops(pc, px, py)
 		-- never a lift the path rides (its landings join the floors).
 		local ez, za, zb = tonumber(e.z), ptsZ[a], ptsZ[a + 1]
 		if not ridden and ez and za and zb and abs(za - ez) > STOP_DZ and abs(zb - ez) > STOP_DZ then return end
-		found[#found + 1] = { kind = kind, entry = e, wx = sx, wy = sy, r = r < 5 and 5 or r > 20 and 20 or r, along = along, seg = a, ridden = ridden }
+		-- stop: the follower's cap for the piece that ends here (Nav/Follow.lua), the chokepoint's spot on the path; a
+		-- lift's, the point before its landing (a spot between the landings' floors is no place to aim at).
+		found[#found + 1] = { kind = kind, entry = e, wx = sx, wy = sy, r = r < 5 and 5 or r > 20 and 20 or r, along = along, seg = a,
+			stop = kind == "lift" and a or a + t, ridden = ridden }
 	end
 	local packed = type(_G.PolestarNavChokepoints) == "table" and _G.PolestarNavChokepoints[gc]
 	if type(packed) == "table" then
@@ -1932,7 +1935,8 @@ function Walk.Stops(pc, px, py)
 	for _, f in ipairs(found) do
 		local e = f.entry
 		if not used[e] and (f.along - lastAlong >= MIN_STEP or f.ridden) then
-			local s = { kind = f.kind, name = areaName(e.area, e.name), zone = areaName(e.zoneArea, e.zone), wx = f.wx, wy = f.wy, r = f.r, along = f.along, seg = f.seg }
+			local s = { kind = f.kind, name = areaName(e.area, e.name), zone = areaName(e.zoneArea, e.zone), wx = f.wx, wy = f.wy, r = f.r, along = f.along, seg = f.seg,
+				stop = f.stop }
 			if f.kind == "lift" then
 				-- The landing boarded and the ride to its pair. The side comes from
 				-- the path's height when it has one (K4): a packed lift's two

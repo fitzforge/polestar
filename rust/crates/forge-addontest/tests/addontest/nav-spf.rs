@@ -395,7 +395,36 @@ fn the_look_ahead_never_aims_onto_another_floor_path_heights_or_past_a_split_wal
 	]
 	.concat());
 	assert_eq!(split["leg"], "bridge", "the first piece ends at the bridge (y -150)");
-	assert!(num(&split["furthest"]) >= -148.0, "the aim never passes the path point before the bridge (y -148; furthest {})", split["furthest"]);
+	assert!(num(&split["furthest"]) >= -150.0, "the aim never passes the bridge's spot on the path (y -150; furthest {})", split["furthest"]);
+}
+
+// A split walk's chokepoint far along a piece of a sparse path (0.3.8's border sweep, an Ashenvale pass 40 yd past the
+// path's point before it): the piece aims on to the chokepoint's spot on the path, past that point and never beyond the
+// spot. Held at the point, the arrow pointed at the feet of a player standing a hair short of it, the piece's end out
+// of reach. A pass 5 yd off a path of three points (0, 0), (0, -100), (0, -300): its spot (0, -160), 60 yd past the
+// middle point.
+#[test]
+fn a_split_walk_s_piece_aims_on_to_its_chokepoint_far_along_a_piece_of_a_sparse_path_never_at_the_player_s_feet() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = { [0] = { { wx = 5, wy = -160, r = 10, kind = "pass", name = "Hollow Pass", zone = "Testshire" } } }
+		nav.place(0, 0)
+		target(0, -300)
+		N.Sample()
+		answerZ({ { 0, 0 }, { 0, -100 }, { 0, -300 } })
+		local legs, ci = N.GetRoute()
+		local first = legs[ci].choke and legs[ci].choke.kind
+		local hair = look(0, -100 + 1e-7, 0, -300)
+		local on = look(0, -140, 0, -300)
+		emit({ first = first, hair = hair, on = on })"#,
+	]
+	.concat());
+	assert_eq!(out["first"], "pass", "the walk is split at the pass");
+	assert!(num(&out["hair"]["dy"]) < -20.0, "a hair short of the middle point: on along the path toward the pass ({} yd)", out["hair"]["dy"]);
+	assert!(-140.0 + num(&out["on"]["dy"]) >= -160.0 - 1e-6, "20 yd short of it: the aim stops at the pass's spot ({} yd on)", out["on"]["dy"]);
+	assert!(num(&out["on"]["dy"]) < -15.0, "and reaches it ({} yd on)", out["on"]["dy"]);
 }
 
 // The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
