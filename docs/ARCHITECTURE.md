@@ -2050,9 +2050,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Guides.GuideMatches`: faction, race, class), the accept's `only` or the
   database's faction, race and class not matching, a quest one of its own
   `closedBy`/`excl` already closed,
-  and other versions of `q` (the same title). On `QUEST_DETAIL` (not a quest
-  the game accepted itself) the setting prints "Taking <quest> closes <quests>
-  for good." and Automation leaves that accept to the player.
+  and other versions of `q` (the same title). `Closes.Missed(q, title, npc)`
+  drops from that list what leaves nothing to miss at NPC `npc`: a quest
+  handed in to that NPC (the accept's `endNpcs`, else the database's finish:
+  a breadcrumb to where the player stands) or worth no XP (`xp` 0). On
+  `QUEST_DETAIL` (not a quest the game accepted itself) with anything left,
+  the setting prints "Taking <quest> closes <quests> for good. Decline to
+  keep it, or click Accept to skip it.", each closed quest with what its
+  guide accept tells (its giver, the distance to the giver's point on this
+  continent, its XP at the player's level), and Automation leaves that
+  accept to the player; with nothing left it says nothing and holds nothing.
 - **What a quest unlocks** (`Core/Unlocks.lua`, the guide window's quest
   tooltips). `Unlocks.For(q)` lists `q`'s follow-ups for this character: the
   guide accepts whose `pre`/`preAll` names `q`, across every shown guide

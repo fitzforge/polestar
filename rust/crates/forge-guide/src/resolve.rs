@@ -1630,7 +1630,9 @@ fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
 
 /// What an accept of quest `id` (record `q`, or Null) waits on, for the engine: its blocking prerequisites, the
 /// quests that close it for good, and its `parent` (a child quest, which its giver offers only while the parent is
-/// in the log and never once it is handed in: Valik with Infiltration, #1661).
+/// in the log and never once it is handed in: Valik with Infiltration, #1661). A quest something closes for good
+/// also carries the NPCs it is handed in to (`endNpcs`) and its XP (`xp`), from the data: the missable-quest line
+/// (Core/Closes.lua) says nothing of a breadcrumb to the NPC offering the closing quest, or of one worth no XP.
 fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	let out: V = V::obj();
 	let bp = crate::prereqs::blocking_prereqs(q, &|p: &V| data.quest(p));
@@ -1645,6 +1647,15 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	let closed_by: Vec<V> = crate::prereqs::closed_by_of(id, &data.quests).into_iter().map(V::from).collect();
 	if !closed_by.is_empty() {
 		out.set("closedBy", closed_by.clone());
+		if q.truthy() {
+			let ends = q.get("end").get("npc").items();
+			if !ends.is_empty() {
+				out.set("endNpcs", ends);
+			}
+			if q.get("xp").is_num() && q.get("xp").num() >= 0.0 {
+				out.set("xp", q.get("xp").num());
+			}
+		}
 	}
 	let parent: Vec<V> = if q.truthy() && q.get("parent").num() > 0.0 { vec![V::from(q.get("parent").num())] } else { Vec::new() };
 	if let Some(p) = parent.first() {
