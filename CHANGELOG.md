@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.7.1 (2026-11-12)
+
+### For players
+
+- Removed the Train All button and automatic spell learning at trainers.
+  Existing settings cannot enable either feature. Choose and buy spells
+  yourself using the game's normal Train button.
+
 ## 0.3.7 (2026-11-11)
 
 ### For players
