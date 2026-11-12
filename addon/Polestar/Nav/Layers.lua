@@ -140,9 +140,9 @@ end
 -- Engine leads the arrow there as a click on its line in the guide window
 -- does (Engine.AimGoal), so the arrow moves on through its spots (#1653);
 -- one whose quest waits for its accept leaves the arrow on the accept and
--- says so (#1385). False when the Engine can't lead there; and while dungeon
--- pause drops the Engine's waypoint from the arrow (Core/Init.lua), when the
--- click sets a plain point instead, so it still points the arrow.
+-- says so (#1385). False when the Engine can't lead there; and while paused
+-- (Core/Init.lua: the arrow drops the Engine's waypoint), when the click sets
+-- a plain point instead, so it still points the arrow.
 local function aimAt(index, goal)
 	local Engine = ns.Engine
 	if ns.PauseHides("arrow") then return false end

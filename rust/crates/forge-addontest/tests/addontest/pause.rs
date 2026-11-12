@@ -139,6 +139,9 @@ fn a_click_on_a_step_goal_s_map_pin_while_paused_sets_a_point_the_arrow_shows() 
 			NAV_PRE,
 			r#"
 		nav.engine.views[1] = { index = 1, goals = { { index = 1, status = "active", text = "Goal pin", map = 9000, x = 60, y = 60 } } }
+		-- No travel route here: NAV_PRE's stand-in route is for the travel button (its legs have no `to`, which
+		-- Travel.lua's real legs always have), and Layers.Update draws the route's stops from it.
+		N.GetRoute = function() return nil end
 		local aimed = 0
 		function nav.Engine.AimGoal() aimed = aimed + 1; return true end
 		local function click()
