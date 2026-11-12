@@ -331,7 +331,6 @@ step The Dalaran crater
   collect 3690 quest 544.3            -- Alina
   collect 3688 quest 544.4            -- Kegan Darkmar
   collect 279469 quest 93680.1 @16.4,89.3 map 1416 -- Grimy Key: an object to loot, by the traitors
-  collect 279469 quest 93680.1 @16.4,89.3 map 1416 -- Grimy Key: an object to loot, by the traitors
   collect 3714 quest 556
 
 step Hillsbrad Foothills
@@ -376,7 +375,7 @@ step Henchman Valik
 
 step Syndicate missives
   zone Alterac Mountains
-  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 29-30 they are well above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge.
+  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge.
   collect 3601 quest 533
 
 step Tarren Mill
