@@ -5645,6 +5645,28 @@
 					"ref": "players' in-game recordings to 2026-11-10: the Shadowy Assassin seen by 5 people and killed by 4 in all, at spots spread around Southshore's edge (Hillsbrad 47-55, 54-62)"
 				}
 			]
+		},
+		{
+			"id": "1893-cozzle-step-waits-for-goblin-sponsorship",
+			"faction": "Horde",
+			"at": {
+				"quest": 1182,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "onquest 1182",
+			"note": "#1893 (mylons): Stranglethorn Vale (horde/30-40/03) sent a player without Goblin Sponsorship's footlocker part (1182) to Foreman Cozzle (4723) for Cozzle's Key (5851): the step's key line is not tied to the quest, so it showed even when 1182's accept on the Booty Bay stop was hidden because the chain (1178, 1180, 1181) was not done. The key drops only while 1182 is in the log, so that player farmed Cozzle for half an hour for nothing. The step (the key and the Fuel Regulator Blueprints, 5852, from Cozzle's Footlocker) now shows only while 1182 is in the log; the hand-in at Baron Revilgaz goes with the accept as before.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "#1893, maintainer's reply: in players' recordings every Cozzle's Key drop came with 1182 in the log, and the one player who killed Foreman Cozzle without it got no key, twice"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature_loot_template entry 4723 (Foreman Cozzle), item 5851 (Cozzle's Key): ChanceOrQuestChance -100, a quest-only drop"
+				}
+			],
+			"issue": 1893
 		}
 	]
 }
