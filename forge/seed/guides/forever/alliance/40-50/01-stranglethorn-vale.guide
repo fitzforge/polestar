@@ -427,15 +427,6 @@ step Level 42.16 at Zul'Mamwe
   when level<42.16
   tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. Or, with a group, run the Uldaman dungeon instead.
   goto 45.5,36.5 map 1434 "Skullsplitter Warrior"
-  level 42.16                          -- grind on Skullsplitter Warrior
-
-step Level 42.16 at Zul'Mamwe
-  when !group 193
-  when !group 197
-  when !group 208
-  when level<42.16
-  tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. Or, with a group, run the Uldaman dungeon instead.
-  goto 45.5,36.5 map 1434 "Skullsplitter Warrior"
   level 42.16 grind 667                -- grind on Skullsplitter Warrior
 
 step Ruins of Zul'Mamwe: kill these as you meet them
