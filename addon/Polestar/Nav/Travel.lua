@@ -83,6 +83,13 @@ local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
 local HEARTH_MARGIN = 120    -- seconds it must save: 2 minutes
 local HEARTH_MIN_TRIP = 180  -- seconds the way without it must take: 3 minutes
 Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEARTH_MARGIN, HEARTH_MIN_TRIP -- the Engine's hearth goal weighs it the same way
+-- A class teleport (each of a Mage's city teleports spends a Rune of
+-- Teleportation) is cast only when it clearly pays: it must save at least
+-- TELEPORT_MARGIN over the best way without teleports, and TELEPORT_SHARE of
+-- that way when that is more, in the planner's cost (seconds, with its
+-- weights; planRoute's fifth) (#1823: Teleport: Stormwind won by a few seconds
+-- over a flight to Darkshire).
+local TELEPORT_MARGIN, TELEPORT_SHARE = 60, 0.2
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
 local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
@@ -732,6 +739,7 @@ local function planRoute(p)
 	-- Explicit walk links: crossing pairs, chain neighbours, attachments.
 	local extra = {}
 	local onCross = {} -- [far end vertex] = true: the start is on that crossing
+	local dockIn = {} -- [dock vertex] = true: inside a chain, reached through it only
 	local function link(u, v)
 		if not (u and v) then return end
 		local l = extra[u]
@@ -788,10 +796,20 @@ local function planRoute(p)
 		if startIn then near(startIn, function(v) link(1, v) end) end
 		if targetIn then near(targetIn, function(v) link(v, 2) end) end
 		if startIn and targetIn and startIn.chain == targetIn.chain then link(1, 2) end
+		-- A dock inside a chain (the Deeprun Tram's Stormwind end, down its building past the door, #1242) is
+		-- reached like an inside target: through its nearest node and that node's neighbours only.
+		for v in pairs(dockOf) do
+			local e = dockEnd[v]
+			local nd = covered[vc[v]] and insideChain(vc[v], vx[v], vy[v], e.z, true)
+			if nd then
+				dockIn[v] = true
+				near(nd, function(u) link(u, v); link(v, u) end)
+			end
+		end
 	end
-	-- Vertices only explicit links reach: chain nodes past a mouth, an inside start or target.
+	-- Vertices only explicit links reach: chain nodes past a mouth, an inside start, target or dock.
 	local function sealed(v)
-		return vkind[v] == DARK or (v == 1 and startIn ~= nil) or (v == 2 and targetIn ~= nil)
+		return vkind[v] == DARK or (v == 1 and startIn ~= nil) or (v == 2 and targetIn ~= nil) or dockIn[v] == true
 	end
 
 	-- The walks to the target the walking engine measured (p.walkCost, Nav/Walk.lua):
@@ -1001,15 +1019,44 @@ local function planRoute(p)
 		end
 	end
 
+	-- #1823's rule, in the search's cost: a class teleport must save TELEPORT_MARGIN, and TELEPORT_SHARE of the way
+	-- without teleports when that is more. Each teleport edge carries TELEPORT_MARGIN, so a way the search takes
+	-- through one saves the margin already; only a teleport's way costing over TELEPORT_MARGIN x (1 - TELEPORT_SHARE)
+	-- / TELEPORT_SHARE (4 minutes) can fall short of the share. Then the way without teleports is searched once more,
+	-- over the same graph and only up to the cost at which the teleport pays (`bound`): reaching the target below it,
+	-- that way is taken, else the first search's (`kept`).
+	local bound, kept = huge, nil
+	local function fifth()
+		local v = 2
+		while v and prev[v] ~= 1 do v = prev[v] end
+		if not (v and teleV[v]) then return false end
+		local b = (dist[2] - TELEPORT_MARGIN) / (1 - TELEPORT_SHARE)
+		if b <= dist[2] then return false end
+		kept, bound = { dist, tm, prev, via }, b
+		dist, tm, prev, via, done, stranded, onFoot = {}, {}, {}, {}, {}, {}, {}
+		for i = 1, n do dist[i] = huge end
+		dist[1], tm[1] = 0, 0
+		hk, hv, size = {}, {}, 0
+		push(0, 1)
+		return true
+	end
+
 	push(0, 1)
 	local pops = 0
 	while size > 0 do
 		local u = pop()
 		if not done[u] then
 			done[u] = true
-			if u == 2 then break end
+			if u == 2 or dist[u] >= bound then
+				if kept or not fifth() then break end
+				u = pop() -- the start, for the search without teleports
+				done[u] = true
+			end
 			pops = pops + 1
-			if pops > MAX_POPS or (clock and clock() - t0 > MAX_MS) then return nil, "budget" end
+			if pops > MAX_POPS or (clock and clock() - t0 > MAX_MS) then
+				if not kept then return nil, "budget" end
+				break -- the second search reached the planner's caps: the teleport stays
+			end
 			local du, tu, cu, xu, yu, kind = dist[u], tm[u], vc[u], vx[u], vy[u], vkind[u]
 			if kind == PATH then
 				local adj = pathAdj[vref[u]]
@@ -1099,14 +1146,17 @@ local function planRoute(p)
 				if cost then relax(rideTo[u], du + cost, tu + cost, RIDE, u) end
 			elseif kind == START then
 				if innV then relax(innV, du + HEARTH_SECONDS + HEARTH_MARGIN, tu + HEARTH_SECONDS, HEARTH, u) end
-				for v, e in pairs(teleV) do
-					-- 10 s: reagents are cheap, but a walk this much shorter still wins.
-					local s = (e.ready or 0) + (e.cast or HEARTH_SECONDS)
-					relax(v, du + s + 10, tu + s, HEARTH, u)
+				-- Weighed by TELEPORT_MARGIN, as the Hearthstone by HEARTH_MARGIN; none on the search without them (fifth).
+				if not kept then
+					for v, e in pairs(teleV) do
+						local s = (e.ready or 0) + (e.cast or HEARTH_SECONDS)
+						relax(v, du + s + TELEPORT_MARGIN, tu + s, HEARTH, u)
+					end
 				end
 			end
 		end
 	end
+	if kept and not (done[2] and dist[2] < bound) then dist, tm, prev, via = kept[1], kept[2], kept[3], kept[4] end
 	if dist[2] == huge then return nil, "unreachable" end
 
 	-- Vertex chain, start first.
