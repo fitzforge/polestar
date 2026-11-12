@@ -207,6 +207,12 @@ test('the Dalaran traitors stand in the camp south of their Classic spot, where 
 	for (const id of [2411, 2412, 2413, 2414]) assert.ok(at(id)[1424], `npc ${id}: its Hillsbrad Foothills spot moves too`);
 });
 
+test('Daniel Stitchsong stands at the reported Three Corners spot in live coordinates (#1966)', () => {
+	assert.deepEqual(corrections.npcs[256734]?.addSpawns, {
+		1433: { f: 'l', pts: [[9.96, 72.71]] },
+	}, 'replace the old Redridge point rather than keeping it as another destination');
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
