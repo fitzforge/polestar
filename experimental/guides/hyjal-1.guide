@@ -28,7 +28,9 @@ next polestar-experimental/hyjal-2
 # after The Pact.
 # Behind a group choice: Celastrus the Bitter (91923), The Dying Ancients (92959) and Amalgamated Marrow (96255):
 # Celastrus, Sunderbark and the Awakened Fel Ash Slime are elites (levels 57, 56 and 58), and A Revenge Now Bitter
-# (96322) comes only after Amalgamated Marrow.
+# (96322) comes only after Amalgamated Marrow. The slime rose the moment A Fitting End was handed in at the bone
+# pile in the recording, before Amalgamated Marrow was taken, so that step warns everyone. Ghansurok (elite 61)
+# prowls around Kaylaena's workshop (the data's spawns and the recording's sightings).
 # Not in the recording, from the quest data alone: Venom Maws (96833), Farsight Guided (96830), One Person's
 # Trash (94479), and the Horde's The Western Post (94782).
 
@@ -79,7 +81,7 @@ step Ketharas
   accept 93759                          -- The Bounty of Nature
 
 step Kaylaena's workshop
-  tip North-west over the shrub field to Kaylaena Springwhisper's workshop on the slope above it. Celastrus the Bitter, an elite (level 57), patrols the field, and Sunderbark, an elite ancient (level 56), stands in its middle: give both room.
+  tip North-west over the shrub field to Kaylaena Springwhisper's workshop on the slope above it. Celastrus the Bitter, an elite (level 57), patrols the field, and Sunderbark, an elite ancient (level 56), stands in its middle: give both room. Ghansurok, an elite chimaera (level 61), prowls around the workshop itself: see where he is before you ride up to Kaylaena.
   turnin 96796                          -- Kaylaena Springwhisper
   accept 92594                          -- Kindling, Kinda
   accept 92008                          -- Premiere Parts: for Nami in Everlook; you go there from Moonglade at the end of this guide
@@ -111,7 +113,7 @@ step The ruined catapult and flying machine
   goto 66.1,83.2 "Ruined Flying Machine"
 
 step The shrub field
-  tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there.
+  tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of Celastrus the Bitter and Sunderbark, the field's elites.
   kill 248395 x15 quest 92594.1         -- Tainted Shrubbery
   collect 247892 x12 quest 91755.1      -- Verdant Leaves
   collect 267289 x6 quest 93759.2 @59.5,73.5  -- Scarlet Dart Tuber
@@ -220,7 +222,7 @@ step Felflick
   accept 96435 @49.3,77.1               -- A Fitting End
 
 step The bone pile
-  tip West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself.
+  tip West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the Awakened Fel Ash Slime, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once.
   complete 96435 @40.8,80.3
   turnin 96435                          -- Bone Pile
 
@@ -332,7 +334,7 @@ step Fly to the Tainted Foothills
   zone Mount Hyjal
 
 step Kaylaena's workshop
-  tip North from Bluebell to the workshop, crate first.
+  tip North from Bluebell to the workshop, crate first. Watch for Ghansurok, the elite chimaera (level 61) that prowls around the workshop.
   complete 92009                        -- deliver the crate before it fizzles
   turnin 92009                          -- Kaylaena Springwhisper
   turnin 92594
