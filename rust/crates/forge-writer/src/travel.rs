@@ -1603,7 +1603,12 @@ fn hostile_masters(nodes: &[(String, f64, Wpt)], side: f64) -> Vec<(String, Wpt)
 /// the zone its line is in (`to_world`: zone, typed map, x, y, live frame), that do not end at a goal of
 /// the next step (its lines' typed points, `npc_pts` for its accepts and hand-ins). -> (line index, step
 /// title, yards, the flight master's name).
-fn ways_near(text: &str, to_world: &dyn Fn(Option<&str>, Option<f64>, f64, f64, bool) -> Option<Wpt>, npc_pts: &dyn Fn(&str) -> Vec<Wpt>, hostile: &[(String, Wpt)]) -> Vec<(usize, String, f64, String)> {
+fn ways_near(
+	text: &str,
+	to_world: &dyn Fn(Option<&str>, Option<f64>, f64, f64, bool) -> Option<Wpt>,
+	npc_pts: &dyn Fn(&str) -> Vec<Wpt>,
+	hostile: &[(String, Wpt)],
+) -> Vec<(usize, String, f64, String)> {
 	let lines: Vec<&str> = text.split('\n').collect();
 	let zone_of = |l: &str| re!(r"^\s*zone\s+(.+?)\s*$").captures(split_comment(l).0).map(|m| m[1].to_string());
 	let mut out = Vec::new();
@@ -1863,9 +1868,8 @@ mod tests {
 		// quest's own place and is not warned about, nor is a walk that ends at the next step's quest
 		// giver (Loh'atu, 36 yd from the Alliance's Talrendis Point). A map percent is 100 yd here.
 		let at = |x: f64, y: f64| Wpt { c: 0.0, wx: x * 100.0, wy: y * 100.0 };
-		let to_world = |zone: Option<&str>, map: Option<f64>, x: f64, y: f64, _live: bool| -> Option<Wpt> {
-			(matches!(zone, Some("Western Plaguelands" | "Azshara")) || map == Some(1422.0)).then(|| at(x, y))
-		};
+		let to_world =
+			|zone: Option<&str>, map: Option<f64>, x: f64, y: f64, _live: bool| -> Option<Wpt> { (matches!(zone, Some("Western Plaguelands" | "Azshara")) || map == Some(1422.0)).then(|| at(x, y)) };
 		let npc_pts = |c: &str| -> Vec<Wpt> {
 			if c.contains("turnin 5152") {
 				vec![at(49.17, 78.57)]
