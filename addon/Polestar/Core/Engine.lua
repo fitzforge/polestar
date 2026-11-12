@@ -10625,13 +10625,15 @@ function Own.hereClear()
 	return aimed
 end
 
--- Never in an instance, on a taxi, while a Hearthstone is cast, or while a
+-- Never while dead or a ghost, in an instance, on a taxi, while a Hearthstone is cast, or while a
 -- timed quest (Compat.QuestTimerRunning: the old timer list or the quest
 -- log's time allowed, which Forever's client has; the old list alone when
 -- Compat gives no answer) or the live step's escort runs: why (for the bug
 -- report), or false. Allocation-free.
 function Own.hereBlocked()
 	if Own.hereEscort then return "escort" end
+	-- Dead or a ghost: no hand-in, pick-up or kill can be done until revived.
+	if UnitIsDeadOrGhost and UnitIsDeadOrGhost("player") then return "dead" end
 	if IsInInstance and IsInInstance() then return "instance" end
 	if UnitOnTaxi and UnitOnTaxi("player") then return "flight" end
 	local C = Compat()

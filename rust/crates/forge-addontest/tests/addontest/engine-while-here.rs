@@ -1319,9 +1319,15 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 		stub.advance(0.6); emit(here())
 		GetQuestTimers = nil
 		stub.advance(0.6); emit(here())
+		-- Dead or a ghost (Fitz, 0.3.7.1: hand-ins at the Crossroads offered to a ghost by its graveyard): nothing,
+		-- and the line is back on being revived.
+		function UnitIsDeadOrGhost(unit) return unit == "player" end
+		stub.advance(0.6); emit(here())
+		UnitIsDeadOrGhost = nil
+		stub.advance(0.6); emit(here())
 	"#);
 	let v = "2:1 Kill Kobold Vermin, 2 more 50";
-	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v)]);
+	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v), json!("none"), json!(v)]);
 	// The live step escorts someone: nothing for the whole step.
 	let escort = run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", ", escort = true");
 	assert_eq!(escort, vec![json!("none")]);
