@@ -78,3 +78,12 @@ test("the journal-quests table: The Drowned City's quests no rule places, from p
 	for (const r of on) assert.equal(r.source.kind, 'recording', `${r.quest}: players' recordings`);
 	assert.ok(!rows.some((r) => r.quest === 96081), 'Wound Dressings is no dungeon quest');
 });
+
+// Rituals of Power (Mage): its book is taken from an object that stands only inside the Scarlet Monastery, which no rule
+// ties to a dungeon, so the cited table puts it on the Scarlet Monastery's page.
+test("the journal-quests table: Rituals of Power is on the Scarlet Monastery's page", () => {
+	const row = loadJournalQuests().find((r) => r.quest === 1951);
+	assert.ok(row, 'a row for Rituals of Power');
+	assert.equal(row.instance, 'scarlet-monastery');
+	assert.equal(row.source.kind, 'tdb', "the world database's spawn of the book");
+});

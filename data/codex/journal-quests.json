@@ -54,6 +54,12 @@
 			"instance": "the-drowned-city",
 			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 6 people (2 established) progressed its objective inside The Drowned City (map 2970)" },
 			"note": "Ancient Gurubashi Secrets (Alliance; Archmage Timear, Alterac Mountains): the same Ancient Gurubashi Idol, found inside the dungeon."
+		},
+		{
+			"quest": 1951,
+			"instance": "scarlet-monastery",
+			"source": { "kind": "tdb", "ref": "gameobject 103664 (Rituals of Power) has one spawn, in map 189 (Scarlet Monastery)" },
+			"note": "Rituals of Power (Mage; Magus Tirth, Thousand Needles, for Tabetha in Dustwallow Marsh): its one objective is the book Rituals of Power, taken from an object that stands only inside the Scarlet Monastery (QuestieDB's object data agrees). No rule ties a quest to a dungeon through an object its item comes from."
 		}
 	]
 }

@@ -6013,8 +6013,8 @@ efforts) is on a page only where QuestieDB or Forever's quest data files it (Cop
 Modulator, Rinling's Faire turn-in, is on none). What no rule can catch is
 in the cited table `data/codex/journal-quests.json` (Shards of the
 Felvine; The Drowned City's quests for items the data places on no mob or
-object inside, from players' recordings of their objectives inside), each
-row cited by
+object inside, from players' recordings of their objectives inside; Rituals
+of Power's book, an object only in the Scarlet Monastery), each row cited by
 a URL, Forever's quest data, or a source the way the corrections cite one
 (`{ kind, ref }`). Each quest has giver and ender and their positions, its objective
 facts (`objectives`: kind, NPC, item or object id, count and the English
