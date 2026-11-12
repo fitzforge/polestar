@@ -110,8 +110,11 @@ for q in pairs(g.hidden or {}) do r.hidden[#r.hidden + 1] = q end
 table.sort(r.hidden)
 "#;
 
+// Where the furbolgs stand. From the guide's Splintertree Post stop (73,61), there and back with the kills:
+// NEAR well under 5 minutes, MID about 11 (20,20: 1,953 yd), FAR about 15 (the zone's far corner: 2,844 yd).
 const NEAR: &str = "1440, 71, 64";
-const FAR: &str = "1440, 20, 20";
+const MID: &str = "1440, 20, 20";
+const FAR: &str = "1440, 0, 0";
 const ELSEWHERE: &str = "1429, 50, 50";
 
 #[test]
@@ -141,7 +144,7 @@ fn t_1353_local_feeders_go_in_beside_the_guide_s_nearest_step_in_its_own_zone() 
 
 #[test]
 fn far_or_other_zone_feeders_stay_out_and_their_quests_and_empty_steps_go() {
-	// The furbolgs far across the zone: over five minutes, so King of the Foulweald goes, and Karang's step
+	// The furbolgs far across the zone: over twelve minutes, so King of the Foulweald goes, and Karang's step
 	// with it (only its walk was left).
 	let far = run("", FAR, &format!("{OPEN}\nemit(r)"));
 	assert_eq!(
@@ -159,6 +162,22 @@ fn far_or_other_zone_feeders_stay_out_and_their_quests_and_empty_steps_go() {
 	// In another zone: the same.
 	let other = run("", ELSEWHERE, &format!("{OPEN}\nemit(r)"));
 	assert_eq!(other["hidden"], json!([6621]));
+}
+
+// #1660: a local chain over five minutes, up to twelve, goes in while the guide's feeders stay within 25.
+#[test]
+fn t_1660_a_local_chain_of_up_to_twelve_minutes_goes_in() {
+	let out = run("", MID, &format!("{OPEN}\nr.cost = g.feedCost or 0\nemit(r)"));
+	// The hunt and the furbolg chain (its kills after the guide's Splintertree Post stop, nearest them).
+	assert_eq!(out["feeders"], 4, "{out}");
+	assert_eq!(out["hidden"].as_array().map_or(0, |a| a.len()), 0, "{out}");
+	let shape = lines(&out["shape"]);
+	let kill = shape.iter().position(|s| s.contains("<test/05 4> kill:216"));
+	let karang = shape.iter().position(|s| s.starts_with("Karang Amakkar"));
+	assert!(matches!((kill, karang), (Some(k), Some(c)) if k < c), "{shape:?}");
+	let cost = out["cost"].as_f64().unwrap();
+	assert!(cost > 300.0 && cost <= 720.0, "{cost}");
+	assert_eq!(out["requires"], json!(["Requires “Off the Route” first"]));
 }
 
 #[test]
@@ -714,4 +733,100 @@ fn a_chain_with_a_group_quest_or_an_elite_objective_is_never_a_feeder() {
 	assert_eq!(planned(&asked), (0, vec![7002]), "{asked}");
 	let elite = deeps(r#"WHEN, GROUP = nil, nil; KILL = { kind = "elite", rank = 1, lvl = 25 }"#, false);
 	assert_eq!(planned(&elite), (0, vec![7002]), "{elite}");
+}
+
+// #1660's budget: an earlier guide's four chains, each a kill away from the guide's one camp in the middle of a
+// large zone (6,000 yd across): D (it opens four accepts) about 15 minutes there and back with the kill, A (three),
+// B (two) and C (one) about 10 each. D is over 12 minutes: out. A and B go in (20 minutes together); C would take
+// the guide's feeders to 30 minutes, over the 25 a guide takes: out, with what it opens.
+const BUDGET: &str = r#"
+stub.world.addMap(1441, { name = "Thousand Needles", c = 1, left = 3000, right = -3000, top = 3000, bottom = -3000 })
+local M = 1441
+local function at(t, x, y) t.map, t.x, t.y = M, x or 50, y or 50 return t end
+local s1 = {}
+for _, c in ipairs({ { q = 7104, x = 50, y = 98 }, { q = 7101, x = 50, y = 20 }, { q = 7102, x = 80, y = 50 }, { q = 7103, x = 50, y = 80 } }) do
+	s1[#s1 + 1] = { title = "The camp", goals = { at({ t = "accept", quest = c.q, title = "Errand " .. c.q, qlvl = 24 }) } }
+	s1[#s1 + 1] = { title = "Out there", goals = { at({ t = "kill", quest = c.q, oi = 1, target = "Raider", count = 1 }, c.x, c.y) } }
+	s1[#s1 + 1] = { title = "The camp", goals = { at({ t = "turnin", quest = c.q, title = "Errand " .. c.q }) } }
+end
+Polestar.RegisterGuide({ id = "test/b1", pack = "test", title = "The Shimmering Flats", faction = "Horde", minLevel = 20, maxLevel = 22, next = "test/b2", steps = s1 })
+local acc = {}
+for q, list in pairs({ [7104] = { 7141, 7142, 7143, 7144 }, [7101] = { 7111, 7112, 7113 }, [7102] = { 7121, 7122 }, [7103] = { 7131 } }) do
+	for _, a in ipairs(list) do acc[#acc + 1] = at({ t = "accept", quest = a, title = "Follow-up " .. a, pre = { q }, qlvl = 24 }) end
+end
+table.sort(acc, function(a, b) return a.quest < b.quest end)
+Polestar.RegisterGuide({ id = "test/b2", pack = "test", title = "Thousand Needles", faction = "Horde", minLevel = 22, maxLevel = 26, steps = {
+	{ title = "The camp", goals = { at({ t = "goto" }) } },
+	{ title = "The camp", goals = acc },
+} })
+"#;
+
+#[test]
+fn t_1660_longer_local_chains_go_in_while_the_guide_stays_within_twenty_five_minutes() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{BUDGET}
+{HELPERS}
+E.SetGuide("test/b2"); flush()
+local g = E.GetGuide()
+local r = {{ feeders = g.feeders or 0, hidden = {{}}, cost = g.feedCost or 0, from = {{}} }}
+for q in pairs(g.hidden or {{}}) do r.hidden[#r.hidden + 1] = q end
+table.sort(r.hidden)
+for _, step in ipairs(g.steps) do
+	if step.feeder then for _, goal in ipairs(step.goals) do r.from[#r.from + 1] = goal.t .. ":" .. goal.quest end end
+end
+emit(r)"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(planned(&out), (6, vec![7131, 7141, 7142, 7143, 7144]), "{out}");
+	let from = lines(&out["from"]);
+	for q in [7101, 7102] {
+		assert!(from.contains(&format!("accept:{q}")) && from.contains(&format!("turnin:{q}")), "{from:?}");
+	}
+	let cost = out["cost"].as_f64().unwrap();
+	assert!(cost > 1100.0 && cost <= 1500.0, "{cost}");
+}
+
+// "t:q" tokens of the feeder steps' lines.
+fn feeder_goals(out: &Value) -> Vec<String> {
+	lines(&out["feeders"]).iter().flat_map(|l| l.split_whitespace().map(str::to_string).collect::<Vec<_>>()).collect()
+}
+
+// #1680's catch-up (0.3.7): a character who skipped the 22-25 Hillsbrad guide gets Darthalia's first Battle of
+// Hillsbrad parts (527-529) and Krusk's The Rescue (498) from the 29-33 guide's own steps (`when !turnedin`).
+// The wider planner must not copy them in again from the 22-25 guide, nor leave out what they open (the later
+// Battle of Hillsbrad parts and Infiltration).
+#[test]
+fn t_1660_the_hillsbrad_catch_up_is_not_planned_twice() {
+	let out = shipped("Horde", "Tauren", "DRUID", 29, "", "", "forever/horde/30-40/01-hillsbrad-foothills");
+	let goals = feeder_goals(&out);
+	for q in [527, 528, 529, 498] {
+		for t in ["accept", "turnin"] {
+			assert!(!goals.contains(&format!("{t}:{q}")), "{q} is the guide's own catch-up, never a feeder: {out}");
+		}
+	}
+	let (hidden, after) = (ids(&out["hidden"]), ids(&out["after"]["requires"]));
+	for q in [532, 539, 541, 533] {
+		assert!(!hidden.contains(&q) && !after.contains(&q), "{q} opens on the catch-up: {out}");
+	}
+}
+
+// #1660 everywhere: a Tauren fresh at 26 on the shipped Ashenvale, no earlier guide played. Between a Rock and a
+// Thistlefur (216), the 21-22 Ashenvale visit's furbolg chain, costs about 9 minutes from the guide's stops: over
+// the old 5, so King of the Foulweald (6621) was left out. Now the chain goes in, all of it in Ashenvale.
+#[test]
+fn t_1660_ashenvale_fresh_at_26_gets_the_furbolg_chain() {
+	let out = shipped("Horde", "Tauren", "WARRIOR", 26, "", "", "forever/horde/07-ashenvale");
+	assert!(feeder_goals(&out).contains(&"accept:216".to_string()), "{out}");
+	assert!(!ids(&out["hidden"]).contains(&6621) && !ids(&out["after"]["requires"]).contains(&6621), "{out}");
+	assert_eq!(out["outside"], 0);
+	assert_eq!(out["after"]["empty"], 0);
+	assert!(out["cost"].as_f64().unwrap() <= 1500.0, "{out}");
 }
