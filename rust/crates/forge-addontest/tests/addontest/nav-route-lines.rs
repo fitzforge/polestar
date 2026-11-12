@@ -372,6 +372,55 @@ fn the_minimap_redraws_only_when_something_changed_and_its_line_pool_never_shrin
 	assert!(f(&out["limit"]) <= 600.0);
 }
 
+// The game redraws the minimap every frame; a line laid out less often lags the terrain under it and jumps to
+// catch up (jitter at 60+ fps). It follows the pins' sampling of the view, so standing still reads the player's
+// position no more often than the 10 Hz drivers do, and moving reads it once a frame (PR #1800 review).
+#[test]
+fn the_minimap_line_follows_every_rendered_frame_while_the_view_changes_and_reads_nothing_extra_standing_still() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		stub.advance(1)
+		local C = Polestar.Compat
+		local reads, orig = {}, C.GetPlayerWorldPosition
+		C.GetPlayerWorldPosition = function(...)
+			local file = debug.getinfo(2, "S").source:match("([%w]+)%.lua$") or "?"
+			reads[file] = (reads[file] or 0) + 1
+			return orig(...)
+		end
+		local strokes = R.GetStrokes("minimap")
+		local function frame()
+			strokes.x1[1] = 12345
+			stub.advance(1 / 144)
+			return strokes.x1[1] ~= 12345 and 1 or 0
+		end
+		local r = { moving = 0, still = 0 }
+		stub.fire("PLAYER_STARTED_MOVING")              -- as the client does when the player sets off
+		for i = 1, 24 do                                 -- 24 frames at 144 fps, a step each
+			nav.place(0, -i * 0.05)
+			r.moving = r.moving + frame()
+		end
+		r.movingLine, r.movingPins = reads.RouteLines or 0, reads.Pins or 0
+		stub.advance(1)                                  -- the drivers settle
+		for _ = 1, 24 do r.still = r.still + frame() end
+		reads = {}
+		for _ = 1, 144 do stub.advance(1 / 144) end      -- one still second at 144 fps
+		r.stillLine, r.stillPins = reads.RouteLines or 0, reads.Pins or 0
+		emit(r)"#,
+	);
+	assert_eq!(out["moving"], 24, "one layout per rendered frame while moving");
+	assert_eq!(out["movingLine"], 0, "moving, the line draws from the pins' reads");
+	// 24 frames are a sixth of a second: the 10 Hz watcher ticks once or twice among them.
+	let pins = f(&out["movingPins"]);
+	assert!((24.0..=26.0).contains(&pins), "which read the position once a frame ({pins} in 24)");
+	assert_eq!(out["still"], 0, "nothing redrawn while the view holds still");
+	assert!(f(&out["stillLine"]) <= 10.0, "still, the line reads the position at its 10 Hz ({} a second)", out["stillLine"]);
+	assert!(f(&out["stillPins"]) <= 10.0, "and the pins at their watcher's 10 Hz ({} a second)", out["stillPins"]);
+}
+
 // The lines are Polestar's own frame on the canvas (Nav/MapCanvas.lua): nothing is acquired from the map or
 // released to it, so combat changes nothing.
 #[test]

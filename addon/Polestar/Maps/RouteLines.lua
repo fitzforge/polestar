@@ -24,9 +24,14 @@
 -- expanded along their tracks then). The world map frame redraws on map,
 -- zoom, size, route, setting and theme changes, and when the player has
 -- walked past a point of the walk (its own 4 Hz check, which runs only while
--- the map shows it). The minimap redraws from a 10 Hz driver that runs only
--- while there is a route to draw on it, and only when the player, the facing,
--- the zoom or the route changed since the last draw. No draw allocates.
+-- the map shows it). While there is a route to draw on the minimap, it is laid
+-- out again on every rendered frame the minimap's view changes (the player,
+-- the facing, the zoom, its size or shape), as the game redraws the minimap
+-- (a slower rate lags the terrain and jitters): Polestar.Pins reports those
+-- frames (Pins.WatchMinimapView) from its own sampling, so the line reads
+-- nothing more and sleeps with the pins' driver. A 10 Hz driver (20 Hz for
+-- flowing dots, 30 Hz for sparkles) redraws for the route and the animation,
+-- and only when something changed since the last draw. No draw allocates.
 --
 -- nav.routeLines turns the lines on; nav.worldPins and nav.minimapPins pick
 -- the surfaces, as for Nav's pins, and nav.minimapRoute takes the line (not
@@ -904,11 +909,13 @@ local function trailPhase()
 	return (sparkleClock() * trailRate) % 1
 end
 
-local function drawMinimap(force)
+-- given: pc .. square come from Pins' sampling of the view (WatchMinimapView).
+local function drawMinimap(force, given, pc, px, py, radius, facing, square)
 	local C = ns.Compat
-	local pc, px, py
-	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
-	local radius, facing, square = ns.Pins.MinimapView()
+	if not given then
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+		radius, facing, square = ns.Pins.MinimapView()
+	end
 	-- An unreadable (secret) position or facing hides the line, with no error (NAV_QA C5).
 	local secret = C and C.IsSecret
 	if secret and (secret(pc) or secret(px) or secret(py) or secret(radius) or secret(facing)) then
@@ -984,6 +991,13 @@ local function ensureMinimap()
 	return true
 end
 
+-- Each frame the minimap's view changed (Pins.WatchMinimapView).
+local function onView(pc, px, py, radius, facing, square)
+	if not (mm and mm:IsShown()) then return end
+	elapsedSince = 0
+	drawMinimap(false, true, pc, px, py, radius, facing, square)
+end
+
 local function refreshMinimap()
 	local _, minimap = surfaces()
 	if not (minimap and #paths > 0) then
@@ -992,11 +1006,13 @@ local function refreshMinimap()
 			paint(mm, minimapStrokes)
 			mm:Hide()
 		end
+		ns.Pins.WatchMinimapView("routeLines", nil)
 		return
 	end
 	if not ensureMinimap() then return end
 	mm:Show()
 	drawMinimap(true)
+	ns.Pins.WatchMinimapView("routeLines", onView)
 end
 
 ---------------------------------------------------------------------------
