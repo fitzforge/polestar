@@ -2448,6 +2448,7 @@ function GF.Metrics()
 	return { pad = PAD, tabH = TAB_H, navH = NAV_H, progH = PROG_H, icon = ICON, textX = TEXT_X, rowMin = ROW_MIN,
 		check = CHECK, rowPad = ROW_PAD, checkIn = CHECK_IN, upRow = UP_ROW, upToggle = UP_TOGGLE, glyphY = GF.GlyphY(), lineH = CARD.lineH }
 end
+
 ---------------------------------------------------------------------------
 -- Build
 ---------------------------------------------------------------------------
@@ -2517,11 +2518,12 @@ local function build()
 	nav.Rule = W.Divider(nav)
 	nav.Rule:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", 0, 0)
 	nav.Rule:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 0, 0)
-	-- Blizzard's title bar: #2C200C to #150F06, 4 in from the frame.
+	-- Hearth's mantel: the lit band under the tabs (sky to skyBottom) the
+	-- navigator stands on, edged below by nav.Rule in the copper titleLine.
 	nav.TitleBar = nav:CreateTexture(nil, "BACKGROUND", nil, -4)
 	nav.TitleBar:SetTexture(Theme.Media("white"))
-	nav.TitleBar:SetPoint("TOPLEFT", nav, "TOPLEFT", 4, 0)
-	nav.TitleBar:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", -4, 1)
+	nav.TitleBar:SetPoint("TOPLEFT", nav, "TOPLEFT", 0, 0)
+	nav.TitleBar:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 0, 1)
 	W.Painter(nav.TitleBar, function(t)
 		local top, bottom = { Theme.Color("sky") }, { Theme.Color("skyBottom") }
 		if t.SetGradient and CreateColor then

@@ -314,6 +314,28 @@ local function dialRotate(d, a)
 	end
 end
 
+-- The skin in use's own dart and its edge (media.dart, media.dartEdge:
+-- Skin API 2) and its glow (the glow token: the light under the flat
+-- arrow, behind the arrival ring and a travel instruction's sign), read on
+-- each change of theme (OnTheme); nil for Polestar's. A game look's dart is
+-- the client's art (media.dartArt): in its own colours, with no edge, drawn
+-- media.dartScale times the dart's square (the art's own margin). A game
+-- look's edge may take a colour of its own (media.dartEdgeTint: r, g, b).
+local skinDart, skinDartEdge, skinDartArt, skinDartScale, skinDartEdgeTint
+local skinGlow = {} -- r, g, b of the skin's glow token, or empty
+local function readSkinDart()
+	local Theme = ns.Theme
+	local media = Theme and Theme.SkinMedia
+	skinDart = media and media("dart") or nil
+	skinDartEdge = media and media("dartEdge") or nil
+	skinDartArt = media and media("dartArt") or nil
+	skinDartScale = media and tonumber(media("dartScale")) or nil
+	skinDartEdgeTint = media and media("dartEdgeTint") or nil
+	local r, g, b
+	if Theme and Theme.SkinToken then r, g, b = Theme.SkinToken("glow") end
+	skinGlow[1], skinGlow[2], skinGlow[3] = r, g, b
+end
+
 -- Which arrow textures are up while travelling, for the dial's style.
 local function dialShowArrow(d, on, lk)
 	local s = d.style
@@ -326,23 +348,7 @@ local function dialShowArrow(d, on, lk)
 	d.sheet:SetShown(solid)
 	d.sheetSpec:SetShown(solid)
 	d.dart:SetShown(own)
-	d.dartEdge:SetShown(own)
-end
-
--- The skin in use's own dart and its edge (media.dart, media.dartEdge:
--- Skin API 2) and its glow (the glow token: the light under the flat
--- arrow, behind the arrival ring and a travel instruction's sign), read on
--- each change of theme (OnTheme); nil for Polestar's.
-local skinDart, skinDartEdge
-local skinGlow = {} -- r, g, b of the skin's glow token, or empty
-local function readSkinDart()
-	local Theme = ns.Theme
-	local media = Theme and Theme.SkinMedia
-	skinDart = media and media("dart") or nil
-	skinDartEdge = media and media("dartEdge") or nil
-	local r, g, b
-	if Theme and Theme.SkinToken then r, g, b = Theme.SkinToken("glow") end
-	skinGlow[1], skinGlow[2], skinGlow[3] = r, g, b
+	d.dartEdge:SetShown(own and not skinDartArt)
 end
 
 -- The glow's colour: the skin's glow token, else the colour given.
@@ -358,23 +364,26 @@ local function dialTint(d, r, g, b, lk)
 	d.sheet:SetVertexColor(r, g, b, 1)
 	local s = d.style
 	if isSkin(s) then
-		-- Hearth's far dart is its baked gold, unless the player picked
-		-- their own arrow colour or the skin brings its own dart; up close
-		-- (and Halo's always) it is tinted.
+		-- A dart in its art's own colours while far, unless the player picked
+		-- their own arrow colour: a game look's own (dartArt), else Polestar's
+		-- baked gold for Hearth's design away from Hearth. Every other dart
+		-- (Hearth's, Halo's, a skin's own), and every dart up close, is tinted.
 		local own = type(ns.Get("nav.arrowColor")) == "table"
-		local gold = s == "hearth" and not d.near and not own and not skinDart
-		local tex = skinDart or (UI_DIR .. (gold and "dart-gold" or "dart"))
-		if d.dartTex ~= tex then
-			d.dartTex = tex
-			d.dart:SetTexture(tex)
+		local baked = not d.near and not own and (skinDartArt or (s == "hearth" and not skinDart and ns.Theme.SkinKey() ~= "hearth"))
+		local tex = skinDart or (UI_DIR .. (baked and "dart-gold" or "dart"))
+		local k = tex == skinDart and skinDartScale or 1
+		if d.dartTex ~= tex or d.dartScale ~= k then
+			d.dartTex, d.dartScale = tex, k
+			ns.Theme.SetArt(d.dart, tex)
+			d.dart:SetSize(DART * k, DART * k)
 		end
-		if gold then d.dart:SetVertexColor(1, 1, 1, 1) else d.dart:SetVertexColor(r, g, b, 1) end
+		if baked then d.dart:SetVertexColor(1, 1, 1, 1) else d.dart:SetVertexColor(r, g, b, 1) end
 		local edge = skinDartEdge or (UI_DIR .. "dart-edge")
 		if d.dartEdgeTex ~= edge then
 			d.dartEdgeTex = edge
 			d.dartEdge:SetTexture(edge)
 		end
-		local e = EDGE[s == "halo" and (d.near and "haloNear" or "halo") or "hearth"]
+		local e = skinDartEdgeTint or EDGE[s == "halo" and (d.near and "haloNear" or "halo") or "hearth"]
 		d.dartEdge:SetVertexColor(e[1], e[2], e[3], 1)
 	end
 end

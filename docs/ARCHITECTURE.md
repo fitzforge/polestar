@@ -34,6 +34,7 @@ one into the other. The addons:
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` (`addon/Polestar_Nav_EK/`, `addon/Polestar_Nav_Kalimdor/`) | The map parts of each continent's walking maps when they are Leffe's (maps format 5; their metadata stays in Polestar_Nav); loaded on demand by Polestar_Nav's router the first time it searches that continent (Polestar searches only the player's continent and those already loaded), never in combat ("Leffe's navigation maps in game") | `forge nav pack --leffe` | yes | yes, when written |
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_SkinAPI` (`addon/Polestar_SkinAPI/`) | The Skin API's checks for a skin or colour scheme from another addon (its fields, colours, legibility, variants, preset: `docs/skins/reference.md`); loaded on demand by `Theme.RegisterSkin` / `Theme.RegisterScheme` the first time another addon registers one, so a player who uses no other addon's skin never loads it (Polestar's own skins and schemes need none of it) | hand-written | yes | yes |
+| `Polestar_Looks` (`addon/Polestar_Looks/`) | The game looks (WoW Forever, Blizzard, Classic: their kits, art tables and painters, `GameSkins.lua`, `GameArt.lua`; their sizes and type ladder, and their own waypoint arrow and map pin medallion in the client's art, given as a skin's `media` is, `Parts.lua`) and Hearth's painters (`Hearth.lua`); loaded on demand (`Theme.LoadLooks`) the first time one of them, or a skin built on one, is painted, so a player on the house look never loads them. Until then the core's `Theme.Kit` is nil and its `Theme.Kit*` stand-ins draw nothing; the part replaces them as it loads. Their palettes and fonts, and Hearth's sizes, stay in the core | hand-written; `GameArt.lua` by `media game-art` | yes | yes |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
 A guide goes from a `.guide` file to the game in four steps. An author
@@ -2905,26 +2906,33 @@ Polestar.Theme.FontKey() -> "opensans" | "game" | "inter" | "fira"   -- ui.font,
 style everything below describes (the default); the two directions of the
 design handoff, `halo` (Forever · Halo: no frame, a dark veil with soft edges,
 an off-white ladder, the game's gold, Fira Sans) and `hearth` (Forever ·
-Hearth: warm game colours, a brown gradient window, the client's buttons, font
-and text colours); and the game's own looks, `forever`, `blizzard` and
-`classic` (below). `Theme.GameSkin()` is true for Hearth and the game's looks:
-the client's check boxes, sliders and red buttons, its font and hard shadow. A
+Hearth: an inn by the fire, in Polestar's own art: walnut grounds lit from
+above by an ember light, parchment text, copper hairlines, an ember accent,
+the game's font); and the game's own looks, `forever`, `blizzard` and
+`classic` (below). `Theme.GameSkin()` is true for the game's looks alone: the
+client's check boxes, sliders and red buttons, its font and hard shadow. A
 skin brings:
 - its palette (`Theme.SKIN_PALETTES`: the handoff's tokens as given, washes
-  included); the scheme, ground colour, brightness, band and shadow are the
-  house style's (their options are greyed out in a skin); the player's own
-  accent, window border and arrow colours win in every skin. Tokens the skins
-  added (`textOff`, `title`, `link`, `todo`, `later`, `manual`, `skipped`,
+  included; the game's looks start from `GAME_BASE`, the client's colours);
+  the scheme, ground colour, brightness, band and shadow are the house
+  style's (their options are greyed out in a skin); the player's own accent,
+  window border and arrow colours win in every skin. Tokens the skins added
+  (`textOff`, `title`, `link`, `todo`, `later`, `manual`, `skipped`,
   `arrive`, `veil`, `veilWindow`, `menuBg`, `inputBg`, `control`,
   `accentLine`, `padSelect`, `chipAccent`, `separator`, `rowLine`, `icon`,
   `iconHover`, `buttonText`, `personName`, `tabRest`) exist in the house
-  style too, as their house equivalents;
+  style too, as their house equivalents; `ember` (the firelight) is read by
+  Hearth's own painters alone;
 - its paints (`Theme.SKIN_PAINT`, falling back to the house paint): Halo's
-  veil (Media/UI/veil-soft, nine slices laid 24 units out); Hearth's flat
-  brown gradient windows edged by the window border setting (a #5C4518
-  hairline by default; no game frame) and the game's `UI-Panel-Button-*`. A
-  frame painted in another skin is cleared first, so a switch and back leaves it
-  as it was;
+  veil (Media/UI/veil-soft, nine slices laid 24 units out); Hearth's board (a
+  bg → bgBottom gradient on its own texture, `psSkin.kit.board`, so the house
+  fill stays flat), the ember light along every window's top edge (the lower
+  half of Media/UI/glow, added, `psSkin.kit.ember`), planks for its buttons
+  and dropdowns, recesses for tiles and tick boxes, a copper hairline by the
+  window border setting (#7A4A22 by default) and the house drop shadow; the
+  guide window's mantel band and tab planks are its own (UI/GuideFrame.lua).
+  A frame painted in another skin is cleared first, so a switch and back
+  leaves it as it was;
 - its fonts (`ui.font` "skin", the default: the game's in the house style,
   Fira Sans in Halo, the game's in Hearth and the game's looks), its type sizes and text shadow;
 - its sizes (`Theme.Metric`): setting rows, buttons, menus, dropdowns,
@@ -2934,8 +2942,9 @@ skin brings:
 
 The arrow follows the skin (`nav.arrowStyle` "skin", the default: 3D in the
 house style, the `halo` dart in Halo, the `hearth` dart in Hearth and the
-game's looks; Nav/Arrow.lua). The skins' textures are drawn by
-`tools/media/skins.js`.
+game's looks; Nav/Arrow.lua). The game's looks' far dart is its baked gold;
+Hearth's is tinted in the accent (ember by default), as Halo's and every
+dart up close. The skins' textures are drawn by `tools/media/skins.js`.
 
 **Skins and schemes from other addons** (the Skin API, version 2:
 [SKINS-API.md](SKINS-API.md), [docs/skins](skins/README.md)). Three files:
@@ -3002,7 +3011,7 @@ dial, so the page's preview builds sandbox dials and paints them through
 the skin picker's cards paint theirs in another skin after `Nav.ReadPalette`
 and `Arrow.ReadSkin` (the colours, the skin's dart and glow, read again).
 
-**The game's looks** (Theme/GameSkins.lua) draw Polestar in the client's art,
+**The game's looks** (Polestar_Looks/GameSkins.lua, loaded on demand) draw Polestar in the client's art,
 the three looks EllesmereUI offers on the Forever client (its visual spec
 only; nothing of that addon is used), composed as the client's own FrameXML
 composes its windows: SharedUIPanelTemplates (ButtonFrameTemplateNoPortrait,
@@ -3015,23 +3024,61 @@ widgets and the guide window call, and kept in `frame.psSkin.kit` so a skin
 change hides them:
 - the big windows (shells, dialogs) are the template's Bg: its metal frame
   lies outside them, with the title bar above (a drag strip and the title on
-  it) and the close button on its corner; rock under the content, the
-  sidebar an inset, gold setting labels and list rows (`rowLabel`,
-  `navRest`);
-- the guide window and the toasts (`psLight`) keep EllesmereUI's small-window
-  looks: Forever's bronze micro menu line, Blizzard's black body under a fade
-  with the damage meter's header bar, Classic's tooltip tile under the chat
-  tab's rim;
+  it) and the close button on its corner; the sidebar an inset, gold setting
+  labels and list rows (`rowLabel`, `navRest`). Under the content: Forever
+  the Settings panel's flat black ground (SettingsFrameTemplate, where the
+  Settings tabs and controls are at home), Blizzard the rock with its top
+  streaks;
+- the guide window and the toasts (`psLight`): Forever's bronze micro menu
+  line round the whole window, tab strip included, with the Settings tabs on
+  the Settings divider at the strip's foot (each tab's outline stops
+  `tabClear` under the window's edge and `tabGap` in from its sides, so it
+  closes as a tab does: #312); Blizzard's own damage meter, apart from
+  Forever's look (its window's ground cut at its slices with no other fill,
+  its flat charcoal header over the tab strip and navigator, `kit.headerFill`,
+  grey hairlines, its selected row flat grey, `kit.rowFlat`, for the active
+  tab and the current goal, the header's buttons and a tab's or card's close
+  as their glyphs alone, `kit.bareIcons`, no ornament under the focus,
+  `header = false`), the toasts and cards in the alert toasts' frame;
+  Classic's chat frame (the tooltip tile in the window colour under the chat
+  tab's rim, its tabs cut from the chat tab sheet) with a toast as the
+  game's tooltip. A tab's red close button is 14 high in Forever and
+  Classic, on the middle of its tab's art; the tab's text ends 6 clear of
+  the close in every game look (metric `guideTabClosePad`), and Classic's
+  rests at full strength (`guideTabCloseRest`);
 - atlases the client draws sliced (UiTextureAtlasElementSliceData) are cut at
-  the same margins (`ns.GameArtSlice`).
+  the same margins (`ns.GameArtSlice`);
+- the waypoint arrow and the map marks: each look's own dart and medallion
+  (`Polestar_Looks/Parts.lua`), given as a skin addon's `media` is and read
+  through the same lookup (`Theme.SkinMedia`; an `atlas:` part drawn by
+  `Theme.SetArt`): Forever's quest arrow and the campaign quest's shield,
+  Classic's world map arrow (`UI-WorldMapArrow`, the vanilla silver arrow
+  at 64 px, the client's sharpest) and the minimap's dark disc, Blizzard's
+  Polestar's own dart in its accent, the damage meter's light grey, edged in
+  the meter's black (`dartEdgeTint`), and the quest marker: the client has
+  no crisp neutral arrow (its navigation arrow is 22 by 18). A dart of the
+  client's (`dartArt`) shows in its own colours with no edge while far; each
+  takes the arrival colour (or the player's own arrow colour) as the house
+  dart does. Every dart is square art pointing straight up, turned by the
+  heading alone. The client's art sits in its own outline and shadow margin,
+  so a part is drawn larger than its square (`dartScale`, `medallionScale`)
+  to show at Polestar's size.
 
 Sources: `forever` names atlas elements (the Forever client draws its own
 -c60 art for them); `blizzard` draws the same elements in their retail art,
 which still ships with the client but which SetAtlas does not draw there, by
-file ID and coordinates from `Theme/GameArt.lua` (generated with the slice
+file ID and coordinates from `Polestar_Looks/GameArt.lua` (generated with the slice
 margins by `node tools/polestar.js media game-art`, tools/media/game-art.js);
-`classic` names the vanilla files (the dialog box and tooltips through
-BackdropTemplate).
+`classic` names the vanilla files, composed as InterfaceOptionsFrame and the
+chat frame compose them: the dialog box's tile and 32-unit border with the
+header plate on its top edge round the big windows, the options list's box
+(a tooltip border at 40 % grey) for the sidebar, panels and cards, the game's
+tooltip for menus and toasts, the options slider's border, the input box, the
+quest log's gold and silver title highlights, and the XP bar's purple in the
+cast bar's frame. Every backdrop is drawn piece by piece (`Theme.KitEdge`
+cuts the edge file as BackdropTemplate does, the top and bottom edges in the
+corner form of SetTexCoord), never through a BackdropTemplate frame, so the
+previews draw it and nothing sits between a window and its content.
 
 No client art is copied into the addon; the kits name files and atlases. With
 POLESTAR_CLIENT_ART holding the client's UI textures decoded to <fileID>.tga

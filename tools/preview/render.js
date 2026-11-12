@@ -87,19 +87,40 @@ class TextureCache {
 		}
 		return this.src.get(name);
 	}
-	// A tinted, cropped (and optionally desaturated) PNG data URI.
+	// A tinted, cropped (and optionally desaturated) PNG data URI. Eight
+	// coordinates (SetTexCoord's corner form: upper left, lower left, upper
+	// right, lower right) map the piece's own axes onto the texture, so a
+	// turned or mirrored piece (a backdrop's top edge, stored on its side)
+	// is sampled along those axes.
 	uri(name, tint, tc, desat = 0) {
 		const key = `${name}|${tint.join(',')}|${tc ? tc.join(',') : ''}|${desat}`;
 		if (this.uris.has(key)) return this.uris.get(key);
 		const t = this.load(name);
 		if (!t) return null;
-		let [l, r, top, bottom] = tc ? (tc.length >= 8 ? [tc[0], tc[6], tc[1], tc[7]] : tc) : [0, 1, 0, 1];
-		const x0 = Math.round(l * t.w), x1 = Math.round(r * t.w), y0 = Math.round(top * t.h), y1 = Math.round(bottom * t.h);
-		const w = Math.max(1, x1 - x0), h = Math.max(1, y1 - y0);
+		// Four coordinates are the corners' rectangle, cut on whole pixels;
+		// coordinates running backwards mirror the piece (the game's
+		// NineSliceUtil mirrorLayout draws one corner four ways), which the
+		// corner form samples along its own axes, as a turned piece.
+		const [l, r, top, bottom] = tc && tc.length >= 8 ? [] : tc || [0, 1, 0, 1];
+		let w, h, at;
+		if (!(tc && tc.length >= 8) && l <= r && top <= bottom) {
+			const x0 = Math.round(l * t.w), x1 = Math.round(r * t.w), y0 = Math.round(top * t.h), y1 = Math.round(bottom * t.h);
+			w = Math.max(1, x1 - x0); h = Math.max(1, y1 - y0);
+			at = (x, y) => ((y0 + y) * t.w + (x0 + x)) * 4;
+		} else {
+			const [ulx, uly, llx, lly, urx, ury] = tc && tc.length >= 8 ? tc : [l, top, l, bottom, r, top];
+			w = Math.max(1, Math.round(Math.hypot((urx - ulx) * t.w, (ury - uly) * t.h)));
+			h = Math.max(1, Math.round(Math.hypot((llx - ulx) * t.w, (lly - uly) * t.h)));
+			at = (x, y) => {
+				const fx = (x + 0.5) / w, fy = (y + 0.5) / h;
+				const u = ulx + (urx - ulx) * fx + (llx - ulx) * fy, v = uly + (ury - uly) * fx + (lly - uly) * fy;
+				return (Math.min(t.h - 1, Math.max(0, Math.floor(v * t.h))) * t.w + Math.min(t.w - 1, Math.max(0, Math.floor(u * t.w)))) * 4;
+			};
+		}
 		const out = Buffer.alloc(w * h * 4);
 		for (let y = 0; y < h; y++) {
 			for (let x = 0; x < w; x++) {
-				const s = ((y0 + y) * t.w + (x0 + x)) * 4, d = (y * w + x) * 4;
+				const s = at(x, y), d = (y * w + x) * 4;
 				let cr = t.px[s], cg = t.px[s + 1], cb = t.px[s + 2];
 				if (desat > 0) {
 					const lum = 0.299 * cr + 0.587 * cg + 0.114 * cb;
@@ -116,6 +137,13 @@ class TextureCache {
 		const u = 'data:image/png;base64,' + png(w, h, out).toString('base64');
 		this.uris.set(key, u);
 		return u;
+	}
+	// The size, in texels, of a texture's crop (for tiling it at its own size).
+	size(name, tc) {
+		const t = this.load(name);
+		if (!t) return null;
+		const [l, r, top, bottom] = tc && tc.length < 8 ? tc : [0, 1, 0, 1];
+		return { w: Math.max(1, Math.round((r - l) * t.w)), h: Math.max(1, Math.round((bottom - top) * t.h)) };
 	}
 }
 
@@ -245,6 +273,17 @@ function resolve(objects, fonts) {
 		const lo = o.minValue ?? 0, hi = o.maxValue ?? 1;
 		const frac = hi > lo ? Math.min(1, Math.max(0, ((o.value ?? lo) - lo) / (hi - lo))) : 0;
 		rects.set(t.id, { x: sr.x + frac * (sr.w - tw), y: sr.y + (sr.h - th) / 2, w: tw, h: th });
+	}
+	// A status bar's fill (SetStatusBarTexture) covers its value's share of
+	// the bar from the left.
+	for (const o of objects) {
+		if (!o.barTexture) continue;
+		const t = byId.get(o.barTexture);
+		const sr = rects.get(o.id);
+		if (!t || !sr) continue;
+		const lo = o.minValue ?? 0, hi = o.maxValue ?? 1;
+		const frac = hi > lo ? Math.min(1, Math.max(0, ((o.value ?? lo) - lo) / (hi - lo))) : 0;
+		rects.set(t.id, { x: sr.x, y: sr.y, w: sr.w * frac, h: sr.h });
 	}
 	return { byId, rects, scaleOf };
 }
@@ -558,6 +597,17 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 		// ADD blending lightens what is under it.
 		const turn = t.rotation ? ` transform="rotate(${f2((-t.rotation * 180) / Math.PI)} ${f2(r.x - ox + r.w / 2)} ${f2(r.y - oy + r.h / 2)})"` : '';
 		const blend = t.blend === 'ADD' ? ' style="mix-blend-mode:screen"' : '';
+		// A tiled texture (SetHorizTile / SetVertTile) repeats at its own size
+		// from the region's top-left corner, as the client's backdrop tiles do.
+		if (t.horizTile || t.vertTile) {
+			const sz = textures.size(name, t.texCoord);
+			const s = scaleOf(t);
+			const tw = t.horizTile ? sz.w * s : r.w, th = t.vertTile ? sz.h * s : r.h;
+			const id = `${prefix}t${t.id}`;
+			defs.push(`<pattern id="${id}" patternUnits="userSpaceOnUse" x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(tw)}" height="${f2(th)}"><image width="${f2(tw)}" height="${f2(th)}" preserveAspectRatio="none" href="${uri}"/></pattern>`);
+			body.push(`<rect x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}" fill="url(#${id})" opacity="${f2(op)}"${blend}${clip}/>`);
+			return;
+		}
 		// A clip path resolves in the user space of the element using it, so a
 		// turned image is clipped on an untransformed wrapper.
 		const img = (own) => `<image x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}" preserveAspectRatio="none" opacity="${f2(op)}" href="${uri}"${turn}${blend}${own}/>`;

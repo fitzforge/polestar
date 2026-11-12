@@ -12,9 +12,10 @@ use forge_addontest::run::addons_dir;
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
-// Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, GameSkins.lua, the widgets); its
-// checks (Polestar_SkinAPI) load on demand with the first registration, and the picker's cards and the presets
-// load with the settings window (Polestar_Options/Theme/SkinPicker.lua).
+// Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, the Skin API, the widgets); its
+// checks (Polestar_SkinAPI) load on demand with the first registration, the game looks and Hearth
+// (Polestar_Looks) the first time one is painted, and the picker's cards and the presets load with the settings
+// window (Polestar_Options/Theme/SkinPicker.lua).
 const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml"];
 
 fn picker() -> Addon {
@@ -329,7 +330,7 @@ fn a_saved_skin_whose_addon_is_missing_draws_polestar_keeps_the_choice_and_appli
 	assert_eq!(out["choices"], 6);
 	assert_eq!(out["reg"], json!([true]));
 	assert_eq!(out["scheme"], "lateScheme");
-	assert_eq!(out["after"], json!(["late", "hearth", true]), "applied as it registers; a skin on Hearth is a game skin");
+	assert_eq!(out["after"], json!(["late", "hearth", false]), "applied as it registers; a skin on Hearth draws Polestar's own controls, not the game's");
 	assert_eq!(out["ground"], "late/hearth", "the window repainted then (the skin and the look it is drawn from)");
 }
 
@@ -1211,8 +1212,9 @@ fn run_cards(script: &str) -> Value {
 
 // Each skin's card is a small guide window and the arrow, drawn by that skin's own painters, fonts, palette and
 // arrow while Polestar's own look is in use: the band and the house's progress line on Polestar's own look, Halo's
-// veil and Fira Sans, the game's status bar on the game's looks, a skin from another addon in its font and arrow;
-// each scheme's card is Polestar's own look in that scheme. The live look is left as it was.
+// veil and Fira Sans, Hearth's slim line in its own art, the game's status bar on the game's looks, a skin from
+// another addon in its font and arrow; each scheme's card is Polestar's own look in that scheme. The live look is
+// left as it was.
 #[test]
 fn the_picker_s_cards_draw_each_skin_s_guide_window_and_arrow_as_it_draws_them_whatever_skin_is_in_use() {
 	let out = run_cards(
@@ -1234,7 +1236,8 @@ fn the_picker_s_cards_draw_each_skin_s_guide_window_and_arrow_as_it_draws_them_w
 	let row = |k: &str| json!([out[k]["look"], out[k]["face"], out[k]["band"], out[k]["bar"], out[k]["dial"]]);
 	assert_eq!(row("polestar"), json!(["polestar", "FRIZQT__.TTF", true, false, "3d"]), "Polestar's own: the band, the progress line, the 3D arrow");
 	assert_eq!(row("halo"), json!(["halo", "FiraSans-SemiBold.ttf", false, false, "halo"]), "Halo: Fira Sans, no band, its own arrow");
-	for id in ["hearth", "forever", "blizzard", "classic"] {
+	assert_eq!(row("hearth"), json!(["hearth", "FRIZQT__.TTF", false, false, "hearth"]), "Hearth: its own window paint and slim line, its arrow");
+	for id in ["forever", "blizzard", "classic"] {
 		assert_eq!(row(id), json!([id, "FRIZQT__.TTF", false, true, "hearth"]), "{id}: its own window paint, the game's status bar and arrow");
 	}
 	assert_eq!(row("moonlit"), json!(["moonlit/polestar", "FiraSans-SemiBold.ttf", true, false, "halo"]), "a skin from another addon: its font and arrow");

@@ -3,8 +3,10 @@
 -- The retail art of the atlases the Blizzard skin draws: file ID, size at
 -- 1x, texture coordinates (left, right, top, bottom).
 
-local _, ns = ...
+local ns = Polestar
 ns.GameArt = {
+	["!Toast-NineSlice-EdgeLeft"] = { 4188847, 16, 16, 0.015625, 0.265625, 0, 1 },
+	["!Toast-NineSlice-EdgeRight"] = { 4188847, 16, 16, 0.296875, 0.546875, 0, 1 },
 	["!Tooltip-NineSlice-EdgeLeft"] = { 4185474, 7, 16, 0.03125, 0.25, 0, 1 },
 	["!Tooltip-NineSlice-EdgeRight"] = { 4185474, 7, 16, 0.3125, 0.53125, 0, 1 },
 	["!UI-Frame-InnerLeftTile"] = { 1723832, 3, 256, 0.484375, 0.53125, 0, 1 },
@@ -36,6 +38,10 @@ ns.GameArt = {
 	["RedButton-Exit"] = { 5262907, 18, 19, 0.1640625, 0.3046875, 0.015625, 0.3125 },
 	["RedButton-Highlight"] = { 5262907, 18, 19, 0.4765625, 0.6171875, 0.015625, 0.3125 },
 	["RedButton-exit-pressed"] = { 5262907, 18, 19, 0.1640625, 0.3046875, 0.671875, 0.96875 },
+	["Toast-NineSlice-CornerBottomLeft"] = { 4188844, 16, 16, 0.03125, 0.53125, 0.2890625, 0.4140625 },
+	["Toast-NineSlice-CornerBottomRight"] = { 4188844, 16, 16, 0.03125, 0.53125, 0.4296875, 0.5546875 },
+	["Toast-NineSlice-CornerTopLeft"] = { 4188844, 16, 16, 0.03125, 0.53125, 0.5703125, 0.6953125 },
+	["Toast-NineSlice-CornerTopRight"] = { 4188844, 16, 16, 0.03125, 0.53125, 0.7109375, 0.8359375 },
 	["Tooltip-NineSlice-Center"] = { 4185455, 64, 64, 0, 1, 0, 1 },
 	["Tooltip-NineSlice-CornerBottomLeft"] = { 4185447, 7, 7, 0.0625, 0.5, 0.296875, 0.40625 },
 	["Tooltip-NineSlice-CornerBottomRight"] = { 4185447, 7, 7, 0.0625, 0.5, 0.4375, 0.546875 },
@@ -49,11 +55,12 @@ ns.GameArt = {
 	["UI-Frame-Metal-CornerBottomRight"] = { 2406979, 32, 32, 0.4277344, 0.5527344, 0.2988281, 0.4238281 },
 	["UI-Frame-Metal-CornerTopLeft"] = { 2406979, 75, 75, 0.0019531, 0.2949219, 0.0019531, 0.2949219 },
 	["UI-Frame-Metal-CornerTopRight"] = { 2406979, 75, 75, 0.2988281, 0.5917969, 0.0019531, 0.2949219 },
-	["UI-QuestTracker-Primary-Objective-Header"] = { 5320671, 300, 40, 0.0019531, 0.5878906, 0.4804688, 0.6367188 },
 	["_128-RedButton-Center"] = { 1536801, 64, 128, 0, 0.125, 0.0004883, 0.0629883 },
 	["_128-RedButton-Center-Disabled"] = { 1536801, 64, 128, 0, 0.125, 0.0639648, 0.1264648 },
 	["_128-RedButton-Center-Pressed"] = { 1536801, 64, 128, 0, 0.125, 0.1274414, 0.1899414 },
 	["_Minimal_SliderBar_Middle"] = { 4567914, 1, 17, 0, 0.03125, 0.0078125, 0.140625 },
+	["_Toast-NineSlice-EdgeBottom"] = { 4188844, 16, 16, 0, 0.5, 0.0078125, 0.1328125 },
+	["_Toast-NineSlice-EdgeTop"] = { 4188844, 16, 16, 0, 0.5, 0.1484375, 0.2734375 },
 	["_Tooltip-NineSlice-EdgeBottom"] = { 4185447, 16, 7, 0, 1, 0.015625, 0.125 },
 	["_Tooltip-NineSlice-EdgeTop"] = { 4185447, 16, 7, 0, 1, 0.15625, 0.265625 },
 	["_UI-Frame-InnerBotTile"] = { 1723833, 256, 3, 0, 1, 0.8671875, 0.890625 },
@@ -63,12 +70,6 @@ ns.GameArt = {
 	["_UI-Frame-TopTileStreaks"] = { 1723833, 256, 43, 0, 1, 0.0078125, 0.34375 },
 	["checkbox-minimal"] = { 4614134, 30, 29, 0.015625, 0.484375, 0.015625, 0.46875 },
 	["checkmark-minimal"] = { 4614134, 30, 29, 0.015625, 0.484375, 0.5, 0.953125 },
-	["common-button-tertiary-square-depressed-normal"] = { 5534021, 34, 34, 0.2109375, 0.34375, 0.5390625, 0.671875 },
-	["common-button-tertiary-square-hover"] = { 5534021, 34, 34, 0.2109375, 0.34375, 0.8203125, 0.953125 },
-	["common-button-tertiary-square-normal"] = { 5534021, 34, 34, 0.3515625, 0.484375, 0.5390625, 0.671875 },
-	["common-dropdown-a-button"] = { 5390329, 27, 27, 0.1113281, 0.1640625, 0.6367188, 0.7421875 },
-	["common-dropdown-a-button-hover"] = { 5390329, 27, 27, 0.2617188, 0.3144531, 0.703125, 0.8085938 },
-	["common-dropdown-a-button-pressed"] = { 5390329, 27, 27, 0.3417969, 0.3945313, 0.2226563, 0.328125 },
 	["common-dropdown-bg"] = { 5390329, 68, 68, 0.0019531, 0.1347656, 0.3632813, 0.6289063 },
 	["common-dropdown-c-button"] = { 5390329, 39, 39, 0.0019531, 0.078125, 0.8046875, 0.9570313 },
 	["common-dropdown-c-button-hover-1"] = { 5390329, 39, 39, 0.1816406, 0.2578125, 0.2226563, 0.375 },
@@ -76,6 +77,7 @@ ns.GameArt = {
 	["common-search-border-left"] = { 3281887, 16, 40, 0.8867188, 0.9492188, 0.3359375, 0.6484375 },
 	["common-search-border-middle"] = { 3281887, 224, 40, 0.0039063, 0.8789063, 0.3359375, 0.6484375 },
 	["common-search-border-right"] = { 3281887, 16, 40, 0.0039063, 0.0664063, 0.6640625, 0.9765625 },
+	["damagemeters-background"] = { 7499559, 154, 148, 0.0019531, 0.3027344, 0.0039063, 0.5820313 },
 	["minimal-scrollbar-arrow-bottom"] = { 4331838, 17, 11, 0.2421875, 0.375, 0.8125, 0.984375 },
 	["minimal-scrollbar-arrow-top"] = { 4331838, 17, 11, 0.6875, 0.8203125, 0.015625, 0.1875 },
 	["minimal-scrollbar-small-thumb-bottom"] = { 5142787, 8, 8, 0.609375, 0.734375, 0.484375, 0.609375 },
@@ -83,9 +85,6 @@ ns.GameArt = {
 	["minimal-scrollbar-small-thumb-top"] = { 5142787, 8, 8, 0.3125, 0.4375, 0.84375, 0.96875 },
 	["minimal-scrollbar-track-bottom"] = { 4331838, 8, 8, 0.0859375, 0.1484375, 0.765625, 0.890625 },
 	["minimal-scrollbar-track-top"] = { 4331838, 8, 8, 0.1640625, 0.2265625, 0.609375, 0.734375 },
-	["ui-damagemeters-bar-shadowbg"] = { 7499559, 128, 14, 0.4277344, 0.6777344, 0.1210938, 0.1757813 },
-	["ui-damagemeters-bar-shadowedge"] = { 7499559, 128, 14, 0.6816406, 0.9316406, 0.1210938, 0.1757813 },
-	["ui-damagemeters-header-bar"] = { 7499559, 280, 28, 0.3066406, 0.8535156, 0.0039063, 0.1132813 },
 }
 
 -- The nine-slice margins (left, top, right, bottom) the client cuts these
@@ -99,4 +98,5 @@ ns.GameArtSlice = {
 	["common-dropdown-bg"] = { 16, 13, 16, 19 },
 	["common-dropdown-c-button"] = { 12, 0, 12, 0 },
 	["common-dropdown-c-button-hover-1"] = { 12, 0, 12, 0 },
+	["damagemeters-background"] = { 20, 80, 20, 20 },
 }

@@ -1,4 +1,4 @@
--- Polestar.Theme, the game's own skins (docs/ARCHITECTURE.md, "Skins"):
+-- Polestar_Looks (load on demand), the game's own skins (docs/ARCHITECTURE.md, "Skins"):
 -- Polestar drawn in the client's art, the three looks EllesmereUI offers on
 -- the Forever client (only their visual spec is followed; nothing of that
 -- addon is used), composed the way the client's own templates compose them
@@ -12,40 +12,61 @@
 --               still ships with the client (ns.GameArt, by file and
 --               coordinates: SetAtlas draws Forever's there).
 --   "classic"   Classic WoW UI: the vanilla files. The dialog box and its
---               header plate round the big windows, the tooltip tile under
---               the chat tab's rim round the guide window, the panel
---               buttons, check boxes, option slider, dropdown and scroll bar.
+--               header plate round the big windows (InterfaceOptionsFrame),
+--               the chat frame round the guide window (its tabs and rim on
+--               the tooltip tile), the game's tooltip for toasts, menus and
+--               the options boxes, the panel buttons, check boxes, option
+--               slider, dropdown, input box and scroll bar, the XP bar in
+--               the cast bar's frame. Every backdrop is drawn piece by
+--               piece (Theme.KitEdge), as the client cuts its edge files.
 -- Every piece drawn here lives in frame.psSkin.kit, so Theme's clearSkin
--- hides it when another skin paints the frame.
+-- hides it when another skin paints the frame. Polestar loads this part the
+-- first time one of these looks (or Hearth, Hearth.lua) is painted
+-- (Theme.LoadLooks): a player on the house look never pays for it. It
+-- replaces the core's stand-ins for Theme.Kit and the Theme.Kit* calls.
 
-local _, ns = ...
+local ns = Polestar
 local Theme = ns.Theme
 local P = Theme.Paint
 
-local pairs, ipairs, type, max, min = pairs, ipairs, type, math.max, math.min
+local pairs, ipairs, type, unpack, max, min = pairs, ipairs, type, unpack, math.max, math.min
 
 -- [name] = { file, w, h, left, right, top, bottom } (sizes at 1x)
 local CLASSIC = {
 	tile = { "Interface\\Tooltips\\UI-Tooltip-Background", 64, 64, 0, 1, 0, 1 },
+	dialogTile = { "Interface\\DialogFrame\\UI-DialogBox-Background", 64, 64, 0, 1, 0, 1 },
 	rim = { "Interface\\ChatFrame\\ChatFrameTab", 64, 32, 0, 1, 0, 1 },
+	-- The chat frame's tab (the same sheet the rim is cut from): its shape
+	-- fills columns 3..61 of 64, rows 10..32 of 32, open at the foot.
+	chatTab = { "Interface\\ChatFrame\\ChatFrameTab", 58, 22, 3 / 64, 61 / 64, 10 / 32, 1 },
+	-- The 2x header plate: its oval is the middle 220 x 36 of 256 x 64.
 	header = { "Interface\\DialogFrame\\UI-DialogBox-Header", 256, 64, 0, 1, 0, 1 },
 	tab = { "Interface\\OptionsFrame\\UI-OptionsFrame-InActiveTab", 111, 25, 9 / 128, 120 / 128, 7 / 32, 1 },
 	tabActive = { "Interface\\OptionsFrame\\UI-OptionsFrame-ActiveTab", 114, 31, 7 / 128, 121 / 128, 0, 31 / 32 },
 	check = { "Interface\\Buttons\\UI-CheckBox-Up", 32, 32, 0, 1, 0, 1 },
 	checkOn = { "Interface\\Buttons\\UI-CheckBox-Check", 32, 32, 0, 1, 0, 1 },
+	checkLit = { "Interface\\Buttons\\UI-CheckBox-Highlight", 32, 32, 0, 1, 0, 1 },
 	slThumb = { "Interface\\Buttons\\UI-SliderBar-Button-Horizontal", 32, 32, 0, 1, 0, 1 },
+	slTile = { "Interface\\Buttons\\UI-SliderBar-Background", 8, 8, 0, 1, 0, 1 },
 	ddArrow = { "Interface\\Buttons\\UI-ScrollBar-ScrollDownButton-Up", 32, 32, 0, 1, 0, 1 },
 	-- UIDropDownMenuTemplate's frame: left 25, middle, right 25 of its 128.
 	ddLeft = { "Interface\\Glues\\CharacterCreate\\CharacterCreate-LabelFrame", 25, 64, 0, 0.1953125, 0, 1 },
 	ddMiddle = { "Interface\\Glues\\CharacterCreate\\CharacterCreate-LabelFrame", 115, 64, 0.1953125, 0.8046875, 0, 1 },
 	ddRight = { "Interface\\Glues\\CharacterCreate\\CharacterCreate-LabelFrame", 25, 64, 0.8046875, 1, 0, 1 },
+	-- InputBoxTemplate's field: its box runs the sheet's width, rows 0..20
+	-- of 32; the rounded ends 8 wide.
+	inputLeft = { "Interface\\Common\\Common-Input-Border", 8, 20, 0, 8 / 128, 0, 20 / 32 },
+	inputMiddle = { "Interface\\Common\\Common-Input-Border", 112, 20, 8 / 128, 120 / 128, 0, 20 / 32 },
+	inputRight = { "Interface\\Common\\Common-Input-Border", 8, 20, 120 / 128, 1, 0, 20 / 32 },
 	close = { "Interface\\Buttons\\UI-Panel-MinimizeButton-Up", 32, 32, 0, 1, 0, 1 },
 	closeDown = { "Interface\\Buttons\\UI-Panel-MinimizeButton-Down", 32, 32, 0, 1, 0, 1 },
 	closeLit = { "Interface\\Buttons\\UI-Panel-MinimizeButton-Highlight", 32, 32, 0, 1, 0, 1 },
 	prev = { "Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up", 32, 32, 0, 1, 0, 1 },
 	next = { "Interface\\Buttons\\UI-SpellbookIcon-NextPage-Up", 32, 32, 0, 1, 0, 1 },
+	-- The quest log's title highlights: gold under the selected quest,
+	-- silver under the cursor.
 	rowLit = { "Interface\\QuestFrame\\UI-QuestTitleHighlight", 128, 16, 0, 1, 0, 1 },
-	selected = { "Interface\\Buttons\\UI-Listbox-Highlight2", 128, 16, 0, 1, 0, 1 },
+	rowHover = { "Interface\\QuestFrame\\UI-QuestLogTitleHighlight", 128, 16, 0, 1, 0, 1 },
 	statusFill = { "Interface\\TargetingFrame\\UI-StatusBar", 64, 8, 0, 1, 0, 1 },
 	-- UIPanelScrollBarTemplate: the arrow buttons and the knob (their art
 	-- sits in the middle of 32 x 32 sheets).
@@ -56,6 +77,12 @@ local CLASSIC = {
 	-- 16 | 28 | 37 | 48 of its 256 x 64 sheet.
 	castbar = { "Interface\\CastingBar\\UI-CastingBar-Border", 224, 32, 16 / 256, 240 / 256, 16 / 64, 48 / 64 },
 }
+
+-- The vanilla backdrop edge files (eight squares in a strip: left, right,
+-- top, bottom, then the corners), drawn by Theme.KitEdge.
+local DIALOG_EDGE = "Interface\\DialogFrame\\UI-DialogBox-Border"
+local TOOLTIP_EDGE = "Interface\\Tooltips\\UI-Tooltip-Border"
+local SLIDER_EDGE = "Interface\\Buttons\\UI-SliderBar-Border"
 
 local METAL = { "UI-Frame-Metal-CornerTopLeft", "_UI-Frame-Metal-EdgeTop", "UI-Frame-Metal-CornerTopRight",
 	"!UI-Frame-Metal-EdgeLeft", false, "!UI-Frame-Metal-EdgeRight",
@@ -78,10 +105,13 @@ local function settingsParts(k)
 	k.dropdown, k.dropdownLit, k.dropdownArrow = "common-dropdown-c-button", "common-dropdown-c-button-hover-1", "common-dropdown-c-button-hover-arrow"
 	k.menu = "common-dropdown-bg"
 	k.close, k.closeDown, k.closeLit = "RedButton-Exit", "RedButton-exit-pressed", "RedButton-Highlight"
-	k.plate, k.plateHover = "common-button-tertiary-square-normal", "common-button-tertiary-square-hover"
+	-- A kit with bareIcons draws its icon buttons as their glyph alone.
+	if not k.bareIcons then k.plate, k.plateHover = "common-button-tertiary-square-normal", "common-button-tertiary-square-hover" end
 	k.navLit, k.navHover = "Options_List_Active", "Options_List_Hover"
 	k.streaks = "_UI-Frame-TopTileStreaks"
-	k.header = "UI-QuestTracker-Primary-Objective-Header"
+	-- The quest tracker's header behind the guide window's focus, unless the
+	-- kit says it has none (false).
+	if k.header == nil then k.header = "UI-QuestTracker-Primary-Objective-Header" end
 	k.scroll = { track = { "minimal-scrollbar-track-top", "!minimal-scrollbar-track-middle", "minimal-scrollbar-track-bottom" },
 		thumb = { "minimal-scrollbar-small-thumb-top", "minimal-scrollbar-small-thumb-middle", "minimal-scrollbar-small-thumb-bottom" },
 		up = "minimal-scrollbar-arrow-top", down = "minimal-scrollbar-arrow-bottom", width = 8, inset = 19 }
@@ -91,35 +121,72 @@ end
 local KITS = {
 	-- ButtonFrameTemplateNoPortrait with the Forever client's offsets
 	-- (camelot/NineSliceLayoutOverrides.lua: the right corners 2 in, the
-	-- bottom ones 8 down) and its art's sizes (2x only: 95 a side).
+	-- bottom ones 8 down) and its art's sizes (2x only: 95 a side), round
+	-- the Settings panel's flat black ground (SettingsFrameTemplate's Bg).
+	-- The guide window is a HUD piece: the micro menu box's bronze line
+	-- round the whole of it, the Settings tabs on their divider at the
+	-- foot of its tab strip.
 	forever = settingsParts({
 		source = "atlas",
+		flat = true,
 		metalOut = { 8, 16, 2, 8 },
 		metalSize = { { 95, 95 }, { 128, 95 }, { 95, 95 }, { 95, 128 }, false, { 95, 128 }, { 95, 100 }, { 128, 100 }, { 95, 100 } },
 		closeSize = 28, closeAt = { 0, 3 },
 		slim = "UI-HUD-ActionBar-Frame",
+		strip = "Options_HorizontalDivider",
+		-- A tab on the window's edge (the guide strip) stops its outline this
+		-- far under the edge, so the top of the outline reads as a tab's
+		-- (#312): the frame's 3-unit line, then as much air. Its sides stand
+		-- tabGap in from the tab's, so neighbours' outlines are 2 gaps apart
+		-- (the Settings panel sets its tabs 5 apart) and the first tab's left
+		-- side stands clear of the frame's line.
+		tabClear = 6, tabGap = 5,
 		card = "common-button-list-small", cardHover = "common-button-list-small-hover", cardSelected = "common-button-list-small-selected",
 		rowLit = "common-button-list-small-selected",
 		status = { bg = "Legacy-Progressbar-BG", fill = "Legacy-Progressbar-Fill", frame = "Legacy-Progressbar-Frame" },
 	}),
-	-- ButtonFrameTemplateNoPortrait's mainline offsets, the retail art.
+	-- ButtonFrameTemplateNoPortrait's mainline offsets, the retail art. The
+	-- guide window is Blizzard's own damage meter, as the meter draws it: its
+	-- window's ground (black under a grey light that falls from the top,
+	-- the corners rounded), its flat charcoal header over the tab strip and
+	-- the navigator (headerFill), grey hairlines between its parts, its
+	-- selected row flat grey (rowFlat: the active tab and the current goal),
+	-- its bars, and its header's buttons as their glyphs alone, the closes
+	-- too; no ornament under the focus, no gold but the titles. The toasts
+	-- and cards wear the alert toasts' frame, the text buttons the
+	-- 128-RedButton.
 	blizzard = settingsParts({
 		source = "retail",
 		metalOut = { 8, 16, 4, 3 },
 		closeSize = 24, closeAt = { 1, 0 },
-		headerBar = "ui-damagemeters-header-bar",
-		status = { bg = "ui-damagemeters-bar-shadowbg", edge = "ui-damagemeters-bar-shadowedge" },
+		meter = "damagemeters-background",
+		toast = { "Toast-NineSlice-CornerTopLeft", "_Toast-NineSlice-EdgeTop", "Toast-NineSlice-CornerTopRight",
+			"!Toast-NineSlice-EdgeLeft", false, "!Toast-NineSlice-EdgeRight",
+			"Toast-NineSlice-CornerBottomLeft", "_Toast-NineSlice-EdgeBottom", "Toast-NineSlice-CornerBottomRight" },
+		headerFill = { 0.122, 0.122, 0.122 }, header = false, bareIcons = true,
+		rowFlat = { 0.165, 0.165, 0.165 }, flushBare = true,
+		redButton = { "128-RedButton-Left", "_128-RedButton-Center", "128-RedButton-Right",
+			pressed = { "128-RedButton-Left-Pressed", "_128-RedButton-Center-Pressed", "128-RedButton-Right-Pressed" },
+			disabled = { "128-RedButton-Left-Disabled", "_128-RedButton-Center-Disabled", "128-RedButton-Right-Disabled" },
+			lit = "128-RedButton-Highlight" },
 	}),
+	-- The vanilla files: the dialog box round the big windows, the chat
+	-- frame (its tabs and rim on the tooltip tile) for the guide window, the
+	-- tooltip for toasts and menus, the Options panel's controls.
 	classic = {
 		source = "file",
-		tab = { "tab" }, tabActive = { "tabActive" },
-		check = "check", checkOn = "checkOn",
+		tab = { "tab" }, tabActive = { "tabActive" }, chatTab = "chatTab",
+		check = "check", checkOn = "checkOn", checkLit = "checkLit",
+		-- UIPanelCloseButton's red button fills 19 of its art's 32 units.
+		closeInk = 19 / 32,
 		slThumb = "slThumb",
 		ddArrow = "ddArrow",
 		close = "close", closeDown = "closeDown", closeLit = "closeLit",
 		prev = "prev", next = "next",
-		rowLit = "rowLit", navLit = "selected",
+		rowLit = "rowLit", navLit = "rowLit", rowHover = "rowHover",
 		scroll = { up = "scrollUp", down = "scrollDown", knob = "knob", width = 16, inset = 16 },
+		-- The XP bar's purple in the cast bar's frame.
+		status = { color = { 0.58, 0, 0.55 } },
 	},
 }
 Theme.KITS = KITS
@@ -167,7 +234,9 @@ local function draw(t, kit, name, u0, u1, v0, v1)
 	u0, u1, v0, v1 = u0 or 0, u1 or 1, v0 or 0, v1 or 1
 	local du, dv = r - l, b - tp
 	t:SetTexCoord(l + du * u0, l + du * u1, tp + dv * v0, tp + dv * v1)
-	t:SetVertexColor(1, 1, 1, 1)
+	-- The game's art, in a registered skin's art tint where it has one
+	-- (spec.artTint), else as drawn.
+	Theme.TintArt(t)
 	t:SetBlendMode("BLEND")
 	t:Show()
 	return w, h
@@ -179,9 +248,17 @@ local function file(t, path, tile)
 	t:SetTexture(path, tile and "REPEAT" or nil, tile and "REPEAT" or nil)
 	t:SetTexCoord(0, 1, 0, 1)
 	if t.SetHorizTile then t:SetHorizTile(tile and true or false); t:SetVertTile(tile and true or false) end
-	t:SetVertexColor(1, 1, 1, 1)
+	Theme.TintArt(t)
 	t:Show()
 	return t
+end
+
+-- A lit row or tab: the kit's flat colour (a { r, g, b }) or its art (a name).
+local function litPiece(t, kit, what)
+	if type(what) ~= "table" then return draw(t, kit, what) end
+	file(t, Theme.Media("white"))
+	Theme.TintArt(t, what[1], what[2], what[3], 1)
+	t:SetBlendMode("BLEND")
 end
 
 -- frame.psSkin.kit[key]: textures (and frames) a kit painted on a frame,
@@ -385,37 +462,96 @@ local function three(f, key, kit, names, host, capW, cut, layer, sub)
 end
 Theme.KitThree = three
 
--- A backdrop of the classic files (BackdropTemplate), out units past f.
-local function backdrop(f, key, spec, r, g, b, a, out, levelUp, host)
-	local k = store(f)
-	local o = k[key]
-	if not o then
-		o = CreateFrame("Frame", nil, host or f, BackdropTemplateMixin and "BackdropTemplate" or nil)
-		o:EnableMouse(false)
-		k[key] = o
-	end
+-- A vanilla backdrop's edge, drawn piece by piece (the client's
+-- BackdropTemplate cuts its edge file the same way: eight `e`-unit squares
+-- in a strip, left, right, top, bottom, then the four corners; the top and
+-- bottom squares lie on their side, so they take the corner form of
+-- SetTexCoord). Corners `e` a side at host's corners, moved `out` past
+-- them; the edges stretched between. -> the eight textures
+-- The strip's inner 1/16 is skipped as the template skips it (coordStart).
+local S, E = 0.0625, 0.9375
+local EDGE_UV = {
+	-- piece: { ULx, ULy, LLx, LLy, URx, URy, LRx, LRy }
+	tl = { 0.5078125, S, 0.5078125, E, 0.6171875, S, 0.6171875, E },
+	tr = { 0.6328125, S, 0.6328125, E, 0.7421875, S, 0.7421875, E },
+	bl = { 0.7578125, S, 0.7578125, E, 0.8671875, S, 0.8671875, E },
+	br = { 0.8828125, S, 0.8828125, E, 0.9921875, S, 0.9921875, E },
+	t = { 0.2578125, E, 0.3671875, E, 0.2578125, S, 0.3671875, S },
+	b = { 0.3828125, E, 0.4921875, E, 0.3828125, S, 0.4921875, S },
+	l = { 0.0078125, S, 0.0078125, E, 0.1171875, S, 0.1171875, E },
+	r = { 0.1328125, S, 0.1328125, E, 0.2421875, S, 0.2421875, E },
+}
+local EDGE_ORDER = { "tl", "tr", "bl", "br", "t", "b", "l", "r" }
+local function edge(f, key, path, e, host, out, layer, sub, cr, cg, cb, ca)
 	out = out or 0
-	o:ClearAllPoints()
-	o:SetPoint("TOPLEFT", f, "TOPLEFT", -out, out)
-	o:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", out, -out)
-	o:SetFrameLevel(max(0, f:GetFrameLevel() + (levelUp or 0)))
-	if o.SetBackdrop then
-		o:SetBackdrop(spec)
-		o:SetBackdropColor(r or 0, g or 0, b or 0, a or 1)
-		if o.SetBackdropBorderColor then o:SetBackdropBorderColor(1, 1, 1, 1) end
+	local k = store(f)
+	local p = k[key]
+	if not p then
+		p = {}
+		for i = 1, 8 do
+			local t = host:CreateTexture(nil, layer or "BORDER", nil, sub or 0)
+			t:SetTexture(path)
+			t:SetTexCoord(unpack(EDGE_UV[EDGE_ORDER[i]]))
+			p[i] = t
+		end
+		k[key] = p
 	end
-	o:Show()
-	return o
+	for i = 1, 8 do
+		p[i]:ClearAllPoints()
+		Theme.TintArt(p[i], cr, cg, cb, ca)
+		p[i]:Show()
+	end
+	p[1]:SetPoint("TOPLEFT", host, "TOPLEFT", -out, out); p[1]:SetSize(e, e)
+	p[2]:SetPoint("TOPRIGHT", host, "TOPRIGHT", out, out); p[2]:SetSize(e, e)
+	p[3]:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", -out, -out); p[3]:SetSize(e, e)
+	p[4]:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", out, -out); p[4]:SetSize(e, e)
+	p[5]:SetPoint("TOPLEFT", p[1], "TOPRIGHT"); p[5]:SetPoint("BOTTOMRIGHT", p[2], "BOTTOMLEFT")
+	p[6]:SetPoint("TOPLEFT", p[3], "TOPRIGHT"); p[6]:SetPoint("BOTTOMRIGHT", p[4], "BOTTOMLEFT")
+	p[7]:SetPoint("TOPLEFT", p[1], "BOTTOMLEFT"); p[7]:SetPoint("BOTTOMRIGHT", p[3], "TOPRIGHT")
+	p[8]:SetPoint("TOPLEFT", p[2], "BOTTOMLEFT"); p[8]:SetPoint("BOTTOMRIGHT", p[4], "TOPRIGHT")
+	return p
+end
+Theme.KitEdge = edge
+
+-- A vanilla backdrop's ground: `name` (a CLASSIC tile) repeated over host
+-- `inset` units in from its edges, in the colour. -> the texture
+local function tiled(f, key, name, host, inset, cr, cg, cb, ca, layer, sub)
+	local t = tex(f, key, layer or "BACKGROUND", sub or -6, host)
+	file(t, CLASSIC[name][1], true)
+	t:ClearAllPoints()
+	inset = inset or 0
+	t:SetPoint("TOPLEFT", host, "TOPLEFT", inset, -inset)
+	t:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", -inset, inset)
+	Theme.TintArt(t, cr, cg, cb, ca)
+	return t
 end
 
-local DIALOG = { bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background", edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-	tile = true, tileSize = 32, edgeSize = 32, insets = { left = 11, right = 12, top = 12, bottom = 11 } }
-local TOOLTIP = { bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-	tile = true, tileSize = 16, edgeSize = 16, insets = { left = 4, right = 4, top = 4, bottom = 4 } }
-local SLIDER = { bgFile = "Interface\\Buttons\\UI-SliderBar-Background", edgeFile = "Interface\\Buttons\\UI-SliderBar-Border",
-	tile = true, tileSize = 8, edgeSize = 8, insets = { left = 3, right = 3, top = 6, bottom = 6 } }
-Theme.CLASSIC_SLIDER = SLIDER
-Theme.CLASSIC_TOOLTIP = TOOLTIP
+-- The tooltip tile shows the backdrop colour at 57 % (its grey); lifted so
+-- the window draws the colour it was given, as a tooltip's own colour
+-- (0.09, 0.09, 0.19) draws darker than it reads.
+local function tipTint(r, g, b)
+	return min(1, r / 0.57), min(1, g / 0.57), min(1, b / 0.57)
+end
+
+-- A vanilla tooltip (the game's tooltip backdrop: the tile at the colour
+-- under the 16-unit rope border) over host, `out` past f's edges.
+-- `pad` draws it that much inside host's edges. Its textures are host's
+-- own, under host's content.
+local function tooltip(f, key, host, r, g, b, a, br, bg, bb, pad)
+	local tr, tg, tb = tipTint(r, g, b)
+	pad = pad or 0
+	-- The tile is 91 % opaque: lifted the same way so the panel's opacity is
+	-- the one it was given.
+	tiled(f, key .. "Bg", "tile", host, pad + 3, tr, tg, tb, min(1, (a or 1) / 0.91), "BACKGROUND", -6)
+	edge(f, key .. "Edge", TOOLTIP_EDGE, 16, host, -pad, "BACKGROUND", -5, br or 1, bg or 1, bb or 1, 1)
+end
+
+-- A panel standing inside another Polestar window (a card, a hint bar),
+-- not a menu or tooltip of its own on the screen.
+local function embedded(f)
+	local p = f:GetParent()
+	return p ~= nil and p ~= UIParent
+end
 
 -- The chat tab's 5-unit rim (corners 5 x 5, the bottom ones the top ones
 -- flipped; edges stretched between them), cut from its 64 x 32 sheet.
@@ -471,6 +607,10 @@ local function closeArt(b, kit, size)
 	draw(l, kit, kit.closeLit)
 	l:SetBlendMode("ADD")
 end
+
+-- A guide window tab's close button: the red button 14 high in every look,
+-- clear of the tab's outline above and below.
+local TAB_CLOSE = 14
 
 ---------------------------------------------------------------------------
 -- Windows
@@ -558,48 +698,67 @@ local GUIDE = {
 		body(f, 0, 0, 0, 0.96 * opacity(f))
 		-- The micro menu box's bronze line (55 units, its chamfered corners 12),
 		-- the line 3 units in from the art's edge: laid 3 out so it runs on the
-		-- window's edge. Its filled middle is left out: the body is the window's own.
-		-- The border starts at the tab strip's foot (f.psStrip), anchored so it
-		-- follows the strip as it shows and hides (compact mode) without a repaint.
-		-- At the window's own level, under its content: the art's inner shade
-		-- (all but its outer 3 units) drew over the nav row and the progress
-		-- bar at f+6 (#306).
+		-- window's edge, round the whole window, tab strip included, as the
+		-- box runs round the micro menu's buttons: one HUD piece, not a lid
+		-- over a frame (#312). Its filled middle is left out: the body is the
+		-- window's own. At the window's own level, under its content: the
+		-- art's inner shade (all but its outer 3 units) drew over the nav row
+		-- and the progress bar at f+6 (#306).
 		local o = child(f, "edge", 0)
 		o:EnableMouse(false)
 		o:ClearAllPoints()
-		if f.psStrip then
-			o:SetPoint("TOPLEFT", f.psStrip, "BOTTOMLEFT", 0, 0)
-		else
-			o:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
-		end
+		o:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
 		o:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, 0)
-		sliced(f, "slim", kit, kit.slim, o, { 3, 0, 3, 3 }, "BORDER", 0, true)
+		sliced(f, "slim", kit, kit.slim, o, { 3, 3, 3, 3 }, "BORDER", 0, true)
 	end,
-	blizzard = function(f)
+	-- The damage meter's window on the guide window: the meter's own ground
+	-- (no other fill under it), cut at its slices so its light keeps its
+	-- height and its corners their round, the slices at three quarters so
+	-- the light falls over the tab strip and the navigator (60 units, the
+	-- meter's header), at the window's opacity: the window's own textures,
+	-- under every part on it (the heads-up card on the window too). The
+	-- toasts and cards: a black body under the alert toasts' frame (its
+	-- rail's outer edge one unit outside: the corner art's rail starts 3 in,
+	-- so 4 out), at the window's own level: the content draws over it.
+	blizzard = function(f, kit)
 		local a = opacity(f)
-		local t = body(f, 0, 0, 0, 0.96 * a)
-		t:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -20)
-		local band = tex(f, "band", "BACKGROUND", -7)
-		band:ClearAllPoints()
-		band:SetPoint("TOPLEFT", f, "TOPLEFT")
-		band:SetPoint("TOPRIGHT", f, "TOPRIGHT")
-		band:SetHeight(20)
-		file(band, Theme.Media("white"))
-		if band.SetGradient and CreateColor then
-			band:SetGradient("VERTICAL", CreateColor(0, 0, 0, 0.96 * a), CreateColor(0, 0, 0, 0.48 * a))
+		hideKey(f, "band")
+		local o = child(f, "edge", 0)
+		o:EnableMouse(false)
+		o:ClearAllPoints()
+		o:SetAllPoints(f)
+		if f.psGuide then
+			P.fill(f):Hide()
+			hideKey(f, "toastArt")
+			local p = sliced(f, "meterArt", kit, kit.meter, f, nil, "BACKGROUND", -8, false, 0.75)
+			for i = 1, 9 do p[i]:SetAlpha(0.96 * a) end
 		else
-			band:SetVertexColor(0, 0, 0, 0.8 * a)
+			body(f, 0, 0, 0, 0.96 * a)
+			hideKey(f, "meterArt")
+			nine(f, "toastArt", kit, kit.toast, o, { 4, 4, 4, 4 }, "BORDER", 0)
 		end
 	end,
+	-- The guide window is a chat frame: the tooltip tile in the window's
+	-- ground colour under the chat tab's rim, its tabs cut from the same
+	-- sheet (Theme.KitTab, flush). A toast (psLight) is a tooltip: the same
+	-- tile under the 16-unit rope border.
 	classic = function(f)
 		local a = opacity(f)
-		local t = body(f, 0.063, 0.063, 0.063, 0.9 * a, 3)
-		t:SetTexture(CLASSIC.tile[1], "REPEAT", "REPEAT")
-		if t.SetHorizTile then t:SetHorizTile(true); t:SetVertTile(true) end
+		local r, g, b = Theme.Color("bg")
+		local tr, tg, tb = tipTint(r, g, b)
+		local t = body(f, tr, tg, tb, a, 3)
+		file(t, CLASSIC.tile[1], true)
+		Theme.TintArt(t, tr, tg, tb, a)
 		local o = child(f, "edge", 6)
 		o:EnableMouse(false)
 		o:SetAllPoints(f)
-		rim(f, o)
+		if f.psLight then
+			hideKey(f, "rim")
+			edge(f, "tipEdge", TOOLTIP_EDGE, 16, o, 0, "BORDER", 1)
+		else
+			hideKey(f, "tipEdge")
+			rim(f, o)
+		end
 	end,
 }
 
@@ -612,7 +771,7 @@ local function bigMetal(f, kit)
 	local a = opacity(f)
 	local t = body(f, 1, 1, 1, a)
 	file(t, ROCK, true)
-	t:SetVertexColor(1, 1, 1, a)
+	Theme.TintArt(t, 1, 1, 1, a)
 	local streaks = tex(f, "streaks", "BACKGROUND", -5)
 	local w, h = draw(streaks, kit, kit.streaks)
 	streaks:ClearAllPoints()
@@ -642,17 +801,55 @@ local function bigMetal(f, kit)
 	closeButton(f, o, kit, kit.closeSize, "TOPRIGHT", kit.closeAt[1], kit.closeAt[2])
 end
 
+-- WoW Forever's big windows: the same metal, title bar, drag strip and
+-- corner close button round the Settings panel's ground
+-- (SettingsFrameTemplate: FlatPanelBackgroundTemplate, flat black, no rock
+-- and no streaks), so the gold labels and white text read as they do in
+-- the client's own settings.
+local function bigFlat(f, kit)
+	local a = opacity(f)
+	body(f, 0, 0, 0, a)
+	hideKey(f, "streaks")
+	local frame = child(f, "frame", 0)
+	frame:EnableMouse(false)
+	frame:ClearAllPoints()
+	frame:SetPoint("TOPLEFT", f, "TOPLEFT", -7, 21)
+	frame:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 2, -2)
+	local o = child(f, "metal", 500)
+	o:EnableMouse(false)
+	o:SetAllPoints(frame)
+	nine(f, "metalArt", kit, kit.metal, o, kit.metalOut, "OVERLAY", 0, kit.metalSize)
+	local fs = title(f, o, "TOP", o, 0, -5)
+	fs:SetPoint("LEFT", o, "LEFT", 60, 0)
+	fs:SetPoint("RIGHT", o, "RIGHT", -60, 0)
+	local bar = dragBar(f, o)
+	bar:ClearAllPoints()
+	bar:SetPoint("TOPLEFT", o, "TOPLEFT", 0, 0)
+	bar:SetPoint("TOPRIGHT", o, "TOPRIGHT", -30, 0)
+	bar:SetHeight(21)
+	closeButton(f, o, kit, kit.closeSize, "TOPRIGHT", kit.closeAt[1], kit.closeAt[2])
+end
+
 local BIG = {
-	forever = bigMetal,
+	forever = bigFlat,
 	blizzard = bigMetal,
-	-- The vanilla options window: the dialog box (its border 11 units
-	-- in), the header plate on its top edge with the title in it, the panel
-	-- close button in its corner.
+	-- The vanilla options window (InterfaceOptionsFrame): the dialog box's
+	-- translucent black tile over the ground, its 32-unit border 11 units
+	-- out so the band's inner edge lies on the window's edge, the header
+	-- plate on the top edge (TOP 0,12) with the title in it (TOP 0,-14), the
+	-- panel close button in the corner.
 	classic = function(f, kit)
 		local a = opacity(f)
-		body(f, 0, 0, 0, a)
-		local d = backdrop(f, "dialog", DIALOG, 1, 1, 1, a, 11, 0)
-		local o = child(f, "metal", 500)
+		local r, g, b = Theme.Color("bg")
+		body(f, r, g, b, a)
+		tiled(f, "dialogTile", "dialogTile", f, 0, 1, 1, 1, a, "BACKGROUND", -6)
+		local d = child(f, "dialog", 0)
+		d:EnableMouse(false)
+		d:ClearAllPoints()
+		d:SetPoint("TOPLEFT", f, "TOPLEFT", -11, 11)
+		d:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 11, -11)
+		edge(f, "dialogArt", DIALOG_EDGE, 32, d, 0, "BORDER", 0)
+		local o = child(f, "crown", 500)
 		o:EnableMouse(false)
 		o:SetAllPoints(d)
 		local plate = tex(f, "plate", "ARTWORK", 0, o)
@@ -663,20 +860,26 @@ local BIG = {
 		title(f, o, "TOP", plate, 0, -14)
 		local bar = dragBar(f, o)
 		bar:ClearAllPoints()
-		bar:SetPoint("TOPLEFT", plate, "TOPLEFT", 50, 0)
-		bar:SetPoint("BOTTOMRIGHT", plate, "BOTTOMRIGHT", -50, 24)
+		bar:SetPoint("TOPLEFT", plate, "TOPLEFT", 56, -6)
+		bar:SetPoint("BOTTOMRIGHT", plate, "BOTTOMRIGHT", -56, 26)
 		closeButton(f, o, kit, 32, "TOPRIGHT", -4, -4)
 	end,
 }
 
 -- Menus, popups and the other panels: the dropdown menu's ground (Menu
--- Style1: common-dropdown-bg stretched 10 out, 92.5 %), the tooltip in
--- Classic.
+-- Style1: common-dropdown-bg stretched 10 out, 92.5 %), the game's tooltip
+-- in Classic (the panel colour on the tile under the rope border).
 local function panel(f, kit)
 	if f.psBare then return P.bare(f) end
 	if kit.source == "file" then
 		P.fill(f):Hide()
-		backdrop(f, "tipBd", TOOLTIP, 0, 0, 0, 0.92, 0, 0)
+		if embedded(f) then
+			-- A card inside a window: the options panel's box.
+			tooltip(f, "tip", f, 0.1, 0.1, 0.1, 0.6, 0.4, 0.4, 0.4)
+		else
+			local r, g, b, a = Theme.Color("panel")
+			tooltip(f, "tip", f, r, g, b, a or 0.92)
+		end
 		return
 	end
 	P.fill(f):Hide()
@@ -687,8 +890,48 @@ local function panel(f, kit)
 end
 
 -- A text button: UIPanelButtonTemplate (UI-Panel-Button-Up, the same file in
--- every look).
-local function textButton(f)
+-- every look), or the kit's own (Blizzard's 128-RedButton: the retail
+-- template's left cap, tiled middle and right cap at the button's height,
+-- the pressed and disabled sets, the red glow under the cursor).
+local RED_CAP = 48 -- the bevelled end of the 128-RedButton art, in its own pixels
+local function kitButton(f, kit)
+	local set = kit.redButton
+	local k = store(f)
+	local p = k.red
+	if not p then
+		p = {}
+		for i = 1, 3 do p[i] = f:CreateTexture(nil, "BACKGROUND", nil, -6) end
+		p.lit = f:CreateTexture(nil, "HIGHLIGHT")
+		p.lit:SetBlendMode("ADD")
+		p.lit:SetPoint("TOPLEFT", f, "TOPLEFT", -6, 4)
+		p.lit:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 6, -4)
+		k.red = p
+		f:HookScript("OnMouseDown", function(b) if b:IsEnabled() and Theme.Kit() == kit then k.redDown = true; kitButton(b, kit) end end)
+		f:HookScript("OnMouseUp", function(b) if k.redDown then k.redDown = nil; if Theme.Kit() == kit then kitButton(b, kit) end end end)
+		f:HookScript("OnEnable", function(b) if Theme.Kit() == kit then kitButton(b, kit) end end)
+		f:HookScript("OnDisable", function(b) if Theme.Kit() == kit then kitButton(b, kit) end end)
+	end
+	local names = set
+	if f.IsEnabled and not f:IsEnabled() then names = set.disabled elseif k.redDown then names = set.pressed end
+	local _, _, _, _, _, wl, hl = region(kit, names[1])
+	local _, _, _, _, _, wr = region(kit, names[3])
+	local h = f:GetHeight()
+	if not (h and h > 0) then h = Theme.Metric("buttonH", 22) end
+	-- The caps keep the art's aspect at the button's height.
+	local cap = (wl and hl and hl > 0) and RED_CAP * h / hl or 8
+	draw(p[1], kit, names[1], 0, wl and RED_CAP / wl or 1, 0, 1)
+	draw(p[2], kit, names[2])
+	draw(p[3], kit, names[3], wr and 1 - RED_CAP / wr or 0, 1, 0, 1)
+	draw(p.lit, kit, set.lit)
+	for i = 1, 3 do p[i]:ClearAllPoints() end
+	p[1]:SetPoint("TOPLEFT", f, "TOPLEFT"); p[1]:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT"); p[1]:SetWidth(cap)
+	p[3]:SetPoint("TOPRIGHT", f, "TOPRIGHT"); p[3]:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT"); p[3]:SetWidth(cap)
+	p[2]:SetPoint("TOPLEFT", p[1], "TOPRIGHT"); p[2]:SetPoint("BOTTOMRIGHT", p[3], "BOTTOMLEFT")
+	return p
+end
+
+local function textButton(f, kit)
+	if kit.redButton then return kitButton(f, kit) end
 	return P.redButton(f)
 end
 
@@ -700,9 +943,9 @@ local function card(f, kit, selected)
 		return
 	end
 	if kit.source == "file" then
+		-- The options panel's box: a tooltip border at 40 % grey on a dark ground.
 		P.fill(f):Hide()
-		local o = backdrop(f, "tipBd", TOOLTIP, 0.1, 0.1, 0.1, 0.6, 0, 0)
-		if o.SetBackdropBorderColor then o:SetBackdropBorderColor(0.4, 0.4, 0.4, 1) end
+		tooltip(f, "tip", f, 0.1, 0.1, 0.1, 0.6, 0.4, 0.4, 0.4)
 		P.hoverWash(f)
 		return
 	end
@@ -712,12 +955,13 @@ local function card(f, kit, selected)
 end
 
 -- An inset (InsetFrameTemplate: the marble tile and the inner frame), the
--- options box in Classic (a tooltip border at 40 % grey on a dark ground).
-local function inset(f, kit)
+-- options box in Classic (InterfaceOptionsFrameCategories: a tooltip
+-- border at 40 % grey on a dark ground), `pad` units in from f's edges so
+-- the sidebar's box stands clear of the dialog band.
+local function inset(f, kit, pad)
 	if kit.source == "file" then
 		P.fill(f):Hide()
-		local o = backdrop(f, "tipBd", TOOLTIP, 0.1, 0.1, 0.1, 0.5, 0, 0)
-		if o.SetBackdropBorderColor then o:SetBackdropBorderColor(0.4, 0.4, 0.4, 1) end
+		tooltip(f, "tip", f, 0.1, 0.1, 0.1, 0.5, 0.4, 0.4, 0.4, pad)
 		return
 	end
 	local t = body(f, 1, 1, 1, 1)
@@ -773,13 +1017,24 @@ local function checkbox(f, kit)
 	box:SetPoint("CENTER", f, "CENTER", 0, 0)
 	if d.check then
 		draw(d.check, kit, kit.checkOn)
-		d.check:SetVertexColor(1, 1, 1, 1)
+		Theme.TintArt(d.check)
 	end
 	size()
 	local k = store(f)
 	if not k.checkSized then
 		k.checkSized = true
 		f:HookScript("OnSizeChanged", function() if k.check and k.check:IsShown() then size() end end)
+	end
+	-- The vanilla box lights up blue under the cursor (UI-CheckBox-Highlight,
+	-- additive); the atlas looks keep the house wash off.
+	if kit.checkLit then
+		local lit = tex(f, "checkLit", "HIGHLIGHT", 0)
+		draw(lit, kit, kit.checkLit)
+		lit:SetBlendMode("ADD")
+		lit:ClearAllPoints()
+		lit:SetAllPoints(box)
+	else
+		hideKey(f, "checkLit")
 	end
 	P.hoverWash(f):SetVertexColor(1, 1, 1, 0)
 end
@@ -857,7 +1112,7 @@ local function paints(name)
 		window = function(f)
 			if f.psBare then
 				P.bare(f)
-				for _, key in ipairs({ "edge", "band", "dialog", "frame", "metal", "streaks" }) do hideKey(f, key) end
+				for _, key in ipairs({ "edge", "band", "dialog", "dialogArt", "dialogTile", "frame", "metal", "crown", "streaks", "meterArt" }) do hideKey(f, key) end
 				return
 			end
 			P.hideBorder(f)
@@ -865,20 +1120,26 @@ local function paints(name)
 			if f.psGuide or f.psLight then GUIDE[name](f, kit) else BIG[name](f, kit) end
 		end,
 		panel = function(f) panel(f, kit) end,
-		sidebar = function(f) inset(f, kit) end,
+		sidebar = function(f) inset(f, kit, kit.source == "file" and 6 or nil) end,
 		inset = function(f) inset(f, kit) end,
 		button = function(f)
-			if f.psTextButton then return textButton(f) end
+			if f.psTextButton then return textButton(f, kit) end
 			card(f, kit)
 		end,
 		tile = function(f) card(f, kit) end,
 		dropdown = function(f) field(f, kit) end,
 		editbox = function(f)
+			P.fill(f):Hide()
 			if kit.source == "file" then
-				P.fill(f):Hide()
-				backdrop(f, "tipBd", TOOLTIP, 0, 0, 0, 0.8, 0, 0)
+				-- InputBoxTemplate's field (Common-Input-Border), its rounded
+				-- ends 4 past the box so the text keeps the box's own room.
+				local host = child(f, "inputHost", -1)
+				host:EnableMouse(false)
+				host:ClearAllPoints()
+				host:SetPoint("TOPLEFT", f, "TOPLEFT", -4, 0)
+				host:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 4, 0)
+				three(f, "field", kit, { "inputLeft", "inputMiddle", "inputRight" }, host, nil, nil, "BACKGROUND", -6)
 			else
-				P.fill(f):Hide()
 				three(f, "field", kit, { "common-search-border-left", "common-search-border-middle", "common-search-border-right" }, f, 8, nil, "BACKGROUND", -6)
 			end
 		end,
@@ -907,7 +1168,8 @@ local function veil(icon, hidden)
 end
 
 -- An icon button in a kit: the close art, a plate under the glyph (or, in
--- Classic, the page arrows for ‹ ›). -> true when the kit drew it.
+-- Classic, the page arrows for ‹ ›; with kit.bareIcons the glyph alone, as
+-- the damage meter's header draws its buttons). -> true when the kit drew it.
 function Theme.KitIconButton(b)
 	local kit = Theme.Kit()
 	local framed = rawget(b, "psFramed")
@@ -917,8 +1179,17 @@ function Theme.KitIconButton(b)
 		if b.Icon then veil(b.Icon, false) end
 		return false
 	end
+	if isClose and kit.bareIcons then
+		-- The damage meter's header: the close a glyph like its other buttons.
+		veil(b.Icon, false)
+		return true
+	end
 	if isClose then
-		closeArt(b, kit, min(32, b:GetWidth() + 2))
+		-- The red button the same size in every look: a tab's TAB_CLOSE,
+		-- another close button's width and 2; Classic's art grown by its
+		-- margin (kit.closeInk), never past the art's own 32.
+		local want = rawget(b, "psTabClose") and TAB_CLOSE or b:GetWidth() + 2
+		closeArt(b, kit, min(32, want / (kit.closeInk or 1)))
 		veil(b.Icon, true)
 		return true
 	end
@@ -933,6 +1204,10 @@ function Theme.KitIconButton(b)
 		else
 			veil(b.Icon, false)
 		end
+		return true
+	end
+	if kit.bareIcons then
+		veil(b.Icon, false)
 		return true
 	end
 	local t = tex(b, "plate", "BACKGROUND", -6)
@@ -973,19 +1248,8 @@ end
 -- options slider in Classic). -> true when the kit drew them.
 function Theme.KitSlider(owner, s, thumb)
 	local kit = Theme.Kit()
-	for _, key in ipairs({ "trackBd", "trackHost", "back", "forward" }) do hideKey(owner, key) end
+	for _, key in ipairs({ "trackHost", "trackTile", "trackEdge", "trackArt", "back", "forward" }) do hideKey(owner, key) end
 	if not kit then return false end
-	if kit.source == "file" then
-		local o = backdrop(owner, "trackBd", SLIDER, 1, 1, 1, 1, 0, 0, s)
-		o:ClearAllPoints()
-		o:SetPoint("LEFT", s, "LEFT", 0, 0)
-		o:SetPoint("RIGHT", s, "RIGHT", 0, 0)
-		o:SetHeight(17)
-		o:SetFrameLevel(s:GetFrameLevel())
-		draw(thumb, kit, kit.slThumb)
-		thumb:SetSize(32, 32)
-		return true
-	end
 	local host = child(owner, "trackHost", 0)
 	host:SetParent(s)
 	host:EnableMouse(false)
@@ -994,6 +1258,19 @@ function Theme.KitSlider(owner, s, thumb)
 	host:SetPoint("RIGHT", s, "RIGHT", 0, 0)
 	host:SetHeight(17)
 	host:SetFrameLevel(s:GetFrameLevel())
+	if kit.source == "file" then
+		-- OptionsSliderTemplate: the slider's tile 3 in from the ends and 6
+		-- from the top and bottom of its 17, under the 8-unit border; the
+		-- round thumb.
+		local t = tiled(owner, "trackTile", "slTile", host, 0, 1, 1, 1, 1, "BACKGROUND", -1)
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", host, "TOPLEFT", 3, -6)
+		t:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", -3, 6)
+		edge(owner, "trackEdge", SLIDER_EDGE, 8, host, 0, "BORDER", 0)
+		draw(thumb, kit, kit.slThumb)
+		thumb:SetSize(32, 32)
+		return true
+	end
 	three(owner, "trackArt", kit, kit.slider, host, 11, nil, "BACKGROUND", 0)
 	draw(thumb, kit, kit.slThumb)
 	thumb:SetSize(20, 19)
@@ -1042,33 +1319,68 @@ end
 
 -- A tab in the kit's art (MinimalTabTemplate: Options_Tab_* along its
 -- bottom, the active one 3 higher; the vanilla option tabs in Classic) with
--- its label on the art: BOTTOM 0,6 when active, 0,4 otherwise. -> true
+-- its label on the art: BOTTOM 0,6 when active, 0,4 otherwise. -> true and
+-- how far the middle of the tab's art lies from the tab's middle (0 for art
+-- the tab's own height, or none; negative: lower).
 -- `flush`: the tab's top lies on the window's edge (the guide window's
--- strip). Forever's tab art is an outline whose top and left run along that
--- edge, leaving its right side as a lone line by the rest of the strip
--- (#312); there the active tab is the Settings list's selected row instead.
-function Theme.KitTab(b, active, label, flush)
+-- strip). The Settings tab art is an outline: with its top on that edge
+-- its right side stood as a lone line by the rest of the strip (#312). A
+-- kit with tabClear stops the outline that far under the edge, so it
+-- rises from the strip's foot and closes as a tab does (Forever); a kit
+-- without one lights the active tab as the Settings list's selected row.
+-- Blizzard's strip is the damage meter's header: the active tab is its
+-- selected row (flat, kit.rowFlat), and the resting tabs their label alone
+-- (kit.flushBare).
+-- `close` (the guide window's tab close button) goes on the middle of the
+-- tab's art, 3 in from its right side: a tab art that stops under the
+-- strip's top (or rises from its foot) is lower than the strip's middle;
+-- the guide window sets its glyph and title there too.
+function Theme.KitTab(b, active, label, flush, close)
 	local kit = Theme.Kit()
 	if not kit then
 		hideKey(b, "tab")
 		return false
 	end
 	local isFile = kit.source == "file"
-	local lit = flush and active and kit.source == "atlas" and kit.navLit
+	local clear = flush and kit.tabClear
+	local lit = flush and active and (kit.source == "atlas" or kit.flushBare) and not clear and (kit.rowFlat or kit.navLit)
+	local gap = clear and kit.tabGap or 0
 	local host = child(b, "tab", -1)
 	host:EnableMouse(false)
 	host:ClearAllPoints()
-	host:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
-	host:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
+	host:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", gap, 0)
+	host:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -gap, 0)
+	host:SetAlpha(1)
+	-- How far the middle of the tab's art lies from the tab's own middle (0:
+	-- art the tab's height, or none).
+	local mid = 0
 	if lit then
 		host:SetPoint("TOP", b, "TOP", 0, 0)
 		hideKey(b, "tabArt")
 		local t = tex(b, "tabLit", "BACKGROUND", 0, host)
-		draw(t, kit, lit)
+		litPiece(t, kit, lit)
 		t:SetAllPoints(host)
+	elseif flush and kit.chatTab then
+		-- The chat frame's tabs on the guide window's strip: the resting
+		-- ones faded as the chat frame fades them, the active one whole and
+		-- 3 taller.
+		hideKey(b, "tabLit")
+		host:SetHeight(active and 24 or 21)
+		host:SetAlpha(active and 1 or 0.55)
+		mid = ((active and 24 or 21) - b:GetHeight()) / 2
+		three(b, "tabArt", kit, kit.chatTab, host, 10, 10 / 58, "BACKGROUND", 0)
+	elseif flush and kit.flushBare then
+		hideKey(b, "tabLit")
+		hideKey(b, "tabArt")
 	else
 		hideKey(b, "tabLit")
-		host:SetHeight(active and (isFile and 28 or 26) or (isFile and 24 or 23))
+		local h = active and (isFile and 28 or 26) or (isFile and 24 or 23)
+		if clear then
+			-- The resting tabs 3 lower than the active one, as the art is.
+			h = min(h, max(12, b:GetHeight() - clear - (active and 0 or 3)))
+		end
+		host:SetHeight(h)
+		mid = (h - b:GetHeight()) / 2
 		three(b, "tabArt", kit, active and kit.tabActive or kit.tab, host, isFile and 14 or 7, isFile and 16 / 112 or nil, "BACKGROUND", 0)
 	end
 	if label then
@@ -1076,12 +1388,16 @@ function Theme.KitTab(b, active, label, flush)
 		label:ClearAllPoints()
 		label:SetPoint("BOTTOM", b, "BOTTOM", 0, active and 6 or 4)
 	end
-	return true
+	if close and not (flush and kit.flushBare and not lit) then
+		close:ClearAllPoints()
+		close:SetPoint("RIGHT", host, "RIGHT", -3, 0)
+	end
+	return true, mid
 end
 
 -- The highlight under the guide window's current goal and a selected
 -- navigation row: Forever's selected card / the Settings list's active row,
--- Blizzard's gold wash, Classic's quest title or list highlight.
+-- Blizzard's flat selected row, Classic's quest title or list highlight.
 function Theme.KitRowLit(r, shown, key, inset)
 	key = key or "rowLit"
 	local kit = Theme.Kit()
@@ -1091,15 +1407,22 @@ function Theme.KitRowLit(r, shown, key, inset)
 		hideKey(r, key)
 		return false
 	end
-	-- The Settings list's rows: Options_List_Hover under the cursor too.
-	if key == "navLit" and kit.navHover then
+	-- The Settings list's rows: Options_List_Hover under the cursor too; the
+	-- quest log's silver title highlight in Classic.
+	local hover = key == "navLit" and (kit.navHover or kit.rowHover)
+	if hover then
 		local hv = tex(r, key .. "Hover", "HIGHLIGHT", 0)
-		draw(hv, kit, kit.navHover)
+		draw(hv, kit, hover)
 		hv:SetBlendMode("ADD")
 		hv:ClearAllPoints()
-		hv:SetPoint("LEFT", r, "LEFT", inset or 4, 0)
-		hv:SetPoint("RIGHT", r, "RIGHT", -(inset or 4), 0)
-		hv:SetHeight(24)
+		if kit.navHover then
+			hv:SetPoint("LEFT", r, "LEFT", inset or 4, 0)
+			hv:SetPoint("RIGHT", r, "RIGHT", -(inset or 4), 0)
+			hv:SetHeight(24)
+		else
+			hv:SetPoint("TOPLEFT", r, "TOPLEFT", inset or 4, 0)
+			hv:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -(inset or 4), 0)
+		end
 	end
 	if not shown then
 		hideKey(r, key)
@@ -1116,36 +1439,28 @@ function Theme.KitRowLit(r, shown, key, inset)
 	end
 	t:SetPoint("TOPLEFT", r, "TOPLEFT", inset or 4, 0)
 	t:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -(inset or 4), 0)
-	if kit.source == "retail" then
-		file(t, Theme.Media("white"))
-		if t.SetGradient and CreateColor then
-			t:SetGradient("HORIZONTAL", CreateColor(1, 0.82, 0, 0.2), CreateColor(1, 0.82, 0, 0))
-		else
-			t:SetVertexColor(1, 0.82, 0, 0.12)
-		end
-		local e = tex(r, key .. "Edge", "BORDER", 0)
-		file(e, Theme.Media("white"))
-		e:SetVertexColor(1, 0.82, 0, 1)
-		e:ClearAllPoints()
-		e:SetPoint("TOPLEFT", t, "TOPLEFT")
-		e:SetPoint("BOTTOMLEFT", t, "BOTTOMLEFT")
-		e:SetWidth(2)
-		return true
+	litPiece(t, kit, (key == "navLit" and kit.navLit) or kit.rowFlat or kit.rowLit)
+	-- The quest log's gold title highlight is light (ADD); at the game's full
+	-- strength it drowns a goal's coloured tip lines (the violet of a
+	-- mechanic, the muted "Inside"), so the guide window's lights it at half.
+	if kit.source == "file" then
+		t:SetBlendMode("ADD")
+		if key ~= "navLit" then Theme.TintArt(t, 1, 1, 1, 0.5) end
 	end
-	draw(t, kit, (key == "navLit" and kit.navLit) or kit.rowLit)
-	if kit.source == "file" then t:SetBlendMode("ADD") end
 	return true
 end
 
 -- The quest tracker's header behind the guide window's focus (Forever's
--- bronze rods, Blizzard's gold filigree). -> true when drawn
+-- bronze rods; a kit with header false has none). -> true when drawn
 function Theme.KitHeader(f, shown)
 	local kit = Theme.Kit()
 	if not (kit and kit.header and shown) then
 		hideKey(f, "header")
 		return false
 	end
-	-- The band's own rows: 4..39 of its 40, its ends' rods 25 of its 300.
+	-- The band's own rows: 4..39 of its 40; its ends (the curl that opens the
+	-- lines at the left, their fade at the right) 25 of its 300, drawn at
+	-- that width (12 squeezes them, Forever's rods).
 	local parts = three(f, "header", kit, kit.header, f, 12, 25 / 300, "BACKGROUND", -3)
 	local _, l, r, tp, b = region(kit, kit.header)
 	if l then
@@ -1156,16 +1471,52 @@ function Theme.KitHeader(f, shown)
 	return true
 end
 
--- The guide window's tab strip ground: Blizzard's damage meter header bar.
+-- The guide window's tab strip ground. Forever: the Settings panel's line
+-- under its tabs (kit.strip, Options_HorizontalDivider: one unit high,
+-- fading out at its ends) along the strip's foot where the tabs stand, 4 in
+-- from the window's sides so its ends fade inside the frame's line; with
+-- the strip at the window's bottom (ui.barsBottom) along the strip's top.
+-- Blizzard: the damage meter's header, flat charcoal (kit.headerFill) at
+-- the window's opacity, over the tab strip and the navigator together (the
+-- navigator is guideNav high under the strip, which folds to nothing in
+-- compact mode, so the header then covers the navigator alone); the
+-- navigator's rule (the separator) closes it.
 function Theme.KitStrip(f, shown)
 	local kit = Theme.Kit()
-	if not (kit and kit.headerBar and shown) then
-		hideKey(f, "strip")
+	if not (kit and (kit.headerFill or kit.strip) and shown) then
+		hideKey(f, "stripHost")
+		hideKey(f, "stripLine")
 		return false
 	end
-	local t = tex(f, "strip", "BACKGROUND", -6)
-	draw(t, kit, kit.headerBar)
-	t:SetAllPoints(f)
+	if kit.strip then
+		hideKey(f, "stripHost")
+		local t = tex(f, "stripLine", "BACKGROUND", -6)
+		draw(t, kit, kit.strip)
+		local flip = ns.Get and ns.Get("ui.growUp") and ns.Get("ui.barsBottom")
+		local edge = flip and "TOP" or "BOTTOM"
+		t:ClearAllPoints()
+		t:SetPoint(edge .. "LEFT", f, edge .. "LEFT", 4, 0)
+		t:SetPoint(edge .. "RIGHT", f, edge .. "RIGHT", -4, 0)
+		t:SetHeight(1)
+		return true
+	end
+	hideKey(f, "stripLine")
+	-- On the strip's parent (the window): the strip hides in compact mode,
+	-- and the header must stay over the navigator. Its rect still anchors to
+	-- the strip's, which folds to nothing then.
+	local window = f:GetParent() or f
+	local host = child(f, "stripHost", -1)
+	host:SetParent(window)
+	host:EnableMouse(false)
+	host:ClearAllPoints()
+	host:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+	host:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+	host:SetPoint("BOTTOM", f, "BOTTOM", 0, -Theme.Metric("guideNav", 32))
+	local t = tex(f, "stripFill", "BACKGROUND", -6, host)
+	file(t, Theme.Media("white"))
+	local c = kit.headerFill
+	Theme.TintArt(t, c[1], c[2], c[3], opacity(window))
+	t:SetAllPoints(host)
 	return true
 end
 
@@ -1201,9 +1552,18 @@ end
 Theme.KitPaintFill = paintFill
 function Theme.KitStatus(b)
 	local kit = Theme.Kit()
-	for _, key in ipairs({ "statusFrame", "statusEdge", "statusArt", "statusNine", "statusFill" }) do hideKey(b, key) end
+	for _, key in ipairs({ "statusFrame", "statusArt", "statusNine", "statusFill" }) do hideKey(b, key) end
+	-- Every kit (and the house bar after them) draws the bar's ground over
+	-- the whole bar.
+	b.Bg:ClearAllPoints()
+	b.Bg:SetAllPoints(b)
+	b.Bg:Show()
 	local own = b:GetStatusBarTexture()
 	if own then own:SetAlpha(1) end
+	-- The percent: white; the meter's bar text at 90 % (its hard shadow is
+	-- the game look's own, Theme.Font).
+	local pct = rawget(b, "Pct")
+	if pct then pct:SetTextColor(1, 1, 1, kit and kit.source == "retail" and 0.9 or 1) end
 	local k = store(b)
 	k.fillKit = nil
 	if not kit then return false end
@@ -1227,28 +1587,30 @@ function Theme.KitStatus(b)
 		o:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 7, -7)
 		sliced(b, "statusArt", kit, kit.status.frame, o, nil, "ARTWORK", 0, true, 0.5)
 	elseif kit.source == "retail" then
+		-- The meter's bar as its rows wear it: the game's status bar texture
+		-- in the tracker's gold (NORMAL_FONT_COLOR), square at both ends,
+		-- over a faint light strip that marks the bar's length on the
+		-- window's black; nothing over the fill or the percent.
 		b:SetStatusBarTexture(CLASSIC.statusFill[1])
 		fill = b:GetStatusBarTexture()
 		fill:SetTexCoord(0, 1, 0, 1)
-		fill:SetVertexColor(1, 0.67, 0, 1)
-		draw(b.Bg, kit, kit.status.bg)
-		local e = tex(b, "statusEdge", "OVERLAY", 6)
-		draw(e, kit, kit.status.edge)
-		e:ClearAllPoints()
-		e:SetPoint("TOPLEFT", b, "TOPLEFT", -2, 2)
-		e:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 2, -2)
-	else
-		b:SetStatusBarTexture(CLASSIC.statusFill[1])
-		fill = b:GetStatusBarTexture()
-		fill:SetTexCoord(0, 1, 0, 1)
-		fill:SetVertexColor(0, 0.8, 0, 1)
+		Theme.TintArt(fill, 1, 0.82, 0, 1)
 		file(b.Bg, Theme.Media("white"))
-		b.Bg:SetVertexColor(0, 0, 0, 0.5)
+		Theme.TintArt(b.Bg, 1, 1, 1, 0.1)
+	else
+		-- The XP bar: UI-StatusBar in its purple over a half-black trough,
+		-- in the cast bar's frame at 60 % of its sheet: caps 19 wide, the
+		-- bands 7 over and under the bar.
+		b:SetStatusBarTexture(CLASSIC.statusFill[1])
+		fill = b:GetStatusBarTexture()
+		fill:SetTexCoord(0, 1, 0, 1)
+		local c = kit.status.color
+		Theme.TintArt(fill, c[1], c[2], c[3], 1)
+		file(b.Bg, Theme.Media("white"))
+		Theme.TintArt(b.Bg, 0, 0, 0, 0.5)
 		local o = child(b, "statusFrame", 2)
 		o:EnableMouse(false)
 		o:SetAllPoints(b)
-		-- The cast bar frame at 60 % of its sheet: caps 19 wide, the bands
-		-- 7 over and under the bar.
 		local parts = nineOf(b, "statusNine", kit, "castbar", 32 / 224, 12 / 32, 19, 7, o, { 10, 7, 10, 7 }, "ARTWORK", 0, true)
 		parts[5]:Hide()
 	end

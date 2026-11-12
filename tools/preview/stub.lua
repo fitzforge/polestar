@@ -240,6 +240,7 @@ local function entry(o)
 		texture = (type(o.texture) == "string" or type(o.texture) == "number") and o.texture or nil, color = copy(o.color),
 		vertexColor = copy(o.vertexColor), texCoord = copy(o.texCoord), gradient = o.gradient, desaturation = o.desaturation,
 		rotation = o.rotation, blend = o.blend, vertexOffset = copy(o.vertexOffset),
+		horizTile = o.horizTile or nil, vertTile = o.vertTile or nil,
 	}
 	-- A Line (CreateLine): its two ends, each relative to a point of a frame, and its thickness.
 	if o.kind == "Line" then
@@ -266,6 +267,9 @@ local function entry(o)
 		e.checked = o.checked
 		e.checkedTexture = idOf(o.checkedTexture)
 		e.thumbTexture = idOf(o.thumbTexture)
+		-- A status bar's own fill texture (SetStatusBarTexture): drawn to the
+		-- bar's value by the renderer.
+		e.barTexture = idOf(o.barTexture)
 		e.mask = idOf(o.mask)
 		e.value, e.minValue, e.maxValue = o.value, o.minValue, o.maxValue
 		e.euiSkin = o.euiSkin
@@ -350,6 +354,7 @@ function preview.dump(opts)
 			add(o.parent)
 			add(o.scrollChild)
 			add(o.thumbTexture)
+			add(o.barTexture)
 			add(o.checkedTexture)
 		end
 		return out

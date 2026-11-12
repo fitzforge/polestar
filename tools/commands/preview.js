@@ -658,7 +658,7 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end
 // { file, w, h, l, r, t, b } }, the Forever client's members) and files.json
 // ({ [lower-case "interface\\...\\name"]: fileID }), the game's own UI art is
 // drawn too: SetAtlas, C_Texture.GetAtlasInfo and SetTexture by path resolve
-// to file IDs, so the game's looks (Theme/GameSkins.lua) can be checked
+// to file IDs, so the game's looks (Polestar_Looks/GameSkins.lua) can be checked
 // before a client run. Only textures decoded into the folder are listed.
 let uiArtLua;
 function clientUiArtLua() {
@@ -681,14 +681,16 @@ C_Texture.GetAtlasInfo = function(n)
 	if a then return { file = a[1], width = a[2], height = a[3], leftTexCoord = a[4], rightTexCoord = a[5], topTexCoord = a[6], bottomTexCoord = a[7] } end
 end
 local M = stub.Methods
-local setTexture = M.SetTexture
-M.SetTexture = function(self, p, ...)
+local function fileOf(p)
 	if type(p) == "string" then
 		local fid = FILES[(p:lower():gsub("/", "\\\\"):gsub("%.blp$", ""))]
-		if fid then p = fid end
+		if fid then return fid end
 	end
-	return setTexture(self, p, ...)
+	return p
 end
+local setTexture, setBar = M.SetTexture, M.SetStatusBarTexture
+M.SetTexture = function(self, p, ...) return setTexture(self, fileOf(p), ...) end
+M.SetStatusBarTexture = function(self, p, ...) return setBar(self, fileOf(p), ...) end
 M.SetAtlas = function(self, n, useSize)
 	local a = type(n) == "string" and ATLAS[n:lower()]
 	self.atlas = n
@@ -1563,6 +1565,17 @@ end`,
 		panels: ['polestar', 'halo', 'hearth'].map((k) => (
 			{ files: MODULE_FILES, roots: ['PolestarFlightTimer'], script: `Polestar.Set("ui.skin", "${k}"); local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("1:42"); Polestar.Widgets.SetProgress(f.Progress, 0.4); f:Show()` }
 		)),
+	},
+	{
+		file: 'skins-hearth.svg',
+		title: 'Hearth: a class quest\'s card, the class and dungeon heads-ups on the guide window and the rare alert, all in Polestar\'s own art (a walnut board lit from above, parchment text, copper hairlines, an ember accent)',
+		backdrop: 'terrain',
+		panels: [
+			{ roots: GUIDE, script: `Polestar.Set("ui.skin", "hearth"); ${DRUID_CARD}` },
+			{ roots: [...GUIDE, 'PolestarClassToast'], script: `Polestar.Set("ui.skin", "hearth"); ${ORC_TOAST}` },
+			{ dungeons: true, roots: [...GUIDE, 'PolestarClassToast'], script: `Polestar.Set("ui.skin", "hearth"); ${DUNGEON_TOAST}` },
+			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('Polestar.Set("ui.skin", "hearth"); Polestar.Fire("RARE_SPOTTED", Polestar.Rares.AlertOf({ source = "nameplate", kind = "rare", id = 471, name = "Mother Fang", level = 10, classification = "rareelite" }, nil, false)); stub.advance(12)') },
+		],
 	},
 	// The game's looks draw the client's own art: rendered only with
 	// POLESTAR_CLIENT_ART (local: true), so it never lands in docs/preview.

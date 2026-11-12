@@ -374,9 +374,18 @@ function Methods.GetVertexColor(self)
 	return c[1], c[2], c[3], c[4]
 end
 function Methods.SetTexCoord(self, ...) self.texCoord = { ... } end
+-- A texture drawn tiled at its own size across its region (SetTexture with
+-- "REPEAT" wraps, then these), as the game's backdrop tiles are.
+function Methods.SetHorizTile(self, v) self.horizTile = v and true or false end
+function Methods.SetVertTile(self, v) self.vertTile = v and true or false end
+function Methods.GetHorizTile(self) return self.horizTile == true end
+function Methods.GetVertTile(self) return self.vertTile == true end
 function Methods.SetRotation(self, r) self.rotation = r end
 function Methods.GetRotation(self) return self.rotation or 0 end
 function Methods.SetDesaturated(self, v) self.desaturated = v and true or false end
+-- The client's grade of grey (0-1), where it has SetDesaturation.
+function Methods.SetDesaturation(self, v) self.desaturation = v end
+function Methods.GetDesaturation(self) return self.desaturation or 0 end
 function Methods.SetBlendMode(self, m) self.blend = m end
 function Methods.AddMaskTexture(self, m) self.mask = m end
 -- SetVertexOffset(i, x, y): corner i (1 upper left, 2 lower left, 3 upper

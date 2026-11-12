@@ -536,13 +536,16 @@ function Pins.IconPack(v)
 	return MEDALS[key] and key or "hearth"
 end
 -- The medallion texture of an icon pack (the options' picture cards); nil
--- for "bare". The skin's pack may bring its own art (Theme.SkinMedia).
+-- for "bare". The skin's pack may bring its own art (Theme.SkinMedia), drawn
+-- its medallionScale times the medallion (a game look's, in the client's
+-- own margin). -> path, scale
 function Pins.MedalPath(pack)
 	local resolved = Pins.IconPack(pack)
 	if resolved == "bare" then return nil end
 	local T = ns.Theme
 	local art = not MEDALS[pack] and T and T.SkinMedia and T.SkinMedia("medallion") or nil
-	return type(art) == "string" and art or MEDALS[resolved]
+	if type(art) == "string" then return art, tonumber(T.SkinMedia("medallionScale")) or 1 end
+	return MEDALS[resolved], 1
 end
 
 local function themeColor(name, r, g, b)
@@ -647,11 +650,15 @@ local function applyMark(f, p, size, path)
 	f.bare = p.medal == false or pack == "bare"
 	if p.medal == false then medal = size end
 	f.medalPx, f.sizePx, f.footPx = medal, size, medal
-	-- The skin's own medallion art, when the pack is the skin's (Theme.SkinMedia).
+	-- The skin's own medallion art, when the pack is the skin's (Theme.SkinMedia):
+	-- a file, or the client's atlas for a game look's (Theme.SetArt), drawn its
+	-- medallionScale times the medallion (the client's art in its own margin).
 	local T = ns.Theme
 	local skinArt = not MEDALS[ns.Get("nav.mapIcons")] and T and T.SkinMedia and T.SkinMedia("medallion") or nil
-	f.medal:SetTexture(type(skinArt) == "string" and skinArt or MEDALS[pack] or MEDALS.polestar)
-	f.medal:SetSize(medal, medal)
+	local art = type(skinArt) == "string" and skinArt or MEDALS[pack] or MEDALS.polestar
+	if T and T.SetArt then T.SetArt(f.medal, art) else f.medal:SetTexture(art) end
+	local k = art == skinArt and tonumber(T.SkinMedia("medallionScale")) or 1
+	f.medal:SetSize(medal * k, medal * k)
 	local tint = look.medal or look.skinRim
 	if tint then f.medal:SetVertexColor(tint[1] or 1, tint[2] or 1, tint[3] or 1, a) else f.medal:SetVertexColor(1, 1, 1, a) end
 	local ring = type(p.ring) == "table" and p.ring or nil

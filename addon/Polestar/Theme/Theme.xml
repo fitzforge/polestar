@@ -1,8 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="GameArt.lua"/>
 	<Script file="Theme.lua"/>
 	<Script file="SkinApi.lua"/>
-	<Script file="GameSkins.lua"/>
 	<Script file="Anim.lua"/>
 	<Script file="Widgets.lua"/>
 </Ui>
