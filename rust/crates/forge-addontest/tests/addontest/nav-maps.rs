@@ -650,6 +650,45 @@ emit(got)"#,
 	assert!(got["street"]["yards"].as_f64().unwrap() < 1200.0, "through the city ({})", got["street"]);
 }
 
+// #1890: in Stormwind's Dwarven District the cell's base surface (its largest piece) is a roof (z 112) over the street
+// (96, 102, indoor city), and 2 yd under the street lies the ground the city was built over (94, steep, not indoor),
+// joined to the world only far away. A point without a height starts from each surface at a distinct height: the roof
+// and the buried ground, the street within 10 yd of that one, so never tried. A walk to Westfall came out at 19,225
+// yd for a 3,465-yd walk; the same with the end there. In the point's own cell, the street takes the buried ground's
+// place.
+#[test]
+fn issue_1890_a_point_without_a_height_starts_from_the_street_not_the_ground_buried_under_it_the_dwarven_district_walks_to_westfall_through_the_city() {
+	let (_tmp, addon) = keep_ns();
+	let got = run(
+		r#"
+local Path, G = Polestar_NavEngine, stub.navNs.PathGrid
+local DWARVEN, WESTFALL = { x = -8387.6, y = 692.6 }, { x = -11456.8, y = 273.9 }
+local function walk(from, to)
+	local pts = Path.FindSync(0, from, to)
+	local yards = 0
+	for i = 2, #(pts or {}) do yards = yards + math.sqrt((pts[i].x - pts[i - 1].x) ^ 2 + (pts[i].y - pts[i - 1].y) ^ 2) end
+	return pts and math.floor(yards + 0.5) or false
+end
+local out = { from = walk(DWARVEN, WESTFALL), to = walk(WESTFALL, DWARVEN), floors = {} }
+local st = G.State(0)
+local k, lc = G.locate(st, DWARVEN.x, DWARVEN.y)
+local c = G.grid(st, k)
+out.base = G.zOf(c, lc)
+local first, count = G.floorsOf(c, lc)
+for n = first, first + count - 1 do
+	out.floors[#out.floors + 1] = math.floor(G.zOf(c, n) + 0.5) .. ":" .. G.CLS[string.byte(c.kind, n + 1)] % 8
+end
+emit(out)"#,
+		"",
+		vec![addon],
+	);
+	assert_eq!(got["base"], 112, "the cell's base surface: the roof");
+	assert_eq!(got["floors"], json!(["94:3", "96:5", "102:5"]), "the buried ground (steep) 2 yd under the street (indoor city)");
+	let (from, to) = (got["from"].as_f64().unwrap(), got["to"].as_f64().unwrap());
+	assert!(from < 4000.0, "from the Dwarven District to Westfall through the city ({from:.0} yd)");
+	assert!(to < 4000.0, "and back ({to:.0} yd)");
+}
+
 /// The packed graph strings of a map (Nav<map>_*.lua's data.packed.graph[k] blocks: zlib, as base64 or, with the
 /// metadata's `blocks = "zlib"`, as the bytes themselves; in Polestar_Nav/Nav or the map's part addon).
 fn graph_fields(map: u32) -> Vec<(usize, Vec<u8>)> {
