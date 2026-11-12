@@ -1282,7 +1282,24 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			file: "guide-fixes",
 			r,
 			slot: format!("{anchor:?} {kind}{}{to}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
-			want: format!("{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"], r["races"], r["follows"], r["split"], r["step"], r["way"], r["levels"]),
+			want: format!(
+				"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}",
+				r["tip"],
+				r["level"],
+				r["only"],
+				r["along"],
+				r["early"],
+				r["when"],
+				r["background"],
+				r["optional"],
+				r["goalNote"],
+				r["races"],
+				r["follows"],
+				r["split"],
+				r["step"],
+				r["way"],
+				r["levels"]
+			),
 			anchor,
 		});
 	}

@@ -735,8 +735,7 @@ pub fn first_visit_flight_paths(
 	let texts = split_lines(files);
 	let getfp_of = |l: &str| re!(r#"^\s+getfp\s+"([^"]+)""#).captures(split_comment(l).0).map(|m| m[1].to_string());
 	// Who plays each guide (its `race` header).
-	let file_aud: Vec<Audience> =
-		texts.iter().map(|ls| Audience::parse(&crate::guide::races_of(&ls.iter().take_while(|l| !is_step(l)).cloned().collect::<Vec<_>>()).join(","))).collect();
+	let file_aud: Vec<Audience> = texts.iter().map(|ls| Audience::parse(&crate::guide::races_of(&ls.iter().take_while(|l| !is_step(l)).cloned().collect::<Vec<_>>()).join(","))).collect();
 	// Steps: (file, header line, last body line).
 	let mut steps: Vec<(usize, usize, usize)> = Vec::new();
 	for (fi, lines) in texts.iter().enumerate() {
