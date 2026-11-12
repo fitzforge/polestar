@@ -563,18 +563,24 @@ local LEAVE_POPUP = "POLESTAR_LEAVE_HANDINS"
 
 -- Loading guide `id` in place of the active leveling guide, while the route
 -- still hands in finished quests before it (RoutePlan.LeftBehind): asks once
--- in the game's own popup (Load / Cancel). True when it asked.
+-- in the game's own popup (Load / Cancel). True when it asked. With the
+-- gamepad interface, whose focus owns the game's dialogs, chat says it
+-- instead and the guide loads.
 local function askLeave(id)
 	local E, Plan = ns.Engine, ns.RoutePlan
 	local cur = E.GetGuide and E.GetGuide()
 	if not (cur and cur.id ~= id and (cur.category == nil or cur.category == "Leveling") and Plan and Plan.LeftBehind) then return false end
-	if not (StaticPopupDialogs and StaticPopup_Show) then return false end
 	local left = Plan.LeftBehind(id)
 	if not (left and left.n > 0) then return false end
 	local target = ns.Guides.Get(id)
 	local what = left.n == 1 and L["1 finished quest in your log is handed in on the route before %s"]:format(target and target.title or id)
 		or L["%d finished quests in your log are handed in on the route before %s"]:format(left.n, target and target.title or id)
 	if left.xp > 0 then what = string.format(L["%s (%d XP)"], what, left.xp) end
+	if ns.GamepadUI() then
+		ns.Print(what .. ". " .. L["They stay in your log, and the guide lists who takes each in."])
+		return false
+	end
+	if not (StaticPopupDialogs and StaticPopup_Show) then return false end
 	StaticPopupDialogs[LEAVE_POPUP] = StaticPopupDialogs[LEAVE_POPUP] or {
 		text = "%s",
 		button1 = L["Load guide"],
