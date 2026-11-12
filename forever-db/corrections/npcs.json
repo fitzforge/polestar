@@ -1976,5 +1976,29 @@
 			}
 		],
 		"note": "Innkeeper Toka stands in Rog'mar's inn at 58.01,45.12, where players bind and buy from her. QuestieDB 1.0.14 adds a second point, 57.58,45.47, where no recording met her; the travel data's inn takes a map's first point, which put the inn about 24 yards off. Replaces the map's points."
+	},
+	"15351": {
+		"addSpawns": {
+			"1413": {
+				"f": "e",
+				"pts": [
+					[
+						63.64,
+						58.64
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 4 people met him at Northwatch Hold in the Barrens (map 1413), each at 63.5-64.0,58.4-58.8 (median 63.59,58.72); 2 of them opened his window there"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide collector spawn rows: 1413 63.64,58.64"
+			}
+		],
+		"note": "The Alliance Brigadier General also stands at Northwatch Hold, beside the Darkspear Islands portal, where players hand him their marks. The merged data had no spot for him in the Barrens, so the Darkspear Islands guide sent players to Refuge Pointe. Adds the Barrens map; his other spots stay."
 	}
 }
