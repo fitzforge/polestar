@@ -31,7 +31,7 @@ return {
 	["{npc:3062}, the shaman trainer in camp"] = "{npc:3062}, la instructora de chamanes del campamento",
 	-- {npc:3060} Gart Mistrunner
 	["{npc:3060}, the druid trainer beside him"] = "{npc:3060}, el instructor de druidas a su lado",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 5: The Hunt Continues
 	-- {npc:6775} Antur Fallow

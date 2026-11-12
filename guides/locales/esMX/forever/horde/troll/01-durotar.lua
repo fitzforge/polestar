@@ -11,7 +11,7 @@ return {
 	["{npc:3143} waits inside the Den, the building just west of {npc:10176}."] = "{npc:3143} espera dentro de la Guarida, el edificio justo al oeste de {npc:10176}.",
 	-- {npc:10176} Kaltunk
 	["{npc:10176}, where you start"] = "{npc:10176}, donde empiezas",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 2: Training weapons and boars
 	["Training weapons and boars"] = "Armas de entrenamiento y jabalíes",
@@ -192,7 +192,7 @@ return {
 	["{area:373}: kill these as you meet them"] = "",
 	-- {area:362} Razor Hill
 	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 42: Bloodtalon Matriarch
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
