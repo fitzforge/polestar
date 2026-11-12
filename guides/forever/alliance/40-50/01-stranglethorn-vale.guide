@@ -716,7 +716,7 @@ step Hammertoe's Digsite
   zone Badlands
   tip Ride south out of Loch Modan through the pass into the Badlands; Sigrun Ironhew camps at the dig.
   turnin 733                          -- Sigrun Ironhew
-  accept 706
+  accept 706 optional                 -- Fiery Blaze Enchantments: its Black Drake's Heart is a rare drop, so the work and hand-in are optional too
 
 step Garek
   tip Garek camps by himself in Dustwind Gulch, south-east of the digsite.

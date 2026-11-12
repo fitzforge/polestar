@@ -11417,3 +11417,31 @@ test(`${TIRISFAL}: a Warlock hands Halgar's Summons to Carendin before Creature 
 	assert.ok(fixes.deliberate.pairs.some((p) => `${p.a}` === 'turnin,1478' && `${p.b}` === 'accept,1473'), 'a record the build keeps');
 	assert.ok(fixes.overrides.include.some((x) => x.q === 1478), 'the route takes 1478');
 });
+
+// jaff's report: "I always have grey quests that are completed in random spots that I haven't handed in". Some
+// quests the route takes are handed in only by an `optional` goal: the engine never holds an optional goal, so the
+// player walks past the ender carrying the quest. Those hand-ins now hold (hidden for anyone without the quest); a
+// quest whose only work is a rare drop has its accept optional too, and a quest carried 18 levels for a tenth of its
+// XP is no longer taken.
+test("jaff's report: a quest the route takes is handed in by a goal that holds", { skip }, () => {
+	const A = (g) => `forever/alliance/${g}.guide`;
+	const H = (g) => `forever/horde/${g}.guide`;
+	const holds = [
+		[A('50-60/06-silithus'), 5845], [H('07-ashenvale'), 2], [H('07-ashenvale'), 23], [H('07-ashenvale'), 24], [DUROTARS[0], 830], [DUROTARS[1], 830],
+		[H('03-silverpine-forest'), 832], [H('tauren/01-mulgore'), 781], [H('06-hillsbrad-foothills'), 2479],
+	];
+	for (const [guide, q] of holds) {
+		const t = goals(guide).find(({ goal }) => is('turnin', q)(goal));
+		assert.ok(t && !t.goal.optional, `${guide}: turnin ${q} is a goal that holds`);
+		assert.ok(!(t.step.when || []).some((p) => p.k === 'group' || (p.k === 'onquest' && !p.neg && ![p.q].flat().includes(q))), `${guide}: turnin ${q} is not behind another quest's or a group's condition`);
+	}
+	const stv = goals(A('40-50/01-stranglethorn-vale')).find(({ goal }) => is('accept', 706)(goal));
+	assert.ok(stv && stv.goal.optional, 'accept 706 (Fiery Blaze Enchantments, a rare drop) is optional');
+	for (const file of allGuides().filter((f) => f.startsWith('forever/alliance/'))) {
+		assert.ok(!goals(file).some(({ goal }) => is('accept', 1037)(goal)), `${file}: Velinde Starsong is not taken`);
+	}
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const q of [5845, 2479]) assert.ok(fixes.deliberate.keep.some((k) => k.q === q), `keep ${q} is a record`);
+	assert.ok(fixes.deliberate.optional.some((k) => k.q === 706), 'optional 706 is a record');
+	assert.ok(fixes.overrides.skip.some((k) => k.q === 1037 && k.faction === 'Alliance'), 'skip 1037 is a record');
+});
