@@ -248,10 +248,11 @@ for i, loc in ipairs(locales) do
 	end
 end
 table.sort(bad)
-emit({{ count = count, bad = bad }})"#
+-- An empty Lua table emits as {}, so the list goes back as one string.
+emit({{ count = count, bad = table.concat(bad, "\n") }})"#
 		),
 		..Default::default()
 	});
 	assert!(out[0]["count"].as_u64().unwrap() > 0, "no translation uses positional arguments: {}", out[0]);
-	assert_eq!(out[0]["bad"], json!([]), "{}", out[0]);
+	assert_eq!(out[0]["bad"], "", "translations the client's format can't render with their key's arguments:\n{}", out[0]["bad"].as_str().unwrap_or_default());
 }
