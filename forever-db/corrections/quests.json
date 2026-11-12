@@ -301,6 +301,27 @@
 		},
 		"note": "Seek Redemption!: starts with Sentinel Kyra Starsong (npc 2081), Syral Bladeleaf (npc 2083) and Moon Priestess Amara (npc 2151); as its giver the merged data also listed Sentinel Shayla Nightbreeze (npc 2155)."
 	},
+	"545": {
+		"set": {
+			"preAll": [
+				93680
+			],
+			"preAny": [
+				544
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1837"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11: all 28 players who took Dalaran Patrols 545 took it right after handing in Key to the City 93680 to Magus Wordeen Voidglare, and 3 with Prison Break In 544 handed in were not offered it until they handed in 93680"
+			}
+		],
+		"note": "Dalaran Patrols (Magus Wordeen Voidglare, Tarren Mill) is offered only once both of his first quests are handed in: Prison Break In (544) and Key to the City (93680). Our data had Prison Break In alone, so the City of Dalaran pick-up guide sent a player with Key to the City still in the log to Voidglare for a quest he did not offer (#1837, a report sent next to him); handing in Key to the City made him offer it. Forever's City of Dalaran dungeon overview gives the same order: Prison Break In and Key to the City, then Dalaran Patrols."
+	},
 	"660": {
 		"set": {
 			"escort": true
