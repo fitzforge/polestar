@@ -37,7 +37,7 @@ return {
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721}: el vial viene de {zone:1440}, en la siguiente guía",
 
 	-- Step 6: Fly to Crossroads
-	["Fly to Crossroads"] = "",
+	["Fly to Crossroads"] = "Vuela al Cruce",
 	-- {npc:2995} Tal · {zone:1456} Thunder Bluff
 	["Fly to the Crossroads from the wind rider master: {npc:2995} on {zone:1456}'s central rise."] = "Vuela a El Cruce desde el maestro de jinetes del viento: {npc:2995}, en la meseta central de {zone:1456}.",
 
@@ -226,7 +226,7 @@ return {
 	-- Step 44: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 
 	-- Step 45: Sputtervalve
 	-- {npc:3442} Sputtervalve
