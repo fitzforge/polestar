@@ -96,6 +96,7 @@ RouteLines.MINIMAP_LIMITS = {
 -- sparkles under ui.reduceMotion, at the dots' size).
 RouteLines.SIZE_KEYS = { line = "minimapLineSize", dots = "minimapDotsSize", sparkle = "minimapSparkleSize" }
 
+
 -- The minimap size saved before the sizes were per style becomes each
 -- style's, where the style has none of its own; then it is gone.
 local function splitSize()
@@ -128,7 +129,7 @@ local LIVE_REACH = 60
 local JUMP = { hearth = true, teleport = true, portal = true }
 
 -- Theme tokens per leg kind (the same as the travel pins': Maps/TravelPins.lua).
-local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", tram = "object", lift = "object" }
+local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", airship = "place", tram = "object", lift = "object" }
 local colors = {}
 for kind in pairs(TOKEN) do colors[kind] = { 1, 1, 1 } end
 local under = { 0.02, 0.03, 0.06 }

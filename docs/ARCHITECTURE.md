@@ -4294,6 +4294,19 @@ with `RegisterCrossings` at load, which merges; installed when built, never
 packaged). Without the file nothing is written and TravelData.lua never holds
 it.
 
+**Flight points.** The flight network is the Classic Era client's (its
+TaxiNodes, TaxiPath and TaxiPathNode, left as they are) plus the flight
+points the Forever client adds: its TaxiNodes rows the Era table lacks, kept
+by the same rule (a faction's flight map and a character bit; no row the
+client retired, named `zzOLD…`), with their flights from its TaxiPath and
+TaxiPathNode (Rog'mar and Farholde Keep on the Riverglades, the Summit of
+Eternity and the Tainted Foothills on Mount Hyjal). A flight point on a map
+Forever added has no Era frame: its x, y are on the live frame and its
+TaxiNodes row ends in `"l"` (after the class, or `nil`), which
+`RegisterTravelData` turns into a node with no `f`, as live goals have. A
+Forever build whose TaxiNodes and TaxiPath are not cached leaves them out,
+with a warning (`forge data sources --only builders` fetches them).
+
 **Board points.** A boat's stop (its TaxiPathNode stop) is where the ship
 lies, 12-14 yd off its pier in open water at most docks. `travel build`
 reads the navigation grid (`--grid <dir>`, default `data/local/nav4`;
