@@ -543,6 +543,7 @@ step Thyn'tel Bladeweaver
   only NightElf
   zone Darnassus
   when level>=40
+  when onquest 1037
   turnin 1037
 
 step Darnassus

@@ -6828,6 +6828,22 @@
 				}
 			],
 			"issue": 1867
+		},
+		{
+			"id": "stranded-1037-carried-copies",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1037,
+				"goal": "turnin"
+			},
+			"when": "onquest 1037",
+			"note": "Velinde Starsong is no longer taken (route-fixes overrides.skip 1037): the Darnassus hand-ins in 40-50/01-stranglethorn-vale and 40-50/05-the-hinterlands are only for a copy a player still carries.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quests.json 1037: given by Sentinel Melyria Frostshadow (3880) in Ashenvale, ended by Thyn'tel Bladeweaver in Darnassus"
+				}
+			]
 		}
 	]
 }

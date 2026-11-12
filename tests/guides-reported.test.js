@@ -11438,7 +11438,12 @@ test("jaff's report: a quest the route takes is handed in by a goal that holds",
 	const stv = goals(A('40-50/01-stranglethorn-vale')).find(({ goal }) => is('accept', 706)(goal));
 	assert.ok(stv && stv.goal.optional, 'accept 706 (Fiery Blaze Enchantments, a rare drop) is optional');
 	for (const file of allGuides().filter((f) => f.startsWith('forever/alliance/'))) {
-		assert.ok(!goals(file).some(({ goal }) => is('accept', 1037)(goal)), `${file}: Velinde Starsong is not taken`);
+		const list = goals(file);
+		assert.ok(!list.some(({ goal }) => is('accept', 1037)(goal)), `${file}: Velinde Starsong is not taken`);
+		// A copy a player still carries is handed in only while it is in the log.
+		for (const { step } of list.filter(({ goal }) => is('turnin', 1037)(goal))) {
+			assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1037)), `${file}: turnin 1037 only while carried`);
+		}
 	}
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
 	for (const q of [5845, 2479]) assert.ok(fixes.deliberate.keep.some((k) => k.q === q), `keep ${q} is a record`);
