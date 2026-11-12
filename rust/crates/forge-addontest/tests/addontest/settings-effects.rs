@@ -646,7 +646,8 @@ fn every_control_has_an_effect_check() {
 	let (controls, due) = (set(&out["ids"]), set(&out["due"]));
 	let pending: Vec<String> = out["pending"].as_array().cloned().unwrap_or_default().iter().map(|x| x.as_str().unwrap_or_default().to_string()).collect();
 	let missing: Vec<&String> = due.difference(&checked).collect();
-	let stale: Vec<&String> = checked.difference(&controls).collect();
+	let retired = crate::settings_coverage::retired();
+	let stale: Vec<&String> = checked.difference(&controls).filter(|id| !retired.contains(*id)).collect();
 	assert!(stale.is_empty(), "checks for controls the window no longer has: {stale:?}");
 	assert!(
 		missing.is_empty(),

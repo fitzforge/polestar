@@ -174,16 +174,24 @@ fn build_version() -> Vec<u64> {
 
 // The manifest's control ids, split: the releases up to this build's (due), and the later ones' (ahead: their rows
 // may stand in the window before this build registers their settings). The effect checks' coverage uses it too.
+/// Controls and settings a release removed on purpose (settings-controls.json's `_retired`, id -> why):
+/// no longer owed a place in the window, an effect check, or a default.
+pub(crate) fn retired() -> std::collections::BTreeSet<String> {
+	let manifest: Value = serde_json::from_str(MANIFEST).expect("settings-controls.json");
+	manifest["_retired"].as_object().map(|o| o.keys().cloned().collect()).unwrap_or_default()
+}
+
 pub(crate) fn due_and_ahead() -> (Vec<Value>, Vec<Value>) {
 	let manifest: Value = serde_json::from_str(MANIFEST).expect("settings-controls.json");
 	let build = build_version();
+	let retired = retired();
 	let mut due = vec![];
 	let mut ahead = vec![];
 	for (release, entries) in manifest.as_object().unwrap() {
 		if release.starts_with('_') {
 			continue;
 		}
-		let ids: Vec<Value> = entries.as_array().unwrap().iter().map(|e| e["id"].clone()).collect();
+		let ids: Vec<Value> = entries.as_array().unwrap().iter().map(|e| e["id"].clone()).filter(|id| !retired.contains(id.as_str().unwrap_or_default())).collect();
 		if version(release) <= build {
 			due.extend(ids);
 		} else {

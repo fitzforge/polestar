@@ -212,16 +212,129 @@ return {
 			M.Set(3, nil)
 			return mark
 		end,
-		-- A class trainer with spells to learn: the Train All button under its window.
-		["qol.trainAllButton"] = function()
-			q.trainer = { tradeskill = false, services = { SPELLS[1], SPELLS[2], SPELLS[3] } }
-			q.openTrainer()
-			stub.advance(0.1)
-			local b = PolestarTrainAllButton
-			local out = b ~= nil and b:IsShown() or false
-			q.closeTrainer()
-			stub.advance(0.1)
+		-- The flight map on a step flying to Lakeshire: its node marked.
+		["qol.flightHighlight"] = function()
+			q.step({ { t = "fly", location = "Lakeshire" } })
+			q.openTaxi({ "Stormwind, Elwynn", "Lakeshire, Redridge", "Sentinel Hill, Westfall" })
+			local node = QoL.Flight.node or false
+			stub.fire("TAXIMAP_CLOSED")
+			TaxiFrame:Hide()
+			return node
+		end,
+		-- The step's innkeeper on a sethome step: the bind option picked.
+		["qol.autoBind"] = function()
+			q.step({ { t = "sethome", location = "Goldshire", npc = 295 } })
+			return gossip(295, { SHOP, BIND })
+		end,
+		-- Dead, a ghost: the arrow held on the corpse or the Spirit Healer.
+		["qol.deathHelper"] = function()
+			q.level = 8
+			q.ghost = true
+			stub.fire("PLAYER_ALIVE")
+			stub.advance(0.2)
+			local t = q.nav.target
+			local out = { label = t and t.label or false, held = t ~= nil and q.nav.held == t }
+			q.ghost = false
+			stub.fire("PLAYER_UNGHOST")
+			stub.advance(0.2)
+			q.level = 20
 			return out
+		end,
+		-- Breath running down to nine seconds: a warning (the client's icon flashes).
+		["qol.breathWarning"] = function()
+			local before = flashes
+			breath = 30000
+			stub.fire("MIRROR_TIMER_START", "BREATH", 30000, 30000, -1, false, "Breath")
+			breath = 9000
+			stub.advance(0.5)
+			stub.fire("MIRROR_TIMER_STOP", "BREATH")
+			stub.advance(0.1)
+			return flashes - before
+		end,
+		["qol.autoReleasePvP"] = function()
+			q.calls = {}
+			s.battleground = true
+			stub.fire("PLAYER_DEAD")
+			stub.runTimers()
+			s.battleground = false
+			return calls("RepopMe")
+		end,
+		["qol.acceptSummon"] = function()
+			q.calls = {}
+			q.showPopup("CONFIRM_SUMMON")
+			stub.fire("CONFIRM_SUMMON", 0, false)
+			stub.runTimers()
+			return calls("ConfirmSummon")
+		end,
+		["qol.acceptResurrect"] = function()
+			q.calls = {}
+			s.offerer = "Priest"
+			stub.fire("RESURRECT_REQUEST", "Priest")
+			stub.runTimers()
+			s.offerer = nil
+			return calls("AcceptResurrect")
+		end,
+		["qol.acceptPartyFriends"] = function() return invite("Fay", "Player-1-F") end,
+		["qol.declinePartyStrangers"] = function() return invite("Rando", "Player-1-Z") end,
+		["qol.declineGuildInvites"] = function()
+			q.calls = {}
+			GuildInviteFrame:Show()
+			stub.fire("GUILD_INVITE_REQUEST", "Rando", "Spam Guild", 0, nil, false)
+			stub.runTimers()
+			local out = { declined = calls("DeclineGuild"), window = GuildInviteFrame:IsShown() }
+			GuildInviteFrame:Hide()
+			return out
+		end,
+		["qol.declineDuels"] = function()
+			q.calls = {}
+			stub.fire("DUEL_REQUESTED", "Rando")
+			stub.runTimers()
+			return calls("CancelDuel")
+		end,
+		-- A merchant with three grey fangs in the bags: sold.
+		["qol.sellJunk"] = function()
+			q.addItem(0, 1, 1, 3)
+			local sold = #(q.sold or {})
+			local out = merchant(function() return #(q.sold or {}) - sold end)
+			emptyBags()
+			return out
+		end,
+		-- A merchant that repairs, 50c owed: repaired (from the guild bank when it may).
+		["qol.autoRepair"] = function()
+			q.repair = { can = true, cost = 50 }
+			return merchant(function() return calls("RepairAllItems") end)
+		end,
+		["qol.repairGuild"] = function()
+			q.repair = { can = true, cost = 50, guild = true }
+			return merchant(function()
+				for _, c in ipairs(q.calls) do if c[1] == "RepairAllItems" then return c[2] end end
+				return false
+			end)
+		end,
+		-- A step buying three Soothing Spices at a merchant selling them: bought.
+		["qol.buyGoals"] = function()
+			q.step({ { t = "buy", item = 20, count = 3, itemName = "Soothing Spices" } })
+			local out = merchant(function() return calls("BuyMerchantItem") end)
+			emptyBags()
+			return out
+		end,
+		["qol.restock"] = { prepare = function() QoL.Restock.Set("drink", 20) end, probe = restock,
+			cleanup = function() QoL.Restock.Set("drink", nil) end },
+		["Quality of Life:Drinks"] = restock,
+		["Quality of Life:Food"] = restock,
+		["Quality of Life:Ammunition"] = restock,
+		-- Two free slots, then three: the bag button (free slots and the cheapest junk).
+		["qol.bagSpace"] = { prepare = function() fill(2) end, probe = function() return QoL.Buttons.bag:IsShown() and true or false end, cleanup = emptyBags },
+		["qol.bagsLow"] = { prepare = function() fill(3) end, probe = function() return QoL.Buttons.bag:IsShown() and true or false end, cleanup = emptyBags },
+		-- Ctrl-Alt-click an item link: marked as junk (the mark taken off again).
+		["qol.itemMarks"] = function()
+			local M = QoL.Marks
+			stub.keys.ctrl, stub.keys.alt = true, true
+			Polestar.Hooks.OnItemClick("|Hitem:3|h[Linen Cloth]|h")
+			stub.keys.ctrl, stub.keys.alt = false, false
+			local mark = M.Get(3) or false
+			M.Set(3, nil)
+			return mark
 		end,
 		-- The flight map on a step flying to Lakeshire, its node marked: the flight taken.
 		["qol.flightAutoTake"] = function()
@@ -244,16 +357,6 @@ return {
 			stub.fire("UNIT_AURA", "player")
 			stub.runTimers()
 			return out
-		end,
-		-- A class trainer with two spells to learn.
-		["qol.trainAll"] = function()
-			q.trainer = { tradeskill = false, services = { SPELLS[1], { name = "Fireball", rank = "Rank 2", kind = "available", cost = 100 }, { name = "Frost Armor", rank = "Rank 1", kind = "available", cost = 200 } } }
-			q.calls = {}
-			q.openTrainer()
-			stub.advance(1)
-			q.closeTrainer()
-			stub.advance(0.1)
-			return calls("BuyTrainerService")
 		end,
 		-- Level 40 without riding: the reminder (once per character: its flag cleared again).
 		["qol.ridingReminder"] = function()

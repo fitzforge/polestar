@@ -92,7 +92,8 @@ emit({ count = n, wrong = check("after login"), unknown = unknown, profile = Pol
 	assert_eq!(out["count"], 271, "the fixture: 267 settings and 4 saved positions or states");
 	let wrong = list(&out["wrong"]);
 	assert!(wrong.is_empty(), "{} settings lost their saved value:\n{}", wrong.len(), wrong.join("\n"));
-	let unknown = list(&out["unknown"]);
+	let retired = crate::settings_coverage::retired();
+	let unknown: Vec<String> = list(&out["unknown"]).into_iter().filter(|k| !retired.contains(k)).collect();
 	assert!(unknown.is_empty(), "{} settings are no longer settings of this Polestar (retired without a migration):\n{}", unknown.len(), unknown.join("\n"));
 	assert_eq!(out["profile"], "Default", "the settings saved before profiles are the profile Default, where they are");
 	assert_eq!(out["moved"], false, "nothing moved into another profile");
