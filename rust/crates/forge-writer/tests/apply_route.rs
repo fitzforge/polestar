@@ -29,6 +29,8 @@ struct Case {
 	route_travel: bool,
 	/// The world's zone crossings (the writer's walks go over them).
 	crossings: Option<forge_world::world::Crossings>,
+	/// The pass-by pickups (pass_by.rs): on in the writer's runs, off here unless a case is about them.
+	pass_by: bool,
 }
 
 impl Default for Case {
@@ -46,6 +48,7 @@ impl Default for Case {
 			level_fraction: false,
 			route_travel: false,
 			crossings: None,
+			pass_by: false,
 		}
 	}
 }
@@ -103,6 +106,7 @@ fn run(c: &Case, area_at: Option<&dyn SubzoneOf>) -> Run {
 		walks: None,
 		borders: borders.as_ref(),
 		fresh_openers: forge_writer::post::FreshOpeners::Flag,
+		pass_by: c.pass_by,
 	})
 	.unwrap();
 	Run { out, guides }
@@ -10407,4 +10411,151 @@ fn level_fit_judges_the_ground_not_only_the_target() {
 		o.as_object_mut().unwrap().remove("lvl");
 	}
 	assert_eq!(pick(&run(&c, None).read("a"), r"^\s+(accept|turnin|kill)"), vec!["  accept 6", "  accept 8", "  kill 31 quest 6.1", "  turnin 6", "  turnin 8"]);
+}
+
+/// Pass-by pickups (#1959): the Barrens' Dry Hills in small, on 1411's frame. The Crossroads at
+/// (-800, 0), the harpies (0, 0), the raptors (0, 300), Vrang (150, 150), 150 yd off the walk between
+/// the two camps, his lions (250, 250), the hermit Walton (300, 50). The route works the harpies and the
+/// raptors at 17, hands both in at the Crossroads, and walks back to Vrang at 19 for Bruised Pride and
+/// Lion Hides, then The Hermit Tanner to Walton. `edit` changes the world, the quests and the npcs.
+fn dry_hills(edit: impl Fn(&mut Value, &mut Value, &mut Value)) -> Case {
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 16-20",
+		"zone Durotar",
+		"",
+		"step Crossroads",
+		"  accept 2",
+		"  accept 3",
+		"",
+		"step Harpies",
+		"  kill 20 quest 2.1",
+		"",
+		"step Raptors",
+		"  kill 21 quest 3.1",
+		"",
+		"step Crossroads again",
+		"  turnin 2",
+		"  turnin 3",
+		"",
+		"step Vrang",
+		"  accept 1",
+		"",
+		"step Lions",
+		"  kill 30 quest 1.1",
+		"",
+		"step Vrang again",
+		"  turnin 1",
+		"  accept 6",
+		"",
+		"step Walton",
+		"  turnin 6",
+		"",
+	];
+	let mut world = json!({
+		"points": [[1, 1, -800, 0, 1411], [1, 1, 0, 0, 1411], [1, 1, 0, 300, 1411], [1, 1, 150, 150, 1411], [1, 1, 250, 250, 1411], [1, 1, 300, 50, 1411]],
+		"zones": { "1411": "Durotar" },
+		"quests": [
+			{ "id": 1, "giver": 3, "ender": 3, "objs": [{ "oi": 0, "type": "kill", "id": 30, "task": 0 }], "tasks": [{ "work": [["kill", 15, 6, 0, 0, 30]] }] },
+			{ "id": 6, "giver": 3, "ender": 5, "tasks": [] },
+			{ "id": 2, "giver": 0, "ender": 0 }, { "id": 3, "giver": 0, "ender": 0 }
+		]
+	});
+	let mut quests = json!({
+		"1": { "title": "Bruised Pride and Lion Hides", "level": 18, "minLevel": 14 },
+		"6": { "title": "The Hermit Tanner", "level": 18, "minLevel": 14, "pre": [1] },
+		"2": { "title": "Harpy Lieutenants", "level": 17 },
+		"3": { "title": "Raptor Horns", "level": 17 }
+	});
+	// (Map points on 1411's frame: x = (wy + 1000) / 20, y = (1000 - wx) / 20.)
+	let mut npcs = Value::Object(
+		[camp(20, "Witchwing Harpy", 16, 17, 50.0, 50.0, 5), camp(21, "Sunscale Scytheclaw", 16, 17, 65.0, 50.0, 5), camp(30, "Savannah Patriarch", 15, 16, 62.5, 37.5, 5)].into_iter().collect(),
+	);
+	edit(&mut world, &mut quests, &mut npcs);
+	Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Horde", "diff": {}, "order": [
+			{ "t": "accept", "q": 2, "pt": 0, "lvl": 17.0, "from": f("a", 7) }, { "t": "accept", "q": 3, "pt": 0, "lvl": 17.0, "from": f("a", 8) },
+			{ "t": "task", "q": 2, "task": 0, "pt": 1, "lvl": 17.2, "from": f("a", 11) },
+			{ "t": "task", "q": 3, "task": 0, "pt": 2, "lvl": 17.6, "from": f("a", 14) },
+			{ "t": "turnin", "q": 2, "pt": 0, "lvl": 18.0, "from": f("a", 17) }, { "t": "turnin", "q": 3, "pt": 0, "lvl": 18.1, "from": f("a", 18) },
+			{ "t": "accept", "q": 1, "pt": 3, "lvl": 19.0, "from": f("a", 21) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 4, "lvl": 19.2, "from": f("a", 24) },
+			{ "t": "turnin", "q": 1, "pt": 3, "lvl": 19.6, "from": f("a", 27) }, { "t": "accept", "q": 6, "pt": 3, "lvl": 19.6, "from": f("a", 28) },
+			{ "t": "turnin", "q": 6, "pt": 5, "lvl": 19.7, "from": f("a", 31) }
+		] }),
+		world,
+		quests,
+		npcs,
+		pass_by: true,
+		..Case::default()
+	}
+}
+
+/// The Dry Hills route as the route has it: Vrang on a trip of his own after the hand-ins.
+const DRY_HILLS_ROUTE: [&str; 11] =
+	["  accept 2", "  accept 3", "  kill 20 quest 2.1", "  kill 21 quest 3.1", "  turnin 2", "  turnin 3", "  accept 1", "  kill 30 quest 1.1", "  turnin 1", "  accept 6", "  turnin 6"];
+
+#[test]
+fn pass_by_takes_a_giver_the_walk_passes_with_his_work_and_the_next_part() {
+	// #1959: the second Dry Hills trip walks 150 yd past Vrang at 17.6 (minimum 14); his lions are
+	// 141 yd from him at 15-16. Bruised Pride and Lion Hides is taken on that walk, the lions worked and
+	// the hides handed in there; the hand-in stands the player at Vrang, so The Hermit Tanner comes too,
+	// handed in to Walton 180 yd away. No trip of its own back to Vrang.
+	let r = run(&dry_hills(|_, _, _| {}), None);
+	assert_eq!(
+		pick(&r.read("a"), r"^\s+(accept|turnin|kill)"),
+		vec!["  accept 2", "  accept 3", "  kill 20 quest 2.1", "  accept 1", "  kill 30 quest 1.1", "  turnin 1", "  accept 6", "  turnin 6", "  kill 21 quest 3.1", "  turnin 2", "  turnin 3"],
+		"{:#?}",
+		r.out.log
+	);
+	assert!(
+		r.out.log.iter().any(|l| l == "pass-by: Bruised Pride and Lion Hides (1) taken on the walk past its giver (150 yd off) after task harpy lieutenants (2) at level 17.6, its work and hand-in with it; the route took it at 19.0"),
+		"{:#?}",
+		r.out.log
+	);
+	assert!(r.out.log.iter().any(|l| l.starts_with("pass-by: The Hermit Tanner (6) taken at its giver after turnin bruised pride and lion hides (1)")), "{:#?}", r.out.log);
+	// Without the rule the route's own visits stand.
+	let off = run(&Case { pass_by: false, ..dry_hills(|_, _, _| {}) }, None);
+	assert_eq!(pick(&off.read("a"), r"^\s+(accept|turnin|kill)"), DRY_HILLS_ROUTE);
+}
+
+#[test]
+fn pass_by_leaves_a_giver_too_far_under_level_or_waiting_for_a_prerequisite() {
+	type Edit = fn(&mut Value, &mut Value, &mut Value);
+	let cases: [(&str, Edit); 5] = [
+		// Vrang 260 yd off the walk: a stop of his own.
+		("too far", |w, _, _| w["points"][3] = json!([1, 1, 260, 150, 1411])),
+		// The quest's minimum, 18, over the walk's 17.6.
+		("under its minimum", |_, q, _| q["1"]["minLevel"] = json!(18)),
+		// Raptor Horns, handed in after the walk, comes before it.
+		("its prerequisite not handed in", |_, q, _| q["1"]["pre"] = json!([3])),
+		// Lions of 20-21 at 17.6: the work does not fit there (level_fit.rs; it does at 19.2, where the
+		// route has it).
+		("its work over the level", |_, _, n| {
+			n["30"]["level"] = json!(20);
+			n["30"]["levelMax"] = json!(21);
+		}),
+		// The lions 510 yd from Vrang: not on that visit.
+		("its work out of reach", |w, _, n| {
+			w["points"][4] = json!([1, 1, 650, 250, 1411]);
+			n["30"] = camp(30, "Savannah Patriarch", 15, 16, 62.5, 17.5, 5).1;
+		}),
+	];
+	for (why, edit) in cases {
+		let r = run(&dry_hills(edit), None);
+		assert_eq!(pick(&r.read("a"), r"^\s+(accept|turnin|kill)"), DRY_HILLS_ROUTE, "{why}: {:#?}", r.out.log);
+		assert!(!r.out.log.iter().any(|l| l.starts_with("pass-by:")), "{why}: {:#?}", r.out.log);
+	}
+}
+
+#[test]
+fn pass_by_never_takes_an_escort_or_a_timed_quest_earlier() {
+	type Edit = fn(&mut Value, &mut Value, &mut Value);
+	let cases: [(&str, Edit); 2] = [("an escort", |w, _, _| w["quests"][0]["escort"] = json!(true)), ("a timed quest", |w, _, _| w["quests"][0]["limit"] = json!(1800))];
+	for (why, edit) in cases {
+		let r = run(&dry_hills(edit), None);
+		assert_eq!(pick(&r.read("a"), r"^\s+(accept|turnin|kill)"), DRY_HILLS_ROUTE, "{why}: {:#?}", r.out.log);
+	}
 }

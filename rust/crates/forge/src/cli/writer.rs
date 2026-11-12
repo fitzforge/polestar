@@ -10,7 +10,8 @@ pub(super) const USAGE: &str = "usage: forge writer apply-route <route.json> --w
                            [--guides <dir>] [--data <dir>] [--root <checkout>] [--checkout <dir>] [--walks <file>]
                            [--format-0-3] [--no-engine] [--no-along] [--no-use] [--no-when] [--no-level]
                            [--no-tips] [--no-warnings] [--no-groups]
-                           [--no-route-legs] [--no-repair] [--fresh-openers flag|move|off]
+                           [--no-route-legs] [--no-repair] [--no-pass-by]
+                           [--fresh-openers flag|move|off]
 
 Copies the guides (default <root>/guides) to --out and rewrites the route's chain in the route's order:
 the guides' own lines move with their step's tips, added quests become accept, objective and turn-in
@@ -40,15 +41,19 @@ Westfall on) are written once, from the shared order of every route of the facti
   --no-groups      the route's elite and group quests unasked: no `when group`, no elite tip or group
                    size on them, no solo grind for a player who skips them
   --format-0-3     also `when group`, `task`/`cast`, `abandon`, `skipto` (guide pack format 5, Polestar 0.3.0)
+  --no-pass-by     quests stay on the visits the route takes them on: none is taken on an earlier walk
+                   that passes its giver (`pass-by: …` in the log, docs/forge/writer.md \"Pass-by pickups\")
 
 usage: forge writer apply-routes <routes dir> --sim <dir> --out <dir> [--starts Orc,Human,...]
                            [--guides <dir>] [--data <dir>] [--root <checkout>] [--checkout <dir>]
+                           [--no-pass-by]
 
 Every start's route in <routes dir> (default: every start of its starts.json) written as forge build's
 guides stage writes it: the default options, world-<faction>.json and walks-<faction>.bin from --sim,
 each faction's starts in turn sharing its shared guides (the factions at once). Writes <out>/<Start>/,
 <out>/<Start>.fixes.json (the fix pass's rows), <out>/<Start>.log (the writer's log) and
 <out>/<Start>.status (`ok`, or why the start was not written). Exit 1 when a start was not written.
+--no-pass-by leaves out the pass-by pickups, as for apply-route.
 
 usage: forge writer gate-diff <previous run> <new run> [--out <file>] [--labels <previous>,<new>]
 
@@ -112,13 +117,17 @@ impl From<bool> for Done {
 	}
 }
 
-/// Value options and positionals of a subcommand's arguments (`names`: the options taking a value).
-fn parse<'a>(args: &'a [String], names: &[&str]) -> Result<(Vec<String>, BTreeMap<&'a str, String>), String> {
+/// Value options, flags and positionals of a subcommand's arguments (`names`: the options taking a
+/// value; `flags`: the options taking none, read with an empty value).
+fn parse<'a>(args: &'a [String], names: &[&str], flags: &[&str]) -> Result<(Vec<String>, BTreeMap<&'a str, String>), String> {
 	let (mut positional, mut opt) = (Vec::new(), BTreeMap::new());
 	let mut i = 0;
 	while i < args.len() {
 		let a = args[i].as_str();
-		if names.contains(&a) {
+		if flags.contains(&a) {
+			opt.insert(a, String::new());
+			i += 1;
+		} else if names.contains(&a) {
 			let v = args.get(i + 1).ok_or_else(|| format!("{a} needs a value"))?;
 			opt.insert(a, v.clone());
 			i += 2;
@@ -134,7 +143,7 @@ fn parse<'a>(args: &'a [String], names: &[&str]) -> Result<(Vec<String>, BTreeMa
 
 /// forge writer apply-routes: Ok(Ok(false)) when a start was not written.
 fn run_many(args: &[String]) -> Result<Result<bool, String>, String> {
-	let (positional, opt) = match parse(args, &["--sim", "--out", "--starts", "--guides", "--data", "--root", "--checkout"]) {
+	let (positional, opt) = match parse(args, &["--sim", "--out", "--starts", "--guides", "--data", "--root", "--checkout"], &["--no-pass-by"]) {
 		Ok(p) => p,
 		Err(m) => return Ok(Err(m)),
 	};
@@ -178,7 +187,8 @@ fn run_many(args: &[String]) -> Result<Result<bool, String>, String> {
 		};
 		let file = |ext: &str| out.join(format!("{start}.{ext}"));
 		let put = |ext: &str, text: String| std::fs::write(file(ext), text).map_err(|e| format!("{}: {e}", file(ext).display()));
-		match forge_writer::native::run_paths(&pin, &forge_writer::RunOpts::default(), cache) {
+		let ropts = forge_writer::RunOpts { pass_by: !opt.contains_key("--no-pass-by"), ..forge_writer::RunOpts::default() };
+		match forge_writer::native::run_paths(&pin, &ropts, cache) {
 			Ok(r) => {
 				put("log", r.log.join("\n") + "\n")?;
 				put("fixes.json", serde_json::to_string_pretty(&r.fixes).map_err(|e| e.to_string())?)?;
@@ -220,7 +230,7 @@ fn run_many(args: &[String]) -> Result<Result<bool, String>, String> {
 /// forge writer gate-diff: Ok(Ok(false)) when the new run fails the gate.
 fn gate_diff(args: &[String]) -> Result<Result<bool, String>, String> {
 	use forge::gate;
-	let (positional, opt) = match parse(args, &["--out", "--labels"]) {
+	let (positional, opt) = match parse(args, &["--out", "--labels"], &[]) {
 		Ok(p) => p,
 		Err(m) => return Ok(Err(m)),
 	};
@@ -283,7 +293,8 @@ fn run(args: &[String]) -> Result<Result<(), String>, String> {
 				opt.insert(a, v.clone());
 				i += 2;
 			}
-			"--no-engine" | "--format-0-3" | "--no-along" | "--no-use" | "--no-when" | "--no-level" | "--no-tips" | "--no-warnings" | "--no-groups" | "--no-route-legs" | "--no-repair" => {
+			"--no-engine" | "--format-0-3" | "--no-along" | "--no-use" | "--no-when" | "--no-level" | "--no-tips" | "--no-warnings" | "--no-groups" | "--no-route-legs" | "--no-repair"
+			| "--no-pass-by" => {
 				opt.insert(a, String::new());
 				i += 1;
 			}
@@ -346,6 +357,7 @@ fn run(args: &[String]) -> Result<Result<(), String>, String> {
 			Some("off") => forge_writer::post::FreshOpeners::Off,
 			Some(x) => return Ok(Err(format!("--fresh-openers takes flag, move or off, not {x}"))),
 		},
+		pass_by: !opt.contains_key("--no-pass-by"),
 	};
 	let ro = forge_writer::native::run_paths(&pin, &ropts, &forge_writer::native::SharedCache::default())?;
 	for m in &ro.log {

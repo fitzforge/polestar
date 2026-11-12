@@ -15,6 +15,7 @@ pub mod level_fit;
 #[cfg(feature = "native")]
 pub mod native;
 pub mod objectives;
+pub mod pass_by;
 pub mod post;
 pub mod run;
 pub mod shared;
