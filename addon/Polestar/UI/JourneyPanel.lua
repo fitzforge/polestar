@@ -63,7 +63,7 @@ local MAX_ROWS = 8
 local MORE_H = 20
 
 local GLYPH = {
-	walk = "icon-goto", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", tram = "icon-boat",
+	walk = "icon-goto", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", airship = "icon-boat", tram = "icon-boat",
 	lift = "icon-lift", portal = "icon-explore", hearth = "icon-hearth", teleport = "icon-use",
 }
 local STEP_GLYPH = {
@@ -72,7 +72,7 @@ local STEP_GLYPH = {
 }
 -- How a leg reads when the planner gave it no caption (never "Unknown").
 local STEP_TEXT = {
-	walk = L["Walk to %s"], fly = L["Fly to %s"], boat = L["Boat to %s"], zeppelin = L["Zeppelin to %s"],
+	walk = L["Walk to %s"], fly = L["Fly to %s"], boat = L["Boat to %s"], zeppelin = L["Zeppelin to %s"], airship = L["Airship to %s"],
 	tram = L["Tram to %s"], lift = L["Lift to %s"], portal = L["Portal to %s"], hearth = L["Hearth to %s"],
 	teleport = L["Teleport to %s"],
 }

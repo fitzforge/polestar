@@ -49,12 +49,13 @@ Alerts.AT_DOCK, Alerts.ON_BOARD, Alerts.RADIUS = AT_DOCK, ON_BOARD, RADIUS
 local ARRIVES = {
 	boat = L["Boat to %s"],
 	zeppelin = L["Zeppelin to %s"],
+	airship = L["Airship to %s"],
 	tram = L["Tram to %s"],
 }
 -- What the game plays for each (FileDataIDs, sound/doodad/): the bell a ship
 -- rings as it docks (boatdockedwarning.ogg), the zeppelin's horn
--- (zeppelinhorn.ogg), the tram pulling in (subwaystop.ogg).
-local SOUND = { boat = 566652, zeppelin = 566719, tram = 566056 }
+-- (zeppelinhorn.ogg, for the airships too), the tram pulling in (subwaystop.ogg).
+local SOUND = { boat = 566652, zeppelin = 566719, airship = 566719, tram = 566056 }
 Alerts.SOUND = SOUND
 
 -- [route .. ":" .. dock] = GetTime() of its alert.

@@ -310,6 +310,9 @@ local function goalTooltip(row)
 		lines[#lines + 1] = { left = L["Quest"], right = title and (title .. id .. goal.quest .. "|r") or ("#" .. goal.quest) }
 		local new = ns.NewQuests and ns.NewQuests.TooltipText(goal.quest)
 		if new then lines[#lines + 1] = { new, Theme.Accent() } end
+		-- A dungeon's quest, or one of the nearest prerequisites before one (Dungeons/Mark.lua).
+		local dungeon = ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(goal.quest)
+		if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
 	end
 	if goal.npc then
 		local name = goal.subjectKind == "npc" and goal.subject or goal.npcName
@@ -655,7 +658,7 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	end
 	-- The game's looks light the goal to do now with their own art.
 	Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
-	UI.SetCounted(r.Text, UI.GoalLine(goal, questHex))
+	UI.SetCounted(r.Text, UI.GoalLine(goal, questHex, true))
 	-- White while it is to be done; done and skipped goals step back. The
 	-- turn-in of a quest whose objectives are still open, pinned (#644),
 	-- ticked by hand (#1135) or worked along the way (#853): the warning

@@ -130,8 +130,8 @@ return {
 	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} fica na beira de {area:596}, a sudoeste de {area:2407}; {object:176751} estão entre os esqueletos.",
 
 	-- Step 29: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Um {npc:217590} rasteja por {area:596}: capture um com a ferramenta do kit de entomologia de {npc:217412}.",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
+	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 30: Maraudine centaurs
 	["Maraudine centaurs"] = "Centauros Maraudinos",
@@ -196,6 +196,7 @@ return {
 	["The next guide starts in Theramore."] = "O próximo guia começa na Ilha Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Um {npc:217590} rasteja por {area:596}: capture um com a ferramenta do kit de entomologia de {npc:217412}.",
 	-- ["Follow the road north to {area:608}."] = "Siga a estrada para o norte até {area:608}.",
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Siga a estrada para o oeste pelo norte de {zone:1443} até as ruínas de {area:2405}; o baú do navio naufragado está na praia logo a oeste delas.",
 	-- ["Greater Rock Elementals"] = "Elementais Maiores da Rocha",

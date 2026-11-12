@@ -117,6 +117,22 @@ fn idx(lines: &[String], l: &str) -> i64 {
 	lines.iter().position(|x| x == l).map_or(-1, |i| i as i64)
 }
 
+/// The travel-only steps (one `goto`, nothing else to do) into `zone`, in order; each says where it
+/// leads, never just the zone's name (#1450): asserted here.
+fn zone_walks(lines: &[String], zone: &str) -> Vec<i64> {
+	let mut out = Vec::new();
+	for (i, l) in lines.iter().enumerate() {
+		let Some(title) = l.strip_prefix("step ") else { continue };
+		let body: Vec<&String> = lines[i + 1..].iter().take_while(|x| !x.is_empty() && !x.starts_with("step ")).collect();
+		let goals: Vec<&&String> = body.iter().filter(|x| m(x, r"^\s+(accept|turnin|kill|collect|interact|use|complete|goto|talk|fly|getfp|sethome|hearth|level|train|vendor)\b")).collect();
+		if goals.len() == 1 && goals[0].trim_start().starts_with("goto ") && body.iter().any(|x| **x == format!("  zone {zone}")) {
+			assert!(!["", "To ", "Back to "].iter().any(|p| title == format!("{p}{zone}")), "a travel step named just {zone:?}: {lines:#?}");
+			out.push(i as i64);
+		}
+	}
+	out
+}
+
 fn has(lines: &[String], l: &str) -> bool {
 	lines.iter().any(|x| x == l)
 }
@@ -342,7 +358,9 @@ fn zone_move_gets_a_goto_and_item_accept_follows_item() {
 		..Case::default()
 	};
 	let text = run(&c, None).text("a");
-	assert!(m(&text, r#"step The Barrens\n {2}zone The Barrens\n {2}goto 95\.0,95\.0 "The Barrens""#));
+	// (Labelled with where it leads, the step it leads to, never just the zone's name, #1450.)
+	assert!(m(&text, r#"step To Two\n {2}zone The Barrens\n {2}goto 95\.0,95\.0 "To Two""#), "{text}");
+	assert!(!m(&text, r"step The Barrens\n"), "{text}");
 	assert!(m(&text, r"collect 50\n {2}accept 3"));
 }
 
@@ -1929,10 +1947,73 @@ fn inserted_grind_top_up_is_a_step_of_its_own_at_the_camp_before_the_hand_ins() 
 	assert!(
 		m(
 			&text,
-			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill: they take you to level 13\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
+			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
 		),
 		"{text}"
 	);
+}
+
+// GrindVsHandin (Fix 2): a top-up before the town keeps the target the route needs after the town's
+// hand-ins, less their XP; one they cover whole is not written; "they take you to level N" is the
+// hand-ins' XP reckoned, not the target's next level.
+#[test]
+fn a_grind_top_up_takes_the_hand_ins_before_the_level_is_needed_off_its_target() {
+	let c = |xp1: f64, order: Vec<Value>| Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 10-20",
+				"zone Durotar",
+				"",
+				"step Hub",
+				"  accept 1",
+				"",
+				"step Camp",
+				"  kill 20 quest 1.1",
+				"",
+				"step Hub again",
+				"  turnin 1",
+				"  accept 2",
+				"  turnin 2",
+				"",
+			],
+		)],
+		route: json!({ "diff": {}, "order": order }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411]], "zones": { "1411": "Durotar" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }, { "id": 2, "objs": [] }] }),
+		quests: json!({
+			"1": { "title": "One", "level": 12, "xp": xp1, "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "kill", "id": 20 }] },
+			"2": { "title": "Two", "level": 13, "minLevel": 13, "xp": 12000, "start": { "npc": [8] }, "end": { "npc": [8] } },
+		}),
+		npcs: json!({ "8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } }, "20": { "name": "Mottled Boar", "spawns": { "1411": { "f": "e", "pts": [[75, 75]] } } } }),
+		..Case::default()
+	};
+	let head = |target: f64| {
+		vec![
+			json!({ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) }),
+			json!({ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) }),
+			json!({ "t": "level", "lvl": 12.2, "target": target, "pt": 1, "from": "inserted" }),
+			json!({ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) }),
+		]
+	};
+	let tip = |text: &str| text.lines().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default().to_string();
+	let razor = area("Razor Hill", "Durotar", 1411);
+	// (12.2 to 12.4 is 2,020 XP; One gives 1,010: the grind is to 12.3, and One takes the player to 12.4,
+	// not to 13.)
+	let text = run(&c(1010.0, head(12.4)), Some(&razor)).text("a");
+	assert!(m(&text, r"step Level 12\.3\n( {2}zone Durotar\n)? {2}when level<12\.3\n"), "{text}");
+	assert_eq!(tip(&text), "  tip Top up here to level 12.3 before the hand-ins at Razor Hill.", "{text}");
+	// (One's 3,000 cover it whole: no top-up.)
+	let text = run(&c(3000.0, head(12.4)), Some(&razor)).text("a");
+	assert!(!text.contains("step Level"), "{text}");
+	// (Two needs 13: the hand-ins before it count, the grind is to 13; One and Two take a player at 13
+	// to 14.)
+	let mut order = head(13.1);
+	order.push(json!({ "t": "accept", "q": 2, "pt": 0, "from": f("a", 14) }));
+	order.push(json!({ "t": "turnin", "q": 2, "pt": 0, "from": f("a", 15) }));
+	let text = run(&c(1140.0, order), Some(&razor)).text("a");
+	assert_eq!(tip(&text), "  tip Top up here to level 13 before the hand-ins at Razor Hill: they take you to level 14.", "{text}");
 }
 
 // Fitz's grind policy (2026-11-08, final route review): every written grind step keeps its gate and says
@@ -1963,14 +2044,14 @@ fn a_grind_top_up_names_the_dungeons_of_its_level_for_the_routes_faction() {
 		r.read("a").into_iter().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default()
 	};
 	let horde = tip(Some("Horde"), 21.4);
-	assert!(horde.ends_with("they take you to level 22. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
+	assert!(horde.ends_with("before the hand-ins at Razor Hill. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
 	let alliance = tip(Some("Alliance"), 21.4);
 	assert!(alliance.ends_with(" Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."), "{alliance}");
 	let high = tip(Some("Horde"), 28.9);
 	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead."), "{high}");
 	// Below every dungeon's band: no sentence.
 	let low = tip(Some("Horde"), 12.4);
-	assert!(low.ends_with("they take you to level 13."), "{low}");
+	assert!(low.ends_with("before the hand-ins at Razor Hill."), "{low}");
 }
 
 #[test]
@@ -2312,7 +2393,7 @@ fn a_class_detour_comes_back_before_everyones_walk_on() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let (back, walk) = (idx(&g, "step Back to Durotar"), idx(&g, "step The Barrens"));
+	let (back, walk) = (zone_walks(&g, "Durotar").first().copied().unwrap_or(-1), zone_walks(&g, "The Barrens").last().copied().unwrap_or(-1));
 	assert!(back >= 0 && walk > back, "{g:#?}");
 	assert_eq!(g[back as usize + 1], "  only Druid");
 }
@@ -2456,7 +2537,7 @@ fn a_starts_way_onto_the_shared_route_takes_its_waiting_class_steps_on_the_way()
 		..Case::default()
 	};
 	let g = run(&c, None).read("s");
-	let (way, class) = (idx(&g, "step The Barrens"), idx(&g, "step Warrior Quest"));
+	let (way, class) = (zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1), idx(&g, "step Warrior Quest"));
 	assert!(way >= 0 && class > way, "{g:#?}");
 }
 
@@ -2747,12 +2828,13 @@ fn a_walk_into_another_zone_goes_over_its_zone_crossing() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let (cross, walk) = (idx(&g, "step Into Winterspring"), idx(&g, "step Winterspring"));
+	let ws = zone_walks(&g, "Winterspring");
+	let (cross, walk) = (ws.first().copied().unwrap_or(-1), ws.get(1).copied().unwrap_or(-1));
 	assert!(cross >= 0 && walk > cross, "{g:#?}");
 	assert_eq!(&g[cross as usize + 1..cross as usize + 3], ["  zone Winterspring", "  goto 50.5,90.0 \"Into Winterspring\""], "{g:#?}");
-	// No crossings known: the one goto.
+	// No crossings known: the one goto (labelled where it leads, not just "Winterspring", #1450).
 	let g = run(&Case { crossings: None, ..c }, None).read("a");
-	assert!(idx(&g, "step Into Winterspring") < 0 && idx(&g, "step Winterspring") >= 0, "{g:#?}");
+	assert_eq!(zone_walks(&g, "Winterspring").len(), 1, "{g:#?}");
 }
 
 fn sw_hillsbrad_world() -> (Value, Value) {
@@ -3405,7 +3487,7 @@ fn a_class_flight_off_is_written_at_the_flight_master_the_route_walks_away_from(
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let walk = idx(&g, "step The Barrens");
+	let walk = zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1);
 	assert!(walk >= 0 && idx(&g, "step Druid trainer") < walk, "{g:#?}");
 }
 
@@ -3432,7 +3514,7 @@ fn the_routes_way_to_a_step_for_other_races_is_its_own_races() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("start");
-	let walk = idx(&g, "step The Barrens");
+	let walk = zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1);
 	assert!(walk >= 0, "{g:#?}");
 	assert_ne!(g[walk as usize + 1], "  only Orc,Skyborne", "{g:#?}");
 }
@@ -3755,7 +3837,8 @@ fn a_class_way_prices_its_walks_over_the_zone_crossings() {
 	};
 	let g = run(&c, None).read("a");
 	assert!(pick(&g, r"^\s+fly\s").is_empty() && pick(&g, r"flight master").is_empty(), "{g:#?}");
-	let (into, there, takar) = (idx(&g, "step Into The Barrens"), idx(&g, "step The Barrens"), idx(&g, "step Takar the Seer"));
+	let into = idx(&g, "step Into The Barrens");
+	let (there, takar) = (zone_walks(&g, "The Barrens").into_iter().find(|&w| w > into).unwrap_or(-1), idx(&g, "step Takar the Seer"));
 	assert!(into >= 0 && into < there && there < takar, "{g:#?}");
 	assert!(g[into as usize + 1] == "  only Warlock" && g[there as usize + 1] == "  only Warlock", "{g:#?}");
 }
@@ -3982,7 +4065,7 @@ fn a_class_crossing_from_a_dock_out_of_reach_walks_to_its_zone_first() {
 	};
 	let g = run(&c, None).read("a");
 	let z = idx(&g, "step Zeppelin to Undercity");
-	let w = idx(&g, "step Durotar");
+	let w = zone_walks(&g, "Durotar").first().copied().unwrap_or(-1);
 	assert!(w < z && z < idx(&g, "step Tirisfal"), "{g:#?}");
 	assert_eq!(g[w as usize + 1], "  only Paladin", "{g:#?}");
 }
@@ -4516,7 +4599,7 @@ fn a_step_with_nothing_for_everyone_but_some_races_lines_is_theirs() {
 	let g = run(&c, None).read("a");
 	let s = idx(&g, "step To the Undercity") as usize;
 	assert_eq!(g[s + 1], "  only Skyborne", "{g:#?}");
-	assert!(!g.iter().any(|l| m(l, r#"^\s+goto .*"Undercity""#)), "{g:#?}");
+	assert!(!g.iter().any(|l| m(l, r#"^\s+goto .*Undercity""#)), "{g:#?}");
 }
 
 #[test]
@@ -7914,7 +7997,8 @@ fn a_training_stops_way_goes_before_v1s_training_not_after_it() {
 	};
 	let g = pick(&run(&c, None).read("a"), r"^step|^\s+(goto|fly|train|accept)");
 	let t = idx(&g, "step Trainers");
-	let way = g.iter().position(|l| l.contains("\"Orgrimmar\"")).map_or(-1, |i| i as i64);
+	// (The way's goto, whatever it is labelled: "To <town>" or the step it leads to, #1450.)
+	let way = g.iter().position(|l| l.trim_start().starts_with("goto ")).map_or(-1, |i| i as i64);
 	assert!(way >= 0 && way < t, "{g:#?}");
 }
 
@@ -9281,7 +9365,7 @@ fn a_v1_step_at_where_the_events_leg_leads_goes_after_the_leg() {
 	};
 	let g = pick(&run(&c, None).read("a"), r"^step|^\s+(hearth|accept|turnin|goto)");
 	let a7 = g.iter().position(|l| l.starts_with("  accept 7")).unwrap_or_else(|| panic!("{g:#?}")) as i64;
-	let leg = g.iter().position(|l| l.contains("\"Ironforge\"")).unwrap_or_else(|| panic!("{g:#?}")) as i64;
+	let leg = g.iter().position(|l| m(l, r#"^\s+goto .*Ironforge""#)).unwrap_or_else(|| panic!("{g:#?}")) as i64;
 	assert!(leg < a7 && a7 < idx(&g, "  turnin 1"), "{g:#?}");
 }
 
@@ -9654,7 +9738,7 @@ fn a_class_whose_trainer_the_way_to_the_stop_passes_trains_there_before_the_way_
 	};
 	let g = run(&c, None).read("a");
 	let druid = idx(&g, "step Druid trainer");
-	let into_elwynn = g.iter().position(|l| m(l, r#"^\s+goto .*"Elwynn Forest""#)).map_or(-1, |i| i as i64);
+	let into_elwynn = g.iter().position(|l| m(l, r#"^\s+goto .*Elwynn Forest""#)).map_or(-1, |i| i as i64);
 	let stop = idx(&g, "step Class trainer");
 	assert!(druid >= 0 && into_elwynn > druid && stop > into_elwynn, "{g:#?}");
 	assert!(g[druid as usize..].iter().take_while(|l| !l.is_empty()).any(|l| l == "  zone Stormwind City"), "{g:#?}");

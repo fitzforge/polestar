@@ -118,8 +118,10 @@ RouteLines.LOOK_LIMITS = {
 	worldRouteAlpha = { 0.2, 1 }, laterAlpha = { 0, 1 }, lineOutline = { 0, 2 },
 	dotSize = Strokes.DOTS, dotSpacing = Strokes.SPACINGS, lineWidth = Strokes.LINE_WIDTHS,
 }
--- Each leg kind's colour setting (nav.<key>: false for the theme's colour).
-RouteLines.COLOR_KEYS = { walk = "walkColor", flight = "flightColor", boat = "boatColor", zeppelin = "zeppelinColor", tram = "tramColor", lift = "tramColor" }
+-- Each leg kind's colour setting (nav.<key>: false for the theme's colour); an airship rides as a zeppelin.
+RouteLines.COLOR_KEYS = { walk = "walkColor", flight = "flightColor", boat = "boatColor", zeppelin = "zeppelinColor", airship = "zeppelinColor",
+	tram = "tramColor", lift = "tramColor" }
+
 
 -- The minimap size saved before the sizes were per style becomes each
 -- style's, where the style has none of its own; then it is gone.
@@ -153,7 +155,7 @@ local LIVE_REACH = 60
 local JUMP = { hearth = true, teleport = true, portal = true }
 
 -- Theme tokens per leg kind (the same as the travel pins': Maps/TravelPins.lua).
-local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", tram = "object", lift = "object" }
+local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", airship = "place", tram = "object", lift = "object" }
 local colors = {}
 for kind in pairs(TOKEN) do colors[kind] = { 1, 1, 1 } end
 local under = { 0.02, 0.03, 0.06 }

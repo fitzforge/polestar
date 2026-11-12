@@ -9,7 +9,7 @@ next forever/alliance/07-thousand-needles
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Velinde Starsong (1037), Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop).
+# Added here: Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop), and Velinde Starsong (1037: taken at 29, handed in to Thyn'tel Bladeweaver in Darnassus only at 41-48, for a tenth of its XP by then; the 40-50 Darnassus steps hand in a copy players still carry).
 # Also left out: This Land Was Their Land (98230), which Captain Stoutfist offers only after Defeat Nek'rosh (474) is handed in (#1299): it is on the group branch of 30-40/01-hillsbrad-foothills.
 # Bloom of the Heavens (98208, 98209: 1750 + 1200 XP) from Sylessa Duskwhisper by Menethil's docks: Nord'el lies on the
 # shore just south of the town, and the follow-up goes to Thundris Windweaver in Auberdine on this guide's boat trip.
@@ -31,16 +31,16 @@ next forever/alliance/07-thousand-needles
 # Auberdine; they were in 30-40/03, at 33-34. Then back by boat to Menethil, Pilot Longbeard in
 # Ironforge (28) and The Missing Diplomat in Stormwind (28), on to the Duskwood return.
 
-# ---------------------------------------------------------------- Night Elves: Moonglade and Darnassus
+# ---------------------------------------------------------------- Night Elf and Skyborne Druids: Moonglade and Darnassus
 
 step Moonglade
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   zone Moonglade
   when onquest 272
   goto 56.3,32.5 "Cast Teleport: Moonglade"
 
 step Trial of the Sea Lion
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   zone Moonglade
   when onquest 272
   tip Cast Teleport: Moonglade. With both half pendants in your bags, stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then go to Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
@@ -48,7 +48,7 @@ step Trial of the Sea Lion
   turnin 272                                  -- Dendrite Starblaze
 
 step Aquatic Form
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   zone Moonglade
   when turnedin 272
   when !turnedin 5061
@@ -59,13 +59,13 @@ step Aquatic Form
 # Mathrengyl stands upstairs in the druids' building; the walking maps have no way up inside it, so
 # this goto is its door on the south side (players' recordings walk in there), not his spot (#1338).
 step Darnassus
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   zone Darnassus
   when onquest 5061
   goto 35.8,11.6 "Mathrengyl Bearwalker"
 
 step Mathrengyl Bearwalker
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   zone Darnassus
   when onquest 5061
   tip Take the portal up to the Cenarion Enclave, then fly back to Auberdine for the boat to Menethil Harbor.
@@ -105,7 +105,7 @@ step Elune's Grace
   fly "Auberdine"
 
 step Boat to Menethil Harbor
-  only NightElf,Druid,Priest
+  only NightElf,Skyborne,Druid,Priest
   when zone "Darkshore"
   zone Darkshore
   tip Take the boat from Auberdine's dock to Menethil Harbor.
@@ -321,10 +321,6 @@ step Dartol's Rod
   collect 5475 "Wooden Key"
   collect 5464 quest 1026             -- Iron Shaft
 
-step The Howling Vale
-  tip Take the tunnel into the Howling Vale; the tome lies in the ruins at its west end.
-  interact 19027 quest 1022.1         -- Tome of Mel'Thandris
-
 step Shael'dryn
   turnin 1026
   accept 1027
@@ -411,6 +407,10 @@ step Shael'dryn
   turnin 1055
   accept 1029
 
+step The Howling Vale
+  tip Take the tunnel into the Howling Vale; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the Terrowulf Packlord, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first.
+  interact 19027 quest 1022.1         -- Tome of Mel'Thandris
+
 step Astranaar
   tip Raene Wolfrunner and Maliynn are in the inn; Pelturas Whitemoon is inside the building just south of it.
   turnin 1029                         -- Raene Wolfrunner
@@ -441,7 +441,6 @@ step Krolg
 step Melyria and Illiyana
   tip West from Krolg along the southern hills to the Shrine of Aessina: Melyria and Illiyana stand together by it.
   turnin 1022                         -- Sentinel Melyria Frostshadow
-  accept 1037
   turnin 1031                         -- Illiyana
 
 step Delgren the Purifier

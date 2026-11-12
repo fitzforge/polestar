@@ -127,8 +127,8 @@ local function paintTarget(shown, armed)
 		return
 	end
 	local B = ns.QoL and ns.QoL.Buttons
-	local key = GetBindingKey and GetBindingKey("CLICK PolestarRareButton:LeftButton")
-	key = key and (B and B.KeyText and B.KeyText(key) or key)
+	local key = B and B.BindingKey and B.BindingKey("CLICK PolestarRareButton:LeftButton")
+	key = key and B.KeyText(key)
 	local r, g, bl = Theme.Color("textDim")
 	b.psTip = b.Label:GetText()
 	b.psTipLines = { { key and format(L["The card can't target during a fight. Use the rare button or its key (%s)."], key)

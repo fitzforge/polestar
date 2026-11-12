@@ -125,10 +125,49 @@ step Shen'dar Village
   turnin 96638                                -- Raan Wildwind
 
 step Raan Wildwind
+  tip With a profession learned, Raan also offers its Camping 101, which its trainer in Shen'dar Village takes on the village round.
   accept 96101                                -- Raan Wildwind
   complete 96101 @41.73,44.78                 -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101
   accept 96646
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97963                                -- Raan Wildwind: for Nyassa Swiftdraught
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97964                                -- Raan Wildwind: for Aedi Thriceforged
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97965                                -- Raan Wildwind: for Naleeia Tattermend
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97967                                -- Raan Wildwind: for Fenn Fairweather
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97969                                -- Raan Wildwind: for Indari Sunseam
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97970                                -- Raan Wildwind: for Messana Crestwind
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97971                                -- Raan Wildwind: for Mendalass Tattermend
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 97973                                -- Raan Wildwind: for Taleen Shimmerthread
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  accept 98286                                -- Raan Wildwind: for Nasalanna Windsinger
+
+step Zerril Softbreeze
   train Cooking npc 251905                    -- Zerril Softbreeze: Camping 101 asks you to learn it
   complete 96646 @43.85,43.9
   turnin 96646
@@ -137,10 +176,59 @@ step Village quests
   turnin 93461                                -- Constable Aonda
   accept 92517
   accept 92515                                -- Indari Sunseam
+
+step Indari Sunseam
+  when onquest 97969
+  talk 251993 quest 97969.1
+  turnin 97969                                -- Indari Sunseam
+
+step Messana Crestwind
+  when onquest 97970
+  talk 257022 quest 97970.1
+  turnin 97970                                -- Messana Crestwind, beside Indari
+
+step Village quests
   accept 93951                                -- Taleen Shimmerthread
+
+step Taleen Shimmerthread
+  when onquest 97973
+  talk 251991 quest 97973.1
+  turnin 97973                                -- Taleen Shimmerthread
+
+step Aedi Thriceforged
+  when onquest 97964
+  talk 251913 quest 97964.1
+  turnin 97964                                -- Aedi Thriceforged, beside Taleen
+
+step Village quests
   accept 92516                                -- Teeri Wellwind
   accept 93319
   accept 92553                                -- Zerril Softbreeze
+
+step Nyassa Swiftdraught
+  when onquest 97963
+  talk 257019 quest 97963.1
+  turnin 97963                                -- Nyassa Swiftdraught, west of Zerril
+
+step Mendalass Tattermend
+  when onquest 97971
+  talk 257024 quest 97971.1
+  turnin 97971                                -- Mendalass Tattermend
+
+step Nasalanna Windsinger
+  when onquest 98286
+  talk 257020 quest 98286.1
+  turnin 98286                                -- Nasalanna Windsinger
+
+step Naleeia Tattermend
+  when onquest 97965
+  talk 257018 quest 97965.1
+  turnin 97965                                -- Naleeia Tattermend, at the south side of the village
+
+step Fenn Fairweather
+  when onquest 97967
+  talk 251992 quest 97967.1
+  turnin 97967                                -- Fenn Fairweather, on the south edge of the village
 
 step Prideclaws and Galestriders
   tip Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village.
@@ -246,6 +334,10 @@ step Shen'dar Village again
   turnin 94413                                -- Rathiril Sunlance
   train class
 
+step Shen'dar Village again
+  when group 93318
+  turnin 93318                                -- Danarii Bellowveil
+
 step Fendaal Windstone
   tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
   accept 98512                                -- Fendaal Windstone
@@ -293,10 +385,6 @@ step The road to Valanaar
 step Class trainer
   only Warrior,Hunter,Rogue,Mage,Druid
   train class only Warrior,Hunter,Rogue,Mage,Druid
-
-step Shen'dar Village again
-  when group 93318
-  turnin 93318
 
 step The missing scholar
   tip The Bloodstained Satchel lies by the path west of Valanaar.

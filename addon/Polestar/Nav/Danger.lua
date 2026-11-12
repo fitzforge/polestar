@@ -1,7 +1,11 @@
 -- Zone danger: how much dearer a walk through a zone far above the character
 -- is (#195). A zone is dangerous for a character of level L when its lowest
--- level (Maps.GetZoneLevels, Maps/ZoneLevels.lua) is at least L + 4, and far
--- above when it is more than L + 10 (the Engine's rule for candidates). A
+-- level (Maps.GetZoneLevels' third value, Maps/ZoneLevels.lua: the P10 of its
+-- creatures, or its danger floor where a low pocket at the zone's edge pulls
+-- the P10 under the ground walks cross: Alterac Mountains' lake murlocs and
+-- border bears put it at 24 under Strahnbrad's 30-40, #1490) is at least
+-- L + 4, and far above when it is more than L + 10 (the Engine's rule for
+-- candidates). A
 -- step into a dangerous zone costs 3 times, into a far-above one 20 times
 -- (the strength of the other faction's towns: kept out of wherever there is
 -- another way, never closed); a
@@ -89,7 +93,8 @@ end
 function Danger.Mult(level, uiMapID)
 	local M = ns.Maps
 	if type(level) ~= "number" or not uiMapID or not (M and M.GetZoneLevels) then return 1 end
-	local lo = M.GetZoneLevels(uiMapID)
+	local min, _, danger = M.GetZoneLevels(uiMapID)
+	local lo = type(danger) == "number" and danger or min
 	if type(lo) ~= "number" then return 1 end
 	if lo > level + FAR_ABOVE then return FAR_MULT end
 	if lo >= level + DANGEROUS then return DANGEROUS_MULT end

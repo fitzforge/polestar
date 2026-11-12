@@ -45,6 +45,31 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 		],
 	),
 	(
+		"Polestar_Experimental",
+		[
+			"Polestar: experimentelle Guides",
+			"Polestar: guías experimentales",
+			"Polestar: guías experimentales",
+			"Polestar : guides expérimentaux",
+			"Polestar 실험 가이드",
+			"Polestar: guias experimentais",
+			"Polestar: экспериментальные гайды",
+			"Polestar 实验指南",
+			"Polestar 實驗指南",
+		],
+		[
+			"Teil von Polestar: experimentelle Guides für die neuen Zonen von Forever (Alpha). Aus, bis du es unter Optionen, Community-Guides einschaltest.",
+			"Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa). Desactivado hasta que lo actives en Opciones, Guías de la comunidad.",
+			"Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa). Desactivado hasta que lo actives en Opciones, Guías de la comunidad.",
+			"Fait partie de Polestar : guides expérimentaux pour les nouvelles zones de Forever (alpha). Désactivé tant que vous ne l'activez pas dans Options, Guides de la communauté.",
+			"Polestar의 일부: Forever 신규 지역용 실험 가이드(알파). 설정 > 커뮤니티 가이드에서 켜기 전까지는 꺼져 있습니다.",
+			"Parte do Polestar: guias experimentais para as novas zonas do Forever (alfa). Desligado até você ligá-lo em Opções, Guias da comunidade.",
+			"Часть Polestar: экспериментальные гайды для новых зон Forever (альфа). Выключено, пока вы не включите его в разделе «Настройки», «Гайды сообщества».",
+			"Polestar 的组成部分：Forever 新区域的实验性指南（Alpha 版）。在“选项”>“社区指南”中开启前保持关闭。",
+			"Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版）。在「選項」>「社群指南」中開啟前保持關閉。",
+		],
+	),
+	(
 		"Polestar_Guides",
 		["Polestar Guides", "Polestar: guías", "Polestar: guías", "Polestar : guides", "Polestar 가이드", "Polestar: guias", "Polestar: гайды", "Polestar 指南", "Polestar 指南"],
 		[

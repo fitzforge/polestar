@@ -193,6 +193,9 @@ function ns.Errors() return errors end
 -- folder (Polestar_Mob_Markers, #1123) is not ours. `where` is the first line
 -- of our code under the blocked call (the event fires inside it), since the
 -- game names a namespaced or anonymous frame's function only "UNKNOWN()".
+-- With none of ours under it, the game's own code made the call, tainted by
+-- ours earlier: `where` is then "via <function> <the game's file:line>", the
+-- blocked function and the line of the game's code that called it.
 local MAX_BLOCKED = 5
 local blocked = {}
 local function ownAddon(addon)
@@ -209,6 +212,16 @@ local function blockedSite()
 		local rel = path:gsub("\\", "/")
 		-- This handler and the event dispatch in this file.
 		if rel ~= ADDON .. "/Core/Init.lua" then return rel .. ":" .. line end
+	end
+	-- The C function nearest above the game's first line is the blocked one.
+	local fn
+	for l in stack:gmatch("[^\n]+") do
+		fn = l:match("^%[C%]: in function [`']([^`']+)'") or fn
+		local path, line = l:match("Interface[/\\]([^:\"%]\n]-%.lua)\"?%]?:(%d+)")
+		if path then
+			path = path:gsub("\\", "/"):gsub("^AddOns/", "")
+			if not path:find("^Polestar") then return "via " .. (fn and (fn .. " ") or "") .. path .. ":" .. line end
+		end
 	end
 	return nil
 end
@@ -490,6 +503,10 @@ function ns.Fire(msg, ...)
 		for _, l in pairs(listeners) do compact(l) end
 	end
 end
+
+-- Whether a message is being handed out now (one of its handlers runs):
+-- Polestar.API refuses calls made from there (docs/API.md).
+function ns.Dispatching() return busDepth > 0 end
 
 ---------------------------------------------------------------------------
 -- Game events, all through one hidden frame.

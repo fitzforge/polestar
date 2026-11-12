@@ -194,9 +194,9 @@ step Sharptalon
 
 step Splintertree Post
   when onquest 2,23,24
-  turnin 23 optional                  -- Senani Thunderheart
-  turnin 2 optional                   -- Senani Thunderheart
-  turnin 24 optional
+  turnin 23                           -- Senani Thunderheart
+  turnin 2                            -- Senani Thunderheart
+  turnin 24
 
 step Splintertree Post
   accept 247                          -- Senani Thunderheart, once all three hunts are in
@@ -354,7 +354,6 @@ step Freewind Post
   accept 5147                         -- The Wanted poster beside Cliffwatcher
   accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
   accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
-  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -394,6 +393,7 @@ step Freewind Post
   accept 5064
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
+  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles

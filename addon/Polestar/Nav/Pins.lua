@@ -60,13 +60,13 @@
 -- the player's position goes first), anchored to the run's end: a dot every
 -- spacing yards counted back from the destination, so dots keep their place
 -- in the world as the player walks and run on across joints. A continent
--- change breaks a run. Minimap dots sit MM_SPACING apart inside the visible
--- disc (or square); world map dots a WORLD_DIVS-th of the viewed map's width
--- apart (at least WORLD_MIN_SPACING), inside its rectangle, under every pin;
+-- change breaks a run. Minimap dots sit TRAIL.MM_SPACING apart inside the visible
+-- disc (or square); world map dots a TRAIL.WORLD_DIVS-th of the viewed map's width
+-- apart (at least TRAIL.WORLD_MIN_SPACING), inside its rectangle, under every pin;
 -- on OpenMap's stitched map, inside what the view shows, through OpenMap's
 -- placement (see "OpenMap" below).
 -- Segment lengths are measured once per SetTrail. The dots crawl toward the
--- destination, one spacing per TRAIL_PERIOD, from a 20 Hz driver that runs
+-- destination, one spacing per TRAIL.PERIOD, from a 20 Hz driver that runs
 -- only while dots show on a visible minimap or an open world map; with
 -- ui.reduceMotion they hold still and move only with the minimap's redraws.
 
@@ -126,14 +126,16 @@ local CELL = 500 -- yards per grid square of a layer's minimap index
 local OUTDOOR = { [0] = 466 + 2 / 3, 400, 333 + 1 / 3, 266 + 2 / 3, 200, 133 + 1 / 3 }
 local INDOOR = { [0] = 300, 240, 180, 120, 80, 50 }
 
--- Trail dots (see the header).
-local TRAIL_PERIOD = 1.5             -- seconds for the dots to crawl one spacing
-local TRAIL_INTERVAL = 1 / 20        -- animation rate cap
-local TRAIL_STILL = 0.5              -- phase while ui.reduceMotion holds the dots still
-local TRAIL_ALPHA = 0.85
-local MM_SPACING, MM_DOT, MM_CAP = 40, 5, 40 -- minimap: yards apart, px, most dots
-local WORLD_DIVS, WORLD_MIN_SPACING = 60, 15  -- world map: spacing = map width in yards / 60, at least 15 yd
-local WORLD_DOT, WORLD_CAP = 6, 300
+-- Trail dots (see the header). One table: Lua 5.1 caps a chunk at 200 locals.
+local TRAIL = {
+	PERIOD = 1.5,                    -- seconds for the dots to crawl one spacing
+	INTERVAL = 1 / 20,               -- animation rate cap
+	STILL = 0.5,                     -- phase while ui.reduceMotion holds the dots still
+	ALPHA = 0.85,
+	MM_SPACING = 40, MM_DOT = 5, MM_CAP = 40, -- minimap: yards apart, px, most dots
+	WORLD_DIVS = 60, WORLD_MIN_SPACING = 15,  -- world map: spacing = map width in yards / 60, at least 15 yd
+	WORLD_DOT = 6, WORLD_CAP = 300,
+}
 
 -- The player's look for the marks (Options > Map pins, Nav/PinsOptions.lua),
 -- read into `look` at init and as one of these settings changes
@@ -146,16 +148,16 @@ local WORLD_DOT, WORLD_CAP = 6, 300
 --   nav.areaColor         every area and hull in one colour (false: each in its pin's)
 --   nav.medalColor        a tint over the medallions and the numbered pins' rims (false: none)
 --   nav.pinBacking        the dark disc under icon pins (false: the scheme's scrim)
---   nav.trailDotSize, nav.trailDotAlpha   the trail's dots (1, TRAIL_ALPHA)
+--   nav.trailDotSize, nav.trailDotAlpha   the trail's dots (1, TRAIL.ALPHA)
 --   nav.badgeSize         a map mark's count capsule and its text (1: BADGE_H)
 --   nav.pulseSeconds      one breath of a pulsing glow (0.9 s; the target's, nav.targetPulse)
 -- The skin's pin look rides here too (Pins.ReadSkin): skinRim, skinFill
 -- ({ r, g, b } | nil) and the Polestar pin's disc and rim art (fillTex, rimTex).
-local look = { worldSize = 1, worldAlpha = 1, mmAlpha = 1, arrowFade = true, areaAlpha = AREA_ALPHA, areaK = 1, dotSize = 1, dotAlpha = TRAIL_ALPHA,
+local look = { worldSize = 1, worldAlpha = 1, mmAlpha = 1, arrowFade = true, areaAlpha = AREA_ALPHA, areaK = 1, dotSize = 1, dotAlpha = TRAIL.ALPHA,
 	badge = 1, pulse = 0.9, fillTex = MEDIA .. "pin-fill", rimTex = MEDIA .. "pin" }
 Pins.look = look
 ns.RegisterDefaults("nav", { worldIconSize = 1, worldPinAlpha = 1, minimapPinAlpha = 1, minimapArrowFade = true,
-	areaAlpha = AREA_ALPHA, areaColor = false, medalColor = false, pinBacking = false, trailDotSize = 1, trailDotAlpha = TRAIL_ALPHA,
+	areaAlpha = AREA_ALPHA, areaColor = false, medalColor = false, pinBacking = false, trailDotSize = 1, trailDotAlpha = TRAIL.ALPHA,
 	badgeSize = 1, pulseSeconds = 0.9 })
 Pins.LOOK_KEYS = {
 	["nav.worldIconSize"] = true, ["nav.worldPinAlpha"] = true, ["nav.minimapPinAlpha"] = true, ["nav.minimapArrowFade"] = true,
@@ -177,7 +179,7 @@ function Pins.ReadLook()
 	c = get("nav.pinBacking")
 	look.backing = type(c) == "table" and c or nil
 	look.dotSize = tonumber(get("nav.trailDotSize")) or 1
-	look.dotAlpha = tonumber(get("nav.trailDotAlpha")) or TRAIL_ALPHA
+	look.dotAlpha = tonumber(get("nav.trailDotAlpha")) or TRAIL.ALPHA
 	look.badge = tonumber(get("nav.badgeSize")) or 1
 	look.pulse = tonumber(get("nav.pulseSeconds")) or 0.9
 end
@@ -1059,8 +1061,8 @@ end
 -- The dots' phase: the fraction of a spacing between a run's end and its
 -- nearest dot. It falls as time passes, so the dots crawl toward the end.
 local function trailFrac()
-	if stillTrail() then return TRAIL_STILL end
-	return (-GetTime() / TRAIL_PERIOD) % 1
+	if stillTrail() then return TRAIL.STILL end
+	return (-GetTime() / TRAIL.PERIOD) % 1
 end
 
 -- Placement alone (tests): dots along pts = { { x, y }, ... } (yards),
@@ -1605,7 +1607,7 @@ do
 		end
 		if redraw then world.drawHulls(world.hullWin.mapType) end
 		local t = wTrail
-		local size = WORLD_DOT * look.dotSize * scale
+		local size = TRAIL.WORLD_DOT * look.dotSize * scale
 		if t and t.size ~= size then
 			t.size = size
 			local dots = t.dots
@@ -1805,14 +1807,14 @@ do
 	end
 
 	-- Dot spacing for a view `pct` percent of the host wide, at `perYard`
-	-- percent a yard: a WORLD_DIVS-th of the view, at least
-	-- WORLD_MIN_SPACING, in steps of twice the last, so the dots keep their
+	-- percent a yard: a TRAIL.WORLD_DIVS-th of the view, at least
+	-- TRAIL.WORLD_MIN_SPACING, in steps of twice the last, so the dots keep their
 	-- places while a zoom stays within a step.
 	local LOG2 = math.log(2)
 	local function stitchedSpacing(pct, perYard)
-		local raw = pct / abs(perYard) / WORLD_DIVS
-		if raw <= WORLD_MIN_SPACING then return WORLD_MIN_SPACING end
-		return WORLD_MIN_SPACING * 2 ^ ceil(math.log(raw / WORLD_MIN_SPACING) / LOG2 - 1e-9)
+		local raw = pct / abs(perYard) / TRAIL.WORLD_DIVS
+		if raw <= TRAIL.WORLD_MIN_SPACING then return TRAIL.WORLD_MIN_SPACING end
+		return TRAIL.WORLD_MIN_SPACING * 2 ^ ceil(math.log(raw / TRAIL.WORLD_MIN_SPACING) / LOG2 - 1e-9)
 	end
 
 	-- OpenMap's switch: the trail on its map.
@@ -1867,7 +1869,7 @@ do
 			local fit = fitFor(OM, C, host, run.c)
 			if fit then
 				ua, ub, uc, va, vb, vc = 0, fit.ub, fit.uc, fit.va, 0, fit.vc
-				count = runDots(loadRun(run, pc, px, py), stitchedSpacing(x1 - x0, fit.ub), frac, clipRect, WORLD_CAP, count)
+				count = runDots(loadRun(run, pc, px, py), stitchedSpacing(x1 - x0, fit.ub), frac, clipRect, TRAIL.WORLD_CAP, count)
 			end
 		end
 		return count
@@ -1896,11 +1898,11 @@ do
 		if not (c1 and c1 == c2 and top ~= bottom and left ~= right) then return end
 		wC, wLeft, wTop = c1, left, top
 		wKx, wKy = 100 / (right - left), 100 / (bottom - top)
-		wSpacing = max(WORLD_MIN_SPACING, abs(right - left) / WORLD_DIVS)
+		wSpacing = max(TRAIL.WORLD_MIN_SPACING, abs(right - left) / TRAIL.WORLD_DIVS)
 	end
 
 	-- The trail's dots: textures on one frame at the canvas's top left, laid out
-	-- in canvas units; WORLD_DOT on screen like a pin.
+	-- in canvas units; TRAIL.WORLD_DOT on screen like a pin.
 	local function trailHost()
 		if wTrail then return wTrail end
 		local host = ns.CreateFrameUnder("Frame", nil, wView.frame)
@@ -1931,7 +1933,7 @@ do
 				local runs = trail.runs
 				for k = 1, #runs do
 					local run = runs[k]
-					if run.c == wC then count = runDots(loadRun(run, pc, px, py), wSpacing, frac, clipRect, WORLD_CAP, count) end
+					if run.c == wC then count = runDots(loadRun(run, pc, px, py), wSpacing, frac, clipRect, TRAIL.WORLD_CAP, count) end
 				end
 			end
 		end
@@ -1939,7 +1941,7 @@ do
 		if count > 0 then
 			t = trailHost()
 			t.host:SetFrameLevel(v:Level(BLOB_LEVEL))
-			local size = WORLD_DOT * look.dotSize * v:PinScale(1, PIN_ZOOMED)
+			local size = TRAIL.WORLD_DOT * look.dotSize * v:PinScale(1, PIN_ZOOMED)
 			local restyle = t.size ~= size or t.version ~= trail.version
 			t.size, t.version = size, trail.version
 			local w, h, dots = v.width, v.height, t.dots
@@ -2232,7 +2234,7 @@ local function minimapDot(i)
 	end
 	local t = mmTrail:CreateTexture(nil, "ARTWORK")
 	t:SetTexture(MEDIA .. "pin-fill")
-	t:SetSize(MM_DOT, MM_DOT)
+	t:SetSize(TRAIL.MM_DOT, TRAIL.MM_DOT)
 	mmDots[i] = t
 	return t
 end
@@ -2243,14 +2245,14 @@ local function drawTrailMinimap(frac)
 	local shown = 0
 	if trail and trail.minimap and sPc then
 		local half, radius, square = sHalf, sRadius, sSquare
-		local lim = half - MM_DOT * look.dotSize / 2
+		local lim = half - TRAIL.MM_DOT * look.dotSize / 2
 		ua, ub, uc, va, vb, vc = 1, 0, -sPx, 0, 1, -sPy
 		cr2 = radius * radius * (square and 2 or 1) -- a square's corners reach radius * sqrt(2)
 		local count = 0
 		local runs = trail.runs
 		for k = 1, #runs do
 			local run = runs[k]
-			if run.c == sPc then count = runDots(loadRun(run, sPc, sPx, sPy), MM_SPACING, frac, clipCircle, MM_CAP, count) end
+			if run.c == sPc then count = runDots(loadRun(run, sPc, sPx, sPy), TRAIL.MM_SPACING, frac, clipCircle, TRAIL.MM_CAP, count) end
 		end
 		local project, version = Pins.Project, trail.version
 		for i = 1, count do
@@ -2262,7 +2264,7 @@ local function drawTrailMinimap(frac)
 				local t = mmDots[shown] or minimapDot(shown)
 				if t.trailVersion ~= version then
 					t:SetVertexColor(trail.r, trail.g, trail.b, look.dotAlpha)
-					t:SetSize(MM_DOT * look.dotSize, MM_DOT * look.dotSize)
+					t:SetSize(TRAIL.MM_DOT * look.dotSize, TRAIL.MM_DOT * look.dotSize)
 					t.trailVersion = version
 				end
 				t:ClearAllPoints()
@@ -2522,7 +2524,7 @@ local function drawMinimap()
 	hideHullsFrom(hulls)
 	drawTrailMinimap(trailFrac())
 	-- Held still, the world map's dots follow the player with these redraws.
-	if world.dotsShown() and stillTrail() then drawTrailWorld(TRAIL_STILL) end
+	if world.dotsShown() and stillTrail() then drawTrailWorld(TRAIL.STILL) end
 	updateTrailDriver()
 end
 
@@ -2728,7 +2730,7 @@ end
 
 ---------------------------------------------------------------------------
 -- Trail animation: one driver for both surfaces, at most every
--- TRAIL_INTERVAL, awake only while dots show on a visible minimap or an
+-- TRAIL.INTERVAL, awake only while dots show on a visible minimap or an
 -- open world map and motion is not reduced.
 ---------------------------------------------------------------------------
 
@@ -2742,11 +2744,11 @@ end
 
 local function trailTick(self, elapsed)
 	trailAccum = trailAccum + elapsed
-	if trailAccum < TRAIL_INTERVAL then return end
+	if trailAccum < TRAIL.INTERVAL then return end
 	trailAccum = 0
 	local frac = trailFrac()
 	-- The pins' own redraw may have drawn the minimap's dots this frame.
-	if minimapTrailShown() and GetTime() - mmTrailAt >= TRAIL_INTERVAL / 2 then drawTrailMinimap(frac) end
+	if minimapTrailShown() and GetTime() - mmTrailAt >= TRAIL.INTERVAL / 2 then drawTrailMinimap(frac) end
 	if world.dotsShown() then drawTrailWorld(frac) end
 	updateTrailDriver()
 end

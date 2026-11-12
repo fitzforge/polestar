@@ -590,7 +590,7 @@ end
 grabArea(true)
 
 local UI_MEDIA = UI_DIR
-local LEG_ICON = { hearth = "icon-hearth", teleport = "icon-use", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat",
+local LEG_ICON = { hearth = "icon-hearth", teleport = "icon-use", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", airship = "icon-boat",
 	tram = "icon-boat", portal = "icon-gate", lift = "icon-lift" }
 
 -- The catch-up's hourglass (Arrow.SetBusy; Media/UI hourglass and

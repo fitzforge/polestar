@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/01-hillsbrad-foothills
 title Wetlands & Hillsbrad Foothills
 faction Alliance
-levels 30-32
+levels 30-33
 zone Wetlands
 next forever/alliance/30-40/03-ashenvale
 
@@ -30,7 +30,6 @@ step Angerfang Encampment
   accept 474
 
 step Angerfang Encampment
-  note The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it.
   accept 98223 object 671518          -- Tattered Spellbook: for Captain Stoutfist
 
 step Defeat Nek'rosh
@@ -114,7 +113,7 @@ step The Cache of Explosives
 
 step Waterlogged Envelope
   collect 4433 x1 optional @44.3,92.9 map 1417 -- Underwater
-  accept 637 optional only Dwarf,Gnome,NightElf,Skyborne
+  accept 637 optional
 
 step Rhag Garmason again
   zone Wetlands
@@ -236,7 +235,8 @@ step Yeti cave
   when onquest 565
   zone Hillsbrad Foothills
   tip The yetis live in the cave in the hills north of Southshore, on the way north to the Syndicate camp.
-  collect 3720 quest 565.4            -- Yeti Fur
+  tip Stay in the Foothill Caverns: the cave further north has Mountain and Giant Yetis (32-34) in pairs and The Abominable Greench, a level 36 elite.
+  collect 3720 quest 565.4 @44.5,29.4 -- Yeti Fur
 
 step Alterac Mountains
   zone Alterac Mountains
@@ -301,12 +301,12 @@ step Historian Karnik
 
 step Sara Balloo
   when onquest 637
-  turnin 637 only Dwarf,Gnome,NightElf,Skyborne
-  accept 683 only Skyborne
+  turnin 637
+  accept 683                          -- Sara Balloo: for King Magni, on the same Ironforge stop
 
 step King Magni Bronzebeard
   when onquest 683
-  turnin 683 only Skyborne
+  turnin 683
 
 step King Magni Bronzebeard
   when onquest 98300

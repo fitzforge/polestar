@@ -2142,6 +2142,13 @@ function W.SelectCopy(e)
 	end)
 end
 
+-- The line shown with a copy box a "Copy" button selected: the game gives
+-- addons no clipboard, so the button only selects, and the player copies.
+function W.CopyHintText()
+	if IsMacClient and IsMacClient() then return L["Selected: press Cmd+C to copy."] end
+	return L["Selected: press Ctrl+C to copy."]
+end
+
 ---------------------------------------------------------------------------
 -- Scroll area: a ScrollFrame with a thin thumb strip. Wheel scrolls; the
 -- thumb can be dragged.

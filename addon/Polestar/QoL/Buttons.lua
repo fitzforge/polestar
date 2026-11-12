@@ -410,9 +410,21 @@ function Buttons.KeyText(key)
 	return mods .. text
 end
 
+-- The first key that runs `action` in play: with the gamepad interface on, a
+-- button bound in its own binding context first (Polestar.Gamepad.BindingKeys).
+function Buttons.BindingKey(action)
+	local G = ns.Gamepad
+	if G and G.BindingKeys then
+		for _, key in ipairs(G.BindingKeys(action)) do
+			if not G.IsChord(key) then return key end
+		end
+		return nil
+	end
+	return GetBindingKey and GetBindingKey(action) or nil
+end
+
 local function bindingText(b)
-	if not GetBindingKey then return nil end
-	return Buttons.KeyText(GetBindingKey("CLICK " .. b:GetName() .. ":LeftButton"))
+	return Buttons.KeyText(Buttons.BindingKey("CLICK " .. b:GetName() .. ":LeftButton"))
 end
 
 local function refreshHotkey(b)

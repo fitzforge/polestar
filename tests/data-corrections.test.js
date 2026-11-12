@@ -187,6 +187,13 @@ test('Daily Delivery is closed by Young Crocolisk Skins, its breadcrumb target (
 	assert.deepEqual(closedByOf(469, quests), [484]);
 });
 
+// J's report (#1643): Connor Rivers stops offering James Hyal once They Call Him Smiling Jim is handed in (the world
+// DB's quest conditions), so the correction closes it on 1282 as well as on the quest it leads to.
+test('James Hyal is closed by They Call Him Smiling Jim as well as by its second part (#1643)', () => {
+	const quests = { 1301: { id: 1301, breadcrumbFor: 1302, ...corrections.quests[1301].set }, 1302: { id: 1302, breadcrumbs: [1301], excl: [1282] }, 1282: { id: 1282, excl: [1302] } };
+	assert.deepEqual(closedByOf(1301, quests), [1302, 1282]);
+});
+
 test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
@@ -205,6 +212,26 @@ test('the Dalaran traitors stand in the camp south of their Classic spot, where 
 	assert.deepEqual(at(2414), { 1416: { f: 'l', pts: [[16.8, 89.4]] }, 1424: { f: 'l', pts: [[23.6, 26.7]] } }, 'Kegan Darkmar: Bloodstone Oval');
 	assert.deepEqual([2411, 2412, 2413].map((id) => at(id)[1416].pts), [[[19.5, 90]], [[19.6, 90.9]], [[19.3, 91.5]]], 'Ricter, Alina and Dermot');
 	for (const id of [2411, 2412, 2413, 2414]) assert.ok(at(id)[1424], `npc ${id}: its Hillsbrad Foothills spot moves too`);
+});
+
+test('dungeon quests started or handed in inside the dungeon name the NPC there, and the instance it stands in', () => {
+	const q = (id) => corrections.quests[id] && corrections.quests[id].set;
+	const inst = (id) => corrections.npcs[id] && corrections.npcs[id].set.instances;
+	assert.deepEqual([q(95250).start.npc, q(95250).end.npc, inst(265701)], [[265701], [265701], [2999]], 'Abominable Creatures: Captain Truman, Ruins of Lordaeron');
+	assert.deepEqual([q(96987).start.npc, q(96987).end.npc, inst(268743)], [[268743], [268743], [2959]], 'Opportunistic Education: Rexxie Copperclutch, City of Dalaran');
+	assert.deepEqual([q(95647).end.npc, q(95647).objectives, inst(262681)], [[262681], [{ type: 'talk', id: 262681, count: 1, text: 'Ardin Grassman' }], [2998]], 'Lost in the Thicket Things: handed in to Ardin Grassman inside, not Caitlin');
+	assert.deepEqual([q(95772).end.npc, inst(262465)], [[262465], [2998]], 'Songblade Search: handed in to Daewyn Songblade inside, not Dorin');
+	assert.deepEqual(blockingPrereqs({ id: 95795, ...q(95795) }), { all: [], any: [95772] }, 'Fallen in the Fen: from Daewyn, after Songblade Search');
+	assert.deepEqual(q(95795).start.npc, [262465]);
+	assert.deepEqual(blockingPrereqs({ id: 95809, ...q(95809) }), { all: [], any: [95647] }, 'Heartwoven: from Ardin, after Lost in the Thicket Things');
+	assert.deepEqual(q(95809).start.npc, [262681]);
+	assert.deepEqual(q(98824).objectives, [{ type: 'item', id: 287959, count: 1, text: 'Titan Relic' }], "Prehistoric Prism: the relic Whelgar hands over, not Lost Relic Carry's");
+});
+
+test('Dalaran Patrols waits for both Prison Break In and Key to the City, Shrewd Negotiations for Heart of Disruption (#1837)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [2410] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(545), { all: [544, 93680], any: [] }, 'Magus Wordeen Voidglare: Dalaran Patrols');
+	assert.deepEqual(blocks(97287), { all: [], any: [96984] }, 'Magus Wordeen Voidglare: Shrewd Negotiations');
 });
 
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
@@ -267,5 +294,71 @@ test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s ra
 	assert.deepEqual([92474, 94003, 94006, 98404].map(races), [SKYBORNE, SKYBORNE, SKYBORNE, SKYBORNE], 'Alliance and Horde Skyborne');
 	assert.deepEqual([92514, 92595].map(races), [HORDE, HORDE], "Welcome to Shen'dar Village and The Windshapers: the Horde, not Tauren only");
 	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
-	assert.deepEqual([79361, 79442].map(races), [HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
+	assert.deepEqual([79361, 79442, 79365].map(races), [HORDE, HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
+});
+
+// #1832: The Drowned City's quests came with QuestieDB 1.0.14, some givers and enders only through Factoruide; players'
+// recordings agree on every one, so the corrections hold them (a later quest data scrape can't drop them).
+test("The Drowned City's quests keep the givers and enders players use (#1832)", () => {
+	const ends = (id) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return [entry.set.start.npc, entry.set.end.npc];
+	};
+	for (const [id, giver, ender, who] of [
+		[95775, 2519, 2519, "Kin'weelay: The Drowned City"],
+		[95776, 2464, 2464, "Commander Aggro'gosh: The Only Good Brinescale..."],
+		[95786, 739, 2277, 'Brother Nimetz to Loremaster Dibbs: An Acquaintance in Southshore'],
+		[95787, 2277, 2277, 'Loremaster Dibbs: Take Two With Water'],
+		[95788, 2277, 2277, 'Loremaster Dibbs: Magics of the Drowned City'],
+		[95789, 773, 773, 'Krazek: Shady Saltseers'],
+		[95791, 773, 773, 'Krazek: The Saltseer Captain'],
+		[96774, 264074, 264074, "Mazu'kon: Ancient Gurubashi Idol"],
+		[97130, 31439, 31439, 'Archmage Timear: Ancient Gurubashi Secrets'],
+	]) assert.deepEqual(ends(id), [[giver], [ender]], who);
+});
+
+// #1832: players are offered Loremaster Dibbs's two Drowned City quests only once they hand him An Acquaintance in
+// Southshore, which Brother Nimetz offers when Troll Witchery is handed in; The Only Good Brinescale... only once
+// Enemies in the Water is handed in. Without them the pick-up guide sent players to givers who don't offer the quest.
+test("The Drowned City's quests wait for their lead-ins, so the pick-up guide takes those first (#1832)", () => {
+	const blocks = (id, npc) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return blockingPrereqs({ id, start: { npc: [npc] }, ...entry.set });
+	};
+	for (const [id, npc, any, who] of [
+		[95786, 739, [205], 'An Acquaintance in Southshore after Troll Witchery'],
+		[95787, 2277, [95786], 'Take Two With Water after An Acquaintance in Southshore'],
+		[95788, 2277, [95786], 'Magics of the Drowned City after An Acquaintance in Southshore'],
+		[95776, 2464, [95773], 'The Only Good Brinescale... after Enemies in the Water'],
+	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
+});
+
+// The 0.3.8 XP review (players' recorded hand-ins at a full-XP level, builds 70790-70888): three quests whose
+// data value no recorded hand-in pays. The Grand Betrayal's earlier correction held the 70170 build's value.
+test('quest XP the recordings confirm is held by the corrections (0.3.8 XP review)', () => {
+	const xp = { 421: 875, 2929: 6200, 96261: 3050 };
+	const got = Object.fromEntries(Object.keys(xp).map((q) => [q, corrections.quests[q] && corrections.quests[q].set.xp]));
+	assert.deepEqual(got, Object.fromEntries(Object.entries(xp).map(([q, v]) => [q, v])));
+	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
+});
+
+// #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
+// fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
+// vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
+// (TDB, QuestieDB 1.0.14, recorded windows): he is the only spawned one.
+test('Innkeeper Thulbek sells no bow or gun and does not repair (#1820)', () => {
+	assert.deepEqual(corrections.items[2511].removeVendors, [5814]);
+	assert.deepEqual(corrections.npcs[5814].set.roles, ['innkeeper', 'vendor']);
+});
+
+test('the release data and Codex give Innkeeper Thulbek no Bows & guns or repair role (#1820)', (t) => {
+	const dir = path.join(__dirname, '..', 'data', 'forever');
+	if (!fs.existsSync(path.join(dir, 'items.json'))) return t.skip('no data/forever');
+	const read = (f) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+	assert.ok(!read('items.json')[2511].vendors.includes(5814), "Hunter's Boomstick: not sold by him");
+	assert.deepEqual(read('npcs.json')[5814].roles, ['innkeeper', 'vendor']);
+	const codex = path.join(dir, 'codex', 'npcs.json');
+	if (fs.existsSync(codex)) assert.deepEqual(JSON.parse(fs.readFileSync(codex, 'utf8'))[5814].roles, ['innkeeper', 'sells:food', 'vendor']);
 });

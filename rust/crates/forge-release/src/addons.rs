@@ -47,8 +47,9 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
 /// The release's folders: the six always shipped, the walking maps' part addons when written, our guides'
-/// faction parts and race parts once built, the data addons that are built (our guides' texts are in the
-/// language folders), then the skin addons.
+/// faction parts and race parts once built, Polestar's own extra packs once built (Polestar_Experimental:
+/// loaded on demand, once a player switches it on), the data addons that are built (our guides' texts are in
+/// the language folders), then the skin addons.
 pub fn release_addons(addons: &Path) -> Release {
 	let guides = forge_guide::project::OWN_FOLDER;
 	let factions = forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f));
@@ -57,6 +58,7 @@ pub fn release_addons(addons: &Path) -> Release {
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
+	names.extend(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(data);
 	names.extend(SKIN_ADDONS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	Release { names, skipped }
@@ -91,14 +93,21 @@ pub fn notice_refusal(addons: &Path, names: &[String]) -> Option<String> {
 	None
 }
 
-/// The first of our guide parts among `names` (Polestar_Guides and its faction parts) that lacks its
-/// LICENSE-DATA.txt; None when each has one. Their guides carry the reference data's facts, so like a data
-/// addon none ships without the notice `forge guide compile` writes beside it.
+/// The first of our guide parts among `names` (Polestar_Guides and its faction parts, and Polestar's own extra
+/// packs) that lacks its LICENSE-DATA.txt; None when each has one. Their guides carry the reference data's
+/// facts, so like a data addon none ships without the notice `forge guide compile` writes beside it.
 pub fn guide_notice_refusal(addons: &Path, names: &[String]) -> Option<String> {
 	let guides = forge_guide::project::OWN_FOLDER;
-	let parts: Vec<String> = std::iter::once(guides.to_string()).chain(forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f))).collect();
+	let parts: Vec<String> = std::iter::once(guides.to_string())
+		.chain(forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f)))
+		.chain(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()))
+		.collect();
 	let n = names.iter().find(|n| parts.contains(n) && !addons.join(n).join("LICENSE-DATA.txt").exists())?;
-	Some(format!("{n} has no LICENSE-DATA.txt (rebuild it with `forge guide compile`)"))
+	let cmd = match forge_guide::project::own_extra(n) {
+		Some(e) => format!("forge guide compile {}", e.source),
+		None => "forge guide compile".to_string(),
+	};
+	Some(format!("{n} has no LICENSE-DATA.txt (rebuild it with `{cmd}`)"))
 }
 
 /// Why the built Codex folder `dir` may not ship, or None when it may: it must be built, carry its

@@ -132,8 +132,7 @@
 			"changes": 321,
 			"byClass": {
 				"quests.xp": {
-					"eg": 178,
-					"eg.observed": 1
+					"eg": 179
 				},
 				"quests.objective count": {
 					"eg": 23,
@@ -215,7 +214,7 @@
 		1453
 	],
 	"files": {
-		"quests.json": 115383,
+		"quests.json": 115374,
 		"npcs.json": 119667,
 		"objects.json": 240559,
 		"items.json": 59047,

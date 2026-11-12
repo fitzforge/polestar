@@ -2,9 +2,10 @@
 //! lint.js, with pack/locate.js and pack/build.js's packCommand). The pack is the folder argument (or
 //! `--pack`), else the nearest folder holding a pack.json (this one or a parent), else our guides/.
 //! Another pack is compiled with our guides as context and written to <pack>/dist/<folder>/; ours to
-//! <checkout>/addon/<folder>/. `--force` writes the files even with errors; lint's `--sim <dir>` (default
-//! <checkout>/data/sim with the default data) reads world-<faction>.json's `excluded` for the solo policy,
-//! skipping a world built from other data.
+//! <checkout>/addon/<folder>/, and so is one of Polestar's own extra packs (forge_guide::project::OWN_EXTRAS:
+//! experimental/ into addon/Polestar_Experimental/, with our guides as context). `--force` writes the files
+//! even with errors; lint's `--sim <dir>` (default <checkout>/data/sim with the default data) reads
+//! world-<faction>.json's `excluded` for the solo policy, skipping a world built from other data.
 //!
 //! `forge guide bake --guides <dir>[,<dir>...] [--grid <dir>] [--leffe <dir>] [--root <repo>] [--data <dir>] [--threads N]`:
 //! the baked legs of written guide trees (forge::bake).
@@ -446,6 +447,9 @@ fn run() -> i32 {
 		eprintln!("forge guide {cmd}: {}: no such folder", pack_dir.display());
 		return 1;
 	}
+	// One of Polestar's own extra packs: checked as another pack is (its own reserved id allowed), built as
+	// Polestar's into addon/.
+	let own_extra = if official { None } else { forge_guide::project::own_extra_at(&root, &pack_dir) };
 	let (context_dir, context_data_dir) = if official {
 		(None, None)
 	} else {
@@ -455,8 +459,18 @@ fn run() -> i32 {
 	let summary = fmt != "json";
 	let t0 = Instant::now();
 
-	let (manifest, extra) = forge_guide::manifest::read_manifest(if official { &official_dir } else { &pack_dir }, official);
-	let Some(manifest) = manifest.filter(V::truthy) else {
+	let (manifest, mut extra) = match own_extra {
+		Some(e) => forge_guide::manifest::read_extra_manifest(&pack_dir, e.id),
+		None => forge_guide::manifest::read_manifest(if official { &official_dir } else { &pack_dir }, official),
+	};
+	let refused = match (&manifest, own_extra) {
+		(Some(m), Some(e)) if m.truthy() => forge_guide::project::own_extra_manifest(e, m).err(),
+		_ => None,
+	};
+	let Some(manifest) = manifest.filter(|m| m.truthy() && refused.is_none()) else {
+		if let Some(why) = refused {
+			extra.push(Diag { severity: "error", file: Some(forge_guide::project::shown(&pack_dir.join("pack.json"))), line: 1.0, message: why, hint: None });
+		}
 		print_diagnostics(&extra, &fmt, quiet);
 		if summary {
 			eprintln!("{cmd} failed: {} in pack.json", plural(extra.iter().filter(|d| d.severity == "error").count(), "error"));
@@ -522,7 +536,7 @@ fn run() -> i32 {
 				eprintln!("forge guide {cmd}: refusing the pack folder {folder:?}: not a plain folder name");
 				return 1;
 			}
-			if official {
+			if official || own_extra.is_some() {
 				root.join("addon").join(folder)
 			} else {
 				pack_dir.join("dist").join(folder)

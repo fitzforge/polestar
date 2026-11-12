@@ -27,10 +27,9 @@ next forever/alliance/04-redridge-mountains
 
 step Kerlonian Evershade
   zone Darkshore
-  tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest, open his chest for the Horn of Awakening, use it to wake him and lead him south along the road to his bag at the southern edge of Darkshore; blow the horn again whenever he falls asleep. Then go on to Liladris Moonriver at Maestra's Post.
+  tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest: it gives you the Horn of Awakening. Use the horn to wake him and lead him south along the road to his bag at the southern edge of Darkshore; blow it again whenever he falls asleep. Then go on to Liladris Moonriver at Maestra's Post.
   tip Careful: Scripted ambushes of three mobs each attack along the road.
   accept 5321                                 -- Kerlonian Evershade
-  collect 13536 quest 5321.1                  -- Kerlonian's Chest, beside him
   goto 44.4,76.4 "Kerlonian Evershade"
   note Escort Kerlonian south along the road to his bag at the southern edge of Darkshore, then go on to Liladris at Maestra's Post.
 
@@ -188,10 +187,17 @@ step Dal Bloodclaw
   tip Careful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone.
   collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
 
+step Astranaar
+  tip South from Dal Bloodclaw's camp, Astranaar is on the way west: Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.
+  turnin 1025                             -- Raene Wolfrunner
+  turnin 1054                             -- Raene Wolfrunner
+  turnin 1034                             -- Pelturas Whitemoon, inside
+  vendor nearest
+
 # ---------------------------------------------------------------- West: Ilkrud and the Zoram Strand
 
 step Ilkrud Magthrull
-  tip From Dal Bloodclaw's camp head south-west past Astranaar (its hand-ins wait for the way back) to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.
+  tip From Astranaar head south-west to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.
   collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
 
 step The Zoram Strand
@@ -217,12 +223,8 @@ step Maestra's Post
   accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
 
 step Astranaar
-  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside.
+  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.
   turnin 1008                         -- Shindrell Swiftfire
-  turnin 1025                             -- Raene Wolfrunner
-  turnin 1054                             -- Raene Wolfrunner
-  turnin 1034                             -- Pelturas Whitemoon, inside
-  vendor nearest
 
 # ---------------------------------------------------------------- Menethil Harbor
 
@@ -313,7 +315,7 @@ step Ironbeard's Tomb
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
 
 step Menethil
-  tip Back west along the road into Menethil: Tarrel Rockweaver by the road in, Sida and Caitlin Grassman at the inn, Valstag Ironjaw in the keep, James Halloran on the west side by the docks, Karl Boran on the pier north of the inn.
+  tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road into Menethil: Tarrel Rockweaver by the road in at the north gate, Sida and Caitlin Grassman at the inn, Valstag Ironjaw in the keep, James Halloran on the west side by the docks, Karl Boran on the pier north of the inn.
   turnin 306                              -- Tarrel Rockweaver
   turnin 470                              -- Sida
   turnin 98282                            -- Caitlin Grassman, inside
@@ -335,6 +337,7 @@ step Ironforge
   zone Ironforge
   tip The gryphons land in the Great Forge. Lomac Gearstrip stands in Tinker Town, east of it, by the Deeprun Tram.
   turnin 1072                             -- Lomac Gearstrip, Tinker Town
+  buy 4371 x1 npc 5175 optional           -- Bronze Tube, for Look to the Stars in Darkshire: Gearcutter Cogspinner, beside Lomac, sometimes has one
   turnin 968 optional                     -- Only with Book: The Powers Below from Darkshore: Gerrig Bonegrip, the Forlorn Cavern
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest

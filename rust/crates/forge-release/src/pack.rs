@@ -36,6 +36,23 @@ pub fn readme(version: &str, names: &[String]) -> String {
 			"   (one of each per language): Polestar no longer uses them.",
 			"   The Polestar_Skin_ folders are skins: each shows up under Settings >",
 			"   Theme and loads only when you pick it.",
+		]
+		.iter()
+		.map(|s| s.to_string()),
+	);
+	if names.iter().any(|n| forge_guide::project::own_extra(n).is_some()) {
+		lines.extend(
+			[
+				"   Polestar_Experimental holds experimental guides for Forever's new",
+				"   zones (alpha). They stay off, and nothing of them loads, until you",
+				"   switch them on under Options > Community guides.",
+			]
+			.iter()
+			.map(|s| s.to_string()),
+		);
+	}
+	lines.extend(
+		[
 			"2. Quit the game completely and start it again. A /reload does not",
 			"   load new addon folders.",
 			"",
@@ -134,6 +151,19 @@ mod tests {
 		assert!(text.contains("Polestar_Looks the\r\n   WoW Forever, Blizzard, Classic and Hearth skins (loaded when you\r\n   pick one)"));
 		assert!(text.contains("\r\nPortions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever),\r\n"));
 		assert!(!text.replace("\r\n", "").contains('\n'), "CRLF line endings throughout");
+	}
+
+	#[test]
+	fn the_readme_says_the_experimental_guides_stay_off_until_switched_on_only_when_they_ship() {
+		let with: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Experimental", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
+		let text = readme("0.3.8", &with);
+		assert!(text.contains("\r\n     Polestar_Experimental\r\n"));
+		assert!(text.contains(
+			"\r\n   Polestar_Experimental holds experimental guides for Forever's new\r\n   zones (alpha). They stay off, and nothing of them loads, until you\r\n   switch them on under Options > Community guides.\r\n2. Quit"
+		));
+		let without = readme("0.3.8", &with[..2]);
+		assert!(!without.contains("Polestar_Experimental"));
+		assert!(without.contains("Polestar no longer uses them.\r\n2. Quit"));
 	}
 
 	#[test]

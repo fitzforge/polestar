@@ -77,7 +77,8 @@ step Rock Elementals
   collect 7848 quest 2258.3
 
 step Agmond's End
-  tip Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals.
+  when group 709
+  tip Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals. His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.
   accept 709
 
 step Stonevault troggs
@@ -92,10 +93,12 @@ step Valley of Fangs
   accept 1137                         -- for Fizzle at the Mirage Raceway, on the way from Freewind Post to Tanaris around level 43
 
 step Ancient Chest
-  tip Keep north on the road; the chest lies in the Uldaman dig site, at the foot of the ruins north-west of the road.
+  when group 709
+  tip Keep north on the road to Uldaman's entrance, in the north of the Badlands: the chest lies just inside the cave mouth. Magregan Deepshadow and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together.
   collect 4631 quest 709              -- Below ground
 
 step Agmond's End
+  when group 709
   tip Head back south down the road, past the Valley of Fangs.
   turnin 709                          -- Theldurin the Lost
   accept 728

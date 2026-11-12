@@ -294,6 +294,66 @@ fn sources_npcs_quests_dungeons_and_zones_give_location_rows() {
 	assert_eq!(zone, json!({ "n": 0, "name": "Amber Vale" }));
 }
 
+// #1743: a zone picked in Lookup said "No guide could be made for this (nosource)": zones had no rows. Now its
+// flight masters and inns (Nav's travel data, here a fake Nav) are its rows, the other side's listed but not open
+// and a class's own flight master only for that class; with none open to the character, its middle too
+// (Nav.ZoneMiddle); a map with none of them (a continent) still has no rows. The guide is one goto there, which the
+// arrow's route leads to.
+#[test]
+fn issue_1743_a_zone_s_rows_are_its_flight_masters_and_inns_else_its_middle_and_its_guide_goes_there() {
+	let [vale, hollow, other, isle, guide] = first::<5>(run(r#"
+		local middle = false
+		Polestar.Nav = {
+			GetTravelData = function() return {
+				taxi = {
+					{ id = 1, name = "Amber Post", map = 9001, x = 20, y = 20, faction = 1 },
+					{ id = 2, name = "Ember Camp", map = 9001, x = 80, y = 80, faction = 2 },
+					{ id = 3, name = "Druid Grove", map = 9001, x = 50, y = 60, faction = 3, class = "DRUID" },
+					{ id = 4, name = "Hollow Post", map = 9002, x = 50, y = 50, faction = 3 },
+				},
+				inns = {
+					{ name = "Amber Inn", map = 9001, x = 52, y = 48, npc = 5001 },
+					{ name = "Grosh's Inn", map = 9001, x = 51, y = 50, npc = 5002 },
+					middle and { name = "Isle Inn", map = 9003, x = 30, y = 30, npc = 5002 } or nil,
+				},
+			} end,
+			-- Amber Vale's middle is never listed: rows there are open.
+			ZoneMiddle = function(map)
+				if map == 9001 then return 0, 0, 0 end
+				if middle and map == 9003 then return 1, 0, 0 end
+			end,
+		}
+		emit((rows("zone", 9001)))
+		emit((rows("zone", 9002)))
+		-- Frost Isle with no inn or middle (as a continent): no rows. Straight-line rows, past the ranked ones' cache.
+		emit({ n = #(Polestar.Lookup.Sources("zone", 9003, true)) })
+		middle = true
+		emit((rows("zone", 9003)))
+		local def, err = Polestar.Lookup.BuildGuide("zone", 9001)
+		emit(def and { title = def.title, steps = def.steps } or { err = err })
+	"#));
+	assert_eq!(
+		pick(&vale, &["type", "label", "detail", "available", "whyText", "guideable"]),
+		json!([
+			{ "type": "inn", "label": "Amber Inn", "detail": "Innkeeper \u{b7} Amber Vale", "available": true, "whyText": null, "guideable": true },
+			{ "type": "flight", "label": "Amber Post", "detail": "Flight master \u{b7} Amber Vale", "available": true, "whyText": null, "guideable": true },
+			{ "type": "inn", "label": "Grosh's Inn", "detail": "Innkeeper \u{b7} Amber Vale", "available": false, "whyText": "Horde only", "guideable": true },
+			{ "type": "flight", "label": "Ember Camp", "detail": "Flight master \u{b7} Amber Vale", "available": false, "whyText": "Horde only", "guideable": true },
+		])
+	);
+	assert_eq!(pick(&hollow, &["type", "label", "available"]), json!([{ "type": "flight", "label": "Hollow Post", "available": true }]));
+	assert_eq!(
+		pick(&isle, &["type", "label", "detail", "available", "map", "x", "y"]),
+		json!([
+			{ "type": "middle", "label": "Frost Isle", "detail": "Zone \u{b7} Frost Isle", "available": true, "map": 9003, "x": 50, "y": 50 },
+			{ "type": "inn", "label": "Isle Inn", "detail": "Innkeeper \u{b7} Frost Isle", "available": false, "map": 9003, "x": 30, "y": 30 },
+		]),
+		"the other side's inn only: the middle too"
+	);
+	assert_eq!(other, json!({ "n": 0 }), "a map with no flight master, inn or middle: no rows");
+	assert_eq!(guide, json!({ "title": "Amber Vale", "steps": [{ "title": "Amber Vale", "goals": [{ "t": "goto", "text": "Amber Inn", "map": 9001, "x": 52, "y": 48 }] }] }));
+}
+
 // A French client whose names pack lands after the first look: the Codex names Elder Rowan in French from then
 // on, and so must the cached rows.
 #[test]

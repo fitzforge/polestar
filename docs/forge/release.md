@@ -28,10 +28,11 @@ forge changelog --help
 ## The version
 
 The version lives in `package.json`, in `guides/pack.json` (the compiler writes it into
-`Polestar_Guides.toc`) and in the `## Version` line of every addon TOC.
+`Polestar_Guides.toc`), in `experimental/pack.json` (into `Polestar_Experimental.toc`) and in the
+`## Version` line of every addon TOC.
 
 ```sh
-forge release version            # print it; exit 1 if guides/pack.json or a TOC disagrees
+forge release version            # print it; exit 1 if a pack.json or a TOC disagrees
 forge release version 0.2.0      # set it everywhere; nothing is written when a file has no version to set
 ```
 
@@ -40,19 +41,25 @@ Versions are `x.y.z`, or `x.y.z-rc.1` for a release candidate.
 ## The zips
 
 `forge release pack` in the checkout compiles our guides into `addon/Polestar_Guides` (with its race
-parts, and its texts in the language folders `Polestar_<locale>`), then writes to `dist/`:
+parts, and its texts in the language folders `Polestar_<locale>`) and Polestar's experimental pack
+(`experimental/`, with our guides as context) into `addon/Polestar_Experimental`, then writes to
+`dist/`:
 
 | File | Contents |
 |---|---|
-| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and the players' `README.txt`), `Polestar_Guides` and its parts, `Polestar_Nav`, `Polestar_QuestDB` and `Polestar_ItemDB` when built, `Polestar_Codex`, the language folders `Polestar_<locale>` (guide texts and names). The old `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` are never shipped: `pack` names any left in `addon/` so they get deleted |
+| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and the players' `README.txt`), `Polestar_Guides` and its parts, `Polestar_Nav`, `Polestar_Experimental` (Polestar's TOC, `## LoadOnDemand: 1`: off in game until a player switches it on; left out without `experimental/pack.json`), `Polestar_QuestDB` and `Polestar_ItemDB` when built, `Polestar_Codex`, the language folders `Polestar_<locale>` (guide texts and names). The old `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` are never shipped: `pack` names any left in `addon/` so they get deleted |
 | `Polestar_Recorder-<version>.zip` | `Polestar_Recorder` with `LICENSE` |
 | `SHA256SUMS` | both zips' checksums, as `sha256sum -c` reads them |
 
 It stops before writing anything when the Codex is not built (`forge data codex`), was built with local
 extras, names a local-only source, or names ForeverLevelingBiS (a Codex built before it left, 2026-11);
-when an addon's TOC is missing; when the guides have errors; when a leveling guide changed since its
-legs were baked (`guides/legs.json`: it would ship without legs; each such guide is named); or
-without reference data (`forge data build`). A TOC whose version is not `package.json`'s is a warning.
+when an addon's TOC is missing; when our guides or the experimental guides have errors (its
+`pack.json` is checked as a community pack's: no `Polestar_` folder, and it must give the id
+`polestar-experimental` and the author Polestar); when a leveling guide changed since its
+legs were baked, or `guides/legs.json` has no legs for it (either way it would ship without legs; each
+such guide is named); or
+without reference data (`forge data build`). A TOC or pack.json whose version is not `package.json`'s
+is a warning.
 
 `--bake` bakes those guides instead of stopping: only their legs are routed, on the maps
 `legs.json` names (`--grid` and `--leffe` must give those maps; a bake on other maps writes nothing),
@@ -67,7 +74,8 @@ used zlib-ng; Node's bundled zlib gives other bytes for the same files.
 Given another pack (a folder holding `pack.json`: `<dir>`, `--pack`, or the nearest one above the
 working directory), `forge release pack` builds it with our guides as context and writes
 `<pack>/dist/<folder>-<version>.zip`, the version taken from its `pack.json`. `--no-data` builds it
-without reference data, as `forge guide compile --no-data` does.
+without reference data, as `forge guide compile --no-data` does. `experimental/` is refused there:
+it ships inside our zip.
 
 ## The changelog fragments
 
@@ -115,6 +123,17 @@ fetched with the GitHub CLI (`gh`, logged in):
   `duplicate`, `invalid`, `wontfix` or `resolution:*`, still labelled `needs-info` or `stale`, or a
   feature request (`enhancement` without `bug`).
 
+Without GitHub it adds:
+
+- the translators: every locale's `translators` in `rust/crates/forge-guide/src/locales.rs` (kept
+  equal to `tools/lib/i18n/locales.js`), in the locales' order, each with its locale and its
+  `language` (English), which the page shows through the interface strings (`forge i18n sync` adds
+  the languages as keys), so a translator added there shows on the next run;
+- the ideas: `data/credits.json` `ideas`, people whose idea shipped though someone else built it,
+  `{ "name": "<login or name>", "ref": <pull request or issue number> }`, in the order they shipped;
+  the page shows each name with `#<ref>`.
+
 Bots, names with no letter or digit, and the logins and names in `exclude` are left out (the
 maintainer's login and Discord name, and anyone who asked not to be listed); `names` maps a login or
-Discord name to the name shown, and two names that differ only in case are one person.
+Discord name to the name shown, and two names that differ only in case are one person. `exclude` and
+`names` apply to the translators and the ideas too.

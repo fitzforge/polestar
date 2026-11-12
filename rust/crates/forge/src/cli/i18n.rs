@@ -702,14 +702,18 @@ struct Pack {
 /// The pack (--pack, else the nearest pack.json above here, else our guides/) compiled in memory, with
 /// its tokenised texts.
 fn pack_guides(o: &Opts) -> Result<Pack, Fail> {
-	use forge_guide::project::{compile_project, find_pack_dir, load_project_data, no_reference_data, same_path};
+	use forge_guide::project::{compile_project, find_pack_dir, load_project_data, no_reference_data, own_extra_at, same_path};
 	let cwd = std::env::current_dir().unwrap_or_default();
 	let official = o.root.join("guides");
 	let dir = match o.opt("--pack") {
 		Some(p) => absolute(Path::new(&p)),
 		None => find_pack_dir(&cwd).unwrap_or_else(|| official.clone()),
 	};
-	let (manifest, _) = forge_guide::manifest::read_manifest(&dir, same_path(&dir, &official));
+	// Polestar's own extra pack (experimental/) may give the id reserved for it.
+	let (manifest, _) = match own_extra_at(&o.root, &dir) {
+		Some(e) => forge_guide::manifest::read_extra_manifest(&dir, e.id),
+		None => forge_guide::manifest::read_manifest(&dir, same_path(&dir, &official)),
+	};
 	let Some(manifest) = manifest.filter(V::truthy) else { return Err(Fail::Run(format!("{}: no valid pack.json", dir.display()))) };
 	let data_dir = o.opt("--data").map_or_else(|| o.root.join("data/forever"), |d| absolute(Path::new(&d)));
 	if no_reference_data(&data_dir, None, false).is_some() {

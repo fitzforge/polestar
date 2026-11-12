@@ -9,10 +9,13 @@
 //!
 //! Sources, per id, the first one with a name that is no English name winning (names_sources.rs):
 //!   1. The Forever client's own tables in that language (items, map, encounter, faction, taxi).
-//!   2. The web quest database's Forever pages in that language, only what is cached: the only source
-//!      for the names of Forever's own quests, NPCs and objects.
-//!   3. DingDB (pinned), whose base data comes from QuestieDB, so --no-questie leaves it out.
-//!   4. pfQuest's db/<locale>, for the names DingDB lacks.
+//!   2. The names the Forever client showed players (data/i18n/names-observed/<locale>.json): the server's
+//!      own names, collected from the client's cache and from names learned in play, reviewed in the
+//!      repository. The server's name is the true one, so it comes before every source below.
+//!   3. The web quest database's Forever pages in that language, only what is cached: for the names of
+//!      Forever's own quests, NPCs and objects the client showed nobody yet.
+//!   4. DingDB (pinned), whose base data comes from QuestieDB, so --no-questie leaves it out.
+//!   5. pfQuest's db/<locale>, for the names DingDB lacks.
 //!
 //! Only the ids Polestar's data names are kept: the compiled guides (addon/Polestar_Guides/Guides.lua),
 //! the quest database (addon/Polestar_QuestDB), the Codex's data (data/forever/codex), the travel data's
@@ -28,11 +31,11 @@ use forge_guide::locales::locale as locale_info;
 use regex::Regex;
 
 use crate::lua::lua_to_value;
-use crate::names_sources::{self as src, ClientNames, PfNames, WebNames};
+use crate::names_sources::{self as src, ClientNames, ObservedNames, PfNames, WebNames};
 pub use crate::names_sources::{clean, ding_pin, Ding, Names, Pin, NAME_KINDS};
 
 pub const PACK_KINDS: [&str; 9] = ["quest", "npc", "object", "item", "map", "encounter", "faction", "taxi", "objective"];
-pub const SOURCE_KEYS: [&str; 4] = ["wago", "web", "ding", "pfquest"];
+pub const SOURCE_KEYS: [&str; 5] = ["wago", "observed", "web", "ding", "pfquest"];
 const COMMAND: &str = "forge data names";
 const OBJECTIVE: usize = 8;
 const ENCOUNTER: usize = 5;
@@ -333,7 +336,7 @@ pub struct Built {
 	/// The ids whose every name is English.
 	pub english: [BTreeSet<i64>; 9],
 	/// Per kind, the names each source gave (SOURCE_KEYS order).
-	pub from: [[usize; 4]; 9],
+	pub from: [[usize; 5]; 9],
 }
 
 impl Built {
@@ -349,6 +352,8 @@ pub struct Inputs<'a> {
 	/// With enUS among its locales.
 	pub pf: &'a BTreeMap<String, PfNames>,
 	pub wago: Option<&'a BTreeMap<String, src::KindNames>>,
+	/// The names the client showed players, per language.
+	pub observed: Option<&'a BTreeMap<String, ObservedNames>>,
 	pub web: Option<&'a BTreeMap<String, WebNames>>,
 	pub english: &'a English,
 }
@@ -361,6 +366,7 @@ pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 	let en = i.pf.get("enUS");
 	for &locale in locales {
 		let w = i.wago.and_then(|m| m.get(locale));
+		let o = i.observed.and_then(|m| m.get(locale));
 		let h = i.web.and_then(|m| m.get(locale));
 		let d = i.ding.and_then(|m| m.get(locale));
 		let p = i.pf.get(locale);
@@ -387,9 +393,16 @@ pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 					}
 				}
 				let candidates: Vec<(usize, Option<&String>)> = if k == OBJECTIVE {
-					vec![(1, h.and_then(|h| h.objective.get(&id))), (3, pf_of(p, k, id))]
+					vec![(2, h.and_then(|h| h.objective.get(&id))), (4, pf_of(p, k, id))]
 				} else {
-					vec![(0, wk.and_then(|m| m.get(&id))), (1, h.and_then(|h| h.names.get(k)).and_then(|m| m.get(&id))), (2, d.and_then(|d| d.get(k)).and_then(|m| m.get(&id))), (3, pf_of(p, k, id))]
+					let seen = o.and_then(|o| o.names.get(k)).and_then(|m| m.get(&id));
+					vec![
+						(0, wk.and_then(|m| m.get(&id))),
+						(1, seen),
+						(2, h.and_then(|h| h.names.get(k)).and_then(|m| m.get(&id))),
+						(3, d.and_then(|d| d.get(k)).and_then(|m| m.get(&id))),
+						(4, pf_of(p, k, id)),
+					]
 				};
 				let named: Vec<(usize, String)> = candidates.into_iter().map(|(s, v)| (s, v.map(|v| text(v)).unwrap_or_default())).filter(|(_, v)| usable(v)).collect();
 				match named.iter().find(|(_, v)| !english.contains(v)) {
@@ -416,6 +429,8 @@ pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 pub struct Sources<'a> {
 	/// The client tables' (product, build) and URLs.
 	pub wago: Option<(&'a [(&'static str, String)], &'a [String])>,
+	/// None unless some language has names the client showed.
+	pub observed: Option<&'a BTreeMap<String, ObservedNames>>,
 	/// None unless some language's web names were cached.
 	pub web: Option<&'a BTreeMap<String, WebNames>>,
 	pub ding: Option<&'a Ding>,
@@ -428,6 +443,9 @@ pub fn source_label(s: &Sources) -> String {
 	let mut parts = Vec::new();
 	if let Some((builds, _)) = s.wago {
 		parts.push(format!("the client's tables ({}, wago.tools)", builds.iter().map(|b| b.1.as_str()).collect::<Vec<_>>().join(", ")));
+	}
+	if s.observed.is_some() {
+		parts.push("the names the client showed players".into());
 	}
 	if s.web.is_some() {
 		parts.push("the web quest database".into());
@@ -499,6 +517,16 @@ pub fn license_text(locale: &str, built: &Built, s: &Sources) -> Result<String, 
 		out.push(format!("Names taken: {}.", counts(0)));
 		out.push(String::new());
 	}
+	if let Some(seen) = s.observed.and_then(|o| o.get(locale)).filter(|o| !o.is_empty()) {
+		out.push("Names the World of Warcraft: Forever client showed players".into());
+		out.push("----------------------------------------------------------".into());
+		out.push(format!("File: data/i18n/names-observed/{locale}.json in the Polestar repository"));
+		out.push("The server's own names, read from the client's cache and from the names it".into());
+		out.push("gave units in play, collected by players and reviewed in the repository".into());
+		out.push(format!("({}).", seen.refs.iter().map(|r| format!("#{r}")).collect::<Vec<_>>().join(", ")));
+		out.push(format!("Names taken: {}.", counts(1)));
+		out.push(String::new());
+	}
 	if let Some(wh) = s.web.and_then(|w| w.get(locale)) {
 		out.push("The web quest database, World of Warcraft: Forever pages".into());
 		out.push("--------------------------------------------------------".into());
@@ -507,7 +535,7 @@ pub fn license_text(locale: &str, built: &Built, s: &Sources) -> Result<String, 
 			out.push(format!("Read: {} to {}", first.chars().take(10).collect::<String>(), last.chars().take(10).collect::<String>()));
 		}
 		out.push("Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.".into());
-		out.push(format!("Names taken: {}.", counts(1)));
+		out.push(format!("Names taken: {}.", counts(2)));
 		out.push(String::new());
 	}
 	if let Some(d) = s.ding {
@@ -521,7 +549,7 @@ pub fn license_text(locale: &str, built: &Built, s: &Sources) -> Result<String, 
 		}
 		out.push("License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission".into());
 		out.push("(THIRD_PARTY.md in the Polestar repository).".into());
-		out.push(format!("Names taken: {}.", counts(2)));
+		out.push(format!("Names taken: {}.", counts(3)));
 		out.push("DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md".into());
 		out.push("beside this file.".into());
 		out.push(String::new());
@@ -538,7 +566,7 @@ pub fn license_text(locale: &str, built: &Built, s: &Sources) -> Result<String, 
 	}
 	out.push(format!("Files: db/{locale}/{{quests,units,objects,items}}.lua"));
 	out.push("License: MIT".into());
-	out.push(format!("Names taken: {} (the ones the sources above lack).", counts(3)));
+	out.push(format!("Names taken: {} (the ones the sources above lack).", counts(4)));
 	if let Some(dir) = s.pf_dir {
 		let notice = crate::pfquest::check_license(dir)?.notice;
 		if !notice.is_empty() {
@@ -683,6 +711,8 @@ pub struct Options {
 	pub no_tables: bool,
 	pub build: Option<String>,
 	pub sources: PathBuf,
+	/// The names the client showed players, one <locale>.json each (default data/i18n/names-observed).
+	pub observed: PathBuf,
 	/// Some: a folder the user named (used as it is).
 	pub ding: Option<PathBuf>,
 	/// The DingDB pin (ding_pin()).
@@ -709,6 +739,7 @@ impl Options {
 			no_tables: false,
 			build: None,
 			sources: root.join("data/sources"),
+			observed: root.join("data/i18n/names-observed"),
 			ding: None,
 			pin: ding_pin(),
 			pfquest: None,
@@ -785,8 +816,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Report, String> {
 			}
 		}
 	}
+	let observed: BTreeMap<String, ObservedNames> = wanted.iter().map(|l| Ok((l.to_string(), src::load_observed_names(&o.observed, l)?))).collect::<Result<_, String>>()?;
 	let web: BTreeMap<String, WebNames> = wanted.iter().map(|l| Ok((l.to_string(), src::load_web_names(&o.sources, l)?))).collect::<Result<_, String>>()?;
-	let built = build_names(&wanted, &Inputs { ids: &ids, ding: ding_names.as_ref(), pf: &pf, wago: tables.as_ref().map(|t| &t.names), web: Some(&web), english: &english });
+	let built = build_names(&wanted, &Inputs { ids: &ids, ding: ding_names.as_ref(), pf: &pf, wago: tables.as_ref().map(|t| &t.names), observed: Some(&observed), web: Some(&web), english: &english });
 	if tables.is_some() {
 		for l in &wanted {
 			for kind in ["map", "faction", "taxi"] {
@@ -799,8 +831,10 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Report, String> {
 		}
 	}
 	let web_used = web.values().any(|w| w.fetched.is_some());
+	let observed_used = observed.values().any(|o| !o.is_empty());
 	let sources = Sources {
 		wago: tables.as_ref().map(|t| (t.builds.as_slice(), t.urls.as_slice())),
+		observed: observed_used.then_some(&observed),
 		web: web_used.then_some(&web),
 		ding: ding.as_ref(),
 		pf_dir: Some(&pf_info.dir),
@@ -876,7 +910,7 @@ impl Report {
 	/// The text report, one line each.
 	pub fn lines(&self, cwd: &Path) -> Vec<String> {
 		const WORDS: [&str; 9] = ["quest", "NPC", "object", "item", "instance", "encounter", "faction", "flight point", "quest objective"];
-		const SOURCE_WORDS: [&str; 4] = ["client tables", "the web quest database", "DingDB", "pfQuest"];
+		const SOURCE_WORDS: [&str; 5] = ["client tables", "names the client showed", "the web quest database", "DingDB", "pfQuest"];
 		let plural = |n: usize, w: &str| format!("{n} {w}{}", if n == 1 { "" } else { "s" });
 		let id_line = |c: &[Option<usize>]| c.iter().enumerate().filter_map(|(k, n)| n.map(|n| plural(n, WORDS[k]))).collect::<Vec<_>>().join(", ");
 		let mut out = Vec::new();
@@ -906,7 +940,7 @@ impl Report {
 				out.push(format!("{l}: no names; no folder"));
 				continue;
 			};
-			let from: Vec<String> = (0..4).map(|s| format!("{} {}", SOURCE_WORDS[s], (0..9).map(|k| b.from[k][s]).sum::<usize>())).collect();
+			let from: Vec<String> = (0..SOURCE_KEYS.len()).map(|s| format!("{} {}", SOURCE_WORDS[s], (0..9).map(|k| b.from[k][s]).sum::<usize>())).collect();
 			let sizes: Vec<Option<usize>> = b.names.iter().map(|m| Some(m.len())).collect();
 			let dir = pathdiff(&w.dir, cwd);
 			out.push(format!(

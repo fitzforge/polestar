@@ -358,7 +358,7 @@ site walks through every step.
 ## Polestar Client
 
 The [Polestar Client](https://polestar.guide/client) is a small desktop app for
-Windows, macOS and Linux (beta, 0.1.6). It finds WoW: Forever on your
+Windows, macOS and Linux (beta, 0.1.7). It finds WoW: Forever on your
 computer and:
 
 - **installs and updates Polestar's addons**: Polestar, the Recorder and
@@ -379,7 +379,7 @@ computer and:
   info").
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
-[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.6);
+[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.7);
 its source is in [apps/client](apps/client).
 
 <p align="center">

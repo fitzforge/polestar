@@ -353,12 +353,14 @@ Transit.Countdown = countdown
 local HERE = {
 	boat = L["Boat docked, leaves in %s"],
 	zeppelin = L["Zeppelin docked, leaves in %s"],
+	airship = L["Airship docked, leaves in %s"],
 	tram = L["Tram boarding, leaves in %s"],
 	lift = L["Lift here, leaves in %s"],
 }
 local NEXT = {
 	boat = L["Next boat in %s"],
 	zeppelin = L["Next zeppelin in %s"],
+	airship = L["Next airship in %s"],
 	tram = L["Next tram in %s"],
 	lift = L["Next lift in %s"],
 }
@@ -366,6 +368,7 @@ local NEXT = {
 local AVERAGE = {
 	boat = L["Boat: average wait %s"],
 	zeppelin = L["Zeppelin: average wait %s"],
+	airship = L["Airship: average wait %s"],
 	tram = L["Tram: average wait %s"],
 	lift = L["Lift: average wait %s"],
 }

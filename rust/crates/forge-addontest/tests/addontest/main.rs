@@ -2,6 +2,7 @@
 //! test binary each, which cost a link per file).
 #![recursion_limit = "512"]
 mod alts;
+mod api;
 mod automation;
 #[path = "automation-accept-off.rs"]
 mod automation_accept_off;
@@ -215,6 +216,8 @@ mod locale_load;
 mod lookup;
 #[path = "lookup-codex.rs"]
 mod lookup_codex;
+#[path = "lookup-elites.rs"]
+mod lookup_elites;
 #[path = "lookup-guides.rs"]
 mod lookup_guides;
 #[path = "lookup-tooltip-performance.rs"]
@@ -282,6 +285,8 @@ mod new_in_forever;
 mod options_memory;
 #[path = "pack-race-parts.rs"]
 mod pack_race_parts;
+#[path = "packs-ondemand.rs"]
+mod packs_ondemand;
 #[path = "packs-parity.rs"]
 mod packs_parity;
 #[path = "packs-registry.rs"]
@@ -316,6 +321,8 @@ mod questdb_memory;
 mod quests;
 #[path = "quests-levels.rs"]
 mod quests_levels;
+#[path = "quests-log-link.rs"]
+mod quests_log_link;
 #[path = "quests-timed.rs"]
 mod quests_timed;
 #[path = "quoted-quest-names.rs"]
@@ -354,6 +361,7 @@ mod skins_concepts;
 mod skins_hearth;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
+mod stranded;
 mod syntax;
 mod talents;
 mod theme;

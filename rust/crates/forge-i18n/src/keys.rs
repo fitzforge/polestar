@@ -207,5 +207,12 @@ pub fn extract_keys(root: &Path, addon_dir: &Path) -> Result<Keys, String> {
 	for key in attunement_notes(root, addon_dir)? {
 		keys.add(key, data("Dungeons/Attune.lua"));
 	}
+	// The languages beside their translators on Guiding Stars (UI/Thanks.lua, L[e.language]): LOCALES'
+	// `language`, which `forge release credits` writes into Core/Credits.lua.
+	if addon_dir.join("UI/Thanks.lua").exists() {
+		for l in &forge_guide::locales::LOCALES {
+			keys.add(l.language.to_string(), data("UI/Thanks.lua"));
+		}
+	}
 	Ok(keys)
 }

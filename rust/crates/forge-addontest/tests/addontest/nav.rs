@@ -1352,6 +1352,21 @@ fn tomtom_mirrors_the_target_one_waypoint_replaced_on_change_removed_when_cleare
 	assert_eq!(out["arrowAfter"], true, "ours returns when the bridge is off");
 }
 
+// Another addon's TomTom-compatible global with TomTom itself not installed: some waypoint addons answer TomTom's
+// calls with their own arrow and make a waypoint their arrow's when it has none, whatever `crazy` says. No mirror
+// and no TomTom arrow there, so no second arrow on Polestar's target; only TomTom itself gets them (Shortest Path
+// Forever's stand-in and Polestar's own never did, #306).
+#[test]
+fn a_tomtom_compatible_global_without_tomtom_installed_gets_no_mirror_and_never_takes_the_arrow() {
+	let out = run(r#"
+		local adds = 0
+		TomTom = { AddWaypoint = function() adds = adds + 1; return {} end, RemoveWaypoint = function() end }
+		target(100, 0, "First")
+		Polestar.Set("nav.useTomTomArrow", true)
+		emit({ adds = adds, arrow = A.frame:IsShown(), usingTomTom = N.UsingTomTomArrow() })"#);
+	assert_eq!(out, json!({ "adds": 0, "arrow": true, "usingTomTom": false }));
+}
+
 // #1325: TomTom's arrow hides itself for a waypoint on another continent (it measures no distance there), so
 // with "Use TomTom's arrow" a goal across the sea showed no arrow at all. Polestar's own arrow guides until the
 // player reaches the goal's continent, then gives way to TomTom's; the mirror keeps TomTom's arrow on it.

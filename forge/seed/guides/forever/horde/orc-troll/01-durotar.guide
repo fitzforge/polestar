@@ -193,7 +193,8 @@ step Hana'zua
   accept 804
   goto 42.4,68.6 "The Den"
 
-step Back to the Den
+step Galgar
+  tip Galgar stands just outside the Den's entrance.
   turnin 804                          -- Gornek
   turnin 789                          -- Gornek
   turnin 4402                         -- Galgar
@@ -280,12 +281,48 @@ step Ridgeshade spiders
   kill 266849 quest 96821.2
 
 step Brakk's campfire
-  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears.
+  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill or in Orgrimmar at the start of the next guide.
   turnin 96652                        -- Brakk
   accept 96604
   complete 96604 @52.1,47.4
   turnin 96604
   accept 96655
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97907                        -- Brakk: for Krunn
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  accept 97902                        -- Brakk: for Mukdrak
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97903                        -- Brakk: for Rawrk
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97908                        -- Brakk: for Thuwd
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97906                        -- Brakk: for Karolek
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 96102                        -- Brakk: for Snang
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  accept 97905                        -- Brakk: for Jandi
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  accept 97901                        -- Brakk: for Jhag
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97899                        -- Brakk: for Whuut
 
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town
@@ -298,6 +335,21 @@ step Razor Hill
   turnin 2161                         -- Innkeeper Grosk
   sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
+
+step Krunn
+  when onquest 97907
+  complete 97907 @51.81,40.88 map 1411
+  turnin 97907                        -- Krunn: Camping 101: Mining
+
+step Mukdrak
+  when onquest 97902
+  complete 97902 @52.18,40.8 map 1411
+  turnin 97902                        -- Mukdrak: Camping 101: Engineering
+
+step Rawrk
+  when onquest 97903
+  complete 97903 @54.17,41.93 map 1411
+  turnin 97903                        -- Rawrk: Camping 101: First Aid
 
 step Prickly pears
   tip The prickly pears grow among the quilboar huts just west of town.
@@ -362,7 +414,7 @@ step Echo Isles
   collect 4864 quest 808.1 @67.4,87.8
 
 step South-east shore
-  tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
+  tip Durotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach.
   collect 4892 quest 817.1
   collect 4890 quest 815.1
 
@@ -571,13 +623,13 @@ step Razor Hill
 
 step Razor Hill
   when group 99052
-  accept 99052 optional               -- Orgnil Soulscar: Aggor the Young, an elite sea giant
+  accept 99052                        -- Orgnil Soulscar: Aggor the Young, an elite sea giant
 
 step Aggor the Young
   when group 99052
   tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
-  collect 286009 quest 99052.1 optional -- Aggor's Belt
-  turnin 99052 optional               -- Orgnil Soulscar, back in Razor Hill
+  collect 286009 quest 99052.1        -- Aggor's Belt
+  turnin 99052                        -- Orgnil Soulscar, back in Razor Hill
 
 step Armored Scorpid
   only Hunter

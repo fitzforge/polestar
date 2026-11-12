@@ -27,6 +27,18 @@ fn data_texts() -> rustc_hash::FxHashMap<String, String> {
 	let mut keg = quest(540, "Powder Keg", None, None, serde_json::json!([{ "type": "item", "id": 101, "count": 1 }]));
 	keg["start"] = serde_json::json!({ "npc": [], "object": [], "item": [101] });
 	quests.insert("540".into(), keg);
+	// (Handed in on the spot, `direct`: a crate the data has no source for, a cauldron that gives an essence;
+	// and a plain quest that rewards the essence too.)
+	let mut sealed = quest(541, "A Sealed Crate", None, None, serde_json::json!([{ "type": "item", "id": 102, "count": 1 }]));
+	sealed["direct"] = serde_json::json!(true);
+	quests.insert("541".into(), sealed);
+	let mut cauldron = quest(542, "The Cauldron", None, None, serde_json::json!([]));
+	cauldron["direct"] = serde_json::json!(true);
+	cauldron["web"] = serde_json::json!({ "items": [[103, 1]] });
+	quests.insert("542".into(), cauldron);
+	let mut debts = quest(543, "Old Debts", None, None, serde_json::json!([]));
+	debts["web"] = serde_json::json!({ "items": [[103, 1]] });
+	quests.insert("543".into(), debts);
 	for id in 510..535 {
 		quests.insert(id.to_string(), quest(id, &format!("Errand {id}"), None, None, serde_json::json!([])));
 	}
@@ -35,7 +47,12 @@ fn data_texts() -> rustc_hash::FxHashMap<String, String> {
 		"10": { "id": 10, "name": "Burrow Rat", "level": 2, "faction": null, "spawns": { "99101": { "f": "e", "pts": [[20, 20], [21, 21]] } } },
 		"11": { "id": 11, "name": "Red Fox", "level": 3, "faction": null, "spawns": { "99101": { "f": "e", "pts": [[30, 30]] } } }
 	});
-	let items = serde_json::json!({ "100": { "id": 100, "name": "Fox Pelt", "questItem": true, "drops": { "npc": { "11": 60 } } }, "101": { "id": 101, "name": "Empty Powder Keg", "drops": { "npc": { "11": 2 } } } });
+	let items = serde_json::json!({
+		"100": { "id": 100, "name": "Fox Pelt", "questItem": true, "drops": { "npc": { "11": 60 } } },
+		"101": { "id": 101, "name": "Empty Powder Keg", "drops": { "npc": { "11": 2 } } },
+		"102": { "id": 102, "name": "Sealed Crate", "drops": { "npc": {}, "object": {} }, "vendors": [] },
+		"103": { "id": 103, "name": "Essence of the Vale", "drops": { "npc": {}, "object": {} }, "vendors": [] }
+	});
 	let texts: rustc_hash::FxHashMap<String, String> = [
 		("quests", serde_json::Value::Object(quests).to_string()),
 		("npcs", npcs.to_string()),
@@ -328,4 +345,29 @@ fn r2_an_optional_accept_from_an_item_an_optional_collect_asks_for_is_that_playe
 	// (No optional collect for it: the optional accept still has no keg.)
 	let fs = play("step Quarry\n  accept 540 optional\n", &who, false);
 	assert!(!rules_of(&fs, "R2").is_empty(), "{fs:#?}");
+}
+
+#[test]
+fn r3_quests_handed_in_on_the_spot_need_no_quest_in_the_log() {
+	// #1806: a `turnin … direct` quest is taken straight from the giver's window and never enters the log.
+	// Its objective items come without it, and its reward items at the hand-in.
+	let who = [persona("Orc", "WARRIOR")];
+	let r3 = |body: &str, legacy: bool| rules_of(&play(body, &who, legacy), "R3");
+	// A quest item for it: no "drops only while … is held".
+	let pelts = "step Foxes\n  collect 100 x5 @30,30\n\nstep Elder Testa\n  turnin 502 direct\n";
+	let fs = r3(pelts, false);
+	assert!(fs.is_empty(), "{fs:#?}");
+	// (Legacy keeps the JS output.)
+	assert!(r3(pelts, true).iter().any(|f| f.reason.contains("drops only while Fox Pelts is held")));
+	// An objective item the data has no source for.
+	let fs = r3("step Elder Testa\n  collect 102 @50,50\n  turnin 541 direct\n", false);
+	assert!(fs.is_empty(), "{fs:#?}");
+	// A reward item, collected after the hand-in, on the spot or not.
+	let fs = r3("step Elder Testa\n  turnin 542 direct\n  collect 103 @50,50\n", false);
+	assert!(fs.is_empty(), "{fs:#?}");
+	let fs = r3("step Elder Testa\n  accept 543\n  turnin 543\n  collect 103 @50,50\n", false);
+	assert!(fs.is_empty(), "{fs:#?}");
+	// Without the hand-in in the chain, both collects still fail.
+	assert!(r3("step Foxes\n  collect 100 x5 @30,30\n", false).iter().any(|f| f.reason.contains("drops only while")));
+	assert!(r3("step Elder Testa\n  collect 102 @50,50\n", false).iter().any(|f| f.reason.contains("no mob, object or vendor")));
 }
