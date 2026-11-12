@@ -343,7 +343,11 @@ fn with_experimental(root: &Path, manifest_extra: &str) {
 		format!("{{\n\t\"id\": \"polestar-experimental\",\n\t\"title\": \"Polestar Experimental\",\n\t\"author\": \"Polestar\",\n\t\"version\": \"{VERSION}\",\n\t\"license\": \"GPL-3.0-only\",\n\t\"notes\": \"Experimental guides.\"{manifest_extra}\n}}\n"),
 	)
 	.unwrap();
-	std::fs::write(dir.join("elwynn.guide"), "guide polestar-experimental/elwynn\ntitle Elwynn preview\nfaction Alliance\nlevels 1-6\nzone Elwynn Forest\n\nstep Kobold camp\n  goto 47.6,35.1 \"Kobold camp\"\n").unwrap();
+	std::fs::write(
+		dir.join("elwynn.guide"),
+		"guide polestar-experimental/elwynn\ntitle Elwynn preview\nfaction Alliance\nlevels 1-6\nzone Elwynn Forest\n\nstep Kobold camp\n  goto 47.6,35.1 \"Kobold camp\"\n",
+	)
+	.unwrap();
 }
 
 fn tops(zip: &Path) -> Vec<String> {

@@ -197,11 +197,7 @@ emit(out)"#;
 	let on = core(&p.dir, &[("Polestar", format!("{SAVED_ON}\n{tabs}"))], true, script);
 	assert_eq!(on, json!({ "loads": 1, "status": "on", "guide": first }), "loaded at login, its saved tab back");
 	let off = core(&p.dir, &[("Polestar", tabs.clone())], true, script);
-	assert_eq!(
-		off,
-		json!({ "loads": 0, "status": "off", "guide": false, "switched": { "loads": 1, "guide": first } }),
-		"off: not loaded at login, its tab kept for when it comes back"
-	);
+	assert_eq!(off, json!({ "loads": 0, "status": "off", "guide": false, "switched": { "loads": 1, "guide": first } }), "off: not loaded at login, its tab kept for when it comes back");
 }
 
 #[test]
@@ -453,10 +449,7 @@ emit(out)"#
 	})
 	.remove(0);
 	let credits = format!("Polestar  ·  {}  ·  {}", field(&p.dir, "Version"), field(&p.dir, "X-License"));
-	assert_eq!(
-		out["before"],
-		json!({ "title": "Polestar Experimental", "credits": credits, "switch": true, "checked": false, "count": false, "status": false, "enable": false })
-	);
+	assert_eq!(out["before"], json!({ "title": "Polestar Experimental", "credits": credits, "switch": true, "checked": false, "count": false, "status": false, "enable": false }));
 	assert_eq!(out["menuBefore"], "");
 	assert_eq!(out["loads"], 1);
 	assert_eq!(out["after"]["checked"], true);
