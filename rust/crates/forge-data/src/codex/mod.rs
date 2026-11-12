@@ -14,6 +14,7 @@
 pub mod atlasloot;
 pub mod attune;
 pub mod client;
+pub mod elites;
 pub mod heights;
 pub mod instances;
 pub mod journal;
@@ -671,6 +672,9 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 	let placed =
 		heights::add_heights(&V::Obj(m.npcs.clone()), &sz.get("npc"), &inputs.forever.map_frames) + heights::add_heights(&V::Obj(m.objects.clone()), &sz.get("object"), &inputs.forever.map_frames);
 	log(&format!("{placed} NPC and object places with a spawn height"));
+	let f = &inputs.forever;
+	let marked = elites::mark(&V::Obj(m.quests.clone()), &f.npcs, &f.objects, &f.items, &f.map_frames);
+	log(&format!("{marked} quest objectives at objects among hostile elites"));
 	let (counts, coverage) = summarize(&m);
 	let cl = inputs.client.as_ref();
 	let meta = Obj::new();

@@ -52,7 +52,8 @@ local PACK = "imported"
 -- guides has, in brackets): spawn spots per goal (438), `when` predicates per
 -- step or next option (1), `skipto` jumps per step, reagents (6) and source
 -- NPCs (5) per goal, quest ids in a `pre`/`preAll`/`closedBy`/`preTitles`
--- or a predicate's quest list (13), names/written tokens (213), and
+-- or a predicate's quest list (13), an accept's hand-in NPCs (`endNpcs`),
+-- names/written tokens (213), and
 -- `nextWhen` options.
 local LIMITS = {
 	length = 50000, steps = 60, payload = 262144, text = 4096, names = 128, goals = 100, candidates = 128,
@@ -225,7 +226,7 @@ local GOAL = rec({
 	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
 	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N, yellow = N, grey = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
-	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, parent = N, preTitles = { idmap = S }, text = S, node = N, area = N,
+	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, endNpcs = LN, xp = N, parent = N, preTitles = { idmap = S }, text = S, node = N, area = N,
 	map = N, x = N, y = N, z = N, f = S, r = N,
 	spots = list(rec({ x = N, y = N, z = N, r = N, n = N, alt = B, lvl = N })),
 	spread = B, lvl = N, optional = B, only = ONLY, profLine = N, profName = S, profRank = N, note = S,
@@ -377,7 +378,7 @@ Import.Adler32 = adler32
 -- The first list or map of guide g holding more entries than its LIMITS cap
 -- -> its place (as `guide.steps[2].goals[1].spots`), its count, its cap; or
 -- nil. tools/lib/pack/importstring.js crowded() walks the same places.
-local QUEST_LISTS = { "pre", "preAll", "closedBy", "preTitles" }
+local QUEST_LISTS = { "pre", "preAll", "closedBy", "endNpcs", "preTitles" }
 local function crowded(g)
 	local function over(t, cap, where)
 		if type(t) ~= "table" then return nil end

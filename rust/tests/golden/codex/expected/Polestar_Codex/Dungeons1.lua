@@ -7,6 +7,8 @@ if not (D and D.Register) then return end
 
 D.Register("meta", {schema=3,counts={dungeons=30,quests=3,entrances=30,attunements=0}})
 
+D.Register("marks", { A = "5728:ragefire-chasm;3636:razorfen-downs;4003:blackrock-depths;5727:ragefire-chasm:5728;5726:ragefire-chasm:5728;4002:blackrock-depths:4003;4001:blackrock-depths:4003", H = "5728:ragefire-chasm;3636:razorfen-downs;4003:blackrock-depths;5727:ragefire-chasm:5728;5726:ragefire-chasm:5728;4002:blackrock-depths:4003;4001:blackrock-depths:4003" })
+
 D.Register("dungeon", {
 ["ahnqiraj-temple"]={name="Ahn'Qiraj Temple",map=531,kind="raid",players=40,zone=1451,zoneName="Silithus",entrance={map=1451,x=28.6,y=92.3},quests={A=0,H=0},bosses=9},
 ["blackfathom-deeps"]={name="Blackfathom Deeps",map=48,kind="dungeon",minLevel=22,maxLevel=22,players=10,zone=1440,zoneName="Ashenvale",entrance={map=1440,x=14.5,y=14.2},quests={A=0,H=0},bosses=7},

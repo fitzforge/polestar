@@ -648,6 +648,7 @@ The fields:
 | `limit` | on an `accept` of a timed quest: the seconds it allows once taken (Dynamic Questing takes it early only when the walk to it still fits). Polestar 0.3.6 and later also say under the accept how long it allows, and count down from the accept with it when the client reports no timer (a delivery quest) |
 | `pre` | prerequisite quest ids, any one suffices; `preAll` every one needed |
 | `closedBy` | quest ids that close this one once taken or done |
+| `endNpcs`, `xp` | on an `accept` with `closedBy`: the NPC ids the quest is handed in to and its XP. Polestar 0.3.8 and later say nothing of such a quest when a quest that closes it is offered at one of those NPCs (a breadcrumb to where the player stands), or when its `xp` is 0, and otherwise name its giver, distance and XP |
 | `parent` | on an `accept` of a child quest: the quest id its giver offers it under, only while that quest is in the log. Polestar 0.3.7 and later pass the accept once the parent is handed in, and while the parent is not in the log and the guide no longer brings it; older Polestar ignores it |
 | `preTitles` | `{ [questId] = title }` for the quests those name |
 | `profLine`, `profName`, `profRank` | on any goal of a quest only characters with a profession can take: its skill line id, name and the rank it needs; the goal is hidden from characters without it |

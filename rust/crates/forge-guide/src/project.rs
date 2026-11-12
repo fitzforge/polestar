@@ -243,6 +243,14 @@ pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data,
 	stale
 }
 
+/// The leveling guides (legs_races) legs.json's text holds no legs for, in the guides' order: never
+/// baked, so they ship without legs. Empty without the file or with one read_legs_text refuses.
+pub fn unbaked_legs(text: Option<&str>, guides: &[V]) -> Vec<String> {
+	let Some(doc) = text.and_then(|t| crate::js::parse_json(t).ok()).filter(|d| d.get("schema").as_num() == Some(1.0)) else { return Vec::new() };
+	let legs = doc.get("legs");
+	guides.iter().filter(|g| legs_races(g).is_some() && !legs.get(&g.get("id").to_js_string()).truthy()).map(|g| g.get("id").to_js_string()).collect()
+}
+
 /// The race parts a leveling guide's baked legs ship in: its own race part's races (race_part),
 /// else the races its `race` header names, else every race of its faction; None for any other
 /// guide (not leveling, or no faction).
@@ -667,6 +675,8 @@ mod native {
 		pub tokens: V,
 		/// Leveling guides whose baked legs are stale (read_legs_text): they ship without legs.
 		pub stale_legs: Vec<String>,
+		/// Leveling guides legs.json has no legs for (unbaked_legs): they ship without legs too.
+		pub unbaked_legs: Vec<String>,
 	}
 
 	/// compileProject for a pack folder; `context`: our guides, read as context for another pack.
@@ -677,8 +687,10 @@ mod native {
 		let retired_file = pack_dir.join("retired.json");
 		let retired = read_retired_text(pack_text(pack_dir, "retired.json", &mut diag).as_deref(), &retired_file.to_string_lossy(), &c.guides, &mut diag);
 		let legs_file = pack_dir.join("legs.json");
-		let stale_legs = read_legs_text(pack_text(pack_dir, "legs.json", &mut diag).as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
-		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens, stale_legs }
+		let legs_text = pack_text(pack_dir, "legs.json", &mut diag);
+		let stale_legs = read_legs_text(legs_text.as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
+		let unbaked_legs = unbaked_legs(legs_text.as_deref(), &c.guides);
+		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens, stale_legs, unbaked_legs }
 	}
 
 	/// read_pack_file's text of `name` in the pack folder, None without it; a refused one (a link,

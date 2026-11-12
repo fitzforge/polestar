@@ -203,7 +203,7 @@ end
 -- chunk stays well inside Lua 5.1's cap on locals.
 local KEYS = {
 	only = { "classes", "races", "factions" },
-	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit" },
+	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit", "xp" },
 	goalRanks = { "rank", "qlvl" },
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
@@ -486,6 +486,7 @@ local function checkGoal(goal)
 	if goal.pre ~= nil and type(goal.pre) ~= "table" then return "bad pre" end
 	if goal.preAll ~= nil and type(goal.preAll) ~= "table" then return "bad preAll" end
 	if goal.closedBy ~= nil and type(goal.closedBy) ~= "table" then return "bad closedBy" end
+	if goal.endNpcs ~= nil and type(goal.endNpcs) ~= "table" then return "bad endNpcs" end
 	if goal.parent ~= nil and not isNum(goal.parent) then return "bad parent" end
 	if goal.rewards ~= nil then
 		local r = goal.rewards
@@ -1502,6 +1503,35 @@ function Guides.Replace(id, g2)
 	guides[id] = g2
 	if headers[id] then headers[id].stepCount = #g2.steps end
 	return true
+end
+
+-- Registered guide `id` with `steps` in place of its own, for the session
+-- (Engine.ReplaceSteps, from Polestar.API.ReplaceSteps): the steps are
+-- checked as RegisterGuide checks them and get their pictures, their texts in
+-- the client's language and their escaping as at registration; the guide's
+-- other fields are its own as registered, in a new table, so every per-guide
+-- cache starts over. Baked legs walk the old steps: the new guide has none
+-- (an empty `legs`, so none is looked up by its id either). The step tables
+-- are taken, not copied. Polestar's own guides are refused.
+-- -> the new guide | nil, reason
+function Guides.ReplaceSteps(id, steps)
+	local def = Guides.Get(id)
+	if not def then return nil, "unknown guide" end
+	if def.pack == "guides" then return nil, "Polestar's own guide" end
+	if type(steps) ~= "table" or #steps == 0 then return nil, "no steps" end
+	local err = Own.validateSteps(steps)
+	if err then return nil, err end
+	local g = {}
+	for k, v in pairs(def.base or def) do
+		if k ~= "steps" and k ~= "stepsSrc" and k ~= "stepCount" then g[k] = v end
+	end
+	g.steps, g.legs = steps, {}
+	Own.stepImages(steps, packs[def.pack])
+	Own.packedGoals(steps)
+	ns.GuideTexts.PrepareSteps(g)
+	escapeTree(steps, {}, ID_KEYS)
+	Guides.Replace(id, g)
+	return g
 end
 
 function Guides.List()

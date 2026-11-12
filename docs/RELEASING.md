@@ -167,7 +167,7 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
-   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh)
+   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh) + translators
    forge guide lint
    forge guide compile
    forge guide lint experimental && forge guide compile experimental   # Polestar Experimental (alpha guides)
@@ -224,7 +224,12 @@ version throughout.
    with the last release's: a large drop means translations went missing.
 
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
-   (names only, highest total first; amounts are never stored). The bug
+   (names only, highest total first; amounts are never stored), and anyone
+   whose idea shipped though someone else built it to its `ideas`
+   (`{ "name": "<login>", "ref": <pull request or issue> }`; the changelog's
+   "idea by" and "idea first proposed by" credits are the list to check). The
+   translators come from the locales' `translators` (rust/crates/forge-guide/
+   src/locales.rs and tools/lib/i18n/locales.js). The bug
    reporters column counts a reporter's useful reports from the issues: the
    Discord name the bot filed it under ("**Reported by <name> on
    [Discord](...)**"), else the GitHub login that opened it. A report counts
@@ -249,7 +254,7 @@ version throughout.
 4. Pack and check the archives:
 
    ```sh
-   rm -rf dist && forge release pack     # stops naming any guide whose legs are stale; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
+   rm -rf dist && forge release pack     # stops naming any leveling guide whose legs are stale or missing; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
    (cd dist && sha256sum -c SHA256SUMS)
    unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, Polestar_Nav/ with its LICENSE and CREDITS.md, and Polestar_Experimental/ are listed
    forge nav check                       # Polestar_Nav's walking maps match its PACK.json

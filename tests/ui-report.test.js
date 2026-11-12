@@ -342,6 +342,31 @@ test('a blocked call says which line of ours made it, so "UNKNOWN()" can be trac
 	]);
 });
 
+// Xaden Ryan's report (#1883, 0.3.7) had "1x blocked in Polestar: UNKNOWN()" with no line of ours: the game's own
+// code made the call, tainted by ours earlier. The report then names the blocked function and the game's line that
+// called it, so it can still be traced; with nothing to name it stays as before.
+test('a blocked call with none of our lines under it names the game\'s function and line instead', () => {
+	const [out] = run(`
+		debugstack = function() return
+			'[string "@Interface/AddOns/Polestar/Core/Init.lua"]:768: in function <Interface/AddOns/Polestar/Core/Init.lua:768>\\n' ..
+			'[C]: in function \\'xpcall\\'\\n' ..
+			'[string "@Interface/AddOns/Polestar/Core/Init.lua"]:120: in function <Interface/AddOns/Polestar/Core/Init.lua:110>\\n' ..
+			'[C]: in function \\'Show\\'\\n' ..
+			'[string "@Interface/AddOns/Blizzard_UIParent/Shared/UIParent.lua"]:2125: in function \\'ShowUIPanel\\'\\n' ..
+			'[string "@Interface/AddOns/Blizzard_QuestLog/QuestLogFrame.lua"]:88: in function <...>\\n'
+		end
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		debugstack = function() return '[C]: ?\\n' end
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ text = PolestarReport.Box:GetText(), at = date("%H:%M:%S") })`);
+	assert.deepEqual(out.text.split('\n').filter((l) => l.startsWith('  ')), [
+		`  1x blocked in Polestar: UNKNOWN() via Show Blizzard_UIParent/Shared/UIParent.lua:2125 (${out.at})`,
+		`  1x blocked in Polestar: UNKNOWN() (${out.at})`,
+	]);
+});
+
 test('what the player typed stays while it is the same step; a report on another step starts empty', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
@@ -372,6 +397,26 @@ test('the guide window\'s menu and /polestar report open it too; Escape closes i
 		for _, name in ipairs(UISpecialFrames) do if name == "PolestarReport" then special = true end end
 		emit({ fromMenu = fromMenu, fromCommand = PolestarReport:IsShown(), special = special })`);
 	assert.deepEqual(out, { fromMenu: true, fromCommand: true, special: true });
+});
+
+// The game gives addons no clipboard: Copy report selects the report, and a line over it says to press Ctrl+C
+// (Cmd+C on a Mac) (#1826).
+test('Copy report selects the report and says over it how to copy it: Ctrl+C, or Cmd+C on a Mac', () => {
+	const script = `
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText("The vermin were all by the tents.")
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local before = F.CopyHint:IsShown()
+		F.Copy:Click()
+		stub.advance(0.1)
+		local hl = F.Box.highlight
+		emit({ before = before, hint = F.CopyHint:IsShown() and F.CopyHint:GetText() or false,
+			selected = stub.focus == F.Box and hl ~= nil and hl[1] == 0 and hl[2] == #F.Box:GetText(),
+			over = select(5, F.CopyHint:GetPoint()) > select(5, F.BoxWell:GetPoint()) })`;
+	assert.deepEqual(run(script)[0], { before: false, hint: 'Selected: press Ctrl+C to copy.', selected: true, over: true });
+	assert.equal(run(script, 'function IsMacClient() return true end')[0].hint, 'Selected: press Cmd+C to copy.');
 });
 
 test('the hub and the settings carry the Polestar Discord at the foot of the sidebar: Discord\'s mark in its own colour, the invite selected on a click', () => {

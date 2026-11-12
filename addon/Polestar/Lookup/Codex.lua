@@ -380,6 +380,15 @@ local function decodeQuest(group, id, s)
 			if o and map then
 				o.map, o.x, o.y, o.f = tonumber(map), tonumber(x) / 10, tonumber(y) / 10, fac ~= "" and fac or nil
 			end
+		elseif lead == "w" then
+			-- Hostile elites at the objective before it, for a side (the Codex build's
+			-- mark, #1778): w<A|H><rank>,<level> -> o.elites[side] = { rank, lvl }.
+			local o = rec.objectives[#rec.objectives]
+			local _, _, side, rank, lvl = find(f, "^w([AH])(%d+),(%d*)$")
+			if o and side then
+				o.elites = o.elites or {}
+				o.elites[side] = { rank = tonumber(rank), lvl = tonumber(lvl) }
+			end
 		end
 	end
 	return rec
