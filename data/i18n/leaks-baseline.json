@@ -37033,6 +37033,48 @@
 				],
 				"english": "Vitrix"
 			},
+			"instance:2970": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"lookup",
+					"picker"
+				],
+				"english": "The Drowned City"
+			},
+			"instance:2974": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"picker"
+				],
+				"english": "Blackmaw Hold"
+			},
+			"instance:2994": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"picker"
+				],
+				"english": "Alcaz Prison"
+			},
+			"instance:3001": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"lookup",
+					"picker"
+				],
+				"english": "The Shaper's Terrace"
+			},
+			"instance:3039": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"picker"
+				],
+				"english": "Krol'dok Stronghold"
+			},
 			"npc:210995": {
 				"reason": "no-source",
 				"scenes": [
@@ -38059,6 +38101,48 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
+			},
+			"instance:2970": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"lookup",
+					"picker"
+				],
+				"english": "The Drowned City"
+			},
+			"instance:2974": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"picker"
+				],
+				"english": "Blackmaw Hold"
+			},
+			"instance:2994": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"picker"
+				],
+				"english": "Alcaz Prison"
+			},
+			"instance:3001": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"lookup",
+					"picker"
+				],
+				"english": "The Shaper's Terrace"
+			},
+			"instance:3039": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"picker"
+				],
+				"english": "Krol'dok Stronghold"
 			},
 			"npc:2756": {
 				"reason": "same-as-english",
