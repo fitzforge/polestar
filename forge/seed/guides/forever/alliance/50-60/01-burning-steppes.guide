@@ -455,16 +455,19 @@ step Rut'theran Village
   turnin 3661                         -- Erelas Ambersky
   accept 978                          -- The wildkin are in Winterspring: keep it
 
-step Druid training
-  only Druid
-  zone Darnassus
-  tip Ironforge has no druid trainer: take the portal up to Darnassus and train in the Cenarion Enclave, then come back down to Rut'theran Village.
-  train class
-
-step Back to Teldrassil
-  only Druid
+step Portal to Darnassus
   zone Teldrassil
-  goto 55.4,92.2 "Teldrassil"
+  goto 55.9,89.3 "Portal to Darnassus"
+
+step Darnassus
+  zone Darnassus
+  tip The portal in Rut'theran Village leads up to Darnassus: Jenal waits in the Cenarion Enclave, in the north of the city.
+  turnin 3764                         -- Jenal, in the Cenarion Enclave
+  train class only Druid              -- Ironforge has no druid trainer
+
+step Portal to Teldrassil
+  zone Darnassus
+  goto 29.1,41.2 "Portal to Teldrassil"
 
 step Daryn Lightwind
   tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.

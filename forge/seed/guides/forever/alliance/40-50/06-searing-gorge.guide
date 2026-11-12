@@ -113,6 +113,23 @@ step Dorius Stonetender
   turnin 3367                         -- Singed Letter
   accept 3368                         -- For Curator Thorius in Ironforge, at the end of this guide
 
+step Hall of Explorers
+  zone Ironforge
+  accept 3448                         -- Historian Karnik
+  turnin 3368                         -- Curator Thorius
+  accept 4512                         -- Laris Geardawdle: the oozes are in Felwood, keep it
+
+step Mystic Ward
+  turnin 3448                         -- Tymor
+  accept 3449                         -- Four rune rubbings in Azshara: keep it
+  accept 3450
+
+step Xiggs Fuselighter
+  tip Xiggs waits in the Military Ward.
+  turnin 3450
+  accept 3451
+  turnin 3451
+
 step Thelsamar
   zone Loch Modan
   hearth "Stoutlager Inn"
