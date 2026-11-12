@@ -966,14 +966,14 @@
 			},
 			{
 				"a": [
-					"turnin",
-					465
-				],
-				"b": [
 					"accept",
 					98223
 				],
-				"why": "Hillsbrad (Alliance), Lou-Saydus #225: before the Tattered Spellbook"
+				"b": [
+					"turnin",
+					465
+				],
+				"why": "Wetlands, julesbruu #1705: the Tattered Spellbook offers Old Habits while Nek'rosh's Gambit is in the log (players' recordings), so it is taken on the Angerfang stop before the catapult is lit, and solo players who skip Defeat Nek'rosh still have 465 in the log for it (was the other way round since #225)"
 			},
 			{
 				"a": [
