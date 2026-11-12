@@ -10,11 +10,12 @@
 --
 -- Each tab pins the same live preview over its rows: a step card laid out by
 -- the window's own sizes (GF.Metrics), its own text roles, size groups
--- (GF.SIZE_KEYS), outline, target bar and progress paint, over the night
--- sky, at its real size, cropped to the band and scrolled to the part the
--- last changed setting edits; a click on a part jumps to its row. It is fed
--- a fixed demo step, never the live window or the Engine, is built the first
--- time a tab shows, and repaints only while shown.
+-- (GF.SIZE_KEYS), outline, target bar and progress paint, over the zone you
+-- stand in, at its true size on a soft shadow, cropped at the hero's foot
+-- and scrolled to the part the last changed setting edits; a click on a part
+-- jumps to its row, and the pointer on a row lights the parts it changes. It
+-- is fed a fixed demo step, never the live window or the Engine, is built the
+-- first time a tab shows, and repaints only while shown.
 
 local ns = Polestar
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -41,7 +42,7 @@ local function look(key) return ns.Get("guideWindow." .. key) end
 -- The preview
 ---------------------------------------------------------------------------
 
-local PREVIEW_H = 250 -- short enough to leave the sections most of the page
+local PREVIEW_H = 250 -- laid out alone; the settings window gives its hero's height
 local TOP = 36 -- under the "Preview" caption
 
 -- The settings that change what the preview draws (besides guideWindow.*
@@ -77,10 +78,11 @@ local function demoGoals()
 	}
 end
 
-local function buildPreview(view)
-	-- The settings window's preview stage: the window over the world it
-	-- floats over, the zone you stand in (its opacity shows on it).
-	local f = ns.UI.Preview.Stage(view, { height = PREVIEW_H, backdrop = "world" })
+-- The window's parts drawn into f: a stage (the page's own preview), or a
+-- frame in another page's scene (UI.GuideWindowScene) that answers the
+-- stage's Hot, Light, LightEdge, Floor, TrueScale and SetCut. `top`: the
+-- room kept over it (the window's chrome over a stage of its own). -> f
+local function buildWindow(f, top)
 	f.texts = {}
 	-- The settings window draws "Preview" and "Live" over it; the caption
 	-- says how large the window is drawn when the stage makes it smaller.
@@ -352,6 +354,9 @@ local function buildPreview(view)
 		y = y + M.navH
 		local barsH = y
 		at.person = y
+		-- Each part's span down the window (window units), for the crop.
+		local spans = {}
+		local function span(part, y0, y1) spans[#spans + 1] = { part, y0, y1 } end
 
 		-- The focus.
 		local nameW = w - pad * 2 - M.icon - 10
@@ -366,6 +371,7 @@ local function buildPreview(view)
 		person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
 		local ph = floor(10 + person.Name:GetStringHeight() + 3 + person.Where:GetStringHeight() + 8 + 0.5)
 		person:SetHeight(ph)
+		span(person, y, y + ph)
 		y = y + ph
 
 		-- The goals (measureRow's sizes).
@@ -391,6 +397,7 @@ local function buildPreview(view)
 			r.Check.psOnWorld = clear
 			Theme.Repaint(r.Check)
 			G.PaintMark(r.Mark)
+			span(r, y, y + h)
 			y = y + h
 		end
 
@@ -408,6 +415,7 @@ local function buildPreview(view)
 			tip:SetHeight(h)
 			tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", pad + 2, -7)
 			tip.Text:SetPoint("TOPLEFT", tip, "TOPLEFT", textX, -6)
+			span(tip, y + 2, y + 2 + h)
 			y = y + 2 + h
 		end
 		y = y + 6
@@ -431,6 +439,7 @@ local function buildPreview(view)
 			up.Icon:SetPoint("LEFT", up, "TOPLEFT", textX - 2, mid)
 			up.Text:SetWidth(w - textX - 14 - pad)
 			up.Text:SetPoint("LEFT", up, "TOPLEFT", textX - 2 + 13 + 9, mid)
+			span(up, y, y + h)
 			y = y + h
 		end
 
@@ -454,6 +463,7 @@ local function buildPreview(view)
 			foot.Line.Track:SetVertexColor(tr, tg, tb, clear and 0.15 or ta)
 			G.PaintProgressFill(foot.Line.Fill)
 			W.SetProgress(foot.Line, 0.38, lw)
+			span(foot, y, y + M.progH)
 			y = y + M.progH
 		end
 		gw:SetHeight(y)
@@ -473,43 +483,82 @@ local function buildPreview(view)
 		for _, t in ipairs({ nav.Prev, nav.Count, nav.Next, nav.Title, nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.SkipIcon, nav.TitleBar, nav.Close }) do t:SetAlpha(bars) end
 		gw:SetAlpha((ns.Get("ui.opacity") or 1) * (self.psHover and 1 or G.Num("idleAlpha")))
 
-		-- The window at its own size (smaller only when the page is too narrow
-		-- for its width), cropped to the band and scrolled to the part the last
-		-- setting changed edits.
-		local s = tonumber(ns.Get("ui.scale")) or 1
+		-- The window at its true size (its Scale on the game's UI scale;
+		-- smaller only when the page is too narrow for its width), on a soft
+		-- shadow in the middle of the hero when it fits; taller, cropped at
+		-- the hero's foot and scrolled to the part the last setting changed edits.
+		local s = (tonumber(ns.Get("ui.scale")) or 1) * self:TrueScale()
 		local k = s * min(1, (width - 32) / (w * s))
-		local room = (PREVIEW_H - TOP - 8) / k
-		local scroll = 0
+		local room = (self.psHeight - top - 8) / k
+		local scroll, drop = 0, 0
 		if y > room then
 			local part = at[self.psFocus or "bars"] or 0
 			scroll = max(0, min(y - room, part - 12))
+		else
+			drop = rawget(self, "psTopAligned") and 0 or (room - y) / 2
 		end
 		local snap = ns.UI.Preview.Snap
 		gw:SetScale(k)
 		gw:ClearAllPoints()
-		gw:SetPoint("TOPLEFT", self, "TOPLEFT", snap(gw, (width / k - w) / 2), snap(gw, -TOP / k + scroll))
+		gw:SetPoint("TOPLEFT", self, "TOPLEFT", snap(gw, (width / k - w) / 2), snap(gw, -top / k + scroll - drop))
 		self.psScale, self.psScroll = k, scroll
-		-- A window running past the stage's foot fades out there.
-		if self.SetCut then self:SetCut(y - scroll > room + 0.5) end
+		-- A part the crop would cut through is left out: no text cut in two
+		-- at the hero's foot (or its top, scrolled), the window's ground
+		-- running on under the fade.
+		local seen = scroll + (self.psHeight - top) / k
+		for _, sp in ipairs(spans) do
+			sp[1]:SetAlpha((sp[2] >= scroll - 0.5 and sp[3] <= seen + 0.5) and 1 or 0)
+		end
+		-- A window running past the stage's foot fades out there, no shadow
+		-- under it; one that fits stands on its shadow.
+		local cut = y - scroll > room + 0.5
+		if cut then self:NoFloor(gw) else self:Floor(gw) end
+		self:SetCut(cut)
 		self:Hotspots()
 	end
 
-	-- Clicks on the parts of the window jump to their rows (the settings
-	-- window's preview hotspots, once it offers them).
+	-- Clicks on the parts of the window jump to their rows; the pointer on
+	-- a setting's row lights the parts it changes (in another page's scene
+	-- that page lights its own: psNoHot).
 	function f:Hotspots()
-		if self.psHot then return end
-		local O = UI.Options
-		local add = (self.Hotspot and function(region, key) self:Hotspot(region, key) end)
-			or (O and O.PreviewHotspot and function(region, key) O.PreviewHotspot(self, region, key) end)
-		if not add then return end
+		if self.psHot or rawget(self, "psNoHot") then return end
 		self.psHot = true
-		add(strip, "guideWindow.tabHeight")
-		add(nav, "guideWindow.navHeight")
-		add(person, "guideWindow.titleSize")
-		for _, r in ipairs(self.Rows) do add(r, "guideWindow.goalSize") end
-		add(tip, "guideWindow.noteSize")
-		add(up, "guideWindow.upSize")
-		add(foot, "guideWindow.progressHeight")
+		self:Hot(strip, "guideWindow.tabHeight")
+		self:Hot(nav, "guideWindow.navHeight")
+		self:Hot(person, "guideWindow.titleSize")
+		for _, r in ipairs(self.Rows) do self:Hot(r, "guideWindow.goalSize") end
+		self:Hot(tip, "guideWindow.noteSize")
+		self:Hot(up, "guideWindow.upSize")
+		self:Hot(foot, "guideWindow.progressHeight")
+		local rows, texts, subs, icons, checks = {}, {}, { person.Where }, { person.Icon }, {}
+		for i, r in ipairs(self.Rows) do
+			rows[i], texts[i], checks[i] = r, r.Text, r.Check
+			subs[#subs + 1], icons[#icons + 1] = r.Sub, r.Icon
+		end
+		local bars = { strip.Label, strip.Range, nav.Count, nav.Title, nav.Skip }
+		local window = { gw }
+		for key, parts in pairs({
+			["ui.style"] = window, ["ui.backing"] = window, ["guideWindow.veil"] = window, ["guideWindow.shade"] = window,
+			["guideWindow.outline"] = window, ["ui.barShown"] = { strip, nav }, ["ui.scale"] = window, ["ui.width"] = window,
+			["ui.maxHeight"] = window, ["guideWindow.padding"] = rows, ["ui.compact"] = window, ["guideWindow.bgOpacity"] = window,
+			["guideWindow.bgColor"] = window, ["ui.opacity"] = window, ["guideWindow.idleAlpha"] = window, ["guideWindow.border"] = window,
+			["guideWindow.rules"] = { strip.Rule, nav.Rule, up.Rule }, ["ui.combat"] = window, ["guideWindow.combatAlpha"] = window,
+			["ui.instance"] = window, ["guideWindow.hideTaxi"] = window, ["ui.growUp"] = window, ["ui.barsBottom"] = { strip, nav },
+			["guideWindow.stepAnim"] = { person, unpack(rows) }, ["guideWindow.animSpeed"] = { person, unpack(rows) },
+			["guideWindow.foldAnim"] = { rows[1] },
+			["guideWindow.tabs"] = { strip }, ["guideWindow.tabHeight"] = { strip }, ["guideWindow.navHeight"] = { nav },
+			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Count }, ["guideWindow.guideTitle"] = { nav.Title },
+			["guideWindow.skipButton"] = { nav.Skip, nav.SkipIcon }, ["guideWindow.reportButton"] = { nav.Report },
+			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = subs,
+			["guideWindow.glyphSize"] = icons, ["guideWindow.rowSpacing"] = rows, ["guideWindow.lineSpacing"] = texts,
+			["guideWindow.checkSize"] = checks, ["guideWindow.targetBar"] = { self.Rows[2].Mark },
+			["guideWindow.targetBarWidth"] = { self.Rows[2].Mark }, ["guideWindow.targetBarColor"] = { self.Rows[2].Mark },
+			["guideWindow.noteSize"] = { tip }, ["ui.showNotes"] = { tip }, ["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up },
+			["guideWindow.progress"] = { foot }, ["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line },
+			["guideWindow.progressPct"] = { foot.Pct },
+		}) do
+			self:Light(key, unpack(parts))
+		end
 	end
 
 	function f:Refresh()
@@ -539,17 +588,61 @@ local function buildPreview(view)
 		f:Refresh()
 	end)
 
-	-- -> the preview's height, the window centred across `width`.
-	function f:Layout(width)
+	-- -> the hero's height (PREVIEW_H laid out alone), the window centred
+	-- across `width`.
+	function f:Layout(width, height)
 		self:SetWidth(width)
-		self.psW = width
+		self.psW, self.psHeight = width, height or PREVIEW_H
 		self:Paint()
-		return PREVIEW_H
+		return self.psHeight
 	end
 	return f
 end
+
+local function buildPreview(view)
+	-- The settings window's preview stage: the window over the world it
+	-- floats over, the zone you stand in (its opacity shows on it).
+	return buildWindow(ns.UI.Preview.Stage(view, { height = PREVIEW_H, backdrop = "world" }), TOP)
+end
 -- For the tests: buildPreview(parent) -> f.
 UI.GuideWindowPreview = buildPreview
+
+-- The guide window as a part of another page's scene (the Theme page's):
+-- the same window, drawn into a frame on `stage` (its parts click and light
+-- through that stage), at the top of its box; c:Layout(width, height) lays
+-- it out for that box, cropped and faded out at its foot when taller. -> c
+-- (c.Window: the window)
+function UI.GuideWindowScene(stage)
+	local c = CreateFrame("Frame", nil, stage)
+	if c.SetClipsChildren then c:SetClipsChildren(true) end
+	c.Back, c.psHeight, c.psTopAligned, c.psNoHot = c, PREVIEW_H, true, true
+	function c:Hot(region, key) return stage:Hot(region, key) end
+	function c:Light(key, ...) return stage:Light(key, ...) end
+	function c:LightEdge(key, ...) return stage:LightEdge(key, ...) end
+	function c:Floor(frame, pad) return stage:Floor(frame, pad) end
+	function c:NoFloor(frame) return stage:NoFloor(frame) end
+	function c:TrueScale() return stage:TrueScale() end
+	-- The crop's fade, as a stage's (over the window, the scrim's colour).
+	local over = CreateFrame("Frame", nil, c)
+	over:SetAllPoints(c)
+	over:SetFrameLevel(c:GetFrameLevel() + 12)
+	c.Fade = over:CreateTexture(nil, "OVERLAY")
+	c.Fade:SetTexture(Theme.Media("white"))
+	c.Fade:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
+	c.Fade:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", 0, 0)
+	c.Fade:SetHeight(28)
+	c.Fade:Hide()
+	W.Painter(c.Fade, function(t)
+		local r, g, b = Theme.Color("scrim")
+		if t.SetGradient and CreateColor then
+			t:SetGradient("VERTICAL", CreateColor(r, g, b, 0.92), CreateColor(r, g, b, 0))
+		else
+			t:SetVertexColor(r, g, b, 0.6)
+		end
+	end)
+	function c:SetCut(cut) self.Fade:SetShown(cut and true or false) end
+	return buildWindow(c, 0)
+end
 
 ---------------------------------------------------------------------------
 -- The controls (the settings window's layout v2: one section per element
@@ -765,6 +858,127 @@ local SPECS = {
 			} },
 	} },
 }
+
+---------------------------------------------------------------------------
+-- Essentials (the page's lead tab): four looks as picture cards, then the
+-- ten settings players change most, each a reference to its row on Window
+-- or Parts.
+---------------------------------------------------------------------------
+
+local O = UI.Options
+if O and O.PresetCards and O.Ref then
+	local R = O.Ref
+	-- A string of the miniature at its role's size times its group's setting
+	-- (and the transparent style's outline), not following the theme's text
+	-- size changes: the card is drawn once, with the preset's values.
+	local function sized(fs, role, k, outline)
+		local path, size, flags = Theme.FontSpec(role)
+		if outline then flags = GF().Outline() == "thick" and "THICKOUTLINE" or "OUTLINE" end
+		fs:SetFont(path, (size or 13) * (k or 1), flags or "")
+	end
+	-- A preset's card: the guide window in miniature with the preset's values
+	-- (its width, style, padding, the person's name, three goals with their
+	-- tick boxes and spacing, the progress bar), from the window's own metrics
+	-- (GF.Metrics, read again after for the live window), scaled to the card.
+	local function drawWindowCard(art, _, values)
+		local cw, ch = art:GetWidth(), art:GetHeight()
+		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
+		if not (ch and ch > 0) then ch = W.CARD_ART end
+		local m = art.psMini
+		if not m then
+			local sky = Theme.Band(art, "BACKGROUND", -6)
+			sky:SetAllPoints(art)
+			m = CreateFrame("Frame", nil, art)
+			m.Ground = CreateFrame("Frame", nil, m)
+			m.Ground:SetAllPoints(m)
+			Theme.Skin(m.Ground, "window")
+			-- The text, ticks and bar over the window's ground (a child frame
+			-- draws over its parent's own regions).
+			local top = CreateFrame("Frame", nil, m)
+			top:SetAllPoints(m)
+			top:SetFrameLevel(m.Ground:GetFrameLevel() + 2)
+			m.Name = top:CreateFontString(nil, "OVERLAY")
+			m.Goals, m.Ticks = {}, {}
+			for i = 1, 3 do
+				m.Goals[i] = top:CreateFontString(nil, "OVERLAY")
+				m.Ticks[i] = W.Tex(top, "ARTWORK", i == 1 and "check" or "circle", i == 1 and "success" or "textMuted")
+			end
+			m.Bar = W.Tex(top, "ARTWORK", nil, "accent")
+			art.psMini = m
+		end
+		local G = GF()
+		O.WithSettings(values, function()
+			local mt = G and G.Metrics and G.Metrics() or { pad = 14, check = 18, rowMin = 24 }
+			local width = tonumber(ns.Get("ui.width")) or 340
+			local clear = ns.Get("ui.style") == "transparent"
+			local pad = mt.pad or 14
+			local gap = tonumber(ns.Get("guideWindow.rowSpacing")) or 0
+			m.Ground:SetShown(not clear)
+			local y = pad
+			sized(m.Name, "title", G and G.Num("titleSize") or 1, clear)
+			W.Color(m.Name, "text")
+			m.Name:SetText(L["Marshal Dughan"])
+			m.Name:ClearAllPoints()
+			m.Name:SetPoint("TOPLEFT", m, "TOPLEFT", pad, -y)
+			y = y + (m.Name:GetStringHeight() or 16) + 8
+			local goalK = G and G.Num("goalSize") or 1
+			local check = (mt.check or 18) * (G and G.Num("checkSize") or 1)
+			local lines = { L["Kill"] .. " " .. L["Kobold Vermin"], L["Kill"] .. " " .. L["Kobold Worker"], L["Collect"] .. " " .. L["Gold Dust"] }
+			for i, fs in ipairs(m.Goals) do
+				sized(fs, "goal", goalK, clear)
+				W.Color(fs, i == 1 and "textMuted" or "text")
+				fs:SetText(lines[i])
+				local tick = m.Ticks[i]
+				tick:SetSize(check * 0.7, check * 0.7)
+				tick:ClearAllPoints()
+				tick:SetPoint("TOPLEFT", m, "TOPLEFT", pad, -(y + 1))
+				fs:ClearAllPoints()
+				fs:SetPoint("TOPLEFT", m, "TOPLEFT", pad + check + 4, -y)
+				y = y + max(check, fs:GetStringHeight() or 14) + 4 + gap
+			end
+			local bar = G and G.On("progress") and (tonumber(ns.Get("guideWindow.progressHeight")) or 3) or 0
+			m.Bar:SetShown(bar > 0)
+			y = y + 4
+			m.Bar:ClearAllPoints()
+			m.Bar:SetPoint("TOPLEFT", m, "TOPLEFT", 1, -y)
+			m.Bar:SetSize(max(1, (width - 2) * 0.62), max(1, bar))
+			local height = y + bar + (clear and 0 or 2)
+			m:SetSize(width, height)
+			local k = min((cw - 16) / width, (ch - 12) / height)
+			m:SetScale(max(0.05, k))
+			m:ClearAllPoints()
+			m:SetPoint("CENTER", art, "CENTER", 0, 0)
+		end)
+		if G and G.Metrics then G.Metrics() end
+	end
+	local LARGE = 1.2
+	local PRESETS = {
+		{ value = "standard", label = L["Standard"], set = {}, draw = drawWindowCard },
+		{ value = "compact", label = L["Compact"], draw = drawWindowCard,
+			help = L["Only the header and the step's goals, narrower and closer together."],
+			set = { ["ui.compact"] = true, ["ui.width"] = 300, ["guideWindow.padding"] = 8, ["guideWindow.rowSpacing"] = 2 } },
+		{ value = "transparent", label = L["Transparent"], draw = drawWindowCard,
+			help = L["No background or border: outlined text over the world, a soft shade behind each line."],
+			set = { ["ui.style"] = "transparent", ["ui.backing"] = "soft" } },
+		{ value = "large", label = L["Large text"], draw = drawWindowCard,
+			help = L["Every text of the window bigger, the window wider to hold it."],
+			set = { ["guideWindow.titleSize"] = 1.25, ["guideWindow.goalSize"] = 1.25, ["guideWindow.detailSize"] = LARGE, ["guideWindow.noteSize"] = LARGE,
+				["guideWindow.upSize"] = LARGE, ["guideWindow.glyphSize"] = LARGE, ["guideWindow.checkSize"] = LARGE, ["guideWindow.barTextSize"] = 1.15,
+				["ui.width"] = 400 } },
+	}
+	local ESSENTIALS = L["Essentials"]
+	local list = {
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildPreview,
+			controls = { O.PresetCards({ presets = PRESETS }) } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Window"], jump = { tab = L["Window"], section = L["Window"] },
+			controls = { R("slider", "ui.scale"), R("slider", "ui.width"), R("slider", "guideWindow.bgOpacity"), R("slider", "guideWindow.idleAlpha"),
+				R("dropdown", "ui.combat"), R("dropdown", "ui.instance") } },
+		{ page = PAGE, tab = ESSENTIALS, section = L["Step"], jump = { tab = L["Parts"], section = L["Step card"] },
+			controls = { R("slider", "guideWindow.goalSize"), R("slider", "ui.upcoming"), R("toggle", "ui.showNotes", { label = L["Step tips"] }),
+				R("toggle", "guideWindow.progress", { label = L["Progress bar"] }) } },
+	}
+	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end
+end
 
 for _, spec in ipairs(SPECS) do
 	local ok, err = ns.RegisterOptions(spec)

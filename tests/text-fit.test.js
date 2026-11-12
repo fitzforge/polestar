@@ -103,7 +103,7 @@ test('text fits: every Options page and tab', () => {
 		stubs: ['stub_ui.lua'],
 		before: recorder,
 		addons: [{ name: 'Polestar', files: P.MODULE_FILES }],
-		script: 'uistub.install()\nstub.login()\nemit(Polestar.UI.Options.Pages())',
+		script: 'uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nemit(Polestar.UI.Options.Pages())',
 	}).emitted[0];
 	assert.ok(pages.length >= 8, `${pages.length} pages`);
 	const panels = [];

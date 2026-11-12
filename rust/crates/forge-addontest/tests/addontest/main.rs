@@ -336,6 +336,14 @@ mod release;
 mod riding;
 #[path = "route-plan.rs"]
 mod route_plan;
+#[path = "settings-coverage.rs"]
+mod settings_coverage;
+#[path = "settings-effects.rs"]
+mod settings_effects;
+#[path = "settings-essentials.rs"]
+mod settings_essentials;
+#[path = "settings-game.rs"]
+mod settings_game;
 #[path = "settings-migration.rs"]
 mod settings_migration;
 #[path = "skins-sweep.rs"]

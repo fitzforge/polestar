@@ -54,11 +54,13 @@ local function register()
 	registered = true
 	fillChoices(class)
 	playerClass = class
+	-- gear.enabled in the section's header; the comparison's threshold and
+	-- pairing with the rest, each beside its neighbour.
 	ns.RegisterOptions({
 		page = L["Questing"], tab = L["Rewards & gear"], section = L["Gear advice"],
+		toggle = { kind = "toggle", key = "gear.enabled", label = L["Gear advice"], search = "upgrades, stat weights, best in slot, bis, item score, compare gear",
+			help = L["Score items for your class and talents and point out upgrades."] },
 		controls = {
-			{ kind = "toggle", key = "gear.enabled", label = L["Gear advice"], search = "upgrades, stat weights, best in slot, bis, item score, compare gear",
-				help = L["Score items for your class and talents and point out upgrades."] },
 			{ kind = "dropdown", key = "gear.spec." .. class, label = L["Stat weights"], choices = choices, disabled = disabled,
 				help = L["Which levelling weights score your items. Automatic follows the talent tree with the most points."] },
 			{ kind = "button", icon = "bolt", button = L["Manage"], label = L["Manage custom weights"], disabled = disabled,
@@ -66,25 +68,20 @@ local function register()
 				onClick = function() if UI() and UI().ShowScales then UI().ShowScales() end end },
 			{ kind = "toggle", key = "gear.tooltip", label = L["Tooltip comparison"], disabled = disabled, search = "compare items, item comparison, tooltip, upgrade",
 				help = L["Show on item tooltips how much better or worse an item is than what you wear."] },
+			{ kind = "slider", key = "gear.minUpgrade", label = L["Upgrade threshold"], min = 0, max = 10, step = 0.5,
+				format = "%.1f%%", disabled = disabled,
+				help = L["Smaller gains than this are not called upgrades."] },
 			{ kind = "toggle", key = "gear.bagArrows", label = L["Upgrade arrows in bags"], disabled = disabled, search = "bags, upgrade icon, green arrow, inventory",
 				help = L["A green arrow on each item in your bags that is an upgrade for your spec, in the game's bags and in Baganator."] },
 			{ kind = "toggle", key = "gear.hideForPawn", label = L["Leave bag arrows to Pawn"], disabled = disabled,
 				needs = function() return ns.Compat.AddOnPresent("Pawn") end,
 				help = L["Pawn is installed and draws its own upgrade arrows in your bags. Turn this on to hide Polestar's, so an item does not carry two."] },
+			{ kind = "toggle", key = "gear.useBags", label = L["Pair with bag items"], disabled = disabled,
+				help = L["Against a worn two-hander, weigh a one-hander together with the best off-hand piece in your bags."] },
 			{ kind = "toggle", key = "gear.rewards", label = L["Reward pick in the guide"], disabled = disabled,
 				help = L["Under a turn-in step, name the reward to take: an upgrade with its gain, else the best one you can use. The marks on the game's reward panel are under Quest rewards."] },
 			{ kind = "toggle", key = "gear.pickTooltip", label = L["Reward pick on tooltips"], disabled = disabled,
 				help = L["On a quest reward's tooltip, say whether it is the upgrade to take."] },
-		},
-	})
-	ns.RegisterOptions({
-		page = L["Questing"], tab = L["Rewards & gear"], section = L["Comparison"],
-		controls = {
-			{ kind = "slider", key = "gear.minUpgrade", label = L["Upgrade threshold"], min = 0, max = 10, step = 0.5,
-				format = "%.1f%%", disabled = disabled,
-				help = L["Smaller gains than this are not called upgrades."] },
-			{ kind = "toggle", key = "gear.useBags", label = L["Pair with bag items"], disabled = disabled,
-				help = L["Against a worn two-hander, weigh a one-hander together with the best off-hand piece in your bags."] },
 		},
 	})
 end

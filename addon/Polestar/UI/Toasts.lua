@@ -9,14 +9,16 @@
 -- quest card inside the guide window (UI/ClassCard.lua). Each builds its
 -- frame and hands it here (TS.Attach) with its title and body strings; from
 -- then on its scale, opacity, type sizes, ground, border and entrance follow
--- toasts.<kind>.* live, and a change re-lays it out. The first three can
+-- toasts.<kind>.* live, and a change re-lays it out. While you're here has
+-- no look of its own (`shared`): it wears the theme and the shared toast
+-- style, its settings only how long it stays and its place. The first three can
 -- line up (toasts.stack): one under the other (or above, growth "up") from
 -- the alert line's place (toasts.stackPoint), `spacing` apart, at most
 -- `max` at once (the oldest goes).
 --
 --   UI.Toasts.Get(kind, prop)              a toasts.<kind>.<prop> setting
 --   UI.Toasts.Scale(kind), .Alpha(kind)
---   UI.Toasts.Attach(kind, frame, { titles, bodies, accents, relayout(frame), hide, sandbox, noScale, inline })
+--   UI.Toasts.Attach(kind, frame, { titles, bodies, accents, relayout(frame), hide, sandbox, noScale, inline, shared })
 --   UI.Toasts.ApplyLook(frame[, relayout])
 --   UI.Toasts.Enter(kind, frame, dy, dur[, fromAlpha[, alphaDur]])   its entrance (slide, fade or none)
 --   UI.Toasts.Leave(kind, frame, dy, dur, done)
@@ -52,7 +54,7 @@ local DEFAULTS = {
 	rare = look(),
 	-- The banner fades in (it always did); `linger`: seconds it stays after the arrival.
 	transport = look({ enter = "fade", linger = 6, point = false }),
-	whilehere = look({ seconds = 8, accent = false, point = false }),
+	whilehere = { seconds = 8, point = false },
 	-- seconds 0: the card stays until answered. place: "above" the guide
 	-- window, "below" it or "free" (its own spot, pos { point, x, y }, Move
 	-- frames); compact: one line (UI/ClassToast.lua).
@@ -138,12 +140,18 @@ function TS.ApplyLook(frame, relayout)
 	local t = frame and frame.psToast
 	if not t then return end
 	local kind = t.kind
-	if Theme.SetFontScale then
+	if Theme.SetFontScale and not t.shared then
 		local tk, bk = num(kind, "titleSize", 0.6, 2), num(kind, "bodySize", 0.6, 2)
 		for _, fs in ipairs(t.titles) do Theme.SetFontScale(fs, tk) end
 		for _, fs in ipairs(t.bodies) do Theme.SetFontScale(fs, bk) end
 	end
-	if not t.inline then
+	if t.shared then
+		-- The theme's look and the shared toast style: nothing of its kind's.
+		frame:SetScale(frame.psFit or 1)
+		frame.psBgAlpha = nil
+		Theme.Repaint(frame)
+		if frame:IsShown() and not Anim.IsRunning(frame, "alpha") then frame:SetAlpha(1) end
+	elseif not t.inline then
 		if not t.noScale or t.sandbox then frame:SetScale(TS.Scale(kind) * (frame.psFit or 1)) end
 		paintGround(frame, kind)
 		paintAccents(frame, kind, t.accents)
@@ -284,7 +292,7 @@ function TS.Attach(kind, frame, opts)
 	frame.psToast = {
 		kind = kind, titles = opts.titles or {}, bodies = opts.bodies or {}, accents = opts.accents,
 		relayout = opts.relayout, hide = opts.hide, sandbox = opts.sandbox and true or false,
-		noScale = opts.noScale, inline = opts.inline,
+		noScale = opts.noScale, inline = opts.inline, shared = opts.shared,
 	}
 	attached[frame] = kind
 	if opts.sandbox then
@@ -306,14 +314,17 @@ end
 ---------------------------------------------------------------------------
 
 local function speedOf(kind) return num(kind, "speed", 0.25, 4) end
+-- A shared toast's motion is the shared style's: slide, at speed 1, to full.
+local function sharedLook(frame) return frame.psToast and frame.psToast.shared end
 
 -- Its entrance: slide (dy UI units from above, below when the line grows up)
 -- while it fades in, fade only, or none; at the player's speed, to the
 -- player's opacity.
 function TS.Enter(kind, frame, dy, dur, fromAlpha, alphaDur)
-	local style = TS.Get(kind, "enter")
-	local speed = speedOf(kind)
-	local a = TS.Alpha(kind)
+	local shared = sharedLook(frame)
+	local style = not shared and TS.Get(kind, "enter") or "slide"
+	local speed = shared and 1 or speedOf(kind)
+	local a = shared and 1 or TS.Alpha(kind)
 	dur = (dur or Anim.BASE) / speed
 	alphaDur = (alphaDur or dur * speed) / speed
 	if frame.psGrowUp then dy = -dy end
@@ -331,8 +342,9 @@ end
 
 -- Its way out, the entrance's kind; done(frame) at the end.
 function TS.Leave(kind, frame, dy, dur, done)
-	local style = TS.Get(kind, "enter")
-	dur = (dur or Anim.FAST) / speedOf(kind)
+	local shared = sharedLook(frame)
+	local style = not shared and TS.Get(kind, "enter") or "slide"
+	dur = (dur or Anim.FAST) / (shared and 1 or speedOf(kind))
 	if frame.psGrowUp then dy = -dy end
 	if style == "none" then
 		Anim.To(frame, "alpha", 0, 0, 0, nil, done)

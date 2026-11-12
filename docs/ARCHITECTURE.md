@@ -322,13 +322,29 @@ control says so); `ui.shown` never travels; anything else is dropped and
 named; caps on length, payload, settings, texts and names. The areas: `look`
 (controls on the Look pages: a page's `group = "look"` or order 20–29),
 `positions`, `guiding` (the rest). A string from before a migration is
-migrated as it is read. The Profiles page (`UI/Profiles.lua`, settings window,
-Setup) shows all of it. The strings' code is the settings' addon's
+migrated as it is read. The strings' code is the settings' addon's
 (`Polestar_Options/Core/ProfileStrings.lua`), never in memory at login: core's
 `Export`, `Import`, `Apply`, `Portable`, `FreeName`, `Pack`, `AreaOf` and
 `Same` load it on their first call (`UI.LoadOptions`; in a fight they answer
 `nil, "combat"`) and it takes their place; `RegisterPosition` keeps a shape
 for it until then.
+
+The Profiles page (`Polestar_Options/UI/Profiles.lua`, settings window,
+Setup) has two tabs. **Profiles**: a picture card per profile, its picture
+drawn from that profile's own values by the elements' look code (its skin
+with its colours, its arrow's dial, the map's target pin; the profile in use
+from the live settings, drawn again as they change), "In use" on the one
+this character uses, else who else does ("Every Mage", "Whole account"),
+the last card a new one; This character (the profile in use, this
+character's own choice, its class's); the selected profile (who uses it,
+how many settings are off their defaults, Share), with Use, Copy, Rename
+and Delete (a second click within three seconds). Picking a card selects
+it and Use switches, as in the guide menu; New and Copy switch to the
+profile made. **Share**: the parts to put in a string and the profile it is
+made of, the string selected for copying; a pasted string's preview (whose,
+how many settings, how many differ, the parts it holds, each switched on or
+off, what is left out), then Import as new (named, and switched to) or
+Apply to current (after a dialog).
 
 ### Commands
 
@@ -5374,7 +5390,7 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
 
 ## Maps — the world map
 
-Each feature is a setting on the Map page (Rares & travel, Zones), and none of
+Each feature is a setting on the Map page (Rares, travel & zones), and none of
 them makes a frame or loads data until it's on. The icon layers (dungeon
 entrances, flight masters `maps.taxiPins`, docks `maps.dockPins`, inns
 `maps.innPins`, NPC services `maps.servicePins`, and `maps.travelMinimap` for
@@ -5404,7 +5420,7 @@ flight timer and the instance tracker are set under Quality of Life.
   with either role is left to the travel layers (`maps.taxiPins`,
   `maps.innPins`) so nothing is drawn twice. `maps.serviceMinimap` opts
   into minimap icons. Both tracking menus have a Polestar service submenu;
-  the same settings live under Map, Rares & travel, NPC services. Class trainers
+  the same settings live under Map > Rares, travel & zones > NPC services. Class trainers
   are restricted to the character's class. A repair vendor has one icon, using
   the first enabled category it offers, and remains a vendor when repair is off.
   `Maps/ServiceData.lua` reads the bundled Codex role index and mailbox objects,
@@ -6378,6 +6394,9 @@ Polestar.RegisterOptions({
   toggle = { kind = "toggle", key = "qol.markers", label = "Markers", help = "One line." }, -- optional: the section's on/off, in its header
   shown = function() return Polestar.Get("nav.lineStyle") == "sparkle" end, -- optional: hide the section's card (a mode's settings)
   preview = function(host) return frame end,               -- optional: the tab's live preview, pinned over its rows (below)
+  lead = true,                                              -- optional: this tab is the page's lead tab (Essentials, below)
+  jump = { tab = "Markers", section = "Quest markers" },   -- optional: a More link in the section's header, to that tab and section
+  columns = { "World map", "Minimap" },                    -- optional: a caption over each half of the section's rows
   controls = {
     { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
       search = "map pins, icons, markers",                              -- optional: English words players may search with
@@ -6442,16 +6461,76 @@ section, the best first, the chevron to the row in a gutter inside the card;
 a result its section's toggle stops comes after an equally good one that
 works, its card carrying that toggle in the header.
 
-**Preview hotspots.** A preview may make its parts lead to their settings:
-`host:Hotspot(region, key)` while it is built (or
+**Essentials, references and presets.** Each Look page opens on its lead
+tab, Essentials: a spec with `lead = true` puts its tab first, whatever
+registered before it, with a star before the label and a short upright
+hairline after it. Essentials holds the page's presets or style cards, then
+at most ten controls, each a **reference** to its home row on a deeper tab:
+`Polestar.UI.Options.Ref(kind, key, fields)` makes one (`ref = true`, with the
+kind and key the registry checks). A reference takes every other field from
+the home control with that key (label, help, range, choices, extras,
+disabled, needs), found on first use (`O.HomeOf`; on its own page first),
+and keeps its own `page`, `tab`, `section`, `more`, `new`, `child` and every
+`ps*` field; fields given beside `ref` win (a shorter label). A reference
+with no home is not shown. Search, New pills and `O.AllControls()` count
+homes only (`O.References()` lists the references); a reference's tooltip
+ends with its home's path, and over a whole page `O.Controls` maps a key to
+its home row. An Essentials section's `jump = { tab, section }` puts a
+"More" link with a chevron in its header that opens that tab with that
+section scrolled under the top and lit (`O.ShowSection`). `columns =
+{ left, right }` lays a 24px caption row over a section's two halves, for
+two places that take the same settings (world map | minimap).
+
+**Presets** (`Polestar_Options/UI/Presets.lua`) are a picture-cards control
+with no key of its own: `O.PresetCards{ label?, help?, presets = { { value,
+label, set = { [key] = value }, draw = fn(art, preset, values), help }, ... } }`.
+Picking a card puts every key any of the row's presets names back to its
+default, then writes the card's own values (only what changes, so each
+change paints once); keys no preset names stay as they are. A card is lit
+while the settings are exactly its values, none while the look is the
+player's own; the first preset is the defaults (`set = {}`), so it also
+undoes the others. Its tooltip lists what it sets (`O.PresetSummary`: "Pin
+size 150%, Numbers 120%"). Its picture is drawn by the element's own look
+code with the preset's values (`O.WithSettings(values, fn)`: `Polestar.Get`
+answers them while fn runs; `O.PresetValues` gives a card's values over the
+row's defaults) and drawn again after every setting or theme change while
+it shows. A control's `watch = { [key] = true }` refreshes its widget when
+one of those settings changes. The tab last opened on each page is kept in
+`PolestarDB.optionsTab[<page key>]` (account-wide, not a setting: profiles
+and resets leave it) and the page opens there again; a first visit lands on
+the lead tab.
+
+**Preview hotspots and lights.** A preview may make its parts lead to their
+settings: `s:Hot(region, key)` on its stage (or `host:Hotspot(region, key)`,
 `Polestar.UI.Options.PreviewHotspot(frame, region, key)`) lays a button over
 `region`; under the cursor a 1px accent outline goes round it and the tooltip
 names the setting; a click opens its row (`O.Jump`, the tab on screen first)
 and lights it. The first preview with hotspots says "Click a part of the
 preview to find its settings" in a foot row under it until the first click
 (`PolestarDB.optionsPreviewHint`). The other way round, the pointer on a row
-(or its extras or cog) calls the preview frame's optional `f:Focus(key)`
-(`O.PreviewFocus`), so a preview can show the part that setting draws.
+(or its extras or cog) lights every hotspot of that setting and every part a
+page lights for it, `s:Light(key, region, ...)`, an accent outline and a soft
+wash, until it leaves (`O.PreviewFocus` -> `P.Focus` -> `P.LightUp`); a light's
+frame is made the first time it lights. `s:LightEdge` lights with the outline
+alone: a big part, or one outside the stage (the Theme page lights the
+settings window's own sidebar, border, header band, haze and rim);
+`s:LightRing` with an outline standing 3 px off a part drawn in the accent
+itself, where an outline on it would not show; `s:LightEach(key, fn[, ring])`
+lights the parts `fn()` returns as the row is hovered (what comes and goes
+with the page on screen). A light whose part is not showing stays dark. A
+setting that paints every surface lights every surface it paints: Theme >
+Accent rings the scene's accent parts (the guide window's open tab, the
+current goal's bar and glyph, the progress bar, the heads-up card's stripe,
+ring, headline and badge, the cards' primary buttons, the rare alert's time
+bar, the arrow) and every part of the settings window in the accent at that
+moment (the emblem, the open page's row, the open tab's underline, the
+sliders' fills, the switches that are on, the chips, a focused box's ring)
+and the gamepad's focus ring. Every
+setting on a Look page lights at least one part of its tab's preview (a test
+walks them all; the game menu's button, drawn in the game's own menu, is the
+one exemption). The pointer on a row also calls the preview frame's optional
+`f:Focus(key)`, so a preview can show the part that setting draws (the Guide
+window page scrolls its cropped window there).
 
 Controls read and write `Polestar.Get/Set`; `disabled = function() return bool end` is optional;
 registered labels and help are searchable (below, "Settings search"). A `label` may be a function, asked
@@ -6463,9 +6542,18 @@ reads and writes through them, right-click and Reset page call `set(nil)`.
 Discovery → Dungeons → "Dungeons in leveling guides" is one: a toggle per
 Classic dungeon (`Dungeons.ROUTE`, Map id and English name, from the Codex's
 instances), all off, writing `Engine.ChooseDungeon`. Registered toggles are
-fixed, so the list is not built from the dungeons the loaded guides name. Pages sort by `order`; Recorder and
+fixed, so the list is not built from the dungeons the loaded guides name.
+Quality of Life → Game → Game options leads with the other kind: the game's
+own state. "Increase game image quality" (`QoL/Options.lua`) reads the client
+CVar `ResampleAlwaysSharpen` and writes it only on a click (in combat, at
+`PLAYER_REGEN_ENABLED`); its `set(nil)` does nothing, so no login, profile
+switch, import, right-click or reset ever writes it, and the client keeps it.
+`needs` hides it on a client without the CVar. The section's other rows are
+second homes of the client options on Quests (Instant quest text, Hide combat
+errors, Hide the game's quest tracker). Its effect check puts it back with
+`restore` (`settings-effects.rs`). Pages sort by `order`; Recorder and
 About always close the list. A page or tab with no available control is left
-out of the sidebar and tab row. Every row resets to its default on right-click.
+out of the sidebar and tab row. Every row resets to its default on right-click (but the game's own, above).
 
 **New settings.** A setting's `new` puts a New pill in its section's header
 (nothing on the row: its gutter is the changed dot's), and its page's sidebar row counts the
@@ -6478,35 +6566,69 @@ it was when the window first opened), and go the next.
 **The pinned preview** (`Polestar_Options/UI/Preview.lua`, `UI.Preview`). A
 tab's `preview(host)` is called the first time the tab shows, with a host
 frame in the shell's preview slot (`W.ShellPreview`, between the tab band and
-the scrolling rows); it returns a frame `f` with `f:Layout(width) -> height`,
-laid out across the whole main column and pinned there: the rows scroll under
-it, and the scroll area is anchored anew when its height changes (`Layout`
-runs again after every setting change while the window is shown, and on a new
-size or font). It is at most 45% of the body's height and never cut off: past
-that it is shown whole at the scale that fits, laid out for the width that
-scale gives, and its caption says by how much ("Shown at 81% to fit"). The
-window draws its chrome over it: "Preview" and the frame's `f.caption` (a
-string or a function) at the top left, the Live mark and the backdrop's chip
-at the top right. A preview draws the real element with the current values in
-a sandbox of its own (the module's own builder or paint code, never the live
-instance) and repaints itself only while shown.
+the scrolling rows); it returns a frame `f` with `f:Layout(width, height) ->
+height`, laid out across the whole main column and pinned there: the rows
+scroll under it, and the scroll area is anchored anew when its height changes
+(`Layout` runs again after every setting change while the window is shown,
+and on a new size or font). The preview is the page's hero: its stage stands
+on a backdrop at least 40% of the window's height (`height`, the room the
+page lays its scene out in), at most 55% of the body's; the stage is as tall
+as the height its page returns, centred on the hero. It is never cut off:
+past 55% it is shown whole at the scale that fits, laid out for the width
+that scale gives, and its caption says by how much ("Shown at 81% to fit").
+The window draws its chrome over it: "Preview" and the frame's `f.caption`
+(a string or a function) at the top left, the Live mark and the backdrop's
+chip at the top right. A preview draws the real elements with the current
+values in a sandbox of its own (the module's own builder or paint code, never
+the live instance) at their true size, and repaints itself only while shown.
 
 Every page draws its preview on the one stage, `P.Stage(parent, opts)`: a
 backdrop under the page's parts (`s.Content`), the player's pick for every
 preview through the chip (`PolestarDB.optionsBackdrop`, not a setting): the
-zone they stand in, painted from their own client's world map art (dimmed,
-cooled and half desaturated, a soft dark edge, so its lettering sits back),
-the night sky, or the plain ground; `opts.backdrop` is the page's own when
-none is picked, and `opts.fixed` keeps it for a scene that is a painting of
-its own (the map pins', the route lines': no chip there). `opts.watch` lists
-the setting prefixes that repaint it (`s:Paint()`) at once while it shows and
-on its next show otherwise; a theme change repaints every stage. `s:Fit`
-places a part as large as the stage holds below the chrome, `s:Snap` and
-`P.Snap` put a point on a whole physical pixel, `s:Hot` makes a hotspot, and
-`s:Animate(fn)` runs only while the stage shows. A page that crops its scene
-(the Guide window page's window, scrolled to the part a hovered row edits)
-calls `s:SetCut(true)` while the scene runs past the stage's foot, and the
-stage fades it out over its last 28 px.
+zone they stand in (the default), painted from their own client's world map
+art (dimmed, cooled and half desaturated, a vignette on all four edges, so
+its lettering sits back), the night sky, or the plain ground; `opts.fixed`
+keeps the page's `opts.backdrop` for a scene that is a painting of its own
+(the map pins', the route lines': no chip there). `opts.watch` lists the
+setting prefixes that repaint it (`s:Paint()`) at once while it shows and on
+its next show otherwise; a theme change repaints every stage. A stage's
+helpers: `s:TrueScale()` (a part at its true size on screen, whatever the
+window's Menu scale; the stage's own scale-to-fit still applies),
+`s:SideBySide(items)` (surfaces at their true size in rows, centred on the
+hero, each row's feet on one line, each surface on a soft floor shadow with
+its caption under it, all smaller alike only where they would not fit),
+`s:Floor(frame)` / `s:NoFloor(frame)` (that shadow alone), `s:Fit` (one part
+as large as the stage holds below the chrome), `s:Snap` and `P.Snap` (a point
+on a whole physical pixel), `s:Hot`, `s:Light`, and `s:Animate(fn)` (runs
+only while the stage shows). A page that crops its scene (the Guide window
+page's window, scrolled to the part a hovered row edits) calls
+`s:SetCut(true)` while the scene runs past the stage's foot, and the stage
+fades it out over its last 28 px. A cropped guide window (its own page's or
+a scene's) leaves out a part the crop would cut through (no text cut in two
+at the foot or, scrolled, the top), its ground running on under the fade. A
+scene's world: `P.Mob(s, opts)` draws a mob as the game shows one, its
+nameplate (name, health bar, level, a raid mark) over its spot on the ground
+(its ring while it is your target, or in a colour of the scene's), placed
+with `m:Stand(x, y, k)`.
+
+The Look pages' scenes: Theme, the guide window (drawn by the Guide window
+page's own code, `UI.GuideWindowScene`) with the heads-up card on its top
+edge, a rare alert, the arrow and the two kinds of button (the Names tab: a
+card of every subject's name in its colour); Guide window, the window alone;
+Arrow, its three states; Map pins and Route lines, their paintings and a
+minimap; Buttons, the whole set over the world it acts on (the mob the
+target button names, your target with its ring and its raid mark while Mark
+target is on, and the rare the rare button names, further off), the travel
+button under the arrow (the Hearthstone's other button, a plain frame in its
+look under Nav's own dial), the floating and the minimap button; Alerts & toasts, the rare alert and the
+transport banner at the top of the world, the arrow under them pointing to
+what they are about and the guide window at the right, cropped at the
+hero's foot (the rare in the world beside them), the heads-up and class
+quest cards each alone, every one together
+on Essentials (the alerts in their line while they line up); Trackers, each
+tab's own surface, every one together on Essentials (the journey and the XP
+bar's mark with the trackers). A page too narrow for a part of its scene
+leaves it out.
 
 One setting may show on two pages: a convenience on its home page and on
 Quality of Life, where players look for it (the quest automation toggles,
@@ -6552,9 +6674,10 @@ page and tab, scrolls its row to 40px under the top and lights it a moment
 Reduce motion; nothing runs after).
 
 The built-in pages are grouped by what the player is doing: **Guide** (10:
-Window, Arrow & routes, Automation), **Map** (30), **Questing** (40: Quests, Rewards & gear,
-Talents, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Characters), **Quality of Life** (60:
-Quests, Travel, Social, Vendors, Trackers, Map), **Community guides** (70, a custom page:
+Window, Arrow & routes, Automation), **Map** (30: Guide & quests, Rares, travel & zones), **Questing**
+(40: Quests, Rewards & gear, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Group quests; Dungeons
+and Group quests while this character's guides have dungeon or group steps to choose), **Quality of Life** (60:
+Quests, Travel, Social, Vendors, Trackers & map, Game), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
 `UI/Thanks.lua`: three columns, the top supporter, the top contributor and the
@@ -6574,12 +6697,19 @@ preview of the real element. The options window
 declares every tab and section of the module-filled pages, in order, and the
 modules register their controls into them by name (`page = L["Questing"]`,
 `tab = L["Rewards & gear"]`, `section = L["Gear advice"]`): Quests, QoL,
-Gear and Talents fill Questing; Lookup, Dungeons, Rares and Characters fill Discovery; QoL, Maps
-(flight timer, instances, coordinates, minimap button), Nav (travel button, transport alerts, nearby
-services) and the options window (trainer reminders) fill Quality of Life. On the **Map** page (Guide &
-quests: Guide, Quest markers; Rares & travel: Rares and treasures, Dungeons and
-travel; Zones: Zones, Coordinates) Nav, Quests, Rares and Maps place every map
-and minimap setting.
+Gear and Talents fill Questing; Lookup, Alts, Dungeons and Rares fill Discovery (the switches of the hub's
+Dungeons and Characters sections stand on Lookup, beside Lookup's own); QoL, Maps
+(flight timer, instances, coordinates, minimap button), Nav (transport alerts, nearby
+services) and the options window (trainer reminders) fill Quality of Life. The Hearthstone's two buttons, each
+its own switch (`qol.hearthButton`, the one in the action set; `nav.castPrompt`, the travel button under the
+arrow), sit side by side wherever both show: the Buttons page, Questing > Buttons and Quality of Life > Travel
+(QoL/Options.lua's pair, `QoL.HearthOptions` for the Buttons page); a settings search for "hearth", "HS" or
+"hearthstone" finds the Buttons page's pair first. On the **Map** page (Guide &
+quests: Guide, Quest markers; Rares, travel & zones: Rares and treasures, Dungeons and travel, NPC services,
+Zones and coordinates) Nav, Quests, Rares and Maps place every map and minimap setting. Every page keeps the
+window's layout rules: a section has two rows or more, two halves of a row pair related settings, a feature's
+on/off stands in its section's header, and a tab nearly empty folds into a neighbour (checked at defaults by
+`every_page_keeps_the_layout_rules_at_defaults`).
 
 A page is opened by its key (`/polestar options <key>`, `UI.ShowOptions(key)`,
 `Options.Select`), not its title: the built-in pages give English keys
@@ -6587,10 +6717,11 @@ A page is opened by its key (`/polestar options <key>`, `UI.ShowOptions(key)`,
 `guidepacks`, `recorder`, `about`) so a translated title does not move them;
 a registered page without `key` takes one made from its title. Old page keys
 (`guidewindow`, `navigation`, `automation`, `quests`, `gear`, `lookup`,
-`dungeons`, `rares`, `appearance` and `look` for the Theme page, …) reach the
-page and tab that now hold their settings (`ALIASES` in UI/Options.lua); a
-page's own key wins over an alias (`arrow` and `guidewindow` open the Look
-pages).
+`dungeons`, `rares`; `characters` and `alts` for Discovery's Lookup tab;
+`appearance` and `look` for the Theme page, …) reach the page and tab that now
+hold their settings (`ALIASES` in UI/Options.lua; a tab not shown, as Dungeons
+without dungeon steps to choose, gives the page's first); a page's own key wins
+over an alias (`arrow` and `guidewindow` open the Look pages).
 
 The sidebar's page list is its own scroll area (`f.NavScroll`, `W.ShellNav`)
 from 12px under the search (or under the band, where the search is in the
@@ -6740,7 +6871,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   transparent style the ground is the accent alone at `GF.HERE_CLEAR` (0.18)
   under the outlined text. With the window hidden, the toast (UI/WhileHere.lua,
   `UI.WhileHereToast`) says a new line once, slides down into place as it
-  fades in, and leaves after 8 s (held under the cursor) or with the line.
+  fades in, and leaves after 8 s (`toasts.whilehere.seconds`, Stays for in
+  the Guide page's Dynamic Questing section; held under the cursor) or with
+  the line. It has no look of its own (0.3.8): the theme's and the shared
+  toast style (`UI.Toasts.Attach(..., { shared = true })`); only its time and
+  its place (`toasts.whilehere.point`, a mover) are the player's.
   An object named like one of its quests while it gives another too (one
   poster for two WANTED quests) is headed by the first goal note that names
   it, else "The object here" (`UI.GroupName`, #942). A click
@@ -6911,7 +7046,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   of `Dungeons.QuestXP`), **Pick up the quests** (`Dungeons.PickUp`: the
   pickup guide in a new tab), **Open in Dungeons** (`Dungeons.Open`: its
   page in the hub), **Later** and **Turn these off**
-  (`dungeons.headsUp` off; also under Options > Discovery > Dungeons). It
+  (`dungeons.headsUp` off; also under Options > Discovery > Lookup). It
   tells a dungeon, not a raid, with quests for the character's faction, the
   character's level in its range, whose pickup plan by the offer rule
   (`Dungeons.PickupPlan(key, true)`: a quest more than one level above the
@@ -7600,17 +7735,20 @@ Tests: `ui.rs` (`in_dungeons_and_battlegrounds_*`, `floating_button_*`),
 
 Two Look pages (`alerts` 26, `trackers` 27). Each toast builds its frame
 with its own builder and hands it to `UI.Toasts.Attach(kind, frame, { titles,
-bodies, accents, relayout, hide, sandbox })`: the rare alert (`rare`), the
-transport banner and notices (`transport`), While you're here (`whilehere`),
-the class and dungeon heads-up card (`headsup`, scaled over the guide
-window's scale) and the class quest card in the guide window (`classcard`,
-inline: type, glow, stripe, shine, note only). From then on
+bodies, accents, relayout, hide, sandbox, shared })`: the rare alert
+(`rare`), the transport banner and notices (`transport`), the class and
+dungeon heads-up card (`headsup`, scaled over the guide window's scale) and
+the class quest card in the guide window (`classcard`, inline: type, glow,
+stripe, shine, note only). While you're here's toast (`whilehere`) is
+`shared`: it lines up with the others and keeps its place, but wears the
+theme's look and no `toasts.whilehere.*` but `seconds` and `point` (on the
+Guide page since 0.3.8; the page has no tab for it). From then on
 `toasts.<kind>.*` apply live: `scale`, `alpha`, `titleSize`/`bodySize`
 (`Theme.SetFontScale`), `bgAlpha` (a share of `Theme.GroundAlpha`), `bg`,
 `border`, `borderSize` (`UI.Toasts.PaintGround`), `enter` (slide, fade,
 none) and `speed` (`UI.Toasts.Enter`/`Leave`), plus each one's time on
 screen (`rares.toastSeconds`, `toasts.transport.linger`,
-`toasts.whilehere.seconds`, `toasts.headsup.seconds` 0 = until answered).
+`toasts.headsup.seconds` 0 = until answered).
 `toasts.stack` lines the three top-of-screen alerts up from the
 `PolestarToastLine` anchor (`toasts.stackPoint`, a mover), `growth` down or
 up, `spacing` apart, at most `max` (the oldest goes through its own hide).
@@ -7621,7 +7759,7 @@ The trackers do the same through `UI.Trackers.Attach` (`trackers.<kind>.*`:
 `UI.Trackers.Allowed`); the XP mark reads `trackers.xp.*` itself. The
 previews (`UI.Toasts.Preview`, `UI.Trackers.Preview`) are sandbox frames from
 the same builders (`Rares.Toast.NewCard`, `Nav.alerts.NewBanner`,
-`WhileHereToast.NewCard`, `ClassToast.NewCard`, `ClassCard.NewCard`,
+`ClassToast.NewCard`, `ClassCard.NewCard`,
 `Maps.NewFlightTimer`, `Maps.NewInstanceTracker`, `PartyPanel.NewPanel`,
 `XPMark.NewDemo`) with made-up content: no event, waypoint or sound until
 Play, no `OnUpdate`, and a change while hidden waits for the next show.
@@ -7777,8 +7915,8 @@ Polestar.Gamepad.HasWindow() -> bool                        -- a Polestar window
 `addon/Polestar/Rares/` (`Rares\Rares.xml`, loaded after `UI\UI.xml`):
 `Rares.lua` (settings `rares.*`, history, the decision), `Detect.lua` (client
 events), `Pins.lua` (map layers), `Toast.lua` (the alert), `Options.lua`
-(Discovery → Rares: When a rare shows up, How rares are noticed, History; Map
-→ Rares & travel → Rares and treasures), `View.lua` (the hub section).
+(Discovery → Rares: When a rare shows up, How rares are noticed; Map
+→ Rares, travel & zones → Rares and treasures), `View.lua` (the hub section).
 Everything is off with `rares.enabled`; a detection path that is off has no
 event registered.
 
@@ -7863,7 +8001,7 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   unique names are off), `/wave`. Only the player's click runs it.
 - **Pins**: layers `rares.rare` and `rares.treasure` through `Polestar.Pins`,
   world map and minimap per kind (`rares.worldRares`, `worldTreasures`,
-  `minimapRares`, `minimapTreasures`; all off by default, Map → Rares & travel →
+  `minimapRares`, `minimapTreasures`; all off by default, Map → Rares, travel & zones →
   Rares and treasures); one pin per distinct spawn (spawns of
   one rare within 1.5 map percent share it), rares at grey levels left out
   with `rares.hideGrey`, elites ringed, ones seen in the last two hours
@@ -7949,7 +8087,7 @@ Polestar.Talents.Show()                                     -- SHOW_TALENTS; /po
 
 `addon/Polestar/Alts/` (`Alts\Alts.xml`, loaded after `Talents\Talents.xml`):
 `Snapshot.lua` (`Polestar.Alts`: the saved snapshots, the events that write
-them, the `alts` command), `Options.lua` (Discovery → Characters),
+them, the `alts` command), `Options.lua` (Discovery → Lookup),
 `View.lua` (the hub section, order 60).
 
 ```

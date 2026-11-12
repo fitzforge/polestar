@@ -144,6 +144,33 @@ fn every_look_setting_changes_the_live_arrow_in_place_and_leaves_its_heading_and
 	assert_eq!(out["back"], "travel", "a new goal takes the arrow back");
 }
 
+// A player asked how to keep the arrow and its distance without the goal's text under it: Arrow > Label lines, Off.
+// Off hides that text alone: the arrow, its dial, the distance and the arrival time stay, its heading and target
+// too; one line brings the text back.
+#[test]
+fn label_lines_off_hides_only_the_goal_s_text_under_the_arrow() {
+	let out = run(r#"
+		target(0, 300, "Kill Kobold Vermin")
+		for i = 1, 12 do nav.place(0, i); stub.advance(0.1) end -- walking toward it: the arrival time shows
+		local angle, goal = A.GetAngle(), N.GetTarget()
+		local function parts()
+			return { arrow = A.frame:IsShown(), dial = A.dial:IsShown(), distance = A.distText:IsShown(),
+				eta = A.etaText:IsShown(), label = A.labelText:IsShown() }
+		end
+		local on = parts()
+		Polestar.Set("nav.arrowLabelLines", 0)
+		stub.advance(0.5)
+		local off = parts()
+		local kept = { angle = math.abs(A.GetAngle() - angle) < 1e-6, target = N.GetTarget() == goal }
+		Polestar.Set("nav.arrowLabelLines", 1)
+		emit({ on = on, off = off, kept = kept, back = A.labelText:IsShown(), text = A.labelText:GetText() })"#);
+	assert_eq!(out["on"], json!({ "arrow": true, "dial": true, "distance": true, "eta": true, "label": true }), "{out}");
+	assert_eq!(out["off"], json!({ "arrow": true, "dial": true, "distance": true, "eta": true, "label": false }), "Off hides the text alone");
+	assert_eq!(out["kept"], json!({ "angle": true, "target": true }));
+	assert_eq!(out["back"], true, "one line shows it again");
+	assert_eq!(out["text"], "Kill Kobold Vermin");
+}
+
 #[test]
 fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_and_animates_only_while_shown() {
 	let out = run(r#"

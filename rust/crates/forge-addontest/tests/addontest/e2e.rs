@@ -288,7 +288,8 @@ fn compiled_escort_quests_say_once_per_card_under_the_accepts_and_then_the_compl
 }
 
 // The Map page is assembled from several modules: the options window declares its tabs and sections, and Nav,
-// Quests, Rares and Maps fill them by name. A name that drifts would open a stray section or tab.
+// Quests, Rares and Maps fill them by name. A name that drifts would open a stray section or tab. The trail dots stand
+// in for route lines: their row shows only while route lines are off (at defaults they are on).
 #[test]
 fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tabs_and_sections() {
 	let out = emitted(&RunAddon {
@@ -311,18 +312,22 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 				table.sort(keys)
 				out.sections[t], out.keys[t] = heads, keys
 			end
+			Polestar.Set("nav.routeLines", false)
+			O.Select("map", "Guide & quests")
+			local trail = O.Controls("map", "Guide & quests")["nav.trailDots"]
+			out.trail = { shown = trail ~= nil and trail:IsShown(), enabled = trail ~= nil and trail:IsEnabled() }
 			emit(out)"#
 			.into(),
 		..Default::default()
 	});
 	let out = &out[0];
-	assert_eq!(out["tabs"], json!(["Guide & quests", "Rares & travel", "Zones"]));
+	// The second tab holds the rest of the map: rares, travel, NPC services and zones (no tab of one card).
+	assert_eq!(out["tabs"], json!(["Guide & quests", "Rares, travel & zones"]));
 	assert_eq!(
 		out["sections"],
 		json!({
 			"Guide & quests": ["Guide", "Quest markers"],
-			"Rares & travel": ["Rares and treasures", "Dungeons and travel", "NPC services"],
-			"Zones": ["Zones", "Coordinates"],
+			"Rares, travel & zones": ["Rares and treasures", "Dungeons and travel", "NPC services", "Zones and coordinates"],
 		})
 	);
 	assert_eq!(
@@ -331,7 +336,6 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 			"maps.minimapButton",
 			"nav.minimapPins",
 			"nav.minimapRoute",
-			"nav.trailDots",
 			"nav.upcomingPins",
 			"nav.worldPins",
 			"qol.availableQuests",
@@ -347,13 +351,14 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 			"qol.turnInMarkers",
 		])
 	);
+	assert_eq!(out["trail"], json!({ "shown": true, "enabled": true }), "route lines off: the trail dots' row");
 	let mut rares: Vec<String> =
 		["maps.dockPins", "maps.dungeonPins", "maps.innPins", "maps.taxiPins", "maps.travelMinimap", "maps.serviceMinimap", "maps.servicePins"].iter().map(|s| s.to_string()).collect();
 	rares.extend(
 		["repair", "mailbox", "class", "weapon", "auctioneer", "banker", "battlemaster", "spirithealer", "stablemaster", "trainer", "vendor"].iter().map(|key| format!("maps.serviceFilters.{key}")),
 	);
 	rares.extend(["rares.hideGrey", "rares.minimapRares", "rares.minimapTreasures", "rares.worldRares", "rares.worldTreasures"].iter().map(|s| s.to_string()));
+	rares.extend(["maps.coords", "maps.minimapCoords", "maps.reveal", "maps.zoneLevels"].iter().map(|s| s.to_string()));
 	rares.sort();
-	assert_eq!(out["keys"]["Rares & travel"], json!(rares));
-	assert_eq!(out["keys"]["Zones"], json!(["maps.coords", "maps.minimapCoords", "maps.reveal", "maps.zoneLevels"]));
+	assert_eq!(out["keys"]["Rares, travel & zones"], json!(rares));
 }

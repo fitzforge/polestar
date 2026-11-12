@@ -38,13 +38,15 @@ end
 
 local function trackers() return UI.Trackers end
 
--- In a fight: as the guide window (ui.combat "hide" hides it too), or as the
--- player set it for the panel (Options > Trackers: show, fade or hide).
-local function combatHides()
+-- Its own rules first (Options > Trackers): inside an instance, kept or
+-- hidden; in a fight, shown, faded or hidden as the player set it for the
+-- panel, or as the guide window ("As the guide window": ui.combat "hide"
+-- hides it too). TR.Allowed has no say on a fight under the guide's rule.
+local function rulesHide()
 	local TR = trackers()
+	if TR and not TR.Allowed("party") then return true end
 	local rule = TR and TR.Get("party", "combat") or "guide"
-	if rule == "guide" then return inCombat and ns.Get("ui.combat") == "hide" end
-	return TR and not TR.Allowed("party") or false
+	return rule == "guide" and inCombat and ns.Get("ui.combat") == "hide"
 end
 
 -- The rows to show (Party.Roster), or false when the panel should not show.
@@ -52,7 +54,7 @@ local function wanted()
 	local P = ns.Party
 	if not (ns.Get("party.panel") and P and P.IsLive and P.IsLive()) then return false end
 	if not ns.GuideShown() then return false end
-	if combatHides() then return false end
+	if rulesHide() then return false end
 	local list = P.Roster()
 	return #list > 0 and list
 end
@@ -259,7 +261,13 @@ local function whyNot()
 	if #P.Roster() == 0 then
 		return L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."]
 	end
-	if combatHides() then return L["The party panel comes back after combat."] end
+	if rulesHide() then
+		local TR, C = trackers(), ns.Compat
+		if TR and TR.Get("party", "instance") == "hide" and C.IsInInstance and C.IsInInstance() then
+			return L["The party panel is hidden inside instances: Options > Trackers > Party panel."]
+		end
+		return L["The party panel comes back after combat."]
+	end
 	return nil
 end
 

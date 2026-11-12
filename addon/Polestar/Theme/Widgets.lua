@@ -1174,6 +1174,20 @@ local function sliderText(self, v)
 end
 W.SliderText = sliderText
 
+-- A slider row's value box: as wide as its widest end ("60 minutes"), never
+-- narrower than the skin's; kept on the row (psValueW) for its repaints.
+-- -> the width
+local function valueWidth(row)
+	local v = row.Value
+	local shown = v:GetText()
+	local need = max(textWidth(v, sliderText(row, row.psMin)), textWidth(v, sliderText(row, row.psMax)))
+	v:SetText(shown or "")
+	local w = max(Theme.Metric("valueW", VALUE_W), math.ceil(need))
+	row.psValueW = w
+	v:SetWidth(w)
+	return w
+end
+
 local SLIDER_THUMB = "Interface\\Buttons\\UI-SliderBar-Button-Horizontal"
 
 local function sliderPaint(self, value)
@@ -1218,7 +1232,7 @@ function W.SkinSlider(self)
 	if self.psRow then
 		self:SetHeight(keptHeight(self))
 		s:SetWidth(self.psTrackW or Theme.Metric("sliderW", SLIDER_W))
-		self.Value:SetWidth(Theme.Metric("valueW", VALUE_W))
+		self.Value:SetWidth(self.psValueW or Theme.Metric("valueW", VALUE_W))
 	end
 	self.Thumb:SetTexCoord(0, 1, 0, 1)
 	-- A row's label ends short of the slider: further in the game's looks,
@@ -1289,12 +1303,7 @@ end
 -- minutes"), the track giving up to SLIDER_W - SLIDER_MIN of its width to a
 -- label that needs it.
 local function sliderSpan(row, width)
-	local v = row.Value
-	local shown = v:GetText()
-	local need = max(textWidth(v, sliderText(row, row.psMin)), textWidth(v, sliderText(row, row.psMax)))
-	v:SetText(shown or "")
-	local valueW = max(VALUE_W, math.ceil(need))
-	v:SetWidth(valueW)
+	local valueW = valueWidth(row)
 	local fixed = 12 + VALUE_PAD + valueW + VALUE_PAD + 8 + 10
 	local trackW = max(SLIDER_MIN, min(SLIDER_W, width - 12 - fixed - math.ceil(textWidth(row.Label))))
 	row.Slider:SetWidth(trackW)
@@ -1843,7 +1852,7 @@ local function compactControl(row)
 		row.Slider:SetPoint("RIGHT", row.Value, "LEFT", -(VALUE_PAD + INLINE_GAP), 0)
 		row.Slider:SetWidth(COMPACT_SLIDER)
 		return function(self)
-			return COMPACT_SLIDER + INLINE_GAP + 2 * VALUE_PAD + Theme.Metric("valueW", VALUE_W)
+			return COMPACT_SLIDER + INLINE_GAP + 2 * VALUE_PAD + valueWidth(self)
 		end
 	elseif rawget(row, "Button") and row.psChoices ~= nil then
 		row.psBoxW = COMPACT_DROPDOWN
@@ -3342,8 +3351,8 @@ function W.Shell(name, opts)
 		end
 	end
 	-- The gold rim along the window's top, its light thrown under the
-	-- main column.
-	W.Rim(f, { offset = Wd * 0.1 })
+	-- main column (f.Rim: the settings' Theme page lights it).
+	f.Rim = W.Rim(f, { offset = Wd * 0.1 })
 
 	-- Tab row: tabs sit on its bottom hairline.
 	f.TabRow = CreateFrame("Frame", nil, main)

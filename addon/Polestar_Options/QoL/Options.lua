@@ -12,8 +12,9 @@ if not (QoL and ns.RegisterOptions) then return end
 
 local QUESTING, QOL = L["Questing"], L["Quality of Life"]
 
-local function register(page, tab, section, controls)
-	local ok, err = ns.RegisterOptions({ page = page, tab = tab, section = section, controls = controls })
+-- toggle: the section's on/off, in its header.
+local function register(page, tab, section, controls, toggle)
+	local ok, err = ns.RegisterOptions({ page = page, tab = tab, section = section, controls = controls, toggle = toggle })
 	if not ok and geterrorhandler then geterrorhandler()(err) end
 end
 
@@ -27,6 +28,7 @@ end
 local function repairOff() return not QoL.On("autoRepair") end
 local function markOff() return not QoL.On("markTarget") end
 local function targetOff() return not QoL.On("targetButton") end
+local function itemButtonOff() return not QoL.On("itemButton") end
 local function flightMarkOff() return not QoL.On("flightHighlight") end
 
 -- The eight raid icons, by the client's names, then a new one each press.
@@ -90,7 +92,9 @@ function C.itemButton()
 		help = L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."],
 		search = "use item, quest item, keybind, hotkey, item bar" }
 end
-local function itemButtonOff() return not QoL.On("itemButton") end
+-- 0.3.7's quest-starting loot on the item button (QoL/QuestLoot.lua) and the
+-- tracker kept to an instance's quests inside it: shown once their settings
+-- are registered.
 function C.questLoot()
 	return { kind = "toggle", key = "qol.questLoot", label = L["Show quest-starting loot"], disabled = itemButtonOff, child = true,
 		help = L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."],
@@ -106,17 +110,55 @@ function C.stepInteract()
 		help = L["Once the step key has targeted the step's NPC, the next press talks to it; on the corpse of the step's mob, it loots; in the step's quest window, it accepts or completes. Only out of combat, and only on the step the guide is at."],
 		search = "interact, interact key, talk, loot, one button, keybind, hotkey" }
 end
+-- The Hearthstone's two buttons, each its own switch, side by side wherever
+-- both show (the action set's Hearthstone, the travel button under the
+-- arrow): their labels say which is which. The travel button's row is the
+-- Nav module's setting (Nav/Prompts.lua), here when it is loaded.
+local HEARTH_HELP = L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."]
+local TRAVEL_HELP = L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."]
 function C.hearthButton()
-	return { kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone button"],
-		help = L["Shows your Hearthstone while the guide says to hearth. Bindable."], search = "hearth, hearthstone, keybind, hotkey" }
+	return { kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone in the button set"], help = HEARTH_HELP,
+		search = "hearth, hearthstone, hs, hs button, hearth button, action button, keybind, hotkey" }
 end
+function C.castPrompt()
+	local Nav = ns.Nav
+	if not (Nav and Nav.prompts) then return nil end
+	local c = { kind = "toggle", key = "nav.castPrompt", label = L["Travel button under the arrow"], help = TRAVEL_HELP,
+		search = "hearth, hearthstone, hs, hs button, teleport, portal, cast button, travel spell, arrow" }
+	return Nav.HandoffOption and Nav.HandoffOption(c) or c
+end
+-- Both onto list, side by side.
+local function hearthPair(list)
+	list[#list + 1] = C.hearthButton()
+	list[#list + 1] = C.castPrompt()
+	return list
+end
+-- The Buttons page's rows of the pair (QoL/ButtonsOptions.lua, loaded after).
+QoL.HearthOptions = { hearth = C.hearthButton, travel = C.castPrompt, hearthHelp = HEARTH_HELP }
 
-register(QUESTING, L["Buttons"], L["Action buttons"], {
-	C.itemButton(),
-	C.questLoot(),
-	{ kind = "toggle", key = "qol.bagGlow", label = L["Highlight the step's item in your bags"],
-		help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator). An item a later step needs gets a lock, so you don't sell it."],
-		search = "bags, glow, quest item, inventory" },
+-- Questing > Buttons: the action buttons (the quest item button and its
+-- quest-starting loot on one line, the Hearthstone's two side by side on
+-- the next: rows lie two to a line, so the pair starts a line), then what
+-- the target button and the step key target and how they mark it.
+local actionRows = hearthPair({ C.itemButton(), C.questLoot() })
+actionRows[#actionRows + 1] = { kind = "toggle", key = "qol.bagGlow", label = L["Highlight the step's item in your bags"],
+	help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator). An item a later step needs gets a lock, so you don't sell it."],
+	search = "bags, glow, quest item, inventory" }
+for _, c in ipairs({
+	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],
+		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."], search = "rare elite, target rare, keybind" },
+	C.stepInteract(),
+	-- How they look (size, layout, text, opacity...) is the Buttons page's (QoL/ButtonsOptions.lua).
+	{ kind = "button", icon = "palette", button = L["Open"], label = L["Button look"], new = "0.3.8",
+		help = L["Size, spacing, layout, backing, text, opacity and glow of these buttons, with a live preview, on the Buttons page."],
+		search = "button size, scale, bigger, smaller, look, style, opacity, layout, name position",
+		onClick = function() ns.UI.ShowOptions("buttons") end },
+	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
+		search = "move buttons, button position", onClick = function() if QoL.Buttons then QoL.Buttons.ResetPositions() end end },
+}) do actionRows[#actionRows + 1] = c end
+register(QUESTING, L["Buttons"], L["Action buttons"], actionRows)
+
+register(QUESTING, L["Buttons"], L["Targeting"], {
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
 		help = L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."], search = "target macro, find mob, keybind, hotkey" },
 	{ kind = "toggle", key = "qol.targetPlate", label = L["Show who it targets"], disabled = targetOff, child = true,
@@ -127,9 +169,6 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		search = "target chat, announce target, targeting" },
 	{ kind = "toggle", key = "qol.guideNameTarget", label = L["Click objectives to target"],
 		help = L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] },
-	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],
-		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."], search = "rare elite, target rare, keybind" },
-	C.hearthButton(),
 	{ kind = "toggle", key = "qol.markTarget", label = L["Mark what they target"],
 		help = L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."],
 		search = "raid marker, raid icon, skull, star, mark target" },
@@ -140,25 +179,15 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."], search = "raid marker, raid icon, skull" },
 	{ kind = "dropdown", key = "qol.markNpc", label = L["Icon on NPCs"], choices = markChoices, disabled = markOff,
 		help = L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."], search = "raid marker, raid icon, star" },
-	C.stepInteract(),
-	-- How they look (size, layout, text, opacity...) is the Buttons page's (QoL/ButtonsOptions.lua).
-	{ kind = "button", icon = "palette", button = L["Open"], label = L["Button look"], new = "0.3.8",
-		help = L["Size, spacing, layout, backing, text, opacity and glow of these buttons, with a live preview, on the Buttons page."],
-		search = "button size, scale, bigger, smaller, look, style, opacity, layout, name position",
-		onClick = function() ns.UI.ShowOptions("buttons") end },
-	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
-		search = "move buttons, button position", onClick = function() if QoL.Buttons then QoL.Buttons.ResetPositions() end end },
 })
 
+-- Questing > Rewards & gear: the reward panel, and gear offered after a kill, a chest or a merchant.
 register(QUESTING, L["Rewards & gear"], L["Quest rewards"], {
 	{ kind = "toggle", key = "qol.rewardHighlight", label = L["Mark quest rewards"],
 		help = L["On the reward choices, a green arrow marks each upgrade for your spec (with Gear advice on), a thin frame in your accent colour the one to take, and a coin the one that sells for most."],
 		search = "highlight reward, best reward, vendor price, upgrade" },
 	C.rewardAutoPick(),
 	C.rewardEquip(),
-})
-
-register(QUESTING, L["Rewards & gear"], L["Loot and merchants"], {
 	{ kind = "toggle", key = "qol.wearOffer", label = L["Offer gear upgrades"],
 		help = L["When gear from a kill, a chest or a merchant is an upgrade for your spec (with Gear advice on), the guide window offers to put it on. Nothing goes on until you press Wear it; Not this one stops it asking about that item."],
 		search = "equip upgrades, loot upgrade, wear gear" },
@@ -177,34 +206,38 @@ register(QUESTING, L["Quests"], L["Faster questing"], {
 	C.hideErrors(),
 })
 
-register(QUESTING, L["Quests"], L["Tooltips and quest log"], {
+-- The game's tracker and quest log, before the quest database's rows (Quests/Options.lua).
+register(QUESTING, L["Quests"], L["Quest log and tooltips"], {
 	C.hideQuestTracker(),
-	C.instanceTrack(),
 	{ kind = "button", button = L["Show"], label = L["Clean up quest log"],
 		help = L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."],
 		onClick = function() ns.Fire("SHOW_QUEST_ROOM") end },
+	C.instanceTrack(),
 })
 
 register(QOL, L["Quests"], L["Faster questing"], { C.autoAccept(), C.autoTurnin(), C.instantQuestText(), C.skipGossip(), C.fastLoot(), C.hideErrors() })
-register(QOL, L["Quests"], L["Quest rewards"], { C.rewardAutoPick(), C.rewardEquip() })
-register(QOL, L["Quests"], L["Action buttons"], { C.itemButton(), C.questLoot(), C.stepInteract() })
-register(QOL, L["Quests"], L["Tooltips and quest log"], { C.hideQuestTracker(), C.instanceTrack() })
+register(QOL, L["Quests"], L["Rewards, buttons and tracker"], {
+	C.rewardAutoPick(), C.rewardEquip(), C.itemButton(), C.questLoot(), C.stepInteract(), C.hideQuestTracker(), C.instanceTrack(),
+})
 
-register(QOL, L["Travel"], L["Flight masters"], {
+-- Flight masters, after the flight timer (Maps/Options.lua).
+register(QOL, L["Travel"], L["Flights"], {
 	{ kind = "toggle", key = "qol.flightAutoOpen", label = L["Open the flight map"],
 		help = L["Talking to a flight master opens the map directly. Hold Shift for the gossip."], search = "flight, taxi, flight path, gryphon, wind rider, fly" },
 	{ kind = "toggle", key = "qol.flightHighlight", label = L["Mark the route's destination"],
 		help = L["Marks where the travel route flies next on the flight map. You still choose the flight."], search = "flight, taxi, flight path, highlight destination" },
+	-- 0.3.7: shown once its setting is registered.
 	{ kind = "toggle", key = "qol.flightAutoTake", label = L["Take the marked flight"], disabled = flightMarkOff, child = true,
 		help = L["When the flight map opens, flies to the marked destination. Hold Shift at the flight master to choose yourself."], search = "flight, taxi, flight path, auto fly, take flight" },
 })
 
-register(QOL, L["Travel"], L["Hearthstone"], {
+-- The Hearthstone's two buttons side by side, after the transport alerts and
+-- the nearby services (Nav/Options.lua).
+register(QOL, L["Travel"], L["Hearth and travel"], hearthPair({
 	{ kind = "toggle", key = "qol.autoBind", label = L["Set your home at the guide's inn"],
 		help = L["When the step sets your home and you talk to its innkeeper, binds your Hearthstone there. Never at another inn. Hold Shift to skip."],
 		search = "hearth, hearthstone, bind, inn, innkeeper, home" },
-	C.hearthButton(),
-})
+}))
 
 register(QOL, L["Travel"], L["Death"], {
 	{ kind = "toggle", key = "qol.deathHelper", label = L["Corpse or Spirit Healer"],
@@ -256,16 +289,16 @@ local function restockSlider(kind, label, step, help)
 		disabled = function() return not QoL.On("restock") end, help = help }
 end
 
--- Only with QoL/Restock.lua loaded: its limits and amounts are its own.
+-- Only with QoL/Restock.lua loaded: its limits and amounts are its own. The
+-- button's switch in the section's header, the amounts under it.
 if QoL.Restock then
 	register(QOL, L["Vendors"], L["Restock"], {
-		{ kind = "toggle", key = "qol.restock", label = L["Restock button"],
-			help = L["At a merchant that sells what you are short of, a Restock button under its window buys up to the amounts below (this character's). Nothing is bought until you press it. Other items, such as reagents: /polestar restock <item> <amount>."],
-			search = "restock, food, water, drink, ammo, arrows, bullets, reagents, auto buy, vendor" },
 		restockSlider("drink", L["Drinks"], 5, L["Keeps this many drinks in your bags. The merchant's best one for your level is bought."]),
 		restockSlider("food", L["Food"], 5, L["Keeps this much food in your bags. The merchant's best one for your level is bought."]),
 		restockSlider("ammo", L["Ammunition"], 100, L["Keeps this many arrows or shot for the bow, crossbow or gun you wear."]),
-	})
+	}, { kind = "toggle", key = "qol.restock", label = L["Restock button"],
+		help = L["At a merchant that sells what you are short of, a Restock button under its window buys up to the amounts below (this character's). Nothing is bought until you press it. Other items, such as reagents: /polestar restock <item> <amount>."],
+		search = "restock, food, water, drink, ammo, arrows, bullets, reagents, auto buy, vendor" })
 end
 
 register(QOL, L["Vendors"], L["Bags"], {
@@ -280,6 +313,9 @@ register(QOL, L["Vendors"], L["Bags"], {
 		search = "bags, junk, mark junk, keep item, protect item, sell list" },
 })
 
+-- After the trainer reminders (UI/Options.lua). The Train All button, the
+-- level-up card and the old ranks are 0.3.7's (QoL/Spells.lua): shown once
+-- their settings are registered; Forget kept ranks with QoL.Spells there.
 register(QOL, L["Vendors"], L["Trainers"], {
 	{ kind = "toggle", key = "qol.trainAllButton", label = L["Train all button"],
 		help = L["Adds a Train All button to the trainer window to learn all available skills."],
@@ -298,11 +334,13 @@ register(QOL, L["Vendors"], L["Trainers"], {
 		search = "rank, old rank, downrank, action bar, upgrade spells, highest rank, buttons" },
 	{ kind = "button", icon = "reset", button = L["Forget"], label = L["Forget kept ranks"],
 		help = L["Lists the spells you kept at a lower rank again."], search = "rank, downrank, keep rank, action bar",
+		needs = function() return QoL.Spells ~= nil end,
 		disabled = function() return not QoL.On("oldRanks") end,
 		onClick = function() if QoL.Spells then QoL.Spells.ForgetKept(); QoL.Spells.CheckRanks(true) end end },
 })
 
-register(QOL, L["Trackers"], L["Experience"], {
+-- The XP tracker, 0.3.7's Boosted Rest line under the guide window's XP line, the session's reset.
+register(QOL, L["Trackers & map"], L["Experience"], {
 	{ kind = "toggle", key = "qol.xpTracker", label = L["XP tracker"],
 		help = L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."], search = "experience, xp per hour, exp, leveling speed, time to level" },
 	{ kind = "toggle", key = "qol.xpTargetMark", label = L["Guide level on the XP bar"],
@@ -313,4 +351,52 @@ register(QOL, L["Trackers"], L["Experience"], {
 		search = "boosted rest, campfire, sit, rested, sleeping bag, camp, cozy sleeping bag" },
 	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset session"], help = L["Start this session's XP per hour from zero."], search = "xp, experience",
 		onClick = function() if QoL.XP then QoL.XP.ResetSession() end end },
+})
+
+-- The game's own sharpening of its resampled image (the client CVar
+-- ResampleAlwaysSharpen; most visible with Render Scale under 100%). No
+-- Polestar setting holds it: the row reads the game's value and writes it
+-- only when the player clicks it, and the client keeps it. Nothing writes it
+-- at login, on a profile load, a reset or an import (set(nil), which a reset
+-- and a right-click send, does nothing). In combat the write waits for the
+-- fight to end. A client without the CVar has no row. Its section holds the
+-- other rows that set the game's own client too (second homes: Instant quest
+-- text, Forever's CVar; Hide combat errors; Hide the game's quest tracker).
+local SHARPEN = "ResampleAlwaysSharpen"
+local function readCVar(name)
+	if C_CVar and C_CVar.GetCVar then return C_CVar.GetCVar(name) end
+	return GetCVar and GetCVar(name) or nil
+end
+local function writeCVar(name, value)
+	if C_CVar and C_CVar.SetCVar then return C_CVar.SetCVar(name, value) end
+	if SetCVar then return SetCVar(name, value) end
+end
+local sharpenLater -- "1" | "0": the player's click, waiting for the end of the fight
+local function afterCombat()
+	local v = sharpenLater
+	sharpenLater = nil
+	if v ~= nil and readCVar(SHARPEN) ~= nil then writeCVar(SHARPEN, v) end
+end
+local function setSharpen(on)
+	if on == nil then return end
+	local v = on and "1" or "0"
+	if InCombatLockdown and InCombatLockdown() then
+		sharpenLater = v
+		ns.RegisterEvent("PLAYER_REGEN_ENABLED", afterCombat)
+		return
+	end
+	sharpenLater = nil
+	writeCVar(SHARPEN, v)
+end
+register(QOL, L["Game"], L["Game options"], {
+	{ kind = "toggle", label = L["Increase game image quality"], new = "0.3.8",
+		help = L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."],
+		search = "sharpen, sharpening, image quality, clarity, crisp, sharp, render scale, resample, blurry, blur, fsr, graphics",
+		needs = function() return readCVar(SHARPEN) ~= nil end,
+		get = function()
+			if sharpenLater ~= nil then return sharpenLater == "1" end
+			return readCVar(SHARPEN) == "1"
+		end,
+		set = setSharpen },
+	C.instantQuestText(), C.hideErrors(), C.hideQuestTracker(),
 })

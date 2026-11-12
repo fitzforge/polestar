@@ -1,5 +1,6 @@
 -- The Dungeons rows on the Discovery page (docs/ARCHITECTURE.md, "Options
--- registry"): the dungeon pages and their heads-up; the dungeons a leveling
+-- registry"): the dungeon pages and their heads-up, on the Lookup tab beside
+-- the Characters page's switch (Alts/Options.lua); the dungeons a leveling
 -- guide's `when dungeon` steps can be for; the group quests of this
 -- character's guides. Part of the settings' addon: none of it is in memory
 -- before the settings open.
@@ -11,9 +12,9 @@ local L = ns.L
 if not (Dungeons and ns.RegisterOptions) then return end
 
 local ok, err = ns.RegisterOptions({
-	page = L["Discovery"], tab = L["Dungeons"], section = ENCOUNTER_JOURNAL,
+	page = L["Discovery"], tab = L["Lookup"], section = L["Dungeons and characters"],
 	controls = {
-		{ kind = "toggle", key = "dungeons.enabled", label = L["Dungeons"],
+		{ kind = "toggle", key = "dungeons.enabled", label = ENCOUNTER_JOURNAL or L["Dungeons"],
 			help = L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] },
 		{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], child = true, disabled = function() return not ns.Get("dungeons.enabled") end,
 			help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] },

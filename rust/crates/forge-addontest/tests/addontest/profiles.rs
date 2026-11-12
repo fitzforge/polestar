@@ -144,7 +144,7 @@ fn switch_copy_rename_and_delete_keep_each_profile_s_own_values_and_repaint_on_a
 }
 
 fn reload(db: &Value, char: Option<&Value>, script: &str) -> Value {
-	let saved = format!("{}\n{}", text(&db), char.map(|c| text(c).to_string()).unwrap_or_default());
+	let saved = format!("{}\n{}", text(db), char.map(|c| text(c).to_string()).unwrap_or_default());
 	run_with(Some(saved), &format!("{script}\nemit(saved())")).into_iter().collect::<Value>()
 }
 
@@ -380,85 +380,198 @@ fn keys_without_a_default_and_values_that_do_not_fit_are_dropped_and_named() {
 // The page in the settings window.
 const UI_FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
 
-#[test]
-fn the_profiles_page_lists_switches_creates_deletes_after_asking_exports_and_imports() {
-	let out = emitted(&RunAddon {
+// The UI stub, its login and the settings window's addon, the Profiles page open; then `script`.
+fn run_page(script: &str) -> Value {
+	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua", "stub_encoding.lua"],
 		addons: vec![Addon::files("Polestar", &UI_FILES)],
-		script: r#"uistub.install()
+		script: format!(
+			r#"uistub.install()
 		stub.login()
-		local P, UI = Polestar.Profiles, Polestar.UI
+		P, UI = Polestar.Profiles, Polestar.UI
 		UI.LoadOptions()
-		local PV = UI.Profiles
-		local function row(name) for _, r in ipairs(PV.view.Rows) do if r:IsShown() and r.psName == name then return r end end end
+		PV, O = UI.Profiles, UI.Options
 		UI.ShowOptions("profiles")
-		local first = PV.Shown()
-		local v = PV.view
-		-- Settings window v2: cards by subject, 36px one-line rows, help in the tooltip only.
-		local layout = { cards = { v.ListCard.Title:GetText(), v.ShareCard.Title:GetText() }, newRow = v.NewRow:IsShown() and v.NewRow.psCompact == true,
-			heights = { v.Profile:GetHeight(), v.ForChar:GetHeight(), v.ExportAreas.look:GetHeight() },
+		v = PV.views["Profiles"]
+		function card(name) return v.CardRow.psCardBy[name] end
+		{script}"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn the_profiles_tab_shows_a_card_per_profile_a_click_selects_and_use_switches_new_copy_rename_and_a_second_click_deletes() {
+	let out = run_page(
+		r#"local first = PV.Shown()
+		local tabs = {}
+		for _, b in ipairs(PolestarOptions.tabButtons) do if b:IsShown() then tabs[#tabs + 1] = b.Label:GetText() end end
+		-- Settings window v2: section cards, 36px one-line rows, help in the tooltip only.
+		local layout = { tabs = tabs, cards = { v.ListCard.Title:GetText(), v.CharCard.Title:GetText(), v.SelCard.Title:GetText() },
+			heights = { v.Profile:GetHeight(), v.ForChar:GetHeight(), v.UsedBy:GetHeight(), v.Changed:GetHeight() },
 			help = (rawget(v.ForChar, "Help") ~= nil and v.ForChar.Help:IsShown()) or (rawget(v.Profile, "Help") ~= nil and v.Profile.Help:IsShown()),
 			tip = v.ForChar.psTipFn(v.ForChar)[1], compact = v.ForChar.psCompact == true and v.Profile.psCompact == true }
-		v.NewButton:Click()
+		-- The last card names a new profile; Create makes it and switches to it.
+		card("\0new"):Click()
+		local naming = PV.Shown()
 		v.NameBox:SetText("Raid")
 		v.NameOK:Click()
 		local made = PV.Shown()
 		Polestar.Set("ui.scale", 1.2)
-		v.ExportButton:Click()
-		local exported = PV.Shown()
-		v.NewButton:Click()
+		local changed = PV.Shown().changed
+		-- Picking a card is not switching: Use is.
+		card("Default"):Click()
+		local picked = PV.Shown()
+		local stillRaid = P.Active()
+		v.Use:Click()
+		local back = { PV.Shown().inUse, Polestar.Get("ui.scale") }
+		-- Right-click on a card goes back to the profile in use.
+		card("Raid"):Click()
+		card("Raid"):GetScript("OnClick")(card("Raid"), "RightButton")
+		local rightClick = PV.Shown().selected
+		-- Copy and Rename name it in the section; a name taken is refused there.
+		card("Raid"):Click()
+		v.Copy:Click()
+		local copying = { PV.Shown().editing, v.NameBox:GetText() }
+		v.NameOK:Click()
+		local copied = { PV.Shown().inUse, Polestar.Get("ui.scale") }
+		v.Rename:Click()
 		v.NameBox:SetText(" Raid ")
 		v.NameOK:Click()
 		local clash = PV.Shown().editorError
-		PV.CancelEdit()
-		row("Default").Use:Click()
-		local back = { PV.Shown().inUse, Polestar.Get("ui.scale") }
-		row("Raid").Delete:Click()
-		local asked = { Polestar.Widgets.ModalShown(), #P.List() }
-		PolestarModal.Box.Action:Click()
-		local afterDelete = PV.Shown().rows
-		PV.Check(exported.exported)
-		local previewed = PV.Shown()
-		v.ImportName:SetText("Shared")
-		v.ImportNew:Click()
-		local imported = PV.Shown()
-		local importedScale = Polestar.Get("ui.scale")
-		PV.Check("not a profile")
-		local refused = PV.Shown().refusal
+		v.NameBox:SetText("Raid two")
+		v.NameOK:Click()
+		local renamed = { PV.Shown().selected, P.Active() }
+		-- Delete: the first click arms it, another profile disarms it, the second click deletes.
 		v.Profile.psSet("Default")
-		local viaMenu = { PV.Shown().inUse, Polestar.Get("ui.scale") }
-		local page
-		for _, p in ipairs(UI.Options.Pages()) do if p.key == "profiles" then page = p.name end end
-		emit({ first = first, made = made, exported = exported.exported:sub(1, 6), copyNote = exported.copyNote, clash = clash, back = back,
-			asked = asked, afterDelete = afterDelete, previewed = previewed, imported = imported, refused = refused, viaMenu = viaMenu,
-			scale = importedScale, page = page, layout = layout })"#
-			.into(),
-		..Default::default()
-	})
-	.remove(0);
-	assert_eq!(out["page"], "Profiles");
-	assert_eq!(out["layout"]["cards"], json!(["Profiles", "Share"]), "no one-row cards: who uses it sits with the list, import with export");
-	assert_eq!(out["layout"]["newRow"], true, "New profile is a row beside the switches");
-	assert_eq!(out["layout"]["heights"], json!([36, 36, 36]));
+		card("Raid"):Click()
+		v.Delete:Click()
+		local armed = { PV.Shown().delete, #P.List() }
+		card("Raid two"):Click()
+		local disarmed = PV.Shown().delete
+		card("Raid"):Click()
+		v.Delete:Click()
+		v.Delete:Click()
+		local afterDelete = PV.Shown()
+		emit({ first = first, layout = layout, naming = naming, made = made, changed = changed, picked = picked, stillRaid = stillRaid,
+			back = back, rightClick = rightClick, copying = copying, copied = copied, clash = clash, renamed = renamed, armed = armed,
+			disarmed = disarmed, afterDelete = afterDelete })"#,
+	);
+	assert_eq!(out["layout"]["tabs"], json!(["Profiles", "Share"]), "two tabs of equal standing, no Essentials");
+	assert_eq!(out["layout"]["cards"], json!(["Profiles", "This character", "Default"]));
+	assert_eq!(out["layout"]["heights"], json!([36, 36, 36, 36]));
 	assert_eq!(out["layout"]["help"], false, "no description lines on the page");
 	assert_eq!(out["layout"]["tip"], "This character keeps its own choice of profile. Off: it follows its class's profile, else the account's.");
 	assert_eq!(out["layout"]["compact"], true, "the window's compact rows");
-	assert_eq!(out["viaMenu"], json!(["Default", 1]), "the Profile menu switches");
-	assert_eq!(out["first"]["inUse"], "Default");
+	assert_eq!(out["first"]["cards"], json!([{ "name": "Default", "inUse": true, "lit": true }]));
+	assert_eq!(out["first"]["newCard"], true, "the last card makes a new profile");
+	assert_eq!(out["first"]["actions"], json!(["Copy"]), "Default stays and the profile in use is not deleted");
+	assert_eq!(out["first"]["selectedInUse"], true);
+	assert_eq!(out["first"]["usedBy"], "This character, Whole account");
+	assert_eq!(out["first"]["changed"], "None");
 	assert_eq!(out["first"]["source"], "Every character on this account uses it, unless one has its own.");
-	assert_eq!(out["first"]["rows"], json!([{ "name": "Default", "inUse": true, "actions": ["Copy"] }]));
+	assert_eq!(out["naming"]["editing"], "new");
+	assert_eq!(out["naming"]["newLit"], true, "the new card is lit while it is named");
+	assert_eq!(out["naming"]["selected"], "New profile");
 	assert_eq!(out["made"]["inUse"], "Raid", "a new profile is switched to");
-	assert_eq!(out["made"]["rows"], json!([{ "name": "Default", "inUse": false, "actions": ["Use", "Copy"] }, { "name": "Raid", "inUse": true, "actions": ["Copy", "Rename"] }]));
+	assert_eq!(out["made"]["cards"], json!([{ "name": "Default", "inUse": false, "lit": false }, { "name": "Raid", "inUse": true, "lit": true }]));
+	assert_eq!(out["made"]["actions"], json!(["Copy", "Rename"]));
+	assert_eq!(out["changed"], "1", "the section counts the settings off their defaults");
+	assert_eq!(out["picked"]["selected"], "Default");
+	assert_eq!(out["picked"]["actions"], json!(["Use", "Copy"]));
+	assert_eq!(out["stillRaid"], "Raid", "picking a card does not switch");
+	assert_eq!(out["back"], json!(["Default", 1]), "Use switches, with the profile's own values");
+	assert_eq!(out["rightClick"], "Default", "right-click goes back to the profile in use");
+	assert_eq!(out["copying"], json!(["copy", "Raid (copy)"]));
+	assert_eq!(out["copied"], json!(["Raid (copy)", 1.2]), "a copy is switched to, with the values copied");
+	assert_eq!(out["clash"], "A profile called Raid already exists.");
+	assert_eq!(out["renamed"], json!(["Raid two", "Raid two"]));
+	assert_eq!(out["armed"], json!(["Click again to confirm", 3]), "the first click only arms Delete");
+	assert_eq!(out["disarmed"], "Delete", "another profile's section starts unarmed");
+	assert_eq!(out["afterDelete"]["cards"].as_array().map(|c| c.len()), Some(2));
+	assert_eq!(out["afterDelete"]["selected"], "Default", "the profile in use once the selected one is gone");
+}
+
+#[test]
+fn a_card_s_picture_is_drawn_from_its_profile_s_own_values_and_says_who_else_uses_it() {
+	let out = run_page(
+		r#"local function rgb(r, g, b) return { math.floor(r * 100 + 0.5), math.floor(g * 100 + 0.5), math.floor(b * 100 + 0.5) } end
+		local live = rgb(Polestar.Theme.Accent())
+		P.New("Violet")
+		P.Switch("Violet")
+		Polestar.Set("ui.accent", { 0.6, 0.4, 1 })
+		P.Switch("Default")
+		-- Every Mage uses Violet.
+		PolestarDB.classProfiles = { MAGE = "Violet" }
+		O.Select("profiles", "Profiles")
+		local function accent(name)
+			local parts = card(name).Art.psWin and card(name).Art.psWin.psSkinCard
+			return parts and rgb(parts.accent:GetVertexColor()) or nil
+		end
+		local before = { accent("Violet"), accent("Default") }
+		-- The profile in use follows its live settings.
+		Polestar.Set("ui.accent", { 0.2, 0.8, 0.4 })
+		local after = accent("Default")
+		emit({ before = before, after = after, live = live, shown = PV.Shown(), tip = card("Violet").psTipLines })"#,
+	);
+	assert_eq!(out["before"][0], json!([60, 40, 100]), "Violet's card has Violet's accent while Default is in use");
+	assert_eq!(out["before"][1], out["live"], "Default's card has the live accent");
+	assert_eq!(out["after"], json!([20, 80, 40]), "the card of the profile in use follows a setting change");
+	let violet = out["shown"]["cards"].as_array().unwrap().iter().find(|c| c["name"] == "Violet").cloned().unwrap();
+	assert_eq!(violet["note"], "Every Mage", "a class's profile says so on its card");
+	assert_eq!(violet["inUse"], false);
+	assert!(out["tip"][0].as_str().unwrap().ends_with("off their defaults"), "{}", out["tip"]);
+	assert_eq!(out["tip"][1], "Used by: Every Mage");
+}
+
+#[test]
+fn the_share_tab_makes_a_string_of_the_profile_chosen_and_imports_one_as_new_or_into_the_one_in_use() {
+	let out = run_page(
+		r#"P.New("Raid")
+		P.Switch("Raid")
+		Polestar.Set("ui.scale", 1.2)
+		P.Switch("Default")
+		O.Select("profiles", "Profiles")
+		-- The selected profile's Share opens the Share tab with that profile chosen.
+		card("Raid"):Click()
+		v.ShareLink:Click()
+		local s = PV.views["Share"]
+		local opened = { O.view == s, PV.Shown().from, PV.Shown().copyNote }
+		s.ExportButton:Click()
+		local exported = PV.Shown()
+		-- Positions off: made again at once.
+		s.ExportAreas.positions:Click()
+		local again = PV.Shown().exported ~= nil
+		PV.Check(exported.exported)
+		local previewed = PV.Shown()
+		s.ImportName:SetText("Shared")
+		s.ImportNew:Click()
+		local imported = { PV.Shown().done, P.Active(), Polestar.Get("ui.scale") }
+		PV.Check("not a profile")
+		local refused = { PV.Shown().refusal, s.ImportCancel:IsShown() }
+		s.ImportCancel:Click()
+		local cleared = { PV.Shown().refusal or false, s.PasteBox:GetText() }
+		-- Into the profile in use, after its dialog.
+		v.Profile.psSet("Default")
+		O.Select("profiles", "Share")
+		PV.Check(exported.exported)
+		s.ImportHere:Click()
+		local asked = Polestar.Widgets.ModalShown()
+		PolestarModal.Box.Action:Click()
+		local applied = { PV.Shown().done, P.Active(), Polestar.Get("ui.scale") }
+		emit({ opened = opened, exported = exported.exported:sub(1, 6), copyNote = exported.copyNote, again = again, previewed = previewed,
+			imported = imported, refused = refused, cleared = cleared, asked = asked, applied = applied })"#,
+	);
+	assert_eq!(out["opened"], json!([true, "Raid", "Switch on the parts to share and pick the profile, then make the string."]));
 	assert_eq!(out["exported"], "!PSS1!");
 	assert_eq!(out["copyNote"], "1 setting of Raid. Selected for you: copy it with Ctrl+C, then share it anywhere.");
-	assert_eq!(out["clash"], "A profile called Raid already exists.");
-	assert_eq!(out["back"], json!(["Default", 1]));
-	assert_eq!(out["asked"], json!([true, 2]), "Delete asks first");
-	assert_eq!(out["afterDelete"], json!([{ "name": "Default", "inUse": true, "actions": ["Copy"] }]));
-	assert_eq!(out["previewed"]["importName"], "Raid", "the string's own name, free again");
+	assert_eq!(out["again"], true, "switching a part makes the string again");
+	assert_eq!(out["previewed"]["importName"], "Raid 2", "the string's own name, made free");
 	assert_eq!(out["previewed"]["preview"], "Raid  \u{b7}  1 setting  \u{b7}  1 differs from Default");
-	assert_eq!(out["imported"]["inUse"], "Shared");
-	assert_eq!(out["imported"]["done"], "Imported as Shared, now in use.");
-	assert_eq!(out["scale"], 1.2);
-	assert_eq!(out["refused"], "This is not a Polestar profile string.");
+	assert_eq!(out["imported"], json!(["Imported as Shared, now in use.", "Shared", 1.2]));
+	assert_eq!(out["refused"], json!(["This is not a Polestar profile string.", true]));
+	assert_eq!(out["cleared"], json!([false, ""]));
+	assert_eq!(out["asked"], true, "applying into the profile in use asks first");
+	assert_eq!(out["applied"], json!(["Applied to Default.", "Default", 1.2]));
 }

@@ -531,6 +531,16 @@ const CUSTOM_LOOK = `Polestar.Set("ui.borderAccent", true); Polestar.Set("ui.bor
 Polestar.Set("nav.arrowColor", { 0.45, 0.7, 1 }); Polestar.Set("nav.arrowNearColor", { 1, 0.55, 0.85 })`;
 // Every module, Nav included: the settings window's Look pages (Arrow, Map pins, Route lines, Buttons, Alerts & toasts, Trackers).
 const LOOK_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', ...MODULE_FILES.slice(2)];
+// The UI stub stands a fake Nav in for the real one (uistub.install); the Look pages draw with Nav's own sandbox
+// builders, so the real arrow (its dials) and the travel prompts' module are kept on the fake for them: the arrow
+// on the Arrow, Theme and alert scenes, the travel button under it beside the Hearthstone on the Buttons page.
+const REAL_NAV_PARTS = `local install = uistub.install
+function uistub.install(opts)
+	local real = Polestar.Nav
+	install(opts)
+	local nav = Polestar.Nav
+	if real and nav ~= real then nav.arrow, nav.prompts = real.arrow, real.prompts end
+end`;
 // Settings page `key` on its tab number `i` (1 = the first), by the window's own list of tabs.
 // POLESTAR_FULL_PAGES=1 draws the window tall enough to show each tab's whole page (design reviews).
 const FULL_PAGES = process.env.POLESTAR_FULL_PAGES ? 'UIParent:SetSize(1920, 3000); Polestar.Set("ui.optionsSize", { 1300, 2960 })\n' : '';
@@ -544,7 +554,7 @@ const LOOK_PAGES = [
 	['mappins', 'Settings: Map pins (Pins, Icons), the numbered pins on: the target pin, then the numbered step pins\' size, colour, numbers and fading (Silverina\'s request) with a size comparison in the preview; world-map and minimap icon sizes, medallions', 2, 'Polestar.Set("nav.upcomingPins", true)\n'],
 	['routelines', 'Settings: Route lines: style cards, then the settings of the style in use (here the line: walk colour, thickness, fading, marks), flights and rides, the minimap', 1],
 	['buttons', 'Settings: Buttons (Action buttons, Launcher & minimap): sizes, layout, backing and border, text, opacity and glow; the floating and minimap buttons', 2],
-	['alerts', 'Settings: Alerts & toasts (Rare alert with the alert line, Transport alert, While you\'re here, Heads-up card, Class quest card): each card\'s scale, opacity, background, border, text and entrance', 5],
+	['alerts', 'Settings: Alerts & toasts (Rare alert with the alert line, Transport alert, Heads-up card, Class quest card): each card\'s scale, opacity, background, border, text and entrance', 5],
 	['trackers', 'Settings: Trackers (Travel, Instances & XP, Party panel): the flight timer and journey, the instance tracker and the level mark on the XP bar, the party panel', 3],
 ];
 // The Community guides page over the real registry (uistub.realGuides in place
@@ -1422,7 +1432,7 @@ end`,
 	...LOOK_PAGES.map(([key, title, tabs, setup = '']) => ({
 		file: `settings-${key}.svg`,
 		title,
-		panels: Array.from({ length: tabs }, (_, i) => ({ files: LOOK_FILES, roots: OPTIONS, script: setup + lookTab(key, i + 1) })),
+		panels: Array.from({ length: tabs }, (_, i) => ({ files: LOOK_FILES, before: REAL_NAV_PARTS, roots: OPTIONS, script: setup + lookTab(key, i + 1) })),
 	})),
 	{
 		file: 'settings-custom.svg',

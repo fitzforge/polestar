@@ -415,15 +415,16 @@ fn restock_money_short_is_said_and_the_amounts_are_per_character_set_by_command(
 #[test]
 fn options_restock_sliders_hold_per_character_amounts_through_get_and_set() {
 	let out = run(r#"
-		local controls
-		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
-			if spec.section == "Restock" then controls = spec.controls end
+		local spec
+		for _, s in ipairs(Polestar.Widgets.OptionsRegistry) do
+			if s.section == "Restock" then spec = s end
 		end
-		local kinds = {}
-		for i, c in ipairs(controls) do kinds[i] = c.kind .. ":" .. tostring(c.key or "-") end
+		-- The restock button's switch in the section's header, its amounts below.
+		local kinds = { "header:" .. tostring(spec.toggle and spec.toggle.key) }
+		for _, c in ipairs(spec.controls) do kinds[#kinds + 1] = c.kind .. ":" .. tostring(c.key or "-") end
 		emit(kinds)
 		local W = Polestar.Widgets
-		local drink = controls[2]
+		local drink = spec.controls[1]
 		local row = W.Slider(UIParent, drink.label, nil, drink.min, drink.max, drink.step, drink.format, drink.help, nil, { get = drink.get, set = drink.set })
 		stub.RunScript(row.Slider, "OnMouseWheel", 1)
 		stub.RunScript(row.Slider, "OnMouseWheel", 1)
@@ -431,7 +432,7 @@ fn options_restock_sliders_hold_per_character_amounts_through_get_and_set() {
 		stub.RunScript(row, "OnClick", "RightButton")
 		emit({ state = QoL.State().restock.drink or false, shown = row.Value:GetText() })
 	"#);
-	assert_eq!(out[0], json!(["toggle:qol.restock", "slider:-", "slider:-", "slider:-"]));
+	assert_eq!(out[0], json!(["header:qol.restock", "slider:-", "slider:-", "slider:-"]));
 	assert_eq!(out[1], json!({ "state": 10, "shown": "10" }), "the wheel steps the character's amount, not a setting");
 	assert_eq!(out[2], json!({ "state": false, "shown": "Off" }), "right-click clears it");
 }

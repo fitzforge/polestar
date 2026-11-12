@@ -21,12 +21,13 @@
 -- 5.4 times its pitch, a light reverb; 0.9 s with a soft fade, mono, peak
 -- -12 dB. Regenerate it with tools/sounds/while-here-chime.py.
 --
--- Its size, opacity, type, ground, entrance, how long it stays and its place
--- (toasts.whilehere.*) are the player's (Options > Alerts & toasts,
--- UI/Looks/Toasts.lua).
+-- It has no look of its own: it wears the theme and the shared toast style
+-- (UI/Toasts.lua, `shared`). How long it stays (toasts.whilehere.seconds, on
+-- the Guide page's Dynamic Questing section) and its place
+-- (toasts.whilehere.point, the movers) are the player's; it lines up with the
+-- other alerts while they stack.
 --
 --   UI.WhileHereToast.Show(view), .Hide(), .Chime(), .frame (once built)
---   UI.WhileHereToast.NewCard(parent), .FillCard(card, view)  a sandbox toast (the options' preview)
 
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -73,12 +74,11 @@ local function text(v)
 	return s
 end
 
--- The look's settings (UI/Looks/Toasts.lua), when that file is loaded.
+-- The toasts' module (UI/Toasts.lua): its line of alerts and the shared look.
 local function looks() return UI.Toasts end
 
--- The toast, drawn into `parent`: the live one (build) or a sandbox one for
--- the options' preview (T.NewCard): its clicks and tooltip do nothing.
-local function newToast(parent, name, sandbox)
+-- The toast, drawn into `parent` (the live one, build).
+local function newToast(parent, name)
 	local c = CreateFrame("Button", name, parent)
 	c:SetSize(WIDTH, HEIGHT)
 	-- A toast: the game's looks give it the guide window's light frame.
@@ -100,20 +100,12 @@ local function newToast(parent, name, sandbox)
 	c.Text:SetWidth(WIDTH - (PAD + 2 + 16 + 10) - PAD)
 	local TS = looks()
 	if TS then
-		-- Larger type: the toast grows to hold both lines.
-		TS.Attach("whilehere", c, { titles = { c.Head }, bodies = { c.Text }, accents = { c.Edge, c.Icon, c.Head }, sandbox = sandbox,
-			hide = function() T.Hide() end, relayout = function(self)
+		-- The shared look; the toast grows to hold both lines.
+		TS.Attach("whilehere", c, { shared = true, hide = function() T.Hide() end, relayout = function(self)
 			self:SetHeight(math.max(HEIGHT, math.ceil(self.Head:GetStringHeight() + self.Text:GetStringHeight() + 22)))
 		end })
 	end
 	return c
-end
-
--- A sandbox toast for the options' preview, and its paint for a made-up line.
-function T.NewCard(parent) return newToast(parent, nil, true) end
-function T.FillCard(c, v)
-	c.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
-	c.Text:SetText(text(v))
 end
 
 -- Its own place (toasts.whilehere.point: the movers), else near the top of
@@ -166,7 +158,7 @@ local function expire(mine)
 	T.Hide()
 end
 
--- How long it stays (Alerts & toasts), else SECONDS.
+-- How long it stays (toasts.whilehere.seconds), else SECONDS.
 local function seconds()
 	local TS = looks()
 	local v = TS and tonumber(TS.Get("whilehere", "seconds"))

@@ -11,11 +11,12 @@ if not (ns.Lookup and ns.RegisterOptions) then return end
 
 local function disabled() return not ns.Get("lookup.enabled") end
 
+-- lookup.enabled in the section's header, the rest under it.
 local ok, err = ns.RegisterOptions({
 	page = L["Discovery"], tab = L["Lookup"], section = L["How to get anything"],
+	toggle = { kind = "toggle", key = "lookup.enabled", label = L["Lookup"], search = "where to get, item source, drop, farm, find item, mount, pet, database",
+		help = L["Search every item, mount, pet, NPC and quest, and see where it comes from (/pole lookup)."] },
 	controls = {
-		{ kind = "toggle", key = "lookup.enabled", label = L["Lookup"], search = "where to get, item source, drop, farm, find item, mount, pet, database",
-			help = L["Search every item, mount, pet, NPC and quest, and see where it comes from (/pole lookup)."] },
 		{ kind = "toggle", key = "lookup.tooltip", label = L["Sources on item tooltips"], disabled = disabled, search = "drop source, where it drops, tooltip",
 			help = L["The best one or two places to get an item, ranked for this character."] },
 		{ kind = "toggle", key = "lookup.altClick", label = L["Alt-click an item for a guide"], disabled = disabled,

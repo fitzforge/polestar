@@ -172,8 +172,9 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 			local fresh = c.key:find("^buttons%.") or c.key:find("^ui%.launcher.") or c.key:find("^maps%.minimapButton.")
 			if not (c.search and c.search ~= "" and c.help and c.help ~= "") or (fresh and c.new ~= "0.3.8") then r.bare[#r.bare + 1] = c.key end
 		end
+		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs).
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
-			if spec.page == "Buttons" then
+			if spec.page == "Buttons" and spec.tab ~= "Essentials" then
 				if spec.key then r.head = { spec.key, spec.order, spec.group } end
 				r.sections[#r.sections + 1] = spec.section
 				if spec.toggle then r.toggles = r.toggles + 1 end

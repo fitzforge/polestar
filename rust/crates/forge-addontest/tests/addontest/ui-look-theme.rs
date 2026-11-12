@@ -6,13 +6,21 @@ use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
 const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
+// With Rares, for the preview's rare alert.
+fn run_with_rares(script: &str) -> Value {
+	run_files(&["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Rares/Rares.xml"], script)
+}
 const INTER_SEMIBOLD: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-SemiBold.ttf";
 const GAME_FONT: &str = "Fonts\\FRIZQT__.TTF";
 
 fn run(script: &str) -> Value {
+	run_files(FILES, script)
+}
+
+fn run_files(files: &[&str], script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", FILES)],
+		addons: vec![Addon::files("Polestar", files)],
 		script: format!("uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal T, W = Polestar.Theme, Polestar.Widgets\n{script}"),
 		..Default::default()
 	})
@@ -150,7 +158,8 @@ fn hairlines_shadow_stars_haze_rim_and_animation_speed_follow_their_settings() {
 	let out = run(r#"
 		local out = { border = select(4, T.Wash("border")), shadow = select(4, T.Color("shadow")) }
 		local sky = T.Band(UIParent, "BACKGROUND")
-		local rim = Polestar.UI.ThemePreview(UIParent).Guide.psRim
+		Polestar.UI.ShowOptions("theme")
+		local rim = PolestarOptions.Rim
 		Polestar.Set("ui.hairlineOpacity", 2)
 		Polestar.Set("ui.shadowStrength", 0.5)
 		Polestar.Set("ui.starAlpha", 0)
@@ -211,8 +220,9 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 			if switches > 1 or swatches > 1 then bad[#bad + 1] = name .. ": more than one switch or swatch beside it" end
 			for _, x in ipairs(c.more or {}) do check(x) end
 		end
+		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs).
 		for _, spec in ipairs(W.OptionsRegistry) do
-			if spec.page == "Theme" then
+			if spec.page == "Theme" and spec.tab ~= "Essentials" then
 				first = first or spec
 				if not tabs[spec.tab] then tabs[spec.tab] = true; tabs[#tabs + 1] = spec.tab end
 				if spec.preview then previews[spec.tab] = true end
@@ -284,26 +294,38 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 	assert_eq!(out["wides"], json!(["ui.skin", "ui.scheme"]), "the picture cards span the row");
 }
 
+// The preview is the real surfaces in the theme: the guide window (drawn by its own page's code, never the live
+// window) under its heads-up card, the rare alert (Rares' own card), no loose buttons (the accent lights the
+// cards' own); a change repaints them live; a narrow page keeps the guide window.
 #[test]
 fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
-	let out = run(r#"
+	let out = run_with_rares(
+		r#"
 		local f = Polestar.UI.ThemePreview(UIParent)
 		local h = f:Layout(900)
-		local out = { h = h, toast = f.Toast:IsShown(), buttons = f.Buttons[1]:IsShown() and f.Buttons[2]:IsShown(), hot = f.Hot and #f.Hot or 0 }
+		local hots = 0
+		for _ in pairs(rawget(f, "Hots") or {}) do hots = hots + 1 end
+		local out = { h = h, toast = f.Toast ~= nil and f.Toast:IsShown(), heads = f.Heads ~= nil and f.Heads:IsShown(),
+			guide = f.Guide ~= nil and f.Guide ~= PolestarGuideFrame, buttons = rawget(f, "Buttons") == nil, hots = hots }
 		Polestar.Set("ui.colors.item", { 0.6, 1, 0.6 })
 		Polestar.Set("ui.fontOutline", "outline")
-		out.body = f.ToastBody:GetText()
+		out.item = f.Scene.Rows[3].Text:GetText()
 		out.titleFlags = select(3, f.StepTitle:GetFont())
 		f:Layout(420)
 		out.narrowToast = f.Toast:IsShown()
-		emit(out)"#);
+		out.narrowGuide = f.Guide:IsShown()
+		emit(out)"#,
+	);
 	assert_eq!(out["h"], 196);
 	assert_eq!(out["toast"], true);
-	assert_eq!(out["buttons"], true);
-	assert_eq!(out["hot"], 11, "each part of the preview leads to its setting");
-	assert!(out["body"].as_str().unwrap().contains("|cff99ff99"), "the toast names the item in its own colour: {}", out["body"]);
+	assert_eq!(out["heads"], true, "the heads-up card on the window's top edge");
+	assert_eq!(out["guide"], true, "the guide window, the preview's own");
+	assert_eq!(out["buttons"], true, "no Accept / Skip pair standing alone in the scene");
+	assert!(out["hots"].as_f64().unwrap() >= 8.0, "each part of the preview leads to its setting: {}", out["hots"]);
+	assert!(out["item"].as_str().unwrap().contains("|cff99ff99"), "the goal names the item in its own colour: {}", out["item"]);
 	assert_eq!(out["titleFlags"], "OUTLINE");
-	assert_eq!(out["narrowToast"], false, "a narrow page keeps the guide window and the arrow");
+	assert_eq!(out["narrowToast"], false, "a narrow page keeps the guide window");
+	assert_eq!(out["narrowGuide"], true);
 }
 
 // The game looks frame a big window with a title (WoW Forever's and Blizzard's bar, Classic's header plate
@@ -369,4 +391,21 @@ fn a_skin_with_a_preset_offers_apply_and_undo_under_the_skin_cards_which_set_and
 	assert_eq!(out["undone"]["state"], json!({ "shown": true, "apply": true, "undo": false }));
 	assert_eq!(out["undone"]["outline"], "none", "Undo puts the settings back");
 	assert_eq!(out["undone"]["heading"], 1);
+}
+
+// A skin addon's card shows the skin's name alone (its folder next to it ran the two together: "Umbrablestar_Skin_
+// Umbra"); the folder is in the card's tooltip, after the skin's own description.
+#[test]
+fn a_skin_addon_s_card_shows_its_name_alone_and_its_folder_in_the_tooltip() {
+	let out = run(r#"
+		assert(T.RegisterSkin("umbra", { name = "Umbra", addon = "Polestar_Skin_Umbra", desc = "Deep shade, soft light." }))
+		local O = Polestar.UI.Options
+		Polestar.UI.ShowOptions("theme")
+		O.Select("theme", "Colour")
+		local row = O.Controls("theme", "Colour")["ui.skin"]
+		local card = row.psCardBy.umbra
+		emit({ name = card.Name:GetText(), note = card.Note:GetText(), tip = card.psTipLines and card.psTipLines[1] or false })"#);
+	assert_eq!(out["name"], "Umbra");
+	assert_eq!(out["note"], "", "nothing beside the name");
+	assert_eq!(out["tip"], "Deep shade, soft light.\nFrom the addon Polestar_Skin_Umbra", "the folder in the tooltip");
 }

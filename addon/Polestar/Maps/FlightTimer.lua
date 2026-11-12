@@ -186,7 +186,7 @@ end
 local function render()
 	if not frame then return end
 	local TR = trackers()
-	if not (flight and ns.Get("maps.flightTimer")) or (TR and not TR.Allowed("flight")) then
+	if not (flight and ns.Get("maps.flightTimer")) then
 		frame:Hide()
 		return
 	end
@@ -295,7 +295,6 @@ local function dress(f, sandbox)
 	if TR then
 		-- Larger type: the timer grows to hold it.
 		TR.Attach("flight", f, { titles = { f.Time }, bodies = { f.Dest }, bar = f.Progress, sandbox = sandbox,
-			refresh = not sandbox and render or nil,
 			relayout = function(self)
 				self:SetHeight(math.floor(34 * math.max(1, self.psTextK or 1) + 0.5))
 				self.psPct = nil

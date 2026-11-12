@@ -42,15 +42,30 @@
 --                  larger than k, centred on a whole pixel; it says so in the
 --                  caption when it had to shrink it. -> the scale it got
 --   s:Snap(v)      v on a whole physical pixel of the stage
+--   s:TrueScale()  the scale that draws a part of the scene at its true size
+--                  on screen (the game's UI scale, whatever the window's Menu
+--                  scale); the stage's own scale-to-fit still shrinks it all
 --   s:Hot(region, key)  a click on region finds setting `key`'s row
---   s:Light(key, region, ...)  regions lit with key's row (below), no click
+--   s:Light(key, region, ...)  regions lit with key's row (below), no click;
+--                  s:LightEdge: an outline alone (a big part, or one outside
+--                  the stage: the settings window's own sidebar or header);
+--                  s:LightRing: an outline standing off a part drawn in the
+--                  accent itself; s:LightEach(key, fn[, ring]): fn() -> the
+--                  parts to outline, found as the row is hovered (the
+--                  window's own, which come and go)
 --   s:Floor(frame[, pad])  a soft shadow on the ground under a surface of
 --                  the scene (pad: how far past its sides, 18)
+--   s:SideBySide(items, opts)  the scene's surfaces at their true size side
+--                  by side in rows, centred on the hero, each on its floor
+--                  shadow with its caption, smaller only where they would
+--                  not fit (P.SideBySide) -> the scale
 --   s:Animate(fn)  fn(elapsed) every frame while the stage shows, until it
 --                  returns false
 --   s.Content      the frame the page's parts go on (above the backdrop)
 --   s:SetCut(cut)  the page's scene runs past the stage's foot (cropped):
 --                  it fades out over the last CUT_FADE px while cut is true
+--   P.Mob(s, opts) a mob in the world under the scene: its nameplate and its
+--                  spot on the ground (the target's ring), m:Stand(x, y, k)
 --
 -- Preview hotspots: a part of a preview that a click takes to its setting.
 --   P.Hotspot(frame, region, key) (O.PreviewHotspot, host:Hotspot or
@@ -100,6 +115,9 @@ local HOME = { Alliance = 1429, Horde = 1411 }
 -- ground sit back behind the preview's parts and text.
 local DIM, DESAT = { 0.44, 0.45, 0.52 }, 0.5
 local CUT_FADE = 28 -- px: a scene cropped at the stage's foot fades out over these
+-- A floor shadow (s:Floor): the glow's soft cone in black at this opacity,
+-- reaching FLOOR_OVER px up behind the surface's foot, FLOOR_H tall.
+local FLOOR_ALPHA, FLOOR_OVER, FLOOR_H = 0.95, 10, 32
 
 local stages = setmetatable({}, { __mode = "k" })
 
@@ -140,8 +158,10 @@ end
 
 -- The world backdrop's painting, made on first use: below the stage's own
 -- level (the page's parts go above it), its card fade and rule left out.
+-- Kept as s.psWorldArt (a page's own painting may be its s.Art: the route
+-- lines' world panel).
 local function worldArt(s)
-	local a = rawget(s, "Art")
+	local a = rawget(s, "psWorldArt")
 	if a then return a end
 	local ZA = UI.ZoneArt
 	if not (ZA and ZA.Create) then return nil end
@@ -158,7 +178,7 @@ local function worldArt(s)
 	a.Over:SetFrameLevel(level)
 	a:ClearAllPoints()
 	a:SetPoint("TOPLEFT", s.Hero, "TOPLEFT", 0, 0)
-	s.Art = a
+	s.psWorldArt = a
 	return a
 end
 
@@ -173,7 +193,7 @@ local function paintBackdrop(s, force)
 	local sig = kind .. w .. "x" .. h .. ":" .. tostring(map) .. ":" .. floor(x or 0) .. ":" .. floor(y or 0)
 	if sig == s.psBackdropSig and not force then return end
 	s.psBackdropSig = sig
-	local art = world and worldArt(s) or rawget(s, "Art")
+	local art = world and worldArt(s) or rawget(s, "psWorldArt")
 	local painted = false
 	if art then
 		art:SetShown(world)
@@ -228,7 +248,7 @@ local function paintEdges(s)
 	-- over its last pixels, so the cut reads as the scene going on below.
 	gradient(s.Fade, "VERTICAL", r, g, b, 0.92, 0)
 	for _, t in pairs(rawget(s, "psFloors") or {}) do
-		t:SetVertexColor(0, 0, 0, 0.55)
+		t:SetVertexColor(0, 0, 0, FLOOR_ALPHA)
 	end
 	local sr, sg, sb = Theme.Color("sky")
 	s.Lift:SetVertexColor(sr, sg, sb, 0.75)
@@ -277,7 +297,9 @@ local function repaint(s)
 end
 
 -- A soft shadow on the ground under a surface of the scene (s:Floor), on
--- the hero's floor layer: under the surface, over the backdrop.
+-- the hero's floor layer: under the surface, over the backdrop. The glow's
+-- soft cone in black, its middle a little under the surface's foot, so it
+-- reads as the shadow the surface casts where it stands.
 local function floorOf(s, frame, pad)
 	local floors = rawget(s, "psFloors")
 	if not floors then
@@ -288,18 +310,24 @@ local function floorOf(s, frame, pad)
 	if not t then
 		t = s.FloorLayer:CreateTexture(nil, "ARTWORK")
 		t:SetTexture(Theme.Media("glow"))
-		t:SetVertexColor(0, 0, 0, 0.55)
+		t:SetVertexColor(0, 0, 0, FLOOR_ALPHA)
 		floors[frame] = t
 	end
 	pad = pad or 18
 	t:ClearAllPoints()
-	t:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", -pad, 16)
-	t:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT", pad, 16)
-	t:SetHeight(34)
+	t:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", -pad, FLOOR_OVER)
+	t:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT", pad, FLOOR_OVER)
+	t:SetHeight(FLOOR_H)
 	t:Show()
 	return t
 end
 P.Floor = floorOf
+
+-- No floor shadow under frame (a surface cropped at the stage's foot).
+function P.NoFloor(s, frame)
+	local t = rawget(s, "psFloors") and s.psFloors[frame]
+	if t then t:Hide() end
+end
 
 function P.Stage(parent, opts)
 	opts = opts or {}
@@ -360,7 +388,14 @@ function P.Stage(parent, opts)
 	s.Fade:Hide()
 	function s:SetCut(cut) self.Fade:SetShown(cut and true or false) end
 	function s:Floor(frame, pad) return floorOf(self, frame, pad) end
+	function s:NoFloor(frame) return P.NoFloor(self, frame) end
 	function s:Light(key, ...) return P.Light(self, key, ...) end
+	function s:LightEach(key, fn, ring) return P.LightEach(self, key, fn, ring) end
+	function s:LightRing(key, ...) return P.LightRing(self, key, ...) end
+	function s:LightEdge(key, ...) return P.LightEdge(self, key, ...) end
+	function s:Hot(region, key) return P.Hot(self, region, key) end
+	function s:TrueScale() return P.TrueScale(self) end
+	function s:SideBySide(items, o) return P.SideBySide(self, items, o) end
 	W.Painter(s, paintEdges)
 	-- The page's parts.
 	s.Content = CreateFrame("Frame", nil, s)
@@ -432,6 +467,17 @@ function P.Snap(f, v)
 	return floor(v / px + 0.5) * px
 end
 
+-- The scale that draws a part of stage s at its true size on screen (the
+-- game's UI scale, whatever the settings window's Menu scale): against the
+-- stage's parent, so the stage's own scale-to-fit (P.Place) still applies.
+function P.TrueScale(s)
+	local parent = s:GetParent()
+	local u = UIParent and UIParent.GetEffectiveScale and UIParent:GetEffectiveScale() or 1
+	local e = parent and parent.GetEffectiveScale and parent:GetEffectiveScale() or u
+	if not (u and e and e > 0 and u > 0) then return 1 end
+	return u / e
+end
+
 -- frame (w x h in its own units, at scale k) as large as the stage holds
 -- below the chrome, never larger than k, centred on a whole pixel. opts:
 -- pad (each side, 32), bottom (room kept under it, 12: a Play button's
@@ -461,6 +507,73 @@ function P.Fit(s, frame, w, h, k, opts)
 	return scale
 end
 
+-- Surfaces of the scene at their true size side by side, in rows (a row
+-- wraps where the next would not fit across), each row's feet on one line,
+-- the whole centred in the hero's room under the chrome, each surface on a
+-- soft floor shadow with its caption under it; all smaller alike only where
+-- they would not fit. items: { w, h (stage units at k = 1), place = fn(k,
+-- left, top) (its top-left in stage units), foot (the frame its shadow
+-- stands under; nil: none), pad (the shadow's, s:Floor's), caption (a font
+-- string, or nil) }. opts: top (under the chrome), bottom (12), pad (32 a
+-- side), gap (40 between two), rowGap (24). -> the scale k
+local CAPTION_GAP, CAPTION_H = 22, 16
+function P.SideBySide(s, items, opts)
+	opts = opts or {}
+	local width, height = s.psWidth or 0, s.psHeight or 0
+	if width <= 0 or #items == 0 then return 1 end
+	local top, bottom, pad = opts.top or (CHROME + 4), opts.bottom or 12, opts.pad or 32
+	local gap, rowGap = opts.gap or 40, opts.rowGap or 24
+	local roomW, roomH = width - 2 * pad, height - top - bottom
+	local function rowsAt(k)
+		local list, row = {}, nil
+		for _, it in ipairs(items) do
+			local w = it.w * k
+			if row and row.w + gap + w > roomW then row = nil end
+			if not row then
+				row = { items = {}, w = 0, h = 0, cap = 0 }
+				list[#list + 1] = row
+			else
+				row.w = row.w + gap
+			end
+			row.items[#row.items + 1] = it
+			row.w = row.w + w
+			row.h = max(row.h, it.h * k)
+			if it.caption then row.cap = CAPTION_GAP + CAPTION_H end
+		end
+		local total, widest = 0, 0
+		for i, r in ipairs(list) do
+			total = total + r.h + r.cap + (i > 1 and rowGap or 0)
+			widest = max(widest, r.w)
+		end
+		return list, total, widest
+	end
+	local k, list, total, widest = 1, nil, 0, 0
+	for _ = 1, 6 do
+		list, total, widest = rowsAt(k)
+		local fit = min(1, roomW / max(1, widest), roomH / max(1, total))
+		if fit >= 0.995 then break end
+		k = k * fit
+	end
+	local y = top + max(0, (roomH - total) / 2)
+	for _, r in ipairs(list) do
+		local x = pad + (roomW - r.w) / 2
+		local foot = y + r.h
+		for _, it in ipairs(r.items) do
+			local w, h = it.w * k, it.h * k
+			it.place(k, P.Snap(s, x), P.Snap(s, foot - h))
+			if it.foot then floorOf(s, it.foot, it.pad) end
+			if it.caption then
+				it.caption:ClearAllPoints()
+				it.caption:SetPoint("TOP", s, "TOPLEFT", P.Snap(s, x + w / 2), -P.Snap(s, foot + CAPTION_GAP))
+			end
+			x = x + w + gap
+		end
+		y = foot + r.cap + rowGap
+	end
+	s.psNote = k < 0.995 and string.format(L["Shown at %d%% to fit"], floor(k * 100 + 0.5)) or ""
+	return k
+end
+
 function P.Animate(s, fn)
 	s.psAnimate = fn
 	s.psTick = function(self, elapsed)
@@ -472,6 +585,92 @@ function P.Animate(s, fn)
 		end
 	end
 	if s:IsVisible() then s:SetScript("OnUpdate", s.psTick) end
+end
+
+---------------------------------------------------------------------------
+-- A mob in the world under a scene
+---------------------------------------------------------------------------
+
+-- A mob as the game shows one, where a scene's surfaces act on it (the
+-- target button's name, a rare alert's rare): its nameplate (its name over
+-- a health bar, its level beside it, in the game's font, a raid mark over
+-- it) and, STAND px under the bar, its spot on the ground: a soft shadow
+-- and a ring (the selection ring while it is your target). Plain frames, no
+-- unit. opts: name, level, health (0-1), target (the ring red and the
+-- plate's white edge), mark (a raid mark, 1-8), ring ({ r, g, b }: a ring
+-- of that colour). -> m; m:Stand(x, y, k) puts its ground spot at (x, y) on
+-- the stage (y down from its top), drawn at scale k; m.UP, m.HALF: how far
+-- it reaches up and to each side of that spot at k = 1.
+local PLATE_W, BAR_H, STAND, GROUND = 112, 7, 38, 12
+-- The UI's own textures, but for the raid mark (the Buttons page's alone).
+local RAID_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_"
+function P.Mob(s, opts)
+	local m = CreateFrame("Frame", nil, s)
+	local font, white = STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", Theme.Media("white")
+	m.Shadow = m:CreateTexture(nil, "BACKGROUND")
+	m.Shadow:SetTexture(Theme.Media("glow"))
+	m.Shadow:SetVertexColor(0, 0, 0, 0.75)
+	m.Shadow:SetSize(90, 32)
+	m.Shadow:SetPoint("CENTER", m, "BOTTOM", 0, GROUND)
+	local c = opts.ring or (opts.target and { 0.92, 0.16, 0.1 })
+	if c then
+		-- The ring and a soft glow of its colour inside it, flat on the ground.
+		m.Spot = m:CreateTexture(nil, "BORDER")
+		m.Spot:SetTexture(Theme.Media("glow"))
+		m.Spot:SetSize(70, 24)
+		m.Spot:SetPoint("CENTER", m, "BOTTOM", 0, GROUND)
+		m.Ring = m:CreateTexture(nil, "ARTWORK")
+		m.Ring:SetTexture(Theme.Media("qol-ring"))
+		m.Ring:SetSize(72, 25)
+		m.Ring:SetPoint("CENTER", m, "BOTTOM", 0, GROUND)
+	end
+	-- The ring's colour (r, g, b), its glow's with it.
+	function m:Tint(r, g, b)
+		if not rawget(self, "Ring") then return end
+		self.Ring:SetVertexColor(r, g, b, 0.95)
+		self.Spot:SetVertexColor(r, g, b, 0.3)
+	end
+	if c then m:Tint(c[1], c[2], c[3]) end
+	local bar = CreateFrame("Frame", nil, m)
+	bar:SetSize(PLATE_W, BAR_H)
+	bar:SetPoint("BOTTOM", m, "BOTTOM", 0, GROUND + STAND)
+	local bg = bar:CreateTexture(nil, "BACKGROUND")
+	bg:SetTexture(white)
+	bg:SetAllPoints(bar)
+	bg:SetVertexColor(0, 0, 0, 0.72)
+	m.Fill = bar:CreateTexture(nil, "ARTWORK")
+	m.Fill:SetTexture(white)
+	m.Fill:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, 0)
+	m.Fill:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, 0)
+	m.Fill:SetWidth(max(1, PLATE_W * (opts.health or 1)))
+	m.Fill:SetVertexColor(0.82, 0.1, 0.06, 1)
+	if opts.target then Theme.Border(bar, 1, 1, 1, 0.9) else Theme.Border(bar, 0, 0, 0, 1) end
+	m.Bar = bar
+	m.Name = m:CreateFontString(nil, "OVERLAY")
+	m.Name:SetFont(font, 10, "OUTLINE")
+	m.Name:SetTextColor(1, 1, 1, 1)
+	m.Name:SetPoint("BOTTOM", bar, "TOP", 0, 3)
+	m.Name:SetText(opts.name or "")
+	m.Level = m:CreateFontString(nil, "OVERLAY")
+	m.Level:SetFont(font, 9, "OUTLINE")
+	m.Level:SetTextColor(1, 0.82, 0, 1)
+	m.Level:SetPoint("LEFT", bar, "RIGHT", 4, 0)
+	m.Level:SetText(opts.level and tostring(opts.level) or "")
+	if opts.mark then
+		m.Mark = m:CreateTexture(nil, "OVERLAY")
+		m.Mark:SetTexture(RAID_ICON .. opts.mark)
+		m.Mark:SetSize(20, 20)
+		m.Mark:SetPoint("BOTTOM", m.Name, "TOP", 0, 2)
+	end
+	m.UP = STAND + BAR_H + 3 + 12 + (opts.mark and 22 or 0)
+	m.HALF = PLATE_W / 2 + 18
+	m:SetSize(PLATE_W + 36, GROUND + m.UP)
+	function m:Stand(x, y, k)
+		self:SetScale(k)
+		self:ClearAllPoints()
+		self:SetPoint("BOTTOM", s, "TOPLEFT", x / k, -(y / k + GROUND))
+	end
+	return m
 end
 
 ---------------------------------------------------------------------------
@@ -490,11 +689,13 @@ local function hostOf(f)
 end
 
 -- A hotspot's or a light's outline: on under the cursor, or lit while the
--- pointer is on its setting's row (P.Focus), with a soft wash of the accent.
+-- pointer is on its setting's row (P.Focus), with a soft wash of the accent
+-- (none on a light of a part outside the stage: s:LightEdge).
 local function hotspotEdge(b, on)
 	local r, g, bb = Theme.Accent()
 	local lit = rawget(b, "psLit")
 	Theme.Border(b, r, g, bb, (on or lit) and 1 or 0)
+	if rawget(b, "psEdgeOnly") then return end
 	local wash = rawget(b, "Wash")
 	if lit and not wash then
 		wash = b:CreateTexture(nil, "BACKGROUND")
@@ -576,46 +777,135 @@ function P.Hot(s, region, key)
 	return b
 end
 
+-- Whether region is on stage s (a part of its scene).
+local function onStage(region, s)
+	local f = region.GetParent and region:GetParent()
+	while f do
+		if f == s then return true end
+		f = f:GetParent()
+	end
+	return false
+end
+
+-- A light's frame, made the first time it lights: over its region, above
+-- the stage's parts; for a part outside the stage (the settings window's
+-- own: its sidebar, its header's band), above that part, an outline only.
+-- A ring (rec.psOut) stands that far off the part all round.
+local function lightFrame(rec)
+	local region, s = rec.psRegion, rec.psStage
+	local parent = s
+	if not onStage(region, s) then
+		parent = (region.IsObjectType and region:IsObjectType("Frame")) and region or region:GetParent()
+	end
+	local l = CreateFrame("Frame", nil, parent)
+	local o = rec.psOut or 0
+	l:SetPoint("TOPLEFT", region, "TOPLEFT", -o, o)
+	l:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", o, -o)
+	-- Over the scene's parts; over a window part's children (its rows).
+	l:SetFrameLevel(parent:GetFrameLevel() + (parent == s and 18 or 60))
+	l:EnableMouse(false)
+	l.psKey, l.psEdgeOnly = rec.psKey, (rec.psEdgeOnly or parent ~= s) or nil
+	return l
+end
+
 -- Parts of the scene a setting changes, lit (outline and accent wash) while
 -- the pointer is on that setting's row, without being a click target of
--- their own: s:Light(key, region, ...). -> the overlays
-function P.Light(s, key, ...)
+-- their own: s:Light(key, region, ...); s:LightEdge for an outline alone (a
+-- big part, or one outside the stage); s:LightRing for a part drawn in the
+-- accent itself, where an outline on it would not show: an outline RING px
+-- off it all round. Each light's frame is made the first time it lights
+-- (rec.Frame). -> the lights
+local RING = 3
+local function addLights(s, key, edge, out, ...)
 	local list = byKey(hostOf(s) or s, key)
 	local made = {}
 	for i = 1, select("#", ...) do
 		local region = select(i, ...)
 		if region then
-			local l = CreateFrame("Frame", nil, s)
-			l:SetAllPoints(region)
-			l:SetFrameLevel(s:GetFrameLevel() + 18)
-			l:EnableMouse(false)
-			l.psKey = key
-			hotspotEdge(l, false)
-			list[#list + 1] = l
-			made[#made + 1] = l
+			local rec = { psRegion = region, psStage = s, psKey = key, psEdgeOnly = edge or nil, psOut = out }
+			list[#list + 1] = rec
+			made[#made + 1] = rec
 		end
 	end
 	return made
 end
+function P.Light(s, key, ...) return addLights(s, key, false, nil, ...) end
+function P.LightEdge(s, key, ...) return addLights(s, key, true, nil, ...) end
+function P.LightRing(s, key, ...) return addLights(s, key, true, RING, ...) end
+
+-- Parts found as the row is hovered, each outlined alone: what comes and
+-- goes with the page or tab on screen (the settings window's own controls
+-- in the accent). s:LightEach(key, fn[, ring]): fn() -> a list of regions;
+-- each one's light is made the first time it lights, a ring off it with
+-- `ring` (as s:LightRing). -> the record
+function P.LightEach(s, key, fn, ring)
+	local list = byKey(hostOf(s) or s, key)
+	local rec = { psEach = fn, psStage = s, psKey = key, psOut = ring and RING or nil, psMade = setmetatable({}, { __mode = "k" }) }
+	list[#list + 1] = rec
+	return rec
+end
+
+-- Shown, and not faded out (a part a crop left out has its alpha at 0).
+local function showing(region)
+	if region.IsVisible and not region:IsVisible() then return false end
+	local f = region
+	while f do
+		if f.GetAlpha and f:GetAlpha() <= 0.001 then return false end
+		f = f.GetParent and f:GetParent()
+	end
+	return true
+end
+
+-- The frame that shows a hotspot or a light (a light's made now if need be).
+local function shownBy(b, make)
+	if not rawget(b, "psRegion") then return b end
+	local l = rawget(b, "Frame")
+	if not l and make then
+		l = lightFrame(b)
+		b.Frame = l
+	end
+	return l
+end
 
 -- Lights setting `key`'s parts on the preview `owner` holds (its host, or the
--- stage itself), and puts out the ones lit before; nil puts them all out.
--- -> how many it lit
+-- stage itself), and puts out the ones lit before; nil puts them all out. A
+-- light whose part is not showing (a surface a narrow page leaves out, a
+-- tab's underline while another tab is open) stays dark. -> how many it lit
 function P.LightUp(owner, key)
 	if not owner then return 0 end
-	for _, b in ipairs(rawget(owner, "psLitList") or {}) do
-		b.psLit = nil
-		hotspotEdge(b, false)
+	for _, l in ipairs(rawget(owner, "psLitList") or {}) do
+		l.psLit = nil
+		hotspotEdge(l, false)
 	end
 	owner.psLitList = nil
 	local list = key and rawget(owner, "psByKey") and owner.psByKey[key]
 	if not list then return 0 end
+	local lit = {}
 	for _, b in ipairs(list) do
-		b.psLit = true
-		hotspotEdge(b, false)
+		local each = rawget(b, "psEach")
+		if each then
+			local ok, parts = pcall(each)
+			if not ok then report(parts) end
+			for _, region in ipairs(ok and type(parts) == "table" and parts or {}) do
+				if showing(region) then
+					local l = b.psMade[region]
+					if not l then
+						l = lightFrame({ psRegion = region, psStage = b.psStage, psKey = key, psEdgeOnly = true, psOut = b.psOut })
+						b.psMade[region] = l
+					end
+					lit[#lit + 1] = l
+				end
+			end
+		elseif not rawget(b, "psRegion") or showing(b.psRegion) then
+			lit[#lit + 1] = shownBy(b, true)
+		end
 	end
-	owner.psLitList = list
-	return #list
+	for _, l in ipairs(lit) do
+		l.psLit = true
+		hotspotEdge(l, false)
+	end
+	owner.psLitList = lit
+	return #lit
 end
 
 ---------------------------------------------------------------------------
@@ -651,7 +941,8 @@ local function hostFor(win, view, t)
 	if f then
 		f:ClearAllPoints()
 		f:SetPoint("TOPLEFT", host, "TOPLEFT", 0, 0)
-		if f.Hotspot == nil then f.Hotspot = function(self, region, key) return P.Hotspot(self, region, key) end end
+		-- A frame's own Hotspot method (a stub's frame answers every name).
+		if rawget(f, "Hotspot") == nil then f.Hotspot = function(self, region, key) return P.Hotspot(self, region, key) end end
 	end
 	-- The chrome, over the preview.
 	local chrome = CreateFrame("Frame", nil, host)
@@ -751,8 +1042,9 @@ function P.Place(win, view, t, width, room)
 	local shown = h * scale
 	local slotH = shown
 	if stage then
-		-- The hero across the slot, the scene centred on it, the backdrop
-		-- painted at the hero's size.
+		-- The hero across the slot, the scene (the stage as tall as its page
+		-- laid it out) centred on it, the backdrop painted at the hero's size.
+		f:SetHeight(max(1, h))
 		slotH = max(shown, heroH)
 		local H = f.Hero
 		H:ClearAllPoints()

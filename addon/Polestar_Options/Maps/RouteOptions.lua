@@ -77,7 +77,7 @@ local SPARKLE_COLORS = {
 -- The preview
 ---------------------------------------------------------------------------
 
-local PREVIEW_H, MM = 226, 128
+local PREVIEW_H, MM = 226, 140 -- MM: the minimap disc, as the game's
 local MM_RADIUS = 230 -- yards the preview's minimap shows from its centre
 -- The preview's own continent; its yards are map fractions x 1000 (fx = wy / 1000, fy = wx / 1000).
 local C, YARDS = -1, 1000
@@ -165,6 +165,11 @@ local function paint(f)
 	v.width, v.height = w, h
 	f.world:SetSize(w, h)
 	f.world.opacity = R.Look(v, "world", f.world:GetEffectiveScale())
+	-- The legend's strokes in the rides' colours, as the world map draws them.
+	for _, item in ipairs(rawget(f, "Legend") or {}) do
+		local c = v.colors and v.colors[item.psKind]
+		if c then item.Stroke:SetVertexColor(c[1], c[2], c[3], 1) end
+	end
 	-- The minimap disc.
 	local mv = f.mmView
 	mv.width, mv.height = MM, MM
@@ -277,10 +282,12 @@ local function repaintShown()
 	end
 end
 
--- The window's chrome ("Preview", f.caption, "Live") sits over the top
--- TOP px and its one-time hint ("Click a part of the preview…") over the
--- bottom BOTTOM px; the body's own pad is INSET at either side.
-local TOP, BOTTOM, INSET = 34, 30, 32
+-- The window's chrome ("Preview", f.caption, "Live") sits over the top TOP
+-- px; BOTTOM px are kept at the foot; the body's own pad is INSET at either
+-- side. The world panel is the hero's height less these.
+local TOP, BOTTOM, INSET = 34, 16, 32
+-- The rides' legend on the world panel: each a short stroke in its colour.
+local RIDES = { { "flight", L["Flights"] }, { "boat", L["Boats"] }, { "zeppelin", L["Zeppelins"] }, { "tram", L["Trams & lifts"] } }
 
 local function buildPreview(host)
 	-- The settings window's preview stage, on its plain ground: the world
@@ -347,18 +354,60 @@ local function buildPreview(host)
 	mmCap:SetText(L["Minimap"])
 	mmCap:SetPoint("TOP", mmFrame, "BOTTOM", 0, -6)
 
+	-- The rides' colours, a legend at the world panel's foot: the flight and
+	-- the boat are on the route, the zeppelin and the tram are not.
+	local legend = CreateFrame("Frame", nil, f.world)
+	legend:SetHeight(20)
+	legend:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 8, 6)
+	legend:SetFrameLevel(f.world:GetFrameLevel() + 4)
+	W.Fill(legend, "scrim", "BACKGROUND", -1)
+	f.Legend = {}
+	local lx = 8
+	for i, ride in ipairs(RIDES) do
+		local item = CreateFrame("Frame", nil, legend)
+		item.Stroke = item:CreateTexture(nil, "ARTWORK")
+		item.Stroke:SetTexture(Theme.Media("white"))
+		item.Stroke:SetSize(14, 3)
+		item.Stroke:SetPoint("LEFT", item, "LEFT", 0, 0)
+		item.Label = W.Text(item, "caption", "textDim")
+		item.Label:SetText(ride[2])
+		item.Label:SetPoint("LEFT", item.Stroke, "RIGHT", 5, 0)
+		local iw = 19 + math.ceil(W.TextWidth(item.Label))
+		item:SetSize(iw, 20)
+		item:SetPoint("LEFT", legend, "LEFT", lx, 0)
+		lx = lx + iw + 12
+		item.psKind = ride[1]
+		f.Legend[i] = item
+	end
+	legend:SetWidth(lx - 4)
+
 	-- Click targets: a part of the preview jumps to its settings (the
 	-- window's hotspots). The walk, the flight and the boat by the box their
 	-- leg spans on the world panel (placed in Layout), the minimap by its disc.
 	f.hot, f.hotButtons = {}, {}
-	local hotspot = host.Hotspot and function(region, key) return host:Hotspot(region, key) end
-		or (ns.UI.Options and ns.UI.Options.PreviewHotspot and function(region, key) return ns.UI.Options.PreviewHotspot(f, region, key) end)
 	for i, spot in ipairs(HOTSPOTS) do
 		local region = CreateFrame("Frame", nil, f.world)
 		f.hot[i] = region
-		if hotspot then f.hotButtons[spot.key] = hotspot(region, spot.key) end
+		f.hotButtons[spot.key] = f:Hot(region, spot.key)
 	end
-	if hotspot then f.hotButtons["nav.minimapRouteSize"] = hotspot(mmFrame, "nav.minimapRouteSize") end
+	f.hotButtons["nav.minimapRouteSize"] = f:Hot(mmFrame, "nav.minimapRouteSize")
+	-- The pointer on a setting's row lights the parts it changes.
+	local walkLeg, flightLeg, boatLeg = f.hot[1], f.hot[2], f.hot[3]
+	local both, legend = { panel, mmFrame }, f.Legend
+	for key, parts in pairs({
+		["nav.routeLines"] = both, ["nav.lineStyle"] = both, ["nav.worldRouteAlpha"] = { panel }, ["nav.worldRoute"] = { panel },
+		["nav.minimapRouteAlpha"] = { mmFrame }, ["nav.minimapRoute"] = { mmFrame }, ["nav.minimapRouteSize"] = { mmFrame },
+		["nav.drawIn"] = { walkLeg, flightLeg, boatLeg }, ["nav.laterAlpha"] = { boatLeg }, ["nav.lineOutline"] = { walkLeg, flightLeg },
+		["nav.walkColor"] = { walkLeg, mmFrame }, ["nav.dotColor"] = { walkLeg, flightLeg, boatLeg }, ["nav.lineWidth"] = { walkLeg, flightLeg },
+		["nav.walkedFade"] = { walkLeg }, ["nav.routeChevrons"] = { walkLeg, flightLeg }, ["nav.flightDash"] = { flightLeg },
+		["nav.dotSize"] = { walkLeg }, ["nav.dotSpacing"] = { walkLeg },
+		["nav.sparkleColor"] = both, ["nav.sparkleSize"] = both, ["nav.sparkleIntensity"] = both, ["nav.sparkleSubtlety"] = both,
+		["nav.sparkleDensity"] = both, ["nav.sparkleMax"] = both, ["nav.sparkleFlow"] = both, ["nav.sparkleLater"] = { boatLeg },
+		["nav.flightColor"] = { flightLeg, legend[1] }, ["nav.boatColor"] = { boatLeg, legend[2] },
+		["nav.zeppelinColor"] = { legend[3] }, ["nav.tramColor"] = { legend[4] },
+	}) do
+		f:Light(key, unpack(parts))
+	end
 
 	-- The route, its views and buffers: the maps' own geometry.
 	f.paths = {}
@@ -377,17 +426,19 @@ local function buildPreview(host)
 		if c == C then return wy / YARDS, wx / YARDS end
 	end }, {}
 
-	-- -> the preview's height, its parts placed across `width` (the whole
-	-- main column); repainted when the width changes (settings repaint it
-	-- on their own).
-	function f:Layout(width)
+	-- -> the hero's height (PREVIEW_H laid out alone), its parts placed
+	-- across `width` (the whole main column), the world panel and the
+	-- minimap each on a soft shadow; repainted when its size changes
+	-- (settings repaint it on their own).
+	function f:Layout(width, height)
 		self:SetWidth(width)
+		self.psHeight = height or PREVIEW_H
 		local ww = max(120, floor(width - INSET * 2 - MM - 24))
-		local wh = PREVIEW_H - TOP - BOTTOM
-		if ww == self.worldW and not self.dirty then return PREVIEW_H end
-		panel:SetWidth(ww)
+		local wh = self.psHeight - TOP - BOTTOM
+		if ww == self.worldW and wh == self.worldH and not self.dirty then return self.psHeight end
+		panel:SetSize(ww, wh)
 		self.worldW, self.worldH = ww, wh
-		if self.Art and self.Art.psW ~= ww then
+		if self.Art and (self.Art.psW ~= ww or self.Art.psH ~= wh) then
 			self.Art:SetSize(ww, wh)
 			self.Art.psW, self.Art.psH = ww, wh
 			local C2 = ns.Compat
@@ -396,7 +447,9 @@ local function buildPreview(host)
 			ns.UI.ZoneArt.Paint(self.Art, map, mx, my, 3)
 		end
 		mmFrame:ClearAllPoints()
-		mmFrame:SetPoint("TOPRIGHT", self, "TOPRIGHT", -INSET, -TOP - 4)
+		mmFrame:SetPoint("TOPRIGHT", self, "TOPRIGHT", -INSET, -(TOP + max(4, floor((wh - MM - 20) / 2))))
+		self:Floor(panel)
+		self:Floor(mmFrame, -10)
 		for i, m in ipairs(MARKS) do
 			self.marks[i]:ClearAllPoints()
 			self.marks[i]:SetPoint("CENTER", self.world, "TOPLEFT", m[1] * ww, -m[2] * wh)
@@ -414,7 +467,7 @@ local function buildPreview(host)
 			region:SetSize((box[3] - box[1]) * ww, (box[4] - box[2]) * wh)
 		end
 		paint(self)
-		return PREVIEW_H
+		return self.psHeight
 	end
 
 	f:SetScript("OnShow", function(self) if self.worldW then paint(self) end end)
@@ -641,4 +694,20 @@ register(L["Flights & rides"], {
 	colour("tram", "tramColor", L["Trams & lifts"], L["The Deeprun Tram's and lifts' colour. Right-click for the theme's."],
 		"tram colour, color, deeprun, lift, elevator, underground"),
 })
+
+-- Essentials (the page's lead tab): the styles, then the settings players
+-- change most, each a reference to its row on Route; the size row is the
+-- drawn style's own (line thickness, dot size or sparkle size).
+local O = ns.UI and ns.UI.Options
+if O and O.Ref then
+	local Ref = O.Ref
+	local ESSENTIALS = L["Essentials"]
+	register(L["Style"], { Ref("cards", "nav.lineStyle") }, { tab = ESSENTIALS, lead = true })
+	register(L["Route lines"], {
+		Ref("slider", "nav.laterAlpha"), Ref("color", "nav.walkColor"),
+		Ref("slider", "nav.worldRouteAlpha"), Ref("slider", "nav.minimapRouteAlpha"),
+		Ref("slider", "nav.lineWidth", { needs = drawn("line") }), Ref("slider", "nav.dotSize", { needs = drawn("dots") }),
+		Ref("slider", "nav.sparkleSize", { needs = drawn("sparkle") }), Ref("color", "nav.flightColor"),
+	}, { tab = ESSENTIALS, jump = { tab = ROUTE, section = L["Route lines"] }, toggle = Ref("toggle", "nav.routeLines") })
+end
 
