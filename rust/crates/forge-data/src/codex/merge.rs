@@ -2056,6 +2056,12 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
 			}
+			// The profession it needs (Badlands Reagent Run II 2501: Alchemy 210, #1913): the skill line and rank from
+			// data/forever/quests.json, so a guide or Lookup can leave it out for a character without them.
+			if let Some(skill) = int(&q.get("skill")).filter(|s| *s > 0.0) {
+				o.set("skill", skill);
+				o.set("skillLevel", opt(int(&q.get("skillLevel")).filter(|r| *r > 0.0)));
+			}
 			if let Some((faction, standing)) = quest_rep(&q) {
 				o.set("repFaction", faction);
 				o.set("repStanding", standing);
