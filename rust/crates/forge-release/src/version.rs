@@ -18,11 +18,8 @@ pub struct Files {
 }
 
 pub fn files(root: &Path, addons: &Path) -> Files {
-	let manifests: Vec<PathBuf> = std::iter::once("guides".to_string())
-		.chain(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.source.to_string()))
-		.map(|d| root.join(d).join("pack.json"))
-		.filter(|f| f.exists())
-		.collect();
+	let manifests: Vec<PathBuf> =
+		std::iter::once("guides".to_string()).chain(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.source.to_string())).map(|d| root.join(d).join("pack.json")).filter(|f| f.exists()).collect();
 	let mut tocs: Vec<PathBuf> = std::fs::read_dir(addons)
 		.into_iter()
 		.flatten()

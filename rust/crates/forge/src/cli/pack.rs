@@ -8,7 +8,9 @@ use super::release::{checkout, opt, positional};
 use forge_guide::data::Data;
 use forge_guide::diag::{Diag, Diagnostics};
 use forge_guide::js::V;
-use forge_guide::project::{build_pack, find_guide_files, find_pack_dir, load_project_data, no_reference_data, own_extra_at, own_extra_manifest, read_sources, same_path, BuildOpts, Context, FileContent, OWN_EXTRAS};
+use forge_guide::project::{
+	build_pack, find_guide_files, find_pack_dir, load_project_data, no_reference_data, own_extra_at, own_extra_manifest, read_sources, same_path, BuildOpts, Context, FileContent, OWN_EXTRAS,
+};
 use forge_release::addons::{codex_data_warning, codex_refusal, guide_notice_refusal, notice_refusal, release_addons, retired_addons, toc_version, CODEX, RECORDER};
 use forge_release::pack::{archive_entries, pack_entries, readme, sha256_hex};
 use forge_release::zip::{write_zip, Entry};
