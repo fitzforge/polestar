@@ -7711,12 +7711,16 @@ test('Every Alliance route (Fyurie, #977): Fangore and the Shadowhide gnolls of 
 // for at Menethil and the dig were chain quests nobody could take yet. Every leveling path (each start,
 // each `next` option) is played as every race and class, and no accept may come before its blocking
 // prerequisites are handed in on that path (tools/lib/route/prereq-order.js; lint's check counts a hand-in
-// on any branch into the guide).
+// on any branch into the guide). Since #1299 it also takes the prerequisites players' recordings teach
+// (data/recorded/quests.json): the data named none for This Land Was Their Land, so 0.3.5 passed this test
+// while its accept came before Defeat Nek'rosh.
 test('every leveling path hands in each accept\'s prerequisites before the accept, for every start, race and class', { skip }, () => {
-	const { prereqOrder } = require('../tools/lib/route/prereq-order');
+	const { prereqOrder, recordedPrereqs } = require('../tools/lib/route/prereq-order');
 	const { guides, data: all } = compileProject({ packDir: OFFICIAL_DIR, manifest: { id: 'guides', author: 'Polestar' }, dataDir: DATA });
-	const found = prereqOrder(guides, all).map(
-		(v) => `${path.relative(OFFICIAL_DIR, v.file).split(path.sep).join('/')}:${v.line} accept ${v.quest} (${v.title}) needs ${v.missing.join(v.any ? ' or ' : ' and ')} handed in first (${v.race} ${v.cls || ''}, path from ${v.path[0]}${v.groups === 'do' ? ', group quests on' : ''})`
+	const learned = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'recorded', 'quests.json'), 'utf8'));
+	const recorded = recordedPrereqs(learned, loadCorrections().quests);
+	const found = prereqOrder(guides, all, { recorded }).map(
+		(v) => `${path.relative(OFFICIAL_DIR, v.file).split(path.sep).join('/')}:${v.line} accept ${v.quest} (${v.title}) needs ${v.missing.join(v.any ? ' or ' : ' and ')} handed in first (${v.race} ${v.cls || ''}, path from ${v.path[0]}${v.groups === 'do' ? ', group quests on' : ''}${v.recorded ? '; players\' recordings show it offered only after one of these' : ''})`
 	);
 	assert.deepEqual(found, []);
 });

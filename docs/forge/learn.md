@@ -142,4 +142,5 @@ The data build still reads `data/recordings/` for everything else (titles, giver
 lists, spawns, drops); `data/codex/recorded.json` still holds the Codex's recorded drops, vendors
 and rewards (`forge data codex --recordings`, which counts people by the rules under "Who counts"
 above, verdicts and one vote per person included). They fold into this snapshot as the learned
-layer grows.
+layer grows. The prerequisite-order check in `tests/guides-reported.test.js` takes this snapshot's
+trusted, provisional and stale `pre` facts too (`tools/lib/route/prereq-order.js`).
