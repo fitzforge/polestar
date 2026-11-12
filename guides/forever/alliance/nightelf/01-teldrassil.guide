@@ -138,22 +138,27 @@ step The Great Outdoors
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  when !knows 1230564
   accept 97938                                -- Lyreena Duskblade: for Cyndra Kindwhisper, beside Zarrin
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  when !knows 1229705
   accept 97944                                -- Lyreena Duskblade: for Malorne Bladeleaf, beside Zarrin
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97942                                -- Lyreena Duskblade: for Byancie in the inn
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97949                                -- Lyreena Duskblade: for Radnaal Maneweaver, by the road west
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97946                                -- Lyreena Duskblade: for Nadyia Maneweaver, by the road west
 
 step Zarrin

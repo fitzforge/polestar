@@ -190,42 +190,52 @@ step Eleanor Shackleton
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97955                        -- Eleanor: for Nurse Neela
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  when !knows 1230643
   accept 97953                        -- Eleanor: for Vance Undergloom
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  when !knows 1229705
   accept 97957                        -- Eleanor: for Faruza
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  when !knows 1230564
   accept 97951                        -- Eleanor: for Carolai Anise
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97960                        -- Eleanor: for Rand Rhobart
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97958                        -- Eleanor: for Shelene Rhobart
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  when !knows 1229504
   accept 97961                        -- Eleanor: for Bowen Brisboise
 
 step Camping 101: Mining
   when skill Mining 1
+  when !knows 1230161
   accept 97959                        -- Eleanor: for Brom Killian
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
   accept 97952                        -- Eleanor: for Basil Frye
 
 step Camping 101: Engineering
   when skill Engineering 1
+  when !knows 1230656
   accept 97954                        -- Eleanor: for Graham Van Talen
 
 step Brill
