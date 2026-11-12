@@ -169,12 +169,14 @@ function plain(s) {
 // characters (ideographs, kana, their punctuation), as the client wraps them.
 const CJK = /[\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]/u;
 const PIECES = /[\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]|[^\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]+/gu;
-function wrap(fonts, font, text, width) {
+// `nonSpace` (SetNonSpaceWrap, a multi-line edit box): a word wider than the
+// line breaks between characters.
+function wrap(fonts, font, text, width, nonSpace = false) {
 	const lines = [];
 	for (const para of text.split('\n')) {
 		let line = '';
 		for (const word of para.split(/\s+/).filter(Boolean)) {
-			const pieces = CJK.test(word) ? word.match(PIECES) : word.includes('/') ? word.split(/(?<=\/)/).filter(Boolean) : [word];
+			const pieces = nonSpace && measure(fonts, font, word) > width + 0.01 ? [...word] : CJK.test(word) ? word.match(PIECES) : word.includes('/') ? word.split(/(?<=\/)/).filter(Boolean) : [word];
 			pieces.forEach((piece, i) => {
 				const cand = line ? line + (i === 0 ? ' ' : '') + piece : piece;
 				if (line && measure(fonts, font, cand) > width + 0.01) {
@@ -247,7 +249,7 @@ function resolve(objects, fonts) {
 			if (o.kind === 'FontString') {
 				if (w == null) w = o.intrinsicW * s;
 				const lw = w / s;
-				const lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw) : o.plain.split('\n');
+				const lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw, o.nonSpace) : o.plain.split('\n');
 				o.lines = o.maxLines ? lines.slice(0, o.maxLines) : lines;
 				// Text cut short by SetMaxLines ends its last line in "...", as the client draws it.
 				o.cutShort = o.maxLines > 0 && lines.length > o.maxLines;
@@ -261,7 +263,7 @@ function resolve(objects, fonts) {
 		}
 		if (o.kind === 'FontString' && !o.lines) {
 			const lw = r.w / s;
-			o.lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw) : o.plain.split('\n');
+			o.lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw, o.nonSpace) : o.plain.split('\n');
 		}
 		visiting.delete(o.id);
 		rects.set(o.id, r);
@@ -599,9 +601,27 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 			rect(r, vc, a * own, clip);
 			return;
 		}
-		const uri = textures.uri(name, [vc[0], vc[1], vc[2], 1], t.texCoord, t.desaturation || 0);
+		// SetGradient on a picture (a skin's faded art): its colour across the
+		// two ends (their mean tints it) and its alpha running from one end to
+		// the other, as a mask.
+		const g = t.gradient;
+		let gmask = '';
+		let tint = [vc[0], vc[1], vc[2], 1];
+		let alpha0 = vc[3] ?? 1;
+		if (g) {
+			tint = [0, 1, 2].map((i) => (g.min[i] + g.max[i]) / 2).concat(1);
+			// The gradient's ends replace the vertex colour, alpha included; the texture's own alpha
+			// (SetAlpha, which the stub also wrote into the vertex colour) still dims it.
+			alpha0 = t.vertexColor ? (t.alpha ?? 1) : 1;
+			const id = `${prefix}gm${t.id}`;
+			const vertical = g.orientation === 'VERTICAL';
+			defs.push(`<linearGradient id="${id}g" x1="0" y1="${vertical ? 1 : 0}" x2="${vertical ? 0 : 1}" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="${f2(g.min[3] ?? 1)}"/><stop offset="1" stop-color="#fff" stop-opacity="${f2(g.max[3] ?? 1)}"/></linearGradient>`
+				+ `<mask id="${id}" maskUnits="userSpaceOnUse" x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}"><rect x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}" fill="url(#${id}g)"/></mask>`);
+			gmask = ` mask="url(#${id})"`;
+		}
+		const uri = textures.uri(name, tint, t.texCoord, t.desaturation || 0);
 		if (!uri) return;
-		const op = Math.max(0, Math.min(1, (vc[3] ?? 1) * a * own));
+		const op = Math.max(0, Math.min(1, alpha0 * a * own));
 		if (op <= 0.001) return;
 		// SetRotation (radians, counter-clockwise) turns about the centre;
 		// ADD blending lightens what is under it.
@@ -621,7 +641,8 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 		// A clip path resolves in the user space of the element using it, so a
 		// turned image is clipped on an untransformed wrapper.
 		const img = (own) => `<image x="${f2(r.x - ox)}" y="${f2(r.y - oy)}" width="${f2(r.w)}" height="${f2(r.h)}" preserveAspectRatio="none" opacity="${f2(op)}" href="${uri}"${turn}${blend}${own}/>`;
-		body.push(turn && clip ? `<g${clip}>${img('')}</g>` : img(clip));
+		const drawn = turn && clip ? `<g${clip}>${img('')}</g>` : img(clip);
+		body.push(gmask ? `<g${gmask}>${drawn}</g>` : drawn);
 	}
 
 	// A Line: a stroke `thickness` wide between its two ends, each a point of

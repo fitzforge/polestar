@@ -131,6 +131,8 @@ async function run(argv) {
 			try {
 				const r = await studio.runShot(sc, shot, { ...run, log: (m) => console.error(`  ${m}`) });
 				for (const f of [r.closeup, r.png || r.svg]) if (f) console.log(path.relative(process.cwd(), f));
+				// What the shot's script returned (a check's answer), when anything.
+				if (r.result !== undefined && r.result !== null && r.result !== true) console.log(`  ${name}/${shot}: ${JSON.stringify(r.result)}`);
 				if (r.errors.length) failed++;
 			} catch (err) {
 				console.error(err.message);
