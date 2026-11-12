@@ -500,7 +500,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 
 	lap("questie merge");
-	// A spawn listed on a zone's map and on its continent's stays on the zone's alone
+	// A spawn listed on a continent's map and on a zone's or a city's stays off the continent's
 	// (spawns::drop_map_copies; the merge already left out pfQuest's other copies).
 	let (mut points, mut npcs, mut objects) = (0, 0, 0);
 	for (table, count) in [(&norm.npcs, &mut npcs), (&norm.objects, &mut objects)] {

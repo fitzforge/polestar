@@ -205,24 +205,38 @@ pub fn era_spawns(coords: &[V], resolve_area: &dyn Fn(f64) -> Option<i64>, o: Sp
 /// A city's map spans at most this many yards across, a zone's more.
 pub const INNER_MAX: f64 = 1500.0;
 
+/// A continent's map spans at least this many yards across, a zone's less (the widest, The
+/// Barrens, about 10,000). A zone's box can lie inside another zone's (Mulgore's inside The
+/// Barrens'), so a map's size, not its box, tells a continent.
+pub const CONTINENT_MIN: f64 = 20000.0;
+
 /// Two points of one entity on two maps this close (yards) are one spawn listed twice.
 pub const SAME_SPAWN_YARDS: f64 = 30.0;
 
+fn extent(f: &Frame) -> f64 {
+	(f.right - f.left).abs().max((f.bottom - f.top).abs())
+}
+
 /// Whether a map's frame is a city's: at most INNER_MAX yards across.
 pub fn city(f: Option<&Frame>) -> bool {
-	f.is_some_and(|f| (f.right - f.left).abs().max((f.bottom - f.top).abs()) <= INNER_MAX)
+	f.is_some_and(|f| extent(f) <= INNER_MAX)
+}
+
+/// Whether a map's frame is a continent's: at least CONTINENT_MIN yards across.
+pub fn continent(f: Option<&Frame>) -> bool {
+	f.is_some_and(|f| extent(f) >= CONTINENT_MIN)
 }
 
 /// Whether frame `a` holds frame `b` inside it: one continent, `b`'s box within `a`'s and smaller.
-pub fn holds(a: Option<&Frame>, b: Option<&Frame>) -> bool {
+fn holds(a: Option<&Frame>, b: Option<&Frame>) -> bool {
 	let (Some(a), Some(b)) = (a, b) else { return false };
 	let bx = (b.left.min(b.right), b.left.max(b.right), b.top.min(b.bottom), b.top.max(b.bottom));
 	let ax = (a.left.min(a.right), a.left.max(a.right), a.top.min(a.bottom), a.top.max(a.bottom));
 	b.c == a.c && bx.0 >= ax.0 && bx.1 <= ax.1 && bx.2 >= ax.2 && bx.3 <= ax.3 && (bx.1 - bx.0) * (bx.3 - bx.2) < (ax.1 - ax.0) * (ax.3 - ax.2)
 }
 
-/// Whether `b` is the inner one of two maps that hold one place: a city's map beside a zone's, or a
-/// frame inside the other's.
+/// Whether `b` is the inner one of two maps that hold one place, the one the Codex lists first: a
+/// city's map beside a zone's, or a frame inside the other's.
 pub fn more_inner(b: Option<&Frame>, a: Option<&Frame>) -> bool {
 	(city(b) && !city(a)) || holds(a, b)
 }
@@ -237,12 +251,12 @@ struct Placed {
 	wy: f64,
 }
 
-/// One copy per spawn on a zone's map and a bigger map around it: a spawn listed on a zone's map and
-/// on its continent's stays on the zone's alone. A city's map and its zone's keep theirs here (a
-/// city's rectangle reaches past its walls, so which of the two holds a point is the sources' to
-/// say: merge.rs keeps QuestieDB's), as do two zones whose rectangles merely overlap. A map left
-/// without `pts` takes its `more`, or goes. `frame_of(map, f)`: the frame a map's points are in.
-/// -> the new spawns and the points dropped, None when nothing changes.
+/// One copy per spawn on a continent's map: a spawn listed on a continent's map and on a zone's or a
+/// city's stays off the continent's. A city's map and its zone's keep theirs here (a city's
+/// rectangle reaches past its walls, so which of the two holds a point is the sources' to say:
+/// merge.rs keeps QuestieDB's), as do two zones whose rectangles overlap. A map left without `pts`
+/// takes its `more`, or goes. `frame_of(map, f)`: the frame a map's points are in. -> the new
+/// spawns and the points dropped, None when nothing changes.
 pub fn drop_map_copies(spawns: &V, frame_of: &dyn Fn(i64, &str) -> Option<Frame>) -> Option<(V, usize)> {
 	let entries = spawns.entries();
 	let frames: Vec<Option<Frame>> = entries
@@ -252,8 +266,8 @@ pub fn drop_map_copies(spawns: &V, frame_of: &dyn Fn(i64, &str) -> Option<Frame>
 			id.is_finite().then(|| frame_of(id as i64, &s.get("f").to_js_string())).flatten()
 		})
 		.collect();
-	// outer[a][b]: map a holds map b, a zone's, inside it.
-	let outer: Vec<Vec<bool>> = (0..frames.len()).map(|a| (0..frames.len()).map(|b| holds(frames[a].as_ref(), frames[b].as_ref()) && !city(frames[b].as_ref())).collect()).collect();
+	// outer[a][b]: map a is a continent's and map b a zone's or a city's.
+	let outer: Vec<Vec<bool>> = (0..frames.len()).map(|a| (0..frames.len()).map(|b| continent(frames[a].as_ref()) && frames[b].is_some() && !continent(frames[b].as_ref())).collect()).collect();
 	if !outer.iter().flatten().any(|x| *x) {
 		return None;
 	}
@@ -272,7 +286,7 @@ pub fn drop_map_copies(spawns: &V, frame_of: &dyn Fn(i64, &str) -> Option<Frame>
 	for (j, p) in placed.iter().enumerate() {
 		grid.entry(cell(p)).or_default().push(j);
 	}
-	// A point goes when a zone's map inside its own holds the same spawn.
+	// A continent's point goes when a zone's or a city's map holds the same spawn.
 	let copy = |a: &Placed| {
 		let (c, gx, gy) = cell(a);
 		(gx - 1..=gx + 1).any(|x| {

@@ -8173,13 +8173,13 @@ blesses them). Run in a copy without `data/sources`, it names `sources.areas` 13
    stays pfQuest's (see above). pfQuest lists a spawn under every map whose
    rectangle holds it. Its copy of a QuestieDB spawn (within 30 yards, a
    gathering node's within 10) joins on another map only when the two maps are
-   of one kind and the copy's does not hold QuestieDB's inside: two zones whose
-   rectangles overlap keep both copies, but a copy stays off when one of the
-   maps is a city's and the other a zone's (QuestieDB places a spawn by its
-   area, and a city's rectangle reaches past its walls) and off a continent's
-   map. A gathering node's other maps also keep the nodes QuestieDB lacks. A
-   zone's copy stays alone (`spawns::drop_map_copies`) beside a continent's
-   QuestieDB
+   of one kind and the copy's is no continent's (told by its size, as one
+   zone's box can lie inside another's): two zones whose rectangles overlap
+   keep both copies, but a copy stays off when one of the maps is a city's and
+   the other a zone's (QuestieDB places a spawn by its area, and a city's
+   rectangle reaches past its walls) and off a continent's map. A gathering
+   node's other maps also keep the nodes QuestieDB lacks. A zone's copy stays
+   alone (`spawns::drop_map_copies`) beside a continent's QuestieDB
    spawn. QuestieDB's Static Corrections are folded into the store. Its Dynamic
    (per-character) Corrections are not applied. Questie and QuestieDB ship no
    licence file (CurseForge says GPL-3.0; the maintainers say to treat them as

@@ -11,7 +11,7 @@ use crate::maps::Frame;
 use crate::objectives::parse_count;
 use crate::place::NODE_SAME_YD;
 use crate::questie::{drop_rate, table_rates, Questie};
-use crate::spawns::{city, holds, points_of, reduce_spawns, spawn_record, Reduced, SpawnOptions, P, SAME_SPAWN_YARDS};
+use crate::spawns::{city, continent, points_of, reduce_spawns, spawn_record, Reduced, SpawnOptions, P, SAME_SPAWN_YARDS};
 
 pub const SOURCE: &str = "questie-forever";
 const NPC_FLAG_ROLES: [(f64, &str); 11] = [
@@ -229,9 +229,10 @@ fn object_record(r: &Obj, spawns: V, templates: &IndexMap<i64, f64>, sim: bool) 
 
 /// Whether pfQuest's copy of a QuestieDB spawn on map `pf` stays out beside QuestieDB's on map `q`:
 /// one is a city's map and the other a zone's (QuestieDB places a spawn by the area it is in, and a
-/// city's rectangle reaches past its walls), or `pf` holds `q` inside (a continent's beside a zone's).
+/// city's rectangle reaches past its walls), or `pf` is a continent's. A copy on a zone's or a
+/// city's map joins QuestieDB's continent point (the build then drops that, spawns::drop_map_copies).
 fn copy_left_out(pf: Option<&Frame>, q: Option<&Frame>) -> bool {
-	city(pf) != city(q) || holds(pf, q)
+	continent(pf) || (!continent(q) && city(pf) != city(q))
 }
 
 /// QuestieDB's spawns plus pfQuest's copies of them on maps QuestieDB does not list (pfQuest lists a

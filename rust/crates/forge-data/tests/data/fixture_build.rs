@@ -189,9 +189,9 @@ fn spawn_reduction_rounds_dedupes_caps_evenly_and_loses_no_spawn() {
 // Apothecary Zamah (3419) stood under Thunder Bluff, Mulgore and Desolace: QuestieDB places him in
 // Thunder Bluff, pfQuest lists the same point under every map whose rectangle holds it, and the merge
 // took those copies, so the timed quest's off-route row named Desolace. pfQuest's copy now stays out
-// beside QuestieDB's spawn on a map of the other kind (a city's or a zone's) or on a map holding
-// QuestieDB's inside (a continent's); a spawn left on a zone's map and its continent's keeps the
-// zone's. Two zones whose rectangles merely overlap keep both copies, as before.
+// beside QuestieDB's spawn on a map of the other kind (a city's or a zone's) or on a continent's; a
+// spawn left on a continent's map and a zone's keeps the zone's. Two zones keep both copies, as
+// before, even when one's box lies inside the other's (Mulgore's inside The Barrens').
 #[test]
 fn pfquest_copies_of_a_questiedb_spawn_stay_off_a_city_s_zone_its_neighbours_and_the_continent() {
 	use forge_data::maps::Frame;
@@ -199,14 +199,16 @@ fn pfquest_copies_of_a_questiedb_spawn_stay_off_a_city_s_zone_its_neighbours_and
 	use forge_data::spawns::{drop_map_copies, DEFAULTS};
 	use forge_guide::js::{parse_json, stringify, V};
 	// A zone 4000 yards across, a city of 1000 inside it, a neighbouring zone whose rectangle overlaps
-	// the zone's west edge, and the continent around them. World point (-1000, 1200) is the city's
-	// 30,50, the zone's 20,25, the neighbour's 95,25 and the continent's 44,55.
+	// the zone's west edge, a zone of 10,000 whose box holds the first zone's, and the continent of
+	// 30,000 around them. World point (-1000, 1200) is the city's 30,50, the zone's 20,25, the
+	// neighbour's 95,25, the big zone's 38,60 and the continent's 42,50.
 	let frame_of = |map: i64, _f: &str| -> Option<Frame> {
 		match map {
 			1412 => Some(Frame { c: 1.0, top: 0.0, bottom: -4000.0, left: 2000.0, right: -2000.0 }),
 			1456 => Some(Frame { c: 1.0, top: -500.0, bottom: -1500.0, left: 1500.0, right: 500.0 }),
 			1443 => Some(Frame { c: 1.0, top: 0.0, bottom: -4000.0, left: 5000.0, right: 1000.0 }),
-			1414 => Some(Frame { c: 1.0, top: 10000.0, bottom: -10000.0, left: 10000.0, right: -10000.0 }),
+			1413 => Some(Frame { c: 1.0, top: 5000.0, bottom: -5000.0, left: 5000.0, right: -5000.0 }),
+			1414 => Some(Frame { c: 1.0, top: 14000.0, bottom: -16000.0, left: 13800.0, right: -16200.0 }),
 			_ => None,
 		}
 	};
@@ -232,15 +234,21 @@ fn pfquest_copies_of_a_questiedb_spawn_stay_off_a_city_s_zone_its_neighbours_and
 		json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1456": { "f": "e", "pts": [[60, 60]] } }),
 		"a gathering node's other maps keep the nodes QuestieDB lacks"
 	);
+	assert_eq!(
+		merge(r#"{ "1413": { "f": "e", "pts": [[38, 60]] } }"#, zone, false),
+		json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1413": { "f": "e", "pts": [[38, 60]] } }),
+		"a zone whose box holds another zone's is no continent"
+	);
 	// QuestieDB's continent point and pfQuest's zone copy: the merge keeps both, then the zone's stays alone.
-	let both = merge(zone, r#"{ "1414": { "f": "e", "pts": [[44, 55]] } }"#, false);
-	assert_eq!(both, json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1414": { "f": "e", "pts": [[44, 55]] } }));
+	let both = merge(zone, r#"{ "1414": { "f": "e", "pts": [[42, 50]] } }"#, false);
+	assert_eq!(both, json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1414": { "f": "e", "pts": [[42, 50]] } }));
 	assert_eq!(pass(&both), Some((json!({ "1412": { "f": "e", "pts": [[20, 25]] } }), 1)));
 	// A map whose kept points are all `more` (the cap's leftovers) takes them as its points.
-	let more = json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1414": { "f": "e", "pts": [[44, 55]], "more": [[10, 10]] } });
+	let more = json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1414": { "f": "e", "pts": [[42, 50]], "more": [[10, 10]] } });
 	assert_eq!(pass(&more), Some((json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1414": { "f": "e", "pts": [[10, 10]] } }), 1)));
-	// The pass leaves a city's and its zone's copies, and two zones', to the merge; one map stays as it is.
-	assert_eq!(pass(&json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1443": { "f": "e", "pts": [[95, 25]] }, "1456": { "f": "e", "pts": [[30, 50]] } })), None);
+	// The pass leaves a city's and its zone's copies, and zones', to the merge; one map stays as it is.
+	let zones = json!({ "1412": { "f": "e", "pts": [[20, 25]] }, "1413": { "f": "e", "pts": [[38, 60]] }, "1443": { "f": "e", "pts": [[95, 25]] }, "1456": { "f": "e", "pts": [[30, 50]] } });
+	assert_eq!(pass(&zones), None);
 	assert_eq!(pass(&json!({ "1412": { "f": "e", "pts": [[20, 25], [20.1, 25]] } })), None);
 }
 
