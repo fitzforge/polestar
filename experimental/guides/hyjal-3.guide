@@ -26,6 +26,10 @@ next forever/horde/50-60/07-felwood when level>=59
 # Mountain.
 # Not checked to the end in the recording (taken, not finished, or not taken): the Summit's Blackthorne quests
 # (Cult Closure, Twisted Tools, A Thorn in the Paw, Paying Back the Pact), Cleansing Winds and Maerion's Misery.
+# Maerion's Felhound Spikes: one in about ten Defiling Hounds dropped one after the recorded player took the
+# quest (1 spike from 11 kills), so its collection and hand-in are optional. The Shrine's Spear of the Skylord,
+# Highfeather Helper and Tarnished Treasures were offered before Taking to New Heights and Past Wing and Claw were
+# handed in (the windows in the recording): the breadcrumbs do not gate them.
 # Left out on purpose:
 # - Yashiro's Windwalk (96983): its Doomguard Xarkul is an elite (level 61); the recorded player dropped it.
 # - Gathering Storm (96494) and A Shaw Deal (96529): the first sends you to the Summit's far end and back to
@@ -81,7 +85,7 @@ step The Shrine of Aviana
   turnin 96296
 
 step The Deadwood camps
-  tip South-west back towards Barkskin Burrow: the Deadwood camps on the slopes east of the burrow hold the Totemics and Fel-Tenders.
+  tip South-west back towards Barkskin Burrow: the Deadwood camps on the slopes east of the burrow hold the Totemics and Fel-Tenders. An elite named Head Scratcher (level 60) may roam the camps' eastern end.
   kill 252116 x8 quest 93826.1          -- Deadwood Totemic
   kill 252096 x8 quest 93826.2          -- Deadwood Fel-Tender
 
@@ -134,11 +138,12 @@ step Johun "Punchy" Dillas
   turnin 92593
 
 step Bethra'zel and Maerion
-  tip North-east to Bethra'zel: use Elaena's eye on him to drain him, then kill him. Maerion Thaelemaches waits a little further north-east; the Defiling Hounds carry his spikes.
+  tip North-east to Bethra'zel: use Elaena's eye on him to drain him, then kill him. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.
+  tip Maerion Thaelemaches waits a little further north-east. His Felhound Spikes come from the Defiling Hounds, and in our only recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.
   kill 263394 quest 96003.1             -- Bethra'zel
   accept 97009                          -- Maerion Thaelemaches: Maerion's Misery
-  collect 276100 x12 quest 97009.1      -- Felhound Spike
-  turnin 97009
+  collect 276100 x12 quest 97009.1 optional  -- Felhound Spike
+  turnin 97009 optional
 
 step Mazzogore
   tip South-west to Mazzogore the Weak, in the middle of Dae'gun: drain him with the eye too, then kill him.
@@ -172,7 +177,7 @@ step Fly to the Tainted Foothills
   fly "Tainted Foothills"
 
 step Kaylaena's workshop
-  tip North to the workshop. Turn the two gears and connect the two battery terminals on both sides of her glaive thrower.
+  tip North to the workshop. Turn the two gears and connect the two battery terminals on both sides of her glaive thrower. Ghansurok, the elite chimaera (level 61), prowls around the workshop: watch for him while you work.
   turnin 92011                          -- Kaylaena Springwhisper
   accept 92328                          -- Siegecraft
   complete 92328 @60.6,61.2
@@ -213,13 +218,23 @@ step Tiala Whitemane
   turnin 90647
   accept 92169                          -- Paying Back the Pact
 
-step Paying Back the Pact
+step The Blackthorne camps
   when onquest 92169
-  tip The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Use Tiala's staff on a Pact member to strip its ward, then kill it, ten times. Not finished in our recordings yet: if something here is off, tell us.
-  complete 92169 @75.9,35.4
+  tip The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Ve'han Talongrasp, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.
+  tip Use Tiala's staff on a Pact member to strip its ward, then kill it, ten times: the Cultists and Adepts you kill this way count for Thisalee too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
+  complete 92169 @75.9,35.4             -- Paying Back the Pact
+  kill 249551 x10 quest 93584.1         -- Blackthorne Cultist
+  kill 264570 x10 quest 93584.2         -- Blackthorne Adept
+  collect 273832 quest 92533.1          -- Wicked Ritualist's Kris
+  collect 273828 quest 92533.2          -- Recoiling Gnarlybark Staff
+  collect 263227 x18 quest 93407.1 @74.3,40.2  -- Thorn Seed
+  collect 274287 x5 quest 92017.1       -- Grand Hippogryph Feather
+  collect 274288 x3 quest 92017.2       -- Oily Chimaera Hair
 
 step The Blackthorne camps
-  tip In the same camps: the Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
+  when !onquest 92169
+  tip The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Ve'han Talongrasp, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.
+  tip The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
   kill 249551 x10 quest 93584.1         -- Blackthorne Cultist
   kill 264570 x10 quest 93584.2         -- Blackthorne Adept
   collect 273832 quest 92533.1          -- Wicked Ritualist's Kris
