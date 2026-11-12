@@ -384,7 +384,7 @@ end
 --       teleports = { { spell, name, to = point, cast, ready }, ... } or nil,
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
---       walkOnly = true: walking only (a ghost),
+--       walkOnly = true: walking only (a ghost), noFlights = true: no flights (Travel.AtField),
 --       walkCost = function(c, wx, wy, start) -> cost, yards | false | nil: the
 --         walking engine's measure of the walk from that place (the player when
 --         start) to the target (Nav/Walk.lua Walk.Measured): its cost (in
@@ -655,7 +655,7 @@ local function planRoute(p)
 	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174).
 	local taxiV, learnV = {}, {}
 	local skip = p.skip
-	for _, node in ipairs(walkOnly and {} or taxiList) do
+	for _, node in ipairs((walkOnly or p.noFlights) and {} or taxiList) do
 		if skip and skip.taxi[node.id] then
 			-- skipped: never flown from or through
 		elseif not allowed(node.faction, faction, node.class) then
@@ -1820,6 +1820,24 @@ local function walkDanger(pc, px, py, tc, tx, ty)
 	return function(c, x1, y1, x2, y2) return D.Along(danger, c, x1, y1, x2, y2) end
 end
 
+-- A field goal's spawn areas (the Engine's waypoint `spots`, in the goal's map and frame, r in yards): while the
+-- player stands in one of them or within 100 yards of its edge, the way to the target (another of them) is walked,
+-- never by a teleport, the Hearthstone or a flight: the goal's mobs are where the player is. A Gnome Mage among Pygmy
+-- Venom Web Spiders by the Darkened Bank, the arrow on another of their spots west of Raven Hill, was sent to cast
+-- Teleport: Stormwind (#1823). (A field, not a local: the file's main chunk keeps clear of Lua 5.1's 200 locals.)
+function Travel.AtField(target, pc, px, py)
+	local spots = target and target.spots
+	local C = ns.Compat
+	if type(spots) ~= "table" or not (target.map and C and C.MapToWorld) then return false end
+	for _, s in ipairs(spots) do
+		if type(s) == "table" and s.x and s.y then
+			local sc, sx, sy = C.MapToWorld(target.map, s.x, s.y, target.f)
+			if sc and yards(pc, px, py, sc, sx, sy) <= (tonumber(s.r) or 0) + 100 then return true end
+		end
+	end
+	return false
+end
+
 -- A plan from where the player stands to the target, or nil; and where from.
 local function plan(target)
 	-- Handed to Shortest Path Forever (Nav/Handoff.lua): it plans the way; no route here.
@@ -1834,8 +1852,9 @@ local function plan(target)
 	lastHearth = hearthReady()
 	questTimed, timedCheck = readTimed(), false
 	local ghost = isGhost()
+	local field = Travel.AtField(target, pc, px, py)
 	local inn, bindName
-	if lastHearth and not ghost and not questTimed then inn, bindName = bindInn() end
+	if lastHearth and not ghost and not questTimed and not field then inn, bindName = bindInn() end
 	-- The walks to the target the walking engine measured, and the places it measures next (Nav/Walk.lua).
 	local W = Nav.walk
 	local places = W and W.Measure and {} or nil
@@ -1872,7 +1891,8 @@ local function plan(target)
 		noHearth = skipped.hearth,
 		skip = skip,
 		noDirect = direct or nil,
-		teleports = not ghost and not questTimed and teleportList() or nil,
+		teleports = not ghost and not questTimed and not field and teleportList() or nil,
+		noFlights = field or nil,
 		departure = departureFn(),
 		walkOnly = ghost,
 		walkCost = walkCost,

@@ -3746,6 +3746,13 @@ A class teleport whose landing lies in the zone the player stands in
 (its point's `map` equals the plan's `map`, the player's zone) is never
 planned: a Mage in Stormwind is not sent to Teleport: Stormwind to cross the
 city (#1515).
+A target that is one of a field goal's spawn areas (the Engine's waypoint
+`spots`) is walked to while the player stands in one of those areas or
+within 100 yd of its edge (`Travel.AtField`): no class teleport, no
+Hearthstone, no flight (`noFlights`): the goal's mobs are where the player
+is. A Gnome Mage among Pygmy Venom Web Spiders by the Darkened Bank, the
+arrow on another of their spots, was sent to cast Teleport: Stormwind
+(#1823).
 A transport end is its ship's stop; where the ship lies in the water off
 its pier, the end carries a board point on the deck (TravelData's `board`,
 below), and the dock vertex is there: the walk to the boat ends on the

@@ -179,6 +179,44 @@ fn issue_1823_on_a_long_trip_a_class_teleport_must_also_save_a_fifth_of_the_way_
 	assert_eq!(out["fifth"], json!(["teleport", 423]), "119 s saved, over a fifth of 542 s: the teleport");
 }
 
+// #1823 (a Gnome Mage on Pygmy Venom Web Spiders, one left to kill): the arrow on another of the goal's spawn areas
+// sent him to cast Teleport: Stormwind, though the spiders were where he stood. While the player stands in one of the
+// target's spawn areas (the Engine's waypoint `spots`) or within 100 yards of its edge, the way to another one is
+// walked: no teleport, Hearthstone or flight. Farther from them, the teleport or flight as before.
+#[test]
+fn issue_1823_in_or_near_one_of_a_goal_s_spawn_areas_the_way_to_another_is_walked_never_by_teleport_or_flight() {
+	let out = run(r#"
+		local r = {}
+		local landing = { name = "Testshire", c = 0, wx = -500, wy = -500, map = 9002, x = 75, y = 75 }
+		Polestar.Transit = { Now = function() return 0 end, Teleports = function()
+			return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = 0, to = landing } } end }
+		-- The arrow on the spot by the landing (map 75,74); another of the goal's spots at (600, 600) (map 20,20).
+		local SPOTS = { { x = 75, y = 74, r = 50 }, { x = 20, y = 20, r = 50 } }
+		local function spiders(wx, wy, spots, x, y)
+			nav.place(wx, wy)
+			local t = N.SetTarget(9000, x or 75, y or 74, "Spiders")
+			t.spots = spots
+			T.Replan()
+			return route()
+		end
+		r.inside = spiders(600, 600, SPOTS)
+		r.arrow = N.Sample()                              -- what the arrow shows there
+		r.near = spiders(600, 740, SPOTS)                -- 90 yd past that spot's edge
+		r.away = spiders(600, -600, SPOTS)               -- farther than 100 yd from every spot
+		r.single = spiders(600, 600, nil)                -- a target with one place
+		-- No teleport; flights known: from the spot beside West Hold (0, 700) to the one beside East Hold (0, -780).
+		Polestar.Transit = nil
+		known(1, 2)
+		r.flight = spiders(0, 700, { { x = 89, y = 50, r = 40 }, { x = 15, y = 50, r = 40 } }, 89, 50)
+		emit(r)"#);
+	assert_eq!(out["inside"], json!(["walk|Spiders"]), "in another spot of the goal: walked");
+	assert_ne!(out["arrow"], "instruction", "the arrow leads the walk, never asks for the cast");
+	assert_eq!(out["near"], json!(["walk|Spiders"]), "near one: walked");
+	assert_eq!(out["away"], json!(["teleport|Cast Teleport: Testshire", "walk|Spiders"]), "away from them: the teleport");
+	assert_eq!(out["single"], json!(["teleport|Cast Teleport: Testshire", "walk|Spiders"]), "a target with no spawn areas: as before");
+	assert_eq!(out["flight"], json!(["walk|Spiders"]), "no flight from beside West Hold either");
+}
+
 #[test]
 fn a_walk_in_portal_goes_one_way_only() {
 	let out = run(r#"
