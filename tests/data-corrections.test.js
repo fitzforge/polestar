@@ -327,3 +327,12 @@ test("The Drowned City's quests wait for their lead-ins, so the pick-up guide ta
 		[95776, 2464, [95773], 'The Only Good Brinescale... after Enemies in the Water'],
 	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
 });
+
+// The 0.3.8 XP review (players' recorded hand-ins at a full-XP level, builds 70790-70888): three quests whose
+// data value no recorded hand-in pays. The Grand Betrayal's earlier correction held the 70170 build's value.
+test('quest XP the recordings confirm is held by the corrections (0.3.8 XP review)', () => {
+	const xp = { 421: 875, 2929: 6200, 96261: 3050 };
+	const got = Object.fromEntries(Object.keys(xp).map((q) => [q, corrections.quests[q] && corrections.quests[q].set.xp]));
+	assert.deepEqual(got, Object.fromEntries(Object.entries(xp).map(([q, v]) => [q, v])));
+	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
+});
