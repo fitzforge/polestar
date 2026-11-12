@@ -82,7 +82,8 @@ function Launcher.Face(b)
 end
 
 -- The look settings on a face: size (the mark 22/32 of it), opacity, mark,
--- disc. Not protected: at any time.
+-- disc; then the skin in use's own touch (its actionButton hook, kind
+-- "launcher"). Not protected: at any time.
 function Launcher.Paint(b)
 	local size = tonumber(ns.Get("ui.launcherSize")) or 32
 	size = math.max(16, math.min(96, size))
@@ -92,6 +93,15 @@ function Launcher.Paint(b)
 	Launcher.PaintIcon(b.Icon, ns.Get("ui.launcherIcon"))
 	b:SetAlpha(math.max(0.1, math.min(1, tonumber(ns.Get("ui.launcherAlpha")) or 1)))
 	b.Back:SetShown(ns.Get("ui.launcherBack") and true or false)
+	local T = ns.Theme
+	if T and T.SkinHooks and T.SkinHooks("actionButton") then
+		local p = b.psSkinParts
+		if not p then
+			p = { ground = b.Back, icon = b.Icon, highlight = b.Hover }
+			b.psSkinParts = p
+		end
+		T.SkinHook("actionButton", b, "launcher", p, false)
+	end
 end
 
 local function place()
@@ -187,3 +197,8 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 
 ns.OnLogin(Launcher.Refresh)
+
+-- A new skin: its hook (or none) on the button again.
+if ns.Theme and ns.Theme.OnChanged then
+	ns.Theme.OnChanged(function() if button then Launcher.Paint(button) end end)
+end

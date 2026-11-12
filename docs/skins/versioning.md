@@ -7,16 +7,22 @@ mean, what Polestar promises to keep, and what it does not.
 
 ## The two mechanisms
 
-**`Theme.API_VERSION`** is a whole number, `1` in Polestar 0.3.7. A spec may
-say which version it was written for with `api = 1`. Polestar refuses a spec
-whose `api` is higher than its own (`needs Skin API 2; this Polestar has 1
-(update Polestar)`), and accepts any lower or equal one. The number rises
-**only when a spec written for an older version would no longer mean the
-same thing**: a field renamed, a token's meaning changed, a painter's
-arguments reordered. It does not rise for additions.
+**`Theme.API_VERSION`** is a whole number, `2` in Polestar 0.3.8, the first
+release with the Skin API. Version 1 was the API's preview while 0.3.7 was
+in development; a spec written for it (`api = 1`, or no `api` at all)
+registers and paints on version 2 as it did. A spec may say which version it
+was written for with `api = 2`. Polestar refuses a spec whose `api` is
+higher than its own (`needs Skin API 3; this Polestar has 2 (update
+Polestar)`), and accepts any lower or equal one.
+
+The number went to 2 when the API first shipped, so a skin can say that it
+needs what 0.3.8 brought. From here it rises **only when a spec written for
+an older version would no longer mean the same thing**: a field renamed, a
+token's meaning changed, a painter's or a hook's arguments reordered. It
+does not rise for additions.
 
 **Capabilities** are named features: `Theme.HasCapability("surfaces.pin")`,
-`Theme.Capabilities()`. Everything added to the API after version 1 arrives
+`Theme.Capabilities()`. Everything added to the API after version 2 arrives
 as a new capability on the same version. A skin tests for the capability it
 needs and leaves that part out where it is missing; the rest of the spec is
 accepted as before.
@@ -24,7 +30,7 @@ accepted as before.
 ```lua
 local ADDON = ...
 local Theme = Polestar.Theme
-local spec = { api = 1, name = "Forward", addon = ADDON, base = "halo" }
+local spec = { api = 2, name = "Forward", addon = ADDON, base = "halo" }
 -- Imagine a later Polestar adds a "surfaces.minimap" painter: use it only there.
 if Theme.HasCapability("surfaces.minimap") then
 	spec.paint = { minimap = function(frame, base, kit) base(frame) end }
@@ -43,7 +49,8 @@ the player sees Polestar's own look. Guard new fields behind
 Within one `API_VERSION`, these keep their meaning and shape:
 
 - `RegisterScheme` and `RegisterSkin`: their arguments, every documented
-  spec field, the `ok, message` return, and that a refusal registers
+  spec field (`variants`, `resolve`, `shadow`, `artTint` and `preset`
+  included), the `ok, message` return, and that a refusal registers
   nothing.
 - The **ids** rule, and that ids are first come, first served.
 - Every **token name** in the [reference](reference.md#tokens) and what it
@@ -51,46 +58,62 @@ Within one `API_VERSION`, these keep their meaning and shape:
   releases (Polestar's own palettes are design work), so a skin that wants a
   precise colour sets the token rather than relying on the default.
 - The **font roles** and their meaning (not their exact default sizes).
+- The **media** keys and what each texture is drawn as.
 - The **surface kinds**, the painter signature `function(frame, base, kit)`,
   the frame marks (`psBare`, `psBgAlpha`, `psBgColor`, `psNoBorder`,
   `psGuide`, `psLight`, `psTextButton`, `psFocused`, `psSelected`), and the
-  **paint kit**'s functions and arguments.
-- The **hooks** `arrow(frame, style)` and `pin(pin)`, and when they are
-  called; `guideTitle(nav, parts)` and the parts it names, where
-  `surfaces.guideTitle` is offered.
+  **paint kit**'s functions, arguments and options.
+- The **hooks**, each where its capability is offered: their arguments,
+  when they are called, the kinds they name, the **parts** they hand over by
+  name (`arrow.parts`, `pin.parts`, the cards', toasts' and buttons' parts,
+  the tabs' parts, the title's parts), what an answer does (`guideLayout`,
+  `guideAnchor`, `guidePlace`), and the names `Theme.GuideParts()` gives.
+- The **goal fields** the [reference](reference.md#the-guide-window) lists
+  for `guideRow` and `guideRender`.
+- The **resolver**'s call, its context fields and its answer.
+- **Installed skin addons**: the `## X-Polestar-Skin` line and when
+  Polestar loads such an addon.
 - `onApply(id)`, `onLeave(id)`, and when they are called.
 - The **legibility** floors (7:1 and 4.5:1), the correction behaviour and
   `strict`.
 - The **run-time error** behaviour: pcall, one note, off for the session,
   the saved choice kept.
 - The reading functions `Color`, `Accent`, `Wash`, `Hex`, `Palette`,
-  `PaletteFor`, `Media`, `SkinMedia`, `Icon`, `SkinId`, `SkinKey`,
-  `SkinScheme`, `SkinArrowStyle`, `SkinMapIcons`, `GameSkin`, `SchemeKey`,
-  `SkinChoices`, `SchemeChoices`, `SkinInfo`, `SchemeInfo`, `HasCapability`,
-  `Capabilities`, `DrawSkinCard`, `DrawSchemeCard`.
+  `PaletteFor`, `SkinToken`, `Media`, `SkinMedia`, `Icon`, `SkinId`,
+  `SkinKey`, `SkinScheme`, `SkinArrowStyle`, `SkinMapIcons`, `SkinVariants`,
+  `SkinVariant`, `GameSkin`, `SchemeKey`, `SkinChoices`, `SchemeChoices`,
+  `SkinInfo`, `SchemeInfo`, `InstalledSkins`, `LoadSkinAddon`,
+  `LoadInstalledSkins`, `HasCapability`, `Capabilities`, `SkinSurfaces`,
+  `SkinHooks`, `GuideParts`, `DrawSkinCard`, `DrawSchemeCard`, and the
+  preset functions.
+- With `theme.functions`: `Refresh`, `OnChanged`, `Skin`, `Repaint`, `Font`,
+  `Border`, `Band` and `TintArt`
+  ([reference](reference.md#other-theme-functions-a-skin-may-use)).
 - The wording of refusal messages may be improved; their *substance* (which
   check failed) stays, and the `ok` boolean is what code should branch on.
 
 ## What is not covered
 
-- The **fields on a pin frame** (`pin.icon`, `pin.medal`...) and anything
-  else a hook reaches *inside* the frame it is given. Version 1 promises the
-  frame and the call; the parts are Polestar's internals until a capability
-  names them.
-- **Other `Theme` functions** (`Refresh`, `OnChanged`, `Skin`, `Repaint`,
-  `Font`, `Border`, `Band`, `Metric`, `FontSpec`...). They are public within
-  Polestar and stable in practice, and a skin may use them, but check they
+- What lies **inside** the frames and parts a hook is handed, beyond the
+  names above: the other fields of a pin frame, a part's own children,
+  texture layers, how the base drew it. The named parts are promised; the
+  rest is Polestar's own.
+- **Other `Theme` functions** (`Metric`, `FontSpec`, `SetFontScale`...).
+  They are public within Polestar, and a skin may use them, but check they
   exist and expect them to move with Polestar's own needs.
 - The exact **list of frames** painted as each kind, and which kinds exist
   in Polestar's windows: Polestar adds windows and controls in every
   release. New frames of a known kind are painted by your painter for that
   kind, which is the point of painting by kind. A new *kind* comes with a
-  new `surfaces.<kind>` capability.
+  new `surfaces.<kind>` capability; so does a new hook.
 - **Polestar's own palettes, media and sizes**: what your skin inherits from
   its base may change as Polestar's design does. A skin that sets a token,
   font or texture keeps it.
+- The other **fields of a goal** in the step view (the Engine's, documented
+  for Polestar's own code in `docs/ARCHITECTURE.md`).
 - `Theme.Palette()`'s **extra keys** that are not tokens (`arrow`,
-  `arrowNear`, `arrowText`, `arrowNearText`, `scheme`, `skin`, `skinId`).
+  `arrowNear`, `arrowText`, `arrowNearText`, `arrowGlow`, `scheme`, `skin`,
+  `skinId`).
 - Anything reached by digging into frames Polestar did not hand you
   (global frame names, `frame.psSkin`'s contents, texture layers the base
   painters use). The paint kit is the supported way to share a frame with
@@ -100,7 +123,7 @@ Within one `API_VERSION`, these keep their meaning and shape:
 
 When something covered above has to change:
 
-1. The change ships first as an **addition**: a new field, token or
+1. The change ships first as an **addition**: a new field, token, hook or
    capability beside the old one, documented in the reference and in the
    changelog under "For guide authors" (the section skin API changes share
    until they get one of their own). The old one keeps working.
@@ -113,7 +136,7 @@ When something covered above has to change:
    line (`0.x`), translated or ignored as documented, so players on an
    unmaintained skin are not left on Polestar's own look overnight.
 
-Nothing in version 1 is deprecated.
+Nothing in version 2 is deprecated, and a version 1 spec needs no change.
 
 ## Checking versions from a skin
 
@@ -122,16 +145,13 @@ Three layers, cheapest first:
 ```lua
 local ADDON = ...
 local Theme = Polestar and Polestar.Theme
--- 1. Is there a Skin API at all? (Polestar 0.3.6 and older: no.)
+-- 1. Is there a Skin API at all? (Polestar 0.3.7 and older: no.)
 if not (Theme and Theme.RegisterSkin) then return end
--- 2. Is it a version this file understands? (Only ever higher than you expect.)
-if Theme.API_VERSION > 1 then
-	-- Still fine: version 1 specs keep working within a higher version until
-	-- the deprecation window closes. Say so in debug output if you like.
-end
+-- 2. Is it the version this file is written for, or a later one?
+if Theme.API_VERSION < 2 then return end -- version 1, the preview: none of 0.3.8's additions
 -- 3. Which optional pieces are there?
-local hasPin = Theme.HasCapability("surfaces.pin")
-assert(type(hasPin) == "boolean")
+local hasPlace = Theme.HasCapability("surfaces.guidePlace")
+assert(type(hasPlace) == "boolean")
 ```
 
 Polestar's own version is at `C_AddOns.GetAddOnMetadata("Polestar",
@@ -144,5 +164,4 @@ shipped.
 - `CHANGELOG.md` in the repository, and the release notes on GitHub: skin
   API changes are listed with the version and capability they add.
 - The [reference](reference.md) is kept to the shipping Polestar; a
-  capability's row says the release it arrived in once there is more than
-  one.
+  capability's row says the version it arrived in.

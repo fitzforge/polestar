@@ -505,9 +505,10 @@ fn a_card_s_picture_is_drawn_from_its_profile_s_own_values_and_says_who_else_use
 		-- Every Mage uses Violet.
 		PolestarDB.classProfiles = { MAGE = "Violet" }
 		O.Select("profiles", "Profiles")
+		-- The accent on the card's guide window: its tab's bar.
 		local function accent(name)
 			local parts = card(name).Art.psWin and card(name).Art.psWin.psSkinCard
-			return parts and rgb(parts.accent:GetVertexColor()) or nil
+			return parts and rgb(parts.tab.Bar:GetVertexColor()) or nil
 		end
 		local before = { accent("Violet"), accent("Default") }
 		-- The profile in use follows its live settings.

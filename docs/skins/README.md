@@ -11,24 +11,30 @@ folder is for addon authors who want to build one.
 | this page | the concepts: schemes vs skins, tokens, fonts, media, surfaces, lifecycle, fallback |
 | [getting-started.md](getting-started.md) | a skin addon from zero: folder, TOC, registration, testing in game, debugging |
 | [reference.md](reference.md) | every function, field, token (with meaning and default), surface, hook, event, capability, validation rule and error message |
-| [examples.md](examples.md) | the example addon annotated, and recipes: recolour only, new fonts, a custom header texture, a per-surface tweak, a skin on a game look |
+| [examples.md](examples.md) | the example addon annotated, and recipes: recolour only, new fonts, header and backing textures, per-surface tweaks, a skin on a game look, variants, a resolver, arrow and pin art, game art behind a window, a dense goal row, cards above the guide window, a toggle in the window's menu |
 | [versioning.md](versioning.md) | the API version, capabilities, and what Polestar promises to keep working |
-| [publishing.md](publishing.md) | naming, packaging, CurseForge and GitHub, licensing, screenshots |
-| [API-GAPS.md](API-GAPS.md) | what version 1 does not cover yet, and known rough edges |
+| [publishing.md](publishing.md) | naming, packaging, loading on demand, CurseForge and GitHub, licensing, screenshots |
+| [API-GAPS.md](API-GAPS.md) | what version 2 does not cover yet, and known rough edges |
 
 A complete, commented example lives in the repository:
 [`addon/Polestar_Skin_Example`](../../addon/Polestar_Skin_Example) ("Moonlit",
-a scheme and a skin). It is never part of a Polestar release.
+a scheme and a skin with two variants and a hook on every surface). It is
+never part of a Polestar release.
+
+The Skin API is in Polestar 0.3.8 and later, at version 2.
 
 ## What a skin can change
 
 Polestar draws everything from one **palette** (named colours), one **type
 ladder** (font faces and sizes by role), a few pieces of **media** (the
-header band's sky and stars, the map pins' medallion), and a set of
-**painters**, one per kind of frame (window, panel, button, edit box...).
-Behind the painters sit **sizes** (row heights, button heights, the guide
-window's layout) that come with each of Polestar's own looks. A skin addon
-can change the first four and pick from the fifth.
+header band's sky and stars, the map pins' medallion and disc, the arrow's
+dart), a set of **painters**, one per kind of frame (window, panel, button,
+edit box...), and the **art modules** that draw their own frames (the
+arrow, the pins, the guide window's parts, the cards, the toasts, the
+buttons) and hand them to a skin's **hooks**. Behind the painters sit
+**sizes** (row heights, button heights, the guide window's layout) that
+come with each of Polestar's own looks. A skin addon can change the first
+five and pick from the sixth.
 
 Polestar ships six looks of its own, and every skin you register **extends
 one of them** (its `base`):
@@ -46,28 +52,33 @@ A **colour scheme** is the house style in other colours. It gives the six
 *grounds* (window, panel, control, sidebar, footer, sky) and the *text
 ladder* (primary, secondary, muted), optionally hairline ink, stars, shade,
 scrim, on-accent text and shadow, plus an accent that stands in for Polestar
-gold. Everything else (frames, fonts, sizes, the status and subject colours
-such as quest gold and NPC blue) stays Polestar's. A scheme shows under
-**Colour scheme** and works with the Polestar skin and any skin built on it.
+gold. Everything else (frames, fonts, sizes) stays Polestar's, and so do the
+status and subject colours such as quest gold and NPC blue unless the scheme
+gives its own (a light scheme must). A scheme shows under **Colour scheme**
+and works with the Polestar skin and any skin built on it.
 
 A **skin** starts from a base look and changes what it names: any palette
-token, the font and sizes, the text shadow, glyphs, the band and medallion
-textures, which arrow and map icon design players get, and how any kind of
-frame is painted. A skin on `polestar` may also *wear* a scheme (yours or a
-built-in), which then overrides the player's scheme while the skin is in
-use. A skin shows under **Skin**.
+token, the font and sizes, the text shadow, glyphs, the band, medallion,
+dart and pin textures, the windows' drop shadow, a tint over the game art,
+which arrow and map icon design players get, how any kind of frame is
+painted, and what the art modules draw. A skin on `polestar` may also
+*wear* a scheme (yours or a built-in), which then overrides the player's
+scheme while the skin is in use. A skin shows under **Skin**. It may come in
+several **variants** (a light and a dark version, the same design on
+another base), picked under its card, and may answer some of its colours
+from where the player is (a **resolver**: zone, continent, faction, class).
 
 Rule of thumb: start with a scheme. Add a skin when you want fonts,
-painters, media or another base.
+painters, hooks, media or another base.
 
 ```lua
 local ADDON = ...
 local Theme = Polestar and Polestar.Theme
-if not (Theme and Theme.RegisterSkin) then return end -- no Polestar, or one before 0.3.7
+if not (Theme and Theme.RegisterSkin) then return end -- no Polestar, or one before 0.3.8
 
 -- A scheme: grounds and text. Players can pick it on its own.
 local ok, err = Theme.RegisterScheme("ov-moss", {
-	api = 1, name = "Moss", addon = ADDON,
+	api = 2, name = "Moss", addon = ADDON,
 	tokens = {
 		bg = "#121a12f7", panel = "#172017fa", panelAlt = "#1f2b1f",
 		sidebar = "#0c120c", footer = "#0e150e", sky = "#2a3d2a",
@@ -79,7 +90,7 @@ if not ok then print(ADDON .. ": " .. err) end
 
 -- A skin wearing it, in Inter, with Halo's arrow.
 ok, err = Theme.RegisterSkin("ov-moss", {
-	api = 1, name = "Moss", addon = ADDON,
+	api = 2, name = "Moss", addon = ADDON,
 	base = "polestar", scheme = "ov-moss", font = "inter", arrow = "halo",
 })
 if not ok then print(ADDON .. ": " .. err) end
@@ -94,12 +105,14 @@ everything that uses it. Tokens come in groups:
 
 - **grounds** and the **text ladder**: what a scheme gives;
 - **status and subjects**: `success`, `warning`, `danger`, `quest`, `npc`,
-  `item`, `place`, `dungeon`, `rare`... the same in every scheme so a quest
-  reads the same gold everywhere; a skin may recolour them;
+  `item`, `place`, `dungeon`, `rare`... the same in every dark scheme so a
+  quest reads the same gold everywhere; a skin may recolour them, and a
+  light scheme gives its own;
 - **washes**: translucent ink for hairlines, hover, selection, tracks;
 - **roles**: `title`, `link`, `todo`, `icon`, `buttonText`... derived from the
   groups above on the house style, given outright by the other looks;
-- a few for the game looks' art.
+- a few for the game looks' art, and four a skin gives for its own pieces,
+  the arrow and the pins (`accent2`, `glow`, `pinRing`, `pinFill`).
 
 Every token, its meaning and its default in each base is in the
 [reference](reference.md#tokens). The **player's own choices sit on top** of
@@ -119,12 +132,14 @@ the game's font.
 
 ## Media
 
-Three textures may be yours: the header band's sky mask and its stars (both
+These textures may be yours: the header band's sky mask and its stars (both
 1024x128, drawn at 1:1 from the top left, tinted with the `sky` and `star`
-tokens) and the medallion under map pin glyphs. Polestar's own glyphs
+tokens), the medallion under map pin glyphs, the disc and rim of Polestar's
+map pin, and the dart of the Halo and Hearth arrows. Polestar's own glyphs
 (`bug`, `close`, `gear`, the goal icons...) can be swapped by name for
 another glyph or your own texture. The arrow and the map icons are chosen
-from Polestar's designs by name.
+from Polestar's designs by name, and the paint kit can lay one of the game
+client's own pictures (a loading screen) behind a frame.
 
 ## Surfaces and painters
 
@@ -133,13 +148,21 @@ window), `toast`, `panel`, `sidebar`, `inset`, `button`, `tile`, `dropdown`,
 `editbox`, `checkbox`, `tab`, `close`, `scrollbar`. A skin may supply a
 **painter** for any kind: a function that receives the frame, the base
 look's painter for that kind, and a **paint kit** (a fill, a gradient, a
-pixel-exact border, a hover wash, and a store for the skin's own pieces).
-Call the base painter and add to it, or paint the frame from scratch.
+pixel-exact border, a hover wash, a soft glow, a picture of the game, a
+tint over the game art, and a store for the skin's own pieces). Call the
+base painter and add to it, or paint the frame from scratch.
 
-Three **hooks** reach the art Polestar's modules draw themselves: `arrow`
-(after the waypoint arrow repaints), `pin` (after a map pin is built or
-restyled) and `guideTitle` (after the guide window's style is applied: a
-title bar and a close square in place of the band).
+Fourteen **hooks** reach the art Polestar's modules draw themselves, each
+after Polestar's own look is on, with its parts by name: `arrow` (the
+waypoint arrow), `pin` (a map or minimap pin), the guide window's
+`guideTitle` (its title row), `guideRow` (each goal's row), `guideLayout`
+(room of the skin's own under the window's parts), `guideRender` (every
+render), `guideProgress`, `guideAnchor` (the frame the heads-up card sits
+on), `guideTab` (each tab), `guidePlace` (a part the skin places itself,
+out of the window) and `guideMenu` (the window's menu), then `card` (the
+heads-up and class quest cards), `toast` (the rare alert, the transport
+heads-up, While you're here) and `actionButton` (the buttons Polestar puts
+on the screen).
 
 Painters run again whenever anything they depend on changes, so they must be
 idempotent: create once, then show, hide, tint and place.
@@ -148,20 +171,28 @@ idempotent: create once, then show, hide, tint and place.
 
 1. **Load order.** `## Dependencies: Polestar` in your TOC makes the game
    load Polestar first, so your file can register at the top level. Without
-   it, register on `ADDON_LOADED` for `"Polestar"`.
+   it, register on `ADDON_LOADED` for `"Polestar"`. With `## X-Polestar-Skin`
+   naming your ids, your addon may load on demand: Polestar loads it when
+   one of its skins is wanted (a saved choice, the player's pick, the
+   settings listing the skins).
 2. **Registration** validates the spec (shape, ids, colours, and that the
    text reads on the grounds) and answers `ok, message`. A refused spec
    registers nothing and says why. Ids are first come, first served, and a
    skin cannot be registered twice in a session: changes need `/reload`.
-3. **Picking.** The player chooses under Settings > Look > Theme. A saved
-   choice that names a skin not yet registered draws Polestar's own look and
-   **waits**: when the addon registers it, even later in the session, it is
-   applied at once. Disabling a skin addon does not lose the player's choice.
+   The checks themselves load with the first registration (Polestar's
+   `Polestar_SkinAPI` folder), so a player without skin addons never loads
+   them.
+3. **Picking.** The player chooses under Settings > Look > Theme, and a
+   variant under the skin's card. A saved choice that names a skin not yet
+   registered draws Polestar's own look and **waits**: when the addon
+   registers it, even later in the session, it is applied at once.
+   Disabling a skin addon does not lose the player's choice.
 4. **In use.** `onApply(id)` runs when your skin becomes the one in use (at
-   login too); painters and hooks run as frames paint; `onLeave(id)` runs when
-   another skin replaces yours.
-5. **Repaints** happen on every setting change, skin change and UI scale
-   change; everything is recomputed from the palette, so a skin never caches
+   login too); the resolver, painters and hooks run as frames paint;
+   `onLeave(id)` runs when another skin replaces yours.
+5. **Repaints** happen on every setting change, skin or variant change, UI
+   scale change, and on a new zone when a resolver's answer changed;
+   everything is recomputed from the palette, so a skin never caches
    colours.
 
 Polestar keeps nothing of your spec in its saved variables: a removed addon's
@@ -169,19 +200,22 @@ skin goes with it, and the player's saved choice waits for its return.
 
 ## Fallback and errors
 
-A skin must never break the guide. Every painter, hook, `onApply` and
-`onLeave` runs under `pcall`. The first error is recorded once (it shows in
-`/polestar report`), one chat line names your skin and addon, and your skin
-is turned off for the rest of the session: Polestar repaints everything in
-its own look and keeps the player's choice, so a `/reload` with a fixed
-addon brings it back. Details in the
+A skin must never break the guide. Every painter, hook, resolver, `onApply`
+and `onLeave` runs under `pcall`. The first error is recorded once (it shows
+in `/polestar report`), one chat line names your skin and addon, and your
+skin is turned off for the rest of the session: Polestar repaints
+everything in its own look and keeps the player's choice, so a `/reload`
+with a fixed addon brings it back. A skin the player chose that is refused
+at registration says so once in chat too, with the reason. Details in the
 [reference](reference.md#run-time-errors).
 
 ## Versions and capabilities
 
-`Theme.API_VERSION` is `1`. It rises only when a spec written for an older
-version would no longer mean the same; additions come as **capabilities**
-(`Theme.HasCapability("surfaces.pin")`), so a skin can use a newer feature
-where it exists and do without elsewhere. A spec may say which version it
-was written for (`api = 1`); one written for a newer Polestar is refused
-cleanly. The policy is in [versioning.md](versioning.md).
+`Theme.API_VERSION` is `2`: the version the API first shipped at (0.3.8);
+version 1 was its preview, and a spec written for it works unchanged. It
+rises only when a spec written for an older version would no longer mean
+the same; additions come as **capabilities**
+(`Theme.HasCapability("surfaces.guidePlace")`), so a skin can use a newer
+feature where it exists and do without elsewhere. A spec may say which
+version it was written for (`api = 2`); one written for a newer Polestar is
+refused cleanly. The policy is in [versioning.md](versioning.md).

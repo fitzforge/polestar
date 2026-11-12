@@ -414,6 +414,8 @@ local function presetShown() return skinPreset() or presetApplied() end
 
 local skinCards = Theme.DrawSkinCard and true or false
 local schemeCards = Theme.DrawSchemeCard and true or false
+-- The cards' picture: a small guide window and the arrow (Theme/SkinPicker.lua).
+local CARD_ART = { 220, 124 }
 
 -- Four tabs, sections by element: Colour (the skin and accent, the grounds),
 -- Text (its face, sizes, outline, shadow and colours), Names (the colours
@@ -426,7 +428,7 @@ local SPECS = {
 		preview = buildPreview,
 		subtitle = L["The look every Polestar window shares: skin, colours, type, frames and motion."],
 		controls = {
-		{ kind = skinCards and "cards" or "dropdown", key = "ui.skin", label = L["Skin"], wide = true,
+		{ kind = skinCards and "cards" or "dropdown", key = "ui.skin", label = L["Skin"], wide = true, art = CARD_ART,
 			search = "theme, look, style, frame, skin, halo, hearth, blizzard, classic, forever, inn, wood, ember, parchment",
 			help = L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (an inn by the fire: warm wood, ember light, parchment text), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."],
 			-- The skin drawn (a saved skin whose addon is gone draws Polestar;
@@ -449,7 +451,7 @@ local SPECS = {
 		-- A skin in several versions (its variants, Skin API 2): the player's
 		-- pick, kept per skin (ui.skinVariants.<id>); shown while the skin in
 		-- use has them.
-		{ kind = "cards", label = L["Variant"], wide = true, new = NEW,
+		{ kind = "cards", label = L["Variant"], wide = true, new = NEW, art = CARD_ART,
 			search = "skin variant, skin version, skin colours, skin style",
 			help = L["This skin comes in several versions: pick yours. Each skin keeps its own."],
 			needs = function() return Theme.SkinVariants ~= nil and Theme.SkinVariants(Theme.SkinId()) ~= nil end,
@@ -492,7 +494,7 @@ local SPECS = {
 			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
 	} },
 	{ page = PAGE, tab = L["Colour"], section = L["Background"], controls = {
-		{ kind = schemeCards and "cards" or "dropdown", key = "ui.scheme", label = L["Scheme"], wide = true,
+		{ kind = schemeCards and "cards" or "dropdown", key = "ui.scheme", label = L["Scheme"], wide = true, art = CARD_ART,
 			search = "colour scheme, theme, dark mode, darker, dusk, night, graphite",
 			-- A skin may bring its own scheme; then this has no effect.
 			disabled = function() return houseOnly() or (Theme.SkinScheme and Theme.SkinScheme() ~= nil) or false end,

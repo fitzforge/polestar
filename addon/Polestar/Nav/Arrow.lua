@@ -330,18 +330,31 @@ local function dialShowArrow(d, on, lk)
 end
 
 -- The skin in use's own dart and its edge (media.dart, media.dartEdge:
--- Skin API 2), read on each change of theme (OnTheme); nil for Polestar's.
+-- Skin API 2) and its glow (the glow token: the light under the flat
+-- arrow, behind the arrival ring and a travel instruction's sign), read on
+-- each change of theme (OnTheme); nil for Polestar's.
 local skinDart, skinDartEdge
+local skinGlow = {} -- r, g, b of the skin's glow token, or empty
 local function readSkinDart()
 	local Theme = ns.Theme
 	local media = Theme and Theme.SkinMedia
 	skinDart = media and media("dart") or nil
 	skinDartEdge = media and media("dartEdge") or nil
+	local r, g, b
+	if Theme and Theme.SkinToken then r, g, b = Theme.SkinToken("glow") end
+	skinGlow[1], skinGlow[2], skinGlow[3] = r, g, b
+end
+
+-- The glow's colour: the skin's glow token, else the colour given.
+local function glowRGB(r, g, b)
+	if skinGlow[1] then return skinGlow[1], skinGlow[2], skinGlow[3] end
+	return r, g, b
 end
 
 local function dialTint(d, r, g, b, lk)
 	d.body:SetVertexColor(r, g, b, 1)
-	d.glow:SetVertexColor(r, g, b, min(1, 0.45 * lk.glowStrength))
+	local gr, gg, gb = glowRGB(r, g, b)
+	d.glow:SetVertexColor(gr, gg, gb, min(1, 0.45 * lk.glowStrength))
 	d.sheet:SetVertexColor(r, g, b, 1)
 	local s = d.style
 	if isSkin(s) then
@@ -405,7 +418,10 @@ local function dialArrival(d, done, lk)
 		if c then r, g, b = c[1], c[2], c[3] else r, g, b = Nav.RGB("arrowNear") end
 		d.ring:SetVertexColor(r, g, b, 1)
 		d.ring:SetSize(DIAL, DIAL)
-		d.halo:SetVertexColor(r, g, b, min(1, 0.5 * lk.glowStrength))
+		-- The halo: the player's ring colour, else the skin's glow token.
+		local hr, hg, hb = r, g, b
+		if not c then hr, hg, hb = glowRGB(r, g, b) end
+		d.halo:SetVertexColor(hr, hg, hb, min(1, 0.5 * lk.glowStrength))
 		d.halo:SetAlpha(0.475)
 		d.skinRing:SetVertexColor(r, g, b, 1)
 		d.skinCheck:SetVertexColor(r, g, b, 1)
@@ -612,6 +628,12 @@ local Arrow = {
 	dart = dart, dartEdge = dartEdge, skinRing = skinRing, skinCheck = skinCheck, skinDisc = skinDisc,
 	glass = glass, glassBody = glassBody, glassSand = glassSand, backing = D.backing,
 }
+-- The arrow's parts a skin's arrow hook gets (Skin API 2, "arrow.parts"):
+-- names of the API's own, kept whatever this file calls them.
+Arrow.skinParts = {
+	dial = dial, body = body, glow = glow, dart = dart, dartEdge = dartEdge, ring = ring, halo = halo,
+	distance = distText, label = labelText, eta = etaText, timer = timerText, travel = legIcon,
+}
 Nav.arrow = Arrow
 
 ---------------------------------------------------------------------------
@@ -727,7 +749,8 @@ local function setMode(m)
 		legIcon:SetTexture(UI_MEDIA .. (leg and LEG_ICON[leg.kind] or "icon-goto"))
 		local r, g, b = Nav.RGB("arrow")
 		legIcon:SetVertexColor(r, g, b, 1)
-		halo:SetVertexColor(r, g, b, min(1, 0.45 * look.glowStrength))
+		local hr, hg, hb = glowRGB(r, g, b)
+		halo:SetVertexColor(hr, hg, hb, min(1, 0.45 * look.glowStrength))
 		distText:SetTextColor(Nav.RGB("arrowText"))
 		distText:SetText(T and T.CurrentLabel() or "")
 		local target = Nav.GetTarget()
@@ -1122,7 +1145,7 @@ function Arrow:OnTheme()
 	mode = nil
 	if m then setMode(m) end
 	local Theme = ns.Theme
-	if Theme and Theme.SkinHook then Theme.SkinHook("arrow", frame, style) end
+	if Theme and Theme.SkinHook then Theme.SkinHook("arrow", frame, style, Arrow.skinParts) end
 end
 
 function Arrow:OnTarget(target)
@@ -1201,6 +1224,7 @@ Arrow.DIAL, Arrow.WIDTH, Arrow.HEIGHT = DIAL, WIDTH, DIAL + TEXT_H
 Arrow.BuildDial = buildDial          -- (parent) -> dial: `parent` is WIDTH x HEIGHT
 Arrow.ReadLook = readLook            -- (t) -> t: the look settings as the live arrow reads them
 Arrow.PulseDial = dialPulse          -- (dial, seconds): one frame of the arrival's animation
+Arrow.ReadSkin = readSkinDart       -- (): the skin's dart, edge and glow read again (a picker card draws another skin's)
 
 -- Paint a sandbox dial in one state: "travel" (pointing `angle` radians,
 -- `dist` yards from a goal of the default radius, with `eta` seconds) or

@@ -115,6 +115,10 @@ function Nav.RGB(name)
 	return c[1], c[2], c[3]
 end
 
+-- (): the theme's colours read again, as on every theme change; the skin
+-- picker's cards read another skin's while they paint its arrow.
+Nav.ReadPalette = refreshPalette
+
 -- An ink wash at one of the house alphas (Theme.Wash): r, g, b, a.
 function Nav.Wash(role)
 	local T = ns.Theme

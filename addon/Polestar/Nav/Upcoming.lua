@@ -74,19 +74,25 @@ function Upcoming.Count()
 	return want
 end
 
--- The colour of the n-th step ahead (nav.stepColorMode).
+-- The colour of the n-th step ahead (nav.stepColorMode): the player's own,
+-- the step palette's, else the skin's pin fill (its pinFill token, Skin API
+-- 2) or the accent.
 function Upcoming.Color(n)
 	local mode = ns.Get("nav.stepColorMode")
+	local T = ns.Theme
 	if mode == "own" then
 		local c = colorSetting("nav.stepColor")
 		if c then return c[1], c[2] or 1, c[3] or 1 end
 	elseif mode == "steps" then
-		local T = ns.Theme
 		local P = Upcoming.PALETTE
 		if T and T.Color then
 			local ok, r, g, b = pcall(T.Color, P[(n - 1) % #P + 1])
 			if ok and type(r) == "number" then return r, g, b end
 		end
+	end
+	if T and T.SkinToken then
+		local r, g, b = T.SkinToken("pinFill")
+		if r then return r, g, b end
 	end
 	return accent()
 end

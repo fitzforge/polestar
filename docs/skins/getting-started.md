@@ -2,7 +2,8 @@
 
 You will make a separate addon that registers a colour scheme and a skin with
 Polestar, see it in game, and know how to find out what went wrong. You need
-Polestar 0.3.7 or newer installed and a text editor; nothing else.
+Polestar 0.3.8 or newer installed (the first with the Skin API, version 2)
+and a text editor; nothing else.
 
 ## 1. The folder and the TOC
 
@@ -34,6 +35,8 @@ start with `Polestar_` works too (`EmberForPolestar`).
 ## Dependencies: Polestar
 ## Category: Polestar
 ## Group: Polestar
+## X-Polestar-Skin: gs-ember
+## LoadOnDemand: 1
 
 Ember.lua
 ```
@@ -48,6 +51,16 @@ Ember.lua
   does).
 - `## Category: Polestar` and `## Group: Polestar` list your addon with
   Polestar's own in the game's AddOns window.
+- `## X-Polestar-Skin` names the ids your addon registers (several:
+  `gs-ember, gs-ember-dark`; one id covers a skin and a scheme of that id).
+  With it, `## LoadOnDemand: 1` keeps your addon out of memory until a
+  player wants one of its skins: Polestar loads it at login when the
+  player's saved skin or scheme is yours, when they pick it, and when the
+  settings list the skins so your card shows
+  ([installed skin addons](reference.md#installed-skin-addons)). Without
+  `LoadOnDemand` the game loads your addon at login as usual. Never set
+  `LoadOnDemand` without the `X-Polestar-Skin` line: Polestar would never
+  load it.
 
 ## 2. The code
 
@@ -56,9 +69,9 @@ Ember.lua
 ```lua
 local ADDON = ...   -- the folder name, "Polestar_Skin_Ember"
 
--- Polestar 0.3.6 and older have no Skin API: do nothing on them.
+-- Polestar 0.3.7 and older have no Skin API: do nothing on them.
 local Theme = Polestar and Polestar.Theme
-if not (Theme and Theme.RegisterSkin and Theme.API_VERSION and Theme.API_VERSION >= 1) then return end
+if not (Theme and Theme.RegisterSkin and Theme.API_VERSION and Theme.API_VERSION >= 2) then return end
 
 -- Show a refusal, or a note about something Polestar corrected, in chat.
 local function check(what, ok, message)
@@ -72,7 +85,7 @@ end
 -- The colour scheme: six grounds and three text colours. Players can pick
 -- it on its own, under Colour scheme.
 check("scheme", Theme.RegisterScheme("gs-ember", {
-	api = 1,
+	api = 2,
 	name = "Ember",
 	addon = ADDON,
 	author = "You",
@@ -91,7 +104,7 @@ check("scheme", Theme.RegisterScheme("gs-ember", {
 -- The skin: Polestar's own frames wearing that scheme, in Inter, with a
 -- slightly larger goal line and the flat arrow.
 check("skin", Theme.RegisterSkin("gs-ember", {
-	api = 1,
+	api = 2,
 	name = "Ember",
 	addon = ADDON,
 	author = "You",
@@ -114,7 +127,8 @@ registered before the skin.
 
 1. Start the game (or `/reload` if it is running: new addon folders need a
    full restart, changed files only a reload).
-2. Check the AddOns window shows "Polestar Skin: Ember" enabled.
+2. Check the AddOns window shows "Polestar Skin: Ember" enabled (loaded on
+   demand: the game lists it as such until Polestar loads it).
 3. `/polestar options` opens Polestar's settings. Under **Look > Theme**, the
    **Skin** cards now include Ember with "Polestar_Skin_Ember" under it and
    your `desc` as its tooltip; **Colour scheme** includes Ember too. Picking
@@ -139,7 +153,11 @@ Things worth trying next, each a few lines:
   the skin spec (not the scheme: those tokens belong to skins).
 - Start from another look: `base = "halo"` (drop `scheme`, give `tokens`
   over Halo's palette instead).
-- Add a painter: see the [recipes](examples.md#recipes).
+- Offer it in two versions: `variants = { { id = "ember", name = "Ember" },
+  { id = "ash", name = "Ash", tokens = { accent = "#c8c0b8" } } }`, picked
+  under your skin's card ([variants](reference.md#variants)).
+- Add a painter, or a hook on the arrow, the guide window, the cards or the
+  buttons: see the [recipes](examples.md#recipes).
 
 ## 5. When something is wrong
 
@@ -149,10 +167,17 @@ ran.
 - Is the addon enabled, and does the chat show a line from your `check`?
   A refusal prints the reason: a missing token, a colour that is not one,
   an unknown field (a typo), an id already taken, an `api` newer than the
-  Polestar installed.
+  Polestar installed. If the player had chosen your skin, Polestar says it
+  too, once: "The skin gs-ember (from Polestar_Skin_Ember) could not be
+  added: <reason>. Polestar's own look stands in."
 - No line at all: the guard returned early (Polestar missing or older than
-  0.3.7), or your file is not listed in the TOC, or a Lua error stopped the
-  file before the registration (see below).
+  0.3.8), or your file is not listed in the TOC, or a Lua error stopped the
+  file before the registration (see below). With `## LoadOnDemand: 1`,
+  check the `## X-Polestar-Skin` line names your ids exactly: Polestar loads
+  your addon only for those.
+- Every registration answers "the Skin API's checks did not load": the
+  `Polestar_SkinAPI` folder that comes with Polestar is missing or disabled
+  in the AddOns window. Reinstall or enable Polestar's folders.
 - Polestar's debug log also records refusals and corrections as `scheme
   <id> (<addon>): refused: <reason>`: `/polestar debug` turns debug output on.
 

@@ -149,8 +149,10 @@ local WORLD_DOT, WORLD_CAP = 6, 300
 --   nav.trailDotSize, nav.trailDotAlpha   the trail's dots (1, TRAIL_ALPHA)
 --   nav.badgeSize         a map mark's count capsule and its text (1: BADGE_H)
 --   nav.pulseSeconds      one breath of a pulsing glow (0.9 s; the target's, nav.targetPulse)
+-- The skin's pin look rides here too (Pins.ReadSkin): skinRim, skinFill
+-- ({ r, g, b } | nil) and the Polestar pin's disc and rim art (fillTex, rimTex).
 local look = { worldSize = 1, worldAlpha = 1, mmAlpha = 1, arrowFade = true, areaAlpha = AREA_ALPHA, areaK = 1, dotSize = 1, dotAlpha = TRAIL_ALPHA,
-	badge = 1, pulse = 0.9 }
+	badge = 1, pulse = 0.9, fillTex = MEDIA .. "pin-fill", rimTex = MEDIA .. "pin" }
 Pins.look = look
 ns.RegisterDefaults("nav", { worldIconSize = 1, worldPinAlpha = 1, minimapPinAlpha = 1, minimapArrowFade = true,
 	areaAlpha = AREA_ALPHA, areaColor = false, medalColor = false, pinBacking = false, trailDotSize = 1, trailDotAlpha = TRAIL_ALPHA,
@@ -341,9 +343,29 @@ local function iconPath(icon)
 	return MEDIA .. icon
 end
 
+-- The skin in use's own pin look (Skin API 2): its pinRing and pinFill
+-- tokens (the rim and the fill where neither the pin nor the player gives a
+-- colour) and its pinFill / pinRim masks (the Polestar pin's disc and rim
+-- art), read on each restyle (Pins.Restyle: every theme change).
+function Pins.ReadSkin()
+	local T = ns.Theme
+	local token = type(T) == "table" and T.SkinToken
+	local media = type(T) == "table" and T.SkinMedia
+	local r, g, b
+	if token then r, g, b = token("pinRing") end
+	look.skinRim = r and { r, g, b } or nil
+	r, g, b = nil, nil, nil
+	if token then r, g, b = token("pinFill") end
+	look.skinFill = r and { r, g, b } or nil
+	look.fillTex = media and media("pinFill") or (MEDIA .. "pin-fill")
+	look.rimTex = media and media("pinRim") or (MEDIA .. "pin")
+end
+
 local function pinColor(p)
 	local c = p.color
 	if type(c) == "table" then return c[1] or c.r or 1, c[2] or c.g or 1, c[3] or c.b or 1, c[4] or c.a or 1 end
+	local f = look.skinFill
+	if f then return f[1], f[2], f[3], 1 end
 	local T = ns.Theme
 	if type(T) == "table" and type(T.Accent) == "function" then
 		local ok, r, g, b = pcall(T.Accent)
@@ -352,6 +374,22 @@ local function pinColor(p)
 	return 0.902, 0.729, 0.4, 1 -- Dusk gold, when Theme is absent
 end
 Pins.PinColor = pinColor
+
+-- Hands pin f to the skin in use (kind "mark": a map mark on its medallion;
+-- "pin": the Polestar pin, an icon pin, a numbered step pin) with its parts
+-- (Skin API 2, "pin.parts": names of the API's own, made the first time a
+-- skin hooks the pin).
+function Pins.SkinHook(f, kind)
+	local T = ns.Theme
+	if not (T and T.SkinHooks and T.SkinHooks("pin")) then return end
+	local p = f.psSkinParts
+	if not p then
+		p = { icon = f.icon, fill = f.fill, rim = f.ring, backdrop = f.back, ring = f.mark, glow = f.glow, edge = f.edge,
+			text = f.text, medallion = f.medal, dashed = f.ring2 }
+		f.psSkinParts = p
+	end
+	T.SkinHook("pin", f, p, kind)
+end
 
 -- Textures of a pin frame: either the Polestar pin (fill tinted + ring) or
 -- one tinted icon, optionally on a dark disc (`backdrop`, Theme scrim) and
@@ -614,7 +652,7 @@ local function applyMark(f, p, size, path)
 	local skinArt = not MEDALS[ns.Get("nav.mapIcons")] and T and T.SkinMedia and T.SkinMedia("medallion") or nil
 	f.medal:SetTexture(type(skinArt) == "string" and skinArt or MEDALS[pack] or MEDALS.polestar)
 	f.medal:SetSize(medal, medal)
-	local tint = look.medal
+	local tint = look.medal or look.skinRim
 	if tint then f.medal:SetVertexColor(tint[1] or 1, tint[2] or 1, tint[3] or 1, a) else f.medal:SetVertexColor(1, 1, 1, a) end
 	local ring = type(p.ring) == "table" and p.ring or nil
 	if p.state == "focus" and not ring then ring = { themeColor("accent", 0.902, 0.729, 0.4) } end
@@ -644,7 +682,7 @@ local function applyMark(f, p, size, path)
 	f.edgeReach = medal / 2 + medal * EDGE_H / 2 - 0.5
 	f.clamped = nil
 	showParts(f, p, false)
-	if T and T.SkinHook then T.SkinHook("pin", f) end
+	Pins.SkinHook(f, "mark")
 end
 
 -- Pin fields for its own look (Nav/Upcoming.lua's numbered pins): grow (its
@@ -672,13 +710,24 @@ local function applyLook(f, p, size)
 	f:SetSize(size, size)
 	f.sizePx, f.footPx = size, size
 	local r, g, b, a = pinColor(p)
+	-- The disc and rim art: the skin's masks (media.pinFill, media.pinRim) or Polestar's.
+	local fillTex, rimTex = look.fillTex, look.rimTex
+	if f.psFillTex ~= fillTex then
+		f.psFillTex = fillTex
+		f.fill:SetTexture(fillTex)
+		f.back:SetTexture(fillTex)
+	end
+	if f.psRimTex ~= rimTex then
+		f.psRimTex = rimTex
+		f.ring:SetTexture(rimTex)
+	end
 	if path then
 		f.icon:SetTexture(path)
 		f.icon:SetVertexColor(r, g, b, a)
 		f.hasIcon = true
 	else
 		f.fill:SetVertexColor(r, g, b, a)
-		local rim = type(p.rimColor) == "table" and p.rimColor or look.medal
+		local rim = type(p.rimColor) == "table" and p.rimColor or look.medal or look.skinRim
 		if rim then f.ring:SetVertexColor(rim[1] or 1, rim[2] or 1, rim[3] or 1, a) else f.ring:SetVertexColor(1, 1, 1, a) end
 		f.hasIcon = false
 	end
@@ -714,8 +763,7 @@ local function applyLook(f, p, size)
 		if type(tc) == "table" then f.text:SetTextColor(tc[1] or 1, tc[2] or 1, tc[3] or 1, a) else f.text:SetTextColor(1, 1, 1, a) end
 	end
 	showParts(f, p, false)
-	local T = ns.Theme
-	if T and T.SkinHook then T.SkinHook("pin", f) end
+	Pins.SkinHook(f, "pin")
 end
 Pins.ApplyLook = applyLook
 
@@ -2764,6 +2812,7 @@ end)
 -- Map pins setting changed): their layers' versions move on, so the
 -- minimap's frames take their look again.
 function Pins.Restyle()
+	Pins.ReadSkin()
 	for _, name in ipairs(order) do
 		local layer = layers[name]
 		if layer then layer.version = layer.version + 1 end

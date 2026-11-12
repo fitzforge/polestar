@@ -168,6 +168,8 @@ local function themeColor(region, name, alpha)
 	end
 end
 
+-- The hairline (the accent under the mouse), then the skin in use's own
+-- touch over the button (its actionButton hook, kind "travel").
 local function paintBorder(b, hover)
 	local T = ns.Theme
 	if not (T and T.Border) then return end
@@ -177,6 +179,14 @@ local function paintBorder(b, hover)
 	else
 		local r, g, bl, a = T.Color("border")
 		T.Border(b, r, g, bl, (a or 0.08) * 2.5)
+	end
+	if T.SkinHooks and T.SkinHooks("actionButton") then
+		local p = b.psSkinParts
+		if not p then
+			p = { ground = b.Bg, icon = b.Icon, highlight = b.Hl, cooldown = b.Cooldown }
+			b.psSkinParts = p
+		end
+		T.SkinHook("actionButton", b, "travel", p, hover and true or false)
 	end
 end
 

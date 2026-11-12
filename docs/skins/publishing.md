@@ -23,6 +23,9 @@ screenshots.
   rename one after release. The displayed `name` can change freely.
 - **One addon, several skins** is fine: register each with its own id. A
   family ("Ember", "Ember Light", "Ember Mono") usually shares one scheme.
+  When the members differ only in colours, media or base, one skin with
+  [variants](reference.md#variants) keeps one card in the picker and one id
+  in the player's settings.
 
 ## What goes in the zip
 
@@ -33,7 +36,7 @@ Polestar_Skin_Ember/
   README.md          (what it is, screenshots, where to report problems)
   LICENSE
   Fonts/             (only if you ship font files; see Licensing)
-  Media/             (your band, stars, medallion, glyph textures)
+  Media/             (your band, stars, medallion, dart, pin and glyph textures)
 ```
 
 Zip the folder itself (the zip contains `Polestar_Skin_Ember/...`), so
@@ -42,23 +45,32 @@ TOC's `## Version` in step with your release tag.
 
 Textures must be what the client loads: `.tga` (32-bit, uncompressed or
 RLE) or `.blp`, with power-of-two sizes. The header band and its stars are
-1024x128; a medallion is square (64x64 or 128x128 is plenty). Font files are
-`.ttf`. Paths in your spec are full, from `Interface\\AddOns\\<folder>\\`.
-Polestar cannot check that a file exists: a missing texture draws blank or
-green, a missing font falls back to the game's.
+1024x128; a medallion is square (64x64 or 128x128 is plenty); the arrow's
+dart and its edge are 128x128, pointing up; the pin's disc and rim masks
+are 64x64, white where they show. Font files are `.ttf`. Paths in your spec
+are full, from `Interface\\AddOns\\<folder>\\`. Polestar cannot check that
+a file exists: a missing texture draws blank or green, a missing font falls
+back to the game's.
 
 ## Dependencies and client versions
 
 - `## Dependencies: Polestar` in your TOC: the game loads Polestar first and
   disables your addon when Polestar is missing. Use `## OptionalDeps:
   Polestar` only if your addon does something useful without Polestar.
+- `## X-Polestar-Skin: <id>, <id>...`: the skin and scheme ids your addon
+  registers. With it, `## LoadOnDemand: 1` lets your addon cost players
+  nothing until they want one of its skins: Polestar loads it at login for
+  a saved choice, when the player picks it, and when the settings list the
+  skins ([installed skin addons](reference.md#installed-skin-addons)). Keep
+  the line in step with your ids: a saved choice of a skin missing from it
+  waits until something else loads your addon.
 - `## Interface: <build>`: the client build. Copy it from the Polestar you
   test against (`Polestar/Polestar.toc`); an out-of-date number makes the
   game mark the addon "out of date" (players can still load it).
-- Your addon needs **Polestar 0.3.7 or newer** (the first with the Skin API).
-  Say so on the listing. On older Polestars the guard at the top of your
-  file returns and nothing happens; players do not see an error, only no
-  skin.
+- Your addon needs **Polestar 0.3.8 or newer** (the first with the Skin API,
+  version 2). Say so on the listing. On older Polestars the guard at the top
+  of your file returns and nothing happens; players do not see an error,
+  only no skin.
 - A newer Polestar may add capabilities your skin does not use: nothing to
   do. If you later use one, test for it with `Theme.HasCapability` so the
   same release works on both ([versioning](versioning.md)).
@@ -76,7 +88,7 @@ green, a missing font falls back to the game's.
 - Your own site or Discord is fine too; say where updates come from.
 
 On the listing, state in the first lines: it is a skin for Polestar, needs
-Polestar 0.3.7+, what it changes (scheme, fonts, frames), and where to
+Polestar 0.3.8+, what it changes (scheme, fonts, frames), and where to
 report problems. Players who run into an error see a chat line naming your
 addon ([run-time errors](reference.md#run-time-errors)); make it easy for
 them to find you.
@@ -102,7 +114,8 @@ licensed as its author chooses.
   ([THIRD_PARTY.md](../../THIRD_PARTY.md)); do not copy them, textures from
   other addons, or the game client's files into your zip. Reference Polestar's glyphs
   by name (`icons = { bug = "flag" }`) and the client's textures by path if
-  you need them; draw your own band, stars and medallion.
+  you need them (`kit.gameArt` draws a client picture by its path); draw
+  your own band, stars, medallion, dart and pin masks.
 - Polestar's name: "for Polestar" and "Polestar skin" in your title and
   description are fine and helpful. Do not present the skin as made by
   Polestar's authors.
@@ -117,7 +130,8 @@ Players pick skins by eye; show them what they get.
   time: those two show grounds, text ladder, controls, band, accent and the
   guide window's own layout in one frame.
 - One more with the **waypoint arrow** and a **map** open if your skin picks
-  an arrow or map icon design or ships a medallion.
+  an arrow or map icon design, ships a medallion, a dart or pin art, or
+  hooks the arrow or the pins; one per variant if it has variants.
 - Show the skin **as registered**, before the player's own accent or
   background colour; say in the caption which Polestar settings were at
   their defaults.
@@ -134,9 +148,11 @@ Players pick skins by eye; show them what they get.
 3. Zip the folder, tag, upload, and note the change on the listing. If the
    update **needs a newer Polestar** (a new capability used without a
    guard), say so in the first line of the notes.
-4. Never change an id. If you must replace a skin, register the new id and
-   keep the old one registered as an alias (same spec) for a release or two,
-   so players' saved choice still resolves.
+4. Never change an id, a skin's or a variant's: players' settings store
+   both. If you must replace a skin, register the new id and keep the old
+   one registered as an alias (same spec) for a release or two, so players'
+   saved choice still resolves. A new skin's id goes on the
+   `## X-Polestar-Skin` line too.
 
 ## Support
 
@@ -144,10 +160,13 @@ Problems players report come in three kinds, and the chat line or
 `/polestar report` tells them apart:
 
 - **Refused at registration**: your skin is missing from the picker and the
-  debug log holds `skin <id> (<addon>): refused: <reason>`. Fix the spec.
+  debug log holds `skin <id> (<addon>): refused: <reason>`. A player who had
+  chosen it saw "The skin <id> (from <addon>) could not be added: <reason>"
+  once in chat. Fix the spec.
 - **Failed in the session**: the player saw "The skin <name> (from <addon>)
   ran into an error" and Polestar's look stood in; `Polestar.Theme.SkinInfo("<id>").failed`
-  has the error text with your file and line. Fix the painter or hook.
+  has the error text with your file and line. Fix the painter, hook or
+  resolver.
 - **Looks wrong but works**: usually the player's own colour settings over
   your skin, or a Polestar design change under a token you did not set. Ask
   for a screenshot with Look > Theme open.

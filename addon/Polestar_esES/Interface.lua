@@ -4139,6 +4139,8 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["On"] = ""
 -- L["Every setting here at its default."] = ""
 -- L["A look in one click: it sets the settings it names and puts the others of these looks back to their defaults. Right-click goes back to the defaults."] = ""
+-- Theme/SkinApi.lua
+-- L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."

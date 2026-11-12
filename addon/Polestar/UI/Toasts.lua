@@ -14,7 +14,9 @@
 -- style, its settings only how long it stays and its place. The first three can
 -- line up (toasts.stack): one under the other (or above, growth "up") from
 -- the alert line's place (toasts.stackPoint), `spacing` apart, at most
--- `max` at once (the oldest goes).
+-- `max` at once (the oldest goes). Once a look is applied, the skin in use
+-- has its say: its card hook (the two cards) or its toast hook (the rest),
+-- Skin API 2 (docs/skins/reference.md).
 --
 --   UI.Toasts.Get(kind, prop)              a toasts.<kind>.<prop> setting
 --   UI.Toasts.Scale(kind), .Alpha(kind)
@@ -136,6 +138,22 @@ local function paintAccents(frame, kind, list)
 	end
 end
 
+-- The cards on the guide window (the heads-up card, the class quest card)
+-- go to a skin's card hook, the rest to its toast hook (Skin API 2).
+local CARDS = { headsup = true, classcard = true }
+
+-- What a skin's hook gets of a toast (made the first time one hooks it):
+-- the strings Polestar sizes as titles and bodies, and the regions it
+-- colours in the accent.
+local function skinParts(t)
+	local p = t.parts
+	if not p then
+		p = { titles = t.titles, bodies = t.bodies, accents = t.accents or {} }
+		t.parts = p
+	end
+	return p
+end
+
 function TS.ApplyLook(frame, relayout)
 	local t = frame and frame.psToast
 	if not t then return end
@@ -158,6 +176,9 @@ function TS.ApplyLook(frame, relayout)
 		if frame:IsShown() and not Anim.IsRunning(frame, "alpha") then frame:SetAlpha(TS.Alpha(kind)) end
 	end
 	if relayout and t.relayout then t.relayout(frame) end
+	-- The skin in use's own touch, over Polestar's look (its card or toast hook).
+	local hook = CARDS[kind] and "card" or "toast"
+	if Theme.SkinHooks and Theme.SkinHooks(hook) then Theme.SkinHook(hook, frame, kind, skinParts(t)) end
 end
 
 local function refresh(frame, relayout)

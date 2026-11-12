@@ -20,7 +20,7 @@ local pairs, shifted, type, report = I.pairs, I.shifted, I.type, I.report
 
 -- The surfaces a skin may paint and hook (Theme/SkinApi.lua's lists).
 local PAINT_KINDS, HOOKS = I.PAINT_KINDS, I.HOOKS
-local SKIN_MEDIA = { band = true, bandStars = true, medallion = true, dart = true, dartEdge = true }
+local SKIN_MEDIA = { band = true, bandStars = true, medallion = true, dart = true, dartEdge = true, pinFill = true, pinRim = true }
 local ARROW_STYLES = { ["3d"] = true, flat = true, halo = true, hearth = true }
 local MAP_ICONS = { polestar = true, halo = true, hearth = true }
 local FONT_KEYS = { game = true, inter = true, fira = true, opensans = true }
@@ -28,6 +28,10 @@ local FONT_KEYS = { game = true, inter = true, fira = true, opensans = true }
 -- and those it may (Dusk's stand in).
 local SCHEME_NEEDS = { "bg", "panel", "panelAlt", "sidebar", "footer", "sky", "text", "textDim", "textMuted" }
 local SCHEME_MAY = { "ink", "star", "shade", "scrim", "onAccent", "shadow" }
+-- Tokens no palette table holds: derived from the accent unless a skin gives
+-- its own (accent2), or a skin's alone (glow: the arrow's light; pinRing,
+-- pinFill: the pins' rim and fill).
+local SKIN_TOKENS = { accent = true, windowBorder = true, accent2 = true, glow = true, pinRing = true, pinFill = true }
 
 -- A colour as a spec may give it: { r, g, b[, a] } or { r =, g =, b =[, a =] }
 -- in 0-1, or "#rrggbb" / "#rrggbbaa". -> { r, g, b, a } | nil
@@ -51,7 +55,8 @@ end
 local known
 local function knownTokens()
 	if known then return known end
-	known = { accent = true, windowBorder = true }
+	known = {}
+	for k in pairs(SKIN_TOKENS) do known[k] = true end
 	for _, t in ipairs({ SCHEMES.dusk, SHARED, ART, BRAND, WASH, HOUSE_EXTRA }) do
 		for k in pairs(t) do known[k] = true end
 	end
@@ -120,11 +125,19 @@ end
 -- `pal` legible as given, or its grounds moved together (alpha kept) by the
 -- least that makes it so: darkened under light text, lifted under dark text
 -- (a light palette, Theme.IsLightPalette); nil when even the darkest (or
--- lightest) grounds would not carry the text. -> grounds | nil, why, corrected
-local function legibleGrounds(pal, strict)
+-- lightest) grounds would not carry the text. `given`: a scheme's own tokens
+-- (a subject colour it left to Polestar is not its to change: the message
+-- names the ground). -> grounds | nil, why, corrected
+local function legibleGrounds(pal, strict, given)
 	local worst, role, ground, ratio, need = weakest(seen(pal))
 	if worst >= 1 then return pal, nil, false end
-	local why = format("%s on %s reads %.1f:1, needs %g:1", role, ground, ratio, need)
+	local why
+	if given and SHARED[role] and not given[role] then
+		why = format("%s is too %s for Polestar's subject colours (%s reads %.1f:1, needs %g:1)", ground,
+			isLight(pal) and "dark" or "light", role, ratio, need)
+	else
+		why = format("%s on %s reads %.1f:1, needs %g:1", role, ground, ratio, need)
+	end
 	if strict then return nil, why end
 	local light = isLight(pal)
 	local far = light and 1 or -1
@@ -245,7 +258,8 @@ local function metaCheck(spec)
 	local ok, why = apiCheck(spec)
 	if not ok then return false, why end
 	for _, f in ipairs({ { "name", true, "a name of 1-40 characters" }, { "addon", true, "your addon's folder name" },
-		{ "author", false, "a string" }, { "version", false, "a string" }, { "desc", false, "a string of 200 characters at most" } }) do
+		{ "author", false, "a string of 40 characters at most" }, { "version", false, "a string of 40 characters at most" },
+		{ "desc", false, "a string of 200 characters at most" } }) do
 		ok, why = textField(spec, f[1], f[2], f[3])
 		if not ok then return false, why end
 	end
@@ -270,11 +284,14 @@ local function registerScheme(id, spec)
 	for _, k in ipairs(SCHEME_MAY) do
 		if not tokens[k] then tokens[k] = copy(SCHEMES.dusk[k]) end
 	end
-	-- The status and subject colours (quest gold, NPC blue...) are the same in
-	-- every dark scheme; a scheme may give its own (a light one must: they
-	-- are drawn for night grounds).
+	-- A scheme gives the grounds, the text ladder and the tokens Dusk has, and
+	-- may give the status and subject colours (quest gold, NPC blue...): they
+	-- are the same in every dark scheme, and a light one must give its own
+	-- (they are drawn for night grounds). Everything else belongs to a skin:
+	-- the house's own tokens, the game looks' (bgBottom, windowEdge...), the
+	-- accent and the window border.
 	for k in pairs(tokens) do
-		if ART[k] or BRAND[k] or WASH[k] or HOUSE_EXTRA[k] or k == "accent" or k == "windowBorder" then
+		if not (SCHEMES.dusk[k] or SHARED[k]) then
 			return false, format("tokens.%s belongs to a skin, not a scheme (a scheme gives the grounds, the text ladder and the subject colours)", k)
 		end
 	end
@@ -296,14 +313,14 @@ local function registerScheme(id, spec)
 	local pal = {}
 	for k, c in pairs(SHARED) do pal[k] = c end
 	for k, c in pairs(tokens) do pal[k] = c end
-	local fixed, note, corrected = legibleGrounds(pal, spec.strict)
+	local fixed, note, corrected = legibleGrounds(pal, spec.strict, tokens)
 	if not fixed then return false, note end
 	if corrected then
 		for _, g in ipairs(Theme.GROUNDS) do tokens[g] = fixed[g] end
 	end
 	SCHEMES[id] = tokens
 	SCHEME_INFO[id] = { id = id, name = spec.name, addon = spec.addon, author = spec.author, version = spec.version,
-		desc = spec.desc, accent = accent }
+		desc = spec.desc, accent = accent, api = spec.api or 1 }
 	if washes then SCHEME_WASH[id] = washes end
 	local listed = false
 	for _, k in ipairs(Theme.SCHEME_ORDER) do if k == id then listed = true end end
@@ -490,10 +507,14 @@ local function registerSkin(id, spec)
 	local fontKey, family
 	ok, fontKey, family = readFont(spec.font, id)
 	if not ok then return false, fontKey end
-	ok, why = readMap(spec.fontSizes, "fontSizes", ROLES, function(v) return type(v) == "number" and v >= 6 and v <= 40 end)
-	if ok then
-		ok, why = readMap(spec.icons, "icons", nil, isString)
+	if spec.fontSizes ~= nil then
+		if type(spec.fontSizes) ~= "table" then return false, "fontSizes must be a table" end
+		for role, v in pairs(spec.fontSizes) do
+			if not ROLES[role] then return false, format("unknown fontSizes %q", tostring(role)) end
+			if type(v) ~= "number" or v ~= v or v < 6 or v > 40 then return false, format("fontSizes.%s must be a number from 6 to 40", role) end
+		end
 	end
+	ok, why = readMap(spec.icons, "icons", nil, isString)
 	if ok then ok, why = readMap(spec.media, "media", SKIN_MEDIA, isString) end
 	if ok then ok, why = readMap(spec.paint, "paint", PAINT_KINDS, isFunction) end
 	if ok then ok, why = readMap(spec.hooks, "hooks", HOOKS, isFunction) end
@@ -554,6 +575,8 @@ local function registerSkin(id, spec)
 	end
 	local s = { id = id, base = base }
 	s.name, s.addon, s.author, s.version, s.desc = spec.name, spec.addon, spec.author, spec.version, spec.desc
+	-- The version it was written for (none said: the first).
+	s.api = spec.api or 1
 	s.scheme, s.tokens, s.arrow, s.mapIcons = spec.scheme, tokens, spec.arrow, spec.mapIcons
 	s.paint, s.hooks, s.onApply, s.onLeave, s.preset = spec.paint, spec.hooks, spec.onApply, spec.onLeave, preset
 	s.resolve, s.shadow, s.artTint = spec.resolve, shadow, artTint

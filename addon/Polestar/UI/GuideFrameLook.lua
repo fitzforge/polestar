@@ -273,6 +273,8 @@ end
 -- the navigator, Blizzard's title bar, framed tabs and the game's status bar.
 ---------------------------------------------------------------------------
 
+-- The look the window was last dressed in: the skin in use and the look it is
+-- drawn from (a skin's variant may change that look while the skin stays).
 local skinShown
 
 -- Hearth's tab: framed, gold on the active one (DIRECTION_A_BLIZZARD.md §3);
@@ -376,7 +378,7 @@ function GF.ApplySkin()
 	GF.ReadMetrics()
 	GF.ApplyFonts()
 	local skin = Theme.SkinKey()
-	skinShown = Theme.SkinId()
+	skinShown = Theme.SkinId() .. "/" .. skin
 	F.psGuide = true
 	Theme.Repaint(F)
 	strip:SetHeight(TAB_H)
@@ -484,9 +486,10 @@ function GF.ApplySkin()
 	along.Label:SetPoint("LEFT", along, "TOPLEFT", PAD, -UP_TOGGLE / 2)
 end
 
--- A skin chosen while the window shows: its sizes, then a fresh layout.
+-- A skin chosen while the window shows (or a variant drawn from another look):
+-- its sizes, then a fresh layout.
 Theme.OnChanged(function()
-	if F and skinShown and skinShown ~= Theme.SkinId() then
+	if F and skinShown and skinShown ~= Theme.SkinId() .. "/" .. Theme.SkinKey() then
 		GF.ApplySkin()
 		GF.ApplyStyle()
 	end
