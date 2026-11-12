@@ -2299,7 +2299,10 @@ ns.On("PACKS_CHANGED", guidesChanged)
 ns.On("TABS_CHANGED", function() P.Render() end)
 -- A quest skipped or brought back, here (the Guide Planner's tick) or in the
 -- guide window: the levels chip and an open planner follow. The planner's
--- own ticks draw once when it is done with them (UI.Planner.busy).
+-- own ticks draw once when it is done with them (UI.Planner.busy). A skip
+-- also comes where this file is loaded without UI/Planner.lua (forge-judge's
+-- engine parity run has a file list of its own): no planner, nothing to wait for.
 ns.On("SKIPS_CHANGED", function()
-	if not UI.Planner.busy then P.Render() end
+	local PL = UI.Planner
+	if not (PL and PL.busy) then P.Render() end
 end)

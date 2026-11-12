@@ -353,6 +353,26 @@ fn the_levels_chip_beside_the_planner_and_the_guide_window_s_pace_line_stop_coun
 	assert_eq!(out["back"]["row"], behind("8.1"));
 }
 
+// forge-judge's engine parity run (rust/tests/golden/engine) loads the addon from a file list of its own, written
+// before the planner: the guide menu without UI/Planner.lua. A skip there must still go through.
+#[test]
+fn a_skip_goes_through_where_the_guide_menu_is_loaded_without_the_planner() {
+	let out = run(
+		"",
+		r#"
+			E.SetGuide("test/plan"); flush()
+			UI.Planner = nil
+			local ok, err = pcall(E.Skip)
+			flush()
+			local quest, why = pcall(E.SkipQuest, 9, true)
+			emit({ ok = ok, err = ok and "" or tostring(err), quest = quest, why = quest and "" or tostring(why),
+				step = E.GetStepView(1).skipped and true or false, hidden = E.IsQuestSkipped(9) })"#,
+	);
+	assert_eq!(out["err"], "");
+	assert_eq!(out["why"], "");
+	assert_eq!(json!([out["ok"], out["quest"], out["step"], out["hidden"]]), json!([true, true, true, true]), "the step and the quest are skipped");
+}
+
 #[test]
 fn the_planner_draws_in_every_look_and_a_new_look_paints_the_open_pane_again() {
 	let out = run(
