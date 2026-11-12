@@ -244,7 +244,7 @@ fn the_minimap_button_exists_only_once_turned_on_click_hides_or_shows_polestar_r
 		b:Click("LeftButton")
 		b:Click("RightButton")
 		local menu = Polestar.Widgets.MenuShown(b)
-		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Options" then r:Click() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Settings" then r:Click() end end
 		local picked = not PolestarMenu:IsShown()
 		-- Drag to the right of the minimap's centre (70, 70): east, 0 degrees.
 		stub.cursor = { 200, 70 }

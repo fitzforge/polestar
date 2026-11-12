@@ -40,6 +40,8 @@ const RELEASE: &[&str] = &[
 	"Polestar_Experimental",
 	"Polestar_Nav_EK",
 	"Polestar_Nav_Kalimdor",
+	"Polestar_Options",
+	"Polestar_Looks",
 	"Polestar_deDE",
 	"Polestar_zhCN",
 ];
@@ -111,6 +113,19 @@ fn a_folder_without_a_version_is_unknown_not_a_mismatch_and_so_is_polestar_witho
 	let out = login(&with(&["Polestar="]));
 	assert_eq!(out["stale"], "");
 	assert!(said(&out).is_empty(), "{:?}", said(&out));
+}
+
+// The game's looks and Hearth (Polestar_Looks) load on demand but ship in every release, as the settings window
+// does: a copy without the folder is named at login (picking one of those looks would quietly keep Polestar's).
+#[test]
+fn a_copy_without_the_game_looks_folder_is_named_at_login_as_a_missing_settings_window_is() {
+	let without: Vec<String> = RELEASE.iter().filter(|n| **n != "Polestar_Looks").map(|s| s.to_string()).collect();
+	let out = login(&without);
+	assert_eq!(out["missing"], "Polestar_Looks");
+	assert_eq!(out["stale"], "");
+	let said = said(&out);
+	assert_eq!(said.len(), 1, "one line: {said:?}");
+	assert!(is_match(&said[0], r"Polestar_Looks not installed"), "{}", said[0]);
 }
 
 #[test]

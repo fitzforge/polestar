@@ -351,7 +351,7 @@ end
 ns.RegisterCommand("xp", function()
 	local st = QoL.GetXPStats()
 	if not st then
-		ns.Print(L["The XP tracker is off (Options > Quality of Life > Trackers)."])
+		ns.Print(L["The XP tracker is off (Options > Quality of Life > Trackers & map)."])
 		return
 	end
 	ns.Print(XP.Summary(st))

@@ -114,6 +114,8 @@ function T.HeaderLink(f)
 	local function place()
 		b:SetWidth(b.Lead:GetStringWidth() + 4 + b.Name:GetStringWidth())
 		b:ClearAllPoints()
+		-- A shell with its own place for it (the settings window: the footer).
+		if rawget(f, "psPlaceThanks") then return f.psPlaceThanks(b) end
 		local close, tools = f.Close, rawget(f, "HeaderTools")
 		-- The close button may have moved (the hub's details pane): the
 		-- scale control follows it first.

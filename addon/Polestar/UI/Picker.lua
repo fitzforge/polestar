@@ -1791,16 +1791,6 @@ function P.FootItems(onOptions)
 	return items
 end
 
--- Open `to` where `from` stands when switching between the hub and the
--- settings: their top-left corners meet, so the rail stays put.
-function P.TakePlace(to, from)
-	local left, top = from:GetLeft(), from:GetTop()
-	if not (left and top) then return end
-	local k = from:GetEffectiveScale() / to:GetEffectiveScale()
-	to:ClearAllPoints()
-	to:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left * k, top * k)
-end
-
 -- The rail: every section, Options at its foot with the foot sections above it.
 local function renderRail()
 	P.railShown = W.ShellRail(win, P.RailItems(), P.FootItems(function() if UI.ShowOptions then UI.ShowOptions() end end),
@@ -2271,14 +2261,12 @@ function UI.ShowPicker(opts)
 		local open = tabs and active and tabs[active] and tabs[active].guideId
 		if open then P.SetCollapsed(P.FolderOf(open), false) end
 	end
-	local settings = UI.Options and UI.Options.frame
+	-- The settings window is a window of its own: it stays where it is.
 	if win:IsShown() then
 		P.Render()
 	else
-		if settings and settings:IsShown() then P.TakePlace(win, settings) end
 		win:Show()
 	end
-	if settings then settings:Hide() end
 end
 
 -- A new font measures the rail, the sidebar and the details' label column

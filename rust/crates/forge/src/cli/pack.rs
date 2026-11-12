@@ -1,8 +1,9 @@
 //! `forge release pack`: the release archives. In the checkout: dist/Polestar-<version>.zip (Polestar,
-//! Polestar_Guides, Polestar_Nav, Polestar_Experimental built from experimental/, the Codex and the built
-//! data addons) and dist/Polestar_Recorder-<version>.zip, each with the GPL in its first folder (and the
-//! players' README.txt in Polestar/), plus dist/SHA256SUMS for both. Given another pack (a folder argument,
-//! --pack, or the nearest pack.json): <pack>/dist/<folder>-<version>.zip holding its built addon folder.
+//! Polestar_Guides, Polestar_Nav, Polestar_Options, Polestar_SkinAPI, Polestar_Looks, Polestar_Experimental built
+//! from experimental/, the Codex and the built data addons) and dist/Polestar_Recorder-<version>.zip, each with
+//! the GPL in its first folder (and the players' README.txt in Polestar/), plus dist/SHA256SUMS for both. Given
+//! another pack (a folder argument, --pack, or the nearest pack.json): <pack>/dist/<folder>-<version>.zip holding
+//! its built addon folder.
 
 use super::release::{checkout, opt, positional};
 use forge_guide::data::Data;
@@ -22,9 +23,10 @@ pub const USAGE: &str = "usage: forge release pack [<dir>] [options]
 In the checkout: compiles our guides into addon/Polestar_Guides and Polestar's own experimental pack
 (experimental/, with our guides as context) into addon/Polestar_Experimental, then writes
 dist/Polestar-<version>.zip (Polestar, Polestar_Guides with its faction parts and race parts, Polestar_Nav,
-Polestar_Experimental (loaded on demand, once a player switches it on), Polestar_QuestDB and
-Polestar_ItemDB when built, Polestar_Codex, and the language folders Polestar_<locale>: our guides' texts
-and the game's names),
+Polestar_Options (the settings window), Polestar_SkinAPI (the Skin API's checks), Polestar_Looks (the
+game's looks and Hearth), Polestar_Experimental (loaded on demand, once a player switches it on),
+Polestar_QuestDB and Polestar_ItemDB when built, Polestar_Codex, and the language folders
+Polestar_<locale>: our guides' texts and the game's names),
 dist/Polestar_Recorder-<version>.zip and dist/SHA256SUMS (the format `sha256sum -c` reads), the version
 taken from package.json. Polestar/ in the zip also carries LICENSE and README.txt (install steps),
 Polestar_Recorder/ the LICENSE. The Codex must be built first (forge data codex) from release-safe inputs:

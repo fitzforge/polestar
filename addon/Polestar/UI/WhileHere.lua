@@ -21,6 +21,12 @@
 -- 5.4 times its pitch, a light reverb; 0.9 s with a soft fade, mono, peak
 -- -12 dB. Regenerate it with tools/sounds/while-here-chime.py.
 --
+-- It has no look of its own: it wears the theme and the shared toast style
+-- (UI/Toasts.lua, `shared`). How long it stays (toasts.whilehere.seconds, on
+-- the Guide page's Dynamic Questing section) and its place
+-- (toasts.whilehere.point, the movers) are the player's; it lines up with the
+-- other alerts while they stack.
+--
 --   UI.WhileHereToast.Show(view), .Hide(), .Chime(), .frame (once built)
 
 local ADDON, ns = ...
@@ -68,30 +74,60 @@ local function text(v)
 	return s
 end
 
+-- The toasts' module (UI/Toasts.lua): its line of alerts and the shared look.
+local function looks() return UI.Toasts end
+
+-- The toast, drawn into `parent` (the live one, build).
+local function newToast(parent, name)
+	local c = CreateFrame("Button", name, parent)
+	c:SetSize(WIDTH, HEIGHT)
+	-- A toast: the game's looks give it the guide window's light frame.
+	c.psLight = true
+	Theme.Skin(c, "window")
+	c.Edge = W.Tex(c, "ARTWORK", nil, "accent")
+	c.Edge:SetPoint("TOPLEFT", c, "TOPLEFT", 1, -1)
+	c.Edge:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 1, 1)
+	c.Edge:SetWidth(2)
+	c.Icon = c:CreateTexture(nil, "ARTWORK")
+	c.Icon:SetSize(16, 16)
+	W.Color(c.Icon, "accent")
+	c.Icon:SetPoint("LEFT", c, "LEFT", PAD + 2, 0)
+	c.Head = W.Text(c, "small", "accent")
+	c.Head:SetPoint("TOPLEFT", c, "TOPLEFT", PAD + 2 + 16 + 10, -8)
+	c.Head:SetText(L["While you're here"])
+	c.Text = W.Text(c, "label", "text")
+	c.Text:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", PAD + 2 + 16 + 10, 8)
+	c.Text:SetWidth(WIDTH - (PAD + 2 + 16 + 10) - PAD)
+	local TS = looks()
+	if TS then
+		-- The shared look; the toast grows to hold both lines.
+		TS.Attach("whilehere", c, { shared = true, hide = function() T.Hide() end, relayout = function(self)
+			self:SetHeight(math.max(HEIGHT, math.ceil(self.Head:GetStringHeight() + self.Text:GetStringHeight() + 22)))
+		end })
+	end
+	return c
+end
+
+-- Its own place (toasts.whilehere.point: the movers), else near the top of
+-- the screen; or its place in the line of alerts while they stack.
+local function ownPlace()
+	local p = ns.Get("toasts.whilehere.point")
+	if type(p) ~= "table" or type(p[1]) ~= "string" then p = { "TOP", 0, TOP_Y } end
+	Anim.Anchor(f, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
+end
+
+local function place()
+	local TS = looks()
+	if TS and TS.Place("whilehere", f, ownPlace) then return end
+	ownPlace()
+end
+
 local function build()
-	f = CreateFrame("Button", "PolestarWhileHereToast", ns.UIParent)
-	f:SetSize(WIDTH, HEIGHT)
+	f = newToast(ns.UIParent, "PolestarWhileHereToast")
 	f:SetFrameStrata("HIGH")
 	f:SetClampedToScreen(true)
 	f:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	-- A toast: the game's looks give it the guide window's light frame.
-	f.psLight = true
-	Theme.Skin(f, "window")
-	Anim.Anchor(f, "TOP", UIParent, "TOP", 0, TOP_Y)
-	f.Edge = W.Tex(f, "ARTWORK", nil, "accent")
-	f.Edge:SetPoint("TOPLEFT", f, "TOPLEFT", 1, -1)
-	f.Edge:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 1, 1)
-	f.Edge:SetWidth(2)
-	f.Icon = f:CreateTexture(nil, "ARTWORK")
-	f.Icon:SetSize(16, 16)
-	W.Color(f.Icon, "accent")
-	f.Icon:SetPoint("LEFT", f, "LEFT", PAD + 2, 0)
-	f.Head = W.Text(f, "small", "accent")
-	f.Head:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + 2 + 16 + 10, -8)
-	f.Head:SetText(L["While you're here"])
-	f.Text = W.Text(f, "label", "text")
-	f.Text:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD + 2 + 16 + 10, 8)
-	f.Text:SetWidth(WIDTH - (PAD + 2 + 16 + 10) - PAD)
+	place()
 	f:SetScript("OnClick", function(_, button)
 		local E = ns.Engine
 		if not E then return end
@@ -122,6 +158,13 @@ local function expire(mine)
 	T.Hide()
 end
 
+-- How long it stays (toasts.whilehere.seconds), else SECONDS.
+local function seconds()
+	local TS = looks()
+	local v = TS and tonumber(TS.Get("whilehere", "seconds"))
+	return v and v > 0 and v or SECONDS
+end
+
 function T.Show(v)
 	if not f then build() end
 	token = token + 1
@@ -129,20 +172,32 @@ function T.Show(v)
 	f.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
 	f.Text:SetText(text(v))
 	local was = f:IsShown()
+	place()
 	f:Show()
-	Anim.To(f, "alpha", was and f:GetAlpha() or 0, 1, Anim.BASE, "out")
-	Anim.To(f, "offset", 8, 0, Anim.BASE, "out")
-	ns.After(SECONDS, function() expire(mine) end)
+	local TS = looks()
+	if TS then
+		TS.Enter("whilehere", f, 8, Anim.BASE, was and f:GetAlpha() or 0)
+	else
+		Anim.To(f, "alpha", was and f:GetAlpha() or 0, 1, Anim.BASE, "out")
+		Anim.To(f, "offset", 8, 0, Anim.BASE, "out")
+	end
+	ns.After(seconds(), function() expire(mine) end)
 end
 
 function T.Hide()
 	if not (f and f:IsShown()) then return end
 	token = token + 1
 	local mine = token
-	Anim.To(f, "offset", 0, 6, Anim.FAST, "out")
-	Anim.To(f, "alpha", f:GetAlpha(), 0, Anim.FAST, "out", function()
+	local function gone()
 		if mine == token then f:Hide() end
-	end)
+	end
+	local TS = looks()
+	if TS then
+		TS.Leave("whilehere", f, 6, Anim.FAST, gone)
+		return
+	end
+	Anim.To(f, "offset", 0, 6, Anim.FAST, "out")
+	Anim.To(f, "alpha", f:GetAlpha(), 0, Anim.FAST, "out", gone)
 end
 
 -- The chime for a new line, unless off, Polestar is hidden or one played
@@ -192,4 +247,9 @@ ns.On("POLESTAR_HIDDEN", function(hidden)
 	token = token + 1
 	shownKey = nil
 	f:Hide()
+end)
+
+-- Moved from elsewhere (reset, the movers): the toast on screen follows.
+ns.On("SETTING_CHANGED", function(path)
+	if (path == "toasts.whilehere.point" or path == "toasts" or path == "") and f and f:IsShown() then place() end
 end)

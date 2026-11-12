@@ -6,7 +6,8 @@
 use forge_addontest::{emitted, is_match, text, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: [&str; 4] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml"];
+// The rows are the settings' addon's (Polestar_Options/Maps/Options.lua).
+const FILES: [&str; 5] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "../Polestar_Options/Maps/Options.lua"];
 
 const PRELUDE: &str = r#"
 local M = Polestar.Maps
@@ -681,7 +682,10 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	let out = run(r#"
 		local pages, missing = {}, {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
-			for _, c in ipairs(spec.controls) do
+			-- A section's on/off in its header (spec.toggle) is a control too.
+			local list = { unpack(spec.controls or {}) }
+			if spec.toggle then table.insert(list, 1, spec.toggle) end
+			for _, c in ipairs(list) do
 				if c.key and c.key:find("^maps%.") then
 					if not (c.label and c.help) then missing[#missing + 1] = c.key end
 					pages[spec.page] = pages[spec.page] or {}

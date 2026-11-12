@@ -30,5 +30,4 @@
 	<Script file="Riding.lua"/>
 	<Script file="ClassQuests.lua"/>
 	<Script file="InstanceTrack.lua"/>
-	<Script file="Options.lua"/>
 </Ui>

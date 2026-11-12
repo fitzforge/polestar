@@ -1348,13 +1348,16 @@ fn options_the_lookup_tab_of_discovery_and_its_defaults() {
 		local out = {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == "Discovery" and spec.tab == "Lookup" then
+				-- The feature's switch sits in its section's header.
+				local t = spec.toggle
+				if t then out[#out + 1] = { key = t.key, kind = t.kind, label = t.label, help = t.help ~= nil } end
 				for _, c in ipairs(spec.controls) do out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help ~= nil } end
 			end
 		end
 		emit(out)
 		emit({ Polestar.Get("lookup.enabled"), Polestar.Get("lookup.tooltip"), Polestar.Get("lookup.altClick"), Polestar.Get("lookup.mounts") })
 	"#,
-		&Opts { files: &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml"], ..Default::default() },
+		&Opts { files: &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "../Polestar_Options/Lookup/Options.lua"], ..Default::default() },
 	));
 	let keys: Vec<Value> = arr(&controls).iter().map(|c| c["key"].clone()).collect();
 	assert_eq!(keys, ["lookup.enabled", "lookup.tooltip", "lookup.altClick", "lookup.mounts"]);
