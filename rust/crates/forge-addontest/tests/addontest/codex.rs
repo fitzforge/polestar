@@ -595,8 +595,8 @@ fn synthetic() -> Synth {
 	// Players' recorded windows (data/codex/recorded.json): the Hogger reward choices three players saw
 	// and a loot window.
 	let recorded = json!({
-		"meta": { "sessions": 3, "counted": 3, "voters": 3, "minVoters": 3, "minWindows": 10, "through": null },
-		"drops": { "61": { "windows": 30, "items": { "2933": { "voters": 3, "chance": 12.5 } } } },
+		"meta": { "sessions": 3, "counted": 3, "voters": 3, "excluded": 0, "verdicts": null, "minVoters": 3, "minWindows": 10, "through": null },
+		"drops": { "61": { "windows": 30, "items": { "2933": { "voters": 3, "chance": 12.5, "trusted": true } } } },
 		"objects": {},
 		"vendors": {},
 		"rewards": { "176": { "items": [], "choices": [1933, 2933], "voters": 3, "trusted": true } },
@@ -759,19 +759,31 @@ fn maps(spawns: &Value) -> Vec<Value> {
 	spawns.as_array().unwrap().iter().map(|s| s["map"].clone()).collect()
 }
 
-// Players' recorded windows (data/codex/recorded.json): a quest's reward list recorded on trusted evidence
-// stands in for the web lists' (Forever may have changed the quest), one a single player recorded only
-// fills a quest nothing else gives rewards for; a recorded merchant window is a vendor source.
+// Players' recorded windows (data/codex/recorded.json), by the trusted-recordings rule: a recorded fact changes
+// what the Codex says only on trusted evidence (`minVoters` people, or a vouched recorder); with less it only
+// confirms another input's. A trusted reward list stands in for the web lists' (Forever may have changed the
+// quest), an untrusted one adds nothing, even where no other input gives the quest rewards; an untrusted loot
+// source stays only beside another input's of the same NPC; an untrusted merchant item only where the quest
+// data names that vendor, and only then makes the NPC a vendor.
 #[test]
-fn mergecodex_recorded_reward_windows_rank_over_the_web_lists_only_on_trusted_evidence() {
+fn mergecodex_recorded_facts_change_the_codex_only_on_trusted_evidence() {
 	let mut s = synthetic();
 	s.forever["quests"]["176"]["web"] = json!({ "choices": [[1179, 1]], "items": [] });
 	s.forever["quests"]["9002"]["web"] = json!({ "choices": [], "items": [[20001, 1]] });
+	let seen = |voters: usize, trusted: bool| json!({ "voters": voters, "chance": null, "trusted": trusted });
+	let sold = |voters: usize, trusted: bool| json!({ "voters": voters, "trusted": trusted });
 	s.recorded = json!({
-		"meta": { "sessions": 4, "counted": 4, "voters": 4, "minVoters": 3, "minWindows": 10, "through": null },
-		"drops": {},
+		"meta": { "sessions": 4, "counted": 4, "voters": 4, "excluded": 0, "verdicts": null, "minVoters": 3, "minWindows": 10, "through": null },
+		"drops": {
+			"4730": { "windows": 12, "items": { "1179": seen(3, true), "17": seen(2, false) } },
+			"10440": { "windows": 4, "items": { "13335": seen(1, false) } },
+		},
 		"objects": {},
-		"vendors": { "4730": [20001] },
+		"vendors": {
+			"4730": { "20001": sold(3, true), "8631": sold(1, false), "2933": sold(2, false) },
+			"4784": { "2933": sold(2, false) },
+			"4785": { "17": sold(3, true) },
+		},
 		"rewards": {
 			"176": { "items": [], "choices": [2933], "voters": 3, "trusted": true },
 			"9002": { "items": [17], "choices": [], "voters": 1, "trusted": false },
@@ -781,14 +793,29 @@ fn mergecodex_recorded_reward_windows_rank_over_the_web_lists_only_on_trusted_ev
 	});
 	let codex = merged(s);
 	let it = &codex["items"];
-	let quests_of = |id: &str| -> Vec<Value> { it[id]["sources"].as_array().unwrap().iter().filter(|x| x["type"] == "quest").cloned().collect() };
-	assert_eq!(quests_of("2933"), vec![json!({ "type": "quest", "quest": 176, "choice": true, "from": ["recordings"] })]);
-	assert_eq!(quests_of("1179"), Vec::<Value>::new(), "the web list's choice of 176 gives way to the trusted recorded list, and 9001's QuestieDB rewards keep out a single player's");
+	let of_type = |id: &str, ty: &str| -> Vec<Value> { it[id]["sources"].as_array().unwrap().iter().filter(|x| x["type"] == ty).cloned().collect() };
+	let has_role = |npc: &str, role: &str| codex["npcs"][npc]["roles"].as_array().is_some_and(|r| r.contains(&json!(role)));
+	// Quest rewards.
+	assert_eq!(of_type("2933", "quest"), vec![json!({ "type": "quest", "quest": 176, "choice": true, "from": ["recordings"] })]);
+	assert_eq!(of_type("1179", "quest"), Vec::<Value>::new(), "the web list's choice of 176 gives way to the trusted recorded list, and 9001's single player adds nothing");
 	assert_eq!(codex["quests"]["176"]["choices"], json!([2933]));
-	assert_eq!(quests_of("20001"), vec![json!({ "type": "quest", "quest": 9002, "from": ["web"] })], "a single player's list does not stand in for the web list");
-	assert_eq!(quests_of("17"), vec![json!({ "type": "quest", "quest": 6063, "choice": true, "from": ["recordings"] })], "it fills a quest no other input gives rewards for");
-	assert_eq!(find_type(&it["20001"]["sources"], "vendor"), json!({ "type": "vendor", "npc": 4730, "from": ["recordings"] }));
-	assert!(codex["npcs"]["4730"]["roles"].as_array().unwrap().contains(&json!("vendor")));
+	assert_eq!(of_type("20001", "quest"), vec![json!({ "type": "quest", "quest": 9002, "from": ["web"] })], "a single player's list does not stand in for the web list");
+	assert_eq!(of_type("17", "quest"), Vec::<Value>::new(), "nor does it fill a quest no other input gives rewards for");
+	// Loot windows.
+	assert_eq!(of_type("1179", "drop"), vec![json!({ "type": "drop", "npc": 4730, "from": ["recordings"] })], "three people's loot windows are a source of their own");
+	assert_eq!(of_type("17", "drop"), Vec::<Value>::new(), "two people's are not");
+	assert_eq!(of_type("13335", "drop")[0]["from"], json!(["recordings", "atlasloot", "pfquest"]), "one person's confirms another input's source");
+	// Merchant windows.
+	assert_eq!(of_type("20001", "vendor"), vec![json!({ "type": "vendor", "npc": 4730, "from": ["recordings"] })]);
+	assert_eq!(
+		of_type("8631", "vendor"),
+		vec![json!({ "type": "vendor", "npc": 4730, "cost": 800000, "from": ["recordings", "questie", "pfquest"] })],
+		"one person's confirms the quest data's vendor"
+	);
+	assert_eq!(of_type("2933", "vendor"), Vec::<Value>::new(), "two people's are no vendor source the quest data lacks");
+	assert!(!has_role("4784", "vendor"), "nor do they make the NPC a vendor");
+	assert_eq!(of_type("17", "vendor"), vec![json!({ "type": "vendor", "npc": 4785, "from": ["recordings"] })]);
+	assert!(has_role("4785", "vendor"));
 }
 
 // A Forever-only racial mount no quest data sells (the Reins of the Striped Dawnsaber) takes its vendor from

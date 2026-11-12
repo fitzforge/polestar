@@ -304,11 +304,15 @@ first.
 Codex and gear are addon side products. They are not route inputs.
 
 `data/codex/recorded.json` is the Codex's snapshot of players' recordings: the items NPCs and
-objects dropped, what vendors listed and the rewards quests showed, from the players the data
-build counts (established Ingest contributors, the maintainer's own and vouched-for files), facts
-only. It is committed, so every machine builds the same Codex; `forge data codex --recordings
-<dir>` rewrites it from a recordings folder (the maintainer's archive or `data/recordings`) before
-the build. ARCHITECTURE, "Codex", has the rules.
+objects dropped, what vendors listed and the rewards quests showed, facts only, with how many
+people saw each. It counts people the way `forge record learn` does: established Ingest
+contributors, the maintainer's own and vouched-for files, never the contributors the archive's
+`config.json` or IngestAudit's verdicts set aside, and one vote per person. It is committed, so
+every machine builds the same Codex; `forge data codex --recordings <dir> [--verdicts <file>]`
+rewrites it from a recordings folder (the maintainer's archive or `data/recordings`) before the
+build. A recorded fact changes what the Codex says only once enough people back it (`minVoters`,
+3 unless `config.json` says otherwise); with fewer it only confirms another source. ARCHITECTURE,
+"Codex", has the rules.
 
 `forge data codex --local-extras` builds a Codex for your machine only. On top of the release
 inputs it merges the installed AtlasLoot (GPL-2.0) and RareScanner (no redistribution) and
