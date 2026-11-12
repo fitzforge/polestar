@@ -444,6 +444,11 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 	let changed_set: FxHashSet<i64> = changed.iter().copied().collect();
 	let live = |m: i64| changed_set.contains(&m) || !maps.frames.contains_key(&m);
+	// The frame a map's points are in: Forever's for a live-frame point (`f` "l"), else the Era one.
+	let frame_of = |map: i64, f: &str| -> Option<Frame> {
+		let ff = fmaps.as_ref().and_then(|m| m.frames.get(&map));
+		(if f == "l" { ff } else { None }).or_else(|| maps.frames.get(&map)).or(ff).copied()
+	};
 
 	let mut qstats = None;
 	let mut quest_counts = None;
@@ -459,8 +464,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			fmaps.as_ref().and_then(|f| f.resolve_area(area)).or_else(|| maps.resolve_area(area))
 		};
 		let to_world = |map: i64, f: &str, x: f64, y: f64| -> Option<World> {
-			let ff = fmaps.as_ref().and_then(|m| m.frames.get(&map));
-			let fr = (if f == "l" { ff } else { None }).or_else(|| maps.frames.get(&map)).or(ff)?;
+			let fr = frame_of(map, f)?;
 			Some(World { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * y) / 100.0, wy: fr.left + ((fr.right - fr.left) * x) / 100.0 })
 		};
 		// Area -> its dungeon or raid map (Forever's AreaTable + Map, else Era's AreaTable).
@@ -496,6 +500,19 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 
 	lap("questie merge");
+	// A spawn listed on a continent's map and on a zone's or a city's stays off the continent's
+	// (spawns::drop_map_copies; the merge already left out pfQuest's other copies).
+	let (mut points, mut npcs, mut objects) = (0, 0, 0);
+	for (table, count) in [(&norm.npcs, &mut npcs), (&norm.objects, &mut objects)] {
+		for e in table.values() {
+			if let Some((spawns, n)) = crate::spawns::drop_map_copies(&e.get("spawns"), &frame_of) {
+				e.set("spawns", spawns);
+				points += n;
+				*count += 1;
+			}
+		}
+	}
+	log(&format!("continent copies: {points} spawn points dropped from {npcs} NPCs and {objects} objects"));
 	// The web zone lists' change notes, before our own corrections.
 	let mut wh = None;
 	if qz.is_some() && o.web_zones {
