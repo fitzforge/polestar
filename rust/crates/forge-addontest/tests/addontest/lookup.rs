@@ -179,16 +179,19 @@ fn sources_required_item_level_quest_minlevel_and_mob_level_gate_a_source() {
 	assert!(truthy(&ok[0]["available"]));
 }
 
-// #1745: the level gate is for creatures you fight. A level 30 vendor of the character's side stays open to a
-// level 20 character; a level 40 beast and a vendor of the other side are still out of reach.
+// #1745: the level gate is for creatures you fight. A level 30 vendor of the character's side and a level 55
+// factionless banker (a goblin town's) stay open to a level 20 character; a level 40 beast and a vendor of the
+// other side are still out of reach.
 #[test]
 fn sources_friendly_npcs_are_open_at_any_level() {
-	let [mira, grumble, grosh] = first::<3>(run(r#"
+	let [mira, fizzle, grumble, grosh] = first::<4>(run(r#"
 		emit((rows("npc", 5001)))
+		emit((rows("npc", 5020)))
 		emit((rows("npc", 5006)))
 		emit((rows("npc", 5002)))
 	"#));
 	assert_eq!(pick(&mira, &["label", "available", "why"]), json!([{ "label": "Mira Saddler", "available": true, "why": null }]));
+	assert_eq!(pick(&fizzle, &["label", "available", "why"]), json!([{ "label": "Fizzle Gearspin", "available": true, "why": null }]));
 	assert_eq!(pick(&grumble, &["available", "why"]), json!([{ "available": false, "why": "level" }]));
 	assert_eq!(pick(&grosh, &["available", "why"]), json!([{ "available": false, "why": "level" }]));
 }

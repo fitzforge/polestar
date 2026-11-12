@@ -663,8 +663,17 @@ local function spawnRows(entity, kind, p, from, levelGate, direct)
 		r.detail = r.zone
 		if entity.level then r.detail = detail(r.zone or "", L["Level"] .. " " .. entity.level) end
 		-- Only creatures you fight are out of reach by level: an NPC friendly to the
-		-- character's side (innkeeper, vendor, trainer, quest giver) is open at any level.
-		local friendly = entity.faction and sideOK(entity.faction, p)
+		-- character's side (innkeeper, vendor, trainer, quest giver) is open at any level,
+		-- and so is a factionless one with a service role (the goblin towns' bankers and
+		-- trainers have no faction in Forever's data).
+		local friendly
+		if entity.faction then
+			friendly = sideOK(entity.faction, p)
+		else
+			for _, role in ipairs(entity.roles or {}) do
+				if role ~= "rare" then friendly = true break end
+			end
+		end
 		if levelGate and not friendly and entity.level and entity.level - p.level > MOB_LEVEL_GAP then
 			block(r, "level", L["Level"] .. " " .. entity.level)
 		end
