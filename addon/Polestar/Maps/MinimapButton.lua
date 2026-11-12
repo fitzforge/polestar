@@ -78,11 +78,12 @@ end
 -- and the compartment's row: what a click does now, the menu, then `drag`.
 function Maps.ButtonTip(owner, drag)
 	local T = ns.Theme
-	ns.Widgets.Tooltip(owner, "ANCHOR_LEFT", "Polestar", {
-		ns.Hidden() and { L["Polestar is hidden: click to show"], T.Accent() } or L["Click: hide Polestar"],
-		L["Right-click: menu"],
-		drag,
-	})
+	local lines = { ns.Hidden() and { L["Polestar is hidden: click to show"], T.Accent() } or L["Click: hide Polestar"] }
+	-- Paused (Core/Init.lua): said, and how to resume.
+	if ns.Paused() then lines[#lines + 1] = { L["Polestar is paused: right-click to resume"], T.Accent() } end
+	lines[#lines + 1] = L["Right-click: menu"]
+	lines[#lines + 1] = drag
+	ns.Widgets.Tooltip(owner, "ANCHOR_LEFT", "Polestar", lines)
 end
 
 local function showTip(self)
@@ -101,8 +102,8 @@ end
 
 -- Polestar's menu from the minimap button, the floating button or the
 -- compartment, opening beside `anchor`: the guide window, the arrow
--- (nav.arrow), hiding Polestar and whether that keeps the arrow, then the
--- windows, which bring a hidden Polestar back first.
+-- (nav.arrow), hiding Polestar and whether that keeps the arrow, Pause,
+-- then the windows, which bring a hidden Polestar back first.
 function Maps.ShowMenu(anchor)
 	local W = ns.Widgets
 	if not (W and W.ShowMenu and anchor) then return end
@@ -121,6 +122,9 @@ function Maps.ShowMenu(anchor)
 	items[#items + 1] = { text = ns.Hidden() and L["Show Polestar"] or L["Hide Polestar"], icon = "emblem", onClick = ns.ToggleHidden }
 	items[#items + 1] = { text = L["Keep the arrow when hidden"], checked = ns.HideKeepsArrow(),
 		onClick = function() ns.SetHideKeepsArrow(not ns.HideKeepsArrow()) end }
+	-- Pause (Core/Init.lua), apart from hiding: the guide steps aside and resumes once you are back out of a dungeon alive.
+	items[#items + 1] = { text = L["Pause"], icon = "icon-dungeon", checked = ns.Paused() ~= nil,
+		onClick = function() ns.TogglePaused() end }
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Guides"], icon = "guides", onClick = open("SHOW_PICKER") }
 	items[#items + 1] = { text = L["Lookup"], icon = "search", onClick = open("SHOW_LOOKUP") }

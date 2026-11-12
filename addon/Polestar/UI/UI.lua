@@ -897,8 +897,18 @@ end
 
 -- The window's toggle (its key, /polestar, the menu's Guide window) asks to
 -- see the guide: from hidden it brings Polestar back, turning the window on
--- when it was off.
+-- when it was off. Paused, Polestar resumes (Core/Init.lua) and
+-- shows the window: inside, a ui.shown set again opens it for the visit
+-- (GuideFrame.lua's APPLY), as /polestar show does.
+local function resumeForWindow()
+	if not ns.PauseHides("window") then return false end
+	ns.SetHidden(false)
+	ns.SetPaused(false, "window")
+	ns.Set("ui.shown", true)
+	return true
+end
 ns.On("TOGGLE_FRAME", function()
+	if resumeForWindow() then return end
 	if ns.Hidden() then
 		ns.SetHidden(false)
 		if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
@@ -909,6 +919,7 @@ ns.On("TOGGLE_FRAME", function()
 	ns.Set("ui.shown", not ns.Get("ui.shown"))
 end)
 ns.On("SHOW_FRAME", function()
+	if resumeForWindow() then return end
 	ns.SetHidden(false)
 	ns.Set("ui.shown", true)
 end)

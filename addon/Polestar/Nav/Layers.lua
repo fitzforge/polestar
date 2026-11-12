@@ -140,9 +140,12 @@ end
 -- Engine leads the arrow there as a click on its line in the guide window
 -- does (Engine.AimGoal), so the arrow moves on through its spots (#1653);
 -- one whose quest waits for its accept leaves the arrow on the accept and
--- says so (#1385). False when the Engine can't lead there.
+-- says so (#1385). False when the Engine can't lead there; and while dungeon
+-- pause drops the Engine's waypoint from the arrow (Core/Init.lua), when the
+-- click sets a plain point instead, so it still points the arrow.
 local function aimAt(index, goal)
 	local Engine = ns.Engine
+	if ns.PauseHides("arrow") then return false end
 	if not (goal.index and Engine and Engine.AimGoal) then return false end
 	local aimed, why, title = Engine.AimGoal(index, goal.index)
 	if not (aimed or why == "accept") then return false end
@@ -375,8 +378,15 @@ local function updateHere(world, minimap)
 				tip:SetText(L["While you're here:"] .. " " .. (text or ""))
 				tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
 			end,
+			-- Through the Engine; while paused, which drops its waypoint from the
+			-- arrow, a plain point (as an Along the way goal's pin).
 			onClick = function(button)
-				if button == "LeftButton" and Engine.AimWhileHere then Engine.AimWhileHere(i) end
+				if button ~= "LeftButton" then return end
+				if ns.PauseHides("arrow") then
+					Nav.SetTarget(v.map, v.x, v.y, text, v.f)
+				elseif Engine.AimWhileHere then
+					Engine.AimWhileHere(i)
+				end
 			end,
 		}
 		local goal = Engine.AlongGoal and Engine.AlongGoal(v.step, v.index)
@@ -438,17 +448,21 @@ end
 
 function Layers.Update()
 	local world, minimap = surfaces()
+	-- Paused with "Hide the step's map pins while paused" (pause.map): the
+	-- step's goals, their areas and the while-here pins go; the target's pin
+	-- and trail go with the arrow (a hold or a picked point keeps them).
+	local steps = not ns.PauseHides("map")
 	-- The step's view, built once for the goals and the areas (a view is
 	-- built afresh on every Engine.GetStepView).
 	local Engine = ns.Engine
-	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
+	local index = steps and (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
 	local view = index and Engine.GetStepView and Engine.GetStepView(index)
 	updateTarget(world, minimap)
 	updateRoute(world)
-	updateGoals(world, index, view)
+	updateGoals(steps and world, index, view)
 	updateSpots(world)
-	updateAreas(world, minimap, index, view)
-	updateHere(world, minimap)
+	updateAreas(steps and world, steps and minimap, index, view)
+	updateHere(steps and world, steps and minimap)
 	updateTrail(world, minimap)
 end
 
@@ -466,6 +480,10 @@ Layers.OnTheme = Layers.Update
 ns.On("STEP_UPDATED", Layers.Update)
 ns.On("ROUTE_CHANGED", Layers.Update)
 ns.On("WHILE_HERE_CHANGED", Layers.Update)
+ns.On("POLESTAR_PAUSED", Layers.Update)
+ns.On("SETTING_CHANGED", function(path)
+	if path == "pause.map" or path == "pause" then Layers.Update() end
+end)
 ns.On("ROUTE_ADVANCED", onAdvanced)
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	local world, minimap = surfaces()
