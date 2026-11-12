@@ -1229,6 +1229,82 @@ emit({ cross = cross[1], rows = rows() })
 	}
 }
 
+#[test]
+fn old_habits_stays_at_its_guide_step_even_when_the_spellbook_is_nearby() {
+	let guide = r#"
+Polestar.RegisterGuide({
+	id = "test/here", pack = "test", title = "Angerfang Encampment", minLevel = 1, maxLevel = 40,
+	steps = {
+		{ title = "Catapult", goals = { { t = "turnin", quest = 465, title = "Nek'rosh's Gambit", object = 630696, map = 1429, x = 47.5, y = 47 } } },
+		{ title = "Defeat Nek'rosh", goals = { { t = "accept", quest = 474, title = "Defeat Nek'rosh", object = 630696, pre = { 465 }, map = 1429, x = 47.5, y = 47 } } },
+		{ title = "Tattered Spellbook", goals = { { t = "accept", quest = 98223, object = 671518, title = "Old Habits", map = 1429, x = 53.48, y = 54.53 } } },
+		{ title = "Chieftain Nek'rosh", goals = { { t = "collect", quest = 474, oi = 1, item = 3625, itemName = "Nek'rosh's Head", count = 1, map = 1429, x = 53.5, y = 54.7 } } },
+	},
+})
+"#;
+	let out = run_guide_with(
+		guide,
+		"test/here",
+		r#"
+w.accept(465, {})
+w.setLevel(31)
+Polestar.Set("behavior.whileHereRadius", 180)
+flush()
+"#,
+		r#"
+at(53.48, 54.53)
+w.units.npc = "GameObject-0-1-0-1-671518-000001"
+emit({ step = E.GetLiveStep(), rows = cands(), wants = E.WantsQuest("accept", 98223) })
+w.turnIn(465); flush()
+emit({ step = E.GetLiveStep(), rows = cands(), wants = E.WantsQuest("accept", 98223) })
+w.accept(474, { 1 }); flush()
+emit({ step = E.GetLiveStep(), wants = E.WantsQuest("accept", 98223) })
+w.accept(98223, {}); flush()
+emit(E.GetLiveStep())
+"#,
+	);
+	assert_eq!(out[0], json!({ "step": 1, "rows": "", "wants": false }));
+	assert_eq!(out[1], json!({ "step": 2, "rows": "", "wants": false }));
+	assert_eq!(out[2], json!({ "step": 3, "wants": true }));
+	assert_eq!(out[3], 4);
+}
+
+#[test]
+fn early_pickups_respect_active_parents_and_the_footlockers_hand_in_order() {
+	let guide = r#"
+Polestar.RegisterGuide({
+	id = "test/here", pack = "test", title = "Pickup prerequisites", minLevel = 1, maxLevel = 40,
+	steps = {
+		{ title = "Live", goals = { { t = "kill", quest = 7, oi = 1, target = "Kobold Vermin", npc = 6, count = 10, map = 1429, x = 60, y = 60 } } },
+		{ title = "Krusk", goals = { { t = "accept", quest = 533, title = "Infiltration", npc = 2229, map = 1429, x = 70, y = 70 } } },
+		{ title = "Valik", goals = { { t = "accept", quest = 535, title = "Valik", parent = 533, npc = 2333, map = 1429, x = 47.5, y = 45 } } },
+		{ title = "Syndicate Footlocker", goals = {
+			{ t = "turnin", quest = 96783, title = "A Way In", object = 656157, map = 1429, x = 47.5, y = 45 },
+			{ t = "accept", quest = 96784, title = "Master of Disguise", object = 656157, map = 1429, x = 47.5, y = 45 },
+		} },
+		{ title = "Shards of Myzrael", goals = {
+			{ t = "turnin", quest = 635, title = "Crystal in the Mountains", object = 138492, map = 1429, x = 47.5, y = 45, optional = true },
+			{ t = "accept", quest = 642, title = "The Princess Trapped", object = 138492, map = 1429, x = 47.5, y = 45 },
+		} },
+		{ title = "Back to Krusk", goals = { { t = "turnin", quest = 533, title = "Infiltration", npc = 2229, map = 1429, x = 70, y = 70 } } },
+	},
+})
+"#;
+	let out = run_guide(
+		guide,
+		"test/here",
+		r#"
+at(47.5, 45)
+emit(cands())
+w.accept(533, { 1 }); w.accept(96783, {}); flush()
+emit(cands())
+w.turnIn(533); w.turnIn(96783); flush()
+emit(cands())
+"#,
+	);
+	assert_eq!(out, vec![json!("2:1:take:0 5:2:take:0"), json!("3:1:take:0 4:1:turnin:0 5:2:take:0"), json!("4:2:take:0 5:2:take:0"),]);
+}
+
 // No zone stops While you're here (Fitz, 0.3.6): a guide whose live step is in Elwynn shows a pick-up of its
 // Westfall section 21 steps on, standing at its giver in Westfall ("later in this guide"), and one whose giver stands
 // just over the border on Westfall's map while the player is on Elwynn's, measured in world yards as the arrow does.
