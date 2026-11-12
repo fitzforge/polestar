@@ -54,7 +54,7 @@ local NOTES = {
 				return L["At login, a card says when a newer Polestar is out and how to update."]
 			end },
 			{ glyph = "icon-train", color = "accent", head = L["New spells"], text = function()
-				return L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."]:format(cmd(L["Train All"]), cmd(L["Upgrade"]))
+				return L["A level-up card lists what to train; %s updates your bars."]:format(cmd(L["Upgrade"]))
 			end },
 			{ glyph = "icon-accept", color = "accent", head = L["Quest helpers"], text = function()
 				return L["Loot that starts a quest glows on the quest item button; timed quests count down."]

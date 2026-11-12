@@ -104,11 +104,11 @@ return {
 
 	-- Step 24: Astranaar
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	["South from {npc:3987}'s camp, {area:415} is on the way west: {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "",
+	["South from {npc:3987}'s camp, {area:415} is on the way west: {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "Ao sul do acampamento de {npc:3987}, {area:415} fica no caminho para oeste: {npc:3691} na estalagem, {npc:3894} dentro do prédio depois dela.",
 
 	-- Step 25: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "",
+	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "De {area:415}, siga para sudoeste até as {area:412}, ao sul do santuário: {npc:3664} e seus emissários do caos as ocupam. Atraia os guardas dele primeiro.",
 
 	-- Step 26: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
@@ -128,7 +128,7 @@ return {
 
 	-- Step 31: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
+	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Siga a estrada para sudeste, de {area:413} de volta a {area:415}: {npc:3845} fica junto ao mestre de voo.",
 
 	-- Step 32: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -218,7 +218,7 @@ return {
 	-- Step 47: Menethil
 	["Menethil"] = "Menethil",
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2096} Tarrel Rockweaver · {npc:2111} Sida · {npc:1480} Caitlin Grassman · {npc:2086} Valstag Ironjaw · {npc:2094} James Halloran · {npc:1242} Karl Boran
-	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road into Menethil: {npc:2096} by the road in at the north gate, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "",
+	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road into Menethil: {npc:2096} by the road in at the north gate, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "Pedra de Regresso para {area:150}, se você a vinculou na {area:2104}, ou caminhe para oeste pela estrada até Menethil: {npc:2096} na entrada da estrada, no portão norte, {npc:2111} e {npc:1480} na estalagem, {npc:2086} na bastilha, {npc:2094} no lado oeste, junto às docas, {npc:1242} no cais ao norte da estalagem.",
 	-- {npc:1480} Caitlin Grassman
 	["{npc:1480}, inside"] = "{npc:1480}, lá dentro",
 	-- {npc:2086} Valstag Ironjaw

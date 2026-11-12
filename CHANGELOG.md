@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.3.7.1 (2026-11-12)
+
+### For players
+
+- Removed the Train All button and automatic spell learning at trainers.
+  Existing settings cannot enable either feature. Choose and buy spells
+  yourself using the game's normal Train button.
+- The travel button (Hearthstone, teleport) stays under the arrow after a
+  /reload instead of sitting near the top middle of the screen. It follows
+  the arrow to its saved spot and size, after a drag, and while the arrow is
+  hidden; a move during a fight takes the button along once the fight ends.
+  (thanks rain, #1821)
+- Brazilian Portuguese: the 78 guide texts 0.3.7's route changes left in
+  English are translated, so every ptBR guide text is in Portuguese again.
+  (thanks soulrocha)
+
 ## 0.3.7 (2026-11-11)
 
 ### For players

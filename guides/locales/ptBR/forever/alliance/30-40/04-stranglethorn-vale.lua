@@ -198,7 +198,7 @@ return {
 
 	-- Step 36: Stonetalon Mountains
 	-- {area:608} Nijel's Point
-	["The road to {area:608}"] = "",
+	["The road to {area:608}"] = "A estrada para {area:608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "Trolls Sanguescalpo",
