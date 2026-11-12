@@ -34,12 +34,10 @@ return {
 	-- {zone:1436} Westfall
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "A \"terra gêmea\" do bilhete é {zone:1436}: a mesma fogueira apagada fica no oeste de {zone:1436}.",
 
-	-- Step 5: Round Honor's Stand
-	-- {area:1702} Honor's Stand
-	["Round {area:1702}"] = "Contornando {area:1702}",
-	-- {area:1702} Honor's Stand
-	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "A estrada para oeste passa por {area:1702}, um posto da Horda; este caminho dá a volta.",
-	["North of Honor's Stand"] = "Ao norte do Posto da Honra",
+	-- Step 5: Stonetalon from the north
+	["Stonetalon from the north"] = "Cordilheira das Torres de Pedra pelo norte",
+	-- {zone:1413} Barrens · {area:1702} Honor's Stand · {area:2539} Malaka'jin · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {area:415} Astranaar · {area:1276} Talondeep Path · {zone:1440} Ashenvale
+	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "O caminho de {zone:1413} para a Cordilheira das Torres de Pedra passa por {area:1702}, e a estrada que segue para as colinas passa por {area:2539} e {area:460}: todos postos da Horda. Entre pelo norte. Com a rota de voo de {area:467}, voe até lá e siga a estrada para o sul. Senão, voe para {area:415} e caminhe para sudoeste até {area:1276}, o túnel de {zone:1440} para a Cordilheira das Torres de Pedra.",
 
 	-- Step 6: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
@@ -57,11 +55,24 @@ return {
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "A estatueta fica numa saliência logo abaixo do topo de {area:146}, na face norte. Desça devagar; andar de costas evita que você passe da saliência.",
 
-	-- Step 9: Thoradin's Wall
-	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Cuidado: da saliência da represa você cai no rio logo abaixo, em {zone:1437}. Saia pela margem oeste bem antes da cachoeira, por volta de 65,77: a queda mata. Depois siga para noroeste até a estrada e continue por ela para o norte, por {area:880}, até Arathi.\nNo portão de {area:1057}, entre Arathi e {area:287}, vire para o norte e siga a muralha pelo lado de {area:287} até uma carroça caída encostada nela. Suba pela carroça e pela escada até a muralha e depois passe pelas pedras até o acampamento escondido. Alguns personagens não cabem embaixo da rede de carga do acampamento; outra raça ou uma forma menor passa.",
+	-- Step 9: Out of the river
+	["Out of the river"] = "Saindo do rio",
+	-- {zone:1437} Wetlands · {area:880} Thandol Span
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi."] = "Cuidado: da saliência da represa você cai no rio logo abaixo, em {zone:1437}. Saia pela margem oeste bem antes da cachoeira, por volta de 65,77: a queda mata. Depois siga para noroeste até a estrada e continue por ela para o norte, por {area:880}, até Arathi.",
+	["West bank, before the waterfall"] = "Margem oeste, antes da cachoeira",
+	["West bank"] = "Margem oeste",
+
+	-- Step 10: Thoradin's Wall
+	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "No portão de {area:1057}, entre Arathi e {area:287}, vire para o norte e siga a muralha pelo lado de {area:287} até uma carroça caída encostada nela. Suba pela carroça e pela escada até a muralha e depois passe pelas pedras até o acampamento escondido. Alguns personagens não cabem embaixo da rede de carga do acampamento; outra raça ou uma forma menor passa.",
 	["Fallen cart"] = "Carroça caída",
 
-	-- Step 10: The hidden camp
+	-- Step 11: The hidden camp
 	["The hidden camp"] = "O acampamento escondido",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Cuidado: da saliência da represa você cai no rio logo abaixo, em {zone:1437}. Saia pela margem oeste bem antes da cachoeira, por volta de 65,77: a queda mata. Depois siga para noroeste até a estrada e continue por ela para o norte, por {area:880}, até Arathi.\nNo portão de {area:1057}, entre Arathi e {area:287}, vire para o norte e siga a muralha pelo lado de {area:287} até uma carroça caída encostada nela. Suba pela carroça e pela escada até a muralha e depois passe pelas pedras até o acampamento escondido. Alguns personagens não cabem embaixo da rede de carga do acampamento; outra raça ou uma forma menor passa.",
+	-- ["North of Honor's Stand"] = "Ao norte do Posto da Honra",
+	-- ["Round {area:1702}"] = "Contornando {area:1702}",
+	-- ["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "A estrada para oeste passa por {area:1702}, um posto da Horda; este caminho dá a volta.",
 }

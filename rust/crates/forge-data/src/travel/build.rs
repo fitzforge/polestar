@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 use forge_guide::js::{cmp_utf16, num_str, parse_json, stringify, Obj, V};
 
 use super::classicdb::load_classic_db;
-use super::crossings::{crossing_counts, crossings_lua, emit_travel_addon, read_crossings_file, recorded_crossings, Crossing, Live, Set, XPt, TRAVEL_ADDON};
+use super::crossings::{crossing_counts, crossings_lua, emit_travel_addon, read_crossings_file, recorded_crossings, Area, Crossing, Live, Set, XPt, TRAVEL_ADDON};
 use super::geo::{Frame, Frames};
 use super::inns::{build_inns, Inn};
 use super::paths::{build_paths, live_frames_of};
@@ -266,7 +266,7 @@ fn crossing_v(e: &Crossing) -> V {
 }
 
 fn set_v(s: &Set) -> V {
-	obj(vec![
+	let mut pairs = vec![
 		("crossings", s.crossings.iter().map(crossing_v).collect::<Vec<V>>().into()),
 		("open", s.open.iter().map(|o| obj(vec![("a", o.a.into()), ("b", o.b.into()), ("c", o.c.into()), ("oneWay", o.one_way.into())])).collect::<Vec<V>>().into()),
 		(
@@ -285,7 +285,23 @@ fn set_v(s: &Set) -> V {
 				.collect::<Vec<V>>()
 				.into(),
 		),
-	])
+	];
+	if !s.areas.is_empty() {
+		let area = |a: &Area| {
+			obj(vec![
+				("id", a.id.as_str().into()),
+				("name", a.name.as_str().into()),
+				("map", a.map.into()),
+				("c", a.c.into()),
+				("top", a.top.into()),
+				("bottom", a.bottom.into()),
+				("left", a.left.into()),
+				("right", a.right.into()),
+			])
+		};
+		pairs.push(("areas", s.areas.iter().map(area).collect::<Vec<V>>().into()));
+	}
+	obj(pairs)
 }
 
 fn fit_v(r: &Route) -> V {
@@ -550,7 +566,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 	}
 	if !t.recorded.is_empty() {
 		lines.push("-- zone crossings learned from recorded play (used where a continent has full crossing data)".into());
-		let set = Set { crossings: t.recorded.to_vec(), open: Vec::new(), chains: Vec::new() };
+		let set = Set { crossings: t.recorded.to_vec(), ..Set::default() };
 		lines.extend(crossings_lua(&set, t.frames, false, t.live));
 	}
 	for part in t.paths.nodes.chunks(PATH_CHUNK) {

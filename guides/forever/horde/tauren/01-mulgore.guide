@@ -126,42 +126,52 @@ step Kaga Wildhoof
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97936                        -- Kaga Wildhoof: for Yonn Deepcut
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97934                        -- Kaga Wildhoof: for Chaw Stronghide
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97931                        -- Kaga Wildhoof: for Vira Younghoof
 
 step Camping 101: Fishing
   when skill Fishing 1
+  when !knows 1229745
   accept 97932                        -- Kaga Wildhoof: for Uthan Stillwater
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  when !knows 1229705
   accept 97933                        -- Kaga Wildhoof: for Komin Winterhoof
 
 step Camping 101: Mining
   when skill Mining 1
+  when !knows 1230161
   accept 97935                        -- Kaga Wildhoof: for Brek Stonehoof
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  when !knows 1230564
   accept 97927                        -- Kaga Wildhoof: for Kray
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
   accept 97928                        -- Kaga Wildhoof: for Thrag Stonehoof
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  when !knows 1230643
   accept 97929                        -- Kaga Wildhoof: for Mot Dawnstrider
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  when !knows 1229504
   accept 97937                        -- Kaga Wildhoof: for Vhan
 
 step Bloodhoof Village

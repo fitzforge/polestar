@@ -200,7 +200,9 @@ return {
 
 	-- Step 41: Helcular's Grave
 	-- {area:271} Southshore
-	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "",
+	-- plural, as words: Southshore Guards = {npc:2386} Southshore Guard
+	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came."] = "往東前往{area:271}東北邊緣的墓地：赫爾庫拉的墳墓就在其中。從北側沿著鎮子上方的山坡下來接近。南海鎮衛兵（55級）站在墓地西北角和墳墓東南方：從他們中間走進去，繳交任務後原路離開。",
+	["North of Southshore's graveyard"] = "南海鎮墓地北邊",
 
 	-- Step 42: Daggerspine naga
 	["Daggerspine naga"] = "刺脊納迦",

@@ -147,18 +147,22 @@ step The Great Outdoors
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
   accept 96044                                -- Eric Brighthammer: for Tognus Flintfire, in the cellar west of the distillery
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 96047                                -- Eric Brighthammer: for Thamner Pol in the Thunderbrew Distillery
 
 step Camping 101: Mining
   when skill Mining 1
+  when !knows 1230161
   accept 96046                                -- Eric Brighthammer: for Yarr Hammerstone at Steelgrill's Depot
 
 step Camping 101: Engineering
   when skill Engineering 1
+  when !knows 1230656
   accept 96058                                -- Eric Brighthammer: for Bronk Guzzlegear at Steelgrill's Depot
 
 # ---------------------------------------------------------------- Kharanos

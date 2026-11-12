@@ -118,7 +118,7 @@ fn notes(args: &[String]) -> Result<(), super::Fail> {
 	super::check_args(args, &["--root", "--out"], &[], 1).map_err(super::usage)?;
 	let [version] = positional(args, &["--root", "--out"]).try_into().map_err(|_| super::usage("one version"))?;
 	if !forge_release::is_version(&version) {
-		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z or x.y.z-pre)")));
+		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z, x.y.z.hotfix or x.y.z-pre)")));
 	}
 	let root = checkout(opt(args, "--root"))?;
 	let file = root.join("CHANGELOG.md");

@@ -1431,6 +1431,22 @@ test(`${BARRENS}: a Warrior takes Trial at the Field of Giants (30 minutes) on J
 	assert.equal(list.filter(({ goal }) => is('accept', 1824)(goal)).length, 1, 'one accept');
 });
 
+// Trial at the Field of Giants (1824, Warrior, 30 minutes), from #1833's sweep of timed quests: the thunderhawks flew
+// between the accept and the antennae, so the timer ran during them (players' recordings on 0.3.5 and later: 6
+// accepts, 2 hand-ins, 2 fails, 2 abandons). The eggs and the antennae share the Field of Giants' mounds and come
+// first, then Ruga, then the thunderhawks.
+test(`${BARRENS}: Trial at the Field of Giants: the antennae go straight to Ruga, the thunderhawks after`, { skip }, () => {
+	const list = goals(BARRENS).filter(forClass('WARRIOR'));
+	const take = at(list, 'accept 1824', is('accept', 1824));
+	const back = at(list, 'turnin 1824', is('turnin', 1824));
+	assert.ok(take < back, 'taken before it is handed in');
+	const work = list.slice(take + 1, back).filter(({ goal }) => ['kill', 'collect', 'interact', 'use'].includes(goal.t) && goal.quest !== 1824);
+	assert.deepEqual([...new Set(work.map(({ goal }) => goal.quest))], [868], "only the eggs, at the antennae's own mounds, while the trial runs");
+	assert.ok(back < at(list, 'collect 5164 (Cry of the Thunderhawk)', (g) => g.t === 'collect' && g.item === 5164), 'the thunderhawks after the hand-in');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'turnin,1824' && `${p.b}` === 'task,913'), 'a record the build keeps');
+});
+
 test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tribes at War, not before it`, { skip }, () => {
 	const list = goals(BARRENS);
 	const accept = at(list, 'accept 878 (Tribes at War)', is('accept', 878));
@@ -2533,16 +2549,20 @@ test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relic
 // --- Darkshire (Yendi, 0.2.3): part 1 of Look to the Stars needs a Bronze Tube.
 
 
-test(`${REDRIDGE}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step`, { skip }, () => {
-	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07); that
-	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-07).
-	const list = goals(REDRIDGE);
-	const give = at(list, 'turnin 174 (Look to the Stars)', is('turnin', 174));
-	const buy = at(list, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
-	assert.ok(buy < give && list[buy].s === list[give].s, 'bought on the same stop, before the turn-in');
-	assert.equal(list[buy].goal.npc, 3133, 'from Herble Baubbletump, beside Viktori');
-	// A player who has the tube, or who already handed it in, is not held by it.
-	assert.equal(list[buy].goal.optional, true, 'the buy is optional');
+// nikilok (#1792): the Darkshire buy sent players to Herble Baubbletump, who never had a tube in players' recordings (44
+// merchant windows of 28 people). Darkshire has no buy now; the tube comes from the Stormwind Auction House (below) or,
+// on the way, from Gearcutter Cogspinner in Tinker Town, on 06-ashenvale's Ironforge stop beside Lomac Gearstrip.
+test(`${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional`, { skip }, () => {
+	const red = goals(REDRIDGE);
+	assert.ok(!red.some(({ goal }) => goal.t === 'buy' && goal.item === 4371), 'no buy in 04-redridge-mountains');
+	const take = at(red, 'accept 174 (Look to the Stars)', is('accept', 174));
+	const darkshire = red[take].step;
+	assert.match(darkshire.note || '', /Without one, right-click the quest in the guide window and skip it/, 'the Darkshire step says to skip the quest without a tube');
+	const ash = goals('forever/alliance/06-ashenvale.guide');
+	const buy = at(ash, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
+	assert.equal(ash[buy].goal.npc, 5175, 'from Gearcutter Cogspinner');
+	assert.equal(ash[buy].goal.optional, true, 'optional: often sold out, and a player with a tube is not held');
+	assert.equal(ash[buy].s, ash[at(ash, 'turnin 1072 (Lomac Gearstrip)', is('turnin', 1072))].s, 'on the Tinker Town stop with Lomac Gearstrip');
 });
 
 // uNBEx and Bennistrov (#1348): Herble keeps one Bronze Tube and is nearly always sold out (no tube in 30
@@ -2617,7 +2637,7 @@ test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube come
 			seen++;
 			if (goal.t === 'buy') assert.equal(goal.optional, true, `${guide}: buy 4371 is optional`);
 			else if (!goal.optional) assert.ok(atAuctionHouse(goal), `${guide}: a required Bronze Tube is collected at the Auction House`);
-			assert.notEqual(goal.npc, 5519, `${guide}: not Billibub Cogspinner, sold out in every recorded window`);
+			assert.ok(![5519, 3133].includes(goal.npc), `${guide}: not Billibub Cogspinner or Herble Baubbletump, sold out in every recorded window (#1348, #1792)`);
 		}
 	}
 	assert.ok(seen >= 4, `the Bronze Tube goals were found (${seen})`);
@@ -4288,17 +4308,16 @@ test('forever/alliance/03-darkshore.guide: Deadshot\'s report (#560): How Big a 
 // dgc1980 (#563), Alliance: on Cozy Sleeping Bag's Stonetalon step the arrow
 // pointed straight from the Barrens (1413 42.08,32.49) at the path into the
 // Stonetalon hills, a line through Honor's Stand, the Horde post on the road
-// west. Alliance now go by the reporter's safe spot north of it
-// (40.20,24.88; 1413's Era and live frames are the same). The post is the
-// shipped walking maps' hostile hub, so the straight arrow of every leg, from
-// the report's spot to the safe spot and on to the path, keeps out of it.
+// west. Since #1813 Alliance come in from the north (the Talondeep Path), and
+// every straight arrow of theirs from that waypoint to the path keeps out of
+// Honor's Stand and Sun Rock Retreat, the shipped walking maps' hostile hubs.
 
-test("forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Alliance go round Honor's Stand on the way to Stonetalon, Horde go straight", { skip }, () => {
+test("forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Alliance keep out of Honor's Stand on the way to Stonetalon, Horde go straight", { skip }, () => {
 	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
 	const hills = at(list, 'the path into the hills', (g) => g.t === 'goto' && g.map === 1442);
 	const step = list[hills].s;
-	// The safe spot is its own step just before the hills since #1496 (skipped once in Stonetalon).
-	const before = list.filter(({ s, goal }, i) => (s === step || s === step - 1) && i < hills && goal.t === 'goto' && (s === step || goal.map === 1413));
+	// The way in is its own step just before the hills since #1496 (skipped once in Stonetalon).
+	const before = list.filter(({ s, goal }, i) => (s === step || s === step - 1) && i < hills && goal.t === 'goto');
 	const side = (faction) => ({ step: st, goal }) => [st.only, goal.only].every((o) => !o || !o.factions || o.factions.includes(faction));
 	const alliance = before.filter(side('Alliance'));
 	const horde = before.filter(side('Horde'));
@@ -4308,19 +4327,19 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Al
 		script: `
 local out = {}
 for _, h in ipairs(PolestarPathData[1].hubs) do
-	if h.id == "horde-honors-stand" then
-		for i, d in ipairs(h.disks) do out[i] = { d[1], d[2], d[3] } end
+	if h.id == "horde-honors-stand" or h.id == "horde-sun-rock-retreat" then
+		for _, d in ipairs(h.disks) do out[#out + 1] = { d[1], d[2], d[3], h.id } end
 	end
 end
 emit(out)`,
 	}).emitted;
-	assert.ok(hubs.length > 0, "the walking maps know Honor's Stand");
+	for (const id of ['horde-honors-stand', 'horde-sun-rock-retreat']) assert.ok(hubs.some((d) => d[3] === id), `the walking maps know ${id}`);
 	// A map point in the world frame the maps use: x north, y west.
 	const world = ({ map, x, y }) => {
 		const f = data.eraFrame(map);
 		return { x: f.top + ((f.bottom - f.top) * y) / 100, y: f.left + ((f.right - f.left) * x) / 100 };
 	};
-	// How far (yd) the line from a to b stays outside the hub's disks.
+	// How far (yd) the line from a to b stays outside the hubs' disks.
 	const clear = (a, b) => {
 		const [p, q] = [world(a), world(b)];
 		const dx = q.x - p.x;
@@ -4331,28 +4350,45 @@ emit(out)`,
 			return Math.hypot(p.x + dx * t - x, p.y + dy * t - y) - r;
 		}));
 	};
-	const stops = [{ map: 1413, x: 42.08, y: 32.49 }, ...alliance.map(({ goal }) => goal), list[hills].goal];
+	assert.ok(alliance.length > 0, 'Alliance get a waypoint before the path');
+	const stops = [...alliance.map(({ goal }) => goal), list[hills].goal];
 	for (let i = 1; i < stops.length; i++) {
 		const [a, b] = [stops[i - 1], stops[i]];
 		const off = clear(a, b);
-		assert.ok(off > 50, `the arrow from ${a.x},${a.y} to ${b.x},${b.y} (map ${b.map}) passes ${Math.round(off)} yd outside Honor's Stand`);
+		assert.ok(off > 50, `the arrow from ${a.x},${a.y} (map ${a.map}) to ${b.x},${b.y} (map ${b.map}) passes ${Math.round(off)} yd outside Honor's Stand and Sun Rock Retreat`);
 	}
-	assert.equal(alliance.length, 1, 'Alliance get one waypoint before the path');
-	assert.ok(yards(alliance[0].goal, { map: 1413, x: 40.2, y: 24.88 }) <= 30, "it is the reporter's safe spot");
 	assert.equal(horde.length, 0, 'Horde get none');
+});
+
+// #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
+// on to the hills past Malaka'jin and Sun Rock Retreat. Players' recordings of Stepping Stones (79192, Alliance):
+// about 40 runs, most entering Stonetalon from the Barrens at 83.5,97, 7 people dead at Honor's Stand (one of them
+// after the old "North of Honor's Stand" detour) and one in Sun Rock; the 3 runs by the Talondeep Path and the 3
+// off the Stonetalon Peak flight lost nobody there. Alliance now come in from the north: the Talondeep Path's
+// Ashenvale mouth, with no waypoint left in the Barrens.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: #1813: Alliance come into Stonetalon from the north, by the Talondeep Path", { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const hills = at(list, 'the path into the hills', (g) => g.t === 'goto' && g.map === 1442);
+	const plank = at(list, 'accept 79192 at the Barrens plank', (g) => is('accept', 79192)(g) && g.object === 417072);
+	const alliance = list.filter(({ step, goal }, i) => i > plank && i < hills && goal.t === 'goto' && [step.only, goal.only].some((o) => o && o.factions && o.factions.includes('Alliance')));
+	assert.ok(!alliance.some(({ goal }) => goal.map === 1413), 'no Alliance waypoint in the Barrens');
+	const talondeep = alliance.find(({ goal }) => goal.map === 1440 && yards(goal, { map: 1440, x: 42.4, y: 71.0 }) <= 40);
+	assert.ok(talondeep, "Alliance go by the Talondeep Path's Ashenvale mouth");
+	assert.ok((talondeep.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Stonetalon Mountains'), 'only while the character is not yet in Stonetalon');
+	assert.match([].concat(talondeep.step.note || []).join(' '), /Stonetalon Peak/, 'the tip names the Stonetalon Peak flight');
 });
 
 // shatteredeagle (#1496), Alliance: the "North of Honor's Stand" safe spot was the first goal of
 // the Stonetalon step, so a character already in Stonetalon (on foot or off the Stonetalon Peak
-// flight) was sent 3,114 yd back to the Barrens. The safe spot is now its own Alliance step that
-// applies only while the character is not yet in the Stonetalon Mountains.
-test("forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1496): the Honor's Stand detour only applies before Stonetalon", { skip }, () => {
+// flight) was sent 3,114 yd back to the Barrens. The way in (since #1813 the Talondeep Path) is its
+// own Alliance step that applies only while the character is not yet in the Stonetalon Mountains.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1496): the Alliance way in only applies before Stonetalon", { skip }, () => {
 	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
-	const safe = list[at(list, "the safe spot north of Honor's Stand", (g) => g.t === 'goto' && g.map === 1413 && yards(g, { map: 1413, x: 40.2, y: 24.88 }) <= 30)];
+	const way = list[at(list, 'the Alliance way into Stonetalon', (g) => g.t === 'goto' && g.map === 1440)];
 	const hills = list[at(list, 'the path into the hills', (g) => g.t === 'goto' && g.map === 1442)];
-	assert.notEqual(safe.s, hills.s, 'the safe spot is not a goal of the Stonetalon step');
-	assert.ok((safe.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Stonetalon Mountains'), 'its step applies only outside the Stonetalon Mountains');
-	assert.deepEqual((safe.step.only || safe.goal.only || {}).factions, ['Alliance'], 'Alliance only');
+	assert.notEqual(way.s, hills.s, 'the way in is not a goal of the Stonetalon step');
+	assert.ok((way.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Stonetalon Mountains'), 'its step applies only outside the Stonetalon Mountains');
+	assert.deepEqual((way.step.only || way.goal.only || {}).factions, ['Alliance'], 'Alliance only');
 	assert.ok(!(hills.step.when || []).some((p) => p.k === 'zone'), 'the Stonetalon step itself applies wherever the character is');
 });
 
@@ -6291,7 +6327,7 @@ test('forever/horde/02-the-barrens.guide, 04-the-barrens.guide: final route revi
 	assert.ok(at(early, 'accept 1483', is('accept', 1483)) < thalo && at(early, 'turnin 819', is('turnin', 819)) < thalo, 'Sputtervalve and Drohn before Thalo\'thas');
 	const eggs = at(early, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
 	const wings = at(early, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
-	assert.ok(eggs > wings && eggs < at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs right after Jorn\'s thunderhawks, before his hand-in and Korran');
+	assert.ok(eggs < wings && wings < at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs, then Jorn\'s thunderhawks on the way back north, before his hand-in and Korran (since 0.3.8: a Warrior\'s antennae share the eggs\' mounds)');
 	assert.ok(at(early, 'accept 865', is('accept', 865)) < at(early, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
 	const list = goals('forever/horde/04-the-barrens.guide');
 	const gann = at(list, 'accept 843', is('accept', 843));
@@ -6378,10 +6414,11 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	const wings = at(barrens, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
 	const eggs = at(barrens, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
 	const jorn = at(barrens, 'turnin 913', is('turnin', 913));
-	assert.ok(wings < eggs && eggs < jorn, 'the thunderhawks, the eggs, then Jorn on the way back north');
-	assert.ok(!barrens.slice(wings + 1, eggs).some(({ goal }) => goal.npc === barrens[jorn].goal.npc), 'no walk back to Jorn between the hawks and the eggs');
+	// Since 0.3.8 the eggs come before the thunderhawks, so a Warrior's antennae (the same mounds) reach Ruga in time.
+	assert.ok(eggs < wings && wings < jorn, 'the eggs, the thunderhawks, then Jorn on the way back north');
+	assert.ok(!barrens.slice(eggs + 1, wings).some(({ goal }) => goal.npc === barrens[jorn].goal.npc), 'no walk back to Jorn between the eggs and the hawks');
 	const warrior = barrens.filter(forClass('WARRIOR'));
-	assert.equal(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s, warrior[at(warrior, 'turnin 913', is('turnin', 913))].s, 'Ruga and Jorn on one Camp Taurajo stop');
+	assert.ok(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s < warrior[at(warrior, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164)].s, "Ruga's stop before the thunderhawks");
 	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. It is taken on
 	// the last Crossroads stop before the eggs: no other Crossroads hand-in between its accept and its work.
 	const egg = at(barrens, 'accept 868', is('accept', 868));
@@ -8810,6 +8847,10 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	const ungoro = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /priest/i.test(JSON.stringify(goal.only)));
 	assert.ok(gate >= 0 && gate < at(ungoro, 'accept 8254', is('accept', 8254)), "Priests reach 50 in Un'Goro before Cenarion Aid");
+	// #1485's class-chain sweep: Magecraft (8250, Dink, Mages only, minimum 50) is on the same Ironforge stop, reached
+	// at 49.79 by Human, Gnome and Skyborne Mages; the level-up in Azshara would have sent them back to Ironforge.
+	const mages = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /mage/i.test(JSON.stringify(goal.only)));
+	assert.ok(mages >= 0 && mages < at(ungoro, 'accept 8250', is('accept', 8250)), "Mages reach 50 in Un'Goro before Magecraft");
 	gated('forever/alliance/dwarf/01-dun-morogh.guide', 5637, 10, 'Priest');
 	gated('forever/alliance/gnome/01-dun-morogh.guide', 94824, 10, 'Priest');
 	for (const side of ['alliance', 'horde']) {
@@ -9090,11 +9131,13 @@ test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Glorin on the last Mene
 });
 
 // T1386 sweep (Plan line, 0.3.7): a Night Elf Druid loading 06-wetlands fresh without Trial of the Sea Lion (272) was
-// sent to Moonglade for a pendant they can't make. Split by quest state, as horde/06-hillsbrad-foothills does.
-test(`${WETLANDS}: #1415: the Night Elf Druid Moonglade opening only with Trial of the Sea Lion or Aquatic Form in hand`, { skip }, () => {
+// sent to Moonglade for a pendant they can't make. Split by quest state, as horde/06-hillsbrad-foothills does. The
+// steps are for Skyborne Druids too (#1775: Forever opens the chain to them): the same gates hold for both.
+test(`${WETLANDS}: #1415: the Night Elf and Skyborne Druid Moonglade opening only with Trial of the Sea Lion or Aquatic Form in hand`, { skip }, () => {
 	const text = fs.readFileSync(path.join(OFFICIAL_DIR, WETLANDS), 'utf8').split(/\n(?=step )/);
-	const druid = text.filter((s) => /only NightElf,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s) && !/Boat to/.test(s));
-	assert.ok(druid.length >= 4);
+	const druid = text.filter((s) => /only NightElf,Skyborne,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s) && !/Boat to/.test(s));
+	assert.ok(druid.length >= 4, `the Druid Moonglade and Darnassus steps, for Night Elves and Skyborne (${druid.length})`);
+	assert.ok(!text.some((s) => /only NightElf,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s)), 'none of them leaves Skyborne Druids out');
 	for (const s of druid) assert.match(s, /^\s+when (onquest 272|turnedin 272|onquest 5061)$/m, `gated: ${s.split('\n')[0]}`);
 	const pendant = text.find((s) => /turnin 272\b/.test(s));
 	assert.ok(!/accept 5061/.test(pendant), 'the Aquatic Form accept is its own step (a when onquest 272 turns false at the hand-in)');
@@ -9685,6 +9728,24 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: the step after the dam's no
 	assert.match(tip, /waterfall/, tip);
 	assert.match(tip, /west bank/, tip);
 	assert.match(tip, /Thandol Span/, tip);
+});
+
+// The same recordings (the 0.3.7 audit's waterfall row): the tip alone left players following the arrow down the
+// river, and they kept dying at the waterfall (Wetlands about 65.0,77.4 and 66.7,75.1). The survivors' tracks leave
+// the river at about 64.4,79.4 and go on along the west bank by 62.2,76.8; those who died turned back north-east
+// into the river there. The step after the dam's note now walks that bank before the road north.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: off the dam's ledge the arrow leads out of the river on its west bank, before the waterfall", { skip }, () => {
+	const guide = 'forever/miscellaneous/cozy-sleeping-bag.guide';
+	const list = goals(guide);
+	const dam = at(list, 'accept 79975', is('accept', 79975));
+	const cart = at(list, 'the fallen cart', (g) => g.t === 'goto' && /cart/i.test(g.text || ''));
+	const bank = list.slice(dam + 1, cart).filter(({ goal }) => goal.t === 'goto' && goal.map === 1437);
+	assert.equal(bank.length, 2, 'two gotos on the Wetlands bank before the cart');
+	assert.ok(yards(bank[0].goal, { map: 1437, x: 64.4, y: 79.4 }) <= 20, 'first where the survivors leave the river');
+	assert.ok(yards(bank[1].goal, { map: 1437, x: 62.2, y: 76.8 }) <= 20, 'then along the west bank');
+	for (const fall of [{ map: 1437, x: 65.0, y: 77.4 }, { map: 1437, x: 66.7, y: 75.1 }]) {
+		for (const { goal } of bank) assert.ok(goal.x < fall.x, `${goal.x},${goal.y} lies west of the waterfall at ${fall.x},${fall.y}`);
+	}
 });
 
 // Discord question (2026-11-09, Horde Thousand Needles): the Galak centaurs step waited for the Galak Messenger, a lone
@@ -11136,6 +11197,45 @@ test("creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide see
 	for (const q of ['532', '533']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
 });
 
+// Kolbi's report (#1776, Skyborne Druid 31, 0.3.6): "Dangerous! makes you split 4 kills between a few steps". Dangerous!
+// (567) comes from the poster in the 22-25 guide, which kills Farmer Kalaba with the peasants and Citizen Wilkes at the
+// smithy; the clerk and the miner wait for this guide's town hall (with 532) and Azurelode Mine (with 539) visits, as
+// players' recordings show. A character who carried it but left the 22-25 guide before the smithy had no step for Kalaba or
+// Wilkes in Hillsbrad 30-40: the catch-up's peasants and smithy steps list them now.
+function dangerousKills(before) {
+	return engineRun(HILLSBRAD_3040, TAUREN_DRUID_29, {
+		before,
+		script: `local out = {}
+			for i, step in ipairs(E.GetGuide().steps) do
+				for k, g in ipairs(step.goals) do
+					if g.t == "kill" and g.quest == 567 then
+						local key = tostring(g.oi)
+						out[key] = (out[key] and out[key] .. "," or "") .. E.GetStepView(i).goals[k].status
+					end
+				end
+			end
+			emit(out)`,
+	});
+}
+
+test("Kolbi's report (#1776): Hillsbrad 30-40's catch-up kills Dangerous!'s Kalaba with the peasants and Wilkes at the smithy", { skip }, () => {
+	const list = goals(HILLSBRAD_3040);
+	const stepOf = (pred, what) => list[at(list, what, pred)].step;
+	const kill = (npc, q, oi) => (g) => g.t === 'kill' && g.quest === q && g.oi === oi && g.npc === npc;
+	assert.equal(stepOf(kill(2451, 567, 4), 'Farmer Kalaba'), stepOf(kill(2267, 528, 1), 'the peasants'), 'Kalaba with the peasants');
+	assert.equal(stepOf(kill(2449, 567, 2), 'Citizen Wilkes'), stepOf(kill(2404, 529, 1), 'the smithy'), 'Wilkes at the smithy');
+	assert.equal(stepOf(kill(2448, 567, 1), 'the clerk'), stepOf(kill(2387, 532, 2), 'the town hall'), 'the clerk in the town hall, with 532');
+	assert.equal(stepOf(kill(2450, 567, 3), 'the miner'), stepOf(kill(2269, 539, 2), 'the mine'), 'the miner in the mine, with 539');
+	// Carried from the 22-25 guide with nothing killed, and Battle of Hillsbrad not done: every kill has an open step.
+	const carried = dangerousKills('w.onQuest(567, { 1, 1, 1, 1 })');
+	for (const oi of ['1', '2', '3', '4']) assert.ok(carried[oi] && !/skipped|na|done/.test(carried[oi]), `567.${oi} is open: ${carried[oi]}`);
+	// A character who did the 22-25 guide (529 handed in) sees no catch-up step: Kalaba and Wilkes are behind them.
+	const followed = dangerousKills('w.complete({ 527, 528, 529, 498 }); w.onQuest(567, { { required = 1, fulfilled = 0 }, { required = 1, fulfilled = 1 }, { required = 1, fulfilled = 0 }, { required = 1, fulfilled = 1 } })');
+	assert.equal(followed['2'], 'na');
+	assert.equal(followed['4'], 'na');
+	for (const oi of ['1', '3']) assert.ok(!/skipped|na|done/.test(followed[oi]), `567.${oi} is open: ${followed[oi]}`);
+});
+
 // Centaur reputation, Magram (Discord, 2026-11-10: "Magram rep missing from the guide"): the guide went to the Magram
 // half only with Brutal Politics or Magram Alliance in the log, so a player who took only Buying Friendship: Magram,
 // or had handed the choice quest in, stayed on the Gelkis steps; a Gelkis player who had handed in only Buying
@@ -11274,4 +11374,95 @@ test("mutaka's report (#1752): Jungle Secrets from Private Thorsen at the foot o
 	});
 	// Without Jungle Secrets nothing of it holds the step: its hand-in is not this character's, Bookie Herod waits on it.
 	assert.deepEqual(Object.values(view).filter((v) => !v.startsWith('accept 215')).map((v) => v.replace(/ (na|skipped)$/, ' passed')), ['turnin 215 passed', 'accept 200 passed']);
+});
+
+// #1833 (Ami2, NightElf Druid 19, 0.3.7): A Hunter's Challenge (258) must be back at Daryl the Youngling within 12
+// minutes, and the boars' step also carried Crocolisk Hunting's crocolisks and Daggerfang, so the timer ran on the
+// shore (recordings on 0.3.5+: 3 fails at 12:00 in 17 accepts). Now the boars come alone, 258 goes straight back to
+// Daryl, then the shore.
+test(`${LOCH_MODAN}: #1833: A Hunter's Challenge is handed in before the crocolisks and Daggerfang`, { skip }, () => {
+	const list = goals(LOCH_MODAN);
+	const take = at(list, 'accept 258', is('accept', 258));
+	const back = at(list, 'turnin 258', is('turnin', 258));
+	assert.ok(take < back, 'taken before it is handed in');
+	assert.ok(list.slice(take + 1, back).every(({ goal }) => !['kill', 'collect', 'interact', 'use'].includes(goal.t) || goal.quest === 258), 'no other quest\'s field work while A Hunter\'s Challenge runs');
+	assert.ok(back < at(list, 'Crocolisk Meat', (g) => g.t === 'collect' && g.item === 2924), 'the crocolisks after the hand-in');
+	assert.ok(back < at(list, "Marek's Croc-Hunting Knife", (g) => g.t === 'collect' && g.item === 279591), 'Daggerfang after the hand-in');
+});
+
+// #1866 (ǝxǝ.ozuǝɹnɐๅ, NightElf Druid 28, 0.3.7): the Tome of Mel'Thandris (The Howling Vale, 1022) was read on the
+// first visit to Shael'dryn's moonwell, among the Terrowulf packs (28-30) and their rare Packlord (32), with no warning
+// (players' recordings: reads at 28-32, median 29; 2 deaths in the vale at 28 and 29). It is read on the later visit,
+// after the Hidden Shrine (1055 handed in at 29-30), and the step warns of the packs and the Packlord.
+test(`${WETLANDS}: #1866: the Tome of Mel'Thandris is read on the later moonwell visit, with a warning`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const tome = at(list, 'interact 19027 (Tome of Mel\'Thandris)', (g) => g.t === 'interact' && g.object === 19027 && g.quest === 1022);
+	assert.ok(tome > at(list, 'turnin 1055 (the Hidden Shrine)', is('turnin', 1055)), 'after the Hidden Shrine, on the later moonwell visit');
+	assert.ok(tome > at(list, 'turnin 1026', is('turnin', 1026)), 'not on the first visit');
+	assert.ok(tome < at(list, 'turnin 1022', is('turnin', 1022)), 'before Melyria takes it');
+	const tip = [].concat(list[tome].step.note || []).join(' ');
+	assert.match(tip, /Careful:.*Packlord/, tip);
+	assert.match(tip, /tunnel/, tip);
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'turnin,1055' && `${p.b}` === 'task,1022'), 'a record the build keeps');
+});
+
+// Helcular's Revenge (553, Horde 30-40/01-hillsbrad-foothills): the grave lies inside Southshore, an Alliance town
+// (4 abandons in players' recordings). The recordings show it can be done: of 21 people who lit the flames, 14
+// handed it in at the grave, all of them coming down from the north. The step keeps the hand-in, leads in by a goto
+// north of the graveyard and names the guard posts beside it.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Helcular\'s grave is approached from the north, between the guards', { skip }, () => {
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const list = goals(guide);
+	const hand = at(list, 'turnin 553', is('turnin', 553));
+	assert.ok(!list[hand].goal.optional, 'the hand-in is kept');
+	const north = list.slice(0, hand).filter(({ s, goal }) => s === list[hand].s && goal.t === 'goto');
+	assert.equal(north.length, 1, 'one goto before the grave in its step');
+	assert.ok(yards(north[0].goal, { map: 1424, x: 53.4, y: 48.8 }) <= 30, 'north of the graveyard');
+	assert.ok(north[0].goal.y < list[hand].goal.y - 3, 'north of the grave');
+	assert.match([].concat(list[hand].step.note || []).join(' '), /Southshore Guards/);
+});
+
+// #1867 (Teldrassil, Camping 101: Skinning, 97949): Lyreena didn't offer it because the character already knew Camp
+// Chair, the Skinning camp item a trainer teaches from skill 20, yet the step waited for the quest. Every start
+// guide's Camping 101 step now applies only while its profession's camp item is unknown (`when !knows <spell>`),
+// besides `when skill <profession> 1`.
+test(`${TELDRASSIL}: #1867: Camping 101: Skinning is skipped once Camp Chair is known`, { skip }, () => {
+	const elf = { race: 'NightElf', raceName: 'Night Elf', faction: 'Alliance', cls: 'DRUID', className: 'Druid', level: 6 };
+	const skinner = 'w.skills[393] = { name = "Skinning", rank = 1, maxRank = 75 }';
+	const open = questGoalStatus(TELDRASSIL, 97949, elf, { skills: skinner });
+	const known = questGoalStatus(TELDRASSIL, 97949, elf, { skills: `${skinner}; w.spells[1229517] = true` });
+	const accept = (list) => list.find((v) => v.startsWith('accept '));
+	assert.ok(accept(open) && !/ (na|skipped)$/.test(accept(open)), `a skinner without Camp Chair still gets the step: ${accept(open)}`);
+	assert.match(accept(known) || '', / (na|skipped)$/, 'with Camp Chair known the step does not apply');
+});
+
+test('#1867: every start guide\'s Camping 101 step waits only while its camp item is unknown', { skip }, () => {
+	const starts = allGuides().filter((f) => /\/01-[a-z-]+\.guide$/.test(f) && /forever\/(alliance|horde)\/[a-z]+\//.test(f));
+	let n = 0;
+	for (const file of starts) {
+		for (const { step, goal } of goals(file)) {
+			if (goal.t !== 'accept' || !/^Camping 101: (?!Cooking)/.test(goal.title || '')) continue;
+			n += 1;
+			const when = step.when || [];
+			assert.ok(when.some((p) => p.k === 'skill' && !p.neg), `${file}: accept ${goal.quest} keeps its skill condition`);
+			assert.ok(when.some((p) => p.k === 'knows' && p.neg), `${file}: accept ${goal.quest} waits only while the camp item is unknown`);
+		}
+	}
+	assert.ok(n >= 70, `${n} Camping 101 accepts found`);
+});
+
+// Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, from Ageron
+// Kargal in Brill) is handed in; 4 recorded players carrying it had 1473 refused. The route takes 1478 on the Brill
+// stop that trains and hands it in to Carendin right before 1473.
+test(`${TIRISFAL}: a Warlock hands Halgar's Summons to Carendin before Creature of the Void`, { skip }, () => {
+	const list = goals(TIRISFAL).filter(forClass('WARLOCK'));
+	const take = at(list, 'accept 1478', is('accept', 1478));
+	const hand = at(list, 'turnin 1478', is('turnin', 1478));
+	const creature = at(list, 'accept 1473', is('accept', 1473));
+	assert.ok(take < hand && hand < creature, 'taken in Brill, handed in, then Creature of the Void');
+	assert.equal(list[hand].s, list[creature].s, 'on the same stop at Carendin');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.pairs.some((p) => `${p.a}` === 'turnin,1478' && `${p.b}` === 'accept,1473'), 'a record the build keeps');
+	assert.ok(fixes.overrides.include.some((x) => x.q === 1478), 'the route takes 1478');
 });

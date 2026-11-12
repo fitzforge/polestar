@@ -439,8 +439,8 @@ How each surface hides:
   arrows and glow, the quest bag marks, quest levels, nameplate icons, the
   turn-in captions in another addon's quest tracker, the talent overlay, the
   XP bar mark, the reward marks, the flight map's node mark (the step key
-  still flies there), the restock button, the trainer window's Train All
-  button, tooltip lines (`Hooks.decorate`), item clicks, and Polestar's
+  still flies there), the restock button, tooltip lines (`Hooks.decorate`),
+  item clicks, and Polestar's
   entries in the quest log, map tracking and minimap menus: each asks
   `Hidden()` and redraws on `POLESTAR_HIDDEN`. The Quick Keybind Mode shows
   none of Polestar's buttons while it is hidden (`mayForce`), and its key
@@ -1415,7 +1415,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `Engine.NearestClassTrainer()` returns the best one for the character (same
   ranking as candidate goals) or nil; `Engine.IsClassTrainer(npc)` whether an
   npc is any class trainer of the character's class, from the full id list
-  (QoL learns spells only there).
+  (training reminders only; players buy spells themselves).
   Opening the trainer window of one of the character's class stores
   `CharState().classTrainLevel = level` and fires
   `CLASS_TRAINED(level)`; a character first seen without a stored level counts
@@ -1483,7 +1483,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   quests", shown while `GroupQuests` lists one). An unanswered `group` predicate
   holds and `stepDone` is false while `Own.groupPending` names its quest (not
   on an along step), so the route waits at the step; `Engine.GroupQuestion`
-  gives the banner the quest, and `wantsFrom` keeps automation off it. `stepApplies` reads them, so such a step counts as one
+  gives the banner the quest, and `Own.wantsFrom` keeps automation off it. `stepApplies` reads them, so such a step counts as one
   for other characters while they fail, and a turn-in whose only accept sits
   there goes with it (`orphaned`). When the route moves past a step
   (`latchPassed`), its outcome is stored per character (`Own.latchWhen`): a
@@ -1997,7 +1997,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   asking, whatever `behavior.lostQuests` says, with the chat line.
 - **Room in the quest log** (`Core/RoutePlan.lua`; nothing is ever
   abandoned for the player). `RoutePlan.Unneeded()` lists the log's quests
-  the selected route never hands in (`GetTurnIn` status `missed`, `skipped`
+  no open route hands in (`GetTurnIn` status `missed`, `skipped`
   or `unplanned`) and the grey ones it doesn't hand in in this chapter
   (status `grey`, which also replaces those three: `Compat.IsQuestTrivial`
   on `Compat.GetQuestLevel`, the client's `GetQuestDifficultyLevel`, at the
@@ -2010,6 +2010,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the route's quest work marks `carriedTo` a later guide (the compiler's,
   GUIDE_FORMAT.md "Quests carried to a later guide") is status `later` at
   that guide even where the plan cannot reach it, never `unplanned`.
+  `GetTurnIn` asks the active tab's route first; a quest it doesn't hand in
+  ahead is status `other` (`via` that route's status) when another open
+  tab's route hands it in (`Engine.TabLiveSteps`: each tab's guide and live
+  step), or when it is a page quest of a dungeon whose pick-up or hand-in
+  guide is open in a tab (`dungeon`: what `Dungeons.HandinPlan` turns in
+  after the run; read only while the dungeon data is loaded). So a
+  dungeon's pick-up guide in the active tab never lists the dungeon's
+  quests or the leveling guide's (#1830). With no route handing it in, a
+  route still to settle makes the list nil; else the status is a passed or
+  skipped hand-in's, the leveling routes' first. The routes are built when
+  asked and kept until a tab, guide, route choice or pack changes.
   `RoutePlan.LogOverflow()` is
   `{ take, free, drop }` when the live step's open accepts outnumber the
   free slots (`Compat.GetLogCap`: the client's `GetMaxNumQuestsCanAccept`,
@@ -3096,9 +3107,12 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   and read as nil. The global is taken at login, once every addon has loaded,
   so an addon bringing its own TomTom-compatible global keeps it; it is given
   back (cleared) when the setting goes off or TomTom loads. `Nav/Bridges.lua`
-  never mirrors into it, nor into Shortest Path Forever's own stand-in (the
-  global while it is installed and TomTom is not): a waypoint there starts a
-  journey of its own, which Polestar steps aside for (#306). Default off: the
+  mirrors into TomTom itself only (installed and enabled:
+  `Compat.AddOnPresent("TomTom")`), never into this stand-in, Shortest Path
+  Forever's own (a waypoint there starts a journey of its own, which Polestar
+  steps aside for, #306) or another addon's TomTom-compatible global (a
+  waypoint addon's makes the mirror its own arrow's when it has none: a second
+  arrow on Polestar's target). Default off: the
   stand-in has methods only, so an addon that finds the global and reads
   TomTom's settings (`TomTom.db`, its profile) would error; the option ("Let
   other addons set waypoints", Options, Integrations, TomTom) says so. With it
@@ -3117,6 +3131,12 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   distance to a waypoint on another continent and hides itself there, so on
   the way to one Polestar's own arrow and its route guide (#1325), and give
   way to TomTom's on arriving (`ZONE_CHANGED_NEW_AREA`, `Nav.Refresh`).
+  While it guides a route, the waypoint is the current leg's stop
+  (`Travel.Stop`: a flight master, a dock, a portal), moved on at every
+  `ROUTE_CHANGED` and `ROUTE_ADVANCED` (an unchanged stop is not sent again),
+  and the target once the last walk begins: from Booty Bay to Grom'gol with
+  the flight known, Booty Bay's flight master, not the far target up the
+  coast (#1834). As a mirror only (TomTom's arrow off) it stays on the target.
 - **`/way`** (with `nav.answerTomTom`): claimed at login (`SLASH_POLESTARWAY1`)
   only when TomTom is not loaded and no `SLASH_*` global spells `/way`.
   `/way [#mapID | zone] x y [title]`: the zone is any name under the player's
@@ -3710,7 +3730,7 @@ loading screen and on `TAXI_NODE_STATUS_CHANGED`, so a flight path learnt
 while Polestar was not running counts before the next flight map (#1308);
 a client that reads no node as undiscovered is not trusted. It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
-time, a teleport 10 s) and keeps the real seconds of every leg apart, so
+time, a teleport a `TELEPORT_MARGIN` of 60 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
 1500 path nodes. With `Nav/Transit.lua` loaded, a ride's wait is the
 timetable's (`Transit.NextDeparture(kind, id, now, side)`) for the moment
@@ -3732,6 +3752,15 @@ at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
 `hearth` goal (`Own.hearthPlan`, via `Nav.HEARTH_*`) weigh it the same way.
+A class teleport is cast only when it clearly pays (#1823: Teleport:
+Stormwind won by a few seconds over a flight to Darkshire): it must save at
+least `TELEPORT_MARGIN` (60 s) over the best way without teleports, and
+`TELEPORT_SHARE` (a fifth) of that way when that is more, in the search's
+cost. Each teleport edge carries `TELEPORT_MARGIN`, so a way the search takes
+through one saves the minute already; only a teleport's way costing over four
+minutes can fall short of the fifth, and then the same graph is searched once
+more without teleports, only up to the cost at which the teleport pays
+(`planRoute`'s `fifth`): reaching the target below it, that way is taken.
 While a quest timer runs (`Compat.QuestTimerRunning`: a log quest with
 `C_QuestLog.GetTimeAllowed`, not ready and not failed), the route and the
 player's own estimates leave out the Hearthstone and the class teleports: a
@@ -4203,9 +4232,22 @@ walk stays inside one zone; between zones it goes only through
   Undercity's way in and out is one such chain, `undercity-south-lift` (from
   Fitz's own walk): Tirisfal's front door, the corridor and the entrance hall
   to the south lift's top and bottom landings, both ends mouths; the other
-  lifts serve walks inside the city.
+  lifts serve walks inside the city. A boat, zeppelin, tram or portal end
+  inside a chain is reached the same way, through its nearest node: the
+  Deeprun Tram's Stormwind end lies down its building, under the Keep's Royal
+  Gallery, and `deeprun-tram-stormwind` (from players' recorded walks in)
+  takes the walk to the building's door first, not across from the street to
+  the point under the Keep (#1242);
+- an area: a box of a zone's map no walk joins to the rest of the zone. It is
+  a zone of its own, reached by no crossing, only by portals, ships and
+  flights. Rut'theran Village, `rutheran-village`, lies on Teldrassil's map at
+  the foot of the tree: the walking grid joins neither part to the other, and
+  the fall from the rim kills, so a walk from the top down to its flight master
+  or dock goes through Darnassus and the portal (#1761), and one up takes the
+  portal back (#989).
 
-A point's zone is its uiMap when the crossing data knows that zone; a zone
+A point's zone is its uiMap when the crossing data knows that zone (the area
+whose box holds it, if the map has one); a zone
 the data lists as `wild` (no crossing data, e.g. the zones only Forever has)
 walks as before. The player on a continent's map (the client puts them on no
 zone's in some caves and instance entrances: the cave before Blackfathom
@@ -4306,16 +4348,18 @@ The crossings file (schema 1, Era map percent):
   "open": [ { "a": 1429, "b": 1431, "oneWay": false } ],
   "chains": [ { "id": "a-cave", "name": "A Cave", "open": "mouth",
                 "nodes": [ { "map": 1413, "x": 45.9, "y": 36.2, "radius": 20, "caption": "Enter the cave" },
-                           { "map": 1413, "x": 46.2, "y": 34.9, "radius": 15, "caption": "Follow the path", "back": "Climb out" } ] } ] }
+                           { "map": 1413, "x": 46.2, "y": 34.9, "radius": 15, "caption": "Follow the path", "back": "Climb out" } ] } ],
+  "areas": [ { "id": "rutheran-village", "name": "Rut'theran Village", "map": 1438,
+               "box": { "x1": 45, "y1": 81.5, "x2": 68, "y2": 100 } } ] }
 ```
 
 Validation (every error names its entry, e.g. `crossings[3] (id).a: radius
 500 outside 3-100 yd`): no unknown keys; ids lower-case, unique across
-crossings and chains; maps with an Era frame; x, y in 0-100 unless the point
+crossings, chains and areas; maps with an Era frame; x, y in 0-100 unless the point
 says `"offMap": true` (then -50-150); radius 3-100 yd; a crossing's ends on one
 continent, in different zones, at most 1000 yd apart; open pairs distinct,
 on one continent, not repeated; chains of 2+ nodes on one continent with hops
-of at most 600 yd; captions plain text of at most 160 characters (no `|`
+of at most 600 yd; an area's box x1 < x2 and y1 < y2 in 0-100; captions plain text of at most 160 characters (no `|`
 escape codes). `travel route` runs the addon planner and includes
 Polestar_Travel when it is built (`--crossings-lua none` leaves it out).
 
@@ -5070,7 +5114,7 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   those offline under 2 minutes (kept apart from `Members`). The Engine asks
   `Party.Waiting` for the live step only (`computeCurrent`: a done step that
   `Own.partyHold` holds stays live), refuses a held quest's turn-in to
-  Automation (`wantsFrom`), and with every goal of the step done but held
+  Automation (`Own.wantsFrom`), and with every goal of the step done but held
   turn-ins aims at the nearest objective a member still needs
   (`Own.partyAim`, `Own.nearestField`, label "For Ana: ..."). It
   re-evaluates on `PARTY_PROGRESS`.
@@ -8808,13 +8852,17 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   for Alliance, Horde and no profile and its yards. `chokepoints.js` adds `Chokepoints.lua`
   (`PolestarNavChokepoints[map]`: lift landings, bridges, gates at passages,
   tunnels, cave and building mouths, passes, each named by its AreaTable
-  area) for the journey's named walk steps.
+  area) for the journey's named walk steps; a passage whose gate is the ground
+  under a bridge's deck over water is named a bridge (`pack/chokepoints.rs`
+  under_bridge: the Southfury River's road crossing).
 - **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
   walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
   His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
   leave open past the walkable slope, which his reader closes, are closed); his zones too. His entrance graph is
   re-encoded as the graph field (an entrance on one of his refined ports becomes the surface owning it; an entrance
-  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk). His motion
+  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk; an edge's yards
+  are his profile-free way's, as our grid's maps take theirs: he keeps a cost and a yards for each profile, and the
+  walk search stops a way past 8 times the straight line plus 2,000 yd of these yards). His motion
   stream reduces, at 4.17 yd cells, to steps inside one surface, steps his cells make, and his jumps, drops and
   climbs, each to the same or a neighbouring cell: those inside a cluster are the new `arc` field (one-way moves
   between the surfaces owning their ends, once per pair), those across a border are already his graph's. Each of his

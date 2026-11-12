@@ -25,7 +25,7 @@ step Auberdine
   zone Darkshore
   tip From the dock, up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.
   turnin 97926 optional                       -- Thundris Windweaver, north end of the village: Baros Alexston's reply
-  accept 6123 only NightElf,Druid             -- Alanndarian Nightsong
+  accept 6123 only NightElf,Skyborne,Druid             -- Alanndarian Nightsong
   accept 729                                  -- Archaeologist Hollee
   vendor nearest optional
   accept 4740                                 -- The WANTED poster
@@ -44,10 +44,10 @@ step Onu
 # ---------------------------------------------------------------- Fourth loop: the south
 
 step Lunar Fungus and Earthroot
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   tip The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of Auberdine; the moonkin there are irritable. Earthroot needs Herbalism: herbalists pick it all over Darkshore, anyone else brings it from Stormwind (Maria Lumere) or the Auction House.
-  collect 2449 x5 quest 6123.1 only NightElf -- Earthroot
-  collect 15851 x12 quest 6123.2 only NightElf -- Lunar Fungus
+  collect 2449 x5 quest 6123.1 only NightElf,Skyborne -- Earthroot
+  collect 15851 x12 quest 6123.2 only NightElf,Skyborne -- Lunar Fungus
 
 step The Grove of the Ancients
   tip Grizzled Thistle Bears roam the hills around the Grove; Buzzbox 525 stands west of it among them.
@@ -108,8 +108,8 @@ step Auberdine
   turnin 4740                                 -- Sentinel Glynda Nal'Shea
   accept 98461 optional                   -- Archaeologist Hollee
   turnin 731                                  -- Archaeologist Hollee
-  turnin 6123 only NightElf,Druid             -- Alanndarian Nightsong
-  accept 6124 only NightElf,Druid             -- She gives you the Curative Animal Salve
+  turnin 6123 only NightElf,Skyborne,Druid             -- Alanndarian Nightsong
+  accept 6124 only NightElf,Skyborne,Druid             -- She gives you the Curative Animal Salve
   turnin 98042                                -- Thundris Windweaver
   turnin 986                                  -- Terenthis
   accept 993
@@ -138,7 +138,7 @@ step The Ruins of Mathystra
   turnin 2098
 
 step Strange Lockbox
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   when onquest 272
   collect 15883 x1                            -- Half Pendant of Aquatic Agility: the Strange Lockbox under the water off the north coast, west of the ruins
 
@@ -159,7 +159,7 @@ step Volcor
   turnin 993                                  -- Volcor, inside Blackwood Den
   accept 994
   complete 994 @41.7,81.5                     -- His walk ends at the road, where Grimclaw waits
-  kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
+  kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Skyborne,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
 
 step Auberdine
   only Druid
@@ -203,8 +203,8 @@ step Dendrite Starblaze
   tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it.
   turnin 98393 only NightElf,Skyborne -- Dendrite Starblaze
   accept 98394 only NightElf
-  turnin 6124 only NightElf                   -- Dendrite Starblaze
-  accept 6125 only NightElf
+  turnin 6124 only NightElf,Skyborne                   -- Dendrite Starblaze
+  accept 6125 only NightElf,Skyborne
   accept 98341 only Skyborne
 
 step Dendrite Starblaze
@@ -259,5 +259,5 @@ step To Darnassus
   zone Darnassus
   tip Take the portal up to Mathrengyl, then fly back to Auberdine for the road south to Ashenvale.
   turnin 98397 only NightElf,Skyborne -- Mathrengyl Bearwalker: Cat Form
-  turnin 6125 only NightElf                   -- Mathrengyl Bearwalker: Cure Poison
+  turnin 6125 only NightElf,Skyborne                   -- Mathrengyl Bearwalker: Cure Poison
   fly "Auberdine"

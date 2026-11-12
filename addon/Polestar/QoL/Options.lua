@@ -279,12 +279,6 @@ register(QOL, L["Vendors"], L["Bags"], {
 })
 
 register(QOL, L["Vendors"], L["Trainers"], {
-	{ kind = "toggle", key = "qol.trainAllButton", label = L["Train all button"],
-		help = L["Adds a Train All button to the trainer window to learn all available skills."],
-		search = "train all, trainer, button, learn all, skills" },
-	{ kind = "toggle", key = "qol.trainAll", label = L["Auto-learn new spells"],
-		help = L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."],
-		search = "train, trainer, auto train, auto learn, learn spells, skills, abilities, ranks" },
 	{ kind = "toggle", key = "qol.ridingReminder", label = L["Riding reminder"],
 		help = L["At level 40 and 60, if you have not learned riding yet, says the cost in chat (with any Honored discount) and points the arrow at your race's riding trainer when you can afford it. Warlocks and Alliance Paladins are sent to their free-mount quest NPC instead. Once per tier per character."],
 		search = "mount, riding, horse, epic mount, level 40, level 60" },

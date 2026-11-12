@@ -200,7 +200,9 @@ return {
 
 	-- Step 41: Helcular's Grave
 	-- {area:271} Southshore
-	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "",
+	-- plural, as words: Southshore Guards = {npc:2386} Southshore Guard
+	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came."] = "Идите на восток к кладбищу (место {area:271}) на северо-восточной окраине городка: могила Хелькулара среди остальных. Подходите с севера, спускаясь по склону над городком. Стражники Южнобережья (55) стоят в северо-западном углу кладбища и к юго-востоку от могилы: пройдите между ними, сдайте задание и уходите тем же путем.",
+	["North of Southshore's graveyard"] = "К северу от кладбища Южнобережья",
 
 	-- Step 42: Daggerspine naga
 	["Daggerspine naga"] = "Наги из клана Пронзающего Гребня",
