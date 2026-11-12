@@ -1684,11 +1684,7 @@ fn gather_way(g: &V, ln: &V, r: &mut R) -> V {
 			way.set("skillLine", p.get("id"));
 		} else if g.get("gatherSkillQuoted").truthy() {
 			way.set("skill", name.as_str());
-			r.warn(
-				ln,
-				format!("profession \"{name}\" is not in data{}; using the explicit name (new Forever content?)", if data.has_professions { "" } else { " (professions.json missing)" }),
-				None,
-			);
+			r.warn(ln, format!("profession \"{name}\" is not in data{}; using the explicit name (new Forever content?)", if data.has_professions { "" } else { " (professions.json missing)" }), None);
 		} else {
 			r.err(ln, format!("unknown profession \"{name}\"; quote the name to use it anyway: `gather \"{name}\" {}`", g.get("gatherRank")), None);
 		}
