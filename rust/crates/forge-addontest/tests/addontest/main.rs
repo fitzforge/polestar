@@ -348,6 +348,8 @@ mod settings_game;
 mod settings_migration;
 #[path = "skins-bundled.rs"]
 mod skins_bundled;
+#[path = "skins-concepts.rs"]
+mod skins_concepts;
 #[path = "skins-hearth.rs"]
 mod skins_hearth;
 #[path = "skins-sweep.rs"]

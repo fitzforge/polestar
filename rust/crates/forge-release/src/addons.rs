@@ -11,7 +11,17 @@ pub const CODEX: &str = "Polestar_Codex";
 pub const RECORDER: &str = "Polestar_Recorder";
 /// The skins in the download (docs/skins), each an addon of its own the player enables in the AddOns list;
 /// shipped when present (all committed). The Skin API's example, Polestar_Skin_Example, never ships.
-pub const SKIN_ADDONS: &[&str] = &["Polestar_Skin_Vellum", "Polestar_Skin_Lumen", "Polestar_Skin_Beacon", "Polestar_Skin_Aurora"];
+pub const SKIN_ADDONS: &[&str] = &[
+	"Polestar_Skin_Vellum",
+	"Polestar_Skin_Lumen",
+	"Polestar_Skin_Beacon",
+	"Polestar_Skin_Aurora",
+	"Polestar_Skin_Hairline",
+	"Polestar_Skin_Umbra",
+	"Polestar_Skin_Waymark",
+	"Polestar_Skin_Lanterns",
+	"Polestar_Skin_Sheen",
+];
 
 /// The generated data addons, shipped when built: the quest and item databases, the Codex, then the
 /// language folders `Polestar_<locale>` (our guides' texts and the game's names in each language).

@@ -8,8 +8,17 @@ use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
 // Each skin's id, its addon, and its variants (none: the skin alone).
-const SKINS: &[(&str, &str, &[&str])] =
-	&[("vellum", "Polestar_Skin_Vellum", &[]), ("lumen", "Polestar_Skin_Lumen", &[]), ("beacon", "Polestar_Skin_Beacon", &[]), ("aurora", "Polestar_Skin_Aurora", &[])];
+const SKINS: &[(&str, &str, &[&str])] = &[
+	("vellum", "Polestar_Skin_Vellum", &[]),
+	("lumen", "Polestar_Skin_Lumen", &[]),
+	("beacon", "Polestar_Skin_Beacon", &[]),
+	("aurora", "Polestar_Skin_Aurora", &[]),
+	("hairline", "Polestar_Skin_Hairline", &[]),
+	("umbra", "Polestar_Skin_Umbra", &["flat", "forever", "blizzard", "classic"]),
+	("waymark", "Polestar_Skin_Waymark", &[]),
+	("lanterns", "Polestar_Skin_Lanterns", &["forge", "tidepool", "glade", "hoarfrost", "duskrose", "starfall", "ashen", "highsun", "gloam", "plain"]),
+	("sheen", "Polestar_Skin_Sheen", &[]),
+];
 
 fn run() -> Value {
 	let list = SKINS

@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Skin: Sheen
+## Notes: Glass and gloss for Polestar: bevelled translucent panes, a gloss on every button and tab, light across the glass, your class colour running into the accent.
+## Title-deDE: Polestar-Design: Sheen
+## Notes-deDE: Glas und Glanz für Polestar: abgeschrägte, durchscheinende Scheiben, Glanz auf jeder Schaltfläche und jedem Reiter, Licht über dem Glas, deine Klassenfarbe, die in den Akzent übergeht.
+## Title-esES: Polestar, tema: Sheen
+## Notes-esES: Cristal y brillo para Polestar: paneles translúcidos biselados, brillo en cada botón y pestaña, luz sobre el cristal, el color de tu clase fundiéndose con el acento.
+## Title-esMX: Polestar, tema: Sheen
+## Notes-esMX: Cristal y brillo para Polestar: paneles translúcidos biselados, brillo en cada botón y pestaña, luz sobre el cristal, el color de tu clase fundiéndose con el acento.
+## Title-frFR: Polestar, habillage : Sheen
+## Notes-frFR: Verre et brillance pour Polestar : des panneaux translucides biseautés, un reflet sur chaque bouton et onglet, de la lumière sur le verre, la couleur de votre classe qui se fond dans l'accent.
+## Title-koKR: Polestar 스킨: Sheen
+## Notes-koKR: Polestar를 위한 유리와 광택: 경사진 반투명 판, 모든 버튼과 탭의 광택, 유리를 가로지르는 빛, 강조색으로 이어지는 직업 색상.
+## Title-ptBR: Polestar, tema: Sheen
+## Notes-ptBR: Vidro e brilho para o Polestar: painéis translúcidos chanfrados, brilho em cada botão e aba, luz sobre o vidro, a cor da sua classe fundindo-se ao destaque.
+## Title-ruRU: Polestar, оформление: Sheen
+## Notes-ruRU: Стекло и блеск для Polestar: полупрозрачные панели со скосом, блик на каждой кнопке и вкладке, свет поперёк стекла, цвет вашего класса, переходящий в акцент.
+## Title-zhCN: Polestar 皮肤：Sheen
+## Notes-zhCN: Polestar 的玻璃与光泽：带斜面的半透明面板，每个按钮和标签上的光泽，横过玻璃的光，职业颜色渐入强调色。
+## Title-zhTW: Polestar 皮膚：Sheen
+## Notes-zhTW: Polestar 的玻璃與光澤：帶斜面的半透明面板，每個按鈕和標籤上的光澤，橫過玻璃的光，職業顏色漸入強調色。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.7
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: sheen
+
+Sheen.lua
