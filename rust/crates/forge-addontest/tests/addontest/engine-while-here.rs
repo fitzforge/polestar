@@ -1325,6 +1325,11 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 	// The live step escorts someone: nothing for the whole step.
 	let escort = run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", ", escort = true");
 	assert_eq!(escort, vec![json!("none")]);
+	// Barrens, Ignition then The Escape (Fitz, 0.3.7.1): the live step's escort is only taken at its end, after
+	// other work; until it is taken, lines show as usual (the Nugget Slugs' tool buckets beside Lugwizzle).
+	let not_taken =
+		run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", r#" }, { t = "accept", quest = 99, title = "The Escape", npc = 5, npcName = "Shredder", map = 1429, x = 60, y = 60, escort = true"#);
+	assert_eq!(not_taken, vec![json!(v)]);
 }
 
 // T1327: Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a

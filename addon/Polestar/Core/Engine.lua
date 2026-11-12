@@ -10396,9 +10396,9 @@ function Own.hereBuild()
 		Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
 		Own.hereSeconds = tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20
 		local steps = guide.steps
-		for g, goal in ipairs(steps[live].goals) do
-			if goal.escort and goalApplies(goal) and not goalDone(live, g, goal) then Own.hereEscort = true end
-		end
+		-- Only once the escort runs (its quest taken): before that, the step's
+		-- other work (Ignition's key before The Escape) leaves room for lines.
+		Own.hereEscort = Engine.EscortRunning()
 		-- The route's next AHEAD steps (for the character, not skipped): their
 		-- lines are near-term and rank first; later ones read "later in this
 		-- guide". Of the first HERE_SOON_STEPS of them, the last step and the
