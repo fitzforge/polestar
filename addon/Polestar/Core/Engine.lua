@@ -299,16 +299,17 @@ function Engine.GreyLeftOut(id, q, level)
 end
 
 -- Per guide: each goal's step index, each quest's accept, turn-in and
--- abandon goals ({ s, key = "s:g", step, goal }), and `starters`: a plain
+-- abandon goals ({ s, key = "s:g", step, goal }), `starters`: a plain
 -- `collect` of an item (no quest) -> the accept after it in its step that
 -- the item starts (`accept <q> item <item>`, no giver: Ursangous's Paw
--- before The Hunt Continues), as Own.starterTaken pairs them.
+-- before The Hunt Continues), as Own.starterTaken pairs them, and the goals
+-- at each NPC (`at[npc]`) or object (`at[-object]`), the same entries.
 local NONE = {}
 Own.layoutCache = setmetatable({}, { __mode = "k" })
 local function layoutOf(g)
 	local l = Own.layoutCache[g]
 	if l then return l end
-	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {}, starters = {} }
+	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {}, starters = {}, at = {} }
 	for s, step in ipairs(g.steps) do
 		for gi, goal in ipairs(step.goals) do
 			l.stepOf[goal] = s
@@ -329,6 +330,15 @@ local function layoutOf(g)
 						break
 					end
 				end
+			end
+			local ref = type(goal.npc) == "number" and goal.npc or type(goal.object) == "number" and -goal.object or nil
+			if ref then
+				local list = l.at[ref]
+				if not list then
+					list = {}
+					l.at[ref] = list
+				end
+				list[#list + 1] = { s = s, key = s .. ":" .. gi, step = step, goal = goal }
 			end
 		end
 	end
@@ -1051,7 +1061,8 @@ end
 -- (against lint's order) after it, is the route's own business or a gap in
 -- the data: the accept keeps its place and its giver's window has the last
 -- word. So is one this guide has only for other characters (Own.coming).
--- Returns the prerequisite that blocks, or nil.
+-- Returns the prerequisite that blocks (of `pre`, one the player holds
+-- first: handing it in is what opens the accept), or nil.
 function Own.preBlocked(a, depth)
 	if not (guide and missingPre(a)) then return nil end
 	if type(a.preAll) == "table" then
@@ -1064,7 +1075,17 @@ function Own.preBlocked(a, depth)
 		for _, p in ipairs(any) do
 			if questDone(p) or Own.coming(p, depth) then return nil end
 		end
-		return any[1]
+		return Own.heldOf(any) or any[1]
+	end
+	return nil
+end
+
+-- The first quest of `pre` list `list` the player holds (in the log, not
+-- skipped: Engine.SkipQuest), or nil: handing it in is what opens the accept.
+function Own.heldOf(list)
+	local C = Compat()
+	for _, p in ipairs(list) do
+		if C.IsOnQuest(p) and not Own.questSkipped(p) then return p end
 	end
 	return nil
 end
@@ -1080,12 +1101,17 @@ end
 -- the character can take, whose steps here are for other races only, is
 -- one the route gives them elsewhere (Washed Ashore, 4681, for a Night Elf
 -- in Darkshore, done in the Night Elf's own Darkshore guide before, #1442):
--- it is missing. Nor is one the guide does not turn in for the
--- character that the player holds (not skipped, Engine.SkipQuest): another
--- giver's version of a breadcrumb the guide takes elsewhere, handed in at
--- the same NPC (a Tauren Shaman's Call of Water from Thunder Bluff, 1529,
--- where the guide takes Orgrimmar's 1528, #1372): its follow-up stays open
--- instead of "Requires Call of Water first" with Call of Water in the log.
+-- it is missing. One the guide does not turn in for the character that the
+-- player holds (not skipped, Engine.SkipQuest) is coming only when a step of
+-- the guide for the character stands at an NPC or object that takes it in
+-- (Own.heldComing): another giver's version of a breadcrumb the guide takes
+-- elsewhere, handed in at the same NPC (a Tauren Shaman's Call of Water from
+-- Thunder Bluff, 1529, where the guide takes Orgrimmar's 1528, #1372) keeps
+-- its follow-up open instead of "Requires Call of Water first" with Call of
+-- Water in the log; one the route never takes the player to hand in (Washed
+-- Ashore, 4681, held by a Night Elf whose Darkshore steps of it are for the
+-- other races) leaves it "Hand in Washed Ashore to Gwennyth Bly'Leggonde
+-- first" (unavailableText).
 function Own.coming(p, depth)
 	local state = ns.CharState()
 	local skipped, manual = state.skipped[guide.id], state.manual[guide.id]
@@ -1103,7 +1129,12 @@ function Own.coming(p, depth)
 		end
 	end
 	if mine then return false end
-	if Compat().IsOnQuest(p) and not Own.questSkipped(p) then return true end
+	if Compat().IsOnQuest(p) and not Own.questSkipped(p) then
+		-- A goal an update passed (Own.passAdded) is no stop on the way.
+		return Own.heldComing(guide, p, function(t)
+			return stepApplies(t.step) and Guides.Matches(t.goal.only, player) and not Own.gone(t.goal) and not (skipped and skipped[t.s])
+		end)
+	end
 	local accepts = l.accepts[p] or NONE
 	for _, t in ipairs(accepts) do
 		if stepApplies(t.step) and Guides.Matches(t.goal.only, player) then return false end
@@ -1116,6 +1147,38 @@ function Own.coming(p, depth)
 		end
 	end
 	return others and Own.notMine(p)
+end
+
+-- Whether held quest p can be handed in on guide g's way: true when the
+-- Codex cannot say who takes it in (none loaded, a quest it lacks, no ender
+-- listed: the giver's window has the last word, as before), else when an
+-- entry of g's layout at one of p's enders (layoutOf's `at`) passes
+-- `fits(entry)` (a step the character can do).
+function Own.heldComing(g, p, fits)
+	local e = Own.endersOf(p)
+	if not e then return true end
+	local at = layoutOf(g).at
+	for _, id in ipairs(e.npc or NONE) do
+		for _, t in ipairs(at[id] or NONE) do
+			if fits(t) then return true end
+		end
+	end
+	for _, id in ipairs(e.object or NONE) do
+		for _, t in ipairs(at[-id] or NONE) do
+			if fits(t) then return true end
+		end
+	end
+	return false
+end
+
+-- The Codex's enders of quest p ({ npc = { id, ... }, object = { id, ... } }),
+-- or nil when it cannot tell.
+function Own.endersOf(p)
+	local X = ns.Codex
+	local rec = X and X.Quest and X.Quest(p)
+	local e = rec and rec["end"]
+	if type(e) ~= "table" or #(e.npc or NONE) + #(e.object or NONE) == 0 then return nil end
+	return e
 end
 
 -- Whether quest p is closed to the character by faction, race or class in
@@ -1418,11 +1481,14 @@ function Own.feederPlan(g)
 	end
 	-- As Own.preBlocked, for g whether or not a tab shows it.
 	local blocker
-	-- As Own.coming: p held (not skipped) counts as coming (#1372); else a
-	-- turn-in here brings p when g takes p itself and that accept is open (a
-	-- turn-in of a quest neither held nor taken here is orphaned).
+	-- As Own.coming: p held (not skipped) is coming when g turns it in or
+	-- stands at its ender (Own.heldComing, #1372); else a turn-in here brings
+	-- p when g takes p itself and that accept is open (a turn-in of a quest
+	-- neither held nor taken here is orphaned). A held p that is not coming
+	-- is planned for as a chain of its own hand-in (Own.feederChain), and its
+	-- follow-ups stay ("Hand in X first") when that cannot go in.
 	local function coming(p, depth)
-		if C.IsOnQuest(p) and not Own.questSkipped(p) then return true end
+		if C.IsOnQuest(p) and not Own.questSkipped(p) then return turnsIn(p) or Own.heldComing(g, p, mine) end
 		if not turnsIn(p) then
 			-- Every goal of p here for other characters, p not this one's: another
 			-- race's version of the chain (Own.coming, Own.notMine).
@@ -1451,12 +1517,13 @@ function Own.feederPlan(g)
 			for _, p in ipairs(a.pre) do
 				if questDone(p) or coming(p, depth) then return nil end
 			end
-			return a.pre[1]
+			return Own.heldOf(a.pre) or a.pre[1]
 		end
 		return nil
 	end
 	-- Every prerequisite accept a lacks that nothing here brings: each missing
-	-- one of `preAll`, and `pre`'s first when none of them is done or coming.
+	-- one of `preAll`, and of `pre` (none of them done or coming) the one the
+	-- player holds (Own.heldOf), else its first.
 	-- (Split Bone Necklace needs Bloody Bone Necklace and The Vile Reef: one
 	-- chain alone opens nothing.)
 	local function blockers(a)
@@ -1471,7 +1538,7 @@ function Own.feederPlan(g)
 			for _, p in ipairs(a.pre) do
 				if questDone(p) or coming(p, 0) then any = true break end
 			end
-			if not any then out[#out + 1] = a.pre[1] end
+			if not any then out[#out + 1] = Own.heldOf(a.pre) or a.pre[1] end
 		end
 		return out
 	end
@@ -1669,9 +1736,10 @@ function Own.feederPlan(g)
 		end
 	end
 	-- A chain the player skipped is theirs: its accepts stay, passed as
-	-- "skipped" (Engine.SkipQuest), not left out.
+	-- "skipped" (Engine.SkipQuest), not left out. So do those waiting on a
+	-- quest the player holds: "Hand in X first" says what to do.
 	for _, ch in ipairs(list) do
-		if not ch.inserted and not ch.skipped then
+		if not ch.inserted and not ch.skipped and ch.quests[ch.p] ~= "turnin" then
 			for _, d in ipairs(ch.deps) do
 				hidden[d.q] = { title = d.title, need = ch.p, needTitle = ch.from.title, from = ch.from.guide, fromId = ch.from.id }
 				drop[d.q] = true
@@ -3931,10 +3999,26 @@ local function unavailableText(u)
 	if u.reason == "pre" and u.pre and u.pre == parent then return L["Only with %s in your quest log"]:format(ns.Quoted(titleOfQuest(parent, a.preTitles))) end
 	if u.reason == "pre" then
 		local pre = u.pre or missingPre(a)
+		-- A prerequisite in the log that the route never takes in (Own.coming).
+		if pre and Compat().IsOnQuest(pre) and not Own.questSkipped(pre) then
+			local title, who = ns.Quoted(titleOfQuest(pre, a.preTitles)), Own.enderName(pre)
+			return who and L["Hand in %s to %s first"]:format(title, who) or L["Hand in %s first"]:format(title)
+		end
 		if pre then return L["Requires %s first"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end
 	end
 	local N = ns.Names
 	return L["Not offered by %s"]:format(N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"])
+end
+
+-- The name of the first NPC (else object) the Codex says takes quest p in,
+-- or nil (Own.endersOf).
+function Own.enderName(p)
+	local e = Own.endersOf(p)
+	if not e then return nil end
+	local N, X = ns.Names, ns.Codex
+	local npc, obj = e.npc and e.npc[1], e.object and e.object[1]
+	if npc then return N.Npc(npc) or (X.Npc and X.Npc(npc) or NONE).name end
+	return obj and (N.Object(obj) or (X.Object and X.Object(obj) or NONE).name) or nil
 end
 
 -- A "pre" mark's quest the player skipped (Own.skipRoot), as its title; nil
