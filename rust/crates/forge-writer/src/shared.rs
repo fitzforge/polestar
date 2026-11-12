@@ -1576,7 +1576,8 @@ mod tests {
 		let v1: BTreeMap<String, String> = [("g/02.guide".to_string(), v1_text.to_string())].into_iter().collect();
 		let canon: BTreeMap<String, String> = [("g/02.guide".to_string(), canon_text.to_string())].into_iter().collect();
 		let starts = |rs: &[&str]| rs.iter().map(|r| r.to_string()).collect::<BTreeSet<String>>();
-		let by_quest: FxHashMap<u32, BTreeSet<String>> = [(637, starts(&["Dwarf", "Gnome", "NightElf", "Skyborne"])), (2, starts(&["Human", "Dwarf", "Gnome", "NightElf", "Skyborne"]))].into_iter().collect();
+		let by_quest: FxHashMap<u32, BTreeSet<String>> =
+			[(637, starts(&["Dwarf", "Gnome", "NightElf", "Skyborne"])), (2, starts(&["Human", "Dwarf", "Gnome", "NightElf", "Skyborne"]))].into_iter().collect();
 		let fixes = serde_json::json!({ "fixes": [{ "id": "t-637", "faction": "Alliance", "at": { "quest": 637, "goal": "quest" }, "races": "all" }] });
 		let records = crate::fixes::Records { guide_fixes: Some(&fixes), ..Default::default() };
 		let adopted = |fix: &dyn Fn(&str) -> String| {
