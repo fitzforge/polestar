@@ -1974,8 +1974,32 @@ test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after
 	assert.ok(plans.every(located), 'each attack plan has a place');
 	const list = goals(HILLSBRAD_ALLIANCE);
 	assert.equal(list.findIndex(({ goal }) => is('accept', 98221)(goal)), -1, 'From the Ashes is not taken again');
-	const lit = at(list, 'turnin 465', is('turnin', 465));
-	assert.ok(lit < at(list, 'accept 98223', is('accept', 98223)), 'before the Tattered Spellbook');
+	at(list, 'turnin 465', is('turnin', 465));
+});
+
+// --- Wetlands (julesbruu, #1705): 0.3.6 lit the catapult (465's hand-in) and then sent everyone to the Tattered
+// Spellbook for Old Habits (98223), which offered nothing to a solo player who skipped the elite chieftain, with
+// neither Nek'rosh's Gambit (465) nor Defeat Nek'rosh (474) in the log. Players' recordings: offered with 465 in the
+// log, with 474 in the log, and once after 474's hand-in. Now it is taken before the catapult, and the step shows
+// only while 465 or 474 is in the log (the route's gate).
+test(`${HILLSBRAD_ALLIANCE}: julesbruu's report: Old Habits is taken while Nek'rosh's Gambit is still in the log, shown only with it or Defeat Nek'rosh in the log (#1705)`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	const take = at(list, 'accept 98223', is('accept', 98223));
+	assert.ok(take < at(list, 'turnin 465', is('turnin', 465)), 'the spellbook comes before the catapult is lit');
+	const when = list[take].step.when || [];
+	assert.ok(!when.some((p) => p.k === 'group'), 'not on the group branch: solo players take it too');
+	const gate = when.find((p) => p.k === 'onquest' && !p.neg);
+	assert.ok(gate, 'the step shows only while a quest of the chain is in the log');
+	assert.deepEqual([gate.q].flat().sort((a, b) => a - b), [465, 474], 'Nek\'rosh\'s Gambit or Defeat Nek\'rosh');
+	// The hand-in at Menethil holds only players who took the quest, in a step of its own: Red Jack Flint's accept
+	// beside it stays for everyone.
+	const back = list[at(list, 'turnin 98223', is('turnin', 98223))];
+	assert.ok((back.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(98223)), 'the hand-in step is when onquest 98223');
+	assert.ok(!back.step.goals.some((g) => is('accept', 1132)(g)), 'Red Jack Flint is not in the hand-in step');
+	assert.ok(list.some(({ step, goal }) => is('accept', 1132)(goal) && !(step.when || []).length), 'Red Jack Flint is taken by everyone');
+	let seen = 0;
+	for (const guide of allGuides()) seen += goals(guide).filter(({ goal }) => is('accept', 98223)(goal)).length;
+	assert.equal(seen, 1, 'taken in one guide');
 });
 
 // --- Wetlands (Bennistrov, #1299): 0.3.5 took This Land Was Their Land (98230) on the first Menethil visit,

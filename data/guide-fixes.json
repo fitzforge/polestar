@@ -6828,6 +6828,26 @@
 				}
 			],
 			"issue": 1867
+		},
+		{
+			"id": "1705-old-habits",
+			"at": {
+				"quest": 98223,
+				"goal": "accept"
+			},
+			"when": "onquest 465,474",
+			"note": "Old Habits (Wetlands) starts at the Tattered Spellbook in the Angerfang Encampment. Players' recordings show it offered with Nek'rosh's Gambit (465) or Defeat Nek'rosh (474) in the log, and once after 474 was handed in; the reporter, with neither in the log, was offered nothing. The route takes it on the Angerfang stop before the catapult is lit (data/route-fixes.json), while 465 is still in the log, so solo players who skip Defeat Nek'rosh get it too; the step shows only while 465 or 474 is in the log, so a player who never took the chain is not sent to the book. `onquest 465,474` is the route's gate, not the game's whole rule: the one take after 474's hand-in is left out, since a `when` cannot say \"taken or done\" and the route never reaches the book that late (#1705).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1705 (julesbruu): the Tattered Spellbook offered nothing with neither Nek'rosh's Gambit (465) nor Defeat Nek'rosh (474) in the log, after 465 was handed in and 474 skipped"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (fitzforge on #1714): 21 accepts of Old Habits from the Tattered Spellbook by 20 players: 14 with 465 handed in and 474 in the log, 2 with both in the log, 3 with 474 in the log (465 not recorded), 1 with only 465 in the log and 474 never taken, 1 after both were handed in"
+				}
+			],
+			"issue": 1705
 		}
 	]
 }
