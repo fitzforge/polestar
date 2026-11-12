@@ -16,3 +16,6 @@ section: players
   Hiding the game's tracker while docked takes effect after a reload and
   returns the guide to its floating window. Docking is unavailable while
   the tracker is hidden or the gamepad interface is enabled.
+  Attached ForeverCore sections follow below the selected guide, or beside
+  it when there is insufficient room below. Quests restores ForeverCore's
+  normal placement; a manually detached Forever column is left alone.

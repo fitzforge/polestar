@@ -386,6 +386,7 @@ end)
 
 ns.On("POLESTAR_HIDDEN", function()
 	Layout()
+	Skin.UpdateForeverColumn()
 end)
 
 local events = CreateFrame("Frame", nil, ns.UIParent)
@@ -419,7 +420,9 @@ events:SetScript("OnUpdate", function(_, dt)
 	elapsed = elapsed + dt
 	if elapsed < 0.2 then return end
 	elapsed = 0
-	if not Skin.Enabled() or Skin.SharedHost() then return end
+	if not Skin.Enabled() then return end
+	Skin.UpdateForeverColumn()
+	if Skin.SharedHost() then return end
 	if not strip and not Initialize() then return end
 	if InCombat() then return end
 	local visible = tracker:IsShown()

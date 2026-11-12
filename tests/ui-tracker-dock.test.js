@@ -361,3 +361,91 @@ for (const supported of [false,true]) {
 		assert.deepEqual(out,{registered:supported?1:0,ownTabs:!supported});
 	});
 }
+
+const FOREVER_SETUP = `
+local holder=GF.dock.holder
+holder.x=1400
+function holder:GetBottom() return 900-self:GetHeight() end
+local column=Polestar.CreateFrameUnder("Frame",nil,Polestar.UIParent)
+column:SetSize(300,100)
+ForeverTrackerCompanion=column
+local attached=true
+ForeverCore={TrackerHost={IsAttachedToQuestTracker=function() return attached end}}
+local restored=0
+function column:MarkDirty()
+ restored=restored+1
+ self:ClearAllPoints();self:SetPoint("TOPLEFT",UIParent,"BOTTOMLEFT",25,600)
+end
+local function selectTab(label)
+ for _,button in ipairs({PolestarTrackerDockTabs:GetChildren()}) do
+  if button.label and button.label:GetText()==label then button:Click() end
+ end
+end
+`;
+for (const scale of [1,1.5]) {
+	test(`attached Forever sections follow the guide without reducing its height and restore on Quests (${scale})`,()=>{
+		const [out]=run(FOREVER_SETUP+`
+	column:SetScale(${scale})
+	selectTab("Polestar");stub.advance(0.3)
+	local _,relative,relativePoint,x,y=column:GetPoint()
+	local follows=relative==UIParent and relativePoint=="BOTTOMLEFT"
+	 and math.abs(x-holder:GetLeft()/column:GetEffectiveScale())<0.01
+	 and math.abs(y-(holder:GetBottom()-8)/column:GetEffectiveScale())<0.01
+	local cap=GF.dock.available
+	column:SetPoint("TOPLEFT",UIParent,"BOTTOMLEFT",0,0)
+	local _,_,_,_,reapplied=column:GetPoint()
+	selectTab("Quests")
+	local _,_,_,backX,backY=column:GetPoint()
+	selectTab("Polestar")
+	attached=false;stub.advance(0.3)
+	local _,_,_,detachedX,detachedY=column:GetPoint()
+	emit({follows=follows,stable=math.abs(reapplied-y)<0.01,cap=cap,
+	 restored=restored>=1,quests=backX==25 and backY==600,detached=detachedX==25 and detachedY==600})`);
+		assert.deepEqual(out,{follows:true,stable:true,cap:596,restored:true,quests:true,detached:true});
+	});
+}
+
+test('Forever sections use the side when the full columns cannot fit below one another',()=>{
+	const [out]=run(FOREVER_SETUP+`
+	function holder:GetBottom() return 20 end
+	column:SetHeight(200)
+	selectTab("Polestar");stub.advance(0.3)
+	local _,_,_,x,y=column:GetPoint()
+	emit({beside=x==1092,aligned=y==900})`);
+	assert.deepEqual(out,{beside:true,aligned:true});
+});
+
+test('hiding Polestar restores Forever placement and combat defers companion moves',()=>{
+	const [out]=run(FOREVER_SETUP+`
+	selectTab("Polestar");stub.advance(0.3)
+	local _,_,_,x,y=column:GetPoint()
+	stub.inCombat=true
+	column:SetPoint("TOPLEFT",UIParent,"BOTTOMLEFT",70,500)
+	stub.advance(0.3)
+	local _,_,_,combatX,combatY=column:GetPoint()
+	stub.inCombat=false;stub.fire("PLAYER_REGEN_ENABLED");stub.advance(0.3)
+	local _,_,_,backX,backY=column:GetPoint()
+	Polestar.SetHidden(true)
+	local _,_,_,hiddenX,hiddenY=column:GetPoint()
+	emit({combat=combatX==70 and combatY==500,resumed=math.abs(backX-x)<0.01 and math.abs(backY-y)<0.01,
+	 hidden=hiddenX==25 and hiddenY==600})`);
+	assert.deepEqual(out,{combat:true,resumed:true,hidden:true});
+});
+
+test('native docking measures new goal rows during combat completion animations',()=>{
+	const [out]=run(`
+	uistub.setGuide(uistub.elwynn,3)
+	Polestar.Set("ui.wholeStep",false)
+	GF.dock:SetSelected(true,true)
+	stub.advance(0.3)
+	stub.inCombat=true
+	local step=uistub.guides[uistub.elwynn].steps[3]
+	step.goals={}
+	for i=1,20 do
+	 step.goals[i]={t="collect",verb="Collect",subject="Test item "..i,subjectKind="item",item=1000+i,
+	  status="active",progress={cur=0,max=10,kind="count"}}
+	end
+	uistub.update();step.goals[1].status="done";uistub.update();stub.advance(1)
+	emit({rows=#GF.CardItems()})`,{savedTab:'polestar'});
+	assert.ok(out.rows>=20,JSON.stringify(out));
+});

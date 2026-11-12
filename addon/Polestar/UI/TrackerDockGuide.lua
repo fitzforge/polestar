@@ -53,8 +53,10 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 		pane:EnableMouseWheel(self.overflow > 0.5)
 		if self.overflow <= 0.5 then pane:SetVerticalScroll(0) end
 		holder:SetHeight(height)
+		Skin.UpdateForeverColumn()
 	end
 	function adapter:SetSelected(selected, show)
+		self.selected = selected
 		if host and not firstSelection then
 			ns.CharState().trackerDockTab = selected and "polestar" or (show and "fta" or "quests")
 		end
@@ -64,6 +66,7 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 			if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
 			gf.ApplyVisibility()
 		end
+		Skin.UpdateForeverColumn()
 	end
 	frame:HookScript("OnHide", function() if not frame:IsShown() then closeTab() end end)
 	ns.On("SETTING_CHANGED", function(path, value)
