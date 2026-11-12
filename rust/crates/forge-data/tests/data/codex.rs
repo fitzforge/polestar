@@ -93,3 +93,26 @@ fn dungeon_pages_take_forever_dbs_xp_first() {
 	assert!(shows(not_in_store, 2200.0), "{not_in_store} keeps quests.json's XP: {after:?}");
 	assert!(shows(corrected, 5000.0), "{corrected} takes the unpublished correction: {after:?}");
 }
+
+// #1913: Badlands Reagent Run II (2501) needs Alchemy 210 (quests.json skill 171, skillLevel 210), and the dungeon
+// hand-in guide offered it to every character. The Codex quest record carries the profession's skill line and rank,
+// and the pack writes them as l<line>,<rank> (the rank empty when the data names none) for Lookup's questBlock; a
+// quest without a profession carries neither.
+#[test]
+fn a_quest_carries_the_profession_it_needs() {
+	let (root, data) = setup("codex-quest-skill");
+	let file = data.join("quests.json");
+	let mut quests: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	quests["2751"]["skillLevel"] = 210.into();
+	std::fs::write(&file, quests.to_string()).unwrap();
+
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
+	let json: serde_json::Value = serde_json::from_str(&out.json.iter().find(|(n, _)| n == "quests.json").unwrap().1).unwrap();
+	let skill = |id: &str| (json[id]["skill"].as_f64(), json[id]["skillLevel"].as_f64());
+	assert_eq!(skill("2751"), (Some(164.0), Some(210.0)), "Barbaric Battlements: Blacksmithing at the rank the data names");
+	assert_eq!(skill("862"), (Some(185.0), None), "Dig Rat Stew: Cooking, no rank in the data");
+	assert!(json["6"].get("skill").is_none() && json["6"].get("skillLevel").is_none(), "a quest without a profession carries neither");
+	let pack: String = out.pack.iter().map(|(_, t)| t.as_str()).collect();
+	assert_eq!(pack.matches(";l164,210").count(), 1, "2751's pack record");
+	assert_eq!(pack.matches(";l185,").count(), 4, "the four Cooking quests (862, 6611, 8763, 8799), no rank");
+}
