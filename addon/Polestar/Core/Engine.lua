@@ -394,6 +394,8 @@ local function goalApplies(goal)
 	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal]
 	if starts and not goalApplies(starts) then return false end
 	if goal.t == "die" and not Own.deathskips() then return false end
+	-- A material's gather or Auction House goal applies while its item's way is theirs (Own.materialApplies).
+	if (goal.t == "auction" or goal.gather) and not Own.materialApplies(goal) then return false end
 	if goal.profLine or goal.profName then
 		local C = Compat()
 		local q = goal.quest
@@ -2219,9 +2221,12 @@ local function chosen(goal)
 	return p.list[p.i]
 end
 
--- The NPC a goal is done with (the chosen candidate's, if any), named in
--- the client's language where Polestar.Names has it.
+-- The NPC a goal is done with (the chosen candidate's, if any; the banker
+-- for a material taken from the bank, none from the mail: Own.materialPlace),
+-- named in the client's language where Polestar.Names has it.
 local function npcOf(goal)
+	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
+	if held then return held.npc, held.npc and (ns.Names.Npc(held.npc) or held.name) or nil end
 	local c = chosen(goal)
 	local npc, name
 	if c then npc, name = c.npc, c.npcName else npc, name = goal.npc, goal.npcName end
@@ -2477,6 +2482,9 @@ end
 -- NPC or object it stands for): the candidate's or spawn area's own, else the
 -- goal's while the position is the goal's own point.
 local function posOf(goal)
+	-- A material whose rest waits in the mail or the bank: there (Own.materialPlace).
+	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
+	if held then return held.map, held.x, held.y, held.f, nil, held.z end
 	local c = chosen(goal)
 	if c then return c.map, c.x, c.y, c.f, nil, c.z end
 	local s = goal.spots and Spots.get(goal)
@@ -2519,7 +2527,7 @@ end
 local function latchable(goal)
 	local t = goal.t
 	return t == "goto" or t == "explore" or t == "die" or t == "sethome" or t == "hearth" or t == "fly" or t == "getfp" or t == "enter"
-		or t == "buy" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
+		or t == "buy" or t == "auction" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
 		or (t == "train" and goal.class == true) or t == "money" or t == "destroy" or t == "wait" or t == "abandon"
 end
 
@@ -2806,7 +2814,7 @@ function Own.sectionPassed(s)
 end
 
 -- Per guide: each section's craft goals with their steps, in order, and the
--- section of each counted collect/buy goal (its materials).
+-- section of each counted collect/buy/auction goal (its materials).
 Own.sectionPlans = setmetatable({}, { __mode = "k" })
 function Own.sectionPlan()
 	local plan = Own.sectionPlans[guide]
@@ -2820,7 +2828,7 @@ function Own.sectionPlan()
 					plan.crafts[n] = plan.crafts[n] or {}
 					local list = plan.crafts[n]
 					list[#list + 1] = { s = s, goal = goal }
-				elseif (goal.t == "collect" or goal.t == "buy") and goal.item and not goal.quest and (goal.count or 1) > 1 then
+				elseif (goal.t == "collect" or goal.t == "buy" or goal.t == "auction") and goal.item and not goal.quest and (goal.count or 1) > 1 then
 					plan.goals[goal] = n
 				end
 			end
@@ -2884,7 +2892,7 @@ end
 -- past the section's start).
 function Own.needOf(goal)
 	local count = goal.count or 1
-	if not guide or not guide.sections or (goal.t ~= "collect" and goal.t ~= "buy") then return count end
+	if not guide or not guide.sections or (goal.t ~= "collect" and goal.t ~= "buy" and goal.t ~= "auction") then return count end
 	if not player then refreshPlayer() end
 	local n = Own.sectionPlan().goals[goal]
 	local sec = n and guide.sections[n]
@@ -2893,6 +2901,140 @@ function Own.needOf(goal)
 	local k = math.min(rank, sec.to)
 	local used = (Own.sectionDemand(n, sec.from)[goal.item] or 0) - (Own.sectionDemand(n, k)[goal.item] or 0)
 	return math.max(0, count - math.ceil(used - 0.001))
+end
+
+---------------------------------------------------------------------------
+-- Materials (docs/GUIDE_FORMAT.md, "Materials"; Core/Materials.lua): an item
+-- a profession guide both gathers (`collect … gather`) and buys (`auction`)
+-- takes one way at a time, and only that way's goals apply. The way is
+-- worked out once per evaluation and guide; Engine.RefreshMaterials forgets
+-- it when the player changes a way. A step whose goals all take the other
+-- way holds nothing and passes, as one for another class does; switching
+-- back brings it back (the way is never stored on a step).
+---------------------------------------------------------------------------
+
+Own.wayCache = setmetatable({}, { __mode = "k" }) -- guide -> { gen, [item] = { way, why } }
+
+-- "gather" | "buy", the reason (Materials.Way); nil for a goal of no material.
+function Own.materialWay(goal)
+	local M = ns.Materials
+	if not (M and guide and goal.item and (goal.t == "auction" or goal.gather)) then return nil end
+	local c = Own.wayCache[guide]
+	if not c or c.gen ~= generation then
+		c = { gen = generation }
+		Own.wayCache[guide] = c
+	end
+	local w = c[goal.item]
+	if not w then
+		if not player then refreshPlayer() end
+		local way, why = M.Way(guide, goal.item, player)
+		w = { way = way, why = why }
+		c[goal.item] = w
+	end
+	return w.way, w.why
+end
+
+function Own.materialApplies(goal)
+	local way = Own.materialWay(goal)
+	return way == nil or way == (goal.t == "auction" and "buy" or "gather")
+end
+
+-- Where a material the bags are still short of waits once nothing is left
+-- to get: the mail (with the purchases on their way: they come by mail),
+-- else the bank; then the nearest mailbox or banker (Materials.Nearest),
+-- picked again on zone changes like a goal's candidates: { map, x, y, f, z,
+-- npc | object, name, where = "mail" | "bank" }. nil while some is still to
+-- get: the arrow keeps the goal's own way (the auctioneer, the farm spot).
+Own.matPlaces = setmetatable({}, { __mode = "k" }) -- goal -> { gen, ctx, kind, place }
+function Own.materialPlace(goal)
+	local M = ns.Materials
+	if not (M and goal.item) then return nil end
+	local p = Own.matPlaces[goal]
+	if p and p.gen == generation then return p.place or nil end
+	local kind
+	local need, bags = Own.needOf(goal), Compat().GetItemCount(goal.item)
+	if bags < need then
+		local bank, mail, coming = M.Stored(goal.item)
+		if bags + bank + mail + coming >= need then kind = (mail + coming > 0 and "mailbox") or (bank > 0 and "bank") or nil end
+	end
+	local place = false
+	if kind and p and p.kind == kind and p.ctx == contextGen then
+		place = p.place
+	elseif kind then
+		local found = M.Nearest(kind)
+		if found and found.map and found.x and found.y then
+			place = { map = found.map, x = found.x, y = found.y, f = found.f, z = found.z, name = found.name, where = kind == "mailbox" and "mail" or "bank",
+				npc = kind == "bank" and found.id or nil, object = kind == "mailbox" and found.id or nil }
+		end
+	end
+	Own.matPlaces[goal] = { gen = generation, ctx = contextGen, kind = kind, place = place }
+	return place or nil
+end
+
+-- A material goal's counts for the window (Core/Materials.lua), while it is
+-- still to do: { way, reason, need, bags, bank, mail (with what is on its
+-- way by mail), alts = { { name, count } }, altsCounted, toGet, and for an
+-- Auction House goal with a known price: price (for the count still to
+-- buy), each, age (seconds), source ("search" | "auctionator"), listed
+-- (fewer are listed than that count) }; nil for other goals.
+function Own.materialView(goal, status)
+	local M = ns.Materials
+	if not (M and goal.item and (goal.t == "auction" or goal.gather)) or status == "na" or status == "done" then return nil end
+	local way, why = Own.materialWay(goal)
+	local need = Own.needOf(goal)
+	local total, parts = M.Have(goal.item)
+	local v = { way = way, reason = why, need = need, bags = parts.bags, bank = parts.bank, mail = parts.mail + parts.coming,
+		alts = parts.alts, altsCounted = parts.altsCounted, toGet = math.max(0, need - total) }
+	if goal.t == "auction" and v.toGet > 0 then
+		local price, info = M.Price(goal.item, v.toGet)
+		if price then
+			v.price, v.each, v.age, v.source = price, info.each, info.age, info.source
+			if info.short then v.listed = v.toGet - info.short end
+		end
+	end
+	return v
+end
+
+-- What a material goal's line shows beyond its count, for the view's signature.
+function Own.materialSig(goal)
+	local v = Own.materialView(goal, "active")
+	if not v then return "-" end
+	local m = Own.materialPlace(goal)
+	return table.concat({ v.way or "", v.bank, v.mail, v.toGet, #v.alts, v.price or "", m and m.where or "" }, ":")
+end
+
+-- Why a step of the other way holds nothing (Own.stepWhy: the step browser,
+-- a step looked at ahead): every goal of it is a material goal whose item
+-- takes the other way. nil otherwise.
+function Own.materialWhy(step, goals)
+	local why
+	for _, gv in ipairs(goals) do
+		local goal = step.goals[gv.index]
+		if gv.status ~= "na" or not goal or Own.materialApplies(goal) then return nil end
+		if not why then
+			local _, reason = Own.materialWay(goal)
+			local w = type(goal.gather) == "table" and goal.gather or nil
+			if goal.t == "auction" then
+				why = reason == "selfFound" and L["No Auction House for self-found characters"] or L["Gathering this yourself"]
+			elseif reason == "skill" and w and w.rank then
+				why = L["Bought at the Auction House: needs %s %d"]:format(skillName(w), w.rank)
+			elseif reason == "low" and w and w.min then
+				why = L["Bought at the Auction House: it drops from level %d"]:format(w.min)
+			elseif reason == "past" then
+				why = L["Bought at the Auction House: you're past its levels"]
+			else
+				why = L["Buying it at the Auction House"]
+			end
+		end
+	end
+	return why
+end
+
+-- Materials.SetMode / SetWay: the ways changed, so does the route.
+function Engine.RefreshMaterials()
+	Own.wayCache = setmetatable({}, { __mode = "k" })
+	Own.matPlaces = setmetatable({}, { __mode = "k" })
+	Engine.RequestUpdate()
 end
 
 -- The section heading over step i for the window: { title ("First Aid
@@ -3126,7 +3268,7 @@ function Own.goalDoneLive(s, g, goal)
 		end
 		if Own.starterTaken(s, g, goal) then return true end
 		return countState(goal)
-	elseif t == "buy" then
+	elseif t == "buy" or t == "auction" then
 		return countState(goal)
 	elseif t == "goto" then
 		if arrived[goal] then return true end
@@ -3317,11 +3459,11 @@ function Own.labelDone(label)
 	return ok
 end
 
--- Bag-count goals (non-quest buy/collect, count-mode craft, money, abandon,
--- destroy), latched within their own step so using the items up does not
--- reopen it.
+-- Bag-count goals (non-quest buy/auction/collect, count-mode craft, money,
+-- abandon, destroy), latched within their own step so using the items up
+-- does not reopen it.
 local function isBagCount(goal)
-	return goal.t == "buy" or (goal.t == "collect" and (not goal.quest or Own.bagCollect(goal)))
+	return goal.t == "buy" or goal.t == "auction" or (goal.t == "collect" and (not goal.quest or Own.bagCollect(goal)))
 		or (goal.t == "craft" and craftMode(goal) == "count") or goal.t == "money"
 		or goal.t == "abandon" or goal.t == "destroy"
 end
@@ -3915,7 +4057,7 @@ end
 
 Own.WHO_VERBS = {
 	accept = true, turnin = true, talk = true, train = true, vendor = true, sethome = true,
-	getfp = true, learn = true, buy = true, interact = true,
+	getfp = true, learn = true, buy = true, auction = true, interact = true,
 }
 
 -- kind ("npc" | "object" | "here"), id and name of whom a goal is done with.
@@ -3924,6 +4066,12 @@ Own.WHO_VERBS = {
 -- shows with the step's kills instead of waiting behind them. A plain
 -- interact (no quest) is still a visit to that object.
 function Own.whoOf(goal)
+	-- A material fetched from the mail or the bank (Own.materialPlace): done there.
+	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
+	if held then
+		if held.npc then return "npc", held.npc, ns.Names.Npc(held.npc) or held.name end
+		return "object", held.object, held.name
+	end
 	if Own.WHO_VERBS[goal.t] then
 		local npc, name = npcOf(goal)
 		if npc then return "npc", npc, name end
@@ -4213,6 +4361,9 @@ local function describe(goal, s)
 	local N = ns.Names
 	-- A place goal's area (`area`) as the client names it, in its language.
 	local place = C.GetAreaName and C.GetAreaName(goal.area) or nil
+	-- A material whose rest waits in the mail or the bank (Own.materialPlace): taken from there.
+	local held = (t == "auction" or goal.gather) and Own.materialPlace(goal)
+	if held then return L["Take"], N.Item(goal.item) or goal.itemName, "item", held.where == "mail" and L["from your mail"] or L["from your bank"] end
 	if t == "accept" then
 		-- A quest named after its NPC (a breadcrumb: "Thun'grim Firegaze" at
 		-- Thun'grim Firegaze) is not named twice: no "from"/"at" detail.
@@ -4291,6 +4442,8 @@ local function describe(goal, s)
 	elseif t == "buy" then
 		local _, npcName = npcOf(goal)
 		return L["Buy"], N.Item(goal.item) or goal.itemName, "item", fmt(L["from %s"], npcName)
+	elseif t == "auction" then
+		return L["Buy"], N.Item(goal.item) or goal.itemName, "item", L["at the Auction House"]
 	elseif t == "vendor" then
 		local _, npcName = npcOf(goal)
 		if npcName then return L["Sell and repair at"], npcName, "npc", nil end
@@ -4336,7 +4489,7 @@ end
 -- Goals whose count shows as a progress bar instead of in the text.
 local function tracksProgress(goal)
 	local t = goal.t
-	return (goal.quest and goal.oi) or t == "buy" or (t == "collect" and not goal.quest)
+	return (goal.quest and goal.oi) or t == "buy" or t == "auction" or (t == "collect" and not goal.quest)
 		or (t == "craft" and craftMode(goal) ~= "manual")
 end
 
@@ -4587,6 +4740,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- A collect's source (compiled `from`); `inText`: the goal's text
 		-- already names it.
 		source = src,
+		-- A material's counts, way and price (Own.materialView).
+		materials = Own.materialView(goal, status),
 	}
 end
 
@@ -7026,6 +7181,11 @@ local function signature()
 				n = n + 1
 				sigParts[n] = Own.acceptNotice(current, g, goal, status) and "notice" or "-"
 			end
+			-- A material goal's counts, price and fetch place (Own.materialSig).
+			if goal.t == "auction" or goal.gather then
+				n = n + 1
+				sigParts[n] = Own.materialSig(goal)
+			end
 		end
 		local _, focus = stepGroups(current)
 		n = n + 1
@@ -9304,14 +9464,15 @@ end
 
 -- Why step `step` holds nothing for this character now (Engine.GetStepView
 -- `why`), so a step looked at ahead does not read as an empty title: only a
--- step that depends on what the player does (`when`) says it. The first
--- `when` predicate that fails, or, when none of its goals applies (`goals`:
--- its goal views), the group quest it waits on not answered "do" (Elwynn's
--- Goldshire hand-in of Book Return), else that none applies. nil while a
--- goal applies, for a step hidden from the character (Own.hiddenStep), or
--- with no goals or no `when`.
+-- step that depends on what the player does (`when`) says it, or one of a
+-- material's other way (Own.materialWhy). The first `when` predicate that
+-- fails, or, when none of its goals applies (`goals`: its goal views), the
+-- group quest it waits on not answered "do" (Elwynn's Goldshire hand-in of
+-- Book Return), else that none applies. nil while a goal applies, for a step
+-- hidden from the character (Own.hiddenStep), or with no goals.
 function Own.stepWhy(step, goals)
-	if #goals == 0 or not step.when or Own.hiddenStep(step) then return nil end
+	if #goals == 0 or Own.hiddenStep(step) then return nil end
+	if not step.when then return Own.materialWhy(step, goals) end
 	if not Own.whenHolds(step) then
 		local p = Own.whenFails(step)
 		return p and Own.whenText(p) or nil
@@ -11828,7 +11989,7 @@ end
 
 -- Items the active guide still needs in the bags, so they are kept, never
 -- sold (QoL/Vendor.lua, QoL/Keep.lua): from the live step on, a `use` goal's
--- item, a `collect`'s, a `buy`'s, a `craft`'s reagents and the item an
+-- item, a `collect`'s, a `buy`'s or `auction`'s, a `craft`'s reagents and the item an
 -- `accept` starts from; and before it, a quest `collect` whose quest is in
 -- the log and handed in at a later step (the turn-in takes the items). Only
 -- steps and goals for this character, none the player skipped.
@@ -11858,7 +12019,7 @@ function Engine.KeptItems()
 				if s < live then
 					if t == "collect" and goal.quest and C.IsOnQuest(goal.quest) and wanted(s, g, goal) then early[#early + 1] = goal end
 				elseif wanted(s, g, goal) then
-					if t == "use" or t == "collect" or t == "buy" or (t == "accept" and goal.item) then
+					if t == "use" or t == "collect" or t == "buy" or t == "auction" or (t == "accept" and goal.item) then
 						keep(goal.item, s)
 					elseif t == "craft" and type(goal.reagents) == "table" then
 						for _, r in ipairs(goal.reagents) do keep(r.item, s) end
