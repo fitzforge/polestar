@@ -8639,6 +8639,20 @@ function Engine.GroupQuestion()
 	return q, (a and a[1].goal.title) or step.title
 end
 
+-- Whether the live step's escort runs: an escort goal (compiled `escort`) of
+-- it for this character, not done, its quest in the log (the escorted NPC
+-- walks from the accept on). The travel planner walks then: a Hearthstone,
+-- teleport, flight or ride leaves the NPC behind and fails the quest.
+function Engine.EscortRunning()
+	local step = guide and computed and guide.steps[computed]
+	if not step then return false end
+	local C = Compat()
+	for g, goal in ipairs(step.goals) do
+		if goal.escort and goal.quest and goalApplies(goal) and C.IsOnQuest(goal.quest) and not goalDone(computed, g, goal) then return true end
+	end
+	return false
+end
+
 -- The group quests (`when group`) of the guides for this character (the
 -- guide's faction, races and classes, the step's `only`): { { quest, title } },
 -- each quest once, in guide and step order. For the Options list.

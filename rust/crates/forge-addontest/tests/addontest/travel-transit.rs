@@ -631,6 +631,37 @@ fn issue_1327_no_hearthstone_while_a_quest_timer_runs_it_comes_back_when_the_tim
 	assert_eq!(out["ended"], "hearth|Hearth to Testshire Inn: saves 10 min");
 }
 
+// Barrens, Free From the Hold (Fitz, 0.3.7.1): on the escort out of Northwatch Hold the arrow said to hearth, which
+// leaves the escorted NPC behind and fails the quest. While the live step's escort runs (Engine.EscortRunning,
+// tested in engine-failed-quest.rs) the route walks: no Hearthstone, no boat; once it ends, both come back.
+#[test]
+fn an_escort_walks_no_hearthstone_and_no_ride_until_it_ends() {
+	let out = run(r#"
+		local running = false
+		Polestar.Engine = { EscortRunning = function() return running end }
+		local function escort(on)
+			running = on
+			stub.fire("QUEST_LOG_UPDATE")
+		end
+		local r = {}
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(900, 0)                         -- the target's continent, a long walk from it: the Hearthstone pays
+		target(-520, -690, "Innkeeper quest")
+		r.free = route()[1]
+		escort(true)
+		N.Refresh()
+		r.escort = route()
+		escort(false)
+		N.Refresh()
+		r.ended = route()[1]
+		emit(r)"#);
+	assert_eq!(out["free"].as_str().map(|s| s.starts_with("hearth|")), Some(true), "without the escort the Hearthstone pays: {out}");
+	assert_eq!(out["escort"], json!(["walk|Innkeeper quest"]), "walks with the escort: {out}");
+	assert_eq!(out["ended"], out["free"], "the escort done: the Hearthstone comes back");
+}
+
 #[test]
 fn security_l6_estimates_evict_the_oldest_entry_instead_of_wiping_the_cache_and_stop_planning_for_the_frame_past_25_ms() {
 	let out = run(r#"

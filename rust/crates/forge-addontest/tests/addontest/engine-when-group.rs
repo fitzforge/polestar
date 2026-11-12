@@ -170,9 +170,11 @@ fn a_group_quest_taken_by_hand_passes_its_done_accept_step_unanswered_when_every
 	let out = run(Opts {
 		guide: TAKEN_BY_HAND_GUIDE,
 		before: "stub.world.onQuest(7, {}); stub.world.onQuest(783, { { required = 1, fulfilled = 0 } })",
-		..opts(r#"emit({ at = at(), q = E.GroupQuestion() or false, s1 = E.GetStepView(1).status, s2 = E.GetStepView(2).status })
+		..opts(
+			r#"emit({ at = at(), q = E.GroupQuestion() or false, s1 = E.GetStepView(1).status, s2 = E.GetStepView(2).status })
 			stub.world.turnIn(7); flush(); flush()
-			emit({ at = at(), q = E.GroupQuestion() or false })"#)
+			emit({ at = at(), q = E.GroupQuestion() or false })"#,
+		)
 	});
 	assert_eq!(out[0], json!({ "at": 3, "q": false, "s1": "done", "s2": "done" }), "on to the hand-in, nothing asked yet");
 	assert_eq!(out[1], json!({ "at": 4, "q": 783 }), "the kill step asks");
