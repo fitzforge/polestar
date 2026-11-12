@@ -907,7 +907,8 @@ fn hub_visits(t: &Tour, hub_of: &FxHashMap<u32, usize>, mut order: Vec<Order>, l
 		let here: Vec<Pt> = order[i..j].iter().filter(|o| t.at_npc(o)).filter_map(|o| t.pos(o)).collect();
 		let near = |o: &Order, after: &[Order]| {
 			o.t == OrderT::Turnin
-				&& !o.extra && !travels(o)
+				&& !o.extra
+				&& !travels(o)
 				&& t.pos(o).is_some_and(|p| here.iter().any(|&s| yd(s, p) <= LEAVE_YD) && !after.iter().any(|e| t.at_npc(e) && t.pos(e).is_some_and(|q| yd(p, q) <= SAME_NPC_YD)))
 		};
 		// (`errand` never changes inside: the loop runs while pulls happen, or not at all.)
@@ -924,7 +925,8 @@ fn hub_visits(t: &Tour, hub_of: &FxHashMap<u32, usize>, mut order: Vec<Order>, l
 					if (k >= left || o.t != OrderT::Task)
 						&& (hub(o) == Some(h) || (k >= left && near(o, &order[k + 1..])))
 						&& (!travels(o) || leg_moves)
-						&& t.at_npc(o) && !(t.pinned)(o)
+						&& t.at_npc(o)
+						&& !(t.pinned)(o)
 						&& soon(o, lvl, ACCEPT_AHEAD_LVL)
 						&& file(o) == file(&order[i])
 						&& t.ready(o, &st, lvl, &order[j..k])

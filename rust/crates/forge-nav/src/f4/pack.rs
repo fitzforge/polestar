@@ -1229,7 +1229,8 @@ impl Cluster {
 		let rows = self.i_ordinal.len();
 		let in_keys = if rows == 0 { 0 } else { (rows * 8 / 7).next_power_of_two() * (16 + 1) };
 		std::mem::size_of::<Cluster>()
-			+ in_keys + heap!(self; val, moves, z, cls, first_floor, at_cell, link_off, link_val, owner, over_kind, spec_idx, spec_x, spec_y, spec_z, spec_col, spec_layer, over_idx, ov_column, ov_layer, ov_to_column, ov_to_layer, path_off, pv_col, pv_layer, pv_z, a_hash, i_dx, i_dy, i_ordinal, i_hash, a_from, a_to, a_dx, a_dy, a_kind, a_yards, a_cost, a_path, out_off, out_idx, in_off, in_idx)
+			+ in_keys
+			+ heap!(self; val, moves, z, cls, first_floor, at_cell, link_off, link_val, owner, over_kind, spec_idx, spec_x, spec_y, spec_z, spec_col, spec_layer, over_idx, ov_column, ov_layer, ov_to_column, ov_to_layer, path_off, pv_col, pv_layer, pv_z, a_hash, i_dx, i_dy, i_ordinal, i_hash, a_from, a_to, a_dx, a_dy, a_kind, a_yards, a_cost, a_path, out_off, out_idx, in_off, in_idx)
 	}
 }
 
