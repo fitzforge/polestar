@@ -324,6 +324,14 @@ end
 
 
 local enabled
+function Skin.StandaloneOwnsDock()
+	if not ns.Compat.AddOnPresent("Polestartrackerdock") then return false end
+	local metadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+	-- Updated standalone releases defer to this native integration. Earlier
+	-- releases still take priority to avoid creating two tab rows.
+	return not metadata or metadata("Polestartrackerdock", "X-Polestar-Native-Dock") ~= "1"
+end
+
 function Skin.Enabled()
 	if enabled == nil then
 		-- Detect enabled addons before their files load: the standalone addon
@@ -331,7 +339,7 @@ function Skin.Enabled()
 		-- Saved configurations can predate the mutually exclusive controls.
 		-- Keep the guide floating when hiding the tracker or using the gamepad HUD.
 		enabled = ns.Get("ui.trackerDock") and not ns.Get("qol.hideQuestTracker")
-			and not ns.GamepadUI() and not ns.Compat.AddOnPresent("Polestartrackerdock") or false
+			and not ns.GamepadUI() and not Skin.StandaloneOwnsDock() or false
 	end
 	return enabled
 end

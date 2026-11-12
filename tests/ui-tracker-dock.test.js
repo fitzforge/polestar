@@ -90,6 +90,17 @@ test('a disabled standalone addon does not block built-in docking', () => {
 	assert.deepEqual(out,{enabled:true,attached:true});
 });
 
+test('an updated standalone addon yields to the built-in option before its files load',()=>{
+	const [out]=run(`
+	Polestar.UI.ShowOptions("integrations")
+	emit({enabled=dock.Enabled(),attached=GF.dock~=nil,
+		option=Polestar.UI.Options.Controls("integrations")["ui.trackerDock"]:IsEnabled()})`,{
+		before:`stub.addons={{name="Polestartrackerdock",loaded=false}}
+	stub.addonMeta.Polestartrackerdock={["X-Polestar-Native-Dock"]="1"}`,
+	});
+	assert.deepEqual(out,{enabled:true,attached:true,option:true});
+});
+
 test('FTA hosts the Polestar tab once and the built-in dock creates no second row', () => {
 	const [out]=run(`emit({registrations=hostRegistrations,ownTabs=PolestarTrackerDockTabs~=nil})`,{
 		before:`hostRegistrations=0
