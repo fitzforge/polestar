@@ -1438,14 +1438,16 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		end
 	end
 
-	-- Points carry the height of the surface they stand on; the cost weights water as the search did, and points.wet
-	-- is the yards over water, which call for Water Walking. Straightening keeps to ground no costlier for profile in
-	-- style (and danger) than the path it replaces and out of hostile hub cells the path kept out of (smooth).
+	-- Points carry the height of the surface they stand on (the first: the start's, else, searched without one from
+	-- every surface at its spot, the height of the start node the search kept); the cost weights water as the search
+	-- did, and points.wet is the yards over water, which call for Water Walking. Straightening keeps to ground no
+	-- costlier for profile in style (and danger) than the path it replaces and out of hostile hub cells the path kept
+	-- out of (smooth).
 	local keep = smooth(st, P, profile, style, mult and mult.danger)
 	if #keep == 1 then -- both ends on one node
 		keep[2] = keep[1]
 	end
-	local points = { { map = map, x = from.x, y = from.y, z = from.z } }
+	local points = { { map = map, x = from.x, y = from.y, z = from.z or zOf(grid(st, P.k[keep[1]]), P.n[keep[1]]) } }
 	for i = 2, #keep - 1 do
 		local j = keep[i]
 		points[#points + 1] = {
