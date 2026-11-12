@@ -17,7 +17,7 @@ return {
 	-- Step 4: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La cabeza de la muñeca y sus dos lados están en las casas alrededor de {npc:10926}; únelos desde tus bolsas.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 5: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
@@ -72,7 +72,7 @@ return {
 	-- {area:272} Tarren Mill · {area:2268} Light's Hope Chapel
 	["Ride back south to {area:272} and fly to {area:2268}."] = "Cabalga de vuelta al sur hasta {area:272} y vuela a {area:2268}.",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
 	-- Step 16: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
