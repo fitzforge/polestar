@@ -647,8 +647,21 @@ Guides.Validate = validate
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
 Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
-Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true }
+-- Pack ids only Polestar's own packs may give (forge-guide's RESERVED_IDS and
+-- format.js's have the same): a pack registering one is refused, unless it
+-- comes from the addon the id belongs to (RESERVED_ADDON: ours,
+-- Polestar_Guides, and our experimental guides, Polestar_Experimental).
+-- Lookup's and the imported guides' packs register as their files load,
+-- before any pack can.
+Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true, ["polestar-experimental"] = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
+local RESERVED_ADDON = { guides = OFFICIAL_ADDON, ["polestar-experimental"] = "Polestar_Experimental" }
+
+-- Is pack id `id` reserved, and `addon` not the addon it belongs to?
+local function reservedAgainst(id, addon)
+	return Guides.RESERVED[id] ~= nil and not (addon ~= nil and RESERVED_ADDON[id] == addon)
+end
+
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }
 local OPTIONAL_META = { "website", "source", "notes" }
 
@@ -804,7 +817,7 @@ function ns.RegisterPack(meta)
 	if not validPackId(id) then
 		return refuse(r, (L["Pack id %s is not valid: 2 to 32 lower-case letters, digits or hyphens, starting with a letter or digit."]):format(escape(r.id)))
 	end
-	if Guides.RESERVED[id] and not (id == "guides" and addon == OFFICIAL_ADDON) then
+	if reservedAgainst(id, addon) then
 		loadingRefused = r
 		return refuse(r, (L["Pack id %s is reserved for Polestar."]):format(id))
 	end
@@ -815,6 +828,8 @@ function ns.RegisterPack(meta)
 			escape(tostring(holder.addon or "?")), escape(tostring(addon or "?"))))
 	end
 	packs[id] = r
+	-- An addon the client loads on demand: its pack is off until switched on.
+	if type(addon) == "string" and Own.isDemand(addon) then Own.markDemand(id, addon) end
 	if type(meta.format) ~= "number" then return refuse(r, L["The pack is missing format."]) end
 	if not Guides.FORMATS[meta.format] then
 		local needs = type(addon) == "string" and C_AddOns and C_AddOns.GetAddOnMetadata
@@ -1042,7 +1057,8 @@ function ns.RegisterMapFrames(frames, packId)
 end
 
 ---------------------------------------------------------------------------
--- Switching packs off and on (account-wide: PolestarDB.packs[id].off)
+-- Switching packs off and on (account-wide: PolestarDB.packs[id].off, and
+-- .on for a pack that loads on demand)
 ---------------------------------------------------------------------------
 
 local function packState(id)
@@ -1052,11 +1068,20 @@ local function packState(id)
 	return type(p) == "table" and p or nil
 end
 
--- Is pack `id` shown? Internal packs always are.
+-- Packs whose addon the client loads only on demand (## LoadOnDemand: 1;
+-- Polestar's own Polestar_Experimental is one): pack id -> its addon. Such a
+-- pack is off until the player switches it on on the Community guides page;
+-- its addon loads then, and at every login while it stays on
+-- (Own.loadDemand), so one left off costs its row and nothing more.
+Own.demand = {}
+
+-- Is pack `id` shown? Internal packs always are; one that loads on demand
+-- only once switched on.
 function Guides.PackShown(id)
 	local r = packs[id]
 	if r and r.internal then return true end
 	local p = packState(id)
+	if Own.demand[id] then return p ~= nil and p.on == true end
 	return not (p and p.off)
 end
 local packShown = Guides.PackShown
@@ -1078,13 +1103,29 @@ local function syncStatus(r)
 end
 
 -- Hides or shows pack `id`'s guides; fires PACKS_CHANGED(id) when that changes.
+-- Switching on a pack that loads on demand loads its addon (never in combat:
+-- then once the fight ends), and its guides come in.
 function Guides.SetPackShown(id, shown)
 	if type(id) ~= "string" or (packs[id] and packs[id].internal) then return end
 	shown = shown and true or false
 	if packShown(id) == shown then return end
 	local db = ns.DB()
 	if type(db.packs) ~= "table" then db.packs = {} end
-	if shown then
+	local demand = Own.demand[id] ~= nil
+	if demand then
+		-- Off unless kept on.
+		local p = db.packs[id]
+		if shown then
+			if type(p) ~= "table" then
+				p = {}
+				db.packs[id] = p
+			end
+			p.on, p.off = true, nil
+		elseif type(p) == "table" then
+			p.on = nil
+			if next(p) == nil then db.packs[id] = nil end
+		end
+	elseif shown then
 		local p = db.packs[id]
 		if type(p) == "table" then
 			p.off = nil
@@ -1095,6 +1136,7 @@ function Guides.SetPackShown(id, shown)
 		db.packs[id].off = true
 	end
 	if packs[id] then syncStatus(packs[id]) end
+	if demand and shown and Own.loadDemand(id) and ns.IsLoggedIn() then ns.Fire("GUIDES_REGISTERED") end
 	ns.Fire("PACKS_CHANGED", id)
 end
 
@@ -1139,6 +1181,60 @@ end
 
 local installed = {} -- addon name -> record made from its TOC
 
+-- Does the client load addon `name` only on demand (## LoadOnDemand: 1)?
+function Own.isDemand(name)
+	local f = C_AddOns and C_AddOns.IsAddOnLoadOnDemand
+	if not f then return false end
+	local ok, v = pcall(f, name)
+	return ok and ns.Compat.Readable(v) == true
+end
+
+-- Pack `id` comes from on-demand addon `name` (Own.demand): the first such
+-- addon, never for an id reserved for another addon or one a pack that loaded
+-- with the game holds.
+function Own.markDemand(id, name)
+	if Own.demand[id] or reservedAgainst(id, name) then return end
+	local holder = packs[id]
+	if holder and holder.addon ~= name then return end
+	Own.demand[id] = name
+end
+
+Own.demandFailed = {} -- addon -> why it did not load (Data.Pack's reason)
+Own.demandWaiting = {} -- pack id -> true while its load waits for the fight to end
+
+-- Loads the addon of on-demand pack `id` when it is switched on, listed from
+-- its TOC (not in yet) and the client can load it, never in combat (Data.Pack;
+-- PLAYER_REGEN_ENABLED loads it after the fight). Its files register the pack
+-- and its guides, and the scan then lists it as registered, or says why it did
+-- not load. -> whether guides came in
+function Own.loadDemand(id)
+	local name = Own.demand[id]
+	local r = name and installed[name]
+	if not r then return false end
+	syncStatus(r)
+	if r.status ~= "on" then return false end
+	local count = #order
+	local ok, reason = ns.Data.Pack(name)
+	if reason == "combat" then
+		Own.demandWaiting[id] = true
+		return false
+	end
+	Own.demandWaiting[id] = nil
+	if not ok then Own.demandFailed[name] = reason or "unknown" end
+	Guides.ScanInstalled()
+	return #order > count
+end
+
+-- Every on-demand pack switched on, in id order (login). -> whether guides came in
+function Own.loadDemandAll()
+	local ids = {}
+	for id in pairs(Own.demand) do ids[#ids + 1] = id end
+	table.sort(ids)
+	local came = false
+	for _, id in ipairs(ids) do came = Own.loadDemand(id) or came end
+	return came
+end
+
 local function meta(addon, field)
 	local v = C_AddOns.GetAddOnMetadata(addon, field)
 	return type(v) == "string" and v ~= "" and v or nil
@@ -1171,8 +1267,9 @@ end
 -- compiler writes its Title as "Polestar Community: <title>" for the AddOns
 -- list (community addons built before that say "Polestar Pack: <title>");
 -- here it reads as the pack's own title, as a registered pack's does.
--- Priority: too-new > disabled > not-loaded > broken.
-local function fromToc(r, name, reason, enabled)
+-- Priority: too-new > disabled > loads on demand (`demand`: off until the
+-- player switches it on, then on until its addon is in) > not-loaded > broken.
+local function fromToc(r, name, reason, enabled, demand)
 	local title = meta(name, "Title")
 	if title then title = title:gsub("^Polestar Community: ", ""):gsub("^Polestar Pack: ", "") end
 	r.title = escape(title or name)
@@ -1184,13 +1281,17 @@ local function fromToc(r, name, reason, enabled)
 	local needs = meta(name, "X-Polestar-Needs")
 	r.needs = needs and escape(needs) or nil
 	r.reason = nil
+	local failed = Own.demandFailed[name]
 	if r.format and not Guides.FORMATS[r.format] then
 		r.status = "too-new"
 		r.reason = tooNewReason(r.needs)
 	elseif reason == "DISABLED" or not enabled then
 		r.status = "disabled"
+	elseif demand and not failed and not C_AddOns.IsAddOnLoaded(name) then
+		r.status = packShown(r.id) and "on" or "off"
 	elseif not C_AddOns.IsAddOnLoaded(name) then
 		r.status = "not-loaded"
+		if failed then reason = failed:upper() end
 		local text = type(reason) == "string" and reason ~= "" and (_G["ADDON_" .. reason] or reason) or nil
 		r.reason = text and escape(text) or nil
 	else
@@ -1209,6 +1310,7 @@ function Guides.ScanInstalled()
 		local name, _, _, _, reason = A.GetAddOnInfo(i)
 		local id = type(name) == "string" and meta(name, "X-Polestar-Pack") or nil
 		if id then
+			if reason == "DEMAND_LOADED" or Own.isDemand(name) then Own.markDemand(id, name) end
 			local r = registeredBy(name)
 			if r then
 				if installed[name] then
@@ -1220,6 +1322,7 @@ function Guides.ScanInstalled()
 				r = installed[name]
 				if not r then
 					r = newRecord({ id = id }, name)
+					r.tocOnly = true -- its guides are not in: how many is not known
 					installed[name] = r
 				end
 				local enabled = true
@@ -1227,7 +1330,7 @@ function Guides.ScanInstalled()
 					local ok, state = pcall(A.GetAddOnEnableState, name, player)
 					enabled = not (ok and state == 0)
 				end
-				fromToc(r, name, reason, enabled)
+				fromToc(r, name, reason, enabled, Own.demand[id] == name)
 			end
 		end
 	end
@@ -1367,6 +1470,18 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 			for name in pairs(partsWaiting) do loadParts(name) end
 		end)
 	end
+	-- On-demand packs switched on during a fight (Own.loadDemand).
+	if next(Own.demandWaiting) then
+		local ids = {}
+		for id in pairs(Own.demandWaiting) do ids[#ids + 1] = id end
+		table.sort(ids)
+		local came = false
+		for _, id in ipairs(ids) do came = Own.loadDemand(id) or came end
+		if loggedIn then
+			if came then ns.Fire("GUIDES_REGISTERED") end
+			for _, id in ipairs(ids) do ns.Fire("PACKS_CHANGED", id) end
+		end
+	end
 end)
 
 ---------------------------------------------------------------------------
@@ -1419,15 +1534,20 @@ local function guideStart(g)
 end
 Guides.Start = guideStart
 
+-- Packs never suggested and never part of the route, whatever Suggest
+-- guides from says: Polestar's experimental guides (Polestar_Experimental,
+-- alpha) are followed only when the player opens one from the guide menu.
+Guides.NEVER_SUGGESTED = { ["polestar-experimental"] = true }
+
 -- Shown guides whose route choice (`nextChoices`) offers `id` now (an
 -- option with `when` only while it holds: Engine.RouteOffered), in
--- registration order.
+-- registration order; never one of a NEVER_SUGGESTED pack.
 function Guides.OfferedBy(id)
 	local out = {}
 	local E = ns.Engine
 	for i = 1, #order do
 		local g = guides[order[i]]
-		if g.nextChoices and visible(g) then
+		if g.nextChoices and visible(g) and not Guides.NEVER_SUGGESTED[g.pack] then
 			for _, c in ipairs(g.nextChoices) do
 				if c == id then
 					if not (E and E.RouteOffered) or E.RouteOffered(g.id, id) then out[#out + 1] = g end
@@ -1448,11 +1568,11 @@ local function hasLeveling(r)
 end
 
 -- Can pack `id` be where suggestions come from? Registered, not internal,
--- shown, with leveling guides. Ours always can.
+-- shown, with leveling guides, never one of NEVER_SUGGESTED. Ours always can.
 local function canSuggest(id)
 	if id == "guides" then return true end
 	local r = type(id) == "string" and packs[id]
-	return r and not r.internal and not r.imported and packVisible(r) and hasLeveling(r) or false
+	return r and not r.internal and not r.imported and not Guides.NEVER_SUGGESTED[id] and packVisible(r) and hasLeveling(r) or false
 end
 
 -- The packs suggestions can come from, ours ("guides") first, then the
@@ -1698,6 +1818,9 @@ ns.OnLogin(function()
 	for name in pairs(partsWaiting) do loadParts(name) end
 	Own.loadForSaved()
 	Guides.ScanInstalled()
+	-- The packs that load on demand and are switched on: their addons load
+	-- now, before the Engine reopens the saved tabs.
+	Own.loadDemandAll()
 	-- The imported guides, now that every community addon has registered and
 	-- every installed one is listed (an addon keeps its ids: Import.Load
 	-- leaves out an imported guide under an addon's id).

@@ -82,8 +82,15 @@ fn key_line(text: Option<&str>, key: &str) -> f64 {
 	1.0
 }
 
-/// `official`, `text`: the JS options (text: pack.json's source, for lines).
+/// `official`, `text`: the JS options (text: pack.json's source, for lines). `official`: our guides/pack.json,
+/// which may give the id `guides` and the folder `Polestar_Guides`.
 pub fn validate_manifest(obj: &V, file: &str, official: bool, text: Option<&str>) -> Vec<Diag> {
+	validate_as(obj, file, official, official.then_some("guides"), text)
+}
+
+/// [`validate_manifest`]; `own`: the id reserved for Polestar this pack.json may give (ours `guides`, one of
+/// Polestar's own extra packs its own, project.rs OWN_EXTRAS: the JS option `extra`).
+fn validate_as(obj: &V, file: &str, official: bool, own: Option<&str>, text: Option<&str>) -> Vec<Diag> {
 	let mut diags = Vec::new();
 	let mut add = |severity: &'static str, key: Option<&str>, message: String, hint: String| {
 		diags.push(Diag { severity, file: Some(file.to_string()), line: key.map_or(1.0, |k| key_line(text, k)), message, hint: Some(hint) });
@@ -127,7 +134,7 @@ pub fn validate_manifest(obj: &V, file: &str, official: bool, text: Option<&str>
 			"id" => {
 				if !is_pack_id(v) {
 					add("error", Some(key), format!("pack id \"{v}\" is malformed: 2 to 32 lowercase letters, digits and dashes, starting with a letter or digit"), ID_HINT.into());
-				} else if RESERVED_IDS.contains(&v) && !(official && v == "guides") {
+				} else if RESERVED_IDS.contains(&v) && own != Some(v) {
 					add("error", Some(key), format!("pack id \"{v}\" is reserved for Polestar ({} are)", RESERVED_IDS.map(|r| format!("\"{r}\"")).join(", ")), ID_HINT.into());
 				}
 			}
@@ -221,6 +228,19 @@ pub fn read_pack_file(dir: &std::path::Path, name: &str) -> Result<Option<String
 /// Not exact: a JSON syntax error's `(…)` detail is this crate's parser message, not V8's.
 #[cfg(feature = "native")]
 pub fn read_manifest(dir: &std::path::Path, official: bool) -> (Option<V>, Vec<Diag>) {
+	read_as(dir, official, official.then_some("guides"))
+}
+
+/// [`read_manifest`] for one of Polestar's own extra packs (project.rs OWN_EXTRAS), from its folder in the
+/// checkout: read as another pack's, but it may give `id`, the id reserved for it.
+#[cfg(feature = "native")]
+pub fn read_extra_manifest(dir: &std::path::Path, id: &str) -> (Option<V>, Vec<Diag>) {
+	read_as(dir, false, Some(id))
+}
+
+/// [`read_manifest`] with `own` as [`validate_as`] takes it.
+#[cfg(feature = "native")]
+fn read_as(dir: &std::path::Path, official: bool, own: Option<&str>) -> (Option<V>, Vec<Diag>) {
 	let abs = dir.join("pack.json");
 	let file = shown(&abs);
 	let err = |message: String, hint: &str| Diag { severity: "error", file: Some(file.clone()), line: 1.0, message, hint: Some(hint.into()) };
@@ -241,7 +261,7 @@ pub fn read_manifest(dir: &std::path::Path, official: bool) -> (Option<V>, Vec<D
 		Ok(v) => v,
 		Err(e) => return (None, vec![err(format!("pack.json is not valid JSON ({e})"), "check for a missing value, quote or comma; JSON allows no trailing commas or comments")]),
 	};
-	let diags = validate_manifest(&obj, &file, official, Some(&text));
+	let diags = validate_as(&obj, &file, official, own, Some(&text));
 	if diags.iter().any(|d| d.severity == "error") {
 		return (None, diags);
 	}
