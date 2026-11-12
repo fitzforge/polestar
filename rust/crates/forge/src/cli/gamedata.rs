@@ -3,7 +3,8 @@
 //! caches (quests, creatures, gameobjects the server described to it) to JSON; `hotfix` reads its
 //! DBCache.bin (the server's hotfix rows): a per-table summary, or one table's rows decoded. `file`
 //! writes one file of the client by its fileDataID, as stored (game tables such as
-//! `gametables/chancetomeleecrit.txt`, whose IDs the community listfile names).
+//! `gametables/combatratings.txt` (1391669), whose IDs the community listfile names; the Forever client has
+//! no `chancetomeleecrit` or regen tables).
 //! `compare --wago DIR` (a developer check, not in the help) exports every table a wago.tools
 //! build folder holds and compares the CSVs.
 //!
