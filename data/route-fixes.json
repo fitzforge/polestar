@@ -4903,13 +4903,26 @@
 				],
 				"faction": "Alliance",
 				"why": "#1866: the Howling Vale's Terrowulf packs (28-30) and their rare Packlord (32) stand round the Tome of Mel'Thandris (The Howling Vale, 1022), read on the first visit to Shael'dryn's moonwell: players' recordings show it read at levels 28-32 (median 29), and 2 people died in the vale, at 28 and 29. The route comes back to the moonwell after the south-east (the Hidden Shrine, 1055), where the same recordings show players handing in 1055 at 29-30 (5 of 6; one at 24), and the vale's tunnel is beside it on the way west to Astranaar: the tome is read then, with no extra stop."
+			},
+			{
+				"a": [
+					"turnin",
+					1478
+				],
+				"b": [
+					"accept",
+					1473
+				],
+				"faction": "Horde",
+				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
 			}
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
-			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp. The route writer's first-visit rule (60 yd, docs/forge/writer.md) writes both on every build."
+			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp. The route writer's first-visit rule (60 yd, docs/forge/writer.md) writes both on every build.",
+			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again."
 		],
 		"never": [
 			{
@@ -4961,6 +4974,14 @@
 			{
 				"q": 93739,
 				"why": "EpicTibbles #532: Exploring the Horde stays for Skyborne (its leaders' visits are on the route's way through Orgrimmar, Thunder Bluff and the Undercity; the report's Talk to lines test it)"
+			},
+			{
+				"q": 5845,
+				"why": "Of Lost Honor (Alliance 50-60/06-silithus): the route takes it from Tirion Fordring and fetches the Symbol of Lost Honor from the lake, but its hand-in back at Tirion was optional (the guide writer's 'optional at its NPC'), and the addon never holds an optional goal, so players walked past Tirion carrying it finished. The hand-in is a plain goal, as the Horde's 50-60/06-silithus already has it (hidden for anyone who did not take it)."
+			},
+			{
+				"q": 2479,
+				"why": "Hinott's Assistance (Horde Rogue): horde/05-stonetalon-mountains takes it from Shenthul ('keep it'), but its hand-in to Serge Hinott in Tarren Mill (horde/06-hillsbrad-foothills) was optional, so Rogues walked past Serge carrying it. The hand-in is a plain goal (hidden for anyone without the quest); the Poisons follow-up (2480) stays optional."
 			}
 		],
 		"southward": [
@@ -7203,6 +7224,10 @@
 			{
 				"q": 1012,
 				"why": "Alliance 1-30 audit (#1415, route review vWL4 2026-11-08) took Insane Druids (level 32, three druids deep in the Dor'Danil Barrow Den, Kayneth Stillwind before and after, nobody took it on a recorded version) out of 06-wetlands, but #1336 and #1341 had promised its barrow-entrance step publicly. A public promise wins: it is back where it was, optional, with a tip saying why to skip it and the entrance step from #1336 (611dbaf10)."
+			},
+			{
+				"q": 706,
+				"why": "Fiery Blaze Enchantments (Alliance 40-50/01-stranglethorn-vale, Hammertoe's Digsite) was a required accept whose only work, the Black Drake's Heart (a 2% drop from the Badlands' Scalding Whelps and Scorched Guardians), and its hand-in to Sigrun Ironhew are optional, so players carried it unfinished out of the Badlands. The accept is optional too."
 			}
 		],
 		"group": [
@@ -9294,6 +9319,15 @@
 				"issue": "#1660"
 			},
 			{
+				"q": 1478,
+				"after": [
+					"turnin",
+					354
+				],
+				"reason": "Undead Warlocks: Halgar's Summons (1478, 210 XP) from Ageron Kargal on the Brill stop that trains, handed in to Carendin Halgar before Creature of the Void (see the deliberate pair turnin 1478 -> accept 1473): carried, it blocked 1473's offer for 4 recorded players.",
+				"issue": "-"
+			},
+			{
 				"q": 567,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1776): Dangerous! is taken from the poster in the 22-25 guide, which kills Farmer Kalaba (567.4) with the peasants (528) and Citizen Wilkes (567.2) at the smithy (529), and leaves the clerk (567.1, the town hall with 532) and the miner (567.3, Azurelode Mine with 539) to this guide. A character who carries it but left the 22-25 guide before the smithy had no step for Kalaba or Wilkes here: the catch-up's peasants and smithy steps (`when !turnedin 529`) now list them, as the 22-25 guide does. Kolbi (Skyborne Druid 31, 0.3.6) had 567 at 2/4, with 529 neither in the log nor handed in.",
 				"issue": "#1776"
@@ -9583,6 +9617,12 @@
 				"q": 7492,
 				"faction": "Horde",
 				"reason": "Flow, Horde 50-60/05 (0.3.6, BrHorde4060): Camp Mojache (level 57, 1500 XP) is Warcaller Gorlach's delivery from Orgrimmar to Talo Thornhoof at Camp Mojache. Since The Super Egg-O-Matic's eggs moved to 40-50/06, 05's only reason to fly Gadgetzan -> Camp Mojache -> Marshal's Refuge was this hand-in, instead of the direct Gadgetzan -> Marshal's Refuge flight on the way to Silithus: about 6 minutes of flying for 1500 XP (about five level-56 kills). Left out; Talo's follow-up is a Dire Maul quest.",
+				"issue": "-"
+			},
+			{
+				"q": 1037,
+				"faction": "Alliance",
+				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47, a tenth of its XP by then): an 18-level carry for about 61 XP. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
 				"issue": "-"
 			}
 		],

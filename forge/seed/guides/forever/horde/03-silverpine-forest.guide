@@ -114,10 +114,10 @@ step Borstan
 step Neeru Fireblade
   only Orc,Troll
   zone Orgrimmar
-  when onquest 829
+  when onquest 829,832
   tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end.
   turnin 829
-  turnin 832 optional                 -- Neeru Fireblade
+  turnin 832                          -- Neeru Fireblade: Burning Shadows, from the Eye of Burning Shadow in Durotar
 
 step The Drag
   only Orc,Troll,Tauren,Skyborne

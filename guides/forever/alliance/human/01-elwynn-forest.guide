@@ -181,22 +181,27 @@ step Sam Sarsaparilla
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97924                                -- Sam Sarsaparilla: for Helene Peltskinner on the lake shore
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97922                                -- Sam Sarsaparilla: for Adele Fielder on the lake shore
 
 step Camping 101: Fishing
   when skill Fishing 1
+  when !knows 1229745
   accept 97920                                -- Sam Sarsaparilla: for Lee Brown on the lake shore
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97919                                -- Sam Sarsaparilla: for Michelle Belle in the Lion's Pride Inn
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
   accept 97916                                -- Sam Sarsaparilla: for Smith Argus at the Goldshire smithy
 
 step Helene Peltskinner

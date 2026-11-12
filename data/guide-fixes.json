@@ -6750,6 +6750,1086 @@
 			"issue": 1866
 		},
 		{
+			"id": "hillsbrad-helcular-grave-from-the-north",
+			"faction": "Horde",
+			"at": {
+				"quest": 553,
+				"goal": "turnin"
+			},
+			"tip": "Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came.",
+			"note": "Helcular's Revenge (553): the grave (52.8,53.4) lies inside the walking maps' Southshore hub. Players' recordings: of 21 people who lit the three flames, 14 handed it in at the grave (52.70-52.91,53.10-53.39), all of them reaching the graveyard from the north (about 48-56,48-49); 2 abandoned it near there and 5 runs end before the hand-in; 1 person died north-east of the graveyard (53.9,48.0). The guide step adds a goto north of the graveyard (53.4,48.8, in its seed copy too) and the tip names the guard posts.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 553 and the hand-in spots (to 2026-11-12): 31 runs by 25 people, 14 hand-ins at 52.70-52.91,53.10-53.39 on map 1424, 4 abandons (2 after the flames)"
+				},
+				{
+					"kind": "questie",
+					"ref": "QuestieDB Forever spawns (data/forever npcs.json) of Southshore Guard (2386) on map 1424: 51.88,50.5 and 52.26,51.17 north-west of the grave, 53.92,54.19 and 54.73,53.79 south-east of it"
+				}
+			]
+		},
+		{
+			"id": "1867-camping-96044",
+			"at": {
+				"quest": 96044,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#1867: Camping 101: Blacksmithing is not offered once Sharpening Wheel (1230171), its camp item, is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Sharpening Wheel 1230171, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-96046",
+			"at": {
+				"quest": 96046,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#1867: Camping 101: Mining is not offered once Lodestone (1230161), its camp item, is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Lodestone 1230161, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-96047",
+			"at": {
+				"quest": 96047,
+				"goal": "accept"
+			},
+			"when": "!knows 1230117",
+			"note": "#1867: Camping 101: First Aid is not offered once First Aid Kit (1230117), its camp item, is known (a trainer teaches it from First Aid 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe First Aid Kit 1230117, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-96058",
+			"at": {
+				"quest": 96058,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#1867: Camping 101: Engineering is not offered once Reagent Bot (1230656), its camp item, is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Reagent Bot 1230656, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-96102-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 96102,
+				"goal": "accept"
+			},
+			"when": "!knows 1229504",
+			"note": "#1867: Camping 101: Tailoring is not offered once Faction Banner (1229504), its camp item, is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Faction Banner 1229504, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97899",
+			"at": {
+				"quest": 97899,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#1867: Camping 101: Alchemy is not offered once Mana Well (1230564), its camp item, is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Mana Well 1230564, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97901",
+			"at": {
+				"quest": 97901,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#1867: Camping 101: Enchanting is not offered once Enchanted Lute (1230643), its camp item, is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Enchanted Lute 1230643, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97902",
+			"at": {
+				"quest": 97902,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#1867: Camping 101: Engineering is not offered once Reagent Bot (1230656), its camp item, is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Reagent Bot 1230656, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97903",
+			"at": {
+				"quest": 97903,
+				"goal": "accept"
+			},
+			"when": "!knows 1230117",
+			"note": "#1867: Camping 101: First Aid is not offered once First Aid Kit (1230117), its camp item, is known (a trainer teaches it from First Aid 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe First Aid Kit 1230117, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97905",
+			"at": {
+				"quest": 97905,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#1867: Camping 101: Herbalism is not offered once Incense Candle (1229705), its camp item, is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Incense Candle 1229705, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97906",
+			"at": {
+				"quest": 97906,
+				"goal": "accept"
+			},
+			"when": "!knows 1229432",
+			"note": "#1867: Camping 101: Leatherworking is not offered once Camp Tent (1229432), its camp item, is known (a trainer teaches it from Leatherworking 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Tent 1229432, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97907",
+			"at": {
+				"quest": 97907,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#1867: Camping 101: Mining is not offered once Lodestone (1230161), its camp item, is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Lodestone 1230161, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97908",
+			"at": {
+				"quest": 97908,
+				"goal": "accept"
+			},
+			"when": "!knows 1229517",
+			"note": "#1867: Camping 101: Skinning is not offered once Camp Chair (1229517), its camp item, is known (a trainer teaches it from Skinning 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Chair 1229517, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97916",
+			"at": {
+				"quest": 97916,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#1867: Camping 101: Blacksmithing is not offered once Sharpening Wheel (1230171), its camp item, is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Sharpening Wheel 1230171, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97919",
+			"at": {
+				"quest": 97919,
+				"goal": "accept"
+			},
+			"when": "!knows 1230117",
+			"note": "#1867: Camping 101: First Aid is not offered once First Aid Kit (1230117), its camp item, is known (a trainer teaches it from First Aid 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe First Aid Kit 1230117, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97920",
+			"at": {
+				"quest": 97920,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#1867: Camping 101: Fishing is not offered once Fish Bowl (1229745), its camp item, is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Fish Bowl 1229745, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97922",
+			"at": {
+				"quest": 97922,
+				"goal": "accept"
+			},
+			"when": "!knows 1229432",
+			"note": "#1867: Camping 101: Leatherworking is not offered once Camp Tent (1229432), its camp item, is known (a trainer teaches it from Leatherworking 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Tent 1229432, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97924",
+			"at": {
+				"quest": 97924,
+				"goal": "accept"
+			},
+			"when": "!knows 1229517",
+			"note": "#1867: Camping 101: Skinning is not offered once Camp Chair (1229517), its camp item, is known (a trainer teaches it from Skinning 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Chair 1229517, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97927",
+			"at": {
+				"quest": 97927,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#1867: Camping 101: Alchemy is not offered once Mana Well (1230564), its camp item, is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Mana Well 1230564, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97928",
+			"at": {
+				"quest": 97928,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#1867: Camping 101: Blacksmithing is not offered once Sharpening Wheel (1230171), its camp item, is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Sharpening Wheel 1230171, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97929",
+			"at": {
+				"quest": 97929,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#1867: Camping 101: Enchanting is not offered once Enchanted Lute (1230643), its camp item, is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Enchanted Lute 1230643, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97931",
+			"at": {
+				"quest": 97931,
+				"goal": "accept"
+			},
+			"when": "!knows 1230117",
+			"note": "#1867: Camping 101: First Aid is not offered once First Aid Kit (1230117), its camp item, is known (a trainer teaches it from First Aid 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe First Aid Kit 1230117, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97932",
+			"at": {
+				"quest": 97932,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#1867: Camping 101: Fishing is not offered once Fish Bowl (1229745), its camp item, is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Fish Bowl 1229745, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97933",
+			"at": {
+				"quest": 97933,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#1867: Camping 101: Herbalism is not offered once Incense Candle (1229705), its camp item, is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Incense Candle 1229705, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97934",
+			"at": {
+				"quest": 97934,
+				"goal": "accept"
+			},
+			"when": "!knows 1229432",
+			"note": "#1867: Camping 101: Leatherworking is not offered once Camp Tent (1229432), its camp item, is known (a trainer teaches it from Leatherworking 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Tent 1229432, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97935",
+			"at": {
+				"quest": 97935,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#1867: Camping 101: Mining is not offered once Lodestone (1230161), its camp item, is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Lodestone 1230161, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97936",
+			"at": {
+				"quest": 97936,
+				"goal": "accept"
+			},
+			"when": "!knows 1229517",
+			"note": "#1867: Camping 101: Skinning is not offered once Camp Chair (1229517), its camp item, is known (a trainer teaches it from Skinning 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Chair 1229517, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97937-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97937,
+				"goal": "accept"
+			},
+			"when": "!knows 1229504",
+			"note": "#1867: Camping 101: Tailoring is not offered once Faction Banner (1229504), its camp item, is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Faction Banner 1229504, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97938",
+			"at": {
+				"quest": 97938,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#1867: Camping 101: Alchemy is not offered once Mana Well (1230564), its camp item, is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Mana Well 1230564, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97942",
+			"at": {
+				"quest": 97942,
+				"goal": "accept"
+			},
+			"when": "!knows 1230117",
+			"note": "#1867: Camping 101: First Aid is not offered once First Aid Kit (1230117), its camp item, is known (a trainer teaches it from First Aid 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe First Aid Kit 1230117, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97944",
+			"at": {
+				"quest": 97944,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#1867: Camping 101: Herbalism is not offered once Incense Candle (1229705), its camp item, is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Incense Candle 1229705, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97946",
+			"at": {
+				"quest": 97946,
+				"goal": "accept"
+			},
+			"when": "!knows 1229432",
+			"note": "#1867: Camping 101: Leatherworking is not offered once Camp Tent (1229432), its camp item, is known (a trainer teaches it from Leatherworking 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Tent 1229432, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97949",
+			"at": {
+				"quest": 97949,
+				"goal": "accept"
+			},
+			"when": "!knows 1229517",
+			"note": "#1867: Camping 101: Skinning is not offered once Camp Chair (1229517), its camp item, is known (a trainer teaches it from Skinning 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Chair 1229517, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97951",
+			"at": {
+				"quest": 97951,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#1867: Camping 101: Alchemy is not offered once Mana Well (1230564), its camp item, is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Mana Well 1230564, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97952",
+			"at": {
+				"quest": 97952,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#1867: Camping 101: Blacksmithing is not offered once Sharpening Wheel (1230171), its camp item, is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Sharpening Wheel 1230171, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97953",
+			"at": {
+				"quest": 97953,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#1867: Camping 101: Enchanting is not offered once Enchanted Lute (1230643), its camp item, is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Enchanted Lute 1230643, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97954",
+			"at": {
+				"quest": 97954,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#1867: Camping 101: Engineering is not offered once Reagent Bot (1230656), its camp item, is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Reagent Bot 1230656, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97955",
+			"at": {
+				"quest": 97955,
+				"goal": "accept"
+			},
+			"when": "!knows 1230117",
+			"note": "#1867: Camping 101: First Aid is not offered once First Aid Kit (1230117), its camp item, is known (a trainer teaches it from First Aid 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe First Aid Kit 1230117, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97957",
+			"at": {
+				"quest": 97957,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#1867: Camping 101: Herbalism is not offered once Incense Candle (1229705), its camp item, is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Incense Candle 1229705, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97958",
+			"at": {
+				"quest": 97958,
+				"goal": "accept"
+			},
+			"when": "!knows 1229432",
+			"note": "#1867: Camping 101: Leatherworking is not offered once Camp Tent (1229432), its camp item, is known (a trainer teaches it from Leatherworking 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Tent 1229432, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97959",
+			"at": {
+				"quest": 97959,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#1867: Camping 101: Mining is not offered once Lodestone (1230161), its camp item, is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Lodestone 1230161, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97960",
+			"at": {
+				"quest": 97960,
+				"goal": "accept"
+			},
+			"when": "!knows 1229517",
+			"note": "#1867: Camping 101: Skinning is not offered once Camp Chair (1229517), its camp item, is known (a trainer teaches it from Skinning 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Chair 1229517, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97961-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97961,
+				"goal": "accept"
+			},
+			"when": "!knows 1229504",
+			"note": "#1867: Camping 101: Tailoring is not offered once Faction Banner (1229504), its camp item, is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Faction Banner 1229504, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97963",
+			"at": {
+				"quest": 97963,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#1867: Camping 101: Alchemy is not offered once Mana Well (1230564), its camp item, is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Mana Well 1230564, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97964",
+			"at": {
+				"quest": 97964,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#1867: Camping 101: Blacksmithing is not offered once Sharpening Wheel (1230171), its camp item, is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Sharpening Wheel 1230171, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97965",
+			"at": {
+				"quest": 97965,
+				"goal": "accept"
+			},
+			"when": "!knows 1230117",
+			"note": "#1867: Camping 101: First Aid is not offered once First Aid Kit (1230117), its camp item, is known (a trainer teaches it from First Aid 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe First Aid Kit 1230117, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97967",
+			"at": {
+				"quest": 97967,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#1867: Camping 101: Fishing is not offered once Fish Bowl (1229745), its camp item, is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Fish Bowl 1229745, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97969",
+			"at": {
+				"quest": 97969,
+				"goal": "accept"
+			},
+			"when": "!knows 1229432",
+			"note": "#1867: Camping 101: Leatherworking is not offered once Camp Tent (1229432), its camp item, is known (a trainer teaches it from Leatherworking 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Tent 1229432, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97970",
+			"at": {
+				"quest": 97970,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#1867: Camping 101: Mining is not offered once Lodestone (1230161), its camp item, is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Lodestone 1230161, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97971",
+			"at": {
+				"quest": 97971,
+				"goal": "accept"
+			},
+			"when": "!knows 1229517",
+			"note": "#1867: Camping 101: Skinning is not offered once Camp Chair (1229517), its camp item, is known (a trainer teaches it from Skinning 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Camp Chair 1229517, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-97973-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97973,
+				"goal": "accept"
+			},
+			"when": "!knows 1263425",
+			"note": "#1867: Camping 101: Tailoring is not offered once Faction Banner (1263425), its camp item, is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Faction Banner 1263425, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "1867-camping-98286",
+			"at": {
+				"quest": 98286,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#1867: Camping 101: Enchanting is not offered once Enchanted Lute (1230643), its camp item, is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1867: Teldrassil 97949 not offered with Camp Chair known"
+				},
+				{
+					"kind": "tdb",
+					"ref": "trainer recipe Enchanted Lute 1230643, learned at 20 (data/forever professions.json)"
+				}
+			],
+			"issue": 1867
+		},
+		{
+			"id": "stranded-1037-carried-copies",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1037,
+				"goal": "turnin"
+			},
+			"when": "onquest 1037",
+			"note": "Velinde Starsong is no longer taken (route-fixes overrides.skip 1037): the Darnassus hand-ins in 40-50/01-stranglethorn-vale and 40-50/05-the-hinterlands are only for a copy a player still carries.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quests.json 1037: given by Sentinel Melyria Frostshadow (3880) in Ashenvale, ended by Thyn'tel Bladeweaver in Darnassus"
+				}
+			]
+		},
+		{
 			"id": "1791-badlands-theldurin-group-alliance",
 			"faction": "Alliance",
 			"at": {
