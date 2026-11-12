@@ -15,7 +15,6 @@
 	<Script file="Vendor.lua"/>
 	<Script file="Buy.lua"/>
 	<Script file="Restock.lua"/>
-	<Script file="Trainer.lua"/>
 	<Script file="Spells.lua"/>
 	<Script file="ClassSpells.lua"/>
 	<Script file="Rewards.lua"/>

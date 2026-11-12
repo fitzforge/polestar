@@ -72,7 +72,7 @@ return {
 
 	-- Step 15: Thoradin's Wall
 	-- {area:1057} Thoradin's Wall
-	["The road east through {area:1057}"] = "",
+	["The road east through {area:1057}"] = "A estrada para leste por {area:1057}",
 
 	-- Step 16: Northfold Manor
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall

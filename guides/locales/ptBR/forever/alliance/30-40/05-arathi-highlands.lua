@@ -279,7 +279,7 @@ return {
 
 	-- Step 65: To Thelsamar
 	-- {area:144} Thelsamar
-	["To {area:144}"] = "",
+	["To {area:144}"] = "Para {area:144}",
 
 	-- Step 66: Thelsamar
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar

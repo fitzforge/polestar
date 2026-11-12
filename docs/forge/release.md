@@ -35,7 +35,7 @@ forge release version            # print it; exit 1 if guides/pack.json or a TOC
 forge release version 0.2.0      # set it everywhere; nothing is written when a file has no version to set
 ```
 
-Versions are `x.y.z`, or `x.y.z-rc.1` for a release candidate.
+Versions are `x.y.z`, `x.y.z.hotfix` for an urgent hotfix, or `x.y.z-rc.1` for a release candidate.
 
 ## The zips
 

@@ -539,7 +539,6 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/QoL/Rewards.lua", "button", 1, "Hidden", "the quest reward marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "button", 1, "Hidden", "the talent marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "m", 2, "Hidden", "their ring and badge, under the mark"),
-	("Polestar/QoL/Trainer.lua", "ClassTrainerFrame", 1, "Hidden", "the Train All button on the trainer window: off while hidden"),
 ];
 
 // Marks Polestar puts on the game's frames without a frame of their own (textures on the game's buttons,
