@@ -5208,12 +5208,12 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
 
 ### Weights and Forever's ratings — Gear/Weights.lua, Gear.lua
 
-- **Polestar's own weights, at every level.** `Gear.WeightsFor` gives the
-  spec's table in Weights.lua and nothing else (#1529). The Classic and
-  Season of Discovery simulation bands `forge data gear` still writes into
-  SpecData.lua (`Gear.WEIGHT_BANDS`) are no longer read; dropping them from
-  the build waits for #1014, which rewrites that generator. Weights.lua's
-  header records what was checked against Forever's client tables
+- **Weights by level band.** `Gear.WeightsFor` gives the spec's band for
+  the level (`Gear.WEIGHT_BANDS`, generated SpecData.lua: Classic and
+  Season of Discovery simulations blended with Polestar's own), else its
+  table in Weights.lua. No simulation has Forever's own ratings, so a band
+  takes `haste`, `expertise` and `armorPen` from Weights.lua (#1529).
+  Weights.lua's header records what was checked against Forever's client tables
   (`ChrClasses`, `PlayerExpectedStat`, `gametables/combatratings.txt`, read
   with `forge gamedata export` and `forge gamedata file`) and how the weights
   of Forever's own ratings were set.

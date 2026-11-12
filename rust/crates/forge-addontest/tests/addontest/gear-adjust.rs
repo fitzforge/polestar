@@ -31,11 +31,17 @@ fn a_change_applies_at_once_marks_the_spec_adjusted_and_follows_a_new_default() 
 		local key, label, source = G.GetSpec()
 		emit({ label = label, source = source, adjusted = G.GetWeightsInfo().adjusted, sta = G.GetWeights().sta, want = base.sta * 1.5,
 			str = G.GetWeights().str == base.str, scored = G.ScoreItem("item:9001") > before, stored = Polestar.DB().gearAdjust.WARRIOR.arms.sta })
-		-- An update changes the default: the change is half again of the new one.
-		local arms = {}
-		for k, v in pairs(G.WEIGHTS.WARRIOR.arms) do arms[k] = v end
-		arms.sta = 0.8
-		G.WEIGHTS.WARRIOR.arms = arms
+		-- The band in use changes the default (an update, or the next band at a level up): the change is half
+		-- again of the new one.
+		for _, b in ipairs(G.WEIGHT_BANDS.WARRIOR.arms) do
+			if 30 <= b.upTo then
+				local t = {}
+				for k, v in pairs(b.weights) do t[k] = v end
+				t.sta = 0.8
+				b.weights = t
+				break
+			end
+		end
 		G.Invalidate("spec")
 		emit({ sta = G.GetWeights().sta, rows = A.Rows("WARRIOR", "arms")[3] })
 	"#);
