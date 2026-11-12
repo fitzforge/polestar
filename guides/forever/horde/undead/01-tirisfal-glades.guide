@@ -463,6 +463,7 @@ step Brill
   accept 355
   turnin 361 optional                 -- Yvette Farthing, in the inn
   accept 1881 only Mage               -- Cain Firesong: Anastasia Hartwell in the Undercity takes it
+  accept 1478 only Warlock            -- Ageron Kargal: Carendin Halgar in the Undercity takes it
   train class
   turnin 355                          -- Magistrate Sevren, in the town hall
   accept 96895                        -- Deathguard Terrence, if you were below 10 on the last Brill visit
@@ -479,6 +480,7 @@ step Carendin Halgar
   only Warlock
   zone Undercity
   tip Walk south from Brill to the Ruins of Lordaeron and down into the Undercity. Carendin Halgar stands in the Magic Quarter. The Scarlet camp is just west of the ruins.
+  turnin 1478                         -- Carendin Halgar: he offers Creature of the Void only once this is handed in
   accept 1473                         -- Carendin Halgar
 
 step Anastasia Hartwell

@@ -4903,6 +4903,18 @@
 				],
 				"faction": "Alliance",
 				"why": "#1866: the Howling Vale's Terrowulf packs (28-30) and their rare Packlord (32) stand round the Tome of Mel'Thandris (The Howling Vale, 1022), read on the first visit to Shael'dryn's moonwell: players' recordings show it read at levels 28-32 (median 29), and 2 people died in the vale, at 28 and 29. The route comes back to the moonwell after the south-east (the Hidden Shrine, 1055), where the same recordings show players handing in 1055 at 29-30 (5 of 6; one at 24), and the vale's tunnel is beside it on the way west to Astranaar: the tome is read then, with no extra stop."
+			},
+			{
+				"a": [
+					"turnin",
+					1478
+				],
+				"b": [
+					"accept",
+					1473
+				],
+				"faction": "Horde",
+				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
 			}
 		],
 		"notes": [
@@ -9282,6 +9294,15 @@
 				"q": 498,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): The Rescue (Durnholde Keep), `when !turnedin 498`; it opens Infiltration 533 (and Valik) on the guide's first Tarren Mill stop. See 527.",
 				"issue": "#1660"
+			},
+			{
+				"q": 1478,
+				"after": [
+					"turnin",
+					354
+				],
+				"reason": "Undead Warlocks: Halgar's Summons (1478, 210 XP) from Ageron Kargal on the Brill stop that trains, handed in to Carendin Halgar before Creature of the Void (see the deliberate pair turnin 1478 -> accept 1473): carried, it blocked 1473's offer for 4 recorded players.",
+				"issue": "-"
 			}
 		],
 		"skip": [
