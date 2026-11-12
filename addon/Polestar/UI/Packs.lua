@@ -344,8 +344,9 @@ local function layoutRow(row, r, width)
 	row.Title:ClearAllPoints()
 	row.Title:SetPoint("TOPLEFT", row, "TOPLEFT", PAD, -13)
 
-	-- Right of the title and credits: the switch and the guide count, or
-	-- Enable and reload.
+	-- Right of the title and credits: the switch and the guide count (not
+	-- for a pack that loads on demand and is not in yet: its count is not
+	-- known), or Enable and reload.
 	local reserve = 0
 	row.Switch:Hide(); row.Enable:Hide(); row.Count:Hide()
 	if switchable(r) then
@@ -353,11 +354,14 @@ local function layoutRow(row, r, width)
 		row.Switch:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD + 4, -19)
 		row.Switch:Show()
 		row.Switch:Refresh()
-		row.Count:SetText(count(r.guideCount or 0, L["1 guide"], L["%d guides"]))
-		row.Count:ClearAllPoints()
-		row.Count:SetPoint("RIGHT", row.Switch, "LEFT", -10, 0)
-		row.Count:Show()
-		reserve = row.Switch:GetWidth() + 10 + row.Count:GetStringWidth() + 12
+		reserve = row.Switch:GetWidth() + 12
+		if not r.tocOnly then
+			row.Count:SetText(count(r.guideCount or 0, L["1 guide"], L["%d guides"]))
+			row.Count:ClearAllPoints()
+			row.Count:SetPoint("RIGHT", row.Switch, "LEFT", -10, 0)
+			row.Count:Show()
+			reserve = reserve + 10 + row.Count:GetStringWidth()
+		end
 	elseif r.status == "disabled" and r.addon then
 		row.Enable:ClearAllPoints()
 		row.Enable:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -16)

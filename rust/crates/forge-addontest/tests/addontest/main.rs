@@ -277,6 +277,8 @@ mod nav_transit;
 mod new_in_forever;
 #[path = "pack-race-parts.rs"]
 mod pack_race_parts;
+#[path = "packs-ondemand.rs"]
+mod packs_ondemand;
 #[path = "packs-parity.rs"]
 mod packs_parity;
 #[path = "packs-registry.rs"]

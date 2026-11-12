@@ -194,6 +194,12 @@ pub struct BuildOpts {
 	/// Price deathskips in the routes (`--deathskips`, off by default): the guides write them as `die`
 	/// steps, which only players who turned on "Use deathskips" take.
 	pub deathskips: bool,
+	/// The walks stage's hybrid passes (our grid's, Leffe's) one after the other (`--walks-serial`): about half
+	/// the peak memory, a longer wall time, the same walks.
+	pub walks_serial: bool,
+	/// MB of Leffe's decoded map cache in the walks stage (`--leffe-cache`, default LEFFE_WALKS_CACHE_MB): less
+	/// memory, slower searches, the same walks.
+	pub leffe_cache_mb: usize,
 }
 
 /// A file every Polestar checkout has; [`find_checkout`] looks for it.
@@ -1388,8 +1394,8 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 						}
 					}
 					let backend = match (&nav, &leffe) {
-						(Nav::Leffe, Some(p)) => forge_nav::stage::Nav::Leffe { pack: p.clone(), cache_mb: LEFFE_WALKS_CACHE_MB },
-						(Nav::Hybrid, Some(p)) => forge_nav::stage::Nav::Hybrid { pack: p.clone(), cache_mb: LEFFE_WALKS_CACHE_MB, leffe_store: leffe_store.clone() },
+						(Nav::Leffe, Some(p)) => forge_nav::stage::Nav::Leffe { pack: p.clone(), cache_mb: o.leffe_cache_mb },
+						(Nav::Hybrid, Some(p)) => forge_nav::stage::Nav::Hybrid { pack: p.clone(), cache_mb: o.leffe_cache_mb, leffe_store: leffe_store.clone() },
 						(Nav::Hybrid, None) => forge_nav::stage::Nav::HybridSaved {
 							leffe_store: saved_leffe_store(pack_dir.as_deref(), &l.walks, f.lower()).ok_or_else(|| format!("walks {}: no saved Leffe walks", f.name()))?,
 						},
@@ -1413,6 +1419,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 						nav: backend,
 						log: &say,
 						extra: &extra_pairs(&extra_file, f, &world_points(&l.world, f.lower())?)?,
+						serial: o.walks_serial,
 					})?;
 					std::fs::write(&dest, &w.bin).map_err(|e| format!("{}: {e}", dest.display()))?;
 					log(&format!("  walks {}: {}", f.name(), w.stats));
