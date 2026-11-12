@@ -167,7 +167,7 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
-   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh)
+   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh) + translators
    forge guide lint
    forge guide compile
    ```
@@ -215,7 +215,12 @@ version throughout.
    with the last release's: a large drop means translations went missing.
 
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
-   (names only, highest total first; amounts are never stored). The bug
+   (names only, highest total first; amounts are never stored), and anyone
+   whose idea shipped though someone else built it to its `ideas`
+   (`{ "name": "<login>", "ref": <pull request or issue> }`; the changelog's
+   "idea by" and "idea first proposed by" credits are the list to check). The
+   translators come from the locales' `translators` (rust/crates/forge-guide/
+   src/locales.rs and tools/lib/i18n/locales.js). The bug
    reporters column counts a reporter's useful reports from the issues: the
    Discord name the bot filed it under ("**Reported by <name> on
    [Discord](...)**"), else the GitHub login that opened it. A report counts

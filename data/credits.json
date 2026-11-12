@@ -50,5 +50,11 @@
 		"tor": "Tor",
 		"defect": "bigdefect",
 		"Deadshot": "Deadshot0330"
-	}
+	},
+	"ideas": [
+		{ "name": "PRDesrochers", "ref": 293 },
+		{ "name": "aronjanosch", "ref": 954 },
+		{ "name": "CDVolvik", "ref": 1012 },
+		{ "name": "IgorMagals", "ref": 724 }
+	]
 }
