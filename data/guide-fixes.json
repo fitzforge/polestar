@@ -5764,6 +5764,26 @@
 				}
 			],
 			"issue": 1866
+		},
+		{
+			"id": "hillsbrad-helcular-grave-from-the-north",
+			"faction": "Horde",
+			"at": {
+				"quest": 553,
+				"goal": "turnin"
+			},
+			"tip": "Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came.",
+			"note": "Helcular's Revenge (553): the grave (52.8,53.4) lies inside the walking maps' Southshore hub. Players' recordings: of 21 people who lit the three flames, 14 handed it in at the grave (52.70-52.91,53.10-53.39), all of them reaching the graveyard from the north (about 48-56,48-49); 2 abandoned it near there and 5 runs end before the hand-in; 1 person died north-east of the graveyard (53.9,48.0). The guide step adds a goto north of the graveyard (53.4,48.8, in its seed copy too) and the tip names the guard posts.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 553 and the hand-in spots (to 2026-11-12): 31 runs by 25 people, 14 hand-ins at 52.70-52.91,53.10-53.39 on map 1424, 4 abandons (2 after the flames)"
+				},
+				{
+					"kind": "questie",
+					"ref": "QuestieDB Forever spawns (data/forever npcs.json) of Southshore Guard (2386) on map 1424: 51.88,50.5 and 52.26,51.17 north-west of the grave, 53.92,54.19 and 54.73,53.79 south-east of it"
+				}
+			]
 		}
 	]
 }

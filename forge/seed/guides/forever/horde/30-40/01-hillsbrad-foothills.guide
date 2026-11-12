@@ -352,7 +352,8 @@ step Torn Fin murlocs
 
 step Helcular's Grave
   zone Hillsbrad Foothills
-  tip Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards.
+  tip Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came.
+  goto 53.4,48.8 map 1424 "North of Southshore's graveyard" r 15
   turnin 553 @52.8,53.4 map 1424     -- Helcular's Grave
 
 step Daggerspine naga
