@@ -116,13 +116,17 @@ pub fn open_store(file: &Path) -> Result<WalkStore, String> {
 	}
 }
 
-/// Writes the store (tmp + rename) -> bytes.
+/// Writes the store (tmp + rename), streamed: the file is never built in memory -> bytes.
 pub fn save_store(store: &WalkStore, file: &Path) -> Result<usize, String> {
-	let b = store.encode();
+	use std::io::Write;
 	let tmp: PathBuf = file.with_extension("tmp");
-	std::fs::write(&tmp, &b).map_err(|e| e.to_string())?;
+	let f = std::fs::File::create(&tmp).map_err(|e| format!("{}: {e}", tmp.display()))?;
+	let mut w = std::io::BufWriter::with_capacity(1 << 20, f);
+	store.write_to(&mut w).and_then(|()| w.flush()).map_err(|e| format!("{}: {e}", tmp.display()))?;
+	drop(w);
+	let n = std::fs::metadata(&tmp).map_err(|e| e.to_string())?.len() as usize;
 	std::fs::rename(&tmp, file).map_err(|e| e.to_string())?;
-	Ok(b.len())
+	Ok(n)
 }
 
 pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
