@@ -3327,6 +3327,35 @@ fn rewards_ranking_by_gear_upgrade_else_vendor_value_stack_included() {
 	assert_eq!(out[2], json!([[2, 1], "value"]), "a zero-delta \"upgrade\" is no upgrade");
 }
 
+// Another addon's quest dialog (Polestar: UI's) ranks the quest giver's choices with the stock panel never shown.
+#[test]
+fn rewards_another_addon_s_quest_dialog_ranks_the_choices_with_no_stock_panel() {
+	let out = run(r#"
+		QuestInfoFrame:Hide()
+		QuestInfoRewardsFrame:Hide()
+		q.items[11] = { name = "Cloak", price = 120 }
+		q.items[12] = { name = "Potion", price = 50 }
+		q.choices = { { id = 11 }, { id = 12, count = 5 } }
+		stub.fire("QUEST_COMPLETE")
+		stub.runTimers()
+		local choices, complete = QoL.Rewards.ReadChoices(false)
+		emit({ n = #choices, complete = complete, value = choices[2].value })
+		emit({ QoL.Rewards.Rank(choices) })
+		emit(QoL.Rewards.Mark() == nil)
+		emit(printed("Best reward"))
+		set("rewardHighlight", false)
+		stub.messages = {}
+		stub.fire("QUEST_COMPLETE")
+		stub.runTimers()
+		emit(printed("Best reward"))
+	"#);
+	assert_eq!(out[0], json!({ "n": 2, "complete": true, "value": 250 }));
+	assert_eq!(out[1], json!([[2, 1], "value"]), "five potions sell for most");
+	assert_eq!(out[2], true, "no stock panel, no marks");
+	assert_eq!(out[3], true, "the best reward is said in chat");
+	assert_eq!(out[4], false, "not with qol.rewardHighlight off");
+}
+
 // The marks on the reward panel, per choice: the upgrade badge ("qol-upgrade" or false) and its tint, the coin
 // on the most valuable (true or false), whether the best's hairline is drawn, and whether the mark hangs off
 // the item icon (never over the name).
