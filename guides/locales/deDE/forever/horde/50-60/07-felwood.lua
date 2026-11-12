@@ -61,8 +61,8 @@ return {
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "Verderbte Seelensplitter von den Kultisten, {quest:5887}",
 
 	-- Step 13: Maybess Riverbreeze
-	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
-	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "Auf dem Rückweg nach Süden zu {npc:10922} nimmt {npc:9529} auf der Westseite des Refugiums die Splitter entgegen.",
+	-- {npc:9529} Maybess Riverbreeze
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
 
 	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "Noch einmal nach Süden zum Refugium.",
@@ -156,6 +156,7 @@ return {
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "Zurück in den Tunnel der Holzschlundfeste und nimm den Ausgang nach {area:618}; {npc:9298} lagert gleich draußen bei den heißen Quellen.",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Flieg zum {area:431} und reite auf der Straße nach Nordwesten aus {zone:1440} in den {area:361}. {area:2479} ist das Lager der Druiden gleich hinter der Grenze.",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "Nimm in {zone:1458} den Zeppelin am Turm vor der Stadt nach {zone:1454}.",
+	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "Auf dem Rückweg nach Süden zu {npc:10922} nimmt {npc:9529} auf der Westseite des Refugiums die Splitter entgegen.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Nur wenn du {quest:5087} hast: Die Läufer gehen in kleinen Gruppen die Straße von der {area:1769} zum {area:2244}; warte an der Straße nahe {npc:9298} und töte sie im Vorbeigehen. Jeder trägt eine Kiste.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Nur wenn {npc:9298} dir {quest:5086} gegeben hat: Reite die Straße im {area:361} nach Norden zum Gebiet {area:1767}; die {quest:5086} kriechen zwischen den Bäumen.",
 	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Nur mit 30 {quest:6031} und nur bei Neutral mit der Holzschlundfeste: Folge der Straße nach Norden zur {area:1769}; {npc:11557} handelt gleich hinter dem Eingang.",

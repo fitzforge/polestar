@@ -268,11 +268,11 @@ return {
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: для NPC {npc:3961} ({area:415})",
 
 	-- Step 50: Satyrnaar
-	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
+	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "От озера идите на север к лагерю сатиров ({area:430}), чуть западнее места {area:2358}: там стоит {object:19901}, а рядом лежит рюкзак Куротеля, в котором {item:281014}.\nОсторожно: разбойники Скверного Мускуса здесь ({area:428}) часто скрываются в незаметности, а в лагере ({area:430}) есть сатиры-заклинатели.",
-	-- {item:281014} Vine-Wrapped Scroll
-	["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}: из рюкзака Куротеля",
+	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
+	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
+	["{item:281014}, from {object:673431}"] = "",
 
 	-- Step 51: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
@@ -385,9 +385,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Inside"] = "Внутри",
+	-- ["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "От озера идите на север к лагерю сатиров ({area:430}), чуть западнее места {area:2358}: там стоит {object:19901}, а рядом лежит рюкзак Куротеля, в котором {item:281014}.\nОсторожно: разбойники Скверного Мускуса здесь ({area:428}) часто скрываются в незаметности, а в лагере ({area:430}) есть сатиры-заклинатели.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "Реликвии лежат прямо на раскопках. {npc:1353}, крупный острозуб, рыщет в долине ящеров сразу к западу от них.",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358} — застава ночных эльфов в восточном конце дороги: там стоит {npc:3848}.",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: соедините две половинки",
+	-- ["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}: из рюкзака Куротеля",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, в таверне",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, фурболг, не тронутый порчей, сидит к югу от дороги ниже места {area:421}.",
 }

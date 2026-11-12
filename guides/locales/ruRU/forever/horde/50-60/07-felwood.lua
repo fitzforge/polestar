@@ -61,8 +61,8 @@ return {
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "Оскверненные осколки души с культистов, «{quest:5887}»",
 
 	-- Step 13: Maybess Riverbreeze
-	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
-	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "По пути обратно на юг к {npc:10922} отдайте осколки: {npc:9529} стоит на западной стороне Святилища.",
+	-- {npc:9529} Maybess Riverbreeze
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
 
 	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "Еще раз на юг к Святилищу.",
@@ -156,6 +156,7 @@ return {
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "Обратно в туннель Древобрюхов, выход: {area:618}; {npc:9298} стоит лагерем у горячих источников сразу снаружи.",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Летите в {area:431} и езжайте на северо-запад по дороге из зоны {zone:1440} в {area:361}. {area:2479} — лагерь друидов сразу за границей.",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "Из города {zone:1458} летите на дирижабле от башни у города в {zone:1454}.",
+	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "По пути обратно на юг к {npc:10922} отдайте осколки: {npc:9529} стоит на западной стороне Святилища.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Только если у вас есть задание «{quest:5087}»: гонцы небольшими группами идут по дороге от места {area:1769} к месту {area:2244}; ждите у дороги рядом с {npc:9298} и убивайте их, когда они проходят. У каждого есть ящик.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Только если {npc:9298} дала вам задание «{quest:5086}»: езжайте на север по дороге зоны {area:361} в {area:1767}; цели ({quest:5086}) ползают между деревьями.",
 	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Только с 30 шт. «{quest:6031}» и только при нейтральной репутации у Древобрюхов: идите по дороге на север в {area:1769}; {npc:11557} торгует сразу за входом.",

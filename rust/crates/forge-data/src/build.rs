@@ -821,6 +821,13 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		kb = Some(out);
 	}
 
+	// NPC records that are only a city's or a faction's name with no spawn and nothing referring to them (QuestieDB
+	// 1.0.14's "Orgrimmar" and "Stormwind"): checked after the knowledge base, which adds spawns and roles.
+	let placeholders = extras::drop_place_name_npcs(&norm.npcs, &norm.quests, &norm.items, &zones, &factions);
+	if !placeholders.is_empty() {
+		log(&format!("place-name NPCs: {} dropped ({})", placeholders.len(), placeholders.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
+	}
+
 	// ---- meta.json sources
 	let mut sources: Vec<V> = Vec::new();
 	sources.push(obj_of(vec![

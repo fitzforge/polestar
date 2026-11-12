@@ -181,7 +181,9 @@ function Nav.RegisterTravelData(d, replace)
 	if replace then clearData() end
 	Travel.build = d.build
 	for _, t in ipairs(d.taxi or {}) do
-		local node = point(t[9], t[2], t[3], t[4], t[5], t[6], t[7], "e")
+		-- x, y on the map's Era frame; t[11] "l": on its live frame (f nil), a map Forever added with
+		-- no Era frame (Rog'mar, Farholde Keep on the Riverglades).
+		local node = point(t[9], t[2], t[3], t[4], t[5], t[6], t[7], t[11] ~= "l" and "e" or nil)
 		node.id, node.faction, node.short = t[1], t[8], shortName(t[9])
 		-- The one class that flies from it (the Druids' Nighthaven flight masters), else nil.
 		node.class = t[10]
@@ -350,6 +352,7 @@ end
 
 -- The loaded network, read-only (the live tables, not copies):
 --   taxi = { node, ... }, taxiById = { [id] = node }    node = { id, name, short, c, wx, wy, map, x, y, f, faction }
+--     (f "e": x, y on the map's Era frame; nil: on its live frame, a map Forever added)
 --   flights = { [fromId] = { toId, yards, toId, yards, ... } }
 --   transports = { { id, kind, faction, a, b, ab, ba, waitA, waitB }, ... }, inns = { inn, ... },
 --     (a, b: the ends, at the ship's stop; end.board = { name, c, wx, wy, map, z }: where a ship
@@ -408,7 +411,7 @@ end
 --       places = {}: filled with the places a walk to the target can start
 --         from on its continent { wx, wy, z (a dock's board point), start }, for Walk.Measure }
 -- -> legs or nil, reason
--- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"tram"|"portal"|"hearth"|"teleport",
+-- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"airship"|"tram"|"portal"|"hearth"|"teleport",
 --         from = point, to = point, label, seconds, rest,   rest = seconds after this leg
 --         radius = arrival yards at `to` (walk legs to a waypoint), waypoint = true
 --         when `to` is a crossing or chain node, handmade = true on a walk the
@@ -602,17 +605,19 @@ local function crossCaption(e)
 	return e.caption or format(L["Walk to %s"], zoneName(e.partner.map))
 end
 
--- The captions of the legs to and on a boat, zeppelin, tram or portal,
--- translated (this file loads after the locale file).
+-- The captions of the legs to and on a boat, zeppelin, airship, tram or
+-- portal, translated (this file loads after the locale file).
 local WALK_TO = {
 	boat = L["Walk to the boat"],
 	zeppelin = L["Walk to the zeppelin tower"],
+	airship = L["Walk to the airship dock"],
 	tram = L["Walk to the Deeprun Tram"],
 	portal = L["Walk to the portal"],
 }
 local TAKE = {
 	boat = L["Take the boat to %s"],
 	zeppelin = L["Take the zeppelin to %s"],
+	airship = L["Take the airship to %s"],
 	tram = L["Take the tram to %s"],
 	portal = L["Take the portal to %s"],
 }
@@ -1328,7 +1333,7 @@ local function planRoute(p)
 		-- or a dock's whole reach, as Travel.Aim's offFloor): under the Undercity's entrance hall, in the Trade
 		-- Quarter, the walk to it stays (it rides a lift).
 		local nk = legs[2].kind
-		local flat = (nk == "boat" or nk == "zeppelin" or nk == "tram") and reach or 5
+		local flat = (nk == "boat" or nk == "zeppelin" or nk == "airship" or nk == "tram") and reach or 5
 		if to.z and (p.z and (p.z - to.z > 20 or to.z - p.z > 20) or (not p.z and d > flat)) then break end
 		table.remove(legs, 1)
 	end
@@ -2570,12 +2575,12 @@ end
 -- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
 -- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
 -- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
--- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin or tram
+-- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin, airship or tram
 -- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
 -- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
 -- leading walk by the same rule.
 local FLOOR_DZ, FLAT_ARRIVE = 20, 5
-local RIDES = { boat = true, zeppelin = true, tram = true }
+local RIDES = { boat = true, zeppelin = true, airship = true, tram = true }
 local function offFloor(to, pc, px, py, d, dock, reach)
 	if not to.z then return false end
 	local W = Nav.walk
@@ -2665,11 +2670,11 @@ function Travel.Aim(pc, px, py)
 	return nil
 end
 
--- On a boat or zeppelin, zone changes and distance from the dock are the
--- ride itself, not a reason to plan again.
+-- On a boat, zeppelin or airship, zone changes and distance from the dock are
+-- the ride itself, not a reason to plan again.
 local function riding()
 	local leg = legs and legs[ci]
-	return boarded and leg ~= nil and (leg.kind == "boat" or leg.kind == "zeppelin" or leg.kind == "tram")
+	return boarded and leg ~= nil and (leg.kind == "boat" or leg.kind == "zeppelin" or leg.kind == "airship" or leg.kind == "tram")
 end
 
 local function samePoint(a, b)

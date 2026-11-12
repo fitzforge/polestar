@@ -181,7 +181,7 @@ for _, t in ipairs({ dart, dartEdge, skinDisc, skinRing, skinCheck }) do t:Hide(
 -- A travel instruction (hearth, teleport, fly, take a boat or a lift) has no
 -- direction to point at: the dial shows what to do instead, the leg's glyph in the accent.
 local UI_MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\UI\\"
-local LEG_ICON = { hearth = "icon-hearth", teleport = "icon-use", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat",
+local LEG_ICON = { hearth = "icon-hearth", teleport = "icon-use", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", airship = "icon-boat",
 	tram = "icon-boat", portal = "icon-gate", lift = "icon-lift" }
 local legIcon = dial:CreateTexture(nil, "ARTWORK")
 legIcon:SetSize(DIAL * 0.6, DIAL * 0.6)

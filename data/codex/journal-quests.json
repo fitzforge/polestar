@@ -1,5 +1,5 @@
 {
-	"_about": "Dungeons journal quests no rule in tools/lib/codex/journal.js can place (docs/ARCHITECTURE.md, Dungeons): a quest whose giver, ender, area and objectives all lie outside its instance and whose dungeon part is an item made inside. One row per quest and instance: { quest, instance (Codex instance key), source (URL), note }. Loaded by loadJournalQuests; a row whose quest or instance the Codex lacks is a build warning.",
+	"_about": "Dungeons journal quests no rule in tools/lib/codex/journal.js can place (docs/ARCHITECTURE.md, Dungeons): a quest whose giver, ender and area lie outside its instance and whose objective no rule ties to it: an item made inside, or found inside on a mob or object the data has not placed there. One row per quest and instance: { quest, instance (Codex instance key), source (a URL, a web quest database citation, or a source cited the way forever-db/corrections cite one: { kind, ref }, players' recordings for one), note }. Loaded by loadJournalQuests; a row whose quest or instance the Codex lacks is a build warning.",
 	"quests": [
 		{
 			"quest": 5526,
@@ -18,6 +18,48 @@
 			"instance": "sunken-temple",
 			"source": { "edition": "forever", "kind": "quest", "id": 4146 },
 			"note": "Zapper Fuel (Horde; Liv Rizzlefix, Ratchet, for Larion in Un'Goro): five Atal'ai Haze from the Murk Worms, Saturated Oozes and Deep Lurkers, which the Forever world database spawns only inside the Sunken Temple (map 109); CMaNGOS's classic-db files the quest under the Sunken Temple's zone. Our NPC data has no spawns for the three, so no rule placed it (checked 2026-11-09)."
+		},
+		{
+			"quest": 95775,
+			"instance": "the-drowned-city",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 8 people (5 established) progressed its objectives inside The Drowned City (map 2970)" },
+			"note": "The Drowned City (Horde; Kin'weelay, Grom'gol Base Camp): the four Tablets of I'lalai are found inside the dungeon, where the quest data places no mob or object that holds them."
+		},
+		{
+			"quest": 95787,
+			"instance": "the-drowned-city",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 5 people (2 established) progressed its objectives inside The Drowned City (map 2970)" },
+			"note": "Take Two With Water (Alliance; Loremaster Dibbs, Southshore): the same four Tablets of I'lalai, found inside the dungeon, where the quest data places no mob or object that holds them."
+		},
+		{
+			"quest": 95788,
+			"instance": "the-drowned-city",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 5 people (2 established) progressed its objectives inside The Drowned City (map 2970)" },
+			"note": "Magics of the Drowned City (Alliance; Loremaster Dibbs, Southshore): five I'lalai Fetishes, found inside the dungeon; the quest data names no mob that drops them."
+		},
+		{
+			"quest": 95789,
+			"instance": "the-drowned-city",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 15 people (8 established) progressed its objectives inside The Drowned City (map 2970)" },
+			"note": "Shady Saltseers (both factions; Krazek, Booty Bay): ten Voodoo-Infused Artifacts from the dungeon's Saltseer Manhunters, whom the quest data has not placed."
+		},
+		{
+			"quest": 96774,
+			"instance": "the-drowned-city",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 5 people (4 established) progressed its objective inside The Drowned City (map 2970)" },
+			"note": "Ancient Gurubashi Idol (Horde; Mazu'kon, Mulgore): the idol is found inside the dungeon, and the quest data names no mob or object that holds it."
+		},
+		{
+			"quest": 97130,
+			"instance": "the-drowned-city",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 6 people (2 established) progressed its objective inside The Drowned City (map 2970)" },
+			"note": "Ancient Gurubashi Secrets (Alliance; Archmage Timear, Alterac Mountains): the same Ancient Gurubashi Idol, found inside the dungeon."
+		},
+		{
+			"quest": 1951,
+			"instance": "scarlet-monastery",
+			"source": { "kind": "tdb", "ref": "gameobject 103664 (Rituals of Power) has one spawn, in map 189 (Scarlet Monastery)" },
+			"note": "Rituals of Power (Mage; Magus Tirth, Thousand Needles, for Tabetha in Dustwallow Marsh): its one objective is the book Rituals of Power, taken from an object that stands only inside the Scarlet Monastery (QuestieDB's object data agrees). No rule ties a quest to a dungeon through an object its item comes from."
 		}
 	]
 }

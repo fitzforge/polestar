@@ -1108,14 +1108,15 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 }
 
 /// `loadJournalQuests()`: journal-quests.json rows (a malformed row throws); a row's `source` is a
-/// URL or a web quest database citation (`super::is_web_citation`).
+/// URL, a web quest database citation (`super::is_web_citation`) or a source cited the corrections'
+/// way, such as players' recordings (`super::is_source_citation`).
 pub fn load_journal_quests(text: &str) -> Result<Vec<V>, String> {
 	let rows = forge_guide::js::parse_json(text)?.get("quests").items();
 	static URL: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^https?://").unwrap());
 	for r in &rows {
 		let q = r.get("quest");
 		let src = r.get("source");
-		let cited = if let Some(s) = src.as_str() { URL.is_match(s) } else { super::is_web_citation(&src) };
+		let cited = if let Some(s) = src.as_str() { URL.is_match(s) } else { super::is_web_citation(&src) || super::is_source_citation(&src) };
 		if !(q.is_num() && forge_guide::js::is_integer(q.num())) || !r.get("instance").is_str() || !cited {
 			return Err(format!("journal-quests.json: bad row {}", forge_guide::js::stringify(r, None)));
 		}
@@ -1377,6 +1378,31 @@ pub fn emit_journal(journal: &V) -> String {
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	fn row(source: &str) -> String {
+		format!(r#"{{ "quests": [{{ "quest": 95775, "instance": "the-drowned-city", "source": {source}, "note": "n" }}] }}"#)
+	}
+
+	#[test]
+	fn a_row_cites_a_url_the_web_quest_database_or_a_source_the_corrections_way_1832() {
+		for ok in [
+			r#""https://example.org/q""#,
+			r#"{ "edition": "forever", "kind": "quest", "id": 5526 }"#,
+			r#"{ "kind": "recording", "ref": "8 people progressed its objectives inside" }"#,
+			r#"{ "kind": "tdb", "ref": "gameobject 103664 spawned only in map 189" }"#,
+		] {
+			assert!(load_journal_quests(&row(ok)).is_ok(), "{ok}");
+		}
+		for bad in [
+			r#""players' recordings""#,
+			r#"{ "kind": "recording" }"#,
+			r#"{ "kind": "recording", "ref": "" }"#,
+			r#"{ "kind": "wiki", "ref": "a page" }"#,
+			r#"{ "kind": "recording", "ref": "x", "note": "extra" }"#,
+		] {
+			assert!(load_journal_quests(&row(bad)).is_err(), "{bad}");
+		}
+	}
 
 	// Fitz, 0.3.8: a dungeon's quests and the three nearest prerequisites before each carry its mark, decided at
 	// build time. Nearest is breadth-first through the quests' own prerequisites: a quest of the dungeon keeps its

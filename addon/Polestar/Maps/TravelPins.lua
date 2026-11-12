@@ -4,7 +4,7 @@
 --               green, undiscovered ones amber; the tooltip lists direct
 --               destinations with this character's learned flight time or
 --               an estimate.
---   maps.docks  both ends of every boat, zeppelin and the tram this faction
+--   maps.docks  both ends of every boat, zeppelin, airship and the tram this faction
 --               may ride; the tooltip names where it goes, the ride and the
 --               rough wait.
 --   maps.inns   innkeepers; the one the Hearthstone is bound to glows.
@@ -20,6 +20,7 @@ local type, ipairs, lower, format = type, ipairs, string.lower, string.format
 local KIND = {
 	boat = { label = L["Boat to %s"], color = "npc", icon = "map:boat" },
 	zeppelin = { label = L["Zeppelin to %s"], color = "place", icon = "map:zeppelin" },
+	airship = { label = L["Airship to %s"], color = "place", icon = "map:zeppelin" },
 	tram = { label = L["Deeprun Tram to %s"], color = "object", icon = "map:tram" },
 }
 

@@ -415,7 +415,7 @@ local function Crossing(ax, ay, bx, by, color, line)
 end
 
 local function bows(path)
-	return path.n == 2 and (path.kind == "boat" or path.kind == "zeppelin")
+	return path.n == 2 and (path.kind == "boat" or path.kind == "zeppelin" or path.kind == "airship")
 end
 
 -- How a path is drawn in the view's style; sets fade, its strength.

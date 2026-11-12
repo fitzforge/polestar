@@ -69,8 +69,8 @@ return {
 	-- Step 6: Zul'Gurub to Honored
 	-- {area:19} Zul'Gurub
 	["{area:19} to Honored"] = "{area:19} bis Wohlwollend",
-	-- {item:19683} Bloodvine Leggings · {item:19686} Primal Batskin Gloves · {item:19689} Blood Tiger Shoulders · {item:19691} Bloodsoul Shoulders · {item:19694} Darksoul Leggings · {item:20004} Major Troll's Blood Elixir · {item:20000} Schematic: Bloodvine Goggles · {item:20756} Formula: Brilliant Wizard Oil · {spell:471400} Magnificent Trollshine · {quest:8196} Essence Mangoes · {item:22635} Savage Guard
-	["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and {item:20004} (5g each), {item:20000} (12g), {item:20756} (4g) and {spell:471400} (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "Von Freundlich bis Wohlwollend sind es 6.000: eineinhalb Clears. Wohlwollend schaltet frei: {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} und {item:20004} (je 5g), {item:20000} (12g), {item:20756} (4g) und {spell:471400} (4g), die Gürtel und Schulterstücke der Paragons of Power (je 150), {quest:8196} (eine Honor Token) und den {item:22635}.",
+	-- {item:19683} Bloodvine Leggings · {item:19686} Primal Batskin Gloves · {item:19689} Blood Tiger Shoulders · {item:19691} Bloodsoul Shoulders · {item:19694} Darksoul Leggings · {item:20004} Major Troll's Blood Elixir · {item:20000} Schematic: Bloodvine Goggles · {item:20756} Formula: Brilliant Wizard Oil · {item:232611} Magnificent Trollshine · {quest:8196} Essence Mangoes · {item:22635} Savage Guard
+	["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and {item:20004} (5g each), {item:20000} (12g), {item:20756} (4g) and {item:232611} (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "",
 
 	-- Step 7: Honored: necklace, Savage Guard and mangoes
 	-- {item:22635} Savage Guard
@@ -160,4 +160,7 @@ return {
 	["{npc:14905}: {item:19620}, Exalted"] = "{npc:14905}: {item:19620}, Ehrfürchtig",
 	-- {quest:8246} Signets of the Zandalar
 	["{quest:8246}: 15 Honor Tokens"] = "{quest:8246}: 15 Honor Tokens abgeben",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and {item:20004} (5g each), {item:20000} (12g), {item:20756} (4g) and {spell:471400} (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "Von Freundlich bis Wohlwollend sind es 6.000: eineinhalb Clears. Wohlwollend schaltet frei: {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} und {item:20004} (je 5g), {item:20000} (12g), {item:20756} (4g) und {spell:471400} (4g), die Gürtel und Schulterstücke der Paragons of Power (je 150), {quest:8196} (eine Honor Token) und den {item:22635}.",
 }
