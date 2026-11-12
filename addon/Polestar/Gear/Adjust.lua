@@ -2,30 +2,28 @@
 --
 -- A player who thinks one stat is worth more or less than Polestar says
 -- changes just that stat, and keeps everything else, including any later
--- update to the defaults (Gear.WeightsFor). An edit is kept as a multiple of
--- the default it was made against, so "Stamina 0.75" at a default of 0.5 is
--- "Stamina x1.5" and stays half again of whatever Stamina's default becomes;
--- a stat the spec has no weight for (or a weight of 0) is kept as the plain
--- value typed.
+-- update to the defaults (Gear.WeightsFor). An edit is kept as the number
+-- typed: "Stamina 0.75" stays 0.75 whatever Stamina's default becomes, and
+-- every stat not edited follows the defaults.
 --
---   PolestarDB.gearAdjust[CLASS][specKey][stat] = { x = multiple } | { v = value }
+--   PolestarDB.gearAdjust[CLASS][specKey][stat] = number
 --       Outside the settings, like the Pawn scales (Pawn.lua), so a settings
 --       reset does not wipe them; Revert does.
 --
---   Gear.Adjust.Edits(class, spec) -> { [stat] = edit } | nil (read-only)
+--   Gear.Adjust.Edits(class, spec) -> { [stat] = number } | nil (read-only)
 --   Gear.Adjust.Count(class, spec) -> how many stats are changed
---   Gear.Adjust.Set(class, spec, key, value[, level]) -> true | false, err
---       The weight the player wants at `level` (default: theirs). A value
---       equal to the default clears the edit. err: "class" (no such spec),
---       "stat" (not a Polestar stat key), "number" (not a finite number).
+--   Gear.Adjust.Set(class, spec, key, value) -> true | false, err
+--       The weight the player wants. A value equal to the default clears the
+--       edit. err: "class" (no such spec), "stat" (not a Polestar stat key),
+--       "number" (not a finite number).
 --   Gear.Adjust.Clear(class, spec, key) -> bool: that stat back to its default
 --   Gear.Adjust.Revert(class, spec) -> how many edits it cleared
 --   Gear.Adjust.Apply(weights, class, spec) -> weights: the built-in weights
 --       with the edits on top (the same table when there are none; a new one,
 --       cached until the next change, when there are)
---   Gear.Adjust.Rows(class, spec[, level]) -> { { key, value, default, edited }, ... }
+--   Gear.Adjust.Rows(class, spec) -> { { key, value, default, edited }, ... }
 --       Every stat the spec weighs or the player added, in Gear.STAT_KEYS
---       order, at `level`: what the adjust window lists.
+--       order: what the adjust window lists.
 
 local ADDON, ns = ...
 
@@ -64,23 +62,10 @@ local function isSpec(class, spec)
 	return type(class) == "string" and type(spec) == "string" and Gear.WEIGHTS[class] ~= nil and Gear.WEIGHTS[class][spec] ~= nil
 end
 
-local function level(lv)
-	lv = tonumber(lv)
-	if lv then return lv end
+-- The built-in weights of a spec (no edits).
+local function defaults(class, spec)
 	local p = Gear.GetPlayer and Gear.GetPlayer()
-	return p and p.level or 1
-end
-
--- The built-in weight of a stat at a level (no edits): 0 when the spec has none.
-local function default(class, spec, key, lv)
-	local w = Gear.WeightsFor(class, spec, level(lv))
-	return w and w[key] or 0
-end
-
--- An edit's weight over a default.
-local function value(edit, d)
-	if edit.x then return d * edit.x end
-	return edit.v or 0
+	return Gear.WeightsFor(class, spec, p and p.level or 1) or {}
 end
 
 function Adjust.Edits(class, spec)
@@ -100,7 +85,7 @@ function Adjust.Count(class, spec)
 end
 
 -- Applied tables, rebuilt after a change (version) or for other built-in
--- weights (the level band moved).
+-- weights (an update to the defaults).
 local version = 0
 local applied = setmetatable({}, { __mode = "k" }) -- base weights -> { version, class, spec, weights }
 
@@ -112,27 +97,26 @@ local function changed()
 	if W and W.RefreshAll then W.RefreshAll() end
 end
 
-function Adjust.Set(class, spec, key, v, lv)
+function Adjust.Set(class, spec, key, v)
 	if not isSpec(class, spec) then return false, "class" end
 	if not isStat(key) then return false, "stat" end
 	if type(v) == "string" then v = Gear.Pawn and Gear.Pawn.Number and Gear.Pawn.Number(v) or tonumber(v) end
 	if not finite(v) then return false, "number" end
-	local d = default(class, spec, key, lv)
-	if abs(v - d) < EPS then
+	if abs(v - (defaults(class, spec)[key] or 0)) < EPS then
 		Adjust.Clear(class, spec, key)
 		return true
 	end
 	local all = store(true)
 	all[class] = all[class] or {}
 	all[class][spec] = all[class][spec] or {}
-	all[class][spec][key] = d ~= 0 and { x = v / d } or { v = v }
+	all[class][spec][key] = v
 	changed()
 	return true
 end
 
 function Adjust.Clear(class, spec, key)
 	local t = Adjust.Edits(class, spec)
-	if not (t and t[key]) then return false end
+	if not (t and t[key] ~= nil) then return false end
 	t[key] = nil
 	if next(t) == nil then store(false)[class][spec] = nil end
 	changed()
@@ -154,23 +138,24 @@ function Adjust.Apply(weights, class, spec)
 	if c and c.version == version and c.class == class and c.spec == spec then return c.weights end
 	local out = {}
 	for k, w in pairs(weights) do out[k] = w end
-	for k, edit in pairs(edits) do
-		if type(edit) == "table" then out[k] = value(edit, weights[k] or 0) end
+	for k, v in pairs(edits) do
+		if finite(v) then out[k] = v end
 	end
 	applied[weights] = { version = version, class = class, spec = spec, weights = out }
 	return out
 end
 
-function Adjust.Rows(class, spec, lv)
+function Adjust.Rows(class, spec)
 	if not isSpec(class, spec) then return {} end
-	local base = Gear.WeightsFor(class, spec, level(lv)) or {}
+	local base = defaults(class, spec)
 	local edits = Adjust.Edits(class, spec) or {}
 	local rows = {}
 	for _, key in ipairs(Gear.STAT_KEYS) do
-		local d, edit = base[key], edits[key]
-		if d ~= nil or edit then
+		local d, v = base[key], edits[key]
+		if not finite(v) then v = nil end
+		if d ~= nil or v ~= nil then
 			d = d or 0
-			rows[#rows + 1] = { key = key, default = d, value = edit and value(edit, d) or d, edited = edit ~= nil }
+			rows[#rows + 1] = { key = key, default = d, value = v or d, edited = v ~= nil }
 		end
 	end
 	return rows

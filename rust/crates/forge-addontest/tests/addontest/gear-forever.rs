@@ -1,6 +1,6 @@
 //! Forever's ratings and Polestar's own weights (addon/Polestar/Gear/Gear.lua, Weights.lua, PawnStats.lua, #1529): an
-//! item's ratings read at the client's points per 1%, haste, expertise and armor penetration weighed, and a level
-//! band's weights with Forever's own ratings taken from Weights.lua (no simulation has them).
+//! item's ratings read at the client's points per 1%, haste, expertise and armor penetration weighed, and the same
+//! weights at every level, with no simulation's bands.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -78,36 +78,23 @@ fn every_spec_weighs_haste_melee_specs_expertise_and_armor_penetration_casters_n
 }
 
 #[test]
-fn a_level_band_keeps_its_own_numbers_and_takes_forever_s_ratings_from_weights_lua() {
+fn the_weights_are_polestar_s_own_at_every_level_no_simulation_band_replaces_them() {
 	let out = run(r#"
-		local diff, banded = {}, 0
+		local diff = {}
 		for class, specs in pairs(G.WEIGHTS) do
 			for key, w in pairs(specs) do
-				local bands = G.WEIGHT_BANDS[class] and G.WEIGHT_BANDS[class][key]
-				if bands then banded = banded + 1 end
 				for _, level in ipairs({ 1, 24, 25, 40, 59, 60 }) do
 					local got, info = G.WeightsFor(class, key, level)
-					local function bad(k) diff[#diff + 1] = class .. "." .. key .. "@" .. level .. ":" .. k end
-					if bands then
-						local pick = bands[#bands]
-						for _, b in ipairs(bands) do if level <= b.upTo then pick = b break end end
-						if info ~= pick then bad("band") end
-						for k, v in pairs(pick.weights) do if got[k] ~= v then bad(k) end end
-						for _, k in ipairs({ "haste", "expertise", "armorPen" }) do
-							if got[k] ~= (pick.weights[k] or w[k]) then bad(k) end
-						end
-					else
-						for k, v in pairs(w) do if got[k] ~= v then bad(k) end end
+					for k, v in pairs(w) do
+						if got[k] ~= v then diff[#diff + 1] = class .. "." .. key .. "@" .. level .. ":" .. k end
 					end
+					if info.source ~= "polestar" then diff[#diff + 1] = class .. "." .. key .. "@" .. level .. ":source=" .. tostring(info.source) end
 				end
 			end
 		end
-		local arms = G.WeightsFor("WARRIOR", "arms", 60)
-		emit({ n = #diff, first = diff[1] or false, banded = banded, arms = { haste = arms.haste, expertise = arms.expertise, armorPen = arms.armorPen } })
+		emit({ n = #diff, first = diff[1] or false })
 	"#);
-	assert_eq!(out[0]["n"], 0, "first difference: {}", out[0]["first"]);
-	assert_eq!(out[0]["banded"], 27, "every spec has bands");
-	assert_eq!(out[0]["arms"], json!({ "haste": 6, "expertise": 8.1, "armorPen": 3 }), "Arms at 60: its band, with Weights.lua's haste, expertise and armor penetration");
+	assert_eq!(out[0], json!({ "n": 0, "first": false }), "Weights.lua's numbers at every level");
 }
 
 #[test]
