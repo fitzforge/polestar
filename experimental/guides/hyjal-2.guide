@@ -1,0 +1,297 @@
+guide polestar-experimental/hyjal-2
+title Mount Hyjal 2: Barkskin Burrow, Elderwild and the Cradle of Tranquility (experimental)
+levels 57-58
+zone Mount Hyjal
+coords live
+folder Mount Hyjal · Experimental
+why Forever's new endgame zone, an alpha route from Forever's quest data and the first recording of the zone.
+keywords mount hyjal, hyjal, barkskin burrow, elderwild, mourning's rest, cradle of tranquility, experimental, alpha
+next polestar-experimental/hyjal-3
+
+# Polestar Experimental, Mount Hyjal part 2 of 3, for both factions (2026-11-12). Hand-written.
+# Sources as in part 1: Forever's quest data for quests, givers, enders and objectives; the one recorded session
+# (an Alliance player, levels 57 to 60) for the order, the spots and the chain links the data lacks. The Horde's
+# Elderwild quests are not recorded: those steps follow the quest data alone.
+# Order: the Curious Crow, Malorne's Retreat (Alliance), Barkskin Burrow and the berries and Deadwood camps around
+# it, Elderwild (the Alliance and Horde outposts stand side by side) with Mourning's Rest and the overlook west of
+# it, then east into the Cradle of Tranquility: the wild gods' errands, Johun's camp (Alliance) and back west to
+# Marrosis and Shalla'kal.
+# Offered only after another quest is handed in (the recording; one player, so leads to confirm): Heading Up the
+# Mountain after The Capricious Corvid; Fenwick's quests one at a time; Meet the Elders after Sweetpaw Jam; Deal
+# Dread to Deadwood after Meet the Elders; More Work? and To the Summit of Eternity after Sefira's three quests;
+# More of the Same, then Belle's Ring, then the second Belle's Ring after More Work?; Battle Recall after Anywhere
+# But Here; Jereman's three errands after Heading Up the Mountain; Fox Hole after Area Denial Skunks; Resupply after
+# Fox Hole; Stolen Life and Bone Sweet Bone after The Balance of Life and Death; Prey and Predator after Violent
+# Venison; Trail Assist after Sacred Refreshment.
+# Left out on purpose:
+# - Barkskin Beginnings (94504): it asks for Neutral with Barkskin Burrow, which this route doesn't reach.
+# - Beads for Brerufa (93925): a repeatable hand-in for reputation.
+# - Wake Memories (93510) and Lifted by Legacy (92101), after Battle Recall: they send you to Redridge and to
+#   Thousand Needles, and the veteran's last errands (Praise 93551, Ends Meet 93567, Soldier's Solace 96558 with
+#   an elite spirit, Last Wishes 96561) come back to Mount Hyjal.
+# - Ewe Wandered Off (96674): six sheep led back to Mirt one at a time, for little experience (the recorded
+#   player dropped it once and took six minutes over it later).
+# - The Horde's Head Scratcher (92446, an elite), Flags of Our Forebears (91794, done in Dae'gun and handed in
+#   here), Herbs for the Bruised and Weary (96616, no recorded or known place for the herbs), and the crafting
+#   deliveries (90854, 92433, 95769, 97119).
+# - Open Season (91696) and Barkskin Breakout (91698): not recorded, and the data has no hand-in for the first.
+# - The Horde's Sawyer errands (97001, 97006, 97007): the data has no giver or hand-in for them.
+
+step Back to Mount Hyjal
+  when !zone "Mount Hyjal"
+  tip Experimental route (alpha). It is written from Forever's quest data and the first recording of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip This part carries on from part 1: fly to the Tainted Foothills, or ride in from Everlook through Darkwhisper Gorge.
+  fly "Tainted Foothills"
+  zone Mount Hyjal
+
+step The Curious Crow
+  when onquest 96930
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip West across the foothills, past the ancients' outpost, to the Curious Crow at the southern end of Felblood Scar.
+  turnin 96930                          -- Curious Crow
+  accept 96931                          -- Heading Up the Mountain: for the Cradle of Tranquility, later in this guide
+
+step Malorne's Retreat
+  only Alliance
+  tip West along the southern slopes to Malorne's Retreat: Fenwick Togglespring, a gnome test pilot, hangs tangled up in a tree. A sturdy branch lies just south of him.
+  accept 92702                          -- Branch Out
+  collect 274617 quest 92702.1 @24.9,77.5  -- Sturdy Tree Branch
+  turnin 92702
+  accept 92064                          -- Tree Free
+  kill 254501 quest 92064.1             -- Tree Branch, above Fenwick's head
+  turnin 92064
+  accept 96559                          -- Supply Drop
+
+step Fenwick's survival pack
+  only Alliance
+  tip His pack fell just north of the tree. Open it, then wait half a minute while its safety lock discharges before you open it again.
+  turnin 96559                          -- Personal Survival Pack
+  accept 93383                          -- Contents Under Pressure
+  turnin 93383
+
+step Brerufa
+  tip North-west to Barkskin Burrow, the furbolgs' den in the hillside: Brerufa waits just north of its mouth. The Barkskin furbolgs show as hostile until your standing with them improves, but none of them attacked in the recording: the Deadwood furbolgs in the camps around are the ones to fight.
+  accept 93952                          -- Balance Through Strength
+  accept 92111                          -- Of Friend and Fur
+
+step Barkskin Burrow
+  tip Inside the burrow: Osi Mistpaw at the far end, Suma Mossmane beside her, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana (part 3), and you bring both back here then.
+  turnin 92111                          -- Osi Mistpaw
+  accept 93831                          -- Sweetpaw Jam
+  accept 93825                          -- Suma Mossmane: Barkbound Blessings
+  accept 93827 @20.6,78.8               -- Thobon Sapclaw: Windswept Wards
+
+step Bear berries and the Deadwood camps
+  tip The bear berries grow on the slopes around the burrow, most of them east of it; the Deadwood furbolgs camp all over those slopes, and their Den Guardians are Brerufa's.
+  loop
+  goto 23.5,75.5
+  goto 27.5,77.0
+  goto 31.5,78.0
+  goto 33.5,76.5
+  goto 29.0,71.5
+  goto 24.0,68.5
+  collect 262818 x30 quest 93831.1      -- Bear Berries
+  kill 252063 x9 quest 93952.1          -- Deadwood Den Guardian
+
+step Brerufa
+  turnin 93952
+
+step Barkskin Burrow
+  tip Back to Osi, then the two elders at the back of the burrow.
+  turnin 93831                          -- Osi Mistpaw
+  accept 91697                          -- Meet the Elders
+  talk 256650                           -- Elder Pinespeaker
+  talk 256627                           -- Elder Mistpaw
+  turnin 91697                          -- Elder Mistpaw
+  accept 93826                          -- Deal Dread to Deadwood: on your way back here in part 3; keep it
+
+step The Western Post
+  when onquest 91881
+  only Alliance
+  tip North up the valley to Elderwild, where the Alliance outpost (Sefira Everbright, Hnaz Blunderflame) and the Horde's (Zet'gan, Ortak Lomgok) stand next to each other.
+  turnin 91881                          -- Sefira Everbright
+
+step The Western Post
+  when onquest 94782
+  only Horde
+  tip North up the valley to Elderwild, where the Horde outpost (Zet'gan, Ortak Lomgok) and the Alliance's stand next to each other. The Horde hand-ins and quests here are not in our recordings yet.
+  turnin 94782                          -- Zet'gan
+
+step Ortak Lomgok
+  when onquest 96830
+  only Horde
+  turnin 96830
+
+step Elderwild
+  tip The two outposts of Elderwild.
+  accept 92591 only Alliance            -- Sefira Everbright: Final Death
+  accept 92449 only Alliance            -- Blight No More
+  accept 95027 only Alliance            -- Hnaz Blunderflame: Feathers in Flight
+  accept 92592 only Horde               -- Zet'gan: Final Death
+  accept 95026 only Horde               -- Blight No More
+  accept 92609 only Horde               -- Feathers in Flight
+
+step Moonveil Moss
+  tip The moss for Suma grows around Elderwild: by the outposts and on the slopes north of them.
+  loop
+  goto 16.0,51.9
+  goto 14.4,46.4
+  goto 13.3,54.8
+  collect 262802 x12 quest 93825.1      -- Moonveil Moss
+
+step Eluneth and the veteran
+  tip South-east to Eluneth on the slope above Mourning's Rest, then to the ghostly Veteran of the Third War at its western edge, where the recording met him.
+  accept 90865                          -- Eluneth: Eyes of the Watchers
+  accept 92100 @21.6,57.5               -- Veteran of the Third War: Anywhere But Here
+
+step Owl feathers
+  tip The Hyjal Owls roost on the slopes between Eluneth and Barkskin Burrow: their feathers are for Elderwild.
+  collect 253341 x9 quest 95027.1 only Alliance  -- Hyjal Owl Feather
+  collect 253341 x9 quest 92609.1 only Horde
+
+step Unmarked Grave
+  only Alliance
+  tip At the northern end of Mourning's Rest: something has dug up the grave. The Fleshflay Raveners around it carry what was taken.
+  accept 90702                          -- Disturbed Grave
+
+step Mourning's Rest
+  tip The Scourge hold the ruins of Mourning's Rest, east of Elderwild: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them. Burn the bone pile at the south-eastern end with the Survivor's Torch: the Scourge Reanimator that answers carries the amulet.
+  kill 249247 x3 quest 92449.1 only Alliance  -- Forgotten Soldier
+  kill 249228 x12 quest 92449.2 only Alliance  -- Fleshflay Ravener
+  kill 249247 x3 quest 95026.1 only Horde
+  kill 249228 x12 quest 95026.2 only Horde
+  collect 273322 x8 quest 90865.1       -- Watcher's Eye
+  collect 273642 quest 90702.1 only Alliance  -- Ring of the Fallen Soldier
+  collect 268573 quest 92591.1 only Alliance @28.0,57.7  -- Reanimator's Amulet
+  collect 268573 quest 92592.1 only Horde @28.0,57.7
+
+step Eluneth
+  turnin 90865
+
+step Elderwild
+  only Alliance
+  tip West to the Alliance outpost.
+  turnin 92591                          -- Sefira Everbright
+  turnin 92449
+  turnin 90702
+  turnin 95027                          -- Hnaz Blunderflame
+  accept 90750                          -- Sefira Everbright: More Work?
+  accept 91688                          -- To the Summit of Eternity: for Thisalee Crow, part 3; keep it
+
+step Daythor Brellan and Sefira
+  only Alliance
+  tip The worker Sefira means is a peasant just north of her; Daythor Brellan stands between them.
+  talk 251320 @15.1,51.5                -- Peasant
+  turnin 90750                          -- Daythor Brellan
+  accept 95218                          -- More of the Same
+  turnin 95218                          -- Sefira Everbright
+  accept 94832                          -- Belle's Ring
+  turnin 94832                          -- Daythor Brellan
+  accept 96077 optional                 -- Belle's Ring: Michelle Belle at the Lion's Pride Inn in Goldshire; take it only if you'll pass by
+
+step Elderwild
+  only Horde
+  tip West to the Horde outpost.
+  turnin 92592                          -- Zet'gan
+  turnin 95026
+  turnin 92609
+  accept 95248                          -- To the Summit of Eternity: for Thisalee Crow, part 3; keep it
+
+step The overlook
+  tip West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard, take the next from it, and talk to his spirit when he appears.
+  turnin 92100                          -- Embroidered Scabbard
+  accept 96550                          -- Battle Recall
+  talk 255038                           -- Veteran of the Third War
+  turnin 96550
+
+step Shalla'kal and Galvinquam
+  tip East past Mourning's Rest into the Cradle of Tranquility: Shalla'kal, the great cat, waits by the path, and Galvinquam Leafsyre rests in the ruins just south of her.
+  accept 93615                          -- Shalla'kal: Kits and Cats
+  accept 96979                          -- Galvinquam Leafsyre: Sacred Refreshment
+
+step Lisbael Highfeather
+  tip East across the Cradle to Lisbael Highfeather.
+  accept 96145                          -- Past Wing and Claw: for Phoebe Highfeather, part 3; keep it
+
+step Jereman
+  when onquest 96931
+  tip North to the old bridge over the Cradle: touch the crow effigy on it and Jereman, the crow wild god, appears.
+  turnin 96931                          -- Jereman
+  accept 96939                          -- The Balance of Life and Death
+  accept 96964                          -- A Clever Creature: for Renalard in Dae'gun, part 3; keep it
+  accept 96978                          -- Violent Venison
+
+step The falls and the first kitten
+  tip Fill Galvinquam's gourd at the falls beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.
+  complete 96979 @41.6,44.6             -- fill the gourd
+  goto 38.5,47.3 "Solstice"
+
+step Johun's camp
+  only Alliance
+  tip North to Johun "Punchy" Dillas and his crates. Drive the skunks out from behind the crates without attacking them.
+  accept 92015                          -- Area Denial Skunks
+  complete 92015 @43.4,36.6
+  turnin 92015
+  accept 92014                          -- Fox Hole
+
+step Brie
+  tip Brie, the second kitten, plays just west of Johun's camp.
+  goto 41.4,36.4 "Brie"
+
+step Foxes
+  only Alliance
+  tip The Rustleaf Foxes are thick in the woods around Johun's camp.
+  collect 274586 x9 quest 92014.1 @42.5,35.0  -- Rustleaf Fox Tail
+
+step Johun "Punchy" Dillas
+  only Alliance
+  turnin 92014
+  accept 96992                          -- Resupply
+
+step Kala'th
+  when onquest 96978
+  tip West across the Cradle to Kala'th, another of the wild gods.
+  turnin 96978                          -- Kala'th
+  accept 93617                          -- Prey and Predator
+
+step The burnt buildings
+  only Alliance
+  tip The burnt buildings stand in the meadows east of Kala'th: the nails and brackets lie among the rubble.
+  collect 276087 x30 quest 96992.1 @33.9,48.2  -- Nail
+  collect 276088 x6 quest 96992.2 @31.5,44.5  -- Metal Bracket
+
+step Predatory stags
+  when onquest 93617
+  tip The Predatory Hyjal Stags roam the same meadows, east of Kala'th.
+  kill 256809 x6 quest 93617.1          -- Predatory Hyjal Stag
+
+step Kala'th
+  when onquest 93617
+  turnin 93617
+
+step Marrosis
+  when onquest 96939
+  tip South to Marrosis, another wild god, at Mourning's Rest's eastern edge.
+  turnin 96939                          -- Marrosis
+  accept 92317                          -- Stolen Life: for Ketharas, part 3; keep it
+  accept 96957                          -- Bone Sweet Bone
+
+step Bones and stolen life
+  when onquest 96957
+  tip The sun-bleached bones lie all over Mourning's Rest; the Fleshflay Raveners there carry the drop of stolen life.
+  collect 275927 x20 quest 96957.1 @25.4,53.5  -- Sun-Bleached Bone
+  collect 272973 quest 92317.1          -- Drop of Stolen Life
+
+step Marrosis
+  when onquest 96957
+  turnin 96957
+
+step Whisperfur
+  tip The last kitten, Whisperfur, plays at the southern end of Mourning's Rest.
+  goto 27.0,61.9 "Whisperfur"
+
+step Shalla'kal and Galvinquam
+  tip North to Shalla'kal, then Galvinquam in the ruins south of her.
+  turnin 93615                          -- Shalla'kal
+  turnin 96979                          -- Galvinquam Leafsyre
+  accept 96991                          -- Trail Assist: for Marn Euhorn at the Summit of Eternity, part 3; keep it
