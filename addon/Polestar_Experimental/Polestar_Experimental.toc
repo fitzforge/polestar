@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 實驗指南
 ## Notes-zhTW: Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版）。在「選項」>「社群指南」中開啟前保持關閉。
 ## Author: Polestar
-## Version: 0.3.7
+## Version: 0.3.7.2
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

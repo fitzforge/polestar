@@ -110,6 +110,8 @@ fn focus_mode_on_the_quest_item_s_line_a_is_the_item_button_s_own_secure_click_y
 fn combat_the_gamepad_goes_back_to_the_game_before_the_lockdown_nothing_is_set_in_a_fight_and_focus_mode_cannot_start_in_one() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
+		-- The settings window's addon loads nowhere near a fight (UI/OptionsLoader.lua): here it was opened before.
+		UI.LoadOptions()
 		G.StartFocus()
 		stub.fire("PLAYER_REGEN_DISABLED")
 		stub.inCombat = true
@@ -236,6 +238,48 @@ fn options_with_a_gamepad_down_moves_a_switches_a_toggle_y_restores_its_default_
 	assert_ne!(tabs["page"], "gamepad", "LB past the first tab: the page before");
 	let (before, after, step) = (slider["before"].as_f64().unwrap(), slider["after"].as_f64().unwrap(), slider["step"].as_f64().unwrap());
 	assert!((after - (before + step)).abs() < 1e-9, "one step right: {slider}");
+}
+
+// Settings layout v2: a row's inline extras and its cog are widgets of their own to the gamepad, right after their
+// row; A on the cog opens its popup, which takes the gamepad until B gives it back to the window.
+#[test]
+fn options_with_a_gamepad_the_focus_reaches_a_row_s_inline_extras_and_its_cog_and_a_on_the_cog_opens_its_popup() {
+	let out = run_with(
+		r#"
+		UI.ShowOptions("padfake")
+		stub.advance(0.3)
+		local seen = {}
+		for _ = 1, 6 do
+			seen[#seen + 1] = focused(PolestarOptions)
+			stub.press("PADDDOWN")
+		end
+		local cog
+		for _ = 1, 8 do
+			local w = G.Focused(PolestarOptions)
+			if w and w.psControl and w.Dot then cog = w break end
+			stub.press("PADDUP")
+		end
+		stub.press("PAD1")
+		emit({ seen = seen, cog = cog ~= nil, popup = PolestarOptionsMore ~= nil and PolestarOptionsMore:IsShown(), owner = G.owner == PolestarOptionsMore })
+		stub.press("PAD2")
+		emit({ popup = PolestarOptionsMore:IsShown(), owner = G.owner == PolestarOptions })
+	"#,
+		"",
+		r#"Polestar.RegisterDefaults("padfake", { on = true, size = 1, tint = false, glow = true, rim = false })
+		Polestar.RegisterOptions({ page = "Pad fake", key = "padfake", section = "Pins",
+			toggle = { kind = "toggle", key = "padfake.on", label = "Pins" },
+			controls = { { kind = "slider", key = "padfake.size", label = "Size", min = 0.5, max = 2, step = 0.05,
+				extras = { { kind = "color", key = "padfake.tint", label = "Tint" }, { kind = "toggle", key = "padfake.glow", label = "Glow" } },
+				more = { { kind = "toggle", key = "padfake.rim", label = "Rim" } } } } })"#,
+		true,
+	);
+	let seen: Vec<&str> = out[0]["seen"].as_array().unwrap().iter().map(|v| v.as_str().unwrap_or("")).collect();
+	let at = seen.iter().position(|s| *s == "Size").expect("the row is reached");
+	assert_eq!(seen[at + 1..at + 4], ["Tint", "Glow", "More: Size"], "then its extras and its cog: {seen:?}");
+	assert_eq!(out[0]["cog"], true);
+	assert_eq!(out[0]["popup"], true, "A on the cog opens its popup");
+	assert_eq!(out[0]["owner"], true, "which takes the gamepad");
+	assert_eq!(out[1], json!({ "popup": false, "owner": true }), "B closes it and the window has the gamepad back");
 }
 
 #[test]

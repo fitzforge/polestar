@@ -9620,6 +9620,21 @@
 				"issue": "-"
 			},
 			{
+				"q": 78132,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Helm is handed in at Alonso's window (Mystral Lake, Ashenvale) with the Dragonslayer's Helm, which the server's quest record asks for (players' caches, EG Link: one item; QuestieDB 1.0.14 agrees). The helm is a Discarded Helm inside Shadowfang Keep. The Ashenvale routes sent Warriors to Alonso to take and hand in his three quests on the spot, which nobody can do without the items; no recorded player has handed one in. Left out with the Shield (78133) and the Lance (78134).",
+				"issue": "-"
+			},
+			{
+				"q": 78133,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Shield needs the Dragonslayer's Shield at Alonso's window (the server's quest record, EG Link; QuestieDB 1.0.14), from a Wall-Mounted Shield the data places nowhere. Left out with the Helm (78132).",
+				"issue": "-"
+			},
+			{
+				"q": 78134,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Lance needs the Dragonslayer's Lance at Alonso's window (the server's quest record, EG Link; QuestieDB 1.0.14), which only the Dark Iron Entrepreneur in the Wetlands sells (75 silver): a trip from Ashenvale for 35 silver and quest XP. Left out with the Helm (78132).",
+				"issue": "-"
+			},
+			{
 				"q": 1037,
 				"faction": "Alliance",
 				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47, a tenth of its XP by then): an 18-level carry for about 61 XP. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",

@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Skin: Aurora
+## Notes: The northern lights over Polestar: teal and violet light along the top of every window, glowing edges, a deep night.
+## Title-deDE: Polestar-Design: Aurora
+## Notes-deDE: Nordlichter über Polestar: türkises und violettes Licht oben in jedem Fenster, leuchtende Kanten, eine tiefe Nacht.
+## Title-esES: Polestar, tema: Aurora
+## Notes-esES: La aurora boreal sobre Polestar: luz turquesa y violeta en lo alto de cada ventana, bordes que brillan, una noche profunda.
+## Title-esMX: Polestar, tema: Aurora
+## Notes-esMX: La aurora boreal sobre Polestar: luz turquesa y violeta en lo alto de cada ventana, bordes que brillan, una noche profunda.
+## Title-frFR: Polestar, habillage : Aurora
+## Notes-frFR: Les aurores boréales sur Polestar : une lumière turquoise et violette en haut de chaque fenêtre, des bords lumineux, une nuit profonde.
+## Title-koKR: Polestar 스킨: Aurora
+## Notes-koKR: Polestar 위의 오로라: 모든 창 위쪽의 청록빛과 보랏빛, 빛나는 테두리, 깊은 밤.
+## Title-ptBR: Polestar, tema: Aurora
+## Notes-ptBR: A aurora boreal sobre o Polestar: luz turquesa e violeta no alto de cada janela, bordas que brilham, uma noite profunda.
+## Title-ruRU: Polestar, оформление: Aurora
+## Notes-ruRU: Северное сияние над Polestar: бирюзовый и фиолетовый свет вверху каждого окна, светящиеся края, глубокая ночь.
+## Title-zhCN: Polestar 皮肤：Aurora
+## Notes-zhCN: Polestar 上空的极光：每个窗口顶部的青色与紫色光芒，发光的边框，深邃的夜色。
+## Title-zhTW: Polestar 皮膚：Aurora
+## Notes-zhTW: Polestar 上空的極光：每個視窗頂部的青色與紫色光芒，發光的邊框，深邃的夜色。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.7.2
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: aurora
+
+Aurora.lua

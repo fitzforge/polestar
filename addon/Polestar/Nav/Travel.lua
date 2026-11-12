@@ -387,7 +387,7 @@ end
 --       teleports = { { spell, name, to = point, cast, ready }, ... } or nil,
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
---       walkOnly = true: walking only (a ghost),
+--       walkOnly = true: walking only (a ghost), noFlights = true: no flights (Travel.AtField),
 --       walkCost = function(c, wx, wy, start) -> cost, yards | false | nil: the
 --         walking engine's measure of the walk from that place (the player when
 --         start) to the target (Nav/Walk.lua Walk.Measured): its cost (in
@@ -660,7 +660,7 @@ local function planRoute(p)
 	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174).
 	local taxiV, learnV = {}, {}
 	local skip = p.skip
-	for _, node in ipairs(walkOnly and {} or taxiList) do
+	for _, node in ipairs((walkOnly or p.noFlights) and {} or taxiList) do
 		if skip and skip.taxi[node.id] then
 			-- skipped: never flown from or through
 		elseif not allowed(node.faction, faction, node.class) then
@@ -1831,6 +1831,24 @@ local function walkDanger(pc, px, py, tc, tx, ty)
 	return function(c, x1, y1, x2, y2) return D.Along(danger, c, x1, y1, x2, y2) end
 end
 
+-- A field goal's spawn areas (the Engine's waypoint `spots`, in the goal's map and frame, r in yards): while the
+-- player stands in one of them or within 100 yards of its edge, the way to the target (another of them) is walked,
+-- never by a teleport, the Hearthstone or a flight: the goal's mobs are where the player is. A Gnome Mage among Pygmy
+-- Venom Web Spiders by the Darkened Bank, the arrow on another of their spots west of Raven Hill, was sent to cast
+-- Teleport: Stormwind (#1823). (A field, not a local: the file's main chunk keeps clear of Lua 5.1's 200 locals.)
+function Travel.AtField(target, pc, px, py)
+	local spots = target and target.spots
+	local C = ns.Compat
+	if type(spots) ~= "table" or not (target.map and C and C.MapToWorld) then return false end
+	for _, s in ipairs(spots) do
+		if type(s) == "table" and s.x and s.y then
+			local sc, sx, sy = C.MapToWorld(target.map, s.x, s.y, target.f)
+			if sc and yards(pc, px, py, sc, sx, sy) <= (tonumber(s.r) or 0) + 100 then return true end
+		end
+	end
+	return false
+end
+
 -- A plan from where the player stands to the target, or nil; and where from.
 local function plan(target)
 	-- Handed to Shortest Path Forever (Nav/Handoff.lua): it plans the way; no route here.
@@ -1845,8 +1863,9 @@ local function plan(target)
 	lastHearth = hearthReady()
 	questTimed, timedCheck = readTimed(), false
 	local ghost = isGhost()
+	local field = Travel.AtField(target, pc, px, py)
 	local inn, bindName
-	if lastHearth and not ghost and not questTimed then inn, bindName = bindInn() end
+	if lastHearth and not ghost and not questTimed and not field then inn, bindName = bindInn() end
 	-- The walks to the target the walking engine measured, and the places it measures next (Nav/Walk.lua).
 	local W = Nav.walk
 	local places = W and W.Measure and {} or nil
@@ -1883,7 +1902,8 @@ local function plan(target)
 		noHearth = skipped.hearth,
 		skip = skip,
 		noDirect = direct or nil,
-		teleports = not ghost and not questTimed and teleportList() or nil,
+		teleports = not ghost and not questTimed and not field and teleportList() or nil,
+		noFlights = field or nil,
 		departure = departureFn(),
 		walkOnly = ghost or questTimed == "escort",
 		walkCost = walkCost,
@@ -2573,6 +2593,50 @@ function Travel.SkipLeg()
 	return true
 end
 
+-- Where a trip has been is left out of the plans for this target once it is behind the player, as a skipped leg's
+-- is (SkipLeg), so a plan made later on the way never goes back: a flight's departure flight master once the flight
+-- has landed away from it (Travel.TakeOff names it: the route's flight leg's; a flight the player took without the
+-- route leaves from the flight master within LEARN_FP yards of where it took off. Travel.Landed leaves it out, but
+-- not after a flight that came down within LEARN_FP yards of it: one that never got away), a ride's boat, zeppelin,
+-- tram or portal once it has arrived (Travel.Aim). From Stormwind the route flew to Sentinel Hill, and on landing it
+-- planned the flight back, and there the flight to Sentinel Hill again (#1890). Another target may use them again.
+-- (Fields, not locals: the file's main chunk keeps clear of Lua 5.1's 200.)
+function Travel.Behind(node, transport)
+	local target = Nav.GetTarget()
+	if not (target and (node or transport)) then return end
+	if skipFor ~= target then
+		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
+	end
+	if node then skipped.taxi[node.id] = true end
+	if transport then skipped.transports[transport] = true end
+	skipFor = target
+end
+function Travel.TakeOff()
+	local leg = legs and legs[ci]
+	local node = leg and leg.kind == "fly" and leg.from and taxi[leg.from.id]
+	if not node then
+		local C = ns.Compat
+		local pc, px, py
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+		local best = LEARN_FP
+		for _, t in ipairs(pc and taxiList or {}) do
+			local d = yards(pc, px, py, t.c, t.wx, t.wy)
+			if d <= best then best, node = d, t end
+		end
+	end
+	Travel.leaving, Travel.leavingFor = node, Nav.GetTarget()
+end
+function Travel.Landed()
+	local node, target = Travel.leaving, Travel.leavingFor
+	Travel.leaving, Travel.leavingFor = nil, nil
+	if not (node and target == Nav.GetTarget()) then return end
+	local C = ns.Compat
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	if pc and yards(pc, px, py, node.c, node.wx, node.wy) <= LEARN_FP then return end
+	Travel.Behind(node)
+end
+
 -- Where the arrow should point, for a player at (pc, px, py). Allocation-free.
 --   nil                          no route, or the last leg: point at the target
 --   "walk", c, wx, wy[, left]    walk to that point (left: yards along the walking
@@ -2655,6 +2719,7 @@ function Travel.Aim(pc, px, py)
 		else
 			local to = leg.to
 			if yards(pc, px, py, to.c, to.wx, to.wy) <= DOCK_ARRIVE then
+				Travel.Behind(nil, leg.transport)
 				advance()
 			elseif kind == "hearth" or kind == "teleport" then
 				return "instruction", to.c, to.wx, to.wy
@@ -2796,10 +2861,16 @@ end
 local lastGhost = false
 function Travel:Refresh()
 	local taxiNow = onTaxi()
-	if wasTaxi and not taxiNow then dirty = true end
+	if wasTaxi and not taxiNow then
+		dirty = true
+		Travel.Landed()
+	end
 	-- Taking off: the flight counts down from here, not from reaching the
 	-- flight master (second review P3).
-	if taxiNow and not wasTaxi and legs and legs[ci] and legs[ci].kind == "fly" then legSince = GetTime() end
+	if taxiNow and not wasTaxi then
+		if legs and legs[ci] and legs[ci].kind == "fly" then legSince = GetTime() end
+		Travel.TakeOff()
+	end
 	wasTaxi = taxiNow
 	if taxiNow or not Nav.GetTarget() or not ns.Get("nav.travel") then return end
 	-- A quest timer or an escort started or ended: the Hearthstone and teleports

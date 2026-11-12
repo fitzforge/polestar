@@ -1223,6 +1223,8 @@ function mergeCodex(inputs) {
 			};
 			// Its full XP reward (quests.json), for what a guide or dungeon is worth in levels.
 			if (int(q.xp) > 0) quests[id].xp = int(q.xp);
+			// The profession it needs (Badlands Reagent Run II 2501: Alchemy 210, #1913): skill line and rank.
+			if (int(q.skill) > 0) Object.assign(quests[id], { skill: int(q.skill), skillLevel: int(q.skillLevel) > 0 ? int(q.skillLevel) : null });
 			// The standing its rewards need (questRep): an unmet one blocks its reward row.
 			const gate = questRep(q);
 			if (gate) Object.assign(quests[id], { repFaction: gate.faction, repStanding: gate.standing });

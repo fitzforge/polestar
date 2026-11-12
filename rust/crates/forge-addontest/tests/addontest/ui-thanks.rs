@@ -248,3 +248,36 @@ fn a_podium_cut_short_shows_its_names_in_full_on_hover() {
 	assert_eq!(out["long"]["text"], "Sample Supporter With A Very Long Name Indeed");
 	assert_eq!(out["short"]["shown"], false, "a name that fits: no tooltip");
 }
+
+// The settings window's footer carries "Special thanks to" between its left-hand buttons and its right-hand ones
+// while it fits there with room to spare; at the window's least width it is left out rather than run over the
+// buttons, and it is back at the default size. Clear: the shown buttons, 16px either side of it and it fit the
+// footer's width (the main column's), by the parts' widths (the test client lays out no positions).
+#[test]
+fn the_settings_footer_s_thanks_shows_while_it_fits_between_its_buttons_and_never_runs_over_them() {
+	let out = run(
+		"",
+		r#"
+		Polestar.Credits = { supporters = { "Ann" }, contributors = {}, bugReporters = {} }
+		UI.ShowOptions("theme")
+		local f = PolestarOptions
+		local function state()
+			local b, used = f.ThanksLink, 0
+			for _, side in ipairs({ "left", "right" }) do
+				for _, fb in ipairs(f.footerButtons[side]) do
+					if fb:IsShown() then used = used + fb:GetWidth() + 8 end
+				end
+			end
+			return { shown = b:IsShown(), clear = not b:IsShown() or used + 2 * 16 + b:GetWidth() <= f.psMainW }
+		end
+		local wide = state()
+		Polestar.Set("ui.optionsSize", { 100, 100 })
+		local narrow = state()
+		Polestar.Set("ui.optionsSize", nil)
+		emit({ wide = wide, narrow = narrow, back = state(), size = { f:GetWidth(), f:GetHeight() } })"#,
+	);
+	assert_eq!(out["size"], json!([1300, 946]), "back at the default size");
+	assert_eq!(out["wide"], json!({ "shown": true, "clear": true }), "the default window carries it clear of the buttons");
+	assert_eq!(out["narrow"], json!({ "shown": false, "clear": true }), "the least width leaves it out");
+	assert_eq!(out["back"], json!({ "shown": true, "clear": true }), "and it is back at the default size");
+}

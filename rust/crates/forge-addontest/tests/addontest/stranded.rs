@@ -64,9 +64,16 @@ C_QuestLog.GetQuestDifficultyLevel = function(q) return q == 40 and 5 or 10 end
 "#;
 
 fn run(script: &str) -> Value {
+	run_before(WORLD, script)
+}
+
+// The gamepad interface on as the addon loads (Core/Init.lua reads C_InputInterfaceStyle once).
+const GAMEPAD: &str = "\nEnum.InputDeviceInterfaceType = { Mkb = 0, Gamepad = 1 }\nC_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }\n";
+
+fn run_before(before: &str, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: WORLD.into(),
+		before: before.into(),
 		addons: vec![Addon::name("Polestar")],
 		script: [
 			TEST_PACK,
@@ -155,4 +162,23 @@ fn the_guide_menu_s_load_over_a_leveling_guide_asks_once_while_the_route_still_h
 	assert!(is_match(text(&out["text"]), r"^2 finished quests in your log are handed in on the route before C \(\d+ XP\)\. Load it anyway\?"), "{out}");
 	assert_eq!(out["stayed"], "test/a", "{out}");
 	assert_eq!(out["loaded"], "test/c", "{out}");
+}
+
+// With the gamepad interface its focus owns the game's dialogs: no popup; chat says what the jump leaves and the
+// guide loads.
+#[test]
+fn with_the_gamepad_interface_the_guide_menu_s_load_says_in_chat_what_it_leaves_and_loads_without_a_popup() {
+	let out = run_before(
+		&[WORLD, GAMEPAD].concat(),
+		r#"
+		local before = #stub.popups
+		Polestar.UI.Picker.Load("test/c"); flush()
+		emit({ gamepad = Polestar.GamepadUI(), popups = #stub.popups - before, loaded = E.GetGuide().id,
+			chat = plain(stub.messages[#stub.messages]) or false })
+	"#,
+	);
+	assert_eq!(out["gamepad"], true, "{out}");
+	assert_eq!(out["popups"], 0, "{out}");
+	assert_eq!(out["loaded"], "test/c", "{out}");
+	assert!(is_match(text(&out["chat"]), r"2 finished quests in your log are handed in on the route before C \(\d+ XP\)\. They stay in your log, and the guide lists who takes each in\.$"), "{out}");
 }

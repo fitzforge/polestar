@@ -152,6 +152,7 @@ fn the_option_sits_with_what_the_guide_window_shows_on_by_default() {
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Quests/NewQuests.lua", "UI/UI.xml"])],
 		script: r#"uistub.install()
 stub.login()
+Polestar.UI.LoadOptions()
 local UI, O = Polestar.UI, Polestar.UI.Options
 UI.ShowOptions("guide")
 local c = O.Controls("guide")["ui.newInForever"]

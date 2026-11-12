@@ -16,8 +16,10 @@ and maintainers who release. Paths are from the repository root.
 | [docs/GUIDE_FORMAT.md](GUIDE_FORMAT.md) | guide authors | The `.guide` language in full: header, steps, goals, conditions, what the compiler fills in, validation, a cookbook |
 | [docs/PACKS.md](PACKS.md) | guide authors | The full handbook: how to write, test, publish and update a community addon; every problem the tools or the game can report, with its fix |
 | [docs/PACK_FORMAT.md](PACK_FORMAT.md) | guide authors, tool builders | The contract between a community addon and Polestar: `pack.json`, the addon the compiler writes, the rules Polestar enforces, import strings, versioning |
+| [docs/skins/](skins/README.md) | skin authors | Building a skin for Polestar from your own addon: the concepts ([README](skins/README.md)), a skin addon from zero ([getting-started](skins/getting-started.md)), every function, field, token, surface, hook, capability and error message ([reference](skins/reference.md)), recipes ([examples](skins/examples.md)), the version policy ([versioning](skins/versioning.md)), publishing, loading on demand and licensing ([publishing](skins/publishing.md)), and what version 2 does not cover yet ([API-GAPS](skins/API-GAPS.md)) |
+| [docs/SKINS-API.md](SKINS-API.md) | skin authors | The Skin API's landing page: what version 2 offers, a quick start, where each page of [docs/skins/](skins/README.md) is, the example `addon/Polestar_Skin_Example`, and how it compares with Details!'s skins |
 | [docs/API.md](API.md) | addon authors | The calls another addon may build on: guides it plans and changes as it goes, quest state, the guide window's messages; what each takes, returns and fires, and when `Polestar.API.version` goes up |
-| [LICENSE-EXCEPTION.md](../LICENSE-EXCEPTION.md) | guide authors | The permission to distribute a compiled community addon or an import string under terms of your choice |
+| [LICENSE-EXCEPTION.md](../LICENSE-EXCEPTION.md) | guide authors, skin authors | The permissions to distribute a compiled community addon or an import string, and a skin addon that uses only the documented Skin API, under terms of your choice |
 | [CONTRIBUTING.md](../CONTRIBUTING.md) | players, guide authors, contributors | Ways to help; how to report a wrong step; how to fix a guide; setting up; code changes; which branch a pull request goes to; using an AI agent; commits and pull requests; the licence of contributions |
 | [AGENTS.md](../AGENTS.md) and [skills/](../skills) | contributors' coding agents | AGENTS.md points every agent to its skill: `polestar-contributing` (branches, generated files, changelog fragments, what a pull request must not do, posting on issues), `polestar-triage` (checking a report before agreeing it is a bug), `polestar-guide-fix`, `polestar-guide-pack` |
 | [SECURITY.md](../SECURITY.md) | everyone | How to report a security problem privately, and what counts as one |
@@ -75,7 +77,7 @@ generated file, whether it is committed, and the order to rebuild in.
 
 - **Hub**: Polestar's main window: a rail of sections (Guides, Lookup, Dungeons, Rares) with Options at its foot (`UI/Picker.lua`).
 - **Guide menu**: the hub's Guides section, where a player picks a guide.
-- **Guide window**: the small window that shows the current step and its goals while playing (`UI/GuideFrame.lua`).
+- **Guide window**: the small window that shows the current step and its goals while playing (`UI/GuideFrame.lua` and the `UI/GuideFrame*.lua` files beside it).
 - **Guide**: one route, written as a `.guide` file and compiled to Lua; its id reads like `forever/alliance/human/01-elwynn-forest`.
 - **Step**: one stop in a guide: a title, optional conditions and tip, and at least one goal.
 - **Goal**: one thing to do in a step, as a verb and its arguments (`accept 783`, `kill`, `goto`, `turnin`...).
