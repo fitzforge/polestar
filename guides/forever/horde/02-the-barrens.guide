@@ -964,11 +964,13 @@ step Wailing Caverns
   collect 5334 quest 959.1 optional   -- 99-Year-Old Port: Mad Magglish
 
 step Nalpak
+  when dungeon "Wailing Caverns"
   when complete 1486
   tip Back out of the caverns and up to the cave above the entrance.
   turnin 1486                         -- Nalpak
 
 step Ebru
+  when dungeon "Wailing Caverns"
   when complete 1487
   turnin 1487                         -- Ebru
 

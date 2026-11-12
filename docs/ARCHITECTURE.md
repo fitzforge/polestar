@@ -2184,11 +2184,15 @@ explains it; a view of it saved before (`CharState().pins`) opens on the
 next step they can look at. `Engine.StepNumber(i)` gives step i's number as
 the player counts it (a hidden step reads as the next shown step's number,
 with `hidden` true) and `Engine.StepTotal()` how many they see
-(`Own.numbersOf`, per guide and character). Every place that shows a step
-number uses them; the bug report adds the guide's own index ("Step 7 of 33
-(guide step 9)"). A step that depends on what the player does (`when`) is
-theirs: it keeps its number and says why it does not apply now
-(`Own.stepWhy`).
+(`Own.numbersOf`, per guide, character and dungeon answers). Every place that
+shows a step number uses them; the bug report adds the guide's own index
+("Step 7 of 33 (guide step 9)"). A step that depends on what the player does
+(`when`) is theirs: it keeps its number and says why it does not apply now
+(`Own.stepWhy`). The one exception is a dungeon's (`Own.dungeonHidden`): a
+`when dungeon` step of a dungeon the character skips, or a `when !dungeon`
+step of one they run, cannot apply for that answer and has no number either,
+so a character on Skip (the default) counts the solo route's steps; the
+numbers are counted again on every answer (`Own.dungeonGen`).
 
 #### Flight steps and the travel route
 

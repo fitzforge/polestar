@@ -1,5 +1,5 @@
 {
-	"about": "Record kind for dungeons injected into the leveling route. Each run: pick-ups as `when dungeon` steps after (or before) an anchored route goal; `runStop`: the pick-ups repeated at the run's own stop (the cheap, local catch-up for a player who opts in after the earlier pick-ups); the run step after `run.after`, guarded by `when dungeon` + `when onquest <run.objectives>`; each hand-in as a `when complete`/`when onquest` step after its anchor; `budget`: the measured cost vs the solo route (flow audit dynamic + level model). A Forge writer rule or a check reproduces the hand edits from these.",
+	"about": "Record kind for dungeons injected into the leveling route. Each run: pick-ups as `when dungeon` steps after (or before) an anchored route goal; `runStop`: the pick-ups repeated at the run's own stop (the cheap, local catch-up for a player who opts in after the earlier pick-ups); the run step after `run.after`, guarded by `when dungeon` + `when onquest <run.objectives>`; each hand-in as a `when dungeon` + `when complete`/`when onquest` step after its anchor (every step of a run is behind `when dungeon`, so a character who skips it keeps the solo route's steps and numbers); `soloWay`: a solo step of a stop the run shares, behind `when !dungeon`; `budget`: the measured cost vs the solo route (flow audit dynamic + level model). A Forge writer rule or a check reproduces the hand edits from these.",
 	"runs": [
 		{
 			"dungeon": "The Deadmines",
@@ -11,7 +11,8 @@
 						"guide": "forever/alliance/03-loch-modan",
 						"quest": 155,
 						"goal": "turnin"
-					}
+					},
+					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)"
 				},
 				{
 					"quest": 214,
@@ -19,7 +20,8 @@
 						"guide": "forever/alliance/03-loch-modan",
 						"quest": 155,
 						"goal": "turnin"
-					}
+					},
+					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)"
 				}
 			],
 			"run": {
@@ -79,7 +81,15 @@
 			],
 			"budget": {
 				"flow": "off -> on (Warrior, every start, dynamic 037): 03-loch-modan walk +2.0 km (Westfall: the Sentinel Hill <-> Deadmines door trip, the run), hub visits +1 (Sentinel Hill after the run), other guides identical"
-			}
+			},
+			"soloWay": [
+				{
+					"guide": "forever/alliance/03-loch-modan",
+					"step": "Sentinel Hill",
+					"guard": "!dungeon \"The Deadmines\"",
+					"note": "the stop's solo step (155's hand-in and the flight to Lakeshire), as on the route without the dungeon; the dungeon's steps take 155 and fly after the run"
+				}
+			]
 		},
 		{
 			"dungeon": "The Stockade",
@@ -139,6 +149,16 @@
 				"guard": "onquest 387,377,391"
 			},
 			"handins": [
+				{
+					"quest": 389,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"quest": 387,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"note": "Bazil Thredd, from Baros Alexston after the Deadmines' Unsent Letter"
+				},
 				{
 					"quest": 387,
 					"guide": "forever/alliance/06-wetlands",

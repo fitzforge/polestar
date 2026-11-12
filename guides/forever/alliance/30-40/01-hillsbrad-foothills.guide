@@ -128,6 +128,7 @@ step The Green Belt
   turnin 98245                        -- Howin Kindfeather
 
 step Rethiel the Greenwarden
+  when dungeon "Excavation Site: Wetlands"
   when complete 95646
   tip The root core from your Excavation Site: Wetlands run: Rethiel stands by the river, just east of Howin.
   turnin 95646                        -- Rethiel the Greenwarden
@@ -142,6 +143,7 @@ step Prospector Whelgar
   accept 98313                        -- For Historian Karnik in Ironforge, at the end of this guide
 
 step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
   when onquest 95810
   tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, south of the road west.
   turnin 95810                        -- Prospector Whelgar, below ground
@@ -310,6 +312,7 @@ step Hall of Explorers
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells
 
 step High Explorer Magellas
+  when dungeon "Excavation Site: Wetlands"
   when onquest 98824
   zone Ironforge
   turnin 98824                        -- High Explorer Magellas, Hall of Explorers

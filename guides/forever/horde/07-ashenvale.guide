@@ -101,16 +101,19 @@ step Zoram'gar Outpost
   accept 6621                         -- Karang Amakkar
 
 step Je'neu Sancrea
+  when dungeon "Blackfathom Deeps"
   when complete 6921
   zone Ashenvale
   turnin 6921                         -- Je'neu Sancrea
 
 step Je'neu Sancrea
+  when dungeon "Blackfathom Deeps"
   when onquest 6922
   zone Ashenvale
   turnin 6922                         -- Je'neu Sancrea
 
 step Je'neu Sancrea
+  when dungeon "Blackfathom Deeps"
   when onquest 6564
   zone Ashenvale
   tip Je'neu then offers the next part, Allegiance to the Old Gods: it is for a second run, so leave it.

@@ -23,7 +23,10 @@ w.titles[15] = "Investigate Echo Ridge"
 "#;
 
 // The injection pattern on a small route: (1) a pick-up on a stop the route makes, (2, 3) solo steps, (4) the
-// run's own stop repeating the pick-ups, (5) the guarded run, (6) the hand-in behind `when complete`, (7) solo.
+// run's own stop repeating the pick-ups, (5) the guarded run, (6) the hand-in behind `when dungeon` and `when
+// complete`, (7) solo. A second guide shares a stop with the solo route, after an escort that finishes its
+// prerequisite (Loch Modan's traitor and Sentinel Hill): the dungeon's step hands that quest in and takes the
+// dungeon's, the solo way of that stop is behind `when !dungeon`.
 const GUIDE: &str = r#"
 local DM = { k = "dungeon", name = "The Deadmines", map = 36 }
 Polestar.RegisterGuide({
@@ -46,11 +49,29 @@ Polestar.RegisterGuide({
 			{ t = "enter", location = "The Deadmines", map = 1429, x = 42.0, y = 70.0 },
 			{ t = "complete", quest = 214, title = "Red Silk Bandanas" },
 		} },
-		{ title = "Scout Riell", when = { { k = "complete", q = 214 } }, goals = {
+		{ title = "Scout Riell", when = { DM, { k = "complete", q = 214 } }, goals = {
 			{ t = "turnin", quest = 214, title = "Red Silk Bandanas", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0 },
 		} },
 		{ title = "Goldshire", goals = {
 			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+Polestar.RegisterGuide({
+	id = "test/shared", pack = "test", title = "Shared stop", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ title = "The Defias Traitor", goals = {
+			{ t = "complete", quest = 155, title = "The Defias Brotherhood", map = 1429, x = 45.0, y = 50.0 },
+		} },
+		{ title = "Gryan Stoutmantle", when = { DM }, goals = {
+			{ t = "turnin", quest = 155, title = "The Defias Brotherhood", npc = 234, npcName = "Gryan Stoutmantle", map = 1429, x = 48.0, y = 42.0 },
+			{ t = "accept", quest = 166, title = "The Defias Brotherhood", npc = 234, npcName = "Gryan Stoutmantle", map = 1429, x = 48.0, y = 42.0, pre = { 155 } },
+		} },
+		{ title = "Sentinel Hill", when = { { k = "dungeon", name = "The Deadmines", map = 36, neg = true } }, goals = {
+			{ t = "turnin", quest = 155, title = "The Defias Brotherhood", npc = 234, npcName = "Gryan Stoutmantle", map = 1429, x = 48.0, y = 42.0 },
+		} },
+		{ title = "Goldshire", goals = {
+			{ t = "goto", map = 1429, x = 42.1, y = 65.9, label = "Goldshire" },
 		} },
 	},
 })
@@ -73,10 +94,15 @@ function asked() local d = E.DungeonQuestion(); return d and { map = d.map, name
 /// `saved`: the character's saved PolestarCharDB (None: a character Polestar never saw, whose tab is opened
 /// after login).
 fn run(saved: Option<Value>, script: &str) -> Vec<Value> {
+	run_with("", saved, script)
+}
+
+/// As `run`, with `world` (Lua, after the stub world is made and before login: quests already in the log).
+fn run_with(world: &str, saved: Option<Value>, script: &str) -> Vec<Value> {
 	let open = if saved.is_none() { r#"E.SetGuide("test/route")"# } else { "" };
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: WORLD.into(),
+		before: format!("{WORLD}\n{world}"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: saved.map(|s| vec![("Polestar".into(), format!("PolestarCharDB = {}", lua_value(&s)))]).unwrap_or_default(),
 		script: [TEST_PACK, TEST_SOURCE, GUIDE, HELPERS, "stub.login()", open, r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6); mark()"#, script].join("\n"),
@@ -216,4 +242,48 @@ fn dungeon_route_no_group_skip_it_at_the_run_goes_on_with_the_solo_route_and_kee
 	assert_eq!(out[2]["dungeons"], json!({ "36": false }), "answered Skip for this dungeon only");
 	assert_eq!(out[2]["route"], "run", "the answer for every dungeon stays");
 	assert_eq!(out[2]["skipped"], json!({ "5": true, "6": true }), "the run and its hand-in are passed, nothing stranded");
+}
+
+// Skip is the default, so a Skip player's step numbers and totals must stay those of the guide without the dungeon
+// (Own.numbersOf, Own.dungeonHidden): the Deadmines' steps (1, 4, 5, 6) have no number; Run gives them theirs at
+// once (the numbers are counted again on every answer), and Skip for that one dungeon takes them away again.
+#[test]
+fn dungeon_route_steps_of_a_skipped_dungeon_have_no_number_so_the_totals_stay_the_solo_routes() {
+	let out = run(
+		char("skip"),
+		r#"
+		local n1, h1 = E.StepNumber(1)
+		emit({ total = E.StepTotal(), n1 = n1, h1 = h1, n2 = E.StepNumber(2), n7 = E.StepNumber(7) })
+		E.SetDungeonRoute("run"); flush()
+		local r1, rh1 = E.StepNumber(1)
+		emit({ total = E.StepTotal(), n1 = r1, h1 = rh1, n2 = E.StepNumber(2), n7 = E.StepNumber(7) })
+		E.ChooseDungeon(36, false); flush()
+		emit({ total = E.StepTotal(), n7 = E.StepNumber(7) })"#,
+	);
+	assert_eq!(out[0], json!({ "total": 3, "n1": 1, "h1": true, "n2": 1, "n7": 3 }), "Skip: the solo route's numbers");
+	assert_eq!(out[1], json!({ "total": 7, "n1": 1, "h1": false, "n2": 2, "n7": 7 }), "Run: every step counts");
+	assert_eq!(out[2], json!({ "total": 3, "n7": 3 }), "Skip for that dungeon: its steps lose their numbers again");
+}
+
+// A stop the solo route shares with the dungeon (Loch Modan's Sentinel Hill, after the traitor's escort): the
+// dungeon's step hands in the prerequisite and takes the dungeon's quest, the solo way is behind `when !dungeon`.
+// The question comes when the escort is done and the route reaches that stop, not before. Ask: the route holds at
+// the dungeon's step and asks, though its accept waits for that hand-in (the step hands it in itself), with no
+// loop while it is judged; Skip: only the solo step applies and counts; Run: only the dungeon's.
+#[test]
+fn dungeon_route_a_stop_shared_with_the_solo_route_asks_before_the_prerequisite_is_handed_in() {
+	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/shared", "dungeonRoute": route }));
+	let script = r#"emit({ at = at(), asked = asked() })
+		w.finish(155); flush()
+		emit({ at = at(), asked = asked(), total = E.StepTotal(), s2 = st(2), s3 = st(3) })"#;
+	let escort = "w.onQuest(155, { 1 })";
+	let ask = run_with(escort, saved("ask"), script);
+	assert_eq!(ask[0], json!({ "at": 1, "asked": false }), "the escort first: nothing is asked before the stop");
+	assert_eq!(ask[1]["at"], 2, "Ask: the route holds at the dungeon's step");
+	assert_eq!(ask[1]["asked"]["map"], 36);
+	assert_eq!(ask[1]["total"], 4, "not answered: every step keeps its number");
+	let skip = run_with(escort, saved("skip"), script);
+	assert_eq!(skip[1], json!({ "at": 3, "asked": false, "total": 3, "s2": "skipped", "s3": "current" }));
+	let go = run_with(escort, saved("run"), script);
+	assert_eq!(go[1], json!({ "at": 2, "asked": false, "total": 3, "s2": "current", "s3": "na" }));
 }

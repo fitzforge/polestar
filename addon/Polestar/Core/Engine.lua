@@ -756,19 +756,39 @@ end
 -- Whether a `when dungeon` step of a dungeon not answered yet has something
 -- to do now, so the route stops there and asks (Own.dungeonPending): an
 -- accept the character can take now (not done, skipped, in the log, grey for
--- the catch-up, above their level or missing a prerequisite), or, for a step
--- with no accept (the run), its other predicates hold (`when onquest`: a
--- quest of the dungeon in the log). Such a step with nothing to do now does
--- not apply: the route passes it as it would for a player who skips.
+-- the catch-up, above their level or missing a prerequisite, unless the step
+-- itself hands that one in and it is ready: Gryan's Deadmines quests with the
+-- traitor's hand-in at Sentinel Hill), or, for a step with no accept (the
+-- run), its other predicates hold (`when onquest`: a quest of the dungeon in
+-- the log). Such a step with nothing to do now does not apply: the route
+-- passes it as it would for a player who skips. A step asked about again
+-- while it is being judged (a prerequisite's hand-in in the same step: the
+-- route asks whether that hand-in is coming) has nothing to do.
+Own.dungeonOpening = {}
 function Own.dungeonOpen(step)
-	if step.along then return false end
+	if step.along or Own.dungeonOpening[step] then return false end
+	Own.dungeonOpening[step] = true
+	local open = Own.dungeonOpenNow(step)
+	Own.dungeonOpening[step] = nil
+	return open
+end
+
+function Own.dungeonOpenNow(step)
 	local C, takes = Compat(), false
 	for _, goal in ipairs(step.goals) do
 		if goal.t == "accept" and goal.quest then
 			takes = true
-			local q, lvl = goal.quest, tonumber(goal.minLevel)
+			local q, lvl, pre = goal.quest, tonumber(goal.minLevel), missingPre(goal)
+			if pre then
+				for _, t in ipairs(step.goals) do
+					if t.t == "turnin" and t.quest == pre and C.IsQuestReadyForTurnIn(pre) then
+						pre = nil
+						break
+					end
+				end
+			end
 			if not (questDone(q) or Own.questSkipped(q) or C.IsOnQuest(q)) and goalApplies(goal) and not unavailableFor(goal)
-				and not (lvl and (player.level or 1) < lvl) and not missingPre(goal) then
+				and not (lvl and (player.level or 1) < lvl) and not pre then
 				return true
 			end
 		end
@@ -780,14 +800,26 @@ function Own.dungeonOpen(step)
 	return true
 end
 
+-- A step that asks about its dungeon while it is not answered: a pick-up (an
+-- accept) or the run (an `enter`). The dungeon's other steps (hand-ins, a
+-- travel line, the run's own flight) follow the answer, and without one the
+-- solo route, as for Skip.
+function Own.dungeonAsks(step)
+	for _, goal in ipairs(step.goals) do
+		if goal.t == "accept" or goal.t == "enter" then return true end
+	end
+	return false
+end
+
 -- The first `when dungeon` predicate of a step the player has not answered
--- for and that has something to do now (Own.dungeonOpen), or nil. Such a
--- step applies but is not done (stepDone): the route waits there and the
--- guide window asks (Engine.DungeonQuestion). An along step never waits.
+-- for, that asks (Own.dungeonAsks) and has something to do now
+-- (Own.dungeonOpen), or nil. Such a step applies but is not done (stepDone):
+-- the route waits there and the guide window asks (Engine.DungeonQuestion).
+-- An along step never waits.
 function Own.dungeonPending(step)
 	if step.along or not step.when then return nil end
 	for _, p in ipairs(step.when) do
-		if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil and Own.dungeonOpen(step) then return p end
+		if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil and Own.dungeonAsks(step) and Own.dungeonOpen(step) then return p end
 	end
 	return nil
 end
@@ -852,12 +884,13 @@ function Own.predicateHolds(p)
 end
 
 -- The first predicate of a step's `when` that does not hold now, or nil. A
--- `when dungeon` of a dungeon not answered yet holds while the step has
--- something to do now (Own.dungeonOpen): the route stops there and asks.
+-- `when dungeon` of a dungeon not answered yet holds while the step asks and
+-- has something to do now (Own.dungeonAsks, Own.dungeonOpen): the route stops
+-- there and asks; any other step of it waits for the answer, as for Skip.
 function Own.whenFails(step)
 	for _, p in ipairs(step.when or NONE) do
 		if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil then
-			if not Own.dungeonOpen(step) then return p end
+			if not (Own.dungeonAsks(step) and Own.dungeonOpen(step)) then return p end
 		elseif not Own.predicateHolds(p) then
 			return p
 		end
@@ -8613,6 +8646,7 @@ function Engine.DungeonAnswer(map) return Own.dungeonAnswer(map) end
 function Engine.ChooseDungeon(map, answer)
 	if type(map) ~= "number" or (answer ~= nil and answer ~= true and answer ~= false) then return end
 	ns.CharState().dungeons[map] = answer
+	Own.dungeonGen = Own.dungeonGen + 1
 	ns.Fire("DUNGEON_ANSWERED", map, answer)
 	requestUpdate()
 end
@@ -8626,6 +8660,7 @@ end
 function Engine.SetDungeonRoute(value)
 	if value ~= "ask" and value ~= "run" and value ~= "skip" then return end
 	ns.CharState().dungeonRoute = value
+	Own.dungeonGen = Own.dungeonGen + 1
 	ns.Fire("DUNGEON_ANSWERED", nil, value)
 	requestUpdate()
 end
@@ -9366,19 +9401,36 @@ function Engine.StepHiddenFor(step, who)
 	return Own.hiddenStep(step, who) and true or false
 end
 
--- The numbers the player sees for guide g's steps (Own.hiddenStep left out):
--- { of = { [step] = number }, hidden = { [step] = true }, total }. A hidden
--- step reads as the number of the next step shown. Per guide and character
--- (class, race and faction do not change in a session).
+-- A step that cannot apply for the character's dungeon answers: one of a
+-- dungeon they skip (`when dungeon`), or the solo way of one they run (`when
+-- !dungeon`). Not answered (Ask me), it may still apply and keeps its number.
+-- Skip is the default, so the injected steps of a dungeon route leave the
+-- solo route's numbers and totals as they were.
+function Own.dungeonHidden(step)
+	for _, p in ipairs(step.when or NONE) do
+		if p.k == "dungeon" then
+			local a = Own.dungeonAnswer(p.map)
+			if (a == false and not p.neg) or (a == true and p.neg) then return true end
+		end
+	end
+	return false
+end
+
+-- The numbers the player sees for guide g's steps (Own.hiddenStep and
+-- Own.dungeonHidden left out): { of = { [step] = number }, hidden = { [step]
+-- = true }, total }. A hidden step reads as the number of the next step
+-- shown. Per guide and character (class, race and faction do not change in a
+-- session) and dungeon answers (Own.dungeonGen: every answer counts afresh).
 Own.numbering = setmetatable({}, { __mode = "k" })
+Own.dungeonGen = 0
 function Own.numbersOf(g)
 	if not player then refreshPlayer() end
-	local key = tostring(player.class) .. "/" .. tostring(player.race) .. "/" .. tostring(player.faction)
+	local key = tostring(player.class) .. "/" .. tostring(player.race) .. "/" .. tostring(player.faction) .. "/" .. Own.dungeonGen
 	local n = Own.numbering[g]
 	if n and n.key == key then return n end
 	n = { key = key, of = {}, hidden = {}, total = 0 }
 	for s, step in ipairs(g.steps) do
-		if Own.hiddenStep(step) then
+		if Own.hiddenStep(step) or Own.dungeonHidden(step) then
 			n.hidden[s] = true
 			n.of[s] = n.total + 1
 		else

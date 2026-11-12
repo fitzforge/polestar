@@ -205,6 +205,7 @@ step Shadowfang Keep
   complete 1014                       -- Arugal Must Die: the Head of Arugal
 
 step Dalar Dawnweaver
+  when dungeon "Shadowfang Keep"
   when complete 1014
   zone Silverpine Forest
   tip Back north up the road to the Sepulcher: Dalar stands just north of Allister.
@@ -230,18 +231,21 @@ step Master Apothecary Faranell
   vendor nearest
 
 step Master Apothecary Faranell
+  when dungeon "Ruins of Lordaeron"
   when onquest 97288
   zone Undercity
   tip The Abominable Head from the Ruins of Lordaeron: Faranell takes it here.
   turnin 97288                        -- Master Apothecary Faranell, in the Apothecarium
 
 step Morbin Lightbane
+  when dungeon "Ruins of Lordaeron"
   when complete 92421
   zone Undercity
   tip Your Ruins of Lordaeron limbs: Morbin Lightbane stands in the Royal Quarter, just past the Apothecarium.
   turnin 92421                        -- Morbin Lightbane
 
 step Oran Snakewrithe
+  when dungeon "Ruins of Lordaeron"
   when onquest 95204
   zone Undercity
   tip The Crest of Lordaeron from your Ruins of Lordaeron run: Oran Snakewrithe takes it.

@@ -26,6 +26,7 @@ step Darkshire
   accept 58
 
 step Councilman Millstipe
+  when dungeon "The Stockade"
   when complete 377
   zone Duskwood
   tip Crime and Punishment, from your Stockade run: Councilman Millstipe is in the town hall, beside Commander Althea.

@@ -182,6 +182,7 @@ step Ratchet
   turnin 1270                         -- Mebok Mizzyrix
 
 step Mebok Mizzyrix
+  when dungeon "Razorfen Kraul"
   when complete 1221
   zone The Barrens
   tip The Blueleaf Tubers from your Razorfen Kraul run: Mebok takes them with the crate and the stick.

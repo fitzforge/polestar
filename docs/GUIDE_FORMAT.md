@@ -300,22 +300,30 @@ solo route is the default) and may answer one dungeon (Options, Discovery,
 Dungeons). With Ask me, the first `when dungeon` step with something to do now
 (an accept the character can take, or for a step with no accept, its other
 predicates holding) holds the route until the player answers; one with nothing
-to do now is passed. A step with `enter` is the run. An answer changes only
-the steps still ahead: like any `when`, a step the route has passed keeps its
-outcome.
+to do now is passed. A step with `enter` is the run. Only a pick-up (an
+accept) or the run asks; the dungeon's other steps follow the answer, and with
+none yet the solo route. An answer changes only the steps still ahead: like
+any `when`, a step the route has passed keeps its outcome. A step of a dungeon
+the character skips (and a `when !dungeon` step of one they run) has no step
+number, so the solo route's numbers stay as they are.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
 stops the route makes anyway; the run itself is one `when dungeon` step, also
 `when onquest` its quests (a character who chose the dungeon after passing its
 pick-ups is not sent to the door with nothing to do), with an `enter` goal
 first (the arrow leads to the door) and the quests' objectives (`optional`
-for the slow or rare ones); the hand-ins come on the next stops,
-each in a step with `when complete <quest>` (or `when onquest <quest>` for one
-with no objectives), so a run left unfinished, or never chosen, passes them
-and a later guide can hand in what is still carried. A quest an item inside
-the dungeon starts, or an NPC inside gives, has no place the data knows: name
-it in the run's tip and write only its hand-in, behind `when onquest`. A step
-of `note`s only never holds (see "Errands"): the run needs goals of its own.
+for the slow or rare ones); the hand-ins come on the next stops, each in a
+step with `when dungeon "<Name>"` and `when complete <quest>` (or `when
+onquest <quest>` for one with no objectives), so a run left unfinished passes
+them and a later guide can hand in what is still carried. Every step of the
+run is behind `when dungeon`: a character who skips it keeps the solo route's
+steps. Where the run shares a stop with the solo route (a hand-in that opens
+the dungeon's quest), the dungeon's step does that stop's work too and the
+stop's own step is behind `when !dungeon "<Name>"`. A quest an item inside the
+dungeon starts, or an NPC inside gives, has no place the data knows: name it
+in the run's tip and write only its hand-in, behind `when dungeon` and `when
+onquest`. A step of `note`s only never holds (see "Errands"): the run needs
+goals of its own.
 
 ```
 step Gryan Stoutmantle
@@ -330,6 +338,7 @@ step The Deadmines
   complete 166
 
 step Gryan Stoutmantle
+  when dungeon "The Deadmines"
   when complete 166
   turnin 166
 

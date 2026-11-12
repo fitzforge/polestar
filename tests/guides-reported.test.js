@@ -11482,11 +11482,11 @@ test('the #1791 sweep: Alas, Andorhal is a group quest on the Horde 50-60 route'
 	}
 });
 
-// Dungeons in the route (0.3.7): a dungeon a character chose is injected into the one route as steps
-// (pick-ups on stops the route makes behind `when dungeon`, one run step at the door guarded by
-// `when dungeon` + `when onquest <its quests>`, hand-ins behind `when complete`/`when onquest`, never
-// behind `when dungeon`), and data/dungeon-runs.json records each one so a Forge round reproduces the
-// hand edits. One case per recorded dungeon: the guides hold what its record says.
+// Dungeons in the route (0.3.8): a dungeon a character chose is injected into the one route as steps, every
+// one behind `when dungeon` (pick-ups on stops the route makes, one run step at the door also guarded by
+// `when onquest <its quests>`, hand-ins also behind `when complete`/`when onquest`), so a character who skips
+// it (the default) has the solo route's steps and step numbers; data/dungeon-runs.json records each one so a
+// Forge round reproduces the hand edits. One case per recorded dungeon: the guides hold what its record says.
 const DUNGEON_RUNS = () => JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'dungeon-runs.json'), 'utf8')).runs;
 const dungeonKey = (s) => String(s).trim().toLowerCase().replace(/^the\s+/, '');
 const whenDungeonOf = (step, name) => (step.when || []).some((p) => p.k === 'dungeon' && !p.neg && dungeonKey(p.name) === dungeonKey(name));
@@ -11509,8 +11509,8 @@ for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs
 			const ends = steps(h.guide).filter((s) => s.goals.some(is('turnin', h.quest)));
 			assert.ok(ends.length >= 1, `${h.guide}: ${h.quest} is handed in`);
 			for (const s of ends) {
-				assert.ok(whenQuestOf(s, ['complete', 'onquest'], h.quest), `${h.guide}: the hand-in of ${h.quest} waits for the quest (complete or held), so it passes for everyone else`);
-				assert.ok(!(s.when || []).some((p) => p.k === 'dungeon'), `${h.guide}: the hand-in of ${h.quest} is not behind \`when dungeon\`: whoever finished it is sent to hand it in`);
+				assert.ok(whenQuestOf(s, ['complete', 'onquest'], h.quest), `${h.guide}: the hand-in of ${h.quest} waits for the quest (complete or held)`);
+				assert.ok(whenDungeonOf(s, run.dungeon), `${h.guide}: the hand-in of ${h.quest} is behind \`when dungeon\`: a character who skips ${run.dungeon} keeps the solo route's steps`);
 			}
 		}
 	});

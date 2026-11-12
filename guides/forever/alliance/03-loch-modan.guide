@@ -63,9 +63,10 @@ next forever/alliance/03-darkshore-return
 #
 # The Deadmines (`when dungeon "The Deadmines"`, dungeons in the route): for a character who
 # chose it, Gryan's and Scout Riell's quests are picked up when the Defias chain ends at Sentinel Hill
-# (about level 20), the run follows, and the hand-ins are Sentinel Hill's tower and Baros Alexston (the
-# Unsent Letter) on the Stormwind stop before the boat (`when complete`/`when onquest`, so a run left
-# unfinished, or never chosen, passes them). Left out on the route's travel budget (the flow audit
+# (about level 20; that stop's own step, the hand-in and the flight, is the solo way, behind `when
+# !dungeon`), the run follows, and the hand-ins are Sentinel Hill's tower and Baros Alexston (the Unsent
+# Letter) on the Stormwind stop before the boat (`when dungeon` and `when complete`/`when onquest`, so a
+# run left unfinished passes them). Left out on the route's travel budget (the flow audit
 # measured +2.0 km and +5 hub visits with them, +0 without): Underground Assault (2040,
 # Gnoarn in Ironforge, Shoni in Stormwind's Dwarven District) and Oh Brother... (167, Wilder
 # Thistlenettle there); also Collecting Memories (168: slow drops), Destruction in Deadmines (92753:
@@ -252,22 +253,26 @@ step The Hall of Thanes
   complete 96393 @28.2,47.7 live      -- Old Ironforge Incursion: Durgen Dirgehammer, inside
 
 step Thom Filch
+  when dungeon "The Hall of Thanes"
   when complete 96403
   zone Ironforge
   turnin 96403                        -- Thom Filch
 
 step Afadra Dunwall
+  when dungeon "The Hall of Thanes"
   when complete 96394
   zone Ironforge
   turnin 96394                        -- Afadra Dunwall
 
 step King Magni Bronzebeard
+  when dungeon "The Hall of Thanes"
   when complete 96393
   zone Ironforge
   tip Old Ironforge Incursion: King Magni sits on the High Seat, east of the hall's door.
   turnin 96393                        -- King Magni Bronzebeard
 
 step King Magni Bronzebeard
+  when dungeon "The Hall of Thanes"
   when onquest 98423
   zone Ironforge
   turnin 98423                        -- King Magni Bronzebeard: The Treaty of Understanding
@@ -481,14 +486,11 @@ step The Defias Traitor
   tip Stay with the traitor as he walks south to Moonbrook; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below Moonbrook.
   complete 155 @55.7,47.5                     -- The Defias Traitor, at the foot of the tower ramp
 
-step Sentinel Hill
-  when turnedin 65
-  tip Back north to Gryan Stoutmantle and the gryphons.
-  turnin 155                                  -- Gryan Stoutmantle
-
 step Gryan Stoutmantle
+  when turnedin 65
   when dungeon "The Deadmines"
-  tip For your Deadmines run: Gryan sends you after Edwin VanCleef, and Scout Riell, beside him at the top of the tower, wants Red Silk Bandanas. Look for a group now if you have none yet.
+  tip Back north to Gryan Stoutmantle. For your Deadmines run he then sends you after Edwin VanCleef, and Scout Riell, beside him at the top of the tower, wants Red Silk Bandanas. Look for a group now if you have none yet.
+  turnin 155                                  -- Gryan Stoutmantle
   accept 166                                  -- Gryan Stoutmantle
   accept 214                                  -- Scout Riell, at the top of the tower
 
@@ -503,12 +505,14 @@ step The Deadmines
   complete 166                                -- The Defias Brotherhood: Edwin VanCleef
 
 step Gryan Stoutmantle
+  when dungeon "The Deadmines"
   when complete 166
   zone Westfall
   tip Out of the mine and north up the road to Sentinel Hill: Gryan Stoutmantle stands at the top of the tower.
   turnin 166                                  -- Gryan Stoutmantle
 
 step Scout Riell
+  when dungeon "The Deadmines"
   when complete 214
   zone Westfall
   tip Scout Riell keeps watch at the top of the Sentinel Hill tower.
@@ -516,7 +520,15 @@ step Scout Riell
 
 step Fly to Lakeshire
   when turnedin 65
+  when dungeon "The Deadmines"
   zone Westfall
+  fly "Lakeshire"
+
+step Sentinel Hill
+  when turnedin 65
+  when !dungeon "The Deadmines"
+  tip Back north to Gryan Stoutmantle and the gryphons.
+  turnin 155                                  -- Gryan Stoutmantle
   fly "Lakeshire"
 
 # ---------------------------------------------------------------- North of the lake
@@ -567,6 +579,7 @@ step Baros Alexston
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
 
 step Baros Alexston
+  when dungeon "The Deadmines"
   when onquest 373
   zone Stormwind City
   tip Baros Alexston, the city architect, is on your way west to the harbour. His next errand, Bazil Thredd, leads into the Stockade: it is for a Stockade run at about 29, so leave it unless you chose that dungeon.

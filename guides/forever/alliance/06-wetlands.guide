@@ -307,6 +307,7 @@ step Excavation Site: Wetlands
   complete 95646 @48.0,56.5 live      -- Horrors in the Highland: the root core, inside
 
 step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
   when onquest 95810
   zone Wetlands
   tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, west of the entrance on the way back west.
@@ -323,6 +324,7 @@ step Captain Stoutfist
   turnin 469                              -- James Halloran, by the docks, on the way to the boat
 
 step James Halloran
+  when dungeon "Excavation Site: Wetlands"
   when complete 98815
   zone Wetlands
   tip Your Excavation Site hides: James Halloran, by the docks.
@@ -353,6 +355,7 @@ step Auberdine
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
 
 step Gershala Nightwhisper
+  when dungeon "Blackfathom Deeps"
   when complete 1275
   zone Darkshore
   tip Your Blackfathom Deeps brain stems: Gershala Nightwhisper stands a short walk west of Terenthis.
@@ -547,6 +550,7 @@ step Ironforge
   vendor nearest
 
 step High Explorer Magellas
+  when dungeon "Excavation Site: Wetlands"
   when onquest 98824
   zone Ironforge
   tip Prehistoric Prism: High Explorer Magellas stands in the Hall of Explorers, north-east of the Great Forge.
@@ -589,6 +593,7 @@ step Warden Thelwater
   accept 387                              -- Warden Thelwater
 
 step Warden Thelwater
+  when dungeon "The Stockade"
   when onquest 389
   zone Stormwind City
   turnin 389                              -- Warden Thelwater: Bazil Thredd, from Baros Alexston
@@ -611,11 +616,13 @@ step The Stockade
   complete 391                            -- The Stockade Riots: Bazil Thredd
 
 step Warden Thelwater
+  when dungeon "The Stockade"
   when complete 387
   zone Stormwind City
   turnin 387                              -- Warden Thelwater, at the gate
 
 step Warden Thelwater
+  when dungeon "The Stockade"
   when complete 391
   zone Stormwind City
   turnin 391                              -- Warden Thelwater, at the gate

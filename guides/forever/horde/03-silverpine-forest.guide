@@ -522,6 +522,7 @@ step Ragefire Chasm
   complete 5761                       -- Slaying the Beast: Taragaman the Hungerer's Heart
 
 step Neeru Fireblade
+  when dungeon "Ragefire Chasm"
   when complete 5761
   zone Orgrimmar
   tip Back out through the portal: Neeru stands beside it.
