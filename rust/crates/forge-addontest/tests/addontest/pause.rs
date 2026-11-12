@@ -491,7 +491,6 @@ fn run_qol(before: &str, saved: &str, script: &str) -> Vec<Value> {
 		saved: if saved.is_empty() { vec![] } else { vec![("Polestar".into(), saved.into())] },
 		login: true,
 		script: script.into(),
-		..Default::default()
 	})
 }
 
