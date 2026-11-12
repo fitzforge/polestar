@@ -84,15 +84,17 @@ end
 -- Zone labels on the continent canvas
 ---------------------------------------------------------------------------
 
-local view, owner
-local labels, used = {}, 0
+-- One record per map watched (the world map, MapCanvas.Add's maps):
+-- { view, owner = map frame, labels = { frame, ... }, used, bar, shown*, acc }.
+local recs = {}
 
-local function label(i)
+local function label(rec, i)
+	local labels = rec.labels
 	local f = labels[i]
 	if f then return f end
 	local W = ns.Widgets
 	local T = ns.Theme
-	f = ns.CreateFrameUnder("Frame", nil, view.frame)
+	f = ns.CreateFrameUnder("Frame", nil, rec.view.frame)
 	f:SetSize(120, 30)
 	f.Name = W.Text(f, "small", "textDim")
 	f.Name:SetPoint("BOTTOM", f, "CENTER", 0, 0)
@@ -108,40 +110,42 @@ local function label(i)
 	return f
 end
 
-local function hideLabels(from)
+local function hideLabels(rec, from)
+	local labels = rec.labels
 	for i = from, #labels do labels[i]:Hide() end
 end
 
-local function placeLabels()
-	if not view then return end
+local function placeLabels(rec)
+	local view = rec.view
 	local canvas = view.canvas
 	local inv = 1 / view.scale
 	local w, h = view.width, view.height
-	for i = 1, used do
-		local f = labels[i]
+	for i = 1, rec.used do
+		local f = rec.labels[i]
 		f:SetScale(inv)
 		f:ClearAllPoints()
 		f:SetPoint("CENTER", canvas, "TOPLEFT", f.nx * w / inv, -f.ny * h / inv)
 	end
 end
 
-local function layoutLabels()
-	used = 0
-	local mapID = view and view.mapID
+local function layoutLabels(rec)
+	rec.used = 0
+	local mapID = rec.view.mapID
 	local info = mapInfo(mapID)
 	if not (info and info.mapType == CONTINENT and ns.Get("maps.zoneLevels") and C_Map.GetMapRectOnMap) then
-		hideLabels(1)
+		hideLabels(rec, 1)
 		return
 	end
 	local W = ns.Widgets
 	if not W then return end
 	local level = playerLevel()
+	local used = 0
 	for zone, v in pairs(levels) do
 		local minX, maxX, minY, maxY = C_Map.GetMapRectOnMap(zone, mapID)
 		local child = minX and mapInfo(zone)
 		if child and child.parentMapID == mapID and maxX > minX then
 			used = used + 1
-			local f = label(used)
+			local f = label(rec, used)
 			f.nx = minX + (maxX - minX) * (v[3] or 50) / 100
 			f.ny = minY + (maxY - minY) * (v[4] or 50) / 100
 			f.Name:SetText(child.name)
@@ -150,17 +154,14 @@ local function layoutLabels()
 			f:Show()
 		end
 	end
-	hideLabels(used + 1)
-	placeLabels()
+	rec.used = used
+	hideLabels(rec, used + 1)
+	placeLabels(rec)
 end
 
 ---------------------------------------------------------------------------
 -- Info bar: zone range, player and cursor coordinates
 ---------------------------------------------------------------------------
-
-local bar
-local shownZone, shownPX, shownPY, shownCX, shownCY
-local acc = 0
 
 local function tenth(v)
 	return v and floor(v * 10 + 0.5) or nil
@@ -192,8 +193,9 @@ local function zoneFor(mapID, info, cx, cy)
 	return nil
 end
 
-local function update(force)
-	local mapID = view.mapID
+local function update(rec, force)
+	local owner, bar = rec.owner, rec.bar
+	local mapID = rec.view.mapID
 	local coords, zones = ns.Get("maps.coords"), ns.Get("maps.zoneLevels")
 	local cx, cy
 	if owner.GetNormalizedCursorPosition and (not owner.IsCanvasMouseFocus or owner:IsCanvasMouseFocus()) then
@@ -205,17 +207,17 @@ local function update(force)
 	local tcx, tcy, tpx, tpy = tenth(cx), tenth(cy), tenth(px), tenth(py)
 	local zone
 	if zones then
-		if tcx ~= shownCX or tcy ~= shownCY or force then
+		if tcx ~= rec.shownCX or tcy ~= rec.shownCY or force then
 			zone = zoneFor(mapID, mapInfo(mapID), cx, cy)
 		else
-			zone = shownZone
+			zone = rec.shownZone
 		end
 	end
-	if not force and zone == shownZone and tpx == shownPX and tpy == shownPY
-		and ((tcx == shownCX and tcy == shownCY) or not coords) then
+	if not force and zone == rec.shownZone and tpx == rec.shownPX and tpy == rec.shownPY
+		and ((tcx == rec.shownCX and tcy == rec.shownCY) or not coords) then
 		return
 	end
-	shownZone, shownPX, shownPY, shownCX, shownCY = zone, tpx, tpy, tcx, tcy
+	rec.shownZone, rec.shownPX, rec.shownPY, rec.shownCX, rec.shownCY = zone, tpx, tpy, tcx, tcy
 
 	local lo, hi = Maps.GetZoneLevels(zone)
 	if lo then
@@ -241,11 +243,15 @@ local function barWanted()
 	return (ns.Get("maps.coords") or ns.Get("maps.zoneLevels")) and not ns.Hidden()
 end
 
-local function buildBar()
+local function buildBar(rec)
 	local W = ns.Widgets
-	if bar or not W then return end
+	if rec.bar or not W then return end
+	local owner = rec.owner
 	local host = owner.ScrollContainer or owner
-	bar = ns.CreateFrameUnder("Frame", "PolestarMapInfo", owner)
+	-- The world map's bar keeps its global name; other maps' bars have none.
+	local name = owner == WorldMapFrame and "PolestarMapInfo" or nil
+	local bar = ns.CreateFrameUnder("Frame", name, owner)
+	rec.bar, rec.acc = bar, 0
 	bar:SetHeight(22)
 	bar:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 0, 0)
 	bar:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", 0, 0)
@@ -262,18 +268,19 @@ local function buildBar()
 	bar.Coords:SetPoint("RIGHT", bar, "RIGHT", -10, 0)
 	bar.Coords:SetJustifyH("RIGHT")
 	bar:SetScript("OnUpdate", ns.Safe(function(_, dt)
-		acc = acc + dt
-		if acc < TICK then return end
-		acc = 0
-		update(false)
+		rec.acc = rec.acc + dt
+		if rec.acc < TICK then return end
+		rec.acc = 0
+		update(rec, false)
 	end))
 end
 
-local function refreshBar()
+local function refreshBar(rec)
+	local bar = rec.bar
 	if not bar then return end
 	if barWanted() then
 		bar:Show()
-		update(true)
+		update(rec, true)
 	else
 		bar:Hide()
 	end
@@ -283,29 +290,34 @@ end
 -- The view
 ---------------------------------------------------------------------------
 
-local function onView(_, what)
+local function onView(view, what)
+	local rec = recs[view.map]
+	if not rec then return end
 	if what == "show" or what == "map" then
-		layoutLabels()
-		refreshBar()
+		layoutLabels(rec)
+		refreshBar(rec)
 	elseif what == "size" or what == "scale" then
-		placeLabels()
+		placeLabels(rec)
 	end
 end
 
-local function install()
-	if view then return true end
+local function install(map)
+	if map and recs[map] then return true end
 	local M = ns.MapCanvas
-	view = WorldMapFrame and M and M.Watch(WorldMapFrame, onView) or nil
+	local view = map and M and M.Watch(map, onView) or nil
 	if not view then return false end
-	owner = WorldMapFrame
-	buildBar()
+	local rec = { view = view, owner = map, labels = {}, used = 0 }
+	recs[map] = rec
+	buildBar(rec)
 	return true
 end
 
 function Maps.RefreshWorldMap()
-	if view and view.shown then
-		layoutLabels()
-		refreshBar()
+	for _, rec in pairs(recs) do
+		if rec.view.shown then
+			layoutLabels(rec)
+			refreshBar(rec)
+		end
 	end
 end
 
@@ -313,17 +325,21 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "maps.zoneLevels" or path == "maps.coords" or path == "maps" or path == "" then Maps.RefreshWorldMap() end
 end)
 
--- Hidden: the bar goes now; it comes back with the view's next "show".
+-- Hidden: the bars go now; they come back with their view's next "show".
 ns.On("POLESTAR_HIDDEN", function(hidden)
-	if bar and hidden then bar:Hide() end
+	if not hidden then return end
+	for _, rec in pairs(recs) do
+		if rec.bar then rec.bar:Hide() end
+	end
 end)
 
 ns.RegisterEvent("PLAYER_LEVEL_UP", function() Maps.RefreshWorldMap() end)
 
 ns.OnLogin(function()
-	if install() then return end
+	if ns.MapCanvas then ns.MapCanvas.OnAdd(install) end
+	if install(WorldMapFrame) then return end
 	local function onLoaded(_, name)
-		if name == "Blizzard_WorldMap" and install() then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
+		if name == "Blizzard_WorldMap" and install(WorldMapFrame) then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
 	end
 	ns.RegisterEvent("ADDON_LOADED", onLoaded)
 end)
