@@ -187,6 +187,13 @@ test('Daily Delivery is closed by Young Crocolisk Skins, its breadcrumb target (
 	assert.deepEqual(closedByOf(469, quests), [484]);
 });
 
+// J's report (#1643): Connor Rivers stops offering James Hyal once They Call Him Smiling Jim is handed in (the world
+// DB's quest conditions), so the correction closes it on 1282 as well as on the quest it leads to.
+test('James Hyal is closed by They Call Him Smiling Jim as well as by its second part (#1643)', () => {
+	const quests = { 1301: { id: 1301, breadcrumbFor: 1302, ...corrections.quests[1301].set }, 1302: { id: 1302, breadcrumbs: [1301], excl: [1282] }, 1282: { id: 1282, excl: [1302] } };
+	assert.deepEqual(closedByOf(1301, quests), [1302, 1282]);
+});
+
 test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });

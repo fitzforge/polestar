@@ -1137,12 +1137,13 @@ test(`yiliev0's report (#672): the healing step leads to the Injured Deathguard 
 // A guide played by the Engine for one character (`who`: race, raceName,
 // faction, cls, className, level), with `before` (Lua, `w` the stub world)
 // run before login and `after` once the guide is open: what `script` (Lua,
-// `E` the Engine) emits.
-function engineRun(guide, who, { before = '', after = '', script }) {
-	data = data || loadData(DATA);
+// `E` the Engine) emits. `data`: the reference data to compile with (a copy
+// with a correction applied, as `data build` applies it), else data/forever.
+function engineRun(guide, who, { before = '', after = '', script, data: own }) {
+	const ref = own || (data = data || loadData(DATA));
 	const file = path.join(OFFICIAL_DIR, guide);
-	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data);
-	const { dir, scripts } = writeTestPack(guides, data);
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], ref);
+	const { dir, scripts } = writeTestPack(guides, ref);
 	try {
 		const loads = scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
 		const { emitted } = runAddon({
@@ -6918,6 +6919,31 @@ test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Druid t
 	const next = goals('forever/alliance/30-40/03-ashenvale.guide');
 	const first = next.find(({ goal }) => goal.t !== 'goto');
 	assert.ok(first.goal.t === 'fly' && /Menethil/.test(JSON.stringify(first.goal)), 'the next guide opens with the flight to Menethil Harbor (a goto to the flight master before it)');
+});
+
+// --- J's report (#1643): the Mage Quarter stop asked for James Hyal (1301) after They Call Him Smiling Jim (1282) was
+// handed in, and Connor Rivers no longer offers it: the world DB offers 1301 only while 1282 is not rewarded, both roads
+// ending in Theramore. The correction closes 1301 on 1282 (forever-db/corrections/quests.json); with it applied, as
+// `data build` does, the accept is passed with its reason once 1282 is done, and still asked for without it.
+test(`${HILLSBRAD_ALLIANCE}: J's report (#1643): James Hyal is not asked for once They Call Him Smiling Jim is handed in`, { skip }, () => {
+	const corrected = loadData(DATA);
+	const fix = loadCorrections().quests['1301'];
+	assert.ok(fix, 'the corrections correct 1301');
+	Object.assign(corrected.quest(1301), fix.set);
+	const shaman = { race: 'Dwarf', raceName: 'Dwarf', faction: 'Alliance', cls: 'SHAMAN', className: 'Shaman', level: 34 };
+	const accepts = (before) => Object.values(engineRun(HILLSBRAD_ALLIANCE, shaman, {
+		data: corrected,
+		before,
+		script: `local out = {}
+			for i = 1, #E.GetGuide().steps do
+				for _, g in ipairs(E.GetStepView(i).goals) do
+					if g.t == "accept" and g.quest == 1301 then out[#out + 1] = g.status .. " " .. (g.unavailable or "-") .. " " .. (g.unavailableText or "") end
+				end
+			end
+			emit(out)`,
+	}));
+	assert.deepEqual(accepts('w.complete({ 1282 })'), ['skipped closed No longer offered: you took “They Call Him Smiling Jim”']);
+	assert.deepEqual(accepts(''), ['pending - '], 'asked for while Smiling Jim is not done');
 });
 
 // --- Alliance 30-40 re-order (2026-11-07, zone order the quest levels fit): Wetlands & Hillsbrad 30-32, then one
