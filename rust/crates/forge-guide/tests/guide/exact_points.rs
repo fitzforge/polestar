@@ -115,11 +115,7 @@ fn more_than_forty_spawns_of_an_object_keep_their_spawn_areas() {
 fn a_creature_at_a_few_fixed_places_gets_points_a_camp_more_places_or_a_walker_keep_their_spawn_areas() {
 	let d = data();
 	let g = goals(&d, &["step Brutes", "  goto 21,31", "  kill 95201", "  kill 95202", "  kill 95203", "  kill 95204", "  collect 95212 x1"]);
-	assert_eq!(
-		spots(&g[1]),
-		[json!({ "x": 20, "y": 30, "r": 0 }), json!({ "x": 30, "y": 60, "r": 0 }), json!({ "x": 60, "y": 70, "r": 0 })],
-		"three places far apart: a point each"
-	);
+	assert_eq!(spots(&g[1]), [json!({ "x": 20, "y": 30, "r": 0 }), json!({ "x": 30, "y": 60, "r": 0 }), json!({ "x": 60, "y": 70, "r": 0 })], "three places far apart: a point each");
 	assert_eq!(json!([g[1]["x"], g[1]["y"], g[1]["lvl"]]), json!([20, 30, 12]), "the place nearest the goto; the mobs' level, as for spawn areas");
 	for (i, why) in [(2, "a camp: three spawns within 70 yd"), (3, "nine places"), (4, "one spawn walks 40 yd about its point")] {
 		assert!(!spots(&g[i]).is_empty() && radii(&g[i]).iter().all(|&r| r > 0.0), "{why}: spawn areas: {}", g[i]);

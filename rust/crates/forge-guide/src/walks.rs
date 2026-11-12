@@ -45,9 +45,12 @@ pub fn walks_near(data: &Data, id: &V, c: &V, points: &[(f64, f64)]) -> bool {
 	if !data.moves.truthy() {
 		return false;
 	}
-	data.moves.get("npc").get(&id.to_js_string()).items().iter().any(|e| {
-		e.at(0).strict_eq(c) && e.at(5).num() >= WALK_YARDS && points.iter().any(|&(wx, wy)| hypot(e.at(1).num() - wx, e.at(2).num() - wy) <= HEIGHT_YARDS)
-	})
+	data.moves
+		.get("npc")
+		.get(&id.to_js_string())
+		.items()
+		.iter()
+		.any(|e| e.at(0).strict_eq(c) && e.at(5).num() >= WALK_YARDS && points.iter().any(|&(wx, wy)| hypot(e.at(1).num() - wx, e.at(2).num() - wy) <= HEIGHT_YARDS))
 }
 
 /// A walker's goal with no spawn areas of its own: its walk as the one spot { x, y, r, n } (map

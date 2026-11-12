@@ -66,9 +66,10 @@ fn pack_files(name: &str) -> String {
 /// Alliance resident 16,279, peak 35,132, read 22,497; Horde resident 15,039, peak 32,583, read 21,569, against the
 /// 0.3.6 pack's 16,278 / 35,038 / 22,503 and 15,039 / 32,468 / 21,593. No key trimmed: the new keys (fromNpcsAt,
 /// carriedTo, limit, parent) cost tens of KiB, and the pack is back at 0.3.6's size but for the Horde peak (+115).
-/// Budgets: those plus ~1%.
+/// Budgets: those plus ~1%. Read raised for #1944's exact points (measured 23,186 / 22,311; Fitz, 2026-11-12:
+/// raise memory budgets while 0.3.8's content grows, review once it is final): those plus ~5%.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 16450.0), ("peak", 35490.0), ("read", 22730.0)]), ("Horde", "Orc", [("resident", 15190.0), ("peak", 32910.0), ("read", 21790.0)])];
+	[("Alliance", "Human", [("resident", 16450.0), ("peak", 35490.0), ("read", 24350.0)]), ("Horde", "Orc", [("resident", 15190.0), ("peak", 32910.0), ("read", 23430.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
