@@ -8,9 +8,7 @@
 return {
 	-- Step 1: Kerlonian Evershade
 	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow the horn again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "",
-	-- {object:176634} Kerlonian's Chest
-	["{object:176634}, beside him"] = "",
+	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "글레이브에서 다시 북쪽으로 (드루이드: {area:442}에서 길을 따라 남쪽으로) {area:448}까지 가세요. {npc:11218}이(가) 아발 옆에서 잠들어 있습니다. 그의 퀘스트를 받으면 {item:13536}을(를) 얻습니다. 뿔피리를 사용해 그를 깨우고, 길을 따라 남쪽으로 {zone:1439} 남쪽 끝에 있는 그의 가방까지 데려가세요. 그가 잠들 때마다 뿔피리를 다시 부세요. 그런 다음 {area:413}의 {npc:11219}에게 가세요.\n주의: 길을 따라 세 마리씩 이루어진 매복 무리가 정해진 대로 습격합니다.",
 	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
 	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "",
 

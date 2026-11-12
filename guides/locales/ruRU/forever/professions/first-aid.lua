@@ -11,13 +11,13 @@ return {
 	["Learn {skill:129}"] = "Изучите: {skill:129}",
 	-- {skill:129} First Aid · {item:118} Minor Healing Potion · {item:2447} Peacebloom · {item:2678} Mild Spices · {item:3371} Empty Vial · {skill:182} Herbalism
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Любой учитель навыка {skill:129} вашей фракции обучает уровню «Ученик» ({skill:129}) (уровень персонажа 5, 1с); стрелка указывает на ближайшего. На Forever вместе с ним изучается {item:118}: {item:2447}, {item:2678} и {item:3371}, оранжевый до 55. С навыком {skill:182} это может заменить льняные бинты ниже.",
+	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (any character level, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Любой учитель навыка {skill:129} вашей фракции обучает уровню «Ученик» ({skill:129}) (любой уровень персонажа, 1с); стрелка указывает на ближайшего. На Forever вместе с ним изучается {item:118}: {item:2447}, {item:2678} и {item:3371}, оранжевый до 55. С навыком {skill:182} это может заменить льняные бинты ниже.",
 
 	-- Step 2: Linen Bandage: cloth
 	-- {item:1251} Linen Bandage
 	["{item:1251}: cloth"] = "{item:1251}: ткань",
 	-- {item:2589} Linen Cloth
-	["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "с гуманоидов 5-20 уровня падает {item:2589} (или купите на аукционе).",
+	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:2589} падает с гуманоидов 5-20 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
 
 	-- Step 3: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
@@ -36,7 +36,7 @@ return {
 	-- {skill:129} First Aid
 	["Journeyman {skill:129}"] = "{skill:129}: подмастерье",
 	-- {skill:129} First Aid
-	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Уровень «Подмастерье» ({skill:129}) повышает предел до 150; нужен навык 50 и уровень персонажа 10: стрелка указывает на ближайшего учителя навыка {skill:129} вашей фракции; обучение стоит 5с.",
+	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Уровень «Подмастерье» ({skill:129}) повышает предел до 150; нужен навык 50, уровень персонажа не требуется: стрелка указывает на ближайшего учителя навыка {skill:129} вашей фракции; обучение стоит 5с.",
 
 	-- Step 8: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
@@ -46,7 +46,7 @@ return {
 	-- {spell:3277} Wool Bandage
 	["{spell:3277}: cloth"] = "{spell:3277}: ткань",
 	-- {item:2592} Wool Cloth
-	["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "с гуманоидов 15-30 уровня падает {item:2592} (или купите на аукционе).",
+	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:2592} падает с гуманоидов 15-30 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
 
 	-- Step 10: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
@@ -76,7 +76,7 @@ return {
 	-- {item:6450} Silk Bandage
 	["{item:6450}: cloth"] = "{item:6450}: ткань",
 	-- {item:4306} Silk Cloth
-	["humanoids of level 25-45 drop {item:4306} (or buy it at the Auction House)."] = "с гуманоидов 25-45 уровня падает {item:4306} (или купите на аукционе).",
+	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:4306} падает с гуманоидов 25-45 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
 
 	-- Step 17: Silk Bandage (150-180)
 	-- {item:6450} Silk Bandage · {skill:129} First Aid
@@ -94,7 +94,7 @@ return {
 	-- {item:8544} Mageweave Bandage
 	["{item:8544}: cloth"] = "{item:8544}: ткань",
 	-- {item:4338} Mageweave Cloth
-	["humanoids of level 35-50 drop {item:4338} (or buy it at the Auction House)."] = "с гуманоидов 35-50 уровня падает {item:4338} (или купите на аукционе).",
+	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:4338} падает с гуманоидов 35-50 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
 
 	-- Step 21: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage
@@ -146,7 +146,7 @@ return {
 	-- {item:14529} Runecloth Bandage
 	["{item:14529}: cloth"] = "{item:14529}: ткань",
 	-- {item:14047} Runecloth
-	["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "с гуманоидов 45-60 уровня падает {item:14047} (или купите на аукционе).",
+	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:14047} падает с гуманоидов 45-60 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
 
 	-- Step 33: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
@@ -154,10 +154,17 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "Любой учитель профессии «{skill:129}» вашей фракции обучает уровню «Ученик» ({skill:129}; 5-й уровень персонажа); стрелка выбирает ближайшего.",
+	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Любой учитель навыка {skill:129} вашей фракции обучает уровню «Ученик» ({skill:129}) (уровень персонажа 5, 1с); стрелка указывает на ближайшего. На Forever вместе с ним изучается {item:118}: {item:2447}, {item:2678} и {item:3371}, оранжевый до 55. С навыком {skill:182} это может заменить льняные бинты ниже.",
 	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}."] = "Уровень «Искусник» ({skill:129}) дается за задание {quest:6622}. Нужен навык 225 и 40-й уровень; учитель профессии «{skill:129}» в городе {zone:1454} отправляет вас к доктору: {area:321}.",
 	-- ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore."] = "Уровень «Искусник» ({skill:129}) дается за задание {quest:6624}. Нужен навык 225 и 40-й уровень; учитель профессии «{skill:129}» в городе {zone:1455} отправляет вас к доктору в Терамор.",
 	-- ["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084}; the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals: buy both now, you read them at 180 and 210."] = "Уровень «Умелец» ({skill:129}) поднимает предел до 225; нужен навык 125 и 20-й уровень персонажа: это книга, {item:16084}; стрелка выбирает ближайшего продавца вашей фракции. Купите и прочтите ее. Тот же торговец продает учебники по плотным шелковым бинтам и {item:8544}: купите оба сейчас, прочтете их на 180 и 210.",
 	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction. Learn {spell:3276} on the same visit."] = "Уровень «Подмастерье» ({skill:129}) поднимает предел до 150; нужен навык 50 и 10-й уровень персонажа: стрелка выбирает ближайшего учителя профессии «{skill:129}» вашей фракции. За тот же визит изучите {spell:3276}.",
+	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Уровень «Подмастерье» ({skill:129}) повышает предел до 150; нужен навык 50 и уровень персонажа 10: стрелка указывает на ближайшего учителя навыка {skill:129} вашей фракции; обучение стоит 5с.",
+	-- ["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "с гуманоидов 15-30 уровня падает {item:2592} (или купите на аукционе).",
+	-- ["humanoids of level 25-45 drop {item:4306} (or buy it at the Auction House)."] = "с гуманоидов 25-45 уровня падает {item:4306} (или купите на аукционе).",
+	-- ["humanoids of level 35-50 drop {item:4338} (or buy it at the Auction House)."] = "с гуманоидов 35-50 уровня падает {item:4338} (или купите на аукционе).",
+	-- ["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "с гуманоидов 45-60 уровня падает {item:14047} (или купите на аукционе).",
+	-- ["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "с гуманоидов 5-20 уровня падает {item:2589} (или купите на аукционе).",
 	-- ["{item:1251} is orange from 1 (yellow at 30, grey at 60): about 61 crafts to 50. Bandages need no fire: craft them anywhere."] = "{item:1251} — оранжевый с 1 (желтый с 30, серый с 60): примерно 61 изготовление до 50. Для бинтов не нужен огонь: делайте их где угодно.",
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529}: желтый с 260 (желтый с 260, серый с 320) – около 65 изготовлений до 300. Бинтам не нужен огонь: делайте их где угодно. {item:14529} остается желтым до 320, так что доведет вас до 300 без похода за плотными бинтами из рунной ткани.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} — желтый с 50 (желтый с 50, серый с 100): примерно 46 изготовлений до 80. Для бинтов не нужен огонь: делайте их где угодно.",

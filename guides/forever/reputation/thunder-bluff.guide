@@ -51,7 +51,8 @@ why Mulgore quests while you level, Winterspring quests and Morrowgrain from 55,
 
 step Thunder Bluff: how it works
   tip Thunder Bluff reputation comes from quests, Morrowgrain and cloth. Rumstag Proudstrider, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with Thunder Bluff also gives a quarter as much to Orgrimmar, the Undercity and the Darkspear Trolls. While you level, do Thunder Bluff's quests within 5 levels of them: Mulgore at 1 to 12, Camp Taurajo and the Crossroads at 13 to 22, Thousand Needles at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. Thunder Bluff has no tabard or other reward.
-  accept 7820                         -- Rumstag Proudstrider: A Donation of Wool, +150
+  zone Thunder Bluff
+  goto 43.1,42.7 "Rumstag Proudstrider" -- his donations are handed in from his window and never enter the log
 
 step Camp Narache (optional hub)
   label narache
@@ -221,39 +222,33 @@ step Rumstag Proudstrider: A Donation of Wool
   zone Thunder Bluff
   tip From here it is cloth. Wool, Silk and Mageweave must all be handed in before Rumstag offers the Runecloth donation, and Additional Runecloth needs the Runecloth donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, Runecloth 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey.
   zone Ashenvale
-  collect 2592 x60 quest 7820.1 @36,37      -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
+  collect 2592 x60 @36,37             -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
   zone Thunder Bluff
-  turnin 7820                         -- Rumstag Proudstrider, +150
+  turnin 7820 direct                  -- Rumstag Proudstrider: A Donation of Wool, +150
 
 step A Donation of Silk
   tip Silk: the Syndicate in Hillsbrad and Alterac drop it about one kill in three, or buy it.
   level 26
-  zone Thunder Bluff
-  accept 7821                         -- +150
   zone Alterac Mountains
-  collect 4306 x60 quest 7821.1 @57.7,67.6 -- Silk Cloth: the Syndicate
+  collect 4306 x60 @57.7,67.6         -- Silk Cloth: the Syndicate
   zone Thunder Bluff
-  turnin 7821
+  turnin 7821 direct                  -- +150
 
 step A Donation of Mageweave
   tip Mageweave: the Jadefire satyrs in southern Felwood and the Dunemaul ogres in Tanaris drop it about one kill in three, or buy it.
   level 40
-  zone Thunder Bluff
-  accept 7822                         -- +150
   zone Felwood
-  collect 4338 x60 quest 7822.1 @41.6,85.7 -- Mageweave Cloth: the Jadefire satyrs
+  collect 4338 x60 @41.6,85.7         -- Mageweave Cloth: the Jadefire satyrs
   zone Thunder Bluff
-  turnin 7822
+  turnin 7822 direct                  -- +150
 
 step A Donation of Runecloth
   tip Runecloth: the Scarlet at Tyr's Hand in the Eastern Plaguelands, the Gordok ogres outside Dire Maul in Feralas and the Twilight camps of Silithus drop it about one kill in three. The Auction House is faster if you have gold.
   level 50
-  zone Thunder Bluff
-  accept 7823                         -- +150
   zone Eastern Plaguelands
-  collect 14047 x60 quest 7823.1 live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
+  collect 14047 x60 live @68,69.5     -- Runecloth: the Scarlet outside Tyr's Hand
   zone Thunder Bluff
-  turnin 7823
+  turnin 7823 direct                  -- +150
 
 step Everlook: Storm Shadowhoof
   zone Winterspring

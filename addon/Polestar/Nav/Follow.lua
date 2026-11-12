@@ -18,6 +18,28 @@
 --   - a later segment takes over only when it is HYST yards nearer than the
 --     current one, so the two sides of a hairpin don't swap back and forth.
 --
+-- Another floor: a point more than FLOOR_STEP yards above or below. With
+-- `hill` (the caller passes it outdoors) it must also be steeper than
+-- FLOOR_GRADE yards up or down per yard across from the point it is measured
+-- against (0.3.7, Fitz in Desolace: "it gets stuck on a point and fixates on
+-- it"). The paths are corners joined by long straight pieces (baked legs,
+-- the router's straightened lines), and a hillside between two corners 100
+-- yd apart and 10 yd lower held the arrow on the first until the player came
+-- within REACH of it: cutting it by more than 5 yd left the arrow pointing
+-- back. 70% of the baked legs had such a corner, 14,244 of the rule's 14,588
+-- floors were slopes. A drop, a lift, a climb and a floor straight overhead
+-- are steeper than 45° and still stop it; indoors (stairs, the Undercity's
+-- levels) any 6 yd is a floor, as before.
+--
+-- A late path (Follow.Catch): a search asked when the player strayed lands
+-- seconds later, from where they stood then. Walking on, they are past its
+-- first corners, and down a slope those are floors by the rule above, so
+-- the arrow held behind them, the player strayed again, and the next late
+-- path did the same: it pointed back until they stopped (0.3.7, Fitz walking
+-- down a steep slope). The caller catches the follower up to the player's
+-- place on such a path: the corners walked past while it was searched do not
+-- hold it.
+--
 -- The aim is the furthest point along the path ahead of the projection that
 -- is within RADIUS yards of the player and AHEAD yards along the path, and
 -- whose way there keeps every path point within PAD yards of the line from
@@ -74,7 +96,13 @@
 -- the two aims at every crossing).
 --
 --   Follow.Reset(S)                    a fresh path: S.idx = 2 (the first segment's end)
---   Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight) -> ax, ay | nil
+--   Follow.Catch(xs, ys, zs, left, n, S, px, py, upto, within, stop, z) -> caught
+--     after Reset, for a path searched from a place `upto` yards from the
+--     player: the projection starts at the player's place on it, the nearest
+--     point within `upto` + WINDOW yards along and `within` yards of them,
+--     never past `stop`; with `z` (their floor, when known) only a place
+--     within CATCH_DZ yards of it. False (left as Reset left it) when none.
+--   Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill) -> ax, ay | nil
 --     the point to aim at; nil once the player is within REACH of the last
 --     point (from there: straight at the goal). Sets, in S (the caller's table,
 --     reused, so it is allocation-free):
@@ -105,7 +133,9 @@ local CORNER_PAD = 10  -- yards: how far the aim may cut inside a real corner
 local TURN = math.cos(math.rad(60)) -- a piece of SHORT yards or more turning further from the line to the aim is a real corner (a wiggle's way back is less)
 local BODY = 15        -- yards beside the path the player may walk with the arrow pointing along it, not back to it
 local LEAD = 10        -- yards along the path past the projection: the aim when the path is out of RADIUS
-local FLOOR_STEP = 6   -- yards above or below: another floor
+local FLOOR_STEP = 6   -- yards above or below: another floor (with `hill`, only when also steeper than FLOOR_GRADE)
+local FLOOR_GRADE = 1  -- yards up or down per yard across (45°): steeper is another floor (a drop, a lift, a deck overhead), gentler a hillside
+local CATCH_DZ = 10    -- yards: Follow.Catch's place on a late path lies this near the player's floor (the router's ZTOL)
 local SHORT = 8        -- yards: pieces this short on both sides of a point are a road's zigzag, smoothed
 local BISECT = 6       -- halvings when a corner cuts a segment short
 local OPEN = 100       -- yards beside the path the player may run with the arrow aiming ahead by sight (open ground)
@@ -122,15 +152,54 @@ function Follow.Reset(S)
 	S.sightAt, S.sightX, S.sightY, S.heldX, S.heldY = nil, nil, nil, nil, nil
 end
 
-local function floorChange(zs, i)
+function Follow.Catch(xs, ys, zs, left, n, S, px, py, upto, within, stop, z)
+	if n < 2 or not upto or upto <= REACH then return false end
+	local start, limitAlong = left[1], upto + WINDOW
+	local last = n - 1
+	if stop and stop - 1 < last then last = stop - 1 end
+	local best, bestD, bestT = nil, within * within, 0
+	for a = 1, last do
+		if start - left[a] > limitAlong then break end
+		local ax, ay = xs[a], ys[a]
+		local dx, dy = xs[a + 1] - ax, ys[a + 1] - ay
+		local len2 = dx * dx + dy * dy
+		local t = 0
+		if len2 > 0 then
+			t = ((px - ax) * dx + (py - ay) * dy) / len2
+			if t < 0 then t = 0 elseif t > 1 then t = 1 end
+		end
+		local ex, ey = ax + dx * t - px, ay + dy * t - py
+		local d = ex * ex + ey * ey
+		if d <= bestD then
+			local za, zb = zs[a], zs[a + 1]
+			if not (z and za and zb and abs(za + (zb - za) * t - z) > CATCH_DZ) then best, bestD, bestT = a, d, t end
+		end
+	end
+	if not best or (best == 1 and bestT == 0) then return false end
+	S.idx = best + 1
+	S.along = (start - left[best]) + bestT * (left[best] - left[best + 1])
+	return true
+end
+
+-- The grade the floor rule asks for in this Step: FLOOR_GRADE with `hill`,
+-- else 0 (any FLOOR_STEP is a floor).
+local grade = 0
+
+-- Heights dz apart, dx, dy apart across: on another floor.
+local function apart(dz, dx, dy)
+	if dz < 0 then dz = -dz end
+	return dz > FLOOR_STEP and dz * dz > grade * grade * (dx * dx + dy * dy)
+end
+
+local function floorChange(xs, ys, zs, i)
 	if i <= 1 then return false end
 	local za, zb = zs[i - 1], zs[i]
-	return za and zb and abs(zb - za) > FLOOR_STEP or false
+	return za and zb and apart(zb - za, xs[i] - xs[i - 1], ys[i] - ys[i - 1]) or false
 end
 
 -- Point i stops the projection from moving past it until it is reached.
 local function blocked(xs, ys, zs, i, stop, px, py)
-	if not ((stop and i > stop) or floorChange(zs, i)) then return false end
+	if not ((stop and i > stop) or floorChange(xs, ys, zs, i)) then return false end
 	local dx, dy = xs[i] - px, ys[i] - py
 	return dx * dx + dy * dy > REACH * REACH
 end
@@ -175,7 +244,8 @@ local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight)
 	local last, capped = idx - 1, false
 	for j = idx, limit do
 		local zj = zs[j]
-		if zRef and zj and abs(zj - zRef) > FLOOR_STEP then break end
+		-- Another floor: from the projection's point, or a steep step on the way (stairs between two flat pieces).
+		if zRef and zj and (apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx]) or (j > idx and floorChange(xs, ys, zs, j))) then break end
 		if start - left[j] > cap then capped = true break end
 		last = j
 	end
@@ -203,8 +273,9 @@ local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight)
 	return false
 end
 
-function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight)
+function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	S.sighted, S.aimAlong = false, nil
+	grade = hill and FLOOR_GRADE or 0
 	if n == 0 then return nil end
 	if n == 1 then
 		local dx, dy = xs[1] - px, ys[1] - py
@@ -237,10 +308,12 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight)
 		end
 		local ex, ey = ax + dx * t - px, ay + dy * t - py
 		local d = sqrt(ex * ex + ey * ey)
-		-- The next segment on takes over as soon as it is nearer; any later one
+		-- The next segment on takes over as soon as it is nearer, or as near
+		-- with the projection at the end of the current one (the player on
+		-- the point between them: aiming on, not at their feet); any later one
 		-- (the far side of a hairpin) must be HYST yards nearer.
 		local need = a == best + 1 and 0 or HYST
-		if bestD == nil or d + need < bestD then
+		if bestD == nil or d + need < bestD or (need == 0 and d == bestD and bestT == 1) then
 			best, bestD, bestT = a, d, t
 		end
 	end
@@ -307,7 +380,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight)
 	local joined = false
 	for j = idx, limit do
 		local zj = zs[j]
-		if zRef and zj and abs(zj - zRef) > FLOOR_STEP then break end
+		if zRef and zj and (apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx]) or (j > idx and floorChange(xs, ys, zs, j))) then break end
 		-- Where the path's points are close together (a road's zigzag, pieces
 		-- of SHORT yards or less on both sides), the aim slides along the path
 		-- smoothed over each point's neighbours (1-2-1), so the side-to-side

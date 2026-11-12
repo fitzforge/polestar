@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "乘船前往{area:150}",
+	["Boat to {area:150}"] = "乘船去{area:150}",
 	-- {area:442} Auberdine
-	["Sell and repair in {area:442} first: the next stretch is a long one."] = "先在{area:442}卖杂物并修理装备：接下来有一段很长的路。",
+	["Sell and repair in {area:442} first: the next stretch is a long one."] = "先在{area:442}把东西卖了、装备修好：接下来是很长一段路。",
 
 	-- Step 2: Menethil Harbor
 	-- {zone:1437} Wetlands
@@ -24,7 +24,7 @@ return {
 
 	-- Step 4: Algaz Station
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
-	["{npc:1343} stands at the {area:925}, at the south end of the pass."] = "{npc:1343}站在山口南端的{area:925}。",
+	["{npc:1343} stands at the {area:925}, at the south end of the pass."] = "{npc:1343}站在{area:925}，就在山口南端。",
 
 	-- Step 5: Mountaineer Stormpike
 	-- {npc:1343} Mountaineer Stormpike · {npc:1416} Grimand Elmore
@@ -46,12 +46,12 @@ return {
 	-- {object:257} Suspicious Barrel
 	["The {object:257}"] = "{object:257}",
 	-- plural, as words: Dark Iron Sappers = {npc:1222} Dark Iron Sapper
-	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "沿坝顶向东走，从东端坡道下去，再沿陆地一侧的坝脚向西走：有两名黑铁工兵守着桶。杀掉他们后打开桶，完成此任务并接到下一步。",
+	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "沿坝顶向东走，从东端坡道下去，再沿陆地一侧的坝脚向西走：有两名黑铁工兵守着桶。杀掉他们，再打开桶：这个任务就此结束，下一个任务随之开始。",
 
 	-- Step 11: The loch
 	["The loch"] = "洛克湖",
 	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words) · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
-	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "",
+	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "沿西岸向南走。{object:665289}在湖底，可能在几处位置之一：{area:144}以东（48.1,39.7）、其西南一点（45.7,43.4）、或湖南端（48.7,54.4 或 50.6,53.3）。箭头指的那处没有，就试下一处。点击它接任务，{item:278051}也会一并获得。",
 	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words)
 	["{object:665289}; underwater"] = "{object:665289}；在水下",
 
@@ -67,7 +67,7 @@ return {
 	["The dig site"] = "挖掘场",
 	-- {item:2636} Carved Stone Idol · {quest:86613} Excavation Tools
 	-- plural, as words: Stonesplinter Diggers = {npc:1167} Stonesplinter Digger · Berserk Troggs = {npc:1393} Berserk Trogg
-	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "铁环东面的挖掘场被碎石怪掘地工、碎石怪地卜师和狂暴穴居人占据，它们都可能掉落{item:2636}。挖掘场四处分布着挖掘工具堆：打开一堆，右键点击工具接取{quest:86613}，然后收集六份。\n小心：狂暴穴居人（19-20级）在生命值低于40%时会狂暴。",
+	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "铁环挖掘场里到处是碎石怪掘地工、碎石怪地卜师和狂暴穴居人，三种怪都可能掉{item:2636}。地上到处是工具堆：先打开一堆捡一个工具，在背包里右键点击它接受{quest:86613}，一共要收集六个。\n小心：狂暴穴居人（19-20级）血量低于40%时会狂暴。",
 	-- {quest:86613} Excavation Tools
 	["{quest:86613}: open a pile at the dig"] = "{quest:86613}：打开挖掘场的一堆工具",
 	-- {quest:86613} Excavation Tools
@@ -75,11 +75,11 @@ return {
 
 	-- Step 16: The Farstrider Lodge
 	-- {npc:1154} Marek Ironheart · {npc:1187} Daryl the Youngling
-	["North-east to the lodge on the hill. {npc:1154} stands inside, {npc:1187} outside."] = "向东北前往山上的小屋。{npc:1154}在屋内，{npc:1187}在屋外。",
+	["North-east to the lodge on the hill. {npc:1154} stands inside, {npc:1187} outside."] = "向东北前往山上的小屋。{npc:1154}和{npc:1187}都在屋内。",
 	-- {npc:1154} Marek Ironheart
 	["{npc:1154}, inside"] = "{npc:1154}，在屋内",
 	-- {npc:1154} Marek Ironheart
-	["{npc:1154}: the loch crocolisks below the lodge"] = "",
+	["{npc:1154}: the loch crocolisks below the lodge"] = "{npc:1154}：小屋下方的洛克鳄",
 	-- {npc:1187} Daryl the Youngling
 	["{npc:1187}: 15 minutes"] = "{npc:1187}：15分钟",
 
@@ -96,23 +96,23 @@ return {
 	-- Step 19: Elder Mountain Boars, Daggerfang and the loch crocolisks
 	-- {npc:270693} Daggerfang
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
-	["Elder Mountain Boars, {npc:270693} and the loch crocolisks"] = "",
+	["Elder Mountain Boars, {npc:270693} and the loch crocolisks"] = "{npc:1192}、{npc:270693}和洛克鳄",
 	-- {quest:258} A Hunter's Challenge · {npc:270693} Daggerfang
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar · Loch Crocolisks = {npc:1693} Loch Crocolisk
-	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore: {quest:258} runs for 12 minutes, so the boars come first. {npc:270693}, a crocolisk, patrols the shore below them among the Loch Crocolisks."] = "",
+	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore: {quest:258} runs for 12 minutes, so the boars come first. {npc:270693}, a crocolisk, patrols the shore below them among the Loch Crocolisks."] = "{npc:1192}出没于小屋西北、沿东岸一带的山丘：{quest:258}限时12分钟，所以先打山猪。{npc:270693}是一只鳄鱼，在它们下方的岸边、混在{npc:1693}群里巡逻。",
 	-- {item:2924} Crocolisk Meat
 	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
-	["{item:2924}: Loch Crocolisks"] = "",
+	["{item:2924}: Loch Crocolisks"] = "{item:2924}：{npc:1693}",
 
 	-- Step 21: Thelsamar
 	-- {area:144} Thelsamar · {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
-	["Back west along the south shore to {area:144}: {npc:1105} by the inn, then {npc:1572} with the gryphons on the west side of town, on the way south."] = "沿南岸向西返回{area:144}：先找旅店旁的{npc:1105}，再找镇子西侧狮鹫旁的{npc:1572}，之后继续向南。",
+	["Back west along the south shore to {area:144}: {npc:1105} by the inn, then {npc:1572} with the gryphons on the west side of town, on the way south."] = "沿南岸向西返回{area:144}：先找旅店旁的{npc:1105}，再找镇子西边狮鹫旁的{npc:1572}，正好顺路往南走。",
 	-- {npc:1356} Prospector Stormpike · {zone:1455} Ironforge
 	["For {npc:1356} in {zone:1455}"] = "交给{zone:1455}的{npc:1356}",
 
 	-- Step 22: Mountaineer Ylva
 	-- {npc:269185} Headsplitter
-	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}."] = "塞尔萨玛南边，伊尔瓦的遗体躺在一个穴居人洞口。拿起她的旗帜，在遗体旁竖起并守住：穴居人会从两侧分波来袭，最后出现{npc:269185}。",
+	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}."] = "塞尔萨玛南边，伊尔瓦的遗体躺在一个穴居人洞口。右键点击背包里的旗帜，将它竖在遗体旁并守住：穴居人会从两侧分波来袭，最后出现{npc:269185}。",
 
 	-- Step 23: The tunnel post
 	["The tunnel post"] = "隧道哨所",
@@ -145,23 +145,23 @@ return {
 
 	-- Step 28: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "乘地铁前往{zone:1453}",
+	["Tram to {zone:1453}"] = "乘坐地铁前往{zone:1453}",
 
 	-- Step 29: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire
-	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "下地铁后从正门离开{zone:1453}，沿路穿过{area:87}，再向东穿越艾尔文森林，前往赤脊山。",
-	["The road east to Redridge"] = "",
+	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "下地铁后从城门离开{zone:1453}，沿大路穿过{area:87}，再一路向东穿过艾尔文森林前往赤脊山。",
+	["The road east to Redridge"] = "向东去赤脊山的路",
 
 	-- Step 30: Guard Thomas
 	-- {npc:261} Guard Thomas · {area:91} Tower of Azora · {npc:240} Marshal Dughan · {quest:35} Further Concerns · {area:87} Goldshire
-	["{npc:261} guards the bridge on this road east, past the {area:91}: {npc:240}'s {quest:35}, from your walk through {area:87}, goes to him."] = "向东沿这条路走，经过{area:91}后，{npc:261}就在桥上值守：路过{area:87}时从{npc:240}处接的{quest:35}交给他。",
+	["{npc:261} guards the bridge on this road east, past the {area:91}: {npc:240}'s {quest:35}, from your walk through {area:87}, goes to him."] = "{npc:261}守在向东大路的桥上、{area:91}以东：你在{area:87}从{npc:240}那里接的{quest:35}就交给他。",
 	-- {npc:261} Guard Thomas
 	["{npc:261}, on the bridge"] = "{npc:261}，在桥上",
 
 	-- Step 31: Henze Faulk
 	-- {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "从桥向北前往{area:86}。{npc:6172}躺在湖南边：对他使用{item:6866}。他周围的{npc:474}带着{item:6846}。",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "对{npc:6172}使用{item:6866}",
 	-- {item:6846} Defias Script
@@ -170,40 +170,40 @@ return {
 
 	-- Step 32: Three Corners
 	-- {area:1002} Three Corners · {npc:464} Guard Parker
-	["The road crosses into Redridge at {area:1002}. {npc:464} walks around the crossroads."] = "这条路在{area:1002}进入赤脊山。{npc:464}在路口附近走动。",
+	["The road crosses into Redridge at {area:1002}. {npc:464} walks around the crossroads."] = "大路在{area:1002}进入赤脊山。{npc:464}就在路口附近走动。",
 	-- {npc:464} Guard Parker · {area:1002} Three Corners
-	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "{npc:464}在{area:1002}附近巡逻：在地图标示的圆圈内寻找",
+	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "{npc:464}在{area:1002}附近走动：查看右上角小地图显示的位置",
 
 	-- Step 33: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:1070} Deputy Feldon
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} stands by the road next to her."] = "沿{area:68}南岸的道路前往狮鹫管理员。{npc:1070}就在她旁边的路边。",
+	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} stands by the road next to her."] = "沿{area:68}南岸的大路一直走到狮鹫管理员处，{npc:1070}就在旁边的路边。",
 
 	-- Step 34: Lakeshire
 	-- {npc:8965} Shawn · {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:382} Marshal Marris · {npc:415} Verner Osgood · {npc:344} Magistrate Solomon · {npc:381} Dockmaster Baren · {npc:266} Wiley the Black · {npc:379} Darcy · {npc:343} Chef Breanna
-	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} and {npc:382} stand there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "向北穿过长桥进镇：{npc:8965}和{npc:8962}在桥北端的岸边玩耍，{npc:341}和{npc:382}也在那里；{npc:415}在铁匠铺旁，{npc:344}在镇公所，{npc:381}在码头，{npc:266}在旅店楼上，{npc:379}和{npc:343}也在旅店内。",
+	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} and {npc:382} stand there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "向北穿过长桥进镇：{npc:8965}和{npc:8962}在桥北端的岸边玩耍，{npc:341}和{npc:382}也在那里；{npc:415}在铁匠铺旁，{npc:344}在市政厅，{npc:381}在码头，{npc:266}在旅店楼上，{npc:379}和{npc:343}也在旅店内。",
 	-- {npc:382} Marshal Marris
 	["{npc:382}: the Blackrock camps are for your next Redridge visit, at about 24"] = "{npc:382}：黑石营地留到下次约24级来赤脊山时再做",
 	-- {npc:415} Verner Osgood · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:415}: for {npc:514} in {area:87}"] = "{npc:415}：交给{area:87}的{npc:514}",
 	-- {npc:344} Magistrate Solomon · {npc:466} General Marcus Jonathan · {zone:1453} Stormwind
-	["{npc:344}, in the town hall: for {npc:466} in {zone:1453}"] = "{npc:344}，在镇公所：交给{zone:1453}的{npc:466}",
+	["{npc:344}, in the town hall: for {npc:466} in {zone:1453}"] = "{npc:344}，在市政厅：交给{zone:1453}的{npc:466}",
 	-- {npc:266} Wiley the Black
 	["{npc:266}, in the inn; upstairs"] = "{npc:266}，在旅店楼上",
 	-- {npc:379} Darcy
 	["{npc:379}, inside"] = "{npc:379}，在里面",
 	-- {npc:343} Chef Breanna
-	["{npc:343}, inside"] = "{npc:343}：在屋内",
+	["{npc:343}, inside"] = "{npc:343}，在屋里",
 
 	-- Step 35: Guard Parker
 	-- {area:1002} Three Corners
-	["West along the road to {area:1002} first; the gnolls are on the way back east."] = "先沿路向西前往{area:1002}；回来向东走时再打豺狼人。",
+	["West along the road to {area:1002} first; the gnolls are on the way back east."] = "先沿大路向西到{area:1002}，豺狼人在回程往东的路上。",
 
 	-- Step 36: Lakeridge Highway: kill these as you meet them
 	-- {area:1001} Lakeridge Highway
 	["{area:1001}: kill these as you meet them"] = "{area:1001}：沿途击杀以下目标",
 	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Great Goretusks = {npc:547} Great Goretusk · Dire Condors = {npc:428} Dire Condor
-	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "混血赤脊山豺狼人和赤脊山鞭笞者占据{area:1002}东面、道路以北的山丘；赤脊山偷猎者扎营在道路以南。巨型血牙野猪在同一片山丘觅食，恐鹫在湖南面盘旋；狼蛛出没于{area:1002}周围。",
+	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "{npc:423}和赤脊山鞭笞者占着{area:1002}东边、大路北侧的山丘；偷猎者在路南边扎营。{npc:547}在同一片山丘拱土，{npc:428}在湖的南边盘旋；狼蛛在{area:1002}一带爬行。",
 	-- {item:280911} Spiked Collar
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}：赤脊山鞭笞者",
@@ -217,9 +217,9 @@ return {
 	-- Step 38: Sunken Chest
 	-- {area:68} Lake Everstill · {item:1467} Spotted Sunfish
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "往镇子方向走，从桥边向东游入{area:68}；箱子在湖底的一艘沉船旁。鱼人食腐者和Tidecallers分布在附近南岸，都可能携带{item:1467}。",
+	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "往镇子方向回走，从桥边向东游进{area:68}：箱子就在湖床上、沉船旁。{npc:422}和鱼人潮行者在南岸一带出没，每个都可能带着{item:1467}。",
 	-- {item:1309} Oslow's Toolbox
-	["{item:1309}; underwater"] = "{item:1309}：在水下",
+	["{item:1309}; underwater"] = "{item:1309}；水下",
 
 	-- Step 39: Hilary's Necklace
 	-- {object:154357} Glinting Mud
@@ -235,25 +235,25 @@ return {
 
 	-- Step 41: Dockmaster Baren
 	-- {npc:381} Dockmaster Baren · {quest:150} Murloc Poachers · {area:69} Lakeshire
-	["From level 20 {npc:381} gives {quest:150}: take it now if he offers it (otherwise on the last {area:69} stop). Its murlocs are for your next Redridge visit, at about 24."] = "20级起，{npc:381}会提供{quest:150}：如果现在能接就接下（否则留到最后一次停靠{area:69}时）。任务鱼人留到下次约24级来赤脊山时再打。",
+	["From level 20 {npc:381} gives {quest:150}: take it now if he offers it (otherwise on the last {area:69} stop). Its murlocs are for your next Redridge visit, at about 24."] = "20级后{npc:381}会给{quest:150}：现在能接就接（接不到就等最后一趟到{area:69}时再接）。这个任务的鱼人留到下次来赤脊山再打，约24级。",
 	-- {npc:381} Dockmaster Baren
 	["{npc:381}, on the docks"] = "{npc:381}，在码头",
 
 	-- Step 42: Goldshire
 	-- {area:1002} Three Corners · {area:87} Goldshire
-	["West out of Redridge by {area:1002} and along the road through Elwynn to {area:87}."] = "经{area:1002}向西离开赤脊山，沿路穿过艾尔文森林，前往{area:87}。",
+	["West out of Redridge by {area:1002} and along the road through Elwynn to {area:87}."] = "从{area:1002}向西离开赤脊山，沿大路穿过艾尔文森林到{area:87}。",
 
 	-- Step 43: Smith Argus
 	-- {npc:514} Smith Argus · {area:87} Goldshire
-	["{npc:514} works at the {area:87} smithy."] = "{npc:514}在{area:87}的铁匠铺工作。",
+	["{npc:514} works at the {area:87} smithy."] = "{npc:514}在{area:87}的铁匠铺干活。",
 
 	-- Step 44: Stormwind's gate
 	-- {zone:1453} Stormwind
-	["{zone:1453}'s gate"] = "",
+	["{zone:1453}'s gate"] = "{zone:1453}的城门",
 	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
-	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "",
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "不要从威利那里接「迪菲亚兄弟会」（它由{zone:1436}里{npc:234}的信开启）：跳过{zone:1436}。从{area:87}沿大路向北到{zone:1453}：{npc:466}骑着马守在城门里大桥的尽头。然后去{object:2096}的狮鹫处，飞回{area:69}。",
 	-- {npc:466} General Marcus Jonathan
-	["{npc:466}, outside the main gate"] = "{npc:466}，在正门外",
+	["{npc:466}, outside the main gate"] = "{npc:466}，在城门里",
 
 	-- Step 45: Westfall
 	-- {zone:1436} Westfall
@@ -273,7 +273,7 @@ return {
 
 	-- Step 48: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District
-	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的军情七处（SI:7）大楼楼上：楼梯起初不太显眼。{npc:466}骑马站在正门外桥的远端，之后返回{object:2096}的狮鹫处。",
+	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的军情七处（SI:7）大楼楼上：楼梯起初不太显眼。{npc:466}骑着马守在城门里大桥的尽头；之后返回{object:2096}的狮鹫处。",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "{npc:332}，军情七处（SI:7）；楼上",
 
@@ -283,10 +283,10 @@ return {
 
 	-- Step 50: Moonbrook and the Defias hills
 	-- {area:20} Moonbrook
-	["{area:20} and the Defias hills"] = "{area:20}和迪菲亚山丘",
+	["{area:20} and the Defias hills"] = "{area:20}和匕首岭",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
 	-- plural, as words: Defias Pathstalkers = {npc:121} Defias Pathstalker
-	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "{npc:121}和迪菲亚拳匪在{area:20}巡逻；迪菲亚路霸（17级）成对巡逻其南边和东边的山丘：把它们分开拉。铁匠铺里的{area:1581}入口是小队地下城。\n小心：山丘上的营地有混编的迪菲亚，如果你等级低，很容易一次拉到不止一个。",
+	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "{npc:121}和迪菲亚拳匪在{area:20}巡逻；迪菲亚路霸（17级）成对在它南边和东边的匕首岭巡逻：把它们分开拉。铁匠铺里的{area:1581}入口是小队地下城。\n小心：匕首岭上的营地有混编的迪菲亚，如果你等级低，很容易一次拉到不止一个。",
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
 	["{item:254676}, from the crates around {area:20}"] = "{item:254676}，来自{area:20}周围的箱子",
 
@@ -294,20 +294,20 @@ return {
 	-- {npc:550} Defias Messenger
 	["The {npc:550}"] = "{npc:550}",
 	-- {area:20} Moonbrook · {npc:550} Defias Messenger · {area:113} Gold Coast Quarry · {area:111} Jangolode Mine
-	["South along the road to {area:20}. The {npc:550} starts in front of the {area:20} smithy and walks north to the {area:113} and the back of the {area:111}, then back: look along his road. Slow him when he runs at 30% health."] = "沿路向南前往{area:20}。{npc:550}从{area:20}铁匠铺前出发，向北走到{area:113}和{area:111}后方，再原路返回：沿这条路线寻找。他在生命值降至30%时会逃跑，记得减速。",
+	["South along the road to {area:20}. The {npc:550} starts in front of the {area:20} smithy and walks north to the {area:113} and the back of the {area:111}, then back: look along his road. Slow him when he runs at 30% health."] = "沿大路向南到{area:20}。{npc:550}从{area:20}铁匠铺前出发，向北走到{area:113}和{area:111}后面，再往回走：沿着他这条路线找。他血量掉到30%会开始逃跑，记得给他减速。",
 	-- {item:1381} A Mysterious Message · {npc:550} Defias Messenger
 	["{item:1381}: the {npc:550}"] = "{item:1381}：{npc:550}掉落",
 
 	-- Step 52: Westfall Lighthouse
 	-- {area:20} Moonbrook · {npc:392} Captain Grayson · {npc:391} Old Murk-Eye
-	["South-west from {area:20} to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "从{area:20}向西南前往岬角上的灯塔：{npc:392}在台阶上。{npc:391}在灯塔东北的海滩和浅水区、鱼人之间游荡：把他拉离Oracles再打。",
+	["South-west from {area:20} to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "从{area:20}向西南到海角上的灯塔：{npc:392}在台阶上等着。{npc:391}在灯塔东北的海滩和浅滩一带活动，混在鱼人堆里：把他从神谕者身边引开。",
 	-- {item:3636} Scale of Old Murk-Eye · {npc:391} Old Murk-Eye
-	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "",
+	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "{item:3636}：{npc:391}，在灯塔东北的海滩",
 
 	-- Step 53: Captain Grayson
 	-- {zone:1436} Westfall · {npc:392} Captain Grayson
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "",
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "从{zone:1436}的{npc:114}身上留了五瓶灯油吗？{npc:392}要拿去给灯塔点火。",
 
 	-- Step 54: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
@@ -315,7 +315,7 @@ return {
 
 	-- Step 55: The Defias Traitor
 	-- {area:20} Moonbrook
-	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "跟着叛徒向南走到{area:20}；他不会停下来等战斗结束，记得清掉追他的怪。他最后会走到{area:20}下方的迪菲亚藏身处。",
+	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "一路跟紧叛徒往南走到{area:20}；他不会停下来打架，跟上来的怪都得你清掉。他最后会停在{area:20}下方的迪菲亚藏身处。",
 	-- {npc:467} The Defias Traitor
 	["{npc:467}, at the foot of the tower ramp"] = "{npc:467}，在通往塔的坡道底部",
 
@@ -325,14 +325,14 @@ return {
 
 	-- Step 57: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:344} Magistrate Solomon
-	["From the gryphons, over the bridge into town: {npc:415} by the smithy, {npc:344} in the town hall."] = "从狮鹫处过桥进镇：{npc:415}在铁匠铺旁，{npc:344}在镇公所。",
+	["From the gryphons, over the bridge into town: {npc:415} by the smithy, {npc:344} in the town hall."] = "从狮鹫处过桥进镇：{npc:415}在铁匠铺旁，{npc:344}在市政厅。",
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}，在市政厅",
 
 	-- Step 58: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "赤脊山蛮兵和赤脊山秘法师占据镇子北面和西北的山丘，两者都携带铁矛和铁铆钉。黑龙雏龙也栖息在这片山丘。\n小心：雏龙会在远处施放{spell:133}，豺狼人则会在生命值低时逃跑求援。",
+	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "{npc:426}和赤脊山秘法师占着镇子北边和西北边的山丘，两种怪都带铁矛和铁铆钉；{npc:441}也在同一片山丘上筑巢。\n小心：雏龙会远程放{spell:133}，豺狼人血少了会跑去叫帮手。",
 	-- {item:1221} Underbelly Whelp Scale
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["{item:1221}: Black Dragon Whelps"] = "{item:1221}：黑龙雏龙掉落",
@@ -347,21 +347,21 @@ return {
 
 	-- Step 60: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour."] = "返回{area:442}，继续{zone:1439}南部的路线：先乘狮鹫到{zone:1453}，再从港口坐船。",
+	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour."] = "返回{area:442}，继续{zone:1439}南边的路线：先坐狮鹫到{zone:1453}，再从港口坐船。",
 	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "{area:69}飞行管理员",
+	["{area:69} flight master"] = "{area:69}的飞行管理员",
 
 	-- Step 62: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
-	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
+	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "{npc:1646}站在{object:2098}东侧，在从{object:28027}去港口的路上。",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：来自{area:442}的桑迪斯的信",
 	-- {npc:3649} Thundris Windweaver
-	["For {npc:3649}, where the boat lands"] = "",
+	["For {npc:3649}, where the boat lands"] = "交给{npc:3649}，在船靠岸的地方",
 
 	-- Step 63: Gazin Tenorm
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {object:2098} Cathedral Square
-	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "",
+	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "{npc:6173}和{npc:6171}在光明大教堂内，位于{object:2098}，在去港口的路上。",
 	["Cathedral of Light"] = "光明大教堂",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}：救赎",

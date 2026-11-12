@@ -419,7 +419,7 @@ function saveSize()
 end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarScales", UIParent)
+	F = CreateFrame("Frame", "PolestarScales", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)

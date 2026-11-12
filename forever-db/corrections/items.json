@@ -51,5 +51,35 @@
 			}
 		],
 		"note": "Harvester Gyrostabilizer (Harvesting the Harvesters, 92909) drops from the Harvest Watcher (114). The merged data also listed the Harvest Golem (36) and the level 17-18 Harvest Reaper (115), which sent the arrow to the Reapers (Erá, Discord, #827)."
+	},
+	"254432": {
+		"addDrops": {
+			"npc": [
+				4632,
+				4633,
+				4634,
+				4635,
+				4636,
+				4637,
+				4638,
+				4639,
+				4640,
+				4641,
+				4642,
+				4643,
+				4645
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "loot events of item 254432 (build 70862): 41 drops in 7 sessions of 5 contributors, none excluded, from Kolkar Centaur, Scout, Mauler, Windchaser, Battle Lord and Destroyer (4632-4637) and Magram Scout, Outrunner, Wrangler, Windchaser, Stormer, Pack Runner and Mauler (4638-4643, 4645); some loots came with Carved Centaur Totems (93224) not in the log"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1602 (rockzors: take Carved Centaur Totems with Centaur Bounty)"
+			}
+		],
+		"note": "Carved Centaur Totem (Carved Centaur Totems, 93224 Alliance / 93225 Horde) drops from the Kolkar and Magram centaurs too, not only the Maraudine (4654-4659) the merged data lists from QuestieDB's Forever store. Gelkis centaurs: no recorded loot yet, so not added."
 	}
 }

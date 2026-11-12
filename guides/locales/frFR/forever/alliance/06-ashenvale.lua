@@ -8,9 +8,7 @@
 return {
 	-- Step 1: Kerlonian Evershade
 	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow the horn again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "",
-	-- {object:176634} Kerlonian's Chest
-	["{object:176634}, beside him"] = "{object:176634}, à côté de lui",
+	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "Revenez vers le nord depuis la glaive (Druides : vers le sud par la route depuis {area:442}) jusqu'au {area:448}, où {npc:11218} dort à côté d'Arbal. Prenez sa quête : elle vous donne {item:13536}. Utilisez le cor pour le réveiller et menez-le vers le sud par la route jusqu'à son sac, à la lisière sud de {zone:1439} ; sonnez à nouveau du cor chaque fois qu'il s'endort. Continuez ensuite jusqu'à {npc:11219}, au {area:413}.\nAttention : des embuscades scriptées de trois monstres chacune attaquent le long de la route.",
 	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
 	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "",
 
@@ -391,6 +389,7 @@ return {
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, dans la Cathédrale de la Lumière",
 	-- ["{npc:5082}, Mikhail and Tapoke Jahn are all at Menethil's inn; Tapoke fights you when you talk to Mikhail, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn.\n{npc:2104} stands in {area:2103}, a short walk from {npc:1242}.\n{npc:2104} stands in {area:2103}."] = "{npc:5082}, Mikhail et Tapoke Jahn sont tous à l'auberge de Menethil ; Tapoke vous attaque quand vous parlez à Mikhail, mais abandonne une fois battu. {npc:1480} se tient à quelques pas au nord-est de l'auberge.\n{npc:2104} se tient dans {area:2103}, à quelques pas de {npc:1242}.\n{npc:2104} se tient dans {area:2103}.",
 	-- ["{object:176364} Harbor"] = "{object:176364}",
+	-- ["{object:176634}, beside him"] = "{object:176634}, à côté de lui",
 	-- ["{object:2164} is in the {object:2101}."] = "{object:2164} se trouve dans le {object:2101}.",
 	-- ["{zone:1437}: kill these as you meet them"] = "{zone:1437} : tuez-les au passage",
 	-- ["{zone:1455} priests"] = "Prêtres d'{zone:1455}",

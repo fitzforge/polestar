@@ -20,6 +20,10 @@ why A rare off-hand for your 50s from Niby and Impsy in Felwood, the camp that a
 # Kroshius (55) is elite and immune to fire; he wakes only when the Fel Fire
 # (given at the accept) is used at his remains. Lost Fel Fire: abandon and
 # take the quest again (player reports).
+# Level holds (the #1667 rule: a step waits until its mobs' top level is at
+# most 2 above you): Azshara's satyrs (51-53) come first, at 50; Jaedenar's
+# Legionnaires (55) wait for 53, which also covers the Felguards (54-55) and
+# Kroshius (55).
 # ASSUMED: The chain runs as in Classic (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: Kroshius wakes at the Fel Fire and the essences drop as listed.
 # Sources: Forever's quest data (quests.json, npcs.json, items.json); the
 # quest notes (data/local/mechanics) for the camps and the fight; the
@@ -32,14 +36,16 @@ step Niby the Almighty
   turnin 7601                         -- Impsy
   accept 7602
 
-step Jaedenar
-  tip Jaedenar lies just south of Bloodvenom Post, west of the road. Of its two caves, Shadow Hold is the northern one, further up the hill; the other has no Legionnaires. Shadow Hold's tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward Lord Banehollow's chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of Jaedenar and Shadow Hold are all hostile.
-  collect 18622 quest 7602.2          -- Flawless Fel Essence (Jaedenar)
-
 step Azshara
   zone Azshara
   tip The Legashi satyrs (level 51-53) hold the Legash Encampment on Azshara's northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly.
   collect 18624 quest 7602.1          -- Flawless Fel Essence (Azshara)
+
+step Jaedenar
+  zone Felwood
+  tip Jaedenar lies just south of Bloodvenom Post, west of the road. The guide waits for level 53 first: its Legionnaires are 55. Of its two caves, Shadow Hold is the northern one, further up the hill; the other has no Legionnaires. Shadow Hold's tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward Lord Banehollow's chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of Jaedenar and Shadow Hold are all hostile.
+  level 53
+  collect 18622 quest 7602.2          -- Flawless Fel Essence (Jaedenar)
 
 step The Dark Portal
   zone Blasted Lands

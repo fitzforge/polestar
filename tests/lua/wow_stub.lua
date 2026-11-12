@@ -130,16 +130,36 @@ function Methods.UnregisterEvent(self, ev) self.events[ev] = nil end
 function Methods.UnregisterAllEvents(self) self.events = {} end
 function Methods.IsEventRegistered(self, ev) return self.events[ev] == true end
 
--- Visibility
+-- Visibility. With stub.cascadeVisibility on, as in the client: showing or
+-- hiding a frame also runs OnShow / OnHide on every shown descendant whose
+-- visibility changed with it (a hidden parent's children are not visible).
+-- Off by default: tests written before it fire only the frame's own.
+local function cascade(self, script, seen)
+	seen = seen or {}
+	for _, c in ipairs(self.children) do
+		if c.parent == self and c.shown and not seen[c] then
+			seen[c] = true
+			RunScript(c, script)
+			cascade(c, script, seen)
+		end
+	end
+end
 function Methods.Show(self)
 	local was = self.shown
 	self.shown = true
-	if not was then RunScript(self, "OnShow") end
+	if not was then
+		RunScript(self, "OnShow")
+		if stub.cascadeVisibility and Methods.IsVisible(self) then cascade(self, "OnShow") end
+	end
 end
 function Methods.Hide(self)
 	local was = self.shown
+	local visible = was and stub.cascadeVisibility and Methods.IsVisible(self)
 	self.shown = false
-	if was then RunScript(self, "OnHide") end
+	if was then
+		RunScript(self, "OnHide")
+		if visible then cascade(self, "OnHide") end
+	end
 end
 function Methods.SetShown(self, v) if v then self:Show() else self:Hide() end end
 function Methods.IsShown(self) return self.shown end
@@ -151,7 +171,16 @@ function Methods.IsVisible(self)
 	end
 	return true
 end
-function Methods.SetAlpha(self, a) self.alpha = a end
+-- As in the client, a texture's (or a line's) alpha and its vertex colour's
+-- alpha are one value: SetAlpha sets the alpha SetVertexColor gave it
+-- (#1684, the transparent window's 20 % shades drawn solid after
+-- SetAlpha(1)). tools/preview/render.js reads it that way.
+function Methods.SetAlpha(self, a)
+	if (self.kind == "Texture" or self.kind == "Line") and self.vertexColor then
+		self.vertexColor[4] = a
+	end
+	self.alpha = a
+end
 function Methods.GetAlpha(self) return self.alpha end
 function Methods.GetEffectiveAlpha(self) return self.alpha end
 
@@ -223,7 +252,10 @@ function Methods.IsMouseOver() return false end
 function Methods.Click(self, button) RunScript(self, "OnClick", button or "LeftButton", false) end
 
 -- Text
-function Methods.SetText(self, t) self.text = t == nil and nil or tostring(t) end
+function Methods.SetText(self, t)
+	self.text = t == nil and nil or tostring(t)
+	self.highlight = nil
+end
 function Methods.GetText(self) return self.text end
 function Methods.SetFormattedText(self, fmt, ...) self.text = string.format(fmt, ...) end
 function Methods.SetFont(self, path, size, flags) self.font = { path, size, flags }; return true end
@@ -394,6 +426,15 @@ end
 function Methods.SetFocus(self) stub.focus = self end
 function Methods.ClearFocus(self) if stub.focus == self then stub.focus = nil end end
 function Methods.HasFocus(self) return stub.focus == self end
+-- An edit box's selection, as in the client: HighlightText() selects all of
+-- it, (0, 0) none, (s, e) from s to e (-1: the end); new text drops it.
+-- self.highlight = { s, e } or nil.
+function Methods.HighlightText(self, s, e)
+	local n = #(self.text or "")
+	s, e = s or 0, e or n
+	if e < 0 or e > n then e = n end
+	self.highlight = e > s and { s, e } or nil
+end
 function Methods.Insert(self, t) self.text = (self.text or "") .. tostring(t) end
 function Methods.SetVerticalScroll(self, v) self.scroll = v end
 function Methods.GetVerticalScroll(self) return self.scroll or 0 end

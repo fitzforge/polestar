@@ -188,7 +188,7 @@ impl Planner {
 	}
 
 	/// The spell names the compiler's texts read from the client's SpellName table (native only:
-	/// `tokens::read_spell_names`), as the bundle exported them: JSON [[name, id], ...].
+	/// `tokens::read_spell_names`), as the bundle exported them: JSON [[name, id, classMask], ...].
 	pub fn set_spell_names(&mut self, json: &str) -> Result<(), String> {
 		let v = parse_json(json).map_err(|e| format!("spell names: {e}"))?;
 		self.data.memo.borrow_mut().insert(SPELL_NAMES_MEMO, v);

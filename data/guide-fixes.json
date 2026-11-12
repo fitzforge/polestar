@@ -1,6 +1,191 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
+		{
+			"id": "1550-krazek-pickup-mining-advice",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "accept" },
+			"goalNote": "Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.",
+			"note": "Fyurie's report #1550 and the maintainer's data check: Lesser Bloodstone Ore comes from deposits, not the Drywhisker kobolds. Explain Mining 75 and the alternatives at pickup, replacing the incorrect goal note.",
+			"source": { "kind": "in-game-check", "ref": "#1550: Fyurie's Mining 75 report and fitzforge's confirmation of the deposit-only source" },
+			"issue": 1550
+		},
+		{
+			"id": "1550-krazek-gorge-mining-advice",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "objective", "objective": 1 },
+			"tip": "The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need Mining 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.",
+			"note": "#1550: repeat the Mining requirement and alternatives at collection without losing the shared Myzrael step's directions and fleeing-kobold warning.",
+			"source": { "kind": "in-game-check", "ref": "#1550: Fyurie's report and fitzforge's confirmation; current Drywhisker Gorge step for the unchanged directions and warning" },
+			"issue": 1550
+		},
+		{
+			"id": "1752-jungle-secrets-optional",
+			"faction": "Alliance",
+			"at": { "quest": 215, "goal": "accept" },
+			"optional": true,
+			"note": "#1752: Private Thorsen offers Jungle Secrets only while he is out of the Rebel Camp, at the foot of its path for a few minutes of each half-hour round (see places.json 1752-stv-thorsen-road-giver). A player who doesn't meet him there is not held at the Rebel Camp; the guide passes Bookie Herod (200, after 215) and The Hidden Key (328) with it.",
+			"source": [
+				{ "kind": "tdb", "ref": "conditions: quest 215 available only while Private Thorsen is not in area 99 (the Rebel Camp)" },
+				{ "kind": "recording", "ref": "Private Thorsen's (738) windows in players' recordings: 9 offered Jungle Secrets, all at 40.3,8.4; refusals at the camp spot" }
+			],
+			"issue": 1752
+		},
+		{
+			"id": "1550-krazek-optional-pickup",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "accept" },
+			"optional": true,
+			"note": "#1550: players who cannot obtain the ore may leave Favor for Krazek untaken without holding the Booty Bay stop.",
+			"source": { "kind": "in-game-check", "ref": "#1550: fitzforge confirms nothing else in the Arathi guide needs this quest" },
+			"issue": 1550
+		},
+		{
+			"id": "1550-krazek-optional-ore",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "objective", "objective": 1 },
+			"optional": true,
+			"note": "#1550: a player without Mining 75 or another source of ore must not be held in Drywhisker Gorge; the Myzrael collection stays required.",
+			"source": { "kind": "in-game-check", "ref": "#1550: Mining 75 requirement and fitzforge's confirmed workaround of skipping the ore line" },
+			"issue": 1550
+		},
+		{
+			"id": "1550-krazek-optional-handin",
+			"faction": "Alliance",
+			"at": { "quest": 627, "goal": "turnin" },
+			"optional": true,
+			"note": "#1550: skipping the ore must not hold the later Booty Bay hand-in stop; players who obtained it can still hand it in there.",
+			"source": { "kind": "in-game-check", "ref": "#1550: fitzforge confirms this quest can be skipped independently of the rest of the route" },
+			"issue": 1550
+		},
+		{
+			"id": "1575-elwynn-jasperlode-elites",
+			"faction": "Alliance",
+			"at": { "quest": 91723, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.",
+			"note": "Danger-at-the-spot sweep (#1575): Jasperlode Mine's tunnels hold three elites that a level 9-10 player meets beside the kobolds. Players' recordings: 11 people died within 60 yd of the step's goals at about level 10, with Mother Fang, a Mine Spider and Geosculptor Yip, recorded as elite, among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 471 Mother Fang 7-10, 43 Mine Spider 7-9, 248474 Geosculptor Yip 7: rank elite, spawns in Elwynn 60-62,46-49" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 11 people died within 60 yd of Jasperlode Mine's goals (median level 10); foes 471, 43 and 248474 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-elwynn-fargodeep-elites",
+			"faction": "Alliance",
+			"at": { "quest": 87, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Nimsy (6), a kobold deep in the mine, is elite, and Narg the Taskmaster (10, rare) walks the tunnels: pull the kobolds one at a time.",
+			"note": "Danger-at-the-spot sweep (#1575): Goldtooth is at the back of the Fargodeep Mine, past Nimsy (elite) and Narg the Taskmaster (rare, 10). Players' recordings: 12 people died within 60 yd of the step's goal at about level 7, with Nimsy (elite) and Narg among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 248464 Nimsy 6 rank elite at Elwynn 41.6,79.9; 79 Narg the Taskmaster 10 rank rare at 40.9,77.5" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 12 people died within 60 yd of Bernice's Necklace (87.1) at Fargodeep (median level 7); foes 248464 (elite) and 79" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-elwynn-echo-ridge-narf",
+			"faction": "Alliance",
+			"at": { "quest": 21, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Shinyfinder Narf (3) is elite: leave him unless you have a friend.",
+			"note": "Danger-at-the-spot sweep (#1575): the Kobold Laborers' tunnels lead past Shinyfinder Narf, a level 3 elite (his own quest is a group step of its own). Players' recordings: 4 people died within 60 yd of the step's goal at about level 4, with Narf (elite) among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 4 people died within 60 yd of Echo Ridge Mine's goal (21.1) at about level 4; foe 248362 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-durotar-halikor-fizzle",
+			"faction": "Horde",
+			"at": { "quest": 806, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
+			"note": "Danger-at-the-spot sweep (#1575): Halikor (12, elite) patrols Thunder Ridge, where the Orc and Troll Durotar guides send players of 11-12 for Fizzle and the lizards. Players' recordings: 13 people died within 60 yd of the step's goals at about level 11 (most to the Burning Blade, which the step already warns about); Halikor was recorded as elite among the foes on the ridge.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30)" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 13 people died within 60 yd of Thunder Ridge's goals (median level 11); 266852 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-durotar-halikor-singed-scale",
+			"faction": "Horde",
+			"at": { "quest": 1498, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
+			"note": "Danger-at-the-spot sweep (#1575): the Warriors' Singed Scale comes from the same Thunder Ridge lizards Halikor (12, elite) patrols among. Players' recordings: 3 people died within 60 yd of the step's goal at about level 11, Halikor (elite) among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30)" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 3 people died within 60 yd of 1498.1's goal (median level 11); foe 266852 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-barrens-razormane-elites-crates",
+			"faction": "Horde",
+			"at": { "quest": 5041, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.",
+			"note": "Danger-at-the-spot sweep (#1575): the Crossroads' supply crates (58.8,25.8) stand among the Razormane Flesheaters (57.8-58.0,25.5-27.3) and next to the Berserkers (56.5-57.8,22.5-26.3), level 18-19 elites, at a route level of 15-16. Players' recordings: 5 people died within 60 yd of the crates at about level 14, a Berserker (elite) among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 5 people died within 60 yd of 5041.1 (median level 14); foe 267314 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-barrens-razormane-elites-kreenig",
+			"faction": "Horde",
+			"at": { "quest": 872, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig: pull Kreenig and the quilboar away from them one at a time.",
+			"note": "Danger-at-the-spot sweep (#1575): The Disruption Ends sends players of about 16 back among the camp's level 18-19 elites; Kreenig's tusk is taken at 58.5,27.0, beside the Flesheaters. Players' recordings: 7 people died within 60 yd of the step's goals at about level 15, a Flesheater (elite) among what they fought.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 7 people died within 60 yd of 872's goals (median level 15); foe 267308 recorded as elite" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-darkshore-althalaxx-voidcallers",
+			"faction": "Alliance",
+			"at": { "quest": 966, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Dark Strand Voidcallers (28-29) with their voidwalkers and Athrikus Narassin (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower.",
+			"note": "Danger-at-the-spot sweep (#1575): the Worn Parchments are taken at about 18 from the Dark Strand Fanatics at the foot of the Tower of Althalaxx, a few yards from Voidcallers (28-29) and Athrikus Narassin (31). Players' recordings: the parchments drop south of the tower (55-56.6,26-28), the Voidcallers were seen at the tower by 17 people, and 4 people died there at 19-22 to a Voidcaller, its voidwalker or Athrikus.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 2337 Dark Strand Voidcaller 28-29 (Darkshore 56.1-56.5,25.7-26.4), 3660 Athrikus Narassin 31 (56.0,26.3)" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 966.1 ticks, 134, at Darkshore 55-56.6,26-28 (levels 17-23); hostile 2337 seen at 56,26 by 17 people; deaths at 56,26 at 19-22 with foes 2337, 8996 and 3660" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
+			"faction": "Alliance",
+			"at": { "quest": 565, "goal": "objective", "objective": 4 },
+			"tip": "Stay in the Foothill Caverns: the cave further north has Mountain and Giant Yetis (32-34) in pairs and The Abominable Greench, a level 36 elite.",
+			"note": "Danger-at-the-spot sweep (#1575), #1695's pattern on the Alliance side: Yeti Fur drops from every Hillsbrad yeti, so the goal toured the northern cave of Mountain and Giant Yetis (32-34), where The Abominable Greench (36, elite) roams, at a route level of 31. The goal now points at the Foothill Caverns' Cave and Ferocious Yetis (data/places.json 1575-hillsbrad-alliance-yeti-fur-caverns), and the tip says why.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 2248-2251 yetis on map 1424 (Cave and Ferocious at 42-47,25-34, Mountain and Giant at 36-47,3-13); 13602 The Abominable Greench 36 rank elite at Hillsbrad 38.9,8 / 44.6,7.7 / 45.1,4.1 and Alterac 29-32,50-64" },
+				{ "kind": "recording", "ref": "rec index 2026-11-11: 565.4 ticks by 5 people at 32-33" }
+			],
+			"issue": 1575
+		},
+		{
+			"id": "alliance-swamp-of-sorrows-noboru-roams",
+			"faction": "Alliance",
+			"at": { "quest": 1389, "goal": "objective", "objective": 1 },
+			"tip": "East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.",
+			"note": "Roaming-NPC sweep: the step waited on Noboru the Cudgel (5477), who walks a waypoint path through the ruins; his cudgel (6196) and Noboru the Cudgel (1392) are optional now (route-fixes deliberate.optional 1392), so the tip says not to wait for him.",
+			"source": [
+				{ "kind": "tdb", "ref": "creature 5477: MovementType 2, waypoint path 810054770 (56 nodes, 221 x 544 yd)" }
+			]
+		},
+		{
+			"id": "horde-thousand-needles-galak-messenger-roams",
+			"faction": "Horde",
+			"at": { "quest": 4841, "goal": "objective", "objective": 1 },
+			"tip": "The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him.",
+			"note": "Discord question (2026-11-09): the Galak Messenger (10617), whose note (12564) starts Assassination Plot (4881), walks a waypoint path of about 1,300 yd between the camps. The note and the accept are optional (route-fixes deliberate.optional 4881); the tip says not to wait for him. Kanati Greycloud's hand-in has its own step for whoever carries the plot.",
+			"source": [
+				{ "kind": "tdb", "ref": "creature 10617: MovementType 2, waypoint path 810106170 (66 nodes, 487 x 1215 yd)" }
+			]
+		},
 		{
 			"id": "elwynn-crystal-lake-murloc-packs-99128",
 			"faction": "Alliance",
@@ -2893,6 +3078,42 @@
 			"issue": 1135
 		},
 		{
+			"id": "timed-apothecary-zamah-848-turnin",
+			"at": {
+				"quest": 848,
+				"goal": "turnin"
+			},
+			"faction": "Horde",
+			"tip": "Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate last. His seed test waits for the Verog pass at the Stagnant Oasis: go straight on north-west to the Dry Hills. After the spores Helbrim offers Apothecary Zamah, a delivery to Thunder Bluff within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to Thunder Bluff).",
+			"note": "Offered-timed sweep (2026-11-10, reported in play with 42:00 left): Apothecary Helbrim offers Apothecary Zamah (853, 45 minutes, to Zamah 3419 in Thunder Bluff's Pools of Vision) the moment Fungal Spores (848) is handed in. The shared Barrens route never goes to Thunder Bluff except on the Druids' class trip, so a player who takes it on this stop loses it. The tip keeps the stop's walking order and adds the warning. Druids take it on the next Crossroads stop (accept 853 only Druid) and hand it in on the Druid Thunder Bluff step right after it (a hand edit: the route writer has no class-only accepts; tests/guides-reported.test.js pins it).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-10 (timed_recordings.py): on Polestar 0.3.5 and later 4 characters took 853, none handed it in: 2 failed at exactly 45:00, 2 abandoned it within 30 s; on older versions, whose routes went to Thunder Bluff, 17 of 20 handed it in"
+				},
+				{
+					"kind": "tdb",
+					"ref": "quests.json limit 2700 for 853 (the server's TimeAllowed)"
+				}
+			]
+		},
+		{
+			"id": "timed-apothecary-zamah-853-turnin-druids",
+			"at": {
+				"quest": 853,
+				"goal": "turnin"
+			},
+			"faction": "Horde",
+			"tip": "Fly from the Crossroads to Thunder Bluff. Apothecary Zamah waits in the Pools of Vision, the cave under Spirit Rise: hand in the spores there first, while their time runs. Then Turak Runetotem trains you on Elder Rise.",
+			"note": "The Druids' Thunder Bluff step of 02-the-barrens, where they hand in Apothecary Zamah (853, 45 minutes) taken on the Crossroads stop just before (see timed-apothecary-zamah-848-turnin): Zamah (3419) stands in the Pools of Vision under Spirit Rise (Thunder Bluff 22.8,20.9), Turak Runetotem on Elder Rise. The timed hand-in comes first; Teleport: Moonglade follows from Elder Rise, so nothing is walked back.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json: Apothecary Zamah 3419 at Thunder Bluff 22.81,20.89"
+				}
+			]
+		},
+		{
 			"id": "1135-raptor-heads",
 			"at": {
 				"quest": 869,
@@ -3886,27 +4107,6 @@
 			"issue": 1314
 		},
 		{
-			"id": "1314-hearts-of-the-lost-may-not-be-offered",
-			"at": {
-				"quest": 87318,
-				"goal": "accept"
-			},
-			"tip": "Corma Villard may not offer Hearts of the Lost yet: if she doesn't, skip it.",
-			"note": "Hearts of the Lost (Wetlands, Corma Villard): a player at 32 was not offered it, while another addon's player traces show it taken and handed in; the guide takes it as optional and says to skip it if she doesn't offer it (route-fixes deliberate.optional).",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#1314: a level-32 Night Elf beside Corma Villard was offered nothing"
-				},
-				{
-					"kind": "recording",
-					"ref": "another addon's player traces: Hearts of the Lost taken and handed in (level 33, 2650 XP); players' recordings here: 0 windows of Corma Villard, 0 runs of 87318"
-				}
-			],
-			"issue": 1314,
-			"faction": "Alliance"
-		},
-		{
 			"id": "0306-talk-of-the-town-may-be-missing",
 			"at": {
 				"quest": 98463,
@@ -4691,16 +4891,20 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.",
-			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34. Since Valik's report (2026-11-09): Henchman Valik's reward for the stout is the Syndicate Missive itself (535's reward item 3601; 2 of the 5 recorded Infiltration completions ticked at his camp), so the drop is the fallback.",
+			"tip": "Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge.",
+			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34. Since Valik's report (2026-11-09): Henchman Valik's reward for the stout is the Syndicate Missive itself (535's reward item 3601; 2 of the 5 recorded Infiltration completions ticked at his camp), so the drop is the fallback. Danger-at-the-spot sweep (#1575, #1695): the step came at the guide's start, at a route level of 29.4, among about 80 spawns of 32-35 Syndicate; players' recordings show 4 people dying there at about 32 to the Footpads, so the tip says to pull singly. Since 0.3.7 (#1466) Valik and this step come on the way back from Southshore, at about 31-32: still under the camps, so the warning stays.",
 			"source": [
 				{
 					"kind": "pfquest",
-					"ref": "npcs.json 2240 level 32-33, 2241 level 33-34"
+					"ref": "npcs.json 2240 level 32-33, 2241 level 33-34, 2319 Syndicate Wizard 34-35"
 				},
 				{
 					"kind": "eg",
 					"ref": "EG Link live creature records 2240, 2241"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 533.1 ticks by 17 people at 29-34 (median 32); 4 people died within 60 yd of the step's point at about 32, a Syndicate Footpad among the foes"
 				}
 			]
 		},
@@ -4712,8 +4916,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.",
-			"note": "Horde 30-40 audit (2026-11-09): Cave Yeti 2248 is 30-31 and Ferocious Yeti 2249 31-32; the tip said 30-31 for both.",
+			"tip": "South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs.",
+			"note": "Horde 30-40 audit (2026-11-09): Cave Yeti 2248 is 30-31 and Ferocious Yeti 2249 31-32; the tip said 30-31 for both. #1695: the rod's goal now points at the caverns (places.json 1695-helcular-rod-foothill-caverns), and the tip says to stay there rather than farm the northern cave's 32-34 yetis.",
 			"source": {
 				"kind": "pfquest",
 				"ref": "npcs.json 2248 level 30-31, 2249 level 31-32"
@@ -5379,6 +5583,66 @@
 				{
 					"kind": "pfquest",
 					"ref": "data/forever/npcs.json Rebel Camp NPCs"
+				}
+			]
+		},
+		{
+			"id": "1575-flame-of-uzel-danger",
+			"faction": "Horde",
+			"at": {
+				"quest": 553,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "Careful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in.",
+			"note": "Helcular's Revenge (553): the Flame of Uzel's cave in the hills north of the Foothill Caverns is reached at about 30-31 on the 29-33 Hillsbrad guide, and the mobs at the flame are higher. Players' recordings (13 charges of 553.3, recorded on the Alterac map at 37.5,66.3-67.3, the same spot as Hillsbrad 41.7,6.4 across the zone border) show Giant Yetis 2251 (33-34) and Mountain Yetis 2250 (32-33) at the flame, pulled in pairs, and the rare Frostmaw 4504 (37) nearby (6 of those runs); the one recorded death there followed a two-yeti pull. Crushridge ogres were seen near the flame by one person in the whole archive (Tincho's report among them) and Skhowl by one, so the tip leaves them out. A caution, not a route change: the 38-39 Alterac visit never goes back to Southshore's graveyard for the hand-in, and the other two flames are in the caverns earlier in this guide. First case of the danger-at-the-spot check (#1575).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1575: Tincho's report on Discord (0.3.6), level 30.8 at the Flame of Uzel with a level 35 Crushridge ogre beside it"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature spawns within 45 yd of gameobject 1770 (Flame of Uzel, 263.4,-267.7): 2251 Giant Yeti x3 (level 33), 2452 Skhowl (rare, 36); npc levels 2252 Crushridge Ogre 34-35, 2253 Crushridge Brute 35"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py, 2026-11-10: 13 runs of 553.3; hostiles within 4 map units of the charge (Alterac 37.5,66.8), 10 min before to 3 min after: 2251 (17 sightings by people, killed by 7), 2250 (11, killed by 3), 4504 Frostmaw (6, killed by 3); 1 death after a 2251+2250 pull; archive-wide within 6 units: 2252 by 1 person, 2253 by none, 2452 by 1"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1676-barrens-ratchet-flight-for-its-quests",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/04-the-barrens",
+				"goal": "fly",
+				"fly": "Ratchet"
+			},
+			"when": "onquest 1094,874,873",
+			"note": "The Barrens & Stonetalon (horde/04) ends with a flight from the Crossroads to Ratchet for Sputtervalve (Further Instructions 1094, only for players carrying it) and Mahren Skyseer on the Merchant Coast (874, then Isha Awak 873). A player with none of them in the log flew to Ratchet for nothing, and the next guide (horde/07-ashenvale) opens with a flight to Zoram'gar Outpost that goes back through the Crossroads. The flight now shows only while one of those quests is in the log; without them the next guide's flight leaves from the Crossroads.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1676: report at step 43 of 0.3.6 with 1094, 874 and 873 not in the quest log and Mahren's steps hidden"
+				}
+			],
+			"issue": 1676
+		},
+		{
+			"id": "alliance-southshore-shadowy-assassin-optional",
+			"faction": "Alliance",
+			"at": {
+				"quest": 522,
+				"goal": "accept"
+			},
+			"tip": "A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.",
+			"note": "#1542: the Southshore step waited on the Shadowy Assassin (2434), the only source of Assassin's Contract (3668, starts 522); his kill, the contract, 522 and Baron's Demise (523) are optional now (route-fixes deliberate.optional 522, 523), so the tip says not to wait for him.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-10: the Shadowy Assassin seen by 5 people and killed by 4 in all, at spots spread around Southshore's edge (Hillsbrad 47-55, 54-62)"
 				}
 			]
 		}

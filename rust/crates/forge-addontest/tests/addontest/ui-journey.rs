@@ -25,7 +25,7 @@ Nav.travel = {
 }
 function Nav.GetRoute() return R.legs, R.legs and R.ci end
 MENU = 0
-Nav.prompts = { MenuItems = function() return { { text = "Mark this leg done" } } end, OpenMenu = function() MENU = MENU + 1 end }
+Nav.prompts = { MenuItems = function() return { { text = "Mark this leg done" } } end, CanSkip = function() return true end, OpenMenu = function() MENU = MENU + 1 end }
 Polestar.Transit = {
 	Now = function() return 1000 + GetTime() end,
 	NextDeparture = function(kind, id, at, side) DEP = { kind, id, side }; return R.wait, R.ride, R.timed end,
@@ -97,6 +97,44 @@ fn header_destination_and_numbered_steps_36_48_8_0k_yd_the_lift_with_its_departu
 }
 
 #[test]
+fn a_walk_that_goes_round_a_hostile_town_says_detour_around_under_its_step_only_with_the_option_on_a_hostile_town_it_enters_comes_first() {
+	let out = run(r#"
+		local T = Polestar.Nav.travel
+		T.AvoidText = function(leg) return leg.hubs and leg.hubs.avoided and ("Detour around " .. leg.hubs.avoided[1].name) or nil end
+		T.HubText = function(leg) return leg.hubs and leg.hubs[1] and ("Hostile town: " .. leg.hubs[1].name) or nil end
+		R.legs[3].hubs = { avoided = { { id = 12, name = "Southshore" } } }
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())
+		Polestar.Set("nav.detourCaption", true)
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())
+		R.legs[3].hubs = { { id = 13, name = "Tarren Mill" }, avoided = { { id = 12, name = "Southshore" } } }
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())"#);
+	assert_eq!(out[0]["rows"][2]["sub"], false, "off by default: no caption");
+	assert_eq!(out[1]["rows"][2]["sub"], "Detour around Southshore");
+	assert_eq!(out[1]["rows"][0]["sub"], false, "a walk with no detour has no line");
+	assert_eq!(out[2]["rows"][2]["sub"], "Hostile town: Tarren Mill", "the warning for a town it enters comes first");
+}
+
+#[test]
+fn a_split_walk_shows_the_detour_caption_once_not_under_every_piece() {
+	let out = run(r#"
+		local T = Polestar.Nav.travel
+		T.AvoidText = function(leg) return leg.hubs and leg.hubs.avoided and ("Detour around " .. leg.hubs.avoided[1].name) or nil end
+		Polestar.Set("nav.detourCaption", true)
+		local P = {}
+		R.legs = {
+			{ kind = "walk", label = "Cross the bridge", seconds = 60, yards = 300, parent = P, to = { name = "Bridge" } },
+			{ kind = "walk", label = "Walk to the cave mouth", seconds = 90, yards = 500, parent = P, to = { name = "Cave" },
+				hubs = { avoided = { { id = 12, name = "Southshore" } } } },
+			{ kind = "walk", label = "Walk to the lift", seconds = 40, yards = 200, parent = P, to = { name = "Lift" } },
+			{ kind = "walk", label = "Walk to the target", seconds = 30, yards = 150, parent = P, to = { name = "Target" } },
+		}
+		R.ci = 1
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())"#);
+	let subs: Vec<Value> = rows(&out[0]).iter().map(|r| r["sub"].clone()).collect();
+	assert_eq!(subs, vec![json!(false), json!("Detour around Southshore"), json!(false), json!(false)], "one caption, under the piece that carries the town");
+}
+
+#[test]
 fn times_read_0_15_11_10_1_02_03_nothing_unreadable_reaches_the_screen() {
 	let out = run(r#"emit({ JP.FormatTime(15), JP.FormatTime(670), JP.FormatTime(3723), JP.FormatTime(0), JP.FormatTime(0.2),
 		JP.FormatTime(0/0), JP.FormatTime(math.huge), JP.FormatTime(-4), JP.FormatTime(nil) })"#);
@@ -165,6 +203,28 @@ fn collapses_with_a_click_on_the_header_the_totals_stay_the_steps_go() {
 fn clicking_the_current_step_opens_the_skip_menu_a_later_step_does_not() {
 	let out = run("JP.rows[2]:Click(); JP.rows[1]:Click(); emit(MENU)");
 	assert_eq!(out[0], 1);
+}
+
+// #1686: a player sent to Blackfathom Deeps by "Guide me to the entrance" had the journey there in the guide
+// window long after the run, with no way to remove it but marking its legs done, which the route (planned from
+// where she stood) brought back. A journey to a point of your own has an x on its header, "Back to the guide":
+// the point lets go and the journey with it. The guide's own route has none.
+#[test]
+fn a_journey_to_a_point_of_your_own_has_an_x_back_to_the_guide_that_ends_it_the_guide_s_own_route_has_none_1686() {
+	let out = run(r#"
+		local h = JP.head
+		local _, rel = h.Icon:GetPoint(1)
+		local own = { shown = h.Close:IsShown(), tip = h.Close.psTip, chevron = rel == h.Close }
+		local calls = #uistub.calls
+		h.Close:Click()
+		local back = { asked = uistub.calls[calls + 1] and uistub.calls[calls + 1][1] or false, target = uistub.target == nil }
+		Polestar.Fire("ROUTE_CHANGED", R.legs) -- the guide's step has a route of its own
+		local _, rel2 = h.Icon:GetPoint(1)
+		emit({ own = own, back = back, guide = { shown = h.Close:IsShown(), chevron = rel2 == h } })"#);
+	let out = &out[0];
+	assert_eq!(out["own"], json!({ "shown": true, "tip": "Back to the guide", "chevron": true }));
+	assert_eq!(out["back"], json!({ "asked": "BackToGuide", "target": true }));
+	assert_eq!(out["guide"], json!({ "shown": false, "chevron": true }));
 }
 
 #[test]
@@ -326,4 +386,57 @@ fn a_walk_that_enters_a_hostile_town_says_so_under_its_step_hostile_town_southsh
 	assert_eq!(s["rows"][0]["sub"], "Hostile town: Tarren Mill, Hammerfall");
 	assert_eq!(s["rows"][1]["sub"], "average wait 0:15 \u{b7} ride 0:10", "a ride keeps its departure line");
 	assert!(num(&s["rows"][2]["h"]) > 24.0, "the warning has its own line");
+}
+
+// Fitz, 0.3.7 (a First Aid trip from Orgrimmar to Stonetalon): the journey read "Go to Durotar" twice and "Go to
+// Stonetalon Mountains" twice, the walk to each zone crossing and the walk across it. Consecutive walks with the same
+// line are one row, their times added; a row's number is its place in the route, a walk half done keeps its row and
+// number. A walk through a hostile town keeps a row of its own.
+const CROSSINGS: &str = r#"
+R.legs = {
+	{ kind = "walk", step = "crossing", label = "Walk to Durotar", seconds = 28, yards = 180 },
+	{ kind = "walk", step = "crossing", label = "Walk to Durotar", seconds = 21, yards = 140 },
+	{ kind = "walk", step = "crossing", label = "Walk to Stonetalon Mountains", seconds = 622, yards = 4300 },
+	{ kind = "walk", step = "crossing", label = "Walk to Stonetalon Mountains", seconds = 106, yards = 700 },
+	{ kind = "walk", label = "Collect Wool Cloth", seconds = 208, yards = 1500 },
+}
+R.ps, R.py = 28, 180
+Polestar.Fire("ROUTE_CHANGED", R.legs)
+"#;
+
+#[test]
+fn consecutive_walks_to_the_same_place_are_one_row_with_their_times_added() {
+	let out = run(&format!(
+		r#"{CROSSINGS}
+		emit(shot())
+		R.ci, R.ps, R.py = 2, 21, 140; Polestar.Fire("ROUTE_ADVANCED", R.legs, 2); emit(shot())
+		R.ci, R.ps, R.py = 3, 622, 4300; Polestar.Fire("ROUTE_ADVANCED", R.legs, 3); emit(shot())"#
+	));
+	assert_eq!(
+		pick(&out[0], &["num", "text", "time", "bar"]),
+		json!([["1", "Walk to Durotar", "0:49", true], ["2", "Walk to Stonetalon Mountains", "12:08", false], ["3", "Collect Wool Cloth", "3:28", false]])
+	);
+	assert_eq!(out[0]["time"], "16:25");
+	assert_eq!(
+		pick(&out[1], &["num", "text", "time"]),
+		json!([["1", "Walk to Durotar", "0:21"], ["2", "Walk to Stonetalon Mountains", "12:08"], ["3", "Collect Wool Cloth", "3:28"]]),
+		"half done: its row and number"
+	);
+	assert_eq!(pick(&out[2], &["num", "text", "time"]), json!([["2", "Walk to Stonetalon Mountains", "12:08"], ["3", "Collect Wool Cloth", "3:28"]]));
+}
+
+#[test]
+fn a_walk_through_a_hostile_town_keeps_a_row_of_its_own() {
+	let out = run(&format!(
+		r#"{CROSSINGS}
+		Polestar.Nav.travel.HubText = function(leg) return leg.hubs and "Hostile town: Crossroads" or nil end
+		R.legs[4].hubs = {{ "Crossroads" }}
+		R.legs = {{ R.legs[1], R.legs[2], R.legs[3], R.legs[4], R.legs[5] }}
+		Polestar.Fire("ROUTE_CHANGED", R.legs); emit(shot())"#
+	));
+	assert_eq!(
+		pick(&out[0], &["num", "text", "time"]),
+		json!([["1", "Walk to Durotar", "0:49"], ["2", "Walk to Stonetalon Mountains", "10:22"], ["3", "Walk to Stonetalon Mountains", "1:46"], ["4", "Collect Wool Cloth", "3:28"]])
+	);
+	assert_eq!(out[0]["rows"][2]["sub"], "Hostile town: Crossroads");
 }

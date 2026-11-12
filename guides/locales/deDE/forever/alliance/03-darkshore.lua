@@ -167,9 +167,9 @@ return {
 	["Moonstalker Fangs"] = "Mondpirscher-Fangzähne",
 
 	-- Step 31: The Tower of Althalaxx
-	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale
-	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
-	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "",
+	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
+	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
+	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "Östlich der Dröhnkiste 323 versteckt sich {npc:3661} am Fuß des Turms zwischen den Fanatikerinnen des dunklen Strangs. Behalte seinen Brief für Delgren in {zone:1440}.\nVorsicht: Leerruferinnen des dunklen Strangs (28-29) mit ihren Leerwandlern und {npc:3660} (31) stehen im Turm selbst: Hol dir die Pergamente von den Fanatikerinnen südlich davon und halte dich vom Turm fern.",
 	-- {item:5348} Worn Parchment
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: Fanatikerinnen des dunklen Strangs",

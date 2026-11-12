@@ -28,7 +28,6 @@ step Light's Hope Chapel
   accept 5281                         -- Caretaker Alen
   accept 6021                         -- Caretaker Alen
   turnin 6030                         -- Duke Nicholas Zverenhoff
-  accept 5510 optional
 
 step Pamela Redpath
   tip Pamela's ghost stands in the ruins of Darrowshire, in the south-west.
@@ -53,14 +52,14 @@ step Zaeldarr the Outcast
 
 step Pestilent Scar
   tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
-  collect 12840 quest 5510 optional
+  collect 12840 x20 optional
 
 step Back to Light's Hope Chapel
   turnin 6021                         -- Caretaker Alen
   turnin 5241                         -- Carlin Redpath
   accept 5211
   note Defenders of Darrowshire's spirits come with the Corin's Crossing stop later in this guide: keep it.
-  turnin 5510 optional
+  turnin 5510 direct optional
 
 # ---------------------------------------------------------------- Western Plaguelands: Marlene and Chromie
 

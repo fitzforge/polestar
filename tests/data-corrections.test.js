@@ -200,6 +200,13 @@ test('dungeon turn-in NPCs the data placed nowhere stand where players hand in t
 	assert.deepEqual(corrections.npcs[15991].set.spawns, { 1453: { f: 'e', pts: [[68.15, 29], [70.18, 29.86]] } }, 'Lady Dena Kennedy: Crest of Lordaeron, Stormwind City');
 });
 
+test('the Dalaran traitors stand in the camp south of their Classic spot, where players kill them (#1633)', () => {
+	const at = (id) => corrections.npcs[id].set.spawns;
+	assert.deepEqual(at(2414), { 1416: { f: 'l', pts: [[16.8, 89.4]] }, 1424: { f: 'l', pts: [[23.6, 26.7]] } }, 'Kegan Darkmar: Bloodstone Oval');
+	assert.deepEqual([2411, 2412, 2413].map((id) => at(id)[1416].pts), [[[19.5, 90]], [[19.6, 90.9]], [[19.3, 91.5]]], 'Ricter, Alina and Dermot');
+	for (const id of [2411, 2412, 2413, 2414]) assert.ok(at(id)[1424], `npc ${id}: its Hillsbrad Foothills spot moves too`);
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
@@ -209,4 +216,56 @@ test('class quests the data left open are locked to their class, and Magma or La
 	assert.ok('classes' in lava && lava.classes === null, 'Magma or Lava?: no class limit');
 	assert.ok('races' in lava && lava.races === null, 'Magma or Lava?: no race limit');
 	assert.deepEqual(lava.end, { npc: [5497, 7825], object: [] }, 'its enders stay');
+});
+
+// #1490: The Great Outdoors' corrections gave it The Adventurer as its prerequisite, but the quest data also names The
+// Adventurer as its breadcrumb (The Great Outdoors' `breadcrumbs`, The Adventurer's `breadcrumbFor`), and a breadcrumb
+// never blocks, so the Codex had no prerequisite. Players' recordings: every Great Outdoors giver refuses it until The
+// Adventurer is handed in. The corrections clear both breadcrumb links, so the prerequisite stands over the data's.
+test('The Great Outdoors waits for The Adventurer, whatever breadcrumb links the data has (#1490)', () => {
+	const pairs = { 95998: 96627, 96101: 96638, 96604: 96652, 96605: 96659, 96606: 96630, 96607: 96656, 96608: 96628 };
+	for (const [g, a] of Object.entries(pairs).map(([g, a]) => [Number(g), a])) {
+		const ge = corrections.quests[g];
+		const ae = corrections.quests[a];
+		assert.ok(ge && ae, `corrections for ${g} and ${a}`);
+		// The records as the merged data has them (questie: breadcrumb links both ways), with the corrections applied.
+		const quest = { id: g, start: { npc: [1] }, breadcrumbs: [a], ...ge.set };
+		const adventurer = { id: a, start: { npc: [2] }, breadcrumbFor: g, ...ae.set };
+		const { all, any } = blockingPrereqs(quest, (id) => (id === a ? adventurer : null));
+		assert.deepEqual({ all, any }, { all: [], any: [a] }, `${g} after ${a}`);
+	}
+});
+
+// The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
+// players' recorded hand-ins at a full-XP level, but for Harvesting the Harvesters (92911): one hand-in in the 2026-11-08
+// count and none in the recordings archive now, so it stays as the data has it until a second source agrees. The corrections hold the recorded values, so the level model gets them.
+test('quest XP the recordings confirm is held by the corrections (1.0.13 trace XP check)', () => {
+	const xp = {
+		91723: 525, 91732: 320, 91740: 875, 91745: 25, 91758: 35, 91772: 360, 92750: 120, 92751: 120, 95495: 140, 95507: 1000,
+		95508: 1350, 95805: 360, 96130: 340, 96139: 1400, 96241: 2350, 96259: 2350, 96260: 1750, 96825: 550, 96874: 850, 97242: 110,
+		97246: 110, 97249: 110, 97253: 1050, 97282: 850, 97326: 550, 97914: 625, 97926: 625, 97944: 270, 98094: 1000, 98251: 1400,
+		98252: 925, 98298: 1150, 98319: 350, 99048: 80, 99049: 390, 99052: 1100, 99080: 875, 99082: 90, 99108: 270, 99127: 480,
+		99131: 65, 99143: 480, 99159: 350, 99160: 525,
+	};
+	const got = Object.fromEntries(Object.keys(xp).map((q) => [q, corrections.quests[q] && corrections.quests[q].set.xp]));
+	assert.deepEqual(got, Object.fromEntries(Object.entries(xp).map(([q, v]) => [q, v])));
+});
+
+test('Call of Fire has its third giver, The Horn of Xelthos its horn, and A Simmering Storm\'s chain stays Horde only (1.0.13 review)', () => {
+	assert.deepEqual(corrections.quests[94449].set.start.npc, [258098, 258113, 257446], 'Teo Hammerstorm in Dun Morogh gives Call of Fire too');
+	assert.deepEqual(corrections.quests[78261].set.objectives, [{ type: 'item', id: 210183, count: 1, text: 'Horn of Xelthos' }]);
+	for (const q of [97281, 97282]) assert.equal(corrections.quests[q] && corrections.quests[q].set.races, 8589934770, `${q}: Horde races`);
+});
+
+test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s races: Zephras Isle, both Skyborne, the Horde Skyborne village, Call of Fire, the Horde Shaman chain', () => {
+	const races = (id) => (corrections.quests[id] && 'races' in corrections.quests[id].set ? corrections.quests[id].set.races : undefined);
+	const SKYBORNE = 2 ** 32 + 2 ** 33;
+	const HORDE = 2 + 16 + 32 + 128 + 2 ** 33;
+	const ALLIANCE = 1 + 4 + 8 + 64 + 2 ** 32;
+	const zephras = [92460, 92461, 92462, 92463, 92472, 92516, 92550, 92553, 92682, 92685, 93160, 93165, 93317, 93320, 93926, 93951, 94486, 94489, 94568, 94897, 96101];
+	assert.deepEqual(zephras.filter((id) => races(id) !== null), [], 'the Zephras Isle quests both Skyborne starts take have no race limit');
+	assert.deepEqual([92474, 94003, 94006, 98404].map(races), [SKYBORNE, SKYBORNE, SKYBORNE, SKYBORNE], 'Alliance and Horde Skyborne');
+	assert.deepEqual([92514, 92595].map(races), [HORDE, HORDE], "Welcome to Shen'dar Village and The Windshapers: the Horde, not Tauren only");
+	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
+	assert.deepEqual([79361, 79442].map(races), [HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
 });

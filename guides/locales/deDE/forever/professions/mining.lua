@@ -26,11 +26,9 @@ return {
 	-- {zone:1426} Dun Morogh
 	["Copper & Poor Copper: {zone:1426} (1-50)"] = "Kupfer & Poor Copper: {zone:1426} (1-50)",
 
-	-- Step 4: Copper: Darkshore (1-50)
-	-- {zone:1439} Darkshore
-	["Copper: {zone:1439} (1-50)"] = "Kupfervorkommen: {zone:1439} (1-50)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 60 nodes for these 49 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, orange). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 50 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 10-20. Rechne mit etwa 60 Vorkommen für diese 49 Punkte.",
+	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
+	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Baue unterwegs jedes dieser Vorkommen ab: {object:656332} (1, orange), {object:656333} (1, orange). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 50 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 60 Vorkommen für diese 49 Punkte.",
 
 	-- Step 5: Copper: Zephras Isle (1-50)
 	-- {zone:2521} Zephras Isle
@@ -46,7 +44,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (1-50)"] = "Kupfervorkommen: {zone:1412} (1-50)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, orange). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 50 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 60 Vorkommen für diese 49 Punkte.",
+	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, orange), Armes Kupfer (1, orange, selten). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 50 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 60 Vorkommen für diese 49 Punkte.",
 
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -69,11 +67,11 @@ return {
 	-- {zone:1426} Dun Morogh
 	["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "Kupfer & Poor Copper: {zone:1426} (50-65) Forts.",
 
-	-- Step 12: Copper: Darkshore (50-65) cont.
-	-- {zone:1439} Darkshore
-	["Copper: {zone:1439} (50-65) cont."] = "Kupfervorkommen: {zone:1439} (50-65), Fortsetzung",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 80 nodes for these 15 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, gelb). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 65 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 10-20. Rechne mit etwa 80 Vorkommen für diese 15 Punkte.",
+	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {zone:1438} Teldrassil
+	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} & {object:656333}: {zone:1438} (50-65), Fortsetzung",
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
+	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Baue unterwegs jedes dieser Vorkommen ab: {object:656332} (1, gelb), {object:656333} (1, gelb). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 65 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 80 Vorkommen für diese 15 Punkte.",
 
 	-- Step 13: Copper: Zephras Isle (50-65) cont.
 	-- {zone:2521} Zephras Isle
@@ -89,7 +87,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (50-65) cont."] = "Kupfervorkommen: {zone:1412} (50-65), Fortsetzung",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, gelb). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 65 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 80 Vorkommen für diese 15 Punkte.",
+	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, gelb), Armes Kupfer (1, gelb, selten). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 65 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 80 Vorkommen für diese 15 Punkte.",
 
 	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
 	-- {zone:1420} Tirisfal Glades
@@ -112,7 +110,6 @@ return {
 	["Tin: {zone:1440} (65-125)"] = "Zinn: {zone:1440} (65-125)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, grün), Zinn (65, orange), Silber (ab 75, selten). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 125 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70), {spell:3304} (grau ab 75), {spell:2659} (grau ab 115) bringen ebenfalls Punkte. {spell:2659} braucht je 1 {item:2840} und 1 {item:3576}: Behalte Barren aus den vorherigen Schmelzen. Gebietsstufe 18-30. Rechne mit etwa 130 Vorkommen für diese 60 Punkte. {spell:2658} (2s; orange bis 100, grau ab 125) wird ab 75 gelehrt: Nimm das mit, wenn du an einem {skill:186}-Lehrer vorbeikommst; eine eigene Reise ist es nicht wert.",
-	["Tin, Silver"] = "Zinnvorkommen, Silbervorkommen",
 	["Tin"] = "Zinnvorkommen",
 
 	-- Step 20: Copper & Tin: The Barrens (65-125)
@@ -140,14 +137,13 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Zinn (65, grün), Geringer Blutstein (75, grün), Silber (75, grün, selten), Eisen (125, orange). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 155 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:3307} (orange bis 130, grau ab 140) bringt ebenfalls Punkte. Gebietsstufe 30-40. Rechne mit etwa 50 Vorkommen für diese 30 Punkte.",
 	["Iron, Tin"] = "Eisen, Zinn",
-	["Lesser Bloodstone, Silver"] = "Geringer Blutstein, Silber",
+	["Lesser Bloodstone"] = "Geringer Blutstein",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
 	["Iron: {zone:1417} (155-175)"] = "Eisen: {zone:1417} (155-175)",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node you pass and circle the waypoints until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 30-40. Expect about 40 nodes for these 20 points. {spell:3308} (25s; orange to 170, grey at 185) is taught from 155: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Baue unterwegs jedes dieser Vorkommen ab: Zinn (65, grün), Geringer Blutstein (75, grün), Silber (75, grün, selten), Eisen (125, gelb), Gold (155, orange, selten). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 175 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:3308} (orange bis 170, grau ab 185) bringt ebenfalls Punkte. Gebietsstufe 30-40. Rechne mit etwa 40 Vorkommen für diese 20 Punkte. {spell:3308} (25s; orange bis 170, grau ab 185) wird ab 155 gelehrt: Nimm das mit, wenn du an einem {skill:186}-Lehrer vorbeikommst; eine eigene Reise ist es nicht wert.",
-	["Lesser Bloodstone, Gold"] = "Geringer Blutstein, Gold",
 
 	-- Step 25: Mithril: Badlands (175-200)
 	-- {zone:1418} Badlands
@@ -205,6 +201,8 @@ return {
 	-- ["Copper: {zone:1420} (50-65) cont."] = "Kupfervorkommen: {zone:1420} (50-65), Fortsetzung",
 	-- ["Copper: {zone:1426} (1-50)"] = "Kupfervorkommen: {zone:1426} (1-50)",
 	-- ["Copper: {zone:1426} (50-65) cont."] = "Kupfervorkommen: {zone:1426} (50-65), Fortsetzung",
+	-- ["Copper: {zone:1439} (1-50)"] = "Kupfervorkommen: {zone:1439} (1-50)",
+	-- ["Copper: {zone:1439} (50-65) cont."] = "Kupfervorkommen: {zone:1439} (50-65), Fortsetzung",
 	-- ["Expert {skill:186} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} (Experte) hebt die Obergrenze auf 225; dafür brauchst du Fertigkeit 125 und Charakterstufe 20. Der Pfeil wählt den nächsten Lehrer für {skill:186} deiner Fraktion.",
 	-- ["Gold"] = "Goldvorkommen",
 	-- ["Gold & Mithril: {zone:1435} (175-200)"] = "Goldvorkommen & Mithrilablagerung: {zone:1435} (175-200)",
@@ -216,12 +214,18 @@ return {
 	-- ["Iron: {zone:1416} (125-155)"] = "Eisenvorkommen: {zone:1416} (125-155)",
 	-- ["Iron: {zone:1431} (125-155)"] = "Eisenvorkommen: {zone:1431} (125-155)",
 	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} (Geselle) hebt die Obergrenze auf 150; dafür brauchst du Fertigkeit 50 und Charakterstufe 10. Der Pfeil wählt den nächsten Lehrer für {skill:186} deiner Fraktion.",
+	-- ["Lesser Bloodstone, Gold"] = "Geringer Blutstein, Gold",
+	-- ["Lesser Bloodstone, Silver"] = "Geringer Blutstein, Silber",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfervorkommen (1, grün), Zinnvorkommen (65, orange), Silbervorkommen (ab 75). Lauf die Wegpunkte ab, bis {skill:186} 125 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 10-20.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfervorkommen (1, grün), Zinnvorkommen (65, orange), Silbervorkommen (ab 75). Lauf die Wegpunkte ab, bis {skill:186} 125 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 10-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 15-25."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfervorkommen (1, grün), Zinnvorkommen (65, orange), Silbervorkommen (ab 75). Lauf die Wegpunkte ab, bis {skill:186} 125 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 15-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfervorkommen (1, grün), Zinnvorkommen (65, orange), Silbervorkommen (ab 75). Lauf die Wegpunkte ab, bis {skill:186} 125 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 20-30.",
+	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, orange). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 50 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 60 Vorkommen für diese 49 Punkte.",
+	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 60 nodes for these 49 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, orange). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 50 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 10-20. Rechne mit etwa 60 Vorkommen für diese 49 Punkte.",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfervorkommen (1, orange). Lauf die Wegpunkte ab, bis {skill:186} 50 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 1-10.",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfervorkommen (1, orange). Lauf die Wegpunkte ab, bis {skill:186} 50 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 10-20.",
+	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, gelb). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 65 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 80 Vorkommen für diese 15 Punkte.",
+	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 80 nodes for these 15 points."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfer (1, gelb). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 65 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 10-20. Rechne mit etwa 80 Vorkommen für diese 15 Punkte.",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfervorkommen (1, gelb). Lauf die Wegpunkte ab, bis {skill:186} 65 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 1-10.",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Baue unterwegs jedes dieser Vorkommen ab: Kupfervorkommen (1, gelb). Lauf die Wegpunkte ab, bis {skill:186} 65 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 10-20.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 45-55."] = "Baue unterwegs jedes dieser Vorkommen ab: Goldvorkommen (155, grün), Mithrilablagerung (175, grün), Echtsilberablagerung (230, orange), Kleines Thoriumvorkommen (245, orange). Lauf die Wegpunkte ab, bis {skill:186} 275 erreicht ist. Schmilz das Erz an einer Schmiede, wenn deine Taschen voll sind: Auch Schmelzen steigert {skill:186}. Gebietsstufe 45-55.",
@@ -238,6 +242,7 @@ return {
 	-- ["Tin & Silver: {zone:1424} (65-125)"] = "Zinnvorkommen & Silbervorkommen: {zone:1424} (65-125)",
 	-- ["Tin & Silver: {zone:1433} (65-125)"] = "Zinnvorkommen & Silbervorkommen: {zone:1433} (65-125)",
 	-- ["Tin & Silver: {zone:1439} (65-125)"] = "Zinnvorkommen & Silbervorkommen: {zone:1439} (65-125)",
+	-- ["Tin, Silver"] = "Zinnvorkommen, Silbervorkommen",
 	-- ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "Echtsilberablagerung & Kleines Thoriumvorkommen: {zone:1419} (245-275)",
 	-- ["Truesilver, {object:147516}"] = "Echtsilberablagerung, {object:147516}",
 	-- ["{object:147516} & Truesilver: {zone:1427} (230-245)"] = "{object:147516} & Echtsilberablagerung: {zone:1427} (230-245)",

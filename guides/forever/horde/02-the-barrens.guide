@@ -17,6 +17,9 @@ next forever/horde/05-stonetalon-mountains
 # Left out: The Harvester (897).
 # Trial at the Field of Giants (1824, Warriors) runs for 30 minutes: it is taken from Ruga on Jorn's stop after the thunder
 # lizards, right before the thunderhawks, the eggs and the antennae, not on the first Camp Taurajo stop.
+# Apothecary Zamah (853) runs for 45 minutes and Helbrim offers it on the Fungal Spores hand-in: only Druids
+# take it, on the next Crossroads stop, and hand it to Zamah on the Thunder Bluff step that follows; the
+# route takes nobody else to Thunder Bluff, so the Fungal Spores step's tip says to leave it.
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): the Barrens come after Silverpine
 # Forest, as one stay at 15-21 with the low Stonetalon road (the Webwinder Path and Windshear
@@ -31,14 +34,14 @@ next forever/horde/05-stonetalon-mountains
 # Flow: Orgrimmar -> Far Watch Post (Orcs and Trolls: Kargal, Uzzek) -> the Crossroads (flight
 # path, bind) -> the Razormane camp -> the Crossroads -> Ratchet (Southsea beach) -> the oases and
 # Regthar -> the Dry Hills -> the Sludge Fen console -> the Razormane camp -> the Crossroads ->
-# the Stagnant Oasis -> the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
+# the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
 # (Samophlange handed in): the Raptor Grounds' nests and the silver -> Gazlowe's Stolen Booty on
 # the beach -> Northwatch Hold and Gilthares' escort back to Ratchet -> fly to the Crossroads ->
 # the Dry Hills (Vrang, Walton) -> Wenikee -> the Sludge Fen shredder
-# and Nugget Slugs -> the Boulder Lode Mine -> Wenikee -> the Crossroads -> Verog -> Camp Taurajo (flight path) -> the Bristleback camps ->
+# and Nugget Slugs -> the Boulder Lode Mine -> Wenikee -> the Crossroads -> Verog and Tonga's seed test at the Stagnant Oasis -> Camp Taurajo (flight path) -> the Bristleback camps ->
 # Agama'gor -> fly to Orgrimmar for level 20 training -> fly to Ratchet -> Ishamuhale -> the
 # Crossroads, Regthar,
-# Hezrul -> Camp Taurajo (bind): Jorn's thunder lizards and thunderhawks -> the Crossroads:
+# Hezrul and the snapjaws at Lushwater -> Camp Taurajo (bind): Jorn's thunder lizards and thunderhawks -> the Crossroads:
 # Counterattack! -> west to Seereth, Makaba and Malaka'jin -> the Webwinder Path, Ziz Fizziks and
 # Windshear Crag -> back down: Kaya's escort from Grundig's hut to Camp Aparaje -> Malaka'jin ->
 # Seereth. The next guide goes north to the Mor'shan Rampart and
@@ -145,6 +148,7 @@ step Razormane camp: Thork's quilboar
   only Orc,Troll,Warrior,Shaman
   zone The Barrens
   tip While you are in the camp: Thork's Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.
+  tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.
   kill 3267 quest 871.1
   kill 3268 quest 871.2
   kill 3265 quest 871.3
@@ -215,6 +219,7 @@ step Plainstrider Beaks as you go
 step Razormane camp
   tip In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.
   tip Plainstriders here count toward the beaks.
+  tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.
   kill 3267 quest 871.1
   kill 3268 quest 871.2
   collect 12708 quest 5041.1 @58.8,25.8
@@ -279,6 +284,7 @@ step Thunder lizards across the river
   only Tauren,Warrior
   zone Durotar
   tip Thunder Lizards and Lightning Hides graze just across the bridge below Far Watch Post.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 6486 quest 1498.1 only Tauren
 
 step Durotar
@@ -332,6 +338,7 @@ step Ratchet
   accept 887                          -- Gazlowe, upstairs
   accept 97253                        -- Wrenix the Wretched
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
+  getfp "Ratchet" only Orc,Skyborne,Tauren,Troll,Undead -- Bragok, beside Sputtervalve
   accept 895                          -- WANTED poster
   accept 865                          -- Mebok Mizzyrix
   sethome "Ratchet"
@@ -359,7 +366,6 @@ step Ratchet
 step Fly to Crossroads
   zone The Barrens
   goto 63.1,37.1 "Ratchet flight master"
-  getfp "Ratchet" only Orc,Skyborne,Tauren,Troll,Undead
   fly "Crossroads"
 
 step The Crossroads
@@ -408,6 +414,7 @@ step Samophlange
 
 step The Disruption Ends
   tip Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them.
+  tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig: pull Kreenig and the quilboar away from them one at a time.
   kill 3266 quest 872.2
   kill 3269 quest 872.1
   collect 5063 quest 872.3 @58.5,27.0
@@ -441,7 +448,7 @@ step Kranal Fiss
 
 step The Crossroads
   zone The Barrens
-  tip Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate on the way out.
+  tip Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate last. His seed test waits for the Verog pass at the Stagnant Oasis: go straight on north-west to the Dry Hills. After the spores Helbrim offers Apothecary Zamah, a delivery to Thunder Bluff within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to Thunder Bluff).
   turnin 903                          -- Sergra Darkthorn
   accept 881
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
@@ -452,13 +459,7 @@ step The Crossroads
   accept 4921                         -- Mankrik: his wife lies at the north edge of the Bristleback camps, later
   accept 899                          -- Mankrik
   turnin 870                          -- Tonga Runetotem
-  accept 877
-
-# ---------------------------------------------------------------- South and Ratchet
-
-step The Stagnant Oasis
-  tip South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; Tonga takes the result on the next Crossroads stop, so carry on north-west to the Dry Hills from here.
-  interact 3737 quest 877.1           -- Underwater
+  accept 877                          -- Tonga Runetotem: the bubbling fissure at the Stagnant Oasis, on the Verog pass
 
 # ---------------------------------------------------------------- One loop: north-west, the Dry Hills, east, back south
 
@@ -490,13 +491,12 @@ step Finish the Raptor Heads
 
 step The Crossroads
   label q869
-  tip In from the north gate: Gazrog first, Sergra by the inn, Tonga at the south gate, then up to Darsok and Thork on the tower platform, where the flight master stands.
+  tip In from the north gate: Gazrog first, Sergra by the inn, then up to Darsok and Thork on the tower platform, where the flight master stands.
   turnin 869                          -- Gazrog
   accept 3281                         -- Gazrog: the Stolen Silver, in a raptor nest north-west of Northwatch Hold
+  accept 853 only Druid               -- Apothecary Helbrim: 45 minutes, for Zamah on the Thunder Bluff step next
   turnin 881                          -- Sergra Darkthorn
   accept 905                          -- Sergra Darkthorn: the raptor nests south of the Crossroads
-  turnin 877                          -- Tonga Runetotem
-  accept 880                          -- Tonga Runetotem: the Oasis Snapjaws at the Stagnant Oasis, with Verog
   turnin 875                          -- Darsok Swiftdagger
   accept 876                          -- Darsok Swiftdagger, on the tower: Serena Bloodfeather leads the harpies in the Dry Hills
   accept 6541                         -- Thork, on the tower, from level 17. Keep it: Kadrak at the Mor'shan Rampart, next guide
@@ -506,8 +506,9 @@ step The Crossroads
 step Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Fly from the Crossroads to Thunder Bluff: Turak Runetotem trains you on Elder Rise.
+  tip Fly from the Crossroads to Thunder Bluff. Apothecary Zamah waits in the Pools of Vision, the cave under Spirit Rise: hand in the spores there first, while their time runs. Then Turak Runetotem trains you on Elder Rise.
   fly "Thunder Bluff"
+  turnin 853                          -- Apothecary Zamah, in the Pools of Vision
   train class
   accept 27 only Tauren               -- Turak Runetotem
   accept 6126 only Tauren             -- Turak Runetotem: Lessons Anew
@@ -735,9 +736,9 @@ step the Crossroads
 
 step Verog the Dervish
   zone The Barrens
-  tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for Tonga.
+  tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads. Test Tonga's seeds at the bubbling fissure on the oasis' east bank while you are there.
   collect 5023 quest 851.1
-  collect 5098 quest 880.1
+  interact 3737 quest 877.1           -- Underwater
   kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps
@@ -771,7 +772,8 @@ step Agama'gor
 step The Crossroads
   zone The Barrens
   tip North up the Gold Road to the Crossroads: Tonga Runetotem at the south gate, Mankrik by the inn, Korran west of the north gate. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
-  turnin 880                          -- Tonga Runetotem
+  turnin 877                          -- Tonga Runetotem
+  accept 880                          -- Tonga Runetotem: the Oasis Snapjaws at Lushwater Oasis, with Hezrul after the Orgrimmar trip
   turnin 899                          -- Mankrik
   turnin 4921
   accept 95774                        -- Mankrik offers Her Name Is Olgra once Lost in Battle is handed in
@@ -828,8 +830,7 @@ step Ur'kyo
   zone Orgrimmar
   only Priest
   tip Ur'kyo stands in the Valley of Spirits, on the city's west side.
-  accept 5680 only Troll              -- Ur'kyo
-  turnin 5680 only Troll              -- Ur'kyo: Shadowguard
+  turnin 5680 direct only Troll -- Ur'kyo: Shadowguard
   accept 5646 only Undead             -- Ur'kyo: Aelthalyste in the Undercity, two guides on
 
 step Thunder Bluff
@@ -910,8 +911,9 @@ step Regthar Deathgate
   accept 852
 
 step Hezrul Bloodmark
-  tip Hezrul leads the Kolkar on the west shore of Lushwater Oasis, south of Regthar. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to Regthar on your last Crossroads stop.
+  tip Hezrul leads the Kolkar on the west shore of Lushwater Oasis, south of Regthar. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to Regthar on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for Tonga.
   collect 5025 quest 852.1 @46.0,41.1
+  collect 5098 quest 880.1
 
 step Olgra's Adornments
   tip On the way back down the Gold Road to Camp Taurajo: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry Olgra's Adornments. Hand them to Mankrik on your last Crossroads stop.
@@ -993,7 +995,8 @@ step Camp Taurajo
 
 step The Crossroads
   zone The Barrens
-  tip North up the Gold Road to the Crossroads: Mankrik stands by the inn, Korran west of the north gate.
+  tip North up the Gold Road to the Crossroads: Tonga Runetotem at the south gate, Mankrik by the inn, Korran west of the north gate.
+  turnin 880                          -- Tonga Runetotem
   turnin 95774                        -- Mankrik
   turnin 868                          -- Korran
 

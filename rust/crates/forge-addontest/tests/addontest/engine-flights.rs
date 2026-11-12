@@ -449,6 +449,74 @@ fn a_flight_to_a_known_landing_the_zone_text_names_otherwise_is_done_on_landing_
 	assert_eq!(out, json!({ "before": 1, "landed": [2, "done", "done"] }));
 }
 
+// #1768 (and #1596): Ashenvale & Thousand Needles after the Earthen Ring, for a character who knows Thunder Bluff's
+// flight path and has nothing else in Thunder Bluff. The walk up to its central rise passed because the flight to
+// Camp Taurajo follows (Own.flightOn), and nothing latched it; on landing in Camp Taurajo the flight read done, the
+// next open step was the work south of the camp, so the walk was open again and the arrow sent the player back up to
+// Thunder Bluff, where the flight to Camp Taurajo (never latched: it was no longer the live step when it landed) was
+// open again: Camp Taurajo, Thunder Bluff, Camp Taurajo. The same for a walk straight before a flight (Alliance
+// Arathi Highlands 30-40: "Duskwood", then "Fly to Stormwind", open again on landing in Stormwind). A travel step the
+// route passes for the planner's flight now stays passed.
+const TAURAJO: &str = r#"
+Polestar.RegisterMapFrames({ era = { [1412] = { c = 1, left = 3000, right = -1000, top = -3000, bottom = -6000 } } })
+Polestar.RegisterGuide({ id = "test/taurajo", pack = "test", title = "Ashenvale & Thousand Needles", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "The Earthen Ring", goals = { { t = "turnin", quest = 96259, title = "Defending the Dead", npc = 259118, map = 1412, x = 33.4, y = 22.5 } } },
+	{ title = "Thunder Bluff", goals = { { t = "goto", map = 1412, x = 47.0, y = 49.8, text = "Thunder Bluff's central rise" } } },
+	{ title = "Thunder Bluff", goals = { { t = "getfp", location = "Thunder Bluff", node = 22, map = 1412, x = 47, y = 50 } } },
+	{ title = "Fly to Camp Taurajo", goals = {
+		{ t = "goto", map = 1412, x = 47, y = 50, text = "Thunder Bluff flight master" },
+		{ t = "fly", location = "Camp Taurajo", node = 77 },
+	} },
+	{ title = "Tear of the Moons", goals = { { t = "accept", quest = 857, title = "The Tear of the Moons", npc = 3421, map = 1412, x = 90, y = 80 } } },
+} })
+"#;
+
+const STRAIGHT: &str = r#"
+Polestar.RegisterMapFrames({ era = { [1412] = { c = 1, left = 3000, right = -1000, top = -3000, bottom = -6000 } } })
+Polestar.RegisterGuide({ id = "test/straight", pack = "test", title = "Arathi Highlands", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "The Earthen Ring", goals = { { t = "turnin", quest = 96259, title = "Defending the Dead", npc = 259118, map = 1412, x = 33.4, y = 22.5 } } },
+	{ title = "Bloodhoof Village", goals = { { t = "goto", map = 1412, x = 47.0, y = 60.0, text = "Bloodhoof Village" } } },
+	{ title = "Fly to Camp Taurajo", goals = { { t = "fly", location = "Camp Taurajo", node = 77 } } },
+	{ title = "Tear of the Moons", goals = { { t = "accept", quest = 857, title = "The Tear of the Moons", npc = 3421, map = 1412, x = 90, y = 80 } } },
+} })
+"#;
+
+#[test]
+fn a_travel_step_passed_for_the_planners_flight_stays_passed_once_that_flight_lands_1768() {
+	let trip = |guide: &str, id: &str| {
+		run(
+			guide,
+			&format!(
+				r#"
+				local w = stub.world
+				w.complete({{ 96259 }})
+				w.moveTo(1412, 33.4, 22.5)
+				KNOWN = {{ [22] = true, [77] = true }}
+				Polestar.CharState().flags.taxi = {{ [22] = true, [77] = true }}
+				E.SetGuide("{id}"); flush()
+				local r = {{ before = E.GetStepIndex() }}
+				-- Landed beside Camp Taurajo's flight master.
+				w.moveTo(1412, 90, 50); w.setZone("The Barrens", "Camp Taurajo"); stub.fire("ZONE_CHANGED"); stub.advance(1)
+				r.landed = E.GetStepIndex()
+				-- On south to the work, out of the camp's subzone.
+				w.moveTo(1412, 90, 70); w.setZone("The Barrens", ""); stub.fire("ZONE_CHANGED"); stub.advance(1)
+				r.on = E.GetStepIndex()
+				emit(r)
+				"#
+			),
+		)
+	};
+	assert_eq!(
+		json!({ "taurajo": trip(TAURAJO, "test/taurajo"), "straight": trip(STRAIGHT, "test/straight") }),
+		json!({
+			// The walk up to Thunder Bluff passes for the flight; landed, the work south of the camp leads, and stays.
+			"taurajo": { "before": 4, "landed": 5, "on": 5 },
+			// A walk straight before the flight: the same.
+			"straight": { "before": 3, "landed": 4, "on": 4 },
+		})
+	);
+}
+
 // The report's trip on the real addon (TravelData's taxi nodes through Nav.GetTaxiNode, the known ones through
 // Nav.GetKnownTaxiNodes, the client's map frames): 0.3.4's Ashenvale after Webwinder Path in Stonetalon, a walk to
 // Astranaar's flight master and the flight to Auberdine. A Night Elf who knows Stonetalon Peak, Astranaar and
@@ -496,4 +564,87 @@ emit(out)"#
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0);
 	assert_eq!(out, json!({ "step": 3, "kind": "fly", "map": 1439, "atNode": true }), "the walk passes; the arrow leads to Auberdine's flight master");
+}
+
+// #1588 (Fitz, 2026-11-10): "Fly to Camp Taurajo" read as a flight for no reason; its work was Feegly the Exiled and
+// the Great Lift, south of the camp. A travel step's flight (the step's last open fly or goto goal, after the walk
+// to its flight master) says what it leads to: the first step after it with open quest work for the character,
+// travel steps between passed over (the Great Lift's walk, a done step), at most six steps on.
+const PURPOSE: &str = r#"
+local function guide(id, steps) Polestar.RegisterGuide({ id = id, pack = "test", title = id, minLevel = 1, maxLevel = 60, steps = steps }) end
+local FLY = { title = "Fly to Camp Taurajo", goals = {
+	{ t = "goto", map = 1412, x = 47, y = 50, text = "Thunder Bluff flight master" },
+	{ t = "fly", location = "Camp Taurajo", node = 77 },
+} }
+local WALK = { title = "South", goals = { { t = "goto", map = 1412, x = 90, y = 70, text = "South of the camp" } } }
+local FEEGLY = { title = "Feegly", goals = { { t = "accept", quest = 9001, title = "The Tear of the Moons", npc = 4521, npcName = "Feegly the Exiled", map = 1412, x = 90, y = 80 } } }
+local DONE = { title = "Done", goals = { { t = "turnin", quest = 9009, title = "Old", npc = 4600, npcName = "Old Friend", map = 1412, x = 90, y = 60 } } }
+local TWO = { title = "Ratchet", goals = {
+	{ t = "turnin", quest = 9002, title = "Wharf Work", npc = 3453, npcName = "Wharfmaster Dizzywig", map = 1412, x = 91, y = 80 },
+	{ t = "accept", quest = 9003, title = "Goblin Work", npc = 3442, npcName = "Sputtervalve", map = 1412, x = 91, y = 81 },
+	{ t = "accept", quest = 9004, title = "More Goblin Work", npc = 3442, npcName = "Sputtervalve", map = 1412, x = 91, y = 81 },
+} }
+local ONE = { title = "Sputtervalve", goals = {
+	{ t = "turnin", quest = 9002, title = "Wharf Work", npc = 3442, npcName = "Sputtervalve", map = 1412, x = 91, y = 81 },
+	{ t = "accept", quest = 9003, title = "Goblin Work", npc = 3442, npcName = "Sputtervalve", map = 1412, x = 91, y = 81 },
+} }
+local KILL = { title = "Bael Modan", goals = { { t = "kill", target = "Bael'dun Digger", npc = 2989, count = 8, quest = 9005, title = "Diggers", oi = 1, map = 1412, x = 85, y = 85 } } }
+guide("test/feegly", { FLY, WALK, FEEGLY })
+guide("test/done", { FLY, DONE, WALK, FEEGLY })
+guide("test/two", { FLY, TWO })
+guide("test/one", { FLY, ONE })
+guide("test/kill", { FLY, KILL })
+guide("test/far", { FLY, WALK, WALK, WALK, WALK, WALK, WALK, FEEGLY })
+guide("test/none", { FLY })
+stub.world.onQuest(9005, { { required = 8, fulfilled = 0 } }, "Diggers")
+stub.world.onQuest(9002, { { required = 1, fulfilled = 1 } }, "Wharf Work")
+stub.world.complete({ 9009 })
+-- Each fly step goal's purpose line (its view's `purposeText`), on the live step and on a later one.
+function purposes(id)
+	E.SetGuide(id); flush()
+	local v = E.GetStepView(1)
+	return { v.goals[1].purposeText or false, v.goals[2].purposeText or false }
+end
+"#;
+
+#[test]
+fn a_travel_step_says_what_its_flight_is_for_1588() {
+	let out = run(
+		PURPOSE,
+		r#"
+		emit({
+			feegly = purposes("test/feegly"), done = purposes("test/done"), two = purposes("test/two"), one = purposes("test/one"),
+			kill = purposes("test/kill"), far = purposes("test/far"), none = purposes("test/none"),
+		})
+		"#,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"feegly": [false, "For Feegly the Exiled's quests"],
+			"done": [false, "For Feegly the Exiled's quests"],
+			"two": [false, "For quests from Wharfmaster Dizzywig and Sputtervalve"],
+			"one": [false, "For Sputtervalve's quests"],
+			"kill": [false, "For \u{201c}Diggers\u{201d}"],
+			"far": [false, false],
+			"none": [false, false],
+		}),
+		"the walk to the flight master says nothing; the flight names the work after it"
+	);
+}
+
+// A step with quest work of its own says nothing more, nor does a travel step looked at ahead of the live one.
+#[test]
+fn a_step_with_work_of_its_own_or_one_looked_at_ahead_has_no_purpose_line() {
+	let out = run(
+		PURPOSE,
+		r#"
+		guide("test/work", { FEEGLY, FLY, ONE })
+		E.SetGuide("test/work"); flush()
+		local live = E.GetStepView(1)
+		local ahead = E.GetStepView(2)
+		emit({ live = live.goals[1].purposeText or false, ahead = ahead.goals[2].purposeText or false })
+		"#,
+	);
+	assert_eq!(out, json!({ "live": false, "ahead": false }));
 }

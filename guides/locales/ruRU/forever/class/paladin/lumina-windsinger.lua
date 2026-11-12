@@ -111,7 +111,7 @@ return {
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): grouping up is encouraged; one player needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "",
+	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Наденьте {item:268484}. {quest:95140}, огромный ворген, бродит по лесам к югу от места {area:228} в сторону ворот ({area:17065}). Он элитный (25-й уровень): гайд сначала ждет 22-го уровня, и лучше собрать группу; игроки убивали его с 22-го уровня, одному понадобился напарник, другой справился в одиночку на 25-м. Пока ваш первый удар клинком не достигнет цели, его защищает фиолетовый щит: сообщение скажет, что щит разрушен.",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "",
 

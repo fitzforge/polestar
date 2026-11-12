@@ -205,10 +205,7 @@ step Light's Hope Chapel
   turnin 5241                         -- Carlin Redpath
   accept 5211
   turnin 6030                         -- Duke Nicholas Zverenhoff
-  accept 5503
-  turnin 5503
-  accept 5509
-  accept 5510
+  turnin 5503 direct
   accept 6021 optional                -- Caretaker Alen: Zaeldarr is a level 54 elite
 
 # ---------------------------------------------------------------- Eastern Plaguelands
@@ -218,8 +215,8 @@ step Corin's Crossing
   tip The Scourge around Corin's Crossing, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.
   tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
   kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
-  collect 12840 quest 5510.1          -- Minion's Scourgestone
-  collect 12841 quest 5509.1          -- Invader's Scourgestone
+  collect 12840 x20 -- Minion's Scourgestone
+  collect 12841 x10 -- Invader's Scourgestone
 
 # ---------------------------------------------------------------- The west
 
@@ -229,7 +226,7 @@ step The Undercroft
 
 step Light's Hope Chapel
   turnin 5211                         -- Carlin Redpath
-  turnin 5509                         -- Duke Nicholas Zverenhoff
-  turnin 5510
+  turnin 5509 direct -- Duke Nicholas Zverenhoff
+  turnin 5510 direct
   turnin 6021 optional                -- Caretaker Alen
   note The next guide starts here and flies to Chillwind Camp.

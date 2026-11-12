@@ -347,6 +347,7 @@ G.ACTIONS = {
 	{ action = "POLESTAR_PREV_WAYPOINT", section = "guide", label = L["Previous waypoint"], run = "PrevWaypoint" },
 	{ action = "POLESTAR_FOCUS", section = "guide", label = L["Browse the guide with the gamepad"], run = "Focus" },
 	{ action = "POLESTAR_TOGGLE", section = "guide", label = L["Toggle guide window"], run = "Toggle" },
+	{ action = "POLESTAR_HIDE", section = "guide", label = L["Hide/show Polestar"], run = "Hide" },
 	{ action = "POLESTAR_REOPEN_TAB", section = "guide", label = L["Reopen closed tab"], run = "ReopenTab" },
 	{ action = "POLESTAR_MENU", section = "windows", label = L["Open the guide menu"], run = "Menu" },
 	{ action = "POLESTAR_OPTIONS", section = "windows", label = L["Open Polestar options"], run = "Options" },

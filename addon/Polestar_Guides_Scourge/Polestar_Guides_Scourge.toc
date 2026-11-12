@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 指南（不死族）
 ## Notes-zhTW: Polestar 為不死族角色提供的升級指南及其步行路線。按需載入。
 ## Author: Polestar
-## Version: 0.3.5
+## Version: 0.3.7.1
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

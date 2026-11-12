@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {quest:205} Troll Witchery
+	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "Para personagens de nível 35 a 36, mas várias missões aqui são de nível 37-41: de propósito, pela experiência. Os trolls Rachacrânio de {quest:205} são de nível 39-42, então puxe um de cada vez.",
+
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
 	["In the {object:2164}, if you still carry it"] = "Em {object:2164}, se você ainda estiver com isso",
@@ -101,8 +105,9 @@ return {
 	["For Archmage Ansirem in {zone:1416}"] = "Para o Arquimago Ansirem, em {zone:1416}",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "{npc:773}, no andar de cima",
-	-- {npc:773} Krazek · {zone:1417} Arathi Highlands
-	["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}: o minério cai dos kobolds Bigodesseco em {zone:1417}, a seguir",
+	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}, no andar de cima: esta missão opcional pede quatro {item:4278}. Minere Depósitos de Pedra-sangrenta Menor em {zone:1417} com {skill:186} 75, ou compre o minério na Casa de Leilões ou peça a um amigo minerador. Os kobolds não o deixam cair; pule esta missão se não conseguir o minério.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley \"Lobo do Mar\", no último andar",
@@ -112,5 +117,6 @@ return {
 	-- ["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "Os registros de Herodes ficam numa cabana no lado oeste de {area:101}, a leste de {area:99}.",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Percorra as ruínas trolls do norte e do centro: cada uma guarda uma tabuleta de pedra das lendas trolls. Panteras Umbragorja rondam furtivas na selva ao redor; o acampamento da Empreendimentos S.A. em {area:37} carrega os Cristais Rolados.",
 	-- ["Mauren, from Stonetalon"] = "Mauren, da Cordilheira das Torres de Pedra",
+	-- ["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}: o minério cai dos kobolds Bigodesseco em {zone:1417}, a seguir",
 	-- ["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
 }

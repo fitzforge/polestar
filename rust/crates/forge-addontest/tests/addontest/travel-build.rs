@@ -95,4 +95,44 @@ fn the_committed_traveldata_lua_has_the_forever_ships_on_their_dock_maps() {
 	}
 }
 
+// #1674 (Megabite): on the Rohashi Spires after Lorthuna, the next step's turn-in at Elaadrin Evengale in
+// Valanaar said to hearth: the planner knew no way down but walking. The Portal to Valanaar beside her
+// sets the player down beside Elaadrin in five seconds. Zephras Isle (uiMap 2521, continent 2991) on its
+// live frame (data/forever/map-frames.json), the Hearthstone bound to Valanaar and ready.
+#[test]
+fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_down_never_the_hearthstone() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+		login: true,
+		script: r#"
+			local nav = stub.nav
+			nav.maps[2521] = { c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25, name = "Zephras Isle" }
+			nav.faction = "Alliance"
+			nav.items[6948] = 1
+			nav.bind = "Valanaar"
+			local _, wx, wy = stub.nav.Compat.MapToWorld(2521, 74.87, 53.02, "l")
+			nav.place(wx, wy, 2991)
+			Polestar.Nav.SetTarget(2521, 66.63, 79.94, "Elaadrin Evengale", "l")
+			local legs, ci = Polestar.Nav.GetRoute()
+			local r = { kinds = {}, transports = {} }
+			for i = ci or 1, legs and #legs or 0 do
+				r.kinds[#r.kinds + 1] = legs[i].kind
+				if legs[i].transport then r.transports[#r.transports + 1] = tostring(legs[i].transport.id) end
+			end
+			local ids = {}
+			for _, p in ipairs(Polestar.Nav.GetTravelData().portals) do ids[#ids + 1] = p.id end
+			r.portals = ids
+			emit(r)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	let kinds: Vec<&str> = out["kinds"].as_array().unwrap().iter().filter_map(|v| v.as_str()).collect();
+	assert!(!kinds.contains(&"hearth"), "no Hearthstone off the heights ({})", kinds.join(", "));
+	assert_eq!(out["transports"], json!(["portal-valanaar"]), "the Portal to Valanaar ({})", kinds.join(", "));
+	let portals = out["portals"].as_array().unwrap();
+	assert!(portals.contains(&json!("portal-rohashi-spires")), "the shrine's portal up is known too ({portals:?})");
+}
+
 // KEPT IN JS: a flight master in a city uses its named city, not the surrounding region (#347) | flight masters, flights, transports and inns come from the client tables and spawn data | each inn gets the AreaTable area of its bind location in its own zone, never a Forever copy of the town | learned walking paths follow recorded breadcrumbs, mark zone borders and break at flights | works with no recordings at all | the CLI writes byte-identical travel.json, TravelData.lua and FlightPaths.lua on every run | with --lua and no --flight-lua the CLI writes FlightPaths.lua beside it, never into the addon | generated TravelData.lua loads under Lua 5.1 and the addon planner routes with it | every committed inn's area is named, in English, like one of its bind locations | a Forever ship calling at three docks: one transport per dock pair, following the loop | a ship stop in the water 12 yd off a pier gets a board point on the deck; a stop on dry ground gets none | an end on dry ground gets the floor nearest its source's height: the entrance under a roof, not the roof | every boat end of the committed TravelData.lua is boarded on dry ground within 30 yd of its stop

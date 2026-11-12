@@ -47,18 +47,12 @@ step Grull Hawkwind
   accept 755
 
 step The Hunt Continues
-  tip Antur Fallow stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to Grull.
+  tip Antur Fallow stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot.
   accept 1656                         -- Antur Fallow
   collect 4742 quest 750.1            -- Mountain Cougar Pelt
 
-step Grull Hawkwind
-  turnin 750
-  accept 780
-  accept 3376                         -- Brave Windfeather, next to Grull; walks around Camp Narache: look inside the circle on the map
-  train class
-
 step Seer Graytongue
-  tip Follow the path south out of camp to the Seer's tent at the foot of the hills.
+  tip The Seer's tent stands at the foot of the cougars' hills.
   turnin 755
   accept 95805
   accept 757
@@ -66,6 +60,13 @@ step Seer Graytongue
 step The shrine of An'she and Mu'sha
   tip The incense burns out in ten minutes: run straight east along the southern hills to the Ritual Fire.
   turnin 95805
+
+step Grull Hawkwind
+  tip Back north-west up to Camp Narache.
+  turnin 750
+  accept 780
+  accept 3376                         -- Brave Windfeather, next to Grull; walks around Camp Narache: look inside the circle on the map
+  train class
 
 # ---------------------------------------------------------------- Brambleblade Ravine
 
@@ -122,16 +123,46 @@ step Kaga Wildhoof
   complete 96605 @46.2,67.3 live      -- /sit by Kaga's campfire until you get Boosted Rest
   turnin 96605
   accept 96661
-  accept 97936 optional               -- Kaga Wildhoof: for Yonn Deepcut
-  accept 97934 optional               -- Kaga Wildhoof: for Chaw Stronghide
-  accept 97931 optional               -- Kaga Wildhoof: for Vira Younghoof
-  accept 97932 optional               -- Kaga Wildhoof: for Uthan Stillwater
-  accept 97933 optional               -- Kaga Wildhoof: for Komin Winterhoof
-  accept 97935 optional               -- Kaga Wildhoof: for Brek Stonehoof
-  accept 97927 optional               -- Kaga Wildhoof: for Kray
-  accept 97928 optional               -- Kaga Wildhoof: for Thrag Stonehoof
-  accept 97929 optional               -- Kaga Wildhoof: for Mot Dawnstrider
-  accept 97937 optional               -- Kaga Wildhoof: for Vhan
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97936                        -- Kaga Wildhoof: for Yonn Deepcut
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97934                        -- Kaga Wildhoof: for Chaw Stronghide
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97931                        -- Kaga Wildhoof: for Vira Younghoof
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97932                        -- Kaga Wildhoof: for Uthan Stillwater
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  accept 97933                        -- Kaga Wildhoof: for Komin Winterhoof
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97935                        -- Kaga Wildhoof: for Brek Stonehoof
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97927                        -- Kaga Wildhoof: for Kray
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97928                        -- Kaga Wildhoof: for Thrag Stonehoof
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  accept 97929                        -- Kaga Wildhoof: for Mot Dawnstrider
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 97937                        -- Kaga Wildhoof: for Vhan
 
 step Bloodhoof Village
   accept 743                          -- Ruul Eagletalon
@@ -156,10 +187,26 @@ step Bloodhoof Village
   complete 96661 @44.92,61.67 map 1412 live
   turnin 96661                        -- Pyall Silentstride
   accept 746
-  turnin 97936 optional               -- Yonn Deepcut, beside Pyall: Camping 101: Skinning
-  turnin 97934 optional               -- Chaw Stronghide, beside Pyall: Camping 101: Leatherworking
-  turnin 97931 optional               -- Vira Younghoof: Camping 101: First Aid
-  turnin 97932 optional               -- Uthan Stillwater: Camping 101: Fishing
+
+step Yonn Deepcut
+  when onquest 97936
+  complete 97936 @44.97,61.4 map 1412 live
+  turnin 97936                        -- Yonn Deepcut, beside Pyall: Camping 101: Skinning
+
+step Chaw Stronghide
+  when onquest 97934
+  complete 97934 @44.94,61.46 map 1412 live
+  turnin 97934                        -- Chaw Stronghide, beside Pyall: Camping 101: Leatherworking
+
+step Vira Younghoof
+  when onquest 97931
+  complete 97931 @46.08,63.96 map 1412 live
+  turnin 97931                        -- Vira Younghoof: Camping 101: First Aid
+
+step Uthan Stillwater
+  when onquest 97932
+  complete 97932 @44.16,63.8 map 1412 live
+  turnin 97932                        -- Uthan Stillwater: Camping 101: Fishing
 
 step Poison Water
   tip Prairie Wolves and Adult Plainstriders roam the plains around the village.
@@ -355,12 +402,36 @@ step Traditions of the Bluff
   sethome "Thunder Bluff" npc 6746 only Druid -- Innkeeper Pala, at the south end of the central rise: the hearth from Moonglade brings you back here
   accept 5926 only Druid              -- Innkeeper Pala: Heeding the Call, for Turak on Elder Rise
   getfp "Thunder Bluff" npc 2995      -- Tal
-  turnin 97933 optional               -- Komin Winterhoof: Camping 101: Herbalism
-  turnin 97935 optional               -- Brek Stonehoof: Camping 101: Mining
-  turnin 97927 optional               -- Kray: Camping 101: Alchemy
-  turnin 97928 optional               -- Thrag Stonehoof: Camping 101: Blacksmithing
-  turnin 97929 optional               -- Mot Dawnstrider: Camping 101: Enchanting
-  turnin 97937 optional               -- Vhan: Camping 101: Tailoring
+
+step Komin Winterhoof
+  when onquest 97933
+  complete 97933 @40,25.1 map 1412
+  turnin 97933                        -- Komin Winterhoof: Camping 101: Herbalism
+
+step Brek Stonehoof
+  when onquest 97935
+  complete 97935 @36.8,28.6 map 1412
+  turnin 97935                        -- Brek Stonehoof: Camping 101: Mining
+
+step Kray
+  when onquest 97927
+  complete 97927 @39.3,23.8 map 1412
+  turnin 97927                        -- Kray: Camping 101: Alchemy
+
+step Thrag Stonehoof
+  when onquest 97928
+  complete 97928 @37.8,28.4 map 1412
+  turnin 97928                        -- Thrag Stonehoof: Camping 101: Blacksmithing
+
+step Mot Dawnstrider
+  when onquest 97929
+  complete 97929 @38.9,24.7 map 1412
+  turnin 97929                        -- Mot Dawnstrider: Camping 101: Enchanting
+
+step Vhan
+  when onquest 97937
+  complete 97937 @38.8,25.9 map 1412
+  turnin 97937                        -- Vhan: Camping 101: Tailoring
 
 step Hunter Rise
   zone Thunder Bluff
@@ -471,6 +542,7 @@ step Kirge Sternhorn
   zone The Barrens
   tip Kirge Sternhorn stands at Camp Taurajo, where the road from Mulgore meets the Gold Road north to the Crossroads.
   accept 854                          -- Kirge Sternhorn: for Thork at the Crossroads
+  getfp "Camp Taurajo" npc 10378      -- Omusa Thunderhorn, beside Kirge
 
 step The Crossroads
   zone The Barrens

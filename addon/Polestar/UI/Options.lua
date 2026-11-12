@@ -210,6 +210,9 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
 			help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
 			search = "new in forever, infinity, new quest, forever quest, mark, badge" },
+		{ kind = "toggle", key = "update.card", label = L["Tell me when a newer Polestar is out"],
+			help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
+			search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" },
 	} },
 	-- Core/Engine.lua, Dynamic Questing (Own.hereBuild): quick objectives of later steps close by, in the guide
 	-- window's "While you're here" panel. The setting keys keep their behavior.whileHere* names.
@@ -219,7 +222,7 @@ local BUILTIN = {
 			search = "while you're here, nearby objective, grab it now, on the way, later step, opportunistic, detour" },
 		{ kind = "slider", key = "behavior.whileHereRadius", label = L["How close"], min = 60, max = 400, step = 10,
 			format = function(v) return ns.FormatDistance(v) end,
-			help = L["How near its spawn area must be for a suggestion to show. It goes again a little further out."],
+			help = L["How near the middle of its spawn area you must be for a suggestion to show. It goes again a little further out."],
 			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereTurnins", label = L["Include nearby hand-ins"],
 			help = L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."],
@@ -229,6 +232,10 @@ local BUILTIN = {
 			help = L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."],
 			search = "hand in, turn in, detour, out of the way, seconds, nearby hand-ins",
 			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereTurnins")) end },
+		{ kind = "toggle", key = "behavior.whileHereFlights", label = L["Flight paths you pass"],
+			help = L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."],
+			search = "flight path, flight master, taxi, learn, discover, getfp",
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereSound", label = L["Sound for a new suggestion"],
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
@@ -244,19 +251,24 @@ local BUILTIN = {
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Dungeons and battlegrounds"], controls = {
 		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons and battlegrounds"],
-			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."],
+			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."],
 			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
 	} },
-	-- Ways to show and hide the window without typing: UI/Launcher.lua's floating button, and the minimap
-	-- button (Maps/MinimapButton.lua; also on Map and Quality of Life), next to the rules above.
+	-- Ways to show and hide Polestar without typing: UI/Launcher.lua's floating button, and the minimap
+	-- button (Maps/MinimapButton.lua; also on Map and Quality of Life), next to the rules above. Hiding
+	-- Polestar (Core/Init.lua) is per character: so is whether it keeps the arrow.
 	{ page = GUIDE, tab = L["Window"], section = L["Show and hide"], controls = {
 		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
-			help = L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
+			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
 			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
 		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
-			help = L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."],
+			help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."],
 			search = "minimap icon, minimap button, hide button, launcher" },
+		{ kind = "toggle", label = L["Keep the arrow when hidden"],
+			help = L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."],
+			search = "hide polestar, hidden, arrow only, keep arrow, minimap button, hide all",
+			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
 		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock" },
@@ -285,6 +297,9 @@ local BUILTIN = {
 			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow" }),
 		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."],
 			search = "teleport, portal, mage, druid, moonglade",
+			child = true, disabled = function() return not ns.Get("nav.travel") end }),
+		H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
+			search = "detour, enemy town, hostile town, avoid, go round, journey",
 			child = true, disabled = function() return not ns.Get("nav.travel") end }),
 		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
 			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
@@ -340,13 +355,13 @@ local BUILTIN = {
 		trainReminder(),
 		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
 			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
-		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide."], confirm = true,
+		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
 			confirmTitle = L["Reset guide progress?"], confirmAction = L["Reset progress"],
 			confirmText = function()
 				local g = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
 				local name = g and (g.title or g.id)
-				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared. Quests you have done stay done."], name) end
-				return L["Your manual check-offs and skipped steps in the current guide are cleared. Quests you have done stay done."]
+				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."], name) end
+				return L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."]
 			end,
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },

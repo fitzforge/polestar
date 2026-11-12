@@ -85,7 +85,8 @@ local function syncTomTom(target)
 		if T then T:RemoveWaypoint(tomtomUid) end
 		tomtomUid = nil
 	end
-	if not (T and target and ns.Get("nav.tomtom")) or Nav.HandedOff() then return end
+	-- A mirror is the arrow's: none while hiding Polestar takes the arrow (ns.ArrowHidden).
+	if not (T and target and ns.Get("nav.tomtom")) or Nav.HandedOff() or ns.ArrowHidden() then return end
 	-- A waypoint followed from TomTom's arrow (Nav/Journey.lua) is in TomTom already.
 	local J = Nav.journey
 	if J and J.IsTomTomTarget(target) then return end
@@ -172,7 +173,7 @@ end
 local retrying = false
 
 local function syncBlizzard(target)
-	local on = ns.Get("nav.blizzardWaypoint") and target and not Nav.HandedOff()
+	local on = ns.Get("nav.blizzardWaypoint") and target and not Nav.HandedOff() and not ns.ArrowHidden()
 	local W = waypointUI()
 	-- Waypoint UI loads after Polestar and fills its API late: look again once
 	-- (the first target after login is set before it is ready).
@@ -240,3 +241,4 @@ function Bridges:OnSettings()
 end
 
 Nav.RegisterModule(Bridges)
+ns.On("POLESTAR_HIDDEN", function() Bridges:OnTarget(Nav.GetTarget()) end)

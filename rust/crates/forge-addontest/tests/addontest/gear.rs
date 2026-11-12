@@ -771,3 +771,36 @@ fn a_custom_scale_with_school_weights_only_keeps_their_value_and_two_schools_cou
 	assert_eq!(out[0], json!([20, 34]), "Shadow only: +20 Shadow is 20, +34 Fire +34 Shadow is 34");
 	assert_eq!(out[1], json!([20, 34]), "Shadow and Fire: the two bonuses count as the larger one");
 }
+
+#[test]
+fn item_data_arriving_redoes_the_answers_built_from_that_item_and_no_others() {
+	let out = run(
+		r#"
+		g.equip(1, "item:9001")
+		-- Not in the ItemDB: the client's stats only, not loaded yet.
+		g.defineItem("item:8001", { equipLoc = "INVTYPE_HEAD", classID = 4, subclassID = 3, minLevel = 20, cached = false })
+		local fires = {}
+		Polestar.On("GEAR_UPDATED", function(what) fires[#fires + 1] = what end)
+		emit(G.CompareToEquipped("item:8001") == nil)
+		-- Another item's data (a chat link, a vendor page): no answer used it.
+		stub.fire("GET_ITEM_INFO_RECEIVED", 7777, true)
+		emit(#fires)
+		-- Its own data arrives: the answer is built again from it.
+		g.defineItem("item:8001", { equipLoc = "INVTYPE_HEAD", classID = 4, subclassID = 3, minLevel = 20,
+			stats = { ITEM_MOD_STRENGTH_SHORT = 20, ITEM_MOD_STAMINA_SHORT = 10, RESISTANCE0_NAME = 200 } })
+		stub.fire("GET_ITEM_INFO_RECEIVED", 8001, true)
+		emit(fires)
+		local r = G.CompareToEquipped("item:8001")
+		emit(r ~= nil and r.delta ~= nil and r.delta > 0)
+		-- After that wipe, an unrelated arrival is still nothing.
+		stub.fire("GET_ITEM_INFO_RECEIVED", 7778, true)
+		emit(#fires)
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], true, "no stats yet: no answer");
+	assert_eq!(out[1], 0, "another item's data changes no answer, so nothing is redone");
+	assert_eq!(out[2], json!(["items"]), "the item's own data wipes the answers built from it");
+	assert_eq!(out[3], true, "and the answer reads the new stats");
+	assert_eq!(out[4], 1);
+}

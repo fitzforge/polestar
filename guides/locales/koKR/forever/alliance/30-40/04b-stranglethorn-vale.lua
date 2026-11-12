@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {quest:205} Troll Witchery
+	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "35~36레벨 캐릭터용이지만, 여기 퀘스트 몇 개는 37-41레벨입니다. 경험치를 위해 일부러 넣었습니다. {quest:205}의 백골가루부족 트롤은 39-42레벨이니 하나씩 끌어오세요.",
+
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
 	["In the {object:2164}, if you still carry it"] = "",
@@ -101,8 +105,9 @@ return {
 	["For Archmage Ansirem in {zone:1416}"] = "{zone:1416}의 대마법사 앤자이럼 룬위버에게",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
-	-- {npc:773} Krazek · {zone:1417} Arathi Highlands
-	["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "",
+	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}은(는) 위층에 있습니다. 이 선택 퀘스트에는 {item:4278} 4개가 필요합니다. {zone:1417}에서 {skill:186} 75로 저급 혈석 광맥을 캐거나, 경매장에서 광석을 사거나, 채광하는 친구에게 부탁하세요. 코볼트는 이 광석을 떨어뜨리지 않습니다. 광석을 구할 수 없으면 이 퀘스트는 건너뛰세요.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",

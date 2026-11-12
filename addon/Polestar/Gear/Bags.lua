@@ -57,9 +57,9 @@ local REDRAW = 0.2 -- seconds: GEAR_UPDATED repaints at most this often
 local WIDGET = "polestar_upgrade" -- Baganator corner widget id
 
 -- Pawn draws its own arrows on bag items: gear.hideForPawn leaves the bags to
--- it while Pawn is installed and enabled.
+-- it while Pawn is installed and enabled. None while Polestar is hidden.
 function Bags.IsOn()
-	if not (Gear.IsEnabled() and ns.Get("gear.bagArrows")) then return false end
+	if ns.Hidden() or not (Gear.IsEnabled() and ns.Get("gear.bagArrows")) then return false end
 	if ns.Get("gear.hideForPawn") and ns.Compat.AddOnPresent("Pawn") then return false end
 	return true
 end
@@ -281,6 +281,7 @@ local function schedule()
 end
 
 ns.On("GEAR_UPDATED", schedule)
+ns.On("POLESTAR_HIDDEN", schedule)
 
 if ns.Theme and ns.Theme.OnChanged then
 	ns.Theme.OnChanged(function()

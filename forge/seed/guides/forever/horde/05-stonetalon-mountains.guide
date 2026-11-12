@@ -20,7 +20,7 @@ next forever/horde/06-hillsbrad-foothills
 # -> west across Ashenvale, Va'xug Firefure's ravine on the way -> Zoram'gar Outpost (flight path,
 # naga heads) -> Thistlefur Village and Hold -> Zoram'gar, Vorsha the Lasher ->
 # fly to Splintertree
-# (Ruul's hand-in) -> the lumber camp south of it (Ashenvale Outrunners) -> fly to Orgrimmar
+# (Ruul's hand-in) -> fly to Orgrimmar
 # (training) -> zeppelin to Tirisfal Glades -> the Sepulcher (Allister's two
 # road quests, Journey to Hillsbrad) -> the roads around Ambermill and Beren's Peril (the
 # Offering Stone) -> Southpoint Tower for forever/horde/06-hillsbrad-foothills.
@@ -30,9 +30,9 @@ next forever/horde/06-hillsbrad-foothills
 # Hillsbrad to the 27 visit). The Sapphires, Torek, Pixel and Senani's hunt
 # targets are level 23-27 and wait for the second visit at 26; none is taken now and carried.
 #
-# Ashenvale Outrunners (level 24, Outrunners 23-24) waits for the way back from Thistlefur, after
-# Ruul's hand-in at Splintertree, where the route has the character at 22-23: taken at the lumber
-# camp on the way in at 21, it put the pace line's "Behind" in front of every start but Skyborne.
+# Ashenvale Outrunners (level 24, Outrunners 23-24) waits for the second Ashenvale visit at 26
+# (forever/horde/07-ashenvale), with Torek and Sharptalon by the same lumber camp: taken on the way
+# back from Thistlefur at 22-23, the model's players were still 1-1.5 levels under it (0.3.7).
 #
 # The Undercity flight path is learned at the end of forever/horde/03-silverpine-forest; the way
 # to Tarren Mill without its flight path is the road through Silverpine, which passes Deathstalker
@@ -87,7 +87,7 @@ step Into Ashenvale
   goto 71.1,68.1 "The road north to Splintertree Post"
 
 step Splintertree Post
-  tip Splintertree Post is just north up the road. Coming in from the south, the flight master and Senani Thunderheart's hunt board at Night Run come first, then the vendors. Kuray'bin at the lumber camp offers Ashenvale Outrunners: leave it for the way back, at 22.
+  tip Splintertree Post is just north up the road. Coming in from the south, the flight master and Senani Thunderheart's hunt board at Night Run come first, then the vendors. Kuray'bin at the lumber camp offers Ashenvale Outrunners: leave it for the next Ashenvale visit, at 26.
   getfp "Splintertree Post"
   turnin 6382                         -- Senani Thunderheart
   accept 6383
@@ -156,16 +156,9 @@ step Splintertree Post
   fly "Splintertree Post"
   turnin 6482                         -- Yama Snowhoof, inside the inn
 
-step Ashenvale Outrunners
-  zone Ashenvale
-  tip Out of the inn and south down the road to the lumber camp: Kuray'bin stands there. The night elf Outrunners (23-24) stalk the woods south-east of it; they stealth, so watch for them.
-  accept 6503
-  kill 12856 quest 6503 @72.5,69.5 map 1440
-  turnin 6503
-
 step Fly to Orgrimmar
   zone Ashenvale
-  tip Back north up the road to the Splintertree Post flight master and fly to Orgrimmar.
+  tip Out of the inn to the Splintertree Post flight master and fly to Orgrimmar.
   goto 73.26,61.67 "Splintertree Post flight master"
   fly "Orgrimmar"
   zone Orgrimmar

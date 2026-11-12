@@ -144,10 +144,22 @@ step The Great Outdoors
   complete 96608
   turnin 96608
   accept 96629
-  accept 96044 optional                       -- Eric Brighthammer, blacksmiths: for Tognus Flintfire
-  accept 96047 optional                       -- Eric Brighthammer, First Aid: for Thamner Pol
-  accept 96046 optional                       -- Eric Brighthammer, miners: for Yarr Hammerstone
-  accept 96058 optional                       -- Eric Brighthammer, engineers: for Bronk Guzzlegear
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 96044                                -- Eric Brighthammer: for Tognus Flintfire, in the cellar west of the distillery
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 96047                                -- Eric Brighthammer: for Thamner Pol in the Thunderbrew Distillery
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 96046                                -- Eric Brighthammer: for Yarr Hammerstone at Steelgrill's Depot
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  accept 96058                                -- Eric Brighthammer: for Bronk Guzzlegear at Steelgrill's Depot
 
 # ---------------------------------------------------------------- Kharanos
 
@@ -156,17 +168,25 @@ step Kharanos
   turnin 420                                  -- Senir Whitebeard
   accept 98322                                -- Senir Whitebeard
   accept 98321                                -- Tognus Flintfire, below ground
-  turnin 96044 optional                       -- Tognus Flintfire, below ground: Camping 101, blacksmiths
   tip Tharek works the forge west of the distillery.
   accept 400                                  -- Tharek Blackstone
   tip Then go in: Tannok, the innkeeper, Maxan and Ragnar. Gremlock's Cooking lesson waits for the return with the ribs, when the copper is there for it.
   accept 384                                  -- Ragnar Thunderbrew
   turnin 2160                                 -- Tannok Frosthammer, inside
-  turnin 96047 optional                       -- Thamner Pol, inside: Camping 101, First Aid
   accept 99158                                -- Maxan Anvol, upstairs
   turnin 5626 only Priest                     -- Maxan Anvol, upstairs
   accept 5625 only Priest                     -- Maxan Anvol: heal Mountaineer Dolf south of Kharanos
   train class                                 -- Last: some classes' trainers stand outside
+
+step Thamner Pol
+  when onquest 96047
+  complete 96047 @47.18,52.61                 -- talk to the trainer
+  turnin 96047                                -- Thamner Pol, inside the distillery
+
+step Tognus Flintfire
+  when onquest 96044
+  complete 96044 @45.34,51.94                 -- talk to the trainer
+  turnin 96044                                -- Tognus Flintfire, in the cellar west of the distillery
 
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot below the Ironforge road.
@@ -174,8 +194,16 @@ step Steelgrill's Depot
   accept 313                                  -- Pilot Stonegear
   turnin 400                                  -- Beldin Steelgrill
   accept 5541                                 -- Loslor Rudge, beside him
-  turnin 96046 optional                       -- Yarr Hammerstone: Camping 101, miners
-  turnin 96058 optional                       -- Bronk Guzzlegear, beside him: Camping 101, engineers
+
+step Yarr Hammerstone
+  when onquest 96046
+  complete 96046 @50.01,50.31                 -- talk to the trainer
+  turnin 96046                                -- Yarr Hammerstone, at the depot
+
+step Bronk Guzzlegear
+  when onquest 96058
+  complete 96058 @50.18,50.38                 -- talk to the trainer
+  turnin 96058                                -- Bronk Guzzlegear, beside Yarr
 
 step Rumbleshot's Ammo
   tip The Ammo Crate sits next to Mountaineer Gretchen, south of the Grizzled Den.

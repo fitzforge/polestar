@@ -134,7 +134,7 @@ local function refreshPresets()
 end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarLineStyle", UIParent)
+	F = CreateFrame("Frame", "PolestarLineStyle", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)

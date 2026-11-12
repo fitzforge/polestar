@@ -173,15 +173,42 @@ step Brakk's campfire
   complete 96604 @52.1,47.4
   turnin 96604
   accept 96655
-  accept 97907 optional               -- Brakk: for Krunn
-  accept 97902 optional               -- Brakk: for Mukdrak
-  accept 97903 optional               -- Brakk: for Rawrk
-  accept 97908 optional               -- Brakk: for Thuwd
-  accept 97906 optional               -- Brakk: for Karolek
-  accept 96102 optional               -- Brakk: for Snang
-  accept 97905 optional               -- Brakk: for Jandi
-  accept 97901 optional               -- Brakk: for Jhag
-  accept 97899 optional               -- Brakk: for Whuut
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97907                        -- Brakk: for Krunn
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  accept 97902                        -- Brakk: for Mukdrak
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97903                        -- Brakk: for Rawrk
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97908                        -- Brakk: for Thuwd
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97906                        -- Brakk: for Karolek
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  accept 96102                        -- Brakk: for Snang
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  accept 97905                        -- Brakk: for Jandi
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  accept 97901                        -- Brakk: for Jhag
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97899                        -- Brakk: for Whuut
 
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
@@ -200,9 +227,21 @@ step Razor Hill
   turnin 2161                         -- Innkeeper Grosk, inside
   sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
-  turnin 97907 optional               -- Krunn: Camping 101: Mining
-  turnin 97902 optional               -- Mukdrak: Camping 101: Engineering
-  turnin 97903 optional               -- Rawrk: Camping 101: First Aid
+
+step Krunn
+  when onquest 97907
+  complete 97907 @51.81,40.88 map 1411
+  turnin 97907                        -- Krunn: Camping 101: Mining
+
+step Mukdrak
+  when onquest 97902
+  complete 97902 @52.18,40.8 map 1411
+  turnin 97902                        -- Mukdrak: Camping 101: Engineering
+
+step Rawrk
+  when onquest 97903
+  complete 97903 @54.17,41.93 map 1411
+  turnin 97903                        -- Rawrk: Camping 101: First Aid
 
 step Prickly pears
   tip The prickly pears grow among the quilboar huts just west of town.
@@ -401,6 +440,7 @@ step Thunder Ridge: kill these as you meet them
   tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, just west and south-west of Rezlak.
   tip Fizzle holds the Burning Blade camp on Thunder Ridge, north-west of Razor Hill. Hunters: tame a Dire Mottled Boar with the Taming Rod on the way.
   tip Careful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 277665 quest 97282.1
   kill 3099 quest 6062.1 "Tame Dire Mottled Boar" only Hunter -- Tame it with the Taming Rod
   collect 4869 quest 806.1
@@ -541,6 +581,7 @@ step Thunder lizards on the way north
   only Warrior
   zone Durotar
   tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, beside the road north to Orgrimmar; any of them can drop a Singed Scale. Uzzek takes it when the next guide passes Far Watch Post.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 6486 quest 1498.1
 
 step Orgrimmar

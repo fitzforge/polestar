@@ -37,6 +37,8 @@ pub const FOREVER_SIM: Product = Product {
 	tables: &["UiMap", "UiMapAssignment", "AreaTable"],
 	optional: &["ChrRaces", "ChrClasses", "CharBaseInfo", "Faction", "Map", "ItemSparse", "Item", "SpellName", "SpellEffect"],
 };
+/// `data classspells` (class_spells.rs): spell names, their rank text and the class/race masks.
+pub const CLASS_SPELLS: Product = Product { key: "wow_classic_beta", family: forever_family, tables: &["SpellName", "Spell", "SkillLineAbility"], optional: &[] };
 
 impl Product {
 	/// Whether `b` is one of the product's builds (Era 1.10-1.15, Forever 1.60+).

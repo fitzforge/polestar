@@ -33,12 +33,14 @@ local function hexOf(r, g, b)
 	return ("|cff%02x%02x%02x"):format(math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5))
 end
 
+-- The rows to show (Party.Roster), or false when the panel should not show.
 local function wanted()
 	local P = ns.Party
 	if not (ns.Get("party.panel") and P and P.IsLive and P.IsLive()) then return false end
 	if not ns.GuideShown() then return false end
 	if inCombat and ns.Get("ui.combat") == "hide" then return false end
-	return #P.Roster() > 0
+	local list = P.Roster()
+	return #list > 0 and list
 end
 
 local function row(i)
@@ -114,6 +116,13 @@ function PP.RowText(e)
 	if r then name = hexOf(r, g, b) .. name .. "|r" end
 	local level = e.level and L["Level %d"]:format(e.level) or ""
 	if e.xp then level = level .. DOT .. L["%d%% XP"]:format(e.xp) end
+	-- Boosted Rest (their "2B|"), unless the player turned the status off.
+	local Q = ns.QoL
+	if e.rest and not (Q and Q.On and not Q.On("boostedRest")) then
+		-- Minutes rounded up, to the millisecond first (a frame clock a hair past the minute adds none).
+		local rest = e.rest == true and L["Boosted Rest"] or L["Boosted Rest %dm"]:format(math.ceil(math.floor(e.rest * 1000 + 0.5) / 60000))
+		level = level ~= "" and (level .. DOT .. rest) or rest
+	end
 	local parts = {}
 	if e.step then
 		parts[#parts + 1] = e.step
@@ -128,10 +137,11 @@ function PP.RowText(e)
 	return name, level, table.concat(parts, DOT), #needs > 0 and L["Still needs: %s"]:format(table.concat(needs, DOT)) or nil
 end
 
--- Repaint the rows from Party.Roster; without a row, the panel hides.
-function PP.Refresh()
+-- Repaint the rows from Party.Roster (`list`: one just read); without a row,
+-- the panel hides.
+local function refresh(list)
 	if not (F and F:IsShown()) then return end
-	local list = ns.Party.Roster()
+	list = list or ns.Party.Roster()
 	if #list == 0 then return F:Hide() end
 	local y = HEAD_H
 	for i, e in ipairs(list) do
@@ -141,12 +151,18 @@ function PP.Refresh()
 		r.Name:SetText(name)
 		r.Level:SetText(level)
 		r.Step:SetText(step or "")
-		r.Step:SetShown(step ~= nil and step ~= "")
-		r.Needs:SetText(needs or "")
+		local hasStep = step ~= nil and step ~= ""
+		r.Step:SetShown(hasStep)
+		UI.SetCounted(r.Needs, needs or "")
 		r.Needs:SetShown(needs ~= nil)
 		r.Needs:SetWidth(WIDTH - PAD * 2)
+		UI.FitCounts(r.Needs)
+		-- The needs line hangs under the step line only while that shows: a
+		-- hidden region still holds its place in an anchor chain, and an empty
+		-- one may keep a line's height, which the row's height below leaves out.
+		r.Needs:SetPoint("TOPLEFT", hasStep and r.Step or r.Name, "BOTTOMLEFT", 0, -2)
 		local h = 6 + r.Name:GetStringHeight()
-		if r.Step:IsShown() then h = h + 2 + r.Step:GetStringHeight() end
+		if hasStep then h = h + 2 + r.Step:GetStringHeight() end
 		if r.Needs:IsShown() then h = h + 2 + r.Needs:GetStringHeight() end
 		h = math.floor(h + 4 + 0.5)
 		r:SetHeight(h)
@@ -159,16 +175,19 @@ function PP.Refresh()
 	for i = #list + 1, #F.rows do F.rows[i]:Hide() end
 	F:SetHeight(math.floor(y + PAD - 2 + 0.5))
 end
+-- The ticker and STEP_CHANGED pass arguments of their own: never a list.
+function PP.Refresh() refresh(nil) end
 
 -- Show or hide as the settings, the group and the guide say.
 function PP.Sync()
-	if not wanted() then
+	local list = wanted()
+	if not list then
 		if F then F:Hide() end
 		return
 	end
 	build()
 	F:Show()
-	PP.Refresh()
+	refresh(list)
 	if not ticker and C_Timer and C_Timer.NewTicker then ticker = ns.NewTicker(REFRESH, PP.Refresh) end
 end
 
@@ -230,8 +249,10 @@ local function onLive(on)
 end
 
 ns.On("PARTY_LIVE", onLive)
--- A member who speaks Polestar (or leaves) shows or hides the panel.
+-- A member who speaks Polestar (or leaves) shows or hides the panel; a
+-- member's XP alone comes as PARTY_PANEL (Party.lua panelChanged).
 ns.On("PARTY_PROGRESS", PP.Sync)
+ns.On("PARTY_PANEL", PP.Sync)
 ns.On("STEP_CHANGED", PP.Refresh)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "party.panelPos" then

@@ -1528,7 +1528,10 @@ function LK.Build(parent, hub)
 	root.CodexLine:SetWidth(MID_W - SH.pad * 2)
 	-- It belongs to this section: other sections' tab rows stay theirs.
 	root:SetScript("OnShow", function() root.CodexLine:Show() end)
-	root:SetScript("OnHide", function()
+	-- Leaving the section, not Polestar hiding (its layer hides the hub with
+	-- the section still open: a search running goes on).
+	root:SetScript("OnHide", function(self)
+		if self:IsShown() then return end
 		cancelPending()
 		root.CodexLine:Hide()
 	end)

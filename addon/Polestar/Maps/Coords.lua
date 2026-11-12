@@ -54,8 +54,9 @@ local function build()
 	return frame
 end
 
+-- Off while Polestar is hidden: the frame hides, which stops the tick.
 function Maps.RefreshMinimapCoords()
-	if ns.Get("maps.minimapCoords") then
+	if ns.Get("maps.minimapCoords") and not ns.Hidden() then
 		if not build() then return end
 		frame:Show()
 		update(true)
@@ -67,6 +68,9 @@ end
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end
 	if path == "maps.minimapCoords" or path == "maps" or path == "" then Maps.RefreshMinimapCoords() end
+end)
+ns.On("POLESTAR_HIDDEN", function()
+	if ns.IsLoggedIn() then Maps.RefreshMinimapCoords() end
 end)
 
 ns.OnLogin(Maps.RefreshMinimapCoords)

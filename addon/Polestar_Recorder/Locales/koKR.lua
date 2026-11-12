@@ -64,8 +64,8 @@ L["level %d+"] = "%d레벨 이상"
 L["Every spot is done."] = "모든 장소를 마쳤습니다."
 L["%s: %d points, %s, %d yd"] = "%s: %d개 지점, %s, %d야드"
 L["None yet."] = "아직 없음."
-L["Recorder: start or stop the position trail"] = "기록기: 위치 경로 기록 시작/중지"
-L["Recorder: show or hide the window"] = "기록기: 창 표시/숨기기"
+L["Recorder: trail on/off"] = "기록기: 경로 켜기/끄기"
+L["Recorder window"] = "기록기 창"
 
 -- Recorder.lua
 L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "이전 기록기(스키마 1)의 기록을 삭제했습니다. 이제 스키마 2로 기록합니다"

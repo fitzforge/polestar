@@ -52,19 +52,30 @@ P.SetLayer("test.marks", {
 })
 N.SetTarget(9000, 70, 60, "Somewhere")
 
+-- Polestar's frames under a canvas, at any depth (the map's view frame holds the drawings).
+local function under(f, canvas)
+	local p = f.parent
+	while p do
+		if p == canvas then return true end
+		p = p.parent
+	end
+	return false
+end
 local function tiles(map)
-	local n = 0
-	for _, f in ipairs(map:GetCanvas().children) do
-		for _, t in ipairs(f.regions or {}) do
-			if type(t.texture) == "number" and t.texture >= 501 and t.texture <= 503 and t:IsShown() and f:IsVisible() then n = n + 1 end
+	local n, canvas = 0, map:GetCanvas()
+	for _, f in ipairs(stub.frames) do
+		if under(f, canvas) then
+			for _, t in ipairs(f.regions or {}) do
+				if type(t.texture) == "number" and t.texture >= 501 and t.texture <= 503 and t:IsShown() and f:IsVisible() then n = n + 1 end
+			end
 		end
 	end
 	return n
 end
 local function drawn()
 	local labels = 0
-	for _, f in ipairs(m.canvas.children) do
-		if rawget(f, "Range") and f:IsVisible() then labels = labels + 1 end
+	for _, f in ipairs(stub.frames) do
+		if under(f, m.canvas) and rawget(f, "Range") and f:IsVisible() then labels = labels + 1 end
 	end
 	-- The way to the target: the route lines (Maps/RouteLines.lua), or the trail's dots while they draw nothing.
 	local R = Polestar.RouteLines
@@ -161,13 +172,15 @@ fn run(style: &str, script: &str) -> Value {
 // (Blizzard_MapCanvas.lua, MapCanvas_ScrollContainerMixin.lua, MapCanvas_PinFrameLevelsManager.lua), and the
 // client's own frame methods, all reads. The one call that hands the map something is Nav/Journey.lua's
 // AddCanvasClickHandler: the map keeps such handlers in Blizzard_MapCanvasSecureUtil's registry, a table of its
-// own read and called only through securecallfunction, as it is meant for addons.
+// own read and called only through securecallfunction, as it is meant for addons. Nav/Pins.lua's viewRect reads
+// where the scroll frame (the canvas's parent) and the canvas sit on screen (GetParent, GetLeft, GetTop,
+// GetRight, GetBottom, GetEffectiveScale) to draw the objective areas only around what the view shows (#1622).
 fn reads() -> Value {
 	json!({
 		"WorldMapFrame": ["AddCanvasClickHandler", "GetCanvas", "GetCanvasScale", "GetCanvasZoomPercent", "GetGlobalAlpha", "GetGlobalPinScale", "GetMapID",
 			"GetNormalizedCursorPosition", "GetPinFrameLevelsManager", "HasZoomLevels", "IsCanvasMouseFocus", "IsShown", "ScrollContainer"],
-		"WorldMapFrame.ScrollContainer": ["GetFrameLevel"],
-		"WorldMapFrame.canvas": ["GetHeight", "GetWidth"],
+		"WorldMapFrame.ScrollContainer": ["GetBottom", "GetEffectiveScale", "GetFrameLevel", "GetLeft", "GetRight", "GetTop"],
+		"WorldMapFrame.canvas": ["GetEffectiveScale", "GetHeight", "GetLeft", "GetParent", "GetTop", "GetWidth"],
 		"WorldMapFrame.pinFrameLevelsManager": ["GetValidFrameLevel"],
 		"BattlefieldMapFrame": ["GetCanvas", "GetCanvasScale", "GetCanvasZoomPercent", "GetGlobalAlpha", "GetGlobalPinScale", "GetMapID",
 			"GetPinFrameLevelsManager", "HasZoomLevels"],
@@ -208,10 +221,9 @@ fn check(style: &str) {
 	reopened["way"] = json!(0);
 	assert_eq!(reopened, json!({ "pins": 4, "areas": 1, "hulls": 1, "way": 0, "labels": 0, "tiles": 3 }), "drawn again as the map reopens");
 	let mut expected = reads();
-	// The gamepad's map cursor: the pins' place on screen from the canvas's; no canvas click handler (the gamepad
-	// clicks with A, Core/Init.lua's GamepadUI).
+	// No canvas click handler with the gamepad (it clicks with A, Core/Init.lua's GamepadUI); its map cursor reads
+	// the canvas's place on screen, as viewRect does.
 	if gamepad {
-		expected["WorldMapFrame.canvas"] = json!(["GetEffectiveScale", "GetHeight", "GetLeft", "GetTop", "GetWidth"]);
 		let list: Vec<Value> = expected["WorldMapFrame"].as_array().unwrap().iter().filter(|k| k.as_str() != Some("AddCanvasClickHandler")).cloned().collect();
 		expected["WorldMapFrame"] = Value::Array(list);
 	}

@@ -314,6 +314,12 @@ Gear.ItemID = itemID
 local CACHE_CAP = 400
 local infoCache, infoCount = {}, 0
 local resultCache, resultCount = {}, 0
+-- Item IDs whose client data an answer above was built from, since the
+-- caches were last wiped for item data: GET_ITEM_INFO_RECEIVED for any other
+-- item cannot change an answer (every item read goes through itemInfo).
+-- Past ASKED_CAP the next arrival wipes as before, which starts it afresh.
+local ASKED_CAP = 2000
+local asked, askedCount = {}, 0
 
 local function clientStats(link)
 	if type(link) ~= "string" then return nil end
@@ -339,6 +345,10 @@ end
 local function buildInfo(link)
 	local id = itemID(link)
 	if not id then return nil end
+	if not asked[id] then
+		asked[id] = true
+		askedCount = askedCount + 1
+	end
 	local rec = ns.ItemDB and ns.ItemDB.Get(id)
 	local cstats = clientStats(link)
 	local inv, class, subclass, req, quality
@@ -899,6 +909,7 @@ local function invalidate(what)
 	if what == "items" then
 		for k in pairs(infoCache) do infoCache[k] = nil end
 		infoCount = 0
+		asked, askedCount = {}, 0
 	end
 	weaponSkills = nil
 	if what ~= "bags" then eqDirty = true end
@@ -918,7 +929,11 @@ ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() invalidate("equipment") 
 ns.RegisterEvent("BAG_UPDATE_DELAYED", function() invalidate("bags") end)
 ns.RegisterEvent("PLAYER_LEVEL_UP", onLevel)
 ns.RegisterEvent("SKILL_LINES_CHANGED", function() invalidate("skills") end)
-ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function() invalidate("items") end)
+-- Item data arriving changes an answer only for an item one was built from.
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id)
+	id = tonumber(readable(id))
+	if not id or asked[id] or askedCount >= ASKED_CAP then invalidate("items") end
+end)
 for _, ev in ipairs({ "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED", "CHARACTER_POINTS_CHANGED", "TRAIT_CONFIG_UPDATED" }) do
 	ns.RegisterEvent(ev, function() invalidate("spec") end)
 end

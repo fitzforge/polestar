@@ -33,6 +33,10 @@ why An off-hand orb or a staff for the late 30s, your pick.
 # shards and the spell reflect, the zone-line trick; the surges arriving four
 # at a time and the tree south-west of the field.
 # Power in Uldaman is dungeon work (Uldaman, a group of five).
+# Level holds (the #1667 rule: a goal waits until its mobs' top level is at
+# most 2 above you): The Exorcism (the Demon of the Orb, 40 elite) at 38, the
+# Obsidian Sentinel (42 elite) at 40, the Tiara (Velratha, 46 elite) at 44 for
+# a player who took Tiara of the Deep.
 # Optional extra: Tabetha's Task (2861) and Tiara of the Deep (2846), open to
 # every class (Forever's quest data: no class or race limit) but handed out by
 # the same mage trainers (quests.json: Jennea Cannon, Bink, Anastasia
@@ -67,8 +71,9 @@ step The Infernal Orb
 
 step The Exorcism
   zone Dustwallow Marsh
-  tip Back at Tabetha's. Kill the critters around the cottage first: they join the fight. Accepting The Exorcism starts a 3 minute timer, and Tabetha calls the Demon of the Orb out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again.
+  tip Back at Tabetha's. Hand in the orb now; The Exorcism waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting The Exorcism starts a 3 minute timer, and Tabetha calls the Demon of the Orb out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again.
   turnin 1954                                 -- Tabetha
+  level 38
   accept 1955
   kill 6549 quest 1955.1                      -- Demon of the Orb (elite, 40)
   turnin 1955                                 -- Tabetha
@@ -76,7 +81,8 @@ step The Exorcism
 
 step Power in Uldaman
   zone Badlands
-  tip Uldaman is a dungeon in the northern Badlands: a group of five. Go in by the rear entrance, a cave in Dustwind Gulch south-east of the main entrance (elite dragons fly nearby): the Obsidian Sentinel (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an Obsidian Shard, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back.
+  tip Uldaman is a dungeon in the northern Badlands: a group of five, from level 40 here. Go in by the rear entrance, a cave in Dustwind Gulch south-east of the main entrance (elite dragons fly nearby): the Obsidian Sentinel (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an Obsidian Shard, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back.
+  level 40
   collect 8053 quest 1956.1 @49.1,13.7        -- Obsidian Power Source: Obsidian Sentinel
 
 step Mana Surges
@@ -90,10 +96,16 @@ step Mana Surges
   turnin 1958 choose 7515 9517                -- Celestial Power: the Celestial Orb (off-hand) or the Celestial Stave
 
 step Tabetha's Task (optional)
-  tip At 40 the mage trainers who send you to Tabetha (Jennea Cannon, Bink, Anastasia Hartwell, Deino) also have Tabetha's Task, a quest any class can do. Tabetha then wants the Tiara of the Deep from Hydromancer Velratha, a level 46 elite naga in Zul'Farrak, the troll dungeon in north-western Tanaris: a group of five, level 44-54. She is one of the bosses by the sacred pool, and the tiara always drops. The reward window shows the Spellshifter Rod and the Gemshale Pauldrons.
+  tip At 40 the mage trainers who send you to Tabetha (Jennea Cannon, Bink, Anastasia Hartwell, Deino) also have Tabetha's Task, a quest any class can do. Tabetha then wants the Tiara of the Deep from Hydromancer Velratha, a level 46 elite naga in Zul'Farrak, the troll dungeon in north-western Tanaris: a group of five, level 44-54. The reward window shows the Spellshifter Rod and the Gemshale Pauldrons.
   level 40
   accept 2861 optional
   turnin 2861 optional                        -- Tabetha
   accept 2846 optional
-  collect 9234 quest 2846.1 @38.7,20.0 optional -- Tiara of the Deep: Hydromancer Velratha, Zul'Farrak
-  turnin 2846 optional                        -- Tabetha
+
+step Tiara of the Deep in Zul'Farrak
+  when onquest 2846
+  zone Tanaris
+  tip Zul'Farrak, the troll dungeon in north-western Tanaris, needs a group of five; the guide waits for level 44. Hydromancer Velratha is one of the bosses by the sacred pool, and the tiara always drops.
+  level 44
+  collect 9234 quest 2846.1 @38.7,20.0        -- Tiara of the Deep: Hydromancer Velratha, Zul'Farrak
+  turnin 2846                                 -- Tabetha

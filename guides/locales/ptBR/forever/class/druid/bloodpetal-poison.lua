@@ -32,7 +32,7 @@ return {
 	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
 	["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}: espete-o com a {item:22432}",
 	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["Stab a {npc:6498} with the {item:22432}"] = "",
+	["Stab a {npc:6498} with the {item:22432}"] = "Espete um {npc:6498} com a {item:22432}",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple

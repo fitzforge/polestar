@@ -1,39 +1,42 @@
 <Bindings>
-	<Binding name="POLESTAR_TOGGLE" header="POLESTAR" category="ADDONS">
+	<Binding name="POLESTAR_TOGGLE" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.Toggle()
 	</Binding>
-	<Binding name="POLESTAR_NEXT" category="ADDONS">
+	<Binding name="POLESTAR_HIDE" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
+		Polestar.Bindings.Hide()
+	</Binding>
+	<Binding name="POLESTAR_NEXT" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.Next()
 	</Binding>
-	<Binding name="POLESTAR_PREV" category="ADDONS">
+	<Binding name="POLESTAR_PREV" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.Prev()
 	</Binding>
-	<Binding name="POLESTAR_FOCUS" category="ADDONS">
+	<Binding name="POLESTAR_FOCUS" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.Focus()
 	</Binding>
-	<Binding name="POLESTAR_MENU" category="ADDONS">
+	<Binding name="POLESTAR_MENU" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.Menu()
 	</Binding>
-	<Binding name="POLESTAR_OPTIONS" category="ADDONS">
+	<Binding name="POLESTAR_OPTIONS" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.Options()
 	</Binding>
-	<Binding name="POLESTAR_REPORT" category="ADDONS">
+	<Binding name="POLESTAR_REPORT" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.Report()
 	</Binding>
-	<Binding name="POLESTAR_NEXT_WAYPOINT" category="ADDONS">
+	<Binding name="POLESTAR_NEXT_WAYPOINT" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.NextWaypoint()
 	</Binding>
-	<Binding name="POLESTAR_PREV_WAYPOINT" category="ADDONS">
+	<Binding name="POLESTAR_PREV_WAYPOINT" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.PrevWaypoint()
 	</Binding>
-	<Binding name="POLESTAR_REOPEN_TAB" category="ADDONS">
+	<Binding name="POLESTAR_REOPEN_TAB" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.ReopenTab()
 	</Binding>
-	<Binding name="CLICK PolestarQuestItemButton:LeftButton" category="ADDONS"/>
-	<Binding name="CLICK PolestarTargetButton:LeftButton" category="ADDONS"/>
-	<Binding name="CLICK PolestarRareButton:LeftButton" category="ADDONS"/>
-	<Binding name="CLICK PolestarHearthButton:LeftButton" category="ADDONS"/>
-	<Binding name="CLICK PolestarStepButton:LeftButton" category="ADDONS"/>
-	<Binding name="CLICK PolestarTravelButton:LeftButton" category="ADDONS"/>
-	<Binding name="CLICK PolestarBagButton:LeftButton" category="ADDONS"/>
+	<Binding name="CLICK PolestarQuestItemButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
+	<Binding name="CLICK PolestarTargetButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
+	<Binding name="CLICK PolestarRareButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
+	<Binding name="CLICK PolestarHearthButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
+	<Binding name="CLICK PolestarStepButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
+	<Binding name="CLICK PolestarTravelButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
+	<Binding name="CLICK PolestarBagButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
 </Bindings>

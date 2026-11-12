@@ -248,9 +248,8 @@ step Neutral to Friendly in the Temple
   tip Neutral to Friendly is 3,000 reputation. Every trash mob of the Temple of Ahn'Qiraj (a 40-player raid behind the Scarab Wall) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved Ancient Qiraji Artifact (1,000, to Andorgos) or Qiraji Lord's Insignia (500, to Kandrostrasz) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to Andorgos (shoulders) or Kandrostrasz (boots) pay 200 each. The Ruins of Ahn'Qiraj (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted.
   accept 8784 optional item 21230 @29.0,92.8 -- Ancient Qiraji Artifact
   turnin 8784 optional @29.0,92.8     -- Andorgos: 1,000
-  accept 8579 optional @29.0,92.8     -- Kandrostrasz
-  collect 21229 quest 8579.1 optional @29.0,92.8 -- Qiraji Lord's Insignia, Temple bosses
-  turnin 8579 optional @29.0,92.8     -- 500
+  collect 21229 optional @29.0,92.8   -- Qiraji Lord's Insignia, Temple bosses
+  turnin 8579 direct optional @29.0,92.8 -- Kandrostrasz: 500, handed in from his window
   rep 910 Friendly
 
 step The ring at Friendly

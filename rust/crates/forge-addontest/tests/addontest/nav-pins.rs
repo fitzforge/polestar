@@ -510,6 +510,79 @@ fn world_map_redraws_hand_every_pin_frame_back_the_pin_it_showed_and_no_hull_fra
 	assert_eq!(out["spare"], 0, "every hull frame holds exactly the pieces of its own hull");
 }
 
+// Issue #1622: with Options > Map > Quest markers > World map objectives on (worst with its spots drawn as areas),
+// scrolling OpenMap's map dropped to 10 fps. The world map laid out and held the hulls of the whole viewed map (on
+// OpenMap's map often a whole continent) however little of it the view showed, and laid every one out again at
+// each step of a zoom. Now only the hulls around the view are drawn, and they follow a zoom or a pan.
+#[test]
+fn world_map_hulls_are_drawn_only_around_what_the_view_shows_and_follow_a_zoom_or_a_pan() {
+	let out = run(r#"
+		WorldMapFrame.Child:SetSize(1000, 1000)
+		local sc = WorldMapFrame.ScrollContainer
+		local function view(x0, y0, x1, y1)                             -- the scroll frame over canvas percent x0..x1, y0..y1
+			sc.x, sc.width = x0 * 10, (x1 - x0) * 10
+			sc.height = (y1 - y0) * 10
+			sc.y = 1000 - y1 * 10
+		end
+		local offsets = 0
+		local orig = stub.Methods.SetVertexOffset
+		stub.Methods.SetVertexOffset = function(...) offsets = offsets + 1; return orig(...) end
+		local pins = {}
+		for k = 0, 399 do                                               -- 20 x 20 hexagons 30 yd across, one every 5% of the map
+			local cx, cy, hull = (math.floor(k / 20) - 9.5) * 100, ((k % 20) - 9.5) * 100, {}
+			for i = 1, 6 do
+				local a = 2 * math.pi * i / 6
+				hull[2 * i - 1], hull[2 * i] = cx + 30 * math.cos(a), cy + 30 * math.sin(a)
+			end
+			pins[#pins + 1] = { c = 0, wx = cx, wy = cy, hull = hull, areaOnly = true }
+		end
+		Pins.SetLayer("objectives", pins)
+		-- hulls reaching into the view (map percent: x from wy, y from wx; 30 yd = 1.5%) that are not drawn
+		local function missing(x0, y0, x1, y1)
+			local drawn, n = {}, 0
+			for _, f in ipairs(nav.pins("hulls")) do drawn[f.data.pin] = true end
+			for _, p in ipairs(pins) do
+				local x, y = (1000 - p.wy) / 20, (1000 - p.wx) / 20
+				if x + 1.5 >= x0 and x - 1.5 <= x1 and y + 1.5 >= y0 and y - 1.5 <= y1 and not drawn[p] then n = n + 1 end
+			end
+			return n
+		end
+		view(0, 0, 100, 100)
+		nav.showWorldMap(9000)
+		local r = { whole = #nav.pins("hulls") }
+		for f = 1, 40 do                                                -- zoom in on the middle: the whole map -> a tenth of it
+			local half = 50 - 45 * f / 40
+			view(50 - half, 50 - half, 50 + half, 50 + half)
+			sc.currentScale = 50 / half
+			stub.runMapFrame(WorldMapFrame, 0)
+		end
+		r.zoomed = { #nav.pins("hulls"), missing(45, 45, 55, 55) }
+		local miss = 0
+		for f = 1, 40 do                                                -- pan east at that zoom
+			local x0 = 45 + 45 * f / 40
+			view(x0, 45, x0 + 10, 55)
+			stub.runMapFrame(WorldMapFrame, 0)
+			miss = miss + missing(x0, 45, x0 + 10, 55)
+		end
+		r.panned = { #nav.pins("hulls"), miss }
+		offsets = 0
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.still = offsets
+		view(0, 0, 100, 100)                                            -- zoomed out again
+		sc.currentScale = 1
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.out = { #nav.pins("hulls"), missing(0, 0, 100, 100) }
+		emit(r)"#);
+	assert_eq!(out["whole"], 400, "the whole map in view: every hull");
+	let held = |v: &Value| num(&v[0]);
+	assert!(held(&out["zoomed"]) <= 36.0, "zoomed in to a tenth: only the hulls around the view ({})", out["zoomed"][0]);
+	assert_eq!(out["zoomed"][1], 0, "none the view shows is missing");
+	assert!(held(&out["panned"]) <= 36.0, "after the pan: still only those around the view ({})", out["panned"][0]);
+	assert_eq!(out["panned"][1], 0, "the hulls follow the pan: none missing on any frame");
+	assert_eq!(out["still"], 0, "a still view lays nothing out");
+	assert_eq!(out["out"], json!([400, 0]), "zoomed out: every hull again");
+}
+
 fn parts(v: &Value) -> Value {
 	Value::Array(v.as_array().unwrap().iter().map(|f| json!([f["w"], f["back"], f["mark"]])).collect())
 }

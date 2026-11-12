@@ -118,7 +118,7 @@ fn notes(args: &[String]) -> Result<(), super::Fail> {
 	super::check_args(args, &["--root", "--out"], &[], 1).map_err(super::usage)?;
 	let [version] = positional(args, &["--root", "--out"]).try_into().map_err(|_| super::usage("one version"))?;
 	if !forge_release::is_version(&version) {
-		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z or x.y.z-pre)")));
+		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z, x.y.z.hotfix or x.y.z-pre)")));
 	}
 	let root = checkout(opt(args, "--root"))?;
 	let file = root.join("CHANGELOG.md");
@@ -139,18 +139,30 @@ fn notes(args: &[String]) -> Result<(), super::Fail> {
 fn credits(args: &[String]) -> Result<(), super::Fail> {
 	super::check_args(args, &["--root"], &[], 0).map_err(super::usage)?;
 	let root = checkout(opt(args, "--root"))?;
-	use forge_release::credits::{fetch_closed, fetch_issues, fetch_merged, folded, rank_contributors, rank_reporters, read_source, ref_commits, render, OUT, REPO, REPORTERS_SHOWN, SOURCE};
+	use forge_release::credits::{
+		fetch_closed, fetch_issues, fetch_merged, fetch_open, folded, folded_open, rank_contributors, rank_reporters, read_source, ref_commits, ref_ids, render, OUT, REPO, REPORTERS_SHOWN, SOURCE,
+	};
 	let src = read_source(&root.join(SOURCE))?;
 	// Merged pull requests, plus closed ones whose commits were folded into this checkout's HEAD with
-	// their authorship kept (contributors' PRs carried by cherry-pick into a maintainer's branch).
+	// their authorship kept (contributors' PRs carried by cherry-pick into a maintainer's branch), plus
+	// open ones whose head commit is on HEAD (merged into the release's integration branch, before the
+	// push to next marks them merged).
 	let mut prs = fetch_merged(REPO)?;
 	let folded_in = folded(&fetch_closed(REPO, &src.exclude)?, &ref_commits(&root, "HEAD")?);
-	let n_folded = folded_in.len();
+	let open_in = folded_open(&fetch_open(REPO, &src.exclude)?, &ref_ids(&root, "HEAD")?);
+	let (n_folded, n_open) = (folded_in.len(), open_in.len());
 	prs.extend(folded_in);
+	prs.extend(open_in);
 	let contributors = rank_contributors(&prs, &src);
 	let reporters = rank_reporters(&fetch_issues(REPO)?, &src, REPORTERS_SHOWN);
 	let out = root.join(OUT);
 	std::fs::write(&out, render(&src.supporters, &contributors, &reporters)).map_err(|e| format!("{}: {e}", out.display()))?;
-	println!("credits: {} supporters, {} contributors ({n_folded} folded pull requests counted), {} bug reporters -> {}", src.supporters.len(), contributors.len(), reporters.len(), out.display());
+	println!(
+		"credits: {} supporters, {} contributors ({n_folded} folded closed and {n_open} folded open pull requests counted), {} bug reporters -> {}",
+		src.supporters.len(),
+		contributors.len(),
+		reporters.len(),
+		out.display()
+	);
 	Ok(())
 }

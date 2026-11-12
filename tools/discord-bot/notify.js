@@ -1,38 +1,43 @@
 #!/usr/bin/env node
 'use strict';
 // Tells #bugs threads what happened on GitHub; run by the workflows
-// .github/workflows/discord-issue-sync.yml and discord-release-notify.yml.
+// .github/workflows/discord-issue-sync.yml, discord-issue-replies.yml and
+// discord-release-notify.yml.
 //
 //   node tools/discord-bot/notify.js issue     an issue closed, reopened or labelled needs-info
+//   node tools/discord-bot/notify.js comment   a maintainer commented on an issue (or edited the comment)
 //   node tools/discord-bot/notify.js release   a release published
 //
 // Reads the event from GITHUB_EVENT_PATH (NOTIFY_EVENT_PATH first when set:
 // a manual run's stand-in); needs DISCORD_TOKEN, GITHUB_TOKEN and
 // GITHUB_REPOSITORY, and checks threads against DISCORD_FORUM_ID when set.
 // A prerelease pings DISCORD_TESTER_ROLE_ID in DISCORD_TESTERS_CHANNEL_ID,
-// and tells no one when either is unset.
+// and tells no one when either is unset. NOTIFY_ISSUES (a manual release
+// run's "1390 1402"): exactly the issues the release ships, for those closed
+// after its run.
 
 const fs = require('node:fs');
 const { required } = require('./lib/config');
 const { createDiscord } = require('./lib/discord');
 const { createGitHub } = require('./lib/github');
-const { onIssue, onRelease } = require('./lib/notify');
+const { onIssue, onComment, onRelease } = require('./lib/notify');
 
 async function main(mode) {
-	if (mode !== 'issue' && mode !== 'release') throw new Error('usage: notify.js issue|release');
+	if (mode !== 'issue' && mode !== 'comment' && mode !== 'release') throw new Error('usage: notify.js issue|comment|release');
 	const env = process.env;
 	const event = JSON.parse(fs.readFileSync(env.NOTIFY_EVENT_PATH || required(env, 'GITHUB_EVENT_PATH'), 'utf8'));
 	const discord = createDiscord({ token: required(env, 'DISCORD_TOKEN') });
 	const github = createGitHub({ token: required(env, 'GITHUB_TOKEN'), repo: required(env, 'GITHUB_REPOSITORY') });
 	const forumId = (env.DISCORD_FORUM_ID || '').trim() || null;
-	if (mode === 'issue') {
-		await onIssue({ discord, github, event, forumId });
+	if (mode === 'issue' || mode === 'comment') {
+		await (mode === 'issue' ? onIssue : onComment)({ discord, github, event, forumId });
 		return 0;
 	}
 	const testersChannel = (env.DISCORD_TESTERS_CHANNEL_ID || '').trim();
 	const testerRole = (env.DISCORD_TESTER_ROLE_ID || '').trim();
 	const testers = testersChannel && testerRole ? { channel: testersChannel, role: testerRole } : null;
-	const { failed } = await onRelease({ discord, github, event, forumId, testers });
+	const issues = (env.NOTIFY_ISSUES || '').match(/\d+/g) || [];
+	const { failed } = await onRelease({ discord, github, event, forumId, testers, issues: issues.map(Number) });
 	return failed ? 1 : 0;
 }
 

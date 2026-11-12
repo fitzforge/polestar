@@ -28,6 +28,7 @@
 const { planProfession, CAPS } = require('./plan');
 const { homeMap } = require('./materials');
 const { ZONES } = require('./gathering/tables');
+const { byBanners } = require('./sections');
 const { BEASTS } = require('./gathering/skinning');
 const { RACE_GROUPS, TWO_SIDED, raceCondition, maxZoneLevel } = require('./gathering/groups');
 const { header } = require('../generated');
@@ -554,7 +555,7 @@ function draftGuide(name, data, opts = {}) {
 		// to another rank's trainers (spec.taughtBy: Rugged Leather at Drakk
 		// Stonehand or Hahrana Ironhide) keeps its own trip, when it comes after the
 		// bracket's other learns.
-		const few = rankIdx >= 2 && SIDES.map((s) => D.rankTrainers(data, rank, s)).every((l) => l.length && l.length <= 4);
+		const few = rankIdx >= 2 && SIDES.map((s) => D.rankTrainers(data, rank, s, prof)).every((l) => l.length && l.length <= 4);
 		const lateAll = [];
 		for (const seg of b.segments) for (const r of needs(seg)) if (r.source === 'trainer' && !learned.has(r.spell) && !firstLearn.includes(r) && !lateAll.includes(r)) lateAll.push(r);
 		const teachesHere = (r) => {
@@ -589,7 +590,7 @@ function draftGuide(name, data, opts = {}) {
 		if (trainRank) {
 			const who = (() => {
 				if (fixed) return TRAINER_NOTES[(npcs[fixed] || {}).name] || `${D.npcPlace(data, fixed)} teaches it`;
-				const lists = SIDES.map((s) => D.rankTrainers(data, rank, s));
+				const lists = SIDES.map((s) => D.rankTrainers(data, rank, s, prof));
 				if (rankIdx >= 2 && lists.every((l) => l.length && l.length <= 4)) return `Only a few trainers teach it: Alliance ${D.list(lists[0])}; Horde ${D.list(lists[1])}. The arrow picks the nearest of your faction`;
 				// Journeyman: the starting-town trainers (Smith Argus, Dwukk) teach Apprentice only.
 				const all = SIDES.map((s) => new Set(((prof.trainers || {})[s]) || []));
@@ -713,6 +714,20 @@ function draftGuide(name, data, opts = {}) {
 			const need = SIDES.filter((side, i) => kinds[i] !== 'vendor');
 			const ahead = (t.ahead || []).map((a) => `${a.count} of them for ${a.from}-${a.cap}`);
 			const forWhat = `${t.count} ${matName(t.item)} for ${D.list(t.uses)}${ahead.length ? ` (${D.list(ahead)}: pick them all now)` : ''}`;
+			// Cloth: counted in the bags, from humanoids of its band as the character
+			// levels, or the Auction House. No farm spot: a trip to a named camp is a
+			// long journey for what the player loots anyway; `anywhere` keeps the
+			// compiler from placing the count at one dropper of hundreds.
+			if (need.every((side) => t.src[side].kind === 'cloth')) {
+				const lv = D.CLOTH_LEVELS[matName(t.item)];
+				line('');
+				line(`step ${matName(t.item)}`);
+				world();
+				if (need.length === 1) line(`  only ${need[0]}`);
+				line(`  tip ${forWhat}: humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.`);
+				line(`  collect ${t.item} x${t.count} anywhere`);
+				continue;
+			}
 			// The engine skips spots whose mobs are 3+ levels above the player; the
 			// player is at least at the last `level` gate here.
 			const ok = data.farmable ? data.farmable(t.item) : null;
@@ -855,7 +870,7 @@ function draftGuide(name, data, opts = {}) {
 				let offer = null;
 				for (const r of pinned) {
 					const { idx, rank } = onlyAt(r);
-					const who = SIDES.map((s) => `${s} ${D.list(D.rankTrainers(data, rank, s))}`).join('; ');
+					const who = SIDES.map((s) => `${s} ${D.list(D.rankTrainers(data, rank, s, prof))}`).join('; ');
 					parts.push(`${learnWhen(r)} is taught only by the ${rank.name} trainers: ${who}.`);
 					if (idx > rankIdx && seg.from >= rank.minSkill && (!offer || offer.idx < idx)) offer = { idx, rank };
 				}
@@ -967,7 +982,8 @@ function draftGuide(name, data, opts = {}) {
 		line(`  tip ${spec.last || `On Forever no recipe a trainer teaches or both factions' vendors sell gives ${P} points past ${plan.reach}, so Polestar has no route for the last points.${names.length ? ` Recipes that still do: ${names.join(', ')}.` : ''}`}`);
 		line(`  skill ${pq} ${goal}`);
 	}
-	return { text: `${out.join('\n')}\n`, plan };
+	// Each bracket's range is a section (the guide window's heading; the guide starts at the player's skill).
+	return { text: `${byBanners(out.join('\n'), P)}\n`, plan };
 }
 
 module.exports = { draftGuide, farmSpot, skinSpot, money: D.money, slug };

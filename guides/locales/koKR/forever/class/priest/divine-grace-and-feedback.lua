@@ -25,8 +25,8 @@ return {
 	["{npc:3600}: take her {quest:94773} letter"] = "",
 
 	-- Step 3: Divine Grace: High Priestess Laurena
-	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul
-	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get Desperate Prayer in Forever: this is their spell instead."] = "",
+	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul · {spell:13908} Desperate Prayer
+	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "10레벨에 {zone:1453} {object:2098}에 있는 빛의 대성당 제단의 {npc:376}에게 가서 퀘스트를 받으세요. 그 자리에서 {quest:94773}을(를) 가르쳐 줍니다. 편지는 필요 없으며, 다른 상급자의 편지도 됩니다(다음 단계). {quest:94773}은(는) 생명력이 절반 이하인 아군을 즉시 치유하고 {spell:6788}을(를) 없애 다시 보호막을 씌울 수 있게 합니다(재사용 대기시간 5분). 자신에게는 쓸 수 없습니다. Forever의 인간 사제는 {spell:13908}을(를) 받지 못하며, 대신 이 주문을 씁니다.",
 
 	-- Step 4: Divine Grace: Josetta's letter
 	-- {quest:94774} Divine Grace

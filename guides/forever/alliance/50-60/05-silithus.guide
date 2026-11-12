@@ -40,9 +40,6 @@ step Stormwind City
   accept 5048
   turnin 5048                         -- Ol' Emma, who walks the canals
   accept 5050                         -- For Janice Felstone: keep it
-  accept 7791 optional                -- Clavicus Knavingham
-  accept 7793 optional
-  accept 7794 optional
 
 step Stormwind Keep
   accept 6182                         -- Highlord Bolvar Fordragon
@@ -59,12 +56,6 @@ step Ironforge
   zone Ironforge
   turnin 4512                         -- Laris Geardawdle
   accept 4513                         -- Its jars are filled on the next Un'Goro visit
-  accept 7807 optional                -- Bubulo Acerbus, by the tram
-  accept 7808 optional
-  accept 7809 optional
-  accept 7802 optional                -- Mistina Steelshield
-  accept 7803 optional
-  accept 7804 optional
   accept 7261                         -- Lieutenant Rotimer
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 

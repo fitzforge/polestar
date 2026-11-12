@@ -1090,7 +1090,7 @@ fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_sett
 			quests = missing("qualityoflife", "Quests", { "behavior.autoAccept", "qol.instantQuestText", "qol.skipGossip", "qol.fastLoot", "qol.hideErrors",
 				"qol.rewardAutoPick", "qol.rewardEquip", "qol.itemButton", "qol.stepInteract", "qol.hideQuestTracker" }),
 			travel = missing("qualityoflife", "Travel", { "qol.hearthButton", "nav.castPrompt", "nav.alerts", "nav.nearbyButton", "nav.nearbyMenu" }),
-			vendors = missing("qualityoflife", "Vendors", { "behavior.trainReminder", "qol.trainAll" }),
+			vendors = missing("qualityoflife", "Vendors", { "behavior.trainReminder" }),
 			map = missing("qualityoflife", "Map", { "maps.minimapButton", "maps.coords", "maps.minimapCoords" }),
 			questing = missing("questing", "Quests", { "qol.fastLoot", "qol.hideQuestTracker" }),
 			buttons = missing("questing", "Buttons", { "qol.itemButton", "qol.stepInteract", "qol.hearthButton" }),
@@ -1270,4 +1270,25 @@ fn the_version_line_and_its_stage_chip_end_before_the_discord_mark_in_both_windo
 		let end = n(&f["right"]) + 8.0 + n(&f["chip"]);
 		assert!(end <= n(&f["markLeft"]), "{key}: the line and its chip end at {end}, the Discord mark starts at {}", f["markLeft"]);
 	}
+}
+
+// #1684's sweep: in the client a texture's SetAlpha and its vertex colour's alpha are one value. The confirm
+// dialog's scrim was SetAlpha'd to 55 % once, and every theme change repainted its colour at full alpha: after
+// any scheme or skin change the next dialog darkened the whole screen solid. Its strength is now in its colour.
+#[test]
+fn the_confirm_dialog_s_scrim_stays_at_its_strength_after_a_theme_change() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		local b = footerButton("Reset page")
+		local function scrim()
+			b:Click()
+			local a = select(4, PolestarModal.Scrim:GetVertexColor())
+			PolestarModal.Box.Cancel:Click()
+			return a
+		end
+		local first = scrim()
+		Polestar.Set("ui.scheme", "graphite")
+		emit({ first = first, after = scrim() })"#);
+	assert_eq!(out["first"], 0.55, "the dialog's scrim at 55 %");
+	assert_eq!(out["after"], 0.55, "and still 55 % after a theme change, not solid");
 }

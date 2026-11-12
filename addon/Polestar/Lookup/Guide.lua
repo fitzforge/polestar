@@ -26,7 +26,11 @@
 --       the quest after all its open prerequisites, in the order they are done
 --   Lookup.QuestStep(quest, from, opts) -> step   -- accept, objectives, turn-in
 --       opts.inside(kind, id): where an NPC or object without a known spawn
---       is; with it the step is always whole (see questStep)
+--       is; with it the step is always whole (see questStep). A kill of an
+--       elite, rare elite or boss out in the world, or an item it drops,
+--       carries the compiled guides' `group` ({ kind = "elite", rank, lvl }),
+--       so the step says "Elite: group advised" (Rear Guard Patrol's Riptear,
+--       before the Ruins of Lordaeron's The Wrath of Rath'mael)
 --   Lookup.AcceptPre(goal, quest) -> goal
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
@@ -208,12 +212,13 @@ end
 -- source; else, with `inside` (see questStep), where its best source without
 -- a known spawn is, unless that source rarely gives it (under INSIDE_CHANCE
 -- percent: Razorgore's 1.5% Nexus Crystal is no errand) -> point, its name
--- (an inside source only), the best source's spawns (a placed source only).
+-- (an inside source only), the best source's spawns (a placed source only),
+-- the best placed source's NPC record (a drop only).
 local function itemSpot(itemId, from, inside)
 	local C = Codex()
 	local item = C.Item(itemId)
 	if not item then return nil end
-	local best, bestChance, bestSpawns, placed, placedChance, placedName
+	local best, bestChance, bestSpawns, bestNpc, placed, placedChance, placedName
 	for _, src in ipairs(item.sources or {}) do
 		local rec, kind, id
 		if src.type == "drop" and src.npc then
@@ -225,14 +230,75 @@ local function itemSpot(itemId, from, inside)
 		if rec and rec.spawns and #rec.spawns > 0 then
 			if not best or chance > bestChance then
 				best, bestChance, bestSpawns = Lookup.Nearest(rec.spawns, from), chance, rec.spawns
+				bestNpc = kind == "npc" and rec or nil
 			end
 		elseif kind and inside and not best and (src.chance == nil or chance >= INSIDE_CHANCE) and (not placed or chance > placedChance) then
 			local p = inside(kind, id)
 			if p then placed, placedChance, placedName = p, chance, (rec and rec.name) or (C.Name(kind, id)) end
 		end
 	end
-	if best then return best, nil, bestSpawns end
+	if best then return best, nil, bestSpawns, bestNpc end
 	return placed, placedName
+end
+
+-- Who gives a quest item, on its collect goal (`from`, `fromId`, `fromKind`,
+-- `fromRank`, `fromFaction`, `fromAlso`, `fromAlsoId`, as compiled goals
+-- carry them: tools/lib/dsl/resolve.js), so the step reads "Kill Burning
+-- Blade Fanatic or Burning Blade Apprentice for Lieutenant's Insignia"
+-- instead of only the item (#1589, Hidden Enemies: the insignia drops in
+-- Skull Rock's cave). Of its NPC and object sources with a known spawn, best
+-- chance first: named when there are at most two (each one is where it
+-- drops), else when the best gives it NAMED_CHANCE percent of the time or
+-- more, with a second of the same kind that does too. -> goal
+local NAMED_CHANCE = 50
+
+local function itemFrom(goal, itemId)
+	local C = Codex()
+	local item = C.Item(itemId)
+	if not item then return goal end
+	local located = {}
+	for _, src in ipairs(item.sources or {}) do
+		local kind, rec
+		if src.type == "drop" and src.npc then
+			kind, rec = "npc", C.Npc(src.npc)
+		elseif src.type == "object" and src.object then
+			kind, rec = "object", C.Object(src.object)
+		end
+		if rec and rec.name and rec.spawns and #rec.spawns > 0 then
+			located[#located + 1] = { kind = kind, id = src.npc or src.object, rec = rec, chance = src.chance or 0 }
+		end
+	end
+	if #located == 0 then return goal end
+	table.sort(located, function(a, b)
+		if a.chance ~= b.chance then return a.chance > b.chance end
+		return a.id < b.id
+	end)
+	local few = #located <= 2
+	local top, second = located[1], located[2]
+	if not (few or top.chance >= NAMED_CHANCE) then return goal end
+	goal.from, goal.fromId, goal.fromKind = top.rec.name, top.id, top.kind
+	if top.kind == "npc" then
+		local r = top.rec
+		goal.fromRank = (r.boss and 3) or (r.rare and r.elite and 2) or (r.elite and 1) or (r.rare and 4) or nil
+		if r.faction == "A" or r.faction == "H" or r.faction == "AH" then goal.fromFaction = r.faction end
+	end
+	if second and second.kind == top.kind and (few or second.chance >= NAMED_CHANCE) and second.rec.name ~= goal.from then
+		goal.fromAlso, goal.fromAlsoId = second.rec.name, second.id
+	end
+	return goal
+end
+
+-- A Codex NPC that needs a group out in the world -> the compiled guides'
+-- `group` for a goal at it ({ kind = "elite", rank = 1 elite | 2 rare elite
+-- | 3 boss, lvl }, UI.GroupLine), else nil. One inside an instance is part
+-- of the run, not a warning for the step; one friendly to a side (Tirion
+-- Fordring, whose "kill" objective is a talk) or of no real level (9999:
+-- Anachronos) is no fight.
+local MAX_LEVEL = 63
+local function eliteGroup(npc)
+	if not (npc and (npc.elite or npc.boss)) or npc.instance or npc.faction then return nil end
+	if npc.level and npc.level > MAX_LEVEL then return nil end
+	return { kind = "elite", rank = npc.boss and 3 or (npc.rare and 2) or 1, lvl = npc.level }
 end
 
 -- Spawn areas (docs/GUIDE_FORMAT.md, "Spawn areas"), as compiled goals get
@@ -480,6 +546,7 @@ local function questStep(q, from, isTarget, opts)
 	goals[1] = accept
 	local here = giver and giver.spawn or from
 	local event = nil
+	local talks = {} -- the NPCs of talk objectives, for the step's note
 	for oi, o in ipairs(q.objectives or {}) do
 		local count = o.count or 1
 		if o.type == "kill" and o.id then
@@ -491,13 +558,13 @@ local function questStep(q, from, isTarget, opts)
 				mark(s, target)
 			end
 			goals[#goals + 1] = spawnSpots(at({ t = "kill", target = target, npc = o.id, tame = o.tame,
-				quest = q.id, oi = oi, count = count, title = q.title }, s), npc and npc.spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }, s), npc and npc.spawns)
 		elseif o.type == "item" and o.id then
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
-			local s, source, spawns = itemSpot(o.id, here, inside)
+			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
 			if source then mark(s, name) end
-			goals[#goals + 1] = spawnSpots(at({ t = "collect", item = o.id, itemName = name,
-				quest = q.id, oi = oi, count = count, title = q.title }, s), spawns)
+			goals[#goals + 1] = spawnSpots(at(itemFrom({ t = "collect", item = o.id, itemName = name,
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) }, o.id), s), spawns)
 		elseif o.type == "talk" and o.id then
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
@@ -509,6 +576,7 @@ local function questStep(q, from, isTarget, opts)
 				mark(s, who)
 			end
 			goals[#goals + 1] = at({ t = "talk", npc = o.id, npcName = who, quest = q.id, oi = oi, title = q.title }, s)
+			talks[#talks + 1] = who
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)
@@ -528,10 +596,15 @@ local function questStep(q, from, isTarget, opts)
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
-	if #order > 0 then
+	if #order > 0 or #talks > 0 then
 		local lines = {}
 		for i, inst in ipairs(order) do
 			lines[i] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
+		end
+		-- A talk objective ticks only once the NPC's dialogue is gone through
+		-- (#1590, Neeru Fireblade's several pages for Hidden Enemies).
+		for _, who in ipairs(talks) do
+			lines[#lines + 1] = format(L["%s: click through what they say until the quest's line is done."], who)
 		end
 		step.note = concat(lines, " ")
 	end
@@ -625,7 +698,7 @@ builders.drop = function(ctx, row)
 	if row.chance then step.note = L["Drop chance"] .. " " .. percent(row.chance) end
 	if inst then
 		if located(row) then
-			steps[#steps + 1] = { title = inst.name, goals = { at({ t = "goto", text = L["Enter"] .. " " .. inst.name }, row) } }
+			steps[#steps + 1] = { title = inst.name, goals = { at({ t = "goto", text = inst.name, entrance = true }, row) } }
 		end
 		step.goals[1], step.goals[2] = kill, collect
 	else
@@ -741,7 +814,7 @@ builders["end"] = builders.start
 
 builders.entrance = function(ctx, row)
 	if not located(row) then return nil, "nolocation" end
-	return { { title = ctx.name, goals = { at({ t = "goto", text = L["Enter"] .. " " .. ctx.name }, row) } } }
+	return { { title = ctx.name, goals = { at({ t = "goto", text = ctx.name, entrance = true }, row) } } }
 end
 
 local function entityName(kind, entity)

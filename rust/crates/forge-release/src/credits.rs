@@ -142,6 +142,55 @@ pub fn folded(closed: &[Closed], on_ref: &[(String, String)]) -> Vec<Merged> {
 		.collect()
 }
 
+/// An open pull request: its author and its head commit.
+#[derive(Clone, Debug)]
+pub struct Open {
+	pub login: Option<String>,
+	pub head: String,
+}
+
+/// The open pull requests of `repo` by authors other than `exclude` (and bots), with their head
+/// commits, through the GitHub CLI.
+pub fn fetch_open(repo: &str, exclude: &[String]) -> Result<Vec<Open>, String> {
+	let out = std::process::Command::new("gh")
+		.args(["pr", "list", "--repo", repo, "--state", "open", "--limit", "5000", "--json", "author,headRefOid"])
+		.output()
+		.map_err(|e| format!("gh (the GitHub CLI) could not run: {e}"))?;
+	if !out.status.success() {
+		return Err(format!("gh pr list failed: {}", String::from_utf8_lossy(&out.stderr).trim()));
+	}
+	let doc: Value = serde_json::from_slice(&out.stdout).map_err(|e| format!("gh pr list: {e}"))?;
+	let skip: Vec<String> = exclude.iter().map(|l| l.to_lowercase()).collect();
+	Ok(doc
+		.as_array()
+		.ok_or("gh pr list: not a list")?
+		.iter()
+		.filter_map(|pr| {
+			let login = pr.pointer("/author/login").and_then(Value::as_str)?;
+			let head = pr.get("headRefOid").and_then(Value::as_str)?;
+			let counted = !login.is_empty() && !skip.contains(&login.to_lowercase()) && !login.starts_with("app/") && !login.ends_with("[bot]");
+			counted.then(|| Open { login: Some(login.to_string()), head: head.to_lowercase() })
+		})
+		.collect())
+}
+
+/// The release ref's commits as (commit id, committer date): `git log --format=%H%x1f%cI <rev>` in `root`.
+pub fn ref_ids(root: &Path, rev: &str) -> Result<Vec<(String, String)>, String> {
+	let out = std::process::Command::new("git").arg("-C").arg(root).args(["log", "--format=%H%x1f%cI", rev]).output().map_err(|e| format!("git could not run: {e}"))?;
+	if !out.status.success() {
+		return Err(format!("git log {rev} failed: {}", String::from_utf8_lossy(&out.stderr).trim()));
+	}
+	Ok(String::from_utf8_lossy(&out.stdout).lines().filter_map(|l| l.split_once('\u{1f}')).map(|(id, at)| (id.to_lowercase(), at.to_string())).collect())
+}
+
+/// The open pull requests folded into the release ref at their exact head: the head commit is on the
+/// ref (an integration branch merges it before the release reaches the branch that marks the pull
+/// request merged). Each counts as one pull request, at its head commit's date.
+pub fn folded_open(open: &[Open], on_ref: &[(String, String)]) -> Vec<Merged> {
+	let at: std::collections::HashMap<&str, &str> = on_ref.iter().map(|(id, at)| (id.as_str(), at.as_str())).collect();
+	open.iter().filter_map(|pr| at.get(pr.head.as_str()).map(|t| Merged { login: pr.login.clone(), merged_at: Some(t.to_string()) })).collect()
+}
+
 /// Contributors by merged or folded pull requests, most first; a tie goes to whoever merged first. Bots
 /// and excluded logins are left out; `names` maps a login to the name shown. -> (name, pull requests).
 pub fn rank_contributors(prs: &[Merged], src: &Source) -> Vec<(String, usize)> {
@@ -378,6 +427,31 @@ mod tests {
 		let all = [pr("bob", "2026-10-01T00:00:00Z")].into_iter().chain(got).collect::<Vec<_>>();
 		let src = Source { supporters: vec![], exclude: vec![], names: vec![] };
 		assert_eq!(rank_contributors(&all, &src), [("bob".to_string(), 2), ("ann".into(), 1)]);
+	}
+
+	#[test]
+	fn an_open_pull_request_counts_when_its_head_commit_is_on_the_release_ref() {
+		let open = |login: &str, head: &str| Open { login: Some(login.into()), head: head.into() };
+		let prs = [
+			// folded: the integration branch merged its exact head
+			open("ann", "aaaa"),
+			// open, its head not on the ref (a later push, or never folded)
+			open("bob", "bbbb"),
+			// a second open pull request of the same author, folded too
+			open("ann", "cccc"),
+		];
+		let on_ref = [
+			("aaaa".to_string(), "2026-11-09T10:00:00+01:00".to_string()),
+			("cccc".to_string(), "2026-11-10T10:00:00+01:00".to_string()),
+			("dddd".to_string(), "2026-11-08T10:00:00+01:00".to_string()),
+		];
+		let got = folded_open(&prs, &on_ref);
+		assert_eq!(got.iter().map(|m| m.login.clone().unwrap()).collect::<Vec<_>>(), ["ann", "ann"]);
+		assert_eq!(got[0].merged_at.as_deref(), Some("2026-11-09T10:00:00+01:00"));
+		// they rank with the merged ones
+		let all = [pr("bob", "2026-10-01T00:00:00Z")].into_iter().chain(got).collect::<Vec<_>>();
+		let src = Source { supporters: vec![], exclude: vec![], names: vec![] };
+		assert_eq!(rank_contributors(&all, &src), [("ann".to_string(), 2), ("bob".into(), 1)]);
 	}
 
 	#[test]

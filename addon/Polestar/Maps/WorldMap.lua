@@ -92,7 +92,7 @@ local function label(i)
 	if f then return f end
 	local W = ns.Widgets
 	local T = ns.Theme
-	f = ns.CreateFrameUnder("Frame", nil, view.canvas)
+	f = ns.CreateFrameUnder("Frame", nil, view.frame)
 	f:SetSize(120, 30)
 	f.Name = W.Text(f, "small", "textDim")
 	f.Name:SetPoint("BOTTOM", f, "CENTER", 0, 0)
@@ -235,8 +235,10 @@ local function update(force)
 	end
 end
 
+-- The bar sits on the map frame, outside the view's frame: it goes while
+-- Polestar is hidden by asking.
 local function barWanted()
-	return ns.Get("maps.coords") or ns.Get("maps.zoneLevels")
+	return (ns.Get("maps.coords") or ns.Get("maps.zoneLevels")) and not ns.Hidden()
 end
 
 local function buildBar()
@@ -248,8 +250,9 @@ local function buildBar()
 	bar:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 0, 0)
 	bar:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", 0, 0)
 	bar:SetFrameLevel((host:GetFrameLevel() or 1) + 20)
-	local bg = W.Fill(bar, "bg")
-	bg:SetAlpha(0.82)
+	-- 82 % in its colour, not SetAlpha: a texture's alpha is its vertex
+	-- colour's, and a theme change repaints that at full strength (#1684).
+	W.Color(W.Fill(bar, "bg"), "bg", 0.82)
 	local rule = W.Divider(bar)
 	rule:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, 0)
 	rule:SetPoint("TOPRIGHT", bar, "TOPRIGHT", 0, 0)
@@ -308,6 +311,11 @@ end
 
 ns.On("SETTING_CHANGED", function(path)
 	if path == "maps.zoneLevels" or path == "maps.coords" or path == "maps" or path == "" then Maps.RefreshWorldMap() end
+end)
+
+-- Hidden: the bar goes now; it comes back with the view's next "show".
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if bar and hidden then bar:Hide() end
 end)
 
 ns.RegisterEvent("PLAYER_LEVEL_UP", function() Maps.RefreshWorldMap() end)

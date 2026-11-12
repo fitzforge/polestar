@@ -1,0 +1,408 @@
+name: On-demand gates
+
+# The sweep and release gates that can run on GitHub, on a branch, started by hand (one run per batch
+# of work) or from ondemand-batch.yml.
+#
+# committed: gates that read only committed files, exact here: the generated guides and the seed are
+# not hand-edited, the corrections' shapes and sources, the public database's guard, one version in
+# every TOC, the walking maps against their PACK.json, changelog fragments, translations, and the
+# static tests (no other guide product named, every guide parses into Polestar_Guides).
+#
+# engine: the guide pack's memory budgets (forge-addontest guides_memory, measured alone on the
+# committed pack: exact here) and the engine's skip-ahead and upgrade cases (engine_skip_ahead,
+# engine_upgrade*, engine_when_upgrade, engine_empty_stop: the placement on load and reload, and a
+# save carried across pack updates).
+#
+# public: gates that need data/forever, run against data built from public sources
+# (.github/actions/public-data): lint errors, prerequisite order (tests/prereq-order.test.js), the
+# reported cases and their todos (tests/guides-reported.test.js; a release ships with none), the
+# route patterns (tests/guides-patterns.test.js) and the guide-end sweep's fresh-character run
+# (forge-addontest guides_end::every, guides_end_early). On public data a finding can be the data's:
+# give `base` and only findings the base does not have fail.
+#
+# Local, never here (docs/CI.md): the release run of these gates (on the --kb data), the skip-ahead
+# sweep and the upgrade harness (states from the level model on the walking grid, saves from
+# recordings), the guide-end history run, and every sweep that reads recordings or the game client.
+#
+#   gh workflow run ondemand-gates.yml --ref <branch> -f base=next
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or tag of this repository to test (empty = the branch the run was started on)
+        type: string
+        default: ""
+      base:
+        description: Branch or tag the public-data gates compare with (e.g. next); empty = every finding counts
+        type: string
+        default: ""
+      public:
+        description: Also the gates that need data/forever (public data)
+        type: boolean
+        default: true
+  workflow_call:
+    inputs:
+      sha:
+        description: The commit to test, resolved by ondemand-batch.yml
+        type: string
+        required: true
+      base_sha:
+        description: The base's commit, resolved by ondemand-batch.yml (empty = none)
+        type: string
+        default: ""
+      base_name:
+        description: The base's name, for the summaries
+        type: string
+        default: ""
+      public:
+        type: boolean
+        default: true
+
+# No token scope at the top: each job asks for what it needs (every job here: reading the repository).
+permissions: {}
+
+# One run per branch at a time; a newer start waits (and replaces an older waiting one).
+concurrency:
+  group: ondemand-gates-${{ inputs.sha || inputs.ref || github.ref }}
+  cancel-in-progress: false
+
+# `shell: bash` runs steps with pipefail, so `cargo test | tee` fails when the tests do. A job's
+# own `defaults.run` replaces this one whole: it names the shell again (tests/workflows.test.js).
+defaults:
+  run:
+    shell: bash
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  ref:
+    name: Ref
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      sha: ${{ steps.ref.outputs.sha }}
+      base: ${{ steps.ref.outputs.base }}
+    steps:
+      # This workflow's own actions, from its own commit: the code under test may predate them.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          path: .ondemand
+          sparse-checkout: .github/actions
+          persist-credentials: false
+
+      - name: Ref
+        id: ref
+        uses: ./.ondemand/.github/actions/ondemand-ref
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          base: ${{ inputs.base }}
+          sha: ${{ inputs.sha }}
+          base-sha: ${{ inputs.base_sha }}
+
+  committed:
+    name: Committed-data gates
+    needs: ref
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+        working-directory: code
+    env:
+      FORGE: ${{ github.workspace }}/code/rust/target/quick/forge
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ needs.ref.outputs.sha }}
+          path: code
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: code/rust
+          shared-key: ondemand-forge
+
+      - name: Build forge
+        working-directory: code/rust
+        run: cargo build --profile quick --locked -p forge
+
+      # guides/GENERATED.json and forge/seed/SEED.json: a hand edit to a generated guide is undone by
+      # the next build (the fix goes to its record instead).
+      - name: Generated guides not hand-edited
+        run: $FORGE guide check-generated --checkout .
+
+      # Shapes and source kinds; the ids are checked against the full data, locally.
+      - name: Corrections
+        if: ${{ !cancelled() }}
+        run: $FORGE data check-corrections --root . --data "$RUNNER_TEMP/no-data"
+
+      - name: Public database guard (forever-db)
+        if: ${{ !cancelled() }}
+        run: $FORGE data publish --root . --check forever-db
+
+      - name: One version everywhere
+        if: ${{ !cancelled() }}
+        run: $FORGE release version
+
+      - name: Walking maps match PACK.json
+        if: ${{ !cancelled() }}
+        run: $FORGE nav check --root .
+
+      - name: Changelog fragments
+        if: ${{ !cancelled() }}
+        run: $FORGE changelog check --root .
+
+      - name: Translations
+        if: ${{ !cancelled() }}
+        run: $FORGE i18n check --root .
+
+      - name: Static tests
+        if: ${{ !cancelled() }}
+        run: node --test tests/wording.test.js tests/guides-parse.test.js tests/generated-guides.test.js
+
+  # The pack's memory alone (one test thread: nothing else runs beside it), then the engine's
+  # skip-ahead and upgrade cases. Both read only the committed pack and the addon.
+  engine:
+    name: Skip-ahead, upgrade and guide pack memory
+    needs: ref
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+        working-directory: code/rust
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ needs.ref.outputs.sha }}
+          path: code
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: code/rust
+          shared-key: ondemand-addontest
+
+      - name: Build
+        run: mkdir -p "$RUNNER_TEMP/logs" && cargo test --profile quick --locked -p forge-addontest --test addontest --no-run
+
+      - name: Guide pack memory (guides_memory)
+        run: >-
+          cargo test --profile quick --locked -p forge-addontest --test addontest -- guides_memory
+          --test-threads=1 --nocapture 2>&1 | tee "$RUNNER_TEMP/logs/guides-memory.log"
+
+      - name: Skip-ahead and upgrade cases
+        if: ${{ !cancelled() }}
+        env:
+          RUST_TEST_THREADS: "4"
+        run: >-
+          cargo test --profile quick --locked -p forge-addontest --test addontest --
+          engine_skip_ahead engine_upgrade engine_when_upgrade engine_empty_stop
+          2>&1 | tee "$RUNNER_TEMP/logs/skip-ahead-upgrade.log"
+
+      - name: Summary
+        if: ${{ !cancelled() }}
+        run: |
+          {
+            for f in guides-memory skip-ahead-upgrade; do
+              echo "### $f"
+              echo '```'
+              grep -E '^test .* (ok|FAILED|ignored)$|^test result:|KiB' "$RUNNER_TEMP/logs/$f.log" | head -n 120 || true
+              echo '```'
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: logs-gates-engine
+          path: ${{ runner.temp }}/logs/
+          retention-days: 14
+          if-no-files-found: ignore
+
+  public:
+    name: Public-data gates
+    needs: ref
+    if: inputs.public
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+    env:
+      FORGE: ${{ github.workspace }}/head/rust/target/quick/forge
+      BASE: ${{ needs.ref.outputs.base != '' && (inputs.base || inputs.base_name || needs.ref.outputs.base) || '' }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ needs.ref.outputs.sha }}
+          path: head
+          persist-credentials: false
+
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        if: needs.ref.outputs.base != ''
+        with:
+          ref: ${{ needs.ref.outputs.base }}
+          path: base
+          persist-credentials: false
+
+      # This workflow's own actions, from its own commit: the code under test may predate them.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          path: .ondemand
+          sparse-checkout: .github/actions
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: head/rust
+          shared-key: ondemand-addontest
+
+      - name: Build forge
+        working-directory: head/rust
+        run: cargo build --profile quick --locked -p forge
+
+      - name: Public data (head)
+        uses: ./.ondemand/.github/actions/public-data
+        with:
+          forge: ${{ env.FORGE }}
+          root: head
+
+      - name: Public data (base)
+        if: needs.ref.outputs.base != ''
+        uses: ./.ondemand/.github/actions/public-data
+        with:
+          forge: ${{ env.FORGE }}
+          root: base
+
+      # Each gate writes, per side, a sorted list of its findings to $RUNNER_TEMP/<gate>-<side>.txt; the
+      # verdict compares them. Line numbers and step numbers are dropped so an inserted step does not
+      # make every later finding new. Full outputs go to the logs artifact.
+      - name: Lint
+        if: ${{ !cancelled() }}
+        run: |
+          logs="$RUNNER_TEMP/logs"
+          mkdir -p "$logs"
+          for side in head base; do
+            [ -d "$side" ] || continue
+            (cd "$side" && "$FORGE" guide lint --root . --format github) > "$logs/lint-$side.log" 2>&1 || true
+            grep '^::error' "$logs/lint-$side.log" \
+              | sed -E 's#^::error file=[^,]*/(guides/[^,]*)(,line=[0-9]+)?::#\1: #; s/(\.guide):[0-9]+/\1/g; s/\b(step|line) [0-9]+/\1 N/g' \
+              | sort -u > "$RUNNER_TEMP/lint-$side.txt" || true
+          done
+          grep '^::' "$logs/lint-head.log" | head -n 50 || true
+
+      # The node gates, in TAP: a failing test is a finding; guides-reported's todo cases are counted.
+      - name: Prerequisite order, reported cases, route patterns
+        if: ${{ !cancelled() }}
+        run: |
+          logs="$RUNNER_TEMP/logs"
+          for side in head base; do
+            [ -d "$side" ] || continue
+            for t in prereq-order guides-reported guides-patterns; do
+              (cd "$side" && FORGE="$FORGE" node --test --test-reporter=tap "tests/$t.test.js") > "$logs/$t-$side.tap" 2>&1 || true
+              grep -E '^\s*not ok [0-9]+ - ' "$logs/$t-$side.tap" | grep -v '# TODO' \
+                | sed -E 's/^\s*not ok [0-9]+ - //' | sort -u > "$RUNNER_TEMP/$t-$side.txt" || true
+              grep -E '^\s*(not )?ok [0-9]+ - .*# TODO' "$logs/$t-$side.tap" \
+                | sed -E 's/^\s*(not )?ok [0-9]+ - //' | sort -u > "$RUNNER_TEMP/$t-todo-$side.txt" || true
+            done
+          done
+
+      # The guide-end sweep, fresh characters: every leveling guide played in order ends only at its
+      # end, and ends when its last step is done ahead. (The history run needs histories made from the
+      # release level model: local.)
+      - name: Guide end (fresh characters)
+        if: ${{ !cancelled() }}
+        run: |
+          logs="$RUNNER_TEMP/logs"
+          for side in head base; do
+            [ -d "$side" ] || continue
+            mkdir -p "$RUNNER_TEMP/ge-$side"
+            (cd "$side/rust" && TMPDIR="$RUNNER_TEMP/ge-$side" cargo test --profile quick --locked -p forge-addontest --test addontest -- guides_end::every guides_end_early) \
+              > "$logs/guide-end-$side.log" 2>&1 || true
+            mkdir -p "$logs/guide-end-$side" && cp "$RUNNER_TEMP/ge-$side"/polestar-guides-end*.txt "$logs/guide-end-$side/" 2>/dev/null || true
+            cat "$RUNNER_TEMP/ge-$side"/polestar-guides-end*.txt 2>/dev/null | grep '^FAIL' \
+              | sed -E 's/\b(step|line) [0-9]+/\1 N/g' | sort -u > "$RUNNER_TEMP/guide-end-$side.txt" || true
+            if ! ls "$RUNNER_TEMP/ge-$side"/polestar-guides-end*.txt > /dev/null 2>&1; then
+              echo "FAIL no guide-end report written (see the log)" > "$RUNNER_TEMP/guide-end-$side.txt"
+              tail -n 40 "$logs/guide-end-$side.log"
+            fi
+          done
+
+      - name: Verdict
+        if: ${{ !cancelled() }}
+        run: |
+          rc=0
+          report() { # <title> <file stem>
+            local head="$RUNNER_TEMP/$2-head.txt" base="$RUNNER_TEMP/$2-base.txt"
+            touch "$head"
+            echo "### $1"
+            if [ -n "$BASE" ]; then
+              touch "$base"
+              comm -23 "$head" "$base" > "$RUNNER_TEMP/new.txt"
+              echo "$(wc -l < "$head") on the head, $(wc -l < "$base") on $BASE, $(wc -l < "$RUNNER_TEMP/new.txt") new:"
+            else
+              cp "$head" "$RUNNER_TEMP/new.txt"
+              echo "$(wc -l < "$RUNNER_TEMP/new.txt"):"
+            fi
+            echo '```'; head -n 100 "$RUNNER_TEMP/new.txt"; echo '```'
+            if [ -s "$RUNNER_TEMP/new.txt" ]; then rc=1; fi
+            return 0
+          }
+          {
+            report "Lint errors" lint
+            report "Prerequisite order (failing tests)" prereq-order
+            report "Reported cases (failing tests)" guides-reported
+            report "Route patterns (failing tests)" guides-patterns
+            report "Guide end, fresh characters (FAIL lines)" guide-end
+            touch "$RUNNER_TEMP/guides-reported-todo-head.txt"
+            echo "### Reported cases left as todo (a release ships with none)"
+            echo "$(wc -l < "$RUNNER_TEMP/guides-reported-todo-head.txt") on the head:"
+            echo '```'; cat "$RUNNER_TEMP/guides-reported-todo-head.txt"; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
+
+      - name: Logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: logs-gates-public
+          path: ${{ runner.temp }}/logs/
+          retention-days: 14
+          if-no-files-found: ignore
