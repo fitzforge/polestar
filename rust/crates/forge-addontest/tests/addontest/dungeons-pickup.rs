@@ -1908,6 +1908,7 @@ for s, step in ipairs(g.steps) do
 			out.collect = { from = goal.from or false, fromId = goal.fromId or false, also = goal.fromAlso or false, alsoId = goal.fromAlsoId or false, text = v.text }
 		end
 		if goal.t == "talk" and goal.quest == 90602 then out.talkNote = step.note or false end
+		if goal.t == "accept" and goal.quest == 90602 then out.acceptNote = goal.note or false end
 	end
 end
 emit(out)"#);
@@ -1918,8 +1919,9 @@ emit(out)"#);
 			"text": "Kill Burning Blade Fanatic or Burning Blade Apprentice for Lieutenant's Insignia" }),
 		"both droppers named, the lower id first at the same chance; no faction: mobs to kill"
 	);
-	// The step is a prerequisite of the dungeon quest too: why it is in the guide comes first, then how to do it.
-	assert_eq!(out["talkNote"], "Needed for “The Dungeon Quest”. Neeru Fireblade: click through what they say until the quest's line is done.");
+	// The step is a prerequisite of the dungeon quest too: its accept says so, the step's note how to do it.
+	assert_eq!(out["acceptNote"], "Needed for “The Dungeon Quest”.");
+	assert_eq!(out["talkNote"], "Neeru Fireblade: click through what they say until the quest's line is done.");
 
 	// A third dropper, none at 50%: the item drops all around, no source is named (as compiled guides do).
 	let mut wide = c.clone();
@@ -1975,15 +1977,20 @@ fn a_stop_at_hand_comes_first_out_of_ragefire_chasm_neeru_fireblade_beside_the_p
 // compiled guides' group (the step's "Elite: group advised" line, as in the leveling guides). Here Orders from
 // the Undercity (1010) and The Dalaran Inquiry (1011) come before Arugal Must Die (1014); in the second pack
 // Orders from the Undercity also wants a heart an elite in Silverpine drops, and a claw an ordinary wolf drops.
+// Fitz, 0.3.7-rc1 (the same guide, A Recipe For Death before The New Plague): the line sat in the step's folded
+// tip, so nothing in sight said why. It is now the accept's own line, under the goal, and the first goal says how
+// many of the steps are prerequisites and about how long they take.
 #[test]
 fn a_prerequisite_step_says_which_dungeon_quest_it_is_needed_for_and_an_elite_s_drop_says_group_advised() {
 	let script = k(r#"
 local def = D.PickupGuide("{KEY}")
-local notes, groups = {}, {}
+local notes, accepts, groups = {}, {}, {}
 for i, s in ipairs(def.steps) do
 	notes[i] = s.note or false
+	accepts[i] = false
 	for _, g in ipairs(s.goals) do
 		if g.t == "collect" or g.t == "kill" then groups[tostring(g.item or g.npc)] = g.group or false end
+		if g.t == "accept" and accepts[i] == false then accepts[i] = g.note or false end
 	end
 end
 D.PickUp("{KEY}")
@@ -1991,15 +1998,31 @@ local E = Polestar.Engine
 local v = E.GetStepView(1)
 local party = false
 for _, g in ipairs(v.goals) do if g.t == "collect" and g.party then party = g.party end end
-emit({ steps = describe(def), notes = notes, groups = groups, view = { note = v.note or false, party = party } })"#);
+emit({ steps = describe(def), notes = notes, accepts = accepts, groups = groups,
+	view = { note = v.note or false, party = party, first = v.goals[1].note or false, second = E.GetStepView(2).goals[1].note or false } })"#);
 	let plain = run(&default_pack(), &script, Opts::default()).remove(0);
 	assert_eq!(plain["steps"], json!(from_undercity()));
 	assert_eq!(
 		plain["notes"],
-		json!(["Needed for “Arugal Must Die”.", "Needed for “Arugal Must Die”.", false, false, "In your log already: “The Book of Ur”"]),
-		"the two quests before Dalar's; not the givers' steps; the entrance keeps its own note (#1591)"
+		json!([false, false, false, false, "In your log already: “The Book of Ur”"]),
+		"the steps' own notes (their folded tips) keep only what they had; the entrance its own (#1591)"
 	);
-	assert_eq!(plain["view"]["note"], "Needed for “Arugal Must Die”.", "the guide window shows it on the step");
+	let head = |v: &Value| {
+		let s = v.as_str().unwrap_or_default().to_string();
+		let rest = s.strip_prefix("Prerequisite quests: 2 of 5 steps, about ").unwrap_or_else(|| panic!("the count first: {s}"));
+		let (time, tail) = rest.split_once(". ").unwrap_or_else(|| panic!("then the time: {s}"));
+		assert!(time.ends_with(" min") && time.split(' ').next().unwrap().parse::<u32>().is_ok_and(|m| m >= 5 && m % 5 == 0), "about whole 5 minutes: {s}");
+		tail.to_string()
+	};
+	assert_eq!(head(&plain["accepts"][0]), "Needed for “Arugal Must Die”.", "the guide's first goal: the count and time, then why");
+	assert_eq!(
+		json!([plain["accepts"][1], plain["accepts"][2], plain["accepts"][3]]),
+		json!(["Needed for “Arugal Must Die”.", false, false]),
+		"the second quest before Dalar's says why too; not the givers' accepts"
+	);
+	assert_eq!(head(&plain["view"]["first"]), "Needed for “Arugal Must Die”.", "the guide window shows it under the goal");
+	assert_eq!(plain["view"]["second"], "Needed for “Arugal Must Die”.");
+	assert_eq!(plain["view"]["note"], false, "not in the folded tip");
 
 	let (codex, inputs) = fixture_parts();
 	let mut c = codex.clone();
@@ -2021,7 +2044,126 @@ emit({ steps = describe(def), notes = notes, groups = groups, view = { note = v.
 	assert_eq!(elite["groups"]["90600"], json!({ "kind": "elite", "rank": 1, "lvl": 13 }), "the elite's drop");
 	assert_eq!(elite["groups"]["90602"], false, "an ordinary wolf's claw needs no group");
 	assert_eq!(elite["view"]["party"], json!({ "kind": "elite", "rank": 1, "lvl": 13 }), "the engine's view carries it: \"Elite: group advised\"");
-	assert_eq!(elite["notes"][0], "Needed for “Arugal Must Die”.");
+	assert_eq!(head(&elite["accepts"][0]), "Needed for “Arugal Must Die”.");
+}
+
+// The prerequisites' time on the pick-up guide's first goal is rough: whole 5 minutes, at least 5, hours past 60,
+// a whole hour alone.
+#[test]
+fn the_prerequisites_time_reads_in_whole_five_minutes_at_least_five() {
+	let out = run(&default_pack(), "emit({ D.PrereqTime(0), D.PrereqTime(400), D.PrereqTime(1000), D.PrereqTime(4200), D.PrereqTime(nil), D.PrereqTime(3550) })", Opts::default()).remove(0);
+	assert_eq!(out, json!(["5 min", "5 min", "15 min", "1 h 10 min", "5 min", "1 h"]));
+}
+
+// An objective's rough time: a kill per count; an item the kills its best drop chance takes; anything else a use.
+#[test]
+fn an_objective_s_time_counts_kills_by_the_best_drop_chance() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let item = |id: i32, sources: Value| json!({ "id": id, "name": "Moss", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": sources });
+	c["items"]["90630"] = item(90630, json!([{ "type": "drop", "npc": 1, "chance": 50.0 }, { "type": "drop", "npc": 2, "chance": 60.0 }]));
+	c["items"]["90631"] = item(90631, json!([{ "type": "drop", "npc": 3, "chance": 0.5 }]));
+	let script = r#"emit({
+		D.ObjectiveSeconds({ type = "kill", id = 1, count = 8 }),
+		D.ObjectiveSeconds({ type = "item", id = 90630, count = 6 }),
+		D.ObjectiveSeconds({ type = "item", id = 90631, count = 1 }),
+		D.ObjectiveSeconds({ type = "item", id = 90699, count = 2 }),
+		D.ObjectiveSeconds({ type = "object", id = 5, count = 1 }),
+	})"#;
+	let out = run(&pack_of(&c, &inputs), script, Opts::default()).remove(0);
+	// 8 kills; 6 at 60% (the better source): 10 kills; 0.5% counts as 2%: 50 kills; an item no NPC drops and an object: uses.
+	assert_eq!(out, json!([320, 400, 2000, 60, 30]));
+	// A step's time: travel through its places (none here), STEP_SECONDS for its own talks and turn-in, then the objectives.
+	let step = r#"emit({ D.PrereqSeconds({ goals = { { t = "accept" }, { t = "turnin" } } }, { objectives = { { type = "kill", id = 1, count = 8 } } }, nil),
+		D.PrereqSeconds({ goals = {} }, nil, nil) })"#;
+	assert_eq!(run(&pack_of(&c, &inputs), step, Opts::default()).remove(0), json!([75 + 320, 75]));
+}
+
+// Fitz, 0.3.8 (after the pick-up guide's "Needed for" lines): a dungeon's quests, and the nearest three
+// prerequisites before each, carry the Dungeons window's glyph after their name on the guide window's goal rows and
+// While you're here rows, and the goal's tooltip says why. The Codex build decides which (Dungeons1.lua's marks,
+// forge-data codex/journal.rs `marks_of`); the addon reads them. Here a chain of five quests leads to The Dungeon
+// Quest (90706, in Shadowfang Keep): the three nearest (90703-90705) are marked, the first two are not.
+#[test]
+fn a_dungeon_quest_and_its_nearest_three_prerequisites_carry_the_dungeon_mark_on_goal_rows_while_here_and_tooltips() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90710"] = json!({
+		"id": 90710, "name": "Chain Giver", "level": 11, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	let quest = |id: i32, title: &str, pre: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 14, "minLevel": 10, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90710], "object": [], "item": [] }, "end": { "npc": [90710], "object": [] },
+			"objectives": [], "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	for (id, pre) in [(90701, vec![]), (90702, vec![90701]), (90703, vec![90702]), (90704, vec![90703]), (90705, vec![90704])] {
+		c["quests"][id.to_string()] = quest(id, &format!("Errand {}", id - 90700), &pre);
+	}
+	c["quests"]["90706"] = quest(90706, "The Dungeon Quest", &[90705]);
+	i["forever"]["quests"]["90706"] = json!({ "area": 209 });
+	let script = r#"
+local D, UI = Polestar.Dungeons, Polestar.UI
+D.Load()
+local marks = {}
+for id = 90701, 90706 do
+	local m = D.QuestMark(id)
+	marks[#marks + 1] = m and (m.key .. " / " .. (m.quest or "-")) or false
+end
+local goal = { t = "accept", quest = 90705, subject = "Errand 5", subjectKind = "quest", text = "Accept “Errand 5”", status = "active" }
+local here = { here = "turnin", t = "turnin", quest = 90706, hereText = "Hand in “The Dungeon Quest” to Chain Giver", hereTitle = "“The Dungeon Quest”" }
+emit({ marks = marks, row = UI.GoalLine(goal, nil, true), plain = UI.GoalLine(goal), here = UI.HereText(here),
+	tip = D.MarkTooltip(90705), own = D.MarkTooltip(90706), none = D.MarkTooltip(90701) or false, after = D.MarkAfter(90701) })"#;
+	let out = run(&pack_of(&c, &i), script, Opts { whole: true, ..Default::default() }).remove(0);
+	let dungeon = "shadowfang-keep / 90706";
+	assert_eq!(out["marks"], json!([false, false, dungeon, dungeon, dungeon, "shadowfang-keep / -"]), "the nearest three before the dungeon quest");
+	let glyph = "|TInterface\\AddOns\\Polestar\\Media\\UI\\icon-dungeon:0:0:0:0:32:32:0:32:0:32:";
+	let row = out["row"].as_str().unwrap();
+	assert!(row.contains("Errand 5") && row.contains(glyph), "the goal row carries it after the name: {row}");
+	assert!(!out["plain"].as_str().unwrap().contains("icon-dungeon"), "only where asked for (not the Then: lines or the step list)");
+	let here = out["here"].as_str().unwrap();
+	assert!(here.starts_with("Hand in “The Dungeon Quest” |T") && here.ends_with("|t to Chain Giver"), "the While you're here row: {here}");
+	let tip = out["tip"].as_str().unwrap();
+	assert!(tip.starts_with(glyph) && tip.ends_with("|t Needed for “The Dungeon Quest” in Shadowfang Keep"), "{tip}");
+	assert!(out["own"].as_str().unwrap().ends_with("|t Part of the Shadowfang Keep quests"), "{}", out["own"]);
+	assert_eq!(json!([out["none"], out["after"]]), json!([false, ""]));
+}
+
+// A breadcrumb before a dungeon quest (Forever's `breadcrumbs`) is no prerequisite: it only leads there, and the
+// pick-up guide says "Leads to". Its mark says the same. Here The Dungeon Quest (90706) wants Errand 5 (90705), and
+// Rumours (90707) is its breadcrumb.
+#[test]
+fn a_breadcrumb_s_dungeon_mark_says_it_leads_to_the_dungeon_quest() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90710"] = json!({
+		"id": 90710, "name": "Chain Giver", "level": 11, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	let quest = |id: i32, title: &str, pre: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 14, "minLevel": 10, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90710], "object": [], "item": [] }, "end": { "npc": [90710], "object": [] },
+			"objectives": [], "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90705"] = quest(90705, "Errand 5", &[]);
+	c["quests"]["90706"] = quest(90706, "The Dungeon Quest", &[90705]);
+	c["quests"]["90707"] = quest(90707, "Rumours", &[]);
+	i["forever"]["quests"]["90706"] = json!({ "area": 209, "breadcrumbs": [90707] });
+	let script = r#"
+local D = Polestar.Dungeons
+D.Load()
+local m = D.QuestMark(90707)
+emit({ crumb = m and m.breadcrumb or false, needed = D.MarkTooltip(90705), leads = D.MarkTooltip(90707) })"#;
+	let out = run(&pack_of(&c, &i), script, Opts { whole: true, ..Default::default() }).remove(0);
+	assert_eq!(out["crumb"], true, "the build flags it");
+	assert!(out["needed"].as_str().unwrap().ends_with("|t Needed for “The Dungeon Quest” in Shadowfang Keep"), "{}", out["needed"]);
+	assert!(out["leads"].as_str().unwrap().ends_with("|t Leads to “The Dungeon Quest”."), "the breadcrumb: {}", out["leads"]);
 }
 
 // #1748 (fekz, Tauren Druid 34): Excavation Site: Wetlands' hand-in guide took Earthen Echo from Bashana

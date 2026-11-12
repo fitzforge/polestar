@@ -34,3 +34,5 @@ When ForeverLevelingBiS left the Codex (2026-11), expected/ was rewritten by the
 Spawn heights (#1024, blessed the same way): NPC and object places in `codex/npcs.json` and `objects.json` gained `z` from the world slice's spawnz.json, the pack records (Npcs, Objects, Rares, Treasures) their trailing `z` field, and `meta.json`'s pack bytes grew with them; nothing else changed.
 
 Elites at objects (#1778): four objectives in `codex/quests.json` (an object to use or an item only objects give, among hostile elites in the world slice) gained `elites`, their Quests1 records the `w` fields, and `meta.json`'s pack bytes grew by those 49 bytes; nothing else changed.
+
+Dungeon marks (0.3.8): `Polestar_Codex/Dungeons1.lua` gained its `D.Register("marks", …)` line and `codex/journal.json` its `marks` (the slice's three page quests and the nearest prerequisites of each, per side: `journal.rs` `marks_of`), and `meta.json`'s pack bytes grew by the line's 371 bytes; nothing else changed.
