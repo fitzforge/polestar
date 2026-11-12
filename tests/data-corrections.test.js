@@ -197,7 +197,9 @@ test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so
 
 test('dungeon turn-in NPCs the data placed nowhere stand where players hand in to them (#1326 sweep)', () => {
 	assert.deepEqual(corrections.npcs[13155].set.spawns, { 1437: { f: 'e', pts: [[51.41, 59.23]] } }, 'Deathstalker Agent: Dragonmaw Rumors and Open the Maw, Wetlands');
-	assert.deepEqual(corrections.npcs[15991].set.spawns, { 1453: { f: 'e', pts: [[68.15, 29], [70.18, 29.86]] } }, 'Lady Dena Kennedy: Crest of Lordaeron, Stormwind City');
+	// Stormwind City's spots in the frame of the map the game shows (live, with the harbour): read in the older map's
+	// frame they lie about 100 yd south, toward the Trade District, and the arrow led away from her (#1870).
+	assert.deepEqual(corrections.npcs[15991].set.spawns, { 1453: { f: 'l', pts: [[68.15, 29], [70.18, 29.86]] } }, 'Lady Dena Kennedy: Crest of Lordaeron, Stormwind City');
 });
 
 test('the Dalaran traitors stand in the camp south of their Classic spot, where players kill them (#1633)', () => {
