@@ -219,7 +219,7 @@ Without `--kb`, `data/forever/` gets:
 | File | What it holds |
 |---|---|
 | `quests.json` | every quest: level, givers and turn-ins, objectives, prerequisites, XP, races and classes, and the sources each record came from |
-| `npcs.json`, `objects.json` | names, levels, ranks, factions, roles, spawn points per map |
+| `npcs.json`, `objects.json` | names, levels, ranks, factions, roles, spawn points per map (a spawn QuestieDB places in a city stays off its zone's and the neighbouring zones' maps) |
 | `items.json` | where each item comes from: drops (with chances), vendors, containers |
 | `zones.json`, `map-frames.json` | zone names and levels; how map percentages convert to world coordinates |
 | `factions.json`, `races.json`, `instances.json` | factions and reactions, races and classes, dungeon and raid areas |

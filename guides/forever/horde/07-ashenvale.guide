@@ -193,9 +193,9 @@ step Sharptalon
 
 step Splintertree Post
   when onquest 2,23,24
-  turnin 23 optional                  -- Senani Thunderheart
-  turnin 2 optional                   -- Senani Thunderheart
-  turnin 24 optional
+  turnin 23                           -- Senani Thunderheart
+  turnin 2                            -- Senani Thunderheart
+  turnin 24
 
 step Splintertree Post
   turnin 247 direct

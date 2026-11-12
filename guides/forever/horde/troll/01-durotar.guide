@@ -182,38 +182,47 @@ step Brakk's campfire
 
 step Camping 101: Mining
   when skill Mining 1
+  when !knows 1230161
   accept 97907                        -- Brakk: for Krunn
 
 step Camping 101: Engineering
   when skill Engineering 1
+  when !knows 1230656
   accept 97902                        -- Brakk: for Mukdrak
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97903                        -- Brakk: for Rawrk
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97908                        -- Brakk: for Thuwd
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97906                        -- Brakk: for Karolek
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  when !knows 1229504
   accept 96102                        -- Brakk: for Snang
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  when !knows 1229705
   accept 97905                        -- Brakk: for Jandi
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  when !knows 1230643
   accept 97901                        -- Brakk: for Jhag
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  when !knows 1230564
   accept 97899                        -- Brakk: for Whuut
 
 step Razor Hill
@@ -278,7 +287,7 @@ step Tiragarde Keep
 step Razor Hill
   tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
   turnin 784                          -- Gar'Thok
-  turnin 830 optional
+  turnin 830
   accept 831
   accept 825
   turnin 791                          -- Furl Scornbrow

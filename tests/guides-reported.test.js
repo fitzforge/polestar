@@ -11450,6 +11450,99 @@ test(`${WETLANDS}: #1866: the Tome of Mel'Thandris is read on the later moonwell
 	assert.ok(fixes.deliberate.pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'turnin,1055' && `${p.b}` === 'task,1022'), 'a record the build keeps');
 });
 
+// Helcular's Revenge (553, Horde 30-40/01-hillsbrad-foothills): the grave lies inside Southshore, an Alliance town
+// (4 abandons in players' recordings). The recordings show it can be done: of 21 people who lit the flames, 14
+// handed it in at the grave, all of them coming down from the north. The step keeps the hand-in, leads in by a goto
+// north of the graveyard and names the guard posts beside it.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Helcular\'s grave is approached from the north, between the guards', { skip }, () => {
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const list = goals(guide);
+	const hand = at(list, 'turnin 553', is('turnin', 553));
+	assert.ok(!list[hand].goal.optional, 'the hand-in is kept');
+	const north = list.slice(0, hand).filter(({ s, goal }) => s === list[hand].s && goal.t === 'goto');
+	assert.equal(north.length, 1, 'one goto before the grave in its step');
+	assert.ok(yards(north[0].goal, { map: 1424, x: 53.4, y: 48.8 }) <= 30, 'north of the graveyard');
+	assert.ok(north[0].goal.y < list[hand].goal.y - 3, 'north of the grave');
+	assert.match([].concat(list[hand].step.note || []).join(' '), /Southshore Guards/);
+});
+
+// #1867 (Teldrassil, Camping 101: Skinning, 97949): Lyreena didn't offer it because the character already knew Camp
+// Chair, the Skinning camp item a trainer teaches from skill 20, yet the step waited for the quest. Every start
+// guide's Camping 101 step now applies only while its profession's camp item is unknown (`when !knows <spell>`),
+// besides `when skill <profession> 1`.
+test(`${TELDRASSIL}: #1867: Camping 101: Skinning is skipped once Camp Chair is known`, { skip }, () => {
+	const elf = { race: 'NightElf', raceName: 'Night Elf', faction: 'Alliance', cls: 'DRUID', className: 'Druid', level: 6 };
+	const skinner = 'w.skills[393] = { name = "Skinning", rank = 1, maxRank = 75 }';
+	const open = questGoalStatus(TELDRASSIL, 97949, elf, { skills: skinner });
+	const known = questGoalStatus(TELDRASSIL, 97949, elf, { skills: `${skinner}; w.spells[1229517] = true` });
+	const accept = (list) => list.find((v) => v.startsWith('accept '));
+	assert.ok(accept(open) && !/ (na|skipped)$/.test(accept(open)), `a skinner without Camp Chair still gets the step: ${accept(open)}`);
+	assert.match(accept(known) || '', / (na|skipped)$/, 'with Camp Chair known the step does not apply');
+});
+
+test('#1867: every start guide\'s Camping 101 step waits only while its camp item is unknown', { skip }, () => {
+	const starts = allGuides().filter((f) => /\/01-[a-z-]+\.guide$/.test(f) && /forever\/(alliance|horde)\/[a-z]+\//.test(f));
+	let n = 0;
+	for (const file of starts) {
+		for (const { step, goal } of goals(file)) {
+			if (goal.t !== 'accept' || !/^Camping 101: (?!Cooking)/.test(goal.title || '')) continue;
+			n += 1;
+			const when = step.when || [];
+			assert.ok(when.some((p) => p.k === 'skill' && !p.neg), `${file}: accept ${goal.quest} keeps its skill condition`);
+			assert.ok(when.some((p) => p.k === 'knows' && p.neg), `${file}: accept ${goal.quest} waits only while the camp item is unknown`);
+		}
+	}
+	assert.ok(n >= 70, `${n} Camping 101 accepts found`);
+});
+
+// Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, from Ageron
+// Kargal in Brill) is handed in; 4 recorded players carrying it had 1473 refused. The route takes 1478 on the Brill
+// stop that trains and hands it in to Carendin right before 1473.
+test(`${TIRISFAL}: a Warlock hands Halgar's Summons to Carendin before Creature of the Void`, { skip }, () => {
+	const list = goals(TIRISFAL).filter(forClass('WARLOCK'));
+	const take = at(list, 'accept 1478', is('accept', 1478));
+	const hand = at(list, 'turnin 1478', is('turnin', 1478));
+	const creature = at(list, 'accept 1473', is('accept', 1473));
+	assert.ok(take < hand && hand < creature, 'taken in Brill, handed in, then Creature of the Void');
+	assert.equal(list[hand].s, list[creature].s, 'on the same stop at Carendin');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.pairs.some((p) => `${p.a}` === 'turnin,1478' && `${p.b}` === 'accept,1473'), 'a record the build keeps');
+	assert.ok(fixes.overrides.include.some((x) => x.q === 1478), 'the route takes 1478');
+});
+
+// jaff's report: "I always have grey quests that are completed in random spots that I haven't handed in". Some
+// quests the route takes are handed in only by an `optional` goal: the engine never holds an optional goal, so the
+// player walks past the ender carrying the quest. Those hand-ins now hold (hidden for anyone without the quest); a
+// quest whose only work is a rare drop has its accept optional too, and a quest carried 18 levels for a tenth of its
+// XP is no longer taken.
+test("jaff's report: a quest the route takes is handed in by a goal that holds", { skip }, () => {
+	const A = (g) => `forever/alliance/${g}.guide`;
+	const H = (g) => `forever/horde/${g}.guide`;
+	const holds = [
+		[A('50-60/06-silithus'), 5845], [H('07-ashenvale'), 2], [H('07-ashenvale'), 23], [H('07-ashenvale'), 24], [DUROTARS[0], 830], [DUROTARS[1], 830],
+		[H('03-silverpine-forest'), 832], [H('tauren/01-mulgore'), 781], [H('06-hillsbrad-foothills'), 2479],
+	];
+	for (const [guide, q] of holds) {
+		const t = goals(guide).find(({ goal }) => is('turnin', q)(goal));
+		assert.ok(t && !t.goal.optional, `${guide}: turnin ${q} is a goal that holds`);
+		assert.ok(!(t.step.when || []).some((p) => p.k === 'group' || (p.k === 'onquest' && !p.neg && ![p.q].flat().includes(q))), `${guide}: turnin ${q} is not behind another quest's or a group's condition`);
+	}
+	const stv = goals(A('40-50/01-stranglethorn-vale')).find(({ goal }) => is('accept', 706)(goal));
+	assert.ok(stv && stv.goal.optional, 'accept 706 (Fiery Blaze Enchantments, a rare drop) is optional');
+	for (const file of allGuides().filter((f) => f.startsWith('forever/alliance/'))) {
+		const list = goals(file);
+		assert.ok(!list.some(({ goal }) => is('accept', 1037)(goal)), `${file}: Velinde Starsong is not taken`);
+		// A copy a player still carries is handed in only while it is in the log.
+		for (const { step } of list.filter(({ goal }) => is('turnin', 1037)(goal))) {
+			assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1037)), `${file}: turnin 1037 only while carried`);
+		}
+	}
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const q of [5845, 2479]) assert.ok(fixes.deliberate.keep.some((k) => k.q === q), `keep ${q} is a record`);
+	assert.ok(fixes.deliberate.optional.some((k) => k.q === 706), 'optional 706 is a record');
+	assert.ok(fixes.overrides.skip.some((k) => k.q === 1037 && k.faction === 'Alliance'), 'skip 1037 is a record');
+});
+
 // Fyurie's report (#1791): Solution to Doom's Ancient Chest (126260, one spawn) lies just inside Uldaman's cave
 // mouth, 17-18 yd from Magregan Deepshadow and the Obsidian Golems (38, elite), where a level 39 warrior met them on
 // the solo route. Recordings: 2 people looted it (a rogue and a druid, both able to stealth), and the rogue died at

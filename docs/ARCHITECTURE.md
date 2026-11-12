@@ -522,7 +522,8 @@ reloads the UI when it changes). With it on, Polestar:
 - puts no window in `UISpecialFrames` (`CloseOnEscape`), which the
   gamepad's menus read and close;
 - opens no world map (`Compat.OpenWorldMap`; a dungeon page has no "Show
-  on map") and adds no canvas click handler to it (Nav/Journey);
+  on map") or quest log (`Compat.OpenQuestLog`; no "Show in quest log"
+  entry) and adds no canvas click handler to it (Nav/Journey);
 - never closes the game's Settings panel for "Open Polestar settings"
   (UI/Options: the chat says to close it);
 - hooks no button the gamepad's navigation moves over: no Polestar line on
@@ -871,7 +872,10 @@ through `Compat.OpenWorldMap(uiMapID)` (`C_Map.OpenWorldMap`, the global
 `Compat.CanOpenWorldMap()` says whether it can): the global opener called
 from addon code taints the map frame (NAV_QA C3), and
 `rust/crates/forge-addontest/tests/addontest/compat.rs` rejects any other code that opens or moves the world
-map. Routing the rest keeps Forever specifics in few places and lets other modules' tests
+map. The quest log, the world map's side panel, opens only through
+`Compat.OpenQuestLog(questID)` (the client's `QuestMapFrame_OpenToQuestDetails`,
+under the same rules; `Compat.CanOpenQuestLog()`), and the same test rejects its
+openers elsewhere. Routing the rest keeps Forever specifics in few places and lets other modules' tests
 replace Compat with a fake.
 
 Coordinates: map percent `x, y` in **0–100**. World coordinates follow
@@ -8329,8 +8333,16 @@ blesses them). Run in a copy without `data/sources`, it names `sources.areas` 13
    that Forever removed something. Real removals, or wrong pfQuest sources, go in
    corrections.json. Exceptions: npc `faction` stays pfQuest's, because QuestieDB's
    friendlyToFaction means "not hostile", so wildlife reads "AH". `pre` also
-   stays pfQuest's (see above). pfQuest copies of a spawn on another map (a
-   city and its zone) are kept when they lie within 30 yards of a QuestieDB
+   stays pfQuest's (see above). pfQuest lists a spawn under every map whose
+   rectangle holds it. Its copy of a QuestieDB spawn (within 30 yards, a
+   gathering node's within 10) joins on another map only when the two maps are
+   of one kind and the copy's is no continent's (told by its size, as one
+   zone's box can lie inside another's): two zones whose rectangles overlap
+   keep both copies, but a copy stays off when one of the maps is a city's and
+   the other a zone's (QuestieDB places a spawn by its area, and a city's
+   rectangle reaches past its walls) and off a continent's map. A gathering
+   node's other maps also keep the nodes QuestieDB lacks. A zone's copy stays
+   alone (`spawns::drop_map_copies`) beside a continent's QuestieDB
    spawn. QuestieDB's Static Corrections are folded into the store. Its Dynamic
    (per-character) Corrections are not applied. Questie and QuestieDB ship no
    licence file (CurseForge says GPL-3.0; the maintainers say to treat them as
