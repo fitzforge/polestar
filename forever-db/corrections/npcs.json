@@ -518,7 +518,7 @@
 		"set": {
 			"spawns": {
 				"1453": {
-					"f": "l",
+					"f": "e",
 					"pts": [
 						[
 							68.15,
@@ -532,17 +532,11 @@
 				}
 			}
 		},
-		"source": [
-			{
-				"kind": "recording",
-				"ref": "players' in-game recordings to 2026-11-11: 15 hand-ins of the Alliance's Crest of Lordaeron (95189) to her and 19 sightings by 19 characters, all on Stormwind City's map as the game shows it (map 1453), at 68.1-71.57,27.64-34.06 (median 69.2,29.84), by the Deeprun Tram's building"
-			},
-			{
-				"kind": "in-game-check",
-				"ref": "#1870: the reporter marked her at 70.32,29.81 (the game's map); his report's arrow distance, 99 yd from 74.21,38.79, is the distance to the spot read in the older Stormwind map's frame (98.7 yd), not to her (139 yd)"
-			}
-		],
-		"note": "Lady Dena Kennedy (npc 15991), ender of the Alliance's Crest of Lordaeron (95189, started by the crest that drops in the Ruins of Lordaeron), stands in Stormwind City between 68.15,29.0 and 70.18,29.86 on the city's map as the game shows it (live frame, with the harbour), by the Deeprun Tram's building, where players hand it in. The merged data placed her nowhere (#1326 sweep); that record gave her spots in the older map's frame, which puts them about 100 yd south, toward the Trade District, so the arrow led away from her (#1870)."
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-08: 6 people (all who handed in the Alliance's Crest of Lordaeron, 95189) did so at Stormwind City 68.1-68.48,28.94-30.26 (4 people) and 70.17-70.2,29.84-29.88 (2 people), map 1453; 7 people (5 established) met her there, friendly"
+		},
+		"note": "Lady Dena Kennedy (npc 15991), ender of the Alliance's Crest of Lordaeron (95189, started by the crest that drops in the Ruins of Lordaeron), stands in Stormwind City between 68.15,29.0 and 70.18,29.86 (map 1453), where players handed it in. The merged data placed her nowhere, so the dungeon's hand-in guide listed the quest as turned in at no known place (#1326 sweep)."
 	},
 	"209797": {
 		"set": {
@@ -2426,5 +2420,29 @@
 			}
 		],
 		"note": "Fariel Starsong is a Lunar Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15351": {
+		"addSpawns": {
+			"1413": {
+				"f": "e",
+				"pts": [
+					[
+						63.64,
+						58.64
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 4 people met him at Northwatch Hold in the Barrens (map 1413), each at 63.5-64.0,58.4-58.8 (median 63.59,58.72); 2 of them opened his window there"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide collector spawn rows: 1413 63.64,58.64"
+			}
+		],
+		"note": "The Alliance Brigadier General also stands at Northwatch Hold, beside the Darkspear Islands portal, where players hand him their marks. The merged data had no spot for him in the Barrens, so the Darkspear Islands guide sent players to Refuge Pointe. Adds the Barrens map; his other spots stay."
 	}
 }

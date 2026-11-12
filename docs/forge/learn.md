@@ -139,5 +139,8 @@ evidence and no prerequisite or level conflict), and every fact that is not a co
 - Both skip any field a correction sets: corrections are the last word.
 
 The data build still reads `data/recordings/` for everything else (titles, givers, objectives
-lists, spawns, drops); `data/codex/recorded.json` still holds the Codex's recorded drops and vendors.
-They fold into this snapshot as the learned layer grows.
+lists, spawns, drops); `data/codex/recorded.json` still holds the Codex's recorded drops, vendors
+and rewards (`forge data codex --recordings`, which counts people by the rules under "Who counts"
+above, verdicts and one vote per person included). They fold into this snapshot as the learned
+layer grows. The prerequisite-order check in `tests/guides-reported.test.js` takes this snapshot's
+trusted, provisional and stale `pre` facts too (`tools/lib/route/prereq-order.js`).

@@ -7816,7 +7816,7 @@ registers through `ZoneArt.RegisterOverlays` the way `MapFrames.lua` and
 
 ### Codex (`codex build`)
 
-`forge data codex [--build <version>] [--out <dir>] [--pack <dir>] [--recordings <dir>]` (the release build;
+`forge data codex [--build <version>] [--out <dir>] [--pack <dir>] [--recordings <dir> [--verdicts <file>]]` (the release build;
 `--local-extras [--addons <dir>]` adds the local extras)
 merges `data/forever/*.json` (pfQuest, QuestieDB facts, recordings,
 corrections, web quest list and web XP facts), the Forever client's tables
@@ -7839,19 +7839,33 @@ was already built without it.
 - Recorded item sources (`codex/recorded.rs`): `data/codex/recorded.json` is a
   committed snapshot of what players' Recorder sessions saw, so every machine
   builds the same Codex; `--recordings <dir>` (the maintainer's local archive,
-  or `data/recordings`) rewrites it before the build. Only players that count
-  go in, by the data build's own rule (`recordings::read_recordings`: an
-  Ingest contributor once established, 3 days of history and uploads on 3
-  days; the maintainer's own and vouched-for files always; `config.json`'s
-  `minBuild`, `minVoters`), and only facts without who saw them: per NPC or
-  object the items its loot windows held (NPC loot from a gathering skill
-  left out), with a chance (the median of each player's own share) only
-  when `minVoters` players with 10 loot windows each back it; per NPC its
-  merchant window's items (which also gives it the `vendor` and `sells:*`
-  roles); per quest the reward list most players' accept windows showed
-  (`trusted` when `minVoters` agree). Provenance `recordings`, ranked first.
-  A trusted reward list stands in for the web quest lists' for that quest;
-  an untrusted one only fills a quest no other input gives rewards for.
+  or `data/recordings`) rewrites it before the build. It reads the folder
+  one session at a time, twice (who counts, then what they saw), by the
+  trusted-recordings rule `forge record learn` follows (docs/forge/learn.md,
+  "Who counts"): an Ingest contributor counts once established (3 days of
+  history and uploads on 3 days; the maintainer's own and vouched-for files
+  always; `config.json`'s `minBuild`, `minVoters` and thresholds), never when
+  `config.json`'s `exclude` or IngestAudit's verdicts (`--verdicts`, default
+  the maintainer's `ingest-audit/verdict.json` when present) set it aside, and
+  a player is a person: the server's cohort merged with every contributor the
+  verdicts call the same person, one vote per fact. Only facts go in, without
+  who saw them: per NPC or object the items its loot windows held (NPC loot
+  from a gathering skill left out), with the people who saw each, a chance
+  (the median of each person's own share of kills or loot windows) only when
+  `minVoters` people (or a vouched one) with 10 of their own back it, and
+  `trusted` when `minVoters` people saw it, a vouched one did, or such a
+  chance backs it; per NPC each item its merchant window listed, with its
+  people and `trusted`; per quest the reward list its quest frames showed (a
+  turn-in over an accept per person, decided by `Ballot`, `trusted` when
+  `minVoters` agree or a vouched person recorded it). Provenance
+  `recordings`, ranked first. One rule for the merge: a recorded fact changes
+  what the Codex says only when it is `trusted`; otherwise it only confirms
+  another input's. An untrusted drop or object source stays only beside
+  another input's of the same NPC or object; an untrusted merchant item only
+  where the quest data or a curated guide names that vendor (and only then
+  gives the NPC its `vendor` and `sells:*` roles); a trusted reward list
+  stands in for the web quest lists' for that quest, an untrusted one adds
+  nothing.
 - Curated vendors (`curated_vendors`): in a guide that `collects` an item,
   each `buy <item> ... npc <id>` step is a vendor source (provenance
   `guides`), whatever races the step is for: the Forever-only racial mounts
@@ -8018,6 +8032,8 @@ was already built without it.
   (with `pre` = every blocking prerequisite, `preAny`, rewards from recordings,
   the curated tables and the web quest lists, `xp` = the full XP reward from `data/forever/quests.json`
   where known (what a guide or dungeon is worth in levels: Core/Levels.lua),
+  `skill`/`skillLevel` = the profession the quest needs and its rank (#1913;
+  the pack's quest record carries them as `l<line>,<rank>`),
   and `web` on each quest Forever's zone,
   dungeon and raid lists carry: `{ zone, type, side, choices, items, money,
   rep }`, the zone or instance category and the list's rewards, read by the
@@ -8578,7 +8594,9 @@ archive every chunk per contributor as
 beside it: the contributor owning the folder and the install's map table; a
 pulled line whose folder names another contributor is skipped), then normalise
 every (contributor, install) that got a chunk again from its whole archive
-(`normalize::sessions`). One contributor claiming another's install id lands in
+(`normalize::sessions`), one archive at a time per worker (`--jobs`, at most 12):
+an archive's sessions depend on its own chunks only, so memory holds a few
+archives, never all of them. One contributor claiming another's install id lands in
 its own folder and its own sessions. A session is the consecutive chunks of one
 (contributor, install, character id) with gaps under 30 minutes; a session file
 the new normalisation no longer has (a late chunk joined two sessions) is
@@ -8701,8 +8719,15 @@ by a recording's own. Schema 1 sessions (no contributor, no locale) count as
 corrected value back when it is done (`corrections::reassert`), whatever the
 recordings' evidence, and the build warns with each value the recordings
 disagreed with; the knowledge base ranks `correction` (0) above `recorder`
-(0.5). `forge record resession` normalises every archive in `raw/` again, for
-record kinds an older forge skipped.
+(0.5). `forge record resession` normalises the archives in `raw/` again, for
+record kinds an older forge skipped. Each archive's `install.json` carries a
+stamp of what its sessions were made from (`sessioned`: a hash of
+polestar-recording and `record.rs` built into forge, the chunk count, a digest
+of the chunks, the map table, the receive times and the contributor's figures,
+and the session files written); resession leaves an archive whose stamp
+matches and whose session files are all there as it is, so a rerun with the
+same forge is quick and a forge with changed recording code sessions every
+archive again (`--all` does every archive whatever the stamps say).
 
 `record trail <session|file> [--out file.json]` writes a session's `/psrec
 trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,

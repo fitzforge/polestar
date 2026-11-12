@@ -405,6 +405,11 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rec.get("xp").num() > 0.0 {
 		parts.push(format!("x{}", num(&rec.get("xp"))?));
 	}
+	// The profession it needs (#1913): l<skill line>,<rank>, the rank empty when the data names none. Not `s`, the
+	// talk objective: an older reader skips `l` (no objective kind is l).
+	if rec.get("skill").num() > 0.0 {
+		parts.push(format!("l{},{}", num(&rec.get("skill"))?, num(&rec.get("skillLevel"))?));
+	}
 	Ok(parts.join(";"))
 }
 
@@ -838,5 +843,19 @@ mod tests {
 		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null }"#), "1436,300,500,");
 		// The City of Dalaran (#706): the Horde's tunnel, then the Alliance's pipe in Cantrips & Crows.
 		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "f": null, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630");
+	}
+
+	#[test]
+	fn a_quest_record_ends_with_the_profession_it_needs_1913() {
+		let line = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 2501, "level": 41, "minLevel": 36, "faction": null, "races": null, "classes": null, "zone": 3, "start": {{ "npc": [2786], "object": [], "item": [] }}, "end": {{ "npc": [2786], "object": [] }}, "pre": [17], "rewards": [], "choices": [], "preAny": [], "objectives": [], "xp": 4950{extra} }}"#
+			))
+			.unwrap();
+			encode_quest(&rec).unwrap()
+		};
+		assert!(line(r#", "skill": 171, "skillLevel": 210"#).ends_with(";x4950;l171,210"), "Badlands Reagent Run II: Alchemy 210");
+		assert!(line(r#", "skill": 171, "skillLevel": null"#).ends_with(";x4950;l171,"), "no rank in the data");
+		assert!(line("").ends_with(";x4950"), "no profession: no field");
 	}
 }
