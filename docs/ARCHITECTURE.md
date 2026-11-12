@@ -3771,10 +3771,19 @@ player only when a leg from the current one on uses a changed service
 (`UnitIsGhost`) plans walking only. `SkipLeg` leaves the current hearth,
 teleport spell, flight (its departure flight master), ride or portal out of
 every plan for this target (another target may use it again) and plans
-again; a walk or lift step just moves on. `Progress` counts a ride, flight,
-hearth or teleport down from when it became current (a flight from take-off,
-when the player is first on the taxi); `Remaining`, the arrow's ETA on those
-legs, counts down the same way. `EstimateTravel`
+again; a walk or lift step just moves on. Where the trip has been is left
+out of the plans for this target the same way once it is behind the player
+(`Travel.Behind`): a flight's departure flight master once the flight has
+landed away from it (`Travel.TakeOff` names it: the route's flight leg's,
+else the flight master within 60 yd of where the flight left;
+`Travel.Landed` leaves it out, but not after a flight that came down within
+60 yd of it, one that never got away), a boat's, zeppelin's, tram's or
+portal's transport once it has arrived. So a plan made later on the way
+never goes back: from Stormwind the route flew to Sentinel Hill and on
+landing planned the flight back, over and over (#1890). `Progress` counts a
+ride, flight, hearth or teleport down from when it became current (a flight
+from take-off, when the player is first on the taxi); `Remaining`, the
+arrow's ETA on those legs, counts down the same way. `EstimateTravel`
 evicts its oldest cached answer when 64 are held. A budgeted call (only
 `API.Estimate`'s) starts no new plan once the frame has spent 25 ms planning
 estimates (`debugprofilestop`) and answers `nil, "busy"` until the next
@@ -3907,6 +3916,15 @@ then the goal's, six tries at most (`Routing/Path.lua` `runAny`, for `Find`
 and `FindCost`): the surface a search without a height picks can be a pocket
 no walk leaves (William MacGregor's house in Westfall: the ground's surface
 4 yd over the house floor).
+An end without a height starts from each surface within a cell of it at a
+distinct height (within 10 yd counts as one; `Routing/Path.lua`
+`surfaces`). In its own cell, indoor ground (indoor or indoor city) up to
+10 yd over a surface that is not takes that surface's place: under a city's
+streets lies the terrain the city was built over, joined to the world only
+far away. In Stormwind's Dwarven District it lies 2 yd under the street: a
+start without a height there started from a roof and the buried ground,
+never the street, and walked 19,225 yd to Westfall for a 3,465-yd walk
+(#1890).
 **The player's floor (#234, Ruling 36).** Forever's `UnitPosition` gives no
 height (Compat reads its 0 as none), and `Path.Find` from a point without one
 starts from the cheapest surface within a cell of it: a roof, rock top,

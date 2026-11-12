@@ -37,6 +37,7 @@ local edges, edgeTarget, edgeValue = Grid.edges, Grid.edgeTarget, Grid.edgeValue
 local entrance, locate, standing, snap, smooth = Grid.entrance, Grid.locate, Grid.standing, Grid.snap, Grid.smooth
 local zOf, floorCell, floorsOf = Grid.zOf, Grid.floorCell, Grid.floorsOf
 local KINDS, VAL, CLS, MASK = Grid.KINDS, Grid.VAL, Grid.CLS, Grid.MASK
+local INDOOR, CITY = Costs.CLASS.INDOOR, Costs.CLASS.CITY -- indoor ground: a node's base class (CLS % 8)
 local byte = string.byte
 local zoneAt, chunkDanger, nodeArea = Grid.zoneAt, Grid.chunkDanger, Grid.nodeArea
 
@@ -644,8 +645,12 @@ end
 -- search keeps the cheapest: a street beside or over a canal is not walked from the canal bed, but a rock top or roof
 -- over the player may be walked from (#234). `floors` (the point's: a list of heights, Nav/Walk.lua's candidate floors
 -- while the player's own is unknown indoors) keeps to the surfaces within ZTOL of one of them, all of them when none
--- is: the Undercity's canals and streets, never its roofs or the Ruins above. Returns each surface's connection, the
--- entrance costs merged by minimum, per entrance the surface it came from, and the merged costs' yards.
+-- is: the Undercity's canals and streets, never its roofs or the Ruins above. In the point's own cell, indoor ground
+-- (indoor or indoor city) up to ZTOL over a surface that is not takes that surface's place: it is the ground the
+-- models were built over, buried under a city's streets (Stormwind's Dwarven District: 2 yd under the street, and
+-- joined to the world only far away). A start there hid the street, and the walk to Westfall went 19,225 yd for a
+-- 3,465-yd walk (#1890). Returns each surface's connection, the entrance costs merged by minimum, per entrance the
+-- surface it came from, and the merged costs' yards.
 -- The surfaces a point starts from (connectPoint, and run's walk inside one cluster).
 local function surfaces(st, k, node, h, floors)
 	local nodes = { node }
@@ -678,12 +683,18 @@ local function surfaces(st, k, node, h, floors)
 			if floors and not onFloor(n) then
 				return
 			end
-			for _, m in ipairs(nodes) do
-				if abs(zOf(cl, n) - zOf(cl, m)) <= ZTOL then
-					return
+			local z, b, under = zOf(cl, n), CLS[byte(kind, n + 1)] % 8, nil
+			for i, m in ipairs(nodes) do
+				local dz = z - zOf(cl, m)
+				if abs(dz) <= ZTOL then
+					local bm = CLS[byte(kind, m + 1)] % 8
+					if r > 0 or dz < 0 or (b ~= INDOOR and b ~= CITY) or bm == INDOOR or bm == CITY then
+						return
+					end
+					under = under or i
 				end
 			end
-			nodes[#nodes + 1] = n
+			nodes[under or #nodes + 1] = n
 		end
 		for r = 0, 1 do
 			for dx = -r, r do
@@ -1943,7 +1954,6 @@ end
 
 -- Path.SurfacesAt's marks, and a node's (its kind byte read from decoded cluster c).
 Path.SURFACE_WATER, Path.SURFACE_INDOOR = 1, 2
-local INDOOR, CITY = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 local function marks(c, node)
 	local kb = byte(c.kind, node + 1)
 	local cls = CLS[kb] % 8
