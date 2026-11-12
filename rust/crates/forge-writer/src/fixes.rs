@@ -23,6 +23,24 @@
 //!   `at: { guide, goal: "fly", fly }` anchors on a flight step instead (`fly "<fly>"` in the guide
 //!   whose `guide` line is `guide`; #1676): a `when` there shows the flight only while it holds
 //!   (`when onquest 1094,874`: the trip is for those quests).
+//!   `races` sets who a goal is for by race: the race part of each anchored goal line's own `only`
+//!   list (`"all"`: every race, so the race part goes; `"Dwarf,Gnome"`: those races; classes stay). A
+//!   line with no race in its own `only` keeps none: its step's `only` decides. `at: { quest, goal:
+//!   "quest" }` anchors it on every goal line of the quest (the old per-race filters left on the
+//!   Balloo letters, 637 and 683, and MacKreel's Moonshine, 647, which every Alliance race takes). It
+//!   is applied here, again after the shared adopt re-gates the shared guides (shared::adopt) and last
+//!   on every written guide ([`apply_races`]), so no later pass brings an old race list back.
+//!   Three records move what a step holds, applied after the others (a tip or `when` set on a goal's
+//!   step goes with it): `follows: { quest, goal, objective? }` puts the anchored goal line right
+//!   after that goal's line in the guide (in-step order); `split: { title, tip? }` makes the anchored
+//!   goal and the lines after it in its step a step of their own (a town stop split in walking
+//!   order, or hand-ins cut off a later stop); `step: { after: { quest, goal, objective? }, guide?,
+//!   copy?, way?, tip? }` moves the anchored goal's whole step, or a copy of it (`copy: true`), to
+//!   right after `after`'s step in the guide `guide` names ([`apply_step`]). `way: { at: { map, x, y,
+//!   frame? }, label?, title? }`, applied after those, moves the end of the walk right before the
+//!   anchored goal's step (a travel-only step for the same players): off a town of the other faction,
+//!   which the writer warns about (travel::hostile_town_ways), or to a camp's edge. `at.guide` narrows
+//!   any record to the guide with that id.
 //!
 //! A record with `faction` ("Alliance" or "Horde") applies only to that faction's routes (a quest both
 //! sides do whose fix holds for one). Every record carries `source` ({ kind, ref }), `issue` and `note`;
@@ -34,6 +52,8 @@
 //! `conflicting` (two records want different things on one anchor; neither is applied).
 
 use std::collections::{BTreeMap, HashSet};
+
+use rustc_hash::FxHashSet;
 
 use serde::Serialize;
 use serde_json::Value;
@@ -71,16 +91,20 @@ enum Anchor {
 	/// A bare `complete Q` (or `complete Q.N`).
 	Complete(u32),
 	Objective(u32, u32),
+	/// Every goal line of the quest (a `races` record's `goal: "quest"`).
+	Quest(u32),
 	/// A `fly "<place>"` step (in the record's `at.guide` only).
 	Fly(String),
+	/// The guide's header `levels` line (a `levels` record, in its `at.guide`).
+	Levels,
 }
 
 impl Anchor {
-	/// The anchor's quest (None: a flight step).
+	/// The anchor's quest (None: a flight step, a guide's header).
 	fn quest(&self) -> Option<u32> {
 		match *self {
-			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) => Some(q),
-			Anchor::Fly(_) => None,
+			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) | Anchor::Quest(q) => Some(q),
+			Anchor::Fly(_) | Anchor::Levels => None,
 		}
 	}
 	fn describe(&self) -> String {
@@ -89,7 +113,9 @@ impl Anchor {
 			Anchor::Ender(q) => format!("turnin {q}"),
 			Anchor::Complete(q) => format!("complete {q}"),
 			Anchor::Objective(q, n) => format!("objective {q}.{n}"),
+			Anchor::Quest(q) => format!("quest {q}"),
 			Anchor::Fly(p) => format!("fly \"{p}\""),
+			Anchor::Levels => "levels".into(),
 		}
 	}
 }
@@ -115,12 +141,16 @@ fn fix_anchor(r: &Value) -> Option<Anchor> {
 	if at["goal"].as_str() == Some("fly") {
 		return at["fly"].as_str().filter(|p| !p.is_empty()).map(|p| Anchor::Fly(p.to_string()));
 	}
+	if at["goal"].as_str() == Some("levels") {
+		return at["guide"].as_str().filter(|g| !g.is_empty()).map(|_| Anchor::Levels);
+	}
 	let q = at["quest"].as_u64()? as u32;
 	match at["goal"].as_str()? {
 		"accept" => Some(Anchor::Giver(q)),
 		"turnin" => Some(Anchor::Ender(q)),
 		"complete" => Some(Anchor::Complete(q)),
 		"objective" => Some(Anchor::Objective(q, at["objective"].as_u64()? as u32)),
+		"quest" => Some(Anchor::Quest(q)),
 		_ => None,
 	}
 }
@@ -142,6 +172,8 @@ fn anchor_lines(lines: &[String], a: &Anchor) -> Vec<usize> {
 		Anchor::Ender(q) => find(&|c| re!(r"^\s+turnin\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Complete(q) => find(&|c| re!(r"^\s+complete\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Fly(p) => find(&|c| re!(r#"^\s+fly\s+"([^"]*)""#).captures(c).is_some_and(|m| m[1] == **p)),
+		Anchor::Levels => lines.iter().take_while(|l| !is_step(l.as_str())).position(|l| l.starts_with("levels ")).into_iter().collect(),
+		&Anchor::Quest(q) => find(&|c| crate::guide::is_goal(c) && crate::apply::quest_of(c) == Some(q)),
 		&Anchor::Objective(q, n) => {
 			let (qs, full) = (q.to_string(), format!("{q}.{n}"));
 			// The objective's own goal lines; else the quest's bare `complete`; else, for the first
@@ -692,6 +724,424 @@ fn apply_background(lines: &mut Vec<String>, r: &Value, data: Option<&Data>) -> 
 	(0..lines.len()).filter(|&i| objective_line(&lines[i], q, n) || mention_tip.as_deref() == Some(lines[i].trim())).collect()
 }
 
+/// A `races` record's races: None for `"all"` (every race), else the list. Not a `races` record:
+/// None outside.
+fn races_value(r: &Value) -> Option<Option<Vec<String>>> {
+	let v = r["races"].as_str()?.trim();
+	if v.eq_ignore_ascii_case("all") {
+		return Some(None);
+	}
+	Some(Some(v.split(',').map(|x| x.trim().to_string()).filter(|x| !x.is_empty()).collect()))
+}
+
+/// Whether a name in an `only` list is a race's (Scourge is the Undead's file name).
+fn is_race(name: &str) -> bool {
+	crate::apply::ALL_RACES.iter().any(|r| r.eq_ignore_ascii_case(name)) || name.eq_ignore_ascii_case("Scourge")
+}
+
+/// A goal `line` with the race part of its own `only` list set to `races` (None: every race, so the
+/// race part goes); its classes and factions stay, and a list left empty goes with its `only`. None
+/// when the line's own `only` names no race: its step's `only` decides who sees it.
+pub fn with_races(line: &str, races: Option<&[String]>) -> Option<String> {
+	let (code, rest) = split_comment(line);
+	let m = re!(r"^(.*?)\s+only\s+([!A-Za-z,]+)(\s+optional)?\s*$").captures(code)?;
+	let names: Vec<&str> = m[2].split(',').map(str::trim).filter(|x| !x.is_empty()).collect();
+	if !names.iter().any(|x| is_race(x)) {
+		return None;
+	}
+	let list: Vec<String> = races.unwrap_or(&[]).iter().cloned().chain(names.iter().filter(|x| !is_race(x)).map(|x| x.to_string())).collect();
+	let (head, optional) = (&m[1], m.get(3).map_or("", |x| x.as_str()));
+	Some(if list.is_empty() { format!("{head}{optional}{rest}") } else { format!("{head} only {}{optional}{rest}", list.join(",")) })
+}
+
+/// A `races` record on the anchored lines `found`. -> the changed lines.
+fn apply_races_fix(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> {
+	let Some(races) = races_value(r) else { return Vec::new() };
+	let mut changed = Vec::new();
+	for &i in found {
+		let Some(new) = with_races(&lines[i], races.as_deref()) else { continue };
+		if new != lines[i] {
+			lines[i] = new;
+			changed.push(i);
+		}
+	}
+	changed
+}
+
+/// This side's `races` records on `text` (no state kept): run on the shared guides after the shared
+/// adopt's re-gating (shared::tag_audiences writes each quest's lines with its accept's or its
+/// starts' races, the old filter among them) and last on every written guide.
+pub fn apply_races(text: &str, rec: &Records, faction: Option<&str>) -> String {
+	let recs: Vec<&Value> = rec
+		.guide_fixes
+		.and_then(|d| d["fixes"].as_array())
+		.into_iter()
+		.flatten()
+		.filter(|r| r.get("races").is_some() && guide_is(text, r))
+		.filter(|r| !r["faction"].as_str().zip(faction).is_some_and(|(a, b)| !a.eq_ignore_ascii_case(b)))
+		.collect();
+	if recs.is_empty() {
+		return text.to_string();
+	}
+	let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
+	let mut changed = false;
+	for r in recs {
+		let Some(a) = fix_anchor(r) else { continue };
+		let found = anchor_lines(&lines, &a);
+		changed |= !apply_races_fix(&mut lines, &found, r).is_empty();
+	}
+	if changed {
+		lines.join("\n")
+	} else {
+		text.to_string()
+	}
+}
+
+/// The step holding line `i` less the blank and comment lines after its last line: (title line, one
+/// past its last line).
+fn step_body(lines: &[String], i: usize) -> Option<(usize, usize)> {
+	let (s, mut e) = step_of(lines, i)?;
+	while e > s + 1 && (trim(&lines[e - 1]).is_empty() || trim(&lines[e - 1]).starts_with('#')) {
+		e -= 1;
+	}
+	Some((s, e))
+}
+
+/// The goal lines of a step body.
+fn goals_in(lines: &[String], (s, e): (usize, usize)) -> Vec<usize> {
+	(s + 1..e).filter(|&k| crate::guide::is_goal(split_comment(&lines[k]).0)).collect()
+}
+
+/// A step's own `only` line (before its first goal), trimmed.
+fn step_only_line(lines: &[String], (s, e): (usize, usize)) -> Option<String> {
+	(s + 1..e).take_while(|&k| !crate::guide::is_goal(split_comment(&lines[k]).0)).find(|&k| re!(r"^\s+only\s").is_match(&lines[k])).map(|k| trim(&lines[k]).to_string())
+}
+
+/// Whether a step only travels: every goal a `goto`, `fly` or `hearth`, and one at least.
+fn travel_only(lines: &[String], st: (usize, usize)) -> bool {
+	let goals = goals_in(lines, st);
+	!goals.is_empty() && goals.iter().all(|&k| re!(r"^\s+(goto|fly|hearth)\s").is_match(&lines[k]))
+}
+
+/// The travel-only steps right before the step `st` for the same players (its `only`): the walk to
+/// it, first first.
+fn ways_before(lines: &[String], st: (usize, usize)) -> Vec<(usize, usize)> {
+	let only = step_only_line(lines, st);
+	let mut out = Vec::new();
+	let mut s = st.0;
+	while let Some(prev) = (0..s).rev().find(|&k| !trim(&lines[k]).is_empty() && !trim(&lines[k]).starts_with('#')) {
+		let Some(p) = step_body(lines, prev).filter(|p| p.1 == prev + 1 && travel_only(lines, *p) && step_only_line(lines, *p) == only) else { break };
+		out.insert(0, p);
+		s = p.0;
+	}
+	out
+}
+
+/// A step's lines (`step` title first) with `tip` its one tip: in place of its tips, else after its
+/// `only`, `zone` and `when` lines.
+fn with_tip(mut step: Vec<String>, tip: &str) -> Vec<String> {
+	let first_goal = (1..step.len()).find(|&k| crate::guide::is_goal(split_comment(&step[k]).0)).unwrap_or(step.len());
+	let ind = step.get(first_goal).map_or("  ".to_string(), |l| l[..l.len() - l.trim_start().len()].to_string());
+	let line = format!("{ind}tip {tip}");
+	let tips: Vec<usize> = (1..first_goal).filter(|&k| re!(r"^\s+tip\s").is_match(&step[k])).collect();
+	match tips.split_first() {
+		Some((&k, rest)) => {
+			step[k] = line;
+			for &x in rest.iter().rev() {
+				step.remove(x);
+			}
+		}
+		None => {
+			let mut k = 1;
+			while k < first_goal && re!(r"^\s+(only|zone|when)\s").is_match(&step[k]) {
+				k += 1;
+			}
+			step.insert(k, line);
+		}
+	}
+	step
+}
+
+/// Drops the steps whose titles are at `titles` and that are left with no goal and no label, each
+/// with the blank line before it.
+fn drop_emptied(lines: &mut Vec<String>, titles: &[usize]) {
+	let mut ts = titles.to_vec();
+	ts.sort_unstable();
+	ts.dedup();
+	for &t in ts.iter().rev() {
+		let Some((s, e)) = step_body(lines, t) else { continue };
+		if goals_in(lines, (s, e)).is_empty() && !(s + 1..e).any(|k| re!(r"^\s+label\s").is_match(&lines[k])) {
+			let from = if s > 0 && trim(&lines[s - 1]).is_empty() { s - 1 } else { s };
+			lines.drain(from..e);
+		}
+	}
+}
+
+/// Lines with each run of blank lines cut to one.
+fn one_blank(lines: Vec<String>) -> Vec<String> {
+	let mut out: Vec<String> = Vec::with_capacity(lines.len());
+	for l in lines {
+		if trim(&l).is_empty() && out.last().is_some_and(|p| trim(p).is_empty()) {
+			continue;
+		}
+		out.push(l);
+	}
+	out
+}
+
+/// A goal anchor `{ quest, goal, objective? }` (a `follows` or `step.after`).
+fn goal_anchor(v: &Value) -> Option<Anchor> {
+	fix_anchor(&serde_json::json!({ "at": v }))
+}
+
+/// A `follows` record: each anchored line goes right after the first line of the `follows` goal in
+/// the guide, in their order (in-step goal order: Commander Althea's optional hand-in after Sirra Von'Indi's
+/// chain, not between it); a step a line leaves with no goal goes. -> the changed lines.
+fn apply_follows(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
+	let Some(t) = goal_anchor(&r["follows"]).and_then(|a| anchor_lines(lines, &a).first().copied()) else { return Vec::new() };
+	let moving: Vec<usize> = found.iter().copied().filter(|&i| i != t).collect();
+	if moving.is_empty() || moving.iter().enumerate().all(|(n, &i)| i == t + 1 + n) {
+		return Vec::new();
+	}
+	let target_step = step_body(lines, t).map(|s| s.0);
+	let left: FxHashSet<usize> = moving.iter().filter_map(|&i| step_body(lines, i).map(|s| s.0)).filter(|&s| Some(s) != target_step).collect();
+	let (mut out, mut titles, mut at) = (Vec::with_capacity(lines.len()), Vec::new(), Vec::new());
+	for (k, l) in lines.iter().enumerate() {
+		if moving.contains(&k) {
+			continue;
+		}
+		if left.contains(&k) {
+			titles.push(out.len());
+		}
+		out.push(l.clone());
+		if k == t {
+			for &i in &moving {
+				at.push(out.len());
+				out.push(lines[i].clone());
+			}
+		}
+	}
+	*lines = out;
+	drop_emptied(lines, &titles);
+	at
+}
+
+/// A `split` record: in each step holding an anchored line (its first), that line and the lines after
+/// it become a step of their own right after it, titled `split.title` with `split.tip`, repeating the
+/// step's `only` and `when` lines and the `zone` it is read in there (the pieces of a split step
+/// repeat them). An anchored line that already opens its step gets the title and tip. -> the changed
+/// lines.
+fn apply_split(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
+	let sp = &r["split"];
+	let Some(title) = sp["title"].as_str() else { return Vec::new() };
+	let tip = sp["tip"].as_str();
+	let mut seen: FxHashSet<usize> = FxHashSet::default();
+	let firsts: Vec<usize> = found.iter().copied().filter(|&i| step_body(lines, i).is_some_and(|s| seen.insert(s.0))).collect();
+	let mut changed = Vec::new();
+	// (From the last, so the lines before keep their places.)
+	for &i in firsts.iter().rev() {
+		let Some((s, e)) = step_body(lines, i) else { continue };
+		let first_goal = goals_in(lines, (s, e)).first().copied();
+		if first_goal == Some(i) {
+			let mut step: Vec<String> = lines[s..e].to_vec();
+			step[0] = format!("step {title}");
+			if let Some(t) = tip {
+				step = with_tip(step, t);
+			}
+			if step[..] != lines[s..e] {
+				lines.splice(s..e, step);
+				changed.push(s);
+			}
+			continue;
+		}
+		let mut piece = vec![format!("step {title}")];
+		piece.extend((s + 1..i).filter(|&k| first_goal.is_none_or(|g| k < g) && re!(r"^\s+(only|when)\s").is_match(&lines[k])).map(|k| lines[k].clone()));
+		piece.extend((s + 1..i).rev().find(|&k| re!(r"^\s+zone\s").is_match(&lines[k])).map(|k| lines[k].clone()));
+		piece.extend(lines[i..e].iter().cloned());
+		if let Some(t) = tip {
+			piece = with_tip(piece, t);
+		}
+		lines.splice(i..e, std::iter::once(String::new()).chain(piece));
+		changed.push(i + 1);
+	}
+	changed
+}
+
+/// A `step` record: the anchored goal's whole step goes right after the step of `step.after`'s goal
+/// in the guide `step.guide` (its id; with none, the step's own guide), with `step.tip` its tip; with
+/// `copy: true` a copy goes and the step stays (a Paladin's class step on an earlier walk that passes
+/// the same NPC, the later one kept for whoever still carries the quest). The source is the first
+/// anchored step, in the guide `at.guide` when the record names one; a copy is not taken from the
+/// guide it goes to. The travel-only steps right before it for the same players (the walk to it) go
+/// with it with `way: true`; else they go when it moves (they led to where it was). Where the step
+/// already follows `after`'s step (past such walks), only its tip is set. -> (found, changed, guide
+/// here).
+fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, anchor: &Anchor) -> (bool, bool, bool) {
+	let sp = &r["step"];
+	let Some(after) = goal_anchor(&sp["after"]) else { return (false, false, false) };
+	let (copy, way, tip) = (sp["copy"] == true, sp["way"] == true, sp["tip"].as_str());
+	let split = |f: &String| -> Vec<String> { tree[f].split('\n').map(str::to_string).collect() };
+	let has_id = |f: &String, id: &str| tree.get(f).is_some_and(|t| t.lines().any(|l| l.trim_end().strip_prefix("guide ").is_some_and(|g| g.trim() == id)));
+	let target_of = |src: &String| sp["guide"].as_str().map_or(Some(src.clone()), |id| files.iter().find(|f| has_id(f, id)).cloned());
+	let mut guide_here = false;
+	let mut candidates: Vec<(String, usize)> = Vec::new();
+	for f in files {
+		let Some(text) = tree.get(f) else { continue };
+		if !guide_is(text, r) {
+			continue;
+		}
+		guide_here = true;
+		if let Some(&i) = anchor_lines(&split(f), anchor).first() {
+			candidates.push((f.clone(), i));
+		}
+	}
+	let pick = candidates.iter().find(|(f, _)| !copy || target_of(f).as_ref() != Some(f)).or(candidates.first()).cloned();
+	let Some((sf, si)) = pick else { return (false, false, guide_here) };
+	let Some(tf) = target_of(&sf) else { return (false, false, guide_here) };
+	let mut sl = split(&sf);
+	let mut tl = split(&tf);
+	let Some(src) = step_body(&sl, si) else { return (false, false, guide_here) };
+	let only = step_only_line(&sl, src);
+	// (`after` in the step that would move is no place for it.)
+	let afters = anchor_lines(&tl, &after);
+	if afters.is_empty() || (sf == tf && !copy && afters.iter().all(|&a| (src.0..src.1).contains(&a))) {
+		return (false, false, guide_here);
+	}
+	// Already there: the step after `after`'s step, past walks for the same players, holds the anchor.
+	let there = |lines: &[String]| -> Option<(usize, usize)> {
+		let a = *anchor_lines(lines, &after).first()?;
+		let mut k = step_body(lines, a)?.1;
+		loop {
+			let st = step_body(lines, (k..lines.len()).find(|&j| is_step(&lines[j]))?)?;
+			if !anchor_lines(&lines[st.0..st.1], anchor).is_empty() {
+				return Some(st);
+			}
+			if !(travel_only(lines, st) && step_only_line(lines, st) == only) {
+				return None;
+			}
+			k = st.1;
+		}
+	};
+	if let Some(st) = there(&tl) {
+		let Some(t) = tip else { return (true, false, true) };
+		let step = with_tip(tl[st.0..st.1].to_vec(), t);
+		if step[..] == tl[st.0..st.1] {
+			return (true, false, true);
+		}
+		tl.splice(st.0..st.1, step);
+		tree.insert(tf, tl.join("\n"));
+		return (true, true, true);
+	}
+	let ways = ways_before(&sl, src);
+	let mut block: Vec<String> = Vec::new();
+	if way {
+		for &(a, b) in &ways {
+			block.push(String::new());
+			block.extend(sl[a..b].iter().cloned());
+		}
+	}
+	block.push(String::new());
+	let body = sl[src.0..src.1].to_vec();
+	block.extend(match tip {
+		Some(t) => with_tip(body, t),
+		None => body,
+	});
+	if !copy {
+		let from = ways.first().map_or(src.0, |w| w.0);
+		sl.drain(from..src.1);
+		if sf == tf {
+			tl = sl.clone();
+		} else {
+			tree.insert(sf, one_blank(sl).join("\n"));
+		}
+	}
+	let Some(a) = anchor_lines(&tl, &after).first().copied() else { return (false, false, guide_here) };
+	let Some(at) = step_body(&tl, a).map(|s| s.1) else { return (false, false, guide_here) };
+	tl.splice(at..at, block);
+	tree.insert(tf, one_blank(tl).join("\n"));
+	(true, true, true)
+}
+
+/// A `way` record: the travel-only step right before the anchored goal's step (the walk to it, for the
+/// same players) ends at `way.at` (its last `goto` takes the point, with `way.label`), with `way.title`
+/// as its title: a walk kept out of a town of the other faction (from Tarren Mill to Sorrow Hill, not
+/// into the Alliance's Chillwind Camp), or stopped at a camp's edge (the Dalaran crater's eastern rim,
+/// not Ricter's spawn among linked guards). With `way.when` (a condition, or a list) every travel-only
+/// step of that walk gets the conditions, after its `only` and `when` lines: a class's walk to a class
+/// quest taken in an earlier guide, made only by whoever carries it (`onquest 94774`, Laurena in
+/// Stormwind's cathedral).
+/// -> the changed lines.
+fn apply_way(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
+	let w = &r["way"];
+	let at = at_of(&w["at"]);
+	let when: Vec<&str> = match &w["when"] {
+		Value::Array(a) => a.iter().filter_map(Value::as_str).collect(),
+		v => v.as_str().into_iter().collect(),
+	};
+	let mut seen: FxHashSet<usize> = FxHashSet::default();
+	// (From the last step, so a `when` put in leaves the steps before where they are.)
+	let mut steps: Vec<(usize, usize)> = found.iter().filter_map(|&i| step_body(lines, i)).filter(|st| seen.insert(st.0)).collect();
+	steps.sort_unstable_by(|a, b| b.cmp(a));
+	let mut changed = Vec::new();
+	for st in steps {
+		let walks = ways_before(lines, st);
+		if let (Some(at), Some(&walk)) = (&at, walks.last()) {
+			if let Some(g) = (walk.0 + 1..walk.1).rev().find(|&k| re!(r"^\s+goto\s").is_match(&lines[k])) {
+				let mut line = lines[g].clone();
+				if !(typed_point(&line).is_some_and(|p| close(p, (at.x, at.y))) && typed_map(&line) == Some(at.map)) {
+					line = placed(&line, at);
+				}
+				if let Some(label) = w["label"].as_str() {
+					let (code, rest) = split_comment(&line);
+					line = if code.contains('"') { labelled(&line, label) } else { format!("{} \"{label}\"{rest}", trim_end(code)) };
+				}
+				if line != lines[g] {
+					lines[g] = line;
+					changed.push(g);
+				}
+				if let Some(title) = w["title"].as_str().map(|t| format!("step {t}")).filter(|t| *t != lines[walk.0]) {
+					lines[walk.0] = title;
+					changed.push(walk.0);
+				}
+			}
+		}
+		for &(s, e) in walks.iter().rev() {
+			let ind = goals_in(lines, (s, e)).first().map_or("  ".to_string(), |&k| lines[k][..lines[k].len() - lines[k].trim_start().len()].to_string());
+			let mut e = e;
+			for cond in &when {
+				let line = format!("{ind}when {cond}");
+				if (s + 1..e).any(|k| trim(&lines[k]) == trim(&line)) {
+					continue;
+				}
+				let mut k = s + 1;
+				while k < e && re!(r"^\s+(only|when)\s").is_match(&lines[k]) {
+					k += 1;
+				}
+				lines.insert(k, line);
+				changed.push(k);
+				e += 1;
+			}
+		}
+	}
+	changed
+}
+
+/// A `levels` record: the guide's header `levels A-B` reads `A-<levels.top>` when that top is above B:
+/// the level players are at when they leave the guide, above where the route ends it (the guide window
+/// calls a guide outgrown at its top + 2 and offers another). -> the changed lines.
+fn apply_levels(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> {
+	let Some(top) = r["levels"]["top"].as_u64() else { return Vec::new() };
+	let mut changed = Vec::new();
+	for &i in found {
+		let Some((lo, hi)) = re!(r"^levels\s+(\d+)\s*-\s*(\d+)\s*$").captures(&lines[i]).and_then(|m| Some((m[1].parse::<u64>().ok()?, m[2].parse::<u64>().ok()?))) else { continue };
+		if top > hi {
+			lines[i] = format!("levels {lo}-{top}");
+			changed.push(i);
+		}
+	}
+	changed
+}
+
 /// A line apply_fix drops once every found line is done.
 const GONE: &str = "\u{0}";
 
@@ -811,20 +1261,46 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"optional"
 		} else if r.get("goalNote").is_some() {
 			"goalNote"
+		} else if r.get("races").is_some() {
+			"races"
+		} else if r.get("follows").is_some() {
+			"follows"
+		} else if r.get("split").is_some() {
+			"split"
+		} else if r.get("step").is_some() {
+			"step"
+		} else if r.get("way").is_some() {
+			"way"
+		} else if r.get("levels").is_some() {
+			"levels"
 		} else {
 			"level"
 		};
+		// (A step copied into two guides is two places.)
+		let to = r["step"]["guide"].as_str().map_or(String::new(), |g| format!(" to {g}"));
 		recs.push(Rec {
 			file: "guide-fixes",
 			r,
-			slot: format!("{anchor:?} {kind}{}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
-			want: format!("{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"]),
+			slot: format!("{anchor:?} {kind}{}{to}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
+			want: format!("{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"], r["races"], r["follows"], r["split"], r["step"], r["way"], r["levels"]),
 			anchor,
 		});
 	}
-	// Background records last: their mention tips join the tips the other records set (a tip record
+	// Records that move goals or steps after the others, so a tip or `when` set on a goal's step goes
+	// with it (a copied class step keeps its `when`); a step's walk once the steps stand where they go;
+	// background records last: their mention tips join the tips the other records set (a tip record
 	// replaces every tip of its step).
-	recs.sort_by_key(|x| x.r.get("background").is_some());
+	recs.sort_by_key(|x| {
+		if x.r.get("background").is_some() {
+			3
+		} else if x.r.get("way").is_some() {
+			2
+		} else if ["follows", "split", "step"].iter().any(|k| x.r.get(*k).is_some()) {
+			1
+		} else {
+			0
+		}
+	});
 	let mut rows = Vec::new();
 	for (k, x) in recs.iter().enumerate() {
 		let id = x.r["id"].as_str().unwrap_or("").to_string();
@@ -849,14 +1325,25 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			continue;
 		}
 		let (mut found_any, mut changed_any, mut guide_here) = (false, false, false);
-		for f in files {
+		if x.r.get("step").is_some() {
+			// (Across guides: its source in one, its place in another.)
+			(found_any, changed_any, guide_here) = apply_step(tree, files, x.r, anchor);
+		}
+		for f in files.iter().filter(|_| x.r.get("step").is_none()) {
 			let Some(text) = tree.get(f) else { continue };
 			if !guide_is(text, x.r) {
 				continue;
 			}
 			guide_here = true;
 			let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
-			let found = anchor_lines(&lines, anchor);
+			let mut found = anchor_lines(&lines, anchor);
+			// (A `follows` needs its goal in the same guide; a `way`, a walk right before the goal's step.)
+			if goal_anchor(&x.r["follows"]).is_some_and(|a| anchor_lines(&lines, &a).is_empty()) {
+				found.clear();
+			}
+			if x.r.get("way").is_some() && !found.iter().any(|&i| step_body(&lines, i).is_some_and(|st| !ways_before(&lines, st).is_empty())) {
+				found.clear();
+			}
 			if found.is_empty() {
 				continue;
 			}
@@ -872,6 +1359,16 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				apply_background(&mut lines, x.r, data)
 			} else if x.r.get("early").is_some() {
 				apply_early(&mut lines, &found, x.r)
+			} else if x.r.get("races").is_some() {
+				apply_races_fix(&mut lines, &found, x.r)
+			} else if x.r.get("follows").is_some() {
+				apply_follows(&mut lines, &found, x.r)
+			} else if x.r.get("split").is_some() {
+				apply_split(&mut lines, &found, x.r)
+			} else if x.r.get("way").is_some() {
+				apply_way(&mut lines, &found, x.r)
+			} else if x.r.get("levels").is_some() {
+				apply_levels(&mut lines, &found, x.r)
 			} else {
 				apply_fix(&mut lines, &found, x.r)
 			};
@@ -1313,5 +1810,189 @@ mod tests {
 			"guide forever/a\nzone The Barrens\n\nstep The Crossroads\n  accept 869\n\nstep Raptor Heads as you go\n  along until q869\n  background\n  collect 5062 quest 869.1\n\n# ---- East\n\nstep Echeyakee\n  goto 55.8,17.1\n\nstep Finish the Raptor Heads\n  when !has 5062 x12\n  collect 5062 quest 869.1 @56,15 map 1413 era\n\nstep The Crossroads\n  label q869\n  turnin 869\n"
 		);
 		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["applied"]);
+	}
+
+	#[test]
+	fn a_races_fix_sets_who_a_quests_goals_are_for() {
+		// Sully Balloo's Letter and Sara Balloo's Plea (637, 683) kept per-race filters from an old
+		// export (Humans never saw 637, only Skyborne 683), though every Alliance race takes them (race
+		// masks, players' recordings). Report to Gryan Stoutmantle (109): Night Elves and Skyborne take it
+		// from Farmer Furlbrow, whose accept carries a list; Marshal Dughan's, in a Dwarf and Gnome step,
+		// carries none and keeps it so.
+		let seed = "guide forever/a\nzone Westfall\n\nstep Goldshire\n  only Dwarf,Gnome\n  accept 109\n\nstep The Jansen Stead\n  accept 109 npc 237 only Human -- Farmer Furlbrow\n\nstep The Cache of Explosives\n  accept 637 optional only Dwarf,Gnome,NightElf,Skyborne\n\nstep Historian Karnik\n  turnin 637 only Dwarf,Gnome,NightElf,Skyborne\n  accept 683 only Skyborne\n  turnin 683 only Skyborne\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "balloo-637", "faction": "Alliance", "at": { "quest": 637, "goal": "quest" }, "races": "all" },
+			{ "id": "balloo-683", "faction": "Alliance", "at": { "quest": 683, "goal": "quest" }, "races": "all" },
+			{ "id": "gryan-109", "faction": "Alliance", "at": { "quest": 109, "goal": "accept" }, "races": "Human,NightElf,Skyborne" }
+		] });
+		let records = Records { places: None, guide_fixes: Some(&fixes) };
+		let go = |text: &str| {
+			let mut tree = BTreeMap::from([("forever/a.guide".to_string(), text.to_string())]);
+			let rows = apply(&mut tree, &["forever/a.guide".into()], &HashSet::new(), Some("Alliance"), records, None);
+			(tree["forever/a.guide"].clone(), rows.into_iter().map(|r| r.state).collect::<Vec<_>>())
+		};
+		let (out, states) = go(seed);
+		assert_eq!(
+			out,
+			"guide forever/a\nzone Westfall\n\nstep Goldshire\n  only Dwarf,Gnome\n  accept 109\n\nstep The Jansen Stead\n  accept 109 npc 237 only Human,NightElf,Skyborne -- Farmer Furlbrow\n\nstep The Cache of Explosives\n  accept 637 optional\n\nstep Historian Karnik\n  turnin 637\n  accept 683\n  turnin 683\n"
+		);
+		assert_eq!(states, ["applied", "applied", "applied"]);
+		let (again, states) = go(&out);
+		assert_eq!(again, out, "applied again: nothing left to do");
+		assert_eq!(states, ["redundant", "redundant", "redundant"]);
+		// The last pass on every written guide does the same, for its side only.
+		assert_eq!(apply_races(seed, &records, Some("Alliance")), out);
+		assert_eq!(apply_races(seed, &records, Some("Horde")), seed);
+		// A class in the list stays; a list left empty goes with its `only`.
+		assert_eq!(with_races("  turnin 1786 only Human,Paladin -- Henze Faulk", None).as_deref(), Some("  turnin 1786 only Paladin -- Henze Faulk"));
+		assert_eq!(with_races("  train class only Paladin", None), None);
+	}
+
+	/// The guide fix records `fixes` on the files `texts` (path, text) for an Alliance start. -> the
+	/// files as written, and each record's state.
+	fn fix_all(texts: &[(&str, &str)], fixes: &Value) -> (Vec<String>, Vec<String>) {
+		let mut tree: BTreeMap<String, String> = texts.iter().map(|(f, t)| (f.to_string(), t.to_string())).collect();
+		let files: Vec<String> = texts.iter().map(|(f, _)| f.to_string()).collect();
+		let rows = apply(&mut tree, &files, &HashSet::new(), Some("Alliance"), Records { places: None, guide_fixes: Some(fixes) }, None);
+		(files.iter().map(|f| tree[f].clone()).collect(), rows.into_iter().map(|r| r.state).collect())
+	}
+
+	#[test]
+	fn a_follows_fix_puts_a_goal_right_after_another() {
+		// The last Darkshire stop: Commander Althea's optional hand-in (227, the town hall) sat between
+		// Sirra Von'Indi's goals (the house behind it), so the stop went town hall, Sirra, town hall,
+		// Sirra; after Ello's hand-in (252) it goes with Althea's own (58), town hall once.
+		let seed = "guide forever/a\nzone Duskwood\n\nstep Back to Darkshire\n  turnin 251                              -- Sirra Von'Indi\n  accept 227 optional\n  turnin 227 optional                         -- Commander Althea Ebonlocke\n  turnin 96138 optional                   -- Sirra Von'Indi\n  accept 252\n  turnin 252                              -- Lord Ello Ebonlocke\n  turnin 58                               -- Commander Althea Ebonlocke\n\nstep Raven Hill\n  turnin 7\n\nstep Viktori Prism'Antras\n  turnin 8\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "althea-227", "at": { "quest": 227, "goal": "turnin" }, "follows": { "quest": 252, "goal": "turnin" } },
+			{ "id": "raven-7", "at": { "quest": 7, "goal": "turnin" }, "follows": { "quest": 8, "goal": "turnin" } },
+			{ "id": "elsewhere", "at": { "quest": 9, "goal": "turnin" }, "follows": { "quest": 8, "goal": "turnin" } }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(
+			out[0],
+			"guide forever/a\nzone Duskwood\n\nstep Back to Darkshire\n  turnin 251                              -- Sirra Von'Indi\n  accept 227 optional\n  turnin 96138 optional                   -- Sirra Von'Indi\n  accept 252\n  turnin 252                              -- Lord Ello Ebonlocke\n  turnin 227 optional                         -- Commander Althea Ebonlocke\n  turnin 58                               -- Commander Althea Ebonlocke\n\nstep Viktori Prism'Antras\n  turnin 8\n  turnin 7\n"
+		);
+		// (A step a goal leaves with nothing to do goes; a goal the guides lack is stale.)
+		assert_eq!(states, ["applied", "applied", "stale"]);
+		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
+		assert_eq!(again[0], out[0]);
+		assert_eq!(states, ["redundant", "redundant", "stale"]);
+	}
+
+	#[test]
+	fn split_and_step_fixes_hand_in_on_the_pass_through_a_town() {
+		// Ashenvale: from Dal Bloodclaw's camp the walk to Ilkrud passes through Astranaar with Raene's
+		// and Pelturas's hand-ins ready (1025, 1054, 1034); the step left them for the last Astranaar
+		// stop, which the route needs only for Shindrell (1008) and the flight.
+		let seed = "guide forever/a\nzone Ashenvale\n\nstep Dal Bloodclaw\n  tip Dal Bloodclaw leads the furbolgs north of Astranaar.\n  collect 5544 quest 1054                 -- Dal Bloodclaw's Skull\n\n# ---- West\n\nstep Ilkrud Magthrull\n  collect 5533 quest 973\n\nstep Astranaar\n  tip Follow the road back to Astranaar: Shindrell by the flight master, Raene in the inn.\n  turnin 1008                         -- Shindrell Swiftfire\n  turnin 1025                             -- Raene Wolfrunner\n  turnin 1054                             -- Raene Wolfrunner\n  turnin 1034                             -- Pelturas Whitemoon, inside\n  vendor nearest\n\nstep Fly to Auberdine\n  goto 34.5,48.0 \"Astranaar flight master\"\n  fly \"Auberdine\"\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "pass-split", "at": { "quest": 1025, "goal": "turnin" }, "split": { "title": "Astranaar", "tip": "South from Dal Bloodclaw's camp, Astranaar is on the way west." } },
+			{ "id": "pass-step", "at": { "quest": 1025, "goal": "turnin" }, "step": { "after": { "quest": 1054, "goal": "objective", "objective": 1 } } },
+			{ "id": "last-stop-tip", "at": { "quest": 1008, "goal": "turnin" }, "tip": "Follow the road back to Astranaar: Shindrell stands by the flight master." }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(
+			out[0],
+			"guide forever/a\nzone Ashenvale\n\nstep Dal Bloodclaw\n  tip Dal Bloodclaw leads the furbolgs north of Astranaar.\n  collect 5544 quest 1054                 -- Dal Bloodclaw's Skull\n\nstep Astranaar\n  tip South from Dal Bloodclaw's camp, Astranaar is on the way west.\n  turnin 1025                             -- Raene Wolfrunner\n  turnin 1054                             -- Raene Wolfrunner\n  turnin 1034                             -- Pelturas Whitemoon, inside\n  vendor nearest\n\n# ---- West\n\nstep Ilkrud Magthrull\n  collect 5533 quest 973\n\nstep Astranaar\n  tip Follow the road back to Astranaar: Shindrell stands by the flight master.\n  turnin 1008                         -- Shindrell Swiftfire\n\nstep Fly to Auberdine\n  goto 34.5,48.0 \"Astranaar flight master\"\n  fly \"Auberdine\"\n"
+		);
+		// (Records that move goals apply after the others: the tip record ran first.)
+		assert_eq!(states, ["applied", "applied", "applied"]);
+		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
+		assert_eq!(again[0], out[0]);
+		assert_eq!(states, ["redundant", "redundant", "redundant"]);
+	}
+
+	#[test]
+	fn step_fixes_move_and_copy_class_steps_onto_an_earlier_visit() {
+		// Westfall: Thor's free flight takes every Human to Stormwind at about 13; the stop is split in
+		// walking order, Human Warriors' Defensive Stance moves there from the end of the guide (its walk
+		// to Ilsa Corbin goes), and Human Priests' Divine Grace is copied there with its walk (the end of
+		// the guide keeps it for a Priest still carrying it). Loch Modan: Human Paladins' Henze Faulk is
+		// copied from Redridge onto Loch Modan's walk east through Elwynn, its tip its own, its `when`
+		// the one the record before gives the Redridge step.
+		let westfall = "guide forever/w\nzone Westfall\n\nstep Osric Strang\n  only Human\n  zone Stormwind City\n  turnin 6281                                 -- Osric Strang\n  accept 6261\n  accept 399                                  -- Baros Alexston\n  turnin 6261                                 -- Dungar Longdrink\n  accept 6285\n  getfp \"Stormwind\"\n  fly \"Sentinel Hill\"\n\nstep Sentinel Hill\n  turnin 6285\n\n# ---- Stormwind and the boat\n\nstep Stormwind City\n  only Human,Warrior\n  zone Stormwind City\n  goto 80.4,59.8 \"Ilsa Corbin\" live\n\nstep Defensive Stance\n  only Human,Warrior\n  zone Stormwind City\n  accept 1638 npc 5480 only Human -- Ilsa Corbin\n  turnin 1665 only Human -- Harry Burlguard\n\nstep Stormwind City\n  only Human,Priest\n  when onquest 94774\n  zone Stormwind City\n  goto 49.5,44.6 \"High Priestess Laurena\" live\n\nstep High Priestess Laurena\n  only Human,Priest\n  zone Stormwind City\n  tip Walk to Stormwind. High Priestess Laurena is in the Cathedral of Light.\n  turnin 94774 only Human -- Divine Grace\n\nstep Boat to Auberdine\n  zone Stormwind City\n  goto 22.71,56.69 \"Boat to Auberdine\" live\n";
+		let loch = "guide forever/l\nzone Elwynn Forest\n\nstep Guard Thomas\n  turnin 35                                   -- Guard Thomas, on the bridge\n\nstep Three Corners\n  zone Redridge Mountains\n  accept 20\n";
+		let redridge = "guide forever/r\nzone Redridge Mountains\n\nstep Theocritus\n  accept 21\n\nstep Henze Faulk\n  only Human,Paladin\n  zone Elwynn Forest\n  tip On the road east, head north from the bridge to Stone Cairn Lake.\n  turnin 1786 only Human -- Henze Faulk\n  accept 1787 only Human\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "baros", "at": { "quest": 399, "goal": "accept" }, "split": { "title": "Baros Alexston" } },
+			{ "id": "dungar", "at": { "quest": 6261, "goal": "turnin" }, "split": { "title": "Dungar Longdrink" } },
+			{ "id": "stance", "at": { "quest": 1665, "goal": "turnin" }, "step": { "after": { "quest": 6281, "goal": "turnin" } } },
+			{ "id": "grace", "at": { "quest": 94774, "goal": "turnin" }, "step": { "copy": true, "way": true, "after": { "quest": 399, "goal": "accept" }, "tip": "High Priestess Laurena is in the Cathedral of Light, across Cathedral Square from Baros." } },
+			{ "id": "henze-copy", "at": { "quest": 1786, "goal": "turnin", "guide": "forever/r" }, "step": { "copy": true, "guide": "forever/l", "after": { "quest": 35, "goal": "turnin" }, "tip": "From the bridge, head north to Stone Cairn Lake." } },
+			{ "id": "henze-when", "at": { "quest": 1786, "goal": "turnin", "guide": "forever/r" }, "when": "onquest 1786,1787" }
+		] });
+		let files = [("forever/w.guide", westfall), ("forever/l.guide", loch), ("forever/r.guide", redridge)];
+		let (out, states) = fix_all(&files, &fixes);
+		assert_eq!(
+			out[0],
+			"guide forever/w\nzone Westfall\n\nstep Osric Strang\n  only Human\n  zone Stormwind City\n  turnin 6281                                 -- Osric Strang\n  accept 6261\n\nstep Defensive Stance\n  only Human,Warrior\n  zone Stormwind City\n  accept 1638 npc 5480 only Human -- Ilsa Corbin\n  turnin 1665 only Human -- Harry Burlguard\n\nstep Baros Alexston\n  only Human\n  zone Stormwind City\n  accept 399                                  -- Baros Alexston\n\nstep Stormwind City\n  only Human,Priest\n  when onquest 94774\n  zone Stormwind City\n  goto 49.5,44.6 \"High Priestess Laurena\" live\n\nstep High Priestess Laurena\n  only Human,Priest\n  zone Stormwind City\n  tip High Priestess Laurena is in the Cathedral of Light, across Cathedral Square from Baros.\n  turnin 94774 only Human -- Divine Grace\n\nstep Dungar Longdrink\n  only Human\n  zone Stormwind City\n  turnin 6261                                 -- Dungar Longdrink\n  accept 6285\n  getfp \"Stormwind\"\n  fly \"Sentinel Hill\"\n\nstep Sentinel Hill\n  turnin 6285\n\n# ---- Stormwind and the boat\n\nstep Stormwind City\n  only Human,Priest\n  when onquest 94774\n  zone Stormwind City\n  goto 49.5,44.6 \"High Priestess Laurena\" live\n\nstep High Priestess Laurena\n  only Human,Priest\n  zone Stormwind City\n  tip Walk to Stormwind. High Priestess Laurena is in the Cathedral of Light.\n  turnin 94774 only Human -- Divine Grace\n\nstep Boat to Auberdine\n  zone Stormwind City\n  goto 22.71,56.69 \"Boat to Auberdine\" live\n"
+		);
+		assert_eq!(
+			out[1],
+			"guide forever/l\nzone Elwynn Forest\n\nstep Guard Thomas\n  turnin 35                                   -- Guard Thomas, on the bridge\n\nstep Henze Faulk\n  only Human,Paladin\n  zone Elwynn Forest\n  when onquest 1786,1787\n  tip From the bridge, head north to Stone Cairn Lake.\n  turnin 1786 only Human -- Henze Faulk\n  accept 1787 only Human\n\nstep Three Corners\n  zone Redridge Mountains\n  accept 20\n"
+		);
+		assert!(out[2].contains("step Henze Faulk\n  only Human,Paladin\n  zone Elwynn Forest\n  when onquest 1786,1787\n  tip On the road east"), "{}", out[2]);
+		// (The `when` ran before the records that move steps.)
+		assert_eq!(states, ["applied"; 6]);
+		let files2: Vec<(&str, &str)> = files.iter().zip(&out).map(|((f, _), t)| (*f, t.as_str())).collect();
+		let (again, states) = fix_all(&files2, &fixes);
+		assert_eq!(again, out);
+		assert_eq!(states, ["redundant"; 6]);
+	}
+
+	#[test]
+	fn a_way_fix_moves_the_end_of_the_walk_to_a_step() {
+		// The walk from Tarren Mill to Sorrow Hill ended in the middle of the Alliance's Chillwind Camp
+		// (43.0,83.5); it ends at Sorrow Hill itself. A goal with no walk right before its step is stale.
+		let seed = "guide forever/a\nzone Hillsbrad Foothills\n\nstep Fly to Tarren Mill\n  fly \"Tarren Mill\"\n  zone Hillsbrad Foothills\n\nstep Western Plaguelands\n  zone Western Plaguelands\n  goto 43.0,83.5 \"Western Plaguelands\"\n\nstep Sorrow Hill\n  turnin 5152                         -- Marlene Redpath, upstairs\n\nstep Chromie\n  turnin 5153\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "sorrow-hill", "at": { "quest": 5152, "goal": "turnin" }, "way": { "at": { "map": 1422, "x": 49.2, "y": 78.6, "frame": "era" }, "label": "Sorrow Hill", "title": "To Sorrow Hill" } },
+			{ "id": "no-walk", "at": { "quest": 5153, "goal": "turnin" }, "way": { "at": { "map": 1422, "x": 1, "y": 1 } } }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(
+			out[0],
+			"guide forever/a\nzone Hillsbrad Foothills\n\nstep Fly to Tarren Mill\n  fly \"Tarren Mill\"\n  zone Hillsbrad Foothills\n\nstep To Sorrow Hill\n  zone Western Plaguelands\n  goto 49.2,78.6 map 1422 era \"Sorrow Hill\"\n\nstep Sorrow Hill\n  turnin 5152                         -- Marlene Redpath, upstairs\n\nstep Chromie\n  turnin 5153\n"
+		);
+		assert_eq!(states, ["applied", "stale"]);
+		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
+		assert_eq!(again[0], out[0]);
+		assert_eq!(states, ["redundant", "stale"]);
+	}
+
+	#[test]
+	fn a_way_fix_holds_a_class_walk_for_whoever_carries_the_quest() {
+		// Human Priests walked to High Priestess Laurena in Stormwind's cathedral with or without Divine
+		// Grace (94774) in their log; the walk is only for whoever carries it, on both visits that have
+		// it. A walk that already has the condition keeps one.
+		let seed = "guide forever/a\nzone Westfall\n\nstep Stormwind City\n  only Human,Priest\n  zone Stormwind City\n  goto 49.5,44.6 \"High Priestess Laurena\" live\n\nstep High Priestess Laurena\n  only Human,Priest\n  turnin 94774 only Human -- Divine Grace\n\nstep Sentinel Hill\n  turnin 109\n\nstep Stormwind City\n  only Human,Priest\n  when onquest 94774\n  zone Stormwind City\n  goto 49.5,44.6 \"High Priestess Laurena\" live\n\nstep High Priestess Laurena\n  only Human,Priest\n  turnin 94774 only Human -- Divine Grace\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "laurena-walk", "faction": "Alliance", "at": { "quest": 94774, "goal": "turnin" }, "way": { "when": "onquest 94774" } }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(out[0], seed.replacen("  only Human,Priest\n  zone Stormwind City", "  only Human,Priest\n  when onquest 94774\n  zone Stormwind City", 1));
+		assert_eq!(states, ["applied"]);
+		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
+		assert_eq!(again[0], out[0]);
+		assert_eq!(states, ["redundant"]);
+	}
+
+	#[test]
+	fn a_levels_fix_raises_a_guides_top_level() {
+		// Players leave Hillsbrad & Arathi at 33 while the route ends it at 32: the header says 29-33, so
+		// the guide window does not call it outgrown a level early. A top at or under the route's leaves
+		// the header; a guide not written here is not this start's.
+		let seed = "guide forever/a\ntitle Hillsbrad Foothills & Arathi Highlands\nlevels 29-32\n\nstep Tarren Mill\n  accept 509\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "top-33", "at": { "goal": "levels", "guide": "forever/a" }, "levels": { "top": 33 } },
+			{ "id": "elsewhere", "at": { "goal": "levels", "guide": "forever/b" }, "levels": { "top": 40 } }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(out[0], seed.replace("levels 29-32", "levels 29-33"));
+		assert_eq!(states, ["applied", "not for this start"]);
+		let low = json!({ "fixes": [{ "id": "top-31", "at": { "goal": "levels", "guide": "forever/a" }, "levels": { "top": 31 } }] });
+		let (same, states) = fix_all(&[("forever/a.guide", seed)], &low);
+		assert_eq!((same[0].as_str(), states), (seed, vec!["redundant".to_string()]));
 	}
 }

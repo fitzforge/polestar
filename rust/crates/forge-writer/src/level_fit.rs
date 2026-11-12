@@ -256,13 +256,13 @@ impl Ctx<'_> {
 	}
 }
 
-fn total_xp(lvl: f64) -> f64 {
+pub(crate) fn total_xp(lvl: f64) -> f64 {
 	let f = (lvl.floor() as usize).clamp(1, 60);
 	let below: f64 = forge_sim::xp::LEVEL_XP[1..f].iter().sum();
 	below + if f < 60 { (lvl - f as f64) * forge_sim::xp::LEVEL_XP[f] } else { 0.0 }
 }
 
-fn level_of(mut xp: f64) -> f64 {
+pub(crate) fn level_of(mut xp: f64) -> f64 {
 	let mut l = 1;
 	while l < 60 && xp >= forge_sim::xp::LEVEL_XP[l] {
 		xp -= forge_sim::xp::LEVEL_XP[l];

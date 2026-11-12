@@ -9,7 +9,10 @@ next forever/horde/40-50/02-feralas
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372), The Gurubashi Legends of Old (95748).
+# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372), The Gurubashi Legends of Old (95748),
+# Locating the Lost City (95770, Kin'weelay's next legend: the cavern entrance under the Vile Reef, west of Grom'gol, on
+# the way to the jungle stalkers; handed in with the trophy skulls). Its follow-up, The Drowned City (95775), is a dungeon.
+# Excelsior (628, Drizzlik: the Elder Saltwater Crocolisk on the coast between Zul'Kunda and Grom'gol, optional).
 # Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 
 step Fly to Grom'gol
@@ -38,9 +41,13 @@ step Fly to Booty Bay
 step Booty Bay
   zone Stranglethorn Vale
   turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
+  accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
   turnin 213                          -- Kebok
+  turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
+  accept 1181
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
+  turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
@@ -117,9 +124,9 @@ step Booty Bay
 #
 # Left out: Sunken Treasure part 6 (670: Seahorn sends you back to Shakes
 # O'Breen in Arathi, and the route never returns there); Goblin Sponsorship
-# (1182: its chain 1178-1181 starts at Pozzik in Thousand Needles and runs
-# through Gazlowe in Ratchet, none of it on the route, and Cozzle's
-# footlocker sits in the Venture Co. camp at Lake Nazferiti, off this loop).
+# part 4 (1182: Cozzle's footlocker sits in the Venture Co. camp at Lake
+# Nazferiti, off this loop). Parts 2 and 3 (1180, 1181: Gazlowe's letter from
+# 30-40/04) are handed in on the first Booty Bay stop.
 # Left out from the refreshed export:
 # - Ancient Gurubashi Idol (96774, new in Forever, 8,800 XP): a dungeon quest
 #   in the Drowned City ("gather some friends", the Forever client's
@@ -221,6 +228,8 @@ step Zul'Kunda
   collect 3904 quest 584.1
   collect 2007 quest 95748.1 @23.0,12.0 map 1434 -- from the Fall of Gurubashi, in the ruins
   collect 3905 quest 584.2
+  tip On the coast between Zul'Kunda and Grom'gol an Elder Saltwater Crocolisk (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for Drizzlik.
+  collect 4105 quest 628.1 optional @29.3,22.3 map 1434 -- Elder Saltwater Crocolisk
   level 41                            -- grind on the Bloodscalps here: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43
 
 step Grom'gol
@@ -230,6 +239,13 @@ step Grom'gol
   accept 585
   accept 2932                           -- Nimboya: for the Hinterlands, around level 48
   accept 598                            -- Kin'weelay: the trophy skulls stand in the Skullsplitter ruins, later on this loop
+  accept 95770 npc 2519                 -- Kin'weelay: the cavern entrance under the Vile Reef, west of the camp
+
+step The Vile Reef
+  when onquest 95770
+  when !complete 95770
+  tip Locating the Lost City: west of Grom'gol, swim out over the Vile Reef and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast.
+  goto 21.8,27.6 map 1434 "the Drowned City's entrance, underwater"
 
 # ---------------------------------------------------------------- South to Booty Bay
 
@@ -257,6 +273,7 @@ step Booty Bay
   accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
   accept 609
   turnin 348                            -- Fin Fizracket
+  turnin 628 optional                   -- Drizzlik, inside: the Elder Crocolisk Skin
   vendor nearest
 
 step Zanzil's camps
@@ -295,6 +312,7 @@ step Balia'mah Ruins: kill these as you meet them
 step Grom'gol Base Camp
   tip Head west to Grom'gol.
   turnin 598                            -- Kin'weelay
+  turnin 95770 npc 2519                 -- Kin'weelay
   turnin 586                            -- the Bubbling Cauldron
   turnin 585
   accept 588                            -- the Bubbling Cauldron again: Yenniku's fate
@@ -348,11 +366,11 @@ step Sir S. J. Erlgadin
   when group 193
   turnin 193
 
-step Sir S. J. Erlgadin
+step Hemet Nesingwary
   when group 197
   turnin 197
 
-step Sir S. J. Erlgadin
+step Hemet Nesingwary
   when group 208
   accept 208
 

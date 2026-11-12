@@ -3117,6 +3117,12 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   distance to a waypoint on another continent and hides itself there, so on
   the way to one Polestar's own arrow and its route guide (#1325), and give
   way to TomTom's on arriving (`ZONE_CHANGED_NEW_AREA`, `Nav.Refresh`).
+  While it guides a route, the waypoint is the current leg's stop
+  (`Travel.Stop`: a flight master, a dock, a portal), moved on at every
+  `ROUTE_CHANGED` and `ROUTE_ADVANCED` (an unchanged stop is not sent again),
+  and the target once the last walk begins: from Booty Bay to Grom'gol with
+  the flight known, Booty Bay's flight master, not the far target up the
+  coast (#1834). As a mirror only (TomTom's arrow off) it stays on the target.
 - **`/way`** (with `nav.answerTomTom`): claimed at login (`SLASH_POLESTARWAY1`)
   only when TomTom is not loaded and no `SLASH_*` global spells `/way`.
   `/way [#mapID | zone] x y [title]`: the zone is any name under the player's
@@ -3699,7 +3705,7 @@ loading screen and on `TAXI_NODE_STATUS_CHANGED`, so a flight path learnt
 while Polestar was not running counts before the next flight map (#1308);
 a client that reads no node as undiscovered is not trusted. It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
-time, a teleport 10 s) and keeps the real seconds of every leg apart, so
+time, a teleport a `TELEPORT_MARGIN` of 60 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
 1500 path nodes. With `Nav/Transit.lua` loaded, a ride's wait is the
 timetable's (`Transit.NextDeparture(kind, id, now, side)`) for the moment
@@ -3721,6 +3727,15 @@ at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
 `hearth` goal (`Own.hearthPlan`, via `Nav.HEARTH_*`) weigh it the same way.
+A class teleport is cast only when it clearly pays (#1823: Teleport:
+Stormwind won by a few seconds over a flight to Darkshire): it must save at
+least `TELEPORT_MARGIN` (60 s) over the best way without teleports, and
+`TELEPORT_SHARE` (a fifth) of that way when that is more, in the search's
+cost. Each teleport edge carries `TELEPORT_MARGIN`, so a way the search takes
+through one saves the minute already; only a teleport's way costing over four
+minutes can fall short of the fifth, and then the same graph is searched once
+more without teleports, only up to the cost at which the teleport pays
+(`planRoute`'s `fifth`): reaching the target below it, that way is taken.
 While a quest timer runs (`Compat.QuestTimerRunning`: a log quest with
 `C_QuestLog.GetTimeAllowed`, not ready and not failed), the route and the
 player's own estimates leave out the Hearthstone and the class teleports: a
@@ -4192,7 +4207,12 @@ walk stays inside one zone; between zones it goes only through
   Undercity's way in and out is one such chain, `undercity-south-lift` (from
   Fitz's own walk): Tirisfal's front door, the corridor and the entrance hall
   to the south lift's top and bottom landings, both ends mouths; the other
-  lifts serve walks inside the city;
+  lifts serve walks inside the city. A boat, zeppelin, tram or portal end
+  inside a chain is reached the same way, through its nearest node: the
+  Deeprun Tram's Stormwind end lies down its building, under the Keep's Royal
+  Gallery, and `deeprun-tram-stormwind` (from players' recorded walks in)
+  takes the walk to the building's door first, not across from the street to
+  the point under the Keep (#1242);
 - an area: a box of a zone's map no walk joins to the rest of the zone. It is
   a zone of its own, reached by no crossing, only by portals, ships and
   flights. Rut'theran Village, `rutheran-village`, lies on Teldrassil's map at
@@ -8808,13 +8828,17 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   for Alliance, Horde and no profile and its yards. `chokepoints.js` adds `Chokepoints.lua`
   (`PolestarNavChokepoints[map]`: lift landings, bridges, gates at passages,
   tunnels, cave and building mouths, passes, each named by its AreaTable
-  area) for the journey's named walk steps.
+  area) for the journey's named walk steps; a passage whose gate is the ground
+  under a bridge's deck over water is named a bridge (`pack/chokepoints.rs`
+  under_bridge: the Southfury River's road crossing).
 - **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
   walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
   His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
   leave open past the walkable slope, which his reader closes, are closed); his zones too. His entrance graph is
   re-encoded as the graph field (an entrance on one of his refined ports becomes the surface owning it; an entrance
-  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk). His motion
+  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk; an edge's yards
+  are his profile-free way's, as our grid's maps take theirs: he keeps a cost and a yards for each profile, and the
+  walk search stops a way past 8 times the straight line plus 2,000 yd of these yards). His motion
   stream reduces, at 4.17 yd cells, to steps inside one surface, steps his cells make, and his jumps, drops and
   climbs, each to the same or a neighbouring cell: those inside a cluster are the new `arc` field (one-way moves
   between the surfaces owning their ends, once per pair), those across a border are already his graph's. Each of his

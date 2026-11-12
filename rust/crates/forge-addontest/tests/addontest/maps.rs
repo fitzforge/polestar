@@ -556,6 +556,28 @@ fn the_world_map_shows_zone_ranges_on_the_continent_the_hovered_zone_and_player_
 	assert_eq!(out["hidden"], true);
 }
 
+/// #1490: a zone row's fifth value is its danger floor; GetZoneLevels returns it third (the min without one), and
+/// the range (the labels' "24–39") stays the P10..P90.
+#[test]
+fn get_zone_levels_returns_a_zone_s_danger_floor_third_and_its_lowest_level_without_one() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_maps.lua"],
+		addons: vec![Addon::files("Polestar", &FILES)],
+		login: true,
+		script: r#"
+			local M = Polestar.Maps
+			M.RegisterZoneLevels({ [9000] = { 10, 20, 50, 50 }, [9001] = { 24, 39, 44.9, 63.3, 30 } })
+			local floors = {}
+			for id, lo, hi in M.EachZoneLevels() do if id == 9001 then floors.each = { lo, hi } end end
+			emit({ plain = { M.GetZoneLevels(9000) }, pocket = { M.GetZoneLevels(9001) }, each = floors.each })"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0]["plain"], json!([10, 20, 10]));
+	assert_eq!(out[0]["pocket"], json!([24, 39, 30]));
+	assert_eq!(out[0]["each"], json!([24, 39]), "the range is the P10..P90");
+}
+
 // ---------------------------------------------------------------------------
 // Options
 // ---------------------------------------------------------------------------

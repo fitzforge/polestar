@@ -1223,6 +1223,10 @@ N.RegisterCrossings({
 			{ map = 1441, c = 1, wx = -4952, wy = -2068.8, z = 82, r = 8 },
 			{ map = 1441, c = 1, wx = -5013.9, wy = -2107.1, z = 84, r = 12 },
 		} },
+		{ id = "deeprun-tram-stormwind", name = "Deeprun Tram", open = "mouth", nodes = {
+			{ map = 1453, c = 0, wx = -8390, wy = 568, z = 92, r = 8 },
+			{ map = 1453, c = 0, wx = -8355, wy = 524, z = 92, r = 10 },
+		} },
 	},
 	-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy)
 	areas = {
