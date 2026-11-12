@@ -63,16 +63,35 @@ function withClientFonts(L) {
 	const d = L.sharedData();
 	if (d.studioFonts) return d;
 	d.studioFonts = true;
+	const faces = [];
 	const file = art.font('FRIZQT__.TTF');
-	if (!file) return d;
-	const f = new L.Font(file);
-	d.fonts['FRIZQT__.TTF'] = f;
+	if (file) faces.push(['FRIZQT__.TTF', file]);
+	// Polestar's own faces beyond the playground's three Inter weights (Open
+	// Sans, Fira Sans: the skins' and the ui.font choices) and a skin addon's
+	// own fonts (addon/Polestar_Skin_*/Fonts, the Skin API's `font = { regular
+	// = path, ... }`), by file name, as the preview does: else they are
+	// measured and drawn in the fallback face.
+	const addons = L.ADDONS;
+	const fontDirs = [path.join(addons, 'Polestar', 'Media', 'Fonts')];
+	for (const folder of fs.existsSync(addons) ? fs.readdirSync(addons) : []) {
+		if (folder.startsWith('Polestar_Skin_')) fontDirs.push(path.join(addons, folder, 'Fonts'));
+	}
+	for (const dir of fontDirs) {
+		if (!fs.existsSync(dir)) continue;
+		for (const f of fs.readdirSync(dir)) if (/\.ttf$/i.test(f)) faces.push([f, path.join(dir, f)]);
+	}
 	const cps = [];
 	for (let c = 32; c < 127; c++) cps.push(c);
 	for (let c = 0xa0; c < 0x180; c++) cps.push(c);
 	cps.push(0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d, 0x2026, 0x2022, 0x00b7, 0x00d7, 0x2192);
-	const adv = cps.map((c) => `[${c}]=${f.advanceEm(c).toFixed(5)}`).join(',');
-	d.metrics += `\npreview.metrics["FRIZQT__.TTF"] = { upm = ${f.upm}, fallback = ${f.advanceEm(0x6e).toFixed(5)}, adv = { ${adv} } }`;
+	for (const [name, ttf] of faces) {
+		// `in`, not a read: the fonts proxy answers any name with the fallback face.
+		if (name in d.fonts) continue;
+		const f = new L.Font(ttf);
+		d.fonts[name] = f;
+		const adv = cps.map((c) => `[${c}]=${f.advanceEm(c).toFixed(5)}`).join(',');
+		d.metrics += `\npreview.metrics[${JSON.stringify(name)}] = { upm = ${f.upm}, fallback = ${f.advanceEm(0x6e).toFixed(5)}, adv = { ${adv} } }`;
+	}
 	return d;
 }
 
@@ -131,7 +150,12 @@ async function prepare(sc, offline) {
 	const rows = Object.entries(atlases).filter(([, a]) => art.has(art.dir(), a.file))
 		.map(([k, a]) => `[${q(k)}] = { ${a.file}, ${a.w}, ${a.h}, ${a.l}, ${a.r}, ${a.t}, ${a.b} }`);
 	const atlasLua = rows.length ? `STUDIO_ATLAS = { ${rows.join(', ')} }\n` : '';
-	return { book, lua: data.lua + atlasLua, missingArt: pulled.missing };
+	// The interface files the cache holds (SetTexture / SetStatusBarTexture by
+	// path, as the game's looks name the vanilla art).
+	const files = Object.entries(art.readJson(path.join(art.dir(), 'files.json'), {})).filter(([, fid]) => art.has(art.dir(), fid))
+		.map(([k, fid]) => `[${q(k)}] = ${fid}`);
+	const filesLua = files.length ? `STUDIO_FILES = { ${files.join(', ')} }\n` : '';
+	return { book, lua: data.lua + atlasLua + filesLua, missingArt: pulled.missing };
 }
 
 function setupLua(sc, book) {
@@ -174,7 +198,8 @@ return Polestar.Engine.GetStepIndex()`;
 }
 
 // The screen box of the frames named and everything drawn inside them
-// (labels hanging out of a button count), shown ones only.
+// (labels hanging out of a button count), shown ones only, each cut to the
+// frames that clip it (a scroll frame, a zoomed map canvas) as it is drawn.
 function bbox(layout, names) {
 	const box = [Infinity, Infinity, -Infinity, -Infinity];
 	const roots = new Set();
@@ -190,8 +215,16 @@ function bbox(layout, names) {
 		if (!inside(o)) continue;
 		const r = layout.rects.get(o.id);
 		if (!r || !r.w || !r.h) continue;
-		box[0] = Math.min(box[0], r.x - layout.ox); box[1] = Math.min(box[1], r.y - layout.oy);
-		box[2] = Math.max(box[2], r.x + r.w - layout.ox); box[3] = Math.max(box[3], r.y + r.h - layout.oy);
+		let x0 = r.x, y0 = r.y, x1 = r.x + r.w, y1 = r.y + r.h;
+		for (let c = layout.clipOf(o); c; c = layout.clipOf(c)) {
+			const cr = layout.rects.get(c.id);
+			if (!cr) continue;
+			x0 = Math.max(x0, cr.x); y0 = Math.max(y0, cr.y);
+			x1 = Math.min(x1, cr.x + cr.w); y1 = Math.min(y1, cr.y + cr.h);
+		}
+		if (x1 <= x0 || y1 <= y0) continue;
+		box[0] = Math.min(box[0], x0 - layout.ox); box[1] = Math.min(box[1], y0 - layout.oy);
+		box[2] = Math.max(box[2], x1 - layout.ox); box[3] = Math.max(box[3], y1 - layout.oy);
 	}
 	return Number.isFinite(box[0]) ? box : null;
 }

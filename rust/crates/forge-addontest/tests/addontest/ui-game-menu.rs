@@ -459,3 +459,18 @@ fn with_ellesmereuis_skin_the_button_mirrors_its_neighbours_flat_dark_look_in_co
 	assert_eq!(out["under"], "");
 	assert_eq!(out["kept"], true);
 }
+
+// Architecture v3: a left click opens the guide menu, a right click the settings window (and closes the game menu).
+#[test]
+fn a_right_click_on_the_polestar_button_opens_the_settings_window() {
+	let out = run_forever(
+		false,
+		r#"
+		GameMenuFrame:Show()
+		PolestarGameMenuButton:Click("RightButton")
+		local P = Polestar.UI.Picker
+		emit({ closed = not GameMenuFrame:IsShown(), settings = PolestarOptions ~= nil and PolestarOptions:IsShown(),
+			picker = P.frame ~= nil and P.frame:IsShown() })"#,
+	);
+	assert_eq!(out, json!({ "closed": true, "settings": true, "picker": false }));
+}

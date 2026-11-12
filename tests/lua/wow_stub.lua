@@ -34,7 +34,9 @@ stub = {
 	now = 0,
 	epoch = 1791000000,
 	messages = {},
-	cvars = {},
+	-- The client's CVars a test reads; ResampleAlwaysSharpen as the client has it (off), for Quality of Life >
+	-- Game's row (Polestar_Options/QoL/Options.lua). A test clears it for a client without it.
+	cvars = { ResampleAlwaysSharpen = "0" },
 	keys = { shift = false, ctrl = false, alt = false },
 	sounds = {},
 	popups = {},
@@ -372,9 +374,18 @@ function Methods.GetVertexColor(self)
 	return c[1], c[2], c[3], c[4]
 end
 function Methods.SetTexCoord(self, ...) self.texCoord = { ... } end
+-- A texture drawn tiled at its own size across its region (SetTexture with
+-- "REPEAT" wraps, then these), as the game's backdrop tiles are.
+function Methods.SetHorizTile(self, v) self.horizTile = v and true or false end
+function Methods.SetVertTile(self, v) self.vertTile = v and true or false end
+function Methods.GetHorizTile(self) return self.horizTile == true end
+function Methods.GetVertTile(self) return self.vertTile == true end
 function Methods.SetRotation(self, r) self.rotation = r end
 function Methods.GetRotation(self) return self.rotation or 0 end
 function Methods.SetDesaturated(self, v) self.desaturated = v and true or false end
+-- The client's grade of grey (0-1), where it has SetDesaturation.
+function Methods.SetDesaturation(self, v) self.desaturation = v end
+function Methods.GetDesaturation(self) return self.desaturation or 0 end
 function Methods.SetBlendMode(self, m) self.blend = m end
 function Methods.AddMaskTexture(self, m) self.mask = m end
 -- SetVertexOffset(i, x, y): corner i (1 upper left, 2 lower left, 3 upper
@@ -987,6 +998,44 @@ function CopyTable(t)
 	local c = {}
 	for k, v in pairs(t) do c[k] = type(v) == "table" and CopyTable(v) or v end
 	return c
+end
+-- The client's string.format takes positional arguments ("%2$s de %1$s"), as translations use to put
+-- a sentence's parts in their own order; PUC Lua 5.1's has none. A format without one goes straight
+-- through; one with them is rewritten to plain specs with the arguments picked in that order (plain
+-- specs mixed in take the arguments in turn). The string library's own table is changed, so
+-- ("..."):format(...), format(...) and SetFormattedText all read it, as in the game.
+do
+	local plainFormat, find, match, sub, concat, unpack, select = string.format, string.find, string.match, string.sub, table.concat, unpack, select
+	function string.format(fmt, ...)
+		if type(fmt) ~= "string" or not find(fmt, "%%%d+%$") then return plainFormat(fmt, ...) end
+		local n, args, parts, picked, turn, at = select("#", ...), { ... }, {}, {}, 0, 1
+		while true do
+			local s = find(fmt, "%", at, true)
+			if not s then
+				parts[#parts + 1] = sub(fmt, at)
+				break
+			end
+			parts[#parts + 1] = sub(fmt, at, s - 1)
+			if sub(fmt, s + 1, s + 1) == "%" then
+				parts[#parts + 1] = "%%"
+				at = s + 2
+			else
+				local pos, spec, after = match(fmt, "^(%d+)%$([-+ #0]*%d*%.?%d*%a)()", s + 1)
+				if not pos then
+					spec, after = match(fmt, "^([-+ #0]*%d*%.?%d*%a)()", s + 1)
+					if not spec then return plainFormat(fmt, ...) end -- Lua's own error for a bad spec
+					turn = turn + 1
+					pos = turn
+				end
+				pos = tonumber(pos)
+				if pos < 1 or pos > n then error(("bad argument #%d to 'format' (no value)"):format(pos + 1), 2) end
+				picked[#picked + 1] = args[pos]
+				parts[#parts + 1] = "%" .. spec
+				at = after
+			end
+		end
+		return plainFormat(concat(parts), unpack(picked, 1, #picked))
+	end
 end
 format = string.format
 strfind, strmatch, strsub, gsub = string.find, string.match, string.sub, string.gsub

@@ -503,40 +503,52 @@ fn quest_reward_tooltips_hovering_a_choice_setquestitem_setquestlogitem_shows_th
 
 #[test]
 fn options_the_gear_advice_on_questing_with_the_class_spec_dropdown_registered_once() {
+	// The rows are the settings' addon's (Polestar_Options/Gear/Options.lua), run here as it loads: one section, the
+	// feature's switch in its header, the comparison's threshold and pairing beside the rest.
+	let file = forge_addontest::run::addons_dir().join("Polestar_Options/Gear/Options.lua").to_string_lossy().into_owned();
 	let out = run(
-		r#"
+		&[
+			r#"
 		local seen = {}
-		Polestar.RegisterOptions = function(def) seen[#seen + 1] = def end
-		stub.login()
+		Polestar.RegisterOptions = function(def) seen[#seen + 1] = def; return true end
+		dofile([["#,
+			&file,
+			r#"]])
+		stub.login()"#,
+			r#"
 		local out = {}
 		for _, def in ipairs(seen) do
 			local keys = {}
+			if def.toggle then keys[1] = def.toggle.key .. "=header:" .. (def.toggle.help and "help" or "nohelp") end
 			for _, c in ipairs(def.controls) do keys[#keys + 1] = (c.key or c.label) .. "=" .. c.kind .. ":" .. (c.help and "help" or "nohelp") end
 			out[#out + 1] = { page = def.page, section = def.section, keys = keys,
-				choices = def.controls[2].choices and #def.controls[2].choices() or 0 }
+				choices = def.controls[1].choices and #def.controls[1].choices() or 0 }
 		end
 		emit(out)
 	"#,
+		]
+		.concat(),
 		Opts { login: false, ..Default::default() },
 	);
 	let defs = out[0].as_array().unwrap();
-	assert_eq!(defs.len(), 2);
+	assert_eq!(defs.len(), 1);
 	assert!(defs.iter().all(|d| d["page"] == "Questing"));
 	assert_eq!(
 		defs[0]["keys"],
 		json!([
-			"gear.enabled=toggle:help",
+			"gear.enabled=header:help",
 			"gear.spec.WARRIOR=dropdown:help",
 			"Manage custom weights=button:help",
 			"gear.tooltip=toggle:help",
+			"gear.minUpgrade=slider:help",
 			"gear.bagArrows=toggle:help",
 			"gear.hideForPawn=toggle:help",
+			"gear.useBags=toggle:help",
 			"gear.rewards=toggle:help",
 			"gear.pickTooltip=toggle:help"
 		])
 	);
 	assert_eq!(defs[0]["choices"], 4); // Automatic + three warrior specs
-	assert_eq!(defs[1]["keys"], json!(["gear.minUpgrade=slider:help", "gear.useBags=toggle:help"]));
 }
 
 #[test]

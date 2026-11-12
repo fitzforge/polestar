@@ -28,7 +28,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { findLua } = require('../lib/lua');
-const { tocFiles, dirFiles } = require('../../tests/helpers/lua');
+const { tocFiles, dirFiles, ADDONS } = require('../../tests/helpers/lua');
 const { localPacks } = require('../../tests/helpers/profile');
 const { SIMULATE, HOME, luaValue } = require('../lib/playtest');
 const { Font } = require('../preview/font');
@@ -279,6 +279,14 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		// Polestar_Nav loads on demand, as in the client: Data.Pack loads it at login (Nav/Walk.lua).
 		if (fs.existsSync(path.join(ROOT, 'addon', 'Polestar_Nav', 'Polestar_Nav.toc'))) {
 			lines.push(`stub.packs.Polestar_Nav = { ${tocFiles('Polestar_Nav').map(luaString).join(', ')} }`);
+		}
+		// Polestar's own load-on-demand addons, where the addon has them, load from their TOC when Polestar
+		// asks (C_AddOns.LoadAddOn), as in the client and forge-addontest's run.rs: the settings window
+		// (Polestar_Options, UI/OptionsLoader.lua), the Skin API's checks (Polestar_SkinAPI, with the first
+		// skin or scheme another addon registers) and the game looks with Hearth (Polestar_Looks,
+		// Theme.LoadLooks, the first time one is painted). Without them a game look draws as Polestar's own.
+		for (const part of ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks']) {
+			if (fs.existsSync(path.join(ADDONS, part, `${part}.toc`))) lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
 		}
 		lines.push(d.metrics);
 		dof(path.join(ROOT, 'tools', 'preview', 'stub.lua'));

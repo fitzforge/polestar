@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Skin: Vellum
+## Notes: A parchment skin for Polestar: the guide as a page of the quest log, dark ink on paper.
+## Title-deDE: Polestar-Design: Vellum
+## Notes-deDE: Ein Pergament-Design für Polestar: der Guide als Seite des Questlogs, dunkle Tinte auf Papier.
+## Title-esES: Polestar, tema: Vellum
+## Notes-esES: Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel.
+## Title-esMX: Polestar, tema: Vellum
+## Notes-esMX: Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel.
+## Title-frFR: Polestar, habillage : Vellum
+## Notes-frFR: Un habillage parchemin pour Polestar : le guide comme une page du journal de quêtes, encre sombre sur papier.
+## Title-koKR: Polestar 스킨: Vellum
+## Notes-koKR: Polestar의 양피지 스킨: 퀘스트 일지의 한 페이지처럼, 종이 위의 짙은 잉크.
+## Title-ptBR: Polestar, tema: Vellum
+## Notes-ptBR: Um tema de pergaminho para o Polestar: o guia como uma página do registro de missões, tinta escura sobre papel.
+## Title-ruRU: Polestar, оформление: Vellum
+## Notes-ruRU: Пергаментное оформление для Polestar: гайд как страница журнала заданий, тёмные чернила на бумаге.
+## Title-zhCN: Polestar 皮肤：Vellum
+## Notes-zhCN: Polestar 的羊皮纸皮肤：指南如同任务日志的一页，纸上深色墨迹。
+## Title-zhTW: Polestar 皮膚：Vellum
+## Notes-zhTW: Polestar 的羊皮紙皮膚：指南如同任務日誌的一頁，紙上深色墨跡。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.7.2
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: vellum
+
+Vellum.lua

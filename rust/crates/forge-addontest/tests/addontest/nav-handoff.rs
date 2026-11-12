@@ -9,8 +9,20 @@
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: [&str; 9] =
-	["Core/Init.lua", "Core/Data.lua", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/FlightPaths.lua", "Maps/RouteStrokes.lua", "Maps/RouteLines.lua", "UI/UI.lua", "UI/JourneyPanel.lua"];
+// The rows are the settings' addon's (Polestar_Options/Nav/Options.lua, UI/GuideOptions.lua: the journey's).
+const FILES: [&str; 11] = [
+	"Core/Init.lua",
+	"Core/Data.lua",
+	"Theme/Theme.xml",
+	"Nav/Nav.xml",
+	"Maps/FlightPaths.lua",
+	"Maps/RouteStrokes.lua",
+	"Maps/RouteLines.lua",
+	"UI/UI.lua",
+	"UI/JourneyPanel.lua",
+	"../Polestar_Options/Nav/Options.lua",
+	"../Polestar_Options/UI/GuideOptions.lua",
+];
 
 // Before any addon file: the fake Compat from Init.lua on (Data.lua and UI.lua read it at load), addon loading
 // recorded, a fake walking engine, the world map's click handlers recorded, and the player's death state.
@@ -900,16 +912,35 @@ const GREYED: [&str; 25] = [
 const OPTIONS: &str = r#"
 Polestar.Set("nav.routeLines", false) -- trailDots' own condition out of the way
 Polestar.Set("nav.tomtom", true)
--- The options window's own widgets, every page that holds a nav option.
+-- The options window's own widgets, every page that holds a nav option (its
+-- addon loads where the test loads UI.xml's loader).
+if Polestar.UI.LoadOptions then Polestar.UI.LoadOptions() end
 local O, W = Polestar.UI.Options, Polestar.Widgets
+-- The travel button under the arrow sits beside the Hearthstone in the button set, in three places.
+local TRAVEL_AT = { { "buttons", "Action buttons" }, { "questing", "Buttons" }, { "qualityoflife", "Travel" } }
 local function controls()
 	local out = {}
 	Polestar.UI.ShowOptions("guide")
-	for _, at in ipairs({ { "guide", "Arrow & routes" }, { "appearance", "Arrow" }, { "map", "Guide & quests" }, { "integrations" } }) do
-		O.Select(at[1], at[2])
-		for key, w in pairs(O.Controls(at[1], at[2])) do out[key] = w end
+	local at = { { "guide", "Arrow & routes" }, { "map", "Guide & quests" }, { "integrations" }, TRAVEL_AT[1] }
+	-- The Arrow page (Look group): every tab.
+	for _, p in ipairs(O.Pages()) do
+		if p.key == "arrow" then for _, t in ipairs(p.tabs) do at[#at + 1] = { "arrow", t } end end
+	end
+	for _, a in ipairs(at) do
+		O.Select(a[1], a[2])
+		for key, w in pairs(O.Controls(a[1], a[2])) do out[key] = w end
 	end
 	return out
+end
+-- The travel button's row in each of its places: greyed there, or "missing".
+local function travelGreyed()
+	local r = {}
+	for _, a in ipairs(TRAVEL_AT) do
+		O.Select(a[1], a[2])
+		local w = O.Controls(a[1], a[2])["nav.castPrompt"]
+		r[a[1]] = w and not W.Enabled(w) or (not w and "missing")
+	end
+	return r
 end
 local function greyed(keys)
 	local cs, r = controls(), {}
@@ -942,9 +973,13 @@ fn while_it_guides_the_options_that_do_nothing_there_are_greyed_out_and_say_why_
 		local cs = controls()
 		emit({ greyed = greyed(${GREYED}), kept = greyed({ "nav.distanceUnit", "nav.shareTransit", "nav.worldPins", "nav.followTomTom", "nav.nearbyMenu" }),
 			why = cs["nav.mapPlan"].psControl.help:find("Greyed out while Shortest Path Forever guides", 1, true) ~= nil,
+			travel = travelGreyed(),
+			travelWhy = cs["nav.castPrompt"].psControl.help:find("Greyed out while Shortest Path Forever guides", 1, true) ~= nil,
 			whyNoHelp = cs["nav.arrowScale"].psControl.help ~= nil })"#
 			.replace("${GREYED}", &lua_list(&GREYED));
-	let files: Vec<&str> = FILES.iter().copied().filter(|f| !f.starts_with("UI/")).chain(["UI/UI.xml"]).collect();
+	// The whole UI: the settings' addon loads as the window opens, its rows with it; the QoL module too, whose rows
+	// hold the travel button's beside the Hearthstone in the button set.
+	let files: Vec<&str> = FILES.iter().copied().filter(|f| !f.starts_with("UI/") && !f.starts_with("../")).chain(["Core/Compat.lua", "QoL/QoL.xml", "UI/UI.xml"]).collect();
 	let on = run(&script, Opts { files: files.clone(), ..Default::default() });
 	let without = run(&script, Opts { spf: None, files, ..Default::default() });
 	let all = |v: bool| Value::Object(GREYED.iter().map(|k| (k.to_string(), json!(v))).collect());
@@ -956,6 +991,10 @@ fn while_it_guides_the_options_that_do_nothing_there_are_greyed_out_and_say_why_
 	);
 	assert_eq!(on["why"], true);
 	assert_eq!(on["whyNoHelp"], true);
+	// The travel button under the arrow, beside the Hearthstone in the button set: greyed with its why in each place.
+	assert_eq!(on["travel"], json!({ "buttons": true, "questing": true, "qualityoflife": true }));
+	assert_eq!(on["travelWhy"], true);
+	assert_eq!(without["travel"], json!({ "buttons": false, "questing": false, "qualityoflife": false }));
 	assert_eq!(without["greyed"], all(false));
 	assert_eq!(without["kept"], on["kept"]);
 }

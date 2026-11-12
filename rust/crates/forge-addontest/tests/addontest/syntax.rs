@@ -62,8 +62,6 @@ fn every_addon_lua_file_compiles_under_lua_5_1() {
 // Lua 5.1 caps a chunk at 200 locals in scope at once; a file at the cap fails to load the moment a merge adds one
 // more top-level local. Every file's main chunk keeps 10 spare (at most 190).
 const MAIN_LOCALS_MAX: usize = 190;
-// UI/GuideFrame.lua (198) is replaced by the 0.3.8 settings split; drop it from here when that lands.
-const MAIN_LOCALS_EXEMPT: &[&str] = &["addon/Polestar/UI/GuideFrame.lua"];
 
 /// The most locals a file's main chunk holds in scope at once: 200 less the most extra locals declared ahead of
 /// it that still compile.
@@ -92,9 +90,6 @@ fn every_addon_lua_files_main_chunk_keeps_spare_locals() {
 	let mut over = Vec::new();
 	for file in lua_files() {
 		let r = rel(&file);
-		if MAIN_LOCALS_EXEMPT.contains(&r.as_str()) {
-			continue;
-		}
 		let n = main_chunk_locals(&fs::read(&file).unwrap());
 		if n > MAIN_LOCALS_MAX {
 			over.push(format!("{r}: {n} locals in its main chunk (at most {MAIN_LOCALS_MAX}: group some into a table)"));

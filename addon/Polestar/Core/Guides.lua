@@ -408,6 +408,25 @@ function Own.packedGoals(steps)
 	end
 end
 
+-- A `train class` goal keeps to its step's zone (`zone`, the Engine's pickFor)
+-- only in Polestar's own packs (an id reserved for Polestar; the imported
+-- guides are players'), whose guides train each race in its own town. A
+-- community pack's or an imported guide's step can't know the player's race
+-- (the Protection Paladin pack's training steps in Dun Morogh and Ironforge
+-- sent Human paladins to the Dwarf trainers), so its goals go to the nearest
+-- trainer of the player's class the arrow can reach instead: they are keys of
+-- Guides.AnyTrainer (weak), and pickFor leaves their zone aside. The goal
+-- keeps its zone, as written (a shared string carries it, #1364).
+Guides.AnyTrainer = setmetatable({}, { __mode = "k" })
+function Own.trainZones(steps, r)
+	if r and Guides.RESERVED[r.id] and not r.imported then return end
+	for _, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "train" and goal.class and rawget(goal, "zone") ~= nil then Guides.AnyTrainer[goal] = true end
+		end
+	end
+end
+
 local function checkGoal(goal)
 	if type(goal) ~= "table" then return "not a table" end
 	local rules = REQUIRED[goal.t]
@@ -898,6 +917,7 @@ function Guides.Steps(def)
 	end
 	Own.stepImages(list, packs[def.pack])
 	Own.packedGoals(list)
+	Own.trainZones(list, packs[def.pack])
 	rawset(def, "steps", list)
 	ns.GuideTexts.PrepareSteps(def)
 	escapeTree(list, {}, ID_KEYS)
@@ -995,6 +1015,7 @@ function ns.RegisterGuide(def)
 	if not deferred then
 		Own.stepImages(def.steps, r)
 		Own.packedGoals(def.steps)
+		Own.trainZones(def.steps, r)
 	end
 	-- The texts in the client's language (GuideTexts), then escaped like the
 	-- rest. While the pack's files load its names stay English: the pack's

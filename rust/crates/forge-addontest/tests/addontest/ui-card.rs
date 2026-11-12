@@ -584,9 +584,10 @@ fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() 
 	.remove(0);
 	assert_eq!(out["defaults"], json!({ "whole": false, "max": 0.5 }), "one person at a time and half the screen by default");
 	assert_eq!(out["widgets"], json!({ "whole": true, "max": true }));
-	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window", "kind": "toggle", "label": "Show the whole step" }));
-	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" }));
-	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "Window$"));
+	// Search result cards are titled page · tab · section.
+	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window  \u{b7}  What it shows", "kind": "toggle", "label": "Show the whole step" }));
+	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window  \u{b7}  What it shows", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" }));
+	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "What it shows$"));
 }
 
 // A town hub of eight persons (Darkshore's Auberdine has seventeen): past three lines the rest share one.

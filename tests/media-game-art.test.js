@@ -35,12 +35,16 @@ function cache() {
 	};
 	put('1.60.1.70500', atlasCsv());
 	put('1.60.1.70600', { UiMap: 'ID\n1\n', UiMapAssignment: 'ID\n1\n', AreaTable: 'ID\n1\n' });
-	const addon = tmpdir('polestar-game-art-addon-');
-	fs.mkdirSync(path.join(addon, 'Theme'));
+	// The generator writes beside the addon folder it is given (addon/Polestar):
+	// into the game looks' own part, addon/Polestar_Looks.
+	const addons = tmpdir('polestar-game-art-addon-');
+	const addon = path.join(addons, 'Polestar');
+	fs.mkdirSync(addon);
+	fs.mkdirSync(path.join(addons, 'Polestar_Looks'));
 	return { sourcesDir, addon };
 }
 
-const header = (addon) => fs.readFileSync(path.join(addon, 'Theme', 'GameArt.lua'), 'utf8').split('\n')[1];
+const header = (addon) => fs.readFileSync(path.join(addon, '..', 'Polestar_Looks', 'GameArt.lua'), 'utf8').split('\n')[1];
 
 test('game-art --offline reads the newest cached build holding its tables and asks wago.tools nothing', async () => {
 	const { sourcesDir, addon } = cache();

@@ -1,0 +1,31 @@
+## Interface: 16001
+## Title: Polestar Skin API
+## Notes: Part of Polestar: the checks a skin from another addon goes through. Loaded when you use one.
+## Title-deDE: Polestar: Design-Schnittstelle
+## Notes-deDE: Teil von Polestar: die Prüfungen, die ein Design aus einem anderen Addon durchläuft. Wird geladen, wenn du eines verwendest.
+## Title-esES: Polestar: API de temas
+## Notes-esES: Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.
+## Title-esMX: Polestar: API de temas
+## Notes-esMX: Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.
+## Title-frFR: Polestar : API des habillages
+## Notes-frFR: Fait partie de Polestar : les vérifications que passe un habillage venu d'un autre addon. Chargé quand vous en utilisez un.
+## Title-koKR: Polestar 스킨 API
+## Notes-koKR: Polestar의 일부: 다른 애드온의 스킨이 거치는 검사. 스킨을 사용할 때 불러옵니다.
+## Title-ptBR: Polestar: API de temas
+## Notes-ptBR: Parte do Polestar: as verificações pelas quais passa um tema de outro addon. Carregado quando você usa um.
+## Title-ruRU: Polestar: API оформлений
+## Notes-ruRU: Часть Polestar: проверки, которые проходит оформление из другого аддона. Загружается, когда вы его используете.
+## Title-zhCN: Polestar 皮肤接口
+## Notes-zhCN: Polestar 的组成部分：其他插件提供的皮肤需通过的检查。使用皮肤时加载。
+## Title-zhTW: Polestar 皮膚介面
+## Notes-zhTW: Polestar 的一部分：其他插件提供的皮膚需通過的檢查。使用皮膚時載入。
+## Author: Polestar
+## Version: 0.3.7.2
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+SkinCheck.lua

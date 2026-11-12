@@ -748,28 +748,3 @@ ns.OnLogin(function()
 	Journey.RefreshTomTom()
 	claimWay()
 end)
-
-if ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
-		controls = {
-			Nav.HandoffOption({ kind = "toggle", key = "nav.mapPlan", label = L["Shift-click a map to go there"],
-				help = L["Shift-click the world map or minimap and the arrow takes you there; Alt-click works over map icons. Click the spot again to clear it."] }),
-			Nav.HandoffOption({ kind = "dropdown", key = "nav.routeStyle", label = L["Route style"],
-				help = L["Fastest: the shortest walk, over hills and across fields. Balanced: roads that aren't much longer, and round hills. Roads: stays on roads even when they're longer; the safest way, not the quickest."],
-				choices = { { value = "fastest", label = L["Fastest"] }, { value = "balanced", label = L["Balanced"] }, { value = "roads", label = L["Roads"] } } }),
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-	ok, err = ns.RegisterOptions({
-		page = L["Integrations"], section = "TomTom",
-		controls = {
-			Nav.HandoffOption({ kind = "toggle", key = "nav.answerTomTom", label = L["Let other addons set waypoints"],
-				help = L["Without TomTom installed, waypoints other addons set through TomTom, and /way, point Polestar's arrow. Addons that expect TomTom's own settings may not work with it on."] }),
-			{ kind = "toggle", key = "nav.followTomTom", label = L["Follow TomTom's arrow"],
-				help = L["With TomTom installed, the arrow goes wherever TomTom's arrow points, routed like any goal."],
-				disabled = function() return TomTom == nil or TomTom == shim end },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end
