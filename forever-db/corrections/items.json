@@ -81,5 +81,25 @@
 			}
 		],
 		"note": "Carved Centaur Totem (Carved Centaur Totems, 93224 Alliance / 93225 Horde) drops from the Kolkar and Magram centaurs too, not only the Maraudine (4654-4659) the merged data lists from QuestieDB's Forever store. Gelkis centaurs: no recorded loot yet, so not added."
+	},
+	"2511": {
+		"removeVendors": [
+			5814
+		],
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "vendors of item 2511 (QuestieDB 1.0.6 Forever store): ten gun vendors, not 5814"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "npc_vendor: item 2511 sold by 1297, 1469, 1686, 2997, 3018, 3088, 3322, 3488, 7976, 9551; npc 5814 sells only food and drink"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1820"
+			}
+		],
+		"note": "Hunter's Boomstick is sold by gun vendors, not by Innkeeper Thulbek (npc 5814) at Grom'gol, who sells food and drink only. Only pfQuest lists Thulbek as a seller, which gave him the Bows & guns role, so Nearby services sent hunters at Grom'gol to the inn (#1820)."
 	}
 }
