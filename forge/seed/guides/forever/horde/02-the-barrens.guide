@@ -16,7 +16,8 @@ next forever/horde/05-stonetalon-mountains
 # forever/horde/04-the-barrens).
 # Left out: The Harvester (897).
 # Trial at the Field of Giants (1824, Warriors) runs for 30 minutes: it is taken from Ruga on Jorn's stop after the thunder
-# lizards, right before the thunderhawks, the eggs and the antennae, not on the first Camp Taurajo stop.
+# lizards, not on the first Camp Taurajo stop; the eggs and the antennae (the same mounds) come next, then the hand-in, and
+# the thunderhawks only after it.
 # Apothecary Zamah (853) runs for 45 minutes and Helbrim offers it on the Fungal Spores hand-in: only Druids
 # take it, on the next Crossroads stop, and hand it to Zamah on the Thunder Bluff step that follows; the
 # route takes nobody else to Thunder Bluff, so the Fungal Spores step's tip says to leave it.
@@ -946,20 +947,34 @@ step Enraged Thunder Lizards
   accept 884 optional
 
 step Jorn Skyseer
-  tip Warriors: take Trial at the Field of Giants from Ruga Ragetotem now, not earlier: it runs for 30 minutes from the accept. The thunderhawks and the eggs come first, the antennae last, then straight back to Ruga.
+  tip Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to Ruga; the thunderhawks after.
   turnin 907
   accept 913
   turnin 884 optional
   accept 1824 only Warrior            -- Ruga Ragetotem, inside
 
-step Cry of the Thunderhawk
-  tip Thunderhawk Cloudscrapers circle over the same plains south of the camp.
-  collect 5164 quest 913.1
-
 step Field of Giants
   tip South of Camp Taurajo, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
   tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
   collect 5058 quest 868.1
+
+step Twitching Antennae
+  zone The Barrens
+  only Warrior
+  tip The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks.
+  collect 7119 quest 1824.1           -- Twitching Antennae from the silithid
+  tip Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds.
+
+step Ruga Ragetotem
+  zone The Barrens
+  only Warrior
+  tip Back north into Camp Taurajo before the antennae fade: Ruga Ragetotem is inside.
+  turnin 1824 only Warrior            -- Ruga Ragetotem, inside
+  accept 1825 only Warrior
+
+step Cry of the Thunderhawk
+  tip Thunderhawk Cloudscrapers circle over the plains south of the camp.
+  collect 5164 quest 913.1
 
 step Brine
   only Shaman
@@ -971,18 +986,9 @@ step Brine
   turnin 1535
   accept 1536                         -- Keep it: the Spring Well is beside Tarren Mill, on the Hillsbrad guide
 
-step Twitching Antennae
-  zone The Barrens
-  only Warrior
-  tip The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the Field of Giants' mounds, just south of Jorn's thunderhawks, until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo.
-  collect 7119 quest 1824.1           -- Twitching Antennae from the silithid
-  tip Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds.
-
 step Camp Taurajo
   zone The Barrens
-  tip Back north into Camp Taurajo on the way to the Crossroads: Jorn takes the thunderhawk wings. Warriors: Ruga Ragetotem first, before the antennae fade.
-  turnin 1824 only Warrior            -- Ruga Ragetotem, inside
-  accept 1825 only Warrior
+  tip Back north into Camp Taurajo on the way to the Crossroads: Jorn takes the thunderhawk wings.
   turnin 913                          -- Jorn Skyseer
 
 # ---------------------------------------------------------------- Back north: the Crossroads and Counterattack!

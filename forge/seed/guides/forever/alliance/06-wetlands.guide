@@ -329,10 +329,6 @@ step Dartol's Rod
   collect 5475 "Wooden Key"
   collect 5464 quest 1026             -- Iron Shaft
 
-step The Howling Vale
-  tip Take the tunnel into the Howling Vale; the tome lies in the ruins at its west end.
-  interact 19027 quest 1022.1         -- Tome of Mel'Thandris
-
 step Shael'dryn
   turnin 1026
   accept 1027
@@ -418,6 +414,10 @@ step Hidden Shrine
 step Shael'dryn
   turnin 1055
   accept 1029
+
+step The Howling Vale
+  tip Take the tunnel into the Howling Vale; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the Terrowulf Packlord, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first.
+  interact 19027 quest 1022.1         -- Tome of Mel'Thandris
 
 step Astranaar
   tip Raene Wolfrunner and Maliynn are in the inn; Pelturas Whitemoon is inside the building just south of it.
