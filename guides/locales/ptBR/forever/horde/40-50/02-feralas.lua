@@ -18,7 +18,7 @@ return {
 
 	-- Step 4: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "O centro de {zone:1454}",
 
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "Montaria no 40",

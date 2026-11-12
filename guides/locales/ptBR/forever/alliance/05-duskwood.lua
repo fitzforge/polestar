@@ -30,16 +30,16 @@ return {
 
 	-- Step 6: Gooey Spider Legs
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
-	["Gooey Spider Legs"] = "",
+	["Gooey Spider Legs"] = "Pernas de Aranha Pegajosas",
 	-- {npc:311} Sven Yorgen
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
-	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "",
+	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "Reclusas Carniceiras espreitam na mata no caminho para oeste, e Venaracnas, Veneracnas Pigmeias e Reclusas Verdes rastejam logo ao sul do acampamento de {npc:311}: qualquer uma pode deixar cair uma perna.",
 
 	-- Step 8: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "De volta a {area:42}",
 	-- {area:42} Darkshire
-	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "",
+	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "Pedra de Regresso para {area:42}, se você a vinculou na Taberna Corvo Escarlate na primeira volta, ou volte para leste pela estrada.",
 	-- {npc:265} Madame Eva
 	["{npc:265}, inside"] = "{npc:265}, lá dentro",
 	-- {npc:267} Clerk Daltry
@@ -49,9 +49,9 @@ return {
 
 	-- Step 9: Chef Grual
 	-- {npc:272} Chef Grual
-	["{npc:272} is in the Scarlet Raven Tavern too."] = "",
+	["{npc:272} is in the Scarlet Raven Tavern too."] = "{npc:272} também fica na Taberna Corvo Escarlate.",
 	-- {npc:288} Jitters · {area:94} Raven Hill
-	["For {npc:288}, at {area:94} on the way west"] = "",
+	["For {npc:288}, at {area:94} on the way west"] = "Para {npc:288}, em {area:94}, no caminho para oeste",
 
 	-- Step 10: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
@@ -122,7 +122,7 @@ return {
 
 	-- Step 25: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{zone:1453}'s {object:28027}"] = "",
+	["{zone:1453}'s {object:28027}"] = "{object:28027} de {zone:1453}",
 
 	-- Step 26: Tram to Ironforge
 	-- {zone:1455} Ironforge
