@@ -302,6 +302,14 @@ local RATINGS = {
 }
 Gear.RATINGS = RATINGS
 
+-- Polestar key -> rating points per 1% (crit 14, ...), for Pawn scales,
+-- whose rating stats are per rating point (Pawn.lua).
+local RATING_RATE = {}
+for _, r in pairs(RATINGS) do
+	for _, to in ipairs(r[1]) do RATING_RATE[to] = r[2] end
+end
+Gear.RATING_RATE = RATING_RATE
+
 -- Stats the client always reports when it reports an item at all; for the
 -- rest (equip bonuses) ItemDB fills what the client left out.
 local BASE_STATS = { str = true, agi = true, sta = true, int = true, spi = true, armor = true, dps = true, health = true, mana = true }

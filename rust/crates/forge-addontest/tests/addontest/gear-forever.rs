@@ -117,5 +117,5 @@ fn pawn_s_haste_expertise_and_armor_penetration_map_to_the_new_keys() {
 		local w, mapped, ignored = G.Pawn.Weights(p)
 		emit({ w = w, mapped = mapped, ignored = ignored })
 	"#);
-	assert_eq!(out[0], json!({ "w": { "haste": 3, "expertise": 2, "armorPen": 1, "crit": 4 }, "mapped": 4, "ignored": {} }));
+	assert_eq!(out[0], json!({ "w": { "haste": 30, "expertise": 20, "armorPen": 10, "crit": 56 }, "mapped": 4, "ignored": {} }), "per rating point in Pawn, per 1% in Polestar");
 }

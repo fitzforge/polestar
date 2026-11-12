@@ -150,8 +150,9 @@ fn stat_mapping_names_to_polestar_keys_case_insensitive() {
 		json!({
 			"str": 1, "agi": 2, "sta": 3, "int": 4, "spi": 5, "armor": 6, "health": 7, "mana": 8, "hp5": 9, "mp5": 10, "ap": 11, "rap": 12,
 			"sp": 13, "spArcane": 14, "spFire": 15, "spFrost": 16, "spHoly": 17, "spNature": 18, "spShadow": 19, "heal": 20,
-			"crit": 21, "hit": 22, "spellCrit": 23, "spellHit": 24, "defense": 25, "dodge": 26, "parry": 27, "block": 28, "blockValue": 29,
-		})
+			"crit": 294, "hit": 220, "spellCrit": 322, "spellHit": 240, "defense": 25, "dodge": 312, "parry": 405, "block": 140, "blockValue": 29,
+		}),
+		"a rating's weight is per rating point in Pawn and per 1% in Polestar: crit 14, hit 10, dodge 12, parry 15, block 5 points per 1%; defense one for one"
 	);
 	assert_eq!(r["mapped"], 29);
 	let n = match &r["ignored"] {
@@ -615,7 +616,7 @@ fn setweight_refuses_a_stat_polestar_does_not_score_and_a_value_that_is_not_a_nu
 #[test]
 fn pawn_build_writes_a_string_parse_and_weights_read_back_to_the_same_weights() {
 	let out = run(r#"
-		local w = { str = 1, agi = 0.65, sta = 0.5, dps = 6.5, rdps = 0.5, crit = 11, spFire = 0.25, blockValue = 0.05 }
+		local w = { str = 1, agi = 0.65, sta = 0.5, dps = 6.5, rdps = 0.5, crit = 11, hit = 9.3, haste = 6.6, spFire = 0.25, blockValue = 0.05 }
 		local s = G.Pawn.Build('A "quoted" name', "WARRIOR", w)
 		local p = G.Pawn.Parse(s)
 		local back = G.Pawn.Weights(p)
@@ -626,6 +627,8 @@ fn pawn_build_writes_a_string_parse_and_weights_read_back_to_the_same_weights() 
 	let out = &out[0];
 	assert_eq!(out["same"], true);
 	assert_eq!(out["name"], "A 'quoted' name");
+	assert!(text(&out["s"]).contains("CritRating=0.7857, "), "crit 11 per 1% is 11 / 14 per rating point: {}", out["s"]);
+	assert!(text(&out["s"]).contains("HitRating=0.93, "), "{}", out["s"]);
 	assert!(is_match(text(&out["s"]), r#"^\( Pawn: v1: "A 'quoted' name": Class=Warrior, "#));
 }
 
@@ -819,4 +822,28 @@ fn the_input_area_keeps_its_height_while_a_scale_is_renamed_so_the_list_stays_wh
 	let out = &out[0];
 	assert_eq!(out["importing"], json!([80, true, false]));
 	assert_eq!(out["renaming"], json!([80, false, true]));
+}
+
+#[test]
+fn a_scale_kept_before_ratings_were_per_1_percent_is_converted_once_and_scores_an_item_as_it_did() {
+	let out = run(r#"
+		-- Kept by an older Polestar: rating weights per rating point, as items were counted then.
+		local db = Polestar.DB()
+		db.gearScaleUnits = nil
+		db.gearScales = { WARRIOR = { { id = "c1", name = "Old", weights = { str = 1, crit = 2, hit = 1, dodge = 0.5, defense = 0.3, sta = 0.5 },
+			source = '( Pawn: v1: "Old": Class=Warrior, CritRating=2, DefenseRating=0.3, DodgeRating=0.5, HitRating=1, Stamina=0.5, Strength=1 )', ignored = {} } } }
+		local w = G.Scales.Get("WARRIOR", "c1").weights
+		emit({ crit = w.crit, hit = w.hit, dodge = w.dodge, defense = w.defense, str = w.str, sta = w.sta, units = db.gearScaleUnits })
+		emit({ again = G.Scales.Get("WARRIOR", "c1").weights.crit, export = G.Scales.Export("WARRIOR", "c1") })
+		-- Reset reads the kept string again: the same weights.
+		G.Scales.Reset("WARRIOR", "c1")
+		emit(G.Scales.Get("WARRIOR", "c1").weights.crit)
+	"#);
+	assert_eq!(
+		out[0],
+		json!({ "crit": 28, "hit": 10, "dodge": 6, "defense": 0.3, "str": 1, "sta": 0.5, "units": 2 }),
+		"2 per crit rating point is 28 per 1% (14 points); an item's 14 crit rating, now 1%, scores 28 as it did"
+	);
+	assert_eq!(out[1]["again"], 28, "converted once");
+	assert_eq!(out[2], 28);
 }

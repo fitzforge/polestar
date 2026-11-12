@@ -3,10 +3,15 @@
 --
 -- Pawn's names are those of its UIStrings.lua (Pawn 2.13.17, Classic client).
 --
--- Units: Classic has no ratings. Pawn's CritRating, HitRating, DodgeRating and
--- the like count the item's percent (an item with "+1% crit" has CritRating 1),
--- which is what Polestar's crit, hit, dodge, parry and block keys hold, so
--- they map one to one. DefenseRating is defense skill points, as `defense`.
+-- Units (#1538): a Pawn scale weighs a rating per rating point, as the item
+-- shows it ("+14 critical strike rating" is CritRating 14). Polestar's keys
+-- hold percent, as the item's ratings are read (Gear.RATINGS: Forever's
+-- rating per 1%), so Pawn.Weights multiplies a rating stat's weight by its
+-- rate (Gear.RATING_RATE: crit and spell crit 14, hit, spell hit, haste,
+-- expertise and armor penetration 10, dodge 12, parry 15, block 5) and
+-- Pawn.Build divides it back: CritRating=1 is crit 14 in Polestar, and
+-- exports as CritRating=1 again. DefenseRating is defense skill points, one
+-- for one, as `defense`.
 --
 -- `to` is the list of Polestar keys the weight is given to. A `generic` entry
 -- fills those keys only where no specific entry of the string names them: Dps
@@ -20,7 +25,7 @@
 -- what Polestar has no key for (SpellPower, ...).
 --
 -- HasteRating, ExpertiseRating and ArmorPenetration (Forever's ratings, #1529)
--- map to haste, expertise and armorPen in the same unit as CritRating above.
+-- map to haste, expertise and armorPen, converted as CritRating above.
 
 local ADDON, ns = ...
 
