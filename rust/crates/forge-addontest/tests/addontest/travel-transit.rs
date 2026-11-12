@@ -340,6 +340,103 @@ fn skipping_another_leg_moves_on_to_the_next_flights_list_every_node_they_hop() 
 	assert_eq!(out["after"], json!(["fly|Fly to East Hold", "walk|Kobolds"]));
 }
 
+// #1890: from Stormwind the route flew to Sentinel Hill, and on landing it planned the flight back, over and over. The
+// plan made on landing never flies back to the flight master the flight left from, for this target: here the walks
+// from East Hold into the target are priced dearer once landed (a walk the engine measured), as Sentinel Hill's were.
+// The route's flight leg names that flight master; a flight taken without the route leaves from the one beside the
+// player. A flight that comes down where it took off never got away: that flight master stays in the plans. Another
+// target may fly there again.
+#[test]
+fn issue_1890_after_landing_the_route_never_flies_back_to_the_flight_master_it_left_from_another_target_may() {
+	let out = run(r#"
+		local r, dear = {}, false
+		-- Once landed, the walks from beside East Hold into the quest cost far more than their yards.
+		T.WalkCostHook(function(walk, cost)
+			if dear and math.abs(walk.from.wy + 800) < 60 and math.abs(walk.to.wy + 700) < 2 then return cost + 10000 end
+		end)
+		local function fly(fromY)
+			nav.place(0, fromY)
+			N.Sample()                                    -- at the flight master: the flight is the current leg
+			nav.taxi = true
+			N.Refresh()                                   -- take-off
+			nav.place(0, -800)
+			dear = true
+			nav.taxi = false
+			N.Refresh()                                   -- landed at East Hold: planned again
+			local after = route()
+			dear = false
+			return after
+		end
+		known(1, 2)
+		nav.place(0, 700)
+		target(0, -700, "Kobolds")
+		r.planned = route()
+		r.landed = fly(790)
+		-- A flight the route did not ask for: from West Hold, with the route walking.
+		target(0, -701, "Kobolds")
+		local walkTo = route()
+		dear = true
+		nav.place(0, 790)
+		nav.taxi = true
+		N.Refresh()
+		nav.place(0, -800)
+		nav.taxi = false
+		N.Refresh()
+		r.own = route()
+		dear = false
+		-- Another target: the flight to West Hold again.
+		target(0, 780, "Wolves")
+		r.other = route()
+		-- A flight that comes down where it took off: it never got away, and West Hold stays in the plans.
+		target(0, -702, "Kobolds")
+		nav.place(0, 790)
+		N.Sample()
+		nav.taxi = true
+		N.Refresh()
+		nav.taxi = false
+		N.Refresh()
+		r.stayed = route()
+		r.walkTo = walkTo[1]
+		emit(r)"#);
+	assert_eq!(out["planned"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
+	assert_eq!(out["landed"], json!(["walk|Kobolds"]), "never the flight back to West Hold");
+	assert_eq!(out["walkTo"], "walk|Kobolds", "from beside East Hold the route walks: no flight asked for");
+	assert_eq!(out["own"], json!(["walk|Kobolds"]), "a flight taken without the route: the flight master beside the player");
+	assert_eq!(out["other"], json!(["fly|Fly to West Hold", "walk|Wolves"]), "another target may fly there again");
+	assert_eq!(out["stayed"], json!(["fly|Fly to East Hold", "walk|Kobolds"]), "a flight that never got away: West Hold stays");
+}
+
+// The same for a ride (#1890's sweep): once a boat, zeppelin, tram or portal has arrived, the plans for this target
+// never take it back, however the walks from its far end come to be priced.
+#[test]
+fn issue_1890_after_a_ride_arrives_the_route_never_rides_it_back_another_target_may() {
+	let out = run(r#"
+		local r, dear = {}, false
+		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
+			transports = { { id = "tram-test", kind = "tram", faction = 1, ab = 100, ba = 100, waitA = 30, waitB = 30,
+				a = { "Northgate", 0, 900, 0, 9000, 50, 5 }, b = { "Southgate", 0, -900, 0, 9000, 50, 95 } } } }, true)
+		T.WalkCostHook(function(walk, cost)
+			if dear and math.abs(walk.from.wx + 900) < 60 and math.abs(walk.to.wx + 950) < 2 then return cost + 10000 end
+		end)
+		nav.place(890, 0)
+		target(-950, 0, "South")
+		r.planned = route()
+		nav.place(-900, 0)                                -- the tram has arrived at Southgate
+		N.Sample()
+		dear = true
+		T.Replan()
+		r.arrived = route()
+		dear = false
+		target(-950, 1, "Other")                          -- another target: the tram again
+		nav.place(890, 0)
+		T.Replan()
+		r.other = route()[1]
+		emit(r)"#);
+	assert_eq!(out["planned"], json!(["tram|Take the tram to Southgate", "walk|South"]));
+	assert_eq!(out["arrived"], json!(["walk|South"]), "never the tram back to Northgate");
+	assert_eq!(out["other"], "tram|Take the tram to Southgate", "another target may ride it again");
+}
+
 #[test]
 fn t_11_after_skipping_the_hearthstone_a_class_teleport_is_still_planned() {
 	let out = run(r#"

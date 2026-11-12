@@ -3761,10 +3761,19 @@ player only when a leg from the current one on uses a changed service
 (`UnitIsGhost`) plans walking only. `SkipLeg` leaves the current hearth,
 teleport spell, flight (its departure flight master), ride or portal out of
 every plan for this target (another target may use it again) and plans
-again; a walk or lift step just moves on. `Progress` counts a ride, flight,
-hearth or teleport down from when it became current (a flight from take-off,
-when the player is first on the taxi); `Remaining`, the arrow's ETA on those
-legs, counts down the same way. `EstimateTravel`
+again; a walk or lift step just moves on. Where the trip has been is left
+out of the plans for this target the same way once it is behind the player
+(`Travel.Behind`): a flight's departure flight master once the flight has
+landed away from it (`Travel.TakeOff` names it: the route's flight leg's,
+else the flight master within 60 yd of where the flight left;
+`Travel.Landed` leaves it out, but not after a flight that came down within
+60 yd of it, one that never got away), a boat's, zeppelin's, tram's or
+portal's transport once it has arrived. So a plan made later on the way
+never goes back: from Stormwind the route flew to Sentinel Hill and on
+landing planned the flight back, over and over (#1890). `Progress` counts a
+ride, flight, hearth or teleport down from when it became current (a flight
+from take-off, when the player is first on the taxi); `Remaining`, the
+arrow's ETA on those legs, counts down the same way. `EstimateTravel`
 evicts its oldest cached answer when 64 are held. A budgeted call (only
 `API.Estimate`'s) starts no new plan once the frame has spent 25 ms planning
 estimates (`debugprofilestop`) and answers `nil, "busy"` until the next
