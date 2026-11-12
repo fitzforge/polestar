@@ -45,7 +45,7 @@
 						"item": 2874
 					}
 				],
-				"guard": "onquest 214,166"
+				"guard": "turnedin 65; onquest 214,166"
 			},
 			"handins": [
 				{
@@ -89,7 +89,8 @@
 					"guard": "!dungeon \"The Deadmines\"",
 					"note": "the stop's solo step (155's hand-in and the flight to Lakeshire), as on the route without the dungeon; the dungeon's steps take 155 and fly after the run"
 				}
-			]
+			],
+			"westfallGate": "the run and its Sentinel Hill hand-ins carry `when turnedin 65`, as the guide's Westfall stretch does"
 		},
 		{
 			"dungeon": "The Stockade",
@@ -486,7 +487,8 @@
 				{
 					"guide": "forever/horde/05-stonetalon-mountains",
 					"to": "The Sepulcher",
-					"note": "the walk from the ruins to the Sepulcher, before the route's own Sepulcher stop"
+					"when": "!onquest 30",
+					"note": "the walk from the ruins to the Sepulcher, before the Druids' Strange Lockbox step (a Druid carrying Trial of the Sea Lion, 30, walks by the lockbox, and the Sepulcher step's tip takes them from there)"
 				}
 			]
 		},

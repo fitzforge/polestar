@@ -233,18 +233,19 @@ step Ruins of Lordaeron
 
 # ---------------------------------------------------------------- Silverpine Forest
 
+step The Sepulcher
+  when dungeon "Ruins of Lordaeron"
+  when !onquest 30
+  zone Silverpine Forest
+  tip Out of the ruins, take the road south through Tirisfal into Silverpine Forest and on to the Sepulcher.
+  goto 44.0,40.9 "The Sepulcher"
+
 step Strange Lockbox
   only Tauren,Skyborne,Druid
   zone Silverpine Forest
   when onquest 30
   tip From the zeppelin towers, run south into Silverpine and west past the Dead Field to the coast: the Strange Lockbox lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the Half Pendant of Aquatic Endurance for Trial of the Sea Lion. Then on to the Sepulcher.
   collect 15882                         -- Half Pendant of Aquatic Endurance, from the Strange Lockbox
-
-step The Sepulcher
-  when dungeon "Ruins of Lordaeron"
-  zone Silverpine Forest
-  tip Out of the ruins, take the road south through Tirisfal into Silverpine Forest and on to the Sepulcher.
-  goto 44.0,40.9 "The Sepulcher"
 
 step The Sepulcher
   zone Silverpine Forest

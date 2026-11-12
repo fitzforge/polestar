@@ -125,6 +125,9 @@ const working = (list) => list.map((e) => (e.step.along ? { ...e, goal: {} } : e
 const located = ({ goal }) => goal.map != null && goal.x != null;
 // Goals every character of the guide does (no `only` on the goal or its step).
 const everyone = ({ step, goal }) => !step.only && !goal.only;
+// A step only a character who runs a dungeon in the route has (`when dungeon "<Name>"`, not negated): no stop
+// of the solo route, which a character on Skip, the default, plays.
+const dungeonOnly = (step) => (step.when || []).some((p) => p.k === 'dungeon' && !p.neg);
 // Goals a character of this class does (an `only` naming classes on the goal or its step must list it).
 const forClass = (cls) => ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.classes || o.classes.includes(cls));
 
@@ -7530,7 +7533,7 @@ test('Alliance 12-20: Fire Taboo is taken from Rethiel at 22-24, its flint on th
 	const hand = wet.find(({ goal }) => is('turnin', 277)(goal));
 	assert.ok(hand && wet.some(({ goal, s }) => is('accept', 275)(goal) && s === hand.s), 'handed in with Blisters on the Land taken');
 	assert.ok(!wet.some(({ goal }) => (goal.t === 'collect' && goal.item === 2611) || is('accept', 277)(goal)), 'not taken or worked again at 27-29');
-	assert.equal(wet.filter(({ goal }) => goal.npc === 1244).map(({ s }) => s).filter((v, i, a) => a.indexOf(v) === i).length, 2, 'Rethiel on two stops (Fire Taboo and Blisters in, Blisters out)');
+	assert.equal(wet.filter(({ step, goal }) => goal.npc === 1244 && !dungeonOnly(step)).map(({ s }) => s).filter((v, i, a) => a.indexOf(v) === i).length, 2, 'Rethiel on two stops of the solo route (Fire Taboo and Blisters in, Blisters out)');
 });
 
 // --- Player reports, route-wide (0.3.0 to 0.3.4). Each case states a reported route problem as a property
@@ -7924,8 +7927,10 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 		assert.deepEqual(chain.slice(1).map((g) => g.replace('forever/horde/', '')), ['03-silverpine-forest.guide', '02-the-barrens.guide', '05-stonetalon-mountains.guide', '06-hillsbrad-foothills.guide', '04-the-barrens.guide', '07-ashenvale.guide'], `${race}: the 12-30 chain`);
 		const fits = (o) => !o || !o.races || o.races.includes(race);
 		const cls = (o) => o && o.classes;
+		// The solo route: a dungeon's quests may ride to its run in the next guide (Razorfen Kraul's tubers from
+		// the Barrens' Ratchet stop to the Great Lift road), for a character who runs it.
 		const list = chain.flatMap((g) => goals(g).map((e) => ({ ...e, g })))
-			.filter(({ step, goal }) => fits(step.only) && fits(goal.only) && !cls(step.only) && !cls(goal.only));
+			.filter(({ step, goal }) => fits(step.only) && fits(goal.only) && !cls(step.only) && !cls(goal.only) && !dungeonOnly(step));
 		const classQuest = (q) => !!(data.quests[q] && data.quests[q].classes);
 		// A delivery whose only objective is speaking to the NPC who takes it (the campfires' profession
 		// Camping 101s for the Orgrimmar and Undercity trainers, #1559): its `complete` is the hand-in visit.
