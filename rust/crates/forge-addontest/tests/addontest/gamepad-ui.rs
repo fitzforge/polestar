@@ -140,7 +140,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/Nav/Nearby.lua", 3, "the tracking menus, not with the gamepad interface"),
 	("Polestar/Maps/Services.lua", 3, "the service tracking menus, not with the gamepad interface"),
 	("Polestar/UI/QuestLinks.lua", 3, "the quest menus, not with the gamepad interface"),
-	("Polestar/UI/GuideFrame.lua", 2, "the quest log menu's pin entry, not with the gamepad interface"),
+	("Polestar/UI/GuideFrameMenu.lua", 2, "the quest log menu's pin entry, not with the gamepad interface"),
 	("Polestar/QoL/QoL.lua", 2, "dialogs closed for the player (QoL.ClosePopup), never with the gamepad interface (its focus owns them)"),
 	("Polestar/Quests/DeleteWarning.lua", 2, "a line added to the delete dialog, never with the gamepad interface (its focus owns the dialogs)"),
 	("Polestar/Quests/SellWarning.lua", 4, "the buyback question, never with the gamepad interface (its focus owns the dialogs)"),
