@@ -1954,7 +1954,7 @@ function Walk.FollowsGoto(target)
 		gotoTarget, gotoStep, gotoGoal = target, nil, nil
 		if type(target) ~= "table" or not (target.stepIndex and target.goalIndex) then return false end
 		local E = ns.Engine
-		local guide = E and E.GetGuide and E.GetGuide()
+		local guide = target.guideId and ns.Guides.Get(target.guideId) or (E and E.GetGuide and E.GetGuide())
 		local steps = type(guide) == "table" and guide.steps
 		if type(steps) ~= "table" then return false end
 		local bc, bx, by = worldOf(target)

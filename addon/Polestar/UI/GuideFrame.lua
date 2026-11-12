@@ -198,7 +198,8 @@ local function goalTooltip(row)
 	-- An accept: the level the quest needs (red while the character is below
 	-- it) and the prerequisites not handed in yet (Engine.AcceptGate, #1247).
 	local E = Engine()
-	local gate = goal.t == "accept" and view and E and E.AcceptGate and E.AcceptGate(view.index, goal.index)
+	local gate = goal.t == "accept" and view and E and E.AcceptGate and
+		(goal.combinedRef and E.ObjectiveGate(goal.combinedRef) or (not goal.combinedRef and E.AcceptGate(view.index, goal.index)))
 	if gate then
 		if gate.level then
 			local text = L["Requires level %d"]:format(gate.level)
@@ -271,6 +272,10 @@ end
 -- Tick the row's goal done, or untick it (any goal but a note).
 local function toggleGoal(row)
 	local E, goal = Engine(), row.psGoal
+	if goal and goal.combinedRef then
+		for _, ref in ipairs(goal.combinedRefs) do E.CombinedAction(ref, "toggle") end
+		return
+	end
 	if E and E.ToggleGoal and goal and goal.tickable and view then E.ToggleGoal(view.index, goal.index) end
 end
 
@@ -278,6 +283,10 @@ end
 -- back (its accept's Undo).
 local function skipGoal(row)
 	local E, goal = Engine(), row.psGoal
+	if goal and goal.combinedRef then
+		for _, ref in ipairs(goal.combinedRefs) do E.CombinedAction(ref, "skip") end
+		return
+	end
 	if not (E and goal and view) then return end
 	if goal.unavailable == "skipped" and E.SkipQuest then return E.SkipQuest(goal.quest, false) end
 	if E.SkipGoal and goal.optional then E.SkipGoal(view.index, goal.index) end
@@ -313,6 +322,18 @@ end
 -- taken yet leaves the arrow on the accept and says so (#1385). False for a
 -- goal anywhere else. (On GF: the main chunk is at Lua's 200 locals.)
 function GF.AimGoal(goal)
+	if goal and goal.combinedRef then
+		if goal.combinedCommitment and not ns.CombinedRoute.Approved(goal.combinedCommitment) then
+			W.ShowMenu(F, {
+				{ text = L["Start this activity"], icon = "check", confirm = true, tip = L["Check the quest before continuing. Escorts and timed quests start immediately; some quests close other quests."],
+					onClick = function() ns.CombinedRoute.Confirm(goal.combinedCommitment, true) end },
+				{ text = L["Not now"], icon = "skip", onClick = function() ns.CombinedRoute.Confirm(goal.combinedCommitment, false) end },
+			})
+		else
+			Engine().CombinedAction(goal.combinedRef, "aim")
+		end
+		return true
+	end
 	local E, nav = Engine(), ns.Nav
 	if not (goal and goal.index and view and E and E.AimGoal and E.GetStepIndex and E.GetStepIndex() == view.index) then return false end
 	local aimed, why, title = E.AimGoal(view.index, goal.index)
@@ -448,6 +469,7 @@ local function goalRow(i)
 	r.Alt = W.IconButton(r, "reload", 20, nil, function()
 		local E, goal = Engine(), r.psGoal
 		if not (E and goal and view) then return end
+		if goal.combinedRef then return E.CombinedAction(goal.combinedRef, (goal.alternatives or 0) > 0 and "candidate" or "spot") end
 		if type(goal.alternatives) == "number" and goal.alternatives > 0 then
 			if E.CycleCandidate then E.CycleCandidate(view.index, goal.index) end
 		elseif E.CycleSpot then
@@ -1270,6 +1292,8 @@ local function tabMenu(self)
 		{ text = L["Close tab"], icon = "close", onClick = function() E.CloseTab(i) end },
 		{ text = L["Move left"], icon = "chevron-left", disabled = i <= 1, onClick = function() E.MoveTab(i, i - 1) end },
 		{ text = L["Move right"], icon = "chevron-right", disabled = i >= #tabs, onClick = function() E.MoveTab(i, i + 1) end },
+		{ text = L["Use as main guide"], icon = "goto", onClick = function() if tabs[i] then ns.CombinedRoute.SetMain(tabs[i].guideId) end end },
+		{ text = L["Add to combined route"], icon = "plus", disabled = not ns.CombinedRoute.Enabled(), onClick = function() if tabs[i] then ns.CombinedRoute.Add(tabs[i].guideId) end end },
 	}
 	local reopen = GF.ReopenItem()
 	if reopen then table.insert(items, 3, reopen) end
@@ -3202,6 +3226,7 @@ end
 -- (with "Show the whole step", or on a done step, every goal as written).
 -- sameFocus = repaint in place; a goal that just turned done pops and folds.
 local function fillCard(sameFocus)
+	if view.combined then GF.FillCombined(); return {}, nil end
 	local groups, focus = UI.StepGroups(view)
 	local g = shownGroup(view, groups, focus)
 	focusGroup = g
@@ -3553,9 +3578,66 @@ local function showSteps(show)
 	empty:SetShown(not show)
 end
 
+-- The existing row pool, scrollbar, skins and controller targets also paint
+-- the combined itinerary; every action retains the row's source reference.
+function GF.FillCombined()
+	local R, p = ns.CombinedRoute, ns.CombinedRoute.View()
+	if not p then return end
+	resetModel()
+	person.Name:SetText(R.State().paused and L["Combined route paused"] or L["Combined route"])
+	person.Icon:SetTexture(Theme.VerbIcon("goto"))
+	person.Where:Hide()
+	person.Level:Hide()
+	person.Mark:Hide()
+	person.Why:SetText(L["Added travel budget: %d min (estimate)"]:format(math.floor(p.budget / 60)))
+	person.Why:Show()
+	person.psPlace, person.psGroup, person.psPerson = nil, nil, false
+	person:Show()
+	card.Section:Hide()
+	card.Tip:Hide()
+	if UI.ClassCard then UI.ClassCard.Fill(nil, nil, nil) end
+	area.n = 0
+	view = { index = 0, combined = true, goals = {}, title = L["Combined route"] }
+	local target = R.Target()
+	for i, row in ipairs(p.rows) do
+		local v = {}
+		for k, value in pairs(row.view) do v[k] = value end
+		v.index, v.combinedRef, v.combinedCommitment, v.combinedRefs = i, row.ref, row.commitment, row.refs
+		view.goals[i] = v
+		local current = target and target.key == row.key
+		if current then view.current = i end
+		local r = goalRow(i)
+		paintRow(r, v, false, false, current, false, false, false)
+		local label = row.reason and (L["Deferred"] .. ": " .. row.reason) or (current and L["Current destination"] or L["Upcoming work"])
+		local sub = r.Sub:GetText()
+		r.Sub:SetText(table.concat(row.titles, ", ") .. "  ·  " .. label .. (sub and sub ~= "" and ("\n" .. sub) or ""))
+		r.Sub:Show()
+		r.Mark:Hide()
+		r.psFold, r.psK = nil, nil
+		r:SetAlpha(1)
+		r:Show()
+		area.n = i
+		area.items[i], r.psAt = r, i
+	end
+	for i = #p.rows + 1, #rows do rows[i]:Hide(); rows[i].psGoal = nil end
+	for _, line in ipairs(lines) do line:Hide() end
+	for i = area.n + 1, #area.items do area.items[i] = nil end
+	after:Hide(); along:Hide(); GF.here:Hide(); upnext:Hide()
+end
+
 function GF.Render()
 	if not F or not ns.IsLoggedIn() then return end
 	local E, G = Engine(), ns.Guides
+	if ns.CombinedRoute and ns.CombinedRoute.Enabled() and ns.CombinedRoute.View() then
+		strip.psHasTabs = GF.TabsOf(E) ~= nil
+		navigatorFor(E.GetGuide(), E.GetStepIndex())
+		state, shownIndex, shownGuide = "steps", nil, nil
+		GF.FillCombined()
+		GF.PaintSkip(false, false)
+		showSteps(true)
+		GF.Layout()
+		return
+	end
 	strip.psHasTabs = GF.TabsOf(E) ~= nil
 	local guide = E and E.GetGuide and E.GetGuide()
 	local list = G and G.List and G.List()
@@ -3631,6 +3713,7 @@ function GF.ShownStep() return shownIndex end
 -- to the next person this re-renders (with the slide); otherwise the card is
 -- refilled in place (a goal turning done folds).
 function GF.Update()
+	if ns.CombinedRoute and ns.CombinedRoute.Enabled() then return GF.Render() end
 	if not F or state ~= "steps" or not view then return GF.Render() end
 	local E = Engine()
 	local index = E.GetStepIndex and E.GetStepIndex()
@@ -4313,7 +4396,20 @@ local function openMenu(button)
 		{ text = L["Skip this step"], icon = "skip", disabled = not (hasGuide and E.GetStepIndex and E.GetStepIndex()), onClick = function() GF.SkipStep() end },
 		{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
 		{ separator = true },
+		{ text = L["Use as main guide"], icon = "goto", disabled = not hasGuide, onClick = function() ns.CombinedRoute.SetMain(hasGuide.id) end },
+		{ text = L["Add to combined route"], icon = "plus", disabled = not (hasGuide and ns.CombinedRoute.Enabled()), onClick = function() ns.CombinedRoute.Add(hasGuide.id) end },
 	}
+	if ns.CombinedRoute.Enabled() then
+		items[#items + 1] = { text = L["Resume combined route"], icon = "goto", onClick = function() ns.CombinedRoute.Resume() end }
+		items[#items + 1] = { text = L["Pause combined route"], icon = "pause", onClick = function() ns.CombinedRoute.Pause() end }
+		items[#items + 1] = { text = L["Remove from combined route"], icon = "cross", disabled = not hasGuide, onClick = function() ns.CombinedRoute.Add(hasGuide.id, false) end }
+		for _, seconds in ipairs({ 0, 120, 300, 600, 1800 }) do
+			local budget = seconds
+			items[#items + 1] = { text = L["Added travel budget: %d min (estimate)"]:format(budget / 60),
+				checked = ns.CombinedRoute.State().budget == budget, onClick = function() ns.CombinedRoute.SetBudget(budget) end }
+		end
+		items[#items + 1] = { text = L["Disable combined route"], icon = "cross", onClick = function() ns.CombinedRoute.Disable() end }
+	end
 	-- Pin the shown step's quests in the log as along the way, or unpin them (#644).
 	local pins = GF.PinItems(view)
 	for _, it in ipairs(pins) do items[#items + 1] = it end
@@ -5149,6 +5245,7 @@ ns.On("GUIDE_COMPLETED", whenReady(GF.Render))
 ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
 ns.On("WHILE_HERE_CHANGED", whenReady(GF.HereChanged))
 ns.On("WHILE_HERE_MOVED", whenReady(GF.HereMoved))
+ns.On("COMBINED_ROUTE_CHANGED", whenReady(GF.Render))
 ns.On("QUEST_TIMER", whenReady(GF.TimerTick))
 -- The screen's height changed (resolution, the game's UI scale): the
 -- height cap follows.

@@ -190,7 +190,7 @@ end
 
 local function samePoint(a, b)
 	return a ~= nil and b ~= nil and a.map == b.map and a.x == b.x and a.y == b.y
-		and a.stepIndex == b.stepIndex and a.goalIndex == b.goalIndex
+		and a.guideId == b.guideId and a.stepIndex == b.stepIndex and a.goalIndex == b.goalIndex
 end
 
 -- While a target exists, re-check the situation once a second: hidden
@@ -237,6 +237,10 @@ end
 function Nav.SetTarget(map, x, y, label, f, stop, z, warning)
 	map, x, y = tonumber(map), tonumber(x), tonumber(y)
 	if not (map and x and y) then return false end
+	if ns.CombinedRoute then
+		if ns.Engine.ClearCombinedManual then ns.Engine.ClearCombinedManual() end
+		ns.CombinedRoute.Pause()
+	end
 	local Engine = ns.Engine
 	override = {
 		map = map, x = x, y = y, f = f,
@@ -564,6 +568,7 @@ end
 function Nav.NextSpot(index)
 	local t, E = target, ns.Engine
 	if not (t and t.spots and t == engineWp and E and E.CycleSpot) then return false end
+	if t.objective and E.CombinedAction then return E.CombinedAction(t.objective, "spot", index) ~= nil end
 	return E.CycleSpot(t.stepIndex, t.goalIndex, index) ~= nil
 end
 

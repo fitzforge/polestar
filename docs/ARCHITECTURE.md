@@ -2476,6 +2476,12 @@ and both of its values start on `"ask"`.
 
 #### Tabs (several guides at once)
 
+Opt-in [combined routes](COMBINED_ROUTES.md) display selected tabs' objectives
+in one itinerary without changing the active tab. The Engine supplies source
+references and live progress; `Core/CombinedRoute.lua` owns bounded insertion
+planning and the selected navigation target. That document describes the
+public APIs, saved state, commitment gates and regression scenarios.
+
 ```lua
 Polestar.Engine.GetTabs([counts]) -> { { guideId, title, category, stepIndex, stepCount, done, total, complete }, ... }, activeIndex
                                      -- done, total only with counts (the done rules over each tab's steps: the tab tooltip, the guide menu)
