@@ -49,7 +49,7 @@ async function quiet(fn) {
 
 // Minimal addon folders with TOCs, for pack/install tests; Polestar_Guides is
 // a generated pack (its TOC carries the marker) without guides.
-function fakeAddons(root, names = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Recorder'], version = '0.1.0') {
+function fakeAddons(root, names = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Recorder'], version = '0.1.0') {
 	for (const n of names) {
 		const dir = path.join(root, n);
 		fs.mkdirSync(dir, { recursive: true });

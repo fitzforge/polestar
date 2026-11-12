@@ -9,8 +9,20 @@
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: [&str; 9] =
-	["Core/Init.lua", "Core/Data.lua", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/FlightPaths.lua", "Maps/RouteStrokes.lua", "Maps/RouteLines.lua", "UI/UI.lua", "UI/JourneyPanel.lua"];
+// The rows are the settings' addon's (Polestar_Options/Nav/Options.lua, UI/GuideOptions.lua: the journey's).
+const FILES: [&str; 11] = [
+	"Core/Init.lua",
+	"Core/Data.lua",
+	"Theme/Theme.xml",
+	"Nav/Nav.xml",
+	"Maps/FlightPaths.lua",
+	"Maps/RouteStrokes.lua",
+	"Maps/RouteLines.lua",
+	"UI/UI.lua",
+	"UI/JourneyPanel.lua",
+	"../Polestar_Options/Nav/Options.lua",
+	"../Polestar_Options/UI/GuideOptions.lua",
+];
 
 // Before any addon file: the fake Compat from Init.lua on (Data.lua and UI.lua read it at load), addon loading
 // recorded, a fake walking engine, the world map's click handlers recorded, and the player's death state.
@@ -900,14 +912,21 @@ const GREYED: [&str; 25] = [
 const OPTIONS: &str = r#"
 Polestar.Set("nav.routeLines", false) -- trailDots' own condition out of the way
 Polestar.Set("nav.tomtom", true)
--- The options window's own widgets, every page that holds a nav option.
+-- The options window's own widgets, every page that holds a nav option (its
+-- addon loads where the test loads UI.xml's loader).
+if Polestar.UI.LoadOptions then Polestar.UI.LoadOptions() end
 local O, W = Polestar.UI.Options, Polestar.Widgets
 local function controls()
 	local out = {}
 	Polestar.UI.ShowOptions("guide")
-	for _, at in ipairs({ { "guide", "Arrow & routes" }, { "appearance", "Arrow" }, { "map", "Guide & quests" }, { "integrations" } }) do
-		O.Select(at[1], at[2])
-		for key, w in pairs(O.Controls(at[1], at[2])) do out[key] = w end
+	local at = { { "guide", "Arrow & routes" }, { "map", "Guide & quests" }, { "integrations" } }
+	-- The Arrow page (Look group): every tab.
+	for _, p in ipairs(O.Pages()) do
+		if p.key == "arrow" then for _, t in ipairs(p.tabs) do at[#at + 1] = { "arrow", t } end end
+	end
+	for _, a in ipairs(at) do
+		O.Select(a[1], a[2])
+		for key, w in pairs(O.Controls(a[1], a[2])) do out[key] = w end
 	end
 	return out
 end
@@ -944,7 +963,8 @@ fn while_it_guides_the_options_that_do_nothing_there_are_greyed_out_and_say_why_
 			why = cs["nav.mapPlan"].psControl.help:find("Greyed out while Shortest Path Forever guides", 1, true) ~= nil,
 			whyNoHelp = cs["nav.arrowScale"].psControl.help ~= nil })"#
 			.replace("${GREYED}", &lua_list(&GREYED));
-	let files: Vec<&str> = FILES.iter().copied().filter(|f| !f.starts_with("UI/")).chain(["UI/UI.xml"]).collect();
+	// The whole UI: the settings' addon loads as the window opens, its rows with it.
+	let files: Vec<&str> = FILES.iter().copied().filter(|f| !f.starts_with("UI/") && !f.starts_with("../")).chain(["UI/UI.xml"]).collect();
 	let on = run(&script, Opts { files: files.clone(), ..Default::default() });
 	let without = run(&script, Opts { spf: None, files, ..Default::default() });
 	let all = |v: bool| Value::Object(GREYED.iter().map(|k| (k.to_string(), json!(v))).collect());

@@ -50,6 +50,18 @@ local function openMenu(button)
 	end
 	local reopen = GF.ReopenItem()
 	if reopen then table.insert(items, 3, reopen) end
+	-- The few settings changed mid-play (UI/QuickSettings.lua), by the button, just before Options.
+	if UI.QuickSettings then
+		for i, it in ipairs(items) do
+			if it.icon == "gear" then
+				table.insert(items, i, { text = L["Quick settings"], icon = "sliders", onClick = function() UI.QuickSettings.Show(button) end })
+				break
+			end
+		end
+	end
+	-- A skin's own entries (Skin API 2, hooks.guideMenu(items, button)): it
+	-- may add, remove or reorder them; the list is made anew at each opening.
+	ns.Theme.SkinHook("guideMenu", items, button)
 	W.ShowMenu(button, items)
 end
 

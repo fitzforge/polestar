@@ -1003,8 +1003,8 @@ steps and detours, the steps to fix first.
 
 ### Slash commands
 
-`/polestar` (or `/pole`) shows or hides the guide window; settings live in
-`/polestar options`, grouped by what you came to do: Guide, Appearance, Map,
+`/polestar` (or `/pole`, `/ps`) shows or hides the guide window; settings live in
+`/polestar options` (or `/ps options`, or right-click the game menu's Polestar button), grouped by what you came to do: Guide, Appearance, Map,
 Questing, Discovery, Quality of Life, Integrations (settings for other addons
 Polestar works with, such as Questie, shown while they are installed), Guide
 packs, Gamepad, Recorder and About, with a search that finds any setting.
@@ -1036,6 +1036,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
 | `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**) or Polestar is hidden, these commands, `way` and `near` say so |
+| `unlock`, `lock` | Move Polestar's frames: a box over the guide window, the arrow, the buttons, the alerts and the trackers to drag where you want them, with a grid and snapping; arrow keys nudge the one you clicked, right-click puts one back. `unlock` again, `lock`, Escape or a fight locks them |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
 | `party [debug]` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need); `debug` prints what party sync sends and hears, for a report |
@@ -1454,7 +1455,10 @@ permission; his map files are not part of the addon.
 7: guide packs produced by Polestar's compiler and import strings produced by
 its tools, including the reference data they place in them, may be
 distributed under terms of the author's choice (not guide text copied from
-Polestar's own guides, nor Polestar's code).
+Polestar's own guides, nor Polestar's code), and a second one for skin
+addons: an addon that changes Polestar's look only through the documented
+Skin API ([docs/skins/](docs/skins/README.md)) may be licensed as its author
+chooses.
 
 <p align="center"><img src="docs/assets/emblem.svg" width="28" alt=""></p>
 

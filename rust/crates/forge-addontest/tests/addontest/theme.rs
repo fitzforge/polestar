@@ -346,8 +346,9 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 		Polestar.UI.ShowOptions("integrations")
 		Polestar.UI.Options.Controls("integrations")["ui.matchAccent"]:Click()
 		local rematched = { accent = Polestar.Get("ui.accent"), live = { T.Accent() } }
-		Polestar.UI.ShowOptions("appearance")
-		look = Polestar.UI.Options.Controls("appearance")
+		Polestar.UI.ShowOptions("theme")
+		Polestar.UI.Options.Select("theme", "Text")
+		look = Polestar.UI.Options.Controls("theme", "Text")
 		local font = look["ui.font"]
 		local fontLabel = font.Button.Label:GetText()
 		font.Button:Click()
@@ -542,6 +543,7 @@ fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 		uistub.complete(); collect()
 		Polestar.Engine.SetGuide(nil); collect()
 		UI.ShowPicker(); collect()
+		UI.LoadOptions()
 		for _, p in ipairs(UI.Options.Pages()) do
 			UI.ShowOptions(p.key); collect()
 			for _, t in ipairs(p.tabs) do UI.Options.Select(p.key, t); collect() end

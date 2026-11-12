@@ -14,6 +14,7 @@
 	<Script file="GuideFrameWindow.lua"/>
 	<Script file="GuideFrameStatus.lua"/>
 	<Script file="StepList.lua"/>
+	<Script file="QuickSettings.lua"/>
 	<Script file="Launcher.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="WhileHere.lua"/>
@@ -44,7 +45,9 @@
 	<Script file="Packs.lua"/>
 	<Script file="Import.lua"/>
 	<Script file="Thanks.lua"/>
-	<Script file="Options.lua"/>
-	<Script file="LineStyle.lua"/>
+	<Script file="OptionsLoader.lua"/>
+	<Script file="Toasts.lua"/>
+	<Script file="Trackers.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
+	<Script file="Movers.lua"/>
 </Ui>

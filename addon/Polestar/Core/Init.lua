@@ -746,6 +746,9 @@ local function onAddonLoaded(_, name)
 	DB()
 	newCharacter = type(PolestarCharDB) ~= "table"
 	ns.CharState()
+	-- The character's settings profile into PolestarDB.settings and the
+	-- settings migrations, before anything reads a setting (Core/Profiles.lua).
+	if ns.Profiles and ns.Profiles.Load then call(ns.Profiles.Load) end
 	loadHidden()
 	initialized = true
 	local queue = initQueue
@@ -840,6 +843,7 @@ end
 if not gamepadUI then
 	SLASH_POLESTAR1 = "/polestar"
 	SLASH_POLESTAR2 = "/pole"
+	SLASH_POLESTAR3 = "/ps"
 	SlashCmdList.POLESTAR = ns.RunCommand
 end
 if not gamepadUI and not SLASH_POLESTAR_RL1 then

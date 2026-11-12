@@ -9,7 +9,6 @@
 	<Script file="SellWarning.lua"/>
 	<Script file="QuestLevels.lua"/>
 	<Script file="Timed.lua"/>
-	<Script file="Options.lua"/>
 	<Script file="Party.lua"/>
 	<Script file="PartyChat.lua"/>
 </Ui>

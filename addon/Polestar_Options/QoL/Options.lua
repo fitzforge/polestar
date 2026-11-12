@@ -1,13 +1,14 @@
 -- The Quality of Life settings (docs/ARCHITECTURE.md, "Options registry"):
 -- the questing helpers on the Questing page, the rest on Quality of Life, and
 -- the conveniences among the questing helpers on both (C below). Both pages
--- and their tabs and sections are declared in UI/Options.lua.
+-- and their tabs and sections are declared in UI/Options.lua. Part of the
+-- settings' addon: nothing of it is in memory before the settings open.
 
-local ADDON, ns = ...
+local ns = Polestar
 local L = ns.L
 local QoL = ns.QoL
 
-if not ns.RegisterOptions then return end
+if not (QoL and ns.RegisterOptions) then return end
 
 local QUESTING, QOL = L["Questing"], L["Quality of Life"]
 
@@ -140,10 +141,11 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 	{ kind = "dropdown", key = "qol.markNpc", label = L["Icon on NPCs"], choices = markChoices, disabled = markOff,
 		help = L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."], search = "raid marker, raid icon, star" },
 	C.stepInteract(),
-	{ kind = "slider", key = "qol.buttonScale", label = L["Button size"], min = 0.6, max = 1.6, step = 0.05, format = function(v) return math.floor(v * 100 + 0.5) .. "%" end,
-		help = L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all."], search = "scale, bigger, smaller, button scale" },
-	{ kind = "dropdown", key = "qol.buttonTextSide", label = L["Target name position"], help = L["Where the target's name shows around the target button: right, left, above or below."],
-		choices = { { value = "right", label = L["Right"] }, { value = "left", label = L["Left"] }, { value = "above", label = L["Above"] }, { value = "below", label = L["Below"] } } },
+	-- How they look (size, layout, text, opacity...) is the Buttons page's (QoL/ButtonsOptions.lua).
+	{ kind = "button", icon = "palette", button = L["Open"], label = L["Button look"], new = "0.3.8",
+		help = L["Size, spacing, layout, backing, text, opacity and glow of these buttons, with a live preview, on the Buttons page."],
+		search = "button size, scale, bigger, smaller, look, style, opacity, layout, name position",
+		onClick = function() ns.UI.ShowOptions("buttons") end },
 	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
 		search = "move buttons, button position", onClick = function() if QoL.Buttons then QoL.Buttons.ResetPositions() end end },
 })

@@ -67,6 +67,7 @@ guide("elsewhere/two", "probs")
 assert(Polestar.RegisterPack(meta("Dung", "dung", "Dungeon Pack")))
 guide("dung/deadmines", "dung", { category = "Dungeons" })
 stub.login()
+Polestar.UI.LoadOptions()
 UI, O, P = Polestar.UI, Polestar.UI.Options, Polestar.UI.Packs
 function openPage() UI.ShowOptions("guidepacks"); return P.view end
 function rowOf(addon)
@@ -234,7 +235,8 @@ fn the_report_box_grows_to_fit_a_long_problem_message_as_it_wraps() {
 	let out = run(r#"
 		openPage()
 		local probs = G.Pack("probs").problems
-		probs[#probs + 1] = { message = string.rep("a step's target names a quest that no guide in the pack has ", 6) }
+		-- Long enough to wrap in the settings window at its widest default size.
+		probs[#probs + 1] = { message = string.rep("a step's target names a quest that no guide in the pack has ", 16) }
 		rowOf("Probs").CopyReport:Click()
 		local report = rowOf("Probs").Report
 		local _, newlines = report:GetText():gsub("\n", "")

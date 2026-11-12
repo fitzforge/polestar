@@ -150,6 +150,21 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 		],
 	),
 	(
+		"Polestar_Options",
+		["Polestar-Einstellungen", "Polestar: configuración", "Polestar: configuración", "Polestar : réglages", "Polestar 설정", "Polestar: opções", "Polestar: настройки", "Polestar 设置", "Polestar 設定"],
+		[
+			"Teil von Polestar: das Einstellungsfenster, seine Darstellungsseiten und ihre Vorschauen. Wird geladen, wenn du die Einstellungen öffnest.",
+			"Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.",
+			"Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.",
+			"Fait partie de Polestar : la fenêtre des réglages, ses pages d'apparence et leurs aperçus. Chargé à l'ouverture des réglages.",
+			"Polestar의 일부: 설정 창과 모양 페이지, 그 미리 보기. 설정을 열 때 불러옵니다.",
+			"Parte do Polestar: a janela de opções, suas páginas de aparência e as prévias delas. Carregado ao abrir as opções.",
+			"Часть Polestar: окно настроек, его страницы оформления и их предпросмотр. Загружается при открытии настроек.",
+			"Polestar 的组成部分：设置窗口、外观页面及其预览。打开设置时加载。",
+			"Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。",
+		],
+	),
+	(
 		"Polestar_QuestDB",
 		["Polestar Quest-Datenbank", "Polestar: base de datos de misiones", "Polestar: base de datos de misiones", "Polestar : base de données des quêtes", "Polestar 퀘스트 데이터베이스", "Polestar: banco de dados de missões", "Polestar: база заданий", "Polestar 任务数据库", "Polestar 任務資料庫"],
 		[
@@ -177,6 +192,38 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Записывает задания, маршруты и данные мира во время игры, для создания гайдов Polestar. /psrec",
 			"在游戏时记录任务、路线和世界数据，用于编写 Polestar 指南。/psrec",
 			"在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec",
+		],
+	),
+	// The Skin API's checks for another addon's skin or scheme: loaded with the first one registered.
+	(
+		"Polestar_SkinAPI",
+		["Polestar: Design-Schnittstelle", "Polestar: API de temas", "Polestar: API de temas", "Polestar : API des habillages", "Polestar 스킨 API", "Polestar: API de temas", "Polestar: API оформлений", "Polestar 皮肤接口", "Polestar 皮膚介面"],
+		[
+			"Teil von Polestar: die Prüfungen, die ein Design aus einem anderen Addon durchläuft. Wird geladen, wenn du eines verwendest.",
+			"Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.",
+			"Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.",
+			"Fait partie de Polestar : les vérifications que passe un habillage venu d'un autre addon. Chargé quand vous en utilisez un.",
+			"Polestar의 일부: 다른 애드온의 스킨이 거치는 검사. 스킨을 사용할 때 불러옵니다.",
+			"Parte do Polestar: as verificações pelas quais passa um tema de outro addon. Carregado quando você usa um.",
+			"Часть Polestar: проверки, которые проходит оформление из другого аддона. Загружается, когда вы его используете.",
+			"Polestar 的组成部分：其他插件提供的皮肤需通过的检查。使用皮肤时加载。",
+			"Polestar 的一部分：其他插件提供的皮膚需通過的檢查。使用皮膚時載入。",
+		],
+	),
+	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
+	(
+		"Polestar_Skin_Example",
+		["Polestar: Design-Beispiel", "Polestar: tema de ejemplo", "Polestar: tema de ejemplo", "Polestar : habillage d'exemple", "Polestar 스킨 예제", "Polestar: tema de exemplo", "Polestar: пример оформления", "Polestar 皮肤示例", "Polestar 皮膚範例"],
+		[
+			"Ein Beispiel-Design für Polestar (Moonlit) für Design-Autoren. Nicht Teil von Polestars Veröffentlichung.",
+			"Un tema de ejemplo para Polestar (Moonlit), para autores de temas. No forma parte de la versión de Polestar.",
+			"Un tema de ejemplo para Polestar (Moonlit), para autores de temas. No forma parte de la versión de Polestar.",
+			"Un habillage d'exemple pour Polestar (Moonlit), pour les auteurs d'habillages. Ne fait pas partie de la version publiée de Polestar.",
+			"스킨 제작자를 위한 Polestar 예제 스킨(Moonlit). Polestar 배포판에는 포함되지 않습니다.",
+			"Um tema de exemplo para o Polestar (Moonlit), para autores de temas. Não faz parte da versão do Polestar.",
+			"Пример оформления для Polestar (Moonlit) для авторов оформлений. Не входит в выпуск Polestar.",
+			"供皮肤作者参考的 Polestar 示例皮肤（Moonlit）。不属于 Polestar 的发行版。",
+			"供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。",
 		],
 	),
 ];

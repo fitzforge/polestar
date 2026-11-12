@@ -195,7 +195,7 @@ function panelsOf(before) {
 		stubs: ['stub_ui.lua'],
 		before: `${before}\n${recorder}`,
 		addons: [{ name: 'Polestar', files: P.MODULE_FILES }],
-		script: 'uistub.install()\nstub.login()\nemit(Polestar.UI.Options.Pages())',
+		script: 'uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nemit(Polestar.UI.Options.Pages())',
 	}).emitted[0];
 	for (const p of pages) {
 		const tabs = Array.isArray(p.tabs) && p.tabs.length ? p.tabs : [null];

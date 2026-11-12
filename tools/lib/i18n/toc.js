@@ -120,6 +120,20 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：為箭頭提供步行路線，採用 Polestar 自己的尋路，源自 Shortest Path Forever 的尋路（Cillian Berragan，github.com/cjber/shortest-path-forever，經其許可使用）。按需載入。',
 		},
 	},
+	Polestar_Options: {
+		title: { deDE: 'Polestar-Einstellungen', esES: 'Polestar: configuración', esMX: 'Polestar: configuración', frFR: 'Polestar : réglages', koKR: 'Polestar 설정', ptBR: 'Polestar: opções', ruRU: 'Polestar: настройки', zhCN: 'Polestar 设置', zhTW: 'Polestar 設定' },
+		notes: {
+			deDE: 'Teil von Polestar: das Einstellungsfenster, seine Darstellungsseiten und ihre Vorschauen. Wird geladen, wenn du die Einstellungen öffnest.',
+			esES: 'Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.',
+			esMX: 'Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.',
+			frFR: 'Fait partie de Polestar : la fenêtre des réglages, ses pages d\'apparence et leurs aperçus. Chargé à l\'ouverture des réglages.',
+			koKR: 'Polestar의 일부: 설정 창과 모양 페이지, 그 미리 보기. 설정을 열 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: a janela de opções, suas páginas de aparência e as prévias delas. Carregado ao abrir as opções.',
+			ruRU: 'Часть Polestar: окно настроек, его страницы оформления и их предпросмотр. Загружается при открытии настроек.',
+			zhCN: 'Polestar 的组成部分：设置窗口、外观页面及其预览。打开设置时加载。',
+			zhTW: 'Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。',
+		},
+	},
 	Polestar_QuestDB: {
 		title: { deDE: 'Polestar Quest-Datenbank', esES: 'Polestar: base de datos de misiones', esMX: 'Polestar: base de datos de misiones', frFR: 'Polestar : base de données des quêtes', koKR: 'Polestar 퀘스트 데이터베이스', ptBR: 'Polestar: banco de dados de missões', ruRU: 'Polestar: база заданий', zhCN: 'Polestar 任务数据库', zhTW: 'Polestar 任務資料庫' },
 		notes: {
@@ -146,6 +160,36 @@ const TEXT = {
 			ruRU: 'Записывает задания, маршруты и данные мира во время игры, для создания гайдов Polestar. /psrec',
 			zhCN: '在游戏时记录任务、路线和世界数据，用于编写 Polestar 指南。/psrec',
 			zhTW: '在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec',
+		},
+	},
+	// The Skin API's checks for another addon's skin or scheme: loaded with the first one registered.
+	Polestar_SkinAPI: {
+		title: { deDE: 'Polestar: Design-Schnittstelle', esES: 'Polestar: API de temas', esMX: 'Polestar: API de temas', frFR: 'Polestar : API des habillages', koKR: 'Polestar 스킨 API', ptBR: 'Polestar: API de temas', ruRU: 'Polestar: API оформлений', zhCN: 'Polestar 皮肤接口', zhTW: 'Polestar 皮膚介面' },
+		notes: {
+			deDE: 'Teil von Polestar: die Prüfungen, die ein Design aus einem anderen Addon durchläuft. Wird geladen, wenn du eines verwendest.',
+			esES: 'Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.',
+			esMX: 'Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.',
+			frFR: "Fait partie de Polestar : les vérifications que passe un habillage venu d'un autre addon. Chargé quand vous en utilisez un.",
+			koKR: 'Polestar의 일부: 다른 애드온의 스킨이 거치는 검사. 스킨을 사용할 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: as verificações pelas quais passa um tema de outro addon. Carregado quando você usa um.',
+			ruRU: 'Часть Polestar: проверки, которые проходит оформление из другого аддона. Загружается, когда вы его используете.',
+			zhCN: 'Polestar 的组成部分：其他插件提供的皮肤需通过的检查。使用皮肤时加载。',
+			zhTW: 'Polestar 的一部分：其他插件提供的皮膚需通過的檢查。使用皮膚時載入。',
+		},
+	},
+	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
+	Polestar_Skin_Example: {
+		title: { deDE: 'Polestar: Design-Beispiel', esES: 'Polestar: tema de ejemplo', esMX: 'Polestar: tema de ejemplo', frFR: "Polestar : habillage d'exemple", koKR: 'Polestar 스킨 예제', ptBR: 'Polestar: tema de exemplo', ruRU: 'Polestar: пример оформления', zhCN: 'Polestar 皮肤示例', zhTW: 'Polestar 皮膚範例' },
+		notes: {
+			deDE: 'Ein Beispiel-Design für Polestar (Moonlit) für Design-Autoren. Nicht Teil von Polestars Veröffentlichung.',
+			esES: 'Un tema de ejemplo para Polestar (Moonlit), para autores de temas. No forma parte de la versión de Polestar.',
+			esMX: 'Un tema de ejemplo para Polestar (Moonlit), para autores de temas. No forma parte de la versión de Polestar.',
+			frFR: "Un habillage d'exemple pour Polestar (Moonlit), pour les auteurs d'habillages. Ne fait pas partie de la version publiée de Polestar.",
+			koKR: '스킨 제작자를 위한 Polestar 예제 스킨(Moonlit). Polestar 배포판에는 포함되지 않습니다.',
+			ptBR: 'Um tema de exemplo para o Polestar (Moonlit), para autores de temas. Não faz parte da versão do Polestar.',
+			ruRU: 'Пример оформления для Polestar (Moonlit) для авторов оформлений. Не входит в выпуск Polestar.',
+			zhCN: '供皮肤作者参考的 Polestar 示例皮肤（Moonlit）。不属于 Polestar 的发行版。',
+			zhTW: '供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。',
 		},
 	},
 };

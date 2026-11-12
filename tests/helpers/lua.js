@@ -32,6 +32,9 @@ const ROOT = path.join(__dirname, '..', '..');
 // an earlier build, tests/helpers/profile.js).
 const ADDONS = process.env.POLESTAR_ADDON_DIR ? path.resolve(process.env.POLESTAR_ADDON_DIR) : path.join(ROOT, 'addon');
 const STUBS = path.join(ROOT, 'tests', 'lua');
+// Polestar's load-on-demand addons runAddon loads when the addon asks (C_AddOns.LoadAddOn): the settings
+// window, and the Skin API's checks (with the first skin or scheme another addon registers).
+const LOAD_ON_DEMAND = ['Polestar_Options', 'Polestar_SkinAPI'];
 
 function norm(p) {
 	return p.replace(/\\/g, '/');
@@ -108,6 +111,26 @@ function buildProgram(opts) {
   stub.addonLoaded(name)
   return ns
 end`);
+	// The settings window's addon (Polestar_Options, load on demand: UI/OptionsLoader.lua asks for it the
+	// first time the settings open) and the Skin API's checks (Polestar_SkinAPI: Theme/SkinApi.lua asks for
+	// them with the first skin or scheme another addon registers), loaded from their TOC when asked, as the
+	// client loads them (forge-addontest's run.rs does the same; a test's own stub.packs entry, stub_packs.lua,
+	// wins).
+	const lod = LOAD_ON_DEMAND.filter((n) => !(opts.addons || []).some((e) => (typeof e === 'string' ? e : e.name) === n) && fs.existsSync(path.join(ADDONS, n, `${n}.toc`)));
+	if (lod.length) {
+		lines.push(`do
+  local parts, load = { ${lod.map((n) => `[${luaString(n)}] = { ${tocFiles(n).map(luaString).join(', ')} }`).join(', ')} }, C_AddOns.LoadAddOn
+  function C_AddOns.LoadAddOn(name)
+    local files = parts[name]
+    if files and not (stub.packs and stub.packs[name]) then
+      parts[name] = nil
+      __load(name, files)
+      return true, nil
+    end
+    return load(name)
+  end
+end`);
+	}
 	for (const entry of opts.addons || []) {
 		const name = typeof entry === 'string' ? entry : entry.name;
 		const files = entry.dir ? expand(entry.dir, tocEntries(entry.dir)) : typeof entry === 'string' || !entry.files ? tocFiles(name) : expand(path.join(ADDONS, name), entry.files);

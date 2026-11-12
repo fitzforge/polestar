@@ -133,7 +133,7 @@ const REACHES: &[&str] = &[
 
 // file -> lines that reach, why it is safe with the gamepad interface
 const ALLOWED: &[(&str, usize, &str)] = &[
-	("Polestar/Core/Init.lua", 9, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar and /rl registrations, none with the gamepad interface"),
+	("Polestar/Core/Init.lua", 10, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar (/polestar, /pole, /ps) and /rl registrations, none with the gamepad interface"),
 	("Polestar/Core/Compat.lua", 4, "Compat.OpenWorldMap opens nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
 	("Polestar/Nav/Journey.lua", 6, "the map's canvas click handler and /way, neither with the gamepad interface; wayTaken only reads"),
@@ -148,7 +148,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/UI/Packs.lua", 3, "the turn-Polestar-Guides-on question at login, never with the gamepad interface (its focus owns the dialogs; the guide window's button stays)"),
 	("Polestar/QoL/Toggles.lua", 3, "the error-message setting, which does nothing with the gamepad interface"),
 	("Polestar/UI/GameMenu.lua", 1, "the game menu's Polestar button closes the menu (HideUIPanel); never with the gamepad interface, which gets no button"),
-	("Polestar/UI/Options.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
+	("Polestar/UI/OptionsLoader.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),
 	("Polestar/QoL/Buttons.lua", 4, "the step key's interact stage binds its keys over, never with the gamepad interface; Buttons.PingLine only reads the client's /ping word (SLASH_PING1, a string) for a macro the player's own click runs"),
 	("Polestar_Recorder/Commands.lua", 3, "/psrec, not with the gamepad interface"),
