@@ -507,7 +507,14 @@ From first to last:
 
 A missing value is filled from the best source that has one, whatever its rank. Junk text never
 wins. For quest XP, a value captured in game ranks with rank 3, and two values within max(5, 3%) of
-each other count as equal.
+each other count as equal, with two exceptions, both because the game pays rounded amounts:
+
+- When two or more of the sources that read the server's own numbers (its records, EG Link's records
+  and observed turn-ins, the client's caches, Factoruide's collector, ForeverDB's captures) give
+  exactly the same value, and no other value has as many, that value wins over any single other one
+  and replaces ours whenever it differs. Factoruide's collector and a game cache agreeing win outright.
+- A quest's XP is always a value the game can pay: rounded to its steps (5 up to 100, 10 up to 500,
+  25 up to 1,000, 50 above) unless a correction or a recording sets it.
 
 **Facts to verify in game.** Who can take a quest (races, classes, side), how an NPC reacts, where
 things spawn, and whether a quest exists are decided only by the top ranks. When a lower source
