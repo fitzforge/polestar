@@ -63,9 +63,8 @@ step Into the Valley of Bones
 
 step The Valley of Bones: a Tattered Journal
   zone Shen'dralas
-  when !turnedin 93644
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip The Outcast and Magram Necromancers of the valley drop a Tattered Journal whose writer lives in Shen'dralas: players got it within a few kills. The Magram Necrokhans among them (level 45) are elites: leave them be.
+  tip The Outcast Necromancers and the Magram Necromancers of the valley drop a Tattered Journal whose writer lives in Shen'dralas: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.
   collect 260347
   accept 93644
 
@@ -74,20 +73,16 @@ step The western pylon
   accept 92914 object 577959
 
 step Bristleback Retreat: the eastern pylon
-  tip East along the valley to the quilboar of Bristleback Retreat: the second pylon stands at the eastern end of their camp. The Bristlebacks (levels 42-43) attack on sight; Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the camp.
+  tip East along the valley road to the quilboar of Bristleback Retreat: the second pylon stands at the eastern end of their camp. A Corpsefeeder (level 45, elite) walks this road: let it pass. The Bristlebacks (levels 42-43) attack on sight; Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the camp.
   goto 73.2,23.2 "the eastern pylon" r 15
 
 step The temple of Shen'dralas: the third pylon
   tip South to the Shen'dralar temple at the zone's heart, keeping west of Kog'thug's bodyguards: the third pylon stands inside. The temple's guards are neutral: leave them be.
   complete 92914 @47.6,76.7
 
-step Evenshade's Overlook: the journal
-  when onquest 93644
-  tip North-west from the temple to Mordent Evenshade's camp on the overlook (the spirit healer stands beside him): the Tattered Journal is his.
-  turnin 93644
-
 step Evenshade's Overlook
-  tip Mordent Evenshade's camp is on the overlook north-west of the temple, beside the spirit healer: hand him Strange Pylons.
+  tip North-west from the temple to Mordent Evenshade's camp on the overlook, beside the spirit healer: the Tattered Journal is his, and he wants to hear about the pylons.
+  turnin 93644
   turnin 92914
   accept 96010
 
@@ -116,23 +111,25 @@ step Evenshade's Overlook
   accept 96018
 
 step The temple: the Mana Sieve
-  tip Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas: with it in your bags, the unstable mana about the zone is safe to handle.
+  tip Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas. Powering the Pylons asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.
   collect 255662 @45.9,78.2
-  accept 99257 optional               -- Historian Biraxas, if he offers it: a Decrepit Pylon Protector's heart, from the pylons you go to next
+  accept 99257 optional               -- Historian Biraxas, if he offers it: a Decrepit Pylon Protector's heart, from the road north and the pylons
 
 step The western pylon: repair it
-  tip North up the middle of the zone to the first pylon. Repair it with the Pile of Pylon Parts (Repair and Recharge Pylon); if the repair needs mana first, the Mana Sieve draws it from the Unstable Mana Rifts floating about the zone. Decrepit Pylon Protectors guard it.
-  cast 1289727 "Repair and Recharge Pylon" @43.9,35.5
+  tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Then repair the pylon with the Pile of Pylon Parts (Repair and Recharge Pylon). Decrepit Pylon Protectors guard it.
+  use 271882 quest 96018.2 @43.97,35.59 -- Pile of Pylon Parts: Repair and Recharge Pylon
+  collect 286647 quest 99257.1 optional -- Depleted Crystal Heart, from the Decrepit Pylon Protectors
 
 step Bristleback Retreat: repair the eastern pylon
-  tip East along the valley to the eastern pylon and repair it the same way, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp.
-  cast 1289727 "Repair and Recharge Pylon" @73.4,23.8
+  tip East along the valley road to the eastern pylon and repair it the same way, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.
+  use 271882 quest 96018.3 @73.4,23.91 -- Pile of Pylon Parts: Repair and Recharge Pylon
   collect 286647 quest 99257.1        -- Depleted Crystal Heart, from the Decrepit Pylon Protectors at either pylon
 
 step Evenshade's Overlook
-  tip Back west along the valley and south to Mordent. A Brief History Lesson asks you to hear him out: talk to him once more, then hand it in.
+  tip Back west along the valley road and south to Mordent. A Brief History Lesson asks you to hear him out: talk to him once more, then hand it in.
   turnin 96018
   accept 93016
+  talk 253471 quest 93016.1           -- Mordent Evenshade: hear him out
   turnin 93016
   accept 93394
 
@@ -165,14 +162,14 @@ step The Forlorn Gardens
   turnin 93594
 
 step Mithera
-  tip Historian Biraxas, inside the temple, may have a task for you if you didn't take it earlier: the heart of a Decrepit Pylon Protector, from the north of the zone. Otherwise Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace's flight points (Shadowprey Village for the Horde, Nijel's Point for the Alliance).
+  tip Historian Biraxas, inside the temple, may have a task for you if you didn't take it earlier: the heart of a Decrepit Pylon Protector, a short ride back up the road north. Otherwise Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace's flight points (Shadowprey Village for the Horde, Nijel's Point for the Alliance), then go back to your leveling guide's tab.
   turnin 93362
   accept 99257 optional               -- Historian Biraxas
 
 step A Heart of Crystal
-  tip Decrepit Pylon Protectors guard the two pylons in the north of the zone, and a few more stand where the valley meets the middle of the zone: one of them carries the heart Biraxas wants.
+  tip The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around Mordent's overlook: one of them carries the heart Biraxas wants.
   collect 286647 quest 99257.1
 
 step Historian Biraxas
-  tip Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace.
+  tip Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace, then go back to your leveling guide's tab.
   turnin 99257

@@ -57,13 +57,17 @@ test("Shen'dralas: the temple's quests wait for Meeting the Magister, as the onl
 	for (const { goal } of goals().filter(({ goal }) => is('accept', 99257)(goal))) assert.equal(goal.optional, true, 'never recorded: always optional');
 });
 
-test("Shen'dralas: each pylon repair is the Repair and Recharge Pylon cast at that pylon, after the Mana Sieve", { skip }, () => {
+// The client gives Repair and Recharge Pylon (the spell players cast at each pylon) to the Pile of Pylon Parts, and
+// each repair is its own quest log line, so the guide counts the line, whatever finishes it.
+test("Shen'dralas: each pylon repair is the Pile of Pylon Parts at that pylon, counted by its quest log line, after the Mana Sieve", { skip }, () => {
 	const sieve = first((g) => g.t === 'collect' && g.item === 255662, 'the Mana Sieve');
-	const casts = goals().map(({ goal }, i) => ({ goal, i })).filter(({ goal }) => goal.t === 'cast' && goal.spell === 1289727);
-	assert.equal(casts.length, 2, 'two repairs');
-	for (const { goal, i } of casts) {
+	const repairs = goals().map(({ goal }, i) => ({ goal, i })).filter(({ goal }) => goal.t === 'use' && goal.item === 271882);
+	assert.equal(repairs.length, 2, 'two repairs');
+	for (const { goal, i } of repairs) {
 		assert.ok(i > sieve, 'after the Mana Sieve');
 		assert.equal(goal.map, 2652);
+		assert.equal(goal.quest, 96018);
 	}
-	assert.ok(casts[0].goal.x < 50 && casts[1].goal.x > 70, 'the western pylon, then the eastern one');
+	assert.deepEqual(repairs.map(({ goal }) => goal.oi), [2, 3], 'Western pylon repaired, then Eastern pylon repaired');
+	assert.ok(repairs[0].goal.x < 50 && repairs[1].goal.x > 70, 'the western pylon, then the eastern one');
 });
