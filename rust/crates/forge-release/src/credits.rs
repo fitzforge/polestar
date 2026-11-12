@@ -46,21 +46,18 @@ pub fn read_source(file: &Path) -> Result<Source, String> {
 		return Err(format!("{}: every supporter is a non-empty name", file.display()));
 	}
 	let names = doc.get("names").and_then(Value::as_object).map(|o| o.iter().filter_map(|(k, v)| Some((k.clone(), v.as_str()?.to_string()))).collect()).unwrap_or_default();
-	let ideas = doc
-		.get("ideas")
-		.and_then(Value::as_array)
-		.map_or(Ok(Vec::new()), |a| {
-			a.iter()
-				.map(|v| {
-					let name = v.get("name").and_then(Value::as_str).map(str::trim).filter(|n| !n.is_empty());
-					let reference = v.get("ref").and_then(Value::as_u64).filter(|&n| n > 0);
-					match (name, reference) {
-						(Some(name), Some(reference)) => Ok(Idea { name: name.to_string(), reference }),
-						_ => Err(format!("{}: every idea is {{ \"name\": a non-empty name, \"ref\": its pull request or issue number }}", file.display())),
-					}
-				})
-				.collect()
-		})?;
+	let ideas = doc.get("ideas").and_then(Value::as_array).map_or(Ok(Vec::new()), |a| {
+		a.iter()
+			.map(|v| {
+				let name = v.get("name").and_then(Value::as_str).map(str::trim).filter(|n| !n.is_empty());
+				let reference = v.get("ref").and_then(Value::as_u64).filter(|&n| n > 0);
+				match (name, reference) {
+					(Some(name), Some(reference)) => Ok(Idea { name: name.to_string(), reference }),
+					_ => Err(format!("{}: every idea is {{ \"name\": a non-empty name, \"ref\": its pull request or issue number }}", file.display())),
+				}
+			})
+			.collect()
+	})?;
 	Ok(Source { supporters, exclude: strings("exclude")?, names, ideas })
 }
 

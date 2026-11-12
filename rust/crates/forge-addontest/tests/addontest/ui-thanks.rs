@@ -156,7 +156,9 @@ fn translators_and_ideas_two_halves_under_the_three_columns() {
 	let (t, i) = (&out["translators"], &out["ideas"]);
 	assert_eq!((t["title"].as_str().unwrap(), t["note"].as_str().unwrap()), ("TRANSLATORS", "Language"));
 	assert_eq!((i["title"].as_str().unwrap(), i["note"].as_str().unwrap()), ("IDEAS", "Pull request or issue"));
-	let rows = |p: &Value| -> Vec<(Value, String, String)> { p["rows"].as_array().unwrap().iter().map(|r| (r["rank"].clone(), r["name"].as_str().unwrap().into(), r["side"].as_str().unwrap().into())).collect() };
+	let rows = |p: &Value| -> Vec<(Value, String, String)> {
+		p["rows"].as_array().unwrap().iter().map(|r| (r["rank"].clone(), r["name"].as_str().unwrap().into(), r["side"].as_str().unwrap().into())).collect()
+	};
 	assert_eq!(
 		rows(t),
 		[(json!(false), "Cortexyn".into(), "German".into()), (json!(false), "CDVolvik".into(), "Spanish (Latin America)".into()), (json!(false), "山猫".into(), "Chinese (simplified)".into())],
