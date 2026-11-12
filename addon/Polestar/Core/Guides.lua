@@ -307,6 +307,9 @@ end
 -- `spots` builds the same tables the compiler had (Own.PACKED) and keeps
 -- them on the goal, so a spot is one table for the session (the Engine keys
 -- its pick and visits by it); a goal nobody reads keeps only its string.
+-- An exact point (`r` 0: the target stands right there, #1944; a goal can
+-- hold 40) is built smaller, about 110 bytes: the array { x, y, z? }, which
+-- Own.POINT reads by name (its `r` reads 0), with its `alt` and `lvl`.
 -- Goals whose spots read the same on the same map and frame (a kill and the
 -- grind or farm step after it on one mob, a camp a route comes back to) share
 -- one list (Own.spotsShared, by the interned string: no copy): a fifth of the
@@ -317,7 +320,6 @@ local strfind, strbyte, gmatch = string.find, string.byte, string.gmatch
 local SEMICOLON = 59
 -- x, y, z (may be empty), r: the fields every spot has.
 local SPOT_HEAD = "^%-?%d+%.?%d*,%-?%d+%.?%d*,%-?%d*%.?%d*,%d+%.?%d*"
-local SPOT_FIELDS = { "x", "y", "z", "r", "n", "alt", "lvl" }
 
 -- Whether s is packed spots, checked without building anything (validation
 -- runs over every goal at registration).
@@ -343,24 +345,38 @@ function Own.spotsPackedOk(s)
 	end
 end
 
+-- An exact point's fields by name (see the header).
+Own.POINT = { __index = function(p, k)
+	if k == "x" then return p[1] elseif k == "y" then return p[2] elseif k == "z" then return p[3] elseif k == "r" then return 0 end
+end }
+
 -- Packed spots -> { { x, y, z?, r, n?, alt?, lvl? }, ... }, or nil when a
--- value is not a number.
+-- value is not a number. A spot's fields are set one by one: a constructor
+-- naming all five would size every table for eight.
 function Own.unpackSpots(s)
 	local out = {}
 	for rec in gmatch(s, "[^;]+") do
-		local spot, i = {}, 0
+		local i, x, y, z, r, n, alt, lvl = 0
 		for f in gmatch(rec .. ",", "([^,]*),") do
 			i = i + 1
 			if f ~= "" then
 				if i == 6 then
-					spot.alt = true
+					alt = true
 				else
 					local v = tonumber(f)
 					if not v then return nil end
-					spot[SPOT_FIELDS[i]] = v
+					if i == 1 then x = v elseif i == 2 then y = v elseif i == 3 then z = v elseif i == 4 then r = v elseif i == 5 then n = v else lvl = v end
 				end
 			end
 		end
+		local spot
+		if r == 0 then
+			spot = setmetatable(z and { x, y, z } or { x, y }, Own.POINT)
+		else
+			spot = {}
+			spot.x, spot.y, spot.z, spot.r, spot.n = x, y, z, r, n
+		end
+		spot.alt, spot.lvl = alt, lvl
 		out[#out + 1] = spot
 	end
 	return out

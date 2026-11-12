@@ -743,6 +743,28 @@ gets no `spots`, except an NPC who walks around:
   ground he walks and the arrow counts it as reached. Deathguard Bartholomew
   walks round Brill's graveyard (#741). Without `moves.json`, none.
 
+- **Points** (a `kill`, `collect` or `interact` whose target stands at a few
+  known points rather than anywhere about a camp, #1944): each point is a spot
+  of its own, the target's spawn exactly, with `r = 0` and no count: every
+  spawn of an object (of the objects a collect comes from) while there are 40
+  or fewer on the map, and every spawn of a creature that spawns at 8 places
+  or fewer, no two within 70 yd of each other (a camp's mobs wander it) and
+  none walking about (`moves.json`, as for walkers). Spawns within 5 yd of
+  each other are one point (the data lists some twice). A stray (below), or a
+  point in the camp of elites the goal's droppers were chosen over, is an
+  alternative; open points come first, then alternatives, each by `x` then
+  `y`, so goals on the same target write the same list. A goal point at an
+  alternative (the spawn nearest the previous goal) moves to the nearest open
+  point; a hand-placed goal keeps its point and gets the points of the target
+  at it, where the data agrees (see Hand-placed). The maps mark every point,
+  on the minimap too, rather than shade regions, and the arrow leads to the
+  nearest point the player has not checked: within the arrival radius of one
+  it counts as checked and the arrow moves on at once to the next (checked
+  points come back after 300 s: objects respawn). More than 40 objects
+  (herbs, ore, crates all over a zone), creatures in a camp, at more places
+  or walking about keep the spawn areas below, and a `loop` step's goals its
+  gotos.
+
 - **Places** (6 spawns or fewer: a named NPC or a quest object that appears at
   one of a few places, or the handful of mobs an objective needs): every place
   is a spot the arrow may pick, spawns within 70 yd of each other being one

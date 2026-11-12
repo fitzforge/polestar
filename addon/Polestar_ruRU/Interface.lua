@@ -292,6 +292,7 @@ L["It also spawns here"] = "Также появляется здесь"
 L["Click to search here next"] = "Щелкните, чтобы искать здесь дальше"
 L["Travel route, step %s"] = "Маршрут, шаг %s"
 L["Click to point the arrow here"] = "Щелкните, чтобы навести стрелку сюда"
+L["Checked recently"] = "Недавно проверено"
 
 -- Nav/Transit.lua
 L["top"] = "верх"
@@ -1196,6 +1197,7 @@ L["%s and %d more"] = "%s и еще %d"
 L["Skipping also skips: %s"] = "Пропуск также пропустит: %s"
 L["Keep this: you hand it in later in %s"] = "Не отменяйте: сдача позже, в гайде %s"
 L["Keep this: a later guide hands it in"] = "Не отменяйте: сдача в одном из следующих гайдов"
+L["%d known places: the arrow leads to each in turn"] = "Известных мест: %d — стрелка по очереди ведет к каждому"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"

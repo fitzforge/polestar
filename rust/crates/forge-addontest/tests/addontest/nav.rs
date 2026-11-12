@@ -657,6 +657,65 @@ fn the_other_places_a_target_spawns_are_marked_fainter_and_smaller_and_say_so() 
 	assert!(num(&alt[2]) < num(&camp[2]), "the alt mark is smaller ({} vs {})", alt[2], camp[2]);
 }
 
+// Exact points (#1944): the waypoint of a goal whose spots are its target's known points (radius 0, the
+// compiler's for an object's spawns) carries `exact`. The maps mark every other point, one mark each, on the
+// world map and on the minimap too, a point checked lately faintest and saying so, and shade no region for
+// it; the step's other goal of points is marked point by point too, fainter, on the world map only.
+#[test]
+fn a_target_of_exact_points_marks_every_point_once_on_both_maps_checked_ones_fainter_1944() {
+	let out = run(r#"
+		local function points(at)
+			local list = {}
+			for i, p in ipairs(at) do
+				local _, x, y = nav.mapPoint(p[1], p[2])
+				list[i] = { x = x, y = y, r = 0 }
+			end
+			return list
+		end
+		local traps = points({ { 60, 0 }, { 0, 90 }, { -60, 0 }, { 0, -90 } })
+		local kegs = points({ { 150, 150 }, { -150, -150 } })
+		local guide = { steps = { { goals = { { t = "collect", map = 9000, spots = traps }, { t = "collect", map = 9000, spots = kegs } } } } }
+		function nav.Engine.GetGuide() return guide end
+		function nav.Engine.SpotsExact(goal) return true end
+		function nav.Engine.SpotChecked(s) return s == traps[3] end
+		nav.engine.views[1] = { index = 1, goals = {
+			{ index = 1, status = "active", text = "Collect Trapped Game", map = 9000, x = traps[1].x, y = traps[1].y },
+			{ index = 2, status = "active", text = "Collect Chen's Empty Keg", map = 9000, x = kegs[1].x, y = kegs[1].y },
+		} }
+		nav.setWaypoint({ map = 9000, x = traps[1].x, y = traps[1].y, label = "Collect Trapped Game", stepIndex = 1, goalIndex = 1, kind = "collect",
+			r = 8, area = 0, search = true, spots = traps, spot = 1, exact = true })
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		local r = { traps = {}, kegs = 0 }
+		for _, f in ipairs(nav.pins()) do
+			local p, layer = f.data.pin, f.data.layer.name
+			if layer == "nav.spots" then
+				local at
+				for k, s in ipairs(traps) do if s.x == p.x and s.y == p.y then at = k end end
+				local tip = nav.tooltipOf(f)
+				r.traps[#r.traps + 1] = { at, math.floor(p.color[4] * 100 + 0.5), tip[2], tip[3] }
+			elseif layer == "nav.goalAreas" then
+				r.kegs = r.kegs + 1
+			end
+		end
+		table.sort(r.traps, function(a, b) return a[1] < b[1] end)
+		r.minimap = #Pins.GetMinimapFrames("nav.spots")
+		r.regions = { Pins.GetLayer("nav.areas") == nil, #nav.pins("hulls") }
+		Polestar.Set("nav.worldPins", false)
+		stub.advance(0.3)
+		r.minimapOnly = { #Pins.GetMinimapFrames("nav.spots"), #nav.pins() }
+		emit(r)"#);
+	assert_eq!(
+		out["traps"],
+		json!([[2, 80, "Spot 2 of 4", "Click to search here next"], [3, 35, "Spot 3 of 4", "Checked recently"], [4, 80, "Spot 4 of 4", "Click to search here next"]]),
+		"a mark for each point but the one the arrow leads to (the target's own pin), the checked one faintest"
+	);
+	assert_eq!(out["minimap"], 3, "the same marks on the minimap");
+	assert_eq!(out["regions"], json!([true, 0]), "no shaded region for points");
+	assert_eq!(out["kegs"], 2, "the step's other goal of points: a mark per point");
+	assert_eq!(out["minimapOnly"], json!([3, 0]), "world map pins off: the minimap keeps its marks");
+}
+
 #[test]
 fn the_regions_the_step_s_open_goals_spawn_in_are_on_the_map_the_target_s_goal_s_on_the_minimap_too() {
 	let out = run(&[
