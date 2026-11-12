@@ -10,13 +10,17 @@ opened = {}
 function QuestMapFrame_OpenToQuestDetails(q) opened[#opened + 1] = q end
 "#;
 
+// `said()`: the chat lines printed after login (login's own, such as the install check's line about the packs this
+// test leaves out, are not the helper's).
 fn run(script: &str, before: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: before.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Quests/QuestLogLink.lua"])],
 		login: true,
-		script: format!("local w = stub.world\n{script}"),
+		script: format!(
+			"local w = stub.world\nlocal base = #stub.messages\nlocal function said() local out = {{}} for i = base + 1, #stub.messages do out[#out + 1] = stub.messages[i] end return out end\n{script}"
+		),
 		..Default::default()
 	})
 	.remove(0)
@@ -28,7 +32,7 @@ fn a_quest_in_the_log_opens_the_quest_log_at_that_quest() {
 		r#"
 		w.onQuest(33, { 10 }, "Wolves Across the Border")
 		local shown = Polestar.ShowInQuestLog(33)
-		emit({ shown = shown, opened = opened, chat = #stub.messages })"#,
+		emit({ shown = shown, opened = opened, chat = #said() })"#,
 		OPENER,
 	);
 	assert_eq!(out, json!({ "shown": true, "opened": [33], "chat": 0 }));
@@ -41,7 +45,7 @@ fn a_quest_not_in_the_log_is_named_in_chat_and_nothing_opens() {
 		w.titles[47] = "Gold Dust Exchange"
 		local named = Polestar.ShowInQuestLog(47)
 		local unnamed = Polestar.ShowInQuestLog(99999)
-		emit({ named = named, unnamed = unnamed, opened = #opened, chat = stub.messages })"#,
+		emit({ named = named, unnamed = unnamed, opened = #opened, chat = said() })"#,
 		OPENER,
 	);
 	assert_eq!(out["named"], false);
@@ -65,11 +69,11 @@ fn in_combat_the_quest_log_opens_when_combat_ends() {
 		local first = Polestar.ShowInQuestLog(33)
 		Polestar.ShowInQuestLog(40)
 		local during = #opened
-		local chat = stub.messages[1]
+		local chat = said()[1]
 		stub.inCombat = false
 		stub.fire("PLAYER_REGEN_ENABLED")
 		stub.fire("PLAYER_REGEN_ENABLED")
-		emit({ first = first, during = during, chat = chat, lines = #stub.messages, opened = opened })"#,
+		emit({ first = first, during = during, chat = chat, lines = #said(), opened = opened })"#,
 		OPENER,
 	);
 	assert_eq!(out["first"], false);
