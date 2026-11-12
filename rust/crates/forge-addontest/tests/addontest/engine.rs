@@ -2224,11 +2224,13 @@ fn a_step_view_asks_each_goal_once_and_reads_as_before_at_every_point_of_the_rou
 			w.progress(7, 1, 10); flush(); check()
 			w.finish(7); flush(); check()
 			r.memoAfter = Own.doneMemo == nil
+			-- An empty Lua table emits as {}: the differing views as a count and a list.
+			r.differN, r.differ = #r.differ, table.concat(r.differ, " ")
 			emit(r)
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out["differ"], json!([]), "every view as before: {out}");
+	assert_eq!(out["differN"], 0, "every view as before: {out}");
 	assert_eq!(out["points"], 9);
 	assert_eq!(out["mostWith"], 1, "each goal asked once per view: {out}");
 	assert!(out["mostWithout"].as_i64().unwrap() > 1, "without the memo a goal is asked more than once: {out}");
