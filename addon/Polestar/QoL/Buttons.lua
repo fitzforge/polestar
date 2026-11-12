@@ -673,13 +673,13 @@ end
 
 -- Goals done with an NPC: the target button names their NPCs on a step with
 -- no mob to target, and the step key targets them by name.
-local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, vendor = true, buy = true, sethome = true, getfp = true, learn = true }
+local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, vendor = true, buy = true, auction = true, sethome = true, getfp = true, learn = true }
 
 -- The picture of what you do with a name: its goal's verb glyph (Media/UI).
 -- An elite, rare or boss mob wears the skull instead (Buttons.TargetLook).
 local VERB_ICON = {
 	kill = "icon-kill", collect = "icon-collect", use = "icon-use", accept = "icon-accept", turnin = "icon-turnin", talk = "icon-talk",
-	train = "icon-train", vendor = "icon-vendor", buy = "icon-buy", sethome = "icon-sethome", getfp = "icon-getfp", learn = "icon-learn",
+	train = "icon-train", vendor = "icon-vendor", buy = "icon-buy", auction = "icon-buy", sethome = "icon-sethome", getfp = "icon-getfp", learn = "icon-learn",
 }
 
 -- The names (reused), and for each its goal's verb, its NPC id (nil when
