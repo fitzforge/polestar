@@ -89,7 +89,7 @@ next forever/alliance/05-duskwood
 # 07-thousand-needles), Priests their level 20 spell: Arcane Feedback (5676,
 # Human, here), Chastise (5645, Dwarf) and Contingency Plan (94819,
 # Gnome) for Ironforge in 06-wetlands, Elune's Grace (5673, Night Elf) for
-# Darnassus at the start of 06-wetlands. Night Elf Druids fetch
+# Darnassus at the start of 06-wetlands. Night Elf and Skyborne Druids fetch
 # the Westfall half pendant for Trial of the Sea Lion (272), only while it is
 # in the log: the lockbox gives the half to no one else (#1386). Train in
 # Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
@@ -152,14 +152,14 @@ step Shaman training
   train class
 
 step Fly to Sentinel Hill
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   when onquest 272
   zone Stormwind City
   goto 66.3,62.7 "Stormwind flight master"
   fly "Sentinel Hill"
 
 step Half Pendant of Aquatic Endurance
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   when onquest 272
   zone Westfall
   tip Fly to Sentinel Hill and head north-west to the coast: the Strange Lockbox lies on the sea floor off the shore. Then head east along the road through Elwynn.
