@@ -428,6 +428,28 @@ end`;
 function pickerScene(script) {
 	return `${clientArtLua()}${PICKER_SETUP}\n${script}`;
 }
+// The Guide Planner (UI/Planner.lua) on the real Engine, which the fake one
+// cannot stand in for (a hidden quest takes the quests that need it along):
+// an Orc warrior a few quests into the frozen Durotar of
+// tests/fixtures/preview/guides.lua, the planner open on it.
+const PLANNER_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', 'Maps/Maps.xml', 'Gear/Gear.xml', 'Lookup/Lookup.xml', 'Dungeons/Dungeons.xml', 'UI/UI.xml'];
+const PLANNER_WORLD = `local w = stub.world
+w.addMap(1411, { name = "Durotar", c = 1, left = -1962.5, right = -7250, top = 1808.3, bottom = -1716.7 })
+w.moveTo(1411, 42, 68)
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "Orc", "Orc", "Horde", "WARRIOR", "Warrior", 3
+w.complete({ 4641, 97279 })
+w.onQuest(788, {}, "Cutting Teeth")`;
+const DUROTAR = 'forever/horde/orc-troll/01-durotar';
+function plannerScene(script) {
+	return `${clientArtLua()}Polestar.RegisterPack({ addon = "Polestar_Guides", id = "guides", format = 1, title = "Polestar Guides", author = "Polestar", version = "1", license = "GPL-3.0" })
+dofile("tests/fixtures/preview/guides.lua")
+local E, UI = Polestar.Engine, Polestar.UI
+local DUROTAR = "${DUROTAR}"
+E.SetGuide(DUROTAR)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+UI.ShowPicker(); UI.Picker.Select(DUROTAR)
+${script}`;
+}
 // Three guides open as tabs, the leveling one active.
 const TABS = 'uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwindRep, 2 } }, 1)';
 // The Dwarf's and the Gnome's Dun Morogh as two guides of one title and range,
@@ -1570,6 +1592,17 @@ end`,
 				roots: PICKER,
 				script: pickerScene(`${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
 Polestar.UI.Picker.Select("forever/alliance/02-westfall")`),
+			},
+		],
+	},
+	{
+		file: 'planner.svg',
+		title: 'Guide Planner: the guide as a timeline in the list’s place; a quest hidden, the quest that needs it left out with it',
+		panels: [
+			{ stubs: ['stub_world.lua'], files: PLANNER_FILES, before: PLANNER_WORLD, roots: PICKER, script: plannerScene('UI.Planner.Open(DUROTAR)') },
+			{
+				stubs: ['stub_world.lua'], files: PLANNER_FILES, before: PLANNER_WORLD, roots: PICKER,
+				script: plannerScene('UI.Planner.Open(DUROTAR); E.SkipQuest(5441, true, true); E.SkipQuest(4402, true, true); UI.Planner.Refresh(); UI.Planner.JumpTo(8)'),
 			},
 		],
 	},

@@ -1,10 +1,12 @@
 //! What a list of quests is worth in levels (addon/Polestar/Core/Levels.lua): the quests still to do in turn-in
 //! order, with the client's reduction for quests far below, against the tools' own XP rules
 //! (tools/lib/game/xp.js); and a guide's turn-ins for this character, their XP from the Codex.
-//! ui-dungeons.rs and ui-picker-levels.rs cover the chips and their tooltip.
+//! ui-dungeons.rs and ui-picker-levels.rs cover the chips and their tooltip. A quest the player left out of their
+//! route (Engine.SkipQuest, the Guide Planner's tick) and the quests that go with it count for nothing: not in a
+//! guide's sum, the pace line or a step's hint.
 
 use forge_addontest::run::{addons_dir, join};
-use forge_addontest::{emitted, lua_value, truthy, Addon, RunAddon};
+use forge_addontest::{emitted, lua_value, truthy, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use forge_guide::xp::{mob_xp, quest_xp_share, LEVEL_XP, MAX_LEVEL};
 use serde_json::{json, Value};
 use std::path::{Path, PathBuf};
@@ -551,6 +553,101 @@ fn pace_at_or_past_the_guide_s_top_is_on_pace_and_reaches_beyond_it() {
 	// already has, so on pace; the route's XP takes it past 24, which the guide window shows (ui.rs).
 	let out = lua(&[RIDGE, "p.level, p.xp, p.xpMax = 24, 0, 30000\nlocal s = Lv.Pace(p)\nemit({ kind = s.kind, target = s.target, bars = s.bars, past = s.reach > 24 })"].join("\n")).remove(0);
 	assert_eq!(out, json!({ "kind": "end", "target": 24, "bars": 0, "past": true }));
+}
+
+// A guide registered on the real Engine (the tests above put their own in its place), open for a level 10 Human
+// Warrior: A, then B which needs it, A's eight boars, Other beside them, and a level 13 hunt of four wolves. The
+// Codex gives every quest level 10 and 1000 XP, every mob level 10 (95 XP a kill at 10).
+const SKIPS_WORLD: &str = r#"
+local w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 50, 50)
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "Human", "Human", "Alliance", "WARRIOR", "Warrior", 10
+"#;
+
+const SKIPS: &str = r#"
+Polestar.RegisterGuide({ id = "test/skips", pack = "test", title = "Skips", faction = "Alliance", minLevel = 10, maxLevel = 12, steps = {
+	{ title = "Start", goals = { { t = "accept", quest = 1, title = "A", qlvl = 10 }, { t = "accept", quest = 9, title = "Other", qlvl = 10 } } },
+	{ title = "Boars", goals = { { t = "kill", quest = 1, title = "A", target = "Boar", npc = 113, count = 8, oi = 1 } } },
+	{ title = "Second", goals = { { t = "turnin", quest = 1, title = "A" }, { t = "accept", quest = 2, title = "B", qlvl = 10, pre = { 1 } } } },
+	{ title = "Hunt", goals = { { t = "accept", quest = 4, title = "Hunt", qlvl = 13 }, { t = "kill", quest = 4, title = "Hunt", target = "Wolf", npc = 114, count = 4, oi = 1 } } },
+	{ title = "End", goals = { { t = "turnin", quest = 2, title = "B" }, { t = "turnin", quest = 4, title = "Hunt" }, { t = "turnin", quest = 9, title = "Other" } } },
+} })
+stub.login()
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+local Lv, E = Polestar.Levels, Polestar.Engine
+local function flush() stub.advance(0.25) end
+Polestar.Codex = { IsLoaded = function() return true end, Load = function() return true end,
+	Quest = function(id) return { id = id, level = 10, xp = 1000 } end, Npc = function(id) return { id = id, level = 10 } end }
+E.SetGuide("test/skips"); flush()
+local p = { level = 10, xp = 0, xpMax = 7600, class = "WARRIOR", race = "Human", faction = "Alliance" }
+local function brief(s) return { quests = s.quests, questXP = s.questXP, kills = s.kills, killXP = s.killXP, out = s.out } end
+local function pace()
+	local c = Lv.Pace(p)
+	return c and { reach = c.reach, kind = c.kind, hard = c.hard and c.hard.quest or false } or false
+end
+local function hint(i)
+	local h = Lv.StepHint(i, p)
+	return h and h.quest or false
+end
+"#;
+
+fn skips(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: SKIPS_WORLD.into(),
+		addons: vec![Addon::files("Polestar", FILES)],
+		script: [TEST_PACK, TEST_SOURCE, SKIPS, script].join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn a_quest_the_player_left_out_and_the_quests_that_go_with_it_count_for_nothing_in_a_guide_s_sum_until_it_is_back() {
+	let out = skips(
+		r#"local reads = 0
+local quest = Polestar.Codex.Quest
+Polestar.Codex.Quest = function(id) reads = reads + 1 return quest(id) end
+local whole = brief(Lv.ForGuide("test/skips", p))
+local scan = reads
+Lv.ForGuide("test/skips", p)
+local again = reads - scan
+E.SkipQuest(1, true, true); flush()
+local hidden = brief(Lv.ForGuide("test/skips", p))
+E.SkipQuest(4, true, true); flush()
+local both = brief(Lv.ForGuide("test/skips", p))
+E.SkipQuest(1, false, true); E.SkipQuest(4, false, true); flush()
+emit({ whole = whole, again = again, hidden = hidden, both = both, back = brief(Lv.ForGuide("test/skips", p)) })"#,
+	);
+	// Four turn-ins and twelve kills at level 10; none of it reaches level 11 (7600), so a kill stays 95 XP.
+	let whole = json!({ "quests": 4, "questXP": 4000, "kills": 12, "killXP": 12 * 95, "out": 0 });
+	assert_eq!(out["whole"], whole);
+	assert_eq!(out["again"], 0, "asked again with nothing changed, the route is not read again");
+	assert_eq!(out["hidden"], json!({ "quests": 2, "questXP": 2000, "kills": 4, "killXP": 4 * 95, "out": 2 }), "A hidden: not its turn-in, not its boars, nor B which needs it");
+	assert_eq!(out["both"], json!({ "quests": 1, "questXP": 1000, "kills": 0, "killXP": 0, "out": 3 }), "Hunt too: Other is what is left");
+	assert_eq!(out["back"], whole, "brought back, they count again: no turn-in or level was needed to see it");
+}
+
+#[test]
+fn the_pace_line_and_a_step_s_hint_follow_the_route_without_the_quests_left_out() {
+	let out = skips(
+		r#"local whole = { pace(), hint(4) }
+E.SkipQuest(1, true, true); flush()
+local hidden = { pace(), hint(4) }
+E.SkipQuest(4, true, true); flush()
+emit({ whole = whole, hidden = hidden, both = { pace(), hint(4) } })"#,
+	);
+	let reach = |v: &Value| v[0]["reach"].as_f64().unwrap();
+	// No `level` goal: measured against the guide's end. 5140 XP of level 10's 7600, then 2380, then 1000.
+	assert_eq!(out["whole"][0]["kind"], "end");
+	assert!((reach(&out["whole"]) - (10.0 + 5140.0 / 7600.0)).abs() < 1e-9, "{}", out["whole"]);
+	assert!((reach(&out["hidden"]) - (10.0 + 2380.0 / 7600.0)).abs() < 1e-9, "{}", out["hidden"]);
+	assert!((reach(&out["both"]) - (10.0 + 1000.0 / 7600.0)).abs() < 1e-9, "{}", out["both"]);
+	// Hunt is level 13 for a level 10 character: hard, and its step says so, while it is in the route.
+	assert_eq!(json!([out["whole"][0]["hard"], out["whole"][1]]), json!([4, 4]));
+	assert_eq!(json!([out["hidden"][0]["hard"], out["hidden"][1]]), json!([4, 4]), "hiding A leaves Hunt where it was");
+	assert_eq!(json!([out["both"][0]["hard"], out["both"][1]]), json!([false, false]), "a quest left out is no warning");
 }
 
 /// The Codex: $POLESTAR_CODEX_DIR (a Polestar_Codex folder), else addon/Polestar_Codex (`forge data codex`).

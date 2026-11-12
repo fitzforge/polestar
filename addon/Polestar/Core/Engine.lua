@@ -537,7 +537,9 @@ local function unavailableFor(goal, depth)
 		u = nil
 	end
 	if u or Own.offered[q] then return u end
-	local level = player and player.level
+	-- The Guide Planner reads the whole route (Engine.PlanOf): a quest the
+	-- character will be the level for when they get there is part of it.
+	local level = not Own.planning and player and player.level
 	for i = 1, level and (own and 1 or #list) or 0 do
 		local a = own and goal or list[i].goal
 		local lvl = tonumber(a.minLevel)
@@ -8073,6 +8075,7 @@ local function evaluate()
 			if e[3] == "skip" then
 				ns.Print(L["%s is no longer in your quest log: the guide skips it and what follows."]:format(ns.Quoted(e[2])))
 				ns.Fire("PLAYER_SKIPPED_QUEST", e[1], e[2])
+				ns.Fire("SKIPS_CHANGED")
 			else
 				ns.Print(L["%s is no longer in your quest log: the guide goes back for it."]:format(ns.Quoted(e[2])))
 			end
@@ -10008,6 +10011,8 @@ end
 -- steps on the way give (Levels.ForGuide). Kept per guide, live step and
 -- level (Own.herePlan).
 Own.herePlan = { at = {} }
+-- A skip changes what the steps on the way give (Levels.ForGuide).
+ns.On("SKIPS_CHANGED", function() Own.herePlan.guide = nil end)
 function Own.herePlanned(s, live, level)
 	local m = Own.herePlan
 	if m.guide ~= guide or m.live ~= live or m.level ~= level then
@@ -11674,6 +11679,7 @@ function Engine.Skip()
 	evaluate()
 	Own.skipStore(id, s, before, feed)
 	ns.Fire("PLAYER_SKIPPED_STEP", id, s)
+	ns.Fire("SKIPS_CHANGED")
 	return s
 end
 
@@ -11725,6 +11731,7 @@ function Engine.SkipUpTo(t, keep)
 	evaluate()
 	Own.skipStore(id, first, before, feed)
 	ns.Fire("PLAYER_SKIPPED_STEP", id, first)
+	ns.Fire("SKIPS_CHANGED")
 	return n
 end
 
@@ -11818,6 +11825,7 @@ function Engine.Unskip(i)
 	Own.skipRestore(guide.id, i)
 	Own.keep(i)
 	evaluate()
+	ns.Fire("SKIPS_CHANGED")
 	return true
 end
 
@@ -11948,8 +11956,11 @@ end
 -- as skipped, and the quests that need it go with it; the guide moves on.
 -- The quest may already be in the log: it stays there, the guide no longer
 -- leads to it (the player abandons it or not). Saved per character. False
--- for no quest id.
-function Engine.SkipQuest(questID, on)
+-- for no quest id. `quiet` (the Guide Planner, where the quest's own row is
+-- the undo): no undo banner in the guide window. Fires SKIPS_CHANGED, as
+-- every skip of the player's and its undo does (Skip, SkipUpTo, Unskip,
+-- SkipGoal): what a guide leaves out changed (Engine.QuestsOut).
+function Engine.SkipQuest(questID, on, quiet)
 	if type(questID) ~= "number" then return false end
 	local st = ns.CharState()
 	if type(st.skippedQuests) ~= "table" then st.skippedQuests = {} end
@@ -11959,7 +11970,11 @@ function Engine.SkipQuest(questID, on)
 	placing = nil
 	evaluate()
 	-- PLAYER_SKIPPED_QUEST(questID, title): the guide window offers the undo.
-	if on ~= false then
+	if quiet then
+		-- What the message's own listener here does (While you're here).
+		Own.hereDirty = true
+		requestUpdate()
+	elseif on ~= false then
 		local title
 		for _, step in ipairs(guide and guide.steps or NONE) do
 			for _, goal in ipairs(step.goals) do
@@ -11969,6 +11984,7 @@ function Engine.SkipQuest(questID, on)
 		end
 		ns.Fire("PLAYER_SKIPPED_QUEST", questID, title)
 	end
+	ns.Fire("SKIPS_CHANGED")
 	return true
 end
 
@@ -12034,6 +12050,135 @@ function Engine.SkipLoses(q)
 	return #out > 0 and out or nil
 end
 
+-- The Guide Planner's model (UI/Planner.lua): guide `id` as this character
+-- would play it now, whether it is open or not. Every step they see, in
+-- route order, as Engine.GetStepView gives it, with `number` (the step as
+-- the player counts it): a quest hidden in the planner (Engine.SkipQuest) has
+-- its goals "skipped" with `unavailable` "skipped", the quests that need it
+-- "skipped" with `skippedWith` (its title); every goal of a quest carries
+-- `questTitle`. An accept waiting for the
+-- character's level is part of the plan (Own.planning), not left out as on
+-- the step card. Read on the guide's own tab when it is open (the live step
+-- is the real one); else as if loaded now: `at` is the first step still
+-- open. Nothing is evaluated, fired or saved.
+-- -> { id, tab = index | nil, at = step | nil, total, steps = { view, ... } } | nil
+function Engine.PlanOf(id)
+	local g = id and Guides.Get(id)
+	if not g or type(g.steps) ~= "table" then return nil end
+	if not player then refreshPlayer() end
+	local open = tabIndexOf(id)
+	-- `savedGuide`: leaving this stand-in tab saves no view of it (sync).
+	use(open and tabs[open] or { guide = g, passedUpTo = 0, savedGuide = g })
+	Own.planning = true
+	local ok, plan = pcall(Own.planLoaded, open)
+	Own.planning = nil
+	useActive()
+	if not ok then
+		ns.Log("plan of " .. tostring(id) .. " failed: " .. tostring(plan):match("^[^\n]*"))
+		return nil
+	end
+	return plan
+end
+
+function Own.planLoaded(open)
+	if not open then
+		computed = nextOpen(0)
+		current = computed
+	end
+	local numbers = Own.numbersOf(guide)
+	local steps = {}
+	for i = 1, #guide.steps do
+		if not numbers.hidden[i] then
+			local v = Engine.GetStepView(i)
+			if v and v.status ~= "na" then
+				v.number = numbers.of[i]
+				-- `questTitle`: a kill or a collect does not say whose it is.
+				for g, goal in ipairs(guide.steps[i].goals) do
+					if goal.quest then v.goals[g].questTitle = questTitle(goal) end
+				end
+				steps[#steps + 1] = v
+			end
+		end
+	end
+	return { id = guide.id, tab = open or nil, at = current, total = numbers.total, steps = steps }
+end
+
+-- What the player skipped that guide `id` reads, as one string: the quests
+-- (Engine.SkipQuest: every guide's) and the guide's own steps and goals.
+-- The same string, the same skips; "" with none. For what is kept per skip
+-- state (Core/Levels.lua: a guide's XP without the quests left out).
+function Engine.SkipStamp(id)
+	local st = ns.CharState()
+	local quests, own = st.skippedQuests, type(st.skipped) == "table" and id and st.skipped[id] or nil
+	if type(quests) ~= "table" or not next(quests) then quests = nil end
+	if type(own) ~= "table" or not next(own) then own = nil end
+	if not (quests or own) then return "" end
+	local keys = {}
+	for q in pairs(quests or NONE) do keys[#keys + 1] = tostring(q) end
+	keys[#keys + 1] = "|"
+	for k in pairs(own or NONE) do keys[#keys + 1] = tostring(k) end
+	return table.concat(keys, ",")
+end
+
+-- The quests guide `id` leaves out of this character's route because of a
+-- skip, as the Guide Planner shows them (Engine.PlanOf): "hidden" for a
+-- quest the player skipped (Engine.SkipQuest) and has not done, "out" for
+-- one that lacks a prerequisite a skip took away (a "pre" mark with
+-- Own.skipRoot), a quest waiting for the character's level included
+-- (Own.planning). The first goal of a quest that is for this character says
+-- it. Read where the guide is: the loaded tab's, its own tab's, else on a
+-- stand-in as PlanOf does; nothing is evaluated, fired or saved.
+-- -> { [questID] = "hidden" | "out" } | nil (nothing left out)
+function Engine.QuestsOut(id)
+	local g = id and Guides.Get(id)
+	if not g or type(g.steps) ~= "table" or Engine.SkipStamp(id) == "" then return nil end
+	if not player then refreshPlayer() end
+	-- Asked from inside an evaluation (Own.herePlanned), the guide is the
+	-- loaded one: read in place.
+	local back, swap = loaded, guide ~= g
+	if swap then
+		local open = tabIndexOf(id)
+		use(open and tabs[open] or { guide = g, passedUpTo = 0, savedGuide = g })
+	end
+	local planning = Own.planning
+	Own.planning = true
+	local ok, out = pcall(Own.outLoaded)
+	Own.planning = planning
+	if swap then use(back) end
+	if not ok then
+		ns.Log("quests out of " .. tostring(id) .. " failed: " .. tostring(out):match("^[^\n]*"))
+		return nil
+	end
+	return out
+end
+
+function Own.outLoaded()
+	local out, seen = nil, {}
+	for _, step in ipairs(guide.steps) do
+		if stepApplies(step) then
+			for _, goal in ipairs(step.goals) do
+				local q = goal.quest
+				if q and not seen[q] and Guides.Matches(goal.only, player) then
+					seen[q] = true
+					local u = unavailableFor(goal)
+					local why
+					if u and u.reason == "skipped" then
+						why = "hidden"
+					elseif u and u.reason == "pre" then
+						local pre = u.pre or missingPre(u.accept)
+						why = pre and Own.skipRoot(pre) and "out" or nil
+					end
+					if why then
+						out = out or {}
+						out[q] = why
+					end
+				end
+			end
+		end
+	end
+	return out
+end
+
 -- Skip an optional goal, or bring it back: it no longer leads the arrow and
 -- reads as skipped (saved as CharState().skipped[guideId]["s:g"]). A quest
 -- started by an item is one thing to do: its accept and the collect of its
@@ -12059,6 +12204,7 @@ function Engine.SkipGoal(stepIndex, goalIndex)
 	if not next(sk) then ns.CharState().skipped[guide.id] = nil end
 	placing, Own.hereDirty = nil, true
 	evaluate()
+	ns.Fire("SKIPS_CHANGED")
 	return true
 end
 

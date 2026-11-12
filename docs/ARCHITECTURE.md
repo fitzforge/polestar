@@ -133,6 +133,7 @@ Messages:
 | `STEP_SKIPPED` | fromStep, toStep or nil, `{ { quest, title, reason, text }, ... }` | Engine, active tab, just before `STEP_CHANGED` (or `STEP_UPDATED`): the live step, or the step the player looks at as it follows forward, moved past a step whose open quest goals became unavailable (reasons as in "Unavailable quests"); while the player looks at another step the notice waits and fires once they are back on the live step, toStep being it |
 | `PLAYER_SKIPPED_STEP` | guideId, stepIndex | Engine, after `Skip()` (the window, the menu, `/polestar skip`): the guide window offers the undo |
 | `PLAYER_SKIPPED_QUEST` | questID, title or nil | Engine, after `SkipQuest(questID)` (a quest's line, right-clicked): the guide window offers the undo |
+| `SKIPS_CHANGED` | — | Engine, after every skip of the player's and its undo (`SkipQuest`, quiet or not, `Skip`, `SkipUpTo`, `Unskip`, `SkipGoal`, a lost quest answered with a skip): what a guide leaves out changed (`Engine.QuestsOut`), so the guide window's pace line, the guide menu's levels chip and an open Guide Planner draw again |
 | `WAYPOINT_CHANGED` | waypoint or nil | Engine (and Nav when an override is set/cleared) |
 | `GUIDE_COMPLETED` | guideId | Engine |
 | `GUIDE_END` | guideId, `{ guideId, undone, live, next, choose }` | Engine, after the evaluation, with `behavior.guideEnd = "ask"` (default): the player reached the end of a leveling guide (its last step for the character done, whatever was skipped or left open before it), once per guide per character (`CharState().guideEnds`); `undone` the open steps left, `live` the live step (nil when all are done), `next` the guide the hand-off goes to (nil with none or a choice to make), `choose` a route choice the player makes. The guide-end window asks (UI/GuideEnd.lua); see "End of a leveling guide" |
@@ -1274,7 +1275,10 @@ Polestar.Engine.AwayStart(id) -> away | nil -- another race's starting zone the 
 Polestar.Engine.GoalDone(stepIndex, goalIndex) -> bool     -- the goal is done (live state, arrival or check-off); Nav/Walk.lua's FollowsGoto asks it of a guide `goto`
 Polestar.Engine.ToggleGoal(stepIndex, goalIndex) -> bool   -- tick any goal but a note done, or clear its check-off
 Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional goal, or bring it back
-Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and what follows from it, in every guide; on = false brings it back
+Polestar.Engine.SkipQuest(questID, on, quiet) -> bool        -- skip a quest and what follows from it, in every guide; on = false brings it back; quiet: no PLAYER_SKIPPED_QUEST (the Guide Planner, whose tick is the undo)
+Polestar.Engine.PlanOf(guideId) -> { id, tab, at, total, steps } | nil   -- the guide as this character would play it now, open or not: a step view per step they see (`number`; goals with `questTitle`), nothing evaluated, fired or saved (the Guide Planner, UI/Planner.lua)
+Polestar.Engine.QuestsOut(guideId) -> { [questID] = "hidden" | "out" } | nil   -- the quests a skip leaves out of that guide for this character, open or not: "hidden" the player skipped, "out" lacks a prerequisite a skip took away; nil with none. Nothing evaluated, fired or saved
+Polestar.Engine.SkipStamp(guideId) -> string                -- what the player skipped that the guide reads (quests, its own steps and goals), "" with none: the same string, the same skips (a cache key)
 Polestar.Engine.IsQuestSkipped(questID) -> bool
 Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
 Polestar.Engine.SkippedOut() -> { step, title } | nil   -- with no live step, the player's step skip that left the rest of the guide out (see "Quests the player skipped")
@@ -1938,6 +1942,14 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   of the step stay. Done anyway, the quest counts as done and its follow-ups
   come back. The window's banner (`PLAYER_SKIPPED_QUEST`), the accept's Undo
   or a right-click on the line bring it back (`SkipQuest(questID, false)`).
+  The Guide Planner hides and brings back quests the same way, ahead of
+  time and in any guide, without the banner (`SkipQuest(id, on, true)`).
+  What a guide is worth follows: `Levels.ForGuide` counts neither the
+  turn-in nor the kills of a skipped quest or of a quest that goes with it
+  (`Engine.QuestsOut(id)`: "hidden" and "out", as the Guide Planner shows
+  them), so the pace line, the guide menu's levels chip and "While you're
+  here" (`Own.herePlanned`) read the route the player will play. Every
+  change of a skip fires `SKIPS_CHANGED`, which draws them again.
   A follow-up left out because of such a skip carries `skippedWith` in its
   goal view: the title of the quest the player skipped, directly or down the
   chain (`Own.skipRoot`: the skipped quest, or a step the player skipped
@@ -5724,16 +5736,19 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   `levels` top, where the next guide starts, at its last step shown), and
   what the steps up to there give (`Levels.ForGuide(id, p, live, step)`:
   their turn-ins' XP from the Codex, their kills and loot at the mobs'
-  levels, from where the character is). A span's entries are kept, by the
-  guide's table, the span and who the character is (level, class, race,
-  faction), until a turn-in, a level or a guide change (`Levels.Invalidate`):
+  levels, from where the character is; nothing for a quest the player left
+  out of the route, see "Quests the player skipped"). A span's entries are
+  kept, by the guide's table, the span, who the character is (level, class,
+  race, faction) and what they skipped (`Engine.SkipStamp`), until a
+  turn-in, a level or a guide change (`Levels.Invalidate`):
   the line is asked on every `PLAYER_XP_UPDATE`, and a kill's XP only reruns
-  `Levels.Run` over them. Each step's own rows (its turn-ins' records, its
+  `Levels.Run` over them; it is drawn again on `SKIPS_CHANGED`. Each step's
+  own rows (its turn-ins' records, its
   kills' and loot's mobs, from the Codex) are kept per guide and class, race
   and faction until a guide, pack or Codex change, for the last 8 of them: a
   step change moves every span's start, and a new span only sums those rows
-  (whether a quest is done is asked then). It also looks for the first open
-  quest before the target (not a turn-in or a talk) that will be 3 or more
+  (whether a quest is done, or left out, is asked then). It also looks for the first open
+  quest before the target (not a turn-in or a talk, nor a quest left out) that will be 3 or more
   levels above the character when the route gets there (`hard`; its level
   from the guide's `qlvl`, else the Codex, else the client). The guide
   window's XP row (`GF.PaceText(stats)`) always says one of: "On pace for
@@ -6760,6 +6775,53 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   A section registered with `foot = true` sits at the rail's foot, above
   Options, instead of among the sections (`P.FootItems(onOptions)`: Options,
   then each foot section, from the bottom up).
+- **Guide Planner** (`UI/Planner.lua`, `UI.Planner`): the selected guide as
+  a timeline in the guide menu's middle pane, in place of the guide list and
+  its tabs, the details staying beside it. The details' "Guide Planner"
+  button opens it (`Planner.Toggle(id)`) and reads "Back to the guides"
+  while it is open; the back arrow, a tab, a category, a search, another
+  section or closing the hub go back to the list (`Planner.Close`, called
+  from `P.SetView`, the search and `P.Render`). `P.Render` ends in
+  `Planner.Place(win, width)`, which hides the tab row and the list, puts
+  the pane under the header and sets the shell's title ("Guide Planner") and
+  subtitle: the guide, the quests in the route, how many are hidden and left
+  out with them and, with the Codex loaded, what those are worth in levels of
+  quest XP (`Planner.LevelsOut`: the turn-ins still to come through
+  `Levels.Run` with and without them).
+
+  The model is `Engine.PlanOf(id)`: the guide as this character would play
+  it now, a step view per step they see, read on the guide's own tab when it
+  is open and else on a stand-in tab (as if loaded now: the first open step
+  is where it starts), with nothing evaluated, fired or saved; the open
+  guide stays the loaded one. While it reads, `Own.planning` keeps accepts
+  that wait for the character's level in the plan (the step card leaves them
+  out until the level comes). `Planner.Model(plan, expanded)` turns it into
+  rows of fixed heights: a fold for a run of two or more finished steps
+  ("Steps 1–6, 6 done", Show), the marker before the live step ("You are
+  here" in an open guide, "You start here" in one that is not), a node and
+  title per step with its zone when that changes, a line per goal worded as
+  the step card words it (notes left out), and the end with the guide after
+  it. Only the rows in view get frames (`paintVisible`, on
+  `OnVerticalScroll`). The strip in the tab row's place has one cell per
+  step (finished, live, to come, nothing left); a click jumps there
+  (`Planner.JumpTo`), opening the fold it is in.
+
+  Planning is the quest skip (see "Quests the player skipped"): a quest's
+  tick is on its accept, else on its first line, and ahead of the character
+  when it can be (a quest taken some steps ago is hidden from its next line,
+  which then names it). Clearing it calls `Engine.SkipQuest(id, true,
+  true)`, quiet: no undo banner in the guide window, the tick being the
+  undo. The quest then keeps that one line, tagged Hidden; its other lines
+  go; a quest that needs it (`skippedWith`) keeps one line tagged with the
+  quest it needs; a step with nothing left goes whole, and one with only
+  such lines is muted. "Show all" brings back every quest hidden in this
+  guide. The route's order is the guide's and stays: a walk made only for a
+  hidden quest stays. Hiding the last open quest of the live guide ends it,
+  as skipping it in the guide window does. A tick draws the guide menu
+  once (`P.Render`, which places the planner again): the details' levels
+  chip beside the planner no longer counts the quest, and its panel says
+  how many are left out; the guide window's pace line follows by
+  `SKIPS_CHANGED`.
 - **Import** (`UI/Import.lua`, a foot section, order 90; `/polestar import`
   and `SHOW_IMPORT` open it). The two ways to bring someone else's guides
   into Polestar side by side (an import string for one small guide, a
