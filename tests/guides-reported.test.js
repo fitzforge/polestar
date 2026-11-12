@@ -11451,3 +11451,18 @@ test('#1867: every start guide\'s Camping 101 step waits only while its camp ite
 	}
 	assert.ok(n >= 70, `${n} Camping 101 accepts found`);
 });
+
+// Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, from Ageron
+// Kargal in Brill) is handed in; 4 recorded players carrying it had 1473 refused. The route takes 1478 on the Brill
+// stop that trains and hands it in to Carendin right before 1473.
+test(`${TIRISFAL}: a Warlock hands Halgar's Summons to Carendin before Creature of the Void`, { skip }, () => {
+	const list = goals(TIRISFAL).filter(forClass('WARLOCK'));
+	const take = at(list, 'accept 1478', is('accept', 1478));
+	const hand = at(list, 'turnin 1478', is('turnin', 1478));
+	const creature = at(list, 'accept 1473', is('accept', 1473));
+	assert.ok(take < hand && hand < creature, 'taken in Brill, handed in, then Creature of the Void');
+	assert.equal(list[hand].s, list[creature].s, 'on the same stop at Carendin');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.pairs.some((p) => `${p.a}` === 'turnin,1478' && `${p.b}` === 'accept,1473'), 'a record the build keeps');
+	assert.ok(fixes.overrides.include.some((x) => x.q === 1478), 'the route takes 1478');
+});
