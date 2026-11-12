@@ -7336,7 +7336,17 @@ Polestar.Gamepad.HasWindow() -> bool                        -- a Polestar window
   matches names and search tags, never the section, so each has
   `searchTags="BINDING_TAG_POLESTAR"` (`"Polestar"`, set in Core/Commands.lua
   and the Recorder's Panel.lua). Bindings are saved by name, so moving the
-  section keeps every key. Nothing is bound unasked. A chord
+  section keeps every key. Nothing is bound unasked. A binding goes into the
+  binding set in use (`SaveBindings(GetCurrentBindingSet())`: the account's
+  or the character's). With the gamepad interface on, its own binding
+  context is active (`Enum.BindingContext.GamepadModeInGameCore`, turned on
+  by Blizzard_Gamepad's Core.lua) and what it binds on a button runs in
+  place of the default context's binding: a gamepad button is bound, listed
+  (`G.BindingKeys`: that context's buttons first, then the default
+  context's keys it leaves free) and unbound there, and the default
+  context's buttons (the keyboard and mouse interface's) stay as they are
+  (#688). The quest buttons' key labels and the rare card read the same
+  list (`Buttons.BindingKey`). A chord
   (`"PADLSHOULDER+PADDUP"`) is Polestar's own, in
   `PolestarDB.gamepad.chords[action]` (account-wide, outside the settings,
   so "Reset all settings" keeps it), never bound: while chords exist and a
