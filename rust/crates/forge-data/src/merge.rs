@@ -7,9 +7,11 @@ use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::factions::{ALL_CLASSES, ALL_RACES};
 use crate::jsv::{arr, hypot, is_int, lua_get_i, lua_list, lua_pairs, nums, round2, strs, to_int32};
+use crate::maps::Frame;
 use crate::objectives::parse_count;
+use crate::place::NODE_SAME_YD;
 use crate::questie::{drop_rate, table_rates, Questie};
-use crate::spawns::{points_of, reduce_spawns, spawn_record, SpawnOptions, P};
+use crate::spawns::{city, holds, points_of, reduce_spawns, spawn_record, Reduced, SpawnOptions, P, SAME_SPAWN_YARDS};
 
 pub const SOURCE: &str = "questie-forever";
 const NPC_FLAG_ROLES: [(f64, &str); 11] = [
@@ -225,58 +227,60 @@ fn object_record(r: &Obj, spawns: V, templates: &IndexMap<i64, f64>, sim: bool) 
 	rec
 }
 
-const SAME_SPAWN_YARDS: f64 = 30.0;
-
-fn by_xy(a: &P, b: &P) -> std::cmp::Ordering {
-	let d = a[0] - b[0];
-	let d = if d != 0.0 { d } else { a[1] - b[1] };
-	d.partial_cmp(&0.0).unwrap_or(std::cmp::Ordering::Equal)
+/// Whether pfQuest's copy of a QuestieDB spawn on map `pf` stays out beside QuestieDB's on map `q`:
+/// one is a city's map and the other a zone's (QuestieDB places a spawn by the area it is in, and a
+/// city's rectangle reaches past its walls), or `pf` holds `q` inside (a continent's beside a zone's).
+fn copy_left_out(pf: Option<&Frame>, q: Option<&Frame>) -> bool {
+	city(pf) != city(q) || holds(pf, q)
 }
 
-/// Questie's spawns plus pfQuest's copies of the same spawns on maps Questie does not list.
-fn merge_spawns(pf: &V, q: &V, ctx: &Ctx, all_maps: bool) -> V {
+/// QuestieDB's spawns plus pfQuest's copies of them on maps QuestieDB does not list (pfQuest lists a
+/// spawn under every map whose rectangle holds it): a pfQuest point within SAME_SPAWN_YARDS of a
+/// QuestieDB point (a gathering node's: NODE_SAME_YD) is its copy, kept unless `copy_left_out`, so
+/// Apothecary Zamah stands in Thunder Bluff, not in Mulgore and Desolace too. A gathering node's
+/// other maps also keep the nodes QuestieDB lacks; no other pfQuest point joins.
+pub fn merge_spawns(pf: &V, q: &V, ctx: &Ctx, all_maps: bool) -> V {
 	let qo = q.as_obj().unwrap();
 	if qo.is_empty() {
 		return if pf.is_object() { pf.clone() } else { V::obj() };
 	}
-	let mut world: Vec<Option<World>> = Vec::new();
-	let mut extra: Vec<Option<World>> = Vec::new();
+	// A map's frame from its corners (`to_world` is linear in x and y).
+	let frame = |m: i64, f: &str| -> Option<Frame> {
+		let (a, b) = ((ctx.to_world)(m, f, 0.0, 0.0)?, (ctx.to_world)(m, f, 100.0, 100.0)?);
+		Some(Frame { c: a.c, left: a.wy, right: b.wy, top: a.wx, bottom: b.wx })
+	};
+	let mut quest: Vec<(Option<Frame>, World)> = Vec::new();
 	for (map, s) in qo.entries() {
 		let m: i64 = map.parse().unwrap_or(0);
 		let f = s.get("f").to_js_string();
-		for [x, y] in points_of(&s.get("pts")) {
-			world.push((ctx.to_world)(m, &f, x, y));
-		}
-		for [x, y] in points_of(&s.get("more")) {
-			extra.push((ctx.to_world)(m, &f, x, y));
+		let fr = frame(m, &f);
+		for [x, y] in points_of(&s.get("pts")).into_iter().chain(points_of(&s.get("more"))) {
+			quest.extend((ctx.to_world)(m, &f, x, y).map(|w| (fr, w)));
 		}
 	}
-	let near = |w: &Option<World>, list: &[&Option<World>]| match w {
-		None => false,
-		Some(w) => list.iter().any(|q| q.as_ref().is_some_and(|q| q.c == w.c && hypot(q.wx - w.wx, q.wy - w.wy) <= SAME_SPAWN_YARDS)),
-	};
-	let world_r: Vec<&Option<World>> = world.iter().collect();
-	let every: Vec<&Option<World>> = world.iter().chain(extra.iter()).collect();
+	let yd = if all_maps { NODE_SAME_YD } else { SAME_SPAWN_YARDS };
 	let out = qo.spread();
 	if let Some(po) = pf.as_obj() {
 		for (map, s) in po.entries() {
 			if out.has(&map) {
 				continue;
 			}
-			if all_maps {
-				out.set_str(map, s);
-				continue;
-			}
 			let m: i64 = map.parse().unwrap_or(0);
 			let f = s.get("f").to_js_string();
-			let at = |p: &P| (ctx.to_world)(m, &f, p[0], p[1]);
-			let spts = points_of(&s.get("pts"));
-			let keep: Vec<bool> = spts.iter().map(|p| near(&at(p), &world_r)).collect();
-			let pts: Vec<P> = spts.iter().zip(&keep).filter(|(_, k)| **k).map(|(p, _)| *p).collect();
-			let mut more: Vec<P> = spts.iter().zip(&keep).filter(|(_, k)| !**k).map(|(p, _)| *p).chain(points_of(&s.get("more"))).filter(|p| near(&at(p), &every)).collect();
-			more.sort_by(by_xy);
-			if !pts.is_empty() {
-				out.set_str(map, spawn_record(&f, &crate::spawns::Reduced { pts, more }));
+			let fr = frame(m, &f);
+			let joins = |p: &P| {
+				let Some(w) = (ctx.to_world)(m, &f, p[0], p[1]) else { return false };
+				let mut copies = quest.iter().filter(|(_, q)| q.c == w.c && hypot(q.wx - w.wx, q.wy - w.wy) <= yd).peekable();
+				if copies.peek().is_none() {
+					return all_maps;
+				}
+				copies.any(|(qf, _)| !copy_left_out(fr.as_ref(), qf.as_ref()))
+			};
+			let keep = |list: V| -> Vec<P> { points_of(&list).into_iter().filter(&joins).collect() };
+			let (pts, more) = (keep(s.get("pts")), keep(s.get("more")));
+			let r = if pts.is_empty() { reduce_spawns(&more, SpawnOptions { dedupe: 0.0, ..ctx.spawn_options }) } else { Reduced { pts, more } };
+			if !r.pts.is_empty() {
+				out.set_str(map, spawn_record(&f, &r));
 			}
 		}
 	}
