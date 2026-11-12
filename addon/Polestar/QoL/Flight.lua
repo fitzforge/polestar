@@ -2,10 +2,12 @@
 -- suppresses; never when the NPC offers quests to pick up or hand in), and
 -- on the open map mark the node the travel route flies to next (else the
 -- current step's `fly` location) and, on TaxiFrame, draw the route's hops
--- to it in the accent. The flight is only ever taken by the player's own
--- press: their click on the map, or the step key while the map is open and
--- the window shows the live step (Flight.Take); nothing else calls
--- TakeTaxiNode.
+-- to it in the accent. By default the flight is only ever taken by the
+-- player's own press: their click on the map, or the step key while the map
+-- is open and the window shows the live step (Flight.Take). The one opt-in
+-- exception is qol.flightAutoTake (off by default, #1621): the map that just
+-- opened takes the marked flight at once (Flight.AutoTake), unless Shift was
+-- held at the flight master. Nothing else calls TakeTaxiNode.
 --
 -- Recognising the taxi option without its localized text: the taxi gossip
 -- icon (fileID 132057, Interface\GossipFrame\TaxiGossipIcon), or a flight
@@ -49,13 +51,19 @@ function Flight.TaxiOption(options)
 	return nil
 end
 
+-- Shift held when a flight master's gossip opened: the flight map opened
+-- from it is only shown, never flown from (Flight.AutoTake). Until the map
+-- closes, or the next gossip.
+local shiftGossip = false
+
 -- Returns true when it opened the flight map (the gossip is then gone).
 function Flight.OnGossip()
-	if not QoL.On("flightAutoOpen") or QoL.Shift() then return false end
 	local G = C_GossipInfo
 	if not (G and G.GetOptions) then return false end
-	if QoL.HasQuestBusiness() then return false end
 	local opt = Flight.TaxiOption(G.GetOptions() or {})
+	shiftGossip = opt ~= nil and QoL.Shift()
+	if not QoL.On("flightAutoOpen") or QoL.Shift() then return false end
+	if QoL.HasQuestBusiness() then return false end
 	return opt ~= nil and QoL.SelectGossip(opt)
 end
 
@@ -164,7 +172,7 @@ local function markFrame()
 	if mark then return mark end
 	local T = ns.Theme
 	local media = function(name) return T and T.Media and T.Media(name) or nil end
-	mark = CreateFrame("Frame", nil, UIParent)
+	mark = CreateFrame("Frame", nil, ns.UIParent)
 	mark:SetSize(40, 40)
 	mark:Hide()
 	-- A soft dark halo, not a glow: the taxi map is light parchment.
@@ -363,6 +371,8 @@ local function markNode()
 	if not index and not listed then index = Flight.FindNode(dest) end
 	if not index then return end
 	Flight.destination, Flight.node = dest or (TaxiNodeName and TaxiNodeName(index)), index
+	-- While Polestar is hidden the step key still flies there; nothing is drawn.
+	if ns.Hidden() then return end
 	local anchor = nodeFrame(index)
 	if anchor then
 		local m = markFrame()
@@ -415,26 +425,48 @@ function Flight.Take()
 	return true
 end
 
+-- Whether this open of the map has already had its one AutoTake.
+local autoTried = false
+
+-- qol.flightAutoTake: the flight map that just opened takes the marked
+-- flight as the step key would (Flight.Take), once per open, unless Shift
+-- is or was held at the flight master. True if taken.
+function Flight.AutoTake()
+	if autoTried or not QoL.On("flightAutoTake") or shiftGossip or QoL.Shift() then return false end
+	autoTried = true
+	return Flight.Take()
+end
+
+-- The map's own work on opening: mark the node, then take the flight.
+local function onOpen()
+	Flight.Highlight()
+	Flight.AutoTake()
+end
+
 function Flight.Drawn() return drawnSlot end
 
 ns.RegisterEvent("TAXIMAP_OPENED", function()
 	told = false
 	Flight.open = true
 	-- The map lays out its nodes in the same event; mark them after it.
-	if C_Timer and C_Timer.After then ns.After(0, Flight.Highlight) else Flight.Highlight() end
+	if C_Timer and C_Timer.After then ns.After(0, onOpen) else onOpen() end
 end)
 ns.RegisterEvent("TAXIMAP_CLOSED", function()
 	Flight.destination, Flight.node, Flight.open = nil, nil, false
+	shiftGossip, autoTried = false, false
 	if mark then mark:Hide() end
 	hideLines()
 	drawnSlot = nil
 	told = false
 	ns.Fire("FLIGHT_MARK_CHANGED", nil)
 end)
--- A route planned while the map is open (a flight path just learned).
-ns.On("ROUTE_CHANGED", function()
+-- A route planned while the map is open (a flight path just learned), and
+-- Polestar hidden or back.
+local function remark()
 	if TaxiFrame and TaxiFrame:IsShown() then Flight.Highlight() end
-end)
+end
+ns.On("ROUTE_CHANGED", remark)
+ns.On("POLESTAR_HIDDEN", remark)
 -- ui.reduceMotion stops or restarts the mark's loops at once.
 ns.On("SETTING_CHANGED", function(path)
 	if path ~= "" and path ~= "ui" and path ~= "ui.reduceMotion" then return end

@@ -176,38 +176,47 @@ step Brakk's campfire
 
 step Camping 101: Mining
   when skill Mining 1
+  when !knows 1230161
   accept 97907                        -- Brakk: for Krunn
 
 step Camping 101: Engineering
   when skill Engineering 1
+  when !knows 1230656
   accept 97902                        -- Brakk: for Mukdrak
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97903                        -- Brakk: for Rawrk
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97908                        -- Brakk: for Thuwd
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97906                        -- Brakk: for Karolek
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  when !knows 1229504
   accept 96102                        -- Brakk: for Snang
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  when !knows 1229705
   accept 97905                        -- Brakk: for Jandi
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  when !knows 1230643
   accept 97901                        -- Brakk: for Jhag
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  when !knows 1230564
   accept 97899                        -- Brakk: for Whuut
 
 step Razor Hill
@@ -440,6 +449,7 @@ step Thunder Ridge: kill these as you meet them
   tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, just west and south-west of Rezlak.
   tip Fizzle holds the Burning Blade camp on Thunder Ridge, north-west of Razor Hill. Hunters: tame a Dire Mottled Boar with the Taming Rod on the way.
   tip Careful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 277665 quest 97282.1
   kill 3099 quest 6062.1 "Tame Dire Mottled Boar" only Hunter -- Tame it with the Taming Rod
   collect 4869 quest 806.1
@@ -580,6 +590,7 @@ step Thunder lizards on the way north
   only Warrior
   zone Durotar
   tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, beside the road north to Orgrimmar; any of them can drop a Singed Scale. Uzzek takes it when the next guide passes Far Watch Post.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 6486 quest 1498.1
 
 step Orgrimmar

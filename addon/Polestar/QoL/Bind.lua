@@ -18,7 +18,11 @@
 -- then ClearInteraction(Binder) (Blizzard_StaticPopup_Game GameDialogDefs.lua).
 -- At CONFIRM_BINDER, while the innkeeper is the step's (whether this helper
 -- picked the option or the player did) and Shift was held neither at the
--- gossip nor now, this answers the same way and closes the popup.
+-- gossip nor now, this answers the same way on the next frame, as a click on
+-- Accept would, and closes the popup. Answered inside the event, Forever's
+-- client drops the first bind at an innkeeper: the popup goes, the
+-- Hearthstone stays where it was, and only a second visit binds. "Bound your
+-- Hearthstone" waits for the game's HEARTHSTONE_BOUND.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -35,6 +39,11 @@ Bind.BINDER_ICON = BINDER_ICON
 -- was held then: CONFIRM_BINDER follows that gossip, and the client may have
 -- closed it (no "npc" unit) by then.
 local seen, held
+
+-- The bind this helper answered, until the game says it is done:
+-- { area = the confirmation's area name, at = GetTime() }.
+local answered
+local ANSWER_WAIT = 5
 
 -- Whether binding at `npc` is what the current step still asks for.
 function Bind.Wanted(npc)
@@ -80,11 +89,24 @@ function Bind.OnConfirm(_, areaName)
 	local P = C_PlayerInteractionManager
 	local binder = Enum and Enum.PlayerInteractionType and Enum.PlayerInteractionType.Binder
 	if not (P and P.ConfirmationInteraction and binder) then return end
-	P.ConfirmationInteraction(binder)
-	if P.ClearInteraction then P.ClearInteraction(binder) end
-	QoL.ClosePopup("CONFIRM_BINDER")
 	areaName = readable(areaName)
-	ns.Print(areaName and string.format(L["Bound your Hearthstone to %s."], areaName) or L["Bound your Hearthstone."])
+	local function answer()
+		-- Cancelled or walked away meanwhile (the popup's own OnUpdate test).
+		if P.IsValidNPCInteraction and not P.IsValidNPCInteraction(binder) then return end
+		P.ConfirmationInteraction(binder)
+		if P.ClearInteraction then P.ClearInteraction(binder) end
+		QoL.ClosePopup("CONFIRM_BINDER")
+		answered = { area = areaName, at = GetTime() }
+	end
+	if C_Timer and C_Timer.After then ns.After(0, answer) else answer() end
+end
+
+function Bind.OnBound()
+	local a = answered
+	answered = nil
+	if not (a and GetTime() - a.at <= ANSWER_WAIT) then return end
+	ns.Print(a.area and string.format(L["Bound your Hearthstone to %s."], a.area) or L["Bound your Hearthstone."])
 end
 
 QoL.WhileOn("autoBind", "CONFIRM_BINDER", Bind.OnConfirm)
+QoL.WhileOn("autoBind", "HEARTHSTONE_BOUND", Bind.OnBound)

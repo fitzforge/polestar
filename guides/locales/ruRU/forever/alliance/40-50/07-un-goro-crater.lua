@@ -6,6 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in Russian words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Звери кратера – 48-55 уровня, силитиды из улья Гориши – 51-54, так что выманивайте их по одному.",
+
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",

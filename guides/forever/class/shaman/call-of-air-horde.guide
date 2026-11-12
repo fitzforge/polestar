@@ -81,6 +81,10 @@ why The Air Totem that lets you place air totems, then a weapon of your choice a
 # 34-39 Lost Ones, 35-38 Mirefin, 36-40 Maraudine; only the Maraudine Scout
 # has a rate, 44%), the Eye of the Tempest 53% (96135).
 # ASSUMED: the Ravaging Tempest fight needs about three players (the Forever-new chain's quest flags; Forever's data marks Heed My Call a group quest but has no group size or the Tempest's level). In-game check: the Tempest's level and whether a duo manages it.
+# Level holds (the #1667 rule: a goal waits until its easiest carriers' top
+# level is at most 2 above you): Air totems (Maraudine Scouts 37-38) at 36,
+# Water (Mirefin 35-36) at 34, Fire (Stonevault Skullthumpers 37-38) at 36,
+# Earth (Lost One Mudlurkers 34-35) at 33, the Ravaging Tempest (40) at 38.
 # Beta capped at 30: nothing past Call of Air was played; it follows the data
 # above.
 
@@ -145,21 +149,25 @@ step Prate Cloudseer
 step Twisted Air Totems
   zone Desolace
   tip Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of Shadowprey Village in western Desolace carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw Jumping Lightning: pull one at a time. Respawn about five minutes.
+  level 36
   collect 274047 x5 quest 79361.4                -- Twisted Air Totem
 
 step Twisted Water Totems
   zone Dustwallow Marsh
   tip Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of Brackenwall Village in northern Dustwallow Marsh carry them.
+  level 34
   collect 274046 x5 quest 79361.1                -- Twisted Water Totem
 
 step Twisted Fire Totems
   zone Badlands
   tip Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of Angor Fortress in the Badlands carry them; the Shamans drop Fire Nova Totems and a Healing Ward, the Bonesnappers run for help when hurt. Respawn about five minutes.
+  level 36
   collect 274044 x5 quest 79361.3                -- Twisted Fire Totem
 
 step Twisted Earth Totems
   zone Swamp of Sorrows
   tip Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of Stonard in the Swamp of Sorrows carry them; most run for help when hurt.
+  level 33
   collect 274045 x5 quest 79361.2                -- Twisted Earth Totem
 
 step Prate Cloudseer
@@ -169,6 +177,7 @@ step Prate Cloudseer
 
 step The steam pools
   tip Prate hands you the Corrupted Totems. Place the Corrupted Totems at the steam pools north-west of Freewind Post to call the corrupted elementals and then the Ravaging Tempest; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The Eye of the Tempest drops about every other kill, and every group member can loot it.
+  level 38
   collect 212792 x1 group 3                   -- Eye of the Tempest, from the Ravaging Tempest
 
 step Rau Cliffrunner

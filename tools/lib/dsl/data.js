@@ -333,4 +333,4 @@ function emptyData() {
 	return new Data({}, { missing: [...FILES, ...OPTIONAL].map((name) => `${name}.json`) });
 }
 
-module.exports = { loadData, Data, objectiveLabel, hasCoreData, emptyData, CORE_FILES: FILES.map((name) => `${name}.json`) };
+module.exports = { loadData, Data, objectiveLabel, hasCoreData, emptyData, BUILTIN_PROFESSIONS, CORE_FILES: FILES.map((name) => `${name}.json`) };

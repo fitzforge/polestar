@@ -110,6 +110,7 @@ step Kelsey Fargo
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
+  tip Careful: Shinyfinder Narf (3) is elite: leave him unless you have a friend.
   kill 80 quest 21                            -- Kobold Laborer walks around Echo Ridge Mine: look inside the circle on the map
 
 step Inside Echo Ridge Mine
@@ -180,22 +181,27 @@ step Sam Sarsaparilla
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97924                                -- Sam Sarsaparilla: for Helene Peltskinner on the lake shore
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97922                                -- Sam Sarsaparilla: for Adele Fielder on the lake shore
 
 step Camping 101: Fishing
   when skill Fishing 1
+  when !knows 1229745
   accept 97920                                -- Sam Sarsaparilla: for Lee Brown on the lake shore
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97919                                -- Sam Sarsaparilla: for Michelle Belle in the Lion's Pride Inn
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
   accept 97916                                -- Sam Sarsaparilla: for Smith Argus at the Goldshire smithy
 
 step Helene Peltskinner
@@ -327,6 +333,7 @@ step The Maclure Vineyards: kill these as you meet them
 
 step Goldtooth
   tip Goldtooth is inside the Fargodeep Mine, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a Westfall Deed now and then: right-click it.
+  tip Careful: Nimsy (6), a kobold deep in the mine, is elite, and Narg the Taskmaster (10, rare) walks the tunnels: pull the kobolds one at a time.
   goto 39.5,82.4 "Fargodeep Mine"
   collect 981 quest 87                        -- Bernice's Necklace; below ground
   collect 1972 x1 optional                    -- Westfall Deed
@@ -452,6 +459,7 @@ step The Jasperlode Mine's entrance
 step Jasperlode Mine: kill these as you meet them
   zone Elwynn Forest
   tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
+  tip Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.
   collect 247816 quest 91732                  -- Mining Tools
   complete 76 @60.2,49.2                      -- Walk into the mine
   kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map

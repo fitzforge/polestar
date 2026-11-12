@@ -35,7 +35,7 @@ forge release version            # print it; exit 1 if guides/pack.json or a TOC
 forge release version 0.2.0      # set it everywhere; nothing is written when a file has no version to set
 ```
 
-Versions are `x.y.z`, or `x.y.z-rc.1` for a release candidate.
+Versions are `x.y.z`, `x.y.z.hotfix` for an urgent hotfix, or `x.y.z-rc.1` for a release candidate.
 
 ## The zips
 
@@ -102,7 +102,9 @@ fetched with the GitHub CLI (`gh`, logged in):
 - contributors by merged or folded pull requests, most first. A closed pull request counts as folded when
   one of its commits is on the checkout's HEAD with its authorship kept: the same author email, and a
   subject that starts with the pull request commit's headline (a contributor's work cherry-picked into a
-  maintainer's branch, as the 0.3.6 hotfix did);
+  maintainer's branch, as the 0.3.6 hotfix did). An open pull request counts as folded when its head
+  commit is on HEAD: an integration branch merged it, and the release's push to `next` will mark it
+  merged;
 - the top 40 bug reporters by useful reports, most first, ties to whoever reported first. The reporter
   is the Discord name in the bot's first line ("**Reported by <name> on [Discord](...)**", unescaped
   and folded to NFKC so styled letters show in the game's fonts), else the GitHub login that opened

@@ -84,7 +84,7 @@ return {
 	["Inside {area:34}"] = "Dentro de {area:34}",
 	-- {npc:248362} Shinyfinder Narf
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "Operários Kobold trabalham nos túneis dentro da mina. {npc:248362} espera depois da segunda curva à direita.",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Operários Kobold trabalham nos túneis dentro da mina. {npc:248362} espera depois da segunda curva à direita.\nCuidado: {npc:248362} (3) é elite: deixe-o em paz, a menos que esteja com um amigo.",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} anda por {area:34}: procure dentro do círculo no mapa",
 
@@ -254,9 +254,9 @@ return {
 	["Fun with Elementals: {npc:248464}"] = "Diversão com Elementais: {npc:248464}",
 
 	-- Step 50: Goldtooth
-	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
+	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed · {npc:248464} Nimsy · {npc:79} Narg the Taskmaster
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
-	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87} está dentro de {area:57}, não no morro acima dela: entre pela boca e mantenha-se à esquerda até o fundo do piso da mina; não suba as escadas. Bandidos Défias ao redor dos vinhedos soltam uma {item:1972} de vez em quando: clique nela com o botão direito.",
+	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "{quest:87} está dentro de {area:57}, não no morro acima dela: entre pela boca e mantenha-se à esquerda até o fundo do piso da mina; não suba as escadas. Bandidos Défias ao redor dos vinhedos soltam uma {item:1972} de vez em quando: clique nela com o botão direito.\nCuidado: {npc:248464} (6), um kobold no fundo da mina, é elite, e {npc:79} (10, raro) anda pelos túneis: puxe os kobolds um de cada vez.",
 	-- {item:981} Bernice's Necklace
 	["{item:981}; below ground"] = "{item:981}; no subterrâneo",
 
@@ -353,9 +353,9 @@ return {
 	-- Step 71: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "{area:54}: vá matando estes pelo caminho",
-	-- {item:247816} Mining Tools
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "A mina fica a sudoeste dos acampamentos gnolls. {item:247816} estão perto da entrada; Geomantes Kobold ocupam os túneis.",
+	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
+	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "A mina fica a sudoeste dos acampamentos gnolls. {item:247816} estão perto da entrada; Geomantes Kobold ocupam os túneis.\nCuidado: {npc:471} (7-10), as Aranhas da Mina (7-9) e {npc:248474} (7) são elites no fundo da mina: puxe os kobolds um de cada vez perto da entrada e saia se vier um elite; eles ficam mais fáceis com um amigo.",
 	["Walk into the mine"] = "Entre na mina",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} anda por {area:54}: procure dentro do círculo no mapa",
@@ -492,6 +492,7 @@ return {
 	-- ["From the {quest:2998} he gives you"] = "Do {quest:2998} que ele lhe dá",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Volte por {area:87} e siga para leste até {area:86}. {npc:6172} está ao sul do lago: use o {item:6866} nele. Os Magos Desonestos Defias ao redor carregam o {item:6846}.",
 	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Siga para o noroeste pelos campos até {quest:91736}, ao norte de {area:120}. Coloque nele quatro Maçãs Vermelhas Brilhantes para obter um {item:247824}.",
+	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "Operários Kobold trabalham nos túneis dentro da mina. {npc:248362} espera depois da segunda curva à direita.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Murlocs Colhedores e Murlocs Tocaieiros ocupam o rio ao sul da ponte. {npc:473}, um Défias, anda por {area:62}, a oeste dele. Termine os Predadores e Jovens Ursos da Floresta no caminho.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Murlocs Colhedores e Murlocs Tocaieiros ocupam o rio ao sul da ponte. {npc:473}, um Défias, anda por {area:62}, a oeste dele. Termine os Predadores e Jovens Ursos da Floresta no caminho. {npc:248278} também ronda a margem dos murlocs: clique com o botão direito na cabeça que ele deixa cair. {npc:248278} é elite: é bom ir em grupo.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Murlocs e Murlocs Corredores ocupam a margem leste; as Pilhas de Sucata ficam no acampamento deles.",
@@ -503,6 +504,7 @@ return {
 	-- ["Speak with {npc:1430}"] = "Fale com {npc:1430}",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "Javalis Pedratusco pastam entre os vinhedos e a fazenda.",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "A fazenda dos Campedra fica a oeste da mina. Mama e \"Titia\" Berenice ficam junto à casa.",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "A mina fica a sudoeste dos acampamentos gnolls. {item:247816} estão perto da entrada; Geomantes Kobold ocupam os túneis.",
 	-- ["The murloc camp"] = "O acampamento murloc",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, o Machado Encharcado e a Caixa de Ferramentas Encharcada estão no rio ao sul da ponte. {npc:330}, uma javalina grande, fuça em {area:62}, a oeste do rio, com seu {npc:390}: afaste os leitões primeiro. Mate Predadores e Jovens Ursos da Floresta no caminho.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:91740} pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
@@ -536,4 +538,5 @@ return {
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: {npc:6171} em {zone:1453} recebe",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}: ele quer seu {item:247824}",
 	-- ["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood."] = "{object:694855} cresce nos campos ao redor dos vinhedos e da fazenda dos Campedra; os Javalis Pedratusco por ali dão o sangue.",
+	-- ["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87} está dentro de {area:57}, não no morro acima dela: entre pela boca e mantenha-se à esquerda até o fundo do piso da mina; não suba as escadas. Bandidos Défias ao redor dos vinhedos soltam uma {item:1972} de vez em quando: clique nela com o botão direito.",
 }

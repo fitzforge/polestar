@@ -1024,8 +1024,11 @@ local function paintShadow(fs)
 end
 
 -- Forever leaves a string blank after a new font until its text changes
--- (the options' values and tiles after a skin change): set it again.
+-- (the options' values and tiles after a skin change): set it again. Not an
+-- edit box the player is in: setting its text again drops their cursor and
+-- selection (#1753: the report box selected for Ctrl+C).
 local function textAgain(fs)
+	if fs.HasFocus and fs:HasFocus() then return end
 	local text = fs.GetText and fs:GetText()
 	if text and text ~= "" then
 		fs:SetText(text .. " ")
@@ -1249,7 +1252,9 @@ function Theme.TextShade(parent, fx, fy)
 	return { parts = { mid, tl, tr, bl, br, top, bottom, left, right } }
 end
 
--- The scheme's scrim colour at `alpha`.
+-- The scheme's scrim colour at `alpha`. The alpha is the parts' vertex
+-- alpha: in the client a texture's SetAlpha sets that same value, so a part
+-- is never SetAlpha'd (fold any fade into `alpha`, #1684).
 function Theme.PaintScrim(s, alpha)
 	local r, g, b = Theme.Color("scrim")
 	for i = 1, #s.parts do s.parts[i]:SetVertexColor(r, g, b, alpha) end

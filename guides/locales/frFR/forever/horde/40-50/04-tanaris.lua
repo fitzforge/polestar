@@ -91,8 +91,6 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "pour {npc:7010} à {zone:1454}, vers le niveau 50",
-	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
-	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "La machine {object:142071}, au centre de la ville : l'œuf se trouve dans le sud de {zone:1444}, vers le niveau 50",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -194,6 +192,7 @@ return {
 	-- ["The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge."] = "Les Grandes araignées de lave rôdent sur les plateaux et autour des bassins de lave au sud-ouest de la gorge.",
 	-- ["The Steamsmiths' furnaces"] = "Les fourneaux des Forge-vapeur",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "Le bateau pour {area:35} accoste au quai de {area:392}, sous la colline du maître de vol.",
+	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "La machine {object:142071}, au centre de la ville : l'œuf se trouve dans le sud de {zone:1444}, vers le niveau 50",
 	-- ["The {object:147516} Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "Les Guetteurs {object:147516} se tiennent sur les crêtes autour des tours de guet au sud du Chaudron ; environ un sur dix porte la {item:18960}.",
 	-- ["The {object:147516} Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "Les Forge-vapeur {object:147516} travaillent aux fourneaux au centre du Chaudron ; la moitié porte une {item:10551}, un sur dix la {item:18959}. Les esclaves, les Esclavagistes et les Sous-chefs portent aussi des dagues.",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "À l'ouest du camp, les créatures cactus remplissent la vallée ; seuls les Chardonniers collecteurs de rosée portent une glande de rosée. La plupart des monstres de {zone:1446} peuvent lâcher, rarement, la Balise de détresse OOX-17/TN : gardez-la si vous en trouvez une.",

@@ -84,7 +84,7 @@ return {
 	["Inside {area:34}"] = "Внутри: {area:34}",
 	-- {npc:248362} Shinyfinder Narf
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "В туннелях рудника работают кобольды-работники. {npc:248362} ждет за вторым поворотом направо.",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "В туннелях рудника работают кобольды-работники. {npc:248362} ждет за вторым поворотом направо.\nОсторожно: {npc:248362} (3) – элитный противник: не трогайте его, если вы не с другом.",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} ходит по месту {area:34}: ищите внутри круга на карте",
 
@@ -254,9 +254,9 @@ return {
 	["Fun with Elementals: {npc:248464}"] = "«Забавы с элементалями»: {npc:248464}",
 
 	-- Step 50: Goldtooth
-	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
+	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed · {npc:248464} Nimsy · {npc:79} Narg the Taskmaster
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
-	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87} – внутри ({area:57}), а не на холме над ним: войдите и держитесь левее до дальнего конца нижнего уровня; по лестнице наверх не поднимайтесь. С бандитов из Братства Справедливости у виноградников иногда падает {item:1972}: щелкните по нему правой кнопкой.",
+	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "{quest:87} – внутри ({area:57}), а не на холме над ним: войдите и держитесь левее до дальнего конца нижнего уровня; по лестнице наверх не поднимайтесь. С бандитов из Братства Справедливости у виноградников иногда падает {item:1972}: щелкните по нему правой кнопкой.\nОсторожно: {npc:248464} (6), кобольд в глубине рудника, – элитный противник, а {npc:79} (10, редкий) бродит по туннелям: выманивайте кобольдов по одному.",
 	-- {item:981} Bernice's Necklace
 	["{item:981}; below ground"] = "{item:981}; под землей",
 
@@ -353,9 +353,9 @@ return {
 	-- Step 71: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "{area:54}: убивайте их по пути",
-	-- {item:247816} Mining Tools
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "Рудник – к юго-западу от лагерей гноллов. {item:247816} лежат у входа; туннели занимают кобольды-геоманты.",
+	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
+	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "Рудник – к юго-западу от лагерей гноллов. {item:247816} лежат у входа; туннели занимают кобольды-геоманты.\nОсторожно: {npc:471} (7-10), рудниковые пауки (7-9) и {npc:248474} (7) – элитные противники в глубине рудника: выманивайте кобольдов по одному у входа и отступайте, если подходит элитный; с другом проще.",
 	["Walk into the mine"] = "Войдите в рудник",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} ходит здесь: {area:54}: ищите внутри круга на карте",
@@ -492,6 +492,7 @@ return {
 	-- ["From the {quest:2998} he gives you"] = "Из книги ({quest:2998}), которую он вам даст",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Возвращайтесь через {area:87} и на восток к {area:86}. {npc:6172} лежит к югу от озера: используйте на нём {item:6866}. Бесчестные маги Братства Справедливости вокруг него несут {item:6846}.",
 	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Идите на северо-запад через поля. Цель: {quest:91736}, к северу от места {area:120}. Отдайте четыре спелых красных яблока и получите {item:247824}.",
+	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "В туннелях рудника работают кобольды-работники. {npc:248362} ждет за вторым поворотом направо.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Мурлоки-добытчики и мурлоки-скрытни занимают реку к югу от моста. {npc:473} из Братства Справедливости ходит здесь: {area:62}, к западу от нее. По пути добейте лесных хищников и молодых лесных медведей.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Мурлоки-добытчики и мурлоки-скрытни занимают реку к югу от моста. {npc:473} из Братства Справедливости ходит здесь: {area:62}, к западу от нее. По пути добейте лесных хищников и молодых лесных медведей. {npc:248278} тоже бродит по берегу мурлоков: щелкните правой кнопкой по голове, которую он оставит. {npc:248278} – элитный противник: лучше собрать группу.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Мурлоки и речные мурлоки-бегуны занимают восточный берег; груды мусора лежат в их лагере.",
@@ -504,6 +505,7 @@ return {
 	-- ["Speak with {npc:1430}"] = "Поговорить: {npc:1430}",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "Вепри-камнеклыки пасутся между виноградниками и фермой.",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "Ферма Стоунфилдов – к западу от рудника. Мамаша и \"Тетушка\" Бернис стоят у дома.",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "Рудник – к юго-западу от лагерей гноллов. {item:247816} лежат у входа; туннели занимают кобольды-геоманты.",
 	-- ["The murloc camp"] = "Лагерь мурлоков",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, топор и ящик с инструментами лежат в реке к югу от моста. {npc:330}, большая свинья, роется здесь: {area:62}, к западу от реки, вместе с поросятами ({npc:390}): сначала отманите поросят. По пути убивайте лесных хищников и молодых лесных медведей.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Это элитные противники: лучше собрать группу, поищите спутников. {quest:91740} – нужна группа из 2 человек. Если вы один, пропустите: маршрут восполнит опыт за счет убийства монстров.",
@@ -537,4 +539,5 @@ return {
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: принимает {npc:6171} ({zone:1453})",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}: ему нужен ваш предмет {item:247824}",
 	-- ["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood."] = "{object:694855} растет на полях вокруг виноградников и фермы Стоунфилдов; кровь дают вепри-камнеклыки поблизости.",
+	-- ["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87} – внутри ({area:57}), а не на холме над ним: войдите и держитесь левее до дальнего конца нижнего уровня; по лестнице наверх не поднимайтесь. С бандитов из Братства Справедливости у виноградников иногда падает {item:1972}: щелкните по нему правой кнопкой.",
 }

@@ -7,11 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240}은(는) {zone:1441} 남동쪽의 {area:439}에 있습니다. {npc:4454}은(는) 경주로 옆 노움 야영지에, 자멕은 고블린 야영지 옆에 있습니다.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
-	["He runs off to keep Rizzle busy"] = "그는 리즐 브라스볼츠의 주의를 끌러 달려갑니다",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -156,6 +155,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "{area:348}(으)로 날아가십시오. {zone:1425} 가이드는 여기서 시작합니다.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "해안을 따라 남쪽 해적단 소굴로 가십시오. 남쪽바다해적단이 해변과 배에 우글거립니다: 가장자리부터 하나씩 끌어내십시오. {npc:7883}은(는) 반대편에 서 있고, {npc:7881}의 도둑맞은 화물은 야영지에 있습니다.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "{area:1108} 부두에서 배를 타고 페더문 요새로 가서 {area:489}(으)로 날아간 다음, {zone:1441}을(를) 지나 동쪽 {area:439}의 {area:2240}까지 가십시오. {npc:4454}와(과) {npc:4630}은(는) 경주로 옆 야영지에 있고, {npc:4709}은(는) 고블린 야영지 옆에 서 있습니다.",
+	-- ["He runs off to keep Rizzle busy"] = "그는 리즐 브라스볼츠의 주의를 끌러 달려갑니다",
 	-- ["Hearth to {area:976}."] = "귀환석으로 {area:976}에 가십시오.",
 	-- ["Ride back west to {area:976}."] = "서쪽 {area:976}(으)로 돌아가십시오.",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "서쪽 {area:976} 쪽으로 돌아가십시오. 가는 길의 모래언덕에는 사막유랑단 약탈자와 사막유랑단 좀도둑이 있고, 누구든 사막유랑단 물주머니를 지니고 있을 수 있습니다.",

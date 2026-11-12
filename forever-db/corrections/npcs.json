@@ -43,6 +43,146 @@
 		},
 		"note": "Stormwind Royal Guard is Elite on Forever; the merged Era data has rank 0 (Normal)."
 	},
+	"2411": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.5,
+							90.0
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							25.9,
+							27.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 36 kills of Ricter by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.5,90.0); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Ricter (npc 2411), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Marble), stands with the others in the Dalaran camp at Alterac Mountains 19.5,90.0 (map 1416; Hillsbrad Foothills 25.9,27.2). Our data had the Classic spot 20.16,84.28, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2412": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.6,
+							90.9
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							26.0,
+							28.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 27 kills of Alina by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.6,90.9); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Alina (npc 2412), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Shard), stands with the others in the Dalaran camp at Alterac Mountains 19.6,90.9 (map 1416; Hillsbrad Foothills 26.0,28.0). Our data had the Classic spot 20.34,86.4, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2413": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.3,
+							91.5
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							25.7,
+							28.5
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 25 kills of Dermot by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.3,91.5); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Dermot (npc 2413), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Wedge), stands with the others in the Dalaran camp at Alterac Mountains 19.3,91.5 (map 1416; Hillsbrad Foothills 25.7,28.5). Our data had the Classic spot 19.91,85.97, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2414": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							16.8,
+							89.4
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							23.6,
+							26.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 20 kills of Kegan Darkmar by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 16.8,89.4); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Kegan Darkmar (npc 2414), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Oval), stands with the others in the Dalaran camp at Alterac Mountains 16.8,89.4 (map 1416; Hillsbrad Foothills 23.6,26.7). Our data had the Classic spot 17.8,83.2, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633). The reporter's right spot was 16.90,89.20."
+	},
 	"2543": {
 		"set": {
 			"spawns": {

@@ -547,10 +547,13 @@ emit({ D.ObjectiveText(fang), ids, D.ObjectiveText({ id = 777, objectives = { { 
 }
 
 #[test]
-fn runtime_open_fires_show_dungeon_guideto_and_guidetopoint_set_the_arrow_the_setting_stops_it_without_the_pack_it_says_why() {
+fn runtime_open_fires_show_dungeon_guideto_and_guidetopoint_set_the_arrow_an_entrance_is_a_trip_the_setting_stops_it_without_the_pack_it_says_why() {
 	let out = run(r#"
-local nav = {}
-Polestar.Nav = { SetTarget = function(map, x, y, label) nav[#nav + 1] = { map, x, y, label } return true end }
+local nav, trips = {}, {}
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label) nav[#nav + 1] = { map, x, y, label } return true end,
+	StartTrip = function(t, name, label, ends) trips[#trips + 1] = { name, label, ends } end,
+}
 local fired = {}
 Polestar.On("SHOW_DUNGEON", function(key) fired[#fired + 1] = key or "home" end)
 D.Open("deadmines")
@@ -561,9 +564,10 @@ local g3 = D.GuideTo("blackmaw-hold")
 Polestar.Set("dungeons.enabled", false)
 local opened = D.Open("deadmines")
 local ok, reason = D.Load()
-emit({ fired = fired, nav = nav, g = { g1, g2, g3 }, opened = opened, reason = reason, list = #D.List() })"#);
+emit({ fired = fired, nav = nav, trips = trips, g = { g1, g2, g3 }, opened = opened, reason = reason, list = #D.List() })"#);
 	assert_eq!(out["fired"], json!(["deadmines", "home"]));
 	assert_eq!(out["nav"], json!([[1413, 46, 36.4, "Wailing Caverns"], [1413, 46, 35.7, "Nalpak"]]));
+	assert_eq!(out["trips"], json!([["Wailing Caverns", "Dungeon", "instance"]]), "the entrance is a trip that ends through the portal (#1686); the giver a plain point");
 	assert_eq!(out["g"], json!([true, true, false]));
 	assert_eq!(out["opened"], false);
 	assert_eq!(out["reason"], "off");
@@ -609,7 +613,10 @@ emit({ old, none })"#);
 fn runtime_an_entrance_in_the_other_faction_s_land_warns_that_faction_only_and_the_arrow_carries_it() {
 	let out = run(r#"
 local nav = {}
-Polestar.Nav = { SetTarget = function(map, x, y, label, f, stop, z, warning) nav[#nav + 1] = { label, stop, warning or false } return true end }
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label, f, stop, z, warning) nav[#nav + 1] = { label, stop, warning or false } return true end,
+	StartTrip = function() end,
+}
 local e = {
 	rolA = D.EnemyEntrance("ruins-of-lordaeron", "A") or false, rolH = D.EnemyEntrance("ruins-of-lordaeron", "H") or false,
 	hotH = D.EnemyEntrance("the-hall-of-thanes", "H") or false, hotA = D.EnemyEntrance("the-hall-of-thanes", "A") or false,

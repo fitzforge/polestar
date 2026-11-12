@@ -11,8 +11,8 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Suivez la route vers l'ouest après {area:460} (Horde), puis au sud-ouest par {area:465} jusqu'en {zone:1443} ; {area:608} se trouve en haut du col.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638} : le coffre de l'épave se trouve en contrebas de la tour d'{npc:11863}, sur le chemin de {area:599}",
-	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, à côté de {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Coffre de Malem",
@@ -23,6 +23,10 @@ return {
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
 	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Les satyres Fielfurie tiennent les ruines de {area:603}, à l'est de {area:608}.\nAttention : les Voleurs Fielfurie apparaissent camouflés, et les attaques des Entourloupeurs Fielfurie peuvent empoisonner.",
+
+	-- Step 5: Nijel's Point
+	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress

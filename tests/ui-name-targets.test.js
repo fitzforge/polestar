@@ -418,6 +418,46 @@ test('the real gear-reward link remains above the objective overlay and keeps it
 	assert.equal(out.navigation, 0);
 });
 
+test('an accept goal shows a muted reward line when its quest pick is an upgrade', () => {
+	const [out] = run(`
+		local asked = {}
+		Polestar.Gear = { IsEnabled = function() return true end,
+			GainText = function() return "+12%" end,
+			QuestPick = function(q) asked[#asked + 1] = q; return { entry = { id = 750, pct = 12 }, upgrade = true } end }
+		Polestar.Set("gear.rewards", true)
+		uistub.setGuide(uistub.elwynn, 4)
+		local row = assert(rowFor("Investigate Echo Ridge"))
+		local gear = row.psGearPick
+		emit({ shown = gear and gear:IsShown(), text = gear and gear.Text:GetText(), chevron = gear and gear.Chevron:IsShown(),
+			gain = gear and gear.Gain:IsShown(), item = gear and gear.psEntry and gear.psEntry.id, asked = "," .. table.concat(asked, ",") .. "," })`);
+	assert.equal(out.shown, true);
+	assert.match(out.text, /^Reward: .* \+12% · at turn-in$/);
+	assert.equal(out.chevron, false);
+	assert.equal(out.gain, false);
+	assert.equal(out.item, 750);
+	assert.match(out.asked, /,15,/);
+});
+
+test('an accept goal shows no reward line when the pick is no upgrade, and none with gear advice off', () => {
+	const [out] = run(`
+		local asked = 0
+		Polestar.Gear = { IsEnabled = function() return true end,
+			QuestPick = function() asked = asked + 1; return { entry = { id = 750 }, upgrade = false } end }
+		Polestar.Set("gear.rewards", true)
+		uistub.setGuide(uistub.elwynn, 4)
+		local row = assert(rowFor("Investigate Echo Ridge"))
+		local noUpgrade = not (row.psGearPick and row.psGearPick:IsShown())
+		Polestar.Gear.IsEnabled = function() return false end
+		asked = 0
+		uistub.setGuide(uistub.elwynn, 3)
+		uistub.setGuide(uistub.elwynn, 4)
+		row = assert(rowFor("Investigate Echo Ridge"))
+		emit({ noUpgrade = noUpgrade, offHidden = not (row.psGearPick and row.psGearPick:IsShown()), askedOff = asked })`);
+	assert.equal(out.noUpgrade, true);
+	assert.equal(out.offHidden, true);
+	assert.equal(out.askedOff, 0);
+});
+
 test('objective clicks retain row navigation and the quest right-click menu', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)

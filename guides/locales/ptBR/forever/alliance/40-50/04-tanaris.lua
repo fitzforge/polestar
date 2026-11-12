@@ -7,11 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} fica em {area:439}, no sudeste de {zone:1441}: {npc:4454} está no acampamento dos gnomos, ao lado da pista, e {npc:4709}, junto ao acampamento dos goblins.",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} fica em {area:439}, no sudeste de {zone:1441}: {npc:4454} está no acampamento dos gnomos, ao lado da pista, e Zamek, junto ao acampamento dos goblins.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de Martek em {zone:1418}",
-	["He runs off to keep Rizzle busy"] = "Ele sai correndo para distrair o Rebu",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -156,6 +155,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Voe para {area:348}. O guia de {zone:1425} começa aqui.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Siga a costa para o sul até a enseada dos piratas. Os Piratas dos Mares do Sul lotam a praia e os barcos: avance pela borda e puxe um de cada vez. {npc:7883} fica do outro lado; a carga roubada de {npc:7881} está no acampamento.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "Do cais de {area:1108}, pegue o barco para Plumaluna e voe para {area:489}; depois cavalgue para o leste por {zone:1441} até a {area:2240} em {area:439}. {npc:4454} e {npc:4630} estão nos acampamentos ao lado da pista; {npc:4709} fica junto ao acampamento goblin.",
+	-- ["He runs off to keep Rizzle busy"] = "Ele sai correndo para distrair o Rebu",
 	-- ["Hearth to {area:976}."] = "Use a Pedra de Regresso para {area:976}.",
 	-- ["Ride back west to {area:976}."] = "Cavalgue de volta para o oeste até {area:976}.",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "Cavalgue de volta para o oeste rumo a {area:976}. Os Bandidos Errantes e os Ladrões Errantes dominam as dunas no caminho; qualquer um deles pode carregar um cantil de água.",
@@ -167,6 +167,7 @@ return {
 	-- ["Rizzle's plans"] = "Projetos do Rebu",
 	-- ["The Wanted poster by {npc:7882}"] = "O cartaz de Procurado junto a {npc:7882}",
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "Os Ladinos Errantes, Magos das Sombras Errantes e Assassinos Errantes, mais fortes, acampam a sudeste de {area:976}, ao sul dos bandidos. Deixe {npc:7847}, no meio do acampamento do sul, para depois.",
+	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} fica em {area:439}, no sudeste de {zone:1441}: {npc:4454} está no acampamento dos gnomos, ao lado da pista, e {npc:4709}, junto ao acampamento dos goblins.",
 	-- ["Wastewander bandits"] = "Bandidos Errantes",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "Enquanto {npc:4709} distrai o Rebu, os projetos dele ficam desprotegidos no acampamento gnomo do outro lado da pista.",
 	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}, no lado leste da cidade",

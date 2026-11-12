@@ -84,8 +84,8 @@ return {
 	-- Step 15: Journeyman Engineering
 	-- {skill:202} Engineering
 	["Journeyman {skill:202}"] = "中级{skill:202}",
-	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11029} Trixie Quikswitch · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {npc:3412} Nogg · {zone:1454} Orgrimmar · {spell:3929} Coarse Blasting Powder · {spell:3930} Crafted Heavy Shot · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:8736} ({zone:1446}), {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}), {npc:5174} ({zone:1455}) and {npc:11029} ({zone:1455}); Horde {npc:8736} ({zone:1446}), {npc:11031} ({zone:1458}), {npc:3412} ({zone:1454}) and Roxxik ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中级将技能上限从 75 提高到 150，费用为 5 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 50 和角色等级 10，因此达到 50 后，任意一次来访都可学习。并非所有 {skill:202} 训练师都教授：联盟为 {npc:8736}（{zone:1446}）、{npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）、{npc:5174}（{zone:1455}）和 {npc:11029}（{zone:1455}）；部落为 {npc:8736}（{zone:1446}）、{npc:11031}（{zone:1458}）、{npc:3412}（{zone:1454}）和罗克希克（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:3929}（技能 75 起，2 银币 50 铜币）和 {spell:3930}（技能 75 起，2 银币 50 铜币）。75-150 阶段约需 5 银币的配方和 45 银币的商人材料，另需采集或购买 15 个 {item:2836}、27 个 {item:2838}、72 个 {item:2840}、61 个 {item:2841} 和 2 个 {item:2842}。",
+	-- {skill:202} Engineering · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:11029} Trixie Quikswitch · {zone:1455} Ironforge · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {npc:3412} Nogg · {zone:1454} Orgrimmar · {spell:3929} Coarse Blasting Powder · {spell:3930} Crafted Heavy Shot · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
+	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}) and {npc:3412} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中级将技能上限从 75 提高到 150，费用为 5 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 50 和角色等级 10，因此达到 50 后，任意一次来访都可学习。并非所有 {skill:202} 训练师都教授：联盟为 {npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）和 {npc:11029}（{zone:1455}）；部落为 {npc:11031}（{zone:1458}）和 {npc:3412}（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:3929}（技能 75 起，2 银币 50 铜币）和 {spell:3930}（技能 75 起，2 银币 50 铜币）。75-150 阶段约需 5 银币的配方和 45 银币的商人材料，另需采集或购买 15 个 {item:2836}、27 个 {item:2838}、72 个 {item:2840}、61 个 {item:2841} 和 2 个 {item:2842}。",
 
 	-- Step 16: Engineering 75-150: vendor goods
 	-- {skill:202} Engineering
@@ -179,8 +179,8 @@ return {
 	-- Step 34: Expert Engineering
 	-- {skill:202} Engineering
 	["Expert {skill:202}"] = "高级{skill:202}",
-	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {zone:1454} Orgrimmar · {spell:9271} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}) and {npc:5174} ({zone:1455}); Horde {npc:8736} ({zone:1446}) and Roxxik ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "高级将技能上限从 150 提高到 225，费用为 50 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 125 和角色等级 20，因此达到 125 后，任意一次来访都可学习。只有少数训练师教授：联盟为 {npc:8736}（{zone:1446}）和 {npc:5174}（{zone:1455}）；部落为 {npc:8736}（{zone:1446}）和罗克希克（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:9271}（技能 150 起）和 {spell:3953}（技能 145 起）。150-225 阶段约需 31 银币的商人材料，另需采集或购买 19 个 {item:2319}、19 个 {item:2592}、31 个 {item:2836}、74 个 {item:2838}、100 个 {item:2841}、6 个 {item:2842}、81 个 {item:3575}、19 个 {item:3860} 和 62 个 {item:7912}。",
+	-- {skill:202} Engineering · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:9271} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
+	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:5174} ({zone:1455}); Horde {npc:11017} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "高级将技能上限从 150 提高到 225，费用为 50 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 125 和角色等级 20，因此达到 125 后，任意一次来访都可学习。只有少数训练师教授：联盟为 {npc:5174}（{zone:1455}）；部落为 {npc:11017}（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:9271}（技能 150 起）和 {spell:3953}（技能 145 起）。150-225 阶段约需 31 银币的商人材料，另需采集或购买 19 个 {item:2319}、19 个 {item:2592}、31 个 {item:2836}、74 个 {item:2838}、100 个 {item:2841}、6 个 {item:2842}、81 个 {item:3575}、19 个 {item:3860} 和 62 个 {item:7912}。",
 
 	-- Step 35: Engineering 150-225: vendor goods
 	-- {skill:202} Engineering
@@ -202,7 +202,7 @@ return {
 
 	-- Step 38: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
-	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "为 {spell:3953} 准备19块 {item:2592}：15—30级人形生物会掉落；也可在拍卖行购买。箭头会根据你的等级和阵营选择一处刷取地点。",
+	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "为{spell:3953}准备19个{item:2592}：15-30级的人型生物会掉落。升级时把拾取到的留着，从银行取出，或在拍卖行购买。",
 
 	-- Step 39: Coarse Stone (Alliance)
 	-- {item:2836} Coarse Stone
@@ -303,7 +303,7 @@ return {
 
 	-- Step 55: Schematic: Thorium Tube
 	-- {item:16047} Schematic: Thorium Tube · {item:16000} Thorium Tube · {skill:202} Engineering · {npc:260565} Kor'gar · {zone:2548} Riverglades · {npc:11185} Xizzer Fizzbolt · {zone:1452} Winterspring
-	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。联盟出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应；部落出售者：{npc:11185}（{zone:1452}），限量供应。商人库存为1-2份，售出一段时间后才会补货；此图纸拾取绑定，拍卖行买不到。",
+	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应。",
 
 	-- Step 56: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
@@ -313,38 +313,30 @@ return {
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
 	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50); or the Auction House. The densest cluster of {object:2040} in {zone:1443} is marked."] = "为{item:10512}和{item:10513}准备212个{item:7912}：通过{skill:186}在{zone:1443}（30-40级）、{zone:1425}（40-50级）和{zone:1444}（40-50级）开采{object:2040}（需要技能175），或从拍卖行购买。已标记{zone:1443}中{object:2040}最密集的区域。",
 
-	-- Step 58: Runecloth (Alliance)
-	-- {item:14047} Runecloth
-	["{item:14047} (Alliance)"] = "{item:14047}（联盟）",
-	-- {item:14047} Runecloth · {item:15994} Thorium Widget · {npc:7027} Blackrock Slayer
-	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "为 {item:15994} 准备24块 {item:14047}：45—60级人形生物会掉落；也可在拍卖行购买。这里的 {npc:7027}（56—57级）会掉落。",
+	-- Step 58: Runecloth
+	-- {item:14047} Runecloth · {item:15994} Thorium Widget
+	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "为{item:15994}准备24个{item:14047}：45-60级的人型生物会掉落。升级时把拾取到的留着，从银行取出，或在拍卖行购买。",
 
-	-- Step 59: Runecloth (Horde)
-	-- {item:14047} Runecloth
-	["{item:14047} (Horde)"] = "{item:14047}（部落）",
-	-- {item:14047} Runecloth · {item:15994} Thorium Widget · {npc:11880} Twilight Avenger
-	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "准备 24 个 {item:14047}，用于 {item:15994}：45-60 级人型生物会掉落，或在拍卖行购买。这里的 {npc:11880}（57-59 级）会掉落。",
-
-	-- Step 60: Hi-Impact Mithril Slugs to 245
+	-- Step 59: Hi-Impact Mithril Slugs to 245
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "将{item:10512}做到 245",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:186} Mining · {item:3858} Mithril Ore
 	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {item:3860} (118 for 225-300): {skill:186}: smelt {item:3858}; or the Auction House."] = "{item:10512} 在225点时为黄色（210变黄，230变绿，250变灰）：制作约62次可到245。每次需要1块 {item:3860} 和1份 {item:10505}，产出200发。先制作50份 {item:10505}。使用之前做好的12份 {item:10505}；上面的数量未包含它们。每次制作消耗一块 {item:3860} 和一份 {item:10505}；猎人会购买这些弹头。附近需要有铁砧。{item:3860}（225—300阶段需要118块）：{skill:186}：熔炼 {item:3858}；也可在拍卖行购买。",
 
-	-- Step 61: Engineering recipes at 245
+	-- Step 60: Engineering recipes at 245
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 245"] = "{skill:202} 245 级配方",
 	-- {skill:202} Engineering · {spell:12621} Mithril Gyro-Shot
 	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "返回{skill:202}训练师处，学习{spell:12621}（技能 245 起可学）。",
 
-	-- Step 62: Mithril Gyro-Shot to 265
+	-- Step 61: Mithril Gyro-Shot to 265
 	-- {item:10513} Mithril Gyro-Shot
 	["{item:10513} to 265"] = "制作{item:10513}，提升至 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
 	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} 在技能 245 时为黄色（245 变黄、265 变绿、285 变灰）：约制作 28 次可到 265。每次需要 2 个 {item:3860} 和 2 个 {item:10505}，产出 200 个。先制作 56 个 {item:10505}。即每次两块秘银锭和两个 {item:10505}。附近需要铁砧。",
 
-	-- Step 63: Thorium Widget to 287
+	-- Step 62: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "制作{item:15994}，提升至 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth · {skill:186} Mining · {item:10620} Thorium Ore
@@ -352,7 +344,7 @@ return {
 	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby. {item:12359} (156 for 225-300): {skill:186}: smelt {item:10620}; or the Auction House."] = "{item:15994} 在技能 265 时为橙色（280 变黄、290 变绿、300 变灰）：约制作 24 次可升到 287。每次需要 3 个 {item:12359} 和 1 个 {item:14047}，即三块瑟银锭和一个 {item:14047}；这些零件用于后续的瑟银装置。附近需要有铁砧。{item:12359}（225-300 阶段需 156 个）：通过 {skill:186} 熔炼 {item:10620}，或在拍卖行购买。",
 	["from the recipe in your bags"] = "使用背包里的配方",
 
-	-- Step 64: Thorium Tube to 300
+	-- Step 63: Thorium Tube to 300
 	-- {item:16000} Thorium Tube
 	["{item:16000} to 300"] = "将{item:16000}做到 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
@@ -360,6 +352,9 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} 在技能 287 时为橙色（295 变黄、305 变绿、315 变灰）：约制作 14 次可升到 300。每次需要 6 个 {item:12359}。结构图拾取后绑定；每次制作消耗六块瑟银锭。附近需要有铁砧。{skill:202} 达到 300 是传承系统的一个里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "为 {spell:3953} 准备19块 {item:2592}：15—30级人形生物会掉落；也可在拍卖行购买。箭头会根据你的等级和阵营选择一处刷取地点。",
+	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "准备 24 个 {item:14047}，用于 {item:15994}：45-60 级人型生物会掉落，或在拍卖行购买。这里的 {npc:11880}（57-59 级）会掉落。",
+	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "为 {item:15994} 准备24块 {item:14047}：45—60级人形生物会掉落；也可在拍卖行购买。这里的 {npc:7027}（56—57级）会掉落。",
 	-- ["Apprentice {skill:202}"] = "初级{skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "专家级需要角色等级 35 且{skill:202}达到 200；会将上限提高到 300。225-300 的材料总价约 67 金币。",
 	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "回到{skill:202}训练师处：{spell:12585}、{spell:12596}在{skill:202} 210 时可学。",
@@ -374,7 +369,9 @@ return {
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "回到{skill:202}训练师处：{spell:3942}在{skill:202} 125 时可学。",
 	-- ["Back to an {skill:202} trainer: {spell:3945} is taught from {skill:202} 125."] = "回到{skill:202}训练师处：{spell:3945}在{skill:202} 125 时可学。",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "高级需要角色等级 20 且{skill:202}达到 125；会将上限提高到 225。150-225 的材料总价约 15 金币。",
+	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}) and {npc:5174} ({zone:1455}); Horde {npc:8736} ({zone:1446}) and Roxxik ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "高级将技能上限从 150 提高到 225，费用为 50 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 125 和角色等级 20，因此达到 125 后，任意一次来访都可学习。只有少数训练师教授：联盟为 {npc:8736}（{zone:1446}）和 {npc:5174}（{zone:1455}）；部落为 {npc:8736}（{zone:1446}）和罗克希克（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:9271}（技能 150 起）和 {spell:3953}（技能 145 起）。150-225 阶段约需 31 银币的商人材料，另需采集或购买 19 个 {item:2319}、19 个 {item:2592}、31 个 {item:2836}、74 个 {item:2838}、100 个 {item:2841}、6 个 {item:2842}、81 个 {item:3575}、19 个 {item:3860} 和 62 个 {item:7912}。",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "中级需要角色等级 10 且{skill:202}达到 50；会将上限提高到 150。75-150 的材料总价约 3 金币 23 银币。",
+	-- ["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:8736} ({zone:1446}), {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}), {npc:5174} ({zone:1455}) and {npc:11029} ({zone:1455}); Horde {npc:8736} ({zone:1446}), {npc:11031} ({zone:1458}), {npc:3412} ({zone:1454}) and Roxxik ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中级将技能上限从 75 提高到 150，费用为 5 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 50 和角色等级 10，因此达到 50 后，任意一次来访都可学习。并非所有 {skill:202} 训练师都教授：联盟为 {npc:8736}（{zone:1446}）、{npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）、{npc:5174}（{zone:1455}）和 {npc:11029}（{zone:1455}）；部落为 {npc:8736}（{zone:1446}）、{npc:11031}（{zone:1458}）、{npc:3412}（{zone:1454}）和罗克希克（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:3929}（技能 75 起，2 银币 50 铜币）和 {spell:3930}（技能 75 起，2 银币 50 铜币）。75-150 阶段约需 5 银币的配方和 45 银币的商人材料，另需采集或购买 15 个 {item:2836}、27 个 {item:2838}、72 个 {item:2840}、61 个 {item:2841} 和 2 个 {item:2842}。",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "在 Polestar 按你的等级和阵营选出的刷材料地点击杀掉落它的怪物。也可以去拍卖行购买。",
 	-- ["Orange (a point every craft) until 20, yellow until 30, green until 40."] = "20 前为橙色（每次制造都加点），30 前为黄色，40 前为绿色。",
 	-- ["Orange (a point every craft) until 280, yellow until 290, green until 300. Needs an anvil nearby."] = "280 前为橙色（每次制造都加点），290 前为黄色，300 前为绿色。需要在铁砧附近。",
@@ -401,7 +398,10 @@ return {
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "95 前为黄色，110 前为绿色：不是每次制造都加点。需要在铁砧附近。",
 	-- ["{item:10498} to 210"] = "将{item:10498}做到 210",
 	-- ["{item:10513} to 264"] = "将{item:10513}做到 264",
+	-- ["{item:14047} (Alliance)"] = "{item:14047}（联盟）",
+	-- ["{item:14047} (Horde)"] = "{item:14047}（部落）",
 	-- ["{item:15994} to 288"] = "将{item:15994}做到 288",
+	-- ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。联盟出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应；部落出售者：{npc:11185}（{zone:1452}），限量供应。商人库存为1-2份，售出一段时间后才会补货；此图纸拾取绑定，拍卖行买不到。",
 	-- ["{item:2592} (Alliance)"] = "{item:2592}（联盟）",
 	-- ["{item:2592} (Horde)"] = "{item:2592}（部落）",
 	-- ["{item:2835} (Alliance)"] = "{item:2835}（联盟）",

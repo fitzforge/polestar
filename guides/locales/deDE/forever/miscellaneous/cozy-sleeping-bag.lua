@@ -34,12 +34,10 @@ return {
 	-- {zone:1436} Westfall
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "Das „Zwillingsland“ der Notiz ist {zone:1436}: Dasselbe ausgebrannte Lagerfeuer steht im Westen von {zone:1436}.",
 
-	-- Step 5: Round Honor's Stand
-	-- {area:1702} Honor's Stand
-	["Round {area:1702}"] = "Um {area:1702} herum",
-	-- {area:1702} Honor's Stand
-	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "Die Straße nach Westen führt durch {area:1702}, einen Posten der Horde; dieser Weg führt darum herum.",
-	["North of Honor's Stand"] = "Nördlich von Ehrenwacht",
+	-- Step 5: Stonetalon from the north
+	["Stonetalon from the north"] = "Ins Steinkrallengebirge von Norden",
+	-- {zone:1413} Barrens · {area:1702} Honor's Stand · {area:2539} Malaka'jin · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {area:415} Astranaar · {area:1276} Talondeep Path · {zone:1440} Ashenvale
+	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "Der Weg aus {zone:1413} ins Steinkrallengebirge führt durch {area:1702}, und die Straße weiter in die Hügel kommt an {area:2539} und {area:460} vorbei: alles Posten der Horde. Komm stattdessen von Norden. Hast du die Flugroute von {area:467}, flieg dorthin und folge der Straße nach Süden. Sonst flieg nach {area:415} und geh nach Südwesten zum {area:1276}, dem Tunnel aus {zone:1440} ins Steinkrallengebirge.",
 
 	-- Step 6: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
@@ -57,16 +55,27 @@ return {
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "Die Figur liegt auf einem Vorsprung knapp unter der Spitze des {area:146}, an seiner Nordseite. Tritt langsam hinaus; rückwärts zu gehen verhindert, dass du über den Vorsprung hinausschießt.",
 
-	-- Step 9: Thoradin's Wall
-	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Vorsicht: Vom Vorsprung des Damms landest du im Fluss darunter, im {zone:1437}. Steig weit vor dem Wasserfall bei etwa 65,77 am Westufer aus: Der Sturz ist tödlich. Geh dann nach Nordwesten zur Straße und folge ihr nach Norden über {area:880} nach Arathi.\nWende dich am Tor in {area:1057} zwischen Arathi und {area:287} nach Norden und folge der Mauer auf der Seite von {area:287} zu einem umgestürzten Karren, der an ihr lehnt. Spring auf den Karren und seine Leiter auf die Mauer, dann über die Felsen zum versteckten Lager. Manche Charaktere passen im Lager nicht unter das Frachtnetz; eine andere Rasse oder eine kleinere Gestalt kommt durch.",
+	-- Step 9: Out of the river
+	["Out of the river"] = "Raus aus dem Fluss",
+	-- {zone:1437} Wetlands · {area:880} Thandol Span
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi."] = "Vorsicht: Vom Vorsprung des Damms landest du im Fluss darunter, im {zone:1437}. Steig weit vor dem Wasserfall bei etwa 65,77 am Westufer aus: Der Sturz ist tödlich. Geh dann nach Nordwesten zur Straße und folge ihr nach Norden über {area:880} nach Arathi.",
+	["West bank, before the waterfall"] = "Westufer, vor dem Wasserfall",
+	["West bank"] = "Westufer",
+
+	-- Step 10: Thoradin's Wall
+	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Wende dich am Tor in {area:1057} zwischen Arathi und {area:287} nach Norden und folge der Mauer auf der Seite von {area:287} zu einem umgestürzten Karren, der an ihr lehnt. Spring auf den Karren und seine Leiter auf die Mauer, dann über die Felsen zum versteckten Lager. Manche Charaktere passen im Lager nicht unter das Frachtnetz; eine andere Rasse oder eine kleinere Gestalt kommt durch.",
 	["Fallen cart"] = "Umgestürzter Karren",
 
-	-- Step 10: The hidden camp
+	-- Step 11: The hidden camp
 	["The hidden camp"] = "Das versteckte Lager",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "Ein ausgebranntes Lagerfeuer in der südlichen {zone:1413}, daneben ein festgenagelter Balken.",
 	-- ["A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "Ein ausgebranntes Lagerfeuer im Westen von {zone:1436}, daneben ein festgenagelter Balken.",
+	-- ["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Vorsicht: Vom Vorsprung des Damms landest du im Fluss darunter, im {zone:1437}. Steig weit vor dem Wasserfall bei etwa 65,77 am Westufer aus: Der Sturz ist tödlich. Geh dann nach Nordwesten zur Straße und folge ihr nach Norden über {area:880} nach Arathi.\nWende dich am Tor in {area:1057} zwischen Arathi und {area:287} nach Norden und folge der Mauer auf der Seite von {area:287} zu einem umgestürzten Karren, der an ihr lehnt. Spring auf den Karren und seine Leiter auf die Mauer, dann über die Felsen zum versteckten Lager. Manche Charaktere passen im Lager nicht unter das Frachtnetz; eine andere Rasse oder eine kleinere Gestalt kommt durch.",
+	-- ["North of Honor's Stand"] = "Nördlich von Ehrenwacht",
+	-- ["Round {area:1702}"] = "Um {area:1702} herum",
 	-- ["The next hideout is a small camp in the hills of eastern Stonetalon. Leave the road where a path climbs into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "Das nächste Versteck ist ein kleines Lager in den Hügeln im Osten des Steinkrallengebirges. Verlasse die Straße dort, wo ein Pfad in die Hügel steigt, und folge ihm zum Lager; {object:424005} liegt auf einer Kiste neben dem Zelt.",
+	-- ["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "Die Straße nach Westen führt durch {area:1702}, einen Posten der Horde; dieser Weg führt darum herum.",
 }

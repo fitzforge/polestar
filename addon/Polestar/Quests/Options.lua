@@ -116,4 +116,4 @@ ns.RegisterCommand("questdb", function()
 	local mem = info.memoryKB and (" (%.1f MB)"):format(info.memoryKB / 1024) or ""
 	ns.Print(("%s%s: %d %s, %d %s; %d %s, %d %s"):format(L["Quest database"], mem, m.quests or 0, L["quests"], m.npcs or 0, L["NPCs"],
 		#Q.GetAvailableQuests(), L["available now"], tracked, L["mobs tracked"]))
-end, L["Quest database status"])
+end, L["Quest database status"], true)

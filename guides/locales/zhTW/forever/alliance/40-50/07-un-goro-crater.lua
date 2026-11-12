@@ -6,6 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "適合49到50級的角色，但這裡的大多數任務是51-53級：這是刻意安排的，為了它們的經驗值。環形山的野獸為48-55級，格里什異種蟲為51-54級，所以一次拉一隻。",
+
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",

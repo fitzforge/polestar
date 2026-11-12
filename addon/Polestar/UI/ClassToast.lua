@@ -42,6 +42,8 @@ local RING = 40
 local ART, ICON, GLYPH = RING - 4, RING - 8, 20
 local STRIPE = 4
 local SLIDE = 0.25
+-- Another heads-up's row of spell icons (UI/SpellCards.lua): this many at most, then "+N more".
+local SPELL, SPELLS_MAX = 26, 8
 local LOGIN_LEVELS = 2 -- on login, chains opened within this many levels
 local CLASS_BIT = { WARRIOR = 1, PALADIN = 2, HUNTER = 4, ROGUE = 8, PRIEST = 16, SHAMAN = 64, MAGE = 128, WARLOCK = 256, DRUID = 1024 }
 local SIDE = { Alliance = "A", Horde = "H" }
@@ -129,18 +131,43 @@ end
 
 -- How far starter `rec` (a Codex NPC or object) stands from the giver's
 -- point: its nearest spawn on the giver's map, squared; 0 for a giver with no
--- point. -> distance | nil (no spawn there)
+-- point. -> distance, that spawn's height | nil (no spawn there)
 local function giverDistance(rec, giver)
 	if not giver[2] then return 0 end
-	local best
+	local best, z
 	for _, s in ipairs(rec and rec.spawns or {}) do
 		if s.map == giver[2] then
 			local dx, dy = s.x - giver[3], s.y - giver[4]
 			local d = dx * dx + dy * dy
-			if not best or d < best then best = d end
+			if not best or d < best then best, z = d, s.z end
 		end
 	end
-	return best
+	return best, z
+end
+
+-- The giver's height (#1639): the Codex spawn of quest q's start nearest its
+-- point, within a map percent or two; nil when unknown. A giver in a stacked
+-- town (the Undercity's Royal Quarter, Orgrimmar's Cleft of Shadow) is then
+-- sought on its own floor. Never loads the Codex in combat.
+local NEAR_GIVER = 4 -- squared map percent
+local function giverHeight(q, giver)
+	local X = ns.Codex
+	if not (X and X.Quest and giver[2]) then return nil end
+	if not (X.IsLoaded and X.IsLoaded()) and InCombatLockdown and InCombatLockdown() then return nil end
+	local rec = X.Quest(q)
+	local start = rec and rec.start
+	if not start then return nil end
+	local bestD, bestZ
+	for _, id in ipairs(start.npc or {}) do
+		local d, z = giverDistance(X.Npc(id), giver)
+		if d and (not bestD or d < bestD) then bestD, bestZ = d, z end
+	end
+	for _, id in ipairs(start.object or {}) do
+		local d, z = giverDistance(X.Object(id), giver)
+		if d and (not bestD or d < bestD) then bestD, bestZ = d, z end
+	end
+	if bestD and bestD <= NEAR_GIVER and type(bestZ) == "number" then return bestZ end
+	return nil
 end
 
 -- The giver's name in the client's words: the start of quest q (Codex) that
@@ -329,7 +356,7 @@ end
 local layout
 
 local function build()
-	f = CreateFrame("Frame", "PolestarClassToast", UIParent)
+	f = CreateFrame("Frame", "PolestarClassToast", ns.UIParent)
 	f:SetSize(340, 120)
 	f:EnableMouse(true)
 	-- The guide window's own panel, border and corners.
@@ -375,6 +402,11 @@ local function build()
 	f.Title = text(f, "name", "personName")
 	f.Giver = text(f, "small", "textDim")
 	f.Route = text(f, "small", "textMuted")
+	-- Another heads-up's spells, a row of icons with the game's tooltips (CT.SpellButton).
+	f.SpellRow = {}
+	f.SpellMore = text(f, "small", "textMuted")
+	f.SpellMore:SetWordWrap(false)
+	f.SpellMore:Hide()
 
 	-- What it brings, in the window's accent chip.
 	f.Badge = CreateFrame("Frame", nil, f)
@@ -389,7 +421,7 @@ local function build()
 	f.Close = W.IconButton(f, "close", 24, L["Dismiss"], function() CT.Hide() end)
 	f.Open = W.Button(f, L["Open in a new tab"], function() CT.Open() end, { primary = true })
 	f.ShowMe = W.Button(f, L["Show me"], function() CT.ShowMe() end, { primary = true })
-	f.Later = W.Button(f, L["Later"], function() CT.Hide() end, { ghost = true })
+	f.Later = W.Button(f, L["Later"], function() CT.Later() end, { ghost = true })
 	-- Another heads-up's own action, its second button and its "stop these"
 	-- (UI/DungeonToast.lua).
 	f.Act = W.Button(f, "", function() CT.Act() end, { primary = true })
@@ -400,7 +432,9 @@ local function build()
 
 	local w = window()
 	if w then
-		w:HookScript("OnHide", function() if f then f:Hide() end end)
+		-- The window closed: the card goes with it. Polestar hiding (its
+		-- layer, with the window still open) hides both and keeps the card.
+		w:HookScript("OnHide", function(self) if f and not self:IsShown() then f:Hide() end end)
 		w:HookScript("OnShow", function() if CT.current then CT.Place(true) end end)
 		w:HookScript("OnSizeChanged", function() if f:IsShown() then CT.Place(false) end end)
 	end
@@ -472,6 +506,21 @@ function layout(width)
 			y = y + fs:GetStringHeight() + 3
 		end
 	end
+	local spells = CT.current and CT.current.spells
+	if spells and #spells > 0 then
+		local bx = x
+		for i = 1, min(#spells, SPELLS_MAX) do
+			local b = f.SpellRow[i]
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", f, "TOPLEFT", bx, -y)
+			bx = bx + SPELL + 4
+		end
+		if f.SpellMore:IsShown() then
+			f.SpellMore:ClearAllPoints()
+			f.SpellMore:SetPoint("LEFT", f, "TOPLEFT", bx + 2, -(y + SPELL / 2))
+		end
+		y = y + SPELL + 4
+	end
 	y = max(y, PAD + RING) + 10
 	f.Rule:ClearAllPoints()
 	f.Rule:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -y)
@@ -480,13 +529,15 @@ function layout(width)
 	-- The buttons in one row: the action, another heads-up's second button
 	-- ("Open in Dungeons"), Later and its "stop these". When they don't all
 	-- fit in the card's width, Later and the rest start a row of their own,
-	-- and a button that still doesn't fit starts the next row.
-	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or f.ShowMe
+	-- and a button that still doesn't fit starts the next row. A heads-up
+	-- with nothing to do (m.noAct) starts with Later.
+	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or (f.ShowMe:IsShown() and f.ShowMe) or nil
 	local row = { act }
-	local avail, total = width - 2 * PAD - STRIPE, act:GetWidth()
+	local avail, total = width - 2 * PAD - STRIPE, act and act:GetWidth() or 0
 	for _, b in ipairs({ f.More, f.Later, f.Off }) do
 		if b:IsShown() then
-			total = total + (#row == 1 and 8 or 4) + b:GetWidth()
+			if #row > 0 then total = total + (row[#row] == act and 8 or 4) end
+			total = total + b:GetWidth()
 			row[#row + 1] = b
 		end
 	end
@@ -571,10 +622,19 @@ end
 -- another heads-up's, which carries its own action instead of a quest:
 -- { head, title, giver, route, badge, icon, class (nil: the accent),
 -- titleColor, iconColor, art, act = { label, run }, more = { label, run },
--- off = { label, run } }. art = { file, l, r, t, b, lift }: a picture
+-- off = { label, run }, later = { label, run }, spells, spellTip, spellRight,
+-- hideAfter, quiet }. later: the Later button's own words and what it does
+-- before the card hides (UI/UpdateCard.lua's "Got it").
+-- art = { file, l, r, t, b, lift }: a picture
 -- cropped to those texture coordinates, filling the ring, lifted by lift
 -- (0-1) when dark; without it an icon tinted iconColor is a glyph, drawn
--- small on the disc, and an untinted one a full-colour icon.
+-- small on the disc, and an untinted one a full-colour icon. spells = { { id,
+-- icon? } }: a row of icons under the lines (SPELLS_MAX, then "+N
+-- more"), each with the game's spell tooltip, spellTip(tooltip, spell) adding
+-- lines to it, spellRight(spell) run on a right-click.
+-- hideAfter: seconds on screen before it hides itself (not while the
+-- pointer is on it); quiet: no chime; noAct: no action button (Later
+-- leads the row).
 -- -> true when shown
 function CT.ShowCard(m)
 	if not (m and window()) then return false end
@@ -614,6 +674,7 @@ function CT.ShowCard(m)
 	f.Giver:SetShown(m.giver ~= nil)
 	f.Route:SetText(m.route or "")
 	f.Route:SetShown(m.route ~= nil)
+	CT.SetSpells(m.spells)
 	f.Badge.Text:SetText(m.badge or "")
 	f.Badge:SetShown(m.badge ~= nil)
 	f.Act:SetShown(m.act ~= nil)
@@ -622,16 +683,94 @@ function CT.ShowCard(m)
 	if m.more then W.SetButtonText(f.More, m.more.label) end
 	f.Off:SetShown(m.off ~= nil)
 	if m.off then W.SetButtonText(f.Off, m.off.label) end
-	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
-	f.ShowMe:SetShown(m.act == nil and m.guideId == nil)
+	W.SetButtonText(f.Later, m.later and m.later.label or L["Later"])
+	f.Open:SetShown(m.act == nil and not m.noAct and m.guideId ~= nil)
+	f.ShowMe:SetShown(m.act == nil and not m.noAct and m.guideId == nil)
 	CT.Place(not wasShown)
-	if not wasShown and f:IsShown() then
+	if not wasShown and f:IsShown() and not m.quiet then
 		local C = CC()
-		if ns.Get("ui.classCardSound") and C.GameSoundOn() and PlaySound then
-			pcall(PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
+		if ns.Get("ui.classCardSound") and C.GameSoundOn() then
+			pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 		end
 	end
+	if m.hideAfter then
+		local function expire()
+			if CT.current ~= m then return end
+			if f:IsShown() and f.IsMouseOver and f:IsMouseOver() then
+				ns.After(5, expire)
+				return
+			end
+			CT.Hide()
+		end
+		ns.After(m.hideAfter, expire)
+	end
 	return f:IsShown()
+end
+
+-- Spell icon i of the row, made on first use.
+function CT.SpellButton(i)
+	local b = f.SpellRow[i]
+	if b then return b end
+	b = CreateFrame("Button", nil, f)
+	b:SetSize(SPELL, SPELL)
+	b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	b.Icon = b:CreateTexture(nil, "ARTWORK")
+	b.Icon:SetAllPoints(b)
+	b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	b:SetScript("OnEnter", function(self)
+		local m, s = CT.current, self.spell
+		if not (m and s) then return end
+		W.SpellTip(self, s.id, m.spellTip and function(tip) m.spellTip(tip, s) end or nil, CT.PlaceTip)
+	end)
+	b:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	b:SetScript("OnClick", function(self, button)
+		local m, s = CT.current, self.spell
+		if not (m and s) then return end
+		if button == "RightButton" then
+			if m.spellRight then m.spellRight(s) end
+		else
+			W.SpellClick(s.id)
+		end
+	end)
+	f.SpellRow[i] = b
+	return b
+end
+
+-- A spell icon's tooltip beside the card, never over its lines: on the side
+-- of the card facing the middle of the screen, top edges level.
+function CT.PlaceTip(tip)
+	local cx = f:GetCenter()
+	local mid = UIParent:GetCenter()
+	local fs, us = f:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
+	if cx and mid and cx * fs > mid * us then
+		tip:SetPoint("TOPRIGHT", f, "TOPLEFT", -4, 0)
+		CT.tipSide = "left"
+	else
+		tip:SetPoint("TOPLEFT", f, "TOPRIGHT", 4, 0)
+		CT.tipSide = "right"
+	end
+end
+
+-- The row of spell icons for list (nil: none).
+function CT.SetSpells(list)
+	local n = list and #list or 0
+	local shown = min(n, SPELLS_MAX)
+	for i = 1, shown do
+		local b, s = CT.SpellButton(i), list[i]
+		b.spell = s
+		b.Icon:SetTexture(s.icon or ns.Compat.SpellIcon(s.id) or 134400)
+		b:Show()
+	end
+	for i = shown + 1, #f.SpellRow do
+		f.SpellRow[i].spell = nil
+		f.SpellRow[i]:Hide()
+	end
+	if n > SPELLS_MAX then
+		f.SpellMore:SetText(format(L["+%d more"], n - SPELLS_MAX))
+		f.SpellMore:Show()
+	else
+		f.SpellMore:Hide()
+	end
 end
 
 -- Dismissing a card lets a heads-up that waited for it show
@@ -663,6 +802,14 @@ function CT.Off()
 	CT.Hide()
 end
 
+-- Later, or the model's own words for it (m.later): its action, then the
+-- card hides.
+function CT.Later()
+	local m = CT.current
+	if m and m.later and m.later.run then m.later.run(m) end
+	CT.Hide()
+end
+
 -- "Open in a new tab": the chain's Class guide in a new tab (the guide
 -- menu's path, UI/Picker.lua), at the chain's step; the tab it came from is
 -- remembered so the finished guide offers to go back (GuideFrame).
@@ -686,11 +833,12 @@ function CT.Open()
 	return true
 end
 
--- "Show me": the arrow to the giver for the character's race.
+-- "Show me": a trip to the giver for the character's race (Nav.StartTrip:
+-- it ends there, and the guide window offers the way back on the way).
 function CT.ShowMe()
 	local m, N = CT.current, ns.Nav
 	if not (m and m.map and m.x and m.y) then return false end
-	if N and N.SetTarget then N.SetTarget(m.map, m.x, m.y, m.who, "e") end
+	if N and N.SetTarget then N.StartTrip(N.SetTarget(m.map, m.x, m.y, m.who, "e", nil, giverHeight(m.quest, { nil, m.map, m.x, m.y })), nil, L["Quest giver"]) end
 	CT.Hide()
 	return true
 end

@@ -50,8 +50,7 @@ step Level 52.58
 step Grazle
   turnin 8460
   accept 8462                         -- Nafien waits at the north end of Felwood
-  accept 8466 optional                -- Five feathers buy a little Timbermaw reputation
-  turnin 8466 optional
+  turnin 8466 direct optional
 
 step Level 52.69
   when level<52.69
@@ -127,11 +126,10 @@ step Felpaw Village
 step Nafien
   turnin 8461
   accept 8465                         -- Salfa stands at the Winterspring end of the tunnel: keep it
-  accept 8467 optional
 
 step Nafien
-  when complete 8467
-  turnin 8467
+  when has 21377 x5
+  turnin 8467 direct
 
 step Timbermaw Hold
   tip Step into the cave: Kernda stands just inside.

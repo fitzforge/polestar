@@ -169,6 +169,33 @@ emit({{ left = #E.GetBehind(), live = E.GetLiveStep() }})"#,
 	assert_eq!(skipped["live"], 8);
 }
 
+// #1595 (0.3.5 -> 0.3.6, The Sacred Flame): the update added a carried quest's work behind the player and its
+// hand-in ahead of them (the phial in Ashenvale, the hand-in at Thunder Bluff). The hand-in is no work: the
+// quest is still to do, and the place stays.
+const TURNIN_AHEAD_FROM: &str = r#"{ title = "New ahead", goals = { a(110, 70) } },"#;
+const TURNIN_AHEAD_TO: &str = r#"{ title = "New ahead", goals = { a(110, 70) } },
+	{ title = "Hand in 108", when = { { k = "complete", q = 108 } }, goals = { t(108, 70) } },"#;
+
+#[test]
+fn a_carried_quest_whose_work_the_update_put_behind_them_is_still_to_do_when_its_hand_in_is_ahead() {
+	let guide = GUIDE
+		.replace(BEHIND_GUIDE_FROM, r#"{ title = "New behind", goals = { a(108, 40), { t = "kill", target = "Wolf", npc = 299, count = 5, quest = 108, oi = 1, map = M, x = 49, y = 50 } } },"#)
+		.replace(TURNIN_AHEAD_FROM, TURNIN_AHEAD_TO);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nstub.world.onQuest(108, {{ {{ required = 5, fulfilled = 1 }} }}, \"Quest 108\")"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{SCRIPT}\nlocal b = E.GetBehind()[1]\nemit({{ behind = b and b.quest or false, step = b and b.step or false }})"),
+	});
+	let (at, behind) = (&out[0], &out[1]);
+	assert_eq!(at["live"], 8, "the player stays at 103's hand-in: {at}");
+	assert_eq!(at["status"][1], "na", "{at}");
+	assert_eq!(behind["behind"], 108, "108's kill is still to do, its hand-in ahead or not: {behind}");
+	assert_eq!(behind["step"], 2, "{behind}");
+}
+
 #[test]
 fn an_error_in_the_update_s_mapping_falls_back_to_the_plain_restore_with_one_debug_line_and_runs_once() {
 	let out = emitted(&RunAddon {

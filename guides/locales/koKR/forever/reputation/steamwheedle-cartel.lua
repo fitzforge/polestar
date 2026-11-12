@@ -92,8 +92,8 @@ return {
 	["{npc:14338} sits shackled in Dire Maul North, the Gordok ogres' wing (a five-player dungeon from level 57: group up). Every {item:18250} frees him once: 150 to every town, and he is shackled again on your next run. Gordok ogres drop the keys (about one in fifteen; {npc:14321} one in seven): a full run of the wing usually brings one. His {item:18258} pays 100 the first time and 50 after, for 4 Bolts of Runecloth, 8 {item:8170}, 2 {item:14341} and the {item:18240} from the basket in the wing. Under 57 when you get here? Unskip this step later."] = "",
 	-- {item:18250} Gordok Shackle Key
 	["{item:18250}, Gordok ogres"] = "",
-	-- {quest:5525} Free Knot!
-	["{quest:5525}: 150 to every town"] = "",
+	-- {quest:5525} Free Knot! · {npc:14338} Knot Thimblejack
+	["{quest:5525}: 150 to every town, handed in from {npc:14338}'s window"] = "{quest:5525}: 모든 마을에 150, {npc:14338}의 대화창에서 바로 제출",
 	-- {quest:5525} Free Knot!
 	["{quest:5525}, again on every later run: 150"] = "",
 

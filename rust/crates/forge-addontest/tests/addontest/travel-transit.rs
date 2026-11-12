@@ -122,6 +122,63 @@ fn issue_1515_a_class_teleport_landing_in_the_zone_the_player_stands_in_is_never
 	assert_eq!(out["elsewhere"], json!(["teleport|Cast Teleport: Testshire", "walk|Quest"]));
 }
 
+// #1823: a class teleport (each of a Mage's city teleports spends a Rune of Teleportation) is cast only when it clearly
+// pays: it saves at least a minute over the best way without it, and a fifth of that way when that is more. Teleport:
+// Stormwind won by a few seconds over a flight to Darkshire.
+const TELEPORT_1823: &str = r#"
+		local landing = { name = "Testshire", c = 0, wx = 0, wy = -780, map = 9002, x = 50, y = 50 }
+		local wait = 0
+		local function teleports()
+			Polestar.Transit = { Now = function() return 0 end, Teleports = function()
+				return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = wait, to = landing } } end }
+		end
+		local function plan(wx, wy, label)
+			target(wx, wy, label)
+			local legs = N.GetRoute()
+			return { legs[1].kind, legs[1].seconds + legs[1].rest }
+		end"#;
+
+#[test]
+fn issue_1823_a_class_teleport_that_saves_less_than_a_minute_over_a_flight_is_not_cast() {
+	let out = run(&r#"
+		@TELEPORT_1823@
+		local r = {}
+		known(1, 2)
+		nav.place(0, 600)                                 -- by West Hold: the flight to East Hold and a walk
+		r.flight = plan(0, -782, "Kobolds")
+		teleports()
+		landing.wx = 420                                  -- the teleport and a walk: 85 s
+		r.seconds = plan(0, -780, "Kobolds")
+		landing.wx = 100                                  -- 28 s
+		r.minute = plan(0, -781, "Kobolds")
+		emit(r)"#
+		.replace("@TELEPORT_1823@", TELEPORT_1823));
+	assert_eq!(out["flight"], json!(["walk", 96]), "walk to the flight master, fly, walk");
+	assert_eq!(out["seconds"], json!(["walk", 97]), "12 s saved: the flight");
+	assert_eq!(out["minute"], json!(["teleport", 28]), "68 s saved: the teleport");
+}
+
+#[test]
+fn issue_1823_on_a_long_trip_a_class_teleport_must_also_save_a_fifth_of_the_way_without_it() {
+	let out = run(&r#"
+		@TELEPORT_1823@
+		local r = {}
+		nav.useTravelWorld(nil, 300)
+		nav.place(0, 0, 1)                                -- in Farland: the boat over and a walk
+		r.boat = plan(-500, -478, "Quest")
+		teleports()
+		landing.wx, landing.wy = -500, -500
+		wait = 429                                        -- castable in 429 s: 443 s with its walk
+		r.short = plan(-500, -480, "Quest")
+		wait = 409                                        -- 423 s
+		r.fifth = plan(-500, -479, "Quest")
+		emit(r)"#
+		.replace("@TELEPORT_1823@", TELEPORT_1823));
+	assert_eq!(out["boat"], json!(["walk", 542]), "walk to the pier, the boat, walk");
+	assert_eq!(out["short"], json!(["walk", 543]), "100 s saved, under a fifth of 543 s: the boat");
+	assert_eq!(out["fifth"], json!(["teleport", 423]), "119 s saved, over a fifth of 542 s: the teleport");
+}
+
 #[test]
 fn a_walk_in_portal_goes_one_way_only() {
 	let out = run(r#"
@@ -140,6 +197,108 @@ fn a_walk_in_portal_goes_one_way_only() {
 	assert_eq!(out["there"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Target"]));
 	assert_eq!(out["mode"], "instruction");
 	assert_eq!(out["back"][0], "walk|Walk to the boat", "never back through it");
+}
+
+// #1741: a turn-in through the walk-in portal, with the game's waypoint mirrored (nav.blizzardWaypoint), walked
+// to the portal, through it and on. `waypoint_ui`: Waypoint UI's public API (WaypointUIAPI.Navigation) is
+// loaded, recording what Polestar asks of it and of the game's quest tracking.
+fn portal_turn_in_mirrored(waypoint_ui: bool) -> Value {
+	let api = if waypoint_ui {
+		r#"WaypointUIAPI = { Navigation = {
+			NewUserNavigation = function(o) current = o; calls[#calls + 1] = { "pin", o.name, o.mapID, o.x, o.y } end,
+			ClearUserNavigation = function() current = nil; calls[#calls + 1] = { "clear pin" } end,
+			IsUserNavigationFlagged = function(flag) return current ~= nil and current.flags == flag end,
+		} }"#
+	} else {
+		""
+	};
+	run(&format!(
+		r#"
+		local calls, current, tracked = {{}}, nil, 0
+		{api}
+		C_QuestLog = C_QuestLog or {{}}
+		C_QuestLog.IsOnQuest = function(q) return q == 376 end
+		C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = {{ "quest", q }} end
+		C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
+		Polestar.Set("nav.blizzardWaypoint", true)
+		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,
+			a = {{ "West Portal", 0, 0, 900, 9000, 5, 50 }}, b = {{ "Far Gate", 1, 0, -400, 9001, 90, 50 }} }} }} }})
+		nav.place(0, 850)
+		nav.setWaypoint({{ map = 9001, x = 80, y = 60, label = "Turn in The Damned", kind = "turnin", quest = 376,
+			stepIndex = 1, goalIndex = 1, r = 8 }})
+		local r = {{ route = route(), walking = #calls }}
+		nav.place(0, 899)                                 -- at the portal: the next leg
+		N.Sample()
+		r.atPortal = #calls
+		nav.place(0, -400, 1)                             -- through it: the last walk, to the turn-in
+		N.Sample()
+		r.calls, r.native = calls, nav.userWaypoints
+		emit(r)"#
+	))
+}
+
+// With Waypoint UI, its beacon leads the way the arrow does: the current leg's stop (the portal), named after
+// the leg and moved on as the legs change, and the goal itself (its quest tracked) once the last walk begins,
+// where it pointed at the turn-in across the portal from the start (Rut'theran Village to the Darnassus bank).
+#[test]
+fn issue_1741_with_waypoint_ui_the_pin_is_the_current_leg_s_stop_then_the_goal() {
+	let out = portal_turn_in_mirrored(true);
+	assert_eq!(out["route"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Turn in The Damned"]));
+	assert_eq!(out["calls"], json!([["pin", "Walk to the portal", 9000, 5, 50], ["pin", "Take the portal to Far Gate", 9000, 5, 50], ["clear pin"], ["quest", 376]]));
+	assert_eq!(out["walking"], 1, "one pin while walking to the portal: a plan and the target announced together");
+	assert_eq!(out["atPortal"], 2);
+	assert_eq!(out["native"], json!({}), "Waypoint UI sets the game's pin itself");
+}
+
+// Without Waypoint UI nothing changes: the game's plain pin stays on the target the whole way.
+#[test]
+fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
+	let out = portal_turn_in_mirrored(false);
+	assert_eq!(out["calls"], json!({}));
+	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", true]]));
+}
+
+// #1834: the same walk through the portal with TomTom's arrow guiding (nav.useTomTomArrow, the target's continent):
+// TomTom's one waypoint is the current leg's stop (the portal) and the goal once the last walk begins, as Waypoint
+// UI's pin is (#1741). `arrow` false: TomTom only mirrors, and its waypoint stays on the goal throughout.
+fn portal_turn_in_with_tomtom(arrow: bool) -> Value {
+	run(&format!(
+		r#"
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", {arrow})
+		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,
+			a = {{ "West Portal", 0, 0, 900, 9000, 5, 50 }}, b = {{ "Far Gate", 0, 0, -400, 9000, 70, 50 }} }} }} }})
+		nav.place(0, 850)
+		nav.setWaypoint({{ map = 9000, x = 90, y = 50, label = "Turn in The Damned", kind = "turnin", quest = 376,
+			stepIndex = 1, goalIndex = 1, r = 8 }})
+		local r = {{ route = route() }}
+		nav.place(0, 899)                                 -- at the portal: the next leg
+		N.Sample()
+		nav.place(0, -400)                                -- through it: the last walk, to the turn-in
+		N.Sample()
+		-- (TomTom's waypoints in order, a re-announced unchanged one counted once)
+		local adds = {{}}
+		for _, c in ipairs(TomTom.calls) do
+			local last = adds[#adds]
+			if c.op == "add" and not (last and last[1] == c.title and last[2] == c.x and last[3] == c.y) then adds[#adds + 1] = {{ c.title, c.x, c.y }} end
+		end
+		r.adds = adds
+		emit(r)"#
+	))
+}
+
+#[test]
+fn issue_1834_with_tomtom_s_arrow_tomtom_s_waypoint_is_the_current_leg_s_stop_then_the_goal() {
+	let out = portal_turn_in_with_tomtom(true);
+	assert_eq!(out["route"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Turn in The Damned"]));
+	assert_eq!(out["adds"], json!([["Walk to the portal", 0.05, 0.5], ["Take the portal to Far Gate", 0.05, 0.5], ["Turn in The Damned", 0.9, 0.5]]));
+}
+
+#[test]
+fn issue_1834_tomtom_as_a_mirror_only_keeps_its_waypoint_on_the_goal() {
+	let out = portal_turn_in_with_tomtom(false);
+	let adds = out["adds"].as_array().unwrap();
+	assert!(!adds.is_empty() && adds.iter().all(|a| a[0] == "Turn in The Damned"), "{adds:?}");
 }
 
 #[test]

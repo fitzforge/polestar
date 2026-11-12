@@ -45,6 +45,12 @@ why Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, ga
 # of its own, not a leveling step.
 # Brutal Armor and its follow-ups (level 30) are above the beta's level cap:
 # this part is written from the data, not from play.
+# Level holds (the #1667 rule: a step waits until its mobs' top level is at
+# most 2 above you): the Windshear kobolds (19-23) come at 20, the Hillsbrad
+# Miners (26-27) wait for 25 and Roogug (28 elite, Razorfen Kraul) for 26, so
+# he comes after the miners; that covers the satyrs (25-30), the Matriarch (28)
+# and the Dragonmaw (26-30) later on. Players' recordings: Roogug killed at 32,
+# the kobolds' ingots at 26.
 
 step Speak with Ruga (Orgrimmar)
   only Orc,Troll,Skyborne
@@ -84,10 +90,6 @@ step Thun'grim Firegaze
   turnin 1825
   accept 1838
 
-step Roogug in Razorfen Kraul
-  tip Roogug is an elite quilboar (level 28) inside Razorfen Kraul, the dungeon at the south end of the Barrens; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts Lightning Bolt and calls Earth Rumblers. The vial always drops.
-  collect 6841 quest 1838.4 @42.9,90.2 live group 5 -- Vial of Phlogiston, from Roogug
-
 step Windshear Mine
   zone Stonetalon Mountains
   tip You need 15 Smoky Iron Ingots. The Windshear Mine lies at the east end of Windshear Crag, east of Sun Rock Retreat; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast Frostbolt.
@@ -95,8 +97,15 @@ step Windshear Mine
 
 step Hillsbrad Miners
   zone Hillsbrad Foothills
-  tip You need 10 Powdered Azurite. The Hillsbrad Miners (level 26-27) work the mine in the hills west of Southshore and drop the azurite four kills in five; they fight in Defensive Stance, sunder your armor and run for help at 30% health. Fly to Tarren Mill and head south-west.
+  tip You need 10 Powdered Azurite. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of Southshore and drop the azurite four kills in five; they fight in Defensive Stance, sunder your armor and run for help at 30% health. Fly to Tarren Mill and head south-west.
+  level 25
   collect 7127 x10 quest 1838.2               -- Powdered Azurite, from the Hillsbrad Miners
+
+step Roogug in Razorfen Kraul
+  zone The Barrens
+  tip Roogug is an elite quilboar (level 28) inside Razorfen Kraul, the dungeon at the south end of the Barrens; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts Lightning Bolt and calls Earth Rumblers. The vial always drops.
+  level 26
+  collect 6841 quest 1838.4 @42.9,90.2 live group 5 -- Vial of Phlogiston, from Roogug
 
 step Iron Bars
   zone Orgrimmar

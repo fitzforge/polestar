@@ -10,16 +10,23 @@
 --     item of a quest in the current step; else a usable quest item in the
 --     bags that one of the step's open quests handed over when taken
 --     (Polestar.QuestDB; none without it), never one left from another quest.
---   Hearthstone: while the current step has an open `hearth` goal.
---   Target: /targetexact for the current step's kill targets and the mobs
---     that drop its collect items: the ones the guide sends you to for that
---     goal (`fromNpcs`), then the item's own droppers (Polestar.QuestDB when
---     loaded), passing over corpses; on a step with no such mob, its NPC
---     goals' NPCs (talk, accept, turn in, train...). The arrow's goal comes
---     first. After the step's own mobs (or with none), the mobs of the While
---     you're here rows, nearest row first (#1441); never after the step's
---     NPCs. Every click moves the next name to the front. With
---     qol.targetPlate (on by default) its icon shows what you do with the
+--     Never during a flight.
+--   Hearthstone: while the current step has an open `hearth` goal, never
+--     during a flight.
+--   Target: /targetexact for the current step's kill targets (every creature
+--     their objective credits, `fromNpcs`), the creatures its `use` goals'
+--     items work on (`fromNpcs`, #1614) and the mobs that drop its collect
+--     items: the ones the guide sends you to for that goal (`fromNpcs`; where
+--     the goal's spots hold other mobs, `fromNpcsAt`, those at the spot the
+--     arrow takes alone, #1616), then the item's own droppers
+--     (Polestar.QuestDB when loaded), passing over corpses; on a step with no
+--     such mob, its NPC goals' NPCs (talk, accept, turn in, train...). The
+--     arrow's goal comes first. After the step's own mobs (or with none), the
+--     mobs of the While you're here rows, nearest row first (#1441). After the
+--     step's NPCs too while the player is within the While you're here radius
+--     of one; farther, the rows' mobs before the NPCs (#1623). Each name takes
+--     its own kind's mark and ping. Every click moves the next name to the
+--     front. With qol.targetPlate (on by default) its icon shows what you do with the
 --     name the next click targets (Buttons.TargetLook: a speech bubble, !,
 --     ?, a sword, a bag, a skull for an elite, rare or boss), the name beside
 --     it in that kind's colour, and a row of small icons for the names after
@@ -40,7 +47,9 @@
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
 --     item. While it targets, or has nothing else to do, the mobs of the
 --     While you're here rows follow the step's own names, nearest row first
---     (behavior.whileHereStepKey, #1316). While the flight map is open on the
+--     (behavior.whileHereStepKey, #1316); on an NPC goal they follow the NPC,
+--     or go before it while the player is farther than the While you're
+--     here radius from the step's NPCs (#1623). While the flight map is open on the
 --     live step, it takes the marked flight instead (QoL/Flight.lua,
 --     Flight.Take). Independent of
 --     the buttons' settings.
@@ -56,12 +65,16 @@
 --     lead or assist (Buttons.QuestPingLine).
 --
 -- All of them go with the guide window (ns.GuideShown); the step key stays.
+-- In the game's Quick Keybind Mode they take a key under the cursor, and the
+-- hidden ones show dimmed in their slots until it closes (QoL/QuickBind.lua).
 --
--- The buttons hang off one holder: the bag and hearth above the item, target and rare
--- below. A left-drag on any of them moves the set (out of combat; with
--- ui.lockHud on, only a Shift-drag); the position is per character, so the
--- Hearthstone button, shown only for hearth goals, appears in its slot of the
--- moved set.
+-- The quest item, Hearthstone, target and rare buttons hang off one holder:
+-- the hearth above the item, target and rare below. A left-drag on any of
+-- them moves the set (out of combat; with ui.lockHud on, only a
+-- Shift-drag); the position is per character, so the Hearthstone button,
+-- shown only for hearth goals, appears in its slot of the moved set. The bag
+-- button stands on its own: the same drag moves only it, to its own saved
+-- spot (by default two slots above the item, where it sat in the set).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -86,10 +99,14 @@ local Buttons = {}
 QoL.Buttons = Buttons
 
 -- The holder's spot (it sits where the quest item button does) and each
--- button's slot above (+) or below (-) it, GAP button units apart.
+-- button's slot above (+) or below (-) it, GAP button units apart. The bag
+-- button's own spot, by default where its old slot in the set was (two
+-- above the item), so nothing moves for a player who never dragged them.
 local DEFAULT_POS = { "CENTER", "CENTER", 260, -140 }
 local GAP = 44
-local SLOT = { PolestarBagButton = 2, PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1, PolestarRareButton = -2 }
+local SLOT = { PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1, PolestarRareButton = -2 }
+local BAG_LIFT = 2 * GAP
+local BAG_DEFAULT_POS = { DEFAULT_POS[1], DEFAULT_POS[2], DEFAULT_POS[3], DEFAULT_POS[4] + BAG_LIFT }
 
 local function Theme() return ns.Theme end
 
@@ -131,16 +148,36 @@ end
 -- Position and scale (secure)
 ---------------------------------------------------------------------------
 
-local holder, set
+-- relabel: every button's name placed again (placeLabel), once they exist.
+local holder, set, bag, relabel
 
 local function savedPos()
 	local p = QoL.State().buttonPos
 	return type(p) == "table" and p or DEFAULT_POS
 end
 
+local function savedBagPos()
+	local p = QoL.State().bagButtonPos
+	return type(p) == "table" and p or BAG_DEFAULT_POS
+end
+
+-- Before the bag button had its own spot it sat two slots above the moved
+-- set. Once per character: a set moved before then takes the bag button
+-- along to that same place on screen (holder and button share the scale, so
+-- the offsets add up), and from then on the two move apart.
+local function adoptBagPos()
+	local s = QoL.State()
+	if s.bagButtonOwn then return end
+	s.bagButtonOwn = true
+	local p = s.buttonPos
+	if type(p) == "table" and s.bagButtonPos == nil then
+		s.bagButtonPos = { p[1], p[2], p[3], p[4] + BAG_LIFT }
+	end
+end
+
 -- Holder position and scale, and the buttons in their slots. The holder takes
 -- the button scale too, so the saved offsets and the slot spacing scale with
--- the buttons.
+-- the buttons. The bag button on its own spot, at the same scale.
 local function place()
 	QoL.Secure("place", function()
 		local p, s = savedPos(), ns.Get("qol.buttonScale") or 1
@@ -149,20 +186,33 @@ local function place()
 		holder:SetPoint(p[1], UIParent, p[2], p[3], p[4])
 		for i = 1, #set do
 			local b = set[i]
-			b:SetScale(s)
-			b:ClearAllPoints()
-			b:SetPoint("CENTER", holder, "CENTER", 0, SLOT[b:GetName()] * GAP)
+			local slot = SLOT[b:GetName()]
+			if slot then
+				b:SetScale(s)
+				b:ClearAllPoints()
+				b:SetPoint("CENTER", holder, "CENTER", 0, slot * GAP)
+			end
 		end
+		local bp = savedBagPos()
+		bag:SetScale(s)
+		bag:ClearAllPoints()
+		bag:SetPoint(bp[1], UIParent, bp[2], bp[3], bp[4])
 	end)
+	-- An Above name follows whether the bag button stands over the set.
+	if relabel then relabel() end
 end
 
-local moving = false
+-- The frame a drag carries (the holder, or the bag button) and where its
+-- spot is saved.
+local moving
 local function stopMoving()
-	if not moving then return end
-	moving = false
-	holder:StopMovingOrSizing()
-	local point, _, relPoint, x, y = holder:GetPoint(1)
-	if point then QoL.State().buttonPos = { point, relPoint, x, y } end
+	local f = moving
+	if not f then return end
+	moving = nil
+	f:StopMovingOrSizing()
+	local point, _, relPoint, x, y = f:GetPoint(1)
+	if point then QoL.State()[f == bag and "bagButtonPos" or "buttonPos"] = { point, relPoint, x, y } end
+	if relabel then relabel() end
 end
 -- Fires before lockdown begins: a drag still going stops while the set may move.
 ns.RegisterEvent("PLAYER_REGEN_DISABLED", stopMoving)
@@ -195,8 +245,8 @@ local function onDragStart(b)
 	useOnKeyDown(b, true)
 	-- Locked: still a drag, so its release uses nothing, but the set stays.
 	if ns.DragLocked() then return end
-	moving = true
-	holder:StartMoving()
+	moving = b == bag and bag or holder
+	moving:StartMoving()
 end
 
 local function onDragStop(b)
@@ -258,21 +308,29 @@ local LABEL_SIDE = {
 }
 
 -- Above sits over the shown buttons stacked on top of b (the quest item
--- button over the target button, the Hearthstone over that), not in the 8 px
--- gap between them, where it would run into the button above.
+-- button over the target button, the Hearthstone over that, the bag button
+-- while it still stands in its old slot over the set), not in the 8 px gap
+-- between them, where it would run into the button above.
+local function bagOverSet()
+	local p, bp = savedPos(), savedBagPos()
+	return bp[1] == p[1] and bp[2] == p[2] and bp[3] == p[3] and bp[4] == p[4] + BAG_LIFT
+end
+
 local function placeLabel(b)
 	local a = LABEL_SIDE[ns.Get("qol.buttonTextSide")] or LABEL_SIDE.right
 	-- The rare button sits under the target button, whose name has the space
 	-- above: a rare's name goes below instead.
 	if a == LABEL_SIDE.above and b:GetName() == "PolestarRareButton" then a = LABEL_SIDE.below end
 	local to = b
-	if a == LABEL_SIDE.above and set then
-		local slot, moved = SLOT[b:GetName()], true
+	local slot = SLOT[b:GetName()]
+	if a == LABEL_SIDE.above and set and slot then
+		local moved = true
 		while moved do
 			moved = false
 			for i = 1, #set do
 				local o = set[i]
-				if SLOT[o:GetName()] == slot + 1 and o:IsShown() then
+				local oSlot = SLOT[o:GetName()] or (o == bag and bagOverSet() and BAG_LIFT / GAP)
+				if oSlot == slot + 1 and o:IsShown() then
 					to, slot, moved = o, slot + 1, true
 					break
 				end
@@ -373,6 +431,8 @@ local function newButton(name, onEnter)
 	end
 
 	b:SetScript("OnEnter", function(self)
+		-- The game's Quick Keybind Mode takes the hover (QoL/QuickBind.lua).
+		if QoL.QuickBind.Hover(self) then return end
 		paintBorder(self, true)
 		hoverStart(self)
 		if GameTooltip and onEnter then
@@ -431,6 +491,7 @@ end
 
 local function itemTooltip(b, tip)
 	if b.itemID and tip.SetItemByID then tip:SetItemByID(b.itemID) end
+	if b.itemID and b.itemID == b.glowID then tip:AddLine(L["You can take the quest this item starts. Click to read it."], 1, 1, 1, true) end
 	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
 end
 
@@ -440,9 +501,50 @@ local function newItemButton(name)
 	return b
 end
 
--- Apply the wanted item (secure) and repaint.
-local function applyItem(b, itemID)
+-- The glow round a quest-starting item from the bags (QoL/QuestLoot.lua):
+-- the soft glow in the accent, behind the button, pulsing unless
+-- ui.reduceMotion. A texture, so it may change in combat; it follows the
+-- item the button holds, never the one waiting for combat to end.
+local GLOW_SCALE = 1.8
+local function paintGlow(b)
+	local on = b.itemID ~= nil and b.itemID == b.glowID
+	local g = b.questGlow
+	if not on then
+		if g then
+			if g.Pulse then g.Pulse:Stop() end
+			g:Hide()
+		end
+		return
+	end
+	if not g then
+		g = b:CreateTexture(nil, "BACKGROUND", nil, -1)
+		g:SetSize(SIZE * GLOW_SCALE, SIZE * GLOW_SCALE)
+		g:SetPoint("CENTER", b, "CENTER", 0, 0)
+		g:SetTexture(media("glow"))
+		if g.SetBlendMode then g:SetBlendMode("ADD") end
+		if g.CreateAnimationGroup then
+			local ag = g:CreateAnimationGroup()
+			ag:SetLooping("BOUNCE")
+			local a = ag:CreateAnimation("Alpha")
+			a:SetFromAlpha(1)
+			a:SetToAlpha(0.35)
+			a:SetDuration(0.7)
+			g.Pulse = ag
+		end
+		b.questGlow = g
+	end
+	color(g, "accent")
+	g:Show()
+	if g.Pulse then
+		if ns.Get("ui.reduceMotion") then g.Pulse:Stop() elseif not g.Pulse:IsPlaying() then g.Pulse:Play() end
+	end
+end
+
+-- Apply the wanted item (secure) and repaint. glowID: the item glows while
+-- the button holds it (a quest starter from the bags).
+local function applyItem(b, itemID, glowID)
 	b.wantID = itemID
+	b.glowID = glowID
 	QoL.Secure("item:" .. b:GetName(), function()
 		local id = b.wantID
 		b:SetAttribute("type", id and "item" or nil)
@@ -455,8 +557,10 @@ local function applyItem(b, itemID)
 		else
 			b:Hide()
 		end
+		paintGlow(b)
 	end)
 	if b.itemID then paintItem(b) end
+	paintGlow(b)
 end
 
 -- Usable item from a quest's log entry (e.g. a quest's special item).
@@ -528,14 +632,25 @@ function Buttons.ChooseQuestItem(view, raw)
 	return nil
 end
 
+-- On a flight neither button nor the step key offers an item: the client
+-- refuses item spells on a taxi and has no call that says which item would
+-- work there (the Hearthstone button stayed up all the way when a player
+-- flew instead of hearthing).
+local function onTaxi()
+	return ns.Compat.IsOnTaxi()
+end
+
+-- The Hearthstone can be used now: in the bags, and not on a flight.
+local function canHearth()
+	return Client.ItemCount(Client.HEARTHSTONE) > 0 and not onTaxi()
+end
+
 function Buttons.WantsHearth(view)
 	if not view then view = QoL.CurrentStep() end
 	if not view then return false end
 	local goals = view.goals or {}
 	for g = 1, #goals do
-		if goals[g].t == "hearth" and QoL.Open(goals[g]) then
-			return Client.ItemCount(Client.HEARTHSTONE) > 0
-		end
+		if goals[g].t == "hearth" and QoL.Open(goals[g]) then return canHearth() end
 	end
 	return false
 end
@@ -551,7 +666,7 @@ local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, ven
 -- The picture of what you do with a name: its goal's verb glyph (Media/UI).
 -- An elite, rare or boss mob wears the skull instead (Buttons.TargetLook).
 local VERB_ICON = {
-	kill = "icon-kill", collect = "icon-collect", accept = "icon-accept", turnin = "icon-turnin", talk = "icon-talk",
+	kill = "icon-kill", collect = "icon-collect", use = "icon-use", accept = "icon-accept", turnin = "icon-turnin", talk = "icon-talk",
 	train = "icon-train", vendor = "icon-vendor", buy = "icon-buy", sethome = "icon-sethome", getfp = "icon-getfp", learn = "icon-learn",
 }
 
@@ -600,6 +715,41 @@ local function addDroppers(list, rg)
 	end
 end
 
+-- A goal's `fromNpcs` entry (raw goal rg), in the client's language by its id.
+local function addSource(e, rg)
+	if type(e) ~= "table" then return end
+	local N = ns.Names
+	addName((N and N.Npc(e.npc)) or e.npcName, e.npc, rankedSource(rg, e.npc))
+end
+
+-- The places in `fromNpcs` of the mobs at the spot the arrow takes for raw
+-- goal rg (`fromNpcsAt`: per spot in `spots` order, "1,2;3;;4";
+-- Engine.SpotIndexOf), most spawns first, or nil (a reused list).
+local spotAt = {}
+local function spotSources(rg)
+	local packed = type(rg) == "table" and rg.fromNpcsAt
+	if type(packed) ~= "string" then return nil end
+	local E = ns.Engine
+	local at = E and E.SpotIndexOf and E.SpotIndexOf(rg)
+	if not at then return nil end
+	local k = 0
+	for group in (packed .. ";"):gmatch("([^;]*);") do
+		k = k + 1
+		if k == at then
+			wipe(spotAt)
+			for n in group:gmatch("%d+") do spotAt[#spotAt + 1] = tonumber(n) end
+			return spotAt[1] and spotAt or nil
+		end
+	end
+	return nil
+end
+
+-- A goal the target button names mobs for: a kill, a collect, or a `use`
+-- whose item works on creatures the guide's data names (`fromNpcs`, #1614).
+local function mobGoal(gv, rg)
+	return gv.t == "kill" or gv.t == "collect" or (gv.t == "use" and type((rg or gv).fromNpcs) == "table")
+end
+
 -- The goal the arrow points at, among the goals from `from` on, moves to
 -- their front (it keeps its own names' order): its names come first, then
 -- the others' in order.
@@ -620,16 +770,25 @@ local function arrowFirst(from)
 	end
 end
 
--- The mobs of one open kill or collect goal (view gv, raw rg) into the goal
--- newGoal started last. qdb: Polestar.QuestDB when it is loaded.
+-- The mobs of one open kill, collect or use goal (view gv, raw rg) into the
+-- goal newGoal started last. qdb: Polestar.QuestDB when it is loaded.
 local function addGoalNames(gv, rg, qdb)
 	local N = ns.Names
+	local src = rg.fromNpcs or gv.fromNpcs
 	if gv.t == "kill" then
 		-- /targetexact needs the name as the client writes it. Elite
 		-- work (compiled `group`) marks the mob.
 		local id = rg.npc or gv.npc
 		local group = rg.group or gv.party
 		addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
+		-- Every other creature its objective credits (#1614).
+		for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
+		return
+	end
+	if gv.t == "use" then
+		-- The creatures the item works on: those the quest's objective credits
+		-- (Kodo Roundup's Aged, Dying and Ancient Kodos, #1614).
+		for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
 		return
 	end
 	-- The mobs the arrow leads to come first: the farm spot the engine
@@ -640,10 +799,17 @@ local function addGoalNames(gv, rg, qdb)
 	-- mostly in other zones.
 	local npc = gv.npc or rg.npc
 	if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName, npc, rankedSource(rg, npc)) end
-	local src = rg.fromNpcs or gv.fromNpcs
-	for i = 1, src and #src or 0 do
-		addName((N and N.Npc(src[i].npc)) or src[i].npcName, src[i].npc, rankedSource(rg, src[i].npc))
+	-- Spots holding other mobs than the point (`fromNpcsAt`: Centaur Bounty's
+	-- run through every centaur tribe's camps, #1616): the spot the arrow
+	-- takes names its own mobs, which stand alone; the point's and the item's
+	-- droppers are other camps' mobs.
+	local here = type(src) == "table" and spotSources(rg)
+	if here then
+		local before = #goalNames[goalCount]
+		for i = 1, #here do addSource(src[here[i]], rg) end
+		if #goalNames[goalCount] > before then return end
 	end
+	for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
 	if qdb then
 		if gv.quest and rg.oi and qdb.GetObjectiveMobs then
 			addDroppers(qdb.GetObjectiveMobs(gv.quest, rg.oi), rg)
@@ -694,6 +860,70 @@ local function addHereGoals(qdb)
 	end
 end
 
+-- The places of the step's open NPC goals (talk, accept, turn in...) as
+-- world points (reused): npcSpots fills them, npcsFar reads them (#1623).
+local npcPts, npcPtN = {}, 0
+local function npcSpots(goals, raws, own)
+	npcPtN = 0
+	local C = ns.Compat
+	for g = 1, own do
+		local gv = goals[g]
+		local rg = raws and raws[g] or gv
+		if QoL.Open(gv) and NPC_VERBS[gv.t] then
+			local p = gv.map and gv or rg
+			local c, wx, wy = C.MapToWorld(p.map, p.x, p.y, p.f)
+			if c then
+				npcPtN = npcPtN + 1
+				local pt = npcPts[npcPtN] or {}
+				npcPts[npcPtN] = pt
+				pt[1], pt[2], pt[3] = c, wx, wy
+			end
+		end
+	end
+end
+
+-- Whether the player stands farther than the While you're here radius
+-- (behavior.whileHereRadius) from every place npcSpots found: false with
+-- none, or while the player's place is unknown.
+local function npcsFar()
+	if npcPtN == 0 then return false end
+	local pc, px, py = ns.Compat.GetPlayerWorldPosition()
+	if not pc then return false end
+	local r = tonumber(ns.Get("behavior.whileHereRadius")) or 180
+	for i = 1, npcPtN do
+		local pt = npcPts[i]
+		if pt[1] == pc and (pt[2] - px) ^ 2 + (pt[3] - py) ^ 2 <= r * r then return false end
+	end
+	return true
+end
+
+-- Set by the target button's and the step key's names while a step's NPCs
+-- and the While you're here rows' mobs share them: npcsFar() as they were
+-- ordered by, so a walk across the radius re-orders them (Buttons' refresh
+-- watches it); nil when no such list is up.
+local farWatch = nil
+
+-- Reverses entries i..j of each list in place (nil entries included).
+local function reverse(i, j, ...)
+	for l = 1, select("#", ...) do
+		local t = select(l, ...)
+		local a, b = i, j
+		while a < b do
+			t[a], t[b] = t[b], t[a]
+			a, b = a + 1, b - 1
+		end
+	end
+end
+
+-- Entries 1..k of each list (n in all) move behind entries k+1..n, each part
+-- in its own order.
+local function moveBehind(k, n, ...)
+	if k <= 0 or k >= n then return end
+	reverse(1, k, ...)
+	reverse(k + 1, n, ...)
+	reverse(1, n, ...)
+end
+
 -- Names for the target button (reused lists): one from each open goal in
 -- guide order, the arrow's goal first, then the next from each, up to
 -- MAX_NAMES, so a goal with many mobs (five creatures drop the Nightsaber
@@ -702,9 +932,11 @@ end
 -- own NPC goals' NPCs (the target button; the step key and its loot check
 -- want mobs only). here: after the step's own mobs (or with none), the mobs
 -- of the While you're here rows the same way, nearest row first (the
--- arrow's row first); never after NPCs, who keep the button (#1441). ->
--- names, verbs, npc ids (nil: not known), marks (true: elite, rare or boss
--- by the guide's data), all by index.
+-- arrow's row first). After the step's NPCs too, while the player is within
+-- the While you're here radius of one of them; farther from all of them,
+-- the rows' mobs come first and the NPCs after (#1441, #1623). -> names,
+-- verbs, npc ids (nil: not known), marks (true: elite, rare or boss by the
+-- guide's data), all by index.
 function Buttons.TargetNames(view, raw, npcs, here)
 	wipe(names)
 	wipe(nameVerb)
@@ -735,9 +967,10 @@ function Buttons.TargetNames(view, raw, npcs, here)
 	local named = false
 	for g = 1, #goals do
 		local gv = goals[g]
-		if QoL.Open(gv) and (gv.t == "kill" or gv.t == "collect") then
+		local rg = raws and raws[g] or gv
+		if QoL.Open(gv) and mobGoal(gv, rg) then
 			if g <= own then newGoal(gv.t, stepIndex, g) else newGoal(gv.t, gv.step, gv.index) end
-			addGoalNames(gv, raws and raws[g] or gv, qdb)
+			addGoalNames(gv, rg, qdb)
 			named = named or #goalNames[goalCount] > 0
 		end
 	end
@@ -761,11 +994,16 @@ function Buttons.TargetNames(view, raw, npcs, here)
 	end
 	arrowFirst(1)
 	interleave(1, names, nameVerb, nameNpc, nameSpecial, nameSeen)
-	if here and not npcNamed then
-		local first = goalCount + 1
+	if here then
+		local first, before = goalCount + 1, #names
 		addHereGoals(qdb)
 		arrowFirst(first)
 		interleave(first, names, nameVerb, nameNpc, nameSpecial, nameSeen)
+		if npcNamed and #names > before then
+			npcSpots(goals, raws, own)
+			farWatch = npcsFar()
+			if farWatch then moveBehind(before, #names, names, nameVerb, nameNpc, nameSpecial) end
+		end
 	end
 	return names, nameVerb, nameNpc, nameSpecial
 end
@@ -924,9 +1162,14 @@ function Buttons.RareCardMacro(name)
 end
 
 -- list, verbs, ids, marks: the names and what Buttons.TargetNames says of
--- each (copies); kind: the mark they take ("npc" for NPC goals' names);
--- namesSig: the names alone, for the chat note.
-local target = { list = {}, verbs = {}, ids = {}, marks = {}, kind = "mob", sig = nil, namesSig = "", cycle = 1 }
+-- each (copies); namesSig: the names alone, for the chat note.
+local target = { list = {}, verbs = {}, ids = {}, marks = {}, sig = nil, namesSig = "", cycle = 1 }
+
+-- The mark and ping the target button's name i (default: the one the next
+-- click tries first) takes: "npc" for an NPC goal's name, else "mob".
+local function targetKind(i)
+	return NPC_VERBS[target.verbs[i or target.cycle]] and "npc" or "mob"
+end
 
 -- Names seen in the world (the target, the mouseover, a nameplate) as an
 -- elite, rare or boss this session, and the faces of the names seen: one
@@ -1042,7 +1285,8 @@ local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
 		-- A mob is pinged for the group; an NPC goal's NPC stays where it is.
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(target.kind), target.kind == "mob" and Buttons.QuestPingLine() or nil)
+		local kind = targetKind()
+		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
@@ -1113,7 +1357,7 @@ local function targetTooltip(b, tip)
 		tip:AddLine(target.list[i], r, g, bl)
 	end
 	if QoL.On("markTarget") and target.list[1] then
-		local right, icon = Buttons.MarkRight(), markSetting(target.kind)
+		local right, icon = Buttons.MarkRight(), markSetting(targetKind())
 		icon = icon == "cycle" and L["a new icon each press"]
 			or ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_" .. icon .. ":0|t " .. (_G["RAID_TARGET_" .. icon] or icon))
 		if right == "set" then
@@ -1261,8 +1505,8 @@ function Buttons.GuideNameMacro(goal, raw)
 end
 
 -- What the step key does now. view, raw: QoL.CurrentStep()'s, when the
--- caller has them. -> "item", itemID | "target", names (reused list) |
--- "npc", name | nil. The route's own goals come first, in guide order, then
+-- caller has them. -> "item", itemID | "target", names (reused list), the
+-- one NPC's name among them or nil | "npc", name | nil. The route's own goals come first, in guide order, then
 -- the optional ones, so an optional accept never takes the key.
 local function stepGoal(view, raw, goals, optional)
 	for g = 1, #goals do
@@ -1273,9 +1517,9 @@ local function stepGoal(view, raw, goals, optional)
 			local t = gv.t
 			if t == "use" then
 				local item = gv.item or rg.item
-				if item and Client.ItemCount(item) > 0 then return "item", item end
+				if item and Client.ItemCount(item) > 0 and not onTaxi() then return "item", item end
 			elseif t == "hearth" then
-				if Client.ItemCount(Client.HEARTHSTONE) > 0 then return "item", Client.HEARTHSTONE end
+				if canHearth() then return "item", Client.HEARTHSTONE end
 			elseif t == "kill" or t == "collect" then
 				-- This goal's own mobs decide; the key then cycles all the step's.
 				if #Buttons.TargetNames({ goals = { gv } }, { rg }) > 0 then return "target", Buttons.TargetNames(view, raw) end
@@ -1299,19 +1543,27 @@ function Buttons.StepAction(view, raw)
 	local goals = view.goals or {}
 	local kind, value = stepGoal(view, raw, goals, false)
 	if not kind then kind, value = stepGoal(view, raw, goals, true) end
-	if not kind then
+	if not kind and not onTaxi() then
 		local item = Buttons.ChooseQuestItem(view, raw)
 		if item then kind, value = "item", item end
 	end
 	-- Targeting, or with nothing else to do: the While you're here rows' mobs
 	-- after the step's own names (#1316; Buttons.HereNames, the target
-	-- button's own helpers). An item, the Hearthstone or an NPC keeps the key.
-	if (kind == "target" or not kind) and ns.Get("behavior.whileHereStepKey") then
+	-- button's own helpers). An NPC: the rows' mobs after it, or before it
+	-- while the player is beyond the While you're here radius of the step's
+	-- NPCs (#1623). An item or the Hearthstone keeps the key.
+	if (kind == "target" or kind == "npc" or not kind) and ns.Get("behavior.whileHereStepKey") then
 		wipe(stepNames)
 		wipe(stepSeen)
-		for i = 1, kind and #value or 0 do
-			stepNames[i], stepSeen[value[i]] = value[i], true
+		local npc = kind == "npc" and value or nil
+		if npc then
+			stepNames[1], stepSeen[npc] = npc, true
+		else
+			for i = 1, kind and #value or 0 do
+				stepNames[i], stepSeen[value[i]] = value[i], true
+			end
 		end
+		local before = #stepNames
 		local here = Buttons.HereNames()
 		for i = 1, #here do
 			if not stepSeen[here[i]] then
@@ -1319,20 +1571,36 @@ function Buttons.StepAction(view, raw)
 				stepNames[#stepNames + 1] = here[i]
 			end
 		end
-		if #stepNames > 0 then return "target", stepNames end
+		if npc and #stepNames > before then
+			npcSpots(goals, raw, #goals)
+			local far = npcsFar()
+			farWatch = far
+			if far then moveBehind(before, #stepNames, stepNames) end
+			return "target", stepNames, npc
+		end
+		if not npc and #stepNames > 0 then return "target", stepNames end
 	end
 	return kind, value
 end
 
-local step = { kind = nil, value = nil, list = {}, sig = nil, cycle = 1 }
+-- npc: the one NPC's name in a "target" list (Buttons.StepAction), or nil.
+local step = { kind = nil, value = nil, list = {}, npc = nil, sig = nil, cycle = 1 }
 -- The mark each kind of step key press puts on.
 local STEP_MARK = { target = "mob", npc = "npc" }
+
+-- The mark the step key's next press puts on: in a "target" list, the kind
+-- of the name it tries first.
+local function stepKind()
+	if step.kind == "target" then return step.list[step.cycle] == step.npc and "npc" or "mob" end
+	return STEP_MARK[step.kind]
+end
 
 local function applyStep(b)
 	QoL.Secure("step", function()
 		local text, item
 		if step.kind == "target" then
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine("mob"), Buttons.QuestPingLine())
+			local kind = stepKind()
+			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
 		elseif step.kind == "npc" then
 			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
 		elseif step.kind == "item" then
@@ -1451,12 +1719,25 @@ function Buttons.AdvanceMark(kind)
 	return true
 end
 
+-- While the target button's or the step key's names hold the step's NPCs
+-- and the While you're here rows' mobs (farWatch set by them), a check each
+-- second: crossing the radius re-orders them (#1623).
+local FAR_POLL = 1
+local farTicker, farWatched
+
 local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
 	local view, raw = QoL.CurrentStep()
+	farWatch = nil
 	local guideShown = ns.GuideShown()
-	applyItem(itemButton, QoL.On("itemButton") and guideShown and view and Buttons.ChooseQuestItem(view, raw) or nil)
+	-- The step's item first; with none, a quest starter from the bags, glowing.
+	-- Never on a taxi: the client refuses item spells there (#1583).
+	local itemOn = QoL.On("itemButton") and guideShown and not onTaxi()
+	local item = itemOn and view and Buttons.ChooseQuestItem(view, raw) or nil
+	local QL = QoL.QuestLoot
+	local loot = itemOn and not item and QL and QL.Current() or nil
+	applyItem(itemButton, item or loot, loot)
 	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
 	local list, verbs, ids, marks
@@ -1473,8 +1754,6 @@ local function refresh()
 		local copy, cv, ci, cm = {}, {}, {}, {}
 		for i = 1, #list do copy[i], cv[i], ci[i], cm[i] = list[i], verbs[i], ids[i], marks[i] end
 		target.list, target.verbs, target.ids, target.marks = copy, cv, ci, cm
-		-- NPC goals' names only come on a step with no mob to name.
-		target.kind = NPC_VERBS[cv[1]] and "npc" or "mob"
 		target.cycle = 1
 		-- The optional chat note, once per new set of names (not for a mark setting).
 		if namesSig ~= target.namesSig then
@@ -1500,11 +1779,11 @@ local function refresh()
 		applyRare(rareButton)
 	end
 
-	local kind, value = nil, nil
-	if view then kind, value = Buttons.StepAction(view, raw) end
-	local stepSig = mark .. (kind == "target" and ("target\n" .. concat(value, "\n")) or (tostring(kind) .. "\n" .. tostring(value)))
+	local kind, value, npc = nil, nil, nil
+	if view then kind, value, npc = Buttons.StepAction(view, raw) end
+	local stepSig = mark .. (kind == "target" and ("target\n" .. tostring(npc) .. "\n" .. concat(value, "\n")) or (tostring(kind) .. "\n" .. tostring(value)))
 	if stepSig ~= step.sig then
-		step.sig, step.kind, step.cycle = stepSig, kind, 1
+		step.sig, step.kind, step.npc, step.cycle = stepSig, kind, npc, 1
 		local copy = {}
 		if kind == "target" then
 			for i = 1, #value do copy[i] = value[i] end
@@ -1513,6 +1792,15 @@ local function refresh()
 		end
 		step.list = copy
 		applyStep(stepButton)
+	end
+	farWatched = farWatch
+	if farWatch ~= nil and not farTicker then
+		farTicker = ns.NewTicker(FAR_POLL, function()
+			if farWatched ~= nil and npcsFar() ~= farWatched then refresh() end
+		end)
+	elseif farWatch == nil and farTicker then
+		farTicker:Cancel()
+		farTicker = nil
 	end
 	applyInteract(Buttons.InteractStage(view, raw))
 
@@ -1534,10 +1822,16 @@ local function create()
 	holder:SetSize(SIZE, SIZE)
 	holder:SetMovable(true)
 	holder:SetClampedToScreen(true)
-	-- The clamp covers the bag, hearth, target and rare slots too.
-	holder:SetClampRectInsets(0, 0, 2 * GAP, -2 * GAP)
+	-- The clamp covers the hearth, target and rare slots too.
+	holder:SetClampRectInsets(0, 0, GAP, -2 * GAP)
 	itemButton = newItemButton("PolestarQuestItemButton")
 	hearthButton = newItemButton("PolestarHearthButton")
+	-- A starter clicked on the button has been read: the next one takes its place.
+	itemButton:HookScript("PostClick", function(self, _, down)
+		if down or self.dragging then return end
+		local id = self.itemID
+		if id and id == self.glowID and QoL.QuestLoot then QoL.QuestLoot.Used(id) end
+	end)
 	targetButton = newButton("PolestarTargetButton", targetTooltip)
 	targetButton.Icon:SetTexture(media("qol-target"))
 	targetButton.Icon:SetTexCoord(0, 1, 0, 1)
@@ -1561,8 +1855,9 @@ local function create()
 	targetButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
 		local n = #target.list
+		local kind = targetKind()
 		if n > 1 then target.cycle = target.cycle % n + 1 end
-		local marked = Buttons.AdvanceMark(target.kind)
+		local marked = Buttons.AdvanceMark(kind)
 		if n > 1 and not marked then applyTarget(targetButton) end
 	end)
 	rareButton = newButton("PolestarRareButton", rareTooltip)
@@ -1584,6 +1879,13 @@ local function create()
 		if Space then Space.Press() end
 		applyBag(self)
 	end)
+	-- On its own spot, moved by its own drag (onDragStart).
+	bag = bagButton
+	QoL.Secure("init:bagMove", function()
+		bagButton:SetMovable(true)
+		bagButton:SetClampedToScreen(true)
+	end)
+	adoptBagPos()
 	-- The step key: a binding only, never shown. Press and release both
 	-- reach it and useOnKeyDown stays nil, so the player's key-down setting
 	-- (ActionButtonUseKeyDown) picks which one acts: once, either way.
@@ -1599,19 +1901,32 @@ local function create()
 		end
 		local n = #step.list
 		local names = step.kind == "target" and n > 1
+		local kind = stepKind()
 		if names then step.cycle = step.cycle % n + 1 end
-		local marked = Buttons.AdvanceMark(STEP_MARK[step.kind])
+		local marked = Buttons.AdvanceMark(kind)
 		if names and not marked then applyStep(self) end
 	end)
 	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step, Buttons.bag = itemButton, hearthButton, targetButton, rareButton, stepButton, bagButton
 	set = { bagButton, hearthButton, itemButton, targetButton, rareButton }
+	-- Bindable from the game's Quick Keybind Mode, shown there while hidden
+	-- (the step key has no button on screen: Options > Keybindings binds it).
+	local QB = QoL.QuickBind
+	local useIcon = function() return media("icon-use") end
+	QB.Add(itemButton, { force = true, enabled = function() return QoL.On("itemButton") end, icon = useIcon })
+	QB.Add(hearthButton, { force = true, enabled = function() return QoL.On("hearthButton") end,
+		icon = function() return Client.ItemIcon(Client.HEARTHSTONE) or media("icon-hearth") end })
+	QB.Add(targetButton, { force = true, enabled = function() return QoL.On("targetButton") end })
+	QB.Add(rareButton, { force = true, enabled = function() return QoL.On("rareButton") end })
+	QB.Add(bagButton, { force = true, enabled = function() return QoL.On("bagSpace") end,
+		wanted = function(b) return b.junk ~= nil end, icon = useIcon })
 	-- An Above name moves when a button over it comes or goes.
 	local function placeLabels() for i = 1, #set do placeLabel(set[i]) end end
 	for i = 1, #set do
 		set[i]:HookScript("OnShow", placeLabels)
 		set[i]:HookScript("OnHide", placeLabels)
 	end
-	placeLabels()
+	-- place() lays the names out too.
+	relabel = placeLabels
 	place()
 end
 
@@ -1630,6 +1945,10 @@ ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)
 ns.RegisterEvent("PARTY_LEADER_CHANGED", refreshSoon)
+-- The quest item and Hearthstone buttons go when a flight starts and come
+-- back on landing; in combat QoL.Secure holds the change until it ends.
+ns.RegisterEvent("PLAYER_CONTROL_LOST", refreshSoon)
+ns.RegisterEvent("PLAYER_CONTROL_GAINED", refreshSoon)
 ns.RegisterEvent("UPDATE_BINDINGS", function()
 	if not itemButton then return end
 	refreshHotkey(itemButton)
@@ -1644,6 +1963,7 @@ ns.On("QUESTDB_LOADED", refreshSoon)
 ns.On("NAME_LEARNED", refreshSoon)
 ns.On("BAG_SPACE", refreshSoon)
 ns.On("WHILE_HERE_CHANGED", refreshSoon)
+ns.On("QUEST_LOOT_CHANGED", refreshSoon)
 -- The target button names the arrow's goal first.
 ns.On("WAYPOINT_CHANGED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
@@ -1663,8 +1983,9 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 ns.On("GUIDE_SHOWN", function() if itemButton then refreshSoon() end end) -- an instance hide (ns.GuideShown)
 
--- Back to the default spot (options button).
+-- Back to the default spots (options button): the set's and the bag button's.
 function Buttons.ResetPositions()
-	QoL.State().buttonPos = nil
+	local s = QoL.State()
+	s.buttonPos, s.bagButtonPos = nil, nil
 	if itemButton then place() end
 end

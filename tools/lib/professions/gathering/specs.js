@@ -235,6 +235,9 @@ const skinning = {
 	minPoints: 4,
 	// Yards' worth of time to kill and skin one beast (about 15 seconds at a run).
 	stopYards: 100,
+	// Every beast kind is a camp of its own: a rare one may lead and name a
+	// waypoint (for nodes, build.js `rareKinds` keeps rare kinds from leading).
+	rareLeads: true,
 	points: SKINNING_POINTS,
 	bands: [
 		{ from: 1, to: 50, scope: 'start' },

@@ -335,9 +335,9 @@ single-file form, and a checkout without the folder still has its
 
 | Section (file) | Keyed by | What an entry can do |
 |---|---|---|
-| `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
+| `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
 | `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
-| `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept) |
+| `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate) |
 | `mechanics` | quest ID | `params`: `[{ kind, … }]` adds or replaces a mechanic (for example `delayed-offer` with `after`, `npc`, `sec`); `steps`: `{ "<n>": { set } }` changes step `n` |
 
 In `addSpawns`, `pts` are `[x, y]` map percentages and `f` names the map frame they are in (`e` for the
@@ -365,11 +365,15 @@ Rules:
   fewer records; a correction for a record the build does not have becomes that record when it can
   stand alone (a quest with `title`, `start` and `end`; an NPC or object with `name` and spawns).
   Otherwise the build names it in `meta.json`'s warnings (`correction not applied: …`). An item
-  correction never stands alone: it only removes sources.
+  correction never stands alone: it only changes the sources of an item the data has.
 - Every corrected record gets the source `polestar-correction`, so you can see it in the output.
 - Mechanics corrections are applied last, and they always drive the route.
 - `tests/data-corrections.test.js` checks that every prerequisite correction really blocks the
   quest.
+- A breadcrumb never blocks: a prerequisite a correction sets that the data also names as the
+  quest's breadcrumb (its `breadcrumbs`, or the other quest's `breadcrumbFor`) is dropped, and
+  `forge data check-corrections` warns. When it is a real prerequisite, also set `breadcrumbs`
+  without it and `breadcrumbFor: null` on the other quest (#1490, The Great Outdoors).
 
 After editing, run `forge data check-corrections`, then `forge data build`, and look at the changed
 record in `data/forever`.

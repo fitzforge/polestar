@@ -570,6 +570,15 @@ input {
 	}
 }
 
+/* Out of sight (lib/still.ts: the window minimized, in the tray, or unfocused for a while): every
+   animation holds still where it is, so a window nobody sees draws nothing (#1801). The only loops
+   left (spinners, the status light's turning arc, progress sweeps) run while work runs. */
+html.still *,
+html.still *::before,
+html.still *::after {
+	animation-play-state: paused !important;
+}
+
 /* Empty states: the glyph in its glow over the emblem's engraving. */
 .empty {
 	position: relative;

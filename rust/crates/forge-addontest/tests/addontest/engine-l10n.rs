@@ -239,6 +239,42 @@ Polestar.RegisterGuide({ id = "test/names", pack = "test", title = "Names", fact
 	assert_eq!(en, json!({ "trail": [1, 2, 3, 4], "text": "Hearth to Darkshire" }));
 }
 
+// A player told to hearth took a flight instead (reported on 0.3.6). The hearth's purpose is getting to the
+// town, so a flight that lands there completes it, on either client; a taxi passing over the town on its way
+// elsewhere does not, and a landing somewhere else keeps the step.
+#[test]
+fn a_hearth_goal_is_done_when_a_flight_lands_in_its_town_not_while_the_taxi_passes_over_it() {
+	const GUIDE: &str = r#"
+Polestar.RegisterGuide({ id = "test/flyhome", pack = "test", title = "Fly home", faction = "Alliance", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { { t = "hearth", location = "Darkshire", area = 42 }, { t = "note", text = "Back to the inn." } } }, -- a note keeps it a step (Own.hearthOnly)
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let script = r#"
+		local w = stub.world
+		local r = { start = E.GetStepIndex() }
+		w.onTaxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		w.setZone(AREAS[10], AREAS[42]); flush()
+		r.over = E.GetStepIndex()
+		w.setZone(AREAS[12], AREAS[87]); flush()
+		w.onTaxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); flush()
+		r.elsewhere = E.GetStepIndex()
+		w.onTaxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		w.setZone(AREAS[10], AREAS[42]); flush()
+		r.approach = E.GetStepIndex()
+		w.onTaxi = false
+		stub.fire("PLAYER_CONTROL_GAINED"); flush()
+		r.landed = E.GetStepIndex()
+		emit(r)"#;
+	for locale in ["enUS", "frFR"] {
+		let out = run(locale, Run { guide: GUIDE, id: "test/flyhome", before: "w.bindLocation = AREAS[42]", ..Default::default() }, script);
+		assert_eq!(out, json!({ "start": 1, "over": 1, "elsewhere": 1, "approach": 1, "landed": 2 }), "{locale}");
+	}
+}
+
 #[test]
 fn the_innkeeper_a_sethome_binds_at_its_npc_else_its_location_s_inn_s_innkeeper_else_a_nearest_candidate_qol_s_bind_helper_asks_the_same() {
 	let out = run(

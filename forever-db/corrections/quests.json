@@ -1615,6 +1615,34 @@
 		},
 		"note": "The Key to Scholomance: starts with Apothecary Dithers (npc 11057) and ends with Apothecary Dithers (npc 11057); as its giver the merged data also listed High Executor Derrington (npc 10837); as its ender the merged data also listed High Executor Derrington (npc 10837)."
 	},
+	"5561": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 4700,
+					"count": 5,
+					"text": "Aged Kodo",
+					"credit": [
+						4700,
+						4701,
+						4702
+					]
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): 8 people ran Kodo Roundup; the line ticked as they talked to a tamed Aged (4700, 13 times), Dying (4701, 19) or Ancient Kodo (4702, 9)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB killCredit: Aged, Dying and Ancient Kodo count for the objective"
+			}
+		],
+		"note": "Kodo Roundup: the Kodo Kombobulator tames an Aged, Dying or Ancient Kodo and each counts once talked to at Smeed's camp (#1614). Pinned so the target button names all three, whichever source a rebuild prefers (the Forever TrinityCore record names a Tamed Kodo, 11627, which no recording shows)."
+	},
 	"5631": {
 		"set": {
 			"start": {
@@ -2505,13 +2533,31 @@
 	},
 	"78261": {
 		"set": {
-			"classes": 8
+			"classes": 8,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 210183,
+					"count": 1,
+					"text": "Horn of Xelthos"
+				}
+			]
 		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row: class mask 8 (Rogue), seen in game"
-		},
-		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 8 (Rogue), seen in game"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): one objective, Horn of Xelthos (210183) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: the one recorded accept listed the item x1 and an optional 'Find Veenix' line; both hand-ins were at the Dead Drop (410369)"
+			}
+		],
+		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it. Its objective is the Horn of Xelthos (210183) x1; the public data kept it only from players' caches, so this correction holds it when the quest database moves to a version without it (#1361 review)."
 	},
 	"78307": {
 		"set": {
@@ -2602,7 +2648,14 @@
 					"count": 5,
 					"text": "Twisted Air Totem"
 				}
-			]
+			],
+			"end": {
+				"npc": [
+					5905
+				],
+				"object": []
+			},
+			"races": 8589934770
 		},
 		"source": [
 			{
@@ -2611,10 +2664,78 @@
 			},
 			{
 				"kind": "eg",
-				"ref": "players' caches (EG Link): objectives"
+				"ref": "players' caches (EG Link): objectives; ender"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Orc player (1 established), 1 Tauren player, 1 Troll player and 1 Horde Skyborne player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ORC + TAUREN + TROLL in 1.0.10 to 1.0.13, ORC + TAUREN + TROLL in 1.0.14"
 			}
 		],
-		"note": "Storm, Earth, and Fire (the Horde Shaman chain's copy) lists the Water, Earth, Fire and Air totems in that order, as the Alliance copy (79358) does (the world database and players' caches agree). The merged data listed Air first and Water last, so forever/class/shaman/call-of-air-horde counted the Air totems on the Water line and the Water totems on the Air line."
+		"note": "Storm, Earth, and Fire (the Horde Shaman chain's copy) lists the Water, Earth, Fire and Air totems in that order, as the Alliance copy (79358) does (the world database and players' caches agree). The merged data listed Air first and Water last, so forever/class/shaman/call-of-air-horde counted the Air totems on the Water line and the Water totems on the Air line. It ends with Prate Cloudseer (npc 5905), who starts it (its totems are \"for Prate Cloudseer\"; players' caches name her alone); the merged data also listed Bath'rah the Windwatcher (npc 6176), first, from the Season of Discovery version of the chain (#1760). Races: this copy is the Horde's, open to every Horde race that can be a Shaman, Horde Skyborne included: Forever's server sets no race limit on it (players' caches) and a Horde Skyborne Shaman took it and handed it in, in recordings. QuestieDB lists Orc, Tauren and Troll only (1.0.10 to 1.0.14), which closed it to Horde Skyborne Shamans."
+	},
+	"79360": {
+		"set": {
+			"start": {
+				"npc": [
+					5905
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					4722
+				],
+				"object": []
+			},
+			"pre": [
+				1531,
+				1532,
+				96136
+			],
+			"preAny": [
+				1531,
+				1532,
+				96136
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Elemental Aid accepted from Prate Cloudseer (npc 5905) by 2 people, offered there on the Call of Air hand-in (1531 handed in to her, then 79360 taken; 1532 in the log as she offered it); handed in to Rau Cliffrunner (npc 4722) by 3 people; Rau Cliffrunner never offered it and refused it once to a level 33 Shaman who could take it, who took it from Prate"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest row: prerequisites 1531, 1532, 96136 (the Call of Air quests, one per race group)"
+			}
+		],
+		"note": "Elemental Aid (the Horde Shaman chain after Call of Air, Charlga Razorflank's Tattered Note in Razorfen Kraul) is given by Prate Cloudseer near Freewind Post once Call of Air is handed in to her, and handed in to Rau Cliffrunner at Freewind Post, as forever/class/shaman/call-of-air-horde does it. The merged data also listed Rau as a giver (first) and Bath'rah the Windwatcher in Alterac Mountains as its ender, from the Season of Discovery version of the chain, and no prerequisite, so the Razorfen Kraul page and its pick-up guide sent Shamans to Rau for it and to Alterac Mountains to hand it in (#1760). Call of Air comes in three copies, one per race group (Searn Firewarder's 1531, Xanis Flameweaver's 1532, Alaana Stormwalker's 96136 for Skyborne): any one of them opens it."
+	},
+	"79366": {
+		"set": {
+			"start": {
+				"npc": [
+					5905
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): starter"
+			}
+		],
+		"note": "Heed My Call (the Horde Shaman chain) is given by Prate Cloudseer (npc 5905) on the Storm, Earth, and Fire hand-in and sends you to report to Rau Cliffrunner, its ender, as forever/class/shaman/call-of-air-horde does it; the merged data also listed Rau (first) as its giver, from the Season of Discovery version of the chain (#1760)."
 	},
 	"79535": {
 		"set": {
@@ -3014,13 +3135,28 @@
 					"count": 1,
 					"text": "Illaya Amberwind"
 				}
-			]
+			],
+			"races": 8589934770
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T000307Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T004219Z-48c8029ca8645ffb-99ebprqpcga7-zfeuqxcdw7): the objective's line ticks while Illaya Amberwind's window is open, with no kill"
-		},
-		"note": "The Windshapers: the objective (\"Listen to Illaya\") ticks as the player talks to Illaya Amberwind, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T000307Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T004219Z-48c8029ca8645ffb-99ebprqpcga7-zfeuqxcdw7): the objective's line ticks while Illaya Amberwind's window is open, with no kill"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 10 Horde Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, TAUREN in 1.0.14"
+			}
+		],
+		"note": "The Windshapers: the objective (\"Listen to Illaya\") ticks as the player talks to Illaya Amberwind, with no kill; the data counted it as a kill. Guides track it as a talk (#956). Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches), and 10 Horde Skyborne players (6 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Tauren (up to 1.0.13: the Horde), which closed it to Orc, Undead, Troll and Horde Skyborne."
 	},
 	"92596": {
 		"set": {
@@ -3163,13 +3299,28 @@
 					"count": 1,
 					"text": "Elaadrin Evengale"
 				}
-			]
+			],
+			"races": 4294967373
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T235118Z-4c82236cc9ec1275-hraqce9f5yqb-jpmxvvz26h, 20261105T201717Z-4c82236cc9ec1275-hraqce9f5yqb-aigwee5mju): the objective's line ticks while Elaadrin Evengale's window is open, with no kill"
-		},
-		"note": "A Grand Adventure (Alliance): the objective (\"Listen to Elaadrin\") ticks as the player talks to Elaadrin Evengale, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T235118Z-4c82236cc9ec1275-hraqce9f5yqb-jpmxvvz26h, 20261105T201717Z-4c82236cc9ec1275-hraqce9f5yqb-aigwee5mju): the objective's line ticks while Elaadrin Evengale's window is open, with no kill"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Night Elf player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "A Grand Adventure (Alliance): the objective (\"Listen to Elaadrin\") ticks as the player talks to Elaadrin Evengale, with no kill; the data counted it as a kill. Guides track it as a talk (#956). Races: it is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
 	},
 	"92742": {
 		"set": {
@@ -3300,7 +3451,8 @@
 	},
 	"92750": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"xp": 120
 		},
 		"source": [
 			{
@@ -3310,13 +3462,22 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 21 people handed it in at a full-XP level (level up to the quest's 16 + 5); 21 of 21 hand-ins paid 120 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 115 (player traces, can be 5 off)"
 			}
 		],
-		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Detonation at a Distance rewards 120 XP on Forever, as players' hand-ins at a full-XP level show; the data had 575, which skewed the level model."
 	},
 	"92751": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"xp": 120
 		},
 		"source": [
 			{
@@ -3326,9 +3487,17 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 21 people handed it in at a full-XP level (level up to the quest's 16 + 5); 21 of 21 hand-ins paid 120 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 115 (player traces, can be 5 off)"
 			}
 		],
-		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Detonation at a Distance rewards 120 XP on Forever, as players' hand-ins at a full-XP level show; the data had 575, which skewed the level model."
 	},
 	"92752": {
 		"set": {
@@ -3421,7 +3590,8 @@
 					"count": 5,
 					"text": "Al'Aketh Cultist's Ear"
 				}
-			]
+			],
+			"races": null
 		},
 		"source": [
 			{
@@ -3431,9 +3601,62 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 13 people took Mercy Falls on Deaf Ears from Vayn Moongaze (254151); the log asked for 5 at the accept and every one handed it in at 5/5"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 8 Alliance Skyborne players (4 established) and 8 Horde Skyborne players (5 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, DWARF + TAUREN + SKYBORNE_ALLIANCE in 1.0.14"
 			}
 		],
-		"note": "Mercy Falls on Deaf Ears (Zephras Isle): five ears, not ten."
+		"note": "Mercy Falls on Deaf Ears (Zephras Isle): five ears, not ten. Races: it has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (8 Alliance Skyborne players (4 established) and 8 Horde Skyborne players (5 established) in recordings). QuestieDB 1.0.14 narrowed it to Dwarf, Tauren and Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"93226": {
+		"set": {
+			"start": {
+				"npc": [
+					5396
+				],
+				"object": [],
+				"item": []
+			},
+			"pre": [
+				93224
+			],
+			"preAny": [
+				93224
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Captain Pentigast (5396) offered Buying Friendship: Magram to 2 people (Gnome Priest 32, Gnome Warlock 37) right after they handed in Carved Centaur Totems (93224), and not before it; Gorhak's (253139) window did not offer it to 2 others (Gnome Warlock 37, Night Elf Druid 35) who had not"
+			}
+		],
+		"note": "Buying Friendship: Magram (Alliance) starts with Captain Pentigast at Nijel's Point, as its Gelkis twin does, and is offered once Carved Centaur Totems (93224, Pentigast) is handed in. The merged data had Gorhak as its giver (one dialog capture) and no prerequisite; Gorhak only takes it in."
+	},
+	"93227": {
+		"set": {
+			"pre": [
+				93224
+			],
+			"preAny": [
+				93224
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Captain Pentigast (5396) did not offer Buying Friendship: Gelkis to 4 people before Carved Centaur Totems (93224) was handed in, and offered it to 2 of them right after"
+			}
+		],
+		"note": "Buying Friendship: Gelkis (Alliance) is offered once Carved Centaur Totems (93224) is handed in; the merged data had no prerequisite."
 	},
 	"93797": {
 		"set": {
@@ -3460,13 +3683,28 @@
 					"count": null,
 					"text": "Dusty Bedroll"
 				}
-			]
+			],
+			"races": 4294967373
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings since launch: line 1 ticks as players reach Fillion, with no kill"
-		},
-		"note": "The Missing Scholar: finding Fillion Flamebreeze is a talk (it counts as you reach him), which the data counted as a kill (#802)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: line 1 ticks as players reach Fillion, with no kill"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Night Elf player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Missing Scholar: finding Fillion Flamebreeze is a talk (it counts as you reach him), which the data counted as a kill (#802). Races: it is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
 	},
 	"92947": {
 		"set": {
@@ -3587,13 +3825,28 @@
 					"count": 1,
 					"text": "Peacekeeper Vaaniel"
 				}
-			]
+			],
+			"races": null
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T232208Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261104T232352Z-bd7db8b1683b964e-11cqui4f17c2-mm6wut9mwn, 20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1): the objective's line ticks while Peacekeeper Vaaniel's window is open, with no kill"
-		},
-		"note": "The Western Watch: the objective (\"Check in on the Western Watchtower\") ticks as the player talks to Peacekeeper Vaaniel, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T232208Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261104T232352Z-bd7db8b1683b964e-11cqui4f17c2-mm6wut9mwn, 20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1): the objective's line ticks while Peacekeeper Vaaniel's window is open, with no kill"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 8 Horde Skyborne players (5 established) and 7 Alliance Skyborne players (2 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Western Watch: the objective (\"Check in on the Western Watchtower\") ticks as the player talks to Peacekeeper Vaaniel, with no kill; the data counted it as a kill. Guides track it as a talk (#956). Races: it has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (8 Horde Skyborne players (5 established) and 7 Alliance Skyborne players (2 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
 	},
 	"93927": {
 		"set": {
@@ -3709,13 +3962,41 @@
 	},
 	"94449": {
 		"set": {
-			"next": 94465
+			"next": 94465,
+			"start": {
+				"npc": [
+					258098,
+					258113,
+					257446
+				],
+				"object": [],
+				"item": []
+			},
+			"races": 4294967373
 		},
-		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon 94465 PrevQuestID 94449 (BreadcrumbForQuestId 0)"
-		},
-		"note": "Call of Fire (Kharanos, Dwarf Shaman) leads on to Bruegs Kindleborn's Call of Fire 94465."
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 94465 PrevQuestID 94449 (BreadcrumbForQuestId 0)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: of 9 Dwarf Shamans' accepts, 1 was at Teo Hammerstorm (257446, Dun Morogh 28.8, 66.2), 2 at Ingrid Dunwald (258113), 1 at Eldrun Stormbreaker (258098)"
+			},
+			{
+				"kind": "questie",
+				"ref": "1.0.13 lists Teo Hammerstorm (257446) as a giver of Call of Fire"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF in 1.0.14"
+			}
+		],
+		"note": "Call of Fire (Kharanos, Dwarf Shaman) leads on to Bruegs Kindleborn's Call of Fire 94465. Teo Hammerstorm (257446) in Dun Morogh gives it too; the data had only Ingrid Dunwald (258113) and Eldrun Stormbreaker (258098). Races: it keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman."
 	},
 	"94465": {
 		"set": {
@@ -3747,7 +4028,8 @@
 					"count": 1,
 					"text": "Reagent Pouch"
 				}
-			]
+			],
+			"races": 4294967373
 		},
 		"source": [
 			{
@@ -3757,9 +4039,17 @@
 			{
 				"kind": "tdb",
 				"ref": "world DB: objectives"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF in 1.0.14"
 			}
 		],
-		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
+		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch. Races: it keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman."
 	},
 	"95034": {
 		"set": {
@@ -3917,6 +4207,40 @@
 		],
 		"note": "The New Plague (Undercity, Theodore Griffs) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: Pilk, a Tauren Druid, was not offered it at level 16, and was offered it at level 17 once the chain was completed (#867). The merged data had no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs before the chain."
 	},
+	"94872": {
+		"set": {
+			"pre": [
+				93225
+			],
+			"preAny": [
+				93225
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Gurda Wildmane (5412) did not offer Buying Friendship: Magram or Gelkis to 2 people (Troll Hunter 32-33, Undead Paladin 33-34) in 15 windows before Carved Centaur Totems (93225) was handed in, and offered both to each of them right after"
+			}
+		],
+		"note": "Buying Friendship: Magram (Horde) is offered by Gurda Wildmane once Carved Centaur Totems (93225, Gurda) is handed in; the merged data had no prerequisite."
+	},
+	"94873": {
+		"set": {
+			"pre": [
+				93225
+			],
+			"preAny": [
+				93225
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-10): Gurda Wildmane (5412) did not offer Buying Friendship: Gelkis or Magram to 2 people (Troll Hunter 32-33, Undead Paladin 33-34) in 15 windows before Carved Centaur Totems (93225) was handed in, and offered both to each of them right after"
+			}
+		],
+		"note": "Buying Friendship: Gelkis (Horde) is offered by Gurda Wildmane once Carved Centaur Totems (93225, Gurda) is handed in; the merged data had no prerequisite."
+	},
 	"94489": {
 		"set": {
 			"objectives": [
@@ -3933,13 +4257,28 @@
 					"count": 1,
 					"text": "Jorel Windsinger"
 				}
-			]
+			],
+			"races": null
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings since launch: line 2 ticks as players talk to Jorel Windsinger, with no kill of him"
-		},
-		"note": "The Wounds of Betrayal: after healing the druids the objective is finding Jorel Windsinger (a talk), which the data counted as a kill."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: line 2 ticks as players talk to Jorel Windsinger, with no kill of him"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 8 Alliance Skyborne players (4 established) and 7 Horde Skyborne players (5 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Wounds of Betrayal: after healing the druids the objective is finding Jorel Windsinger (a talk), which the data counted as a kill. Races: it has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (8 Alliance Skyborne players (4 established) and 7 Horde Skyborne players (5 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
 	},
 	"95217": {
 		"set": {
@@ -4204,7 +4543,8 @@
 			],
 			"preAny": [
 				96627
-			]
+			],
+			"breadcrumbs": []
 		},
 		"source": [
 			{
@@ -4226,9 +4566,13 @@
 			{
 				"kind": "tdb",
 				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96627"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 27 characters were refused it at its giver while The Adventurer (96627) was still in their log, and 13 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite."
+		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96627) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96627."
 	},
 	"96101": {
 		"set": {
@@ -4251,7 +4595,9 @@
 			],
 			"preAny": [
 				96638
-			]
+			],
+			"breadcrumbs": [],
+			"races": null
 		},
 		"source": [
 			{
@@ -4265,9 +4611,25 @@
 			{
 				"kind": "tdb",
 				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96638"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 14 characters were refused it at its giver while The Adventurer (96638) was still in their log, and 10 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 11 Alliance Skyborne players (5 established) and 10 Horde Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
 			}
 		],
-		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite."
+		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96638) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96638. Races: it has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (11 Alliance Skyborne players (5 established) and 10 Horde Skyborne players (6 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
 	},
 	"96204": {
 		"set": {
@@ -4461,13 +4823,30 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"breadcrumbs": [],
+			"pre": [
+				96652
+			],
+			"preAny": [
+				96652
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231052Z-4d004155964992bc-xer0elrxvlpz-ykzshyaxdi, 20261104T231115Z-393c799db23f1aed-ck5nv2mx4gk3-b77l9bbshx, 20261104T231717Z-2dea17d83f0a53ac-ufi7fhjdwp58-2ed708dozh): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Durotar, Brakk): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231052Z-4d004155964992bc-xer0elrxvlpz-ykzshyaxdi, 20261104T231115Z-393c799db23f1aed-ck5nv2mx4gk3-b77l9bbshx, 20261104T231717Z-2dea17d83f0a53ac-ufi7fhjdwp58-2ed708dozh): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 24 characters were refused it at its giver while The Adventurer (96652) was still in their log, and 13 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "questie",
+				"ref": "The Adventurer (96652) ends at this quest's giver and leads to it (its breadcrumb link)"
+			}
+		],
+		"note": "The Great Outdoors (Durotar, Brakk): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96652), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96652."
 	},
 	"96605": {
 		"set": {
@@ -4484,13 +4863,39 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
-			]
+			],
+			"breadcrumbs": [],
+			"pre": [
+				96659
+			],
+			"preAny": [
+				96659
+			],
+			"races": 8589934770
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231308Z-0d4b1ec3b4db1afb-o2vokrnm57ik-7yf14jv091, 20261104T231707Z-c7c1676602f96700-mzwfbhydidtm-aeo3x67q3r, 20261104T231916Z-61fc8ceaa41acb96-cozqfy0ds8xv-cg0o5vr0mt): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Mulgore, Kaga Wildhoof): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231308Z-0d4b1ec3b4db1afb-o2vokrnm57ik-7yf14jv091, 20261104T231707Z-c7c1676602f96700-mzwfbhydidtm-aeo3x67q3r, 20261104T231916Z-61fc8ceaa41acb96-cozqfy0ds8xv-cg0o5vr0mt): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 9 characters were refused it at its giver while The Adventurer (96659) was still in their log, and 5 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "questie",
+				"ref": "The Adventurer (96659) ends at this quest's giver and leads to it (its breadcrumb link)"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, TAUREN in 1.0.14"
+			}
+		],
+		"note": "The Great Outdoors (Mulgore, Kaga Wildhoof): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96659), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96659. Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Tauren (up to 1.0.13: the Horde), which closed it to Orc, Undead, Troll and Horde Skyborne."
 	},
 	"96606": {
 		"set": {
@@ -4507,13 +4912,39 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
-			]
+			],
+			"breadcrumbs": [],
+			"pre": [
+				96630
+			],
+			"preAny": [
+				96630
+			],
+			"races": 4294967373
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231552Z-0a57c3bc4bfa30fa-m2wze6d8fqub-rjaqhquzne, 20261104T231630Z-74e1f22415d07c26-ophl7p6vkebl-pfuf2h9n1p, 20261104T231922Z-ab351786de0672c8-hijimn9x1nw7-zw7iub6xr2): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Teldrassil, Lyreena): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231552Z-0a57c3bc4bfa30fa-m2wze6d8fqub-rjaqhquzne, 20261104T231630Z-74e1f22415d07c26-ophl7p6vkebl-pfuf2h9n1p, 20261104T231922Z-ab351786de0672c8-hijimn9x1nw7-zw7iub6xr2): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 20 characters were refused it at its giver while The Adventurer (96630) was still in their log, and 14 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "questie",
+				"ref": "The Adventurer (96630) ends at this quest's giver and leads to it (its breadcrumb link)"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, NIGHT_ELF in 1.0.14"
+			}
+		],
+		"note": "The Great Outdoors (Teldrassil, Lyreena): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). It is offered only once The Adventurer (96630), which ends with its giver, is handed in; the quest data names The Adventurer as its breadcrumb, and a breadcrumb never blocks, so Lookup's data pack and the pick-up guides had no prerequisite (#1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96630. Races: it is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Night Elf (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Gnome and Alliance Skyborne."
 	},
 	"96607": {
 		"set": {
@@ -4536,7 +4967,9 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
-			]
+			],
+			"breadcrumbs": [],
+			"races": 8589934770
 		},
 		"source": [
 			{
@@ -4546,9 +4979,21 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (20261104T231310Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz, 20261104T231622Z-8bba550a7cd44bb5-roxpo93fzpkh-tgrecl06yt, 20261104T231818Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 30 characters were refused it at its giver while The Adventurer (96656) was still in their log, and 24 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD in 1.0.14"
 			}
 		],
-		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in. The Great Outdoors (Tirisfal Glades, Eleanor Shackleton): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in. The Great Outdoors (Tirisfal Glades, Eleanor Shackleton): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The quest data also names The Adventurer (96656) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96656. Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead (up to 1.0.13: the Horde), which closed it to Orc, Tauren, Troll and Horde Skyborne."
 	},
 	"96608": {
 		"set": {
@@ -4571,7 +5016,9 @@
 			],
 			"preAny": [
 				96628
-			]
+			],
+			"breadcrumbs": [],
+			"races": 4294967373
 		},
 		"source": [
 			{
@@ -4585,9 +5032,21 @@
 			{
 				"kind": "tdb",
 				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96628"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): 22 characters were refused it at its giver while The Adventurer (96628) was still in their log, and 15 were offered it once The Adventurer was handed in there"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF + GNOME in 1.0.14"
 			}
 		],
-		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96628) is handed in at the same camp, so it now needs it; our data had no prerequisite."
+		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96628) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96628) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96628. Races: it is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Dwarf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Night Elf and Alliance Skyborne."
 	},
 	"96655": {
 		"set": {
@@ -4612,7 +5071,8 @@
 			],
 			"preAny": [
 				382
-			]
+			],
+			"breadcrumbFor": null
 		},
 		"source": [
 			{
@@ -4626,9 +5086,13 @@
 			{
 				"kind": "in-game-check",
 				"ref": "#792"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96607), 30 characters were refused it at its giver while The Adventurer (96656) was still in their log, and 24 were offered it once The Adventurer was handed in there"
 			}
 		],
-		"note": "The Adventurer (Tirisfal, Executor Arren) is offered once The Red Messenger 382 is handed in, per ForeverTDB and QuestieDB. Three players at level 4 with Night Web's Hollow 380 still open were not offered it (#792, #793, #794); petllama saw Arren offer it in game once 382 was handed in (#792). The merged data had no prerequisite, so the Undead route took it at step 8, long before 382."
+		"note": "The Adventurer (Tirisfal, Executor Arren) is offered once The Red Messenger 382 is handed in, per ForeverTDB and QuestieDB. Three players at level 4 with Night Web's Hollow 380 still open were not offered it (#792, #793, #794); petllama saw Arren offer it in game once 382 was handed in (#792). The merged data had no prerequisite, so the Undead route took it at step 8, long before 382. The Adventurer (96656) is a prerequisite of The Great Outdoors (96607), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96607 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
 	},
 	"96821": {
 		"set": {
@@ -4772,7 +5236,8 @@
 			],
 			"preAny": [
 				97281
-			]
+			],
+			"races": 8589934770
 		},
 		"source": [
 			{
@@ -4790,9 +5255,34 @@
 			{
 				"kind": "recording",
 				"ref": "Horde 1-30 audit (#1414), xp: 19 hand-ins at a full-XP level paid 850 XP (QuestieDB 1.0.13's traces: 840); the data had 875"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 19 characters took it, every one an Orc or a Troll; no Alliance character is recorded with it"
 			}
 		],
-		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop)."
+		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop). It is a Horde quest: newer quest data drops the race mask and players' caches say every race, so this correction keeps it Horde only (#1361 review)."
+	},
+	"97284": {
+		"set": {
+			"pre": [
+				1465
+			],
+			"preAny": [
+				1465
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1579: the reporter, in game on 2026-11-10: Vahlarriel offered nothing to take with 1437 in the log; once the search part was handed in to her, she gave Vahlarriel's Vengeance together with another Vahlarriel's Search (1438)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (#1579, people counted per IngestAudit): 3 people (2 established) were offered Vahlarriel's Vengeance (97284) by Vahlarriel Demonslayer, each in her window right after handing her Vahlarriel's Search (1465) or later, two of them together with 1438; no window offered it before 1465 was handed in; a level 36 Human with nothing done got only 1437 from her (a direct quest window)"
+			}
+		],
+		"note": "Vahlarriel's Vengeance (Desolace, Vahlarriel Demonslayer at Nijel's Point) comes with the third part of Vahlarriel's Search (1438), when the second part (1465, from the Malem chest) is handed back to her (#1579: in game and in every recorded window). Whether the first part (1437) alone would unlock it can't be told: nobody opened her window between the two hand-ins, and 1437 ends at the chest, so she is next visited with 1465. The merged data had no prerequisite, so the Alliance Desolace guide asked for it together with 1437."
 	},
 	"97289": {
 		"set": {
@@ -4896,7 +5386,8 @@
 			],
 			"preAny": [
 				97914
-			]
+			],
+			"xp": 625
 		},
 		"source": [
 			{
@@ -4906,9 +5397,17 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_all 97914"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 23 people handed it in at a full-XP level (level up to the quest's 17 + 5); 22 of 23 hand-ins paid 625 XP, the others 643 (1) (a 3% bonus on the base, or a level-reduced reward)"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 630 (player traces, can be 5 off)"
 			}
 		],
-		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs."
+		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs. Making Do rewards 625 XP on Forever, as players' hand-ins at a full-XP level show; the data had 130, which skewed the level model."
 	},
 	"98059": {
 		"set": {
@@ -5154,13 +5653,24 @@
 					"count": 1,
 					"text": "Mountaineer Cornelius found"
 				}
-			]
+			],
+			"xp": 350
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261105T014628Z-28c07733fef17d53-mnvhmrdot3xh-sykntogm9l): the game lists the objective as an event (\"Mountaineer Cornelius found\") at the accept, and it ticks with no object clicked"
-		},
-		"note": "Secure the Mountain: finding Mountaineer Cornelius in the Grizzled Den is an event in the game's quest log; the data had it as clicking an object named after him. The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261105T014628Z-28c07733fef17d53-mnvhmrdot3xh-sykntogm9l): the game lists the objective as an event (\"Mountaineer Cornelius found\") at the accept, and it ticks with no object clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 23 people handed it in at a full-XP level (level up to the quest's 8 + 5); 25 of 25 hand-ins paid 350 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 350 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Secure the Mountain: finding Mountaineer Cornelius in the Grizzled Den is an event in the game's quest log; the data had it as clicking an object named after him. The guides keep `complete` for it (#956). Secure the Mountain rewards 350 XP on Forever, as players' hand-ins at a full-XP level show; the data had 180, which skewed the level model."
 	},
 	"98389": {
 		"set": {
@@ -5174,7 +5684,8 @@
 					"count": 6,
 					"text": "Webbed Forsaken freed"
 				}
-			]
+			],
+			"races": 8589934770
 		},
 		"source": [
 			{
@@ -5184,9 +5695,21 @@
 			{
 				"kind": "eg",
 				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Orc player"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD in 1.0.14"
 			}
 		],
-		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in. Its objective is \"Webbed Forsaken freed\" x6, credited by the Webbed Forsaken 271961 (the game's quest data: a monster objective), freed by attacking their cocoons in Night's Web Hollow (issue #735, with a screenshot of the attackable cocoon); the merged data has no objective."
+		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in. Its objective is \"Webbed Forsaken freed\" x6, credited by the Webbed Forsaken 271961 (the game's quest data: a monster objective), freed by attacking their cocoons in Night's Web Hollow (issue #735, with a screenshot of the attackable cocoon); the merged data has no objective. Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches), and 1 Orc player took it in recordings. QuestieDB 1.0.14 narrowed it to Undead (up to 1.0.13: the Horde), which closed it to Orc, Tauren, Troll and Horde Skyborne."
 	},
 	"98341": {
 		"set": {
@@ -5287,7 +5810,8 @@
 	},
 	"98404": {
 		"set": {
-			"classes": 1024
+			"classes": 1024,
+			"races": 12884901888
 		},
 		"source": [
 			{
@@ -5297,9 +5821,21 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row: class mask 1024 (Druid)"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 0000000300000000 (Alliance Skyborne and Horde Skyborne)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 2 Horde Skyborne players (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: SKYBORNE_ALLIANCE + SKYBORNE_HORDE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
 			}
 		],
-		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, the three relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, the three relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it. Races: it is open to Alliance and Horde Skyborne: Forever's server sets the two Skyborne races (players' caches), and 2 Horde Skyborne players (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: both Skyborne races), which closed it to Horde Skyborne."
 	},
 	"98731": {
 		"set": {
@@ -5565,7 +6101,8 @@
 			],
 			"preAny": [
 				99081
-			]
+			],
+			"races": 8589934770
 		},
 		"source": [
 			{
@@ -5575,9 +6112,17 @@
 			{
 				"kind": "in-game-check",
 				"ref": "issue #112"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD + TAUREN in 1.0.14"
 			}
 		],
-		"note": "Our Ancient Enemy (Mulgore, Brave Wildrunner) comes after Grim Tidings 99081, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
+		"note": "Our Ancient Enemy (Mulgore, Brave Wildrunner) comes after Grim Tidings 99081, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite. Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead and Tauren (up to 1.0.13: the Horde), which closed it to Orc, Troll and Horde Skyborne."
 	},
 	"99123": {
 		"set": {
@@ -5680,13 +6225,24 @@
 					"count": null,
 					"text": "Escort Bareth Dawnstone out of Crusader's Outpost"
 				}
-			]
+			],
+			"races": 8589934770
 		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: manual"
-		},
-		"note": "Seeking Refuge (Tirisfal) is an escort: one event objective, Escort Bareth Dawnstone out of Crusader's Outpost (1), with no map point, so the event runs where it starts (Bareth Dawnstone 275954). QuestieDB has no objectives."
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: manual"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, ORC + UNDEAD in 1.0.14"
+			}
+		],
+		"note": "Seeking Refuge (Tirisfal) is an escort: one event objective, Escort Bareth Dawnstone out of Crusader's Outpost (1), with no map point, so the event runs where it starts (Bareth Dawnstone 275954). QuestieDB has no objectives. Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Orc and Undead (up to 1.0.13: the Horde), which closed it to Tauren, Troll and Horde Skyborne."
 	},
 	"99156": {
 		"set": {
@@ -5695,13 +6251,28 @@
 			],
 			"preAny": [
 				356
-			]
+			],
+			"races": 8589934770
 		},
-		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID"
-		},
-		"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea) comes after the first, Rear Guard Patrol 356. QuestieDB has no prerequisite."
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 8 Troll players (4 established), 6 Tauren players (2 established) and 3 Horde Skyborne players (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, ORC + UNDEAD in 1.0.14"
+			}
+		],
+		"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea) comes after the first, Rear Guard Patrol 356. QuestieDB has no prerequisite. Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches), and 8 Troll players (4 established), 6 Tauren players (2 established) and 3 Horde Skyborne players (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Orc and Undead (up to 1.0.13: the Horde), which closed it to Tauren, Troll and Horde Skyborne."
 	},
 	"92422": {
 		"set": {
@@ -5779,13 +6350,28 @@
 					"count": 1,
 					"text": "Coriella Calmbreeze"
 				}
-			]
+			],
+			"races": 8589934770
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Illaya Amberwind and line 2 as they talk to the innkeeper, with no kill"
-		},
-		"note": "Welcome to Shen'dar Village (Horde): both objectives are talks, to Illaya Amberwind and to the innkeeper Coriella Calmbreeze, which the data counted as kills."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Illaya Amberwind and line 2 as they talk to the innkeeper, with no kill"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 10 Horde Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, TAUREN in 1.0.14"
+			}
+		],
+		"note": "Welcome to Shen'dar Village (Horde): both objectives are talks, to Illaya Amberwind and to the innkeeper Coriella Calmbreeze, which the data counted as kills. Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches), and 10 Horde Skyborne players (6 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Tauren (up to 1.0.13: the Horde), which closed it to Orc, Undead, Troll and Horde Skyborne."
 	},
 	"92519": {
 		"set": {
@@ -6647,7 +7233,8 @@
 	"95805": {
 		"set": {
 			"xp": 360,
-			"limit": 600
+			"limit": 600,
+			"races": 8589934770
 		},
 		"source": [
 			{
@@ -6661,9 +7248,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB Forever quest 95805's objective text: carry the incense to the shrine before it burns to ash in ten minutes"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, TAUREN in 1.0.14"
 			}
 		],
-		"note": "Grace of An'she and Mu'sha pays 360 XP, not 180: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414). It allows ten minutes (600 s) from the Seer to the shrine, as its objective says; the Forever TDB has no record of it, so the data had no limit and Dynamic Questing could not tell whether taking it early still leaves time for the walk."
+		"note": "Grace of An'she and Mu'sha pays 360 XP, not 180: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414). It allows ten minutes (600 s) from the Seer to the shrine, as its objective says; the Forever TDB has no record of it, so the data had no limit and Dynamic Questing could not tell whether taking it early still leaves time for the walk. Races: it is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Tauren (up to 1.0.13: the Horde), which closed it to Orc, Undead, Troll and Horde Skyborne."
 	},
 	"96130": {
 		"set": {
@@ -7258,5 +7853,1317 @@
 			}
 		],
 		"note": "Sentiments of the Lost (Essene Villard to Corma Villard, Wetlands), the last of the Hearts of the Lost chain (87318, #1565), is not in the live game either. The quest leaves the data."
+	},
+	"79442": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Horde Skyborne player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ORC + TAUREN + TROLL in 1.0.10 to 1.0.13, ORC + TAUREN + TROLL in 1.0.14"
+			}
+		],
+		"note": "The Tempest's Weapons (Horde Shaman, Call of Air) is open to every Horde race that can be a Shaman, Horde Skyborne included: Forever's server sets the Horde races on it (players' caches) and a Horde Skyborne Shaman took it in recordings. QuestieDB lists Orc, Tauren and Troll only (1.0.10 to 1.0.14), which closed it to Horde Skyborne Shamans."
+	},
+	"86784": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, ORC + UNDEAD + TAUREN in 1.0.14"
+			}
+		],
+		"note": "Sticks and Bones is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Orc, Undead and Tauren (up to 1.0.13: the Horde), which closed it to Troll and Horde Skyborne."
+	},
+	"92460": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 15 Horde Skyborne players (9 established) and 10 Alliance Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Coming of Age (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (15 Horde Skyborne players (9 established) and 10 Alliance Skyborne players (6 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92461": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 15 Horde Skyborne players (9 established) and 10 Alliance Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Harmony in Balance (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (15 Horde Skyborne players (9 established) and 10 Alliance Skyborne players (6 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92462": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 15 Horde Skyborne players (9 established) and 10 Alliance Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Infestation Investigation (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (15 Horde Skyborne players (9 established) and 10 Alliance Skyborne players (6 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92463": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 13 Horde Skyborne players (7 established) and 11 Alliance Skyborne players (5 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Cirrusfly Queen (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (13 Horde Skyborne players (7 established) and 11 Alliance Skyborne players (5 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92472": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 11 Horde Skyborne players (6 established) and 10 Alliance Skyborne players (5 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Next Step (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (11 Horde Skyborne players (6 established) and 10 Alliance Skyborne players (5 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92474": {
+		"set": {
+			"races": 12884901888
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 0000000300000000 (Alliance Skyborne and Horde Skyborne)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 13 Horde Skyborne players (7 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: SKYBORNE_ALLIANCE + SKYBORNE_HORDE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Falling With Style is open to Alliance and Horde Skyborne: Forever's server sets the two Skyborne races (players' caches), and 13 Horde Skyborne players (7 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: both Skyborne races), which closed it to Horde Skyborne."
+	},
+	"92516": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 10 Horde Skyborne players (6 established) and 8 Alliance Skyborne players (3 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Hippogryph Harassment (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (10 Horde Skyborne players (6 established) and 8 Alliance Skyborne players (3 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92550": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 8 Horde Skyborne players (5 established) and 7 Alliance Skyborne players (2 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Havoc in the Highlands (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (8 Horde Skyborne players (5 established) and 7 Alliance Skyborne players (2 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92553": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 10 Horde Skyborne players (6 established) and 8 Alliance Skyborne players (3 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Restocking the Larders (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (10 Horde Skyborne players (6 established) and 8 Alliance Skyborne players (3 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92682": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 7 Alliance Skyborne players (3 established) and 6 Horde Skyborne players (4 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Make Yourself Useful (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (7 Alliance Skyborne players (3 established) and 6 Horde Skyborne players (4 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92685": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 9 Alliance Skyborne players (4 established) and 8 Horde Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Hills Have Eyes (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (9 Alliance Skyborne players (4 established) and 8 Horde Skyborne players (6 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"92727": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Night Elf player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Missing Scholar is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
+	},
+	"92834": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Night Elf player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Avenged Tenfold is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
+	},
+	"92840": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Night Elf player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Catching Wind is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
+	},
+	"93044": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption reviewed_shared_races) in 1.0.10 to 1.0.13, ALL_HORDE in 1.0.14"
+			}
+		],
+		"note": "A Cleansing Cry has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to the Horde races (up to 1.0.13: no race limit), which closed it to the Alliance races."
+	},
+	"93122": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption reviewed_shared_races) in 1.0.10 to 1.0.13, ALL_HORDE in 1.0.14"
+			}
+		],
+		"note": "Checking Things Out has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to the Horde races (up to 1.0.13: no race limit), which closed it to the Alliance races."
+	},
+	"93128": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption reviewed_shared_races) in 1.0.10 to 1.0.13, ALL_HORDE in 1.0.14"
+			}
+		],
+		"note": "Khan Jehn has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to the Horde races (up to 1.0.13: no race limit), which closed it to the Alliance races."
+	},
+	"93160": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 8 Alliance Skyborne players (4 established) and 8 Horde Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Forest's Bounty (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (8 Alliance Skyborne players (4 established) and 8 Horde Skyborne players (6 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"93317": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 8 Alliance Skyborne players (3 established) and 6 Horde Skyborne players (4 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Crab Season (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (8 Alliance Skyborne players (3 established) and 6 Horde Skyborne players (4 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"93320": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 9 Alliance Skyborne players (3 established) and 9 Horde Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Tower Defense (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (9 Alliance Skyborne players (3 established) and 9 Horde Skyborne players (6 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"93465": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Gnome player"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption reviewed_shared_races) in 1.0.10 to 1.0.13, ALL_HORDE in 1.0.14"
+			}
+		],
+		"note": "Notes on Draenethyst has no race limit: Forever's server sets no race limit (players' caches), and 1 Gnome player took it in recordings. QuestieDB 1.0.14 narrowed it to the Horde races (up to 1.0.13: no race limit), which closed it to the Alliance races."
+	},
+	"93951": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 10 Horde Skyborne players (6 established) and 8 Alliance Skyborne players (3 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "A Little Beauty (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (10 Horde Skyborne players (6 established) and 8 Alliance Skyborne players (3 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"94003": {
+		"set": {
+			"races": 12884901888
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 0000000300000000 (Alliance Skyborne and Horde Skyborne)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: SKYBORNE_ALLIANCE + SKYBORNE_HORDE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Skybreaker Bulwark is open to Alliance and Horde Skyborne: Forever's server sets the two Skyborne races (players' caches). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: both Skyborne races), which closed it to Horde Skyborne."
+	},
+	"94006": {
+		"set": {
+			"races": 12884901888
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask 0000000300000000 (Alliance Skyborne and Horde Skyborne)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 4 Horde Skyborne players (3 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: SKYBORNE_ALLIANCE + SKYBORNE_HORDE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Great Ursera Spirit is open to Alliance and Horde Skyborne: Forever's server sets the two Skyborne races (players' caches), and 4 Horde Skyborne players (3 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: both Skyborne races), which closed it to Horde Skyborne."
+	},
+	"94251": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Night Elf player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption craftsmans_writs) in 1.0.10 to 1.0.13, ALL_HORDE in 1.0.14"
+			}
+		],
+		"note": "Craftsman's Writ: Phoenix Pants has no race limit: Forever's server sets no race limit (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to the Horde races (up to 1.0.13: no race limit), which closed it to the Alliance races."
+	},
+	"94467": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF in 1.0.14"
+			}
+		],
+		"note": "Call of Fire (the Alliance Shaman fire totem chain) keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman."
+	},
+	"94468": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF in 1.0.14"
+			}
+		],
+		"note": "Call of Fire (the Alliance Shaman fire totem chain) keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman."
+	},
+	"94486": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 9 Alliance Skyborne players (4 established) and 7 Horde Skyborne players (5 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Feathers for Binding (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (9 Alliance Skyborne players (4 established) and 7 Horde Skyborne players (5 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"94568": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 9 Alliance Skyborne players (4 established) and 9 Horde Skyborne players (6 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Cult's True Plans (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (9 Alliance Skyborne players (4 established) and 9 Horde Skyborne players (6 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"94897": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 9 Alliance Skyborne players (4 established) and 6 Horde Skyborne players (4 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Fate of a Loved One (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches), and both Skyborne starts take it (9 Alliance Skyborne players (4 established) and 6 Horde Skyborne players (4 established) in recordings). QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"96031": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF + GNOME in 1.0.14"
+			}
+		],
+		"note": "Camping 101: Leatherworking is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Dwarf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Night Elf and Alliance Skyborne."
+	},
+	"96058": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF + GNOME in 1.0.14"
+			}
+		],
+		"note": "Camping 101: Engineering is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Dwarf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Night Elf and Alliance Skyborne."
+	},
+	"96658": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD in 1.0.14"
+			}
+		],
+		"note": "Camping 101: Cooking is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead (up to 1.0.13: the Horde), which closed it to Orc, Tauren, Troll and Horde Skyborne."
+	},
+	"96782": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption reviewed_shared_races) in 1.0.10 to 1.0.13, ALL_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Covert Extraction has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to the Alliance races (up to 1.0.13: no race limit), which closed it to Orc, Undead, Troll and Horde Skyborne."
+	},
+	"96896": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD in 1.0.14"
+			}
+		],
+		"note": "A Righteous Cause is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead (up to 1.0.13: the Horde), which closed it to Orc, Tauren, Troll and Horde Skyborne."
+	},
+	"96899": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, ORC + UNDEAD + TROLL in 1.0.14"
+			}
+		],
+		"note": "Bandarion Keep is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Orc, Undead and Troll (up to 1.0.13: the Horde), which closed it to Tauren and Horde Skyborne."
+	},
+	"97047": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Orc player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption reviewed_shared_races) in 1.0.10 to 1.0.13, ALL_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Cook in the Cage has no race limit: Forever's server sets no race limit (players' caches), and 1 Orc player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to the Alliance races (up to 1.0.13: no race limit), which closed it to the Horde races."
+	},
+	"97277": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF + GNOME + SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Grund and Gozwin is open to every Alliance race: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to Dwarf, Gnome and Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human and Night Elf."
+	},
+	"97329": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 2 Undead players (1 established), 1 Orc player (1 established) and 1 Troll player"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption unresolved_race_defaults) in 1.0.10 to 1.0.13, ALL_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Where's the Key? has no race limit: Forever's server sets no race limit (players' caches), and 2 Undead players (1 established), 1 Orc player (1 established) and 1 Troll player took it in recordings. QuestieDB 1.0.14 narrowed it to the Alliance races (up to 1.0.13: no race limit), which closed it to the Horde races."
+	},
+	"97916": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 6 Human players (5 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, NIGHT_ELF in 1.0.14"
+			}
+		],
+		"note": "Camping 101: Blacksmithing is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 6 Human players (5 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Night Elf (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Gnome and Alliance Skyborne."
+	},
+	"97925": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 7 Human players (5 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, NIGHT_ELF + GNOME in 1.0.14"
+			}
+		],
+		"note": "Camping 101: Tailoring is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 7 Human players (5 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Night Elf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Dwarf and Alliance Skyborne."
+	},
+	"97961": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD + TROLL in 1.0.14"
+			}
+		],
+		"note": "Camping 101: Tailoring is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead and Troll (up to 1.0.13: the Horde), which closed it to Orc, Tauren and Horde Skyborne."
+	},
+	"97977": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, NIGHT_ELF in 1.0.14"
+			}
+		],
+		"note": "Nature's Call is open to every Alliance race: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to Night Elf (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Gnome and Alliance Skyborne."
+	},
+	"98065": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, NIGHT_ELF in 1.0.14"
+			}
+		],
+		"note": "Crown of the Earth is open to every Alliance race: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to Night Elf (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Gnome and Alliance Skyborne."
+	},
+	"98284": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD + TAUREN + TROLL in 1.0.14"
+			}
+		],
+		"note": "Camping 101: Enchanting is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead, Tauren and Troll (up to 1.0.13: the Horde), which closed it to Orc and Horde Skyborne."
+	},
+	"98285": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70840, 1.60.1.70862: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, TAUREN + SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "Camping 101: Engineering (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to Tauren and Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+	},
+	"98427": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors and re-used character ids left out): accepted by 1 Troll player (1 established)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, ORC + UNDEAD + TAUREN in 1.0.14"
+			}
+		],
+		"note": "Ceasing Operations is open to every Horde race: Forever's server sets the Horde races (players' caches), and 1 Troll player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Orc, Undead and Tauren (up to 1.0.13: the Horde), which closed it to Troll and Horde Skyborne."
+	},
+	"98435": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, TAUREN in 1.0.14"
+			}
+		],
+		"note": "Thunderhorn's Report is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Tauren (up to 1.0.13: the Horde), which closed it to Orc, Undead, Troll and Horde Skyborne."
+	},
+	"99050": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70840, 1.60.1.70862: raceMask 55155555b1354c4d (the Alliance races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, NIGHT_ELF + SKYBORNE_ALLIANCE in 1.0.14"
+			}
+		],
+		"note": "The Great Tree Provides is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Night Elf and Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf and Gnome."
+	},
+	"99152": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD in 1.0.14"
+			}
+		],
+		"note": "As Above, So Below is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead (up to 1.0.13: the Horde), which closed it to Orc, Tauren, Troll and Horde Skyborne."
+	},
+	"99153": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD in 1.0.14"
+			}
+		],
+		"note": "The One That Got Away is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead (up to 1.0.13: the Horde), which closed it to Orc, Tauren, Troll and Horde Skyborne."
+	},
+	"96627": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (95998), 27 characters were refused it at its giver while The Adventurer (96627) was still in their log, and 13 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96627) is a prerequisite of The Great Outdoors (95998), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 95998 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96638": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96101), 14 characters were refused it at its giver while The Adventurer (96638) was still in their log, and 10 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96638) is a prerequisite of The Great Outdoors (96101), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96101 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96652": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96604), 24 characters were refused it at its giver while The Adventurer (96652) was still in their log, and 13 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96652) is a prerequisite of The Great Outdoors (96604), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96604 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96659": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96605), 9 characters were refused it at its giver while The Adventurer (96659) was still in their log, and 5 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96659) is a prerequisite of The Great Outdoors (96605), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96605 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96630": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96606), 20 characters were refused it at its giver while The Adventurer (96630) was still in their log, and 14 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96630) is a prerequisite of The Great Outdoors (96606), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96606 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"96628": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (#1490): for The Great Outdoors (96608), 22 characters were refused it at its giver while The Adventurer (96628) was still in their log, and 15 were offered it once The Adventurer was handed in there"
+			}
+		],
+		"note": "The Adventurer (96628) is a prerequisite of The Great Outdoors (96608), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96608 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"91723": {
+		"set": {
+			"xp": 525
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 21 people handed it in at a full-XP level (level up to the quest's 10 + 5); 21 of 23 hand-ins paid 525 XP, the others 420 (2) (a 3% bonus on the base, or a level-reduced reward)"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 530 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Delicate Instruments rewards 525 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"91732": {
+		"set": {
+			"xp": 320
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 18 people handed it in at a full-XP level (level up to the quest's 7 + 5); 18 of 18 hand-ins paid 320 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 315 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Good Steel rewards 320 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"91740": {
+		"set": {
+			"xp": 875
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 12 people handed it in at a full-XP level (level up to the quest's 11 + 5); 12 of 12 hand-ins paid 875 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 880 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Croaky's Head rewards 875 XP on Forever, as players' hand-ins at a full-XP level show; the data had 850, which skewed the level model."
+	},
+	"91745": {
+		"set": {
+			"xp": 25
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 21 people handed it in at a full-XP level (level up to the quest's 3 + 5); 24 of 24 hand-ins paid 25 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 25 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Mining Consultant rewards 25 XP on Forever, as players' hand-ins at a full-XP level show; the data had 130, which skewed the level model."
+	},
+	"91758": {
+		"set": {
+			"xp": 35
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 17 people handed it in at a full-XP level (level up to the quest's 4 + 5); 20 of 20 hand-ins paid 35 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 35 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Follow That Kobold! rewards 35 XP on Forever, as players' hand-ins at a full-XP level show; the data had 180, which skewed the level model."
+	},
+	"91772": {
+		"set": {
+			"xp": 360
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 16 people handed it in at a full-XP level (level up to the quest's 4 + 5); 19 of 19 hand-ins paid 360 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 355 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Shhh! We're Hunting Kobolds rewards 360 XP on Forever, as players' hand-ins at a full-XP level show; the data had 270, which skewed the level model."
+	},
+	"96139": {
+		"set": {
+			"xp": 1400
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 26 people handed it in at a full-XP level (level up to the quest's 23 + 5); 17 of 26 hand-ins paid 1,400 XP, the others 1442 (9) (a 3% bonus on the base, or a level-reduced reward)"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 1,400 (player traces, can be 5 off)"
+			}
+		],
+		"note": "The Valor Family rewards 1,400 XP on Forever, as players' hand-ins at a full-XP level show; the data had 1,750, which skewed the level model."
+	},
+	"96874": {
+		"set": {
+			"xp": 850
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790): 1 person handed it in at a full-XP level (level up to the quest's 10 + 5); 1 of 1 hand-ins paid 850 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 840 (player traces, can be 5 off)"
+			}
+		],
+		"note": "This Is Spinal Axe rewards 850 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"97914": {
+		"set": {
+			"xp": 625
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 36 people handed it in at a full-XP level (level up to the quest's 17 + 5); 35 of 36 hand-ins paid 625 XP, the others 643 (1) (a 3% bonus on the base, or a level-reduced reward)"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 630 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Expanding Horizons rewards 625 XP on Forever, as players' hand-ins at a full-XP level show; the data had 130, which skewed the level model."
+	},
+	"97944": {
+		"set": {
+			"xp": 270
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 4 people handed it in at a full-XP level (level up to the quest's 6 + 5); 4 of 4 hand-ins paid 270 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 270 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Camping 101: Herbalism rewards 270 XP on Forever, as players' hand-ins at a full-XP level show; the data had 220, which skewed the level model."
+	},
+	"98298": {
+		"set": {
+			"xp": 1150
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 1 person handed it in at a full-XP level (level up to the quest's 16 + 5), paid 1,184 XP, the 1,150 base with the 3% bonus some hand-ins carry"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 1,150 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Arugal's Folly rewards 1,150 XP on Forever, as players' hand-ins at a full-XP level show; the data had 575, which skewed the level model."
+	},
+	"99127": {
+		"set": {
+			"xp": 480
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 26 people handed it in at a full-XP level (level up to the quest's 7 + 5); 29 of 29 hand-ins paid 480 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 475 (player traces, can be 5 off)"
+			}
+		],
+		"note": "A Net Disaster rewards 480 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"99131": {
+		"set": {
+			"xp": 65
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 24 people handed it in at a full-XP level (level up to the quest's 7 + 5); 24 of 24 hand-ins paid 65 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 65 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Baited for Success rewards 65 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"99143": {
+		"set": {
+			"xp": 480
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 28 people handed it in at a full-XP level (level up to the quest's 7 + 5); 31 of 31 hand-ins paid 480 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 475 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Bottles and Baubles rewards 480 XP on Forever, as players' hand-ins at a full-XP level show; the data had 625, which skewed the level model."
+	},
+	"99159": {
+		"set": {
+			"xp": 350
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 13 people handed it in at a full-XP level (level up to the quest's 8 + 5); 15 of 15 hand-ins paid 350 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 350 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Finding Warmth rewards 350 XP on Forever, as players' hand-ins at a full-XP level show; the data had 700, which skewed the level model."
+	},
+	"99160": {
+		"set": {
+			"xp": 525
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 16 people handed it in at a full-XP level (level up to the quest's 8 + 5); 18 of 18 hand-ins paid 525 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "trace XP table 1.0.13: 530 (player traces, can be 5 off)"
+			}
+		],
+		"note": "Rime's Wrath rewards 525 XP on Forever, as players' hand-ins at a full-XP level show; the data had 700, which skewed the level model."
+	},
+	"97281": {
+		"set": {
+			"races": 8589934770
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-09: 22 characters took it, every one an Orc or a Troll; no Alliance character is recorded with it"
+			},
+			{
+				"kind": "questie",
+				"ref": "1.0.10: Horde races only"
+			}
+		],
+		"note": "A Simmering Storm (Durotar: the Dull Storm Orb, a drop of the Dustwind Storm Witches, handed to Rezlak) is a Horde quest. Newer quest data drops the race mask and players' caches say every race, so this correction keeps it Horde only (#1361 review)."
 	}
 }

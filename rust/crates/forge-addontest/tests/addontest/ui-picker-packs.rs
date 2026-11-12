@@ -369,3 +369,137 @@ fn every_community_addon_switched_off_ours_not_installed_the_empty_states_point_
 	);
 	assert_eq!(out["options"], "Community guides");
 }
+
+// Polestar Guides installed but unticked in the AddOns list (Fitz's 0.3.6 screenshot): the client nests it
+// under Polestar there, and ticking Polestar does not tick it. Its race and faction parts and the walking packs
+// are off too here (after "Disable All"); an old 0.2.x language folder, the Recorder and a community addon are
+// off and stay off.
+const GUIDES_OFF: &str = r#"stub.addons = {
+	{ name = "Polestar", loaded = true },
+	{ name = "Polestar_Guides", reason = "DISABLED" },
+	{ name = "Polestar_Guides_Orc", reason = "DISABLED" },
+	{ name = "Polestar_Guides_Horde", reason = "DISABLED" },
+	{ name = "Polestar_Guides_Human", reason = "DEP_DISABLED" },
+	{ name = "Polestar_Nav", reason = "DISABLED" },
+	{ name = "Polestar_Nav_Kalimdor", reason = "DISABLED" },
+	{ name = "Polestar_Guides_deDE", reason = "DISABLED" },
+	{ name = "Polestar_Recorder", reason = "DISABLED" },
+	{ name = "PolestarPack_Joe", reason = "DISABLED" },
+}"#;
+
+const TURNED_ON: &[&str] = &["Polestar_Guides", "Polestar_Guides_Orc", "Polestar_Guides_Horde", "Polestar_Nav", "Polestar_Nav_Kalimdor"];
+
+fn guides_off(script: &str, saved: Option<&str>) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: GUIDES_OFF.into(),
+		saved: saved.map(|s| vec![("Polestar".to_string(), s.to_string())]).unwrap_or_default(),
+		addons: vec![Addon::files("Polestar", FILES)],
+		script: format!("uistub.install()\nPolestar.Guides = uistub.realGuides\n{FIND_BUTTON}\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn guides_installed_but_off_ask_once_at_login_never_in_combat_and_yes_turns_on_ours_for_every_character_and_reloads() {
+	let out = guides_off(
+		r#"
+		stub.inCombat = true
+		stub.login()
+		stub.advance(3)
+		local inCombat = #stub.popups
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		local after = #stub.popups
+		stub.fire("PLAYER_REGEN_ENABLED")
+		local p = stub.popups[1]
+		local text = p and p.args[1]
+		local dialog = p and StaticPopupDialogs[p.which]
+		if dialog then dialog.OnAccept() end
+		emit({ inCombat = inCombat, after = after, again = #stub.popups, text = text, yes = dialog and dialog.button1,
+			asked = Polestar.DB().guidesOffAsked, enabled = stub.enabledAddOns, reloaded = stub.reloaded == true })"#,
+		None,
+	);
+	assert_eq!(out["inCombat"], 0, "not asked in combat");
+	assert_eq!(out["after"], 1, "asked once combat ends");
+	assert_eq!(out["again"], 1, "asked once");
+	assert_eq!(out["text"], "Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?");
+	assert_eq!(out["yes"], "Turn on and reload");
+	assert_eq!(out["asked"], true, "kept, so the next login does not ask again");
+	assert_eq!(out["enabled"], json!(TURNED_ON), "ours and its off parts; not the old language folder, the Recorder or a community addon");
+	assert_eq!(out["reloaded"], true);
+}
+
+#[test]
+fn guides_off_and_asked_before_no_question_at_login_the_guide_window_still_has_the_button() {
+	let out = guides_off(
+		r#"
+		stub.login()
+		stub.advance(3)
+		emit({ popups = #stub.popups })"#,
+		Some("PolestarDB = { schema = 1, guidesOffAsked = true }"),
+	);
+	assert_eq!(out["popups"], 0);
+}
+
+#[test]
+fn guides_installed_but_off_the_empty_states_say_so_and_one_click_turns_them_on_and_reloads() {
+	let out = guides_off(
+		r#"
+		stub.login()
+		Polestar.Set("ui.shown", true)
+		Polestar.Fire("GUIDE_CHANGED", nil)
+		Polestar.UI.ShowPicker()
+		Polestar.UI.Picker.SetCategory("All")
+		local GF = PolestarGuideFrame
+		local r = { picker = PolestarPicker.Empty:GetText(), pickerButton = PolestarPicker.TurnOn:IsShown() and PolestarPicker.TurnOn.Label:GetText() or false,
+			title = uistub.findText(GF, "Polestar Guides is turned off") ~= nil,
+			text = uistub.findText(GF, "It is installed but unticked in the game's AddOns list, so Polestar has no guides to show.") ~= nil,
+			installed = uistub.findText(GF, "No guides installed") ~= nil }
+		local button = emptyButton("Turn on Polestar Guides and reload")
+		r.button = button ~= nil
+		r.fits = button ~= nil and button:GetWidth() >= button.Label:GetStringWidth() + 32
+		if button then button.psAction() end
+		r.enabled = stub.enabledAddOns
+		r.reloaded = stub.reloaded == true
+		emit(r)"#,
+		Some("PolestarDB = { schema = 1, guidesOffAsked = true }"),
+	);
+	assert_eq!(out["picker"], "No guides: Polestar Guides is installed but unticked in the game's AddOns list.");
+	assert_eq!(out["pickerButton"], "Turn on Polestar Guides and reload");
+	assert_eq!(
+		json!({ "title": out["title"], "text": out["text"], "installed": out["installed"], "button": out["button"], "fits": out["fits"] }),
+		json!({ "title": true, "text": true, "installed": false, "button": true, "fits": true })
+	);
+	assert_eq!(out["enabled"], json!(TURNED_ON));
+	assert_eq!(out["reloaded"], true);
+}
+
+#[test]
+fn guides_not_installed_no_question_and_the_empty_states_keep_the_addons_list_hint() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: r#"stub.addons = { { name = "Polestar", loaded = true } }"#.into(),
+		addons: vec![Addon::files("Polestar", FILES)],
+		script: format!(
+			"uistub.install()\nPolestar.Guides = uistub.realGuides\n{FIND_BUTTON}\n{}",
+			r#"
+			stub.login()
+			stub.advance(3)
+			Polestar.Set("ui.shown", true)
+			Polestar.Fire("GUIDE_CHANGED", nil)
+			Polestar.UI.ShowPicker()
+			Polestar.UI.Picker.SetCategory("All")
+			emit({ popups = #stub.popups, off = Polestar.UI.Packs.OwnGuidesOff(), picker = PolestarPicker.Empty:GetText(), pickerButton = PolestarPicker.TurnOn:IsShown(),
+				installed = uistub.findText(PolestarGuideFrame, "No guides installed") ~= nil, button = emptyButton("Turn on Polestar Guides and reload") ~= nil })"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(
+		out,
+		json!({ "popups": 0, "off": false, "picker": "No guides installed. Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload.",
+			"pickerButton": false, "installed": true, "button": false })
+	);
+}

@@ -248,7 +248,7 @@ local function minimapCoords()
 end
 local function minimapButton()
 	return { kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"], search = "minimap icon, minimap button, hide button, launcher",
-		help = L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] }
+		help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."] }
 end
 
 register({ page = MAP, tab = L["Zones"], section = L["Coordinates"], controls = { coords(), minimapCoords() } })
@@ -303,9 +303,10 @@ end
 -- Draggable compact frames (flight timer, instance tracker)
 ---------------------------------------------------------------------------
 
--- A small panel on UIParent; its position persists in setting `posKey`.
+-- A small panel on Polestar's layer over UIParent (Polestar.UIParent: it
+-- hides with Polestar); its position persists in setting `posKey`.
 function Maps.CompactFrame(name, posKey, defaultPoint, dx, dy)
-	local f = CreateFrame("Frame", name, UIParent)
+	local f = CreateFrame("Frame", name, ns.UIParent)
 	f:SetFrameStrata("MEDIUM")
 	f:SetClampedToScreen(true)
 	f:SetMovable(true)

@@ -2116,6 +2116,11 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 				q.set("limit", time);
 				bump(&tdb_report, "limits", 1.0);
 			}
+			if tdb_direct(&q, &tq) {
+				kb.change("quests", qidn, "direct", V::Null, V::Bool(true), src);
+				q.set("direct", true);
+				bump(&tdb_report, "direct", 1.0);
+			}
 			let rs = tq.get("rewardSpell");
 			if rs.num() > 0.0 && q.get("rewardSpell").is_nullish() {
 				kb.change("quests", qidn, "rewardSpell", V::Null, rs.clone(), src);
@@ -2558,6 +2563,15 @@ fn tdb_rate_fills_unrated(item: &V, row: &V) -> bool {
 fn tdb_limit(q: &V, tq: &V) -> Option<V> {
 	let time = tq.get("time");
 	(time.num() > 0.0 && !q.get("limit").strict_eq(&time)).then_some(time)
+}
+
+/// Whether the quest is handed in on the spot (quests.json `direct`): the server's quest type says so
+/// (`auto`, QuestType 0 in its TDB row) and the quest has no `direct` of its own yet (a correction's
+/// `false` stands). Its giver opens straight on the hand-in window and it never enters the log, so the
+/// guides hand it in with `turnin <id> direct` and never accept it or track it as objectives
+/// (forge-writer post::direct_hand_ins; #1699).
+fn tdb_direct(q: &V, tq: &V) -> bool {
+	tq.get("auto").truthy() && q.get("direct").is_nullish()
 }
 
 /// The TDB's sniffed spawns, drop rates and droppers (kb.js applyTdbWorld).
@@ -3569,6 +3583,18 @@ mod tests {
 		// No TimeAllowed (or 0): untimed on the server, the quest keeps what it has.
 		assert!(tdb_limit(&fresh, &parse_json(r#"{ "sniffed": false, "obj": [] }"#).unwrap()).is_none());
 		assert!(tdb_limit(&other, &parse_json(r#"{ "time": 0 }"#).unwrap()).is_none());
+	}
+
+	#[test]
+	fn the_servers_hand_in_on_the_spot_quests_are_direct() {
+		// #1699: Essence of the Exile 1714, QuestType 0 on the server: Bath'rah's Cauldron opens on its
+		// hand-in window and the quest never enters the log.
+		let tq = parse_json(r#"{ "sniffed": false, "obj": [[1, 4480, 8]], "auto": true }"#).unwrap();
+		assert!(tdb_direct(&parse_json(r#"{ "id": 1714 }"#).unwrap(), &tq));
+		assert!(!tdb_direct(&parse_json(r#"{ "id": 1714, "direct": true }"#).unwrap(), &tq), "already direct: no change logged");
+		assert!(!tdb_direct(&parse_json(r#"{ "id": 1714, "direct": false }"#).unwrap(), &tq), "a correction's false stands");
+		// An ordinary quest (QuestType 2: taken into the log) is not.
+		assert!(!tdb_direct(&parse_json(r#"{ "id": 1712 }"#).unwrap(), &parse_json(r#"{ "sniffed": false, "obj": [] }"#).unwrap()));
 	}
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {

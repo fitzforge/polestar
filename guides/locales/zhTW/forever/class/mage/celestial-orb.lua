@@ -30,13 +30,13 @@ return {
 
 	-- Step 5: The Exorcism
 	-- {npc:6546} Tabetha · {quest:1955} The Exorcism · {npc:6549} Demon of the Orb
-	["Back at {npc:6546}'s. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "",
+	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 38. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "回到{npc:6546}那裡。現在先繳交寶珠；{quest:1955}要等到38級。先清掉小屋周圍的小動物，牠們也會加入戰鬥。接取{quest:1955}即開始三分鐘倒數，{npc:6546}會在花園召喚出{npc:6549}。牠是40級精英，對許多法術、定身和緩速有較強抗性。建議組隊，40級法師可能需要幫手或藥水，約45級時可單人完成。可以從碼頭遠程拉怪。擊殺後倒數仍會繼續，務必立刻繳交任務。若時間用完，放棄任務後重新接取，她會再次召喚惡魔。",
 	-- {npc:6549} Demon of the Orb
 	["{npc:6549} (elite, 40)"] = "",
 
 	-- Step 6: Power in Uldaman
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {area:1898} Dustwind Gulch · {npc:7023} Obsidian Sentinel · {npc:7209} Obsidian Shard
-	["{area:1517} is a dungeon in the northern {zone:1418}: a group of five. Go in by the rear entrance, a cave in {area:1898} south-east of the main entrance (elite dragons fly nearby): the {npc:7023} (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an {npc:7209}, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back."] = "",
+	["{area:1517} is a dungeon in the northern {zone:1418}: a group of five, from level 40 here. Go in by the rear entrance, a cave in {area:1898} south-east of the main entrance (elite dragons fly nearby): the {npc:7023} (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an {npc:7209}, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back."] = "{area:1517}是{zone:1418}北部的五人地城，本指南從40級起前往。從主入口東南側{area:1898}的洞穴後門進入（附近有精英龍飛行）：42級精英{npc:7023}就在第一扇門後。它在80%、60%、40%和20%生命值時各分裂出一個同為精英的{npc:7209}；碎片存活時，兩者都會反射指向性法術，改用範圍法術和魔杖。單人技巧：每次碎片出現，就從附近的區域邊界走出去；哨兵會回血，但會持續縮小。能量源必定掉落，兩小時後重生。",
 
 	-- Step 7: Mana Surges
 	-- {npc:6546} Tabetha · {quest:1957} Mana Surges · {spell:403} Lightning Bolt
@@ -48,7 +48,13 @@ return {
 	-- {quest:2861} Tabetha's Task
 	["{quest:2861} (optional)"] = "",
 	-- {npc:6546} Tabetha · {npc:5497} Jennea Cannon · {npc:4568} Anastasia Hartwell · {npc:5885} Deino · {quest:2861} Tabetha's Task · {quest:2846} Tiara of the Deep · {npc:7795} Hydromancer Velratha · {area:978} Zul'Farrak · {zone:1446} Tanaris · {item:9527} Spellshifter Rod · {item:9531} Gemshale Pauldrons
-	["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. She is one of the bosses by the sacred pool, and the tiara always drops. The reward window shows the {item:9527} and the {item:9531}."] = "",
+	["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. The reward window shows the {item:9527} and the {item:9531}."] = "40級時，指引你去找{npc:6546}的法師訓練師（{npc:5497}、彬克、{npc:4568}、{npc:5885}）也會提供任何職業都能完成的{quest:2861}。接著{npc:6546}需要{area:978}的46級精英納迦{npc:7795}身上的{quest:2846}；那是{zone:1446}西北部的食人妖地城，需要五人小隊，44-54級。獎勵視窗會顯示{item:9527}和{item:9531}。",
+
+	-- Step 9: Tiara of the Deep in Zul'Farrak
+	-- {quest:2846} Tiara of the Deep · {area:978} Zul'Farrak
+	["{quest:2846} in {area:978}"] = "{area:978}中的{quest:2846}",
+	-- {area:978} Zul'Farrak · {zone:1446} Tanaris · {npc:7795} Hydromancer Velratha
+	["{area:978}, the troll dungeon in north-western {zone:1446}, needs a group of five; the guide waits for level 44. {npc:7795} is one of the bosses by the sacred pool, and the tiara always drops."] = "{area:978}是{zone:1446}西北部的食人妖地城，需要五人小隊；指南會等到44級。{npc:7795}是聖池旁的首領之一，頭冠必定掉落。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:6546}. She opens a mana rift beside her cottage: kill twelve {quest:1957} within ten minutes."] = "回到{npc:6546}處。她會在小屋旁打開一道法力裂縫：在十分鐘內擊殺十二個{quest:1957}。",

@@ -7,11 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} liegt auf {area:439} im Südosten von {zone:1441}: {npc:4454} ist im Lager der Gnome neben der Strecke, Zamek beim Goblinlager.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
-	["He runs off to keep Rizzle busy"] = "Er läuft los, um Rizzle abzulenken",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -156,6 +155,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Flieg nach {area:348}. Der Guide für {zone:1425} beginnt hier.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Folge der Küste nach Süden zur Piratenbucht. Piraten der Südmeerfreibeuter drängen sich am Strand und auf den Booten: Arbeite dich am Rand entlang und zieh einen nach dem anderen. {npc:7883} steht auf der anderen Seite; die gestohlene Fracht von {npc:7881} liegt im Lager.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "Nimm vom Steg im Gebiet {area:1108} das Boot nach Feathermoon und flieg nach {area:489}, dann reite nach Osten durch {zone:1441} zur {area:2240} im Gebiet {area:439}. {npc:4454} und {npc:4630} sind in den Lagern neben der Rennstrecke; {npc:4709} steht beim Goblinlager.",
+	-- ["He runs off to keep Rizzle busy"] = "Er läuft los, um Rizzle abzulenken",
 	-- ["Hearth to {area:976}."] = "Ruhestein nach {area:976}.",
 	-- ["Ride back west to {area:976}."] = "Reite zurück nach Westen nach {area:976}.",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "Reite zurück nach Westen Richtung {area:976}. Die Banditen und Diebe der Wüstenläufer halten unterwegs die Dünen; jeder von ihnen kann einen Wasserbeutel tragen.",

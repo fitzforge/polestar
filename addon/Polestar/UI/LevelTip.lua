@@ -52,7 +52,7 @@ local function percentOf(t)
 end
 
 local function build()
-	local t = CreateFrame("Frame", nil, UIParent)
+	local t = CreateFrame("Frame", nil, ns.UIParent)
 	t:SetFrameStrata("TOOLTIP")
 	t:SetClampedToScreen(true)
 	t:SetWidth(TIP_W)

@@ -320,6 +320,8 @@ function raresScene(script) {
 	return `${clientArtLua()}${RARES_SETUP}\n${script}`;
 }
 const RARES_FILES = [...FILES, 'Rares/Rares.xml'];
+// The founder's card needs QoL's buttons for its Target button (Buttons.FounderMacro).
+const FOUNDER_FILES = [...FILES, 'QoL/QoL.xml', 'Rares/Rares.xml'];
 // The Characters scene (panel.alts): three characters of this account, the
 // one playing live and two as of their last logout (names, places and
 // numbers are samples written for the preview).
@@ -1888,12 +1890,13 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 	{
 		file: 'rares-toast.svg',
-		title: 'The rare alert over the world: a rare on the minimap at its distance; a rare elite in sight; a treasure',
+		title: "The rare alert over the world: a rare on the minimap at its distance; a rare elite in sight; a treasure; the Polestar founder in sight, with his emblem and the Target button that waves",
 		backdrop: 'terrain',
 		panels: [
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('local a = Polestar.Rares.AlertOf({ source = "vignette", kind = "rare", id = 61, name = "Thuros Lightfingers", level = 11 }, { map = 1429, x = 89.2, y = 79.1 }, true); a.yards = 87; Polestar.Fire("RARE_SPOTTED", a); stub.advance(4)') },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('Polestar.Fire("RARE_SPOTTED", Polestar.Rares.AlertOf({ source = "nameplate", kind = "rare", id = 471, name = "Mother Fang", level = 10, classification = "rareelite" }, nil, false)); stub.advance(12)') },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('local a = Polestar.Rares.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true); a.yards = 412; Polestar.Fire("RARE_SPOTTED", a)') },
+			{ rares: true, files: FOUNDER_FILES, roots: TOAST, script: raresScene('Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", source = "nameplate", inSight = true, enemy = false, button = true, zone = "Elwynn Forest" })') },
 		],
 	},
 	{

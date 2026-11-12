@@ -202,6 +202,8 @@ return {
 	["Neutral to Friendly is 3,000 reputation. Every trash mob of the {area:16076} (a 40-player raid behind the {area:2737}) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The {area:3454} (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "中立到友善需要3,000声望。{area:16076}（{area:2737}后方的40人团队副本）的每只普通怪提供100，双子皇帝各提供210，直到中立进度2,999/3,000，距离友善差一点时停止。此时交还一个留存的{item:21230}（1,000，交给{npc:15502}）或{item:21229}（500，交给{npc:15503}），即可跨过门槛。神殿套装的肩部和鞋子兑换没有声望等级要求：将兑换物、2个雕像和10个圣甲虫交给{npc:15502}（肩部）或{npc:15503}（鞋子），每次奖励200。{area:3454}（20人）的首领提供少量声望：库林纳克斯、莫阿姆、布鲁和阿亚米斯各50，拉贾克斯34，奥斯里安100，可一直到崇拜。",
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "{item:21229}，由神殿首领掉落",
+	-- {npc:15503} Kandrostrasz
+	["{npc:15503}: 500, handed in from his window"] = "{npc:15503}：500，在他的窗口中直接交还",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "友善时的戒指",

@@ -457,3 +457,44 @@ fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_wind
 	);
 	assert_eq!(out, json!({ "before": false, "opened": false, "visit": 12 }));
 }
+
+// The guide's class training stop `at` applicable steps from the first: walks across the Barrens, then Orgrimmar.
+fn trains_at(at: usize) -> String {
+	let mut steps: Vec<String> = (1..at).map(|i| format!(r#"{{ title = "Walk {i}", goals = {{ {{ t = "goto", map = 1413, x = {}, y = 30 }} }} }}"#, 40 + i)).collect();
+	steps.push(
+		r#"{ title = "Orgrimmar", goals = { { t = "train", class = true, candidates = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } } } } }"#
+			.into(),
+	);
+	steps.push(r#"{ goals = { { t = "level", level = 20 } } }"#.into());
+	format!(r#"Polestar.RegisterGuide({{ id = "test/orgrimmar-{at}", pack = "test", title = "To Orgrimmar", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {{ {} }} }})"#, steps.join(", "))
+}
+
+const ADVICE: &str = r#"stub.advance(0.5)
+local a = Polestar.Engine.TrainingAdvice()
+local t = Polestar.Engine.NearestClassTrainer(true)
+emit({ guide = a.guide or false, steps = a.steps, title = a.title, trainer = a.trainer and a.trainer.npc or false,
+	planner = t and t.npc or false, due = #DUE, dueNpc = DUE[1] and DUE[1].npc or false })"#;
+
+#[test]
+fn at_the_crossroads_with_the_guide_training_in_orgrimmar_in_10_steps_the_advice_is_the_guide_s_stop_and_names_no_trainer() {
+	let out = run(Some(&on_guide("test/orgrimmar-10", 10)), &trains_at(10), ADVICE);
+	assert_eq!(out["guide"], true, "{out}");
+	assert_eq!(out["steps"], 10);
+	assert_eq!(out["title"], "Orgrimmar");
+	assert_eq!(out["trainer"], false, "no other trainer named: {out}");
+	// The reminder itself still comes (the stop is past its 4-step hold); the banner words it from the advice.
+	assert_eq!(out["due"], 1, "{out}");
+}
+
+#[test]
+fn with_no_guide_stop_within_10_steps_the_advice_is_the_planner_s_trainer_the_reminder_names() {
+	let out = run(Some(&on_guide("test/orgrimmar-11", 10)), &trains_at(11), ADVICE);
+	assert_eq!(out["guide"], false, "{out}");
+	assert_eq!(out["steps"], 11);
+	assert_ne!(out["trainer"], false, "{out}");
+	assert_eq!(out["trainer"], out["planner"], "ranked by the travel planner on the guide's way: {out}");
+	assert_eq!(out["trainer"], out["dueNpc"], "the banner's trainer and the advice agree: {out}");
+	let none = run(Some(&on_guide("test/barrens", 10)), "", ADVICE);
+	assert_eq!(none["steps"], false, "{none}");
+	assert_eq!(none["trainer"], none["planner"], "{none}");
+}

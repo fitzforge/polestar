@@ -25,8 +25,8 @@ return {
 	["{npc:3600}: take her {quest:94773} letter"] = "{npc:3600}：领取她的{quest:94773}信件",
 
 	-- Step 3: Divine Grace: High Priestess Laurena
-	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul
-	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get Desperate Prayer in Forever: this is their spell instead."] = "10 级时，前往 {zone:1453} 的 {object:2098}，在圣光大教堂祭坛旁找 {npc:376} 接任务：她会当场教你 {quest:94773}。不需要介绍信；其他训练师给的信也可以（见后续步骤）。{quest:94773} 能立即治疗一名生命值低于一半的友方，并清除 {spell:6788}，让你可以再次给其套盾（冷却 5 分钟）；不能对自己使用。无限的人类牧师没有绝望祷言，改为使用这个法术。",
+	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul · {spell:13908} Desperate Prayer
+	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "10 级时，前往 {zone:1453} 的 {object:2098}，在圣光大教堂祭坛旁找 {npc:376} 接任务：她会当场教你 {quest:94773}。不需要介绍信；其他训练师给的信也可以（见后续步骤）。{quest:94773} 能立即治疗一名生命值低于一半的友方，并清除 {spell:6788}，让你可以再次给其套盾（冷却 5 分钟）；不能对自己使用。无限的人类牧师没有 {spell:13908}，改为使用这个法术。",
 
 	-- Step 4: Divine Grace: Josetta's letter
 	-- {quest:94774} Divine Grace
@@ -93,6 +93,7 @@ return {
 	["Hand Alathea's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1457}: the portal down to {area:702}, the boat to {area:442}, then the boat to {area:17203}): she teaches {spell:13896}."] = "把女祭司阿兰希雅的信交给 {zone:1453} 圣光大教堂祭坛旁的 {npc:376}（从 {zone:1457} 出发：通过传送门下到 {area:702}，坐船到 {area:442}，再坐船到 {area:17203}）：她会教你 {spell:13896}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get Desperate Prayer in Forever: this is their spell instead."] = "10 级时，前往 {zone:1453} 的 {object:2098}，在圣光大教堂祭坛旁找 {npc:376} 接任务：她会当场教你 {quest:94773}。不需要介绍信；其他训练师给的信也可以（见后续步骤）。{quest:94773} 能立即治疗一名生命值低于一半的友方，并清除 {spell:6788}，让你可以再次给其套盾（冷却 5 分钟）；不能对自己使用。无限的人类牧师没有绝望祷言，改为使用这个法术。",
 	-- ["At 10, go to {npc:376} in the Cathedral of Light. {npc:377} in {area:87} sends you to her with a quest of the same name."] = "10级时，去光明大教堂找{npc:376}。{area:87}的{npc:377}会用同名任务让你去找她。",
 	-- ["At 20, {npc:376} teaches {spell:13896}. {npc:11406} in {zone:1455} and {npc:11401} in {zone:1457} send you to her with a quest of the same name."] = "20级时，{npc:376}教授{spell:13896}。{zone:1455}的{npc:11406}和{zone:1457}的{npc:11401}会用同名任务让你去找她。",
 	-- ["The Human priest spells: {quest:94773} at 10, {spell:13896} at 20."] = "人类牧师的法术：10级的{quest:94773}，20级的{spell:13896}。",

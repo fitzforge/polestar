@@ -29,7 +29,6 @@ return {
 	["Continue south to {area:35}. {npc:7406} has his workshop on the upper ring of the bay."] = "Continuez au sud jusqu'à {area:35}. {npc:7406} a son atelier sur le cercle supérieur de la baie.",
 	-- {npc:7406} Oglethorpe Obnoticus
 	["{npc:7406}, inside"] = "{npc:7406}, à l'intérieur",
-	["Only once all three robots are home"] = "Seulement une fois les trois robots rentrés",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "« Loup de mer » MacKinley, au dernier étage",
@@ -258,6 +257,7 @@ return {
 	-- ["Ironjaw Basilisks"] = "Basilics gueule de fer",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "Gardez {area:1417} pour {npc:7771}, à {zone:1446}.",
 	-- ["Level 49.93"] = "Niveau 49.93",
+	-- ["Only once all three robots are home"] = "Seulement une fois les trois robots rentrés",
 	-- ["Ride into {area:16}"] = "Entrez en {area:16}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Allez au nord-ouest jusqu'à {area:1108} ; {npc:14637} attend sur le quai.",
 	-- ["Sea elementals"] = "Elémentaires marins",

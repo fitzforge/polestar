@@ -115,6 +115,12 @@ end
 -- punctuation) one by one, as the client wraps between any two of them;
 -- everything else whole.
 local function pieces(word)
+	-- The client also breaks a line after "/" ("0/" then "6", #1684).
+	if word:find("/", 1, true) and not word:find("[\226-\239]") then
+		local out = {}
+		for part in word:gmatch("[^/]*/?") do if part ~= "" then out[#out + 1] = part end end
+		return out
+	end
 	if not word:find("[\226-\239]") then return { word } end
 	local out, run = {}, ""
 	for ch in word:gmatch("[%z\1-\127\192-\247][\128-\191]*") do

@@ -18,6 +18,7 @@
 --       attune = { A = n, H = n } } }   -- level order, no page decoded
 --       (name and zoneName in the client's language when it has them; map: the instance's Map id)
 --   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, players, map, zone, zoneName, entrance } | nil
+--   Dungeons.ForMap(mapID) -> key | nil   -- the dungeon or raid whose instance map that is (Compat.GetInstanceMapID)
 --   Dungeons.Entrance(key) -> map, x, y, f | nil
 --   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range: one under the
 --       median level of its encounter bosses, else of all its bosses, else of its quests, else the
@@ -37,6 +38,11 @@
 --         the quest a breadcrumb leads to, its exclusive group),
 --         rewards = { items = { { id, name, quality, choice } }, xp, money, rep = { { faction, name, value } } },
 --         bosses = { names } }
+--   Dungeons.QuestFor(quest) -> who, why | nil   -- who a page, chain or attunement quest is for
+--       (#1730: The Orb of Soran'ruk is the Warlocks'): who = { classes, races } (Lookup.QuestFor
+--       on the Codex quest's masks; the page's `classes` when the Codex has no record), nil when
+--       anyone of its side may take it; why = "class" | "race" when this character may not
+--       (Lookup.QuestBlock, the rule the pick-up guide leaves such a quest out by)
 --   Dungeons.ObjectiveText(quest) -> text | nil   -- its objectives in the client's language, one a line
 --   Dungeons.Bosses(key) -> { { order, name, npc, level, object, role, encounter, quests = { { id, how, item, itemName } } } }
 --       object: a chest boss's object id (npc nil); role: "rare" | "event" | "optional" for the
@@ -45,7 +51,7 @@
 --       how: "kill" (an objective), "item" (drops an objective item), "starts" (drops the item
 --       that starts it), "involved" (DungeonJournal names it for the quest)
 --   Dungeons.Open(key|nil)   -- fires SHOW_DUNGEON(key); the hub section listens
---   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop]) -> ok   (Nav)
+--   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop[, warning[, what]]]) -> ok   (a trip, Nav.StartTrip)
 --   Dungeons.ShowOnMap(key) -> ok   -- the world map on the entrance's zone
 --   Dungeons.Find(text) -> key | nil   -- by name (the client's language or English) or key
 --   Dungeons.Register(group, a, b)  -- pack files only
@@ -298,6 +304,14 @@ function Dungeons.Get(key)
 	return summary(key, s)
 end
 
+function Dungeons.ForMap(mapID)
+	if type(mapID) ~= "number" or not ready() then return nil end
+	for key, s in pairs(summaries) do
+		if s.map == mapID then return key end
+	end
+	return nil
+end
+
 -- The level a dungeon suits best (a player asked why Uldaman, 35-47, was "for
 -- your level" at 35, where most of it suits ~42). The players' side of the
 -- bosses: one level under their median, which lands where a run fits
@@ -380,6 +394,26 @@ function Dungeons.Quest(key, id)
 	if not (p and id) then return nil end
 	for _, q in ipairs(p.quests) do if q.id == id then return q end end
 	return p.chain[id]
+end
+
+local WHO_WHY = { class = true, race = true }
+function Dungeons.QuestFor(q)
+	if type(q) ~= "table" or not q.id then return nil end
+	local Lk, C = ns.Lookup, ns.Codex
+	local rec = C and C.Quest and C.Quest(q.id)
+	local who = rec and Lk and Lk.QuestFor and Lk.QuestFor(rec)
+	if not who and not rec and type(q.classes) == "table" and #q.classes > 0 then who = { classes = q.classes } end
+	if not who then return nil end
+	local p = Lk and Lk.PlayerInfo and Lk.PlayerInfo()
+	local why
+	if rec and p then
+		why = Lk.QuestBlock(rec, p)
+		if not WHO_WHY[why] then why = nil end
+	elseif p and who.classes then
+		why = "class"
+		for _, c in ipairs(who.classes) do if c == p.class then why = nil end end
+	end
+	return who, why
 end
 
 function Dungeons.Bosses(key)
@@ -479,18 +513,25 @@ function Dungeons.Open(key)
 	return true
 end
 
--- `stop`: Nav.SetTarget's stop kind ("dungeon" for an entrance); `warning`:
--- the line the arrow shows under the label (Dungeons.EnemyEntrance).
-function Dungeons.GuideToPoint(point, label, stop, warning)
+-- The arrow to `point`. `stop`: Nav.SetTarget's stop kind; "dungeon" (an
+-- entrance) makes it a trip (Nav.StartTrip, "Back to the guide" on the way)
+-- that ends through the instance's portal (#1686), labelled `what`
+-- ("Dungeon", "Raid"). `warning`: the line the arrow shows under the label
+-- (Dungeons.EnemyEntrance). Any other point (a giver, a turn-in) stays the
+-- arrow's until the step changes, as a point set on the map does.
+function Dungeons.GuideToPoint(point, label, stop, warning, what)
 	local Nav = ns.Nav
 	if not (type(point) == "table" and point.map and point.x and point.y and Nav and Nav.SetTarget) then return false end
-	return Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning) and true or false
+	local t = Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning)
+	if not t then return false end
+	if stop == "dungeon" then Nav.StartTrip(t, label or point.name, what or L["Dungeon"], "instance") end
+	return true
 end
 
 function Dungeons.GuideTo(key)
 	local d = Dungeons.Get(key)
 	if not (d and d.entrance) then return false end
-	return Dungeons.GuideToPoint(d.entrance, d.name, "dungeon", Dungeons.EnemyEntrance(key))
+	return Dungeons.GuideToPoint(d.entrance, d.name, "dungeon", Dungeons.EnemyEntrance(key), d.kind == "raid" and L["Raid"] or L["Dungeon"])
 end
 
 -- Through Compat.OpenWorldMap: the client's C_Map opener, never in combat

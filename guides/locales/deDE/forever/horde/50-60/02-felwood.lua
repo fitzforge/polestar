@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "Bauernhaus von {area:200}",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "Das Tagebuch liegt im Bauernhaus, der Schrank steht drinnen und der Abort dahinter. Ein {npc:10816} trägt den Schlüssel zum Abort; {npc:10836} kommt heraus, wenn du den Abort öffnest, und trägt den Schlüssel zum Schrank.",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Kranke Grizzlys",
@@ -158,10 +154,6 @@ return {
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
-
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "Nur mit 5 Kopfputzfedern der Totenwaldfelle",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -281,6 +273,7 @@ return {
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Verlass {area:1497} und reite auf der Straße nach Osten durch {zone:1420}, am {area:152} vorbei. Der Teufelssteinhof ist der erste Hof an der Straße; {npc:10778} wartet im Haus.",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "Nur wenn {item:13140} gefallen ist: Benutze ihn, um die Quest zu starten, befrei dann {npc:11018} aus ihrem Käfig in {area:1770}, der Höhle am Nordende von {area:1763}, und eskortiere sie hinaus.",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "Nur wenn du {npc:11018} gerettet hast: Die Sukkubus {npc:9518} wartet mitten in {area:1763}, neben {npc:11020}.",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "Nur mit 5 Kopfputzfedern der Totenwaldfelle",
 	-- ["Radley and Durgen"] = "Radley und Durgen",
 	-- ["Ride back south-east to the Sanctuary."] = "Reite zurück nach Südosten zum Refugium.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Reite zurück nach {area:1497}, nimm den Zeppelin nach {zone:1454} und flieg zum {area:431}. Folge der Straße vom Splintertreeposten nach Westen und nimm die Abzweigung nach Norden in den {zone:1448}.",

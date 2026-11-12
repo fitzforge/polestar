@@ -18,6 +18,7 @@ const R = require('./route');
 const { RACE_GROUPS, TWO_SIDED, raceCondition } = require('./groups');
 const { FACTIONS, GUIDE_HEADER, fmt, money, zoneName, rankInfo, vendorSpawns } = require('./common');
 const { ERA_NOTE } = require('./notes');
+const SECTIONS = require('../sections');
 
 const SIDE_OF_RACE = {};
 for (const f of FACTIONS) for (const g of RACE_GROUPS[f]) for (const r of g.races) if (!TWO_SIDED.has(r)) SIDE_OF_RACE[r] = f;
@@ -221,7 +222,9 @@ function renderRank(ctx, P, e, L) {
 		? `it is a book, ${itemName(ctx, info.book.item)}${bookPrice ? ` (${money(bookPrice)})` : ''}; the arrow picks its nearest seller for your faction. Buy it and read it`
 		: `the arrow picks the nearest ${P.skill} trainer of your faction${info.cost ? `; training costs ${money(info.cost)}` : ''}`;
 	const train = info.book ? `train ${P.skill} ${e.rank} "Buy and read ${itemName(ctx, info.book.item)} (${e.rank} ${P.skill})"` : `train ${P.skill} ${e.rank}`;
-	const lines = [`tip ${e.rank} ${P.skill} raises the cap to ${info.max}; it needs skill ${info.minSkill} and character level ${info.minLevel}: ${how}.${e.tip ? ` ${e.tip}` : ''}`, `level ${info.minLevel}`, train];
+	// Forever's Cooking and First Aid Journeyman ask no character level (professions.json minLevel 0).
+	const level = info.minLevel > 0 ? ` and character level ${info.minLevel}` : ' and no character level';
+	const lines = [`tip ${e.rank} ${P.skill} raises the cap to ${info.max}; it needs skill ${info.minSkill}${level}: ${how}.${e.tip ? ` ${e.tip}` : ''}`, ...(info.minLevel > 0 ? [`level ${info.minLevel}`] : []), train];
 	for (const extra of e.alsoBuy || []) lines.push(`buy ${extra} x1 nearest`);
 	for (const sp of e.learn || []) lines.push(`learn ${sp}`);
 	step(L, `${e.rank} ${P.skill}`, lines);
@@ -236,38 +239,41 @@ function renderGuide(ctx, P) {
 		else if (e.apprentice) {
 			const ap = rankInfo(ctx, P.skill, 'Apprentice');
 			const apTip = typeof P.apprenticeTip === 'function' ? P.apprenticeTip(ctx) : P.apprenticeTip;
-			step(L, `Learn ${P.skill}`, [`tip Any ${P.skill} trainer of your faction teaches Apprentice ${P.skill} (character level 5${ap && ap.cost ? `, ${money(ap.cost)}` : ''}); the arrow picks the nearest.${apTip ? ` ${apTip}` : ''}`, 'level 5', `train ${P.skill} Apprentice`]);
+			// Forever's Cooking and First Aid Apprentice ask no level (Classic's 5): professions.json says 1.
+			const apLevel = ap && ap.minLevel > 1 ? ap.minLevel : 0;
+			step(L, `Learn ${P.skill}`, [`tip Any ${P.skill} trainer of your faction teaches Apprentice ${P.skill} (${apLevel ? `character level ${apLevel}` : 'any character level'}${ap && ap.cost ? `, ${money(ap.cost)}` : ''}); the arrow picks the nearest.${apTip ? ` ${apTip}` : ''}`, ...(apLevel ? [`level ${apLevel}`] : []), `train ${P.skill} Apprentice`]);
 		} else if (e.rank) renderRank(ctx, P, e, L);
 		else if (e.bandage) renderBandage(ctx, P, e, L);
 		else if (e.raw) step(L, e.title, e.raw);
 		else renderSegment(ctx, P, e, L);
 	}
-	return `${L.join('\n')}\n`;
+	// The skill ranges as sections (the guide window's headings; the guide starts at the player's skill):
+	// per bandage band for First Aid, whose every band gathers its own cloth; per banner for Cooking.
+	return `${SECTIONS[P.sections || 'byBanners'](L.join('\n'), P.skill)}\n`;
 }
 
 // ------------------------------------------------------------------ First Aid
 
 // Cloth level bands are general game knowledge (humanoids drop the cloth of
-// their level).
+// their level). What the bags (and bank) hold counts; the rest drops as the
+// character levels, or comes from the Auction House. No farm trip by default:
+// a named farm spot can be a long journey for a few pieces the player picks
+// up anyway.
 const CLOTH = {
-	2589: 'humanoids of level 5-20 drop Linen Cloth (or buy it at the Auction House).',
-	2592: 'humanoids of level 15-30 drop Wool Cloth (or buy it at the Auction House).',
-	4306: 'humanoids of level 25-45 drop Silk Cloth (or buy it at the Auction House).',
-	4338: 'humanoids of level 35-50 drop Mageweave Cloth (or buy it at the Auction House).',
-	14047: 'humanoids of level 45-60 drop Runecloth (or buy it at the Auction House).',
+	2589: 'Linen Cloth drops from humanoids of level 5-20',
+	2592: 'Wool Cloth drops from humanoids of level 15-30',
+	4306: 'Silk Cloth drops from humanoids of level 25-45',
+	4338: 'Mageweave Cloth drops from humanoids of level 35-50',
+	14047: 'Runecloth drops from humanoids of level 45-60',
 };
-const clothSources = Object.fromEntries(Object.entries(CLOTH).map(([id, note]) => [id, { note }]));
 
-// Bandages: crafted anywhere, so one gathering step (cloth from the nearest
-// farm spot the engine picks) and one crafting step for everyone.
+// Bandages: crafted anywhere, so one gathering step (the cloth, counted in the
+// bags with no place: `anywhere`) and one crafting step for everyone.
 function renderBandage(ctx, P, e, L) {
 	const recipe = recipeOf(ctx, e.spell);
 	const crafts = expectedCrafts(recipe, e.from, e.to);
-	step(
-		L,
-		`${recipe.name}: cloth`,
-		recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} nearest     -- ${clothSources[rg.item].note}`),
-	);
+	const tip = recipe.reagents.map((rg) => `${CLOTH[rg.item]}: keep what you loot as you level, take it from your bank, or buy it at the Auction House.`).join(' ');
+	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} anywhere`)]);
 	// A recipe learned in this step: where and what it costs (sniffed trainer lists).
 	const learnTip = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc ')) && recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.` : '';
 	const lines = [craftTip(P, recipe, e.from, e.to, crafts, [learnTip, e.tip].filter(Boolean).join(' '))];
@@ -280,6 +286,7 @@ const firstAid = {
 	file: 'first-aid',
 	skill: 'First Aid',
 	title: 'First Aid 1-300',
+	sections: 'byBands',
 	levels: '5-60',
 	craftTip: 'Bandages need no fire: craft them anywhere.',
 	header: [
@@ -448,8 +455,9 @@ const cooking = {
 			{ who: G['orc-troll'], zone: 1411, spell: roastBoar, from: 1, to: 50 },
 			{ who: G.tauren, zone: 1412, spell: charredWolf, from: 1, to: 50 },
 			{ who: G.undead, zone: 1420, spell: charredWolf, from: 1, to: 50 },
-			{ rank: 'Journeyman' },
+			// Journeyman opens 50-130 (a player past 50 who lacks it is held at its trainer there).
 			{ section: 'Cooking 50-130' },
+			{ rank: 'Journeyman' },
 			{ who: westfall, zone: 1436, spell: 2541, from: 50, to: 90, learn: 'trainer', tip: 'Coyotes roam the middle of Westfall; Salma Saldean on the farm north of Sentinel Hill also gives Westfall Stew and Goretusk Liver Pie quests that use what you loot here.' },
 			{ who: westfall, zone: 1436, spell: crabCake, from: 90, to: 130, learn: 'trainer', tip: 'Crawlers line the whole Westfall coast. Cook it to 130, where Curiously Tasty Omelet takes over.' },
 			{ who: G['dwarf-gnome'], zone: 1432, spell: 8607, from: 50, to: 80, learn: 'vendor', tip: 'Black bears roam the hills of Loch Modan.' },

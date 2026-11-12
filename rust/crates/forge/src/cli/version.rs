@@ -35,7 +35,7 @@ pub fn run(args: &[String]) -> Result<(), super::Fail> {
 		return if wrong.is_empty() { Ok(()) } else { Err(format!("{} with another version than package.json's", forge_release::plural(wrong.len(), "file")).into()) };
 	};
 	if !forge_release::is_version(&version) {
-		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z or x.y.z-pre)")));
+		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z, x.y.z.hotfix or x.y.z-pre)")));
 	}
 	if let Err(faults) = forge_release::version::set(&files, &version) {
 		let lines: Vec<String> = faults.iter().map(|(f, what)| format!("{}: {what}", forge_release::shown(f))).collect();

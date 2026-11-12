@@ -373,6 +373,8 @@ N.RegisterTravelData({
 	portals = {
 		{a={"Darnassus",1,9947.5,2630,1457,29.13,41.21,"e",1657,1318.7},area=702,b={"Rut'theran Village",1,8785.8,967,1438,55.93,89.74,"e",702,30.2},id="portal-ruttheran",name="Rut'theran Village",seconds=5},
 		{a={"Rut'theran Village",1,8799.4,969.8,1438,55.87,89.34,"e",702,30.4},area=1657,b={"Darnassus",1,9946.3,2613,1457,30.75,41.39,"e",1657,1316.3},id="portal-darnassus",name="Darnassus",seconds=5},
+		{a={"Shrine of Akir",2991,3089.5,584.5,2521,65.56,50.34,"l",16629,844.3},area=16630,b={"Rohashi Spires",2991,3079.8,426.5,2521,68.4,50.6,"l",16630},id="portal-rohashi-spires",name="Rohashi Spires",seconds=5},
+		{a={"Rohashi Spires",2991,2981.6,54.9,2521,75.08,53.25,"l",16630,1181.9},area=16638,b={"Valanaar",2991,2000.7,543.3,2521,66.3,79.7,"l",16638,658.7},id="portal-valanaar",name="Valanaar",seconds=5},
 	},
 	-- bind location names (as GetBindLocation reports them), AreaTable area (WoW Forever client build 1.60.1.70532), innkeeper NPC, position
 	inns = {
@@ -407,7 +409,7 @@ N.RegisterTravelData({
 		{area=3317,c=0,f="e",map=1425,names={"Revantusk Village"},npc=14731,wx=-622.1,wy=-4583.4,x=78.14,y=81.38},
 		{area=108,c=0,f="e",map=1436,names={"Sentinel Hill"},npc=8931,wx=-10653.2,wy=1166.6,x=52.86,y=53.71},
 		{area=2408,c=1,f="e",map=1443,names={"Shadowprey Village"},npc=11106,wx=-1592.8,wy=3150.3,x=24.09,y=68.21},
-		{area=16624,c=2991,f="l",map=2521,names={"Shen'dar Village"},npc=254089,wx=3297.9,wy=1908.4,x=41.76,y=44.72},
+		{area=16624,c=2991,f="l",map=2521,names={"Shen'dar Village"},npc=254089,wx=3353.1,wy=1838.8,x=43.01,y=43.23},
 		{area=271,c=0,f="e",map=1424,names={"Southshore"},npc=2352,wx=-857.2,wy=-570.8,x=51.17,y=58.93},
 		{area=431,c=1,f="e",map=1440,names={"Splintertree Post"},npc=12196,wx=2341.7,wy=-2566.8,x=73.99,y=60.65},
 		{area=75,c=0,f="e",map=1435,names={"Stonard"},npc=6930,wx=-10487.3,wy=-3258.8,x=45.16,y=56.66},
@@ -422,7 +424,7 @@ N.RegisterTravelData({
 		{area=1638,c=1,f="e",map=1456,names={"Thunder Bluff"},npc=6746,wx=-1300.3,wy=38.5,x=45.81,y=64.71},
 		{area=2102,c=0,f="e",map=1426,names={"Thunderbrew Distillery","Kharanos"},npc=1247,wx=-5601.5,wy=-531.4,x=47.38,y=52.52},
 		{area=1497,c=0,f="e",map=1458,names={"Undercity"},npc=6741,wx=1635.4,wy=223.3,x=67.74,y=37.89},
-		{area=16638,c=2991,f="l",map=2521,names={"Valanaar"},npc=255940,wx=2239.5,wy=802.5,x=61.64,y=73.26},
+		{area=16638,c=2991,f="l",map=2521,names={"Valanaar"},npc=255940,wx=2263.6,wy=771.9,x=62.19,y=72.61},
 	},
 })
 
@@ -1221,5 +1223,13 @@ N.RegisterCrossings({
 			{ map = 1441, c = 1, wx = -4952, wy = -2068.8, z = 82, r = 8 },
 			{ map = 1441, c = 1, wx = -5013.9, wy = -2107.1, z = 84, r = 12 },
 		} },
+		{ id = "deeprun-tram-stormwind", name = "Deeprun Tram", open = "mouth", nodes = {
+			{ map = 1453, c = 0, wx = -8390, wy = 568, z = 92, r = 8 },
+			{ map = 1453, c = 0, wx = -8355, wy = 524, z = 92, r = 10 },
+		} },
+	},
+	-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy)
+	areas = {
+		{ id = "rutheran-village", name = "Rut'theran Village", map = 1438, c = 1, top = 9065.3, bottom = 8437.5, left = 1523.3, right = 352.3 },
 	},
 })

@@ -79,11 +79,11 @@ fn an_undead_horde_player_in_the_barrens_is_sent_to_the_nearest_horde_trainer_ne
 		true,
 	);
 	assert_eq!(out["first"], json!([3373, "Arnok", 1411, 50, 50, 2]));
-	assert_eq!(out["wp"], json!([1411, 50, 50, "Train First Aid"]));
+	assert_eq!(out["wp"], json!([1411, 50, 50, "Learn First Aid"]));
 	assert_eq!(out["cycled"], json!(["Rawrk", "Nurse Neela", "Arnok"]));
 	assert_eq!(out["wpAfter"], 1411);
-	assert_eq!(out["text"], "Train First Aid");
-	assert_eq!(out["detail"], "at Arnok");
+	assert_eq!(out["text"], "Learn First Aid");
+	assert_eq!(out["detail"], "from Arnok");
 }
 
 #[test]

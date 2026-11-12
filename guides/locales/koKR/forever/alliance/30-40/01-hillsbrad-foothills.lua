@@ -188,8 +188,9 @@ return {
 
 	-- Step 40: Yeti cave
 	["Yeti cave"] = "설인 동굴",
-	-- {area:271} Southshore
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "",
+	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
+	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
+	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "설인들은 {area:271} 북쪽 언덕의 동굴에 살며, 북쪽의 비밀결사대 야영지로 가는 길에 있습니다.\n{area:277}에만 머무르세요. 더 북쪽의 동굴에는 산악 설인과 거대한 설인(32-34)이 짝을 지어 있고, 36레벨 정예 {npc:13602}도 있습니다.",
 
 	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "비밀결사대 야영지",

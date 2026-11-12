@@ -51,8 +51,11 @@ return {
 	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "",
 
 	-- Step 13: Rebel Camp
-	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
-	["Take the road north; the camp sits in the hills to the west.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
+	-- {npc:738} Private Thorsen · {quest:215} Jungle Secrets · {quest:200} Bookie Herod
+	-- plural, as words: Kurzen's Agents = {npc:775} Kurzen's Agent
+	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "沿道路向北；营地在西边的山丘中。\n{npc:738}只有在营地外时才会提供{quest:215}：他大约每半小时沿小路走到大路上，两名库尔森的密探会在那里伏击他。帮他杀掉他们，并在他走回去之前立刻接下任务。他不在？那就算了：指南也会跳过由此引出的{quest:200}。",
+	-- {npc:738} Private Thorsen
+	["{npc:738}, at the foot of the path"] = "{npc:738}，在小路下端",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}，在小屋里",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound

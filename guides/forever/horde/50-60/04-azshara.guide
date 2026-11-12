@@ -41,12 +41,10 @@ step Islen Waterseer
 
 step Dokimi's crates
   tip Ride north up the road to the Crossroads; Dokimi stands there. Open each crate she hands you and bring back what is inside. Fly on to Valormok from the Crossroads.
-  accept 91899
-  complete 91899
-  turnin 91899
-  accept 91904
-  complete 91904
-  turnin 91904
+  collect 248765
+  turnin 91899 direct
+  collect 248770
+  turnin 91904 direct
 
 step Fly to Valormok
   zone The Barrens
@@ -124,8 +122,7 @@ step Chemist Cuely
   turnin 3568                         -- Chemist Cuely
   accept 3569
   turnin 3569                         -- Thersa Windsong, beside him
-  accept 3570 npc 8390
-  turnin 3570
+  turnin 3570 direct
 
 step The Undercity
   zone Undercity

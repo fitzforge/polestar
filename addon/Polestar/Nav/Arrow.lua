@@ -35,7 +35,9 @@
 -- smoothly, while turning the camera moves it at once. Hidden states (no
 -- target, taxi, instance) are re-checked by Nav's once-a-second ticker. It
 -- goes with the guide window only with nav.hideArrowWithGuide on, and never
--- on the way back to your corpse (Nav.HiddenWithGuide).
+-- on the way back to your corpse (Nav.HiddenWithGuide). Hiding Polestar
+-- takes it unless "Keep the arrow when hidden" is on (ns.ArrowHidden): it
+-- stays on UIParent, outside Polestar's layer, so it can be kept.
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -229,9 +231,13 @@ timerText:SetPoint("TOP", distText, "BOTTOM", 0, -4)
 timerText:SetJustifyH("CENTER")
 timerText:Hide()
 
+-- About as wide as the distance line's longest text ("Hearth to The
+-- Crossroads: saves 3 min"), so a quest name of that length stays on one
+-- line; longer ones wrap to a second (#1581).
+local LABEL_WIDTH = 300
 local labelText = frame:CreateFontString(nil, "OVERLAY")
 labelText:SetPoint("TOP", distText, "BOTTOM", 0, -5)
-labelText:SetWidth(200)
+labelText:SetWidth(LABEL_WIDTH)
 labelText:SetJustifyH("CENTER")
 labelText:SetWordWrap(true)
 labelText:SetMaxLines(2)
@@ -464,9 +470,11 @@ local function applyStyle(new)
 end
 
 -- Shortest Path Forever's own arrow guides while the target is handed to it (Nav/Handoff.lua),
--- TomTom's while it is used and can point at the target (Nav.TomTomArrowGuides).
+-- TomTom's while it is used and can point at the target (Nav.TomTomArrowGuides). Hiding
+-- Polestar takes it unless the arrow is kept (ns.ArrowHidden).
 local function shouldShow()
-	return ns.Get("nav.arrow") and not Nav.HiddenWithGuide() and Nav.GetTarget() ~= nil and not Nav.TomTomArrowGuides() and not Nav.HandedOff()
+	return ns.Get("nav.arrow") and not ns.ArrowHidden() and not Nav.HiddenWithGuide() and Nav.GetTarget() ~= nil
+		and not Nav.TomTomArrowGuides() and not Nav.HandedOff()
 end
 
 local function showSeconds(secs)

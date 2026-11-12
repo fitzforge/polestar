@@ -108,8 +108,9 @@ test('the report says how the arrow routes: the route style, then only the routi
 });
 
 // The longest report a player can send: every line at its cap in `word`'s
-// script under `locale`, the description at its most letters, 40 addons and
-// a marked right spot. Returns the report for Discord and the issue link.
+// script under `locale`, the description at its most letters (or
+// `opts.descLen`), 40 addons and a marked right spot. Returns the report for
+// Discord and the issue link.
 function longest(locale, word, letter, opts = {}) {
 	return run(`
 		local word, letter = ${JSON.stringify(word)}, ${JSON.stringify(letter)}
@@ -137,7 +138,7 @@ function longest(locale, word, letter, opts = {}) {
 		uistub.setGuide(id, 1)
 		UI.ShowReport()
 		local F = PolestarReport
-		F.Desc:SetText(string.rep(letter, UI.Report.DESC_MAX))
+		F.Desc:SetText(string.rep(letter, ${opts.descLen || 'UI.Report.DESC_MAX'}))
 		stub.RunScript(F.Desc, "OnTextChanged", true)
 		${opts.unmarked ? '' : `F.Mark:Click()
 		PolestarMark.Here:Click()`}
@@ -157,28 +158,110 @@ const SCRIPTS = [
 // The details code block of a report, its lines between the fences.
 const block = (text) => text.slice(text.indexOf('```\n') + 4, text.lastIndexOf('\n```')).split('\n');
 
-test('at its longest, with a marked spot and 40 addons, the report still fits one Discord message in every script: the Addons line is shortened, never a line the Discord bot reads', () => {
+test('at its longest, a 1,000-letter description, a marked spot and 40 addons, the report still fits one Discord message in every script: the description is kept whole, details go, never a line the Discord bot reads', () => {
+	const { parseReport } = require('../tools/discord-bot/lib/report');
 	for (const [locale, word, letter] of SCRIPTS) {
 		const { text, details } = longest(locale, word, letter);
 		const lines = text.split('\n');
 		// Discord counts characters, as JavaScript does: one each, two past U+FFFF.
 		assert.ok(text.length <= 2000, `${locale}: ${text.length} characters, ${Buffer.byteLength(text, 'utf8')} bytes`);
-		assert.ok(lines[0].endsWith(letter.repeat(250)), `${locale}: the description is kept whole`);
-		assert.deepEqual(block(text), details, `${locale}: every detail line, as taken`);
+		assert.ok(lines[0].endsWith(' ' + letter.repeat(1000)), `${locale}: the description is kept whole`);
 		// The label is the locale's (ruRU translates it); the spot after it is kept whole.
 		assert.match(lines[1], /^\*\*[^*]+\*\* zone map 1429 · goto 51\.23,40\.50 live$/, `${locale}: the right spot is kept`);
+		assert.ok(!lines[2].startsWith('**'), `${locale}: the Addons line went first`);
+		const kept = block(text);
+		assert.match(kept[kept.length - 1], /^[(（].+[)）]$/, `${locale}: the block's last line says it was trimmed`);
+		for (const i of [0, 1, 2, 3]) assert.equal(kept[i], details[i], `${locale}: versions, character, guide and step lines kept`);
+		assert.ok(kept.some((l) => l.startsWith('[>] ')), `${locale}: the current goal is kept`);
+		const r = parseReport(text);
+		assert.ok(kept.includes(r.details.arrow) && r.details.arrow === details[details.indexOf(r.details.where) - 1], `${locale}: Arrow and Where kept, in their places`);
+		assert.equal(r.description.split('\n')[0], letter.repeat(1000), `${locale}: the bot reads the description whole`);
+		assert.equal(r.details.guideId, 'test/a-long-guide', locale);
+		assert.equal(r.details.step, 1, locale);
+		assert.equal(r.details.map, 1429, `${locale}: the bot still finds Where`);
 	}
-	const english = longest(...SCRIPTS[0]);
+	const english = longest(...SCRIPTS[0]).text;
+	assert.equal(lineWith(english, 'Arrow:'), longest(...SCRIPTS[0]).details.find((l) => l.startsWith('Arrow:')));
+	assert.match(english, /^Errors:$/m, 'the Errors header stays');
+	assert.match(english, /^\(trimmed to fit Discord\)\n```$/m);
+});
+
+test('with a short description the long report only gives up its log and shortens its Addons line, then says it was trimmed', () => {
+	for (const [locale, word, letter] of SCRIPTS) {
+		const { text, details } = longest(locale, word, letter, { descLen: 250 });
+		assert.ok(text.length <= 2000, `${locale}: ${text.length} characters`);
+		assert.ok(text.split('\n')[0].endsWith(letter.repeat(250)), `${locale}: the description is kept whole`);
+		// The log's lines went, which the details do not hold.
+		assert.deepEqual(block(text), [...details, '(trimmed to fit Discord)'], `${locale}: every detail line, as taken, and the note`);
+	}
+	const english = longest(...SCRIPTS[0], { descLen: 250 });
 	assert.equal(english.text.length, 2000, 'English is the one that runs over');
 	const addons = english.text.split('\n')[2];
-	assert.match(addons, /^\*\*Addons:\*\* QuestAndMapHelperWithALongName01, .*\.\.\.$/, `the Addons line gives way: ${addons}`);
-	const unmarked = longest(...SCRIPTS[0], { unmarked: true }).text;
+	assert.match(addons, /^\*\*Addons:\*\* QuestAndMapHelperWithALongName.*\.\.\.$/, `the Addons line gives way: ${addons}`);
+	const unmarked = longest(...SCRIPTS[0], { unmarked: true, descLen: 250 }).text;
 	const unmarkedAddons = unmarked.split('\n')[1];
 	assert.ok(unmarked.length <= 2000, `the unmarked report fits too: ${unmarked.length}`);
 	assert.ok(unmarkedAddons.split(', ').length > english.text.split('\n')[2].split(', ').length, `without the Right spot line the Addons line takes the room it frees, not a fixed 100 bytes: ${unmarkedAddons}`);
 	assert.match(english.text, /^\.\.\. 3 more goals$/m, 'goals past the sixth are counted, not listed');
 	assert.equal((english.text.match(/^ {2}1x /gm) || []).length, 3, 'the newest three of the errors and blocked calls together');
 	assert.equal((english.text.match(/^ {2}1x blocked in Polestar_Long/gm) || []).length, 3, 'the blocked calls came last');
+});
+
+// A report's details by kind, made by hand, for R.Text to trim with
+// `textMax` characters of room; the long lines are padded to 90.
+function trimmedAt(textMax, opts = {}) {
+	return run(`
+		local R = UI.Report
+		R.TEXT_MAX = ${textMax}
+		local function line(s) return s .. string.rep(".", 90 - #s) end
+		local d = { lines = {}, kinds = {}, names = { "Questie", "TomTom" }, tail = { "log one", "log two" } }
+		local function add(kind, s) d.lines[#d.lines + 1] = s; d.kinds[#d.lines] = kind end
+		add("versions", "Polestar 0.3.7 · client 1.60.1 (70532) · enUS")
+		add("character", "Human Warrior · level 4 · Alliance")
+		add("guide", "Guide: Elwynn Forest (forever/alliance/human/01-elwynn-forest)")
+		add("step", "Step 3 of 8 (guide step 3): Kobold Camp")
+		d.goals = { first = #d.lines + 1, current = #d.lines + 3, more = 2 }
+		for g = 1, 7 do add("goal", line((g == 3 and "[>]" or "[ ]") .. " goal " .. g)) end
+		d.goals.last = #d.lines
+		add("more", "... 2 more goals")
+		add("arrow", "Arrow: goal 3 · 42 yd")
+		add("where", "Where: Elwynn Forest · map 1429 @47.60,35.10 live")
+		add("routes", "Routes: balanced")
+		add("whilehere", line("While here: none"))
+		add("packs", line("Packs: pack"))
+		add("errors", "Errors:")
+		for e = 1, 3 do add("error", line("  1x error " .. e)) end
+		add("questlog", line("Quest log 2/40: 783 1/2"))
+		add("settings", line("Settings: qol.stepInteract=true"))
+		emit({ text = R.Text(${JSON.stringify(opts.desc || 'The vermin were all by the tents.')}, d), lines = d.lines })`)[0];
+}
+
+test('a report over one Discord message gives up, in order: the log, the Addons line, Settings, Packs, goals past the current one and the next two, the quest log, then the older errors; never the description, the guide and step, the current goal, Arrow, Where or the Errors header', () => {
+	const order = [/^> log/, /^\*\*Addons:/, /^Settings:/, /^Packs:/, /^\[ \] goal 7/, /^\[ \] goal 6/, /^\[ \] goal 1/, /^\[ \] goal 2/, /^Quest log/, /^ {2}1x error 1/, /^ {2}1x error 2/];
+	const never = [/^Polestar 0\.3\.7/, /^Human Warrior/, /^Guide: /, /^Step 3 of 8/, /^\[>\] goal 3/, /^\[ \] goal 4/, /^\[ \] goal 5/, /^Arrow: /, /^Where: /, /^Errors:$/];
+	const untrimmed = trimmedAt(4000);
+	assert.doesNotMatch(untrimmed.text, /trimmed/, 'room for all: nothing goes, no note');
+	for (const re of [...order, ...never]) assert.match(untrimmed.text, new RegExp(re.source, 'm'));
+	let gone = 0;
+	let counted;
+	for (let max = untrimmed.text.length - 1; max >= 800; max -= 30) {
+		const { text } = trimmedAt(max);
+		assert.ok(text.length <= max, `${text.length} > ${max}`);
+		assert.ok(text.startsWith('**What went wrong:** The vermin were all by the tents.\n'), 'the description first, whole');
+		const missing = order.map((re) => !new RegExp(re.source, 'm').test(text));
+		const n = missing.indexOf(false) === -1 ? order.length : missing.indexOf(false);
+		assert.deepEqual(missing.slice(n), missing.slice(n).map(() => false), `in order, at ${max}: ${missing}`);
+		assert.ok(n >= gone, `nothing comes back as room shrinks, at ${max}`);
+		gone = n;
+		for (const re of never) assert.match(text, new RegExp(re.source, 'm'), `${re} kept at ${max}`);
+		assert.match(text, /\n\(trimmed to fit Discord\)\n```$/, `the note closes the block at ${max}`);
+		if (missing.slice(4, 8).some(Boolean)) assert.match(text, /^\.\.\. \d+ more goals$/m, 'goals left out are counted');
+		if (!counted && missing[7] && !missing[8]) counted = text;
+	}
+	assert.equal(gone, order.length, 'the smallest room took every line the order names');
+	assert.ok(counted, 'a room where every goal the order names went and the quest log stayed');
+	const goals = counted.split('\n').filter((l) => /^\[/.test(l) || /^\.\.\. /.test(l));
+	assert.deepEqual(goals.map((l) => l.slice(0, 12)), ['[>] goal 3..', '[ ] goal 4..', '[ ] goal 5..', '... 6 more g'], `the four goals left out, with the two never listed: ${counted}`);
 });
 
 test('errors Polestar caught come with the report, counted, by their path from the AddOns folder; !BugGrabber adds the session\'s errors in Polestar\'s files', () => {
@@ -477,21 +560,208 @@ test('the issue link holds the report taken when the window opened: the step on 
 	assert.match(out.report, /^Step 3 of 8 \(guide step 3\): Kobold Camp$/m);
 });
 
-test('the issue link stays under GitHub\'s limit in every script: goals past the arrow\'s are left out first, then the report is cut, its code block kept closed', () => {
+test('the issue link stays under GitHub\'s limit in every script: details go as in the Discord report, the description is kept whole, the code block closed', () => {
 	for (const [locale, word, letter] of SCRIPTS) {
-		const out = longest(locale, word, letter);
-		assert.ok(out.url.length <= out.max, `${locale}: ${out.url.length} characters`);
-		const q = Object.fromEntries(new URL(out.url).searchParams);
-		assert.equal(q.template, 'wrong-step.yml', locale);
-		assert.ok(q.wrong.endsWith('\n```'), `${locale}: the code block is closed`);
-		assert.ok(q.wrong.startsWith(`**`), locale);
-		assert.ok(!q.wrong.includes('\ufffd'), `${locale}: no character cut in half`);
-		for (const k of ['title', 'guide', 'step', 'character']) {
-			assert.ok(Buffer.byteLength(q[k]) <= 120, `${locale}: ${k} is bounded (${Buffer.byteLength(q[k])} bytes)`);
+		for (const descLen of [250, 1000]) {
+			const at = `${locale}, ${descLen} letters`;
+			const out = longest(locale, word, letter, { descLen });
+			assert.ok(out.url.length <= out.max, `${at}: ${out.url.length} characters`);
+			const q = Object.fromEntries(new URL(out.url).searchParams);
+			assert.equal(q.template, 'wrong-step.yml', at);
+			assert.ok(q.wrong.endsWith('\n```'), `${at}: the code block is closed`);
+			assert.ok(q.wrong.startsWith(`**`), at);
+			assert.ok(!q.wrong.includes('\ufffd'), `${at}: no character cut in half`);
+			for (const k of ['title', 'guide', 'step', 'character']) {
+				assert.ok(Buffer.byteLength(q[k]) <= 120, `${at}: ${k} is bounded (${Buffer.byteLength(q[k])} bytes)`);
+			}
+			// A 1,000-letter description in Cyrillic or Chinese encodes to 6000 or
+			// 9000 characters, more than GitHub takes in a link: only there is
+			// the description itself cut.
+			if (locale === 'enUS' || descLen === 250) {
+				assert.ok(q.wrong.split('\n')[0].endsWith(' ' + letter.repeat(descLen)), `${at}: the description is kept whole`);
+				assert.match(q.wrong, /^\[>\] /m, `${at}: the current goal is kept`);
+				assert.ok(q.addons, `${at}: the addons field gets what is left`);
+			}
+			if (locale !== 'enUS' && descLen === 250) assert.match(q.wrong, /^\(trimmed to fit the link\)$/m, at);
 		}
-		assert.ok(q.addons, `${locale}: the addons field gets what is left`);
-		if (locale !== 'enUS') assert.match(q.wrong, /^\.\.\. \d+ goals left out to fit the link$/m, locale);
-		assert.match(q.wrong, /^\[>\] /m, `${locale}: the arrow's goal is kept`);
+	}
+});
+
+test('Open on GitHub carries a 1,000-character description of several lines whole: the title is its first line, cut at 80', () => {
+	const desc = ('The arrow points into the lake at Goldshire and never moves on.\n\n' + 'I walked round the lake twice, reloaded, and the step stayed. '.repeat(16)).slice(0, 990).trimEnd().padEnd(1000, '!');
+	const [out] = run(`
+		local desc = ${JSON.stringify(desc)}
+		for i = 1, 40 do stub.addons[#stub.addons + 1] = { name = ("QuestAndMapHelperWithALongName%02d"):format(i), loaded = true } end
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText(desc)
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		emit({ desc = F.Desc:GetText(), url = UI.Report.IssueURL(F.Desc:GetText(), F.details), report = UI.Report.Text(F.Desc:GetText(), F.details), max = UI.Report.LINK_MAX })`);
+	assert.equal(out.desc.length, 1000);
+	assert.ok(out.url.length <= out.max, `${out.url.length} characters`);
+	const q = new URL(out.url).searchParams;
+	assert.equal(q.get('title'), 'Bug: The arrow points into the lake at Goldshire and never moves on.');
+	assert.ok(q.get('steps').startsWith(`**What went wrong:** ${out.desc}\n\`\`\`\n`), 'the description whole, above the details');
+	assert.match(q.get('steps'), /^Step 3 of 8 \(guide step 3\): Kobold Camp$/m);
+	assert.ok(out.report.length <= 2000, `${out.report.length}`);
+	assert.ok(out.report.startsWith(`**What went wrong:** ${out.desc}\n`), 'the Discord report keeps it whole too');
+	const { parseReport } = require('../tools/discord-bot/lib/report');
+	const r = parseReport(out.report);
+	assert.ok(r.description.startsWith(out.desc.trim()), 'the bot reads all of it, its lines kept');
+	assert.equal(r.details.guideId, 'forever/alliance/human/01-elwynn-forest');
+	const long = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ url = UI.Report.IssueURL(string.rep("w", 120) .. "\\nmore", PolestarReport.details) })`)[0];
+	assert.equal(new URL(long.url).searchParams.get('title'), `Bug: ${'w'.repeat(77)}...`);
+});
+
+test('the description box takes 1,000 letters: it grows with the text from three lines to seven, then scrolls, the window staying on a 720-unit screen', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		local function state()
+			return { well = F.DescWell:GetHeight(), box = F.Desc:GetHeight(), content = F.DescScroll.psContent, window = F:GetHeight() }
+		end
+		local empty = state()
+		F.Desc:SetText("One line.\\nTwo lines.\\nThree.\\nFour.\\nFive.")
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local five = state()
+		F.Desc:SetText(string.rep("The vermin were all by the tents. ", 30):sub(1, UI.Report.DESC_MAX))
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local full = state()
+		emit({ max = UI.Report.DESC_MAX, empty = empty, five = five, full = full, letters = #F.Desc:GetText() })`);
+	assert.equal(out.max, 1000);
+	assert.equal(out.letters, 1000);
+	assert.equal(out.empty.well, 3 * 16 + 16, 'three lines to start');
+	assert.ok(out.five.well > out.empty.well && out.five.well < 7 * 16 + 16, `it grows with the lines typed (${out.five.well})`);
+	assert.equal(out.full.well, 7 * 16 + 16, 'no taller than seven lines');
+	assert.ok(out.full.box > out.full.well && out.full.content === out.full.box, `the text runs on in the scroll (${out.full.box} in ${out.full.well})`);
+	assert.ok(out.full.window <= 720, `the window fits a 720-unit screen (${out.full.window})`);
+});
+
+// #1753: the report window as doctor-house had it in 0.3.6: 28 other addons,
+// an error caught 63 times, a full quest log and changed settings, `desc`
+// typed, Copy report pressed, then a theme repaint (what a UI scale or
+// display size change runs). `outdated` adds the update line.
+function crowded({ desc = 'Guide is throwing lua errors and the report a problem page is broken', addons = 28, errors = 63, outdated = false } = {}) {
+	return run(`
+		for i = 1, ${addons} do stub.addons[#stub.addons + 1] = { name = ("Details_SomeLongModuleName%02d"):format(i), loaded = true } end
+		for i = 1, ${errors} do Polestar.NoteError("Interface/AddOns/Polestar/Core/Engine.lua:2311: attempt to compare nil with number") end
+		local log = {}
+		for i = 1, 23 do log[i] = 1000 + i * 37 end
+		Polestar.Compat.GetLogQuests = function() return log end
+		Polestar.Compat.GetQuestObjectives = function() return { { finished = true }, { finished = false } } end
+		Polestar.Set("behavior.deathskips", true)
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		${outdated ? 'F.Outdated:SetText("Polestar 9.9.9 is out: update first, it may fix this."); F.Outdated:Show()' : ''}
+		F.Desc:SetText(${JSON.stringify(desc)})
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		F.Copy:Click()
+		stub.advance(0.1)
+		-- Selected for Ctrl+C: in focus, all of it, once the frame has passed.
+		local function sel() return { focus = stub.focus == F.Box, from = F.Box.highlight and F.Box.highlight[1] or false, to = F.Box.highlight and F.Box.highlight[2] or false } end
+		local copied = sel()
+		-- Ctrl+A in the box selects all of it again; so does a click in it.
+		F.Box:HighlightText(0, 0)
+		local ctrl = IsControlKeyDown
+		IsControlKeyDown = function() return true end
+		stub.RunScript(F.Box, "OnKeyDown", "A")
+		IsControlKeyDown = ctrl
+		local ctrlA = sel()
+		F.Box:HighlightText(0, 0)
+		F.Desc:SetFocus()
+		stub.RunScript(F.Box, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local clicked = sel()
+		-- A click on the well around it (its insets, the space under a short
+		-- report) does too.
+		F.Box:HighlightText(0, 0)
+		F.Desc:SetFocus()
+		stub.RunScript(F.BoxWell, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local wellClicked = sel()
+		-- Each box is its view's own scroll child, as the game's scrolling
+		-- input boxes are: nested in a child frame, rc1's took no click.
+		local scroll = rawget(F, "BoxScroll")
+		local children = { report = scroll ~= nil and scroll:GetScrollChild() == F.Box, description = F.DescScroll:GetScrollChild() == F.Desc }
+		-- Selected, nothing sets the box's text or cursor again: not a compose
+		-- for the description's box, not a theme repaint, not another click on
+		-- the well, not the frames after (0.3.7-rc2 in game: the selection
+		-- flashed, then the cursor sat at the start).
+		Polestar.Widgets.SelectCopy(F.Box)
+		stub.advance(0.1)
+		local sets = {}
+		local setText, setCursor = F.Box.SetText, F.Box.SetCursorPosition
+		F.Box.SetText = function(self, t) sets[#sets + 1] = "SetText"; return setText(self, t) end
+		F.Box.SetCursorPosition = function(self, p) sets[#sets + 1] = "SetCursorPosition"; return setCursor(self, p) end
+		stub.RunScript(F.Desc, "OnTextChanged", false)
+		Polestar.Theme.Refresh()
+		stub.RunScript(F.BoxWell, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local kept = sel()
+		kept.sets = table.concat(sets, ",")
+		F.Box.SetText, F.Box.SetCursorPosition = setText, setCursor
+		-- Every font string drawn in the window, by its text.
+		local drawn = {}
+		local function walk(f)
+			for _, r in ipairs({ f:GetRegions() }) do
+				if r:GetObjectType() == "FontString" and r:IsVisible() and (r:GetText() or "") ~= "" then drawn[#drawn + 1] = r:GetText() end
+			end
+			for _, c in ipairs({ f:GetChildren() }) do walk(c) end
+		end
+		walk(F)
+		-- Each part's top and bottom, down from the window's top.
+		local function span(o) local y = select(5, o:GetPoint(1)); return { -y, -y + o:GetHeight() } end
+		-- Before #1753 the box had no well of its own: the box stands for it.
+		local well = rawget(F, "BoxWell") or F.Box
+		emit({ report = F.Box:GetText(), bytes = #F.Box:GetText(), copied = copied, ctrlA = ctrlA, clicked = clicked, wellClicked = wellClicked, children = children, kept = kept, drawn = drawn, window = F:GetHeight(), boxShown = F.Box:IsShown(),
+			box = F.Box:GetHeight(), view = well:GetHeight(), content = scroll and scroll.psContent or F.Box:GetHeight(),
+			copy = span(F.Copy), well = span(well), rule = span(F.GitHubRule), github = span(F.GitHub),
+			desc = span(F.DescWell), mark = span(F.Mark) })`)[0];
+}
+
+test('a long report with many addons and an error caught 63 times stays in its box: the box scrolls under Copy report, selected whole for Ctrl+C, nothing draws over the form, the window fits a 720-unit screen (#1753)', () => {
+	const cases = [
+		['short, one addon', { addons: 1, errors: 1 }],
+		['the reporter\'s', {}],
+		['the reporter\'s, outdated line shown', { outdated: true }],
+		['1,000 letters', { desc: 'The arrow kept pointing at the bank. '.repeat(28).slice(0, 1000) }],
+		['1,000 letters, outdated line shown', { desc: 'w'.repeat(1000), outdated: true }],
+	];
+	for (const [name, opts] of cases) {
+		const out = crowded(opts);
+		assert.equal(out.boxShown, true, name);
+		assert.ok(out.report.length > 0 && out.report.length <= 2000, `${name}: ${out.report.length}`);
+		// Copy report puts the box in focus with all of the report selected
+		// (0.3.7-rc1: not selected in the scrolling box); Ctrl+A and a click
+		// select it all again.
+		const all = { focus: true, from: 0, to: out.bytes };
+		assert.deepEqual(out.copied, all, `${name}: Copy report selects the whole report`);
+		assert.deepEqual(out.ctrlA, all, `${name}: Ctrl+A selects the whole report`);
+		assert.deepEqual(out.clicked, all, `${name}: a click in the box selects the whole report`);
+		assert.deepEqual(out.wellClicked, all, `${name}: a click on its well selects the whole report`);
+		assert.deepEqual(out.children, { report: true, description: true }, `${name}: each box is its view's scroll child`);
+		assert.deepEqual(out.kept, { ...all, sets: '' }, `${name}: the selection stays; nothing sets the box's text or cursor again`);
+		// The bug: the box's measuring string drew the report over the window
+		// once a theme repaint gave it its colour's alpha back.
+		for (const s of out.drawn) {
+			assert.ok(!s.includes('Engine.lua:2311') && !s.includes('**What went wrong:**'), `${name}: a font string draws the report: ${s.slice(0, 80)}`);
+		}
+		assert.ok(out.window <= 720, `${name}: the window fits a 720-unit screen (${out.window})`);
+		assert.ok(out.view <= out.box && out.view >= Math.min(out.box, 96), `${name}: the view (${out.view}) holds up to the box (${out.box})`);
+		assert.equal(out.content, out.box, `${name}: the whole report scrolls in the view`);
+		assert.ok(out.box >= out.report.split('\n').length * 11, `${name}: the box holds every line (${out.box})`);
+		// The form stays where it is: the box sits between Copy report and the
+		// GitHub row, under the description and the mark button.
+		assert.ok(out.desc[1] <= out.mark[0] && out.mark[1] <= out.copy[0], `${name}: description, mark, copy in order`);
+		assert.ok(out.well[0] >= out.copy[1] && out.well[1] <= out.rule[0] && out.rule[1] <= out.github[0], `${name}: the box between Copy report (${out.copy}) and the GitHub row (${out.rule}): ${out.well}`);
+		assert.ok(out.github[1] <= out.window, `${name}: Open on GitHub inside the window`);
+		if (name !== 'short, one addon') assert.ok(out.view < out.box, `${name}: a long report scrolls (${out.view} of ${out.box})`);
 	}
 });
 

@@ -37,8 +37,8 @@ return {
 	["{item:7908}: the {object:123214}, top floor"] = "",
 
 	-- Step 5: Master Mathias Shaw
-	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {item:6947} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {item:6947} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "",
+	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "Ve al norte por Elwynn hasta {zone:1453}; Mathias Shaw está en el piso de arriba de IV:7. Te enseña Venenos y te da la receta de {item:7676}. Los venenos se fabrican, no se compran: cada tanda de {spell:8681} lleva un {item:2928} y un {item:3371}, que {npc:1325} y {npc:1326} venden en {object:2100}, junto a IV:7. Compra un montón de cada uno, abre Venenos desde tu libro de hechizos para fabricarlos y luego aplica un veneno a tu arma.",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "",
 

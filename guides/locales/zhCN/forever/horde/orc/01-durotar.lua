@@ -256,7 +256,7 @@ return {
 	["{area:369}: kill these as you meet them"] = "{area:369}：沿途遇到就击杀",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly."] = "雷霆蜥蜴和闪电蜥蜴在 {npc:3293} 西面及西南面不远处的 {area:369} 吃草。\n费索 占据着 {area:362} 西北面 {area:369} 的火刃营地。猎人：途中用 {item:15908} 驯服一只 {npc:3099}。\n小心：费索 周围有火刃教徒，部分敌人两两联动，会一起进入战斗，而且刷新很快。",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "雷霆蜥蜴和闪电蜥蜴在 {npc:3293} 西面及西南面不远处的 {area:369} 吃草。\n费索占据着 {area:362} 西北面 {area:369} 的火刃营地。猎人：途中用 {item:15908} 驯服一只 {npc:3099}。\n小心：费索周围有火刃祭司，部分敌人两两联动，会一起进入战斗，而且刷新很快。\n小心：12级精英哈利科尔在{area:369}的蜥蜴群中游荡：拉怪前先留意他的位置。",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "用{item:15908}驯服它",
 
@@ -348,7 +348,7 @@ return {
 	["Thunder lizards on the way north"] = "北上途中的雷霆蜥蜴",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "雷霆蜥蜴和闪电蜥蜴在 {area:369} 活动，就在北上 {zone:1454} 的路旁；两者都可能掉落 {item:6486}。下一篇指南经过 {area:379} 时，将它交给 {npc:5810}。",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "雷霆蜥蜴和闪电蜥蜴在 {area:369} 活动，就在北上 {zone:1454} 的路旁；两者都可能掉落 {item:6486}。下一篇指南经过 {area:379} 时，将它交给 {npc:5810}。\n小心：12级精英哈利科尔在{area:369}的蜥蜴群中游荡：拉怪前先留意他的位置。",
 
 	-- Step 87: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
@@ -377,6 +377,8 @@ return {
 	-- ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "沿道路从{area:362}向北到{zone:1454}的正门，就在{area:817}西边。{npc:3352}和猎人训练师一起站在{object:172958}。",
 	-- ["Into {zone:1454}"] = "进入{zone:1454}",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "{npc:3130}和{npc:3131}在桥对面的{area:369}上吃草；任何一只都可能掉落{item:6486}。",
+	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "雷霆蜥蜴和闪电蜥蜴在 {area:369} 活动，就在北上 {zone:1454} 的路旁；两者都可能掉落 {item:6486}。下一篇指南经过 {area:379} 时，将它交给 {npc:5810}。",
+	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly."] = "雷霆蜥蜴和闪电蜥蜴在 {npc:3293} 西面及西南面不远处的 {area:369} 吃草。\n费索 占据着 {area:362} 西北面 {area:369} 的火刃营地。猎人：途中用 {item:15908} 驯服一只 {npc:3099}。\n小心：费索 周围有火刃教徒，部分敌人两两联动，会一起进入战斗，而且刷新很快。",
 	-- ["Thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
 	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "涉水前往北侧的回音岛。血爪族母 在那里的迅猛龙之间徘徊。\n再向西涉水返回森金村南侧的海岸。杜隆塔尔猛虎在那里游荡，鞭尾龙的卵则在海滩沿线的巢中。",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "学会{skill:129}后，{npc:265809}还会提供对应的露营 101 任务：交给{area:362}的{npc:5943}。",

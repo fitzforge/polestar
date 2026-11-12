@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "Casa da fazenda de {area:200}",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "O diário fica na casa da fazenda, o armário fica lá dentro e a casinha fica atrás dela. Um {npc:10816} leva a chave da casinha; {npc:10836} sai quando você abre a casinha e leva a chave do armário.",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "{object:175924}, lá dentro",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "{quest:5058}, lá dentro",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Ursos-cinzentos Doentes",
@@ -100,7 +96,7 @@ return {
 
 	-- Step 19: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "O centro de {zone:1454}",
 
 	-- Step 20: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
@@ -159,10 +155,6 @@ return {
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "De volta a {area:2479}.",
 
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "Só com 5 Penas do Cocar de Lenha Morta",
-
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "O poço lunar de {area:1763}",
@@ -212,7 +204,7 @@ return {
 
 	-- Step 44: Felpaw Village
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
-	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
+	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: os Vigias do Covil têm nível 53-54; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nAbaixo do nível 54.54, continue lutando contra os Lenha Morta aqui depois da contagem de {npc:15395}: as entregas em {area:1769} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.\nContinue matando-os até um soltar {quest:8470}, cerca de uma morte em trinta, e então clique nele com o botão direito: {npc:11558}, em {area:1769}, aceita-o quando os Presamatos estiverem Neutros com você, agora, se já estiverem, ou quando o último guia passar pela caverna de novo no nível 59.",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "mate {npc:7156} até subir",
 
@@ -287,6 +279,7 @@ return {
 	-- ["Level 54.1"] = "Nível 54.1",
 	-- ["Level 54.45"] = "Nível 54.45",
 	-- ["Level 54.54"] = "Nível 54.54",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "Só com 5 Penas do Cocar de Lenha Morta",
 	-- ["Radley and Durgen"] = "Eiras e Durgen",
 	-- ["Ride back south-east to the Sanctuary."] = "Cavalgue de volta para sudeste até o Santuário.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Volte a {area:1497}, pegue o zepelim para {zone:1454} e voe para {area:431}. Siga a estrada para o oeste saindo do Posto Machadada e pegue a bifurcação para o norte até {zone:1448}.",
@@ -325,6 +318,8 @@ return {
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} fica a leste do acampamento madeireiro; {npc:11611} guarda a estrada a nordeste de {npc:11610}, rumo a {area:190}.",
 	-- ["{npc:9529}, just west of the camp"] = "{npc:9529}, logo a oeste do acampamento",
 	-- ["{object:175894}, beside the house"] = "{object:175894}, ao lado da casa",
+	-- ["{object:175924}, inside"] = "{object:175924}, lá dentro",
+	-- ["{quest:5058}, inside"] = "{quest:5058}, lá dentro",
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} vai para {area:2268}: guarde-a para depois.",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, um saque raro",
 }

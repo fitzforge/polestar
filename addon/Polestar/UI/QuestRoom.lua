@@ -1,6 +1,7 @@
 -- Make room in the quest log: a small window listing the quests in the log
--- that the selected route doesn't need (RoutePlan.Unneeded: never handed in,
--- or grey), each with its reason and its own Abandon button. A press asks
+-- that no open route needs (RoutePlan.Unneeded: no tab's route nor a dungeon
+-- open in a tab hands them in, or grey), each with its reason and its own
+-- Abandon button. A press asks
 -- through the game's own confirmation (Compat.AskAbandonQuest); nothing is
 -- ever abandoned without it. Opened by the guide window's full-log notice
 -- and menu ("Clean up quest log (N)"), the Options button and
@@ -29,7 +30,7 @@ local WHY = {
 }
 
 local function build()
-	F = CreateFrame("Frame", "PolestarQuestRoom", UIParent)
+	F = CreateFrame("Frame", "PolestarQuestRoom", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)

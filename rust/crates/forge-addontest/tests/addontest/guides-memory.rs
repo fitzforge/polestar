@@ -62,8 +62,13 @@ fn pack_files(name: &str) -> String {
 /// 0.3.6 late folds (d5ca0ee23: Camping 101 auto-taken #1559, timed-quest countdown, #1557, best-at dungeons): Alliance
 /// resident 16,280, peak 35,041, read 22,497; Horde resident 15,040, peak 32,468, read 21,581. Only the Horde read was
 /// over (by 1 KiB): raised to that plus ~1% (21,800); the rest unchanged. Trim in 0.3.7.
+/// 0.3.7 final (release data 2026-11-11T03:28Z, every 0.3.7 guide change and the regenerated profession guides):
+/// Alliance resident 16,279, peak 35,132, read 22,497; Horde resident 15,039, peak 32,583, read 21,569, against the
+/// 0.3.6 pack's 16,278 / 35,038 / 22,503 and 15,039 / 32,468 / 21,593. No key trimmed: the new keys (fromNpcsAt,
+/// carriedTo, limit, parent) cost tens of KiB, and the pack is back at 0.3.6's size but for the Horde peak (+115).
+/// Budgets: those plus ~1%.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 16400.0), ("peak", 35140.0), ("read", 22670.0)]), ("Horde", "Orc", [("resident", 15100.0), ("peak", 32540.0), ("read", 21800.0)])];
+	[("Alliance", "Human", [("resident", 16450.0), ("peak", 35490.0), ("read", 22730.0)]), ("Horde", "Orc", [("resident", 15190.0), ("peak", 32910.0), ("read", 21790.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {

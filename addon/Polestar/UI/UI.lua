@@ -270,6 +270,18 @@ function UI.HereText(v)
 	return timer and (text .. "  " .. timer) or text
 end
 
+-- A "While you're here" line's line under it ("Step 14", "Step 14, later in
+-- this guide"), or with `tip` its tooltip's sentence on why doing it now
+-- pays: the Engine's own words when it gives them (`hereSub`, `hereTip`: a
+-- flight path line's), else its step's (`firstStep`: the earliest step that
+-- holds the objective).
+function UI.HereStep(v, tip)
+	if tip then
+		return v.hereTip or format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.firstStep or v.step))
+	end
+	return v.hereSub or format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step))
+end
+
 -- The goal's main line. The Engine's `text` is the truth (it carries author
 -- overrides and counts such as "Kill 5 Young Wolf"); the subject is coloured
 -- by its kind wherever it appears in that text (a quest's in `questHex`, an
@@ -509,6 +521,46 @@ function UI.EscortLine(goal)
 	return "|c" .. Theme.Hex("dungeon") .. L["Escort: if the NPC is not there, wait for it to respawn"] .. "|r"
 end
 
+-- A dungeon's way in (the goal view's `entrance`: a dungeon guide's "Enter
+-- <dungeon>" step, a leveling guide's `when dungeon` run): where to find a
+-- group, with the player's key for the client's group finder
+-- (TOGGLEGROUPFINDER, named as the client names it: "I"), else without a
+-- key. Nil once done or skipped, inside an instance, or in a full party.
+function UI.FinderLine(goal)
+	if goal.entrance ~= true or goal.status == "done" or goal.status == "skipped" then return nil end
+	if IsInInstance and IsInInstance() then return nil end
+	if (GetNumSubgroupMembers and GetNumSubgroupMembers() or 0) >= 4 then return nil end
+	local key = GetBindingKey and GetBindingKey("TOGGLEGROUPFINDER")
+	if key == "" then key = nil end
+	local named = key and GetBindingText and GetBindingText(key)
+	if type(named) == "string" and named ~= "" then key = named end
+	local text = key and format(L["Need a group? Press %s for the group finder."], key) or L["Need a group? Open the group finder."]
+	return "|c" .. Theme.Hex("dungeon") .. text .. "|r"
+end
+
+-- A guide as the guide list names it, with its levels: "Badlands &
+-- Desolace (37–38)"; just the title (or id) when it has none.
+function UI.GuideLabel(g)
+	local title = g.title or g.id
+	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
+	return lv and (title .. " (" .. lv .. ")") or title
+end
+
+-- Quest work a later guide hands in (the goal's `carriedTo`, Engine
+-- Own.carriedTo: once per step): "Keep this: you hand it in later in
+-- Badlands & Desolace (37–38)", the guide with its levels so it reads as a
+-- later guide ("Keep this: a later guide hands it in" when that guide is not
+-- installed). Nil once the goal is skipped. UI.GoalSubline puts it on a line
+-- of its own, after the goal's other subline.
+function UI.CarriedLine(goal)
+	local to = goal.carriedTo
+	if type(to) ~= "string" or goal.status == "skipped" then return nil end
+	local G = ns.Guides
+	local later = G and G.Get and G.Get(to)
+	if later then return format(L["Keep this: you hand it in later in %s"], UI.GuideLabel(later)) end
+	return L["Keep this: a later guide hands it in"]
+end
+
 -- How to get the item a quest starts from, on the quest's one line (the
 -- goal's `starter`): "Runed Scroll: kill Aean Swiftriver (rare elite)", then
 -- "Runed Scroll: in your bags, right-click it". An item lying there as an
@@ -552,15 +604,18 @@ end
 -- that it is an escort, how to get the item a quest starts from, which later
 -- quest a grey accept "Skip grey quests" keeps opens, whom an item is got
 -- from, that an area objective's mobs are all over its area, which mobs a
--- farm spot is, where a chosen trainer/vendor is, the goal's own note (a
+-- farm spot is, where a chosen trainer/vendor is, what a travel step's
+-- flight or walk leads to, the goal's own note (a
 -- `complete` goal's objectives are its main line), and an open turn-in's
--- rewards. The rest of the detail ("for Kobold Camp Cleanup")
--- lives in the tooltip.
+-- rewards; then, on a line of its own, that a later guide hands the quest
+-- in (UI.CarriedLine: keep it). The rest of the detail ("for Kobold Camp
+-- Cleanup") lives in the tooltip.
 -- `shownMap`: a zone the window already names above (the person's), not repeated.
 -- `noParty`: the group line already shows on a goal above (said once per card).
 -- `noMissing`: so do the party members who lack this goal's quest.
 -- `noEscort`: the escort line already shows on a goal above (once per card).
-function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
+-- `noFinder`: so does the group finder line (UI.FinderLine).
+function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	if goal.unavailable then return UI.GoalDetail(goal) end
 	local parts = {}
 	-- An accept the game does not confirm says so first (not in the quest
@@ -576,11 +631,15 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	if party then parts[#parts + 1] = party end
 	local escort = not noEscort and UI.EscortLine(goal)
 	if escort then parts[#parts + 1] = escort end
+	local finder = not noFinder and UI.FinderLine(goal)
+	if finder then parts[#parts + 1] = finder end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
 	-- A hearth goal while the Hearthstone waits, or while travelling there
 	-- is about as fast: what to do (#576).
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end
+	-- A travel step's flight or walk: the work it leads to (#1588).
+	if goal.purposeText then parts[#parts + 1] = goal.purposeText end
 	-- A level goal: the XP still to earn.
 	if goal.xpLeft then parts[#parts + 1] = format(L["%s XP to go"], thousands(goal.xpLeft)) end
 	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
@@ -604,9 +663,17 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	local together = ns.Party and ns.Party.Line(goal, noMissing)
 	if together then parts[#parts + 1] = together end
 	local rewards = goal.t == "turnin" and goal.status ~= "done" and goal.status ~= "skipped" and UI.GoalRewards(goal) or nil
-	if #parts == 0 then return rewards end
-	local line = table.concat(parts, "  \194\183  ")
-	return rewards and (line .. "  \194\183  " .. rewards) or line
+	local line
+	if #parts > 0 then
+		line = table.concat(parts, "  \194\183  ")
+		if rewards then line = line .. "  \194\183  " .. rewards end
+	else
+		line = rewards
+	end
+	-- To keep the quest: a line of its own, after the rest.
+	local carried = UI.CarriedLine(goal)
+	if carried then line = line and (line .. "\n" .. carried) or carried end
+	return line
 end
 
 -- A goal's line in the reading flow: the text with its counter right after it
@@ -641,6 +708,52 @@ function UI.GoalLine(goal, questHex)
 		text = text .. "  |c" .. Theme.Hex("warning") .. L["optional"] .. "|r"
 	end
 	return text
+end
+
+-- A count ("0/6", "3/10", a party member's "2/6") never splits across lines:
+-- the client breaks a wrapped string after "/", which left "0/" at a line's
+-- end and the "6" under it (#1684). UI.SetCounted(fs, text) sets a string's
+-- text and keeps it; UI.FitCounts(fs), once the string's width is set, moves
+-- a count that would start on one line and end on the next whole onto the
+-- next: the spaces before it (and its colour code) become a line break. The
+-- test is the string's own height through the count's first character and
+-- through its last, so it holds whatever the client's break rules are. A
+-- string whose text was set otherwise since is left alone.
+function UI.SetCounted(fs, text)
+	fs.psCounted, fs.psFitted = text, text
+	fs:SetText(text)
+end
+
+function UI.FitCounts(fs)
+	local text = fs.psCounted
+	if type(text) ~= "string" or fs:GetText() ~= fs.psFitted then return end
+	if not text:find("%d/%d") then return end
+	fs:SetText(text)
+	local lh = fs:GetLineHeight()
+	local out = text
+	if lh and lh > 0 and fs:GetStringHeight() > lh * 1.5 then
+		local from = 1
+		while true do
+			local s, e = out:find("%d+/%d+", from)
+			if not s then break end
+			fs:SetText(out:sub(1, s))
+			local before = fs:GetStringHeight()
+			fs:SetText(out:sub(1, e))
+			if fs:GetStringHeight() > before + 0.5 then
+				local b = s
+				if b > 10 and out:sub(b - 10, b - 1):find("^|c%x%x%x%x%x%x%x%x$") then b = b - 10 end
+				local a = b
+				while a > 1 and out:sub(a - 1, a - 1) == " " do a = a - 1 end
+				if a > 1 and a < b and out:sub(a - 1, a - 1) ~= "\n" then
+					out = out:sub(1, a - 1) .. "\n" .. out:sub(b)
+					e = e - (b - a) + 1
+				end
+			end
+			from = e + 1
+		end
+		fs:SetText(out)
+	end
+	fs.psFitted = out
 end
 
 -- Step i of the active guide as the player counts it: steps that do not
@@ -782,13 +895,23 @@ end
 -- Routing
 ---------------------------------------------------------------------------
 
+-- The window's toggle (its key, /polestar, the menu's Guide window) asks to
+-- see the guide: from hidden it brings Polestar back, turning the window on
+-- when it was off.
 ns.On("TOGGLE_FRAME", function()
+	if ns.Hidden() then
+		ns.SetHidden(false)
+		if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
+		return
+	end
 	local GF = UI.GuideFrame
 	if GF and GF.ToggleInside and GF.ToggleInside() then return end
 	ns.Set("ui.shown", not ns.Get("ui.shown"))
 end)
-ns.On("SHOW_FRAME", function() ns.Set("ui.shown", true) end)
-ns.On("HIDE_FRAME", function() ns.Set("ui.shown", false) end)
+ns.On("SHOW_FRAME", function()
+	ns.SetHidden(false)
+	ns.Set("ui.shown", true)
+end)
 ns.On("SHOW_PICKER", function() if UI.ShowPicker then UI.ShowPicker() end end)
 ns.On("SHOW_OPTIONS", function(section) if UI.ShowOptions then UI.ShowOptions(section) end end)
 -- The guide menu and the options from a key binding or a gamepad chord: open, or close when open.

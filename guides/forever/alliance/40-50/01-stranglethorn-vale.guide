@@ -57,8 +57,7 @@ step North Point Tower
   accept 1324
   complete 1324
   turnin 1324 @45.2,24.4              -- Archmage Tervosh
-  accept 1267 @45.2,24.3              -- Lady Jaina Proudmoore
-  turnin 1267 @45.2,24.3
+  turnin 1267 direct @45.2,24.3
 
 step Darkmist Cavern
   tip The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.
@@ -290,7 +289,7 @@ step Fly to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  turnin 627                          -- Krazek, upstairs
+  turnin 627 optional -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
   accept 617                          -- Privateer Bloads
   turnin 669                          -- Fleet Master Seahorn, top floor
@@ -338,13 +337,12 @@ step Booty Bay
 
 step Gorilla hills
   tip Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; Witch Doctor Unbagwa sits among them.
-  accept 349                          -- Witch Doctor Unbagwa, inside Spirit Den
   collect 3919 quest 606              -- Mistvale Giblets
-  collect 2799 quest 349              -- Gorilla Fang
+  collect 2799 x10 -- Gorilla Fang
 
 step Unbagwa's ritual
   tip Hand in the fangs and stay: three waves of gorillas come, Mokk the Savage last. Fight at full health.
-  turnin 349                          -- Witch Doctor Unbagwa, inside Spirit Den
+  turnin 349 direct -- Witch Doctor Unbagwa, inside Spirit Den
   collect 2797 quest 348              -- Heart of Mokk
 # ---------------------------------------------------------------- North of the bay
 
@@ -487,8 +485,7 @@ step Stormwind
   zone Stormwind City
   tip Angus Stern cooks in the Blue Recluse; Brohann Caskbelly is in the Dwarven District.
   sethome "Stormwind City"
-  accept 1271                         -- Angus Stern
-  turnin 1271
+  turnin 1271 direct
   accept 1477                         -- High Sorcerer Andromath: for Watchmaster Sorigal in Darkshire, on the way to the swamp
   accept 1363                         -- Mazen Mac'Nadir
   turnin 1363                         -- Acolyte Dellis
