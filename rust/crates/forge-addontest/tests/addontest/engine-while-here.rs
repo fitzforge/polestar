@@ -1338,7 +1338,7 @@ fn a_timer_the_quest_log_reports_without_the_old_timer_list_offers_no_detour_eit
 		C_QuestLog.GetTimeAllowed = function(q) if q == 33 then return 900, 600 end return 0 end
 		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
-		C_QuestLog.IsFailed = function() return true end
+		C_QuestLog.IsFailed = function(q) return q == 33 end -- only the timed quest's time ran out
 		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
 		C_QuestLog.IsFailed = nil
