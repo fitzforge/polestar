@@ -235,10 +235,7 @@ pub fn quest_ok_for(faction: Faction, d: &GameData, rec: &Quest) -> bool {
 		return false;
 	}
 	let npc_givers: Vec<_> = st.npc.iter().filter_map(|&n| u32::try_from(n).ok().and_then(|n| d.npcs.get(&n))).collect();
-	if !npc_givers.is_empty() && npc_givers.iter().all(|n| n.faction.as_deref().unwrap_or("").to_uppercase() == enemy) {
-		return false;
-	}
-	true
+	npc_givers.is_empty() || npc_givers.iter().any(|n| n.faction.as_deref().unwrap_or("").to_uppercase() != enemy)
 }
 
 impl Atlas {

@@ -1326,12 +1326,14 @@ impl Kb<'_> {
 					&& c.value.num() < 0.97 * ours
 					&& !valid.iter().enumerate().any(|(j, o)| {
 						j != i
-							&& !o.project && o.source != "page"
+							&& !o.project
+							&& o.source != "page"
 							&& o.source != "factoruide"
 							&& o.source != "factoruide.web"
 							&& !check_only(&o.source)
 							&& same_xp(&o.value, &c.value, captured(&o.source), false)
-					}) && !backs(&c.value)
+					})
+					&& !backs(&c.value)
 					&& (server.is_none() || backs(&cands[0].value))
 			};
 			let kept = ranked.iter().copied().find(|&i| !lone(i)).unwrap_or(win);

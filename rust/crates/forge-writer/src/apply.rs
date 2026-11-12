@@ -3022,19 +3022,20 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	// Shaman trainer for fourteen levels.)
 	let route_ev_cls: Vec<(f64, FxHashSet<&'static str>)> =
 		if route_trains { order.iter().filter_map(|o| Some((o.lvl?, cx.trainer_classes_near(o.pt, train_fac, TRAINER_YD)))).filter(|(_, c)| !c.is_empty()).collect() } else { Vec::new() };
-	let spare_training =
-		|s: usize, lvl: Option<f64>| {
-			const SPARE_LVL: f64 = 2.0;
-			route_trains
-				&& trains(s) && just_training(s)
-				&& train_classes(s).is_none_or(|cls| {
-					cls.is_empty()
-						|| lvl.is_none() || cls.iter().all(|c| {
+	let spare_training = |s: usize, lvl: Option<f64>| {
+		const SPARE_LVL: f64 = 2.0;
+		route_trains
+			&& trains(s)
+			&& just_training(s)
+			&& train_classes(s).is_none_or(|cls| {
+				cls.is_empty()
+					|| lvl.is_none()
+					|| cls.iter().all(|c| {
 						route_train_cls.iter().any(|(l, here)| l.zip(lvl).is_none_or(|(a, b)| (a - b).abs() <= SPARE_LVL) && (here.is_empty() || here.contains(c.as_str())))
 							|| route_ev_cls.iter().any(|(l, here)| lvl.is_some_and(|b| (l - b).abs() <= SPARE_LVL) && here.contains(c.as_str()))
 					})
-				})
-		};
+			})
+	};
 	// A step's continent: its first placed line's, else its zone's.
 	let step_cont = |s: usize| -> Option<i64> {
 		let st = &cx.steps[s];
@@ -3945,7 +3946,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 										PieceKind::Orphan(x) => cx.steps[*x].file == st.file,
 										PieceKind::Ins { pt, lines, .. } => !lines.is_empty() && (town_z(j).is_none() || cx.w(*pt).and_then(|w| cx.zone_name(Some(w.map))) != town_z(j)),
 									}
-							}) && ready_at(&pieces, j)
+							})
+							&& ready_at(&pieces, j)
 					}) {
 						let mut at = j + 1;
 						while at < pieces.len() && matches!(pieces[at].kind, PieceKind::Orphan(x) if cx.steps[x].file == st.file && x < os) {
@@ -6623,7 +6625,8 @@ impl Writer<'_, '_> {
 													.iter()
 													.find(|o| {
 														o.2.is_some()
-															&& !ends.contains(&o.2) && cx.w(cx.steps[o.1].lines.iter().find_map(|l| cx.line_pt(l))).map_or_else(|| crosses(o.2.as_deref().unwrap()), beside)
+															&& !ends.contains(&o.2)
+															&& cx.w(cx.steps[o.1].lines.iter().find_map(|l| cx.line_pt(l))).map_or_else(|| crosses(o.2.as_deref().unwrap()), beside)
 													})
 													.and_then(|o| o.2.clone());
 												match by {
