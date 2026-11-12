@@ -20,6 +20,27 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 	frame:SetFrameLevel(holder:GetFrameLevel() + 1)
 
 	local adapter = {frame = frame, pane = pane, holder = holder, overflow = 0}
+	local toast = ns.UI.ClassToast
+	local strataOrder = { BACKGROUND = 1, LOW = 2, MEDIUM = 3, HIGH = 4, DIALOG = 5,
+		FULLSCREEN = 6, FULLSCREEN_DIALOG = 7, TOOLTIP = 8 }
+	local function RaiseReminder()
+		local card = toast and toast.frame
+		if not (card and adapter.selected and pane:IsVisible()) then return end
+		local strata, level = frame:GetFrameStrata(), frame:GetFrameLevel()
+		local column = _G.ForeverTrackerCompanion
+		if column and column:IsVisible() then
+			local other = column:GetFrameStrata()
+			if (strataOrder[other] or 0) > (strataOrder[strata] or 0) then strata = other end
+			level = math.max(level, column:GetFrameLevel())
+		end
+		card:SetFrameStrata(strata)
+		card:SetFrameLevel(level + 5)
+	end
+	-- Spell, class, dungeon and update notices share this card. Its normal
+	-- placement puts it behind the guide for the slide animation; while docked
+	-- it must also clear the independent tracker column. Keep it outside the
+	-- scroll pane and below higher window strata such as Options and tooltips.
+	if toast and toast.Place then hooksecurefunc(toast, "Place", RaiseReminder) end
 	local host = Skin.SharedHost()
 	local savedTab = ns.CharState().trackerDockTab
 	local firstSelection = true
@@ -54,6 +75,7 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 		if self.overflow <= 0.5 then pane:SetVerticalScroll(0) end
 		holder:SetHeight(height)
 		Skin.UpdateForeverColumn()
+		RaiseReminder()
 	end
 	function adapter:SetSelected(selected, show)
 		self.selected = selected
@@ -67,6 +89,7 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 			gf.ApplyVisibility()
 		end
 		Skin.UpdateForeverColumn()
+		RaiseReminder()
 	end
 	frame:HookScript("OnHide", function() if not frame:IsShown() then closeTab() end end)
 	ns.On("SETTING_CHANGED", function(path, value)

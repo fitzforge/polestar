@@ -19,3 +19,6 @@ section: players
   Attached ForeverCore sections follow below the selected guide, or beside
   it when there is insufficient room below. Quests restores ForeverCore's
   normal placement; a manually detached Forever column is left alone.
+  ForeverCore's replacement quest list hides on the Polestar tab and returns
+  on Quests without changing its saved option. Guide reminder cards render
+  above the tracker column while docked, keeping their usual placement.

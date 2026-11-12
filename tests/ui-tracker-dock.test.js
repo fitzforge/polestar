@@ -449,3 +449,36 @@ test('native docking measures new goal rows during combat completion animations'
 	emit({rows=#GF.CardItems()})`,{savedTab:'polestar'});
 	assert.ok(out.rows>=20,JSON.stringify(out));
 });
+
+test('the Forever replacement quest list follows Quests without changing its saved option',()=>{
+	const [hidden,restored,disabled]=run(FOREVER_SETUP+`
+	ForeverCoreDB={questList=true}
+	local quests=Polestar.CreateFrameUnder("Frame",nil,column)
+	ForeverCoreQuestTracker=quests
+	function quests:GetContentsHeight() return ForeverCoreDB.questList and 150 or 0 end
+	function quests:MarkDirty() self:SetShown(ForeverCoreDB.questList) end
+	selectTab("Polestar");stub.advance(0.3)
+	quests:Show()
+	emit({shown=quests:IsShown(),height=quests:GetContentsHeight(),saved=ForeverCoreDB.questList,column=column:IsShown()})
+	selectTab("Quests");stub.advance(0.3)
+	emit({shown=quests:IsShown(),height=quests:GetContentsHeight(),saved=ForeverCoreDB.questList})
+	ForeverCoreDB.questList=false;quests:MarkDirty()
+	selectTab("Polestar");selectTab("Quests");stub.advance(0.3)
+	emit({shown=quests:IsShown(),saved=ForeverCoreDB.questList})`);
+	assert.deepEqual(hidden,{shown:false,height:0,saved:true,column:true});
+	assert.deepEqual(restored,{shown:true,height:150,saved:true});
+	assert.deepEqual(disabled,{shown:false,saved:false});
+});
+
+test('shared reminder cards render above the tracker column without joining the scroll pane',()=>{
+	const [out]=run(FOREVER_SETUP+`
+	column:SetFrameStrata("MEDIUM");column:SetFrameLevel(50)
+	selectTab("Polestar");stub.advance(0.3)
+	local toast=Polestar.UI.ClassToast
+	toast.ShowCard({head="ACTION BARS",title="Upgrade your spell",icon="Interface/Icons/INV_Misc_Book_09",noAct=true,quiet=true})
+	toast.Place(false)
+	local card=toast.frame
+	emit({shown=card:IsShown(),strata=card:GetFrameStrata(),above=card:GetFrameLevel()>column:GetFrameLevel(),
+	 outside=card:GetParent()==Polestar.UIParent and card:GetParent()~=GF.dock.pane})`);
+	assert.deepEqual(out,{shown:true,strata:'MEDIUM',above:true,outside:true});
+});
