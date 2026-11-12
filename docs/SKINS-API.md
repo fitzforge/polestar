@@ -25,7 +25,9 @@ The repository has a complete, commented example,
 [`addon/Polestar_Skin_Example`](../addon/Polestar_Skin_Example) ("Moonlit": a
 scheme and a skin with two variants and a hook on every surface), which is
 never part of a Polestar release. To try it, copy (or symlink) the folder
-into the game's `Interface/AddOns/` next to Polestar.
+into the game's `Interface/AddOns/` next to Polestar. The skins in the
+release are complete examples too: [the skins in the
+download](#more-to-read-the-skins-in-the-download).
 
 ## Quick start
 
@@ -112,6 +114,24 @@ art.
   said once in chat, naming its addon.
 - **Versions and capabilities**: `api`, `API_VERSION`, `HasCapability`, so
   a skin can use a newer feature where it exists and do without elsewhere.
+
+## More to read: the skins in the download
+
+Beside Moonlit, the release carries complete skins, each an addon of its
+own (`addon/Polestar_Skin_<Name>`) that loads on demand (its TOC declares
+its ids with `## X-Polestar-Skin`), and each built only through this API.
+Each shows one more thing the API can do; they are the best place to copy
+from.
+
+| Skin | What it is | What it shows |
+|---|---|---|
+| **Vellum** (`Polestar_Skin_Vellum`) | A page of the quest log: dark ink on mottled parchment, a sealing-wax accent and dart, the game's font | A **light** skin: every token given (grounds, ladder, all sixteen subject colours as inks) and still held to the legibility floors; a texture of the skin's own (`Media/paper.tga`) tinted at paint time; painters for window, panel, sidebar, inset and editbox; a preset that puts the arrow's words on a plate and colours the dart |
+| **Lumen** (`Polestar_Skin_Lumen`) | Head-up: dark glass with no border or band, a cyan line and a lit tick just outside each corner, Fira Sans a size down, the flat arrow | A skin that is mostly a **frame treatment** from Polestar's white texture and `kit.glow`; a `guide` painter beside `window` (the ticks stay while the window is transparent); `fontSizes` for the whole ladder; a preset that turns the house chrome off |
+| **Beacon** (`Polestar_Skin_Beacon`) | High contrast: black grounds, white Open Sans a size up, a yellow accent, strong edges | A **scheme and a skin from one addon**; washes raised through tokens; a 2-unit focus ring on fields; a preset that grows the arrow, the pins and the route line |
+| **Aurora** (`Polestar_Skin_Aurora`) | The northern lights over Polestar: an aurora in the guide window's band, the same light along every other window's top, edges that glow teal and violet, a violet halo, a deep night, a green-teal accent | Textures of the skin's own drawn as **light** (`SetBlendMode("ADD")`, `Media/curtain.tga`, `Media/veil.tga`); `kit.gradient` for the ground and gradient pieces of its own; `shadow` in a colour; the `guideTitle` hook laying the aurora over the band wherever it is, and `guideProgress` filling the progress teal into violet |
+
+Their art is drawn in code (`node tools/polestar.js media skin-addons`,
+`tools/media/skin-addons.js`).
 
 ## Rationale, compared with Details!
 

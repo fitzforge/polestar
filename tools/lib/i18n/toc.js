@@ -207,6 +207,63 @@ const TEXT = {
 			zhTW: '供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。',
 		},
 	},
+	// The skins in the download (docs/skins): each an addon of its own, enabled in the AddOns list.
+	Polestar_Skin_Vellum: {
+		title: { deDE: 'Polestar-Design: Vellum', esES: 'Polestar, tema: Vellum', esMX: 'Polestar, tema: Vellum', frFR: 'Polestar, habillage : Vellum', koKR: 'Polestar 스킨: Vellum', ptBR: 'Polestar, tema: Vellum', ruRU: 'Polestar, оформление: Vellum', zhCN: 'Polestar 皮肤：Vellum', zhTW: 'Polestar 皮膚：Vellum' },
+		notes: {
+			deDE: 'Ein Pergament-Design für Polestar: der Guide als Seite des Questlogs, dunkle Tinte auf Papier.',
+			esES: 'Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel.',
+			esMX: 'Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel.',
+			frFR: 'Un habillage parchemin pour Polestar : le guide comme une page du journal de quêtes, encre sombre sur papier.',
+			koKR: 'Polestar의 양피지 스킨: 퀘스트 일지의 한 페이지처럼, 종이 위의 짙은 잉크.',
+			ptBR: 'Um tema de pergaminho para o Polestar: o guia como uma página do registro de missões, tinta escura sobre papel.',
+			ruRU: 'Пергаментное оформление для Polestar: гайд как страница журнала заданий, тёмные чернила на бумаге.',
+			zhCN: 'Polestar 的羊皮纸皮肤：指南如同任务日志的一页，纸上深色墨迹。',
+			zhTW: 'Polestar 的羊皮紙皮膚：指南如同任務日誌的一頁，紙上深色墨跡。',
+		},
+	},
+	Polestar_Skin_Lumen: {
+		title: { deDE: 'Polestar-Design: Lumen', esES: 'Polestar, tema: Lumen', esMX: 'Polestar, tema: Lumen', frFR: 'Polestar, habillage : Lumen', koKR: 'Polestar 스킨: Lumen', ptBR: 'Polestar, tema: Lumen', ruRU: 'Polestar, оформление: Lumen', zhCN: 'Polestar 皮肤：Lumen', zhTW: 'Polestar 皮膚：Lumen' },
+		notes: {
+			deDE: 'Ein Head-up-Design für Polestar: kein Rahmen, Eckmarken und eine cyanfarbene Linie, kompakte Schrift über der Spielwelt.',
+			esES: 'Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo.',
+			esMX: 'Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo.',
+			frFR: 'Un habillage tête haute pour Polestar : sans cadre, des repères aux coins et une ligne cyan, un texte compact sur le monde.',
+			koKR: 'Polestar의 HUD 스킨: 테두리 없이 모서리 표시와 청록색 선 하나, 월드 위의 촘촘한 글자.',
+			ptBR: 'Um tema de HUD para o Polestar: sem moldura, marcas nos cantos e uma linha ciano, texto compacto sobre o mundo.',
+			ruRU: 'HUD-оформление для Polestar: без рамки, метки по углам и одна бирюзовая линия, компактный текст поверх мира.',
+			zhCN: 'Polestar 的抬头显示皮肤：无边框，角标和一条青色线，游戏世界上的紧凑文字。',
+			zhTW: 'Polestar 的抬頭顯示皮膚：無邊框，角標與一條青色線，遊戲世界上的緊湊文字。',
+		},
+	},
+	Polestar_Skin_Beacon: {
+		title: { deDE: 'Polestar-Design: Beacon', esES: 'Polestar, tema: Beacon', esMX: 'Polestar, tema: Beacon', frFR: 'Polestar, habillage : Beacon', koKR: 'Polestar 스킨: Beacon', ptBR: 'Polestar, tema: Beacon', ruRU: 'Polestar, оформление: Beacon', zhCN: 'Polestar 皮肤：Beacon', zhTW: 'Polestar 皮膚：Beacon' },
+		notes: {
+			deDE: 'Ein kontrastreiches Design für Polestar: schwarze Flächen, größere weiße Schrift, gelber Akzent, kräftige Ränder, größere Markierungen und Pfeil.',
+			esES: 'Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes.',
+			esMX: 'Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes.',
+			frFR: 'Un habillage à fort contraste pour Polestar : fonds noirs, texte blanc plus grand, accent jaune, bords marqués, repères et flèche plus grands.',
+			koKR: 'Polestar의 고대비 스킨: 검은 바탕, 한 단계 큰 흰 글자, 노란 강조색, 굵은 테두리, 더 큰 표시와 화살표.',
+			ptBR: 'Um tema de alto contraste para o Polestar: fundos pretos, texto branco maior, destaque amarelo, bordas fortes, marcadores e seta maiores.',
+			ruRU: 'Высококонтрастное оформление для Polestar: чёрный фон, более крупный белый текст, жёлтый акцент, чёткие края, крупнее метки и стрелка.',
+			zhCN: 'Polestar 的高对比度皮肤：黑色底面，更大的白色文字，黄色强调色，清晰边框，更大的标记和箭头。',
+			zhTW: 'Polestar 的高對比皮膚：黑色底面，更大的白色文字，黃色強調色，清晰邊框，更大的標記與箭頭。',
+		},
+	},
+	Polestar_Skin_Aurora: {
+		title: { deDE: 'Polestar-Design: Aurora', esES: 'Polestar, tema: Aurora', esMX: 'Polestar, tema: Aurora', frFR: 'Polestar, habillage : Aurora', koKR: 'Polestar 스킨: Aurora', ptBR: 'Polestar, tema: Aurora', ruRU: 'Polestar, оформление: Aurora', zhCN: 'Polestar 皮肤：Aurora', zhTW: 'Polestar 皮膚：Aurora' },
+		notes: {
+			deDE: 'Nordlichter über Polestar: türkises und violettes Licht oben in jedem Fenster, leuchtende Kanten, eine tiefe Nacht.',
+			esES: 'La aurora boreal sobre Polestar: luz turquesa y violeta en lo alto de cada ventana, bordes que brillan, una noche profunda.',
+			esMX: 'La aurora boreal sobre Polestar: luz turquesa y violeta en lo alto de cada ventana, bordes que brillan, una noche profunda.',
+			frFR: 'Les aurores boréales sur Polestar : une lumière turquoise et violette en haut de chaque fenêtre, des bords lumineux, une nuit profonde.',
+			koKR: 'Polestar 위의 오로라: 모든 창 위쪽의 청록빛과 보랏빛, 빛나는 테두리, 깊은 밤.',
+			ptBR: 'A aurora boreal sobre o Polestar: luz turquesa e violeta no alto de cada janela, bordas que brilham, uma noite profunda.',
+			ruRU: 'Северное сияние над Polestar: бирюзовый и фиолетовый свет вверху каждого окна, светящиеся края, глубокая ночь.',
+			zhCN: 'Polestar 上空的极光：每个窗口顶部的青色与紫色光芒，发光的边框，深邃的夜色。',
+			zhTW: 'Polestar 上空的極光：每個視窗頂部的青色與紫色光芒，發光的邊框，深邃的夜色。',
+		},
+	},
 };
 
 // The per-language folders: { title, notes } templates, %1 the locale code,

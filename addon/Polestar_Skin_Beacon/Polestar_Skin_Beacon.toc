@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Skin: Beacon
+## Notes: A high-contrast skin for Polestar: black grounds, white text a size up, a yellow accent, strong edges, bigger pins and arrow.
+## Title-deDE: Polestar-Design: Beacon
+## Notes-deDE: Ein kontrastreiches Design für Polestar: schwarze Flächen, größere weiße Schrift, gelber Akzent, kräftige Ränder, größere Markierungen und Pfeil.
+## Title-esES: Polestar, tema: Beacon
+## Notes-esES: Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes.
+## Title-esMX: Polestar, tema: Beacon
+## Notes-esMX: Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes.
+## Title-frFR: Polestar, habillage : Beacon
+## Notes-frFR: Un habillage à fort contraste pour Polestar : fonds noirs, texte blanc plus grand, accent jaune, bords marqués, repères et flèche plus grands.
+## Title-koKR: Polestar 스킨: Beacon
+## Notes-koKR: Polestar의 고대비 스킨: 검은 바탕, 한 단계 큰 흰 글자, 노란 강조색, 굵은 테두리, 더 큰 표시와 화살표.
+## Title-ptBR: Polestar, tema: Beacon
+## Notes-ptBR: Um tema de alto contraste para o Polestar: fundos pretos, texto branco maior, destaque amarelo, bordas fortes, marcadores e seta maiores.
+## Title-ruRU: Polestar, оформление: Beacon
+## Notes-ruRU: Высококонтрастное оформление для Polestar: чёрный фон, более крупный белый текст, жёлтый акцент, чёткие края, крупнее метки и стрелка.
+## Title-zhCN: Polestar 皮肤：Beacon
+## Notes-zhCN: Polestar 的高对比度皮肤：黑色底面，更大的白色文字，黄色强调色，清晰边框，更大的标记和箭头。
+## Title-zhTW: Polestar 皮膚：Beacon
+## Notes-zhTW: Polestar 的高對比皮膚：黑色底面，更大的白色文字，黃色強調色，清晰邊框，更大的標記與箭頭。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.7
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: beacon
+
+Beacon.lua

@@ -81,7 +81,11 @@ class TextureCache {
 			// "Nav/<name>", "Map/<name>": Polestar's Media/Nav textures (pins,
 			// glow, arrow) and Media/Map ones (medallions, map glyphs).
 			const sub = /^(Nav|Map)\/([\w-]+)$/.exec(name);
+			// "addon:<Folder>/<path>": another addon's texture (a skin addon's
+			// Media, docs/SKINS-API.md), under the addon folder beside Polestar's.
+			const other = /^addon:([\w-]+)\/(.+)$/.exec(name);
 			const file = fid ? (this.clientArt ? path.join(this.clientArt, `${fid[1]}.tga`) : null)
+				: other ? path.join(this.dir, '..', '..', '..', other[1], other[2] + '.tga')
 				: sub ? path.join(this.dir, '..', sub[1], sub[2] + '.tga') : path.join(this.dir, name + '.tga');
 			this.src.set(name, file && fs.existsSync(file) ? readTGA(file) : null);
 		}
@@ -245,6 +249,8 @@ function resolve(objects, fonts) {
 				const lw = w / s;
 				const lines = o.wrap && lw > 0 ? wrap(fonts, o.font, o.plain, lw) : o.plain.split('\n');
 				o.lines = o.maxLines ? lines.slice(0, o.maxLines) : lines;
+				// Text cut short by SetMaxLines ends its last line in "...", as the client draws it.
+				o.cutShort = o.maxLines > 0 && lines.length > o.maxLines;
 				if (h == null) h = (o.lines.length * o.font[1] + (o.lines.length - 1) * (o.spacing || 0)) * s;
 			}
 			w = w ?? 0;
@@ -305,6 +311,10 @@ function textureName(p) {
 	if (m) return m[1];
 	const sub = /Polestar\\Media\\(Nav|Map)\\([\w-]+)$/.exec(p);
 	if (sub) return `${sub[1]}/${sub[2]}`;
+	// Another addon's own texture (a skin addon's, docs/SKINS-API.md):
+	// "Interface\AddOns\<Folder>\<path>" -> "addon:<Folder>/<path>".
+	const own = /AddOns\\((?!Polestar\\)[\w-]+)\\([\w\\-]+)$/.exec(p);
+	if (own) return `addon:${own[1]}/${own[2].replace(/\\/g, '/')}`;
 	if (/WHITE8X8/i.test(p)) return 'white';
 	return null;
 }
@@ -661,14 +671,17 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 		const alpha = a * (t.alpha ?? 1);
 		if (alpha <= 0.001) return;
 		let lines = t.lines;
-		// Non-wrapping text wider than its box truncates with an ellipsis.
+		// Non-wrapping text wider than its box, and wrapped text cut short by
+		// SetMaxLines (its last line), truncate with an ellipsis.
+		const ellipsis = (l) => {
+			let cut = l;
+			while (cut.length && measure(fonts, t.font, cut + '...') * s > r.w) cut = cut.slice(0, -1);
+			return cut.replace(/\s+$/, '') + '...';
+		};
 		if (!t.wrap && r.w > 0) {
-			lines = lines.map((l) => {
-				if (measure(fonts, t.font, l) * s <= r.w + 0.5) return l;
-				let cut = l;
-				while (cut.length && measure(fonts, t.font, cut + '...') * s > r.w) cut = cut.slice(0, -1);
-				return cut.replace(/\s+$/, '') + '...';
-			});
+			lines = lines.map((l) => (measure(fonts, t.font, l) * s <= r.w + 0.5 ? l : ellipsis(l)));
+		} else if (t.cutShort && r.w > 0 && lines.length) {
+			lines = [...lines.slice(0, -1), ellipsis(`${lines[lines.length - 1]} `)];
 		}
 		const colored = colouredLines(t.text, lines, base);
 		const lineH = t.font[1] * s;
