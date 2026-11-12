@@ -165,14 +165,17 @@ end
 -- A Train All click asks first, with what it would learn and its cost;
 -- Accept starts the purchases, Cancel buys nothing. With nothing affordable
 -- there is nothing to confirm: the run only says what the rest would cost.
+-- Never with the gamepad interface (its focus owns the game's dialogs): the
+-- button is not shown there, and nothing is bought without the question.
 local CONFIRM = "POLESTAR_TRAIN_ALL"
 function Trainer.Confirm()
 	if active then return end
 	local count, cost, short, shortCost = Trainer.Plan(Client.Money())
-	if count == 0 or not (StaticPopupDialogs and StaticPopup_Show) then
-		if count == 0 then Trainer.Start() end
+	if count == 0 then
+		Trainer.Start()
 		return
 	end
+	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) then return end
 	StaticPopupDialogs[CONFIRM] = StaticPopupDialogs[CONFIRM] or {
 		text = "%s",
 		button1 = ACCEPT,
@@ -191,10 +194,11 @@ function Trainer.Confirm()
 end
 
 -- The Train All button on the trainer window; not while Polestar is hidden
--- (POLESTAR_HIDDEN puts it back).
+-- (POLESTAR_HIDDEN puts it back), nor with the gamepad interface (its click
+-- asks in a game dialog).
 updateTrainerButton = function()
 	if not trainerButton or not ClassTrainerFrame then return end
-	if not QoL.On("trainAllButton") or not isClassTrainer() or ns.Hidden() then
+	if not QoL.On("trainAllButton") or not isClassTrainer() or ns.Hidden() or ns.GamepadUI() then
 		trainerButton:Hide()
 		return
 	end
@@ -269,7 +273,7 @@ function Trainer.OnClosed()
 	end
 	finish()
 	if trainerButton then trainerButton:Hide() end
-	if StaticPopup_Hide then StaticPopup_Hide(CONFIRM) end
+	if StaticPopup_Hide and not ns.GamepadUI() then StaticPopup_Hide(CONFIRM) end
 end
 
 ns.RegisterEvent("ADDON_LOADED", function(_, name)
