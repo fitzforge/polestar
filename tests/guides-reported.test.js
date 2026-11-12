@@ -11373,3 +11373,32 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Helcular\'s grave is app
 	assert.ok(north[0].goal.y < list[hand].goal.y - 3, 'north of the grave');
 	assert.match([].concat(list[hand].step.note || []).join(' '), /Southshore Guards/);
 });
+
+// #1867 (Teldrassil, Camping 101: Skinning, 97949): Lyreena didn't offer it because the character already knew Camp
+// Chair, the Skinning camp item a trainer teaches from skill 20, yet the step waited for the quest. Every start
+// guide's Camping 101 step now applies only while its profession's camp item is unknown (`when !knows <spell>`),
+// besides `when skill <profession> 1`.
+test(`${TELDRASSIL}: #1867: Camping 101: Skinning is skipped once Camp Chair is known`, { skip }, () => {
+	const elf = { race: 'NightElf', raceName: 'Night Elf', faction: 'Alliance', cls: 'DRUID', className: 'Druid', level: 6 };
+	const skinner = 'w.skills[393] = { name = "Skinning", rank = 1, maxRank = 75 }';
+	const open = questGoalStatus(TELDRASSIL, 97949, elf, { skills: skinner });
+	const known = questGoalStatus(TELDRASSIL, 97949, elf, { skills: `${skinner}; w.spells[1229517] = true` });
+	const accept = (list) => list.find((v) => v.startsWith('accept '));
+	assert.ok(accept(open) && !/ (na|skipped)$/.test(accept(open)), `a skinner without Camp Chair still gets the step: ${accept(open)}`);
+	assert.match(accept(known) || '', / (na|skipped)$/, 'with Camp Chair known the step does not apply');
+});
+
+test('#1867: every start guide\'s Camping 101 step waits only while its camp item is unknown', { skip }, () => {
+	const starts = allGuides().filter((f) => /\/01-[a-z-]+\.guide$/.test(f) && /forever\/(alliance|horde)\/[a-z]+\//.test(f));
+	let n = 0;
+	for (const file of starts) {
+		for (const { step, goal } of goals(file)) {
+			if (goal.t !== 'accept' || !/^Camping 101: (?!Cooking)/.test(goal.title || '')) continue;
+			n += 1;
+			const when = step.when || [];
+			assert.ok(when.some((p) => p.k === 'skill' && !p.neg), `${file}: accept ${goal.quest} keeps its skill condition`);
+			assert.ok(when.some((p) => p.k === 'knows' && p.neg), `${file}: accept ${goal.quest} waits only while the camp item is unknown`);
+		}
+	}
+	assert.ok(n >= 70, `${n} Camping 101 accepts found`);
+});
