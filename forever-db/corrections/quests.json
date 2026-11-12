@@ -2781,6 +2781,28 @@
 		],
 		"note": "The Eye of Bhossca (C's second job, the Dead Drop near Pyrewood Village) comes with C's letter, which arrives in a capital city's mailbox at level 30 once the horn job is done; only then does the Dead Drop offer it. The merged data lists a minimum of 25, so the Rogue guide and the class-quest heads-up offered it five levels early."
 	},
+	"78830": {
+		"set": {
+			"classes": null,
+			"pre": [
+				78823
+			],
+			"preAny": [
+				78823
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the 3 people who handed the Primitive Drawing (Terror of the Desert Skies, 78823) to Hemet Nesingwary, a Troll Hunter, a Scourge Rogue and a Dwarf Shaman, were each offered this quest right after, and the Rogue and the Shaman took it; the Hunter's four earlier windows, with 78823 still in the log, did not offer it"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70205 to 1.60.1.70450: filed under the Badlands, not under a class as the server files its class quests (The Eye of Bhossca under the Rogue); every race; its text answers the drawing; the reward a cloak or a ring of no class"
+			}
+		],
+		"note": "Terror of the Desert Skies (Hemet Nesingwary in Stranglethorn Vale, the bird Gharrik in the Badlands) is open to every class and follows the drawing quest of the same name (78823), which any class can loot from the Badlands ogres and troggs. QuestieDB 1.0.14 lists it as Hunter only, from its Season of Discovery import, and with no prerequisite, so the level-up heads-up offered it to Hunters at level 26 as a class quest that no guide takes."
+	},
 	"79192": {
 		"set": {
 			"pre": [
