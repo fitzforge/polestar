@@ -12,6 +12,7 @@
 	<Script file="LegacySteps.lua"/>
 	<Script file="Levels.lua"/>
 	<Script file="Import.lua"/>
+	<Script file="SettingsString.lua"/>
 	<Script file="Search.lua"/>
 	<Script file="FieldRoute.lua"/>
 	<Script file="Engine.lua"/>

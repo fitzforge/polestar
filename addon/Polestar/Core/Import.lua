@@ -550,7 +550,23 @@ function Import.Decode(text)
 	local version = s:match("^!PS(%d+)!")
 	if not version then return nil, L["This is not a Polestar import string."] end
 	if version ~= "1" then return nil, L["This import string needs a newer Polestar."] end
-	local sum, body = s:match("^!PS1!(%x%x%x%x%x%x%x%x)!([A-Za-z0-9+/]+=?=?)$")
+	local raw, why = Import.Unpack(s, "!PS1!", LIMITS.payload)
+	if raw == false then return nil, (L["This import string holds too much: Polestar reads up to %d KB of guide data."]):format(LIMITS.payload / 1024) end
+	if not raw then return nil, why end
+	local tree = parseJSON(raw)
+	if tree == nil then return nil, damaged() end
+	return fromTree(tree)
+end
+
+-- The payload of string s (whitespace already dropped) under `prefix`:
+-- `<prefix><adler32>!<base64 of zlib>`, unpacked by the client's decoders
+-- and checked against its checksum (Core/SettingsString.lua reads its own
+-- strings the same way). -> the payload | false (over `limit` bytes) |
+-- nil, why
+function Import.Unpack(s, prefix, limit)
+	local n = #prefix
+	if s:sub(1, n) ~= prefix then return nil, damaged() end
+	local sum, body = s:sub(n + 1):match("^(%x%x%x%x%x%x%x%x)!([A-Za-z0-9+/]+=?=?)$")
 	if not sum or #body % 4 ~= 0 then return nil, damaged() end
 	local enc = C_EncodingUtil
 	if not (type(enc) == "table" and type(enc.DecodeBase64) == "function" and type(enc.DecompressString) == "function") then
@@ -562,12 +578,11 @@ function Import.Decode(text)
 	local raw
 	ok, raw = pcall(enc.DecompressString, packed, method)
 	if not ok or type(raw) ~= "string" then return nil, damaged() end
-	if #raw > LIMITS.payload then return nil, (L["This import string holds too much: Polestar reads up to %d KB of guide data."]):format(LIMITS.payload / 1024) end
+	if #raw > limit then return false end
 	if adler32(raw) ~= lower(sum) then return nil, damaged() end
-	local tree = parseJSON(raw)
-	if tree == nil then return nil, damaged() end
-	return fromTree(tree)
+	return raw
 end
+Import.Damaged = damaged
 
 -- A copy of guide g with its texts in the client's language, for display
 -- before (or without) registering it.

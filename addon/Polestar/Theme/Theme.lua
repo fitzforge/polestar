@@ -1861,10 +1861,30 @@ local RIVALS = {
 	["ui.borderAccent"] = { "ui.borderColor" },
 }
 
+-- Whether value of a colour source setting has it in use.
+function Theme.SourceOn(path, value)
+	if COLOURS[path] then return isColor(value) end
+	return value and true or false
+end
+
+-- The colour sources setting path to value turns off (RIVALS), or nil; and
+-- the value a source has when off. Settings strings (Core/SettingsString.lua)
+-- list these in their preview and put them back on Undo.
+function Theme.SourceRivals(path, value)
+	local rivals = RIVALS[path]
+	if rivals and Theme.SourceOn(path, value) then return rivals end
+	return nil
+end
+
+function Theme.SourceOff(path)
+	if COLOURS[path] then return ns.GetDefault(path) end
+	return false
+end
+
 if ns.On then
 	ns.On("SETTING_CHANGED", function(path, value)
-		local rivals = RIVALS[path]
-		if rivals and (COLOURS[path] and isColor(value) or not COLOURS[path] and value) then
+		local rivals = Theme.SourceRivals(path, value)
+		if rivals then
 			local changed = false
 			for _, rival in ipairs(rivals) do changed = sourceOff(rival) or changed end
 			-- Each change above already repainted through its own event.

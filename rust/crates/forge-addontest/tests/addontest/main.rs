@@ -327,6 +327,8 @@ mod release;
 mod riding;
 #[path = "route-plan.rs"]
 mod route_plan;
+#[path = "settings-string.rs"]
+mod settings_string;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
 mod syntax;
