@@ -136,7 +136,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/Core/Init.lua", 9, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar and /rl registrations, none with the gamepad interface"),
 	("Polestar/Core/Compat.lua", 4, "Compat.OpenWorldMap opens nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
-	("Polestar/Nav/Journey.lua", 6, "the map's canvas click handler and /way, neither with the gamepad interface; wayTaken only reads"),
+	("Polestar/Nav/Journey.lua", 8, "the map's canvas click handler and /way, neither with the gamepad interface, and the same handler on the maps MapCanvas.Add hands over; wayTaken only reads"),
 	("Polestar/Nav/Nearby.lua", 3, "the tracking menus, not with the gamepad interface"),
 	("Polestar/Maps/Services.lua", 3, "the service tracking menus, not with the gamepad interface"),
 	("Polestar/UI/QuestLinks.lua", 3, "the quest menus, not with the gamepad interface"),

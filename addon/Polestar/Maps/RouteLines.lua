@@ -519,6 +519,9 @@ end
 
 local worldStrokes = Strokes.New()
 local view, worldPin -- the world map's view; the frame the strokes are painted on
+-- Every map watched (the world map's view first, then MapCanvas.Add's maps):
+-- view -> its frame, which keeps its own strokes and projection.
+local views, worldPins = {}, {}
 local bounds = {} -- uiMapID -> { c, left, top, kx, ky } | false
 
 local mapView = { width = 0, height = 0, scale = 1, small = false, marks = {}, markCount = 0, colors = colors }
@@ -588,7 +591,7 @@ end
 -- What the open map shows as a projector (O: OpenMap's API while it
 -- stitches): project(c, wx, wy) -> canvas fractions u, v or nil; the canvas
 -- units a yard spans near (c, wx, wy); the range of u, v worth drawing in.
-local function projector(O, c, wx, wy, width, height)
+local function projector(O, mapID, c, wx, wy, width, height)
 	if O then
 		local project = function(pc, x, y)
 			local ok, u, v = pcall(O.CanvasFromWorldPos, pc, x, y)
@@ -602,7 +605,7 @@ local function projector(O, c, wx, wy, width, height)
 		if perYard <= 0 then return nil end
 		return project, perYard, -1, 2
 	end
-	local b = view.mapID and boundsOf(view.mapID)
+	local b = mapID and boundsOf(mapID)
 	if not b then return nil end
 	local project = function(pc, x, y)
 		if pc ~= b.c then return nil end
@@ -613,11 +616,10 @@ end
 
 -- The world map's projection and every run's points on it (us[i], vs[i] for
 -- runs[i]), worked out again only when the route, the map, the canvas size
--- or OpenMap's stitching changes, so a 30 Hz draw only reads them.
-local projection = { us = {}, vs = {} }
-
-local function worldProjection(width, height)
-	local P, O = projection, openMap()
+-- or OpenMap's stitching changes, so a 30 Hz draw only reads them (one per frame: pin.projection).
+local function worldProjection(pin, width, height)
+	local view = pin.view
+	local P, O = pin.projection, view.map == WorldMapFrame and openMap() or nil -- OpenMap stitches the world map only
 	if P.project and P.revision == revision and P.O == O and P.mapID == view.mapID and P.width == width and P.height == height then
 		return P
 	end
@@ -625,7 +627,7 @@ local function worldProjection(width, height)
 	P.project = nil
 	local ref = runs[1]
 	if not ref then return nil end
-	local project, perYard, lo, hi = projector(O, ref.c, ref.xs[1], ref.ys[1], width, height)
+	local project, perYard, lo, hi = projector(O, view.mapID, ref.c, ref.xs[1], ref.ys[1], width, height)
 	if not project then return nil end
 	P.revision, P.O, P.mapID, P.width, P.height = revision, O, view.mapID, width, height
 	P.project, P.perYard, P.lo, P.hi = project, perYard, lo, hi
@@ -660,10 +662,10 @@ local function worldSparkle(wx, wy, k, nx, ny, fade)
 end
 
 local function drawWorldSparkles(pin)
-	local d = worldDraw
+	local d, view = worldDraw, pin.view
 	d.used = 0
 	local width, height = view.width or 0, view.height or 0
-	local P = width > 0 and height > 0 and worldProjection(width, height) or nil
+	local P = width > 0 and height > 0 and worldProjection(pin, width, height) or nil
 	if P then
 		pin:SetSize(width, height)
 		local level = view:Level("PIN_FRAME_LEVEL_QUEST_BLOB")
@@ -704,6 +706,7 @@ local function drawWorldSparkles(pin)
 end
 
 local function drawWorld(pin)
+	local view, worldStrokes = pin.view, pin.strokes
 	if sparkling then
 		if pin.used > 0 then
 			worldStrokes.n = 0
@@ -771,7 +774,7 @@ local function worldTick(pin, elapsed)
 	if drawingIn() then
 		if pin.elapsed < SPARKLE_INTERVAL then return end
 		pin.elapsed = 0
-		paint(pin, worldStrokes)
+		paint(pin, pin.strokes)
 		return
 	end
 	if pin.elapsed < WORLD_INTERVAL then return end
@@ -787,39 +790,51 @@ end
 -- The frame for the strokes: on the canvas at its top left, under every pin,
 -- no mouse; its OnUpdate runs only while the map shows it (a child of the
 -- map's view frame, as every frame of Polestar's on a map: Nav/MapCanvas.lua).
-local function ensureWorldPin()
-	if worldPin then return worldPin end
-	local canvas = view.canvas
-	worldPin = newOwner(ns.CreateFrameUnder("Frame", nil, view.frame))
-	worldPin:SetPoint("TOPLEFT", canvas, "TOPLEFT", 0, 0)
-	worldPin:EnableMouse(false)
-	worldPin:SetScript("OnUpdate", ns.Safe(worldTick))
-	return worldPin
+local function ensureWorldPin(v)
+	local pin = worldPins[v]
+	if pin then return pin end
+	local canvas = v.canvas
+	pin = newOwner(ns.CreateFrameUnder("Frame", nil, v.frame))
+	pin.view, pin.strokes, pin.projection = v, v == view and worldStrokes or Strokes.New(), { us = {}, vs = {} }
+	pin:SetPoint("TOPLEFT", canvas, "TOPLEFT", 0, 0)
+	pin:EnableMouse(false)
+	pin:SetScript("OnUpdate", ns.Safe(worldTick))
+	worldPins[v] = pin
+	if v == view then worldPin = pin end
+	return pin
 end
 
 -- The open map shows the strokes when there is a route for it (nothing is
 -- made before then); a closed map draws as it opens.
-local function refreshWorld()
-	if not (view and view.shown) then return end
+local function refreshView(v)
+	if not v.shown then return end
 	local world = surfaces()
+	local pin = worldPins[v]
 	if world and #paths > 0 then
-		local pin = ensureWorldPin()
-		pin:SetFrameLevel(view:Level("PIN_FRAME_LEVEL_QUEST_BLOB"))
+		pin = ensureWorldPin(v)
+		pin:SetFrameLevel(v:Level("PIN_FRAME_LEVEL_QUEST_BLOB"))
 		pin:Show()
 		drawWorld(pin)
-	elseif worldPin then
-		worldStrokes.n = 0
-		paint(worldPin, worldStrokes)
-		worldPin:Hide()
+	elseif pin then
+		pin.strokes.n = 0
+		paint(pin, pin.strokes)
+		pin:Hide()
 	end
+end
+
+local function refreshWorld()
+	for i = 1, #views do refreshView(views[i]) end
+end
+
+local function onView(v, what)
+	if what == "show" or what == "map" or what == "size" or what == "scale" then refreshView(v) end
 end
 
 local function installWorld()
 	if view then return true end
 	local M = ns.MapCanvas
-	view = WorldMapFrame and M and M.Watch(WorldMapFrame, function(_, what)
-		if what == "show" or what == "map" or what == "size" or what == "scale" then refreshWorld() end
-	end) or nil
+	view = WorldMapFrame and M and M.Watch(WorldMapFrame, onView) or nil
+	if view then table.insert(views, 1, view) end
 	return view ~= nil
 end
 
@@ -940,7 +955,11 @@ local function drawMinimap(force)
 	end
 	last.c, last.x, last.y, last.radius, last.facing, last.square = pc, px, py, radius, facing, square
 	last.width, last.height, last.scale, last.revision, last.phase = width, height, scale, revision, phase
-	if advance(pc, px, py) and worldPin and worldPin:IsShown() and view and view.shown then drawWorld(worldPin) end
+	if advance(pc, px, py) then
+		for v, pin in pairs(worldPins) do
+			if pin:IsShown() and v.shown then drawWorld(pin) end
+		end
+	end
 	local v = minimapView
 	v.c, v.x, v.y, v.radius, v.facing, v.square = pc, px, py, radius, facing, square
 	-- The style's minimap size (SIZE_KEYS): the dots, their spacing and the gaps around the pin
@@ -1117,6 +1136,14 @@ ns.OnLogin(function()
 	end
 	recolor()
 	RouteLines.Refresh()
+	if ns.MapCanvas then
+		ns.MapCanvas.OnAdd(function(map)
+			local v = ns.MapCanvas.Watch(map, onView)
+			if not v then return end
+			views[#views + 1] = v
+			refreshView(v)
+		end)
+	end
 	-- Blizzard_WorldMap may load after login: watch the map when it does,
 	-- as Polestar.Pins does (review P3-8).
 	if view then return end

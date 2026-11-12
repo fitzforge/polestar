@@ -3328,7 +3328,18 @@ local view = Polestar.MapCanvas.Watch(map, fn)  -- map: WorldMapFrame or Battlef
 view:Level(levelType)              -- the frame level the map gives its pins of that level type
 view:PinScale(startScale, endScale) -- a map pin's scale under SetScalingLimits(1, startScale, endScale)
 Polestar.MapCanvas.Get(map) -> view | nil
+Polestar.MapCanvas.Add(map)        -- another addon's map canvas (a MapCanvasMixin frame): every module draws on it too
+Polestar.MapCanvas.OnAdd(fn)       -- fn(map) for every map added, now and later (the modules that draw)
 ```
+
+`MapCanvas.Add` is for an addon that shows the world map in a canvas of its
+own, such as Polestar: UI's `PolestarUIWorldMapCanvas`: it calls it once,
+after making the frame, and Polestar's pins, trail, route lines, zone levels,
+info bar, unexplored areas, dungeon, rare and service pins and alt-click
+planning show there as on `WorldMapFrame`, each module with frames of its own
+under that map's view. The map is only read, as the world map is; OpenMap's
+stitched view stays the world map's. Polestar: UI's call:
+[`Modules/WorldMap.lua`](https://github.com/rohkin/polestar-ui/blob/9c4bf908bdf264881366def2b079a2b716cc1668/Modules/WorldMap.lua#L62).
 
 The world map and the battlefield map are Lua (`Blizzard_MapCanvas`,
 `Blizzard_WorldMap`), and Forever's gamepad interface reads them from secure

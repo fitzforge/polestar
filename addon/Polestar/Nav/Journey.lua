@@ -255,10 +255,15 @@ end
 
 -- Alt-click anywhere on the world map, its icons included. Observed through
 -- GLOBAL_MOUSE_DOWN, as icons swallow canvas clicks.
+local added = {} -- MapCanvas.Add's maps: alt-click and shift-click work there as on the world map
 local function onGlobalMouseDown(_, button)
 	if button ~= "LeftButton" or not planning() or not IsAltKeyDown() or IsShiftKeyDown() or IsControlKeyDown() then return end
-	local map = WorldMapFrame
-	if not (map and map:IsShown() and map.ScrollContainer and map.ScrollContainer:IsMouseOver()) then return end
+	local map
+	for i = 0, #added do
+		local m = i == 0 and WorldMapFrame or added[i]
+		if m and m:IsShown() and m.ScrollContainer and m.ScrollContainer:IsMouseOver() then map = m; break end
+	end
+	if not map then return end
 	local mapID = map:GetMapID()
 	local name, x, y = hoveredPin(map)
 	if name == "own" then return end
@@ -299,6 +304,14 @@ ns.OnLogin(function()
 	hookMinimap()
 	ns.RegisterEvent("GLOBAL_MOUSE_DOWN", onGlobalMouseDown)
 	if ns.Pins and ns.Pins.OnWorldClick then ns.Pins.OnWorldClick(onOwnPinClick) end
+	ns.MapCanvas.OnAdd(function(map)
+		added[#added + 1] = map
+		-- Another addon's own map: its click handlers are no game table (the
+		-- gamepad check stays as on the world map).
+		if not ns.GamepadUI() and map.AddCanvasClickHandler and map.GetNormalizedCursorPosition then
+			map:AddCanvasClickHandler(onCanvasClick)
+		end
+	end)
 	if hookWorldMap() then return end
 	local function onLoaded(_, name)
 		if name == "Blizzard_WorldMap" and hookWorldMap() then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
