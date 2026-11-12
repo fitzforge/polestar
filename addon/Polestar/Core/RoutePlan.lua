@@ -184,8 +184,11 @@ local OPEN = { choice = true, unloaded = true }
 -- "other" (via: that route's status) when another open tab's route or a
 -- dungeon open in a tab still hands it in: a dungeon's pick-up guide never
 -- hands in what the leveling guide or the dungeon's hand-in guide does
--- (#1830). Else a route still to settle can't say ("choice", "unloaded");
--- else a passed or skipped hand-in, the leveling routes' word first.
+-- (#1830). So is any dungeon's page quest with no guide of it open
+-- (`closed`: Dungeons.QuestDungeon, the always-loaded index, never the
+-- Codex): its hand-in plan turns it in after the run. Else a route still to
+-- settle can't say ("choice", "unloaded"); else a passed or skipped hand-in,
+-- the leveling routes' word first.
 function Plan.GetTurnIn(questId)
 	local E = ns.Engine
 	local active = E and E.GetGuide and E.GetGuide()
@@ -206,6 +209,10 @@ function Plan.GetTurnIn(questId)
 	end
 	local dg = o.dungeons[questId]
 	if dg then return { status = "other", title = dg.title, dungeon = dg.key } end
+	local D = ns.Dungeons
+	local key, name = nil, nil
+	if D and D.QuestDungeon then key, name = D.QuestDungeon(questId) end
+	if key then return { status = "other", title = L["%s: hand in the quests"]:format(name), dungeon = key, closed = true } end
 	local order = {}
 	if leveling(active) then order[1] = r end
 	for i, route in ipairs(o.routes) do
@@ -278,7 +285,8 @@ end
 -- hands in beyond the plan's reach (`carriedTo`) is "later", not unplanned.
 -- A quest another open tab's route or a dungeon open in a tab hands in
 -- ("other", GetTurnIn) is never listed, but for a grey one that route hands
--- in in a later chapter which leaves it out too, as above.
+-- in in a later chapter which leaves it out too, as above; a dungeon's page
+-- quest with no guide of that dungeon open (`closed`) is listed when grey.
 function Plan.Unneeded()
 	local C, E, out = ns.Compat, ns.Engine, {}
 	local level = (C.GetPlayerInfo() or {}).level
@@ -287,6 +295,8 @@ function Plan.Unneeded()
 		if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then return nil end
 		local status = r.status
 		if NEVER[status] and grey(C, q, level) then
+			status = "grey"
+		elseif status == "other" and r.closed and grey(C, q, level) then
 			status = "grey"
 		elseif (status == "later" or (status == "other" and r.via == "later")) and grey(C, q, level) and E and E.GreyLeftOut and E.GreyLeftOut(r.guide, q, level) then
 			status = "grey"

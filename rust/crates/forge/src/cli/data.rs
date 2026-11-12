@@ -381,6 +381,7 @@ fn run() -> Result<(), Fail> {
 		"talents" => return talents(args.collect()),
 		"maps" => return maps(args.collect()),
 		"newquests" => return newquests(args.collect()),
+		"dungeonquests" => return dungeonquests(args.collect()),
 		_ => {}
 	}
 	if cmd != "build" {
@@ -1074,6 +1075,39 @@ fn newquests(args: Vec<String>) -> Result<(), Fail> {
 	Ok(())
 }
 
+pub(super) const DUNGEONQUESTS_USAGE: &str = "usage: forge data dungeonquests [options]
+
+Which dungeon journal page each quest is on (the pages' own quests), for the hand-in plan that keeps
+a dungeon's quests in the log without its guide open -> addon/Polestar/Dungeons/QuestKeys.lua.
+  --data DIR      data/forever (codex/journal.json, written by forge data codex)
+  --check         fail when the file is out of date instead of writing it
+  --lua FILE      output (default: <root>/addon/Polestar/Dungeons/QuestKeys.lua)
+  --root DIR      the checkout (default: the one above the current folder)";
+
+fn dungeonquests(args: Vec<String>) -> Result<(), Fail> {
+	let (kv, fl, pos) = opts(args, &["--root", "--data", "--lua"], &["--check"])?;
+	if let Some(p) = pos.first() {
+		return Err(usage(format!("unexpected argument {p}")));
+	}
+	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
+	let root = root_of(&kv)?;
+	let data = get("--data").map(abs).unwrap_or_else(|| root.join("data").join("forever"));
+	let out = get("--lua").map(abs).unwrap_or_else(|| root.join("addon/Polestar/Dungeons/QuestKeys.lua"));
+	let (pages, lua) = forge_data::dungeonquests::build(&data)?;
+	let distinct: std::collections::BTreeSet<i64> = pages.values().flat_map(|p| p.quests.iter().copied()).collect();
+	println!("dungeonquests: {} dungeons, {} page quests ({} distinct)", pages.len(), pages.values().map(|p| p.quests.len()).sum::<usize>(), distinct.len());
+	if fl.iter().any(|f| f == "--check") {
+		if std::fs::read_to_string(&out).ok().as_deref() != Some(lua.as_str()) {
+			return Err(format!("{} is out of date ({})", rel(&out), forge_data::dungeonquests::COMMAND).into());
+		}
+		println!("1 files up to date");
+		return Ok(());
+	}
+	std::fs::write(&out, &lua).map_err(|e| format!("{}: {e}", out.display()))?;
+	println!("wrote {}", rel(&out));
+	Ok(())
+}
+
 /// The help of `forge data <sub>`, for the subcommands with one of their own.
 pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 	Some(match sub {
@@ -1086,6 +1120,7 @@ pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 		"talents" => TALENTS_USAGE,
 		"maps" => MAPS_USAGE,
 		"newquests" => NEWQUESTS_USAGE,
+		"dungeonquests" => DUNGEONQUESTS_USAGE,
 		"build" => USAGE,
 		_ => return None,
 	})

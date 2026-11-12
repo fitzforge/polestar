@@ -167,6 +167,7 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
+   forge data dungeonquests                  # Dungeons/QuestKeys.lua from the Codex's codex/journal.json (commit it)
    forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh) + translators
    forge guide lint
    forge guide compile
@@ -186,6 +187,12 @@ version throughout.
    before `forge release pack`, or the zip goes out without it. The language
    folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
    their names with `forge data names` when the data changed.
+
+   `addon/Polestar/Dungeons/QuestKeys.lua` (each dungeon page's quests, which
+   the hand-in plan keeps in the log) is committed: `forge data dungeonquests`
+   rewrites it from the `codex/journal.json` that `forge data codex` just built,
+   so run it after every Codex build and commit the change. `--check` fails
+   when the file is out of date.
 
    Compile after `forge release version`, never before: `forge release
    version` writes the TOCs, but the guide pack's version in

@@ -7,6 +7,7 @@ mod common;
 mod consume;
 mod data_build;
 mod data_corrections;
+mod dungeonquests;
 mod dungeons;
 mod extracts;
 mod fixture_build;
