@@ -173,7 +173,10 @@ end
 local retrying = false
 
 local function syncBlizzard(target)
+	-- An addon following Polestar that sets the game's pin itself (Nav.API.Follow
+	-- with `pin`, as Naowh Forever's Waypoint Pin does) has it: ours steps aside.
 	local on = ns.Get("nav.blizzardWaypoint") and target and not Nav.HandedOff() and not ns.ArrowHidden()
+		and not (Nav.FollowerPins and Nav.FollowerPins())
 	local W = waypointUI()
 	-- Waypoint UI loads after Polestar and fills its API late: look again once
 	-- (the first target after login is set before it is ready).
@@ -225,7 +228,7 @@ end
 
 -- Only the settings these bridges read trigger a resync, so dragging the
 -- arrow or changing its scale never churns TomTom's waypoint list.
-local tracked = { tomtom = true, useTomTomArrow = true, worldPins = true, minimapPins = true, blizzardWaypoint = true }
+local tracked = { tomtom = true, useTomTomArrow = true, worldPins = true, minimapPins = true, blizzardWaypoint = true, arrowToFollower = true }
 local seen = {}
 
 function Bridges:OnSettings()

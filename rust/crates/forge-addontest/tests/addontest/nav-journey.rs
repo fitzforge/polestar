@@ -275,6 +275,149 @@ fn api_a_target_replaced_is_not_the_owner_s_while_the_death_helper_holds_the_arr
 }
 
 #[test]
+fn api_target_gives_the_guide_s_goal_in_c_map_terms_and_the_leg_the_arrow_is_on_while_more_legs_follow() {
+	let out = run(r#"
+		emit({ none = API.Target() == nil, minor = API.minor })
+		nav.setWaypoint({ map = 9000, x = 40, y = 60, label = "Kill Kobold Vermin", stepIndex = 1, goalIndex = 1,
+			kind = "kill", quest = 7, area = 30, r = 8 })
+		local t = API.Target()
+		emit({ map = t.map, x = t.x, y = t.y, title = t.title, kind = t.kind, quest = t.quest, area = t.area,
+			next = t.next or false, fresh = API.Target() ~= t })
+		-- A route of two legs: the walk to a flight master at Testshire 30, 30, then the flight.
+		local C = Polestar.Compat
+		local c, wx, wy = C.MapToWorld(9000, 30, 30)
+		local legs = { { kind = "walk", to = { c = c, wx = wx, wy = wy }, label = "Walk to the flight master" },
+			{ kind = "fly", to = { c = c, wx = wx, wy = wy }, label = "Fly to Testshire" } }
+		N.GetRoute = function() return legs, 1 end
+		local s = API.Target().next
+		emit({ map = s.map, x = s.x, y = s.y, kind = s.kind, title = s.title })
+		N.GetRoute = function() return legs, 2 end
+		emit({ last = API.Target().next == nil })
+		-- A walk to a path node on the way is no stop: the flight master after it is; before the target, none.
+		local c2, wx2, wy2 = C.MapToWorld(9000, 35, 45)
+		local via = { kind = "walk", via = true, to = { c = c2, wx = wx2, wy = wy2 }, label = "Walk" }
+		N.GetRoute = function() return { via, legs[1], legs[2] }, 1 end
+		emit({ title = API.Target().next.title })
+		N.GetRoute = function() return { via, { kind = "walk", to = { c = c, wx = wx, wy = wy }, label = "Kill" } }, 1 end
+		emit({ none = API.Target().next == nil })
+	"#);
+	assert_eq!(out[0], json!({ "none": true, "minor": 1 }));
+	assert_eq!(out[1]["map"], 9000);
+	assert!(near(&out[1]["x"], 0.4) && near(&out[1]["y"], 0.6), "{}", out[1]);
+	assert_eq!(json!([out[1]["title"], out[1]["kind"], out[1]["quest"], out[1]["area"], out[1]["next"], out[1]["fresh"]]), json!(["Kill Kobold Vermin", "kill", 7, 30, false, true]));
+	assert_eq!(out[2]["map"], 9000);
+	assert!(near(&out[2]["x"], 0.3) && near(&out[2]["y"], 0.3), "{}", out[2]);
+	assert_eq!(json!([out[2]["kind"], out[2]["title"]]), json!(["walk", "Walk to the flight master"]));
+	assert_eq!(out[3], json!({ "last": true }), "the last leg ends at the target itself");
+	assert_eq!(out[4], json!({ "title": "Walk to the flight master" }), "a path node on the way is skipped");
+	assert_eq!(out[5], json!({ "none": true }), "only path nodes before the target: no stop");
+}
+
+#[test]
+fn api_follow_calls_once_the_frame_after_changes_until_unfollowed_and_checks_its_input() {
+	let out = run(r#"
+		local calls = 0
+		emit({ API.Follow("", function() end), API.Follow("Pin", nil), API.Follow("Pin", function() end, 7) })
+		emit({ ok = API.Follow("Pin", function() calls = calls + 1 end) })
+		stub.runTimers()
+		calls = 0
+		nav.setWaypoint({ map = 9000, x = 40, y = 60, label = "One", stepIndex = 1, goalIndex = 1, kind = "goto", r = 8 })
+		nav.setWaypoint({ map = 9000, x = 45, y = 60, label = "Two", stepIndex = 1, goalIndex = 2, kind = "goto", r = 8 })
+		local before = calls
+		stub.runTimers()
+		emit({ before = before, after = calls })
+		emit({ off = API.Unfollow("Pin"), again = API.Unfollow("Pin") })
+		calls = 0
+		nav.setWaypoint({ map = 9000, x = 50, y = 60, label = "Three", stepIndex = 1, goalIndex = 3, kind = "goto", r = 8 })
+		stub.runTimers()
+		emit({ calls = calls })
+	"#);
+	assert_eq!(out[0], json!([false, false, false]));
+	assert_eq!(out[1], json!({ "ok": true }));
+	assert_eq!(out[2], json!({ "before": 0, "after": 1 }), "two changes in a frame: one call, the next frame");
+	assert_eq!(out[3], json!({ "off": true, "again": false }));
+	assert_eq!(out[4], json!({ "calls": 0 }));
+}
+
+#[test]
+fn api_dismiss_from_a_follower_hides_the_goal_until_the_guide_moves_on() {
+	let out = run(r#"
+		local wp = { map = 9000, x = 40, y = 60, label = "Camp", stepIndex = 1, goalIndex = 1, kind = "goto", r = 8 }
+		nav.setWaypoint(wp)
+		emit({ stranger = API.Dismiss("Pin") })
+		API.Follow("Pin", function() end)
+		emit({ mine = API.Dismiss("Pin"), target = N.GetTarget() == nil })
+		nav.setWaypoint({ map = 9000, x = 45, y = 60, label = "Next", stepIndex = 1, goalIndex = 2, kind = "goto", r = 8 })
+		emit({ label = label() })
+	"#);
+	assert_eq!(out[0], json!({ "stranger": false }), "only a follower dismisses");
+	assert_eq!(out[1], json!({ "mine": true, "target": true }));
+	assert_eq!(out[2], json!({ "label": "Next" }));
+}
+
+#[test]
+fn api_a_follower_that_pins_takes_the_game_s_waypoint_and_one_that_shows_can_take_the_arrow() {
+	let out = run(r#"
+		local function sets()
+			local n = 0
+			for _, w in ipairs(nav.userWaypoints) do if w[1] == "set" then n = n + 1 end end
+			return n
+		end
+		local function arrow() return N.arrow.frame:IsShown() and true or false end
+		Polestar.Set("nav.blizzardWaypoint", true)
+		nav.setWaypoint({ map = 9000, x = 40, y = 60, label = "Camp", stepIndex = 1, goalIndex = 1, kind = "goto", r = 8 })
+		emit({ sets = sets(), arrow = arrow() })
+		nav.userWaypoints = {}
+		API.Follow("Pin", function() end, { pin = true, shows = true })
+		local cleared = nav.userWaypoints[1] and nav.userWaypoints[1][1] == "clear"
+		nav.setWaypoint({ map = 9000, x = 45, y = 60, label = "Next", stepIndex = 1, goalIndex = 2, kind = "goto", r = 8 })
+		emit({ sets = sets(), cleared = cleared or false, arrow = arrow() })
+		Polestar.Set("nav.arrowToFollower", true)
+		emit({ arrow = arrow() })
+		API.Follow("Pin", function() end, { pin = true, shows = false })
+		local back = arrow()
+		API.Follow("Pin", function() end, { pin = true, shows = true })
+		emit({ back = back, hidden = not arrow() })
+		API.Unfollow("Pin")
+		emit({ arrow = arrow(), sets = sets() })
+	"#);
+	assert_eq!(out[0], json!({ "sets": 1, "arrow": true }));
+	assert_eq!(out[1], json!({ "sets": 0, "cleared": true, "arrow": true }), "our pin steps aside; the arrow stays unless asked");
+	assert_eq!(out[2], json!({ "arrow": false }), "nav.arrowToFollower: the follower shows the way");
+	assert_eq!(out[3], json!({ "back": true, "hidden": true }), "following again without `shows` (its bar off) brings the arrow back");
+	assert_eq!(out[4], json!({ "arrow": true, "sets": 1 }), "unfollowed: both come back");
+}
+
+#[test]
+fn api_while_a_follower_has_the_arrow_hidden_polestar_still_samples_so_the_floor_and_arrivals_are_followed() {
+	let out = run(r#"
+		local samples, real = 0, N.Sample
+		N.Sample = function(...) samples = samples + 1; return real(...) end
+		nav.setWaypoint({ map = 9000, x = 40, y = 60, label = "Camp", stepIndex = 1, goalIndex = 1, kind = "goto", r = 8 })
+		API.Follow("Pin", function() end, { pin = true, shows = true })
+		Polestar.Set("nav.arrowToFollower", true)
+		stub.advance(0.1)
+		samples = 0
+		stub.advance(1)
+		local hidden = samples
+		Polestar.Set("nav.arrowToFollower", false)
+		stub.advance(0.1)
+		local shownBy = samples
+		API.Unfollow("Pin")
+		Polestar.Set("nav.arrow", false) -- the arrow off and no follower: nothing samples
+		stub.advance(0.1)
+		samples = 0
+		stub.advance(1)
+		emit({ arrow = N.arrow.frame:IsShown() and true or false, hidden = hidden, shownBy = shownBy, after = samples })
+	"#);
+	let o = &out[0];
+	let hidden = o["hidden"].as_i64().unwrap();
+	assert!((3..=6).contains(&hidden), "about every 0.25 s while the arrow is hidden: {o}");
+	assert!(o["shownBy"].as_i64().unwrap() > hidden, "the arrow samples again once shown: {o}");
+	assert_eq!(o["after"], 0, "no follower: no extra samples");
+}
+
+#[test]
 fn api_estimate_answers_in_seconds_from_the_player_or_a_given_point_and_refuses_bad_input() {
 	let out = run(r#"
 		local a = API.Estimate(nil, nil, nil, 9000, 0.5, 0.6)       -- 200 yd south of the player

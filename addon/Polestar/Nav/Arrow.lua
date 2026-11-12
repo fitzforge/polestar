@@ -471,10 +471,12 @@ end
 
 -- Shortest Path Forever's own arrow guides while the target is handed to it (Nav/Handoff.lua),
 -- TomTom's while it is used and can point at the target (Nav.TomTomArrowGuides). Hiding
--- Polestar takes it unless the arrow is kept (ns.ArrowHidden).
+-- Polestar takes it unless the arrow is kept (ns.ArrowHidden). With nav.arrowToFollower, an
+-- addon that shows the target itself (Nav.API.Follow with `shows`) does.
 local function shouldShow()
 	return ns.Get("nav.arrow") and not ns.ArrowHidden() and not Nav.HiddenWithGuide() and Nav.GetTarget() ~= nil
 		and not Nav.TomTomArrowGuides() and not Nav.HandedOff()
+		and not (ns.Get("nav.arrowToFollower") and Nav.FollowerShows and Nav.FollowerShows())
 end
 
 local function showSeconds(secs)

@@ -1201,7 +1201,9 @@ local function planRoute(p)
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
 			else
+				-- A point on the way (a path node): nothing to do there.
 				leg.label = L["Walk"]
+				leg.via = true
 			end
 		elseif how == FLY then
 			leg.kind = "fly"

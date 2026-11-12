@@ -3059,6 +3059,15 @@ Polestar.Nav.API.Estimate(fromMap, fromX, fromY, toMap, toX, toY) -> seconds | n
 Polestar.Nav.API.Navigate(owner, map, x, y, title) -> true | false   -- owner: a non-empty string
 Polestar.Nav.API.Cancel(owner) -> true | false  -- that owner's target, while it is the one shown, lets go
 Polestar.Nav.API.Active() -> active, owner      -- anything guided to; owner while an API caller's target shows
+-- Minor 1 (Polestar.Nav.API.minor): for an addon that shows Polestar's target itself (a world pin, a bar)
+Polestar.Nav.API.Target() -> t | nil            -- a new table each call: { map, x, y, title, kind, quest, area,
+    -- search, handedOff, next }; map, x, y in C_Map's terms (0-1 of the map's live frame, Nav.LiveCoords);
+    -- quest only > 0; next = { map, x, y, kind, title }: the end of the leg the arrow is on while more legs
+    -- follow (the flight master, the landing), path nodes on the way (a `via` leg) skipped, else nil
+Polestar.Nav.API.Follow(owner, fn, { pin, shows }) -> true | false  -- fn() the frame after the target or the
+    -- route changes (many changes in one frame: one call); again for the same owner replaces its options
+Polestar.Nav.API.Unfollow(owner) -> true | false
+Polestar.Nav.API.Dismiss(owner) -> true | false -- a follower's player let the target go: as Nav.ClearTarget
 -- Internal
 Polestar.Nav.journey.PlanTo(map, x, y, label, f) -> ok   -- onto the zone under a continent spot; refuses open sea
 Polestar.Nav.journey.Estimate(from, to, budgeted) -> seconds | nil[, "busy"] -- from, to = { map, x, y, f } (percent); from nil: the player; "busy" only when budgeted (the API)
@@ -3069,6 +3078,17 @@ Polestar.Nav.nearby.MenuItems() -> items                  -- the guide window bu
 Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the player to the cursor on the minimap
 ```
 
+- **Followers** (minor 1). An addon that shows the target itself follows it:
+  `Follow` with `pin` (it sets the game's waypoint) makes the Blizzard
+  waypoint bridge step aside (`Nav.FollowerPins`); with `shows` (it shows the
+  target on screen) the arrow steps aside too while
+  `nav.arrowToFollower` ("Let a following addon show the way", Other
+  waypoints, off) is on (`Nav.FollowerShows`). While any addon follows and
+  the arrow is hidden, Nav samples every 0.25 s itself (`Nav.Sample`, the
+  arrow's own sample): the player's floor is followed only by sampling
+  (Walk.Aim), so without it a route from the Ruins of Lordaeron went by the
+  Undercity's lift all the way out. `Dismiss` is `Nav.ClearTarget`: the
+  guide's goal stays hidden until the guide moves on.
 - **Plan to anywhere** (`nav.mapPlan`, on): Shift-click empty space on the
   world map (a canvas click handler, so it takes the click before the map
   zooms) or the minimap; Alt-click anywhere on the world map, its icons
@@ -3675,6 +3695,7 @@ Polestar.Nav.travel.Progress() -> seconds, yards   -- the current leg's rest (al
 Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ... }, current, choke }, ... } } | nil
 -- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"tram"|"portal"|"hearth"|"teleport"|"lift", from, to, label,
 --         seconds, rest, yards, radius (arrival yards at `to`), waypoint (true: `to` is a crossing or chain node),
+--         via (true: a walk to a path node on the way, nothing to do there; API.Target's next skips it),
 --         handmade (a walk the crossing data lays out), crossing, side (a crossing walked from end a|b),
 --         step ("crossing"|"chain"|"goto", or a chokepoint kind), choke = { kind, name } (ends at a chokepoint),
 --         stops (fly: every taxi node hopped), transport, side (the ride or portal and the end boarded),
