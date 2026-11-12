@@ -237,7 +237,7 @@ end
 local function close() F:Hide() end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarAdjust", UIParent)
+	F = CreateFrame("Frame", "PolestarAdjust", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
