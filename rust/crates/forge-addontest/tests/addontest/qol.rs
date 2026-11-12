@@ -75,7 +75,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 		for _, k in ipairs({ "itemButton", "targetButton", "hearthButton", "xpTracker", "sellJunk", "autoRepair",
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
-			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals", "trainAll", "trainAllButton",
+			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
 			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "bagSpace", "bagsLow", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
@@ -103,8 +103,6 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	assert_eq!(defaults["rewardAutoPick"], false, "auto-pick is off by default");
 	assert_eq!(defaults["flightAutoTake"], false, "taking the flight by itself is off by default");
 	assert_eq!(defaults["buyGoals"], false, "buying for the guide is off by default");
-	assert_eq!(defaults["trainAll"], false, "learning at trainers is off by default");
-	assert_eq!(defaults["trainAllButton"], true, "train all button is on by default");
 	assert_eq!(defaults["rewardEquip"], false, "wearing rewards is off by default");
 	assert_eq!(defaults["autoBind"], false, "binding the Hearthstone is off by default");
 	assert_eq!(defaults["hideQuestTracker"], false, "the game's quest tracker shows by default");
@@ -3306,375 +3304,29 @@ const SPELLS: &str = r#"
 "#;
 
 #[test]
-fn trainer_learns_every_spell_it_offers_now_one_per_list_update_and_prints_the_total() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.openTrainer()
-		emit(#calls("BuyTrainerService"))   -- one at a time: the list moves after each
-		stub.advance(1)
-		local out = {}
-		for _, c in ipairs(q.calls) do if c[1] == "BuyTrainerService" then out[#out + 1] = c[2] .. " " .. c[3] end end
-		emit(out)
-		emit({ money = q.money, msg = printed("Learned 2 spells for 3s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], 1);
-	assert_eq!(out[1], json!(["Fireball Rank 2", "Frost Armor Rank 1"]));
-	assert_eq!(out[2], json!({ "money": 700, "msg": true }));
-}
-
-#[test]
-fn trainer_waits_for_each_purchase_to_land_before_the_next_whatever_else_updates_the_list() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.openTrainer()
-		stub.fire("TRAINER_UPDATE")      -- not from the purchase, which has not landed yet
-		stub.fire("TRAINER_UPDATE")
-		local early = #calls("BuyTrainerService")
-		stub.advance(1)
-		emit({ early = early, bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 2 spells for 3s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "early": 1, "bought": 2, "money": 700, "msg": true }));
-}
-
-#[test]
-fn trainer_a_refused_purchase_ends_the_run_one_still_on_its_way_at_closing_is_counted() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.trainer.services[3].refuse = true   -- Frost Armor
-		q.openTrainer()
-		stub.advance(3)
-		emit({ bought = #calls("BuyTrainerService"), msg = printed("Learned 1 spell for 1s 0c") })
-		q.closeTrainer()
-
-		stub.messages = {}
-		q.trainer.services = {
-			{ name = "Fireball", rank = "Rank 2", kind = "available", cost = 100 },
-			{ name = "Frost Armor", rank = "Rank 1", kind = "available", cost = 200 },
-		}
-		q.openTrainer()
-		q.closeTrainer()                  -- before the first purchase lands
-		emit(printed("Learned 1 spell for 1s 0c"))
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "bought": 2, "msg": true }));
-	assert_eq!(out[1], true);
-}
-
-#[test]
-fn trainer_learns_what_you_can_afford_and_says_how_much_more_the_rest_costs() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 150
-		q.openTrainer()
-		stub.advance(1)
-		emit({ bought = #calls("BuyTrainerService"), money = q.money,
-			learned = printed("Learned 1 spell for 1s 0c"), short = printed("Not enough money for 1 more %(2s 0c%)") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "bought": 1, "money": 50, "learned": true, "short": true }));
-}
-
-#[test]
-fn trainer_off_by_default_profession_trainers_shift_and_closing_the_window_stop_it() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		q.money = 1000
-		q.openTrainer(); stub.advance(1)
-		emit(#calls("BuyTrainerService"))
-		q.closeTrainer()
-
-		set("trainAll", true)
-		q.trainer.tradeskill = true
-		q.openTrainer(); stub.advance(1)
-		emit(#calls("BuyTrainerService"))
-		q.closeTrainer()
-		q.trainer.tradeskill = false
-
-		stub.keys.shift = true
-		q.openTrainer(); stub.advance(1)
-		emit(#calls("BuyTrainerService"))
-		q.closeTrainer()
-		stub.keys.shift = false
-
-		q.openTrainer()
-		q.closeTrainer()
-		stub.advance(1)
-		emit(#calls("BuyTrainerService"))
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], 0, "off by default");
-	assert_eq!(out[1], 0, "profession trainer");
-	assert_eq!(out[2], 0, "Shift");
-	assert_eq!(out[3], 1, "closed after the first purchase: no more");
-}
-
-#[test]
-fn trainer_riding_weapon_and_pet_trainers_are_left_alone_so_opening_one_to_check_a_price_spends_nothing() {
-	let out = run(r#"
-		set("trainAll", true)
-		for _, t in ipairs({                                            -- none of them a class trainer
-			{ npc = 4732, name = "Apprentice Riding", cost = 1000000 },   -- Randal Hunter, riding
-			{ npc = 90001, name = "Swords", cost = 1000 },                -- a weapon master
-			{ npc = 90002, name = "Bite", cost = 500 },                   -- a pet trainer
-		}) do
-			q.money, q.calls = 1000000, {}
-			q.trainer = { tradeskill = false, services = { { name = t.name, rank = "", kind = "available", cost = t.cost } } }
-			q.openTrainer(t.npc); stub.advance(1)
-			emit(#calls("BuyTrainerService"))
-			q.closeTrainer()
-		end
-	"#);
-	assert_eq!(json!(out), json!([0, 0, 0]));
-}
-
-#[test]
-fn trainer_turning_training_off_even_back_on_holding_shift_or_logging_out_while_a_purchase_is_on_its_way_buys_nothing_more() {
-	let purchases = |between: &str| {
-		run(&[
+fn trainer_never_spends_gold_even_with_saved_bulk_training_settings() {
+	let out = run_with(
+		&[
 			SPELLS,
 			r#"
 		set("trainAll", true)
+		set("trainAllButton", true)
 		q.money = 1000
-		q.openTrainer()                  -- the first purchase is on its way
-		"#,
-			between,
-			r#"
+		q.openTrainer()
+		stub.fire("TRAINER_UPDATE")
 		stub.advance(3)
-		emit(#calls("BuyTrainerService"))
+		q.closeTrainer()
+		q.openTrainer()
+		stub.advance(3)
+		emit({ bought = #calls("BuyTrainerService"), money = q.money,
+			button = PolestarTrainAllButton ~= nil })
 	"#,
 		]
-		.concat())[0]
-			.clone()
-	};
-	let got = json!({
-		"off": purchases(r#"set("trainAll", false)"#),
-		"offOn": purchases(r#"set("trainAll", false); set("trainAll", true)"#),
-		"shift": purchases("stub.keys.shift = true"),
-		"logout": purchases(r#"stub.fire("PLAYER_LOGOUT")"#),
-		"closed": purchases("q.closeTrainer()"),
-		"left": purchases(""),
-	});
-	assert_eq!(got, json!({ "off": 1, "offOn": 1, "shift": 1, "logout": 1, "closed": 1, "left": 2 }));
-}
-
-#[test]
-fn trainer_a_purchase_that_has_landed_when_shift_stops_the_run_is_still_counted_in_the_summary() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.openTrainer()
-		stub.keys.shift = true           -- held as the first purchase lands
-		stub.advance(3)
-		emit({ bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 1 spell for 1s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "bought": 1, "money": 900, "msg": true }));
-}
-
-#[test]
-fn trainer_a_purchase_still_on_its_way_when_the_setting_is_turned_off_is_counted_in_the_summary_as_on_close() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.openTrainer()                  -- the first purchase is on its way
-		set("trainAll", false)
-		stub.advance(3)
-		emit({ bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 1 spell for 1s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "bought": 1, "money": 900, "msg": true }));
-}
-
-// The Train All confirmation: its text, and its Accept / Cancel as the game's popup runs them.
-const CONFIRM: &str = r#"
-local function popup()
-	local p = stub.popups[#stub.popups]
-	return p and p.which == "POLESTAR_TRAIN_ALL" and p or nil
-end
-local function answer(accept)
-	local d = StaticPopupDialogs.POLESTAR_TRAIN_ALL
-	local f = accept and d.OnAccept or d.OnCancel
-	if f then f(nil, nil) end
-end
-"#;
-
-#[test]
-fn trainer_button_asks_first_with_the_count_and_cost_and_accept_learns_them_one_per_list_update() {
-	let out = run(&[
-		SPELLS,
-		CONFIRM,
-		r#"
-		q.money = 1000
-		q.openTrainer()
-		local b = PolestarTrainAllButton
-		emit({ shown = b:IsShown(), enabled = b:IsEnabled() })
-		q.click(b, false)
-		stub.advance(1)
-		emit({ bought = #calls("BuyTrainerService"), text = popup() and popup().args[1] or false })
-		answer(true)
-		emit(#calls("BuyTrainerService"))
-		stub.advance(1)
-		local out = {}
-		for _, c in ipairs(q.calls) do if c[1] == "BuyTrainerService" then out[#out + 1] = c[2] .. " " .. c[3] end end
-		emit(out)
-		emit({ money = q.money, msg = printed("Learned 2 spells for 3s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "shown": true, "enabled": true }));
-	assert_eq!(out[1], json!({ "bought": 0, "text": "Learn 2 skills for 3s 0c?" }), "the click only asks");
-	assert_eq!(out[2], 1);
-	assert_eq!(out[3], json!(["Fireball Rank 2", "Frost Armor Rank 1"]));
-	assert_eq!(out[4], json!({ "money": 700, "msg": true }));
-}
-
-#[test]
-fn trainer_button_cancel_buys_nothing_and_the_question_names_what_the_money_does_not_cover() {
-	let out = run(&[
-		SPELLS,
-		CONFIRM,
-		r#"
-		q.money = 150
-		q.openTrainer()
-		q.click(PolestarTrainAllButton, false)
-		emit(popup() and popup().args[1] or false)
-		answer(false)
-		stub.advance(3)
-		emit({ bought = #calls("BuyTrainerService"), money = q.money })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], "Learn 1 skill for 1s 0c?\nNot enough money for 1 more (2s 0c).");
-	assert_eq!(out[1], json!({ "bought": 0, "money": 150 }));
-}
-
-// The gamepad interface's focus owns the game's dialogs: no Train All button there, and no purchase without the
-// question (read as the addon loads, Core/Init.lua).
-#[test]
-fn trainer_button_with_the_gamepad_interface_is_not_shown_and_nothing_is_bought_without_the_question() {
-	let script = [
-		SPELLS,
-		CONFIRM,
-		r#"
-		q.money = 1000
-		q.openTrainer()
-		local shown = PolestarTrainAllButton:IsShown()
-		Polestar.QoL.Trainer.Confirm()
-		stub.advance(3)
-		emit({ shown = shown, asked = popup() ~= nil, bought = #calls("BuyTrainerService") })
-	"#,
-	]
-	.concat();
-	let pad = run_with(&script, "stub.qol.social.gamepad = true", None);
-	assert_eq!(pad[0], json!({ "shown": false, "asked": false, "bought": 0 }));
-}
-
-// Frame rects from their anchors (stub frames keep their points; the trainer window's layout is the game's,
-// tests/lua/stub_qol.lua).
-const RECT: &str = r#"
-local function at(r, p)
-	local x = p:find("LEFT") and r.l or p:find("RIGHT") and r.r or (r.l + r.r) / 2
-	local y = p:find("TOP") and r.t or p:find("BOTTOM") and r.b or (r.t + r.b) / 2
-	return x, y
-end
-local function rect(fr)
-	if fr == UIParent then return { l = 0, b = 0, r = 1920, t = 1080 } end
-	local l, r, t, b, cx, cy
-	for _, p in ipairs(fr.points or {}) do
-		local x, y = at(rect(p.rel or fr.parent or UIParent), p.relPoint)
-		x, y = x + p.x, y + p.y
-		if p.point:find("LEFT") then l = x elseif p.point:find("RIGHT") then r = x else cx = x end
-		if p.point:find("TOP") then t = y elseif p.point:find("BOTTOM") then b = y else cy = y end
-	end
-	local w, h = fr:GetWidth(), fr:GetHeight()
-	if not l and not r then l = cx - w / 2; r = l + w end
-	if not t and not b then b = cy - h / 2; t = b + h end
-	l = l or r - w; r = r or l + w; t = t or b + h; b = b or t - h
-	return { l = l, r = r, t = t, b = b }
-end
-local function overlaps(a, b) return a.l < b.r and b.l < a.r and a.b < b.t and b.b < a.t end
--- How far apart two rects are (negative when they overlap).
-local function gap(a, b) return math.max(b.l - a.r, a.l - b.r, b.b - a.t, a.b - b.t) end
-"#;
-
-#[test]
-fn trainer_button_sits_in_the_window_s_top_row_far_from_train_and_clear_of_the_money_the_filter_menu_and_the_list() {
-	let out = run(&[
-		SPELLS,
-		RECT,
-		r#"
-		q.money = 1000
-		q.openTrainer()
-		local F = ClassTrainerFrame
-		local me = rect(PolestarTrainAllButton)
-		local win = rect(F)
-		emit({
-			train = overlaps(me, rect(ClassTrainerTrainButton)),
-			farFromTrain = gap(me, rect(ClassTrainerTrainButton)) >= 40,
-			money = overlaps(me, rect(F.money)),
-			filter = overlaps(me, rect(F.FilterDropdown)),
-			hint = overlaps(me, rect(F.FilterInputHint)),
-			portrait = overlaps(me, rect(F.portrait)),
-			list = overlaps(me, rect(F.Inset)),
-			inside = me.l >= win.l and me.r <= win.r and me.b >= win.b and me.t <= win.t,
-		})
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "train": false, "farFromTrain": true, "money": false, "filter": false, "hint": false, "portrait": false, "list": false, "inside": true }));
-}
-
-#[test]
-fn trainer_button_does_not_show_at_profession_or_non_class_trainers_or_when_disabled() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		q.money = 1000
-		q.trainer.tradeskill = true
-		q.openTrainer()
-		local b = PolestarTrainAllButton
-		emit(b:IsShown())
-		q.closeTrainer()
-		q.trainer.tradeskill = false
-
-		q.openTrainer(90002)
-		emit(b:IsShown())
-		q.closeTrainer()
-
-		set("trainAllButton", false)
-		q.openTrainer()
-		emit(b:IsShown())
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], false, "profession trainer");
-	assert_eq!(out[1], false, "other trainer");
-	assert_eq!(out[2], false, "disabled in options");
+		.concat(),
+		"",
+		Some("PolestarDB = { schema = 1, settings = { qol = { trainAll = true, trainAllButton = true } } }"),
+	);
+	assert_eq!(out[0], json!({ "bought": 0, "money": 1000, "button": false }));
 }
 
 // ---------------------------------------------------------------------------

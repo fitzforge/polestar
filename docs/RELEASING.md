@@ -38,7 +38,7 @@ forge release version 0.2.0      # set package.json, guides/pack.json and every 
 ```
 
 Data addons rebuilt later take the version from `package.json`. Versions
-follow `x.y.z`; `0.x` releases are betas.
+follow `x.y.z`, with an optional fourth number for urgent hotfixes; `0.x` releases are betas.
 
 ## What a release holds
 

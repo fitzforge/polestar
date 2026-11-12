@@ -1609,9 +1609,15 @@ local walkHooks = {} -- Travel.WalkCostHook's rules, in the order registered
 -- change plans again.
 local questTimed = false
 local timedCheck = true
+-- -> "timer" (a quest timer runs), "escort" (the live step's escort runs:
+-- walking only, as a flight or a ride leaves the escorted NPC behind too) or
+-- false.
 local function readTimed()
 	local C = ns.Compat
-	return C and C.QuestTimerRunning and C.QuestTimerRunning() or false
+	if C and C.QuestTimerRunning and C.QuestTimerRunning() then return "timer" end
+	local E = ns.Engine
+	if E and E.EscortRunning and E.EscortRunning() then return "escort" end
+	return false
 end
 
 -- A planner rule that scales walk costs:
@@ -1879,7 +1885,7 @@ local function plan(target)
 		noDirect = direct or nil,
 		teleports = not ghost and not questTimed and teleportList() or nil,
 		departure = departureFn(),
-		walkOnly = ghost,
+		walkOnly = ghost or questTimed == "escort",
 		walkCost = walkCost,
 		walkHooks = walkHooks,
 		walkDanger = walkDanger(pc, px, py, tc, twx, twy),
@@ -1981,7 +1987,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	-- The level too: the plan's walk danger is the level's (Nav/Danger.lua).
 	local D = Nav.danger
 	local key = format("%d:%d:%d>%d:%.1f:%.1f:%d:%d", fc, floor(fwx / CACHE_CELL), floor(fwy / CACHE_CELL),
-		tc, twx, twy, from ~= nil and 0 or timed and 3 or noHearth and 2 or 1, D and D.Level() or 0)
+		tc, twx, twy, from ~= nil and 0 or timed == "escort" and 4 or timed and 3 or noHearth and 2 or 1, D and D.Level() or 0)
 	local now = GetTime()
 	local hit = estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end
@@ -2003,7 +2009,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		hearthName = bindName,
 		teleports = from == nil and not ghost and not timed and teleportList() or nil,
 		departure = departureFn(),
-		walkOnly = ghost,
+		walkOnly = ghost or timed == "escort",
 		-- The same way the plan takes (its walks through zones far above dearer).
 		walkDanger = walkDanger(fc, fwx, fwy, tc, twx, twy),
 	})
@@ -2796,7 +2802,8 @@ function Travel:Refresh()
 	if taxiNow and not wasTaxi and legs and legs[ci] and legs[ci].kind == "fly" then legSince = GetTime() end
 	wasTaxi = taxiNow
 	if taxiNow or not Nav.GetTarget() or not ns.Get("nav.travel") then return end
-	-- A quest timer started or ended: the Hearthstone and teleports come in or go out.
+	-- A quest timer or an escort started or ended: the Hearthstone and teleports
+	-- come in or go out (and with an escort, every ride).
 	if timedCheck then
 		timedCheck = false
 		local timed = readTimed()

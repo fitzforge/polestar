@@ -388,13 +388,19 @@ fn remove_sessions(out: &Path, gone: impl Fn(&str, &str) -> bool) -> Result<usiz
 /// Normalises the archives again and writes their sessions, a pulled session's header with
 /// `received` and its contributor's `contributorSince`, `contributorChunks`, `uploadDays` and `cohort`.
 fn write_sessions(out: &Path, keys: &BTreeSet<Key>) -> Result<Written, String> {
+	write_sessions_indexed(out, keys, &session_files(out), &read_contributors(out)?)
+}
+
+/// `write_sessions` with the folder's session files (`session_files`) and the contributors read once by
+/// the caller: `forge record resession` normalises every archive against the same index (reading every
+/// session file once per archive made it quadratic in the archive's size).
+fn write_sessions_indexed(out: &Path, keys: &BTreeSet<Key>, files: &[(String, String, String)], contributors: &BTreeMap<String, ContributorMeta>) -> Result<Written, String> {
 	let mut sources = Vec::new();
 	let mut received: BTreeMap<&Key, BTreeMap<u64, i64>> = BTreeMap::new();
 	for k in keys {
 		sources.push(load_source(out, &k.0, &k.1)?);
 		received.insert(k, read_meta(out, &k.0, &k.1)?.map(|m| m.received).unwrap_or_default());
 	}
-	let contributors = read_contributors(out)?;
 	let mut w = Written::default();
 	let mut keep = BTreeSet::new();
 	for mut s in normalize::sessions(&sources) {
@@ -431,9 +437,9 @@ fn write_sessions(out: &Path, keys: &BTreeSet<Key>) -> Result<Written, String> {
 		}
 		keep.insert(name);
 	}
-	for (name, contributor, install) in session_files(out) {
-		if keys.contains(&(contributor, install)) && !keep.contains(&name) {
-			std::fs::remove_file(out.join(&name)).map_err(|e| format!("{name}: {e}"))?;
+	for (name, contributor, install) in files {
+		if keys.contains(&(contributor.clone(), install.clone())) && !keep.contains(name) {
+			std::fs::remove_file(out.join(name)).map_err(|e| format!("{name}: {e}"))?;
 			w.removed += 1;
 		}
 	}
@@ -969,14 +975,17 @@ fn archives(out: &Path) -> Vec<Key> {
 	keys
 }
 
-/// `forge record resession`: every archive normalised again from its chunks, one at a time (an
-/// archive's sessions depend on its own chunks only), so the sessions carry every record kind this
-/// forge knows.
+/// `forge record resession`: every archive normalised again from its chunks, so the sessions carry
+/// every record kind this forge knows. An archive's sessions depend on its own chunks only and are its
+/// own files, so the archives run in parallel, against one index of the session files read up front.
 fn resession(out: &Path) -> Result<(), Fail> {
+	use rayon::prelude::*;
 	let keys = archives(out);
+	let files = session_files(out);
+	let contributors = read_contributors(out)?;
+	let written: Vec<Written> = keys.par_iter().map(|k| write_sessions_indexed(out, &BTreeSet::from([k.clone()]), &files, &contributors)).collect::<Result<_, String>>()?;
 	let mut total = Written::default();
-	for k in &keys {
-		let w = write_sessions(out, &BTreeSet::from([k.clone()]))?;
+	for w in written {
 		total.new += w.new;
 		total.updated += w.updated;
 		total.unchanged += w.unchanged;

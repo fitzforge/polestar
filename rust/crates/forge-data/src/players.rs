@@ -10,7 +10,7 @@ use serde_json::Value as J;
 
 pub const EG_NAME: &str = "EG Link output: World of Warcraft: Forever";
 pub const EG_URL: &str = "https://github.com/JIVESCORP/eg-link-output-wowf";
-pub const EG_COMMIT: &str = "d98f94821b69cccf81b03a542df3755b60055217";
+pub const EG_COMMIT: &str = "164bd1e2d89579ada4ee5e2de7e5fd4db684a9f1";
 pub const EG_CREDIT: &str = "EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar.";
 pub const EG_PRODUCT: &str = "wow_classic_beta";
 pub const DATASETS: [&str; 5] = ["quests.enUS", "quest_scan", "turn_ins", "npcs", "loot"];

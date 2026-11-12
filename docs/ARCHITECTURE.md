@@ -511,8 +511,8 @@ How each surface hides:
   arrows and glow, the quest bag marks, quest levels, nameplate icons, the
   turn-in captions in another addon's quest tracker, the talent overlay, the
   XP bar mark, the reward marks, the flight map's node mark (the step key
-  still flies there), the restock button, the trainer window's Train All
-  button, tooltip lines (`Hooks.decorate`), item clicks, and Polestar's
+  still flies there), the restock button, tooltip lines (`Hooks.decorate`),
+  item clicks, and Polestar's
   entries in the quest log, map tracking and minimap menus: each asks
   `Hidden()` and redraws on `POLESTAR_HIDDEN`. The Quick Keybind Mode shows
   none of Polestar's buttons while it is hidden (`mayForce`), and its key
@@ -1524,7 +1524,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `Engine.NearestClassTrainer()` returns the best one for the character (same
   ranking as candidate goals) or nil; `Engine.IsClassTrainer(npc)` whether an
   npc is any class trainer of the character's class, from the full id list
-  (QoL learns spells only there).
+  (training reminders only; players buy spells themselves).
   Opening the trainer window of one of the character's class stores
   `CharState().classTrainLevel = level` and fires
   `CLASS_TRAINED(level)`; a character first seen without a stored level counts

@@ -1319,12 +1319,23 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 		stub.advance(0.6); emit(here())
 		GetQuestTimers = nil
 		stub.advance(0.6); emit(here())
+		-- Dead or a ghost (Fitz, 0.3.7.1: hand-ins at the Crossroads offered to a ghost by its graveyard): nothing,
+		-- and the line is back on being revived.
+		function UnitIsDeadOrGhost(unit) return unit == "player" end
+		stub.advance(0.6); emit(here())
+		UnitIsDeadOrGhost = nil
+		stub.advance(0.6); emit(here())
 	"#);
 	let v = "2:1 Kill Kobold Vermin, 2 more 50";
-	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v)]);
+	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v), json!("none"), json!(v)]);
 	// The live step escorts someone: nothing for the whole step.
 	let escort = run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", ", escort = true");
 	assert_eq!(escort, vec![json!("none")]);
+	// Barrens, Ignition then The Escape (Fitz, 0.3.7.1): the live step's escort is only taken at its end, after
+	// other work; until it is taken, lines show as usual (the Nugget Slugs' tool buckets beside Lugwizzle).
+	let not_taken =
+		run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", r#" }, { t = "accept", quest = 99, title = "The Escape", npc = 5, npcName = "Shredder", map = 1429, x = 60, y = 60, escort = true"#);
+	assert_eq!(not_taken, vec![json!(v)]);
 }
 
 // T1327: Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a

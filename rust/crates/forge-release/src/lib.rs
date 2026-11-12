@@ -57,9 +57,9 @@ pub fn plural(n: usize, word: &str) -> String {
 	format!("{n} {word}{}", if n == 1 { "" } else { "s" })
 }
 
-/// A release version: `x.y.z`, or `x.y.z-<pre>` for a candidate.
+/// A release version: `x.y.z`, optional `.hotfix`, and an optional `-<pre>`.
 pub fn is_version(s: &str) -> bool {
-	static RE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r"^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$").unwrap());
+	static RE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r"^\d+\.\d+\.\d+(?:\.\d+)?(?:-[0-9A-Za-z.-]+)?$").unwrap());
 	RE.is_match(s)
 }
 
@@ -77,10 +77,10 @@ mod tests {
 
 	#[test]
 	fn versions() {
-		for v in ["0.2.0", "10.0.1", "0.3.0-rc.1", "1.0.0-beta-2"] {
+		for v in ["0.2.0", "10.0.1", "0.3.0-rc.1", "1.0.0-beta-2", "0.3.7.1"] {
 			assert!(is_version(v), "{v}");
 		}
-		for v in ["1.0", "v0.2.0", "0.2.0-", "0.2.0 ", "1.0.0+build"] {
+		for v in ["1.0", "v0.2.0", "0.2.0-", "0.2.0 ", "1.0.0+build", "0.3.7.1.2", "0.3.7."] {
 			assert!(!is_version(v), "{v}");
 		}
 	}

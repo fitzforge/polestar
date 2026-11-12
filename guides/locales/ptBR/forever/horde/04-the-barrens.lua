@@ -48,7 +48,7 @@ return {
 	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way up"] = "{npc:4049}: {npc:4074} e {npc:4073} vagam a leste de {npc:4201}, no caminho para cima",
 
 	-- Step 8: The road west
-	["The road west"] = "",
+	["The road west"] = "A estrada para o oeste",
 	-- {npc:4049} Seereth Stonebreak
 	["The road west past {npc:4049}'s camp"] = "A estrada para o oeste, passando pelo acampamento de {npc:4049}",
 
@@ -129,7 +129,7 @@ return {
 
 	-- Step 21: To Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["To {area:378}"] = "",
+	["To {area:378}"] = "Para {area:378}",
 
 	-- Step 22: Camp Taurajo
 	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak · {area:378} Camp Taurajo
@@ -197,7 +197,7 @@ return {
 
 	-- Step 36: Great Lift
 	-- {area:1718} Great Lift
-	["The top of the {area:1718}"] = "",
+	["The top of the {area:1718}"] = "O topo de {area:1718}",
 
 	-- Step 37: Great Lift
 	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift

@@ -78,7 +78,7 @@ return {
 	-- {area:484} Freewind Post
 	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "Para o leste pelos cânions. {area:484}, um acampamento da Horda com guardas, fica no planalto aqui: mantenha-se no fundo do cânion e passe bem longe da base dos elevadores.",
 	-- {area:482} Highperch
-	["The canyons east of {area:482}"] = "",
+	["The canyons east of {area:482}"] = "Os cânions a leste de {area:482}",
 
 	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway

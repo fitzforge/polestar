@@ -1037,10 +1037,10 @@ function DS.Build(parent, shell)
 		segs[i] = b
 	end
 
-	-- Leaving the page, not Polestar hiding (its layer hides the hub with
-	-- the page still open: it comes back as it was).
+	-- The picker hides the section parent when leaving Dungeons. Hiding the
+	-- whole hub leaves that parent's shown state intact, so its page can resume.
 	root:SetScript("OnHide", function(self)
-		if self:IsShown() then return end
+		if self:IsShown() and parent:IsShown() then return end
 		restoreHeader()
 		UI.LevelTip.Hide()
 		for _, b in ipairs(segs) do b:Hide() end
