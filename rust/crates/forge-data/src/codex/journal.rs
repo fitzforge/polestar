@@ -1419,7 +1419,7 @@ mod tests {
 		quests.extend([r#""400": { "pre": [403] }"#, r#""401": { "pre": [402] }"#, r#""402": {}"#, r#""403": {}"#].map(String::from));
 		let cq = parse_json(&format!("{{ {} }}", quests.join(", "))).unwrap();
 		let fq = parse_json(r#"{ "400": { "breadcrumbs": [401] } }"#).unwrap();
-		assert!(CHAIN_MAX < 30);
+		const _: () = assert!(CHAIN_MAX < 30);
 		let (a, _) = marks_of(&dungeons, &cq, &fq);
 		assert_eq!(a, "200:deep;300:deep;400:deep;129:deep:200;128:deep:200;127:deep:200;301:deep:300;302:deep:300;303:deep:300;403:deep:400;401:deep:400:b");
 	}
