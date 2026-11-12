@@ -9521,6 +9521,21 @@
 				"faction": "Horde",
 				"reason": "Flow, Horde 50-60/05 (0.3.6, BrHorde4060): Camp Mojache (level 57, 1500 XP) is Warcaller Gorlach's delivery from Orgrimmar to Talo Thornhoof at Camp Mojache. Since The Super Egg-O-Matic's eggs moved to 40-50/06, 05's only reason to fly Gadgetzan -> Camp Mojache -> Marshal's Refuge was this hand-in, instead of the direct Gadgetzan -> Marshal's Refuge flight on the way to Silithus: about 6 minutes of flying for 1500 XP (about five level-56 kills). Left out; Talo's follow-up is a Dire Maul quest.",
 				"issue": "-"
+			},
+			{
+				"q": 78132,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Helm is handed in at Alonso's window (Mystral Lake, Ashenvale) with the Dragonslayer's Helm, which the server's quest record asks for (players' caches, EG Link: one item; QuestieDB 1.0.14 agrees). The helm is a Discarded Helm inside Shadowfang Keep. The Ashenvale routes sent Warriors to Alonso to take and hand in his three quests on the spot, which nobody can do without the items; no recorded player has handed one in. Left out with the Shield (78133) and the Lance (78134).",
+				"issue": "-"
+			},
+			{
+				"q": 78133,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Shield needs the Dragonslayer's Shield at Alonso's window (the server's quest record, EG Link; QuestieDB 1.0.14), from a Wall-Mounted Shield the data places nowhere. Left out with the Helm (78132).",
+				"issue": "-"
+			},
+			{
+				"q": 78134,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Lance needs the Dragonslayer's Lance at Alonso's window (the server's quest record, EG Link; QuestieDB 1.0.14), which only the Dark Iron Entrepreneur in the Wetlands sells (75 silver): a trip from Ashenvale for 35 silver and quest XP. Left out with the Helm (78132).",
+				"issue": "-"
 			}
 		],
 		"revert": [

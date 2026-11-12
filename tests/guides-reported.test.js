@@ -3288,77 +3288,20 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Forever\'s quest data does not place them in');
 });
 
-// --- Ashenvale (Zerkness #383, Ioney #396, soockee #1117): two Paladins and a
-// Shaman found no Alonso at Mystral Lake; #1117 is the in-game check by a
-// non-Warrior that #383 waited on. His Dragonslayer quests (78132-78134) are
-// for Warriors (corrections, classes 1): only a Warrior is led to him, his
-// accepts stay optional and the turn-ins hold only a player who took the
-// quest, so a Warrior he offers nothing passes the step there.
+// --- Ashenvale (Zerkness #383, Ioney #396, soockee #1117; QuestieDB 1.0.14 check, 0.3.8): Alonso's Dragonslayer
+// quests (78132-78134, Warriors only: corrections) are handed in at his window with the item each names, as the
+// server's quest records in players' caches say: a helm from Shadowfang Keep, a wall-mounted shield the data places
+// nowhere and a lance only the Dark Iron Entrepreneur in the Wetlands sells. The Ashenvale routes led Warriors to him
+// to take and hand them in on the spot, which nobody can without the items and no recorded player has done; the
+// route fixes leave all three out, so the Warriors-only step at Mystral Lake goes with them.
 
-test('Zerkness\'s, Ioney\'s and soockee\'s reports (#383, #396, #1117): only Warriors are led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides', { skip }, () => {
+test('Alonso\'s Dragonslayer quests are left out of both Ashenvale guides: each needs an item a leveling route never gets (#383, #1117, QuestieDB 1.0.14)', { skip }, () => {
 	const chain = [78132, 78133, 78134];
-	for (const [guide, faction, paladinRace, warriorRace] of [[ASHENVALE, 'Alliance', 'Dwarf', 'Human'], [ASHENVALE_HORDE, 'Horde', 'Scourge', 'Orc']]) {
-		const list = goals(guide);
-		const first = at(list, `${guide}: accept 78132`, is('accept', 78132));
-		const { step } = list[first];
-		assert.equal(step.title, 'Alonso', `${guide}: Alonso has his own step`);
-		assert.deepEqual(step.only && step.only.classes, ['WARRIOR'], `${guide}: the Alonso step is for Warriors`);
-		assert.deepEqual([step.goals[0].t, !!step.goals[0].optional], ['goto', false], `${guide}: a plain goto leads the Warrior to Alonso`);
-		for (const q of chain) {
-			assert.equal(list[at(list, `${guide}: accept ${q}`, is('accept', q))].goal.optional, true, `${guide}: accept ${q} is optional`);
-			assert.ok(!list[at(list, `${guide}: turnin ${q}`, is('turnin', q))].goal.optional, `${guide}: turnin ${q} is plain`);
-		}
-		const pack = buildSimPack([guide]);
-		try {
-			const g = pack.guides[0];
-			// offered: whether Alonso offers the chain. The game takes no accept
-			// he does not offer; a player he offers them to takes each one the
-			// guide shows (the simulated player leaves optional goals alone).
-			const watch = (offered) => `
-				local w, E = stub.world, Polestar.Engine
-				local chain = { [78132] = true, [78133] = true, [78134] = true }
-				local accept, view, turnIn = w.accept, E.GetStepView, w.turnIn
-				local held, taking, reached = false, false, false
-				w.accept = function(q, ...)
-					if not ${offered} and chain[q] then return end
-					return accept(q, ...)
-				end
-				-- Held: with 78132 taken, the step is still Alonso's when it is handed in.
-				w.turnIn = function(q, ...)
-					if q == 78132 then held = E.GetStepView(E.GetStepIndex()).title end
-					return turnIn(q, ...)
-				end
-				E.GetStepView = function(...)
-					local v = view(...)
-					if v and v.title == "Alonso" and v.goals[1] and v.goals[1].status == "done" then reached = true end
-					if ${offered} and not taking then
-						taking = true
-						for _, g in ipairs(v and v.goals or {}) do
-							if g.t == "accept" and chain[g.quest] and (g.status == "pending" or g.status == "active") and not w.log[g.quest] and not C_QuestLog.IsQuestFlaggedCompleted(g.quest) then
-								w.accept(g.quest, {}, g.title or "")
-								stub.advance(0.6)
-							end
-						end
-						taking = false
-					end
-					return v
-				end
-				${SIMULATE}
-				local done = {}
-				for _, q in ipairs({ 78132, 78133, 78134 }) do done[#done + 1] = C_QuestLog.IsQuestFlaggedCompleted(q) end
-				emit({ done = done, held = held, reached = reached })`;
-			for (const [cls, race, offered] of [['PALADIN', paladinRace, false], ['WARRIOR', warriorRace, true], ['WARRIOR', warriorRace, false]]) {
-				const who = `${guide}: a ${race} ${cls}${offered ? '' : ' Alonso offers nothing'}`;
-				const [out, got] = playGuide(pack, g, { race, faction, cls, script: watch(offered) });
-				assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
-				assert.ok(out.done, `${who}: plays to the end`);
-				assert.equal(got.reached, cls === 'WARRIOR', `${who}: ${cls === 'WARRIOR' ? 'is' : 'is not'} led to Alonso`);
-				assert.deepEqual(got.done, chain.map(() => offered), `${who}: the chain is ${offered ? '' : 'not '}handed in`);
-				assert.equal(got.held, offered ? 'Alonso' : false, `${who}: ${offered ? 'held at Alonso until 78132 is handed in' : 'hands nothing in'}`);
-			}
-		} finally {
-			pack.dispose();
-		}
+	const { overrides } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const q of chain) assert.ok(overrides.skip.some((s) => s.q === q && !s.faction), `route-fixes leaves ${q} out on both sides`);
+	for (const guide of [ASHENVALE, ASHENVALE_HORDE]) {
+		const left = goals(guide).filter(({ goal }) => chain.includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`);
+		assert.deepEqual(left, [], `${guide}: no Dragonslayer quest`);
 	}
 });
 
