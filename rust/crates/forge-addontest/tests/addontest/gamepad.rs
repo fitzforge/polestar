@@ -635,10 +635,18 @@ fn with_the_gamepad_interface_a_quest_button_binds_in_the_interface_s_own_bindin
 		"",
 		true,
 	);
-	assert_eq!(out[0], json!({ "shown": "T", "x": "CLICK PolestarTargetButton:LeftButton", "default": false, "rs": "CLICK PolestarTargetButton:LeftButton", "t": "CLICK PolestarTargetButton:LeftButton", "saves": 1, "now": "PAD3" }), "RS runs the interface's own action: the row shows the key that works");
+	assert_eq!(
+		out[0],
+		json!({ "shown": "T", "x": "CLICK PolestarTargetButton:LeftButton", "default": false, "rs": "CLICK PolestarTargetButton:LeftButton", "t": "CLICK PolestarTargetButton:LeftButton", "saves": 1, "now": "PAD3" }),
+		"RS runs the interface's own action: the row shows the key that works"
+	);
 	assert!(is_match(text(&out[1]["asks"]), r"^The game's gamepad setup uses Y\. A again"));
 	assert_eq!(out[1]["y"], "CLICK PolestarTargetButton:LeftButton");
-	assert_eq!(json!([out[1]["x"].clone(), out[1]["rs"].clone(), out[1]["t"].clone()]), json!([false, "CLICK PolestarTargetButton:LeftButton", "CLICK PolestarTargetButton:LeftButton"]), "Y replaces X in the interface's context only");
+	assert_eq!(
+		json!([out[1]["x"].clone(), out[1]["rs"].clone(), out[1]["t"].clone()]),
+		json!([false, "CLICK PolestarTargetButton:LeftButton", "CLICK PolestarTargetButton:LeftButton"]),
+		"Y replaces X in the interface's context only"
+	);
 	assert_eq!(json!([out[1]["route"].clone(), out[1]["ran"].clone()]), json!(["game", "CLICK PolestarTargetButton:LeftButton"]));
 	assert_eq!(out[2], json!({ "unbound": true, "y": false, "rs": "CLICK PolestarTargetButton:LeftButton", "t": "CLICK PolestarTargetButton:LeftButton", "game": "GAMEPADACTIONBUTTON1" }));
 	assert_eq!(out[3], json!({ "bound": false, "a": false, "saves": 0 }));
