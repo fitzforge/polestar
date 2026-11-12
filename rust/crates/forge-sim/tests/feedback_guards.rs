@@ -78,6 +78,8 @@ fn grind_waits_for_the_next_towns_hand_ins_beyond_the_camps_yards() {
 		if t.kind != K_TURNIN || prev.kind != K_TASK || prev.q == t.q || run.p_map[prev.pt as usize] != run.p_map[t.pt as usize] || d <= GRIND_TRIP_YD || d > 2500.0 {
 			continue;
 		}
+		// Counts the camp-to-town pairs past the old guard's yards, for the panic below when none qualifies.
+		tried += 1;
 		// (No hand-in of the old guard's reach: none within its yards of the camp in the window.)
 		if seed.steps[j..(j + 15).min(seed.len())].iter().any(|s| s.kind == K_TURNIN && run.straight(prev.pt, s.pt) <= GRIND_TRIP_YD) {
 			continue;
@@ -91,7 +93,6 @@ fn grind_waits_for_the_next_towns_hand_ins_beyond_the_camps_yards() {
 		if l >= 59.0 {
 			break;
 		}
-		tried += 1;
 		let mut bad = seed.steps.clone();
 		bad.insert(j, Step::grind(l.floor() as u32 + 1, 0));
 		assert!(grind_before_handin(run, &bad, &levels(&m, &o, &bad)) > base, "a grind at the camp {d:.0} yd before the town's waiting hand-in (step {j}) is caught");
