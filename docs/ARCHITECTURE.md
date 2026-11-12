@@ -7657,7 +7657,7 @@ registers through `ZoneArt.RegisterOverlays` the way `MapFrames.lua` and
 
 ### Codex (`codex build`)
 
-`forge data codex [--build <version>] [--out <dir>] [--pack <dir>] [--recordings <dir>]` (the release build;
+`forge data codex [--build <version>] [--out <dir>] [--pack <dir>] [--recordings <dir> [--verdicts <file>]]` (the release build;
 `--local-extras [--addons <dir>]` adds the local extras)
 merges `data/forever/*.json` (pfQuest, QuestieDB facts, recordings,
 corrections, web quest list and web XP facts), the Forever client's tables
@@ -7680,21 +7680,33 @@ was already built without it.
 - Recorded item sources (`codex/recorded.rs`): `data/codex/recorded.json` is a
   committed snapshot of what players' Recorder sessions saw, so every machine
   builds the same Codex; `--recordings <dir>` (the maintainer's local archive,
-  or `data/recordings`) rewrites it before the build. Only players that count
-  go in, by the data build's own rule (`recordings::read_recordings`: an
-  Ingest contributor once established, 3 days of history and uploads on 3
-  days; the maintainer's own and vouched-for files always; `config.json`'s
-  `minBuild`, `minVoters`), and only facts without who saw them: per NPC or
-  object the items its loot windows held (NPC loot from a gathering skill
-  left out), with a chance (the median of each player's own share of kills or
-  loot windows) only when `minVoters` players (or a vouched one) with 10 of
-  their own back it; per NPC its merchant window's items (which also gives it
-  the `vendor` and `sells:*` roles); per quest the reward list its quest
-  frames showed (a turn-in over an accept per player, decided by `Ballot`,
-  `trusted` when `minVoters` agree or a vouched player recorded it).
-  Provenance `recordings`, ranked first.
-  A trusted reward list stands in for the web quest lists' for that quest;
-  an untrusted one only fills a quest no other input gives rewards for.
+  or `data/recordings`) rewrites it before the build. It reads the folder
+  one session at a time, twice (who counts, then what they saw), by the
+  trusted-recordings rule `forge record learn` follows (docs/forge/learn.md,
+  "Who counts"): an Ingest contributor counts once established (3 days of
+  history and uploads on 3 days; the maintainer's own and vouched-for files
+  always; `config.json`'s `minBuild`, `minVoters` and thresholds), never when
+  `config.json`'s `exclude` or IngestAudit's verdicts (`--verdicts`, default
+  the maintainer's `ingest-audit/verdict.json` when present) set it aside, and
+  a player is a person: the server's cohort merged with every contributor the
+  verdicts call the same person, one vote per fact. Only facts go in, without
+  who saw them: per NPC or object the items its loot windows held (NPC loot
+  from a gathering skill left out), with the people who saw each, a chance
+  (the median of each person's own share of kills or loot windows) only when
+  `minVoters` people (or a vouched one) with 10 of their own back it, and
+  `trusted` when `minVoters` people saw it, a vouched one did, or such a
+  chance backs it; per NPC each item its merchant window listed, with its
+  people and `trusted`; per quest the reward list its quest frames showed (a
+  turn-in over an accept per person, decided by `Ballot`, `trusted` when
+  `minVoters` agree or a vouched person recorded it). Provenance
+  `recordings`, ranked first. One rule for the merge: a recorded fact changes
+  what the Codex says only when it is `trusted`; otherwise it only confirms
+  another input's. An untrusted drop or object source stays only beside
+  another input's of the same NPC or object; an untrusted merchant item only
+  where the quest data or a curated guide names that vendor (and only then
+  gives the NPC its `vendor` and `sells:*` roles); a trusted reward list
+  stands in for the web quest lists' for that quest, an untrusted one adds
+  nothing.
 - Curated vendors (`curated_vendors`): in a guide that `collects` an item,
   each `buy <item> ... npc <id>` step is a vendor source (provenance
   `guides`), whatever races the step is for: the Forever-only racial mounts

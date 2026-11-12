@@ -1483,7 +1483,7 @@ fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String
 // ---------------------------------------------------------------- the command
 
 /// The session files of an archive, in name order (config.json and dot files are not sessions).
-fn session_files(dir: &Path) -> Result<Vec<String>, String> {
+pub(crate) fn session_files(dir: &Path) -> Result<Vec<String>, String> {
 	let rd = std::fs::read_dir(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
 	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
 	files.sort_by(|a, b| cmp_utf16(a, b));

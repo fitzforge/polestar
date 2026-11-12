@@ -170,7 +170,7 @@ fn run() -> Result<(), Fail> {
 }
 
 /// `~/work/maintainer/<rest>`: where the maintainer's recordings archive and IngestAudit live.
-fn maintainer(rest: &str) -> Option<PathBuf> {
+pub(super) fn maintainer(rest: &str) -> Option<PathBuf> {
 	std::env::var_os("HOME").map(|h| PathBuf::from(h).join("work/maintainer").join(rest))
 }
 

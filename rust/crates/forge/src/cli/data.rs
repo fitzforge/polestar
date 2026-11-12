@@ -168,15 +168,21 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 		"codex" => {
 			// codex build: --data, --sources, --addons, --build, --out (json), --pack; --local-extras also
 			// merges the installed AtlasLoot, RareScanner and dungeons.json (this machine only);
-			// --recordings <dir> first rewrites data/codex/recorded.json from that recordings folder.
+			// --recordings <dir> first rewrites data/codex/recorded.json from that recordings folder, with
+			// IngestAudit's --verdicts (default: the maintainer's, where `forge record learn` finds them).
 			let local_extras = args.iter().any(|a| a == "--local-extras");
-			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack", "--recordings"])?;
+			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack", "--recordings", "--verdicts"])?;
 			let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
 			let root = get("--root").map(abs).or(root).ok_or_else(|| usage("--root <dir> is required (no checkout above here)"))?;
 			if let Some(dir) = get("--recordings").map(abs) {
+				let verdicts = get("--verdicts").map(abs).or_else(|| super::record::maintainer("ingest-audit/verdict.json").filter(|v| v.is_file()));
+				if verdicts.is_none() {
+					eprintln!("warning: no IngestAudit verdicts (--verdicts): only the recordings' config.json exclude applies, and no one is merged into one person");
+				}
 				let file = root.join("data").join("codex").join(forge_data::codex::recorded::FILE);
-				std::fs::write(&file, forge_data::codex::recorded::export(&dir)?).map_err(|e| format!("{}: {e}", file.display()))?;
-				eprintln!("wrote {} from the recordings in {}", file.display(), dir.display());
+				let (text, summary) = forge_data::codex::recorded::export(&dir, verdicts.as_deref())?;
+				std::fs::write(&file, text).map_err(|e| format!("{}: {e}", file.display()))?;
+				eprintln!("wrote {} from the recordings in {}: {summary}", file.display(), dir.display());
 			}
 			let mut o = forge_data::codex::Options::new(&root);
 			if let Some(d) = get("--data") {

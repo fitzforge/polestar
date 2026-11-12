@@ -121,7 +121,7 @@ The data builders, one at a time (forge build's data stage runs the ones it need
   travel        travel.json, TravelData.lua, FlightPaths.lua  [--root --data --recordings --sources --grid <dir>|none
                 --crossings --build --forever-build --json --lua --flight-lua --travel-addon]
   codex         data/forever/codex and the Polestar_Codex pack  [--root --data --sources --addons --build --out --pack
-                --local-extras --recordings <dir> (rewrites data/codex/recorded.json first)]
+                --local-extras --recordings <dir> (rewrites data/codex/recorded.json first) --verdicts <verdict.json>]
   gear          Forever.lua, SpecData.lua and gear/report.json  [--root --addons --wowsims --built-at]
   professions   professions.json  [--root --data --sources --build --out]
   sim-inputs    the sources the simulator's world reads (Map, AreaTable, QuestXP, object facts...)  --out <dir>
