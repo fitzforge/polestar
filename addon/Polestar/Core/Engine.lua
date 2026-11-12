@@ -1234,16 +1234,23 @@ end
 -- prerequisite in the log is only handed in on the way ("turnin"). nil when
 -- no guide leading here takes p (a gap of the route itself: the guide keeps
 -- such an accept, "Requires X first"). `ok` false when the chain cannot be
--- done from the route (a quest further down no such guide takes) or the
--- player skipped one of its quests (Engine.SkipQuest, or a feeder step:
--- CharState().feedSkips; then `skipped`, and its accepts stay, "skipped"). -> { p, from = idx.first[p], ok, quests = { [q] = true | "turnin" }, deps = {} }
+-- done from the route (a quest further down no such guide takes, or one past
+-- the 8 quests the walk follows) or the player skipped one of its quests
+-- (Engine.SkipQuest, or a feeder step: CharState().feedSkips; then
+-- `skipped`, and its accepts stay, "skipped"). -> { p, from = idx.first[p], ok, quests = { [q] = true | "turnin" }, deps = {} }
 function Own.feederChain(p, idx)
 	local from = idx.first[p]
 	if not from then return nil end
 	local C, skips = Compat(), ns.CharState().feedSkips
 	local ch = { p = p, from = from, ok = true, quests = {}, deps = {} }
 	local cur = p
-	for _ = 1, 8 do
+	for n = 1, 9 do
+		-- Still a prerequisite missing after 8 quests (or a loop in the data):
+		-- the chain's first quest would read "Requires" in the plan.
+		if n > 8 then
+			ch.ok = false
+			break
+		end
 		if Own.questSkipped(cur) or (type(skips) == "table" and skips[cur]) then
 			ch.ok, ch.skipped = false, true
 			break
@@ -1395,15 +1402,16 @@ end
 -- in when it opens an accept here that is not grey for the character, every
 -- goal of its steps with a place is in one of g's own zones (the maps of its
 -- steps), it holds no dungeon run's step and no group quest (`keepable`),
--- and done before the first accept it opens it adds at most FEED_LOCAL to
--- the route from where g and the feeder steps already in go before that
--- accept (Own.feedCost; the feeder quests themselves may be grey); chains
--- opening the most go first. Its steps (those of the guides leading here
--- holding its goals, with those goals only, in route order, each titled as
--- in its guide, with `feeder` = that guide's id and `feederStep` = its step
--- there) go after the step of g before that accept nearest each, in order.
--- The accepts of every other chain are left out, with all of their quest's
--- goals; a step that loses a goal that way and has no quest goal left goes.
+-- and done before the first accept it opens (or the guide's own first goal
+-- of a quest it takes) it adds at most FEED_LOCAL to the route from where g
+-- and the feeder steps already in go before that (Own.feedCost; the feeder
+-- quests themselves may be grey); chains opening the most go first. Its
+-- steps (those of the guides leading here holding its goals, with those
+-- goals only, in route order, each titled as in its guide, with `feeder` =
+-- that guide's id and `feederStep` = its step there) go after the step of g
+-- before that accept nearest each, in order. The accepts of every other
+-- chain are left out, with all of their quest's goals; a step that loses a
+-- goal that way and has no quest goal left goes.
 -- -> { steps, feeders (steps put in), hidden = { [quest] = { title, need,
 -- needTitle, from (guide title) } }, cost, fromBase (g's step -> new step),
 -- legs (g's step -> true where its baked leg still leads in) }
@@ -1633,18 +1641,36 @@ function Own.feederPlan(g)
 		if na ~= nb then return na > nb end
 		return a.order < b.order
 	end)
-	-- Chain by chain: its steps go in when they are local and, done before
-	-- the first accept they open (U), cost at most FEED_LOCAL from where the
-	-- guide and the steps already put in go before that (Own.feedCost). Each
-	-- goes after the step of g before U nearest it, in order; a source step
-	-- another chain put in already takes this chain's goals too.
-	local gaps, placed, placedAt, cost = {}, {}, {}, 0
+	-- Chain by chain: its steps go in when they are local and keepable and,
+	-- done before U (the first accept they open, or the guide's own first goal
+	-- of one of their quests), cost at most FEED_LOCAL from where the guide and
+	-- the steps already put in go before that (Own.feedCost). Each goes after
+	-- the step of g before U nearest it, in order; a source step another chain
+	-- put in between this chain's previous step and U takes this chain's goals
+	-- too, one put in elsewhere is put in again with them.
+	-- placedAt and placedPos: a source step's gap (after g's step j), its place in it.
+	local gaps, placed, placedAt, placedPos, cost = {}, {}, {}, {}, 0
 	for _, ch in ipairs(list) do
 		local mine = ch.ok and opens(ch) > 0 and stepsOf(ch.quests)
 		if mine and local_(mine) and keepable(ch, mine) then
 			local U = #g.steps + 1
 			for _, d in ipairs(ch.deps) do
 				if d.s < U then U = d.s end
+			end
+			-- The guide's own first goal of a quest the chain takes (its work or
+			-- its hand-in here) waits for it too: before its accept, that goal
+			-- would read as another route's, the quest not taken yet.
+			for s = 1, U - 1 do
+				local step = g.steps[s]
+				if Guides.Matches(step.only, player) and not (goneMine and goneMine[keysG[s]] == true) then
+					for _, goal in ipairs(step.goals) do
+						if goal.t ~= "accept" and ch.quests[goal.quest] == true and Guides.Matches(goal.only, player) then
+							U = s
+							break
+						end
+					end
+				end
+				if U == s then break end
 			end
 			local near, fresh = {}, {}
 			for s = 1, U - 1 do
@@ -1657,36 +1683,36 @@ function Own.feederPlan(g)
 			-- Nothing placed before it: the guide's own place at that accept.
 			if #near == 0 and pointAt[U] then near[1] = pointAt[U] end
 			for _, st in ipairs(mine) do
-				if not placed[st.key] then fresh[#fresh + 1] = st end
+				if not (placed[st.key] and placedAt[st.key] < U) then fresh[#fresh + 1] = st end
 			end
 			local c = Own.feedCost(near, fresh)
 			if c <= Own.FEED_LOCAL then
 				cost, ch.inserted = cost + c, true
-				local last = 0
+				local last, lastPos = 0, 0
 				for _, st in ipairs(mine) do
-					local p = placed[st.key]
-					if p then
+					local p, at, pos = placed[st.key], placedAt[st.key], placedPos[st.key]
+					if p and at < U and (at > last or (at == last and pos > lastPos)) then
 						for _, goal in ipairs(st.goals) do p.has[goal] = true end
 						p.goals = {}
 						for _, goal in ipairs(p.step.goals) do
 							if p.has[goal] then p.goals[#p.goals + 1] = goal end
 						end
-						if placedAt[st.key] > last then last = placedAt[st.key] end
+						last, lastPos = at, pos
 					else
 						local pt = Own.feedPoint(st.goals)
 						-- A step of this guide an update passed comes back just before
 						-- the quest that needs it: on the way, never a step back.
-						if st.d == 0 and U - 1 > last then last = U - 1 end
+						if st.d == 0 and U - 1 > last then last, lastPos = U - 1, 0 end
 						local best, bestJ = nil, last
 						for j = last, U - 1 do
 							local q = pointAt[j > 0 and j or 1]
 							local d = pt and q and ns.DirectTravelCost(pt, q)
 							if d and (not best or d < best) then best, bestJ = d, j end
 						end
-						placed[st.key], placedAt[st.key] = st, bestJ
 						gaps[bestJ] = gaps[bestJ] or {}
 						table.insert(gaps[bestJ], st)
-						last = bestJ
+						placed[st.key], placedAt[st.key], placedPos[st.key] = st, bestJ, #gaps[bestJ]
+						last, lastPos = bestJ, #gaps[bestJ]
 					end
 				end
 			end

@@ -419,6 +419,11 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 // "Requires The Vile Reef" on its accept, its skulls and its hand-in, and the feeder opened nothing. Same for Big
 // Game Hunter (208: 188, 193 and 197). An accept opens only once every missing prerequisite is put in; else it
 // is left out, and a chain no accept can use stays out.
+//
+// And every accept the plan keeps opens in time: Mok'thardin's Enchantment's follow-ups (571, 573) and Panther
+// Mastery (193) read "Requires … first" with their chains planned, because the chains' steps went in after them:
+// a step another chain had put in later was shared, and the guide's own hand-in of Panther Mastery (192) came
+// before the chain's accept of it.
 #[test]
 fn an_accept_missing_several_prerequisites_is_planned_for_all_of_them_or_left_out() {
 	let out = shipped("Horde", "Orc", "WARRIOR", 39, "", "", "forever/horde/40-50/01-stranglethorn-vale");
@@ -431,6 +436,8 @@ fn an_accept_missing_several_prerequisites_is_planned_for_all_of_them_or_left_ou
 	if hidden.contains(&598) {
 		assert!(!feeders.contains("accept:596"), "no feeder for 598 when 598 is left out: {out}");
 	}
+	// No route gap here (every missing chain is in an earlier guide): nothing reads "Requires".
+	assert!(after.is_empty(), "{out}");
 }
 
 #[test]

@@ -1876,11 +1876,14 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   detour there and back from the nearest place the guide and the feeder
   steps already in go before that accept, plus 90 s per objective); its
   source steps, with its goals only, go after the guide's nearest step
-  before that accept. Every other such
-  accept is left out with all of its quest's goals, and a step left with no
-  quest goal goes (`Own.rebuilt`: a new guide table in the registry,
-  `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
-  where the way in is unchanged). A missing quest no guide leading here
+  before that accept, and before the guide's own first goal of a quest the
+  chain takes (its work or hand-in here, which would read as another route's
+  before the accept); a source step another chain put in there already takes
+  its goals, one put in out of the chain's order goes in again with them.
+  Every other such accept is left out with all of its quest's goals, and a
+  step left with no quest goal goes (`Own.rebuilt`: a new guide table in the
+  registry, `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked
+  legs kept where the way in is unchanged). A missing quest no guide leading here
   gives is a gap of the route and keeps its "Requires" line. Nothing shows in
   the guide window; the report names the planned steps (`[feeder from <id>
   step N]`) and the quests left out (`[hidden: needs <quest> from <guide>]`).
