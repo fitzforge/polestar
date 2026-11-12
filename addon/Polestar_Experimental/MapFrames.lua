@@ -6,5 +6,7 @@ Polestar.RegisterMapFrames({
 		[1433] = { c = 0, left = -1570.833, right = -3741.667, top = -8575, bottom = -10022.916 },
 		[1437] = { c = 0, left = -389.583, right = -4525, top = -2147.917, bottom = -4904.167 },
 		[1446] = { c = 1, left = -218.75, right = -7118.75, top = -5875, bottom = -10475 },
+		[1450] = { c = 1, left = -1381.25, right = -3689.583, top = 8491.666, bottom = 6952.083 },
+		[1452] = { c = 1, left = -316.667, right = -7416.667, top = 8533.333, bottom = 3800 },
 	},
 }, "polestar-experimental")
