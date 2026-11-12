@@ -4713,6 +4713,48 @@
 		],
 		"note": "The Saltseer Captain (both factions, The Drowned City): Krazek in Booty Bay gives it and takes it back."
 	},
+	"95798": {
+		"set": {
+			"pre": [
+				95788
+			],
+			"preAny": [
+				95788
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-12; excluded and suspect contributors left out): Loremaster Dibbs (2277) offered The Web of Magic (95798) to 6 people (3 established) the moment each handed Magics of the Drowned City (95788) in to him, and all 6 took it; his windows did not offer it to 6 people who still had 95788 in their log"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 Forever: its objective text sends the I'lalai Fetish, the find Magics of the Drowned City asks for, to Abra Cadabra in Dalaran"
+			}
+		],
+		"note": "The Web of Magic (Alliance, after The Drowned City): Loremaster Dibbs in Southshore offers it once Magics of the Drowned City (95788) is handed in to him, and Abra Cadabra in Dalaran takes it. The merged data had no prerequisite, so the dungeon's hand-in guide never offered it at Dibbs."
+	},
+	"95799": {
+		"set": {
+			"pre": [
+				95787
+			],
+			"preAny": [
+				95787
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-12; excluded and suspect contributors left out): Loremaster Dibbs (2277) offered Findings for the Explorer's League (95799) to 5 people (3 established) the moment each handed Take Two With Water (95787) in to him, and all 5 took it; his windows did not offer it to 6 people who still had 95787 in their log"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 Forever: its objective text sends Loremaster Dibbs' I'lalai Translations, made from the tablets Take Two With Water asks for, to Historian Karnik in Ironforge"
+			}
+		],
+		"note": "Findings for the Explorer's League (Alliance, after The Drowned City): Loremaster Dibbs in Southshore offers it once Take Two With Water (95787) is handed in to him, and Historian Karnik in Ironforge takes it. The merged data had no prerequisite, so the dungeon's hand-in guide never offered it at Dibbs."
+	},
 	"95883": {
 		"set": {
 			"pre": [
@@ -4827,6 +4869,27 @@
 			}
 		],
 		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96627) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96627."
+	},
+	"96078": {
+		"set": {
+			"pre": [
+				95775
+			],
+			"preAny": [
+				95775
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-12; excluded and suspect contributors left out): Kin'weelay (2519) offered A Tale Spun Around the Fire (96078) to 9 people (6 established) the moment each handed The Drowned City (95775) in to him, and all 9 took it; his windows did not offer it to 10 people who still had 95775 in their log"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 Forever: its objective text sends the tablet etchings, the rubbings The Drowned City asks for, to Master Gadrin in Sen'jin Village"
+			}
+		],
+		"note": "A Tale Spun Around the Fire (Horde, after The Drowned City): Kin'weelay at Grom'gol Base Camp offers it once The Drowned City (95775) is handed in to him, and Master Gadrin in Sen'jin Village takes it. The merged data had no prerequisite, so the dungeon's hand-in guide never offered it at Kin'weelay."
 	},
 	"96101": {
 		"set": {
