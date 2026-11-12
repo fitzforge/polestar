@@ -1093,6 +1093,25 @@
 				{ "map": 1441, "x": 37.17, "y": 33.59, "z": 82, "radius": 8 },
 				{ "map": 1441, "x": 38.04, "y": 35.7, "z": 84, "radius": 12 }
 			]
+		},
+		{
+			"id": "deeprun-tram-stormwind",
+			"name": "Deeprun Tram",
+			"open": "mouth",
+			"note": "The Deeprun Tram's Stormwind end lies down its building in the Dwarven District, past its door (66.5,34.0 on the game's map), under the Keep's Royal Gallery: the walking grid lets a walk from the street south of the door cut across to it, and the arrow led up into the Keep (#1242, #1829). The nodes follow players' recorded walks in (203 entries: outdoors to the door, then indoors north-east to the platform); heights from Polestar's walking grid (the tram floor, 92).",
+			"nodes": [
+				{ "map": 1453, "x": 60.48, "y": 12.4, "z": 92, "radius": 8 },
+				{ "map": 1453, "x": 63.75, "y": 8.49, "z": 92, "radius": 10 }
+			]
+		}
+	],
+	"areas": [
+		{
+			"id": "rutheran-village",
+			"name": "Rut'theran Village",
+			"map": 1438,
+			"box": { "x1": 45, "y1": 81.5, "x2": 68, "y2": 100 },
+			"note": "At the foot of Teldrassil, on the tree's map: no walk joins it to the top, only the Darnassus portals, the boats and the flight master do; the fall from the rim kills (recorded descents, #1761). The box holds only ground Polestar's walking grid reaches from the flight master and none it reaches from Dolanaar (sampled every map percent of Teldrassil 44-68 x 76-100, every half percent along the rim)"
 		}
 	]
 }

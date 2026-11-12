@@ -440,7 +440,7 @@ step Back to Stormwind City
 step Stormwind
   zone Stormwind City
   getfp "Stormwind"
-  buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
+  buy 2449 x5 npc 1313 optional only NightElf,Skyborne,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
   turnin 1097 only Human                      -- Grimand Elmore, Dwarven District
   accept 353 only Human                       -- Grimand Elmore: his package for Mountaineer Stormpike in Loch Modan, later on the route
   accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine

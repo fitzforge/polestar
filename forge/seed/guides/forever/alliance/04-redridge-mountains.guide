@@ -79,7 +79,7 @@ next forever/alliance/05-duskwood
 # 07-thousand-needles), Priests their level 20 spell: Arcane Feedback (5676,
 # Human, here), Chastise (5645, Dwarf) and Contingency Plan (94819,
 # Gnome) for Ironforge in 06-wetlands, Elune's Grace (5673, Night Elf) for
-# Darnassus at the start of 06-wetlands. Night Elf Druids fetch
+# Darnassus at the start of 06-wetlands. Night Elf and Skyborne Druids fetch
 # the Westfall half pendant for Trial of the Sea Lion (272). Train in
 # Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
 # Paladins: Human Paladins use the Symbol of Life on Henze Faulk by Stone
@@ -136,13 +136,13 @@ step Shaman training
   train class
 
 step Fly to Sentinel Hill
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   zone Stormwind City
   goto 66.3,62.7 "Stormwind flight master"
   fly "Sentinel Hill"
 
 step Half Pendant of Aquatic Endurance
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
   zone Westfall
   tip Fly to Sentinel Hill and head north-west to the coast: the Strange Lockbox lies on the sea floor off the shore. Then head east along the road through Elwynn.
   collect 15882 x1                            -- Half Pendant of Aquatic Endurance: the Strange Lockbox
@@ -192,8 +192,6 @@ step Darkshire
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
   accept 163                              -- Elaine Carevin: Jitters, at Raven Hill
-  tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
-  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
   accept 174                              -- Viktori Prism'Antras, inside
   turnin 174
   accept 175                              -- For Blind Mary, on the hill south-east of town

@@ -200,7 +200,9 @@ return {
 
 	-- Step 41: Helcular's Grave
 	-- {area:271} Southshore
-	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "",
+	-- plural, as words: Southshore Guards = {npc:2386} Southshore Guard
+	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came."] = "Geh nach Osten zum Friedhof von {area:271}, am nordöstlichen Rand des Ortes: Helculars Grab liegt zwischen den anderen. Komm von Norden, den Hang oberhalb des Ortes hinunter. Wachen von Southshore (55) stehen an der Nordwestecke des Friedhofs und südöstlich des Grabes: Geh zwischen ihnen hindurch, gib die Quest ab und verschwinde auf demselben Weg, auf dem du gekommen bist.",
+	["North of Southshore's graveyard"] = "Nördlich des Friedhofs von Southshore",
 
 	-- Step 42: Daggerspine naga
 	["Daggerspine naga"] = "Naga der Säbelflossen",

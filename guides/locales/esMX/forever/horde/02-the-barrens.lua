@@ -519,18 +519,29 @@ return {
 
 	-- Step 126: Jorn Skyseer
 	-- {quest:1824} Trial at the Field of Giants · {npc:6394} Ruga Ragetotem
-	["Warriors: take {quest:1824} from {npc:6394} now, not earlier: it runs for 30 minutes from the accept. The thunderhawks and the eggs come first, the antennae last, then straight back to {npc:6394}."] = "",
+	["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to {npc:6394}; the thunderhawks after."] = "Guerreros: toma {quest:1824} con {npc:6394} ahora: dura 30 minutos desde que la aceptas. Primero los huevos y las antenas, en los mismos montículos, y luego regresa directo con {npc:6394}; los halcones trueno, después.",
 
-	-- Step 127: Cry of the Thunderhawk
-	-- plural, as words: Thunderhawk Cloudscrapers = {npc:3424} Thunderhawk Cloudscraper
-	["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "Los Desechanubes Halcón Trueno sobrevuelan las mismas llanuras al sur del campamento.",
-
-	-- Step 128: Field of Giants
+	-- Step 127: Field of Giants
 	-- {area:390} Field of Giants
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
 	["South of Camp Taurajo, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "",
 
-	-- Step 129: Brine
+	-- Step 128: Twitching Antennae
+	["Twitching Antennae"] = "Antenas temblorosas",
+	-- {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
+	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Creepers = {npc:3250} Silithid Creeper
+	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to {npc:6394} in {area:378}, before the thunderhawks.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "Las antenas desaparecen quince minutos después de caer: mata enjambristas y trepadores silítidos en los mismos montículos hasta tener cinco, y luego llévalas directo con {npc:6394} en {area:378}, antes de los halcones trueno.\nCuidado: los enjambristas silítidos (nivel 21-22) lanzan {npc:4196} dentro y fuera de combate, lo que atrae varios bichos pequeños. Los trepadores silítidos (nivel 20-21) lanzan {npc:5781} periódicamente en combate, lo que genera bichos adicionales.",
+	["Twitching Antennae from the silithid"] = "Antenas agitadas de los silítidos",
+
+	-- Step 129: Ruga Ragetotem
+	-- {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem
+	["Back north into {area:378} before the antennae fade: {npc:6394} is inside."] = "Regresa al norte a {area:378} antes de que se desvanezcan las antenas: {npc:6394} está adentro.",
+
+	-- Step 130: Cry of the Thunderhawk
+	-- plural, as words: Thunderhawk Cloudscrapers = {npc:3424} Thunderhawk Cloudscraper
+	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "Los Desechanubes Halcón Trueno sobrevuelan las llanuras al sur del campamento.",
+
+	-- Step 131: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "",
 	-- {item:7766} Empty Brown Waterskin
@@ -538,137 +549,130 @@ return {
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
 	["Keep it: the {object:107045} is beside {area:272}, on the {area:287} guide"] = "",
 
-	-- Step 130: Twitching Antennae
-	["Twitching Antennae"] = "Antenas temblorosas",
-	-- {area:390} Field of Giants · {npc:3387} Jorn Skyseer · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
-	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Creepers = {npc:3250} Silithid Creeper
-	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of {npc:3387}'s thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
-	["Twitching Antennae from the silithid"] = "Antenas agitadas de los silítidos",
+	-- Step 132: Camp Taurajo
+	-- {area:378} Camp Taurajo · {npc:3387} Jorn Skyseer
+	["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings."] = "Regresa al norte a {area:378} de camino al Cruce: {npc:3387} recibe las alas de halcón trueno.",
 
-	-- Step 131: Camp Taurajo
-	-- {area:378} Camp Taurajo · {npc:3387} Jorn Skyseer · {npc:6394} Ruga Ragetotem
-	["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "",
-
-	-- Step 132: The Crossroads
+	-- Step 133: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "Al norte por {area:458} hasta el Cruce: {npc:3448} en la puerta sur, {npc:3432} junto a la posada, {npc:3428} al oeste de la puerta norte.",
 
-	-- Step 133: Thun'grim Firegaze
+	-- Step 134: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze
 	["{npc:5878} camps beside the road east of the Crossroads."] = "",
 	-- {quest:1838} Brutal Armor · {area:1717} Razorfen Kraul
 	["He offers {quest:1838} next (1838, level 30): it needs {area:1717} and sends you all over Kalimdor and the Eastern Kingdoms. The Warrior class guide {quest:1838} covers it."] = "Después ofrece {quest:1838} (1838, nivel 30): requiere {area:1717} y te envía por todo Kalimdor y los Reinos del Este. La guía de clase de guerrero {quest:1838} la cubre.",
 
-	-- Step 135: Counterattack!
+	-- Step 136: Counterattack!
 	-- {npc:3389} Regthar Deathgate · {npc:9456} Warlord Krom'zar
 	["Speak to {npc:3389} again to start the attack: the Kolkar charge the bunkers just west of him in waves. Fight beside the grunts until {npc:9456} (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body."] = "",
 
-	-- Step 137: Thunder Bluff
+	-- Step 138: Thunder Bluff
 	-- {npc:246344} Alodan the Hopeful · {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:2995} Tal
 	["{npc:246344} teaches Paladins in {area:1638}. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "",
 
-	-- Step 139: The Great Cat Spirit
+	-- Step 140: The Great Cat Spirit
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "Vuela a {area:1638} para entrenar: {npc:3033} está en {area:1639}.",
 
-	-- Step 140: Moonglade
+	-- Step 141: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 142: Moonglade
+	-- Step 143: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 143: Moonglade
+	-- Step 144: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {npc:3033} Turak Runetotem
 	["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}: la bienvenida de {npc:3033}",
 
-	-- Step 144: The Stormrage Barrow Dens
+	-- Step 145: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
 	["The {area:2363}"] = "{area:2363}",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "Tauren: {npc:11957} espera en la colina sur, sobre el puente. Cielonatos: {npc:272054} está al sur de los puentes gemelos. Luego, las guaridas al este del lago: sal de tu forma, haz clic en la estatua de la entrada para obtener cinco minutos de sigilo, mantente lejos de los espíritus de adentro y toma una reliquia de cada tipo; {item:280680} está al pie de la estatua del gato blanco.",
 
-	-- Step 147: Back to the Crossroads
+	-- Step 148: Back to the Crossroads
 	["Back to the Crossroads"] = "",
 	-- {npc:3389} Regthar Deathgate
 	["Fly back to the Crossroads; the road west to Stonetalon starts at {npc:3389}'s bunkers."] = "",
 
-	-- Step 148: Seereth Stonebreak's camp
+	-- Step 149: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
 	["{npc:4049}'s camp"] = "",
 
-	-- Step 149: Seereth Stonebreak
+	-- Step 150: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["{npc:4049} and {npc:11857} share the camp on the road west to Stonetalon."] = "",
 	-- {npc:4049} Seereth Stonebreak · {area:461} Windshear Crag
 	["{npc:4049}: the Venture loggers at {area:461}"] = "",
 
-	-- Step 150: Grimtotem camp
+	-- Step 151: Grimtotem camp
 	["Grimtotem camp"] = "Campamento Tótem Siniestro",
 	-- {npc:11857} Makaba Flathoof
 	["The Grimtotem camp is just north of {npc:11857}, a short walk off the road: Ruffians and Mercenaries stand among the tents."] = "",
 
-	-- Step 151: Makaba Flathoof
+	-- Step 152: Makaba Flathoof
 	-- {npc:11857} Makaba Flathoof
 	["Back down to {npc:11857}."] = "",
 	-- {npc:11858} Grundig Darkcloud · {area:1076} Webwinder Path
 	["{npc:11858} waits up the {area:1076}"] = "",
 
-	-- Step 152: To Malaka'jin
+	-- Step 153: To Malaka'jin
 	-- {area:2539} Malaka'jin
 	["To {area:2539}"] = "",
 
-	-- Step 153: Malaka'jin
+	-- Step 154: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
 	["Follow the road on west from {npc:4049} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "",
 	-- {npc:12816} Xen'Zilla · {area:1076} Webwinder Path
 	["{npc:12816}: the spiders along the {area:1076}"] = "",
 
-	-- Step 154: Webwinder Path: kill these as you meet them
+	-- Step 155: Webwinder Path: kill these as you meet them
 	-- {area:1076} Webwinder Path
 	["{area:1076}: kill these as you meet them"] = "",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
 	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "",
 
-	-- Step 155: Ziz Fizziks
+	-- Step 156: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
 	["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "El camino sube al norte como {area:1076}. {quest:1483} tiene una choza donde el camino se bifurca al este hacia {area:461}.",
 	-- {quest:1483} Ziz Fizziks
 	["{quest:1483}, inside"] = "",
 
-	-- Step 156: Windshear Crag
+	-- Step 157: Windshear Crag
 	-- {area:461} Windshear Crag
 	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
 	["Venture Co. Loggers, all over the clear-cut"] = "",
 
-	-- Step 157: Piznik
+	-- Step 158: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
 	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
 	-- {npc:4276} Piznik
 	["{npc:4276}, below ground"] = "",
 
-	-- Step 158: Ziz Fizziks: Gerenzo's Orders
+	-- Step 159: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks
 	["{npc:4201}, inside"] = "",
 
-	-- Step 159: Ziz Fizziks
+	-- Step 160: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
 	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}: para {npc:3442}, junto al maestro de vuelo de {area:392}, al final de la guía de {zone:1413} y Sierra Espolón",
 
-	-- Step 160: Kaya Flathoof
+	-- Step 161: Kaya Flathoof
 	-- {area:1076} Webwinder Path · {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud · {area:2538} Camp Aparaje
 	["On the way back down the {area:1076}, {npc:11856} is held in {npc:11858}'s hut at the bend in the road. Once you take her quest she walks straight off south-east to {area:2538}, the burned village, without waiting: stay close, or the quest fails.\nCareful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly."] = "De regreso, bajando por {area:1076}, {npc:11856} está retenida en la choza de {npc:11858}, en la curva del camino. En cuanto aceptas su misión, camina directo al sureste hacia {area:2538}, la aldea quemada, sin esperarte: mantente cerca o la misión fallará.\nCuidado: tres Tótem Siniestro la emboscan en la aldea quemada y van por ella, no por ti: aléjalos de ella y mata rápido a su lanzador de hechizos.",
 	-- {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud
 	["{npc:11856}, inside {npc:11858}'s hut"] = "{npc:11856}, dentro de la choza de {npc:11858}",
 
-	-- Step 161: Malaka'jin
+	-- Step 162: Malaka'jin
 	-- {area:2539} Malaka'jin · {npc:12816} Xen'Zilla
 	["West from the burned village to {area:2539}: {npc:12816} stands just outside it, before the village."] = "Al oeste desde la aldea quemada hasta {area:2539}: {npc:12816} está justo afuera, antes de la aldea.",
 
-	-- Step 163: Seereth Stonebreak
+	-- Step 164: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "",
 	-- {npc:11857} Makaba Flathoof · {npc:11864} Tammra Windfield · {area:460} Sun Rock Retreat · {zone:1413} The Barrens
@@ -704,6 +708,7 @@ return {
 	-- ["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it."] = "{object:4141} está en el sitio de investigación de Ventura y Cía., al oeste de {area:382}. Cierra las tres válvulas alrededor del taladro, vuelve a usar la consola y luego toma {item:5089} de {npc:3471}, a su lado.",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "Thun'grim acampa junto al camino de {area:380} a {area:392}. {object:58369} está en el sur del campamento Crines de Acero, justo al norte de él.",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}."] = "Los truenagartos y lomorrayos pastan justo al otro lado del puente, bajo {area:379}.",
+	-- ["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "Los Desechanubes Halcón Trueno sobrevuelan las mismas llanuras al sur del campamento.",
 	-- ["Walk back south to the {area:380}. The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "Regresa al sur hasta {area:380}. La siguiente guía empieza aquí y te lleva a {zone:1454} y al zepelín a {zone:1420}.",
 	-- ["Walk back west along the road to the {area:380}."] = "Regresa al oeste por el camino hasta {area:380}.",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "Al oeste, a {area:383}. Las arpías Alabruja anidan por todas partes; cualquiera puede soltar una garra. {quest:819} está en sus colinas.",
