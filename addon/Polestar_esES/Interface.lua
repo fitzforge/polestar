@@ -167,9 +167,11 @@ L["Learn the flight path at %s"] = "Aprende la ruta de vuelo de %s"
 L["Step %d learns this flight path later; learned now, that step is done when you get there."] = "El paso %d aprende esta ruta de vuelo más adelante; si la aprendes ahora, ese paso estará hecho cuando llegues."
 L["Flight path"] = "Ruta de vuelo"
 L["You haven't learned this flight path yet: talk to the flight master to learn it."] = "Aún no has aprendido esta ruta de vuelo: habla con el maestro de vuelo para aprenderla."
-
--- Core/Closes.lua
-L["Taking %s closes %s for good."] = "Aceptar %s bloquea %s para siempre."
+-- L["Hand in %s to %s first"] = ""
+-- L["Hand in %s first"] = ""
+-- L["Handed in later on the route"] = ""
+-- L["Not handed in on the route ahead"] = ""
+-- L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Elige una recompensa para entregar la misión."
@@ -261,6 +263,8 @@ L["A community project"] = "Un proyecto comunitario"
 L["Close"] = "Cerrar"
 L["Reset to default"] = "Restablecer valores predeterminados"
 L["OK"] = "Aceptar"
+-- L["Selected: press Cmd+C to copy."] = ""
+-- L["Selected: press Ctrl+C to copy."] = ""
 
 -- Nav/Nav.lua
 L["Waypoint"] = "Punto de ruta"
@@ -313,6 +317,9 @@ L["Boat: average wait %s"] = "Barco: espera media %s"
 L["Zeppelin: average wait %s"] = "Zepelín: espera media %s"
 L["Tram: average wait %s"] = "Tranvía: espera media %s"
 L["Lift: average wait %s"] = "Ascensor: espera media %s"
+-- L["Airship docked, leaves in %s"] = ""
+-- L["Next airship in %s"] = ""
+-- L["Airship: average wait %s"] = ""
 
 -- Nav/Travel.lua
 L["Go to %s"] = "Ve a %s"
@@ -363,6 +370,8 @@ L["Ride the elevator down"] = "Baja en el ascensor"
 L["Ride the elevator"] = "Usa el ascensor"
 L["%s Inn"] = "Posada de %s"
 L["Detour around %s"] = "Rodeo para evitar %s"
+-- L["Walk to the airship dock"] = ""
+-- L["Take the airship to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -474,6 +483,7 @@ L["Flash the taskbar icon"] = "Hacer parpadear el icono de la barra de tareas"
 L["The game's icon flashes while the game is in the background."] = "El icono del juego parpadea mientras el juego está en segundo plano."
 L["Show a sample alert"] = "Mostrar una alerta de ejemplo"
 L["See the banner and hear the boat's bell."] = "Ver el aviso y oír la campana del barco."
+-- L["Airship to %s"] = ""
 
 -- Quests/Tracker.lua
 L["Done"] = "Hecho"
@@ -1103,6 +1113,7 @@ L["Comes back at level %d: %s"] = "Vuelve al nivel %d: %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Nivel %d: ya puedes aceptar %s. Quien la da está marcado en tu mapa; vuelve a aceptar las misiones para añadirla a la guía."
 L["Leads to %s."] = "Lleva a %s."
 L["Needed for %s."] = "Hace falta para %s."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Aún sin terminar: %s"
@@ -1545,6 +1556,11 @@ L["Collapse"] = "Plegar"
 L["The tabs you closed and the last guides you loaded."] = "Las pestañas que cerraste y las últimas guías que cargaste."
 L["Recently closed"] = "Cerradas recientemente"
 L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = "No hay guías: Polestar Guides está instalado pero desmarcado en la lista de addons del juego."
+-- L["1 finished quest in your log is handed in on the route before %s"] = ""
+-- L["%d finished quests in your log are handed in on the route before %s"] = ""
+-- L["%s (%d XP)"] = ""
+-- L["They stay in your log, and the guide lists who takes each in."] = ""
+-- L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascota"
@@ -1641,6 +1657,7 @@ L["Look up everything for %s"] = "Buscar todo para %s"
 L["Opens Lookup with this search."] = "Abre el Buscador con esta búsqueda."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Aún no hay guía para esta montura: las fuentes de arriba dicen de dónde sale y qué hace falta. Una guía sobre ella te llevaría allí."
 L["Origin"] = "Origen"
+-- L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Lista para entregar"
@@ -3015,6 +3032,19 @@ L["Bug reporters"] = "Informadores de errores"
 L["Confirmed reports"] = "Informes confirmados"
 L["Thank you for making Polestar possible."] = "Gracias por hacer posible Polestar."
 L["No names here yet."] = "Aún no hay nombres."
+-- L["Translators"] = ""
+-- L["Language"] = ""
+-- L["Ideas"] = ""
+-- L["Pull request or issue"] = ""
+-- L["German"] = ""
+-- L["Spanish (Spain)"] = ""
+-- L["Spanish (Latin America)"] = ""
+-- L["French"] = ""
+-- L["Korean"] = ""
+-- L["Portuguese (Brazil)"] = ""
+-- L["Russian"] = ""
+-- L["Chinese (simplified)"] = ""
+-- L["Chinese (traditional)"] = ""
 
 -- Alts/Snapshot.lua
 L["Show your characters"] = "Mostrar tus personajes"
@@ -3093,6 +3123,14 @@ L["Clean up quest log"] = "Limpiar el registro de misiones"
 L["Grey: no XP any more"] = "Gris: ya no da XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "La ruta no las necesita: nunca las entrega o ya no dan XP. Abandonar pregunta antes en la propia ventana del juego."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Muestra las misiones de tu registro que la ruta no necesita: las que nunca entrega y las grises que ya no dan XP. Cada una tiene un botón Abandonar que pregunta antes. El menú de la ventana de la guía también lo ofrece mientras haya alguna."
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Where it is turned in is not known"] = ""
+-- L["%d XP"] = ""
+-- L["Finished quests you're still carrying"] = ""
+-- L["The route hands in every finished quest in your log."] = ""
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = ""
+-- L["Finished quests you're still carrying (%d)"] = ""
+-- L["Hand in your finished quests"] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NUEVA HABILIDAD"
@@ -3321,6 +3359,21 @@ L["Upgrade"] = "Mejorar"
 L["Right-click: keep this rank on your bars"] = "Clic derecho: mantener este rango en tus barras"
 L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = "Las tarjetas de rangos antiguos están desactivadas. Vuelve a activarlas en Opciones > Calidad de vida > Mercaderes > Instructores."
 
+-- Core/Closes.lua
+-- L["%s away"] = ""
+-- L["Taking %s closes %s for good. Decline to keep it, or click Accept to skip it."] = ""
+-- L["Taking %s closes %s for good. Decline to keep them, or click Accept to skip them."] = ""
+
+-- Quests/QuestLogLink.lua
+-- L["%s isn't in your quest log."] = ""
+-- L["That quest isn't in your quest log."] = ""
+-- L["The quest log opens when combat ends."] = ""
+-- L["Show in quest log"] = ""
+
+-- Dungeons/Mark.lua
+-- L["Needed for %s in %s"] = ""
+-- L["Part of the %s quests"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Integraciones) para usar la flecha de Polestar."
@@ -3411,3 +3464,4 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Auto-learn new spells"] = "Aprender hechizos nuevos automáticamente"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Aprende automáticamente todos los hechizos que puedas pagar de un instructor de clase y muestra el coste total. No se aplica a los instructores de profesión. Mantén pulsado Mayús para saltarlo."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "Al subir de nivel, una tarjeta lista tus hechizos; %s los aprende (gracias, RikyZ90); %s sube sus rangos en tus barras."
+-- L["Taking %s closes %s for good."] = "Aceptar %s bloquea %s para siempre."

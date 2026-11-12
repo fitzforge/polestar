@@ -168,9 +168,11 @@ L["Learn the flight path at %s"] = "Apprendre le trajet aérien à %s"
 L["Step %d learns this flight path later; learned now, that step is done when you get there."] = "L'étape %d apprend ce trajet aérien plus tard ; appris maintenant, cette étape sera faite quand vous y arriverez."
 L["Flight path"] = "Trajet aérien"
 L["You haven't learned this flight path yet: talk to the flight master to learn it."] = "Vous n'avez pas encore appris ce trajet aérien : parlez au maître de vol pour l'apprendre."
-
--- Core/Closes.lua
-L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."
+-- L["Hand in %s to %s first"] = ""
+-- L["Hand in %s first"] = ""
+-- L["Handed in later on the route"] = ""
+-- L["Not handed in on the route ahead"] = ""
+-- L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Choisissez une récompense pour rendre la quête."
@@ -262,6 +264,8 @@ L["A community project"] = "Un projet communautaire"
 L["Close"] = "Fermer"
 L["Reset to default"] = "Rétablir par défaut"
 L["OK"] = "OK"
+-- L["Selected: press Cmd+C to copy."] = ""
+-- L["Selected: press Ctrl+C to copy."] = ""
 
 -- Nav/Nav.lua
 L["Waypoint"] = "Point de passage"
@@ -314,6 +318,9 @@ L["Boat: average wait %s"] = "Bateau : attente moyenne %s"
 L["Zeppelin: average wait %s"] = "Zeppelin : attente moyenne %s"
 L["Tram: average wait %s"] = "Tram : attente moyenne %s"
 L["Lift: average wait %s"] = "Ascenseur : attente moyenne %s"
+-- L["Airship docked, leaves in %s"] = ""
+-- L["Next airship in %s"] = ""
+-- L["Airship: average wait %s"] = ""
 
 -- Nav/Travel.lua
 L["Go to %s"] = "Aller à %s"
@@ -364,6 +371,8 @@ L["Ride the elevator down"] = "Prendre l'ascenseur pour descendre"
 L["Ride the elevator"] = "Prendre l'ascenseur"
 L["%s Inn"] = "Auberge de %s"
 L["Detour around %s"] = "Contourne %s"
+-- L["Walk to the airship dock"] = ""
+-- L["Take the airship to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -475,6 +484,7 @@ L["Flash the taskbar icon"] = "Faire clignoter l'icône de la barre des tâches"
 L["The game's icon flashes while the game is in the background."] = "L'icône du jeu clignote tant que le jeu est en arrière-plan."
 L["Show a sample alert"] = "Afficher une alerte d'exemple"
 L["See the banner and hear the boat's bell."] = "Voir le bandeau et entendre la cloche du bateau."
+-- L["Airship to %s"] = ""
 
 -- Quests/Tracker.lua
 L["Done"] = "Fait"
@@ -1104,6 +1114,7 @@ L["Comes back at level %d: %s"] = "Revient au niveau %d : %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Niveau %d : vous pouvez prendre %s maintenant. Son donneur est marqué sur votre carte ; reprenez les quêtes pour l'ajouter au guide."
 L["Leads to %s."] = "Mène à %s."
 L["Needed for %s."] = "Requise pour %s."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Pas encore terminée : %s"
@@ -1546,6 +1557,11 @@ L["Collapse"] = "Replier"
 L["The tabs you closed and the last guides you loaded."] = "Les onglets que vous avez fermés et les derniers guides que vous avez chargés."
 L["Recently closed"] = "Fermés récemment"
 L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = "Aucun guide : Polestar Guides est installé mais décoché dans la liste des AddOns du jeu."
+-- L["1 finished quest in your log is handed in on the route before %s"] = ""
+-- L["%d finished quests in your log are handed in on the route before %s"] = ""
+-- L["%s (%d XP)"] = ""
+-- L["They stay in your log, and the guide lists who takes each in."] = ""
+-- L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascotte"
@@ -1642,6 +1658,7 @@ L["Look up everything for %s"] = "Tout rechercher pour %s"
 L["Opens Lookup with this search."] = "Ouvre la recherche avec ces termes."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Pas encore de guide pour cette monture : les sources ci-dessus disent d'où elle vient et ce qu'il faut. Le guidage vers l'une d'elles vous y mène."
 L["Origin"] = "Origine"
+-- L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Prête à rendre"
@@ -3016,6 +3033,19 @@ L["Bug reporters"] = "Signaleurs de bugs"
 L["Confirmed reports"] = "Signalements confirmés"
 L["Thank you for making Polestar possible."] = "Merci de rendre Polestar possible."
 L["No names here yet."] = "Aucun nom pour l'instant."
+-- L["Translators"] = ""
+-- L["Language"] = ""
+-- L["Ideas"] = ""
+-- L["Pull request or issue"] = ""
+-- L["German"] = ""
+-- L["Spanish (Spain)"] = ""
+-- L["Spanish (Latin America)"] = ""
+-- L["French"] = ""
+-- L["Korean"] = ""
+-- L["Portuguese (Brazil)"] = ""
+-- L["Russian"] = ""
+-- L["Chinese (simplified)"] = ""
+-- L["Chinese (traditional)"] = ""
 
 -- Alts/Snapshot.lua
 L["Show your characters"] = "Afficher vos personnages"
@@ -3094,6 +3124,14 @@ L["Clean up quest log"] = "Nettoyer le journal des quêtes"
 L["Grey: no XP any more"] = "Grise : plus d'XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "L'itinéraire n'en a pas besoin : il ne les rend jamais, ou elles ne donnent plus d'XP. « Abandonner » demande d'abord confirmation dans la fenêtre du jeu."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Liste les quêtes de votre journal dont l'itinéraire n'a pas besoin : celles qu'il ne rend jamais, et les grises qui ne donnent plus d'XP. Chacune a un bouton Abandonner qui demande d'abord confirmation. Le menu de la fenêtre du guide le propose aussi tant qu'il y en a."
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Where it is turned in is not known"] = ""
+-- L["%d XP"] = ""
+-- L["Finished quests you're still carrying"] = ""
+-- L["The route hands in every finished quest in your log."] = ""
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = ""
+-- L["Finished quests you're still carrying (%d)"] = ""
+-- L["Hand in your finished quests"] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NOUVELLE TECHNIQUE"
@@ -3322,6 +3360,21 @@ L["Upgrade"] = "Améliorer"
 L["Right-click: keep this rank on your bars"] = "Clic droit : garder ce rang sur vos barres"
 L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = "Les cartes d'anciens rangs sont désactivées. Réactivez-les dans Options > Confort de jeu > Marchands > Maîtres."
 
+-- Core/Closes.lua
+-- L["%s away"] = ""
+-- L["Taking %s closes %s for good. Decline to keep it, or click Accept to skip it."] = ""
+-- L["Taking %s closes %s for good. Decline to keep them, or click Accept to skip them."] = ""
+
+-- Quests/QuestLogLink.lua
+-- L["%s isn't in your quest log."] = ""
+-- L["That quest isn't in your quest log."] = ""
+-- L["The quest log opens when combat ends."] = ""
+-- L["Show in quest log"] = ""
+
+-- Dungeons/Mark.lua
+-- L["Needed for %s in %s"] = ""
+-- L["Part of the %s quests"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"
@@ -3465,3 +3518,4 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Auto-learn new spells"] = "Apprendre automatiquement les nouveaux sorts"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Apprend automatiquement chaque sort proposé par un maître de classe que vous pouvez payer, et affiche le total. Les maîtres de métier ne sont pas concernés. Maintenez Maj pour passer."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "Au gain de niveau, une carte liste vos sorts ; %s les apprend (merci RikyZ90) ; %s met à jour vos barres."
+-- L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."

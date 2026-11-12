@@ -167,9 +167,11 @@ L["Learn the flight path at %s"] = "在%s學習飛行路線"
 L["Step %d learns this flight path later; learned now, that step is done when you get there."] = "步驟 %d 稍後會學習這條飛行路線；現在學會的話，到達該步驟時它就已完成。"
 L["Flight path"] = "飛行路線"
 L["You haven't learned this flight path yet: talk to the flight master to learn it."] = "你還沒有學會這條飛行路線：與飛行管理員交談即可學會。"
-
--- Core/Closes.lua
-L["Taking %s closes %s for good."] = "接受 %s 將永久關閉 %s。"
+-- L["Hand in %s to %s first"] = ""
+-- L["Hand in %s first"] = ""
+-- L["Handed in later on the route"] = ""
+-- L["Not handed in on the route ahead"] = ""
+-- L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
@@ -261,6 +263,8 @@ L["A community project"] = "社群專案"
 L["Close"] = "關閉"
 L["Reset to default"] = "重置為預設值"
 L["OK"] = "確定"
+-- L["Selected: press Cmd+C to copy."] = ""
+-- L["Selected: press Ctrl+C to copy."] = ""
 
 -- Nav/Nav.lua
 L["Waypoint"] = "路徑點"
@@ -313,6 +317,9 @@ L["Boat: average wait %s"] = "船：平均等待 %s"
 L["Zeppelin: average wait %s"] = "飛艇：平均等待 %s"
 L["Tram: average wait %s"] = "地鐵：平均等待 %s"
 L["Lift: average wait %s"] = "升降梯：平均等待 %s"
+-- L["Airship docked, leaves in %s"] = ""
+-- L["Next airship in %s"] = ""
+-- L["Airship: average wait %s"] = ""
 
 -- Nav/Travel.lua
 L["Go to %s"] = "前往 %s"
@@ -363,6 +370,8 @@ L["Ride the elevator down"] = "搭乘升降梯下去"
 L["Ride the elevator"] = "搭乘升降梯"
 L["%s Inn"] = "%s旅店"
 L["Detour around %s"] = "繞開%s"
+-- L["Walk to the airship dock"] = ""
+-- L["Take the airship to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -474,6 +483,7 @@ L["Flash the taskbar icon"] = "閃爍工作列圖示"
 L["The game's icon flashes while the game is in the background."] = "遊戲在背景時，遊戲圖示會閃爍。"
 L["Show a sample alert"] = "顯示範例提醒"
 L["See the banner and hear the boat's bell."] = "查看橫幅並聆聽船鐘。"
+-- L["Airship to %s"] = ""
 
 -- Quests/Tracker.lua
 L["Done"] = "已完成"
@@ -1103,6 +1113,7 @@ L["Comes back at level %d: %s"] = "%2$s：%1$d 級時再出現"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "%d 級：現在可以接取 %s。任務給予者已在地圖上標出；再次接取任務即可將其加入指南。"
 L["Leads to %s."] = "通往%s。"
 L["Needed for %s."] = "是%s的前置任務。"
+-- L["Prerequisite quests: %d of %d steps, about %s."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "尚未完成：%s"
@@ -1545,6 +1556,11 @@ L["Collapse"] = "摺疊"
 L["The tabs you closed and the last guides you loaded."] = "你關閉的分頁與最近載入的指南。"
 L["Recently closed"] = "最近關閉"
 L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = "沒有指南：Polestar 指南已安裝，但在遊戲的插件清單中未勾選。"
+-- L["1 finished quest in your log is handed in on the route before %s"] = ""
+-- L["%d finished quests in your log are handed in on the route before %s"] = ""
+-- L["%s (%d XP)"] = ""
+-- L["They stay in your log, and the guide lists who takes each in."] = ""
+-- L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "小寵物"
@@ -1641,6 +1657,7 @@ L["Look up everything for %s"] = "查詢 %s 的所有結果"
 L["Opens Lookup with this search."] = "以此搜尋開啟查詢。"
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "這個坐騎還沒有指南：上方的來源說明了它從哪裡取得以及需要什麼。指引其中一個來源即可帶你前往。"
 L["Origin"] = "來源"
+-- L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "可繳交"
@@ -3015,6 +3032,19 @@ L["Bug reporters"] = "問題回報者"
 L["Confirmed reports"] = "已確認的回報"
 L["Thank you for making Polestar possible."] = "感謝你們讓 Polestar 成為可能。"
 L["No names here yet."] = "尚無名單。"
+-- L["Translators"] = ""
+-- L["Language"] = ""
+-- L["Ideas"] = ""
+-- L["Pull request or issue"] = ""
+-- L["German"] = ""
+-- L["Spanish (Spain)"] = ""
+-- L["Spanish (Latin America)"] = ""
+-- L["French"] = ""
+-- L["Korean"] = ""
+-- L["Portuguese (Brazil)"] = ""
+-- L["Russian"] = ""
+-- L["Chinese (simplified)"] = ""
+-- L["Chinese (traditional)"] = ""
 
 -- Alts/Snapshot.lua
 L["Show your characters"] = "顯示你的角色"
@@ -3093,6 +3123,14 @@ L["Clean up quest log"] = "清理任務日誌"
 L["Grey: no XP any more"] = "灰色：不再給予經驗值"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路線不需要這些任務：它從不交付，或已不再給予經驗值。放棄會先在遊戲自己的視窗中確認。"
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任務日誌中路線不需要的任務：它從不交付的，以及不再給予經驗值的灰色任務。每個都有一個會先確認的放棄按鈕。只要有這樣的任務，指南視窗的選單裡也有此項。"
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Where it is turned in is not known"] = ""
+-- L["%d XP"] = ""
+-- L["Finished quests you're still carrying"] = ""
+-- L["The route hands in every finished quest in your log."] = ""
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = ""
+-- L["Finished quests you're still carrying (%d)"] = ""
+-- L["Hand in your finished quests"] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "新技能"
@@ -3321,6 +3359,21 @@ L["Upgrade"] = "升級"
 L["Right-click: keep this rank on your bars"] = "右鍵點擊：在快捷列上保留此等級"
 L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = "低等級法術卡片已關閉。可在「選項」>「便利功能」>「商人」>「訓練師」中重新開啟。"
 
+-- Core/Closes.lua
+-- L["%s away"] = ""
+-- L["Taking %s closes %s for good. Decline to keep it, or click Accept to skip it."] = ""
+-- L["Taking %s closes %s for good. Decline to keep them, or click Accept to skip them."] = ""
+
+-- Quests/QuestLogLink.lua
+-- L["%s isn't in your quest log."] = ""
+-- L["That quest isn't in your quest log."] = ""
+-- L["The quest log opens when combat ends."] = ""
+-- L["Show in quest log"] = ""
+
+-- Dungeons/Mark.lua
+-- L["Needed for %s in %s"] = ""
+-- L["Part of the %s quests"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。若要使用 Polestar 的箭頭，請關閉\"已安裝時以 Shortest Path Forever 導引\"（選項，整合）。"
@@ -3417,3 +3470,4 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Auto-learn new spells"] = "自動學習新法術"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "自動學習職業訓練師提供且你負擔得起的所有法術，並顯示總花費。專業技能訓練師不受影響。按住 Shift 可跳過。"
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "升級卡片列出可學的法術；%s一次學完（感謝 RikyZ90）；%s把新等級放上快捷列。"
+-- L["Taking %s closes %s for good."] = "接受 %s 將永久關閉 %s。"

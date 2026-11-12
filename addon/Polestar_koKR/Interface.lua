@@ -167,9 +167,11 @@ L["Learn the flight path at %s"] = "%s 비행 경로 배우기"
 L["Step %d learns this flight path later; learned now, that step is done when you get there."] = "%d단계에서 나중에 이 비행 경로를 배웁니다. 지금 배우면 그 단계는 도착할 때 완료됩니다."
 L["Flight path"] = "비행 경로"
 L["You haven't learned this flight path yet: talk to the flight master to learn it."] = "아직 이 비행 경로를 배우지 않았습니다. 비행 조련사와 대화하여 배우십시오."
-
--- Core/Closes.lua
-L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."
+-- L["Hand in %s to %s first"] = ""
+-- L["Hand in %s first"] = ""
+-- L["Handed in later on the route"] = ""
+-- L["Not handed in on the route ahead"] = ""
+-- L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -261,6 +263,8 @@ L["A community project"] = "커뮤니티 프로젝트"
 L["Close"] = "닫기"
 L["Reset to default"] = "기본값으로 초기화"
 L["OK"] = "확인"
+-- L["Selected: press Cmd+C to copy."] = ""
+-- L["Selected: press Ctrl+C to copy."] = ""
 
 -- Nav/Nav.lua
 L["Waypoint"] = "경유지"
@@ -313,6 +317,9 @@ L["Boat: average wait %s"] = "배: 평균 대기 시간 %s"
 L["Zeppelin: average wait %s"] = "비행선: 평균 대기 시간 %s"
 L["Tram: average wait %s"] = "지하철: 평균 대기 시간 %s"
 L["Lift: average wait %s"] = "승강기: 평균 대기 시간 %s"
+-- L["Airship docked, leaves in %s"] = ""
+-- L["Next airship in %s"] = ""
+-- L["Airship: average wait %s"] = ""
 
 -- Nav/Travel.lua
 L["Go to %s"] = "이동: %s"
@@ -363,6 +370,8 @@ L["Ride the elevator down"] = "승강기를 타고 내려가기"
 L["Ride the elevator"] = "승강기 타기"
 L["%s Inn"] = "%s 여관"
 L["Detour around %s"] = "%s 우회"
+-- L["Walk to the airship dock"] = ""
+-- L["Take the airship to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -474,6 +483,7 @@ L["Flash the taskbar icon"] = "작업 표시줄 아이콘 깜빡임"
 L["The game's icon flashes while the game is in the background."] = "게임이 백그라운드일 때 게임 아이콘이 깜빡입니다."
 L["Show a sample alert"] = "알림 미리보기"
 L["See the banner and hear the boat's bell."] = "배너를 보고 배의 종소리를 듣습니다."
+-- L["Airship to %s"] = ""
 
 -- Quests/Tracker.lua
 L["Done"] = "완료"
@@ -1103,6 +1113,7 @@ L["Comes back at level %d: %s"] = "%2$s: 레벨 %1$d에 다시 표시"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "%1$d레벨: 이제 %2$s 퀘스트를 받을 수 있습니다. 퀘스트 제공자가 지도에 표시됩니다. 가이드에 추가하려면 퀘스트를 다시 수락하십시오."
 L["Leads to %s."] = "%s(으)로 이어집니다."
 L["Needed for %s."] = "%s의 선행 퀘스트입니다."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "아직 미완료: %s"
@@ -1545,6 +1556,11 @@ L["Collapse"] = "접기"
 L["The tabs you closed and the last guides you loaded."] = "닫은 탭과 최근에 불러온 가이드입니다."
 L["Recently closed"] = "최근에 닫음"
 L["No guides: Polestar Guides is installed but unticked in the game's AddOns list."] = "가이드 없음: Polestar 가이드가 설치되어 있지만 게임의 애드온 목록에서 선택 해제되어 있습니다."
+-- L["1 finished quest in your log is handed in on the route before %s"] = ""
+-- L["%d finished quests in your log are handed in on the route before %s"] = ""
+-- L["%s (%d XP)"] = ""
+-- L["They stay in your log, and the guide lists who takes each in."] = ""
+-- L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"
@@ -1641,6 +1657,7 @@ L["Look up everything for %s"] = "%s 전체 찾아보기"
 L["Opens Lookup with this search."] = "이 검색어로 찾아보기를 엽니다."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "이 탈것의 가이드는 아직 없습니다: 위의 출처에서 어디서 얻는지, 무엇이 필요한지 볼 수 있습니다. 출처 하나에 가이드를 켜면 그곳으로 안내합니다."
 L["Origin"] = "출처"
+-- L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "제출 가능"
@@ -3015,6 +3032,19 @@ L["Bug reporters"] = "버그 제보자"
 L["Confirmed reports"] = "확인된 제보"
 L["Thank you for making Polestar possible."] = "Polestar를 가능하게 해 주셔서 감사합니다."
 L["No names here yet."] = "아직 이름이 없습니다."
+-- L["Translators"] = ""
+-- L["Language"] = ""
+-- L["Ideas"] = ""
+-- L["Pull request or issue"] = ""
+-- L["German"] = ""
+-- L["Spanish (Spain)"] = ""
+-- L["Spanish (Latin America)"] = ""
+-- L["French"] = ""
+-- L["Korean"] = ""
+-- L["Portuguese (Brazil)"] = ""
+-- L["Russian"] = ""
+-- L["Chinese (simplified)"] = ""
+-- L["Chinese (traditional)"] = ""
 
 -- Alts/Snapshot.lua
 L["Show your characters"] = "내 캐릭터 보기"
@@ -3093,6 +3123,14 @@ L["Clean up quest log"] = "퀘스트 목록 정리"
 L["Grey: no XP any more"] = "회색: 더 이상 경험치 없음"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "경로에 필요 없는 퀘스트입니다: 경로가 완료하지 않거나 더 이상 경험치를 주지 않습니다. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "퀘스트 목록에서 경로에 필요 없는 퀘스트를 보여 줍니다: 경로가 완료하지 않는 퀘스트와 더 이상 경험치를 주지 않는 회색 퀘스트입니다. 각각 먼저 확인하는 포기 버튼이 있습니다. 그런 퀘스트가 있는 동안 가이드 창 메뉴에도 나타납니다."
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Where it is turned in is not known"] = ""
+-- L["%d XP"] = ""
+-- L["Finished quests you're still carrying"] = ""
+-- L["The route hands in every finished quest in your log."] = ""
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = ""
+-- L["Finished quests you're still carrying (%d)"] = ""
+-- L["Hand in your finished quests"] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "새 능력"
@@ -3321,6 +3359,21 @@ L["Upgrade"] = "업그레이드"
 L["Right-click: keep this rank on your bars"] = "오른쪽 클릭: 단축바에서 이 레벨 유지"
 L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = "낮은 레벨 주문 카드가 꺼졌습니다. 설정 > 편의 기능 > 상인 > 상급자에서 다시 켤 수 있습니다."
 
+-- Core/Closes.lua
+-- L["%s away"] = ""
+-- L["Taking %s closes %s for good. Decline to keep it, or click Accept to skip it."] = ""
+-- L["Taking %s closes %s for good. Decline to keep them, or click Accept to skip them."] = ""
+
+-- Quests/QuestLogLink.lua
+-- L["%s isn't in your quest log."] = ""
+-- L["That quest isn't in your quest log."] = ""
+-- L["The quest log opens when combat ends."] = ""
+-- L["Show in quest log"] = ""
+
+-- Dungeons/Mark.lua
+-- L["Needed for %s in %s"] = ""
+-- L["Part of the %s quests"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
@@ -3417,3 +3470,4 @@ L["Old rank cards are off. Turn them back on under Options > Quality of Life > V
 -- L["Auto-learn new spells"] = "새 주문 자동으로 배우기"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "직업 상급자가 가르치는 주문 중 비용을 낼 수 있는 주문을 모두 자동으로 배우고 총비용을 표시합니다. 기술 전문가는 제외됩니다. 건너뛰려면 Shift를 누르고 있으십시오."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "레벨업 카드가 배울 주문을 보여 줍니다. %s 버튼으로 모두 배우고(RikyZ90 님께 감사), %s 버튼으로 단축바의 주문 레벨을 올립니다."
+-- L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."
