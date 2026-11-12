@@ -5399,7 +5399,9 @@ Polestar.QoL.Rewards.best, .reason                -- auto-pick's settled answer 
   when `ReadChoices` says `complete`. With `qol.rewardHighlight` on (the
   default) and the stock panel hidden, `Mark()` returns nil, so every
   `QUEST_COMPLETE` with two or more choices also prints "Best reward: …"
-  to chat.
+  to chat. `ReadChoices` and `Rank` don't check `Polestar.Hidden()`; only
+  the marks (`Mark`) and that chat line do, so that window checks it
+  itself and redraws on `POLESTAR_HIDDEN`.
 
 ### Gossip the step asks for — QoL/Gossip
 
@@ -5887,7 +5889,10 @@ Polestar.QoL.Restock.Run()                           -- the button's press: Buy.
 - **Another addon's merchant window** (Polestar: UI's) shows `Plan()`'s
   total on a button of its own and calls `Run()` on its press: both work
   between `MERCHANT_SHOW` and `MERCHANT_CLOSED` whichever window is shown,
-  and `Plan()` is empty while `qol.restock` is off.
+  and `Plan()` is empty while `qol.restock` is off. `Plan()` and `Run()`
+  don't check `Polestar.Hidden()`; only Polestar's button
+  (`Restock.Update`) does, so that window checks it itself and redraws on
+  `POLESTAR_HIDDEN`.
 
 ## Lookup — Codex, sources, generated guides, mount spotting
 
