@@ -41,7 +41,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { header } = require('../generated');
 const { closedByOf } = require('../data/prereqs');
-const { isWebCitation } = require('./web');
+const { isWebCitation, isSourceCitation } = require('./web');
 
 const SCHEMA = 3; // 3: objective facts (objectives) instead of an English line, instance map, boss encounter
 
@@ -587,13 +587,15 @@ function buildPages(inputs, codex, warnings = []) {
 
 // The cited table of journal quests no rule places
 // (data/codex/journal-quests.json) -> [{ quest, instance, source, note }];
-// source: a URL or a web quest database citation (tools/lib/codex/web.js).
-// A malformed row throws.
+// source: a URL, a web quest database citation or a source cited the
+// corrections' way, such as players' recordings (tools/lib/codex/web.js). A
+// malformed row throws.
 function loadJournalQuests(file = path.join(__dirname, '..', '..', '..', 'data', 'codex', 'journal-quests.json')) {
 	if (!fs.existsSync(file)) return [];
 	const rows = JSON.parse(fs.readFileSync(file, 'utf8')).quests || [];
 	for (const r of rows) {
-		if (!Number.isInteger(r.quest) || typeof r.instance !== 'string' || !(typeof r.source === 'string' ? /^https?:\/\//.test(r.source) : isWebCitation(r.source))) throw new Error(`journal-quests.json: bad row ${JSON.stringify(r)}`);
+		const cited = typeof r.source === 'string' ? /^https?:\/\//.test(r.source) : isWebCitation(r.source) || isSourceCitation(r.source);
+		if (!Number.isInteger(r.quest) || typeof r.instance !== 'string' || !cited) throw new Error(`journal-quests.json: bad row ${JSON.stringify(r)}`);
 	}
 	return rows;
 }

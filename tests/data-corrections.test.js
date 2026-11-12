@@ -289,3 +289,41 @@ test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s ra
 	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
 	assert.deepEqual([79361, 79442, 79365].map(races), [HORDE, HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
 });
+
+// #1832: The Drowned City's quests came with QuestieDB 1.0.14, some givers and enders only through Factoruide; players'
+// recordings agree on every one, so the corrections hold them (a later quest data scrape can't drop them).
+test("The Drowned City's quests keep the givers and enders players use (#1832)", () => {
+	const ends = (id) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return [entry.set.start.npc, entry.set.end.npc];
+	};
+	for (const [id, giver, ender, who] of [
+		[95775, 2519, 2519, "Kin'weelay: The Drowned City"],
+		[95776, 2464, 2464, "Commander Aggro'gosh: The Only Good Brinescale..."],
+		[95786, 739, 2277, 'Brother Nimetz to Loremaster Dibbs: An Acquaintance in Southshore'],
+		[95787, 2277, 2277, 'Loremaster Dibbs: Take Two With Water'],
+		[95788, 2277, 2277, 'Loremaster Dibbs: Magics of the Drowned City'],
+		[95789, 773, 773, 'Krazek: Shady Saltseers'],
+		[95791, 773, 773, 'Krazek: The Saltseer Captain'],
+		[96774, 264074, 264074, "Mazu'kon: Ancient Gurubashi Idol"],
+		[97130, 31439, 31439, 'Archmage Timear: Ancient Gurubashi Secrets'],
+	]) assert.deepEqual(ends(id), [[giver], [ender]], who);
+});
+
+// #1832: players are offered Loremaster Dibbs's two Drowned City quests only once they hand him An Acquaintance in
+// Southshore, which Brother Nimetz offers when Troll Witchery is handed in; The Only Good Brinescale... only once
+// Enemies in the Water is handed in. Without them the pick-up guide sent players to givers who don't offer the quest.
+test("The Drowned City's quests wait for their lead-ins, so the pick-up guide takes those first (#1832)", () => {
+	const blocks = (id, npc) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return blockingPrereqs({ id, start: { npc: [npc] }, ...entry.set });
+	};
+	for (const [id, npc, any, who] of [
+		[95786, 739, [205], 'An Acquaintance in Southshore after Troll Witchery'],
+		[95787, 2277, [95786], 'Take Two With Water after An Acquaintance in Southshore'],
+		[95788, 2277, [95786], 'Magics of the Drowned City after An Acquaintance in Southshore'],
+		[95776, 2464, [95773], 'The Only Good Brinescale... after Enemies in the Water'],
+	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
+});

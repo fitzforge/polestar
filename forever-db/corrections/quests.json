@@ -4459,6 +4459,226 @@
 		},
 		"note": "Her Name Is Olgra (Barrens, Mankrik) comes after Lost in Battle 4921, once you have found her body: in game Mankrik did not offer it beside Lost in Battle (issue #65). QuestieDB has no prerequisite."
 	},
+	"95775": {
+		"set": {
+			"start": {
+				"npc": [
+					2519
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					2519
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 8 people (5 established) ran The Drowned City (95775); 6 took it from Kin'weelay (2519) and 8 handed it in to him, none to anyone else"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 Forever: starts and ends at npc 2519"
+			}
+		],
+		"note": "The Drowned City (Horde, the dungeon of that name): Kin'weelay at Grom'gol Base Camp gives it and takes it back."
+	},
+	"95776": {
+		"set": {
+			"start": {
+				"npc": [
+					2464
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					2464
+				],
+				"object": []
+			},
+			"pre": [
+				95773
+			],
+			"preAny": [
+				95773
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 5 people (2 established) ran The Only Good Brinescale... (95776); the 3 whose accepts were recorded took it from Commander Aggro'gosh (2464) after handing Enemies in the Water (95773) in to him, 5 handed it in to him, and his windows did not offer it to 3 people who still had 95773 in their log"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 Forever: starts and ends at npc 2464"
+			}
+		],
+		"note": "The Only Good Brinescale... (Horde, The Drowned City): Commander Aggro'gosh at Grom'gol Base Camp offers it once his Enemies in the Water (95773) is handed in, and takes it back. The merged data had no prerequisite."
+	},
+	"95786": {
+		"set": {
+			"start": {
+				"npc": [
+					739
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					2277
+				],
+				"object": []
+			},
+			"pre": [
+				205
+			],
+			"preAny": [
+				205
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 6 people (3 established) ran An Acquaintance in Southshore (95786); Brother Nimetz (739) offered it the moment each of 6 people handed Troll Witchery (205) in to him, 5 took it from him and 6 handed it in to Loremaster Dibbs (2277) in Southshore"
+			}
+		],
+		"note": "An Acquaintance in Southshore (Alliance): Brother Nimetz at the Rebel Camp offers it once Troll Witchery (205) is handed in to him, and Loremaster Dibbs in Southshore takes it, then offers his two Drowned City quests. The merged data had no giver, ender or prerequisite."
+	},
+	"95787": {
+		"set": {
+			"start": {
+				"npc": [
+					2277
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					2277
+				],
+				"object": []
+			},
+			"pre": [
+				95786
+			],
+			"preAny": [
+				95786
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 6 people (3 established) ran Take Two With Water (95787); all 6 took it from Loremaster Dibbs (2277) seconds after handing An Acquaintance in Southshore (95786) in to him, 4 handed it in to him, and his windows did not offer it to 5 people who still had Troll Witchery (205), the quest before 95786, in their log"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "start 2277, end 2277"
+			}
+		],
+		"note": "Take Two With Water (Alliance, The Drowned City): Loremaster Dibbs in Southshore offers it once An Acquaintance in Southshore (95786) is handed in to him, and takes it back. The merged data had no giver, ender or prerequisite."
+	},
+	"95788": {
+		"set": {
+			"start": {
+				"npc": [
+					2277
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					2277
+				],
+				"object": []
+			},
+			"pre": [
+				95786
+			],
+			"preAny": [
+				95786
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 6 people (3 established) ran Magics of the Drowned City (95788); all 6 took it from Loremaster Dibbs (2277) seconds after handing An Acquaintance in Southshore (95786) in to him, 5 handed it in to him, and his windows did not offer it to 5 people who still had Troll Witchery (205), the quest before 95786, in their log"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "start 2277, end 2277"
+			}
+		],
+		"note": "Magics of the Drowned City (Alliance, The Drowned City): Loremaster Dibbs in Southshore offers it once An Acquaintance in Southshore (95786) is handed in to him, and takes it back. The merged data had no giver, ender or prerequisite."
+	},
+	"95789": {
+		"set": {
+			"start": {
+				"npc": [
+					773
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					773
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 20 people (13 established) ran Shady Saltseers (95789); 12 took it from Krazek (773) and 12 handed it in to him, none to anyone else"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 Forever: starts at npc 773"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "end 773"
+			}
+		],
+		"note": "Shady Saltseers (both factions, The Drowned City): Krazek in Booty Bay gives it and takes it back."
+	},
+	"95791": {
+		"set": {
+			"start": {
+				"npc": [
+					773
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					773
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 20 people (13 established) ran The Saltseer Captain (95791); 12 took it from Krazek (773) and 14 handed it in to him, none to anyone else"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 Forever: starts and ends at npc 773"
+			}
+		],
+		"note": "The Saltseer Captain (both factions, The Drowned City): Krazek in Booty Bay gives it and takes it back."
+	},
 	"95883": {
 		"set": {
 			"pre": [
@@ -5094,6 +5314,34 @@
 		],
 		"note": "The Adventurer (Tirisfal, Executor Arren) is offered once The Red Messenger 382 is handed in, per ForeverTDB and QuestieDB. Three players at level 4 with Night Web's Hollow 380 still open were not offered it (#792, #793, #794); petllama saw Arren offer it in game once 382 was handed in (#792). The merged data had no prerequisite, so the Undead route took it at step 8, long before 382. The Adventurer (96656) is a prerequisite of The Great Outdoors (96607), not only a breadcrumb: its giver refuses The Great Outdoors until The Adventurer is handed in (#1490), so it no longer names 96607 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
 	},
+	"96774": {
+		"set": {
+			"start": {
+				"npc": [
+					264074
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					264074
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 12 people (7 established) ran Ancient Gurubashi Idol (96774); 7 took it from Mazu'kon (264074) and 8 handed it in to him, none to anyone else"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 Forever: starts and ends at npc 264074"
+			}
+		],
+		"note": "Ancient Gurubashi Idol (Horde, The Drowned City): Mazu'kon in Mulgore gives it and takes it back."
+	},
 	"96821": {
 		"set": {
 			"objectives": [
@@ -5168,6 +5416,38 @@
 			"ref": "players' in-game recordings since launch: the game lists two objectives at the accept, and the quest completes with those two"
 		},
 		"note": "The Cult of the Damned: the game counts Dark Neophytes and Dark Enforcers only; the data's third objective, Decrepit Darkhounds, is not one (#859)."
+	},
+	"97130": {
+		"set": {
+			"start": {
+				"npc": [
+					31439
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					31439
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11; excluded and suspect contributors left out): 11 people (6 established) ran Ancient Gurubashi Secrets (97130); 7 took it from Archmage Timear (31439) and 7 handed it in to him, none to anyone else"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 Forever: starts at npc 31439"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "end 31439"
+			}
+		],
+		"note": "Ancient Gurubashi Secrets (Alliance, The Drowned City): Archmage Timear in the Alterac Mountains gives it and takes it back."
 	},
 	"97225": {
 		"set": {

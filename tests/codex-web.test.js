@@ -7,7 +7,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { loadWeb, chanceOf, isWebCitation, citationText } = require('../tools/lib/codex/web');
+const { loadWeb, chanceOf, isWebCitation, isSourceCitation, citationText } = require('../tools/lib/codex/web');
+const { loadJournalQuests } = require('../tools/lib/codex/journal');
 const { tmpdir } = require('./helpers/tmp');
 
 function writePage(sourcesDir, type, id, facts) {
@@ -55,4 +56,25 @@ test('citationText names the edition, kind and id, never a URL', () => {
 	assert.equal(citationText({ edition: 'forever', kind: 'quest', id: 4743, note: 'no reward' }), 'Forever quest 4743 (no reward)');
 	assert.equal(citationText({ edition: 'classic', kind: 'guide', ref: 'a-guide' }), 'Classic guide "a-guide"');
 	assert.equal(citationText('wago.tools ItemSparse'), 'wago.tools ItemSparse');
+});
+
+test("isSourceCitation takes a source cited the corrections' way, { kind, ref }, and nothing else", () => {
+	assert.ok(isSourceCitation({ kind: 'recording', ref: '15 people entered the instance at 21.6,27.7' }));
+	assert.ok(isSourceCitation({ kind: 'tdb', ref: 'gameobject 103664 spawned in map 189' }));
+	assert.ok(!isSourceCitation({ kind: 'recording' }), 'a ref is needed');
+	assert.ok(!isSourceCitation({ kind: 'recording', ref: '' }));
+	assert.ok(!isSourceCitation({ kind: 'wiki', ref: 'a page' }), 'a kind the corrections know');
+	assert.ok(!isSourceCitation({ kind: 'recording', ref: 'x', note: 'y' }), 'nothing else');
+	assert.ok(!isSourceCitation('players\' recordings'));
+});
+
+// #1832: The Drowned City's quests whose objective items the quest data places on no mob or object inside are on its
+// page through the cited table, each from players' recordings of their objectives inside; Wound Dressings (Mageweave
+// Cloth, which drops everywhere) is no dungeon quest.
+test("the journal-quests table: The Drowned City's quests no rule places, from players' recordings (#1832)", () => {
+	const rows = loadJournalQuests();
+	const on = rows.filter((r) => r.instance === 'the-drowned-city');
+	assert.deepEqual(on.map((r) => r.quest).sort((a, b) => a - b), [95775, 95787, 95788, 95789, 96774, 97130]);
+	for (const r of on) assert.equal(r.source.kind, 'recording', `${r.quest}: players' recordings`);
+	assert.ok(!rows.some((r) => r.quest === 96081), 'Wound Dressings is no dungeon quest');
 });
