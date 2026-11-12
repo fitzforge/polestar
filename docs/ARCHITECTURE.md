@@ -5368,7 +5368,7 @@ choices for the guide's own reward pick (`Gear.RankChoices`, used by
 `Gear/Picks.lua`); it draws nothing on the reward panel.
 
 ```lua
-Polestar.QoL.Rewards.ReadChoices(fromLog) -> { { index, link, itemID, count, value, upgrade, delta } }, complete
+Polestar.QoL.Rewards.ReadChoices(fromLog) -> { { index, link, itemID, count, value, upgrade, delta } }, complete, priced
 Polestar.QoL.Rewards.Rank(choices) -> { index, ... } (best first), "upgrade" | "value"
 Polestar.QoL.Rewards.Mark() -> true | false | nil   -- draw the marks; whether the best was marked (nil: no best)
 Polestar.QoL.Rewards.best, .reason                -- auto-pick's settled answer on QUEST_COMPLETE
@@ -5392,6 +5392,14 @@ Polestar.QoL.Rewards.best, .reason                -- auto-pick's settled answer 
   hovered choice through `Polestar.Hooks`. Gear's "Best pick" line
   (`gear.pickTooltip`) appears only when its pick is an upgrade, so it never
   contradicts the coin. `gear.rewards` is the guide window's pick line only.
+- **Another addon's quest dialog** (Polestar: UI's) draws its own marks from
+  `ReadChoices(false)` and `Rank` while `QuestFrame` stays hidden: `Mark`
+  draws only on the stock panel, and auto-pick runs on `QUEST_COMPLETE`
+  whichever window shows the choices. `Rank`'s best is only to be trusted
+  when `ReadChoices` says `complete`. With `qol.rewardHighlight` on (the
+  default) and the stock panel hidden, `Mark()` returns nil, so every
+  `QUEST_COMPLETE` with two or more choices also prints "Best reward: …"
+  to chat.
 
 ### Gossip the step asks for — QoL/Gossip
 
@@ -5876,6 +5884,10 @@ Polestar.QoL.Restock.Run()                           -- the button's press: Buy.
   hold per-character state through `get`/`set` (no settings key), which
   `W.Slider` and the options registry accept as they do for toggles;
   `/polestar restock [drink|food|ammo|<item>] <amount>` sets any of them.
+- **Another addon's merchant window** (Polestar: UI's) shows `Plan()`'s
+  total on a button of its own and calls `Run()` on its press: both work
+  between `MERCHANT_SHOW` and `MERCHANT_CLOSED` whichever window is shown,
+  and `Plan()` is empty while `qol.restock` is off.
 
 ## Lookup — Codex, sources, generated guides, mount spotting
 
