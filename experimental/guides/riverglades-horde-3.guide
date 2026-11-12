@@ -1,0 +1,142 @@
+guide polestar-experimental/riverglades-horde-3
+title Riverglades 3: Powderfuse Port and the Eastsea pirates (experimental)
+faction Horde
+levels 42-43
+zone Riverglades
+coords live
+folder Riverglades · Experimental
+why Forever's new zone, an alpha route written from players' recordings.
+keywords riverglades, powderfuse port, eastsea pirates, admiral lamora, trapclaw, argo, experimental, alpha
+next polestar-experimental/riverglades-horde-4
+
+# Polestar Experimental, Riverglades for the Horde, part 3 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone and Forever's quest data for titles, levels, objectives and places.
+# Order: south-east from Bolder'ok to Powderfuse Port (the neutral goblin port) and its loops: the murlocs
+# south-west, back through the port, the crawlers and Trapclaw north of it, the Eastsea pirates north-east (levels
+# 38-43); the port; the pirates' second wave (43-45) and Captain Bentcoin's camp; the port; the pirates' ships and
+# Admiral Lamora on the north-eastern cliffs, with Argo's mushrooms on the ridge west of them; the port.
+# Offered only after another quest is handed in (players' recordings): Smuggler's Paradise after The Goblin Trader;
+# It Takes Guts after Terrors From the Deep; the second wave after Unfriendly Competition; Smuggler's Special after
+# Smuggler's Paradise; Smuggler's Bargain after Smuggler's Special; See Ya, Scallywags! and Admiral Lamora after the
+# second wave's first two; The Monster Surfaces after It Takes Guts.
+# Elites, each behind a group choice: Old Rot-Chum (42).
+# Left out on purpose:
+# - Shipping and Handling (95296) and I Know a Guy (95295): Friz's errands end in Tanaris and Booty Bay, and the
+#   second one sends you back here.
+# - Not My Circus (95982): ten Briny Seafood Stews, a cook's make; 2 of 25 recorded players handed it in.
+
+step Powderfuse Port
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip South-east down out of the hills to Powderfuse Port, the goblins' harbour on the coast. Friz Frazzlespark keeps a stall at the west end of the docks, Fimbo Greasemitz cooks by the inn, and Wharfmaster Whizzbuzz works the north pier.
+  turnin 93976                          -- Friz Frazzlespark: The Goblin Trader
+  accept 95288                          -- Smuggler's Paradise
+  accept 95121                          -- Fimbo Greasemitz: A Taste of the Sea
+  accept 95254                          -- The WANTED! poster by the inn: Trapclaw
+  accept 95118                          -- Wharfmaster Whizzbuzz: Saltwater Savages
+  accept 95119                          -- Unfriendly Competition
+
+step WANTED: Old Rot-Chum
+  when group 95120
+  tip Old Rot-Chum is an elite (level 42) on the south shore: grouping up is advised.
+  accept 95120                          -- The WANTED! poster by the inn
+
+step The murlocs, south-west
+  tip South-west along the shore from the port: the saltwater murlocs camp on the beaches. On the way, a painted hide is stretched beside the path: it starts Terrors From the Deep for Argo Brinewhistle at the docks.
+  accept 95260                          -- Painted Hide: Terrors From the Deep
+  collect 268344 x12 quest 95121.1      -- Saltwater Murloc Eye
+  kill 256801 x8 quest 95118.1          -- Murloc Warrior
+  kill 255898 x8 quest 95118.2          -- Murloc Oracle
+
+step Old Rot-Chum
+  when group 95120
+  collect 268341 quest 95120.1 @77.4,72.3  -- Rot-Covered Harpoon
+
+step Back through the port
+  tip Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers.
+  turnin 95118                          -- Wharfmaster Whizzbuzz
+  turnin 95260                          -- Argo Brinewhistle
+  accept 95261                          -- It Takes Guts: the beasts' entrails come as you go; the mushrooms grow on the ridge west of the pirates
+
+step The crawlers and Trapclaw
+  tip North along the beach from the docks: the crawlers drop the meat for Fimbo, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks.
+  collect 268345 x6 quest 95121.2       -- Sand Crawler Meat
+  collect 268586 quest 95254.1          -- Trapclaw's Pincer
+
+step The Eastsea pirates
+  tip North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods.
+  kill 257901 x10 quest 95119.1         -- Eastsea Buccaneer
+  kill 257910 x10 quest 95119.2         -- Eastsea Musketeer
+  collect 268796 x8 quest 95288.1       -- Smuggled Goods
+
+step Powderfuse Port
+  tip Back to the port, from the north pier west through the docks.
+  turnin 95119                          -- Wharfmaster Whizzbuzz
+  accept 95122                          -- Unchecked Expansion
+  accept 95123                          -- A Blast Ye Scurvy Dogs!
+  turnin 95254                          -- Fimbo Greasemitz
+  turnin 95121
+  turnin 95288                          -- Friz Frazzlespark
+  accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp
+
+step Wharfmaster Whizzbuzz
+  when onquest 95120
+  turnin 95120
+
+step Beast Entrails as you go
+  along until argo
+  background
+  tip Most beasts in the Riverglades drop Beast Entrails for Argo: the shore crawlers on this coast and the boars on the ridge west of the pirates.
+  collect 268632 x15 quest 95261.1      -- Beast Entrails
+
+step The pirates' second wave
+  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are a couple of levels above you: pull them one at a time.
+  kill 257915 x8 quest 95122.1          -- Eastsea Raider
+  kill 257916 x8 quest 95122.2 @79.1,33.8  -- Eastsea Bombardier
+  collect 268346 x5 quest 95123.1       -- Eastsea Powder Keg
+
+step Captain Bentcoin
+  tip East along the cliffs to the far end of the pirates' camp: Captain Bentcoin waits by the water, Captain Haynes beside him.
+  turnin 95293                          -- Captain Bentcoin
+  accept 95294                          -- Captain Haynes: Smuggler's Bargain
+
+step Powderfuse Port
+  tip Back to the port.
+  turnin 95122                          -- Wharfmaster Whizzbuzz
+  turnin 95123
+  accept 95165                          -- See Ya, Scallywags!
+  accept 95124                          -- Admiral Lamora
+  turnin 95294                          -- Friz Frazzlespark
+
+step The pirates' ships
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her.
+  use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
+  kill 257861 quest 95124.1             -- Admiral Lamora
+  collect 268506 quest 95124.2          -- Lamora's Loot
+  use 268505 quest 95165.2 @90.6,29.6   -- the middle ship
+  use 268505 quest 95165.1 @88.3,25.8   -- the northern ship
+
+step Rotflesh Mushrooms
+  tip West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too.
+  collect 268664 x8 quest 95261.2       -- Rotflesh Mushroom
+
+step Finish the Beast Entrails
+  when !has 268632 x15
+  tip South-east back towards the port: the shore crawlers on the beach north of the docks are the quickest entrails.
+  collect 268632 x15 quest 95261.1 @78.7,49.8  -- Beast Entrails
+
+step Powderfuse Port
+  label argo
+  tip Down to the port.
+  turnin 95165                          -- Wharfmaster Whizzbuzz
+  turnin 95124
+  turnin 95261                          -- Argo Brinewhistle
+  accept 95267 optional                 -- The Monster Surfaces: a big beast in the shallows south-west of the port, near Old Rot-Chum, the elite
+
+step The Monster Surfaces
+  when onquest 95267
+  tip The Monstrous Threshadon prowls the shallows south-west of the port, below the murlocs' beaches. Old Rot-Chum, an elite, walks the shore close by: give him room.
+  collect 268633 quest 95267.1          -- Sea Monster's Head
+
+step Argo Brinewhistle
+  when onquest 95267
+  turnin 95267

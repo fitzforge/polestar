@@ -11574,3 +11574,43 @@ test('the #1791 sweep: Alas, Andorhal is a group quest on the Horde 50-60 route'
 		assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(105) && !p.neg), `${goal.t} 105 is under when group 105`);
 	}
 });
+
+// Polestar Experimental's Riverglades guides (experimental/guides): two facts from players' recordings the route
+// stands on, read from the guide text so they hold without reference data.
+const RIVERGLADES = path.join(__dirname, '..', 'experimental', 'guides');
+const riverglades = () => fs.readdirSync(RIVERGLADES).filter((f) => /^riverglades-.*\.guide$/.test(f)).sort();
+const codeOf = (line) => line.split('--')[0];
+
+// Hurley (Helping Hands), the lost horse (Rescue Roundup), Fuzzle (Biting the Hand), Dunston Willis (Dunston
+// Checks Out) and Jom-jom (Jom-jom's Escape) set off as soon as their quest is taken: recorded players who did
+// something else first failed Helping Hands at Turner's Logging Camp and took it again.
+test('Riverglades (experimental): an escort is taken and walked in one step, so its NPC never sets off without the player', () => {
+	const ESCORTS = [94861, 94992, 94963, 94927, 94556];
+	const seen = new Set();
+	for (const f of riverglades()) {
+		for (const step of fs.readFileSync(path.join(RIVERGLADES, f), 'utf8').split(/\n(?=step\b)/)) {
+			const lines = step.split('\n').map(codeOf);
+			for (const q of ESCORTS) {
+				const taken = lines.findIndex((l) => new RegExp(`^\\s+accept ${q}\\b`).test(l));
+				if (taken < 0) continue;
+				seen.add(q);
+				const walked = lines.findIndex((l) => new RegExp(`^\\s+complete ${q}\\b`).test(l));
+				assert.ok(walked > taken, `${f}: ${lines[0]}: escort ${q} is walked in the step that takes it`);
+			}
+		}
+	}
+	assert.deepEqual([...seen].sort(), [...ESCORTS].sort(), 'every escort of the zone is in the pack');
+});
+
+// Demar Brant offers The Western Front, and Ashe Amberhall A Small Favor, only once Curious Trinkets and Scraps of
+// Knowledge are handed in (players' offer windows): in the keep, Ashe's hand-ins come first.
+test("Riverglades (experimental): Ashe Amberhall's Sunnyglade hand-ins come before The Western Front and A Small Favor", () => {
+	const lines = fs.readFileSync(path.join(RIVERGLADES, 'riverglades-alliance-3.guide'), 'utf8').split('\n').map(codeOf);
+	const first = (verb, q) => lines.findIndex((l) => new RegExp(`^\\s+${verb} ${q}\\b`).test(l));
+	for (const q of [94886, 94907]) {
+		assert.ok(first('accept', q) >= 0, `${q} is taken in part 3`);
+		for (const t of [94881, 94879]) {
+			assert.ok(first('turnin', t) >= 0 && first('turnin', t) < first('accept', q), `${t} is handed in before ${q} is taken`);
+		}
+	}
+});
