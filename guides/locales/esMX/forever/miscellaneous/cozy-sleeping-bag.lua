@@ -34,12 +34,10 @@ return {
 	-- {zone:1436} Westfall
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "",
 
-	-- Step 5: Round Honor's Stand
-	-- {area:1702} Honor's Stand
-	["Round {area:1702}"] = "Rodea {area:1702}",
-	-- {area:1702} Honor's Stand
-	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "",
-	["North of Honor's Stand"] = "",
+	-- Step 5: Stonetalon from the north
+	["Stonetalon from the north"] = "Sierra Espolón desde el norte",
+	-- {zone:1413} Barrens · {area:1702} Honor's Stand · {area:2539} Malaka'jin · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {area:415} Astranaar · {area:1276} Talondeep Path · {zone:1440} Ashenvale
+	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "El camino de {zone:1413} hacia Sierra Espolón pasa por {area:1702}, y el que sigue hacia las colinas pasa por {area:2539} y {area:460}: todos son puestos de la Horda. Mejor entra desde el norte. Si tienes la ruta de vuelo de {area:467}, vuela hasta allá y sigue el camino hacia el sur. Si no, vuela a {area:415} y camina al suroeste hasta {area:1276}, el túnel de {zone:1440} hacia Sierra Espolón.",
 
 	-- Step 6: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter (no name in this language: may be words)
@@ -57,11 +55,22 @@ return {
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
 
-	-- Step 9: Thoradin's Wall
-	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Cuidado: si caes de la cornisa de la presa, aterrizas en el río de abajo, en {zone:1437}. Sal por su orilla oeste mucho antes de la cascada, en torno a 65,77: la caída mata. Luego ve al noroeste hasta el camino y síguelo al norte pasando {area:880} hacia Arathi.\nEn la puerta de {area:1057}, entre Arathi y {area:287}, gira al norte y sigue la muralla por el lado de {area:287} hasta un carro caído apoyado en ella. Salta al carro y sube por su escalera a la muralla, luego sobre las rocas hasta el campamento oculto. Algunos personajes no caben bajo la red de carga del campamento; otra raza o una forma más pequeña sí pasa.",
+	-- Step 9: Out of the river
+	["Out of the river"] = "Sal del río",
+	-- {zone:1437} Wetlands · {area:880} Thandol Span
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi."] = "Cuidado: si caes de la cornisa de la presa, aterrizas en el río de abajo, en {zone:1437}. Sal por su orilla oeste mucho antes de la cascada, en torno a 65,77: la caída mata. Luego ve al noroeste hasta el camino y síguelo al norte pasando {area:880} hacia Arathi.",
+	["West bank, before the waterfall"] = "Orilla oeste, antes de la cascada",
+	["West bank"] = "Orilla oeste",
+
+	-- Step 10: Thoradin's Wall
+	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "En la puerta de {area:1057}, entre Arathi y {area:287}, gira al norte y sigue la muralla por el lado de {area:287} hasta un carro caído apoyado en ella. Salta al carro y sube por su escalera a la muralla, luego sobre las rocas hasta el campamento oculto. Algunos personajes no caben bajo la red de carga del campamento; otra raza o una forma más pequeña sí pasa.",
 	["Fallen cart"] = "",
 
-	-- Step 10: The hidden camp
+	-- Step 11: The hidden camp
 	["The hidden camp"] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Cuidado: si caes de la cornisa de la presa, aterrizas en el río de abajo, en {zone:1437}. Sal por su orilla oeste mucho antes de la cascada, en torno a 65,77: la caída mata. Luego ve al noroeste hasta el camino y síguelo al norte pasando {area:880} hacia Arathi.\nEn la puerta de {area:1057}, entre Arathi y {area:287}, gira al norte y sigue la muralla por el lado de {area:287} hasta un carro caído apoyado en ella. Salta al carro y sube por su escalera a la muralla, luego sobre las rocas hasta el campamento oculto. Algunos personajes no caben bajo la red de carga del campamento; otra raza o una forma más pequeña sí pasa.",
+	-- ["Round {area:1702}"] = "Rodea {area:1702}",
 }

@@ -145,7 +145,7 @@ fn a_guide_the_update_really_changed_still_passes_its_new_steps_behind_the_playe
 // Rat Catching (385) it added behind them (`gone`). The save is from before own shapes were stored; its shape is
 // the guide as planned for the character (63 steps), the guide as registered has 64. A pack version change
 // with the same Loch Modan sent them back to The Farstrider Lodge (Rat Catching's accept, step 16); they stay at
-// Lakeshire (step 34).
+// Lakeshire (step 36: #1833 split the boars, Daryl and the crocolisks into three steps before it).
 const LOCH_WORLD: &str = include_str!("engine-upgrade-twice/loch-modan-world.lua");
 const LOCH_SAVE: &str = include_str!("engine-upgrade-twice/loch-modan-save.lua");
 
@@ -166,7 +166,7 @@ local g = E.GetGuide()
 emit({ guide = g.id, live = E.GetLiveStep(), title = g.steps[E.GetLiveStep()].title })"#
 			.to_string(),
 	});
-	assert_eq!(out[0], json!({ "guide": "forever/alliance/03-loch-modan", "live": 34, "title": "Lakeshire" }));
+	assert_eq!(out[0], json!({ "guide": "forever/alliance/03-loch-modan", "live": 36, "title": "Lakeshire" }));
 }
 
 // Final 0.3.7 candidate, the upgrade harness: a step the 0.3.5 -> 0.3.6 update had passed behind the player and that

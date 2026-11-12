@@ -34,12 +34,10 @@ return {
 	-- {zone:1436} Westfall
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "La \"terre jumelle\" de la note, c'est {zone:1436} : le même feu de camp éteint se trouve dans l'ouest de {zone:1436}.",
 
-	-- Step 5: Round Honor's Stand
-	-- {area:1702} Honor's Stand
-	["Round {area:1702}"] = "Contourner {area:1702}",
-	-- {area:1702} Honor's Stand
-	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "La route vers l'ouest traverse {area:1702}, un poste de la Horde ; ce chemin le contourne.",
-	["North of Honor's Stand"] = "Au nord d'Honor's Stand",
+	-- Step 5: Stonetalon from the north
+	["Stonetalon from the north"] = "Les Serres-Rocheuses par le nord",
+	-- {zone:1413} Barrens · {area:1702} Honor's Stand · {area:2539} Malaka'jin · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {area:415} Astranaar · {area:1276} Talondeep Path · {zone:1440} Ashenvale
+	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "Le chemin des {zone:1413} vers les Serres-Rocheuses traverse {area:1702}, et la route qui continue vers les collines passe par {area:2539} et {area:460} : tous des postes de la Horde. Arrivez plutôt par le nord. Si vous avez le trajet aérien de {area:467}, volez-y et suivez la route vers le sud. Sinon, volez jusqu'à {area:415} et marchez vers le sud-ouest jusqu'au {area:1276}, le tunnel entre {zone:1440} et les Serres-Rocheuses.",
 
 	-- Step 6: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
@@ -57,11 +55,24 @@ return {
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "La figurine se trouve sur une corniche juste sous le sommet de {area:146}, sur sa face nord. Descendez lentement ; marcher à reculons évite de dépasser la corniche.",
 
-	-- Step 9: Thoradin's Wall
-	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Attention : depuis la corniche du barrage, vous tombez dans la rivière en contrebas, dans les {zone:1437}. Sortez-en par la rive ouest bien avant la cascade, vers 65,77 : la chute est mortelle. Partez ensuite vers le nord-ouest jusqu'à la route et suivez-la vers le nord par {area:880} jusqu'en Arathi.\nÀ la porte de {area:1057}, entre Arathi et {area:287}, tournez vers le nord et suivez le mur côté {area:287} jusqu'à une charrette renversée appuyée contre lui. Sautez sur la charrette et son échelle pour monter sur le mur, puis passez par les rochers jusqu'au camp caché. Certains personnages ne passent pas sous le filet de chargement du camp ; une autre race ou une forme plus petite passe.",
+	-- Step 9: Out of the river
+	["Out of the river"] = "Sortir de la rivière",
+	-- {zone:1437} Wetlands · {area:880} Thandol Span
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi."] = "Attention : depuis la corniche du barrage, vous tombez dans la rivière en contrebas, dans les {zone:1437}. Sortez-en par la rive ouest bien avant la cascade, vers 65,77 : la chute est mortelle. Partez ensuite vers le nord-ouest jusqu'à la route et suivez-la vers le nord par {area:880} jusqu'en Arathi.",
+	["West bank, before the waterfall"] = "Rive ouest, avant la cascade",
+	["West bank"] = "Rive ouest",
+
+	-- Step 10: Thoradin's Wall
+	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "À la porte de {area:1057}, entre Arathi et {area:287}, tournez vers le nord et suivez le mur côté {area:287} jusqu'à une charrette renversée appuyée contre lui. Sautez sur la charrette et son échelle pour monter sur le mur, puis passez par les rochers jusqu'au camp caché. Certains personnages ne passent pas sous le filet de chargement du camp ; une autre race ou une forme plus petite passe.",
 	["Fallen cart"] = "Charrette renversée",
 
-	-- Step 10: The hidden camp
+	-- Step 11: The hidden camp
 	["The hidden camp"] = "Le camp caché",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Attention : depuis la corniche du barrage, vous tombez dans la rivière en contrebas, dans les {zone:1437}. Sortez-en par la rive ouest bien avant la cascade, vers 65,77 : la chute est mortelle. Partez ensuite vers le nord-ouest jusqu'à la route et suivez-la vers le nord par {area:880} jusqu'en Arathi.\nÀ la porte de {area:1057}, entre Arathi et {area:287}, tournez vers le nord et suivez le mur côté {area:287} jusqu'à une charrette renversée appuyée contre lui. Sautez sur la charrette et son échelle pour monter sur le mur, puis passez par les rochers jusqu'au camp caché. Certains personnages ne passent pas sous le filet de chargement du camp ; une autre race ou une forme plus petite passe.",
+	-- ["North of Honor's Stand"] = "Au nord d'Honor's Stand",
+	-- ["Round {area:1702}"] = "Contourner {area:1702}",
+	-- ["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "La route vers l'ouest traverse {area:1702}, un poste de la Horde ; ce chemin le contourne.",
 }

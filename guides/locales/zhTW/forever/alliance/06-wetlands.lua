@@ -237,54 +237,50 @@ return {
 	-- plural, as words: Withered Ancients = {npc:3919} Withered Ancient
 	["The Crazed and Withered Ancients north of the moonwell carry the {item:5475}; the worn chest it opens stands among them."] = "月井北邊的瘋狂的古樹和乾枯的古樹帶著{item:5475}；它能打開的破舊箱子就在它們之間。",
 
-	-- Step 43: The Howling Vale
-	-- {area:419} Howling Vale
-	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end."] = "穿過隧道進入{area:419}；書在山谷西端的廢墟裡。",
-
-	-- Step 45: Anilia
+	-- Step 44: Anilia
 	-- {area:429} Xavian · {npc:3920} Anilia
 	["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "沿著道路向東前往{area:429}的薩特營地；{npc:3920}躲在營地邊緣。",
 
-	-- Step 46: Geltharis
+	-- Step 45: Geltharis
 	-- {npc:4619} Geltharis · {area:429} Xavian
 	["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率領{area:429}的薩特；樹枝在他身上。",
 
-	-- Step 47: Forest Song
+	-- Step 46: Forest Song
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
 	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "{area:2358}是道路東端的夜精靈前哨：{npc:3848}站在那裡，{npc:221269}在她東邊幾步之處。",
 	-- {npc:221269} Maseara Autumnmoon · {area:430} Satyrnaar
 	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "{npc:221269}：她丈夫在{area:430}留下的蹤跡，在從湖邊回來的路上",
 
-	-- Step 48: The Dor'Danil Barrow Den: kill these as you meet them
+	-- Step 47: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "",
 	-- {area:2358} Forest Song
 	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
 
-	-- Step 49: Fallen Sky Lake
+	-- Step 48: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
 	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交給{area:415}的{npc:3961}",
 
-	-- Step 50: Satyrnaar
+	-- Step 49: Satyrnaar
 	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
 	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "從湖泊向北前往{area:2358}西邊的{area:430}薩特營地：{object:19901}就在營地裡，庫洛瑟的背包放在它旁邊，裡面有{item:281014}。\n小心：{area:428}的魔麝盜賊經常處於潛行狀態，而{area:430}有薩特施法者。",
 	-- {item:281014} Vine-Wrapped Scroll
 	["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}，來自庫洛瑟爾的背包",
 
-	-- Step 51: Kayneth Stillwind
+	-- Step 50: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}，在東邊幾步之處",
 
-	-- Step 52: The Dor'Danil Barrow Den's entrance
+	-- Step 51: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}'s entrance"] = "",
 
-	-- Step 53: Insane druids
+	-- Step 52: Insane druids
 	["Insane druids"] = "發狂的德魯伊",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
@@ -295,12 +291,17 @@ return {
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
 	["{npc:3942}, inside {area:432}"] = "",
 
-	-- Step 55: Night Run
+	-- Step 54: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "第二個{object:19901}在{area:428}的山谷裡，在往西的路上。",
 
-	-- Step 57: Hidden Shrine
+	-- Step 56: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "神龕在月井東南方的山丘上；沿著蜿蜒的小路往上走。",
+
+	-- Step 58: The Howling Vale
+	-- {area:419} Howling Vale · {npc:3792} Terrowulf Packlord
+	-- plural, as words: Terrowulf Fleshrippers = {npc:3789} Terrowulf Fleshripper
+	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "穿過隧道進入{area:419}；書在山谷西端的廢墟裡。小心：恐狼撕裂者和織影狼人（28-30級）在書周圍密集成群，32級稀有怪{npc:3792}在山谷中遊蕩。從隧道把狼一隻一隻拉過來，先讓族長走過去。",
 
 	-- Step 59: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
@@ -384,6 +385,7 @@ return {
 	["Next: fly to {area:42}."] = "下一步：飛往{area:42}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end."] = "穿過隧道進入{area:419}；書在山谷西端的廢墟裡。",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "文物就在挖掘場裡。{npc:1353}是一隻大型刺喉龍，在挖掘場西邊的迅猛龍山谷徘徊。",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}是道路東端的夜精靈前哨：{npc:3848}站在那裡。",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}：合成兩半",

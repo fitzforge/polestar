@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Voe de {area:442} para {area:702} e pegue o portal para subir até {npc:4217} em {area:1658}.",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "Elfos Noturnos voam de {area:442} para {area:702}; Celonatos pegam o barco na doca de {area:442} e aprendem a rota de voo de Rut'theran. Depois pegue o portal para subir até {npc:4217} em {area:1658}.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -212,6 +212,7 @@ return {
 	-- ["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "A leste de Caixazorra 323, {npc:3661} se esconde ao pé da torre entre os Fanáticos da Linhagem das Trevas. Guarde a carta dele para Dinis, o Purificador, em {zone:1440}.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Escolte-a para fora da glaive; Therysil recebe a entrega em {zone:1440}",
 	-- ["Fine Moonstalker Pelts"] = "Pelagens de Espreitaluna Finas",
+	-- ["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Voe de {area:442} para {area:702} e pegue o portal para subir até {npc:4217} em {area:1658}.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Siga a costa para nordeste até {area:443}. {quest:951} estão entre as ruínas; Mirmidões Skamatrom, Feiticeiras Skamatrom e Guerreiros Skamatrom as ocupam, e Senhoras das Feras Skamatrom andam pela costa.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "Siga a costa para nordeste até {area:443}. {quest:951} estão entre as ruínas; Mirmidões Skamatrom, Feiticeiras Skamatrom e Guerreiros Skamatrom as ocupam.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}.",

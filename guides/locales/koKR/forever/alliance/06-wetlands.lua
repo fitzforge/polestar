@@ -237,54 +237,50 @@ return {
 	-- plural, as words: Withered Ancients = {npc:3919} Withered Ancient
 	["The Crazed and Withered Ancients north of the moonwell carry the {item:5475}; the worn chest it opens stands among them."] = "달샘 북쪽의 광기어린 고대정령과 부패한 고대정령이 {item:5475}을(를) 지니고 있습니다. 그 열쇠로 여는 낡은 궤짝은 그들 사이에 있습니다.",
 
-	-- Step 43: The Howling Vale
-	-- {area:419} Howling Vale
-	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end."] = "굴을 지나 {area:419}(으)로 들어가십시오. 마법책은 서쪽 끝 폐허에 있습니다.",
-
-	-- Step 45: Anilia
+	-- Step 44: Anilia
 	-- {area:429} Xavian · {npc:3920} Anilia
 	["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "길을 따라 동쪽으로 {area:429}의 사티로스 야영지까지 가십시오. {npc:3920}은(는) 야영지 가장자리에 숨어 있습니다.",
 
-	-- Step 46: Geltharis
+	-- Step 45: Geltharis
 	-- {npc:4619} Geltharis · {area:429} Xavian
 	["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}은(는) {area:429} 사티로스의 우두머리이며 나뭇가지를 지니고 있습니다.",
 
-	-- Step 47: Forest Song
+	-- Step 46: Forest Song
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
 	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "길 동쪽 끝의 나이트 엘프 전초기지 {area:2358}: {npc:3848}이(가) 그곳에 있고, {npc:221269}은(는) 그녀에게서 동쪽으로 몇 걸음 떨어져 있습니다.",
 	-- {npc:221269} Maseara Autumnmoon · {area:430} Satyrnaar
 	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "{npc:221269}: 호수에서 돌아오는 길에 {area:430}에서 남편의 흔적 찾기",
 
-	-- Step 48: The Dor'Danil Barrow Den: kill these as you meet them
+	-- Step 47: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "",
 	-- {area:2358} Forest Song
 	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
 
-	-- Step 49: Fallen Sky Lake
+	-- Step 48: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
 	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: {area:415}의 {npc:3961}에게",
 
-	-- Step 50: Satyrnaar
+	-- Step 49: Satyrnaar
 	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
 	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "호수에서 북쪽으로, {area:2358} 바로 서쪽에 있는 {area:430}의 사티로스 야영지로 가십시오. 그 안에 {object:19901}이(가) 있고, 그 옆에 {item:281014}이(가) 든 쿠로텔의 배낭이 있습니다.\n주의: {area:428}의 펠머스크 도적은 은신해 있는 경우가 많고, {area:430}에는 사티로스 주문시전자가 있습니다.",
 	-- {item:281014} Vine-Wrapped Scroll
 	["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}, 쿠로델의 배낭에서",
 
-	-- Step 51: Kayneth Stillwind
+	-- Step 50: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}, 동쪽으로 몇 걸음",
 
-	-- Step 52: The Dor'Danil Barrow Den's entrance
+	-- Step 51: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}'s entrance"] = "",
 
-	-- Step 53: Insane druids
+	-- Step 52: Insane druids
 	["Insane druids"] = "미치광이 드루이드",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
@@ -295,12 +291,17 @@ return {
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
 	["{npc:3942}, inside {area:432}"] = "",
 
-	-- Step 55: Night Run
+	-- Step 54: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "두 번째 {object:19901}은(는) 서쪽으로 가는 길, {area:428} 골짜기에 있습니다.",
 
-	-- Step 57: Hidden Shrine
+	-- Step 56: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "제단은 달샘 바로 남동쪽 언덕 위에 있습니다. 구불구불한 길을 따라 올라가십시오.",
+
+	-- Step 58: The Howling Vale
+	-- {area:419} Howling Vale · {npc:3792} Terrowulf Packlord
+	-- plural, as words: Terrowulf Fleshrippers = {npc:3789} Terrowulf Fleshripper
+	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "굴을 지나 {area:419}(으)로 들어가십시오. 마법책은 서쪽 끝 폐허에 있습니다. 주의: 테로울프 식인전사와 흑마술사(28-30레벨)가 마법책 주변에 빽빽하게 무리 지어 있고, 32레벨 희귀 몬스터인 {npc:3792}이(가) 골짜기를 돌아다닙니다. 굴에서 늑대를 한 마리씩 끌어오고, 우두머리가 먼저 지나가게 두세요.",
 
 	-- Step 59: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
@@ -384,6 +385,7 @@ return {
 	["Next: fly to {area:42}."] = "다음: {area:42}(으)로 날아가세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end."] = "굴을 지나 {area:419}(으)로 들어가십시오. 마법책은 서쪽 끝 폐허에 있습니다.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "유물은 발굴지 안에 있습니다. 커다란 무쇠턱 랩터인 {npc:1353}은(는) 그 바로 서쪽의 랩터 계곡을 어슬렁거립니다.",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "길 동쪽 끝의 나이트 엘프 전초기지 {area:2358}: {npc:3848}이(가) 그곳에 있습니다.",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: 반쪽 두 개를 합치기",
