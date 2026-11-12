@@ -3318,7 +3318,8 @@ after making the frame, and Polestar's pins, trail, route lines, zone levels,
 info bar, unexplored areas, dungeon, rare and service pins and alt-click
 planning show there as on `WorldMapFrame`, each module with frames of its own
 under that map's view. The map is only read, as the world map is; OpenMap's
-stitched view stays the world map's.
+stitched view stays the world map's. Polestar: UI's call:
+[`Modules/WorldMap.lua`](https://github.com/rohkin/polestar-ui/blob/9c4bf908bdf264881366def2b079a2b716cc1668/Modules/WorldMap.lua#L62).
 
 The world map and the battlefield map are Lua (`Blizzard_MapCanvas`,
 `Blizzard_WorldMap`), and Forever's gamepad interface reads them from secure
