@@ -85,10 +85,34 @@ fn malformed_and_reserved_pack_ids_are_errors_ours_may_use_guides() {
 	for id in ["Joe".to_string(), "j".into(), "a".repeat(33), "-x".into()] {
 		one(check(&with("id", json!(id))), "error", "id");
 	}
-	for id in ["guides", "forever", "lookup", "draft", "polestar"] {
+	for id in ["guides", "forever", "lookup", "draft", "polestar", "imported", "polestar-experimental"] {
 		one(check(&with("id", json!(id))), "error", "reserved");
 	}
 	assert!(check_official(&with("id", json!("guides"))).is_empty());
+	one(check_official(&with("id", json!("polestar-experimental"))), "error", "reserved");
+}
+
+// Polestar's experimental pack: its pack.json (experimental/ in the checkout, read with read_extra_manifest)
+// may give the id reserved for it, and no other reserved id; read as any other pack's, the id is refused.
+// Every extra pack's id is reserved.
+#[test]
+fn only_polestar_s_own_extra_pack_may_give_its_reserved_id() {
+	for e in &forge_guide::project::OWN_EXTRAS {
+		assert!(forge_guide::format::RESERVED_IDS.contains(&e.id), "{} is reserved", e.id);
+	}
+	let dir = write_pack("extra", &with("id", json!("polestar-experimental")).to_string());
+	let (m, diags) = forge_guide::manifest::read_extra_manifest(&dir, "polestar-experimental");
+	assert!(diags.is_empty(), "{diags:?}");
+	assert_eq!(m.unwrap().get("id").to_js_string(), "polestar-experimental");
+	// A read names pack.json by its path, so the messages are checked here rather than with `one`.
+	let refused = |(m, diags): (Option<forge_guide::js::V>, Vec<Diag>), id: &str| {
+		assert!(m.is_none());
+		assert_eq!(diags.len(), 1, "{diags:?}");
+		assert_eq!(diags[0].severity, "error");
+		assert!(diags[0].message.starts_with(&format!("pack id \"{id}\" is reserved for Polestar")), "{diags:?}");
+	};
+	refused(read_manifest(&dir, false), "polestar-experimental");
+	refused(forge_guide::manifest::read_extra_manifest(&write_pack("extra-guides", &with("id", json!("guides")).to_string()), "polestar-experimental"), "guides");
 }
 
 #[test]

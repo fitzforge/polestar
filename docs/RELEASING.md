@@ -170,7 +170,16 @@ version throughout.
    forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh)
    forge guide lint
    forge guide compile
+   forge guide lint experimental && forge guide compile experimental   # Polestar Experimental (alpha guides)
    ```
+
+   `experimental/` holds Polestar Experimental: guides for Forever's new
+   zones in testing, a pack of Polestar's own that ships in the zip as
+   `Polestar_Experimental`, loaded on demand and off until a player switches
+   it on under Options > Community guides (PACK_FORMAT.md, "Polestar's own
+   extra packs"). `forge release version` sets its `pack.json` with
+   `guides/pack.json`, and `forge release pack` builds it again and stops on
+   an error in it.
 
    `Polestar_QuestDB` is not in the repository (it is ignored, like the
    Codex): build it with `forge data questdb` on every release machine
@@ -242,7 +251,7 @@ version throughout.
    ```sh
    rm -rf dist && forge release pack     # stops naming any guide whose legs are stale; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
    (cd dist && sha256sum -c SHA256SUMS)
-   unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, and Polestar_Nav/ with its LICENSE and CREDITS.md, are listed
+   unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, Polestar_Nav/ with its LICENSE and CREDITS.md, and Polestar_Experimental/ are listed
    forge nav check                       # Polestar_Nav's walking maps match its PACK.json
    ```
 
@@ -300,7 +309,7 @@ version throughout.
 
    ```sh
    forge changelog build 0.2.0     # writes "## 0.2.0 (<today>)", deletes the fragments
-   git add CHANGELOG.md changes package.json guides/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
+   git add CHANGELOG.md changes package.json guides/pack.json experimental/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_Experimental addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
    git commit -m "Release: 0.2.0"
    git switch main && git merge --ff-only next && git switch next
    git tag -a v0.2.0 -m "Polestar 0.2.0" main
