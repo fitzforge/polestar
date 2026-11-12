@@ -690,7 +690,7 @@ fn a_held_prerequisite_whose_ender_a_step_stands_at_keeps_its_follow_up_open() {
 }
 
 fn nothing_hidden(out: &Value) -> bool {
-	out["hidden"].as_array().map_or(true, |a| a.is_empty()) && out["hidden"].as_object().map_or(true, |o| o.is_empty())
+	out["hidden"].as_array().is_none_or(|a| a.is_empty()) && out["hidden"].as_object().is_none_or(|o| o.is_empty())
 }
 
 #[test]
