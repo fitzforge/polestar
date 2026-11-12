@@ -129,14 +129,11 @@ step Northdale
 
 step Corin's Crossing
   tip Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
+  tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
+  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 15447 x7
   complete 6022
-
-step Corin's Crossing: Darrowshire Spirits
-  zone Eastern Plaguelands
-  tip With Defenders of Darrowshire in your log (from Carlin at the end of the Un'Goro guide), the Scourge around Corin's Crossing leave Darrowshire Spirits: talk to each one to free it.
-  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
 
 step Nathanos Blightcaller
   tip Ride west to the Marris Stead.
@@ -151,6 +148,7 @@ step Hameya's mound
 step Carlin Redpath
   hearth "Light's Hope Chapel"
   turnin 5181
+  turnin 5211
 
 # ---------------------------------------------------------------- Thunder Bluff
 
@@ -210,7 +208,6 @@ step Back to Thunder Bluff
 step Gadgetzan
   zone Tanaris
   fly "Gadgetzan"
-  accept 2741                         -- The Egg-O-Matic machine
 
 step Sprinkle
   tip Use Umi's Mechanical Yeti on Sprinkle, the goblin girl in Gadgetzan. Quixxil and Legacki are scared later in the route.
@@ -229,14 +226,7 @@ step Marvon Rivetseeker
   tip Marvon camps by the Lost Rigger Cove road, south of Gadgetzan.
   turnin 3444
 
-# ---------------------------------------------------------------- Feralas and on to Silithus
-
-step Hippogryph eggs
-  zone Feralas
-  when onquest 2741
-  tip Only if you still carry The Super Egg-O-Matic: ride south from Camp Mojache; the hippogryph nests are in the south of Feralas, each holds an egg for the Egg-O-Matic.
-  fly "Camp Mojache"
-  collect 8564 quest 2741
+# ---------------------------------------------------------------- On to Silithus
 
 step On to Silithus
   zone Un'Goro Crater

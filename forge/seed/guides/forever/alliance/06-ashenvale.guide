@@ -376,7 +376,7 @@ step Baros Alexston
   zone Stormwind City
   when onquest 97914
   tip The tram comes in at the Dwarven District; walk west to the Cathedral Square: Baros Alexston stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)
-  turnin 97914 optional                   -- Baros Alexston: Thundris' letter, if you still carry it (the route hands it in at the end of 03-loch-modan)
+  turnin 97914                            -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                   -- For Thundris Windweaver, back in Auberdine (06-wetlands)
 
 step Cathedral Square

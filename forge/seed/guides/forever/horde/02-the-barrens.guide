@@ -449,7 +449,7 @@ step Kranal Fiss
 
 step The Crossroads
   zone The Barrens
-  tip Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate last. His seed test waits for the Verog pass at the Stagnant Oasis: go straight on north-west to the Dry Hills.
+  tip Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate last. His seed test waits for the Verog pass at the Stagnant Oasis: go straight on north-west to the Dry Hills. After the spores Helbrim offers Apothecary Zamah, a delivery to Thunder Bluff within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to Thunder Bluff).
   turnin 903                          -- Sergra Darkthorn
   accept 881
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
