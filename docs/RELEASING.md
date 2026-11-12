@@ -240,7 +240,7 @@ version throughout.
 4. Pack and check the archives:
 
    ```sh
-   rm -rf dist && forge release pack     # stops naming any guide whose legs are stale; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
+   rm -rf dist && forge release pack     # stops naming any leveling guide whose legs are stale or missing; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
    (cd dist && sha256sum -c SHA256SUMS)
    unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, and Polestar_Nav/ with its LICENSE and CREDITS.md, are listed
    forge nav check                       # Polestar_Nav's walking maps match its PACK.json
