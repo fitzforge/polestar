@@ -3342,10 +3342,18 @@ fn rewards_another_addon_s_quest_dialog_ranks_the_choices_with_no_stock_panel() 
 		emit({ n = #choices, complete = complete, value = choices[2].value })
 		emit({ QoL.Rewards.Rank(choices) })
 		emit(QoL.Rewards.Mark() == nil)
+		emit(printed("Best reward"))
+		set("rewardHighlight", false)
+		stub.messages = {}
+		stub.fire("QUEST_COMPLETE")
+		stub.runTimers()
+		emit(printed("Best reward"))
 	"#);
 	assert_eq!(out[0], json!({ "n": 2, "complete": true, "value": 250 }));
 	assert_eq!(out[1], json!([[2, 1], "value"]), "five potions sell for most");
 	assert_eq!(out[2], true, "no stock panel, no marks");
+	assert_eq!(out[3], true, "the best reward is said in chat");
+	assert_eq!(out[4], false, "not with qol.rewardHighlight off");
 }
 
 // The marks on the reward panel, per choice: the upgrade badge ("qol-upgrade" or false) and its tint, the coin
