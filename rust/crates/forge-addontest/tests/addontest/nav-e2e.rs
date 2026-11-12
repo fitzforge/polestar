@@ -2619,6 +2619,7 @@ fn t_1834_with_tomtom_s_arrow_tomtom_is_handed_booty_bays_flight_master_for_the_
 		w.setLevel(35)
 		Polestar.CharState().flags.taxi = { [18] = true, [20] = true } -- Booty Bay and Grom'gol (Horde)
 		local adds = {}
+		stub.addonsLoaded.TomTom = true -- TomTom itself, loaded (only TomTom gets the mirror)
 		TomTom = {}
 		function TomTom:AddWaypoint(m, x, y, opts) adds[#adds + 1] = { map = m, x = x * 100, y = y * 100, title = opts.title, crazy = opts.crazy }; return #adds end
 		function TomTom:RemoveWaypoint() end
