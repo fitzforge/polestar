@@ -1,26 +1,26 @@
 {
 	"scope": "forever-new",
-	"through": 1794211791,
+	"through": 1794429367,
 	"archive": {
-		"revision": "b613db81719550d6",
-		"files": 2077,
-		"sessions": 2072,
+		"revision": "727e434accbc3107",
+		"files": 4148,
+		"sessions": 4136,
 		"leftOut": {
-			"excluded": 5,
+			"excluded": 12,
 			"olderBuild": 0,
 			"unreadable": 0
 		},
-		"voters": 298,
-		"counted": 73,
+		"voters": 438,
+		"counted": 151,
 		"mergedPeople": 0,
-		"newestBuild": 70862
+		"newestBuild": 70888
 	},
 	"verdicts": {
-		"revision": "2026-11-09-0848",
-		"exclude": 0,
-		"suspect": 5
+		"revision": "2026-11-11-2300",
+		"exclude": 1,
+		"suspect": 2
 	},
-	"data": "2026-11-09T12:42:30.763Z",
+	"data": "2026-11-12T00:48:35.625Z",
 	"thresholds": {
 		"overrideVoters": 3,
 		"agreement": "2/3",
@@ -40,55 +40,55 @@
 		"immediateS": 5
 	},
 	"counts": {
-		"quests": 457,
+		"quests": 626,
 		"objective spot": {
-			"trusted": 312,
-			"gap": 66,
-			"conflict": 3,
+			"trusted": 445,
+			"gap": 92,
+			"conflict": 5,
 			"stale": 15
 		},
 		"prerequisite": {
-			"trusted": 210,
-			"gap": 27,
-			"conflict": 17,
-			"stale": 21
+			"trusted": 298,
+			"gap": 14,
+			"conflict": 31,
+			"stale": 43
 		},
 		"not a prerequisite": {
-			"trusted": 13,
-			"gap": 4,
-			"conflict": 2,
-			"stale": 2
+			"trusted": 12,
+			"gap": 2,
+			"conflict": 3,
+			"stale": 5
 		},
 		"any-of prerequisites": {
-			"trusted": 34,
-			"gap": 11,
+			"trusted": 33,
+			"gap": 7,
 			"conflict": 0,
-			"stale": 10
+			"stale": 21
 		},
 		"not any-of prerequisites": {
 			"trusted": 0,
-			"gap": 2,
-			"conflict": 0,
+			"gap": 1,
+			"conflict": 1,
 			"stale": 0
 		},
 		"exclusive with": {
-			"trusted": 1,
+			"trusted": 2,
 			"gap": 0,
 			"conflict": 0,
 			"stale": 0
 		},
 		"not exclusive with": {
 			"trusted": 0,
-			"gap": 4,
+			"gap": 8,
 			"conflict": 0,
-			"stale": 1
+			"stale": 9
 		},
 		"minimum level": {
-			"trusted": 24,
-			"gap": 6,
+			"trusted": 30,
+			"gap": 16,
 			"conflict": 0,
-			"stale": 0
+			"stale": 6
 		},
-		"questsEveryLineTrusted": 204
+		"questsEveryLineTrusted": 295
 	}
 }
