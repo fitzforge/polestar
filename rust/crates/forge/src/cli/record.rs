@@ -394,12 +394,7 @@ fn write_sessions(out: &Path, keys: &BTreeSet<Key>) -> Result<Written, String> {
 /// `write_sessions` with the folder's session files (`session_files`) and the contributors read once by
 /// the caller: `forge record resession` normalises every archive against the same index (reading every
 /// session file once per archive made it quadratic in the archive's size).
-fn write_sessions_indexed(
-	out: &Path,
-	keys: &BTreeSet<Key>,
-	files: &[(String, String, String)],
-	contributors: &BTreeMap<String, ContributorMeta>,
-) -> Result<Written, String> {
+fn write_sessions_indexed(out: &Path, keys: &BTreeSet<Key>, files: &[(String, String, String)], contributors: &BTreeMap<String, ContributorMeta>) -> Result<Written, String> {
 	let mut sources = Vec::new();
 	let mut received: BTreeMap<&Key, BTreeMap<u64, i64>> = BTreeMap::new();
 	for k in keys {
