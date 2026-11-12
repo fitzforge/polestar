@@ -800,8 +800,9 @@ runs solo or in a raid.
   them, change their weights, and start one from a built-in spec.
 - **Adjust the built-in weights**: Options, Questing, Rewards & gear, **Adjust
   weights** (or `/polestar gear adjust`) lists your spec's weights. Change any
-  stat, or add one; a changed stat shows its default and can go back on its
-  own, and **Revert to default** puts every weight of the spec back. A change
+  stat, or add one; a changed stat is marked with a dot and can go back on its
+  own (its reset button names the default), and **Revert to default** puts
+  every weight of the spec back. A change
   is kept as a share of the default, so it carries over when Polestar's
   defaults change, and the spec reads "(adjusted)" in the menu and on
   tooltips.

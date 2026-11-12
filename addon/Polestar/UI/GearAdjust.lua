@@ -1,9 +1,13 @@
 -- The window that changes the built-in stat weights (Gear/Adjust.lua, #1529):
 -- one spec of the player's class at a time, every stat it weighs at the
--- player's level, each a box to change. A changed stat shows its default
--- beside the box and a reset button that puts it back; Add a stat weighs one
+-- player's level, each a box to change. A changed stat carries the 6px accent
+-- dot before its name (docs/DESIGN.md, the Row Rule) and a reset button that
+-- puts it back, its default in the button's tooltip; Add a stat weighs one
 -- the spec leaves out; Revert to default (click twice) clears every change of
--- the spec. A change applies at once, wherever gear advice scores an item.
+-- the spec. A change applies at once, wherever gear advice scores an item,
+-- and always to the stat it was typed for: a box being typed in when the
+-- lines change (another spec, a stat added) gives its number to its own
+-- stat first.
 --
 --   UI.ShowAdjust([spec])   open it on that spec, else the one in use
 --   UI.AdjustView           what it shows, for the tests: { frame, lines, spec }
@@ -22,7 +26,8 @@ local HEAD_H = 56
 local LINE_H = 28
 local COL_GAP = 16
 local BOX_W = 64
-local DEFAULT_W = 84
+local DOT = 6
+local DOT_GAP = 6
 local RESET_W = 18
 local SCROLL_W = 12
 
@@ -80,8 +85,11 @@ local relist
 local function newLine(parent)
 	local line = CreateFrame("Frame", nil, parent)
 	line:SetHeight(LINE_H)
+	line.Dot = W.Tex(line, "ARTWORK", "circle", "accent")
+	line.Dot:SetSize(DOT, DOT)
+	line.Dot:SetPoint("LEFT", line, "LEFT", 0, 0)
 	line.Label = W.Text(line, "small", "text")
-	line.Label:SetPoint("LEFT", line, "LEFT", 0, 0)
+	line.Label:SetPoint("LEFT", line, "LEFT", DOT + DOT_GAP, 0)
 	line.Label:SetJustifyH("LEFT")
 	line.Label:SetWordWrap(false)
 	line.Reset = W.IconButton(line, "reset", RESET_W, L["Back to the default"], function()
@@ -97,20 +105,23 @@ local function newLine(parent)
 	e:SetMaxLetters(12)
 	Theme.Skin(e, "editbox")
 	e:SetPoint("RIGHT", line, "RIGHT", -(RESET_W + 6), 0)
-	line.Default = W.Text(line, "small", "textDim")
-	line.Default:SetPoint("RIGHT", e, "LEFT", -8, 0)
-	line.Default:SetWidth(DEFAULT_W)
-	line.Default:SetJustifyH("RIGHT")
-	line.Default:SetWordWrap(false)
+	-- The stat the box was focused on, so what is typed goes to it even when
+	-- the lines have moved on since (another spec, a stat added above it).
 	local function commit()
+		local f = line.psFocus or { class = playerClass(), spec = spec, key = line.psKey, value = line.psValue }
+		line.psFocus = nil
 		local n = gear().Pawn.Number(e:GetText())
 		if n == nil then
 			e:SetText(valueText(line.psValue or 0))
-		elseif n ~= line.psValue then
-			gear().Adjust.Set(playerClass(), spec, line.psKey, n, playerLevel())
+		elseif f.key and n ~= f.value then
+			gear().Adjust.Set(f.class, f.spec, f.key, n, playerLevel())
 		end
 	end
-	e:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
+	line.psCommit = commit
+	e:SetScript("OnEditFocusGained", function(self)
+		Theme.SetFocused(self, true)
+		line.psFocus = { class = playerClass(), spec = spec, key = line.psKey, value = line.psValue }
+	end)
 	e:SetScript("OnEditFocusLost", function(self)
 		Theme.SetFocused(self, false)
 		commit()
@@ -158,10 +169,28 @@ local function specMenu(anchor)
 	W.ShowMenu(anchor, items, {})
 end
 
+-- A box being typed in whose line is about to show another stat: its number
+-- goes to its own stat first (the client fires OnEditFocusLost on
+-- ClearFocus; commit runs once either way). -> whether one did
+local function settle(rows)
+	for i, line in ipairs(lines) do
+		local f = line.psFocus
+		if f and line.Box:HasFocus() and (f.spec ~= spec or not rows[i] or rows[i].key ~= f.key) then
+			line.Box:ClearFocus()
+			if line.psFocus then line.psCommit() end
+			return true
+		end
+	end
+	return false
+end
+
+local listedSpec -- the spec the lines last showed: Revert stays armed while it is the same
+
 function relist()
 	if not (F and spec) then return end
 	local G = gear()
 	local class, lv = playerClass(), playerLevel()
+	if settle(G.Adjust.Rows(class, spec, lv)) then return relist() end
 	local n = G.Adjust.Count(class, spec)
 	local label = specLabel(class, spec)
 	W.SetButtonText(F.Spec, n > 0 and (L["%s (adjusted)"]):format(label) or label)
@@ -182,12 +211,12 @@ function relist()
 		lines[i] = line
 		line.psKey, line.psValue, line.psEdited = row.key, row.value, row.edited
 		line:SetWidth(colW)
-		line.Label:SetWidth(colW - BOX_W - RESET_W - 6 - (row.edited and DEFAULT_W + 8 or 0) - 4)
+		-- The name keeps its room whether or not the stat is changed.
+		line.Label:SetWidth(colW - DOT - DOT_GAP - BOX_W - RESET_W - 6 - 8)
 		line.Label:SetText(nameOf(row.key))
-		line.Default:SetText(row.edited and format(L["default %s"], valueText(row.default)) or "")
-		line.Default:SetShown(row.edited)
+		line.Dot:SetShown(row.edited)
 		line.Reset:SetShown(row.edited)
-		W.Color(line.Label, row.edited and "accent" or "text")
+		line.Reset.psTipLines = row.edited and { format(L["Default: %s"], valueText(row.default)) } or nil
 		if not line.Box:HasFocus() then line.Box:SetText(valueText(row.value)) end
 		line:ClearAllPoints()
 		line:SetPoint("TOPLEFT", child, "TOPLEFT", ((i - 1) % 2) * (colW + COL_GAP), -(floor((i - 1) / 2) * LINE_H))
@@ -196,8 +225,13 @@ function relist()
 	for i = #rows + 1, #lines do lines[i]:Hide() end
 	W.SetScrollContent(F.Scroll, math.ceil(#rows / 2) * LINE_H + 8)
 	F.Revert:SetShown(n > 0)
-	W.SetButtonText(F.Revert, L["Revert to default"])
-	F.Revert.psArmed = nil
+	-- Armed by a first click: kept through a relist of the same spec (a bag
+	-- update, GEAR_UPDATED), so the second click still reverts.
+	if listedSpec ~= spec or n == 0 or not F.Revert.psArmed then
+		F.Revert.psArmed = nil
+		W.SetButtonText(F.Revert, L["Revert to default"])
+	end
+	listedSpec = spec
 end
 
 ---------------------------------------------------------------------------

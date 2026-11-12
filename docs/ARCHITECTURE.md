@@ -5266,7 +5266,13 @@ Polestar.UI.ShowAdjust([spec])                              -- the window; /pole
   (`UI.ShowAdjust`) opens on the spec in use (with a custom scale in use, the
   one the talents point to; a note says the changes wait for a built-in spec).
   A menu switches spec. Each stat the spec weighs, or the player added, is a
-  line with a box. A changed line shows its default and a reset button.
+  line with a box. A changed line carries the Row Rule's 6px accent dot
+  before its name (docs/DESIGN.md; the name keeps the text colour and its
+  room) and a reset button whose tooltip gives the default. A box remembers
+  the stat it was focused on: when the lines change while it is being typed
+  in (another spec, a stat added above it), its number goes to that stat
+  first. Revert's first click stays armed through a relist of the same spec
+  (a `GEAR_UPDATED`).
   **Add a stat** weighs one the spec leaves out (at 1). **Revert to default**
   shows only when something is changed and asks for a second click
   (`W.Confirm`).

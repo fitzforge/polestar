@@ -134,8 +134,8 @@ local function shown()
 	local out = {}
 	for _, l in ipairs(V.lines) do
 		if l:IsShown() then
-			out[#out + 1] = l.Label:GetText() .. "=" .. l.Box:GetText() .. (l.Default:IsShown() and (" (" .. l.Default:GetText() .. ")") or "")
-				.. (l.Reset:IsShown() and " reset" or "")
+			out[#out + 1] = (l.Dot:IsShown() and "* " or "") .. l.Label:GetText() .. "=" .. l.Box:GetText()
+				.. (l.Reset:IsShown() and (" reset (" .. ((l.Reset.psTipLines or {})[1] or "") .. ")") or "")
 		end
 	end
 	return out
@@ -143,7 +143,10 @@ end
 local function line(name)
 	for _, l in ipairs(V.lines) do if l:IsShown() and l.Label:GetText() == name then return l end end
 end
-local function type_(l, text) l.Box:SetFocus(); l.Box:SetText(text); l.Box:GetScript("OnEnterPressed")(l.Box); l.Box:GetScript("OnEditFocusLost")(l.Box) end"#;
+local function type_(l, text) l.Box:SetFocus(); l.Box:SetText(text); l.Box:GetScript("OnEnterPressed")(l.Box); l.Box:GetScript("OnEditFocusLost")(l.Box) end
+-- Typing without leaving the box: the client keeps its focus while a button is clicked.
+local function typing(l, text) l.Box:SetFocus(); l.Box:GetScript("OnEditFocusGained")(l.Box); l.Box:SetText(text) end
+local function rgb(t) local r, g, b = t:GetTextColor() return string.format("%.3f %.3f %.3f", r or 0, g or 0, b or 0) end"#;
 
 fn run_view(script: &str) -> Value {
 	run(&[VIEW, script].concat()).remove(0)
@@ -156,8 +159,11 @@ fn the_window_lists_the_spec_s_weights_and_a_typed_change_shows_its_default_and_
 		UI.ShowAdjust()
 		local d = G.WeightsFor("WARRIOR", "arms", 30)
 		local first = { spec = V.spec, button = V.frame.Spec.Label:GetText(), revert = V.frame.Revert:IsShown(), n = #shown(), sta = line("Stamina").Box:GetText() }
+		local plain = rgb(line("Stamina").Label)
 		type_(line("Stamina"), "2")
-		local edited = { line = line("Stamina") and (line("Stamina").Box:GetText() .. " / " .. line("Stamina").Default:GetText()), reset = line("Stamina").Reset:IsShown(),
+		local sta = line("Stamina")
+		local edited = { line = sta and (sta.Box:GetText() .. " / " .. sta.Reset.psTipLines[1]), reset = sta.Reset:IsShown(), dot = sta.Dot:IsShown(),
+			color = rgb(sta.Label) == plain, width = sta.Label:GetWidth() == line("Strength").Label:GetWidth(), strDot = line("Strength").Dot:IsShown(),
 			button = V.frame.Spec.Label:GetText(), revert = V.frame.Revert:IsShown(), sta = G.GetWeights().sta }
 		type_(line("Strength"), "lots")
 		local kept = line("Strength").Box:GetText()
@@ -171,8 +177,12 @@ fn the_window_lists_the_spec_s_weights_and_a_typed_change_shows_its_default_and_
 	assert_eq!(out["first"]["revert"], false, "nothing to revert yet");
 	assert!(out["first"]["n"].as_u64().unwrap() > 5);
 	assert_eq!(out["first"]["sta"], out["default"]);
-	assert_eq!(out["edited"]["line"], json!(format!("2 / default {}", out["default"].as_str().unwrap())));
+	assert_eq!(out["edited"]["line"], json!(format!("2 / Default: {}", out["default"].as_str().unwrap())), "the default in the reset button's tooltip");
 	assert_eq!(out["edited"]["reset"], true);
+	assert_eq!(out["edited"]["dot"], true, "the Row Rule's accent dot before the name");
+	assert_eq!(out["edited"]["strDot"], false);
+	assert_eq!(out["edited"]["color"], true, "the name keeps the text colour: the accent is for action, not names");
+	assert_eq!(out["edited"]["width"], true, "and its room");
 	assert_eq!(out["edited"]["button"], "Arms (adjusted)");
 	assert_eq!(out["edited"]["revert"], true);
 	assert_eq!(out["edited"]["sta"], 2);
@@ -235,4 +245,62 @@ fn the_spec_menu_switches_spec_and_names_the_adjusted_ones_and_the_command_opens
 	assert_eq!(out["spec"], "protection");
 	assert_eq!(out["line"], "5");
 	assert_eq!(out["reset"], true);
+}
+
+#[test]
+fn a_number_being_typed_goes_to_its_own_stat_when_the_spec_menu_or_add_a_stat_changes_the_lines() {
+	let out = run_view(
+		r#"
+		UI.ShowAdjust("arms")
+		local items
+		Polestar.Widgets.ShowMenu = function(anchor, list) items = list end
+		-- Arms' Stamina, still being typed in, when Fury is picked in the spec menu.
+		typing(line("Stamina"), "9")
+		V.frame.Spec:Click()
+		items[2].onClick()
+		local spec = { spec = V.spec, arms = (A.Edits("WARRIOR", "arms") or {}).sta ~= nil, fury = A.Count("WARRIOR", "fury"),
+			armsSta = G.WeightsFor("WARRIOR", "arms", 30).sta * ((A.Edits("WARRIOR", "arms") or {}).sta or { x = 0 }).x }
+		-- Fury's last line, being typed in, when Add a stat puts Intellect above it.
+		local visible = {}
+		for _, l in ipairs(V.lines) do if l:IsShown() then visible[#visible + 1] = l end end
+		local last = visible[#visible]
+		local lastName, lastKey = last.Label:GetText(), last.psKey
+		typing(last, "0.7")
+		V.frame.Add:Click()
+		for _, it in ipairs(items) do if it.text == "Intellect" then it.onClick() end end
+		local edits = A.Edits("WARRIOR", "fury") or {}
+		local keys = {}
+		for k in pairs(edits) do keys[#keys + 1] = k end
+		table.sort(keys)
+		emit({ spec = spec, lastKey = lastKey, keys = keys, typed = line(lastName).Box:GetText(), int = line("Intellect").Box:GetText(),
+			moved = last.psKey ~= lastKey })
+	"#,
+	);
+	assert_eq!(out["spec"]["spec"], "fury");
+	assert_eq!(out["spec"]["arms"], true, "the 9 went to Arms' Stamina, where it was typed");
+	assert_eq!(out["spec"]["armsSta"], 9);
+	assert_eq!(out["spec"]["fury"], 0, "not to Fury's");
+	assert_eq!(out["moved"], true, "Intellect pushed the lines down");
+	let last = out["lastKey"].as_str().unwrap();
+	let mut want = vec!["int", last];
+	want.sort();
+	assert_eq!(out["keys"], json!(want), "only the stat typed in and the one added");
+	assert_eq!(out["typed"], "0.7");
+	assert_eq!(out["int"], "1");
+}
+
+#[test]
+fn revert_s_second_click_still_reverts_after_the_gear_changes_in_between() {
+	let out = run_view(
+		r#"
+		UI.ShowAdjust("arms")
+		type_(line("Stamina"), "3")
+		V.frame.Revert:Click()
+		Polestar.Fire("GEAR_UPDATED")
+		local armed = V.frame.Revert.Label:GetText()
+		V.frame.Revert:Click()
+		emit({ armed = armed, count = A.Count("WARRIOR", "arms"), status = V.frame.Status:GetText() })
+	"#,
+	);
+	assert_eq!(out, json!({ "armed": "Click again to confirm", "count": 0, "status": "Put back 1 weight." }));
 }
