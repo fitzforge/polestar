@@ -3740,6 +3740,26 @@
 		],
 		"note": "The Missing Scholar: finding Fillion Flamebreeze is a talk (it counts as you reach him), which the data counted as a kill (#802). Races: it is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
 	},
+	"92914": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Western pylon found", "map": 2652, "f": "l", "x": 43.61, "y": 34.29 },
+				{ "type": "event", "id": null, "count": 1, "text": "Eastern pylon found", "map": 2652, "f": "l", "x": 73.01, "y": 23.64 },
+				{ "type": "event", "id": null, "count": 1, "text": "Temple pylon found", "map": 2652, "f": "l", "x": 47.6, "y": 76.66 }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-12; excluded and suspect contributors left out): 3 people (1 established) took Strange Pylons (92914) at the western Shen'dralar Pylon (object 577959), and the quest log listed three lines for each at the accept: Western pylon found, Eastern pylon found, Temple pylon found; Eastern pylon found ticked as a player rode up to the eastern pylon (Shen'dralas 73.01,23.64), Temple pylon found for 2 people inside the temple (47.56,76.64 and 47.62,76.85)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 Forever: one objective, the event Temple pylon found at Shen'dralas 47.6,76.66; the western and eastern pylons are the quest's two starting objects (577959 at 43.61,34.29, 577960 at 73.27,23.13)"
+			}
+		],
+		"note": "Strange Pylons (Shen'dralas): the quest log has three lines, one per pylon found, the western one (where the quest starts) first and the temple's last. The merged data had only the temple's, as line 1, so a guide tied to it would count the western pylon's line instead."
+	},
 	"92947": {
 		"set": {
 			"objectives": [

@@ -351,6 +351,16 @@ test("The Drowned City's follow-ups come with the dungeon quests' hand-ins, so t
 	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
 });
 
+// Strange Pylons (Shen'dralas, QuestieDB 1.0.16): the quest log lists one line per pylon, the western one first;
+// the merged data had only the temple's, as line 1, so a goal tied to line 1 would count the western pylon.
+test("Strange Pylons keeps the quest log's three pylon lines in their order (Shen'dralas)", () => {
+	const entry = corrections.quests[92914];
+	assert.ok(entry, 'a correction for 92914');
+	const lines = entry.set.objectives;
+	assert.deepEqual(lines.map((o) => o.text), ['Western pylon found', 'Eastern pylon found', 'Temple pylon found']);
+	assert.ok(lines.every((o) => o.type === 'event' && o.count === 1 && o.map === 2652), 'three events on the Shen\'dralas map');
+});
+
 // The 0.3.8 XP review (players' recorded hand-ins at a full-XP level, builds 70790-70888): three quests whose
 // data value no recorded hand-in pays. The Grand Betrayal's earlier correction held the 70170 build's value.
 test('quest XP the recordings confirm is held by the corrections (0.3.8 XP review)', () => {
