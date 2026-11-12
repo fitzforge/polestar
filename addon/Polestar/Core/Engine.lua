@@ -694,13 +694,42 @@ end
 -- the player answers; an along step never waits (the route passes over it).
 -- Nor does a step with nothing to do for the quest now (Own.groupOpen): it
 -- then applies as it would without the question, and the route asks once
--- the quest can be taken.
+-- the quest can be taken. Nor does one whose work is done while every later
+-- step with work for the quest asks too (Own.groupAskedLater).
 function Own.groupPending(step)
 	if step.along or not step.when then return nil end
 	for _, p in ipairs(step.when) do
-		if p.k == "group" and Own.groupAnswer(p.q) == nil and Own.groupOpen(step, p.q) then return p.q end
+		if p.k == "group" and Own.groupAnswer(p.q) == nil and Own.groupOpen(step, p.q) and not Own.groupAskedLater(step, p.q) then return p.q end
 	end
 	return nil
+end
+
+-- Whether the group step can pass unanswered: its own work is done (the
+-- player took the quest by hand: Barrens' WANTED: Bruuz, taken at the poster
+-- before the route got there) and every later step with work for quest q is
+-- a `when group q` step, which asks in its turn. A later step without one
+-- (a hand-in the answer "skip" leaves out) keeps the question here.
+function Own.groupAskedLater(step, q)
+	local steps = guide and guide.steps
+	if not steps then return false end
+	local s
+	for i = 1, #steps do
+		if steps[i] == step then s = i break end
+	end
+	if not s or not Own.goalsDone(s) then return false end
+	for t = s + 1, #steps do
+		for _, goal in ipairs(steps[t].goals) do
+			if goal.quest == q then
+				local asks = false
+				for _, p in ipairs(steps[t].when or NONE) do
+					if p.k == "group" and p.q == q and not p.neg then asks = true break end
+				end
+				if not asks then return false end
+				break
+			end
+		end
+	end
+	return true
 end
 
 -- Whether group quest q is worth asking about at step: not handed in nor
