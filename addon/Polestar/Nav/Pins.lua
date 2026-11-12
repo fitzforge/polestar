@@ -34,6 +34,8 @@
 --   Pins.ClearTrail()
 --   Pins.MinimapCursor() -> dNorth, dWest | nil   yards from the player to the cursor on the minimap
 --   Pins.MinimapView() -> radius, facing | nil, square   what the minimap shows (facing nil: north-up)
+--   Pins.WatchMinimapView(key, fn | nil)   fn(pc, px, py, radius, facing, square) on each frame the
+--                                      minimap's view changed, from the same sampling as the pins
 --
 -- Positions are converted to world yards once per SetLayer (Era-frame `f = "e"`
 -- included), then to map percent of whatever map the world map shows, and
@@ -46,6 +48,10 @@
 -- frame repositions pins on every rendered frame, as the game redraws the
 -- minimap (a slower rate lags the terrain and jitters), and hides itself
 -- after 0.3 s of stillness, so standing still costs no per-frame work at all.
+-- Other minimap painters (Maps/RouteLines.lua) watch the view through
+-- WatchMinimapView instead of reading it themselves: they redraw in the same
+-- frame as the pins, from the same reads, and the watcher runs for them even
+-- with no pin on the minimap.
 -- Movement events wake the driver at once. Layer changes redraw once on the
 -- next frame however many layers changed in this one. Each layer indexes its
 -- pins by continent and by CELL-yard grid square, so a redraw visits the
@@ -1704,7 +1710,8 @@ local mmFree = {}     -- released frames
 local assigned = {}   -- pin table -> frame
 local gen = 0
 local driver, watcher
-local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK, sSizeK -- last drawn state
+local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sHeight, sSquare, sZoomK, sSizeK -- last sampled state
+local viewWatch, viewWatchers = {}, 0 -- key -> fn(pc, px, py, radius, facing, square); how many
 local dirty = true
 
 local function viewRadius()
@@ -2257,7 +2264,7 @@ local function sample(force)
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local rotate = isRotating()
 	local facing = rotate and C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
-	local radius, half, square = viewRadius(), Minimap:GetWidth() / 2, isSquare()
+	local radius, half, height, square = viewRadius(), Minimap:GetWidth() / 2, Minimap:GetHeight(), isSquare()
 	-- The zoom's factor on pin sizes: `wide` at the widest zoom (0) to `close` at the closest.
 	local zoom, levels = Minimap.GetZoom and Minimap:GetZoom() or 0, Minimap.GetZoomLevels and Minimap:GetZoomLevels() or 6
 	local t = levels > 1 and zoom / (levels - 1) or 0
@@ -2265,14 +2272,19 @@ local function sample(force)
 	local z = PIN_ZOOM.minimap
 	local zoomK = z.wide + (z.close - z.wide) * t
 	local sizeK = tonumber(ns.Get and ns.Get("nav.minimapIconSize")) or 1
-	if not force and not dirty and pc == sPc and px == sPx and py == sPy and facing == sFacing
-		and radius == sRadius and rotate == sRotate and half == sHalf and square == sSquare and zoomK == sZoomK
-		and sizeK == sSizeK then
-		return false
+	local moved = not (pc == sPc and px == sPx and py == sPy and facing == sFacing and radius == sRadius
+		and rotate == sRotate and half == sHalf and height == sHeight and square == sSquare and zoomK == sZoomK
+		and sizeK == sSizeK)
+	local pins = hasMinimapPins()
+	if not force and not moved and not (dirty and pins) then return false end
+	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sHeight, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, height, square, zoomK, sizeK
+	if pins then
+		dirty = false
+		drawMinimap()
 	end
-	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, square, zoomK, sizeK
-	dirty = false
-	drawMinimap()
+	if moved and viewWatchers > 0 then
+		for _, fn in pairs(viewWatch) do fn(pc, px, py, radius, facing, square) end
+	end
 	return true
 end
 
@@ -2301,7 +2313,7 @@ local function ensureMinimap()
 end
 
 local function updateWatcher()
-	local want = hasMinimapPins()
+	local want = viewWatchers > 0 or hasMinimapPins()
 	if want and not watcher and C_Timer and C_Timer.NewTicker then
 		watcher = ns.NewTicker(WATCH_INTERVAL, function()
 			if sample(false) then
@@ -2353,6 +2365,21 @@ function refreshMinimap(layersChanged)
 		end
 	end
 	redraw(layersChanged)
+end
+
+-- fn(pc, px, py, radius, facing, square) on each frame the minimap's view
+-- changed (the player, the facing, the zoom, its size or shape), after the
+-- pins' own layout and from the same reads; nil stops watching. The watcher
+-- draws the view it is handed when it starts. While anyone watches, the
+-- 10 Hz watcher and the per-frame driver run as for the pins.
+function Pins.WatchMinimapView(key, fn)
+	if not Minimap then return end
+	local added = fn ~= nil and viewWatch[key] == nil
+	if (viewWatch[key] ~= nil) ~= (fn ~= nil) then viewWatchers = viewWatchers + (fn and 1 or -1) end
+	viewWatch[key] = fn
+	ensureMinimap()
+	updateWatcher()
+	if added then wake() end
 end
 
 -- The pin a world map frame of Pins shows: { pin, layer, x, y } (x, y in
@@ -2516,7 +2543,7 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 
 local function moved()
-	if hasMinimapPins() then wake() end
+	if viewWatchers > 0 or hasMinimapPins() then wake() end
 end
 for _, event in ipairs({
 	"PLAYER_STARTED_MOVING", "PLAYER_STARTED_TURNING", "MINIMAP_UPDATE_ZOOM", "CVAR_UPDATE",

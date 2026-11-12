@@ -937,3 +937,34 @@ fn minimap_pins_move_on_every_rendered_frame_while_the_view_changes_at_a_high_fr
 	assert_eq!(out["draws"], 24, "one layout per rendered frame while moving");
 	assert_eq!(out["stillDraws"], 0, "nothing redrawn while the view holds still");
 }
+
+#[test]
+fn a_minimap_view_watcher_hears_every_moving_frame_with_no_pin_on_the_minimap_and_the_driver_still_sleeps() {
+	let out = run(r#"
+		local calls, last = 0, nil
+		Pins.WatchMinimapView("probe", function(pc, px, py, radius, facing, square)
+			calls = calls + 1
+			last = { pc = pc, px = px, py = py, radius = radius, square = square }
+		end)
+		stub.advance(1)                                  -- settle
+		local r = {}
+		r.asleep = not Pins.driver:IsShown()
+		calls = 0
+		stub.fire("PLAYER_STARTED_MOVING")
+		for i = 1, 24 do nav.place(i * 0.05, 0); stub.advance(1 / 144) end
+		r.moving, r.px = calls, last.px
+		stub.advance(1)
+		calls = 0
+		stub.advance(1)
+		r.still, r.sleeps = calls, not Pins.driver:IsShown()
+		Pins.WatchMinimapView("probe", nil)
+		nav.place(5, 5); stub.advance(0.3)
+		r.after = calls
+		emit(r)"#);
+	assert_eq!(out["asleep"], true, "standing still with only a watcher: the driver sleeps");
+	assert_eq!(out["moving"], 24, "one call per moving frame");
+	assert_eq!(num(&out["px"]), 1.2, "with the position sampled that frame");
+	assert_eq!(out["still"], 0);
+	assert_eq!(out["sleeps"], true);
+	assert_eq!(out["after"], 0, "unwatched: no more calls");
+}
