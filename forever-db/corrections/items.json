@@ -81,5 +81,25 @@
 			}
 		],
 		"note": "Carved Centaur Totem (Carved Centaur Totems, 93224 Alliance / 93225 Horde) drops from the Kolkar and Magram centaurs too, not only the Maraudine (4654-4659) the merged data lists from QuestieDB's Forever store. Gelkis centaurs: no recorded loot yet, so not added."
+	},
+	"2511": {
+		"removeVendors": [
+			5814
+		],
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "npc_vendor: Innkeeper Thulbek (5814) sells 21 items: food, drink and fish, plus three Love is in the Air gifts; Hunter's Boomstick (2511) is sold by 16 other NPCs, not him"
+			},
+			{
+				"kind": "recording",
+				"ref": "merchant windows of npc 5814 (builds 70862 and 70888): 4 people, 5 windows, 18 items, all food, drink and fish, no Hunter's Boomstick"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 lists no vendor for item 2511"
+			}
+		],
+		"note": "Innkeeper Thulbek at Grom'gol sells food, drink and fish only. Only pfQuest lists him as a vendor of Hunter's Boomstick, so Nearby services' \"Bows & guns\" sent hunters to him (#1820); Uthok, also at Grom'gol, sells the arrows and bullets."
 	}
 }
