@@ -975,6 +975,61 @@ fn without_the_codex_pack_an_empty_state_that_says_where_to_get_the_release_leav
 }
 
 #[test]
+fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_filters() {
+	let out = run(r#"
+		stub.cascadeVisibility = true
+		Polestar.Dungeons.Open("wailing-caverns")
+		local _, _, _, buttons = DS.Frames()
+		local function visible()
+			local n = 0
+			for _, b in ipairs(buttons) do if b:IsVisible() then n = n + 1 end end
+			return n
+		end
+		local r = { opened = visible() }
+		PolestarPicker:Hide()
+		r.closed = visible()
+		Polestar.UI.ShowPicker()
+		r.reopened = visible()
+		P.ShowSection("Guides")
+		P.SetCategory("All")
+		r.left = visible()
+		r.title = PolestarPicker.Title:GetAlpha()
+		r.filters = {}
+		for _, b in ipairs(PolestarPicker.factionButtons) do
+			b:Click()
+			local selected = Polestar.Get("ui.pickerFaction")
+			local count, valid = 0, true
+			for _, entry in ipairs((P.Entries(selected, "", "All"))) do
+				if entry.kind == "guide" then
+					count = count + 1
+					local f = entry.guide.faction
+					if selected ~= "All" and f and f ~= selected then valid = false end
+				end
+			end
+			r.filters[#r.filters + 1] = { b.psKey, selected, b:IsVisible(), count > 0, valid }
+		end
+		P.ShowSection("Dungeons")
+		r.returned = visible()
+		P.ShowSection("Guides")
+		r.leftAgain = visible()
+		emit(r)"#);
+	let out = &out[0];
+	assert_eq!(out["opened"], 3);
+	assert_eq!(out["closed"], 0);
+	assert_eq!(out["reopened"], 3);
+	assert_eq!(out["left"], 0, "dungeon controls must not cover the guide controls");
+	assert_eq!(out["title"], 1, "the dungeon page must not leave the guide heading veiled");
+	assert_eq!(out["returned"], 3);
+	assert_eq!(out["leftAgain"], 0);
+	for filter in out["filters"].as_array().unwrap() {
+		assert_eq!(filter[0], filter[1]);
+		assert_eq!(filter[2], true);
+		assert_eq!(filter[3], true);
+		assert_eq!(filter[4], true);
+	}
+}
+
+#[test]
 fn review_p3_13_show_on_map_in_combat_says_in_chat_why_the_map_stays_shut_and_opens_it_once_combat_is_over() {
 	let out = run(r#"
 		local printed = {}
