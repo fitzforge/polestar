@@ -682,12 +682,7 @@ fn a_held_prerequisite_the_route_never_hands_in_says_hand_it_in_first_with_its_e
 #[test]
 fn a_held_prerequisite_whose_ender_a_step_stands_at_keeps_its_follow_up_open() {
 	// A step for every race at Gwennyth (another of her quests): the player hands Washed Ashore in there.
-	let out = held_darkshore(
-		r#"{ t = "accept", quest = 998, title = "A Letter", npc = 10219, map = D, x = 37, y = 44 }"#,
-		AT_GWENNYTH,
-		"",
-		WASHED_ASHORE,
-	);
+	let out = held_darkshore(r#"{ t = "accept", quest = 998, title = "A Letter", npc = 10219, map = D, x = 37, y = 44 }"#, AT_GWENNYTH, "", WASHED_ASHORE);
 	assert_eq!(out["goals"], json!(["4727:pending:nil"]), "{out}");
 	// The Codex cannot say who takes it in: the giver's window has the last word, as before (#1372).
 	let unknown = held_darkshore("", "nil", "", WASHED_ASHORE);
