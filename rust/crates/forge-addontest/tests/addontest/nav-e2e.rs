@@ -2740,11 +2740,11 @@ fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walk
 	}
 }
 
-// #1543's near walk where the arrow's own search finds it long or none (the 0.3.7 border sweep's worst pairs): the
-// route takes the crossing's way back, as before #1543, and keeps it. A Horde player at level 30 on Alterac's ridge,
-// 395 yd above a goal in the Undercity (no walk joins them: the near walk flipped the arrow 127 times between itself
-// and the crossing), on Searing Gorge's rim 350 yd above a Badlands goal (the walk 3.6k yd round: the player never
-// got there), and in Tanaris 200 yd from a goal down in Un'Goro Crater (1.4k yd round the rim: never got there).
+// #1543's near walk where the walking engine finds it long or none (the 0.3.7 border sweep's worst pairs): the route
+// keeps the crossing's way, as before #1543. A Horde player at level 30 on Alterac's ridge, 395 yd above a goal in the
+// Undercity (no walk joins them: the unchecked near walk flipped the arrow 127 times between itself and the crossing),
+// on Searing Gorge's rim 350 yd above a Badlands goal (the walk 3.6k yd round: the player never got there), and in
+// Tanaris 200 yd from a goal down in Un'Goro Crater (1.4k yd round the rim: never got there).
 #[test]
 fn a_near_target_over_a_closed_zone_border_with_a_long_walk_or_none_keeps_the_crossings_way_1543() {
 	skip_unless_ready!();
@@ -2757,7 +2757,7 @@ fn a_near_target_over_a_closed_zone_border_with_a_long_walk_or_none_keeps_the_cr
 			local L, ci = N.GetRoute()
 			for i = ci or 1, #(L or {}) do
 				local l = L[i]
-				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. (l.crossing and ("|" .. l.crossing) or "") .. (l.near and "|near" or "")
+				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. (l.crossing and ("|" .. l.crossing) or "")
 			end
 			return out
 		end
@@ -2781,7 +2781,6 @@ fn a_near_target_over_a_closed_zone_border_with_a_long_walk_or_none_keeps_the_cr
 	for (k, crossing) in [("alterac", "alterac-mountains--silverpine-forest-lake"), ("gorge", "carbonite-searing-gorge--badlands"), ("ungoro", "carbonite-tanaris--un-goro-crater")] {
 		let first = strs(&out[k]["first"]);
 		assert!(first.iter().any(|x| x.ends_with(&format!("|{crossing}"))), "{k}: through the crossing ({first:?})");
-		assert!(!first.iter().any(|x| x.ends_with("|near")), "{k}: not the near walk ({first:?})");
-		assert_eq!(strs(&out[k]["later"]), first, "{k}: the same way 10 s on, never back to the near walk");
+		assert_eq!(strs(&out[k]["later"]), first, "{k}: the same way 10 s on");
 	}
 }

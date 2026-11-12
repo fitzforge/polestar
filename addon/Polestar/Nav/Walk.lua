@@ -153,11 +153,12 @@
 --   Walk.Stops(pc, px, py) -> stops, total: the chokepoints along the path
 --   Walk.Split(): Travel.SplitWalk at them (on each path, and after a fresh plan);
 --     with none, the walk leg takes the path's yards and time, and goes back
---     to its straight estimate when the path fails or is cleared (Travel.RestoreWalk).
---     Each path in, or none found, first goes to Travel.NearWalk: the near
---     walk over a closed zone border (#1543) stands only on a short path
+--     to its straight estimate when the path fails or is cleared (Travel.RestoreWalk)
 --   Walk.Searches(c) -> true when the arrow's own walk on continent c is
---     searched (the engine on and its maps there): Travel plans the near walk only then
+--     searched (the engine on and its maps there)
+--   Walk.Probe(pc, px, py, gx, gy, gz, callback) -> job | nil: one search for the
+--     planner, apart from the arrow's own (Travel's near walk over a closed zone
+--     border, #1543): callback(along, sx, sy) or callback(false); Walk.CancelProbe(job)
 --   Walk.FollowsGoto(target) -> true when the guide's last located goal before
 --     this target is a `goto` the player has reached (Engine.GoalDone)
 --   Walk.Clear()
@@ -255,8 +256,8 @@ local function canSearch(P, c)
 end
 
 -- Will the arrow's own walk on continent c be searched (the engine loaded and
--- on, its maps there)? Travel plans the near walk over a closed zone border
--- only then: that search checks it (Travel.NearWalk).
+-- on, its maps there)? Travel offers the near walk over a closed zone border
+-- only then (Travel.NearWalk).
 function Walk.Searches(c)
 	local P = engine()
 	return P ~= nil and c ~= nil and canSearch(P, c)
@@ -906,18 +907,13 @@ local function ask(P, pc, px, py, flat)
 			took(points)
 			landX, landY = px, py -- searched from here: the player may be well on by now (Walk.Aim catches up)
 			hubs = hubsOf(answer)
-			-- The near walk over a closed zone border stands only on a short path (Travel.NearWalk).
-			local T = Nav.travel
-			if T and T.NearWalk then T.NearWalk(gc, gx, gy, left[1], ptsX[1], ptsY[1]) end
 			if Walk.Split then Walk.Split() end
 		else
 			failed, failAt, failX, failY = true, GetTime(), px, py
 			count, hubs, shape = 0, nil, nil
 			restore(gc, gx, gy)
-			local T = Nav.travel
-			-- None found: the near walk over a closed zone border goes (Travel.NearWalk).
-			if T and T.NearWalk then T.NearWalk(gc, gx, gy, false) end
 			-- No walk joins the player to the goal at all: a portal there may be out of reach (Travel.WalkUnreachable).
+			local T = Nav.travel
 			if reason == "unreachable" and T and T.WalkUnreachable then T.WalkUnreachable(gc, gx, gy) end
 		end
 		changed()
@@ -931,8 +927,6 @@ local function ask(P, pc, px, py, flat)
 			return ask(P, pc, px, py, flat)
 		end
 		failed, failAt, failX, failY = true, askedAt, px, py
-		local T = Nav.travel
-		if T and T.NearWalk then T.NearWalk(gc, gx, gy, false) end
 		return
 	end
 	if token == mine then
@@ -954,6 +948,66 @@ local function ask(P, pc, px, py, flat)
 		end, o)
 		if okShape and token == mine then sketchJob = h end
 	end
+end
+
+-- One search for the planner, apart from the arrow's own: Travel's near walk
+-- over a closed zone border (#1543) is planned only once the engine finds that
+-- walk short. From the player at (pc, px, py) to (gx, gy, gz: the target's
+-- height, or nil), from the start height or floors and with the opts the
+-- arrow's own search would take; one with heights that finds nothing, or ends
+-- off the goal's floor, is asked once more without them. Not urgent: the
+-- arrow's own walk and the later legs' searches go first. callback(along, sx,
+-- sy) with the yards along its path from its first point (sx, sy) to the goal,
+-- or callback(false) when none was found; once. -> the job (Walk.CancelProbe),
+-- or nil when none was started (no engine, the continent's maps not
+-- searchable, in combat).
+function Walk.Probe(pc, px, py, gx, gy, gz, callback)
+	local P = engine()
+	if not (P and pc and canSearch(P, pc)) or inCombat() then return nil end
+	local ghost = Nav.travel and Nav.travel.IsGhost and Nav.travel.IsGhost() or false
+	local o = opts(ghost, pc, px, py, gx, gy)
+	local sz = startZ(pc, px, py)
+	local floors = sz == nil and startFloors(pc, px, py) or nil
+	local job = {}
+	local function find(from, to, again)
+		local ok, handle = pcall(P.Find, pc, from, to, function(points)
+			if job.cancelled then return end
+			job.handle = nil
+			local n = type(points) == "table" and #points or 0
+			if again and (n == 0 or (to.z and offFloor(points, to.z))) then return find({ x = px, y = py }, { x = gx, y = gy }) end
+			local along, x, y, sx, sy = 0, nil, nil, nil, nil
+			for i = 1, n do
+				local q = points[i]
+				if type(q) == "table" and q.x and q.y then
+					if x then
+						local dx, dy = q.x - x, q.y - y
+						along = along + sqrt(dx * dx + dy * dy)
+					else
+						sx, sy = q.x, q.y
+					end
+					x, y = q.x, q.y
+				end
+			end
+			if not x then return callback(false) end
+			local dx, dy = gx - x, gy - y
+			callback(along + sqrt(dx * dx + dy * dy), sx, sy)
+		end, o)
+		if not ok then
+			if again then return find({ x = px, y = py }, { x = gx, y = gy }) end
+			return callback(false)
+		end
+		job.handle = handle
+	end
+	find({ x = px, y = py, z = sz, floors = floors }, { x = gx, y = gy, z = gz }, sz ~= nil or floors ~= nil or gz ~= nil)
+	return job
+end
+
+function Walk.CancelProbe(job)
+	if type(job) ~= "table" or job.cancelled then return end
+	job.cancelled = true
+	local P = Nav.Path
+	if P and job.handle then pcall(P.Cancel, job.handle) end
+	job.handle = nil
 end
 
 -- The current step's baked leg (Nav/Baked.lua) as the path to the goal just
@@ -1000,8 +1054,6 @@ local function takeBaked(pc, px, py)
 	end
 	idx, failed, wanted, hubs = 1, false, false, nil
 	Nav.follow.Reset(fstate)
-	local T = Nav.travel
-	if T and T.NearWalk then T.NearWalk(gc, gx, gy, left[1], ptsX[1], ptsY[1]) end
 	if Walk.Split then Walk.Split() end
 	changed()
 	pumpLegs()

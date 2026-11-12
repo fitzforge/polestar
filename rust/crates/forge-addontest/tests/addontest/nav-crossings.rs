@@ -736,41 +736,46 @@ fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_c
 }
 
 // #1543's near walk (Nav.PlanRoute's p.nearWalk): a target within that many straight yards over a closed zone border
-// is walked to straight, the leg marked `near` for the arrow's own search to check (Travel.NearWalk). Beyond its reach,
-// or with no p.nearWalk (an estimate; the live route with no walking engine to check the walk, as in this world), the
-// way goes through the crossing, as before #1543; into an area (ground no walk joins to its zone, #1761), never. Kobolds
-// 200 yd east of the player, over the border; the gate 1100 yd north.
+// is walked to straight; with p.nearProbe instead the planner only says it would be (nearProbe.yards) and plans the
+// crossing's way. Beyond the reach, without either (an estimate; the live route with no walking engine to ask, as in
+// this world), and into an area (ground no walk joins to its zone, #1761), the way goes through the crossing, as
+// before #1543. Kobolds 200 yd east of the player, over the border; the gate 1100 yd north.
 #[test]
 fn the_near_walk_over_a_closed_zone_border_goes_only_within_its_reach_and_never_without_a_walking_engine_1543() {
 	let out = run(r#"
-		local function plan(nearWalk)
+		local function plan(nearWalk, probe)
 			local legs = N.PlanRoute({ c = 0, wx = -500, wy = 100, map = 9002, faction = 1, known = {}, nearWalk = nearWalk,
-				target = { c = 0, wx = -500, wy = -100, label = "Kobolds", map = 9003 } })
+				nearProbe = probe, target = { c = 0, wx = -500, wy = -100, label = "Kobolds", map = 9003 } })
 			if not legs then return "no route" end
 			local out = {}
-			for i, l in ipairs(legs) do out[i] = l.label .. (l.near and "|near" or "") end
+			for i, l in ipairs(legs) do out[i] = l.label end
 			return out
 		end
 		crossings()
-		local r = { near = plan(400), short = plan(150), none = plan(nil) }
+		local probe, far = { reach = 400 }, { reach = 150 }
+		local r = { near = plan(400), short = plan(150), none = plan(nil), probed = plan(nil, probe), probedFar = plan(nil, far) }
+		r.yards, r.farYards = probe.yards, far.yards or false
 		nav.place(-500, 100)
 		target(-500, -100, "Kobolds")
 		r.live = route()
 		N.RegisterTravelData({}, true)
 		nav.useTravelWorld()
 		crossings({ areas = { { id = "kobold-den", name = "Kobold Den", map = 9003, c = 0, top = -400, bottom = -600, left = -50, right = -150 } } })
+		local den = { reach = 400 }
 		r.area = plan(400)
+		plan(nil, den)
+		r.areaYards = den.yards or false
 		emit(r)"#);
-	assert_eq!(out["near"], json!(["Kobolds|near"]), "200 yd over the border, within its reach: the near walk");
+	assert_eq!(out["near"], json!(["Kobolds"]), "200 yd over the border, within its reach: the near walk");
 	let gate = json!(["Through the gate to East Vale", "Through the gate to East Vale", "Kobolds"]);
 	assert_eq!(out["short"], gate, "beyond its reach: through the gate");
 	assert_eq!(out["none"], gate, "without p.nearWalk: through the gate");
-	assert_eq!(
-		out["live"],
-		json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Kobolds"]),
-		"the live route with no walking engine to check the walk: through the gate"
-	);
+	assert_eq!(out["probed"], gate, "p.nearProbe plans nothing through it: through the gate");
+	assert_eq!(out["yards"], 200, "and says the near walk would be offered: 200 straight yards");
+	assert_eq!((out["probedFar"].clone(), out["farYards"].clone()), (gate, json!(false)), "beyond the probe's reach: nothing to say");
+	assert_eq!(out["live"], json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Kobolds"]), "the live route with no walking engine to ask: through the gate");
 	assert_eq!(out["area"], "no route", "into an area no walk joins: never the near walk (and no other way in here)");
+	assert_eq!(out["areaYards"], false, "nor probed");
 }
 
 // KEPT IN JS:

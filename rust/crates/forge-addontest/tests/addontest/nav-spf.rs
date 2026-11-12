@@ -3929,59 +3929,119 @@ fn a15_following_the_arrow_over_a_bend_with_a_wobble_the_yards_never_count_up() 
 	}
 }
 
-// #1543's near walk over a closed zone border, checked by the arrow's own search (Travel.NearWalk). The target 200 yd
-// east of the player, over West Vale's border with East Vale; the gate 1100 yd north. A short path (204 yd) keeps the
-// walk, one leg, and later plans keep it, out to 700 yd from the target (where the planner alone would take the gate);
-// a long one (round by the gate, 2246 yd) or none takes the gate's way for that target, and later plans keep that.
+// #1543's near walk over a closed zone border, probed first (Walk.Probe, Travel.NearWalk). The target 200 yd east of
+// the player in West Vale, over its border with East Vale; the gate 1100 yd north.
+const NEAR: &str = r#"
+local T = N.travel
+N.RegisterCrossings({ complete = true,
+	zones = {
+		[9002] = { name = "West Vale", c = 0, top = 1000, bottom = -1000, left = 1000, right = 0 },
+		[9003] = { name = "East Vale", c = 0, top = 1000, bottom = -1000, left = 0, right = -1000 },
+	},
+	crossings = { { id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 20, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 },
+		ab = "Through the gate to East Vale" } } })
+local function route()
+	local legs, ci = N.GetRoute()
+	local out = {}
+	for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+	return out
+end
+-- Every field of a value, nested tables included (keys sorted, five levels deep), as one string.
+local function dump(v, depth)
+	if type(v) ~= "table" then return tostring(v) end
+	depth = depth or 0
+	if depth > 4 then return "{...}" end
+	local keys = {}
+	for k in pairs(v) do keys[#keys + 1] = k end
+	table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+	local out = {}
+	for i, k in ipairs(keys) do out[i] = tostring(k) .. "=" .. dump(v[k], depth + 1) end
+	return "{" .. table.concat(out, ",") .. "}"
+end
+-- The engine's latest search for the near walk: to the target, not the arrow's own (urgent).
+local function probe()
+	for i = #fake.calls, 1, -1 do
+		local job = fake.calls[i]
+		if not job.urgent and job.to and floor(job.to.x + 0.5) == -500 and floor(job.to.y + 0.5) == -100 then return job end
+	end
+end
+-- From (-500, 100) to `label` at (-500, -100): the route's legs, every field of them, and the route's version.
+local function start(label)
+	N.ClearTarget()
+	nav.place(-500, 100)
+	target(-500, -100, label)
+	aim()
+	local legs = N.GetRoute()
+	return legs, dump(legs), T.version
+end
+local SHORT = { -500, 100, -520, 0, -500, -100 }                -- 204 yd
+local LONG = { -500, 100, 600, 20, 600, -20, -500, -100 }       -- round by the gate, 2246 yd
+"#;
+
+// The plan is the gate's way while the engine is asked, apart from the arrow's own search, for the walk to the target.
+// A short path plans the near walk, one leg, which later plans keep, out to 700 yd from the target (where the planner
+// alone would take the gate); a long one or none changes nothing (the same legs, untouched, no new route), and later
+// plans keep the gate's way.
 #[test]
-fn the_near_walk_over_a_closed_zone_border_stands_on_a_short_path_a_long_one_or_none_takes_the_gate_1543() {
-	let out = run(r#"
-		local r = {}
-		local T = N.travel
-		N.RegisterCrossings({ complete = true,
-			zones = {
-				[9002] = { name = "West Vale", c = 0, top = 1000, bottom = -1000, left = 1000, right = 0 },
-				[9003] = { name = "East Vale", c = 0, top = 1000, bottom = -1000, left = 0, right = -1000 },
-			},
-			crossings = { { id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 20, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 },
-				ab = "Through the gate to East Vale" } } })
-		local function route()
-			local legs, ci = N.GetRoute()
-			local out = {}
-			for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label .. (legs[i].near and "|near" or "") end
-			return out
-		end
+fn the_near_walk_over_a_closed_zone_border_is_planned_only_once_the_engine_finds_it_short_1543() {
+	let out = run(&format!(
+		"{NEAR}{}",
+		r#"
 		local function try(label, answer)
-			N.ClearTarget()
-			nav.place(-500, 100)
-			target(-500, -100, label)
-			local planned = route()
+			local legs, before, version = start(label)
+			local res = { planned = route(), probed = probe() ~= nil }
+			answer(probe())
 			aim()
-			local job = fake.last()
-			local asked = { floor(job.to.x + 0.5), floor(job.to.y + 0.5) }
-			answer(job)
-			aim()
-			local after = route()
+			local after = N.GetRoute()
+			res.after = route()
+			res.untouched = rawequal(after, legs) and dump(after) == before and T.version == version
 			T.Replan()
-			return { planned = planned, asked = asked, after = after, again = route() }
+			res.again = route()
+			return res
 		end
-		r.short = try("Short", function(job) fake.answerXY(job, { -500, 100, -520, 0, -500, -100 }) end)
+		local r = {}
+		r.short = try("Short", function(job) fake.answerXY(job, SHORT) end)
 		nav.place(-500, 450)
 		T.Replan()
 		r.hold = route()
-		r.long = try("Long", function(job) fake.answerXY(job, { -500, 100, 600, 20, 600, -20, -500, -100 }) end)
+		r.long = try("Long", function(job) fake.answerXY(job, LONG) end)
 		r.none = try("None", function(job) job.callback(nil, "unreachable", job) end)
-		emit(r)"#);
-	assert_eq!(out["short"]["planned"], json!(["walk|Short|near"]), "200 yd over the border: the near walk, one leg");
-	assert_eq!(out["short"]["asked"], json!([-500, -100]), "the arrow's own search goes to the target");
-	assert_eq!(out["short"]["after"], json!(["walk|Short|near"]), "a 204 yd path: kept");
-	assert_eq!(out["short"]["again"], json!(["walk|Short|near"]), "and planned again");
-	assert_eq!(out["hold"], json!(["walk|Short|near"]), "550 yd off, past 400: the walk found short holds");
-	for k in ["long", "none"] {
-		let label = if k == "long" { "Long" } else { "None" };
-		let gate = json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", format!("walk|{label}")]);
-		assert_eq!(out[k]["planned"], json!([format!("walk|{label}|near")]), "{k}: planned as the near walk");
-		assert_eq!(out[k]["after"], gate, "{k}: the search takes the gate's way back");
-		assert_eq!(out[k]["again"], gate, "{k}: and the next plan keeps it");
+		emit(r)"#
+	));
+	let gate = |label: &str| json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", format!("walk|{label}")]);
+	assert_eq!(out["short"]["planned"], gate("Short"), "planned the gate's way");
+	assert_eq!(out["short"]["probed"], true, "the engine is asked for the walk to the target");
+	assert_eq!(out["short"]["after"], json!(["walk|Short"]), "a 204 yd path: the near walk, one leg");
+	assert_eq!(out["short"]["again"], json!(["walk|Short"]), "and planned again");
+	assert_eq!(out["hold"], json!(["walk|Short"]), "550 yd off, past 400: the walk found short holds");
+	for (k, label) in [("long", "Long"), ("none", "None")] {
+		assert_eq!(out[k]["planned"], gate(label), "{k}: planned the gate's way");
+		assert_eq!(out[k]["probed"], true, "{k}: the engine asked");
+		assert_eq!(out[k]["after"], gate(label), "{k}: still the gate's way");
+		assert_eq!(out[k]["untouched"], true, "{k}: the same legs, every field as it was, no new route");
+		assert_eq!(out[k]["again"], gate(label), "{k}: and the next plan keeps it");
 	}
+}
+
+// A near walk the engine finds long leaves the plan byte for byte the one made with no near walk at all (no engine to
+// ask): every field of every leg, before the answer and after it.
+#[test]
+fn a_dropped_near_walk_leaves_the_plan_byte_identical_to_the_one_without_it_1543() {
+	let script = format!(
+		"{NEAR}{}",
+		r#"
+		local legs, before, version = start("Kobolds")
+		local job = probe()
+		if job then fake.answerXY(job, LONG) end
+		aim()
+		local after = N.GetRoute()
+		emit({ probed = job ~= nil, route = route(), before = before, after = dump(after), untouched = rawequal(after, legs) and T.version == version })"#
+	);
+	let with = run(&script);
+	let without = run_with(&script, false, false);
+	assert_eq!((with["probed"].clone(), without["probed"].clone()), (json!(true), json!(false)), "the engine asked only when there is one");
+	assert_eq!(with["route"], json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Kobolds"]));
+	assert_eq!(with["before"], without["before"], "planned: every field of every leg as with no near walk at all");
+	assert_eq!(with["after"], without["after"], "after the long answer: still");
+	assert_eq!(with["untouched"], true, "the same legs, no new route");
 }
