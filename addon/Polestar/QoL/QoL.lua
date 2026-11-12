@@ -64,6 +64,7 @@ local defaults = {
 	bagSpace = true,         -- free bag slots: the junk button and the bags-full banner
 	bagsLow = 2,             -- ... at this many free slots or fewer
 	trainAll = false,        -- learn every spell a class trainer offers now
+	trainAllProfessions = false,
 	trainAllButton = true,
 	rewardHighlight = true,
 	rewardAutoPick = false,

@@ -1,23 +1,3 @@
--- Class trainer: learn every spell the trainer offers now, when it opens
--- (qol.trainAll, default off; Shift skips). One purchase at a time: buying
--- brings the list back from the server (TRAINER_UPDATE) with its indexes
--- moved, so it is read again before each purchase, and a spell already bought
--- this visit is never bought again. The next purchase waits until the last
--- one has landed (its service is no longer "available"), whatever else
--- updates the list; one that has not landed after LAND_WAIT seconds was
--- refused, and ends the run. Closing the window, or stopping the run (the
--- setting off, Shift), counts a purchase still on its way: it was sent while
--- available and affordable, and is paid for whether or not the list has caught
--- up. Only "available" services you can afford
--- are bought, and only from a class trainer of your class that
--- Core/ClassTrainers.lua knows (Engine.IsClassTrainer): riding, weapon, pet
--- and profession trainers are left alone. Prints what was learned, and what
--- the rest would cost when the money ran out.
---
--- Client: IsTradeskillTrainer, GetNumTrainerServices, GetTrainerServiceInfo,
--- GetTrainerServiceCost, BuyTrainerService (Forever Blizzard_TrainerUI);
--- TRAINER_SHOW, TRAINER_UPDATE, TRAINER_CLOSED (TrainerDocumentation).
-
 local ADDON, ns = ...
 local L = ns.L
 local QoL = ns.QoL
@@ -32,6 +12,7 @@ local LAND_WAIT = 2
 
 local active = false
 local auto = false
+local kind
 local bought = {}         -- "name\0rank" of the spells bought this visit
 local pending, pendingCost -- the purchase that has not landed yet
 local learned, spent = 0, 0
@@ -40,6 +21,13 @@ local trainerButton
 local updateTrainerButton
 
 local function keyOf(name, rank) return name and (name .. "\0" .. (rank or "")) end
+
+local function batchCost(i)
+	local cost, needsConfirmation = GetTrainerServiceCost(i)
+	-- New primary professions need the game's slot check and confirmation.
+	if needsConfirmation then return end
+	return cost or 0
+end
 
 -- Whether the service `key` is still listed as available.
 local function stillAvailable(key)
@@ -50,12 +38,12 @@ local function stillAvailable(key)
 	return false
 end
 
-local function isClassTrainer()
-	if not (GetNumTrainerServices and GetTrainerServiceInfo and GetTrainerServiceCost and BuyTrainerService) then return false end
-	if IsTradeskillTrainer and IsTradeskillTrainer() then return false end
-	if ClassTrainerFrame and ClassTrainerFrame.trainingPoints and ClassTrainerFrame.trainingPoints:IsShown() then return false end
+local function trainerKind()
+	if not (GetNumTrainerServices and GetTrainerServiceInfo and GetTrainerServiceCost and BuyTrainerService) then return end
+	if ClassTrainerFrame and ClassTrainerFrame.trainingPoints and ClassTrainerFrame.trainingPoints:IsShown() then return end
+	if IsTradeskillTrainer and IsTradeskillTrainer() then return "profession" end
 	local E = ns.Engine
-	return not not (E and E.IsClassTrainer and E.IsClassTrainer(ns.Compat.GetNpcID("npc")))
+	if E and E.IsClassTrainer and E.IsClassTrainer(ns.Compat.GetNpcID("npc")) then return "class" end
 end
 
 -- The first service that can be learned now and that `money` covers:
@@ -67,11 +55,13 @@ function Trainer.Next(money)
 		local name, kind, _, _, rank = GetTrainerServiceInfo(i)
 		local k = keyOf(name, rank)
 		if kind == "available" and k and not bought[k] then
-			local c = GetTrainerServiceCost(i) or 0
-			if not index and c <= money then
-				index, key, cost = i, k, c
-			else
-				short, shortCost = short + 1, shortCost + c
+			local c = batchCost(i)
+			if c then
+				if not index and c <= money then
+					index, key, cost = i, k, c
+				else
+					short, shortCost = short + 1, shortCost + c
+				end
 			end
 		end
 	end
@@ -83,8 +73,15 @@ local function finish(short, shortCost)
 	active = false
 	auto = false
 	if learned > 0 then
-		ns.Print(format(learned == 1 and L["Learned %d spell for %s."] or L["Learned %d spells for %s."], learned, QoL.Money(spent)))
+		local message
+		if kind == "profession" then
+			message = learned == 1 and L["Learned %d skill for %s."] or L["Learned %d skills for %s."]
+		else
+			message = learned == 1 and L["Learned %d spell for %s."] or L["Learned %d spells for %s."]
+		end
+		ns.Print(format(message, learned, QoL.Money(spent)))
 	end
+	kind = nil
 	if short and short > 0 then
 		ns.Print(format(L["Not enough money for %d more (%s)."], short, QoL.Money(shortCost)))
 	end
@@ -129,7 +126,10 @@ end
 
 function Trainer.Start(fromAuto)
 	if active then return end
-	if not isClassTrainer() then return end
+	local trainer = trainerKind()
+	if not trainer then return end
+	kind = trainer
+	learned, spent = 0, 0
 	active = true
 	auto = not not fromAuto
 	if updateTrainerButton then updateTrainerButton() end
@@ -140,7 +140,7 @@ end
 -- (POLESTAR_HIDDEN puts it back).
 updateTrainerButton = function()
 	if not trainerButton or not ClassTrainerFrame then return end
-	if not QoL.On("trainAllButton") or not isClassTrainer() or ns.Hidden() then
+	if not QoL.On("trainAllButton") or not trainerKind() or ns.Hidden() then
 		trainerButton:Hide()
 		return
 	end
@@ -148,7 +148,7 @@ updateTrainerButton = function()
 	local availableCount = 0
 	for i = 1, (GetNumTrainerServices and GetNumTrainerServices() or 0) do
 		local _, kind = GetTrainerServiceInfo(i)
-		if kind == "available" then
+		if kind == "available" and batchCost(i) then
 			availableCount = availableCount + 1
 		end
 	end
@@ -170,9 +170,10 @@ local function initTrainerButton()
 		local count, cost = 0, 0
 		for i = 1, (GetNumTrainerServices and GetNumTrainerServices() or 0) do
 			local _, kind = GetTrainerServiceInfo(i)
-			if kind == "available" then
+			local price = kind == "available" and batchCost(i)
+			if price then
 				count = count + 1
-				cost = cost + (GetTrainerServiceCost(i) or 0)
+				cost = cost + price
 			end
 		end
 		if count > 0 then
@@ -203,11 +204,14 @@ end
 
 function Trainer.OnShow()
 	initTrainerButton()
-	updateTrainerButton()
-	active, learned, spent, pending, auto = false, 0, 0, nil, false
+	active, learned, spent, pending, auto, kind = false, 0, 0, nil, false, nil
 	wipe(bought)
-	if QoL.Shift() or not QoL.On("trainAll") then return end
-	Trainer.Start(true)
+	updateTrainerButton()
+	if QoL.Shift() then return end
+	local trainer = trainerKind()
+	if (trainer == "class" and QoL.On("trainAll")) or (trainer == "profession" and QoL.On("trainAllProfessions")) then
+		Trainer.Start(true)
+	end
 end
 
 function Trainer.OnClosed()
@@ -232,7 +236,10 @@ end)
 ns.RegisterEvent("TRAINER_CLOSED", Trainer.OnClosed)
 ns.RegisterEvent("PLAYER_LOGOUT", cancel)
 ns.On("SETTING_CHANGED", function(path)
-	if (path == "qol.trainAll" or path == "qol" or path == "") and not QoL.On("trainAll") and auto then cancel() end
+	if auto and kind then
+		local setting = kind == "profession" and "trainAllProfessions" or "trainAll"
+		if (path == "qol." .. setting or path == "qol" or path == "") and not QoL.On(setting) then cancel() end
+	end
 	if path == "qol.trainAllButton" or path == "qol" or path == "" then updateTrainerButton() end
 end)
 ns.On("POLESTAR_HIDDEN", function() updateTrainerButton() end)

@@ -517,7 +517,7 @@ function GetTrainerServiceInfo(i)
 end
 function GetTrainerServiceCost(i)
 	local s = q.trainer.services[i]
-	if s then return s.cost or 0, q.trainer.tradeskill end
+	if s then return s.cost or 0, s.confirm end
 end
 function BuyTrainerService(i)
 	local s = q.trainer.services[i]

@@ -70,7 +70,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 		for _, k in ipairs({ "itemButton", "targetButton", "hearthButton", "buttonScale", "xpTracker", "sellJunk", "autoRepair",
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
-			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals", "trainAll", "trainAllButton",
+			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals", "trainAll", "trainAllProfessions", "trainAllButton",
 			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "bagSpace", "bagsLow", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
@@ -99,6 +99,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	assert_eq!(defaults["flightAutoTake"], false, "taking the flight by itself is off by default");
 	assert_eq!(defaults["buyGoals"], false, "buying for the guide is off by default");
 	assert_eq!(defaults["trainAll"], false, "learning at trainers is off by default");
+	assert_eq!(defaults["trainAllProfessions"], false, "profession auto-learning is off by default");
 	assert_eq!(defaults["trainAllButton"], true, "train all button is on by default");
 	assert_eq!(defaults["rewardEquip"], false, "wearing rewards is off by default");
 	assert_eq!(defaults["autoBind"], false, "binding the Hearthstone is off by default");
@@ -3512,7 +3513,7 @@ fn trainer_button_learns_affordable_spells_one_per_list_update_and_prints_the_to
 }
 
 #[test]
-fn trainer_button_does_not_show_at_profession_or_non_class_trainers_or_when_disabled() {
+fn trainer_button_shows_at_profession_trainers_but_not_other_trainers_or_when_disabled() {
 	let out = run(&[
 		SPELLS,
 		r#"
@@ -3534,9 +3535,62 @@ fn trainer_button_does_not_show_at_profession_or_non_class_trainers_or_when_disa
 	"#,
 	]
 	.concat());
-	assert_eq!(out[0], false, "profession trainer");
+	assert_eq!(out[0], true, "profession trainer");
 	assert_eq!(out[1], false, "other trainer");
 	assert_eq!(out[2], false, "disabled in options");
+}
+
+#[test]
+fn trainer_profession_batch_skips_services_needing_confirmation_and_shares_the_button_setting() {
+	let out = run(r#"
+		q.money = 1000
+		q.trainer = { tradeskill = true, services = {
+			{ name = "Apprentice Alchemy", rank = "", kind = "available", cost = 100, confirm = true },
+			{ name = "Minor Healing Potion", rank = "", kind = "available", cost = 200 },
+			{ name = "Elixir of Wisdom", rank = "", kind = "available", cost = 300 },
+		} }
+		q.openTrainer()
+		local b = PolestarTrainAllButton
+		emit({ shown = b:IsShown(), enabled = b:IsEnabled() })
+		q.click(b, false)
+		stub.advance(1)
+		local bought = {}
+		for _, c in ipairs(q.calls) do if c[1] == "BuyTrainerService" then bought[#bought + 1] = c[2] end end
+		emit({ bought = bought, enabled = b:IsEnabled(), summary = printed("Learned 2 skills for 5s 0c") })
+		q.closeTrainer()
+		q.calls = {}
+		set("trainAllProfessions", true)
+		q.trainer.services = { { name = "Apprentice Blacksmithing", rank = "", kind = "available", cost = 100, confirm = true } }
+		q.openTrainer(); stub.advance(1)
+		emit({ bought = #calls("BuyTrainerService"), enabled = b:IsEnabled() })
+		q.closeTrainer()
+		set("trainAllButton", false)
+		q.openTrainer()
+		emit(b:IsShown())
+	"#);
+	assert_eq!(out[0], json!({ "shown": true, "enabled": true }));
+	assert_eq!(out[1], json!({ "bought": ["Minor Healing Potion", "Elixir of Wisdom"], "enabled": false, "summary": true }));
+	assert_eq!(out[2], json!({ "bought": 0, "enabled": false }));
+	assert_eq!(out[3], false);
+}
+
+#[test]
+fn trainer_second_click_does_not_repeat_the_first_batch_summary() {
+	let out = run(r#"
+		q.money = 100
+		q.trainer.services = {
+			{ name = "Fireball", rank = "Rank 2", kind = "available", cost = 100 },
+			{ name = "Frostbolt", rank = "Rank 2", kind = "available", cost = 500 },
+		}
+		q.openTrainer()
+		local b = PolestarTrainAllButton
+		q.click(b, false); stub.advance(1)
+		q.click(b, false); stub.advance(1)
+		local summaries = 0
+		for _, m in ipairs(stub.messages) do if m:find("Learned 1 spell", 1, true) then summaries = summaries + 1 end end
+		emit({ bought = #calls("BuyTrainerService"), summaries = summaries })
+	"#);
+	assert_eq!(out[0], json!({ "bought": 1, "summaries": 1 }));
 }
 
 // ---------------------------------------------------------------------------
