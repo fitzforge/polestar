@@ -47,14 +47,15 @@ for _, p in ipairs(want) do
 end
 collectgarbage("restart")
 local after = full()
-emit({{ resident = loaded - before, lookups = after - loaded, wrong = wrong, absent = D.QuestDungeon(77) == nil,
+emit({{ resident = loaded - before, lookups = after - loaded, wrong = table.concat(wrong, ","), absent = D.QuestDungeon(77) == nil,
 	kind = type(D.questKeys), codex = D.Meta() ~= nil }})"#,
 			file = lua_string(&file.to_string_lossy())
 		),
 		..Default::default()
 	});
 	let v = &out[0];
-	assert_eq!(v["wrong"], serde_json::json!([]), "{v}");
+	// The quests answered wrongly, as a list ("" when none: an empty Lua table emits as {} rather than []).
+	assert_eq!(v["wrong"], "", "{v}");
 	assert_eq!(v["absent"], true, "{v}");
 	assert_eq!(v["kind"], "string", "kept as one string: {v}");
 	assert_eq!(v["codex"], false, "the Codex stays unloaded: {v}");
