@@ -258,9 +258,10 @@ end
 -- How the arrow is set to route, so a pathing report says which router and
 -- style it came from: the route style (nav.routeStyle) as its setting's own
 -- word, then only the settings that differ from the defaults (walking maps
--- off, the travel planner off, guiding handed to Shortest Path Forever). The
--- words stay English, like "yd": whoever fixes the bug reads them. After the
--- Where line, so the bug bot still finds Arrow and Where by position.
+-- off, the travel planner off, guiding handed to Shortest Path Forever,
+-- paused, "armed" or "inside"). The words stay English, like "yd":
+-- whoever fixes the bug reads them. After the Where line, so the bug bot
+-- still finds Arrow and Where by position.
 local function routesLine()
 	local style = ns.Get("nav.routeStyle")
 	local parts = { (style == "fastest" or style == "roads") and style or "balanced" }
@@ -268,6 +269,9 @@ local function routesLine()
 	if ns.Get("nav.travel") == false then parts[#parts + 1] = "travel planner off" end
 	local N = ns.Nav
 	if N and N.HandedOff and N.HandedOff() then parts[#parts + 1] = "handed to Shortest Path Forever" end
+	-- Paused (Core/Init.lua): the arrow drops the guide's waypoint meanwhile.
+	local paused = ns.Paused and ns.Paused()
+	if paused then parts[#parts + 1] = "paused " .. paused end
 	return cut((L["Routes: %s"]):format(table.concat(parts, SEP)))
 end
 

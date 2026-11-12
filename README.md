@@ -526,6 +526,16 @@ its source is in [apps/client](apps/client).
   arrow, its travel button and its arrival sound. Opening a Polestar window
   (the guides, the options, their key bindings) brings Polestar back. In a
   fight the action buttons go or come back when it ends.
+- **Pause** (the guide window's menu, the minimap button's menu, Options,
+  Guide, Window, the **Pause the guide** key binding or `/polestar pause`):
+  on your way to a dungeon and inside, the arrow, the guide window and its
+  nudges step aside, and Polestar resumes by itself when you leave the
+  dungeon alive (a wipe and the run back keep it paused). The Spirit Healer's
+  resurrection counts as leaving alive, so pause again for the run back.
+  Your guide keeps up with your quest log meanwhile; a point you pick and the
+  way back to your corpse still show. `/polestar resume` or opening the guide
+  window ends it early. Under it in Options, the step's map pins and the quest
+  automation can pause too. This character only.
 
 </details>
 

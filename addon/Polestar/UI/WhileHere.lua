@@ -145,10 +145,10 @@ function T.Hide()
 	end)
 end
 
--- The chime for a new line, unless off, Polestar is hidden or one played
--- less than SOUND_EVERY seconds ago. True when it played.
+-- The chime for a new line, unless off, Polestar is hidden or paused, or
+-- one played less than SOUND_EVERY seconds ago. True when it played.
 function T.Chime()
-	if not (ns.Get("behavior.whileHereSound") and PlaySoundFile) or ns.Hidden() then return false end
+	if not (ns.Get("behavior.whileHereSound") and PlaySoundFile) or ns.Hidden() or ns.PauseHides("nagging") then return false end
 	local now = GetTime()
 	if now - soundAt < SOUND_EVERY then return false end
 	soundAt = now
@@ -180,8 +180,8 @@ ns.On("WHILE_HERE_CHANGED", function()
 	seen = new.appeared
 	if not ns.IsLoggedIn() then return end
 	T.Chime()
-	-- Hidden, Polestar keeps no toast for later: the window's panel lists the line when it is back.
-	if windowShows() or ns.Hidden() then return end
+	-- Hidden or paused, Polestar keeps no toast for later: the window's panel lists the line when it is back.
+	if windowShows() or ns.Hidden() or ns.PauseHides("nagging") then return end
 	shownKey = new.appeared
 	T.Show(new)
 end)
@@ -189,6 +189,14 @@ end)
 -- Hiding Polestar takes the toast down at once.
 ns.On("POLESTAR_HIDDEN", function(hidden)
 	if not (hidden and f and f:IsShown()) then return end
+	token = token + 1
+	shownKey = nil
+	f:Hide()
+end)
+
+-- So does pausing.
+ns.On("POLESTAR_PAUSED", function()
+	if not (ns.PauseHides("nagging") and f and f:IsShown()) then return end
 	token = token + 1
 	shownKey = nil
 	f:Hide()

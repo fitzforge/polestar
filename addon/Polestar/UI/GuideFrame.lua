@@ -3900,11 +3900,13 @@ function GF.RulesHide()
 	return (inCombat and ns.Get("ui.combat") == "hide") or hiddenInside()
 end
 
+-- Pause (Core/Init.lua) hides the window too, never writing ui.shown;
+-- it stays out of GF.RulesHide, so the floating launcher stays as a way back.
 function GF.ApplyVisibility()
 	ns.SetGuideAwayInside(hiddenInside() and ns.Get("ui.shown"))
 	ns.Fire("GUIDE_VISIBILITY")
 	if not F then return end
-	local show = ns.Get("ui.shown") and not GF.RulesHide()
+	local show = ns.Get("ui.shown") and not GF.RulesHide() and not ns.PauseHides("window")
 	F:SetShown(show and true or false)
 end
 
@@ -3996,6 +3998,11 @@ end
 local APPLY = {
 	-- Shown inside (a guide picked, /polestar show, the switch): open for the visit.
 	["ui.shown"] = function()
+		-- Turned on while paused (a guide picked, a toast's button, the
+		-- gamepad's focus): the player asked for it, so Polestar resumes (with
+		-- its chat line). Only an explicit ns.Set lands here (the load applies
+		-- everything through applyAll), so a /reload stays paused.
+		if ns.Get("ui.shown") and ns.IsLoggedIn() and ns.PauseHides("window") then ns.SetPaused(false, "window") end
 		if inInstance and ns.Get("ui.shown") then openInside = true end
 		GF.ApplyVisibility()
 	end,
@@ -4331,6 +4338,9 @@ local function openMenu(button)
 		{ text = L["Reset guide progress"], icon = "reset", confirm = true, disabled = not hasGuide, tip = L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."],
 			onClick = function() if E and E.ResetProgress then E.ResetProgress() end end },
 		{ text = L["Options"], icon = "gear", onClick = function() UI.ShowOptions() end },
+		-- Pause (Core/Init.lua): the arrow, this window and its nudges step aside until you are back out of a dungeon alive.
+		{ text = L["Pause"], icon = "icon-dungeon", checked = ns.Paused() ~= nil, tip = L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."],
+			onClick = function() ns.TogglePaused() end },
 		{ text = L["Hide window"], icon = "close", onClick = function()
 			ns.Set("ui.shown", false)
 			ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
@@ -5552,11 +5562,12 @@ end
 -- back for 12 seconds, and one chat line says where the setting is.
 -- Accounts told before by the chat line alone (instanceHideTold) see the
 -- notice once too. Not while Polestar is hidden: the player hid it all, and
--- the hint waits for an entry Polestar is shown on. (This chunk is at Lua
--- 5.1's 200 locals: no new ones.)
+-- the hint waits for an entry Polestar is shown on; nor while paused,
+-- which put the window away itself and said how to resume. (This chunk is at
+-- Lua 5.1's 200 locals: no new ones.)
 local function hintHiddenOnce()
 	local db = ns.DB()
-	if db.instanceHint or ns.Hidden() then return end
+	if db.instanceHint or ns.Hidden() or ns.Paused() then return end
 	db.instanceHint = true
 	db.instanceHideTold = nil
 	local howTo = GF.HowToShow()
@@ -5586,3 +5597,5 @@ local function checkInstance()
 end
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", checkInstance)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)
+-- Paused or resumed: the window goes or comes back as it was.
+ns.On("POLESTAR_PAUSED", function() GF.ApplyVisibility() end)

@@ -76,7 +76,8 @@ end
 function Upcoming.Refresh()
 	local P = ns.Pins
 	if not (P and P.SetLayer) then return end
-	local pins = ns.Get("nav.upcomingPins") and Upcoming.Build() or nil
+	-- Not while the pause takes the step's map pins (pause.map).
+	local pins = ns.Get("nav.upcomingPins") and not ns.PauseHides("map") and Upcoming.Build() or nil
 	if pins and #pins > 0 then
 		P.SetLayer(LAYER, pins, { world = true, minimap = true })
 	else
@@ -94,8 +95,9 @@ local function soon()
 	end)
 end
 
-for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED", "TABS_CHANGED" }) do ns.On(msg, soon) end
+for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED", "TABS_CHANGED", "POLESTAR_PAUSED" }) do ns.On(msg, soon) end
 ns.On("SETTING_CHANGED", function(path)
 	if path == "nav.upcomingPins" or path == "ui.upcoming" or path == "nav" or path == "ui" or path == "" then soon() end
+	if path == "pause.map" or path == "pause" then soon() end
 end)
 ns.OnLogin(soon)

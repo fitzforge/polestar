@@ -58,12 +58,18 @@ function Automation.Delay()
 	return SPOKEN_DELAY
 end
 
+-- Paused with "No quest automation while paused" on (pause.automation,
+-- Core/Init.lua): no accept, turn-in or close until Polestar resumes.
+local function automationPaused()
+	return ns.PauseHides("automation")
+end
+
 local function canAccept()
-	return ns.Get("behavior.autoAccept") and not suppressed()
+	return ns.Get("behavior.autoAccept") and not suppressed() and not automationPaused()
 end
 
 local function canTurnIn()
-	return ns.Get("behavior.autoTurnin") and not suppressed()
+	return ns.Get("behavior.autoTurnin") and not suppressed() and not automationPaused()
 end
 
 local function wantsAccept(q)
@@ -100,6 +106,8 @@ local function noteLeft(kind, list)
 			why = "auto-accept off"
 		elseif suppressed() then
 			why = "Shift held"
+		elseif automationPaused() then
+			why = "paused"
 		else
 			why = ns.Engine.AcceptRefusal(q) or "wanted"
 		end
@@ -156,7 +164,7 @@ local function anyTaken(list, key)
 end
 
 local function mayClose()
-	return ns.Get("behavior.closeSkipped") and not suppressed() and not ns.Compat.InCombat()
+	return ns.Get("behavior.closeSkipped") and not suppressed() and not automationPaused() and not ns.Compat.InCombat()
 end
 
 -- The quest window ("detail" or "greeting") or gossip window the game opened

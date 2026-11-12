@@ -142,6 +142,7 @@ Messages:
 | `SETTING_CHANGED` | path, value | Core settings |
 | `TOGGLE_FRAME` / `SHOW_FRAME` | — | commands, keybinds → UI (from a hidden Polestar both show it again, the window with it) |
 | `POLESTAR_HIDDEN` | hidden (true \| false) | Core, `Polestar.SetHidden` (and true again as "Keep the arrow when hidden" changes while hidden): see "Hiding Polestar" |
+| `POLESTAR_PAUSED` | state ("armed" \| "inside" \| nil), why ("hand", "entered", "left", "expired", "window") | Core, `Polestar.SetPaused`: Polestar paused or resumed, or armed to inside (or into another instance); see "Pause" |
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil | commands → UI |
 | `SHOW_WELCOME` | page or nil | About's "Show the welcome again", `/polestar welcome` → UI/Welcome.lua |
@@ -293,7 +294,7 @@ registered commands with their `help` lines (already translated:
 (`SetHidden(false)`), as it asks to see something, unless it is registered
 `quiet`: one that only prints or sets (`hide`, `status`, `tabs`, `debug`,
 `arrow`, `way`, `near`, `route`, `skipleg`, `xp`, `bags`, `questdb`,
-`instances`, `restock`). Core registers (Core/Commands.lua): `guides`,
+`instances`, `restock`, `pause`, `resume`). Core registers (Core/Commands.lua): `guides`,
 `options`, `show` (`SHOW_FRAME`), `hide` (hides or shows all of Polestar;
 `hide arrow` toggles "Keep the arrow when hidden", see "Hiding Polestar"),
 `next`, `prev` (look at the next/previous step; nothing changes), `skip`
@@ -301,7 +302,8 @@ registered commands with their `help` lines (already translated:
 the saved view for the current guide), `guide <id>`, `status`, `tabs`,
 `tab <n>`, `close`, `path` (the route choice), `welcome` (`SHOW_WELCOME`),
 `packs` (Options at Community guides), `gamepad` (Options at Gamepad), `where`, `questlog` (`SHOW_QUEST_ROOM`), `report` (`SHOW_REPORT`),
-`discord` (`SHOW_DISCORD`), `debug`; Nav adds `arrow`, `way` and `route`;
+`discord` (`SHOW_DISCORD`), `debug`, and in Core/Pause.lua `pause` (no
+argument toggles, `on`, `off`) and `resume` (see "Pause"); Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
 `rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
 `update` (the update card, Core/Update.lua)).
@@ -385,7 +387,7 @@ Polestar.SetHidden(on) / Polestar.ToggleHidden()
 Polestar.HideKeepsArrow() -> bool  -- "Keep the arrow when hidden" (this character)
 Polestar.SetHideKeepsArrow(on)
 Polestar.ArrowHidden() -> bool     -- hidden and not keeping the arrow: the arrow, its travel button and arrival chime go
-Polestar.GuideShown() -> bool      -- the guide window's state shown and Polestar not hidden
+Polestar.GuideShown() -> bool      -- the guide window's state shown, Polestar not hidden and not paused
 Polestar.GuideWindowOn() -> bool   -- the window's own state (ui.shown, the instance wait), hidden or not
 Polestar.PlaySound(kit, channel, arrow) / Polestar.PlaySoundFile(file, channel, arrow)
 ```
@@ -478,6 +480,92 @@ call: a new one fails the test until it is listed, so a new surface is
 decided on. New frames on the screen take `Polestar.UIParent` as their
 parent, new sounds go through `Polestar.PlaySound`, new toasts check
 `Polestar.Hidden()`, and new map drawings hang off `view.frame`.
+
+### Pause
+
+```lua
+Polestar.Paused() -> nil | "armed" | "inside"
+Polestar.PauseHides(part) -> bool  -- "arrow", "window", "nagging" while paused; "map", "automation" with their setting too
+Polestar.SetPaused(on, why) / Polestar.TogglePaused(why)
+Polestar.PauseInside() -> bool, mapID  -- in a dungeon, raid, battleground or arena (mapID when the client gives it)
+Polestar.PauseHowToEnd() -> text   -- the key, the minimap button's menu or /polestar resume
+Polestar.Now() -> seconds          -- the pause's clock: Compat.Now(), or time() where the Compat in place has none
+```
+
+The player levelling with a guide who goes off to run a dungeon pauses
+Polestar, one switch per character: the arrow and the guide window step aside
+on the way there and inside, and Polestar resumes by itself once the player
+leaves the dungeon alive. Pause stops what Polestar shows and steers with, not
+the Engine, which keeps following the quest log. Ways to pause or resume: the
+guide window's menu and the minimap and floating buttons' menu ("Pause"), the
+`POLESTAR_PAUSE` binding ("Pause the guide"; a gamepad chord too), Options
+(Guide, Window, Dungeons and battlegrounds), `/polestar pause` (no argument
+toggles, `on`, `off`) and `/polestar resume`; each always says what it did.
+Pause is a state of its own beside "Hiding Polestar", not a layer on it: it
+never writes `ui.shown`, `nav.arrow`, `hidden` or a `behavior.*` setting, so
+resuming brings everything back by itself. Either can be turned on or off
+while the other is on, and each leaves the other as it was; hiding takes
+more, so a hidden Polestar shows nothing either way.
+
+`PolestarCharDB.pause = { state, at, map }` (Core/Init.lua, read as the addon
+loads, so a `/reload` keeps it): "armed" when paused outside (`at`:
+`Polestar.Now()` then: `Compat.Now()`, or `time()` where the Compat in place
+has none), "inside" in a dungeon, raid, battleground or arena (the
+guide window's instance kinds; `map`: the instance's map id). The watcher
+(Core/Pause.lua) looks one frame after `PLAYER_ENTERING_WORLD`,
+`ZONE_CHANGED_NEW_AREA`, `PLAYER_UNGHOST` and `PLAYER_ALIVE`. An armed pause
+that never went in resumes two hours after it was armed, wherever the player
+is: each arming, and an armed pause loaded at login or a `/reload`
+(`Polestar.OnInit`, as the load fires no `POLESTAR_PAUSED`), sets one
+`C_Timer.After` for the time it has left, which does nothing if that arming
+has since resumed or gone inside. Every look checks the age first too, so a
+login after more than two hours away resumes before a dungeon is taken for it.
+"Inside" never expires.
+In an instance it is "inside" there (another instance moves it on); outside
+after being in, it resumes once the player is alive (a Spirit Healer's
+resurrection too), and stays paused while dead or a ghost, so a wipe and the
+run back do not end it (`PLAYER_ALIVE` also fires on releasing, so the ghost
+state is read again each time). Walking out resumes at once. The Spirit
+Healer's resurrection counts as leaving alive (deliberately), so after taking
+it the player pauses again for the run back. Each change but
+the way in says so in one line in chat; pausing by hand puts up a notice
+(`Nav.alerts.ShowNotice`) saying how to resume; a line says the guide is back
+only when it is (`GuideShown()`). Asking for the guide window resumes and
+shows the window (inside, for the visit, as the instance rule's own opening):
+`TOGGLE_FRAME` and `SHOW_FRAME` (the menu's Guide window, the key,
+`/polestar`), and every other `ui.shown` set to true (a guide picked, a
+toast's button, the gamepad's focus: the guide window's `APPLY["ui.shown"]`,
+which only an explicit `Polestar.Set` reaches, so a `/reload` stays paused).
+The Options toggle repaints on `POLESTAR_PAUSED`.
+
+What it takes, and how:
+
+- The arrow's guide target: Nav's `apply` drops the Engine's waypoint while
+  `PauseHides("arrow")`, and every surface keyed off the target goes with it
+  (the arrow, route lines, trail, target pin, arrival chime, the TomTom and
+  game waypoints, the hand-off to Shortest Path Forever). A hold (`Nav.Hold`,
+  the death helper's way back) and points the player picks (`Nav.SetTarget`,
+  `/way`, a dungeon's entrance) still show; resuming puts the guide's
+  waypoint back. The travel button (`Nav/Prompts.lua`) goes while the guide's
+  waypoint is what the pause drops, and shows for a hold or a picked point. A
+  click on a step goal's or a while-here line's map pin, which goes through
+  the Engine otherwise (`Engine.AimGoal`, `Engine.AimWhileHere`), sets a
+  picked point instead (`Nav/Layers.lua`).
+- The guide window and what goes with it: `GuideShown()` is false (the action
+  buttons, the party panel, the rare and transport alerts), and
+  `GF.ApplyVisibility` hides the window, outside `GF.RulesHide()`, so the
+  floating launcher stays as a way back.
+- The window's nudges: the while-here toast and chime (`UI/WhileHere.lua`).
+- With `pause.map` (off by default): the step's goal pins, their areas, the
+  while-here pins (`Nav/Layers.lua`) and the upcoming-step pins
+  (`Nav/Upcoming.lua`).
+- With `pause.automation` (off by default): quest auto-accept, turn-in,
+  closing skipped quest windows (`Core/Automation.lua`) and the reward pick
+  (`QoL/Rewards.lua`).
+
+Party chat progress lines go on as before. The report's Routes line says
+"paused armed" or "paused inside" while paused.
+`rust/crates/forge-addontest/tests/addontest/pause.rs` covers it.
 
 ### Gamepad interface
 
