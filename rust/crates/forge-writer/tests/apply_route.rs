@@ -29,8 +29,10 @@ struct Case {
 	route_travel: bool,
 	/// The world's zone crossings (the writer's walks go over them).
 	crossings: Option<forge_world::world::Crossings>,
-	/// The pass-by pickups (pass_by.rs): on in the writer's runs, off here unless a case is about them.
+	/// The pass-by pickups (pass_by.rs) and nearby flight paths (nearby_fp.rs): on in the writer's
+	/// runs, off here unless a case is about them.
 	pass_by: bool,
+	nearby_fp: bool,
 }
 
 impl Default for Case {
@@ -49,6 +51,7 @@ impl Default for Case {
 			route_travel: false,
 			crossings: None,
 			pass_by: false,
+			nearby_fp: false,
 		}
 	}
 }
@@ -107,6 +110,7 @@ fn run(c: &Case, area_at: Option<&dyn SubzoneOf>) -> Run {
 		borders: borders.as_ref(),
 		fresh_openers: forge_writer::post::FreshOpeners::Flag,
 		pass_by: c.pass_by,
+		nearby_fp: c.nearby_fp,
 	})
 	.unwrap();
 	Run { out, guides }
@@ -10557,5 +10561,116 @@ fn pass_by_never_takes_an_escort_or_a_timed_quest_earlier() {
 	for (why, edit) in cases {
 		let r = run(&dry_hills(edit), None);
 		assert_eq!(pick(&r.read("a"), r"^\s+(accept|turnin|kill)"), DRY_HILLS_ROUTE, "{why}: {:#?}", r.out.log);
+	}
+}
+
+/// Nearby flight paths: the Barrens' west in small, on a 6,000 yd frame. The Crossroads (flight master
+/// and inn) at (0, -2000), Seereth (0, -1000), Malaka'jin (0, 0), Sun Rock Retreat's flight master
+/// (0, 1000) and its quest giver 50 yd off, Ziz Fizziks' hut (680, 1000), 680 yd from the master. At 20
+/// the route walks from the Crossroads to Ziz and on to Malaka'jin; at 24 it hearths to the Crossroads
+/// and walks up by Seereth and Malaka'jin to Sun Rock, learning its path there, and back down.
+/// `back_down`: the walk down by Malaka'jin and Seereth (else a hearth back to the Crossroads); `ziz`:
+/// the hut's point.
+fn webwinder(back_down: bool, ziz: [f64; 2]) -> Case {
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"race Orc,Troll,Tauren,Undead,Skyborne",
+		"levels 20-25",
+		"zone Durotar",
+		"",
+		"step Crossroads",
+		"  accept 1",
+		"",
+		"step Ziz",
+		"  kill 50 quest 1.1",
+		"",
+		"step Malaka'jin",
+		"  turnin 1",
+		"",
+		"step Seereth",
+		"  accept 2",
+		"",
+		"step Malaka'jin again",
+		"  accept 3",
+		"",
+		"step Sun Rock",
+		"  accept 4",
+		"  turnin 4",
+		"",
+		"step Malaka'jin down",
+		"  turnin 3",
+		"",
+		"step Seereth down",
+		"  turnin 2",
+		"",
+	];
+	let (down_3, down_2) = if back_down {
+		(json!({ "t": "turnin", "q": 3, "pt": 2, "lvl": 24.8, "from": f("a", 27) }), json!({ "t": "turnin", "q": 2, "pt": 1, "lvl": 25.0, "from": f("a", 30) }))
+	} else {
+		(
+			json!({ "t": "turnin", "q": 3, "pt": 0, "lvl": 24.8, "from": f("a", 27), "items": [{ "t": "hearth", "inn": 0, "to": 0, "innPt": 0 }] }),
+			json!({ "t": "turnin", "q": 2, "pt": 0, "lvl": 25.0, "from": f("a", 30) }),
+		)
+	};
+	Case {
+		files: vec![("a", a)],
+		world: json!({
+			"points": [[1, 1, 0, -2000, 1411], [1, 1, 0, -1000, 1411], [1, 1, 0, 0, 1411], [1, 1, 0, 1000, 1411], [1, 1, 50, 1000, 1411], [1, 1, ziz[0], ziz[1], 1411]],
+			"zones": { "1411": "Durotar" }, "quests": [],
+			"inns": [{ "name": "Crossroads", "pt": 0 }],
+			"nodes": [{ "kind": "fp", "name": "Crossroads", "pt": 0 }, { "kind": "fp", "name": "Sun Rock Retreat", "pt": 3 }]
+		}),
+		frames: json!({ "era": { "1411": { "top": 3000, "bottom": -3000, "left": -3000, "right": 3000, "c": 1 } } }),
+		quests: json!({ "1": { "title": "One" }, "2": { "title": "Two" }, "3": { "title": "Three" }, "4": { "title": "Four" } }),
+		route: json!({ "faction": "Horde", "start": "Orc", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 20.0, "from": f("a", 8), "items": [{ "t": "getfp", "node": 0 }, { "t": "bind", "inn": 0, "pt": 0, "used": true }] },
+			{ "t": "task", "q": 1, "task": 0, "pt": 5, "lvl": 20.2, "from": f("a", 11) },
+			{ "t": "turnin", "q": 1, "pt": 2, "lvl": 20.5, "from": f("a", 14) },
+			{ "t": "accept", "q": 2, "pt": 1, "lvl": 24.0, "from": f("a", 17), "items": [{ "t": "hearth", "inn": 0, "to": 1, "innPt": 0 }] },
+			{ "t": "accept", "q": 3, "pt": 2, "lvl": 24.2, "from": f("a", 20) },
+			{ "t": "accept", "q": 4, "pt": 4, "lvl": 24.4, "from": f("a", 23), "items": [{ "t": "getfp", "node": 1 }] },
+			{ "t": "turnin", "q": 4, "pt": 4, "lvl": 24.6, "from": f("a", 24) },
+			down_3,
+			down_2
+		] }),
+		route_travel: true,
+		nearby_fp: true,
+		..Case::default()
+	}
+}
+
+#[test]
+fn a_flight_master_near_a_stop_is_learnt_when_a_later_walk_up_to_it_and_back_would_fly() {
+	// The Barrens: Ziz Fizziks' hut is 680 yd from Sun Rock Retreat's flight master; four levels on the
+	// route walks 3,000 yd from the Crossroads up to Sun Rock and back down past the same stops. Flying
+	// in from the Crossroads instead gains about 4 minutes, against about a minute's walk to the master
+	// from the hut: the path is learnt there, on the walk out of the hut, and not again at Sun Rock.
+	let r = run(&webwinder(true, [680.0, 1000.0]), None);
+	let g = r.read("a");
+	let fp = idx(&g, "  getfp \"Sun Rock Retreat\"");
+	assert!(fp > idx(&g, "  kill 50 quest 1.1") && fp < idx(&g, "  turnin 1"), "{g:#?}\n{:#?}", r.out.log);
+	assert_eq!(pick(&g, r#"^\s+getfp "Sun Rock Retreat""#).len(), 1, "{g:#?}");
+	assert!(
+		r.out.log.iter().any(
+			|l| l.starts_with("nearby fp: getfp Sun Rock Retreat on the walk out of task one (1) at level 20.2 (680 yd off, 1.1 min more walking): flying from or to it gains about 4.0 min later")
+		),
+		"{:#?}",
+		r.out.log
+	);
+	// Without the rule, the route learns it at Sun Rock.
+	let off = run(&Case { nearby_fp: false, ..webwinder(true, [680.0, 1000.0]) }, None).read("a");
+	assert!(idx(&off, "  getfp \"Sun Rock Retreat\"") > idx(&off, "  accept 3"), "{off:#?}");
+}
+
+#[test]
+fn a_flight_master_is_not_learnt_too_far_off_or_for_a_walk_it_would_not_shorten() {
+	// The hut 900 yd from the master: too far. A route that hearths back down from Sun Rock (Seereth and
+	// Malaka'jin not walked past again): flying in would skip their stops, so nothing gains.
+	for (case, why) in [(webwinder(true, [900.0, 1000.0]), "too far"), (webwinder(false, [680.0, 1000.0]), "no walk back down")] {
+		let r = run(&case, None);
+		let g = r.read("a");
+		assert!(idx(&g, "  getfp \"Sun Rock Retreat\"") > idx(&g, "  accept 3"), "{why}: {g:#?}");
+		assert!(!r.out.log.iter().any(|l| l.starts_with("nearby fp:")), "{why}: {:#?}", r.out.log);
 	}
 }

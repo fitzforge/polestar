@@ -386,6 +386,31 @@ be compared byte for byte with the old JavaScript writer.
   hand-ins on the deathskip's landing before Kolkar Crag; Nathaniel Dumah's beside Chillwind Camp's
   flight master before the flight to Southshore, with A Plague Upon Thee's second part, c19). The
   log names each moved event (`hub tour: ...`).
+- **Nearby flight paths** (`src/nearby_fp.rs`, with route legs, after the hub tour). A stop within
+  800 yd (straight) of a flight master whose path the character has not learnt learns it: a walk to
+  the master and its `getfp`, on the walk into the stop or out of it, whichever adds less walking,
+  when the route's later walks gain more than that walk and two minutes by flying from or to that
+  master. Later is up to 10 levels on, until the route learns the path itself; the route's own later
+  `getfp` of it then goes. The Barrens' first guide stops at Ziz Fizziks' hut, 685 yd from Sun Rock
+  Retreat's flight master; the second Barrens guide walks the Webwinder Path up to Sun Rock and back
+  down instead of flying there. A later run of walks (between two hearths, flights, rides or
+  deathskips) gains by:
+  - flying in: the walk from where its travel left the player to a stop, through stops the run walks
+    past again on the way out (within 250 yd) or none, against a flight to the master (from where the
+    run's own flight took off, else from the known flight master nearest where its travel left the
+    player) and the walk on from it;
+  - flying out: the walk from a stop to the flight master the run flies from, through stops it walked
+    past on the way in or none, against the walk to this master and the flight from it.
+
+  The estimates are the writer's: walks at 7 yd/s on the walk store's yards (else the straight
+  line), 1.6 times faster from the riding training on, flights at 25 yd/s straight plus a minute at
+  the masters. No walk to a master while an escort or a timed quest runs. The log names each path
+  learnt, what it gains and where (`nearby fp: getfp <master> on the walk out of <event> at level
+  <lvl> (<yd> yd off, <min> min more walking): flying from or to it gains about <min> min later
+  (<guide> at <lvl>, <min> min; ...)`), and each one left unlearnt whose later flights would gain a
+  minute or more (`nearby fp: <master> not learnt at <event> ...`). The gain counts on the later
+  guide flying there (stops on the walk in done on the walk out), which a change to that guide's
+  steps makes: the log line names the guide. `--no-nearby-fp` turns it off.
 - **The chain** is v1's: from the guide holding the route's first line, through
   each guide's `next`; the guides those links do not reach join it, and then
   the whole chain is put in the route's order, by the median route position of
@@ -1244,6 +1269,7 @@ forge writer apply-route out/routes/Human.json --world out/.forge/sim/world-alli
 | `--no-route-legs` | The old writer's travel, then its travel repair |
 | `--no-repair` | With `--no-route-legs`: no travel repair |
 | `--no-pass-by` | No pass-by pickups: quests stay on the visits the route takes them on |
+| `--no-nearby-fp` | No flight paths learnt at stops near their masters for the route's later flights |
 
 After a `forge build --out out`, `out/.forge/root` and `out/.forge/sim` hold the
 exact root, world and walk store that build used, and `out/routes/` holds the
@@ -1254,10 +1280,10 @@ writes every start of a build's routes the way the guides stage does: the
 default options, each faction's shared guides made once for its starts, and the
 two factions at once. It writes `<dir>/<Start>/`, `<Start>.fixes.json`,
 `<Start>.log` and `<Start>.status` (`ok`, or why the start was not written).
-`--starts Orc,Human` writes only those; `--no-pass-by` leaves out the pass-by pickups, as for
-`apply-route`. It is the writer-only rewrite of a round's routes, and the writer gate uses it. Its
-`<Start>.log` holds the rules' decisions (`level fit: …`, `pass-by: …`, `hub tour: …`), one line
-each.
+`--starts Orc,Human` writes only those; `--no-pass-by` and `--no-nearby-fp` leave out those two
+rules, as for `apply-route`. It is the writer-only rewrite of a round's routes, and the writer gate
+uses it. Its `<Start>.log` holds the rules' decisions (`level fit: …`, `pass-by: …`, `nearby fp: …`,
+`hub tour: …`), one line each.
 
 The command prints a summary:
 

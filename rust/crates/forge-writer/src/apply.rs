@@ -73,9 +73,9 @@ const TRAINER_YD: f64 = 150.0;
 const CITY_TRAINER_YD: f64 = 500.0;
 /// The route's travel estimates (as travel.rs): a walk at 7 yd/s, a flight at 25 yd/s plus a minute
 /// at the masters.
-const WALK_YPS: f64 = 7.0;
-const FLY_YPS: f64 = 25.0;
-const FLY_S: f64 = 60.0;
+pub(crate) const WALK_YPS: f64 = 7.0;
+pub(crate) const FLY_YPS: f64 = 25.0;
+pub(crate) const FLY_S: f64 = 60.0;
 
 /// A way quicker than a walk (Ctx::quicker_way): a flight between two flight paths (nodes), or a ride
 /// (its index in the world's rides).
@@ -130,6 +130,9 @@ pub struct Inputs<'a> {
 	/// Pass-by pickups (pass_by.rs): a quest whose giver an earlier walk passes, taken on that walk
 	/// with its work. Off: the route's visits stand.
 	pub pass_by: bool,
+	/// Nearby flight paths (nearby_fp.rs, with route travel): a stop by a flight master the route
+	/// later gains by flying from or to learns its path. Off: the route's flight paths stand.
+	pub nearby_fp: bool,
 }
 
 /// What apply_route wrote: the chain's guides (relative path, text), in chain order.
@@ -1373,6 +1376,17 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		&toured
 	} else {
 		&fitted
+	};
+	// A stop by a flight master the route's later walks gain by flying from or to learns its path
+	// (nearby_fp.rs).
+	let nearby;
+	let route = if inp.route_travel && inp.nearby_fp {
+		let (order, more) = crate::nearby_fp::add(route.order.clone(), world, data, inp.walks);
+		log.extend(more);
+		nearby = Route { order, ..route.clone() };
+		&nearby
+	} else {
+		route
 	};
 	let quest = |q: u32| data.quests.get(&q);
 	let dedup = |xs: &[u32]| -> Vec<u32> {

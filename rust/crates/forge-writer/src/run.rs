@@ -55,11 +55,13 @@ pub struct RunOpts {
 	pub fresh_openers: crate::post::FreshOpeners,
 	/// Pass-by pickups (pass_by.rs): a quest whose giver an earlier walk passes is taken there.
 	pub pass_by: bool,
+	/// Nearby flight paths (nearby_fp.rs, with the route's own legs).
+	pub nearby_fp: bool,
 }
 
 impl Default for RunOpts {
 	fn default() -> Self {
-		RunOpts { engine: true, level: true, route_legs: true, repair: true, rules: engine::Opts::default(), fresh_openers: crate::post::FreshOpeners::default(), pass_by: true }
+		RunOpts { engine: true, level: true, route_legs: true, repair: true, rules: engine::Opts::default(), fresh_openers: crate::post::FreshOpeners::default(), pass_by: true, nearby_fp: true }
 	}
 }
 
@@ -98,6 +100,7 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 		borders: if opts.engine { inp.walk_yards.and_then(|w| w.borders()) } else { None },
 		fresh_openers: opts.fresh_openers,
 		pass_by: opts.engine && opts.pass_by,
+		nearby_fp: opts.engine && opts.nearby_fp,
 	};
 	let r = apply_route(&ai)?;
 	log.extend(r.log.iter().cloned());
