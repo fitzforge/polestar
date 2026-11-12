@@ -11357,3 +11357,19 @@ test(`${WETLANDS}: #1866: the Tome of Mel'Thandris is read on the later moonwell
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
 	assert.ok(fixes.deliberate.pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'turnin,1055' && `${p.b}` === 'task,1022'), 'a record the build keeps');
 });
+
+// Helcular's Revenge (553, Horde 30-40/01-hillsbrad-foothills): the grave lies inside Southshore, an Alliance town
+// (4 abandons in players' recordings). The recordings show it can be done: of 21 people who lit the flames, 14
+// handed it in at the grave, all of them coming down from the north. The step keeps the hand-in, leads in by a goto
+// north of the graveyard and names the guard posts beside it.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Helcular\'s grave is approached from the north, between the guards', { skip }, () => {
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const list = goals(guide);
+	const hand = at(list, 'turnin 553', is('turnin', 553));
+	assert.ok(!list[hand].goal.optional, 'the hand-in is kept');
+	const north = list.slice(0, hand).filter(({ s, goal }) => s === list[hand].s && goal.t === 'goto');
+	assert.equal(north.length, 1, 'one goto before the grave in its step');
+	assert.ok(yards(north[0].goal, { map: 1424, x: 53.4, y: 48.8 }) <= 30, 'north of the graveyard');
+	assert.ok(north[0].goal.y < list[hand].goal.y - 3, 'north of the grave');
+	assert.match([].concat(list[hand].step.note || []).join(' '), /Southshore Guards/);
+});
