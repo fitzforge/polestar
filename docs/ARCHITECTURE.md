@@ -489,6 +489,7 @@ Polestar.PauseHides(part) -> bool  -- "arrow", "window", "nagging" while paused;
 Polestar.SetPaused(on, why) / Polestar.TogglePaused(why)
 Polestar.PauseInside() -> bool, mapID  -- in a dungeon, raid, battleground or arena (mapID when the client gives it)
 Polestar.PauseHowToEnd() -> text   -- the key, the minimap button's menu or /polestar resume
+Polestar.Now() -> seconds          -- the pause's clock: Compat.Now(), or time() where the Compat in place has none
 ```
 
 The player levelling with a guide who goes off to run a dungeon pauses
@@ -508,17 +509,25 @@ more, so a hidden Polestar shows nothing either way.
 
 `PolestarCharDB.pause = { state, at, map }` (Core/Init.lua, read as the addon
 loads, so a `/reload` keeps it): "armed" when paused outside (`at`:
-`Compat.Now()` then), "inside" in a dungeon, raid, battleground or arena (the
+`Polestar.Now()` then: `Compat.Now()`, or `time()` where the Compat in place
+has none), "inside" in a dungeon, raid, battleground or arena (the
 guide window's instance kinds; `map`: the instance's map id). The watcher
 (Core/Pause.lua) looks one frame after `PLAYER_ENTERING_WORLD`,
 `ZONE_CHANGED_NEW_AREA`, `PLAYER_UNGHOST` and `PLAYER_ALIVE`. An armed pause
-that never went in resumes when an entry into the world finds it armed for
-more than two hours (checked first, so a later dungeon is not taken for it).
+that never went in resumes two hours after it was armed, wherever the player
+is: each arming, and an armed pause loaded at login or a `/reload`
+(`Polestar.OnInit`, as the load fires no `POLESTAR_PAUSED`), sets one
+`C_Timer.After` for the time it has left, which does nothing if that arming
+has since resumed or gone inside. Every look checks the age first too, so a
+login after more than two hours away resumes before a dungeon is taken for it.
+"Inside" never expires.
 In an instance it is "inside" there (another instance moves it on); outside
 after being in, it resumes once the player is alive (a Spirit Healer's
 resurrection too), and stays paused while dead or a ghost, so a wipe and the
 run back do not end it (`PLAYER_ALIVE` also fires on releasing, so the ghost
-state is read again each time). Walking out resumes at once. Each change but
+state is read again each time). Walking out resumes at once. The Spirit
+Healer's resurrection counts as leaving alive (deliberately), so after taking
+it the player pauses again for the run back. Each change but
 the way in says so in one line in chat; pausing by hand puts up a notice
 (`Nav.alerts.ShowNotice`) saying how to resume; a line says the guide is back
 only when it is (`GuideShown()`). Asking for the guide window resumes and

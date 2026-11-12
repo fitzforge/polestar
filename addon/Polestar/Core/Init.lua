@@ -450,10 +450,11 @@ end
 -- as it is (and hiding leaves it).
 --
 -- PolestarCharDB.pause = { state = "armed" | "inside", at, map }: "armed"
--- paused outside (at: Compat.Now() then), "inside" in a dungeon, raid,
+-- paused outside (at: ns.Now() then), "inside" in a dungeon, raid,
 -- battleground or arena (map: its instance map id, when the client gives
 -- it); nil not paused. Core/Pause.lua watches the way in and out and
--- resumes; POLESTAR_PAUSED(state | nil, why) says it changed.
+-- resumes, and ends an armed pause two hours after `at` wherever the player
+-- is (a timer); POLESTAR_PAUSED(state | nil, why) says it changed.
 ---------------------------------------------------------------------------
 
 -- Instances that count, as the guide window's instance rule has them.
@@ -488,7 +489,9 @@ function ns.PauseInside()
 	return true, map
 end
 
-local function nowSeconds()
+-- The pause's clock, for Core/Pause.lua too: Compat.Now() (server seconds),
+-- time() when the Compat in place has no Now (the test harnesses' stand-ins).
+function ns.Now()
 	local C = ns.Compat
 	local n = C and C.Now and C.Now()
 	if type(n) ~= "number" then n = time and time() or 0 end
@@ -506,11 +509,11 @@ function ns.SetPaused(on, why)
 	if on then
 		local inside, map = ns.PauseInside()
 		if inside then
-			new = { state = "inside", map = map, at = pauseState and pauseState.at or nowSeconds() }
+			new = { state = "inside", map = map, at = pauseState and pauseState.at or ns.Now() }
 		elseif pauseState then
 			new = pauseState -- outside while paused: as it is ("inside" ends only through the watcher, by `on` false)
 		else
-			new = { state = "armed", at = nowSeconds() }
+			new = { state = "armed", at = ns.Now() }
 		end
 		if pauseState and new.state == pauseState.state and new.map == pauseState.map then return end
 	else
@@ -525,11 +528,12 @@ end
 
 function ns.TogglePaused(why) ns.SetPaused(not pauseState, why or "hand") end
 
--- The character's saved state, as the addon loads (ADDON_LOADED).
+-- The character's saved state, as the addon loads (ADDON_LOADED). It fires
+-- no POLESTAR_PAUSED: Core/Pause.lua times a loaded armed pause from ns.OnInit.
 local function loadPause()
 	local s = ns.CharState().pause
 	if type(s) == "table" and (s.state == "armed" or s.state == "inside") then
-		if type(s.at) ~= "number" then s.at = nowSeconds() end
+		if type(s.at) ~= "number" then s.at = ns.Now() end
 		pauseState = s
 	else
 		pauseState = nil

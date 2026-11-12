@@ -596,6 +596,97 @@ fn an_armed_pause_over_two_hours_old_resumes_on_the_way_into_a_dungeon_instead_o
 	assert_eq!(out, json!([false, 1]));
 }
 
+// jump(s): the clock `s` seconds on at once, then the timers due by then. expired(): how many times the two-hour line
+// was said.
+const TIMER_PRE: &str = r#"
+local function jump(s) stub.now = stub.now + s; stub.runTimers() end
+local function expired()
+	local n = 0
+	for _, m in ipairs(stub.messages) do if m:find("Paused for two hours without a dungeon: Polestar resumed.", 1, true) then n = n + 1 end end
+	return n
+end
+"#;
+
+// The two hours are a timer: armed by hand and left on one continent, with no loading screen, it resumes then.
+#[test]
+fn an_armed_pause_resumes_by_its_timer_two_hours_after_arming_without_a_loading_screen() {
+	let out = run_qol(
+		"",
+		"",
+		&[
+			QOL_PRE,
+			TIMER_PRE,
+			r#"
+		Polestar.SetPaused(true, "hand")
+		jump(7199); emit({ mode(), expired() })
+		jump(10); emit({ mode(), expired(), Polestar.CharState().pause == nil })"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out, vec![json!(["armed", 0]), json!([false, 1, true])], "still armed before the two hours; resumed by the timer after them, and said");
+}
+
+// A timer from an earlier arming does nothing to a later one: resumed and armed again, the pause lasts its own two hours.
+#[test]
+fn the_timer_of_an_earlier_arming_does_not_end_a_pause_armed_again_later() {
+	let out = run_qol(
+		"",
+		"",
+		&[
+			QOL_PRE,
+			TIMER_PRE,
+			r#"
+		Polestar.SetPaused(true, "hand")
+		jump(1000); Polestar.SetPaused(false, "hand")
+		jump(1000); Polestar.SetPaused(true, "hand")
+		jump(5300); emit({ mode(), expired() })
+		jump(1900); emit({ mode(), expired() })
+		jump(2); emit({ mode(), expired() })"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out, vec![json!(["armed", 0]), json!(["armed", 0]), json!([false, 1])], "the first timer passes; the second arming ends at its own two hours");
+}
+
+// Inside, a pause never expires: the timer from the arming finds it inside and leaves it.
+#[test]
+fn an_armed_pause_that_went_inside_is_left_inside_when_the_timer_fires() {
+	let out = run_qol(
+		"",
+		"",
+		&[
+			QOL_PRE,
+			TIMER_PRE,
+			r#"
+		Polestar.SetPaused(true, "hand")
+		jump(600); q.enterInstance(36)
+		jump(7000); emit({ mode(), map(), expired() })"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out, vec![json!(["inside", 36, 0])]);
+}
+
+// Loaded armed with an hour left (a /reload or a login), it ends when that hour has passed, not before.
+#[test]
+fn an_armed_pause_loaded_with_time_left_ends_when_that_time_has_passed() {
+	let saved = r#"PolestarCharDB = { schema = 1, pause = { state = "armed", at = 1790996400 } }"#;
+	let out = run_qol(
+		"",
+		saved,
+		&[
+			QOL_PRE,
+			TIMER_PRE,
+			r#"
+		emit({ mode(), expired() })
+		jump(3599); emit({ mode(), expired() })
+		jump(3); emit({ mode(), expired() })"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out, vec![json!(["armed", 0]), json!(["armed", 0]), json!([false, 1])], "armed an hour before the load: still armed a second short of the two hours, resumed after");
+}
+
 // ------------------------------------------------------------------------------------------------------------
 // The extras and the nudges
 // ------------------------------------------------------------------------------------------------------------
