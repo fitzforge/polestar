@@ -193,6 +193,8 @@ A new Forge may change what a stage writes; the stages it affects run again on t
    | `--until data\|walks` | stop after the data stage, or after the walks stage |
    | `--nav grid\|leffe\|hybrid` | which walking maps price the walks ([Leffe's navigation maps](#leffes-navigation-maps)) |
    | `--threads N` | worker threads (default 8) |
+   | `--walks-serial` | the walks stage's two passes (our grid's, Leffe's maps') one after the other: about half its peak memory, a longer walks stage, the same walks |
+   | `--leffe-cache <MB>` | MB of Leffe's decoded maps the walks stage keeps (default 4096): less memory, slower, the same walks |
    | `--guides <folder>` | the guides to start from (default: the checkout's `guides/`, its generated guides read from the seed) |
    | `--checkout <folder>` | the checkout whose fixes the build applies (default: the one above `--guides`, else above here) |
    | `--root <checkout>` | the checkout whose sources to read (default: the nearest folder above here with `data/sources`) |
@@ -626,7 +628,7 @@ Start with `forge doctor`: it names the problem and the fix for most setups.
 | `forge doctor` says the install is not complete, or `... is not in the local storage` | the launcher has not downloaded those files, or reused their space for others: run **Scan and Repair** in the launcher, let it finish, then `forge doctor` again (`forge gamedata check` lists the files per map). `forge build` refuses to build the walking grid from such an install (it would be wrong where files are missing) unless given `--allow-incomplete` |
 | `encrypted with TACT key ...; N records skipped` | a note, not an error: those rows are encrypted in the client and are left out |
 | a stage runs every time | its outputs were removed or edited; delete `forge-out/.forge/<stage>.key` to force one stage, the whole `forge-out` to start over |
-| out of memory | lower `--threads`; the walks stage and Leffe's maps cache are the largest ([nav.md](forge/nav.md)) |
+| out of memory | build one faction at a time (`--starts`) with `--walks-serial`, then lower `--threads` and `--leffe-cache`; the walks stage and Leffe's maps cache are the largest ([nav.md](forge/nav.md#memory-and-time)) |
 
 ## Forge's other commands
 
