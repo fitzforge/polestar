@@ -13,10 +13,11 @@ next polestar-experimental/hyjal-2
 # as merged into data/forever); the order, the objective spots and the chain links the data lacks come from the
 # one recorded session in the zone so far: an Alliance player, levels 57 to 60. Nothing Horde-only is recorded
 # yet: the Horde steps follow the quest data alone.
-# Order: the way in from Everlook through Darkwhisper Gorge, Ketharas the hermit and his first errands by the
-# road, the Tainted Foothills in one loop (Kaylaena's workshop, the ancients' outpost and its flight path, the
-# fields south and the shrub field), Ketharas again, the outpost, Felblood Scar (the Curious Crow and Felflick),
-# Velician, then Ketharas's errand to Moonglade with the parts order from Everlook on the way back.
+# Order: the way in from Everlook through Darkwhisper Gorge (binding the Hearthstone there), Ketharas the hermit
+# and his first errands by the road, the Tainted Foothills in one loop (Kaylaena's workshop, the ancients' outpost
+# and its flight path, the fields south and the shrub field), Ketharas again, the outpost, Felblood Scar (the
+# Curious Crow and Felflick), Velician, then Ketharas's errand to Moonglade (by Hearthstone to Everlook when it is
+# bound there and ready) with the parts order from Everlook on the way back.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): Violence Into
 # Verdure after Seeds for a New Season, The Bounty of Nature after Hope for Hatchlings, Rites of Respect after The
 # Bounty of Nature, Ancient Allies after Rites of Respect; Bark Bite after Leaves to Ligatures; Fine Feathered
@@ -35,8 +36,10 @@ step Into Mount Hyjal
   when !zone "Mount Hyjal"
   tip Experimental route (alpha). It is written from Forever's quest data and the first recording of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Mount Hyjal lies south of Winterspring. Fly to Everlook and ride south through Winterspring to Darkwhisper Gorge at its southern end: the gorge leads up into Mount Hyjal. The ride in is not in our recordings yet: if the arrow loses the way, keep to the gorge.
+  tip Bind your Hearthstone at Everlook's inn before you ride: Ketharas sends you to Moonglade at the end of this part, and the way there starts in Everlook.
   fly "Everlook"
   zone Winterspring
+  sethome "Everlook" npc 11118          -- Innkeeper Vizzie
   goto 50.5,82.8 "Darkwhisper Gorge"
   zone Mount Hyjal
   enter "Mount Hyjal" @85.5,73.2
@@ -278,9 +281,22 @@ step Ketharas
   turnin 96131
   accept 92612                          -- Aid from Moonglade
 
+step Hearth to Everlook
+  only !Druid
+  when bound "Everlook"
+  when !cooldown item 6948
+  tip Your Hearthstone is bound in Everlook: use it, and go on to Moonglade from there.
+  hearth "Everlook"
+
 step Fly to Moonglade
-  tip Back west to Bluebell at the ancients' outpost and fly to Moonglade. (No flight path to Moonglade yet? The road in is Timbermaw Hold's tunnel, from Winterspring or Felwood.)
+  when zone "Mount Hyjal"
+  tip Back west to Bluebell at the ancients' outpost and fly to Moonglade. Druids: Teleport: Moonglade is quicker. (No flight path to Moonglade yet? The road in is Timbermaw Hold's tunnel, from Winterspring or Felwood.)
   goto 55.1,82.6 "Bluebell, the flight mistress"
+  fly "Moonglade"
+
+step Fly to Moonglade
+  when zone "Winterspring"
+  tip Fly to Moonglade from Everlook's flight master. No flight path to Moonglade yet? The way in is the tunnel through Timbermaw Hold, at the western end of Winterspring.
   fly "Moonglade"
   zone Moonglade
 
