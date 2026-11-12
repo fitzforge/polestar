@@ -175,7 +175,7 @@ step Marshal's Refuge
   turnin 4288
   accept 4321
   turnin 4321
-  level 50 only Priest
+  level 50 only Priest,Mage
 
 step Fly to Astranaar
   only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock,Druid

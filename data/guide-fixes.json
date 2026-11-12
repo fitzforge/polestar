@@ -4368,8 +4368,8 @@
 			"faction": "Alliance",
 			"level": 50,
 			"after": true,
-			"only": "Priest",
-			"note": "Level sweep (2026-11-08): Cenarion Aid (8254, High Priest Rohan in Ironforge, Priests only) needs level 50; the calibrated level model reaches Ironforge at 49.71. Priests reach 50 after J.D. Collie's hand-ins in Un'Goro (Making Sense of It, 4321), before the flight north, where a gate costs about 5 minutes and Azshara's level 50.4 top-up would take them there anyway.",
+			"only": "Priest,Mage",
+			"note": "Level sweep (2026-11-08): Cenarion Aid (8254, High Priest Rohan in Ironforge, Priests only) needs level 50; the calibrated level model reaches Ironforge at 49.71. Priests reach 50 after J.D. Collie's hand-ins in Un'Goro (Making Sense of It, 4321), before the flight north, where a gate costs about 5 minutes and Azshara's level 50.4 top-up would take them there anyway. #1485 class-chain sweep (2026-11-09): Magecraft (8250, Dink in the same Mystic Ward stop, Mages only) needs level 50 too (recordings: 3 Mages could not take it below 50) and the model reaches it at 49.79 for Human, Gnome and Skyborne Mages; the gate covers Mages as well. Without it a Mage is passed with Requires level 50 and the level-up in Azshara sends the guide back to Ironforge.",
 			"source": [
 				{
 					"kind": "client",
