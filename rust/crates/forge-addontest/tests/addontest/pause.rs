@@ -39,9 +39,10 @@ N.Refresh()
 
 #[test]
 fn the_arrow_and_travel_button_step_aside_a_hold_and_a_picked_point_still_show_and_resuming_brings_back_the_same_target() {
-	let out = run_nav(&[
-		NAV_PRE,
-		r#"
+	let out = run_nav(
+		&[
+			NAV_PRE,
+			r#"
 		emit(look())
 		Polestar.SetPaused(true, "hand")
 		emit({ look(), Polestar.Paused(), Polestar.Get("nav.arrow") == true })
@@ -64,8 +65,9 @@ fn the_arrow_and_travel_button_step_aside_a_hold_and_a_picked_point_still_show_a
 		local during = look()
 		Polestar.SetPaused(false, "hand")
 		emit({ during, look() })"#,
-	]
-	.concat());
+		]
+		.concat(),
+	);
 	assert_eq!(out[0], json!(["Somewhere", true, true, true]), "the guide's arrow and travel button");
 	assert_eq!(out[1], json!([[false, false, false, false], "armed", true]), "paused outside: armed, the arrow and travel button gone, nav.arrow untouched");
 	assert_eq!(out[2], json!(["Your corpse", true, true, true]), "the way back to the corpse shows, with its travel button");
@@ -78,9 +80,10 @@ fn the_arrow_and_travel_button_step_aside_a_hold_and_a_picked_point_still_show_a
 
 #[test]
 fn hiding_polestar_and_pausing_it_leave_each_other_as_they_were_either_way_round() {
-	let out = run_nav(&[
-		NAV_PRE,
-		r#"
+	let out = run_nav(
+		&[
+			NAV_PRE,
+			r#"
 		local fired = {}
 		Polestar.On("GUIDE_SHOWN", function(shown) fired[#fired + 1] = shown end)
 		local function state()
@@ -102,8 +105,9 @@ fn hiding_polestar_and_pausing_it_leave_each_other_as_they_were_either_way_round
 		local settings = PolestarDB.settings or {}
 		emit({ seen = seen, fired = fired, hidden = Polestar.CharState().hidden or false, mode = Polestar.CharState().pause or false,
 			uiShown = (settings.ui or {}).shown == nil, navArrow = (settings.nav or {}).arrow == nil })"#,
-	]
-	.concat())
+		]
+		.concat(),
+	)
 	.remove(0);
 	assert_eq!(
 		out["seen"],
@@ -130,9 +134,10 @@ fn hiding_polestar_and_pausing_it_leave_each_other_as_they_were_either_way_round
 // waypoint the pause drops: while paused a click sets a point instead, so it still points the arrow.
 #[test]
 fn a_click_on_a_step_goal_s_map_pin_while_paused_sets_a_point_the_arrow_shows() {
-	let out = run_nav(&[
-		NAV_PRE,
-		r#"
+	let out = run_nav(
+		&[
+			NAV_PRE,
+			r#"
 		nav.engine.views[1] = { index = 1, goals = { { index = 1, status = "active", text = "Goal pin", map = 9000, x = 60, y = 60 } } }
 		local aimed = 0
 		function nav.Engine.AimGoal() aimed = aimed + 1; return true end
@@ -151,8 +156,9 @@ fn a_click_on_a_step_goal_s_map_pin_while_paused_sets_a_point_the_arrow_shows() 
 		Polestar.SetPaused(false, "hand")
 		click()
 		emit({ during = during, aimedAfter = aimed })"#,
-	]
-	.concat())
+		]
+		.concat(),
+	)
 	.remove(0);
 	assert_eq!(out["during"], json!({ "clicked": true, "aimed": 0, "target": "Goal pin", "override": true, "arrow": true }), "a point, not the Engine");
 	assert_eq!(out["aimedAfter"], 1, "resumed, the click goes through the Engine again");
@@ -162,9 +168,10 @@ fn a_click_on_a_step_goal_s_map_pin_while_paused_sets_a_point_the_arrow_shows() 
 // without it they stay, and they come back on resuming. The steps as nav.rs's upcoming test gives them.
 #[test]
 fn hide_the_step_s_map_pins_while_paused_also_takes_the_upcoming_steps_pins() {
-	let out = run_nav(&[
-		NAV_PRE,
-		r#"
+	let out = run_nav(
+		&[
+			NAV_PRE,
+			r#"
 		nav.engine.views[3] = { status = "current", goals = { { map = 9000, x = 40, y = 40, status = "active" } } }
 		nav.engine.views[4] = { title = "Goldshire", status = "upcoming", goals = { { map = 9000, x = 42, y = 65, status = "pending" } } }
 		function nav.Engine.GetLiveStep() return 3 end
@@ -182,17 +189,19 @@ fn hide_the_step_s_map_pins_while_paused_also_takes_the_upcoming_steps_pins() {
 		Polestar.SetPaused(false, "hand")
 		r.resumed = pins()
 		emit(r)"#,
-	]
-	.concat())
+		]
+		.concat(),
+	)
 	.remove(0);
 	assert_eq!(out, json!({ "on": 1, "paused": 1, "withSetting": 0, "resumed": 1 }));
 }
 
 #[test]
 fn a_command_asking_for_the_arrow_while_paused_says_why_nothing_shows_and_way_still_points_it() {
-	let out = run_nav(&[
-		NAV_PRE,
-		r#"
+	let out = run_nav(
+		&[
+			NAV_PRE,
+			r#"
 		Polestar.SetPaused(true, "hand")
 		local function said(command)
 			local before = #stub.messages
@@ -207,8 +216,9 @@ fn a_command_asking_for_the_arrow_while_paused_says_why_nothing_shows_and_way_st
 		local way = said("way 50 20 Here")
 		local t = N.GetTarget()
 		emit({ arrow = arrow, way = way, target = t and t.label or false, shown = look()[4] })"#,
-	]
-	.concat())
+		]
+		.concat(),
+	)
 	.remove(0);
 	assert_eq!(out, json!({ "arrow": 1, "way": 0, "target": "Here", "shown": true }));
 }
@@ -561,11 +571,8 @@ fn an_armed_pause_lasts_through_a_reload_and_resumes_once_two_hours_have_passed_
 		run_qol(
 			"",
 			&saved,
-			&[
-				QOL_PRE,
-				r#"local said = 0; for _, m in ipairs(stub.messages) do if m:find("Paused for two hours without a dungeon", 1, true) then said = said + 1 end end; emit({ mode(), said })"#,
-			]
-			.concat(),
+			&[QOL_PRE, r#"local said = 0; for _, m in ipairs(stub.messages) do if m:find("Paused for two hours without a dungeon", 1, true) then said = said + 1 end end; emit({ mode(), said })"#]
+				.concat(),
 		)
 		.remove(0)
 	};
@@ -580,11 +587,8 @@ fn an_armed_pause_over_two_hours_old_resumes_on_the_way_into_a_dungeon_instead_o
 	let out = run_qol(
 		r#"stub.qol.instance = { map = 36, kind = "party" }"#,
 		&saved,
-		&[
-			QOL_PRE,
-			r#"local said = 0; for _, m in ipairs(stub.messages) do if m:find("Paused for two hours without a dungeon", 1, true) then said = said + 1 end end; emit({ mode(), said })"#,
-		]
-		.concat(),
+		&[QOL_PRE, r#"local said = 0; for _, m in ipairs(stub.messages) do if m:find("Paused for two hours without a dungeon", 1, true) then said = said + 1 end end; emit({ mode(), said })"#]
+			.concat(),
 	)
 	.remove(0);
 	assert_eq!(out, json!([false, 1]));
