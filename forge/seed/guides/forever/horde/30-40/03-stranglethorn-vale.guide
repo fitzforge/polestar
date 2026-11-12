@@ -42,6 +42,14 @@ step Orgrimmar trainers
   tip Train while you are in the city.
   train class
 
+step Ratchet
+  zone The Barrens
+  tip Gazlowe waits upstairs in the house by the flight master; Wharfmaster Dizzywig stands on the docks, beside the boat.
+  turnin 1178                         -- Gazlowe, upstairs
+  accept 1180                         -- Gazlowe: for Wharfmaster Lozgil in Booty Bay, where the boat goes
+  turnin 1111                         -- Wharfmaster Dizzywig, on the docks
+  note Dizzywig's parts go back to Kravel in the Shimmering Flats, off the route: leave them.
+
 step Zeppelin to Grom'gol
   zone Durotar
   goto 50.7,12.9 "Zeppelin to Grom'gol"
@@ -112,7 +120,7 @@ step Nesingwary's Expedition: kill these as you meet them
   collect 4614 x1 optional
   accept 635 optional
 
-# ---------------------------------------------------------------- Grom'gol, the Shadowmaw and the Mosh'Ogg
+# ---------------------------------------------------------------- Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
@@ -262,7 +270,6 @@ step Stranglethorn Vale: kill these as you meet them
   tip East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for Drizzlik. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them.
   collect 3838 quest 570.1
   collect 3839 quest 570.2
-  kill 684 quest 192 @41.3,34.8 map 1434
   kill 684 quest 192 @41.3,34.8 map 1434
   collect 4104 quest 577 @39.9,28.4
 
