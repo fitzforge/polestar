@@ -1,8 +1,9 @@
 //! Goal heights (heights.rs, docs/GUIDE_FORMAT.md "Heights"): a goal whose point stands for an NPC or object
 //! gets the z of that entity's nearest classic-db spawn (spawnz.json) on the same instance map within 15
-//! yards of the goal's world point; so do a smart target's candidates (each its own NPC) and an NPC or
-//! object goal's spawn spots (#180); nothing else gets one. (The compile summary line and LICENSE-DATA.txt
-//! are tested on the CLI: forge/tests/guide_cli.rs.)
+//! yards of the goal's world point; so do a smart target's candidates (each its own NPC), an NPC or
+//! object goal's spawn spots (#180) and a use bound to a quest objective at an object or creature (#1782);
+//! nothing else gets one. (The compile summary line and LICENSE-DATA.txt are tested on the CLI:
+//! forge/tests/guide_cli.rs.)
 
 use crate::common;
 use common::*;
@@ -83,6 +84,93 @@ fn z3_an_npc_goal_with_a_spawn_on_its_map_within_15_yards_gets_that_z_20_yards_a
 	assert_eq!(find(&g, "kill", None)["z"], 1, "a kill at its spawn");
 }
 
+/// #1782 (Redrett, Hillsbrad Foothills, Horde 30-40): `use 3710 quest 553.1 @43.9,28.1`, the Rod of Helcular at the
+/// Flame of Azel, had no height: the Flame burns in the Foothill Caverns under Darrow Hill, and the walk from the north
+/// ended on the hilltop above it. A `use` bound to a quest objective stands for that objective's object, or its
+/// creature (kill, talk): it gets that one's spawn height. Bound to an item objective, or to none, it gets none.
+#[test]
+fn a_use_bound_to_an_objective_at_an_object_or_a_creature_gets_that_ones_spawn_z_1782() {
+	let data = height_data();
+	data.quests.set(
+		"95930",
+		v(&json!({ "id": 95930, "title": "Helcular's Revenge", "level": 5, "minLevel": 1, "races": null, "classes": null,
+			"start": { "npc": [197], "object": [], "item": [] }, "end": { "npc": [197], "object": [] }, "pre": [], "excl": [], "next": null,
+			"objectives": [
+				{ "type": "object", "id": 95931, "count": 1, "text": "Flame of Azel charged" },
+				{ "type": "kill", "id": 6, "count": 1, "text": "Kobold Vermin" },
+				{ "type": "item", "id": 750, "count": 1, "text": "Tough Wolf Meat" }
+			],
+			"objectiveText": "", "zone": 1429, "xp": 250, "source": ["fixture"] })),
+	);
+	let flame = at(&data, 40.0, 50.0);
+	data.spawnz.get("object").set("95931", v(&json!([[1415, flame.0 + 2.0, flame.1, 72.9]])));
+	let src = guide_text(&["step Flames", "  accept 95930", "  use 1210 quest 95930.1 @40,50", "  use 1210 quest 95930.2 @47.6,31.2", "  use 1210 quest 95930.3 @40,50", "  use 1210 @40,50"]);
+	let r = compile_with(&src, &data);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let uses: Vec<Value> = goals(&r).into_iter().filter(|g| g["t"] == "use").collect();
+	assert_eq!(uses[0]["z"], 72.9, "the objective's object, 2 yd off: {}", uses[0]);
+	assert_eq!(uses[1]["z"], 1, "the kill objective's creature at its spawn: {}", uses[1]);
+	assert!(uses[2].get("z").is_none(), "an item objective is no place: {}", uses[2]);
+	assert!(uses[3].get("z").is_none(), "a use bound to no objective: {}", uses[3]);
+}
+
+/// #1786 (Redrett): `goto 28.5,55.0 "Azurelode Mine"` leads to the miners (`kill 2269 quest 539.2`, z 21.3) in the
+/// next step, but had no height: the walk ended on the hill the mine runs under. A goto gets the height of the goal
+/// it leads to (a later goal of its step, or one of the next), the nearest within 15 yards; none from farther, from
+/// an earlier goal or from two steps on.
+#[test]
+fn a_goto_takes_the_height_of_the_goal_it_leads_to_in_its_step_or_the_next_within_15_yards_1786() {
+	let src = guide_text(&[
+		"step Before",
+		"  talk 197",
+		"  goto 48.92,41.61 \"After the marshal\"",
+		"step To the marshal",
+		"  goto 48.92,41.61 \"The marshal\"",
+		"step Marshal",
+		"  talk 197",
+		"step Far",
+		"  goto 48.94,40.17 \"Eagan\"",
+		"step Eagan",
+		"  talk 196",
+		"step Two on",
+		"  goto 48.92,41.61 \"Two steps from the marshal\"",
+		"step Between",
+		"  goto 10,10 \"Elsewhere\"",
+		"step Marshal again",
+		"  talk 197",
+	]);
+	let r = compile_with(&src, &height_data());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let gotos: Vec<Value> = r.steps().iter().flat_map(|s| s["goals"].as_array().unwrap().clone()).filter(|g| g["t"] == "goto").collect();
+	let z = |i: usize| gotos[i].get("z").cloned();
+	assert_eq!(z(0), None, "the marshal's talk comes before it: {}", gotos[0]);
+	assert_eq!(z(1), Some(json!(12.3)), "the next step's talk, 3 yd off: {}", gotos[1]);
+	assert_eq!(z(2), None, "a goal with no height (his spawn 20 yd away): {}", gotos[2]);
+	assert_eq!(z(3), None, "the marshal two steps on: {}", gotos[3]);
+}
+
+/// #1782: where no NPC or object gives a goal's floor, data/goal-heights.json may, from players' recordings (a
+/// mine's floor under the hill): a goal of any verb with no height within 5 yards of a record takes its z; one 10
+/// yards off, or one with a height of its own, does not.
+#[test]
+fn a_goal_with_no_height_within_5_yards_of_a_goal_heights_record_takes_its_z_1782() {
+	let mut data = height_data();
+	data.goal_heights = v(&json!([
+		{ "id": "rec-mine", "map": 1429, "x": 30.0, "y": 60.0, "frame": "era", "z": 21.3, "source": { "kind": "recording", "ref": "fixture" } },
+		{ "id": "rec-marshal", "map": 1429, "x": 48.92, "y": 41.61, "frame": "era", "z": 99, "source": { "kind": "recording", "ref": "fixture" } }
+	]));
+	let (a, b) = (at(&data, 30.0, 60.0), at(&data, 30.0, 60.5));
+	assert!((a.0 - b.0).abs() > 10.0, "60.5 lies more than 10 yd from the record");
+	let src = guide_text(&["step Mine", "  goto 30,60 \"The mine\"", "  goto 30.05,60 \"Just by it\"", "  goto 30,60.5 \"Farther\"", "  talk 197"]);
+	let r = compile_with(&src, &data);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let g = goals(&r);
+	assert_eq!(g[0]["z"], 21.3, "on the record: {}", g[0]);
+	assert_eq!(g[1]["z"], 21.3, "a yard or two off: {}", g[1]);
+	assert!(g[2].get("z").is_none(), "half a map percent off: {}", g[2]);
+	assert_eq!(g[3]["z"], 12.3, "the marshal's own spawn wins over a record: {}", g[3]);
+}
+
 #[test]
 fn smart_target_candidate_on_a_spawn_of_its_npc_gets_that_z_one_with_no_spawn_within_15_yards_none() {
 	let src = guide_text(&["step Smart", "  buy 159 x5 nearest"]);
@@ -103,7 +191,7 @@ fn smart_target_candidate_on_a_spawn_of_its_npc_gets_that_z_one_with_no_spawn_wi
 }
 
 #[test]
-fn an_npc_goals_spawn_spots_get_the_z_of_a_spawn_within_15_yards_a_clusters_centre_farther_from_both_and_a_collects_spots_none() {
+fn spawn_spots_get_the_z_of_a_spawn_within_15_yards_a_clusters_centre_farther_from_both_none_a_collects_by_its_sources() {
 	let r = compile_with(&src(), &height_data());
 	let g = goals(&r);
 	let kill = find(&g, "kill", None);
@@ -111,8 +199,15 @@ fn an_npc_goals_spawn_spots_get_the_z_of_a_spawn_within_15_yards_a_clusters_cent
 	assert_eq!(spot(45.1, 33.9)["z"], 1, "a lone spawn: its z");
 	assert_eq!(spot(52.3, 26.8)["z"], 1);
 	assert!(spot(48.3, 31.8).get("z").is_none(), "the centre between two spawns some 30 yd apart: none");
+	// A collect's spots: those at a spawn of one of its sources (the Timber Wolves at 45,40 and 44,45) take that
+	// spawn's z (#1782); the rest none.
 	let collect = find(&g, "collect", None);
-	assert!(collect.get("spots").and_then(Value::as_array).is_none_or(|s| s.iter().all(|s| s.get("z").is_none())));
+	let spots = collect["spots"].as_array().cloned().unwrap_or_default();
+	assert!(!spots.is_empty(), "the collect has spots: {collect}");
+	for s in &spots {
+		let at_wolf = (s["x"] == 45.0 && s["y"] == 40.0) || (s["x"] == 44.0 && s["y"] == 45.0);
+		assert_eq!(s.get("z").cloned(), if at_wolf { Some(json!(2)) } else { None }, "spot {s}");
+	}
 }
 
 #[test]

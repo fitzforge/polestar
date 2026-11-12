@@ -262,5 +262,194 @@
 			}
 		],
 		"note": "Drakkisath's Brand (Blackhand's Command) stands inside Upper Blackrock Spire."
+	},
+	"628948": {
+		"set": {
+			"name": "WANTED!"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						78.5,
+						53.9
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95120"
+			}
+		],
+		"note": "WANTED!, an object of Forever's quest 95120 missing from the merged data."
+	},
+	"645164": {
+		"set": {
+			"name": "WANTED!"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						59.5,
+						47.0
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95992"
+			}
+		],
+		"note": "WANTED!, an object of Forever's quest 95992 missing from the merged data."
+	},
+	"707249": {
+		"set": {
+			"name": "Wanted"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						59.6,
+						46.9
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95882"
+			}
+		],
+		"note": "Wanted, an object of Forever's quest 95882 missing from the merged data."
+	},
+	"625582": {
+		"set": {
+			"name": "Fuzzle's Treasure"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						41.6,
+						47.7
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 94963"
+			}
+		],
+		"note": "Fuzzle's Treasure, an object of Forever's quest 94963 missing from the merged data."
+	},
+	"707245": {
+		"set": {
+			"name": "Wanted"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						65.9,
+						81.1
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95912"
+			}
+		],
+		"note": "Wanted, an object of Forever's quest 95912 missing from the merged data."
+	},
+	"645166": {
+		"set": {
+			"name": "WANTED!"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						65.6,
+						80.8
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95991"
+			}
+		],
+		"note": "WANTED!, an object of Forever's quest 95991 missing from the merged data."
+	},
+	"621813": {
+		"set": {
+			"name": "Loose Soil"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						48.6,
+						43.8
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 94829"
+			}
+		],
+		"note": "Loose Soil, an object of Forever's quest 94829 missing from the merged data."
 	}
 }

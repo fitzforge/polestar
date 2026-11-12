@@ -827,16 +827,35 @@ object's (its spawn, or your `@x,y` at it):
   of many spawns is seldom within 15 yards of one), `interact`;
 - `buy`, `train`, `vendor`, `sethome`, `getfp` and `learn` naming an `npc`
   (a `sethome` or `getfp` also with the innkeeper or flight master the
-  compiler names).
+  compiler names);
+- `use` and `interact` bound to a quest objective (`quest Q.O`, with no `npc`
+  or `object` of their own) whose target is an object, or a creature (a kill
+  or talk objective): that object's or creature's height. The Rod of Helcular
+  used at the Flame of Azel ends its walk in the Foothill Caverns, not on
+  Darrow Hill above them (#1782);
+- `goto` leading to a goal with a height: a later goal of its own step, or
+  one of the next step, whose point lies within 15 yards of the goto's; the
+  nearest such goal's height. "Azurelode Mine" at the miners ends in the
+  mine, not on the hill it runs under (#1786);
+- `collect` from creatures or an object (its sources: `fromNpcs`, `fromId`) and a
+  `level … grind` goal's creature: the height of the nearest spawn of any of
+  them within 15 yards, at the goal's point and at each of its spots. The
+  Rod of Helcular's yetis are in the Foothill Caverns, not on the hill
+  (#1782);
+- any other goal whose point lies within 5 yards of a record of
+  `data/goal-heights.json` (beside the data folder): that record's height.
+  The records come from players' recordings, where at least two sessions
+  doing such a goal near its point stood indoors three times as often as
+  outdoors and the walking grid has one indoor floor there: a mine's or
+  cave's floor no NPC or object gives.
 
 The same rule gives a height, each from its own point, to the other spawn
 places of such a goal (`spots`: a place within 15 yards of one of its spawns;
 the centre of a camp farther from each gets none) and to every candidate of a
 smart target (`nearest`, class and profession trainers, by the candidate's
 own NPC), so the walk to the place or NPC the arrow picks ends on its floor
-too. `goto` and `explore` (places), `collect` (a farming spot among the
-item's sources, also `collect … nearest`'s farm spots) and `use` never get
-one. `compile` prints how many got one ("heights: N of M NPC or object goals,
+too. Any other `goto`, `explore` (places), `collect … nearest`'s farm spots
+(a cluster of several droppers) and any other `use` never get one. `compile` prints how many got one ("heights: N of M NPC or object goals,
 N of M smart-target candidates and N of M spawn spots got z"). In the game the
 walk is searched with the height and asked again without it when that finds
 no route or one ending more than 30 yards above or below it.
