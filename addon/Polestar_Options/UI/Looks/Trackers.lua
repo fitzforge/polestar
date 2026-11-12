@@ -471,7 +471,7 @@ panelPage(TRAVEL, "flight", L["flight timer"], {
 		help = L["While flying, shows the destination and the time left. Learns each route's real duration for this character; drag to move."] },
 }, { bar = true, noRules = true, titleLabel = L["Time size"], titleHelp = L["The size of the time against Polestar's text size."],
 	format = { kind = "dropdown", key = "trackers.flight.format", label = L["Time shows"], new = NEW,
-		help = L["The time left (with ~ while it is an estimate), how far along the flight is, or both."],
+		help = string.format(L["The time left (with %s while it is an estimate), how far along the flight is, or both."], Theme.Approx()),
 		search = "format, percent, time left, countdown, display, numbers, flight",
 		choices = { { value = "left", label = L["Time left"] }, { value = "percent", label = L["How far along"] }, { value = "both", label = L["Both"] } } } })
 -- The journey (in the guide window: its frame, type and ground are the window's).

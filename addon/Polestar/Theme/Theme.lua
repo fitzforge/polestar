@@ -1489,6 +1489,31 @@ function Theme.ScriptFont(text)
 	return script.path
 end
 
+-- The sign for "about" before a time or count (#1906): "≈" where the face
+-- has it, else "~". The game font draws "~" level with the digits' tops
+-- ("Stormwind ~0:38"); its "≈" sits mid-height. Precomputed from each file's
+-- cmap: Polestar's faces and the bundled skins' (tests/approx-sign.test.js
+-- checks them), and the client fonts that have it. The ruRU, zhTW and koKR
+-- client fonts have no "≈", nor does a face another addon brings: "~".
+local APPROX_FACES = {}
+for _, file in ipairs({
+	"inter-regular.ttf", "inter-medium.ttf", "inter-semibold.ttf",
+	"firasans-regular.ttf", "firasans-medium.ttf", "firasans-semibold.ttf",
+	"opensans-regular.ttf", "opensans-bold.ttf",
+	"barlowsemicondensed-light.ttf", "barlowsemicondensed-regular.ttf", "barlowsemicondensed-medium.ttf",
+	"frizqt__.ttf", "arialn.ttf", "morpheus.ttf", "morpheus_cyr.ttf", "nim_____.ttf",
+	"arkai_t.ttf", "arkai_c.ttf", "arhei.ttf",
+}) do APPROX_FACES[file] = true end
+Theme.APPROX_FACES = APPROX_FACES
+
+-- -> "≈" | "~" for the font file `face` (a path; nil: the face Polestar's text
+-- is drawn in now).
+function Theme.Approx(face)
+	if face == nil then face = Theme.FontSpec("body") end
+	local file = type(face) == "string" and face:match("([^\\/]+)$")
+	return file and APPROX_FACES[file:lower()] and "\226\137\136" or "~"
+end
+
 -- An edit box made without a template draws with a font object it shares
 -- (the chat box's, as #1896's report has it), and its font calls can write
 -- through to that object: Polestar's text size then sized the text being

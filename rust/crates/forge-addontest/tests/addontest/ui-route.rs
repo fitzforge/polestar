@@ -57,7 +57,7 @@ fn route_choice_opens_one_card_per_zone_a_stat_row_on_one_line_across_cards_capp
 	assert_eq!(out["shown"], true);
 	assert_eq!(out["subtitle"], "You finished Tirisfal Glades. Both routes meet again in Stonetalon Mountains.");
 	assert_eq!(out["names"], json!(["Silverpine Forest", "The Barrens"]));
-	let stats = format!("|c{}10–18|r  ·  ~2 min away  ·  44 quests", text(&out["textHex"]));
+	let stats = format!("|c{}10–18|r  ·  ≈2 min away  ·  44 quests", text(&out["textHex"]));
 	assert_eq!(out["stats"], stats.as_str(), "levels in text, then travel and quests");
 	assert_eq!(out["statsY"][0], out["statsY"][1], "the stat rows line up");
 	assert_eq!(out["ruleY"][0], out["ruleY"][1], "pitches of different lengths still meet one rule");

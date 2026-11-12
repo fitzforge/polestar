@@ -6,7 +6,7 @@
 -- in its glow. Each card is a panel with its hairline and reads top-down on
 -- one grid shared by every card: the zone painting inset 6px (a dark hairline
 -- round it) with its name on it; the stat row that decides it for a leveller
--- ("10–14 · ~2 min away · 28 quests", the levels in text, the rest dim) at
+-- ("10–14 · ≈2 min away · 28 quests", the levels in text, the rest dim) at
 -- the same y on every card; the state chip; the author's pitch; then at most
 -- 3 pros and 2 cons, one line each. The full pitch, pros and cons are in the
 -- card's tooltip. The recommended zone (one the character has not
@@ -54,13 +54,14 @@ local function inCombat()
 	return InCombatLockdown and InCombatLockdown() or false
 end
 
--- "~3 min away" from travel seconds; nil when unknown.
+-- "≈3 min away" from travel seconds ("~" in a face without "≈": Theme.Approx);
+-- nil when unknown.
 local function awayText(seconds)
 	if type(seconds) ~= "number" then return nil end
 	if seconds < 60 then return L["Right here"] end
 	local m = floor(seconds / 60 + 0.5)
 	if m >= 90 then return L["A long trip from here"] end
-	return string.format(L["~%d min away"], m)
+	return string.format(L["%s min away"], Theme.Approx() .. m)
 end
 
 local function levelsText(o)
@@ -205,7 +206,7 @@ local function fillCard(c, o, grid)
 	c.psArt = ZoneArt.Paint(c.Art, o.zone, o.focusX, o.focusY, c.psIndex)
 	c.Name:SetText(o.zoneName or o.title or o.id)
 	c.Name:SetWidth(inner)
-	-- "10–14 · ~2 min away · 28 quests"
+	-- "10–14 · ≈2 min away · 28 quests"
 	local facts = {}
 	local away = awayText(o.seconds)
 	if away then facts[#facts + 1] = away end
