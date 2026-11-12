@@ -226,9 +226,7 @@ pub fn is_web_citation(c: &V) -> bool {
 /// recordings or an open game database the way the corrections cite one, `{ kind, ref }` with a
 /// kind of `crate::corrections::SOURCE_KINDS`, a non-empty `ref` and nothing else.
 pub fn is_source_citation(c: &V) -> bool {
-	c.as_obj().is_some_and(|o| o.len() == 2)
-		&& c.get("kind").as_str().is_some_and(|k| crate::corrections::SOURCE_KINDS.contains(&k))
-		&& c.get("ref").as_str().is_some_and(|r| !r.is_empty())
+	c.as_obj().is_some_and(|o| o.len() == 2) && c.get("kind").as_str().is_some_and(|k| crate::corrections::SOURCE_KINDS.contains(&k)) && c.get("ref").as_str().is_some_and(|r| !r.is_empty())
 }
 
 /// Every .guide file under dir, by path (build.js guideTexts).
