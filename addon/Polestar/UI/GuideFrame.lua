@@ -183,6 +183,9 @@ local function goalTooltip(row)
 		lines[#lines + 1] = { left = L["Quest"], right = title and (title .. id .. goal.quest .. "|r") or ("#" .. goal.quest) }
 		local new = ns.NewQuests and ns.NewQuests.TooltipText(goal.quest)
 		if new then lines[#lines + 1] = { new, Theme.Accent() } end
+		-- A dungeon's quest, or one of the nearest prerequisites before one (Dungeons/Mark.lua).
+		local dungeon = ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(goal.quest)
+		if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
 	end
 	if goal.npc then
 		local name = goal.subjectKind == "npc" and goal.subject or goal.npcName
@@ -528,7 +531,7 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	end
 	-- The game's looks light the goal to do now with their own art.
 	Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
-	UI.SetCounted(r.Text, UI.GoalLine(goal, questHex))
+	UI.SetCounted(r.Text, UI.GoalLine(goal, questHex, true))
 	-- White while it is to be done; done and skipped goals step back. The
 	-- turn-in of a quest whose objectives are still open, pinned (#644),
 	-- ticked by hand (#1135) or worked along the way (#853): the warning
@@ -2973,7 +2976,7 @@ function GF.FillHere(E)
 		r.psView, r.psOff, r.psAt = v, nil, i
 		keys[nOff + i] = v.step .. ":" .. v.index
 		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
-		UI.SetCounted(r.Text, v.here ~= "work" and UI.HereText(v) or UI.GoalLine(v))
+		UI.SetCounted(r.Text, v.here ~= "work" and UI.HereText(v) or UI.GoalLine(v, nil, true))
 		r.Sub:SetText(UI.HereStep(v))
 		r.Sub:SetShown(not tight)
 		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
@@ -4531,6 +4534,8 @@ function GF.HereRow(i)
 		local lines = { UI.HereStep(v, true) }
 		local new = (v.here == "turnin" or v.here == "take") and ns.NewQuests and ns.NewQuests.TooltipText(v.quest)
 		if new then lines[#lines + 1] = { new, Theme.Accent() } end
+		local dungeon = v.quest and ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(v.quest)
+		if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
 		lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
 		lines[#lines + 1] = { L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }
 		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. UI.HereText(v), lines)

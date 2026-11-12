@@ -1156,11 +1156,20 @@ function C_AddOns.GetAddOnMetadata(name, field)
 	if field == "Title" and a then return a.title end
 end
 function C_AddOns.GetNumAddOns() return #stub.addons end
--- -> name, title, notes, loadable, reason, security, updateAvailable
+-- -> name, title, notes, loadable, reason, security, updateAvailable. An
+-- addon that loads on demand (reason "DEMAND_LOADED", as the client gives it
+-- before LoadAddOn) reads as loadable once loaded.
 function C_AddOns.GetAddOnInfo(key)
 	local a = addonEntry(key)
 	if not a then return nil, nil, nil, false, "MISSING", nil, false end
-	return a.name, a.title or a.name, a.notes, a.reason == nil, a.reason, "INSECURE", false
+	local reason = a.reason
+	if reason == "DEMAND_LOADED" and stub.addonsLoaded[a.name] then reason = nil end
+	return a.name, a.title or a.name, a.notes, reason == nil, reason, "INSECURE", false
+end
+-- ## LoadOnDemand: 1 (an entry with demand = true, or reason "DEMAND_LOADED").
+function C_AddOns.IsAddOnLoadOnDemand(name)
+	local a = addonEntry(name)
+	return a ~= nil and (a.demand == true or a.reason == "DEMAND_LOADED")
 end
 function C_AddOns.GetAddOnEnableState(name)
 	local a = addonEntry(name)

@@ -40,6 +40,12 @@ const DEFAULTS = {
 	zoneType: 3, // UiMap type 3: zone
 };
 
+// Danger floors (#1490): the level zone danger prices a zone from where a low pocket at its edge pulls
+// its P10 under the ground walks cross; the range itself keeps the P10. A zone gets `danger` only when
+// its floor is above its min. Same table as rust/crates/forge-world/src/zonelevels.rs DANGER_FLOORS
+// (the evidence is there).
+const DANGER_FLOORS = { 1416: 30 }; // Alterac Mountains
+
 // Spawn-weighted percentile of [[value, weight], ...] sorted by value.
 function percentile(sorted, p) {
 	let total = 0;
@@ -126,6 +132,7 @@ function zoneLevels(npcs, zones, opts = {}) {
 			y: round1(percentile(py, 0.5)),
 			weight: Math.round(weight),
 		};
+		if (DANGER_FLOORS[id] !== undefined && min !== null && DANGER_FLOORS[id] > min) out[id].danger = DANGER_FLOORS[id];
 	}
 	return out;
 }
@@ -142,10 +149,12 @@ function emitLua(levels) {
 	lines.push('if not (M and M.RegisterZoneLevels) then return end');
 	lines.push('');
 	lines.push('M.RegisterZoneLevels({');
-	lines.push('\t-- [uiMapID] = { minLevel, maxLevel, labelX, labelY } (label point in zone map percent)');
+	lines.push('\t-- [uiMapID] = { minLevel, maxLevel, labelX, labelY[, dangerFloor] } (label point in zone map percent; the');
+	lines.push('\t-- danger floor, where a low pocket pulls minLevel under the ground walks cross: forge-world DANGER_FLOORS)');
 	for (const id of Object.keys(levels).map(Number).sort((a, b) => a - b)) {
 		const z = levels[id];
-		lines.push(`\t[${id}] = { ${z.min}, ${z.max}, ${z.x}, ${z.y} }, -- ${z.name.replace(/\n/g, ' ')}`);
+		const floor = z.danger !== undefined ? `, ${z.danger}` : '';
+		lines.push(`\t[${id}] = { ${z.min}, ${z.max}, ${z.x}, ${z.y}${floor} }, -- ${z.name.replace(/\n/g, ' ')}`);
 	}
 	lines.push('})');
 	lines.push('');
@@ -172,4 +181,4 @@ function buildZoneLevels({ dataDir = DATA, ...opts } = {}) {
 	return { levels, lua: emitLua(levels) };
 }
 
-module.exports = { zoneLevels, percentile, emitLua, buildZoneLevels, foreverOnly, DEFAULTS };
+module.exports = { zoneLevels, percentile, emitLua, buildZoneLevels, foreverOnly, DEFAULTS, DANGER_FLOORS };

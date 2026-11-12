@@ -54,7 +54,15 @@ function formatFor(guides) {
 
 const PACK_ID_RE = /^[a-z0-9][a-z0-9-]{1,31}$/;
 const FOLDER_RE = /^[A-Za-z0-9_-]{1,64}$/;
-const RESERVED_IDS = new Set(['guides', 'forever', 'lookup', 'draft', 'polestar', 'imported']);
+// Pack ids only Polestar's own packs may give: our guides' `guides`, the ids
+// Polestar's own prefixes and packs use, and each of Polestar's own extra
+// packs' (OWN_EXTRAS). As forge-guide's format.rs RESERVED_IDS and
+// Core/Guides.lua's Guides.RESERVED have them.
+const RESERVED_IDS = new Set(['guides', 'forever', 'lookup', 'draft', 'polestar', 'imported', 'polestar-experimental']);
+// Polestar's own extra packs (forge-guide's project.rs OWN_EXTRAS): built from
+// their folder in the checkout into an addon of Polestar's that ships in the
+// release zip. Read as another pack's, each may give its reserved id.
+const OWN_EXTRAS = [{ source: 'experimental', id: 'polestar-experimental', folder: 'Polestar_Experimental' }];
 
 // A folder we generated says so in its TOC (and the old layout in Pack.xml):
 // only such a folder is ever replaced by compile, install or dev.
@@ -100,4 +108,4 @@ function placeholderLicense(license) {
 	return `Licensed under ${license}: ${LICENSE_PLACEHOLDER}.\n`;
 }
 
-module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };
+module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, OWN_EXTRAS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };

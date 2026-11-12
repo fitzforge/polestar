@@ -243,6 +243,14 @@ pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data,
 	stale
 }
 
+/// The leveling guides (legs_races) legs.json's text holds no legs for, in the guides' order: never
+/// baked, so they ship without legs. Empty without the file or with one read_legs_text refuses.
+pub fn unbaked_legs(text: Option<&str>, guides: &[V]) -> Vec<String> {
+	let Some(doc) = text.and_then(|t| crate::js::parse_json(t).ok()).filter(|d| d.get("schema").as_num() == Some(1.0)) else { return Vec::new() };
+	let legs = doc.get("legs");
+	guides.iter().filter(|g| legs_races(g).is_some() && !legs.get(&g.get("id").to_js_string()).truthy()).map(|g| g.get("id").to_js_string()).collect()
+}
+
 /// The race parts a leveling guide's baked legs ship in: its own race part's races (race_part),
 /// else the races its `race` header names, else every race of its faction; None for any other
 /// guide (not leveling, or no faction).
@@ -300,6 +308,52 @@ pub fn faction_part(g: &V) -> Option<&'static str> {
 
 /// Our guide pack's folder (pack id `guides`).
 pub const OWN_FOLDER: &str = "Polestar_Guides";
+
+/// One of Polestar's own extra guide packs (docs/PACK_FORMAT.md, "Polestar's own extra packs"): built from its
+/// folder in the checkout (pack.json and .guide files, checked as a community pack's, with our guides as
+/// context) into an addon folder of Polestar's that ships in the release zip, with Polestar's TOC
+/// ([`crate::emit::emit_toc`]): its title as written, the AddOns list in every client language, and
+/// `## LoadOnDemand: 1`, so Polestar keeps it off until the player switches it on (Community guides) and loads
+/// it then. Its id is reserved (format.rs RESERVED_IDS): only its own pack.json may give it (manifest.rs
+/// read_extra_manifest), and in game only its own addon may register it.
+pub struct OwnExtra {
+	/// Its folder in the checkout.
+	pub source: &'static str,
+	/// Its pack id.
+	pub id: &'static str,
+	/// Its addon folder.
+	pub folder: &'static str,
+}
+
+/// The extra packs: the experimental guides (Forever's new zones, alpha), never suggested in game.
+pub static OWN_EXTRAS: [OwnExtra; 1] = [OwnExtra { source: "experimental", id: "polestar-experimental", folder: "Polestar_Experimental" }];
+
+/// The extra pack whose addon folder is `folder`.
+pub fn own_extra(folder: &str) -> Option<&'static OwnExtra> {
+	OWN_EXTRAS.iter().find(|e| e.folder == folder)
+}
+
+/// Takes `manifest` (the extra's pack.json, read by manifest.rs read_extra_manifest: as a community pack's,
+/// no folder of Polestar's, but its own reserved id) as extra pack `extra`'s and gives it the extra's
+/// folder. Its pack.json must give the extra's id and Polestar as its author, and leave `folder` out. Err: why
+/// not.
+pub fn own_extra_manifest(extra: &OwnExtra, manifest: &V) -> Result<(), String> {
+	let pack = format!("{}/pack.json", extra.source);
+	let id = manifest.get("id").to_js_string();
+	if id != extra.id {
+		return Err(format!("{pack}: id is \"{id}\"; {} holds the pack \"{}\"", extra.folder, extra.id));
+	}
+	let author = manifest.get("author").to_js_string();
+	if author != "Polestar" {
+		return Err(format!("{pack}: author is \"{author}\"; {} is Polestar's own, author \"Polestar\"", extra.folder));
+	}
+	let named = manifest.get("folder").to_js_string();
+	if named != crate::format::default_folder(manifest.get("title").as_str(), Some(&id)) {
+		return Err(format!("{pack}: leave \"folder\" out (\"{named}\"): the build names the folder {}", extra.folder));
+	}
+	manifest.set("folder", extra.folder);
+	Ok(())
+}
 
 /// The texts addon of pack folder `folder` in `locale` (Core/GuideTexts.lua TextsAddon): <folder>_<locale>,
 /// and for our own pack the language folder Polestar_<locale> it shares with the game's names.
@@ -585,6 +639,12 @@ mod native {
 		real(a) == real(b)
 	}
 
+	/// Polestar's own extra pack (OWN_EXTRAS) whose folder in checkout `root` is `dir`, if any (locate.js
+	/// ownExtra): read with manifest.rs read_extra_manifest, built as Polestar's.
+	pub fn own_extra_at(root: &Path, dir: &Path) -> Option<&'static OwnExtra> {
+		OWN_EXTRAS.iter().find(|e| same_path(dir, &root.join(e.source)))
+	}
+
 	/// noReferenceData (pack/build.js): without any core file in `data_dir` every lookup fails, so the
 	/// build stops with this one error instead of one on every line. `context_data`: another pack's
 	/// context data folder (named in the hint when it lacks data too); `no_data_flag`: the command takes
@@ -615,6 +675,8 @@ mod native {
 		pub tokens: V,
 		/// Leveling guides whose baked legs are stale (read_legs_text): they ship without legs.
 		pub stale_legs: Vec<String>,
+		/// Leveling guides legs.json has no legs for (unbaked_legs): they ship without legs too.
+		pub unbaked_legs: Vec<String>,
 	}
 
 	/// compileProject for a pack folder; `context`: our guides, read as context for another pack.
@@ -625,8 +687,10 @@ mod native {
 		let retired_file = pack_dir.join("retired.json");
 		let retired = read_retired_text(pack_text(pack_dir, "retired.json", &mut diag).as_deref(), &retired_file.to_string_lossy(), &c.guides, &mut diag);
 		let legs_file = pack_dir.join("legs.json");
-		let stale_legs = read_legs_text(pack_text(pack_dir, "legs.json", &mut diag).as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
-		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens, stale_legs }
+		let legs_text = pack_text(pack_dir, "legs.json", &mut diag);
+		let stale_legs = read_legs_text(legs_text.as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
+		let unbaked_legs = unbaked_legs(legs_text.as_deref(), &c.guides);
+		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens, stale_legs, unbaked_legs }
 	}
 
 	/// read_pack_file's text of `name` in the pack folder, None without it; a refused one (a link,

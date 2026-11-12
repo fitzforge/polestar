@@ -208,7 +208,7 @@ step Brill
 # ---------------------------------------------------------------- Silverpine Forest
 
 step Strange Lockbox
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Silverpine Forest
   when onquest 30
   tip From the zeppelin towers, run south into Silverpine and west past the Dead Field to the coast: the Strange Lockbox lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the Half Pendant of Aquatic Endurance for Trial of the Sea Lion. Then on to the Sepulcher.

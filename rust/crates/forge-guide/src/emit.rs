@@ -80,7 +80,7 @@ pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 81] = [
+pub const GOAL_KEYS: [&str; 83] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -127,6 +127,10 @@ pub const GOAL_KEYS: [&str; 81] = [
 	"pre",
 	"preAll",
 	"closedBy",
+	// On an accept something closes for good: the NPCs the quest is handed in to and its XP (the data's), for the
+	// missable-quest line (Core/Closes.lua).
+	"endNpcs",
+	"xp",
 	// A child quest's parent (the data's `parent`): its giver offers it only while the parent is in the log (#1661).
 	"parent",
 	"preTitles",
@@ -830,24 +834,40 @@ fn needs_str(format: u32) -> String {
 /// Every pack sits in Polestar's group there, under Polestar's own entry;
 /// Polestar's menus show the plain title (Pack.lua). A title
 /// already carrying that prefix or the legacy "Polestar Pack: " is kept.
+/// One of Polestar's own extra packs (project.rs OWN_EXTRAS, by its folder,
+/// which a community pack.json cannot name) reads as ours, and loads on
+/// demand: Polestar loads it once the player switches it on.
 /// (JS default format: FORMAT.)
 pub fn emit_toc(manifest: &V, iface: &str, format: u32) -> String {
 	let ours = manifest.get("id").as_str() == Some("guides");
+	let folder = manifest.get("folder").to_js_string();
+	let extra = crate::project::own_extra(&folder).is_some();
 	let m_title = manifest.get("title").to_js_string();
 	let prefixed = [TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX].iter().any(|p| m_title.starts_with(p));
-	let title = if ours || prefixed { m_title.clone() } else { format!("{TOC_TITLE_PREFIX}{m_title}") };
+	let title = if ours || extra || prefixed { m_title.clone() } else { format!("{TOC_TITLE_PREFIX}{m_title}") };
 	let author = manifest.get("author").to_js_string();
 	let notes = manifest.get("notes");
-	let notes = if notes.truthy() { notes.to_js_string() } else { format!("Community addon for Polestar by {author}") };
+	let notes = if notes.truthy() {
+		notes.to_js_string()
+	} else if extra {
+		"Part of Polestar.".to_string()
+	} else {
+		format!("Community addon for Polestar by {author}")
+	};
 	let mut lines = vec![format!("## Interface: {iface}"), format!("## Title: {title}"), format!("## Notes: {notes}")];
-	// Polestar's own pack: the AddOns list in the client's language too.
+	// Polestar's own packs: the AddOns list in the client's language too.
 	if ours {
 		lines.extend(crate::toc::toc_lines("Polestar_Guides"));
+	} else if extra {
+		lines.extend(crate::toc::toc_lines(&folder));
 	}
 	lines.push(format!("## Author: {author}"));
 	lines.push(format!("## Version: {}", manifest.get("version").to_js_string()));
 	lines.push("## Category: Polestar".into());
 	lines.push("## Group: Polestar".into());
+	if extra {
+		lines.push("## LoadOnDemand: 1".into());
+	}
 	lines.push("## Dependencies: Polestar".into());
 	lines.push(format!("## X-Polestar-Pack: {}", manifest.get("id").to_js_string()));
 	lines.push(format!("## X-Polestar-Format: {format}"));

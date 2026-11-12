@@ -114,7 +114,7 @@ fn crowded(g: &V) -> Option<(String, usize, usize)> {
 		(n > cap).then_some((at, n, cap))
 	}
 	fn quests(v: &V, at: &str) -> Option<(String, usize, usize)> {
-		["pre", "preAll", "closedBy", "preTitles", "q"].iter().find_map(|k| over(&v.get(k), LIMITS.pre, format!("{at}.{k}")))
+		["pre", "preAll", "closedBy", "endNpcs", "preTitles", "q"].iter().find_map(|k| over(&v.get(k), LIMITS.pre, format!("{at}.{k}")))
 	}
 	fn whens(list: &V, at: &str) -> Option<(String, usize, usize)> {
 		over(list, LIMITS.when, at.to_string()).or_else(|| list.items().iter().enumerate().find_map(|(i, w)| quests(w, &format!("{at}[{}]", i + 1))))

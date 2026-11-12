@@ -133,6 +133,8 @@ fn quest_objectives_normalize_to_text_type_finished_numfulfilled_numrequired() {
 	);
 }
 
+// Each change the client makes to a quest (its objectives done, a failure, a hand-in or an abandon) comes with
+// QUEST_LOG_UPDATE, as in game; the walk over the log is kept until then.
 #[test]
 fn issue_1327_a_quest_timer_runs_while_a_log_quest_has_time_allowed_and_is_neither_ready_nor_failed() {
 	let out = run(r#"
@@ -144,19 +146,57 @@ fn issue_1327_a_quest_timer_runs_while_a_log_quest_has_time_allowed_and_is_neith
 		C_QuestLog.ReadyForTurnIn = function() return ready end
 		C_QuestLog.IsComplete = function() return ready end
 		C_QuestLog.IsFailed = function() return failed end
+		local function changed() stub.fire("QUEST_LOG_UPDATE") end
 		local r = { running = C.QuestTimerRunning() }
-		ready = true
+		ready = true; changed()
 		r.ready = C.QuestTimerRunning()
-		ready, failed = false, true
+		ready, failed = false, true; changed()
 		r.failed = C.QuestTimerRunning()
-		failed, allowed[29] = false, nil
+		failed, allowed[29] = false, nil; changed()
 		r.untimed = C.QuestTimerRunning()
 		allowed[29] = 1800
-		C_QuestLog.GetTimeAllowed = nil
+		C_QuestLog.GetTimeAllowed = nil; changed()
 		r.noApi = C.QuestTimerRunning()
 		emit(r)
 	"#);
 	assert_eq!(out, json!({ "running": true, "ready": false, "failed": false, "untimed": false, "noApi": false }));
+}
+
+// While-here's poll (every 0.5 s) and the travel planner (every plan) ask whether a quest timer runs: the quest log
+// is walked once per quest-log change, not on every ask, and each answer is the walk's.
+#[test]
+fn the_quest_timer_walks_the_log_once_until_the_quest_log_changes() {
+	let out = run(r#"
+		GetQuestTimers = nil
+		local allowed, walks = { [29] = 1800 }, 0
+		C_QuestLog.GetNumQuestLogEntries = function() walks = walks + 1; return 2, 2 end
+		C_QuestLog.GetInfo = function(i) return ({ { questID = 0, isHeader = true }, { questID = 29 } })[i] end
+		C_QuestLog.GetTimeAllowed = function(q) return allowed[q], 10 end
+		C_QuestLog.IsOnQuest = function() return true end
+		C_QuestLog.ReadyForTurnIn = function() return false end
+		C_QuestLog.IsComplete = function() return false end
+		C_QuestLog.IsFailed = function() return false end
+		stub.fire("QUEST_LOG_UPDATE")
+		local r = { answers = {} }
+		for i = 1, 20 do r.answers[i] = C.QuestTimerRunning() end
+		r.walks = walks
+		allowed[29] = nil; stub.fire("QUEST_LOG_UPDATE")
+		r.after = { C.QuestTimerRunning(), C.QuestTimerRunning() }
+		r.walksAfter = walks
+		for _, e in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "UNIT_QUEST_LOG_CHANGED", "PLAYER_ENTERING_WORLD" }) do
+			allowed[29] = 1800; stub.fire(e, "player")
+			r[e] = C.QuestTimerRunning()
+			allowed[29] = nil; stub.fire("QUEST_LOG_UPDATE")
+		end
+		emit(r)
+	"#);
+	assert_eq!(out["walks"], 1, "twenty asks, one walk: {out}");
+	assert!(out["answers"].as_array().unwrap().iter().all(|a| a == &json!(true)));
+	assert_eq!(out["after"], json!([false, false]));
+	assert_eq!(out["walksAfter"], 2);
+	for e in ["QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "UNIT_QUEST_LOG_CHANGED", "PLAYER_ENTERING_WORLD"] {
+		assert_eq!(out[e], true, "{e} walks the log again");
+	}
 }
 
 #[test]

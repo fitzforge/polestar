@@ -5,7 +5,8 @@
 --   Lookup.Sources(kind, id[, direct]) -> list, entity
 --     direct: true = straight-line travel only, never the route planner (tooltips)
 --     kind: "item" | "mount" | "pet" | "recipe" | "tabard" (item IDs), "npc" | "rare",
---           "quest", "instance" (key), "object" | "treasure", "zone" (no rows)
+--           "quest", "instance" (key), "object" | "treasure", "zone" (its flight
+--           masters and inns, else its middle: types "flight", "inn", "middle")
 --     list[i] = { type, src, label, detail, zone, map, x, y, f, travel, effort, cost,
 --                 available, why, whyText, chance, price, standing, guideable }
 --   Lookup.IsMount(record) -> bool   -- a Codex item or spell record is a mount
@@ -765,6 +766,51 @@ local function questRows(q, p, from, direct)
 	return list
 end
 
+-- A zone's places a guide takes you to (#1743): its flight masters (a
+-- class's own, the Druids' Nighthaven, only for that class) and its inns,
+-- from Nav's travel data, the other side's listed but not open; with none
+-- open to the character (the other side's towns), also the middle of the
+-- zone (Nav.ZoneMiddle: the walking data's zones, cities and open zones). A
+-- continent or a battleground has none of them: no rows.
+local TAXI_SIDE = { "A", "H", "AH" }
+local function zoneRows(zone, p, from, direct)
+	local list = {}
+	local N = ns.Nav
+	local data = N and N.GetTravelData and N.GetTravelData()
+	if not data then return list end
+	local T = N.travel
+	local function add(kind, label, what, pt, side)
+		local r = newRow(nil, kind)
+		r.label = label
+		place(r, pt, travel(from, pt, direct))
+		r.detail = detail(what, r.zone)
+		if side and not sideOK(side, p) then block(r, "faction", sideText(side)) end
+		r.guideable = located(r)
+		list[#list + 1] = r
+	end
+	for _, node in ipairs(data.taxi or {}) do
+		if node.map == zone.id and (not node.class or node.class == p.class) then
+			add("flight", (T and T.TaxiName and T.TaxiName(node, true)) or node.name, L["Flight master"], node, TAXI_SIDE[node.faction])
+		end
+	end
+	local C = Codex()
+	for _, inn in ipairs(data.inns or {}) do
+		if inn.map == zone.id then
+			local keeper = inn.npc and C.Npc(inn.npc)
+			add("inn", (T and T.PlaceName and T.PlaceName(inn)) or inn.name, L["Innkeeper"], inn, keeper and keeper.faction)
+		end
+	end
+	local open = false
+	for _, r in ipairs(list) do open = open or r.available end
+	if not open and N.ZoneMiddle then
+		local c, wx, wy = N.ZoneMiddle(zone.id)
+		local x, y
+		if c then x, y = ns.Compat.WorldToMap(c, wx, wy, zone.id) end
+		if x then add("middle", zone.name, L["Zone"], { map = zone.id, x = x, y = y }) end
+	end
+	return list
+end
+
 local cache = {} -- "kind:id:direct|route" -> { at, level, list, entity }
 
 local function now() return GetTime and GetTime() or 0 end
@@ -804,6 +850,7 @@ function Lookup.Sources(kind, id, direct)
 		end
 	elseif kind == "zone" then
 		entity = C.Zone(id)
+		if entity then list = zoneRows(entity, p, from, direct) end
 	end
 	rank(list)
 	cache[key] = { at = now(), level = p.level, list = list, entity = entity }

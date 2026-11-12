@@ -556,6 +556,116 @@ fn the_world_map_shows_zone_ranges_on_the_continent_the_hovered_zone_and_player_
 	assert_eq!(out["hidden"], true);
 }
 
+// The info bar along the foot of the map's view, with buttons in its corners: the game's quest log toggle in the
+// bottom-right corner (BOTTOMRIGHT of the view, -2, 1, 32 x 32), and another addon's button in the bottom-left one
+// (14, 14), both raised over the bar. The coordinates move left of the right one, the zone's range right of the left
+// one; a button coming or going while the map is open moves them on the next tick; without one, nothing moves.
+#[test]
+fn the_world_map_info_bar_keeps_its_text_clear_of_buttons_in_the_corners_of_the_map() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_maps.lua"],
+		before: "stub.maps.useWorld(); stub.maps.withMapCanvas(); stub.maps.place(0, 800); stub.world.level = 8".into(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		login: true,
+		script: r#"
+			local M, m = Polestar.Maps, stub.maps
+			M.RegisterZoneLevels({ [9000] = { 10, 20, 50, 50 } })
+			local sc = WorldMapFrame.ScrollContainer
+			sc.x, sc.y = 100, 100
+			sc:SetSize(700, 470)
+			local function button(x, y)
+				local b = CreateFrame("Frame", nil, WorldMapFrame)
+				b:SetSize(32, 32)
+				b.x, b.y = x, y
+				b:SetFrameLevel(sc:GetFrameLevel() + 9000)
+				return b
+			end
+			local toggle = button(800 - 2 - 32, 100 + 1)       -- BOTTOMRIGHT, -2, 1
+			local left = button(100 + 14, 100 + 14)            -- BOTTOMLEFT, 14, 14
+			toggle:Hide(); left:Hide()
+			local bar = stub.frame("PolestarMapInfo")
+			-- A font string's rect, from its one anchor on the bar (the bar: the view's foot, 22 high).
+			local function rect(fs)
+				local p, _, _, x = fs:GetPoint(1)
+				local w, h = fs:GetStringWidth(), fs:GetStringHeight()
+				local l = p == "RIGHT" and 100 + sc:GetWidth() + x - w or 100 + x
+				local mid = 100 + bar:GetHeight() / 2
+				return { x = x, l = l, r = l + w, b = mid - h / 2, t = mid + h / 2 }
+			end
+			local function hits(t, f)
+				return f:IsShown() and t.l < f.x + f:GetWidth() and t.r > f.x and t.b < f.y + f:GetHeight() and t.t > f.y
+			end
+			local function look()
+				local c, z = rect(bar.Coords), rect(bar.Zone)
+				return { coordsX = c.x, zoneX = z.x, coordsHit = hits(c, toggle), zoneHit = hits(z, left) }
+			end
+			m.cursor = { 0.4, 0.3 }
+			m.showMap(9000)
+			stub.advance(0.2)
+			local r = { plain = look() }
+			WorldMapFrame:Hide()
+			toggle:Show(); left:Show()
+			m.showMap(9000)
+			stub.advance(0.2)
+			r.buttons = look()
+			toggle:Hide()                                       -- gone while the map is open
+			stub.advance(0.2)
+			r.toggleGone = look()
+			toggle:Show()                                       -- and back
+			stub.advance(0.2)
+			r.toggleBack = look()
+			r.coords = bar.Coords:GetText()
+			-- Zooming moves the canvas, not the view's buttons: no new look at the map's frames. A new view size
+			-- (full screen, the quest log beside it) comes with a new canvas scale, and is fitted again.
+			local scans, getChildren = 0, WorldMapFrame.GetChildren
+			WorldMapFrame.GetChildren = function(...) scans = scans + 1; return getChildren(...) end
+			for _, s in ipairs({ 2, 3, 1.5 }) do m.canvasScale = s; stub.runMapFrame(WorldMapFrame, 0) end
+			stub.advance(0.2)
+			r.zoomScans = scans
+			sc:SetSize(900, 470)
+			toggle.x = 1000 - 2 - 32
+			m.canvasScale = 1.2
+			stub.runMapFrame(WorldMapFrame, 0)
+			stub.advance(0.2)
+			r.resizeScans = scans
+			r.resized = look()
+			emit(r)"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["plain"], json!({ "coordsX": -10, "zoneX": 10, "coordsHit": false, "zoneHit": false }), "no button: the text where it always was");
+	assert_eq!(out["buttons"], json!({ "coordsX": -40, "zoneX": 52, "coordsHit": false, "zoneHit": false }), "6 px left of the toggle, 6 px right of the other button");
+	assert_eq!(out["toggleGone"], json!({ "coordsX": -10, "zoneX": 52, "coordsHit": false, "zoneHit": false }));
+	assert_eq!(out["toggleBack"], out["buttons"]);
+	assert_eq!(out["zoomScans"], 0, "zooming in and out looks at no frame of the map's");
+	assert_eq!(out["resizeScans"], 1, "a new view size is fitted once");
+	assert_eq!(out["resized"], out["buttons"], "the toggle followed the view's corner, the coordinates with it");
+	assert_eq!(out["coords"], "Player 10.0, 50.0     Cursor 40.0, 30.0");
+}
+
+/// #1490: a zone row's fifth value is its danger floor; GetZoneLevels returns it third (the min without one), and
+/// the range (the labels' "24–39") stays the P10..P90.
+#[test]
+fn get_zone_levels_returns_a_zone_s_danger_floor_third_and_its_lowest_level_without_one() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_maps.lua"],
+		addons: vec![Addon::files("Polestar", &FILES)],
+		login: true,
+		script: r#"
+			local M = Polestar.Maps
+			M.RegisterZoneLevels({ [9000] = { 10, 20, 50, 50 }, [9001] = { 24, 39, 44.9, 63.3, 30 } })
+			local floors = {}
+			for id, lo, hi in M.EachZoneLevels() do if id == 9001 then floors.each = { lo, hi } end end
+			emit({ plain = { M.GetZoneLevels(9000) }, pocket = { M.GetZoneLevels(9001) }, each = floors.each })"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0]["plain"], json!([10, 20, 10]));
+	assert_eq!(out[0]["pocket"], json!([24, 39, 30]));
+	assert_eq!(out[0]["each"], json!([24, 39]), "the range is the P10..P90");
+}
+
 // ---------------------------------------------------------------------------
 // Options
 // ---------------------------------------------------------------------------

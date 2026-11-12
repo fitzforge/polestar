@@ -187,6 +187,13 @@ test('Daily Delivery is closed by Young Crocolisk Skins, its breadcrumb target (
 	assert.deepEqual(closedByOf(469, quests), [484]);
 });
 
+// J's report (#1643): Connor Rivers stops offering James Hyal once They Call Him Smiling Jim is handed in (the world
+// DB's quest conditions), so the correction closes it on 1282 as well as on the quest it leads to.
+test('James Hyal is closed by They Call Him Smiling Jim as well as by its second part (#1643)', () => {
+	const quests = { 1301: { id: 1301, breadcrumbFor: 1302, ...corrections.quests[1301].set }, 1302: { id: 1302, breadcrumbs: [1301], excl: [1282] }, 1282: { id: 1282, excl: [1302] } };
+	assert.deepEqual(closedByOf(1301, quests), [1302, 1282]);
+});
+
 test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
@@ -205,6 +212,26 @@ test('the Dalaran traitors stand in the camp south of their Classic spot, where 
 	assert.deepEqual(at(2414), { 1416: { f: 'l', pts: [[16.8, 89.4]] }, 1424: { f: 'l', pts: [[23.6, 26.7]] } }, 'Kegan Darkmar: Bloodstone Oval');
 	assert.deepEqual([2411, 2412, 2413].map((id) => at(id)[1416].pts), [[[19.5, 90]], [[19.6, 90.9]], [[19.3, 91.5]]], 'Ricter, Alina and Dermot');
 	for (const id of [2411, 2412, 2413, 2414]) assert.ok(at(id)[1424], `npc ${id}: its Hillsbrad Foothills spot moves too`);
+});
+
+test('dungeon quests started or handed in inside the dungeon name the NPC there, and the instance it stands in', () => {
+	const q = (id) => corrections.quests[id] && corrections.quests[id].set;
+	const inst = (id) => corrections.npcs[id] && corrections.npcs[id].set.instances;
+	assert.deepEqual([q(95250).start.npc, q(95250).end.npc, inst(265701)], [[265701], [265701], [2999]], 'Abominable Creatures: Captain Truman, Ruins of Lordaeron');
+	assert.deepEqual([q(96987).start.npc, q(96987).end.npc, inst(268743)], [[268743], [268743], [2959]], 'Opportunistic Education: Rexxie Copperclutch, City of Dalaran');
+	assert.deepEqual([q(95647).end.npc, q(95647).objectives, inst(262681)], [[262681], [{ type: 'talk', id: 262681, count: 1, text: 'Ardin Grassman' }], [2998]], 'Lost in the Thicket Things: handed in to Ardin Grassman inside, not Caitlin');
+	assert.deepEqual([q(95772).end.npc, inst(262465)], [[262465], [2998]], 'Songblade Search: handed in to Daewyn Songblade inside, not Dorin');
+	assert.deepEqual(blockingPrereqs({ id: 95795, ...q(95795) }), { all: [], any: [95772] }, 'Fallen in the Fen: from Daewyn, after Songblade Search');
+	assert.deepEqual(q(95795).start.npc, [262465]);
+	assert.deepEqual(blockingPrereqs({ id: 95809, ...q(95809) }), { all: [], any: [95647] }, 'Heartwoven: from Ardin, after Lost in the Thicket Things');
+	assert.deepEqual(q(95809).start.npc, [262681]);
+	assert.deepEqual(q(98824).objectives, [{ type: 'item', id: 287959, count: 1, text: 'Titan Relic' }], "Prehistoric Prism: the relic Whelgar hands over, not Lost Relic Carry's");
+});
+
+test('Dalaran Patrols waits for both Prison Break In and Key to the City, Shrewd Negotiations for Heart of Disruption (#1837)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [2410] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(545), { all: [544, 93680], any: [] }, 'Magus Wordeen Voidglare: Dalaran Patrols');
+	assert.deepEqual(blocks(97287), { all: [], any: [96984] }, 'Magus Wordeen Voidglare: Shrewd Negotiations');
 });
 
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
@@ -267,5 +294,5 @@ test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s ra
 	assert.deepEqual([92474, 94003, 94006, 98404].map(races), [SKYBORNE, SKYBORNE, SKYBORNE, SKYBORNE], 'Alliance and Horde Skyborne');
 	assert.deepEqual([92514, 92595].map(races), [HORDE, HORDE], "Welcome to Shen'dar Village and The Windshapers: the Horde, not Tauren only");
 	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
-	assert.deepEqual([79361, 79442].map(races), [HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
+	assert.deepEqual([79361, 79442, 79365].map(races), [HORDE, HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
 });
