@@ -809,6 +809,9 @@ function Own.predicateHolds(p)
 		ok = (C.GetSkillRank and C.GetSkillRank(p.skillLine or p.name) or 0) >= p.n
 	elseif k == "cooldown" then
 		ok = Own.onCooldown(p)
+	elseif k == "taxi" then
+		-- A flight path the character knows, checked as a getfp goal is.
+		ok = Own.fpKnown(p)
 	elseif k == "knows" then
 		-- IsPlayerSpell too: Forever's spellbook check says no for weapon skills.
 		ok = C.IsSpellKnown(p.spell) or C.IsPlayerSpell(p.spell) == true
@@ -943,13 +946,13 @@ end
 -- A getfp's flight path is known: by its taxi node when the compiler gave
 -- one (`node`, among the nodes Nav/Travel.lua records from the flight map in
 -- CharState().flags.taxi), else by name: taxi node names read "Stormwind,
--- Elwynn"; guides say "Stormwind".
-local function fpKnown(goal)
+-- Elwynn"; guides say "Stormwind". Also a `taxi` predicate's (its `name`).
+function Own.fpKnown(goal)
 	if goal.node then
 		local taxi = ns.CharState().flags.taxi
 		return type(taxi) == "table" and taxi[goal.node] == true
 	end
-	local want = goal.location:lower()
+	local want = (goal.location or goal.name):lower()
 	for name in pairs(fpTable()) do
 		local n = name:lower()
 		if n == want or n:match("^([^,]+)") == want then return true end
@@ -3227,7 +3230,7 @@ function Own.goalDoneLive(s, g, goal)
 		end
 		return false
 	elseif t == "getfp" then
-		return fpKnown(goal)
+		return Own.fpKnown(goal)
 	elseif t == "level" then
 		return Own.levelReached(goal.level, goal.frac)
 	elseif t == "skill" then
@@ -11412,7 +11415,7 @@ end)
 -- HERE_CLEAR times the radius. Learning it ends the line (the flight map and
 -- "New flight path discovered" mark the node known: a build follows) and
 -- ticks any later getfp goal of the loaded guide for that flight master
--- (fpKnown), as an early pick-up does. The candidates are
+-- (Own.fpKnown), as an early pick-up does. The candidates are
 -- Own.hereFly[1..hereFlyN], built with the others (Own.hereBuild); each node
 -- of the travel data keeps its goal and entry (Own.hereFlyOf), so a dismiss
 -- or an expiry holds across builds.

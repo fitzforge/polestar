@@ -1623,7 +1623,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   than the global cooldown and not run out; it times an update for when it
   ends, and `BAG_UPDATE_COOLDOWN`/`SPELL_UPDATE_COOLDOWN` update once a guide
   has asked), whether the character knows a spell (`Compat.IsSpellKnown`,
-  else `Compat.IsPlayerSpell`; `SPELLS_CHANGED` updates), and the player's
+  else `Compat.IsPlayerSpell`; `SPELLS_CHANGED` updates), whether it knows a
+  flight path (`taxi`, format 10: `Own.fpKnown`, as for a `getfp` goal: the
+  node in `CharState().flags.taxi`, else the name among the flight maps
+  opened; learning one updates), and the player's
   answer at a group quest (`Own.groupAnswer`:
   `CharState().groupQuests[q]`, "do" or "skip", set by `Engine.AnswerGroup`
   from the guide window's banner or Options, Discovery, Group quests;
@@ -1843,7 +1846,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   dismiss holds across builds. Learning it (the flight map, "New flight path
   discovered", `TAXI_NODE_STATUS_CHANGED`: Nav marks the node known, a build
   follows) ends the line and ticks the guide's later `getfp` goal for that
-  flight master (`fpKnown`), as an early pick-up does; the live step stays.
+  flight master (`Own.fpKnown`), as an early pick-up does; the live step stays.
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
   when that many fit, else the nearest (`Own.herePick`, again each
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
