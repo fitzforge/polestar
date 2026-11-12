@@ -42,7 +42,7 @@ return {
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 
 	-- Step 9: Thrall
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
@@ -62,7 +62,7 @@ return {
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
 	-- Step 13: The Undercity
 	-- {quest:515} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
@@ -100,7 +100,7 @@ return {
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
 	["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229} quiere que liberes a sus dos exploradores de {area:275} antes de confiarte “Infiltración”.",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, adentro",
 
 	-- Step 21: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz
@@ -126,7 +126,7 @@ return {
 	["The smithy"] = "La herrería",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "Al oeste por las laderas hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado a su lado.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -235,7 +235,7 @@ return {
 	-- {npc:2229} Krusk · {npc:2316} Gol'dir
 	["{npc:2229} now offers {npc:2316} (level 36): leave it for the 38-39 visit."] = "",
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, adentro",
 
 	-- Step 46: Elixir of Agony with a group
 	-- {quest:515} Elixir of Agony

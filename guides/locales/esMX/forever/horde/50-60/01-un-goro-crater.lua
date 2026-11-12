@@ -215,13 +215,13 @@ return {
 	["{area:340} flight master"] = "",
 
 	-- Step 43: Apothecary Lydon
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 44: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
 	-- Step 45: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter

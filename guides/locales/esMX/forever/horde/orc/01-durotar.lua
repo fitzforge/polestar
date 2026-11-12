@@ -11,7 +11,7 @@ return {
 	["{npc:3143} waits inside the Den, the building just west of {npc:10176}."] = "{npc:3143} espera dentro de la Guarida, el edificio justo al oeste de {npc:10176}.",
 	-- {npc:10176} Kaltunk
 	["{npc:10176}, where you start"] = "{npc:10176}, donde empiezas",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 2: Training weapons and boars
 	["Training weapons and boars"] = "Armas de entrenamiento y jabalíes",
@@ -60,7 +60,7 @@ return {
 	["{npc:246344} in {zone:1456}; {area:363} has no paladin trainer"] = "",
 
 	-- Step 8: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:363} Valley of Trials
 	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "",
 

@@ -167,7 +167,7 @@ return {
 
 	-- Step 33: Farren
 	["Farren"] = "Farren",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 34: Murloc heads
 	["Murloc heads"] = "Cabezas de múrloc",

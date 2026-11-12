@@ -31,7 +31,7 @@ return {
 
 	-- Step 6: The Spirits of Southwind
 	["The Spirits of Southwind"] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 7: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
@@ -202,7 +202,7 @@ return {
 
 	-- Step 47: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
 	-- Step 50: Radley and Durgen
 	["Radley and Durgen"] = "Radley y Durgen",
