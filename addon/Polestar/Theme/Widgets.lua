@@ -56,6 +56,7 @@ function W.Color(region, name, alpha)
 	if region:GetObjectType() == "Texture" then
 		region:SetVertexColor(r, g, b, a)
 	else
+		Theme.OwnFont(region)
 		region:SetTextColor(r, g, b, a)
 	end
 	return region
@@ -1337,8 +1338,8 @@ local function sliderEntry(row)
 	e:SetAutoFocus(false)
 	e:SetHeight(24)
 	e:SetTextInsets(6, 6, 0, 0)
-	e:SetJustifyH("RIGHT")
 	Theme.Font(e, "number")
+	e:SetJustifyH("RIGHT")
 	W.Color(e, "text")
 	Theme.Skin(e, "editbox")
 	e:SetScript("OnEnterPressed", function(self)

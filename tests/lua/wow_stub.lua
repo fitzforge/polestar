@@ -270,6 +270,19 @@ function Methods.SetFontObject(self, obj)
 	if type(obj) == "table" and obj.font then self.font = { obj.font[1], obj.font[2], obj.font[3] } end
 end
 function Methods.GetFontObject(self) return self.fontObject end
+-- A font object's face, colours, shadow and justification, copied from
+-- another (by object or name), not linked to it.
+function Methods.CopyFontObject(self, other)
+	if type(other) == "string" then other = _G[other] end
+	if type(other) ~= "table" then return end
+	local function copy(t)
+		if type(t) ~= "table" then return t end
+		local c = {}
+		for k, v in pairs(t) do c[k] = v end
+		return c
+	end
+	for _, key in ipairs({ "font", "textColor", "shadowColor", "shadowOffset", "justifyH", "justifyV", "spacing" }) do self[key] = copy(other[key]) end
+end
 function Methods.SetTextColor(self, r, g, b, a) self.textColor = { r, g, b, a or 1 } end
 function Methods.GetTextColor(self)
 	local c = self.textColor or { 1, 1, 1, 1 }

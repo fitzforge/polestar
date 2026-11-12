@@ -1489,9 +1489,34 @@ function Theme.ScriptFont(text)
 	return script.path
 end
 
+-- An edit box made without a template draws with a font object it shares
+-- (the chat box's, as #1896's report has it), and its font calls can write
+-- through to that object: Polestar's text size then sized the text being
+-- typed in chat. Each box first gets a font object of its own, a copy of
+-- the one it draws with, so its face, size, colour and shadow stay its own.
+-- Theme.SetFace and W.Color do it before their first call on a box; a box's
+-- own font calls (SetJustifyH, SetSpacing) come after its Theme.Font.
+local ownFonts = setmetatable({}, { __mode = "k" }) -- edit box -> its font object
+local ownFontCount = 0
+function Theme.OwnFont(region)
+	if ownFonts[region] or not region.SetTextInsets or region:GetObjectType() ~= "EditBox" or not CreateFont then return end
+	ownFontCount = ownFontCount + 1
+	local font = CreateFont("PolestarBoxFont" .. ownFontCount)
+	local shared = region:GetFontObject()
+	if shared then
+		font:CopyFontObject(shared)
+	else
+		local path, size, flags = region:GetFont()
+		if path then font:SetFont(path, size, flags or "") end
+	end
+	region:SetFontObject(font)
+	ownFonts[region] = font
+end
+
 -- Keep a widget's typography when the face already matches (e.g. a colour
 -- refresh or a reused map pin). A missing font may return false or raise.
 function Theme.SetFace(fs, path, size, flags)
+	Theme.OwnFont(fs)
 	local current, height, outline = fs:GetFont()
 	if current == path and height == size and (outline or "") == flags then return end
 	local fallback = gameFont()
