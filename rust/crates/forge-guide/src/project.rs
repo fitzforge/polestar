@@ -376,6 +376,10 @@ pub fn build_pack_files(
 	// Polestar's own pack is written for memory (format 8): spawn spots as strings, and each faction's
 	// guides in a load-on-demand part Polestar loads for a player of that faction only.
 	let ours = manifest.get("id").as_str() == Some("guides");
+	// A community pack that asks for it (pack.json `load`: "on-demand") is written the same way, and
+	// every guide's steps as source read when the guide is opened (emit.rs emit_guide, `deferred`).
+	let on_demand = !ours && manifest.get("load").as_str() == Some(crate::manifest::LOAD_ON_DEMAND);
+	let lean = ours || on_demand;
 	let entry = |g: &V| {
 		let loc = g.hidden("_localised");
 		let ast = g.hidden("_ast");
@@ -400,7 +404,7 @@ pub fn build_pack_files(
 			}
 		}
 		match race_part(g) {
-			None => match faction_part(g).filter(|_| ours) {
+			None => match faction_part(g).filter(|_| lean) {
 				Some(f) => match factions.iter_mut().find(|(k, _)| *k == f) {
 					Some((_, l)) => l.push(g.clone()),
 					None => factions.push((f, vec![g.clone()])),
@@ -416,7 +420,7 @@ pub fn build_pack_files(
 	}
 	// The first format the guides need, at least PACKED_FORMAT for ours and LEGS_FORMAT with baked legs.
 	let mut format = crate::format::format_for(guides);
-	if ours {
+	if lean {
 		format = format.max(crate::format::PACKED_FORMAT);
 	}
 	if !leg_parts.is_empty() {
@@ -430,7 +434,7 @@ pub fn build_pack_files(
 	files.push(("Pack.lua".into(), t(crate::emit::emit_pack(manifest, format))));
 	files.push(("MapFrames.lua".into(), t(crate::emit::emit_map_frames(&referenced_frames(guides, data), &id))));
 	let main_entries: Vec<V> = main.iter().map(entry).collect();
-	let mut gl = crate::emit::emit_guides_with(&main_entries, false, ours);
+	let mut gl = crate::emit::emit_guides_with(&main_entries, on_demand, lean);
 	if !retired.is_empty() {
 		gl.push_str(&crate::emit::emit_retired(&id, retired));
 	}
@@ -445,7 +449,7 @@ pub fn build_pack_files(
 		let name = part_addon(&folder, faction);
 		files.push((format!("../{name}/{name}.toc"), t(crate::emit::emit_faction_toc(manifest, faction, iface))));
 		let es: Vec<V> = list.iter().map(entry).collect();
-		files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, false, true))));
+		files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, on_demand, true))));
 		files.push((format!("../{name}/LICENSE-DATA.txt"), t(license_data.clone())));
 		if let Some(l) = license {
 			files.push((format!("../{name}/LICENSE.txt"), t(l.to_string())));
@@ -461,7 +465,7 @@ pub fn build_pack_files(
 		files.push((format!("../{name}/{name}.toc"), t(crate::emit::emit_part_toc(manifest, race, iface, own.is_some(), legs.is_some()))));
 		if let Some(list) = own {
 			let es: Vec<V> = list.iter().map(entry).collect();
-			files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, true, ours))));
+			files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, true, lean))));
 		}
 		if let Some(list) = legs {
 			files.push((format!("../{name}/Legs.lua"), t(crate::emit::emit_legs(&id, list))));
