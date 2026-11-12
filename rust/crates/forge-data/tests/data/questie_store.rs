@@ -11,7 +11,7 @@ use std::path::{Path, PathBuf};
 use forge_data::run;
 use serde_json::{json, Map, Value};
 
-use super::fixture_build::{fixture, options, Built};
+use super::fixture_build::{fixture, options, repo, Built};
 
 // ---------------------------------------------------------------- a minimal CBOR encoder
 
@@ -208,9 +208,9 @@ fn quests() -> Value {
 			"preQuestSingle": [100], "exclusiveTo": [102, 105], "breadcrumbs": [103], "childQuests": [104], "requiredSkill": [393, 1]
 		},
 		"102": { "name": "Fixture Altar", "questLevel": 4, "requiredLevel": 2, "startedBy": [[], [500]], "finishedBy": [[], [500]], "preQuestSingle": [101, 102, 100] },
-		// The Forever-only pair below has ids no real quest or correction uses, so the checkout's corrections
-		// (which every build here applies) never touch it: 90460 mirrors Coming of Age's shape and its Skyborne
-		// mask (2^32 + 2^33).
+		// The Forever-only pair below has ids no real quest or correction uses (the builds here read the fixture's
+		// own corrections; the one test about ours reads the checkout's): 90460 mirrors Coming of Age's shape and
+		// its Skyborne mask (2^32 + 2^33).
 		"90461": { "name": "The Missing Scholar", "questLevel": 5, "requiredLevel": 2, "startedBy": { "2": [700] } },
 		"90460": {
 			"name": "Coming of Age", "questLevel": 1, "requiredLevel": 1, "requiredRaces": 12884901888u64,
@@ -654,7 +654,8 @@ fn our_corrections_apply_over_the_store() {
 		)],
 		..Default::default()
 	};
-	let q = build("corrections", &store).read("quests");
+	// The checkout's own corrections, which the other builds here leave out (fixture_build::options).
+	let q = build_with("corrections", &store, &|o| o.corrections = repo().join("forever-db/corrections")).read("quests");
 	assert_eq!((&q["377"]["xp"], &q["1486"]["xp"]), (&json!(4400), &json!(3100)), "dungeon quests' Forever XP over the store's QuestXP");
 	for id in ["377", "1486"] {
 		assert!(q[id]["source"].as_array().unwrap().contains(&json!("polestar-correction")), "{id} is tagged");

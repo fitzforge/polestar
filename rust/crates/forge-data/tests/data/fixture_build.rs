@@ -30,6 +30,9 @@ pub fn options(recordings: Option<&Path>) -> Options {
 	o.recordings = recordings.map(Path::to_path_buf).unwrap_or_else(|| fixture().join("recordings"));
 	// Not the checkout's learned snapshot: the fixture has none.
 	o.recorded = fixture().join("recorded").join("quests.json");
+	// Nor the checkout's corrections: they grow with every data fix, and a fixture build would count every
+	// record they create. A test about our own corrections points `o.corrections` at forever-db/corrections.
+	o.corrections = fixture().join("corrections");
 	o.questie = None;
 	o.forever = false;
 	o.web_xp = false;
@@ -312,8 +315,8 @@ fn recordings_override_era_data_add_factions_and_recorder_only_records_with_full
 	assert!(pf["notice"].as_str().unwrap().starts_with("MIT License"));
 	assert!(m["sources"][1]["revision"].as_str().unwrap().contains("wow_classic_era 1.15.9.11111"));
 	let c = &m["counts"];
-	// Objects: the fixture's 2 plus the 4 Attack Plans the repository's corrections create (#1312).
-	assert_eq!([&c["quests"], &c["npcs"], &c["objects"], &c["items"], &c["mapFrames"]], [&json!(9), &json!(7), &json!(6), &json!(5), &json!(4)]);
+	// The fixture's own records only: its corrections are empty, so none are created here.
+	assert_eq!([&c["quests"], &c["npcs"], &c["objects"], &c["items"], &c["mapFrames"]], [&json!(9), &json!(7), &json!(2), &json!(5), &json!(4)]);
 }
 
 #[test]
