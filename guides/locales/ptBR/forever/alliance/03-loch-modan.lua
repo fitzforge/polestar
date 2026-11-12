@@ -150,7 +150,7 @@ return {
 	-- Step 29: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire
 	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "Do metrô, saia de {zone:1453} pelo portão principal e siga a estrada por {area:87} e a leste por Elwynn até Cristarrubra.",
-	["The road east to Redridge"] = "",
+	["The road east to Redridge"] = "A estrada para leste até Cristarrubra",
 
 	-- Step 30: Guard Thomas
 	-- {npc:261} Guard Thomas · {area:91} Tower of Azora · {npc:240} Marshal Dughan · {quest:35} Further Concerns · {area:87} Goldshire
@@ -161,7 +161,7 @@ return {
 	-- Step 31: Henze Faulk
 	-- {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Da ponte, siga ao norte até {area:86}. {npc:6172} está caído ao sul do lago: use o {item:6866} nele. Os Teurgos Proscritos Défias ao redor dele carregam a {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Use o {item:6866} em {npc:6172}",
 	-- {item:6846} Defias Script
@@ -307,7 +307,7 @@ return {
 	-- Step 53: Captain Grayson
 	-- {zone:1436} Westfall · {npc:392} Captain Grayson
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "",
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "Guardou cinco Frascos de Óleo dos Guarda-colheitas de {zone:1436}? {npc:392} fica com eles para o fogo do farol.",
 
 	-- Step 54: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
@@ -361,7 +361,7 @@ return {
 
 	-- Step 63: Gazin Tenorm
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {object:2098} Cathedral Square
-	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "",
+	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "{npc:6173} e {npc:6171} ficam na Catedral da Luz, na {object:2098}, no caminho até o porto.",
 	["Cathedral of Light"] = "Catedral da Luz",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Redenção",
