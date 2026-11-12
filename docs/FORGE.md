@@ -193,6 +193,8 @@ A new Forge may change what a stage writes; the stages it affects run again on t
    | `--until data\|walks` | stop after the data stage, or after the walks stage |
    | `--nav grid\|leffe\|hybrid` | which walking maps price the walks ([Leffe's navigation maps](#leffes-navigation-maps)) |
    | `--threads N` | worker threads (default 8) |
+   | `--walks-serial` | the walks stage's two passes (our grid's, Leffe's maps') one after the other: about half its peak memory, a longer walks stage, the same walks |
+   | `--leffe-cache <MB>` | MB of Leffe's decoded maps the walks stage keeps (default 4096): less memory, slower, the same walks |
    | `--guides <folder>` | the guides to start from (default: the checkout's `guides/`, its generated guides read from the seed) |
    | `--checkout <folder>` | the checkout whose fixes the build applies (default: the one above `--guides`, else above here) |
    | `--root <checkout>` | the checkout whose sources to read (default: the nearest folder above here with `data/sources`) |
@@ -446,9 +448,14 @@ A fix goes into a record the next build applies, whoever builds:
 | the check that pins it | `tests/guides-reported.test.js` |
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
 | a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level; `onquest Q,...`: only while one of the quests is in the log; `!knows S`: only while the character does not know spell S; on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
+| who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |
+| where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step, into another guide too (`step`) | `data/guide-fixes.json` |
+| where the walk to a step ends (`way`): off a town of the other faction, or at a camp's edge; who makes the walk (`way.when`): only whoever carries the quest it leads to | `data/guide-fixes.json` |
+| a guide's top level in its header (`levels`, on `at: { goal: "levels", guide }`): where players leave it, when that is above where the route ends it | `data/guide-fixes.json` |
 
-Places and guide fixes are anchored on a quest's goal, never on a line or a step, and the writer
-applies them to the guides it writes, last:
+Places and guide fixes are anchored on a quest's goal (a `when` on a flight step and `levels` on a
+guide's header name the guide instead), never on a line or a step, and the writer applies them to
+the guides it writes, last:
 
 A `goalNote` record replaces the anchored goal's `--` note without changing
 the step's tip or other goals. An `optional: true` record makes only the
@@ -483,7 +490,17 @@ line of an objective the quest no longer has goes (#859).
     "early": { "after": { "quest": 8, "goal": "accept" }, "title": "Gordo on the road to Brill", "when": "level>=5", "tip": "…" }, "…": "…" },
   { "id": "1135-plainstrider-beaks", "at": { "quest": 844, "goal": "objective", "objective": 1 },
     "background": { "title": "Plainstrider Beaks as you go", "tip": "…", "mobs": [3244, 3245, 3246], "mention": "…",
-      "finish": { "title": "Finish the Plainstrider Beaks", "tip": "…", "map": 1413, "x": 53.4, "y": 26.5 } }, "…": "…" } ] }
+      "finish": { "title": "Finish the Plainstrider Beaks", "tip": "…", "map": 1413, "x": 53.4, "y": 26.5 } }, "…": "…" },
+  { "id": "races-637-sully-balloos-letter", "faction": "Alliance", "at": { "quest": 637, "goal": "quest" }, "races": "all", "…": "…" },
+  { "id": "races-109-furlbrow-accept", "faction": "Alliance", "at": { "quest": 109, "goal": "accept" }, "races": "Human,NightElf,Skyborne", "…": "…" },
+  { "id": "darkshire-althea-after-ello", "at": { "quest": 227, "goal": "turnin", "guide": "forever/alliance/07-thousand-needles" },
+    "follows": { "quest": 252, "goal": "turnin" }, "…": "…" },
+  { "id": "astranaar-pass-hand-ins-split", "at": { "quest": 1025, "goal": "turnin", "guide": "forever/alliance/06-ashenvale" },
+    "split": { "title": "Astranaar", "tip": "South from Dal Bloodclaw's camp, Astranaar is on the way west: …" }, "…": "…" },
+  { "id": "astranaar-pass-hand-ins-step", "at": { "quest": 1025, "goal": "turnin", "guide": "forever/alliance/06-ashenvale" },
+    "step": { "after": { "quest": 1054, "goal": "objective", "objective": 1 } }, "…": "…" },
+  { "id": "tome-of-divinity-loch-modan-henze", "at": { "quest": 1786, "goal": "turnin", "guide": "forever/alliance/04-redridge-mountains" },
+    "step": { "copy": true, "guide": "forever/alliance/03-loch-modan", "after": { "quest": 35, "goal": "turnin" }, "tip": "From the bridge, …" }, "…": "…" } ] }
 ```
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
@@ -505,6 +522,60 @@ along the route; `finish` is where players got the most kills a minute. A place 
 typed point but another map is applied (the map typed too). A place or guide fix with
 `"faction": "Alliance"` (or `"Horde"`) holds for that side's routes only.
 
+`races` sets who a goal is for by race: the race part of each anchored goal line's own `only` list.
+`"all"` drops it (classes stay, and an `only` left empty goes); a list (`"Human,NightElf,Skyborne"`)
+replaces it. A line whose own `only` names no race is left as it is, since its step's `only` decides
+who sees it: of Report to Gryan Stoutmantle's two Westfall accepts (109), Farmer Furlbrow's carries
+`only Human` and becomes `only Human,NightElf,Skyborne`, while Marshal Dughan's, in a Dwarf and Gnome
+step, stays. With `at.goal: "quest"` the record covers every goal line of the quest (its accept,
+objectives and hand-in), the form for an old per-race filter on a quest every race takes: Sully
+Balloo's Letter above, which the guides once showed to Dwarves, Gnomes, Night Elves and Skyborne only.
+A quest with a quest-wide `races` record has no other. The writer applies `races` in its fix pass,
+again after the shared route re-gates the shared guides by the starts that take each quest, and last
+on every guide it writes, so the old list never comes back.
+
+Three kinds move what a step holds; the writer applies them after the others, so a tip or `when` a
+record sets on a goal's step goes with it. `follows` puts the anchored goal line right after the
+first line of that goal in the guide: the order inside a step (Commander Althea's optional hand-in
+after Sirra Von'Indi's chain on the last Darkshire stop, so the town hall is visited once, not
+twice), or a goal moved into another step there; a step left with no goal goes. `split` makes the
+anchored goal and the lines after it in its step a step of their own right after it, titled
+`split.title` (with `split.tip`), repeating the step's `only` and `when` lines and the zone it is in
+there: a town stop split in walking order, or hand-ins cut off a later stop, which `step` then moves.
+`step` moves the anchored goal's whole step to right after the step of `step.after`'s goal, in the
+guide `step.guide` names (its id; the same guide when it names none), with `step.tip` as its tip;
+with `"copy": true` a copy goes there and the step stays (a class step done on an earlier walk past
+the same NPC, the later one kept, gated `when onquest`, for whoever still carries the quest). The
+travel-only steps right before it for the same players, the walk to it, go with it with `"way":
+true`; else they go when it moves. Where the step already follows `after`'s step, only its tip is
+set. `at.guide` (a guide's id) narrows any record to that guide: these records name the guide they
+are for.
+
+`way` sets where the walk right before the anchored goal's step ends (a travel-only step for the same
+players): its last `goto` takes `way.at` (`{ map, x, y, frame }`) and `way.label`, the step
+`way.title`. The writer applies it after the records that move steps. It is how a walk is kept out of
+a town of the other faction: the walk from Tarren Mill to Marlene Redpath once ended in the middle of
+the Alliance's Chillwind Camp. `way.when` (a condition, or a list) holds every travel-only step of the
+walk: a class's walk to a class quest taken in an earlier guide is made only with the quest in the log
+(`"way": { "when": "onquest 94774" }` on Divine Grace's hand-in: Human Priests without it no longer
+walk to Laurena in Stormwind's cathedral).
+
+```json
+{ "id": "way-sorrow-hill-not-chillwind-camp", "faction": "Horde", "at": { "quest": 5152, "goal": "turnin" },
+  "way": { "at": { "map": 1422, "x": 49.2, "y": 78.6, "frame": "era" }, "label": "Sorrow Hill", "title": "To Sorrow Hill" }, "…": "…" }
+```
+
+Every build warns about such walks: a travel step whose `goto` ends within 120 yd of a flight master of
+the other faction (one in a town both factions use, such as Booty Bay, aside) prints `apply-route:
+warning: <guide>:<line>: the travel step "…" ends … yd from the other faction's flight master at …`.
+A quest goal is never warned about: it stands where the quest is done.
+
+`levels` raises a guide's top level in its header (`levels 29-32` reads `levels 29-33` for
+`"levels": { "top": 33 }`): the writer ends the range where the route ends the guide, and the guide
+window calls a guide outgrown at its top + 2, so a top under the level players leave at offers them
+another guide too early. A top at or under the route's changes nothing. The anchor is the guide, not a
+goal: `"at": { "goal": "levels", "guide": "forever/horde/30-40/01-hillsbrad-foothills" }`.
+
 Each record says why, in our own words, and names its issue (`#647`) or pull request; a correction,
 place or guide fix also has its `source`. `forge data check-corrections` checks all five files. A record fix shows in the guides
 only after the maintainer's build; a report check it does not deliver is listed as `undone`.
@@ -512,7 +583,11 @@ only after the maintainer's build; a report check it does not deliver is listed 
 **The seed.** Forge starts from `forge/seed/guides`: the leveling guides as they were when Forge
 took them over, cut once by `forge guide seed` (a later cut resets every route's baseline, so it
 needs `--force`). With a seed in the checkout, `forge build` reads `guides/` with each generated
-guide replaced by its seed, never its own earlier output. After a build of every start the maintainer
+guide replaced by its seed, never its own earlier output. Contributors never edit the seed: a fix
+goes into the records above. When the maintainer edits a generated guide by hand, the same hunk goes
+into the seed in that commit (the writer keeps the seed's titles, tips, notes and goal comments) and
+what the writer recomputes (the order, who a line is for, travel, the step a goal is on) into records;
+`forge/seed/SEED.json` is re-hashed with it. After a build of every start the maintainer
 writes the result into the checkout with `forge guide publish --from <out>/guides` (the shared route
 once per faction, each start's own guides, one copy per race where two races share a start folder,
 one `legs.json`; header and `GENERATED.json`: docs/forge/routes.md, "Publishing every start"), then
@@ -553,7 +628,7 @@ Start with `forge doctor`: it names the problem and the fix for most setups.
 | `forge doctor` says the install is not complete, or `... is not in the local storage` | the launcher has not downloaded those files, or reused their space for others: run **Scan and Repair** in the launcher, let it finish, then `forge doctor` again (`forge gamedata check` lists the files per map). `forge build` refuses to build the walking grid from such an install (it would be wrong where files are missing) unless given `--allow-incomplete` |
 | `encrypted with TACT key ...; N records skipped` | a note, not an error: those rows are encrypted in the client and are left out |
 | a stage runs every time | its outputs were removed or edited; delete `forge-out/.forge/<stage>.key` to force one stage, the whole `forge-out` to start over |
-| out of memory | lower `--threads`; the walks stage and Leffe's maps cache are the largest ([nav.md](forge/nav.md)) |
+| out of memory | build one faction at a time (`--starts`) with `--walks-serial`, then lower `--threads` and `--leffe-cache`; the walks stage and Leffe's maps cache are the largest ([nav.md](forge/nav.md#memory-and-time)) |
 
 ## Forge's other commands
 

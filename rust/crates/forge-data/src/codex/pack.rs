@@ -389,6 +389,15 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if o.get("tame").truthy() {
 			parts.push("t".into());
 		}
+		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
+		let el = o.get("elites");
+		for side in ["A", "H"] {
+			let e = el.get(side);
+			if e.truthy() {
+				let lvl = e.get("lvl");
+				parts.push(format!("w{side}{},{}", num(&e.get("rank"))?, if lvl.is_nullish() { String::new() } else { num(&lvl)? }));
+			}
+		}
 	}
 	if rec.get("repFaction").truthy() && rec.get("repStanding").truthy() {
 		parts.push(format!("r{},{}", num(&rec.get("repFaction"))?, num(&rec.get("repStanding"))?));

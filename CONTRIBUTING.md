@@ -243,11 +243,12 @@ A few tests skip automatically when the reference data (`data/forever`) or
 Lua 5.1 is missing. [tests/README.md](tests/README.md) describes the suite;
 [docs/SUITE.md](docs/SUITE.md) what is in and out of scope.
 
-**You do not commit** `addon/Polestar_Guides/Guides.lua`, `docs/preview/*.svg`,
-the locale files in `addon/Polestar*/`, or `addon/Polestar/Media/*.tga` unless
-your change is to the generator itself (a texture generator in `tools/media/`,
-the preview renderer in `tools/preview/`, or the compiler in `tools/lib/dsl/`).
-The maintainer regenerates those after merging your PR.
+**You do not commit** `addon/Polestar_Guides/Guides.lua`, `addon/Polestar_Experimental/`
+(compiled from `experimental/`), `docs/preview/*.svg`, the locale files in
+`addon/Polestar*/`, or `addon/Polestar/Media/*.tga` unless your change is to
+the generator itself (a texture generator in `tools/media/`, the preview
+renderer in `tools/preview/`, or the compiler in `tools/lib/dsl/`). The
+maintainer regenerates those after merging your PR.
 
 ## Code changes
 

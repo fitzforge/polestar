@@ -170,8 +170,9 @@ local SEPARATE = { Polestar_Recorder = true }
 
 -- Every other Polestar_* folder in the AddOns list, loaded or not: the parts
 -- for the other races and faction, the other languages, the walking maps'
--- continents. Community addons are never named Polestar_* (pack.json refuses
--- the prefix); the old language folders have a line of their own.
+-- continents, the experimental guides (Polestar_Experimental, off until
+-- switched on). Community addons are never named Polestar_* (pack.json
+-- refuses the prefix); the old language folders have a line of their own.
 local function listed()
 	local out = {}
 	local A = C_AddOns or {}

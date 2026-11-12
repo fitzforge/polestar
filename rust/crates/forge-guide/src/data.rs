@@ -98,6 +98,9 @@ pub struct Data {
 	pub travel: V,
 	/// spawnz.json ({ npc, object } -> id -> [[instance map, x, y, z]]) or Null.
 	pub spawnz: V,
+	/// data/goal-heights.json's `points` (beside the data folder: its parent's goal-heights.json), or Null: the
+	/// floor a goal at that point is done on where no NPC or object says (heights.rs point_height).
+	pub goal_heights: V,
 	/// moves.json ({ npc } -> id -> [[instance map, x, y, centre x, centre y, radius]]: the ground a
 	/// walking creature's spawn covers, world yards) or Null.
 	pub moves: V,
@@ -152,6 +155,7 @@ impl Data {
 			races: t("races"),
 			travel: t("travel"),
 			spawnz,
+			goal_heights: V::Null,
 			moves,
 			instances: if raw.instances.is_nullish() { V::Null } else { raw.instances },
 			areas: if raw.areas.is_nullish() { V::Null } else { raw.areas },
@@ -548,7 +552,14 @@ pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 	let sources = dir.join("..").join("sources");
 	let instances = crate::solo::load_instances(&sources);
 	let areas = crate::areas::load_areas(&sources);
-	Data::from_texts(&texts, instances, areas, Some(dir.to_string_lossy().into_owned()))
+	let mut data = Data::from_texts(&texts, instances, areas, Some(dir.to_string_lossy().into_owned()))?;
+	// (The folder's own parent, not `<data>/..`: data/forever may be a link to another checkout's.)
+	let heights = dir.parent().unwrap_or(dir).join("goal-heights.json");
+	if let Ok(text) = std::fs::read_to_string(&heights) {
+		let doc = parse_json(&text).map_err(|e| format!("{}: {e}", heights.display()))?;
+		data.goal_heights = doc.get("points");
+	}
+	Ok(data)
 }
 
 /// Whether dir holds any core file.

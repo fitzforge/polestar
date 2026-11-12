@@ -50,6 +50,20 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：物品、坐騎、寵物、NPC、任務及其取得方式、地城與稀有怪物，供查詢、地城與稀有頁面使用。按需載入。',
 		},
 	},
+	Polestar_Experimental: {
+		title: { deDE: 'Polestar: experimentelle Guides', esES: 'Polestar: guías experimentales', esMX: 'Polestar: guías experimentales', frFR: 'Polestar : guides expérimentaux', koKR: 'Polestar 실험 가이드', ptBR: 'Polestar: guias experimentais', ruRU: 'Polestar: экспериментальные гайды', zhCN: 'Polestar 实验指南', zhTW: 'Polestar 實驗指南' },
+		notes: {
+			deDE: 'Teil von Polestar: experimentelle Guides für die neuen Zonen von Forever (Alpha). Aus, bis du es unter Optionen, Community-Guides einschaltest.',
+			esES: 'Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa). Desactivado hasta que lo actives en Opciones, Guías de la comunidad.',
+			esMX: 'Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa). Desactivado hasta que lo actives en Opciones, Guías de la comunidad.',
+			frFR: 'Fait partie de Polestar : guides expérimentaux pour les nouvelles zones de Forever (alpha). Désactivé tant que vous ne l\'activez pas dans Options, Guides de la communauté.',
+			koKR: 'Polestar의 일부: Forever 신규 지역용 실험 가이드(알파). 설정 > 커뮤니티 가이드에서 켜기 전까지는 꺼져 있습니다.',
+			ptBR: 'Parte do Polestar: guias experimentais para as novas zonas do Forever (alfa). Desligado até você ligá-lo em Opções, Guias da comunidade.',
+			ruRU: 'Часть Polestar: экспериментальные гайды для новых зон Forever (альфа). Выключено, пока вы не включите его в разделе «Настройки», «Гайды сообщества».',
+			zhCN: 'Polestar 的组成部分：Forever 新区域的实验性指南（Alpha 版）。在“选项”>“社区指南”中开启前保持关闭。',
+			zhTW: 'Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版）。在「選項」>「社群指南」中開啟前保持關閉。',
+		},
+	},
 	Polestar_Guides: {
 		title: { deDE: 'Polestar Guides', esES: 'Polestar: guías', esMX: 'Polestar: guías', frFR: 'Polestar : guides', koKR: 'Polestar 가이드', ptBR: 'Polestar: guias', ruRU: 'Polestar: гайды', zhCN: 'Polestar 指南', zhTW: 'Polestar 指南' },
 		notes: {

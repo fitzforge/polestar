@@ -425,8 +425,9 @@ fn a_missing_prerequisite_the_guide_still_turns_in_before_the_accept_or_after_it
 	assert_eq!(out["step1"], json!(["done:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["step2"], json!(["pending:nil:nil", "pending:nil:nil"]));
 	assert_eq!(out["wp"], 2);
-	// Nothing left to do at Thork: the guide goes past the skipped step.
-	assert_eq!(out["skipped"], json!([3, ["done:nil:nil", "skipped:pre:Requires “Disrupt the Attacks” first"]]));
+	// Nothing left to do at Thork: the guide goes past the skipped step. 871 is still in the log, so the accept
+	// says to hand it in.
+	assert_eq!(out["skipped"], json!([3, ["done:nil:nil", "skipped:pre:Hand in “Disrupt the Attacks” first"]]));
 }
 
 #[test]

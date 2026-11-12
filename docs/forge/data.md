@@ -335,7 +335,7 @@ single-file form, and a checkout without the folder still has its
 
 | Section (file) | Keyed by | What an entry can do |
 |---|---|---|
-| `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
+| `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, `sourceItem`: the item the quest hands over when taken, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
 | `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
 | `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate) |
 | `mechanics` | quest ID | `params`: `[{ kind, … }]` adds or replaces a mechanic (for example `delayed-offer` with `after`, `npc`, `sec`); `steps`: `{ "<n>": { set } }` changes step `n` |
@@ -392,6 +392,7 @@ from a website.
 | A quest step's or note's wording, place or confidence in the public database | `forever-db/corrections/notes.json` | `forge data publish` |
 | How a quest is done beyond its objectives: an item summons the target, an object must be clicked, the giver offers the next quest after a short scene | `data/mechanics-public.json` | `forge data build --kb` (`mechanics.json`), then `forge build` and `forge data pack` |
 | Whether the route takes a quest: always (`include`), never (`skip`), or undo one of the cut's edits (`revert`); an order players asked for (`deliberate`) | `data/route-fixes.json` | the routes stage, from the checkout being built (or the file `POLESTAR_ROUTE_FIXES` names) |
+| A hand edit to a generated guide's steps that is neither a fact nor a route choice: a tip, a gate, who a goal is for by race | `data/guide-fixes.json` (arrow points: `data/places.json`) | the guides stage's fix pass, every build ([FORGE.md](../FORGE.md#fixing-a-generated-guide)) |
 
 A data mistake belongs in the data files, not in the overrides: every tool then sees the fix.
 
@@ -484,6 +485,105 @@ When the guides should keep a quest the cut leaves out (players take it here, is
 exact `revert` line for each edit. An order players asked for (this before that, these together)
 goes under `deliberate`. The next routes stage honours them;
 [routes.md](routes.md#11-overrides) has the full format.
+
+### A hand edit to a generated guide: `data/guide-fixes.json`
+
+A generated guide fixed by hand keeps its fix only if a record says it, or the next build writes the
+old step again. Each record is anchored on a quest's goal (`at: { quest, goal }`); the kinds and
+their fields are in the file's `about` and in [FORGE.md](../FORGE.md#fixing-a-generated-guide). One
+worked example per kind added in 0.3.8:
+
+**Who a goal is for by race (`races`).** Sully Balloo's Letter (637) is for every Alliance race, but
+its accept and hand-in carried `only Dwarf,Gnome,NightElf,Skyborne` from an old per-race export, so
+Humans never saw it:
+
+```json
+{ "id": "races-637-sully-balloos-letter", "faction": "Alliance",
+  "at": { "quest": 637, "goal": "quest" }, "races": "all",
+  "note": "…", "source": [{ "kind": "questie", "ref": "quest 637 races: every Alliance race" }] }
+```
+
+`"all"` drops the race part of each goal line's own `only` (classes stay); a list such as
+`"Human,NightElf,Skyborne"` replaces it. `goal: "quest"` covers every goal line of the quest; `accept`,
+`turnin`, `complete` or `objective` covers that goal's lines only, for a quest whose lines differ per
+giver. A line with no race in its own `only` is left alone (its step's `only` decides).
+
+**A goal's place in its step (`follows`).** On the last Darkshire stop, Commander Althea's optional
+hand-in (227, the town hall) sat between Sirra Von'Indi's goals (the house behind it): town hall,
+Sirra, town hall, Sirra. It goes after Lord Ello's hand-in, so the town hall is visited once more:
+
+```json
+{ "id": "darkshire-althea-after-ello", "faction": "Alliance",
+  "at": { "quest": 227, "goal": "turnin", "guide": "forever/alliance/07-thousand-needles" },
+  "follows": { "quest": 252, "goal": "turnin" }, "note": "…", "source": [ … ] }
+```
+
+**Hand-ins on an earlier pass (`split`, then `step`).** In Ashenvale the walk from Dal Bloodclaw's
+camp to Ilkrud passes through Astranaar with three hand-ins ready, which the guide left for its last
+Astranaar stop. The first record cuts them (and the lines after them) off that stop into a step of
+their own; the second moves that step to right after Dal Bloodclaw's:
+
+```json
+{ "id": "astranaar-pass-hand-ins-split", "faction": "Alliance",
+  "at": { "quest": 1025, "goal": "turnin", "guide": "forever/alliance/06-ashenvale" },
+  "split": { "title": "Astranaar", "tip": "South from Dal Bloodclaw's camp, Astranaar is on the way west: …" }, … },
+{ "id": "astranaar-pass-hand-ins-step", "faction": "Alliance",
+  "at": { "quest": 1025, "goal": "turnin", "guide": "forever/alliance/06-ashenvale" },
+  "step": { "after": { "quest": 1054, "goal": "objective", "objective": 1 } }, … }
+```
+
+**A class step on an earlier visit, in another guide (`step` with `copy`).** Human Paladins' Henze
+Faulk step (The Tome of Divinity) is done on Loch Modan's walk east through Elwynn, five levels before
+Redridge's identical walk; Redridge keeps its step, gated by a `when` record, for a Paladin still
+carrying the quest:
+
+```json
+{ "id": "tome-of-divinity-loch-modan-henze", "faction": "Alliance",
+  "at": { "quest": 1786, "goal": "turnin", "guide": "forever/alliance/04-redridge-mountains" },
+  "step": { "copy": true, "guide": "forever/alliance/03-loch-modan", "after": { "quest": 35, "goal": "turnin" },
+    "tip": "From the bridge, head north to Stone Cairn Lake. …" }, … }
+```
+
+`step` without `copy` moves the step (Westfall's Defensive Stance from the end of the guide to the
+Thor flight's Stormwind visit); `"way": true` takes the travel-only steps right before it for the same
+players along, else they go with a move. These records run after the other guide fixes.
+
+**Where a walk ends (`way`).** In Hillsbrad (Horde 30) the walk from the Flame of Uzel ended on Ricter's
+own spawn, inside the Dalaran crater's camp of linked guards, so players fought the camp with the
+travel step still showing; it ends at the crater's eastern rim, on the way in:
+
+```json
+{ "id": "way-dalaran-crater-eastern-rim", "faction": "Horde", "at": { "quest": 544, "goal": "objective", "objective": 2 },
+  "way": { "at": { "map": 1416, "x": 24.5, "y": 82.8, "frame": "era" }, "label": "The Dalaran crater's eastern rim" }, … }
+```
+
+The walk is the travel-only step right before the anchored goal's step; its last `goto` takes the
+point and the label (`way.title` retitles the step). A build warns about every walk that ends within
+120 yd of a flight master of the other faction; this record moves it.
+
+**Who makes a walk (`way.when`).** Rogues walked back from Duskwood to Agent Kearnen in Westfall for
+Mathias and the Defias (2360) whether they carried it or not; the walk is now for whoever does:
+
+```json
+{ "id": "way-kearnen-walk-with-the-quest", "faction": "Alliance", "at": { "quest": 2360, "goal": "turnin" },
+  "way": { "when": "onquest 2360" }, … }
+```
+
+Every travel-only step of the walk gets each condition (a string, or a list of them: `["!complete
+7836", "!complete 7824"]`) after its `only` and `when` lines; one it already has is not repeated. A
+record may set `at` and `when` both.
+
+**A guide's top level (`levels`).** Hillsbrad & Arathi (Horde 30-40/01) said 29-32, and the guide
+window calls a guide outgrown at its top + 2, but players leave it at 33 (players' recordings, four
+people) and half its quests are 32-33:
+
+```json
+{ "id": "levels-horde-hillsbrad-arathi-top-33", "at": { "goal": "levels", "guide": "forever/horde/30-40/01-hillsbrad-foothills" },
+  "levels": { "top": 33 }, … }
+```
+
+The header's `levels A-B` reads `A-33` when 33 is above B; the bottom is the route's. The anchor is
+the guide (its id, as in its `guide` line), not a goal.
 
 ## The knowledge base
 

@@ -25,16 +25,17 @@ step Fly to Menethil Harbor
 
 step Red Jack Flint
   zone Wetlands
-  tip Red Jack Flint stands on the dock just north of the flight master.
-  accept 1132                         -- For Fiora Longears on Theramore's docks, where this guide's boat lands
+  tip Red Jack Flint stands by Menethil Keep's door, just north of the flight master.
+  accept 1132                         -- For Fiora Longears in Theramore's inn, where this guide's boat goes
 
 step Glorin Steelbrow
   zone Wetlands
-  tip Glorin stands on the upper floor of Menethil's keep.
+  tip Glorin stands in the Deepwater Tavern, south of the keep, where Mikhail and Vincent Hyal wait too.
   turnin 270                          -- Inside
   accept 321
 
 step Deepwater Tavern
+  tip Tapoke Jahn (34) slips out of the tavern once you take The Missing Diplomat: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from Mikhail.
   sethome "Deepwater Tavern"
   turnin 1248                         -- Mikhail
   accept 1249
@@ -71,7 +72,7 @@ step Theramore
   getfp "Theramore"
   turnin 1302                         -- Clerk Lendry, on the top floor
   turnin 1264                         -- Commander Samaul, on the top floor
-  turnin 1132                         -- Fiora Longears, on the docks
+  turnin 1132                         -- Fiora Longears, inside the inn in the north of town
   note Fiora's next errand goes to Astranaar, off this route: leave it.
   accept 1135                         -- Fiora Longears: the wyverns are in Thousand Needles, later in this guide
 
@@ -127,6 +128,7 @@ step Mirage Raceway: kill these as you meet them
   kill 4147 quest 1175.1                  -- Saltstone Basilisk
   kill 4151 quest 1175.2                  -- Saltstone Crystalhide
   kill 4150 quest 1175.3                  -- Saltstone Gazer
+  collect 5675 quest 1078.1 optional      -- Crystalized Scale, from the Saltstone Basilisks: eight for Collin Mauren in Stormwind
   collect 5675 quest 1078.1 optional      -- Crystalized Scale, from the Saltstone Basilisks: eight for Collin Mauren in Stormwind
 
 step Mirage Raceway

@@ -535,8 +535,32 @@ function BuyTrainerService(i)
 	end)
 end
 
+-- The trainer window as the game lays it out (Blizzard_TrainerUI Mainline,
+-- ButtonFrameTemplate 338 x 424): the portrait at the top left, the filter
+-- menu at the top right, the list inset, the Train button at the bottom
+-- right (MagicButton_OnLoad's -6, 4) and the player's money at the bottom
+-- left (its right edge on the money border's, up to 152 wide).
 ClassTrainerFrame = CreateFrame("Frame", "ClassTrainerFrame", UIParent)
+ClassTrainerFrame:SetSize(338, 424)
+ClassTrainerFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 16, -116)
+ClassTrainerFrame.portrait = ClassTrainerFrame:CreateTexture()
+ClassTrainerFrame.portrait:SetSize(62, 62)
+ClassTrainerFrame.portrait:SetPoint("TOPLEFT", ClassTrainerFrame, "TOPLEFT", -5, 7)
+ClassTrainerFrame.FilterDropdown = CreateFrame("Button", nil, ClassTrainerFrame)
+ClassTrainerFrame.FilterDropdown:SetSize(100, 18)
+ClassTrainerFrame.FilterDropdown:SetPoint("TOPRIGHT", ClassTrainerFrame, "TOPRIGHT", -13, -35)
+ClassTrainerFrame.FilterInputHint = CreateFrame("Frame", nil, ClassTrainerFrame)
+ClassTrainerFrame.FilterInputHint:SetSize(18, 18)
+ClassTrainerFrame.FilterInputHint:SetPoint("RIGHT", ClassTrainerFrame.FilterDropdown, "LEFT", -8, 0)
+ClassTrainerFrame.Inset = CreateFrame("Frame", nil, ClassTrainerFrame)
+ClassTrainerFrame.Inset:SetPoint("TOPLEFT", ClassTrainerFrame, "TOPLEFT", 4, -60)
+ClassTrainerFrame.Inset:SetPoint("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT", -6, 26)
+ClassTrainerFrame.money = CreateFrame("Frame", nil, ClassTrainerFrame)
+ClassTrainerFrame.money:SetSize(152, 13)
+ClassTrainerFrame.money:SetPoint("RIGHT", ClassTrainerFrame, "BOTTOMLEFT", 161, 14)
 ClassTrainerTrainButton = CreateFrame("Button", "ClassTrainerTrainButton", ClassTrainerFrame)
+ClassTrainerTrainButton:SetSize(80, 22)
+ClassTrainerTrainButton:SetPoint("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT", -6, 4)
 function ClassTrainerFrame_Update() end
 
 q.classTrainers = { [198] = true }

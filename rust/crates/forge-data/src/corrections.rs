@@ -5,7 +5,8 @@
 //! What "enough" means:
 //! - a quest: `set` gives `title`, `start` and `end`;
 //! - an NPC or an object: `set` gives `name`, and `addSpawns` (or `set.spawns`) gives where it is;
-//! - an item: never (an item correction only removes wrong sources from an existing record).
+//! - an item: never (an item correction adds sources to an existing record, `addDrops`, or removes
+//!   wrong ones, `removeDrops` / `removeVendors`).
 
 use forge_guide::js::{num_str, str_to_num, stringify, Obj, Str, V};
 
@@ -505,7 +506,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 23] = [
+const QUEST_FIELDS: [&str; 24] = [
 	"title",
 	"level",
 	"minLevel",
@@ -531,6 +532,8 @@ const QUEST_FIELDS: [&str; 23] = [
 	"breadcrumbs",
 	// Seconds the quest allows once taken (the TDB's TimeAllowed; a Forever quest's from its text).
 	"limit",
+	// The item the quest hands over when it is taken (a kit, a staff, a bundle of candles to use).
+	"sourceItem",
 ];
 
 struct Ck<'a> {
@@ -848,6 +851,11 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 				"next" | "breadcrumbFor" => {
 					if !v.is_nullish() {
 						ck.refers(&a, "quests", &v);
+					}
+				}
+				"sourceItem" => {
+					if !v.is_nullish() {
+						ck.refers(&a, "items", &v);
 					}
 				}
 				"objectives" => {
@@ -1443,6 +1451,16 @@ fn check_places(ck: &mut Ck, d: &V) {
 /// (an `along until … background` step right after the quest's accept) until the step that hands the
 /// quest in, puts a finish step at `finish` right before it (passed at once when the count is reached),
 /// and gives each step in between whose points lie near a spawn of `mobs` the tip `mention`.
+/// `races: "all" | "<race>,<race>"` (alone on its record): the race part of the anchored goal lines'
+/// own `only` lists (`all` drops it; classes stay); `at: { quest, goal: quest }` anchors it on every
+/// goal line of the quest, and then no other `races` record names the quest. Three kinds move what a
+/// step holds, each alone on its record: `follows: { quest, goal, objective? }` (the anchored goal line
+/// right after that goal's line), `split: { title, tip? }` (the anchored goal and the lines after it in
+/// its step become a step of their own) and `step: { after: { quest, goal, objective? }, guide?,
+/// copy?: true, way?: true, tip? }` (the anchored goal's whole step, or a copy, right after `after`'s
+/// step in the guide `guide` names). `way: { at: { map, x, y, frame? }, label?, title? }` (alone): the
+/// end of the walk right before the anchored goal's step. `at.guide` narrows any record to the guide
+/// with that id.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1452,13 +1470,52 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	}
 	let mut ids = rustc_hash::FxHashSet::default();
 	let mut slots: Vec<(String, String)> = Vec::new();
+	// (Per quest with `races` records: whether one is quest-wide, how many there are, the first's path.)
+	let mut races_of: std::collections::BTreeMap<String, (bool, usize, String)> = std::collections::BTreeMap::new();
+	const KINDS: [&str; 14] = ["tip", "goalNote", "optional", "level", "along", "early", "when", "background", "races", "follows", "split", "step", "way", "levels"];
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "goalNote", "optional", "level", "after", "only", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(
+			&at,
+			r,
+			&[
+				"id",
+				"at",
+				"tip",
+				"goalNote",
+				"optional",
+				"level",
+				"after",
+				"only",
+				"along",
+				"early",
+				"when",
+				"background",
+				"races",
+				"follows",
+				"split",
+				"step",
+				"way",
+				"levels",
+				"faction",
+				"note",
+				"source",
+				"issue",
+				"pr",
+			],
+		);
+		for field in ["follows", "split", "step", "way", "levels"] {
+			if !r.get(field).is_undef() && KINDS.iter().any(|k| *k != field && !r.get(k).is_undef()) {
+				ck.err(format!("{at}.{field}"), format!("a `{field}` fix uses a record of its own"));
+			}
+		}
 		for field in ["optional", "goalNote"] {
 			let v = r.get(field);
 			if !v.is_undef() {
-				if ["tip", "level", "along", "early", "when", "background", if field == "optional" { "goalNote" } else { "optional" }].iter().any(|k| !r.get(k).is_undef()) {
+				if ["tip", "level", "along", "early", "when", "background", "races", "follows", "split", "step", "way", if field == "optional" { "goalNote" } else { "optional" }]
+					.iter()
+					.any(|k| !r.get(k).is_undef())
+				{
 					ck.err(format!("{at}.{field}"), "a goal modifier or note uses a separate record");
 				}
 				if field == "optional" && !matches!(v, V::Bool(true)) {
@@ -1483,21 +1540,31 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
 		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective", "guide", "fly"]);
-		let fly = a.get("goal").as_str() == Some("fly");
+		let fly = matches!(a.get("goal").as_str(), Some("fly" | "levels"));
 		if !fly {
 			ck.refers(&format!("{at}.at.quest"), "quests", &a.get("quest"));
 		}
 		match a.get("goal").as_str() {
 			Some("accept" | "turnin" | "complete") => {}
+			Some("quest") => {
+				if r.get("races").is_undef() {
+					ck.err(format!("{at}.at.goal"), "a quest anchor carries `races` only");
+				}
+			}
 			Some("fly") => {
 				for k in ["guide", "fly"] {
 					if !has_text(&a.get(k)) {
 						ck.err(format!("{at}.at.{k}"), "a flight anchor names its guide id and the `fly` place");
 					}
 				}
-				let others = ["tip", "level", "along", "early", "background"].iter().any(|k| !r.get(k).is_undef());
+				let others = ["tip", "level", "along", "early", "background", "races", "follows", "split", "step", "way"].iter().any(|k| !r.get(k).is_undef());
 				if !a.get("quest").is_undef() || r.get("when").is_undef() || others {
 					ck.err(format!("{at}.at"), "a flight anchor carries a `when` only, and no quest");
+				}
+			}
+			Some("levels") => {
+				if !has_text(&a.get("guide")) || !a.get("quest").is_undef() || r.get("levels").is_undef() {
+					ck.err(format!("{at}.at"), "a levels anchor names its guide id and no quest, and carries `levels` only");
 				}
 			}
 			Some("objective") => {
@@ -1510,87 +1577,224 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					}
 				}
 			}
-			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective or fly", show(&a.get("goal")))),
+			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective, quest, fly or levels", show(&a.get("goal")))),
 		}
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
-		let background = r.get("background");
-		let kind = match (tip.is_undef(), level.is_undef()) {
-			(true, true) if !r.get("optional").is_undef() => "optional",
-			(true, true) if !r.get("goalNote").is_undef() => "goalNote",
-			(true, true) if !background.is_undef() && when.is_undef() && early.is_undef() && along.is_undef() => {
-				check_background(ck, &at, &background);
-				if a.get("goal").as_str() != Some("objective") {
-					ck.err(format!("{at}.at.goal"), "a `background` fix is on an objective goal");
+		let (background, races) = (r.get("background"), r.get("races"));
+		if !races.is_undef() && [&tip, &level].iter().any(|v| !v.is_undef()) {
+			ck.err(&at, "a `races` fix uses a record of its own");
+		}
+		let kind =
+			match (tip.is_undef(), level.is_undef()) {
+				(true, true) if !r.get("optional").is_undef() => "optional",
+				(true, true) if !r.get("goalNote").is_undef() => "goalNote",
+				(true, true) if !r.get("follows").is_undef() => {
+					check_goal_ref(ck, &format!("{at}.follows"), &r.get("follows"));
+					"follows"
 				}
-				"background"
-			}
-			(true, true) if !when.is_undef() && early.is_undef() && along.is_undef() => {
-				let level_ok = |w: &str| w.strip_prefix("level>=").is_some_and(|n| n.parse::<u32>().is_ok_and(|n| (2..=60).contains(&n)));
-				// (`[!]knows <spell>`: a spell or recipe the character knows, #1867's camp items.)
-				let knows_ok = |w: &str| w.trim_start_matches('!').strip_prefix("knows ").is_some_and(|n| n.trim().parse::<u32>().is_ok_and(|n| n > 0));
-				let quests = when.as_str().and_then(|w| w.strip_prefix("onquest ")).map(|l| l.split(',').map(|q| q.trim().parse::<u32>().ok()).collect::<Option<Vec<u32>>>());
-				match quests {
-					Some(Some(qs)) if !qs.is_empty() => {
-						for q in qs {
-							ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64));
+				(true, true) if !r.get("split").is_undef() => {
+					let s = r.get("split");
+					ck.keys(&format!("{at}.split"), &s, &["title", "tip"]);
+					for k in ["title", "tip"] {
+						let v = s.get(k);
+						if (k == "title" || !v.is_undef()) && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
+							ck.err(format!("{at}.split.{k}"), "one line of text");
 						}
 					}
-					_ if when.as_str().is_some_and(level_ok) || when.as_str().is_some_and(knows_ok) => {}
-					_ => ck.err(format!("{at}.when"), format!("{}: `level>=N` (N a level from 2 to 60), `onquest Q[,Q...]` or `[!]knows <spell>`", show(&when))),
+					"split"
 				}
-				"when"
-			}
-			(true, true) if !early.is_undef() && along.is_undef() => {
-				ck.keys(&format!("{at}.early"), &early, &["after", "title", "when", "tip"]);
-				let from = early.get("after");
-				ck.keys(&format!("{at}.early.after"), &from, &["quest", "goal"]);
-				ck.refers(&format!("{at}.early.after.quest"), "quests", &from.get("quest"));
-				if !matches!(from.get("goal").as_str(), Some("accept" | "turnin")) {
-					ck.err(format!("{at}.early.after.goal"), "accept or turnin");
-				}
-				for k in ["title", "when", "tip"] {
-					let v = early.get(k);
-					if (k == "title" || !v.is_undef()) && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
-						ck.err(format!("{at}.early.{k}"), "one line of text");
+				(true, true) if !r.get("way").is_undef() => {
+					let w = r.get("way");
+					ck.keys(&format!("{at}.way"), &w, &["at", "label", "title", "when"]);
+					let p = w.get("at");
+					if p.is_undef() && w.get("when").is_undef() {
+						ck.err(format!("{at}.way"), "a way fix moves the walk's end (`at`) or holds it (`when`)");
 					}
+					if !p.is_undef() {
+						ck.keys(&format!("{at}.way.at"), &p, &["map", "x", "y", "frame"]);
+					}
+					if p.is_obj() {
+						check_map(ck, &format!("{at}.way.at"), &p);
+						for k in ["x", "y"] {
+							if !p.get(k).as_num().is_some_and(|n| (0.0..=100.0).contains(&n)) {
+								ck.err(format!("{at}.way.at.{k}"), format!("{} must be a map coordinate, 0 to 100", show(&p.get(k))));
+							}
+						}
+					}
+					for k in ["label", "title"] {
+						let v = w.get(k);
+						if !v.is_undef() && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
+							ck.err(format!("{at}.way.{k}"), "one line of text");
+						}
+					}
+					let when = w.get("when");
+					let conds = if when.is_arr() {
+						when.items()
+					} else if when.is_undef() {
+						Vec::new()
+					} else {
+						vec![when.clone()]
+					};
+					if when.is_arr() && conds.is_empty() {
+						ck.err(format!("{at}.way.when"), "a condition, or a list of them");
+					}
+					for c in &conds {
+						if !has_text(c) || c.as_str().is_some_and(|t| t.contains('\n')) {
+							ck.err(format!("{at}.way.when"), format!("{}: a condition as a step's `when` line says it (`onquest 94774`), or a list of them", show(c)));
+						}
+						// (The quests a condition names: `onquest Q[,Q...]`, `complete Q`, `turnedin Q`, negated or not.)
+						if let Some(m) = c.as_str().and_then(|t| t.trim().trim_start_matches('!').split_once(' ')).filter(|(k, _)| matches!(*k, "onquest" | "complete" | "turnedin")) {
+							for q in m.1.split(',') {
+								match q.trim().parse::<u32>() {
+									Ok(q) => ck.refers(&format!("{at}.way.when"), "quests", &V::from(q as f64)),
+									Err(_) => ck.err(format!("{at}.way.when"), format!("{}: `{} Q[,Q...]` names quest ids", show(c), m.0)),
+								}
+							}
+						}
+					}
+					"way"
 				}
-				if a.get("goal").as_str() != Some("accept") {
-					ck.err(format!("{at}.at.goal"), "an `early` fix is on an accept");
+				(true, true) if !r.get("levels").is_undef() => {
+					let l = r.get("levels");
+					ck.keys(&format!("{at}.levels"), &l, &["top"]);
+					if !l.get("top").as_num().is_some_and(|n| n.fract() == 0.0 && (2.0..=60.0).contains(&n)) {
+						ck.err(format!("{at}.levels.top"), format!("{} must be a level, 2 to 60", show(&l.get("top"))));
+					}
+					if a.get("goal").as_str() != Some("levels") {
+						ck.err(format!("{at}.at.goal"), "a `levels` fix is on a guide's `levels` anchor");
+					}
+					"levels"
 				}
-				"early"
-			}
-			(true, true) if !along.is_undef() => {
-				if !matches!(along, V::Bool(false)) {
-					ck.err(format!("{at}.along"), "`along` is false (the objective is never listed on the way)");
+				(true, true) if !r.get("step").is_undef() => {
+					let s = r.get("step");
+					ck.keys(&format!("{at}.step"), &s, &["after", "guide", "copy", "way", "tip"]);
+					check_goal_ref(ck, &format!("{at}.step.after"), &s.get("after"));
+					for k in ["copy", "way"] {
+						if !s.get(k).is_undef() && !matches!(s.get(k), V::Bool(true)) {
+							ck.err(format!("{at}.step.{k}"), format!("`{k}` is true, or left out"));
+						}
+					}
+					for k in ["guide", "tip"] {
+						let v = s.get(k);
+						if !v.is_undef() && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
+							ck.err(format!("{at}.step.{k}"), "one line of text");
+						}
+					}
+					"step"
 				}
-				if a.get("goal").as_str() != Some("objective") {
-					ck.err(format!("{at}.at.goal"), "an `along` fix is on an objective goal");
+				(true, true) if !races.is_undef() => {
+					if [&background, &when, &early, &along].iter().any(|v| !v.is_undef()) {
+						ck.err(&at, "a `races` fix uses a record of its own");
+					}
+					let ok = races.as_str().is_some_and(|s| {
+						let s = s.trim();
+						s.eq_ignore_ascii_case("all") || (!s.is_empty() && s.split(',').all(|x| RACE_NAMES.contains(&x.trim())))
+					});
+					if !ok {
+						ck.err(format!("{at}.races"), format!("{}: `all` or a list of races ({})", show(&races), RACE_NAMES.join(", ")));
+					}
+					let q = num_str(a.get("quest").num());
+					let e = races_of.entry(q).or_insert((false, 0, at.clone()));
+					e.0 |= a.get("goal").as_str() == Some("quest");
+					e.1 += 1;
+					"races"
 				}
-				"along"
-			}
-			(false, true) => {
-				if !has_text(&tip) || tip.as_str().is_some_and(|t| t.contains('\n')) {
-					ck.err(format!("{at}.tip"), "a tip is one line of text");
+				(true, true) if !background.is_undef() && when.is_undef() && early.is_undef() && along.is_undef() => {
+					check_background(ck, &at, &background);
+					if a.get("goal").as_str() != Some("objective") {
+						ck.err(format!("{at}.at.goal"), "a `background` fix is on an objective goal");
+					}
+					"background"
 				}
-				"tip"
-			}
-			(true, false) => {
-				if !level.as_num().is_some_and(|n| n.fract() == 0.0 && (2.0..=60.0).contains(&n)) {
-					ck.err(format!("{at}.level"), format!("{} must be a level, 2 to 60", show(&level)));
+				(true, true) if !when.is_undef() && early.is_undef() && along.is_undef() => {
+					let level_ok = |w: &str| w.strip_prefix("level>=").is_some_and(|n| n.parse::<u32>().is_ok_and(|n| (2..=60).contains(&n)));
+					// (`[!]knows <spell>`: a spell or recipe the character knows, #1867's camp items.)
+					let knows_ok = |w: &str| w.trim_start_matches('!').strip_prefix("knows ").is_some_and(|n| n.trim().parse::<u32>().is_ok_and(|n| n > 0));
+					let quests = when.as_str().and_then(|w| w.strip_prefix("onquest ")).map(|l| l.split(',').map(|q| q.trim().parse::<u32>().ok()).collect::<Option<Vec<u32>>>());
+					match quests {
+						Some(Some(qs)) if !qs.is_empty() => {
+							for q in qs {
+								ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64));
+							}
+						}
+						_ if when.as_str().is_some_and(level_ok) || when.as_str().is_some_and(knows_ok) => {}
+						_ => ck.err(format!("{at}.when"), format!("{}: `level>=N` (N a level from 2 to 60), `onquest Q[,Q...]` or `[!]knows <spell>`", show(&when))),
+					}
+					"when"
 				}
-				"level"
-			}
-			_ => {
-				ck.err(&at, "a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early` or `background`");
-				"?"
-			}
-		};
-		let slot = format!("{} {}{}", stringify(&a, None), kind, r.get("faction").as_str().map_or(String::new(), |f| format!(" ({f})")));
+				(true, true) if !early.is_undef() && along.is_undef() => {
+					ck.keys(&format!("{at}.early"), &early, &["after", "title", "when", "tip"]);
+					let from = early.get("after");
+					ck.keys(&format!("{at}.early.after"), &from, &["quest", "goal"]);
+					ck.refers(&format!("{at}.early.after.quest"), "quests", &from.get("quest"));
+					if !matches!(from.get("goal").as_str(), Some("accept" | "turnin")) {
+						ck.err(format!("{at}.early.after.goal"), "accept or turnin");
+					}
+					for k in ["title", "when", "tip"] {
+						let v = early.get(k);
+						if (k == "title" || !v.is_undef()) && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
+							ck.err(format!("{at}.early.{k}"), "one line of text");
+						}
+					}
+					if a.get("goal").as_str() != Some("accept") {
+						ck.err(format!("{at}.at.goal"), "an `early` fix is on an accept");
+					}
+					"early"
+				}
+				(true, true) if !along.is_undef() => {
+					if !matches!(along, V::Bool(false)) {
+						ck.err(format!("{at}.along"), "`along` is false (the objective is never listed on the way)");
+					}
+					if a.get("goal").as_str() != Some("objective") {
+						ck.err(format!("{at}.at.goal"), "an `along` fix is on an objective goal");
+					}
+					"along"
+				}
+				(false, true) => {
+					if !has_text(&tip) || tip.as_str().is_some_and(|t| t.contains('\n')) {
+						ck.err(format!("{at}.tip"), "a tip is one line of text");
+					}
+					"tip"
+				}
+				(true, false) => {
+					if !level.as_num().is_some_and(|n| n.fract() == 0.0 && (2.0..=60.0).contains(&n)) {
+						ck.err(format!("{at}.level"), format!("{} must be a level, 2 to 60", show(&level)));
+					}
+					"level"
+				}
+				_ => {
+					ck.err(&at, "a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early`, `background`, `races`, `follows`, `split`, `step`, `way` or `levels`");
+					"?"
+				}
+			};
+		// (A step copied into two guides is two places.)
+		let to = r.get("step").get("guide").as_str().map_or(String::new(), |g| format!(" to {g}"));
+		let slot = format!("{} {}{to}{}", stringify(&a, None), kind, r.get("faction").as_str().map_or(String::new(), |f| format!(" ({f})")));
 		let id = r.get("id").as_str().unwrap_or("?").to_string();
 		if let Some((_, other)) = slots.iter().find(|(s, _)| *s == slot) {
 			ck.err(&at, format!("{} of this goal's step is set by {other} too", kind));
 		}
 		slots.push((slot, id));
+	}
+	for (q, (wide, n, at)) in races_of {
+		if wide && n > 1 {
+			ck.err(&at, format!("quest {q} has a quest-wide `races` fix and {} more: one race list per quest", n - 1));
+		}
+	}
+}
+
+/// The race names an `only` list writes (a guide fix's `races`).
+const RACE_NAMES: [&str; 9] = ["Human", "Dwarf", "Gnome", "NightElf", "Skyborne", "Orc", "Troll", "Tauren", "Undead"];
+
+/// A goal a guide fix names besides its anchor (`follows`, `step.after`): `{ quest, goal: accept |
+/// turnin | complete | objective, objective? }`.
+fn check_goal_ref(ck: &mut Ck, at: &str, v: &V) {
+	ck.keys(at, v, &["quest", "goal", "objective"]);
+	ck.refers(&format!("{at}.quest"), "quests", &v.get("quest"));
+	match v.get("goal").as_str() {
+		Some("accept" | "turnin" | "complete") => {}
+		Some("objective") if is_id(&v.get("objective")) => {}
+		_ => ck.err(format!("{at}.goal"), format!("{}: accept, turnin, complete, or objective with its number", show(&v.get("goal")))),
 	}
 }
 
@@ -1799,6 +2003,45 @@ mod tests {
 	}
 
 	#[test]
+	fn a_quest_hands_over_its_item_and_an_item_gains_a_forever_dropper() {
+		// Riverglades (2026-11-11): From Seed to Sprout hands over Halligan's Tree Sprouting Kit, and
+		// Sootfur's Pelt drops from Sootfur, a creature the merged item data doesn't list.
+		let c = parse_json(
+			r#"{ "quests": { "10": { "set": { "sourceItem": 40 } } },
+			"items": { "40": { "addDrops": { "npc": [20], "object": [30] } }, "41": { "addDrops": { "npc": [20] } } } }"#,
+		)
+		.unwrap();
+		let quests = parse_json(r#"{ "10": { "id": 10 } }"#).unwrap();
+		let items = parse_json(r#"{ "40": { "id": 40, "drops": { "npc": { "5": 50 } } }, "41": { "id": 41, "drops": { "npc": { "20": 25 } } } }"#).unwrap();
+		let (Some(q), Some(i)) = (quests.as_obj(), items.as_obj()) else { panic!() };
+		let a = apply(&c, q, &Obj::new(), &Obj::new(), i, false);
+		assert_eq!(q.get("10").get("sourceItem").num(), 40.0, "the quest hands over item 40");
+		let it = i.get("40");
+		assert!(it.get("drops").get("npc").has("20") && it.get("drops").get("npc").get("20").is_nullish(), "npc 20 drops it, rate unknown");
+		assert!(it.get("drops").get("object").has("30"), "object 30 holds it");
+		assert_eq!(it.get("drops").get("npc").get("5").num(), 50.0, "the merged dropper stays");
+		assert_eq!(i.get("41").get("drops").get("npc").get("20").num(), 25.0, "a known dropper keeps its rate");
+		let st: Vec<(String, &str)> = a.entries.iter().map(|e| (format!("{} {}", e.section, e.id), e.state)).collect();
+		assert_eq!(st, vec![("quests 10".into(), "applied"), ("items 40".into(), "applied"), ("items 41".into(), "redundant")]);
+	}
+
+	#[test]
+	fn source_item_and_add_drops_name_ids_the_data_has() {
+		let src = r#""source": [{ "kind": "eg", "ref": "objective records" }, { "kind": "recording", "ref": "3 people" }], "note": "handed over""#;
+		let ok = format!(r#"{{ "quests": {{ "10": {{ "set": {{ "sourceItem": 40 }}, {src} }} }}, "items": {{ "40": {{ "addDrops": {{ "npc": [20], "object": [30] }}, {src} }} }} }}"#);
+		assert_eq!(findings(Some(&ok), None, None), Vec::<String>::new());
+		let bad = findings(
+			Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "sourceItem": 41 }}, {src} }} }}, "items": {{ "40": {{ "addDrops": {{ "npc": [21], "creature": [20] }}, {src} }} }} }}"#)),
+			None,
+			None,
+		);
+		assert_eq!(bad.len(), 3, "{bad:?}");
+		assert!(bad.iter().any(|f| f.contains("quests.10.set.sourceItem")), "{bad:?}");
+		assert!(bad.iter().any(|f| f.contains("items.40.addDrops.npc")), "{bad:?}");
+		assert!(bad.iter().any(|f| f.contains("items.40.addDrops.creature")), "{bad:?}");
+	}
+
+	#[test]
 	fn a_removed_quest_the_build_dropped_passes_a_missing_quest_still_errors() {
 		// 2358 (#948) is gone from every build that applied its own `remove`: that is the record working.
 		let src = r#""source": { "kind": "in-game-check", "ref": "issue 948" }, "note": "gone""#;
@@ -1913,7 +2156,7 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early` or `background`",
+			"fixes[0]: a guide fix sets a `tip`, `goalNote`, `optional: true`, a `level` gate, a `when`, `along: false`, `early`, `background`, `races`, `follows`, `split`, `step`, `way` or `levels`",
 			"fixes[1].after: `after` is true, on a level gate",
 			"fixes[2].when: no quest 12 in the data",
 			"fixes[4].at.guide: a flight anchor names its guide id",
@@ -1924,6 +2167,93 @@ mod tests {
 			"fixes[3].background.mobs[0]",
 			"fixes[3].background.finish.x: a map percent",
 			"fixes[3].at.goal: a `background` fix is on an objective goal",
+		] {
+			assert!(has(s), "{s}: {f:#?}");
+		}
+	}
+
+	#[test]
+	fn races_guide_fixes_are_checked() {
+		let src = r#""source": { "kind": "recording", "ref": "r" }, "note": "checked""#;
+		let good = format!(
+			r#"{{ "fixes": [ {{ "id": "r-1", "faction": "Alliance", "at": {{ "quest": 10, "goal": "quest" }}, "races": "all", {src} }}, {{ "id": "r-2", "at": {{ "quest": 11, "goal": "accept" }}, "races": "Human,NightElf,Skyborne", {src} }}, {{ "id": "r-3", "at": {{ "quest": 11, "goal": "turnin" }}, "races": "Dwarf,Gnome,NightElf,Skyborne", {src} }} ] }}"#
+		);
+		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
+		let bad = format!(
+			r#"{{ "fixes": [ {{ "id": "r-1", "at": {{ "quest": 10, "goal": "quest" }}, "races": "Elf", {src} }}, {{ "id": "r-2", "at": {{ "quest": 10, "goal": "turnin" }}, "races": "all", {src} }}, {{ "id": "r-3", "at": {{ "quest": 11, "goal": "quest" }}, "tip": "A tip.", {src} }}, {{ "id": "r-4", "at": {{ "quest": 11, "goal": "accept" }}, "races": "all", "tip": "A tip.", {src} }} ] }}"#
+		);
+		let f = record_findings(None, Some(&bad));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		for s in [
+			"fixes[0].races: \"Elf\": `all` or a list of races",
+			"fixes[0]: quest 10 has a quest-wide `races` fix and 1 more: one race list per quest",
+			"fixes[2].at.goal: a quest anchor carries `races` only",
+			"fixes[3]: a `races` fix uses a record of its own",
+		] {
+			assert!(has(s), "{s}: {f:#?}");
+		}
+	}
+
+	#[test]
+	fn move_guide_fixes_are_checked() {
+		let src = r#""source": { "kind": "recording", "ref": "r" }, "note": "checked""#;
+		let good = format!(
+			r#"{{ "fixes": [ {{ "id": "m-1", "at": {{ "quest": 10, "goal": "turnin" }}, "follows": {{ "quest": 11, "goal": "turnin" }}, {src} }}, {{ "id": "m-2", "at": {{ "quest": 11, "goal": "accept" }}, "split": {{ "title": "Baros Alexston", "tip": "A tip." }}, {src} }}, {{ "id": "m-3", "at": {{ "quest": 10, "goal": "accept", "guide": "forever/r" }}, "step": {{ "copy": true, "way": true, "guide": "forever/l", "after": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "tip": "A tip." }}, {src} }}, {{ "id": "m-4", "at": {{ "quest": 10, "goal": "accept", "guide": "forever/r" }}, "step": {{ "copy": true, "guide": "forever/w", "after": {{ "quest": 11, "goal": "accept" }} }}, {src} }} ] }}"#
+		);
+		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
+		let bad = format!(
+			r#"{{ "fixes": [ {{ "id": "m-1", "at": {{ "quest": 10, "goal": "turnin" }}, "follows": {{ "quest": 12, "goal": "pickup" }}, "tip": "A tip.", {src} }}, {{ "id": "m-2", "at": {{ "quest": 11, "goal": "accept" }}, "split": {{ "tip": "two\nlines" }}, {src} }}, {{ "id": "m-3", "at": {{ "quest": 10, "goal": "accept" }}, "step": {{ "copy": false, "after": {{ "quest": 11 }} }}, {src} }} ] }}"#
+		);
+		let f = record_findings(None, Some(&bad));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		for s in [
+			"fixes[0].follows: a `follows` fix uses a record of its own",
+			"fixes[1].split.title: one line of text",
+			"fixes[1].split.tip: one line of text",
+			"fixes[2].step.copy: `copy` is true, or left out",
+			"fixes[2].step.after.goal: ",
+		] {
+			assert!(has(s), "{s}: {f:#?}");
+		}
+	}
+
+	#[test]
+	fn way_guide_fixes_are_checked() {
+		let src = r#""source": { "kind": "in-game-check", "ref": "r" }, "note": "checked""#;
+		let good = format!(
+			r#"{{ "fixes": [ {{ "id": "w-1", "faction": "Horde", "at": {{ "quest": 10, "goal": "turnin" }}, "way": {{ "at": {{ "map": 1429, "x": 49.2, "y": 78.6, "frame": "era" }}, "label": "Sorrow Hill", "title": "To Sorrow Hill" }}, {src} }} ] }}"#
+		);
+		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
+		let bad = format!(
+			r#"{{ "fixes": [ {{ "id": "w-1", "at": {{ "quest": 10, "goal": "turnin" }}, "way": {{ "at": {{ "map": 1429, "x": 140, "y": 1 }}, "label": "two\nlines" }}, {src} }}, {{ "id": "w-2", "at": {{ "quest": 11, "goal": "turnin" }}, "way": {{ "at": {{ "map": 1429, "x": 1, "y": 1 }} }}, "tip": "A tip.", {src} }} ] }}"#
+		);
+		let f = record_findings(None, Some(&bad));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		for s in ["fixes[0].way.at.x: 140 must be a map coordinate", "fixes[0].way.label: one line of text", "fixes[1].way: a `way` fix uses a record of its own"] {
+			assert!(has(s), "{s}: {f:#?}");
+		}
+	}
+
+	#[test]
+	fn levels_and_way_when_guide_fixes_are_checked() {
+		let src = r#""source": { "kind": "recording", "ref": "r" }, "note": "checked""#;
+		let good = format!(
+			r#"{{ "fixes": [ {{ "id": "l-1", "at": {{ "goal": "levels", "guide": "forever/a" }}, "levels": {{ "top": 33 }}, {src} }}, {{ "id": "w-1", "faction": "Alliance", "at": {{ "quest": 10, "goal": "turnin" }}, "way": {{ "when": "onquest 10" }}, {src} }}, {{ "id": "w-2", "at": {{ "quest": 11, "goal": "turnin" }}, "way": {{ "when": ["!complete 11", "!zone \"Ironforge\""] }}, {src} }} ] }}"#
+		);
+		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
+		let bad = format!(
+			r#"{{ "fixes": [ {{ "id": "l-1", "at": {{ "goal": "levels", "guide": "forever/a", "quest": 10 }}, "levels": {{ "top": 70 }}, {src} }}, {{ "id": "l-2", "at": {{ "goal": "levels" }}, "levels": {{ "top": 30 }}, "tip": "A tip.", {src} }}, {{ "id": "l-3", "at": {{ "quest": 10, "goal": "turnin" }}, "levels": {{ "top": 30 }}, {src} }}, {{ "id": "w-3", "at": {{ "quest": 12, "goal": "turnin" }}, "way": {{}}, {src} }}, {{ "id": "w-4", "at": {{ "quest": 12, "goal": "accept" }}, "way": {{ "when": "onquest x" }}, {src} }} ] }}"#
+		);
+		let f = record_findings(None, Some(&bad));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		for s in [
+			"fixes[0].at: a levels anchor names its guide id and no quest",
+			"fixes[0].levels.top: 70 must be a level, 2 to 60",
+			"fixes[1].at: a levels anchor names its guide id",
+			"fixes[1].levels: a `levels` fix uses a record of its own",
+			"fixes[2].at.goal: a `levels` fix is on a guide's `levels` anchor",
+			"fixes[3].way: a way fix moves the walk's end (`at`) or holds it (`when`)",
+			"fixes[4].way.when: \"onquest x\": `onquest Q[,Q...]` names quest ids",
 		] {
 			assert!(has(s), "{s}: {f:#?}");
 		}

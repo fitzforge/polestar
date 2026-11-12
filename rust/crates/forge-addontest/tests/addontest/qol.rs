@@ -274,6 +274,25 @@ fn secure_buttons_key_labels_are_short_and_stay_inside_the_button() {
 	assert_eq!(out[0], json!(["M4", "TOPRIGHT", false, "sM5", "caMwU", "MwD", "F", "sNum 5", true]));
 }
 
+// #688: with the gamepad interface on, a button bound in its own binding context runs the target button, not a key
+// under it: the label names the key Polestar.Gamepad.BindingKeys says runs it in play (its chords never run a
+// secure click).
+#[test]
+fn secure_buttons_key_label_names_the_key_that_runs_it_in_play_from_the_gamepad_module() {
+	let out = run(r#"
+		local TARGET = "CLICK PolestarTargetButton:LeftButton"
+		GetBindingText = function(key) return key end
+		q.bindings[TARGET] = { "BUTTON4" }
+		Polestar.Gamepad = {
+			IsChord = function(key) return key:find("+", 1, true) ~= nil end,
+			BindingKeys = function(action) return action == TARGET and { "PADLTRIGGER+PAD1", "PAD3", "BUTTON4" } or {} end,
+		}
+		stub.fire("UPDATE_BINDINGS")
+		emit({ PolestarTargetButton.Hotkey:GetText() })
+	"#);
+	assert_eq!(out[0], json!(["PAD3"]));
+}
+
 #[test]
 fn secure_buttons_an_above_name_sits_over_a_quest_item_button_shown_above_the_target_button() {
 	let out = run(r#"
@@ -3486,16 +3505,33 @@ fn trainer_a_purchase_still_on_its_way_when_the_setting_is_turned_off_is_counted
 	assert_eq!(out[0], json!({ "bought": 1, "money": 900, "msg": true }));
 }
 
+// The Train All confirmation: its text, and its Accept / Cancel as the game's popup runs them.
+const CONFIRM: &str = r#"
+local function popup()
+	local p = stub.popups[#stub.popups]
+	return p and p.which == "POLESTAR_TRAIN_ALL" and p or nil
+end
+local function answer(accept)
+	local d = StaticPopupDialogs.POLESTAR_TRAIN_ALL
+	local f = accept and d.OnAccept or d.OnCancel
+	if f then f(nil, nil) end
+end
+"#;
+
 #[test]
-fn trainer_button_learns_affordable_spells_one_per_list_update_and_prints_the_total() {
+fn trainer_button_asks_first_with_the_count_and_cost_and_accept_learns_them_one_per_list_update() {
 	let out = run(&[
 		SPELLS,
+		CONFIRM,
 		r#"
 		q.money = 1000
 		q.openTrainer()
 		local b = PolestarTrainAllButton
 		emit({ shown = b:IsShown(), enabled = b:IsEnabled() })
 		q.click(b, false)
+		stub.advance(1)
+		emit({ bought = #calls("BuyTrainerService"), text = popup() and popup().args[1] or false })
+		answer(true)
 		emit(#calls("BuyTrainerService"))
 		stub.advance(1)
 		local out = {}
@@ -3506,9 +3542,106 @@ fn trainer_button_learns_affordable_spells_one_per_list_update_and_prints_the_to
 	]
 	.concat());
 	assert_eq!(out[0], json!({ "shown": true, "enabled": true }));
-	assert_eq!(out[1], 1);
-	assert_eq!(out[2], json!(["Fireball Rank 2", "Frost Armor Rank 1"]));
-	assert_eq!(out[3], json!({ "money": 700, "msg": true }));
+	assert_eq!(out[1], json!({ "bought": 0, "text": "Learn 2 skills for 3s 0c?" }), "the click only asks");
+	assert_eq!(out[2], 1);
+	assert_eq!(out[3], json!(["Fireball Rank 2", "Frost Armor Rank 1"]));
+	assert_eq!(out[4], json!({ "money": 700, "msg": true }));
+}
+
+#[test]
+fn trainer_button_cancel_buys_nothing_and_the_question_names_what_the_money_does_not_cover() {
+	let out = run(&[
+		SPELLS,
+		CONFIRM,
+		r#"
+		q.money = 150
+		q.openTrainer()
+		q.click(PolestarTrainAllButton, false)
+		emit(popup() and popup().args[1] or false)
+		answer(false)
+		stub.advance(3)
+		emit({ bought = #calls("BuyTrainerService"), money = q.money })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], "Learn 1 skill for 1s 0c?\nNot enough money for 1 more (2s 0c).");
+	assert_eq!(out[1], json!({ "bought": 0, "money": 150 }));
+}
+
+// The gamepad interface's focus owns the game's dialogs: no Train All button there, and no purchase without the
+// question (read as the addon loads, Core/Init.lua).
+#[test]
+fn trainer_button_with_the_gamepad_interface_is_not_shown_and_nothing_is_bought_without_the_question() {
+	let script = [
+		SPELLS,
+		CONFIRM,
+		r#"
+		q.money = 1000
+		q.openTrainer()
+		local shown = PolestarTrainAllButton:IsShown()
+		Polestar.QoL.Trainer.Confirm()
+		stub.advance(3)
+		emit({ shown = shown, asked = popup() ~= nil, bought = #calls("BuyTrainerService") })
+	"#,
+	]
+	.concat();
+	let pad = run_with(&script, "stub.qol.social.gamepad = true", None);
+	assert_eq!(pad[0], json!({ "shown": false, "asked": false, "bought": 0 }));
+}
+
+// Frame rects from their anchors (stub frames keep their points; the trainer window's layout is the game's,
+// tests/lua/stub_qol.lua).
+const RECT: &str = r#"
+local function at(r, p)
+	local x = p:find("LEFT") and r.l or p:find("RIGHT") and r.r or (r.l + r.r) / 2
+	local y = p:find("TOP") and r.t or p:find("BOTTOM") and r.b or (r.t + r.b) / 2
+	return x, y
+end
+local function rect(fr)
+	if fr == UIParent then return { l = 0, b = 0, r = 1920, t = 1080 } end
+	local l, r, t, b, cx, cy
+	for _, p in ipairs(fr.points or {}) do
+		local x, y = at(rect(p.rel or fr.parent or UIParent), p.relPoint)
+		x, y = x + p.x, y + p.y
+		if p.point:find("LEFT") then l = x elseif p.point:find("RIGHT") then r = x else cx = x end
+		if p.point:find("TOP") then t = y elseif p.point:find("BOTTOM") then b = y else cy = y end
+	end
+	local w, h = fr:GetWidth(), fr:GetHeight()
+	if not l and not r then l = cx - w / 2; r = l + w end
+	if not t and not b then b = cy - h / 2; t = b + h end
+	l = l or r - w; r = r or l + w; t = t or b + h; b = b or t - h
+	return { l = l, r = r, t = t, b = b }
+end
+local function overlaps(a, b) return a.l < b.r and b.l < a.r and a.b < b.t and b.b < a.t end
+-- How far apart two rects are (negative when they overlap).
+local function gap(a, b) return math.max(b.l - a.r, a.l - b.r, b.b - a.t, a.b - b.t) end
+"#;
+
+#[test]
+fn trainer_button_sits_in_the_window_s_top_row_far_from_train_and_clear_of_the_money_the_filter_menu_and_the_list() {
+	let out = run(&[
+		SPELLS,
+		RECT,
+		r#"
+		q.money = 1000
+		q.openTrainer()
+		local F = ClassTrainerFrame
+		local me = rect(PolestarTrainAllButton)
+		local win = rect(F)
+		emit({
+			train = overlaps(me, rect(ClassTrainerTrainButton)),
+			farFromTrain = gap(me, rect(ClassTrainerTrainButton)) >= 40,
+			money = overlaps(me, rect(F.money)),
+			filter = overlaps(me, rect(F.FilterDropdown)),
+			hint = overlaps(me, rect(F.FilterInputHint)),
+			portrait = overlaps(me, rect(F.portrait)),
+			list = overlaps(me, rect(F.Inset)),
+			inside = me.l >= win.l and me.r <= win.r and me.b >= win.b and me.t <= win.t,
+		})
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "train": false, "farFromTrain": true, "money": false, "filter": false, "hint": false, "portrait": false, "list": false, "inside": true }));
 }
 
 #[test]

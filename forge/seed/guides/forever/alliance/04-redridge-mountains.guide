@@ -11,6 +11,9 @@ next forever/alliance/05-duskwood
 # into this file.
 # Added here: A Free Lunch (129), Blackrock Blockade (98387); on Duskwood's first loop Raven Hill (163)
 # and Jitters' Growling Gut (5), with Jitters on the Raven Hill stop and Chef Grual on the way back.
+# Chef Grual's follow-up Dusky Crab Cakes (93) is taken with 5's hand-in (handed in at once by a
+# player already carrying six Gooey Spider Legs, a free drop of Duskwood's spiders); 05-duskwood
+# finishes it on its west loop and hands Return to Jitters (240) to Jitters at Raven Hill.
 
 # Duskwood and Redridge, first half (about 23 to 25.6). Since 2026-11-07
 # Duskwood and Redridge are played together, so Redridge comes at 23+ where
@@ -24,7 +27,7 @@ next forever/alliance/05-duskwood
 # south to Darkshire (flight path, hearth, every quest giver) -> Duskwood's
 # first loop (the Duskwood notes are in 05-duskwood) -> Darkshire -> north to Three
 # Corners -> Lakeridge Highway (Guard Howe) -> the murlocs east of the
-# bridge -> Lakeshire (Baren, hearth, every quest giver) -> Bellygrub's pen
+# bridge -> Lakeshire (Baren, every quest giver) -> Bellygrub's pen
 # and Martie -> Lakeshire (the Wanted posters) -> Alther's Mill, the Blackrock
 # camps and Gar'im's cave ->
 # north through Galardell Valley (Fangore), the Old Lion Statue, the watch
@@ -58,20 +61,27 @@ next forever/alliance/05-duskwood
 #   Redridge Goulash, Verner's and Solomon's chains, Hilary's Necklace) and the
 #   Defias chain from Wiley the Black are done at 19-20 in 03-loch-modan,
 #   where they give full XP.
-# - The Lakeshire flight path and hearth (listed at the end of Darkshore in
-#   the export) are taken on arrival. The Darkshire flight path and hearth
-#   the export lists at the end of this visit belong to the Duskwood guide.
+# - The Lakeshire flight path (listed at the end of Darkshore in the export) is taken on
+#   arrival. The Hearthstone stays at Darkshire, bound on the first Duskwood loop: the
+#   Duskwood guide hearths there (Lakeshire's bind was never used).
 # - Left out, accepted but never turned in on the route: Theocritus'
 #   Retrieval (178, a pendant drop for the Tower of Azora).
 # - Refresh (2026): Expanding Horizons (97914, from 03-darkshore) is handed
-#   to Baros Alexston at the Stormwind stop (the end of 06-ashenvale since 2026-11-07: the Cathedral Square, one pass through the city); his reply, Making Do (97926),
-#   goes back to Auberdine on 06-wetlands' boat trip to Ashenvale. Baros offers Making Do only
+#   to Baros Alexston on 03-loch-modan's last Stormwind stop (#1415; 06-ashenvale's Cathedral Square
+#   keeps an optional hand-in); his reply, Making Do (97926), goes to Thundris where that boat lands
+#   (03-darkshore-return). Baros offers Making Do only
 #   after Expanding Horizons (#453), which a player who skipped it in
 #   Darkshore does not have, and the project data lists no prerequisite:
 #   the accept is optional, so nobody is held at Baros.
 # - Lakeshire on arrival: Oslow, Marris, Conacher, the docks (Baren, Wiley),
 #   then Breanna and Martie at the west end, one sweep instead of crossing
 #   town twice.
+# - The Bronze Tube for Look to the Stars (174): every vendor keeps one or two,
+#   and in players' recordings Herble Baubbletump in Darkshire never had one
+#   (30 merchant windows, 19 people), nor Billibub Cogspinner in Stormwind (20,
+#   14). No recorded player bought it from a vendor; four of the eleven whose
+#   tube we can place got it at the Stormwind Auction House. So the Stormwind
+#   stop buys it there (optional), and Herble's buy stays optional (#1348).
 #
 # Class quests at the Stormwind stop (about level 23, at the end of 06-ashenvale since 2026-11-07): Rogues take Mathias and
 # the Defias (2360, Poisons; finished at the end of 05-duskwood), Warlocks
@@ -79,32 +89,38 @@ next forever/alliance/05-duskwood
 # 07-thousand-needles), Priests their level 20 spell: Arcane Feedback (5676,
 # Human, here), Chastise (5645, Dwarf) and Contingency Plan (94819,
 # Gnome) for Ironforge in 06-wetlands, Elune's Grace (5673, Night Elf) for
-# Darnassus at the start of 06-wetlands. Night Elf Druids fetch
-# the Westfall half pendant for Trial of the Sea Lion (272). Train in
+# Darnassus at the start of 06-wetlands. Night Elf and Skyborne Druids fetch
+# the Westfall half pendant for Trial of the Sea Lion (272), only while it is
+# in the log: the lockbox gives the half to no one else (#1386). Train in
 # Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
-# Paladins: Human Paladins use the Symbol of Life on Henze Faulk by Stone
-# Cairn Lake on the road east through Elwynn (The Tome of Divinity, 1786 and
-# 1787, from the Stormwind stop of 02-westfall; Redemption at the Stormwind
-# stop of 05-duskwood). At 20 Duthorian Rall (Human) or Tiza Battleforge
+# Paladins: Human Paladins do The Tome of Divinity (1786, 1787) and learn
+# Redemption on 03-loch-modan's Elwynn walk and last Stormwind stop; a
+# Paladin still carrying 1786 or 1787 does Henze Faulk by Stone Cairn Lake
+# here and Redemption at the Stormwind stop of 05-duskwood. At 20 Duthorian Rall (Human) or Tiza Battleforge
 # (Dwarf) starts The Tome of Valor (1793/1794), the way to Verigan's Fist:
 # three dungeons and an escort, the Class guide
 # forever/class/paladin/verigans-fist.
 #
-# Wanted: Gath'Ilzogg and WANTED: Incinerator Gar'im (169, 95999: elites,
-# optional with a tip to group up) are on the loop through the Blackrock camps
+# Wanted: Gath'Ilzogg and WANTED: Incinerator Gar'im (169, 95999: elites;
+# optional accepts, then steps the player opts into with "Do it with a group",
+# #1415; players' recordings: 14-15 people handed each in, most at 22-23) are on the loop through the Blackrock camps
 # and Stonewatch Keep at about 25. Not taken: Tharil'zun and Shadow Magic (19,
 # 115: Marshal Marris offers them only once Blackrock Menace and Blackrock
 # Blockade, 20 and 98387, are handed in, after the keep), Morganth (249), the
 # Speaking of Fortitude and Theocritus' Retrieval chains (343+, 178). Howling in
-# the Hills (126, after A Baying of Gnolls in 03-loch-modan): not taken.
+# the Hills (126, offered once 03-loch-modan's Lakeshire quests are handed in) is
+# taken on the Lakeshire stop: Yowler stands at the top of the Redridge Canyons on
+# the walk up to Render's Valley, and Verner Osgood is on the way back through town.
 
 # ---------------------------------------------------------------- Stormwind and the road
 
 step Stormwind
   zone Stormwind City
   tip Train, then leave by the main gate and follow the road east through Elwynn Forest.
+  tip Look to the Stars in Darkshire needs a Bronze Tube. Its vendors keep only one or two, and Herble Baubbletump in Darkshire is nearly always sold out: buy one at the Auction House in the Trade District on your way out. An engineer can make one too.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 18 and 20 spells
   vendor nearest optional
+  collect 4371 x1 @61.2,71.3 map 1453 live optional -- Bronze Tube: the Auction House, for Look to the Stars in Darkshire
 
 step Woo Ping
   only Warrior
@@ -136,13 +152,15 @@ step Shaman training
   train class
 
 step Fly to Sentinel Hill
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
+  when onquest 272
   zone Stormwind City
   goto 66.3,62.7 "Stormwind flight master"
   fly "Sentinel Hill"
 
 step Half Pendant of Aquatic Endurance
-  only NightElf,Druid
+  only NightElf,Skyborne,Druid
+  when onquest 272
   zone Westfall
   tip Fly to Sentinel Hill and head north-west to the coast: the Strange Lockbox lies on the sea floor off the shore. Then head east along the road through Elwynn.
   collect 15882 x1                            -- Half Pendant of Aquatic Endurance: the Strange Lockbox
@@ -162,6 +180,7 @@ step Theocritus
 step Henze Faulk
   only Human,Paladin
   zone Elwynn Forest
+  when onquest 1786,1787
   tip On the road east, past the Tower of Azora, head north from the bridge to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
   use 6866 quest 1786.1 @72.6,51.41 map 1429 era only Human -- Use the Symbol of Life on Henze Faulk
   turnin 1786 only Human -- Henze Faulk
@@ -181,7 +200,7 @@ step Duskwood
 
 step Darkshire
   tip Follow the road south from Three Corners into Duskwood; Darkshire lies on the east side of the forest.
-  tip No Bronze Tube for Look to the Stars? Herble Baubbletump sells it in the house beside Viktori, in limited stock; Neal Allen in Menethil Harbor sells it too.
+  tip No Bronze Tube for Look to the Stars? Herble Baubbletump, in the house beside Viktori, is nearly always sold out. Without one, right-click the quest in the guide window and skip it.
   getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
   accept 101                              -- Madame Eva, in her house by the tavern; inside
   accept 66                               -- Madame Eva, inside
@@ -192,8 +211,6 @@ step Darkshire
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
   accept 163                              -- Elaine Carevin: Jitters, at Raven Hill
-  tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
-  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
   accept 174                              -- Viktori Prism'Antras, inside
   turnin 174
   accept 175                              -- For Blind Mary, on the hill south-east of town
@@ -260,6 +277,9 @@ step Yorgen Farmstead
 step Darkshire
   turnin 96139                            -- Sirra Von'Indi, inside
   turnin 5                                -- Chef Grual, in the Scarlet Raven Tavern
+  accept 93                               -- Chef Grual: six Gooey Spider Legs, which Duskwood's spiders drop even without the quest
+  turnin 93 optional                      -- Already carrying six? Hand them in now
+  accept 240 optional                     -- For Jitters, at Raven Hill on the next Duskwood loop
   turnin 56                               -- Commander Althea Ebonlocke
   accept 57
   level 23
@@ -289,10 +309,10 @@ step Lake Everstill's murlocs: kill these as you meet them
 # ---------------------------------------------------------------- Lakeshire
 
 step Lakeshire
-  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, the innkeeper in the inn, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  accept 126                                  -- Verner Osgood, by the road at the north end of the bridge
   turnin 150                                  -- Dockmaster Baren
   accept 91                                   -- Bailiff Conacher, in the town hall
-  sethome "Lakeshire"
   accept 180                                  -- The Wanted poster by the inn
   accept 34                                   -- Martie Jainrose
 
@@ -312,10 +332,11 @@ step Lakeshire
 
 # ---------------------------------------------------------------- East of the lake
 
-step Lake Everstill: kill these as you meet them
+step Alther's Mill
   zone Redridge Mountains
-  tip Greater Tarantulas crawl on the slopes around the mill north-east of the lake.
-  kill 505 quest 98386                        -- Greater Tarantula
+  tip Greater Tarantulas crawl on the slopes around Alther's Mill, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six.
+  kill 505 quest 98386.1                      -- Greater Tarantula
+  interact 673101 quest 98386.2               -- Tarantula Egg
 
 step Blackrock camps
   tip South-east from the mill, west of Galardell Valley's gnolls, to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies.
@@ -324,8 +345,10 @@ step Blackrock camps
   collect 280839 quest 98387 @67.4,78.9 map 1433 live -- Blackrock Supplies: meat haunches, grain sacks, water barrels
 
 step Incinerator Gar'im
+  when group 95999
+  when onquest 95999
   tip Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast.
-  collect 271872 quest 95999 optional         -- Broken Staff of Incinerator Gar'im
+  collect 271872 quest 95999                  -- Broken Staff of Incinerator Gar'im
 
 step Galardell Valley
   zone Redridge Mountains
@@ -343,10 +366,16 @@ step Looking Further
   turnin 248
 
 step Stonewatch Keep
+  when group 169
+  when onquest 169
   tip The keep stands beside the tower. Gath'Ilzogg (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can.
-  collect 3633 quest 169 optional             -- Head of Gath'Ilzogg
+  collect 3633 quest 169                      -- Head of Gath'Ilzogg
 
 # ---------------------------------------------------------------- Render's Valley
+
+step Yowler
+  tip From the keep head back west along the lake's north shore and north up the Redridge Canyons. Just south of Render's Valley, Yowler, a level 25 gnoll, walks among the Redridge Alphas and Mystics.
+  collect 3614 quest 126 @22.7,21.6 map 1433 live -- Yowler's Paw
 
 step Render's Valley
   tip From the keep head back west along the lake's north shore and north up the Redridge Canyons to Render's Valley; Lakeshire's hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley.
@@ -357,12 +386,21 @@ step Corporal Keeshan
   accept 219                                  -- Corporal Keeshan, below ground
   complete 219
 
+step Magistrate Solomon: Gath'Ilzogg
+  when group 169
+  when complete 169
+  turnin 169                                  -- Magistrate Solomon, in the town hall
+
+step Magistrate Solomon: Incinerator Gar'im
+  when group 95999
+  when complete 95999
+  turnin 95999                                -- Magistrate Solomon, in the town hall
+
 step Back to Lakeshire
   tip Into Lakeshire from the north with Keeshan: Bailiff Conacher and Magistrate Solomon in the town hall, Marshal Marris and Foreman Oslow at the north end of the bridge, then over the bridge to Guard Howe and the gryphons.
   turnin 91                                   -- Bailiff Conacher, in the town hall
   turnin 180                                  -- Magistrate Solomon, in the town hall
-  turnin 169 optional
-  turnin 95999 optional
+  turnin 126                                  -- Verner Osgood, by the road on the way to the bridge
   turnin 219                                  -- Marshal Marris
   turnin 20
   turnin 98387

@@ -2,7 +2,7 @@
 guide forever/horde/06-hillsbrad-foothills
 title Hillsbrad Foothills
 faction Horde
-levels 22-24
+levels 22-25
 zone Hillsbrad Foothills
 next forever/horde/04-the-barrens
 
@@ -18,11 +18,11 @@ next forever/horde/04-the-barrens
 # Ashenvale visit and the Barrens' and Stonetalon's level 23-27 quests (forever/horde/04-the-barrens).
 #
 # Flow: Tarren Mill (flight path, bind) -> the hills west of town and Hillsbrad Fields, the lions on
-# the way back -> Tarren Mill -> Stanley and the peasants -> Tarren Mill -> Durnholde Keep, the Mudsnout
-# Blossoms, Masoj and the southern peak -> Hillsbrad town's smithy -> the western peak -> Tarren
+# the way back -> Tarren Mill -> Stanley and the peasants -> Tarren Mill -> Durnholde Keep, Masoj, the
+# Mudsnout Blossoms and the southern peak -> Hillsbrad town's smithy -> the western peak -> Tarren
 # Mill -> the northern peak -> Masoj -> fly to the Sepulcher (Allister: Beren's Peril, Watching the
 # Roads) -> the Undercity (Faranell, training) -> zeppelin to Orgrimmar. The next guide flies from
-# Orgrimmar to the Crossroads. Tauren Druids with Trial of the Sea Lion go from the Undercity to
+# Orgrimmar to the Crossroads. Tauren and Skyborne Druids with Trial of the Sea Lion go from the Undercity to
 # Moonglade, Thunder Bluff and the Crossroads instead.
 #
 # Class quests: Shamans fill the Empty Red Waterskin at the Spring Well beside the inn (Call of Water,
@@ -112,24 +112,24 @@ step Tarren Mill
 # ---------------------------------------------------------------- East: Durnholde
 step Durnholde Keep: kill these as you meet them
   zone Hillsbrad Foothills
-  tip Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings; open both locks.
+  tip Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.
   tip From Tarren Mill go south-east into the hills on the way to Durnholde Keep. Rogues and Watchmen hold the camps along the way.
   kill 2260 quest 549.1
   kill 2261 quest 549.2               -- Syndicate Watchman walks around here: look inside the circle on the map
   interact 1721 quest 498.1           -- Drull's ball and chain
   interact 1722 quest 498.2           -- Tog'thar's ball and chain
 
-step Mudsnout Blossoms
-  tip South-west of Durnholde, the Mudsnout Blossoms grow on the hillsides above the river.
-  collect 3502 quest 509
-
 step Deathstalker Masoj
-  tip Masoj hides on the hillside above Dun Garok, south of Durnholde, on the way down to the blossoms.
+  tip Masoj hides on the hillside above Dun Garok, south-west of Durnholde, on the way down to the blossoms.
   turnin 98094 npc 270438 @64.2,54.0  -- Deathstalker Masoj
   accept 98095                        -- Deathstalker Masoj, once Scout Support is in
 
+step Mudsnout Blossoms
+  tip Just south of Masoj, the Mudsnout Blossoms grow on the hillsides above the river.
+  collect 3502 quest 509
+
 step The southern peak
-  tip Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above Dun Garok, just south of him: use a vial at the top.
+  tip Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above Dun Garok, south-east of the blossoms: use a vial at the top.
   use 279395 quest 98095.3 @74.1,73.4 live
 
 # ---------------------------------------------------------------- Hillsbrad
@@ -235,11 +235,11 @@ step Archibald
   tip While you're here: learn Swords from Archibald (War Quarter, 10 silver); a sword in the main hand levels a Rogue steadily.
   train 11870                         -- Archibald
 
-# ---------------------------------------------------------------- Tauren Druids: Aquatic Form
+# ---------------------------------------------------------------- Tauren and Skyborne Druids: Aquatic Form
 # Three steps, so no step's `when` turns false before its last goal is done: the hand-in of 30
 # ends the first, the hand-in of 31 the second, and the third holds only in Thunder Bluff.
 step Trial of the Sea Lion
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Moonglade
   when onquest 30
   tip Cast Teleport: Moonglade. Join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
@@ -247,7 +247,7 @@ step Trial of the Sea Lion
   turnin 30                             -- Dendrite Starblaze
 
 step Aquatic Form
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Thunder Bluff
   when turnedin 30
   when !turnedin 31
@@ -257,11 +257,13 @@ step Aquatic Form
   turnin 31                             -- Turak Runetotem: Aquatic Form
 
 step Back to the Crossroads
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Thunder Bluff
   when zone "Thunder Bluff"
-  tip Train with Turak Runetotem, then fly on to the Crossroads, where the next guide starts.
+  tip Train with Turak Runetotem. Before you fly on, Tah Winterhoof and Zangen Stonehoof, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts.
   train class
+  accept 97538                        -- Tah Winterhoof: Pigments for Paints, the Mirkweed in Mirkfallon Lake by Sun Rock
+  accept 1195 optional                -- Zangen Stonehoof: The Sacred Flame, the phial from Ashenvale's Laughing Sisters
   fly "Crossroads"
 
 step Zeppelin to Orgrimmar

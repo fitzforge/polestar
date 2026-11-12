@@ -2,6 +2,7 @@
 //! test binary each, which cost a link per file).
 #![recursion_limit = "512"]
 mod alts;
+mod api;
 mod automation;
 #[path = "automation-accept-off.rs"]
 mod automation_accept_off;
@@ -215,6 +216,8 @@ mod locale_load;
 mod lookup;
 #[path = "lookup-codex.rs"]
 mod lookup_codex;
+#[path = "lookup-elites.rs"]
+mod lookup_elites;
 #[path = "lookup-guides.rs"]
 mod lookup_guides;
 #[path = "lookup-tooltip-performance.rs"]
@@ -274,6 +277,8 @@ mod nav_transit;
 mod new_in_forever;
 #[path = "pack-race-parts.rs"]
 mod pack_race_parts;
+#[path = "packs-ondemand.rs"]
+mod packs_ondemand;
 #[path = "packs-parity.rs"]
 mod packs_parity;
 #[path = "packs-registry.rs"]

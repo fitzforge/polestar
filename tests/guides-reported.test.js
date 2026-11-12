@@ -1137,12 +1137,13 @@ test(`yiliev0's report (#672): the healing step leads to the Injured Deathguard 
 // A guide played by the Engine for one character (`who`: race, raceName,
 // faction, cls, className, level), with `before` (Lua, `w` the stub world)
 // run before login and `after` once the guide is open: what `script` (Lua,
-// `E` the Engine) emits.
-function engineRun(guide, who, { before = '', after = '', script }) {
-	data = data || loadData(DATA);
+// `E` the Engine) emits. `data`: the reference data to compile with (a copy
+// with a correction applied, as `data build` applies it), else data/forever.
+function engineRun(guide, who, { before = '', after = '', script, data: own }) {
+	const ref = own || (data = data || loadData(DATA));
 	const file = path.join(OFFICIAL_DIR, guide);
-	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data);
-	const { dir, scripts } = writeTestPack(guides, data);
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], ref);
+	const { dir, scripts } = writeTestPack(guides, ref);
 	try {
 		const loads = scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
 		const { emitted } = runAddon({
@@ -2549,16 +2550,20 @@ test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relic
 // --- Darkshire (Yendi, 0.2.3): part 1 of Look to the Stars needs a Bronze Tube.
 
 
-test(`${REDRIDGE}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step`, { skip }, () => {
-	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07); that
-	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-07).
-	const list = goals(REDRIDGE);
-	const give = at(list, 'turnin 174 (Look to the Stars)', is('turnin', 174));
-	const buy = at(list, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
-	assert.ok(buy < give && list[buy].s === list[give].s, 'bought on the same stop, before the turn-in');
-	assert.equal(list[buy].goal.npc, 3133, 'from Herble Baubbletump, beside Viktori');
-	// A player who has the tube, or who already handed it in, is not held by it.
-	assert.equal(list[buy].goal.optional, true, 'the buy is optional');
+// nikilok (#1792): the Darkshire buy sent players to Herble Baubbletump, who never had a tube in players' recordings (44
+// merchant windows of 28 people). Darkshire has no buy now; the tube comes from the Stormwind Auction House (below) or,
+// on the way, from Gearcutter Cogspinner in Tinker Town, on 06-ashenvale's Ironforge stop beside Lomac Gearstrip.
+test(`${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional`, { skip }, () => {
+	const red = goals(REDRIDGE);
+	assert.ok(!red.some(({ goal }) => goal.t === 'buy' && goal.item === 4371), 'no buy in 04-redridge-mountains');
+	const take = at(red, 'accept 174 (Look to the Stars)', is('accept', 174));
+	const darkshire = red[take].step;
+	assert.match(darkshire.note || '', /Without one, right-click the quest in the guide window and skip it/, 'the Darkshire step says to skip the quest without a tube');
+	const ash = goals('forever/alliance/06-ashenvale.guide');
+	const buy = at(ash, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
+	assert.equal(ash[buy].goal.npc, 5175, 'from Gearcutter Cogspinner');
+	assert.equal(ash[buy].goal.optional, true, 'optional: often sold out, and a player with a tube is not held');
+	assert.equal(ash[buy].s, ash[at(ash, 'turnin 1072 (Lomac Gearstrip)', is('turnin', 1072))].s, 'on the Tinker Town stop with Lomac Gearstrip');
 });
 
 // uNBEx and Bennistrov (#1348): Herble keeps one Bronze Tube and is nearly always sold out (no tube in 30
@@ -2633,7 +2638,7 @@ test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube come
 			seen++;
 			if (goal.t === 'buy') assert.equal(goal.optional, true, `${guide}: buy 4371 is optional`);
 			else if (!goal.optional) assert.ok(atAuctionHouse(goal), `${guide}: a required Bronze Tube is collected at the Auction House`);
-			assert.notEqual(goal.npc, 5519, `${guide}: not Billibub Cogspinner, sold out in every recorded window`);
+			assert.ok(![5519, 3133].includes(goal.npc), `${guide}: not Billibub Cogspinner or Herble Baubbletump, sold out in every recorded window (#1348, #1792)`);
 		}
 	}
 	assert.ok(seen >= 4, `the Bronze Tube goals were found (${seen})`);
@@ -6916,6 +6921,31 @@ test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Druid t
 	assert.ok(first.goal.t === 'fly' && /Menethil/.test(JSON.stringify(first.goal)), 'the next guide opens with the flight to Menethil Harbor (a goto to the flight master before it)');
 });
 
+// --- J's report (#1643): the Mage Quarter stop asked for James Hyal (1301) after They Call Him Smiling Jim (1282) was
+// handed in, and Connor Rivers no longer offers it: the world DB offers 1301 only while 1282 is not rewarded, both roads
+// ending in Theramore. The correction closes 1301 on 1282 (forever-db/corrections/quests.json); with it applied, as
+// `data build` does, the accept is passed with its reason once 1282 is done, and still asked for without it.
+test(`${HILLSBRAD_ALLIANCE}: J's report (#1643): James Hyal is not asked for once They Call Him Smiling Jim is handed in`, { skip }, () => {
+	const corrected = loadData(DATA);
+	const fix = loadCorrections().quests['1301'];
+	assert.ok(fix, 'the corrections correct 1301');
+	Object.assign(corrected.quest(1301), fix.set);
+	const shaman = { race: 'Dwarf', raceName: 'Dwarf', faction: 'Alliance', cls: 'SHAMAN', className: 'Shaman', level: 34 };
+	const accepts = (before) => Object.values(engineRun(HILLSBRAD_ALLIANCE, shaman, {
+		data: corrected,
+		before,
+		script: `local out = {}
+			for i = 1, #E.GetGuide().steps do
+				for _, g in ipairs(E.GetStepView(i).goals) do
+					if g.t == "accept" and g.quest == 1301 then out[#out + 1] = g.status .. " " .. (g.unavailable or "-") .. " " .. (g.unavailableText or "") end
+				end
+			end
+			emit(out)`,
+	}));
+	assert.deepEqual(accepts('w.complete({ 1282 })'), ['skipped closed No longer offered: you took “They Call Him Smiling Jim”']);
+	assert.deepEqual(accepts(''), ['pending - '], 'asked for while Smiling Jim is not done');
+});
+
 // --- Alliance 30-40 re-order (2026-11-07, zone order the quest levels fit): Wetlands & Hillsbrad 30-32, then one
 // crossing to Theramore for the Mirage Raceway and the Shady Rest quests (33-34; the Raceway was a crossing of its own
 // at 30 in 07-thousand-needles), Stranglethorn's first loop, Desolace's first visit (it was at 32, where the route
@@ -8843,6 +8873,10 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	const ungoro = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /priest/i.test(JSON.stringify(goal.only)));
 	assert.ok(gate >= 0 && gate < at(ungoro, 'accept 8254', is('accept', 8254)), "Priests reach 50 in Un'Goro before Cenarion Aid");
+	// #1485's class-chain sweep: Magecraft (8250, Dink, Mages only, minimum 50) is on the same Ironforge stop, reached
+	// at 49.79 by Human, Gnome and Skyborne Mages; the level-up in Azshara would have sent them back to Ironforge.
+	const mages = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /mage/i.test(JSON.stringify(goal.only)));
+	assert.ok(mages >= 0 && mages < at(ungoro, 'accept 8250', is('accept', 8250)), "Mages reach 50 in Un'Goro before Magecraft");
 	gated('forever/alliance/dwarf/01-dun-morogh.guide', 5637, 10, 'Priest');
 	gated('forever/alliance/gnome/01-dun-morogh.guide', 94824, 10, 'Priest');
 	for (const side of ['alliance', 'horde']) {
@@ -9123,11 +9157,13 @@ test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Glorin on the last Mene
 });
 
 // T1386 sweep (Plan line, 0.3.7): a Night Elf Druid loading 06-wetlands fresh without Trial of the Sea Lion (272) was
-// sent to Moonglade for a pendant they can't make. Split by quest state, as horde/06-hillsbrad-foothills does.
-test(`${WETLANDS}: #1415: the Night Elf Druid Moonglade opening only with Trial of the Sea Lion or Aquatic Form in hand`, { skip }, () => {
+// sent to Moonglade for a pendant they can't make. Split by quest state, as horde/06-hillsbrad-foothills does. The
+// steps are for Skyborne Druids too (#1775: Forever opens the chain to them): the same gates hold for both.
+test(`${WETLANDS}: #1415: the Night Elf and Skyborne Druid Moonglade opening only with Trial of the Sea Lion or Aquatic Form in hand`, { skip }, () => {
 	const text = fs.readFileSync(path.join(OFFICIAL_DIR, WETLANDS), 'utf8').split(/\n(?=step )/);
-	const druid = text.filter((s) => /only NightElf,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s) && !/Boat to/.test(s));
-	assert.ok(druid.length >= 4);
+	const druid = text.filter((s) => /only NightElf,Skyborne,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s) && !/Boat to/.test(s));
+	assert.ok(druid.length >= 4, `the Druid Moonglade and Darnassus steps, for Night Elves and Skyborne (${druid.length})`);
+	assert.ok(!text.some((s) => /only NightElf,Druid\n/.test(s) && /Moonglade|Darnassus/.test(s)), 'none of them leaves Skyborne Druids out');
 	for (const s of druid) assert.match(s, /^\s+when (onquest 272|turnedin 272|onquest 5061)$/m, `gated: ${s.split('\n')[0]}`);
 	const pendant = text.find((s) => /turnin 272\b/.test(s));
 	assert.ok(!/accept 5061/.test(pendant), 'the Aquatic Form accept is its own step (a when onquest 272 turns false at the hand-in)');
@@ -11187,6 +11223,45 @@ test("creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide see
 	for (const q of ['532', '533']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
 });
 
+// Kolbi's report (#1776, Skyborne Druid 31, 0.3.6): "Dangerous! makes you split 4 kills between a few steps". Dangerous!
+// (567) comes from the poster in the 22-25 guide, which kills Farmer Kalaba with the peasants and Citizen Wilkes at the
+// smithy; the clerk and the miner wait for this guide's town hall (with 532) and Azurelode Mine (with 539) visits, as
+// players' recordings show. A character who carried it but left the 22-25 guide before the smithy had no step for Kalaba or
+// Wilkes in Hillsbrad 30-40: the catch-up's peasants and smithy steps list them now.
+function dangerousKills(before) {
+	return engineRun(HILLSBRAD_3040, TAUREN_DRUID_29, {
+		before,
+		script: `local out = {}
+			for i, step in ipairs(E.GetGuide().steps) do
+				for k, g in ipairs(step.goals) do
+					if g.t == "kill" and g.quest == 567 then
+						local key = tostring(g.oi)
+						out[key] = (out[key] and out[key] .. "," or "") .. E.GetStepView(i).goals[k].status
+					end
+				end
+			end
+			emit(out)`,
+	});
+}
+
+test("Kolbi's report (#1776): Hillsbrad 30-40's catch-up kills Dangerous!'s Kalaba with the peasants and Wilkes at the smithy", { skip }, () => {
+	const list = goals(HILLSBRAD_3040);
+	const stepOf = (pred, what) => list[at(list, what, pred)].step;
+	const kill = (npc, q, oi) => (g) => g.t === 'kill' && g.quest === q && g.oi === oi && g.npc === npc;
+	assert.equal(stepOf(kill(2451, 567, 4), 'Farmer Kalaba'), stepOf(kill(2267, 528, 1), 'the peasants'), 'Kalaba with the peasants');
+	assert.equal(stepOf(kill(2449, 567, 2), 'Citizen Wilkes'), stepOf(kill(2404, 529, 1), 'the smithy'), 'Wilkes at the smithy');
+	assert.equal(stepOf(kill(2448, 567, 1), 'the clerk'), stepOf(kill(2387, 532, 2), 'the town hall'), 'the clerk in the town hall, with 532');
+	assert.equal(stepOf(kill(2450, 567, 3), 'the miner'), stepOf(kill(2269, 539, 2), 'the mine'), 'the miner in the mine, with 539');
+	// Carried from the 22-25 guide with nothing killed, and Battle of Hillsbrad not done: every kill has an open step.
+	const carried = dangerousKills('w.onQuest(567, { 1, 1, 1, 1 })');
+	for (const oi of ['1', '2', '3', '4']) assert.ok(carried[oi] && !/skipped|na|done/.test(carried[oi]), `567.${oi} is open: ${carried[oi]}`);
+	// A character who did the 22-25 guide (529 handed in) sees no catch-up step: Kalaba and Wilkes are behind them.
+	const followed = dangerousKills('w.complete({ 527, 528, 529, 498 }); w.onQuest(567, { { required = 1, fulfilled = 0 }, { required = 1, fulfilled = 1 }, { required = 1, fulfilled = 0 }, { required = 1, fulfilled = 1 } })');
+	assert.equal(followed['2'], 'na');
+	assert.equal(followed['4'], 'na');
+	for (const oi of ['1', '3']) assert.ok(!/skipped|na|done/.test(followed[oi]), `567.${oi} is open: ${followed[oi]}`);
+});
+
 // Centaur reputation, Magram (Discord, 2026-11-10: "Magram rep missing from the guide"): the guide went to the Magram
 // half only with Brutal Politics or Magram Alliance in the log, so a player who took only Buying Friendship: Magram,
 // or had handed the choice quest in, stayed on the Gelkis steps; a Gelkis player who had handed in only Buying
@@ -11303,6 +11378,23 @@ test('Alliance Wetlands & Ashenvale: the Wooden Key line names the Ancients that
 	const { goal } = list[at(list, 'collect 5475', (g) => g.t === 'collect' && g.item === 5475)];
 	assert.deepEqual([goal.fromId, goal.fromAlsoId].sort((a, b) => a - b), [3834, 3919], 'both Ancients are named');
 	assert.equal(goal.fromKind, 'npc');
+});
+
+// #1556's follow-up (#1797's triage): an item whose only sources are one or two creatures (no object, no vendor) names
+// them whatever their drop chance. Kron's Amulet (4891, 10% from the two Dreadmaw Crocolisks), Rackmore's Silver Key
+// (15878, 15% from the Drysnap Crawlers and Pincers) and the Pristine Yeti Horn (12367, 10% from the Ice Thistle
+// Matriarch and Patriarch) read "Collect" with no source under the 20% bar.
+test("#1556's follow-up: an item only one or two creatures drop names them at any chance", { skip }, () => {
+	for (const [guide, item, ids] of [
+		['forever/horde/orc/01-durotar.guide', 4891, [3110, 3231]],
+		['forever/horde/30-40/02-thousand-needles.guide', 15878, [11562, 11563]],
+		['forever/alliance/50-60/03-winterspring.guide', 12367, [7459, 7460]],
+	]) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];
+		assert.equal(goal.fromKind, 'npc', `${guide}: ${item} names its droppers`);
+		assert.deepEqual([goal.fromId, goal.fromAlsoId].filter((x) => x != null).sort((a, b) => a - b), ids.filter((id) => data.spawns('npc', id).length), `${guide}: ${item} names every located dropper`);
+	}
 });
 
 // mutaka's report (#1752): Private Thorsen did not offer Jungle Secrets (215) at the arrow, his camp spot. The game
@@ -11449,4 +11541,36 @@ test("jaff's report: a quest the route takes is handed in by a goal that holds",
 	for (const q of [5845, 2479]) assert.ok(fixes.deliberate.keep.some((k) => k.q === q), `keep ${q} is a record`);
 	assert.ok(fixes.deliberate.optional.some((k) => k.q === 706), 'optional 706 is a record');
 	assert.ok(fixes.overrides.skip.some((k) => k.q === 1037 && k.faction === 'Alliance'), 'skip 1037 is a record');
+});
+
+// Fyurie's report (#1791): Solution to Doom's Ancient Chest (126260, one spawn) lies just inside Uldaman's cave
+// mouth, 17-18 yd from Magregan Deepshadow and the Obsidian Golems (38, elite), where a level 39 warrior met them on
+// the solo route. Recordings: 2 people looted it (a rogue and a druid, both able to stealth), and the rogue died at
+// the chest. The quest is asked as a group quest in both Badlands 30-40 guides, accept to turn-in and the follow-up,
+// and the chest's goal says "Elite: group advised" (the compiler's object-among-elites rule, #1778).
+test("Fyurie's report (#1791): Solution to Doom is a group quest in the Badlands, its chest marked elite", { skip }, () => {
+	for (const [guide, next] of [
+		['forever/alliance/30-40/06-badlands.guide', 727],
+		['forever/horde/30-40/06-badlands.guide', 728],
+	]) {
+		const mine = goals(guide).filter(({ goal }) => goal.quest === 709 || (goal.t === 'accept' && goal.quest === next));
+		assert.deepEqual(mine.map(({ goal }) => `${goal.t} ${goal.quest}`), ['accept 709', 'collect 709', 'turnin 709', `accept ${next}`], `${guide}: accepted, done, handed in, then the follow-up`);
+		for (const { step, goal } of mine) {
+			assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(709) && !p.neg), `${guide}: ${goal.t} ${goal.quest} is under when group 709`);
+		}
+		const chest = mine.find(({ goal }) => goal.t === 'collect').goal;
+		assert.deepEqual(chest.group, { kind: 'elite', rank: 1, lvl: 38, near: true }, `${guide}: the chest's goal says the elites`);
+	}
+});
+
+// The #1791 sweep: Alas, Andorhal's shard (105) comes from Araj's Phylactery at Araj the Summoner's feet, a level
+// 61 elite among elite Skeletal Warlords, and the Horde 50-60 route sent every character there. It is asked as a
+// group quest, accept to turn-in.
+test('the #1791 sweep: Alas, Andorhal is a group quest on the Horde 50-60 route', { skip }, () => {
+	const guide = 'forever/horde/50-60/06-silithus.guide';
+	const mine = goals(guide).filter(({ goal }) => goal.quest === 105);
+	assert.deepEqual(mine.map(({ goal }) => goal.t), ['accept', 'collect', 'turnin']);
+	for (const { step, goal } of mine) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(105) && !p.neg), `${goal.t} 105 is under when group 105`);
+	}
 });

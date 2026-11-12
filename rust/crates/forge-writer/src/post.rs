@@ -708,6 +708,123 @@ pub fn steps_after_their_quest(
 	rewrite(files, &texts, &del, &ins);
 }
 
+/// How near its flight master a step's goal stands for the step to learn the flight path on that
+/// visit ([`first_visit_flight_paths`], #1611): Bragok stands 16 yd from Sputtervalve on the Barrens'
+/// first Ratchet stop, Omusa Thunderhorn 54 yd from Kirge Sternhorn where Tauren leave Mulgore.
+pub const FIRST_VISIT_FP_YD: f64 = 60.0;
+
+/// A flight path is learnt on the first visit to its flight master (#1611, checked in game at
+/// Ratchet): a `getfp` goes into the first step before it, in play order, with a goal within `near_yd`
+/// of the flight master (`fm`: its point, by the place the line names; `place`: a line's points),
+/// right after the goal nearest it. The Barrens' first Ratchet stop accepts Sputtervalve's quest 16 yd
+/// from Bragok, and the guide learnt Ratchet's path only on the fly step after the beach loop; Tauren
+/// meet Kirge Sternhorn 54 yd from Omusa Thunderhorn at the end of Mulgore, and learnt Camp Taurajo's
+/// path only on the Barrens' Camp Taurajo stop. The line moves when that step is for all its players
+/// (`may`: a guide whose players include its own's, and the step's `only` lets them all in); else it
+/// is copied there for that step's players and stays for the others. It carries an `only` with its
+/// players where the step has others. A step before it that learns the same path ends the search.
+/// `files` in play order ([`play_order`]). -> (file, place, moved) for each line written.
+pub fn first_visit_flight_paths(
+	files: &mut [String],
+	may: &dyn Fn(usize, usize) -> bool,
+	fm: &dyn Fn(&str) -> Option<crate::input::Pt>,
+	place: &dyn Fn(&str) -> Vec<crate::input::Pt>,
+	near_yd: f64,
+) -> Vec<(usize, String, bool)> {
+	use forge_guide::conditions::{same_race, Audience};
+	let texts = split_lines(files);
+	let getfp_of = |l: &str| re!(r#"^\s+getfp\s+"([^"]+)""#).captures(split_comment(l).0).map(|m| m[1].to_string());
+	// Who plays each guide (its `race` header).
+	let file_aud: Vec<Audience> = texts.iter().map(|ls| Audience::parse(&crate::guide::races_of(&ls.iter().take_while(|l| !is_step(l)).cloned().collect::<Vec<_>>()).join(","))).collect();
+	// Steps: (file, header line, last body line).
+	let mut steps: Vec<(usize, usize, usize)> = Vec::new();
+	for (fi, lines) in texts.iter().enumerate() {
+		let mut i = 0;
+		while i < lines.len() {
+			if !is_step(&lines[i]) {
+				i += 1;
+				continue;
+			}
+			let mut e = i;
+			while e + 1 < lines.len() && !is_step(&lines[e + 1]) && !starts_nonspace(&lines[e + 1]) && !trim(&lines[e + 1]).is_empty() {
+				e += 1;
+			}
+			steps.push((fi, i, e));
+			i = e + 1;
+		}
+	}
+	// Who plays a step: its guide's players its own `only` lets in.
+	let step_aud = |&(fi, b, e): &(usize, usize, usize)| -> Audience {
+		let own = texts[fi][b + 1..=e].iter().find_map(|l| re!(r"^\s+only\s+(\S+)\s*$").captures(split_comment(l).0).map(|m| m[1].to_string()));
+		file_aud[fi].and(&Audience::parse(own.as_deref().unwrap_or("")))
+	};
+	// (Whether `a` lets in everyone `b` does; and whether an audience lets anyone in.)
+	let covers = |a: &Audience, b: &Audience| -> bool {
+		let races = match (&a.races, &b.races) {
+			(None, _) => true,
+			(Some(_), None) => false,
+			(Some(xs), Some(ys)) => ys.iter().all(|r| xs.iter().any(|s| same_race(s, r))),
+		};
+		let classes = match (&a.classes, &b.classes) {
+			(None, _) => true,
+			(Some(_), None) => false,
+			(Some(xs), Some(ys)) => ys.iter().all(|c| xs.contains(c)),
+		};
+		races && classes
+	};
+	let nobody = |a: &Audience| a.races.as_ref().is_some_and(|r| r.is_empty()) || a.classes.as_ref().is_some_and(|c| c.is_empty());
+	let yd = |ps: &[crate::input::Pt], p: &crate::input::Pt| ps.iter().filter(|q| q.c == p.c).map(|q| js_hypot(q.wx - p.wx, q.wy - p.wy)).reduce(f64::min);
+	let mut del: Del = vec![FxHashSet::default(); texts.len()];
+	let mut ins: Ins = vec![FxHashMap::default(); texts.len()];
+	let mut written: FxHashSet<(usize, usize, String)> = FxHashSet::default();
+	let mut out = Vec::new();
+	for (si, st) in steps.iter().enumerate() {
+		let (fi, b, e) = *st;
+		for li in b + 1..=e {
+			let l = &texts[fi][li];
+			let Some(name) = getfp_of(l) else { continue };
+			let Some(p) = fm(&name) else { continue };
+			let aud = step_aud(st).and(&Audience::parse(line_only(l).unwrap_or("")));
+			// The first step before it, for some of its players, with a goal by the flight master.
+			let mut found: Option<(usize, usize)> = None;
+			for (sj, sk) in steps[..si].iter().enumerate() {
+				if nobody(&step_aud(sk).and(&aud)) {
+					continue;
+				}
+				let (fj, bj, ej) = *sk;
+				if texts[fj][bj + 1..=ej].iter().any(|x| getfp_of(x).as_deref() == Some(name.as_str())) {
+					break;
+				}
+				let best = (bj + 1..=ej)
+					.filter(|&k| is_goal(&texts[fj][k]) && getfp_of(&texts[fj][k]).is_none())
+					.filter_map(|k| yd(&place(&texts[fj][k]), &p).map(|d| (d, k)))
+					.filter(|&(d, _)| d <= near_yd)
+					.min_by(|x, y| x.0.total_cmp(&y.0));
+				if let Some((_, k)) = best {
+					found = Some((sj, k));
+					break;
+				}
+			}
+			let Some((sj, k)) = found else { continue };
+			let fj = steps[sj].0;
+			let there = step_aud(&steps[sj]);
+			let moved = may(fj, fi) && covers(&there, &aud);
+			if written.insert((fj, k, name.clone())) {
+				let (code, rest) = split_comment(l);
+				let bare = trim_end(&re!(r"\s+only\s+\S+").replace(code, "")).to_string();
+				let only = if covers(&aud, &there) { String::new() } else { there.and(&aud).render().map_or(String::new(), |o| format!(" only {o}")) };
+				ins[fj].entry(k).or_default().push(format!("{bare}{only}{rest}"));
+				out.push((fj, name.clone(), moved));
+			}
+			if moved {
+				del[fi].insert(li);
+			}
+		}
+	}
+	rewrite(files, &texts, &del, &ins);
+	out
+}
+
 /// Quests the route does not take: a line working or handing one in that ended up before its
 /// accept moves to right after the accept; a step left with no goal goes. A hand-in whose ender
 /// stands elsewhere goes instead to the end of the first step after the accept that stands by the
@@ -3880,6 +3997,55 @@ mod tests {
 		steps_after_their_quest(&mut files, &[6].into_iter().collect(), &item_quest, &|dst, src| dst == src, &|_| Vec::new(), 600.0);
 		assert_eq!(files[0], "guide s\n\nstep Strange Lockbox\n  when onquest 30\n  only Tauren,Druid\n  collect 15882\n\nstep Sepulcher\n  accept 6\n");
 		assert_eq!(files[1], "guide o\n\nstep Moonglade\n  accept 30\n");
+	}
+
+	#[test]
+	fn a_flight_path_is_learnt_on_the_first_visit_to_its_flight_master() {
+		// #1611 (in game at Ratchet): the Barrens' first Ratchet stop accepts Sputtervalve's quest (894)
+		// 16 yd from Bragok, but Ratchet's path waited for the fly step after the beach; Tauren meet
+		// Kirge Sternhorn (854) 54 yd from Omusa Thunderhorn at the end of Mulgore, and Camp Taurajo's
+		// path waited for the Barrens' Camp Taurajo stop.
+		let pt = |x: f64| crate::input::Pt { c: 1, wx: x, wy: 0.0, map: 1413 };
+		let fm = |name: &str| match name {
+			"Ratchet" => Some(pt(1000.0)),
+			"Camp Taurajo" => Some(pt(0.0)),
+			_ => None,
+		};
+		let place = |l: &str| -> Vec<crate::input::Pt> {
+			match l.trim() {
+				"accept 854" => vec![pt(54.0)],
+				"accept 894" => vec![pt(1016.0)],
+				"accept 895" => vec![pt(1030.0)],
+				"kill 3381" => vec![pt(3000.0)],
+				"turnin 853" => vec![pt(5.0)],
+				_ => Vec::new(),
+			}
+		};
+		let seed = vec![
+			"guide m\nrace Tauren\n\nstep Kirge Sternhorn\n  zone The Barrens\n  accept 854\n".to_string(),
+			"guide b\n\nstep Ratchet\n  accept 894\n  accept 895\n\nstep The Beach\n  kill 3381\n\nstep Fly to Crossroads\n  zone The Barrens\n  goto 63.1,37.1 \"Ratchet flight master\"\n  getfp \"Ratchet\" only Orc,Skyborne,Tauren,Troll,Undead\n  fly \"Crossroads\"\n\nstep Camp Taurajo\n  getfp \"Camp Taurajo\"\n  turnin 853\n".to_string(),
+		];
+		// (The shared guide's players include the Tauren guide's, not the other way round.)
+		let may = |dst: usize, src: usize| dst == src || dst == 1;
+		let mut files = seed.clone();
+		let done = first_visit_flight_paths(&mut files, &may, &fm, &place, FIRST_VISIT_FP_YD);
+		// Ratchet's moved onto the first Ratchet stop, beside Sputtervalve, with its players; Camp
+		// Taurajo's copied for the Tauren at Kirge (the others keep the Barrens' stop).
+		assert_eq!(done, vec![(1, "Ratchet".to_string(), true), (0, "Camp Taurajo".to_string(), false)]);
+		assert_eq!(files[0], "guide m\nrace Tauren\n\nstep Kirge Sternhorn\n  zone The Barrens\n  accept 854\n  getfp \"Camp Taurajo\"\n");
+		assert_eq!(
+			files[1],
+			"guide b\n\nstep Ratchet\n  accept 894\n  getfp \"Ratchet\" only Orc,Skyborne,Tauren,Troll,Undead\n  accept 895\n\nstep The Beach\n  kill 3381\n\nstep Fly to Crossroads\n  zone The Barrens\n  goto 63.1,37.1 \"Ratchet flight master\"\n  fly \"Crossroads\"\n\nstep Camp Taurajo\n  getfp \"Camp Taurajo\"\n  turnin 853\n"
+		);
+		// Written once: a second pass finds each path learnt on its first visit.
+		let again = files.clone();
+		assert!(first_visit_flight_paths(&mut files, &may, &fm, &place, FIRST_VISIT_FP_YD).is_empty());
+		assert_eq!(files, again);
+		// (Kirge stands 54 yd from Omusa: within 40 yd only Ratchet's moves.)
+		let mut near = seed.clone();
+		first_visit_flight_paths(&mut near, &may, &fm, &place, 40.0);
+		assert_eq!(near[0], seed[0]);
+		assert!(near[1].contains("  accept 894\n  getfp \"Ratchet\""), "{}", near[1]);
 	}
 
 	#[test]

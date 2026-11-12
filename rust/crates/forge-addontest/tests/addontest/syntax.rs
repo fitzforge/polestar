@@ -59,6 +59,58 @@ fn every_addon_lua_file_compiles_under_lua_5_1() {
 	assert_eq!(failures, Vec::<String>::new());
 }
 
+// Lua 5.1 caps a chunk at 200 locals in scope at once; a file at the cap fails to load the moment a merge adds one
+// more top-level local. Every file's main chunk keeps 10 spare (at most 190).
+const MAIN_LOCALS_MAX: usize = 190;
+// UI/GuideFrame.lua (198) is replaced by the 0.3.8 settings split; drop it from here when that lands.
+const MAIN_LOCALS_EXEMPT: &[&str] = &["addon/Polestar/UI/GuideFrame.lua"];
+
+/// The most locals a file's main chunk holds in scope at once: 200 less the most extra locals declared ahead of
+/// it that still compile.
+fn main_chunk_locals(src: &[u8]) -> usize {
+	let lua = mlua::Lua::new();
+	let fits = |extra: usize| {
+		let mut prefixed = if extra == 0 { Vec::new() } else { format!("local {}; ", (0..extra).map(|i| format!("_x{i}")).collect::<Vec<_>>().join(",")).into_bytes() };
+		prefixed.extend_from_slice(src);
+		lua.load(&prefixed[..]).into_function().is_ok()
+	};
+	assert!(fits(0), "the file must compile");
+	let (mut lo, mut hi): (usize, usize) = (0, 200); // fits(lo); the answer lies in lo..hi
+	while lo < hi {
+		let mid = (lo + hi).div_ceil(2);
+		if fits(mid) {
+			lo = mid;
+		} else {
+			hi = mid - 1;
+		}
+	}
+	200 - lo
+}
+
+#[test]
+fn every_addon_lua_files_main_chunk_keeps_spare_locals() {
+	let mut over = Vec::new();
+	for file in lua_files() {
+		let r = rel(&file);
+		if MAIN_LOCALS_EXEMPT.contains(&r.as_str()) {
+			continue;
+		}
+		let n = main_chunk_locals(&fs::read(&file).unwrap());
+		if n > MAIN_LOCALS_MAX {
+			over.push(format!("{r}: {n} locals in its main chunk (at most {MAIN_LOCALS_MAX}: group some into a table)"));
+		}
+	}
+	assert_eq!(over, Vec::<String>::new());
+}
+
+#[test]
+fn the_main_chunk_locals_count_is_the_most_in_scope_at_once() {
+	let decls = |n: usize| (0..n).map(|i| format!("local a{i} = {i}\n")).collect::<String>();
+	assert_eq!(main_chunk_locals(decls(185).as_bytes()), 185);
+	assert_eq!(main_chunk_locals(format!("do\n{}end\n{}", decls(150), decls(100)).as_bytes()), 150);
+	assert_eq!(main_chunk_locals(b"local function f() local a, b, c = 1, 2, 3 end"), 1);
+}
+
 #[test]
 fn addon_code_only_writes_allowlisted_globals() {
 	let allowed = Regex::new(ALLOWED_GLOBAL).unwrap();
