@@ -1429,7 +1429,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   `maxLevel` by 2 or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
-  catch-up may pass it whole first); the UI offers the jump. Setting
+  catch-up may pass it whole first); the UI offers the jump. While the
+  guides between the active one and the level-best suggestion still hand in
+  finished quests the character carries (`RoutePlan.LeftBehind`: the
+  hand-ins placed on the active route from the live step on, before that
+  guide), the next guide is suggested instead; the guide menu's Load asks
+  once (a popup) before replacing the active leveling guide while the route
+  still hands some in before the guide loaded. Setting
   `behavior.skipGrey` (default off; leveling guides only, see "Every step")
   auto-skips `accept` goals for quests already grey for the character (and
   `turnin ... direct` goals, which the compiler gives their quest's level
@@ -2075,6 +2081,25 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   an Abandon button that asks through the game's own confirmation
   (`Compat.AskAbandonQuest`: `C_QuestLog.SetSelectedQuest`,
   `SetAbandonQuest`, then the `ABANDON_QUEST` popup).
+- **Finished quests you're still carrying** (jaff's report).
+  `RoutePlan.Carried()` lists the log's finished quests (ready to hand in)
+  no open route hands in (`missed`, `skipped`, `unplanned`: never a later
+  guide's `carriedTo` quest nor another tab's or open dungeon's `other`),
+  each with whether it is grey and what it gives now (the Codex's XP times
+  `Levels.Share`); `RoutePlan.Ender(q)` is the Codex ender of the
+  character's side nearest the player (`Lookup.QuestEnd`). Make room shows
+  a "Finished quests you're still carrying (N)" button while there are any,
+  which switches the window to `UI.ShowQuestRoom("carried")`: each quest
+  with who takes it in and where, an Abandon button on a grey one, and
+  Guide me (the Lookup planner kind `carried`, `lookup/carried/log`: one
+  stop per ender, nearest first). While you're here hands them in too
+  (Engine `Own.hereStranded`, after `Own.hereGroups`): a finished quest no
+  step from the live one on hands in (nor the next guide, `Own.nextHandsIn`
+  when present), whose ender stands on the player's map, is a hand-in line
+  at step `Own.STRAND_STEP` (-2) with its built goal (`Own.strandGoal`,
+  cached per map), measured like a later step's hand-in and ranked after the
+  route's next steps, its sub-line and tooltip saying why (`hereSub`,
+  `hereTip`).
 - **Missable quests** (`Core/Closes.lua`, setting `behavior.warnClosing`,
   default off). `Closes.For(q, title)` lists what taking `q` closes for good
   for this character: the guide accepts whose `closedBy` names `q`, across
