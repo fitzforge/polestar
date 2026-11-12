@@ -12,17 +12,22 @@ next polestar-experimental/hyjal-3
 # Sources as in part 1: Forever's quest data for quests, givers, enders and objectives; the one recorded session
 # (an Alliance player, levels 57 to 60) for the order, the spots and the chain links the data lacks. The Horde's
 # Elderwild quests are not recorded: those steps follow the quest data alone.
-# Order: the Curious Crow, Malorne's Retreat (Alliance), Barkskin Burrow and the berries and Deadwood camps around
-# it, Elderwild (the Alliance and Horde outposts stand side by side) with Mourning's Rest and the overlook west of
-# it, then east into the Cradle of Tranquility: the wild gods' errands, Johun's camp (Alliance) and back west to
-# Marrosis and Shalla'kal.
+# Order: the Curious Crow, Malorne's Retreat (Alliance), Barkskin Burrow (Brerufa's Den Guardians, then Osi's
+# berries, then the elders) with the Deadwood camps around it, Elderwild (the Alliance and Horde outposts stand
+# side by side) with Mourning's Rest and the overlook west of it, then east into the Cradle of Tranquility: the
+# wild gods' errands, Johun's camp (Alliance) and back west to Marrosis and Shalla'kal.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): Heading Up the
-# Mountain after The Capricious Corvid; Fenwick's quests one at a time; Meet the Elders after Sweetpaw Jam; Deal
-# Dread to Deadwood after Meet the Elders; More Work? and To the Summit of Eternity after Sefira's three quests;
+# Mountain after The Capricious Corvid; Fenwick's quests one at a time; Of Friend and Fur after Balance Through
+# Strength (Brerufa's window held nothing else before that hand-in, which also lifted Barkskin standing from
+# Hostile to Unfriendly); Sweetpaw Jam after Of Friend and Fur; Meet the Elders after Sweetpaw Jam; Deal Dread to
+# Deadwood after Meet the Elders (Barkbound Blessings and Windswept Wards were first offered then too, so they are
+# taken there); More Work? and To the Summit of Eternity after Sefira's three quests;
 # More of the Same, then Belle's Ring, then the second Belle's Ring after More Work?; Battle Recall after Anywhere
 # But Here; Jereman's three errands after Heading Up the Mountain; Fox Hole after Area Denial Skunks; Resupply after
 # Fox Hole; Stolen Life and Bone Sweet Bone after The Balance of Life and Death; Prey and Predator after Violent
 # Venison; Trail Assist after Sacred Refreshment.
+# Balance Through Strength came to the recorded player as a party share: that Brerufa offers it at Hostile
+# standing is not recorded yet.
 # Left out on purpose:
 # - Barkskin Beginnings (94504): it asks for Neutral with Barkskin Burrow, which this route doesn't reach.
 # - Beads for Brerufa (93925): a repeatable hand-in for reputation.
@@ -70,40 +75,49 @@ step Fenwick's survival pack
   turnin 93383
 
 step Brerufa
-  tip North-west to Barkskin Burrow, the furbolgs' den in the hillside: Brerufa waits just north of its mouth. The Barkskin furbolgs show as hostile until your standing with them improves, but none of them attacked in the recording: the Deadwood furbolgs in the camps around are the ones to fight.
+  tip North-west to Barkskin Burrow, the furbolgs' den in the hillside: Brerufa waits just north of its mouth. The Barkskin furbolgs show as hostile until your standing with them improves, but none of them attacked in the recording: the Deadwood furbolgs in the camps around are the ones to fight. Brerufa offers more only once this first quest is handed in.
   accept 93952                          -- Balance Through Strength
-  accept 92111                          -- Of Friend and Fur
 
-step Barkskin Burrow
-  tip Inside the burrow: Osi Mistpaw at the far end, Suma Mossmane beside her, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana (part 3), and you bring both back here then.
-  turnin 92111                          -- Osi Mistpaw
-  accept 93831                          -- Sweetpaw Jam
-  accept 93825                          -- Suma Mossmane: Barkbound Blessings
-  accept 93827 @20.6,78.8               -- Thobon Sapclaw: Windswept Wards
-
-step Bear berries and the Deadwood camps
-  tip The bear berries grow on the slopes around the burrow, most of them east of it; the Deadwood furbolgs camp all over those slopes, and their Den Guardians are Brerufa's.
+step Deadwood Den Guardians
+  tip The Deadwood furbolgs camp on the slopes north and east of Brerufa: kill their Den Guardians.
   loop
-  goto 23.5,75.5
-  goto 27.5,77.0
-  goto 31.5,78.0
-  goto 33.5,76.5
-  goto 29.0,71.5
-  goto 24.0,68.5
-  collect 262818 x30 quest 93831.1      -- Bear Berries
+  goto 23.0,69.5
+  goto 22.3,66.0
+  goto 23.8,64.0
+  goto 25.8,74.0
   kill 252063 x9 quest 93952.1          -- Deadwood Den Guardian
 
 step Brerufa
   turnin 93952
+  accept 92111                          -- Of Friend and Fur
+
+step Osi Mistpaw
+  tip Inside the burrow: Osi Mistpaw at the far end.
+  turnin 92111
+  accept 93831                          -- Sweetpaw Jam
+
+step Bear berries
+  tip The bear berries grow on the slopes around the burrow: a few on the hill north of Brerufa, most of them east of the burrow.
+  loop
+  goto 19.4,66.5
+  goto 20.3,71.2
+  goto 23.5,75.5
+  goto 27.5,77.0
+  goto 31.0,78.9
+  goto 33.4,76.7
+  goto 24.8,77.5
+  collect 262818 x30 quest 93831.1      -- Bear Berries
 
 step Barkskin Burrow
-  tip Back to Osi, then the two elders at the back of the burrow.
+  tip Back to Osi, then the two elders at the back of the burrow. Suma Mossmane stands beside Osi, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana (part 3), and you bring both back here then.
   turnin 93831                          -- Osi Mistpaw
   accept 91697                          -- Meet the Elders
   talk 256650                           -- Elder Pinespeaker
   talk 256627                           -- Elder Mistpaw
   turnin 91697                          -- Elder Mistpaw
   accept 93826                          -- Deal Dread to Deadwood: on your way back here in part 3; keep it
+  accept 93825                          -- Suma Mossmane: Barkbound Blessings
+  accept 93827 @20.6,78.8               -- Thobon Sapclaw: Windswept Wards
 
 step The Western Post
   when onquest 91881
