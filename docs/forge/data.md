@@ -283,7 +283,7 @@ first.
 | Command | Writes | Reads |
 |---|---|---|
 | `forge data trainers` | `data/forever/trainers.json`, `addon/Polestar/Core/ClassTrainers.lua` | a curated list of class trainers, every `train <npc> only <Class>` step in `guides/`, and recorded trainer visits |
-| `forge data travel` | `data/forever/travel.json`, `addon/Polestar/Nav/TravelData.lua`, `addon/Polestar/Maps/FlightPaths.lua`; the local `Polestar_Travel` addon when `data/local/crossings.json` exists | flight paths, boats and zeppelins with their timetables, inns, zone crossings (`data/crossings.json`), recorded paths, and the walking grid (`--grid DIR`, or `--grid none`) |
+| `forge data travel` | `data/forever/travel.json`, `addon/Polestar/Nav/TravelData.lua`, `addon/Polestar/Maps/FlightPaths.lua`; the local `Polestar_Travel` addon when `data/local/crossings.json` exists | flight paths (the Classic Era client's, as they are, and the flight points the Forever client adds with their flights), boats and zeppelins with their timetables, inns, zone crossings (`data/crossings.json`), recorded paths, and the walking grid (`--grid DIR`, or `--grid none`) |
 | `forge data professions` | `data/forever/professions.json` (or `--out FILE`) | the game's profession tables, items, NPCs and vendor stock |
 | `forge data dungeons` | `data/forever/dungeons.json` (or `--out FILE`) | a dungeon journal addon installed in your client (`--source DIR`); only facts (ids, names, levels, places, rewards, chains), none of its text |
 | `forge data codex` | `data/forever/codex/*.json` and `addon/Polestar_Codex` | `data/forever`, the game's tables, Polestar's guides and curated tables, the recorded item sources `data/codex/recorded.json` (`--recordings DIR` rewrites it first from a recordings folder) |
@@ -336,7 +336,7 @@ single-file form, and a checkout without the folder still has its
 | Section (file) | Keyed by | What an entry can do |
 |---|---|---|
 | `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, `sourceItem`: the item the quest hands over when taken, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
-| `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
+| `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an NPC's `roles`, such as `["flightmaster"]` for a flight master the merged data has without its role, so `forge data travel` matches it to its flight point; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
 | `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate) |
 | `mechanics` | quest ID | `params`: `[{ kind, … }]` adds or replaces a mechanic (for example `delayed-offer` with `after`, `npc`, `sec`); `steps`: `{ "<n>": { set } }` changes step `n` |
 
@@ -607,7 +607,14 @@ From first to last:
 
 A missing value is filled from the best source that has one, whatever its rank. Junk text never
 wins. For quest XP, a value captured in game ranks with rank 3, and two values within max(5, 3%) of
-each other count as equal.
+each other count as equal, with two exceptions, both because the game pays rounded amounts:
+
+- When two or more of the sources that read the server's own numbers (its records, EG Link's records
+  and observed turn-ins, the client's caches, Factoruide's collector, ForeverDB's captures) give
+  exactly the same value, and no other value has as many, that value wins over any single other one
+  and replaces ours whenever it differs. Factoruide's collector and a game cache agreeing win outright.
+- A quest's XP is always a value the game can pay: rounded to its steps (5 up to 100, 10 up to 500,
+  25 up to 1,000, 50 above) unless a correction or a recording sets it.
 
 **Facts to verify in game.** Who can take a quest (races, classes, side), how an NPC reacts, where
 things spawn, and whether a quest exists are decided only by the top ranks. When a lower source

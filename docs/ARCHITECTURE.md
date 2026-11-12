@@ -4371,6 +4371,19 @@ with `RegisterCrossings` at load, which merges; installed when built, never
 packaged). Without the file nothing is written and TravelData.lua never holds
 it.
 
+**Flight points.** The flight network is the Classic Era client's (its
+TaxiNodes, TaxiPath and TaxiPathNode, left as they are) plus the flight
+points the Forever client adds: its TaxiNodes rows the Era table lacks, kept
+by the same rule (a faction's flight map and a character bit; no row the
+client retired, named `zzOLD…`), with their flights from its TaxiPath and
+TaxiPathNode (Rog'mar and Farholde Keep on the Riverglades, the Summit of
+Eternity and the Tainted Foothills on Mount Hyjal). A flight point on a map
+Forever added has no Era frame: its x, y are on the live frame and its
+TaxiNodes row ends in `"l"` (after the class, or `nil`), which
+`RegisterTravelData` turns into a node with no `f`, as live goals have. A
+Forever build whose TaxiNodes and TaxiPath are not cached leaves them out,
+with a warning (`forge data sources --only builders` fetches them).
+
 **Board points.** A boat's stop (its TaxiPathNode stop) is where the ship
 lies, 12-14 yd off its pier in open water at most docks. `travel build`
 reads the navigation grid (`--grid <dir>`, default `data/local/nav4`;
@@ -6122,7 +6135,11 @@ game event (pfQuest's `event`: the Darkmoon Faire, the holidays, the war
 efforts) is on a page only where QuestieDB or Forever's quest data files it (Copper
 Modulator, Rinling's Faire turn-in, is on none). What no rule can catch is
 in the cited table `data/codex/journal-quests.json` (Shards of the
-Felvine). Each quest has giver and ender and their positions, its objective
+Felvine; The Drowned City's quests for items the data places on no mob or
+object inside, from players' recordings of their objectives inside; Rituals
+of Power's book, an object only in the Scarlet Monastery), each row cited by
+a URL, Forever's quest data, or a source the way the corrections cite one
+(`{ kind, ref }`). Each quest has giver and ender and their positions, its objective
 facts (`objectives`: kind, NPC, item or object id, count and the English
 name; the escorts' and events' text), composed at run time into our own
 objective line in the client's language (`Dungeons.ObjectiveText`:
@@ -7857,9 +7874,11 @@ was already built without it.
   (Recorder `enter`, `data/forever/instances.json`), else the curated table
   `data/codex/entrances.json` (per instance key: the point on the zone
   map where one walks in, `{ key, instance, map, x, y, source, note }`, each
-  with its public source, checked against the corpse point and our guides'
+  with its source, checked against the corpse point and our guides'
   gotos; every dungeon and raid in the Codex, Forever's own included, from
-  QuestieDB's Forever dungeon table, warcraft.wiki.gg and Forever's quest data),
+  QuestieDB's Forever dungeon table, warcraft.wiki.gg, Forever's quest data
+  and, cited the way the corrections cite them, players' recorded entries:
+  The Drowned City at Sunken Hollow),
   else a guide's `goto x,y "<instance name> ..."`, else the `Map` Corpse
   point (where a ghost comes back: near the way in, not at it; the
   Deadmines' is the portal deep in the Moonbrook mine, 200 yd from the

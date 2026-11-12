@@ -51,8 +51,8 @@ return {
 	-- Step 6: Silverwing Sentinels to Exalted
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Exalted"] = "{faction:890} 확고한 동맹까지",
-	-- {item:19546} Sentinel's Blade · {item:19554} Protector's Sword · {item:19562} Outrunner's Bow · {item:19570} Lorekeeper's Staff
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the Trainee's Sentinel Nightsaber mount (level 25, 10g) with no standing listed."] = "",
+	-- {item:19546} Sentinel's Blade · {item:19554} Protector's Sword · {item:19562} Outrunner's Bow · {item:19570} Lorekeeper's Staff · {item:211498} Trainee's Sentinel Nightsaber
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211498} mount (level 25, 10g) with no standing listed."] = "",
 	-- {npc:14753} Illiyana Moonblaze
 	["{npc:14753}: Revered rewards"] = "",
 
@@ -99,8 +99,8 @@ return {
 	-- Step 13: Warsong Outriders to Exalted
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Exalted"] = "{faction:889} 확고한 동맹까지",
-	-- {item:19542} Scout's Blade · {item:19550} Legionnaire's Sword · {item:19558} Outrider's Bow · {item:19566} Advisor's Gnarled Staff
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the Trainee's Outrider Wolf mount (level 25, 10g) with no standing listed."] = "",
+	-- {item:19542} Scout's Blade · {item:19550} Legionnaire's Sword · {item:19558} Outrider's Bow · {item:19566} Advisor's Gnarled Staff · {item:211499} Trainee's Outrider Wolf
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211499} mount (level 25, 10g) with no standing listed."] = "",
 	-- {npc:14754} Kelm Hargunth
 	["{npc:14754}: Revered rewards"] = "",
 

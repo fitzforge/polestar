@@ -1026,6 +1026,11 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 		if !fac_ok(t.get("faction")) {
 			continue;
 		}
+		// Zephras Isle's airships are the world's Skyborne exits (skyborne_exits: one way, the landings
+		// checked in game); the addon's planner rides them from travel.json.
+		if t.get("kind").and_then(Value::as_str) == Some("airship") {
+			continue;
+		}
 		let (ta, tb) = (&t["a"], &t["b"]);
 		let da = ta.get("board").filter(|x| truthy(Some(x))).unwrap_or(ta);
 		let db = tb.get("board").filter(|x| truthy(Some(x))).unwrap_or(tb);

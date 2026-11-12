@@ -11,12 +11,13 @@ return {
 	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "Beginnt jetzt mit 22 am {area:444}; die Mobs dort sind 28-30, geh also eher mit 30 oder mit einem Freund. Vorerst nur Allianz.",
 
 	-- Step 1: The Strange Orb
-	["The Strange Orb"] = "Die Strange Orb",
-	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409311} Spear of Mannoroth
+	-- {object:409289} Strange Orb (no name in this language: may be words)
+	["The {object:409289}"] = "",
+	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "Steig zur Spitze des {area:444} im Norden von {zone:1439}. Die Dark Strand Fanatics darum sind leicht (Stufe 16-17), aber vier Dark Strand Voidcallers (Stufe 28-29) stehen im Turm auf dem Weg zum Orb: Jeder ruft einen Leerwandler und wirkt {spell:686} aus der Ferne. Bring mit 22-25 einen oder zwei Freunde mit, pull sie einzeln und tritt hinter eine Wand, damit sie zu dir kommen müssen. Plündere das Strange Orb oben: Es gibt dir den Althalaxx Orb; klick ihn mit der rechten Maustaste an, um die Quest zu starten. Behalte den Orb in deinen Taschen bis zum {object:409311}: Drei spätere Quests brauchen ihn.",
-	-- {area:444} Tower of Althalaxx
-	["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Strange Orb oben auf {area:444}: Rechtsklick auf die Kugel von Althalaxx, die sie gibt",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
+	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx · {item:209748} Althalaxx Orb
+	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "",
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
@@ -48,8 +49,8 @@ return {
 	-- Step 8: The Spear of Mannoroth
 	-- {object:409311} Spear of Mannoroth
 	["The {object:409311}"] = "Der {object:409311}",
-	-- {object:409311} Spear of Mannoroth · {area:435} Demon Fall Canyon · {object:409315} Shattered Orb
-	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "Der {object:409311} steht am Ostende von {area:435}. Gib die Motes am Speer ab, während der Althalaxx Orb in deinen Taschen ist: Der Orb zerbricht, und der {object:409315} daneben startet die letzte Quest.",
+	-- {object:409311} Spear of Mannoroth · {area:435} Demon Fall Canyon · {item:209748} Althalaxx Orb · {object:409315} Shattered Orb
+	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "",
 	-- {object:409315} Shattered Orb
 	["from the {object:409315}"] = "von der {object:409315}",
 
@@ -62,9 +63,11 @@ return {
 	-- ["Back to {area:413}."] = "Zurück zu {area:413}.",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Beschwörer, Helden und Fährtenleser der Blackrock lagern im Nordwesten des Rotkammgebirges; sie lassen das {item:209778} fallen.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Klettere ganz nach oben auf {area:444} im nördlichen {zone:1439}. Plündere dort oben die Strange Orb: Sie gibt dir die Kugel von Althalaxx, die die Quest startet.",
+	-- ["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "Steig zur Spitze des {area:444} im Norden von {zone:1439}. Die Dark Strand Fanatics darum sind leicht (Stufe 16-17), aber vier Dark Strand Voidcallers (Stufe 28-29) stehen im Turm auf dem Weg zum Orb: Jeder ruft einen Leerwandler und wirkt {spell:686} aus der Ferne. Bring mit 22-25 einen oder zwei Freunde mit, pull sie einzeln und tritt hinter eine Wand, damit sie zu dir kommen müssen. Plündere das Strange Orb oben: Es gibt dir den Althalaxx Orb; klick ihn mit der rechten Maustaste an, um die Quest zu starten. Behalte den Orb in deinen Taschen bis zum {object:409311}: Drei spätere Quests brauchen ihn.",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "Katherine schickt dich zu den Hexenmeistern im {object:2101}; {npc:5495} spricht für sie.",
 	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Strange Orb oben auf {area:444}: Rechtsklick auf die Kugel von Althalaxx, die sie gibt",
 	-- ["The Strange Orb"] = "Die Strange Orb",
+	-- ["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "Der {object:409311} steht am Ostende von {area:435}. Gib die Motes am Speer ab, während der Althalaxx Orb in deinen Taschen ist: Der Orb zerbricht, und der {object:409315} daneben startet die letzte Quest.",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311} steht am Ostende von {area:435}. Zerschmettere die Kugel darauf; {object:409315} erscheint daneben.",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311} steht am Ostende von {area:435}. Wirke {spell:11170} auf die Kugel darauf; {object:409315} erscheint daneben.",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "Der {area:435} liegt im Südosten von {zone:1440}. Die Mannoroc-Peitscher, Sengenden Höllenbestien, Teufelswachen und Legionshunde dort lassen die Partikel von Mannoroth fallen.",

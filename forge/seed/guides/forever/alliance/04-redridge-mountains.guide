@@ -77,11 +77,13 @@ next forever/alliance/05-duskwood
 #   then Breanna and Martie at the west end, one sweep instead of crossing
 #   town twice.
 # - The Bronze Tube for Look to the Stars (174): every vendor keeps one or two,
-#   and in players' recordings Herble Baubbletump in Darkshire never had one
-#   (30 merchant windows, 19 people), nor Billibub Cogspinner in Stormwind (20,
-#   14). No recorded player bought it from a vendor; four of the eleven whose
-#   tube we can place got it at the Stormwind Auction House. So the Stormwind
-#   stop buys it there (optional), and Herble's buy stays optional (#1348).
+#   restocked every three hours, and in players' recordings Herble Baubbletump in
+#   Darkshire never had one (44 merchant windows, 28 people), nor Billibub
+#   Cogspinner in Stormwind (29, 22). No recorded player bought it from a vendor;
+#   four of the eleven whose tube we can place got it at the Stormwind Auction
+#   House. So the Stormwind stop buys it there (optional, #1348), 06-ashenvale's
+#   Ironforge stop offers Gearcutter Cogspinner's in Tinker Town, the one vendor
+#   on the way recorded with one (optional), and Darkshire has no buy (#1792).
 #
 # Class quests at the Stormwind stop (about level 23, at the end of 06-ashenvale since 2026-11-07): Rogues take Mathias and
 # the Defias (2360, Poisons; finished at the end of 05-duskwood), Warlocks

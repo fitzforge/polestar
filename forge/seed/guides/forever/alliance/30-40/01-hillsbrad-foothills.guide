@@ -250,12 +250,6 @@ step Syndicate camp
   accept 510 object 1738              -- Syndicate Documents
   accept 511 object 1738
 
-step Hillsbrad council
-  when onquest 98059
-  zone Hillsbrad Foothills
-  tip Use the Sealed Company Request at the Hillsbrad council.
-  use 279386 quest 98059.1 @29.7,41.7 -- Sealed Company Request
-
 step Hillsbrad Fields
   when onquest 98059
   zone Hillsbrad Foothills
