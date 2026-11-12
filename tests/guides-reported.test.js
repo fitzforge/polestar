@@ -11275,3 +11275,26 @@ test("mutaka's report (#1752): Jungle Secrets from Private Thorsen at the foot o
 	// Without Jungle Secrets nothing of it holds the step: its hand-in is not this character's, Bookie Herod waits on it.
 	assert.deepEqual(Object.values(view).filter((v) => !v.startsWith('accept 215')).map((v) => v.replace(/ (na|skipped)$/, ' passed')), ['turnin 215 passed', 'accept 200 passed']);
 });
+
+// Plan audit D36: the Darkspear Islands bases each have the side's mark taker beside the portal. The Horde Warbringer
+// stands at the Merchant Coast (64.77,35.1, QuestieDB 1.0.14; 23 people met him on the map, 8 opened his window
+// there); the Alliance Brigadier General at Northwatch Hold (63.64,58.64, the npcs correction: 4 people and the
+// collector). The data had neither, so the arrow went to Mor'shan and Refuge Pointe and the tips named those.
+test('Darkspear Islands Reputation: the mark quests point at the Warbringer and the Brigadier General beside each base\'s portal', { skip }, () => {
+	const G = 'forever/reputation/darkspear-islands.guide';
+	const list = goals(G);
+	for (const [npc, quests, x, y] of [
+		[15350, [98887, 98889, 98891, 98893], 64.8, 35.1],
+		[15351, [98895, 98897, 98899, 98901], 63.6, 58.6],
+	]) {
+		const at = list.filter(({ goal }) => (['accept', 'turnin'].includes(goal.t) && quests.includes(goal.quest)) || (goal.t === 'talk' && goal.npc === npc));
+		assert.equal(at.length, 12, `npc ${npc}: 4 accepts, 4 turn-ins and 4 reputation talks`);
+		for (const { goal } of at) {
+			assert.ok(goal.map === 1413 && Math.abs(goal.x - x) < 0.5 && Math.abs(goal.y - y) < 0.5, `npc ${npc} ${goal.t} ${goal.quest || ''}: at the base (${goal.map} ${goal.x},${goal.y})`);
+		}
+	}
+	const src = fs.readFileSync(path.join(OFFICIAL_DIR, G), 'utf8');
+	assert.doesNotMatch(src, /The nearest stand at Mor'shan/);
+	assert.equal((src.match(/One stands here at the Merchant Coast, beside the portal/g) || []).length, 4);
+	assert.equal((src.match(/One stands here at Northwatch Hold, beside the portal/g) || []).length, 4);
+});
