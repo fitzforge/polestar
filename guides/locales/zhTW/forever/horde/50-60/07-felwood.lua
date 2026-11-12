@@ -61,8 +61,8 @@ return {
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "從教徒身上取得腐化的靈魂碎片，{quest:5887}",
 
 	-- Step 13: Maybess Riverbreeze
-	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
-	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回{npc:10922}的路上，到聖地西側把碎片交給{npc:9529}。",
+	-- {npc:9529} Maybess Riverbreeze
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
 
 	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "再次向南前往聖地。",
@@ -156,6 +156,7 @@ return {
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "回到木喉隧道，從{area:618}出口出去；{npc:9298}就在出口外的溫泉旁紮營。",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "飛往{area:431}，沿著道路向西北離開{zone:1440}進入{area:361}。{area:2479}就是過了邊界不遠的德魯伊營地。",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "從{zone:1458}出發，在城外的塔搭飛艇前往{zone:1454}。",
+	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回{npc:10922}的路上，到聖地西側把碎片交給{npc:9529}。",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "僅限你帶著{quest:5087}時：信使們成小群從{area:1769}沿著道路走向{area:2244}；在{npc:9298}附近的路旁等候，趁他們經過時擊殺。每個信使都帶著一個箱子。",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "僅限{npc:9298}給了你{quest:5086}時：沿著{area:361}的道路向北騎往{area:1767}；{quest:5086}在樹林間蠕動。",
 	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "僅限持有30塊{quest:6031}，且木喉聲望為中立時：沿著道路向北前往{area:1769}；{npc:11557}就在入口內交易。",

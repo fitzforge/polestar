@@ -540,14 +540,14 @@ return {
 
 	-- Step 130: Twitching Antennae
 	["Twitching Antennae"] = "颤抖的触角",
-	-- {area:390} Field of Giants · {npc:3387} Jorn Skyseer · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
+	-- {area:390} Field of Giants · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
 	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Creepers = {npc:3250} Silithid Creeper
-	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of {npc:3387}'s thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "触角掉落后十五分钟就会消失：在{area:390}的土丘处击杀异种群居蝎和异种爬行者，就在{npc:3387}要你猎杀的雷鹰南边，收集五根后立刻交给{area:378}的{npc:6394}。\n小心：异种群居蝎（21-22级）无论是否在战斗中都会施放{npc:4196}，召来数只小怪。异种爬行者（20-21级）会在战斗中定期施放{npc:5781}，生成额外小怪。",
+	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of Jorn's thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
 	["Twitching Antennae from the silithid"] = "从异种蝎身上获得颤抖的触角",
 
 	-- Step 131: Camp Taurajo
-	-- {area:378} Camp Taurajo · {npc:3387} Jorn Skyseer · {npc:6394} Ruga Ragetotem
-	["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "返回十字路口途中向北进{area:378}：把雷鹰的翅膀交给{npc:3387}。战士：趁触角还没消失，先找{npc:6394}。",
+	-- {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem
+	["Back north into {area:378} on the way to the Crossroads: Jorn takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "",
 
 	-- Step 132: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
@@ -680,6 +680,7 @@ return {
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。",
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end.\nSunscale raptors here count toward the heads."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。\n这里的赤鳞迅猛龙也算在头的数量里。",
 	-- ["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "沿{area:1076}返回下方：{npc:12816}就在{area:2539}外、进村之前。",
+	-- ["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "返回十字路口途中向北进{area:378}：把雷鹰的翅膀交给{npc:3387}。战士：趁触角还没消失，先找{npc:6394}。",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "回到钢鬃营地。钢鬃地卜师和钢鬃防御者占据营地东半部；{npc:3438}在他们中间走动。",
 	-- ["Back west along the road."] = "沿道路向西返回。",
 	-- ["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "火刃祭司占据{area:14}北部的{area:1898}；它们掉落{item:6652}。{item:5026}在你下次去钢鬃营地时从钢鬃野猪人身上获得。",
@@ -716,6 +717,7 @@ return {
 	-- ["The Razormane camp lies east of the {area:380}. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "钢鬃营地位于{area:380}东边。战士：{object:58369}在营地里。萨满祭司：野猪人掉落{item:5026}。\n注意：箱子在一辆破马车旁，由两个钢鬃野猪人看守，其中包括会把更多野猪人拉进战斗的猎手。",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "草原徘徊者在镇子和东边钢鬃营地之间的平原上狩猎。营地里，钢鬃寻水者和钢鬃织棘者占据西半部，钢鬃猎手在中部；补给箱在营地东端。",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "巫翼杀戮者占据{area:383}西部；戒指在它们身上。",
+	-- ["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of {npc:3387}'s thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "触角掉落后十五分钟就会消失：在{area:390}的土丘处击杀异种群居蝎和异种爬行者，就在{npc:3387}要你猎杀的雷鹰南边，收集五根后立刻交给{area:378}的{npc:6394}。\n小心：异种群居蝎（21-22级）无论是否在战斗中都会施放{npc:4196}，召来数只小怪。异种爬行者（20-21级）会在战斗中定期施放{npc:5781}，生成额外小怪。",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them."] = "海盗在{area:392}南边的海滩上扎营。一堆错综复杂的零件散落在他们之间的沙子里。",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盗在{area:392}南方海滩扎营。复杂零件堆就在营地间的沙地上。\n海盗在{area:392}南方海滩扎营；{npc:3467}站在营地最南端。",
 	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers."] = "水池就在{npc:3389}北边。走进水里即可探索；给赫布瑞姆的丰满的蘑菇长在水池周围。杀死途中的每个科卡尔半人马获取护腕。",
