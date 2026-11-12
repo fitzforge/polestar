@@ -157,7 +157,7 @@ return {
 	["{npc:272}, in the Scarlet Raven Tavern"] = "{npc:272}，在血鸦旅店里",
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
-	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}：六条粘糊糊的蜘蛛腿，{zone:1431}的蜘蛛没接任务也会掉",
+	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}：六条粘糊的蜘蛛腿，{zone:1431}的蜘蛛没接任务也会掉",
 	["Already carrying six? Hand them in now"] = "已经带着六条了？现在就去交掉。",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
 	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "留给{npc:288}：等下一圈回到{zone:1431}的{quest:163}时再交。",
