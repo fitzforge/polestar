@@ -3549,6 +3549,27 @@ fn trainer_button_cancel_buys_nothing_and_the_question_names_what_the_money_does
 	assert_eq!(out[1], json!({ "bought": 0, "money": 150 }));
 }
 
+// The gamepad interface's focus owns the game's dialogs: no Train All button there, and no purchase without the
+// question (read as the addon loads, Core/Init.lua).
+#[test]
+fn trainer_button_with_the_gamepad_interface_is_not_shown_and_nothing_is_bought_without_the_question() {
+	let script = [
+		SPELLS,
+		CONFIRM,
+		r#"
+		q.money = 1000
+		q.openTrainer()
+		local shown = PolestarTrainAllButton:IsShown()
+		Polestar.QoL.Trainer.Confirm()
+		stub.advance(3)
+		emit({ shown = shown, asked = popup() ~= nil, bought = #calls("BuyTrainerService") })
+	"#,
+	]
+	.concat();
+	let pad = run_with(&script, "stub.qol.social.gamepad = true", None);
+	assert_eq!(pad[0], json!({ "shown": false, "asked": false, "bought": 0 }));
+}
+
 // Frame rects from their anchors (stub frames keep their points; the trainer window's layout is the game's,
 // tests/lua/stub_qol.lua).
 const RECT: &str = r#"
