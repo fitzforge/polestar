@@ -36795,6 +36795,244 @@
 			}
 		},
 		"ruRU": {
+			"encounter:3315": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Withermaw"
+			},
+			"encounter:3316": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Impaan the Imprisoner"
+			},
+			"encounter:3322": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Bonesnout the Unbroken"
+			},
+			"encounter:3323": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Blackmaw Behemoth"
+			},
+			"encounter:3327": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Elder Shaman Bloodmane"
+			},
+			"encounter:3334": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Varrox Bleakhoof"
+			},
+			"encounter:3336": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Unbound Spirit"
+			},
+			"encounter:3403": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Overseer Wrex"
+			},
+			"encounter:3409": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Blazeroar"
+			},
+			"encounter:3410": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Tidemistress Ca'zass"
+			},
+			"encounter:3415": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "The Questioner"
+			},
+			"encounter:3418": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Katerina the Cleaner"
+			},
+			"encounter:3449": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nar'gurk"
+			},
+			"encounter:3450": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Slavecrusher Grox"
+			},
+			"encounter:3451": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Overseer Mugg"
+			},
+			"encounter:3452": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Commander Zarmok"
+			},
+			"encounter:3453": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Handler Ashka"
+			},
+			"encounter:3474": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zul'Alai"
+			},
+			"encounter:3475": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Var'Taka"
+			},
+			"encounter:3476": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Captain Dreadrise"
+			},
+			"encounter:3478": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Deathless Guardians"
+			},
+			"encounter:3479": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Min'loth the Serpent"
+			},
+			"encounter:3498": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Titanosaur"
+			},
+			"encounter:3499": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ravasaur Hunters"
+			},
+			"encounter:3500": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Thunderhoof"
+			},
+			"encounter:3501": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Venomridge"
+			},
+			"encounter:3502": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nanaya"
+			},
+			"encounter:3503": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Cinder"
+			},
+			"encounter:3504": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "King Op"
+			},
+			"encounter:3505": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Bolt"
+			},
+			"encounter:3507": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Direhorn Matriarch"
+			},
+			"encounter:3511": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Primeval Elemental"
+			},
+			"encounter:3597": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Snowtalon"
+			},
+			"encounter:3600": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Vitrix"
+			},
 			"npc:210995": {
 				"reason": "no-source",
 				"scenes": [
@@ -36808,6 +37046,14 @@
 					"guides"
 				],
 				"english": "Marcy Baker"
+			},
+			"npc:214456": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Dro'zem the Blasphemous"
 			},
 			"npc:216474": {
 				"reason": "no-source",
@@ -36837,12 +37083,42 @@
 				],
 				"english": "Flesh Picker"
 			},
+			"npc:217836": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Needletooth"
+			},
 			"npc:221269": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Maseara Autumnmoon"
+			},
+			"npc:222243": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Zopilote"
+			},
+			"npc:228619": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Orthas"
+			},
+			"npc:229018": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Rotting Dwarf Corpse"
 			},
 			"npc:246016": {
 				"reason": "no-source",
@@ -36879,6 +37155,85 @@
 				],
 				"english": "Seeking Remnant"
 			},
+			"npc:247195": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Withermaw"
+			},
+			"npc:247198": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Bonesnout the Unbroken"
+			},
+			"npc:247206": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Impaan the Imprisoner"
+			},
+			"npc:247207": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Blackmaw Behemoth"
+			},
+			"npc:247209": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Elder Shaman Bloodmane"
+			},
+			"npc:247231": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Unbound Spirit"
+			},
+			"npc:247234": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Varrox Bleakhoof"
+			},
+			"npc:249238": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Legion Hulk"
+			},
+			"npc:250034": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Tunnelweb Matriarch"
+			},
+			"npc:253201": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Titanosaur"
+			},
+			"npc:253215": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ravasaur Matriarch"
+			},
 			"npc:253370": {
 				"reason": "no-source",
 				"scenes": [
@@ -36886,12 +37241,259 @@
 				],
 				"english": "[DNT] Kill Credit: Place Explosives"
 			},
+			"npc:255391": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Overseer Wrex"
+			},
+			"npc:255702": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Blazeroar"
+			},
+			"npc:255997": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Tidemistress Ca'zass"
+			},
+			"npc:256236": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "The Questioner"
+			},
+			"npc:256410": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Reginald Holmsby"
+			},
+			"npc:256830": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Bannerwing Survivor"
+			},
+			"npc:256892": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Kargra the Blind"
+			},
+			"npc:257016": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Katerina the Cleaner"
+			},
+			"npc:257034": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Mad Marrius"
+			},
+			"npc:258032": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Twilight Forgemaster"
+			},
+			"npc:258905": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zul'Alai"
+			},
+			"npc:258924": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Var'Taka"
+			},
+			"npc:258964": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nar'gurk"
+			},
+			"npc:258966": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Slavecrusher Grox"
+			},
+			"npc:258972": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Commander Zarmok"
+			},
 			"npc:259620": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Lumina Windsinger"
+			},
+			"npc:259758": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Gul'gash"
+			},
+			"npc:259801": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Mosh'gra"
+			},
+			"npc:260042": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Captain Dreadrise"
+			},
+			"npc:260243": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Min'loth the Serpent"
+			},
+			"npc:260353": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Saltseer Coroner"
+			},
+			"npc:260823": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Overseer Myoleth"
+			},
+			"npc:261786": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ironhide Ravasaur"
+			},
+			"npc:261809": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nanaya"
+			},
+			"npc:261812": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Thunderhoof"
+			},
+			"npc:261813": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Venomridge"
+			},
+			"npc:261974": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Cinder"
+			},
+			"npc:261993": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "King Op"
+			},
+			"npc:262081": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Bolt"
+			},
+			"npc:262127": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Direhorn Matriarch"
+			},
+			"npc:262297": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Snowtalon"
+			},
+			"npc:262465": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Daewyn Songblade"
+			},
+			"npc:262681": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ardin Grassman"
+			},
+			"npc:263141": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Scaldaron"
+			},
+			"npc:263886": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Primeval Elemental"
 			},
 			"npc:264079": {
 				"reason": "no-source",
@@ -36928,6 +37530,20 @@
 				],
 				"english": "Gnawed Corpse"
 			},
+			"npc:265701": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Captain Truman"
+			},
+			"npc:266593": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sergeant Danneth"
+			},
 			"npc:271181": {
 				"reason": "no-source",
 				"scenes": [
@@ -36949,12 +37565,27 @@
 				],
 				"english": "Ados"
 			},
+			"npc:272561": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Vitrix"
+			},
 			"npc:277182": {
 				"reason": "same-as-english",
 				"scenes": [
 					"guides"
 				],
 				"english": "Ahab Wheathoof"
+			},
+			"npc:278256": {
+				"reason": "no-source",
+				"scenes": [
+					"lookup",
+					"picker"
+				],
+				"english": "Super Hogger"
 			},
 			"object:175371": {
 				"reason": "same-as-english",
@@ -36997,6 +37628,20 @@
 					"tooltips"
 				],
 				"english": "Adamantite Bound Chest"
+			},
+			"object:424373": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Remnant"
+			},
+			"object:456775": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Remnant"
 			},
 			"object:460001": {
 				"reason": "no-source",
@@ -37177,6 +37822,244 @@
 			}
 		},
 		"zhCN": {
+			"encounter:3315": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Withermaw"
+			},
+			"encounter:3316": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Impaan the Imprisoner"
+			},
+			"encounter:3322": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Bonesnout the Unbroken"
+			},
+			"encounter:3323": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Blackmaw Behemoth"
+			},
+			"encounter:3327": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Elder Shaman Bloodmane"
+			},
+			"encounter:3334": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Varrox Bleakhoof"
+			},
+			"encounter:3336": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Unbound Spirit"
+			},
+			"encounter:3403": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Overseer Wrex"
+			},
+			"encounter:3409": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Blazeroar"
+			},
+			"encounter:3410": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Tidemistress Ca'zass"
+			},
+			"encounter:3415": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "The Questioner"
+			},
+			"encounter:3418": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Katerina the Cleaner"
+			},
+			"encounter:3449": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nar'gurk"
+			},
+			"encounter:3450": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Slavecrusher Grox"
+			},
+			"encounter:3451": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Overseer Mugg"
+			},
+			"encounter:3452": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Commander Zarmok"
+			},
+			"encounter:3453": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Handler Ashka"
+			},
+			"encounter:3474": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zul'Alai"
+			},
+			"encounter:3475": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Var'Taka"
+			},
+			"encounter:3476": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Captain Dreadrise"
+			},
+			"encounter:3478": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Deathless Guardians"
+			},
+			"encounter:3479": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Min'loth the Serpent"
+			},
+			"encounter:3498": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Titanosaur"
+			},
+			"encounter:3499": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ravasaur Hunters"
+			},
+			"encounter:3500": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Thunderhoof"
+			},
+			"encounter:3501": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Venomridge"
+			},
+			"encounter:3502": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nanaya"
+			},
+			"encounter:3503": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Cinder"
+			},
+			"encounter:3504": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "King Op"
+			},
+			"encounter:3505": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Bolt"
+			},
+			"encounter:3507": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Direhorn Matriarch"
+			},
+			"encounter:3511": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Primeval Elemental"
+			},
+			"encounter:3597": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Snowtalon"
+			},
+			"encounter:3600": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Vitrix"
+			},
 			"npc:2756": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -37190,6 +38073,27 @@
 					"guides"
 				],
 				"english": "Sulhasa"
+			},
+			"npc:20735": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Archmage Lan'dalock"
+			},
+			"npc:29049": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Arille Azuregaze"
+			},
+			"npc:31439": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Archmage Timear"
 			},
 			"npc:203079": {
 				"reason": "no-source",
@@ -37269,12 +38173,28 @@
 				],
 				"english": "Koartul"
 			},
+			"npc:211965": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Carrodin"
+			},
 			"npc:214101": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Marcy Baker"
+			},
+			"npc:214456": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Dro'zem the Blasphemous"
 			},
 			"npc:216474": {
 				"reason": "no-source",
@@ -37304,6 +38224,14 @@
 				],
 				"english": "Flesh Picker"
 			},
+			"npc:217836": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Needletooth"
+			},
 			"npc:221269": {
 				"reason": "no-source",
 				"scenes": [
@@ -37320,6 +38248,14 @@
 				],
 				"english": "Doomkin"
 			},
+			"npc:222243": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Zopilote"
+			},
 			"npc:222726": {
 				"reason": "no-source",
 				"scenes": [
@@ -37328,6 +38264,20 @@
 					"slash"
 				],
 				"english": "Tyrant of the Hive"
+			},
+			"npc:228619": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Orthas"
+			},
+			"npc:229018": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Rotting Dwarf Corpse"
 			},
 			"npc:243046": {
 				"reason": "no-source",
@@ -37389,6 +38339,41 @@
 				],
 				"english": "Lyn the Ignored"
 			},
+			"npc:247195": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Withermaw"
+			},
+			"npc:247198": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Bonesnout the Unbroken"
+			},
+			"npc:247206": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Impaan the Imprisoner"
+			},
+			"npc:247207": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Blackmaw Behemoth"
+			},
+			"npc:247209": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Elder Shaman Bloodmane"
+			},
 			"npc:247226": {
 				"reason": "no-source",
 				"scenes": [
@@ -37404,6 +38389,20 @@
 					"guides"
 				],
 				"english": "Daniel"
+			},
+			"npc:247231": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Unbound Spirit"
+			},
+			"npc:247234": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Varrox Bleakhoof"
 			},
 			"npc:247264": {
 				"reason": "no-source",
@@ -37475,6 +38474,30 @@
 				],
 				"english": "Geosculptor Yip"
 			},
+			"npc:249226": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Death Wailer"
+			},
+			"npc:249238": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Legion Hulk"
+			},
+			"npc:250034": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Tunnelweb Matriarch"
+			},
 			"npc:250936": {
 				"reason": "no-source",
 				"scenes": [
@@ -37523,6 +38546,7 @@
 			"npc:252085": {
 				"reason": "no-source",
 				"scenes": [
+					"dungeons",
 					"guides"
 				],
 				"english": "Archmage Celindra"
@@ -37540,6 +38564,20 @@
 					"guides"
 				],
 				"english": "Al'Aketh Stormchaser"
+			},
+			"npc:253201": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Titanosaur"
+			},
+			"npc:253215": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ravasaur Matriarch"
 			},
 			"npc:253279": {
 				"reason": "no-source",
@@ -37590,12 +38628,26 @@
 				],
 				"english": "Vayn Moongaze"
 			},
+			"npc:255391": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Overseer Wrex"
+			},
 			"npc:255699": {
 				"reason": "no-source",
 				"scenes": [
 					"lookup"
 				],
 				"english": "Lordaeron Captain"
+			},
+			"npc:255702": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Blazeroar"
 			},
 			"npc:255853": {
 				"reason": "no-source",
@@ -37612,6 +38664,13 @@
 					"slash"
 				],
 				"english": "Slydris"
+			},
+			"npc:255997": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Tidemistress Ca'zass"
 			},
 			"npc:256028": {
 				"reason": "no-source",
@@ -37630,6 +38689,13 @@
 				],
 				"english": "Shadowgale Shriekling"
 			},
+			"npc:256236": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "The Questioner"
+			},
 			"npc:256247": {
 				"reason": "no-source",
 				"scenes": [
@@ -37643,6 +38709,14 @@
 					"guides"
 				],
 				"english": "Tamelyn Aldridge"
+			},
+			"npc:256410": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Reginald Holmsby"
 			},
 			"npc:256492": {
 				"reason": "no-source",
@@ -37674,6 +38748,37 @@
 				],
 				"english": "Huey Sunnydale"
 			},
+			"npc:256830": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Bannerwing Survivor"
+			},
+			"npc:256892": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Kargra the Blind"
+			},
+			"npc:257016": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Katerina the Cleaner"
+			},
+			"npc:257034": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Mad Marrius"
+			},
 			"npc:257196": {
 				"reason": "no-source",
 				"scenes": [
@@ -37689,6 +38794,13 @@
 				],
 				"english": "Teo Hammerstorm"
 			},
+			"npc:257591": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ashe Amberhall"
+			},
 			"npc:257808": {
 				"reason": "no-source",
 				"scenes": [
@@ -37702,6 +38814,14 @@
 					"guides"
 				],
 				"english": "Elegael Thornpaw"
+			},
+			"npc:258032": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Twilight Forgemaster"
 			},
 			"npc:258043": {
 				"reason": "no-source",
@@ -37730,6 +38850,41 @@
 					"guides"
 				],
 				"english": "Hervdana Saegrund"
+			},
+			"npc:258905": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zul'Alai"
+			},
+			"npc:258924": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Var'Taka"
+			},
+			"npc:258964": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nar'gurk"
+			},
+			"npc:258966": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Slavecrusher Grox"
+			},
+			"npc:258972": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Commander Zarmok"
 			},
 			"npc:259013": {
 				"reason": "no-source",
@@ -37811,6 +38966,136 @@
 				],
 				"english": "Tarnished Drudge"
 			},
+			"npc:259758": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Gul'gash"
+			},
+			"npc:259801": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Mosh'gra"
+			},
+			"npc:260042": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Captain Dreadrise"
+			},
+			"npc:260243": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Min'loth the Serpent"
+			},
+			"npc:260353": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Saltseer Coroner"
+			},
+			"npc:260823": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Overseer Myoleth"
+			},
+			"npc:261786": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ironhide Ravasaur"
+			},
+			"npc:261809": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nanaya"
+			},
+			"npc:261812": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Thunderhoof"
+			},
+			"npc:261813": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Venomridge"
+			},
+			"npc:261974": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Cinder"
+			},
+			"npc:261993": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "King Op"
+			},
+			"npc:262081": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Bolt"
+			},
+			"npc:262127": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Direhorn Matriarch"
+			},
+			"npc:262297": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Snowtalon"
+			},
+			"npc:262465": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Daewyn Songblade"
+			},
+			"npc:262681": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ardin Grassman"
+			},
+			"npc:263141": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Scaldaron"
+			},
 			"npc:263399": {
 				"reason": "no-source",
 				"scenes": [
@@ -37818,6 +39103,13 @@
 					"guides"
 				],
 				"english": "Sam Sarsaparilla"
+			},
+			"npc:263886": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Primeval Elemental"
 			},
 			"npc:264072": {
 				"reason": "no-source",
@@ -37876,6 +39168,13 @@
 				],
 				"english": "Earthseer Farsen"
 			},
+			"npc:265701": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Captain Truman"
+			},
 			"npc:265756": {
 				"reason": "no-source",
 				"scenes": [
@@ -37896,6 +39195,13 @@
 					"guides"
 				],
 				"english": "Lord Tomas"
+			},
+			"npc:266593": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sergeant Danneth"
 			},
 			"npc:266901": {
 				"reason": "no-source",
@@ -38085,6 +39391,13 @@
 				],
 				"english": "Perith Stormhoof"
 			},
+			"npc:272561": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Vitrix"
+			},
 			"npc:273017": {
 				"reason": "no-source",
 				"scenes": [
@@ -38238,6 +39551,14 @@
 				],
 				"english": "Ahab Wheathoof"
 			},
+			"npc:278256": {
+				"reason": "no-source",
+				"scenes": [
+					"lookup",
+					"picker"
+				],
+				"english": "Super Hogger"
+			},
 			"object:2845": {
 				"reason": "no-source",
 				"scenes": [
@@ -38309,6 +39630,20 @@
 					"guides"
 				],
 				"english": "Shattered Orb"
+			},
+			"object:424373": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Remnant"
+			},
+			"object:456775": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Remnant"
 			},
 			"object:460004": {
 				"reason": "no-source",
