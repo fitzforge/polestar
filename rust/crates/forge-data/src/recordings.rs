@@ -20,6 +20,7 @@
 //! count as `local` and enUS.
 
 use std::collections::VecDeque;
+use std::hash::Hash;
 use std::path::Path;
 
 use forge_guide::js::{cmp_utf16, parse_json, stringify, Obj, V};
@@ -679,11 +680,11 @@ struct Overlay<'a> {
 	factions_seen: IndexMap<i64, IndexSet<String>>,
 	faction_parent: IndexMap<i64, Ballot>,
 	faction_side: IndexMap<i64, Ballot>,
-	// finds, counted per player (one player's numbers never pool with another's)
-	kills: FxHashMap<i64, IndexMap<String, f64>>,
-	windows: [FxHashMap<i64, IndexMap<String, f64>>; 2],
-	/// source -> item -> player -> loot windows holding the item.
-	loots: [IndexMap<i64, IndexMap<i64, IndexMap<String, f64>>>; 2],
+	// finds, counted per player index (`ci`; one player's numbers never pool with another's)
+	kills: FxHashMap<i64, IndexMap<usize, f64>>,
+	windows: [FxHashMap<i64, IndexMap<usize, f64>>; 2],
+	/// source -> item -> player index -> loot windows holding the item.
+	loots: [IndexMap<i64, IndexMap<i64, IndexMap<usize, f64>>>; 2],
 	found: [IndexMap<i64, ByMap>; 2],
 	killed: IndexMap<i64, ByMap>,
 	rank: IndexMap<i64, Ballot>,
@@ -1173,14 +1174,14 @@ impl<'a> Overlay<'a> {
 					return true;
 				}
 				let k = k_ix(kind);
-				let who = self.voter.clone();
-				*self.windows[k].entry(id).or_default().entry(who.clone()).or_insert(0.0) += 1.0;
+				let ci = self.ci;
+				*self.windows[k].entry(id).or_default().entry(ci).or_insert(0.0) += 1.0;
 				let mut seen: IndexSet<i64> = IndexSet::new();
 				for i in &list {
 					seen.insert(pos_int(&i.get("item")).unwrap());
 				}
 				for item in seen {
-					*self.loots[k].entry(id).or_default().entry(item).or_default().entry(who.clone()).or_insert(0.0) += 1.0;
+					*self.loots[k].entry(id).or_default().entry(item).or_default().entry(ci).or_insert(0.0) += 1.0;
 					self.item_entry(item, &V::Undef);
 				}
 				self.loots[k].entry(id).or_default();
@@ -1241,7 +1242,7 @@ impl<'a> Overlay<'a> {
 			push_point(&mut self.killed, npc, &c);
 		}
 		if !ev.get("denied").truthy() {
-			*self.kills.entry(npc).or_default().entry(self.voter.clone()).or_insert(0.0) += 1.0;
+			*self.kills.entry(npc).or_default().entry(self.ci).or_insert(0.0) += 1.0;
 		}
 	}
 
@@ -1320,7 +1321,7 @@ impl<'a> Overlay<'a> {
 					if !it.truthy() {
 						continue;
 					}
-					let Some(dc) = drop_chance(&of_by, n_by, self.min) else { continue };
+					let Some(dc) = drop_chance(&of_by, n_by, self.min, |c| self.contributors[*c].clone()) else { continue };
 					if !it.get("drops").truthy() {
 						let d = Obj::new();
 						d.set("npc", Obj::new());
@@ -1564,8 +1565,8 @@ pub(crate) struct DropChance {
 }
 
 /// Each player's kills of the source (or loot windows, the more of the two), or its loot windows
-/// of an object.
-pub(crate) fn drop_samples(npc: bool, windows: Option<&IndexMap<String, f64>>, kills: Option<&IndexMap<String, f64>>) -> IndexMap<String, f64> {
+/// of an object. `K` keys a player: the data build's player index, the Codex snapshot's own.
+pub(crate) fn drop_samples<K: Eq + Hash + Clone>(npc: bool, windows: Option<&IndexMap<K, f64>>, kills: Option<&IndexMap<K, f64>>) -> IndexMap<K, f64> {
 	let mut of_by = windows.cloned().unwrap_or_default();
 	if npc {
 		for (who, &n) in kills.into_iter().flatten() {
@@ -1578,14 +1579,14 @@ pub(crate) fn drop_samples(npc: bool, windows: Option<&IndexMap<String, f64>>, k
 
 /// From [`MIN_KILLS`] of their own, `min` players (or a vouched one) make a trusted chance that
 /// replaces another source's; otherwise the chance only fills a gap. Either way it is the median
-/// of each player's chance.
-pub(crate) fn drop_chance(of_by: &IndexMap<String, f64>, n_by: &IndexMap<String, f64>, min: usize) -> Option<DropChance> {
-	let all: Vec<&String> = of_by.iter().filter(|(_, of)| **of > 0.0).map(|(c, _)| c).collect();
-	let strong: Vec<&String> = all.iter().copied().filter(|c| of_by[*c] >= MIN_KILLS).collect();
-	let backers: IndexSet<String> = strong.iter().map(|c| (*c).clone()).collect();
+/// of each player's chance. `name` gives the player a key stands for ([`trusted`] reads names).
+pub(crate) fn drop_chance<K: Eq + Hash>(of_by: &IndexMap<K, f64>, n_by: &IndexMap<K, f64>, min: usize, name: impl Fn(&K) -> String) -> Option<DropChance> {
+	let all: Vec<&K> = of_by.iter().filter(|(_, of)| **of > 0.0).map(|(c, _)| c).collect();
+	let strong: Vec<&K> = all.iter().copied().filter(|c| of_by[*c] >= MIN_KILLS).collect();
+	let backers: IndexSet<String> = strong.iter().map(|c| name(c)).collect();
 	let trust = trusted(&backers, min);
 	let group = if trust { strong } else { all };
-	let n_of = |c: &&String| n_by.get(*c).copied().unwrap_or(0.0);
+	let n_of = |c: &&K| n_by.get(*c).copied().unwrap_or(0.0);
 	let chance = median(group.iter().map(|c| 100.0 * n_of(c) / of_by[*c]).collect());
 	if chance.is_nan() || chance <= 0.0 {
 		return None;

@@ -139,7 +139,7 @@ pub fn snapshot(recs: &Recordings) -> V {
 			for (item, by) in &l.items {
 				let e = Obj::new();
 				e.set("voters", by.len());
-				let chance = drop_chance(&of_by, by, min_voters).filter(|dc| dc.trusted).map(|dc| V::Num(dc.chance)).unwrap_or(V::Null);
+				let chance = drop_chance(&of_by, by, min_voters, |w| w.clone()).filter(|dc| dc.trusted).map(|dc| V::Num(dc.chance)).unwrap_or(V::Null);
 				e.set("chance", chance);
 				its.set(&item.to_string(), V::Obj(e));
 			}
@@ -378,7 +378,7 @@ mod tests {
 		}"#);
 		let (zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"));
 		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances };
-		apply_recordings(&db, &recs.list, recs.min_voters, DEFAULTS, &|_| false, false);
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false);
 
 		let s = |v: &V| stringify(v, None);
 		for (npc, expected) in [("1501", 25.0), ("1502", 20.0)] {
