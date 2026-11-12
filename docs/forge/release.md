@@ -56,7 +56,8 @@ extras, names a local-only source, or names ForeverLevelingBiS (a Codex built be
 when an addon's TOC is missing; when our guides or the experimental guides have errors (its
 `pack.json` is checked as a community pack's: no `Polestar_` folder, and it must give the id
 `polestar-experimental` and the author Polestar); when a leveling guide changed since its
-legs were baked (`guides/legs.json`: it would ship without legs; each such guide is named); or
+legs were baked, or `guides/legs.json` has no legs for it (either way it would ship without legs; each
+such guide is named); or
 without reference data (`forge data build`). A TOC or pack.json whose version is not `package.json`'s
 is a warning.
 
@@ -122,6 +123,17 @@ fetched with the GitHub CLI (`gh`, logged in):
   `duplicate`, `invalid`, `wontfix` or `resolution:*`, still labelled `needs-info` or `stale`, or a
   feature request (`enhancement` without `bug`).
 
+Without GitHub it adds:
+
+- the translators: every locale's `translators` in `rust/crates/forge-guide/src/locales.rs` (kept
+  equal to `tools/lib/i18n/locales.js`), in the locales' order, each with its locale and its
+  `language` (English), which the page shows through the interface strings (`forge i18n sync` adds
+  the languages as keys), so a translator added there shows on the next run;
+- the ideas: `data/credits.json` `ideas`, people whose idea shipped though someone else built it,
+  `{ "name": "<login or name>", "ref": <pull request or issue number> }`, in the order they shipped;
+  the page shows each name with `#<ref>`.
+
 Bots, names with no letter or digit, and the logins and names in `exclude` are left out (the
 maintainer's login and Discord name, and anyone who asked not to be listed); `names` maps a login or
-Discord name to the name shown, and two names that differ only in case are one person.
+Discord name to the name shown, and two names that differ only in case are one person. `exclude` and
+`names` apply to the translators and the ideas too.

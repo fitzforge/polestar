@@ -608,6 +608,24 @@
 		},
 		"note": "In Search of Thaelrid (Dawnwatcher Shaedlass, Darnassus; Blackfathom Deeps) is Alliance-only: the quest's giver and chain are Alliance-only in the game's data, and its follow-up Blackfathom Villainy (1200) already allows only the Alliance, while Horde characters take their own Blackfathom Villainy (6561) from Argent Guard Thaelrid inside. The merged data had no race limit, so Blackfathom Deeps' pick-up guide sent Horde characters to Darnassus. Issue #1026."
 	},
+	"1301": {
+		"set": {
+			"excl": [
+				1282
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "conditions (quest available): 1301 needs 1282 not rewarded; quest_template_addon: 1282 and 1302 ExclusiveGroup 1282"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1643: with They Call Him Smiling Jim handed in, Connor Rivers did not offer James Hyal"
+			}
+		],
+		"note": "James Hyal (Connor Rivers, Stormwind) is not offered once They Call Him Smiling Jim (1282) is handed in: the world DB offers 1301 only while 1282 is not rewarded, and a player who had handed in 1282 found Connor Rivers without it. Both roads end in Theramore's Foothold Citadel, and the game's data puts 1282 and James Hyal's second part (1302) in one exclusive group. The merged data had no exclusion on 1301, so the guide still asked for it."
+	},
 	"1471": {
 		"set": {
 			"races": 146

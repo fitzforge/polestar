@@ -12,7 +12,7 @@
 //   instanceMapsOf(mapRows, areaRows)  Map (+ AreaTable) CSV rows -> [ { id, name, raid, players, area,
 //                                      areas: [areaIds], inner: [areaIds on the map itself], zones: [areaIds], corpse: { c, x, y } | null } ]
 //   zonePoint(frames, c, wx, wy, prefer) world point -> { map, x, y, f } on a zone frame
-//   buildJournal(inputs, codex)        -> { meta, dungeons: { key: Page } }
+//   buildJournal(inputs, codex)        -> { meta, marks: { A, H } (marksOf), dungeons: { key: Page } }
 //   emitJournal(journal)               -> [ { name: 'Dungeons1.lua', text } ]
 //
 // Inputs: `inputs` as tools/lib/codex/build.js loadInputs returns it
@@ -628,8 +628,9 @@ function buildJournal(inputs = {}, codex = {}) {
 		if (p.entrance) entrances++;
 	}
 	const meta = { schema: SCHEMA, counts: { dungeons: Object.keys(dungeons).length, quests, entrances, attunements } };
+	const marks = marksOf(dungeons, codex.quests || {}, (inputs.forever || {}).quests || {});
 	// warnings: the attunement table's goals and the journal-quests table's rows the Codex lacks (codex build reports them).
-	return { meta, dungeons, warnings: [...pageWarnings, ...att.warnings] };
+	return { meta, marks, dungeons, warnings: [...pageWarnings, ...att.warnings] };
 }
 
 // ---------------------------------------------------------------------------
@@ -686,10 +687,86 @@ const HEADER = [
 	'',
 ];
 
+// The dungeon marks (Polestar/Dungeons/Mark.lua), per side: every page quest of
+// the side, and the MARK_NEAREST nearest quests before it that the side may
+// take, as "id:key" (a dungeon's own quest), "id:key:quest" (needed for that
+// page quest) or "id:key:quest:b" (a breadcrumb that leads to it, or to a
+// quest before it), ";"-separated. Nearest: breadth-first from the page quest
+// through its prerequisites as chainOf reads them (the Codex's pre, preAny;
+// Forever's pre, preAll, preAny, breadcrumbs), in list order, each quest once;
+// a breadcrumb counts but its own prerequisites don't. Not the page's capped
+// chain: chainOf keeps the farthest quests first and drops the nearest past
+// CHAIN_MAX. A dungeon's own quest keeps its mark over a prerequisite's; a
+// prerequisite of several keeps the first dungeon's, lowest minLevel first
+// (then name, key); page quests in page order. The Rust build's marks_of
+// (forge-data codex/journal.rs) is the same.
+const MARK_NEAREST = 3;
+function marksOf(dungeons, cq = {}, fq = {}) {
+	const lv = (p) => (typeof p.minLevel === 'number' ? p.minLevel : 99);
+	const keys = Object.keys(dungeons || {}).sort((a, b) => {
+		const pa = dungeons[a], pb = dungeons[b];
+		return lv(pa) - lv(pb) || (String(pa.name) < String(pb.name) ? -1 : String(pa.name) > String(pb.name) ? 1 : 0) || (a < b ? -1 : a > b ? 1 : 0);
+	});
+	const sideOf = (f) => ({ A: 'A', Alliance: 'A', H: 'H', Horde: 'H' })[f] || null;
+	const before = (id) => {
+		const c = cq[id] || {}, f = fq[id] || {};
+		const list = [c.pre, f.pre, f.preAll, c.preAny, f.preAny].flatMap((l) => (l || []).map((x) => [x, false]));
+		return list.concat((f.breadcrumbs || []).map((x) => [x, true]));
+	};
+	const side = (sd) => {
+		const takes = (f) => !sideOf(f) || sideOf(f) === sd;
+		const out = [];
+		const seen = new Set();
+		for (const k of keys) {
+			for (const q of dungeons[k].quests || []) {
+				const id = String(q.id);
+				if (takes(q.faction) && !seen.has(id)) {
+					seen.add(id);
+					out.push(`${id}:${k}`);
+				}
+			}
+		}
+		for (const k of keys) {
+			for (const q of dungeons[k].quests || []) {
+				if (!takes(q.faction)) continue;
+				const qid = String(q.id);
+				const walked = new Set([qid]);
+				const taken = [];
+				let frontier = [qid];
+				while (taken.length < MARK_NEAREST && frontier.length) {
+					const next = [];
+					level: for (const at of frontier) {
+						for (const [pre, crumb] of before(at)) {
+							const id = String(pre);
+							if (walked.has(id)) continue;
+							walked.add(id);
+							const r = cq[id] || fq[id];
+							if (!r || !takes(r.faction)) continue;
+							taken.push([id, crumb]);
+							if (taken.length >= MARK_NEAREST) break level;
+							if (!crumb) next.push(id);
+						}
+					}
+					frontier = next;
+				}
+				for (const [id, crumb] of taken) {
+					if (seen.has(id)) continue;
+					seen.add(id);
+					out.push(crumb ? `${id}:${k}:${qid}:b` : `${id}:${k}:${qid}`);
+				}
+			}
+		}
+		return out.join(';');
+	};
+	return { A: side('A'), H: side('H') };
+}
+
 function emitJournal(journal) {
 	const lines = [...HEADER];
 	const meta = journal.meta || { schema: SCHEMA, counts: {} };
 	lines.push(`D.Register("meta", ${lua(meta)})`, '');
+	const marks = journal.marks || {};
+	lines.push(`D.Register("marks", { A = ${luaStr(marks.A || '')}, H = ${luaStr(marks.H || '')} })`, '');
 	const keys = Object.keys(journal.dungeons || {}).sort();
 	lines.push('D.Register("dungeon", {');
 	for (const k of keys) lines.push(`${luaKey(k)}=${lua(summaryOf(journal.dungeons[k]))},`);
@@ -703,4 +780,4 @@ function emitJournal(journal) {
 	return [{ name: 'Dungeons1.lua', text: lines.join('\n') }];
 }
 
-module.exports = { instanceMapsOf, zonePoint, chainOf, objectivesOf, buildJournal, emitJournal, loadJournalQuests, SCHEMA };
+module.exports = { instanceMapsOf, zonePoint, chainOf, objectivesOf, buildJournal, emitJournal, marksOf, loadJournalQuests, SCHEMA };

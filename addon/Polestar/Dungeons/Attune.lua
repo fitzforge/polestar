@@ -20,8 +20,8 @@
 --   Dungeons.Attune(key, id) -> guideId | nil, reason    -- builds, registers and opens it
 --
 -- Guide: one stop per quest still to do (Lookup.QuestStep, with the open
--- prerequisites Lookup.QuestChain finds that the list lacks, each noting the
--- quests of the list it is needed for: Dungeons.OpensNote), after the
+-- prerequisites Lookup.QuestChain finds that the list lacks, each saying under
+-- its accept the quests of the list it is needed for: Dungeons.MarkOpens), after the
 -- steps it waits on, each whole: its accept, objectives and turn-in, also
 -- when the giver, a target or the turn-in is inside an instance (the Codex's
 -- NPC instance, else the attunement's cited `inside`): sent to that
@@ -360,8 +360,8 @@ function Dungeons.AttuneGuide(key, id)
 		local stop = stops[si]
 		extras((stop.index or 1) - 1)
 		local step = Lk.QuestStep(stop.rec, stop.inP or from, { inside = inside })
-		-- A quest the list lacks says which of its quests it opens (Dungeons.OpensNote).
-		if stop.opens then step.note = Dungeons.OpensNote(stop.opens, false, step.note) end
+		-- A quest the list lacks says which of its quests it opens (Dungeons.MarkOpens).
+		if stop.opens then Dungeons.MarkOpens(step, stop.rec.id, stop.opens, false) end
 		steps[#steps + 1] = step
 	end
 	extras(#st.steps)

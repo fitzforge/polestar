@@ -175,11 +175,14 @@ fn run(style: &str, script: &str) -> Value {
 // own read and called only through securecallfunction, as it is meant for addons. Nav/Pins.lua's viewRect reads
 // where the scroll frame (the canvas's parent) and the canvas sit on screen (GetParent, GetLeft, GetTop,
 // GetRight, GetBottom, GetEffectiveScale) to draw the objective areas only around what the view shows (#1622).
+// Maps/WorldMap.lua's info bar lists the map's own child frames (GetChildren) to keep its text clear of the buttons
+// in the view's bottom corners, reading only their size, place and visibility, again only when the scroll frame's
+// size (GetSize) changed.
 fn reads() -> Value {
 	json!({
-		"WorldMapFrame": ["AddCanvasClickHandler", "GetCanvas", "GetCanvasScale", "GetCanvasZoomPercent", "GetGlobalAlpha", "GetGlobalPinScale", "GetMapID",
+		"WorldMapFrame": ["AddCanvasClickHandler", "GetCanvas", "GetCanvasScale", "GetCanvasZoomPercent", "GetChildren", "GetGlobalAlpha", "GetGlobalPinScale", "GetMapID",
 			"GetNormalizedCursorPosition", "GetPinFrameLevelsManager", "HasZoomLevels", "IsCanvasMouseFocus", "IsShown", "ScrollContainer"],
-		"WorldMapFrame.ScrollContainer": ["GetBottom", "GetEffectiveScale", "GetFrameLevel", "GetLeft", "GetRight", "GetTop"],
+		"WorldMapFrame.ScrollContainer": ["GetBottom", "GetEffectiveScale", "GetFrameLevel", "GetLeft", "GetRight", "GetSize", "GetTop"],
 		"WorldMapFrame.canvas": ["GetEffectiveScale", "GetHeight", "GetLeft", "GetParent", "GetTop", "GetWidth"],
 		"WorldMapFrame.pinFrameLevelsManager": ["GetValidFrameLevel"],
 		"BattlefieldMapFrame": ["GetCanvas", "GetCanvasScale", "GetCanvasZoomPercent", "GetGlobalAlpha", "GetGlobalPinScale", "GetMapID",

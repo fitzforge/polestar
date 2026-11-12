@@ -29,7 +29,8 @@ dist/Polestar_Recorder-<version>.zip and dist/SHA256SUMS (the format `sha256sum 
 taken from package.json. Polestar/ in the zip also carries LICENSE and README.txt (install steps),
 Polestar_Recorder/ the LICENSE. The Codex must be built first (forge data codex) from release-safe inputs:
 pack stops on a missing Codex or a local-extras one. The baked legs must be current: pack stops on a
-guide that changed since its legs were baked (guides/legs.json), naming each, unless --bake bakes them.
+guide that changed since its legs were baked (guides/legs.json), or a leveling guide legs.json has no
+legs for, naming each, unless --bake bakes them.
 An error in the experimental guides stops it too; without experimental/pack.json the folder is left out.
 
 Given another pack (<dir>, --pack, or run inside one): builds it with our guides as context, then writes
@@ -223,17 +224,21 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 	let data = load_project_data(data_dir, &mut data_diag)?;
 	let opts = || BuildOpts { include_drafts: false, context: None, force: false };
 	let mut built = build_pack(root, &guides, &manifest, Vec::new(), &data, data_diag, opts())?;
-	// Stale legs would ship as no legs at all for those guides: refuse, or bake them (--bake) and build again.
-	if !built.project.stale_legs.is_empty() && !built.project.diag.has_errors() {
+	// Stale or unbaked legs would ship as no legs at all for those guides: refuse, or bake them (--bake)
+	// and build again.
+	if (!built.project.stale_legs.is_empty() || !built.project.unbaked_legs.is_empty()) && !built.project.diag.has_errors() {
 		let stale = std::mem::take(&mut built.project.stale_legs);
+		let unbaked = std::mem::take(&mut built.project.unbaked_legs);
 		if !args.iter().any(|a| a == "--bake") {
 			print_errors(&built.project.diag.sorted());
-			return Err(stale_refusal(&guides, &stale).into());
+			return Err(stale_refusal(&guides, &stale, &unbaked).into());
 		}
-		rebake(args, root, &guides, data_dir, &stale)?;
+		let all: Vec<String> = stale.into_iter().chain(unbaked).collect();
+		rebake(args, root, &guides, data_dir, &all)?;
 		built = build_pack(root, &guides, &manifest, Vec::new(), &data, Diagnostics::new(), opts())?;
-		if !built.project.stale_legs.is_empty() {
-			return Err(format!("still stale after the bake: {}", built.project.stale_legs.join(", ")).into());
+		let left: Vec<String> = built.project.stale_legs.iter().chain(&built.project.unbaked_legs).cloned().collect();
+		if !left.is_empty() {
+			return Err(format!("still without current legs after the bake: {}", left.join(", ")).into());
 		}
 	}
 	let diag = built.project.diag;
@@ -288,12 +293,21 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 	Ok(())
 }
 
-/// The refusal for guides whose baked legs are stale, naming each.
-fn stale_refusal(guides: &Path, stale: &[String]) -> String {
+/// The refusal for guides whose baked legs are stale or missing, naming each.
+fn stale_refusal(guides: &Path, stale: &[String], unbaked: &[String]) -> String {
 	let legs = guides.join(forge::bake::LEGS_FILE);
-	let mut s = format!("{} changed since {} was baked; the zip would ship them without legs (the arrow searches instead of following them):\n", plural(stale.len(), "guide"), shown(&legs));
-	for id in stale {
-		s.push_str(&format!("  {id}\n"));
+	let mut s = String::new();
+	if !stale.is_empty() {
+		s.push_str(&format!("{} changed since {} was baked; the zip would ship them without legs (the arrow searches instead of following them):\n", plural(stale.len(), "guide"), shown(&legs)));
+		for id in stale {
+			s.push_str(&format!("  {id}\n"));
+		}
+	}
+	if !unbaked.is_empty() {
+		s.push_str(&format!("{} {} no legs in {}; the zip would ship them without legs:\n", plural(unbaked.len(), "leveling guide"), if unbaked.len() == 1 { "has" } else { "have" }, shown(&legs)));
+		for id in unbaked {
+			s.push_str(&format!("  {id}\n"));
+		}
 	}
 	s.push_str("bake them: forge release pack --bake --grid <dir> --leffe <dir>, on the maps legs.json names");
 	s

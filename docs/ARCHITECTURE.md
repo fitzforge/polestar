@@ -116,6 +116,7 @@ chosen guide, and manual check-offs; losing it must degrade gracefully.
 local h = Polestar.On(msg, fn)   -- fn(...) ; returns handle
 Polestar.Off(h)
 Polestar.Fire(msg, ...)
+Polestar.Dispatching() -> bool   -- a message is being handed out (one of its handlers runs): Polestar.API refuses calls from there
 Polestar.RegisterEvent(event, fn)    -- game events, one shared hidden frame; fn(event, ...)
 Polestar.UnregisterEvent(event, fn)
 ```
@@ -337,8 +338,11 @@ the game's error handler: wrapping it would shift the stack the game and
 and `ADDON_ACTION_FORBIDDEN` (the addon blamed, then the function) go to
 `NoteBlocked`, which keeps those blaming Polestar or a `Polestar_*` addon
 with the addon, how often and the time it last came (`%H:%M:%S`), so a
-report on a broken gamepad or button does not read "Errors: none". `seq`,
-one counter for both lists, says which came last.
+report on a broken gamepad or button does not read "Errors: none". Each also
+says where: the first line of ours on the stack (the event fires inside the
+blocked call), or, with none of ours on it, "via <function> <file:line>": the
+blocked C function and the game's own line that called it, tainted by ours
+earlier. `seq`, one counter for both lists, says which came last.
 
 OnUpdate scripts and timer callbacks are run by the client, not the bus:
 each goes through `Polestar.Safe` / `Polestar.After`, so their errors are
@@ -785,6 +789,17 @@ Polestar.RegisterGuideTexts(locale, packId, { pack = {...}, guides = { [id] = {.
   Starblaze) reads as the author's words there.
 - `Data.CheckInstall` checks the client's language folder once, for our
   pack's texts and the names alike: never missing, named when its version differs.
+
+### Polestar.API — calls other addons build on
+
+`Core/API.lua` holds `Polestar.API.version` (1) and `API.ReplaceSteps`.
+[docs/API.md](API.md) lists every call another addon may rely on, with its
+arguments, returns and messages, and the version rule; most of them live in
+their modules (`Lookup.RegisterPlanner`, `Lookup.BuildGuide`,
+`RegisterGuide`, `Engine.SetGuide`, Compat's quest state, `On`/`Off`).
+forge-addontest's `api.rs` pins that page (it loads Core and Lookup only, so
+none of the calls may need the guide window): a change that breaks one of
+them raises the version and says so on that page and in the changelog.
 
 ### Compat — the client's game data goes through here
 
@@ -1265,12 +1280,14 @@ window, Lookup and the Engine's tabs ("Tabs", absent guides).
 
 ```lua
 Polestar.Guides.Get(id) -> guide | nil
+Polestar.Guides.ReplaceSteps(id, steps) -> guide | nil, reason   -- Engine.ReplaceSteps' registry part: the steps checked and prepared as at registration, in a new table with the guide's other fields as registered (no baked legs), for the session; Polestar's own guides refused
 Polestar.Guides.List() -> { header, ... }   -- header = guide without steps, plus stepCount
 Polestar.Guides.Suggestions() -> { id, ... } -- the leveling guides of the suggestion source (Guides.SuggestSource) for the player's faction/race/class/level, best first; ours fill in where it has none; none fits: the nearest upcoming one alone
 Polestar.Guides.Suggest() -> id | nil       -- the first of Suggestions()
 
 Polestar.Engine.GetGuide() -> guide | nil
 Polestar.Engine.SetGuide(id)                -- persists CharState().guide, recomputes, fires GUIDE_CHANGED
+Polestar.Engine.ReplaceSteps(id, steps) -> true | false, reason   -- Polestar.API.ReplaceSteps: the guide takes `steps` in place, in its tab; done steps before the live step that the list leaves out stay in front (Own.stepsKept); ticks, skips, `when` outcomes and the view go with their steps by step key (Own.remap with the old steps' goals); the live step is found again, not placed afresh; GUIDE_CHANGED once while its tab is active
 Polestar.Engine.GetStepIndex() -> i | nil
 Polestar.Engine.GetStepCount() -> n
 Polestar.Engine.GetStepView(i) -> view | nil
@@ -1855,11 +1872,20 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   version of the chain, whose own the data does not list (the paladin
   charger's Emphasis on Sacrifice names the Human's Lord Grayson
   Shadowbreaker, not the Dwarf's). So does one the guide does not turn in
-  for the character that the player holds, unless they skipped it: another
-  giver's version of a breadcrumb the guide takes elsewhere, handed in at
-  the same NPC (a Tauren Shaman's Call of Water from Thunder Bluff where the
-  Barrens takes Orgrimmar's: Islen's next part stays open, not "Requires
-  Call of Water first", #1372). A child quest's `accept` (`parent`: Valik,
+  for the character that the player holds, unless they skipped it, when a
+  step of the guide for the character stands at an NPC or object the Codex
+  says takes it in (or the Codex cannot say): another giver's version of a
+  breadcrumb the guide takes elsewhere, handed in at the same NPC (a Tauren
+  Shaman's Call of Water from Thunder Bluff where the Barrens takes
+  Orgrimmar's: Islen's next part stays open, not "Requires Call of Water
+  first", #1372). A held prerequisite the route never takes the player to
+  hand in marks its follow-up "Hand in X to <ender> first" (a Night Elf in
+  Darkshore holding Washed Ashore, whose steps there are for the other
+  races), and so does one still in the log whose hand-in step the player
+  skipped ("Requires X first" stays for a quest not in the log, or one
+  skipped with Skip this quest); the catch-up plan (below) may put a cheap
+  local hand-in of it in,
+  and never leaves such a follow-up out. A child quest's `accept` (`parent`: Valik,
   offered only while Infiltration is in the log, #1661) is closed for good
   the same way once its parent is handed in (reason `"closed"`, "Only
   before <parent> is handed in"), and marked `"pre"` ("Only with <parent>
@@ -2010,7 +2036,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   asking, whatever `behavior.lostQuests` says, with the chat line.
 - **Room in the quest log** (`Core/RoutePlan.lua`; nothing is ever
   abandoned for the player). `RoutePlan.Unneeded()` lists the log's quests
-  the selected route never hands in (`GetTurnIn` status `missed`, `skipped`
+  no open route hands in (`GetTurnIn` status `missed`, `skipped`
   or `unplanned`) and the grey ones it doesn't hand in in this chapter
   (status `grey`, which also replaces those three: `Compat.IsQuestTrivial`
   on `Compat.GetQuestLevel`, the client's `GetQuestDifficultyLevel`, at the
@@ -2023,6 +2049,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the route's quest work marks `carriedTo` a later guide (the compiler's,
   GUIDE_FORMAT.md "Quests carried to a later guide") is status `later` at
   that guide even where the plan cannot reach it, never `unplanned`.
+  `GetTurnIn` asks the active tab's route first; a quest it doesn't hand in
+  ahead is status `other` (`via` that route's status) when another open
+  tab's route hands it in (`Engine.TabLiveSteps`: each tab's guide and live
+  step), or when it is a page quest of a dungeon whose pick-up or hand-in
+  guide is open in a tab (`dungeon`: what `Dungeons.HandinPlan` turns in
+  after the run; read only while the dungeon data is loaded). So a
+  dungeon's pick-up guide in the active tab never lists the dungeon's
+  quests or the leveling guide's (#1830). With no route handing it in, a
+  route still to settle makes the list nil; else the status is a passed or
+  skipped hand-in's, the leveling routes' first. The routes are built when
+  asked and kept until a tab, guide, route choice or pack changes.
   `RoutePlan.LogOverflow()` is
   `{ take, free, drop }` when the live step's open accepts outnumber the
   free slots (`Compat.GetLogCap`: the client's `GetMaxNumQuestsCanAccept`,
@@ -2049,9 +2086,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Guides.GuideMatches`: faction, race, class), the accept's `only` or the
   database's faction, race and class not matching, a quest one of its own
   `closedBy`/`excl` already closed,
-  and other versions of `q` (the same title). On `QUEST_DETAIL` (not a quest
-  the game accepted itself) the setting prints "Taking <quest> closes <quests>
-  for good." and Automation leaves that accept to the player.
+  and other versions of `q` (the same title). `Closes.Missed(q, title, npc)`
+  drops from that list what leaves nothing to miss at NPC `npc`: a quest
+  handed in to that NPC (the accept's `endNpcs`, else the database's finish:
+  a breadcrumb to where the player stands) or worth no XP (`xp` 0). On
+  `QUEST_DETAIL` (not a quest the game accepted itself) with anything left,
+  the setting prints "Taking <quest> closes <quests> for good. Decline to
+  keep it, or click Accept to skip it.", each closed quest with what its
+  guide accept tells (its giver, the distance to the giver's point on this
+  continent, its XP at the player's level), and Automation leaves that
+  accept to the player; with nothing left it says nothing and holds nothing.
 - **What a quest unlocks** (`Core/Unlocks.lua`, the guide window's quest
   tooltips). `Unlocks.For(q)` lists `q`'s follow-ups for this character: the
   guide accepts whose `pre`/`preAll` names `q`, across every shown guide
@@ -3353,7 +3397,10 @@ from map percent times the canvas size, and the map is only read through
 field or works one out, writing nothing; not `GetViewRect`, which caches) and
 the canvas's `GetWidth` / `GetHeight`; Maps' info bar also reads
 `GetNormalizedCursorPosition`, `IsCanvasMouseFocus` and `ScrollContainer`
-(to sit at its foot), and Pins the canvas's `GetLeft`, `GetTop` and
+(to sit at its foot) and `GetChildren` (the size, place and visibility of
+the map's own buttons in the view's bottom corners, the game's quest log
+toggle among them, to keep its text clear of them: listed as the map opens
+or changes size, never hooked), and Pins the canvas's `GetLeft`, `GetTop` and
 `GetEffectiveScale` and the gamepad cursor's place (`SoftCursor:IsShown`,
 `GetCenter`, `GetEffectiveScale`). Frames on the canvas carry no field the client's code
 reads on the frames it finds there (`owningMap` on the mouse focus,
@@ -6326,11 +6373,13 @@ Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
 `UI/Thanks.lua`: three columns, the top supporter, the top contributor and the
 top bug reporter on podiums, each over its list (the contributors' merged pull
 requests and the bug reporters' confirmed or fixed reports as bare counts, named
-in the list's note), from `Core/Credits.lua`, generated by `forge release credits` from
+in the list's note), then two halves, the translators (each beside its
+language, shown through L) and the ideas (each with its pull request or issue),
+from `Core/Credits.lua`, generated by `forge release credits` from
 `data/credits.json` (Ko-fi supporters in rank order, no amounts; the page
 names them only, with no donation link or request, per Blizzard's add-on
-policy rule 5), the merged pull requests on GitHub and its issues (the top 40
-reporters; which reports count: docs/forge/release.md); `UI.Thanks.HeaderLink` puts "Special thanks
+policy rule 5; and the `ideas`), the merged pull requests on GitHub and its issues (the top 40
+reporters; which reports count: docs/forge/release.md) and the locales' `translators`; `UI.Thanks.HeaderLink` puts "Special thanks
 to: <name>", a name drawn anew at each open, at the top right of the hub's
 and the options' headers, opening the page), Recorder, About. The options window
 declares every tab and section of the module-filled pages, in order, and the
@@ -6590,15 +6639,23 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   page in the hub), **Later** and **Turn these off**
   (`dungeons.headsUp` off; also under Options > Discovery > Dungeons). It
   tells a dungeon, not a raid, with quests for the character's faction, the
-  character's level in its range, whose pickup plan by the offer rule
+  character's level at or past the dungeon's best-at level
+  (`Dungeons.BestAt`; the Dungeons window still picks its quests up from the
+  range's start) and inside its range, whose pickup plan by the offer rule
   (`Dungeons.PickupPlan(key, true)`: a quest more than one level above the
   character waits for its level less one, `Dungeons.OfferLevel`; 0.3.7, the
   game gives many 3-5 levels early) has a quest to take now
-  and none left for later levels or at least 3 to take; once per dungeon per
-  character (`CharState().dungeonToastSeen`, set once the card is on screen
+  and none left for later levels or at least 3 to take, and whose quests to
+  take now are worth at least a tenth of a level to the character
+  (`MIN_WORTH`, `Levels.Run`; not judged when one's XP is unknown); once per dungeon per
+  character (`CharState().dungeonToastSeen[key] = true`, set once the card is on screen
   or dismissed: a card waiting for the hidden guide window is told when the
-  window shows it); of several, the one that came due last (its range's
-  start or its first quest's offer level). Its **Pick up the quests** opens
+  window shows it). A card dismissed with **Later** below best-at (one the
+  command showed) is `"later"` and comes back once at best-at; on a
+  character's first check with the Codex loaded, dungeons told before the
+  best-at rule whose best-at it hasn't reached become `"later"` too
+  (`CharState().dungeonToastBestAt` marks it done). Of several, the one that
+  came due last (its best-at level or its first quest's offer level). Its **Pick up the quests** opens
   the guide by the same rule (`Dungeons.PickUp(key, true)`, kept in
   `CharState().pickupOffer` for the rebuild after /reload); the page's own
   button picks up everything the game gives. It checks 1.5 s after `PLAYER_LEVEL_UP`, so the class quest
@@ -7354,7 +7411,17 @@ Polestar.Gamepad.HasWindow() -> bool                        -- a Polestar window
   matches names and search tags, never the section, so each has
   `searchTags="BINDING_TAG_POLESTAR"` (`"Polestar"`, set in Core/Commands.lua
   and the Recorder's Panel.lua). Bindings are saved by name, so moving the
-  section keeps every key. Nothing is bound unasked. A chord
+  section keeps every key. Nothing is bound unasked. A binding goes into the
+  binding set in use (`SaveBindings(GetCurrentBindingSet())`: the account's
+  or the character's). With the gamepad interface on, its own binding
+  context is active (`Enum.BindingContext.GamepadModeInGameCore`, turned on
+  by Blizzard_Gamepad's Core.lua) and what it binds on a button runs in
+  place of the default context's binding: a gamepad button is bound, listed
+  (`G.BindingKeys`: that context's buttons first, then the default
+  context's keys it leaves free) and unbound there, and the default
+  context's buttons (the keyboard and mouse interface's) stay as they are
+  (#688). The quest buttons' key labels and the rare card read the same
+  list (`Buttons.BindingKey`). A chord
   (`"PADLSHOULDER+PADDUP"`) is Polestar's own, in
   `PolestarDB.gamepad.chords[action]` (account-wide, outside the settings,
   so "Reset all settings" keeps it), never bound: while chords exist and a

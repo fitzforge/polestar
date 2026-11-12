@@ -627,11 +627,11 @@ do
 					title = "{area:87}",
 					note = "Follow the road west back to {area:87}.",
 					goals = {
-						{ t = "accept", quest = 1685, title = "Gakin's Summons", npc = 6121, npcName = "Remen Marcot", minLevel = 10, qlvl = 10, closedBy = { 1715 }, preTitles = { [1715] = "The Slaughtered Lamb" }, map = 1429, x = 44.5, y = 66.3, z = 49.9, f = "e", only = { classes = { "WARLOCK" } }, note = "{npc:6121}: {npc:6122} in {zone:1453} takes it" },
-						{ t = "accept", quest = 2998, title = "Tome of Divinity", npc = 927, npcName = "Brother Wilhelm", minLevel = 12, qlvl = 12, closedBy = { 3681 }, preTitles = { [3681] = "Tome of Divinity" }, map = 1429, x = 41.1, y = 66, z = 57.7, f = "e", only = { classes = { "PALADIN" } }, note = "{npc:927}: {npc:6171} in {zone:1453} takes it" },
-						{ t = "accept", quest = 5635, title = "Desperate Prayer", npc = 377, npcName = "Priestess Josetta", minLevel = 10, qlvl = 10, closedBy = { 5634, 5636, 5637, 5638, 5639, 5640 }, preTitles = { [5634] = "Desperate Prayer", [5636] = "Desperate Prayer", [5637] = "Desperate Prayer", [5638] = "Desperate Prayer", [5639] = "Desperate Prayer", [5640] = "Desperate Prayer" }, map = 1429, x = 43.3, y = 65.7, z = 63.9, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:377}: {npc:376} in {zone:1453} takes both" },
+						{ t = "accept", quest = 1685, title = "Gakin's Summons", npc = 6121, npcName = "Remen Marcot", minLevel = 10, qlvl = 10, closedBy = { 1715 }, endNpcs = { 6122 }, preTitles = { [1715] = "The Slaughtered Lamb" }, map = 1429, x = 44.5, y = 66.3, z = 49.9, f = "e", only = { classes = { "WARLOCK" } }, note = "{npc:6121}: {npc:6122} in {zone:1453} takes it" },
+						{ t = "accept", quest = 2998, title = "Tome of Divinity", npc = 927, npcName = "Brother Wilhelm", minLevel = 12, qlvl = 12, closedBy = { 3681 }, endNpcs = { 6171 }, preTitles = { [3681] = "Tome of Divinity" }, map = 1429, x = 41.1, y = 66, z = 57.7, f = "e", only = { classes = { "PALADIN" } }, note = "{npc:927}: {npc:6171} in {zone:1453} takes it" },
+						{ t = "accept", quest = 5635, title = "Desperate Prayer", npc = 377, npcName = "Priestess Josetta", minLevel = 10, qlvl = 10, closedBy = { 5634, 5636, 5637, 5638, 5639, 5640 }, endNpcs = { 376 }, preTitles = { [5634] = "Desperate Prayer", [5636] = "Desperate Prayer", [5637] = "Desperate Prayer", [5638] = "Desperate Prayer", [5639] = "Desperate Prayer", [5640] = "Desperate Prayer" }, map = 1429, x = 43.3, y = 65.7, z = 63.9, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:377}: {npc:376} in {zone:1453} takes both" },
 						{ t = "accept", quest = 94774, only = { classes = { "PRIEST" } } },
-						{ t = "accept", quest = 1860, title = "Speak with Jennea", npc = 328, npcName = "Zaldimar Wefhellt", minLevel = 10, qlvl = 10, closedBy = { 1879 }, map = 1429, x = 43.2, y = 66.2, z = 63.9, f = "e", only = { classes = { "MAGE" } }, note = "{npc:328}: {npc:5497} in {zone:1453} takes it" },
+						{ t = "accept", quest = 1860, title = "Speak with Jennea", npc = 328, npcName = "Zaldimar Wefhellt", minLevel = 10, qlvl = 10, closedBy = { 1879 }, endNpcs = { 5497 }, map = 1429, x = 43.2, y = 66.2, z = 63.9, f = "e", only = { classes = { "MAGE" } }, note = "{npc:328}: {npc:5497} in {zone:1453} takes it" },
 						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[12], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
@@ -666,7 +666,7 @@ do
 					only = { classes = { "MAGE" } },
 					goals = {
 						{ t = "turnin", quest = 1860, title = "Speak with Jennea", npc = 5497, npcName = "Jennea Cannon", map = 1453, x = 38.6, y = 79.3, z = 29.7, f = "e" },
-						{ t = "accept", quest = 1861, title = "Mirror Lake", npc = 5497, npcName = "Jennea Cannon", minLevel = 10, qlvl = 10, closedBy = { 1880 }, map = 1453, x = 38.6, y = 79.3, z = 29.7, f = "e" },
+						{ t = "accept", quest = 1861, title = "Mirror Lake", npc = 5497, npcName = "Jennea Cannon", minLevel = 10, qlvl = 10, closedBy = { 1880 }, endNpcs = { 5497 }, map = 1453, x = 38.6, y = 79.3, z = 29.7, f = "e" },
 					},
 				},
 				{

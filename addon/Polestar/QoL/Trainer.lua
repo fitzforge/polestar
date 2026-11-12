@@ -136,11 +136,69 @@ function Trainer.Start(fromAuto)
 	buyNext()
 end
 
+-- What a Train All click learns now, as buyNext picks them (in list order
+-- while the money lasts): how many and their cost, then how many more are
+-- left and what they would cost.
+function Trainer.Plan(money)
+	local count, cost, short, shortCost = 0, 0, 0, 0
+	for i = 1, GetNumTrainerServices() do
+		local name, kind, _, _, rank = GetTrainerServiceInfo(i)
+		local k = keyOf(name, rank)
+		if kind == "available" and k and not bought[k] then
+			local c = GetTrainerServiceCost(i) or 0
+			if c <= money then
+				count, cost, money = count + 1, cost + c, money - c
+			else
+				short, shortCost = short + 1, shortCost + c
+			end
+		end
+	end
+	return count, cost, short, shortCost
+end
+
+-- Coins as the game shows them (gold, silver, copper icons).
+local function coins(copper)
+	if GetCoinTextureString then return GetCoinTextureString(copper) end
+	return QoL.Money(copper)
+end
+
+-- A Train All click asks first, with what it would learn and its cost;
+-- Accept starts the purchases, Cancel buys nothing. With nothing affordable
+-- there is nothing to confirm: the run only says what the rest would cost.
+-- Never with the gamepad interface (its focus owns the game's dialogs): the
+-- button is not shown there, and nothing is bought without the question.
+local CONFIRM = "POLESTAR_TRAIN_ALL"
+function Trainer.Confirm()
+	if active then return end
+	local count, cost, short, shortCost = Trainer.Plan(Client.Money())
+	if count == 0 then
+		Trainer.Start()
+		return
+	end
+	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) then return end
+	StaticPopupDialogs[CONFIRM] = StaticPopupDialogs[CONFIRM] or {
+		text = "%s",
+		button1 = ACCEPT,
+		button2 = CANCEL,
+		OnAccept = function() Trainer.Start() end,
+		timeout = 0,
+		whileDead = false,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+	local text = format(count == 1 and L["Learn %d skill for %s?"] or L["Learn %d skills for %s?"], count, coins(cost))
+	if short > 0 then
+		text = text .. "\n" .. format(L["Not enough money for %d more (%s)."], short, coins(shortCost))
+	end
+	StaticPopup_Show(CONFIRM, text)
+end
+
 -- The Train All button on the trainer window; not while Polestar is hidden
--- (POLESTAR_HIDDEN puts it back).
+-- (POLESTAR_HIDDEN puts it back), nor with the gamepad interface (its click
+-- asks in a game dialog).
 updateTrainerButton = function()
 	if not trainerButton or not ClassTrainerFrame then return end
-	if not QoL.On("trainAllButton") or not isClassTrainer() or ns.Hidden() then
+	if not QoL.On("trainAllButton") or not isClassTrainer() or ns.Hidden() or ns.GamepadUI() then
 		trainerButton:Hide()
 		return
 	end
@@ -159,11 +217,11 @@ local function initTrainerButton()
 	if not ClassTrainerFrame or trainerButton then return end
 	local btn = ns.CreateFrameUnder("Button", "PolestarTrainAllButton", ClassTrainerFrame, "UIPanelButtonTemplate")
 	btn:SetSize(80, 22)
-	if ClassTrainerTrainButton then
-		btn:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -2, 0)
-	else
-		btn:SetPoint("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT", -120, 54)
-	end
+	-- The top row, beside the trainer's filter menu (TOPRIGHT -13, -35,
+	-- 100 x 18, its gamepad hint 8 + 18 left of it) and level with it:
+	-- across the window from the Train button (bottom right) and the
+	-- player's money (bottom left).
+	btn:SetPoint("TOPRIGHT", ClassTrainerFrame, "TOPRIGHT", -147, -33)
 	btn:SetText(L["Train All"])
 
 	btn:SetScript("OnEnter", function(self)
@@ -188,9 +246,7 @@ local function initTrainerButton()
 	end)
 
 	btn:SetScript("OnClick", function()
-		if not active then
-			Trainer.Start()
-		end
+		Trainer.Confirm()
 	end)
 
 	if hooksecurefunc and ClassTrainerFrame_Update then
@@ -217,6 +273,7 @@ function Trainer.OnClosed()
 	end
 	finish()
 	if trainerButton then trainerButton:Hide() end
+	if StaticPopup_Hide and not ns.GamepadUI() then StaticPopup_Hide(CONFIRM) end
 end
 
 ns.RegisterEvent("ADDON_LOADED", function(_, name)

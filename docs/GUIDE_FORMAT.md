@@ -914,13 +914,22 @@ goal, first match wins:
    `kill` of an npc of rank 1–3 hostile to a side the goal applies to, or a
    `collect` whose every located dropper is one: `{ kind = "elite", rank, lvl }`
    (`lvl`: the elites' highest level, when known; "Elite: group advised", "Rare elite: group advised", "Boss: group
-   advised").
+   advised");
+4. an object's work among elites: an `interact` with `quest`, or a `collect`
+   with `quest` of an item only objects give, where at least half of the
+   object's spawn points (every one) have an elite of rank 1–3 hostile to a
+   side the goal applies to within 40 yards (not one of no side that gives or
+   takes a quest or has a role: a friendly NPC whose side the data lacks; not
+   one above level 63): `{ kind = "elite", rank, lvl, near = true }`, said the
+   same way. Lookup's quest objectives get the same mark from the Codex build.
 
 The instances come from the Forever client's `Map.csv`, `AreaTable.csv` and
 `UiMapAssignment.csv` in the `sources` folder beside the data folder
 (`data/sources/wago/<build>/` for `data/forever`; `data build` and `codex
-build` cache them). Without them only `group [N]` and elite work apply. The
-guide's `group = true` is set when any goal that is not `optional` has `group`.
+build` cache them). Without them only `group [N]`, elite work and an object's
+work among elites apply. The guide's `group = true` is set when any goal that
+is not `optional` has `group`, other than an object's work among elites
+(`near`: the step says so; the guide is no group guide for it).
 
 ## Escort quests
 

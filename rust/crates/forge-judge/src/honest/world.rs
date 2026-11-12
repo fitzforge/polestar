@@ -411,6 +411,9 @@ pub struct World<'c, 'd> {
 	pub worked: Vec<Worked>,
 	/// Items an `optional` collect asked for: an optional accept they start is the same player's.
 	pub opt_collected: FxHashSet<Id>,
+	/// Quests the chain hands in `direct` (non-legacy): never in the log, so R3 takes their objective items
+	/// as obtainable without them.
+	pub direct: FxHashSet<Id>,
 	pub findings: Vec<Finding>,
 	pub step: String,
 	pub pos_step: String,
@@ -441,6 +444,7 @@ impl<'c, 'd> World<'c, 'd> {
 			travelled: None,
 			worked: Vec::new(),
 			opt_collected: FxHashSet::default(),
+			direct: FxHashSet::default(),
 			findings: Vec::new(),
 			step: String::new(),
 			pos_step: String::new(),

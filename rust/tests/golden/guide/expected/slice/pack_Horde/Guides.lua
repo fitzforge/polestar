@@ -114,7 +114,7 @@ do
 					only = { classes = { "WARRIOR" }, races = { "Tauren" } },
 					goals = {
 						{ t = "turnin", quest = 1505, title = "Veteran Uzzek", npc = 5810, npcName = "Uzzek", map = 1413, x = 61.4, y = 21.1, z = 27.3, f = "e" },
-						{ t = "accept", quest = 1498, title = "Path of Defense", npc = 5810, npcName = "Uzzek", minLevel = 10, qlvl = 10, closedBy = { 1819 }, map = 1413, x = 61.4, y = 21.1, z = 27.3, f = "e" },
+						{ t = "accept", quest = 1498, title = "Path of Defense", npc = 5810, npcName = "Uzzek", minLevel = 10, qlvl = 10, closedBy = { 1819 }, endNpcs = { 5810 }, map = 1413, x = 61.4, y = 21.1, z = 27.3, f = "e" },
 					},
 				},
 				{
@@ -598,7 +598,7 @@ do
 					note = "{npc:5887} stands just outside the {area:364}.",
 					only = { classes = { "SHAMAN" } },
 					goals = {
-						{ t = "accept", quest = 1516, title = "Call of Earth", npc = 5887, npcName = "Canaga Earthcaller", minLevel = 4, qlvl = 4, closedBy = { 1519 }, map = 1411, x = 42.4, y = 69.2, z = 38.2, f = "e" },
+						{ t = "accept", quest = 1516, title = "Call of Earth", npc = 5887, npcName = "Canaga Earthcaller", minLevel = 4, qlvl = 4, closedBy = { 1519 }, endNpcs = { 5887 }, map = 1411, x = 42.4, y = 69.2, z = 38.2, f = "e" },
 					},
 				},
 				{
@@ -843,11 +843,11 @@ do
 						{ t = "accept", quest = 840, title = "Conscript of the Horde", npc = 3336, npcName = "Takrin Pathseeker", minLevel = 10, qlvl = 12, map = 1411, x = 50.8, y = 43.6, z = 11.8, f = "e" },
 						{ t = "accept", quest = 837, title = "Encroachment", npc = 3139, npcName = "Gar'Thok", minLevel = 6, qlvl = 10, map = 1411, x = 51.9, y = 43.5, z = 17.6, f = "e" },
 						{ t = "train", class = true, zone = 1411, candidates = { candidateRecords[10], candidateRecords[9], candidateRecords[12], candidateRecords[11], candidateRecords[13], candidateRecords[14], candidateRecords[3], candidateRecords[1], candidateRecords[4], candidateRecords[6], candidateRecords[5], candidateRecords[2], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[23], candidateRecords[21] } },
-						{ t = "accept", quest = 1505, title = "Veteran Uzzek", npc = 3169, npcName = "Tarshaw Jaggedscar", minLevel = 10, qlvl = 10, closedBy = { 1818 }, map = 1411, x = 54.2, y = 42.5, z = 9.7, f = "e", only = { classes = { "WARRIOR" } } },
+						{ t = "accept", quest = 1505, title = "Veteran Uzzek", npc = 3169, npcName = "Tarshaw Jaggedscar", minLevel = 10, qlvl = 10, closedBy = { 1818 }, endNpcs = { 5810 }, map = 1411, x = 54.2, y = 42.5, z = 9.7, f = "e", only = { classes = { "WARRIOR" } } },
 						{ t = "accept", quest = 2983, title = "Call of Fire", npc = 3173, npcName = "Swart", minLevel = 10, qlvl = 10, map = 1411, x = 54.4, y = 42.6, z = 10.6, f = "e", only = { classes = { "SHAMAN" } } },
 						{ t = "accept", quest = 6062, title = "Taming the Beast", npc = 3171, npcName = "Thotar", minLevel = 10, qlvl = 10, pre = { 6068, 6069, 6070 }, preTitles = { [6068] = "The Hunter's Path", [6069] = "The Hunter's Path", [6070] = "The Hunter's Path" }, map = 1411, x = 51.8, y = 43.5, z = 11.7, f = "e", only = { classes = { "HUNTER" } } },
-						{ t = "accept", quest = 1506, title = "Gan'rul's Summons", npc = 3294, npcName = "Ophek", minLevel = 10, qlvl = 10, closedBy = { 1478 }, map = 1411, x = 54.4, y = 41.3, z = 10.9, f = "e", only = { classes = { "WARLOCK" } }, note = "{npc:3294}, by the inn" },
-						{ t = "accept", quest = 5654, title = "Hex of Weakness", npc = 3706, npcName = "Tai'jin", minLevel = 10, qlvl = 10, closedBy = { 5652, 5655, 5656, 5657 }, preTitles = { [5652] = "Hex of Weakness", [5655] = "Hex of Weakness", [5656] = "Hex of Weakness", [5657] = "Hex of Weakness" }, map = 1411, x = 54.3, y = 42.9, z = 10.6, f = "e", only = { classes = { "PRIEST" }, races = { "Troll" } }, note = "{npc:3706}, for {npc:6018} in {zone:1454}: keep it" },
+						{ t = "accept", quest = 1506, title = "Gan'rul's Summons", npc = 3294, npcName = "Ophek", minLevel = 10, qlvl = 10, closedBy = { 1478 }, endNpcs = { 5875 }, map = 1411, x = 54.4, y = 41.3, z = 10.9, f = "e", only = { classes = { "WARLOCK" } }, note = "{npc:3294}, by the inn" },
+						{ t = "accept", quest = 5654, title = "Hex of Weakness", npc = 3706, npcName = "Tai'jin", minLevel = 10, qlvl = 10, closedBy = { 5652, 5655, 5656, 5657 }, endNpcs = { 6018 }, preTitles = { [5652] = "Hex of Weakness", [5655] = "Hex of Weakness", [5656] = "Hex of Weakness", [5657] = "Hex of Weakness" }, map = 1411, x = 54.3, y = 42.9, z = 10.6, f = "e", only = { classes = { "PRIEST" }, races = { "Troll" } }, note = "{npc:3706}, for {npc:6018} in {zone:1454}: keep it" },
 					},
 				},
 				{
@@ -906,7 +906,7 @@ do
 					note = "{npc:3193}'s hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}.",
 					goals = {
 						{ t = "accept", quest = 816, title = "Lost But Not Forgotten", npc = 3193, npcName = "Misha Tor'kren", minLevel = 8, qlvl = 11, map = 1411, x = 43.1, y = 30.2, z = 18.8, f = "e" },
-						{ t = "collect", quest = 816, title = "Lost But Not Forgotten", item = 4891, itemName = "Kron's Amulet", oi = 1, map = 1411, x = 35.2, y = 30.1, z = 19.5, f = "e", spotsPacked = "35,29.1,,44,3;34.3,36,,44,2;35.1,39.2,19.5,44,1;34,46.1,17.2,73,6;34,51.5,,61,6,,12;34.8,55,,50,4;35.7,58.2,,44,2;36.7,61.7,,44,2;37.5,67.1,,44,2;38.2,70.7,,44,2;36.2,22,,56,5;37,16.5,,44,2;34.4,32.3,15.8,44,1,1;34.9,25.8,15.5,52,6,1,12", spread = true, lvl = 11, fromNpcs = { { npc = 3110, npcName = "Dreadmaw Crocolisk" }, { npc = 3231, npcName = "Corrupted Dreadmaw Crocolisk" } } },
+						{ t = "collect", quest = 816, title = "Lost But Not Forgotten", item = 4891, itemName = "Kron's Amulet", oi = 1, map = 1411, x = 35.2, y = 30.1, z = 19.5, f = "e", spotsPacked = "35,29.1,,44,3;34.3,36,,44,2;35.1,39.2,19.5,44,1;34,46.1,17.2,73,6;34,51.5,,61,6,,12;34.8,55,,50,4;35.7,58.2,,44,2;36.7,61.7,,44,2;37.5,67.1,,44,2;38.2,70.7,,44,2;36.2,22,,56,5;37,16.5,,44,2;34.4,32.3,15.8,44,1,1;34.9,25.8,15.5,52,6,1,12", spread = true, lvl = 11, from = "Dreadmaw Crocolisk", fromKind = "npc", fromAlso = "Corrupted Dreadmaw Crocolisk", fromId = 3110, fromAlsoId = 3231, fromNpcs = { { npc = 3110, npcName = "Dreadmaw Crocolisk" }, { npc = 3231, npcName = "Corrupted Dreadmaw Crocolisk" } } },
 						{ t = "turnin", quest = 816, title = "Lost But Not Forgotten", npc = 3193, npcName = "Misha Tor'kren", map = 1411, x = 43.1, y = 30.2, z = 18.8, f = "e" },
 					},
 				},
@@ -953,7 +953,7 @@ do
 					only = { classes = { "WARLOCK" } },
 					goals = {
 						{ t = "turnin", quest = 1506, title = "Gan'rul's Summons", npc = 5875, npcName = "Gan'rul Bloodeye", map = 1454, x = 48.2, y = 45.3, z = -14.8, f = "e" },
-						{ t = "accept", quest = 1501, title = "Creature of the Void", npc = 5875, npcName = "Gan'rul Bloodeye", minLevel = 10, qlvl = 11, closedBy = { 1473 }, map = 1454, x = 48.2, y = 45.3, z = -14.8, f = "e" },
+						{ t = "accept", quest = 1501, title = "Creature of the Void", npc = 5875, npcName = "Gan'rul Bloodeye", minLevel = 10, qlvl = 11, closedBy = { 1473 }, endNpcs = { 5875 }, map = 1454, x = 48.2, y = 45.3, z = -14.8, f = "e" },
 					},
 				},
 				{
@@ -1057,7 +1057,7 @@ do
 						{ t = "turnin", quest = 840, title = "Conscript of the Horde", npc = 3337, npcName = "Kargal Battlescar", map = 1413, x = 62.3, y = 19.4, z = 27.2, f = "e" },
 						{ t = "accept", quest = 842, title = "Crossroads Conscription", npc = 3337, npcName = "Kargal Battlescar", minLevel = 10, qlvl = 12, pre = { 840 }, preTitles = { [840] = "Conscript of the Horde" }, map = 1413, x = 62.3, y = 19.4, z = 27.2, f = "e" },
 						{ t = "turnin", quest = 1505, title = "Veteran Uzzek", npc = 5810, npcName = "Uzzek", map = 1413, x = 61.4, y = 21.1, z = 27.3, f = "e", only = { classes = { "WARRIOR" } } },
-						{ t = "accept", quest = 1498, title = "Path of Defense", npc = 5810, npcName = "Uzzek", minLevel = 10, qlvl = 10, closedBy = { 1819 }, map = 1413, x = 61.4, y = 21.1, z = 27.3, f = "e", only = { classes = { "WARRIOR" } } },
+						{ t = "accept", quest = 1498, title = "Path of Defense", npc = 5810, npcName = "Uzzek", minLevel = 10, qlvl = 10, closedBy = { 1819 }, endNpcs = { 5810 }, map = 1413, x = 61.4, y = 21.1, z = 27.3, f = "e", only = { classes = { "WARRIOR" } } },
 					},
 				},
 				{

@@ -2,6 +2,7 @@
 //! test binary each, which cost a link per file).
 #![recursion_limit = "512"]
 mod alts;
+mod api;
 mod automation;
 #[path = "automation-accept-off.rs"]
 mod automation_accept_off;
@@ -215,6 +216,8 @@ mod locale_load;
 mod lookup;
 #[path = "lookup-codex.rs"]
 mod lookup_codex;
+#[path = "lookup-elites.rs"]
+mod lookup_elites;
 #[path = "lookup-guides.rs"]
 mod lookup_guides;
 #[path = "lookup-tooltip-performance.rs"]
