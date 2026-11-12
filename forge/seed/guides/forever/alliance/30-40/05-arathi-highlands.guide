@@ -335,7 +335,7 @@ step Ruins of Alterac: kill these as you meet them
   tip Careful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.
   tip The Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up.
   collect 3658 quest 540.1            -- Recovered Tome: Crushridge ogres
-  collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase; inside
+  collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase, beside Muckrake (40, elite): get it with a group, or abandon Preserving Knowledge; inside
 
 step Ruins of Alterac: kill these as you meet them
   when group 543

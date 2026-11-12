@@ -11417,3 +11417,35 @@ test(`${WETLANDS}: #1866: the Tome of Mel'Thandris is read on the later moonwell
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
 	assert.ok(fixes.deliberate.pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'turnin,1055' && `${p.b}` === 'task,1022'), 'a record the build keeps');
 });
+
+// Fyurie's report (#1791): Solution to Doom's Ancient Chest (126260, one spawn) lies just inside Uldaman's cave
+// mouth, 17-18 yd from Magregan Deepshadow and the Obsidian Golems (38, elite), where a level 39 warrior met them on
+// the solo route. Recordings: 2 people looted it (a rogue and a druid, both able to stealth), and the rogue died at
+// the chest. The quest is asked as a group quest in both Badlands 30-40 guides, accept to turn-in and the follow-up,
+// and the chest's goal says "Elite: group advised" (the compiler's object-among-elites rule, #1778).
+test("Fyurie's report (#1791): Solution to Doom is a group quest in the Badlands, its chest marked elite", { skip }, () => {
+	for (const [guide, next] of [
+		['forever/alliance/30-40/06-badlands.guide', 727],
+		['forever/horde/30-40/06-badlands.guide', 728],
+	]) {
+		const mine = goals(guide).filter(({ goal }) => goal.quest === 709 || (goal.t === 'accept' && goal.quest === next));
+		assert.deepEqual(mine.map(({ goal }) => `${goal.t} ${goal.quest}`), ['accept 709', 'collect 709', 'turnin 709', `accept ${next}`], `${guide}: accepted, done, handed in, then the follow-up`);
+		for (const { step, goal } of mine) {
+			assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(709) && !p.neg), `${guide}: ${goal.t} ${goal.quest} is under when group 709`);
+		}
+		const chest = mine.find(({ goal }) => goal.t === 'collect').goal;
+		assert.deepEqual(chest.group, { kind: 'elite', rank: 1, lvl: 38, near: true }, `${guide}: the chest's goal says the elites`);
+	}
+});
+
+// The #1791 sweep: Alas, Andorhal's shard (105) comes from Araj's Phylactery at Araj the Summoner's feet, a level
+// 61 elite among elite Skeletal Warlords, and the Horde 50-60 route sent every character there. It is asked as a
+// group quest, accept to turn-in.
+test('the #1791 sweep: Alas, Andorhal is a group quest on the Horde 50-60 route', { skip }, () => {
+	const guide = 'forever/horde/50-60/06-silithus.guide';
+	const mine = goals(guide).filter(({ goal }) => goal.quest === 105);
+	assert.deepEqual(mine.map(({ goal }) => goal.t), ['accept', 'collect', 'turnin']);
+	for (const { step, goal } of mine) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(105) && !p.neg), `${goal.t} 105 is under when group 105`);
+	}
+});

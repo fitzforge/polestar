@@ -5076,12 +5076,19 @@
 				"quest": 709,
 				"goal": "accept"
 			},
-			"tip": "Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals.",
-			"note": "Horde 30-40 audit (2026-11-09): Theldurin the Lost (2785) at 51.39,76.87, just east of the slabs' Rock Elementals.",
-			"source": {
-				"kind": "pfquest",
-				"ref": "npcs.json 2785"
-			}
+			"tip": "Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals. His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.",
+			"note": "Horde 30-40 audit (2026-11-09): Theldurin the Lost (2785) at 51.39,76.87, just east of the slabs' Rock Elementals. #1791: Solution to Doom (709) is a group quest (route-fixes deliberate.group 709): its Ancient Chest (126260) lies just inside Uldaman's cave mouth, 17-18 yd from Magregan Deepshadow (2932) and the Obsidian Golems (4872), elite 38.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2785; objects.json 126260 at Badlands 39.34,18.82; npcs.json 2932, 4872 rank 1 level 38 beside it"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-11: 2 people looted the Ancient Chest, both stealth classes; one died at it, to a Shadowforge Digger (elite 35)"
+				}
+			],
+			"issue": 1791
 		},
 		{
 			"id": "horde-3040-badlands-troggs-north",
@@ -6741,6 +6748,155 @@
 				}
 			],
 			"issue": 1866
+		},
+		{
+			"id": "1791-badlands-theldurin-group-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 709,
+				"goal": "accept"
+			},
+			"tip": "Theldurin sits by the ruined camp south of the trogg camp. His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.",
+			"note": "#1791: Solution to Doom (709) is a group quest (route-fixes deliberate.group 709): its Ancient Chest (126260) lies just inside Uldaman's cave mouth, 17-18 yd from Magregan Deepshadow (2932) and the Obsidian Golems (4872), elite 38. Theldurin the Lost (2785) at 51.39,76.87.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2785; objects.json 126260 at Badlands 39.34,18.82; npcs.json 2932, 4872 rank 1 level 38 beside it"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-11: 2 people looted the Ancient Chest, both stealth classes; one died at it, to a Shadowforge Digger (elite 35)"
+				}
+			],
+			"issue": 1791
+		},
+		{
+			"id": "1791-badlands-ancient-chest-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 709,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Head north to Uldaman's entrance, in the north of the Badlands: the chest lies just inside the cave mouth. Magregan Deepshadow and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together.",
+			"note": "#1791: the tip put the Ancient Chest (126260) among the Shadowforge dwarves with Ambassador Infernus (2745) nearby; the chest is at 39.34,18.82 just inside Uldaman's cave mouth, Infernus at 42.1,28.88. Elites beside it: Magregan Deepshadow (2932) 17 yd, Obsidian Golem (4872) 18 yd, both 38; Shadowforge Diggers (4846) 35-36 in the tunnel.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 126260; npcs.json 2932, 4872, 4846, 2745 spawns on map 1418"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-11: Magregan Deepshadow, the Obsidian Golems and the Shadowforge Diggers seen hostile at the cave mouth; a death at the chest to a Shadowforge Digger"
+				}
+			],
+			"issue": 1791
+		},
+		{
+			"id": "1791-badlands-ancient-chest-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 709,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Keep north on the road to Uldaman's entrance, in the north of the Badlands: the chest lies just inside the cave mouth. Magregan Deepshadow and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together.",
+			"note": "#1791: the tip put the Ancient Chest (126260) in the dig site at the foot of the ruins; it is at 39.34,18.82 just inside Uldaman's cave mouth, with Magregan Deepshadow (2932) 17 yd and an Obsidian Golem (4872) 18 yd from it, both elite 38, and Shadowforge Diggers (4846) 35-36 in the tunnel.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 126260; npcs.json 2932, 4872, 4846 spawns on map 1418"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-11: Magregan Deepshadow, the Obsidian Golems and the Shadowforge Diggers seen hostile at the cave mouth; a death at the chest to a Shadowforge Digger"
+				}
+			],
+			"issue": 1791
+		},
+		{
+			"id": "1791-badlands-valley-of-fangs-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1108,
+				"goal": "turnin"
+			},
+			"tip": "Martek and Rigglefuzz camp in the Valley of Fangs, on the road between Uldaman and Agmond's End.",
+			"note": "#1791: with Solution to Doom a group quest, a solo player no longer comes south from the Ancient Chest, so the tip no longer says \"head south\". Martek the Exiled (4618) at 42.22,52.69 and Rigglefuzz (2817) at 42.39,52.93.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 4618, 2817 spawns on map 1418"
+			},
+			"issue": 1791
+		},
+		{
+			"id": "1791-sweep-alterac-muckrake-bookcase",
+			"faction": "Alliance",
+			"at": {
+				"quest": 540,
+				"goal": "objective",
+				"objective": 2
+			},
+			"goalNote": "Worn Leather Book: the Weathered Bookcase, beside Muckrake (40, elite): get it with a group, or abandon Preserving Knowledge; inside",
+			"note": "#1791 sweep (objects among hostile elites): Muckrake (2421, elite 40) stands right beside the Weathered Bookcase (1760): bookcase at Alterac 38.42,46.38, Muckrake at 38.65,46.75; the one recorded visitor died to him 5 yd from it.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 1760 at 38.42,46.38; npcs.json 2421 rank 1 level 40 at 38.65,46.75 (map 1416)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-11: 1 person reached the bookcase and died to Muckrake (elite 40) 5 yd from it"
+				}
+			],
+			"issue": 1791
+		},
+		{
+			"id": "1791-sweep-silithus-deathclasp-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8282,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand south-east of the camp, where Deathclasp, an elite scorpid, patrols: grab it while he is away.",
+			"note": "#1791 sweep (objects among hostile elites): Noggle's Satchel (180435) at Silithus 44.56,91.38 and Deathclasp (15196, elite 59) at 45.07,92.31; the Horde guide's tip names him, the Alliance one did not.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "objects.json 180435; npcs.json 15196 rank 1 level 59, map 1451"
+			},
+			"issue": 1791
+		},
+		{
+			"id": "1791-sweep-andorhal-araj-accept",
+			"faction": "Horde",
+			"at": {
+				"quest": 105,
+				"goal": "accept"
+			},
+			"tip": "Alas, Andorhal's shard lies at Araj the Summoner's feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group.",
+			"note": "#1791 sweep (objects among hostile elites): Alas, Andorhal (105) is a group quest (route-fixes deliberate.group 105): Araj's Phylactery Shard (17114) comes only from Araj's Phylactery (177241) at Western Plaguelands 45.27,69.21, where Araj the Summoner (1852, elite 61) stands, among Skeletal Warlords (1788, elite 56-57).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "items.json 17114 drops from object 177241; objects.json 177241; npcs.json 1852, 1788 rank 1 (map 1422)"
+			},
+			"issue": 1791
+		},
+		{
+			"id": "1791-sweep-andorhal-araj-shard",
+			"faction": "Horde",
+			"at": {
+				"quest": 105,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Araj the Summoner (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from Araj's Phylactery there.",
+			"note": "#1791 sweep: the phylactery (177241) and Araj the Summoner (1852, elite 61) share the spot at Western Plaguelands 45.27,69.21; Skeletal Warlords (1788) are elite 56-57.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "objects.json 177241; npcs.json 1852, 1788 (map 1422)"
+			},
+			"issue": 1791
 		}
 	]
 }

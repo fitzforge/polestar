@@ -985,7 +985,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group:
 	// not an `optional` one, not one in a step only the group way follows (`when group`, `when dungeon`)
 	// or of a quest accepted only in one, not a dungeon or raid quest's turn-in (the run was the group
-	// content).
+	// content), not an object's work among elites (`near`: a warning on the step, #1778).
 	const optIn = (s) => (s.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
 	const onlyOptIn = new Map();
 	for (const s of guide.steps) {
@@ -997,7 +997,8 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		goal.group &&
 		!goal.optional &&
 		!(goal.quest !== undefined && onlyOptIn.get(goal.quest) === true) &&
-		!(goal.t === 'turnin' && (goal.group.kind === 'dungeon' || goal.group.kind === 'raid'));
+		!(goal.t === 'turnin' && (goal.group.kind === 'dungeon' || goal.group.kind === 'raid')) &&
+		!goal.group.near;
 	if (guide.steps.some((s) => !optIn(s) && s.goals.some(needs))) guide.group = true;
 	checkLabels(ast.steps, err);
 	checkAlongGoals(guide.steps, warn);
