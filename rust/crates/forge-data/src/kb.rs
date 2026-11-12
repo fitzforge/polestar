@@ -121,7 +121,7 @@ fn xp_agreed(valid: &[Cand]) -> Option<usize> {
 		return Some(ix[0]);
 	}
 	let mut sizes: Vec<(usize, usize)> = groups.iter().enumerate().map(|(g, (_, ix))| (sources(ix).len(), g)).collect();
-	sizes.sort_by(|a, b| b.0.cmp(&a.0));
+	sizes.sort_by_key(|&(n, _)| std::cmp::Reverse(n));
 	match sizes.as_slice() {
 		[(n, g), rest @ ..] if *n >= 2 && rest.first().is_none_or(|(m, _)| m < n) => Some(groups[*g].1[0]),
 		_ => None,
