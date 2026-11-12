@@ -289,3 +289,12 @@ test('QuestieDB 1.0.14 race lists narrower than the server keep the server\'s ra
 	assert.deepEqual([94449, 94466, 94467, 94468, 97916].map(races), [ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE, ALLIANCE], 'Call of Fire and Camping 101: Blacksmithing: the Alliance');
 	assert.deepEqual([79361, 79442, 79365].map(races), [HORDE, HORDE, HORDE], 'the Horde Shaman Call of Air chain: Horde Skyborne Shamans too');
 });
+
+// The 0.3.8 XP review (players' recorded hand-ins at a full-XP level, builds 70790-70888): three quests whose
+// data value no recorded hand-in pays. The Grand Betrayal's earlier correction held the 70170 build's value.
+test('quest XP the recordings confirm is held by the corrections (0.3.8 XP review)', () => {
+	const xp = { 421: 875, 2929: 6200, 96261: 3050 };
+	const got = Object.fromEntries(Object.keys(xp).map((q) => [q, corrections.quests[q] && corrections.quests[q].set.xp]));
+	assert.deepEqual(got, Object.fromEntries(Object.entries(xp).map(([q, v]) => [q, v])));
+	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
+});

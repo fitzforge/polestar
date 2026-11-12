@@ -258,6 +258,22 @@
 		],
 		"note": "The Stockade Riots (The Stockade) rewards 4,950 XP on Forever; the merged data had 2,950, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
 	},
+	"421": {
+		"set": {
+			"xp": 875
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12 (builds 70790, 70840, 70862, 70888): 13 people handed it in at a full-XP level (level up to the quest's 10 + 5); 13 of 13 hand-ins paid 875 XP"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), live builds to 70862: XP difficulty 5 at level 11, 875"
+			}
+		],
+		"note": "Prove Your Worth rewards 875 XP on Forever, as players' hand-ins at a full-XP level show and the live server's quest record computes; the data had 840."
+	},
 	"465": {
 		"set": {
 			"pre": [
@@ -926,19 +942,19 @@
 	},
 	"2929": {
 		"set": {
-			"xp": 4950
+			"xp": 6200
 		},
 		"source": [
 			{
-				"kind": "eg",
-				"ref": "players' caches (EG Link): xp"
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12 (builds 70862, 70888): 14 people handed it in at a full-XP level (level up to the quest's 35 + 5); 9 hand-ins paid 6,200 XP, 5 paid 6,386 (the base with a 3% bonus)"
 			},
 			{
-				"kind": "factoruide",
-				"ref": "Factoruide row sources: collector"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), live builds to 70862: XP difficulty 6 at level 35 with the dungeon multiplier 1.8, 6,200"
 			}
 		],
-		"note": "The Grand Betrayal (Gnomeregan) rewards 4,950 XP on Forever; the merged data had 2,750, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+		"note": "The Grand Betrayal (Gnomeregan) rewards 6,200 XP on Forever, as players' hand-ins at a full-XP level show and the live server's quest record computes (its dungeon multiplier, 1.8). The merged data had 2,750, the Classic value; the 4,950 held here before was the value of the 1 October 2026 build (70170). Issue #394."
 	},
 	"2930": {
 		"set": {
@@ -7008,7 +7024,8 @@
 			],
 			"preAny": [
 				96259
-			]
+			],
+			"xp": 3050
 		},
 		"source": [
 			{
@@ -7018,9 +7035,17 @@
 			{
 				"kind": "in-game-check",
 				"ref": "#1083"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12 (builds 70790, 70862, 70888): 33 people handed it in at a full-XP level (level up to the quest's 30 + 5); 22 hand-ins paid 3,050 XP, the others 3,080-3,141 (the base with a 1-3% bonus)"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), live builds to 70862: XP difficulty 6 at level 30, 3,050"
 			}
 		],
-		"note": "Muln Earthfury offers The Broodmother only once Defending the Dead (96259) is handed in to him; before that his list shows Defending the Dead alone. The guides took both together at the Earthen Ring camp."
+		"note": "Muln Earthfury offers The Broodmother only once Defending the Dead (96259) is handed in to him; before that his list shows Defending the Dead alone. The guides took both together at the Earthen Ring camp. It rewards 3,050 XP, as players' hand-ins at a full-XP level show and the live server's quest record computes; the data had 2,500."
 	},
 	"98240": {
 		"set": {
