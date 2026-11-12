@@ -601,7 +601,7 @@ The fields:
 | `profLine`, `profName`, `profRank` | on any goal of a quest only characters with a profession can take: its skill line id, name and the rank it needs; the goal is hidden from characters without it |
 | `location` | an inn, flight point or zone name as the game shows it |
 | `class` | `true` on `train`: the nearest trainer of the player's class |
-| `zone` | on a `train` with `class`: its step's zone (a uiMapID), written by the compiler from the step's `zone`. Polestar 0.3.6 and later rank the candidates on that map first, wherever the player stands, unless another stands within 100 yards of them; older Polestar ignores it |
+| `zone` | on a `train` with `class`: its step's zone (a uiMapID), written by the compiler from the step's `zone`. Polestar 0.3.6 and 0.3.7 rank the candidates on that map first, wherever the player stands, unless another stands within 100 yards of them; from 0.3.8 only Polestar's own packs do, and a community pack's goal goes to the nearest trainer of the player's class (a pack's step can't know the player's race); older Polestar ignores it |
 | `skill` | a profession name; `skillLine` its skill line id |
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |
