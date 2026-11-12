@@ -37467,6 +37467,14 @@
 				],
 				"english": "Nimsy"
 			},
+			"npc:248474": {
+				"reason": "no-source",
+				"scenes": [
+					"guide",
+					"guides"
+				],
+				"english": "Geosculptor Yip"
+			},
 			"npc:250936": {
 				"reason": "no-source",
 				"scenes": [

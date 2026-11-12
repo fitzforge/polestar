@@ -1,11 +1,12 @@
 import { mount } from 'svelte';
 import './styles/app.css';
 import App from './App.svelte';
-import { start } from './lib/app.svelte';
+import { app, start } from './lib/app.svelte';
 import { fault, watchFaults } from './lib/fault';
 import { api } from './lib/backend';
 import { diagnostics } from './lib/diagnostics.svelte';
 import { playIntro, replayIntro } from './lib/intro.svelte';
+import { watchSight } from './lib/sight.svelte';
 
 watchFaults();
 try {
@@ -14,6 +15,8 @@ try {
 	fault('Polestar Client could not start', e);
 }
 start().catch((e) => fault('Polestar Client could not reach its background service', e));
+// Out of sight, every animation holds still (lib/still.ts, #1801).
+watchSight(() => (app.now = Date.now())).catch((e) => console.error('sight', e));
 playIntro().catch((e) => {
 	console.error('intro', e);
 	document.getElementById('intro')?.remove();

@@ -625,7 +625,7 @@ function C_GossipInfo.GetOptions()
 	local f = frameOf("gossip")
 	local out = {}
 	for i, o in ipairs(f and f.options or {}) do
-		out[i] = { name = o.name or ("Option " .. i), gossipOptionID = o.gossipOptionID or i, icon = 0, flags = 0, status = 0 }
+		out[i] = { name = o.name or ("Option " .. i), gossipOptionID = o.gossipOptionID or i, icon = o.icon or 0, overrideIconID = o.overrideIconID, flags = 0, status = 0 }
 	end
 	return out
 end

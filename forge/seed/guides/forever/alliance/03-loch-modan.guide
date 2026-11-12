@@ -146,15 +146,20 @@ step Daryl the Youngling
   turnin 257
   accept 258                                  -- 12 minutes
 
-step Elder Mountain Boars, Daggerfang and the loch crocolisks
-  tip The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore: A Hunter's Challenge runs for 12 minutes, so the boars come first. Daggerfang, a crocolisk, patrols the shore below them among the Loch Crocolisks.
+step Elder Mountain Boars
+  tip The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. A Hunter's Challenge runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after.
   kill 1192 quest 258                         -- Elder Mountain Boar
+
+step Daryl the Youngling
+  turnin 258
+
+step Daggerfang and the loch crocolisks
+  tip Back down to the east shore below the boars' hills: Daggerfang, a crocolisk, patrols it among the Loch Crocolisks.
   collect 279591 quest 86758                  -- Marek's Croc-Hunting Knife: Daggerfang
   collect 2924 quest 385                      -- Crocolisk Meat: Loch Crocolisks
   collect 2925 quest 385                      -- Crocolisk Skin
 
 step The Farstrider Lodge
-  turnin 258                                  -- Daryl the Youngling
   turnin 86758                                -- Marek Ironheart, inside
   turnin 385
 

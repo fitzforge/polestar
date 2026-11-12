@@ -121,7 +121,7 @@ fn saved_tabs_reopen_at_login_with_their_own_step_state_a_guide_not_registered_s
 		"stub.world.onQuest(783, {})",
 		Some(r#"PolestarCharDB = { schema = 1, tabs = { "test/warrior", "gone", "test/lvl" }, activeTab = 3, guide = "test/lvl" }"#),
 		r#"
-			local list, active = E.GetTabs()
+			local list, active = E.GetTabs(true)
 			emit({ ids = ids(), guide = E.GetGuide().id, step = E.GetStepIndex(),
 				tabs = { { list[1].guideId, list[1].stepIndex, list[1].done, list[1].total, list[1].complete },
 					{ list[2].guideId, list[2].stepIndex, list[2].done, list[2].total, list[2].complete } },

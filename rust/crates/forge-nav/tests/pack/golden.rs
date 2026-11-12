@@ -59,17 +59,11 @@ fn forge_names_itself_in_the_headers_pack_json_and_nav_xml() {
 	assert!(check_pack(&out).is_empty());
 }
 
-/// PACK_GRID=<grid> PACK_ROOT=<checkout: data/forever, data/sources/wago> PACK_LAYERS=<nav-layers>
-/// PACK_REF=<the JS's Polestar_Nav of that grid> PACK_DATE=<its date> cargo test --profile quick -p forge-nav
-/// --test pack -- --ignored real_grid (Eastern Kingdoms, Kalimdor, Zephras Isle: about 2 min; every file
-/// identical on 2026-10-23's 1.60.1.70532 grid). A grid with area sidecars (maps format 3) differs from the last
-/// JS writer (baked-legs 73e0ebbc8) by design: forge packs only the rows with a name (pack_nav's `named`).
-#[test]
-#[ignore = "needs PACK_GRID, PACK_ROOT, PACK_LAYERS, PACK_REF and PACK_DATE"]
-fn real_grid_matches_the_js() {
+/// Our grid's walking maps of every map from PACK_GRID, PACK_ROOT (data/forever, data/sources/wago) and PACK_LAYERS,
+/// dated `date`, shipped into a scratch folder named `name`.
+fn real_pack(date: &str, name: &str) -> PathBuf {
 	let env = |k: &str| PathBuf::from(std::env::var(k).unwrap_or_else(|_| panic!("needs {k}")));
-	let (grid, root, layers, want) = (env("PACK_GRID"), env("PACK_ROOT"), env("PACK_LAYERS"), env("PACK_REF"));
-	let date = std::env::var("PACK_DATE").expect("needs PACK_DATE");
+	let (grid, root, layers) = (env("PACK_GRID"), env("PACK_ROOT"), env("PACK_LAYERS"));
 	let wago = root.join("data/sources/wago");
 	let mut builds: Vec<String> = std::fs::read_dir(&wago).unwrap().flatten().map(|e| e.file_name().to_string_lossy().into_owned()).filter(|b| wago.join(b).join("AreaTable.csv").is_file()).collect();
 	builds.sort_by_key(|b| b.split('.').map(|p| p.parse::<u64>().unwrap_or(0)).collect::<Vec<_>>());
@@ -83,7 +77,7 @@ fn real_grid_matches_the_js() {
 		map_frames: &root.join("data/forever/map-frames.json"),
 		aids: aids.is_file().then_some(aids.as_path()),
 		cells: 128,
-		date: &date,
+		date,
 		continents: &forge_nav::pack::MAPS,
 		generator: JS,
 		leffe: None,
@@ -91,11 +85,73 @@ fn real_grid_matches_the_js() {
 		log: &log,
 	})
 	.unwrap();
-	let out = tmp("real");
+	let out = tmp(name);
 	ship_pack(&pack, &out).unwrap();
+	out
+}
+
+/// The kind of the chokepoint named `name` within 15 yd of (wx, wy) in a Chokepoints.lua.
+fn chokepoint_kind(lua: &str, name: &str, wx: f64, wy: f64) -> Option<String> {
+	let field = |line: &str, key: &str| -> Option<String> {
+		let rest = &line[line.find(&format!("{key} = "))? + key.len() + 3..];
+		if let Some(s) = rest.strip_prefix('"') {
+			return Some(s[..s.find('"')?].to_string());
+		}
+		Some(rest[..rest.find(',')?].trim().to_string())
+	};
+	lua.lines().find_map(|l| {
+		if field(l, "name")? != name {
+			return None;
+		}
+		let (x, y): (f64, f64) = (field(l, "wx")?.parse().ok()?, field(l, "wy")?.parse().ok()?);
+		if (x - wx).hypot(y - wy) <= 15.0 {
+			field(l, "kind")
+		} else {
+			None
+		}
+	})
+}
+
+/// PACK_GRID=<grid> PACK_ROOT=<checkout: data/forever, data/sources/wago> PACK_LAYERS=<nav-layers>
+/// PACK_REF=<the JS's Polestar_Nav of that grid> PACK_DATE=<its date> cargo test --profile quick -p forge-nav
+/// --test pack -- --ignored real_grid (Eastern Kingdoms, Kalimdor, Zephras Isle: about 2 min; every file
+/// identical on 2026-10-23's 1.60.1.70532 grid). A grid with area sidecars (maps format 3) differs from the last
+/// JS writer (baked-legs 73e0ebbc8) by design: forge packs only the rows with a name (pack_nav's `named`). So does
+/// Chokepoints.lua at the Southfury River's road crossing: a gate under a bridge makes it a bridge (chokepoints.rs
+/// under_bridge), and PACK.json's sha256 of that file follows.
+#[test]
+#[ignore = "needs PACK_GRID, PACK_ROOT, PACK_LAYERS, PACK_REF and PACK_DATE"]
+fn real_grid_matches_the_js() {
+	let want = PathBuf::from(std::env::var("PACK_REF").expect("needs PACK_REF"));
+	let out = real_pack(&std::env::var("PACK_DATE").expect("needs PACK_DATE"), "real");
+	let southfury = |s: String| s.replace("kind = \"gate\", name = \"Southfury River\"", "kind = \"bridge\", name = \"Southfury River\"");
 	for f in files_under(&want.join("Nav")) {
-		assert!(std::fs::read(out.join("Nav").join(&f)).unwrap() == std::fs::read(want.join("Nav").join(&f)).unwrap(), "Nav/{f} differs");
+		let (got, js) = (std::fs::read(out.join("Nav").join(&f)).unwrap(), std::fs::read(want.join("Nav").join(&f)).unwrap());
+		let js = if f == "Chokepoints.lua" { southfury(String::from_utf8(js).unwrap()).into_bytes() } else { js };
+		assert!(got == js, "Nav/{f} differs");
 	}
-	assert_eq!(std::fs::read_to_string(out.join("PACK.json")).unwrap(), std::fs::read_to_string(want.join("PACK.json")).unwrap());
+	let manifest = |p: &Path| -> serde_json::Value {
+		let mut v: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(p.join("PACK.json")).unwrap()).unwrap();
+		v["files"].as_object_mut().unwrap().remove("Nav/Chokepoints.lua");
+		v
+	};
+	assert_eq!(manifest(&out), manifest(&want));
+	let _ = std::fs::remove_dir_all(&out);
+}
+
+/// The Southfury River's road crossing between Durotar and the Barrens was named a gate ("Through the gate"): the
+/// grid's gate there is the river bank under the bridge's land span, and the bridge rule leaves the deck over the
+/// water out (it meets the land on one side only as the rule sees it). With under_bridge it is a bridge; the walled
+/// gates (Thoradin's Wall, Northwatch Hold, Stromgarde Keep) stay gates. PACK_GRID, PACK_ROOT and PACK_LAYERS as
+/// above (about 2 min).
+#[test]
+#[ignore = "needs PACK_GRID, PACK_ROOT and PACK_LAYERS"]
+fn real_grid_the_southfury_crossing_is_a_bridge_and_the_walled_gates_stay_gates() {
+	let out = real_pack("2026-10-25", "southfury");
+	let lua = std::fs::read_to_string(out.join("Nav/Chokepoints.lua")).unwrap();
+	assert_eq!(chokepoint_kind(&lua, "Southfury River", 324.0, -3778.1).as_deref(), Some("bridge"), "the crossing under the bridge");
+	assert_eq!(chokepoint_kind(&lua, "Thoradin's Wall", -638.5, -1744.8).as_deref(), Some("gate"));
+	assert_eq!(chokepoint_kind(&lua, "Northwatch Hold", -2380.2, -3830.2).as_deref(), Some("gate"));
+	assert_eq!(chokepoint_kind(&lua, "Stromgarde Keep", -1821.9, -1619.8).as_deref(), Some("gate"));
 	let _ = std::fs::remove_dir_all(&out);
 }

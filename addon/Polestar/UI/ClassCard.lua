@@ -674,9 +674,8 @@ function CC.Celebrate()
 	st.classCardSeen = st.classCardSeen or {}
 	if st.classCardSeen[shown.key] then return false end
 	st.classCardSeen[shown.key] = true
-	if ns.Get("ui.classCardSound") and CC.GameSoundOn() and PlaySound then
-		local id = (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878
-		pcall(PlaySound, id, "SFX")
+	if ns.Get("ui.classCardSound") and CC.GameSoundOn() then
+		pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 	end
 	local w = F:GetWidth()
 	if Anim.Reduced() then

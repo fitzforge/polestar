@@ -74,7 +74,7 @@ end
 local function answer(job, xy)
 	local points = {}
 	for i = 1, #xy - 1, 2 do points[#points + 1] = { map = job.map, x = xy[i], y = xy[i + 1] } end
-	job.yards, job.hubs = length(points), fake.hubs or {}
+	job.yards, job.hubs, job.avoided = length(points), fake.hubs or {}, fake.avoided or {}
 	job.callback(points, 100, job)
 end
 fake.answerXY = answer
@@ -396,6 +396,86 @@ fn the_look_ahead_never_aims_onto_another_floor_path_heights_or_past_a_split_wal
 	.concat());
 	assert_eq!(split["leg"], "bridge", "the first piece ends at the bridge (y -150)");
 	assert!(num(&split["furthest"]) >= -148.0, "the aim never passes the path point before the bridge (y -148; furthest {})", split["furthest"]);
+}
+
+// The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
+const HILLSIDE: &str = r#"
+local pts = { { 0, 0, 0 }, { 0, -100, -10 }, { 60, -180, -20 }, { 60, -400, -30 } }
+local function cut(indoors)
+	nav.indoors = indoors
+	nav.place(0, 0)
+	target(60, -400)
+	N.Sample()
+	answerZ(pts)
+	-- Cutting the corner straight from (0, -60) toward (60, -180), never within 17 yd of it: the worst aim against
+	-- the way walked, and the samples aiming at the corner, once past it.
+	local worst, atCorner = -1, 0
+	local ux, uy = 1 / math.sqrt(5), -2 / math.sqrt(5)
+	for k = 0, 50 do
+		local x, y = 1.2 * k, -60 - 2.4 * k
+		local s = look(x, y, 60, -400)
+		if y < -100 then
+			local l = math.sqrt(s.dx * s.dx + s.dy * s.dy)
+			local back = -(s.dx * ux + s.dy * uy) / l
+			if back > worst then worst = back end
+			if math.abs(x + s.dx) < 1 and math.abs(y + s.dy + 100) < 1 then atCorner = atCorner + 1 end
+		end
+	end
+	return { worst = worst, atCorner = atCorner }
+end
+"#;
+
+#[test]
+fn outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_6_yd_is_still_a_floor() {
+	let outdoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(false))"].concat());
+	// 0.3.6: a corner 6+ yd lower held the projection until the player came within 5 yd of it, so past it the arrow
+	// pointed back at it (Fitz in Desolace, 0.3.7). Outdoors a slope this gentle is no floor.
+	assert!(num(&outdoors["worst"]) < 0.0, "outdoors the arrow never points back against the way walked (worst {})", outdoors["worst"]);
+	assert_eq!(outdoors["atCorner"], 0, "outdoors it never aims at the corner once past it");
+	// Indoors (a building's stairs, the Undercity's levels) every 6 yd is a floor, as before.
+	let indoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(true))"].concat());
+	assert!(num(&indoors["atCorner"]) > 0.0, "indoors the corner 10 yd lower still holds it ({})", indoors["atCorner"]);
+}
+
+#[test]
+fn a_search_landing_100_yd_behind_a_player_running_down_a_steep_slope_is_followed_from_where_they_are_now() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		answerZ({ { 0, 0, 100 }, { 0, -600, -300 } })
+		stub.advance(3)
+		local before = calls()
+		-- 60 yd off the path: asked again from here.
+		look(60, -100, 0, -600)
+		local asked = calls() - before
+		-- Running on down the slope while it is searched (the old path meanwhile, no other search).
+		for y = -110, -200, -10 do look(60, y, 0, -600) end
+		local again = calls() - before
+		-- It lands: from where it was asked, straight down the slope, 12 yd lower every 10 yd (steeper than 45°:
+		-- each corner a floor by the follower's rule even outdoors), then across to the target.
+		local pts = {}
+		for i = 0, 50 do pts[#pts + 1] = { 60, -100 - 10 * i, 100 - 12 * i } end
+		pts[#pts + 1] = { 0, -600, -500 }
+		answerZ(pts)
+		local s = look(60, -200, 0, -600)
+		local later
+		for y = -201, -230, -1 do later = look(60, y, 0, -600) end
+		emit({ asked = asked, again = again, s = s, later = later, urgent = fake.last().urgent == true })"#,
+	]
+	.concat());
+	assert_eq!(out["asked"], 1, "straying asks once");
+	assert_eq!(out["again"], 1, "no second search while the first runs");
+	// 0.3.6: the follower started at the late path's start, 100 yd back up the slope, held there by the first
+	// steep corner, and pointed back until the player stopped (Fitz, 0.3.7).
+	let (dx, dy) = (num(&out["s"]["dx"]), num(&out["s"]["dy"]));
+	assert!(dy < 0.0 && dx.abs() < 1.0, "at once the arrow points on down the slope (aim {dx}, {dy})");
+	let (lx, ly) = (num(&out["later"]["dx"]), num(&out["later"]["dy"]));
+	assert!(ly < 0.0 && lx.abs() < 1.0, "and keeps doing so (aim {lx}, {ly})");
+	assert!(num(&out["s"]["dist"]) < 500.0, "the yards shown are from the player on, not from the search's start (dist {})", out["s"]["dist"]);
+	assert_eq!(out["urgent"], true, "the arrow's own search is urgent (sliced before the later legs')");
 }
 
 #[test]
@@ -2307,6 +2387,70 @@ fn hostile_towns_a_walk_whose_path_enters_one_carries_it_leg_hubs_the_arrow_says
 }
 
 #[test]
+fn detours_a_walk_that_goes_round_a_hostile_town_carries_it_as_leg_hubs_avoided_text_for_the_journey_and_no_warning_from_the_arrow() {
+	let out = run_many(
+		&[
+			CROSSING,
+			r#"
+		local r = {}
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		fake.settle(fake.of(true)[1], function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end)
+		fake.avoided = { { id = 12, name = "Southshore" } }
+		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
+		fake.avoided = nil
+		local legs, ci = N.GetRoute()
+		local leg = legs[ci]
+		r.avoided = leg.hubs and leg.hubs.avoided and leg.hubs.avoided[1].name or false
+		r.entered = leg.hubs and #leg.hubs or false
+		r.hostile = T.HubText(leg) or false
+		r.text = T.AvoidText(leg) or false
+		r.noneElsewhere = legs[ci + 1].hubs == nil
+		stub.advance(0.3)
+		r.said = N.arrow.labelText:GetText()
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["avoided"], "Southshore", "the walk's leg carries the town it goes round");
+	assert_eq!(out["entered"], 0, "it enters none");
+	assert_eq!(out["hostile"], false, "so there is no hostile-town text");
+	assert_eq!(out["text"], "Detour around Southshore");
+	assert_eq!(out["noneElsewhere"], true, "a walk with no detour carries none");
+	assert_eq!(out["said"], "Walk to the flight master", "the arrow says nothing of it: the caption is display only");
+}
+
+#[test]
+fn detours_a_split_walk_shows_the_detour_on_the_one_piece_that_passes_the_town_every_piece_still_carries_the_towns_it_enters() {
+	let out = run(&format!(
+		"{}{}{}",
+		r#"
+		fake.hubs = { { id = 13, name = "Tarren Mill" } }
+		fake.avoided = { { id = 12, name = "Southshore", x = 0, y = -300 } }
+		"#,
+		split(),
+		r#"
+		fake.hubs, fake.avoided = nil, nil
+		local T = N.travel
+		local legs, ci = N.GetRoute()
+		local walks, shown, entered = 0, {}, 0
+		for i = 1, #legs do
+			if legs[i].kind == "walk" then
+				walks = walks + 1
+				if T.AvoidText(legs[i]) then shown[#shown + 1] = i end
+				if T.HubText(legs[i]) then entered = entered + 1 end
+			end
+		end
+		emit({ walks = walks, shown = shown, entered = entered, text = T.AvoidText(legs[shown[1] or 1]) or false, label = shown[1] and legs[shown[1]].label or false })"#
+	));
+	assert_eq!(out["walks"], 4, "the bridge, the cave, the lift's foot and the target");
+	assert_eq!(out["shown"], json!([2]), "once, on the piece from the bridge to the cave mouth, which passes (0, -300)");
+	assert_eq!(out["text"], "Detour around Southshore");
+	assert_eq!(out["entered"], 4, "the town the path enters stays on every piece");
+}
+
+#[test]
 fn hostile_towns_every_piece_of_a_split_walk_carries_them_so_the_step_after_a_chokepoint_still_says_so() {
 	let out = run(&format!(
 		"{}{}{}",
@@ -2937,6 +3081,37 @@ fn t_234_floor_climbs_a_ramp_onto_a_bridge_falls_off_its_side_to_the_ground_and_
 	]
 	.concat());
 	assert_eq!(out, json!({ "seed": 40, "bridge": 60, "fell": 40, "under": 40 }));
+}
+
+// #1650: off a ledge's edge onto cells with no surface at the floor's level (a blocked cell at a cliff's foot, then
+// cells whose only surface is a ridge 35 yd above), the floor is kept within 25 yd of where it was last on a
+// surface, so the search starts on the ledge, not on the ridge the router snaps to without a height. Farther on the
+// ridge's cells the floor is lost and seeds on the ridge; back down, it follows the drop to the ledge.
+#[test]
+fn t_1650_floor_kept_over_cells_with_no_surface_at_its_level_within_25_yd_of_the_last_one_farther_lost_and_seeded_again() {
+	let out = run(&[
+		FLOORS,
+		r#"
+		local r = {}
+		fake.surfaces = function(map, x, y)
+			if y <= -20 and y > -24 then return {} end
+			if y <= -24 then return { 75 } end
+			return { 40 }
+		end
+		nav.place(0, 50)
+		r.seed = startZ()
+		walk(0, -22)
+		r.blocked = startZ()
+		walk(0, -40)
+		r.ridgeNear = startZ()
+		walk(0, -60)
+		r.ridgeFar = startZ()
+		walk(0, 0)
+		r.back = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "seed": 40, "blocked": 40, "ridgeNear": 40, "ridgeFar": 75, "back": 40 }));
 }
 
 #[test]

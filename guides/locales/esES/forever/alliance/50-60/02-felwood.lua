@@ -43,7 +43,6 @@ return {
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
 	["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395} espera en el extremo norte de {zone:1448}",
-	["Five feathers buy a little Timbermaw reputation"] = "Cinco plumas dan un poco de reputación con los Fauces de Madera",
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "",
@@ -126,6 +125,7 @@ return {
 	["Ends in the {zone:1413}: keep it"] = "Termina en {zone:1413}: guárdala",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Five feathers buy a little Timbermaw reputation"] = "Cinco plumas dan un poco de reputación con los Fauces de Madera",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Vuela desde {area:1998} al extremo del camino del Santuario, o cabalga al sur por él.",
 	-- ["Keep her alive until she is out of the cave"] = "Mantenla con vida hasta que salga de la cueva",
 	-- ["Oozes"] = "Mocos",

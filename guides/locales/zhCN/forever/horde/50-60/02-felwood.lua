@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "{area:200}的农舍",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "日记在农舍里，柜子在屋里，厕所在屋后。一个{npc:10816}带着厕所钥匙；打开厕所时{npc:10836}会出来，他带着柜子钥匙。",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "{object:175924}，在室内",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "{quest:5058}：在屋内",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
@@ -158,10 +154,6 @@ return {
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
-
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "仅当你有5根死木头饰羽毛时",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -287,6 +279,7 @@ return {
 	-- ["Level 54.54"] = "等级 54.54",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "仅当掉落了{item:13140}时：使用它开始任务，然后到{area:1763}北端的洞穴{area:1770}里，把笼子里的{npc:11018}救出来，并护送她出去。",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "仅当你救出了{npc:11018}时：魅魔{npc:9518}在{area:1763}中部，就在{npc:11020}旁边等候。",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "仅当你有5根死木头饰羽毛时",
 	-- ["Radley and Durgen"] = "莱德雷和杜尔根",
 	-- ["Ride back south-east to the Sanctuary."] = "向东南骑回翡翠圣地。",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "骑回{area:1497}，乘飞艇前往{zone:1454}，飞往{area:431}。沿道路向西离开碎木岗哨，在岔路口向北进入{zone:1448}。",
@@ -326,6 +319,8 @@ return {
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613}站在伐木场东边；{npc:11611}守着{npc:11610}东北、通往{area:190}的道路。",
 	-- ["{npc:9529}, just west of the camp"] = "{npc:9529}，在营地正西",
 	-- ["{object:175894}, beside the house"] = "{object:175894}，在房子旁边",
+	-- ["{object:175924}, inside"] = "{object:175924}，在室内",
+	-- ["{quest:5058}, inside"] = "{quest:5058}：在屋内",
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210}要前往{area:2268}：留到之后。",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}，稀有掉落",
 }

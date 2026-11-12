@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {quest:205} Troll Witchery
+	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "Für Charaktere der Stufe 35 bis 36, aber mehrere Quests hier sind Stufe 37-41: mit Absicht, wegen ihrer Erfahrung. Die Trolle der Skullsplitter für {quest:205} sind 39-42, also zieh sie einzeln.",
+
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
 	["In the {object:2164}, if you still carry it"] = "",
@@ -101,8 +105,9 @@ return {
 	["For Archmage Ansirem in {zone:1416}"] = "Für Erzmagier Ansirem im {zone:1416}",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
-	-- {npc:773} Krazek · {zone:1417} Arathi Highlands
-	["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "",
+	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}, oben: Diese optionale Quest braucht vier {item:4278}. Bau Geringe Blutsteinablagerungen in {zone:1417} mit {skill:186} 75 ab, kauf das Erz im Auktionshaus oder frag einen befreundeten Bergarbeiter. Die Kobolde lassen es nicht fallen; überspring diese Quest, wenn du nicht an das Erz kommst.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",

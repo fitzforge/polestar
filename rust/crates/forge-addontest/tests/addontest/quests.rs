@@ -785,9 +785,12 @@ emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
 	);
 	// Applejack Still (91736) is a quest Forever added: its tooltip line carries the "New in Forever" mark.
 	let mark = " |TInterface\\AddOns\\Polestar\\Media\\UI\\icon-forever:8:16:0:0|t";
+	// The apples' count is the data's: 4 in a build that has it (Forever's quest data), else the objective reads 1/1.
+	let quests: Value = serde_json::from_str(&std::fs::read_to_string(root().join("data/forever/quests.json")).unwrap()).unwrap();
+	let n = quests["91736"]["objectives"][0]["count"].as_u64().unwrap_or(1).min(4);
 	assert_eq!(
 		out[0],
-		json!([true, ["?", format!("Applejack Still{mark}: | 1/1 (not accepted)")], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
+		json!([true, ["?", format!("Applejack Still{mark}: | {n}/{n} (not accepted)")], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
 		"bought at the Stonefield Farm: the still ahead needs them"
 	);
 	assert_eq!(out[1], json!([true]), "at the still");
@@ -1506,7 +1509,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 #[test]
 fn the_database_loads_on_demand_not_while_every_quest_feature_is_off_at_once_when_one_turns_on() {
 	let db = fixture();
-	let all_off = "{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false }";
+	let all_off = "{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false, questLoot = false }";
 	let out = run_saved(
 		&db,
 		r#"
@@ -1708,4 +1711,28 @@ emit({{ look(), centre().focus }})
 	assert_eq!(alpha(&out[0][0]), vec![0.36], "another quest's: 0.6 x the dim 0.6");
 	assert_eq!(out[1][1], "focus");
 	assert_eq!(alpha(&out[1][0]), vec![0.6], "the step's quest: full");
+}
+
+// The full-scan indexes (the item tooltip's "Starts a quest", the loot line, closes, follow-ups) read the one
+// field they need from the data's text: no quest record is decoded to build them (that cost ~55 ms and ~6 MB of
+// garbage each on the full database, in the frame that first asked).
+#[test]
+fn the_quest_indexes_are_built_without_decoding_a_record_and_answer_as_before() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local mt = getmetatable(Q._data.quests)
+local get, reads = mt.__index, 0
+mt.__index = function(t, id) reads = reads + 1; return get(t, id) end
+local answers = { started = Q.StartedBy(1972), closed14 = Q.ClosedBy(14), closed15 = Q.ClosedBy(15),
+	after783 = Q.FollowUps(783), after33 = Q.FollowUps(33), after60 = Q.FollowUps(60), none = Q.StartedBy(4) or false }
+mt.__index = get
+emit(reads)
+emit(answers)
+"#,
+		"",
+	);
+	assert_eq!(out[0], 0, "no record decoded");
+	assert_eq!(out[1], json!({ "started": [17], "closed14": [15], "closed15": [14], "after783": [7], "after33": [19], "after60": [19], "none": false }));
 }

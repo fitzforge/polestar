@@ -267,6 +267,47 @@ fn t_127_a_quest_the_giver_s_window_lists_as_active_is_taken_not_refused_before_
 }
 
 #[test]
+fn t_1762_a_giver_whose_window_lists_no_quest_but_has_a_chat_option_says_to_try_it_its_detail_window_clears_the_line() {
+	// #1762 (0.3.6): Sovik's window lists no quest. Chief Engineer Scooty (2842) sits behind his chat option
+	// (gossip option 95758; 11 people in the recordings took it that way, none from the list). The line said
+	// "Not offered by Sovik? Report it with /polestar".
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Gnomeregan", faction = "Horde", minLevel = 10, maxLevel = 40, steps = {
+		{ title = "Sovik", goals = { { t = "accept", quest = 2842, title = "Chief Engineer Scooty", npc = 3413, npcName = "Sovik" } } },
+		{ goals = { { t = "level", level = 40 } } },
+	} })"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+			local w = stub.world
+			local r = {}
+			local function notice() return E.GetStepView(1).goals[1].noticeText or false end
+			local goods = { name = "I want to browse your goods.", gossipOptionID = 93031361, icon = 132060 }
+			local chat = { name = "Chat", gossipOptionID = 95758, icon = 132053 }
+			w.gossip(3413, { options = { goods, chat } }); flush()
+			r.list = { brief(1)[1], notice() }
+			-- The chat option opens the quest.
+			C_GossipInfo.SelectOption(95758); w.questDetail(3413, 2842); flush()
+			r.detail = { brief(1)[1], notice() }
+			w.close(); flush()
+			-- A window with only his goods leaves nothing to try.
+			w.gossip(3413, { options = { goods } }); w.close(); flush()
+			r.goods = { brief(1)[1], notice() }
+			-- A chat option known only by its override icon counts the same.
+			w.gossip(3413, { options = { goods, { name = "Chat", gossipOptionID = 95758, icon = 132060, overrideIconID = 132053 } } }); w.close(); flush()
+			r.override = { brief(1)[1], notice() }
+			emit(r)
+		"#,
+	);
+	let chat = "Not in Sovik's quest list: try a chat option, or report it with /polestar if none offers it";
+	assert_eq!(out["list"], json!(["active:nil:nil", chat]), "never a skip; the chat option comes first");
+	assert_eq!(out["detail"], json!(["active:nil:nil", false]), "the quest's window from his chat option ends the line");
+	assert_eq!(out["goods"], json!(["active:nil:nil", "Not offered by Sovik? Report it with /polestar"]));
+	assert_eq!(out["override"], json!(["active:nil:nil", chat]));
+}
+
+#[test]
 fn prerequisites_every_preall_must_be_done_one_pre_suffices_the_text_names_the_missing_one() {
 	// 890 needs 871 and 873 (preAll); 891 needs 871 or 873 (pre). Only 871 is done.
 	let guide = r#"
@@ -433,6 +474,74 @@ fn an_accept_closed_for_good_its_breadcrumb_target_or_an_exclusive_quest_taken_o
 	let open = run("", guide, script);
 	assert_eq!(open["step1"], json!(["active:nil:nil", "active:nil:nil"]));
 	assert_eq!(open["at"], 1);
+}
+
+// #1661: Valik (535) is a child of Infiltration (533): Henchman Valik offers it only while 533 is in the log. Step 2
+// is the Hillsbrad guide's Valik step (`when onquest 533`). ${valik} is step 2's `when`.
+const VALIK: &str = r#"
+Polestar.RegisterGuide({ id = "test/valik", pack = "test", title = "Hillsbrad", faction = "Horde", minLevel = 10, maxLevel = 40, steps = {
+	{ title = "Krusk", goals = { { t = "accept", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk", pre = { 498 }, preTitles = { [498] = "The Rescue" }, map = 1413, x = 50, y = 30 } } },
+	{ title = "Henchman Valik", when = ${valik}, goals = {
+		{ t = "accept", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik", parent = 533, preTitles = { [533] = "Infiltration" }, map = 1413, x = 57, y = 69 },
+		{ t = "turnin", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik" },
+	} },
+	{ title = "Krusk", goals = { { t = "turnin", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk" } } },
+	{ goals = { { t = "level", level = 40 } } },
+} })"#;
+
+// The guide loaded from the saved variables (`saved`: CharState fields), the quest log read.
+fn valik(when: &str, before: &str, saved: &str, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".into(), format!(r#"PolestarCharDB = {{ schema = 1, guide = "test/valik"{saved} }}"#))],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			&VALIK.replace("${valik}", when),
+			r#"E = Polestar.Engine
+			function brief(i)
+				local out = {}
+				for g, v in ipairs(E.GetStepView(i).goals) do out[g] = v.status .. ":" .. tostring(v.unavailable) .. ":" .. tostring(v.unavailableText) end
+				return out
+			end
+			stub.login(); stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			script,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const ONQUEST: &str = r#"{ { k = "onquest", q = { 533 } } }"#;
+const SCRIPT: &str = "emit({ at = E.GetLiveStep(), valik = brief(2) })";
+
+#[test]
+fn t_1661_a_child_quest_whose_parent_is_handed_in_is_closed_for_good_even_in_a_step_whose_when_was_stored_as_held() {
+	// The reporter's route passed the Valik step while carrying Infiltration (stored as held), then handed
+	// Infiltration in with the camp's missive: back on the guide, it sent them to "Accept Valik" for good.
+	let held = r#", when = { ["test/valik"] = { [2] = true } }"#;
+	let closed = valik(ONQUEST, "stub.world.complete({ 533 })", held, SCRIPT);
+	let text = "skipped:closed:Only before “Infiltration” is handed in";
+	assert_eq!(closed, json!({ "at": 4, "valik": [text, text] }));
+	// Carrying Infiltration, Valik is the live step as before.
+	let open = valik(ONQUEST, "stub.world.onQuest(533, { 0 })", "", SCRIPT);
+	assert_eq!(open["at"], 2);
+	assert_eq!(open["valik"][0], "active:nil:nil");
+}
+
+#[test]
+fn t_1661_a_child_quest_whose_parent_is_not_in_the_log_and_that_the_route_no_longer_brings_is_passed() {
+	// No `when` on the step (Chapter I to IV in Stranglethorn are written so); Infiltration left out, its
+	// prerequisite The Rescue missing (#1636's player).
+	let out = valik("nil", "", "", SCRIPT);
+	let text = "skipped:pre:Only with “Infiltration” in your quest log";
+	assert_eq!(out, json!({ "at": 4, "valik": [text, text] }));
+	// The Rescue done: Infiltration is the route's own business, and Valik keeps his place behind it.
+	let rescued = valik("nil", "stub.world.complete({ 498 })", "", SCRIPT);
+	assert_eq!(json!([rescued["at"], &rescued["valik"][0]]), json!([1, "pending:nil:nil"]));
 }
 
 #[test]
@@ -764,4 +873,43 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Ashenvale", fac
 	);
 	assert_eq!(out["live"], 2, "the paw is no work while its quest can't be taken: {out}");
 	assert!(out["ursangous"][0].as_str().unwrap().starts_with("skipped:pre"), "{out}");
+}
+
+// #1724 (Fyurie, 0.3.6, Night Elf Warrior 38): "Engine.lua:6765: table index is nil". When the route moved past a
+// step whose quest-starting item (a `collect` with no quest, beside its `accept … item`) waited with a quest that
+// can't be taken, the passed-over notice keyed the collect's nil quest and stopped the evaluation. The item speaks
+// for the quest it starts: the notice names that quest once.
+#[test]
+fn moving_past_a_quest_s_starting_item_names_the_quest_it_starts_no_nil_index_1724() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", faction = "Alliance", minLevel = 30, maxLevel = 40, steps = {
+	{ title = "Syndicate", goals = {
+		{ t = "collect", item = 3668, itemName = "Assassin's Contract", map = 1413, x = 40, y = 40 },
+		{ t = "accept", quest = 522, title = "Assassin's Plot", item = 3668, closedBy = { 95 }, preTitles = { [95] = "Sven's Revenge" } },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+		local w = stub.world
+		local events = {}
+		Polestar.On("STEP_SKIPPED", function(from, to, skips)
+			local quests = {}
+			for i, k in ipairs(skips) do quests[i] = tostring(k.quest) .. ":" .. tostring(k.title) .. ":" .. tostring(k.reason) end
+			events[#events + 1] = { from = from, to = to, quests = quests }
+		end)
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		local start = E.GetLiveStep()
+		-- Taking the quest that closes it for good: the contract no longer leads anywhere and the route moves on.
+		local ok, err = pcall(function() w.accept(95, { 1 }); flush(); flush() end)
+		emit({ start = start, ok = ok, err = tostring(err), live = E.GetLiveStep(), events = events })
+	"#,
+	);
+	assert_eq!(out["start"], 1, "{out}");
+	assert_eq!(out["ok"], true, "no Lua error: {out}");
+	assert_eq!(out["live"], 2, "{out}");
+	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
 }

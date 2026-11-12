@@ -26,7 +26,8 @@
 -- the rare button and its key; the fight's end arms it again.
 --
 -- The founder's alert (alert.kind "founder", Rares.FounderSighting) has the
--- same card: a gold star, "The Polestar founder is nearby!", his name and the
+-- same card: his crest alone (founder-emblem, 40 px, untinted, no ring, where
+-- the others have their tinted glyph in the ring), "The Polestar founder is nearby!", his name and the
 -- zone, and in the row a nudge to wave; its Target button targets him and
 -- waves (QoL.Buttons.FounderMacro, as the rare button does).
 --
@@ -52,6 +53,7 @@ Rares.Toast = T
 local WIDTH, MAX_W, BAND_H, ROW_H = 368, 520, 56, 48
 local PAD = 16
 local RING = 32
+local GLYPH, FOUNDER_CREST = 16, 40
 local TEXT_X = PAD + RING + 12
 local DOT = "  \194\183  "
 local DEFAULT = { "TOP", 0, -132 }
@@ -226,7 +228,7 @@ local function vgrad(t, r1, g1, b1, a1, r2, g2, b2, a2)
 end
 
 local function build()
-	f = CreateFrame("Frame", "PolestarRareToast", UIParent)
+	f = CreateFrame("Frame", "PolestarRareToast", ns.UIParent)
 	f:SetSize(WIDTH, BAND_H + ROW_H)
 	f:SetFrameStrata("HIGH")
 	f:SetClampedToScreen(true)
@@ -265,7 +267,7 @@ local function build()
 	f.Ring:SetSize(RING, RING)
 	f.Ring:SetPoint("LEFT", head, "LEFT", PAD - 1, 0)
 	f.Glyph = W.Tex(head, "OVERLAY", "qol-target", "rare")
-	f.Glyph:SetSize(16, 16)
+	f.Glyph:SetSize(GLYPH, GLYPH)
 	f.Glyph:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
 
 	f.Name = W.Text(head, "title", "title") -- the transport banner's title colour too (gold in the game's looks)
@@ -339,8 +341,19 @@ function T.Show(a)
 	if not f then build() end
 	current = a
 	local founder = a.kind == "founder"
-	f.Glyph:SetTexture(Theme.Media(founder and "star" or a.kind == "treasure" and "icon-treasure" or "qol-target"))
-	W.Color(f.Glyph, Rares.ColorName(a.kind))
+	-- The founder: his crest alone, untinted, a little over the ring's size
+	-- (the ring stays the hidden anchor, so the text doesn't move).
+	if founder then
+		f.Glyph:SetTexture(Theme.Media("founder-emblem"))
+		f.Glyph:SetSize(FOUNDER_CREST, FOUNDER_CREST)
+		W.Uncolor(f.Glyph)
+		f.Glyph:SetVertexColor(1, 1, 1, 1)
+	else
+		f.Glyph:SetTexture(Theme.Media(a.kind == "treasure" and "icon-treasure" or "qol-target"))
+		f.Glyph:SetSize(GLYPH, GLYPH)
+		W.Color(f.Glyph, Rares.ColorName(a.kind))
+	end
+	f.Ring:SetShown(not founder)
 	W.Color(f.Ring, Rares.ColorName(a.kind))
 	f.Name:SetText(founder and L["The Polestar founder is nearby!"] or a.name or "")
 	f.Facts:SetText(T.Facts(a))
@@ -415,4 +428,14 @@ end)
 
 function T.Current() return current end
 
-ns.On("RARE_SPOTTED", function(a) T.Show(a) end)
+-- Not while Polestar is hidden (Rares.lua sends none then either): a
+-- sighting is news, not something to show after.
+ns.On("RARE_SPOTTED", function(a)
+	if not ns.Hidden() then T.Show(a) end
+end)
+
+-- Hiding Polestar ends the alert (and lets go of the secure button, out of
+-- combat; in a fight it was let go of as it began).
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if hidden and f and f:IsShown() then T.Hide() end
+end)

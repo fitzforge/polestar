@@ -186,17 +186,57 @@ step Eleanor Shackleton
   complete 96607 @57.2,55.5           -- /sit by her campfire until you get Boosted Rest
   turnin 96607
   accept 96658
-  accept 97955 optional               -- Eleanor: for Nurse Neela
-  accept 97953 optional               -- Eleanor: for Vance Undergloom
-  accept 97957 optional               -- Eleanor: for Faruza
-  accept 97951 optional               -- Eleanor: for Carolai Anise
-  accept 97960 optional               -- Eleanor: for Rand Rhobart
-  accept 97958 optional               -- Eleanor: for Shelene Rhobart
-  accept 97961 optional               -- Eleanor: for Bowen Brisboise
-  accept 97959 optional               -- Eleanor: for Brom Killian
-  accept 97952 optional               -- Eleanor: for Basil Frye
-  accept 97954 optional               -- Eleanor: for Graham Van Talen
   turnin 86784
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  when !knows 1230117
+  accept 97955                        -- Eleanor: for Nurse Neela
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  when !knows 1230643
+  accept 97953                        -- Eleanor: for Vance Undergloom
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  when !knows 1229705
+  accept 97957                        -- Eleanor: for Faruza
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  when !knows 1230564
+  accept 97951                        -- Eleanor: for Carolai Anise
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  when !knows 1229517
+  accept 97960                        -- Eleanor: for Rand Rhobart
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  when !knows 1229432
+  accept 97958                        -- Eleanor: for Shelene Rhobart
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  when !knows 1229504
+  accept 97961                        -- Eleanor: for Bowen Brisboise
+
+step Camping 101: Mining
+  when skill Mining 1
+  when !knows 1230161
+  accept 97959                        -- Eleanor: for Brom Killian
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  when !knows 1230171
+  accept 97952                        -- Eleanor: for Basil Frye
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  when !knows 1230656
+  accept 97954                        -- Eleanor: for Graham Van Talen
 
 step Brill
   tip Apothecary Johaan is in the apothecary's house on the west side of the square, Executor Zygand in front of the inn with the Wanted poster beside him, Magistrate Sevren in the town hall on the square's north side. The inn comes last, in one go.
@@ -210,8 +250,16 @@ step Brill
   accept 99141
   accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
-  turnin 97957 optional               -- Faruza, beside Johaan: Camping 101: Herbalism
-  turnin 97951 optional               -- Carolai Anise, beside Johaan: Camping 101: Alchemy
+
+step Faruza
+  when onquest 97957
+  complete 97957 @59.79,52.12 map 1420
+  turnin 97957                        -- Faruza, beside Johaan: Camping 101: Herbalism
+
+step Carolai Anise
+  when onquest 97951
+  complete 97951 @59.43,52.19 map 1420
+  turnin 97951                        -- Carolai Anise, beside Johaan: Camping 101: Alchemy
 
 step Carolai Anise
   when level>=7
@@ -236,8 +284,16 @@ step Gallows' End Tavern
   train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
   turnin 5651 only Priest             -- Dark Cleric Beryl, upstairs
   accept 5650 only Priest
-  turnin 97955 optional               -- Nurse Neela, by the bar: Camping 101: First Aid
-  turnin 97953 optional               -- Vance Undergloom: Camping 101: Enchanting
+
+step Nurse Neela
+  when onquest 97955
+  complete 97955 @61.82,52.83 map 1420
+  turnin 97955                        -- Nurse Neela, by the bar: Camping 101: First Aid
+
+step Vance Undergloom
+  when onquest 97953
+  complete 97953 @61.77,51.56 map 1420
+  turnin 97953                        -- Vance Undergloom: Camping 101: Enchanting
 
 step Coleman Farthing and Gretchen Dedmar
   when level>=7
@@ -251,8 +307,16 @@ step Deathguard Linnea's camp
   collect 286201 quest 99141.2 npc 251001 @65.2,60.3 -- Ask Deathguard Kristof for his report
   accept 97558                        -- Shelene Rhobart
   accept 356                          -- Deathguard Linnea
-  turnin 97960 optional               -- Rand Rhobart, beside Shelene: Camping 101: Skinning
-  turnin 97958 optional               -- Shelene Rhobart: Camping 101: Leatherworking
+
+step Rand Rhobart
+  when onquest 97960
+  complete 97960 @65.58,60.03 map 1420
+  turnin 97960                        -- Rand Rhobart, beside Shelene: Camping 101: Skinning
+
+step Shelene Rhobart
+  when onquest 97958
+  complete 97958 @65.43,60.12 map 1420
+  turnin 97958                        -- Shelene Rhobart: Camping 101: Leatherworking
 
 # ---------------------------------------------------------------- West loop
 
@@ -266,7 +330,11 @@ step Cold Hearth Manor: kill these as you meet them
   collect 2855 quest 404.1
   collect 2858 quest 367.1
   collect 278243 quest 97558.2
-  turnin 97961 optional               -- Bowen Brisboise, by the road west of Brill: Camping 101: Tailoring
+
+step Bowen Brisboise
+  when onquest 97961
+  complete 97961 @52.59,55.52 map 1420
+  turnin 97961                        -- Bowen Brisboise, by the road west of Brill: Camping 101: Tailoring
 
 step Gordo
   tip Gordo walks the long road west of Brill, past Cold Hearth Manor, and back: the arrow follows his road west until you meet him.
@@ -395,6 +463,7 @@ step Brill
   accept 355
   turnin 361 optional                 -- Yvette Farthing, in the inn
   accept 1881 only Mage               -- Cain Firesong: Anastasia Hartwell in the Undercity takes it
+  accept 1478 only Warlock            -- Ageron Kargal: Carendin Halgar in the Undercity takes it
   train class
   turnin 355                          -- Magistrate Sevren, in the town hall
   accept 96895                        -- Deathguard Terrence, if you were below 10 on the last Brill visit
@@ -411,6 +480,7 @@ step Carendin Halgar
   only Warlock
   zone Undercity
   tip Walk south from Brill to the Ruins of Lordaeron and down into the Undercity. Carendin Halgar stands in the Magic Quarter. The Scarlet camp is just west of the ruins.
+  turnin 1478                         -- Carendin Halgar: he offers Creature of the Void only once this is handed in
   accept 1473                         -- Carendin Halgar
 
 step Anastasia Hartwell
@@ -562,8 +632,7 @@ step The Undercity
   use 6284 @86.6,27.1 only Warlock    -- Runes of Summoning
   kill 5676 quest 1471.1 only Warlock
   turnin 1471 only Warlock            -- Carendin Halgar: Summon Voidwalker
-  accept 5658 only Priest             -- Aelthalyste
-  turnin 5658 only Priest             -- Aelthalyste: Touch of Weakness
+  turnin 5658 direct only Priest -- Aelthalyste: Touch of Weakness
   turnin 1882 only Mage choose 9514 7507 -- Anastasia Hartwell: The Balnir Farmstead
 
 step Back to Tirisfal Glades

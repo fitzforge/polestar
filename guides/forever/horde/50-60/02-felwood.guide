@@ -37,7 +37,7 @@ step Terrordale: kill these as you meet them
   tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
   collect 15884 quest 6164 @17.4,31.1 -- Upstairs
   collect 15043 quest 5901
-  collect 12840 quest 5408 optional   -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
+  collect 12840 x20 optional -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
   note Keep Augustus' Receipt Book: Augustus takes it back on the Eastern Plaguelands guide's Terrordale stop.
 
 step Kirsta Deepshadow
@@ -61,14 +61,11 @@ step Diseased Wolves
 
 step Dalson's Tears farmhouse
   tip The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A Wandering Skeleton carries the outhouse key; Farmer Dalson comes out when you open the outhouse and carries the cabinet key.
-  accept 5060                         -- Locked Cabinet, inside
-  accept 5059                         -- Outhouse
-  accept 5058                         -- Mrs. Dalson's Diary, inside
-  turnin 5058
-  collect 12738 quest 5059 @47.7,49.9 map 1422
-  collect 12739 quest 5060 @48.1,49.7 -- Farmer Dalson
-  turnin 5059
-  turnin 5060
+  turnin 5058 direct
+  collect 12738 @47.7,49.9 map 1422
+  collect 12739 @48.1,49.7 -- Farmer Dalson
+  turnin 5059 direct
+  turnin 5060 direct
 
 step Mulgris Deepriver
   turnin 4984                         -- Inside
@@ -99,8 +96,8 @@ step Tirisfal Glades
 step The Bulwark
   zone Tirisfal Glades
   tip Ride south-west past Felstone Farm and follow the road west back to the Bulwark.
-  turnin 5407 optional                -- Argent Officer Garush
-  turnin 5408 optional
+  turnin 5407 direct optional -- Argent Officer Garush
+  turnin 5408 direct optional
   turnin 5096                         -- High Executor Derrington
   accept 5098
   accept 5228
@@ -216,8 +213,7 @@ step Emerald Sanctuary
   accept 5157
   turnin 8460
   accept 8462
-  accept 8466 optional                -- Only with 5 Deadwood Headdress Feathers
-  turnin 8466 optional
+  turnin 8466 direct optional
 
 # ---------------------------------------------------------------- North through Felwood
 
@@ -285,8 +281,7 @@ step Felpaw Village
 step Nafien
   turnin 8461
   accept 8465
-  accept 8467 optional                -- Only with 5 Deadwood Headdress Feathers
-  turnin 8467 optional
+  turnin 8467 direct optional
   note Keep Speak to Salfa for Winterspring.
 
 step Timbermaw Hold

@@ -44,7 +44,8 @@ use std::time::Instant;
 /// The client product the grid is built from (the one wago.tools lists Forever under).
 pub const GRID_PRODUCT: &str = "wow_classic_beta";
 /// Bump a stage's version when its code changes what it writes.
-pub const DATA_VERSION: &str = "data-2";
+/// data-3: the Alliance Tailoring and Leatherworking trainer lists (professions.json, #1536).
+pub const DATA_VERSION: &str = "data-3";
 pub const GRID_VERSION: &str = "grid-1";
 pub const PREPARE_VERSION: &str = "prepare-2";
 /// world-6: vendor buys for item objectives; world-7: the graveyard table (World::graveyards, the
@@ -68,7 +69,7 @@ pub const FLOW_THREADS: usize = 5;
 /// The route planner's code: forge-sim and the workspace crates it is built from, hashed at build
 /// time (build.rs, planner_src.rs). Part of the routes search key in place of the forge binary.
 pub const PLANNER_HASH: &str = env!("FORGE_PLANNER_HASH");
-pub const GUIDES_VERSION: &str = "guides-3";
+pub const GUIDES_VERSION: &str = "guides-4";
 pub const REPORT_VERSION: &str = "report-3";
 pub const LEGS_VERSION: &str = "legs-5";
 /// The decode cache of Leffe's maps (MB): bounded memory per our measurements.
@@ -1189,7 +1190,9 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			let (trainers, _, _) = forge_data::trainers::run(&l.data, Some(&o.guides), &data_root.join("data/recordings"))?;
 			std::fs::write(l.data.join("trainers.json"), trainers).map_err(|e| format!("trainers.json: {e}"))?;
 			let popts = forge_data::professions::Options { data: l.data.clone(), sources: data_root.join("data/sources"), tdb: forge_data::build::tdb_db_default(&data_root), build: None };
-			forge_data::professions::write(&l.data, &forge_data::professions::build(&popts)?)?;
+			let professions = forge_data::professions::build(&popts)?;
+			forge_data::professions::require_trainer_costs(&professions)?;
+			forge_data::professions::write(&l.data, &professions)?;
 			log("  data: travel.json, trainers.json, professions.json built");
 			// The files forge does not build (dungeons.json, gear/, codex/): carried from the data
 			// root's data/forever when it has them, and named.

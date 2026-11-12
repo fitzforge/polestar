@@ -304,6 +304,7 @@ function formatGoal(fields) {
 	if (f.untilSkill !== undefined) push('until', `until ${f.untilSkill}`);
 	if (f.criteria !== undefined) push('criteria', `criteria ${f.criteria}`);
 	if (f.nearest && verb !== 'sethome' && verb !== 'vendor') push('nearest', 'nearest');
+	if (f.anywhere && verb === 'collect') push('anywhere', 'anywhere');
 	if (f.rewardChoices) push('choose', rewardText('choose', f.rewardChoices));
 	if (f.rewardItems) push('reward', rewardText('reward', f.rewardItems));
 	if (f.rewardXp !== undefined) push('xp', `xp ${f.rewardXp}`);
@@ -434,6 +435,7 @@ const MODIFIER_FIELDS = {
 	until: [fld('untilSkill', 'int', 'Until skill')],
 	criteria: [fld('criteria', 'int', 'Criterion')],
 	nearest: [fld('nearest', 'bool', 'Nearest')],
+	anywhere: [fld('anywhere', 'bool', 'Bag count, no place')],
 	choose: [fld('rewardChoices', 'items', 'Reward choices')],
 	reward: [fld('rewardItems', 'items', 'Rewards')],
 	xp: [fld('rewardXp', 'int', 'XP')],
@@ -445,7 +447,7 @@ const MODIFIER_FIELDS = {
 	only: [fld('onlyText', 'text', 'Only for')],
 };
 // Modifier order of the schema = the order formatGoal writes them.
-const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
+const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
 
 function verbSchema() {
 	const verbs = {};

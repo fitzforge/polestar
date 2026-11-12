@@ -240,7 +240,7 @@ fn the_caps_the_checksum_and_the_key_lists_are_the_writer_s() {
 	assert_eq!(out["keys"]["goal"], sorted(&GOAL_KEYS));
 	assert_eq!(out["keys"]["only"], sorted(&ONLY_KEYS));
 	assert_eq!(out["keys"]["image"], sorted(&IMAGE_KEYS));
-	for k in ["reagents", "candidates", "fromNpcs", "spots", "items", "reward"] {
+	for k in ["reagents", "candidates", "fromNpcs", "spots", "items", "reward", "sections"] {
 		assert_eq!(out["keys"][k], sorted(list_keys(k).unwrap()), "{k}");
 	}
 }

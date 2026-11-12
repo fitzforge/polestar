@@ -214,6 +214,7 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			}
 			o.build = get("--build");
 			let out = forge_data::professions::build(&o)?;
+			forge_data::professions::require_trainer_costs(&out)?;
 			let dir = get("--out").map(abs);
 			let file = match &dir {
 				Some(f) => {
@@ -342,6 +343,27 @@ fn run() -> Result<(), Fail> {
 			eprintln!("wrote {}", l.display());
 		}
 		eprintln!("trainers: {:.2} s", t.elapsed().as_secs_f64());
+		return Ok(());
+	}
+	if cmd == "classspells" {
+		// classspells: --sources DIR (data/sources), --forever-build V (a cached wago build), --lua FILE
+		// (default <root>/addon/Polestar/QoL/ClassSpells.lua).
+		let root = find_root(&std::env::current_dir().map_err(|e| e.to_string())?);
+		let (mut sources, mut build, mut lua) = (None, None, None);
+		while let Some(a) = args.next() {
+			let v = args.next();
+			match a.as_str() {
+				"--sources" => sources = v.map(abs),
+				"--forever-build" => build = v,
+				"--lua" => lua = v.map(abs),
+				_ => return Err(usage(format!("unknown option {a}"))),
+			}
+		}
+		let sources = sources.or_else(|| root.as_ref().map(|r| r.join("data/sources"))).ok_or_else(|| usage("--sources <dir> is required (no checkout above here)"))?;
+		let lua = lua.or_else(|| root.as_ref().map(|r| r.join("addon/Polestar/QoL/ClassSpells.lua"))).ok_or_else(|| usage("--lua <file> is required (no checkout above here)"))?;
+		let (text, n, b) = forge_data::class_spells::run(&sources, build.as_deref())?;
+		std::fs::write(&lua, text).map_err(|e| e.to_string())?;
+		eprintln!("wrote {}: {n} class spells (client tables {b})", lua.display());
 		return Ok(());
 	}
 	if cmd == "publish" {

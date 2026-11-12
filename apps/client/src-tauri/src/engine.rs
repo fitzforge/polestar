@@ -262,6 +262,7 @@ impl Engine {
 			if force || last_scan.is_none_or(|t| t.elapsed() >= RESCAN) {
 				self.scan().await;
 				self.sync_flags();
+				self.sync_client_info();
 				self.refresh_packs();
 				// Before any upload (which can take a while): the window shows what was found now.
 				self.publish();
@@ -736,6 +737,20 @@ impl Engine {
 		}
 	}
 
+	/// Puts Polestar's newest releases from the last check into the Polestar folder's ClientInfo.lua
+	/// (docs/RECORDING.md "Client info"), for the addon's update card. After each check, after
+	/// Polestar is installed or updated (the release ships the file empty) and after every look for
+	/// the game (which also catches a Polestar updated another way); only a changed file is written.
+	pub fn sync_client_info(&self) {
+		let state = self.lock();
+		let Some(dir) = state.install.as_ref().map(|i| i.addons_dir().join("Polestar")) else { return };
+		let Some(info) = state.catalog.as_ref().and_then(|c| crate::clientinfo::info(c.releases.get("polestar").into_iter().flatten(), c.at / 1000)) else { return };
+		drop(state);
+		if let Err(e) = crate::clientinfo::write(&dir, &info) {
+			eprintln!("could not write ClientInfo.lua: {e}");
+		}
+	}
+
 	/// After the player deleted their data from `server`: its token dropped (the
 	/// next upload registers anew), no week cache, uploads paused. Progress
 	/// stays, so chunks the server held are never sent again.
@@ -979,7 +994,7 @@ impl Batch {
 /// blocking Polestar Client, a VPN or proxy, or the network. Players saw only "check your
 /// internet connection" while their browser was online.
 pub(crate) fn describe_reqwest(e: &reqwest::Error) -> String {
-	let cause = root_cause(e);
+	let cause = crate::net::cause(e);
 	if crate::net::clock_wrong(e) {
 		crate::net::clock_message(now_ms() / 1000)
 	} else if e.is_timeout() {
@@ -996,15 +1011,6 @@ pub(crate) fn describe_reqwest(e: &reqwest::Error) -> String {
 /// between this PC and the server (a proxy, a VPN, a network filter, the server's front end).
 pub(crate) fn not_from_server(status: reqwest::StatusCode) -> String {
 	format!("The answer was {status}, not from the recording server itself: a proxy, VPN or network filter on the way may be blocking it, or the server's front end is briefly down. Polestar Client keeps trying.")
-}
-
-/// The innermost error of a chain: "dns error: …", "Connection refused", "invalid peer certificate".
-fn root_cause(e: &(dyn std::error::Error + 'static)) -> String {
-	let mut inner: &(dyn std::error::Error + 'static) = e;
-	while let Some(next) = inner.source() {
-		inner = next;
-	}
-	inner.to_string()
 }
 
 /// The server's `{"error": ...}`, from at most [`MAX_ANSWER`] bytes of its answer.

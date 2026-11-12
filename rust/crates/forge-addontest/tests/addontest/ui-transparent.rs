@@ -135,7 +135,8 @@ fn the_dark_backing_holds_every_string_of_the_step_on_its_solid_middle_and_the_s
 			local body = outside(P.body, GF.veil)
 			for _, s in ipairs(outside(P.foot, GF.veil)) do body[#body + 1] = s end
 			return { bar = table.concat(bar, " | "), body = table.concat(body, " | "), barTexts = #shownTexts(P.strip) + #shownTexts(P.nav),
-				bodyTexts = #shownTexts(P.body) + #shownTexts(P.foot) }
+				bodyTexts = #shownTexts(P.body) + #shownTexts(P.foot), tabs = #shownTexts(P.strip),
+				countShown = P.nav.Steps.Count:IsVisible(), count = P.nav.Steps.Count:GetText() }
 		end
 		local down = check()
 		uistub.setStep(4)
@@ -156,7 +157,16 @@ fn the_dark_backing_holds_every_string_of_the_step_on_its_solid_middle_and_the_s
 	.remove(0);
 	for case in ["down", "hub", "tip", "narrow", "compact", "flipped"] {
 		let c = &out[case];
-		assert!(c["barTexts"].as_u64().unwrap() >= 3, "{case}: the tabs and the step count are on screen");
+		// Compact mode hides the tabs, and at 260px the title yields its space to the toolbar buttons.
+		let compact = case == "compact";
+		assert!(c["barTexts"].as_u64().unwrap() >= if compact { 2 } else { 3 }, "{case}: the toolbar's strings are on screen");
+		assert_eq!(c["countShown"], true, "{case}: the step count stays visible");
+		assert!(c["count"].as_str().unwrap().contains(" / "), "{case}: the step count is populated");
+		if compact {
+			assert_eq!(c["tabs"], 0, "compact: the tab strip is hidden");
+		} else {
+			assert!(c["tabs"].as_u64().unwrap() >= 1, "{case}: the tab strip is populated");
+		}
 		assert!(c["bodyTexts"].as_u64().unwrap() >= 5, "{case}: the step's strings are on screen");
 		assert_eq!(c["bar"], "", "{case}: the tabs and the step bar sit on the bar's backing");
 		assert_eq!(c["body"], "", "{case}: every string of the step sits on the body's backing");
@@ -390,9 +400,14 @@ fn soft_shades_follow_each_string_its_size_its_text_shown_state_and_alpha_and_ne
 		local hidden = GF.shades[fs].shown
 		fs:Show()
 		stub.advance(0.1)
+		-- The string's alpha goes into the shade's vertex colour: in the client a texture's SetAlpha is that same
+		-- value, so SetAlpha(1) on a part drew the 20 % shade solid, a black box behind the line (#1684).
 		fs:SetAlpha(0.3)
-		local faded = GF.shades[fs].parts[5]:GetAlpha()
+		local faded = { select(4, GF.shades[fs].parts[5]:GetVertexColor()) }
 		fs:SetAlpha(1)
+		faded[2] = select(4, GF.shades[fs].parts[5]:GetVertexColor())
+		stub.advance(0.1)
+		faded[3] = select(4, GF.shades[fs].parts[1]:GetVertexColor())
 		Polestar.Set("ui.backing", "dark")
 		local dark = shownShades()
 		Polestar.Set("ui.backing", "soft")
@@ -409,7 +424,10 @@ fn soft_shades_follow_each_string_its_size_its_text_shown_state_and_alpha_and_ne
 	assert_eq!(out["emptied"], false, "an emptied string's shade goes");
 	assert_eq!(out["back"], true, "and comes back with its text");
 	assert_eq!(out["hidden"], false, "a hidden string's shade goes");
-	assert_eq!(out["faded"], 0.3, "a string's alpha carries to its shade");
+	let faded = out["faded"].as_array().unwrap();
+	assert!((faded[0].as_f64().unwrap() - 0.2 * 0.3).abs() < 1e-9, "a string's alpha carries to its shade: {}", out["faded"]);
+	assert!((faded[1].as_f64().unwrap() - 0.2).abs() < 1e-9, "and back at full alpha, the shade is at 20 %, not solid: {}", out["faded"]);
+	assert!((faded[2].as_f64().unwrap() - 0.2).abs() < 1e-9, "repainted a frame later, still 20 %: {}", out["faded"]);
 	assert_eq!(out["dark"], 0, "Dark: the box, no line shades");
 	assert_eq!(out["standard"], 0, "Standard: no shades");
 }

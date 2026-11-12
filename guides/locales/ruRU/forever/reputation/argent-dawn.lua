@@ -49,12 +49,12 @@ return {
 	["{npc:11056}: ask for a {item:13370}"] = "",
 	-- {npc:11057} Apothecary Dithers · {area:152} Bulwark · {item:13370} Vitreous Focuser
 	["{npc:11057}, at the {area:152}: ask for a {item:13370}"] = "",
-	-- {area:201} Gahrron's Withering
-	["the cauldron at {area:201}"] = "",
 	-- plural, as words: Ectoplasmic Resonators = {item:13354} Ectoplasmic Resonator
 	["Ectoplasmic Resonators: the ghosts around the cauldron"] = "",
 	-- {item:13320} Arcane Quickener
 	["{item:13320}, 50 silver"] = "",
+	-- {area:201} Gahrron's Withering
+	["the cauldron at {area:201}: handed in from its window, never in the log"] = "котел ({area:201}): сдается через его окно, в журнал не попадает",
 
 	-- Step 5: Light's Hope Chapel quests
 	-- {area:2268} Light's Hope Chapel

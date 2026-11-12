@@ -494,17 +494,6 @@
 			{
 				"a": [
 					"turnin",
-					88757
-				],
-				"b": [
-					"accept",
-					88758
-				],
-				"why": "Hillsbrad (Alliance) #128"
-			},
-			{
-				"a": [
-					"turnin",
 					98291
 				],
 				"b": [
@@ -1737,15 +1726,15 @@
 			},
 			{
 				"a": [
-					"turnin",
-					6482
+					"accept",
+					6544
 				],
 				"b": [
 					"accept",
 					6503
 				],
 				"faction": "Horde",
-				"why": "PaceCheck (Discord report, 2026-11-08): Ashenvale Outrunners (level 24, Outrunners 23-24) was the first Ashenvale step at 21, where the level model has every start but Skyborne at 21.2-21.7, so the guide window's pace line read \"Behind: Ashenvale Outrunners (24) at step 4 ... reach 22 first\" for players on the route's own pace. It is taken on the way back, at the lumber camp just south of Splintertree after Freedom to Ruul's hand-in, at 22-23"
+				"why": "Route review (0.3.7, Discord 2026-11-09: Ashenvale & Silverpine 21-22 sent level ~21 players into level-24 quests): Ashenvale Outrunners (level 24, Outrunners 23-24) was taken on the way back from Thistlefur at 22-23 (0.3.6's move), still 1-1.5 levels under it. It waits for the second Ashenvale visit at 26 (forever/horde/07-ashenvale): Kuray'bin's lumber camp lies between Torek (6544, south-west of it) and Sharptalon (south-east), so it is taken after Torek's assault and the Outrunners are killed in Sharptalon's woods. Calibrated level model: taken at 26.6-27.2 on every start, the guide 6 min shorter, 60 0.03 h sooner."
 			},
 			{
 				"a": [
@@ -1753,11 +1742,23 @@
 					6503
 				],
 				"b": [
-					"accept",
-					493
+					"turnin",
+					6544
 				],
 				"faction": "Horde",
-				"why": "LeftReady c17 read (shared Horde, Ashenvale): the Ashenvale Outrunners are killed beside Kuray'bin, but the hand-in once came 4.7 levels later as a step of its own (07-ashenvale.guide:232, left-ready on all 5 starts). Hand it in on the spot, before the flight to Orgrimmar and the Sepulcher (Journey to Hillsbrad Foothills)"
+				"why": "Route review (0.3.7), with the rule that a hand-in 4.7 levels later is a step of its own: the Ashenvale Outrunners are killed near Kuray'bin and handed in on the spot, on the walk north from Sharptalon's woods, before Splintertree's hand-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					95805
+				],
+				"b": [
+					"turnin",
+					750
+				],
+				"faction": "Horde",
+				"why": "Route review (0.3.7): Mulgore bounced cougar hills -> north to Grull (The Hunt Continues) -> back south to Seer Graytongue, whose tent (42.5,90.1) stands inside the Mountain Cougars' hills (41-55, 82-92). The Seer (755 in, 757 and the timed 95805 out) and the shrine's Ritual Fire (56.6,88.7, at the east end of the same hills) come at the end of the cougar hunt (the pelts on the way south), then Grull and the battleboars."
 			},
 			{
 				"a": [
@@ -2763,23 +2764,11 @@
 					472
 				],
 				"b": [
-					"accept",
-					87318
-				],
-				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
-			},
-			{
-				"a": [
-					"accept",
+					"turnin",
 					631
 				],
-				"b": [
-					"accept",
-					87318
-				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1565: Hearts of the Lost, once taken here, is not in the game)."
 			},
 			{
 				"a": [
@@ -2787,11 +2776,11 @@
 					98310
 				],
 				"b": [
-					"accept",
-					87318
+					"turnin",
+					631
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1565: Hearts of the Lost, once taken here, is not in the game)."
 			},
 			{
 				"a": [
@@ -2799,23 +2788,11 @@
 					87491
 				],
 				"b": [
-					"accept",
-					87318
-				],
-				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
-			},
-			{
-				"a": [
 					"turnin",
-					87318
-				],
-				"b": [
-					"task",
-					633
+					631
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Comar and Essene Villard stand on the road from Dun Modr to the Thandol Span (49.9,12.6 and 51.5,9.0), so Hearts of the Lost is taken and handed in on the way north, before the span; the route went over the span to Foggy MacKreel first and came back to them. (#1319: the crossing is anchored on the Cache of Explosives, task 633, since MacKreel's Moonshine moved to 05-arathi-highlands.)"
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1565: Hearts of the Lost, once taken here, is not in the game)."
 			},
 			{
 				"a": [
@@ -3562,7 +3539,7 @@
 					98245
 				],
 				"faction": "Alliance",
-				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40 and Arathi, #1173): Ebenezer Rustlocke's corpse (51.3,8.0) lies 30 yd from Essene Villard (51.5,9.0), where every race hands in Hearts of the Lost on the walk north from Dun Modr; The Thandol Span is handed in there by every race, before the walk back south to Howin. Humans, who do not cross to Foggy MacKreel, carried it to the Arathi guide and walked from Faldir's Cove back onto the span for it."
+				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40 and Arathi, #1173): Ebenezer Rustlocke's corpse (51.3,8.0) lies on the walk north from Dun Modr, before the span; The Thandol Span is handed in there by every race, before the walk back south to Howin. Humans, who do not cross to Foggy MacKreel, carried it to the Arathi guide and walked from Faldir's Cove back onto the span for it."
 			},
 			{
 				"a": [
@@ -3865,7 +3842,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after Jorn's thunderhawks south of Camp Taurajo at 21 and take them straight to Ruga; the antennae vanish 15 minutes after they drop."
+				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after the eggs, at the same mounds south of Camp Taurajo at 21, and take them straight to Ruga; the antennae vanish 15 minutes after they drop (the thunderhawks after the hand-in since 0.3.8: pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -3890,6 +3867,18 @@
 				],
 				"faction": "Horde",
 				"why": "Timed-quest check (2026-11-08): Trial at the Field of Giants (30 minutes) is taken on Jorn's stop, before the thunderhawks south of the camp, so Warriors don't walk back to Camp Taurajo for it."
+			},
+			{
+				"a": [
+					"turnin",
+					1824
+				],
+				"b": [
+					"task",
+					913
+				],
+				"faction": "Horde",
+				"why": "Trial at the Field of Giants (1824, Warrior, 30 minutes; quests.json limit 1800): the thunderhawks (Cry of the Thunderhawk) flew between the accept and the antennae, so the timer ran during them. Players' recordings on Polestar 0.3.5 and later: 6 accepts, 2 hand-ins, 2 fails, 2 abandons. The eggs and the antennae share the Field of Giants' mounds and come first, then Ruga, then the thunderhawks."
 			},
 			{
 				"a": [
@@ -4865,7 +4854,7 @@
 					877
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 bracket review (0.3.6, 2026-11-10, flow): 02-the-barrens tested Tonga's seeds at the Stagnant Oasis (fissure 55.6,42.8) and walked back to the Crossroads to hand them in and take Altered Beings before the Lushwater/Dry Hills loop; the seed test now goes straight on north-west and Tonga takes it on the Crossroads stop after Echeyakee, where he already stands. Travel route: fissure to Lushwater 2:44 direct vs 4:54 by the Crossroads."
+				"why": "Horde 12-30 bracket review (0.3.6, 2026-11-10, flow), then #1644 (0.3.7): Tonga's seed test (877) is handed in after the Dry Hills, never on a walk back from the Stagnant Oasis. 0.3.6 dropped the walk back; #1644 moves the test itself to the Verog pass (see deliberate.together 851/877), so 877 is handed in on the Crossroads stop coming up the Gold Road."
 			},
 			{
 				"a": [
@@ -4877,13 +4866,62 @@
 					880
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 bracket review (0.3.6, 2026-11-10, flow): Altered Beings' Oasis Snapjaws (9 of the 24 spawns in the Stagnant Oasis' water, 55.0-55.3,41.9-43.0) are collected on the Verog pass at the same oasis and handed to Tonga on the next Crossroads stop (south gate, coming up the Gold Road); our comparison does the seed test and the snapjaws on the Verog pass too."
+				"why": "#1644 (0.3.7, flow): Altered Beings (880) is taken on the Crossroads stop after the Verog pass, where the seed test (877) is handed in, and its Oasis Snapjaws are collected at Lushwater Oasis on the Hezrul step (15 of their 24 spawns are in Lushwater's water, 45.7-48.1,38.3-40.6, where players' recordings show them killed; deliberate.together 852/880), handed to Tonga on the Crossroads stop before Counterattack!."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"task",
+					385
+				],
+				"faction": "Alliance",
+				"why": "#1833 (0.3.7, timed): A Hunter's Challenge (258) must be handed back to Daryl the Youngling within 12 minutes (quests.json limit 720). The route killed the Elder Mountain Boars and then gathered Crocolisk Hunting's eleven items and Daggerfang's knife on the shore before going back, so the timer ran during the crocolisks: players' recordings on Polestar 0.3.5 and later show 12 hand-ins and 3 fails at 12:00 out of 17 accepts, the hand-ins up to 11.9 minutes in. The boars come first, 258 goes straight back to Daryl, then the shore."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"task",
+					86758
+				],
+				"faction": "Alliance",
+				"why": "#1833: Daggerfang (Twisting the Knife) patrols the same shore as the Loch Crocolisks; taken after A Hunter's Challenge is handed in, with Crocolisk Hunting (see the 258 -> 385 pair)."
+			},
+			{
+				"a": [
+					"turnin",
+					1055
+				],
+				"b": [
+					"task",
+					1022
+				],
+				"faction": "Alliance",
+				"why": "#1866: the Howling Vale's Terrowulf packs (28-30) and their rare Packlord (32) stand round the Tome of Mel'Thandris (The Howling Vale, 1022), read on the first visit to Shael'dryn's moonwell: players' recordings show it read at levels 28-32 (median 29), and 2 people died in the vale, at 28 and 29. The route comes back to the moonwell after the south-east (the Hidden Shrine, 1055), where the same recordings show players handing in 1055 at 29-30 (5 of 6; one at 24), and the vale's tunnel is beside it on the way west to Astranaar: the tome is read then, with no extra stop."
+			},
+			{
+				"a": [
+					"turnin",
+					1478
+				],
+				"b": [
+					"accept",
+					1473
+				],
+				"faction": "Horde",
+				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
 			}
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
-			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them)."
+			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
+			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp."
 		],
 		"never": [
 			{
@@ -4949,6 +4987,30 @@
 			}
 		],
 		"together": [
+			{
+				"a": [
+					"task",
+					1387,
+					0
+				],
+				"b": [
+					"task",
+					93224,
+					0
+				],
+				"why": "#1602 (rockzors, Alliance Desolace): Carved Centaur Totems drop from the Kolkar and Magram centaurs as well as the Maraudine (players' recordings, forever-db correction of item 254432), so the totems come with Centaur Bounty's ears at Kolkar Village: one field step for both."
+			},
+			{
+				"a": [
+					"turnin",
+					1387
+				],
+				"b": [
+					"turnin",
+					93224
+				],
+				"why": "#1602: Captain Pentigast (66.7,10.9) stands beside Corporal Melkins (66.7,10.9) at Nijel's Point: both hand-ins on one stop."
+			},
 			{
 				"a": [
 					"task",
@@ -6390,15 +6452,15 @@
 			{
 				"a": [
 					"task",
-					913
-				],
-				"b": [
-					"task",
 					868,
 					0
 				],
+				"b": [
+					"task",
+					913
+				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle. Final route review (2026-11-08): the eggs right after the thunderhawk wings, not after a walk back into Camp Taurajo to hand the wings to Jorn; Jorn takes them on the way back north (overrides pair task 868 before turnin 913)"
+				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants (42.6-48.5,69.4-72.4), just south of the plains where Jorn's thunderhawks circle (44.8-50.1,60.1-67.0). Final route review (2026-11-08): no walk back into Camp Taurajo between the two; Jorn takes the wings on the way back north (overrides pair task 868 before turnin 913). Since 0.3.8 the eggs come first and the thunderhawks on the way back north, so a Warrior's antennae, at the same mounds as the eggs, reach Ruga before the 30-minute Trial at the Field of Giants runs out (pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -6484,6 +6546,34 @@
 				],
 				"faction": "Alliance",
 				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6, BrAlliance3040, our comparison): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end, as our comparison loops it."
+			},
+			{
+				"a": [
+					"task",
+					851,
+					0
+				],
+				"b": [
+					"task",
+					877,
+					0
+				],
+				"faction": "Horde",
+				"why": "#1644 (0.3.7, flow; 02-the-barrens): the Stagnant Oasis was walked to from the Crossroads for Tonga's seed test alone (bubbling fissure 55.6,42.7), then the route turned back north-west to the Dry Hills: about 1,800 yd of out-and-back. The seed test now goes with Verog (851), whose Kolkar walk the same oasis on the way south to the Bristlebacks."
+			},
+			{
+				"a": [
+					"task",
+					852,
+					0
+				],
+				"b": [
+					"task",
+					880,
+					0
+				],
+				"faction": "Horde",
+				"why": "#1644 (0.3.7, flow; 02-the-barrens): Altered Beings' Oasis Snapjaws are collected at Lushwater Oasis with Hezrul Bloodmark (852), who walks its west shore (46,36-42) among 15 of the snapjaws' 24 spawns (45.7-48.1,38.3-40.6; players' recordings show snapjaws killed by 52 people, with Lushwater's 45-47,37-42 among the spots), so the seed test can go with Verog without a third oasis visit."
 			}
 		],
 		"after": [
@@ -6878,6 +6968,23 @@
 		],
 		"optional": [
 			{
+				"q": 1392,
+				"faction": "Alliance",
+				"why": "Roaming-NPC sweep (0.3.7, with #1542): Noboru the Cudgel starts from Noboru's Cudgel (6196), which only Noboru the Cudgel (5477) drops: one creature that walks a 56-node waypoint path through the Fallow Sanctuary ruins in the Swamp of Sorrows (Forever's server data: MovementType 2, path 810054770, about 220 x 540 yd). A required collect and accept held the Alliance 'Fallow Sanctuary' step (alliance/30-40/05-arathi-highlands) until he came by. Optional for the cudgel and the accept (take it if you meet him); the hand-in at Magtoor stays a plain goal for whoever carries it. Alliance only: the Horde route goes for him on a step of its own (overrides.include 1392, horde/40-50/01-stranglethorn-vale)."
+			},
+			{
+				"q": 522,
+				"why": "#1542: Assassin's Contract starts from the contract (3668) that only the Shadowy Assassin (2434) drops: one stealthed mob on the edge of Southshore (players' recordings to 2026-11-10: seen by 5 people and killed by 4 in all, at spots spread from 47,62 to 55,54 on Hillsbrad's map). A required kill, collect and accept held the Southshore step of alliance/30-40/05-arathi-highlands until he showed up. Optional (take it if you spot him); the hand-in at Magistrate Henry Maleb stays a plain goal for whoever carries it."
+			},
+			{
+				"q": 523,
+				"why": "#1542: Baron's Demise follows Assassin's Contract (522), whose start drops only from the stealthed Shadowy Assassin; optional with it, so the route does not count on it. Its Strahnbrad objective and Southshore hand-in stay plain goals for whoever carries it."
+			},
+			{
+				"q": 4881,
+				"why": "Discord question (2026-11-09): Assassination Plot starts from the Assassination Note (12564), which only the Galak Messenger (10617) drops: one creature that walks a waypoint path about 1,300 yd long between the Galak camps of Thousand Needles (Forever's server data: MovementType 2, path 810106170, 66 nodes). Optional for the note and the accept (take it if you meet him); Kanati Greycloud's hand-in at Whitereach Post has its own step for whoever carries it, so it is never carried past."
+			},
+			{
 				"q": 565,
 				"why": "Final route review 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak needs a Hillman's Cloak (3719, Leatherworking) and a Bolt of Woolen Cloth (2997, Tailoring) besides the yeti fur and Fine Thread; no vendor sells either (Forever's item data: no vendors), and the route has no step that gets them. Optional, so the route does not count on it and the yeti cave is only for players who take it."
 			},
@@ -7098,10 +7205,6 @@
 				"why": "Never-seen check (2026-11-08, 0.3.6; #1314's pattern): Aka'rai (268705, Desolace), giver and ender of Hate the Hatefury, has never been seen in players' recordings, though 2 Horde people passed her spot at 33-34, and nobody has taken or been offered the quest; it stays at Shadowprey as optional (its Sargeron kills and hand-in too), with a tip to skip it if she doesn't offer it"
 			},
 			{
-				"q": 87318,
-				"why": "#1314: Corma Villard offered no Hearts of the Lost to a level-32 Alliance player standing beside her, and nobody in players' recordings has been offered or taken it; another addon's player traces do record it taken and handed in (level 33, 2650 XP), so it likely exists behind a prerequisite we don't know. Optional, with a tip to skip it if she doesn't offer it."
-			},
-			{
 				"q": 98463,
 				"why": "Never-seen check (2026-11-08, 0.3.6): Barkeep Kelly in Southshore's inn was passed by 4 Alliance people in players' recordings, and none opened her window or was offered Talk of the Town; it stays on the Southshore stop (and its Booty Bay hand-in) as optional, with a tip to skip it if she doesn't offer it"
 			},
@@ -7237,117 +7340,117 @@
 		"include": [
 			{
 				"q": 97924,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Helene Peltskinner on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 12 took it, 12 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Helene Peltskinner in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 12 took it, 12 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97922,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Leatherworking (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Adele Fielder on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 4 took it, 2 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Leatherworking (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Adele Fielder in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 4 took it, 2 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97920,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Lee Brown on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 12 took it, 8 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Lee Brown in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 12 took it, 8 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97919,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: First Aid (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Michelle Belle on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 11 took it, 10 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: First Aid (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Michelle Belle in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 11 took it, 10 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97916,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Smith Argus on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 5 took it, 4 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Smith Argus in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 5 took it, 4 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97938,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Alchemy (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Cyndra Kindwhisper on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 2 took it, 2 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Alchemy (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Cyndra Kindwhisper in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 2 took it, 2 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97944,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Herbalism (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Malorne Bladeleaf on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 6 took it, 5 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Herbalism (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Malorne Bladeleaf in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 6 took it, 5 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97942,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: First Aid (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Byancie on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 13 took it, 10 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: First Aid (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Byancie in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 13 took it, 10 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97949,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Radnaal Maneweaver on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 16 took it, 13 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Radnaal Maneweaver in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 16 took it, 13 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97946,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Leatherworking (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Nadyia Maneweaver on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Leatherworking (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Nadyia Maneweaver in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 96044,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Dun Morogh, both guides (Eric Brighthammer), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Tognus Flintfire on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 2 took it. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Dun Morogh, both guides (Eric Brighthammer), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Tognus Flintfire in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 2 took it. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 96047,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: First Aid (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Dun Morogh, both guides (Eric Brighthammer), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Thamner Pol on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 7 took it. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: First Aid (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Dun Morogh, both guides (Eric Brighthammer), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Thamner Pol in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 7 took it. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 96046,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Mining (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Dun Morogh, both guides (Eric Brighthammer), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Yarr Hammerstone on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): 5 took it. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Mining (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Dun Morogh, both guides (Eric Brighthammer), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Yarr Hammerstone in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 5 took it. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 96058,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Dun Morogh, both guides (Eric Brighthammer), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Bronk Guzzlegear on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Dun Morogh, both guides (Eric Brighthammer), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Bronk Guzzlegear in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97963,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Alchemy (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Nyassa Swiftdraught on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Alchemy (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Nyassa Swiftdraught in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97964,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Aedi Thriceforged on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Aedi Thriceforged in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97965,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: First Aid (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Naleeia Tattermend on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: First Aid (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Naleeia Tattermend in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97967,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Fenn Fairweather on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Fenn Fairweather in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97969,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Leatherworking (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Indari Sunseam on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Leatherworking (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Indari Sunseam in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97970,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Mining (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Messana Crestwind on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Mining (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Messana Crestwind in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97971,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Mendalass Tattermend on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Mendalass Tattermend in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 97973,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Taleen Shimmerthread on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Taleen Shimmerthread in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
 				"q": 98286,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as an optional goal in the campfire step (the addon shows a profession-gated goal only to characters with the profession), handed to Nasalanna Windsinger on a stop the guide already makes (optional turn-in). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Zephras Isle, Alliance (Raan Wildwind), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Nasalanna Windsinger in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): not counted. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
 			},
 			{
@@ -8616,11 +8719,20 @@
 			{
 				"q": 97284,
 				"after": [
-					"accept",
-					1437
+					"turnin",
+					1465
 				],
-				"reason": "Quest volume (Alliance 30-40 audit (0.3.7, 2026-11-09)): Desolace (30-40/02): Vahlarriel's Vengeance (level 33, from 30, 2650 XP; Vahlarriel Demonslayer at Nijel's Point) asks for four each of the Burning Blade Augurs, Reavers, Adepts and Felsworn in Thunder Axe Fortress, where the guide already goes for Dalinda, Tyranis and the Sceptre of Light. EG live and Forever's quest page agree on giver, ender and objectives, and a collector saw its XP in game.",
-				"issue": "-"
+				"reason": "Quest volume (Alliance 30-40 audit (0.3.7, 2026-11-09)): Desolace (30-40/02): Vahlarriel's Vengeance (level 33, from 30, 2650 XP; Vahlarriel Demonslayer at Nijel's Point) asks for four each of the Burning Blade Augurs, Reavers, Adepts and Felsworn in Thunder Axe Fortress, where the guide already goes for Dalinda, Tyranis and the Sceptre of Light. EG live and Forever's quest page agree on giver, ender and objectives, and a collector saw its XP in game. #1579: she offers it with the third part of Vahlarriel's Search (1438) when the second part (1465, from the Malem chest) is handed back to her (in game, 2026-11-10, and in every recorded window; forever-db correction pre 1465), not with the first part (1437). Players' recordings: offered to 3 people, each in her window after the hand-in of 1465 or later; a level 36 Human with nothing done got only 1437 from her, and the reporter (level 36, 1437 still in the log) found nothing to take.",
+				"issue": "#1579"
+			},
+			{
+				"q": 93224,
+				"after": [
+					"accept",
+					1387
+				],
+				"reason": "#1602 (rockzors, 0.3.6): Carved Centaur Totems (level 40, from 30, 2350 XP; Captain Pentigast beside Corporal Melkins at Nijel's Point) wants five Carved Centaur Totems. Players' recordings (build 70862, 41 drops, 5 contributors) have them dropping from six Kolkar and seven Magram kinds, not only the Maraudine the merged data listed (forever-db correction of item 254432, addDrops), so the first Desolace visit (30-40/02, 35-36) takes it with Centaur Bounty and hands it in on the same stop instead of the south loop's Valley of Spears (30-40/06, 38-39). The hand-edited 30-40/06 keeps its accept, collect and hand-in for a player who loads it fresh.",
+				"issue": "#1602"
 			},
 			{
 				"q": 1111,
@@ -9065,47 +9177,47 @@
 			},
 			{
 				"q": 97905,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Jandi (3404) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Jandi (3404) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
 				"q": 97901,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Jhag (11066) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Jhag (11066) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
 				"q": 97908,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Thuwd (7088) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Thuwd (7088) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
 				"q": 97906,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Karolek (3365) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Karolek (3365) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
 				"q": 96102,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Snang (2855) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Snang (2855) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
 				"q": 97899,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Whuut (11046) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Brakk, Durotar) is handed to Whuut (11046) on 03-silverpine-forest's opening Orgrimmar walk (Orcs and Trolls), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
 				"q": 97959,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Eleanor Shackleton, Tirisfal Glades) is handed to Brom Killian (4598) on 03-silverpine-forest's Undercity stop at the end (Undead), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Eleanor Shackleton, Tirisfal Glades) is handed to Brom Killian (4598) on 03-silverpine-forest's Undercity stop at the end (Undead), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
 				"q": 97952,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Eleanor Shackleton, Tirisfal Glades) is handed to Basil Frye (4605) on 03-silverpine-forest's Undercity stop at the end (Undead), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Eleanor Shackleton, Tirisfal Glades) is handed to Basil Frye (4605) on 03-silverpine-forest's Undercity stop at the end (Undead), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
 				"q": 97954,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Eleanor Shackleton, Tirisfal Glades) is handed to Graham Van Talen (4586) on 03-silverpine-forest's Undercity stop at the end (Undead), an optional goal on that stop's step (the campfires' convention). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, with BrHordeStart): Camping 101 (level 6, 270 XP, needs the profession at accept) from the start's campfire (Eleanor Shackleton, Tirisfal Glades) is handed to Graham Van Talen (4586) on 03-silverpine-forest's Undercity stop at the end (Undead), a plain turn-in on a step of its own shown only while it is in the log (#1559: optional goals are not taken by auto turn-in). Players' recordings at the campfires: Durotar Skinning 12 accepts / 9 hand-ins at Thuwd, Tirisfal Mining 13 / 12 at Brom Killian; Forever's quest data gives every variant's ender.",
 				"issue": "-"
 			},
 			{
@@ -9128,7 +9240,7 @@
 			},
 			{
 				"q": 97538,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): Pigments for Paints (Forever, level 26, from 20, 2100 XP) from Tah Winterhoof (3024, Thunder Bluff 54.1,47.0) on 04-the-barrens' new Thunder Bluff stop (06's Thunder Bluff step for Druids); its 30 Mirkweed Pods come from the Mirkweed on the floor of Mirkfallon Lake (objects 667362/667364, 46.9-50.0,37.3-42.7) beside 04's Gaea Seeds shore, handed in on 07-ashenvale's Thunder Bluff stop. Players' recordings: 14 accepts at Tah, 8 people 30/30 and handed in; Forever's quest data agrees. Travel (travel route): Orgrimmar to Malaka'jin by Thunder Bluff 13:45 with its flight path / 20:56 without (Camp Taurajo and Mulgore) vs 8:40 direct; knowing the path saves 4:20 on 07's Zoram'gar to Skywatcher leg. With The Sacred Flame, 7,590 XP for about 8 min (flight path) / 15.5 min (without) of travel plus about 19 min on objectives, against 34 min of grind at the calibrated rate (sim 18.9k XP/h at 28, x1.4). Our comparison: the primary benchmark makes this Thunder Bluff stop at 24.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): Pigments for Paints (Forever, level 26, from 20, 2100 XP) from Tah Winterhoof (3024, Thunder Bluff 54.1,47.0) on 04-the-barrens' new Thunder Bluff stop (06's Thunder Bluff step for Druids); its 30 Mirkweed Pods come from the Mirkweed on the floor of Mirkfallon Lake (objects 667362/667364, 46.9-50.0,37.3-42.7) beside 04's Gaea Seeds shore, handed in on 07-ashenvale's Thunder Bluff stop. Players' recordings: 14 accepts at Tah, 8 people 30/30 and handed in; Forever's quest data agrees. Travel (travel route): Orgrimmar to Malaka'jin by Thunder Bluff 13:45 with its flight path / 20:56 without (Camp Taurajo and Mulgore) vs 8:40 direct; knowing the path saves 4:20 on 07's Zoram'gar to Skywatcher leg. With The Sacred Flame, 7,590 XP for about 8 min (flight path) / 15.5 min (without) of travel plus about 19 min on objectives, against 34 min of grind at the calibrated rate (sim 18.9k XP/h at 28, x1.4).",
 				"issue": "-"
 			},
 			{
@@ -9162,6 +9274,40 @@
 					"turnin",
 					1062
 				]
+			},
+			{
+				"q": 527,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660, Fitz's call 2026-11-10): a character who skipped 06-hillsbrad-foothills arrives at 29-30 without Battle of Hillsbrad 527-529 and The Rescue 498, so 532, 539, 541 and Infiltration 533 (with Valik 535) were hidden as needing another guide's quests. The 30-40 guide now does them first from Tarren Mill, in 06's order (fields 527 -> Tarren Mill -> peasants 528 -> Tarren Mill -> Durnholde Keep 498 -> the smithy 529 -> Tarren Mill), each step `when !turnedin 529` (Battle) or `when !turnedin 498` (Rescue), so 06's players see none of it. About 14,700 XP at 29 (498 at 60%), on top of what the unhidden quests give. Recordings: 527 and 498 are taken at 21-27 mostly, some at 28-33.",
+				"issue": "#1660"
+			},
+			{
+				"q": 528,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): Battle of Hillsbrad part 2, `when !turnedin 529`; see 527.",
+				"issue": "#1660"
+			},
+			{
+				"q": 529,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): Battle of Hillsbrad part 3, `when !turnedin 529`; it opens 532 on the guide's first Tarren Mill stop. See 527.",
+				"issue": "#1660"
+			},
+			{
+				"q": 498,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): The Rescue (Durnholde Keep), `when !turnedin 498`; it opens Infiltration 533 (and Valik) on the guide's first Tarren Mill stop. See 527.",
+				"issue": "#1660"
+			},
+			{
+				"q": 567,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1776): Dangerous! is taken from the poster in the 22-25 guide, which kills Farmer Kalaba (567.4) with the peasants (528) and Citizen Wilkes (567.2) at the smithy (529), and leaves the clerk (567.1, the town hall with 532) and the miner (567.3, Azurelode Mine with 539) to this guide. A character who carries it but left the 22-25 guide before the smithy had no step for Kalaba or Wilkes here: the catch-up's peasants and smithy steps (`when !turnedin 529`) now list them, as the 22-25 guide does. Kolbi (Skyborne Druid 31, 0.3.6) had 567 at 2/4, with 529 neither in the log nor handed in.",
+				"issue": "#1776"
+			},
+			{
+				"q": 1478,
+				"after": [
+					"turnin",
+					354
+				],
+				"reason": "Undead Warlocks: Halgar's Summons (1478, 210 XP) from Ageron Kargal on the Brill stop that trains, handed in to Carendin Halgar before Creature of the Void (see the deliberate pair turnin 1478 -> accept 1473): carried, it blocked 1473's offer for 4 recorded players.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -9169,6 +9315,12 @@
 				"q": 212,
 				"faction": "Alliance",
 				"reason": "Timed-quest check (2026-11-08, #1319's pattern): A Meal Served Cold must be handed back to Angus Stern in Stormwind within 30 minutes of the accept (quests.json limit 1800; mechanics 212 timed 1800 s, server). The route took it in Stormwind in 30-40/05-arathi-highlands at 36-38, collected the Chilled Basilisk Haunch in Stranglethorn two guides later and handed it in on the next Stormwind stop, hours later: it always ran out. Making it work needs a Stormwind-Stranglethorn-Stormwind trip of its own within the half hour; left out.",
+				"issue": "-"
+			},
+			{
+				"q": 853,
+				"faction": "Horde",
+				"reason": "Offered-timed sweep (2026-11-10, reported in play with 42:00 left): Apothecary Zamah must reach Zamah in Thunder Bluff's Pools of Vision within 45 minutes (quests.json limit 2700). Helbrim offers it on 02-the-barrens' Fungal Spores hand-in, and the shared route never goes to Thunder Bluff: on Polestar 0.3.5 and later 4 players took it and none handed it in (2 timed out, 2 abandoned). A round trip by air is about 10 minutes for 800 XP; left out of the shared route, and that stop's tip (guide-fixes timed-apothecary-zamah-848-turnin) says to leave it. Druids fly to Thunder Bluff anyway on the next Crossroads stop: there they take it (accept 853 only Druid) and hand it in on that Thunder Bluff step, a hand edit the route writer cannot write (no class-only accepts), pinned by tests/guides-reported.test.js: a Forge zone adoption keeps those two lines.",
 				"issue": "-"
 			},
 			{
@@ -9346,6 +9498,12 @@
 				"q": 1194,
 				"faction": "Alliance",
 				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
+				"issue": "-"
+			},
+			{
+				"q": 1191,
+				"faction": "Alliance",
+				"reason": "Zamek's Distraction is a step of Keeping Pace (1190; the data's parent 1190, and 1190's objective reads 'Have Zamek create a diversion, then steal Rizzle's plans'): a child quest is taken while its parent is in the log, and the Alliance leaves 1190 out (above), so 40-50/04's Mirage Raceway stop asked for a quest Zamek can't offer (since 0.3.5; found by the offer sweep with #1579; no recordings at Zamek yet). Left out with 1190.",
 				"issue": "-"
 			},
 			{
@@ -11466,13 +11624,13 @@
 			{
 				"a": [
 					"turnin",
-					533
+					553
 				],
 				"b": [
-					"task",
-					539
+					"accept",
+					535
 				],
-				"why": "#1079: Infiltration is handed to Krusk on the Tarren Mill stop between the town hall and the mine, where the walk passes him, not 26 minutes later"
+				"why": "#1466 (0.3.7, replaces #1079's 'Infiltration handed in on the first Tarren Mill return'): Infiltration (533, level 34) was worked at 30 on every start, its Syndicate Footpads and Thieves 32-34, and the pace line called it hard (Steffen's report). Valik's errand (535: his reward is the missive) and the fallback missive drops come on the way back from Southshore's graveyard (Helcular's Revenge, 553) to Tarren Mill, at about 31-32; Krusk takes 533 with the Dalaran hand-ins"
 			},
 			{
 				"a": [
@@ -11520,14 +11678,14 @@
 			},
 			{
 				"a": [
-					"turnin",
-					533
+					"task",
+					544
 				],
 				"b": [
 					"task",
-					539
+					533
 				],
-				"why": "#1079: Infiltration is handed to Krusk on the Tarren Mill stop between the town hall and the mine, where the walk passes him, not 26 minutes later"
+				"why": "#1466 (0.3.7, replaces #1079's 'Infiltration handed in on the first Tarren Mill return'): the Syndicate missive comes after the Dalaran crater's Bloodstone pieces (Prison Break In, 544), on the walk back from Southshore to Tarren Mill; Valik's own pair (turnin 535 before task 533) keeps the errand first"
 			},
 			{
 				"a": [

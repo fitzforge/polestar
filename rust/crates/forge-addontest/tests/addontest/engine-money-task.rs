@@ -71,10 +71,10 @@ fn a_money_goal_is_done_once_the_character_holds_that_much_and_stays_done_for_th
 			emit(state())
 		"#,
 	);
-	assert_eq!(out[0], json!({ "live": 2, "status": "current", "goals": ["active:Have at least 1s 50c", "active:Train at Llane Beshere"] }));
+	assert_eq!(out[0], json!({ "live": 2, "status": "current", "goals": ["active:Have at least 1s 50c", "active:Learn new spells from Llane Beshere"] }));
 	assert_eq!(out[1]["goals"][0], "done:Have at least 1s 50c");
 	// Spending it before the step ends does not undo the goal (the trainer is still to visit).
-	assert_eq!(out[2], json!({ "live": 2, "status": "current", "goals": ["done:Have at least 1s 50c", "active:Train at Llane Beshere"] }));
+	assert_eq!(out[2], json!({ "live": 2, "status": "current", "goals": ["done:Have at least 1s 50c", "active:Learn new spells from Llane Beshere"] }));
 }
 
 #[test]

@@ -87,7 +87,7 @@ fn captions_follow_the_direction_a_crossing_without_one_says_where_it_goes() {
 		nav.place(-500, -500)                            -- East Vale, heading west
 		target(-500, 500)
 		emit(route())"#);
-	assert_eq!(out, json!(["walk|Go to West Vale", "walk|Go to West Vale", "walk|Target"]));
+	assert_eq!(out, json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
 }
 
 #[test]
@@ -110,7 +110,7 @@ fn an_open_ground_pair_walks_straight_across_the_border_a_one_way_pair_only_one_
 		emit(r)"#);
 	assert_eq!(out["open"], json!(["walk|Target"]));
 	assert_eq!(out["oneWayWith"], json!(["walk|Target"]));
-	assert_eq!(out["oneWayAgainst"], json!(["walk|Go to West Vale", "walk|Go to West Vale", "walk|Target"]));
+	assert_eq!(out["oneWayAgainst"], json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
 }
 
 #[test]
@@ -427,8 +427,8 @@ fn a_start_already_past_a_crossing_s_near_end_walks_on_to_its_far_end_never_back
 		local off = N.GetRoute()
 		r.offTo = { off[1].to.wx, off[1].to.wy }
 		emit(r)"#);
-	assert_eq!(out["before"], json!(["walk|Go to East Vale", "walk|Go to East Vale", "walk|Kobolds"]));
-	assert_eq!(out["on"], json!(["walk|Go to East Vale", "walk|Kobolds"]), "straight on to the far end");
+	assert_eq!(out["before"], json!(["walk|Walk to East Vale", "walk|Walk to East Vale", "walk|Kobolds"]));
+	assert_eq!(out["on"], json!(["walk|Walk to East Vale", "walk|Kobolds"]), "straight on to the far end");
 	assert_eq!(out["firstTo"], json!([600, -300, 15, true]));
 	assert_eq!(out["offTo"], json!([600, 300]), "off the road the near end comes first, as before");
 }
@@ -463,7 +463,7 @@ fn skipping_a_crossing_s_near_end_walks_on_later_plans_near_the_crossing_walk_on
 		r.other = first()
 		emit(r)"#);
 	assert_eq!(out["replanned"], 0, "skipping the near end moves on without planning back to it");
-	assert_eq!(out["skip"], json!(["walk|Go to East Vale", "walk|Kobolds"]));
+	assert_eq!(out["skip"], json!(["walk|Walk to East Vale", "walk|Kobolds"]));
 	assert_eq!(out["near"], json!([600, -300]), "near the crossing the skipped end stays skipped");
 	assert_eq!(out["far"], json!([600, 300]), "far from it the skip never walks straight over the zone border");
 	assert_eq!(out["other"], json!([600, 300]));
@@ -668,4 +668,70 @@ fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sw
 	}
 }
 
+// #1694: from the middle of the Badlands (50,50) to Kargath's flight master (Gorrik, 4.0,44.8), the walking engine
+// measured the walk 2,188 yd along the road; the planner priced a walk to the Searing Gorge gate's Badlands end
+// (1.09,62.92) straight (x1.25) and that end's walk on to Gorrik straight too, 300 yd: cheaper, so the arrow went
+// to the gate first and on from there. A walk that stops at a crossing's end without crossing is the same walk
+// past it: one walk. A target in Searing Gorge still goes through the gate.
+#[test]
+fn a_walk_never_stops_at_a_crossing_s_end_it_does_not_cross_kargath_from_the_badlands_1694() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local function plan(map, wx, wy, label)
+				local legs = N.PlanRoute({ c = 0, map = 1418, wx = -6718.75, wy = -3322.9, faction = 2, speed = 7,
+					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
+					walkCost = function(_, _, _, start) if start then return 2188, 2188 end end })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			emit({
+				kargath = plan(1418, -6632.5, -2178.67, "Gorrik"),
+				gorge = plan(1427, -6843.75, -1884.8, "Searing Gorge"),
+			})"#,
+	);
+	assert_eq!(out["kargath"], json!(["walk|Gorrik"]), "one walk, never by the gate");
+	let gorge: Vec<&str> = out["gorge"].as_array().unwrap().iter().map(|l| l.as_str().unwrap()).collect();
+	assert!(gorge.iter().any(|l| l.ends_with("|carbonite-searing-gorge--badlands")), "into Searing Gorge through the gate: {gorge:?}");
+}
+
+// #1694: the data lists Gorrik on the Badlands' map (4.0,44.8) and again on Searing Gorge's (83.2,35.8), the same
+// spot; Nearby services took the Searing Gorge copy, and the planner walked a target on Searing Gorge's map
+// through the gate into Searing Gorge and back. A target's zone is where the walking maps put its point: Kargath is
+// in the Badlands, one walk. A city's map keeps its target, whatever they say under it: they put the Undercity's
+// halls in Tirisfal, and a walk from Brill to Aelthalyste (Undercity 49.3,17.1) still goes in by the Undercity's way.
+#[test]
+fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_city_s_stays_in_the_city_1694() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local zone
+			N.danger.ZoneAt = function(c) return c == 0 and zone or nil end
+			local function plan(from, map, wx, wy, label, cost)
+				local legs = N.PlanRoute({ c = 0, map = from[1], wx = from[2], wy = from[3], faction = 2, speed = 7,
+					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
+					walkCost = cost and function(_, _, _, start) if start then return cost, cost end end or nil })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			local badlands, brill = { 1418, -6718.75, -3322.9 }, { 1420, 2252.9, 236.2 }
+			local r = {}
+			zone = 1418
+			r.copy = plan(badlands, 1427, -6632.5, -2179.3, "Gorrik", 2188)
+			zone = nil
+			r.unknown = plan(badlands, 1427, -6632.5, -2179.3, "Gorrik", 2188)
+			zone = 1420
+			r.city = plan(brill, 1458, 1768.5, 400.2, "Aelthalyste")
+			zone = nil
+			r.cityPlain = plan(brill, 1458, 1768.5, 400.2, "Aelthalyste")
+			emit(r)"#,
+	);
+	assert_eq!(out["copy"], json!(["walk|Gorrik"]), "the walking maps put it in the Badlands: one walk");
+	let unknown: Vec<&str> = out["unknown"].as_array().unwrap().iter().map(|l| l.as_str().unwrap()).collect();
+	assert!(unknown.iter().any(|l| l.ends_with("|carbonite-searing-gorge--badlands")), "without the walking maps, the map's zone: {unknown:?}");
+	assert_eq!(out["city"], out["cityPlain"], "the Undercity's map keeps its target");
+	assert_ne!(out["city"], json!(["walk|Aelthalyste"]), "into the Undercity by its way, not a walk to the ground above");
+}
 // KEPT IN JS:

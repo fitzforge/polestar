@@ -190,7 +190,7 @@ return {
 
 	-- Step 33: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "O centro de {zone:1454}",
 
 	-- Step 34: Orgrimmar
 	["Train before you fly on: the next guide flies from here to the Crossroads."] = "Treine antes de seguir voo: o próximo guia voa daqui até a Encruzilhada.",

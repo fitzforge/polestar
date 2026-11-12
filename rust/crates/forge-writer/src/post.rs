@@ -1452,6 +1452,124 @@ pub fn repeatable_direct(files: &mut [String], data: &Data) {
 	}
 }
 
+/// #1699: a quest the game hands in on the spot (quests.json `direct`, the server's QuestType 0) never
+/// enters the log: its giver opens straight on the hand-in window (Essence of the Exile at Bath'rah's
+/// Cauldron, the cloth donations, the Scourgestones). An accept of it never ticks and holds its step
+/// until the hand-in, and lines bound to it (`quest <id>.<n>`, `complete <id>`, `when onquest <id>`,
+/// `when complete <id>`) never count or hold. So every `accept` of it goes; its turn-ins are `direct`
+/// (an accept's `only` goes onto a turn-in of the same step that has none); its objective lines lose
+/// their `quest <id>.<n>` (plain collects of what it asks for, with the count the quest asks for when
+/// the line has none); a `complete <id>` becomes the collects of its items; `when onquest <id>` reads
+/// `when available <id>` (the quest is open to the character) and `when complete <id>` reads
+/// `when has <item> xN` (the bags hold what it asks for). A step left with no goal goes. Run last,
+/// after every pass that adds or moves accepts.
+pub fn direct_hand_ins(files: &mut [String], data: &Data) {
+	let direct = |q: u32| data.quests.get(&q).is_some_and(|r| r.direct());
+	let tail_of = |l: &str| re!(r"\s--\s.*$").find(l).map_or(String::new(), |m| m.as_str().to_string());
+	// " x<n>" for more than one.
+	let times = |n: f64| if n > 1.0 { format!(" x{n}") } else { String::new() };
+	let items = |q: u32| -> Vec<(f64, f64)> { data.quests[&q].objectives().filter(|o| o.is("item")).filter_map(|o| Some((o.id?, o.count.unwrap_or(1.0)))).collect() };
+	for f in files.iter_mut() {
+		let lines: Vec<String> = f.split('\n').map(str::to_string).collect();
+		let mut out: Vec<String> = Vec::with_capacity(lines.len());
+		let (mut changed, mut dropped) = (false, false);
+		let mut start = 0;
+		while start < lines.len() {
+			let end = (start + 1..lines.len()).find(|&i| is_step(&lines[i]) || starts_nonspace(&lines[i])).unwrap_or(lines.len());
+			let mut only_of: FxHashMap<u32, String> = FxHashMap::default();
+			for l in &lines[start..end] {
+				let code = split_comment(l).0;
+				if let Some(q) = re!(r"^\s+accept\s+(\d+)\b").captures(code).and_then(|m| m[1].parse::<u32>().ok()).filter(|&q| direct(q)) {
+					if let Some(m) = re!(r"\sonly\s+\S+").find(code) {
+						only_of.entry(q).or_insert_with(|| m.as_str().to_string());
+					}
+				}
+			}
+			let span0 = out.len();
+			for l in &lines[start..end] {
+				let code = split_comment(l).0;
+				let indent = &l[..l.len() - l.trim_start().len()];
+				if re!(r"^\s+accept\s+(\d+)\b").captures(code).and_then(|m| m[1].parse::<u32>().ok()).is_some_and(direct) {
+					changed = true;
+					dropped = true;
+					continue;
+				}
+				if let Some(m) = re!(r"^\s+turnin\s+(\d+)\b").captures(code) {
+					let q: u32 = m[1].parse().unwrap_or(0);
+					if direct(q) && !re!(r"\bdirect\b").is_match(code) {
+						let at = m.get(0).unwrap().end();
+						let only = only_of.get(&q).filter(|_| !re!(r"\sonly\s+\S").is_match(code)).map_or("", String::as_str);
+						out.push(format!("{} direct{}{only}{}", &code[..at], trim_end(&code[at..]), tail_of(l)));
+						changed = true;
+						continue;
+					}
+					out.push(l.clone());
+					continue;
+				}
+				if let Some(q) = re!(r"^\s+complete\s+(\d+)\b").captures(code).and_then(|m| m[1].parse::<u32>().ok()).filter(|&q| direct(q)) {
+					let opt = if re!(r"\boptional\b").is_match(code) { " optional" } else { "" };
+					let mut tail = tail_of(l);
+					for (id, n) in items(q) {
+						out.push(format!("{indent}collect {id}{}{opt}{tail}", times(n)));
+						tail.clear();
+					}
+					changed = true;
+					dropped = true;
+					continue;
+				}
+				if let Some(m) = re!(r"^\s+when\s+(!?)(onquest|complete)\s+(\d+)\s*$").captures(code) {
+					let q: u32 = m[3].parse().unwrap_or(0);
+					let neg = &m[1];
+					if direct(q) {
+						let have = items(q);
+						if &m[2] == "onquest" {
+							out.push(format!("{indent}when {neg}available {q}{}", tail_of(l)));
+							changed = true;
+							continue;
+						}
+						if !have.is_empty() && (neg.is_empty() || have.len() == 1) {
+							for (id, n) in have {
+								// (One line per item: `!complete A` and `!complete B` on the same 60 Runecloth.)
+								let w = format!("{indent}when {neg}has {id}{}", times(n));
+								if !out[span0..].contains(&w) {
+									out.push(w);
+								}
+							}
+							changed = true;
+							continue;
+						}
+					}
+				}
+				let bound =
+					re!(r"\s+quest\s+(\d+)(?:\.\d+)?\b").captures(code).filter(|m| m[1].parse::<u32>().is_ok_and(direct)).map(|m| (m[1].parse::<u32>().unwrap_or(0), m.get(0).unwrap().range()));
+				if let Some((q, r)) = bound.filter(|_| is_goal(l)) {
+					let mut line = format!("{}{}", &code[..r.start], trim_end(&code[r.end..]));
+					// A collect bound to the quest took its count from the quest's objective.
+					if let Some(c) = re!(r"^(\s+collect\s+(\d+))\b").captures(&line.clone()) {
+						let item: f64 = c[2].parse().unwrap_or(0.0);
+						if !re!(r"\sx\d+\b").is_match(&line) {
+							if let Some(&(_, n)) = items(q).iter().find(|(id, _)| *id == item) {
+								line.insert_str(c.get(1).unwrap().end(), &times(n));
+							}
+						}
+					}
+					out.push(format!("{line}{}", tail_of(l)));
+					changed = true;
+					continue;
+				}
+				out.push(l.clone());
+			}
+			start = end;
+		}
+		if dropped {
+			out = no_empty_steps(out);
+		}
+		if changed {
+			*f = out.join("\n");
+		}
+	}
+}
+
 /// A tip or note carried from a guide played at riding level (40) into one played below it
 /// does not tell you to ride (#404). v1's own lines of the guide are left as they are.
 pub fn no_riding(files: &mut [String], sources: &[&str]) {

@@ -27,10 +27,9 @@ next forever/alliance/04-redridge-mountains
 
 step Kerlonian Evershade
   zone Darkshore
-  tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest, open his chest for the Horn of Awakening, use it to wake him and lead him south along the road to his bag at the southern edge of Darkshore; blow the horn again whenever he falls asleep. Then go on to Liladris Moonriver at Maestra's Post.
+  tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest: it gives you the Horn of Awakening. Use the horn to wake him and lead him south along the road to his bag at the southern edge of Darkshore; blow it again whenever he falls asleep. Then go on to Liladris Moonriver at Maestra's Post.
   tip Careful: Scripted ambushes of three mobs each attack along the road.
   accept 5321                                 -- Kerlonian Evershade
-  collect 13536 quest 5321.1                  -- Kerlonian's Chest, beside him
   goto 44.4,76.4 "Kerlonian Evershade"
   note Escort Kerlonian south along the road to his bag at the southern edge of Darkshore, then go on to Liladris at Maestra's Post.
 
@@ -338,6 +337,7 @@ step Ironforge
   zone Ironforge
   tip The gryphons land in the Great Forge. Lomac Gearstrip stands in Tinker Town, east of it, by the Deeprun Tram.
   turnin 1072                             -- Lomac Gearstrip, Tinker Town
+  buy 4371 x1 npc 5175 optional           -- Bronze Tube, for Look to the Stars in Darkshire: Gearcutter Cogspinner, beside Lomac, sometimes has one
   turnin 968 optional                     -- Only with Book: The Powers Below from Darkshore: Gerrig Bonegrip, the Forlorn Cavern
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest
@@ -382,8 +382,7 @@ step Baros Alexston
 step Cathedral Square
   zone Stormwind City
   tip The tram comes in at the Dwarven District; walk west to the Cathedral Square. High Priestess Laurena is in the Cathedral of Light.
-  accept 5676 only Human,Priest           -- High Priestess Laurena
-  turnin 5676 only Human,Priest           -- Arcane Feedback
+  turnin 5676 direct only Human,Priest -- Arcane Feedback
   accept 5645 only Dwarf,Priest           -- High Priestess Laurena: High Priest Rohan in Ironforge takes it, later
   accept 94819 npc 376 only Gnome,Priest  -- High Priestess Laurena: High Priestess Mims in Ironforge takes it, later
   accept 5673 only NightElf,Priest        -- High Priestess Laurena: Priestess Alathea in Darnassus takes it, later

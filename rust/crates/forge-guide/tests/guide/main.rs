@@ -1,5 +1,6 @@
 //! The forge-guide integration tests, one binary: one module per test file (they used to be one
 //! test binary each, which cost a link per file).
+mod class_spell_tokens;
 mod common;
 mod compile_pack;
 mod dsl_abandon_destroy;
@@ -20,6 +21,7 @@ mod dsl_next_when;
 mod dsl_parse;
 mod dsl_place_ids;
 mod dsl_resolve;
+mod dsl_section;
 mod dsl_shared_candidates;
 mod dsl_skipto;
 mod dsl_smart;

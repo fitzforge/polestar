@@ -412,9 +412,10 @@ fn tomtom_stand_in_the_global_is_taken_at_login_and_an_addon_s_own_tomtom_compat
 	assert_eq!(out[1], json!({ "theirs": true, "answering": false }));
 }
 
-// A TomTom 4.3.12-shaped fake (its SetCrazyArrow, ClearWaypoint and RemoveWaypoint called through the table,
-// AddWaypoint pointing the arrow when crazy).
+// A TomTom 4.3.12-shaped fake, the addon itself loaded (its SetCrazyArrow, ClearWaypoint and RemoveWaypoint
+// called through the table, AddWaypoint pointing the arrow when crazy).
 const REAL_TOMTOM: &str = r#"
+stub.addonsLoaded.TomTom = true
 TomTom = { valid = {}, adds = {} }
 function TomTom:SetCrazyArrow(uid) self.arrow = uid end
 function TomTom:ClearWaypoint(uid) self.valid[uid] = nil end
@@ -624,6 +625,33 @@ fn nearby_rank_estimates_only_the_nearest_few_and_the_quickest_by_route_wins_ove
 	assert_eq!(out[0], json!({ "best": 3, "s": 5, "asked": [1, 2, 3, 4, 5, 6], "none": true, "straight": 1, "s2": 10 }));
 }
 
+// Fitz in Orgrimmar on 0.3.6: Nearby services' First Aid trainer walked him out of the gate into
+// Durotar and back in. The Codex lists Arnok (3373) on Orgrimmar's map (34.2,84.6) and again on
+// Durotar's (41.6,9.2), the inner map first; the Durotar copy lies 2 yd nearer to most of the city,
+// and a target on Durotar's map is walked through the gate crossing. The first listed copy wins.
+#[test]
+fn nearby_rank_keeps_a_city_npc_on_the_city_map_not_its_zone_copy_a_yard_nearer() {
+	let out = run(r#"
+		local Near = N.nearby
+		local city = { id = 3373, c = 1, wx = 1482.5, wy = -4160.3, map = 1454, x = 34.2, y = 84.6 }
+		local zone = { id = 3373, c = 1, wx = 1484.0, wy = -4162.1, map = 1411, x = 41.6, y = 9.2 }
+		local rawrk = { id = 5943, c = 1, wx = 331.3, wy = -4828.4, map = 1411, x = 54.2, y = 41.9 }
+		local here = { c = 1, wx = 1600, wy = -4400 } -- the Drag: the copy is the nearer by line
+		local best = Near.Rank({ city, zone, rawrk }, here, function(p) return p.id == 3373 and 60 or 400 end)
+		-- Two spawns of one NPC on one map still go by distance; a spawn on another map 160 yd off is no copy.
+		local a = { id = 7, c = 1, wx = 1500, wy = -4200, map = 1454 }
+		local b = { id = 7, c = 1, wx = 1550, wy = -4300, map = 1454 }
+		local far = { id = 8, c = 1, wx = 1500, wy = -4200, map = 1454 }
+		local farZone = { id = 8, c = 1, wx = 1560, wy = -4350, map = 1411 }
+		emit({
+			map = best.map,
+			sameMap = Near.Rank({ a, b }, here, function() return 1 end) == b,
+			notCopy = Near.Rank({ far, farZone }, here, function() return 1 end) == farZone,
+		})
+	"#);
+	assert_eq!(out[0], json!({ "map": 1454, "sameMap": true, "notCopy": true }));
+}
+
 #[test]
 fn nearby_no_codex_combat_and_nothing_known_each_say_their_own_line_c14() {
 	let out = run(&[
@@ -732,19 +760,19 @@ fn nearby_a_trip_ends_at_the_service_or_on_back_to_the_guide_and_the_arrow_is_ba
 		CODEX,
 		r#"
 		local trips = 0
-		Polestar.On("NEARBY_TRIP", function() trips = trips + 1 end)
+		Polestar.On("NAV_TRIP", function() trips = trips + 1 end)
 		Near.Go("repair")
-		local going = Near.Trip()
+		local going = N.Trip()
 		local onTrip = { name = going and going.name, label = going and going.label, override = N.IsOverride() }
 		Polestar.Fire("NAV_ARRIVED", N.GetTarget())
-		local before = Near.Trip() ~= nil
+		local before = N.Trip() ~= nil
 		stub.runTimers()
-		local arrived = { trip = Near.Trip() == nil, override = N.IsOverride(), said = said("At Far Smith: the arrow is back on the guide.") }
+		local arrived = { trip = N.Trip() == nil, override = N.IsOverride(), said = said("At Far Smith: the arrow is back on the guide.") }
 		Near.Go("vendor")
-		local backed = { ended = Near.EndTrip(), trip = Near.Trip() == nil, override = N.IsOverride(), said = said("The arrow is back on the guide."), again = Near.EndTrip() }
+		local backed = { ended = N.EndTrip(), trip = N.Trip() == nil, override = N.IsOverride(), said = said("The arrow is back on the guide."), again = N.EndTrip() }
 		Near.Go("vendor")
 		N.SetTarget(9000, 10, 10, "Elsewhere")
-		emit({ onTrip = onTrip, before = before, arrived = arrived, backed = backed, replaced = Near.Trip() == nil, label = label(), trips = trips })
+		emit({ onTrip = onTrip, before = before, arrived = arrived, backed = backed, replaced = N.Trip() == nil, label = label(), trips = trips })
 	"#,
 	]
 	.concat());
@@ -756,6 +784,64 @@ fn nearby_a_trip_ends_at_the_service_or_on_back_to_the_guide_and_the_arrow_is_ba
 	assert_eq!(out["replaced"], true);
 	assert_eq!(out["label"], "Elsewhere");
 	assert_eq!(out["trips"], 6, "start and end of each of the three trips");
+}
+
+// #1686: "Guide me to the entrance" (Blackfathom Deeps) on a step the run did not change kept the arrow, and the
+// journey in the guide window, on the entrance after the run, until the step changed. A trip to a dungeon's
+// entrance ends through its portal: going in, or coming out when it was started inside. Reaching the door is not
+// the goal. Once over, the arrow is the guide's again and nothing brings the old point back.
+#[test]
+fn a_trip_to_a_dungeon_entrance_ends_through_the_portal_in_or_out_never_at_the_door_and_never_comes_back_1686() {
+	let out = run(r#"
+		nav.setWaypoint({ map = 9000, x = 50, y = 50, label = "Three Corners", stepIndex = 4, goalIndex = 1, kind = "goto", r = 8 })
+		local t = N.SetTarget(9000, 70, 30, "Blackfathom Deeps", nil, "dungeon")
+		local trip = N.StartTrip(t, "Blackfathom Deeps", "Dungeon", "instance")
+		local r = { going = { label = label(), ends = trip.ends, label2 = trip.label, own = N.IsOverride() } }
+		Polestar.Fire("NAV_ARRIVED", t)
+		stub.runTimers()
+		r.door = { label = label(), trip = N.Trip() ~= nil }
+		nav.instance = true
+		stub.fire("PLAYER_ENTERING_WORLD")
+		r.inside = { label = label(), trip = N.Trip() == nil, own = N.IsOverride(), said = said("At Blackfathom Deeps: the arrow is back on the guide.") }
+		nav.instance = false
+		stub.fire("PLAYER_ENTERING_WORLD")
+		stub.runTimers()
+		r.out = { label = label(), own = N.IsOverride() }
+		-- Started inside (the page opened in the dungeon): coming out ends it.
+		nav.instance = true
+		stub.fire("PLAYER_ENTERING_WORLD")
+		N.StartTrip(N.SetTarget(9000, 70, 30, "Blackfathom Deeps", nil, "dungeon"), nil, "Dungeon", "instance")
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		r.stillInside = N.Trip() ~= nil
+		nav.instance = false
+		stub.fire("PLAYER_ENTERING_WORLD")
+		r.left = { label = label(), trip = N.Trip() == nil }
+		emit(r)"#);
+	let out = &out[0];
+	assert_eq!(out["going"], json!({ "label": "Blackfathom Deeps", "ends": "instance", "label2": "Dungeon", "own": true }));
+	assert_eq!(out["door"], json!({ "label": "Blackfathom Deeps", "trip": true }), "the door is not the goal");
+	assert_eq!(out["inside"], json!({ "label": "Three Corners", "trip": true, "own": false, "said": true }));
+	assert_eq!(out["out"], json!({ "label": "Three Corners", "own": false }), "never back after the run");
+	assert_eq!(out["stillInside"], true);
+	assert_eq!(out["left"], json!({ "label": "Three Corners", "trip": true }));
+}
+
+// #1686: the only control the player found was "Mark this leg done", and the route, planned from where she stood,
+// brought each leg back. While the arrow is on a point of your own, its menu (right-click on the arrow, a click
+// on the journey's current step) has "Back to the guide"; the guide's own waypoint has no such row.
+#[test]
+fn back_to_the_guide_is_in_the_arrow_s_menu_for_any_point_of_your_own_and_lets_it_go_1686() {
+	let out = run(r#"
+		nav.setWaypoint({ map = 9000, x = 50, y = 50, label = "Three Corners", stepIndex = 4, goalIndex = 1, kind = "goto", r = 8 })
+		local P = N.prompts
+		local guide = P.MenuItems() == nil
+		N.SetTarget(9000, 70, 30, "Testshire 70, 30")
+		local items = P.MenuItems()
+		local texts = {}
+		for i, e in ipairs(items) do texts[i] = e.text end
+		items[#items].onClick(items[#items])
+		emit({ guide = guide, texts = texts, label = label(), own = N.IsOverride(), said = said("The arrow is back on the guide."), again = N.BackToGuide() })"#);
+	assert_eq!(out[0], json!({ "guide": true, "texts": ["Back to the guide"], "label": "Three Corners", "own": false, "said": true, "again": false }));
 }
 
 #[test]
@@ -906,6 +992,43 @@ fn nearby_the_nearest_mailbox_of_the_player_s_side_from_the_codex_s_objects() {
 	assert_eq!(out["listed"], "Mailbox", "the guide window's list carries it");
 	assert_eq!(out["first"], json!(["Mailbox", 54, true]), "the both-sides mailbox's nearer spawn; the Horde's and the sideless ones, nearer, never count");
 	assert_eq!(out["alias"], "Mailbox", "/polestar near mail");
+}
+
+// #1639: Nearby services' Reagents sent a Scourge Mage in the Undercity to Thomas Mordan (4562) at the top
+// of the lifts, 18 yd over his spot in the Trade Quarter: the Codex gives his spawn a height (z -43), but the
+// places Nearby built from Codex spawns dropped it, and a target without a height is walked on whichever floor
+// is nearest. Every place from the Codex (by role, mailbox, weapon master) keeps its spawn's height.
+#[test]
+fn nearby_a_codex_spawn_s_height_reaches_the_arrow_so_a_city_npc_under_the_lifts_is_not_sought_on_the_floor_above_1639() {
+	let out = run(&[
+		CODEX,
+		r#"
+		npcs[5].spawns = { { map = 9000, x = 40, y = 50, z = -43 } }
+		npcs[1].spawns[1].z = -61.4
+		Polestar.Codex.Each = function(kind, fn) if kind == "object" then fn(101, "Mailbox") end end
+		Polestar.Codex.Object = function(id)
+			if id == 101 then return { id = 101, name = "Mailbox", mailbox = true, faction = "A", spawns = { { map = 9000, x = 58, y = 50, z = -45.5 } } } end
+		end
+		Polestar.Compat.GetSkillRank = function() return nil end
+		local info = { name = "Testchar", level = 12, faction = "Alliance", class = "ROGUE" }
+		Polestar.Compat.GetPlayerInfo = function() return info end
+		Polestar.Gear = { PROFICIENCY = { ROGUE = { weapons = { [7] = true } } } }
+		local codexNpc = Polestar.Codex.Npc
+		Polestar.Codex.Npc = function(id)
+			if id == 11867 then return { id = id, name = "Woo Ping", faction = "A", spawns = { { map = 9000, x = 60, y = 50, z = 12.5 } } } end
+			return codexNpc(id)
+		end
+		local heights = {}
+		Near.Go("reagents"); heights.reagents = N.GetTarget().z
+		Near.Go("vendor"); heights.vendor = N.GetTarget().z
+		Near.Go("mailbox"); heights.mailbox = N.GetTarget().z
+		Near.Go("weapon", 43); heights.weapon = N.GetTarget().z
+		Near.Go("repair"); heights.none = N.GetTarget().z == nil
+		emit(heights)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "reagents": -43, "vendor": -61.4, "mailbox": -45.5, "weapon": 12.5, "none": true }), "Far Smith's spawn has no height: none is made up");
 }
 
 #[test]

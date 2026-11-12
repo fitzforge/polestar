@@ -51,6 +51,40 @@ Polestar.RegisterGuide({
 })
 "#;
 
+// #1547: A Threat Within (783, in the log) first, then group quest 7's accept and turn-in, then one more step: the
+// route passes the group quest's steps when the player hands 783 in.
+const LATER_GUIDE: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/group", pack = "test", title = "Group", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Marshal McBride", goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Group quest", when = { { k = "group", q = 7 } }, goals = {
+			{ t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Hand it in", when = { { k = "group", q = 7 } }, goals = {
+			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Onward", goals = { { t = "task", text = "Carry on" } } },
+	},
+})
+"#;
+
+// The STEP_SKIPPED notices while the player hands A Threat Within in: { before, at, events = { { from, to,
+// quests = { "quest:reason:text" } } } }.
+const HAND_IN_783: &str = r#"
+local events = {}
+Polestar.On("STEP_SKIPPED", function(from, to, skips)
+	local quests = {}
+	for i, k in ipairs(skips) do quests[i] = k.quest .. ":" .. k.reason .. ":" .. tostring(k.text) end
+	events[#events + 1] = { from = from, to = to, quests = quests }
+end)
+local before = at()
+stub.world.turnIn(783); flush(); flush()
+emit({ before = before, at = at(), events = events })
+"#;
+
 const HELPERS: &str = r#"
 E = Polestar.Engine
 function flush() stub.advance(0.25) end
@@ -103,6 +137,49 @@ fn a_step_whose_goals_are_done_still_waits_for_the_answer() {
 	assert_eq!(out[1], 3);
 }
 
+// Barrens, Ratchet (Fitz, 0.3.7.1): WANTED: Bruuz (here A Threat Within, 783, in the log) taken at the poster by
+// hand before the route's step for it. Every later step with work for it (the kill, the hand-in) is a `when group`
+// step that asks in its turn, so the accept step, its work done, passes unanswered, and so does the next step whose
+// accept is done (Raptor Horns, here 7 in the log too); the question waits at the first step that needs the answer.
+// A later step without the question (a_step_whose_goals_are_done_still_waits_for_the_answer) still holds it.
+const TAKEN_BY_HAND_GUIDE: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/group", pack = "test", title = "Group", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "WANTED poster", when = { { k = "group", q = 783 } }, goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Raptor Horns", goals = {
+			{ t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Hand in Raptor Horns", goals = {
+			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Bruuz", when = { { k = "group", q = 783 } }, goals = {
+			{ t = "complete", quest = 783, title = "A Threat Within", map = 1429, x = 50, y = 50 },
+		} },
+		{ title = "Gazlowe", when = { { k = "group", q = 783 } }, goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn a_group_quest_taken_by_hand_passes_its_done_accept_step_unanswered_when_every_later_step_for_it_asks() {
+	let out = run(Opts {
+		guide: TAKEN_BY_HAND_GUIDE,
+		before: "stub.world.onQuest(7, {}); stub.world.onQuest(783, { { required = 1, fulfilled = 0 } })",
+		..opts(
+			r#"emit({ at = at(), q = E.GroupQuestion() or false, s1 = E.GetStepView(1).status, s2 = E.GetStepView(2).status })
+			stub.world.turnIn(7); flush(); flush()
+			emit({ at = at(), q = E.GroupQuestion() or false })"#,
+		)
+	});
+	assert_eq!(out[0], json!({ "at": 3, "q": false, "s1": "done", "s2": "done" }), "on to the hand-in, nothing asked yet");
+	assert_eq!(out[1], json!({ "at": 4, "q": 783 }), "the kill step asks");
+}
+
 #[test]
 fn skip_passes_the_step_and_its_turn_in_goes_with_it_do_keeps_the_quest_on_the_route() {
 	let out = run(opts(
@@ -143,6 +220,33 @@ fn an_unknown_answer_is_ignored_once_the_route_has_passed_the_step_a_new_answer_
 		r#"E.AnswerGroup(7, "skip"); flush(); E.AnswerGroup(7, "maybe"); local kept = E.GroupAnswer(7); E.AnswerGroup(7, "do"); flush(); emit({ kept = kept, at = at(), s1 = E.GetStepView(1).status })"#,
 	));
 	assert_eq!(out[0], json!({ "kept": "skip", "at": 3, "s1": "skipped" }));
+}
+
+#[test]
+fn a_group_quest_the_answer_skips_is_said_when_the_route_passes_its_steps_once_and_where_the_answer_comes_from_1547() {
+	// Every group quest set to skip (Options, Automation).
+	let all = run(Opts { guide: LATER_GUIDE, db: r#"PolestarDB = { schema = 1, settings = { behavior = { groupQuests = "skip" } } }; "#, ..opts(HAND_IN_783) });
+	assert_eq!(
+		all[0],
+		json!({ "before": 1, "at": 4, "events": [{ "from": 2, "to": 4, "quests": ["7:group:Group quest: Options, Automation, Group quests skips them all"] }] }),
+		"its accept and turn-in steps pass with one notice"
+	);
+	// This one answered skip (Discovery, Group quests).
+	let one = run(Opts { guide: LATER_GUIDE, saved: json!({ "schema": 1, "guide": "test/group", "groupQuests": { "7": "skip" } }), ..opts(HAND_IN_783) });
+	assert_eq!(one[0]["events"], json!([{ "from": 2, "to": 4, "quests": ["7:group:Group quest you chose to skip (Discovery, Group quests)"] }]));
+	// Done with a group: the route goes on to it, nothing to say (an empty Lua table emits as {}).
+	let doing = run(Opts { guide: LATER_GUIDE, saved: json!({ "schema": 1, "guide": "test/group", "groupQuests": { "7": "do" } }), ..opts(HAND_IN_783) });
+	assert_eq!((&doing[0]["at"], &doing[0]["events"]), (&json!(2), &json!({})));
+	// Handed in already: the answer passes nothing.
+	let done = run(Opts { guide: LATER_GUIDE, before: "w.complete({ 7 })", saved: json!({ "schema": 1, "guide": "test/group", "groupQuests": { "7": "skip" } }), ..opts(HAND_IN_783) });
+	assert_eq!((&done[0]["at"], &done[0]["events"]), (&json!(4), &json!({})));
+}
+
+#[test]
+fn a_group_quest_skipped_at_the_guide_windows_question_passes_without_a_notice_1547() {
+	// The live step asks about quest 7 (GROUP_GUIDE); the player's Skip it passes it and its turn-in at once.
+	let out = run(opts(r#"local n = 0; Polestar.On("STEP_SKIPPED", function() n = n + 1 end); E.AnswerGroup(7, "skip"); flush(); flush(); emit({ at = at(), notices = n })"#));
+	assert_eq!(out[0], json!({ "at": 3, "notices": 0 }));
 }
 
 #[test]

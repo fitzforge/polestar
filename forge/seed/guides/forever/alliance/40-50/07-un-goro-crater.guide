@@ -5,6 +5,7 @@ faction Alliance
 levels 49-50
 zone Un'Goro Crater
 next forever/alliance/50-60/01-burning-steppes
+pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -173,7 +174,7 @@ step Marshal's Refuge
   turnin 4288
   accept 4321
   turnin 4321
-  level 50 only Priest
+  level 50 only Priest,Mage
 
 step To Stoutlager Inn
   zone Loch Modan

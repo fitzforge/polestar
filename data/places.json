@@ -2,6 +2,54 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
+			"quest": 565,
+			"objective": 4,
+			"faction": "Alliance",
+			"at": {
+				"map": 1424,
+				"x": 44.5,
+				"y": 29.4,
+				"frame": "era"
+			},
+			"note": "Bartolo's Yeti Fur Cloak: Yeti Fur drops from every Hillsbrad yeti, so the goal toured eleven spots, eight of them in the northern cave of Mountain and Giant Yetis (32-34) where The Abominable Greench (36, elite) roams, at a route level of 31. The Cave and Ferocious Yetis (30-32) of the Foothill Caverns carry it as often: the arrow points at their densest spot (16 of their 33 spawns within 2.5 map units), as for the Horde's Helcular's Rod (#1695).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3720 Yeti Fur: dropped by 2248-2251; npcs.json spawns of 2248 and 2249 on map 1424 at 42-47,25-34, of 2250 and 2251 at 36-47,3-13"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 565.4 ticks by 5 people at 32-33"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-desolace-infused-burning-gem-thunder-axe",
+			"quest": 1435,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 55.0,
+				"y": 26.5,
+				"frame": "era"
+			},
+			"note": "The Burning of Spirits (1435): the Infused Burning Gem is filled on any Burning Blade cultist, so the goal toured sixteen spots, half of them the Mannoroc Coven's Summoners and Invokers (38-40) in southern Desolace, at a route level of 33. The step is at Thunder Axe Fortress, whose cultists (30-33) are the ones meant: the arrow points at the fortress's densest spot.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "the goal's droppers: Burning Blade Augur, Reaver, Adept, Felsworn, Shadowmage, Seer (30-33) at Thunder Axe Fortress (Desolace 52-57,22-33); Burning Blade Summoner and Invoker (38-40) at 49-55,71-79 and 79-82,77-81"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 1435.1 ticks by 4 people at 32-34"
+				}
+			],
+			"issue": 1575
+		},
+		{
 			"id": "610-wetlands-fen-creepers",
 			"quest": 275,
 			"objective": 1,
@@ -44,6 +92,34 @@
 				}
 			],
 			"issue": 610
+		},
+		{
+			"id": "1695-helcular-rod-foothill-caverns",
+			"quest": 552,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 44.5,
+				"y": 29.4,
+				"frame": "era"
+			},
+			"note": "Helcular's Rod drops from every yeti of the Hillsbrad hills (about one in sixteen), so the goal toured eleven spots, eight of them in the northern cave of Mountain and Giant Yetis (32-34) around the Flame of Uzel. The quest is taken at 29 on the 29-33 Hillsbrad guide, so players were sent to farm mobs 3-5 levels above them (#1695). The Cave and Ferocious Yetis (30-32) of the Foothill Caverns west of Tarren Mill carry it as often: the arrow now points at their densest spot (16 of their 33 spawns within 2.5 map units). Players' recordings: 18 people got the rod, 15 of them in the caverns, at levels 29-34 (median 31); the three who got it in the northern cave did so at 29 and 32.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3708: dropped by 2248 Cave Yeti (30-31), 2249 Ferocious Yeti (31-32), 2250 Mountain Yeti (32-33), 2251 Giant Yeti (33-34), 6% each; npcs.json spawns of 2248 and 2249 on map 1424 at 42-47,25-34, of 2250 and 2251 at 36-47,3-13"
+				},
+				{
+					"kind": "recording",
+					"ref": "objective 552.1 ticks, 18 people (rec index 2026-11-11): 15 in the Foothill Caverns (Hillsbrad 42-47,27-33), 3 in the northern cave (Alterac 42-43,62-65)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1695: Kolbi, sent to farm 32-34 mobs at 29 for Helcular's Revenge"
+				}
+			],
+			"issue": 1695
 		},
 		{
 			"id": "gh036-wetlands-nordel",
@@ -1534,22 +1610,28 @@
 			"pr": 1421
 		},
 		{
-			"id": "1425-stv-thorsen-camp-giver",
+			"id": "1752-stv-thorsen-road-giver",
 			"quest": 215,
 			"objective": "giver",
 			"faction": "Alliance",
 			"at": {
 				"map": 1434,
-				"x": 38.0,
-				"y": 3.4,
+				"x": 40.3,
+				"y": 8.4,
 				"frame": "era"
 			},
-			"note": "Jungle Secrets: Private Thorsen stands at the top of the Rebel Camp's path (38.0,3.4) for about 28 minutes, then walks down to the road (40.3,8.4), waits there about 3.5 minutes and walks back; the data's spawn is the road end, where he is only a few minutes of each ~36-minute round. Recordings meet him on both ends (38.0-38.2,3.4-4.5 and 40.2-40.4,8.4).",
-			"source": {
-				"kind": "tdb",
-				"ref": "creature 20002243 (entry 738) waypoint_path 800022430: node 1 delay 1,700,000 ms, node 24 delay 180,000 ms"
-			},
-			"issue": 1425
+			"note": "Jungle Secrets: Private Thorsen offers it only while he is outside the Rebel Camp (area 99): at the foot of the path by the road (40.3,8.4), where two Kurzen's Agents ambush him on his half-hourly walk down, for the ~3.5 minutes he waits there. #1425 had moved the arrow to his camp spot (38.0,3.4), where he never offers it (#1752). His hand-in of Supplies to Private Thorsen (198) stays at the camp spot.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "conditions: source type 19 (quest available) 215, type 23 (area) 99, negated: only while Private Thorsen is not in area 99; creature 738's waypoint 23 summons two Kurzen's Agent (775)"
+				},
+				{
+					"kind": "recording",
+					"ref": "Private Thorsen's (738) windows in players' recordings (to 2026-11-11): all 9 that offered Jungle Secrets at 40.3,8.4; at the camp spot (37.9-38.9,3.3-5.0) only refusals"
+				}
+			],
+			"issue": 1752
 		},
 		{
 			"id": "1425-stv-thorsen-camp-ender",
@@ -1562,7 +1644,7 @@
 				"y": 3.4,
 				"frame": "era"
 			},
-			"note": "Supplies to Private Thorsen: the same walk as Jungle Secrets (see 1425-stv-thorsen-camp-giver); the arrow leads to his camp spot.",
+			"note": "Supplies to Private Thorsen: Private Thorsen stands at the top of the Rebel Camp's path (38.0,3.4) for about 28 minutes of each ~36-minute round, then walks down to the road (40.3,8.4) and back; the arrow leads to his camp spot. (Jungle Secrets is the other way round: see 1752-stv-thorsen-road-giver.)",
 			"source": {
 				"kind": "tdb",
 				"ref": "creature 20002243 (entry 738) waypoint_path 800022430"

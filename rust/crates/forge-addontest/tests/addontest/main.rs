@@ -7,6 +7,8 @@ mod automation;
 mod automation_accept_off;
 #[path = "automation-close-skipped.rs"]
 mod automation_close_skipped;
+#[path = "automation-profession-quests.rs"]
+mod automation_profession_quests;
 #[path = "automation-spoken.rs"]
 mod automation_spoken;
 #[path = "class-quests.rs"]
@@ -64,6 +66,8 @@ mod engine_aim_accept_first;
 mod engine_along;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
+#[path = "engine-carried.rs"]
+mod engine_carried;
 #[path = "engine-cast.rs"]
 mod engine_cast;
 #[path = "engine-catchup.rs"]
@@ -72,12 +76,16 @@ mod engine_catchup;
 mod engine_die;
 #[path = "engine-dwell.rs"]
 mod engine_dwell;
+#[path = "engine-empty-stop.rs"]
+mod engine_empty_stop;
 #[path = "engine-enter.rs"]
 mod engine_enter;
 #[path = "engine-failed-quest.rs"]
 mod engine_failed_quest;
 #[path = "engine-feeders.rs"]
 mod engine_feeders;
+#[path = "engine-field-route.rs"]
+mod engine_field_route;
 #[path = "engine-flights.rs"]
 mod engine_flights;
 #[path = "engine-focus.rs"]
@@ -116,10 +124,14 @@ mod engine_packs;
 mod engine_pin;
 #[path = "engine-professions.rs"]
 mod engine_professions;
+#[path = "engine-reset.rs"]
+mod engine_reset;
 #[path = "engine-review.rs"]
 mod engine_review;
 #[path = "engine-routes.rs"]
 mod engine_routes;
+#[path = "engine-sections.rs"]
+mod engine_sections;
 #[path = "engine-skip-ahead.rs"]
 mod engine_skip_ahead;
 #[path = "engine-skip-undo.rs"]
@@ -142,6 +154,8 @@ mod engine_training;
 mod engine_unavailable;
 #[path = "engine-upgrade.rs"]
 mod engine_upgrade;
+#[path = "engine-upgrade-twice.rs"]
+mod engine_upgrade_twice;
 #[path = "engine-vendor.rs"]
 mod engine_vendor;
 #[path = "engine-wait.rs"]
@@ -187,6 +201,8 @@ mod guides_end_places;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;
+#[path = "hide-all.rs"]
+mod hide_all;
 #[path = "hide-with-guide.rs"]
 mod hide_with_guide;
 mod import;
@@ -278,6 +294,12 @@ mod qol;
 mod qol_bagglow;
 #[path = "qol-items.rs"]
 mod qol_items;
+#[path = "qol-loot-track.rs"]
+mod qol_loot_track;
+#[path = "qol-quickbind.rs"]
+mod qol_quickbind;
+#[path = "qol-spells.rs"]
+mod qol_spells;
 #[path = "quest-links.rs"]
 mod quest_links;
 #[path = "questdb-memory.rs"]
@@ -285,6 +307,8 @@ mod questdb_memory;
 mod quests;
 #[path = "quests-levels.rs"]
 mod quests_levels;
+#[path = "quests-timed.rs"]
+mod quests_timed;
 #[path = "quoted-quest-names.rs"]
 mod quoted_quest_names;
 mod rares;
@@ -352,10 +376,14 @@ mod ui_quest_unlocks;
 mod ui_route;
 #[path = "ui-scrub.rs"]
 mod ui_scrub;
+#[path = "ui-steplist.rs"]
+mod ui_steplist;
 #[path = "ui-thanks.rs"]
 mod ui_thanks;
 #[path = "ui-transparent.rs"]
 mod ui_transparent;
+#[path = "ui-update.rs"]
+mod ui_update;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
 #[path = "ui-whatsnew.rs"]

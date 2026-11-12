@@ -136,6 +136,24 @@ local function updateRoute(world)
 	Pins.SetLayer(ROUTE, pins, { world = true, minimap = false, scale = 0.9 })
 end
 
+-- A goal of step `index` (the step the guide is on), clicked on the map: the
+-- Engine leads the arrow there as a click on its line in the guide window
+-- does (Engine.AimGoal), so the arrow moves on through its spots (#1653);
+-- one whose quest waits for its accept leaves the arrow on the accept and
+-- says so (#1385). False when the Engine can't lead there.
+local function aimAt(index, goal)
+	local Engine = ns.Engine
+	if not (goal.index and Engine and Engine.AimGoal) then return false end
+	local aimed, why, title = Engine.AimGoal(index, goal.index)
+	if not (aimed or why == "accept") then return false end
+	Nav.ReleaseTarget()
+	if why == "accept" then
+		local message = format(L["Take %s first"], ns.Quoted(title) or "")
+		if UIErrorsFrame and UIErrorsFrame.AddMessage then UIErrorsFrame:AddMessage(message, 1, 0.82, 0) else ns.Print(message) end
+	end
+	return true
+end
+
 -- view: the current step's Engine.GetStepView (index), fetched once per
 -- Layers.Update for this and the areas.
 local function updateGoals(world, index, view)
@@ -150,7 +168,7 @@ local function updateGoals(world, index, view)
 	-- The step's goals, then the Along the way list's (Engine.GetAlong: along
 	-- steps and pinned quests, #644). The While you're here line has its own
 	-- layer (updateHere).
-	local list = view.goals
+	local list, own = view.goals, #view.goals
 	if Engine.GetAlong then
 		list = {}
 		for _, goal in ipairs(view.goals) do list[#list + 1] = goal end
@@ -158,7 +176,7 @@ local function updateGoals(world, index, view)
 			for _, goal in ipairs(s.goals) do list[#list + 1] = goal end
 		end
 	end
-	for _, goal in ipairs(list) do
+	for i, goal in ipairs(list) do
 		if goal.map and goal.x and goal.y and (goal.status == "active" or goal.status == "pending")
 			and not (target and target.map == goal.map and target.x == goal.x and target.y == goal.y) then
 			local text = goal.text
@@ -169,8 +187,11 @@ local function updateGoals(world, index, view)
 					tip:SetText(text or "")
 					tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
 				end,
+				-- The step's own goals (the list's first `own`) through the
+				-- Engine; an Along the way goal, a plain point.
 				onClick = function(button)
-					if button == "LeftButton" then Nav.SetTarget(goal.map, goal.x, goal.y, text, goal.f, nil, goal.z) end
+					if button ~= "LeftButton" or (i <= own and aimAt(index, goal)) then return end
+					Nav.SetTarget(goal.map, goal.x, goal.y, text, goal.f, nil, goal.z)
 				end,
 			}
 		end

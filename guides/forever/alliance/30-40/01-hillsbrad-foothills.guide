@@ -93,13 +93,10 @@ step Modr
   tip Modr stands in the ruins of Dun Modr (use the Goaz Stone).
   collect 280396 quest 98310.2        -- Heart of Modr
 
-step The Villards
+step Ebenezer Rustlocke
   zone Wetlands
-  tip Corma Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to Rhag.
-  tip Corma Villard may not offer Hearts of the Lost yet: if she doesn't, skip it.
+  tip North along the road from Dun Modr towards the Thandol Span: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to Rhag.
   tip Two elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out.
-  accept 87318 optional               -- Corma Villard
-  turnin 87318 optional               -- Essene Villard
   turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
   accept 632                          -- the same corpse
 
@@ -238,7 +235,8 @@ step Yeti cave
   when onquest 565
   zone Hillsbrad Foothills
   tip The yetis live in the cave in the hills north of Southshore, on the way north to the Syndicate camp.
-  collect 3720 quest 565.4            -- Yeti Fur
+  tip Stay in the Foothill Caverns: the cave further north has Mountain and Giant Yetis (32-34) in pairs and The Abominable Greench, a level 36 elite.
+  collect 3720 quest 565.4 @44.5,29.4 -- Yeti Fur
 
 step Alterac Mountains
   zone Alterac Mountains

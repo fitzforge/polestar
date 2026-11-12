@@ -212,9 +212,13 @@ function hitMap(layout) {
 const ADVANCE = { hover: 0.25, leave: 0.25, dragMove: 0.05, dragStart: 0.05, render: 0, default: 0.4 };
 
 class Session {
-	constructor({ dataDir, artDir = null, config = {}, packs = [], timeoutMs = 60000, log = () => {} }) {
+	// stubs: more client stubs (file names in tests/lua, or absolute paths),
+	// loaded after the world's, before the addons (tools/studio: the party,
+	// Quick Keybind Mode).
+	constructor({ dataDir, artDir = null, config = {}, packs = [], stubs = [], timeoutMs = 60000, log = () => {} }) {
 		this.dataDir = dataDir;
 		this.packs = packs;
+		this.stubs = stubs;
 		this.artDir = artDir && fs.existsSync(path.join(artDir, 'maps.json')) ? artDir : null;
 		this.config = config;
 		this.timeoutMs = timeoutMs;
@@ -257,6 +261,7 @@ class Session {
 		lines.push(`package.path = ${luaString(STUBS + '/?.lua;')} .. package.path`);
 		// stub_encoding.lua: C_EncodingUtil, which Polestar_Nav's packed walking maps are decoded with.
 		for (const s of ['wow_stub.lua', 'stub_world.lua', 'stub_encoding.lua', ...packs.stubs]) dof(path.join(STUBS, s));
+		for (const s of this.stubs) dof(path.isAbsolute(s) ? s : path.join(STUBS, s));
 		lines.push('local w = stub.world', d.mapsLua);
 		if (this.artDir) {
 			const entries = Object.entries(this.art).map(([id, m]) => `[${id}] = ${luaValue(m)}`);

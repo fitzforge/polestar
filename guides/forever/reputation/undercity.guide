@@ -45,7 +45,8 @@ why Tirisfal quests while you level, the Plaguelands quests from 55, then Runecl
 
 step Undercity: how it works
   tip Undercity reputation comes from quests and cloth. Ralston Farnsley, the cloth quartermaster, stands in the Magic Quarter beside the tailors. He takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with the Undercity also gives a quarter as much to Orgrimmar, Thunder Bluff and the Darkspear Trolls. While you level, do the Undercity's quests within 5 levels of them: Tirisfal at 1 to 12, Silverpine at 10 to 20, Hillsbrad and Tarren Mill at 20 to 33. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Undercity's merchants sell to you for 10% less (the Classic rule), the horse vendor included; at Exalted other races can buy the skeletal horses: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse, once you have mount training. The Undercity has no tabard or other reward.
-  accept 7813                         -- Ralston Farnsley: A Donation of Wool, +150
+  zone Undercity
+  goto 71.7,29.2 "Ralston Farnsley"   -- his donations are handed in from his window and never enter the log
 
 step Deathknell (optional hub)
   label deathknell
@@ -151,32 +152,29 @@ step Ralston Farnsley: A Donation of Wool
   zone Undercity
   tip From here it is cloth. Wool, Silk and Mageweave must all be handed in before Ralston offers the Runecloth donation, and Additional Runecloth needs the Runecloth donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, Runecloth 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey.
   zone Ashenvale
-  collect 2592 x60 quest 7813.1 @36,37      -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
-  turnin 7813                         -- Ralston Farnsley, +150
+  collect 2592 x60 @36,37             -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
+  turnin 7813 direct                  -- Ralston Farnsley: A Donation of Wool, +150
 
 step A Donation of Silk
   tip Silk: the Syndicate in Hillsbrad and Alterac drop it about one kill in three, or buy it.
   level 26
-  accept 7814                         -- +150
   zone Alterac Mountains
-  collect 4306 x60 quest 7814.1 @57.7,67.6 -- Silk Cloth: the Syndicate
-  turnin 7814
+  collect 4306 x60 @57.7,67.6         -- Silk Cloth: the Syndicate
+  turnin 7814 direct                  -- +150
 
 step A Donation of Mageweave
   tip Mageweave: the Jadefire satyrs in southern Felwood and the Dunemaul ogres in Tanaris drop it about one kill in three, or buy it.
   level 40
-  accept 7817                         -- +150
   zone Felwood
-  collect 4338 x60 quest 7817.1 @41.6,85.7 -- Mageweave Cloth: the Jadefire satyrs
-  turnin 7817
+  collect 4338 x60 @41.6,85.7         -- Mageweave Cloth: the Jadefire satyrs
+  turnin 7817 direct                  -- +150
 
 step A Donation of Runecloth
   tip Runecloth: the Scarlet at Tyr's Hand in the Eastern Plaguelands, the Gordok ogres outside Dire Maul in Feralas and the Twilight camps of Silithus drop it about one kill in three. The Auction House is faster if you have gold.
   level 50
-  accept 7818                         -- +150
   zone Eastern Plaguelands
-  collect 14047 x60 quest 7818.1 live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
-  turnin 7818
+  collect 14047 x60 live @68,69.5     -- Runecloth: the Scarlet outside Tyr's Hand
+  turnin 7818 direct                  -- +150
 
 step Undercity: Harbinger Balthazad
   zone Undercity

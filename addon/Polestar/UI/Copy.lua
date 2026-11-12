@@ -19,7 +19,7 @@ local HEAD_H = 56
 local F
 
 local function build()
-	F = CreateFrame("Frame", "PolestarCopy", UIParent)
+	F = CreateFrame("Frame", "PolestarCopy", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -113,8 +113,7 @@ function UI.ShowCopy(title, text, opts)
 	F:SetHeight(HEAD_H + 12 + F.Hint:GetStringHeight() + 10 + b:GetHeight() + PAD)
 	F:Show()
 	F:Raise()
-	b:SetFocus()
-	b:HighlightText()
+	W.SelectCopy(b)
 end
 
 ns.On("SHOW_COPY", function(title, text) UI.ShowCopy(title, text) end)

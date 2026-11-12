@@ -415,6 +415,48 @@ function Compat.QuestTimerRunning()
 	return false
 end
 
+-- The timers running in the quest log: out[questID] = seconds left, for each
+-- quest whose clock runs and has not failed, whether or not its objectives
+-- are done (the hand-in is timed too). The old GetQuestTimers (seconds left,
+-- one per timer; GetQuestIndexForTimer names its log entry) where the client
+-- has it, else C_QuestLog.GetTimeAllowed's total less its elapsed (Forever's
+-- client: #1327). Fills and returns `out` (a new table when nil), wiped
+-- first. Nil-safe on any client.
+function Compat.QuestTimers(out)
+	out = out or {}
+	for q in pairs(out) do out[q] = nil end
+	local QL = C_QuestLog
+	if not (QL and QL.GetNumQuestLogEntries and QL.GetInfo) then return out end
+	if GetQuestTimers and GetQuestIndexForTimer then
+		for i = 1, select("#", GetQuestTimers()) do
+			local left = select(i, GetQuestTimers())
+			local index = GetQuestIndexForTimer(i)
+			local info = index and QL.GetInfo(index)
+			local q = info and info.questID
+			if type(q) == "number" and q > 0 and type(left) == "number" then out[q] = left > 0 and left or 0 end
+		end
+	end
+	if QL.GetTimeAllowed then
+		for i = 1, QL.GetNumQuestLogEntries() or 0 do
+			local info = QL.GetInfo(i)
+			local q = info and not info.isHeader and info.questID
+			if type(q) == "number" and q > 0 and out[q] == nil then
+				local ok, total, elapsed = pcall(QL.GetTimeAllowed, q)
+				if ok and type(total) == "number" and total > 0 then
+					local left = total - (type(elapsed) == "number" and elapsed or 0)
+					out[q] = left > 0 and left or 0
+				end
+			end
+		end
+	end
+	if QL.IsFailed then
+		for q in pairs(out) do
+			if QL.IsFailed(q) then out[q] = nil end
+		end
+	end
+	return out
+end
+
 -- How many quests the log holds: the client's word, else Forever's 40
 -- (QuestLogConstsMainlineCamelot.MAXIMUM_NUM_QUESTS_LOG_CAN_ACCEPT).
 function Compat.GetLogCap()
@@ -504,6 +546,23 @@ function Compat.GetActiveQuests(source)
 		return nil
 	end
 	return out
+end
+
+-- Whether the open gossip window has an option that is no service: neither
+-- the goods (VendorGossipIcon, fileID 132060), training (TrainerGossipIcon,
+-- 132058), the inn's bind (BinderGossipIcon, 132052) nor the flight map
+-- (TaxiGossipIcon, 132057), told by the option's icon, never its text. Such
+-- a chat option can lead to a quest the window's list leaves out: Sovik
+-- gives Chief Engineer Scooty only from his (#1762). False when the client
+-- cannot say.
+local SERVICE_ICONS = { [132060] = true, [132058] = true, [132052] = true, [132057] = true }
+function Compat.GossipHasChat()
+	local G = C_GossipInfo
+	if not (G and G.GetOptions) then return false end
+	for _, o in ipairs(G.GetOptions() or {}) do
+		if not SERVICE_ICONS[o.overrideIconID or o.icon] then return true end
+	end
+	return false
 end
 
 -- Classic grey level (no XP from quests at or below it), used when the

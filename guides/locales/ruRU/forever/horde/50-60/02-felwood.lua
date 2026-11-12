@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "Дом фермы: {area:200}",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "Дневник лежит в доме, шкаф стоит внутри, а уборная – за домом. Ключ от уборной у монстра {npc:10816}; {npc:10836} выходит, когда вы открываете уборную, – у него ключ от шкафа.",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Больные гризли",
@@ -158,10 +154,6 @@ return {
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
-
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "Только с 5 перьями ({item:21377})",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -281,6 +273,7 @@ return {
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Покиньте город {area:1497} и езжайте на восток по дороге через край {zone:1420}, мимо места {area:152}. Ферма Фелстоунов – первая ферма у дороги; {npc:10778} ждет в доме.",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "Только если выпал предмет {item:13140}: используйте его, чтобы начать задание, затем освободите персонажа {npc:11018} из клетки ({area:1770} – пещера в северной части места {area:1763}) и выведите ее.",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "Только если вы спасли персонажа {npc:11018}: суккуб {npc:9518} ждет в центре места {area:1763}, рядом: {npc:11020}.",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "Только с 5 перьями ({item:21377})",
 	-- ["Radley and Durgen"] = "Рэдли и Дурген",
 	-- ["Ride back south-east to the Sanctuary."] = "Возвращайтесь на юго-восток в Изумрудное святилище.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Вернитесь сюда: {area:1497}, садитесь на дирижабль ({zone:1454}) и летите сюда: {area:431}. Езжайте по дороге на запад от Заставы Расщепленного Дерева и на развилке сверните на север в край {zone:1448}.",

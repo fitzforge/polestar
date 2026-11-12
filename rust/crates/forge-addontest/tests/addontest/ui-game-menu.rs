@@ -132,7 +132,27 @@ fn turned_off_under_appearance_the_button_goes_and_the_menu_is_blizzards_alone_t
 /// and each pooled button's layoutIndex and topPadding are checked against what the menu set.
 const FOREVER_MENU: &str = r#"
 BLIZZARD_STORE, GAMEMENU_OPTIONS = "Shop", "Options"
+-- The menu's button template (GameMenuFrameButtonTemplate < MainMenuFrameButtonTemplate < BigRedThreeSlice):
+-- three red slices and a large white label.
+local TEMPLATES = { GameMenuFrameButtonTemplate = true, MainMenuFrameButtonTemplate = true }
+local createFrame = CreateFrame
+function CreateFrame(kind, name, parent, template, ...)
+	local f = createFrame(kind, name, parent, template, ...)
+	if TEMPLATES[template] then
+		for _, k in ipairs({ "Left", "Middle", "Right" }) do
+			local t = f:CreateTexture(nil, "BACKGROUND")
+			t:SetTexture("Interface\\Buttons\\128RedButton")
+			t:SetAlpha(1)
+			f[k] = t
+		end
+		local fs = f:GetFontString()
+		fs:SetFont("Fonts\\FRIZQT__.TTF", 16, "")
+		fs:SetTextColor(1, 1, 1, 1)
+	end
+	return f
+end
 GameMenuFrame = CreateFrame("Frame", "GameMenuFrame", UIParent)
+GameMenuFrame.buttonTemplate = "GameMenuFrameButtonTemplate"
 GameMenuFrame:Hide()
 stub.menuTouched, stub.pooled = {}, {}
 local function fromAddon()
@@ -163,9 +183,19 @@ function GameMenuFrame:InitButtons()
 		n = n + 1
 		local b = made[n]
 		if not b then
-			b = CreateFrame("Button", nil, self)
+			b = CreateFrame("Button", nil, self, self.buttonTemplate)
 			b:SetSize(200, 35)
 			guardFrame(b, text)
+			-- Their look is only read from addon code.
+			for _, r in ipairs({ b.Left, b.Middle, b.Right, b:GetFontString() }) do
+				for _, m in ipairs({ "SetAlpha", "SetTextColor", "SetFont", "SetColorTexture", "SetTexture" }) do
+					local orig = r[m]
+					r[m] = function(self, ...)
+						if fromAddon() then table.insert(stub.menuTouched, text .. " region:" .. m) end
+						return orig(self, ...)
+					end
+				end
+			end
 			made[n] = b
 		end
 		b:SetText(text)
@@ -312,4 +342,120 @@ emit({ off = off, on = stub.order() })"#,
 	);
 	assert_eq!(out["off"], "Options, Shop, EllesmereUI +12, AddOns +13, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20", "EllesmereUI's own gap, as without Polestar");
 	assert_eq!(out["on"], "Options, Shop, EllesmereUI +12, Polestar +4, AddOns +13, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20");
+}
+
+/// EllesmereUI's menu skin, as its API shows (learnt, not copied): after InitButtons each pooled button's
+/// textures go to alpha 0, a 2px inset with a dark background (EllesmereUIDB.popupMenuButtonBackgroundColor) and a
+/// border (EllesmereUI._applyBlizzardConfiguredBorder) goes behind the label, whose font is its own two points
+/// smaller. Its own EllesmereUI button gets the same.
+const ELLESMERE_SKIN: &str = r#"
+EllesmereUIDB = { popupMenuButtonBackgroundColor = { r = 0.05, g = 0.06, b = 0.07, a = 0.9 } }
+EllesmereUI = { bordered = {} }
+function EllesmereUI._applyBlizzardConfiguredBorder(frame, kind, size) table.insert(EllesmereUI.bordered, { frame = frame, kind = kind, size = size }) end
+local function skin(b)
+	if b.euiSkinned then return end
+	b.euiSkinned = true
+	for _, r in ipairs({ b:GetRegions() }) do
+		if r:IsObjectType("Texture") then r:SetAlpha(0) end
+	end
+	local inset = CreateFrame("Frame", nil, b)
+	inset:SetPoint("TOPLEFT", b, "TOPLEFT", 2, -2)
+	inset:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 2)
+	local bg = inset:CreateTexture(nil, "BACKGROUND", nil, -6)
+	local c = EllesmereUIDB.popupMenuButtonBackgroundColor
+	bg:SetColorTexture(c.r, c.g, c.b, c.a)
+	EllesmereUI._applyBlizzardConfiguredBorder(inset, "popupMenuButton", 1)
+	local fs = b:GetFontString()
+	local _, size, flags = fs:GetFont()
+	fs:SetFont("Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.ttf", size - 2, flags)
+end
+hooksecurefunc(GameMenuFrame, "InitButtons", function(menu)
+	for b in menu.buttonPool:EnumerateActive() do skin(b) end
+	if EllesmereUI_GameMenuButton then skin(EllesmereUI_GameMenuButton) end
+end)
+"#;
+
+fn run_look(before: &str, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: format!("{FOREVER_MENU}\n{before}"),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		script: format!("uistub.install()\nstub.login()\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+/// A button's look, as a render would show it: the template slices' alpha, the label's font and colour, and the
+/// flat inset (background colour, border) when there is one.
+const LOOK: &str = r#"
+local function round(x) return math.floor(x * 100 + 0.5) / 100 end
+local function lookOf(b)
+	local slices = {}
+	for _, k in ipairs({ "Left", "Middle", "Right" }) do slices[#slices + 1] = b[k] and b[k]:GetAlpha() or "none" end
+	local fs = b:GetFontString()
+	local path, size = fs:GetFont()
+	local r, g, bl = fs:GetTextColor()
+	local inset
+	for _, c in ipairs(b.children) do
+		if c:IsShown() and c.kind == "Frame" then
+			for _, t in ipairs(c.regions) do
+				if t.color and t.layer == "BACKGROUND" then inset = { round(t.color[1]), round(t.color[2]), round(t.color[3]), round(t.color[4]) } end
+			end
+			local bordered = false
+			for _, e in ipairs(EllesmereUI and EllesmereUI.bordered or {}) do if e.frame == c then bordered = e.kind end end
+			if inset then inset = { bg = inset, border = bordered } break end
+		end
+	end
+	return { template = b.template, slices = table.concat(slices, " "), font = path:match("[^\\]+$") .. " " .. size, color = { r, g, bl }, inset = inset or false,
+		size = { b:GetWidth(), b:GetHeight() } }
+end
+GameMenuFrame:Show()
+local shop
+for b in GameMenuFrame.buttonPool:EnumerateActive() do if b:GetText() == "Shop" then shop = b end end
+local open = { polestar = lookOf(PolestarGameMenuButton), shop = lookOf(shop) }
+stub.inCombat = true
+GameMenuFrame:Hide() GameMenuFrame:Show()
+local combat = lookOf(PolestarGameMenuButton)
+stub.inCombat = false
+emit({ open = open, combat = combat, touched = table.concat(stub.menuTouched, " "), under = table.concat(stub.underGameFrames, " "), kept = stub.pooledKept() })
+"#;
+
+// Fitz in game (0.3.6 with EllesmereUI): ours was a big red panel button among EllesmereUI's flat dark ones. Without
+// a skin it is built from the menu's own button template and looks as the client's buttons do (the same slices,
+// label and size as Shop).
+#[test]
+fn without_a_skin_the_button_is_the_menus_own_template_and_looks_like_shop() {
+	let out = run_look("", LOOK);
+	let (p, shop) = (&out["open"]["polestar"], &out["open"]["shop"]);
+	assert_eq!(p["template"], "GameMenuFrameButtonTemplate", "the menu's buttonTemplate");
+	assert_eq!(p["slices"], "1 1 1");
+	assert_eq!(p["font"], shop["font"]);
+	assert_eq!(p["color"], shop["color"]);
+	assert_eq!(p["inset"], false, "no flat inset of ours");
+	assert_eq!(p["size"], shop["size"]);
+	assert_eq!(out["touched"], "", "nothing of the menu's is laid out or restyled from addon code");
+	assert_eq!(out["kept"], true);
+}
+
+// With EllesmereUI's skin, ours mirrors the skinned Shop: slices hidden, EllesmereUI's font, a flat inset in its
+// background colour with its border (its own border function on our frame), the same size; in combat too. The menu's
+// buttons are only read.
+#[test]
+fn with_ellesmereuis_skin_the_button_mirrors_its_neighbours_flat_dark_look_in_combat_too() {
+	let out = run_look(&format!("{ELLESMERE_LIKE}\n{ELLESMERE_SKIN}"), LOOK);
+	let (p, shop) = (&out["open"]["polestar"], &out["open"]["shop"]);
+	eprintln!("render: polestar {p}\nrender: shop {shop}");
+	assert_eq!(shop["slices"], "0 0 0", "the stub skinned Shop");
+	assert_eq!(p["slices"], "0 0 0", "our red slices hidden as Shop's are");
+	assert_eq!(p["font"], "Expressway.ttf 14");
+	assert_eq!(p["font"], shop["font"]);
+	assert_eq!(p["color"], shop["color"]);
+	assert_eq!(p["inset"], json!({ "bg": [0.05, 0.06, 0.07, 0.9], "border": "popupMenuButton" }));
+	assert_eq!(p["inset"], shop["inset"], "the same inset as Shop's");
+	assert_eq!(p["size"], shop["size"]);
+	assert_eq!(out["combat"], *p, "the same look in combat");
+	assert_eq!(out["touched"], "", "nothing of the menu's is laid out or restyled from addon code");
+	assert_eq!(out["under"], "");
+	assert_eq!(out["kept"], true);
 }

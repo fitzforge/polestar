@@ -82,7 +82,7 @@ return {
 	-- {item:17124} Syndicate Emblem
 	["{item:17124}: pickpocket Syndicate"] = "{item:17124}：偷窃辛迪加成员",
 	-- {npc:6766} Ravenholdt Guard
-	["a {npc:6766}: 100 per emblem"] = "{npc:6766}：每枚徽记100点",
+	["a {npc:6766}: 100 per emblem, handed in from his window"] = "{npc:6766}：每枚徽记100点，在他的窗口中直接交还",
 
 	-- Step 11: Syndicate kills to the end of Honored
 	["Syndicate kills to the end of Honored"] = "击杀辛迪加，直到尊敬满",
@@ -118,5 +118,9 @@ return {
 	-- {item:16885} Heavy Junkbox · {area:1445} Blackrock Mountain
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "{item:16885}：对50级以上人型生物使用偷窃，地点为 {area:1445}",
 	-- {npc:6707} Fahrad
-	["{npc:6707}: 50 per five boxes"] = "{npc:6707}：每五个箱子换 50 点声望",
+	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707}：每五个箱子换 50 点声望，在他的窗口中直接交还",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["a {npc:6766}: 100 per emblem"] = "{npc:6766}：每枚徽记100点",
+	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707}：每五个箱子换 50 点声望",
 }

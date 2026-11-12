@@ -25,8 +25,8 @@ return {
 	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-15. Expect about 60 herbs for these 49 points."] = "",
 
 	-- Step 7: Peacebloom & Silverleaf: Mulgore (1-50)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "Собирайте по пути: {item:2447} (1, оранжевый), {item:765} (1, оранжевый), {object:656161} (1, оранжевый, редкий), {object:656160} (1, оранжевый, редкий), {item:2449} (с 15) – и обходите точки маршрута, пока {skill:182} не достигнет 50. Уровень зоны: 1-10. Рассчитывайте примерно на 60 трав для этих 49 очков.",
 
 	-- Step 9: Journeyman Herbalism
 	-- {skill:182} Herbalism

@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "{area:200} 농가",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "일기는 농가 안에, 장식장은 그 안에, 변소는 그 뒤에 있습니다. {npc:10816}이(가) 변소 열쇠를 지니고 있습니다. 변소를 열면 {npc:10836}이(가) 나오며, 그가 장식장 열쇠를 지니고 있습니다.",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "오염된 불곰",
@@ -158,10 +154,6 @@ return {
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
-
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "마른가지일족 깃털 머리장식 5개가 있을 때만",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -281,6 +273,7 @@ return {
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "{area:1497}을(를) 나와 길을 따라 동쪽으로 {zone:1420}을(를) 지나 {area:152}을(를) 지나가세요. 펠스톤 농장은 길을 따라 처음 나오는 농장이며, {npc:10778}은(는) 집 안에서 기다립니다.",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "{item:13140}을(를) 얻었을 때만: 사용해 퀘스트를 시작한 뒤, {area:1763} 북쪽 끝 동굴인 {area:1770}의 우리에 갇힌 {npc:11018}을(를) 풀어 주고 밖으로 호위하세요.",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "{npc:11018}을(를) 구출했을 때만: 서큐버스 {npc:9518}이(가) {area:1763} 한가운데, {npc:11020} 옆에서 기다립니다.",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "마른가지일족 깃털 머리장식 5개가 있을 때만",
 	-- ["Radley and Durgen"] = "래들리와 더건",
 	-- ["Ride back south-east to the Sanctuary."] = "남동쪽의 성소로 돌아가세요.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "{area:1497}(으)로 돌아가 {zone:1454}행 비행선을 타고 {area:431}(으)로 날아가세요. 길을 따라 토막나무 주둔지에서 서쪽으로 나가, 갈림길에서 북쪽 {zone:1448}(으)로 가세요.",

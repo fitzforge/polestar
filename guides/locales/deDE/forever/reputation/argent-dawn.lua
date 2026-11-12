@@ -49,12 +49,12 @@ return {
 	["{npc:11056}: ask for a {item:13370}"] = "{npc:11056}: frage nach einem {item:13370}",
 	-- {npc:11057} Apothecary Dithers · {area:152} Bulwark · {item:13370} Vitreous Focuser
 	["{npc:11057}, at the {area:152}: ask for a {item:13370}"] = "{npc:11057} an der {area:152}: frage nach einem {item:13370}",
-	-- {area:201} Gahrron's Withering
-	["the cauldron at {area:201}"] = "der Kessel bei {area:201}",
 	-- plural, as words: Ectoplasmic Resonators = {item:13354} Ectoplasmic Resonator
 	["Ectoplasmic Resonators: the ghosts around the cauldron"] = "Ectoplasmic Resonators: die Geister um den Kessel",
 	-- {item:13320} Arcane Quickener
 	["{item:13320}, 50 silver"] = "{item:13320}, 50 Silber",
+	-- {area:201} Gahrron's Withering
+	["the cauldron at {area:201}: handed in from its window, never in the log"] = "der Kessel bei {area:201}: wird über sein Fenster abgegeben, nie im Questlog",
 
 	-- Step 5: Light's Hope Chapel quests
 	-- {area:2268} Light's Hope Chapel
@@ -160,6 +160,7 @@ return {
 	-- ["Keep running {area:2279} and {area:2057} and turning in every {item:12843} at {area:2268} until Exalted."] = "Lauf weiter {area:2279} und {area:2057} und gib jeden {item:12843} in der {area:2268} ab, bis du ehrfürchtig bist.",
 	-- ["Minion's Scourgestones to Friendly"] = "Geißelsteine des Dieners bis Freundlich",
 	-- ["Run {area:2279} (both wings) and {area:2057}, killing every Scourge you pass."] = "Lauf {area:2279} (beide Flügel) und {area:2057} und töte jeden Gegner der Geißel auf dem Weg.",
+	-- ["the cauldron at {area:201}"] = "der Kessel bei {area:201}",
 	-- ["{faction:529} to Exalted"] = "{faction:529} bis Ehrfürchtig",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "Bei {object:2160} beginnst du neutral. Hol dir die Ernennung bei {npc:10839} am {area:152} und leg sie an: In Classic fallen Geißelsteine nur, solange das Schmuckstück aus {quest:5401} angelegt ist. Der Vermächtnis-Vorteil „Diplomat“ von Forever erhöht den Rufgewinn.",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10840} at {area:3197} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "Bei {object:2160} beginnst du neutral. Hol dir die Ernennung bei {npc:10840} im {area:3197} und leg sie an: In Classic fallen Geißelsteine nur, solange das Schmuckstück aus {quest:5401} angelegt ist. Der Vermächtnis-Vorteil „Diplomat“ von Forever erhöht den Rufgewinn.",

@@ -37,6 +37,7 @@ end
 
 local defaults = {
 	itemButton = true,       -- quest item button
+	questLoot = true,        -- ... also shows a looted item that starts a quest you can take, glowing (QoL/QuestLoot.lua)
 	bagGlow = true,          -- the step's item glows in the bags
 	targetButton = true,     -- target macro button
 	targetPlate = true,      -- ... its icon shows the action, its name in the target's colour, the next names as small icons
@@ -53,6 +54,7 @@ local defaults = {
 	buttonTextSide = "right", -- which side of the button its name sits on
 	xpTracker = true,
 	xpTargetMark = true,     -- the guide's level target on the game's XP bar
+	boostedRest = true,      -- Boosted Rest and the sleeping bag on the XP line, the party's in the party panel
 	sellJunk = true,
 	autoRepair = true,
 	repairGuild = false,     -- guild bank first when the rank allows
@@ -61,13 +63,13 @@ local defaults = {
 	itemMarks = true,        -- Ctrl+Alt-click marks an item as junk or to keep
 	bagSpace = true,         -- free bag slots: the junk button and the bags-full banner
 	bagsLow = 2,             -- ... at this many free slots or fewer
-	trainAll = false,        -- learn every spell a class trainer offers now
 	rewardHighlight = true,
 	rewardAutoPick = false,
 	rewardEquip = false,     -- wear what a turn-in gives when it is an upgrade
 	wearOffer = true,        -- offer gear from loot or a merchant that is an upgrade
 	flightAutoOpen = true,
 	flightHighlight = true,
+	flightAutoTake = false,  -- take the guide's flight as soon as the flight map opens (QoL/Flight.lua, #1621)
 	stepGossip = true,       -- pick the gossip option the live step asks for, open goods or training for its buy and train goals (QoL/Gossip.lua)
 	autoBind = false,        -- bind the Hearthstone at the step's innkeeper
 	deathHelper = true,
@@ -78,6 +80,7 @@ local defaults = {
 	hideErrors = false,      -- combat error spam ("Not enough rage", "Out of range")
 	autoReleasePvP = false,  -- release at once in battlegrounds
 	hideQuestTracker = false, -- the game's objective tracker, as Questie can
+	instanceTrack = true,    -- in a dungeon, the quest tracker watches only its quests (QoL/InstanceTrack.lua)
 	declineDuels = false,    -- friends and guild excepted
 	declineGuildInvites = false,
 	declinePartyStrangers = false,
@@ -340,6 +343,26 @@ function Client.SlotInfo(bag, slot)
 	local C = C_Container
 	if C and C.GetContainerItemInfo then return C.GetContainerItemInfo(bag, slot) end
 	return nil
+end
+
+-- Whether the slot holds a quest's item or one that begins a quest (#1557: a grey quest starter,
+-- Noboru's Cudgel, was deleted as junk): such an item is never sold or deleted. False on a client
+-- without C_Container.GetContainerItemQuestInfo.
+function Client.SlotQuest(bag, slot)
+	local C = C_Container
+	local info = C and C.GetContainerItemQuestInfo and C.GetContainerItemQuestInfo(bag, slot)
+	return info ~= nil and (info.isQuestItem == true or (info.questID or 0) > 0)
+end
+
+-- The quest the slot's item begins, while that quest is not in the log
+-- (QuestInfoFields.questID and isActive); nil otherwise or on a client without
+-- C_Container.GetContainerItemQuestInfo.
+function Client.SlotStartsQuest(bag, slot)
+	local C = C_Container
+	local info = C and C.GetContainerItemQuestInfo and C.GetContainerItemQuestInfo(bag, slot)
+	local q = info and readable(info.questID)
+	if type(q) ~= "number" or q <= 0 or info.isActive == true then return nil end
+	return q
 end
 
 function Client.UseSlot(bag, slot)

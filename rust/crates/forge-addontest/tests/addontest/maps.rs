@@ -508,10 +508,19 @@ fn the_world_map_shows_zone_ranges_on_the_continent_the_hovered_zone_and_player_
 		script: r#"
 			local M, m = Polestar.Maps, stub.maps
 			M.RegisterZoneLevels({ [9000] = { 10, 20, 50, 50 } })
+			-- The zone labels: Polestar's frames under the canvas (in the map's view frame).
+			local function onCanvas(f)
+				local p = f.parent
+				while p do
+					if p == stub.maps.canvas then return true end
+					p = p.parent
+				end
+				return false
+			end
 			local function labels()
 				local out = {}
 				for _, f in ipairs(stub.frames) do
-					if f.parent == stub.maps.canvas and rawget(f, "Range") and f:IsShown() then
+					if onCanvas(f) and rawget(f, "Range") and f:IsShown() then
 						local p = f.points[1]
 						out[#out + 1] = { name = f.Name:GetText(), range = f.Range:GetText(), x = p.x, y = p.y, scale = f:GetScale() }
 					end

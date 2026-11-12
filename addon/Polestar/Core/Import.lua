@@ -223,32 +223,32 @@ local REWARD_ITEM = rec({ item = N, itemName = S, quality = N })
 local GOAL = rec({
 	t = S, class = B, zone = N, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
 	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
-	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N,
+	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N, yellow = N, grey = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
-	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, preTitles = { idmap = S }, text = S, node = N, area = N,
+	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, parent = N, preTitles = { idmap = S }, text = S, node = N, area = N,
 	map = N, x = N, y = N, z = N, f = S, r = N,
 	spots = list(rec({ x = N, y = N, z = N, r = N, n = N, alt = B, lvl = N })),
 	spread = B, lvl = N, optional = B, only = ONLY, profLine = N, profName = S, profRank = N, note = S,
 	from = S, fromKind = S, fromRank = N, fromFaction = S, fromAlso = S, fromId = N, fromAlsoId = N,
-	fromNpcs = list(rec({ npc = N, npcName = S })),
+	fromNpcs = list(rec({ npc = N, npcName = S })), fromNpcsAt = S,
 	candidates = list(rec({ npc = N, npcName = S, map = N, x = N, y = N, z = N, f = S, faction = S, races = LS, classes = LS,
 		lvl = rec({ min = N, max = N }), rate = N, spawns = N })),
 	rewards = rec({ choices = list(REWARD_ITEM), items = list(REWARD_ITEM), xp = N, money = N }),
 	group = rec({ kind = S, rank = N, name = S, size = N, map = N, lvl = N }),
 	direct = B, escort = B, gossip = N, seconds = N,
-	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S,
+	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S, carriedTo = S,
 })
 -- A step's `when` predicates and a `next` option's (format 4; Guides.Validate checks each kind's keys).
-local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN })
+local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN, parent = N })
 -- A step's picture: read so a string carries the guide as its addon does, but
 -- an imported guide has no addon folder holding the file, so it shows none.
 local IMAGE = rec({ file = S, w = N, h = N })
-local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), goals = list(GOAL) })
+local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), section = N, goals = list(GOAL) })
 local GUIDE = rec({
 	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
 	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
-	names = { map = SM }, written = { map = SM }, steps = list(STEP),
+	names = { map = SM }, written = { map = SM }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })), steps = list(STEP),
 })
 local PAYLOAD = rec({ format = N, license = S, guide = GUIDE, frames = { idmap = rec({ c = N, left = N, right = N, top = N, bottom = N }) } })
 
@@ -263,7 +263,7 @@ Import.KEYS = {
 	guide = keysOf(GUIDE), step = keysOf(STEP), goal = keysOf(GOAL), only = keysOf(ONLY),
 	reagents = keysOf(GOAL.rec.reagents.list), candidates = keysOf(GOAL.rec.candidates.list), spots = keysOf(GOAL.rec.spots.list),
 	fromNpcs = keysOf(GOAL.rec.fromNpcs.list),
-	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), when = keysOf(WHEN), image = keysOf(IMAGE),
+	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), sections = keysOf(GUIDE.rec.sections.list), when = keysOf(WHEN), image = keysOf(IMAGE),
 }
 
 local function finite(v) return type(v) == "number" and v == v and v ~= huge and v ~= -huge end

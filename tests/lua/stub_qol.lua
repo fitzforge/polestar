@@ -30,6 +30,8 @@
 --   q.engine.levelFrac = f                      -- with it, a point inside the level (also at the player's level)
 --   q.engine.kept = { [itemID] = step }         -- what Engine.KeptItems answers
 --   q.calls                                     -- { { "UseContainerItem", bag, slot }, { "GetQuestReward", i }, ... }
+--   q.log[questID], q.done[questID], q.watches  -- the quest log, handed-in quests and the game's watch list
+--   q.enterInstance(map[, kind]), q.leaveInstance() -- IsInInstance / GetInstanceInfo, PLAYER_ENTERING_WORLD
 
 local q = {
 	level = 10, xp = 0, xpMax = 1000, rested = nil, maxLevel = 60,
@@ -229,7 +231,8 @@ function C_UnitAuras.GetPlayerAuraBySpellID(id) return q.auras[id] end
 -- Bags and items
 ---------------------------------------------------------------------------
 
--- q.items[id] = { name, quality = 0..5, price (sell, copper), classID, spell, noValue, icon }
+-- q.items[id] = { name, quality = 0..5, price (sell, copper), classID, spell, noValue, icon, questID (begins that
+-- quest), questItem (an item for a quest) }
 function q.addItem(bag, slot, id, count)
 	q.bags[bag].slots[slot] = { itemID = id, stackCount = count or 1 }
 end
@@ -249,6 +252,13 @@ end
 C_Container = {}
 function C_Container.GetContainerNumSlots(bag) return q.bags[bag] and q.bags[bag].size or 0 end
 C_Container.GetContainerItemInfo = slotInfo
+-- QuestInfoFields { isQuestItem, questID, isActive } (ContainerDocumentation), from q.items[id].questItem / questID.
+function C_Container.GetContainerItemQuestInfo(bag, slot)
+	local b = q.bags[bag]
+	local s = b and b.slots[slot]
+	local it = s and q.items[s.itemID] or {}
+	return { isQuestItem = it.questItem or false, questID = it.questID, isActive = false }
+end
 function C_Container.UseContainerItem(bag, slot)
 	call("UseContainerItem", bag, slot)
 	local s = q.bags[bag].slots[slot]
@@ -358,6 +368,55 @@ function C_QuestLog.GetLogIndexForQuestID(questID) if q.specialItems[questID] th
 function GetQuestLogSpecialItemInfo(index)
 	local id = q.specialItems[index]
 	if id then return "|cffffffff|Hitem:" .. id .. "::::::::|h[Quest Item]|h|r", 134400, 1, false end
+end
+
+-- The quest log and the game's watch list (QuestLogDocumentation): q.log[questID] = true while it is in the
+-- log, q.done[questID] = true once handed in, q.watches = { questID, ... } in watch order.
+q.log, q.done, q.watches = {}, {}, {}
+function C_QuestLog.IsOnQuest(id) return q.log[id] == true end
+function C_QuestLog.IsQuestFlaggedCompleted(id) return q.done[id] == true end
+function C_QuestLog.GetNumQuestLogEntries()
+	local n = 0
+	for _ in pairs(q.log) do n = n + 1 end
+	return n
+end
+function C_QuestLog.GetNumQuestWatches() return #q.watches end
+function C_QuestLog.GetQuestIDForQuestWatchIndex(i) return q.watches[i] end
+function C_QuestLog.AddQuestWatch(id)
+	for _, w in ipairs(q.watches) do if w == id then return false end end
+	table.insert(q.watches, id)
+	return true
+end
+function C_QuestLog.RemoveQuestWatch(id)
+	for i, w in ipairs(q.watches) do
+		if w == id then
+			table.remove(q.watches, i)
+			return true
+		end
+	end
+	return false
+end
+
+-- Instances: q.instance = { map, kind ("party", "raid", ...) } inside one, nil outside.
+-- q.enterInstance(map[, kind]) and q.leaveInstance() go through a loading screen (PLAYER_ENTERING_WORLD).
+function IsInInstance()
+	if q.instance then return true, q.instance.kind end
+	return false, "none"
+end
+function GetInstanceInfo()
+	local i = q.instance
+	if not i then return "Eastern Kingdoms", "none", 0, "", 0, 0, false, 0 end
+	return "Instance", i.kind, 1, "Normal", 5, 0, false, i.map
+end
+function q.enterInstance(map, kind)
+	q.instance = { map = map, kind = kind or "party" }
+	stub.fire("PLAYER_ENTERING_WORLD", false, false)
+	stub.runTimers()
+end
+function q.leaveInstance()
+	q.instance = nil
+	stub.fire("PLAYER_ENTERING_WORLD", false, false)
+	stub.runTimers()
 end
 
 ---------------------------------------------------------------------------
@@ -476,6 +535,10 @@ function BuyTrainerService(i)
 	end)
 end
 
+ClassTrainerFrame = CreateFrame("Frame", "ClassTrainerFrame", UIParent)
+ClassTrainerTrainButton = CreateFrame("Button", "ClassTrainerTrainButton", ClassTrainerFrame)
+function ClassTrainerFrame_Update() end
+
 q.classTrainers = { [198] = true }
 function q.openTrainer(npc)
 	q.npc = npc or 198
@@ -592,6 +655,8 @@ Enum.PlayerInteractionType = { Binder = 20 }
 C_PlayerInteractionManager = {}
 function C_PlayerInteractionManager.ConfirmationInteraction(t) call("ConfirmationInteraction", t) end
 function C_PlayerInteractionManager.ClearInteraction(t) call("ClearInteraction", t) end
+-- q.binderGone: the bind interaction ended (the popup cancelled, the innkeeper left behind).
+function C_PlayerInteractionManager.IsValidNPCInteraction() return not q.binderGone end
 
 TaxiFrame = CreateFrame("Frame", "TaxiFrame", UIParent)
 TaxiFrame.shown = false
@@ -601,6 +666,9 @@ function TakeTaxiNode(i) call("TakeTaxiNode", i) end
 -- q.taxiCosts[i]: the copper node i costs (0 when unset).
 q.taxiCosts = {}
 function TaxiNodeCost(i) return q.taxiCosts[i] or 0 end
+-- q.taxiTypes[i]: what TaxiNodeGetType says of node i (nil when unset).
+q.taxiTypes = {}
+function TaxiNodeGetType(i) return q.taxiTypes[i] end
 
 function q.openTaxi(names)
 	q.taxiNodes = names
@@ -712,6 +780,8 @@ function Engine.GetLiveStep() return q.engine.live or q.engine.step end
 function Engine.GetStepView(i) if i == q.engine.step then return q.engine.view end end
 function Engine.GetGuide() return q.engine.guide end
 function Engine.GetWaypoint() return q.engine.waypoint end
+-- q.engine.spot: the index of the spot the arrow takes for any goal (Engine.SpotIndexOf), nil: none.
+function Engine.SpotIndexOf() return q.engine.spot end
 function Engine.IsClassTrainer(npc) return npc ~= nil and q.classTrainers[npc] == true end
 -- The Engine's rule: a located goal at its npc, `sethome nearest` at a candidate.
 function Engine.IsSethomeInnkeeper(goal, npc)

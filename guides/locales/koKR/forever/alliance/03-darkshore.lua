@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "{area:442}에서 {area:702}(으)로 날아간 다음, 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "나이트 엘프는 {area:442}에서 {area:702}(으)로 날아가십시오. 스카이본은 {area:442} 부두에서 배를 타고 가서 루테란 비행 경로를 익히십시오. 그런 다음 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -167,9 +167,9 @@ return {
 	["Moonstalker Fangs"] = "달표범 송곳니",
 
 	-- Step 31: The Tower of Althalaxx
-	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale
-	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
-	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "",
+	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
+	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
+	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "버즈박스 323 동쪽, {npc:3661}은(는) 탑 아래에서 암흑이교도 광신자들 사이에 숨어 있습니다. 그의 편지는 {zone:1440}의 수호자 델그렌에게 가져가야 하니 보관하세요.\n주의: 암흑이교도 소환사(28-29)는 공허방랑자를 데리고 {npc:3660}(31)와(과) 함께 탑 안에 있습니다. 탑 남쪽의 광신자들에게서 양피지를 얻고 탑에는 가까이 가지 마세요.",
 	-- {item:5348} Worn Parchment
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: 암흑이교도 광신자",
@@ -211,6 +211,7 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. 비행 경로가 없다면 그곳에서 배우세요.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "그녀를 글레이브 밖으로 호위하십시오. 제출은 {zone:1440}의 테리실에게 합니다",
 	-- ["Fine Moonstalker Pelts"] = "고급 달표범 모피",
+	-- ["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "{area:442}에서 {area:702}(으)로 날아간 다음, 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "해안을 따라 북동쪽의 {area:443}(으)로 가십시오. {quest:951}은(는) 폐허 곳곳에 있고, 폭풍비늘일족 미르미돈, 폭풍비늘일족 여마법사, 폭풍비늘일족 전사가 지키고 있으며, 폭풍비늘 야수조련사가 해안을 거닙니다.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "해안을 따라 북동쪽의 {area:443}(으)로 가십시오. {quest:951}은(는) 폐허 곳곳에 있고, 폭풍비늘일족 미르미돈, 폭풍비늘일족 여마법사, 폭풍비늘일족 전사가 지키고 있습니다.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "해안을 따라 {area:447}을(를) 지나 남쪽으로 가십시오. {quest:4728} 하나는 고대정령의 숲 서쪽 해안에, 또 하나는 더 남쪽 {area:450} 근처에 있습니다.",

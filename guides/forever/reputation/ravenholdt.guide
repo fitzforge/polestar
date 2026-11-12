@@ -99,8 +99,7 @@ step Syndicate Emblems to Friendly
   zone Arathi Highlands
   collect 17124 x5 optional @30.0,27.0 -- Syndicate Emblem: pickpocket Syndicate
   zone Alterac Mountains
-  accept 6701 optional
-  turnin 6701 optional                -- a Ravenholdt Guard: 100 per emblem
+  turnin 6701 direct optional         -- a Ravenholdt Guard: 100 per emblem, handed in from his window
   rep 349 Friendly
 
 step Syndicate kills to the end of Honored
@@ -143,6 +142,5 @@ step Heavy Junkboxes to Exalted
   zone Searing Gorge
   collect 16885 x5 optional @32.1,94.7 -- Heavy Junkbox: pickpocket level 50+ humanoids, Blackrock Mountain
   zone Alterac Mountains
-  accept 8249 optional
-  turnin 8249 optional                -- Fahrad: 50 per five boxes
+  turnin 8249 direct optional         -- Fahrad: 50 per five boxes, handed in from his window
   rep 349 Exalted

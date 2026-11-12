@@ -99,8 +99,6 @@ return {
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "Las dos primeras jaulas están juntas en el poblado Secacorteza al sur de {npc:5634}; la tercera, en el siguiente poblado al este. Cualquier trol Secacorteza puede soltar un collar.",
 
 	-- Step 21: Aerie Peak
-	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} sigue pagando por los collares: entrega los que te sobren",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master at the top; inside"] = "",
 	-- {zone:1425} The Hinterlands
@@ -156,4 +154,5 @@ return {
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa solo en {area:1898}, al sureste de la excavación.",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "El cubata de {npc:5634} requiere ingredientes de Kalimdor: omítelo.",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, junto al maestro de vuelo, en lo alto",
+	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} sigue pagando por los collares: entrega los que te sobren",
 }

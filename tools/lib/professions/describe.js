@@ -219,9 +219,11 @@ function mainTown(data, prof, side) {
 	return map != null ? zoneName(data, map) : null;
 }
 
-// "Name (Zone)" of each trainer of a rank on `side`, sorted by name.
-function rankTrainers(data, rank, side) {
-	const ids = (rank && rank.trainers && rank.trainers[side]) || [];
+// "Name (Zone)" of each trainer of a rank on `side`, sorted by name; with `prof`, only those who
+// train at the rank's skill (its `trainerSkill`: Doctor Herbert Halsey trains Alchemy from 125, #1708).
+function rankTrainers(data, rank, side, prof) {
+	const gates = (prof && prof.trainerSkill) || {};
+	const ids = ((rank && rank.trainers && rank.trainers[side]) || []).filter((id) => gates[id] === undefined || Number(gates[id]) <= Number(rank.minSkill || 0));
 	return [...new Set(ids.map((id) => npcPlace(data, id)).filter(Boolean))].sort();
 }
 

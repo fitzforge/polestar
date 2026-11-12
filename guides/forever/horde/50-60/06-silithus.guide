@@ -231,7 +231,7 @@ step Tanaris
 step Gadgetzan
   zone Tanaris
   tip Fly to Gadgetzan. Still carrying The Super Egg-O-Matic? The machine stands in the middle of town.
-  turnin 2741
+  turnin 2741 direct
   turnin 4507                         -- Inside
   accept 4509
 
@@ -489,5 +489,4 @@ step The Bulwark
   zone Tirisfal Glades
   tip West to the Bulwark one last time.
   turnin 5236                         -- Shadow Priestess Vandis
-  accept 5238                         -- High Executor Derrington
-  turnin 5238
+  turnin 5238 direct

@@ -44,6 +44,9 @@ why An off-hand orb or a staff for your late 30s, down the felhound's or the inf
 # well as 1799 before it (quests.json preAll), though 4962 and 4963 exclude
 # each other.
 # ASSUMED: The infernal path also reaches Tabetha (Classic flow; Forever's data lists 4962 among Cleansing's prerequisites). In-game check: Tabetha offers Cleansing of the Orb of Orahil to a warlock who took Shard of an Infernal.
+# Level hold (the #1667 rule: a goal waits until its mobs' top level is at most
+# 2 above you): Cleansing of the Orb of Orahil (the Demon of the Orb, 40 elite)
+# waits for 38.
 # Sources: Forever's quest data (quests.json, npcs.json, items.json); the quest
 # notes (data/local/mechanics) for the channel, the timer and the order.
 # Neither reference class guide carries this chain.
@@ -105,8 +108,9 @@ step The demon's spirit
 
 step Tabetha
   zone Dustwallow Marsh
-  tip Tabetha lives at her farm in the middle of Dustwallow Marsh, south of the road from the Barrens and south-west of Theramore; a spirit healer stands beside it. Deadmire, a level 45 crocolisk, patrols the creeks just north-east. Before you accept Cleansing, clear the spiders and crocolisks around her paddock. Accepting starts a 3-minute timer: she walks to the paddock and lets the Demon of the Orb out. It is elite (level 40): grouping up is encouraged; a warlock of about 40 can solo it with Fear or Banish and damage over time, a level 35-38 one brings a friend. The timer keeps running after the kill, so hand in at once. If time runs out, abandon the quest and take it from Tabetha again.
+  tip Tabetha lives at her farm in the middle of Dustwallow Marsh, south of the road from the Barrens and south-west of Theramore; a spirit healer stands beside it. Deadmire, a level 45 crocolisk, patrols the creeks just north-east. Hand in the orb now; Cleansing waits for level 38. Before you accept it, clear the spiders and crocolisks around her paddock. Accepting starts a 3-minute timer: she walks to the paddock and lets the Demon of the Orb out. It is elite (level 40): grouping up is encouraged; a warlock of about 40 can solo it with Fear or Banish and damage over time, a level 38 one brings a friend. The timer keeps running after the kill, so hand in at once. If time runs out, abandon the quest and take it from Tabetha again.
   turnin 1799                         -- Tabetha
+  level 38
   accept 4961
   kill 6549 quest 4961.1              -- Demon of the Orb
   turnin 4961                         -- Tabetha

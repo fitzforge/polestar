@@ -29,7 +29,6 @@ return {
 	["Continue south to {area:35}. {npc:7406} has his workshop on the upper ring of the bay."] = "Продолжайте на юг: {area:35}. Мастерская ({npc:7406}) — на верхнем ярусе бухты.",
 	-- {npc:7406} Oglethorpe Obnoticus
 	["{npc:7406}, inside"] = "",
-	["Only once all three robots are home"] = "Только когда все три робота дома",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
@@ -252,6 +251,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "Высокорожденные и сатиры из племени Халдарр",
 	-- ["Ironjaw Basilisks"] = "Железозубые василиски",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "Сохраните {area:1417} для {npc:7771} ({zone:1446}).",
+	-- ["Only once all three robots are home"] = "Только когда все три робота дома",
 	-- ["Ride into {area:16}"] = "Въезжайте: {area:16}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Езжайте на северо-запад: {area:1108}; {npc:14637} ждет на причале.",
 	-- ["Sea elementals"] = "Морские элементали",

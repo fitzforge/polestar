@@ -203,7 +203,7 @@ end
 -- chunk stays well inside Lua 5.1's cap on locals.
 local KEYS = {
 	only = { "classes", "races", "factions" },
-	goalNumbers = { "skillLine", "untilSkill", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit" },
+	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit" },
 	goalRanks = { "rank", "qlvl" },
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
@@ -476,12 +476,17 @@ local function checkGoal(goal)
 	if goal.fromFaction ~= nil and goal.fromFaction ~= "A" and goal.fromFaction ~= "H" and goal.fromFaction ~= "AH" then
 		return "bad fromFaction"
 	end
+	-- Per spot, places in fromNpcs (`fromNpcsAt`, "1,2;3;;4"): digits, commas and semicolons only.
+	if goal.fromNpcsAt ~= nil and not (isStr(goal.fromNpcsAt) and goal.fromNpcsAt:find("^[%d,;]*$")) then return "bad fromNpcsAt" end
+	-- Quest work a later guide hands in: that guide's id.
+	if goal.carriedTo ~= nil and not isStr(goal.carriedTo) then return "bad carriedTo" end
 	for _, key in ipairs(KEYS.goalRanks) do
 		if goal[key] ~= nil and not isNum(goal[key]) and not isStr(goal[key]) then return "bad " .. key end
 	end
 	if goal.pre ~= nil and type(goal.pre) ~= "table" then return "bad pre" end
 	if goal.preAll ~= nil and type(goal.preAll) ~= "table" then return "bad preAll" end
 	if goal.closedBy ~= nil and type(goal.closedBy) ~= "table" then return "bad closedBy" end
+	if goal.parent ~= nil and not isNum(goal.parent) then return "bad parent" end
 	if goal.rewards ~= nil then
 		local r = goal.rewards
 		if type(r) ~= "table" then return "bad rewards" end
@@ -568,6 +573,18 @@ local function validate(def)
 			end
 		end
 	end
+	-- sections (`section <Profession> <from>-<to>`): a profession guide's skill-range
+	-- headings, { skill?, skillLine?, from, to }; a step's `section` is an index into them.
+	if def.sections ~= nil then
+		if type(def.sections) ~= "table" then return "bad sections" end
+		for i = 1, #def.sections do
+			local sec = def.sections[i]
+			if type(sec) ~= "table" or not (isStr(sec.skill) or isNum(sec.skillLine)) or (sec.skill ~= nil and not isStr(sec.skill))
+				or (sec.skillLine ~= nil and not isNum(sec.skillLine)) or not isNum(sec.from) or not isNum(sec.to) or sec.from >= sec.to then
+				return "bad section " .. i
+			end
+		end
+	end
 	if deferred then return nil end
 	return Own.validateSteps(def.steps)
 end
@@ -588,6 +605,7 @@ function Own.validateSteps(steps)
 			labelAt[step.label] = s
 		end
 		if not checkImage(step.image) then return ("step %d: bad image"):format(s) end
+		if step.section ~= nil and not (isNum(step.section) and step.section >= 1 and step.section % 1 == 0) then return ("step %d: bad section"):format(s) end
 		for g, goal in ipairs(step.goals) do
 			local err = checkGoal(goal)
 			if err then return ("step %d goal %d: %s"):format(s, g, err) end

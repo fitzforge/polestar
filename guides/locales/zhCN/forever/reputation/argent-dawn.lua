@@ -49,12 +49,12 @@ return {
 	["{npc:11056}: ask for a {item:13370}"] = "{npc:11056}：索取一个 {item:13370}。",
 	-- {npc:11057} Apothecary Dithers · {area:152} Bulwark · {item:13370} Vitreous Focuser
 	["{npc:11057}, at the {area:152}: ask for a {item:13370}"] = "{area:152} 的 {npc:11057}：索取一个 {item:13370}",
-	-- {area:201} Gahrron's Withering
-	["the cauldron at {area:201}"] = "{area:201} 的瘟疫之锅",
 	-- plural, as words: Ectoplasmic Resonators = {item:13354} Ectoplasmic Resonator
 	["Ectoplasmic Resonators: the ghosts around the cauldron"] = "外膜震荡体：大锅周围的幽灵",
 	-- {item:13320} Arcane Quickener
 	["{item:13320}, 50 silver"] = "{item:13320}，50银币",
+	-- {area:201} Gahrron's Withering
+	["the cauldron at {area:201}: handed in from its window, never in the log"] = "{area:201}的大锅：在其窗口中直接交还，不会出现在任务日志中",
 
 	-- Step 5: Light's Hope Chapel quests
 	-- {area:2268} Light's Hope Chapel
@@ -161,6 +161,7 @@ return {
 	-- ["Minion's Scourgestones to Friendly"] = "用爪牙的天灾石刷到友善",
 	-- ["Run {area:2279} (both wings) and {area:2057}, killing every Scourge you pass."] = "刷{area:2279}（两个区域）和{area:2057}，击杀沿途所有天灾军团。",
 	-- ["The Plaguelands quests pay in full at 60 from level 55 up and never stop counting, about 1,500 in all; the leveling guides walk them. The cauldron chain from {npc:11053} at {area:3197} (Horde: {npc:11055} at the {area:152}): 150 per cauldron with its return ({area:199}'s pair is level 53: in Classic it pays three fifths at 60), then Mission Accomplished! 200. Alas, Andorhal 150 ({npc:1852}, elite). At {area:2268}, {npc:11063}'s {area:2262} quests (Brother Carlin 50 from Chromie in Andorhal, Villains of Darrowshire 100, Marauders of Darrowshire 100) and {npc:10926}'s Hidden Treasures 200 at the end of the {area:2262} story; {npc:12250} 75 from {npc:11038}. After Mission Accomplished!, each cauldron takes a repeatable delivery: 25 reputation every time, until Exalted. {npc:11056} at {area:3197} (Horde: {npc:11057} at the {area:152}) gives you a {item:13370}, without which the reagents never drop, and sells Arcane Quickeners for 50 silver (one per delivery; it crumbles after 30 minutes, so buy it last). Each delivery also takes 4 {item:14047}. Farm {area:201}: its ghosts drop an {item:13354} about one time in four, so about 16 kills fill a delivery; the other cauldrons want 5 or 6 reagents that drop one time in ten or less. Once the Plaguelands Scourge stop counting, this earns about four times what their Scourgestones alone do."] = "瘟疫之地中55级及以上的任务，到60级仍会提供完整声望，而且始终有效，合计约1,500点；练级指南会带你完成。{area:3197} 的 {npc:11053}（部落为 {area:152} 的 {npc:11055}）提供瘟疫之锅任务线：每口锅连同回报任务合计150点（{area:199} 的两个任务为53级：经典版中，60级只奖励五分之三），最后“任务完成！”奖励200点。“啊，安多哈尔！”奖励150点（{npc:1852}，精英）。{area:2268} 的 {npc:11063} 提供 {area:2262} 的任务（安多哈尔克罗米提供的“卡林·雷德帕斯”奖励50点，“达隆郡的恶魔”100点，“达隆郡的掠夺者”100点），{npc:10926} 在 {area:2262} 故事末尾提供的“隐藏的宝藏”奖励200点；{npc:11038} 提供的 {npc:12250} 奖励75点。完成“任务完成！”后，每口锅都可重复交付材料：每次25点声望，直到崇拜。{area:3197} 的 {npc:11056}（部落为 {area:152} 的 {npc:11057}）会给你 {item:13370}，没有它就不会掉落试剂；还会以50银币出售奥术催化剂（每次交付需要一个；30分钟后消失，因此最后再买）。每次交付还需要4块 {item:14047}。建议刷 {area:201}：那里的幽灵约每四只掉落一个 {item:13354}，因此约16次击杀就能凑够一次交付；其他锅需要5或6份试剂，而掉率仅为十分之一或更低。瘟疫之地的天灾怪不再直接提供声望后，这种方法的收益约为单交它们的天灾石的四倍。",
+	-- ["the cauldron at {area:201}"] = "{area:201} 的瘟疫之锅",
 	-- ["{faction:529} to Exalted"] = "{faction:529}刷到崇拜",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}初始为中立。从{area:152}的{npc:10839}处领取委任徽章并装备：在经典版中，只有装备了{quest:5401}饰品时才会掉落天灾石。Forever的传承外交官特权可提高声望获取。",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10840} at {area:3197} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}初始为中立。从{area:3197}的{npc:10840}处领取委任徽章并装备：在经典版中，只有装备了{quest:5401}饰品时才会掉落天灾石。Forever的传承外交官特权可提高声望获取。",

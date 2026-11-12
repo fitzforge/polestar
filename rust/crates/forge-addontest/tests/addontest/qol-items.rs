@@ -117,6 +117,41 @@ fn bag_button_deletes_only_on_a_second_press_within_five_seconds_and_only_the_it
 	assert_eq!(out[4], 1, "never with something on the cursor");
 }
 
+// #1557: the bag button deleted Noboru's Cudgel, a grey item that begins a quest, and the quest went with it. A
+// quest's item or a quest starter is never the junk to delete (Space) nor sold at a merchant (Vendor), even when it
+// is the cheapest grey; the other greys are offered and sold instead.
+const QUEST_GREYS: &str = r#"
+	q.items[6] = { name = "Noboru's Cudgel", quality = 0, price = 1, questID = 1393 }
+	q.items[7] = { name = "Grey Quest Bone", quality = 0, price = 2, questItem = true }
+	fill(0)
+	q.addItem(0, 4, 6, 1)
+	q.addItem(0, 5, 7, 1)
+	bagsChanged()
+"#;
+
+#[test]
+fn a_grey_quest_starter_or_quest_item_is_never_the_junk_to_delete() {
+	let out = run(&[BAGS, QUEST_GREYS, "emit(QoL.Space.Junk().id)"].concat());
+	assert_eq!(out[0], 2, "the cheapest grey that is no quest's item: the shell (3c), not the cudgel (1c) or the bone (2c)");
+}
+
+#[test]
+fn a_grey_quest_starter_or_quest_item_is_never_sold() {
+	let out = run(&[
+		BAGS,
+		QUEST_GREYS,
+		r#"
+		q.openMerchant()
+		stub.advance(3)
+		local sold = {}
+		for _, id in ipairs(q.sold or {}) do sold[id] = (sold[id] or 0) + 1 end
+		emit({ cudgel = sold[6] or 0, bone = sold[7] or 0, fangs = sold[1] or 0, shell = sold[2] or 0 })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "cudgel": 0, "bone": 0, "fangs": 1, "shell": 1 }), "the quest items stay, the other greys sell");
+}
+
 #[test]
 fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_not_and_never_deleted() {
 	let out = run(&[

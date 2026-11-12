@@ -140,13 +140,13 @@ end
 local QUEST_TITLE, QUEST_LEVEL, QUEST_MIN, QUEST_RACES, QUEST_CLASSES, QUEST_FACTION = 1, 2, 3, 4, 5, 6
 local QUEST_START, QUEST_FINISH, QUEST_START_ITEM, QUEST_PRE, QUEST_EXCL, QUEST_OBJ = 7, 8, 9, 10, 11, 12
 local QUEST_ZONE, QUEST_EVENTS, QUEST_SKILL, QUEST_HOLIDAY, QUEST_PRE_ALL, QUEST_RACE_HIGH = 13, 14, 15, 16, 17, 18
-local QUEST_ITEMS = 19
+local QUEST_ITEMS, QUEST_LIMIT = 19, 20
 Q.F = {
 	TITLE = QUEST_TITLE, LEVEL = QUEST_LEVEL, MIN = QUEST_MIN, RACES = QUEST_RACES, CLASSES = QUEST_CLASSES,
 	FACTION = QUEST_FACTION, START = QUEST_START, FINISH = QUEST_FINISH, START_ITEM = QUEST_START_ITEM,
 	PRE = QUEST_PRE, EXCL = QUEST_EXCL, OBJ = QUEST_OBJ, ZONE = QUEST_ZONE, EVENTS = QUEST_EVENTS,
 	SKILL = QUEST_SKILL, HOLIDAY = QUEST_HOLIDAY, PRE_ALL = QUEST_PRE_ALL, RACE_HIGH = QUEST_RACE_HIGH,
-	ITEMS = QUEST_ITEMS,
+	ITEMS = QUEST_ITEMS, LIMIT = QUEST_LIMIT,
 }
 Q.KIND = { "kill", "item", "object", "event" }
 
@@ -154,6 +154,16 @@ function Q.QuestRecord(id) return data.quests[id] end
 function Q.NpcRecord(id) return data.npcs[id] end
 function Q.ObjectRecord(id) return data.objects[id] end
 function Q.ItemRecord(id) return data.items[id] end
+
+-- A timed quest's time allowed once taken, in seconds (the server's, from
+-- quests.json's `limit`), or nil: untimed, or the database not loaded (this
+-- never loads it). Quests/Timed.lua counts it down from the accept when the
+-- client reports no timer.
+function Q.TimeLimit(id)
+	local r = id and data.meta and data.quests[id]
+	local limit = r and r[QUEST_LIMIT]
+	return type(limit) == "number" and limit > 0 and limit or nil
+end
 
 -- Whether quest questID hands over item itemID when it is taken (Bethor's
 -- Scroll for Thule Ravenclaw; never a reward). Allocation-free.
@@ -276,6 +286,7 @@ local FACTIONS = { "Alliance", "Horde" }
 --   start = { npc = {}, object = {}, item = {} }, finish = { npc = {}, object = {} },
 --   pre = { ids } (any one completed unlocks it), preAll = { ids } (every one
 --   needed; breadcrumbs are in neither), excl = { ids }, zone, skill, holiday,
+--   limit (seconds a timed quest allows once taken, or nil),
 --   objectives = { { kind = "kill"|"item"|"object"|"event", id, count, map, x, y, f }, ... } }
 function Q.GetQuest(id)
 	local r = data.quests[id]
@@ -288,7 +299,7 @@ function Q.GetQuest(id)
 		start = { npc = sn, object = so, item = idList(r[QUEST_START_ITEM]) },
 		finish = { npc = fn, object = fo },
 		pre = idList(r[QUEST_PRE]), preAll = idList(r[QUEST_PRE_ALL]), excl = idList(r[QUEST_EXCL]),
-		zone = r[QUEST_ZONE], skill = r[QUEST_SKILL], holiday = r[QUEST_HOLIDAY],
+		zone = r[QUEST_ZONE], skill = r[QUEST_SKILL], holiday = r[QUEST_HOLIDAY], limit = r[QUEST_LIMIT],
 		objectives = {},
 	}
 	local obj, ev = r[QUEST_OBJ], r[QUEST_EVENTS]
@@ -507,15 +518,45 @@ function Q.EachAvailabilityRef(id, fn)
 	return r[QUEST_SKILL] ~= nil
 end
 
+-- Field `field` of every quest as its record decodes it (a number, or a list
+-- of numbers), read straight from the chunks' text: q -> value, for the
+-- quests that have it. The full-scan indexes below need one or two fields of
+-- every quest; decoding every record for them took about 55 ms and 6 MB of
+-- garbage each, in the frame that first asked (the first item tooltip, loot
+-- line or quest accept of a session).
+local function fieldOfAll(field)
+	local pattern = "^" .. string.rep("[^;]*;", field - 1) .. "([^;]*)"
+	local out = {}
+	store:EachRaw("quests", function(q, payload)
+		if out[q] ~= nil then return end
+		local f = payload:match(pattern)
+		if not f or f == "" then return end
+		if byte(f, 1) == 123 then -- {: a list, read up to its first empty element as Each does
+			local t, m = {}, 0
+			for e in gmatch(sub(f, 2) .. ",", "([^,]*),") do
+				local v = tonumber(e)
+				if v == nil then break end
+				m = m + 1
+				t[m] = v
+			end
+			out[q] = t
+		else
+			out[q] = tonumber(f)
+		end
+	end)
+	return out
+end
+
 -- Quests whose `excl` lists id: taking id closes them. The list is one-way
 -- for about one link in fifteen (282 lists 287, 287 does not list 282), so
--- this reads every record once, the first time it is asked.
+-- this reads every quest's `excl` once, the first time it is asked.
 local closedBy
 function Q.ClosedBy(id)
 	if not closedBy then
 		closedBy = {}
+		local excls = fieldOfAll(QUEST_EXCL)
 		for _, q in ipairs(Q.QuestIds()) do
-			local excl = data.quests[q][QUEST_EXCL]
+			local excl = excls[q]
 			if excl then
 				for _, x in Each(excl) do
 					local list = closedBy[x]
@@ -541,10 +582,10 @@ function Q.FollowUps(id)
 	local ids = Q.QuestIds()
 	if followUpsOf ~= ids then
 		followUps, followUpsOf = {}, ids
+		local pres, preAlls = fieldOfAll(QUEST_PRE), fieldOfAll(QUEST_PRE_ALL)
 		for _, q in ipairs(ids) do
-			local r = data.quests[q]
 			for k = 1, 2 do
-				local refs = r[k == 1 and QUEST_PRE or QUEST_PRE_ALL]
+				local refs = (k == 1 and pres or preAlls)[q]
 				if refs then
 					for _, p in Each(refs) do
 						local list = followUps[p]
@@ -569,8 +610,9 @@ function Q.StartedBy(itemID)
 	local ids = Q.QuestIds()
 	if startedByOf ~= ids then
 		startedBy, startedByOf = {}, ids
+		local items = fieldOfAll(QUEST_START_ITEM)
 		for _, q in ipairs(ids) do
-			for _, it in Each(data.quests[q][QUEST_START_ITEM]) do
+			for _, it in Each(items[q]) do
 				local list = startedBy[it]
 				if not list then
 					list = {}
@@ -623,7 +665,8 @@ end
 ---------------------------------------------------------------------------
 
 -- Features that need the database; with all of them off it never loads.
-local NEEDS = { "mapObjectives", "minimapObjectives", "availableQuests", "turnInMarkers", "questTooltips", "questBagMarks", "questSellWarning", "nameplateIcons" }
+local NEEDS = { "mapObjectives", "minimapObjectives", "availableQuests", "turnInMarkers", "questTooltips", "questBagMarks", "questSellWarning", "nameplateIcons",
+	"questLoot" } -- QoL/QuestLoot.lua: who may take the quest an item starts
 
 function Q.IsWanted()
 	if not ns.Get("qol.questDB") then return false end

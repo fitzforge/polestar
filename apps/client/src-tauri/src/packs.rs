@@ -617,7 +617,7 @@ pub enum Fetched {
 
 /// Fetches the index (with the ETag of the one held, when there is one) and its signature.
 pub async fn fetch_index(http: &reqwest::Client, base: &str, etag: Option<&str>) -> Result<Fetched, String> {
-	let failed = |e: reqwest::Error| format!("Could not reach {}: {e}", host(base));
+	let failed = |e: reqwest::Error| crate::net::unreachable(&e, &host(base));
 	let mut request = http.get(format!("{base}{INDEX_PATH}"));
 	if let Some(etag) = etag {
 		request = request.header("If-None-Match", etag);
@@ -646,7 +646,7 @@ pub async fn fetch_index(http: &reqwest::Client, base: &str, etag: Option<&str>)
 /// A response's body, refused once it passes `max` bytes (also for the recording server's answers).
 pub(crate) async fn read_capped(mut response: reqwest::Response, max: usize) -> Result<Vec<u8>, String> {
 	let mut out = Vec::new();
-	while let Some(chunk) = response.chunk().await.map_err(|e| e.to_string())? {
+	while let Some(chunk) = response.chunk().await.map_err(|e| crate::net::cause(&e))? {
 		out.extend_from_slice(&chunk);
 		if out.len() > max {
 			return Err("far bigger than expected".to_owned());
@@ -664,7 +664,7 @@ pub fn host(base: &str) -> String {
 pub async fn report_install(http: &reqwest::Client, base: &str, id: &str, version: &str) {
 	let body = serde_json::json!({ "pack": id, "version": version });
 	if let Err(e) = http.post(format!("{base}{INSTALLS_PATH}")).json(&body).send().await.and_then(|r| r.error_for_status()) {
-		eprintln!("Could not count the install of {id}: {e}");
+		eprintln!("Could not count the install of {id}: {}", crate::net::cause(&e));
 	}
 }
 
@@ -761,7 +761,7 @@ fn check_ownership(addons: &Path, entry: &Entry) -> Result<(), String> {
 /// Downloads the pack's zip, at most its listed size, telling `progress` the bytes so far.
 async fn download(http: &reqwest::Client, entry: &Entry, progress: &(dyn Fn(u64, Option<u64>) + Sync)) -> Result<Vec<u8>, String> {
 	let size = entry.download.size;
-	let failed = |e: reqwest::Error| format!("Downloading {} failed: {e}", entry.title);
+	let failed = |e: reqwest::Error| format!("Downloading {} failed: {}", entry.title, crate::net::cause(&e));
 	let mut response = http.get(&entry.download.url).send().await.map_err(failed)?;
 	if !response.status().is_success() {
 		return Err(format!("Downloading {} failed: the site answered {}.", entry.title, response.status()));

@@ -23,10 +23,14 @@ zone Stranglethorn Vale
 # Tastyfish schools along the coast, as in Classic (Riggle's quest text says
 # "between 2pm and 4pm"; the weekday is Classic flow). In-game check: the
 # first Sunday after launch.
+# Master Angler is no quest you take: Riggle takes the 40 Tastyfish straight
+# from his window and it never enters the log (the game's data has it as a
+# quest handed in on the spot), so it is a `turnin direct` with a plain
+# collect (#1699 sweep).
 
 step Riggle Bassbait
-  tip The Bitter Baitling costs one Extravagant Extravaganza Coin, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the Booty Bay docks when it starts and take Master Angler from Riggle Bassbait. Bring your best Fishing skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in Booty Bay.
-  accept 8193                         -- Riggle Bassbait, during the contest
+  tip The Bitter Baitling costs one Extravagant Extravaganza Coin, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the Booty Bay docks by Riggle Bassbait when it starts. Master Angler is not a quest you take: Riggle takes the fish straight from his window when you bring them. Bring your best Fishing skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in Booty Bay.
+  goto 27.4,76.9 "Riggle Bassbait"
 
 step Schools of Tastyfish
   tip While the contest runs, schools of Speckled Tastyfish appear along the Stranglethorn coast, none inside Booty Bay. Fish 40 Speckled Tastyfish from them; each school lasts only a few casts, so ride on to the next as soon as one is gone. The arrow takes you up the west coast north of Booty Bay; more schools lie further north and just south of Booty Bay.
@@ -37,11 +41,11 @@ step Schools of Tastyfish
   goto 22.9,56.4
   goto 26.0,48.8
   goto 27.0,44.3
-  collect 19807 x40 quest 8193.1      -- Speckled Tastyfish
+  collect 19807 x40                   -- Speckled Tastyfish
 
 step Back to Riggle
   tip Hurry back and hand the 40 Tastyfish to Riggle: the first players to do so win, and the winners get the coin with their prize. If you are too late to win, Jang still pays a little gold for every 5 Tastyfish.
-  turnin 8193
+  turnin 8193 direct
   collect 274026 "Extravagant Extravaganza Coin" @27.4,76.9 -- The winner's coin, from Riggle
 
 step Jang

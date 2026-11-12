@@ -13,11 +13,16 @@
 //!   compiler places a written objective from the data. `label` sets the objective line's goal text.
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
-//!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
-//!   `after: true`, right after it: the hand-ins at the anchor count towards the level; with `only`, a
+//!   sets the step's `tip`; `goalNote` replaces only the goal's inline note; `optional: true` marks
+//!   only the goal optional, including its along copies (each change uses a separate record).
+//!   `level: N` puts a `level N` gate right before the anchor goal (with `after: true`, right after
+//!   it: the hand-ins at the anchor count towards the level; with `only`, a
 //!   class or race list, the gate holds only those players: `level N only Priest`). `background` (on an objective,
 //!   #1135) makes a slow, zone-wide collection a goal of the whole stay: listed on the way from the
 //!   quest's accept to its hand-in, with a finish step before the hand-in (apply_background).
+//!   `at: { guide, goal: "fly", fly }` anchors on a flight step instead (`fly "<fly>"` in the guide
+//!   whose `guide` line is `guide`; #1676): a `when` there shows the flight only while it holds
+//!   (`when onquest 1094,874`: the trip is for those quests).
 //!
 //! A record with `faction` ("Alliance" or "Horde") applies only to that faction's routes (a quest both
 //! sides do whose fix holds for one). Every record carries `source` ({ kind, ref }), `issue` and `note`;
@@ -66,20 +71,25 @@ enum Anchor {
 	/// A bare `complete Q` (or `complete Q.N`).
 	Complete(u32),
 	Objective(u32, u32),
+	/// A `fly "<place>"` step (in the record's `at.guide` only).
+	Fly(String),
 }
 
 impl Anchor {
-	fn quest(&self) -> u32 {
+	/// The anchor's quest (None: a flight step).
+	fn quest(&self) -> Option<u32> {
 		match *self {
-			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) => q,
+			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) => Some(q),
+			Anchor::Fly(_) => None,
 		}
 	}
 	fn describe(&self) -> String {
-		match *self {
+		match self {
 			Anchor::Giver(q) => format!("accept {q}"),
 			Anchor::Ender(q) => format!("turnin {q}"),
 			Anchor::Complete(q) => format!("complete {q}"),
 			Anchor::Objective(q, n) => format!("objective {q}.{n}"),
+			Anchor::Fly(p) => format!("fly \"{p}\""),
 		}
 	}
 }
@@ -102,6 +112,9 @@ fn place_anchor(r: &Value) -> Option<Anchor> {
 
 fn fix_anchor(r: &Value) -> Option<Anchor> {
 	let at = &r["at"];
+	if at["goal"].as_str() == Some("fly") {
+		return at["fly"].as_str().filter(|p| !p.is_empty()).map(|p| Anchor::Fly(p.to_string()));
+	}
 	let q = at["quest"].as_u64()? as u32;
 	match at["goal"].as_str()? {
 		"accept" => Some(Anchor::Giver(q)),
@@ -112,15 +125,24 @@ fn fix_anchor(r: &Value) -> Option<Anchor> {
 	}
 }
 
+/// Whether a guide's text is the record's `at.guide` (any guide when the record names none).
+fn guide_is(text: &str, r: &Value) -> bool {
+	match r["at"]["guide"].as_str() {
+		Some(id) => text.lines().any(|l| l.trim_end().strip_prefix("guide ").is_some_and(|g| g.trim() == id)),
+		None => true,
+	}
+}
+
 /// The goal lines (0-based indices) of `lines` that `a` names.
 fn anchor_lines(lines: &[String], a: &Anchor) -> Vec<usize> {
 	let code = |l: &String| split_comment(l).0.to_string();
 	let find = |f: &dyn Fn(&str) -> bool| -> Vec<usize> { lines.iter().enumerate().filter(|(_, l)| f(&code(l))).map(|(i, _)| i).collect() };
-	match *a {
+	match a {
 		Anchor::Giver(q) => find(&|c| re!(r"^\s+accept\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Ender(q) => find(&|c| re!(r"^\s+turnin\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Complete(q) => find(&|c| re!(r"^\s+complete\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
-		Anchor::Objective(q, n) => {
+		Anchor::Fly(p) => find(&|c| re!(r#"^\s+fly\s+"([^"]*)""#).captures(c).is_some_and(|m| m[1] == **p)),
+		&Anchor::Objective(q, n) => {
 			let (qs, full) = (q.to_string(), format!("{q}.{n}"));
 			// The objective's own goal lines; else the quest's bare `complete`; else, for the first
 			// objective, the quest's goal lines without an objective number.
@@ -359,6 +381,26 @@ fn along_step(lines: &[String], s: (usize, usize)) -> bool {
 
 fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
 	let mut changed = Vec::new();
+	// Goal modifiers and notes cover every copy, including one listed along the way; unlike a
+	// step tip they must not change the other quests that happen to share this step.
+	if r["optional"] == true || r["goalNote"].is_string() {
+		for &i in found {
+			let (code, rest) = split_comment(&lines[i]);
+			let line = if let Some(note) = r["goalNote"].as_str() {
+				format!("{} -- {note}", trim_end(code))
+			} else {
+				if code.split('"').step_by(2).any(|s| re!(r"(?:^|\s)optional(?:\s|$)").is_match(s)) {
+					continue;
+				}
+				format!("{} optional{rest}", trim_end(code))
+			};
+			if lines[i] != line {
+				lines[i] = line;
+				changed.push(i);
+			}
+		}
+		return changed;
+	}
 	// A tip or gate is for the goal's own step: an along step's copy of it (an `early` take) keeps its
 	// own, unless the goal has no other line.
 	let own: Vec<usize> = found.iter().copied().filter(|&i| !step_of(lines, i).is_some_and(|s| along_step(lines, s))).collect();
@@ -765,14 +807,18 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"along"
 		} else if r.get("when").is_some() {
 			"when"
+		} else if r.get("optional").is_some() {
+			"optional"
+		} else if r.get("goalNote").is_some() {
+			"goalNote"
 		} else {
 			"level"
 		};
 		recs.push(Rec {
 			file: "guide-fixes",
 			r,
-			slot: format!("{anchor:?} {kind}"),
-			want: format!("{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"]),
+			slot: format!("{anchor:?} {kind}{}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
+			want: format!("{}{}{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"], r["optional"], r["goalNote"]),
 			anchor,
 		});
 	}
@@ -802,9 +848,13 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			rows.push(row);
 			continue;
 		}
-		let (mut found_any, mut changed_any) = (false, false);
+		let (mut found_any, mut changed_any, mut guide_here) = (false, false, false);
 		for f in files {
 			let Some(text) = tree.get(f) else { continue };
+			if !guide_is(text, x.r) {
+				continue;
+			}
+			guide_here = true;
 			let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
 			let found = anchor_lines(&lines, anchor);
 			if found.is_empty() {
@@ -830,9 +880,13 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				tree.insert(f.clone(), lines.join("\n"));
 			}
 		}
-		// No line to anchor on: stale when the route takes the quest, else not this start's (a line
-		// the written guides keep, a class quest's say, is fixed whether the route counts it or not).
-		let in_route = quests.is_empty() || quests.contains(&anchor.quest());
+		// No line to anchor on: stale when the route takes the quest (a flight step: when its guide is
+		// written), else not this start's (a line the written guides keep, a class quest's say, is fixed
+		// whether the route counts it or not).
+		let in_route = match anchor.quest() {
+			Some(q) => quests.is_empty() || quests.contains(&q),
+			None => guide_here,
+		};
 		row.state = if !found_any && !in_route {
 			"not for this start"
 		} else if !found_any {
@@ -844,7 +898,10 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		}
 		.into();
 		if !found_any && !in_route {
-			row.detail = format!("quest {} is not in the route", anchor.quest());
+			row.detail = match anchor.quest() {
+				Some(q) => format!("quest {q} is not in the route"),
+				None => format!("guide {} is not written here", x.r["at"]["guide"].as_str().unwrap_or("?")),
+			};
 		} else if !found_any {
 			row.detail = format!("the written guides have no {} line", anchor.describe());
 		} else if !changed_any {
@@ -857,6 +914,9 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		let Some(anchor) = x.anchor.as_ref().filter(|_| row.state == "applied" || row.state == "redundant") else { continue };
 		for f in files {
 			let Some(text) = tree.get(f) else { continue };
+			if !guide_is(text, x.r) {
+				continue;
+			}
 			let lines: Vec<String> = text.split('\n').map(str::to_string).collect();
 			row.lines.extend(anchor_lines(&lines, anchor).iter().map(|i| format!("{f}:{}", i + 1)));
 		}
@@ -904,6 +964,68 @@ mod tests {
 		let (again, rows) = run(&out, places, json!({}), &[3505, 90902, 99141, 1]);
 		assert_eq!(again, out);
 		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["redundant", "redundant", "redundant", "stale", "not for this start"]);
+	}
+
+	#[test]
+	fn fyuries_krazek_report_1550_is_kept_by_the_checkout_records() {
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let fixes = json!({ "fixes": all["fixes"].as_array().unwrap().iter().filter(|r| r["issue"] == 1550).cloned().collect::<Vec<_>>() });
+		let mut tree = BTreeMap::from([
+			("pickup.guide".to_string(), include_str!("../../../../guides/forever/alliance/30-40/04b-stranglethorn-vale.guide").to_string()),
+			("gorge.guide".to_string(), include_str!("../../../../guides/forever/alliance/30-40/05-arathi-highlands.guide").to_string()),
+			("handin.guide".to_string(), include_str!("../../../../guides/forever/alliance/40-50/01-stranglethorn-vale.guide").to_string()),
+		]);
+		let files: Vec<_> = tree.keys().cloned().collect();
+		let quests = HashSet::from([627, 642]);
+		let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+		let rows = apply(&mut tree, &files, &quests, Some("Alliance"), records, None);
+		let out = tree.values().cloned().collect::<Vec<_>>().join("\n");
+		assert!(rows.iter().all(|r| ["applied", "redundant"].contains(&r.state.as_str())), "{rows:?}");
+		for verb in ["accept", "collect", "turnin"] {
+			let found: Vec<_> =
+				out.lines().filter(|l| l.trim_start().starts_with(verb) && if verb == "collect" { l.contains("quest 627") } else { l.split_whitespace().nth(1) == Some("627") }).collect();
+			assert!(!found.is_empty(), "{verb}: the optional quest stays in the guide");
+			assert!(found.iter().all(|l| split_comment(l).0.contains("optional")), "{found:?}");
+		}
+		assert!(out.lines().any(|l| l.contains("collect 4435 quest 642") && !split_comment(l).0.contains("optional")), "Myzrael remains required");
+		assert!(!out.contains("the ore drops from Drywhisker kobolds"));
+		assert!(!out.contains("They drop both the motes and Krazek's ore"));
+		assert!(out.contains("Kobolds at 30%, Surveyors and Diggers at 15%"));
+		let before = tree.clone();
+		let rows = apply(&mut tree, &files, &quests, Some("Alliance"), records, None);
+		assert_eq!(tree, before);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_goal_note_fix_replaces_only_the_anchored_goals_note() {
+		let seed = "step Booty Bay\n  tip Keep the tavern directions.\n  accept 627 -- The ore drops from kobolds.\n  accept 600 -- Crank Fizzlebub\n";
+		let fixes = json!({ "fixes": [{ "id": "pickup", "at": { "quest": 627, "goal": "accept" }, "goalNote": "The deposits need Mining 75; buy four ore or ask a miner otherwise." }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[627]);
+		assert_eq!(out, "step Booty Bay\n  tip Keep the tavern directions.\n  accept 627 -- The deposits need Mining 75; buy four ore or ask a miner otherwise.\n  accept 600 -- Crank Fizzlebub\n");
+		assert_eq!(rows[0].state, "applied");
+		let (again, rows) = run(&out, json!({}), fixes, &[627]);
+		assert_eq!(again, out);
+		assert_eq!(rows[0].state, "redundant");
+	}
+
+	#[test]
+	fn optional_fixes_leave_other_goals_required_and_cover_along_copies() {
+		let seed = "step On the way\n  along until gorge\n  collect 4278 quest 627\n\nstep Booty Bay\n  accept 627 only Alliance -- Krazek\n  accept 600\n\nstep Gorge\n  label gorge\n  collect 4278 \"optional ore\" quest 627 -- Mine it\n  collect 4435 quest 642\n\nstep Return\n  turnin 627\n  turnin 669\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "take", "at": { "quest": 627, "goal": "accept" }, "optional": true },
+			{ "id": "ore", "at": { "quest": 627, "goal": "objective", "objective": 1 }, "optional": true },
+			{ "id": "hand", "at": { "quest": 627, "goal": "turnin" }, "optional": true }
+		] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[627, 642]);
+		assert!(out.contains("  collect 4278 quest 627 optional\n"), "{out}");
+		assert!(out.contains("  accept 627 only Alliance optional -- Krazek\n  accept 600\n"), "{out}");
+		assert!(out.contains("  collect 4278 \"optional ore\" quest 627 optional -- Mine it\n  collect 4435 quest 642\n"), "{out}");
+		assert!(out.contains("  turnin 627 optional\n  turnin 669\n"), "{out}");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[627, 642]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
 	}
 
 	#[test]
@@ -964,6 +1086,24 @@ mod tests {
 		let (again, rows) = run(&out, json!({}), fixes, &[]);
 		assert_eq!(again, out);
 		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_when_fix_on_a_flight_step_gates_that_guides_flight_only() {
+		// #1676: the Barrens' last flight to Ratchet is for Sputtervalve's and Mahren's quests; without
+		// them the player flew there and straight back through the Crossroads for the next guide.
+		let seed = "guide forever/a\nzone The Barrens\n\nstep Fly to Ratchet\n  zone The Barrens\n  goto 51.5,30.4 \"Crossroads flight master\"\n  fly \"Ratchet\"\n\nstep Sputtervalve\n  when onquest 1094\n  turnin 1094\n";
+		let rec = |guide: &str| json!({ "fixes": [{ "id": "1676", "at": { "guide": guide, "goal": "fly", "fly": "Ratchet" }, "when": "onquest 1094,874,873" }] });
+		let (out, rows) = run(seed, json!({}), rec("forever/a"), &[1094]);
+		assert_eq!(out, seed.replace("  zone The Barrens\n  goto", "  zone The Barrens\n  when onquest 1094,874,873\n  goto"));
+		assert_eq!(rows.iter().map(|r| (r.state.as_str(), r.lines.clone())).collect::<Vec<_>>(), [("applied", vec!["forever/a.guide:8".to_string()])]);
+		let (again, rows) = run(&out, json!({}), rec("forever/a"), &[1094]);
+		assert_eq!(again, out);
+		assert_eq!(rows[0].state, "redundant");
+		// Another guide's flight to Ratchet is left alone.
+		let (other, rows) = run(seed, json!({}), rec("forever/b"), &[1094]);
+		assert_eq!(other, seed);
+		assert_eq!((rows[0].state.as_str(), rows[0].detail.as_str()), ("not for this start", "guide forever/b is not written here"));
 	}
 
 	#[test]

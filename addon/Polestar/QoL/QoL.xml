@@ -4,15 +4,19 @@
 	<Script file="Keep.lua"/>
 	<Script file="Marks.lua"/>
 	<Script file="Space.lua"/>
+	<Script file="QuickBind.lua"/>
+	<Script file="QuestLoot.lua"/>
 	<Script file="Buttons.lua"/>
 	<Script file="BagGlow.lua"/>
 	<Script file="Hearth.lua"/>
 	<Script file="XP.lua"/>
 	<Script file="XPMark.lua"/>
+	<Script file="Rest.lua"/>
 	<Script file="Vendor.lua"/>
 	<Script file="Buy.lua"/>
 	<Script file="Restock.lua"/>
-	<Script file="Trainer.lua"/>
+	<Script file="Spells.lua"/>
+	<Script file="ClassSpells.lua"/>
 	<Script file="Rewards.lua"/>
 	<Script file="Equip.lua"/>
 	<Script file="Wear.lua"/>
@@ -25,5 +29,6 @@
 	<Script file="Social.lua"/>
 	<Script file="Riding.lua"/>
 	<Script file="ClassQuests.lua"/>
+	<Script file="InstanceTrack.lua"/>
 	<Script file="Options.lua"/>
 </Ui>

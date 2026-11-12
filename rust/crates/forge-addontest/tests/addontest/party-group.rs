@@ -218,3 +218,53 @@ emit({ Polestar.Get("party.panel"), PP.Frame():IsShown() })"#,
 	assert_eq!(out[2], json!([false, false]), "a click on the party line closes it");
 	assert_eq!(out[3], json!([true, true]), "and opens it again");
 }
+
+#[test]
+fn group_a_member_s_xp_shows_on_the_party_panel_within_the_message_delay_without_waiting_for_its_ticker() {
+	let out = run(
+		APART,
+		r#"
+p.join("Ben")
+p.receive("Ben-TestRealm", "1H|0.0.1")
+p.receive("Ben-TestRealm", "2U|12|40|1|1")
+stub.advance(1)
+local PP = Polestar.UI.PartyPanel
+-- Ben's row (Ana, the fixture's member, has one too).
+local function level()
+	if not PP.Frame():IsShown() then return false end
+	for _, r in ipairs(PP.Frame().rows) do
+		if r:IsShown() and r.psName == "Ben" then return r.Level:GetText() end
+	end
+	return false
+end
+emit(level())
+-- Half a second on (the panel's own repaint is every 2 s): his next kill's XP is there.
+stub.advance(1.4)
+p.receive("Ben-TestRealm", "2U|12|43|1|1")
+stub.advance(0.55)
+emit(level())"#,
+	);
+	assert!(is_match(text(&out[0]), r"^Level 12\D+40% XP$"), "{}", out[0]);
+	assert!(is_match(text(&out[1]), r"^Level 12\D+43% XP$"), "{}", out[1]);
+}
+
+#[test]
+fn group_the_party_panel_reads_the_party_once_per_repaint() {
+	let out = run(
+		APART,
+		r#"
+p.join("Ben")
+p.receive("Ben-TestRealm", "1H|0.0.1")
+stub.advance(1)
+local P, PP = Polestar.Party, Polestar.UI.PartyPanel
+local roster, reads = P.Roster, 0
+P.Roster = function(...) reads = reads + 1; return roster(...) end
+PP.Sync()
+emit({ reads, PP.Frame():IsShown() })
+reads = 0
+PP.Refresh()
+emit(reads)"#,
+	);
+	assert_eq!(out[0], json!([1, true]), "whether to show and what to show: one read");
+	assert_eq!(out[1], 1);
+}

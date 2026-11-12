@@ -43,7 +43,6 @@ return {
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
 	["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395}在{zone:1448}北端等候",
-	["Five feathers buy a little Timbermaw reputation"] = "五根羽毛换少量木喉熊怪声望",
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "等级 52.69",
@@ -126,6 +125,7 @@ return {
 	["Ends in the {zone:1413}: keep it"] = "在{zone:1413}结束：留着",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Five feathers buy a little Timbermaw reputation"] = "五根羽毛换少量木喉熊怪声望",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "从{area:1998}飞往道路上避难所那一端，或沿路向南骑行。",
 	-- ["Keep her alive until she is out of the cave"] = "保护她直到离开洞穴",
 	-- ["Oozes"] = "软泥怪",
