@@ -248,7 +248,7 @@ for i, loc in ipairs(locales) do
 	end
 end
 table.sort(bad)
--- An empty Lua table emits as {}, so the list goes back as one string.
+-- An empty Lua table emits as a JSON object, so the list goes back as one string.
 emit({{ count = count, bad = table.concat(bad, "\n") }})"#
 		),
 		..Default::default()
