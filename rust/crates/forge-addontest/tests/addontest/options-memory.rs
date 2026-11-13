@@ -36,8 +36,11 @@ const LOGIN_BASE: f64 = 11003.0;
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
 /// merged with it (dungeons in the route's notices, the stranded-quest row and banner, Show in quest log and the
 /// out-of-sight notice, the guide window's shared step view, the breadcrumb and parent-quest rules) adds about
-/// 60 KiB more: measured 11,198 KiB on 2026-11-13.
-const LOGIN: f64 = LOGIN_BASE + 200.0;
+/// 60 KiB more: measured 11,198 KiB on 2026-11-13. The Barrow Dens' five travel chains in Nav/TravelData.lua (#1919,
+/// #1341, #2005: the arrow's way out of and into the Stormrage Barrow Dens and the Ban'ethil Barrow Den, every node
+/// with its floor's height) add 55 KiB: measured 11,252 KiB on 2026-11-13, 11,197 with the travel data before them.
+/// Raised by that and about 5%.
+const LOGIN: f64 = LOGIN_BASE + 258.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

@@ -310,6 +310,7 @@ fn joined_both_ways(a: Pt, b: Pt, profile: Option<&str>, what: &str) {
 // Silver Stream Mine. The walking maps joined the mine to the world nowhere: no walk from Mountaineer Stormpike to the
 // crates inside, at their height or without one. Our grid's way in through the mine's mouth is a grid join now.
 #[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
 fn loch_modan_the_walk_from_mountaineer_stormpike_into_the_silver_stream_mine_is_found_both_ways_1875() {
 	let stormpike = Pt { c: 0, x: -4826.0, y: -2676.7, z: Some(341.2) };
 	let crates = Pt { c: 0, x: -4943.2, y: -2993.9, z: Some(319.9) };
@@ -319,6 +320,7 @@ fn loch_modan_the_walk_from_mountaineer_stormpike_into_the_silver_stream_mine_is
 // The Jasperlode Mine (Elwynn Forest): its deeper tunnels, where Westfall's and Elwynn's kobolds stand, were walked
 // 600 yd round from the mouth on the walking maps, where the way in is 161 yd. A grid join takes the short way.
 #[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
 fn elwynn_the_walk_from_the_jasperlode_mines_mouth_to_its_deep_tunnels_is_no_detour() {
 	let mouth = Pt { c: 0, x: -9154.7, y: -564.4, z: None };
 	let deep = Pt { c: 0, x: -9078.9, y: -582.3, z: Some(62.2) };
@@ -333,11 +335,13 @@ fn elwynn_the_walk_from_the_jasperlode_mines_mouth_to_its_deep_tunnels_is_no_det
 // inn and the Orgrimmar zeppelin's platform at the top of the Undercity's tower are grid joins now (the Rohashi Spires
 // pair is one neither map walks).
 #[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
 fn felwood_the_walk_between_bloodvenom_post_and_talonbranch_glade_flight_masters_is_found_both_ways_1766() {
 	joined_both_ways(Pt { c: 1, x: 5068.3, y: -337.5, z: None }, Pt { c: 1, x: 6206.0, y: -1949.8, z: None }, Some("Horde"), "Felwood's road");
 }
 
 #[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
 fn desolace_the_walk_between_shadowprey_villages_inn_and_flight_master_is_found_both_ways_1766() {
 	joined_both_ways(Pt { c: 1, x: -1592.8, y: 3150.3, z: None }, Pt { c: 1, x: -1767.6, y: 3264.0, z: None }, Some("Horde"), "Shadowprey Village");
 }
@@ -346,6 +350,7 @@ fn desolace_the_walk_between_shadowprey_villages_inn_and_flight_master_is_found_
 // any route setting; a report from inside the inn showed the same. The inn's floor was joined to the rest of Desolace
 // nowhere, so every walk from it failed (to the middle of Desolace too); with the village's grid join it is found.
 #[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
 fn desolace_the_walk_from_shadowprey_villages_inn_to_the_middle_of_desolace_is_found_1969() {
 	let inn = Pt { c: 1, x: -1592.8, y: 3150.3, z: None }; // 24.09,68.21
 	let middle = Pt { c: 1, x: -1196.8, y: 1985.4, z: None }; // 50,55
@@ -358,6 +363,7 @@ fn desolace_the_walk_from_shadowprey_villages_inn_to_the_middle_of_desolace_is_f
 }
 
 #[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
 fn tirisfal_the_walk_from_brills_inn_to_the_orgrimmar_zeppelins_platform_is_found_both_ways_1766() {
 	joined_both_ways(Pt { c: 0, x: 2269.5, y: 244.4, z: None }, Pt { c: 0, x: 2064.0, y: 288.6, z: Some(98.3) }, Some("Horde"), "Brill's zeppelin tower");
 }
@@ -366,6 +372,7 @@ fn tirisfal_the_walk_from_brills_inn_to_the_orgrimmar_zeppelins_platform_is_foun
 // arrow pointed through the den's wall at the next goal outside. Our grid's way down the ramp and the tunnel to the
 // Relic of the Fang is a grid join now (and the den's approach chains lead the planner out, nav-e2e t_1919).
 #[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
 fn moonglade_the_walk_from_the_stormrage_barrow_dens_mouth_to_the_relic_of_the_fang_is_found_both_ways_1919() {
 	let mouth = Pt { c: 1, x: 7540.2, y: -3024.8, z: Some(464.0) };
 	let fang = Pt { c: 1, x: 7475.5, y: -3052.5, z: Some(429.0) };
@@ -378,6 +385,7 @@ fn moonglade_the_walk_from_the_stormrage_barrow_dens_mouth_to_the_relic_of_the_f
 // over its rope bridges; the walking maps lacked the bridges. The ramp-and-bridges way is a grid join now: about
 // 1,830 yd, and never up on the rim north of the mesas.
 #[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
 fn thousand_needles_the_walk_from_freewind_post_to_arnak_grimtotem_goes_over_darkcloud_pinnacles_bridges_1936() {
 	let freewind = Pt { c: 1, x: -5365.3, y: -2483.7, z: Some(89.0) }; // beside the lift's top, 46.60,47.68
 	let arnak = Pt { c: 1, x: -4755.7, y: -2109.7, z: Some(83.3) };
