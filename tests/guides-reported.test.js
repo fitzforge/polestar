@@ -11874,7 +11874,28 @@ test('route-fixes takes Thundering Hearts on the Undercity stop before Thousand 
 	assert.ok(!overrides.skip.some((r) => r.q === 97985), 'no skip record leaves it out');
 	// The anchor is the route's last hand-in before the Thousand Needles guide, in the city Calder Gray stands in.
 	const hills = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
-	const last = hills.filter(({ goal }) => goal.t === 'accept' || goal.t === 'turnin').pop();
+	const last = hills.filter(({ goal }) => goal.t === 'turnin').pop();
 	assert.ok(last.goal.t === 'turnin' && last.goal.quest === 550 && last.goal.map === 1458, "Varimathras's hand-in in the Undercity closes the Hillsbrad guide's quests");
 	assert.equal(compiled('forever/horde/30-40/01-hillsbrad-foothills.guide').next.replace(/\.guide$/, ''), 'forever/horde/30-40/02-thousand-needles', 'the Thousand Needles guide comes next');
+});
+
+// #1933, written into the guides by hand for 0.4.0, as the writer lays out the record above: Stormheart is an elite
+// the data knows, so the quest is a group family (`when group 97985`, the player chooses it, the solo route skips
+// it): Calder Gray's accept on a step of its own after Varimathras (whose step shows only with 550 in the log),
+// Stormheart's heart with the family's tip on the canyon road from Freewind Post's lift before Moktar Krin, and
+// the hand-in on the next Undercity stop, the one the Arathi guide opens with, before its flight to Tarren Mill.
+test('Thundering Hearts: taken after Varimathras, the heart on the way to Moktar Krin, handed in on the next Undercity stop (#1933)', { skip }, () => {
+	const H = (g) => `forever/horde/30-40/${g}.guide`;
+	const group = (step) => (step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(97985));
+	const hills = goals(H('01-hillsbrad-foothills'));
+	const take = at(hills, 'accept 97985', is('accept', 97985));
+	assert.ok(take > at(hills, 'turnin 550', is('turnin', 550)), 'the accept comes after Varimathras');
+	assert.ok(group(hills[take].step) && hills[take].goal.map === 1458, 'the accept, in the Undercity, for a player who chooses the group quest');
+	const needles = goals(H('02-thousand-needles'));
+	const heart = at(needles, "Stormheart's heart", (g) => g.t === 'collect' && g.item === 279186 && g.quest === 97985);
+	assert.ok(group(needles[heart].step), 'the heart, behind the same choice');
+	assert.ok(heart < at(needles, 'turnin 1146', is('turnin', 1146)), 'the heart comes on the way to Moktar Krin');
+	const arathi = goals(H('05-arathi-highlands'));
+	const back = at(arathi, 'turnin 97985', is('turnin', 97985));
+	assert.ok(arathi[back].goal.map === 1458 && back < at(arathi, 'the flight to Tarren Mill', (g) => g.t === 'fly'), 'handed in on the Undercity stop, before the flight');
 });

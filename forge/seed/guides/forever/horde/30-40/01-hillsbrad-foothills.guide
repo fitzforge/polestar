@@ -522,6 +522,12 @@ step Varimathras
   tip Varimathras stands beside Sylvanas in the Royal Quarter.
   turnin 550                          -- Varimathras: Darthalia's commendation
 
+step Calder Gray
+  when group 97985
+  zone Undercity
+  tip Calder Gray stands in the Apothecarium. His Thundering Hearts is for Stormheart, a level 30 elite who walks the canyon east of Freewind Post, on the next guide's way to the Shimmering Flats.
+  accept 97985                        -- Calder Gray: back to him on the next Undercity stop, at about 38
+
 step Undercity trainers
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   zone Undercity
