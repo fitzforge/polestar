@@ -313,13 +313,28 @@ step Boat to Menethil Harbor
 # ---------------------------------------------------------------- The Hinterlands
 
 step Fly to Aerie Peak
+  when taxi "Aerie Peak"
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
   fly "Aerie Peak"
   zone The Hinterlands
 
+step Fly to Southshore
+  when !taxi "Aerie Peak"
+  zone Wetlands
+  goto 9.5,59.7 "Menethil Harbor flight master"
+  fly "Southshore"
+  zone Hillsbrad Foothills
+
+step The Hinterlands
+  when !taxi "Aerie Peak"
+  zone The Hinterlands
+  tip No flight path to Aerie Peak yet: ride north-east out of Southshore on the road into the Hinterlands; Aerie Peak sits just past the border.
+  goto 11.8,46.8 "Aerie Peak"
+
 step Aerie Peak
   zone The Hinterlands
+  getfp "Aerie Peak"
   accept 2989                         -- Gryphon Master Talonaxe, beside the flight master
   accept 2877                         -- Fraggar Thundermantle, inside
 

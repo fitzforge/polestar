@@ -11892,3 +11892,16 @@ test('Stranglethorn Vale (Alliance 42): Ironforge to Thelsamar by the known flig
 	assert.ok(rides.every(({ step }) => !step.only), 'no race split');
 });
 
+// 0.4.0 route audit (R1, Riverglades): a player who takes the Riverglades from Thelsamar and comes back to the Feralas
+// guide at 43+ skips the Badlands guide, where Aerie Peak's flight path is learned. The Tanaris guide's way to Aerie Peak
+// flies there only with the flight path; without it, it flies to Southshore and rides north-east, and the flight path
+// is learned on arrival.
+test('Tanaris (Alliance 47): the way to Aerie Peak without its flight path, for Riverglades players (0.4.0 audit)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const fly = list[at(list, 'fly Aerie Peak', (g) => g.t === 'fly' && g.location === 'Aerie Peak')];
+	assert.ok((fly.step.when || []).some((w) => w.k === 'taxi' && !w.neg), 'the flight needs the flight path');
+	const ss = list[at(list, 'fly Southshore', (g) => g.t === 'fly' && g.location === 'Southshore')];
+	assert.ok((ss.step.when || []).some((w) => w.k === 'taxi' && w.neg), 'Southshore for whoever lacks it');
+	assert.ok(list.some(({ goal }) => goal.t === 'getfp' && goal.location === 'Aerie Peak'), 'learned on arrival');
+});
+
