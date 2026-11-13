@@ -33,8 +33,11 @@ const LOGIN_BASE: f64 = 11003.0;
 /// 11060 KiB after the merge, 57 over the base). Raised rather than re-measured per release: Fitz, 2026-11-12,
 /// "if you hit memory budgets again, just raise them"; the login cost gets its review once 0.3.8's content is final.
 /// Install (0.4.0: UI/Welcome.lua's Questing, Targeting, Groups and dungeons and Your look pages, the option cards
-/// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13.
-const LOGIN: f64 = LOGIN_BASE + 135.0;
+/// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
+/// merged with it (dungeons in the route's notices, the stranded-quest row and banner, Show in quest log and the
+/// out-of-sight notice, the guide window's shared step view, the breadcrumb and parent-quest rules) adds about
+/// 60 KiB more: measured 11,198 KiB on 2026-11-13.
+const LOGIN: f64 = LOGIN_BASE + 200.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
