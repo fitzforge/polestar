@@ -4326,6 +4326,25 @@ fn bind_at_the_step_s_innkeeper_picks_the_bind_option_and_confirms_the_bind_off_
 	assert_eq!(out[4], 90);
 }
 
+// #1965: Menethil Harbor's step binds at Innkeeper Helbrek, then buys a Flagon of Dwarven Honeymead from him. The
+// step's gossip opened his goods for the buy, and the bind the arrow asked for was gone. The bind comes first: with
+// automatic binding off, his gossip stays open for the player; once bound, the buy opens the goods.
+#[test]
+fn issue_1965_an_open_bind_at_the_innkeeper_keeps_his_goods_shut_until_it_is_done() {
+	let out = run(&[
+		INN,
+		r#"
+		q.step({ { t = "sethome", location = "Deepwater Tavern", npc = 1464 }, { t = "buy", item = 2594, count = 1, itemName = "Flagon of Dwarven Honeymead", npc = 1464 } })
+		emit(visit(1464))
+		q.step({ { t = "sethome", location = "Deepwater Tavern", npc = 1464, status = "done" }, { t = "buy", item = 2594, count = 1, itemName = "Flagon of Dwarven Honeymead", npc = 1464 } })
+		emit(visit(1464))
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], 0, "bind still open: nothing picked");
+	assert_eq!(out[1], 91, "bound: the buy opens his goods");
+}
+
 // Answered inside CONFIRM_BINDER, Forever's client dropped the first bind at an innkeeper: the popup closed, the
 // Hearthstone stayed, and only a second visit bound. A frame later, as a click on Accept, it binds the first time.
 #[test]
