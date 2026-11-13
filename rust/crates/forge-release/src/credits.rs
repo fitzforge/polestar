@@ -485,21 +485,21 @@ mod tests {
 
 	#[test]
 	fn a_closed_pull_request_counts_when_its_commit_was_folded_in_with_its_authorship() {
-		let closed = |login: &str, at: &str, commits: &[(&str, &str)]| Closed {
-			number: 1,
+		let closed = |number: u64, login: &str, at: &str, commits: &[(&str, &str)]| Closed {
+			number,
 			login: Some(login.into()),
 			closed_at: Some(at.into()),
 			commits: commits.iter().map(|(e, h)| (e.to_string(), h.to_string())).collect(),
 		};
 		let prs = [
 			// folded: same email, the ref's subject starts with the cut headline
-			closed("ann", "2026-11-08T10:00:00Z", &[("ann@x.org", "Translations: Brazilian Portuguese guide texts for the Horde leveling…")]),
+			closed(1, "ann", "2026-11-08T10:00:00Z", &[("ann@x.org", "Translations: Brazilian Portuguese guide texts for the Horde leveling…")]),
 			// folded under a reworded subject on a later commit of the same PR
-			closed("bob", "2026-11-08T11:00:00Z", &[("bob@x.org", "WIP"), ("bob@x.org", "Pace line: at a guide's end")]),
+			closed(2, "bob", "2026-11-08T11:00:00Z", &[("bob@x.org", "WIP"), ("bob@x.org", "Pace line: at a guide's end")]),
 			// closed, never landed
-			closed("cid", "2026-11-08T12:00:00Z", &[("cid@x.org", "Something we did not take")]),
+			closed(3, "cid", "2026-11-08T12:00:00Z", &[("cid@x.org", "Something we did not take")]),
 			// same headline, but the maintainer wrote it (authorship not kept): not the PR author's
-			closed("dee", "2026-11-08T13:00:00Z", &[("dee@x.org", "Gear: tools")]),
+			closed(4, "dee", "2026-11-08T13:00:00Z", &[("dee@x.org", "Gear: tools")]),
 		];
 		let on_ref = [
 			("ann@x.org".to_string(), "Translations: Brazilian Portuguese guide texts for the Horde leveling guides".to_string()),
