@@ -83,7 +83,7 @@ fn collect_gather_is_the_item_s_gather_way_with_the_profession_and_levels_it_tak
 	assert!(lua.contains("gather = { rank = 65, skill = \"Mining\", skillLine = 186 }"), "{lua}");
 	assert!(lua.contains("t = \"auction\", item = 1210, itemName = \"Shadowgem\", count = 2"), "{lua}");
 	assert_eq!(format_for(&r.guides), MATERIALS_FORMAT);
-	assert_eq!(needs(MATERIALS_FORMAT), Some("0.3.8"));
+	assert_eq!(needs(MATERIALS_FORMAT), Some("0.4.0"));
 	assert_eq!(format_for(&compile(&text(&["step A", "  money 1s"])).guides), MONEY_TASK_FORMAT);
 }
 

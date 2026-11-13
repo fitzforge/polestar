@@ -36,7 +36,7 @@ pub fn needs(format: u32) -> Option<&'static str> {
 		3 => "0.2.5",
 		4 => "0.2.6",
 		5..=9 => "0.3.0",
-		10 => "0.3.8",
+		10 => "0.4.0",
 		_ => return None,
 	})
 }

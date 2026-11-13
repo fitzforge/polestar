@@ -64,7 +64,7 @@ test('`collect … gather` is the item\'s gather way, with the profession and le
 	assert.match(lua, /gather = \{ rank = 65, skill = "Mining", skillLine = 186 \}/);
 	assert.match(lua, /t = "auction", item = 1210, itemName = "Shadowgem", count = 2/);
 	assert.equal(formatFor(r.guides), MATERIALS_FORMAT);
-	assert.equal(NEEDS[MATERIALS_FORMAT], '0.3.8');
+	assert.equal(NEEDS[MATERIALS_FORMAT], '0.4.0');
 	assert.equal(formatFor(compile(text(['step A', '  money 1s'])).guides), MONEY_TASK_FORMAT);
 });
 

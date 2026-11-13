@@ -19,7 +19,7 @@ const LEGS_FORMAT = 7;
 // Format 10: the `auction` goal and a collect's `gather` (a profession guide's materials, gathered or bought:
 // Core/Materials.lua). An older Polestar refuses the pack as too new instead of each guide as "unknown verb".
 const MATERIALS_FORMAT = 10;
-const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 10: '0.3.8' };
+const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 10: '0.4.0' };
 
 // A step with `label` or `along` (an older Polestar would stop at an along step).
 const usesAlong = (s) => s.label !== undefined || s.along !== undefined;

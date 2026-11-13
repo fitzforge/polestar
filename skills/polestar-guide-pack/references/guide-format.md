@@ -86,7 +86,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `fly "<Town>"` | Take a flight; done on landing | no place modifiers |
 | `train class` / `train <npc>` / `train <Profession> [Rank]` | Visit a trainer: the nearest of the player's class, that one, or the nearest of a profession | `npc`, `gossip` |
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `npc`, `xN`, `nearest` |
-| `auction <item> ["Name"]` | Buy `xN` (required) at the Auction House; the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (Polestar 0.3.8) | `xN`, no place modifiers, no `group` |
+| `auction <item> ["Name"]` | Buy `xN` (required) at the Auction House; the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (Polestar 0.4.0) | `xN`, no place modifiers, no `group` |
 | `vendor nearest` / `vendor <npc>` | Sell and repair; done when the merchant's window opens in the step. Beside other goals it never holds the step (Polestar 0.3.5); alone in a step it waits for the window | `npc`, `gossip` |
 | `level <N>` | Reach level N, grinding if need be; `level 12.5` is halfway through 12, `level 12+2500` 2500 XP into it (whole percent; the pack then needs Polestar 0.2.6) | `grind`, no place modifiers |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (Polestar 0.3.0) | no place modifiers, no `group` |
@@ -128,7 +128,7 @@ After the arguments, in any order.
 | `only <condition>, ...` | The goal is only for matching characters |
 | `nearest` | The closest vendor, trainer or drop place, picked in game |
 | `anywhere` | On `collect`: a bag count with no place; the arrow never leads to it (cloth a profession guide counts as you loot it while levelling) (Polestar 0.3.7) |
-| `gather [<Profession> <rank>] [levels <min>-<max>]` | On `collect`: the item's gather way in a profession guide, beside an `auction` goal for the same item; Polestar applies one of the two per item, by what the player chose (gather, buy or mix). `gather Mining 1` names the profession it takes, `gather levels 15-30` the levels of the mobs it drops from (Polestar 0.3.8) |
+| `gather [<Profession> <rank>] [levels <min>-<max>]` | On `collect`: the item's gather way in a profession guide, beside an `auction` goal for the same item; Polestar applies one of the two per item, by what the player chose (gather, buy or mix). `gather Mining 1` names the profession it takes, `gather levels 15-30` the levels of the mobs it drops from (Polestar 0.4.0) |
 | `until <N>` | On `craft`: until the profession reaches N |
 | `grind <npc>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area, the step's goto only when the data has none (Polestar 0.3.7) |
 | `criteria <n>` | On `achieve`: one criterion |

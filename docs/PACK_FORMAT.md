@@ -798,7 +798,7 @@ changes, read by Polestar 0.3.0 and later:
 ## Format 10
 
 A profession guide's materials, gathered or bought (GUIDE_FORMAT.md,
-"Materials"), read by Polestar 0.3.8 and later:
+"Materials"), read by Polestar 0.4.0 and later:
 
 - **`auction`**: buy `count` of the item at the Auction House. Its
   `candidates` are auctioneers (the compiler's: those of the guide's
@@ -896,7 +896,7 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   (baked legs in the race parts) and format 8 (packed spawn spots and
   faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
   (the `wait` goal) by 0.3.0 and later, and format 10 (the `auction` goal
-  and a `collect`'s `gather`) by 0.3.8 and later.
+  and a `collect`'s `gather`) by 0.4.0 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

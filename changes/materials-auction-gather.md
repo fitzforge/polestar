@@ -7,4 +7,4 @@ section: authors
   gather way in a profession guide. A material with both is gathered or bought,
   one way at a time, as the player chooses; lint warns about a `gather` with no
   `auction` goal for its item in the same section. A pack using either is
-  written in pack format 10 (Polestar 0.3.8). GUIDE_FORMAT.md, "Materials".
+  written in pack format 10 (Polestar 0.4.0). GUIDE_FORMAT.md, "Materials".

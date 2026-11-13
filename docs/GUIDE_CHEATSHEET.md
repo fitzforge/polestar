@@ -104,7 +104,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `collect <item> ["Name"]` | Gather or loot items; without `quest`, counted in the bags | `collect 750 x8` |
 | `nearest` | On `collect`: the closest place mobs drop the item, by level and faction | `collect 4306 x10 nearest` |
 | `anywhere` | On `collect`: counted in the bags, with no place; the arrow never leads to it (0.3.7) | `collect 2589 x41 anywhere` |
-| `gather` | On `collect`: the item's gather way in a profession guide, which an `auction` goal for the item buys instead when the player buys materials; `gather <Profession> <rank>` and `gather levels <min>-<max>` say what it takes (needs Polestar 0.3.8) | `collect 4306 x10 nearest gather levels 25-45` |
+| `gather` | On `collect`: the item's gather way in a profession guide, which an `auction` goal for the item buys instead when the player buys materials; `gather <Profession> <rank>` and `gather levels <min>-<max>` say what it takes (needs Polestar 0.4.0) | `collect 4306 x10 nearest gather levels 25-45` |
 | `interact <object>` | Click a game object | `interact 2843` |
 | `use <item>` | Use an item | `use 1210 @47.6,35.1` |
 
@@ -118,7 +118,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `vendor nearest` / `vendor <npc>` | Sell and repair, at the closest vendor or that one; beside other goals it never holds the step, alone it waits for the merchant window (0.3.5) | `vendor nearest` |
 | `gossip <id>` | On `talk`, `vendor` and `train`: the gossip option (the client's `gossipOptionID`) Polestar picks at that NPC on this step | `talk 197 gossip 1` |
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `buy 159 x5 nearest` |
-| `auction <item> ["Name"]` | Buy `xN` at the Auction House: the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (needs Polestar 0.3.8) | `auction 4306 x10` |
+| `auction <item> ["Name"]` | Buy `xN` at the Auction House: the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (needs Polestar 0.4.0) | `auction 4306 x10` |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (needs Polestar 0.3.0) | `money 1s` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (needs Polestar 0.3.0) | `destroy 6948 "Hearthstone"` |
 | `wait <seconds> ["text"]` | A countdown that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (needs Polestar 0.3.0) | `wait 30 "the boat docks"` |
