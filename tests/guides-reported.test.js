@@ -11895,3 +11895,15 @@ test(`${HILLSBRAD_ALLIANCE}: the guide opens on the Dragonmaw catapult, no goal-
 	const first = list.find(({ step }) => !step.when || !step.when.length);
 	assert.ok(is('turnin', 465)(first.goal), `the first goal is the catapult (465), not ${first.goal.t}`);
 });
+
+// 0.4.0 route audit (Refs #2025): Retrieval for Mauren (1078) was taken in 06-ashenvale at about 25 and carried nine
+// levels to the Saltstone Basilisks at the Mirage Raceway (30-40/03). Collin Mauren stands in the Slaughtered Lamb
+// beside Archmage Malin, whom 30-40/01's Mage Quarter stop visits right before 30-40/03: the quest is taken there.
+test(`${HILLSBRAD_ALLIANCE}: Retrieval for Mauren is taken on the Mage Quarter stop, with Archmage Malin`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	const take = at(list, 'accept 1078', is('accept', 1078));
+	assert.equal(list[take].s, list[at(list, 'accept 690', is('accept', 690))].s, 'on the stop with Archmage Malin');
+	assert.ok(goals(ASHENVALE_30).some(({ goal }) => goal.t === 'collect' && goal.quest === 1078), 'the scales at the Raceway in 30-40/03');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'accept,690' && `${p.b}` === 'accept,1078'), 'a record the build keeps');
+});
