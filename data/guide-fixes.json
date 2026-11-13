@@ -7993,6 +7993,70 @@
 				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
 			},
 			"issue": 1985
+		},
+		{
+			"id": "1999-feralas-rage-scar-heads-up",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7733,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Rage Scar yetis are level 46-48, two to four above you: take them from the edge of the hills, one at a time. The level-45 grind comes later, on the Feral Scar yetis (43-45).",
+			"note": "#1999: the High Wilderness step ground to 44.5 on the Rage Scar yetis (46-48) for a player of about 44 (calibrated level model 44.0-44.5 there). The written grind now waits for the level-45 step on the Feral Scar yetis (43-45), which is on the way to Zorbin anyway; the Rage Scar kills are only Improved Quality's hides, with a heads-up.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Rage Scar Yeti 5296 level 46, Ferocious Rage Scar Yeti 5297 level 47, Elder Rage Scar Yeti 5299 level 48; Feral Scar Yeti 5292 level 43, 5295 level 44, 5293 level 45"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature_loot_template: Pristine Yeti Hide (18969) about 3% from the Rage Scar yetis only"
+				}
+			],
+			"issue": 1999
+		},
+		{
+			"id": "1999-feralas-pristine-yeti-hide-optional",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7735,
+				"goal": "accept"
+			},
+			"optional": true,
+			"note": "#1999: Pristine Yeti Hide starts from a rare drop (about 3%) of the Rage Scar yetis. With the level-44.5 grind no longer on them, the hide is not certain, so its accept is optional: taken if it drops.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Rage Scar Yeti 5296 level 46, Ferocious Rage Scar Yeti 5297 level 47, Elder Rage Scar Yeti 5299 level 48; Feral Scar Yeti 5292 level 43, 5295 level 44, 5293 level 45"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature_loot_template: Pristine Yeti Hide (18969) about 3% from the Rage Scar yetis only"
+				}
+			],
+			"issue": 1999
+		},
+		{
+			"id": "1999-feralas-pristine-yeti-hide-turnin-optional",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7735,
+				"goal": "turnin"
+			},
+			"optional": true,
+			"note": "#1999: the hand-in of Pristine Yeti Hide is optional with its accept (rare drop, no longer ground for).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Rage Scar Yeti 5296 level 46, Ferocious Rage Scar Yeti 5297 level 47, Elder Rage Scar Yeti 5299 level 48; Feral Scar Yeti 5292 level 43, 5295 level 44, 5293 level 45"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature_loot_template: Pristine Yeti Hide (18969) about 3% from the Rage Scar yetis only"
+				}
+			],
+			"issue": 1999
 		}
 	]
 }

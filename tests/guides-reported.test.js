@@ -11858,3 +11858,15 @@ test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's R
 	for (const [, i] of grind) assert.ok(i > refuge, 'every Un\'Goro top-up to 49.x comes after the refuge\'s hand-ins');
 });
 
+// #1999: the Feralas High Wilderness step ground to level 44.5 on the Rage Scar yetis (46-48) for a player of about 44.
+// The written grind now waits for the level-45 step on the Feral Scar yetis (43-45); the Rage Scar kills are only
+// Improved Quality's hides, with a heads-up, and Pristine Yeti Hide (a rare drop) is optional.
+test('Feralas (Alliance 44, #1999): no grind on the Rage Scar yetis, a heads-up for their hides, the Pristine Yeti Hide optional', { skip }, () => {
+	const list = goals('forever/alliance/40-50/03-feralas.guide');
+	assert.ok(!list.some(({ goal }) => goal.t === 'level' && goal.grind === 5296), 'no grind on Rage Scar Yetis');
+	const hides = list[at(list, 'collect 18947', (g) => g.t === 'collect' && g.quest === 7733)];
+	assert.ok(JSON.stringify(hides.step).includes('46-48'), 'a heads-up on the yetis\' level');
+	for (const t of ['accept', 'turnin']) assert.ok(list[at(list, `${t} 7735`, is(t, 7735))].goal.optional, `${t} 7735 optional`);
+	assert.ok(list.some(({ goal }) => goal.t === 'level' && goal.level === 45), 'the level-45 grind stays');
+});
+
