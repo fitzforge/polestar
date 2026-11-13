@@ -13,9 +13,10 @@ forge record learn                    # the archive at ~/work/maintainer/recordi
 forge record learn --data <out>/data/forever --verdicts <verdict.json> --archive <dir>
 ```
 
-Today it learns for the quests Forever added only (`--scope forever-new`, the default and only
-scope): their objective spots, prerequisites and minimum levels. Givers, NPCs, drops and paths
-follow.
+By default it learns for the quests Forever added (`--scope forever-new`): their objective spots,
+prerequisites and minimum levels. `--scope all` learns objective spots for every quest too, Classic
+ones included (prerequisites and levels stay the Forever-new quests'): a snapshot a few times the
+size, and the Codex then takes every quest's recorded spots. Givers, NPCs, drops and paths follow.
 
 ## Inputs
 
@@ -25,7 +26,7 @@ follow.
 | `--verdicts` | `~/work/maintainer/ingest-audit/verdict.json` when present | IngestAudit's verdict: contributors marked `exclude` or `suspect`, who is the same person, re-rolled character ids |
 | `--data` | `data/forever` | the current data the facts are compared with (quests, NPC/object spawns, item drops, zones, map frames) |
 | corrections | `forever-db/corrections` | the fields facts never override |
-| `--sources` | `data/sources` | the client quest tables that say which quests are new in Forever (`forge data newquests`'s rule; `--offline`: cached only) |
+| `--sources` | `data/sources` | the client quest tables that say which quests are new in Forever (`forge data newquests`'s rule; `--offline`: cached only), and the EG Link output's objective positions (`forge data sources --only eglink`; without them, spots come from recordings alone) |
 
 The archive is read one session at a time (about 2,000 sessions, a few minutes, well under 1 GB),
 so run it as a light job.
@@ -53,6 +54,12 @@ the rest, its radius the 80th percentile distance of their points. A spot only o
 dropped when another has three or more. Lines are the game's own (the `objectives` record at the
 accept); they map onto our data's objectives in order when the game's list has as many lines, each
 of a fitting type.
+
+EG Link's objective positions (where its players' objectives progressed on the live Forever client,
+CC BY 4.0, every cached build) are a second source: they count as one more counted voter for each
+spot a counted player backs that they fall in (within its radius and 60 yd). They never make a spot
+of their own, move one, or count on a line no player of ours ticked; EG Link's players count as one
+voter however many there were.
 
 **Prerequisites, exclusive groups and minimum levels**, from givers' windows (`offer` records), by
 the rules of the offer audit that fixed #1132 (`learn/offers.rs`):
@@ -101,16 +108,18 @@ A fact no counted voter backs is left out.
   "minLevel": { "value": 12, "bounds": [12, 12], "voters": 2, "counted": 2, "status": "trusted", ... } }
 ```
 
-Fields: `objectives[].at` (spots, best-backed first, `r` in yards), `pre` (refusal-backed
-prerequisites), `notPre` (our data's prerequisites players were offered the quest without),
-`preAny` / `notPreAny` (our data's any-of group, confirmed or contradicted), `excl` / `notExcl`,
-`minLevel` (`value` null when the bounds don't pin it). Each fact: `value`, `voters` (all players
-who recorded it), `counted` (counted voters behind it), `status`, `builds` (first and last client
-build it was seen on), `beats` (the source it agreed with or replaced). `list` is the game's own
-objective list. No contributor, cohort or character id is in it: counts only.
+Fields: `objectives[].at` (spots, best-backed first, `r` in yards; `eg: true` on a spot EG Link's
+positions back), `pre` (refusal-backed prerequisites), `notPre` (our data's prerequisites players
+were offered the quest without), `preAny` / `notPreAny` (our data's any-of group, confirmed or
+contradicted), `excl` / `notExcl`, `minLevel` (`value` null when the bounds don't pin it). Each
+fact: `value`, `voters` (all players who recorded it, EG Link's as one), `counted` (counted voters
+behind it), `status`, `builds` (first and last client build it was seen on), `beats` (the source it
+agreed with or replaced). `list` is the game's own objective list. No contributor, cohort or
+character id is in it: counts only.
 
-`data/recorded/meta.json`: the archive's revision (a hash of its session files), sessions used and
-left out, voters and counted voters, people merged, the verdicts' date, the data build, every
+`data/recorded/meta.json`: the run's `scope`, the archive's revision (a hash of its session files),
+sessions used and left out, voters and counted voters, people merged, the verdicts' date, the data
+build, `egLink` (the EG Link commit, the positions used and its credit; null when not cached), every
 threshold, and counts per fact kind and status.
 
 `data/local/recorded/report.md` (local): what changed since the last snapshot, every fact against our

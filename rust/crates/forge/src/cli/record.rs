@@ -39,7 +39,7 @@ use super::{check_args, usage, Fail};
 pub const USAGE: &str = "usage: forge record import [--wtf <path>] [--vouch <name> | --anonymize] [--root <checkout>] [--out <dir>]
        forge record pull [--server <url>] [--key-file <path>] [--root <checkout>] [--out <dir>]
        forge record resession [--root <checkout>] [--out <dir>]
-       forge record learn [--scope forever-new] [--archive <dir>] [--data <dir>] [--verdicts <verdict.json>]
+       forge record learn [--scope forever-new|all] [--archive <dir>] [--data <dir>] [--verdicts <verdict.json>]
                           [--out <dir>] [--report <dir>] [--sources <dir>] [--offline] [--root <checkout>]
 
 import: read the Recorder's file (WTF/Account/<account>/SavedVariables/Polestar_Recorder.lua) of every
@@ -92,8 +92,10 @@ win: a fact that disagrees with one is listed, never applied. --archive: the re-
 verdict.json (default ~/work/maintainer/ingest-audit/verdict.json when present: exclude and suspect
 contributors never count, one vote per merged person, re-rolled characters' race and class
 ignored); --data: data/forever (default <root>/data/forever); --sources: the source cache with the
-client quest tables that say which quests are new (default <root>/data/sources; --offline: cached
-tables only).";
+client quest tables that say which quests are new and EG Link's objective positions, one more voter
+for the spots players back that they fall in (default <root>/data/sources; --offline: cached tables
+only); --scope all: objective spots for every quest, not only the Forever-new ones
+(prerequisites and minimum levels stay the Forever-new quests').";
 
 pub fn main() {
 	super::exit("record", run());
@@ -198,6 +200,7 @@ fn learn(rest: &[String]) -> Result<(), Fail> {
 		verdicts,
 		previous: Some(out.join(forge_data::learn::FILE)),
 		offline: rest.iter().any(|a| a == "--offline"),
+		all_spots: opt(rest, "--scope").as_deref() == Some("all"),
 	};
 	let r = forge_data::learn::run(&o, &|m| println!("{m}"))?;
 	for dir in [&out, &report] {
