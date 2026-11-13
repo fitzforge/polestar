@@ -517,7 +517,10 @@ function CC.Fill(guide, index, view)
 	local reward = e and e[3] and e[3] > 0 and d.rewards[e[3]] or nil
 	local hex = paint(p.class)
 	local className = UI.ClassName(p.class)
-	local level = goal.minLevel or goal.qlvl
+	-- The quest's own level, else the level it opens at when above 1: a
+	-- quest any level may take read "LEVEL 1" (The Horn of Xelthos, 23).
+	local q, m = tonumber(goal.qlvl), tonumber(goal.minLevel)
+	local level = (q and q > 0 and q) or (m and m > 1 and m) or nil
 	F.Head:SetText(level and format(L["%s · LEVEL %d"], className:upper(), level) or className:upper())
 	F.Title:SetText((gv and gv.subject) or goal.title or "")
 	local learn = CC.RewardLine(reward, hex)
