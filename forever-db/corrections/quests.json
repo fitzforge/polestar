@@ -178,6 +178,26 @@
 		},
 		"note": "Return to Marleth starts at both Thunder Ale barrels, the Unguarded (object 270) and the Guarded (object 269); the merged data lacked the Guarded one. The Unguarded barrel stays first, as before, so the guide's accept step keeps naming the barrel it already pointed at."
 	},
+	"324": {
+		"set": {
+			"excl": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon: ExclusiveGroup 0 for 324 and 526; PrevQuestID 324 for 526 and for 322"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Glorin Steelbrow refused Lightforge Ingots (526) to 2 people who had not done Lightforge Iron (321) and offered it to 1 person who had"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1997"
+			}
+		],
+		"note": "The Lost Ingots (324) does not close Lightforge Ingots (526): 526 follows it. The merged data listed 526 as exclusive with 324, so the prerequisite 324 counted as blocking nothing and the Codex gave 526 no prerequisite: Lookup's pick-up guide sent players straight to Glorin, who does not offer it before the chain (#1997)."
+	},
 	"377": {
 		"set": {
 			"xp": 4400
