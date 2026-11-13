@@ -201,9 +201,10 @@ fn done_feeder_steps_move_on_a_skipped_one_keeps_its_quests_skipped_at_the_next_
 			"Night Run turnin:23 turnin:24 turnin:25",
 		])
 	);
-	// King of the Foulweald is not left out; with Between a Rock and a Thistlefur in the log it stays open
-	// (a held prerequisite counts as coming, #1372).
-	assert_eq!(out["karang"][1], "pending:nil");
+	// King of the Foulweald is not left out. Between a Rock and a Thistlefur is in the log but its kills were skipped:
+	// Karang takes it in only once they are done, so the accept says so (a held prerequisite counts as coming only
+	// when finished, #1372, #1998).
+	assert_eq!(out["karang"][1], "skipped:Hand in \u{201c}Between a Rock and a Thistlefur\u{201d} first");
 }
 
 #[test]
