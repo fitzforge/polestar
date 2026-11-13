@@ -14,7 +14,7 @@ pro No sea crossing: Everlook is a flight away on Kalimdor, and the last part fl
 pro Two flight paths inside the zone
 con Experimental: written from Forever's quest data and the first recording of the zone, not yet checked end to end in the game
 con Elites roam the zone (levels 56-61), and a few quests need a group (each behind a group choice)
-con The main route's last two guides still follow; you can stop once you reach 60
+con The main route's last guide still follows
 
 # Polestar Experimental, Mount Hyjal part 1 of 3, for both factions (2026-11-12). Hand-written.
 # Quests, givers, enders, levels and objectives come from Forever's quest data (QuestieDB 1.0.16 and EG Link,
