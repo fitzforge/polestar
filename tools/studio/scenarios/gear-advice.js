@@ -66,9 +66,15 @@ function UIParent:GetHeight() return 1080 / s end
 Polestar.UI.GuideFrame.Layout()
 stub.advance(0.5)`;
 
-// The reward pick under the turn-in, hovered.
-const PICK = `Polestar.Fire("STEP_UPDATED")
+// The reward pick under the turn-in, hovered. The window sits left of the
+// screen's middle so the item's tooltip, anchored to its right, shows whole
+// (the game keeps a tooltip on the screen; the studio draws it where it is);
+// the arrow, which would stand over the window there, is put away.
+const PICK = `Polestar.Set("ui.pos", { math.floor(UIParent:GetWidth() * 0.4), math.floor(UIParent:GetHeight() - 240) })
+Polestar.UI.GuideFrame.ApplyPosition()
+Polestar.Fire("STEP_UPDATED")
 stub.advance(0.5)
+if PolestarNavArrow then PolestarNavArrow:Hide() end
 local pick
 for _, r in ipairs(Polestar.UI.GuideFrame.rows) do
 	if r:IsShown() and r.psGearPick and r.psGearPick:IsShown() then pick = r.psGearPick end
