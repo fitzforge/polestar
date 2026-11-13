@@ -99,7 +99,7 @@ return {
 
 	-- Step 28: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "Vuela a {area:348}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
@@ -117,7 +117,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Maestro de vuelo de {area:348}",
 
 	-- Step 33: Western Plaguelands
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
@@ -229,7 +229,7 @@ return {
 	-- {area:1438} Nethergarde Keep
 	["Fly to {area:1438}"] = "",
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "",
+	["{area:2418} flight master"] = "Maestro de vuelo de {area:2418}",
 
 	-- Step 58: Ambassador Ardalan
 	-- {area:1438} Nethergarde Keep
@@ -281,7 +281,7 @@ return {
 
 	-- Step 78: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} está arriba, encima de {npc:7916}: sube por adentro, la flecha no distingue los pisos.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Class trainer"] = "Instructor de clase",

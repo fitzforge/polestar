@@ -202,7 +202,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Maestro de vuelo de {area:348}",
 
 	-- Step 54: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
@@ -234,7 +234,7 @@ return {
 
 	-- Step 63: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
 	-- Step 64: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
@@ -244,7 +244,7 @@ return {
 
 	-- Step 66: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Barco a {area:1108}",
 
 	-- Step 67: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle · {area:1119} Twin Colossals
@@ -284,7 +284,7 @@ return {
 	-- Step 77: Fly to Theramore
 	["Fly to Theramore"] = "Vuela a Isla Theramore",
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 
 	-- Step 79: Ratchet
 	-- {zone:1413} The Barrens · {area:392} Ratchet

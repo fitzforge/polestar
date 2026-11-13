@@ -318,7 +318,7 @@ return {
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
 	-- Step 73: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor

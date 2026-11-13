@@ -22,11 +22,11 @@ return {
 
 	-- Step 4: Gadgetzan
 	-- {area:976} Gadgetzan
-	["The flight from Theramore lands in {area:976}."] = "",
+	["The flight from Theramore lands in {area:976}."] = "El vuelo desde Theramore aterriza en {area:976}.",
 
 	-- Step 6: Sprinkle
 	-- {npc:7564} Marin Noggenfogger
-	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
+	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "{npc:7564}, cuando haya preparado el elixir: unos segundos",
 
 	-- Step 8: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -47,7 +47,7 @@ return {
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "Las Compañeras de Lar'korwi ({npc:9683}) merodean por la jungla al oeste de {npc:9619}. La balsa destrozada está en la orilla del lago de allí; la mochila pequeña está en el agua a su lado. Guarda la brújula, el mapa y la llave para {npc:8737}. Cualquier bestia del cráter puede soltar {item:11116}: haz clic derecho en él.",
 	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "",
+	["{object:161504}, underwater"] = "{object:161504}, bajo el agua",
 
 	-- Step 12: Karna Remtravel
 	-- {npc:9618} Karna Remtravel
@@ -81,7 +81,7 @@ return {
 	-- Step 17: Northern Pylon
 	["Northern Pylon"] = "Pilón norte",
 	-- {npc:9998} Shizzle
-	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
+	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "El pilón está en la ladera al este del refugio. Los pterrordáctilos sobrevuelan las laderas a su alrededor: cuentan para Spraggle y sueltan las escamas de {npc:9998}.",
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
@@ -89,16 +89,16 @@ return {
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 19: Level 49.51
-	["Level 49.51"] = "",
+	["Level 49.51"] = "Nivel 49.51",
 	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "Completa aquí hasta el nivel 49.51 antes de las entregas de {area:541}: te llevan al nivel 50. O, con un grupo, haz en su lugar la mazmorra {area:2100}.",
 	["Pterrordax"] = "Pterrordáctilo",
 	["grind on Pterrordax"] = "sube de nivel con pterrordáctilos",
 
 	-- Step 20: Crate of Foodstuffs
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
-	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "",
+	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "Cabalga al sur por el lado este. Los diemetradones jóvenes pastan en la jungla del este y {npc:9165} vuela cerca de los acantilados del este; ambos sueltan las escamas de {npc:9998}. La caja está en el campamento abandonado de la jungla del este.",
 
 	-- Step 21: Eastern Pylon
 	["Eastern Pylon"] = "Pilón este",
@@ -108,9 +108,9 @@ return {
 	["The Gorishi hive"] = "La colmena Gorishi",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "Cabalga al suroeste pasando a {npc:9619}: la colmena de silítidos llena el sur del cráter. Usa el vial raspador en un criadero, una cámara con larvas colgantes. Las avispas y obreras Gorishi sueltan {quest:3764}; los pterrordáctilos anidan en los acantilados del sur si todavía te faltan muertes.\nCuidado: Los silítidos Gorishi son de nivel 51-54 y lanzan {spell:8137} o {spell:14120} cuerpo a cuerpo; las obreras Gorishi tienen un 50% de probabilidad de pedir ayuda a menos de 25 m cuando bajan del 45% de salud.",
 	-- {npc:9167} Frenzied Pterrordax
-	["grind on {npc:9167}"] = "",
+	["grind on {npc:9167}"] = "farmea {npc:9167}",
 
 	-- Step 23: Bones and equipment
 	["Bones and equipment"] = "Huesos y equipo",
@@ -118,7 +118,7 @@ return {
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "Los huesos de dinosaurio están en el suelo del suroeste, entre los estegodones: son élite, recoge los huesos a su alrededor y consigue el resto de los diemetradones. {item:11112} de la expedición está en la jungla del suroeste.",
 	-- {npc:9164} Elder Diemetradon
-	["grind on {npc:9164}"] = "",
+	["grind on {npc:9164}"] = "farmea {npc:9164}",
 
 	-- Step 24: Western Pylon
 	["Western Pylon"] = "Pilón oeste",
@@ -152,18 +152,18 @@ return {
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: para Ogtinc en {zone:1447}, guárdala",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
-	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
+	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "{npc:7312}, el instructor de magos: para {npc:8395} en {zone:1447}, guárdala",
 
 	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 33: Level 50.4
-	["Level 50.4"] = "",
+	["Level 50.4"] = "Nivel 50.4",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Completa aquí hasta el nivel 50.4 antes de las entregas de {area:3137}: te llevan al nivel 51. O, con un grupo, haz en su lugar la mazmorra {area:2100} o la mazmorra {area:1417}.",
 	-- {npc:6116} Highborne Apparition
-	["grind on {npc:6116}"] = "",
+	["grind on {npc:6116}"] = "farmea {npc:6116}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "Archesonus está junto al rey Magni en {object:171709}.",
@@ -185,6 +185,7 @@ return {
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "Cabalga al sur por los acantilados del este hasta {npc:9619}, al pie de la rampa.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Cabalga al sur por el lado este. Los diemetradones jóvenes pastan en la jungla del este y los {npc:9165} vuelan cerca de los acantilados del este; ambos sueltan las escamas para {npc:9998}.",
 	-- ["Ride west back to the refuge."] = "Cabalga al oeste de vuelta al refugio.",
+	-- ["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Cabalga al oeste de vuelta al refugio.\nMantente bien lejos de los demosaurios y estegodones élite. Recoge cada cristal de poder y {object:157936} que encuentres de aquí en adelante.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Cabalga al oeste desde {npc:9619}: la colmena silítida ocupa el sur del cráter. Usa el vial de raspadura en un criadero, una cámara con larvas colgantes. Las avispas y trabajadores Gorishi sueltan {quest:3764}; los {npc:9166} anidan en los acantilados del sur si aún te faltan muertes.",
 	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Cabalga al oeste desde {area:976} hasta la larga rampa que baja a {area:490}. {npc:9619} acampa al pie de la rampa, en la esquina sureste del cráter.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Cabalga al oeste pasando {area:541} y al sur por el lado oeste hasta {area:543}: {npc:10302}, el goblin, está sentado junto al agua.",

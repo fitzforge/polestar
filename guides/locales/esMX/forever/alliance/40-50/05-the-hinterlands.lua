@@ -9,17 +9,17 @@ return {
 	-- Step 1: The Altar of Zul
 	-- {area:355} Altar of Zul · {zone:1425} The Hinterlands · {npc:8636} Morta'gya the Keeper · {npc:7996} Qiaga the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
-	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "",
+	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "Cabalga al sureste hasta {area:355}, el templo escalonado Vilrama en el sur de {zone:1425}, y sube a la cima. Qiaga y {npc:8636} (élite, 50) están allí arriba: toca la cima y baja enseguida.\nCuidado: Trols élite vigilan la plataforma de arriba, entre ellos {npc:7996} y {npc:8636}, junto con varios adivinos Vilrama. Los adivinos lanzan hechizos y están vinculados al resto del grupo.",
 
 	-- Step 2: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
 	-- plural, as words: Green Sludges = {npc:2655} Green Sludge · Jade Oozes = {npc:2656} Jade Ooze
-	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "",
+	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "Cabalga al norte hasta {area:351}, en el centro de {zone:1425}. Los lodos verdes y los mocos de jade se arrastran por todo el lugar.\nCuidado: Las panteras se mueven por la zona en sigilo.",
 
 	-- Step 3: Aerie Peak
 	["Inside"] = "Adentro",
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, inside"] = "",
+	["{npc:5636}, inside"] = "{npc:5636}, adentro",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
 	["for {quest:2990} at {area:1438}, later"] = "para {quest:2990} en {area:1438}, más adelante",
 
@@ -27,7 +27,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Maestro de vuelo de {area:348}",
 
 	-- Step 5: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -38,21 +38,21 @@ return {
 
 	-- Step 8: Fly to Lakeshire
 	-- {area:69} Lakeshire
-	["Fly to {area:69}"] = "",
+	["Fly to {area:69}"] = "Vuela a {area:69}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 9: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "",
+	["{area:2418} flight master"] = "Maestro de vuelo de {area:2418}",
 
 	-- Step 10: Fly to Thelsamar
 	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "",
+	["Fly to {area:144}"] = "Vuela a {area:144}",
 
 	-- Step 11: Thelsamar
 	-- {zone:1427} Searing Gorge · {area:144} Thelsamar
-	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "",
+	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "Vincula tu piedra de hogar aquí: la guía de {zone:1427} empieza desde {area:144}.",
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -62,7 +62,7 @@ return {
 
 	-- Step 15: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} está arriba, encima de {npc:7916}: sube por adentro, la flecha no distingue los pisos.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
 	["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "El siguiente encargo de {npc:7907} va a {zone:1446}: omítelo.",
 	-- {npc:7916} Erelas Ambersky · {zone:1428} Burning Steppes
@@ -92,7 +92,7 @@ return {
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
 	-- Step 26: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -105,7 +105,7 @@ return {
 	-- Step 30: The bloodmages
 	["The bloodmages"] = "Los magos de sangre",
 	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
-	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "",
+	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "El campamento de los magos de sangre es la primera parada junto al camino a {zone:1419}, al noroeste de {area:1438}.",
 
 	-- Step 31: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
@@ -115,14 +115,14 @@ return {
 	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
 	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "La siguiente tarea de {npc:8022}, {item:9471}, es una misión de {area:978}: omítela.",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}, arriba",
 
 	-- Step 32: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
-	["{zone:1419}: kill these as you meet them"] = "",
+	["{zone:1419}: kill these as you meet them"] = "{zone:1419}: mata a estos según te los encuentres",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
-	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
+	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "Cabalga al oeste: las hienas risitas famélicas rondan las colinas secas justo al sur del campamento de los magos de sangre; los aguijoneros Scorpok (nivel 50) corretean por el centro del norte. Los buitres {npc:5982} vuelan en círculos por toda la zona. Atráelos de a uno.\nLos jabalíes Cenicrín y basiliscos Rocarroja comparten las laderas al suroeste del bastión. Mantente lejos de los jabinfernos más al sur: son de nivel 52.\nCuidado: Los aguijoneros Scorpok usan {spell:5416}; {npc:8301} además derriba.",
 
 	-- Step 33: The bloodmages
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "El segundo nivel de los magos de sangre paga las mismas partes con un objeto de beneficio y sin experiencia: omítelo.",
@@ -131,7 +131,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "Maestro de vuelo de {area:1438}",
 
 	-- Step 35: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
@@ -141,7 +141,7 @@ return {
 	-- Step 36: The Bloodsail captains
 	["The Bloodsail captains"] = "Los capitanes Velasangre",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
+	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "Los tres barcos Velasangre están anclados frente a la costa justo al sur de {area:35}: {npc:2550} (45) y {npc:2548} (46) en las cubiertas más cercanas, {npc:2546} (48) en el buque insignia, cada uno con una tripulación de piratas de nivel 42-45. Nada hasta ellos, despeja cada cubierta desde el borde y atráelos de a uno.",
 
 	-- Step 38: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
@@ -149,7 +149,7 @@ return {
 
 	-- Step 42: Facing Negolash
 	-- {npc:1494} Negolash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:1494} (élite de nivel 52) requiere un grupo de 2. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "Los jabalíes Cenicrín y basiliscos Rocarroja comparten las laderas al suroeste del castillo. Aléjate de los jabinfernos más al sur: son de nivel 52.",
