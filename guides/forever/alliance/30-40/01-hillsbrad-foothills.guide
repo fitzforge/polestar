@@ -16,6 +16,9 @@ next forever/alliance/30-40/03-ashenvale
 # Dragonmaw (98291) and Stopping the Cycle (98297), which the route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
+# Excavation Site: Wetlands (run in 06-wetlands): Rethiel takes Horrors in the Highland (95646) on this guide's Wetlands
+# loop, and Prospector Whelgar the Titan Relic's Lost Relic Carry (95810) and High Explorer Magellas Prehistoric Prism
+# (98824) for whoever still carries them (`when complete`/`when onquest`).
 
 step To Deepwater Tavern
   zone Wetlands
@@ -124,6 +127,12 @@ step Rhag Garmason again
 step The Green Belt
   turnin 98245                        -- Howin Kindfeather
 
+step Rethiel the Greenwarden
+  when dungeon "Excavation Site: Wetlands"
+  when complete 95646
+  tip The root core from your Excavation Site: Wetlands run: Rethiel stands by the river, just east of Howin.
+  turnin 95646                        -- Rethiel the Greenwarden
+
 step Howin Kindfeather
   when complete 98246
   turnin 98246                        -- Trying Times: the eggs
@@ -132,6 +141,13 @@ step Prospector Whelgar
   when group 98310
   turnin 98310                        -- Below ground
   accept 98313                        -- For Historian Karnik in Ironforge, at the end of this guide
+
+step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 95810
+  tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, south of the road west.
+  turnin 95810                        -- Prospector Whelgar, below ground
+  accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
 
 step Menethil Harbor
   tip West along the road to Menethil.
@@ -293,6 +309,12 @@ step Hall of Explorers
   accept 525
   accept 1453                         -- Roetten Stonehammer
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells
+
+step High Explorer Magellas
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 98824
+  zone Ironforge
+  turnin 98824                        -- High Explorer Magellas, Hall of Explorers
 
 step Historian Karnik
   when onquest 98313
