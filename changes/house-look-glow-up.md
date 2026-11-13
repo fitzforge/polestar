@@ -8,7 +8,8 @@ section: players
   step breathe on spacing instead of a hairline each, a lone tab shows its
   whole title and tick boxes are lighter. Heads-up cards lead with their
   title, with the level and class (or dungeon) under it in plain case
-  instead of capitals, and no coloured stripe down the edge. The While
+  instead of capitals, and no coloured stripe down the edge; the level-up,
+  old ranks and update cards too. The While
   you're here toast matches the other alerts: the night band, the glyph in a
   ring, the distance beside its heading, and a long line wraps instead of
   being cut. Windows keep a crisp edge over bright ground such as sky, snow

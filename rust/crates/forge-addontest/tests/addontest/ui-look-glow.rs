@@ -395,6 +395,45 @@ fn a_heads_up_without_facts_shows_its_header_under_the_title_in_the_house_look()
 	assert_eq!(out, json!({ "head": "LEVEL 18 · DUNGEON", "titleFirst": true }));
 }
 
+// 0.3.7's cards on the same card (UI/SpellCards.lua's level-up spells and old ranks, UI/UpdateCard.lua's update)
+// carry the facts line too, from their own models: in the house look their title leads and the facts sit under it in
+// sentence case; the other looks keep each card's header in capitals over the title.
+#[test]
+fn the_level_up_old_ranks_and_update_cards_carry_their_facts_in_the_house_look_only() {
+	let out = run(&format!(
+		r#"{CARD}
+		local SC, UC = Polestar.UI.SpellCards, Polestar.UI.UpdateCard
+		local models = {{
+			levelUp = SC.LevelModel({{ level = 18, cost = 6400, money = 5230, spells = {{ {{ id = 13550, rank = 3, cost = 1800 }} }} }}),
+			oldRanks = SC.RanksModel({{ slots = 3, spells = {{ {{ id = 13549, bestId = 13550, name = "Serpent Sting", have = 2, best = 3, slots = {{ 3 }} }} }} }}),
+			update = UC.Model({{ kind = "new", latest = "0.3.9", mine = "0.3.8", behind = 1 }}),
+		}}
+		local c = CT.NewCard(UIParent)
+		emit(eachLook(function()
+			local r = {{}}
+			for k, m in pairs(models) do
+				CT.FillCard(c, m, 340)
+				r[k] = {{ head = c.Head:GetText(), titleFirst = select(5, c.Title:GetPoint(1)) > select(5, c.Head:GetPoint(1)) }}
+			end
+			return r
+		end))"#
+	));
+	let looks = out.as_array().unwrap();
+	let house = &looks[0];
+	assert!(house["levelUp"]["head"].as_str().unwrap().starts_with("Level 18 · "), "{house}");
+	assert_eq!(house["oldRanks"], json!({ "head": "Action bars", "titleFirst": true }));
+	assert_eq!(house["update"], json!({ "head": "Polestar update", "titleFirst": true }));
+	assert_eq!(house["levelUp"]["titleFirst"], true);
+	for l in &looks[1..3] {
+		let skin = &l["skin"];
+		assert!(l["levelUp"]["head"].as_str().unwrap().starts_with("LEVEL 18 · "), "{skin}: {l}");
+		assert_eq!(l["oldRanks"], json!({ "head": "ACTION BARS", "titleFirst": false }), "{skin}");
+		assert_eq!(l["update"], json!({ "head": "POLESTAR UPDATE", "titleFirst": false }), "{skin}");
+		assert_eq!(l["levelUp"]["titleFirst"], false, "{skin}");
+	}
+	assert_eq!(looks[3], looks[0], "back on the house skin");
+}
+
 #[test]
 fn the_heads_up_card_lays_out_whole_at_every_width_and_scale_full_and_compact() {
 	let out = run(&format!(
