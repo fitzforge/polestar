@@ -166,7 +166,7 @@ Gear.WEIGHTS = {
 	},
 }
 
--- Armor and weapon proficiencies (Classic Era trainers; weapon skills a class
+-- Armor and weapon proficiencies (Forever trainers; weapon skills a class
 -- can train count as usable). Armor subclasses: 1 cloth, 2 leather, 3 mail,
 -- 4 plate; `armorAt40` is the heavier type learned at level 40. Relics:
 -- 7 libram, 8 idol, 9 totem. Weapon subclasses: 0/1 axe 1H/2H, 2 bow, 3 gun,
@@ -183,7 +183,7 @@ Gear.PROFICIENCY = {
 	WARRIOR = { armor = 3, armorAt40 = 4, shield = true, dualWield = 20, weapons = set(0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 13, 15, 16, 18) },
 	PALADIN = { armor = 3, armorAt40 = 4, shield = true, relic = 7, weapons = set(0, 1, 4, 5, 6, 7, 8) },
 	HUNTER = { armor = 2, armorAt40 = 3, dualWield = 20, weapons = set(0, 1, 2, 3, 6, 7, 8, 10, 13, 15, 16, 18) },
-	ROGUE = { armor = 2, dualWield = 10, weapons = set(2, 3, 4, 7, 13, 15, 16, 18) },
+	ROGUE = { armor = 2, dualWield = 10, weapons = set(0, 2, 3, 4, 7, 13, 15, 16, 18) },
 	PRIEST = { armor = 1, weapons = set(4, 10, 15, 19) },
 	SHAMAN = { armor = 2, armorAt40 = 3, shield = true, relic = 9, weapons = set(0, 1, 4, 5, 10, 13, 15) },
 	MAGE = { armor = 1, weapons = set(7, 10, 15, 19) },
