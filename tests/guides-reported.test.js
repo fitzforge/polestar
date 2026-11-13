@@ -9721,6 +9721,20 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: off the dam's ledge the arr
 	}
 });
 
+// Schenkee (#1994): a Horde player walks east through Hillsbrad to the Stonewrought Dam, and the chain ends at
+// Thoradin's Wall, a short ride from Tarren Mill; the walk back from the dam crosses the Wetlands and Arathi. Horde
+// bind at Tarren Mill on the way, unless already bound there or past it; the arrow then hearths back.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: #1994: Horde bind at Tarren Mill on the way to the dam", { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const home = at(list, 'the Tarren Mill bind', (g) => g.t === 'sethome' && g.location === 'Tarren Mill');
+	assert.ok(home > at(list, 'accept 79974', is('accept', 79974)) && home < at(list, 'turnin 79974', is('turnin', 79974)), 'between Wet Job\'s accept and the dam');
+	const { step, goal } = list[home];
+	assert.deepEqual(step.only, { factions: ['Horde'] });
+	assert.equal(goal.npc, 2388, 'Innkeeper Shay');
+	const when = step.when.map((w) => `${w.neg ? '!' : ''}${w.k} ${w.name}`);
+	assert.deepEqual(when, ['!bound Tarren Mill', '!zone Loch Modan', '!zone Wetlands']);
+});
+
 // Discord question (2026-11-09, Horde Thousand Needles): the Galak centaurs step waited for the Galak Messenger, a lone
 // roaming centaur, because his plot (12564) and the quest it starts (4881) were required goals. Both are optional now,
 // and Kanati's hand-in and the assassin defence (4966, which needs 4881) apply only to a player carrying the plot.
