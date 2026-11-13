@@ -794,8 +794,11 @@ fn the_look_page_lists_the_looks_beside_a_preview_loads_them_only_once_shown_and
 	assert_eq!(out["fresh"], json!({ "picked": "Polestar", "preview": "Polestar", "scheme": true, "cards": 3 }), "the house look picked, its schemes offered");
 	assert_eq!(out["hover"], json!({ "preview": "Blizzard", "line": true, "skin": "polestar" }), "previewed, not put on");
 	assert_eq!(out["left"], "Polestar", "back to the look in use");
-	assert_eq!(out["now"], json!({ "skin": "blizzard", "live": "blizzard", "picked": true, "preview": "Blizzard", "scheme": false, "shown": true }),
-		"put on at once; the house look's schemes go with it");
+	assert_eq!(
+		out["now"],
+		json!({ "skin": "blizzard", "live": "blizzard", "picked": true, "preview": "Blizzard", "scheme": false, "shown": true }),
+		"put on at once; the house look's schemes go with it"
+	);
 	assert_eq!(out["reset"], json!(["polestar", true]), "right-click puts the house look back");
 }
 
