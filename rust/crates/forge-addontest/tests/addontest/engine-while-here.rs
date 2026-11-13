@@ -751,6 +751,48 @@ fn a_hand_in_waits_for_the_route_by_its_walk_not_by_its_steps() {
 	assert_eq!(town, vec![json!([true, "none"])], "the route stays by him for three steps");
 }
 
+// The Dynamic Questing audits (0.3.7): after a hand-in ahead of the route, its follow-up at the same NPC is taken
+// there, however far on the route takes it (players take it within 2 minutes 77% of the time; without it the route
+// sends them back). Dughan's step (8) hands in A Fishy Peril (40) and takes its follow-up (41), seven steps after the
+// live one, past the 5 steps the route's "next steps" cover. With auto-accept off, While-here offers "Take" at him once
+// 40 is handed in; with it on, the window the game opens after the hand-in is accepted.
+fn follow_up_guide() -> String {
+	turnins(20.0, &[ELSEWHERE; 6], "").replace(
+		r#"{ t = "turnin", quest = 7,"#,
+		r#"{ t = "accept", quest = 41, title = "The Fishy Peril II", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1, pre = { 40 } }, { t = "turnin", quest = 7,"#,
+	)
+}
+
+#[test]
+fn the_follow_up_of_an_early_hand_in_is_offered_however_far_on_the_route_takes_it() {
+	let off = run_turnins(
+		&follow_up_guide(),
+		r#"
+		Polestar.Set("behavior.autoAccept", false); flush()
+		at(42.0, 35.3)
+		w.turnIn(40); flush(); at(42.0, 35.3)
+		local v = E.GetWhileHere()
+		emit({ cands(), v and (v.step .. ":" .. v.index .. " " .. v.hereText) or "none" })
+	"#,
+	);
+	assert_eq!(off[0][0], "8:2:take:0", "{off:?}");
+	assert!(off[0][1].as_str().unwrap_or("").starts_with("8:2 Take “The Fishy Peril II” from Marshal Dughan"), "{off:?}");
+	let on = run_turnins(
+		&follow_up_guide(),
+		r#"
+		at(42.0, 35.3)
+		w.calls = {}
+		w.turnIn(40); w.questDetail(240, 41); flush()
+		local calls = {}
+		for i, x in ipairs(w.calls) do calls[i] = tostring(x[1]) .. " " .. tostring(x[2]) end
+		emit({ table.concat(calls, ", "), E.GetLiveStep(), E.GoalDone(8, 2) })
+	"#,
+	);
+	assert!(on[0][0].as_str().unwrap().contains("AcceptQuest 41"), "{on:?}");
+	assert_eq!(on[0][1], 1, "the live step stays: {on:?}");
+	assert_eq!(on[0][2], true, "Dughan's accept reads done: {on:?}");
+}
+
 // Fitz on 0.3.6 (build f5fbd242a), his /polestar report: a level 3 Tauren Warrior on Mulgore's Grull Hawkwind step
 // (hand in The Hunt Continues, 750; the arrow 411 yd north at 44.47,77.50), standing at 42.79,87.19 on Red Cloud Mesa,
 // 121 yd from Seer Graytongue (2982, 42.54,90.13), with Rites of the Earthmother (755), 750 and 1656 ready: "While
