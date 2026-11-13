@@ -12679,6 +12679,32 @@
 			],
 			"reason": "players do it at the route's level: 5 people at median 12, 0 died there",
 			"evidence": "route level 12.9; Summoned Incubus 20-20 x4; recordings (2026-11-11): done by 5 people at 10-13 (median 12), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/50-60/04-azshara.guide|kill 3505.2|elite",
+			"guide": "forever/horde/50-60/04-azshara.guide",
+			"goal": "kill 3505.2",
+			"kind": "elite",
+			"title": "Thalassian Base Camp",
+			"level": 55.4,
+			"mobs": [
+				"Blackmaw Thrall 55-57"
+			],
+			"reason": "one elite at the camp's west edge; the arrow points at the east side, away from him, and the step's tip names him",
+			"evidence": "route level 55.4; Blackmaw Thrall 55-57 (one spawn at Azshara 54.8,26.0, rank elite), within 40 yd of the westernmost Blood Elf Surveyor; the other surveyors stand east of him (55.4-58.8,26.5-31.2); recordings (2026-11-13): no Horde player recorded at this level, 0 deaths; guide-fixes 1575-azshara-blackmaw-thrall, places azshara-3505-surveyors-east"
+		},
+		{
+			"key": "forever/horde/50-60/07-felwood.guide|collect 5086.1|elite",
+			"guide": "forever/horde/50-60/07-felwood.guide",
+			"goal": "collect 5086.1",
+			"kind": "elite",
+			"title": "Toxic Horrors",
+			"level": 59.5,
+			"mobs": [
+				"Ancient Irontree Walker 59-59 x2"
+			],
+			"reason": "the walkers share the Toxic Horrors' ground in Irontree Woods; the arrow points at the Horror farthest from them (north tip) and the step's tip names them; at 59.5 the walkers are the player's level",
+			"evidence": "route level 59.5; Ancient Irontree Walker 59 (8 spawns at Felwood 47.0-50.3,23.9-28.8, rank elite) among the Toxic Horrors (48.1-51.1,22.5-27.4); the arrow's Horror at 50.6,22.4 is about 63 yd from the nearest walker; recordings (2026-11-13): 1 death within 60 yd on the route before this fix; guide-fixes 1575-felwood-irontree-walkers, places felwood-5086-toxic-horrors-north-tip"
 		}
 	]
 }
