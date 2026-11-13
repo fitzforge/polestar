@@ -165,18 +165,37 @@ step Riding at 40
 
 step Fly to Freewind Post
   only Druid,Paladin
+  when !taxi "Gadgetzan"
   zone Thunder Bluff
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
+step Fly to Gadgetzan
+  only Druid,Paladin
+  when taxi "Gadgetzan"
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
 step Fly to Freewind Post
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when !taxi "Gadgetzan"
   zone Thunder Bluff
   when level>=40
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Freewind Post"
   zone Thousand Needles
+
+step Fly to Gadgetzan
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when taxi "Gadgetzan"
+  zone Thunder Bluff
+  when level>=40
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Gadgetzan"
+  zone Tanaris
 
 step Ratchet for the Felsteed
   only Warlock
@@ -191,28 +210,57 @@ step Ratchet for the Felsteed
 
 step Fly to Freewind Post
   only Warlock
+  when !taxi "Gadgetzan"
   zone The Barrens
   goto 63.1,37.1 "Ratchet flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
+step Fly to Gadgetzan
+  only Warlock
+  when taxi "Gadgetzan"
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
 step Fly to Freewind Post
   only Orc,Troll,Undead,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  when !taxi "Gadgetzan"
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
+step Fly to Gadgetzan
+  only Orc,Troll,Undead,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  when taxi "Gadgetzan"
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
 step Fly to Freewind Post
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  when !taxi "Gadgetzan"
   zone Orgrimmar
   when level<40
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
+step Fly to Gadgetzan
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  when taxi "Gadgetzan"
+  zone Orgrimmar
+  when level<40
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
 step Mirage Raceway
   zone Thousand Needles
+  tip Flown in to Gadgetzan: the raceway is a short ride north over the Tanaris border, and Gadgetzan's quests wait for your way back.
   tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1190                           -- Pozzik
