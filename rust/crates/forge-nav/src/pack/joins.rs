@@ -2,7 +2,8 @@
 //! maps do not: a mine his maps cut off from its mouth, a tower's top, a stretch of road, rope bridges (Fitz,
 //! 2026-10-25: where his maps have no walkable surface and our grid does, fill from our grid in the pack builder).
 //! Each join of joins.json (two places, compiled in) is routed on our grid both ways (Walker::route_path: the guide
-//! bake's drawn way), and that way goes into the clusters of his maps it crosses:
+//! bake's drawn way; a join it walks one way only goes back along the same cells, back_along), and that way goes into
+//! the clusters of his maps it crosses:
 //! - each of its cells stands on his surface there nearest the way's height (within MATCH_YD), else on a floor of ours
 //!   added after the cell's floors (with our surface's value, class and area), so every entrance keeps its layer;
 //! - a step of the way his maps cannot make is added: an arc inside a cluster, an entrance on each side and an edge
@@ -20,7 +21,8 @@ use super::ingame::{self, cost_value, yards_value, Cluster, Edge, Row, HERE};
 use super::leffe::Out;
 use super::NONE;
 use crate::cost::{Ground, Profile};
-use crate::grid::{cls, Grid};
+use crate::f4::pack::WALK_TAN;
+use crate::grid::{cls, Grid, STEP};
 use crate::legs::SnapAsk;
 use crate::space::WayCell;
 use crate::walker::Walker;
@@ -70,8 +72,8 @@ pub struct JoinWay {
 }
 
 /// Our grid's drawn way of each join of `map`, both ways: a walk for no faction, as the guide bake draws a leg
-/// (Walker::route_path). `hubs`: the ground layers' hubs.json, when there is one. A join our grid cannot walk is logged
-/// and left out.
+/// (Walker::route_path). `hubs`: the ground layers' hubs.json, when there is one. A join our grid walks one way only is
+/// joined back along the same cells (back_along); one it cannot walk either way is logged and left out.
 pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) + Sync)) -> Result<Vec<JoinWay>, String> {
 	let list: Vec<Join> = joins().into_iter().filter(|j| j.map == map).collect();
 	if list.is_empty() {
@@ -92,15 +94,52 @@ pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) 
 	let ask = |e: (f64, f64, Option<f64>)| SnapAsk { c: map, wx: e.0, wy: e.1, z: e.2, radius: 20.0, under: true, stand: true };
 	let mut out = Vec::new();
 	for j in list {
-		for (dir, a, b) in [("a-b", j.a, j.b), ("b-a", j.b, j.a)] {
-			let id = format!("{} {dir}", j.id);
-			match walker.route_path(&ask(a), &ask(b), &profile, "")? {
-				Some(w) => out.push(JoinWay { id, cells: w.cells }),
-				None => log(&format!("join {id}: our grid has no way")),
+		let ab = walker.route_path(&ask(j.a), &ask(j.b), &profile, "")?.map(|w| w.cells);
+		let ba = walker.route_path(&ask(j.b), &ask(j.a), &profile, "")?.map(|w| w.cells);
+		let (ab, ba) = match (ab, ba) {
+			(None, None) => {
+				log(&format!("join {}: our grid has no way", j.id));
+				continue;
 			}
-		}
+			(Some(ab), None) => {
+				let back = back_along(&ab);
+				log(&format!("join {} b-a: our grid has no way; {}", j.id, if back.is_some() { "joined back along a-b" } else { "a-b rises too steeply back, left out" }));
+				(Some(ab), back)
+			}
+			(None, Some(ba)) => {
+				let back = back_along(&ba);
+				log(&format!("join {} a-b: our grid has no way; {}", j.id, if back.is_some() { "joined back along b-a" } else { "b-a rises too steeply back, left out" }));
+				(back, Some(ba))
+			}
+			(ab, ba) => (ab, ba),
+		};
+		out.extend(ab.map(|cells| JoinWay { id: format!("{} a-b", j.id), cells }));
+		out.extend(ba.map(|cells| JoinWay { id: format!("{} b-a", j.id), cells }));
 	}
 	Ok(out)
+}
+
+/// A way our grid makes one way only, walked back along its cells, or None when a step back rises more than the walk
+/// slope allows (STEP, else WALK_TAN over the step's run): a drop is no way up. Players walk the places joins.json
+/// lists both ways, so a way back our grid's search misses (a step onto the Shadowprey inn's floor it takes only
+/// down) goes in along the same cells. A step's class is the class of the step into its cell: going back, the step
+/// into a cell is the one out of it forward, a fall or jump becoming a walk.
+pub fn back_along(cells: &[WayCell]) -> Option<Vec<WayCell>> {
+	let mut out: Vec<WayCell> = cells.iter().rev().copied().collect();
+	for i in (1..out.len()).rev() {
+		let (a, b) = (out[i - 1], out[i]);
+		if b.z - a.z > STEP.max((b.x - a.x).hypot(b.y - a.y) * WALK_TAN) {
+			return None;
+		}
+		out[i].cls = match a.cls {
+			cls::FALL | cls::JUMP => cls::WALK,
+			c => c,
+		};
+	}
+	if let Some(first) = out.first_mut() {
+		first.cls = cls::WALK;
+	}
+	Some(out)
 }
 
 /// What the joins added, for the log and PACK.json.
@@ -651,5 +690,26 @@ mod tests {
 		let (st, _) = apply(&geo(1), &mut outs, &[w], &cg, &|_| {}).unwrap();
 		assert_eq!((st.refused, st.ways, st.floors, st.arcs), (1, 0, 0, 0));
 		assert!(outs[0].1.floor.is_none() && outs[0].1.arc.is_none());
+	}
+
+	fn cell(x: f64, z: f64, cls: u8) -> WayCell {
+		WayCell { x, y: 0.0, z, floor: 0, cls }
+	}
+
+	/// A way our grid makes only down a step (the Shadowprey inn's door: 3.1 yd over a 3-yd run, under the walk
+	/// slope) goes back up along the same cells, the fall into the lower cell becoming a walk into the upper one.
+	#[test]
+	fn a_way_our_grid_walks_one_way_only_is_walked_back_along_its_cells() {
+		let down = [cell(0.0, 48.6, cls::WALK), cell(3.0, 45.5, cls::FALL), cell(6.0, 45.0, cls::WALK)];
+		let back = back_along(&down).expect("a 3.1-yd rise over 3 yd is under the walk slope");
+		assert_eq!(back.iter().map(|c| c.x).collect::<Vec<_>>(), vec![6.0, 3.0, 0.0]);
+		assert_eq!(back.iter().map(|c| c.cls).collect::<Vec<_>>(), vec![cls::WALK, cls::WALK, cls::WALK]);
+	}
+
+	/// A drop steeper than the walk slope is no way up: nothing goes back.
+	#[test]
+	fn a_drop_steeper_than_the_walk_slope_is_not_walked_back() {
+		let down = [cell(0.0, 60.0, cls::WALK), cell(2.0, 50.0, cls::FALL), cell(4.0, 50.0, cls::WALK)];
+		assert!(back_along(&down).is_none(), "10 yd up over a 2-yd run");
 	}
 }

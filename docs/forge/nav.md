@@ -651,7 +651,9 @@ forge nav check
 - **Grid joins** (`pack/joins.rs`; the pairs in `pack/joins.json`, compiled in): places players walk between that
   our grid joins and his maps do not (a mine they cut off from its mouth, a tower's top, Felwood's road, Darkcloud
   Pinnacle's rope bridges). With `--leffe`, each pair of a map taken from his is routed on our grid both ways (the
-  guide bake's drawn way) and put into his clusters where they lack it: each cell of the way stands on his surface
+  guide bake's drawn way; a pair it walks one way only goes back along the same cells unless a step back rises over
+  the walk slope, 50 degrees, or 1 yd: the Shadowprey inn's door, a step our grid takes only down) and put into his
+  clusters where they lack it: each cell of the way stands on his surface
   nearest its height (within 3.5 yd), else on a floor of ours added after the cell's floors (our surface's value,
   class and area, so every entrance keeps its layer); a step his maps cannot make within 40 yd of walking becomes an
   arc inside a cluster, or an entrance on each side of a cluster border with an edge between them; each entrance of
