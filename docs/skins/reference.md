@@ -641,9 +641,9 @@ colours (accent, grounds, border, arrow) sit on top of all of them.
 | `bg` | the window ground | `#181d2d@0.97` | `#080604@0.84` | `#1e170d@0.95` | `#000000@0.96` / same / `#101010@0.85` |
 | `panel` | raised panels, popups, menus, toasts | `#1c2234@0.98` | `#120e0a@0.97` | `#000000@0.92` | `#000000@0.92` |
 | `panelAlt` | controls: buttons, fields, dropdowns | `#232a3f` | `#ffffff@0.06` | `#000000` | `#000000` |
-| `sidebar` | the settings window's and guide menu's sidebar | `#121624` | `#080604@0` | `#000000@0.30` | `#000000@0.25` / same / `#000000@0` |
+| `sidebar` | the settings window's and guide menu's sidebar; the foot of the route choice's ∞ pennant | `#121624` | `#080604@0` | `#000000@0.30` | `#000000@0.25` / same / `#000000@0` |
 | `footer` | window footers | `#141927` | `#080604@0` | `#000000@0` | `#000000@0` |
-| `sky` | the top of the starlit header band | `#283254` | `#080604@0` | `#2c200c` | `#2c200c` |
+| `sky` | the top of the starlit header band, and of the route choice's ∞ pennant | `#283254` | `#080604@0` | `#2c200c` | `#2c200c` |
 
 On the Polestar base the player's own background, panel and sidebar colours
 and brightness replace these at run time; on the other bases those controls

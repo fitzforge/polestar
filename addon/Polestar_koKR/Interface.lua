@@ -1817,6 +1817,11 @@ L["Both routes meet again in %s."] = "두 경로는 %s에서 다시 만납니다
 L["Every route meets again in %s."] = "모든 경로는 %s에서 다시 만납니다."
 L["Pick where you want to level next."] = "다음에 레벨업할 곳을 고르십시오."
 L["The experimental guides could not load (%s)."] = "실험 가이드를 불러오지 못했습니다 (%s)."
+-- L["~%d min"] = ""
+-- L["A detour through %s"] = ""
+-- L["Experimental"] = ""
+-- L["Try %s"] = ""
+-- L["Most of its quests are new in Forever."] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "레벨 %d %s"
