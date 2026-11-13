@@ -8597,6 +8597,10 @@ shows on a continent other than 0 and 1. Recorded `inst` fields add to them.
   the pass; an earlier step (Prev, Goto back, a step un-done) is a revisit,
   reported apart. Completion closes the last pass; passes still open are
   shown as `open` and kept out of the statistics.
+  A completed guide's time and XP stop at its completion snapshot. Later
+  snapshots of its finished tab without a step are unattributed; opening an
+  actual step again starts a new pass. Completing a background guide does
+  not interrupt the active guide's measurements.
 - XP from the snapshots, as cumulative XP (recorded `xpMax` per level, else
   the 1.12 table), so level-ups inside a step count in full.
 

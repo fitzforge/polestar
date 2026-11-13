@@ -107,8 +107,9 @@ function mapSize(maps, map) {
 	return [FALLBACK_W, FALLBACK_H];
 }
 
-// One session -> ordered items: segments and guide completions.
-function sessionItems(s, xpModel) {
+// One session -> ordered items: segments and guide completions. Completion
+// state follows the character across sessions until an actual step is opened.
+function sessionItems(s, xpModel, completed) {
 	const events = [...(s.events || [])].filter((e) => e && typeof e.e === 'string' && typeof e.t === 'number');
 	events.sort((a, b) => a.t - b.t);
 	const items = [];
@@ -125,6 +126,7 @@ function sessionItems(s, xpModel) {
 	};
 	for (let k = 0; k < events.length; k++) {
 		const e = events[k];
+		let completing = false;
 		if (k > 0 && cur) {
 			const dt = Math.max(0, e.t - events[k - 1].t);
 			const d = afk ? 0 : Math.min(dt, IDLE_CAP);
@@ -138,13 +140,22 @@ function sessionItems(s, xpModel) {
 				const c = snapCum(e);
 				if (e.reason === 'complete') {
 					if (cur && c !== null) cur.obsCum = c;
+					if (typeof e.guide === 'string') {
+						completed.add(e.guide);
+						completing = cur && cur.guide === e.guide;
+					}
 					items.push({ type: 'complete', guide: e.guide, t: e.t });
 					break;
 				}
 				close(e.t, c);
 				combat = e.combat === true;
+				const guide = typeof e.guide === 'string' ? e.guide : null;
+				const step = Number.isInteger(e.step) ? e.step : null;
+				if (step !== null) completed.delete(guide);
 				cur = {
-					type: 'segment', guide: typeof e.guide === 'string' ? e.guide : null, step: Number.isInteger(e.step) ? e.step : null,
+					// The recorder can flush STEP_CHANGED(nil) after GUIDE_COMPLETED,
+					// or snapshot that finished tab again after a reload.
+					type: 'segment', guide: step === null && completed.has(guide) ? null : guide, step,
 					title: e.title || null, guideTitle: e.guideTitle || null, reason: e.reason || null,
 					start: e.t, end: e.t, startCum: c, obsCum: c, endCum: null,
 					time: 0, combat: 0, afk: 0, idle: 0, yards: 0, deaths: 0, turnins: 0, quests: [],
@@ -185,6 +196,9 @@ function sessionItems(s, xpModel) {
 			}
 			lastPos = { map: e.map, x: e.x, y: e.y, t: e.t };
 		}
+		// Include the last movement to completion, then stop attributing play
+		// to this guide. A background tab's completion leaves the active one open.
+		if (completing) close(e.t, cur.obsCum);
 	}
 	if (cur) close(events.length ? events[events.length - 1].t : cur.start, null);
 	return items;
@@ -236,8 +250,9 @@ function buildReport(sessions, { guide: filter = null, top = 10 } = {}) {
 	for (const [char, list] of byChar) {
 		list.sort((a, b) => (a.started || 0) - (b.started || 0));
 		const items = [];
+		const completed = new Set();
 		list.forEach((s, i) => {
-			for (const it of sessionItems(s, xpModel)) {
+			for (const it of sessionItems(s, xpModel, completed)) {
 				it.sessionIdx = i;
 				items.push(it);
 			}
