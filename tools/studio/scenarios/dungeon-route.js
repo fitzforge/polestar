@@ -15,6 +15,15 @@ const { SKINS } = skins;
 const luaStr = (s) => JSON.stringify(String(s));
 const SCALES = { '064': 0.64, 100: 1, 150: 1.5 };
 
+// The game's UI scale s on a 1920 x 1080 screen: UIParent drawn at s and 1920/s x 1080/s units big, as the client
+// has it; the guide window at the same place on screen at every scale (its saved place is in UI units), room
+// for it at 1.5.
+const SCALE = (s) => `local s = ${s}
+UIParent:SetScale(s)
+function UIParent:GetWidth() return 1920 / s end
+function UIParent:GetHeight() return 1080 / s end
+Polestar.Set("ui.pos", { 1300 / s, 900 / s })`;
+
 // The skin set up as the skins scenario sets it (its pick: the skin addon loaded, the skin and variant chosen,
 // the settings window's addon loaded, the skin's layout preset applied). Halo, a built-in look the skins
 // scenario has no shots of, is set up as its Forever shot with Halo's id.
@@ -66,7 +75,7 @@ for (const name of LOOKS) {
 				title: `${name} at UI scale ${scale}: ${surface}`,
 				capture: s.capture,
 				pad: 16,
-				lua: `UIParent:SetScale(${scale})\n${base}\n${s.lua}\nstub.advance(0.5)`,
+				lua: `${SCALE(scale)}\n${base}\n${s.lua}\nstub.advance(0.5)`,
 			};
 		}
 	}
