@@ -16,6 +16,9 @@ local q = stub.qol
 local B = Polestar.QoL.Buttons
 local t = PolestarTargetButton
 local function set(k, v) Polestar.Set("qol." .. k, v); stub.runTimers() end
+-- The macros below are the plain ones: the default mark (#2036) is switched
+-- off here, and checked on its own (target_list_rows_mark_by_default...).
+set("markTarget", false)
 local function rows()
 	local out = {}
 	for i, r in ipairs(B.rows) do
@@ -188,12 +191,13 @@ fn target_list_rows_sit_beside_the_button_on_its_name_side_and_push_the_rare_but
 		q.step({ { t = "goto", map = 9000, x = 1, y = 1 } })
 		emit(y(rare))
 	"#);
-	assert_eq!(out[0], json!(-88), "slot -2 without rows");
-	assert_eq!(out[1], json!(["TOPLEFT", true, "TOPRIGHT", 8, 0]));
+	assert_eq!(out[0], json!(-88), "its slot without rows (Buttons.Offsets)");
+	assert_eq!(out[1], json!(["TOPLEFT", true, "TOPRIGHT", 8, 0]), "the set's spacing from the target button");
 	assert_eq!(out[2], json!(["TOP", true]));
-	// Three rows of 30 with 2 between end 94 under the target button's top:
-	// the rare button goes two slots further down, its top below the rows.
-	assert_eq!(out[3], json!(-176));
+	// Three rows of 30 with 2 between end 94 under the target button's top
+	// (-26): the rare button's top goes the spacing under them, its centre at
+	// -26 - 94 - 8 - 18.
+	assert_eq!(out[3], json!(-146));
 	assert_eq!(out[4], json!(["TOPRIGHT", "TOPLEFT", -8]));
 	assert_eq!(out[5], json!(-88), "back in its slot once the rows go");
 }
@@ -241,12 +245,13 @@ fn target_list_the_set_s_screen_clamp_covers_the_rows_on_their_side_and_the_lowe
 		r#"stub.Methods.SetClampRectInsets = function(self, ...) self.clamp = { ... } end"#,
 	);
 	assert_eq!(out[0], json!([0, 0, 44, -88]), "no rows: the hearth slot above, the rare slot below (the bag button has its own spot)");
-	// Five rows of 30 with 2 between end 158 under the target button's top:
-	// the rare button goes three slots further down (slot -5), and the clamp
-	// reaches it; sideways it covers the 180-wide rows and their 8 gap.
-	assert_eq!(out[1], json!([5, [0, 188, 44, -220]]));
-	assert_eq!(out[2], json!([-188, 0, 44, -220]));
-	assert_eq!(out[3], json!(-220));
+	// Five rows of 30 with 2 between end 158 under the target button's top
+	// (-26): the rare button's centre goes to -26 - 158 - 8 - 18 = -210, and
+	// the clamp reaches its foot (-228, 18 under the holder's: -210); sideways
+	// it covers the 180-wide rows and the 8 spacing.
+	assert_eq!(out[1], json!([5, [0, 188, 44, -210]]));
+	assert_eq!(out[2], json!([-188, 0, 44, -210]));
+	assert_eq!(out[3], json!(-210));
 }
 
 const MODELS: &str = r#"stub.Methods.SetCreature = function(self, id) self.creature = id end"#;
@@ -413,7 +418,7 @@ fn target_list_the_polestar_mark_on_a_right_click_opens_the_buttons_settings_mov
 	"#);
 	assert_eq!(out[0], json!([true, "TOPRIGHT", true, "TOPRIGHT"]), "in the target button's slot, on the rows' side");
 	assert_eq!(out[1], 0, "a left-click opens nothing");
-	assert_eq!(out[2], json!(["buttons"]), "a right-click: Options > Questing > Buttons");
+	assert_eq!(out[2], json!(["targeting"]), "a right-click: Settings > Questing > Buttons, where Targeting is");
 	assert_eq!(out[3], 1, "a drag's release opens nothing");
 	assert_eq!(out[4], json!(["TOPLEFT", "TOPLEFT"]));
 	assert_eq!(out[5], json!([false, "/targetexact Kobold Vermin"]));
@@ -441,9 +446,10 @@ fn target_list_names_in_the_target_list_sets_how_many_rows_show_the_simple_butto
 	"#);
 	assert_eq!(out[0], 5, "five by default");
 	assert_eq!(out[1], json!([2, "Boar"]));
-	// Eight rows of 30 with 2 between end 254 under the target button's top:
-	// the rare button goes five slots further down (slot -7).
-	assert_eq!(out[2], json!([8, "Newt", -308]));
+	// Eight rows of 30 with 2 between end 254 under the target button's top
+	// (its centre at -44, its top at -26): the rare button's top goes the
+	// set's spacing (8) under them, its centre at -26 - 254 - 8 - 18.
+	assert_eq!(out[2], json!([8, "Newt", -306]));
 	assert_eq!(out[3], 8, "at most eight");
 	assert_eq!(out[4], 5, "the single button cycles through five, as before");
 }
@@ -769,7 +775,7 @@ fn target_list_folded_a_name_too_long_for_a_macro_gives_no_macro() {
 }
 
 #[test]
-fn target_list_names_the_step_s_npcs_when_it_has_no_mob_with_the_npc_mark_and_no_ping() {
+fn target_list_names_the_step_s_npcs_when_it_has_no_mob_with_the_npc_mark_and_the_ping_as_the_target_button_has_them() {
 	let out = run_with(
 		r#"
 		set("markTarget", true)
@@ -789,10 +795,10 @@ fn target_list_names_the_step_s_npcs_when_it_has_no_mob_with_the_npc_mark_and_no
 	assert_eq!(
 		out[0],
 		json!([
-			["Marshal Dughan", "", format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{npc_mark}"), 240],
-			["Gryan Stoutmantle", "", format!("/cleartarget [nocombat]\n/targetexact Gryan Stoutmantle\n/cleartarget [dead]\n{npc_mark}"), 241]
+			["Marshal Dughan", "", format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 240],
+			["Gryan Stoutmantle", "", format!("/cleartarget [nocombat]\n/targetexact Gryan Stoutmantle\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 241]
 		]),
-		"no mob: the step's NPCs, each row with the NPC's mark and no ping"
+		"no mob: the step's NPCs, each row with the NPC's mark and, with Ping on, the ping (#2036: NPCs are pinged too)"
 	);
 	assert_eq!(out[1], json!([3, "Kobold Vermin", format!("{VERMIN}\n/ping [@target]\n/tm [@target,harm,nodead] !8")]), "mobs: the mob's mark, and the ping");
 }
@@ -1075,11 +1081,11 @@ fn target_list_a_step_s_npc_and_while_you_re_here_mobs_each_row_with_its_own_kin
 		out[0],
 		json!([
 			"Marshal Dughan",
-			format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{npc_mark}"),
+			format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"),
 			"Bluegill Murloc",
 			"/cleartarget [nocombat]\n/targetexact Bluegill Murloc\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"
 		]),
-		"the NPC first (no place known: near), its mark and no ping; the row's mob after, with the mob's mark and the ping"
+		"the NPC first (no place known: near), with its mark; the row's mob after, with the mob's mark; both pinged with Ping on (#2036)"
 	);
 	assert_eq!(out[1], json!([["Marshal Dughan", "success", "textDim", false], ["Bluegill Murloc", "danger", "danger", false]]));
 	assert_eq!(out[2], json!(["npc", "mob"]), "each row's click advances its own kind's mark");
@@ -1131,9 +1137,9 @@ fn target_list_the_polestar_mark_s_tooltip_says_a_fold_clicked_in_a_fight_follow
 }
 
 // Review of the 0.3.7 rebase: a name whose goal changes from an NPC's to a mob's keeps its name and id, so only the
-// verb tells them apart; the row must take the mob's mark, ping and colour.
+// verb tells them apart; the row must take the mob's mark and colour (both kinds take the ping since #2036).
 #[test]
-fn target_list_a_name_that_turns_from_an_npc_goal_into_a_kill_takes_the_mob_s_mark_ping_and_colour() {
+fn target_list_a_name_that_turns_from_an_npc_goal_into_a_kill_takes_the_mob_s_mark_and_colour() {
 	let out = run_with(
 		&format!(
 			"{TONES}{}",
@@ -1150,7 +1156,10 @@ fn target_list_a_name_that_turns_from_an_npc_goal_into_a_kill_takes_the_mob_s_ma
 	);
 	assert_eq!(
 		out[0],
-		json!(["/cleartarget [nocombat]\n/targetexact Same Name\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1", ["Same Name", "success", "textDim", false]])
+		json!([
+			"/cleartarget [nocombat]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1",
+			["Same Name", "success", "textDim", false]
+		])
 	);
 	assert_eq!(out[1], json!(["/cleartarget [nocombat]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8", ["Same Name", "danger", "danger", false]]));
 }
@@ -1192,4 +1201,172 @@ fn target_list_a_name_two_goals_share_takes_the_id_of_the_arrow_s_goal_and_follo
 	"#);
 	assert_eq!(out[0], json!([1, 22]), "one row, the arrow's goal's id");
 	assert_eq!(out[1], json!([1, 11]), "the arrow on the other goal: its id");
+}
+
+// 0.4.0's buttons page (#1704 review): in a row (buttons.layout) the rows hang under the target button, reaching away
+// from the quest item button, the Polestar mark in the target button's slot on their side; the rare button moves
+// along the row past them, and the set's clamp covers the rows and the moved rare button.
+#[test]
+fn target_list_in_a_row_the_rows_hang_under_the_target_button_and_the_rare_button_and_the_clamp_clear_them() {
+	let out = run_with(
+		r#"
+		local holder = select(2, PolestarRareButton:GetPoint(1))
+		local function at(f) local p, rel, rp, x, y = f:GetPoint(1); return { p, rp, x, y, rel == t } end
+		local function look()
+			return { at(B.rows[1]), at(B.anchor), { select(4, PolestarRareButton:GetPoint(1)) }, holder.clamp }
+		end
+		kobolds()
+		Polestar.Set("buttons.layout", "row")
+		stub.runTimers()
+		emit(look())
+		Polestar.Set("buttons.layout", "rowReverse")
+		stub.runTimers()
+		emit(look())
+		q.step({ { t = "goto", map = 9000, x = 1, y = 1 } })
+		emit({ select(4, PolestarRareButton:GetPoint(1)) })
+	"#,
+		r#"stub.Methods.SetClampRectInsets = function(self, ...) self.clamp = { ... } end"#,
+	);
+	// Row: the target button 44 right of the quest item button. Three rows (94 tall) from its left edge, 8 under
+	// it; the rare button's centre past their right end (44 - 18 + 180), 8 + 18 further: 232. Clamp: the
+	// Hearthstone slot at -44 on the left, the rare button on the right, the rows' foot (-26 - 8 - 94 = -128, 18
+	// under the holder's: -102) below.
+	assert_eq!(out[0], json!([["TOPLEFT", "BOTTOMLEFT", 0, -8, true], ["TOPLEFT", "TOPLEFT", 0, 0, true], [232, 0], [-44, 232, 0, -102]]));
+	assert_eq!(out[1], json!([["TOPRIGHT", "BOTTOMRIGHT", 0, -8, true], ["TOPRIGHT", "TOPRIGHT", 0, 0, true], [-232, 0], [-232, 44, 0, -102]]), "reversed: the other way");
+	assert_eq!(out[2], json!([-88, 0]), "back in its slot once the rows go");
+}
+
+// The rows follow the Buttons page's sizes: the gap to the target button is the set's spacing, the mark fits a
+// small target button, and a bigger target button moves the rows' top and the rare button with it.
+#[test]
+fn target_list_the_rows_follow_the_target_button_s_size_and_the_set_s_spacing() {
+	let out = run(r#"
+		kobolds()
+		Polestar.Set("buttons.spacing", 2)
+		Polestar.Set("buttons.targetSize", 50)
+		stub.runTimers()
+		emit({ { select(4, B.rows[1]:GetPoint(1)) }, B.anchor:GetWidth(), select(5, PolestarRareButton:GetPoint(1)) })
+		Polestar.Set("buttons.targetSize", 18)
+		stub.runTimers()
+		emit(B.anchor:GetWidth())
+	"#);
+	// The target button's centre 18 + 2 + 25 = 45 under the item's, its top at -20; three rows end at -114, the rare
+	// button 2 + 18 under them: -134.
+	assert_eq!(out[0], json!([[2, 0], 22, -134]));
+	assert_eq!(out[1], 18, "the mark never outgrows the target button's slot");
+}
+
+// The rows and the mark take the Buttons page's look as the buttons do (#1704 review): border colour, border
+// off, its thickness, the hover colour, the backing and its colour, opacity in and out of a fight. A row with one
+// close keeps a green edge thicker than the border, with the border off too. A skin's actionButton hook reaches
+// them, as kinds "targetRow" and "targetMark" with their parts.
+#[test]
+fn target_list_rows_and_the_mark_take_the_buttons_page_look_and_a_skin_s_action_button_hook() {
+	let out = run_with(
+		r#"
+		local T = Polestar.Theme
+		local seen = {}
+		T.SkinHooks = function(name) return name == "actionButton" end
+		T.SkinHook = function(name, f, kind, parts, hover)
+			if f == B.rows[1] or f == B.anchor then
+				seen[kind] = { parts.ground == f.Bg, parts.label ~= nil, parts.highlight ~= nil, hover }
+			end
+		end
+		local function edge(f) local r, g, b, a = f.psBorder[1]:GetVertexColor(); return { r, g, b, a } end
+		local function rgba(x) local r, g, b, a = x:GetVertexColor(); return { r, g, b, a } end
+		kobolds()
+		local r, a = B.rows[1], B.anchor
+		Polestar.Set("buttons.borderColor", { 1, 0, 0 })
+		emit({ edge(r), edge(a) })
+		Polestar.Set("buttons.borderSize", 3)
+		emit({ r.psBorderSize, a.psBorderSize })
+		Polestar.Set("buttons.hoverColor", { 0, 0, 1 })
+		r:GetScript("OnEnter")(r)
+		emit({ edge(r), seen.targetRow })
+		r:GetScript("OnLeave")(r)
+		Polestar.Set("buttons.border", false)
+		emit({ edge(r)[4], edge(a)[4], seen.targetRow, seen.targetMark })
+		Polestar.Set("buttons.backing", "none")
+		emit({ r.Bg:IsShown(), a.Bg:IsShown() })
+		Polestar.Set("buttons.backing", "panel")
+		Polestar.Set("buttons.backingColor", { 0.2, 0.4, 0.6, 0.5 })
+		emit({ rgba(r.Bg), rgba(a.Bg) })
+		Polestar.Set("buttons.idleAlpha", 0.4)
+		Polestar.Set("buttons.alpha", 0.8)
+		local alpha = { r:GetAlpha(), a:GetAlpha() }
+		q.combat(true)
+		alpha[3], alpha[4] = r:GetAlpha(), a:GetAlpha()
+		q.combat(false)
+		emit(alpha)
+		-- Kobold Worker comes close: its row's green edge, the border off.
+		q.units.nameplate3 = { name = "Kobold Worker" }
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+		stub.runTimers()
+		local g = { T.Color("success") }
+		local e = edge(B.rows[2])
+		emit({ e[1] == g[1] and e[2] == g[2] and e[3] == g[3] and e[4] == 1, B.rows[2].psBorderSize })
+	"#,
+		MODELS,
+	);
+	assert_eq!(out[0], json!([[1, 0, 0, 1], [1, 0, 0, 1]]), "buttons.borderColor");
+	assert_eq!(out[1], json!([3, 3]), "buttons.borderSize");
+	assert_eq!(out[2], json!([[0, 0, 1, 1], [true, true, true, true]]), "buttons.hoverColor under the mouse; the skin's hook sees the hover");
+	assert_eq!(out[3], json!([0, 0, [true, true, true, false], [true, true, true, false]]), "buttons.border off; both kinds reach the skin's hook");
+	assert_eq!(out[4], json!([false, false]), "no backing");
+	assert_eq!(out[5], json!([[0.2, 0.4, 0.6, 0.5], [0.2, 0.4, 0.6, 0.5]]));
+	assert_eq!(out[6], json!([0.4, 0.4, 0.8, 0.8]), "out of combat, in combat");
+	assert_eq!(out[7], json!([true, 3]), "a close row's green edge stays with the border off, at the border's thickness (at least 2)");
+}
+
+// The settings' previews draw the list with the live rows' own code on plain frames (Buttons.NewListFaces,
+// PaintListFaces): no secure template, no name, the same look settings, a row shown close in green with its
+// wash, laid out beside the face given as the live list is beside the target button.
+#[test]
+fn target_list_preview_faces_are_plain_frames_drawn_and_laid_out_by_the_live_list_s_code() {
+	let out = run(r#"
+		Polestar.Set("buttons.borderColor", { 1, 0, 0 })
+		local face = B.NewFace(UIParent, "target")
+		local f = B.NewListFaces(UIParent, 3)
+		B.PaintListFaces(f, face, {
+			{ name = "Rot Hide Mongrel", verb = "kill", item = "Mongrel Tooth", cur = 3, max = 8 },
+			{ name = "Executor Zygand", verb = "turnin", near = true },
+		})
+		local r1, r2, r3 = f.rows[1], f.rows[2], f.rows[3]
+		local function edge(x) local r, g, b, a = x.psBorder[1]:GetVertexColor(); return { r, g, b, a } end
+		local g = { Polestar.Theme.Color("success") }
+		local e2 = edge(r2)
+		local p, rel, rp, x, y = r1:GetPoint(1)
+		emit({ r1:GetName() or false, r1.secure or false, r1:GetAttribute("macrotext") or false })
+		emit({ r1.Name:GetText(), r1.Note:GetText(), r1.Count:GetText(), r2.Name:GetText(), r3:IsShown() })
+		emit({ edge(r1), e2[1] == g[1] and e2[2] == g[2] and e2[3] == g[3], r2.Near:IsShown(), r1.Near:IsShown(), edge(f.mark) })
+		emit({ p, rel == face, rp, x, y })
+	"#);
+	assert_eq!(out[0], json!([false, false, false]), "a plain frame: no name, not secure, no macro");
+	assert_eq!(out[1], json!(["Rot Hide Mongrel", "Mongrel Tooth", "3/8", "Executor Zygand", false]));
+	assert_eq!(out[2], json!([[1, 0, 0, 1], true, true, false, [1, 0, 0, 1]]), "the border setting; a close row's green edge and wash");
+	assert_eq!(out[3], json!(["TOPLEFT", true, "TOPRIGHT", 8, 0]), "beside the face as the live rows are beside the target button");
+}
+
+// #2036 (on dev-040): the target button marks what it targets by default, a skull on a mob and a star on a friendly
+// NPC, and pings only with Ping on; a row's click follows the same settings for its own kind.
+#[test]
+fn target_list_rows_mark_by_default_a_skull_on_a_mob_and_a_star_on_an_npc_and_ping_only_with_ping_on() {
+	let out = run_with(
+		r#"
+		set("markTarget", Polestar.GetDefault("qol.markTarget"))
+		q.step({ { t = "kill", target = "Kobold Vermin", npc = 6 }, { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
+		local function macros() local out = {} for i, r in ipairs(B.rows) do if r:IsShown() then out[#out + 1] = r:GetAttribute("macrotext") end end return out end
+		emit({ Polestar.GetDefault("qol.markTarget"), Polestar.GetDefault("qol.pingTarget"), macros() })
+		q.step({ { t = "talk", npc = 240, npcName = "Marshal Dughan" } })
+		emit(macros())
+		set("pingTarget", true)
+		emit(macros())
+	"#,
+		"SLASH_PING1 = \"/ping\"",
+	);
+	let skull = "/tm [@target,harm,nodead] !8";
+	let star = "/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	assert_eq!(out[0], json!([true, false, [format!("{VERMIN}\n{skull}")]]), "mark on and ping off by default: the mob's row with the skull");
+	assert_eq!(out[1], json!([format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
+	assert_eq!(out[2], json!([format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "with Ping on, the NPC is pinged too");
 }

@@ -679,16 +679,21 @@ guides you there instead.
 - **The target list** shows the step's mobs (or, with no mob, the NPCs it
   sends you to) with their portraits, what they drop for the step and your
   progress on its goal (3/8); click a name to target that one, or press the
-  target button's key binding for the first one close by. A row turns green
-  while its mob is close. The small Polestar mark beside the list moves the
+  target button's key binding for the first one close by. A row's click marks
+  and pings as the target button does. A row turns green while its mob is
+  close. The list goes with the target button: it shows while the target
+  button is on (Settings, Questing, Buttons, Targeting, or the Install's
+  Targeting page) and has no switch of its own. It stands beside the target
+  button, or under it when the buttons line up in a row, and takes the
+  Buttons page's look. The small Polestar mark in the button's place moves the
   buttons; left-click it to fold the list to one row showing the mob that is
-  close, right-click it for their settings; in Quick Keybind Mode, hover it to
-  bind the target button's key. **Simple target button**
-  (Options, Questing, Buttons) keeps only the button, which moves to the next
-  name on each click. Its icon shows what you do with the one it targets next
-  (a speech bubble, ! or ? for an NPC, a sword or a bag for a mob, a skull for
-  an elite, rare or boss, or their face once you have seen them), with the
-  name beside it in green, red or gold and small icons for the names after it.
+  close, right-click it for its settings; in Quick Keybind Mode, hover it to
+  bind the target button's key. **Simple target button** (Settings, Questing,
+  Buttons, Targeting) keeps only the button, which moves to the next name on
+  each click. Its icon shows what you do with the one it targets next (a
+  speech bubble, ! or ? for an NPC, a sword or a bag for a mob, a skull for an
+  elite, rare or boss, or their face once you have seen them), with the name
+  beside it in green, red or gold and small icons for the names after it.
 - **Mark what they target** (Options, Questing, Buttons; off by default): the
   target button and the step key put a raid icon on the mob or NPC they
   target — a skull and a star by default, configurable — and pressing again

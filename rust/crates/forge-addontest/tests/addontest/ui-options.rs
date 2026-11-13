@@ -343,7 +343,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 			return O.page.key .. ": " .. PolestarOptions.Title:GetText() .. " > " .. tab
 		end
 		local out = {}
-		for _, cmd in ipairs({ "options quests", "options gear", "options lookup", "options appearance", "options qualityoflife", "options about", "options buttons", "packs" }) do out[cmd] = at(cmd) end
+		for _, cmd in ipairs({ "options quests", "options gear", "options lookup", "options appearance", "options qualityoflife", "options about", "options targeting", "packs" }) do out[cmd] = at(cmd) end
 		local keys = {}
 		for _, p in ipairs(O.Pages()) do keys[#keys + 1] = p.key end
 		out.keys = keys
@@ -367,7 +367,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 			"options lookup": "discovery: Entdecken > Nachschlagen",
 			"options qualityoflife": "qualityoflife: Komfort > Aufträge",
 			"options about": "about: Über > ",
-			"options buttons": "questing: Questen > Knöpfe",
+			"options targeting": "questing: Questen > Knöpfe",
 			"packs": "guidepacks: Community-Guides > ",
 		})
 	);

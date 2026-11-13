@@ -817,6 +817,8 @@ local ALIASES = {
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
 	characters = { "discovery", L["Lookup"] }, alts = { "discovery", L["Lookup"] },
 	appearance = { "theme" }, look = { "theme" }, qol = { "qualityoflife" },
+	-- The target list's Polestar mark (QoL/Buttons.lua): Questing > Buttons, where Targeting is.
+	targeting = { "questing", L["Buttons"] },
 }
 
 ---------------------------------------------------------------------------

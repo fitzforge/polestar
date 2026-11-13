@@ -17,7 +17,7 @@ local QoL = ns.QoL
 local Buttons = QoL and QoL.Buttons
 local Theme, W = ns.Theme, ns.Widgets
 local L = ns.L
-if not (Buttons and Buttons.NewFace and ns.RegisterOptions and Theme and W) then return end
+if not (Buttons and Buttons.NewFace and Buttons.NewListFaces and ns.RegisterOptions and Theme and W) then return end
 
 local floor, min, max = math.floor, math.min, math.max
 
@@ -33,6 +33,7 @@ local OWN = {
 	[""] = true, buttons = true, qol = true, ui = true, maps = true, nav = true,
 	["qol.buttonScale"] = true, ["qol.buttonTextSide"] = true, ["qol.targetPlate"] = true, ["ui.reduceMotion"] = true,
 	["qol.itemButton"] = true, ["qol.hearthButton"] = true, ["qol.targetButton"] = true, ["qol.rareButton"] = true,
+	["qol.targetSimple"] = true,
 	["nav.castPrompt"] = true,
 }
 local function owned(path)
@@ -117,6 +118,14 @@ local SHOWN = { "bag", "hearth", "item", "target", "rare" }
 local SWITCH = { item = "itemButton", hearth = "hearthButton", target = "targetButton", rare = "rareButton", bag = "bagSpace" }
 -- The room a name beside the set takes, in button pixels.
 local NAME_W, NAME_H = 120, 18
+-- The target list beside the target button (unless Simple target button is
+-- on): its first row close (green), the second with a count, the third an
+-- NPC's (Buttons.PaintListFaces' entries).
+local LIST_DEMO = {
+	{ name = L["Rot Hide Mongrel"], verb = "kill", cur = 3, max = 8, near = true },
+	{ name = L["Scarlet Warrior"], verb = "kill", cur = 0, max = 5 },
+	{ name = L["Executor Zygand"], verb = "turnin" },
+}
 
 -- The player's own binding for a button, else a stand-in so the key text
 -- setting shows.
@@ -159,6 +168,8 @@ local function buildSet(f)
 	hotspot(f, target, "buttons.targetSize")
 	hotspot(f, target.Label, "qol.buttonTextSide")
 	hotspot(f, set.combat, "buttons.alpha")
+	-- The target list's mark and rows, drawn by the live list's code.
+	set.rows = Buttons.NewListFaces(set.group, #LIST_DEMO)
 	-- The world: the target's mob near the set, the rare further off and
 	-- smaller (UI.Preview.Mob: a nameplate and its spot on the ground).
 	local P, lv = ns.UI.Preview, ns.Levels and ns.Levels.Player and ns.Levels.Player() or {}
@@ -169,6 +180,10 @@ local function buildSet(f)
 	f:Light("qol.rareButton", set.far)
 	-- The pointer on a setting's row lights the parts it changes.
 	local all = { faces.bag, faces.hearth, faces.item, target, faces.rare, set.combat }
+	all[#all + 1] = set.rows.mark
+	for _, r in ipairs(set.rows.rows) do all[#all + 1] = r end
+	f:Light("qol.targetButton", set.rows.mark, unpack(set.rows.rows))
+	f:Light("buttons.targetSize", set.rows.mark)
 	local names = { target.Label, faces.rare.Label }
 	local keys = { faces.hearth.Hotkey, faces.item.Hotkey, target.Hotkey }
 	for key, parts in pairs({
@@ -219,14 +234,36 @@ local function setColumns(f, set, combat)
 	set.group:SetAlpha(Buttons.Alpha(false))
 	set.single:SetAlpha(Buttons.Alpha(true))
 
-	-- The set's box from its offsets, the names' room on their side.
-	local at = Buttons.Offsets()
+	-- Beside the target list (Simple target button off) the target button is
+	-- hidden and its mark and rows stand there, as on the screen.
+	local rows = set.rows
+	local listed = not QoL.On("targetSimple")
+	faces.target:SetShown(not listed)
+	if listed then
+		Buttons.PaintListFaces(rows, faces.target, LIST_DEMO)
+		local a = QoL.On("targetButton") and 1 or 0.3
+		rows.mark:SetAlpha(a)
+		for _, r in ipairs(rows.rows) do r:SetAlpha(a) end
+	else
+		for _, r in ipairs(rows.rows) do r:Hide() end
+	end
+	rows.mark:SetShown(listed)
+
+	-- The set's box from its offsets (the rare button clear of the rows), the
+	-- rows, the names' room on their side.
+	local n = listed and #LIST_DEMO or 0
+	local at = Buttons.Offsets(n)
 	local x0, x1, y0, y1 = math.huge, -math.huge, math.huge, -math.huge
 	for _, b in ipairs(set.list) do
 		local o, h = at[b.psKind], Buttons.Size(b.psKind) / 2
 		b:ClearAllPoints()
 		b:SetPoint("CENTER", set.group, "CENTER", o[1], o[2])
 		x0, x1, y0, y1 = min(x0, o[1] - h), max(x1, o[1] + h), min(y0, o[2] - h), max(y1, o[2] + h)
+	end
+	local r0, r1, r2, r3 = Buttons.ListRect(n)
+	if r0 then
+		local t = at.target
+		x0, x1, y0, y1 = min(x0, t[1] + r0), max(x1, t[1] + r1), min(y0, t[2] + r2), max(y1, t[2] + r3)
 	end
 	local side = ns.Get("qol.buttonTextSide")
 	local left = side == "left" and NAME_W or 0
@@ -426,8 +463,8 @@ local function travelColumn(f, tr)
 end
 
 -- The Action buttons tab: the set over its world, the combat button, and the
--- travel button under the arrow. f.Faces, f.Mobs, f.Travel: its parts, for
--- the tests.
+-- travel button under the arrow. f.Faces, f.Mobs, f.Travel, f.List (the
+-- target list's mark and rows): its parts, for the tests.
 local function buildActionPreview(view)
 	local set, tr
 	local f = stage(view, function(f)
@@ -440,6 +477,7 @@ local function buildActionPreview(view)
 	f.Faces = function() return set and set.faces, set and set.combat end
 	f.Mobs = function() return set and set.mob, set and set.far end
 	f.Travel = function() return tr and tr.button end
+	f.List = function() return set and set.rows end
 	return f
 end
 
@@ -555,7 +593,7 @@ local SPECS = {
 		sizeRow("item", L["Quest item"], L["The quest item button's size, before the scale. The switch beside it shows or hides the button."],
 			"qol.itemButton", L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."]),
 		sizeRow("target", L["Target"], L["The target button's size, before the scale. The switch beside it shows or hides the button."],
-			"qol.targetButton", L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."]),
+			"qol.targetButton", L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."]),
 		hearthRow,
 		travelRow,
 		sizeRow("rare", L["Rare"], L["The rare button's size, before the scale. The switch beside it shows or hides the button."],

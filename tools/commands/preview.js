@@ -2001,13 +2001,14 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 	{
 		file: 'target-list.svg',
-		title: "The target list (the default beside the target button): a row per name with what it drops for the step and the goal's count; a tiger close by turns its row green; a step with no mob lists its NPCs; folded to one row by a click on the Polestar mark",
+		title: "The target list (with the target button on, beside it): a row per name with what it drops for the step and the goal's count; a tiger close by turns its row green; a step with no mob lists its NPCs; folded to one row by a click on the Polestar mark; with the buttons in a row, the list under the target button",
 		backdrop: 'terrain',
 		panels: [
 			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(KOBOLD_COUNTS, { list: true }) },
 			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: TIGER_CLOSE }) },
 			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(GIVERS, { list: true }) },
 			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: 'PolestarTargetAnchor:Click("LeftButton")' }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: `Polestar.Set("buttons.layout", "row"); ${TIGER_CLOSE}` }) },
 		],
 	},
 ];

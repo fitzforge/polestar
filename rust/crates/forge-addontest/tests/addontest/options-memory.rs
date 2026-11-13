@@ -36,8 +36,11 @@ const LOGIN_BASE: f64 = 11003.0;
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
 /// merged with it (dungeons in the route's notices, the stranded-quest row and banner, Show in quest log and the
 /// out-of-sight notice, the guide window's shared step view, the breadcrumb and parent-quest rules) adds about
-/// 60 KiB more: measured 11,198 KiB on 2026-11-13.
-const LOGIN: f64 = LOGIN_BASE + 200.0;
+/// 60 KiB more: measured 11,198 KiB on 2026-11-13. The target list (#1704: its rows, the Polestar mark, their
+/// layout and looks in QoL/Buttons.lua) adds about 70 KiB at login: 11,215 to 11,284 KiB against dev-040 at
+/// 467cdd126 on the machine it was fitted on, 2026-11-13 (whose dev-040 reads 17 KiB above the figure above).
+/// Raised by that, as Fitz asked on 2026-11-12 ("if you hit memory budgets again, just raise them").
+const LOGIN: f64 = LOGIN_BASE + 285.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
@@ -52,8 +55,10 @@ const LOGIN: f64 = LOGIN_BASE + 200.0;
 /// nameplate on the stage, and Theme > Accent lighting every part drawn in the accent. Then the search's dropdown
 /// (+41: 1,833 to 1,874 on 2026-11-13): UI/SearchDropdown.lua, and the places, page scope and lit words of the
 /// search in UI/Options.lua. Raised by that, as Fitz asked on 2026-11-12 ("if you hit memory budgets again, just
-/// raise them").
-const LOADED: f64 = 1907.0;
+/// raise them"). Then the target list in the Buttons page's previews and Unlock mode's box (#1704,
+/// Buttons.NewListFaces in QoL/ButtonsOptions.lua, Buttons.ListRect in UI/Movers.lua; +6: 1,906 to 1,912 against
+/// dev-040 at 467cdd126, 2026-11-13).
+const LOADED: f64 = 1913.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
@@ -62,8 +67,10 @@ const OPENED: f64 = 4287.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
-/// (+68, the same, to 4,034), then the search's dropdown (+108, the same: 4,084 to 4,192 on 2026-11-13).
-const PEAK: f64 = 4233.0;
+/// (+68, the same, to 4,034), then the search's dropdown (+108, the same: 4,084 to 4,192 on 2026-11-13), then
+/// the target list in the Buttons page's previews and Unlock mode's box (#1704; +10: 4,228 to 4,238 against
+/// dev-040 at 467cdd126, 2026-11-13).
+const PEAK: f64 = 4240.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),

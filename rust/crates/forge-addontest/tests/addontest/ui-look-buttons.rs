@@ -74,6 +74,8 @@ fn buttons_look_settings_apply_to_the_live_action_buttons_out_of_combat() {
 		Polestar.Set("buttons.cooldownText", false)
 		r.texts = { item.Hotkey:IsShown(), item.Count:IsShown(), item.Cooldown.noCooldownCount or false }
 
+		-- The single button's name (beside the target list the rows show the names).
+		Polestar.Set("qol.targetSimple", true)
 		q.step({ { t = "kill", target = "Murloc" }, { t = "kill", target = "Gnoll" } })
 		local _, s0 = target.Label:GetFont()
 		Polestar.Set("buttons.labelScale", 1.5)
@@ -365,4 +367,64 @@ fn buttons_previews_draw_the_real_faces_on_plain_frames_and_make_no_secure_frame
 		json!(["buttons.alpha", "buttons.hearthSize", "buttons.itemSize", "buttons.targetSize", "maps.minimapButtonSize", "qol.buttonTextSide", "ui.launcherSize"]),
 		"every part of the previews leads to its row"
 	);
+}
+
+// The Action buttons preview draws the target list where the screen has it (#1704): beside the target face, the
+// Polestar mark in its place and the rows (Buttons.NewListFaces: plain frames, drawn by the live rows' code), the
+// first one close in green, the rare button moved clear of them; in a row (buttons.layout) under it. Simple target
+// button brings back the single face.
+#[test]
+fn buttons_preview_draws_the_target_list_beside_the_target_face_and_the_single_face_with_simple_target_button() {
+	let out = run_ui(
+		r#"
+		local f = B.ActionPreview(UIParent)
+		f:Layout(640)
+		local faces = f.Faces()
+		local list = f.List()
+		local r1 = list.rows[1]
+		local r = {}
+		r.list = { faces.target:IsShown(), list.mark:IsShown(), r1:IsShown(), r1.Name:GetText(), r1.Count:GetText(), r1.Near:IsShown(),
+			list.rows[3].Name:GetText(), select(2, r1:GetPoint(1)) == faces.target, r1:GetName() or "plain" }
+		r.rare = select(5, faces.rare:GetPoint(1))
+		Polestar.Set("buttons.layout", "row")
+		f:Layout(640)
+		r.row = { (r1:GetPoint(1)), (select(3, r1:GetPoint(1))), (select(4, faces.rare:GetPoint(1))) }
+		Polestar.Set("buttons.layout", "column")
+		Polestar.Set("qol.targetSimple", true)
+		f:Layout(640)
+		r.simple = { faces.target:IsShown(), list.mark:IsShown(), r1:IsShown(), faces.target.Label:GetText() }
+		emit(r)"#,
+	);
+	assert_eq!(out["list"], json!([false, true, true, "Rot Hide Mongrel", "3/8", true, "Executor Zygand", true, "plain"]), "the mark and the rows in the target face's place, the first one close");
+	assert_eq!(out["rare"], -146, "the rare button clear of three rows, as on the screen");
+	assert_eq!(out["row"], json!(["TOPLEFT", "BOTTOMLEFT", 232]), "in a row the rows hang under the target face, the rare button past them");
+	assert_eq!(out["simple"], json!([true, false, false, "Rot Hide Mongrel"]), "Simple target button: the single face again");
+}
+
+// Move frames' box for the quest buttons covers the target list's rows while they show (Buttons.ListRows,
+// Buttons.ListRect), as the set's screen clamp does: wider by the rows beside the target button, back once they go.
+#[test]
+fn move_frames_box_for_the_quest_buttons_covers_the_target_list_s_rows_while_they_show() {
+	let out = run_ui(
+		r#"
+		local M = Polestar.Movers
+		local function size() local _, _, w, h = M.Rect("buttons"); return { math.floor(w + 0.5), math.floor(h + 0.5) } end
+		local view, raw = nil, nil
+		Polestar.QoL.CurrentStep = function() return view, raw end
+		local before = size()
+		raw = { { t = "kill", target = "Kobold Vermin" }, { t = "kill", target = "Kobold Worker" } }
+		view = { index = 1, status = "current", goals = {} }
+		for i, g in ipairs(raw) do view.goals[i] = { index = i, t = g.t, status = "active", subject = g.target } end
+		B.Refresh()
+		stub.runTimers()
+		local rows = B.ListRows()
+		local with = size()
+		emit({ before = before, rows = rows, with = with })"#,
+	);
+	assert_eq!(out["rows"], 2);
+	let d = |i: usize| out["with"][i].as_f64().unwrap() - out["before"][i].as_f64().unwrap();
+	// Two rows (30 + 2 + 30) beside the target button add the 8 spacing and their 180 to the column's right; they
+	// end 62 under its top (-26), so the rare button goes to -88 - 8 - 18 = -114, its foot 26 under its slot's.
+	assert_eq!(d(0), 188.0, "{out}");
+	assert_eq!(d(1), 26.0, "{out}");
 }
