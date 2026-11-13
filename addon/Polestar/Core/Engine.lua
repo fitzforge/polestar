@@ -3130,6 +3130,22 @@ function Own.laterQuestDone(s, g)
 	return false
 end
 
+-- Whether a later goal of step s uses the item untied collect goal g gathers
+-- (`use <item>`) and is done: the collect is then done too, so a quest whose
+-- work was the use, done before (Trial of the Lake's Shrine Bauble for a
+-- Druid who did the chain, #2099), never leaves the collect holding the step
+-- and the trip to it.
+function Own.usedLaterDone(s, g, goal)
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local later = goals[j]
+		if later.t == "use" and later.item == goal.item and goalApplies(later) then
+			return goalDone(s, j, later) and true or false
+		end
+	end
+	return false
+end
+
 -- done, cur, max[, label, kind] for goal g of step s. Notes are never done
 -- (and never block). A stored check-off (the player's tick, or a result the
 -- Engine latched) is done whatever the live state says, as is a goal the
@@ -3193,6 +3209,7 @@ function Own.goalDoneLive(s, g, goal)
 			return countState(goal)
 		end
 		if Own.starterTaken(s, g, goal) then return true end
+		if Own.usedLaterDone(s, g, goal) then return true end
 		return countState(goal)
 	elseif t == "buy" then
 		return countState(goal)

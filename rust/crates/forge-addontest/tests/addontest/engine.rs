@@ -325,6 +325,45 @@ Polestar.RegisterGuide({ id = "test/binding", pack = "test", title = "Binding", 
 	assert_eq!(out, json!({ "before": { "index": 2, "use": "active" }, "killed": "done", "after": 3 }));
 }
 
+// #2099 (Corey, a Tauren Druid in The Barrens): Trial of the Lake's step collects a Shrine Bauble and uses it at the
+// shrine, neither tied to the quest. For a Druid who had done the trial the collect stayed open (no bauble in the
+// bags), so the step, and the trip to Moonglade before it, never passed. An untied collect of an item that a later
+// goal of its step uses is done once that use is; before that it counts the bags as ever.
+#[test]
+fn an_untied_collect_of_an_item_its_step_then_uses_is_done_once_the_use_is_2099_shrine_bauble() {
+	const TRIAL: &str = r#"
+Polestar.RegisterGuide({ id = "test/trial", pack = "test", title = "Trial", zone = 1429, steps = {
+	{ title = "Dendrite", goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 } } },
+	{ title = "Trial of the Lake", goals = {
+		{ t = "collect", item = 15877, itemName = "Shrine Bauble", count = 1, map = 1429, x = 47.6, y = 35.1 },
+		{ t = "use", item = 15877, itemName = "Shrine Bauble", map = 1429, x = 47.0, y = 36.0 },
+		{ t = "complete", quest = 7, title = "Kobold Camp Cleanup" },
+		{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let done = run1(Run {
+		guides: TRIAL,
+		before: "w.complete({ 7 })",
+		script: r#"E.SetGuide("test/trial"); flush(); emit({ index = E.GetStepIndex(), collect = E.GetStepView(2).goals[1].status })"#,
+		..Default::default()
+	});
+	assert_eq!(done, json!({ "index": 3, "collect": "done" }), "the trial handed in before: nothing holds the step");
+	let doing = run1(Run {
+		guides: TRIAL,
+		before: "w.onQuest(7, { 1 })",
+		script: r#"
+			E.SetGuide("test/trial"); flush()
+			local before = { index = E.GetStepIndex(), collect = E.GetStepView(2).goals[1].status }
+			stub.world.addItem(15877, 1); flush()
+			emit({ before = before, looted = E.GetStepView(2).goals[1].status })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(doing, json!({ "before": { "index": 2, "collect": "active" }, "looted": "done" }), "on the trial: the bags count");
+}
+
 #[test]
 fn goto_is_done_once_a_later_goal_in_its_step_is_done_without_arriving() {
 	let out = run1(Run {
