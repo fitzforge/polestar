@@ -345,8 +345,8 @@ fn raw_json(http: &Http, file: &Path, url: &str, log: &dyn Fn(&str)) -> Result<(
 	Ok((forge_guide::js::parse_json(&text)?, fetched))
 }
 
-/// The EG Link output at its pinned commit: data/index.json and every listed dataset of the Forever
-/// product. -> files fetched
+/// The EG Link output at its pinned commit: data/index.json, every listed dataset of the Forever product and
+/// the live client's objective positions (players::EG_POSITIONS, for `forge record learn`). -> files fetched
 pub fn eglink(http: &Http, sources: &Path, log: &dyn Fn(&str)) -> Result<usize, String> {
 	let commit = crate::players::EG_COMMIT;
 	let dir = sources.join("eg-link").join(&commit[..12]);
@@ -362,6 +362,13 @@ pub fn eglink(http: &Http, sources: &Path, log: &dyn Fn(&str)) -> Result<usize, 
 				continue;
 			}
 			let rel = format!("{product}/{build}/{d}.json");
+			n += usize::from(raw_json(http, &dir.join(&rel), &url(&rel), log)?.1);
+		}
+	}
+	let (product, dataset) = crate::players::EG_POSITIONS;
+	for (build, sets) in index.get("products").get(product).entries() {
+		if sets.get(dataset).truthy() {
+			let rel = format!("{product}/{build}/{dataset}.json");
 			n += usize::from(raw_json(http, &dir.join(&rel), &url(&rel), log)?.1);
 		}
 	}

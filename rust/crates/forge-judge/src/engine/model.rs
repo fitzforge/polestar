@@ -369,6 +369,11 @@ impl Goal {
 	pub fn report_id(&self) -> Option<u32> {
 		self.quest.or(self.item).or(self.npc).or(self.spell)
 	}
+
+	/// Whether its spots are exact points (every one `r` 0, #1944): Engine.lua's Spots.exact.
+	pub fn exact(&self) -> bool {
+		self.spots.as_ref().is_some_and(|s| !s.is_empty() && s.iter().all(|p| p.r.unwrap_or(0.0) == 0.0))
+	}
 }
 
 /// `along`: not an along step, along until the guide's end, or until the step so labelled.

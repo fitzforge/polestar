@@ -11544,3 +11544,70 @@ test('Darkspear Islands Reputation: the mark quests point at the Warbringer and 
 	assert.equal((src.match(/One stands here at the Merchant Coast, beside the portal/g) || []).length, 4);
 	assert.equal((src.match(/One stands here at Northwatch Hold, beside the portal/g) || []).length, 4);
 });
+
+// Polestar Experimental's Riverglades guides (experimental/guides): two facts from players' recordings the route
+// stands on, read from the guide text so they hold without reference data.
+const RIVERGLADES = path.join(__dirname, '..', 'experimental', 'guides');
+const riverglades = () => fs.readdirSync(RIVERGLADES).filter((f) => /^riverglades-.*\.guide$/.test(f)).sort();
+const codeOf = (line) => line.split('--')[0];
+
+// Hurley (Helping Hands), the lost horse (Rescue Roundup), Fuzzle (Biting the Hand), Dunston Willis (Dunston
+// Checks Out) and Jom-jom (Jom-jom's Escape) set off as soon as their quest is taken: recorded players who did
+// something else first failed Helping Hands at Turner's Logging Camp and took it again.
+test('Riverglades (experimental): an escort is taken and walked in one step, so its NPC never sets off without the player', () => {
+	const ESCORTS = [94861, 94992, 94963, 94927, 94556];
+	const seen = new Set();
+	for (const f of riverglades()) {
+		for (const step of fs.readFileSync(path.join(RIVERGLADES, f), 'utf8').split(/\n(?=step\b)/)) {
+			const lines = step.split('\n').map(codeOf);
+			for (const q of ESCORTS) {
+				const taken = lines.findIndex((l) => new RegExp(`^\\s+accept ${q}\\b`).test(l));
+				if (taken < 0) continue;
+				seen.add(q);
+				const walked = lines.findIndex((l) => new RegExp(`^\\s+complete ${q}\\b`).test(l));
+				assert.ok(walked > taken, `${f}: ${lines[0]}: escort ${q} is walked in the step that takes it`);
+			}
+		}
+	}
+	assert.deepEqual([...seen].sort(), [...ESCORTS].sort(), 'every escort of the zone is in the pack');
+});
+
+// Demar Brant offers The Western Front, and Ashe Amberhall A Small Favor, only once Curious Trinkets and Scraps of
+// Knowledge are handed in (players' offer windows): in the keep, Ashe's hand-ins come first.
+test("Riverglades (experimental): Ashe Amberhall's Sunnyglade hand-ins come before The Western Front and A Small Favor", () => {
+	const lines = fs.readFileSync(path.join(RIVERGLADES, 'riverglades-alliance-3.guide'), 'utf8').split('\n').map(codeOf);
+	const first = (verb, q) => lines.findIndex((l) => new RegExp(`^\\s+${verb} ${q}\\b`).test(l));
+	for (const q of [94886, 94907]) {
+		assert.ok(first('accept', q) >= 0, `${q} is taken in part 3`);
+		for (const t of [94881, 94879]) {
+			assert.ok(first('turnin', t) >= 0 && first('turnin', t) < first('accept', q), `${t} is handed in before ${q} is taken`);
+		}
+	}
+});
+
+// A guide's steps as lists of code lines (comments cut).
+const rivergladesSteps = (file) => fs.readFileSync(path.join(RIVERGLADES, file), 'utf8').split(/\n(?=step\b)/).map((s) => s.split('\n').map(codeOf));
+const anyLine = (lines, re) => lines.some((l) => re.test(l));
+
+// Benjy Wheeler offers Freshwater Fiends before My Kingdom for a Horse (players' offer windows), and its Mudfin murlocs
+// drop Halligan Turner's murloc heads: one sweep along the river does both, instead of a second murloc hunt later.
+test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's murloc heads are one sweep", () => {
+	const steps = rivergladesSteps('riverglades-alliance-1.guide');
+	const sweep = steps.findIndex((lines) => anyLine(lines, /^\s+collect 267266\b/));
+	assert.ok(sweep >= 0, 'the murloc heads are collected in part 1');
+	for (const npc of [258574, 258573]) {
+		assert.ok(anyLine(steps[sweep], new RegExp(`^\\s+kill ${npc}\\b.*\\bquest 94614\\.`)), `the heads' step kills ${npc} for Freshwater Fiends`);
+	}
+	const taken = steps.findIndex((lines) => anyLine(lines, /^\s+accept 94614\b/));
+	assert.ok(taken >= 0 && taken < sweep, 'Freshwater Fiends is taken before the sweep');
+});
+
+// No class trainer stands in the Riverglades, and the Feralas guide passes none: an Alliance player who goes on to
+// Feralas (level 43 or more) trains in part 4 whatever quests they carry, shamans in Ironforge (Stormwind has none).
+test('Riverglades (experimental): an Alliance player going on to Feralas trains in part 4', () => {
+	const steps = rivergladesSteps('riverglades-alliance-4.guide');
+	const questGated = (lines) => anyLine(lines, /^\s+when !?(onquest|complete|turnedin|available)\b/);
+	assert.ok(steps.some((l) => anyLine(l, /^\s+when level>=43\b/) && anyLine(l, /^\s+fly "Stormwind"/) && !questGated(l)), 'players of 43 or more fly to Stormwind');
+	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only .*\bWarrior\b/) && !questGated(l)), 'the class trainer step');
+	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
+});

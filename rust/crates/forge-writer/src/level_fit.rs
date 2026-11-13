@@ -152,15 +152,23 @@ impl Need {
 	}
 }
 
-struct Ctx<'a> {
-	world: &'a World,
-	data: &'a Data,
+/// The level reads of a route's world and data (built once per route: the level fit and the pass-by
+/// rule read them).
+pub(crate) struct Ctx<'a> {
+	pub(crate) world: &'a World,
+	pub(crate) data: &'a Data,
 	grid: Grid,
-	wq: FxHashMap<u32, usize>,
+	/// World quest by id.
+	pub(crate) wq: FxHashMap<u32, usize>,
 }
 
-impl Ctx<'_> {
-	fn pt(&self, o: &Order) -> Option<Pt> {
+impl<'a> Ctx<'a> {
+	pub(crate) fn new(world: &'a World, data: &'a Data, frames: &MapFrames) -> Self {
+		let proj = Projector::new(frames);
+		Ctx { world, data, grid: grid(data, &proj), wq: world.quests.iter().enumerate().map(|(i, q)| (q.id, i)).collect() }
+	}
+
+	pub(crate) fn pt(&self, o: &Order) -> Option<Pt> {
 		self.world.points.get(o.pt? as usize).copied().filter(|p| p.wx.is_finite())
 	}
 
@@ -197,7 +205,7 @@ impl Ctx<'_> {
 	}
 
 	/// What task `t` of quest `q` worked at `pt` asks (None: no kill work, or none of its targets near).
-	fn need(&self, q: u32, t: Option<u32>, pt: Option<Pt>) -> Option<Need> {
+	pub(crate) fn need(&self, q: u32, t: Option<u32>, pt: Option<Pt>) -> Option<Need> {
 		let (t, pt) = (t?, pt?);
 		if self.kills(q, Some(t)).is_empty() {
 			return None;
@@ -271,14 +279,18 @@ pub(crate) fn level_of(mut xp: f64) -> f64 {
 	l as f64 + if l < 60 { xp / forge_sim::xp::LEVEL_XP[l] } else { 0.0 }
 }
 
-fn name(data: &Data, q: u32) -> String {
+pub(crate) fn name(data: &Data, q: u32) -> String {
 	data.quests.get(&q).and_then(|r| r.title()).map_or_else(|| q.to_string(), |t| format!("{t} ({q})"))
 }
 
 /// The rule on a route's order.
 pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, exempt: &Exempt) -> Fit {
-	let proj = Projector::new(frames);
-	let cx = Ctx { world, data, grid: grid(data, &proj), wq: world.quests.iter().enumerate().map(|(i, q)| (q.id, i)).collect() };
+	fit_in(order, &Ctx::new(world, data, frames), exempt)
+}
+
+/// [`fit`] on level reads built for the route.
+pub(crate) fn fit_in(order: Vec<Order>, cx: &Ctx, exempt: &Exempt) -> Fit {
+	let data = cx.data;
 	let mut o = order;
 	let mut log = Vec::new();
 	let mut left_out: Vec<u32> = Vec::new();
