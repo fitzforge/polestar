@@ -4275,7 +4275,12 @@ the path to the player's place on it and the yards between them. The arrow
 eases into each new direction (`Nav/Arrow.lua`'s `DAMPING`: 12/s, or 24 or 6
 with `nav.arrowTurn` "snappy" or "gentle", swinging at most
 `MAX_TURN`, about 200 degrees a second), on the target's bearing on the map:
-turning the camera moves it at once.
+turning the camera moves it at once. The 3D arrow, a sheet of 100 frames 3.6
+degrees apart, is drawn between frames (`Nav.ArrowBlend`): the nearest whole
+and the one on the heading's other side over it at its share, half at most,
+so where both are solid the arrow is their blend and never shows through; the
+highlights, added light, cross-fade exactly. It turns without 3.6° steps, and
+its textures change only while it turns.
 A path is straightened once as it is taken (0.3.8; Fitz: "that first
 waypoint shouldn't make 90° bends"), a searched one when it lands and a
 baked leg when it is picked (`Follow.Smooth`, called by `Walk.lua`): from

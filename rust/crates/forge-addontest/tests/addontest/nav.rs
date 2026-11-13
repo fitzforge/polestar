@@ -195,6 +195,101 @@ fn turning_is_damped_a_new_bearing_eases_in_the_short_way_round_at_most_max_turn
 	}
 }
 
+// The 3D arrow is a sheet of 100 frames 3.6 degrees apart. It is drawn between two of them: the nearest whole and,
+// over it, the one on the heading's other side at the share of the way the heading lies toward it (half at most), so
+// where both are solid the arrow is their blend and never shows through; the highlight sheets (added light) blend
+// exactly, 1 - share and share. Nav.ArrowBlend gives the pair and the share, frame 99 next to frame 0. A still arrow
+// re-points nothing.
+#[test]
+fn the_3d_arrow_cross_fades_the_two_frames_either_side_of_its_heading_by_where_the_heading_lies_between_them() {
+	let out = run(r#"
+		local step = 2 * math.pi / 100
+		local function r3(x) return math.floor(x * 1000 + 0.5) / 1000 end
+		local function blend(k) local f, g, w = N.ArrowBlend(k * step); return { f, g, r3(w) } end
+		local r = { on = blend(10), quarter = blend(10.25), back = blend(9.75), nearHalf = blend(10.499), right = blend(-0.25),
+			top = blend(99.75), last = blend(99.3), turn = blend(110.25) }
+		-- The live arrow, settled a quarter of the way from frame 10 to frame 11.
+		local a = 10.25 * step
+		target(100 * math.cos(a), 100 * math.sin(a))
+		stub.advance(1.5)
+		local function coords(t) return t.texCoord end -- the stub keeps SetTexCoord's left, right, top, bottom
+		local function rgba(t) local cr, cg, cb, ca = t:GetVertexColor(); return { cr, cg, cb, ca } end
+		local _, _, share = N.ArrowBlend(A.GetAngle())
+		local l, rr, tt, b = N.ArrowFrameCoords(11)
+		r.live = { frame = A.GetFrame(), at = A.GetAngle() / step, share = share, other = coords(A.sheet2), want = { l, rr, tt, b },
+			body = rgba(A.sheet), over = rgba(A.sheet2), spec = rgba(A.sheetSpec), spec2 = rgba(A.sheetSpec2),
+			shown = { A.sheet:IsShown(), A.sheet2:IsShown(), A.sheetSpec:IsShown(), A.sheetSpec2:IsShown() } }
+		-- Still: nothing is re-pointed.
+		local calls = 0
+		for _, t in ipairs({ A.sheet, A.sheet2, A.sheetSpec, A.sheetSpec2 }) do
+			t.SetTexCoord = function(self, ...) calls = calls + 1; return stub.Methods.SetTexCoord(self, ...) end
+		end
+		stub.advance(1)
+		r.stillCalls = calls
+		Polestar.Set("nav.arrowStyle", "flat")
+		r.flat = { A.sheet:IsShown(), A.sheet2:IsShown(), A.sheetSpec:IsShown(), A.sheetSpec2:IsShown() }
+		emit(r)"#);
+	assert_eq!(out["on"], json!([10, 11, 0]), "on a frame: that frame alone");
+	assert_eq!(out["quarter"], json!([10, 11, 0.25]));
+	assert_eq!(out["back"], json!([10, 9, 0.25]));
+	assert_eq!(out["nearHalf"], json!([10, 11, 0.499]));
+	assert_eq!(out["right"], json!([0, 99, 0.25]), "frame 99 lies next to frame 0");
+	assert_eq!(out["top"], json!([0, 99, 0.25]));
+	assert_eq!(out["last"], json!([99, 0, 0.3]));
+	assert_eq!(out["turn"], json!([10, 11, 0.25]), "a heading a whole turn on is the same");
+	let live = &out["live"];
+	assert_eq!(live["frame"], 10);
+	near(num(&live["at"]), 10.25, 0.01, "settled a quarter of the way to frame 11");
+	assert_eq!(live["other"], live["want"], "the second sheet shows frame 11");
+	let share = num(&live["share"]);
+	near(share, 0.25, 0.01, "its share");
+	near(num(&live["over"][3]), share, 1.0 / 512.0, "frame 11 over frame 10 at its share");
+	assert_eq!(live["body"][3], json!(1), "frame 10 whole");
+	for i in 0..3 {
+		assert_eq!(live["body"][i], live["over"][i], "both tinted alike");
+	}
+	near(num(&live["spec"][3]), 1.0 - share, 1.0 / 512.0, "the nearest frame's highlight");
+	near(num(&live["spec2"][3]), share, 1.0 / 512.0, "the other frame's highlight: the two add up to one");
+	assert_eq!(live["shown"], json!([true, true, true, true]));
+	assert_eq!(out["stillCalls"], 0, "a still arrow re-points nothing");
+	assert_eq!(out["flat"], json!([false, false, false, false]), "the flat dart hides both sheets");
+}
+
+// Turning, the 3D arrow is drawn at the heading it has reached, between frames, never snapped to the nearest frame
+// (up to 1.8 degrees off): every frame of a turn the two frames on screen (the nearest whole, the other at its share)
+// stand at the arrow's heading to a hundredth of a degree.
+#[test]
+fn turning_the_3d_arrow_draws_each_heading_between_its_frames_not_the_nearest_frame() {
+	let out = run(r#"
+		local step = 2 * math.pi / 100
+		target(100, 0)
+		stub.advance(1)
+		local function frameOf(t)
+			local l, top = t.texCoord[1], t.texCoord[3] -- the stub keeps SetTexCoord's left, right, top, bottom
+			return math.floor(top * 1024 / 102 + 0.5) * 10 + math.floor(l * 1024 / 102 + 0.5)
+		end
+		nav.place(0, 30) -- the target 16.7 degrees to the right
+		local worst, between, moved = 0, 0, 0
+		local was = A.GetAngle()
+		for _ = 1, 30 do
+			stub.advance(0.05)
+			local f, g = A.GetFrame(), frameOf(A.sheet2)
+			local w = select(4, A.sheet2:GetVertexColor())
+			local dir = (g - f) % 100 == 1 and 1 or -1
+			local drawn = (f + dir * w) % 100
+			local want = (A.GetAngle() % (2 * math.pi)) / step
+			local off = math.abs((drawn - want + 50) % 100 - 50) * 3.6
+			if off > worst then worst = off end
+			if A.GetAngle() ~= was and w > 0.02 and w < 0.48 then between = between + 1 end
+			if A.GetAngle() ~= was then moved = moved + 1 end
+			was = A.GetAngle()
+		end
+		emit({ worst = worst, between = between, moved = moved, final = A.GetAngle() })"#);
+	assert!(num(&out["worst"]) < 0.01, "the drawn heading is the arrow's to {:.4} degrees", num(&out["worst"]));
+	assert!(num(&out["between"]) >= 2.0, "turning, {} of {} frames are drawn between two sheet frames", out["between"], out["moved"]);
+	near(num(&out["final"]), -(30.0f64).atan2(100.0), 1e-3, "settled on the target");
+}
+
 #[test]
 fn switching_nav_arrowstyle_live_keeps_heading_colour_and_the_arrived_state() {
 	let out = run(r#"

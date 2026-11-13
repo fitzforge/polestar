@@ -17,10 +17,12 @@
 -- Styles (nav.arrowStyle; "skin", the default, takes the skin's: 3D in the
 -- house style, the Halo dart in Halo, the Hearth dart in Hearth and the
 -- game's looks):
---   "3d"   a pre-rendered arrow lying on the ground in front of you: one
---          sprite-sheet frame per heading (tools/media/nav/arrow3d.js), the
---          body tinted with SetVertexColor and an untinted specular sheet
---          added on top; the heading picks the frame
+--   "3d"   a pre-rendered arrow lying on the ground in front of you: a
+--          sprite sheet of FRAMES headings 3.6° apart (tools/media/nav/arrow3d.js),
+--          the body tinted with SetVertexColor and an untinted specular sheet
+--          added on top; the two frames either side of the heading are drawn
+--          cross-faded by where it lies between them (Nav.ArrowBlend), so the
+--          arrow turns smoothly instead of in 3.6° steps
 --   "flat" a faceted dart rotated with SetRotation
 --   "halo", "hearth"  the skins' darts (DIRECTION_B_HALO.md §3,
 --          DIRECTION_A_BLIZZARD.md §5; tools/media/skins.js): a 54-unit dart
@@ -65,6 +67,7 @@ local DIAL = 64
 local FRAMES, COLS, CELL, SHEET = 100, 10, 102, 1024
 local TWO_PI = 2 * pi
 local STEP = TWO_PI / FRAMES
+local MIX_STEP = 1 / 512 -- a cross-fade share that moved less than half an 8-bit alpha step is not redrawn
 local SPRITE = DIAL * 1.5
 
 ns.RegisterDefaults("nav", {
@@ -106,6 +109,17 @@ local EDGE = { halo = { 0.09, 0.075, 0.055 }, haloNear = { 0.043, 0.102, 0.047 }
 -- frame i shows the arrow turned i * 360 / FRAMES degrees.
 function Nav.ArrowFrame(angle)
 	return floor((angle % TWO_PI) / STEP + 0.5) % FRAMES
+end
+
+-- The 3D arrow between the sheet's frames (dialRotate): the frame nearest the
+-- heading, the frame on its other side, and that one's share of the blend, 0
+-- on a frame to 0.5 halfway (frame 99 lies next to frame 0).
+-- -> nearest, other, share
+function Nav.ArrowBlend(angle)
+	local u = (angle % TWO_PI) / STEP
+	local f = floor(u + 0.5)
+	local s = u - f
+	return f % FRAMES, (s < 0 and f - 1 or f + 1) % FRAMES, abs(s)
 end
 
 -- Texture coordinates of a frame: left, right, top, bottom.
@@ -173,7 +187,7 @@ end
 local UI_DIR = "Interface\\AddOns\\" .. ADDON .. "\\Media\\UI\\"
 
 local function buildDial(parent)
-	local d = { frame = parent, style = "3d", shownFrame = -1, near = false }
+	local d = { frame = parent, style = "3d", shownFrame = -1, nextFrame = -1, mix = -1, tintR = 1, tintG = 1, tintB = 1, near = false }
 
 	local dial = CreateFrame("Frame", nil, parent)
 	dial:SetSize(DIAL, DIAL)
@@ -203,12 +217,27 @@ local function buildDial(parent)
 	sheet:SetPoint("CENTER")
 	d.sheet = sheet
 
+	-- The frame on the heading's other side, over the nearest at its share (dialRotate).
+	local sheet2 = dial:CreateTexture(nil, "ARTWORK", nil, 1)
+	sheet2:SetTexture(MEDIA .. "arrow3d")
+	sheet2:SetSize(SPRITE, SPRITE)
+	sheet2:SetPoint("CENTER")
+	sheet2:SetVertexColor(1, 1, 1, 0)
+	d.sheet2 = sheet2
+
 	local sheetSpec = dial:CreateTexture(nil, "ARTWORK", nil, 2)
 	sheetSpec:SetTexture(MEDIA .. "arrow3d-spec")
 	sheetSpec:SetSize(SPRITE, SPRITE)
 	sheetSpec:SetPoint("CENTER")
 	sheetSpec:SetBlendMode("ADD")
 	d.sheetSpec = sheetSpec
+	local sheetSpec2 = dial:CreateTexture(nil, "ARTWORK", nil, 2)
+	sheetSpec2:SetTexture(MEDIA .. "arrow3d-spec")
+	sheetSpec2:SetSize(SPRITE, SPRITE)
+	sheetSpec2:SetPoint("CENTER")
+	sheetSpec2:SetBlendMode("ADD")
+	sheetSpec2:SetVertexColor(1, 1, 1, 0)
+	d.sheetSpec2 = sheetSpec2
 
 	local halo = dial:CreateTexture(nil, "BACKGROUND")
 	halo:SetTexture(MEDIA .. "glow")
@@ -300,12 +329,29 @@ local function dialRotate(d, a)
 		d.dart:SetRotation(a)
 		d.dartEdge:SetRotation(a)
 	elseif s == "3d" then
-		local f = Nav.ArrowFrame(a)
+		-- Between two frames (Nav.ArrowBlend): the nearest whole and the other
+		-- over it at its share (half at most), so where both are solid the
+		-- arrow is their blend and never shows through; the highlight, added
+		-- light, blends exactly. The shares go through SetVertexColor, which
+		-- holds the body's tint as well (the client keeps one alpha for both).
+		local f, g, w = Nav.ArrowBlend(a)
 		if f ~= d.shownFrame then
 			d.shownFrame = f
 			local l, r, t, b = Nav.ArrowFrameCoords(f)
 			d.sheet:SetTexCoord(l, r, t, b)
 			d.sheetSpec:SetTexCoord(l, r, t, b)
+		end
+		if g ~= d.nextFrame then
+			d.nextFrame = g
+			local l, r, t, b = Nav.ArrowFrameCoords(g)
+			d.sheet2:SetTexCoord(l, r, t, b)
+			d.sheetSpec2:SetTexCoord(l, r, t, b)
+		end
+		if abs(w - d.mix) >= MIX_STEP then
+			d.mix = w
+			d.sheet2:SetVertexColor(d.tintR, d.tintG, d.tintB, w)
+			d.sheetSpec:SetVertexColor(1, 1, 1, 1 - w)
+			d.sheetSpec2:SetVertexColor(1, 1, 1, w)
 		end
 	else
 		d.body:SetRotation(a)
@@ -346,7 +392,9 @@ local function dialShowArrow(d, on, lk)
 	d.facet:SetShown(flat)
 	d.glow:SetShown(flat and lk.glow)
 	d.sheet:SetShown(solid)
+	d.sheet2:SetShown(solid)
 	d.sheetSpec:SetShown(solid)
+	d.sheetSpec2:SetShown(solid)
 	d.dart:SetShown(own)
 	d.dartEdge:SetShown(own and not skinDartArt)
 end
@@ -362,6 +410,8 @@ local function dialTint(d, r, g, b, lk)
 	local gr, gg, gb = glowRGB(r, g, b)
 	d.glow:SetVertexColor(gr, gg, gb, min(1, 0.45 * lk.glowStrength))
 	d.sheet:SetVertexColor(r, g, b, 1)
+	d.tintR, d.tintG, d.tintB = r, g, b
+	d.sheet2:SetVertexColor(r, g, b, d.mix > 0 and d.mix or 0)
 	local s = d.style
 	if isSkin(s) then
 		-- A dart in its art's own colours while far, unless the player picked
@@ -633,6 +683,7 @@ floorIcon:Hide()
 
 local Arrow = {
 	frame = frame, dial = dial, mover = mover, body = body, facet = facet, glow = glow, sheet = sheet, sheetSpec = sheetSpec,
+	sheet2 = D.sheet2, sheetSpec2 = D.sheetSpec2,
 	ring = ring, halo = halo, legIcon = legIcon, distText = distText, timerText = timerText, labelText = labelText, etaText = etaText, floorIcon = floorIcon,
 	dart = dart, dartEdge = dartEdge, skinRing = skinRing, skinCheck = skinCheck, skinDisc = skinDisc,
 	glass = glass, glassBody = glassBody, glassSand = glassSand, backing = D.backing,
@@ -801,7 +852,7 @@ local function applyStyle(new)
 	if new == style then return end
 	style = new
 	D.style = new
-	D.shownFrame = -1
+	D.shownFrame, D.nextFrame, D.mix = -1, -1, -1
 	showArrow(mode == "travel")
 	setRotation(curAngle)
 	tint(tintR, tintG, tintB)
@@ -1239,7 +1290,7 @@ Arrow.ReadSkin = readSkinDart       -- (): the skin's dart, edge and glow read a
 -- `dist` yards from a goal of the default radius, with `eta` seconds) or
 -- "arrived". `style` as Arrow.StyleFor gives it.
 function Arrow.PaintDial(d, lk, s, state, angle, dist, label, eta)
-	if s ~= d.style then d.style, d.shownFrame = s, -1 end
+	if s ~= d.style then d.style, d.shownFrame, d.nextFrame, d.mix = s, -1, -1, -1 end
 	local travel = state == "travel"
 	d.dial:Show()
 	dialText(d, lk)
