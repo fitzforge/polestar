@@ -7750,7 +7750,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   right-click or the gamepad's Y puts the default back. The window takes its
   tallest page's height; a shorter page's body is centred in the room under
   its hero; taller than the screen less 24px all round, it scales itself
-  down to fit. Enter takes Next (Finish on the last page), Backspace goes
+  down to fit. In the game's looks the title bar reads "Polestar Install"
+  and the frame's own close button stands in for the ✕. Enter takes Next (Finish on the last page), Backspace goes
   back, every other key goes on to the game (Escape closes it through the
   game's close of special windows); LB / RB turn the pages. Once per new
   character (`PolestarCharDB.welcomeSeen`: 0 for a character with no saved
@@ -7766,7 +7767,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   character gets the welcome, the choices that are its own (the stat
   weights, kept per class) and the last page. The page set is fixed when a
   showing starts. Any close marks the account (and the character). About's
-  Install tile, the settings window's Install button (left of its search),
+  Install tile, the settings window's Install button (left of its search;
+  left out while the main column is under 780 wide),
   the search's Install result (About, "install", "setup", "wizard", "first
   run") and `/polestar install` (`/polestar welcome` too) open it with every
   page.
