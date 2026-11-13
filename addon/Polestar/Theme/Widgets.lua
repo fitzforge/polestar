@@ -2941,28 +2941,40 @@ function W.ShellPreview(f, host, height)
 end
 
 -- tabs: { { key, label }, ... } or nil (no tab row; the body moves up). A
--- single tab is no choice: its row is left out too.
+-- single tab is no choice: its row is left out too. f.psTabRoom (a function,
+-- optional): the width the tabs may take from the first one's left edge,
+-- when something stands at the row's right end (the hub's faction filter).
 function W.ShellTabs(f, tabs, active, onSelect)
 	f.psOnTab = onSelect
 	local n = tabs and #tabs or 0
 	if n == 1 and not f.psKeepOneTab then n = 0 end
-	local x = SHELL.pad - 12
+	local kit, labels = false, 0
 	for i = 1, n do
 		local t = shellTab(f, i)
 		t.psKey = tabs[i].key
 		t.Label:SetText(tabs[i].label)
 		local on = tabs[i].key == active
 		Theme.SetTabSelected(t, on)
-		-- The game's looks: MinimalTabTemplate, its small label on the art,
-		-- the tab 40 wider than it; the house tab 24 wider, its label centred.
-		local kit = Theme.KitTab(t, on, t.Label)
+		kit = Theme.KitTab(t, on, t.Label)
 		if not kit then
 			t.Label:ClearAllPoints()
 			t.Label:SetPoint("CENTER", t, "CENTER", 0, 0)
 		end
 		Theme.Font(t.Label, kit and "small" or "label")
-		t:SetWidth(floor(t.Label:GetStringWidth() + (kit and 40 or 24) + 0.5))
 		W.Color(t.Label, on and "text" or (kit and "tabRest" or "textDim"))
+		labels = labels + t.Label:GetStringWidth()
+	end
+	-- The game's looks: MinimalTabTemplate, its small label on the art, the
+	-- tab 40 wider than it; the house tab 24 wider, its label centred. Where
+	-- the row's room can't take the looks' 40, their tabs give it up, down
+	-- to the house's 24, rather than run under what stands at its end.
+	local pad = kit and 40 or 24
+	local room = kit and n > 0 and f.psTabRoom and f.psTabRoom()
+	if room then pad = max(24, min(pad, floor((room - labels - 4 * (n - 1)) / n))) end
+	local x = SHELL.pad - 12
+	for i = 1, n do
+		local t = f.tabButtons[i]
+		t:SetWidth(floor(t.Label:GetStringWidth() + pad + 0.5))
 		t:ClearAllPoints()
 		t:SetPoint("BOTTOMLEFT", f.TabRow, "BOTTOMLEFT", x, 0)
 		t:Show()

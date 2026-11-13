@@ -23,14 +23,6 @@ const { audit, line, LOOKS } = require('../tools/preview/audit');
 // the test fails on it until its fix lands.
 const EXPECTED = [
 	{
-		look: '*', surface: 'picker', check: 'clickable', match: 'PolestarPicker Button "Alliance": 71% covered by PolestarPicker Button "Recent"',
-		owner: 'game looks', reason: "In the game looks the picker's wider Recent tab covers the Alliance filter; fixed before 0.3.8 ships.",
-	},
-	{
-		look: '*', surface: 'picker', check: 'overlap', match: '"Alliance" overlaps "Recent"',
-		owner: 'game looks', reason: "The same tab's label overlaps the Alliance filter's; fixed before 0.3.8 ships.",
-	},
-	{
 		look: 'classic', surface: '*', check: 'clickable', match: 'kit closeButton',
 		owner: 'game looks', reason: "Classic: after a repaint a dialog shows two close buttons, the look's own over the window's; fixed before 0.3.8 ships.",
 	},

@@ -2198,6 +2198,13 @@ local function build()
 		segButtons[i] = b
 	end
 	win.factionButtons = segButtons
+	-- The tabs end 8 short of it (W.ShellTabs: the game looks' wider tabs give
+	-- up their padding before they would run under it).
+	win.psTabRoom = function()
+		local filter = -2
+		for _, b in ipairs(segButtons) do filter = filter + b:GetWidth() + 2 end
+		return MID_W - 2 * (SH.pad - 12) - filter - 8
+	end
 
 	buildDetails()
 	win:HookScript("OnShow", function() P.Render() end)
