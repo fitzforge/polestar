@@ -2697,6 +2697,14 @@ function O.Jump(c)
 	return w
 end
 
+-- Open the window on setting `key`'s row (its home control, O.ControlByKey),
+-- scrolled into view and lit (a mover's menu, What's New). -> the row, or nil
+function O.JumpTo(key)
+	UI.ShowOptions()
+	local c = key and O.ControlByKey(key)
+	return c and O.Jump(c) or nil
+end
+
 -- A setting's Move (a row's or a section's): the window steps aside, Move
 -- frames opens with that frame's box picked and pulsing (ns.Movers.Unlock),
 -- and when it ends the window comes back where it was (the page and tab,

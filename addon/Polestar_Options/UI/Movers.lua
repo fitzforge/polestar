@@ -12,7 +12,9 @@
 -- movers.gridSize 8, 16 or 32 px, drawn out from the screen's centre with an
 -- accent crosshair); movers.snap off leaves only the grid. A click selects a
 -- box: the arrow keys nudge it 1 px (Shift: 10) and its line shows where it
--- stands. A right-click puts that frame back in its default place. The bar at
+-- stands. A right-click opens its menu (its settings, back to its default
+-- place on a second click, hide the box); Shift-right-click hides the box for
+-- the session, so it cannot be dragged by mistake. The bar at
 -- the top holds Grid, the grid size, Snap, Revert, Reset all positions (asks
 -- first), Exit and Save and exit.
 --
@@ -42,7 +44,8 @@
 --                                     elsewhere (a character's)
 --     via = fn -> key | nil           optional: the box that stands for this
 --                                     frame while its own is off (an alert
---                                     in the alerts' line) })
+--                                     in the alerts' line)
+--     settings = key                  optional: the setting its box's menu opens })
 --   ns.Movers.Unlock([key]) -> ok (key: that box selected), Lock() (keeps what
 --     moved), Save(), Exit() (asks when something moved), Revert() -> count,
 --     Changed() -> count, IsUnlocked(), IsSuspended() (paused for a fight), Toggle()
@@ -76,6 +79,7 @@ local root, bar, gridFrame, guides
 local boxes = {} -- key -> box
 local selected, dragging
 
+local NONE = {}
 local function round(v) return floor(v + 0.5) end
 local function combat() return InCombatLockdown and InCombatLockdown() and true or false end
 local function screen() return UIParent:GetWidth(), UIParent:GetHeight() end
@@ -597,8 +601,62 @@ M.EndDrag = endDrag
 local function boxTip(b)
 	W.Tooltip(b, "ANCHOR_TOP", b.Label:GetText(), {
 		{ L["Drag to move it (Shift: along one line). Arrow keys nudge it, Shift for 10 px."], Theme.Color("textDim") },
-		{ L["Right-click: back to its default place."], Theme.Color("textDim") },
+		{ L["Right-click: its settings, or back to its default place. Shift-right-click hides the box until you exit."], Theme.Color("textDim") },
 	})
+end
+
+-- A box hidden for the rest of the session (Shift-right-click, or its
+-- menu), so it cannot be dragged by mistake; the bar's Show hidden, a Move
+-- asking for it or the session's end brings it back. -> ok
+function M.HideBox(key)
+	local b = boxes[key]
+	if not (session and b and b:IsShown()) then return false end
+	session.hidden = session.hidden or {}
+	session.hidden[key] = true
+	if selected == b then selectBox(nil) end
+	W.HideTooltip(b)
+	refresh(true)
+	return true
+end
+
+local function hiddenCount()
+	local n = 0
+	for _ in pairs(session and session.hidden or {}) do n = n + 1 end
+	return n
+end
+M.HiddenCount = hiddenCount
+
+function M.ShowHidden()
+	if not (session and session.hidden) then return end
+	session.hidden = nil
+	refresh(true)
+end
+
+-- A box's menu, by the cursor: its frame's settings (the spec's `settings`
+-- key, when the settings hold it), its default place (a second click), and
+-- hiding the box.
+local menuAt
+local function boxMenu(b)
+	local key, spec = b.psKey, specs[b.psKey]
+	selectBox(b)
+	if not menuAt then
+		menuAt = CreateFrame("Frame", nil, root)
+		menuAt:SetSize(1, 1)
+	end
+	local cx, cy = cursor()
+	menuAt:ClearAllPoints()
+	menuAt:SetPoint("CENTER", root, "BOTTOMLEFT", cx, cy)
+	local O = ns.UI and ns.UI.Options
+	local items = {}
+	if spec.settings and O and O.ControlByKey and O.ControlByKey(spec.settings) then
+		items[#items + 1] = { text = L["Its settings"], icon = "gear", tip = L["Opens the settings on this frame's look; the boxes stay up."],
+			onClick = function() O.JumpTo(spec.settings) end }
+	end
+	items[#items + 1] = { text = L["Reset position"], icon = "reset", confirm = true, disabled = not spec.reset,
+		tip = L["Back to its default place."], onClick = function() M.Reset(key) end }
+	items[#items + 1] = { text = L["Hide this box"], icon = "close", tip = L["Until you exit, so it can't be moved by mistake. Also Shift-right-click."],
+		onClick = function() M.HideBox(key) end }
+	W.ShowMenu(menuAt, items, { point = "TOPLEFT", relPoint = "CENTER", x = 2, y = -2 })
 end
 
 local function newBox(key)
@@ -635,7 +693,8 @@ local function newBox(key)
 	end)
 	b:SetScript("OnMouseUp", function(self, button)
 		if button == "RightButton" then
-			if not dragging then M.Reset(self.psKey) end
+			if dragging then return end
+			if IsShiftKeyDown and IsShiftKeyDown() then M.HideBox(self.psKey) else boxMenu(self) end
 		elseif dragging == self then
 			endDrag()
 		end
@@ -764,6 +823,10 @@ local function layoutBar()
 	x = x + bar.Snap:GetWidth() + 2 + ceil(bar.Snap.Text:GetStringWidth()) + 20
 	bar.Rule2:SetPoint("TOPLEFT", bar, "TOPLEFT", x - 10, -12)
 	bar.Rule2:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x - 10, 12)
+	if bar.Unhide:IsShown() then
+		bar.Unhide:SetPoint("LEFT", bar, "LEFT", x, 0)
+		x = x + bar.Unhide:GetWidth() + 8
+	end
 	bar.Revert:SetPoint("LEFT", bar, "LEFT", x, 0)
 	x = x + bar.Revert:GetWidth() + 8
 	bar.ResetAll:SetPoint("LEFT", bar, "LEFT", x, 0)
@@ -819,6 +882,9 @@ local function buildBar()
 	end
 	bar.Snap = labelled(bar, L["Snap"], function() return ns.Get("movers.snap") ~= false end,
 		function(v) ns.Set("movers.snap", v and true or false) end, L["Frames line up with the screen's centre and with each other's edges as you drag."])
+	bar.Unhide = W.Button(bar, "", function() M.ShowHidden() end, { ghost = true })
+	bar.Unhide.psTip, bar.Unhide.psTipLines = L["Show hidden boxes"], { L["The boxes you hid with Shift-right-click, back."] }
+	bar.Unhide:Hide()
 	bar.Revert = W.Button(bar, L["Revert"], function() M.Revert() end, { ghost = true, icon = "reload" })
 	bar.Revert.psTip, bar.Revert.psTipLines = L["Revert"], { L["Every frame back where it stood when you unlocked them."] }
 	bar.ResetAll = W.Button(bar, L["Reset all positions"], confirmResetAll, { danger = true, icon = "reset" })
@@ -834,6 +900,15 @@ local function refreshBar()
 	bar.Snap:Refresh()
 	paintSegments()
 	paintRevert()
+	-- Show hidden (n) while boxes are hidden: the bar lays out anew as it
+	-- comes, goes or its count changes.
+	local n = hiddenCount()
+	local text = n > 0 and format(L["Show hidden (%d)"], n) or ""
+	if (n > 0) ~= bar.Unhide:IsShown() or bar.Unhide.Label:GetText() ~= text then
+		bar.Unhide:SetShown(n > 0)
+		W.SetButtonText(bar.Unhide, text)
+		layoutBar()
+	end
 end
 
 function sessionChanged()
@@ -889,15 +964,17 @@ local function build()
 	buildBar()
 end
 
--- Every enabled frame's box, the smaller ones over the bigger, so a box
--- inside another stays within reach; withGrid: the grid and the bar too.
+-- Every enabled frame's box (not one hidden for the session), the smaller
+-- ones over the bigger, so a box inside another stays within reach;
+-- withGrid: the grid and the bar too.
 function refresh(withGrid)
 	if not root then return end
 	local shown = {}
+	local hidden = session and session.hidden or NONE
 	for _, key in ipairs(order) do
 		local spec = specs[key]
 		local b = boxes[key]
-		if enabled(spec) then
+		if enabled(spec) and not hidden[key] then
 			b = b or newBox(key)
 			b.Label:SetText(spec.label or key)
 			placeBox(key)
@@ -934,6 +1011,7 @@ local function standDown()
 	root:SetScript("OnUpdate", nil)
 	root:Hide()
 	if W.ModalShown and W.ModalShown() then W.HideModal() end
+	if menuAt and W.MenuShown(menuAt) then W.HideMenu() end
 end
 
 -- A fight: the session pauses before the lockdown (frames that move only
@@ -983,6 +1061,10 @@ function M.Unlock(key, opts)
 	end
 	if opts and opts.back then session.back = opts.back end
 	key = key and standIn(key)
+	if key and session.hidden and session.hidden[key] then
+		session.hidden[key] = nil
+		refresh(true)
+	end
 	local b = key and boxes[key]
 	if b and b:IsShown() then
 		selectBox(b)
@@ -1086,7 +1168,7 @@ end
 local guideFrame = G("PolestarGuideFrame")
 local function guideScale() return M.Ratio(guideFrame(), ns.Get("ui.scale") or 1) end
 M.Register({
-	key = "guide", label = L["Guide window"], frame = guideFrame,
+	key = "guide", label = L["Guide window"], frame = guideFrame, settings = "ui.scale",
 	size = function()
 		local k = guideScale()
 		return (ns.Get("ui.width") or 340) * k, 200 * k
@@ -1114,7 +1196,7 @@ if ns.Nav then
 	local arrow = G("PolestarNavArrow")
 	local function k() return M.Ratio(arrow(), ns.Get("nav.arrowScale") or 1) end
 	M.Register({
-		key = "arrow", label = L["Arrow"], frame = arrow,
+		key = "arrow", label = L["Arrow"], frame = arrow, settings = "nav.arrowScale",
 		enabled = function() return ns.Get("nav.arrow") ~= false end,
 		size = function() return 200 * k(), 130 * k() end,
 		get = function()
@@ -1141,7 +1223,7 @@ do
 	local launcher = G("PolestarLauncher")
 	local function k() return M.Ratio(launcher(), 1) end
 	M.Register({
-		key = "launcher", label = L["Floating button"], frame = launcher,
+		key = "launcher", label = L["Floating button"], frame = launcher, settings = "ui.launcherSize",
 		enabled = function() return ns.Get("ui.launcher") and true or false end,
 		size = function() return 32 * k(), 32 * k() end,
 		get = function()
@@ -1184,7 +1266,7 @@ if B and B.SavedPos and B.SetPosition and B.Offsets and B.Size then
 		return l + hs / 2, b + hs / 2
 	end
 	M.Register({
-		key = "buttons", label = L["Quest buttons"], frame = B.Holder, fixedSize = true,
+		key = "buttons", label = L["Quest buttons"], frame = B.Holder, fixedSize = true, settings = "qol.buttonScale",
 		size = function()
 			local x0, x1, y0, y1 = edges()
 			local s = k()
@@ -1215,15 +1297,15 @@ end
 -- The compact frames (Maps.CompactFrame): saved as { "CENTER", x, y } once
 -- dragged; their modules re-place them on the setting's change.
 if ns.Maps then
-	pointFormat({ key = "flightTimer", label = L["Flight timer"], frame = G("PolestarFlightTimer"),
+	pointFormat({ key = "flightTimer", label = L["Flight timer"], frame = G("PolestarFlightTimer"), settings = "trackers.flight.scale",
 		enabled = function() return ns.Get("maps.flightTimer") ~= false end,
 		size = function() return 220, 34 end }, "maps.timerPos", { "TOP", 0, -140 })
-	pointFormat({ key = "instances", label = L["Instance tracker"], frame = G("PolestarInstanceTracker"),
+	pointFormat({ key = "instances", label = L["Instance tracker"], frame = G("PolestarInstanceTracker"), settings = "trackers.instances.scale",
 		enabled = function() return ns.Get("maps.instances") ~= false end,
 		size = function() return 230, 30 end }, "maps.trackerPos", { "TOPRIGHT", -220, -220 })
 end
 if ns.Party then
-	pointFormat({ key = "party", label = L["Party panel"], frame = G("PolestarPartyPanel"),
+	pointFormat({ key = "party", label = L["Party panel"], frame = G("PolestarPartyPanel"), settings = "trackers.party.scale",
 		enabled = function() return ns.Get("party.panel") ~= false end,
 		size = function() return 260, 96 end }, "party.panelPos", { "TOPLEFT", 280, -220 })
 end
@@ -1242,16 +1324,16 @@ local function own(fn) return function() return ns.Get("toasts.stack") ~= true a
 local function line() return ns.Get("toasts.stack") == true and "toastLine" or nil end
 ns.OnInit(function()
 	if ns.Rares and ns.Rares.Toast then
-		pointFormat({ key = "rareAlert", label = L["Rare alert"], frame = G("PolestarRareToast"), via = line,
+		pointFormat({ key = "rareAlert", label = L["Rare alert"], frame = G("PolestarRareToast"), via = line, settings = "toasts.rare.scale",
 			enabled = own(function() return ns.Get("rares.alerts") ~= false end),
 			size = function() return 368, 104 end }, "rares.toastPoint", { "TOP", 0, -132 })
 	end
 	if ns.Nav and ns.Nav.alerts then
-		pointFormat({ key = "transportAlert", label = L["Transport alert"], frame = G("PolestarAlert"), via = line,
+		pointFormat({ key = "transportAlert", label = L["Transport alert"], frame = G("PolestarAlert"), via = line, settings = "toasts.transport.scale",
 			enabled = own(function() return ns.Get("nav.alerts") ~= false and ns.Get("nav.alertBanner") ~= false end),
 			size = function() return 320, 56 end }, "toasts.transport.point", { "TOP", 0, -72 })
 	end
-	pointFormat({ key = "whileHere", label = L["While you're here"], frame = G("PolestarWhileHereToast"), via = line,
+	pointFormat({ key = "whileHere", label = L["While you're here"], frame = G("PolestarWhileHereToast"), via = line, settings = "toasts.whilehere.seconds",
 		enabled = own(function() return ns.Get("behavior.whileHere") ~= false end),
 		size = function() return 320, 46 end }, "toasts.whilehere.point", { "TOP", 0, -150 })
 	-- The heads-up card (UI/ClassToast.lua: a class quest, a dungeon) on a spot
@@ -1259,7 +1341,7 @@ ns.OnInit(function()
 	-- window and follows it).
 	local CT = ns.UI and ns.UI.ClassToast
 	if CT and CT.PlaceSetting then
-		pointFormat({ key = "headsUp", label = L["Heads-up card"], frame = G("PolestarClassToast"),
+		pointFormat({ key = "headsUp", label = L["Heads-up card"], frame = G("PolestarClassToast"), settings = "toasts.headsup.place",
 			enabled = function() return CT.PlaceSetting() == "free" end,
 			size = function() return 340, CT.Compact() and 40 or 120 end }, "toasts.headsup.pos", CT.FREE_AT)
 	end

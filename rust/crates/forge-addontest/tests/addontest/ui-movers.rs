@@ -26,6 +26,15 @@ local function frameRect(f)
 end
 local root = function() return PolestarMovers end
 local function key(k) stub.RunScript(root(), "OnKeyDown", k) end
+-- The shared menu's shown rows: their texts, and one by its text.
+local function menuTexts()
+	local out = {}
+	for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+	return out
+end
+local function menuRow(text)
+	for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then return r end end
+end
 "#;
 
 fn run(script: &str) -> Value {
@@ -218,10 +227,10 @@ fn snapping_takes_the_screen_centre_and_other_edges_within_six_pixels_else_the_g
 	assert_eq!(out["clamped"], json!([0, 1040, false, false]));
 }
 
-// The arrow keys nudge the selected box 1 px (Shift: 10) through the frame's key; a right-click puts that
-// frame back; Reset all positions puts every one back.
+// The arrow keys nudge the selected box 1 px (Shift: 10) through the frame's key; its menu's Reset position puts
+// that frame back; Reset all positions puts every one back.
 #[test]
-fn arrow_keys_nudge_right_click_resets_one_and_reset_all_resets_every_frame() {
+fn arrow_keys_nudge_the_menu_resets_one_and_reset_all_resets_every_frame() {
 	let out = run(r#"
 		Polestar.Set("ui.launcher", true)
 		Polestar.Set("ui.launcherPos", { 500, 500 })
@@ -236,6 +245,8 @@ fn arrow_keys_nudge_right_click_resets_one_and_reset_all_resets_every_frame() {
 		stub.keys.shift = false
 		local ten = Polestar.Get("ui.launcherPos")
 		stub.RunScript(M.Box("launcher"), "OnMouseUp", "RightButton")
+		local item = menuRow("Reset position")
+		item:Click(); item:Click()
 		local reset = Polestar.Get("ui.launcherPos")
 		Polestar.QoL.Buttons.SetPosition({ "CENTER", "CENTER", 0, 0 })
 		M.ResetAll()
@@ -244,10 +255,60 @@ fn arrow_keys_nudge_right_click_resets_one_and_reset_all_resets_every_frame() {
 	assert_eq!(out["sel"], "launcher", "Unlock(key) selects that box");
 	assert_eq!(out["one"], json!([501, 501]));
 	assert_eq!(out["ten"], json!([491, 501]));
-	assert_eq!(out["reset"], false, "right-click: back to its default place");
+	assert_eq!(out["reset"], false, "the menu's Reset position: back to its default place");
 	assert_eq!(out["timer"], false);
 	assert_eq!(out["guide"], false);
 	assert_eq!(out["buttons"], false);
+}
+
+// A right-click on a box no longer resets it at once: it opens a menu by the cursor with the frame's settings, Reset
+// position (a second click acts) and Hide this box. Its settings open the window on the frame's look with the
+// boxes still up. Shift-right-click hides the box for the session (the bar offers them back, and so does a Move
+// asking for it); the session's end forgets it.
+#[test]
+fn a_right_click_opens_the_boxs_menu_and_shift_right_click_hides_the_box_for_the_session() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		Polestar.Set("behavior.whileHere", true)
+		M.Unlock()
+		local b = M.Box("launcher")
+		stub.RunScript(b, "OnMouseUp", "RightButton")
+		local menu = { shown = PolestarMenu:IsShown(), items = menuTexts(), selected = M.Selected() or false }
+		local item = menuRow("Reset position")
+		item:Click()
+		local armed = { item.Text:GetText(), Polestar.Get("ui.launcherPos"), PolestarMenu:IsShown() }
+		Polestar.Widgets.HideMenu()
+		stub.RunScript(M.Box("arrow"), "OnMouseUp", "RightButton")
+		menuRow("Its settings"):Click()
+		local settings = { shown = PolestarOptions:IsShown(), page = Polestar.UI.Options.page.key, unlocked = M.IsUnlocked() }
+		stub.keys.shift = true
+		stub.RunScript(M.Box("whileHere"), "OnMouseUp", "RightButton")
+		stub.keys.shift = false
+		local bar = PolestarMoversBar
+		local hidden = { box = M.Box("whileHere"):IsShown(), count = M.HiddenCount(), offer = bar.Unhide:IsShown() and bar.Unhide.Label:GetText() or false,
+			menu = PolestarMenu:IsShown() }
+		M.Unlock("whileHere")
+		local asked = { M.Box("whileHere"):IsShown(), M.Selected() or false }
+		stub.keys.shift = true
+		stub.RunScript(M.Box("whileHere"), "OnMouseUp", "RightButton")
+		stub.keys.shift = false
+		bar.Unhide:Click()
+		local offered = { M.Box("whileHere"):IsShown(), bar.Unhide:IsShown() }
+		stub.keys.shift = true
+		stub.RunScript(M.Box("whileHere"), "OnMouseUp", "RightButton")
+		stub.keys.shift = false
+		M.Save()
+		M.Unlock()
+		emit({ menu = menu, armed = armed, settings = settings, hidden = hidden, asked = asked, offered = offered,
+			again = M.Box("whileHere"):IsShown() })"#);
+	assert_eq!(out["menu"], json!({ "shown": true, "items": ["Its settings", "Reset position", "Hide this box"], "selected": "launcher" }));
+	assert_eq!(out["armed"], json!(["Click again to confirm", [500, 500], true]), "one click arms the reset");
+	assert_eq!(out["settings"], json!({ "shown": true, "page": "arrow", "unlocked": true }), "the arrow's look page, the boxes still up");
+	assert_eq!(out["hidden"], json!({ "box": false, "count": 1, "offer": "Show hidden (1)", "menu": false }), "Shift-right-click hides it, no menu");
+	assert_eq!(out["asked"], json!([true, "whileHere"]), "a Move asking for it shows it again");
+	assert_eq!(out["offered"], json!([true, false]), "the bar's Show hidden");
+	assert_eq!(out["again"], true, "a new session shows every box");
 }
 
 // A fight pauses the session before the lockdown (no unlocking in one) and its end brings it back as it was: the

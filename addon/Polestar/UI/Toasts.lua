@@ -423,6 +423,7 @@ function TS.MoverSpec()
 		set = function(point, rel, x, y) ns.Set("toasts.stackPoint", { point, rel or point, floor((x or 0) + 0.5), floor((y or 0) + 0.5) }) end,
 		reset = function() ns.Set("toasts.stackPoint", nil) end,
 		keys = { "toasts.stackPoint" },
+		settings = "toasts.stack",
 	}
 end
 

@@ -7970,7 +7970,7 @@ Each call fires `GUIDE_VISIBILITY`.
   whose functions load the mode on their first call and which keeps the specs
   registered before it, `Movers.pending`; in a fight `Unlock` says no and
   nothing loads). `Movers.Register({ key, label, frame, size, get, set, reset,
-  anchor?, enabled?, fixedSize?, keys?, save?, restore? })`: `get` and `set`
+  anchor?, enabled?, fixedSize?, keys?, save?, restore?, via?, settings? })`: `get` and `set`
   speak a point on `UIParent` in its units, and each frame keeps its own saved
   key and format
   (`ui.pos`, `nav.arrowPos`, `ui.launcherPos`, the character's `qol.buttonPos`,
@@ -7982,7 +7982,12 @@ Each call fires `GUIDE_VISIBILITY`.
   within 6 px with an accent guide (`movers.snap`), else to the grid out from
   the screen's centre (`movers.grid`, `movers.gridSize` 8, 16 or 32); Shift
   keeps a drag to one axis. A click selects (its centre's offset shown), the
-  arrow keys nudge it 1 px (Shift 10), a right-click resets it, the top bar
+  arrow keys nudge it 1 px (Shift 10), a right-click opens its menu by the
+  cursor (Its settings: the spec's `settings` key through `O.JumpTo`, the
+  boxes staying up; Reset position on a second click; Hide this box), and
+  Shift-right-click hides the box for the session (`Movers.HideBox`; the
+  bar's Show hidden (n), `Movers.ShowHidden()`, or a Move asking for it
+  brings it back), the top bar
   has Grid, the size, Snap, Revert, Reset all positions (the shared dialog),
   Exit and Save and exit. An unlock is a session: where each frame stood as
   it began is kept (`keys`: the settings `set` writes, as stored, nil at the
