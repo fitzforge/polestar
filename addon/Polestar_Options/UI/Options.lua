@@ -1823,7 +1823,7 @@ end
 local PHRASES = { { "\194[\161\171\183\187\191]", " " }, { "\226\128[\147\148\152\153\156\157\158\166]", " " },
 	{ "\227\128[\129\130]", " " }, { "\239\188[\129\136\137\140\154\155\159]", " " },
 	{ "see%W*through", "seethrough" }, { "step%W*numbers?", "numbered" },
-	{ "get%W+rid%W+of", "hide" }, { "show%W+me", "me" }, { "turn%W*in(s?)%f[%W]", "turnin%1" } }
+	{ "%f[%w]get%W+rid%W+of%f[%W]", "hide" }, { "%f[%w]show%W+me%f[%W]", "me" }, { "%f[%w]turn%W*in(s?)%f[%W]", "turnin%1" } }
 -- The question and request words of each client language Polestar is
 -- translated into, folded as the matcher folds (lower case, Latin accents
 -- off: "où" is "ou", "können" "konnen"), filler on that client. Chinese
