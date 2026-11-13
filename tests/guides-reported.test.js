@@ -11838,3 +11838,16 @@ test("forever/alliance/30-40/04-stranglethorn-vale.guide: every class but Shaman
 	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK', 'DRUID']) assert.ok(forClass(cls)(train[0]), `${cls} trains there`);
 	assert.ok(!forClass('SHAMAN')(train[0]), 'Shamans train in Ironforge');
 });
+
+// 0.4.0 route audit (Refs #2025, the #1508 pattern): 30-40/05 walked every character from Ironforge through the Dun
+// Morogh tunnel to Thelsamar, though every Alliance character has had the Thelsamar flight path since 03-loch-modan
+// (Dwarves and Gnomes since their start). Players' recordings: 3 of 8 people flew it (1-2 minutes), 5 walked (9-27).
+// The flight is for whoever knows the flight path, the walk for whoever Polestar hasn't seen learn it.
+test(`${ARATHI}: Ironforge to Thelsamar by flight when you know the flight path, the tunnel when you don't`, { skip }, () => {
+	const list = goals(ARATHI);
+	const fly = list[at(list, 'fly Thelsamar', (g) => g.t === 'fly' && /Thelsamar/.test(g.location || g.text || ''))];
+	assert.ok((fly.step.when || []).some((p) => p.k === 'taxi' && !p.neg), 'the flight is when taxi "Thelsamar"');
+	const walk = list.find(({ step, goal }) => goal.t === 'goto' && /Thelsamar/.test(goal.text || goal.location || '') && (step.when || []).some((p) => p.k === 'taxi' && p.neg));
+	assert.ok(walk, 'the tunnel walk is when !taxi "Thelsamar"');
+	assert.ok(!list.some(({ step }) => step.only && step.only.races), 'no step of this guide goes by race');
+});
