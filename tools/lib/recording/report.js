@@ -176,7 +176,9 @@ function sessionItems(s, xpModel) {
 			default:
 				break;
 		}
-		if (typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
+		// Quest points and vignettes locate remote places, not the player.
+		const remotePoint = e.e === 'poi' || e.e === 'treasure' || (e.e === 'rare' && (e.src === 'v' || e.src === 'vignette'));
+		if (!remotePoint && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
 			if (lastPos && lastPos.map === e.map && cur) {
 				const [w, h] = mapSize(s.maps, e.map);
 				const d = Math.hypot(((e.x - lastPos.x) * w) / 100, ((e.y - lastPos.y) * h) / 100);
