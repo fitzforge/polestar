@@ -657,5 +657,5 @@ fn a_gathering_spot_row_wears_the_tracking_chip_while_the_minimap_tracks_herbs_a
 	assert_eq!(r["on"]["chip"], "Tracking is on", "the chip while the minimap tracks herbs: {r}");
 	assert_eq!(r["off"]["chip"], false, "no chip with the tracking off: {r}");
 	assert_eq!(r["on"]["h"].as_f64().unwrap() - r["off"]["h"].as_f64().unwrap(), 24.0, "the row grows by the chip and its gap: {r}");
-	assert_eq!(r["target"], json!([-3, 1, 1429, 47.6, 69.0, "Peacebloom can grow here"]), "a click leads the arrow to the spot");
+	assert_eq!(r["target"], json!([-3, 1, 1429, 47.6, 69, "Peacebloom can grow here"]), "a click leads the arrow to the spot");
 }
