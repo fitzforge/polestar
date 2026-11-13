@@ -486,10 +486,6 @@ step Paladin trainer
   only Paladin
   train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Razor Hill has no paladin trainer
 
-step Mage trainer
-  only Mage
-  train class only Mage -- Mai'ah in Durotar; Razor Hill has no mage trainer
-
 step Druid trainer
   only Druid
   train class only Druid -- Sheal Runetotem in Mulgore; Razor Hill has no druid trainer

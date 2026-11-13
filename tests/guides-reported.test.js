@@ -11894,3 +11894,16 @@ test('#2000: the Undercity flight path on the Undead casters\' Undercity stop, C
 	}
 });
 
+// 0.4.0 start audit: Durotar's Razor Hill training stop at about 11 sent Mages back to Mai'ah in the Valley of Trials
+// (Razor Hill has no mage trainer); no recorded Mage went. Mages train at Sen'jin on the way through at 8-10 and in
+// Orgrimmar on the next guide's arrival at about 12.
+test('Durotar (Orc, Troll): no Mage trainer step back in the Valley of Trials after Razor Hill', { skip }, () => {
+	for (const guide of DUROTARS) {
+		const list = goals(guide).filter(forClass('MAGE'));
+		const heglan = at(list, 'accept 99049', is('accept', 99049));
+		const back = list.slice(heglan).filter(({ goal }) => goal.t === 'train' && goal.npc == null && /Mai'ah/.test(goal.note || '')).length;
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		assert.doesNotMatch(text, /train class only Mage -- Mai'ah in Durotar/, `${guide}: no trip back to Mai'ah`);
+		assert.equal(back, 0);
+	}
+});
