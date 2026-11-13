@@ -13,7 +13,8 @@ next forever/horde/50-60/01-un-goro-crater
 # The Super Egg-O-Matic (2741, level 47, accepted in 04-tanaris): the egg from the nests south of the Frayfeather
 # hippogryphs and the hand-in at Gadgetzan, at 50 with its full 4,200 XP (it was taken at about 56.5 in 50-60/05 with a
 # Feralas ride for about a fifth of that).
-# Left out: Assisting Arch Druid Runetotem (3784).
+# Added here: Assisting Arch Druid Runetotem (3762), from Innkeeper Pala on the Thunder Bluff stop, handed to Hamuul
+# before Un'Goro Soil (3761). Left out: the Undercity copy (3784).
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
@@ -269,6 +270,8 @@ step Fly to Thunder Bluff
 step Thunder Bluff
   zone Thunder Bluff
   tip Fly to Thunder Bluff; it is on the way to Camp Mojache. No flight path there yet? Fly to Camp Taurajo and ride west through Mulgore. Hamuul and Magatha are on the Elder Rise; Druids and Paladins train here (Turak Runetotem, Alodan the Hopeful).
+  accept 3762                           -- Innkeeper Pala, at the inn: for Hamuul
+  turnin 3762                           -- Arch Druid Hamuul Runetotem, on the Elder Rise
   accept 3761
 
 step Class trainer

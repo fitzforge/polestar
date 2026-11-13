@@ -2821,6 +2821,15 @@ test('Horde 40-50 binds: Stranglethorn sets none, Camp Mojache is bound once (0.
 	assert.deepEqual(binds.map(({ goal }) => goal.location), ['Camp Mojache'], '40-50/02 binds Camp Mojache once, at Innkeeper Greul');
 });
 
+test("Horde 40-50/06: Un'Goro Soil comes after Assisting Arch Druid Runetotem is handed to Hamuul (#2025, #2085)", { skip }, () => {
+	const list = goals(H40('06-azshara'));
+	const take = at(list, 'accept 3762 (Innkeeper Pala)', is('accept', 3762));
+	const handIn = at(list, 'turnin 3762 (Hamuul)', is('turnin', 3762));
+	const soil = at(list, "accept 3761 (Un'Goro Soil)", is('accept', 3761));
+	assert.ok(take < handIn && handIn < soil, 'the breadcrumb is out of the log before its target is asked for');
+	assert.equal(list[take].s, list[soil].s, 'all on the one Thunder Bluff stop');
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.

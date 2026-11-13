@@ -4904,6 +4904,18 @@
 				],
 				"faction": "Horde",
 				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
+			},
+			{
+				"a": [
+					"turnin",
+					3762
+				],
+				"b": [
+					"accept",
+					3761
+				],
+				"faction": "Horde",
+				"why": "Horde 40-50 route audit (0.4.0): Assisting Arch Druid Runetotem (3762, Innkeeper Pala) is handed to Hamuul before he is asked for Un'Goro Soil (3761) on 40-50/06's Thunder Bluff stop: a breadcrumb in the log holds its target back (#2085), and if the pair is a prerequisite instead, 3761 needs it handed in."
 			}
 		],
 		"notes": [
@@ -9320,6 +9332,15 @@
 				"q": 567,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1776): Dangerous! is taken from the poster in the 22-25 guide, which kills Farmer Kalaba (567.4) with the peasants (528) and Citizen Wilkes (567.2) at the smithy (529), and leaves the clerk (567.1, the town hall with 532) and the miner (567.3, Azurelode Mine with 539) to this guide. A character who carries it but left the 22-25 guide before the smithy had no step for Kalaba or Wilkes here: the catch-up's peasants and smithy steps (`when !turnedin 529`) now list them, as the 22-25 guide does. Kolbi (Skyborne Druid 31, 0.3.6) had 567 at 2/4, with 529 neither in the log nor handed in.",
 				"issue": "#1776"
+			},
+			{
+				"q": 3762,
+				"after": [
+					"accept",
+					3518
+				],
+				"reason": "Horde 40-50 route audit (0.4.0): Un'Goro Soil (3761) lists the three Assisting Arch Druid Runetotem quests (936, 3762, 3784, the capital innkeepers) as breadcrumbs or prerequisites, and 40-50/06 took it at Hamuul with none of them in its history (#2025's unclear-breadcrumb list, 06-azshara:271). No recorded player of 47 or more has asked Hamuul yet (every recorded Hamuul window lists 3761 as not offered, all from low-level characters). Innkeeper Pala stands in Thunder Bluff, the city of the same stop: 3762 is taken and handed to Hamuul before 3761, so the step works whether the pair is a breadcrumb or a prerequisite, and the breadcrumb is out of the log before its target (#2085). 470 XP, about a minute.",
+				"issue": "#2025"
 			}
 		],
 		"skip": [
