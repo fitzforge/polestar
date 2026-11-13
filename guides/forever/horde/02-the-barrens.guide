@@ -66,6 +66,17 @@ next forever/horde/05-stonetalon-mountains
 # recordings). Owatanka (884), Lakota'mani (883)
 # and the Rogue's Mission: Possible But Not Probable (2478, Gallywix is elite) are optional.
 #
+# Wailing Caverns (`when dungeon "Wailing Caverns"`, dungeons in the route): for a character who
+# chose it, Smart Drinks is taken when Raptor Horns is handed in, Trouble at the Docks on the Ratchet stop
+# after Orgrimmar (level 18: not earlier, 3+ levels over), Nalpak's Deviate Hides and Ebru's Deviate
+# Eradication (21) at the run's own stop (their cave is above the entrance; the route's first visit to
+# Lushwater Oasis is Hezrul's), and the run follows Hezrul, whose shore is at the door, at about 20.5;
+# Nalpak and Ebru take theirs at once. Mebok's and Bigglefuzz's go back on
+# 04-the-barrens' Ratchet stop (`when complete`): a Crossroads-Ratchet hop for them here cost ~1.4 km of
+# walking, two flights and a hub visit (over the travel budget). Left out: The Glowing Shard (6981:
+# Sputtervalve in Ratchet, then Falla Sagewind; named in the run tip), Serpentbloom and Leaders of the Fang
+# (962, 914, with Hamuul's and Nara's errands 1489 and 1490: Thunder Bluff, not on the route before the run).
+#
 # Dropped: Chen's Empty Keg part 2 and 3 (821, 822): part 2's tusks, kidneys and horn are drops
 # spread over three areas of this guide, walked through and come back for. Deepmoss Spider Eggs
 # (1069): few recorded players hand it in.
@@ -558,6 +569,12 @@ step Ratchet
   when complete 865
   turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
 
+step Mebok Mizzyrix
+  when dungeon "Wailing Caverns"
+  when turnedin 865
+  tip For your Wailing Caverns run: Mebok's next errand, Smart Drinks.
+  accept 1491                         -- Mebok Mizzyrix
+
 step Ratchet
   zone The Barrens
   when onquest 819
@@ -624,6 +641,12 @@ step Ratchet
 step Ratchet
   when complete 865
   turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
+
+step Mebok Mizzyrix
+  when dungeon "Wailing Caverns"
+  when turnedin 865
+  tip For your Wailing Caverns run: Mebok's next errand, Smart Drinks.
+  accept 1491                         -- Mebok Mizzyrix
 
 step Ratchet
   turnin 888                          -- Gazlowe, upstairs
@@ -863,6 +886,12 @@ step Ratchet
   turnin 865                          -- Mebok Mizzyrix
   vendor nearest
 
+step Ratchet: Wailing Caverns quests
+  when dungeon "Wailing Caverns"
+  tip Your Wailing Caverns quests, if you have not taken them yet: Mebok Mizzyrix beside the WANTED poster, Crane Operator Bigglefuzz on the dock by the flight master. The run is later in this guide, after Hezrul.
+  accept 1491                         -- Mebok Mizzyrix
+  accept 959                          -- Crane Operator Bigglefuzz
+
 step Islen Waterseer
   only Shaman
   tip Islen waits on the hill south of Ratchet, on your way north.
@@ -915,6 +944,35 @@ step Hezrul Bloodmark
   tip Hezrul leads the Kolkar on the west shore of Lushwater Oasis, south of Regthar. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to Regthar on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for Tonga.
   collect 5025 quest 852.1 @46.0,41.1
   collect 5098 quest 880.1
+
+step Nalpak and Ebru
+  when dungeon "Wailing Caverns"
+  tip For your Wailing Caverns run: Nalpak and Ebru stand in a hidden cave in the rocks above the entrance, at the north end of the oasis' west shore: climb up from the west side. Follow the arrow up.
+  accept 1486                         -- Nalpak
+  accept 1487                         -- Ebru
+
+step Wailing Caverns
+  when dungeon "Wailing Caverns"
+  when onquest 1486,1487,1491,959
+  zone The Barrens
+  tip Wailing Caverns is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its mouth is just north of Hezrul's shore, at the north end of Lushwater Oasis, under Nalpak's cave.
+  tip In the caves before the portal: Mad Magglish, stealthed, with the 99-Year-Old Port (he moves between a few spots and comes back slowly: leave him if he's gone). Inside: the Deviates for Ebru, and their hides for Nalpak (they drop rarely: one run may not be enough, so leave the rest for another run), Wailing Essence from the Ectoplasms. After the four Fanglords, the Disciple of Naralex at the entrance leads you to Naralex: Mutanus the Devourer drops the Glowing Shard: its quest (someone in Ratchet, then Falla Sagewind above the caverns) is not on this route; the Dungeons page's hand-in guide takes it.
+  enter "Wailing Caverns" @46.0,36.5
+  collect 6443 x20 quest 1486.1 optional -- Deviate Hide
+  complete 1487                       -- Deviate Eradication
+  collect 6464 x6 quest 1491.1        -- Wailing Essence: the Ectoplasms
+  collect 5334 quest 959.1 optional   -- 99-Year-Old Port: Mad Magglish
+
+step Nalpak
+  when dungeon "Wailing Caverns"
+  when complete 1486
+  tip Back out of the caverns and up to the cave above the entrance.
+  turnin 1486                         -- Nalpak
+
+step Ebru
+  when dungeon "Wailing Caverns"
+  when complete 1487
+  turnin 1487                         -- Ebru
 
 step Olgra's Adornments
   tip On the way back down the Gold Road to Camp Taurajo: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry Olgra's Adornments. Hand them to Mankrik on your last Crossroads stop.

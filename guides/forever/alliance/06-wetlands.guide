@@ -30,6 +30,31 @@ next forever/alliance/07-thousand-needles
 # levels fit: Wetlands 27-29, then Ashenvale 28-30), by boat from Menethil to
 # Auberdine; they were in 30-40/03, at 33-34. Then back by boat to Menethil, Pilot Longbeard in
 # Ironforge (28) and The Missing Diplomat in Stormwind (28), on to the Duskwood return.
+#
+# The Stockade (`when dungeon "The Stockade"`, dungeons in the route): for a character who chose it,
+# the run is on this guide's Stormwind stop, at about 29: Warden Thelwater (Quell the Uprising; The
+# Stockade Riots when Bazil Thredd is carried from Baros Alexston after the Deadmines) is picked up and
+# handed in at the gate on the same stop; Councilman Millstipe's Crime and Punishment comes from
+# 04-redridge-mountains' Darkshire stop and goes back on 07-thousand-needles' (`when complete`). Left out:
+# The Color of Blood (388: Nikova Raskol in Old Town, a second Old Town visit after the run: an avoidable
+# hub revisit in the flow audit, over the travel budget), What Comes Around... (386:
+# Guard Berton in Lakeshire, not passed after the run) and The Fury Runs Deep (378: Motley Garmason's chain
+# at Dun Modr).
+#
+# Blackfathom Deeps (run in 06-ashenvale): Gershala Nightwhisper takes Researching the Corruption (1275) on
+# the Auberdine stop, beside Terenthis (`when complete`).
+#
+# Excavation Site: Wetlands (`when dungeon "Excavation Site: Wetlands"`, dungeons in the route): for a
+# character who chose it, James Halloran's Highland Hides (98815, after Young Crocolisk Skins, 484) is taken
+# on the first Menethil stop and Rethiel the Greenwarden's Horrors in the Highland (95646, after Blisters on
+# the Land, 275) when 275 is handed in, at about 28.3; the run follows on the road back west (the entrance,
+# 48.0,56.5, is where players' recordings go in), and Prospector Whelgar's dig, west of it on the way, takes the
+# Titan Relic's Lost Relic Carry (95810, from the Relic Guardian inside) and gives Prehistoric Prism (98824)
+# for High Explorer Magellas on this guide's Ironforge stop. Halloran takes the hides at the docks before
+# the boat; Rethiel takes the root core on the Wetlands loop of 30-40/01-hillsbrad-foothills (`when
+# complete`). Left out: Lost in the Thicket Things and Heartwoven (95647, 95809: Caitlin Grassman, level 31,
+# 3+ levels over on the first Menethil stop), Seeking Caitlin (95737, Llana in Astranaar), Songblade Search
+# and Fallen in the Fen (95772, 95795: Dorin Songblade in Redridge, off the route).
 
 # ---------------------------------------------------------------- Night Elf and Skyborne Druids: Moonglade and Darnassus
 
@@ -132,6 +157,13 @@ step Menethil Harbor
   accept 471                              -- James Halloran, by the docks
   accept 98208                            -- Sylessa Duskwhisper, beside James Halloran by the docks
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it on 30-40/01-hillsbrad-foothills' Dun Modr stop
+
+step James Halloran
+  when dungeon "Excavation Site: Wetlands"
+  when turnedin 484
+  zone Wetlands
+  tip For your Excavation Site: Wetlands run, later in this guide: James Halloran, by the docks, wants hides from the raptors inside.
+  accept 98815                        -- James Halloran
 
 step Nord'el
   zone Wetlands
@@ -258,6 +290,30 @@ step Rethiel the Greenwarden
   turnin 275
   accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
+step Rethiel the Greenwarden
+  when dungeon "Excavation Site: Wetlands"
+  zone Wetlands
+  tip For your Excavation Site: Wetlands run, on the way back west: Rethiel wants the root core of a Highland Horror inside.
+  accept 95646                        -- Rethiel the Greenwarden
+
+step Excavation Site: Wetlands
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 98815,95646
+  zone Wetlands
+  tip Excavation Site: Wetlands is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.
+  tip Inside: the Thicket raptors and Shadetooth drop the hides for Halloran, a Highland Horror the root core for Rethiel. Saltspine, Shadetooth and the Relic Guardian are the bosses; the Relic Guardian drops a Titan Relic, which starts a quest for Prospector Whelgar.
+  enter "Excavation Site: Wetlands" @48.0,56.5 live
+  complete 98815 @48.0,56.5 live      -- Highland Hides: the hides, inside
+  complete 95646 @48.0,56.5 live      -- Horrors in the Highland: the root core, inside
+
+step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 95810
+  zone Wetlands
+  tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, west of the entrance on the way back west.
+  turnin 95810                        -- Prospector Whelgar, below ground
+  accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
+
 step Captain Stoutfist
   tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road: Captain Stoutfist stands on the top floor of Menethil Keep, Glorin Steelbrow in the Deepwater Tavern south of it, James Halloran by the docks on the way to the boat.
   turnin 464                              -- On the top floor
@@ -266,6 +322,13 @@ step Captain Stoutfist
   turnin 292                              -- Glorin Steelbrow, in the Deepwater Tavern
   accept 293                              -- For Archbishop Benedictus in Stormwind, at the end of this guide
   turnin 469                              -- James Halloran, by the docks, on the way to the boat
+
+step James Halloran
+  when dungeon "Excavation Site: Wetlands"
+  when complete 98815
+  zone Wetlands
+  tip Your Excavation Site hides: James Halloran, by the docks.
+  turnin 98815                        -- James Halloran
 
 # ---------------------------------------------------------------- Ashenvale
 
@@ -290,6 +353,13 @@ step Auberdine
   zone Darkshore
   tip Terenthis stands by the flight master.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+
+step Gershala Nightwhisper
+  when dungeon "Blackfathom Deeps"
+  when complete 1275
+  zone Darkshore
+  tip Your Blackfathom Deeps brain stems: Gershala Nightwhisper stands a short walk west of Terenthis.
+  turnin 1275                         -- Gershala Nightwhisper
 
 step Fly to Astranaar
   zone Darkshore
@@ -478,6 +548,13 @@ step Ironforge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest
 
+step High Explorer Magellas
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 98824
+  zone Ironforge
+  tip Prehistoric Prism: High Explorer Magellas stands in the Hall of Explorers, north-east of the Great Forge.
+  turnin 98824                        -- High Explorer Magellas
+
 step Ironforge priests
   only Dwarf,Gnome,Priest
   tip High Priest Rohan and High Priestess Mims are in the Hall of Mysteries, in the Mystic Ward.
@@ -507,6 +584,47 @@ step Lord Grayson Shadowbreaker
   tip Back to the Cathedral of Light: Lord Grayson Shadowbreaker stands inside.
   turnin 98191 npc 928                    -- Lord Grayson Shadowbreaker
   accept 98219 npc 928                    -- For Lieutenant Farren Orinelle in Southshore: keep it
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  zone Stormwind City
+  tip For your Stockade run: Warden Thelwater keeps the Stockade's gate, south of the Cathedral Square.
+  accept 387                              -- Warden Thelwater
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  when onquest 389
+  zone Stormwind City
+  turnin 389                              -- Warden Thelwater: Bazil Thredd, from Baros Alexston
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  when turnedin 389
+  zone Stormwind City
+  accept 391                              -- Warden Thelwater: The Stockade Riots
+
+step The Stockade
+  when dungeon "The Stockade"
+  when onquest 387,377,391
+  zone Stormwind City
+  tip The Stockade is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is Warden Thelwater's, south of the Cathedral Square.
+  tip Inside: the Defias prisoners, convicts and insurgents for Thelwater, Dextren Ward's hand for Millstipe, and Bazil Thredd at the far end.
+  enter "The Stockade" @52.4,70.0
+  complete 387                            -- Quell the Uprising
+  complete 377                            -- Crime and Punishment: Dextren Ward
+  complete 391                            -- The Stockade Riots: Bazil Thredd
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  when complete 387
+  zone Stormwind City
+  turnin 387                              -- Warden Thelwater, at the gate
+
+step Warden Thelwater
+  when dungeon "The Stockade"
+  when complete 391
+  zone Stormwind City
+  turnin 391                              -- Warden Thelwater, at the gate
 
 step Jorgen and Elling Trias
   turnin 1241                             -- Jorgen

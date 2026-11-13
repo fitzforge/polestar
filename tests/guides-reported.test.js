@@ -125,6 +125,9 @@ const working = (list) => list.map((e) => (e.step.along ? { ...e, goal: {} } : e
 const located = ({ goal }) => goal.map != null && goal.x != null;
 // Goals every character of the guide does (no `only` on the goal or its step).
 const everyone = ({ step, goal }) => !step.only && !goal.only;
+// A step only a character who runs a dungeon in the route has (`when dungeon "<Name>"`, not negated): no stop
+// of the solo route, which a character on Skip, the default, plays.
+const dungeonOnly = (step) => (step.when || []).some((p) => p.k === 'dungeon' && !p.neg);
 // Goals a character of this class does (an `only` naming classes on the goal or its step must list it).
 const forClass = (cls) => ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.classes || o.classes.includes(cls));
 
@@ -7471,7 +7474,7 @@ test('Alliance 12-20: Fire Taboo is taken from Rethiel at 22-24, its flint on th
 	const hand = wet.find(({ goal }) => is('turnin', 277)(goal));
 	assert.ok(hand && wet.some(({ goal, s }) => is('accept', 275)(goal) && s === hand.s), 'handed in with Blisters on the Land taken');
 	assert.ok(!wet.some(({ goal }) => (goal.t === 'collect' && goal.item === 2611) || is('accept', 277)(goal)), 'not taken or worked again at 27-29');
-	assert.equal(wet.filter(({ goal }) => goal.npc === 1244).map(({ s }) => s).filter((v, i, a) => a.indexOf(v) === i).length, 2, 'Rethiel on two stops (Fire Taboo and Blisters in, Blisters out)');
+	assert.equal(wet.filter(({ step, goal }) => goal.npc === 1244 && !dungeonOnly(step)).map(({ s }) => s).filter((v, i, a) => a.indexOf(v) === i).length, 2, 'Rethiel on two stops of the solo route (Fire Taboo and Blisters in, Blisters out)');
 });
 
 // --- Player reports, route-wide (0.3.0 to 0.3.4). Each case states a reported route problem as a property
@@ -7869,8 +7872,10 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 		assert.deepEqual(chain.slice(1).map((g) => g.replace('forever/horde/', '')), ['03-silverpine-forest.guide', '02-the-barrens.guide', '05-stonetalon-mountains.guide', '06-hillsbrad-foothills.guide', '04-the-barrens.guide', '07-ashenvale.guide'], `${race}: the 12-30 chain`);
 		const fits = (o) => !o || !o.races || o.races.includes(race);
 		const cls = (o) => o && o.classes;
+		// The solo route: a dungeon's quests may ride to its run in the next guide (Razorfen Kraul's tubers from
+		// the Barrens' Ratchet stop to the Great Lift road), for a character who runs it.
 		const list = chain.flatMap((g) => goals(g).map((e) => ({ ...e, g })))
-			.filter(({ step, goal }) => fits(step.only) && fits(goal.only) && !cls(step.only) && !cls(goal.only));
+			.filter(({ step, goal }) => fits(step.only) && fits(goal.only) && !cls(step.only) && !cls(goal.only) && !dungeonOnly(step));
 		const classQuest = (q) => !!(data.quests[q] && data.quests[q].classes);
 		// A delivery whose only objective is speaking to the NPC who takes it (the campfires' profession
 		// Camping 101s for the Orgrimmar and Undercity trainers, #1559): its `complete` is the hand-in visit.
@@ -11543,4 +11548,59 @@ test('Darkspear Islands Reputation: the mark quests point at the Warbringer and 
 	assert.doesNotMatch(src, /The nearest stand at Mor'shan/);
 	assert.equal((src.match(/One stands here at the Merchant Coast, beside the portal/g) || []).length, 4);
 	assert.equal((src.match(/One stands here at Northwatch Hold, beside the portal/g) || []).length, 4);
+});
+
+// Dungeons in the route (0.3.8): a dungeon a character chose is injected into the one route as steps, every
+// one behind `when dungeon` (pick-ups on stops the route makes, one run step at the door also guarded by
+// `when onquest <its quests>`, hand-ins also behind `when complete`/`when onquest`), so a character who skips
+// it (the default) has the solo route's steps and step numbers; data/dungeon-runs.json records each one so a
+// Forge round reproduces the hand edits. One case per recorded dungeon: the guides hold what its record says.
+const DUNGEON_RUNS = () => JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'dungeon-runs.json'), 'utf8')).runs;
+const dungeonKey = (s) => String(s).trim().toLowerCase().replace(/^the\s+/, '');
+const whenDungeonOf = (step, name) => (step.when || []).some((p) => p.k === 'dungeon' && !p.neg && dungeonKey(p.name) === dungeonKey(name));
+const whenQuestOf = (step, kinds, quest) => (step.when || []).some((p) => kinds.includes(p.k) && !p.neg && [p.q].flat().includes(quest));
+for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs.json')) ? DUNGEON_RUNS() : []) {
+	test(`dungeons in the route: ${run.dungeon} (${run.faction}): the recorded pick-ups, the guarded run at the door and the hand-ins are in the guides`, { skip }, () => {
+		const steps = (guide) => compiled(`${guide}.guide`).steps;
+		const runs = steps(run.run.guide).filter((s) => whenDungeonOf(s, run.dungeon) && s.goals.some((g) => g.t === 'enter'));
+		assert.equal(runs.length, 1, `${run.run.guide}: one run step`);
+		const [step] = runs;
+		for (const quest of run.run.objectives) assert.ok(whenQuestOf(step, ['onquest'], quest), `the run waits for a quest of it held (${quest}): no empty trip to the door`);
+		const enter = step.goals.find((g) => g.t === 'enter');
+		assert.equal(enter.map, run.run.entrance.map, 'the run enters on the entrance\'s map');
+		assert.ok(Math.hypot(enter.x - run.run.entrance.x, enter.y - run.run.entrance.y) < 1, `at the entrance (${enter.x},${enter.y})`);
+		const pickups = [...(run.pickups || []).map((p) => [p.quest, (p.after && p.after.guide) || p.guide]), ...(run.runStop || []).map((q) => [q, run.run.guide])];
+		for (const [quest, guide] of pickups) {
+			assert.ok(steps(guide).some((s) => whenDungeonOf(s, run.dungeon) && s.goals.some(is('accept', quest))), `${guide}: ${quest} is picked up only by a character who chose ${run.dungeon}`);
+		}
+		for (const h of run.handins || []) {
+			const ends = steps(h.guide).filter((s) => s.goals.some(is('turnin', h.quest)));
+			assert.ok(ends.length >= 1, `${h.guide}: ${h.quest} is handed in`);
+			for (const s of ends) {
+				assert.ok(whenQuestOf(s, ['complete', 'onquest'], h.quest), `${h.guide}: the hand-in of ${h.quest} waits for the quest (complete or held)`);
+				assert.ok(whenDungeonOf(s, run.dungeon), `${h.guide}: the hand-in of ${h.quest} is behind \`when dungeon\`: a character who skips ${run.dungeon} keeps the solo route's steps`);
+			}
+		}
+	});
+}
+
+// The other way round: every `when dungeon` step of the leveling guides belongs to a recorded run (its dungeon
+// recorded for that guide's faction, and that guide named in the record), so no injected step is left without the
+// record a Forge round needs. The Horde 30-40 Gnomeregan steps (Nogg's Rig Wars) predate the records.
+test('dungeons in the route: every `when dungeon` step of the leveling guides is explained by data/dungeon-runs.json', { skip }, () => {
+	const runs = DUNGEON_RUNS();
+	const known = new Set(['forever/horde/30-40/02-thousand-needles|gnomeregan']);
+	const bad = [];
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		const id = guide.replace(/\.guide$/, '');
+		const faction = guide.startsWith('forever/alliance/') ? 'Alliance' : 'Horde';
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		for (const m of text.matchAll(/^\s*when dungeon "([^"]+)"/gm)) {
+			const name = dungeonKey(m[1]);
+			const ok = known.has(`${id}|${name}`) || runs.some((r) => r.faction === faction && dungeonKey(r.dungeon) === name &&
+				[r.run.guide, ...(r.pickups || []).map((p) => (p.after && p.after.guide) || p.guide), ...(r.handins || []).map((h) => h.guide)].includes(id));
+			if (!ok) bad.push(`${id}: ${m[1]}`);
+		}
+	}
+	assert.deepEqual([...new Set(bad)], []);
 });

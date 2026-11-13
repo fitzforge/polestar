@@ -258,7 +258,7 @@ step Back to Gornek
 | `zone "<Name>"` | the zone text reads so (the zone as the game names it) |
 | `subzone "<Name>"` | the subzone text reads so |
 | `bound "<Location>"` | the hearthstone is bound there (a bind location, as for `sethome`) |
-| `dungeon "<Name>"` | the character chose to run that dungeon (see "Dungeon steps" below) |
+| `dungeon "<Name>"` | the character runs that dungeon: its answer for it, else its answer for every dungeon (see "Dungeon steps" below) |
 | `done <label>` | the step carrying `label <label>` in this guide was completed: it applies, its goals are done, and it was not skipped by the player, a failed `when` or a `skipto` jump (see "Jumps"); not on a `next` line |
 | `skill <Profession> <N>` | the character's rank in that profession is N (1 or more) or higher, the profession named as for the `skill` goal (`when skill Cooking 50`, `when skill "First Aid" 1`); one not learned counts as rank 0, so `!skill Herbalism 1` holds while the character has no Herbalism. A weapon skill works the same, by its skill name or its trainer spell's (`when !skill "Two-Handed Axes" 1` while the character has not learned it; `Swords` or `"One-Handed Swords"`) |
 | `cooldown item <item>`, `cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside: `when !cooldown item 6948` while the Hearthstone is ready. Polestar looks again when the cooldown runs out |
@@ -293,21 +293,67 @@ ID"), and Polestar compares the game's own name for it, then the name you
 wrote.
 
 **Dungeon steps.** `when dungeon "<Name>"` is for the steps of a dungeon
-run: they apply only to characters who chose to run that dungeon, and `when
-!dungeon "<Name>"` is the route for those who did not. Each character picks
-the dungeons in Options, Discovery, Dungeons ("Dungeons in leveling guides",
-one switch per Classic dungeon); every one is off at first, so the solo route
-is the default. A choice changes only the steps still ahead: like any `when`,
-a step the route has passed keeps its outcome.
+run: they apply only to characters who run that dungeon, and `when
+!dungeon "<Name>"` is the route for those who do not. Each character has an
+answer for every dungeon (Skip them, Ask me or Run them; Skip at first, so the
+solo route is the default) and may answer one dungeon (Options, Discovery,
+Dungeons). With Ask me, the first `when dungeon` step with something to do now
+(an accept the character can take, or for a step with no accept, its other
+predicates holding) holds the route until the player answers; one with nothing
+to do now is passed. A step with `enter` is the run. Only a pick-up (an
+accept) or the run asks; the dungeon's other steps follow the answer, and with
+none yet the solo route. An answer changes only the steps still ahead: like
+any `when`, a step the route has passed keeps its outcome. A step of a dungeon
+the character skips (and a `when !dungeon` step of one they run) has no step
+number, so the solo route's numbers stay as they are.
+
+A run is three parts. Its quests are picked up in `when dungeon` steps on
+stops the route makes anyway; the run itself is one `when dungeon` step, also
+`when onquest` its quests (a character who chose the dungeon after passing its
+pick-ups is not sent to the door with nothing to do), with an `enter` goal
+first (the arrow leads to the door) and the quests' objectives (`optional`
+for the slow or rare ones); the hand-ins come on the next stops, each in a
+step with `when dungeon "<Name>"` and `when complete <quest>` (or `when
+onquest <quest>` for one with no objectives), so a run left unfinished passes
+them and a later guide can hand in what is still carried. Every step of the
+run is behind `when dungeon`: a character who skips it keeps the solo route's
+steps. Where the run shares a stop with the solo route (a hand-in that opens
+the dungeon's quest), the dungeon's step does that stop's work too and the
+stop's own step is behind `when !dungeon "<Name>"`. A quest an item inside the
+dungeon starts, or an NPC inside gives, has no place the data knows: name it
+in the run's tip and write only its hand-in, behind `when dungeon` and `when
+onquest`. A step of `note`s only never holds (see "Errands"): the run needs
+goals of its own.
 
 ```
-step Ragefire Chasm
-  when dungeon "Ragefire Chasm"
-  note Run Ragefire Chasm with a group, then come back to Orgrimmar.
+step Gryan Stoutmantle
+  when dungeon "The Deadmines"
+  accept 166
+
+step The Deadmines
+  when dungeon "The Deadmines"
+  when onquest 166
+  tip A dungeon for a group of five, about levels 17 to 24.
+  enter "The Deadmines" @42.5,71.7
+  complete 166
+
+step Gryan Stoutmantle
+  when dungeon "The Deadmines"
+  when complete 166
+  turnin 166
+
 step Grind instead
-  when !dungeon "Ragefire Chasm"
-  level 15
+  when !dungeon "The Deadmines"
+  level 21
 ```
+
+Lint counts a `when dungeon` step's goals, and those of quests accepted only
+in such steps, as a party's work, like `when group` ("Group content",
+Validation): its elite kills are no errors. A hand-in in a step that applies
+only while the quest is carried (`when complete`, `when onquest`) asks no
+solo work either. `polestar playtest --dungeon "The Deadmines"` (names or map
+IDs, comma-separated, or `all`) plays the guides as a character who chose
+those dungeons; without it, as one who chose none.
 
 Write the dungeon as the game names it: its name in the client's instance
 tables ("Ragefire Chasm", "Deadmines") or an area of that name on its map

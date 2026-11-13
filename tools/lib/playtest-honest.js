@@ -283,6 +283,7 @@ function whenHolds(w, when) {
 				break;
 			}
 			case 'group': ok = w.groups === 'do'; break; // playtest's answer at group quests (skip: the solo route)
+			case 'dungeon': ok = !!(w.chosen && w.chosen(p)); break; // the dungeons the player chose (none: the solo route)
 			case 'bound': ok = !p.location || w.bound == null || String(w.bound).toLowerCase() === String(p.location).toLowerCase(); break;
 			default: ok = true;
 		}
@@ -293,9 +294,10 @@ function whenHolds(w, when) {
 }
 
 // Play `guides` (compiled, in chain order) as persona -> findings.
-function playChain(chain, data, persona, { kb = null, report = null, groups = 'skip' } = {}) {
+function playChain(chain, data, persona, { kb = null, report = null, groups = 'skip', chosen = null } = {}) {
 	const w = new World(data, persona, kb);
 	w.groups = groups;
+	w.chosen = chosen;
 	for (const g of chain) playGuide(w, g, !report || report.has(g.id));
 	return w.findings;
 }
@@ -475,6 +477,11 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			return turnin(w, g, x, gi, find);
 		case 'kill':
 			return kill(w, x);
+		case 'talk':
+			// `talk <npc> quest Q.O`: speaking to the NPC is the objective ("Speak with ..."), as `kill` credits its own.
+			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
+			w.worked.push(x);
+			return;
 		case 'collect':
 			return collect(w, x, gi, find, p);
 		case 'use':
@@ -727,13 +734,13 @@ function chains(guides) {
 
 // Play every chain holding a guide of `play` (ids) as each of its personas
 // -> findings of those guides, by file and line.
-function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip' } = {}) {
+function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip', chosen = null } = {}) {
 	const report = play ? new Set(play) : null;
 	const out = [];
 	for (const chain of chains(guides)) {
 		if (report && !chain.some((g) => report.has(g.id))) continue;
 		for (const persona of personas(chain[0])) {
-			for (const f of playChain(chain, data, persona, { kb, report, groups })) out.push({ ...f, race: persona.race, cls: persona.cls });
+			for (const f of playChain(chain, data, persona, { kb, report, groups, chosen })) out.push({ ...f, race: persona.race, cls: persona.cls });
 		}
 	}
 	return out.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));
