@@ -11851,16 +11851,28 @@ Own.hereGather, Own.hereGatherN, Own.hereGatherKinds = {}, 0, {} -- the candidat
 Own.hereGatherEntries = {} -- kind -> its candidate, kept across builds (a dismiss holds)
 Own.hereGatherBad = {} -- spot number -> true: the walk there is a long way round, this zone stay
 
+-- Kind k's candidate, made once. Its goal is a `gather`, a verb of its own: no guide step holds it, no goal state
+-- ends it (the poll's rules end its line: Own.goalDoneLive reads it as never done) and the arrow says what the line
+-- says (its `text`), at the spot the line shows.
 function Own.hereGatherOf(k)
 	local e = Own.hereGatherEntries[k]
 	if not e then
-		local goal = { t = "collect", gatherKind = k }
+		local goal = { t = "gather", gatherKind = k, text = Own.hereGatherText(k, false) }
 		e = { s = Own.GATHER_STEP, g = k, goal = goal, kind = "gather", left = 0, places = 1, npcs = false, seen = false, spot = false,
 			d = false, pick = 0, budget = 0, xp = false, soon = false, visit = false, detour = 0, town = false, near = false,
 			on = false, since = 0, yards = 0, serial = 0, view = false }
 		Own.hereGatherEntries[k] = e
 	end
 	return e
+end
+
+-- What a line of kind k says: "Peacebloom is up here" while one is up (`up`), else "Peacebloom can grow here" (a
+-- vein, a pool: "can spawn here").
+function Own.hereGatherText(k, up)
+	local kind = ns.Gather.Kind(k) or {}
+	local name = kind.name or ""
+	if up then return L["%s is up here"]:format(name) end
+	return (kind.line == 182 and L["%s can grow here"] or L["%s can spawn here"]):format(name)
 end
 
 -- Own.hereGather for continent c (nil: none, Dynamic Questing or its gathering spots off, no guide).
@@ -11934,24 +11946,17 @@ function Own.hereGatherTick(c, px, py, timedOnly)
 	ns.Fire("WHILE_HERE_CHANGED")
 end
 
--- Gathering spot line e as Own.hereViewOf's view: "Peacebloom can grow here" (a vein, a pool: "can spawn here"), or
--- "Peacebloom is up here" while the Interact Key picks one; under it the profession and the skill it asks, and
--- `tracking` while the minimap tracks that profession's nodes.
+-- Gathering spot line e as Own.hereViewOf's view: its text (Own.hereGatherText: "is up here" while the Interact Key
+-- picks one of its kind); under it the profession and the skill it asks, and `tracking` while the minimap tracks
+-- that profession's nodes.
 function Own.hereGatherView(e)
 	local goal, G = e.goal, ns.Gather
 	local kind = G.Kind(goal.gatherKind) or {}
-	local name = kind.name or ""
 	local _, upKind = G.UpNow()
 	local up = upKind == goal.gatherKind
 	local v = { t = "gather", step = e.s, index = e.g, here = "gather", left = 0, appeared = e.serial, later = false, gatherKind = goal.gatherKind,
 		map = goal.map, x = goal.x, y = goal.y, f = goal.f, status = "active", up = up, tracking = G.Tracking(kind.line) }
-	if up then
-		v.hereText = L["%s is up here"]:format(name)
-	elseif kind.line == 182 then
-		v.hereText = L["%s can grow here"]:format(name)
-	else
-		v.hereText = L["%s can spawn here"]:format(name)
-	end
+	v.hereText = Own.hereGatherText(goal.gatherKind, up)
 	v.text = v.hereText
 	local profession = kind.line and Compat().GetSkillLineName(kind.line) or nil
 	v.hereSub = profession and L["%s %d"]:format(profession, kind.skill or 1) or nil
