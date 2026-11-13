@@ -4160,6 +4160,30 @@
 			},
 			{
 				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"accept",
+					338
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40/40-50 audit (0.4.0): The Green Hills of Stranglethorn's chapters (338-342) are accepted and turned in together at Nesingwary's camp on 40-50/01-stranglethorn-vale's visit at 40, after the Badlands (Indurium, 1108), not accepted at 35 and carried: the pages drop from the trolls without the quests, and the five chapters took five quest log slots through Dustwallow, Alterac and the Badlands (players' recordings: 2 people abandoned 338 on the way)."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"accept",
+					1183
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40/40-50 audit (0.4.0): Goblin Sponsorship (1183, Baron Revilgaz to Pozzik at the Mirage Raceway, 700 XP) is taken on 40-50/01-stranglethorn-vale's first Booty Bay stop, after the Badlands (1108), instead of on 30-40/03's second Booty Bay stop at 36, from where it rode in the quest log through four guides to Pozzik at 43."
+			},
+			{
+				"a": [
 					"accept",
 					97926
 				],
