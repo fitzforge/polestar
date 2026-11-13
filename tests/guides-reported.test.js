@@ -2917,6 +2917,16 @@ test('Horde 40-50: grind tips name a dungeon only when its run is in the same or
 	assert.ok(/run the Zul'Farrak dungeon/.test(feralas), "03 still offers Zul'Farrak, run in 40-50/04");
 });
 
+test('Horde 40-50/04: the Slag Pit plans come with the gorge sweep and go back on the first Thorium Point return (0.4.0 route audit)', { skip }, () => {
+	const list = goals(H40('04-tanaris'));
+	const plans = at(list, 'the Secret Plans (7722)', (g) => g.t === 'collect' && g.quest === 7722);
+	const incendosaurs = at(list, 'the Incendosaurs (7727)', (g) => g.t === 'kill' && g.quest === 7727);
+	assert.equal(list[plans].s, list[incendosaurs].s, 'the plans are on the sweep step with the Incendosaurs');
+	const flux = at(list, 'turnin 7722', is('turnin', 7722));
+	const fat = at(list, 'turnin 7723', is('turnin', 7723));
+	assert.equal(list[flux].s, list[fat].s, 'What the Flux? is handed in on the first Thorium Point return');
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.

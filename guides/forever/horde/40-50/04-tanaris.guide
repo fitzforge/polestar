@@ -300,6 +300,7 @@ step Searing Gorge: kill these as you meet them
   collect 10511 quest 3442.2
   kill 5858 quest 7724.1
   kill 9318 quest 7727.1              -- Below ground
+  collect 18922 quest 7722.1 @40.5,35.7 -- Below ground: the plans, on the Slag Pit's upper ledge
 
 step Velarok Windblade
   turnin 3442
@@ -311,6 +312,7 @@ step Thorium Point
   turnin 7727
   turnin 7724
   turnin 7723                           -- Hansel Heavyhands
+  turnin 7722                           -- Master Smith Burninate
 
 step The Steamsmiths' furnaces
   tip The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a Thorium Plated Dagger, one in ten the Smithing Tuyere. Slaves, Slavers and Taskmasters carry daggers too.
@@ -320,9 +322,6 @@ step The Steamsmiths' furnaces
 step Velarok Windblade
   turnin 3443
   note His next request needs the Symbol of Ragnaros from elite cultists: leave it.
-
-step The Slag Pit
-  collect 18922 quest 7722.1 @40.5,35.7 -- Below ground
 
 step Dark Iron Lookouts
   tip The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the Lookout's Spyglass.
@@ -334,5 +333,4 @@ step The Key to Freedom
   turnin 4451 optional object 173265
 
 step Thorium Point
-  turnin 7722                           -- Master Smith Burninate
   turnin 7728                           -- Taskmaster Scrange

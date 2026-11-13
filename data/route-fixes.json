@@ -4976,6 +4976,30 @@
 				],
 				"faction": "Horde",
 				"why": "#2102: see turnin 606 -> accept 604; 576 shares the Wild Shore's pirates and moves with it."
+			},
+			{
+				"a": [
+					"task",
+					7722
+				],
+				"b": [
+					"turnin",
+					7727
+				],
+				"faction": "Horde",
+				"why": "Horde 40-50 route audit (0.4.0): the Slag Pit's Secret Plans: Fiery Flux (What the Flux?, 7722) lie on the pit's upper ledge, above the Incendosaurs the gorge sweep already kills for 7727 (40-50/04). The order collected them only after Velarok's second round and came back to Thorium Point a second time for Master Smith Burninate (the flow audit: avoidable backtrack at the 7722 hand-in, 28/28 branches, and passed enders at Thorium Point). Taken in the sweep, they are handed in on the first Thorium Point return with the other hand-ins."
+			},
+			{
+				"a": [
+					"turnin",
+					7722
+				],
+				"b": [
+					"task",
+					3443
+				],
+				"faction": "Horde",
+				"why": "Horde 40-50 route audit (0.4.0): see task 7722 -> turnin 7727: What the Flux? is handed to Master Smith Burninate on the Thorium Point return before the furnaces (Forging the Shaft, 3443), not on a later return."
 			}
 		],
 		"notes": [
