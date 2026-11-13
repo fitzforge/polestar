@@ -3691,6 +3691,28 @@
 			"pr": 1175
 		},
 		{
+			"id": "2025-h21-hillsbrad-fields-kirin-tor-guards",
+			"faction": "Horde",
+			"at": {
+				"quest": 527,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere. Farmer Kalaba tends the field south of the farms. Careful: Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields.",
+			"note": "Horde 21-30 audit (0.4.0, danger gate #1575): Forever's spawn data puts Kirin Tor Guards (246848, level 55) at the northern edge of Hillsbrad Fields (27-33,22-36), within 40 yd of the Hillsbrad Farmers Battle of Hillsbrad asks for, at a route level of 22.9. Players' recordings: 26 Horde people met them as hostile there, around 30,27, north of the farms (29-37,34-47); the 11 people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were all at the Dalaran crater in Alterac). The tip says where they stand.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				},
+				{
+					"kind": "questie",
+					"ref": "npc 246848 spawns, Hillsbrad 27-33,22-36"
+				}
+			],
+			"issue": 2025
+		},
+		{
 			"id": "2025-h21-charred-vale-level-27",
 			"faction": "Horde",
 			"at": {

@@ -11884,3 +11884,10 @@ test('Horde 21-30 audit: steps beside dangerous mobs name them (#1575, #2025)', 
 	const take = goals(ASHENVALE_HORDE).find(({ goal }) => goal.t === 'accept' && goal.quest === 6621);
 	assert.match(take.goal.note || '', /banner defence/, 'King of the Foulweald says what it asks');
 });
+
+// Horde 21-30 audit (danger gate #1575): Kirin Tor Guards (55) stand at Hillsbrad Fields' northern edge (players' recordings: 26
+// Horde people met them as hostile there); the fields step says where.
+test('forever/horde/06-hillsbrad-foothills.guide: Horde 21-30 audit: the fields step names the Kirin Tor Guards (#1575)', { skip }, () => {
+	const step = compiled('forever/horde/06-hillsbrad-foothills.guide').steps.find((s) => s.title === 'Hillsbrad Fields');
+	assert.match([step.tip, step.note].flat().filter(Boolean).join(' '), /Kirin Tor Guards \(55\)/);
+});
