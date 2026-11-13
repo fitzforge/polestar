@@ -6182,7 +6182,8 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	const lowIdx = (what, t, q) => at(low, what, is(t, q));
 	for (const q of [279, 98197]) assert.equal(low[lowIdx(`turnin ${q}`, 'turnin', q)].s, low[lowIdx('turnin 484', 'turnin', 484)].s, `${q} handed in with the other Menethil hand-ins`);
 	for (const q of [1026, 1035, 1046, 1022, 1140]) assert.ok(wet.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in on the Ashenvale trip`);
-	assert.ok(!wet.some(({ goal }) => goal.t === 'level'), 'no written top-up in 06-wetlands');
+	// The only written top-up is the fresh starter's (`when level<28`, Alliance 20-30 audit): the route player never stops.
+	assert.ok(!wet.some(({ step, goal }) => goal.t === 'level' && !(step.when || []).some((p) => p.k === 'level')), 'no top-up the route player stops for in 06-wetlands');
 	assert.ok(!wet.some(({ goal }) => goal.quest === 526), 'Lightforge Ingots (526, needs 324) is not taken at 27');
 	const late = goals(ASHENVALE_30);
 	assert.ok(!late.some(({ goal }) => [1026, 1035, 1046, 1022, 1140, 1031].includes(goal.quest)), '30-40/03 no longer carries the Ashenvale quests');
@@ -6202,7 +6203,8 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(wet.some(({ goal }) => is('turnin', 994)(goal)), 'Volcor\'s escort to Terenthis on the Auberdine stop');
 	// #1415: Selarin offers Trek to Ashenvale with no escort done (recordings: 17 people at 15-22), so it is taken on
 	// 03-darkshore-return's first Auberdine stop and handed to Raene on 06-ashenvale's first Astranaar stop.
-	assert.ok(!wet.some(({ goal }) => goal.quest === 990), 'Trek to Ashenvale is no longer carried to 28');
+	// (06-wetlands keeps a hand-in to Raene only for a character still carrying it, `when onquest`, Alliance 20-30 audit.)
+	assert.ok(!wet.some(({ step, goal }) => goal.quest === 990 && !(step.when || []).some((p) => p.k === 'onquest' && !p.neg)), 'Trek to Ashenvale is no longer carried to 28');
 	const dret = goals(DARKSHORE_RETURN);
 	assert.equal(dret[at(dret, 'accept 990', is('accept', 990))].s, 1, 'taken on the first Auberdine stop of 03-darkshore-return');
 	const ash0 = goals(ASHENVALE);
@@ -11901,7 +11903,9 @@ test(`${WETLANDS}: a fresh starter tops up to 28 by Menethil before the boat to 
 	const step = list[top].step;
 	assert.ok((step.when || []).some((p) => p.k === 'level'), 'only below 28 (when level<28)');
 	assert.ok(at(list, 'Daily Delivery hand-in (469)', is('turnin', 469)) < top, 'after the last Menethil hand-in');
-	assert.ok(top < at(list, 'the boat to Auberdine', (g) => g.t === 'goto' && /Boat to Auberdine/.test(g.text || '')), 'before the boat');
+	// (A Night Elf Priest's Darnassus detour at the guide's start has its own "Boat to Auberdine" in Stormwind.)
+	const boat = list.findIndex(({ goal }, i) => i > top && goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || ''));
+	assert.ok(boat > top && boat < at(list, 'Bloom of the Heavens to Thundris (98209)', is('turnin', 98209)), 'before the boat to Auberdine');
 });
 
 // Alliance 20-30 audit (0.4.0, #2025): 03-loch-modan's last Stormwind stop is skipped by a player who hearths to
