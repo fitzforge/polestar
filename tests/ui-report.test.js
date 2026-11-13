@@ -689,6 +689,72 @@ test('report scrolling survives repeated cursor notifications, while real cursor
 	assert.equal(out.firstLine, 0, 'moving the cursor to the first line scrolls back to the top');
 });
 
+for (const cursorFirst of [true, false]) {
+	test(`report edits at the same caret position follow it with the cursor event ${cursorFirst ? 'before' : 'after'} the text event (#1905)`, () => {
+		const [out] = run(`
+			uistub.setGuide(uistub.elwynn, 3)
+			UI.ShowReport()
+			local F = PolestarReport
+			local sf, e = F.DescScroll, F.Desc
+			e:SetText(string.rep("A line of the report.\\n", 30))
+			stub.RunScript(e, "OnTextChanged", false)
+			local y = -(sf.psContent - 16)
+			local function cursor() stub.RunScript(e, "OnCursorChanged", 10, y, 1, 16) end
+			cursor()
+			local bottom = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local before = sf:GetVerticalScroll()
+			-- A replacement can change the text without changing the caret's
+			-- geometry. Model both notification orders; the stub does not
+			-- establish which order the game client uses.
+			e:SetText((e:GetText():gsub("A line", "B line")))
+			if ${cursorFirst} then cursor() end
+			stub.RunScript(e, "OnTextChanged", true)
+			if not ${cursorFirst} then cursor() end
+			local edited = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local wheeled = sf:GetVerticalScroll()
+			for i = 1, 3 do cursor() end
+			emit({ bottom = bottom, before = before, edited = edited,
+				wheeled = wheeled, repeated = sf:GetVerticalScroll() })`);
+		assert.ok(out.bottom > 60, 'the edited line starts outside the scrolled view');
+		assert.equal(out.before, out.bottom - 60);
+		assert.equal(out.edited, out.bottom, 'the edit reveals the unchanged caret position');
+		assert.equal(out.wheeled, out.bottom - 60);
+		assert.equal(out.repeated, out.wheeled, 'later layout events preserve scrolling after the edit');
+	});
+
+	test(`report edits reveal a new last line with the cursor event ${cursorFirst ? 'before' : 'after'} the text event (#1905)`, () => {
+		const [out] = run(`
+			uistub.setGuide(uistub.elwynn, 3)
+			UI.ShowReport()
+			local F = PolestarReport
+			local sf, e = F.DescScroll, F.Desc
+			e:SetText(string.rep("A line.\\n", 10))
+			stub.RunScript(e, "OnTextChanged", false)
+			local old, h = sf.psContent, F.DescMeasure:GetLineHeight()
+			stub.RunScript(e, "OnCursorChanged", 10, -(old - h), 1, h)
+			e:SetText(e:GetText() .. "One more line.\\n")
+			local function cursor() stub.RunScript(e, "OnCursorChanged", 10, -old, 1, h) end
+			if ${cursorFirst} then cursor() end
+			stub.RunScript(e, "OnTextChanged", true)
+			if not ${cursorFirst} then cursor() end
+			local edited = sf:GetVerticalScroll()
+			cursor()
+			local repeated = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local wheeled = sf:GetVerticalScroll()
+			cursor()
+			emit({ edited = edited, repeated = repeated, view = sf.psView, content = sf.psContent,
+				caretBottom = old + h, wheeled = wheeled, afterWheel = sf:GetVerticalScroll() })`);
+		assert.equal(out.content, out.caretBottom, 'the new empty last line expands the scroll content');
+		assert.equal(out.edited + out.view, out.caretBottom, 'the new caret is visible after the edit');
+		assert.equal(out.repeated, out.edited, 'repeated layout does not move the viewport');
+		assert.ok(out.wheeled < out.edited, 'the player can scroll away from the new last line');
+		assert.equal(out.afterWheel, out.wheeled, 'layout notifications preserve that manual scroll');
+	});
+}
+
 test('the foreground report description forwards mouse-wheel scrolling to its viewport (#1905)', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)

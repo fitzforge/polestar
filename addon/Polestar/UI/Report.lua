@@ -1043,12 +1043,19 @@ local function textArea()
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 	-- The line being typed stays in view: y is the cursor's offset down
 	-- from the box's top, h its height.
-	local cursorX, cursorY, cursorH
-	e:SetScript("OnCursorChanged", function(_, x, y, _, h)
+	local cursorX, cursorY, cursorH, cursorText
+	e:SetScript("OnCursorChanged", function(self, x, y, _, h)
 		-- Layout can repeat this event without moving the cursor. Following
 		-- those notifications would undo the player's wheel or thumb scroll.
-		if x == cursorX and y == cursorY and h == cursorH then return end
-		cursorX, cursorY, cursorH = x, y, h
+		-- An edit can keep the same coordinates, with its text notification
+		-- before or after this one: compare the text here as well.
+		local text = self:GetText()
+		if x == cursorX and y == cursorY and h == cursorH and text == cursorText then return end
+		local changed = text ~= cursorText
+		cursorX, cursorY, cursorH, cursorText = x, y, h, text
+		-- A cursor event can arrive before OnTextChanged sizes a new line.
+		-- Cache first so a repeated notification during resizing is ignored.
+		if changed then sizeDesc() end
 		local view, at = sf.psView or sf:GetHeight(), sf:GetVerticalScroll()
 		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H)
 		if top < at then
@@ -1058,7 +1065,6 @@ local function textArea()
 		end
 	end)
 	e:SetScript("OnTextChanged", function(self)
-		cursorX, cursorY, cursorH = nil, nil, nil
 		self.Placeholder:SetShown((self:GetText() or "") == "")
 		sizeDesc()
 		if F.details then compose() end
