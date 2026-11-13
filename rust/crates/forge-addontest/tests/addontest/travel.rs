@@ -302,8 +302,11 @@ fn a_trip_under_three_minutes_keeps_the_stone_and_one_over_three_hearths() {
 	assert_eq!(out["over"], json!(["hearth|Hearth to Testshire Inn: saves 2 min", "walk|By the inn"]), "a 181 s trip hearths");
 }
 
+// #1915: a Hearthstone still cooling down counts with its wait, as a class teleport does (the wait plus the hearth
+// against the walk and the boat). Ready in 5 s on a 12-minute haul, the plan hearths from the start, and when the
+// stone comes off cooldown it stays (before, the plan took the boat and switched to the hearth halfway).
 #[test]
-fn the_cooldown_running_out_triggers_a_new_plan_with_the_hearth() {
+fn a_hearthstone_ready_in_seconds_is_planned_from_the_start_and_stays_when_it_comes_off_cooldown_1915() {
 	let out = run(r#"
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
@@ -315,8 +318,72 @@ fn the_cooldown_running_out_triggers_a_new_plan_with_the_hearth() {
 		local before = route()[1]
 		stub.advance(6.5)
 		emit({ before = before, after = route()[1] })"#);
-	assert_eq!(out["before"], "walk|Walk to the boat");
-	assert_eq!(out["after"], "hearth|Hearth to Testshire Inn: saves 10 min");
+	assert_eq!(out["before"], "hearth|Hearth to Testshire Inn: saves 10 min", "its 5 s wait weighed from the start");
+	assert_eq!(out["after"], out["before"], "off cooldown: the same way, no switch");
+}
+
+// #1915: on the 12-minute haul a Hearthstone ready in 5 minutes is waited for (5 min + the hearth, about 5 minutes
+// sooner than the boat); one ready in 11 minutes is not (the wait, the hearth and its 2-minute margin take longer than
+// the boat). The estimate weighs it the same way, and the hearth leg's time holds the wait.
+#[test]
+fn a_hearthstone_cooling_down_is_weighed_with_its_wait_like_a_class_teleport_1915() {
+	let out = run(r#"
+		local function trip(noHearth)
+			local m, x, y = nav.mapPoint(-520, -690)
+			return math.floor(N.EstimateTravel(nil, { map = m, x = x, y = y }, nil, noHearth) + 0.5)
+		end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(0, 0, 1)
+		stub.advance(10)
+		local r = {}
+		nav.hearthCooldown = { GetTime(), 300 }
+		target(-520, -690, "Q")
+		r.soon, r.soonTrip, r.boatTrip = route(), trip(false), trip(true)
+		local legs = N.GetRoute()
+		r.soonLeg = legs and legs[1] and math.floor(legs[1].seconds + 0.5)
+		stub.advance(6)                           -- past the estimate cache
+		nav.hearthCooldown = { GetTime(), 660 }
+		target(-520, -690, "Q")
+		r.late, r.lateTrip = route(), trip(false)
+		emit(r)"#);
+	assert_eq!(out["soon"], json!(["hearth|Hearth to Testshire Inn: saves 5 min", "walk|Q"]), "ready in 5 min: wait for it");
+	assert_eq!(out["soonLeg"], 315, "the hearth leg: its 300 s wait and the 15 s cast and loading screen");
+	assert!(out["soonTrip"].as_i64().unwrap() < out["boatTrip"].as_i64().unwrap() - 120, "the estimate hearths too: {} s against {} s", out["soonTrip"], out["boatTrip"]);
+	assert_eq!(out["late"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Q"]), "ready in 11 min: the boat");
+	assert_eq!(out["lateTrip"], out["boatTrip"], "the estimate takes the boat too");
+}
+
+// #1915: once the route hearths, it is not switched back and forth each time it is planned. 236 s from the target on
+// foot, the hearth saves 121 s, over its 2-minute margin: hearth. Walked 6 s nearer it saves 115 s: a plan made now for
+// a new target walks, but the route under way keeps the hearth while it saves any time; walked to 170 s, under the
+// 3-minute trip, it walks.
+#[test]
+fn a_route_that_hearths_keeps_the_hearth_while_it_saves_any_time_and_never_flips_on_a_new_plan_1915() {
+	let out = run(r#"
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		known()
+		local r = {}
+		nav.place(60, -700 + 236 * 5.6)           -- 236 s on foot, 121 s more than the hearth's 115
+		target(60, -700, "Past the inn")
+		r.start = route()
+		nav.place(60, -700 + 230 * 5.6)           -- 230 s on foot: the hearth saves 115 s
+		N.travel.Replan()
+		r.held = route()
+		target(60, -700, "Past the inn")           -- the same place as a new target: nothing to hold
+		r.fresh = route()
+		nav.place(60, -700 + 236 * 5.6)
+		target(60, -700, "Past the inn")
+		nav.place(60, -700 + 170 * 5.6)           -- 170 s on foot: under the 3-minute trip
+		N.travel.Replan()
+		r.short = route()
+		emit(r)"#);
+	assert_eq!(out["start"], json!(["hearth|Hearth to Testshire Inn: saves 2 min", "walk|Past the inn"]));
+	assert_eq!(out["held"], json!(["hearth|Hearth to Testshire Inn: saves 1 min", "walk|Past the inn"]), "saves 115 s: the route under way keeps it");
+	assert_eq!(out["fresh"], json!(["walk|Past the inn"]), "a new plan weighs the 2-minute margin");
+	assert_eq!(out["short"], json!(["walk|Past the inn"]), "a 170 s trip keeps the Hearthstone");
 }
 
 // A hearth leg has no direction: the arrow's dial shows the Hearthstone glyph instead of an empty space above
@@ -727,20 +794,22 @@ fn only_discovered_flight_masters_are_recorded_from_the_flight_map() {
 	assert_eq!(out["after"], json!(["fly|Fly to East Hold", "walk|Target"]));
 }
 
+// The stone 100 s from ready at Farland Pier, the boat leaving in 30 s: the boat is the way (#1915: the wait, the
+// hearth and its margin cost more). On the deck the stone comes off cooldown: no plan is made from there.
 #[test]
 fn the_hearthstone_coming_off_cooldown_mid_ride_does_not_re_plan_from_the_boat() {
 	let out = run(r#"
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
 		stub.advance(10)
-		nav.hearthCooldown = { GetTime(), 30 }
-		nav.useTravelWorld(nil, 400)                     -- a long wait: the stone would pay
+		nav.hearthCooldown = { GetTime(), 100 }
+		nav.useTravelWorld(nil, 30)
 		nav.place(395, 0, 1)                             -- at Farland Pier
 		target(-520, -690, "Q")
 		stub.advance(0.2)
 		local before = route()
 		nav.place(200, 0, 1)                             -- sailing away from the pier
-		stub.advance(35)                                 -- the stone comes off cooldown on the way (at 40 s)
+		stub.advance(105)                                -- the stone comes off cooldown on the way (at 110 s)
 		emit({ before = before, during = route(), leg = (select(2, N.GetRoute())) })"#);
 	assert_eq!(out["before"], json!(["boat|Take the boat to Testshire Docks", "walk|Q"]));
 	assert_eq!(out["during"], out["before"], "still on the boat leg");

@@ -4111,6 +4111,14 @@ at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
 `hearth` goal (`Own.hearthPlan`, via `Nav.HEARTH_*`) weigh it the same way.
+A Hearthstone still cooling down counts with its wait (`p.hearthWait`, from
+`hearthWait`: #1915), as a teleport's `ready` does: the wait plus its 15 s
+against the other ways, with the same margin and minimum trip, and the hearth
+leg's `seconds` hold the wait (the travel button shows the cooldown). Once the
+live route hearths for a target (`legsFor`), a new plan for it passes
+`hearthHeld`: the hearth stays while it saves any time at all, so a saving
+near `HEARTH_MARGIN` does not flip the route between the hearth and the way
+without it at each plan.
 A class teleport is cast only when it clearly pays (#1823: Teleport:
 Stormwind won by a few seconds over a flight to Darkshire): it must save at
 least `TELEPORT_MARGIN` (60 s) over the best way without teleports, and

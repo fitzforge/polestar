@@ -78,7 +78,10 @@ local HEARTH_ITEM = 6948
 -- shortens by 2 or more; 0.3.3's 8 and 5 walked where a hearth was better):
 -- a route hearths only when the way without it takes at least
 -- HEARTH_MIN_TRIP and hearthing saves at least HEARTH_MARGIN after its cast
--- and loading screen (HEARTH_SECONDS).
+-- and loading screen (HEARTH_SECONDS). A Hearthstone still cooling down
+-- counts with its wait, as a class teleport does (#1915: the wait plus the
+-- hearth against the walk and the zeppelin), so one ready in a minute is
+-- weighed from the start instead of coming in halfway along the way.
 local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
 local HEARTH_MARGIN = 120    -- seconds it must save: 2 minutes
 local HEARTH_MIN_TRIP = 180  -- seconds the way without it must take: 3 minutes
@@ -388,6 +391,9 @@ end
 --       known = { [taxiNodeID] = true },
 --       speed = yd/s,
 --       hearth = inn point or nil, hearthName = bind location, noHearth = true: leave it out,
+--       hearthWait = seconds until the Hearthstone is off cooldown (nil: ready),
+--       hearthHeld = true: the live route hearths for this target already; the
+--         hearth then stays while it saves any time at all (no HEARTH_MARGIN),
 --       skip = { spells = { [id] = true }, transports = { [t] = true }, taxi = { [nodeID] = true },
 --         cross = { [crossing end] = true } }: left out for this target (skipped legs;
 --         a skipped crossing end lets a start nearer the partner than the ends
@@ -1211,7 +1217,11 @@ local function planRoute(p)
 				end
 				if cost then relax(rideTo[u], du + cost, tu + cost, RIDE, u) end
 			elseif kind == START then
-				if innV then relax(innV, du + HEARTH_SECONDS + HEARTH_MARGIN, tu + HEARTH_SECONDS, HEARTH, u) end
+				-- The Hearthstone's cooldown left (p.hearthWait) counts, as a teleport's `ready` does (#1915).
+				if innV then
+					local s = (p.hearthWait or 0) + HEARTH_SECONDS
+					relax(innV, du + s + (p.hearthHeld and 0 or HEARTH_MARGIN), tu + s, HEARTH, u)
+				end
 				-- Weighed by TELEPORT_MARGIN, as the Hearthstone by HEARTH_MARGIN; none on the search without them (fifth).
 				if not kept then
 					for v, e in pairs(teleV) do
@@ -1382,7 +1392,7 @@ local function planRoute(p)
 		else
 			leg.kind = "hearth"
 			leg.item = 6948 -- the Hearthstone
-			leg.seconds = HEARTH_SECONDS
+			leg.seconds = (p.hearthWait or 0) + HEARTH_SECONDS
 			leg.label = format(L["Hearth to %s"], p.hearthName or Travel.PlaceName(vref[to]))
 		end
 		legs[#legs + 1] = leg
@@ -1604,15 +1614,17 @@ local function runSpeed()
 	return s
 end
 
-local function hearthReady()
+-- Seconds until the Hearthstone is off cooldown (0: ready now; the global
+-- cooldown does not count), or nil: none in the bags.
+local function hearthWait()
 	local C = ns.Compat
-	if not (C and C.GetItemCount) or (C.GetItemCount(HEARTH_ITEM) or 0) < 1 then return false end
+	if not (C and C.GetItemCount) or (C.GetItemCount(HEARTH_ITEM) or 0) < 1 then return nil end
 	local fn = (C_Container and C_Container.GetItemCooldown) or (C_Item and C_Item.GetItemCooldown) or GetItemCooldown
-	if not fn then return true end
+	if not fn then return 0 end
 	local ok, start, duration = pcall(fn, HEARTH_ITEM)
-	if not ok or type(start) ~= "number" or type(duration) ~= "number" then return true end
-	if start > 0 and duration > GCD and start + duration > GetTime() then return false end
-	return true
+	if not ok or type(start) ~= "number" or type(duration) ~= "number" then return 0 end
+	local left = start > 0 and duration > GCD and start + duration - GetTime() or 0
+	return left > 0 and left or 0
 end
 
 -- The inn the bind location stands for: the one learned when the character
@@ -1688,7 +1700,8 @@ local floorless = false -- the plan was made with the player's floor unknown (Wa
 local atLift = false -- the walk the arrow is on ends at a lift and the player is at its landing (boardingRide)
 local dirty = false
 local wasTaxi = false
-local lastHearth
+local lastHearth -- the Hearthstone was ready at the last plan (hearthWait() == 0)
+local legsFor -- the target the live route (legs) was planned for: its hearth is held (Nav.PlanRoute's hearthHeld)
 local planSpeed = RUN_SPEED
 local planAt, planC, planX, planY = 0, nil, 0, 0 -- when and where the route was planned
 local lastMoveCheck = 0
@@ -1950,7 +1963,7 @@ function Travel.AtField(target, pc, px, py)
 end
 
 -- A plan from where the player stands to the target, or nil; and where from.
-local function plan(target)
+local function plan(target, held)
 	-- Handed to Shortest Path Forever (Nav/Handoff.lua): it plans the way; no route here.
 	if not (target and ns.Get("nav.travel") and not Nav.HandedOff() and #taxiList + #transports + #portals + #inns + pathCount + #crossEnds + #chains > 0) then return nil end
 	local tc, twx, twy, tz = Nav.GetTargetWorld()
@@ -1960,12 +1973,13 @@ local function plan(target)
 	if not (tc and pc) then return nil end
 	refreshFaction()
 	planSpeed = runSpeed()
-	lastHearth = hearthReady()
+	local wait = hearthWait()
+	lastHearth = wait == 0
 	questTimed, timedCheck = readTimed(), false
 	local ghost = isGhost()
 	local field = Travel.AtField(target, pc, px, py)
 	local inn, bindName
-	if lastHearth and not ghost and not questTimed and not field then inn, bindName = bindInn() end
+	if wait and not ghost and not questTimed and not field then inn, bindName = bindInn() end
 	-- The walks to the target the walking engine measured, and the places it measures next (Nav/Walk.lua).
 	local W = Nav.walk
 	local places = W and W.Measure and {} or nil
@@ -2021,6 +2035,8 @@ local function plan(target)
 		speed = RUN_SPEED,
 		hearth = inn,
 		hearthName = bindName,
+		hearthWait = inn and wait > 0 and wait or nil,
+		hearthHeld = held or nil,
 		noHearth = skipped.hearth,
 		skip = skip,
 		noDirect = direct or nil,
@@ -2066,15 +2082,18 @@ function Travel.Replan()
 		dirty = true
 		return
 	end
-	local old = legs
+	local old, was = legs, legs and legs[ci]
 	legs, ci, boarded, dirty, progressYards, legSince, remeasureOwed = nil, 1, false, false, nil, GetTime(), false
 	local target = Nav.GetTarget()
 	if skipFor ~= target then
 		skipFor = nil
 		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
 	end
+	-- The live route hearths for this target: the hearth stays while it saves any time (#1915, no flip back and forth).
+	local held = was and was.kind == "hearth" and legsFor == target
 	local pc, px, py
-	legs, pc, px, py = plan(target)
+	legs, pc, px, py = plan(target, held)
+	legsFor = target
 	if pc then planAt, planC, planX, planY = GetTime(), pc, px, py end
 	pricePaths()
 	Travel.version = Travel.version + 1
@@ -2148,7 +2167,8 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	refreshFaction()
 	local ghost = from == nil and isGhost()
 	local inn, bindName
-	if from == nil and not ghost and not timed and not noHearth and hearthReady() then inn, bindName = bindInn() end
+	local wait = from == nil and not ghost and not timed and not noHearth and hearthWait() or nil
+	if wait then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
 		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from and from.map,
 		target = { c = tc, wx = twx, wy = twy, map = to.map },
@@ -2158,6 +2178,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		speed = RUN_SPEED,
 		hearth = inn,
 		hearthName = bindName,
+		hearthWait = inn and wait > 0 and wait or nil,
 		teleports = from == nil and not ghost and not timed and teleportList() or nil,
 		departure = departureFn(),
 		walkOnly = ghost or timed == "escort",
@@ -2365,7 +2386,10 @@ end
 -- The search weighs the Hearthstone by HEARTH_MARGIN; a route it chose is
 -- held against the way without it, in seconds: kept only while that takes at
 -- least HEARTH_MIN_TRIP and the hearth saves at least HEARTH_MARGIN, its
--- label then saying how much ("Hearth to Sentinel Hill: saves 6 min").
+-- label then saying how much ("Hearth to Sentinel Hill: saves 6 min"). Once
+-- the live route hearths (p.hearthHeld), the margin goes: the hearth stays
+-- while it saves any time, so a saving near the margin does not flip the
+-- route between the hearth and the way without it each time it is planned.
 local function walksOnly(legs)
 	for _, l in ipairs(legs) do
 		if l.kind ~= "walk" then return false end
@@ -2392,7 +2416,7 @@ function Nav.PlanRoute(p)
 		local other = planRoute(q)
 		local trip = other and (other[1] and other[1].seconds + other[1].rest or 0)
 		local saved = trip and trip - (first.seconds + first.rest)
-		if trip and (trip < HEARTH_MIN_TRIP or saved < HEARTH_MARGIN) then
+		if trip and (trip < HEARTH_MIN_TRIP or saved < (p.hearthHeld and 0 or HEARTH_MARGIN)) then
 			legs = other
 		elseif saved then
 			first.label = format(L["%s: saves %d min"], first.label, floor(saved / 60))
@@ -2996,7 +3020,8 @@ function Travel.Remeasured()
 		Travel.Replan()
 		return legs ~= nil
 	end
-	local fresh, pc, px, py, owed = plan(Nav.GetTarget())
+	local target = Nav.GetTarget()
+	local fresh, pc, px, py, owed = plan(target, legs[ci] and legs[ci].kind == "hearth" and legsFor == target)
 	if not fresh then return false end
 	if sameWay(fresh, 1, legs, ci) then
 		if not takePrices(fresh) then return false end
@@ -3009,6 +3034,7 @@ function Travel.Remeasured()
 	else
 		legs, ci, boarded, progressYards, legSince = fresh, 1, false, nil, GetTime()
 		planAt, planC, planX, planY = GetTime(), pc, px, py
+		legsFor = target
 		pricePaths()
 	end
 	Travel.version = Travel.version + 1
@@ -3064,7 +3090,7 @@ function Travel:Refresh()
 		end
 	end
 	-- A Hearthstone coming off cooldown mid-ride is no reason to plan from the deck.
-	if not riding() and hearthReady() ~= lastHearth then dirty = true end
+	if not riding() and (hearthWait() == 0) ~= lastHearth then dirty = true end
 	local ghost = isGhost()
 	if ghost ~= lastGhost then
 		lastGhost = ghost
