@@ -326,7 +326,7 @@ fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collec
 	let note = fixes["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "2107-xabraxxis-demon-bag").unwrap()["goalNote"].as_str().unwrap();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
 		before: r#"
 local w = stub.world
 C_Item.GetItemSpell = function(id) if id == 12347 then return "Purify and Place Food", 16072 end end
@@ -361,8 +361,15 @@ local function campGoals()
 end
 w.cast(818)
 campGoals()
-w.cast(16072)
-campGoals()
+local function summon()
+	local button = PolestarQuestItemButton
+	emit(button:IsShown() and button:GetAttribute("item") or false)
+	w.cast(16072)
+	for _, item in ipairs({12341, 12342, 12343, 12347}) do w.removeItem(item) end
+	campGoals()
+	emit(button:IsShown())
+end
+summon()
 for _, compact in ipairs({false, true}) do
 Polestar.Set("ui.compact", compact)
 Polestar.UI.GuideFrame.Render()
@@ -374,6 +381,12 @@ for _, row in ipairs(Polestar.UI.GuideFrame.rows) do
 end
 emit(shown)
 end
+w.abandon(4763)
+stub.advance(1.1)
+w.accept(4763, { 1 })
+for _, item in ipairs({12341, 12342, 12343, 12347}) do w.addItem(item, 1) end
+campGoals()
+summon()
 w.progress(4763, 1, 1)
 campGoals()
 "#,
@@ -382,11 +395,18 @@ campGoals()
 		..Default::default()
 	});
 	assert_eq!(out[0][0], "active", "an unrelated cast leaves the use open");
-	assert_eq!(out[1][0], "done");
-	assert_eq!(out[1][1], "active");
-	assert!(out[2].as_array().unwrap().iter().any(|row| row[2].as_str().unwrap().contains("kill Xabraxxis")), "{:?}", out[2]);
-	assert!(out[3].as_array().unwrap().iter().any(|row| row[2].as_str().unwrap().contains("kill Xabraxxis")), "compact {:?}", out[3]);
-	assert_eq!(out[4][1], "done", "collecting the talisman completes the objective");
+	assert_eq!(out[1], "item:12347");
+	assert_eq!(out[2][0], "done");
+	assert_eq!(out[2][1], "active");
+	assert_eq!(out[3], false, "the button hides when the first bowl is consumed");
+	assert!(out[4].as_array().unwrap().iter().any(|row| row[2].as_str().unwrap().contains("kill Xabraxxis")), "{:?}", out[4]);
+	assert!(out[5].as_array().unwrap().iter().any(|row| row[2].as_str().unwrap().contains("kill Xabraxxis")), "compact {:?}", out[5]);
+	assert_eq!(out[6][0], "active", "retaking the quest opens the use again");
+	assert_eq!(out[7], "item:12347", "a replacement bowl can be used from the button");
+	assert_eq!(out[8][0], "done", "the second cast advances the guide again");
+	assert_eq!(out[8][1], "active", "the talisman is still missing after the second cast");
+	assert_eq!(out[9], false, "the button hides when the second bowl is consumed");
+	assert_eq!(out[10][1], "done", "collecting the talisman completes the objective");
 }
 
 // #1120 (Fitz, Undead Warlock, The Binding): "use 6284" (Runes of Summoning) has no quest, so it waited for a tick
