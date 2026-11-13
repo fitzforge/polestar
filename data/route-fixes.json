@@ -9633,6 +9633,12 @@
 				"faction": "Alliance",
 				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47, a tenth of its XP by then): an 18-level carry for about 61 XP. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
 				"issue": "-"
+			},
+			{
+				"q": 1288,
+				"faction": "Alliance",
+				"reason": "Vimes's Report is not offered in the game: Captain Garran Vimes in Theramore turned The Deserters (1287) in for at least 10 players in their recordings and none of them ever took Vimes's Report (no run of it at all, and 26 people who could take it were never offered it), and a second quest database marks it as unavailable. The 40-50 Alliance Theramore steps (01-stranglethorn-vale, 02-badlands) waited on its accept after the hand-in; left out.",
+				"issue": "#1984"
 			}
 		],
 		"revert": [

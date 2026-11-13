@@ -363,6 +363,25 @@ test("Strange Pylons keeps the quest log's three pylon lines in their order (She
 	assert.ok(lines.every((o) => o.type === 'event' && o.count === 1 && o.map === 2652), 'three events on the Shen\'dralas map');
 });
 
+test('Open the Maw waits for Dragonmaw Rumors, so the Excavation Site pick-up guide takes Zaruk\'s lead-in first (#1939)', () => {
+	const entry = corrections.quests[95682];
+	assert.ok(entry, 'a correction for 95682');
+	assert.deepEqual(blockingPrereqs({ id: 95682, start: { npc: [13155] }, ...entry.set }), { all: [], any: [95663] });
+});
+
+test('every Camping 101 profession quest asks for the skill at 20, not a talk with the trainer (#1952)', () => {
+	const ids = [96031, 96044, 96045, 96046, 96047, 96050, 96055, 96056, 96057, 96058, 96059, 96102, 97899, 97900, 97901, 97902, 97903,
+		97904, 97905, 97906, 97907, 97908, 97915, 97916, 97917, 97918, 97919, 97920, 97921, 97922, 97923, 97924, 97925, 97927, 97928,
+		97929, 97930, 97931, 97932, 97933, 97934, 97935, 97936, 97937, 97938, 97939, 97940, 97941, 97942, 97943, 97944, 97946, 97948,
+		97949, 97950, 97951, 97952, 97953, 97954, 97955, 97956, 97957, 97958, 97959, 97960, 97961, 97963, 97964, 97965, 97967, 97968,
+		97969, 97970, 97971, 97972, 97973, 98284, 98285, 98286, 98287];
+	const bad = ids.filter((id) => {
+		const objs = corrections.quests[id] && corrections.quests[id].set.objectives;
+		return !(objs && objs.length === 1 && objs[0].type === 'event' && /^Raise your [a-z ]+ skill to 20$/.test(objs[0].text));
+	});
+	assert.deepEqual(bad, []);
+});
+
 // The 0.3.8 XP review (players' recorded hand-ins at a full-XP level, builds 70790-70888): three quests whose
 // data value no recorded hand-in pays. The Grand Betrayal's earlier correction held the 70170 build's value.
 test('quest XP the recordings confirm is held by the corrections (0.3.8 XP review)', () => {
