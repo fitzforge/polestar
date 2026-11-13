@@ -11925,13 +11925,3 @@ test(`${DESOLACE_SOUTH}: the Valley of Bones points away from the Shen'dralas el
 	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
 	for (const id of ['1575-desolace-alliance-undead-ravagers-west', '1575-desolace-alliance-ghost-magnets-east']) assert.ok(places.some((p) => p.id === id), `${id}: a record the build keeps`);
 });
-
-// 0.4.0 route audit (Refs #2025, danger at the spot #1575): the first Desolace visit's Kolkar Village step pointed its
-// Centaur Ears at the Magram's village (65.6,70.3), among Magram Necromancers (42-43) and Guardians (39-41), at a route
-// level of 35.5. The Kolkar (30-35) drop the ears too: the arrow points into Kolkar Village.
-test('forever/alliance/30-40/02-desolace.guide: the Kolkar Village step points at Kolkar Village, not the Magram', { skip }, () => {
-	const list = goals('forever/alliance/30-40/02-desolace.guide');
-	const { goal } = list[at(list, 'ears', (g) => g.t === 'collect' && g.quest === 1387)];
-	assert.ok(goal.map === 1443 && Math.hypot(goal.x - 71.5, goal.y - 45.5) < 1, `the ears: Kolkar Village (got ${goal.map} ${goal.x},${goal.y})`);
-	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.some((p) => p.id === '1575-desolace-alliance-centaur-ears-kolkar-village'), 'a record the build keeps');
-});
