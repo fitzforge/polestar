@@ -38,6 +38,8 @@
 //              q quest quest,choice        g gift npc,spell (an NPC hands it out)   c craft spell,skillLine,skill
 //              r rep faction,standing,npc  p pvp rank,npc               n container item,chance
 //              w world minLevel,maxLevel
+//              d/o may append ,<escaped quest-id list> AFTER from: all quests
+//              must be held or done. Older readers ignore that extra field.
 //   npc      level;levelMax;faction;flags(r e b);instance;roles;loot;<spawns>...[;t<subName>]
 //            spawns = map,f,x,y,x,y...   (one group per map); loot = item,item,...
 //   object   treasure(1|empty);loot;<spawns>...[;m<faction>]
@@ -203,6 +205,7 @@ function encodeSource(src) {
 		return num(src[f]);
 	});
 	parts.push(fromLetters(src.from));
+	if ((src.type === 'drop' || src.type === 'object') && Array.isArray(src.requiresQuests) && src.requiresQuests.length) parts.push(esc(list(src.requiresQuests)));
 	return letter + parts.join(',');
 }
 

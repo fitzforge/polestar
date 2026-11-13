@@ -1096,6 +1096,13 @@ function mergeCodex(inputs) {
 			(npc) => !!bossInstance[npc],
 			(s) => s.type === 'drop' && (evidence.cut.drop[id] = evidence.cut.drop[id] || []).push(s.npc),
 		);
+		// A loot condition belongs to this exact source, independent of which input
+		// supplied its chance. Attach it after source merging so it cannot be lost.
+		const requires = (fv.items || {})[id]?.dropRequires;
+		for (const s of sources) {
+			const ids = s.type === 'drop' ? requires?.npc?.[s.npc] : s.type === 'object' ? requires?.object?.[s.object] : null;
+			if (Array.isArray(ids) && ids.length) s.requiresQuests = [...ids];
+		}
 		if (!sources.length && JUNK.test(name)) continue;
 		let kind = 'item';
 		if (mountItems.has(id)) kind = 'mount';

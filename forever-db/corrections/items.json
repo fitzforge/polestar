@@ -11,6 +11,18 @@
 		},
 		"note": "Lorgalis Manuscript comes only from the Pitted Iron Chest 13949 in Blackfathom Deeps, the one container QuestieDB lists. pfQuest also lists the Document Chest 176344 (Barrens/Thousand Needles), a different quest's chest."
 	},
+	"16790": {
+		"dropRequires": {
+			"npc": {
+				"4802": [6563]
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "issue #1923, maintainer recording check (comment 6820003090)"
+		},
+		"note": "Damp Note from Blackfathom Tide Priestess requires The Essence of Aku'Mai to be held or completed. The maintainer checked players' recordings: the note appeared in 17 of 29 loot windows with the quest held or done, versus 1 of 24 without; that exception may have completed the quest before recording began. Accepting the quest is enough; it need not be turned in before farming the note."
+	},
 	"20519": {
 		"removeDrops": {
 			"npc": [

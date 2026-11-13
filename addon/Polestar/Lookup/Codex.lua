@@ -247,6 +247,12 @@ local function decodeSource(field)
 		end
 	end
 	src.from = provenance(parts[#fields + 1] or "")
+	-- Optional tail after provenance: all quests must be held OR completed.
+	-- Its absence is the original format; older readers ignore this tail.
+	local requires = parts[#fields + 2]
+	if (src.type == "drop" or src.type == "object") and requires and requires ~= "" then
+		src.requiresQuests = numbers(unesc(requires))
+	end
 	if src.type == "craft" and src.skillLine then
 		src.profession = nameOf("skill", src.skillLine)
 	end

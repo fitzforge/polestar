@@ -266,6 +266,10 @@ fn encode_source(src: &V) -> Result<String, String> {
 		});
 	}
 	parts.push(from_letters(&src.get("from"))?);
+	let requires = src.get("requiresQuests");
+	if matches!(ty.as_str(), "drop" | "object") && requires.is_arr() && !requires.is_empty() {
+		parts.push(esc(&V::str(&list(&requires)?)));
+	}
 	Ok(format!("{letter}{}", parts.join(",")))
 }
 
@@ -817,6 +821,16 @@ mod tests {
 		assert_eq!(fold_name(&V::str("Ragnaros' Heart")), "ragnaros heart");
 		assert_eq!(fold_name(&V::str("Caf\u{e9}")), "cafe");
 		assert_eq!(esc(&V::str("a;b,c%")), "a%3Bb%2Cc%25");
+	}
+
+	#[test]
+	fn drop_requirements_follow_provenance_without_changing_old_fields() {
+		let source = forge_guide::js::parse_json(r#"{"type":"drop","npc":4802,"chance":33,"from":["pfquest"]}"#).unwrap();
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p");
+		source.set("requiresQuests", forge_guide::js::parse_json("[6563,6564]").unwrap());
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p,6563%2C6564");
+		source.set("requiresQuests", V::arr());
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p");
 	}
 
 	#[test]
