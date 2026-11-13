@@ -11870,3 +11870,26 @@ test('Alliance starts: Careful tips at Frostmane Hold, Stonesplinter Valley, Ban
 		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), says, `${guide}: "${step.title}" warns`);
 	}
 });
+
+// #1952: a Camping 101 profession quest asks for the profession at 20 before its trainer takes it; at skill 1-5 the
+// Alliance start guides' trainer step right after the campfire waited for an objective the player could not finish
+// there. Each in-zone trainer hand-in step now shows only once the quest is complete (`when complete <q>`), and the
+// accept step says the trainer takes it at 20; While-here offers the hand-in on a later pass.
+test('#1952: the Alliance start guides\' Camping 101 trainer steps wait until the quest is complete', { skip }, () => {
+	const starts = [ELWYNN, 'forever/alliance/dwarf/01-dun-morogh.guide', 'forever/alliance/gnome/01-dun-morogh.guide', TELDRASSIL, ZEPHRAS_ALLIANCE];
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	let n = 0;
+	for (const file of starts) {
+		const list = goals(file);
+		for (const { step, goal } of list) {
+			if (goal.t !== 'turnin' || !/^Camping 101: (?!Cooking)/.test(goal.title || '')) continue;
+			n += 1;
+			const when = step.when || [];
+			assert.ok(when.some((p) => p.k === 'complete' && !p.neg && p.q === goal.quest), `${file}: turnin ${goal.quest} waits until the quest is complete`);
+			assert.ok(fixes.some((f) => f.faction === 'Alliance' && f.at && f.at.quest === goal.quest && f.at.goal === 'turnin' && f.when === `complete ${goal.quest}`), `${goal.quest}: a record the build keeps`);
+			const take = list.find((e) => e.goal.t === 'accept' && e.goal.quest === goal.quest);
+			assert.match([take.step.note, take.step.tip].flat().filter(Boolean).join(' '), / skill is 20/, `${file}: accept ${goal.quest} says the trainer takes it at 20`);
+		}
+	}
+	assert.ok(n >= 27, `${n} in-zone Camping 101 hand-ins found`);
+});

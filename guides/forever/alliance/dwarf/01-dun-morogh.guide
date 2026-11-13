@@ -157,25 +157,30 @@ step The Great Outdoors
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
   when !knows 1230171
+  tip Tognus Flintfire takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 96044                                -- Eric Brighthammer: for Tognus Flintfire, in the cellar west of the distillery
 
 step Camping 101: First Aid
   when skill "First Aid" 1
   when !knows 1230117
+  tip Thamner Pol takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 96047                                -- Eric Brighthammer: for Thamner Pol in the Thunderbrew Distillery
 
 step Camping 101: Mining
   when skill Mining 1
   when !knows 1230161
+  tip Yarr Hammerstone takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 96046                                -- Eric Brighthammer: for Yarr Hammerstone at Steelgrill's Depot
 
 step Camping 101: Engineering
   when skill Engineering 1
   when !knows 1230656
+  tip Bronk Guzzlegear takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 96058                                -- Eric Brighthammer: for Bronk Guzzlegear at Steelgrill's Depot
 
 step Tognus Flintfire
   when onquest 96044
+  when complete 96044
   complete 96044 @45.34,51.94                 -- talk to the trainer
   turnin 96044                                -- Tognus Flintfire, below ground
 
@@ -193,6 +198,7 @@ step Kharanos
 
 step Thamner Pol
   when onquest 96047
+  when complete 96047
   complete 96047 @47.18,52.61                 -- talk to the trainer
   turnin 96047                                -- Thamner Pol, inside the distillery
 
@@ -205,11 +211,13 @@ step Steelgrill's Depot
 
 step Yarr Hammerstone
   when onquest 96046
+  when complete 96046
   complete 96046 @50.01,50.31                 -- talk to the trainer
   turnin 96046                                -- Yarr Hammerstone, at the depot
 
 step Bronk Guzzlegear
   when onquest 96058
+  when complete 96058
   complete 96058 @50.18,50.38                 -- talk to the trainer
   turnin 96058                                -- Bronk Guzzlegear, beside Yarr
 

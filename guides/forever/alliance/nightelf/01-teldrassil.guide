@@ -139,26 +139,31 @@ step The Great Outdoors
 step Camping 101: Alchemy
   when skill Alchemy 1
   when !knows 1230564
+  tip Cyndra Kindwhisper takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97938                                -- Lyreena Duskblade: for Cyndra Kindwhisper, beside Zarrin
 
 step Camping 101: Herbalism
   when skill Herbalism 1
   when !knows 1229705
+  tip Malorne Bladeleaf takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97944                                -- Lyreena Duskblade: for Malorne Bladeleaf, beside Zarrin
 
 step Camping 101: First Aid
   when skill "First Aid" 1
   when !knows 1230117
+  tip Byancie takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97942                                -- Lyreena Duskblade: for Byancie in the inn
 
 step Camping 101: Skinning
   when skill Skinning 1
   when !knows 1229517
+  tip Radnaal Maneweaver takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97949                                -- Lyreena Duskblade: for Radnaal Maneweaver, by the road west
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
   when !knows 1229432
+  tip Nadyia Maneweaver takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97946                                -- Lyreena Duskblade: for Nadyia Maneweaver, by the road west
 
 step Zarrin
@@ -169,16 +174,19 @@ step Zarrin
 
 step Cyndra Kindwhisper
   when onquest 97938
+  when complete 97938
   complete 97938 @57.64,60.8                  -- talk to the trainer
   turnin 97938                                -- Cyndra Kindwhisper, beside Zarrin
 
 step Malorne Bladeleaf
   when onquest 97944
+  when complete 97944
   complete 97944 @57.72,60.64                 -- talk to the trainer
   turnin 97944                                -- Malorne Bladeleaf, beside Zarrin
 
 step Byancie
   when onquest 97942
+  when complete 97942
   complete 97942 @55.29,56.82                 -- talk to the trainer
   turnin 97942                                -- Byancie, in the inn
 
@@ -275,11 +283,13 @@ step The road to Darnassus
 
 step Radnaal Maneweaver
   when onquest 97949
+  when complete 97949
   complete 97949 @42.09,49.96                 -- talk to the trainer
   turnin 97949                                -- Radnaal Maneweaver, camped beside the road before Shayla
 
 step Nadyia Maneweaver
   when onquest 97946
+  when complete 97946
   complete 97946 @41.88,49.44                 -- talk to the trainer
   turnin 97946                                -- Nadyia Maneweaver, beside Radnaal
 
