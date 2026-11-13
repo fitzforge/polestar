@@ -297,6 +297,17 @@ local function newCard(parent, name, sandbox)
 	local noop = function() end
 	c.Close = W.IconButton(head, "close", 22, L["Dismiss"], sandbox and noop or function() T.Hide() end, 12)
 	c.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -8, -8)
+	-- In the game's looks the card's close (the guide window's icon button
+	-- size, its glyph the card's): their red button is drawn at its target's
+	-- width and 2 (Theme.KitIconButton), so at this 22 unit target it stood
+	-- larger than the card's. The other looks keep the 22 target, 12 glyph.
+	W.Painter(head, function()
+		local kit = Theme.Kit()
+		c.Close:SetSize(kit and Theme.Metric("guideIconBtnW", 24) or 22, kit and Theme.Metric("guideIconBtnH", 24) or 22)
+		local g = kit and Theme.Metric("guideIcon", 14) or 12
+		c.Close.Icon:SetSize(g, g)
+		Theme.KitIconButton(c.Close)
+	end)
 
 	-- The row: how far, then what to do (the primary action rightmost).
 	local rowY = BAND_H + 1 + ROW_H / 2

@@ -23,10 +23,6 @@ const { audit, line, LOOKS } = require('../tools/preview/audit');
 // the test fails on it until its fix lands.
 const EXPECTED = [
 	{
-		look: '*', surface: 'toast-rare', check: 'close', match: 'PolestarRareToast Button "(close)"',
-		owner: 'game looks', reason: "WoW Forever and Blizzard: the rare toast's close is drawn larger than the card's; fixed before 0.3.8 ships.",
-	},
-	{
 		look: '*', surface: 'picker', check: 'contrast', match: 'Favourites: ',
 		owner: 'Halo, Hearth, Umbra, Lanterns', reason: "The picker's empty Favourites row reads under 3:1 in these looks; fixed before 0.3.8 ships.",
 	},
