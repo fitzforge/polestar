@@ -10297,6 +10297,12 @@ XP/hr. Then three lists: slowest steps by XP/hr; steps at least twice and
 estimate to compare against); detours, steps with 600+ yd of median travel and
 no XP or a third of the guide's XP per yard.
 
+Travel uses player positions: quest map points (`poi`), treasure vignettes,
+and rare vignettes (`src: v`, or `vignette` in schema 1) neither add distance
+nor replace the last player position. Their timestamps still count toward
+play time. Creature sightings from nameplates, targets and mouseovers carry
+the player's position and remain travel samples.
+
 ### Route planner (`planner`)
 
 `node tools/polestar.js planner [<pack dir>...] [--port 8078] [--nav <dir>] [--guides <dir>]` serves a local
