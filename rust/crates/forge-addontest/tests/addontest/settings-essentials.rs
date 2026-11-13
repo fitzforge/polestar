@@ -166,8 +166,12 @@ fn a_preset_writes_exactly_its_settings_is_lit_while_they_match_and_its_card_sho
 		row:Click("RightButton")
 		r.reset = { Polestar.Get("nav.stepPinSize"), Polestar.Get("nav.targetPinSize"), Polestar.Get("nav.mapIcons") }
 		r.lit[5] = lit()
-		-- The cards' art: the first numbered pin of each card, drawn with its preset's size.
-		local function pinW(v) local a = row.psCardBy[v].Art; return a.psSteps and math.floor(a.psSteps[1].width * 100 + 0.5) / 100 or false end
+		-- The cards' art: the first numbered pin of each card, drawn with its preset's size (its size on screen).
+		local function pinW(v)
+			local d = row.psCardBy[v].Art.psSharp
+			local s = d and d.steps[1]
+			return s and s:IsShown() and math.floor(s:GetWidth() * s:GetScale() * 100 + 0.5) / 100 or false
+		end
 		r.art = { pinW("polestar"), pinW("large"), pinW("subtle") }
 		Polestar.Set("nav.stepPinSize", 3)
 		r.artAfter = { pinW("polestar"), pinW("large") }
