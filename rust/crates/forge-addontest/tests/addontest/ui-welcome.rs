@@ -425,10 +425,11 @@ fn the_setup_page_writes_its_settings_quest_automation_both_ways_the_login_guide
 		local partly = F.AutoQuest.checked
 		F.AutoGuide:Click()
 		local guide = get("behavior.autoSelectGuide")
-		local target = { F.MarkTarget.checked, F.PingTarget.checked }
+		local target = { F.MarkTarget.checked == (get("qol.markTarget") and true or false), F.PingTarget.checked == (get("qol.pingTarget") and true or false) }
+		local was = { get("qol.markTarget") and true or false, get("qol.pingTarget") and true or false }
 		F.MarkTarget:Click()
 		F.PingTarget:Click()
-		local target2 = { get("qol.markTarget"), get("qol.pingTarget") }
+		local target2 = { (get("qol.markTarget") and true or false) ~= was[1], (get("qol.pingTarget") and true or false) ~= was[2] }
 		local cards, selected = {}, nil
 		for i, c in ipairs(F.Schemes) do
 			if c:IsShown() then
@@ -450,8 +451,8 @@ fn the_setup_page_writes_its_settings_quest_automation_both_ways_the_login_guide
 	assert_eq!(out["on"], json!([true, true, true]));
 	assert_eq!(out["partly"], false, "on only while both are on");
 	assert_eq!(out["guide"], false);
-	assert_eq!(out["target"], json!([true, false]), "the target button's mark on, its ping off, as their defaults");
-	assert_eq!(out["target2"], json!([false, true]), "each switch writes its setting");
+	assert_eq!(out["target"], json!([true, true]), "the target button's mark and ping rows show their settings");
+	assert_eq!(out["target2"], json!([true, true]), "each switch writes its setting");
 	assert_eq!(out["cards"], json!(["Dusk", "Night", "Graphite"]), "one card per scheme on offer");
 	assert_eq!(out["selected"], "Dusk");
 	assert_eq!(out["scheme"], "graphite");
