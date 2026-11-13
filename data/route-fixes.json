@@ -3509,15 +3509,15 @@
 			},
 			{
 				"a": [
+					"task",
+					25
+				],
+				"b": [
 					"accept",
 					2
 				],
-				"b": [
-					"turnin",
-					6544
-				],
 				"faction": "Horde",
-				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
+				"why": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon (12676) is a level 31 nightsaber and Sharptalon's Claw (2) a level 30 quest; taken on the way in from Torek's assault (#1175's order) players met her at 27 (recordings: most kills at 27, 3 deaths near her). Her claw is taken on the later pass, after Stonetalon Standstill at Mystral Lake (25), on the walk back north-east to Splintertree past her woods (75.0,70.1), about half a level to a level later."
 			},
 			{
 				"a": [
@@ -3795,6 +3795,42 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Sun Rock Retreat and Stonetalon Peak (level 23-26)."
+			},
+			{
+				"a": [
+					"turnin",
+					849
+				],
+				"b": [
+					"accept",
+					1058
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10, #2025): forever/horde/04-the-barrens works the southern Barrens (Gann Stonespire's Bael Modan, Blackthorn Ridge) and the Ratchet coast before Stonetalon. The old order walked Sun Rock -> Malaka'jin -> Seereth -> Camp Taurajo (about 4.7 km) between the halves and back up from the Great Lift; the flow audit ranked 04 the worst Horde guide (12.7 wasted walking minutes). Calibrated level model: 0.10-0.15 h sooner to 60 on all 28 Horde branches; travel sweep no worse (Warriors -2.7 min, Druid 0.0, Mages +0.3)."
+			},
+			{
+				"a": [
+					"accept",
+					1145
+				],
+				"b": [
+					"accept",
+					515
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (0.4.0, #2025): Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (item 3388), an Alchemy potion no vendor sells, and its hand-in waits about six levels for the Hillsbrad coast in forever/horde/30-40/01-hillsbrad-foothills. The Hillsbrad 22-25 guide told everyone to take it from Faranell and keep it; players' recordings: 2 people took it, 1 handed it in (at 38.8), 2 abandoned it. It is taken in the 30-40 guide (after Korran's The Swarm Grows, 1145, its first accept), on its opening Undercity stop, by players who carry the elixir."
+			},
+			{
+				"a": [
+					"turnin",
+					873
+				],
+				"b": [
+					"accept",
+					1058
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10): Ratchet (Further Instructions 1094 -> 1095, Mahren Skyseer and Isha Awak) before the walk west into Stonetalon, so Sputtervalve's orders (1095) and Gerenzo Wrenchwhistle (1096) are on the way up the Webwinder Path."
 			},
 			{
 				"a": [
@@ -8201,6 +8237,24 @@
 				"after": [
 					"turnin",
 					1093
+				]
+			},
+			{
+				"q": 1095,
+				"reason": "Horde 21-30 audit (phase 2, R10): Further Instructions (level 27, from 16, 1100 XP), Sputtervalve's new orders when Further Instructions (1094) is handed in at Ratchet, go back to Ziz Fizziks (4201, Stonetalon 59.0,62.6). forever/horde/04-the-barrens now visits Ratchet before Stonetalon (the southern Barrens first), so the hand-in is on its way up the Webwinder Path instead of never being offered. Players' recordings: 2 people took and handed it in.",
+				"issue": "2025",
+				"after": [
+					"turnin",
+					1094
+				]
+			},
+			{
+				"q": 1096,
+				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks on 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068), on the same walk. Calibrated level model (R10, all 28 Horde branches): 0.10-0.15 h sooner to 60 with the swap it belongs to.",
+				"issue": "2025",
+				"after": [
+					"turnin",
+					1095
 				]
 			},
 			{
@@ -12857,6 +12911,18 @@
 				],
 				"faction": "Horde",
 				"why": "#1333 (2026-11-08): The Tear of the Moons is done in Bael Modan on the way from Camp Taurajo to the Great Lift, before the descent to Freewind Post (Message to Freewind Post's hand-in), as the pair above places it."
+			},
+			{
+				"a": [
+					"turnin",
+					857
+				],
+				"b": [
+					"turnin",
+					5881
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10): Calling in the Reserves (5881, Maggran at Sun Rock) is taken at the end of forever/horde/04-the-barrens' Stonetalon half and handed to Grish Longrunner at the top of the Great Lift on forever/horde/07-ashenvale's way down into Thousand Needles, after The Tear of the Moons on the same road; Message to Freewind Post (4542) is taken there from Brave Moonhorn beside him."
 			},
 			{
 				"a": [
