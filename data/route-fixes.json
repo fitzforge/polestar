@@ -3761,6 +3761,18 @@
 			},
 			{
 				"a": [
+					"accept",
+					1145
+				],
+				"b": [
+					"accept",
+					515
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (0.4.0, #2025): Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (item 3388), an Alchemy potion no vendor sells, and its hand-in waits about six levels for the Hillsbrad coast in forever/horde/30-40/01-hillsbrad-foothills. The Hillsbrad 22-25 guide told everyone to take it from Faranell and keep it; players' recordings: 2 people took it, 1 handed it in (at 38.8), 2 abandoned it. It is taken in the 30-40 guide (after Korran's The Swarm Grows, 1145, its first accept), on its opening Undercity stop, by players who carry the elixir."
+			},
+			{
+				"a": [
 					"turnin",
 					873
 				],

@@ -11822,3 +11822,13 @@ test('forever/horde/04-the-barrens.guide: Horde 21-30 audit: the southern Barren
 	const first = next[0];
 	assert.ok(first.goal.t === 'goto' && Math.abs(first.goal.x - 51.5) < 0.5 && Math.abs(first.goal.y - 30.4) < 0.5, 'Ashenvale opens at the Crossroads\' flight master, the walk east from Seereth');
 });
+
+// Horde 21-30 audit (0.4.0, #2025): Faranell's Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (3388), an
+// Alchemy potion no vendor sells, and its hand-in waits six levels for the Hillsbrad coast in the 30-40 guide. The
+// Hillsbrad 22-25 guide told everyone to take it and keep it; players' recordings: 2 people took it, 1 handed it in (at
+// 38.8), 2 abandoned it. It is taken in the 30-40 guide, whose opening Undercity stop offers it with the elixir.
+test('forever/horde/06-hillsbrad-foothills.guide: Horde 21-30 audit: Elixir of Agony is not carried from Hillsbrad 22-25 (#2025)', { skip }, () => {
+	assert.ok(!goals('forever/horde/06-hillsbrad-foothills.guide').some(({ goal }) => goal.quest === 515), 'no Elixir of Agony in the 22-25 guide');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.b[0] === 'accept' && p.b[1] === 515 && p.a[0] === 'accept' && p.a[1] === 1145), 'the order is a route-fixes record');
+});
