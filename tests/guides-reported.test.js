@@ -11755,6 +11755,25 @@ test('Riverglades (experimental): an Alliance player going on to Feralas trains 
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
 });
 
+// The Horde route choice at the end of the Badlands guide (Kargath, about 40) offers part 1: a character there knows
+// Kargath's flight path and rides in through Twilight's Shroud; the boat from Tanaris is for everyone else
+// (0.4.0 route audit, R17r).
+test('Riverglades (experimental): Horde part 1 rides in from Kargath, the boat only for characters without its flight path', () => {
+	const steps = rivergladesSteps('riverglades-horde-1.guide');
+	const header = steps[0];
+	assert.ok(anyLine(header, /^levels 40-/), 'part 1 is written for players arriving at about 40');
+	const foot = steps.findIndex((l) => anyLine(l, /^\s+when taxi "Kargath"/) && anyLine(l, /^\s+goto /));
+	assert.ok(foot > 0, 'a step rides in from Kargath');
+	for (const re of [/^\s+fly "Freewind Post"/, /^\s+getfp "Gadgetzan"/, /Boat to Powderfuse Port/]) {
+		const i = steps.findIndex((l) => anyLine(l, re));
+		assert.ok(i > 0 && anyLine(steps[i], /^\s+when !taxi "Kargath"/), `${re}: only for characters without Kargath's flight path`);
+	}
+	const sleebo = steps.map((l, i) => (anyLine(l, /^\s+accept 96063\b/) ? i : -1)).filter((i) => i >= 0);
+	assert.equal(sleebo.length, 2, "Gaseous Gold is taken on either way in");
+	const rogmar = steps.findIndex((l) => anyLine(l, /^\s+getfp "Rog'mar"/));
+	assert.ok(sleebo[1] > rogmar && anyLine(steps[sleebo[1]], /^\s+when available 96063\b/), "the foot way takes it after Rog'mar, once");
+});
+
 // #1984: Captain Garran Vimes never offers Vimes's Report (1288) after The Deserters (1287): at least 10 recorded
 // hand-ins of 1287 and no run of 1288 at all. The 40-50 Alliance Theramore steps waited on its accept; the route
 // leaves it out (the 0.4.0 rebuild applies the record).
