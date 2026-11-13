@@ -5232,7 +5232,7 @@ test('Danger at the spot (#1575): the steps players died at among elites say so,
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	const cases = [
 		// [quest, objective, what the tip names, leveling guides holding the goal]
-		[91723, 1, /Mother Fang \(7-10\)[^.]*elites/, ['forever/alliance/human/01-elwynn-forest.guide', 'forever/alliance/02-westfall.guide']],
+		[91723, 1, /Mother Fang \(7-10\)[^.]*elites/, ['forever/alliance/human/01-elwynn-forest.guide']],
 		[87, 1, /Nimsy \(6\)[^.]*elite/, ['forever/alliance/human/01-elwynn-forest.guide']],
 		[21, 1, /Shinyfinder Narf \(3\) is elite/, ['forever/alliance/human/01-elwynn-forest.guide']],
 		[806, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
@@ -7409,9 +7409,11 @@ test('forever/alliance/02-westfall.guide: Alliance 12-20 zone order: Dwarves and
 	const list = goals('forever/alliance/02-westfall.guide');
 	for (const race of ['Dwarf', 'Gnome']) {
 		const mine = list.filter(forRaceOf(race));
-		for (const q of A1220_ELWYNN) assert.ok(mine.some(({ goal }) => is('turnin', q)(goal)), `${race}: turnin ${q}`);
+		for (const q of A1220_ELWYNN.filter((q) => q !== 91723 && q !== 91732)) assert.ok(mine.some(({ goal }) => is('turnin', q)(goal)), `${race}: turnin ${q}`);
 		// The Jasperlode Mine (76) needs The Fargodeep Mine (62), which they never take (players' recordings): not asked for.
-		for (const q of [76, 239, 11]) assert.ok(!mine.some(({ goal }) => goal.quest === q), `${race}: no ${q}`);
+		// 0.4.0 audit: Delicate Instruments and Good Steel (91723, 91732: level 7-8 at about 14.5) and their mine are left out.
+		for (const q of [76, 239, 11, 91723, 91732]) assert.ok(!mine.some(({ goal }) => goal.quest === q), `${race}: no ${q}`);
+		assert.ok(!mine.some(({ goal }) => goal.t === 'goto' && goal.map === 1429 && Math.abs(goal.x - 61.6) < 0.5 && Math.abs(goal.y - 54.1) < 0.5), `${race}: no trip into the Jasperlode Mine`);
 		const goldshire = mine.filter(({ goal }) => goal.npc === 240).map(({ s }) => s);
 		assert.equal(new Set(goldshire).size, 2, `${race}: Marshal Dughan on the way in and on the way west, nowhere else`);
 		const elwynnEnd = mine.findIndex(({ goal }) => is('accept', 109)(goal));
