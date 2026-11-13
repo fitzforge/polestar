@@ -367,7 +367,6 @@ step Tear of the Moons
 step The Great Lift
   zone Thousand Needles
   tip Grish Longrunner and Brave Moonhorn wait at the top of the Great Lift: Maggran's letter is for Grish, and Moonhorn's message goes down to Freewind Post with you.
-  goto 31.9,23.9 "The Great Lift, down into Thousand Needles"
   turnin 5881                         -- Grish Longrunner
   accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift: Cliffwatcher Longhorn at Freewind Post
 
