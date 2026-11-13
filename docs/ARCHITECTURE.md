@@ -6046,7 +6046,17 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
   verdicts ask it for an item-widget refresh (`RequestItemButtonsRefresh`).
   Baganator also shows other characters' bags; the arrow there is this
   character's verdict, as the tooltip line is.
-- Other bag addons draw their own buttons and get no arrow; the tooltip line
+- **BagSmith.** The same corner widgets use `BagSmith.API.RegisterCornerWidget`
+  with `{ listRows = true }`, so upgrade arrows, quest marks, step-item glows
+  and keep locks appear in Icons and List views. BagSmith supplies an icon-sized
+  slot for list rows and owns placement and visibility. Each module registers
+  on load or `ADDON_LOADED` and requests a refresh when its state changes.
+  Players arrange the marks in Settings > Item Icons > Icon Corners; only
+  the first applicable mark in each corner is shown. The step-item glow
+  defaults to bottom-left, leaving the protected bottom-right stack count
+  visible. Other characters' items
+  use the current character's gear, quest and guide decisions.
+- Other bag addons without an integration draw their own buttons and get no arrow; the tooltip line
   still shows on them.
 
 ### Weights and Forever's ratings — Gear/Weights.lua, Gear.lua

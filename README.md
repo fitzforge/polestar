@@ -685,7 +685,7 @@ guides you there instead.
   vendors, bankers, profession trainers, weapon masters and the rest one
   click away. A click sets the arrow there.
 - **A world map without fog of war**, with coordinates and zone level ranges.
-- **The step's item glows in your bags** (and in Baganator): the carcass, the
+- **The step's item glows in your bags** (and in Baganator and BagSmith): the carcass, the
   seeds or the horn the step uses or has you collect.
 - **Hide the game's quest tracker** (Options, Questing; off by default).
 - **The target list** shows the step's mobs (or, with no mob, the NPCs it
@@ -826,7 +826,7 @@ runs solo or in a raid.
   most. Turn-in goals name the best reward, and a quest you are about to accept
   shows its reward when it is an upgrade.
 - **In your bags** every item that is an upgrade gets the same green arrow,
-  in the game's bags, in Baganator and in EllesmereUI Bags. With Pawn
+  in the game's bags, in Baganator, BagSmith and EllesmereUI Bags. With Pawn
   installed, "Leave bag arrows to Pawn" hides Polestar's.
 - **Your own stat weights**: paste a Pawn scale string (Options, Questing,
   Rewards & gear, or `/polestar gear import`) and choose it under Stat weights
