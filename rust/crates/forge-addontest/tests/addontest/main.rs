@@ -401,6 +401,8 @@ mod ui_look_theme;
 mod ui_look_toasts;
 #[path = "ui-lookup.rs"]
 mod ui_lookup;
+#[path = "ui-materials.rs"]
+mod ui_materials;
 #[path = "ui-movers.rs"]
 mod ui_movers;
 #[path = "ui-options.rs"]

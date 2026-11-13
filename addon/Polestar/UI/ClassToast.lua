@@ -654,11 +654,14 @@ function layout(f, width)
 	-- ("Open in Dungeons"), Later and its "stop these". When they don't all
 	-- fit in the card's width, Later and the rest start a row of their own,
 	-- and a button that still doesn't fit starts the next row. A heads-up
-	-- with nothing to do (m.noAct) starts with Later.
+	-- with nothing to do (m.noAct) starts with Later. A question with three
+	-- answers (m.answers: UI/Materials.lua's Mix, Gather and Buy) keeps its
+	-- third one (`off`) beside the others, before Later.
 	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or (f.ShowMe:IsShown() and f.ShowMe) or nil
 	local row = { act }
 	local avail, total = width - 2 * PAD - STRIPE, act and act:GetWidth() or 0
-	for _, b in ipairs({ f.More, f.Later, f.Off }) do
+	local m = f.psModel
+	for _, b in ipairs(m and m.answers and { f.More, f.Off, f.Later } or { f.More, f.Later, f.Off }) do
 		if b:IsShown() then
 			if #row > 0 then total = total + (row[#row] == act and 8 or 4) end
 			total = total + b:GetWidth()

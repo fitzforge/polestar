@@ -3037,6 +3037,72 @@ function Engine.RefreshMaterials()
 	Engine.RequestUpdate()
 end
 
+-- The guide's materials still to get, per section the skill has not passed (the Materials window, its card and
+-- the shopping list at the Auction House: UI/Materials.lua, UI/MaterialsCard.lua, Materials.BuyRows): { { n,
+-- title ("Tailoring 75-150"), from, to, rank, items = { { item, name, need, held, toGet, way, reason, pick, buy
+-- (an Auction House goal buys it), gatherGoal (its first gather goal), canGather, gatherWhy, price, info } } } },
+-- the sections in order; scope "section": only the first. What the character holds (Materials.Have) counts
+-- toward the earliest section first: `held` of the section's `need`, `toGet` the rest. Every goal of the
+-- character's (its step's and its own `only`), whichever way its item takes now.
+function Engine.MaterialRows(scope)
+	local M = ns.Materials
+	local out = {}
+	if not (M and guide and guide.sections) then return out end
+	if not player then refreshPlayer() end
+	local bySec = {}
+	for s, step in ipairs(guide.steps) do
+		local sec, n = Own.sectionOf(s)
+		if sec and stepApplies(step) and not Own.sectionPassed(s) then
+			for _, goal in ipairs(step.goals) do
+				local item = goal.item
+				if item and (goal.t == "auction" or goal.gather) and Guides.Matches(goal.only, player) then
+					local e = bySec[n]
+					if not e then
+						e = { n = n, title = ("%s %d-%d"):format(skillName(sec) or sec.skill or "", sec.from, sec.to), from = sec.from, to = sec.to,
+							rank = skillRank(sec) or 0, items = {}, at = {} }
+						bySec[n] = e
+						out[#out + 1] = e
+					end
+					local row = e.at[item]
+					if not row then
+						row = { item = item, name = goal.itemName or Compat().GetItemName(item) or ("#" .. item), need = 0 }
+						e.at[item] = row
+						e.items[#e.items + 1] = row
+						row.way, row.reason = Own.materialWay(goal)
+					end
+					if goal.t == "auction" then
+						row.buy, row.need = true, Own.needOf(goal)
+					else
+						row.gatherGoal = row.gatherGoal or goal
+						if not row.buy then row.need = math.max(row.need, Own.needOf(goal)) end
+					end
+				end
+			end
+		end
+	end
+	table.sort(out, function(a, b) return a.n < b.n end)
+	if scope == "section" then
+		for i = #out, 2, -1 do out[i] = nil end
+	end
+	local held = {}
+	for _, e in ipairs(out) do
+		e.at = nil
+		for _, row in ipairs(e.items) do
+			local item = row.item
+			if held[item] == nil then held[item] = (M.Have(item)) end
+			local take = math.min(held[item], row.need)
+			held[item] = held[item] - take
+			row.held, row.toGet = take, row.need - take
+			row.pick = select(3, M.Mode(guide.id, item))
+			if row.gatherGoal then
+				row.canGather, row.gatherWhy = M.CanGather(row.gatherGoal, player)
+			end
+			if row.way == "buy" and row.toGet > 0 then row.price, row.info = M.Price(item, row.toGet) end
+		end
+	end
+	return out
+end
+
 -- The section heading over step i for the window: { title ("First Aid
 -- 1-40"), skill, skillLine, from, to, rank, state }; state "done" (the skill
 -- has passed it), "current" (the first section it has not) or "ahead"; nil

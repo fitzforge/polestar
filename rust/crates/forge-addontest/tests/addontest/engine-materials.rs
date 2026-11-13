@@ -284,3 +284,92 @@ fn prices_are_for_the_count_cheapest_first_auctionator_fills_in_and_counts_shrin
 	// Skill 10: the 9 Linen Cloaks made from 1 took 18 cloth.
 	assert_eq!(out["shrunk"], json!({ "at": 2, "open": ["Buy Linen Cloth 0/22", "Buy Light Leather 0/10"] }));
 }
+
+#[test]
+fn the_rows_split_what_the_character_holds_over_the_ranges_ahead_and_the_buy_rows_list_what_mix_buys() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		-- One row a material a range: its need, what the bags hold toward it, its way and why.
+		local function rows(scope)
+			local out = {}
+			for _, sec in ipairs(E.MaterialRows(scope)) do
+				local items = {}
+				for _, x in ipairs(sec.items) do
+					items[#items + 1] = { x.item, x.need, x.held, x.toGet, x.way, x.reason, x.buy or false, x.canGather or false, x.gatherWhy or false }
+				end
+				out[#out + 1] = { sec.title, sec.rank, items }
+			end
+			return out
+		end
+		w.addItem(2589, 25); flush()
+		r.mix = rows("rest")
+		r.buy = M.BuyRows()
+		r.choosable = { M.Choosable(E.GetGuide()), M.Choosable({ steps = { { goals = { { t = "auction", item = 1 } } } } }) }
+		-- Two ranges buying Linen Cloth: the 40 in the bags go to the first range's 30 first.
+		Polestar.RegisterGuide({ id = "test/two", pack = "test", title = "Two ranges", category = "Professions", minLevel = 1, maxLevel = 60,
+			sections = { { skill = "Tailoring", skillLine = 197, from = 1, to = 50 }, { skill = "Tailoring", skillLine = 197, from = 50, to = 75 } },
+			steps = {
+				{ title = "Auction House", section = 1, goals = { { t = "auction", item = 2589, itemName = "Linen Cloth", count = 30 } } },
+				{ title = "Linen Cloth", section = 1, goals = { { t = "collect", item = 2589, itemName = "Linen Cloth", count = 30, gather = { min = 5, max = 15 } } } },
+				{ title = "Auction House", section = 2, goals = { { t = "auction", item = 2589, itemName = "Linen Cloth", count = 20 } } },
+				{ title = "Linen Cloth", section = 2, goals = { { t = "collect", item = 2589, itemName = "Linen Cloth", count = 20, gather = { min = 5, max = 15 } } } },
+			} })
+		E.SetGuide("test/two"); flush()
+		w.addItem(2589, 15); flush()
+		r.split = rows("rest")
+		r.first = rows("section")
+		"#,
+	);
+	assert_eq!(
+		out["mix"],
+		json!([["Tailoring 1-75", 1, [
+			[2589, 40, 25, 15, "gather", "mix", true, true, false],
+			[2318, 10, 0, 10, "buy", "skill", true, false, "skill"],
+		]]]),
+		"Mix gathers the cloth at level 10 and buys the leather a character without Skinning can't skin"
+	);
+	assert_eq!(
+		out["buy"],
+		json!([{ "guide": "test/tailoring", "guideTitle": "Tailoring 1-75", "section": "Tailoring 1-75", "item": 2318, "name": "Light Leather",
+			"toBuy": 10, "need": 10, "have": 0 }])
+	);
+	assert_eq!(out["choosable"], json!([true, false]), "a guide that only buys has nothing to choose");
+	assert_eq!(
+		out["split"],
+		json!([
+			["Tailoring 1-50", 1, [[2589, 30, 30, 0, "gather", "mix", true, true, false]]],
+			["Tailoring 50-75", 1, [[2589, 20, 10, 10, "gather", "mix", true, true, false]]],
+		])
+	);
+	assert_eq!(out["first"], json!([["Tailoring 1-50", 1, [[2589, 30, 30, 0, "gather", "mix", true, true, false]]]]), "this range only");
+}
+
+#[test]
+fn the_guide_asks_until_answered_or_told_later_and_never_a_self_found_character() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		r.asks = M.Asks(ID)
+		M.Dismiss(ID)
+		r.later = { M.Asks(ID), M.Mode(ID) }
+		r.other = M.Asks("test/other")
+		M.SetMode("test/other", "gather")
+		r.answered = M.Asks("test/other")
+		Polestar.Set("professions.materials", "mix")
+		r.default = M.Asks("test/third")
+		Polestar.Set("professions.materials", nil)
+		C_PlayerInfo = C_PlayerInfo or {}
+		C_PlayerInfo.IsSelfFoundActive = function() return true end
+		r.selfFound = M.Asks("test/third")
+		"#,
+	);
+	assert_eq!(out["asks"], json!(true));
+	assert_eq!(out["later"], json!([false, "mix", false]), "Later keeps Mix, unanswered, and asks no more");
+	assert_eq!(out["other"], json!(true));
+	assert_eq!(out["answered"], json!(false));
+	assert_eq!(out["default"], json!(false), "an Options default other than Ask answers every new guide");
+	assert_eq!(out["selfFound"], json!(false));
+}

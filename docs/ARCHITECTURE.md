@@ -3363,13 +3363,17 @@ latches are, as for `collect` and `buy`.
 ```lua
 Polestar.Materials.Way(guide, item, player) -> "gather" | "buy", reason   -- first rule that fits: Self-Found (C_PlayerInfo.IsSelfFoundActive) gathers ("selfFound"); no auction goal for the character gathers ("noBuy"), no gather goal buys ("noGather"); the player's pick ("picked"); Buy all ("mode"); Gather all, buying what takes a profession or rank the character lacks ("skill"); Mix: that too, mobs more than Materials.LOW (2) levels above ("low"), a bag count with no place more than Materials.PAST (5) levels past its mobs ("past"), else gather ("mix")
 Polestar.Materials.Mode(guideId[, item]) -> mode, answered, pick   -- the character's answer for the guide (CharState().materials.guides[guideId] = { mode, ways }), else Options' default (`professions.materials`: "ask", the default, reads Mix)
-Polestar.Materials.Asks(guideId) -> bool                         -- no answer yet and the default is to ask (never Self-Found)
+Polestar.Materials.Asks(guideId) -> bool                         -- no answer yet, the default is to ask and Later never told it (never Self-Found)
+Polestar.Materials.Dismiss(guideId)                              -- Later on the card: the default stays, the guide asks no more
+Polestar.Materials.Choosable(guide) -> bool                      -- some material of it is both gathered and bought
 Polestar.Materials.SetMode(guideId, "gather" | "buy" | "mix")    -- Gather all and Buy all clear the picks; MATERIALS_CHANGED, Engine.RefreshMaterials
 Polestar.Materials.SetWay(guideId, item, "gather" | "buy" | nil) -- a pick (nil: back to the default); the guide's way becomes Mix
 Polestar.Materials.Have(item) -> total, { bags, bank, mail, coming, alts = { { name, count } }, altsCounted }
 Polestar.Materials.Stored(item) -> bank, mail, coming
 Polestar.Materials.Price(item, count) -> copper | nil, { each, age, source = "search" | "auctionator", short }
-Polestar.Materials.NoteSearch(item, rows)                        -- a search the shopping list made: { { price, quantity } }
+Polestar.Materials.NoteSearch(item, rows)                        -- a search's listings: { { price, quantity } }
+Polestar.Materials.ToAuctionator(title, { { item, name, count } }) -> bool  -- Auctionator's shopping list, while it is installed
+Polestar.Engine.MaterialRows(scope) -> { { n, title, from, to, rank, items = { { item, name, need, held, toGet, way, reason, pick, buy, gatherGoal, canGather, gatherWhy, price, info } } } }  -- the sections the skill has not passed ("section": the first only); what the character holds counts toward the earliest section first
 Polestar.Engine.RefreshMaterials()                               -- the ways changed: forget them, evaluate
 ```
 
@@ -3413,6 +3417,24 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   Auctionator's (`Auctionator.API.v1.GetAuctionPriceByItemID` and
   `GetAuctionAgeByItemID`, caller "Polestar") when it is installed. Shown with
   their age, never a gate.
+- **On screen** (`UI/Materials.lua`). The card: the first time a guide with a
+  material to choose for is the running guide of a character that never
+  answered for it (`Materials.Asks`), with something still to get, the
+  heads-up card (`UI/ClassToast.lua`, kind "materials", `answers`: its third
+  answer before Later) asks how to get them, four seconds after the guide
+  opens: what the rest of the guide takes, what Mix gathers and buys for this
+  character, the cost of buying it all when every price is known; Mix (opens
+  the window), Gather, Buy; Later, the close button or its time running out
+  keep the default for good (`Materials.Dismiss`); another guide running takes
+  it away unanswered. The window (`PolestarMaterials`, `/polestar materials`):
+  Gather all, Buy all, Mix; each material of the sections ahead (or this one)
+  with what is still to get, what the character holds toward it, its way lit
+  (Gather | Buy, a way it cannot take off) and why; a pick is
+  `Materials.SetWay`, a right-click takes it back; what buying costs, and the
+  list for Auctionator or the copy window. The guide window's menu: "Gather
+  materials", "Buy materials", "Mix: choose per material". Options: Guide ›
+  Professions › Materials (`professions.materials`,
+  `professions.altMaterials`).
 
 ### Nav API — journeys for players and other addons
 

@@ -7,9 +7,12 @@
 --
 --   Materials.Way(guide, item, player) -> "gather" | "buy", reason
 --   Materials.Mode(guideId[, item]) -> mode ("gather" | "buy" | "mix"), answered, pick ("gather" | "buy" | nil)
---   Materials.Asks(guideId) -> true while the guide's way is still to ask for (no answer, Options' default "ask")
+--   Materials.Asks(guideId) -> true while the guide's way is still to ask for (no answer, Options' default "ask",
+--     not dismissed with Later: Materials.Dismiss(guideId))
+--   Materials.Choosable(guide) -> true when some material of it is both gathered and bought
 --   Materials.SetMode(guideId, mode), Materials.SetWay(guideId, item, way | nil) -> true | false
 --     (MATERIALS_CHANGED, guideId; Gather all and Buy all clear the picks, Mix keeps them)
+--   Materials.ToAuctionator(title, list) -> true: Auctionator's shopping list of { { item, name, count } }
 --   Materials.Have(item) -> total, parts { bags, bank, mail, coming, alts = { { name, count } }, altsCounted }
 --   Materials.Stored(item) -> bank, mail, coming: this character's, out of the bags
 --   Materials.Nearest("mailbox" | "bank") -> place | nil: where the arrow fetches a material from
@@ -165,9 +168,20 @@ function Materials.Mode(guideId, item)
 	return mode, answered, (pick == "gather" or pick == "buy") and pick or nil
 end
 
+-- Later (or the card's close button) leaves the guide on the default and never asks again for it.
 function Materials.Asks(guideId)
+	local c = guideId and state().guides[guideId]
+	if type(c) == "table" and c.asked then return false end
 	local _, answered = Materials.Mode(guideId)
 	return not answered and ns.Get("professions.materials") == "ask" and not Materials.SelfFound()
+end
+
+-- Whether the guide has a material to choose a way for: one it both gathers and buys.
+function Materials.Choosable(guide)
+	for _, e in pairs(Materials.Index(guide)) do
+		if #e.gather > 0 and #e.auction > 0 then return true end
+	end
+	return false
 end
 
 function Materials.Way(guide, item, player)
@@ -228,6 +242,14 @@ function Materials.SetWay(guideId, item, way)
 		if next(c.ways) == nil then c.ways = nil end
 	end
 	changed(guideId)
+	return true
+end
+
+-- Later on the card: the guide stays on the default way and is never asked about again (Materials.Asks).
+function Materials.Dismiss(guideId)
+	if type(guideId) ~= "string" then return false end
+	choiceFor(guideId).asked = true
+	ns.Fire("MATERIALS_CHANGED", guideId)
 	return true
 end
 
@@ -465,3 +487,24 @@ ns.OnLogin(function()
 		end
 	end
 end)
+
+-- A list to buy for Auctionator, while it is installed: its shopping list `title` searching each item by its exact
+-- name in the client's language, with the count to buy (its public API). list: { { item, name, count } }. -> true
+-- when the list was made.
+function Materials.ToAuctionator(title, list)
+	local api = Auctionator and Auctionator.API and Auctionator.API.v1
+	if not (api and api.CreateShoppingList and api.ConvertToSearchString) then return false end
+	local terms = {}
+	for _, e in ipairs(list) do
+		local name = Compat.GetItemName(e.item) or e.name
+		local ok, term = pcall(api.ConvertToSearchString, CALLER, { searchString = name, isExact = true, quantity = e.count })
+		if ok and type(term) == "string" then terms[#terms + 1] = term end
+	end
+	if #terms == 0 then return false end
+	return (pcall(api.CreateShoppingList, CALLER, title, terms))
+end
+
+function Materials.AuctionatorLoaded()
+	local api = Auctionator and Auctionator.API and Auctionator.API.v1
+	return api and api.CreateShoppingList and true or false
+end

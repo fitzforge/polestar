@@ -436,6 +436,18 @@ local BUILTIN = {
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
 	} },
+	-- Gather, buy or mix (Core/Materials.lua, UI/Materials.lua): a profession guide's materials. Each guide's own
+	-- answer is the player's, per character (its card, the guide window's menu, the Materials window); this is the
+	-- way of a guide never answered.
+	{ page = GUIDE, tab = L["Professions"], section = L["Materials"], controls = {
+		{ kind = "dropdown", key = "professions.materials", label = L["Materials in profession guides"], new = "0.4.0",
+			help = L["How a profession guide gets a material it can gather or buy, until you answer for that guide. Ask me: a card asks when the guide opens and Mix applies meanwhile. Mix gathers what your level and professions allow and buys the rest at the Auction House. Vendor goods stay vendor steps."],
+			search = "materials, reagents, gather, farm, buy, auction house, mix, crafting, professions, tailoring, shopping",
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "mix", label = L["Mix"] }, { value = "gather", label = L["Gather"] }, { value = "buy", label = L["Buy"] } } },
+		{ kind = "toggle", key = "professions.altMaterials", label = L["Count my other characters' materials"], new = "0.4.0",
+			help = L["What your other characters of this realm and side hold counts toward what is still to get. Their counts show under a material either way; mail them over yourself."],
+			search = "alts, other characters, bank, mail, materials, reagents, count" },
+	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
 	-- place. The sections are declared here, in this order; the Quests,
