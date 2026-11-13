@@ -10,7 +10,7 @@ next forever/horde/50-60/01-un-goro-crater
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Monogrammed Sash (8552), Message in a Bottle (594), The Mind's Eye (591), The Bloodsail Buccaneers (608).
-# The Super Egg-O-Matic (2741, level 47, accepted in 04-tanaris): the egg from the nests south of the Frayfeather
+# The Super Egg-O-Matic (2741, taken and handed in at the Egg-O-Matic in Gadgetzan): the egg from the nests south of the Frayfeather
 # hippogryphs and the hand-in at Gadgetzan, at 50 with its full 4,200 XP (it was taken at about 56.5 in 50-60/05 with a
 # Feralas ride for about a fifth of that).
 # Added here: Assisting Arch Druid Runetotem (3762), from Innkeeper Pala on the Thunder Bluff stop, handed to Hamuul
@@ -242,7 +242,6 @@ step Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  turnin 2976
   accept 3504                         -- Belgrom Rockmaul, Valley of Honor
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   note Keep Jes'rimon's payment and Ag'tor's Betrayed: they go back to Valormok on a later visit.

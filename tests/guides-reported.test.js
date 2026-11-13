@@ -2937,6 +2937,11 @@ test('Horde 40-50/06: Stonard flies straight to Booty Bay, and Nimboya is passed
 	assert.ok(seahorn < nimboya && nimboya < zeppelin, 'Booty Bay, then Nimboya, then the zeppelin');
 });
 
+test('Horde 40-50/06: A Grim Discovery is handed in once, in 40-50/02, not asked for again in Orgrimmar', { skip }, () => {
+	assert.ok(goals(H40('02-feralas')).some(({ goal }) => is('turnin', 2976)(goal)), '02 hands it to Belgrom');
+	assert.ok(!goals(H40('06-azshara')).some(({ goal }) => is('turnin', 2976)(goal)), '06 has no second hand-in');
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.

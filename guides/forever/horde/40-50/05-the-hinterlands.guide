@@ -252,15 +252,14 @@ step The bloodmages
 # visits 49-53, levels 47.6-49.5. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
 #
-# Flow: Thorium Point (where the previous guide ends) -> fly Stonard -> the
-# bloodmages in the Blasted Lands -> the northern beasts and the eastern
-# slopes -> the bloodmages -> Stonard, fly Undercity (training) -> fly
-# Tarren Mill -> Gilveradin's camp -> Highvale and Rin'ji -> the Witherbark
-# village (Grim Message) -> the Violet Tragan -> the Atal'ai Exile ->
-# Revantusk Village (flight path, bind) -> the north coast -> the Vilebranch
-# temples -> the central hills -> Skulk Rock -> the Silvermane Howlers ->
-# Highvale -> Gilveradin -> Jintha'Alor -> Revantusk -> Aerie Peak -> hearth
-# Revantusk Village, where the next guide starts.
+# Flow (as shipped): Thorium Point (where the previous guide ends) -> fly
+# Tarren Mill -> Gilveradin's camp -> Highvale and Rin'ji -> the Violet
+# Tragan -> Revantusk Village (flight path, bind) -> the north coast -> the
+# Vilebranch temples and the central hills -> Skulk Rock -> the Altar of Zul
+# -> Gilveradin -> Highvale -> Jintha'Alor (group) -> Revantusk -> the
+# Atal'ai Exile -> the Witherbark village (Grim Message) -> Aerie Peak ->
+# Revantusk -> fly Stonard -> the Fallen Hero -> the bloodmages in the
+# Blasted Lands -> Stonard, where the next guide starts.
 #
 # Deviations from the export:
 # - The Booty Bay stop (visit 49) is dropped: a flight and a zeppelin for
@@ -285,10 +284,8 @@ step The bloodmages
 #   Rin'ji. Revantusk Village: round the village from the west side, where
 #   you ride in; Gorkas, the flight master at the far east end, last.
 #
-# Class training: the Undercity for Warriors, Paladins, Rogues, Priests,
-# Mages and Warlocks; Hunters, Shamans and Druids trained at the end of the
-# previous guide and train next in Orgrimmar and Thunder Bluff in the next
-# guide.
+# Class training: none in this guide; every class trains next in Orgrimmar at
+# about 50 (40-50/06; Druids and Paladins in Thunder Bluff).
 #
 # Optional: Find and Rescue OOX-09/HL! (485, 836): the beacon is a rare drop.
 #
