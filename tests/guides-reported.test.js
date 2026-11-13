@@ -5409,9 +5409,11 @@ test('Silverpine Forest and the Barrens (Horde): the band\'s dangerous steps say
 		[BARRENS, 'Twitching Antennae', /Silithid Harvester \(24, rare\)/],
 		[BARRENS, 'The Stormrage Barrow Dens', /Territorial Terrans \(level 60\)/],
 	]) {
-		const step = compiled(guide).steps.find((st) => st.title === title);
-		assert.ok(step, `${guide}: step "${title}"`);
-		const tips = [].concat(step.tip || []);
+		// The guide's own tip lines (a compiled step folds its tips into `note`, with names turned into tokens).
+		const src = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		const block = src.split('\nstep ').find((s) => s.split('\n')[0] === title);
+		assert.ok(block, `${guide}: step "${title}"`);
+		const tips = block.split('\n').filter((l) => l.startsWith('  tip ')).map((l) => l.slice(6));
 		assert.equal(tips.length, 1, `${title}: one tip`);
 		assert.match(tips[0], re, `${title}: names the danger`);
 		assert.ok(fixes.some((f) => f.tip === tips[0]), `${title}: a record the build keeps`);
@@ -5484,6 +5486,8 @@ test("The Barrens (Horde): Chol'aruk the Ravener is a group choice on the Razorm
 // for Rilli Greasygob, then on to Thunder Bluff): Druids and Paladins have no trainer in Orgrimmar. They take Thunder
 // Bluff in the Orgrimmar trip's place (Paladins learn its flight path by Camp Taurajo), Druids with Cat Form and Cure
 // Poison on the same trip, and fly on to Ratchet; nobody makes a second Thunder Bluff trip after Counterattack!.
+// The chain's `level 20` hold: every Druid recorded at that stop was over 20 (0.3.7: 22.05 and 22.2; 0.3.6: 21.0). The
+// calibrated level model, which runs about two levels under players in this band, reaches it at 19.7 and grinds there.
 test('The Barrens (Horde): Druids and Paladins train in Thunder Bluff in the Orgrimmar trip\'s place, once (0.4.0 audit)', { skip }, () => {
 	const list = goals(BARRENS);
 	const fits = (o, cls) => !o || !o.classes || o.classes.includes(cls);
