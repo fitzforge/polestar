@@ -413,3 +413,44 @@ fn exit_asks_when_something_moved_discard_puts_it_back_and_save_keeps_it() {
 	assert_eq!(out["saved"], json!([false, false, [502, 500]]), "Save and exit from the question");
 	assert_eq!(out["bar"], json!([false, false, [502, 501]]), "the bar's Save and exit, no question");
 }
+
+// The selected frame's place can be typed: under the bar, its name and its centre's X and Y from the screen's centre
+// (what its box shows). Enter moves it there on that axis, the other kept; Tab moves and goes to the other field;
+// something not a number puts the field back; no selection, no panel.
+#[test]
+fn the_selected_frames_centre_can_be_typed_under_the_bar() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		M.Unlock()
+		local pick = PolestarMoversBar.Pick
+		local idle = pick:IsShown()
+		M.Unlock("launcher")
+		local shown = { pick:IsShown(), pick.Name:GetText(), pick.X:GetText(), pick.Y:GetText() }
+		pick.X:SetText("100")
+		stub.RunScript(pick.X, "OnEnterPressed")
+		local x = Polestar.Get("ui.launcherPos")
+		pick.Y:SetText("60")
+		stub.RunScript(pick.Y, "OnEnterPressed")
+		local y = Polestar.Get("ui.launcherPos")
+		pick.Y:SetFocus()
+		pick.Y:SetText("up a bit")
+		stub.RunScript(pick.Y, "OnEnterPressed")
+		local bad = { Polestar.Get("ui.launcherPos"), pick.Y:GetText() }
+		pick.X:SetFocus()
+		pick.X:SetText("-200")
+		stub.RunScript(pick.X, "OnTabPressed")
+		local tab = { Polestar.Get("ui.launcherPos"), pick.Y:HasFocus(), M.Box("launcher").Size:GetText() }
+		stub.RunScript(pick.Y, "OnEscapePressed")
+		local esc = { pick.Y:HasFocus(), M.IsUnlocked() }
+		M.Save()
+		emit({ idle = idle, shown = shown, x = x, y = y, bad = bad, tab = tab, esc = esc, gone = pick:IsVisible() })"#);
+	assert_eq!(out["idle"], false, "nothing selected: no panel");
+	assert_eq!(out["shown"], json!([true, "Floating button", "-460", "-40"]), "its centre from the screen's centre");
+	assert_eq!(out["x"], json!([1060, 500]), "X 100: its centre 100 right of the screen's, its height kept");
+	assert_eq!(out["y"], json!([1060, 600]));
+	assert_eq!(out["bad"], json!([[1060, 600], "60"]), "not a number: nothing moves, the field back");
+	assert_eq!(out["tab"], json!([[760, 600], true, "-200, 60"]), "Tab moves it and goes on to Y");
+	assert_eq!(out["esc"], json!([false, true]), "Escape leaves the field, not the mode");
+	assert_eq!(out["gone"], false);
+}

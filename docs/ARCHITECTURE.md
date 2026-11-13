@@ -8000,7 +8000,10 @@ Each call fires `GUIDE_VISIBILITY`.
   pure) to the screen's centre lines and the other boxes' edges and centres
   within 6 px with an accent guide (`movers.snap`), else to the grid out from
   the screen's centre (`movers.grid`, `movers.gridSize` 8, 16 or 32); Shift
-  keeps a drag to one axis. A click selects (its centre's offset shown), the
+  keeps a drag to one axis. A click selects (its centre's offset shown, and
+  under the bar a panel with its name and that centre's X and Y to type:
+  Enter moves it there on that axis, Tab goes on to the other field,
+  `Movers.MoveCentre(key, x, y)`), the
   arrow keys nudge it 1 px (Shift 10), a right-click opens its menu by the
   cursor (Its settings: the spec's `settings` key through `O.JumpTo`, the
   boxes staying up; Reset position on a second click; Hide this box), and

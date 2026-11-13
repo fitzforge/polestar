@@ -25,3 +25,5 @@ section: players
   in its header to see through it, or fold it to its header and unfold it
   where you left off. Shift and the mouse wheel anywhere on the window
   change its scale.
+- In Move frames you can type where the selected frame goes: its X and Y
+  from the screen's centre show under the bar, ready to change.

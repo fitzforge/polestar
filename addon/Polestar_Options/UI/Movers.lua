@@ -400,12 +400,35 @@ local function paintBox(b)
 	b.Edges[4]:SetWidth(px)
 end
 
+-- Where a box's centre stands from the screen's centre: x, y (rounded).
+local function centreOf(b)
+	local sw, sh = screen()
+	return round(b.psLeft + b.psW / 2 - sw / 2), round(b.psBottom + b.psH / 2 - sh / 2)
+end
+
+-- The selected box's place to type (the panel under the bar, built with
+-- it): its name and its centre's X and Y, while one is selected; a field
+-- being typed in keeps its text.
+local function paintPick()
+	local p = bar and rawget(bar, "Pick")
+	if not p then return end
+	local b = selected
+	p:SetShown(b ~= nil)
+	if not b then return end
+	p.Name:SetText(b.Label:GetText() or "")
+	local x, y = centreOf(b)
+	if not p.X:HasFocus() then p.X:SetText(tostring(x)) end
+	if not p.Y:HasFocus() then p.Y:SetText(tostring(y)) end
+	p:SetWidth(16 + ceil(p.Name:GetStringWidth()) + 14 + p.X.Label:GetStringWidth() + 6 + p.X:GetWidth()
+		+ 12 + p.Y.Label:GetStringWidth() + 6 + p.Y:GetWidth() + 16)
+end
+
 -- The selected box says where it stands (its centre from the screen's);
 -- the others their size.
 local function boxText(b)
 	if b == selected or b == dragging then
-		local sw, sh = screen()
-		b.Size:SetText(format(L["%d, %d"], round(b.psLeft + b.psW / 2 - sw / 2), round(b.psBottom + b.psH / 2 - sh / 2)))
+		b.Size:SetText(format(L["%d, %d"], centreOf(b)))
+		if b == selected then paintPick() end
 	else
 		b.Size:SetText(format(L["%d × %d"], round(b.psW), round(b.psH)))
 	end
@@ -437,6 +460,7 @@ local function selectBox(b)
 		boxText(b)
 		layoutText(b)
 	end
+	paintPick()
 end
 
 -- A box asked for by name (a settings row's Move) pulses a few times in the
@@ -843,6 +867,63 @@ local function layoutBar()
 	bar:SetScale((sw and sw > 0 and x > sw - 24) and (sw - 24) / x or 1)
 end
 
+-- A typed centre: the field's number on its axis, the other axis kept;
+-- anything else puts the field back.
+local function typedMove(axis, text)
+	local b = selected
+	local n = tonumber((tostring(text or ""):gsub(",", ".")):match("^%s*([-+]?%d+%.?%d*)%s*$") or "")
+	if not (b and n) then return paintPick() end
+	local x, y = centreOf(b)
+	if axis == "x" then x = n else y = n end
+	M.MoveCentre(b.psKey, x, y)
+end
+
+-- One of the panel's fields: Enter moves the frame, Tab goes to the other
+-- field, Escape leaves it as it was.
+local function pickField(parent, label, axis, tip)
+	local e = CreateFrame("EditBox", nil, parent)
+	e:SetAutoFocus(false)
+	e:SetSize(64, 24)
+	e:SetTextInsets(6, 6, 0, 0)
+	e:SetJustifyH("RIGHT")
+	e:SetMaxLetters(6)
+	Theme.Font(e, "number")
+	W.Color(e, "text")
+	Theme.Skin(e, "editbox")
+	e.Label = W.Text(parent, "label", "textDim")
+	e.Label:SetText(label)
+	e:SetScript("OnEditFocusGained", function(self)
+		Theme.SetFocused(self, true)
+		self:HighlightText()
+	end)
+	e:SetScript("OnEditFocusLost", function(self)
+		Theme.SetFocused(self, false)
+		paintPick()
+	end)
+	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+	e:SetScript("OnEnterPressed", function(self)
+		local text = self:GetText()
+		self:ClearFocus()
+		typedMove(axis, text)
+	end)
+	e:SetScript("OnTabPressed", function(self)
+		local text = self:GetText()
+		typedMove(axis, text)
+		if self.psOther then self.psOther:SetFocus() end
+	end)
+	e:SetScript("OnEnter", function(self) W.Tooltip(self, "ANCHOR_BOTTOM", label, { tip }) end)
+	e:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	return e
+end
+
+-- The selected frame's centre, typed (the panel under the bar).
+function M.MoveCentre(key, x, y)
+	local _, _, w, h = M.Rect(key)
+	if not w then return false end
+	local sw, sh = screen()
+	return M.MoveTo(key, x + sw / 2 - w / 2, y + sh / 2 - h / 2)
+end
+
 local function confirmResetAll()
 	W.Modal({ title = L["Reset all positions?"], icon = "reset", danger = true, action = L["Reset all positions"],
 		text = L["Every Polestar frame goes back to its default place."], onAccept = M.ResetAll })
@@ -892,6 +973,25 @@ local function buildBar()
 	bar.Exit.psTip, bar.Exit.psTipLines = L["Exit"], { L["Also Escape. When something moved, it asks whether to keep it."] }
 	bar.Save = W.Button(bar, L["Save and exit"], function() M.Save() end, { primary = true, icon = "check" })
 	bar.Save.psTip, bar.Save.psTipLines = L["Save and exit"], { L["Every frame stays where it is now."] }
+	-- The selected frame's centre to type: X and Y from the screen's centre
+	-- (what its box shows), under the bar while a box is selected.
+	local pick = CreateFrame("Frame", nil, bar)
+	pick:SetHeight(36)
+	pick:SetPoint("TOP", bar, "BOTTOM", 0, -6)
+	pick:EnableMouse(true)
+	pick.psLight = true
+	Theme.Skin(pick, "window")
+	pick.Name = W.Text(pick, "label", "text")
+	pick.Name:SetPoint("LEFT", pick, "LEFT", 16, 0)
+	pick.X = pickField(pick, L["X"], "x", L["Its centre's distance from the screen's centre, right of it; type one and press Enter."])
+	pick.Y = pickField(pick, L["Y"], "y", L["Its centre's distance from the screen's centre, above it; type one and press Enter."])
+	pick.X.Label:SetPoint("LEFT", pick.Name, "RIGHT", 14, 0)
+	pick.X:SetPoint("LEFT", pick.X.Label, "RIGHT", 6, 0)
+	pick.Y.Label:SetPoint("LEFT", pick.X, "RIGHT", 12, 0)
+	pick.Y:SetPoint("LEFT", pick.Y.Label, "RIGHT", 6, 0)
+	pick.X.psOther, pick.Y.psOther = pick.Y, pick.X
+	pick:Hide()
+	bar.Pick = pick
 	layoutBar()
 end
 
