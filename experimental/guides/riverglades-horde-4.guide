@@ -27,6 +27,8 @@ next forever/horde/40-50/01-stranglethorn-vale
 # - Death to the Executioner (95433): Executioner Morg is an elite (46), and the mace goes to Clugfist in Bolder'ok.
 # - A Token of Vengeance (94975), Tome of Twilight (94972), Eye of Mugg (94968) and Krol'dok Moulding (94973): their
 #   items come from the Krol'dok Stronghold dungeon.
+# - It Is Time, Brother... (95278): Da'grosh's message goes back to Krom'rosh in Rog'mar, and this route leaves the
+#   zone through Twilight's Shroud instead.
 
 step Hearth to Rog'mar
   hearth "Rog'mar"
@@ -97,7 +99,6 @@ step Crag'rog
 step Da'grosh
   turnin 94745
   turnin 94748
-  accept 95278 optional                 -- It Is Time, Brother...: a message for Krom'rosh in Rog'mar, if you pass there
 
 step Bring Me His Head
   when group 94768

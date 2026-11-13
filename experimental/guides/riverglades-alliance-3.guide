@@ -23,6 +23,8 @@ next polestar-experimental/riverglades-alliance-4
 # Left out on purpose:
 # - Shipping and Handling (95296) and I Know a Guy (95295): Friz's errands end in Tanaris and Booty Bay, and the
 #   second one sends you back here.
+# - From Port to Port (95219): Friz's cask goes to Feathermoon Stronghold in Feralas; only players of level 43 or
+#   more go on to Feralas from here, and the Feralas guide doesn't hand it in.
 
 step Beast Entrails as you go
   along until argo
@@ -89,7 +91,6 @@ step Powderfuse Port
   turnin 95124
   turnin 95261                          -- Argo Brinewhistle
   accept 95267 optional                 -- The Monster Surfaces: a big beast in the shallows south-west of the port, near Old Rot-Chum, the elite
-  accept 95219 optional                 -- Friz Frazzlespark: From Port to Port, a cask for Feathermoon Stronghold in Feralas, where the next guide goes
 
 step The Monster Surfaces
   when onquest 95267
