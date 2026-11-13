@@ -727,18 +727,15 @@ fn a_breadcrumb_in_the_log_holds_its_target_back_until_it_is_handed_in() {
 	let base = forge_sim::Params::effective(common::params_doc().as_ref(), None, &[]);
 	let model = |crumbs: Option<Vec<(u32, u32)>>| forge_sim::route::model_for(&o.world, "Orc", &Profile { crumbs: crumbs.map(std::sync::Arc::new), ..Profile::average(Faction::Horde) }, &base, &o.walks).unwrap().0;
 	let plain = model(None);
-	// A breadcrumb of the slice (no objectives, its follow-up next) whose follow-up needs nothing else: the slice
-	// data has no breadcrumb links, so the pair is given as the game data's would be.
+	// The slice data has no breadcrumb links, so two of its quests stand in for a pair as the game data would give
+	// it: a breadcrumb with no work of its own (handed in as soon as it is taken) and a quest of the same level
+	// band, each open with nothing before it.
 	let r0 = &plain.run;
-	let free = |q: u32| r0.q_pre[q as usize].is_empty() && r0.q_all[q as usize].is_empty() && r0.q_parent[q as usize] < 0;
-	let (bid, fid) = o
-		.world
-		.quests
-		.iter()
-		.filter(|w| w.breadcrumb)
-		.filter_map(|w| Some((w.id, w.next? as u32)))
-		.find(|&(b, f)| r0.q(b).zip(r0.q(f)).is_some_and(|(bi, fi)| free(bi) && free(fi) && !r0.q_excl[bi as usize].contains(&fi)))
-		.expect("a breadcrumb and its follow-up, each open with nothing before it");
+	let free = |q: usize| r0.q_pre[q].is_empty() && r0.q_all[q].is_empty() && r0.q_parent[q] < 0 && r0.q_excl[q].is_empty();
+	let errand = |q: usize| free(q) && r0.q_task0[q] == r0.q_task1[q] && r0.q_accept[q] < 0 && r0.q_level[q] >= 5;
+	let b0 = (0..r0.n_quests()).find(|&q| errand(q)).expect("a quest with no work of its own, open with nothing before it");
+	let f0 = (0..r0.n_quests()).find(|&q| q != b0 && free(q) && r0.q_accept[q] < 0 && (r0.q_level[q] - r0.q_level[b0]).abs() <= 3).expect("another open quest");
+	let (bid, fid) = (r0.q_id[b0], r0.q_id[f0]);
 	let at = |k: u8, q: u32, pt: u32| Step { kind: k, q, task: -1, pt };
 	let play = |m: &forge_sim::Model| {
 		let r = &m.run;
