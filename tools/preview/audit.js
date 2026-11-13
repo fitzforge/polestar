@@ -180,14 +180,16 @@ do local WN = Polestar.UI and Polestar.UI.WhatsNew; if WN and WN.LATEST then Pol
 // the arrow's, the pins' and the route lines' come along with a surface's
 // own files for those looks (after the theme, as the TOC orders them).
 // Without them most concept skins were refused and the surface was checked
-// in Polestar's own look.
+// in Polestar's own look. A surface that loads some of them itself (the route
+// choice loads Nav for its cards' map marks) gets the rest after those, so
+// Nav still comes before the route lines.
 const SKIN_FILES = ['Nav/Nav.xml', 'Maps/FlightPaths.lua', 'Maps/RouteStrokes.lua', 'Maps/RouteSparkle.lua', 'Maps/RouteLines.lua'];
 function filesFor(look, surface) {
 	const files = surface.files || P.FILES;
 	if (!look.addon) return files;
 	const extra = SKIN_FILES.filter((f) => !files.includes(f));
-	const at = files.indexOf('Theme/Theme.xml') + 1;
-	return extra.length && at > 0 ? [...files.slice(0, at), ...extra, ...files.slice(at)] : files;
+	const at = Math.max(files.indexOf('Theme/Theme.xml'), ...SKIN_FILES.map((f) => files.indexOf(f))) + 1;
+	return extra.length && files.includes('Theme/Theme.xml') ? [...files.slice(0, at), ...extra, ...files.slice(at)] : files;
 }
 
 // The Lua run of one look on one surface at UI scale `scale`, set before
