@@ -547,7 +547,8 @@ emit({ ups = ups, accepts = accepts, why = why or false, text = text or false })
 		)
 	};
 	let warrior = run(&own, &script(""), Opts { at: Some(BARRENS), ready: vec![90700], questdb: true, ..Default::default() }).remove(0);
-	assert_eq!(warrior, json!({ "ups": [], "accepts": [], "why": "profession", "text": "Requires Alchemy" }), "no Alchemy: not offered");
+	// An empty Lua table reaches the test as an object.
+	assert_eq!(warrior, json!({ "ups": {}, "accepts": {}, "why": "profession", "text": "Requires Alchemy" }), "no Alchemy: not offered");
 	let alchemist = run(&own, &script(r#"stub.world.learnSkill(171, "Alchemy", 210, 225)"#), Opts { at: Some(BARRENS), ready: vec![90700], questdb: true, ..Default::default() }).remove(0);
 	assert_eq!(alchemist["ups"], json!([90701]), "an alchemist is offered it: {alchemist}");
 	assert_eq!(alchemist["accepts"], json!([90701]));
