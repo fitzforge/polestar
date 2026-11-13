@@ -124,18 +124,15 @@ fn more_of(line: &str) -> (usize, String) {
 
 #[test]
 fn a_player_on_the_defaults_gets_one_settings_line_that_says_all_defaults() {
-	let out = run(
-		r#"
+	let out = run(r#"
 uistub.setGuide(uistub.elwynn, 3)
-emit(section(R.Details()))"#,
-	);
+emit(section(R.Details()))"#);
 	assert_eq!(out[0], json!({ "lines": ["Settings: all defaults"], "kinds": ["settings"] }), "the account's Default profile, nothing changed: no more to say");
 }
 
 #[test]
 fn a_few_changes_read_as_compact_lines_ranked_by_what_they_change_with_the_looks_in_one_line() {
-	let out = run(
-		r#"
+	let out = run(r#"
 set("behavior.autoAccept", false)
 set("behavior.whileHereRadius", 400)
 set("nav.routeStyle", "fastest")
@@ -151,8 +148,7 @@ set("guideWindow.titleSize", 1.2)
 uistub.setGuide(uistub.elwynn, 3)
 local d = R.Details()
 emit(section(d))
-emit({ text = R.Text("The vermin were all by the tents.", d) })"#,
-	);
+emit({ text = R.Text("The vermin were all by the tents.", d) })"#);
 	assert_eq!(
 		strs(&out[0]["lines"]),
 		[
@@ -174,8 +170,7 @@ emit({ text = R.Text("The vermin were all by the tents.", d) })"#,
 
 #[test]
 fn many_changes_stop_the_list_at_its_cap_count_the_rest_and_pack_it_in_a_line_that_with_the_list_unfolds_to_them_all() {
-	let out = run(
-		r#"
+	let out = run(r#"
 local n = changeAll()
 uistub.setGuide(uistub.elwynn, 3)
 local d = R.Details()
@@ -188,8 +183,7 @@ end
 local all = {}
 for _, e in ipairs(listed) do all[#all + 1] = e end
 for _, e in ipairs(packed.settings) do all[#all + 1] = e end
-emit({ n = n, max = R.SETTINGS_MAX, section = s, packed = packed, hashOfAll = Polestar.Import.Adler32(table.concat(all, "\n")) })"#,
-	);
+emit({ n = n, max = R.SETTINGS_MAX, section = s, packed = packed, hashOfAll = Polestar.Import.Adler32(table.concat(all, "\n")) })"#);
 	let o = &out[0];
 	let n = o["n"].as_u64().unwrap() as usize;
 	assert!(n > 200, "every setting these files register turned: {n}");
@@ -230,16 +224,14 @@ emit({ n = n, max = R.SETTINGS_MAX, section = s, packed = packed, hashOfAll = Po
 
 #[test]
 fn a_report_trimmed_to_fit_drops_the_packed_line_first_and_counts_any_list_line_it_drops_in_plus_n_more() {
-	let out = run(
-		r#"
+	let out = run(r#"
 changeAll()
 uistub.setGuide(uistub.elwynn, 3)
 local d = R.Details()
 local roomy = R.Text("x", d)
 R.TEXT_MAX = 1000
 local tight = R.Text("x", d)
-emit({ roomy = roomy, tight = tight, lines = section(d).lines, kinds = section(d).kinds })"#,
-	);
+emit({ roomy = roomy, tight = tight, lines = section(d).lines, kinds = section(d).kinds })"#);
 	let lines = strs(&out[0]["lines"]);
 	let kinds = strs(&out[0]["kinds"]);
 	let more = &lines[kinds.iter().position(|k| k == "settingmore").unwrap()];
@@ -260,8 +252,7 @@ emit({ roomy = roomy, tight = tight, lines = section(d).lines, kinds = section(d
 
 #[test]
 fn looks_alone_make_the_looks_line_naming_the_skins_picks_and_counting_the_rest_and_nothing_else() {
-	let out = run(
-		r#"
+	let out = run(r#"
 set("ui.scheme", "night")
 set("ui.font", "inter")
 set("ui.scale", 0.9)
@@ -272,8 +263,7 @@ set("guideWindow.goalSize", 1.2)
 set("ui.accent", { 0.25, 0.5, 0.75 })
 set("nav.arrowColor", { 1, 0.5, 0 })
 uistub.setGuide(uistub.elwynn, 3)
-emit(section(R.Details()))"#,
-	);
+emit(section(R.Details()))"#);
 	assert_eq!(
 		out[0],
 		json!({
@@ -289,30 +279,23 @@ emit(section(R.Details()))"#,
 
 #[test]
 fn values_read_compactly_and_a_setting_no_module_registers_is_left_out() {
-	let out = run(
-		r#"
+	let out = run(r#"
 set("behavior.whileHereTurninSeconds", 33.3333)
 set("behavior.trainReminder", "off")
 set("behavior.closeSkipped", false)
 set("behavior.noSuchSetting", true)
 set("gear.spec", { WARRIOR = "arms" })
-emit(section(R.Details()).lines)"#,
-	);
+emit(section(R.Details()).lines)"#);
 	assert_eq!(
 		strs(&out[0]),
-		[
-			"Settings: profile Default (account) \u{b7} 4 changed",
-			"behavior.closeSkipped=off behavior.trainReminder=2->off behavior.whileHereTurninSeconds=20->33.33",
-			"gear.spec.WARRIOR=auto->arms",
-		],
+		["Settings: profile Default (account) \u{b7} 4 changed", "behavior.closeSkipped=off behavior.trainReminder=2->off behavior.whileHereTurninSeconds=20->33.33", "gear.spec.WARRIOR=auto->arms",],
 		"numbers to two places, a choice's id, a record's own key; a key no module registers (an old or a newer Polestar's) is no setting"
 	);
 }
 
 #[test]
 fn the_profile_is_named_with_whose_choice_it_is_but_never_by_a_name_that_holds_a_characters_or_realms() {
-	let out = run(
-		r#"
+	let out = run(r#"
 local function settingsLine()
 	for _, l in ipairs(R.Details().lines) do if l:find("^Settings: ") then return l end end
 end
@@ -332,8 +315,7 @@ Polestar.DB().alts = { chars = { ["Altname-Other Realm"] = { name = "Altname", r
 P.New("Altname's")
 P.Switch("Altname's")
 local alt = settingsLine()
-emit({ account = account, character = character, named = named, realm = realm, alt = alt })"#,
-	);
+emit({ account = account, character = character, named = named, realm = realm, alt = alt })"#);
 	let o = &out[0];
 	assert_eq!(o["account"], "Settings: profile Raid (account) \u{b7} all defaults");
 	assert_eq!(o["character"], "Settings: profile Raid (character) \u{b7} all defaults");
@@ -344,8 +326,7 @@ emit({ account = account, character = character, named = named, realm = realm, a
 
 #[test]
 fn the_window_says_what_the_reports_settings_hold_until_the_report_shows_and_the_copy_hint_takes_its_place() {
-	let out = run(
-		r#"
+	let out = run(r#"
 uistub.setGuide(uistub.elwynn, 3)
 UI.ShowReport()
 local F = PolestarReport
@@ -353,12 +334,8 @@ local before = { note = F.SettingsNote:IsShown() and F.SettingsNote:GetText() or
 F.Desc:SetText("The vermin were all by the tents.")
 stub.RunScript(F.Desc, "OnTextChanged", true)
 F.Copy:Click()
-emit({ before = before, after = { note = F.SettingsNote:IsShown(), hint = F.CopyHint:IsShown(), box = F.Box:IsShown() }, height = F:GetHeight() })"#,
-	);
-	assert_eq!(
-		out[0]["before"],
-		json!({ "note": "The report lists the settings you changed and your profile's name: no character names, chat, account or realm.", "hint": false })
-	);
+emit({ before = before, after = { note = F.SettingsNote:IsShown(), hint = F.CopyHint:IsShown(), box = F.Box:IsShown() }, height = F:GetHeight() })"#);
+	assert_eq!(out[0]["before"], json!({ "note": "The report lists the settings you changed and your profile's name: no character names, chat, account or realm.", "hint": false }));
 	assert_eq!(out[0]["after"], json!({ "note": false, "hint": true, "box": true }));
 	assert!(out[0]["height"].as_f64().unwrap() <= 720.0, "{}", out[0]["height"]);
 }
@@ -412,10 +389,7 @@ const SCRIPTS: [(&str, &str, &str); 3] = [
 ];
 
 fn longest(locale: &str, word: &str, letter: &str, desc: usize) -> Value {
-	let script = LONGEST
-		.replace("WORD", &serde_json::to_string(word).unwrap())
-		.replace("LETTER", &serde_json::to_string(letter).unwrap())
-		.replace("DESC", &desc.to_string());
+	let script = LONGEST.replace("WORD", &serde_json::to_string(word).unwrap()).replace("LETTER", &serde_json::to_string(letter).unwrap()).replace("DESC", &desc.to_string());
 	run_in(&format!("function GetLocale() return \"{locale}\" end"), &script).remove(0)
 }
 
