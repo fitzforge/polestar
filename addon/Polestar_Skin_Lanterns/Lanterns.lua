@@ -182,10 +182,14 @@ local function tintAll(set, r, g, b, a)
 end
 
 -- The ground's colour and opacity as Polestar would paint this frame: a
--- menu or popup over other frames (psMenu) on menuBg, never see-through.
+-- menu or popup over other frames (psMenu) on menuBg, never see-through; a
+-- window (token "bg") in its own colour and at the window opacity, as the
+-- house paints windows; any other panel in its token as it is, so the
+-- window opacity leaves the cards and panels alone.
 local function ground(frame, token)
 	if frame.psMenu then return Theme.Color("menuBg") end
 	local r, g, b, a = Theme.Color(token)
+	if token ~= "bg" then return r, g, b, a end
 	local c = frame.psBgColor
 	if c then r, g, b = c[1], c[2], c[3] end
 	local alpha = frame.psBgAlpha or (Theme.GroundAlpha and Theme.GroundAlpha()) or a or 1
