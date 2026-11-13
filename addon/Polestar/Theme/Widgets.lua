@@ -1490,14 +1490,44 @@ local function menuRowClick(self)
 	if item.onClick then item.onClick(item) end
 end
 
+-- item.preview(item): a choice heard (or seen) without picking it, a sound
+-- list's: the row's speaker plays it, and so does resting the pointer on
+-- the row a moment (PREVIEW_DWELL); leaving it or the menu closing first
+-- plays nothing.
+local PREVIEW_DWELL = 0.5
+local previewToken = 0
+local function previewSoon(row)
+	previewToken = previewToken + 1
+	local token, item = previewToken, row.psItem
+	if not (item and item.preview) then return end
+	ns.After(PREVIEW_DWELL, function()
+		if token == previewToken and row:IsVisible() and row.psItem == item then item.preview(item) end
+	end)
+end
+
+local function rowSpeaker(row)
+	local b = rawget(row, "Speaker")
+	if b then return b end
+	b = W.IconButton(row, "speaker", 22, L["Play"], function()
+		previewToken = previewToken + 1
+		local item = row.psItem
+		if item and item.preview then item.preview(item) end
+	end, 13)
+	b.psTipLines = { L["Hear it without picking it."] }
+	row.Speaker = b
+	return b
+end
+
 local function menuRowEnter(self)
 	if not self.psArmed then paintMenuRow(self, true) end
 	if self.psItem and self.psItem.tip then W.Tooltip(self, "ANCHOR_RIGHT", self.psItem.text, { self.psItem.tip }) end
+	previewSoon(self)
 end
 
 local function menuRowLeave(self)
 	if not self.psArmed then paintMenuRow(self, false) end
 	hideTip(self)
+	previewToken = previewToken + 1
 end
 
 local function buildMenu()
@@ -1517,7 +1547,10 @@ local function buildMenu()
 	Theme.Skin(menu, "panel")
 	menu.rows = {}
 	menu.seps = {}
-	menu:SetScript("OnHide", function() catcher:Hide() end)
+	menu:SetScript("OnHide", function()
+		catcher:Hide()
+		previewToken = previewToken + 1
+	end)
 	menu:Hide()
 	ns.CloseOnEscape("PolestarMenu")
 	-- A gamepad (UI/Gamepad.lua) picks a row, starting on the current choice; B closes.
@@ -1560,15 +1593,18 @@ local function menuRow(i)
 	return row
 end
 
--- items: { { text, icon, checked, disabled, onClick, tip, color, confirm }, { separator = true }, ... }
+-- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
 -- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168 }
 function W.ShowMenu(anchor, items, opts)
 	if not menu then buildMenu() end
 	opts = opts or {}
 	local pad, rowH = Theme.Metric("menuPad", MENU_PAD), Theme.Metric("menuRow", MENU_ROW)
 	local y, width, nrow, nsep = -pad, opts.minWidth or Theme.Metric(opts.wide and "servicesWidth" or "menuWidth", 176), 0, 0
-	local anyIcon = false
-	for i = 1, #items do if items[i].icon then anyIcon = true end end
+	local anyIcon, anyPreview = false, false
+	for i = 1, #items do
+		if items[i].icon then anyIcon = true end
+		if items[i].preview then anyPreview = true end
+	end
 	for i = 1, #menu.rows do menu.rows[i]:Hide() end
 	for i = 1, #menu.seps do menu.seps[i]:Hide() end
 	for i = 1, #items do
@@ -1617,13 +1653,25 @@ function W.ShowMenu(anchor, items, opts)
 			paintMenuRow(row, false)
 			row.Check:SetShown(item.checked and true or false)
 			W.Color(row.Check, "accent")
+			-- A choice to hear first: its speaker at the right, the check left of it.
+			local speaker = rawget(row, "Speaker")
+			if item.preview then
+				speaker = rowSpeaker(row)
+				speaker:ClearAllPoints()
+				speaker:SetPoint("RIGHT", row, "RIGHT", -6, 0)
+				speaker:Show()
+			elseif speaker then
+				speaker:Hide()
+			end
+			row.Check:ClearAllPoints()
+			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
 			row:ClearAllPoints()
 			row:SetHeight(rowH)
 			row:SetPoint("TOPLEFT", menu, "TOPLEFT", 1, y)
 			row:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -1, y)
 			row:Show()
 			local shownText = (item.font and face) or row.Text
-			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36)
+			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36 + (anyPreview and 26 or 0))
 			y = y - rowH
 		end
 	end
@@ -1735,7 +1783,7 @@ local function openChoices(self)
 		local c = list[i]
 		items[i] = { text = c.text, checked = c.value == cur, font = row.psFaces and c.font or nil, onClick = function()
 			if row.psSet then row.psSet(c.value) else ns.Set(row.psPath, c.value) end
-		end }
+		end, preview = c.preview and function() c.preview(c.value) end }
 	end
 	W.ShowMenu(self, items, { minWidth = self:GetWidth() })
 end

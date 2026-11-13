@@ -564,9 +564,10 @@ local function cardSection(tab, kind, what, opts)
 end
 
 local function raresOff() return not (ns.Get("rares.enabled") and ns.Get("rares.alerts")) end
+-- Each sound with its speaker in the list: heard there without picking it.
 local function rareSounds()
 	local out = {}
-	for i, s in ipairs(ns.Rares and ns.Rares.SOUNDS or {}) do out[i] = { value = s.value, label = s.label } end
+	for i, s in ipairs(ns.Rares and ns.Rares.SOUNDS or {}) do out[i] = { value = s.value, label = s.label, preview = ns.Rares.PlaySoundOf } end
 	return out
 end
 local function rares() return ns.Rares end

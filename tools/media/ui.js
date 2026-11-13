@@ -245,6 +245,13 @@ const GLYPHS = {
 	info: subtract(dot(12, 12, 9.5), union(line(12, 10.6, 12, 17, 2.5), dot(12, 7.1, 1.6))),
 	plus: union(line(12, 5, 12, 19, 2.4), line(5, 12, 19, 12, 2.4)),
 	reload: union(arc(12, 12.5, 7.2, -60, 250, 2.4), poly([[19.6, 2.6], [20.4, 10], [13.2, 8.2]])),
+	// A speaker and two waves: a sound you can hear before you pick it.
+	speaker: union(
+		box(5.4, 12, 2.6, 3.4, 0.6),
+		poly([[7.6, 8.6], [13, 4.4], [13, 19.6], [7.6, 15.4]]),
+		arc(13.4, 12, 4.4, -48, 48, 2.2),
+		arc(13.4, 12, 8.2, -50, 50, 2.2),
+	),
 	layers: union(
 		poly([[12, 3], [21, 8], [12, 13], [3, 8]]),
 		polyline([[3.6, 12.2], [12, 16.8], [20.4, 12.2]], 2.1),

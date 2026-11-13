@@ -19,3 +19,5 @@ section: players
   for ten seconds and puts everything back as it was.
 - A What's new note about a setting takes you to it: click the note and
   the settings open on that setting, highlighted.
+- The rare alert's sound list lets you hear each sound before you pick it:
+  click its speaker, or rest the pointer on it a moment.

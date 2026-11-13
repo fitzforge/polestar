@@ -6664,7 +6664,9 @@ Polestar.RegisterOptions({
                  { kind = "toggle", key = "qol.markerGlow", label = "Glow" } },               -- (a 20px chip; a small switch)
       more = { { kind = "toggle", key = "qol.markerOutline", label = "Outline" } } },        -- behind the row's cog, in its popup
     { kind = "dropdown", key = "gear.spec", label = "Weights", choices = { { value = "auto", label = "Automatic" }, ... } }, -- example key (the real one is gear.spec.<CLASS>)
-      -- choices may be a function (choices that come and go); get()/set(v) may stand in for the path
+      -- choices may be a function (choices that come and go); get()/set(v) may stand in for the path;
+      -- a choice's preview(value) puts a speaker on its row in the list that plays it without picking it
+      -- (a sound list), and resting the pointer on the row half a second plays it too
     { kind = "font",     key = "ui.font", label = "Font", choices = { { value = "inter", label = "Inter", font = path }, ... } },
       -- a dropdown whose names are drawn each in its face (`font`: the file; nil: the face in use)
     { kind = "cards",    key = "ui.skin", label = "Skin", choices = { { value = "halo", label = "Halo",

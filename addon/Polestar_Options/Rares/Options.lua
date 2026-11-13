@@ -15,9 +15,10 @@ local function off() return not Rares.Get("enabled") end
 local function alertsOff() return off() or not Rares.Get("alerts") end
 local function soundOff() return alertsOff() or not Rares.Get("sound") end
 
+-- Each sound with its speaker in the list: heard there without picking it.
 local function sounds()
 	local out = {}
-	for i, s in ipairs(Rares.SOUNDS) do out[i] = { value = s.value, label = s.label } end
+	for i, s in ipairs(Rares.SOUNDS) do out[i] = { value = s.value, label = s.label, preview = Rares.PlaySoundOf } end
 	return out
 end
 

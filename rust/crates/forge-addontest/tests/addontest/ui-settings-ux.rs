@@ -148,3 +148,46 @@ fn a_reset_offers_one_undo_in_the_footer_for_a_while() {
 	assert_eq!(out["page"], json!(["show", true]));
 	assert_eq!(out["back"], "fade", "the page's settings back");
 }
+
+// A sound list can be heard before a pick: each choice has a speaker that plays it without choosing it, and resting
+// the pointer on a choice a moment plays it too (leaving first plays nothing). A list that is no sound has none.
+#[test]
+fn a_sound_lists_choices_play_from_their_speaker_without_being_picked() {
+	let out = run(r#"
+		Polestar.Set("rares.enabled", true)
+		Polestar.Set("rares.alerts", true)
+		Polestar.Set("rares.sound", true)
+		Polestar.Set("rares.soundKit", "raid")
+		UI.ShowOptions("alerts")
+		local row = ctl("rares.soundKit")
+		row.Button:Click()
+		local rows = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then rows[#rows + 1] = r end end
+		local speakers = 0
+		for _, r in ipairs(rows) do if rawget(r, "Speaker") and r.Speaker:IsShown() then speakers = speakers + 1 end end
+		stub.sounds = {}
+		rows[3].Speaker:Click()
+		local played = { #stub.sounds, Polestar.Get("rares.soundKit"), PolestarMenu:IsShown() }
+		stub.sounds = {}
+		stub.RunScript(rows[2], "OnEnter")
+		stub.advance(0.7)
+		local dwelt = #stub.sounds
+		stub.sounds = {}
+		stub.RunScript(rows[1], "OnEnter")
+		stub.RunScript(rows[1], "OnLeave")
+		stub.advance(0.7)
+		local left = #stub.sounds
+		Polestar.Widgets.HideMenu()
+		-- A list of no sounds: no speakers.
+		local other = ctl("toasts.headsup.place")
+		other.Button:Click()
+		local none = 0
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and rawget(r, "Speaker") and r.Speaker:IsShown() then none = none + 1 end end
+		emit({ rows = #rows, speakers = speakers, played = played, dwelt = dwelt, left = left, none = none })"#);
+	assert_eq!(out["rows"], 3);
+	assert_eq!(out["speakers"], 3, "a speaker on each sound");
+	assert_eq!(out["played"], json!([1, "raid", true]), "the speaker plays it; the choice stays and the list stays open");
+	assert_eq!(out["dwelt"], 1, "resting on a choice plays it");
+	assert_eq!(out["left"], 0, "leaving first plays nothing");
+	assert_eq!(out["none"], 0, "no speaker on a list of no sounds");
+}

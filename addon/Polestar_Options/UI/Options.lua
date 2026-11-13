@@ -890,7 +890,7 @@ local function choicesOf(c)
 	if type(list) == "function" then list = list() end
 	for i, ch in ipairs(list or {}) do
 		out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
-			disabled = ch.disabled, note = ch.note, tip = ch.tip }
+			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview }
 	end
 	return out
 end
