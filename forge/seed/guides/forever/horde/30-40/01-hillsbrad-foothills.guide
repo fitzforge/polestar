@@ -20,7 +20,7 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # guide topped up to 32-33 at Sargeron and the coast.
 #
 # Flow: Freewind Post (where the previous guide ends) -> fly to the Crossroads (Korran) ->
-# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill (bind) -> the yeti caves ->
+# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill -> the yeti caves ->
 # Hillsbrad's town hall -> Tarren Mill -> the Foothill Caverns' flames -> the Dalaran crater ->
 # the Azurelode Mine -> Southshore's graveyard (and the coast, for Elixir of Agony) -> Valik and
 # the Syndicate camp north of Tarren Mill -> Tarren Mill -> east into Arathi: the Boulderfist camp, Hammerfall (flight path) -> raptors, spiders
@@ -70,6 +70,12 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # - Warlock: the Felhunter chain is forever/class/warlock/felhunter-horde.
 #
 # Skyborne: Exploring the Horde (93739) is handed to Thrall on the Orgrimmar stop, optional.
+#
+# Hearthstone: it stays bound at Freewind Post (forever/horde/07-ashenvale's bind); this guide sets none.
+# The next guide's travel from the Undercity to Freewind Post then goes by Hearthstone: the travel sweep
+# measured 4.8 minutes saved per branch over the chain (two Freewind hearths in the next guide against one
+# Tarren Mill hearth here). Alliance Relations (1431, 1432) is taken on this guide's Orgrimmar stop from
+# level 30, where players arrive at 30.4 (players' recordings); below 30 it waits for the next guide's stop.
 
 # ---------------------------------------------------------------- To Orgrimmar
 
@@ -141,6 +147,14 @@ step Belgrom Rockmaul
   tip Belgrom Rockmaul stands in the Valley of Honor, on the way out to the main gate.
   turnin 1145                         -- Belgrom Rockmaul
   accept 1146                         -- for Moktar Krin in the Shimmering Flats, next guide
+
+step Alliance Relations
+  when level>=30
+  zone Orgrimmar
+  tip Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city. Both quests are offered from level 30; below it, they wait for the next guide's Orgrimmar stop.
+  accept 1431                         -- Craven Drok
+  turnin 1431                         -- Keldran
+  accept 1432                         -- for Takata Steelblade in Desolace, next guide
 
 step Zeppelin to Undercity
   zone Durotar
@@ -267,7 +281,6 @@ step Tarren Mill
   accept 552                          -- Novice Thaivand
   accept 533                          -- Krusk, inside
   accept 532                          -- High Executor Darthalia
-  sethome "Tarren Mill"
   buy 3703 x1 npc 2388                -- Southshore Stout, for Henchman Valik
 
 # ---------------------------------------------------------------- Yetis and the town hall

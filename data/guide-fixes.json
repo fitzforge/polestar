@@ -6577,6 +6577,23 @@
 			]
 		},
 		{
+			"id": "horde-3040-alliance-relations-from-30",
+			"faction": "Horde",
+			"at": {
+				"quest": 1431,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"when": "level>=30",
+			"note": "Alliance Relations (1431) is offered from level 30. On 30-40/01-hillsbrad-foothills' Orgrimmar stop it shows from 30; a character below it takes Craven Drok's quest on the next guide's Orgrimmar stop, whose step stays.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: 50 people enter 30-40/01-hillsbrad-foothills at a median 30.44 (p25 29.90)"
+				}
+			]
+		},
+		{
 			"id": "levels-alliance-wetlands-hillsbrad-top-33",
 			"faction": "Alliance",
 			"at": {

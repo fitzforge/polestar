@@ -4113,6 +4113,18 @@
 			{
 				"a": [
 					"accept",
+					1432
+				],
+				"b": [
+					"accept",
+					552
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Craven Drok and Keldran (Alliance Relations, 1431 and 1432, offered from level 30) are in Orgrimmar on 30-40/01-hillsbrad-foothills' Orgrimmar stop, where players arrive at 30.4 (players' recordings, 50 people): they are taken there, before Tarren Mill, instead of on the next guide's Orgrimmar stop. A character below 30 keeps the next guide's copy (guide-fixes horde-3040-alliance-relations-from-30). With them done, the next guide's opener leaves the Undercity by Hearthstone to Freewind Post."
+			},
+			{
+				"a": [
+					"accept",
 					97926
 				],
 				"b": [
