@@ -369,6 +369,9 @@ local function decodeQuest(group, id, s)
 		elseif lead == "x" then
 			-- Its full XP reward: x<xp>.
 			rec.xp = tonumber(sub(f, 2))
+		elseif lead == "c" then
+			-- The quests whose taking closes it for good (#1996): c<id>,<id>...
+			rec.closedBy = numbers(sub(f, 2))
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
