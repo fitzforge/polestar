@@ -107,6 +107,10 @@ step Valley of Fangs
   accept 1137                         -- For Fizzle Brassbolts at the Mirage Raceway: the Tanaris guide passes him at 45, keep it
   turnin 703                          -- Rigglefuzz
 
+step Sigrun Ironhew
+  tip East from the Valley of Fangs to Hammertoe's Digsite: Sigrun Ironhew takes the scrap metal.
+  turnin 733                          -- Sigrun Ironhew
+
 step Theldurin the Lost
   when group 709
   tip Head south to Agmond's End.

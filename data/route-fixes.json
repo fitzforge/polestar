@@ -4904,6 +4904,30 @@
 				],
 				"faction": "Horde",
 				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
+			},
+			{
+				"a": [
+					"turnin",
+					703
+				],
+				"b": [
+					"turnin",
+					733
+				],
+				"faction": "Alliance",
+				"why": "Scrounging (733): the scrap metal is collected at Agmond's End on 30-40/06-badlands' loop, but the quest was handed in to Sigrun Ironhew only on 40-50/01's return to Hammertoe's Digsite at about 43, five levels later, which a player who leaves for Riverglades from Thelsamar never reaches. Sigrun (Badlands 53.8,43.3) stands about 330 yd east of the Valley of Fangs (42.2,52.7) that 06 visits again for Martek and Rigglefuzz: 733 is handed in right after that stop, before the loop heads north to Thelsamar."
+			},
+			{
+				"a": [
+					"turnin",
+					733
+				],
+				"b": [
+					"turnin",
+					2500
+				],
+				"faction": "Alliance",
+				"why": "Scrounging (733) handed in inside 30-40/06-badlands, before Ghak Healtouch in Thelsamar ends the guide (see the pair turnin 703 -> turnin 733)."
 			}
 		],
 		"notes": [
