@@ -87,5 +87,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "Hier gibt es 9 Gebiete zu entdecken.",
+	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: Teleport: {zone:1450}). {area:2361} is neutral."] = "Nimm den Tunnel der {area:1769} im nördlichen {zone:1448} hindurch nach {zone:1450} (Druiden: Teleportieren: {zone:1450}). {area:2361} ist neutral.",
 	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451} liegt westlich des {zone:1449}. {area:3425} ist neutral.",
 }
