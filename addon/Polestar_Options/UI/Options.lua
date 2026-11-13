@@ -390,6 +390,8 @@ local BUILTIN = {
 		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom" }),
 		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."],
 			child = true, disabled = function() return not ns.Get("nav.tomtom") end }),
+		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
+			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Quests"], controls = {
 		{ kind = "toggle", key = "behavior.closeSkipped", label = L["Close offers the guide skips"], help = L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."],

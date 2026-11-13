@@ -46,6 +46,8 @@ ns.RegisterDefaults("nav", {
 	tomtom = true,
 	useTomTomArrow = false,
 	blizzardWaypoint = false,
+	-- Hide the arrow while an addon following Polestar shows the target itself (Nav.API.Follow, `shows`).
+	arrowToFollower = false,
 	arrivalSound = true,
 	-- How distances read: "yards" (the game's unit) or "metres" (ns.FormatDistance).
 	distanceUnit = "yards",
