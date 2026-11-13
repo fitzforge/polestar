@@ -293,7 +293,7 @@ step Nightscape Headband to 213
 
 step Leatherworking recipes at 213
   tip Nightscape Pants (from 210) is taught only by the Artisan trainers: Alliance Drakk Stonehand (The Hinterlands); Horde Hahrana Ironhide (Feralas). You can train Artisan there now if you are level 35 (it needs Leatherworking 200), which saves the trip at 225.
-  learn 10548 npc 11097 only Alliance
+  learn 10548 npc 11097 only Alliance map 1425
   learn 10548 npc 11098 only Horde
   train Leatherworking Artisan optional
 
