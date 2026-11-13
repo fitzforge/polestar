@@ -243,6 +243,13 @@ step Carlin Redpath
 
 # ---------------------------------------------------------------- Orgrimmar
 
+step Class trainer
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when level>=56
+  zone Orgrimmar
+  tip Hearth to Orgrimmar: the Hearthstone is still bound there from the Azshara guide (Mages teleport). Train before the flight.
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
 step Fly to Bloodvenom Post
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
@@ -301,6 +308,7 @@ step Rabine Saturna
 
 step Class trainer
   only Druid
+  when level>=58
   train class only Druid
 
 step Rabine Saturna

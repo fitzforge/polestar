@@ -94,10 +94,12 @@ step Fly to Orgrimmar
 
 step Paladin trainer
   only Paladin
+  when level>=56
   train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
 
 step Orgrimmar
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when level>=56
   zone Orgrimmar
   tip Fly to Orgrimmar and train.
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock

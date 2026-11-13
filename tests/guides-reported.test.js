@@ -7193,6 +7193,26 @@ test('Horde 50-60: arrows away from the Blackmaw Thrall, the Hailspite and the A
 	}
 });
 
+// Horde 50-60 audit (0.4.0): class ranks come only at even levels (training.json: 50, 52, ..., 60 for every class).
+// Several training stops came where the route has no new rank: Orgrimmar at about 53.3 (with the Druids sent to Mulgore
+// and the Paladins to Brill, a level after the Undercity's 52), a second Orgrimmar training 20 minutes after the
+// first in the Azshara guide, and the Druids' Moonglade training right after their Thunder Bluff one. Those stops now
+// hold only from the next rank's level, so a player above the model still trains there; and the Plaguelands guide
+// trains Warriors to Warlocks on its way through Orgrimmar at about 56.6 instead of two levels later.
+test('Horde 50-60: training stops hold only from the level of the next class rank', { skip }, () => {
+	const gate = (e) => ((e.step.when || []).find((p) => p.k === 'level') || {});
+	const trains = (file) => goals(file).filter(({ goal }) => goal.t === 'train' && goal.class);
+	for (const e of trains('forever/horde/50-60/02-felwood.guide')) assert.ok(gate(e).n >= 54, `02 ${e.step.title}: from 54`);
+	const az = trains('forever/horde/50-60/04-azshara.guide');
+	assert.ok(!(az[0].step.when || []).some((p) => p.k === 'level'), '04: the first Orgrimmar training stays for everyone (54)');
+	for (const e of az.slice(1)) assert.ok(gate(e).n >= 56, `04 ${e.step.title}: from 56`);
+	const epl = trains('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const org = epl.find((e) => forClass('WARRIOR')(e));
+	assert.ok(org && gate(org).n === 56, '05: Warriors to Warlocks train in Orgrimmar from 56');
+	const moonglade = epl.filter((e) => forClass('DRUID')(e) && !forClass('PALADIN')(e));
+	assert.ok(moonglade.length && moonglade.every((e) => gate(e).n >= 58), '05: the Druids\' Moonglade training only from 58');
+});
+
 // Final route review, Horde 40-60: each race learns to ride where the route already passes its trainer's city:
 // Trolls from the Orgrimmar stop (not a flight and boat from Stonard to Durotar and back), Undead on the next
 // guide's Undercity stop (not Gadgetzan -> Orgrimmar -> Brill -> Gadgetzan), Taurens, Druids, Paladins and Warlocks
