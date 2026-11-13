@@ -1,7 +1,8 @@
 //! Hand-off to Shortest Path Forever (addon/Polestar/Nav/Handoff.lua): with it installed, Polestar's target goes
 //! to it through its public API and every guidance surface of Polestar's steps aside, so the two never guide at
 //! once. A fake ShortestPathForever.API, written to its docs/api.md (v1.16.0: version 1, minor 1 with Subscribe,
-//! false in combat, with Journeys off or for invalid input, Ended's reasons, Subscribe's next-frame callbacks),
+//! false in combat, with Journeys off or for invalid input, Ended's reasons, Subscribe's next-frame callbacks; 1.34.0
+//! publishes version 2, minor 0, without the peer and leaderboard members Polestar never calls),
 //! stands in for the addon. Runs the real Core/Init.lua, Core/Data.lua, Theme, Nav/Nav.xml, the route lines and
 //! the journey panel against tests/lua/stub_nav.lua (map 9000 "Testshire": 2000 yd across, 20 yd per map
 //! percent, origin at its centre; the travel world's boat runs from Testshire Docks to Farland).
@@ -183,6 +184,11 @@ end
 // Minor 0: the same API without Subscribe.
 fn spf_minor0() -> String {
 	format!("{SPF}\nShortestPathForever.API.minor = nil\nShortestPathForever.API.Subscribe = nil\n")
+}
+
+// Another API version: 2 (1.34.0) only dropped the peer and leaderboard members Polestar never calls.
+fn spf_version(version: u32) -> String {
+	format!("{SPF}\nShortestPathForever.API.version = {version}\nShortestPathForever.API.minor = 0\n")
 }
 
 const PRELUDE: &str = r#"
@@ -1091,6 +1097,52 @@ fn without_subscribe_minor_0_his_journey_is_noticed_on_nav_s_tick() {
 		Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
 	);
 	assert_eq!(out, json!([true, false]));
+}
+
+// Shortest Path Forever 1.34.0 publishes version 2, minor 0; its docs/api.md: callers accept versions 1 and 2 and
+// reject future versions. Polestar accepted only 1, so with 1.34.0 the option vanished, nothing was handed off, and
+// Polestar's arrow no longer stepped aside for a journey the player started there.
+#[test]
+fn version_2_is_the_same_api_the_option_shows_the_stop_goes_and_polestar_steps_aside_for_his_journey() {
+	let spf = spf_version(2);
+	let out = run(
+		r#"
+		nav.setWaypoint(copy(FARLAND))
+		local c = spf.last()
+		emit({ shown = option().needs(), handedOff = N.HandedOff(), owner = c and c.owner or false, sent = sent(), subscribed = #spf.subs, arrow = arrowShown() })
+	"#,
+		Opts { spf: Some(&spf), ..Default::default() },
+	);
+	assert_eq!(out, json!({ "shown": true, "handedOff": true, "owner": "Polestar", "sent": 1, "subscribed": 1, "arrow": false }));
+	let yielded = run(
+		r#"
+		nav.setWaypoint(copy(FARLAND))
+		spf.replace("ShortestPathForever")
+		stub.runTimers()
+		local during = { N.HandedOff(), arrowShown() }
+		spf.arrive()
+		stub.runTimers()
+		emit({ during = during, after = { N.HandedOff(), arrowShown() }, sent = sent() })
+	"#,
+		Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
+	);
+	assert_eq!(yielded, json!({ "during": [true, false], "after": [false, true], "sent": 0 }));
+}
+
+#[test]
+fn a_future_version_counts_as_not_installed_nothing_is_sent_or_asked_and_polestar_guides() {
+	let spf = spf_version(3);
+	let out = run(
+		r#"
+		nav.setWaypoint(copy(FARLAND))
+		spf.replace("ShortestPathForever")
+		stub.runTimers()
+		stub.advance(1.5)
+		emit({ shown = option().needs(), handedOff = N.HandedOff(), sent = sent(), cancels = spf.cancels(), subscribed = #spf.subs, asked = spf.reads, arrow = arrowShown() })
+	"#,
+		Opts { spf: Some(&spf), ..Default::default() },
+	);
+	assert_eq!(out, json!({ "shown": false, "handedOff": false, "sent": 0, "cancels": 0, "subscribed": 0, "asked": 0, "arrow": true }));
 }
 
 // A journey of Polestar's left running in Shortest Path Forever from 0.2.4, which handed off by default (Ruling

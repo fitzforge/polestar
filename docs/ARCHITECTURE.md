@@ -3507,9 +3507,10 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
 
 `Nav/Handoff.lua` (`Nav.handoff`; loaded after the other Nav modules). With
 [Shortest Path Forever](https://github.com/cjber/shortest-path-forever)
-installed (its global `ShortestPathForever.API`, `version` 1, with `Cancel`
-and `NavigateRoute` or `Navigate`; every other function checked before it is
-called, as its `minor` grows) the two never guide at once:
+installed (its global `ShortestPathForever.API`, `version` 1 or 2, with
+`Cancel` and `NavigateRoute` or `Navigate`; a later `version` counts as not
+installed; every other function checked before it is called, as its `minor`
+grows) the two never guide at once:
 
 - **Hand-off** (`nav.spfHandoff` on; an option, off by default since 0.2.5:
   Options, Integrations, Shortest Path Forever: "Hand guiding to Shortest
