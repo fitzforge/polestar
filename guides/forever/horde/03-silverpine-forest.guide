@@ -12,7 +12,8 @@ next forever/horde/02-the-barrens
 # Added here: Prove Your Worth (421), Raleigh and the Undercity (441), Prompt Potion Runner (97891),
 # Zinge's Delivery and Sample for Helbrim (1359, 1358), The Spirits of Stonetalon (1061), and for
 # the starts that come by zeppelin, The Argent Emissary, The Cult of the Damned, Remnants of War and
-# Delivery to Silverpine Forest (96895, 96897, 96898, 445).
+# Delivery to Silverpine Forest (96895, 96897, 96898, 445); for Orcs and Trolls, Ak'Zeloth (809, from
+# Neeru, to Far Watch Post on the Barrens' first stop).
 # Undead only: Supplying the Sepulcher (6321) and Ride to the Undercity (6323), Deathguard Podrig to
 # Karos Razok on the first Sepulcher stop, then Gordon Wendham and Michael Garrett (6322) side by side
 # on the Undercity stop at the end; Return to Podrig (6324) goes back with the ride through the
@@ -126,6 +127,7 @@ step Neeru Fireblade
   when onquest 829,832
   tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end.
   turnin 829
+  accept 809                          -- Neeru Fireblade: Ak'Zeloth stands at Far Watch Post, on the next guide's road to the Crossroads
   turnin 832                          -- Neeru Fireblade: Burning Shadows, from the Eye of Burning Shadow in Durotar
 
 step The Drag

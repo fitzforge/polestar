@@ -9202,6 +9202,15 @@
 				]
 			},
 			{
+				"q": 809,
+				"reason": "Horde 12-21 audit (0.4.0, 2026-11-13): Ak'Zeloth (level 13, 460 XP) is offered by Neeru Fireblade on Burning Shadows' Cleft of Shadow stop in 03-silverpine-forest's Orgrimmar opener (Orc and Troll only, where they hand in Neeru Fireblade 829, its prerequisite), and Ak'Zeloth (3521) stands beside Kargal Battlescar at Far Watch Post (62.3,20.1), the Orcs' and Trolls' first stop in 02-the-barrens: no walk of its own. Players' recordings: Neeru offered it to 7 people, and 12 handed it in. The Demon Seed (924) that follows stays out: its stone is at Far Watch, the altar on Dreadmist Peak and the hand-in back at Far Watch, a return the route never makes.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					829
+				]
+			},
+			{
 				"q": 6322,
 				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Michael Garrett (Undead only, 210 XP) from Gordon Wendham to Michael Garrett, the Undercity bat handler (4551, 63.3,48.6), whose flight path the same stop learns. Recordings: 6 people, all handed in to Garrett.",
 				"issue": "-",
@@ -11185,6 +11194,32 @@
 					844
 				],
 				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (its fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
+			},
+			{
+				"a": [
+					"turnin",
+					840
+				],
+				"b": [
+					"accept",
+					842
+				],
+				"faction": "Horde",
+				"why": "Horde 12-21 audit (0.4.0): Orcs and Trolls who did not pass Kargal Battlescar at the end of Durotar (only Warriors stop at Far Watch Post there, for Uzzek) hand him Conscript of the Horde on the Barrens' first stop at Far Watch Post, on the road from Orgrimmar to the Crossroads, and take Crossroads Conscription from him at once (842 needs 840). Saves Durotar's last walk Razor Hill -> Far Watch -> Orgrimmar (+1,160 yd against Razor Hill -> Orgrimmar) for every non-Warrior.",
+				"source": "Horde 12-21 audit 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					809
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"faction": "Horde",
+				"why": "Horde 12-21 audit (0.4.0): Ak'Zeloth stands beside Kargal Battlescar at Far Watch Post, so Ak'Zeloth (809, from Neeru in Orgrimmar) is handed in on the Orcs' and Trolls' Far Watch stop, before the Crossroads.",
+				"source": "Horde 12-21 audit 0.4.0"
 			},
 			{
 				"a": [

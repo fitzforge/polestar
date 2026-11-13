@@ -5383,6 +5383,20 @@ test('Silverpine Forest (Horde 12-15): Troll Mages train and Troll Priests hand 
 	}
 });
 
+// 0.4.0 route audit, Horde 12-21: Neeru Fireblade offers Ak'Zeloth (809) on the Orcs' and Trolls' Cleft of Shadow stop
+// once Neeru Fireblade (829) is handed in, and Ak'Zeloth stands beside Kargal at Far Watch Post, the Barrens' first stop
+// for them: taken on the one, handed in on the other, no walk of its own.
+test("Silverpine Forest and the Barrens (Horde): Ak'Zeloth from Neeru to Far Watch Post (0.4.0 audit)", { skip }, () => {
+	const silverpine = goals(SILVERPINE);
+	const take = at(silverpine, 'accept 809', is('accept', 809));
+	assert.equal(silverpine[take].s, silverpine[at(silverpine, 'turnin 829', is('turnin', 829))].s, 'on the Neeru stop');
+	assert.ok(take > at(silverpine, 'turnin 829', is('turnin', 829)), 'after Neeru Fireblade');
+	const barrens = goals(BARRENS);
+	const give = at(barrens, 'turnin 809', is('turnin', 809));
+	assert.equal(barrens[give].s, barrens[at(barrens, 'accept 842', is('accept', 842))].s, 'on the Far Watch stop with Kargal');
+	assert.equal(barrens[give].goal.npc, 3521, "Ak'Zeloth");
+});
+
 // #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under
 // Spirit Rise in Thunder Bluff. The NPCs down there (spawn heights 97 to 112; Spirit Rise above them at about
 // 135-138): every step at one says so, since the arrow cannot tell the floors apart. Birgitte Cranston's tip
@@ -6323,7 +6337,12 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, 1, `${file} ${cls}: 840 handed in once`);
 		}
 	}
-	assert.ok(!barrens.some(({ goal }) => is('turnin', 840)(goal)), 'no Conscript of the Horde carried into the Barrens');
+	// 0.4.0 audit: whoever still carries 840 (everyone but Warriors once Durotar's Far Watch stop is theirs alone) hands
+	// it to Kargal on the Barrens' Far Watch stop, right before Crossroads Conscription from him.
+	const conscript = barrens.filter(({ goal }) => is('turnin', 840)(goal));
+	assert.equal(conscript.length, 1, 'the Barrens hand 840 in once');
+	assert.ok(conscript[0].step.only && conscript[0].step.only.races.join() === 'Orc,Troll', 'on the Orc and Troll Far Watch stop');
+	assert.equal(barrens.indexOf(conscript[0]) + 1, at(barrens, 'accept 842', is('accept', 842)), 'right before Crossroads Conscription');
 });
 
 // Final route review, Horde 1-30: the flight lands in Ratchet beside Sputtervalve, who came after the grind south and

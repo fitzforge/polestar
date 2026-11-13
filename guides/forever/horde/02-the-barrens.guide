@@ -48,9 +48,9 @@ next forever/horde/05-stonetalon-mountains
 # Seereth. The next guide goes north to the Mor'shan Rampart and
 # Ashenvale.
 #
-# Orcs and Trolls: Far Watch Post first (Crossroads Conscription from Kargal: they handed him
-# Conscript of the Horde at the end of their Durotar guide, so it is not carried through Silverpine;
-# Warriors hand Path of Defense to Uzzek), then their own Crossroads step (Meats to Orgrimmar to Devrak; Ride to Orgrimmar
+# Orcs and Trolls: Far Watch Post first (Conscript of the Horde to Kargal and Crossroads Conscription
+# from him: only Warriors pass him at the end of their Durotar guide, everyone else carries 840 here;
+# Ak'Zeloth, from Neeru on Silverpine's Orgrimmar stop; Warriors hand Path of Defense to Uzzek), then their own Crossroads step (Meats to Orgrimmar to Devrak; Ride to Orgrimmar
 # is left out, as Gryshka would take it at 20, five levels late, and they have the city's flight
 # path from the Silverpine guide). Warriors finish
 # Thun'grim Firegaze / Forged Steel (1502, 1503) by the Razormane camp; Shamans finish Call of Fire
@@ -117,8 +117,10 @@ step The Barrens
 step Far Watch Post
   only Orc,Troll
   zone The Barrens
-  tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Far Watch Post sits just above it on the Barrens side. Kargal Battlescar and Uzzek stand together.
-  accept 842                          -- Kargal Battlescar
+  tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Far Watch Post sits just above it on the Barrens side. Kargal Battlescar, Ak'Zeloth and Uzzek stand together.
+  turnin 840                          -- Kargal Battlescar: Conscript of the Horde, from Durotar
+  accept 842
+  turnin 809                          -- Ak'Zeloth, beside Kargal: from Neeru Fireblade in Orgrimmar
   turnin 1498 only Warrior            -- Uzzek
   accept 1502 only Warrior
 
