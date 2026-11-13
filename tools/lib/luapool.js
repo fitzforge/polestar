@@ -40,7 +40,10 @@ class Worker {
 		});
 		this.proc.on('exit', (code) => {
 			this.dead = true;
-			if (this.job) this.job.reject(new Error(`Lua pool worker exited (${code}):\n${this.err}\n${this.buf}`));
+			if (this.job) {
+				fs.rmSync(this.job.file, { force: true });
+				this.job.reject(new Error(`Lua pool worker exited (${code}):\n${this.err}\n${this.buf}`));
+			}
 			this.job = null;
 		});
 	}
