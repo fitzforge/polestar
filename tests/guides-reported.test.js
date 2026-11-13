@@ -11631,3 +11631,13 @@ test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's 
 	const taken = steps.findIndex((lines) => anyLine(lines, /^\s+accept 94614\b/));
 	assert.ok(taken >= 0 && taken < sweep, 'Freshwater Fiends is taken before the sweep');
 });
+
+// No class trainer stands in the Riverglades, and the Feralas guide passes none: an Alliance player who goes on to
+// Feralas (level 43 or more) trains in part 4 whatever quests they carry, shamans in Ironforge (Stormwind has none).
+test('Riverglades (experimental): an Alliance player going on to Feralas trains in part 4', () => {
+	const steps = rivergladesSteps('riverglades-alliance-4.guide');
+	const questGated = (lines) => anyLine(lines, /^\s+when !?(onquest|complete|turnedin|available)\b/);
+	assert.ok(steps.some((l) => anyLine(l, /^\s+when level>=43\b/) && anyLine(l, /^\s+fly "Stormwind"/) && !questGated(l)), 'players of 43 or more fly to Stormwind');
+	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only .*\bWarrior\b/) && !questGated(l)), 'the class trainer step');
+	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
+});

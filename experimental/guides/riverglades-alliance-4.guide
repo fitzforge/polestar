@@ -18,6 +18,9 @@ next forever/alliance/40-50/01-stranglethorn-vale when level<43
 # (levels 41-44); the hearth to Farholde Keep; Stormwind for Marshal Ryan's crest; Menethil Harbor and the boat to
 # Theramore, where the Feralas guide (43-45) starts; below level 43, the Stranglethorn Vale guide (40-43) from
 # Theramore instead.
+# Class trainers: none in the Riverglades. Whoever passes through Stormwind trains there; a player going on to
+# Feralas (level 43 or more) flies there to train in any case, as the Feralas guide passes no trainer (shamans train
+# in Ironforge); the Stranglethorn Vale guide has its own Stormwind and Ironforge stops.
 # Offered only after another quest is handed in (players' recordings): High Stakes after Foreman's Plight;
 # Bring Me His Head after Sergeant Riftan's first three; News to Farholde after Bring Me His Head; Dying Wish after
 # Saving Marshal Ryan; Delivering Closure after Dying Wish; The Twilight Threat after News to Farholde.
@@ -146,8 +149,33 @@ step Stormwind Keep
   zone Stormwind City
   turnin 94894                          -- Highlord Bolvar Fordragon
 
+step Train before Feralas
+  only !Shaman
+  when level>=43
+  when !zone "Stormwind City"
+  tip No class trainer stands in the Riverglades, and the Feralas guide passes none: Gretchen Mayberry flies to Stormwind, where you train before you go on.
+  fly "Stormwind"
+  zone Stormwind City
+
+step Your class trainer
+  only !Shaman
+  when zone "Stormwind City"
+  tip No class trainer stands in the Riverglades: train here in Stormwind before you fly on.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  note Level 40 with 100 gold? Your race's riding trainer teaches riding: Collectibles, Mounts · Level 40 has a guide for each race's mounts.
+
+step Shaman trainer
+  only Shaman
+  when level>=43
+  tip No shaman trainer stands in the Riverglades or in Stormwind, and the Feralas guide passes none: fly to Ironforge and train there on your way to Menethil Harbor.
+  fly "Ironforge"
+  zone Ironforge
+  train class only Shaman
+  note Level 40 with 100 gold? Your race's riding trainer teaches riding: Collectibles, Mounts · Level 40 has a guide for each race's mounts.
+
 step Leave Stormwind
   when zone "Stormwind City"
+  zone Stormwind City
   tip The next guide starts in Theramore: fly to Menethil Harbor in the Wetlands and take the boat across from there. Stormwind's gryphon master stands in the Trade District.
   goto 66.3,62.7 "Stormwind flight master"
   fly "Menethil Harbor"

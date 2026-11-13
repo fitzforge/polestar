@@ -9,4 +9,6 @@ section: players
   Ryan; the Horde adds Fuzzle's escort, Jom-jom, Klunk, the Bloodmaster's Ring
   (optional), the pirates' second wave, Gelinda's hollow and Da'grosh's camp
   below Twilight's Shroud. Elites stay behind a group choice, and the tips
-  warn of the elites that roam the zone.
+  warn of the elites that roam the zone. No class trainer stands in the
+  Riverglades: an Alliance player going on to Feralas stops in Stormwind to
+  train first.
