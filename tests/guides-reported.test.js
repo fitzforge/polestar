@@ -11657,3 +11657,84 @@ test('guide-fixes says every Darkfang spider drops the Acidic Venom Sacs (#1985)
 	const r = fixes.find((f) => f.at && f.at.quest === 1322 && f.at.goal === 'objective' && f.at.objective === 1);
 	assert.ok(r && /Giant Darkfang Spiders/.test(r.goalNote) && /Lurkers/.test(r.goalNote), 'a goal note on 1322.1 naming every Darkfang kind');
 });
+
+// --- Reported problems the reported-problems gate (#2042) found with no check of their own. Each case reads every
+// guide that holds the quest or NPC, keyed by their ids, never by a guide file or a step number, so a renamed guide or
+// a rebuilt route is checked the same way; a route that leaves the quest out has nothing to check.
+
+// Every step of every guide with a goal matching `pred`, as { guide, step, goal }.
+function stepsHolding(pred) {
+	return allGuides().flatMap((guide) => compiled(guide).steps.flatMap((step) => step.goals.filter(pred).map((goal) => ({ guide, step, goal }))));
+}
+// A step's tips and the goal's own note, as one text.
+const notesOf = (step, goal) => [].concat(step.note || [], goal.note || []).join(' ');
+// The reference data, loaded if no guide has been compiled yet.
+const refData = () => (data = data || loadData(DATA));
+
+// sesgoe (#227): Moon Priestess Amara rides up and down the road west of Dolanaar, and the arrow pointed at one spot
+// of it with nothing saying she moves; the same check found Private Thorsen, who walks the Rebel Camp's path down to
+// the road and back. Every step at either of them says they move.
+test('Walking givers (#227): every step at Moon Priestess Amara or Private Thorsen says they move along their road', { skip }, () => {
+	const walkers = { 2151: 'Moon Priestess Amara', 738: 'Private Thorsen' };
+	for (const [npc, name] of Object.entries(walkers)) assert.equal(refData().npc(Number(npc)).name, name, `npc ${npc} is ${name}`);
+	const moves = /\b(patrols?|walks?|wanders?|roams?|rides?)\b/i;
+	const silent = stepsHolding((g) => walkers[g.npc] && ['accept', 'turnin', 'talk'].includes(g.t))
+		.filter(({ step, goal }) => !moves.test(notesOf(step, goal)))
+		.map(({ guide, step, goal }) => `${guide} "${step.title}": ${goal.t} ${goal.quest || ''} at ${walkers[goal.npc]}, with no word that they move`);
+	assert.deepEqual(silent, []);
+});
+
+// Fitz on Discord (#504): the Kul Tiras Marines round Corporal Adamore, where Trouble in the Valley's Benedict's Orders
+// are taken, come as one: pulling one calls the rest. The step that sends you there says so.
+test("Trouble in the Valley (#504): the step at Corporal Adamore's camp says his marines come together", { skip }, () => {
+	const silent = stepsHolding((g) => g.quest === 95621 && ['collect', 'kill', 'complete'].includes(g.t))
+		.filter(({ step, goal }) => !/\blinked\b|pull(?:ing)? one|calls? the rest|come together|pull together/i.test(notesOf(step, goal)))
+		.map(({ guide, step, goal }) => `${guide} "${step.title}": ${goal.t} for 95621 with no word that the marines come together`);
+	assert.deepEqual(silent, []);
+});
+
+// SUBDUBBUB (#874): Tyr's Watch's last hand-in, A Lesson in Divinity to Danitha Morr, came right after Deathguard
+// Billmuth downstairs in the keep, and nothing said she is back upstairs (the arrow can't tell the keep's floors apart).
+// Any goal at Danitha that follows one at Billmuth says she is upstairs.
+test("Tyr's Watch (#874): a goal at Danitha Morr right after Deathguard Billmuth downstairs says she is back upstairs", { skip }, () => {
+	const BILLMUTH = 257655;
+	const DANITHA = 246378;
+	assert.equal(refData().npc(BILLMUTH).name, 'Deathguard Billmuth');
+	assert.equal(refData().npc(DANITHA).name, 'Danitha Morr');
+	const missing = [];
+	for (const guide of allGuides()) {
+		const list = goals(guide).filter(located);
+		list.forEach((e, i) => {
+			if (e.goal.npc !== DANITHA || i === 0 || list[i - 1].goal.npc !== BILLMUTH) return;
+			if (!/\bupstairs\b/i.test(notesOf(e.step, e.goal))) missing.push(`${guide} step ${e.s}: ${e.goal.t} ${e.goal.quest} at Danitha Morr after Billmuth, with no word that she is upstairs`);
+		});
+	}
+	assert.deepEqual(missing, []);
+});
+
+// Phear (#875), Fyurie (#910): a `use` with no quest before the line that collects what it makes (the Crystal Phial at
+// the moonwell, the sample bottle at the Cliffspring River) is a check-off nothing ticks, so the step held after the
+// objective was done. Such a use is bound to the collect's quest in every guide (lint only warns).
+test('A use before the line that collects for a quest is bound to that quest, in every guide (#875, #910)', { skip }, () => {
+	const bare = [];
+	for (const guide of allGuides()) {
+		for (const step of compiled(guide).steps) {
+			step.goals.forEach((goal, i) => {
+				const next = step.goals[i + 1];
+				if (goal.t !== 'use' || goal.quest != null || goal.optional || !next || next.t !== 'collect' || next.quest == null) return;
+				bare.push(`${guide} "${step.title}": use ${goal.item} has no quest, and the next line collects for quest ${next.quest}`);
+			});
+		}
+	}
+	assert.deepEqual(bare, []);
+});
+
+// 大地瓜 (#1089): Sentinel Selarin, who gives Trek to Ashenvale in Auberdine, was not beside Terenthis (killed, about to
+// respawn), so the arrow led to an empty spot. The step that takes the quest says she respawns shortly if she isn't there.
+test('Trek to Ashenvale (#1089): the step that takes it from Sentinel Selarin says she respawns if she is not there', { skip }, () => {
+	assert.equal(refData().npc(3694).name, 'Sentinel Selarin');
+	const silent = stepsHolding((g) => g.t === 'accept' && g.quest === 990)
+		.filter(({ step, goal }) => !/\brespawns?\b/i.test(notesOf(step, goal)))
+		.map(({ guide, step }) => `${guide} "${step.title}": accept 990 with no word that Selarin respawns`);
+	assert.deepEqual(silent, []);
+});
