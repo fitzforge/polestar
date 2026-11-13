@@ -260,7 +260,7 @@ step Eastern Pylon
 
 step The Marshlands
   tip Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.
-  tip Below level 52, keep hunting the ravasaurs here after the eighth claw: The Rise of the Machines at Kargath needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  tip Below level 52, keep hunting the ravasaurs here after the eighth claw: The Rise of the Machines at Kargath needs level 52, and the Plaguelands quests at the end of this guide are level 55.
   collect 11477 quest 4300
   level 52 grind 6505                 -- grind on Ravasaur
 

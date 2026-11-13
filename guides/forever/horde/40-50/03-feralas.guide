@@ -191,7 +191,7 @@ step Onyxia's eggs
 step Level 45.37
   when !group 1173
   when level<45.37
-  tip Overlord Mok'Morokk's challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the Wyrmbog's northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the Zul'Farrak dungeon instead.
+  tip Overlord Mok'Morokk's challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the Wyrmbog's northern edge to level 45.37 before you ride back north, so you don't come back down for it. With a group, the Zul'Farrak run in the next guide, in Tanaris, makes up the difference.
   goto 37.5,68.3 map 1445 "Firemane Scout"
   level 45.37 grind 4329               -- grind on Firemane Scout
 

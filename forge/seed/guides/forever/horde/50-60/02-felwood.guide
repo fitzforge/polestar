@@ -138,7 +138,7 @@ step Mulgris Deepriver
   accept 4985
 
 step Diseased Grizzlies
-  tip The bears roam the hills north and east of the Writhing Haunt. Below level 53.02, keep hunting them after the eighth: the hand-ins at the Writhing Haunt take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  tip The bears roam the hills north and east of the Writhing Haunt. Below level 53.02, keep hunting them after the eighth: the hand-ins at the Writhing Haunt take you to level 54.
   kill 1816 quest 4985
   level 53.02 grind 1816               -- grind on Diseased Grizzly
 

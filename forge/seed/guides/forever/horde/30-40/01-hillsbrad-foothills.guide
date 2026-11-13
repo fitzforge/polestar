@@ -291,7 +291,7 @@ step Helcular's Rod
 step Level 30
   when level<30
   zone Hillsbrad Foothills
-  tip Tarren Mill's Prison Break In, Stone Tokens and The Hammer May Fall are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the City of Dalaran dungeon instead.
+  tip Tarren Mill's Prison Break In, Stone Tokens and The Hammer May Fall are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. With a group, the City of Dalaran run later in this guide, in Alterac Mountains, makes up the difference.
   goto 44.0,28.0 map 1424 "Foothill Caverns"
   level 30 grind 2248                 -- grind on Cave Yeti
 

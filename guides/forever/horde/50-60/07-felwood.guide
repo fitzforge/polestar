@@ -233,7 +233,7 @@ step Darkwhisper Gorge
 step Level 59.9
   zone Winterspring
   when level<59.9
-  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. The Rabid Shardtooths (59) of Frostwhisper Gorge, just north of the strange source, give far more experience than the furbolgs by Timbermaw Hold. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. The Rabid Shardtooths (59) of Frostwhisper Gorge, just north of the strange source, give far more experience than the furbolgs by Timbermaw Hold.
   goto 60.1,71.2 map 1452 "Rabid Shardtooth"
   level 59.9 grind 7446               -- grind on Rabid Shardtooth
 
