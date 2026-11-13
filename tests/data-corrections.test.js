@@ -198,6 +198,12 @@ test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
 
+// #2014: Forever moved Henrig Lonebrow's Journal about 110 yd south of its old spot (every recorded loot since
+// 2026-11-10 lies there); the Razorfen Kraul pick-up guide's collect step pointed at the old one.
+test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gone (#2014)", () => {
+	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
+});
+
 test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
 	assert.deepEqual(corrections.quests[6981].set.objectives, [{ type: 'talk', id: 3442, count: 1, text: 'Speak with someone in Ratchet about the Glowing Shard' }]);
 });
