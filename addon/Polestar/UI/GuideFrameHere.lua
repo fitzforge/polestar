@@ -169,10 +169,19 @@ function GF.FillHere(E)
 	end
 end
 
--- WHILE_HERE_CHANGED: the line came, changed or went.
+-- WHILE_HERE_CHANGED: the line came, changed or went. A panel shown before
+-- and after at the same height lays out only itself and repaints the
+-- strings' shades (the Transparent look's); nothing else in the window reads
+-- the list. A panel that came, went or changed height lays out the window.
 function GF.HereChanged()
 	if not F or GF.State() ~= "steps" or not GF.View() then return end
+	local here = GF.here
+	local was = here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and here:GetHeight()
 	GF.FillHere(Engine())
+	if was and here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and GF.LayoutHere(F:GetWidth()) == was then
+		GF.PaintShades()
+		return
+	end
 	GF.Layout()
 end
 

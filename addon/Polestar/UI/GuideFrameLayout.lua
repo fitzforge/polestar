@@ -468,15 +468,38 @@ end
 -- Progress
 ---------------------------------------------------------------------------
 
-local function progress()
+-- The bar's count (Engine.ProgressSoon): nil while the Engine counts it over
+-- the next frames, which paint it then (paintLater, animated when any ask
+-- since was).
+local paintLater, laterAnimate
+local function progress(animate)
 	local E = Engine()
 	if not (E and E.GetProgress and E.GetGuide and E.GetGuide()) then return 0, 0 end
-	local done, total = E.GetProgress()
+	local done, total
+	if E.ProgressSoon then
+		done, total = E.ProgressSoon(paintLater)
+		if not done then
+			laterAnimate = laterAnimate or animate
+			return nil
+		end
+	else
+		done, total = E.GetProgress()
+	end
 	return done or 0, total or 0
+end
+paintLater = function()
+	local animate = laterAnimate
+	laterAnimate = nil
+	if F then GF.PaintProgress(animate) end
 end
 
 function GF.PaintProgress(animate)
-	local done, total = progress()
+	local done, total = progress(animate)
+	-- Counting: the bar laid out at its last count until the count lands.
+	if not done then
+		if not foot.psTotal then return end
+		done, total, animate = foot.psDone, foot.psTotal, false
+	end
 	local frac = total > 0 and min(1, done / total) or 0
 	foot.Pct:SetText(floor(frac * 100 + 0.5) .. "%")
 	local w = F:GetWidth() - PAD * 2 - (foot.Pct:IsShown() and 44 or 0)

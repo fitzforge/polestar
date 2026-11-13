@@ -2958,3 +2958,35 @@ fn a_layout_reads_the_banner_notice_once_and_the_banner_reads_as_before() {
 	assert_eq!(out["shown"], json!([true, "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "group"]));
 	assert_eq!(out["none"], json!([1, false]), "no notice: one read, no banner");
 }
+
+// The progress bar's count from Engine.ProgressSoon: while the Engine counts it over the next frames, the bar keeps its
+// last count (and a layout lays it out at that count); the count lands through one call, for every ask since.
+#[test]
+fn the_progress_bar_keeps_its_count_while_the_engine_counts_and_paints_the_new_one_when_it_lands() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local E = Polestar.Engine
+		local answer, asked = { 3, 10 }, {}
+		E.ProgressSoon = function(fn)
+			if answer then return answer[1], answer[2] end
+			asked[#asked + 1] = fn
+			return nil
+		end
+		local P = GF.parts
+		GF.PaintProgress(false)
+		local first = P.foot.Pct:GetText()
+		answer = nil
+		GF.PaintProgress(true)
+		GF.Layout()
+		local counting = P.foot.Pct:GetText()
+		answer = { 7, 10 }
+		asked[1]()
+		emit({ first = first, counting = counting, same = asked[1] == asked[2], landed = P.foot.Pct:GetText(), done = P.foot.psDone })
+	"#)
+	.remove(0);
+	assert_eq!(out["first"], "30%");
+	assert_eq!(out["counting"], "30%", "the last count while the Engine counts: {out}");
+	assert_eq!(out["same"], true, "one painter for every ask: {out}");
+	assert_eq!(out["landed"], "70%");
+	assert_eq!(out["done"], 7);
+}

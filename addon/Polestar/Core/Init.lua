@@ -260,6 +260,16 @@ local function raise(err)
 	geterrorhandler()(err)
 end
 
+-- Moments: one more for each timer, script or game event Polestar handles
+-- (ns.Safe, the event frame), each message it sends (ns.Fire) and each
+-- change the Engine is asked to weigh (Engine.RequestUpdate). Between two
+-- reads of ns.Moment() that give the same number in the same frame, nothing
+-- Polestar knows of has changed: Engine.GetStepView(i, true) shares one view
+-- among the readers of such a moment.
+local serial = 0
+function ns.Moment() return serial end
+function ns.NewMoment() serial = serial + 1 end
+
 -- Run a callback; report its error without stopping the caller's loop.
 local function call(fn, ...)
 	local ok, err = pcall(fn, ...)
@@ -275,7 +285,10 @@ ns.SafeCall = call
 -- the client would otherwise run bare.
 function ns.Safe(fn)
 	if fn == nil then return nil end
-	return function(...) call(fn, ...) end
+	return function(...)
+		serial = serial + 1
+		call(fn, ...)
+	end
 end
 
 -- C_Timer's After, NewTicker and NewTimer with the callback through ns.Safe.
@@ -490,6 +503,7 @@ function ns.Off(h)
 end
 
 function ns.Fire(msg, ...)
+	serial = serial + 1
 	local list = listeners[msg]
 	if not list then return end
 	busDepth = busDepth + 1
@@ -559,6 +573,7 @@ function ns.UnregisterEvent(event, fn)
 end
 
 eventFrame:SetScript("OnEvent", function(_, event, ...)
+	serial = serial + 1
 	local list = gameHandlers[event]
 	if not list then return end
 	eventDepth = eventDepth + 1

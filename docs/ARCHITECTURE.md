@@ -1401,7 +1401,7 @@ Polestar.Engine.SetGuide(id)                -- persists CharState().guide, recom
 Polestar.Engine.ReplaceSteps(id, steps) -> true | false, reason   -- Polestar.API.ReplaceSteps: the guide takes `steps` in place, in its tab; done steps before the live step that the list leaves out stay in front (Own.stepsKept); ticks, skips, `when` outcomes and the view go with their steps by step key (Own.remap with the old steps' goals); the live step is found again, not placed afresh; GUIDE_CHANGED once while its tab is active
 Polestar.Engine.GetStepIndex() -> i | nil
 Polestar.Engine.GetStepCount() -> n
-Polestar.Engine.GetStepView(i) -> view | nil
+Polestar.Engine.GetStepView(i, shared?) -> view | nil   -- built afresh; shared = true for a reader that never writes into the view: one view per step for every such reader of the same moment (the same frame and ns.Moment(): no timer, script, game event or message since, no Engine.RequestUpdate; the same evaluation and guide). QoL.CurrentStep, the map layers, the quest log's room, Gossip, Up next, the hand-off and party share it; the guide window, which keeps its view, does not
 Polestar.Engine.GetSection(i) -> { index, title, skill, skillLine, from, to, rank, state } | nil   -- the skill range step i of a profession guide is under (GUIDE_FORMAT.md, "Sections"): title "First Aid 1-40" (the client's profession name), state "done" (the player's skill reached `to`), "current" (the first range it has not) or "ahead"; the view's `section`. The steps of a done range are done unless one trains a rank the player lacks, and a range's counted collect/buy goals ask for their count less what its `craft … until` goals would have used from `from` to the skill (Own.needOf)
 Polestar.Engine.Next() / Prev() / Goto(i)    -- look at another step; changes nothing (Goto un-skips its target)
 Polestar.Engine.Skip() -> stepIndex         -- skip the step shown, saved; fires PLAYER_SKIPPED_STEP
@@ -1427,6 +1427,7 @@ Polestar.Engine.GetAlong() -> { { index, title, untilStep?, goals = { goal view,
 Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool     -- lead the arrow to one of them (row click); holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
 Polestar.Engine.GetProgress() -> doneSteps, totalSteps
+Polestar.Engine.ProgressSoon(fn) -> doneSteps, totalSteps | nil   -- the same count for the guide window's bar without the frame's spike: kept for this evaluation, else nil and counted 40 steps a frame (none while an update is due; an evaluation half way starts it again), then fn(done, total), each fn once
 Polestar.Engine.StepNumber(i) -> number, hidden     -- step i of the active guide as the player counts it (see "Steps the character has")
 Polestar.Engine.StepTotal() -> number               -- the steps the player sees
 Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTotalOf(guide) -> number  -- the same for any guide
@@ -7167,7 +7168,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   away "Not now" when its quest is not in the log or the client can't open the
   log there; "Not now" and its close button: `Engine.DismissWhileHere(i)`;
   `WHILE_HERE_MOVED(yards, i)` moves its
-  distance. In the compact window the rows drop their "Step N" line; in the
+  distance. `WHILE_HERE_CHANGED` with the panel shown before and after at the
+  same height lays out only the panel (`GF.LayoutHere`) and repaints the
+  strings' shades; a panel that comes, goes or changes height lays out the
+  window (`GF.Layout`). In the compact window the rows drop their "Step N" line; in the
   transparent style the ground is the accent alone at `GF.HERE_CLEAR` (0.18)
   under the outlined text. With the window hidden, the toast (UI/WhileHere.lua,
   `UI.WhileHereToast`) says a new line once, slides down into place as it

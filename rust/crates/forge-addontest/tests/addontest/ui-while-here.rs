@@ -654,3 +654,46 @@ fn on_a_flight_nothing_shows_and_a_line_from_before_takeoff_comes_back_quietly()
 	assert_eq!(out[2], json!({ "rows": "", "marks": 0 }), "flying again: hidden");
 	assert_eq!(out[3], json!({ "rows": "2:1", "chimes": 1, "pinging": false }), "landed after five minutes: back, quietly");
 }
+
+// A line that changes in place (its count), a second row that still fits the panel's height, or a
+// WHILE_HERE_CHANGED with the same lines, lays out only the panel and repaints the strings' shades: the window's
+// other parts stand where they were. The panel going lays out the window: "Then:" moves up.
+#[test]
+fn a_line_changing_at_the_same_height_lays_out_only_its_panel_and_the_panel_going_lays_out_the_window() {
+	let out = run_with(
+		"",
+		r#"Polestar.Set("behavior.whileHereRadius", 150)"#,
+		r#"
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
+		local layouts, shades = 0, 0
+		local lay, paint = GF.Layout, GF.PaintShades
+		GF.Layout = function(...) layouts = layouts + 1; return lay(...) end
+		GF.PaintShades = function(...) shades = shades + 1; return paint(...) end
+		local before = line()
+		local height = H:GetHeight()
+		Polestar.Fire("WHILE_HERE_CHANGED")
+		local same = { line = line(), layouts = layouts, shades = shades, height = H:GetHeight() }
+		w.progress(7, 1, 9); stub.advance(0.6)
+		local counted = line()
+		layouts = 0
+		w.moveTo(1429, 49.8, 36.0); stub.advance(1.1)
+		local two = { rows = H.Rows[2] and H.Rows[2]:IsShown() or false, height = H:GetHeight(), after = line().after }
+		layouts = 0
+		w.moveTo(1429, 47.6, 70.0); stub.advance(1.1)
+		local gone = { shown = H:IsShown(), layouts = layouts, after = line().after }
+		emit({ before = before, height = height, same = same, counted = counted, two = two, gone = gone })"#,
+	);
+	let o = &out[0];
+	assert_eq!(o["same"]["line"], o["before"], "the same lines: the panel and \"Then:\" as they were: {o}");
+	assert_eq!(o["same"]["layouts"], 0, "only the panel laid out: {o}");
+	assert_eq!(o["same"]["shades"], 1, "the shades repainted once: {o}");
+	assert_eq!(o["same"]["height"], o["height"]);
+	assert_eq!(o["counted"]["text"], "Kill Kobold Vermin  9/10", "the count changes in place: {o}");
+	assert_eq!(o["counted"]["after"], o["before"]["after"], "\"Then:\" where it was: {o}");
+	assert_eq!(o["two"]["rows"], true, "{o}");
+	assert_eq!(o["two"]["height"], o["height"], "two rows fit the panel's height: {o}");
+	assert_eq!(o["two"]["after"], o["before"]["after"], "\"Then:\" where it was: {o}");
+	assert_eq!(o["gone"]["shown"], false, "{o}");
+	assert!(o["gone"]["layouts"].as_i64().unwrap() >= 1, "the panel going lays out the window: {o}");
+	assert!(o["gone"]["after"].as_f64().unwrap() > o["before"]["after"].as_f64().unwrap(), "\"Then:\" moved up into the gap: {o}");
+}
