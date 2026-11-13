@@ -25,7 +25,9 @@ end)
 -- screen); the step on screen when it is not the live one (skipped: unskip
 -- it; looked at with ‹ ›: back to the live step); then the end of a leveling
 -- guide reached with steps still open (Start the next guide, GF.EndOffer),
--- then the out-levelled offer
+-- then a fresh start on a guide much of whose quest XP follows on from an
+-- earlier one (Engine.FreshStart: Open that guide in a tab), then the
+-- out-levelled offer
 -- (while its guide is active), then the training reminder, the riding one,
 -- then a Class guide that just opened (QoL/ClassQuests.lua), then the bags
 -- nearly full while the step collects (QoL/Space.lua: delete the cheapest
@@ -36,7 +38,7 @@ end)
 ---------------------------------------------------------------------------
 
 local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil }
+local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, freshSeen = {} }
 GF.notices = notices
 
 -- The step on screen when it is not the live step: { guideId, index, live,
@@ -113,6 +115,10 @@ local function bannerNotice()
 	end
 	local en = GF.EndOffer(E, g)
 	if en then return "ended", en end
+	-- Much of the guide's quest XP follows on from an earlier guide: once per
+	-- guide and session (notices.freshSeen), taken or dismissed.
+	local fr = g ~= nil and not notices.freshSeen[g.id] and E.FreshStart and E.FreshStart()
+	if fr then return "fresh", fr end
 	local o = notices.outlevel
 	if o and g ~= nil and g.id == o.guideId then return "outlevel", o end
 	if notices.train then return "train", notices.train end
@@ -255,9 +261,15 @@ local function trainerPlace(t)
 	return t.npcName or zone
 end
 
--- One link-style action in the banner (label, chevron).
+-- One link-style action in the banner (label, chevron), `x` right of the
+-- text's left edge. It never runs past the text's column: a label too long
+-- for it (a guide's whole title) is cut short with "…".
 local function placeLink(link, text, x, y)
+	link.Label:SetWordWrap(false)
+	link.Label:SetWidth(0)
 	link.Label:SetText(text)
+	local room = floor(banner.Text:GetWidth() - x - 16)
+	if room > 0 and link.Label:GetStringWidth() > room then link.Label:SetWidth(room) end
 	link:SetWidth(floor(link.Label:GetStringWidth() + 16 + 0.5))
 	link:ClearAllPoints()
 	link:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", x, y)
@@ -353,6 +365,14 @@ function GF.LayoutBanner(width)
 		banner.Icon:SetTexture(Theme.Media("check"))
 		banner.Text:SetText(L["You've reached the end of this guide."])
 		placeLink(banner.Jump, n.choose and L["Choose where to go next"] or string.format(L["Start %s"], n.label), 0, -4)
+		banner.Close:Show()
+	elseif kind == "fresh" then
+		-- What the quests it leaves out cost in grinding, and the guide they follow on from.
+		banner.Icon:SetTexture(Theme.Media("icon-level"))
+		local text = string.format(L["Fresh start: about %d%% of this guide's quest XP follows on from %s."], n.share, n.fromTitle)
+		if n.minutes then text = text .. "\n" .. string.format(L["Expect about %d minutes of extra grinding, or start there."], n.minutes) end
+		banner.Text:SetText(text)
+		placeLink(banner.Jump, string.format(L["Open %s"], n.fromTitle), 0, -4)
 		banner.Close:Show()
 	elseif kind == "outlevel" then
 		banner.Icon:SetTexture(Theme.Media("icon-level"))
@@ -519,6 +539,9 @@ function GF.TakeBanner()
 		elseif E and E.StartNext then
 			E.StartNext(n.guideId)
 		end
+	elseif kind == "fresh" then
+		notices.freshSeen[n.guideId] = true
+		if E and E.OpenTab then E.OpenTab(n.from, true) end
 	elseif kind == "outlevel" then
 		notices.outlevel = nil
 		-- A route choice opens the choice window, which loads the zone picked.
@@ -579,7 +602,8 @@ end
 -- Dismiss the visible notice (training: until the next due level; a step on
 -- screen that is not the live one: until another step is; a Class guide: for
 -- good, or with `later` (the Later link) until a higher level; the bags:
--- until they have room again; a gear offer: that copy only).
+-- until they have room again; a gear offer: that copy only; a fresh start:
+-- that guide's, for the session).
 function GF.DismissBanner(later)
 	local kind, n = bannerNotice()
 	if kind == "trip" then
@@ -605,6 +629,8 @@ function GF.DismissBanner(later)
 		ns.QoL.Wear.Dismiss()
 	elseif kind == "update" then
 		UI.UpdateCard.DismissBanner()
+	elseif kind == "fresh" then
+		notices.freshSeen[n.guideId] = true
 	elseif kind == "ended" then
 		notices.endSeen = n.guideId
 	elseif kind then

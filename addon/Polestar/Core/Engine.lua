@@ -8883,6 +8883,65 @@ function Engine.NextGuide(fromId)
 	return id
 end
 
+-- Fresh start (#1562): a character who opens a leveling guide without the
+-- guides before it misses the quest XP that follows on from them (the
+-- quests Own.feederPlan leaves out, and the hand-ins of quests they take).
+-- The guide's compiled `fresh` header (docs/GUIDE_FORMAT.md, "What the
+-- compiler fills in") says how much: `share` percent of its quest XP `xp`
+-- hinges on `needs`, quests of earlier guides, most of them `from`'s. For
+-- this character the share left is scaled by the part of `needs` neither
+-- done, in the log nor taken on the way (a feeder step of the guide's plan).
+-- From FRESH_NOTE percent, below the guide's top level, with `from` a guide
+-- for this character: { guideId, from, fromTitle, share (whole percent),
+-- minutes } | nil. minutes: the XP left out as same-level kills at
+-- FRESH_KPM a minute (farmSeconds' rate), in fives, at least 5; nil without
+-- the level tables. Guides.Suggestions ranks such a guide lower.
+Own.FRESH_NOTE = 30
+Own.FRESH_KPM = 1.5
+function Engine.FreshFor(g)
+	local f = type(g) == "table" and g.fresh
+	if type(f) ~= "table" or type(f.share) ~= "number" or type(f.from) ~= "string" then return nil end
+	if not (g.category == nil or g.category == "Leveling") then return nil end
+	if not player then refreshPlayer() end
+	local lvl = player.level or 1
+	if type(g.maxLevel) == "number" and lvl >= g.maxLevel then return nil end
+	local from = Guides.Get(f.from)
+	if not (from and Guides.GuideMatches(from, player)) then return nil end
+	-- Taken on the way: the accepts of the feeder steps the guide's plan put in.
+	local onWay = NONE
+	if g.base then
+		onWay = {}
+		for _, step in ipairs(g.steps) do
+			if step.feeder then
+				for _, goal in ipairs(step.goals) do
+					if goal.t == "accept" and goal.quest then onWay[goal.quest] = true end
+				end
+			end
+		end
+	end
+	local C = Compat()
+	local needs, have = type(f.needs) == "table" and f.needs or NONE, 0
+	for _, q in ipairs(needs) do
+		if questDone(q) or C.IsOnQuest(q) or onWay[q] then have = have + 1 end
+	end
+	local left = #needs > 0 and f.share * (1 - have / #needs) or f.share
+	if left < Own.FRESH_NOTE then return nil end
+	local Lv = ns.Levels
+	local per = Lv and Lv.MobXP and Lv.MobXP(lvl, lvl, false) or 0
+	local xp = (tonumber(f.xp) or 0) * left / 100
+	local minutes = per > 0 and xp > 0 and math.max(5, math.floor(xp / (per * Own.FRESH_KPM) / 5 + 0.5) * 5) or nil
+	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = math.floor(left + 0.5), minutes = minutes }
+end
+
+-- The active guide's fresh-start note (Engine.FreshFor) once the quest log is
+-- in, while the live step is in the guide's first third (later the player
+-- has seen what it holds), or nil. The guide window's banner shows it.
+function Engine.FreshStart()
+	if not (guide and computed and logReady) then return nil end
+	if computed > math.max(3, #guide.steps / 3) then return nil end
+	return Engine.FreshFor(Guides.Get(guide.id) or guide)
+end
+
 -- The choice that offers guide `id` to this character (to change route), or nil.
 function Engine.RouteChoiceFor(id)
 	local from = id and choiceOffering(id)
