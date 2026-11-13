@@ -8057,6 +8057,50 @@
 				}
 			],
 			"issue": 1999
+		},
+		{
+			"id": "stv-40-bloodsail-camp-heads-up",
+			"faction": "Alliance",
+			"at": {
+				"quest": 610,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Bloodsail Mages and Warlocks here are level 40-43 and cast from range: pull one at a time and fight with your back to the open beach.",
+			"note": "0.4.0 route audit (F5): 40-50/01's first Booty Bay loop runs at about 40 (calibrated level model 39.9-40.8) against 40-43 Bloodsail casters; players died there (4 people, 9 deaths). A heads-up where Catelyn's blade is taken.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, Alliance 40-42 on 40-50/01's Bloodsail camp and Wild Shore steps: 4 people died 9 times, killed by Bloodsail Mages (40-41), Warlocks (42-43) and Swashbucklers (42)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Bloodsail Mage 1562 from 39 (40-41 in the recordings), Bloodsail Warlock 1564 and Bloodsail Swashbuckler 1563 from 41 (41-43 on the danger gate)"
+				}
+			],
+			"pr": "-"
+		},
+		{
+			"id": "stv-40-wild-shore-heads-up",
+			"faction": "Alliance",
+			"at": {
+				"quest": 604,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Wild Shore camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge.",
+			"note": "0.4.0 route audit (F5): the Wild Shore step (charts, orders, Snuff, Dizzy's eye) is worked at about 40-42 against 41-43 Bloodsail Warlocks and Swashbucklers; it is on the danger gate's borderline list with deaths in players' recordings. A heads-up on the step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, Alliance 40-42 on 40-50/01's Bloodsail camp and Wild Shore steps: 4 people died 9 times, killed by Bloodsail Mages (40-41), Warlocks (42-43) and Swashbucklers (42)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Bloodsail Mage 1562 from 39 (40-41 in the recordings), Bloodsail Warlock 1564 and Bloodsail Swashbuckler 1563 from 41 (41-43 on the danger gate)"
+				}
+			],
+			"pr": "-"
 		}
 	]
 }

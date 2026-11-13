@@ -11870,3 +11870,12 @@ test('Feralas (Alliance 44, #1999): no grind on the Rage Scar yetis, a heads-up 
 	assert.ok(list.some(({ goal }) => goal.t === 'level' && goal.level === 45), 'the level-45 grind stays');
 });
 
+// 0.4.0 route audit (F5): the first Booty Bay loop runs at about 40 against level 40-43 Bloodsail casters; players died
+// in the camp and on the Wild Shore (4 people, 9 deaths in players' recordings). Both steps warn.
+test('Stranglethorn Vale (Alliance 40): the Bloodsail camp and the Wild Shore warn of the 40-43 casters (0.4.0 audit)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	for (const [what, pred] of [['collect 4027', (g) => g.t === 'collect' && g.quest === 610], ['kill 1563', (g) => g.t === 'kill' && g.quest === 604]]) {
+		assert.match(JSON.stringify(list[at(list, what, pred)].step), /Careful: the [^"]*4[0-3]/, `${what}: a heads-up`);
+	}
+});
+

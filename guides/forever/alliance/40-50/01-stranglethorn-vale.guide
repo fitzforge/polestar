@@ -221,6 +221,7 @@ step Booty Bay
 
 step Bloodsail camp
   tip Leave town by the tunnel and follow the coast north; the letter lies in the Bloodsail camp on the beach, where "Pretty Boy" Duncan walks.
+  tip Careful: the Bloodsail Mages and Warlocks here are level 40-43 and cast from range: pull one at a time and fight with your back to the open beach.
   turnin 595                          -- Bloodsail Correspondence
   accept 597
   collect 4027 quest 610              -- Catelyn's Blade
@@ -238,6 +239,7 @@ step Booty Bay
 step Wild Shore: kill these as you meet them
   zone Stranglethorn Vale
   tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the Wild Shore, south of Booty Bay.
+  tip Careful: the Wild Shore camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge.
   collect 3920 quest 604              -- Bloodsail Charts
   collect 3910 quest 587              -- Snuff
   collect 3897 quest 576              -- Dizzy's Eye
