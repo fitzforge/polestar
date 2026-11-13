@@ -119,6 +119,7 @@ never in saved variables.
 | `Tracker.lua` | `QuestDB` | Quest markers on the map: objectives, turn-ins and quest givers with quests available now |
 | `Tooltips.lua` | `QuestDB` | Quest lines on unit, item and object tooltips; quest icons on nameplates |
 | `QuestLevels.lua` | (local) | Quest levels before quest titles wherever the client draws a title without one |
+| `AuctionBuys.lua` | `AuctionBuys` | Which quest items of the running guide and the quest log an auction house can sell: tradeable, sold by no merchant, a long farm or dropped by nothing |
 | `Options.lua` | `QuestDB.OPTIONS` | The quest settings and the `/polestar questdb` command |
 
 ### Gear
@@ -204,6 +205,7 @@ never in saved variables.
 | `Welcome.lua` | `UI.Welcome` | The welcome a character sees the first time Polestar meets it |
 | `WhatsNew.lua` | `UI.WhatsNew` | What's new: the release's notes, once per account on the first login after an update |
 | `Copy.lua` | `UI.ShowCopy` | A small window holding text to copy |
+| `AuctionBuys.lua` | `UI.AuctionBuys` | Auction house buys on screen: the card when a guide opens, the reminder in a town with an auction house, the list (`/polestar ah`, the guide window's menu) |
 | `Report.lua` | `UI.Report` | "Report a problem" (the guide window's bug button, `/polestar report`): a report on the step on screen to copy for the Polestar Discord; `UI.ShowDiscord`, the invite on its own |
 | `Packs.lua` | `UI.Packs` | The Community guides page of the options window |
 | `Options.lua` | `UI.Options` | The options window: pages, tabs, sections, settings search |

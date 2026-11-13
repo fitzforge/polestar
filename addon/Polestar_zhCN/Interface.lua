@@ -1016,6 +1016,7 @@ L["Travel button under the arrow"] = "箭头下方的旅行按钮"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."] = "列出可以在拍卖行购买、而不必自己刷的任务物品：可交易、没有商人出售，并且刷起来很慢或没有怪物掉落。打开指南时显示一张卡片，每次来到有拍卖行的城镇时提醒一次。指南窗口的菜单里也能看到列表。"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -4101,6 +4102,29 @@ L["Show in quest log"] = "在任务日志中显示"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s所需（位于%s）"
 L["Part of the %s quests"] = "%s任务之一"
+
+-- UI/AuctionBuys.lua
+L["About %d kills to farm"] = "约需击杀 %d 次"
+L["Needs %s to gather"] = "需要%s才能采集"
+L["Crafted: nothing drops it"] = "制作物品：没有怪物掉落"
+L["The guide sends you to the auction house for it"] = "指南会带你去拍卖行购买"
+L["%d %s for %s"] = "%1$d 个%2$s，用于%3$s"
+L["Auction house buys are off. Turn them back on under Options > Questing > Quests."] = "拍卖行采购已关闭。可在“选项 > 做任务 > 任务”中重新开启。"
+L["AUCTION HOUSE"] = "拍卖行"
+L["1 quest item to buy in %s"] = "可在%s购买的任务物品：1 件"
+L["%d quest items to buy in %s"] = "可在%2$s购买的任务物品：%1$d 件"
+L["Auction house buys for this guide"] = "本指南的拍卖行采购"
+L["No vendor sells these, and farming them is slow or not possible."] = "没有商人出售，自己刷又慢或者刷不到。"
+L["Show me the auctioneer"] = "带我去拍卖师"
+L["See the list"] = "查看列表"
+L["Auction house buys"] = "拍卖行采购"
+L["Show me the auction house"] = "带我去拍卖行"
+L["Nothing to buy at the auction house: the quests ahead get what they need on the way."] = "拍卖行没有要买的：后面的任务在路上就能拿到所需物品。"
+L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."] = "你的指南和任务日志里接下来的任务需要这些物品。没有商人出售，自己刷又慢或者刷不到：拍卖行通常有货。"
+L["%d %s"] = "%1$d 个%2$s"
+L["%d in your bags and bank"] = "背包和银行中有 %d 个"
+L["Auction house buys (%d)"] = "拍卖行采购 (%d)"
+L["Show the quest items to buy at the auction house"] = "显示可在拍卖行购买的任务物品"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

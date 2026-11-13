@@ -5350,6 +5350,98 @@ The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
 `minimapObjectives`) default to off (Map → Guide & quests → Quest markers);
 `guideHighlight` only restyles markers those layers draw.
 
+### Auction house buys (Quests/AuctionBuys.lua, UI/AuctionBuys.lua)
+
+The quest items the character can buy at an auction house instead of
+farming them (`qol.auctionBuys`, on by default; Questing → Quests → Quest log
+and tooltips). The data side reads the running guide, the quest log, the
+quest database and the client; the screen side shows three things.
+
+```lua
+Polestar.AuctionBuys.On()
+Polestar.AuctionBuys.List(scope) -> list, pending   -- scope "guide" | "all" (and the rest of the quest log)
+    -- { { item, name, need, have, count, quests = { { id, title } }, why, kills, skill } }, guide order then log order;
+    -- why "farm" (kills) | "gather" (skill: Herbalism 182 or Mining 186, not known) | "made" | "ah"
+Polestar.AuctionBuys.Judge(itemID, count, goal, buys) -> why, kills, skill | false | nil (not known yet)
+Polestar.UI.AuctionBuys.Show() / Hide() / Layout() ; CardModel(kind, list, town) ; CheckGuide(id) ; CheckTown()
+Polestar.UI.AuctionBuys.MenuItem() -> the guide window's menu entry | nil
+Polestar.Nav.nearby.Near(kind, yards) -> place, yards | nil, reason   -- the nearest one in the player's zone
+Polestar.Compat.ItemKind(itemID) -> classID, subclassID ; ItemBinding(itemID) -> bindType | nil (not cached)
+```
+
+What is asked for: every `collect` goal of the running guide that is for
+this character (`Engine.Applies`) and serves a quest, from the live step on,
+and before it while its quest is in the log (the hand-in is still ahead).
+The quest is the goal's own, else the first quest within 40 steps whose
+objectives ask for the item. Optional goals, goals naming the NPC who hands
+the item over, quests done or skipped, and quests that hand the item over
+themselves are left out. Scope `all` adds the item objectives of the other
+quests in the log. Per item: the most each quest asks for, summed over the
+quests, less what the bags and the bank hold (`GetItemCount` with the bank,
+as far as the client knows it); only items still short are listed.
+
+The rule. An item is an auction house buy when it is all of:
+
+1. **Tradeable**: the client says it is no Quest item (class 12) and binds
+   neither when picked up nor as a quest item (bindType 1 or 4). An item the
+   client has not cached is asked for (`GET_ITEM_INFO_RECEIVED`) and judged
+   when it arrives. Bind on equip and bind on use items trade.
+2. **Sold by no merchant**: the guide has no `buy` goal for it (the route
+   buys it there, `QoL/Buy.lua`; Restock tops up the rest), and the quest
+   database names no vendor for it, whatever the vendor's side or stock.
+3. **Not got on the way**: the whole count takes 20 kills or loots or more on
+   average (count / drop chance; `LONG_FARM`), or nothing drops it. The
+   chance is the best of the goal's own sources (`fromNpcs`, else `fromId`)
+   in the quest database's drop table, which keeps an item's 8 best
+   droppers: a creature past them drops it at most at the 8th's chance. A
+   goal naming no source counts every source the data knows: the droppers,
+   and objects yielding the item half the time or more (`NODE_CHANCE`), herb
+   and ore nodes (trade goods subclasses 9 and 7) only for a character with
+   Herbalism or Mining; without the skill an item only nodes give is listed
+   (`gather`). Chests and crates below that chance do not count. A chance
+   the data does not know (0) leaves the item out. An item the quest
+   database knows no source for is judged by the Codex (loaded for it, never
+   in combat): listed when a profession makes it (`made`) or when the guide's
+   goal for it stands within 40 yards of an auctioneer (`ah`: the guide
+   already sends the player there); left out otherwise (a container, a quest
+   or a gift the guide knows a way to).
+
+The quest database loads for it (`QuestDB.IsWanted` counts
+`qol.auctionBuys`). The lists are built when asked and kept until a step,
+the guide, the bags, the log, a skill, the Codex or the setting changes;
+`AUCTION_BUYS_CHANGED` fires once after a burst of those.
+
+On screen (`UI/AuctionBuys.lua`), both cards on the heads-up card
+(`UI/ClassToast.lua`; its icon row carries items: the game's tooltip, the
+count over the corner, Shift-click links one), waiting for another heads-up
+to be dismissed:
+
+- **The guide's card**: 4 seconds after a guide opens or the window switches
+  to it, "Auction house buys for this guide" with up to 4 lines ("15 Silk
+  Cloth for Caught!", then "+N more"), See the list, Got it, Turn these off.
+  Once per guide per character, once shown (`CharState().auctionGuides`);
+  it follows its list while shown and goes when another guide runs.
+- **The reminder**: on a zone or subzone change, an auctioneer of the
+  character's side (`Nearby.Near("auction", 450)`: the Codex's auctioneer
+  role, on the player's map or its zone) within 450 yards while the
+  character rests (the town's rest area), or within 100 yards, means a town
+  with an auction house; the card lists what scope `all` still needs, "N quest
+  items to buy in <town>", with Show me the auctioneer (`Nearby.Go`) and See
+  the list. Once per visit: `CharState().auctionVisit` holds the town's map
+  until a zone change finds no auctioneer in reach. Never in combat (it waits
+  for `PLAYER_REGEN_ENABLED`), in an instance, while the step's escort runs
+  (`Engine.EscortRunning`), while Polestar or the guide window is hidden.
+  The Codex is loaded for it only in a rest area with something to buy.
+- **The list** (`PolestarAuctionBuys`, built on first use, registered with
+  the gamepad, Escape closes it): a row per item, its icon, "12 Silk Cloth",
+  "For Caught! · About 152 kills to farm · 3 in your bags and bank", and Show
+  me the auction house. Opened by the cards, the guide window's menu
+  ("Auction house buys (N)" while there are any) and `/polestar ah`.
+
+The heads-up card itself is registered with the gamepad as a window that
+showed on its own: it waits for the focus binding, then the D-pad walks its
+buttons and icons and B is Later.
+
 ### Party: where each member is on the guide, and group play — Quests/Party.lua
 
 ```lua

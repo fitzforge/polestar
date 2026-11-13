@@ -3,6 +3,8 @@
 #![recursion_limit = "512"]
 mod alts;
 mod api;
+#[path = "auction-buys.rs"]
+mod auction_buys;
 mod automation;
 #[path = "automation-accept-off.rs"]
 mod automation_accept_off;

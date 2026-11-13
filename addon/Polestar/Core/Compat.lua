@@ -697,6 +697,27 @@ function Compat.ItemLink(itemID)
 	return nil
 end
 
+-- An item's class and subclass (C_Item.GetItemInfoInstant: the client knows
+-- them without the item being cached), or nil when it does not know the item.
+function Compat.ItemKind(itemID)
+	local fn = type(itemID) == "number" and C_Item and C_Item.GetItemInfoInstant
+	if not fn then return nil end
+	local ok, id, _, _, _, _, classID, subclassID = pcall(fn, itemID)
+	if not (ok and id) then return nil end
+	return classID, subclassID
+end
+
+-- How an item binds (C_Item.GetItemInfo's bindType: 0 not at all, 1 when
+-- picked up, 2 when equipped, 3 when used, 4 as a quest item), or nil while
+-- the item is not cached (RequestItem asks for it).
+function Compat.ItemBinding(itemID)
+	local fn = type(itemID) == "number" and ((C_Item and C_Item.GetItemInfo) or GetItemInfo)
+	if not fn then return nil end
+	local ok, name, _, _, _, _, _, _, _, _, _, _, _, _, bind = pcall(fn, itemID)
+	if not (ok and name) then return nil end
+	return tonumber(bind) or 0
+end
+
 -- true when the item is in the client's cache; otherwise asks the server for
 -- it (GET_ITEM_INFO_RECEIVED fires with the item ID when it arrives) and
 -- returns false.

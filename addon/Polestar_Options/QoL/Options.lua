@@ -212,6 +212,10 @@ register(QUESTING, L["Quests"], L["Quest log and tooltips"], {
 	{ kind = "button", button = L["Show"], label = L["Clean up quest log"],
 		help = L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."],
 		onClick = function() ns.Fire("SHOW_QUEST_ROOM") end },
+	-- Quests/AuctionBuys.lua and UI/AuctionBuys.lua: the guide's card, the reminder in a town and the list.
+	{ kind = "toggle", key = "qol.auctionBuys", label = L["Auction house buys"],
+		help = L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."],
+		search = "auction house, ah, auctioneer, buy, materials, shopping list, quest items, reagents" },
 	C.instanceTrack(),
 })
 

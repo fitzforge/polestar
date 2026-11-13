@@ -1016,6 +1016,7 @@ L["Travel button under the arrow"] = "Botão de viagem sob a seta"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."] = "Lista os itens de missão que você pode comprar numa casa de leilões em vez de consegui-los sozinho: negociáveis, que nenhum mercador vende e lentos de conseguir ou que nada deixa cair. Um cartão ao abrir um guia e um lembrete uma vez por visita a uma cidade com casa de leilões. O menu da janela do guia também os lista."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -4101,6 +4102,29 @@ L["Show in quest log"] = "Mostrar no registro de missões"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Necessário para %s em %s"
 L["Part of the %s quests"] = "Parte das missões de %s"
+
+-- UI/AuctionBuys.lua
+L["About %d kills to farm"] = "Cerca de %d abates para conseguir"
+L["Needs %s to gather"] = "Precisa de %s para coletar"
+L["Crafted: nothing drops it"] = "Fabricado: nada o deixa cair"
+L["The guide sends you to the auction house for it"] = "O guia manda você à casa de leilões para comprá-lo"
+L["%d %s for %s"] = "%d %s para %s"
+L["Auction house buys are off. Turn them back on under Options > Questing > Quests."] = "As compras na casa de leilões estão desligadas. Ligue-as de novo em Opções > Missões > Missões."
+L["AUCTION HOUSE"] = "CASA DE LEILÕES"
+L["1 quest item to buy in %s"] = "1 item de missão para comprar em %s"
+L["%d quest items to buy in %s"] = "%d itens de missão para comprar em %s"
+L["Auction house buys for this guide"] = "Compras na casa de leilões para este guia"
+L["No vendor sells these, and farming them is slow or not possible."] = "Nenhum mercador vende estes itens, e consegui-los sozinho é lento ou impossível."
+L["Show me the auctioneer"] = "Mostrar o leiloeiro"
+L["See the list"] = "Ver a lista"
+L["Auction house buys"] = "Compras na casa de leilões"
+L["Show me the auction house"] = "Mostrar a casa de leilões"
+L["Nothing to buy at the auction house: the quests ahead get what they need on the way."] = "Nada para comprar na casa de leilões: as próximas missões conseguem o que precisam pelo caminho."
+L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."] = "As próximas missões do seu guia e do seu registro de missões precisam destes itens. Nenhum mercador os vende, e consegui-los sozinho é lento ou impossível: a casa de leilões costuma tê-los."
+L["%d %s"] = "%d %s"
+L["%d in your bags and bank"] = "%d nas bolsas e no banco"
+L["Auction house buys (%d)"] = "Compras na casa de leilões (%d)"
+L["Show the quest items to buy at the auction house"] = "Mostrar os itens de missão para comprar na casa de leilões"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."
