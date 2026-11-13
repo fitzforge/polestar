@@ -1140,7 +1140,11 @@ end
 -- Water in the log; one the route never takes the player to hand in (Washed
 -- Ashore, 4681, held by a Night Elf whose Darkshore steps of it are for the
 -- other races) leaves it "Hand in Washed Ashore to Gwennyth Bly'Leggonde
--- first" (unavailableText).
+-- first" (unavailableText). So does one whose objectives are not done
+-- (Own.heldUnfinished), wherever the route stands: its ender does not take
+-- it yet, and the guide has none of its work (#1998: Young Crocolisk Skins,
+-- 484, taken on an earlier guide and left unfinished, held Apprentice's
+-- Duties' accept at James Halloran, who stands on the Wetlands route).
 function Own.coming(p, depth)
 	local state = ns.CharState()
 	local skipped, manual = state.skipped[guide.id], state.manual[guide.id]
@@ -1159,6 +1163,7 @@ function Own.coming(p, depth)
 	end
 	if mine then return false end
 	if Compat().IsOnQuest(p) and not Own.questSkipped(p) then
+		if Own.heldUnfinished(p) then return false end
 		-- A goal an update passed (Own.passAdded) is no stop on the way.
 		return Own.heldComing(guide, p, function(t)
 			return stepApplies(t.step) and Guides.Matches(t.goal.only, player) and not Own.gone(t.goal) and not (skipped and skipped[t.s])
@@ -1176,6 +1181,18 @@ function Own.coming(p, depth)
 		end
 	end
 	return others and Own.notMine(p)
+end
+
+-- Whether held quest p has objectives the client lists, one of them not
+-- finished, and is not ready to hand in. None listed (a breadcrumb, or the
+-- client has not filled them in yet) is finished.
+function Own.heldUnfinished(p)
+	local C = Compat()
+	if C.IsQuestReadyForTurnIn(p) then return false end
+	for _, o in ipairs(C.GetQuestObjectives(p) or NONE) do
+		if not o.finished then return true end
+	end
+	return false
 end
 
 -- Whether held quest p can be handed in on guide g's way: true when the

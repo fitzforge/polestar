@@ -606,6 +606,11 @@ fn t_1442_a_prerequisite_the_guide_has_only_for_other_races_is_missing_for_a_cha
 // Beached Sea Turtle (4727) as ready. `gwennyth`: Lua goals for a step at Gwennyth (npc 10219) put before
 // Cliffspring Falls, or ""; `pre`: Beached Sea Turtle's `pre` list (any one of them opens it).
 fn held_darkshore(gwennyth: &str, codex_end: &str, guides: &str, pre: &str) -> Value {
+	held_darkshore_with(gwennyth, codex_end, guides, pre, "{}")
+}
+
+// held_darkshore with Washed Ashore's objectives in the log (`held`: a stub objectives list, "{}" for none).
+fn held_darkshore_with(gwennyth: &str, codex_end: &str, guides: &str, pre: &str, held: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: r#"local w = stub.world
@@ -614,8 +619,8 @@ w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top 
 w.moveTo(1439, 53, 18)
 w.race, w.raceName, w.faction, w.class, w.className, w.level = "NightElf", "NightElf", "Alliance", "HUNTER", "Hunter", 17
 w.complete({ 3524 })
-w.onQuest(4681, {}, "Washed Ashore")"#
-			.to_string(),
+w.onQuest(4681, {held}, "Washed Ashore")"#
+			.replace("{held}", held),
 		addons: vec![Addon::name("Polestar")],
 		script: format!(
 			r#"{TEST_PACK}
@@ -687,6 +692,18 @@ fn a_held_prerequisite_whose_ender_a_step_stands_at_keeps_its_follow_up_open() {
 	// The Codex cannot say who takes it in: the giver's window has the last word, as before (#1372).
 	let unknown = held_darkshore("", "nil", "", WASHED_ASHORE);
 	assert_eq!(unknown["goals"], json!(["4727:active:nil"]), "{unknown}");
+}
+
+#[test]
+fn t_1998_a_held_prerequisite_not_finished_yet_says_hand_it_in_first_though_a_step_stands_at_its_ender() {
+	// Young Crocolisk Skins (484) taken on an earlier guide and left unfinished: James Halloran stands on the
+	// route, but takes it in only once its objective is done, so Apprentice's Duties is not his to offer yet.
+	let at = r#"{ t = "accept", quest = 998, title = "A Letter", npc = 10219, map = D, x = 37, y = 44 }"#;
+	let out = held_darkshore_with(at, AT_GWENNYTH, "", WASHED_ASHORE, "{ { required = 1, fulfilled = 0 } }");
+	assert_eq!(out["goals"], json!(["4727:skipped:Hand in “Washed Ashore” to Gwennyth Bly'Leggonde first"]), "{out}");
+	// Its objective done: handed in on the way, the follow-up stays open.
+	let done = held_darkshore_with(at, AT_GWENNYTH, "", WASHED_ASHORE, "{ { required = 1, fulfilled = 1 } }");
+	assert_eq!(done["goals"], json!(["4727:pending:nil"]), "{done}");
 }
 
 fn nothing_hidden(out: &Value) -> bool {
