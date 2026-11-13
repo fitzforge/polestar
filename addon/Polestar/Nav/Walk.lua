@@ -326,6 +326,9 @@ local lastLeft               -- yards left along the path at the last Aim
 local count = 0              -- points in the path (0: none yet)
 local idx = 1                -- the end point of the segment the player is on (Nav/Follow.lua)
 local fstate = {}           -- the follower's state (Nav/Follow.lua's Follow.Step)
+-- [chokepoint entry] = true: passed on this goal's walk (Walk.Stops). (A field, not a local: the file's main chunk keeps
+-- clear of Lua 5.1's 200 locals.)
+Walk.dropped = {}
 local wanted = false         -- a search is owed (deferred in combat)
 local landX, landY           -- the path just in was searched from here: Walk.Aim catches the follower up to the player (Follow.Catch)
 local askedAt = -huge
@@ -388,6 +391,7 @@ function Walk.Clear()
 	cancel()
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
 	landX, landY = nil, nil
+	for k in pairs(Walk.dropped) do Walk.dropped[k] = nil end
 	Nav.follow.Reset(fstate)
 	if had then
 		restore(c, x, y)
@@ -1087,6 +1091,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 		cancel()
 		gc, gx, gy, count, idx, failed, hubs, shape = goalC, goalX, goalY, 0, 1, false, nil, nil
 		landX, landY = nil, nil
+		for k in pairs(Walk.dropped) do Walk.dropped[k] = nil end
 		Nav.follow.Reset(fstate)
 		gzFor, gz = tz, tz or nil
 		askedAt = -huge
@@ -1921,6 +1926,9 @@ end
 -- -> stops, total (yards along the path from the player to the goal)
 function Walk.Stops(pc, px, py)
 	if count < 2 or not gc then return nil end
+	-- A chokepoint passed on this goal's walk (Walk.dropped) is a stop again AGAIN yards ahead along the path. (Local
+	-- here: the file's main chunk keeps clear of Lua 5.1's 200 locals.)
+	local dropped, AGAIN = Walk.dropped, 100
 	local _, _, _, _, here = project(px, py)
 	local total = left[1] - here
 	local minX, maxX, minY, maxY = huge, -huge, huge, -huge
@@ -1940,7 +1948,23 @@ function Walk.Stops(pc, px, py)
 		-- A lift the path rides is a step however near the walk's ends (the Great Lift's
 		-- bottom landing a few yards from the Thousand Needles crossing).
 		local ridden = kind == "lift" and rides(a)
-		if d > r or along < (ridden and -r or MIN_STEP) or (not ridden and along > total - MIN_STEP) then return end
+		if d > r then return end
+		if ridden then
+			if along < -r then return end
+		else
+			-- Passed (behind, within MIN_STEP, or a piece walked): out of this goal's walk until AGAIN yards ahead.
+			-- A search a few steps on (the player beside the path, or a plan made again) made it a stop again, and
+			-- the route's step went to it and back as it was reached at once (0.4.0's border sweep, #1543).
+			if along < MIN_STEP then
+				dropped[e] = true
+				return
+			end
+			if dropped[e] then
+				if along < AGAIN then return end
+				dropped[e] = nil
+			end
+			if along > total - MIN_STEP then return end
+		end
 		-- Another floor: the path's segment there runs STOP_DZ yards or more above or below the
 		-- chokepoint at both its ends (a cave entry at the Undercity's canals under a walk over the Ruins);
 		-- never a lift the path rides (its landings join the floors).
@@ -1975,7 +1999,7 @@ function Walk.Stops(pc, px, py)
 		local e = f.entry
 		if not used[e] and (f.along - lastAlong >= MIN_STEP or f.ridden) then
 			local s = { kind = f.kind, name = areaName(e.area, e.name), zone = areaName(e.zoneArea, e.zone), wx = f.wx, wy = f.wy, r = f.r, along = f.along, seg = f.seg,
-				stop = f.stop }
+				stop = f.stop, entry = e }
 			if f.kind == "lift" then
 				-- The landing boarded and the ride to its pair. The side comes from
 				-- the path's height when it has one (K4): a packed lift's two
@@ -2032,6 +2056,16 @@ function Walk.Split()
 	local pc, px, py
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	if pc ~= gc then return end
+	-- The pieces of this walk already walked: their chokepoints are passed (Walk.Stops keeps them out).
+	local legs, ci = Nav.GetRoute()
+	local cur = legs and ci and legs[ci]
+	if cur and cur.parent then
+		for k = ci - 1, 1, -1 do
+			local l = legs[k]
+			if l.parent ~= cur.parent then break end
+			if l.entry then Walk.dropped[l.entry] = true end
+		end
+	end
 	local stops, total = Walk.Stops(pc, px, py)
 	if stops then T.SplitWalk(gc, gx, gy, stops, total, hubs) end
 end
@@ -2238,7 +2272,11 @@ ns.On("ROUTE_CHANGED", function(legs)
 	pumpShapes()
 	pumpLegs()
 end)
-ns.On("ROUTE_ADVANCED", function()
+ns.On("ROUTE_ADVANCED", function(legs, ci)
+	-- A piece of a split walk walked: its chokepoint is passed for this walk (Walk.Stops keeps it out), also when the
+	-- route is planned afresh before the next path comes in (Walk.Split marks the walked pieces only then).
+	local done = legs and ci and legs[ci - 1]
+	if done and done.parent and done.entry then Walk.dropped[done.entry] = true end
 	changed()
 	pumpShapes()
 	pumpLegs()

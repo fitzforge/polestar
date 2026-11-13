@@ -2678,7 +2678,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 		pieces[#pieces + 1] = {
 			kind = "walk", from = from, to = at, label = stopLabel(s, c), step = s.kind,
 			choke = { kind = s.kind, name = present(s.to) or present(s.name) or stopZone(s, c) },
-			radius = s.r, seg = s.seg, stop = s.stop, tail = total - s.along, parent = P,
+			radius = s.r, seg = s.seg, stop = s.stop, tail = total - s.along, parent = P, entry = s.entry,
 			yards = floor(s.along - doneYards + 0.5), seconds = secs - doneSecs,
 			hubs = hubs,
 		}

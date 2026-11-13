@@ -516,6 +516,44 @@ fn the_aim_stops_at_a_drop_that_ends_the_player_s_own_segment_until_they_reach_i
 	assert!(num(&out["near"]["dy"]) < -20.0, "within REACH of it, on down the path ({} yd on)", out["near"]["dy"]);
 }
 
+// A pass the walk has passed stays passed when the walk is searched again from beside it (0.4.0's border sweep: the
+// route's step went from the target to the pass and back as the pass, a few yards ahead on the new path, was
+// reached at once). The pass of the case above, on a path (0, 0), (0, -100), (0, -300), passed at (0, -170); the
+// player then strays 40 yd off it, and the walk searched again from there goes back past the pass, 73 yd on: no
+// step to it again. Out past AGAIN (100 yd on) it would be one.
+#[test]
+fn a_pass_the_walk_has_passed_stays_passed_when_the_walk_is_searched_again_beside_it() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = { [0] = { { wx = 5, wy = -160, r = 10, kind = "pass", name = "Hollow Pass", zone = "Testshire" } } }
+		nav.place(0, 0)
+		target(0, -300)
+		N.Sample()
+		answerZ({ { 0, 0 }, { 0, -100 }, { 0, -300 } })
+		local function step()
+			local legs, ci = N.GetRoute()
+			return { n = #legs - ci, pass = legs[ci].choke and legs[ci].choke.kind or false }
+		end
+		local r = { first = step() }
+		look(0, -170, 0, -300)                         -- past the pass: on to the target
+		r.past = step()
+		local asked = #fake.calls
+		stub.advance(3)
+		look(40, -175, 0, -300)                        -- 40 yd off the path: searched again from here
+		r.asked = #fake.calls > asked
+		answerZ({ { 40, -175 }, { 0, -140 }, { 0, -300 } })
+		r.again = step()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["first"], json!({ "n": 1, "pass": "pass" }), "the walk is split at the pass");
+	assert_eq!(out["past"], json!({ "n": 0, "pass": false }), "past it, on to the target");
+	assert_eq!(out["asked"], true, "straying searches the walk again");
+	assert_eq!(out["again"], json!({ "n": 0, "pass": false }), "the new path goes back past the pass: no step to it again");
+}
+
 // The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
 const HILLSIDE: &str = r#"
 local pts = { { 0, 0, 0 }, { 0, -100, -10 }, { 60, -180, -20 }, { 60, -400, -30 } }

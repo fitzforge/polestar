@@ -4672,7 +4672,10 @@ pack`: lifts, gates, bridges, tunnels, passes, cave and building mouths, each
 with a radius), read instead of the Transit lifts. A chokepoint counts within its radius of the path, snapped to the
 nearest point on the path (the step ends there, so no leg runs out and back:
 K5); ones within 20 yd of the player, the walk's end or the step before are
-dropped (K7), and ones within 30 yd of a crossing, chain node or a guide
+dropped (K7; one dropped as near or behind, or a piece already walked, stays out
+of the goal's walk until it lies 100 yd ahead again: 0.4.0, a search a few steps
+on made it a step again and the route went to it and back as it was reached at
+once), and ones within 30 yd of a crossing, chain node or a guide
 `goto` end leave the hand-made caption alone (K8), but a lift the path rides
 (its height changes 20 yd or more there) is always a step, whatever its
 floor guard or the ends near it. Captions: a passage names
