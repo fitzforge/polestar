@@ -161,7 +161,7 @@ function parseLearn(text) {
 // rule) or one JSON document; 1 when any is a fail.
 async function runHonest(opts, pack, cls) {
 	const json = opts.format === 'json';
-	const { findings, diag, played, dataMissing } = await playtest({
+	const { findings, diag, played, plays, dataMissing } = await playtest({
 		dir: pack.dir,
 		manifest: pack.manifest,
 		official: pack.official,
@@ -180,6 +180,10 @@ async function runHonest(opts, pack, cls) {
 	}
 	if (!played) {
 		console.error(opts.filter ? `no guide matches "${opts.filter}"` : 'no guides in the pack');
+		return 1;
+	}
+	if (!plays) {
+		console.error(`playtest --honest failed: nothing played: ${plural(played, 'guide')}, but no eligible characters${cls ? ` for ${cls[0] + cls.slice(1).toLowerCase()}` : ''}`);
 		return 1;
 	}
 	const counts = {};
