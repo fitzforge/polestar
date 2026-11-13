@@ -8101,6 +8101,72 @@
 				}
 			],
 			"pr": "-"
+		},
+		{
+			"id": "danger-hinterlands-43-witch-doctor-tiik",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2880,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Witch Doctor Ti'ik (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside.",
+			"note": "Danger at the spot (0.4.0 audit): the necklaces drop from every Witherbark troll (43-45); Witch Doctor Ti'ik (49) and 18 Hexed Larva spawns (45) sit in the western village's huts, which the arrow can point at. A heads-up; the gate's flags reviewed into data/danger-baseline.json.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 270772 Witch Doctor Ti'ik level 49, 6 spawns around 24.6-25.4,62.6-66.0; npc 270807 Hexed Larva level 45, 18 spawns at the same huts"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
+				}
+			],
+			"pr": "-"
+		},
+		{
+			"id": "danger-feralas-44-namida-grimtotem",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2970,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Namida Grimtotem, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her.",
+			"note": "Danger at the spot (0.4.0 audit): Namida Grimtotem, an elite of 43, stands among the Grimtotem tauren the quest asks for. A heads-up; the gate's flags reviewed into data/danger-baseline.json.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 222286 Namida Grimtotem level 43 elite, 3 spawns at 66.8-68.3,38.6-39.3; players met her (14 sightings)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
+				}
+			],
+			"pr": "-"
+		},
+		{
+			"id": "danger-blasted-lands-48-elites",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2581,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: two elites roam here: Calefactus the Unleashed (50) in the middle of the zone around 44,34, and Vek'zol (55) on the ridge around 39,32. When you see one, hunt somewhere else.",
+			"note": "Danger at the spot (0.4.0 audit): the bloodmages' parts drop zone-wide, and two elites roam the same hills: Calefactus the Unleashed (50, met by players) and Vek'zol (55). A heads-up; the gate's flags reviewed into data/danger-baseline.json.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 221740 Calefactus the Unleashed level 50 elite, 24 spawns around 43.7-44.9,31.9-36.2; npc 247015 Vek'zol level 55 elite, around 39.1-39.2,32.4-33.0"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
+				}
+			],
+			"pr": "-"
 		}
 	]
 }

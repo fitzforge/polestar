@@ -128,6 +128,7 @@ step Rhapsody Shindigger
 
 step Witherbark villages
   tip The first two cages stand together in the Witherbark village south of Rhapsody; the third is in the next village to the east. Every Witherbark troll can drop a necklace.
+  tip Careful: Witch Doctor Ti'ik (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside.
   interact 144068 quest 2988          -- Third Witherbark Cage
   interact 144067 quest 2988          -- Second Witherbark Cage
   collect 9259 quest 2880             -- Troll Tribal Necklace

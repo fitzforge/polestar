@@ -123,6 +123,7 @@ step Grimtotem camp
   accept 2970                         -- Jer'kai Moonweaver
 
 step Grimtotem tauren
+  tip Careful: Namida Grimtotem, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her.
   kill 7726 quest 2970                -- Grimtotem Naturalist
   kill 7725 quest 2970                -- Grimtotem Raider
   kill 7727 quest 2970                -- Grimtotem Shaman
