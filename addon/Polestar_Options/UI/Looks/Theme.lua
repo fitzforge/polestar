@@ -7,11 +7,11 @@
 -- palette, Theme.FontSpec) and repaints live through Theme.Refresh, the
 -- page's preview with it.
 --
--- Each tab pins a live preview over its rows (built the first time the tab
--- shows): the real surfaces at their true size, drawn by their own code in
--- the theme in use: the guide window with its heads-up card, a rare alert,
--- the arrow and the two kinds of button; the Names tab shows every subject's
--- name in its colour instead of the arrow (see "The preview" below).
+-- Each tab pins a band over its rows (UI.Preview.Band, built the first time
+-- the tab shows): the three surfaces the theme styles at their real size,
+-- side by side, drawn by their own code in the theme in use: the guide
+-- window's head and three goal rows, the heads-up card and the rare alert;
+-- the Names tab shows every subject's name in its colour instead.
 
 local ns = Polestar
 local Theme, W = ns.Theme, ns.Widgets
@@ -71,46 +71,16 @@ local SUBJECT = {
 }
 
 ---------------------------------------------------------------------------
--- The Names tab's preview: the real surfaces at their true size over the
--- zone you stand in. The guide window (the Guide window page's own drawing,
--- UI.GuideWindowScene) with the heads-up card on its top edge, cropped at
--- the hero's foot; a rare alert (its own builder) and a card of every
--- subject's name in its colour. Settings that dress the settings window
--- itself (its sidebar, its header's band, haze and rim, its border) light
--- its own parts too.
+-- The Names tab's preview, a band (UI.Preview.Band): every subject's name in
+-- its colour on a panel card, two columns, alone at its real size.
 ---------------------------------------------------------------------------
 
--- The stage's height laid out alone (the window gives its hero's); the
--- chrome's row over the scene, the room at its foot, the side pads, the gap
--- between the guide window and the right of the scene.
-local PREVIEW_H, TOP, BOTTOM, PAD, GAP = 196, 34, 14, 32, 40
-local NAME_ROW = 22 -- a line of the names card
-local SHADOW_ROOM = 40 -- each side of the guide window's box, for its drop shadow
+local NAME_ROW, NAME_COL = 22, 150 -- a line of the names card; a column, at least
 
 local lightParts
 local function buildNamesPreview(view)
-	local UI, P = ns.UI, ns.UI.Preview
-	local TS = UI.Toasts
-	local f = P.Stage(view, { height = PREVIEW_H, backdrop = "world" })
-	-- The window draws "Preview" and "Live" over it; this names what it shows.
-	f.caption = L["Every Polestar surface, in your theme"]
-
-	-- The guide window, drawn by the Guide window page's code; cropped at
-	-- the hero's foot, it fades out there as a stage's cropped scene does.
-	local G = UI.GuideWindowScene and UI.GuideWindowScene(f)
-	if G then
-		function G:SetCut(cut) f:SetCut(cut) end
-	end
-	f.Scene = G
-	f.Guide = G and G.Window
-	f.StepTitle = G and G.Person.Name
-	-- The heads-up card on its top edge, a rare alert: their own builders.
-	local heads = TS and TS.Sandbox and TS.Sandbox("headsup", f)
-	local toast = TS and TS.Sandbox and TS.Sandbox("rare", f)
-	f.Heads, f.Toast = heads, toast
-	if heads then heads:Show() end
-	if toast then toast:Show() end
-	-- The names card: each subject's name in its own colour.
+	local P = ns.UI.Preview
+	local f = P.Band(view, { watch = { "ui." } })
 	local card = CreateFrame("Frame", nil, f)
 	Theme.Skin(card, "panel")
 	card.Words = {}
@@ -123,96 +93,28 @@ local function buildNamesPreview(view)
 		end
 	end
 	f.Names = card
-
-	-- Their paint from the settings (the toasts' own).
-	local function paint()
-		if heads then
-			TS.ApplyLook(heads, true)
-			TS.Refill("headsup", heads)
-			heads:SetAlpha(TS.Alpha("headsup"))
-		end
-		if toast then
-			TS.ApplyLook(toast, true)
-			toast:SetAlpha(TS.Alpha("rare"))
-		end
-	end
-	f.Paint = paint
-	f.psWatch = { "toasts.", "ui." }
-
-	-- -> the hero's height (PREVIEW_H laid out alone): the guide window at
-	-- the left under its heads-up card, cropped at the hero's foot; at the
-	-- right the rare alert, then the names. A page too narrow for both keeps
-	-- the window.
-	function f:Layout(width, height)
-		height = height or PREVIEW_H
-		self:SetWidth(width)
-		self.psWidth, self.psHeight = width, height
-		paint()
+	lightParts(f, nil, nil, nil, card)
+	local snap = P.Snap
+	function f:Content()
 		local t = self:TrueScale()
-		local scale = (tonumber(ns.Get("ui.scale")) or 1) * t
-		-- The window's own width first (it lays itself out), then its box.
-		local winW = 340 * scale
-		if G then
-			G:Layout(winW + 2 * SHADOW_ROOM, height)
-			winW = G.Window:GetWidth() * scale
+		-- The columns as wide as the longest name (a translation's) needs.
+		local col = NAME_COL
+		for _, word in ipairs(card.Words) do col = max(col, math.ceil(W.TextWidth(word.fs)) + 24) end
+		local lines = math.ceil(#card.Words / 2)
+		for i, word in ipairs(card.Words) do
+			local c, line = (i - 1) % 2, floor((i - 1) / 2)
+			word.fs:ClearAllPoints()
+			word.fs:SetPoint("TOPLEFT", card, "TOPLEFT", 16 + c * col, -(10 + line * NAME_ROW))
 		end
-		local hk = heads and scale * TS.Scale("headsup") or 0
-		local hw, hh = heads and heads:GetWidth() * hk or 0, heads and heads:GetHeight() * hk or 0
-		local leftW = max(winW, hw)
-		local tk = toast and TS.Scale("rare") * t or 0
-		local tw, th = toast and toast:GetWidth() * tk or 0, toast and toast:GetHeight() * tk or 0
-		local rightX = PAD + leftW + GAP
-		local rightW = width - PAD - rightX
-		local wide = toast ~= nil and rightW >= tw * 0.75
-		local snap = P.Snap
-		-- Left: the heads-up card, the window under it to the foot.
-		local leftX = wide and PAD or max(PAD, floor((width - leftW) / 2))
-		if heads then
-			heads:SetScale(hk)
-			heads:ClearAllPoints()
-			heads:SetPoint("TOPLEFT", self, "TOPLEFT", snap(heads, (leftX + (leftW - hw) / 2) / hk), snap(heads, -TOP / hk))
-		end
-		if G then
-			local top = TOP + hh
-			G:ClearAllPoints()
-			-- Its box wider than the window by its shadow's room, so the box
-			-- crops only at its foot, the hero's.
-			G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, leftX + (leftW - winW) / 2 - SHADOW_ROOM), -snap(self, top))
-			G:SetSize(winW + 2 * SHADOW_ROOM, max(1, height - top))
-			G:Layout(winW + 2 * SHADOW_ROOM, max(1, height - top))
-		end
-		-- Right: the rare alert, then the names.
-		if toast then toast:SetShown(wide) end
-		card:SetShown(wide)
-		local y = TOP
-		if wide then
-			local k = min(1, rightW / max(1, tw))
-			toast:SetScale(tk * k)
-			toast:ClearAllPoints()
-			toast:SetPoint("TOPLEFT", self, "TOPLEFT", snap(toast, rightX / (tk * k)), snap(toast, -y / (tk * k)))
-			self:Floor(toast)
-			y = y + th * k + 24
-		end
-		if wide then
-			-- Two columns of names, as many lines as the room under the alert holds.
-			local cw = min(rightW, max(tw * min(1, rightW / max(1, tw)), 240))
-			local lines = math.ceil(#card.Words / 2)
-			local room = height - y - BOTTOM
-			local row = min(NAME_ROW, max(14, floor((room - 16) / max(1, lines))))
-			for i, word in ipairs(card.Words) do
-				local col, line = (i - 1) % 2, floor((i - 1) / 2)
-				word.fs:ClearAllPoints()
-				word.fs:SetPoint("TOPLEFT", card, "TOPLEFT", 12 + col * (cw / 2), -(8 + line * row))
-			end
-			card:SetSize(cw, 16 + lines * row)
+		local cw, ch = 16 + 2 * col, 20 + lines * NAME_ROW
+		card:SetSize(cw, ch)
+		return cw * t, ch * t, function(left, top, k)
+			local g = t * k
+			card:SetScale(g)
 			card:ClearAllPoints()
-			card:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, rightX), -snap(self, y))
-			self:Floor(card)
+			card:SetPoint("TOPLEFT", self, "TOPLEFT", snap(card, left / g), snap(card, -top / g))
 		end
-		return height
 	end
-
-	lightParts(f, G, heads, toast, card)
 	return f
 end
 
@@ -221,7 +123,8 @@ end
 -- preview f: the guide window G, the heads-up card, the rare alert and the
 -- names card, those it has.
 function lightParts(f, G, heads, toast, card)
-	local surfaces = { f.Guide, heads, toast, card }
+	local guide = rawget(f, "Guide")
+	local surfaces = { guide, heads, toast, card }
 	local win = PolestarOptions
 	if G then
 		f:Hot(G.Window, "ui.bgOpacity")
@@ -247,7 +150,7 @@ function lightParts(f, G, heads, toast, card)
 	for _, key in ipairs({ "ui.skin", "ui.scheme", "ui.brightness", "ui.reduceMotion", "ui.animSpeed", "ui.font", "ui.fontOutline", "ui.textShadow" }) do
 		light(key, unpack(everything))
 	end
-	local grounds = { f.Guide, heads, toast }
+	local grounds = { guide, heads, toast }
 	for _, key in ipairs({ "ui.bgOpacity", "ui.bgColor" }) do light(key, unpack(grounds)) end
 	light("ui.panelColor", toast, heads, card)
 	-- Every part the accent paints: in the scene the guide window's open tab
@@ -278,7 +181,7 @@ function lightParts(f, G, heads, toast, card)
 		local function windowAccents()
 			local out, seen, ar, ag, ab = {}, {}, Theme.Accent()
 			local function walk(fr)
-				if not fr:IsVisible() or P.IsStage(fr) or P.IsBand(fr) then return end
+				if not fr:IsVisible() or P.IsBand(fr) then return end
 				-- A border's pieces or a pill's (a switch's track) by their frame.
 				local own = {}
 				for _, t in ipairs(rawget(fr, "psBorder") or {}) do own[t] = true end
@@ -317,7 +220,7 @@ function lightParts(f, G, heads, toast, card)
 		end
 	end
 	for _, key in ipairs({ "ui.border", "ui.borderSize", "ui.borderColor", "ui.borderAccent", "ui.shadow", "ui.shadowStrength" }) do
-		f:LightEdge(key, f.Guide, toast, heads, card)
+		f:LightEdge(key, guide, toast, heads, card)
 	end
 	if G then
 		light("ui.band", G.Window.Band)
@@ -357,7 +260,7 @@ local function buildPreview(view)
 	local UI = ns.UI
 	local TS = UI.Toasts
 	local f = UI.Preview.Band(view, { watch = { "ui.", "guideWindow.", "toasts." } })
-	local G = UI.GuideWindowScene and UI.GuideWindowScene(f, { fade = "bg" })
+	local G = UI.GuideWindowScene and UI.GuideWindowScene(f)
 	f.Scene, f.Guide = G, G and G.Window
 	f.StepTitle = G and G.Person.Name
 	local heads = TS and TS.Sandbox and TS.Sandbox("headsup", f)
@@ -412,6 +315,7 @@ local function buildPreview(view)
 					G:SetSize(p.w + SIDE * 2, p.h)
 					G:Layout(p.w + SIDE * 2, p.h)
 				else
+					p.frame.psBandScale = g
 					p.frame:SetScale(g)
 					p.frame:ClearAllPoints()
 					p.frame:SetPoint("TOPLEFT", self, "TOPLEFT", snap(p.frame, x / g), snap(p.frame, -(foot - p.h * k) / g))

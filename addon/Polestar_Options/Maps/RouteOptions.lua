@@ -13,14 +13,16 @@
 -- (each one's colour).
 -- The preview's walk, flight, boat and minimap jump to their rows on a click.
 --
--- The preview pinned above each tab draws a route of its own (a walk with two
--- bends from the player, a flight, a later boat leg, fainter) with the maps'
--- own strokes (Maps/RouteStrokes.lua) and painters (RouteLines.NewCanvas,
--- Paint, Look, MapSparkles, MinimapSparkles), over the player's zone painting
--- (UI/ZoneArt.lua; the night band without one), and the same route on a
--- minimap's disc around the player. It is built when the tab first shows,
--- repaints on its own settings only while shown, and runs an OnUpdate only
--- while it shows sparkles (never under Reduce motion).
+-- The preview pinned above each tab is a band (UI.Preview.Band) over the
+-- map hero (UI.Preview.MapHero): a Horde route in the Barrens (up the road
+-- to the Crossroads with the player on it, the flight to Ratchet, the walk
+-- to the dock and the boat out to sea, later legs fainter) on a 1:1 crop of
+-- the zone's own world map and on the game's minimap, each at its real
+-- size, drawn by the maps' own strokes (Maps/RouteStrokes.lua) and painters
+-- (RouteLines.Paint, Look, MapSparkles, MinimapSparkles); the rides'
+-- colours in a legend line under the map. It is built when the tab first
+-- shows, repaints on its own settings only while shown, and runs an
+-- OnUpdate only while it shows sparkles (never under Reduce motion).
 
 local ns = Polestar
 local R, Strokes = ns.RouteLines, ns.RouteStrokes
@@ -28,7 +30,7 @@ local R, Strokes = ns.RouteLines, ns.RouteStrokes
 if not (R and Strokes and R.Look) then return end
 
 local Theme, W, L = ns.Theme, ns.Widgets, ns.L
-local floor, max, min, atan2 = math.floor, math.max, math.min, math.atan2 or math.atan
+local floor, max, min = math.floor, math.max, math.min
 
 local NEW = "0.3.8"
 local PAGE, KEY, ORDER, ICON = L["Route lines"], "routelines", 24, "icon-goto"
@@ -77,32 +79,41 @@ local SPARKLE_COLORS = {
 -- The preview
 ---------------------------------------------------------------------------
 
-local PREVIEW_H, MM = 226, 140 -- MM: the minimap disc, as the game's
-local MM_RADIUS = 230 -- yards the preview's minimap shows from its centre
--- The preview's own continent; its yards are map fractions x 1000 (fx = wy / 1000, fy = wx / 1000).
+-- The style cards' own continent: its yards are map fractions x 1000 (fx =
+-- wy / 1000, fy = wx / 1000).
 local C, YARDS = -1, 1000
 
 local function at(fx, fy) return { C, fy * YARDS, fx * YARDS } end
 
--- A walk with two bends from the player, a flight on (its track rounded), and
--- a boat after it: a later leg, fainter. Map fractions, x right, y down.
+-- The preview's scene on the map hero (UI.Preview.MapHero): the Barrens
+-- (uiMap 1413, on Kalimdor) in its map's pixels, the player on the road
+-- south of the Crossroads, facing north.
+local BARRENS = {
+	zone = 1413, c = 1, frame = { left = 2622.917, right = -7510.417, top = 1612.5, bottom = -5143.75 },
+	crop = { 400, 150, 488, 186 }, -- whole map labels only: the Crossroads, the Wailing Caverns, Ratchet, Durotar
+	player = { 508, 297 }, ahead = { 507, 282 },
+	-- Kalimdor's minimap tiles round the player (its WDT, builds 70374 and 70450).
+	tiles = { { 36, 34, 208162 }, { 37, 34, 208206 }, { 36, 35, 208163 }, { 37, 35, 208207 } },
+}
+-- A Horde route, every leg drawn by the maps' own strokes: up the road to
+-- the Crossroads (the player on it, the stretch behind them walked), the
+-- flight to Ratchet (taxi nodes 25 and 80), then the walk to the dock and
+-- the boat out to sea: later legs, fainter.
 local LEGS = {
-	{ kind = "walk", pts = { at(0.04, 0.82), at(0.24, 0.46), at(0.38, 0.74), at(0.56, 0.42) } },
-	{ kind = "flight", pts = { at(0.56, 0.42), at(0.67, 0.14), at(0.81, 0.30) } },
-	{ kind = "boat", pts = { at(0.81, 0.30), at(0.95, 0.80) }, later = true },
+	{ kind = "walk", pts = { { 509.5, 312 }, { 507, 282 }, { 504, 262 }, { 506, 247 }, { 513, 236 }, { 519, 222 }, { 516, 203 } } },
+	{ kind = "flight", pts = { { 516, 203 }, { 574, 211 }, { 632.5, 247.9 } } },
+	{ kind = "walk", pts = { { 632.5, 247.9 }, { 634.8, 256.8 } }, later = true },
+	{ kind = "boat", pts = { { 634.8, 256.8 }, { 662, 271 }, { 724, 300 }, { 804, 326 }, { 900, 344 } }, later = true },
 }
--- The player stands this far along the walk's first stretch (the walked
--- stretch behind them fades, nav.walkedFade).
-local PLAYER_T = 0.45
--- The stops' marks, as the maps leave a gap around (RouteLines' STOP_MARK, GOAL_MARK).
-local MARKS = { { 0.56, 0.42, 7 }, { 0.81, 0.30, 7 }, { 0.95, 0.80, 11 } }
--- The preview's click targets: each leg's box on the world panel (map
--- fractions left, top, right, bottom) and the row it jumps to.
-local HOTSPOTS = {
-	{ key = "nav.walkColor", box = { 0.02, 0.40, 0.57, 0.86 } },
-	{ key = "nav.flightColor", box = { 0.57, 0.10, 0.80, 0.42 } },
-	{ key = "nav.boatColor", box = { 0.80, 0.26, 0.98, 0.86 } },
-}
+-- The stops' marks, as the maps leave a gap round them (RouteLines' STOP_MARK).
+local STOPS = { { 516, 203 }, { 632.5, 247.9 } }
+-- The click targets: the walk, the flight and the boat by the box their leg
+-- spans on the map (HOT_PAD past it), and the row each jumps to.
+local HOTSPOTS = { { key = "nav.walkColor", leg = 1 }, { key = "nav.flightColor", leg = 2 }, { key = "nav.boatColor", leg = 4 } }
+local HOT_PAD = 8
+-- The rides' colours, a legend line under the map: the flight and the boat
+-- are on the route, the zeppelin and the tram are not.
+local RIDES = { { "flight", L["Flights"] }, { "boat", L["Boats"] }, { "zeppelin", L["Zeppelins"] }, { "tram", L["Trams & lifts"] } }
 
 -- The settings the preview shows (nav.<key>), and the paths that change it all.
 local WATCHED = { ["nav"] = true, [""] = true, ["ui"] = true, ["ui.reduceMotion"] = true }
@@ -115,16 +126,11 @@ for key in pairs(ns.RouteSparkle and ns.RouteSparkle.DEFAULTS or {}) do WATCHED[
 local previews = {} -- every preview built (one per tab), for repaints
 local SPARKLE_STEP = 1 / 30
 
-local function playerPoint()
-	local a, b = LEGS[1].pts[1], LEGS[1].pts[2]
-	return a[2] + (b[2] - a[2]) * PLAYER_T, a[3] + (b[3] - a[3]) * PLAYER_T
-end
-
 -- The sparkles, both surfaces, while the sparkles are drawn.
 local function drawSparkles(f)
 	if not f.runs then return end
 	R.MapSparkles(f.world, f.runs, f.froms, f.P, f.worldW, f.worldH, 1, f.world.opacity or 1)
-	R.MinimapSparkles(f.mm, f.runs, f.froms, C, f.px, f.py, MM_RADIUS, 0, false, MM, MM, R.MinimapSize(), f.mm.opacity or 1)
+	R.MinimapSparkles(f.mm, f.runs, f.froms, BARRENS.c, f.px, f.py, f.radius, 0, false, f.mmSize, f.mmSize, R.MinimapSize(), f.mm.opacity or 1)
 end
 
 local function tick(f, elapsed)
@@ -134,45 +140,42 @@ local function tick(f, elapsed)
 	drawSparkles(f)
 end
 
--- The sparkles' runs and their projection on the world panel, once per paint.
+-- The sparkles' runs and their projection on the map, once per paint.
 local function sparkleRuns(f)
 	f.runs = R.SparkleRuns(f.paths)
 	local runs = f.runs
 	if not runs then return end
 	local P = f.P
-	P.perYard = (f.worldW + f.worldH) / 2 / YARDS
 	for i = 1, #runs do
 		local run, us, vs = runs[i], P.us[i] or {}, P.vs[i] or {}
 		P.us[i], P.vs[i] = us, vs
-		for j = 1, run.n do us[j], vs[j] = run.ys[j] / YARDS, run.xs[j] / YARDS end
+		for j = 1, run.n do us[j], vs[j] = P.project(run.c, run.xs[j], run.ys[j]) end
 	end
 	-- The walk's sparkles start abreast of the player, as on the maps.
 	local first = runs[1]
-	f.froms[1] = first and not first.later and ns.RouteSparkle.Nearest(first, C, f.px, f.py) or 0
+	f.froms[1] = first and not first.later and ns.RouteSparkle.Nearest(first, BARRENS.c, f.px, f.py) or 0
 	for i = 2, #runs do f.froms[i] = 0 end
 end
 
--- Everything again from the settings: both surfaces' strokes, the marks,
+-- Everything again from the settings: both surfaces' strokes, the legend,
 -- the sparkles (and their OnUpdate, only while they show and move).
 local function paint(f)
 	f.dirty = false
 	local w, h = f.worldW, f.worldH
-	if not (w and w > 0 and h > 0) then return end
 	local shown = ns.Get("nav.routeLines") and true or false
 	local sparkling = shown and R.Style() == "sparkle"
-	-- The world map panel.
+	-- The world map.
 	local v = f.view
 	v.width, v.height = w, h
-	f.world:SetSize(w, h)
 	f.world.opacity = R.Look(v, "world", f.world:GetEffectiveScale())
 	-- The legend's strokes in the rides' colours, as the world map draws them.
-	for _, item in ipairs(rawget(f, "Legend") or {}) do
+	for _, item in ipairs(f.Legend) do
 		local c = v.colors and v.colors[item.psKind]
 		if c then item.Stroke:SetVertexColor(c[1], c[2], c[3], 1) end
 	end
-	-- The minimap disc.
+	-- The minimap.
 	local mv = f.mmView
-	mv.width, mv.height = MM, MM
+	mv.width, mv.height = f.mmSize, f.mmSize
 	f.mm.opacity = R.Look(mv, "minimap", f.mm:GetEffectiveScale())
 	mv.phase = R.Style() == "dots" and 0.5 or 0
 	-- Off on a surface (nav.worldRoute, nav.minimapRoute): nothing there.
@@ -282,195 +285,120 @@ local function repaintShown()
 	end
 end
 
--- The window's chrome ("Preview", f.caption, "Live") sits over the top TOP
--- px; BOTTOM px are kept at the foot; the body's own pad is INSET at either
--- side. The world panel is the hero's height less these.
-local TOP, BOTTOM, INSET = 34, 16, 32
--- The rides' legend on the world panel: each a short stroke in its colour.
-local RIDES = { { "flight", L["Flights"] }, { "boat", L["Boats"] }, { "zeppelin", L["Zeppelins"] }, { "tram", L["Trams & lifts"] } }
-
-local function buildPreview(host)
-	-- The settings window's preview stage, on its plain ground: the world
-	-- map's painting below is the scene.
-	local f = ns.UI.Preview.Stage(host, { height = PREVIEW_H, backdrop = "ground", fixed = true })
-	-- The window's caption beside "Preview": the style drawn.
-	f.caption = function()
-		local drawn = R.Style()
-		for _, c in ipairs(R.STYLE_CHOICES) do
-			if c.value == drawn then return c.label end
-		end
-	end
-
-	-- The world map: the player's zone painting, or the night band.
-	local panel = CreateFrame("Frame", nil, f)
-	panel:SetPoint("TOPLEFT", f, "TOPLEFT", INSET, -TOP)
-	panel:SetHeight(PREVIEW_H - TOP - BOTTOM)
-	if panel.SetClipsChildren then panel:SetClipsChildren(true) end
-	W.Fill(panel, "scrim", "BACKGROUND", -8)
-	W.Painter(panel, function(self) Theme.Border(self, Theme.Wash("divider")) end)
-	f.Panel = panel
-	local ZA = ns.UI and ns.UI.ZoneArt
-	if ZA and ZA.Create then
-		local art = ZA.Create(panel, 400, PREVIEW_H - TOP - BOTTOM, "scrim")
-		art:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, 0)
-		-- The whole painting, no fade into a name below it.
-		if art.Fade then art.Fade:Hide() end
-		if art.Top then art.Top:Hide() end
-		f.Art = art
-	else
-		f.Night = Theme.Band(panel, "BACKGROUND", -6)
-		f.Night:SetAllPoints(panel)
-	end
-	f.world = R.NewCanvas(CreateFrame("Frame", nil, panel))
-	f.world:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, 0)
-	f.world:SetFrameLevel(panel:GetFrameLevel() + 5)
-	local cap = W.Text(f.world, "caption", "textMuted")
-	cap:SetText(L["World map"])
-	cap:SetPoint("TOPLEFT", panel, "TOPLEFT", 8, -6)
-
-	-- The stops' marks and the player, as the maps' pins show them.
-	f.marks = {}
-	for i, m in ipairs(MARKS) do
-		f.marks[i] = glyph(f.world, "circle", i == #MARKS and "accent" or "text", m[3] * 2 - 2)
-	end
-	f.player = glyph(f.world, "dart", "arrow", 18)
-
-	-- The minimap: a disc around the player.
-	local mmFrame = CreateFrame("Frame", nil, f)
-	mmFrame:SetSize(MM, MM)
-	f.MinimapFrame = mmFrame
-	local disc = mmFrame:CreateTexture(nil, "BACKGROUND")
-	disc:SetTexture("Interface\\AddOns\\Polestar\\Media\\Nav\\pin-fill")
-	-- pin-fill's disc covers 42 of its 64 pixels.
-	disc:SetSize(MM * 64 / 42, MM * 64 / 42)
-	disc:SetPoint("CENTER", mmFrame, "CENTER", 0, 0)
-	W.Painter(disc, function(t) t:SetVertexColor(Theme.Color("panelAlt")) end)
-	f.mm = R.NewCanvas(CreateFrame("Frame", nil, mmFrame))
-	f.mm:SetAllPoints(mmFrame)
-	f.mm:SetFrameLevel(mmFrame:GetFrameLevel() + 2)
-	local me = glyph(f.mm, "dart", "arrow", 14)
-	me:SetPoint("CENTER", mmFrame, "CENTER", 0, 0)
-	local mmCap = W.Text(f, "caption", "textMuted")
-	mmCap:SetText(L["Minimap"])
-	mmCap:SetPoint("TOP", mmFrame, "BOTTOM", 0, -6)
-
-	-- The rides' colours, a legend at the world panel's foot: the flight and
-	-- the boat are on the route, the zeppelin and the tram are not.
-	local legend = CreateFrame("Frame", nil, f.world)
-	legend:SetHeight(20)
-	legend:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 8, 6)
-	legend:SetFrameLevel(f.world:GetFrameLevel() + 4)
-	W.Fill(legend, "scrim", "BACKGROUND", -1)
+-- The preview, a band (UI.Preview.Band) over the map hero: the route on the
+-- Barrens' world map and on the minimap, each at its real size, the rides'
+-- legend under the map and "Minimap" under the minimap.
+local function buildPreview(view)
+	local P = ns.UI.Preview
+	local f = P.Band(view)
+	-- The legend: a stroke in each ride's colour and its name.
+	local legend = CreateFrame("Frame", nil, f)
+	legend:SetHeight(P.LINE_H)
 	f.Legend = {}
-	local lx = 8
+	local lx = 0
 	for i, ride in ipairs(RIDES) do
 		local item = CreateFrame("Frame", nil, legend)
 		item.Stroke = item:CreateTexture(nil, "ARTWORK")
 		item.Stroke:SetTexture(Theme.Media("white"))
 		item.Stroke:SetSize(14, 3)
 		item.Stroke:SetPoint("LEFT", item, "LEFT", 0, 0)
-		item.Label = W.Text(item, "caption", "textDim")
+		item.Label = W.Text(item, "label", "textMuted")
 		item.Label:SetText(ride[2])
-		item.Label:SetPoint("LEFT", item.Stroke, "RIGHT", 5, 0)
-		local iw = 19 + math.ceil(W.TextWidth(item.Label))
-		item:SetSize(iw, 20)
+		item.Label:SetPoint("LEFT", item.Stroke, "RIGHT", 6, 0)
+		local iw = 20 + math.ceil(W.TextWidth(item.Label))
+		item:SetSize(iw, P.LINE_H)
 		item:SetPoint("LEFT", legend, "LEFT", lx, 0)
-		lx = lx + iw + 12
+		lx = lx + iw + 16
 		item.psKind = ride[1]
 		f.Legend[i] = item
 	end
-	legend:SetWidth(lx - 4)
+	legend:SetWidth(max(1, lx - 16))
+	local h = P.MapHero(f, BARRENS, legend)
+	f.Hero, f.world, f.mm = h, h.World, h.MmCanvas
+	local cx0, cy0, cw, ch = unpack(BARRENS.crop)
 
-	-- Click targets: a part of the preview jumps to its settings (the
-	-- window's hotspots). The walk, the flight and the boat by the box their
-	-- leg spans on the world panel (placed in Layout), the minimap by its disc.
+	-- The stops' marks, as the maps' pins show them.
+	f.marks = {}
+	for i = 1, #STOPS do f.marks[i] = glyph(h.Layer, "circle", "text", 12) end
+
+	-- The route, its views and buffers: the maps' own geometry, in the
+	-- Barrens' world yards.
+	local function world(list)
+		local out = {}
+		for i, p in ipairs(list) do
+			local wx, wy = P.HeroWorld(p[1], p[2], BARRENS)
+			out[i] = { BARRENS.c, wx, wy }
+		end
+		return out
+	end
+	f.paths = {}
+	for i, leg in ipairs(LEGS) do f.paths[i] = Strokes.Path(leg.kind, world(leg.pts), leg.later) end
+	f.px, f.py = P.HeroWorld(BARRENS.player[1], BARRENS.player[2], BARRENS)
+	local top, left = P.HeroWorld(cx0, cy0, BARRENS)
+	local bottom, right = P.HeroWorld(cx0 + cw, cy0 + ch, BARRENS)
+	local kx, ky = 1 / (right - left), 1 / (bottom - top)
+	local marks = {}
+	for _, s in ipairs(STOPS) do
+		marks[#marks + 1], marks[#marks + 2], marks[#marks + 3] = (s[1] - cx0) / cw, (s[2] - cy0) / ch, 7
+	end
+	f.view = { c = BARRENS.c, left = left, top = top, kx = kx, ky = ky, small = false, marks = marks, markCount = #STOPS,
+		from = true, fromIndex = 2, fromC = BARRENS.c, fromX = f.px, fromY = f.py }
+	f.worldW, f.worldH, f.mmSize, f.radius = cw, ch, P.MM, P.MM_YARDS / 2
+	f.mmView = { c = BARRENS.c, x = f.px, y = f.py, radius = f.radius, facing = 0, square = false,
+		from = true, fromIndex = 2, fromC = BARRENS.c, fromX = f.px, fromY = f.py }
+	f.strokes, f.mmStrokes = Strokes.New(1200), Strokes.New(600)
+	f.P, f.froms = { us = {}, vs = {}, lo = 0, hi = 1, perYard = (cw * math.abs(kx) + ch * math.abs(ky)) / 2,
+		project = function(c, wx, wy)
+			if c == BARRENS.c then return (wy - left) * kx, (wx - top) * ky end
+		end }, {}
+
+	-- Click targets: a part of the preview jumps to its settings. The walk,
+	-- the flight and the boat by the box their leg spans on the map, the
+	-- minimap by its disc.
 	f.hot, f.hotButtons = {}, {}
 	for i, spot in ipairs(HOTSPOTS) do
-		local region = CreateFrame("Frame", nil, f.world)
+		local x1, y1, x2, y2 = math.huge, math.huge, -math.huge, -math.huge
+		for _, p in ipairs(LEGS[spot.leg].pts) do
+			x1, y1, x2, y2 = min(x1, p[1]), min(y1, p[2]), max(x2, p[1]), max(y2, p[2])
+		end
+		x1, y1 = max(0, x1 - cx0 - HOT_PAD), max(0, y1 - cy0 - HOT_PAD)
+		x2, y2 = min(cw, x2 - cx0 + HOT_PAD), min(ch, y2 - cy0 + HOT_PAD)
+		local region = CreateFrame("Frame", nil, h.Layer)
+		region:SetPoint("TOPLEFT", h.Layer, "TOPLEFT", x1, -y1)
+		region:SetSize(x2 - x1, y2 - y1)
 		f.hot[i] = region
 		f.hotButtons[spot.key] = f:Hot(region, spot.key)
 	end
-	f.hotButtons["nav.minimapRouteSize"] = f:Hot(mmFrame, "nav.minimapRouteSize")
+	f.hotButtons["nav.minimapRouteSize"] = f:Hot(h.Minimap, "nav.minimapRouteSize")
 	-- The pointer on a setting's row lights the parts it changes.
 	local walkLeg, flightLeg, boatLeg = f.hot[1], f.hot[2], f.hot[3]
-	local both, legend = { panel, mmFrame }, f.Legend
+	local map, mm, legendItems = h.Map, h.Minimap, f.Legend
+	local both = { map, mm }
 	for key, parts in pairs({
-		["nav.routeLines"] = both, ["nav.lineStyle"] = both, ["nav.worldRouteAlpha"] = { panel }, ["nav.worldRoute"] = { panel },
-		["nav.minimapRouteAlpha"] = { mmFrame }, ["nav.minimapRoute"] = { mmFrame }, ["nav.minimapRouteSize"] = { mmFrame },
+		["nav.routeLines"] = both, ["nav.lineStyle"] = both, ["nav.worldRouteAlpha"] = { map }, ["nav.worldRoute"] = { map },
+		["nav.minimapRouteAlpha"] = { mm }, ["nav.minimapRoute"] = { mm }, ["nav.minimapRouteSize"] = { mm },
 		["nav.drawIn"] = { walkLeg, flightLeg, boatLeg }, ["nav.laterAlpha"] = { boatLeg }, ["nav.lineOutline"] = { walkLeg, flightLeg },
-		["nav.walkColor"] = { walkLeg, mmFrame }, ["nav.dotColor"] = { walkLeg, flightLeg, boatLeg }, ["nav.lineWidth"] = { walkLeg, flightLeg },
+		["nav.walkColor"] = { walkLeg, mm }, ["nav.dotColor"] = { walkLeg, flightLeg, boatLeg }, ["nav.lineWidth"] = { walkLeg, flightLeg },
 		["nav.walkedFade"] = { walkLeg }, ["nav.routeChevrons"] = { walkLeg, flightLeg }, ["nav.flightDash"] = { flightLeg },
 		["nav.dotSize"] = { walkLeg }, ["nav.dotSpacing"] = { walkLeg },
 		["nav.sparkleColor"] = both, ["nav.sparkleSize"] = both, ["nav.sparkleIntensity"] = both, ["nav.sparkleSubtlety"] = both,
 		["nav.sparkleDensity"] = both, ["nav.sparkleMax"] = both, ["nav.sparkleFlow"] = both, ["nav.sparkleLater"] = { boatLeg },
-		["nav.flightColor"] = { flightLeg, legend[1] }, ["nav.boatColor"] = { boatLeg, legend[2] },
-		["nav.zeppelinColor"] = { legend[3] }, ["nav.tramColor"] = { legend[4] },
+		["nav.flightColor"] = { flightLeg, legendItems[1] }, ["nav.boatColor"] = { boatLeg, legendItems[2] },
+		["nav.zeppelinColor"] = { legendItems[3] }, ["nav.tramColor"] = { legendItems[4] },
 	}) do
 		f:Light(key, unpack(parts))
 	end
 
-	-- The route, its views and buffers: the maps' own geometry.
-	f.paths = {}
-	for i, leg in ipairs(LEGS) do f.paths[i] = Strokes.Path(leg.kind, leg.pts, leg.later) end
-	f.px, f.py = playerPoint()
-	local marks = {}
-	for _, m in ipairs(MARKS) do
-		marks[#marks + 1], marks[#marks + 2], marks[#marks + 3] = m[1], m[2], m[3]
-	end
-	f.view = { c = C, left = 0, top = 0, kx = 1 / YARDS, ky = 1 / YARDS, small = false, marks = marks, markCount = #MARKS,
-		from = true, fromIndex = 2, fromC = C, fromX = f.px, fromY = f.py }
-	f.mmView = { c = C, x = f.px, y = f.py, radius = MM_RADIUS, facing = 0, square = false,
-		from = true, fromIndex = 2, fromC = C, fromX = f.px, fromY = f.py }
-	f.strokes, f.mmStrokes = Strokes.New(1200), Strokes.New(600)
-	f.P, f.froms = { us = {}, vs = {}, lo = 0, hi = 1, project = function(c, wx, wy)
-		if c == C then return wy / YARDS, wx / YARDS end
-	end }, {}
-
-	-- -> the hero's height (PREVIEW_H laid out alone), its parts placed
-	-- across `width` (the whole main column), the world panel and the
-	-- minimap each on a soft shadow; repainted when its size changes
-	-- (settings repaint it on their own).
-	function f:Layout(width, height)
-		self:SetWidth(width)
-		self.psHeight = height or PREVIEW_H
-		local ww = max(120, floor(width - INSET * 2 - MM - 24))
-		local wh = self.psHeight - TOP - BOTTOM
-		if ww == self.worldW and wh == self.worldH and not self.dirty then return self.psHeight end
-		panel:SetSize(ww, wh)
-		self.worldW, self.worldH = ww, wh
-		if self.Art and (self.Art.psW ~= ww or self.Art.psH ~= wh) then
-			self.Art:SetSize(ww, wh)
-			self.Art.psW, self.Art.psH = ww, wh
-			local C2 = ns.Compat
-			local map, mx, my
-			if C2 and C2.GetPlayerMapPosition then map, mx, my = C2.GetPlayerMapPosition() end
-			ns.UI.ZoneArt.Paint(self.Art, map, mx, my, 3)
-		end
-		mmFrame:ClearAllPoints()
-		mmFrame:SetPoint("TOPRIGHT", self, "TOPRIGHT", -INSET, -(TOP + max(4, floor((wh - MM - 20) / 2))))
-		self:Floor(panel)
-		self:Floor(mmFrame, -10)
-		for i, m in ipairs(MARKS) do
+	function f:Content()
+		local w, hh, labels = h.Size()
+		for i, s in ipairs(STOPS) do
 			self.marks[i]:ClearAllPoints()
-			self.marks[i]:SetPoint("CENTER", self.world, "TOPLEFT", m[1] * ww, -m[2] * wh)
-		end
-		-- The player's dart, along the walk.
-		local a, b = LEGS[1].pts[1], LEGS[1].pts[2]
-		local dx, dy = (b[3] - a[3]) / YARDS * ww, -(b[2] - a[2]) / YARDS * wh
-		self.player:ClearAllPoints()
-		self.player:SetPoint("CENTER", self.world, "TOPLEFT", self.py / YARDS * ww, -self.px / YARDS * wh)
-		if self.player.SetRotation then self.player:SetRotation(atan2(-dx, dy)) end
-		for i, spot in ipairs(HOTSPOTS) do
-			local box, region = spot.box, self.hot[i]
-			region:ClearAllPoints()
-			region:SetPoint("TOPLEFT", self.world, "TOPLEFT", box[1] * ww, -box[2] * wh)
-			region:SetSize((box[3] - box[1]) * ww, (box[4] - box[2]) * wh)
+			self.marks[i]:SetPoint("CENTER", h.Layer, "TOPLEFT", s[1] - cx0, -(s[2] - cy0))
 		end
 		paint(self)
-		return self.psHeight
+		return w, hh, h.Place, labels
 	end
-
-	f:SetScript("OnShow", function(self) if self.worldW then paint(self) end end)
+	f:HookScript("OnShow", function(self) paint(self) end)
 	f:SetScript("OnHide", function(self) self:SetScript("OnUpdate", nil) end)
 	previews[f] = true
 	return f

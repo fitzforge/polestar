@@ -1587,7 +1587,7 @@ function O.MoreControls()
 end
 
 ---------------------------------------------------------------------------
--- The pinned preview, its stage and its hotspots are UI/Preview.lua's
+-- The pinned preview, its bands and its hotspots are UI/Preview.lua's
 -- (UI.Preview); here, what it asks of the window.
 ---------------------------------------------------------------------------
 

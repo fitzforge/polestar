@@ -6,7 +6,6 @@
 --   UI.Toasts.Preview(view, tab)           the options' pinned preview, a band (UI.Preview.Band):
 --                                          the tab's toast alone at its real size; "all"
 --                                          (Essentials): the one its dropdown picks
---   UI.Toasts.NewStage(view[, height])     a preview's stage (the trackers')
 --
 -- Previews draw the toasts' own builders in a sandbox (Rares.Toast.NewCard,
 -- Nav.alerts.NewBanner, ClassToast.NewCard,
@@ -25,22 +24,9 @@ local NEW = "0.3.8"
 
 local function stackOn() return ns.Get("toasts.stack") and true or false end
 
-local stages = setmetatable({}, { __mode = "k" }) -- preview stages -> true
-local markStages
-
--- A toasts setting changed: the stages repaint (now when shown, else when
--- they show); the toasts themselves follow in UI.Toasts.
-ns.On("SETTING_CHANGED", function(path)
-	if path ~= "" and path ~= "toasts" and path:sub(1, 7) ~= "toasts." then return end
-	if path:match("^toasts%.[^.]+%.point$") then return end
-	markStages()
-end)
-
 ---------------------------------------------------------------------------
 -- Previews
 ---------------------------------------------------------------------------
-
-local STAGE_H = 210
 
 local function classChime()
 	local CC = UI.ClassCard
@@ -130,26 +116,6 @@ local REFILL = {
 	headsup = function(c) local T = UI.ClassToast; if T and c.psModel then T.FillCard(c, c.psModel, 340) end end,
 }
 
--- A stage `height` tall (STAGE_H by default) until the window lays it out
--- for its hero. The settings window's preview stage (UI.Preview.Stage): the
--- toasts over the world they show in, the zone you stand in. Its caption:
--- how much it had to shrink them to fit, or why it is empty.
-local function newStage(view, height)
-	local s = UI.Preview.Stage(view, { height = height or STAGE_H, backdrop = "world" })
-	s.Paint = function(self) if self.Refresh then self:Refresh() end end
-	stages[s] = true
-	return s
-end
-
-function markStages()
-	for s in pairs(stages) do
-		if s:IsVisible() then s:Refresh() else s.psDirty = true end
-	end
-end
-
-TS.NewStage = newStage
-TS.STAGE_H = STAGE_H
-
 -- A sandbox toast of `kind` built into parent and painted, as the previews
 -- draw it (the Theme page's scene has two); nil when its module is not
 -- loaded. TS.Refill: its paint again after a change of type size.
@@ -209,6 +175,7 @@ local function toastPart(f, kind, play)
 	end
 	function part.place(left, top, k)
 		local g = k0 * k
+		card.psBandScale = g
 		card:SetScale(g)
 		Anim.Anchor(card, "TOPLEFT", f, "TOPLEFT", UI.Preview.Snap(card, left / g), UI.Preview.Snap(card, -top / g))
 	end

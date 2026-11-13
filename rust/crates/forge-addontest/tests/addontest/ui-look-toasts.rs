@@ -178,7 +178,8 @@ fn tracker_settings_reach_the_real_flight_timer_instance_tracker_party_panel_and
 		Polestar.Set("trackers.party.width", 360)
 		PP.FillRows(p, { { name = "Brogan", class = "WARRIOR", level = 22, xp = 12, step = "Step 39", needs = { { what = "Defias Bandana", cur = 6, max = 10 } } } })
 		local Mk = Polestar.QoL.XPMark
-		local bar = TS.NewStage(UIParent)
+		-- A frame of Polestar's for the bar (the stub refuses addon frames under the test's own).
+		local bar = UI.Preview.Band(UIParent)
 		bar:SetSize(300, 10)
 		local m = Mk.NewDemo(bar)
 		Polestar.Set("trackers.xp.tickWidth", 5)
@@ -207,18 +208,31 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		Polestar.Set("rares.sound", true)
 		local fired = 0
 		Polestar.On("RARE_SPOTTED", function() fired = fired + 1 end)
-		-- A frame of Polestar's, as the options window is (the stub refuses addon frames under the test's own).
-		local host = TS.NewStage(UIParent)
-		host:SetSize(700, 400)
+		-- The bands on UIParent (the stub refuses addon frames under the test's own).
+		local host = UIParent
 		local stages, heights = {}, {}
+		-- Each band's height against what its parts make (UI/Preview.lua's band): 20 + the element at its fit + [Play
+		-- under it on a band too narrow] + [its labels] + [the hint line] + 20, a dropdown 28 + 14 over it on a tab
+		-- with one.
+		local P = UI.Preview
+		local function band(s)
+			local h = s:Layout(640)
+			local _, eh, _, labels = s:Content(640)
+			local play = rawget(s, "Play")
+			local under = play and play:IsShown() and (play:GetPoint(1)) == "TOPRIGHT"
+			local want = 2 * P.BAND_PAD + (rawget(s, "Picker") and P.PICKER_H + P.PICKER_GAP or 0) + (eh or 0) * s.psFit
+				+ (under and P.PLAY_UNDER + P.PLAY_H or 0) + (labels and P.LINE_GAP + P.LINE_H or 0) + (s.Hint:IsShown() and P.LINE_GAP + P.LINE_H or 0)
+			s:Layout(640)
+			return { h = h, want = want, element = (eh or 0) > 0 }
+		end
 		for _, tab in ipairs({ "rare", "transport", "headsup", "classcard" }) do
 			local s = TS.Preview(host, tab)
-			heights[#heights + 1] = s:Layout(640)
+			heights[#heights + 1] = band(s)
 			stages[tab] = s
 		end
 		for _, tab in ipairs({ "flight", "instances", "party" }) do
 			local s = TR.Preview(host, tab)
-			heights[#heights + 1] = s:Layout(640)
+			heights[#heights + 1] = band(s)
 			stages[tab] = s
 		end
 		local rare = stages.rare.Card
@@ -279,7 +293,10 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		emit({ updates = updates, anim = Polestar.Anim.Active(), waiting = waiting, shown = r2(rare:GetAlpha()) })
 	"#);
 	let first = &out[0];
-	assert!(first["heights"].as_array().unwrap().iter().all(|h| h.as_f64().unwrap() > 100.0), "{first}");
+	for b in first["heights"].as_array().unwrap() {
+		let (h, want) = (b["h"].as_f64().unwrap(), b["want"].as_f64().unwrap());
+		assert!(b["element"] == true && (h - want).abs() <= 1.0, "a band as tall as its element and its parts: {b} in {first}");
+	}
 	assert_eq!(
 		first["live"],
 		json!({

@@ -186,7 +186,7 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 		-- The window's page view stands in: the preview hangs off UIParent here.
 		local P = N.ArrowPreview(UIParent)
 		P:Show()
-		out.height = P:Layout(640)
+		out.height, out.dial = P:Layout(1200), A.HEIGHT * Polestar.UI.Preview.TrueScale(P)
 		local D = P.Dials
 		out.states = { D[1].dial.sheet:IsShown(), D[2].dial.sheet:IsShown(), D[3].dial.ring:IsShown(), D[3].dial.sheet:IsShown() }
 		out.texts = { D[1].dial.distText:GetText(), D[3].dial.distText:GetText() }
@@ -247,7 +247,7 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 		table.sort(keys)
 		out.page, out.controls, out.keys, out.sections, out.infos, out.long = page, n, table.concat(keys, " "), sections, infos, long
 		emit(out)"#);
-	assert_eq!(out["height"], json!(176), "the stage, its chrome's row (Preview, Live, the backdrop) over the dials");
+	assert_eq!(out["height"].as_f64().unwrap(), 20.0 + out["dial"].as_f64().unwrap() + 25.0 + 20.0, "the band: 20 over, the dials, their labels' line, 20 under: {out}");
 	assert_eq!(out["states"], json!([true, true, true, false]), "3D on its way and closing in, the ring on arrival");
 	assert_eq!(out["texts"], json!(["420 yd", "Arrived"]));
 	assert_eq!(out["liveDial"], true, "the preview builds its own dials");

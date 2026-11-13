@@ -110,7 +110,9 @@ function TR.ApplyLook(frame, relayout)
 			if Theme.SetOutline then Theme.SetOutline(fs, outline) end
 		end
 	end
-	frame:SetScale(num(kind, "scale", 0.4, 2.5) * (frame.psFit or 1))
+	-- A sandbox copy a settings preview places keeps the scale it gave it
+	-- (psBandScale): a repaint (a new UI scale) leaves it where it stands.
+	frame:SetScale(frame.psBandScale or num(kind, "scale", 0.4, 2.5) * (frame.psFit or 1))
 	local width = floor(num(kind, "width", 120, 600) + 0.5)
 	frame.psWidth = width
 	frame:SetWidth(width)

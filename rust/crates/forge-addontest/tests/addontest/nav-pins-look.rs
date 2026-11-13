@@ -226,8 +226,8 @@ fn the_target_pin_takes_its_size_glow_and_pulse_and_reduce_motion_stops_the_puls
 // settings while shown, else on the next show. Pins (Map pins v2): a band with the world map (a 488 x 186 crop,
 // the plain panel where ZoneArt is not loaded) and the game's 140 px minimap (masked round, its ring), the
 // target and the numbered pins at the zoomed-out map's real size (Pins.WorldScale(f, 0) x the true scale), at 70%
-// while numbered pins are off and whole while on; the minimap's at its widest zoom. Icons: the marks at full size,
-// one with its badge. The page (layout v2: section toggles, extras, cogs) holds every setting a player could set,
+// while numbered pins are off and whole while on; the minimap's at its widest zoom. Icons: the same hero with the
+// icon pack's marks at their spots, one grouped with its badge. The page (layout v2: section toggles, extras, cogs) holds every setting a player could set,
 // each new one with search words and help (its tooltip).
 #[test]
 fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_shown() {
@@ -265,7 +265,8 @@ fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_sh
 		I:Layout(900)
 		local badged
 		for _, m in ipairs(I.Marks) do if m.badge.text:IsShown() then badged = m.badge.text:GetText() end end
-		out.icons = { #I.Marks, r3(I.Marks[1].medal.width * I.Marks[1].scale), badged }
+		local m1 = I.Marks[1]
+		out.icons = { #I.Marks, r3(m1.scale) == r3(Pins.WorldScale(m1, 0) * Polestar.UI.Preview.TrueScale(I)), badged, I.Hero.Map:GetWidth() }
 		local n, page, keys, sections = 0, nil, {}, {}
 		local function visit(c)
 			n = n + 1
@@ -295,7 +296,7 @@ fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_sh
 	assert_eq!(json!([out["repainted"], out["hidden"], out["shown"]]), json!([true, true, true]), "repaints while shown, else on show");
 	assert_eq!(out["minimap"], json!([true, true]), "the target on the minimap at the true scale");
 	assert_eq!(out["updates"], true, "no OnUpdate");
-	assert_eq!(out["icons"], json!([6, 19.8, "3"]), "six marks, a 22 px medallion zoomed in, a group's badge");
+	assert_eq!(out["icons"], json!([4, true, "3", 488]), "four marks at their spots on the same hero, at the zoomed-out map's size, the inn's badge");
 	assert_eq!(out["page"], json!({ "key": "mappins", "order": 23, "group": "look" }));
 	assert_eq!(
 		out["sections"],

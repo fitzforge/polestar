@@ -15,8 +15,9 @@
 --          the game's minimap side by side, the player, the route line to the
 --          target in its spawn area, the numbered pins after it (faint while
 --          they are off); the preset cards the same scene on a sharp crop;
---   Icons  a row of map marks in the icon pack at full size, one a group with
---          its count badge, and a minimap disc (the stage, for now).
+--   Icons  a band over the same hero: the icon pack's marks at their spots
+--          (an inn grouped with its count badge, a kill, a quest to take, one
+--          to hand in), on the world map and inside the minimap.
 -- Clicking a part of a preview jumps to its setting (the window's hotspots).
 -- Never the live pins, no Nav hook; it repaints on its settings only while
 -- shown, and nothing runs while idle (the target's pulse is the client's
@@ -54,31 +55,8 @@ local function trailShown() return ns.Get("nav.trailDots") and not ns.Get("nav.r
 -- The previews
 ---------------------------------------------------------------------------
 
-local STAGE_H, ZONE = 196, 1429 -- Elwynn Forest, as the welcome's demo
--- The window's chrome sits over the stage ("Preview" top left, "Live" top right): the
--- painting starts below it, inset by the body's pad; the painting is the hero's height
--- less these (STAGE_H's laid out alone).
-local PAD, TOP, BOTTOM = 32, 34, 16
-local MM, MM_COL = 140, 176 -- the minimap disc, as the game's, and its column
-local ZOOM_OUT, ZOOM_IN = 0, 1 -- the world map's zoom (Pins.WorldScale)
+local ZOOM_OUT = 0 -- the world map's zoom (Pins.WorldScale): zoomed out, as it opens
 local MM_ZOOM = 0.7 -- the minimap's widest zoom, its default
--- The Icons painting: the marks in a row (map mark, subject colour), one a group with a badge.
-local MARKS = {
-	{ "map:quest-available", "quest" }, { "map:quest-turnin", "quest" }, { "map:kill", "danger" },
-	{ "map:flightmaster", "place" }, { "map:inn", "place", 3 }, { "map:dungeon", "dungeon" },
-}
--- The minimap samples (px from the centre, y up): a mark over the player's arrow, then others.
-local MM_PINS = { { 4, 3 }, { 24, -18 }, { -26, 20 } }
-
--- The keys the previews repaint on (besides the theme).
-local KEYS = {
-	["nav.mapIcons"] = true, ["nav.minimapIconSize"] = true, ["nav.arrowColor"] = true, ["nav.routeLines"] = true,
-	["nav.trailDots"] = true, ["nav.targetPinSize"] = true, ["nav.targetGlow"] = true, ["nav.targetPulse"] = true,
-	["nav.minimapPins"] = true, ["nav.worldPins"] = true,
-	["ui.reduceMotion"] = true, ["ui.upcoming"] = true, ["nav"] = true, ["ui"] = true, [""] = true,
-}
-for k in pairs(Pins.LOOK_KEYS) do KEYS[k] = true end
-for k in pairs(Upcoming.KEYS) do KEYS[k] = true end
 
 local function rgb(name)
 	local r, g, b = Theme.Color(name)
@@ -91,7 +69,7 @@ local function newPin(parent)
 	return f
 end
 
--- A click target on a part of preview f (the window's hotspots, s:Hot):
+-- A click target on a part of preview f (the window's hotspots, f:Hot):
 -- hover outlines it, a click jumps to the setting's row. f.psHotspots lists
 -- them: { { key, button }, ... }.
 local function hotspot(f, region, key)
@@ -100,135 +78,45 @@ local function hotspot(f, region, key)
 	f.psHotspots[#f.psHotspots + 1] = { key, b }
 end
 
--- The scale that draws a child of `parent` at its true size on screen (the
--- game's UI scale), whatever the settings window's own scale.
-local function trueScale(parent)
-	local u = UIParent and UIParent.GetEffectiveScale and UIParent:GetEffectiveScale() or 1
-	local e = parent.GetEffectiveScale and parent:GetEffectiveScale() or u
-	if not (u and e and e > 0) then return 1 end
-	return u / e
-end
-
--- Paint sandbox pin frame f with pin p at layer scale `scale`, as the world
--- map does at `zoom` and at its true size on screen, centred on (x, y) px
--- from parent's top left. -> its medallion across, in parent's units
-local function worldPin(f, parent, p, scale, x, y, zoom)
-	Pins.ApplyLook(f, p, Pins.WorldPinSize(p, scale))
-	local k = Pins.WorldScale(f, zoom) * trueScale(parent)
-	f:SetScale(k)
-	f:SetAlpha(Pins.look.worldAlpha)
-	f:ClearAllPoints()
-	f:SetPoint("CENTER", parent, "TOPLEFT", x / k, -y / k)
-	f:Show()
-	return f.footPx * k
-end
-
--- The same on a minimap disc: its size at its widest zoom and the player's
--- minimap icon size, faded over the arrow as there.
-local function minimapPin(f, parent, p, scale, x, y)
-	local sizeK = tonumber(ns.Get("nav.minimapIconSize")) or 1
-	Pins.ApplyLook(f, p, Pins.MinimapPinSize(p, scale, MM_ZOOM, sizeK))
-	local fade = Pins.look.arrowFade and Pins.ArrowFade(x, y, f.footPx) or 1
-	local k = trueScale(parent)
-	f:SetScale(k)
-	f:SetAlpha(fade * Pins.look.mmAlpha)
-	f:ClearAllPoints()
-	f:SetPoint("CENTER", parent, "CENTER", x / k, y / k)
-	f:Show()
-end
-
--- The stage (the settings window's, UI.Preview.Stage, on its plain ground:
--- the painting is the scene), a painting `art` of the zone in `map` (the
--- night band without art), a layer over it for the marks, and a minimap
--- disc at the right with the player's arrow.
-local function stage(view, mapLabel)
-	local f = ns.UI.Preview.Stage(view, { height = STAGE_H, backdrop = "ground", fixed = true })
-
-	local map = CreateFrame("Frame", nil, f)
-	map:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -TOP)
-	map:SetHeight(STAGE_H - TOP - BOTTOM)
-	if map.SetClipsChildren then map:SetClipsChildren(true) end
-	local ZA = ns.UI and ns.UI.ZoneArt
-	if ZA then
-		f.psArt = ZA.Create(map, 400, STAGE_H - TOP - BOTTOM, "scrim")
-		f.psArt:SetPoint("TOPLEFT", map, "TOPLEFT", 0, 0)
-	else
-		f.psBand = Theme.Band(map, "BACKGROUND", -7)
-		f.psBand:SetAllPoints(map)
+-- Marks on the map hero h (UI.Preview.MapHero): -> onWorld(pin, p, x, y, t,
+-- alpha), a world map pin at the zoomed-out map's size centred on (x, y) of
+-- its crop; onMinimap(pin, p, mx, my, t, alpha), a minimap pin where (mx,
+-- my) of the zone's map falls inside the minimap (hidden outside it), faded
+-- over the player's arrow as there.
+local function heroPins(h)
+	local P, Strokes = ns.UI.Preview, ns.RouteStrokes
+	local S = P.HERO_SCENE
+	local layer, mm = h.Layer, h.Minimap
+	local pwx, pwy = P.HeroWorld(S.player[1], S.player[2])
+	local function onWorld(pin, p, x, y, t, alpha)
+		Pins.ApplyLook(pin, p, Pins.WorldPinSize(p, p.scale))
+		local k = Pins.WorldScale(pin, ZOOM_OUT) * t
+		pin:SetScale(k)
+		pin:SetAlpha(Pins.look.worldAlpha * (alpha or 1))
+		pin:ClearAllPoints()
+		pin:SetPoint("CENTER", layer, "TOPLEFT", x / k, -y / k)
+		pin:Show()
 	end
-	local layer = CreateFrame("Frame", nil, map)
-	layer:SetAllPoints(map)
-	layer:SetFrameLevel((f.psArt and f.psArt.Over or map):GetFrameLevel() + 2)
-	local label = W.Text(layer, "caption", "textMuted")
-	label:SetText(mapLabel)
-	label:SetPoint("TOPLEFT", map, "TOPLEFT", 10, -8)
-
-	local mm = CreateFrame("Frame", nil, f)
-	mm:SetSize(MM, MM)
-	local ground = mm:CreateTexture(nil, "BACKGROUND")
-	ground:SetTexture(NAV_MEDIA .. "pin-fill")
-	ground:SetPoint("CENTER")
-	ground:SetSize(MM * 64 / 42, MM * 64 / 42) -- pin-fill's disc covers 42 of its 64 pixels
-	ground:SetVertexColor(0.16, 0.2, 0.13, 1)
-	local rim = mm:CreateTexture(nil, "BORDER")
-	rim:SetTexture(MAP_MEDIA .. "ring")
-	rim:SetAllPoints(mm)
-	W.Painter(rim, function(t)
-		local r, g, b = Theme.Color("textDim")
-		t:SetVertexColor(r, g, b, 0.6)
-	end)
-	local player = mm:CreateTexture(nil, "OVERLAY", nil, 7)
-	player:SetTexture("Interface\\Minimap\\MinimapArrow")
-	player:SetSize(26, 26)
-	player:SetPoint("CENTER")
-	local mmLabel = W.Text(f, "caption", "textMuted")
-	mmLabel:SetText(L["Minimap"])
-	mmLabel:SetPoint("TOP", mm, "BOTTOM", 0, -4)
-
-	f.MapFrame, f.Layer, f.MinimapFrame = map, layer, mm
-	f.psWidth, f.mapW, f.mapH, f.dirty = 0, 0, STAGE_H - TOP - BOTTOM, true
-	-- -> the painting's width and height for the stage's, and lays it out:
-	-- the painting and the minimap each on a soft shadow.
-	function f:Place(w)
-		local mapH = self.psHeight - TOP - BOTTOM
-		local resized = w ~= self.psWidth or mapH ~= self.mapH
-		self:SetWidth(w)
-		self.psWidth = w
-		self.mapW, self.mapH = max(160, w - 2 * PAD - MM_COL), mapH
-		map:SetSize(self.mapW, mapH)
-		mm:ClearAllPoints()
-		mm:SetPoint("CENTER", self, "TOPLEFT", PAD + self.mapW + MM_COL / 2, -(TOP + (mapH - 16) / 2))
-		self:Floor(map)
-		self:Floor(mm, -10)
-		if self.psBand then self.psBand:SetTexCoord(Theme.BandCoords(self.mapW, mapH)) end
-		if self.psArt and (self.paintedW ~= self.mapW or self.paintedH ~= mapH) then
-			self.paintedW, self.paintedH = self.mapW, mapH
-			self.psArt.psW, self.psArt.psH = self.mapW, mapH
-			self.psArt:SetSize(self.mapW, mapH)
-			ZA.Paint(self.psArt, ZONE, 42, 64, 2)
+	local function onMinimap(pin, p, mx, my, t, alpha)
+		local wx, wy = P.HeroWorld(mx, my)
+		local x, y
+		if Strokes and Strokes.Project then
+			x, y = Strokes.Project(wx, wy, pwx, pwy, P.MM_YARDS / 2, 1, 0)
+		else
+			x, y = (pwy - wy) / (P.MM_YARDS / 2), (wx - pwx) / (P.MM_YARDS / 2)
 		end
-		return resized
+		if not (x and y) or x * x + y * y > 0.84 then pin:Hide() return end
+		x, y = x * P.MM / 2, y * P.MM / 2
+		local sizeK = tonumber(ns.Get("nav.minimapIconSize")) or 1
+		Pins.ApplyLook(pin, p, Pins.MinimapPinSize(p, p.scale, MM_ZOOM, sizeK))
+		local fade = Pins.look.arrowFade and Pins.ArrowFade and Pins.ArrowFade(x, y, pin.footPx) or 1
+		pin:SetScale(t)
+		pin:SetAlpha(fade * Pins.look.mmAlpha * (alpha or 1))
+		pin:ClearAllPoints()
+		pin:SetPoint("CENTER", mm, "CENTER", x / t, y / t)
+		pin:Show()
 	end
-	-- Repaints on its settings and the theme only while shown; else on the next show.
-	function f:Watch(paint)
-		ns.On("SETTING_CHANGED", function(path)
-			if not KEYS[path] then return end
-			if self:IsVisible() then paint() else self.dirty = true end
-		end)
-		W.Painter(layer, function()
-			if self:IsVisible() then paint() else self.dirty = true end
-		end)
-		self:SetScript("OnShow", function() if self.dirty then paint() end end)
-		-- -> the hero's height (the window's; STAGE_H laid out alone)
-		function self:Layout(w, h)
-			self.psHeight = h or STAGE_H
-			local resized = self:Place(w)
-			-- The window lays the stage out again after every setting: its own repaint has run.
-			if self.dirty or resized then paint() end
-			return self.psHeight
-		end
-	end
-	return f
+	return onWorld, onMinimap, pwx, pwy
 end
 
 -- Dots along the polyline pts (px), `gap` apart, from a pool of textures on
@@ -301,7 +189,7 @@ local function buildPinsPreview(view)
 	local R, Strokes = ns.RouteLines, ns.RouteStrokes
 	local route = R and Strokes and R.Look and Strokes.Path and h.World and h.MmCanvas
 	local paths, v, mv, strokes, mmStrokes
-	local pwx, pwy = P.HeroWorld(S.player[1], S.player[2])
+	local onWorld, onMinimap, pwx, pwy = heroPins(h)
 	if route then
 		local pts = {}
 		for i, p in ipairs(S.walk) do
@@ -317,37 +205,6 @@ local function buildPinsPreview(view)
 		mv = { c = 0, x = pwx, y = pwy, radius = P.MM_YARDS / 2, facing = 0, square = false,
 			from = true, fromIndex = 2, fromC = 0, fromX = pwx, fromY = pwy, width = P.MM, height = P.MM }
 		strokes, mmStrokes = Strokes.New(400), Strokes.New(200)
-	end
-
-	-- A world map pin at the zoomed-out map's size, centred on (x, y) of the crop.
-	local function onWorld(pin, p, x, y, t, alpha)
-		Pins.ApplyLook(pin, p, Pins.WorldPinSize(p, p.scale))
-		local k = Pins.WorldScale(pin, ZOOM_OUT) * t
-		pin:SetScale(k)
-		pin:SetAlpha(Pins.look.worldAlpha * (alpha or 1))
-		pin:ClearAllPoints()
-		pin:SetPoint("CENTER", layer, "TOPLEFT", x / k, -y / k)
-		pin:Show()
-	end
-	-- A minimap pin where (mx, my) of the zone's map falls inside the minimap.
-	local function onMinimap(pin, p, mx, my, t, alpha)
-		local wx, wy = P.HeroWorld(mx, my)
-		local x, y
-		if Strokes and Strokes.Project then
-			x, y = Strokes.Project(wx, wy, pwx, pwy, P.MM_YARDS / 2, 1, 0)
-		else
-			x, y = (pwy - wy) / (P.MM_YARDS / 2), (wx - pwx) / (P.MM_YARDS / 2)
-		end
-		if not (x and y) or x * x + y * y > 0.84 then pin:Hide() return end
-		x, y = x * P.MM / 2, y * P.MM / 2
-		local sizeK = tonumber(ns.Get("nav.minimapIconSize")) or 1
-		Pins.ApplyLook(pin, p, Pins.MinimapPinSize(p, p.scale, MM_ZOOM, sizeK))
-		local fade = Pins.look.arrowFade and Pins.ArrowFade and Pins.ArrowFade(x, y, pin.footPx) or 1
-		pin:SetScale(t)
-		pin:SetAlpha(fade * Pins.look.mmAlpha * (alpha or 1))
-		pin:ClearAllPoints()
-		pin:SetPoint("CENTER", mm, "CENTER", x / t, y / t)
-		pin:Show()
 	end
 
 	function f:Content()
@@ -418,41 +275,48 @@ local function buildPinsPreview(view)
 	return f
 end
 
--- The Icons tab: the map marks in the icon pack at full size (the world map
--- zoomed in), one a group with its count badge, and the minimap.
+-- The Icons tab, a band over the same map hero: the icon pack's marks at
+-- their spots in Elwynn (the spots of NPC spawns): Goldshire's inn grouped
+-- with its count badge, a kill at the stream's murlocs beside the player (its
+-- minimap mark over the arrow fades), a quest to take at the Tower of Azora,
+-- one to hand in at Eastvale; on the world map and where they fall inside
+-- the minimap.
+local ICONS = {
+	{ 438.6, 439.5, "map:inn", "place", 3 }, -- Innkeeper Farley, Goldshire (and the smith and the vendors by him)
+	{ 514, 444, "map:kill", "danger" }, -- Murloc Streamrunner, the stream east of Goldshire
+	{ 653.5, 465.7, "map:quest-available", "quest" }, -- the Tower of Azora
+	{ 815.4, 441.6, "map:quest-turnin", "quest" }, -- Supervisor Raelen, Eastvale Logging Camp
+}
 local function buildIconsPreview(view)
-	local f = stage(view, L["World map"])
-	local layer, mm = f.Layer, f.MinimapFrame
-	f.caption = L["Every mark at full size, the minimap at its widest"]
-	local marks = {}
-	for i = 1, #MARKS do marks[i] = newPin(layer) end
-	local mmPins = { newPin(mm), newPin(mm), newPin(mm) }
-	f.Marks, f.Minimap = marks, mmPins
-
-	local function paint()
-		if f.mapW <= 0 then return end
-		f.dirty = false
-		local w, h = f.mapW, f.mapH
-		local step = w / (#MARKS + 1)
-		for i, m in ipairs(MARKS) do
-			local p = { icon = m[1], color = rgb(m[2]), badge = m[3] }
-			worldPin(marks[i], layer, p, 1, step * i, h * (i % 2 == 0 and 0.58 or 0.4), ZOOM_IN)
-		end
-		for i, at in ipairs(MM_PINS) do
-			local m = MARKS[i]
-			minimapPin(mmPins[i], mm, { icon = m[1], color = rgb(m[2]) }, 1, at[1], at[2])
-		end
+	local P = ns.UI.Preview
+	local cx0, cy0 = unpack(P.HERO_SCENE.crop)
+	local f = P.Band(view, { watch = { "nav.", "ui." } })
+	local h = P.MapHero(f)
+	local onWorld, onMinimap = heroPins(h)
+	local marks, mmPins = {}, {}
+	for i = 1, #ICONS do
+		marks[i], mmPins[i] = newPin(h.Layer), newPin(h.MmLayer)
 	end
-	f.Paint = paint
-	f:Watch(paint)
-
-	for i, m in ipairs(marks) do hotspot(f, m, MARKS[i][3] and "nav.badgeSize" or "nav.worldIconSize") end
-	hotspot(f, mm, "nav.minimapIconSize")
+	f.Hero, f.Marks, f.Minimap = h, marks, mmPins
+	function f:Content()
+		local t = self:TrueScale()
+		Pins.ReadLook()
+		local w, hh, labels = h.Size()
+		local worldOn, mmOn = ns.Get("nav.worldPins") ~= false, ns.Get("nav.minimapPins") ~= false
+		for i, m in ipairs(ICONS) do
+			local p = { icon = m[3], color = rgb(m[4]), badge = m[5], scale = 1 }
+			if worldOn then onWorld(marks[i], p, m[1] - cx0, m[2] - cy0, t) else marks[i]:Hide() end
+			if mmOn then onMinimap(mmPins[i], p, m[1], m[2], t) else mmPins[i]:Hide() end
+		end
+		return w, hh, h.Place, labels
+	end
+	for i, m in ipairs(marks) do hotspot(f, m, ICONS[i][5] and "nav.badgeSize" or "nav.worldIconSize") end
+	hotspot(f, h.Minimap, "nav.minimapIconSize")
 	local all = { unpack(marks) }
 	for key, parts in pairs({
 		["nav.worldIconSize"] = all, ["nav.worldPinAlpha"] = all, ["nav.mapIcons"] = all, ["nav.medalColor"] = all,
-		["nav.pinBacking"] = all, ["nav.badgeSize"] = { marks[5] }, ["nav.minimapIconSize"] = mmPins,
-		["nav.minimapPinAlpha"] = mmPins, ["nav.minimapArrowFade"] = { mmPins[1] },
+		["nav.pinBacking"] = all, ["nav.badgeSize"] = { marks[1] }, ["nav.minimapIconSize"] = mmPins,
+		["nav.minimapPinAlpha"] = mmPins, ["nav.minimapArrowFade"] = { mmPins[2] },
 	}) do
 		f:Light(key, unpack(parts))
 	end
@@ -674,7 +538,17 @@ if O and O.PresetCards and O.Ref then
 	-- A preset's card: the hero's scene on a sharp 1:1 crop of the map
 	-- (UI.Preview.SharpArt, a soft inner shade), the target in its area and
 	-- the three numbered pins, drawn by Pins' own look code with the preset's
-	-- values (Pins' look is read again after, for the live pins).
+	-- values (Pins' look is read again after, for the live pins), each pin at
+	-- the zoomed-out world map's size at its true size, as on the band.
+	local function cardPin(pin, parent, p, x, y)
+		Pins.ApplyLook(pin, p, Pins.WorldPinSize(p, p.scale))
+		local k = Pins.WorldScale(pin, ZOOM_OUT) * ns.UI.Preview.TrueScale(parent)
+		pin:SetScale(k)
+		pin:SetAlpha(Pins.look.worldAlpha)
+		pin:ClearAllPoints()
+		pin:SetPoint("CENTER", parent, "TOPLEFT", x / k, -y / k)
+		pin:Show()
+	end
 	local function drawPreset(art, _, values)
 		local w, h = art:GetWidth(), art:GetHeight()
 		if not (w and w > 0) then w = W.CARD_W - 2 end
@@ -708,8 +582,8 @@ if O and O.PresetCards and O.Ref then
 			d.area:ClearAllPoints()
 			d.area:SetPoint("CENTER", d.layer, "TOPLEFT", tx, -ty)
 			d.area:SetVertexColor(Pins.AreaColor({ color = rgb("arrow") }))
-			worldPin(d.target, d.layer, list[1], list[1].scale, tx, ty, ZOOM_OUT)
-			for i, s in ipairs(d.steps) do worldPin(s, d.layer, list[i + 1], 1, S.steps[i][1] - x0, S.steps[i][2] - y0, ZOOM_OUT) end
+			cardPin(d.target, d.layer, list[1], tx, ty)
+			for i, s in ipairs(d.steps) do cardPin(s, d.layer, list[i + 1], S.steps[i][1] - x0, S.steps[i][2] - y0) end
 		end)
 		Pins.ReadLook()
 	end
