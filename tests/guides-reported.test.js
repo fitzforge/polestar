@@ -9996,23 +9996,24 @@ test('forever/horde/40-50/02-feralas.guide: the Felsteed trip starts at Orgrimma
 });
 // #1508/#1518 (0.3.6): after the tunnel post, 03-loch-modan sent everyone through the tunnel into Dun Morogh, a
 // waypoint for players who walk to Ironforge. Dwarves and Gnomes have the Ironforge flight path from their Dun Morogh
-// guide (and Thelsamar's), so the arrow then turned them back to Thelsamar to fly. They fly from Thelsamar now; the
-// tunnel and gate waypoints are for the races who walk.
-test('forever/alliance/03-loch-modan.guide: Dwarves and Gnomes fly to Ironforge, the others walk the tunnel (#1508)', { skip }, () => {
+// guide, so the arrow then turned them back to Thelsamar to fly. 0.4.0 (#2025): the flight is for whoever knows the
+// Ironforge flight path, whatever the race (players' recordings: Humans, Night Elves and Skyborne who had it flew),
+// and the tunnel walk for whoever doesn't, a Dwarf or Gnome without it included.
+test('forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)', { skip }, () => {
 	const list = goals('forever/alliance/03-loch-modan.guide');
 	const post = at(list, 'turnin 86585', is('turnin', 86585));
 	const stormpike = at(list, 'turnin 301', is('turnin', 301));
-	const between = list.slice(post + 1, stormpike);
-	const forRace = (race) => ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
-	for (const race of ['Dwarf', 'Gnome']) {
-		const mine = between.filter(forRace(race)).map(({ goal }) => goal);
-		assert.ok(mine.some((g) => g.t === 'fly'), `${race}: a flight to Ironforge`);
-		assert.ok(!mine.some((g) => g.t === 'goto' && g.map === 1426), `${race}: no walk into Dun Morogh`);
-	}
-	for (const race of ['Human', 'NightElf', 'Skyborne']) {
-		const mine = between.filter(forRace(race)).map(({ goal }) => goal);
-		assert.ok(!mine.some((g) => g.t === 'fly'), `${race}: no flight (no Ironforge flight path yet)`);
-		assert.ok(mine.some((g) => g.t === 'goto' && g.map === 1426), `${race}: through the tunnel into Dun Morogh`);
+	const between = list.slice(post + 1, stormpike).filter(({ step }) => !dungeonOnly(step));
+	const taxi = (step, neg) => (step.when || []).some((p) => p.k === 'taxi' && !!p.neg === neg && /Ironforge/.test(p.name || p.location || JSON.stringify(p)));
+	const fly = between.find(({ goal }) => goal.t === 'fly');
+	assert.ok(fly, 'a flight to Ironforge');
+	assert.ok(taxi(fly.step, false), 'the flight step is `when taxi "Ironforge"`');
+	assert.ok(!fly.step.only || !fly.step.only.races, 'for every race');
+	const walks = between.filter(({ goal }) => goal.t === 'goto' && (goal.map === 1426 || goal.map === 1455));
+	assert.ok(walks.some(({ goal }) => goal.map === 1426), 'the tunnel into Dun Morogh');
+	for (const { step } of walks) {
+		assert.ok(taxi(step, true), `${step.title}: \`when !taxi "Ironforge"\``);
+		assert.ok(!step.only || !step.only.races, `${step.title}: for every race`);
 	}
 });
 
