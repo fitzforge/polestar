@@ -846,6 +846,7 @@ L["Route line"] = "Routenlinie"
 -- L["Keeps every setting as it is. Install opens again from Settings, or with /polestar install."] = ""
 -- L["Finish"] = ""
 -- L["Install  ·  Step %d of %d"] = ""
+-- L["Polestar Install"] = ""
 
 -- New on the next branch
 L["%d of %d done"] = "%d von %d erledigt"

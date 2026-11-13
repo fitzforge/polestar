@@ -1900,6 +1900,7 @@ L["Route line"] = "路线线条"
 -- L["Keeps every setting as it is. Install opens again from Settings, or with /polestar install."] = ""
 -- L["Finish"] = ""
 -- L["Install  ·  Step %d of %d"] = ""
+-- L["Polestar Install"] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已为你选中：按 Ctrl+C（Mac 上为 Cmd+C）复制，然后按 Esc。"

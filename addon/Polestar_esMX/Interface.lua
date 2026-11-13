@@ -2248,6 +2248,7 @@ L["Route line"] = "Línea de ruta"
 -- L["Keeps every setting as it is. Install opens again from Settings, or with /polestar install."] = ""
 -- L["Finish"] = ""
 -- L["Install  ·  Step %d of %d"] = ""
+-- L["Polestar Install"] = ""
 
 -- Nav/Transit.lua
 L["top"] = "arriba"
