@@ -4964,18 +4964,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 20-30 audit (0.4.0, #2025): see accept 128 before accept 20."
-			},
-			{
-				"a": [
-					"turnin",
-					1072
-				],
-				"b": [
-					"turnin",
-					92748
-				],
-				"faction": "Alliance",
-				"why": "Alliance 20-30 audit (0.4.0, #2025, the audit's decision on the Alliance 12-21 boundary): 03-loch-modan now ends with the Hearthstone from Lakeshire to Auberdine instead of the gryphon to Stormwind and the harbour boat (about 10-15 minutes per player), so its last Stormwind stop, where Explosive Consultation (92748) went to Sprite Jumpsprocket, is gone. The next Stormwind arrival is 06-ashenvale's tram from Ironforge (after Lomac Gearstrip's An Old Colleague, 1072), which comes in at the Dwarven District where Sprite stands. The quest is level 16: at 25-27 it pays half its 575 XP (Forever's quest XP curve: 50% from eight levels over)."
 			}
 		],
 		"notes": [

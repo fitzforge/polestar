@@ -388,7 +388,7 @@ step Tram to Stormwind
 step Sprite Jumpsprocket
   when onquest 92748
   zone Stormwind City
-  tip The tram comes in at the Dwarven District, where Sprite Jumpsprocket stands.
+  tip Still carrying Explosive Consultation (you used your Hearthstone at the end of Loch Modan)? The tram comes in at the Dwarven District, where Sprite Jumpsprocket stands.
   turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
 
 step Baros Alexston
