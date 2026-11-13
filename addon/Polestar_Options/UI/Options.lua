@@ -2001,6 +2001,8 @@ local function kindOf(m, t)
 end
 
 local qwords, qfiller, qpairs, qsyn, qstem, seen = {}, {}, {}, {}, {}, {}
+-- A word's other forms, then its synonyms (formSays).
+local qforms = { qstem, qsyn }
 
 -- The query's words into qwords (memos) and qfiller, each word joined to
 -- the one before into qpairs, a hint word's synonyms into qsyn, its other
@@ -2065,6 +2067,20 @@ local function synonymScore(list, tw, tf, share)
 	return best
 end
 
+-- Does query word i say word t through its other forms or synonyms (whole
+-- or its start)?
+local function formSays(i, t)
+	for _, list in ipairs(qforms) do
+		local forms = list[i]
+		if forms then
+			for _, sm in ipairs(forms) do
+				if kindOf(sm, t) >= 3 then return true end
+			end
+		end
+	end
+	return false
+end
+
 -- A control's score for the query, 0 when a word it needs matches nothing.
 local function scoreOf(c, nw)
 	local s = searchTokens(c)
@@ -2106,15 +2122,10 @@ local function scoreOf(c, nw)
 		for _, cw in ipairs(cover) do
 			local said = false
 			for i = 1, nw do
-				if not qfiller[i] then
-					if kindOf(qwords[i], cw) >= 2 then said = true end
-					for _, list in pairs({ qstem[i] or nil, qsyn[i] or nil }) do
-						for _, sm in ipairs(list) do
-							if kindOf(sm, cw) >= 3 then said = true end
-						end
-					end
+				if not qfiller[i] and (kindOf(qwords[i], cw) >= 2 or formSays(i, cw)) then
+					said = true
+					break
 				end
-				if said then break end
 			end
 			if not said then
 				all = false
@@ -2403,13 +2414,7 @@ function O.MatchSpans(text, q)
 	for i = 1, nw do
 		if not hit[i] and not qfiller[i] and (qstem[i] or qsyn[i]) then
 			for _, wd in ipairs(words) do
-				local on = false
-				for _, list in pairs({ qstem[i] or nil, qsyn[i] or nil }) do
-					for _, sm in ipairs(list) do
-						if kindOf(sm, wd.f) >= 3 then on = true end
-					end
-				end
-				if on then marks[#marks + 1] = { wd.s, wd.e } end
+				if formSays(i, wd.f) then marks[#marks + 1] = { wd.s, wd.e } end
 			end
 		end
 	end
