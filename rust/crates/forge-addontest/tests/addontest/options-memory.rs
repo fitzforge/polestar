@@ -36,8 +36,10 @@ const LOGIN_BASE: f64 = 11003.0;
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
 /// merged with it (dungeons in the route's notices, the stranded-quest row and banner, Show in quest log and the
 /// out-of-sight notice, the guide window's shared step view, the breadcrumb and parent-quest rules) adds about
-/// 60 KiB more: measured 11,198 KiB on 2026-11-13.
-const LOGIN: f64 = LOGIN_BASE + 200.0;
+/// 60 KiB more: measured 11,198 KiB on 2026-11-13. The fresh-start note (#1562: Engine.FreshFor and FreshStart, its
+/// banner) adds 6 KiB of code: measured 11,205 KiB on 2026-11-13 (11,199 without it). Engine.lua's private `Own`
+/// table holds exactly 512 keys at login there: one key more doubles its hash part, about 20 KiB.
+const LOGIN: f64 = LOGIN_BASE + 210.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
