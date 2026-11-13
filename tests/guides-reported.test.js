@@ -11876,3 +11876,16 @@ test('Alliance 50-60: grind tips name only the dungeons the route can run there;
 		assert.doesNotMatch(text, /^step (Dire Maul|Scholomance) \(optional\)$/m, `${g}: no goal-less dungeon note`);
 	}
 });
+
+// 0.4.0 audit (0.3.7's ac4485952, the part that never reached dev-040): 50-60/01 takes everyone up to Darnassus for Jenal
+// and the Un'Goro Soil (3764), but a character without the soil (a fresh loader) has no business there unless a Druid
+// (training): the portal up only with the soil or for Druids, the portal down only from Darnassus.
+test('Alliance 50-60/01: the Darnassus trip only with the Un\'Goro Soil, or for Druids\' training', { skip }, () => {
+	const steps = compiled('forever/alliance/50-60/01-burning-steppes.guide').steps;
+	const up = steps.filter((st) => st.title === 'Portal to Darnassus');
+	const cond = (st, k, neg) => (st.when || []).some((p) => p.k === k && !!p.neg === neg);
+	assert.ok(up.some((st) => cond(st, 'onquest', false) && !st.only), 'up with the soil, every class');
+	assert.ok(up.some((st) => cond(st, 'onquest', true) && st.only && st.only.classes && st.only.classes.join() === 'Druid'), 'up without it only for Druids');
+	const down = steps.find((st) => st.title === 'Portal to Teldrassil');
+	assert.ok(down && cond(down, 'zone', false), 'down only from Darnassus');
+});

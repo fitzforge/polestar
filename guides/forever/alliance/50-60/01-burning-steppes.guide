@@ -474,6 +474,13 @@ step Rut'theran Village
   accept 978                          -- The wildkin are in Winterspring: keep it
 
 step Portal to Darnassus
+  when onquest 3764
+  zone Teldrassil
+  goto 55.9,89.3 "Portal to Darnassus"
+
+step Portal to Darnassus
+  only Druid
+  when !onquest 3764
   zone Teldrassil
   goto 55.9,89.3 "Portal to Darnassus"
 
@@ -484,6 +491,7 @@ step Darnassus
   train class only Druid              -- Ironforge has no druid trainer
 
 step Portal to Teldrassil
+  when zone "Darnassus"
   zone Darnassus
   goto 29.1,41.2 "Portal to Teldrassil"
 
