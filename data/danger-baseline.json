@@ -377,6 +377,32 @@
 			"evidence": "route level 22.3; Baron Marinous 21-21 x4; recordings (archive to 2026-11-12): done by 28 people at median 21.42, 0 people died within 60 yd, 3 abandoned"
 		},
 		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 272.1|over",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 272.1",
+			"kind": "over",
+			"title": "Trial of the Sea Lion",
+			"level": 23.3,
+			"mobs": [
+				"Moonglade Warden 55-55 x2"
+			],
+			"reason": "Keeper Remulos and the Moonglade Wardens guard the Shrine of Remulos and are friendly to every player; the same goal was reviewed on 06-wetlands' Moonglade trip (players do it at the route's level). Since 0.4.0 Night Elf and Skyborne Druids join the half pendants on 03-darkshore-return's Cat Form trip; players: 11 people at median 18.85, 0 died there",
+			"evidence": "route level 23.3; Moonglade Warden 55-55 x2; recordings (archive to 2026-11-12): done by 11 people (median 18.85), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 272.1|elite",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 272.1",
+			"kind": "elite",
+			"title": "Trial of the Sea Lion",
+			"level": 23.3,
+			"mobs": [
+				"Keeper Remulos 62-62"
+			],
+			"reason": "Keeper Remulos and the Moonglade Wardens guard the Shrine of Remulos and are friendly to every player; the same goal was reviewed on 06-wetlands' Moonglade trip (players do it at the route's level). Since 0.4.0 Night Elf and Skyborne Druids join the half pendants on 03-darkshore-return's Cat Form trip; players: 11 people at median 18.85, 0 died there",
+			"evidence": "route level 23.3; Keeper Remulos 62-62; recordings (archive to 2026-11-12): done by 11 people (median 18.85), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/alliance/03-darkshore.guide|use item 15877|over",
 			"guide": "forever/alliance/03-darkshore.guide",
 			"goal": "use item 15877",
