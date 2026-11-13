@@ -829,7 +829,9 @@ forge data publish --check forever-db                           # the guard
 
 - With the KB (`--kb`, default `data/local/kb/forever-kb.sqlite`) the values come from the KB under
   the independent-source rule; without one, from public data builds alone, with corrections applied
-  only when their `source.kind` names an independent check.
+  only when their `source.kind` names an independent check. There a quest's races or classes that
+  no source states (a quest only a correction adds, without them) are left out, never published as
+  0, every race or class.
 - A re-run replaces only the generated files, and the same inputs give the same bytes: the version
   is `--version`, else the one already in the folder (`--previous DIR` gives the next one), the date
   is `--date` (or `SOURCE_DATE_EPOCH`), and `producerCommit` is `--producer-commit` (or

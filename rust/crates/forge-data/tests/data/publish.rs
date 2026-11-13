@@ -427,6 +427,45 @@ fn publish_check_reads_the_game_s_words_in_corrections_as_names() {
 }
 
 #[test]
+fn build_only_publish_leaves_out_a_restriction_no_source_states() {
+	// Build-only mode (no KB: the public release CI makes): a quest record only a correction makes,
+	// without races or classes, publishes neither, as 0 would say every race and class and no
+	// independent source holds that. A pfQuest record without them still means every race and class.
+	let (base, out, side) = publish_opts("build-only-restrictions", "", |o| {
+		let base = o.out.parent().unwrap().to_path_buf();
+		o.kb = base.join("no-kb.sqlite");
+		let public = base.join("public");
+		std::fs::create_dir_all(&public).unwrap();
+		for e in std::fs::read_dir(fixture()).unwrap().flatten() {
+			std::fs::copy(e.path(), public.join(e.file_name())).unwrap();
+		}
+		let qp = public.join("quests.json");
+		let mut q: Value = serde_json::from_str(&std::fs::read_to_string(&qp).unwrap()).unwrap();
+		q["99"] = serde_json::json!({ "id": 99, "title": "Errand", "level": 38, "minLevel": 36, "races": null, "classes": null,
+			"start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] }, "pre": [], "objectives": [], "source": ["polestar-correction"] });
+		std::fs::write(&qp, serde_json::to_string(&q).unwrap()).unwrap();
+		o.public_data = Some(public);
+		let corrections = base.join("corrections.json");
+		std::fs::write(
+			&corrections,
+			r#"{ "quests": { "99": { "set": { "title": "Errand", "level": 38, "minLevel": 36 }, "source": { "kind": "questie", "ref": "quest record" }, "note": "A quest the client tables lack." } } }"#,
+		)
+		.unwrap();
+		o.corrections = corrections;
+	});
+	let quests = rows(&out, "quest");
+	let row = |id: i64| quests.iter().find(|r| r["id"] == id).cloned().unwrap_or_else(|| panic!("quest {id}: {quests:#?}"));
+	let errand = row(99);
+	assert!(errand.get("classes").is_none() && errand.get("races").is_none() && errand.get("side").is_none(), "{errand}");
+	assert_eq!(errand["title"], "Errand");
+	assert_eq!(row(1)["classes"], 0, "a pfQuest record without a restriction: every class");
+	let opts = check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None };
+	let (find, _) = check::check(&out, &opts).unwrap();
+	assert!(find.is_empty(), "{find:#?}");
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
 fn the_library_answers_as_the_release_says() {
 	// LibForeverData from a release, loaded under Lua 5.1 by tests/lua/libforeverdata_test.lua,
 	// which checks its answers against the release's data/*.jsonl.
