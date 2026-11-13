@@ -1535,14 +1535,14 @@ pub const RARE_START_PCT: f64 = 5.0;
 /// Chance per kill taken for a rare start's source with no recorded chance: low, not zero.
 pub const UNKNOWN_START_CHANCE: f64 = 0.01;
 
-/// The quests started by a rare drop (RARE_START_PCT), with each source mob's chance per kill:
-/// valued at expected value from the route's own kills of those mobs (eval), never farmed for.
 /// Every (breadcrumb, the quest it leads to) pair of the game data, by either link
 /// (forge_world::CrumbIndex): the target is held back while the breadcrumb is in the log.
 pub fn crumb_pairs(data: &forge_world::GameData) -> crate::run::Crumbs {
 	forge_world::CrumbIndex::new(&data.quests).pairs().into_iter().filter_map(|(c, t)| Some((u32::try_from(c).ok()?, u32::try_from(t).ok()?))).collect()
 }
 
+/// The quests started by a rare drop (RARE_START_PCT), with each source mob's chance per kill:
+/// valued at expected value from the route's own kills of those mobs (eval), never farmed for.
 pub fn rare_starts(data: &forge_world::GameData) -> crate::run::RareStarts {
 	let mut out = Vec::new();
 	for (&id, q) in &data.quests {
