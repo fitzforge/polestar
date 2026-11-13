@@ -30,6 +30,11 @@ next forever/horde/30-40/06-badlands
 #
 # Carried on: Trollbane (638) from Stranglethorn; Foul Magics (671) from the first Arathi
 # visit; Martek the Exiled (1106) and Sunken Treasure (669) for later on the route.
+#
+# Razorfen Kraul (`when dungeon "Razorfen Kraul"`, dungeons in the route): a character who ran it at the start
+# of forever/horde/30-40/02-thousand-needles hands Faranell her Kraul Guano (Going, Going, Guano!, 1109) and
+# Varimathras the Small Scroll (An Unholy Alliance, 6522) on the Undercity stop at the start (`when complete`,
+# `when onquest`).
 
 # ---------------------------------------------------------------- The Undercity
 
@@ -42,6 +47,20 @@ step Undercity trainers
   zone Undercity
   tip Train while you are in the Undercity: the trainers stand in the War Quarter, the Rogues' Quarter and the Magic Quarter (Paladins: Garen Largo).
   train class
+
+step Master Apothecary Faranell
+  when dungeon "Razorfen Kraul"
+  when complete 1109
+  zone Undercity
+  tip The Kraul Guano from your Razorfen Kraul run: Faranell is in the Apothecarium.
+  turnin 1109                         -- Master Apothecary Faranell
+
+step Varimathras
+  when dungeon "Razorfen Kraul"
+  when onquest 6522
+  zone Undercity
+  tip The Small Scroll from Razorfen Kraul: Varimathras stands beside Sylvanas in the Royal Quarter.
+  turnin 6522                         -- Varimathras
 
 step Fly to Tarren Mill
   zone Undercity

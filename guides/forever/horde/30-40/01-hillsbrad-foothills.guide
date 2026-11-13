@@ -52,6 +52,11 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # levels before the Dabyrie family (33-35) fit, and the route does not come back to the
 # Undercity after the 38-39 Arathi visit.
 #
+# Razorfen Kraul (`when dungeon "Razorfen Kraul"`, dungeons in the route): for a character who runs it,
+# Faranell's Going, Going, Guano! (1109, level 33) is taken on the closing Undercity stop at about 33; the run comes
+# at the start of forever/horde/30-40/02-thousand-needles, from Freewind Post, and Faranell and Varimathras take its
+# quests back on the Undercity stop that opens forever/horde/30-40/05-arathi-highlands.
+#
 # City of Dalaran (`when dungeon "City of Dalaran"`, dungeons in the route): for a character who runs it,
 # Melisara's The Grave Knight (96986) is taken with Voidglare's quests on the Tarren Mill stop at about 30.5,
 # the run follows the Dalaran crater stop at about 31, through the sewer pipe north-west of the crater
@@ -567,3 +572,9 @@ step Undercity trainers
   zone Undercity
   tip Train while you are in the Undercity: the trainers stand in the War Quarter, the Rogues' Quarter and the Magic Quarter (Paladins: Garen Largo).
   train class
+
+step Master Apothecary Faranell
+  when dungeon "Razorfen Kraul"
+  zone Undercity
+  tip For your Razorfen Kraul run at the start of the next guide: Faranell, in the Apothecarium, wants guano from the kraul's bats.
+  accept 1109                         -- Master Apothecary Faranell

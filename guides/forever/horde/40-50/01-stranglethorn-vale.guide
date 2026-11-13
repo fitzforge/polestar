@@ -11,7 +11,10 @@ next forever/horde/40-50/02-feralas
 # into this file.
 # Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372), The Gurubashi Legends of Old (95748),
 # Locating the Lost City (95770, Kin'weelay's next legend: the cavern entrance under the Vile Reef, west of Grom'gol, on
-# the way to the jungle stalkers; handed in with the trophy skulls). Its follow-up, The Drowned City (95775), is a dungeon.
+# the way to the jungle stalkers; handed in with the trophy skulls). Its follow-up, The Drowned City (95775), is the
+# dungeon's quest: a character who runs it (`when dungeon "The Drowned City"`, dungeons in the route) takes it with
+# that hand-in at about 42 and runs it at once, from Sunken Hollow under the Vile Reef (about 680 yd west of the
+# camp), and Kin'weelay takes it back on the Grom'gol stop after the basilisks (`when complete`): no extra visit.
 # Excelsior (628, Drizzlik: the Elder Saltwater Crocolisk on the coast between Zul'Kunda and Grom'gol, optional).
 # Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 
@@ -387,6 +390,20 @@ step Grom'gol Base Camp
   accept 589                            -- Kin'weelay: the basilisks graze beside the road back from Booty Bay
   turnin 573                            -- Far Seer Mok'thardin
 
+step Kin'weelay
+  when dungeon "The Drowned City"
+  zone Stranglethorn Vale
+  accept 95775 npc 2519                 -- Kin'weelay: the four Tablets of I'lalai, inside the Drowned City
+
+step The Drowned City
+  when dungeon "The Drowned City"
+  when onquest 95775
+  zone Stranglethorn Vale
+  tip The Drowned City is a dungeon for a group of five, levels 35 to 42. Its way in is at Sunken Hollow, under the Vile Reef on the coast due west of Grom'gol: swim out and dive to it.
+  tip Inside: the four Tablets of I'lalai for Kin'weelay. After the run, swim back to Grom'gol's flight master for Booty Bay.
+  enter "The Drowned City" @21.6,27.7
+  complete 95775 @21.6,27.7           -- the four Tablets of I'lalai, inside
+
 step Fly to Booty Bay
   zone Stranglethorn Vale
   goto 32.5,29.3 "Grom'gol flight master"
@@ -406,6 +423,13 @@ step Ironjaw Basilisks
 step Grom'gol Base Camp
   tip Ride on north to Grom'gol.
   turnin 589                          -- Kin'weelay
+
+step Kin'weelay
+  when dungeon "The Drowned City"
+  when complete 95775
+  zone Stranglethorn Vale
+  tip The Tablets of I'lalai from your Drowned City run: Kin'weelay, in the camp.
+  turnin 95775 npc 2519                 -- Kin'weelay
 
 step Stranglethorn Vale
   zone Stranglethorn Vale

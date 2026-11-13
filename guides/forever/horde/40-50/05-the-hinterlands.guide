@@ -12,6 +12,12 @@ next forever/horde/40-50/06-azshara
 # Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Fall From Grace (2784),
 # The Disgraced One (2621), The Missing Orders (2622).
 # Left out: Assisting Arch Druid Runetotem (3784).
+#
+# Sunken Temple (`when dungeon "Sunken Temple"`, dungeons in the route): Fel'zerul offers The Temple of
+# Atal'Hakkar (1445, level 50) once Return to Fel'Zerul is handed in; a character who runs the temple takes it
+# here and carries it through forever/horde/40-50/06-azshara. The temple's Group Finder minimum is 50, and this
+# stop comes at about 49.5, so the run is a detour from the last Kargath stop of
+# forever/horde/50-60/01-un-goro-crater, at about 52 (a flight to Stonard and back to the route).
 
 step Fly to Tarren Mill
   zone Searing Gorge
@@ -228,6 +234,11 @@ step To Stonard
 
 step Fel'zerul
   turnin 1444                         -- On the top floor
+
+step Fel'zerul
+  when dungeon "Sunken Temple"
+  tip For your Sunken Temple run, from Kargath at about 52: the temple's trolls carry Fetishes of Hakkar.
+  accept 1445                         -- Fel'zerul, on the top floor
 
 step Fallen Hero of the Horde
   tip The ghostly orc stands by the road where the swamp meets the canyon into the Blasted Lands. Listen to his story.

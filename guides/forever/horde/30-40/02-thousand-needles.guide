@@ -56,6 +56,13 @@ next forever/horde/30-40/03-stranglethorn-vale
 # Martek the Exiled (1106) only once both Salt Flat Venom (1104) and Hardened Shells (1105) are
 # handed in.
 #
+# Razorfen Kraul (`when dungeon "Razorfen Kraul"`, dungeons in the route): for a character who took Faranell's
+# Going, Going, Guano! (1109) at the end of forever/horde/30-40/01-hillsbrad-foothills, the run comes first, at
+# about 33: from Freewind Post, fly to Camp Taurajo, ride south to the kraul's entrance just west of the road to
+# the Great Lift, and after the run take the lift down and ride back to Freewind Post, where the guide goes on.
+# Players' recordings put people there at 33.2. The kraul's Small Scroll starts An Unholy Alliance (6522) for
+# Varimathras; both go back on the Undercity stop that opens forever/horde/30-40/05-arathi-highlands.
+#
 # Carried on: Parts of the Swarm (1148) for Korran at the Crossroads, Load Lightening's Goblin
 # Sponsorship (1178) for Gazlowe and Kravel's parts order (Wharfmaster Dizzywig, 1111) for the
 # docks in Ratchet; Alliance Relations (1436) and Hunting in
@@ -132,6 +139,38 @@ step Prate Cloudseer
   tip Prate Cloudseer hides in a small cave in the canyon wall north-east of the post, on the way east.
   turnin 1531                         -- Prate Cloudseer: your Air Totem
   note Prate also starts Elemental Aid (Razorfen Kraul), the 33-40 chain to The Tempest's Weapons: forever/class/shaman/call-of-air-horde.
+
+# ---------------------------------------------------------------- Razorfen Kraul (dungeon runners)
+
+step Fly to Camp Taurajo
+  when dungeon "Razorfen Kraul"
+  when onquest 1109
+  zone Thousand Needles
+  tip Your Razorfen Kraul run: fly from Freewind Post to Camp Taurajo; the kraul is south of the camp, in the thorny hills just west of the road to the Great Lift.
+  goto 45.0,49.1 "Freewind Post flight master"
+  fly "Camp Taurajo"
+
+step Razorfen Kraul
+  when dungeon "Razorfen Kraul"
+  when onquest 1109
+  zone The Barrens
+  tip Razorfen Kraul is a dungeon for a group of five, levels 29 to 38, and a full run takes about an hour. Ride south from Camp Taurajo down the road to the Great Lift: the entrance is in the thorny hills just west of it.
+  tip Inside: the Kraul Bats leave the Kraul Guano on the floor of their caves. Willix the Importer, a prisoner inside, offers an escort out of the kraul: it starts and ends with him. A Small Scroll inside starts An Unholy Alliance for Varimathras in the Undercity. The bosses: Roogug, Aggem Thorncurse, Death Speaker Jargba, Overlord Ramtusk, Agathelos the Raging and Charlga Razorflank.
+  enter "Razorfen Kraul" @42.9,90.2
+  complete 1109 @42.9,90.2            -- Going, Going, Guano!: the Kraul Guano, inside
+
+step The Great Lift
+  when dungeon "Razorfen Kraul"
+  when zone "The Barrens"
+  zone Thousand Needles
+  goto 31.9,23.9 "The Great Lift, down into Thousand Needles"
+
+step Freewind Post
+  when dungeon "Razorfen Kraul"
+  when onquest 1109
+  zone Thousand Needles
+  tip From the foot of the Great Lift, ride south-east to Freewind Post's lift and take it up: the guide goes on from there.
+  goto 44.9,48.9 "Freewind Post's lift"
 
 # ---------------------------------------------------------------- The Shimmering Flats
 

@@ -83,6 +83,10 @@ next forever/horde/02-the-barrens
 # this guide's Apothecarium stop, and the route is next in the Undercity at about 25) and Rahauro's
 # quests (5722-5724: Thunder Bluff, first on the route at 27).
 #
+# Ruins of Lordaeron (`when dungeon "Ruins of Lordaeron"`): Tabitha Heartweaver's A Frightened Request (92401,
+# level 22, offered from 15) is taken on the last Sepulcher stop, at about 16.6, and carried to the run from the
+# Undercity in forever/horde/05-stonetalon-mountains, which hands it back on its Sepulcher stop.
+#
 # Class quests: Orcs and Trolls hand the cultists' Neeru Fireblade (829) and The Admiral's Orders
 # (831) in on arrival in Orgrimmar. Troll Priests hand Hex of Weakness (5654) to Ur'kyo, their
 # trainer, on that arrival stop (02's Orgrimmar trip at 20 keeps it for anyone still carrying it). Tauren Druids leave the Strange Lockbox
@@ -419,6 +423,12 @@ step The Sepulcher
   turnin 422                          -- Dalar Dawnweaver, just north of Allister
   turnin 439                          -- High Executor Hadrec, below ground
   accept 440                          -- Magistrate Sevren in Brill, on the way to the zeppelin at the end
+
+step Tabitha Heartweaver
+  when dungeon "Ruins of Lordaeron"
+  zone Silverpine Forest
+  tip For your Ruins of Lordaeron run, later on from the Undercity: Tabitha Heartweaver, a short walk from the crypt, wants word of Edward Heartweaver, lost in the ruins.
+  accept 92401                        -- Tabitha Heartweaver
 
 step The Ivar Patch
   tip Take the road north toward Tirisfal Glades: the Yoricks' house at Malden's Orchard is on the way. Ivar the Foul lurks a short walk west of it.

@@ -12,6 +12,11 @@ next forever/horde/50-60/07-felwood
 # Added here: Dearest Natalia (8304), Alas, Andorhal (105), Skeletal Fragments (964), Return to the Bulwark (5232), Of Lost Honor (5845), Counting Out Time (4972),
 # Return to the Bulwark (5234), Target: Gahrron's Withering (5235), Return to the Bulwark (5236), Mission Accomplished! (5238).
 # Left out: Little Pamela (5142).
+#
+# Scholomance (`when dungeon "Scholomance"`, dungeons in the route): Eva Sarkhoff's Doctor Theolen Krastinov, the
+# Butcher (5382) is taken a short walk east of Artist Renfray's stop, at about 59; the run follows at once in the
+# keep on Caer Darrow, and Eva takes it back. Its door needs the Skeleton Key, which the route doesn't get: the
+# run's tip says so.
 
 # ---------------------------------------------------------------- Cenarion Hold
 
@@ -476,6 +481,27 @@ step Western Plaguelands
 
 step Artist Renfray
   turnin 5846                         -- Inside
+
+step Eva Sarkhoff
+  when dungeon "Scholomance"
+  zone Western Plaguelands
+  tip For your Scholomance run: Eva Sarkhoff stands a short walk east of Renfray.
+  accept 5382                         -- Eva Sarkhoff
+
+step Scholomance
+  when dungeon "Scholomance"
+  when onquest 5382
+  zone Western Plaguelands
+  tip Scholomance is a dungeon for a group of five, levels 58 to 60, in the keep on Caer Darrow. Its door is locked: one of your group needs the Skeleton Key, from The Key to Scholomance at the end of Apothecary Dithers' chain at the Bulwark. This route takes the chain's first steps, not the rest.
+  tip Inside: Doctor Theolen Krastinov, the Butcher, for Eva, and the remains of Eva and Lucien Sarkhoff to burn.
+  enter "Scholomance" @69.7,73.2
+  complete 5382 @69.7,73.2            -- Doctor Theolen Krastinov, inside
+
+step Eva Sarkhoff
+  when dungeon "Scholomance"
+  when complete 5382
+  zone Western Plaguelands
+  turnin 5382                         -- Eva Sarkhoff
 
 step Target: Writhing Haunt
   collect 13197 quest 5233.1 @52.9,66.1 map 1422

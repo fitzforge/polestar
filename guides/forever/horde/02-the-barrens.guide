@@ -74,10 +74,11 @@ next forever/horde/05-stonetalon-mountains
 # after Orgrimmar (level 18: not earlier, 3+ levels over), Nalpak's Deviate Hides and Ebru's Deviate
 # Eradication (21) at the run's own stop (their cave is above the entrance; the route's first visit to
 # Lushwater Oasis is Hezrul's), and the run follows Hezrul, whose shore is at the door, at about 20.5;
-# Nalpak and Ebru take theirs at once. Mebok's and Bigglefuzz's go back on
-# 04-the-barrens' Ratchet stop (`when complete`): a Crossroads-Ratchet hop for them here cost ~1.4 km of
-# walking, two flights and a hub visit (over the travel budget). Left out: The Glowing Shard (6981:
-# Sputtervalve in Ratchet, then Falla Sagewind; named in the run tip), Serpentbloom and Leaders of the Fang
+# Nalpak and Ebru take theirs at once. Mebok's and Bigglefuzz's go back on a Crossroads-Ratchet hop from the
+# Crossroads stop after the Camp Taurajo return, at about 22.6 (`when complete`): there they pay in full, 2,650 XP
+# each, where 04-the-barrens' Ratchet stop at about 26.6 pays half (Forever pays half from 8 levels over a quest,
+# players' recorded turn-ins). That Ratchet stop keeps them for anyone still carrying them. Left out: The
+# Glowing Shard (6981: Falla Sagewind above the caverns; named in the run tip), Serpentbloom and Leaders of the Fang
 # (962, 914, with Hamuul's and Nara's errands 1489 and 1490: Thunder Bluff, not on the route before the run).
 #
 # Dropped: Chen's Empty Keg part 2 and 3 (821, 822): part 2's tusks, kidneys and horn are drops
@@ -1055,6 +1056,33 @@ step The Crossroads
   turnin 880                          -- Tonga Runetotem
   turnin 95774                        -- Mankrik
   turnin 868                          -- Korran
+
+step Fly to Ratchet
+  when dungeon "Wailing Caverns"
+  when complete 1491
+  zone The Barrens
+  tip Your Wailing Caverns quests: Mebok and Bigglefuzz pay them in full now, half on the next Ratchet stop at about 26. Fly to Ratchet and straight back.
+  goto 51.5,30.4 "Crossroads flight master"
+  fly "Ratchet"
+
+step Mebok Mizzyrix
+  when dungeon "Wailing Caverns"
+  when complete 1491
+  zone The Barrens
+  turnin 1491                         -- Mebok Mizzyrix, on the docks
+
+step Crane Operator Bigglefuzz
+  when dungeon "Wailing Caverns"
+  when complete 959
+  zone The Barrens
+  turnin 959                          -- Crane Operator Bigglefuzz, on the docks
+
+step Fly to the Crossroads
+  when dungeon "Wailing Caverns"
+  when subzone "Ratchet"
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Crossroads"
 
 step Thun'grim Firegaze
   only Warrior
