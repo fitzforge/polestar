@@ -163,7 +163,7 @@ mod tests {
 		));
 		let without = readme("0.3.8", &with[..2]);
 		assert!(!without.contains("Polestar_Experimental"));
-		assert!(without.contains("Polestar no longer uses them.\r\n2. Quit"));
+		assert!(without.contains("Theme and loads only when you pick it.\r\n2. Quit"));
 	}
 
 	#[test]

@@ -402,7 +402,10 @@ fn pack_builds_polestar_experimental_from_experimental_and_ships_it_loaded_on_de
 	assert_eq!(std::fs::read(dists[0].join(&file)).unwrap(), std::fs::read(dists[1].join(&file)).unwrap(), "reproducible");
 	let zip = dists[0].join(&file);
 	// After our guides' parts, before the data addons.
-	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Guides_Alliance", "Polestar_Experimental", "Polestar_Codex"]);
+	assert_eq!(
+		tops(&zip),
+		["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Guides_Alliance", "Polestar_Experimental", "Polestar_Codex"]
+	);
 	let files = read_zip(&std::fs::read(&zip).unwrap(), u64::MAX).unwrap();
 	let mine: Vec<&str> = files.iter().map(|e| e.name.as_str()).filter(|n| n.starts_with("Polestar_Experimental/")).collect();
 	assert_eq!(
