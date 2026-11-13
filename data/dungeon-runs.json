@@ -203,7 +203,8 @@
 						"goal": "turnin"
 					},
 					"when": "turnedin 865",
-					"note": "each Raptor Horns hand-in stop"
+					"note": "each Raptor Horns hand-in stop",
+					"gate": 16.5
 				},
 				{
 					"quest": 1491,
@@ -212,7 +213,8 @@
 						"quest": 896,
 						"goal": "turnin"
 					},
-					"note": "catch-up, Ratchet after Orgrimmar"
+					"note": "catch-up, Ratchet after Orgrimmar",
+					"gate": 20.3
 				},
 				{
 					"quest": 959,
@@ -221,7 +223,8 @@
 						"quest": 896,
 						"goal": "turnin"
 					},
-					"note": "Ratchet after Orgrimmar (~20): level 18, 3+ levels over earlier"
+					"note": "Ratchet after Orgrimmar (~20): level 18, 3+ levels over earlier",
+					"gate": 20.3
 				}
 			],
 			"run": {
@@ -246,7 +249,8 @@
 					1486,
 					959
 				],
-				"guard": "onquest 1486,1487,1491,959"
+				"guard": "onquest 1486,1487,1491,959",
+				"gate": 20.3
 			},
 			"handins": [
 				{
@@ -336,7 +340,8 @@
 						"quest": 6563,
 						"goal": "accept"
 					},
-					"note": "first Zoram'gar stop"
+					"note": "first Zoram'gar stop",
+					"gate": 24.5
 				}
 			],
 			"run": {
@@ -364,7 +369,8 @@
 						"item": 16790
 					}
 				],
-				"guard": "onquest 6921"
+				"guard": "onquest 6921",
+				"gate": 24.5
 			},
 			"handins": [
 				{
@@ -426,7 +432,8 @@
 				"objectives": [
 					5761
 				],
-				"guard": "onquest 5761"
+				"guard": "onquest 5761",
+				"gate": 13.8
 			},
 			"handins": [
 				{
@@ -456,7 +463,8 @@
 						"quest": 440,
 						"goal": "accept"
 					},
-					"note": "Tabitha Heartweaver, a short walk from the crypt on the last Sepulcher stop (~16.6; level 22 from 15): a carry to the run at ~23"
+					"note": "Tabitha Heartweaver, a short walk from the crypt on the last Sepulcher stop (~16.6; level 22 from 15): a carry to the run at ~23",
+					"gate": 10.1
 				}
 			],
 			"runStop": [
@@ -489,7 +497,8 @@
 						"item": 275521
 					}
 				],
-				"guard": "onquest 92421,92401"
+				"guard": "onquest 92421,92401",
+				"gate": 17.9
 			},
 			"handins": [
 				{
@@ -559,7 +568,8 @@
 						"quest": 516,
 						"goal": "accept"
 					},
-					"note": "the Sepulcher at ~22.8 (level 25, 2.2 over); the flow audit flagged Hadrec as a passed giver there (5/5 branches) without it"
+					"note": "the Sepulcher at ~22.8 (level 25, 2.2 over); the flow audit flagged Hadrec as a passed giver there (5/5 branches) without it",
+					"gate": 20.7
 				}
 			],
 			"runStop": [
@@ -588,7 +598,8 @@
 						"npc": 4444
 					}
 				],
-				"guard": "onquest 1098,1014"
+				"guard": "onquest 1098,1014",
+				"gate": 22.8
 			},
 			"handins": [
 				{
@@ -1013,7 +1024,8 @@
 						"quest": 2864,
 						"goal": "turnin"
 					},
-					"note": "Tran'rek, the Gadgetzan stop (~44), where Tran'rek (2864) is handed in"
+					"note": "Tran'rek, the Gadgetzan stop (~44), where Tran'rek (2864) is handed in",
+					"gate": 42.8
 				},
 				{
 					"quest": 3042,
@@ -1022,7 +1034,8 @@
 						"quest": 2864,
 						"goal": "turnin"
 					},
-					"note": "Trenton Lighthammer, the same stop, a short walk from the flight master"
+					"note": "Trenton Lighthammer, the same stop, a short walk from the flight master",
+					"gate": 42.8
 				},
 				{
 					"quest": 2768,
@@ -1031,7 +1044,8 @@
 						"quest": 2605,
 						"goal": "accept"
 					},
-					"note": "Chief Engineer Bilgewhizzle, Gadgetzan's first stop of 04-tanaris (~46): level 47, 3 over on 02-feralas's stop"
+					"note": "Chief Engineer Bilgewhizzle, Gadgetzan's first stop of 04-tanaris (~46): level 47, 3 over on 02-feralas's stop",
+					"gate": 46.2
 				}
 			],
 			"runStop": [
@@ -1055,7 +1069,8 @@
 					2768,
 					3042
 				],
-				"guard": "onquest 2865,2768,3042"
+				"guard": "onquest 2865,2768,3042",
+				"gate": 46.2
 			},
 			"handins": [
 				{
@@ -1106,7 +1121,8 @@
 						"quest": 676,
 						"goal": "accept"
 					},
-					"note": "Melisara, the Tarren Mill stop (~30.5), a short walk east of Magus Wordeen Voidglare"
+					"note": "Melisara, the Tarren Mill stop (~30.5), a short walk east of Magus Wordeen Voidglare",
+					"gate": 31.0
 				}
 			],
 			"run": {
@@ -1129,7 +1145,8 @@
 				"insideQuests": [
 					96987
 				],
-				"guard": "onquest 96986"
+				"guard": "onquest 96986",
+				"gate": 31
 			},
 			"handins": [
 				{
@@ -1161,7 +1178,8 @@
 						"quest": 4061,
 						"goal": "accept"
 					},
-					"note": "the WANTED poster, the first Kargath stop (~51)"
+					"note": "the WANTED poster, the first Kargath stop (~51)",
+					"gate": 52.0
 				}
 			],
 			"run": {
@@ -1184,7 +1202,8 @@
 					4295,
 					7604
 				],
-				"guard": "onquest 4081"
+				"guard": "onquest 4081",
+				"gate": 52
 			},
 			"handins": [
 				{
@@ -1220,7 +1239,8 @@
 						"quest": 550,
 						"goal": "turnin"
 					},
-					"note": "Master Apothecary Faranell in the Apothecarium, on the closing Undercity stop (~33; level 33, from 30)"
+					"note": "Master Apothecary Faranell in the Apothecarium, on the closing Undercity stop (~33; level 33, from 30)",
+					"gate": 31.0
 				}
 			],
 			"run": {
@@ -1246,7 +1266,8 @@
 						"item": 17008
 					}
 				],
-				"guard": "onquest 1109"
+				"guard": "onquest 1109",
+				"gate": 31.1
 			},
 			"handins": [
 				{
@@ -1310,7 +1331,8 @@
 				"objectives": [
 					95775
 				],
-				"guard": "onquest 95775"
+				"guard": "onquest 95775",
+				"gate": 37.1
 			},
 			"handins": [
 				{
@@ -1339,7 +1361,8 @@
 						"quest": 1444,
 						"goal": "turnin"
 					},
-					"note": "Fel'zerul in Stonard, where Return to Fel'Zerul is handed in (~49.5); carried through 40-50/06"
+					"note": "Fel'zerul in Stonard, where Return to Fel'Zerul is handed in (~49.5); carried through 40-50/06",
+					"gate": 46.7
 				}
 			],
 			"run": {
@@ -1360,7 +1383,8 @@
 				"insideQuests": [
 					3373
 				],
-				"guard": "onquest 1445"
+				"guard": "onquest 1445",
+				"gate": 50
 			},
 			"handins": [
 				{
@@ -1422,7 +1446,8 @@
 				"objectives": [
 					5382
 				],
-				"guard": "onquest 5382"
+				"guard": "onquest 5382",
+				"gate": 58
 			},
 			"handins": [
 				{

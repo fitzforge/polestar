@@ -219,6 +219,7 @@ step Brill
 
 step Morbin Lightbane
   when dungeon "Ruins of Lordaeron"
+  when level>=17.9
   zone Undercity
   tip For your Ruins of Lordaeron run: the zeppelin lands beside the ruins. Walk into the Undercity through them and down to the Royal Quarter: Morbin Lightbane stands there, near Lady Sylvanas Windrunner.
   accept 92421                        -- Morbin Lightbane
@@ -226,6 +227,7 @@ step Morbin Lightbane
 step Ruins of Lordaeron
   when dungeon "Ruins of Lordaeron"
   when onquest 92421,92401
+  when level>=17.9
   zone Tirisfal Glades
   tip The Ruins of Lordaeron is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the Undercity: its portal is in the ruins you walked through.
   tip Inside: every undead can drop Intact Limbs for Morbin, so clear as you go. The Baron can drop an Abominable Head, which starts a quest for Master Apothecary Faranell, and a Crest of Lordaeron found inside starts one for Oran Snakewrithe: both are in the Undercity, on this route's next stop there.
@@ -272,6 +274,7 @@ step Deathguard Podrig
 
 step High Executor Hadrec
   when dungeon "Shadowfang Keep"
+  when level>=20.7
   zone Silverpine Forest
   tip For your Shadowfang Keep run, at the end of the Hillsbrad guide: High Executor Hadrec stands below ground in the crypt.
   accept 1098                         -- High Executor Hadrec, below ground

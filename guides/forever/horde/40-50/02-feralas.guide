@@ -287,6 +287,7 @@ step Gadgetzan
 
 step Gadgetzan
   when dungeon "Zul'Farrak"
+  when level>=42.8
   zone Tanaris
   tip For your Zul'Farrak run, in the next guide: Tran'rek wants scarab shells, and Trenton Lighthammer, a short walk from the flight master, Troll Temper from the Sandfury trolls.
   accept 2865                           -- Tran'rek

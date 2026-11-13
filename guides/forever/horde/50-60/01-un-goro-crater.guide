@@ -322,6 +322,7 @@ step Kargath
 
 step The WANTED poster
   when dungeon "Blackrock Depths"
+  when level>=52
   zone Badlands
   tip For your Blackrock Depths run, next, on the way through Blackrock Mountain: the WANTED poster in Kargath wants the Anvilrage dwarves inside thinned out.
   accept 4081 object 164867           -- WANTED
@@ -334,6 +335,7 @@ step Into the Searing Gorge
 step Blackrock Depths
   when dungeon "Blackrock Depths"
   when onquest 4081
+  when level>=52
   zone Searing Gorge
   tip Blackrock Depths is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
   tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
@@ -392,6 +394,7 @@ step Warlord Goretooth
 step Fly to Stonard
   when dungeon "Sunken Temple"
   when onquest 1445
+  when level>=50
   zone Badlands
   tip Your Sunken Temple run: fly to Stonard. The temple stands in the swamp's eastern lake, a short ride east of Stonard.
   goto 4.1,44.9 "Kargath flight master"
@@ -400,6 +403,7 @@ step Fly to Stonard
 step The Sunken Temple
   when dungeon "Sunken Temple"
   when onquest 1445
+  when level>=50
   zone Swamp of Sorrows
   tip The Sunken Temple is a dungeon for a group of five, levels 50 to 60. Its door is in the sunken temple in the eastern lake, the Pool of Tears.
   tip Inside: the trolls carry the Fetishes of Hakkar for Fel'zerul. The Essence of Eranikus, a drop inside, starts a quest of its own.
@@ -416,6 +420,7 @@ step Fel'zerul
 step Fly to Undercity
   when dungeon "Sunken Temple"
   when zone "Swamp of Sorrows"
+  when level>=50
   zone Swamp of Sorrows
   goto 46.1,54.7 "Stonard flight master"
   fly "Undercity"

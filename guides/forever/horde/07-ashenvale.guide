@@ -56,6 +56,7 @@ step Zoram'gar Outpost
 
 step Je'neu Sancrea
   when dungeon "Blackfathom Deeps"
+  when level>=24.5
   tip For your Blackfathom Deeps run, in the same tunnels as the Sapphires: Je'neu's ruins errand. Look for a group now if you have none yet.
   accept 6921                         -- Je'neu Sancrea
 
@@ -82,6 +83,7 @@ step Sapphires of Aku'Mai
 step Blackfathom Deeps
   when dungeon "Blackfathom Deeps"
   when onquest 6921
+  when level>=24.5
   zone Ashenvale
   tip Blackfathom Deeps is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. Its portal is a little further along the tunnels you are in, past the Sapphires.
   tip Inside: the Fathom Stone lies under the water of the Moonshrine Ruins' pool, beneath the walkway (clear the crabs first): open it for the Fathom Core, and Baron Aquanis comes; open the Strange Water Globe he drops for a quest for Je'neu. The Tide Priestesses sometimes drop a Damp Note: open it for another quest for Je'neu. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, offers Blackfathom Villainy (Twilight Lord Kelris' head, for Bashana Runetotem on Thunder Bluff's Elder Rise).

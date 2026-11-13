@@ -392,12 +392,14 @@ step Grom'gol Base Camp
 
 step Kin'weelay
   when dungeon "The Drowned City"
+  when level>=37.1
   zone Stranglethorn Vale
   accept 95775 npc 2519                 -- Kin'weelay: the four Tablets of I'lalai, inside the Drowned City
 
 step The Drowned City
   when dungeon "The Drowned City"
   when onquest 95775
+  when level>=37.1
   zone Stranglethorn Vale
   tip The Drowned City is a dungeon for a group of five, levels 35 to 42. Its way in is at Sunken Hollow, under the Vile Reef on the coast due west of Grom'gol: swim out and dive to it.
   tip Inside: the four Tablets of I'lalai for Kin'weelay. After the run, swim back to Grom'gol's flight master for Booty Bay.

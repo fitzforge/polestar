@@ -145,6 +145,7 @@ step Prate Cloudseer
 step Fly to Camp Taurajo
   when dungeon "Razorfen Kraul"
   when onquest 1109
+  when level>=31.1
   zone Thousand Needles
   tip Your Razorfen Kraul run: fly from Freewind Post to Camp Taurajo; the kraul is south of the camp, in the thorny hills just west of the road to the Great Lift.
   goto 45.0,49.1 "Freewind Post flight master"
@@ -153,6 +154,7 @@ step Fly to Camp Taurajo
 step Razorfen Kraul
   when dungeon "Razorfen Kraul"
   when onquest 1109
+  when level>=31.1
   zone The Barrens
   tip Razorfen Kraul is a dungeon for a group of five, levels 29 to 38, and a full run takes about an hour. Ride south from Camp Taurajo down the road to the Great Lift: the entrance is in the thorny hills just west of it.
   tip Inside: the Kraul Bats leave the Kraul Guano on the floor of their caves. Willix the Importer, a prisoner inside, offers an escort out of the kraul: it starts and ends with him. A Small Scroll inside starts An Unholy Alliance for Varimathras in the Undercity. The bosses: Roogug, Aggem Thorncurse, Death Speaker Jargba, Overlord Ramtusk, Agathelos the Raging and Charlga Razorflank.
@@ -162,12 +164,14 @@ step Razorfen Kraul
 step The Great Lift
   when dungeon "Razorfen Kraul"
   when zone "The Barrens"
+  when level>=31.1
   zone Thousand Needles
   goto 31.9,23.9 "The Great Lift, down into Thousand Needles"
 
 step Freewind Post
   when dungeon "Razorfen Kraul"
   when onquest 1109
+  when level>=31.1
   zone Thousand Needles
   tip From the foot of the Great Lift, ride south-east to Freewind Post's lift and take it up: the guide goes on from there.
   goto 44.9,48.9 "Freewind Post's lift"

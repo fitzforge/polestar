@@ -237,6 +237,7 @@ step Fel'zerul
 
 step Fel'zerul
   when dungeon "Sunken Temple"
+  when level>=46.7
   tip For your Sunken Temple run, from Kargath at about 52: the temple's trolls carry Fetishes of Hakkar.
   accept 1445                         -- Fel'zerul, on the top floor
 

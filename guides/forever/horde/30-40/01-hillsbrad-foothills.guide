@@ -333,6 +333,7 @@ step Tarren Mill
 
 step Melisara
   when dungeon "City of Dalaran"
+  when level>=31
   zone Hillsbrad Foothills
   tip For your City of Dalaran run, later in this guide: Melisara stands in Tarren Mill, a short walk east of Magus Wordeen Voidglare.
   accept 96986                        -- Melisara
@@ -368,6 +369,7 @@ step The Dalaran crater
 step City of Dalaran
   when dungeon "City of Dalaran"
   when onquest 96986
+  when level>=31
   zone Alterac Mountains
   tip The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the Dalaran Sewer Key, go in through the sewer pipe north-west of the crater: the arrow leads there.
   tip Inside: Atrexis the Grave Knight is Melisara's. Rexxie Copperclutch, in the sewer, gives Opportunistic Education and takes it back there.
@@ -575,6 +577,7 @@ step Undercity trainers
 
 step Master Apothecary Faranell
   when dungeon "Razorfen Kraul"
+  when level>=31
   zone Undercity
   tip For your Razorfen Kraul run at the start of the next guide: Faranell, in the Apothecarium, wants guano from the kraul's bats.
   accept 1109                         -- Master Apothecary Faranell
