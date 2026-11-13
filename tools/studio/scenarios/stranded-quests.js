@@ -4,9 +4,10 @@
 // (UI/GuideFrame.lua, RoutePlan.Carried) and the outlevelled banner's
 // "finished quests here first" with its ask (UI/GuideFrameBanner.lua,
 // RoutePlan.LeftBehind). The character, place and guide are skins.js's (a
-// Tauren Hunter at 18 on the shipped Barrens guide); the quests are set by
-// the shot. Shots: <skin>-row-<scale>, <skin>-banner-<scale> (the banner
-// after its first click: the ask).
+// Tauren Hunter at 18 on the shipped Barrens guide), at its first step: the
+// row and the banner don't depend on the step. The quests are set by the
+// shot. Shots: <skin>-row-<scale>, <skin>-banner-<scale> (the banner after
+// its first click: the ask).
 
 const skins = require('./skins');
 
@@ -50,7 +51,7 @@ module.exports = {
 	title: 'Finished quests no route hands in: the Still to do row and the outlevelled banner, every skin',
 	character: skins.character,
 	place: skins.place,
-	guide: skins.guide,
+	guide: { id: skins.guide.id },
 	settings: skins.settings,
 	window: skins.window,
 	stubs: skins.stubs,
