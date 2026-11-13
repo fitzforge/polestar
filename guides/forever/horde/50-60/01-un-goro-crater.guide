@@ -380,18 +380,9 @@ step Warlord Goretooth
   tip The Anvilrage dwarves of your Blackrock Depths run: Warlord Goretooth, in Kargath.
   turnin 4081                         -- Warlord Goretooth
 
-step Fly to Tarren Mill
+step Fly to Undercity
   zone Badlands
   goto 4.1,44.9 "Kargath flight master"
-  fly "Tarren Mill"
-  zone Hillsbrad Foothills
-
-step Apothecary Lydon
-  turnin 2933                         -- Inside
-
-step Fly to Undercity
-  zone Hillsbrad Foothills
-  goto 60.2,18.8 "Tarren Mill flight master"
   fly "Undercity"
   zone Undercity
 # ---------------------------------------------------------------- Undercity

@@ -7108,6 +7108,18 @@ test('forever/horde/50-60/04-azshara.guide: final review: no level 16 Prompt Pot
 	assert.ok(at(list, 'turnin 3568', is('turnin', 3568)) >= 0, 'the Apothecarium stop stays');
 });
 
+// Horde 50-60 audit (0.4.0): Venom Bottles (2933, level 43) was handed in to Apothecary Lydon at about 52.4, which gives
+// 20% of its experience (about 720 XP), and the flight from Kargath landed at Tarren Mill only for it. It is out of
+// the route (taken in neither guide); the flight from Kargath goes straight to the Undercity.
+test('forever/horde/50-60/01-un-goro-crater.guide: no Tarren Mill landing for Venom Bottles, Kargath flies to the Undercity', { skip }, () => {
+	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	assert.ok(!list.some(({ goal }) => goal.quest === 2933), 'no Venom Bottles');
+	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && goal.location === 'Tarren Mill'), 'no flight to Tarren Mill');
+	const kargath = at(list, 'turnin 4061 at Kargath', is('turnin', 4061));
+	const next = list.slice(kargath).find(({ goal }) => goal.t === 'fly');
+	assert.equal(next && next.goal.location, 'Undercity', 'the next flight after Kargath goes to the Undercity');
+});
+
 // Final route review, Horde 40-60: each race learns to ride where the route already passes its trainer's city:
 // Trolls from the Orgrimmar stop (not a flight and boat from Stonard to Durotar and back), Undead on the next
 // guide's Undercity stop (not Gadgetzan -> Orgrimmar -> Brill -> Gadgetzan), Taurens, Druids, Paladins and Warlocks
