@@ -623,11 +623,18 @@ struct PortalDef {
 	from_area: f64,
 	to: &'static str,
 	to_area: f64,
+	/// The floors of its two ends where our grid has none to give (the Wizard's Sanctum's chamber is no floor of
+	/// ours): each room's floor is where the other portal's teleport puts the player (classic-db's destination).
+	floors: Option<(f64, f64)>,
 }
 
-const PORTALS: [PortalDef; 2] = [
-	PortalDef { trigger: 527, id: "portal-ruttheran", from: "Darnassus", from_area: 1657.0, to: "Rut'theran Village", to_area: 702.0 },
-	PortalDef { trigger: 542, id: "portal-darnassus", from: "Rut'theran Village", from_area: 702.0, to: "Darnassus", to_area: 1657.0 },
+// The Wizard's Sanctum in Stormwind (#1970): the mage trainers stand in a chamber 76 yd under its ground floor that
+// no walk reaches; the tower's top room has the portal down (trigger 704) and the chamber the one back up (702).
+const PORTALS: [PortalDef; 4] = [
+	PortalDef { trigger: 527, id: "portal-ruttheran", from: "Darnassus", from_area: 1657.0, to: "Rut'theran Village", to_area: 702.0, floors: None },
+	PortalDef { trigger: 542, id: "portal-darnassus", from: "Rut'theran Village", from_area: 702.0, to: "Darnassus", to_area: 1657.0, floors: None },
+	PortalDef { trigger: 704, id: "portal-sanctum-chamber", from: "Wizard's Sanctum tower", from_area: 1519.0, to: "Wizard's Sanctum", to_area: 1519.0, floors: Some((148.6, 29.6)) },
+	PortalDef { trigger: 702, id: "portal-sanctum-tower", from: "Wizard's Sanctum", from_area: 1519.0, to: "Wizard's Sanctum tower", to_area: 1519.0, floors: Some((29.6, 148.6)) },
 ];
 const PORTAL_SECONDS: f64 = 5.0;
 
@@ -756,7 +763,10 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 		};
 		let mut a = place(p.from, int(t, "ContinentID"), number(t.get("Pos_0")), number(t.get("Pos_1")), frames, live, Some(p.from_area));
 		let mut b = place(p.to, dest.get("map").num(), dest.get("x").num(), dest.get("y").num(), frames, live, Some(p.to_area));
-		if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
+		if let (Some(a), Some(b), Some((fa, fb))) = (a.as_mut(), b.as_mut(), p.floors) {
+			a.z = Some(fa);
+			b.z = Some(fb);
+		} else if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
 			for (e, z) in [(a, number(t.get("Pos_2"))), (b, dest.get("z").as_num().unwrap_or(f64::NAN))] {
 				match end_height(nav, e.c, e.wx, e.wy, Some(z)) {
 					Some(h) => e.z = Some(h),
