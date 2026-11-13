@@ -1091,6 +1091,94 @@ fn target_list_a_step_s_npc_and_while_you_re_here_mobs_each_row_with_its_own_kin
 	assert_eq!(out[2], json!(["npc", "mob"]), "each row's click advances its own kind's mark");
 }
 
+// Folded, a step's NPC and a While you're here mob share one macro: it carries a mark line for each kind, each on
+// its own kind's target alone, so the mob found after an unavailable NPC gets the mob's icon, not the NPC's; the
+// click advances the mark of the kind it targeted.
+const MIXED_FOLDED: &str = r#"
+	local shown = {}
+	q.Engine.GetWhileHereList = function() return shown end
+	q.Engine.AlongGoal = function(s, g)
+		for _, r in ipairs(shown) do
+			if r.step == s and r.index == g then return r.raw end
+		end
+	end
+	local function mixed()
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
+		shown = { { t = "kill", subject = "Bluegill Murloc", step = 41, index = 1, status = "active", raw = { npc = 1024 } } }
+		Polestar.Fire("WHILE_HERE_CHANGED")
+		stub.runTimers()
+		B.anchor:GetScript("OnClick")(B.anchor, "LeftButton")
+	end
+	local kinds = {}
+	local advance = B.AdvanceMark
+	B.AdvanceMark = function(kind) kinds[#kinds + 1] = kind; return advance(kind) end
+"#;
+const MIXED_NAMES: &str = "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Bluegill Murloc\n/cleartarget [dead]";
+
+#[test]
+fn target_list_folded_a_step_s_npc_and_a_while_you_re_here_mob_mark_and_advance_the_kind_targeted() {
+	let out = run(&format!(
+		"{MIXED_FOLDED}{}",
+		r#"
+		set("markTarget", true)
+		set("markMob", "cycle")
+		mixed()
+		local r = B.rows[1]
+		emit({ #rows(), r:GetAttribute("macrotext") })
+		-- The NPC is not about; the macro finds the hostile mob after it.
+		q.target = { name = "Bluegill Murloc", hostile = true }
+		q.click(r, true); q.click(r, false)
+		emit({ kinds, r:GetAttribute("macrotext") })
+	"#
+	));
+	assert_eq!(out[0], json!([1, format!("{MIXED_NAMES}\n/tm [@target,harm,nodead] ~2\n/tm [@target,noharm,nodead] !1")]), "the mob's line first, then the NPC's on a friendly target alone");
+	assert_eq!(out[1], json!([["mob"], format!("{MIXED_NAMES}\n/tm [@target,harm,nodead] ~3\n/tm [@target,noharm,nodead] !1")]), "the hostile result advances the mob's cycle, not the NPC's mark");
+}
+
+#[test]
+fn target_list_folded_a_step_s_npc_and_a_while_you_re_here_mob_a_friendly_result_advances_the_npc_s_mark() {
+	let out = run(&format!(
+		"{MIXED_FOLDED}{}",
+		r#"
+		set("markTarget", true)
+		set("markNpc", "cycle")
+		mixed()
+		local r = B.rows[1]
+		emit(r:GetAttribute("macrotext"))
+		q.target = { name = "Marshal Dughan" }
+		q.click(r, true); q.click(r, false)
+		emit({ kinds, r:GetAttribute("macrotext") })
+	"#
+	));
+	assert_eq!(out[0], format!("{MIXED_NAMES}\n/tm [@target,harm,nodead] !8\n/tm [@target,noharm,nodead] ~1"));
+	assert_eq!(out[1], json!([["npc"], format!("{MIXED_NAMES}\n/tm [@target,harm,nodead] !8\n/tm [@target,noharm,nodead] ~2")]));
+}
+
+#[test]
+fn target_list_folded_names_of_one_kind_keep_the_single_mark_line_and_the_row_s_own_kind() {
+	let out = run(r#"
+		set("markTarget", true)
+		set("markMob", "cycle")
+		kobolds()
+		B.anchor:GetScript("OnClick")(B.anchor, "LeftButton")
+		local r = B.rows[1]
+		emit(r:GetAttribute("macrotext"))
+		local kinds = {}
+		local advance = B.AdvanceMark
+		B.AdvanceMark = function(kind) kinds[#kinds + 1] = kind; return advance(kind) end
+		-- A friendly target does not make a mobs-only row advance the NPC's mark.
+		q.target = { name = "Marshal Dughan" }
+		q.click(r, true); q.click(r, false)
+		emit(kinds)
+	"#);
+	assert_eq!(
+		out[0],
+		format!("{VERMIN}\n/targetexact [noexists] Kobold Worker\n/cleartarget [dead]\n/targetexact [noexists] Kobold Laborer\n/cleartarget [dead]\n/tm [@target,harm,nodead] ~2"),
+		"unchanged: one mob line"
+	);
+	assert_eq!(out[1], json!(["mob"]));
+}
+
 // The preview harness (and any client) without UnitIsDead or UnitIsPlayer: no close mob, and no error (#1704's red
 // CI: `node tools/polestar.js preview` stopped in closeUnits).
 #[test]

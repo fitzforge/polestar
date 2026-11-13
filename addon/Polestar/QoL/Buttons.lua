@@ -65,7 +65,7 @@
 --     live step, it takes the marked flight instead (QoL/Flight.lua,
 --     Flight.Take). Independent of
 --     the buttons' settings.
---   Mark target (off by default): the target button and the step key clear
+--   Mark target (on by default): the target button and the step key clear
 --     the target first (out of combat) and end their macro with /tm, an icon
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
 --     one each press (Buttons.MarkLine). The rare card's Target button
@@ -1624,18 +1624,31 @@ end
 -- any). "cycle" puts the next icon on at each press, skipping the one the
 -- other kind keeps, always with "~": a unit that already has an icon keeps
 -- it. In combat the macro cannot change, so until the fight ends each press
--- puts on the same icon.
-function Buttons.MarkLine(kind)
+-- puts on the same icon. unit: the line's conditions (MARK_UNIT[kind] for
+-- Buttons.MarkLine).
+local function markLine(kind, unit)
 	if not kind or not QoL.On("markTarget") then return nil end
 	local right = Buttons.MarkRight()
 	if not right then return nil end
 	local icon = markSetting(kind)
-	if icon ~= "cycle" then return "/tm " .. MARK_UNIT[kind] .. (right == "set" and " !" or " ~") .. icon end
+	if icon ~= "cycle" then return "/tm " .. unit .. (right == "set" and " !" or " ~") .. icon end
 	local other, icons = markSetting(OTHER[kind]), {}
 	for i = 1, 8 do
 		if i ~= other then icons[#icons + 1] = i end
 	end
-	return "/tm " .. MARK_UNIT[kind] .. " ~" .. icons[presses % #icons + 1]
+	return "/tm " .. unit .. " ~" .. icons[presses % #icons + 1]
+end
+function Buttons.MarkLine(kind) return markLine(kind, MARK_UNIT[kind]) end
+
+-- The /tm lines for a macro that may target either kind (a folded target
+-- list holding a step's NPC and the While you're here mobs, #1623): the mob's
+-- line, then the NPC's on a target that cannot be attacked alone. The two
+-- never both match, so a hostile result gets the mob's icon and a friendly
+-- one the NPC's; a neutral NPC, which can be attacked, gets the mob's. nil
+-- while marking is off or not allowed.
+function Buttons.MixedMarkLines()
+	local mob = Buttons.MarkLine("mob")
+	return mob and (mob .. "\n" .. markLine("npc", "[@target,noharm,nodead]"))
 end
 
 -- After a press with kind's mark: true when the next press puts on a new icon.
@@ -2098,7 +2111,7 @@ do
 		end
 		local fold = folded() and #list > 1
 		for i = 1, #TL.rows do
-			local r, name, text, kind = TL.rows[i], list[i], nil, nil
+			local r, name, text, kind, mixed = TL.rows[i], list[i], nil, nil, false
 			r.names, r.all, r.infos, r.looks = nil, nil, nil, {}
 			if fold then
 				-- Folded: the first row tries the names in the list's order, as the
@@ -2112,6 +2125,13 @@ do
 					local mark, ping
 					kind, mark, ping = markPing(first)
 					text = Buttons.TargetMacro(list, first, mark, ping)
+					-- Names of both kinds in the macro: the mark of the kind it
+					-- targets (Buttons.MixedMarkLines), not the first name's.
+					local held = text and select(2, text:gsub("/targetexact", "")) or 0
+					for k = 2, held do
+						mixed = mixed or targetKind((first - 2 + k) % #list + 1) ~= kind
+					end
+					if mixed and mark then text = Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping) end
 					if text and #text > MACRO_LIMIT then text = nil end
 					if text then
 						local n = select(2, text:gsub("/targetexact", ""))
@@ -2140,6 +2160,7 @@ do
 			r.applied = text and name or nil
 			-- The mark the row's click puts on (Buttons.AdvanceMark).
 			r.kind = r.applied and kind or nil
+			r.mixed = r.applied and mixed or nil
 			-- The row keeps the record of the name it targets: in a fight the list
 			-- can move on while the row still targets the old name.
 			r.info = r.applied and target.info[name] or nil
@@ -2332,7 +2353,17 @@ do
 		wire(r, rowTooltip)
 		r:HookScript("PostClick", function(self, _, down)
 			if down or self.dragging then return end
-			Buttons.AdvanceMark(self.kind or "mob")
+			-- A macro of both kinds: the mark of the kind it targeted.
+			local kind = self.kind or "mob"
+			if self.mixed then
+				local hostile = flag(UnitCanAttack, "player", "target")
+				if hostile then
+					kind = "mob"
+				elseif hostile == false and flag(UnitExists, "target") then
+					kind = "npc"
+				end
+			end
+			Buttons.AdvanceMark(kind)
 		end)
 		return r
 	end
