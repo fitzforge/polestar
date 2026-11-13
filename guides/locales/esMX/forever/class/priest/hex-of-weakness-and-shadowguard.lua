@@ -10,81 +10,81 @@ return {
 	-- {quest:5652} Hex of Weakness · {quest:5642} Shadowguard
 	["{quest:5652} and {quest:5642}"] = "{quest:5652} y {quest:5642}",
 	-- {quest:5652} Hex of Weakness · {quest:5642} Shadowguard
-	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "",
+	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "Los hechizos de sacerdote trol: {quest:5652} a nivel 10, {quest:5642} a nivel 20. Gratis, sin objetivos.",
 
 	-- Step 1: Hex of Weakness: Tai'jin
 	-- {npc:3706} Tai'jin · {area:362} Razor Hill · {area:363} Valley of Trials · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10, {npc:3706}, the priest trainer inside the barracks of {area:362} (the first building on the right as you come up the road from the {area:363}), hands you a {quest:5652} letter for {npc:6018} in {zone:1454}. {area:362} is on the road north to the city."] = "",
+	["At 10, {npc:3706}, the priest trainer inside the barracks of {area:362} (the first building on the right as you come up the road from the {area:363}), hands you a {quest:5652} letter for {npc:6018} in {zone:1454}. {area:362} is on the road north to the city."] = "A nivel 10, {npc:3706}, el instructor de sacerdotes dentro del cuartel de {area:362} (el primer edificio a la derecha al subir por el camino desde {area:363}), te da una carta de {quest:5652} para {npc:6018} en {zone:1454}. {area:362} está en el camino al norte hacia la ciudad.",
 	-- {npc:3706} Tai'jin · {quest:5652} Hex of Weakness
-	["{npc:3706}: take his {quest:5652} letter"] = "",
+	["{npc:3706}: take his {quest:5652} letter"] = "{npc:3706}: toma su carta de {quest:5652}",
 
 	-- Step 2: Hex of Weakness: Var'jun
 	-- {zone:1412} Mulgore · {npc:11407} Var'jun · {area:222} Bloodhoof Village · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10 in {zone:1412}, {npc:11407}, just south-west of {area:222}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "",
+	["At 10 in {zone:1412}, {npc:11407}, just south-west of {area:222}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "A nivel 10 en {zone:1412}, {npc:11407}, justo al suroeste de {area:222}, te da una carta de {quest:5652} para {npc:6018} en {zone:1454}.",
 	-- {npc:11407} Var'jun · {quest:5652} Hex of Weakness
-	["{npc:11407}: take the {quest:5652} letter"] = "",
+	["{npc:11407}: take the {quest:5652} letter"] = "{npc:11407}: toma la carta de {quest:5652}",
 
 	-- Step 3: Hex of Weakness: Miles Welsh
 	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {area:1640}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "",
+	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {area:1640}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "A nivel 10 en {zone:1456}, {npc:3044}, el instructor de sacerdotes en la cueva debajo de {area:1640}, te da una carta de {quest:5652} para {npc:6018} en {zone:1454}.",
 	-- {npc:3044} Miles Welsh · {quest:5652} Hex of Weakness
-	["{npc:3044}: take his {quest:5652} letter"] = "",
+	["{npc:3044}: take his {quest:5652} letter"] = "{npc:3044}: toma su carta de {quest:5652}",
 
 	-- Step 4: Hex of Weakness: Aelthalyste
 	-- {zone:1458} Undercity · {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10 in the {zone:1458}, {npc:4606}, the priest trainer in the {object:36070}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454} (the zeppelin from the tower outside the {zone:1458})."] = "",
+	["At 10 in the {zone:1458}, {npc:4606}, the priest trainer in the {object:36070}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454} (the zeppelin from the tower outside the {zone:1458})."] = "A nivel 10 en {zone:1458}, {npc:4606}, la instructora de sacerdotes en {object:36070}, te da una carta de {quest:5652} para {npc:6018} en {zone:1454} (el zepelín desde la torre afuera de {zone:1458}).",
 	-- {npc:4606} Aelthalyste · {quest:5652} Hex of Weakness
-	["{npc:4606}: take her {quest:5652} letter"] = "",
+	["{npc:4606}: take her {quest:5652} letter"] = "{npc:4606}: toma su carta de {quest:5652}",
 
 	-- Step 5: Hex of Weakness: Ur'kyo
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {zone:1454} Orgrimmar · {quest:5652} Hex of Weakness
-	["At 10, go to {npc:6018}, the priest trainer in a hut in the {object:172961}, {zone:1454}'s south-west corner: he gives {quest:5652} and takes it back at once. No letter needed."] = "",
+	["At 10, go to {npc:6018}, the priest trainer in a hut in the {object:172961}, {zone:1454}'s south-west corner: he gives {quest:5652} and takes it back at once. No letter needed."] = "A nivel 10, ve con {npc:6018}, el instructor de sacerdotes en una choza de {object:172961}, en la esquina suroeste de {zone:1454}: te da {quest:5652} y la recibe enseguida. No hace falta carta.",
 
 	-- Step 6: Hex of Weakness: Tai'jin's letter
 	-- {quest:5654} Hex of Weakness · {npc:3706} Tai'jin
-	["{quest:5654}: {npc:3706}'s letter"] = "",
+	["{quest:5654}: {npc:3706}'s letter"] = "{quest:5654}: la carta de {npc:3706}",
 	-- {area:362} Razor Hill · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:6018} Ur'kyo · {quest:5654} Hex of Weakness
-	["Follow the road north from {area:362} into {zone:1454} and west to the {object:172961}: {npc:6018} takes the letter and teaches {quest:5654}."] = "",
+	["Follow the road north from {area:362} into {zone:1454} and west to the {object:172961}: {npc:6018} takes the letter and teaches {quest:5654}."] = "Sigue el camino al norte desde {area:362} hasta {zone:1454} y al oeste hasta {object:172961}: {npc:6018} recibe la carta y enseña {quest:5654}.",
 
 	-- Step 7: Hex of Weakness: Var'jun's letter
 	-- {quest:5655} Hex of Weakness · {npc:11407} Var'jun
-	["{quest:5655}: {npc:11407}'s letter"] = "",
+	["{quest:5655}: {npc:11407}'s letter"] = "{quest:5655}: la carta de {npc:11407}",
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {zone:1454} Orgrimmar · {zone:1412} Mulgore · {zone:1413} Barrens · {zone:1411} Durotar · {zone:1456} Thunder Bluff
-	["Hand the letter to {npc:6018} in the {object:172961}, {zone:1454} (from {zone:1412}: north through the {zone:1413} and east into {zone:1411}, or fly from {zone:1456} once you know {zone:1454}'s flight path)."] = "",
+	["Hand the letter to {npc:6018} in the {object:172961}, {zone:1454} (from {zone:1412}: north through the {zone:1413} and east into {zone:1411}, or fly from {zone:1456} once you know {zone:1454}'s flight path)."] = "Entrégale la carta a {npc:6018} en {object:172961}, {zone:1454} (desde {zone:1412}: al norte por {zone:1413} y al este hacia {zone:1411}, o vuela desde {zone:1456} cuando conozcas la ruta de vuelo de {zone:1454}).",
 
 	-- Step 8: Hex of Weakness: Miles Welsh's letter
 	-- {quest:5656} Hex of Weakness · {npc:3044} Miles Welsh
-	["{quest:5656}: {npc:3044}'s letter"] = "",
+	["{quest:5656}: {npc:3044}'s letter"] = "{quest:5656}: la carta de {npc:3044}",
 
 	-- Step 9: Hex of Weakness: Aelthalyste's letter
 	-- {quest:5657} Hex of Weakness · {npc:4606} Aelthalyste
-	["{quest:5657}: {npc:4606}'s letter"] = "",
+	["{quest:5657}: {npc:4606}'s letter"] = "{quest:5657}: la carta de {npc:4606}",
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["Hand the letter to {npc:6018} in the {object:172961}, {zone:1454} (the zeppelin from {zone:1420} lands outside {zone:1454})."] = "",
+	["Hand the letter to {npc:6018} in the {object:172961}, {zone:1454} (the zeppelin from {zone:1420} lands outside {zone:1454})."] = "Entrégale la carta a {npc:6018} en {object:172961}, {zone:1454} (el zepelín desde {zone:1420} aterriza afuera de {zone:1454}).",
 
 	-- Step 10: Shadowguard: Miles Welsh
 	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {quest:5642} Shadowguard · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 20 in {zone:1456}, {npc:3044} in the cave under {area:1640} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "",
+	["At 20 in {zone:1456}, {npc:3044} in the cave under {area:1640} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "A nivel 20 en {zone:1456}, {npc:3044}, en la cueva debajo de {area:1640}, te da una carta de {quest:5642} para {npc:6018} en {zone:1454}.",
 	-- {npc:3044} Miles Welsh · {quest:5642} Shadowguard
-	["{npc:3044}: take his {quest:5642} letter"] = "",
+	["{npc:3044}: take his {quest:5642} letter"] = "{npc:3044}: toma su carta de {quest:5642}",
 
 	-- Step 11: Shadowguard: Aelthalyste
 	-- {zone:1458} Undercity · {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5642} Shadowguard · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 20 in the {zone:1458}, {npc:4606} in the {object:36070} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "",
+	["At 20 in the {zone:1458}, {npc:4606} in the {object:36070} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "A nivel 20 en {zone:1458}, {npc:4606} en {object:36070} te da una carta de {quest:5642} para {npc:6018} en {zone:1454}.",
 	-- {npc:4606} Aelthalyste · {quest:5642} Shadowguard
-	["{npc:4606}: take her {quest:5642} letter"] = "",
+	["{npc:4606}: take her {quest:5642} letter"] = "{npc:4606}: toma su carta de {quest:5642}",
 
 	-- Step 12: Shadowguard: Ur'kyo
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5642} Shadowguard
-	["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "",
+	["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "A nivel 20, {npc:6018} en {object:172961} enseña {quest:5642} con una misión que te da y recibe enseguida.",
 
 	-- Step 13: Shadowguard: Miles Welsh's letter
 	-- {quest:5642} Shadowguard · {npc:3044} Miles Welsh
-	["{quest:5642}: {npc:3044}'s letter"] = "",
+	["{quest:5642}: {npc:3044}'s letter"] = "{quest:5642}: la carta de {npc:3044}",
 
 	-- Step 14: Shadowguard: Aelthalyste's letter
 	-- {quest:5643} Shadowguard · {npc:4606} Aelthalyste
-	["{quest:5643}: {npc:4606}'s letter"] = "",
+	["{quest:5643}: {npc:4606}'s letter"] = "{quest:5643}: la carta de {npc:4606}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:6018} in the {object:172961}, on {zone:1454}'s west side. Priest trainers elsewhere ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to him with a quest of the same name."] = "A nivel 10, ve con {npc:6018} en {object:172961}, en el lado oeste de {zone:1454}. Los instructores de sacerdotes de otros lugares ({npc:3706} en {area:362}, {npc:3044} en {zone:1456}) te mandan con él con una misión del mismo nombre.",
