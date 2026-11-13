@@ -2142,7 +2142,7 @@ fn target_button_names_the_while_you_re_here_rows_mobs_after_the_step_s_own_near
 			{ t = "kill", subject = "Gnoll", status = "done" },
 		})
 		emit({ tnames(), look() })
-		-- the arrow on a row: its mob first among the rows', after the step's own
+		-- the arrow on a row (the player clicked it): its mob first, before the step's own (#2011)
 		q.engine.waypoint = { stepIndex = 43, goalIndex = 1 }
 		Polestar.Fire("WAYPOINT_CHANGED", q.engine.waypoint)
 		stub.runTimers()
@@ -2158,7 +2158,7 @@ fn target_button_names_the_while_you_re_here_rows_mobs_after_the_step_s_own_near
 	assert_eq!(out[1][0], "Mottled Screecher, Black Ooze, Bluegill Murloc, Cursed Ooze", "the step's own first; no name twice; each row's first before any row's second; no interact or done row");
 	assert_eq!(out[1][1]["name"], "Mottled Screecher");
 	assert_eq!(out[1][1]["minis"], json!(["icon-collect", "icon-kill", "icon-collect"]));
-	assert_eq!(out[2], "Mottled Screecher, Bluegill Murloc, Black Ooze, Cursed Ooze");
+	assert_eq!(out[2], "Bluegill Murloc, Mottled Screecher, Black Ooze, Cursed Ooze", "the aimed row's mob first, then the step's own (#2011)");
 	assert_eq!(out[3], json!(["Bluegill Murloc", "Black Ooze", "Mottled Screecher", "Cursed Ooze"]), "HereNames: the rows' mobs alone, the same way, the arrow's row first");
 }
 

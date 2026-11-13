@@ -409,3 +409,22 @@ test('the release data and Codex give Innkeeper Thulbek no Bows & guns or repair
 	const codex = path.join(dir, 'codex', 'npcs.json');
 	if (fs.existsSync(codex)) assert.deepEqual(JSON.parse(fs.readFileSync(codex, 'utf8'))[5814].roles, ['innkeeper', 'sells:food', 'vendor']);
 });
+
+// #1997: Lightforge Ingots (526) follows The Lost Ingots (324). The merged data listed 526 in 324's `excl`, so 324
+// blocked nothing and the Codex gave 526 no prerequisite: Lookup's pick-up guide sent players to Glorin Steelbrow
+// before the chain. The Forever TDB has no exclusive group for either.
+test('Lightforge Ingots waits for The Lost Ingots, which does not close it (#1997)', () => {
+	const lost = { id: 324, start: { object: [2734] }, preAny: [321], excl: [526], ...corrections.quests[324].set };
+	const ingots = { id: 526, start: { npc: [1217] }, ...corrections.quests[526].set };
+	assert.deepEqual(blockingPrereqs(ingots, (id) => (id === 324 ? lost : null)), { all: [], any: [324] });
+});
+
+// #2010: Nearby's stable master search named one on another continent to a Skyborne Hunter on Zephras Isle. Seven
+// Forever NPCs whose title reads Stable Master (Genn Fairweather at the Fairweather Stables in Valanaar among them)
+// had no stable master role in the merged data. Sweep: every spawned NPC titled stable master in data/forever.
+test('every stable master by title has the stable master role (#2010)', () => {
+	for (const id of [43408, 256410, 256673, 259190, 259859, 260525, 265756]) {
+		assert.ok(corrections.npcs[id] && corrections.npcs[id].set.roles.includes('stablemaster'), `npc ${id}`);
+	}
+	assert.deepEqual(corrections.npcs[265756].set.roles, ['repair', 'stablemaster', 'trainer', 'vendor'], 'Genn Fairweather keeps his other roles');
+});

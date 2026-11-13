@@ -44,6 +44,12 @@ zone Westfall
 #   step's two gotos follow the survivors' tracks out of the river (64.4,79.4
 #   then 62.2,76.8); those who died turned back north-east into the river at
 #   the first of them.
+# - Horde bind at Tarren Mill on the way to Loch Modan (#1994): the wall's
+#   fallen cart (Hillsbrad 87.5,47.7) is a short ride south-east of Tarren Mill
+#   (Innkeeper Shay, 62.8,19.0), while the walk back from the dam runs the
+#   length of the Wetlands, over Thandol Span and across Arathi. Bound there,
+#   the arrow's route to the wall takes the Hearthstone (it does so for any
+#   trip over 3 minutes that it shortens by 2).
 # Not play-tested on Forever yet.
 
 step The note in Westfall
@@ -94,6 +100,16 @@ step A hundred paces north
   turnin 79980
   accept 79974
 
+# Horde only, on the way east through Hillsbrad (#1994); not for a player already past it.
+step Tarren Mill on the way
+  only Horde
+  when !bound "Tarren Mill"
+  when !zone "Loch Modan"
+  when !zone "Wetlands"
+  zone Hillsbrad Foothills
+  tip Passing Tarren Mill on the way to Loch Modan? Set your Hearthstone here: after the dam, it brings you back next to Thoradin's Wall instead of the long walk through the Wetlands and Arathi. Skip this step to keep your Hearthstone where it is.
+  sethome "Tarren Mill" npc 2388      -- Innkeeper Shay
+
 step The dam in Loch Modan
   zone Loch Modan
   tip The figurine is on a ledge just below the top of the Stonewrought Dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge.
@@ -102,7 +118,7 @@ step The dam in Loch Modan
 
 step Out of the river
   zone Wetlands
-  tip Careful: off the dam's ledge you land in the river below it, in the Wetlands. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over Thandol Span into Arathi.
+  tip Careful: off the dam's ledge you land in the river below it, in the Wetlands. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over Thandol Span into Arathi, or hearth if your Hearthstone is set at Tarren Mill.
   goto 64.4,79.4 map 1437 "West bank, before the waterfall" r 12
   goto 62.2,76.8 map 1437 "West bank" r 15
 

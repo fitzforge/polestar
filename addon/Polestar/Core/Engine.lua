@@ -1161,7 +1161,11 @@ end
 -- Water in the log; one the route never takes the player to hand in (Washed
 -- Ashore, 4681, held by a Night Elf whose Darkshore steps of it are for the
 -- other races) leaves it "Hand in Washed Ashore to Gwennyth Bly'Leggonde
--- first" (unavailableText).
+-- first" (unavailableText). So does one whose objectives are not done
+-- (Own.heldUnfinished), wherever the route stands: its ender does not take
+-- it yet, and the guide has none of its work (#1998: Young Crocolisk Skins,
+-- 484, taken on an earlier guide and left unfinished, held Apprentice's
+-- Duties' accept at James Halloran, who stands on the Wetlands route).
 function Own.coming(p, depth)
 	local state = ns.CharState()
 	local skipped, manual = state.skipped[guide.id], state.manual[guide.id]
@@ -1180,6 +1184,7 @@ function Own.coming(p, depth)
 	end
 	if mine then return false end
 	if Compat().IsOnQuest(p) and not Own.questSkipped(p) then
+		if Own.heldUnfinished(p) then return false end
 		-- A goal an update passed (Own.passAdded) is no stop on the way.
 		return Own.heldComing(guide, p, function(t)
 			return stepApplies(t.step) and Guides.Matches(t.goal.only, player) and not Own.gone(t.goal) and not (skipped and skipped[t.s])
@@ -1197,6 +1202,18 @@ function Own.coming(p, depth)
 		end
 	end
 	return others and Own.notMine(p)
+end
+
+-- Whether held quest p has objectives the client lists, one of them not
+-- finished, and is not ready to hand in. None listed (a breadcrumb, or the
+-- client has not filled them in yet) is finished.
+function Own.heldUnfinished(p)
+	local C = Compat()
+	if C.IsQuestReadyForTurnIn(p) then return false end
+	for _, o in ipairs(C.GetQuestObjectives(p) or NONE) do
+		if not o.finished then return true end
+	end
+	return false
 end
 
 -- Whether held quest p can be handed in on guide g's way: true when the
@@ -11497,11 +11514,14 @@ function Own.hereFlyOf(node)
 end
 
 -- Own.hereFly for continent c (nil: none, Dynamic Questing off or no guide).
+-- A flight master the live step itself sends the player to learn is the
+-- route's own goal, no line (#2003: "Learn the flight path at Splintertree
+-- Post" under the step "Get the flight path at Splintertree Post").
 function Own.hereFlyBuild(c)
 	local fly, n, nav = Own.hereFly, 0, ns.Nav
 	if c and ns.Get("behavior.whileHereFlights") and nav and nav.UnknownTaxiOn then
 		for _, node in ipairs(nav.UnknownTaxiOn(c, Own.hereFlyNodes)) do
-			if node.map and node.x and node.y then
+			if node.map and node.x and node.y and not Own.hereFlyLive(node) then
 				n = n + 1
 				fly[n] = Own.hereFlyOf(node)
 			end
@@ -11509,6 +11529,21 @@ function Own.hereFlyBuild(c)
 	end
 	for i = n + 1, #fly do fly[i] = nil end
 	Own.hereFlyN = n
+end
+
+-- Whether the live step has a getfp goal for the character at travel data
+-- node `node` (by its taxi node, else by its name, as Own.hereFlyStep).
+function Own.hereFlyLive(node)
+	local step = guide and computed and guide.steps[computed]
+	if not (step and stepApplies(step)) then return false end
+	local name = (node.short or node.name or ""):lower()
+	for _, goal in ipairs(step.goals) do
+		if goal.t == "getfp" and goalApplies(goal)
+			and ((goal.node and goal.node == node.id) or (not goal.node and type(goal.location) == "string" and goal.location:lower() == name)) then
+			return true
+		end
+	end
+	return false
 end
 
 -- Whether flight path line e is still a candidate (Own.hereBuild keeps it).
