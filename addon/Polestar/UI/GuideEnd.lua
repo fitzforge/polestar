@@ -16,6 +16,11 @@
 -- (12–16)" on it, then "Carried to later guides": the quests still in the
 -- log that a later guide of the chain hands in (Engine.CarriedQuests), each
 -- with that guide ("Sceptre of Light · Badlands"), so the player keeps them.
+-- Then "Not part of your route": the quests in the log no guide of the route
+-- takes, works or hands in (RoutePlan.OffRoute, read when the window opens),
+-- six at most, and "Keep or abandon them", which opens their list with an
+-- Abandon button each (UI.ShowQuestRoom "offroute"); nothing is abandoned
+-- without the game's own confirmation.
 -- The footer holds the buttons, the primary on the right:
 --   next guide     Start The Barrens (Engine.StartNext: in the same tab)
 --                  Not now, or Back to step 13 (the guide stays; the guide
@@ -81,6 +86,8 @@ function GE.Model(info)
 		end
 	end
 	m.carried = E and E.CarriedQuests and E.CarriedQuests(g.id) or {}
+	local P = ns.RoutePlan
+	m.offRoute = P and P.OffRoute and P.OffRoute(g.id) or {}
 	return m
 end
 
@@ -222,6 +229,19 @@ local function build()
 	F.Carried:SetJustifyH("LEFT")
 	F.Carried:SetWordWrap(true)
 	F.Carried:SetSpacing(3)
+	F.OffHead = W.Text(F, "label", "text")
+	F.OffHead:SetWidth(WIDTH - PAD * 2)
+	F.OffHead:SetJustifyH("LEFT")
+	F.OffHead:SetText(L["Not part of your route"])
+	F.Off = W.Text(F, "note", "textDim")
+	F.Off:SetWidth(WIDTH - PAD * 2)
+	F.Off:SetJustifyH("LEFT")
+	F.Off:SetWordWrap(true)
+	F.Off:SetSpacing(3)
+	F.OffLink = W.Link(F, L["Keep or abandon them"], function()
+		if shown then UI.ShowQuestRoom("offroute", shown.id) end
+	end, { role = "note" })
+	F.OffLink.psTip = L["Each with its Abandon button, which asks in the game's own window first."]
 
 	-- Footer: the second button, then the primary on the right.
 	local foot = CreateFrame("Frame", nil, F)
@@ -317,6 +337,34 @@ local function layout(m)
 	else
 		F.CarriedHead:Hide()
 		F.Carried:Hide()
+	end
+
+	-- The quests no guide of the route uses: the player keeps or abandons them.
+	local off = m.offRoute or {}
+	if #off > 0 then
+		local lines = {}
+		for i, c in ipairs(off) do
+			if i > CARRIED_SHOWN then
+				lines[#lines + 1] = format(L["+%d more"], #off - CARRIED_SHOWN)
+				break
+			end
+			lines[i] = c.title or ("#" .. c.quest)
+		end
+		F.OffHead:ClearAllPoints()
+		F.OffHead:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -(y + 16))
+		F.OffHead:Show()
+		F.Off:SetText(table.concat(lines, "\n"))
+		F.Off:ClearAllPoints()
+		F.Off:SetPoint("TOPLEFT", F.OffHead, "BOTTOMLEFT", 0, -6)
+		F.Off:Show()
+		F.OffLink:ClearAllPoints()
+		F.OffLink:SetPoint("TOPLEFT", F.Off, "BOTTOMLEFT", 0, -4)
+		F.OffLink:Show()
+		y = y + 16 + F.OffHead:GetStringHeight() + 6 + F.Off:GetStringHeight() + 4 + 20
+	else
+		F.OffHead:Hide()
+		F.Off:Hide()
+		F.OffLink:Hide()
 	end
 
 	if m.choose then

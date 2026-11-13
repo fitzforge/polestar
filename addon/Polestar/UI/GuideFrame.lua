@@ -1438,11 +1438,35 @@ function GF.CloseAndReturn(id)
 	if E.SetGuide then E.SetGuide(back.id) end
 end
 
+-- The end card's lines under its text, for the leveling guide `id` that
+-- ended (Guide complete): "10 quests in your log carry on to later guides"
+-- (Engine.CarriedQuests) and "2 quests aren't part of your route"
+-- (RoutePlan.OffRoute), each only with a count, each opening its list
+-- (UI.ShowQuestRoom "later" / "offroute"). Read when the card is painted,
+-- never on a frame tick.
+function GF.EndQuestLines(id)
+	local E, P = Engine(), ns.RoutePlan
+	local carried = E and E.CarriedQuests and #E.CarriedQuests(id) or 0
+	local off = P and P.OffRoute and P.OffRoute(id)
+	local stray = off and #off or 0
+	local function line(link, n, text, mode)
+		if n == 0 then return end
+		W.SetLinkText(link, text)
+		link.psAction = function() UI.ShowQuestRoom(mode, id) end
+		link:Show()
+	end
+	line(empty.Carried, carried, carried == 1 and L["1 quest in your log carries on to a later guide"]
+		or L["%d quests in your log carry on to later guides"]:format(carried), "later")
+	line(empty.Stray, stray, stray == 1 and L["1 quest isn't part of your route"] or L["%d quests aren't part of your route"]:format(stray), "offroute")
+end
+
 local function setEmpty(kind)
 	state = kind
 	local E, G = Engine(), ns.Guides
 	empty.Primary:Hide()
 	empty.Secondary:Hide()
+	empty.Carried:Hide()
+	empty.Stray:Hide()
 	local glyph, color = "emblem", "accent"
 	if kind == "noguides" and UI.Packs and UI.Packs.OursSwitchedOff() then
 		-- Our own guides switched off on the Community guides page: one
@@ -1604,6 +1628,8 @@ local function setEmpty(kind)
 			empty.Primary.psAction = function() UI.ShowPicker() end
 			empty.Primary:Show()
 		end
+		-- A leveling guide's end: the quests left in the log, said.
+		if guide and not (back or afterRun) then GF.EndQuestLines(guide.id) end
 	end
 	empty.Glyph:SetTexture(Theme.Media(glyph))
 	W.Color(empty.Glyph, color)
@@ -2960,6 +2986,14 @@ local function build()
 	local function act(b) if b.psAction then b.psAction() end end
 	empty.Primary = W.Button(empty, "", act, { primary = true, width = 168 })
 	empty.Secondary = W.Button(empty, "", act, { width = 168 })
+	-- A finished leveling guide's quests left in the log (GF.EndQuestLines):
+	-- links in the accent under the text, each opening its list.
+	empty.Carried = W.Link(empty, "", act, { role = "note" })
+	empty.Carried.psTip = L["A later guide of your route hands these in: keep them. Click to see each with its guide."]
+	empty.Carried:Hide()
+	empty.Stray = W.Link(empty, "", act, { role = "note" })
+	empty.Stray.psTip = L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."]
+	empty.Stray:Hide()
 
 	-- The guide's progress with its percent, at the bottom.
 	foot = CreateFrame("Frame", nil, F)
@@ -3062,6 +3096,11 @@ ns.On("GUIDE_CHANGED", whenReady(GF.Render))
 ns.On("STEP_CHANGED", whenReady(GF.Render))
 ns.On("STEP_UPDATED", whenReady(GF.Update))
 ns.On("PARTY_PROGRESS", whenReady(GF.Update))
+-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
+-- one taken, handed in or abandoned paints it afresh. Only on that card.
+ns.RegisterEvent("QUEST_LOG_UPDATE", function()
+	if state == "complete" and F and F:IsShown() and ns.IsLoggedIn() then GF.Render() end
+end)
 ns.On("GUIDES_REGISTERED", whenReady(GF.Render))
 ns.On("PACKS_CHANGED", whenReady(GF.Render))
 ns.On("GUIDE_COMPLETED", whenReady(GF.Render))

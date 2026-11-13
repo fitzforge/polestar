@@ -2705,7 +2705,25 @@ and both of its values start on `"ask"`.
 - **Carried quests:** `Engine.CarriedQuests(id)` -> `{ { quest, title,
   guideId } }`, the guide's quests still in the log whose quest work carries
   `carriedTo` for this character, in step order; the guide-end window lists
-  them under "Carried to later guides". On the step view a goal's `carriedTo`
+  them under "Carried to later guides", and the guide window's end card says
+  how many ("10 quests in your log carry on to later guides", a link opening
+  that list in the Quest room, `UI.ShowQuestRoom("later", id)`).
+- **Quests not part of the route:** `RoutePlan.OffRoute(id)` -> `{ { quest,
+  title, ready } }` | nil, the quests in the log that no guide of the route
+  of guide `id` (its unambiguous predecessors, it, and every guide after it,
+  each option of a route choice not made yet) takes, works or hands in for
+  this character, names in a `when`, or needs before an accept (`pre`,
+  `preAll`, `crumbs`), leaving out the steps of a dungeon the character
+  skips (`Engine.DungeonAnswer` false), nor any other open tab's chain or a
+  dungeon open in a tab; nil when a guide of a chain is not loaded. The
+  chains' quest sets are kept until `RoutePlan.Invalidate` (also on
+  `DUNGEON_ANSWERED` and a change of `behavior.dungeons`). Read when the end
+  card is painted and when the guide-end window opens, never on a frame
+  tick: the card's second line ("2 quests aren't part of your route") opens
+  `UI.ShowQuestRoom("offroute", id)`, each row with its Abandon button (the
+  game's own confirmation); the guide-end window lists them under "Not part
+  of your route" with "Keep or abandon them". Nothing is abandoned by itself.
+  On the step view a goal's `carriedTo`
   is set once per quest and step (`Own.carriedTo`: its last such goal there
   that applies), and `UI.CarriedLine` reads "Keep this: you hand it in later
   in <guide> (<levels>)" (`UI.GuideLabel`, as the guide-end window names

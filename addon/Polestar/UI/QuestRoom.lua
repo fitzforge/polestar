@@ -16,6 +16,14 @@
 -- guide for all of them (the Lookup planner kind "carried", id "log": one
 -- stop per ender, nearest first from where the player stands).
 --
+-- The end of a leveling guide opens two more lists (the guide window's end
+-- card, the guide-end window): UI.ShowQuestRoom("later", guideId), "Carried
+-- to later guides" (Engine.CarriedQuests: each with the guide that hands it
+-- in, no Abandon, kept), and UI.ShowQuestRoom("offroute", guideId), "Not
+-- part of your route" (RoutePlan.OffRoute: quests no guide of the route
+-- takes, works or hands in, each with its Abandon button, for the player to
+-- keep or abandon).
+--
 -- Built on first use; colours are Theme tokens only.
 
 local ADDON, ns = ...
@@ -128,12 +136,49 @@ local function carriedWhy(c)
 	return where, e
 end
 
+-- One row's second line in the "later" list: the guide that hands it in.
+local function laterWhy(c)
+	local later = c.guideId and ns.Guides.Get(c.guideId)
+	return later and L["Handed in in %s"]:format(UI.GuideLabel(later)) or L["A later guide hands it in"]
+end
+
+-- The lists the guide's end opens (UI/GuideFrame.lua's end card, UI/GuideEnd.lua):
+-- the quests a later guide hands in (Engine.CarriedQuests of the guide that
+-- ended: keep them), and those no guide of the route uses (RoutePlan.OffRoute:
+-- keep or abandon them). -> title, list, hint
+local function endList(mode, id)
+	local E = ns.Engine
+	id = id or (E.GetGuide and E.GetGuide() or {}).id
+	if mode == "later" then
+		local list = id and E.CarriedQuests and E.CarriedQuests(id) or {}
+		return L["Carried to later guides"], list,
+			#list == 0 and L["No quest in your log waits for a later guide."] or L["A later guide of your route hands these in: keep them."]
+	end
+	local list = ns.RoutePlan.OffRoute(id)
+	local hint
+	if list == nil then
+		hint = L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."]
+	elseif #list == 0 then
+		hint = L["Every quest in your log is part of your route."]
+	else
+		hint = L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."]
+	end
+	return L["Not part of your route"], list, hint
+end
+
 -- Fill the list from the quest log as it is now.
 function UI.LayoutQuestRoom()
 	if not (F and F:IsShown()) then return end
-	local carried = F.psMode == "carried"
+	local mode = F.psMode
+	local carried = mode == "carried"
+	local ending = mode == "later" or mode == "offroute"
 	local list
-	if carried then
+	if ending then
+		local title, hint
+		title, list, hint = endList(mode, F.psGuide)
+		F.Title:SetText(title)
+		F.Hint:SetText(hint)
+	elseif carried then
 		F.Title:SetText(L["Finished quests you're still carrying"])
 		list = ns.RoutePlan.Carried()
 		if list == nil then
@@ -162,7 +207,14 @@ function UI.LayoutQuestRoom()
 		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
 		r:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
 		r.Title:SetText(u.title or ("#" .. u.quest))
-		if carried then
+		if mode == "later" then
+			-- A later guide hands it in: kept, no Abandon.
+			r.Why:SetText(laterWhy(u))
+			r.Abandon:Hide()
+		elseif mode == "offroute" then
+			r.Why:SetText(u.ready and L["Finished: no guide of your route hands it in"] or L["Not in any guide of your route"])
+			r.Abandon:Show()
+		elseif carried then
 			local why, e = carriedWhy(u)
 			r.Why:SetText(why)
 			if e then guided = true end
@@ -180,7 +232,7 @@ function UI.LayoutQuestRoom()
 	F.GuideMe:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
 	F.GuideMe:SetShown(carried and guided)
 	-- Make room: the finished quests no route hands in, when there are any.
-	local finished = not carried and ns.RoutePlan.Carried() or nil
+	local finished = not (carried or ending) and ns.RoutePlan.Carried() or nil
 	local switch = carried or (finished ~= nil and #finished > 0)
 	if switch then
 		W.SetButtonText(F.Switch, carried and L["Make room in your quest log"] or L["Finished quests you're still carrying (%d)"]:format(#finished))
@@ -192,11 +244,13 @@ function UI.LayoutQuestRoom()
 	F:SetHeight(y + PAD - 6)
 end
 
--- mode: nil (make room in the quest log) or "carried".
-function UI.ShowQuestRoom(mode)
+-- mode: nil (make room in the quest log), "carried", or the guide's end's
+-- "later" and "offroute" (guideId: the guide that ended; nil: the active tab's).
+function UI.ShowQuestRoom(mode, guideId)
 	if not F then build() end
-	F.psMode = mode
+	F.psMode, F.psGuide = mode, guideId
 	F:Show()
+	F:Raise()
 	UI.LayoutQuestRoom()
 end
 
