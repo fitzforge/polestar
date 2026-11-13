@@ -120,19 +120,28 @@ end
 
 -- A click on a part finds its setting; the pointer on a setting's row lights
 -- the parts it changes (the settings window's own, for what dresses it), on
--- preview f: the guide window G, the heads-up card, the rare alert and the
--- names card, those it has.
+-- preview f: the guide window G (UI.GuideWindowScene, a copy of the window
+-- drawn once as it is made), the heads-up card, the rare alert and the names
+-- card, those it has.
 function lightParts(f, G, heads, toast, card)
 	local guide = rawget(f, "Guide")
 	local surfaces = { guide, heads, toast, card }
 	local win = PolestarOptions
+	-- The scene's window: its open tab, the "1 done" line, the current goal
+	-- (the kill the arrow points at), the collect under it with its mobs, the
+	-- "Then:" line naming the step's other person (in the NPC's colour, the
+	-- quest's name in the quest's).
+	local S
 	if G then
-		f:Hot(G.Window, "ui.bgOpacity")
-		f:Hot(G.Window.Band, "ui.starAlpha")
-		f:Hot(G.Person.Name, "ui.headingFont")
-		f:Hot(G.Rows[1], "ui.textMutedColor")
-		f:Hot(G.Rows[2].Text, "ui.colors.npc")
-		f:Hot(G.Rows[3].Text, "ui.colors.item")
+		local C, P = G.Copy, G.Copy.parts
+		S = { window = G.Window, band = P.band, person = P.person, strip = P.strip, nav = P.nav, tip = P.tip, foot = P.foot,
+			up = P.upnext, tab = C.tabs[1], done = C.lines[1], current = C.rows[1], collect = C.rows[2], next = C.lines[2] }
+		f:Hot(S.window, "ui.bgOpacity")
+		f:Hot(S.band, "ui.starAlpha")
+		f:Hot(S.person.Name, "ui.headingFont")
+		f:Hot(S.collect and S.collect.Sub, "ui.textMutedColor")
+		f:Hot(S.next and S.next.Text, "ui.colors.npc")
+		f:Hot(S.collect and S.collect.Text, "ui.colors.item")
 	end
 	if toast then f:Hot(toast, "ui.panelColor") end
 	-- The cards' own primary buttons: the heads-up's, the rare alert's.
@@ -165,7 +174,7 @@ function lightParts(f, G, heads, toast, card)
 		end
 	end
 	accent(unpack(primaries))
-	if G then accent(G.Strip.Bar, G.Strip.Icon, G.Rows[2].Mark, G.Rows[2].Icon, G.Foot.Line) end
+	if S then accent(S.tab and S.tab.Bar, S.tab and S.tab.Icon, S.current and S.current.Mark, S.current and S.current.Icon, S.foot.Line) end
 	if heads then accent(rawget(heads, "Stripe"), rawget(heads, "Ring"), rawget(heads, "Head"), rawget(heads, "Badge")) end
 	if toast then accent(rawget(toast, "Timer")) end
 	-- Rings off them: an outline on a part in the accent would not show.
@@ -222,24 +231,23 @@ function lightParts(f, G, heads, toast, card)
 	for _, key in ipairs({ "ui.border", "ui.borderSize", "ui.borderColor", "ui.borderAccent", "ui.shadow", "ui.shadowStrength" }) do
 		f:LightEdge(key, guide, toast, heads, card)
 	end
-	if G then
-		light("ui.band", G.Window.Band)
-		light("ui.starAlpha", G.Window.Band)
-		light("ui.hairlineOpacity", G.Strip.Rule, G.Nav.Rule, G.Up.Rule)
-		light("ui.textSize", G.Rows[2].Text, G.Rows[3].Text, G.Tip)
-		light("ui.headingFont", G.Person.Name)
-		light("ui.headingSize", G.Person.Name)
-		light("ui.smallSize", G.Strip.Label, G.Nav.Title, G.Person.Where, G.Up.Label)
-		light("ui.textColor", G.Rows[2].Text, G.Rows[3].Text)
-		light("ui.textDimColor", G.Nav.Title, G.Person.Where, G.Tip)
-		light("ui.textMutedColor", G.Rows[1].Text, G.Up)
+	if S then
+		local current, collect, next, done = S.current or {}, S.collect or {}, S.next or {}, S.done or {}
+		light("ui.band", S.band)
+		light("ui.starAlpha", S.band)
+		light("ui.hairlineOpacity", S.strip.Rule, S.nav.Rule, S.up.Toggle.Rule)
+		light("ui.textSize", current.Text, collect.Text, S.tip)
+		light("ui.headingFont", S.person.Name)
+		light("ui.headingSize", S.person.Name)
+		light("ui.smallSize", S.tab and S.tab.Label, S.nav.Title, S.person.Where, S.up.Toggle.Label)
+		light("ui.textColor", current.Text, collect.Text)
+		light("ui.textDimColor", S.nav.Title, S.person.Where, S.tip, done.Text, next.Text)
+		light("ui.textMutedColor", collect.Sub, S.tab and S.tab.Range)
 		-- The names the scene draws in each subject's colour.
-		light("ui.colors.npc", G.Person.Name, G.Rows[2].Text)
-		light("ui.colors.item", G.Rows[3].Text)
-		light("ui.colors.place", G.Person.Where)
-		light("ui.colors.success", G.Rows[1].Icon)
-		light("ui.colors.level", G.Rows[2].Sub)
-		light("ui.colors.quest", G.Up)
+		light("ui.colors.npc", next.Text)
+		light("ui.colors.quest", next.Text)
+		light("ui.colors.item", collect.Text)
+		light("ui.colors.success", done.Icon)
 	end
 	if heads then light("ui.colors.dungeon", heads) end
 	if toast then light("ui.colors.rare", toast) end
@@ -250,19 +258,19 @@ end
 
 -- Theme v2, a band (UI.Preview.Band): the three surfaces the theme styles,
 -- side by side, 32 apart, their feet on one line, a label under each: the
--- guide window (its head and three goal rows, cut under them and faded into
--- the panel), the heads-up card (on the window's scale, as it sits on the
--- window) and the rare alert; drawn by their own code at their real size,
--- all smaller alike where the band cannot hold the three across (the band's
--- hint line says so).
-local TRIO_GAP, ROWS_ROOM, SIDE = 32, 24, 16 -- between two; the window's ground under its third row; the window's own room a side
+-- guide window (a copy drawn by its own code, UI.GuideWindowScene: its head
+-- and its goals, cut under them and faded into the panel), the heads-up card
+-- (on the window's scale, as it sits on the window) and the rare alert; drawn
+-- by their own code at their real size, all smaller alike where the band
+-- cannot hold the three across (the band's hint line says so).
+local TRIO_GAP, ROWS_ROOM, SIDE = 32, 24, 16 -- between two; the window's ground under its goals; the window's own room a side
 local function buildPreview(view)
 	local UI = ns.UI
 	local TS = UI.Toasts
 	local f = UI.Preview.Band(view, { watch = { "ui.", "guideWindow.", "toasts." } })
 	local G = UI.GuideWindowScene and UI.GuideWindowScene(f)
 	f.Scene, f.Guide = G, G and G.Window
-	f.StepTitle = G and G.Person.Name
+	f.StepTitle = G and G.Copy.parts.person.Name
 	local heads = TS and TS.Sandbox and TS.Sandbox("headsup", f)
 	local toast = TS and TS.Sandbox and TS.Sandbox("rare", f)
 	f.Heads, f.Toast = heads, toast
@@ -282,8 +290,8 @@ local function buildPreview(view)
 		-- Each one's size at its real size (band units).
 		for _, p in ipairs(parts) do
 			if p.kind == "guide" then
-				-- Laid out whole, then given the room down to its third row's
-				-- foot (and the 8 its crop keeps under what it shows).
+				-- Drawn whole, then given the room down to its goals' foot
+				-- (and the 8 its crop keeps under what it shows).
 				G:Layout(400 * scale + SIDE * 2, 4000)
 				p.k = scale
 				p.w = G.Window:GetWidth() * scale
@@ -312,8 +320,7 @@ local function buildPreview(view)
 					G:SetScale(k)
 					G:ClearAllPoints()
 					G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, x - SIDE * k) / k, -snap(self, foot - p.h * k) / k)
-					G:SetSize(p.w + SIDE * 2, p.h)
-					G:Layout(p.w + SIDE * 2, p.h)
+					G:Resize(p.w + SIDE * 2, p.h)
 				else
 					p.frame.psBandScale = g
 					p.frame:SetScale(g)

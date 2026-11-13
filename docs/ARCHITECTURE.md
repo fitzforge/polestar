@@ -6926,13 +6926,15 @@ Route lines' scene is the Barrens (up the road to the Crossroads, a flight to
 Ratchet, the boat out), its rides' colours the line under the map
 (`mapLabel`). The Guide window band crops: a window taller than its room is
 cut there, faded into the band's ground over 28 px (`UI.GuideWindowScene`,
-which also draws Theme's guide window, cut under its third goal row) and
-scrolled to the part the hovered row edits (`f:Focus`); a part the crop would
-cut through is left out (no text cut in two at the foot or, scrolled, the
-top), its ground running on under the fade.
+which also draws Theme's guide window, cut under its goals) and scrolled to
+the part the hovered row edits (`f:Focus`; the parts' places from the
+window's own `GF.Placed()`); a part the crop would cut through is left out
+(no text cut in two at the foot or, scrolled, the top), its ground running on
+under the fade. The window there is the guide window itself: a copy drawn by
+its own code (`UI.GuideFrame.Copy`, below) and fed a sample step.
 
 The Look pages' bands: Theme (Essentials, Colour, Text, Frames), its three
-surfaces side by side (the guide window cut under its third goal row and
+surfaces side by side (the guide window cut under its goals and
 faded into the panel; the heads-up card; the rare alert), at 86% to fit in
 the default window; its Names tab, a card of every subject's name in its
 colour. Guide window, the window alone. Arrow, the dial on its way, closing
@@ -7124,12 +7126,33 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `GuideFrameMenu.lua` (the menu and Nearby), `GuideFrameWindow.lua`
   (position, size, scale, opacity, the lock, moving and resizing, the
   combat and instance rules) and `GuideFrameStatus.lua` (the XP and party
-  lines). They share the module table (`UI.GuideFrame`): the core's
-  helpers are fields on it, and `GF.Bind(fn)` hands each file the window's
-  parts and sizes as its own locals (when the file loads, once the window
-  is built, and when a skin's sizes are read), so per-frame code reads
-  upvalues as before. What the window shows now comes through `GF.View()`,
-  `GF.State()` and `GF.TipOpen()`.
+  lines). Each file adds its part with `GF.Part(fn)` as it loads, and
+  `fn(GF)` builds that part into a window's table: the live window's
+  (`UI.GuideFrame`, `GF.live`) at once, then each copy's, part by part in the
+  same order. `GF.Copy(parent, content)` makes a copy (the settings
+  preview's, `UI/Looks/GuideWindow.lua`): unnamed, in `parent`, with no
+  event, message, setting or hook of its own, taking no click, wheel or
+  tooltip (its frame sees the pointer's hover, `GF.MouseOff`), without the
+  frames other modules put in the live window (the class card, the journey,
+  the step browser, name targets, gear picks) or what the session raises
+  (the banner's notices, off-route timers, the party line); its host draws it
+  (`copy.Draw()`: every setting applied anew, its content filled in and laid
+  out) and places `copy.frame`. Within a window the core's helpers are
+  fields on its table, and `GF.Bind(fn)` hands each file the window's parts
+  and sizes as its own locals (when the file binds, once the window is built,
+  and when a skin's sizes are read), so per-frame code reads upvalues as
+  before. What a window draws comes from its content provider (`GF.content`,
+  the interface `GF.CONTENT` names): the Engine's read API (GetGuide,
+  GetTabs, GetStepIndex, GetLiveStep, GetStepCount, GetStepView,
+  StepNumber, StepTotal, GetProgress, GetAlong, GetWhileHereList; a gate,
+  notice or action it lacks is nothing to show or do) and five lines worked
+  out from it: StepHint and Pace (`Core/Levels.lua`), XPStats and RestParts
+  (QoL), Target (Nav, else the Engine's waypoint). The live window's is the
+  Engine with those five; the settings preview's, its sample. The skin hooks
+  run for every guide window, each handed its own parts (`GF.SkinParts()`;
+  `Theme.GuideParts()` is the live window's), and `psGuideWindow` marks a
+  guide window itself apart from a card painted as one. What the window
+  shows now comes through `GF.View()`, `GF.State()` and `GF.TipOpen()`.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
   faint at rest, full under the pointer; right-click for Choose guide, Close
   tab, Move left/right; middle-click closes), a slim navigator (prev,
@@ -7299,9 +7322,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   watch runs only while the cursor is over it), to `combatAlpha` in a
   fight with Fade out, and hides on a flight with `hideTaxi`; the step
   change slide and the folding of finished goals can be turned off or
-  sped up. `GF.ApplyLook(key)` redraws only what a key touches;
-  `GF.Metrics()` hands the sizes to the page's preview, which lays out a
-  demo step card by them in its own frame, never the live window.
+  sped up. `GF.ApplyLook(key)` redraws only what a key touches. The page's
+  preview is a copy of the window drawn by its own code (`GF.Copy`, fed a
+  sample step), never the live window; `GF.Metrics()` hands the sizes to its
+  Essentials presets' pictures.
 - **Quick settings** (`UI/QuickSettings.lua`, core): the guide window
   menu's first entry opens a 280 px popover by the menu button with the
   settings changed mid-play (`ui.locked`, `ui.opacity`, `nav.arrow`,

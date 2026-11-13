@@ -772,20 +772,22 @@ end
 
 -- Step i of the active guide as the player counts it: steps that do not
 -- exist for the character (another class's or race's, Engine.StepNumber)
--- left out (#942); whether it is such a step; how many the player sees.
-function UI.StepNo(i)
-	local E = ns.Engine
+-- left out (#942); whether it is such a step; how many the player sees. `E`:
+-- what to ask instead of the Engine (a guide window's content, which answers
+-- as the Engine does).
+function UI.StepNo(i, E)
+	E = E or ns.Engine
 	if E and E.StepNumber and type(i) == "number" then return (E.StepNumber(i)) end
 	return i
 end
-function UI.StepHidden(i)
-	local E = ns.Engine
+function UI.StepHidden(i, E)
+	E = E or ns.Engine
 	if not (E and E.StepNumber and type(i) == "number") then return false end
 	local _, hidden = E.StepNumber(i)
 	return hidden == true
 end
-function UI.StepTotal()
-	local E = ns.Engine
+function UI.StepTotal(E)
+	E = E or ns.Engine
 	if E and E.StepTotal then return E.StepTotal() end
 	return E and E.GetStepCount and E.GetStepCount() or 0
 end

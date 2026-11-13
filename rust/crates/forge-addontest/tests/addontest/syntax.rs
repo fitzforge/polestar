@@ -60,16 +60,20 @@ fn every_addon_lua_file_compiles_under_lua_5_1() {
 }
 
 // Lua 5.1 caps a chunk at 200 locals in scope at once; a file at the cap fails to load the moment a merge adds one
-// more top-level local. Every file's main chunk keeps 10 spare (at most 190).
+// more top-level local. Every file's main chunk keeps 10 spare (at most 190), and so does a guide window file's part
+// (UI/GuideFrame*.lua: its whole body is one function, `GF.Part(function(GF) ... end)`, built for every window).
 const MAIN_LOCALS_MAX: usize = 190;
 
-/// The most locals a file's main chunk holds in scope at once: 200 less the most extra locals declared ahead of
-/// it that still compile.
-fn main_chunk_locals(src: &[u8]) -> usize {
+/// The most locals a function holds in scope at once, the function starting after `at` bytes of `src` (0: the main
+/// chunk): 200 less the most extra locals declared at its top that still compile.
+fn locals_at(src: &[u8], at: usize) -> usize {
 	let lua = mlua::Lua::new();
 	let fits = |extra: usize| {
-		let mut prefixed = if extra == 0 { Vec::new() } else { format!("local {}; ", (0..extra).map(|i| format!("_x{i}")).collect::<Vec<_>>().join(",")).into_bytes() };
-		prefixed.extend_from_slice(src);
+		let mut prefixed = src[..at].to_vec();
+		if extra > 0 {
+			prefixed.extend_from_slice(format!("local {}; ", (0..extra).map(|i| format!("_x{i}")).collect::<Vec<_>>().join(",")).as_bytes());
+		}
+		prefixed.extend_from_slice(&src[at..]);
 		lua.load(&prefixed[..]).into_function().is_ok()
 	};
 	assert!(fits(0), "the file must compile");
@@ -85,17 +89,37 @@ fn main_chunk_locals(src: &[u8]) -> usize {
 	200 - lo
 }
 
+fn main_chunk_locals(src: &[u8]) -> usize {
+	locals_at(src, 0)
+}
+
+/// Where a guide window file's part function starts (after its opening line), if the file is one.
+fn part_start(src: &[u8]) -> Option<usize> {
+	let opener = Regex::new(r"(?m)^(ns\.UI\.GuideFrame\.Part|GF\.Part)\(function\(GF\)\n").unwrap();
+	opener.find(std::str::from_utf8(src).ok()?).map(|m| m.end())
+}
+
 #[test]
 fn every_addon_lua_files_main_chunk_keeps_spare_locals() {
 	let mut over = Vec::new();
+	let mut parts = 0;
 	for file in lua_files() {
 		let r = rel(&file);
-		let n = main_chunk_locals(&fs::read(&file).unwrap());
+		let src = fs::read(&file).unwrap();
+		let n = main_chunk_locals(&src);
 		if n > MAIN_LOCALS_MAX {
 			over.push(format!("{r}: {n} locals in its main chunk (at most {MAIN_LOCALS_MAX}: group some into a table)"));
 		}
+		if let Some(at) = part_start(&src) {
+			parts += 1;
+			let n = locals_at(&src, at);
+			if n > MAIN_LOCALS_MAX {
+				over.push(format!("{r}: {n} locals in its window part (at most {MAIN_LOCALS_MAX}: group some into a table)"));
+			}
+		}
 	}
 	assert_eq!(over, Vec::<String>::new());
+	assert!(parts >= 9, "the guide window's files are window parts: {parts} found");
 }
 
 #[test]

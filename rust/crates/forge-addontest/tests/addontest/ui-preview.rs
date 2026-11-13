@@ -314,7 +314,7 @@ fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the
 				if made.psLit then lit[region] = true end
 			end
 		end
-		local G, heads, toast, win = f.Scene, f.Heads, f.Toast, PolestarOptions
+		local C, heads, toast, win = f.Scene.Copy, f.Heads, f.Toast, PolestarOptions
 		-- The heads-up card's accent parts the look draws (the house look draws no stripe), every one lit.
 		local cardParts, cardLit = 0, true
 		for _, part in ipairs({ heads.Stripe, heads.Ring, heads.Head, heads.Badge }) do
@@ -323,11 +323,13 @@ fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the
 				cardLit = cardLit and lit[part] == true
 			end
 		end
+		-- The copy's open tab, its current goal (the kill the arrow points at) and the collect under it.
+		local tab, current, collect, foot = C.tabs[1], C.rows[1], C.rows[2], C.parts.foot
 		local scene = {
-			tab = lit[G.Strip.Bar] and lit[G.Strip.Icon], goal = lit[G.Rows[2].Mark] and lit[G.Rows[2].Icon],
-			progress = (lit[G.Foot.Line] == true) == (G.Foot:GetAlpha() > 0), stripe = cardParts >= 2 and cardLit,
+			tab = lit[tab.Bar] and lit[tab.Icon], goal = lit[current.Mark] and lit[current.Icon],
+			progress = (lit[foot.Line] == true) == (foot:GetAlpha() > 0), stripe = cardParts >= 2 and cardLit,
 			primaries = lit[heads.Act] and lit[toast.Waypoint], timer = lit[toast.Timer],
-			dark = not lit[G.Rows[3].Text] and not lit[G.Person.Name],
+			dark = not lit[collect.Text] and not lit[C.parts.person.Name],
 		}
 		local tabs, others, fills, tracks, row = 0, 0, 0, 0, false
 		for _, t in ipairs(win.tabButtons) do

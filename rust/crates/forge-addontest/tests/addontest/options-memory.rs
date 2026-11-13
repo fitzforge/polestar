@@ -30,10 +30,12 @@ use serde_json::Value;
 /// The 0.3.7 base's core at login: next at c0c99712a (0.3.7 final), this test's script, 2026-11-11: 11,003 KiB.
 const LOGIN_BASE: f64 = 11003.0;
 /// At most 50 KiB over the base, plus what 0.3.7.1, 0.3.7.2 and the 0.3.8 work so far add at login (measured
-/// 11060 KiB after the merge, 57 over the base; 11115 with 0.4.0's looks carried and polished, 112 over it). Raised
-/// rather than re-measured per release: Fitz, 2026-11-12, "if you hit memory budgets again, just raise them"; the
-/// login cost gets its review once 0.3.8's content is final.
-const LOGIN: f64 = LOGIN_BASE + 160.0;
+/// 11060 KiB after the merge, 57 over the base; 11115 with 0.4.0's looks carried and polished, 112 over it; 11211
+/// with the settings preview drawing the guide window itself, 208 over it: +77 from the guide window's code kept for
+/// the preview's copy, each UI/GuideFrame*.lua file's part and the window's build, which the live window dropped
+/// once built). Raised rather than re-measured per release: Fitz, 2026-11-12, "if you hit memory budgets again, just
+/// raise them"; the login cost gets its review once 0.3.8's content is final.
+const LOGIN: f64 = LOGIN_BASE + 220.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
