@@ -2696,7 +2696,7 @@ local function navButton(f, i)
 end
 
 -- items: { { key, label, icon, count, dot }, ... }; the active one is marked.
--- A row whose count is 0 recedes (no number, faded) but stays reachable; a
+-- A row whose count is 0 recedes (no number, muted) but stays reachable; a
 -- row with `dot` carries a warning dot at its right edge (no count then).
 -- { heading = true, label } is a muted heading over the rows after it, at
 -- the text edge, not a choice.
@@ -2759,9 +2759,10 @@ local function navRow(b, item, on)
 		b.Selected:Hide()
 		b.Bar:Hide()
 	end
+	-- An empty row recedes in the muted text colour alone: a fade on top of
+	-- it drew its label under 3:1 in some looks (the colour is held to read).
 	W.Color(b.Label, on and "text" or (empty and "textMuted" or "navRest"))
 	W.Color(b.Icon, on and "accent" or (empty and "textMuted" or "textDim"))
-	b:SetAlpha((empty and not on) and 0.55 or 1)
 	b.psEmpty = empty
 	b.psHeading = item.heading and true or false
 	b.psGroup = item.group and true or false
@@ -2773,7 +2774,6 @@ local function navRow(b, item, on)
 		b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
 		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + (item.group and 20 or 0)), 0)
 		W.Color(b.Label, "textMuted")
-		b:SetAlpha(1)
 		if item.group then
 			b.Chevron:SetTexture(Theme.Media(item.folded and "chevron-right" or "chevron-down"))
 			W.Color(b.Chevron, "textMuted")
