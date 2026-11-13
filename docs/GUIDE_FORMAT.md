@@ -593,8 +593,10 @@ plays the steps from the start, so a pack with them needs no newer format.
 ## Materials
 
 A crafting guide's materials can be gathered or bought: the player picks per
-guide (Gather, Buy or Mix) and per material, and changes it any time. A
-section writes both ways for each material it needs that the Auction House
+guide (Gather, Buy or Mix) and per material, and changes it any time (the card
+a guide with such materials shows once, the Materials window, `/polestar
+materials`, or the guide window's menu; Options > Guide > Professions sets the
+way of a guide never answered). A section writes both ways for each material it needs that the Auction House
 sells: an `auction` goal (usually all of them in one step after the vendor
 goods) and the item's `collect` steps marked `gather`:
 
