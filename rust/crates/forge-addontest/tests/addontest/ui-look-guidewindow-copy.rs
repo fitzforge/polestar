@@ -1,12 +1,12 @@
 //! The settings preview's guide window is the window itself: a copy the live window's own code draws
 //! (addon/Polestar/UI/GuideFrame.lua, GF.Copy; the scene of the Guide window and Theme pages, UI/Looks/GuideWindow.lua),
-//! fed the preview's sample step through the window's content interface (GF.CONTENT, what the live window asks the
-//! Engine). Its parts, and which of them show, never differ from the live window's under the same settings and the
-//! same content, in every look the picker lists: the live window is handed the sample (GF.content) and both are drawn
-//! anew; every shown frame and region of each, by kind, draw layer, texture or atlas, text and colour, under frames of
-//! the same kinds, must match. A copy hears nothing (no event, message, setting, login, init or theme hook of its own,
-//! no global function hooked) and takes no click, wheel or tooltip: only its frame sees the pointer's hover. The whole
-//! addon and every bundled skin over stub_world.lua.
+//! fed the preview's sample step through the window's content interface (GF.CONTENT, what the live window reads from
+//! the Engine and the modules that work its lines out). Its parts, and which of them show, never differ from the live
+//! window's under the same settings and the same content, in every look the picker lists: the live window is handed the
+//! sample (GF.UseContent) and both are drawn anew; every shown frame and region of each, by kind, draw layer, texture
+//! or atlas, text and colour, under frames of the same kinds, must match. A copy hears nothing (no event, message,
+//! setting, login, init or theme hook of its own, no global function hooked) and takes no click, wheel or tooltip: only
+//! its frame sees the pointer's hover. The whole addon and every bundled skin over stub_world.lua.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
@@ -132,8 +132,7 @@ local STATES = {{
 		["guideWindow.border"] = false, ["guideWindow.bgColor"] = {{ 0.2, 0.1, 0.3 }} }} }},
 }}
 -- The live window draws the preview's sample: the same content, so whatever differs is the copy's.
-local own = GF.content
-GF.content = copy.content
+GF.UseContent(copy.content)
 -- Both drawn anew, twice, a second apart: a paint a look makes a frame after a window shows, and the done line's
 -- glow, have landed.
 local function draw()
@@ -159,7 +158,7 @@ for _, look in ipairs(LOOKS) do
 		for k in pairs(st.set) do Polestar.Set(k, nil) end
 	end
 end
-GF.content = own
+GF.UseContent(nil)
 emit(out)"#
 	));
 	let runs = out.as_array().unwrap();
@@ -175,8 +174,9 @@ emit(out)"#
 }
 
 // The parts Fitz found missing from the hand-drawn preview the copy has by being the window: the "+" that opens a tab,
-// the search (Lookup), the "Then:" line naming the step's other person, the XP pace line; and the live window's
-// provider and the sample both answer the whole content interface.
+// the search (Lookup), the "Then:" line naming the step's other person, the XP pace line. The sample answers the whole
+// content interface; the live window reads the Engine itself (no provider between them on its step change) and its
+// five lines from their modules.
 #[test]
 fn the_preview_s_window_has_the_tab_plus_the_search_the_then_line_and_the_xp_line() {
 	let out = run(r#"
@@ -185,13 +185,16 @@ fn the_preview_s_window_has_the_tab_plus_the_search_the_then_line_and_the_xp_lin
 		for _, l in ipairs(copy.lines) do
 			if l:IsShown() and (l.Text:GetText() or ""):find("^Then:") then thenLine = true end
 		end
+		local DERIVED = { StepHint = true, Pace = true, XPStats = true, RestParts = true, Target = true }
 		local missing = {}
 		for _, name in ipairs(GF.CONTENT) do
-			if type(GF.content[name]) ~= "function" then missing[#missing + 1] = "live " .. name end
+			local live = DERIVED[name] and GF.Derived() or GF.Engine()
+			if type(live[name]) ~= "function" then missing[#missing + 1] = "live " .. name end
 			if type(copy.content[name]) ~= "function" then missing[#missing + 1] = "sample " .. name end
 		end
 		emit({ plus = P.strip:IsShown() and P.strip.Add:IsShown(), search = P.nav.Lookup:IsShown(), thenLine = thenLine,
 			xp = copy.xp:IsShown() and copy.xp.Text:GetText() or false, interface = #GF.CONTENT, missing = table.concat(missing, ", "),
+			straight = GF.Engine() == Polestar.Engine and GF.content == nil, copyReads = copy.Engine() == copy.content,
 			count = P.nav.Steps.Count:GetText(), tab = copy.tabs[1] and copy.tabs[1].Range:GetText() or false })"#);
 	assert_eq!(out["plus"], true, "the + that opens a guide in a new tab");
 	assert_eq!(out["search"], true, "the search (Lookup)");
@@ -199,7 +202,9 @@ fn the_preview_s_window_has_the_tab_plus_the_search_the_then_line_and_the_xp_lin
 	let xp = out["xp"].as_str().unwrap_or_default();
 	assert!(xp.contains("XP/h") && xp.contains("On pace for level 6 by step 12"), "the XP pace line: {xp}");
 	assert!(out["interface"].as_u64().unwrap() >= 16, "{out}");
-	assert_eq!(out["missing"], "", "the live window's provider and the sample answer the whole interface");
+	assert_eq!(out["missing"], "", "the live window and the sample answer the whole interface");
+	assert_eq!(out["straight"], true, "the live window reads the Engine itself");
+	assert_eq!(out["copyReads"], true, "a copy reads its provider");
 	assert_eq!(out["count"], "8 / 29");
 	assert_eq!(out["tab"], "(1\u{2013}10)", "the sample's tab with its levels");
 }

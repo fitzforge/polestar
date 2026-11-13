@@ -41,15 +41,15 @@
 -- browser, name targets, gear picks), nor its banner, timers or party line.
 -- Its host draws it with copy.Draw() and places copy.frame.
 --
--- What a window draws comes from its content provider (GF.content), one small
--- interface (GF.CONTENT): the Engine's read API it draws a step from
--- (GetGuide, GetTabs, GetStepIndex, GetLiveStep, GetStepCount, GetStepView,
--- StepNumber, StepTotal, GetProgress, GetAlong, GetWhileHereList; a gate,
--- notice or action it lacks is nothing to show or do) and the lines other
--- modules work out from it: StepHint(i) and Pace() (Core/Levels.lua),
--- XPStats() and RestParts() (QoL), Target() (where the arrow points: Nav,
--- else the Engine's waypoint). The live window gets the Engine, with those
--- five; a copy, its host's provider.
+-- What a window draws is one small interface (GF.CONTENT): the Engine's read
+-- API it draws a step from (GetGuide, GetTabs, GetStepIndex, GetLiveStep,
+-- GetStepCount, GetStepView, StepNumber, StepTotal, GetProgress, GetAlong,
+-- GetWhileHereList; a gate, notice or action it lacks is nothing to show or
+-- do) and the lines other modules work out from it: StepHint(i) and Pace()
+-- (Core/Levels.lua), XPStats() and RestParts() (QoL), Target() (where the
+-- arrow points: Nav, else the Engine's waypoint). The live window reads the
+-- Engine and those modules straight (GF.Engine(), GF.Derived()); a copy, its
+-- host's provider of the whole interface (copy.content).
 --
 -- Styles (ui.style): "standard" draws the night ground (Theme.GroundAlpha,
 -- ui.bgOpacity, like every Polestar window), hairline border and the
@@ -201,45 +201,48 @@ GF.Part(function(GF)
 		fn(current())
 	end
 
-	-- The window's content (the top of this file). The live window's: the
-	-- Engine as it is when asked (a test may stand another in its place), with
-	-- the five lines other modules work out from it; a copy's, its host's.
+	-- The window's content (the top of this file). The live window asks the
+	-- Engine as it is when asked (a test may stand another in its place) and,
+	-- for the five lines worked out from it, their modules (DERIVED), straight:
+	-- its step change pays nothing for the interface. A copy reads its host's
+	-- provider for both (copy.content). A host may hand the live window a
+	-- provider too (GF.UseContent(content); nil: the Engine again).
 	GF.CONTENT = { "GetGuide", "GetTabs", "GetStepIndex", "GetLiveStep", "GetStepCount", "GetStepView", "StepNumber", "StepTotal",
 		"GetProgress", "GetAlong", "GetWhileHereList", "StepHint", "Pace", "XPStats", "RestParts", "Target" }
-	if GF.live then
-		GF.content = setmetatable({
-			StepHint = function(i)
-				local Lv = ns.Levels
-				return Lv and Lv.StepHint and Lv.StepHint(i) or nil
-			end,
-			Pace = function()
-				local Lv = ns.Levels
-				return Lv and Lv.Pace and Lv.Pace() or nil
-			end,
-			XPStats = function()
-				local Q = ns.QoL
-				if not (Q and Q.GetXPStats) then return nil end
-				local ok, stats = pcall(Q.GetXPStats)
-				return ok and stats or nil
-			end,
-			RestParts = function()
-				local Q = ns.QoL
-				return Q and Q.Rest and Q.Rest.Parts and Q.Rest.Parts() or nil
-			end,
-			-- Where the arrow points. With Nav loaded its answer is final: nil
-			-- means the player dismissed the target, so nothing is marked. Only
-			-- without Nav does the Engine's waypoint stand in.
-			Target = function()
-				local nav, E = ns.Nav, ns.Engine
-				if nav and nav.GetTarget then return nav.GetTarget() end
-				return E and E.GetWaypoint and E.GetWaypoint() or nil
-			end,
-		}, { __index = function(_, key)
-			local E = ns.Engine
-			return E and E[key]
-		end })
+	local DERIVED = GF.live and {
+		StepHint = function(i)
+			local Lv = ns.Levels
+			return Lv and Lv.StepHint and Lv.StepHint(i) or nil
+		end,
+		Pace = function()
+			local Lv = ns.Levels
+			return Lv and Lv.Pace and Lv.Pace() or nil
+		end,
+		XPStats = function()
+			local Q = ns.QoL
+			if not (Q and Q.GetXPStats) then return nil end
+			local ok, stats = pcall(Q.GetXPStats)
+			return ok and stats or nil
+		end,
+		RestParts = function()
+			local Q = ns.QoL
+			return Q and Q.Rest and Q.Rest.Parts and Q.Rest.Parts() or nil
+		end,
+		-- Where the arrow points. With Nav loaded its answer is final: nil
+		-- means the player dismissed the target, so nothing is marked. Only
+		-- without Nav does the Engine's waypoint stand in.
+		Target = function()
+			local nav, E = ns.Nav, ns.Engine
+			if nav and nav.GetTarget then return nav.GetTarget() end
+			return E and E.GetWaypoint and E.GetWaypoint() or nil
+		end,
+	} or nil
+	local provider = GF.content
+	local function Engine() return provider or ns.Engine end
+	local function Derived() return provider or DERIVED end
+	function GF.UseContent(c)
+		provider, GF.content = c, c
 	end
-	local function Engine() return GF.content end
 	local function compact() return ns.Get("ui.compact") and true or false end
 	local function transparent() return ns.Get("ui.style") == "transparent" end
 
@@ -387,10 +390,10 @@ GF.Part(function(GF)
 	-- Targets and tooltips
 	---------------------------------------------------------------------------
 
-	-- Where the arrow points, as the content says (its Target line).
+	-- Where the arrow points, as the window's content says (its Target line).
 	local function targetOf()
-		local E = Engine()
-		return E.Target and E.Target() or nil
+		local d = Derived()
+		return d.Target and d.Target() or nil
 	end
 
 	local function isTarget(p, t)
@@ -2082,11 +2085,11 @@ GF.Part(function(GF)
 		person.Why:SetText(why or "")
 		person.Why:SetShown(why ~= nil)
 		-- Work on the step for a quest 3 or more levels above the character
-		-- (the content's StepHint, Levels.StepHint; never an accept): "Level 25
-		-- quest: you're 19.7", in a calm colour (Fitz, 0.3.6: players read red as
-		-- being behind).
-		local E = Engine()
-		local hint = E.StepHint and E.StepHint(view.index)
+		-- (the window's StepHint line, Levels.StepHint; never an accept): "Level
+		-- 25 quest: you're 19.7", in a calm colour (Fitz, 0.3.6: players read red
+		-- as being behind).
+		local E, d = Engine(), Derived()
+		local hint = d.StepHint and d.StepHint(view.index)
 		if hint then
 			person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
 			W.Color(person.Level, "textDim")
@@ -3298,7 +3301,7 @@ GF.Part(function(GF)
 
 	-- For the other GuideFrame*.lua files, which take these as their own locals
 	-- when they load (GF.Bind hands over the parts and sizes).
-	GF.Engine, GF.Compact, GF.Transparent, GF.PlaceCheck = Engine, compact, transparent, placeCheck
+	GF.Engine, GF.Derived, GF.Compact, GF.Transparent, GF.PlaceCheck = Engine, Derived, compact, transparent, placeCheck
 	GF.TwoLines, GF.MeasureRow, GF.UpcomingOpen = twoLines, measureRow, upcomingOpen
 	GF.ContentHeight, GF.FitGoals, GF.SizeWindow, GF.ResetModel = contentHeight, fitGoals, sizeWindow, resetModel
 	GF.AnchorSkip, GF.WhenReady = anchorSkip, whenReady

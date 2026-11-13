@@ -7141,14 +7141,18 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   fields on its table, and `GF.Bind(fn)` hands each file the window's parts
   and sizes as its own locals (when the file binds, once the window is built,
   and when a skin's sizes are read), so per-frame code reads upvalues as
-  before. What a window draws comes from its content provider (`GF.content`,
-  the interface `GF.CONTENT` names): the Engine's read API (GetGuide,
-  GetTabs, GetStepIndex, GetLiveStep, GetStepCount, GetStepView,
-  StepNumber, StepTotal, GetProgress, GetAlong, GetWhileHereList; a gate,
-  notice or action it lacks is nothing to show or do) and five lines worked
-  out from it: StepHint and Pace (`Core/Levels.lua`), XPStats and RestParts
-  (QoL), Target (Nav, else the Engine's waypoint). The live window's is the
-  Engine with those five; the settings preview's, its sample. The skin hooks
+  before. What a window draws is one interface (`GF.CONTENT`): the Engine's
+  read API (GetGuide, GetTabs, GetStepIndex, GetLiveStep, GetStepCount,
+  GetStepView, StepNumber, StepTotal, GetProgress, GetAlong,
+  GetWhileHereList; a gate, notice or action it lacks is nothing to show or
+  do) and five lines worked out from it: StepHint and Pace
+  (`Core/Levels.lua`), XPStats and RestParts (QoL), Target (Nav, else the
+  Engine's waypoint). The live window reads the Engine and those modules
+  straight (`GF.Engine()`, `GF.Derived()`), so its step change pays nothing
+  for the interface; a copy reads its host's provider of all of it
+  (`copy.content`; the settings preview's sample). `GF.UseContent(content)`
+  hands the live window a provider too (a test drawing both windows from one
+  sample), nil the Engine again. The skin hooks
   run for every guide window, each handed its own parts (`GF.SkinParts()`;
   `Theme.GuideParts()` is the live window's), and `psGuideWindow` marks a
   guide window itself apart from a card painted as one. What the window

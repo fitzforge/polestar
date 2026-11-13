@@ -3,7 +3,7 @@
 local ADDON, ns = ...
 ns.UI.GuideFrame.Part(function(GF)
 	local UI, Theme, L = ns.UI, ns.Theme, ns.L
-	local Engine, whenReady = GF.Engine, GF.WhenReady
+	local Engine, Derived, whenReady = GF.Engine, GF.Derived, GF.WhenReady
 
 	-- The window's parts and sizes, handed over by the core (GF.Bind).
 	local PAD
@@ -11,8 +11,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		PAD = m.PAD
 	end)
 
-	-- Where the character stands against the guide (the content's Pace: the
-	-- live window's is Core/Levels.lua's Levels.Pace), in one line; stats: the
+	-- Where the character stands against the guide (the window's Pace line:
+	-- the live window's is Core/Levels.lua's Levels.Pace), in one line; stats: the
 	-- QoL tracker's, whose XP an hour turns XP short into grinding time.
 	-- "Behind" only past GF.PACE_SLACK levels short of the route's
 	-- target (Fitz, 0.3.6: a few bars short read as a warning and players thought
@@ -29,9 +29,10 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- without a target ahead or the Codex.
 	GF.PACE_SLACK = 1
 	function GF.PaceText(stats)
-		local E = Engine()
-		local pace = E.Pace and E.Pace()
+		local d = Derived()
+		local pace = d.Pace and d.Pace()
 		if not pace then return nil end
+		local E = Engine()
 		local Q = ns.QoL
 		local rate = type(stats) == "table" and type(stats.rate) == "number" and stats.rate > 0 and stats.rate or nil
 		-- The time a grind takes, "about" (Theme.Approx: "≈12m", or "~12m" in a face without "≈").
@@ -74,12 +75,12 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- XP pace from the QoL tracker and the route's pace (GF.PaceText), as the
-	-- window's content gives them (its XPStats, Pace and RestParts). Hidden when
+	-- window's lines give them (XPStats, Pace and RestParts). Hidden when
 	-- both are off, at max level, or before there is anything to show.
 	function GF.UpdateXP(stats)
 		if not GF.xp then return end
-		local E, Q = Engine(), ns.QoL
-		if stats == nil and E.XPStats then stats = E.XPStats() end
+		local d, Q = Derived(), ns.QoL
+		if stats == nil and d.XPStats then stats = d.XPStats() end
 		local parts = {}
 		if type(stats) == "table" and not stats.maxed and Q then
 			local short = Q.XP and Q.XP.Short
@@ -96,7 +97,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if pace then parts[#parts + 1] = pace end
 			-- Boosted Rest and the sleeping bag (QoL/Rest.lua): empty while its
 			-- setting is off or there is nothing to say.
-			local rest = E.RestParts and E.RestParts()
+			local rest = d.RestParts and d.RestParts()
 			if rest and #rest > 0 then restLine = table.concat(rest, "  \194\183  ") end
 		end
 		local xp = GF.xp
