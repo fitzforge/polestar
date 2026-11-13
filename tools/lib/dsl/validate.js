@@ -76,10 +76,17 @@ function eliteTip(target) {
 	return `in a Leveling guide put the goal in a step with \`when group <quest>\` (the player chooses it), not optional there, or make it \`optional\` in a step for everyone, with the tip "${target} is elite: grouping up is advised."`;
 }
 
-// A step the route takes only for a player who chose to do a group quest
-// (a `when group <quest>`, not `!group`).
+// A step the route takes only for a player who chose the group way: a group
+// quest (`when group <quest>`, not `!group`) or a dungeon run (`when dungeon`).
 function groupStep(step) {
-	return (step.when || []).some((p) => p.k === 'group' && !p.neg);
+	return (step.when || []).some((p) => (p.k === 'group' || p.k === 'dungeon') && !p.neg);
+}
+
+// A step that applies only while the player carries the goal's quest (`when
+// onquest`, `when complete`): "hand it in if you have it", never work the solo
+// route asks for (a dungeon quest's hand-in on a later stop).
+function carriedStep(step, quest) {
+	return (step.when || []).some((p) => !p.neg && (p.k === 'onquest' || p.k === 'complete') && [].concat(p.q).includes(quest));
 }
 
 // The quests of g the player takes only by choosing a group quest: every
@@ -96,9 +103,10 @@ function groupQuestsOf(g) {
 }
 
 // A goal for a party, not solo leveling: in a group step, or for a quest the
-// player takes only by choosing a group quest. Elite work belongs there.
+// player takes only by choosing a group quest, or a hand-in of one carried.
+// Elite work belongs there.
 function partyWork(step, goal, chosen) {
-	return groupStep(step) || (goal.quest !== undefined && chosen.has(goal.quest));
+	return groupStep(step) || (goal.quest !== undefined && (chosen.has(goal.quest) || carriedStep(step, goal.quest)));
 }
 
 // Our house rules: errors in our pack, warnings in every other.
@@ -708,7 +716,7 @@ function validateGuides(guides, data, diag) {
 					}
 					// Only blocking prerequisites count (tools/lib/data/prereqs.js): every
 					// one of `all`, one of `any`; breadcrumbs never block.
-					const { all, any } = blockingPrereqs(q, (id) => data.quest(id));
+					const { all, any, parent } = blockingPrereqs(q, (id) => data.quest(id));
 					// A prerequisite these characters cannot take is someone else's variant.
 					const takeable = (p) => {
 						const pq = data.quest(p);
@@ -727,6 +735,17 @@ function validateGuides(guides, data, diag) {
 							diag.warn(file, ln, `quest ${goal.quest} needs ${open[0]} turned in first, but the chain never turns it in`);
 						} else if (open.length > 1) {
 							diag.warn(file, ln, `quest ${goal.quest} needs one of ${open.join(', ')} turned in first, but the chain turns in none of them`);
+						}
+					}
+					// A child quest is offered only while its parent is in the log (Valik
+					// 535 with Infiltration 533): the chain holds it here (taken, not handed
+					// in), or the step applies only with it in the log.
+					if (parent !== undefined && takeable(parent)) {
+						const onParent = (step.when || []).some((p) => !p.neg && p.k === 'onquest' && [].concat(p.q).map(Number).includes(parent));
+						if (!onParent && turnedIn.has(parent)) {
+							diag.warn(file, ln, `quest ${goal.quest} is offered only while ${name(parent)} is in the log, but the chain hands that quest in earlier`);
+						} else if (!onParent && !accepted.has(parent)) {
+							diag.warn(file, ln, `quest ${goal.quest} is offered only while ${name(parent)} is in the log, but the chain never takes that quest before it`);
 						}
 					}
 					// Exclusive quests (`excl`, Questie exclusiveTo): the game does not

@@ -31,6 +31,8 @@ pub struct Maps {
 	pub area: Option<BTreeMap<u32, String>>,
 	/// Format 5 (Leffe's navigation maps, pack/leffe.rs): each cluster's one-way arcs, the jumps and drops.
 	pub arc: Option<BTreeMap<u32, String>>,
+	/// Format 5 with spawn heights (pack/spawns.rs): per cluster the spawns that stand where floors overlap.
+	pub spawn: Option<BTreeMap<u32, String>>,
 	pub components: usize,
 	pub clamped: usize,
 	pub max_degree: usize,
@@ -46,17 +48,19 @@ impl Maps {
 			"class" => self.class.as_ref().expect("class field"),
 			"area" => self.area.as_ref().expect("area field"),
 			"arc" => self.arc.as_ref().expect("arc field"),
+			"spawn" => self.spawn.as_ref().expect("spawn field"),
 			_ => panic!("field {f}"),
 		}
 	}
 
 	/// The packed fields, in pack order: format 1's, format 2's class, format 3's area, format 5's arc.
 	pub fn fields(&self) -> &'static [&'static str] {
-		match (self.class.is_some(), self.area.is_some(), self.arc.is_some()) {
-			(false, _, _) => &FIELDS,
-			(true, false, _) => &CLASS_FIELDS,
-			(true, true, false) => &AREA_FIELDS,
-			(true, true, true) => &ARC_FIELDS,
+		match (self.class.is_some(), self.area.is_some(), self.arc.is_some(), self.spawn.is_some()) {
+			(false, _, _, _) => &FIELDS,
+			(true, false, _, _) => &CLASS_FIELDS,
+			(true, true, false, _) => &AREA_FIELDS,
+			(true, true, true, false) => &ARC_FIELDS,
+			(true, true, true, true) => &SPAWN_FIELDS,
 		}
 	}
 }
@@ -131,7 +135,7 @@ pub fn encode_areas(vals: &[u32]) -> Result<String, String> {
 }
 
 /// gen_nav.py encode_heights.
-pub(super) fn encode_heights(val: &[u8], zq: &[i32], c: usize) -> Result<String, String> {
+pub fn encode_heights(val: &[u8], zq: &[i32], c: usize) -> Result<String, String> {
 	let mut q = vec![0i32; c * c];
 	let mut has = vec![false; c * c];
 	let mut items: Vec<(bool, i32)> = Vec::new(); // (absolute, value)
@@ -466,6 +470,7 @@ pub const FIELDS: [&str; 4] = ["graph", "grid", "height", "floor"];
 pub const CLASS_FIELDS: [&str; 5] = ["graph", "grid", "height", "floor", "class"];
 pub const AREA_FIELDS: [&str; 6] = ["graph", "grid", "height", "floor", "class", "area"];
 pub const ARC_FIELDS: [&str; 7] = ["graph", "grid", "height", "floor", "class", "area", "arc"];
+pub const SPAWN_FIELDS: [&str; 8] = ["graph", "grid", "height", "floor", "class", "area", "arc", "spawn"];
 /// The format 5 header lines (Leffe's navigation maps; a pack without them keeps its bytes).
 const ARC_HEADER: &[&str] = &[
 	"-- Format 5: Leffe's navigation maps (forge nav pack --leffe): his surfaces, floors, classes and zones in the fields",

@@ -111,6 +111,15 @@ pub fn when_holds(w: &World, when: &V) -> bool {
 				let loc = p.get("location");
 				!loc.truthy() || w.bound.is_nullish() || w.bound.to_js_string().to_lowercase() == loc.to_js_string().to_lowercase()
 			}
+			// A flight path learnt on the way (a getfp), by its node, else its name.
+			"taxi" => {
+				let name = p.get("name");
+				let key = match w.node_at(&p.get("node"), &name) {
+					Some(n) => NodeKey::of(&n.get("id")),
+					None => NodeKey::of(&name),
+				};
+				w.known.contains(&key)
+			}
 			_ => true,
 		};
 		if p.get("neg").truthy() && k != "level" {

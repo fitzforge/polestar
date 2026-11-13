@@ -658,6 +658,13 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	if goal.purposeText then parts[#parts + 1] = goal.purposeText end
 	-- A level goal: the XP still to earn.
 	if goal.xpLeft then parts[#parts + 1] = format(L["%s XP to go"], thousands(goal.xpLeft)) end
+	-- Finished quests the guide hands in before the level is needed (#1431):
+	-- what they give, or that they cover it ("hand in first").
+	if goal.xpLeft and (goal.readyXp or 0) > 0 then
+		parts[#parts + 1] = format(L["your finished quests give %s: hand them in first"], thousands(goal.readyXp))
+	elseif goal.handInFirst then
+		parts[#parts + 1] = L["Hand in first: your finished quests cover it"]
+	end
 	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
 	if goal.keptGreyText and goal.status ~= "skipped" then parts[#parts + 1] = goal.keptGreyText end
 	local source = UI.SourceLine(goal)
@@ -916,20 +923,33 @@ end
 
 -- The window's toggle (its key, /polestar, the menu's Guide window) asks to
 -- see the guide: from hidden it brings Polestar back, turning the window on
--- when it was off.
+-- when it was off. A window that is on but that another addon keeps out of
+-- sight (ns.OutOfSight) stays on: turning it off would take away only the
+-- action buttons, the one part still seen. The toggle says why the window is
+-- not seen instead, as it and /polestar show do after showing one that stays
+-- out of sight.
+local function windowOutOfSight()
+	local GF = UI.GuideFrame
+	return GF ~= nil and ns.OutOfSight(GF.frame)
+end
 ns.On("TOGGLE_FRAME", function()
 	if ns.Hidden() then
 		ns.SetHidden(false)
 		if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
-		return
+	else
+		local GF = UI.GuideFrame
+		if GF and GF.ToggleInside and GF.ToggleInside() then return end
+		if not (ns.Get("ui.shown") and windowOutOfSight()) then
+			ns.Set("ui.shown", not ns.Get("ui.shown"))
+			if not ns.Get("ui.shown") then return end
+		end
 	end
-	local GF = UI.GuideFrame
-	if GF and GF.ToggleInside and GF.ToggleInside() then return end
-	ns.Set("ui.shown", not ns.Get("ui.shown"))
+	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_FRAME", function()
 	ns.SetHidden(false)
 	ns.Set("ui.shown", true)
+	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_PICKER", function() if UI.ShowPicker then UI.ShowPicker() end end)
 ns.On("SHOW_OPTIONS", function(section) if UI.ShowOptions then UI.ShowOptions(section) end end)

@@ -1,0 +1,1321 @@
+{
+	"about": "Record kind for dungeons injected into the leveling route. Each run: pick-ups as `when dungeon` steps after (or before) an anchored route goal; `runStop`: the pick-ups repeated at the run's own stop (the cheap, local catch-up for a player who opts in after the earlier pick-ups); the run step after `run.after`, guarded by `when dungeon` + `when onquest <run.objectives>`; each hand-in as a `when dungeon` + `when complete`/`when onquest` step after its anchor (every step of a run is behind `when dungeon`, so a character who skips it keeps the solo route's steps and numbers); `soloWay`: a solo step of a stop the run shares, behind `when !dungeon`; `budget`: the measured cost vs the solo route (flow audit dynamic + level model). A Forge writer rule or a check reproduces the hand edits from these.",
+	"runs": [
+		{
+			"dungeon": "The Deadmines",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 166,
+					"after": {
+						"guide": "forever/alliance/03-loch-modan",
+						"quest": 155,
+						"goal": "turnin"
+					},
+					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)"
+				},
+				{
+					"quest": 214,
+					"after": {
+						"guide": "forever/alliance/03-loch-modan",
+						"quest": 155,
+						"goal": "turnin"
+					},
+					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/03-loch-modan",
+				"after": {
+					"quest": 155,
+					"goal": "turnin"
+				},
+				"entrance": {
+					"map": 1436,
+					"x": 42.5,
+					"y": 71.7
+				},
+				"objectives": [
+					214,
+					166
+				],
+				"itemStarts": [
+					{
+						"quest": 373,
+						"item": 2874
+					}
+				],
+				"guard": "turnedin 65; onquest 214,166"
+			},
+			"handins": [
+				{
+					"quest": 166,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run"
+				},
+				{
+					"quest": 214,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run"
+				},
+				{
+					"quest": 373,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": {
+						"step": "Fly to Stormwind"
+					},
+					"when": "onquest"
+				}
+			],
+			"leftOut": {
+				"168": "four union cards from the mine's undead, slow drops",
+				"92753": "the end of Alba Fairmoon's chain after Sprite Jumpsprocket (92749-92752), not on the route",
+				"1654": "Paladin class chain",
+				"1806": "Paladin class chain",
+				"2040": "Underground Assault: Gnoarn (Ironforge) and Shoni (Stormwind Dwarven District): with 167 it cost +2.0 km and +5 hub visits in the flow audit, over the requirement A budget",
+				"167": "Oh Brother...: Wilder Thistlenettle in the Dwarven District, as 2040"
+			},
+			"runStop": [
+				166,
+				214
+			],
+			"budget": {
+				"flow": "off -> on (Warrior, every start, dynamic 037): 03-loch-modan walk +2.0 km (Westfall: the Sentinel Hill <-> Deadmines door trip, the run), hub visits +1 (Sentinel Hill after the run), other guides identical"
+			},
+			"soloWay": [
+				{
+					"guide": "forever/alliance/03-loch-modan",
+					"step": "Sentinel Hill",
+					"guard": "!dungeon \"The Deadmines\"",
+					"note": "the stop's solo step (155's hand-in and the flight to Lakeshire), as on the route without the dungeon; the dungeon's steps take 155 and fly after the run"
+				}
+			],
+			"westfallGate": "the run and its Sentinel Hill hand-ins carry `when turnedin 65`, as the guide's Westfall stretch does"
+		},
+		{
+			"dungeon": "The Stockade",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 389,
+					"after": {
+						"guide": "forever/alliance/03-loch-modan",
+						"quest": 373,
+						"goal": "turnin"
+					},
+					"note": "needs the Deadmines' Unsent Letter"
+				},
+				{
+					"quest": 377,
+					"after": {
+						"guide": "forever/alliance/04-redridge-mountains",
+						"quest": 175,
+						"goal": "accept"
+					}
+				},
+				{
+					"quest": 387,
+					"after": {
+						"guide": "forever/alliance/06-wetlands",
+						"quest": 98219,
+						"goal": "accept"
+					}
+				},
+				{
+					"quest": 391,
+					"after": {
+						"guide": "forever/alliance/06-wetlands",
+						"quest": 98219,
+						"goal": "accept"
+					},
+					"when": "onquest 389"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/06-wetlands",
+				"after": {
+					"quest": 98219,
+					"goal": "accept"
+				},
+				"entrance": {
+					"map": 1453,
+					"x": 52.4,
+					"y": 70.0
+				},
+				"objectives": [
+					387,
+					377,
+					391
+				],
+				"guard": "onquest 387,377,391"
+			},
+			"handins": [
+				{
+					"quest": 389,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"quest": 387,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"note": "Bazil Thredd, from Baros Alexston after the Deadmines' Unsent Letter"
+				},
+				{
+					"quest": 387,
+					"guide": "forever/alliance/06-wetlands",
+					"after": "run"
+				},
+				{
+					"quest": 391,
+					"guide": "forever/alliance/06-wetlands",
+					"after": "run"
+				},
+				{
+					"quest": 377,
+					"guide": "forever/alliance/07-thousand-needles",
+					"after": {
+						"quest": 58,
+						"goal": "accept"
+					}
+				}
+			],
+			"leftOut": {
+				"386": "Guard Berton in Lakeshire: the route doesn't pass Lakeshire after the run",
+				"378": "Motley Garmason's chain at Dun Modr",
+				"388": "The Color of Blood: Nikova Raskol in Old Town, a second Old Town visit after the run (avoidable hub revisit +1 in the flow audit)"
+			},
+			"runStop": [
+				387
+			],
+			"budget": {
+				"flow": "Stormwind +0.14 km, hub visits +2 (Thelwater at the gate, before and after the run), 04-redridge-mountains +0.2 km (Millstipe in Darkshire), no avoidable revisit"
+			}
+		},
+		{
+			"dungeon": "Wailing Caverns",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 1491,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 865,
+						"goal": "turnin"
+					},
+					"when": "turnedin 865",
+					"note": "each Raptor Horns hand-in stop"
+				},
+				{
+					"quest": 1491,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 896,
+						"goal": "turnin"
+					},
+					"note": "catch-up, Ratchet after Orgrimmar"
+				},
+				{
+					"quest": 959,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 896,
+						"goal": "turnin"
+					},
+					"note": "Ratchet after Orgrimmar (~20): level 18, 3+ levels over earlier"
+				}
+			],
+			"run": {
+				"guide": "forever/horde/02-the-barrens",
+				"after": {
+					"quest": 852,
+					"goal": "objective",
+					"note": "Hezrul's shore, ~310 yd from the door"
+				},
+				"entrance": {
+					"map": 1413,
+					"x": 46.0,
+					"y": 36.5
+				},
+				"objectives": [
+					1486,
+					1487,
+					1491,
+					959
+				],
+				"optional": [
+					1486,
+					959
+				],
+				"guard": "onquest 1486,1487,1491,959"
+			},
+			"handins": [
+				{
+					"quest": 1486,
+					"guide": "forever/horde/02-the-barrens",
+					"after": "run"
+				},
+				{
+					"quest": 1487,
+					"guide": "forever/horde/02-the-barrens",
+					"after": "run"
+				},
+				{
+					"quest": 1491,
+					"guide": "forever/horde/04-the-barrens",
+					"after": {
+						"step": "Fly to Ratchet"
+					}
+				},
+				{
+					"quest": 959,
+					"guide": "forever/horde/04-the-barrens",
+					"after": {
+						"step": "Fly to Ratchet"
+					}
+				}
+			],
+			"leftOut": {
+				"962": "Serpentbloom starts in Thunder Bluff, not on the route before the run",
+				"914": "Leaders of the Fang: Hamuul and Nara in Thunder Bluff (1489, 1490)",
+				"6981": "The Glowing Shard: Sputtervalve in Ratchet, then Falla Sagewind; a Crossroads-Ratchet hop cost ~1.4 km, two flights and a hub visit (requirement A); named in the run tip"
+			},
+			"runStop": [
+				1486,
+				1487
+			],
+			"budget": {
+				"flow": "02-the-barrens walk +0.8 km (the Hezrul shore <-> door trip and Nalpak climb), hub visits +0; 04-the-barrens +0.1 km, +1 hub (Ratchet hand-ins on its own Ratchet stop)"
+			},
+			"pickupRule": "first stop that offers it with quest level <= player level + 2 (the level sweep's 3-over rule)"
+		},
+		{
+			"dungeon": "Blackfathom Deeps",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 6921,
+					"after": {
+						"guide": "forever/horde/07-ashenvale",
+						"quest": 6563,
+						"goal": "accept"
+					},
+					"note": "first Zoram'gar stop"
+				}
+			],
+			"run": {
+				"guide": "forever/horde/07-ashenvale",
+				"after": {
+					"quest": 6563,
+					"goal": "objective",
+					"note": "the Sapphires, in the portal's own tunnels"
+				},
+				"entrance": {
+					"map": 1440,
+					"x": 14.5,
+					"y": 14.2
+				},
+				"objectives": [
+					6921
+				],
+				"itemStarts": [
+					{
+						"quest": 6922,
+						"item": 16782
+					},
+					{
+						"quest": 6564,
+						"item": 16790
+					}
+				],
+				"guard": "onquest 6921"
+			},
+			"handins": [
+				{
+					"quest": 6921,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"quest": 6563,
+						"goal": "turnin"
+					}
+				},
+				{
+					"quest": 6922,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"quest": 6563,
+						"goal": "turnin"
+					},
+					"when": "onquest"
+				},
+				{
+					"quest": 6564,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"quest": 6563,
+						"goal": "turnin"
+					},
+					"when": "onquest"
+				}
+			],
+			"leftOut": {
+				"6565": "Allegiance to the Old Gods part 2: a second run",
+				"1740": "Warlock class quest",
+				"6561": "Blackfathom Villainy: Argent Guard Thaelrid gives it inside (no place in our data: an accept there fails the playtest's place check and the honest R2), and Bashana Runetotem takes it on the Elder Rise, off the route's Thunder Bluff stop; named in the run tip"
+			},
+			"runStop": [],
+			"budget": {
+				"flow": "07-ashenvale walk +0.1 km, hub visits +0: the run is in the tunnels the Sapphires already take the player into"
+			}
+		},
+		{
+			"dungeon": "Ragefire Chasm",
+			"faction": "Horde",
+			"pickups": [],
+			"runStop": [
+				5761
+			],
+			"run": {
+				"guide": "forever/horde/03-silverpine-forest",
+				"after": {
+					"quest": 97246,
+					"goal": "turnin",
+					"note": "the last Orgrimmar stop, Borstan's Firepit; Neeru and the portal are in the Cleft of Shadow"
+				},
+				"entrance": {
+					"map": 1454,
+					"x": 52.6,
+					"y": 49.0
+				},
+				"objectives": [
+					5761
+				],
+				"guard": "onquest 5761"
+			},
+			"handins": [
+				{
+					"quest": 5761,
+					"guide": "forever/horde/03-silverpine-forest",
+					"after": "run"
+				}
+			],
+			"leftOut": {
+				"5726": "Hidden Enemies (5726-5730): Thrall's Lieutenant's Insignia from Skull Rock's cultists, then three walks between Thrall and Neeru Fireblade",
+				"5725": "The Power to Destroy...: Varimathras in the Royal Quarter, off this guide's Apothecarium stop; the route's next Undercity stop is at ~25",
+				"5722": "Searching for the Lost Satchel (with 5724): Rahauro in Thunder Bluff, first on the route at 27",
+				"5723": "Testing an Enemy's Strength: Rahauro in Thunder Bluff, first on the route at 27"
+			},
+			"budget": {
+				"flow": "off -> on (flow audit, Warrior every start, dynamic 037, straight lines): 03-silverpine-forest +0.2 km (Orgrimmar: the Cleft of Shadow), +2.8 min, hub visits +0; passed givers hub +0.2 (Neeru at 12 on the first Orgrimmar stop: level 16 is 3+ over there, the level rule wins); other guides only level-lead effects; solo route identical (65/65)"
+			}
+		},
+		{
+			"dungeon": "Ruins of Lordaeron",
+			"faction": "Horde",
+			"pickups": [],
+			"runStop": [
+				92421
+			],
+			"run": {
+				"guide": "forever/horde/05-stonetalon-mountains",
+				"after": {
+					"step": "Zeppelin to Undercity",
+					"note": "the zeppelin lands beside the ruins; Morbin in the Royal Quarter below is the run's own stop"
+				},
+				"entrance": {
+					"map": 1420,
+					"x": 63.2,
+					"y": 67.5,
+					"frame": "live",
+					"source": "players' recordings: 106 of 121 entries"
+				},
+				"objectives": [
+					92421
+				],
+				"itemStarts": [
+					{
+						"quest": 97288,
+						"item": 280438
+					},
+					{
+						"quest": 95204,
+						"item": 275521
+					}
+				],
+				"guard": "onquest 92421"
+			},
+			"handins": [
+				{
+					"quest": 92421,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					}
+				},
+				{
+					"quest": 97288,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"when": "onquest"
+				},
+				{
+					"quest": 95204,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"when": "onquest"
+				}
+			],
+			"leftOut": {
+				"92401": "A Frightened Request: Tabitha Heartweaver at the Sepulcher, after the ruins; the route is not back there with it done",
+				"92422": "The Wrath of Rath'mael: Deathguard Kristof offers it after Rear Guard Patrol (99156), which the route does not take",
+				"95216": "The New Plague: Theodore Griffs offers it after A Recipe For Death (451), left out of 03-silverpine-forest",
+				"97289": "Unending Torment parts 2-5 (97289-97292): Faranell's chain in the Undercity after the Head, not on the route"
+			},
+			"budget": {
+				"flow": "05-stonetalon-mountains +2.5 km, +8.0 min, hub visits +1 (the Undercity), all of it the run's own trip (landing -> Morbin in the Royal Quarter -> the ruins -> on to the Sepulcher); 06-hillsbrad-foothills +0.3 km (Morbin's hand-in); no avoidable backtracks or hub revisits (Oran Snakewrithe's Crest hand-in, 95204, added after this measurement: re-measure)"
+			},
+			"travel": [
+				{
+					"guide": "forever/horde/05-stonetalon-mountains",
+					"to": "The Sepulcher",
+					"when": "!onquest 30",
+					"note": "the walk from the ruins to the Sepulcher, before the Druids' Strange Lockbox step (a Druid carrying Trial of the Sea Lion, 30, walks by the lockbox, and the Sepulcher step's tip takes them from there)"
+				}
+			]
+		},
+		{
+			"dungeon": "Shadowfang Keep",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 1098,
+					"after": {
+						"guide": "forever/horde/05-stonetalon-mountains",
+						"quest": 516,
+						"goal": "accept"
+					},
+					"note": "the Sepulcher at ~22.8 (level 25, 2.2 over); the flow audit flagged Hadrec as a passed giver there (5/5 branches) without it"
+				}
+			],
+			"runStop": [
+				1098,
+				1014
+			],
+			"run": {
+				"guide": "forever/horde/06-hillsbrad-foothills",
+				"after": {
+					"quest": 95981,
+					"goal": "turnin",
+					"note": "the Sepulcher stop at the end (~25); the keep is ~0.8 km south"
+				},
+				"entrance": {
+					"map": 1421,
+					"x": 44.8,
+					"y": 67.8
+				},
+				"objectives": [
+					1098,
+					1014
+				],
+				"insideEnds": [
+					{
+						"quest": 1098,
+						"npc": 4444
+					}
+				],
+				"guard": "onquest 1098,1014"
+			},
+			"handins": [
+				{
+					"quest": 1014,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": "run"
+				}
+			],
+			"leftOut": {
+				"1013": "The Book of Ur: Keeper Bel'dugur in the Undercity, the stop after the run",
+				"1740": "Warlock class chain (class guide)"
+			},
+			"budget": {
+				"flow": "06-hillsbrad-foothills +1.6 km, +6.2 min, hub visits +1 (the Sepulcher after the run), the Sepulcher <-> keep trip of the run; backtracks +1, avoidable 0; 05-stonetalon-mountains passed givers +0.2 (Dalar's 1014 at 22.8 on one branch: 3+ over, the level rule wins)"
+			}
+		},
+		{
+			"dungeon": "Razorfen Kraul",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 1221,
+					"after": {
+						"guide": "forever/horde/04-the-barrens",
+						"step": "Crane Operator Bigglefuzz"
+					},
+					"note": "Ratchet at the end (~26.6); the Ratchet stops of 02-the-barrens are 3+ levels over"
+				}
+			],
+			"run": {
+				"guide": "forever/horde/07-ashenvale",
+				"after": {
+					"quest": 857,
+					"goal": "turnin",
+					"note": "the road south to the Great Lift (~28); the entrance ~190 yd west of the lift"
+				},
+				"entrance": {
+					"map": 1413,
+					"x": 42.9,
+					"y": 90.2
+				},
+				"objectives": [
+					1221
+				],
+				"insideQuests": [
+					1144
+				],
+				"guard": "onquest 1221"
+			},
+			"handins": [
+				{
+					"quest": 1221,
+					"guide": "forever/horde/30-40/04-dustwallow-marsh",
+					"after": {
+						"step": "Ratchet",
+						"quest": 1270,
+						"goal": "turnin"
+					},
+					"note": "the next Ratchet stop for everyone (~37); a flight back from 07-ashenvale is over the travel budget"
+				}
+			],
+			"leftOut": {
+				"1109": "Going, Going, Guano!: level 33, 3+ levels over at 28",
+				"79360": "Elemental Aid: level 33, 3+ levels over at 28",
+				"1102": "A Vengeful Fate: level 34, Thunder Bluff, 3+ levels over at 28",
+				"1838": "Brutal Armor: Warrior class chain",
+				"6522": "An Unholy Alliance: a Small Scroll from inside, for Varimathras in the Undercity"
+			},
+			"budget": {
+				"flow": "04-the-barrens +0.1 km, hub visits +1 (Mebok on the Ratchet stop); 07-ashenvale +0.2 km (the entrance ~190 yd off the Great Lift road); 30-40/04-dustwallow-marsh +0.2 km (Mebok's hand-in); no avoidable backtracks or hub revisits"
+			}
+		},
+		{
+			"dungeon": "Blackfathom Deeps",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 1275,
+					"after": {
+						"guide": "forever/alliance/03-darkshore-return",
+						"quest": 986,
+						"goal": "turnin"
+					},
+					"note": "Auberdine after the Grove (~21.8); The Corruption Abroad (3765) is only a breadcrumb: players take 1275 without it (recordings: offered to characters with 3765 still in the log)"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/06-ashenvale",
+				"after": {
+					"quest": 1009,
+					"goal": "objective",
+					"note": "Ruuzel, north end of the Zoram Strand (~23.8); the ruins' pit ~420 yd east"
+				},
+				"entrance": {
+					"map": 1440,
+					"x": 14.5,
+					"y": 14.2
+				},
+				"objectives": [
+					1275
+				],
+				"guard": "onquest 1275"
+			},
+			"handins": [
+				{
+					"quest": 1275,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"quest": 994,
+						"goal": "turnin"
+					},
+					"note": "Auberdine, beside Terenthis (~28.5); on 06-ashenvale's Auberdine stop the walk to her passed Terenthis with 994 ready (flow audit: passed enders +1)"
+				}
+			],
+			"leftOut": {
+				"971": "Knowledge in the Deeps: Gerrig Bonegrip in Ironforge, the stop after the run; level 23 is 3+ over on 03-loch-modan's Ironforge stop",
+				"1198": "In Search of Thaelrid: Darnassus, off the route",
+				"1199": "Twilight Falls: Darnassus, off the route",
+				"1200": "Blackfathom Villainy: Argent Guard Thaelrid inside, for Darnassus",
+				"1740": "Warlock class chain (class guide)"
+			},
+			"budget": {
+				"flow": "03-darkshore-return +0.1 km; 06-ashenvale +1.0 km, +6.2 min, hub visits +0 (Ruuzel <-> the ruins' pit, the run's own trip); 06-wetlands +0 km (Gershala beside Terenthis); no new passed enders (a hand-in on 06-ashenvale's way to the boat added one: moved)"
+			}
+		},
+		{
+			"dungeon": "Excavation Site: Wetlands",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 98815,
+					"after": {
+						"guide": "forever/alliance/06-wetlands",
+						"quest": 471,
+						"goal": "accept"
+					},
+					"when": "turnedin 484",
+					"note": "the first Menethil stop (~27.5)"
+				},
+				{
+					"quest": 95646,
+					"after": {
+						"guide": "forever/alliance/06-wetlands",
+						"quest": 275,
+						"goal": "turnin"
+					},
+					"note": "Rethiel, when Blisters on the Land is handed in (~28.3); level 31, 2.7 over"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/06-wetlands",
+				"after": {
+					"quest": 95646,
+					"goal": "accept",
+					"note": "on the road back west, the entrance ~130 yd off it"
+				},
+				"entrance": {
+					"map": 1437,
+					"x": 48.0,
+					"y": 56.5,
+					"frame": "live",
+					"source": "players' recordings: 161 of 177 entries"
+				},
+				"objectives": [
+					98815,
+					95646
+				],
+				"itemStarts": [
+					{
+						"quest": 95810,
+						"item": 270865
+					}
+				],
+				"guard": "onquest 98815,95646"
+			},
+			"handins": [
+				{
+					"quest": 98815,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"step": "Captain Stoutfist"
+					}
+				},
+				{
+					"quest": 95810,
+					"guide": "forever/alliance/06-wetlands",
+					"after": "run",
+					"when": "onquest",
+					"note": "Whelgar's dig, west of the entrance on the walk back west; he gives Prehistoric Prism (98824)"
+				},
+				{
+					"quest": 98824,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"quest": 1179,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"note": "High Explorer Magellas, Hall of Explorers, on this guide's Ironforge stop"
+				},
+				{
+					"quest": 95646,
+					"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 98245,
+						"goal": "turnin"
+					}
+				},
+				{
+					"quest": 95810,
+					"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+					"after": {
+						"step": "Prospector Whelgar"
+					},
+					"when": "onquest",
+					"note": "for whoever still carries it"
+				},
+				{
+					"quest": 98824,
+					"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 514,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"note": "Hall of Explorers, for whoever still carries it"
+				}
+			],
+			"leftOut": {
+				"95647": "Lost in the Thicket Things: Caitlin Grassman, level 31, 3+ levels over on the first Menethil stop",
+				"95809": "Heartwoven: from Ardin inside, after 95647",
+				"95737": "Seeking Caitlin: Llana in Astranaar, after the Wetlands",
+				"95772": "Songblade Search: Dorin Songblade in Redridge, level 31, 3+ over on the Redridge stops",
+				"95795": "Fallen in the Fen: for Dorin Songblade in Redridge, off the route after the run"
+			},
+			"budget": {
+				"flow": "06-wetlands +0.5 km, +4.5 min, hub visits +0; 30-40/01-hillsbrad-foothills +0.6 km (Rethiel, Whelgar), backtracks +1, avoidable 0; 06-ashenvale passed givers +1 (Halloran's 98815 at 24.85: 3.2 over, the level rule wins). Whelgar on the walk west and Magellas on the Ironforge stops came after this measurement: re-measure"
+			},
+			"followUps": [
+				{
+					"quest": 98824,
+					"from": 95810,
+					"giver": "Prospector Whelgar",
+					"note": "accepted where 95810 is handed in, behind `when onquest 95810`"
+				}
+			]
+		},
+		{
+			"dungeon": "The Hall of Thanes",
+			"faction": "Alliance",
+			"pickups": [],
+			"runStop": [
+				96403,
+				96394
+			],
+			"run": {
+				"guide": "forever/alliance/03-loch-modan",
+				"after": {
+					"step": "Into Ironforge",
+					"note": "Ironforge's gate (~19.5); the door is on the city's west side, west of Afadra Dunwall"
+				},
+				"entrance": {
+					"map": 1455,
+					"x": 28.2,
+					"y": 47.7,
+					"frame": "live",
+					"source": "players' recordings: 180 of 191 entries (the journal's 43.5,52.0 is not the door)"
+				},
+				"objectives": [
+					96403,
+					96394,
+					96393
+				],
+				"itemStarts": [
+					{
+						"quest": 98423,
+						"item": 281030
+					}
+				],
+				"insideQuests": [
+					96395
+				],
+				"guard": "onquest 96403,96394,96393"
+			},
+			"handins": [
+				{
+					"quest": 96403,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run"
+				},
+				{
+					"quest": 96394,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run"
+				},
+				{
+					"quest": 96393,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run"
+				},
+				{
+					"quest": 98423,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run",
+					"when": "onquest"
+				}
+			],
+			"leftOut": {
+				"96395": "An Ancient Grudge: starts and ends inside (the run tip names it)"
+			},
+			"budget": {
+				"flow": "03-loch-modan +0.3 km, +7.3 min, hub visits +1.0 (mean over the starts; Human/Night Elf branches +3 within Ironforge: Filch/Afadra, the door, back), no avoidable hub revisits; Dwarf/Gnome start passed givers hub +1 (Thom Filch at ~11, 3+ over)"
+			}
+		},
+		{
+			"dungeon": "City of Dalaran",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 92457,
+					"after": {
+						"guide": "forever/alliance/30-40/05-arathi-highlands",
+						"quest": 92432,
+						"goal": "turnin"
+					},
+					"note": "the Image of Archmage Modera, where An Alarming Request is handed in (~37)"
+				},
+				{
+					"quest": 92458,
+					"after": {
+						"guide": "forever/alliance/30-40/05-arathi-highlands",
+						"quest": 92432,
+						"goal": "turnin"
+					},
+					"note": "the same; Heart of Disruption brings the Dalaran Sewer Key"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/30-40/05-arathi-highlands",
+				"after": {
+					"quest": 92458,
+					"goal": "accept",
+					"note": "at once: the western grate is 30 yd from Modera's camp"
+				},
+				"entrance": {
+					"map": 1416,
+					"x": 8.8,
+					"y": 59.5,
+					"frame": "live",
+					"source": "players' recordings: 13 of the 16 Alliance players who went in through the western grate held Heart of Disruption (its Sewer Key)"
+				},
+				"objectives": [
+					92457,
+					92458
+				],
+				"guard": "onquest 92457,92458"
+			},
+			"handins": [
+				{
+					"quest": 92457,
+					"guide": "forever/alliance/30-40/05-arathi-highlands",
+					"after": "run",
+					"note": "Modera's camp, 30 yd from the grate"
+				},
+				{
+					"quest": 92458,
+					"guide": "forever/alliance/30-40/05-arathi-highlands",
+					"after": "run"
+				}
+			],
+			"leftOut": {
+				"92456": "A Green Sample: Shylamiir in Stormwind, whose next visit (40-43) comes after Dalaran",
+				"92489": "Power Overwhelming: High Sorcerer Andromath in Stormwind, after Dalaran (40-43)",
+				"92459": "Friend of the Kirin Tor: 270 XP for a walk to Archmage Celindra",
+				"96603": "Unstable Magic: level 60"
+			},
+			"budget": {
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 30-40/05-arathi-highlands +0.4 km, +5.5 min (the walk to the grate and back, the four steps), backtracks +1, hub visits +0; the run's XP takes 43 min off 40-50/01-stranglethorn-vale's written grind"
+			}
+		},
+		{
+			"dungeon": "Zul'Farrak",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 2865,
+					"after": {
+						"guide": "forever/alliance/40-50/04-tanaris",
+						"quest": 2864,
+						"goal": "turnin"
+					},
+					"note": "Tran'rek, Gadgetzan's first stop (~45), where Tran'rek (2864) is handed in"
+				},
+				{
+					"quest": 2768,
+					"after": {
+						"guide": "forever/alliance/40-50/04-tanaris",
+						"quest": 2864,
+						"goal": "turnin"
+					},
+					"note": "Chief Engineer Bilgewhizzle, the same stop; level 47, 2 over"
+				},
+				{
+					"quest": 3042,
+					"after": {
+						"guide": "forever/alliance/40-50/04-tanaris",
+						"quest": 2864,
+						"goal": "turnin"
+					},
+					"note": "Trenton Lighthammer, the same stop, about 80 yd from Tran'rek"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/40-50/04-tanaris",
+				"after": {
+					"quest": 992,
+					"goal": "use",
+					"note": "the pool by Sandsorrow Watch (~46), the route's nearest point to the gate, about 400 yd south of it"
+				},
+				"entrance": {
+					"map": 1446,
+					"x": 38.7,
+					"y": 20.1
+				},
+				"objectives": [
+					2865,
+					2768,
+					3042
+				],
+				"guard": "onquest 2865,2768,3042"
+			},
+			"handins": [
+				{
+					"quest": 2865,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					},
+					"note": "the next Gadgetzan stop"
+				},
+				{
+					"quest": 2768,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					}
+				},
+				{
+					"quest": 3042,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					}
+				}
+			],
+			"leftOut": {
+				"2770": "Gahz'rilla: Wizzle Brassbolts at the Mirage Raceway, level 50, 5 over there",
+				"3527": "The Prophecy of Mosh'aru: after Screecher Spirits (3520), which this route does not take",
+				"2991": "Nekrum's Medallion: a Hinterlands chain, after this guide",
+				"2846": "Tiara of the Deep: Tabetha in Dustwallow Marsh, off the route",
+				"351": "Find OOX-17/TN!: a rare beacon from the desert, not the dungeon"
+			},
+			"budget": {
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 40-50/04-tanaris +1.1 km (the pool to the gate and back), backtracks +1, hub visits +0; the guide 29 min shorter (its grind to 47 shortened by the run's XP)"
+			}
+		},
+		{
+			"dungeon": "Zul'Farrak",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 2865,
+					"after": {
+						"guide": "forever/horde/40-50/02-feralas",
+						"quest": 2864,
+						"goal": "turnin"
+					},
+					"note": "Tran'rek, the Gadgetzan stop (~44), where Tran'rek (2864) is handed in"
+				},
+				{
+					"quest": 3042,
+					"after": {
+						"guide": "forever/horde/40-50/02-feralas",
+						"quest": 2864,
+						"goal": "turnin"
+					},
+					"note": "Trenton Lighthammer, the same stop, a short walk from the flight master"
+				},
+				{
+					"quest": 2768,
+					"after": {
+						"guide": "forever/horde/40-50/04-tanaris",
+						"quest": 2605,
+						"goal": "accept"
+					},
+					"note": "Chief Engineer Bilgewhizzle, Gadgetzan's first stop of 04-tanaris (~46): level 47, 3 over on 02-feralas's stop"
+				}
+			],
+			"runStop": [
+				2865,
+				3042
+			],
+			"run": {
+				"guide": "forever/horde/40-50/04-tanaris",
+				"after": {
+					"quest": 992,
+					"goal": "use",
+					"note": "Sandsorrow Watch (~46), the route's nearest point to the gate, about 400 yd south of it"
+				},
+				"entrance": {
+					"map": 1446,
+					"x": 38.7,
+					"y": 20.1
+				},
+				"objectives": [
+					2865,
+					2768,
+					3042
+				],
+				"guard": "onquest 2865,2768,3042"
+			},
+			"handins": [
+				{
+					"quest": 2865,
+					"guide": "forever/horde/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					},
+					"note": "Gadgetzan, after Fizzledowser"
+				},
+				{
+					"quest": 2768,
+					"guide": "forever/horde/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					}
+				},
+				{
+					"quest": 3042,
+					"guide": "forever/horde/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					}
+				}
+			],
+			"leftOut": {
+				"2770": "Gahz'rilla: Wizzle Brassbolts at the Mirage Raceway (40-50/02-feralas), level 50, 6 over there",
+				"3527": "The Prophecy of Mosh'aru: offered once Screecher Spirits (3520) is handed in at Steamwheedle Port, after the run",
+				"2936": "The Spider God: after Master Gadrin's chain (2933-2935), which this route leaves out",
+				"2846": "Tiara of the Deep: Tabetha in Dustwallow Marsh, off the route",
+				"351": "Find OOX-17/TN!: a rare beacon from the desert, not the dungeon"
+			},
+			"budget": {
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 40-50/02-feralas +0.3 km, +1.0 min, passed givers (hub) +1 (Bilgewhizzle's Divino-matic Rod, 3 over there, taken in 04-tanaris); 40-50/04-tanaris +0.6 km, +8.1 min, hub visits -1, passed enders -3, avoidable backtracks -1; 40-50/05-the-hinterlands 34 min shorter"
+			}
+		},
+		{
+			"dungeon": "City of Dalaran",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 96986,
+					"after": {
+						"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+						"quest": 676,
+						"goal": "accept"
+					},
+					"note": "Melisara, the Tarren Mill stop (~30.5), a short walk east of Magus Wordeen Voidglare"
+				}
+			],
+			"run": {
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+				"after": {
+					"quest": 556,
+					"goal": "collect",
+					"note": "the Dalaran crater stop (~31)"
+				},
+				"entrance": {
+					"map": 1416,
+					"x": 12.8,
+					"y": 62.2,
+					"frame": "live",
+					"source": "players' recordings: the sewer pipe north-west of the crater, where Horde players without Heart of Disruption (its Sewer Key) went in"
+				},
+				"objectives": [
+					96986
+				],
+				"insideQuests": [
+					96987
+				],
+				"guard": "onquest 96986"
+			},
+			"handins": [
+				{
+					"quest": 96986,
+					"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 515,
+						"goal": "turnin"
+					},
+					"note": "the next Tarren Mill stop"
+				}
+			],
+			"leftOut": {
+				"96988": "Source of Power: Doctor Martin Felben in the Undercity, level 33, 3.5 levels over on the Undercity stop at 29.5",
+				"96984": "Heart of Disruption: after Blood in the Streets (92434), on the 38-39 visit"
+			},
+			"budget": {
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 30-40/01-hillsbrad-foothills +1.0 km, +4.5 min (the crater to the pipe and back), passed givers near +1, backtracks -1, hub visits +0; the run's XP takes 26 and 21 min off the written grind of 30-40/02-thousand-needles and 30-40/04-dustwallow-marsh"
+			}
+		},
+		{
+			"dungeon": "Blackrock Depths",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 4081,
+					"after": {
+						"guide": "forever/horde/50-60/01-un-goro-crater",
+						"quest": 4061,
+						"goal": "accept"
+					},
+					"note": "the WANTED poster, the first Kargath stop (~51)"
+				}
+			],
+			"run": {
+				"guide": "forever/horde/50-60/01-un-goro-crater",
+				"after": {
+					"step": "Into the Searing Gorge",
+					"note": "the bridge into Blackrock Mountain the route crosses on the way to the Burning Steppes; the portal is down the walkways from it"
+				},
+				"entrance": {
+					"map": 1427,
+					"x": 34.8,
+					"y": 85.3
+				},
+				"objectives": [
+					4081
+				],
+				"insideQuests": [
+					4201,
+					4083,
+					4295,
+					7604
+				],
+				"guard": "onquest 4081"
+			},
+			"handins": [
+				{
+					"quest": 4081,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": {
+						"quest": 4061,
+						"goal": "turnin"
+					},
+					"note": "Warlord Goretooth, the last Kargath stop (~53)"
+				}
+			],
+			"leftOut": {
+				"4082": "KILL ON SIGHT: High Ranking Dark Iron Officials: its poster offers it once 4081 is handed in, after the run",
+				"3906": "Disharmony of Flame: Overmaster Pyron, outside the dungeon; 3907, 3981 and 7201 come after it",
+				"4134": "Lost Thunderbrew Recipe: after Vivian Lagrave (4133), which the route does not take",
+				"4123": "The Heart of the Mountain: Maxwort Uberglint at Flame Crest, after the mountain",
+				"4136": "Ribbly Screwspigot: Yuka Screwspigot at Flame Crest, after the mountain",
+				"4063": "The Rise of the Machines: after 4062, which the route leaves out"
+			},
+			"budget": {
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 50-60/01-un-goro-crater +0.1 km, +2.7 min, backtracks +1, hub visits +0; 50-60/02-felwood 13 min shorter"
+			}
+		}
+	],
+	"notInRoute": [
+		{
+			"dungeon": "Gnomeregan",
+			"faction": "Both",
+			"why": "Left out of the route on purpose: for the Alliance its quests' city stops cost a ~1,450 yd walk from Ironforge's gate and back, and the Horde's Rig Wars is a hand-in waiting a whole guide; its Dungeons page has the pick-up and hand-in guides."
+		},
+		{
+			"dungeon": "Uldaman",
+			"faction": "Alliance",
+			"why": "No quest of the dungeon itself can be taken on a stop the route makes in its window: Krom Stoutarm, Prospector Stormpike and Talvash del Kissel are in Ironforge, which the route visits at 30-33 (below their level, Reclaimed Treasures 10 over) and again at 50; the quests the Badlands visits meet (A Sign of Hope and Amulet of Secrets, Solution to Doom, Power Stones, the reagent runs, Agmond's Fate) are done in the outer caves and at the Maker's Terrace, outside the dungeon, where Solution to Doom already is a group quest. A run would have no quest to guard it."
+		},
+		{
+			"dungeon": "Uldaman",
+			"faction": "Horde",
+			"why": "No quest of the dungeon itself can be taken in its window on the route: the necklace chain starts with Dran Droffers in Orgrimmar, whose route visit (43-45) comes after the only Badlands visit (39-40); the quests the Badlands visit meets (Solution to Doom, Power Stones, the reagent runs) are done outside the dungeon, and Jarkal Mossmeld offers Uldaman Reagent Run only at the end of the visit. A run would have no quest to guard it."
+		},
+		{
+			"dungeon": "Blackrock Depths",
+			"faction": "Alliance",
+			"why": "The dungeon's quests the route meets (Maxwort Uberglint's, Oralius', Jalinda Sprig's and Marshal Maxwell's) are offered in the Burning Steppes at 50-53, where the route stays at Morgan's Vigil and Flame Crest, 1,728 and 1,084 yd from the mountain's gate; the route passes the mountain only in the Searing Gorge at 48-49, before any of them is offered."
+		},
+		{
+			"dungeon": "Razorfen Kraul",
+			"faction": "Alliance",
+			"why": "No giver on a stop the route makes in its window (Mebok in Ratchet, Falfindel in Feralas, Veyric Thunderhame in the Arathi Highlands are off the route then); the nearest point the route passes in the window is 1,041 yd from the door (30-40/03-ashenvale's way into the Barrens)."
+		},
+		{
+			"dungeon": "Excavation Site: Wetlands",
+			"faction": "Horde",
+			"why": "The route never enters the Wetlands in the dungeon's window; its one giver on the route, Zaruk in Hammerfall (Dragonmaw Rumors, 30-33), sends you 2,956 yd across the Thandol Span to the dig and its other givers are off the route."
+		},
+		{
+			"dungeon": "Scarlet Monastery",
+			"faction": "Alliance",
+			"why": "The route never enters Tirisfal Glades."
+		},
+		{
+			"dungeon": "Scarlet Monastery",
+			"faction": "Horde",
+			"why": "The route's only Tirisfal point in the window is the zeppelin tower at 32-34, 1,244 yd from the door; Varimathras' quest is level 42 there (8 over) and the other givers are off the route (Thunder Bluff, the Undercity's Parqual Fintallas chain)."
+		},
+		{
+			"dungeon": "Razorfen Downs",
+			"faction": "Alliance",
+			"why": "No route visit in its window (35-41): the nearest point is 1,048 yd away at 32-33, and its givers are off the route or inside."
+		},
+		{
+			"dungeon": "Razorfen Downs",
+			"faction": "Horde",
+			"why": "No route visit in its window (35-41): the nearest point in it is about 4 km away; its givers are off the route or inside, Varimathras' An Unholy Alliance starts from an item inside."
+		},
+		{
+			"dungeon": "Maraudon",
+			"faction": "Alliance",
+			"why": "The route's Desolace visit (38-39) passes 347 yd from the door but below the quests' minimum levels (39 to 45): Willow's Twisted Evils needs 41, Archmage Tervosh's Shadowshard Fragments is offered at 40-43 in Theramore, the others are off the route."
+		},
+		{
+			"dungeon": "Maraudon",
+			"faction": "Horde",
+			"why": "The route is in Desolace only at 32-34, below the dungeon (42-51) and its quests (minimum 39 to 45)."
+		},
+		{
+			"dungeon": "Sunken Temple",
+			"faction": "Alliance",
+			"why": "The route passes the temple at 40-43, below its quests (level 50-53, minimum 41-50), and does not come back to the Swamp of Sorrows later."
+		},
+		{
+			"dungeon": "Sunken Temple",
+			"faction": "Horde",
+			"why": "The route passes the temple at 45-47, below its quests (level 50-53, minimum 46-50), and does not come back to the Swamp of Sorrows later."
+		},
+		{
+			"dungeon": "The Drowned City",
+			"faction": "Alliance",
+			"why": "Its givers on the route are Loremaster Dibbs in Southshore at 30-33 (level 40, 7 over) and Krazek's two quests, which give no experience."
+		},
+		{
+			"dungeon": "The Drowned City",
+			"faction": "Horde",
+			"why": "Kin'weelay offers The Drowned City in Grom'gol only once Locating the Lost City is handed in, after the route has already been at the entrance; a run would be a 681 yd trip back to the Vile Reef and a second Grom'gol visit for the hand-in. Commander Aggro'gosh's The Only Good Brinescale needs Enemies in the Water, which the route does not take."
+		},
+		{
+			"dungeon": "Krol'dok Stronghold",
+			"faction": "Alliance",
+			"why": "No entrance in our data and its one quest (Tome of Twilight, no experience) is off the route."
+		},
+		{
+			"dungeon": "Krol'dok Stronghold",
+			"faction": "Horde",
+			"why": "No entrance in our data and its one quest's giver, Tran'gul, is off the route."
+		},
+		{
+			"dungeon": "Alcaz Prison",
+			"faction": "Both",
+			"why": "No entrance in our data, and its quests give no experience or start inside."
+		},
+		{
+			"dungeon": "Blackmaw Hold",
+			"faction": "Both",
+			"why": "No entrance in our data, and its quests give no experience; their givers are off the route in its window."
+		},
+		{
+			"dungeon": "The Shaper's Terrace",
+			"faction": "Both",
+			"why": "A level 60 dungeon: its quests give no experience."
+		}
+	],
+	"aboutNotInRoute": "Dungeons measured for the route and left out, with why (the 30-60 batch, 0.4.0): their pick-up and run rules as for `runs`. The Dungeons window's pick-up and hand-in guides cover them."
+}

@@ -38,7 +38,7 @@ end
 function Gossip.Wanted(options, npc)
 	local E = ns.Engine
 	local live = E and E.GetLiveStep and E.GetLiveStep()
-	local view = live and E.GetStepView(live)
+	local view = live and E.GetStepView(live, true)
 	local g = E and E.GetGuide and E.GetGuide()
 	local raw = g and g.steps and g.steps[live] and g.steps[live].goals
 	if not (view and raw and npc) then return nil end

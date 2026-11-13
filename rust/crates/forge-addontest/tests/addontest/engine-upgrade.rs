@@ -1,4 +1,4 @@
-//! An update never moves a player back (0.3.5 -> 0.3.6, UpgradeMid036: 26 of 199 recorded mid-guide saves
+//! An update never moves a player back (0.3.5 -> 0.3.6: 26 of 199 recorded mid-guide saves
 //! were sent back to a quest the update put behind them). A save made with an older version of a guide
 //! (CharState().shapes and stepKeys, no shapeVersions) loads the new one: what the update added behind the
 //! player passes for them (Own.noteAdded, Own.passAdded), what it added ahead stays, a quest they carry keeps
@@ -116,7 +116,7 @@ fn check_offs_skips_and_the_view_of_a_changed_step_go_to_the_step_with_the_same_
 	assert_eq!(out["live"], 8, "the view kept, the player still at 103's hand-in: {out}");
 }
 
-// The 6 states UpgradeMid036 still saw sent back (Wetlands 98216, Hillsbrad 98283, Stranglethorn 1287, Silithus
+// The 6 states the upgrade check still saw sent back (Wetlands 98216, Hillsbrad 98283, Stranglethorn 1287, Silithus
 // 6390): a quest the player carries whose work the update moved behind them. 108 is in the log; its kill and
 // hand-in are only in the step the update added behind the player.
 const BEHIND_GUIDE_FROM: &str = r#"{ title = "New behind", goals = { a(108, 40) } },"#;
@@ -244,7 +244,7 @@ fn reset_progress_brings_back_what_an_update_passed() {
 	assert_eq!(out[1]["live"], 2, "{}", out[1]);
 }
 
-// UpgradeMid036 on the final candidate (Skyborne Druid, Zephras Isle): the player skipped 0.3.5's Raan Wildwind
+// The upgrade check on the final candidate (Skyborne Druid, Zephras Isle): the player skipped 0.3.5's Raan Wildwind
 // step whole; 0.3.6 split it, its training going to a new Zerril Softbreeze step after the Camping 101 steps. The
 // skip went with the first half only, so the training half came back and pulled the live step 14 steps back. A
 // step all of whose goals came from a step the player skipped whole is skipped too.
@@ -272,7 +272,7 @@ fn a_skipped_step_an_update_split_stays_skipped_in_every_part() {
 	assert_eq!(out["skipped"]["5"], true, "the split-off half keeps the skip: {out}");
 }
 
-// UpgradeMid036 on the 0.3.6 candidate (Wetlands, a 0.3.5 save at Anilia, step 42, carrying Bloom of the
+// The upgrade check on the 0.3.6 candidate (Wetlands, a 0.3.5 save at Anilia, step 42, carrying Bloom of the
 // Heavens taken off the route): Menethil's second stop gained that quest's hand-in (new) beside its hand-ins and
 // a vendor check-off the save had there too. The vendor never holds that step (Own.sideVendor), so the player's
 // place is still past it, and the carried quest is still to do; before, the vendor read as open work the update

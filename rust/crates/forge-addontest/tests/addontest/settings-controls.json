@@ -2359,5 +2359,15 @@
     "Questing > Quests > Group"
    ]
   }
+ ],
+ "0.4.0": [
+  {
+   "id": "behavior.dungeons",
+   "kind": "dropdown",
+   "label": "Dungeons in my route",
+   "at": [
+    "Guide > Automation > Quests"
+   ]
+  }
  ]
 }

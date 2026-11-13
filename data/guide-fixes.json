@@ -195,7 +195,7 @@
 			"source": [
 				{
 					"kind": "recording",
-					"ref": "deaths at Elwynn 48-59,61-71 (the murloc camp), all versions: 30 deaths of 17 people, 21 of them to Murlocs (285, level 6-7) and Murloc Streamrunners (735); 0.3.5+ players: 7 deaths of 4 people, 26 minutes median on the lake's kill and hand-in steps (IngestCheck036 deathsteps)"
+					"ref": "deaths at Elwynn 48-59,61-71 (the murloc camp), all versions: 30 deaths of 17 people, 21 of them to Murlocs (285, level 6-7) and Murloc Streamrunners (735); 0.3.5+ players: 7 deaths of 4 people, 26 minutes median on the lake's kill and hand-in steps (deaths and time per step)"
 				}
 			]
 		},
@@ -464,7 +464,7 @@
 				"goal": "turnin"
 			},
 			"tip": "Quel'ana Quickgale takes back the first Taming Rod and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. Quel'dora Quickgale, beside her, teaches Beast Training.",
-			"note": "Taming the Beast: the Galestriders and Vuldren Alphas the second and third rods need live 100-200 yd north of Quel'ana (places zephras-taming-galestrider, zephras-taming-vuldren-alpha); the tip sent Hunters to the Windfield farm, about 800 yd away, twice, with a walk back to her after each tame. RevSkyA3 c13 read: the alliance seed tames the first rod's Windsong Crawler on the Catching Wind trip to the Windstone Formations (crawlers 221 yd from the formations, 462 yd from Quel'ana), so the tip sits on the first hand-in, which both seeds write in the taming step. Rev14SkyH c14 read: the horde seed now does the same (first rod accepted beside Seena and Riaani at 10, crawler tamed on the Crab Season trip to the crawlers' slopes), so the tip no longer sends anyone back west for the crawler; c14's Alliance step still said 'the first is for a Windsong Crawler' after the crawler was tamed (Skyborne-alliance 01-zephras-isle:442-446).",
+			"note": "Taming the Beast: the Galestriders and Vuldren Alphas the second and third rods need live 100-200 yd north of Quel'ana (places zephras-taming-galestrider, zephras-taming-vuldren-alpha); the tip sent Hunters to the Windfield farm, about 800 yd away, twice, with a walk back to her after each tame. c13 review: the alliance seed tames the first rod's Windsong Crawler on the Catching Wind trip to the Windstone Formations (crawlers 221 yd from the formations, 462 yd from Quel'ana), so the tip sits on the first hand-in, which both seeds write in the taming step. c14 review: the horde seed now does the same (first rod accepted beside Seena and Riaani at 10, crawler tamed on the Crab Season trip to the crawlers' slopes), so the tip no longer sends anyone back west for the crawler; c14's Alliance step still said 'the first is for a Windsong Crawler' after the crawler was tamed (Skyborne-alliance 01-zephras-isle:442-446).",
 			"source": [
 				{
 					"kind": "tdb",
@@ -545,7 +545,7 @@
 				"objective": 1
 			},
 			"tip": "Prideclaws and Galestriders share the meadows south of Shen'dar Village. The Galestriders drop both the Small Eggs and the Strider Meat for Zerril.",
-			"note": "Restocking the Larders: the route takes the Small Eggs from the Galestriders it kills for the Strider Meat (the same spot), but the step kept v1's tip sending the player to the hippogryph nests west of Falaath, and the meat step's tip said the eggs come later from the hippogryphs (RevSkyH c13 read, 01-zephras-isle.guide:281-287).",
+			"note": "Restocking the Larders: the route takes the Small Eggs from the Galestriders it kills for the Strider Meat (the same spot), but the step kept v1's tip sending the player to the hippogryph nests west of Falaath, and the meat step's tip said the eggs come later from the hippogryphs (c13 review, 01-zephras-isle.guide:281-287).",
 			"source": [
 				{
 					"kind": "questie",
@@ -562,7 +562,7 @@
 				"objective": 2
 			},
 			"tip": "Prideclaws and Galestriders share the meadows south of Shen'dar Village. The Galestriders drop both the Small Eggs and the Strider Meat for Zerril.",
-			"note": "Restocking the Larders: the same tip as zephras-shendar-eggs-from-galestriders on the meat's step, which said the eggs come later from the hippogryphs (RevSkyH c13 read, 01-zephras-isle.guide:285-289); one text, so the merged step reads the same.",
+			"note": "Restocking the Larders: the same tip as zephras-shendar-eggs-from-galestriders on the meat's step, which said the eggs come later from the hippogryphs (c13 review, 01-zephras-isle.guide:285-289); one text, so the merged step reads the same.",
 			"source": [
 				{
 					"kind": "questie",
@@ -579,7 +579,7 @@
 				"objective": 2
 			},
 			"tip": "The hippogryph nests are north-west of the West Pylon Watchtower, west of Falaath Village. The Matriarch sits at their western end; Hippogryph Down lies on the ground around the nests.",
-			"note": "Hippogryph Harrassment and A Little Beauty: the nests step lost its tip when the eggs' step took v1's nests tip (RevSkyH c13 read, 01-zephras-isle.guide:369-373 has no tip).",
+			"note": "Hippogryph Harrassment and A Little Beauty: the nests step lost its tip when the eggs' step took v1's nests tip (c13 review, 01-zephras-isle.guide:369-373 has no tip).",
 			"source": [
 				{
 					"kind": "questie",
@@ -596,7 +596,7 @@
 				"objective": 2
 			},
 			"tip": "The Crystallized Lightning lies in a cave in the hills north-west of Riaani.",
-			"note": "The Broken Construct: the route takes the lightning right after Riaani, alone, in v1's step titled for the Bandit Highwaymen whose tip sent the player to the hills by the orchard (RevSkyH c13 read, 01-zephras-isle.guide:427-429).",
+			"note": "The Broken Construct: the route takes the lightning right after Riaani, alone, in v1's step titled for the Bandit Highwaymen whose tip sent the player to the hills by the orchard (c13 review, 01-zephras-isle.guide:427-429).",
 			"source": [
 				{
 					"kind": "questie",
@@ -613,7 +613,7 @@
 				"objective": 3
 			},
 			"tip": "The Enchanted Gyrozephyrs lie under water far to the north, east of Shen'dar Village and south-west of Windsong Lake.",
-			"note": "The Broken Construct: v1's tip called them the last parts and sent the player on to the orchard; the route takes the Air Construct Cores after them (RevSkyH c13 read, 01-zephras-isle.guide:431-433).",
+			"note": "The Broken Construct: v1's tip called them the last parts and sent the player on to the orchard; the route takes the Air Construct Cores after them (c13 review, 01-zephras-isle.guide:431-433).",
 			"source": [
 				{
 					"kind": "questie",
@@ -630,7 +630,7 @@
 				"objective": 4
 			},
 			"tip": "The Air Construct Cores lie in the hills just north-west of Windfield Orchard, among the Highwayman Bandits.",
-			"note": "The Broken Construct: the cores' step kept v1's tip about Wind Hollows, whose quest (Unwelcome Spirits) the route leaves out (RevSkyH c13 read, 01-zephras-isle.guide:435-437).",
+			"note": "The Broken Construct: the cores' step kept v1's tip about Wind Hollows, whose quest (Unwelcome Spirits) the route leaves out (c13 review, 01-zephras-isle.guide:435-437).",
 			"source": [
 				{
 					"kind": "questie",
@@ -647,7 +647,7 @@
 				"objective": 1
 			},
 			"tip": "The Highwayman Bandits hold the hills north of Windfield Orchard; they drop the Blood-Stained Bandit Masks.",
-			"note": "The Hills Have Eyes: the route split v1's Bandit Highwaymen step, and the masks' own step was left without a tip (RevSkyH c13 read, 01-zephras-isle.guide:469-470).",
+			"note": "The Hills Have Eyes: the route split v1's Bandit Highwaymen step, and the masks' own step was left without a tip (c13 review, 01-zephras-isle.guide:469-470).",
 			"source": [
 				{
 					"kind": "questie",
@@ -663,7 +663,7 @@
 				"goal": "accept"
 			},
 			"tip": "Ayessa sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on Valanaar's south-west edge: it flies to northern Mulgore, where Alaana Stormwalker waits.",
-			"note": "The Earthen Ring: the written step that leaves the isle is a bare goto to the dock, so the step before it says how the player leaves (v1's airship step said it; the Alliance has zephras-skycutter-from-valanaar). RevSkyH c13 read, 01-zephras-isle.guide:740-758.",
+			"note": "The Earthen Ring: the written step that leaves the isle is a bare goto to the dock, so the step before it says how the player leaves (v1's airship step said it; the Alliance has zephras-skycutter-from-valanaar). c13 review, 01-zephras-isle.guide:740-758.",
 			"source": [
 				{
 					"kind": "questie",
@@ -5315,7 +5315,7 @@
 				"objective": 1
 			},
 			"tip": "Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.",
-			"note": "GuideHealth036 Steps (0.3.6): the step said 'open both locks' without the keys; items.json: Dull Iron Key 3467 drops from Jailor Eston 2427 (100%), Burnished Gold Key 3499 from Jailor Marlgen 2428 (100%), both at Durnholde (1424 ~79.5,41); the knowledge base's steps for 498 use both keys.",
+			"note": "Review (0.3.6): the step said 'open both locks' without the keys; items.json: Dull Iron Key 3467 drops from Jailor Eston 2427 (100%), Burnished Gold Key 3499 from Jailor Marlgen 2428 (100%), both at Durnholde (1424 ~79.5,41); the knowledge base's steps for 498 use both keys.",
 			"source": {
 				"kind": "client",
 				"ref": "items.json 3467/3499 drops; quest-steps.json 498"
@@ -5330,7 +5330,7 @@
 				"objective": 1
 			},
 			"tip": "South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a Sunscale Feather: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest.",
-			"note": "GuideHealth036 Steps (0.3.6): the nest step never named the feathers. Quest text 905: 'Kill Sunscale raptors and collect their feathers. Use the feathers on the 3 Scytheclaw nests'; items.json 5165 drops from Sunscale raptors 3254-3256 at 80%.",
+			"note": "Review (0.3.6): the nest step never named the feathers. Quest text 905: 'Kill Sunscale raptors and collect their feathers. Use the feathers on the 3 Scytheclaw nests'; items.json 5165 drops from Sunscale raptors 3254-3256 at 80%.",
 			"source": {
 				"kind": "client",
 				"ref": "quests.json 905 objectiveText; items.json 5165"
@@ -5345,7 +5345,7 @@
 				"objective": 1
 			},
 			"tip": "The dwarves' flying machine sits on its platform inside the dig site. Use the Explosive Stick of Gann that Gann gave you on it.",
-			"note": "GuideHealth036 Steps (0.3.6): the step pointed at the flying machine without the item that destroys it (Explosive Stick of Gann 5021, from Gann; the knowledge base's steps for 849).",
+			"note": "Review (0.3.6): the step pointed at the flying machine without the item that destroys it (Explosive Stick of Gann 5021, from Gann; the knowledge base's steps for 849).",
 			"source": {
 				"kind": "client",
 				"ref": "quest-steps.json 849; items.json 5021"
@@ -5359,7 +5359,7 @@
 				"goal": "complete"
 			},
 			"tip": "Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater; Therylune stands on its north side. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.",
-			"note": "GuideHealth036 Steps (0.3.6): the tip said the Scrying Bowl 'sits' in the crater; it only appears once the Phial of Scrying (5251) is used. Quest text 944: 'use the Phial of Scrying to create a Scrying Bowl'; ender object 10076.",
+			"note": "Review (0.3.6): the tip said the Scrying Bowl 'sits' in the crater; it only appears once the Phial of Scrying (5251) is used. Quest text 944: 'use the Phial of Scrying to create a Scrying Bowl'; ender object 10076.",
 			"source": {
 				"kind": "client",
 				"ref": "quests.json 944 objectiveText, end object 10076"
@@ -5373,7 +5373,7 @@
 				"goal": "turnin"
 			},
 			"tip": "Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.",
-			"note": "GuideHealth036 Steps (0.3.6): the Krolg step never named the rod. Quest text 1030: 'using the power of Dartol's Rod of Transformation, speak to him'; the knowledge base's steps for 1030 use the rod (5462) before the hand-in.",
+			"note": "Review (0.3.6): the Krolg step never named the rod. Quest text 1030: 'using the power of Dartol's Rod of Transformation, speak to him'; the knowledge base's steps for 1030 use the rod (5462) before the hand-in.",
 			"source": [
 				{
 					"kind": "client",
@@ -5389,7 +5389,7 @@
 				"goal": "turnin"
 			},
 			"tip": "Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.",
-			"note": "GuideHealth036 Steps (0.3.6): the tip said Xiggs 'waits by the monument'. Quest text 3449 ('signaling Pilot Xiggs Fuselighter to pick them up'; completion: 'toss the flare gun') and the knowledge base (step 5: fire the Standard Issue Flare Gun 10444 on the island, wait for the pilot) say he comes on the flare; no recording has met him. Worded so it holds either way: verify in game whether he stands there.",
+			"note": "Review (0.3.6): the tip said Xiggs 'waits by the monument'. Quest text 3449 ('signaling Pilot Xiggs Fuselighter to pick them up'; completion: 'toss the flare gun') and the knowledge base (step 5: fire the Standard Issue Flare Gun 10444 on the island, wait for the pilot) say he comes on the flare; no recording has met him. Worded so it holds either way: verify in game whether he stands there.",
 			"source": [
 				{
 					"kind": "client",
@@ -5405,7 +5405,7 @@
 				"goal": "turnin"
 			},
 			"tip": "The wrecked ship lies just south-west of Azore's tower; its chest sits beside Rackmore's Log.",
-			"note": "BrAlliance3040 (0.3.6): Karnitol's Chest (object 35251) and Rackmore's Log (177787) share 36.1,30.4, about 100 yd south-west of Azore Aldamort (38.9,27.2). The first Desolace visit (30-40/02) opens the chest after Azore (route-fixes together records); 30-40/06 keeps the step for a player who loads it fresh.",
+			"note": "Review (0.3.6): Karnitol's Chest (object 35251) and Rackmore's Log (177787) share 36.1,30.4, about 100 yd south-west of Azore Aldamort (38.9,27.2). The first Desolace visit (30-40/02) opens the chest after Azore (route-fixes together records); 30-40/06 keeps the step for a player who loads it fresh.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5421,7 +5421,7 @@
 				"goal": "accept"
 			},
 			"tip": "Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.",
-			"note": "BrAlliance3040 (0.3.6): Claim Rackmore's Treasure! was Dwarf-only in 30-40/06 (a filter from an old per-race export; the quest's race mask is all races, and Scourge, Orc and Skyborne characters took it in the recordings). Silver key 15878: Drysnap Crawler/Pincer (11562/11563, 15%), which also spawn at 31-35,27-35 by the wreck; golden key 15881: every Slitherblade naga (4711-4719, 55%) of Sar'theris Strand, where the satchel and the Serpent Statue already take the route. The record races-6161-rackmores-treasure keeps its goals for every race.",
+			"note": "Review (0.3.6): Claim Rackmore's Treasure! was Dwarf-only in 30-40/06 (a filter from an old per-race export; the quest's race mask is all races, and Scourge, Orc and Skyborne characters took it in the recordings). Silver key 15878: Drysnap Crawler/Pincer (11562/11563, 15%), which also spawn at 31-35,27-35 by the wreck; golden key 15881: every Slitherblade naga (4711-4719, 55%) of Sar'theris Strand, where the satchel and the Serpent Statue already take the route. The record races-6161-rackmores-treasure keeps its goals for every race.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5429,7 +5429,7 @@
 				},
 				{
 					"kind": "recording",
-					"ref": "rec.py quest 6161 (Br3040, 2026-11-10)"
+					"ref": "rec.py quest 6161 (2026-11-10)"
 				}
 			]
 		},
@@ -5441,7 +5441,7 @@
 				"goal": "turnin"
 			},
 			"tip": "Rackmore's chest lies just south-east of the Serpent Statue.",
-			"note": "BrAlliance3040 (0.3.6): Rackmore's Chest (177786) is at 30.0,8.7, the Serpent Statue at 28.2,6.7; the treasure is claimed right after the statue instead of after a walk south to 36.3,23.1 for the golden key and back.",
+			"note": "Review (0.3.6): Rackmore's Chest (177786) is at 30.0,8.7, the Serpent Statue at 28.2,6.7; the treasure is claimed right after the statue instead of after a walk south to 36.3,23.1 for the golden key and back.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5457,7 +5457,7 @@
 				"goal": "turnin"
 			},
 			"tip": "Follow the road north to Nijel's Point: Captain Pentigast stands at its south end, Kreldig Ungor in the middle, Brother Anton to the north.",
-			"note": "BrAlliance3040 (0.3.6): the south loop's hand-ins at Nijel's Point are made on one stop at the end, in the order the road from Kormek's Hut meets them: Pentigast (66.7,10.9), Kreldig (66.2,9.6), Anton (66.5,7.9), then the flight master (64.7,10.4).",
+			"note": "Review (0.3.6): the south loop's hand-ins at Nijel's Point are made on one stop at the end, in the order the road from Kormek's Hut meets them: Pentigast (66.7,10.9), Kreldig (66.2,9.6), Anton (66.5,7.9), then the flight master (64.7,10.4).",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5473,7 +5473,7 @@
 				"goal": "turnin"
 			},
 			"tip": "Glorin stands in the Deepwater Tavern, south of the keep, where Mikhail and Vincent Hyal wait too.",
-			"note": "BrAlliance3040 (0.3.6, Alliance 30-40/03): the tip sent the player to the upper floor of Menethil Keep. Glorin Steelbrow (1217) spawns at 10.6,60.6, in the Deepwater Tavern beside Mikhail (4963, 10.6,60.8), whom the next step visits; Captain Stoutfist (2104) is the one in the keep (9.9,57.5). 06-wetlands already says Glorin is in the tavern.",
+			"note": "Review (0.3.6, Alliance 30-40/03): the tip sent the player to the upper floor of Menethil Keep. Glorin Steelbrow (1217) spawns at 10.6,60.6, in the Deepwater Tavern beside Mikhail (4963, 10.6,60.8), whom the next step visits; Captain Stoutfist (2104) is the one in the keep (9.9,57.5). 06-wetlands already says Glorin is in the tavern.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5489,7 +5489,7 @@
 				"goal": "accept"
 			},
 			"tip": "East from Northfold Manor across the north of the Highlands; the shards glitter on the hill by the Circle of East Binding, north of Go'Shek Farm.",
-			"note": "BrAlliance3040 (0.3.6): the Myzrael story comes straight after Northfold Manor now (route-fixes pair 651 East key before 691); Shards of Myzrael (object 2705) at 62.5,33.7, Stone of East Binding (2691) at 66.7,29.7.",
+			"note": "Review (0.3.6): the Myzrael story comes straight after Northfold Manor now (route-fixes pair 651 East key before 691); Shards of Myzrael (object 2705) at 62.5,33.7, Stone of East Binding (2691) at 66.7,29.7.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5506,7 +5506,7 @@
 				"objective": 1
 			},
 			"tip": "South from the Stone of East Binding, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.",
-			"note": "BrAlliance3040 (0.3.6): Witherbark Village is worked on the way south from the eastern circle to Quae instead of between Northfold and the shards. Witch Doctors (2555) 61-68,64-77; Shadow Hunters (2557, the knife) 66-69,78-82.",
+			"note": "Review (0.3.6): Witherbark Village is worked on the way south from the eastern circle to Quae instead of between Northfold and the shards. Witch Doctors (2555) 61-68,64-77; Shadow Hunters (2557, the knife) 66-69,78-82.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5522,7 +5522,7 @@
 				"goal": "turnin"
 			},
 			"tip": "North-west out of the Witherbark valley; Quae and Kinelory camp in the hills just north of Go'Shek Farm.",
-			"note": "BrAlliance3040 (0.3.6): Quae (2712, 60.2,53.9) is reached from Witherbark Village now.",
+			"note": "Review (0.3.6): Quae (2712, 60.2,53.9) is reached from Witherbark Village now.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5538,7 +5538,7 @@
 				"goal": "accept"
 			},
 			"tip": "South along the road: the hunters' tents stand just west of it.",
-			"note": "BrAlliance3040 (0.3.6, 30-40/04b): Panther Mastery is taken at Nesingwary's on the way in from the Rebel Camp, so the Shadowmaw Panthers at Lake Nazferiti can be killed right after Kurzen's Compound (route-fixes pairs).",
+			"note": "Review (0.3.6, 30-40/04b): Panther Mastery is taken at Nesingwary's on the way in from the Rebel Camp, so the Shadowmaw Panthers at Lake Nazferiti can be killed right after Kurzen's Compound (route-fixes pairs).",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5554,7 +5554,7 @@
 				"goal": "turnin"
 			},
 			"tip": "East to Kurzen's Compound: Herod's records lie in a hut on its west side.",
-			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the compound is reached from Nesingwary's camp now; the records (object at 43.7,9.4) lie on its west side.",
+			"note": "Review (0.3.6, 30-40/04b): the compound is reached from Nesingwary's camp now; the records (object at 43.7,9.4) lie on its west side.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5571,7 +5571,7 @@
 				"objective": 1
 			},
 			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it.",
-			"note": "BrAlliance3040 (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109).",
+			"note": "Review (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109).",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5588,7 +5588,7 @@
 				"objective": 1
 			},
 			"tip": "West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.",
-			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the tablets are visited after Lake Nazferiti: Moon Over the Vale 29.5,19.1, Gri'lek 24.8,22.9, Fall of Gurubashi 23.0,12.0, The Emperor's Tomb 24.7,8.9.",
+			"note": "Review (0.3.6, 30-40/04b): the tablets are visited after Lake Nazferiti: Moon Over the Vale 29.5,19.1, Gri'lek 24.8,22.9, Fall of Gurubashi 23.0,12.0, The Emperor's Tomb 24.7,8.9.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5605,7 +5605,7 @@
 				"objective": 1
 			},
 			"tip": "The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it.",
-			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the tip said to follow the coast north to the island, but the island (22.5,23.1) is just west of Gri'lek's tablet (24.8,22.9), the step before.",
+			"note": "Review (0.3.6, 30-40/04b): the tip said to follow the coast north to the island, but the island (22.5,23.1) is just west of Gri'lek's tablet (24.8,22.9), the step before.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5622,7 +5622,7 @@
 				"objective": 3
 			},
 			"tip": "North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop.",
-			"note": "BrAlliance3040 (0.3.6, 30-40/04b): the third and fourth tablets (23.0,12.0 and 24.7,8.9) are the Ruins of Zul'Kunda, north of the haunted island.",
+			"note": "Review (0.3.6, 30-40/04b): the third and fourth tablets (23.0,12.0 and 24.7,8.9) are the Ruins of Zul'Kunda, north of the haunted island.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5638,7 +5638,7 @@
 				"goal": "turnin"
 			},
 			"tip": "East to the Rebel Camp, on the way back to Nesingwary's camp.",
-			"note": "BrAlliance3040 (0.3.6, 30-40/04b): The Spy Revealed! chain, Special Forces and Kurzen's Mystery go in on one Rebel Camp stop after the tablets instead of a walk back from Kurzen's Compound.",
+			"note": "Review (0.3.6, 30-40/04b): The Spy Revealed! chain, Special Forces and Kurzen's Mystery go in on one Rebel Camp stop after the tablets instead of a walk back from Kurzen's Compound.",
 			"source": [
 				{
 					"kind": "pfquest",

@@ -169,10 +169,19 @@ function GF.FillHere(E)
 	end
 end
 
--- WHILE_HERE_CHANGED: the line came, changed or went.
+-- WHILE_HERE_CHANGED: the line came, changed or went. A panel shown before
+-- and after at the same height lays out only itself and repaints the
+-- strings' shades (the Transparent look's); nothing else in the window reads
+-- the list. A panel that came, went or changed height lays out the window.
 function GF.HereChanged()
 	if not F or GF.State() ~= "steps" or not GF.View() then return end
+	local here = GF.here
+	local was = here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and here:GetHeight()
 	GF.FillHere(Engine())
+	if was and here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and GF.LayoutHere(F:GetWidth()) == was then
+		GF.PaintShades()
+		return
+	end
 	GF.Layout()
 end
 
@@ -191,9 +200,12 @@ end
 -- A row of the While you're here panel (GF.BuildHere), one per suggestion:
 -- the verb's glyph, the goal's line with its coloured target and count,
 -- wrapping like the step's own rows; its step under it; the distance and a
--- close button on the right. Left-click leads the arrow there, right-click
--- (or the close button) dismisses it around here (Engine.DismissWhileHere:
--- twice, for the rest of the zone). psAt: its place in
+-- close button on the right. Left-click leads the arrow there; right-click
+-- opens a menu: the game's quest log at its quest (ns.QuestLogMenuItem) and
+-- "Not now", which dismisses it around here (Engine.DismissWhileHere:
+-- twice, for the rest of the zone), as the close button does. A quest not in
+-- the log (a "take" row), or a client where the quest log can't open:
+-- right-click dismisses it straight away. psAt: its place in
 -- Engine.GetWhileHereList; psOff instead: an off-route timer's quest (GF.HereOff).
 function GF.HereRow(i)
 	local here = GF.here
@@ -221,7 +233,11 @@ function GF.HereRow(i)
 		if self.psOff then return GF.HereOff(self.psOff, button) end
 		local E = Engine()
 		if not (E and self.psAt) then return end
-		if button == "RightButton" then E.DismissWhileHere(self.psAt) else E.AimWhileHere(self.psAt) end
+		if button ~= "RightButton" then return E.AimWhileHere(self.psAt) end
+		local v = self.psView
+		local show = v and ns.QuestLogMenuItem and ns.QuestLogMenuItem(v.quest)
+		if not show or show.disabled then return E.DismissWhileHere(self.psAt) end
+		W.ShowMenu(self, { show, { text = L["Not now"], icon = "close", onClick = function() E.DismissWhileHere(self.psAt) end } })
 	end)
 	r:SetScript("OnEnter", function(self)
 		if self.psOff then
@@ -241,7 +257,9 @@ function GF.HereRow(i)
 		local dungeon = v.quest and ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(v.quest)
 		if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
 		lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
-		lines[#lines + 1] = { L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }
+		local menu = ns.QuestLogMenuItem and ns.QuestLogMenuItem(v.quest)
+		lines[#lines + 1] = { menu and not menu.disabled and L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."]
+			or L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }
 		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. UI.HereText(v), lines)
 		GF.HoverIn()
 	end)

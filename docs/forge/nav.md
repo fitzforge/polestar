@@ -666,6 +666,24 @@ forge nav check
   adds nothing, so a later pack of his that has the way changes nothing. PACK.json's `leffe.joins` counts what was
   added. Add a pair only when players walk it in the game (recordings, an in-game check, a report) and the walking
   maps have no way, or a long detour, between its ends.
+- Ground no player reaches is left out of his maps (`pack/reach.rs`, Shortest Path Forever v1.33's rule,
+  ported): a walk is followed from every fixed place (flight masters and inns by their NPC's spawn in
+  `data/forever/spawnz.json`, boat, zeppelin, tram and lift landings and portal ends from `travel.json`, the travel
+  chains' nodes in `data/crossings.json`, and the two ends of each grid join's ways, where the join leads into ground
+  his maps cut off), the way the router walks (steps, links, arcs, ledge drops, the graph's
+  kept edges), and a surface it never reaches goes: a floor is dropped, a base cell loses its surface, an entrance on
+  it goes. PACK.json's `leffe` entry counts them (`places`, `unplaced`, `unreachedFloors`, `unreachedBases`,
+  `unreachedEntrances`). On with `--ground reached` (off by default until measured on the walking-map judges).
+- Ledge drops (`pack/drops.rs`, Shortest Path Forever v1.31's rule on our grid's falls): a fall of our grid of 2 to
+  14.57 yd (the height a fall starts to hurt) into the ledge's cell or one beside it, inside one tile, becomes a
+  one-way arc between his surfaces nearest the two heights (within 3.5 yd), priced as the walk across plus the time
+  free fall takes at run speed, where his maps have no step or link between them (`ledgeDrops` in PACK.json).
+  On with `--ledges on` (off by default until measured).
+- Spawn heights where floors overlap (`pack/spawns.rs`, Shortest Path Forever v1.30's rule): every NPC spawn and
+  every spawn of an object a quest starts at, ends at or names (`data/forever/spawnz.json`, `quests.json`) whose
+  surface has another more than 10 yd above or below within a cell gets its height in the maps' `spawn` field (per
+  cluster "x y z ..." in whole yards; `spawnHeights` in PACK.json); `Routing/Path.lua` walks a goal without a height
+  within 8 yd of one to that spawn's floor first. On with `--spawns on` (off by default until measured).
 - `--dir` is the grid (format 4: it needs each surface's slope), `--layers` the ground layers
   (default `data/local/nav-layers`, below), `--out` the addon folder (default `addon/Polestar_Nav`),
   `--cells` the cells per ADT tile (default 128, 4.17 yd), `--date` the date in the generated headers

@@ -162,5 +162,7 @@ module.exports = {
 	SKINS,
 	// The Lua that puts a look on (other scenarios draw their surface in every look with it).
 	pick,
+	// The Lua that loads a skin addon as the client does, without picking it.
+	loadSkin,
 	shots,
 };

@@ -493,11 +493,11 @@ end
 
 function Layers.Update()
 	local world, minimap = surfaces()
-	-- The step's view, built once for the goals and the areas (a view is
-	-- built afresh on every Engine.GetStepView).
+	-- The step's view, read once for the goals and the areas (shared with
+	-- the other readers of this moment: Engine.GetStepView).
 	local Engine = ns.Engine
 	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	local view = index and Engine.GetStepView and Engine.GetStepView(index, true)
 	updateTarget(world, minimap)
 	updateRoute(world)
 	updateGoals(world, index, view)

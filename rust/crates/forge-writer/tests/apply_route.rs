@@ -1961,7 +1961,7 @@ fn inserted_grind_top_up_is_a_step_of_its_own_at_the_camp_before_the_hand_ins() 
 	);
 }
 
-// GrindVsHandin (Fix 2): a top-up before the town keeps the target the route needs after the town's
+// Grind or hand in first (fix 2): a top-up before the town keeps the target the route needs after the town's
 // hand-ins, less their XP; one they cover whole is not written; "they take you to level N" is the
 // hand-ins' XP reckoned, not the target's next level.
 #[test]
@@ -2136,7 +2136,7 @@ fn a_skipped_group_familys_xp_is_ground_back_after_its_step_for_skippers_only() 
 	assert_eq!(route.solo_fallback.len(), 1);
 	assert_eq!(route.order[3].group, Some(2));
 	// A title with quotes (Wanted: "Hogger") is written without them: the pack refused the comma after
-	// the tip's quoted part, C14Plan.
+	// the tip's quoted part, the c14 plan.
 	let hogger = json!([{ "q": 2, "title": "Wanted:  \"Hogger\"", "size": 3, "level": 12, "mobs": [{ "npc": 21, "name": "Ogre Brute", "level": 12, "rank": 1 }], "quests": [2], "why": "faster than grinding" }]);
 	let text = run(&c(json!({ "diff": {}, "order": order, "groups": hogger, "soloFallback": [{ "root": 2, "after": 3, "target": 12.4, "min": 3 }] })), None).text("a");
 	assert!(text.contains("  tip If you skipped Wanted: Hogger, grind here"), "{text}");
@@ -2551,7 +2551,7 @@ fn a_starts_way_onto_the_shared_route_takes_its_waiting_class_steps_on_the_way()
 
 #[test]
 fn a_finishing_line_in_a_step_written_before_its_accept_goes_with_its_work() {
-	// C14Plan Human, Elwynn: v1's "Murlocs and the Collector" holds the Prowlers' required `kill 118
+	// The c14 plan, Human, Elwynn: v1's "Murlocs and the Collector" holds the Prowlers' required `kill 118
 	// quest 52` (finishing the optional kills on the way), and Croaky's 91740. The route took 91740
 	// there before accepting 52, so the step came first: a `kill` with no accept before it. The line
 	// goes with 52's work.
@@ -3145,7 +3145,7 @@ fn the_routes_boat_is_the_last_thing_at_the_dock_town() {
 
 #[test]
 fn v1s_travel_step_for_the_routes_ride_goes_with_that_ride() {
-	// Rev15A2 (15): v1's Ratchet step (flight path, boat to Booty Bay) went to the route's earlier
+	// c15 review (15): v1's Ratchet step (flight path, boat to Booty Bay) went to the route's earlier
 	// Barrens pass, before the hearth to Theramore: a walk to Ratchet and a flight back to Theramore,
 	// then a flight to Ratchet again for the route's own boat.
 	let c = Case {
@@ -4989,9 +4989,9 @@ fn a_class_with_no_trainer_at_the_stop_trains_at_the_routes_pass_by_its_own() {
 
 #[test]
 fn a_class_is_not_dropped_for_a_later_training_without_its_trainer() {
-	// c14 Horde 40-50 (Rev14H2 B1): Orgrimmar has no Druid trainer, and the route's next training is
+	// c14 Horde 40-50 (c14 review B1): Orgrimmar has no Druid trainer, and the route's next training is
 	// Orgrimmar again eleven levels on; Druids were dropped from both. With the route's pass by one of
-	// theirs within four levels they train there (no trip from Orgrimmar, c15 Rev15H1); with it later,
+	// theirs within four levels they train there (no trip from Orgrimmar, c15 review); with it later,
 	// their own trip from the stop.
 	let mut c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 39-51", "zone Durotar", "", "step Org", "  accept 1", "", "step Later", "  turnin 1", ""])],
@@ -5020,7 +5020,7 @@ fn a_class_is_not_dropped_for_a_later_training_without_its_trainer() {
 	let g = run(&c, None).read("a");
 	let first = g.iter().position(|l| m(l, r"^\s+train class")).unwrap_or_else(|| panic!("{g:#?}"));
 	assert!(!g[first].contains("Druid"), "{g:#?}");
-	// (A step of its own at the Druid trainer, not the stop's, c15 Rev15SkyA.)
+	// (A step of its own at the Druid trainer, not the stop's, c15 review.)
 	let druid = idx(&g, "step Druid trainer");
 	assert!(druid >= 0 && druid < idx(&g, "  turnin 1") && g[druid as usize..].iter().any(|l| m(l, r"^\s+train class only Druid -- Turak")), "{g:#?}");
 	// (Turak is in Durotar too: the note does not say Durotar has none, c15 Mai'ah in Durotar.)
@@ -6369,7 +6369,7 @@ fn an_area_steps_goals_run_nearest_first_with_a_named_higher_level_target_last()
 
 #[test]
 fn a_shared_quests_lines_take_its_accepts_audience() {
-	// RevA (c13 Westfall): Testing the Wells' goals said `only Dwarf,Gnome,Skyborne` while its accept
+	// c13 review, Westfall: Testing the Wells' goals said `only Dwarf,Gnome,Skyborne` while its accept
 	// and hand-in took Night Elves too (R5). The Druids' Principal Source hand-in stays theirs: its
 	// accept is in a Night Elf Druid step.
 	let text = [
@@ -6621,7 +6621,7 @@ fn a_training_stop_where_the_route_stands_reads_the_zone_the_step_before_named()
 
 #[test]
 fn the_routes_buy_item_is_written_at_its_stop_and_the_task_makes_no_trip() {
-	// Rev15H2 (25): the planner buys Jarl's spices at the Orgrimmar training stop (its `buy` item); the
+	// c15 review (25): the planner buys Jarl's spices at the Orgrimmar training stop (its `buy` item); the
 	// writer ignored the item and still sent the player from the quest's task to a vendor and back.
 	let a = vec!["guide t/a", "title A", "levels 1-5", "zone Tirisfal Glades", "", "step Jarl", "  accept 1", "  buy 50 x1", "  turnin 1", "", "step Stop", "  zone The Barrens", "  accept 2", ""];
 	let c = Case {
@@ -6653,7 +6653,7 @@ fn the_routes_buy_item_is_written_at_its_stop_and_the_task_makes_no_trip() {
 
 #[test]
 fn a_task_keyed_to_its_hand_in_line_writes_no_turn_in_ahead_of_the_routes() {
-	// Rev15 dup-trip (Un'Goro, Lost!): the task of finding Ringo is keyed to the hand-in line; the hand-in
+	// c15 review, dup-trip (Un'Goro, Lost!): the task of finding Ringo is keyed to the hand-in line; the hand-in
 	// was written at the task, ahead of the Marshal's Refuge work the route does first, then back to Ringo.
 	let a = vec!["guide t/a", "title A", "levels 1-5", "zone Durotar", "", "step Refuge", "  accept 1", "  accept 2", "", "step Ringo", "  turnin 1", "", "step Camp", "  turnin 2", ""];
 	let c = Case {
@@ -6780,7 +6780,7 @@ fn a_v1_step_that_only_learns_a_flight_path_the_route_does_not_go_for_goes() {
 
 #[test]
 fn an_under_level_class_step_is_not_deferred_into_a_shared_guide() {
-	// RevDwarfGnome3 D1: the Dwarf Paladins' Tome of Divinity (level 12) at 11.6 waited for the route's
+	// Review: the Dwarf Paladins' Tome of Divinity (level 12) at 11.6 waited for the route's
 	// next Ironforge pass, in the shared guides, and was lost with the canonical start's writing of them.
 	let start = lines(&START_OT, &["", "step Hub", "  accept 1", "", "step Tome", "  only Paladin", "  accept 9", "", "step Hub again", "  turnin 1", ""]);
 	let shared = vec!["guide t/shared", "title Shared", "levels 5-15", "zone Durotar", "", "step Hub", "  accept 2", ""];
@@ -7599,7 +7599,7 @@ fn a_held_class_step_is_titled_for_its_giver_in_the_zone() {
 
 #[test]
 fn a_split_steps_second_tip_line_goes_with_its_npcs_piece_too() {
-	// RevUndead3 U2 (#742): only a step's first tip line was read; Simmer's note on the second stayed
+	// Review (#742): only a step's first tip line was read; Simmer's note on the second stayed
 	// with Calvin's duel. Every tip line is read, and a sentence left starts with a capital.
 	let c = Case {
 		files: vec![(
@@ -7650,7 +7650,7 @@ fn a_split_steps_second_tip_line_goes_with_its_npcs_piece_too() {
 
 #[test]
 fn a_class_away_comes_back_to_where_the_route_goes_on() {
-	// RevHuman3 H4: Warlocks back from their Stormwind steps were sent to the route's training stop it
+	// Review: Warlocks back from their Stormwind steps were sent to the route's training stop it
 	// had left (Goldshire), then on to Rainer: they come back to where the route goes on. Here the
 	// Shamans flew to Orgrimmar after the route's Crossroads training; the route goes on nearer
 	// Orgrimmar: no flight back to the Crossroads.
@@ -7694,7 +7694,7 @@ fn a_class_away_comes_back_to_where_the_route_goes_on() {
 
 #[test]
 fn a_piece_holding_only_another_npcs_lines_is_named_for_that_npc() {
-	// RevHuman3 H7: the route split v1's "Eagan Peltskinner" step; the piece with only Deputy Willem's
+	// Review: the route split v1's "Eagan Peltskinner" step; the piece with only Deputy Willem's
 	// accept kept Eagan's name.
 	let c = Case {
 		files: vec![(
@@ -7793,7 +7793,7 @@ fn a_sweep_never_moves_a_goal_over_an_accept_or_hand_in() {
 
 #[test]
 fn no_walk_is_written_to_a_step_of_optional_lines_only() {
-	// RevHuman3 H2: everyone was sent out to The Collector's and Manhunt's steps (all optional, or
+	// Review: everyone was sent out to The Collector's and Manhunt's steps (all optional, or
 	// quests the route does not take) between two route stops.
 	let a = vec![
 		"guide t/a",
@@ -8147,7 +8147,7 @@ fn the_druids_thunder_bluff_training_flies_from_the_routes_orgrimmar_stop_on_to_
 
 #[test]
 fn v1s_training_behind_its_level_line_waits_for_the_routes_training_at_that_level() {
-	// c14 Orc (Rev14H1 A2): the seed's level-20 training, after its `level 20`, was written with the
+	// c14 Orc (c14 review A2): the seed's level-20 training, after its `level 20`, was written with the
 	// route's 19.1 training at 04-the-barrens' head; the route's own 20.2 stop trained only Rogues and
 	// Warlocks. v1's training of the level-20 ranks goes with the route's training at 20.
 	let c = Case {
@@ -8198,7 +8198,7 @@ fn v1s_training_behind_its_level_line_waits_for_the_routes_training_at_that_leve
 
 #[test]
 fn a_class_accept_a_top_up_under_its_level_stays_behind_a_level_line() {
-	// c14 Night Elf (Rev14A1, (16)): the route leaves Darkshore at 19.7; the Druids' Cat Form (min 20)
+	// c14 Night Elf (c14 review, item 16): the route leaves Darkshore at 19.7; the Druids' Cat Form (min 20)
 	// was held to the route's next pass at 20, the Hinterlands at 45. Within a level: written where it
 	// is, behind `level 20 only Druid`.
 	let c = Case {
@@ -8225,7 +8225,7 @@ fn a_class_accept_a_top_up_under_its_level_stays_behind_a_level_line() {
 
 #[test]
 fn rare_start_lines_keep_their_gating_and_place() {
-	// c14 Human Elwynn (Rev14Human B3, seed test #553): v1's lines for the rare Gold Pickup Schedule
+	// c14 Human Elwynn (c14 review B3, seed test #553): v1's lines for the rare Gold Pickup Schedule
 	// (123) and Manhunt (147, `when turnedin 123`) the route leaves out were merged into Forest's Edge
 	// and lost their `when`; the Hunters' 94792 from Josephine in Goldshire came with them.
 	let c = Case {
@@ -8423,7 +8423,7 @@ fn a_waiting_class_step_goes_before_the_routes_crossing_not_after_it() {
 
 #[test]
 fn a_shared_guide_played_on_both_sides_of_the_join_writes_its_own_part_only() {
-	// Night Elves (Rev14NightElf A1): Darkshore's first loop before Westfall, its later quests after it
+	// Night Elves (c14 review A1): Darkshore's first loop before Westfall, its later quests after it
 	// in the shared tail. The start's run writes the first loop (its own copy); the later steps are the
 	// shared guide's, the canonical start's writing.
 	let c = Case {
@@ -8475,7 +8475,7 @@ fn the_own_copy_leaves_a_kept_quests_lines_the_route_plays_after_the_join() {
 
 #[test]
 fn the_own_copy_leaves_a_later_quest_whose_hand_in_is_elsewhere_in_the_tail() {
-	// Rev15NightElf (23): Darkshore's later quests (The Sleeper Has Awakened, 5321, handed in at
+	// c15 review (23): Darkshore's later quests (The Sleeper Has Awakened, 5321, handed in at
 	// Ashenvale) stayed in the Night Elves' own Darkshore at 14: their hand-ins kept them out of the
 	// dropped list.
 	let c = Case {
@@ -8502,7 +8502,7 @@ fn the_own_copy_leaves_a_later_quest_whose_hand_in_is_elsewhere_in_the_tail() {
 
 #[test]
 fn the_own_part_of_a_shared_guide_is_played_before_the_join_where_v1_chains_it_after() {
-	// Rev14 item 5: v1 chains Teldrassil -> Westfall -> Darkshore, the Night Elves' own run played its
+	// c14 review, item 5: v1 chains Teldrassil -> Westfall -> Darkshore, the Night Elves' own run played its
 	// Darkshore part from Stormwind, and the travel repair sent every Night Elf on a boat from Stormwind's
 	// dock to Rut'theran Village at the start of their Darkshore.
 	let c = Case {
@@ -8531,7 +8531,7 @@ fn the_own_part_of_a_shared_guide_is_played_before_the_join_where_v1_chains_it_a
 
 #[test]
 fn a_guide_whose_last_steps_all_fly_to_the_next_ones_start_gets_no_way_there() {
-	// Rev14 item 5: Teldrassil ends with the Druids' flight to Auberdine and everyone else's (`only Druid`,
+	// c14 review, item 5: Teldrassil ends with the Druids' flight to Auberdine and everyone else's (`only Druid`,
 	// `only !Druid`; here two races'); Darkshore began with the route's own flight from Rut'theran Village to Auberdine
 	// again, for a Night Elf standing in Auberdine (between them, Auberdine's accepts for everyone and the
 	// others' flight to Nessa and back; the other starts' Auberdine step first in Darkshore).
@@ -8593,7 +8593,7 @@ fn a_guide_whose_last_steps_all_fly_to_the_next_ones_start_gets_no_way_there() {
 
 #[test]
 fn a_walk_into_riverglades_names_redridge_pass() {
-	// Rev14H2 B11: the walks into Riverglades (to the Steamwheedle boat) gave no hint of the way in.
+	// c14 review B11: the walks into Riverglades (to the Steamwheedle boat) gave no hint of the way in.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 40-45", "zone Swamp of Sorrows", "", "step Stonard", "  accept 1", "", "step Dock", "  zone Riverglades", "  accept 2", ""])],
 		world: json!({ "points": [[0, 0, 0, 0, 1435], [0, 0, 2000, 0, 2001]], "zones": { "1435": "Swamp of Sorrows", "2001": "Riverglades" },
@@ -8612,7 +8612,7 @@ fn a_walk_into_riverglades_names_redridge_pass() {
 
 #[test]
 fn a_walk_out_of_riverglades_names_its_way_out() {
-	// Rev15H2 B12: the walks from Powderfuse Port to the Swamp of Sorrows and to Kargath were bare gotos.
+	// c15 review B12: the walks from Powderfuse Port to the Swamp of Sorrows and to Kargath were bare gotos.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 40-45", "zone Riverglades", "", "step Dock", "  accept 1", "", "step Stonard", "  zone Swamp of Sorrows", "  accept 2", ""])],
 		world: json!({ "points": [[0, 0, 2000, 0, 2001], [0, 0, 0, 0, 1435]], "zones": { "1435": "Swamp of Sorrows", "2001": "Riverglades" },
@@ -8631,7 +8631,7 @@ fn a_walk_out_of_riverglades_names_its_way_out() {
 
 #[test]
 fn the_walk_off_the_boat_at_powderfuse_port_names_its_way_out() {
-	// Rev15H2 B12 (40-50/03-feralas:71-73): the route sails from Tanaris to Powderfuse Port and walks to
+	// c15 review B12 (40-50/03-feralas:71-73): the route sails from Tanaris to Powderfuse Port and walks to
 	// Stonard; the walk leaves Riverglades, not Tanaris where the boat left.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 40-45", "zone Tanaris", "", "step Gadgetzan", "  accept 1", "", "step Stonard", "  zone Swamp of Sorrows", "  accept 2", ""])],
@@ -8654,7 +8654,7 @@ fn the_walk_off_the_boat_at_powderfuse_port_names_its_way_out() {
 
 #[test]
 fn a_top_up_grinds_near_the_player_not_at_a_named_mobs_spot() {
-	// Rev14OrcTroll B3: Orc Durotar's "Level 10" went to the Bloodtalon Matriarch on the Echo Isles (the
+	// c14 review B3: Orc Durotar's "Level 10" went to the Bloodtalon Matriarch on the Echo Isles (the
 	// last objective worked, one named mob's claw) from Razor Hill.
 	let c = Case {
 		files: vec![(
@@ -8742,7 +8742,7 @@ fn a_top_up_goes_to_the_mob_it_names_when_that_mob_is_not_at_the_camp() {
 
 #[test]
 fn a_top_up_with_no_camp_behind_grinds_at_the_next_camp_near_the_player() {
-	// Rev15OrcTroll B3: the Orcs' level 10 was "Grind spot" in the middle of Razor Hill; the Razormane
+	// c15 review B3: the Orcs' level 10 was "Grind spot" in the middle of Razor Hill; the Razormane
 	// huts the route works next are 300 yd west.
 	let c = Case {
 		files: vec![(
@@ -8817,7 +8817,7 @@ fn not_taken_case(dropped: Value, left_out: Value, order: Value) -> Case {
 
 #[test]
 fn a_quest_the_planner_left_out_is_not_written() {
-	// c17 RevA 5: Swelling Forces (98013), which no start's route takes (low XP for its detour, left out
+	// c17 review: Swelling Forces (98013), which no start's route takes (low XP for its detour, left out
 	// before the seed, so the route's diff does not name it; the skip ledger does), was written in the
 	// Night Elves' first Darkshore visit, under level and before its prerequisite, and again on the
 	// second. An optional quest stays (the player's luck); so does one the ledger does not leave out.
@@ -8835,7 +8835,7 @@ fn a_quest_the_planner_left_out_is_not_written() {
 
 #[test]
 fn a_class_hand_in_waits_for_the_city_visit_after_its_work() {
-	// c17 RevA 2: the Warlocks' Binding at Gakin in Stormwind went with the Arathi accept after it in
+	// c17 review: the Warlocks' Binding at Gakin in Stormwind went with the Arathi accept after it in
 	// v1, moved early, to the route's Stormwind stop before the Heartswood in Ashenvale; the hand-in
 	// then followed the Heartswood, a boat to Stormwind and back. It waits for the Stormwind visit
 	// after the Heartswood, as v1 has it.
@@ -8967,7 +8967,7 @@ fn a_class_hand_in_with_no_pass_after_its_work_goes_after_the_work_with_its_run(
 
 #[test]
 fn a_class_run_over_the_sea_starts_before_the_crossing_within_a_top_up() {
-	// c17 RevA 1: the Night Elf and Skyborne Druids' Cat Form run (min level 20) went with the
+	// c17 review: the Night Elf and Skyborne Druids' Cat Form run (min level 20) went with the
 	// Stormwind hand-in after it in v1, as the canonical start is 19.7 at its last Auberdine stop: after
 	// the boat and Stormwind's work, a flight to Rut'theran from Stormwind and two more crossings. It
 	// starts right after the Auberdine step before it, behind a top-up.
@@ -9020,7 +9020,7 @@ fn a_class_run_over_the_sea_starts_before_the_crossing_within_a_top_up() {
 
 #[test]
 fn an_untagged_bag_line_under_a_dropped_quests_accept_goes_with_it() {
-	// c17 RevA 4: the Night Elves' first Darkshore visit had The Blackwood Corrupted's Empty Cleansing
+	// c17 review: the Night Elves' first Darkshore visit had The Blackwood Corrupted's Empty Cleansing
 	// Bowl (`collect 12347` right after its accept) and the Blackwood samples (beside the bowl's use)
 	// though the quest is taken only on the second visit: collects they could not finish there.
 	let order = json!([
@@ -9035,7 +9035,7 @@ fn an_untagged_bag_line_under_a_dropped_quests_accept_goes_with_it() {
 
 #[test]
 fn a_top_up_in_a_city_grinds_at_the_routes_next_hostile_camp() {
-	// c17 RevA 3: top-ups in Stormwind and Ironforge were "Grind spot" in the city's streets, and
+	// c17 review: top-ups in Stormwind and Ironforge were "Grind spot" in the city's streets, and
 	// Winterspring's grind was "on General Marcus Jonathan", a friendly Stormwind NPC a quest has you
 	// kill credit for. The grind goes to the route's next camp of hostile mobs in the field.
 	let c = Case {
@@ -9081,7 +9081,7 @@ fn a_top_up_in_a_city_grinds_at_the_routes_next_hostile_camp() {
 
 #[test]
 fn a_top_up_for_an_accept_names_it() {
-	// Rev15OrcTroll B3: "Top up here to level 10 before the hand-ins at Durotar" when the top-up was for
+	// c15 review B3: "Top up here to level 10 before the hand-ins at Durotar" when the top-up was for
 	// a level 10 quest taken next.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 5-12", "zone Durotar", "", "step Hub", "  turnin 3", "  accept 4", ""])],
@@ -9100,7 +9100,7 @@ fn a_top_up_for_an_accept_names_it() {
 
 #[test]
 fn a_top_up_whose_camp_is_on_the_shore_left_behind_is_done_before_the_crossing() {
-	// Rev14A1 (item 13): Level 20 after the Stormwind training, its camp the Darkshore work before the
+	// c14 review (item 13): Level 20 after the Stormwind training, its camp the Darkshore work before the
 	// boat: two boats there and back for a grind. Done in Darkshore before the boat.
 	let c = Case {
 		files: vec![(
@@ -9148,7 +9148,7 @@ fn a_top_up_whose_camp_is_on_the_shore_left_behind_is_done_before_the_crossing()
 
 #[test]
 fn a_portal_within_one_zone_is_named_by_where_it_lands_with_one_goto() {
-	// Rev14SkyH (item 20): the portal up to the Rohashi Spires, inside Zephras Isle, was "Portal to
+	// c14 review (item 20): the portal up to the Rohashi Spires, inside Zephras Isle, was "Portal to
 	// Zephras Isle", after a walk step to the same spot.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 5-10", "zone Durotar", "", "step Valanaar", "  accept 1", "", "step Lorthuna", "  turnin 1", ""])],
@@ -9175,7 +9175,7 @@ fn a_portal_within_one_zone_is_named_by_where_it_lands_with_one_goto() {
 
 #[test]
 fn a_training_stop_pulls_no_training_step_away_from_it_and_trains_only_its_trainers_classes() {
-	// c15 Horde 02-the-barrens:362-395 (Rev15H1): the route trains at Razor Hill; v1's "To Orgrimmar"
+	// c15 Horde 02-the-barrens:362-395 (c15 review): the route trains at Razor Hill; v1's "To Orgrimmar"
 	// (getfp and `train class`) was pulled to it, so everyone walked to Razor Hill for `train class only
 	// Paladin,Druid` (no trainer of theirs there), hearthed away and walked back to Orgrimmar. The stop
 	// trains its trainers' classes; the Druids train at the route's pass by theirs.
@@ -9231,7 +9231,7 @@ fn a_training_stop_pulls_no_training_step_away_from_it_and_trains_only_its_train
 
 #[test]
 fn a_riding_step_goes_back_neither_into_an_earlier_guide_by_a_way_piece_nor_under_its_level() {
-	// c15 Undead (Rev15H2, #404 again): the 40-50 Feralas guide's "Riding at 40" in Brill went back to
+	// c15 Undead (c15 review, #404 again): the 40-50 Feralas guide's "Riding at 40" in Brill went back to
 	// the 30-40 guide's Undercity start at 37.4, past the route's own piece there (a way or a training
 	// stop, in no guide). It stays in its guide, at 40 or more.
 	let c = Case {
@@ -9275,7 +9275,7 @@ fn a_riding_step_goes_back_neither_into_an_earlier_guide_by_a_way_piece_nor_unde
 
 #[test]
 fn a_v1_training_step_away_from_the_routes_trainings_goes() {
-	// c15 Alliance 40-50/02-badlands (Rev15A2): seed 04-tanaris' "Ironforge ... Train", pulled to Aerie
+	// c15 Alliance 40-50/02-badlands (c15 review): seed 04-tanaris' "Ironforge ... Train", pulled to Aerie
 	// Peak at 43.1 with the accept it waits for, though the route trained in Stormwind at 42.3 (and passed
 	// through Ironforge after it): a step with no travel between two Aerie Peak steps. It goes; the
 	// Shamans train on the route's Ironforge pass.
@@ -9330,7 +9330,7 @@ fn a_v1_training_step_away_from_the_routes_trainings_goes() {
 
 #[test]
 fn a_v1_step_at_where_the_events_leg_leads_goes_after_the_leg() {
-	// c15 Gnome (Rev15DwarfGnome B3): the Priests' and Warlocks' Ironforge class quests were written before
+	// c15 Gnome (c15 review B3): the Priests' and Warlocks' Ironforge class quests were written before
 	// the route's hearth to Kharanos and walk into Ironforge: a walk into the city, the hearth out, the walk
 	// back. They go after the leg, in Ironforge.
 	let c = Case {
@@ -9379,7 +9379,7 @@ fn a_v1_step_at_where_the_events_leg_leads_goes_after_the_leg() {
 
 #[test]
 fn a_class_run_of_steps_stays_together() {
-	// c15 Alliance 03-darkshore (Rev15A1, Rev15SkyA): the Druids' Cat Form block (Darnassus, Moonglade,
+	// c15 Alliance 03-darkshore (c15 review): the Druids' Cat Form block (Darnassus, Moonglade,
 	// back) was split around the route's Stormwind boat: its first step before, the rest after. The run
 	// stays together at its first step's place.
 	let c = Case {
@@ -9477,7 +9477,7 @@ fn a_class_step_closes_a_town_visit_past_an_in_town_leg() {
 
 #[test]
 fn a_class_step_in_a_zone_the_walk_crosses_is_done_at_the_crossing() {
-	// c15 Alliance 07-thousand-needles (C14Plan): the Warlocks' Takar the Seer in the Barrens, which the
+	// c15 Alliance 07-thousand-needles (the c14 plan): the Warlocks' Takar the Seer in the Barrens, which the
 	// route's walk from Theramore to Thousand Needles crosses, was written as a trip back from the
 	// Mirage Raceway via Stonetalon. It is done on the walk, after its crossing into the Barrens.
 	use forge_world::world::{Crossing, Crossings};
@@ -9587,7 +9587,7 @@ fn a_class_step_in_town_goes_after_the_step_that_leaves_by_tram() {
 
 #[test]
 fn a_class_step_after_the_routes_last_v1_line_stays_before_its_added_quests() {
-	// c15 Alliance 04-redridge (Rev15A1 B1): the Shamans' Ironforge step, v1's right after the Stormwind
+	// c15 Alliance 04-redridge (c15 review B1): the Shamans' Ironforge step, v1's right after the Stormwind
 	// stop, was written after Theocritus in Elwynn, a quest the route adds there: east Elwynn, back to
 	// Stormwind, the tram, Ironforge. It stays right after the Stormwind stop.
 	let c = Case {
@@ -9638,7 +9638,7 @@ fn a_class_step_after_the_routes_last_v1_line_stays_before_its_added_quests() {
 
 #[test]
 fn a_class_off_in_a_city_with_its_trainer_trains_there_not_at_the_routes_stop() {
-	// c15 Alliance 05-duskwood (Rev15A1 B4): the Rogues, off to Shaw in Stormwind, were walked to the
+	// c15 Alliance 05-duskwood (c15 review B4): the Rogues, off to Shaw in Stormwind, were walked to the
 	// route's Goldshire training and back to Stormwind for the boat. A class off in a city with its
 	// trainer trains there; the route's way to its stop and its training line leave it out.
 	let c = Case {
@@ -9801,7 +9801,7 @@ fn a_class_trainer_in_a_citys_live_frame_counts_as_its_nearest() {
 
 #[test]
 fn a_class_step_closing_a_guide_stays_after_its_last_named_step() {
-	// c15 Alliance 50-60 (Rev15A2 A5): the Druids' Darnassus training closing 01-burning-steppes, after
+	// c15 Alliance 50-60 (c15 review A5): the Druids' Darnassus training closing 01-burning-steppes, after
 	// Rut'theran Village, was written in Felwood after the Emerald Sanctuary, at the route's later take of
 	// 02-felwood's first step. It stays at the end of its guide, after Rut'theran.
 	let c = Case {
@@ -9843,7 +9843,7 @@ fn a_class_step_closing_a_guide_stays_after_its_last_named_step() {
 
 #[test]
 fn v1s_training_with_other_quests_taken_elsewhere_trains_at_the_routes_city_for_its_classes() {
-	// c15 Alliance 50-60/05-silithus (Rev15A2 B1): the route trains in Stormwind for v1's "Ironforge – Take
+	// c15 Alliance 50-60/05-silithus (c15 review B1): the route trains in Stormwind for v1's "Ironforge – Take
 	// the Deeprun Tram" step, whose cloth donations it takes at a later Ironforge stop: the step was
 	// written in Ironforge before the Stormwind turn-ins. It is a Stormwind training, without the
 	// Shamans, who have no trainer there.

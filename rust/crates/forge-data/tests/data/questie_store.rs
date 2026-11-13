@@ -303,6 +303,11 @@ fn write_questie(dir: &Path, store: &Store) -> PathBuf {
 	for (e, f) in [("Quest", "questMeta.lua"), ("Npc", "npcMeta.lua"), ("Object", "objectMeta.lua"), ("Item", "itemMeta.lua")] {
 		w(&format!("src/meta/{f}"), &meta_lua(e));
 	}
+	// the correction config every release has; this store declares no Dynamic Corrections
+	w(
+		"src/config.lua",
+		"local _, LibQuestieDB = ...\nlocal config = { enumFiles = {}, ownedCorrections = {} }\nconfig.flavorByName = { Forever = { name = \"Forever\", expansion = \"Forever\", rules = \"Classic\" } }\nfunction config.correctionApplies(spec, flavor) return spec.owned == flavor.name end\nif LibQuestieDB then LibQuestieDB.config = config end\nreturn config\n",
+	);
 	w("support/Forever/QuestXP/xpDB-classic.lua", "local QuestXP = QuestieLoader:ImportModule(\"QuestXP\");\nQuestXP.db = {\n  [100] = {1, 85},\n  [101] = {3, 170},\n  [90460] = {1, 40},\n}\n");
 	w("support/Forever/DropTables/classicItemDrops.lua", &drops_lua("  [50] = { [3] = 12.5, [4] = 20 },\n", "  [50] = { [4] = 70.0 },\n"));
 	w("support/Forever/DropTables/itemDropCorrections.lua", DROP_FIXES);
@@ -467,6 +472,9 @@ fn refuses_a_store_that_is_not_baked_forever_and_a_chunk_missing_a_part() {
 	let text = std::fs::read_to_string(&toc).unwrap();
 	std::fs::write(&toc, text.replace("## X-Flavor: Forever", "## X-Flavor: Era")).unwrap();
 	assert!(forge_data::questie::read_questie(&dir, &|_| {}).err().unwrap().contains("flavor Era, not Forever"));
+	std::fs::write(&toc, text.replace("## X-Mode: baked", "## X-Mode: source")).unwrap();
+	assert!(forge_data::questie::read_questie(&dir, &|_| {}).err().unwrap().contains("not a baked store (X-Mode source): use a QuestieDB release"));
+	assert!(forge_data::questie::read_questie(&dir.join("src"), &|_| {}).err().unwrap().contains("use a QuestieDB release"), "a folder without the store");
 	let cut: Vec<&str> = text.split("\r\n").filter(|l| !l.starts_with("## X-Quest-90460-S-2:")).collect();
 	std::fs::write(&toc, cut.join("\r\n")).unwrap();
 	assert!(forge_data::questie::read_questie(&dir, &|_| {}).err().unwrap().contains("declares 2 parts but part 2 is missing"));

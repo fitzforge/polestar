@@ -42,7 +42,12 @@ The tables:
 - **GPL-3.0** (`LICENSE`): the database: `data/quest*.jsonl`, `data/npc.jsonl`, `data/object.jsonl`,
   `data/spawn.jsonl`, `data/item.jsonl`, `data/item_source.jsonl`, `data/ui_map.jsonl`.
 - **CC BY 4.0** (`LICENSE-CC-BY-4.0.txt`): our own layer: `data/mechanic.jsonl`, `data/step.jsonl`,
-  `data/note.jsonl`, the schemas, the corrections and this documentation.
+  `data/note.jsonl`, the schemas, the corrections' notes and sources, and this documentation.
+
+Neither licence covers the game's own words, which stay Blizzard's: the names and titles in the
+tables, and the quest objective lines in `corrections/quests.json` (a quest's lines as its quest log
+shows them, such as "Fully explore Frostmane Hold"). Those lines are copied from the game's quest
+records as QuestieDB, EG Link's client data and players' recordings hold them.
 
 `datapackage.json` names each table's licence. The sources' credits and licences are in NOTICE.md.
 
@@ -146,4 +151,5 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 Entertainment, Inc. in the U.S. and/or other countries. World of Warcraft names and game data ©
 Blizzard Entertainment. This database is not made, endorsed or supported by Blizzard Entertainment,
 and this project is not affiliated with Blizzard. Names, ids and numbers describe the game for
-players; no game assets, and no game text beyond names and titles, are included.
+players. No game assets are included. The game's own text is limited to names, titles and the quest
+objective lines the corrections carry (see Licences).

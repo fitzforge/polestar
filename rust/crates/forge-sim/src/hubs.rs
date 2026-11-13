@@ -382,6 +382,12 @@ pub(crate) fn count(h: &HubData, w: &Walk, walked: &[Moved], mut fixes: Option<&
 			if run.q_parent[qi] >= 0 {
 				r = r.max(w.accept_at[run.q_parent[qi] as usize] as usize);
 			}
+			// (After the hand-in of a breadcrumb taken before it: held back while it is in the log.)
+			for &c in run.crumbs(qi) {
+				if (w.accept_at[c as usize] as usize) < j {
+					r = r.max(w.turnin_at[c as usize] as usize);
+				}
+			}
 			r
 		};
 		if r >= j {
