@@ -190,3 +190,38 @@ fn later_keeps_mix_and_asks_no_more_a_guide_switch_asks_again_and_the_menu_chang
 	);
 	assert_eq!(out["gather"], json!(["gather", true]));
 }
+
+#[test]
+fn at_the_auction_house_the_list_opens_beside_it_with_the_guides_materials_to_buy_and_a_search_for_each() {
+	let out = run(
+		r#"
+		-- The game's Auction House window (Blizzard_AuctionHouseUI) and its buy view.
+		local selected = {}
+		AuctionHouseFrame = CreateFrame("Frame", "AuctionHouseFrame", UIParent)
+		AuctionHouseFrame:SetSize(800, 600)
+		function AuctionHouseFrame:SelectBrowseResult(result) selected[#selected + 1] = result.itemKey.itemID end
+		function AuctionHouseFrame:TriggerEvent() end
+		C_AuctionHouse = { MakeItemKey = function(id) return { itemID = id } end, GetItemKeyInfo = function() return { isCommodity = true } end }
+		AuctionHouseFrame:Show()
+		stub.fire("AUCTION_HOUSE_SHOW"); stub.advance(0.5)
+		local F = PolestarAuctionBuys
+		local _, to = F:GetPoint(1)
+		r.docked = { F:IsShown(), to == AuctionHouseFrame }
+		r.head = F.MatHead:GetText()
+		r.rows = {}
+		for _, row in ipairs(F.mrows) do
+			if row:IsShown() then r.rows[#r.rows + 1] = { plain(row.Title:GetText()), plain(row.Why:GetText()), row.Search:IsShown() } end
+		end
+		F.mrows[2].Search:Click(); stub.advance(0.5)
+		r.selected = selected
+		AuctionHouseFrame:Hide()
+		stub.fire("AUCTION_HOUSE_CLOSED"); stub.advance(0.5)
+		r.closed = F:IsShown()
+		"#,
+	);
+	assert_eq!(out["docked"], json!([true, true]), "beside the game's window");
+	assert_eq!(out["head"], "MATERIALS FOR TAILORING 1-150");
+	assert_eq!(out["rows"], json!([["10 Light Leather", "Tailoring 1-75", true], ["50 Wool Cloth", "Tailoring 75-150", true]]));
+	assert_eq!(out["selected"], json!([2592]), "Search opens the game's own buy view of the item");
+	assert_eq!(out["closed"], json!(false), "it goes with the Auction House");
+}

@@ -25,8 +25,13 @@
 -- * The list window (PolestarAuctionBuys): each item with its icon (the game's
 --   tooltip, Shift-click links it), the count still needed, the quests it is
 --   for, why it is listed and what the bags and the bank hold, and "Show me
---   the auction house". Opened from the cards, the guide window's menu and
---   /polestar ah.
+--   the auction house". Under them, the running profession guide's materials
+--   to buy (Materials.BuyRows: their way is Buy, still to get after the bags,
+--   bank and mail), each with its range and price. Opened from the cards, the
+--   guide window's menu and /polestar ah; at the Auction House it opens
+--   beside the game's window while either group has something to buy and goes
+--   with it, and each row's Search opens the item in the game's own buy view
+--   with the count filled in (Materials.Search; the player presses Buy).
 --
 -- Another heads-up on the card goes first: these wait for it to be dismissed
 -- (HEADS_UP_HIDDEN), the newest of each kind kept. Colours are Theme tokens.
@@ -300,14 +305,26 @@ local function build()
 		if N and N.Go and N.Go("auction") then F:Hide() end
 	end, { primary = true, height = 28 })
 
-	F.rows = {}
+	-- The running profession guide's materials to buy (Materials.BuyRows), under the quest items.
+	F.MatHead = W.Text(F, "caption", "textDim")
+	F.MatHead:SetJustifyH("LEFT")
+	F.MatHead:SetWordWrap(false)
+
+	F.rows, F.mrows = {}, {}
 	F:SetScript("OnShow", function(self) Anim.To(self, "alpha", 0, 1, Anim.FAST, "out") end)
 	ns.CloseOnEscape("PolestarAuctionBuys")
 	if ns.Gamepad and ns.Gamepad.Register then ns.Gamepad.Register(F, {}) end
 end
 
-local function row(i)
-	local r = F.rows[i]
+-- The game's own buy view of a row's item at the open Auction House, the count filled in (Materials.Search).
+local function search(self)
+	local r, M = self:GetParent(), ns.Materials
+	if r.psItem and M and M.Search then M.Search(r.psItem, r.psCount) end
+end
+
+local function row(i, pool)
+	pool = pool or F.rows
+	local r = pool[i]
 	if r then return r end
 	r = CreateFrame("Frame", nil, F)
 	r:SetHeight(ROW_H)
@@ -321,51 +338,103 @@ local function row(i)
 	r.Item:SetScript("OnEnter", function(self) if self.psItem then W.ItemTip(self, self.psItem) end end)
 	r.Item:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	r.Item:SetScript("OnClick", function(self) if self.psItem then W.ItemClick(self.psItem) end end)
+	r.Search = W.Button(r, L["Search"], search, { height = 24 })
+	r.Search:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Title = W.Text(r, "label", "text")
 	r.Title:SetPoint("TOPLEFT", r.Item, "TOPRIGHT", 10, 1)
-	r.Title:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Title:SetJustifyH("LEFT")
 	r.Title:SetWordWrap(false)
 	r.Why = W.Text(r, "note", "textDim")
 	r.Why:SetPoint("TOPLEFT", r.Title, "BOTTOMLEFT", 0, -3)
-	r.Why:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Why:SetJustifyH("LEFT")
 	r.Why:SetWordWrap(false)
-	F.rows[i] = r
+	pool[i] = r
 	return r
 end
 
--- Fill the list from what the quests need now.
+-- A row's texts run up to its Search button while the Auction House is open, else to its edge.
+local function fill(r, item, count, title, why, open)
+	r.psItem, r.psCount, r.Item.psItem = item, count, item
+	r.Item.Icon:SetTexture(ns.Compat.ItemIcon(item) or 134400)
+	r.Title:SetText(title)
+	r.Why:SetText(why)
+	r.Search:SetShown(open)
+	local right = open and r.Search or r
+	local point = open and "LEFT" or "RIGHT"
+	r.Title:SetPoint("RIGHT", right, point, open and -8 or 0, 0)
+	r.Why:SetPoint("RIGHT", right, point, open and -8 or 0, 0)
+end
+
+-- What the running profession guide still buys (Materials.BuyRows), or none.
+local function materials()
+	local M = ns.Materials
+	return M and M.BuyRows and M.BuyRows() or {}
+end
+
+local function auctionOpen()
+	local M = ns.Materials
+	return M and M.AuctionOpen and M.AuctionOpen() or false
+end
+
+-- Fill the list from what the quests and the profession guide need now.
 function AU.Layout()
 	if not (F and F:IsShown()) then return end
 	local list = on() and AB().List("all") or {}
-	if not on() then
-		F.Hint:SetText(L["Auction house buys are off. Turn them back on under Options > Questing > Quests."])
+	local mats = materials()
+	local open = auctionOpen()
+	local hint
+	if #list == 0 and #mats > 0 then
+		hint = L["Your profession guide buys these at the Auction House: what is still to get after your bags, bank and mail."]
+	elseif not on() then
+		hint = L["Auction house buys are off. Turn them back on under Options > Questing > Quests."]
 	elseif #list == 0 then
-		F.Hint:SetText(L["Nothing to buy at the auction house: the quests ahead get what they need on the way."])
+		hint = L["Nothing to buy at the auction house: the quests ahead get what they need on the way."]
 	else
-		F.Hint:SetText(L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."])
+		hint = L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."]
 	end
+	if open and (#list + #mats) > 0 then hint = hint .. " " .. L["Search opens one in the Auction House with the count filled in; buying is your click."] end
+	F.Hint:SetText(hint)
 	local y = HEAD_H + 12 + F.Hint:GetStringHeight() + 12
 	for i, e in ipairs(list) do
 		local r = row(i)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
 		r:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
-		r.Item.psItem = e.item
-		r.Item.Icon:SetTexture(ns.Compat.ItemIcon(e.item) or 134400)
-		r.Title:SetText(format(L["%d %s"], e.need, e.name))
 		local parts = { format(L["For %s"], questNames(e)), AU.Why(e) }
 		if e.have > 0 then parts[#parts + 1] = format(L["%d in your bags and bank"], e.have) end
-		r.Why:SetText(concat(parts, DOT))
+		fill(r, e.item, e.need, format(L["%d %s"], e.need, e.name), concat(parts, DOT), open)
 		r:Show()
 		y = y + ROW_H + 6
 	end
 	for i = #list + 1, #F.rows do F.rows[i]:Hide() end
+	-- The profession guide's materials, under a heading naming the guide.
+	F.MatHead:SetShown(#mats > 0)
+	if #mats > 0 then
+		if #list > 0 then y = y + 6 end
+		F.MatHead:ClearAllPoints()
+		F.MatHead:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
+		F.MatHead:SetText(format(L["MATERIALS FOR %s"], (mats[1].guideTitle or ""):upper()))
+		y = y + 20
+	end
+	for i, e in ipairs(mats) do
+		local r = row(i, F.mrows)
+		r:ClearAllPoints()
+		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
+		r:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
+		local parts = { e.section }
+		if e.price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(e.price)) end
+		if e.have > 0 then parts[#parts + 1] = format(L["%s held"], e.have) end
+		fill(r, e.item, e.toBuy, format(L["%d %s"], e.toBuy, ns.Compat.GetItemName(e.item) or e.name), concat(parts, DOT), open)
+		r:Show()
+		y = y + ROW_H + 6
+	end
+	for i = #mats + 1, #F.mrows do F.mrows[i]:Hide() end
+	-- At the Auction House already, nothing to point the arrow at.
+	local go = (#list + #mats) > 0 and not open
 	F.Go:ClearAllPoints()
 	F.Go:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
-	F.Go:SetShown(#list > 0)
-	if #list > 0 then y = y + 28 + 6 end
+	F.Go:SetShown(go)
+	if go then y = y + 28 + 6 end
 	F:SetHeight(y + PAD - 6)
 end
 
@@ -467,5 +536,44 @@ ns.On("SETTING_CHANGED", function(path)
 	waiting = {}
 	AU.Layout()
 end)
+
+-- At the Auction House: the list opens beside the game's window while either group has something to buy, and goes
+-- with it; its rows' Search buttons come and go with the window.
+ns.RegisterEvent("AUCTION_HOUSE_SHOW", function()
+	ns.After(0, function()
+		local AHF = AuctionHouseFrame
+		if not (AHF and AHF.IsShown and AHF:IsShown()) or ns.Hidden() then return end
+		if (on() and #AB().List("all") or 0) + #materials() == 0 then
+			AU.Layout()
+			return
+		end
+		if not F then build() end
+		F.psDocked = true
+		F:ClearAllPoints()
+		F:SetPoint("TOPLEFT", AHF, "TOPRIGHT", 8, 0)
+		AU.Show()
+	end)
+end)
+ns.RegisterEvent("AUCTION_HOUSE_CLOSED", function()
+	if F and F.psDocked then
+		F.psDocked = nil
+		F:Hide()
+		F:ClearAllPoints()
+		F:SetPoint("CENTER", UIParent, "CENTER", 0, 120)
+	end
+	AU.Layout()
+end)
+
+-- The profession guide's ways, counts and prices changed: the window follows, once the burst is over.
+local due = false
+local function relayout()
+	if due or not (F and F:IsShown()) then return end
+	due = true
+	ns.After(0.2, function()
+		due = false
+		AU.Layout()
+	end)
+end
+for _, msg in ipairs({ "MATERIALS_CHANGED", "MATERIALS_COUNTS", "MATERIALS_PRICES", "STEP_CHANGED", "GUIDE_CHANGED" }) do ns.On(msg, relayout) end
 
 ns.RegisterCommand("ah", function() AU.Show() end, L["Show the quest items to buy at the auction house"])

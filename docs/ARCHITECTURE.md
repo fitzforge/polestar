@@ -5527,8 +5527,9 @@ objectives ask for the item. Optional goals, goals naming the NPC who hands
 the item over, quests done or skipped, and quests that hand the item over
 themselves are left out. Scope `all` adds the item objectives of the other
 quests in the log. Per item: the most each quest asks for, summed over the
-quests, less what the bags and the bank hold (`GetItemCount` with the bank,
-as far as the client knows it); only items still short are listed.
+quests, less what the character holds (`Materials.Have`: the bags, the bank,
+the mail and what was bought and is on its way; `GetItemCount` with the bank
+without it); only items still short are listed.
 
 The rule. An item is an auction house buy when it is all of:
 
@@ -5585,8 +5586,16 @@ to be dismissed:
 - **The list** (`PolestarAuctionBuys`, built on first use, registered with
   the gamepad, Escape closes it): a row per item, its icon, "12 Silk Cloth",
   "For Caught! · About 152 kills to farm · 3 in your bags and bank", and Show
-  me the auction house. Opened by the cards, the guide window's menu
-  ("Auction house buys (N)" while there are any) and `/polestar ah`.
+  me the auction house. Under them, headed "MATERIALS FOR TAILORING 1-300",
+  the running profession guide's materials to buy (`Materials.BuyRows`: their
+  way is Buy and some is still to get), "47 Wool Cloth", "Tailoring 75-150 ·
+  ≈ 87s · 140 held". Opened by the cards, the guide window's menu ("Auction
+  house buys (N)" while there are any) and `/polestar ah`. At the Auction
+  House (`AUCTION_HOUSE_SHOW`) it opens beside the game's window while either
+  group has something to buy, and goes with it (`AUCTION_HOUSE_CLOSED`); each
+  row then has a Search (`Materials.Search`: the game's own buy view of the
+  item, the count filled in; the player presses Buy), and Show me the auction
+  house goes.
 
 The heads-up card itself is registered with the gamepad as a window that
 showed on its own: it waits for the focus binding, then the D-pad walks its
