@@ -471,7 +471,7 @@ step The Deadmines
   when onquest 214,166
   when level>=19.4
   zone Westfall
-  tip The Deadmines is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its door is the mine below Moonbrook, where the traitor led you: the portal is at the far end of the mine's tunnels.
+  tip The Deadmines is a dungeon for a group of five, levels 17 to 26, and a full run takes about an hour. Its door is the mine below Moonbrook, where the traitor led you: the portal is at the far end of the mine's tunnels.
   tip Inside: the Defias drop the Red Silk Bandanas, and Edwin VanCleef waits on the ship at the end. Open the Unsent Letter he drops: its quest goes to Stormwind, where this guide hands it in.
   enter "The Deadmines" @42.5,71.7
   collect 915 x10 quest 214.1                 -- Red Silk Bandana: the Defias

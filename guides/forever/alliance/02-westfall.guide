@@ -465,7 +465,7 @@ step The Hall of Thanes
   when onquest 96403,96394,96393
   when level>=14.4
   zone Ironforge
-  tip The Hall of Thanes is a dungeon for a group of five at about level 15 to 16, under Ironforge. Its door is on the west side of the city, a short walk west of Afadra Dunwall.
+  tip The Hall of Thanes is a dungeon for a group of five, levels 13 to 18, under Ironforge. Its door is on the west side of the city, a short walk west of Afadra Dunwall.
   tip Inside: the Enraged Apparitions and Tormented Souls are Afadra's, the Dwarven Heirlooms Thom's, and Durgen Dirgehammer, the Dark Iron commander deep in the vaults, carries the head King Magni wants. A Ghostly Attendant inside gives An Ancient Grudge, for Faldrim Anvilmar, and takes it back there; a Treaty of Understanding found inside starts a quest for King Magni.
   enter "The Hall of Thanes" @28.2,47.7 live
   complete 96403 @28.2,47.7 live      -- Important Heirlooms: the heirlooms, inside

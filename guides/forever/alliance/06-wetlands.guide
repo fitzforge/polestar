@@ -299,7 +299,7 @@ step Excavation Site: Wetlands
   when onquest 98815,95646
   when level>=28
   zone Wetlands
-  tip Excavation Site: Wetlands is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.
+  tip Excavation Site: Wetlands is a dungeon for a group of five, levels 26 to 33. Its entrance lies just south of the road west, east of Whelgar's dig.
   tip Inside: the Thicket raptors and Shadetooth drop the hides for Halloran, a Highland Horror the root core for Rethiel. Saltspine, Shadetooth and the Relic Guardian are the bosses; the Relic Guardian drops a Titan Relic, which starts a quest for Prospector Whelgar.
   enter "Excavation Site: Wetlands" @48.0,56.5 live
   complete 98815 @48.0,56.5 live      -- Highland Hides: the hides, inside

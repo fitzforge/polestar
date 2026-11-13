@@ -299,7 +299,7 @@ step The Stockade
   when onquest 387,377,391
   when level>=25.9
   zone Stormwind City
-  tip The Stockade is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is Warden Thelwater's, south of the Cathedral Square.
+  tip The Stockade is a dungeon for a group of five, levels 24 to 32, and a run takes under an hour. Its gate is Warden Thelwater's, south of the Cathedral Square.
   tip Inside: the Defias prisoners, convicts and insurgents for Thelwater, Dextren Ward's hand for Millstipe, and Bazil Thredd at the far end.
   enter "The Stockade" @52.4,70.0
   complete 387                            -- Quell the Uprising

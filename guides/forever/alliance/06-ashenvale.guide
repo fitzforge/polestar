@@ -218,7 +218,7 @@ step Blackfathom Deeps
   when onquest 1275,971
   when level>=24.5
   zone Ashenvale
-  tip Blackfathom Deeps is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.
+  tip Blackfathom Deeps is a dungeon for a group of five, levels 24 to 32, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.
   tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala, and the Lorgalis Manuscript for Gerrig Bonegrip is in there too. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for Darnassus, which this route leaves to the Dungeons page.
   enter "Blackfathom Deeps" @14.5,14.2
   collect 5952 x8 quest 1275.1        -- Researching the Corruption: Corrupted Brain Stems
