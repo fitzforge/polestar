@@ -128,6 +128,11 @@ step To Ironforge
   tip Your Hearthstone is still set at Ironforge: from there the gryphon to Chillwind Camp is about ten minutes quicker than Everlook's flight to Theramore and the boat.
   goto 18.15,51.45 "Ironforge inn"
 
+step Ironforge
+  when bound "Ironforge"
+  zone Ironforge
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
 step Fly to Chillwind Camp
   when bound "Ironforge"
   zone Ironforge

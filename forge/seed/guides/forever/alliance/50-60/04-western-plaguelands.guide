@@ -4,7 +4,7 @@ title Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silith
 faction Alliance
 levels 56-58
 zone Western Plaguelands
-next forever/alliance/50-60/05-silithus
+next forever/alliance/50-60/06-silithus
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -354,6 +354,7 @@ step Darnassus
   turnin 3781                         -- Mathrengyl Bearwalker
   turnin 4986
   train class only Druid              -- Ironforge, where the next guide trains, has no druid trainer
+  train class only Warrior,Hunter,Rogue,Priest -- their trainers are in Darnassus too
   accept 3785 optional                -- Ten Morrowgrain from the Evergreen Pouch
   turnin 3785 optional
   accept 3803 optional

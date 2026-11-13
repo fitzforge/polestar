@@ -5113,7 +5113,7 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['alliance/50-60/02-felwood', 'turnin 5156', /Talonbranch/],
 		['alliance/50-60/03-winterspring', 'turnin 6028', /Timbermaw|Auberdine/],
 		['alliance/50-60/04-western-plaguelands', 'turnin 5158', /^Fly to Ratchet/],
-		['alliance/50-60/05-silithus', 'turnin 4502', /Cenarion Hold/],
+		['alliance/50-60/06-silithus', 'turnin 4502', /Cenarion Hold/],
 		['alliance/40-50/02-badlands', 'turnin 4488', /^Fly to Ratchet|Fly back to Theramore/],
 		['alliance/02-westfall', 'accept 1638', /Fly or walk/],
 		['alliance/02-westfall', 'turnin 94774', /Fly or walk/],
@@ -6751,9 +6751,6 @@ test('forever/alliance/50-60/04-western-plaguelands.guide: final review: J.D. Co
 // Final route review, Alliance 40-60: class training sat in a step of its own before Stormwind (a tram ride to Ironforge
 // and back), and the last city visit went Ironforge, Stormwind, Ironforge, Stormwind.
 test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and Ironforge once', { skip }, () => {
-	const five = goals('forever/alliance/50-60/05-silithus.guide');
-	const s5 = (what, pred) => five[at(five, what, pred)].s;
-	assert.equal(s5('class training', (g) => g.t === 'train'), s5('turnin 4512', is('turnin', 4512)), 'training in the Ironforge stop');
 	const list = goals('forever/alliance/50-60/06-silithus.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const sw = stepOf('turnin 7793', is('turnin', 7793));
@@ -7978,7 +7975,7 @@ test('Alliance 40-60 order: the first Western Plaguelands stop before the Burnin
 	assert.ok(!goals(A('50-60/03-winterspring')).some(({ goal }) => [6604, 4861, 4863, 4864, 5281, 5249].includes(goal.quest)), 'Jaron\'s chain, The Restless Souls and To Winterspring! are not in the 53-55 Winterspring guide');
 	const last = goals(A('50-60/06-silithus'));
 	assert.ok(pos(last, 'turnin', 6604) < pos(last, 'turnin', 4864), 'Jaron\'s chain on the 58-59 Winterspring visit');
-	assert.ok(pos(goals(A('50-60/05-silithus')), 'turnin', 5181) <= pos(goals(A('50-60/05-silithus')), 'accept', 5281), 'The Restless Souls from Caretaker Alen at 58');
+	assert.ok(pos(last, 'turnin', 5181) <= pos(last, 'accept', 5281), 'The Restless Souls from Caretaker Alen on the Light\'s Hope stop');
 	assert.ok(pos(last, 'turnin', 5281) >= 0, 'and handed to Egan in Terrordale');
 	assert.ok(!goals(A('40-50/02-badlands')).some(({ goal }) => is('accept', 2877)(goal)), 'Skulk Rock Clean-up not at 42.6');
 	assert.ok(goals(A('40-50/04-tanaris')).some(({ goal }) => is('accept', 2877)(goal)), 'but on the Aerie Peak landing after Tanaris');
@@ -8518,8 +8515,8 @@ test('forever/alliance/40-50/06-searing-gorge.guide: final review: the ride in i
 // Final route review before 0.3.5, Alliance 40-60: the 58 Light's Hope stop handed Villains of Darrowshire to Carlin
 // Redpath, walked to Caretaker Alen, and came back to Carlin for Heroes of Darrowshire, under a tip from an older
 // order ("ride on north to Chillwind Camp and fly to Light's Hope Chapel"). Carlin's hand-ins are one visit now.
-test('forever/alliance/50-60/05-silithus.guide: final review: Carlin Redpath\'s two hand-ins in one visit, then Caretaker Alen', { skip }, () => {
-	const list = goals('forever/alliance/50-60/05-silithus.guide');
+test('forever/alliance/50-60/06-silithus.guide: final review: Carlin Redpath\'s two hand-ins in one visit, then Caretaker Alen', { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
 	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
 	const [villains, heroes, marauders, alen] = [idx('turnin', 5181), idx('turnin', 5168), idx('accept', 5206), idx('accept', 5281)];
 	assert.ok(villains < heroes && heroes < marauders && marauders < alen, 'Carlin, Carlin, Carlin, then Alen');
@@ -10472,7 +10469,7 @@ test('Alliance 50-53: A Meeting with the Master on the hippogryph top-up, the re
 	const soil = at(bs, 'turnin 3764', is('turnin', 3764));
 	assert.ok(everyone(bs[soil]), 'every class goes up to Jenal');
 	assert.ok(soil > at(bs, 'turnin 3661', is('turnin', 3661)), 'from the Rut\'theran stop');
-	for (const g of ['04-western-plaguelands', '05-silithus']) {
+	for (const g of ['04-western-plaguelands', '06-silithus']) {
 		const late = goals(`forever/alliance/50-60/${g}.guide`);
 		assert.ok(!late.some(({ goal }) => goal.t === 'turnin' && (goal.quest === 3701 || goal.quest === 3764)), `neither waits for ${g}`);
 	}
@@ -11841,4 +11838,29 @@ test('Alliance 50-60/01: hearths to Ironforge, Aerie Peak only for Gammerita\'s 
 	assert.ok(fp && has(fp, 'taxi', true), 'else Lakeshire, the pass and its flight path');
 	const thel = bs.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thelsamar');
 	assert.ok(thel && has(thel, 'group', false), 'Thelsamar only for The Horn of the Beast\'s group');
+});
+
+// 0.4.0 audit (fold2): 50-60/05's Eastern Kingdoms round trip at 58 is folded into 06. 04 leads straight to 06, which
+// opens at Ratchet (Volcanic Activity, the Stone Circle); an Ironforge detour from Talrendis Point before Un'Goro
+// hands A Little Slime Goes a Long Way in and takes its second part, whose jars are filled on Fire Plume Ridge;
+// 05's Stormwind, Ironforge and Light's Hope work joins 06's Eastern Kingdoms finale. Training moves to the
+// Ironforge hearth leaving Winterspring (03) and Darnassus (04) for the classes it trains there.
+test('Alliance 50-60: 05 folded into 06, the training stops at 55 and 57', { skip }, () => {
+	const fsx = require('node:fs');
+	assert.ok(!fsx.existsSync(path.join(OFFICIAL_DIR, 'forever/alliance/50-60/05-silithus.guide')), '05 is gone');
+	const retired = JSON.parse(fsx.readFileSync(path.join(OFFICIAL_DIR, 'retired.json'), 'utf8'));
+	assert.ok(retired.includes('forever/alliance/50-60/05-silithus'), 'its saved tabs open a successor');
+	assert.equal(compiled('forever/alliance/50-60/04-western-plaguelands.guide').next, 'forever/alliance/50-60/06-silithus');
+	const six = goals('forever/alliance/50-60/06-silithus.guide');
+	const p = (t, q) => at(six, `${t} ${q}`, is(t, q));
+	assert.ok(p('turnin', 4502) < p('turnin', 5159), 'Ratchet first, then Felwood');
+	assert.ok(p('turnin', 4512) < p('accept', 4513) && p('accept', 4513) < at(six, 'jars', (g) => g.t === 'collect' && g.quest === 4513), 'Laris before Un\'Goro, the jars on Fire Plume');
+	assert.ok(at(six, 'jars', (g) => g.t === 'collect' && g.quest === 4513) < p('turnin', 4513), 'and handed in on the last Ironforge stop');
+	for (const [t, q] of [['turnin', 5022], ['turnin', 6183], ['turnin', 5168], ['turnin', 5206], ['turnin', 6024], ['turnin', 5941], ['turnin', 5281]]) assert.ok(p(t, q) >= 0, `${t} ${q} in 06`);
+	assert.ok(p('turnin', 5206) < p('turnin', 5941), 'Chromie after Light\'s Hope');
+	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
+	const train = ws.find(({ goal }) => goal.t === 'train');
+	assert.ok(train && (train.step.when || []).some((w) => w.k === 'bound' && !w.neg), 'Ironforge training on the hearth out of Winterspring');
+	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	assert.ok(wpl.some(({ goal, step }) => goal.t === 'train' && /Darnassus/.test(step.zone || step.title || '') && JSON.stringify(goal).includes('Warrior')), 'Darnassus trains its classes');
 });

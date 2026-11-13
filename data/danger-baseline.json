@@ -5415,8 +5415,8 @@
 			"evidence": "route level 57.4; Precious 60-60 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "forever/alliance/50-60/05-silithus.guide|kill npc 8529|elite",
-			"guide": "forever/alliance/50-60/05-silithus.guide",
+			"key": "forever/alliance/50-60/06-silithus.guide|kill npc 8529|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
 			"goal": "kill npc 8529",
 			"kind": "elite",
 			"title": "Scourge Champions",

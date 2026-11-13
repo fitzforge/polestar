@@ -11,9 +11,14 @@ zone Silithus
 # Added here: Toxic Horrors (5086), Of Lost Honor (5845).
 # Left out: Taking Back Silithus (8275).
 
-step To Ratchet
+# ---------------------------------------------------------------- Ratchet
+
+step Ratchet
   zone The Barrens
-  goto 62.0,39.4 "Ratchet"
+  tip Fly from Marshal's Refuge to Ratchet.
+  fly "Ratchet"
+  turnin 4502                         -- Liv Rizzlefix, inside
+  collect 10556 quest 3444.1 @62.5,38.5 map 1413 -- Stone Circle
 
 step Fly to Talrendis Point
   zone The Barrens
@@ -99,9 +104,40 @@ step Azshara
   zone Azshara
   goto 11.9,77.5 "Azshara"
 
-step Fly to Gadgetzan
+step Fly to Auberdine
   zone Azshara
   goto 11.9,77.5 "Talrendis Point flight master"
+  fly "Auberdine"
+  zone Darkshore
+
+step Boat to Menethil Harbor
+  zone Darkshore
+  goto 32.4,43.8 "Boat to Menethil Harbor"
+
+step Fly to Ironforge
+  zone Wetlands
+  goto 9.5,59.7 "Menethil Harbor flight master"
+  fly "Ironforge"
+  zone Ironforge
+
+step Laris Geardawdle
+  zone Ironforge
+  turnin 4512                         -- Laris Geardawdle
+  accept 4513                         -- Its jars are filled on the Un'Goro visit
+
+step Fly to Menethil Harbor
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Boat to Theramore
+  zone Wetlands
+  goto 5.13,63.61 "Boat to Theramore"
+
+step Fly to Gadgetzan
+  zone Dustwallow Marsh
+  goto 67.5,51.2 "Theramore flight master"
   fly "Gadgetzan"
   zone Tanaris
 
@@ -134,9 +170,9 @@ step The Slithering Scar
 
 step Fire Plume Ridge
   tip Climb Fire Plume Ridge in the middle of the crater and use the Skeleton Key Mold by the lava lake at the top, with two Thorium Bars in your bags. Fill Laris's Empty Pure Sample Jars on the Primal Oozes in the pools around the ridge.
-  collect 11954 quest 4513.1          -- Use the jars on slain oozes
   use 14644 quest 5801.1 @48.9,47.0 map 1449
   collect 14645 quest 5801.1 @48.9,47.0 -- Unfinished Skeleton Key
+  collect 11954 quest 4513.1          -- Use the jars on slain oozes
 
 step Marshal's Refuge
   tip Ride north to Marshal's Refuge. Use Umi's Mechanical Yeti beside Quixxil.
@@ -437,6 +473,23 @@ step Fly to Stormwind
 
 # ---------------------------------------------------------------- Stormwind and Ironforge
 
+step Stormwind City
+  zone Stormwind City
+  turnin 5022                         -- Royal Factor Bathrilor
+  accept 5048
+  turnin 5048                         -- Ol' Emma, who walks the canals
+  accept 5050                         -- For Janice Felstone: keep it
+  accept 7791 optional                -- Clavicus Knavingham
+  accept 7793 optional
+  accept 7794 optional
+
+step Stormwind Keep
+  accept 6182                         -- Highlord Bolvar Fordragon
+  turnin 6182                         -- Master Mathias Shaw, in SI:7
+  accept 6183
+  turnin 6183
+  accept 6184                         -- Flint Shadowmore at Chillwind Camp: keep it
+
 step Stormwind
   zone Stormwind City
   tip Clavicus takes sixty Silk, sixty Mageweave and sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
@@ -459,6 +512,13 @@ step Ironforge
   zone Ironforge
   tip Take the Deeprun Tram to Ironforge. Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   turnin 4513                         -- Laris Geardawdle
+  accept 7261                         -- Lieutenant Rotimer
+  accept 7807 optional                -- Bubulo Acerbus, by the tram
+  accept 7808 optional
+  accept 7809 optional
+  accept 7802 optional                -- Mistina Steelshield
+  accept 7803 optional
+  accept 7804 optional
   collect 2592 x60 quest 7807.1 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
   collect 4306 x60 quest 7808.1 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
   collect 4338 x60 quest 7809.1 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
@@ -512,7 +572,6 @@ step Chillwind Camp
 step Andorhal
   tip Chromie waits in the ruined inn on the west side of Andorhal, the ruined city north of the camp. Araj the Summoner guards his phylactery in the middle of the town.
   collect 14610 quest 5803.1 optional -- Araj is elite: grouping up is advised.
-  turnin 5941                         -- Chromie, upstairs
 
 step Felstone Field
   tip Janice's ghost wanders by the farmhouse of Felstone Field, west of Andorhal. The Jabbering Ghouls in the field carry the other half of the charm: combine the two halves.
@@ -541,6 +600,27 @@ step Eastern Plaguelands
 step Of Lost Honor
   collect 14625 quest 5845.1 @62.5,26.8 map 1423 live -- Underwater
 
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  tip Ride south-east from the lake to the chapel.
+  turnin 5181                         -- Carlin Redpath
+  turnin 5168
+  accept 5206
+  accept 5281                         -- Caretaker Alen, by the graves south of the chapel: Egan is in Terrordale, keep it
+
+step Scourge Champions
+  tip Scourge Champions (59) roam the Noxious Glade, north of Light's Hope Chapel. Pass Carlin's Mystic Crystal over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time.
+  kill 8529 optional                  -- Scourge Champion
+  collect 13155 quest 5206.1 @81.5,44.0 -- Resonating Skull, from the Scourge Champions
+
+step Light's Hope Chapel
+  turnin 5206                         -- Carlin Redpath
+  accept 5941                         -- Chromie in Andorhal: keep it
+
+step Infiltrator Hameya
+  tip Ride north to the Plaguewood's north-eastern edge.
+  collect 15767 quest 6024.1          -- Hameya's Key
+
 step Tirion Fordring
   zone Eastern Plaguelands
   turnin 5845                         -- Of Lost Honor: the route takes it and fetches the Symbol, so its hand-in holds
@@ -560,11 +640,21 @@ step The Marris Stead
   collect 16001 quest 6185.2          -- SI:7 Insignia (Fredo)
   complete 6185
 
+step The Undercroft
+  zone Eastern Plaguelands
+  tip Ride south-west to the Undercroft. The mound of dirt lies inside. Mercutio Filthgorger is elite: grouping up is advised.
+  turnin 6024                         -- Mound of Dirt
+
 step Artist Renfray
   when onquest 5846
   zone Western Plaguelands
   goto 65.8,75.4 "Western Plaguelands"
   turnin 5846                         -- Inside
+
+step Chromie
+  zone Western Plaguelands
+  tip Chromie waits upstairs in the ruined inn on the west side of Andorhal, on the way back to Chillwind Camp.
+  turnin 5941                         -- Chromie, upstairs
 
 step Scholomance (optional)
   zone Eastern Plaguelands
