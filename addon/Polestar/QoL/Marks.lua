@@ -3,8 +3,10 @@
 -- it; again to clear the mark. Or two keys of the player's choosing (Key
 -- Bindings > Polestar: Mark as junk, Mark to keep; unbound by default), each
 -- pressed over an item: it takes that mark, or loses it when it has it
--- already. Marks are per character, by item ID, and the item's tooltip shows
--- the one it has, with the key that clears it when that key is bound.
+-- already. The click can be turned off (qol.itemMarksClick, on by default)
+-- for players who mark with the keys only. Marks are per character, by item
+-- ID, and the item's tooltip shows the one it has, with the key that clears
+-- it when that key is bound.
 --   junk: sold at a merchant along with the grey items (QoL/Vendor.lua), and
 --     one of the items the bag button can delete (QoL/Space.lua) when it is
 --     of common quality or below.
@@ -88,9 +90,10 @@ local function announce(link, id, mark)
 	end
 end
 
--- The next mark in the cycle, said in chat.
+-- The next mark in the cycle, said in chat, while the click cycles
+-- (qol.itemMarksClick).
 function Marks.OnItemClick(link, id)
-	if not (QoL.On("itemMarks") and ctrlAltOnly()) then return end
+	if not (QoL.On("itemMarks") and QoL.On("itemMarksClick") and ctrlAltOnly()) then return end
 	local mark = NEXT[Marks.Get(id) or false] or nil
 	Marks.Set(id, mark)
 	ns.Hooks.RefreshItem(id)

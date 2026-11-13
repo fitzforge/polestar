@@ -312,6 +312,9 @@ register(QOL, L["Vendors"], L["Bags"], {
 		help = L["Ctrl+Alt-click an item in your bags to mark it as junk, again to keep it, and again to clear it. Junk is sold with the grey items; a kept item is never sold or deleted."]
 			.. " " .. L["Or bind keys for it in Key Bindings, Polestar: Mark as junk and Mark to keep mark the item under the cursor, and take that mark off again."],
 		search = "bags, junk, mark junk, keep item, protect item, sell list, keybind, key binding, hotkey" },
+	{ kind = "toggle", key = "qol.itemMarksClick", label = L["Ctrl+Alt-click cycles"], disabled = function() return not QoL.On("itemMarks") end,
+		help = L["Ctrl+Alt-click an item to mark it as junk, again to keep it, and again to clear it. Turn it off to mark items only with the Mark as junk and Mark to keep keys."],
+		search = "bags, junk, mark junk, keep item, ctrl alt click, modifier click" },
 })
 
 -- After the trainer reminders (UI/Options.lua). The level-up card and the old

@@ -79,7 +79,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
-			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "bagSpace", "bagsLow", "wearOffer",
+			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
 	"#);

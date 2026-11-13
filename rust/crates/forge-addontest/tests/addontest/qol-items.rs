@@ -342,6 +342,33 @@ fn mark_click_refreshes_the_tooltip_only_when_it_shows_that_item() {
 	assert_eq!(out[0], json!({ "other": 0, "same": 1, "ring": "junk", "line": "Polestar | Marked as junk" }));
 }
 
+// The Ctrl+Alt-click cycles switch under the marks (qol.itemMarksClick, on by default): off, the click marks and
+// says nothing while the two keys still mark the item under the cursor; on again, the click cycles as before.
+#[test]
+fn mark_click_switch_off_leaves_marking_to_the_keys_and_on_again_the_click_cycles() {
+	let out = run_keys(
+		r#"
+		local B, M = Polestar.Bindings, QoL.Marks
+		local cloth = "|Hitem:3|h[Linen Cloth]|h"
+		local default = Polestar.GetDefault("qol.itemMarksClick")
+		stub.keys.ctrl, stub.keys.alt = true, true
+		set("itemMarksClick", false)
+		stub.messages = {}
+		Polestar.Hooks.OnItemClick(cloth)
+		local clicked, quiet = M.Get(3) or "none", #stub.messages
+		hover(0, cloth)
+		B.MarkKeep()
+		local key = M.Get(3) or "none"
+		M.Set(3, nil)
+		set("itemMarksClick", true)
+		Polestar.Hooks.OnItemClick(cloth)
+		stub.keys.ctrl, stub.keys.alt = false, false
+		emit({ default = default, clicked = clicked, quiet = quiet, key = key, on = M.Get(3) or "none" })
+		"#,
+	);
+	assert_eq!(out[0], json!({ "default": true, "clicked": "none", "quiet": 0, "key": "keep", "on": "junk" }));
+}
+
 // #946: junk marked in the reagent bag (bag 5, past NUM_BAG_SLOTS) is the bag button's cheapest junk and sells at a
 // merchant, while the reagent bag's free slots stay out of the free count (it takes only reagents).
 #[test]

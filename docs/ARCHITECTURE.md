@@ -6261,7 +6261,8 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
 
 - **Marks** (`qol.itemMarks`, on): Ctrl+Alt (no Shift) on a modified item
   click (`Hooks.ItemClick`: bag slots, loot slots, chat links) cycles none →
-  junk → keep → none and says it in chat. Two key bindings, Mark as junk and
+  junk → keep → none and says it in chat, while `qol.itemMarksClick` (on,
+  "Ctrl+Alt-click cycles") is on. Two key bindings, Mark as junk and
   Mark to keep (`POLESTAR_MARK_JUNK`/`_KEEP`, unbound by default), act on the
   item under the cursor (`Hooks.HoveredItem`: the item GameTooltip shows,
   only from an Item tooltip where tooltips carry their type): that mark, or
