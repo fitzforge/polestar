@@ -7162,6 +7162,21 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: Winterfall Activity hand
 	assert.ok((late.step.when || []).some((p) => p.k === 'complete' && !p.neg), 'the Felwood guide hands it in only while it is still carried');
 });
 
+// Horde 50-60 audit (0.4.0): Unfinished Business (6004) is done at the Northridge Lumber Camp in the Felwood & Western
+// Plaguelands guide (about 53.2) and Kirsta stands 270 yd away; the hand-in waited five levels for the Silithus guide.
+// Handed in right after the Scarlets, before the Bulwark, which also makes the top-up walk back to the Scarlet camp
+// after the Bulwark unnecessary.
+test('forever/horde/50-60/02-felwood.guide: Unfinished Business handed to Kirsta before the Bulwark, no walk back for a top-up', { skip }, () => {
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	const kirsta = at(list, 'turnin 6004', is('turnin', 6004));
+	const lastKill = list.reduce((m, e, i) => (e.goal.t === 'kill' && e.goal.quest === 6004 ? i : m), -1);
+	assert.ok(lastKill >= 0 && lastKill < kirsta, 'after the Scarlets');
+	const bulwark = at(list, 'turnin 5096', is('turnin', 5096));
+	assert.ok(kirsta < bulwark, 'before the Bulwark');
+	const brill = list.findIndex((e, i) => i > bulwark && e.goal.t === 'goto' && e.goal.text === 'Brill');
+	assert.ok(brill > bulwark, 'the walk to Brill follows the Bulwark');
+	assert.ok(!list.slice(bulwark, brill).some(({ goal }) => goal.t === 'level'), 'no top-up between the Bulwark and Brill');
+});
 
 // Final route review, Horde 40-60: each race learns to ride where the route already passes its trainer's city:
 // Trolls from the Orgrimmar stop (not a flight and boat from Stonard to Durotar and back), Undead on the next
