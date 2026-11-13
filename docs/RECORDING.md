@@ -63,6 +63,20 @@ without its name.
 - At login the addon deletes every chunk with
   `seq <= PolestarRecorderAck[PolestarRecorderDB.install]`.
 
+### Summary distance
+
+The summary estimates walking, mounted and swimming distance from position
+records on maps with known bounds. It excludes jumps faster than 40 yards
+per second and boat or flight travel with both a recorded start and end.
+Trips can span consecutive chunks for the same character. Missing chunks
+break both trip matching and the distance between surviving positions.
+
+An incomplete trip keeps the ordinary position-based estimate. Every chunk
+starts with a `session` record, so the format cannot distinguish normal
+chunk rotation from a recording restart that omitted a trip's end. Keeping
+that estimate avoids suppressing later walking after a restart; partial
+recordings can therefore still include some transport distance.
+
 ### Ack file (written by Polestar Client)
 
 `Interface/AddOns/Polestar_Recorder/Ack.lua`, loaded first by the TOC. One
