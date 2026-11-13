@@ -5273,9 +5273,9 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
 - **Pawn scales in Pawn's unit.** A Pawn string weighs a rating per rating
   point; Polestar per 1%. `Gear.Pawn.Weights` multiplies a rating stat's
   weight by its rate (`Gear.RATING_RATE`, from `Gear.RATINGS`; to the
-  thousandth) and `Gear.Pawn.Build` divides it back (to the ten-thousandth),
-  so a scale's weights are per 1% and its string per point: CritRating=1 is
-  crit 14. Scales kept before (no `PolestarDB.gearScaleUnits`) held rating
+  thousandth) and `Gear.Pawn.Build` divides it back (to five decimals, so
+  every thousandth comes back as it was at every rate), so a scale's weights
+  are per 1% and its string per point: CritRating=1 is crit 14. Scales kept before (no `PolestarDB.gearScaleUnits`) held rating
   weights per point, when items counted rating points; they are converted
   once, so each scores items as it did, and `gearScaleUnits` is 2 after.
 

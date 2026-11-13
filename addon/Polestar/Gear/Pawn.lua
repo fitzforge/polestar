@@ -90,7 +90,7 @@ local function rate(key)
 end
 
 -- A Pawn weight in Polestar's unit: a rating's per point times its rate, to the
--- thousandth (Build writes a ten-thousandth, so a weight goes round exactly).
+-- thousandth (Build writes five decimals, so a weight goes round exactly).
 local function fromPawn(v, key)
 	local r = rate(key)
 	if r == 1 then return v end
@@ -181,18 +181,25 @@ function Pawn.NameOf(key)
 	return nameOfKey[key] or key
 end
 
+-- A number to `places` decimals (3 unless given), ties away from zero, in plain
+-- digits: tostring would write 0.00007 as 7e-05.
 local function number3(v, places)
-	local m = 10 ^ (places or 3)
+	places = places or 3
+	local m = 10 ^ places
 	local rounded = math.floor(math.abs(v) * m + 0.5) / m
-	if v < 0 and rounded ~= 0 then rounded = -rounded end
-	return tostring(rounded)
+	local s = ("%." .. places .. "f"):format(rounded)
+	if s:find(".", 1, true) then s = s:gsub("0+$", ""):gsub("%.$", "") end
+	if v < 0 and rounded ~= 0 then s = "-" .. s end
+	return s
 end
 
 -- The Pawn string for a scale: "( Pawn: v1: "Name": Class=Warrior, Strength=1, ... )".
 function Pawn.Build(name, class, weights)
 	local list = {}
-	-- A rating per rating point (rate), with a decimal more: 10 / 14 is 0.7143.
-	for key, value in pairs(weights) do list[#list + 1] = { Pawn.NameOf(key), value / rate(key), rate(key) > 1 and 4 or 3 } end
+	-- A rating per rating point (rate), with two decimals more: 10 / 14 is
+	-- 0.71429. Four decimals lose a thousandth at 12, 14 and 15 points per 1%
+	-- (2 / 14 is 0.1429, and 0.1429 * 14 is 2.001); five keep every one.
+	for key, value in pairs(weights) do list[#list + 1] = { Pawn.NameOf(key), value / rate(key), rate(key) > 1 and 5 or 3 } end
 	table.sort(list, function(a, b) return a[1] < b[1] end)
 	local out = { "Class=" .. class:sub(1, 1) .. class:sub(2):lower() }
 	for _, w in ipairs(list) do out[#out + 1] = w[1] .. "=" .. number3(w[2], w[3]) end

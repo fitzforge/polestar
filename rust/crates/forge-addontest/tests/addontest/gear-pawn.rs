@@ -627,9 +627,45 @@ fn pawn_build_writes_a_string_parse_and_weights_read_back_to_the_same_weights() 
 	let out = &out[0];
 	assert_eq!(out["same"], true);
 	assert_eq!(out["name"], "A 'quoted' name");
-	assert!(text(&out["s"]).contains("CritRating=0.7857, "), "crit 11 per 1% is 11 / 14 per rating point: {}", out["s"]);
+	assert!(text(&out["s"]).contains("CritRating=0.78571, "), "crit 11 per 1% is 11 / 14 per rating point: {}", out["s"]);
 	assert!(text(&out["s"]).contains("HitRating=0.93, "), "{}", out["s"]);
 	assert!(is_match(text(&out["s"]), r#"^\( Pawn: v1: "A 'quoted' name": Class=Warrior, "#));
+}
+
+// A weight typed in the scales window is a thousandth; its string is per rating point. Four decimals lost one at
+// 12, 14 and 15 points per 1% (crit 2 wrote CritRating=0.1429, which read back as 2.001).
+#[test]
+fn pawn_build_writes_a_rating_weight_so_every_thousandth_reads_back_as_it_was_at_every_rate() {
+	let out = run(r#"
+		local KEYS = { "block", "hit", "dodge", "crit", "parry", "str" } -- 5, 10, 12, 14, 15 points per 1%; no rating
+		local bad, first = 0, nil
+		local function check(w)
+			local weights = {}
+			for _, key in ipairs(KEYS) do weights[key] = w end
+			local back = G.Pawn.Weights(assert(G.Pawn.Parse(G.Pawn.Build("Round", "WARRIOR", weights))))
+			for _, key in ipairs(KEYS) do
+				if back[key] ~= w then
+					bad = bad + 1
+					first = first or (key .. " " .. w .. " came back " .. tostring(back[key]))
+				end
+			end
+		end
+		for k = 1, 3000 do
+			check(k / 1000)
+			check(-k / 1000)
+		end
+		for _, w in ipairs({ 14.286, 99.999, 123.457, 1000.001 }) do check(w) end
+		emit({
+			bad = bad,
+			first = first,
+			two = G.Pawn.Build("Two", "WARRIOR", { crit = 2 }),
+			small = G.Pawn.Build("Small", "WARRIOR", { crit = 0.001, parry = -0.001 }),
+		})
+	"#);
+	let out = &out[0];
+	assert_eq!(out["bad"], 0, "the first weight that changed: {}", out["first"]);
+	assert!(text(&out["two"]).ends_with("CritRating=0.14286 )"), "{}", out["two"]);
+	assert!(text(&out["small"]).ends_with("CritRating=0.00007, ParryRating=-0.00007 )"), "plain digits, not 7e-05: {}", out["small"]);
 }
 
 #[test]
