@@ -10,6 +10,10 @@ next forever/alliance/07-thousand-needles
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop), and Velinde Starsong (1037: taken at 29, handed in to Thyn'tel Bladeweaver in Darnassus only at 41-48, for a tenth of its XP by then; the 40-50 Darnassus steps hand in a copy players still carry).
+# Hand-ins for quests carried from an older route (0.3.4's Darkshore before the 0.3.5 re-order, or a
+# guide left early): Therylune's Escape (945), Trek to Ashenvale (990), The Tower of Althalaxx (967) and
+# Expanding Horizons (97914) on the stops this guide already makes at their enders, each only while
+# carried (`when onquest`), as Thundris Windweaver's below.
 # Also left out: This Land Was Their Land (98230), which Captain Stoutfist offers only after Defeat Nek'rosh (474) is handed in (#1299): it is on the group branch of 30-40/01-hillsbrad-foothills.
 # Bloom of the Heavens (98208, 98209: 1750 + 1200 XP) from Sylessa Duskwhisper by Menethil's docks: Nord'el lies on the
 # shore just south of the town, and the follow-up goes to Thundris Windweaver in Auberdine on this guide's boat trip.
@@ -376,10 +380,22 @@ step Shindrell Swiftfire
 step Astranaar
   accept 1035                         -- Pelturas Whitemoon, inside
 
+step Raene Wolfrunner
+  zone Ashenvale
+  when onquest 990
+  tip Raene Wolfrunner stands in the inn, beside the innkeeper.
+  turnin 990                          -- Raene Wolfrunner: Trek to Ashenvale, if you still carry it from Darkshore
+
 step Melyria and Illiyana
   tip The two stand together at the western end of the road, south-west of Astranaar.
   accept 1021                         -- Illiyana
   accept 1022                         -- Sentinel Melyria Frostshadow
+
+step Therysil
+  zone Ashenvale
+  when onquest 945
+  tip Therysil stands at the Shrine of Aessina, a short walk from Melyria and Illiyana.
+  turnin 945                          -- Therysil: Therylune's Escape, if you still carry it from Darkshore
 
 step Shael'dryn
   tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
@@ -513,6 +529,11 @@ step Melyria and Illiyana
   turnin 1031                         -- Illiyana
 
 step Delgren the Purifier
+  zone Ashenvale
+  when onquest 967
+  turnin 967                          -- Delgren the Purifier: The Tower of Althalaxx, if you still carry it from Darkshore
+
+step Delgren the Purifier
   tip North to Maestra's Post.
   turnin 1140
 
@@ -563,6 +584,12 @@ step Ironforge priests
 step Tram to Stormwind
   zone Ironforge
   goto 78.0,51.4 "Tram to Stormwind"
+
+step Baros Alexston
+  zone Stormwind City
+  when onquest 97914
+  tip Baros Alexston stands in the Cathedral Square.
+  turnin 97914                            -- Baros Alexston: Expanding Horizons, Thundris Windweaver's letter, if you still carry it
 
 # ---------------------------------------------------------------- Stormwind
 

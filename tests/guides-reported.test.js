@@ -11842,3 +11842,15 @@ test(`${ASHENVALE}: Escape Through Force goes to Terenthis on the Auberdine land
 	assert.ok(fly < terenthis && terenthis < menethil, 'flight, Terenthis, then Menethil');
 	assert.ok(goals(WETLANDS).some(({ goal }) => goal.t === 'turnin' && goal.quest === 994), "06-wetlands keeps a hand-in for carriers");
 });
+
+// Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 stranded-quests plan): four Darkshore and Stormwind
+// quests that a character from an older route or a guide left early still carries are handed in on stops 06-wetlands
+// already makes at their enders, each only while carried.
+test(`${WETLANDS}: carried Darkshore quests are handed in on the stops at their enders (Alliance 20-30 audit)`, { skip }, () => {
+	const steps = compiled(WETLANDS).steps;
+	for (const q of [990, 945, 967, 97914]) {
+		const st = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === q));
+		assert.ok(st, `${q} is handed in`);
+		assert.ok((st.when || []).some((p) => p.k === 'onquest' && !p.neg), `${q}: only while carried (when onquest)`);
+	}
+});
