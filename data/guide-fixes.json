@@ -8002,8 +8002,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: the Rage Scar yetis are level 46-48, two to four above you: take them from the edge of the hills, one at a time. The level-45 grind comes later, on the Feral Scar yetis (43-45).",
-			"note": "#1999: the High Wilderness step ground to 44.5 on the Rage Scar yetis (46-48) for a player of about 44 (calibrated level model 44.0-44.5 there). The written grind now waits for the level-45 step on the Feral Scar yetis (43-45), which is on the way to Zorbin anyway; the Rage Scar kills are only Improved Quality's hides, with a heads-up.",
+			"tip": "Careful: the Rage Scar yetis are level 46-48, two to four above you: take them from the edge of the hills, one at a time. Zorbin's quests on the coast need level 45: grind them here until level 44.5, so the kills also bring Pratt's hides; if they are too much, grind the Feral Scar yetis (43-45) in the next step instead.",
+			"note": "#1999: the High Wilderness step grinds to 44.5 on the Rage Scar yetis (46-48) for a player of about 44 (calibrated level model 44.0-44.5 there). Moving that grind to the Feral Scar yetis (43-45) cost about 23 minutes to 60 in the calibrated level model (every Alliance race and class), so it stays, with a heads-up on the yetis' level and the Feral Scar yetis of the next step as the safer choice.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -8024,7 +8024,7 @@
 				"goal": "accept"
 			},
 			"optional": true,
-			"note": "#1999: Pristine Yeti Hide starts from a rare drop (about 3%) of the Rage Scar yetis. With the level-44.5 grind no longer on them, the hide is not certain, so its accept is optional: taken if it drops.",
+			"note": "#1999: Pristine Yeti Hide starts from a rare drop (about 3%) of the Rage Scar yetis: a player who grinds elsewhere or gets no drop is not held for it, so its accept is optional: taken if it drops.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -8045,7 +8045,7 @@
 				"goal": "turnin"
 			},
 			"optional": true,
-			"note": "#1999: the hand-in of Pristine Yeti Hide is optional with its accept (rare drop, no longer ground for).",
+			"note": "#1999: the hand-in of Pristine Yeti Hide is optional with its accept (rare drop).",
 			"source": [
 				{
 					"kind": "pfquest",

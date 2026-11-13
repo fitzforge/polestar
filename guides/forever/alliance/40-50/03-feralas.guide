@@ -145,9 +145,10 @@ step The Writhing Deep
 step High Wilderness: kill these as you meet them
   zone Feralas
   tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a Pristine Yeti Hide, which Pratt pays for too.
-  tip Careful: the Rage Scar yetis are level 46-48, two to four above you: take them from the edge of the hills, one at a time. The level-45 grind comes later, on the Feral Scar yetis (43-45).
+  tip Careful: the Rage Scar yetis are level 46-48, two to four above you: take them from the edge of the hills, one at a time. Zorbin's quests on the coast need level 45: grind them here until level 44.5, so the kills also bring Pratt's hides; if they are too much, grind the Feral Scar yetis (43-45) in the next step instead.
   collect 6258 quest 1452.2 @53.2,47.3 map 1444
   collect 18947 quest 7733            -- Rage Scar Yeti Hide
+  level 44.5 grind 5296                -- grind on Rage Scar Yeti
 
 step Rage Scar Hold
   tip If a Pristine Yeti Hide dropped, right-click it: Pratt pays for it too. No need to hunt for one.

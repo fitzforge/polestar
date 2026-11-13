@@ -9547,10 +9547,10 @@ test('Alliance Winterspring and Feralas: the long top-ups are split onto the que
 	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
 	const k = at(ws, 'kill for 5082', (x) => x.t === 'kill' && x.quest === 5082);
 	assert.ok(ws.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 54 && s === ws[k].s), '03: level 54 in the Frostfire step that kills for Donova');
-	// Feralas: since #1999 (0.4.0 audit) the level-45 grind is on the Feral Scar yetis (43-45), not on the Rage Scar yetis
-	// (46-48), and the Pristine Yeti Hide (a rare drop) is optional (see the #1999 case).
 	const fe = goals('forever/alliance/40-50/03-feralas.guide');
-	assert.ok(fe.some(({ goal }) => goal.t === 'level' && goal.grind === 5292), '03-feralas: the level-45 grind on the Feral Scar yetis');
+	const hide = at(fe, 'Rage Scar Yeti Hide', (x) => x.t === 'collect' && x.quest === 7733);
+	assert.ok(fe.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 44.5 && s === fe[hide].s), '03-feralas: level 44.5 on the Rage Scar yetis');
+	// Since #1999 (0.4.0 audit) the Pristine Yeti Hide (a rare drop) is optional (see the #1999 case).
 });
 
 // Alliance 40-60 flow pass (0.3.7): quest givers and hand-ins the route walked past and came back to later.
@@ -11861,12 +11861,12 @@ test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's R
 	for (const [, i] of grind) assert.ok(i > refuge, 'every Un\'Goro top-up to 49.x comes after the refuge\'s hand-ins');
 });
 
-// #1999: the Feralas High Wilderness step ground to level 44.5 on the Rage Scar yetis (46-48) for a player of about 44.
-// The written grind now waits for the level-45 step on the Feral Scar yetis (43-45); the Rage Scar kills are only
-// Improved Quality's hides, with a heads-up, and Pristine Yeti Hide (a rare drop) is optional.
-test('Feralas (Alliance 44, #1999): no grind on the Rage Scar yetis, a heads-up for their hides, the Pristine Yeti Hide optional', { skip }, () => {
+// #1999: the Feralas High Wilderness step grinds to level 44.5 on the Rage Scar yetis (46-48) for a player of about 44.
+// Moving that grind to the Feral Scar yetis (43-45) cost about 23 minutes to 60 in the calibrated level model, so it
+// stays, with a heads-up that names the yetis' level and the Feral Scar yetis as the safer choice; Pristine Yeti Hide
+// (a rare drop) is optional.
+test('Feralas (Alliance 44, #1999): a heads-up on the Rage Scar yetis, the Feral Scar yetis as the safer grind, the Pristine Yeti Hide optional', { skip }, () => {
 	const list = goals('forever/alliance/40-50/03-feralas.guide');
-	assert.ok(!list.some(({ goal }) => goal.t === 'level' && goal.grind === 5296), 'no grind on Rage Scar Yetis');
 	const hides = list[at(list, 'collect 18947', (g) => g.t === 'collect' && g.quest === 7733)];
 	assert.ok(JSON.stringify(hides.step).includes('46-48'), 'a heads-up on the yetis\' level');
 	for (const t of ['accept', 'turnin']) assert.ok(list[at(list, `${t} 7735`, is(t, 7735))].goal.optional, `${t} 7735 optional`);
