@@ -66,12 +66,12 @@ step Booty Bay
 #
 # Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Grom'gol
 # (Kin'weelay, the jungle stalkers, Mok'thardin) -> fly to Booty Bay -> the
-# Bloodsail cove, the Wild Shore and the Bloodsail ships -> Booty Bay ->
-# Mistvale Valley (gorillas, Mokk) -> Zanzil's camps -> the Venture Co. mine
-# -> Grom'gol -> Nesingwary -> Zul'Kunda -> Grom'gol ->
-# jungle stalkers -> the naga shore and the Holy Spring -> Booty Bay
-# -> the ghost pirates -> Zul'Mamwe and the Balia'mah and Ziata'jai trophy
-# skulls -> Grom'gol -> hearth to Booty Bay -> fly Grom'gol -> Nesingwary ->
+# Bloodsail cove -> Booty Bay -> Mistvale Valley (gorillas, Mokk) -> the
+# Venture Co. mine -> Grom'gol -> Nesingwary -> Zul'Kunda -> Grom'gol ->
+# jungle stalkers -> the naga shore and the Holy Spring -> Booty Bay -> the
+# Wild Shore and the Bloodsail ships (at about 41.5, #2102) -> Booty Bay ->
+# Zanzil's camps -> the ghost pirates -> Zul'Mamwe and the Balia'mah and
+# Ziata'jai trophy skulls -> Grom'gol -> fly Booty Bay -> fly Grom'gol -> Nesingwary ->
 # north through Duskwood and Deadwind Pass -> the Harborage -> Stonard
 # (flight path) -> crocolisks, Noboru, the Draenethyst crystals and Galen's
 # escort -> Galen's strongbox -> the Harborage, where the next guide rides back
@@ -149,31 +149,8 @@ step Bloodsail Correspondence
 step Booty Bay
   turnin 597                            -- First Mate Crazz
   accept 599
-  accept 576                            -- Dizzy One-Eye
   turnin 599                            -- Fleet Master Seahorn
-  accept 604
-  accept 587                            -- Deeg, on the top floor
-
-# ---------------------------------------------------------------- The Bloodsail Buccaneers
-step The Wild Shore
-  zone Stranglethorn Vale
-  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
-  collect 3920 quest 604.2
-  collect 3921 quest 604.3
-  collect 3910 quest 587.1
-  collect 3897 quest 576.1
-  kill 1563 quest 604.1
-
-step Booty Bay
-  turnin 587                            -- Deeg, on the top floor
-  turnin 604                            -- Fleet Master Seahorn
-  turnin 576                            -- Dizzy One-Eye
   accept 348                            -- Fin Fizracket
-
-step The Bloodsail ships
-  tip Optional, and tough at 41: the scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
-  collect 4056 "Cortello's Riddle" optional
-  accept 624 optional                   -- for a later stop in the Swamp of Sorrows
 
 # ---------------------------------------------------------------- North through the jungle
 
@@ -268,7 +245,30 @@ step Booty Bay
   accept 609
   turnin 348                            -- Fin Fizracket
   turnin 628 optional                   -- Drizzlik, inside: the Elder Crocolisk Skin
+  accept 576                            -- Dizzy One-Eye
+  accept 604                            -- Fleet Master Seahorn
+  accept 587                            -- Deeg, on the top floor
   vendor nearest
+
+# ---------------------------------------------------------------- The Bloodsail Buccaneers
+step The Wild Shore
+  zone Stranglethorn Vale
+  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
+  collect 3920 quest 604.2
+  collect 3921 quest 604.3
+  collect 3910 quest 587.1
+  collect 3897 quest 576.1
+  kill 1563 quest 604.1
+
+step Booty Bay
+  turnin 587                            -- Deeg, on the top floor
+  turnin 604                            -- Fleet Master Seahorn
+  turnin 576                            -- Dizzy One-Eye
+
+step The Bloodsail ships
+  tip Optional, and tough at 42: the scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
+  collect 4056 "Cortello's Riddle" optional
+  accept 624 optional                   -- for a later stop in the Swamp of Sorrows
 
 step Zanzil's camps
   tip North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture.

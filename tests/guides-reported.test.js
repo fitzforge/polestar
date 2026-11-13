@@ -2849,6 +2849,21 @@ test("Horde 40-50: Zorbin's Zapped Giants and Fuel for the Zapping are handed in
 	assert.ok(azshara.some(({ goal }) => is('accept', 7725)(goal)), "06 still takes 7725 for the Ultra-Shrinker the giants need");
 });
 
+test('Horde 40-50/01: the Wild Shore pass comes after the Cape of Stranglethorn coast, not at 40 (#2102)', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	// The Booty Bay stop after the coast is the one that hands in Scaring Shaky (606).
+	const coastStop = at(list, 'turnin 606 (Shaky Phillipe)', is('turnin', 606));
+	for (const q of [604, 587, 576]) {
+		const take = at(list, `accept ${q}`, is('accept', q));
+		assert.ok(take > coastStop, `${q} is taken on the Booty Bay stop after the coast, not on the first visit`);
+	}
+	const swash = at(list, 'the Bloodsail Swashbucklers (604.1)', (g) => g.t === 'kill' && g.quest === 604);
+	assert.ok(swash > coastStop, 'the swashbuckler kills come after that stop too');
+	const fever = at(list, 'accept 348 (Fin Fizracket)', is('accept', 348));
+	const fang = at(list, 'the gorilla fang for 348', (g) => g.quest === 348 && g.t === 'collect');
+	assert.ok(fever < fang, 'Stranglethorn Fever is still taken before Mistvale');
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.

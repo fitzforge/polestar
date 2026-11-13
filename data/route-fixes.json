@@ -4940,6 +4940,42 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 40-50 route audit (0.4.0): see turnin 7003 -> task 3063: Fuel for the Zapping is handed in at Zorbin's dock on the same stop."
+			},
+			{
+				"a": [
+					"turnin",
+					606
+				],
+				"b": [
+					"accept",
+					604
+				],
+				"faction": "Horde",
+				"why": "#2102 (Horde 40-50/01, a Scourge Warrior at 39.9): The Bloodsail Buccaneers (604) is level 43 and its Bloodsail Swashbucklers 41-43; the guide sent players to the Wild Shore right after the opening, at about 40, and the pace line warned it was hard. Players' recordings: 13 people handed 604 in at 39-45, most at 41-44; the danger gate flagged the Wild Shore at the route's 39.9. Up to Snuff (587) and Keep An Eye Out (576) drop from the same pirates, so the whole Wild Shore pass (accepts, the swashbucklers, the hand-ins, and the optional ships) moves to the Booty Bay stop after the Cape of Stranglethorn coast, about 41.5 in the calibrated model: one Booty Bay -> Wild Shore -> Booty Bay loop moves instead of being added."
+			},
+			{
+				"a": [
+					"turnin",
+					606
+				],
+				"b": [
+					"accept",
+					587
+				],
+				"faction": "Horde",
+				"why": "#2102: see turnin 606 -> accept 604; 587 shares the Wild Shore's pirates and moves with it."
+			},
+			{
+				"a": [
+					"turnin",
+					606
+				],
+				"b": [
+					"accept",
+					576
+				],
+				"faction": "Horde",
+				"why": "#2102: see turnin 606 -> accept 604; 576 shares the Wild Shore's pirates and moves with it."
 			}
 		],
 		"notes": [
