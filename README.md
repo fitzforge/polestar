@@ -406,6 +406,9 @@ its source is in [apps/client](apps/client).
 - **Skip a quest.** Right-click a quest's line, Skip this quest: the guide
   drops it and the quests that follow from it, in every guide, and the
   banner's Undo brings them back. Skip, at the top, passes the whole step.
+- **Show in quest log.** Right-click a quest's line, or a While you're here
+  line, and pick Show in quest log: the game's quest log opens at that
+  quest (after the fight, in combat).
 - **Abandoned a quest by mistake?** The guide stays on its step, greys out
   that quest's goals and points the arrow back at its giver, and asks: go
   back for it, or skip it and what follows. "When you abandon a guide
@@ -441,16 +444,16 @@ its source is in [apps/client](apps/client).
   objective whose quest is already in your log (12 vermin as much as one
   chest), a "While you're here" panel under the step lists it, up to three
   at once; done now, that step is done or shorter when you get there. Click
-  one for the arrow, right-click it to leave it around there (twice: for the
-  rest of the zone). A quest ready to hand in shows the same way when its
-  NPC is in the town you're in or a few seconds out of your way (20 by
-  default; Options, Guide, Window, Dynamic Questing, "Hand-ins: how far out
-  of your way"), and at that NPC it also takes the quests the next steps
-  need ("Hand in … then take …: saves a trip back"). Pick-ups count too:
-  walk near someone who gives a quest your guide takes later, anywhere in
-  the guide you have loaded, and a row says "Take “<quest>” from <NPC>:
-  saves a trip back"; talking to an NPC whose quest comes in the next few
-  steps takes it without moving the guide.
+  one for the arrow, right-click it to see its quest in the quest log or to
+  leave it around there (twice: for the rest of the zone). A quest ready to
+  hand in shows the same way when its NPC is in the town you're in or a few
+  seconds out of your way (20 by default; Options, Guide, Window, Dynamic
+  Questing, "Hand-ins: how far out of your way"), and at that NPC it also
+  takes the quests the next steps need ("Hand in … then take …: saves a trip
+  back"). Pick-ups count too: walk near someone who gives a quest your guide
+  takes later, anywhere in the guide you have loaded, and a row says "Take
+  “<quest>” from <NPC>: saves a trip back"; talking to an NPC whose quest
+  comes in the next few steps takes it without moving the guide.
 - **Group quests are your call.** At a quest a guide marks as a group quest,
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them

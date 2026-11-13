@@ -809,6 +809,8 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		const lastStep = ast.steps[ast.steps.length - 1];
 		const lastGoal = lastStep && lastStep.goals[lastStep.goals.length - 1];
 		const endZone = resolveZone((lastStep && lastStep.zone) || (lastGoal && lastGoal.zone)) || hz;
+		// The factions the guide is for, narrowed by its races (a `taxi` predicate's flight master), when asked.
+		const guideSides = () => smartSides(sidesFor([h.faction ? [h.faction] : null]), applicable([{ factions: h.faction ? [h.faction] : null, races: h.races || null, classes: h.classes || null }]));
 		guide.nextWhen = {};
 		for (const id of h.next) {
 			const p = h.nextWhen[id];
@@ -816,7 +818,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			// `done` names a step of the guide being played; the options are also listed from other guides.
 			if (p.k === 'done') err(p.line, '`done` checks a step of the guide being played: it cannot decide a `next` option', 'use a predicate on the character, such as `turnedin <quest>`');
 			else if (p.k === 'group') err(p.line, '`group` asks the player at a step of the guide: it cannot decide a `next` option', 'put `when group <quest>` on the steps of that quest');
-			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn);
+			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn, guideSides);
 		}
 	}
 	setIf(guide, 'pitch', h.pitch);
@@ -917,12 +919,14 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 		setIf(step, 'only', onlyOf(s.only));
 		const stepZone = resolveZone(s.zone || (s.goals[0] && s.goals[0].zone));
-		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn));
+		// The factions the step is for, narrowed by its races as a goal's (a `taxi` predicate's flight master), when asked.
+		const stepSides = () => smartSides(sidesFor([h.faction ? [h.faction] : null, s.only && s.only.factions]), applicable([headLayer, s.only]));
+		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn, stepSides));
 		setIf(step, 'label', s.label);
 		setIf(step, 'along', s.along);
 		setIf(step, 'section', s.section);
 		// `skipto <label> when <predicate>`: { to, when } in the step's order, `when` one predicate.
-		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn)[0] }));
+		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn, stepSides)[0] }));
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
@@ -1146,9 +1150,11 @@ function nonEmpty(o) {
 // (places.js, "Places by ID"), the subzone looked up in the step's zone; a
 // dungeon with its Map.csv id (group.js dungeonNamed), the key of the
 // player's choice; a profession with its skill line (`skill`); a `cooldown`
-// item checked against the data; a `group` quest checked as one. `levels`: the
+// item checked against the data; a `group` quest checked as one; a flight
+// point (`taxi`) checked as a getfp's, with its taxi node for the factions
+// `sides()` gives (places.js goalNode). `levels`: the
 // guide's [min, max], to warn about a step no character in that range sees.
-function resolveWhen(list, zoneId, levels, data, warn) {
+function resolveWhen(list, zoneId, levels, data, warn, sides) {
 	if (!list || !list.length) return undefined;
 	const haveQuests = nonEmpty(data.quests);
 	const haveItems = nonEmpty(data.items);
@@ -1237,6 +1243,15 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 				else if (data.instances) warn(p.line, `dungeon "${p.name}" is not a dungeon in the client's instance tables: no character can choose it, so \`when dungeon\` never holds and \`when !dungeon\` always does`, 'write the dungeon as the game names it, as the guide window\'s "Dungeon:" line shows it ("Ragefire Chasm")');
 				break;
 			}
+			case 'taxi': {
+				// A flight point named as for `getfp`: its taxi node for the step's factions, else the name alone.
+				w.name = p.name;
+				const bad = checkLocation(data, 'getfp', p.name);
+				if (bad) warn(p.line, `taxi "${p.name}": no flight point has that name, so Polestar never counts its flight path as known`, bad.hint);
+				const node = goalNode(data, { t: 'getfp', location: p.name }, sides ? sides() : []);
+				if (node !== undefined) w.node = node;
+				break;
+			}
 			default: {
 				// bound
 				w.name = p.name;
@@ -1263,7 +1278,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 	const key = (p) => JSON.stringify({ ...p, neg: undefined, line: undefined });
 	for (const p of list) {
 		if (p.k !== 'level' && list.some((o) => o !== p && !!o.neg !== !!p.neg && key(o) === key(p))) {
-			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : p.k === 'knows' ? 'spell' : 'place'}: no character sees it`);
+			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : p.k === 'knows' ? 'spell' : p.k === 'taxi' ? 'flight path' : 'place'}: no character sees it`);
 			break;
 		}
 	}

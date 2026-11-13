@@ -25,18 +25,19 @@
 //   [!]group <quest>                          the player chose to do that group quest (! to skip it);
 //                                             the route waits at the step until they answer
 //   [!]knows <spell>                          the character knows the spell (spellbook or recipe)
+//   [!]taxi "<Flight point>"                  the character knows that flight path
 // value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label? }; `q` is a list for onquest.
 
 const { levelPoint } = require('../game/xp');
 const { readMoney } = require('./money');
 
 const INT_RE = /^\d+$/;
-const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group', 'knows'];
+const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group', 'knows', 'taxi'];
 // A step label, as parse.js reads `label <name>`.
 const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 const QUEST_ONE = new Set(['complete', 'turnedin', 'available', 'group']);
 const PLACE = new Set(['zone', 'subzone', 'bound']);
-const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>`;
+const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi "<Flight point>"`;
 
 // A name written quoted or bare: `"Razor Hill"` or `Razor Hill`.
 function nameOf(text) {
@@ -124,9 +125,9 @@ function parseWhen(rest) {
 		value.spell = Number(args);
 		return { value };
 	}
-	// zone, subzone, bound, dungeon
+	// zone, subzone, bound, dungeon, taxi
 	const name = nameOf(args);
-	if (!name) return { error: `\`${kind}\` needs a name: ${kind} "<${kind === 'bound' ? 'Location' : 'Name'}>"` };
+	if (!name) return { error: `\`${kind}\` needs a name: ${kind} "<${kind === 'bound' ? 'Location' : kind === 'taxi' ? 'Flight point' : 'Name'}>"` };
 	value.name = name;
 	return { value };
 }

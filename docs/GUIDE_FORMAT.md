@@ -263,6 +263,7 @@ step Back to Gornek
 | `skill <Profession> <N>` | the character's rank in that profession is N (1 or more) or higher, the profession named as for the `skill` goal (`when skill Cooking 50`, `when skill "First Aid" 1`); one not learned counts as rank 0, so `!skill Herbalism 1` holds while the character has no Herbalism. A weapon skill works the same, by its skill name or its trainer spell's (`when !skill "Two-Handed Axes" 1` while the character has not learned it; `Swords` or `"One-Handed Swords"`) |
 | `cooldown item <item>`, `cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside: `when !cooldown item 6948` while the Hearthstone is ready. Polestar looks again when the cooldown runs out |
 | `knows <spell>` | the character knows the spell: in the spellbook, or a profession recipe learned. `when !knows 100` is for the step that trains Charge, so a character who has it passes on |
+| `taxi "<Flight point>"` | the character knows that flight path, named as for `getfp` (the town, or the flight point's full name). `when taxi "Ironforge"` is for the flight a character with the Ironforge flight path takes, `when !taxi "Ironforge"` for the walk the others take. Polestar counts a flight path known once it has seen it on the flight map, on the world map's flight points or learnt ("New flight path discovered"); before that the character reads as not knowing it, so make the `!taxi` way one that works for everyone |
 | `group <quest>` | the player chose to do that group quest; `!group` holds when they chose to skip it. Until they answer, the route waits at the step and asks (see "Group quests" below); not on a `next` line or a `skipto` |
 
 `!` in front of any predicate but `level` turns it around: `!onquest 788`
@@ -290,7 +291,8 @@ who passed those steps never see it, so give it the same `when` or a
 Zone, subzone and bind location names work on every client language: the
 compiler gives each its area ID where the data names one (see "Places by
 ID"), and Polestar compares the game's own name for it, then the name you
-wrote.
+wrote. A `taxi` flight point gets its flight master's taxi node, as a `getfp`
+does, for the factions the step is for.
 
 **Dungeon steps.** `when dungeon "<Name>"` is for the steps of a dungeon
 run: they apply only to characters who run that dungeon, and `when
@@ -484,7 +486,8 @@ Polestar 0.2.6 and later read. A `when money`, `when dungeon`, `when
 upgrade`, `when done`, `when skill`, `when cooldown`, `when group` or `when knows`
 predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
 not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
-(docs/PACK_FORMAT.md).
+(docs/PACK_FORMAT.md). A `when taxi` predicate writes format 10 (Polestar
+0.4.0 and later).
 
 ## Along the way
 

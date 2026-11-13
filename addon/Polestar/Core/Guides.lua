@@ -267,6 +267,9 @@ local function checkWhen(list)
 		elseif k == "knows" then
 			-- A spell id (format 5).
 			if not isNum(p.spell) then return false end
+		elseif k == "taxi" then
+			-- A flight point by name, with its taxi node when the compiler knew it (format 10).
+			if not (isStr(p.name) and (p.node == nil or isNum(p.node))) then return false end
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end
@@ -683,7 +686,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [10] = true }
 -- Pack ids only Polestar's own packs may give (forge-guide's RESERVED_IDS and
 -- format.js's have the same): a pack registering one is refused, unless it
 -- comes from the addon the id belongs to (RESERVED_ADDON: ours,

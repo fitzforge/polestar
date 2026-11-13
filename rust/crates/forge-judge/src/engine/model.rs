@@ -71,6 +71,8 @@ pub struct Pred {
 	pub name: Option<String>,
 	pub label: Option<String>,
 	pub area: Option<u32>,
+	/// A `taxi` predicate's taxi node.
+	pub node: Option<u32>,
 	pub map: Option<u32>,
 	pub skill_line: Option<u32>,
 	pub min_level: Option<f64>,
@@ -98,6 +100,7 @@ impl Pred {
 			name: text(v, "name"),
 			label: text(v, "label"),
 			area: id(v, "area"),
+			node: id(v, "node"),
 			map: id(v, "map"),
 			skill_line: id(v, "skillLine"),
 			min_level: num(v, "minLevel"),

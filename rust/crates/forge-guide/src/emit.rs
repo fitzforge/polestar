@@ -74,8 +74,9 @@ pub const GUIDE_KEYS: [&str; 29] = [
 pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "section", "goals"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
-/// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
+/// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
+/// `taxi` predicate's flight master, sits where no other predicate has a value).
+pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a

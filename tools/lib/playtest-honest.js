@@ -292,6 +292,11 @@ function whenHolds(w, when) {
 			case 'group': ok = w.groups === 'do'; break; // playtest's answer at group quests (skip: the solo route)
 			case 'dungeon': ok = !!(w.chosen && w.chosen(p)); break; // the dungeons the player chose (none: the solo route)
 			case 'bound': ok = !p.location || w.bound == null || String(w.bound).toLowerCase() === String(p.location).toLowerCase(); break;
+			case 'taxi': { // a flight path learnt on the way (a getfp), by its node, else its name
+				const n = w.node({ node: p.node, location: p.name });
+				ok = w.known.has(n ? n.id : p.name);
+				break;
+			}
 			default: ok = true;
 		}
 		if (p.neg && p.k !== 'level') ok = !ok;

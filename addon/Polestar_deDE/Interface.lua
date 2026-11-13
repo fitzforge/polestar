@@ -214,6 +214,11 @@ L["Debug output"] = "Debug-Ausgabe"
 L["on"] = "an"
 L["off"] = "aus"
 L["Toggle debug output"] = "Debug-Ausgabe ein-/ausschalten"
+-- L["Another addon is keeping the guide window and the arrow out of sight. Some UI addons show the guide's steps in their own quest tracker and route instead: turn that off in that addon to get Polestar's back."] = ""
+-- L["Another addon is keeping the guide window out of sight. Some UI addons show the guide's steps in their own quest tracker instead: turn that off in that addon to get it back."] = ""
+-- L["Another addon is keeping the arrow out of sight. Some UI addons lead the way with their own arrow or route instead: turn that off in that addon to get it back."] = ""
+-- L["Polestar is out of sight"] = ""
+-- L["Another addon is hiding the guide window or the arrow. The chat says how to get it back."] = ""
 
 -- Core/Search.lua
 L["Guides"] = "Guides"
@@ -4103,6 +4108,9 @@ L["Part of the %s quests"] = "Teil der Quests von %s"
 -- L["Section: %s"] = ""
 -- L["See 1 result"] = ""
 -- L["See all %d results"] = ""
+
+-- UI/GuideFrameHere.lua
+-- L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

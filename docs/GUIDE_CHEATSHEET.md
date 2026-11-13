@@ -179,6 +179,7 @@ the outcome stays.
 | `when skill <Profession> <N>` | the profession's rank is N or more; not learned counts as 0 (needs Polestar 0.3.0) | `when !skill Cooking 50` |
 | `when cooldown item <item>` / `when cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside (needs Polestar 0.3.0) | `when !cooldown item 6948` |
 | `when knows <spell>` | the character knows the spell (spellbook or recipe; needs Polestar 0.3.0) | `when !knows 100` |
+| `when taxi "<Flight point>"` | the character knows that flight path, named as for `getfp`; one Polestar has not seen learnt or on a flight map counts as unknown (needs Polestar 0.4.0) | `when !taxi "Ironforge"` |
 | `when group <quest>` | the player chose to do that group quest; unanswered, the route waits and asks "Skip it" or "Do it with a group"; `!group` is the solo way; not on `next` or `skipto` (needs Polestar 0.3.0) | `when group 7` |
 
 ## Route choices and optional steps

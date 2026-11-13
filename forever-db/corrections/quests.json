@@ -6067,6 +6067,7 @@
 	"98252": {
 		"set": {
 			"xp": 925,
+			"limit": 240,
 			"pre": [
 				98251
 			],
@@ -6102,9 +6103,13 @@
 			{
 				"kind": "recording",
 				"ref": "Horde 1-30 audit (#1414), xp: 14 hand-ins at a full-XP level paid 925 XP (QuestieDB 1.0.13's traces: 920); the data had 1300"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-11, builds 1.60.1.70790 to 1.60.1.70888; no excluded or suspect contributor): 30 people took A Void Path, and for each one the recorder logged the quest's timer starting at the accept (a record it writes only while the game reports a time limit for the quest) and stopping when the eye reached the road, 3 to 147 seconds later; none failed"
 			}
 		],
-		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23), and the quest chain in the game's data has Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure). A Void Path: its one objective is to steer the Eye of Kilrogg to the road (an event)."
+		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23), and the quest chain in the game's data has Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure). A Void Path: its one objective is to steer the Eye of Kilrogg to the road (an event). It is timed: the game starts its timer at the accept (players' recordings), and Va'xug's quest text gives four minutes (240 s) to reach the road. The data had no limit, so the accept named no time and Dynamic Questing could not tell whether taking it early still leaves time for the walk."
 	},
 	"98094": {
 		"set": {

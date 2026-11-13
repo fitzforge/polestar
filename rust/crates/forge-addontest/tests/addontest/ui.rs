@@ -596,6 +596,41 @@ fn right_click_on_a_quest_line_tick_it_done_or_skip_this_quest_the_banner_undo_o
 	assert_eq!(out["neals"], json!([["ToggleGoal", 4, 4], false]), "a line with no quest ticks on right-click, as before");
 }
 
+// Show in quest log (Quests/QuestLogLink.lua): a quest's line, right-clicked, offers the game's quest log at that
+// quest between its tick and its skip; picking it goes through Polestar.ShowInQuestLog.
+#[test]
+fn right_click_on_a_quest_line_offers_show_in_quest_log_which_opens_the_log_at_that_quest() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Quests/QuestLogLink.lua"])],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal GF, UI, W = Polestar.UI.GuideFrame, Polestar.UI, Polestar.Widgets\nlocal F = PolestarGuideFrame\n{HELPERS}\n{}",
+			r#"
+		local C, opened, asked = Polestar.Compat, {}, {}
+		C.CanOpenQuestLog = function() return true end
+		C.IsOnQuest = function(q) return q == 15 end
+		C.OpenQuestLog = function(q) opened[#opened + 1] = q; return true end
+		local show = Polestar.ShowInQuestLog
+		Polestar.ShowInQuestLog = function(q) asked[#asked + 1] = q; return show(q) end
+		uistub.setGuide(uistub.elwynn, 3)
+		for g = 1, 3 do uistub.goal(4, g).status = "done" end
+		uistub.goal(4, 2).status = "active"
+		uistub.setStep(4)
+		stub.RunScript(rowFor("Investigate Echo Ridge"), "OnClick", "RightButton")
+		local items = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then items[#items + 1] = r.Text:GetText() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Show in quest log" then r:Click() end end
+		emit({ items = items, asked = asked, opened = opened, skip = lastCall("SkipQuest") or false })"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["items"], json!(["Tick it done", "Show in quest log", "Skip this quest"]));
+	assert_eq!(out["asked"], json!([15]), "the menu row calls Polestar.ShowInQuestLog");
+	assert_eq!(out["opened"], json!([15]), "the quest log opens at that quest");
+	assert_eq!(out["skip"], false, "nothing skipped");
+}
+
 #[test]
 fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	let lines = run(r#"
@@ -3008,4 +3043,62 @@ fn an_icon_button_s_glyph_keeps_its_disabled_strength_and_stays_under_a_kit_s_ar
 	assert_eq!(r["left"], 0, "and the glyph stays hidden when the button recolours it: {r}");
 	assert_eq!(r["closeLeft"], 0, "a kit's close art: the glyph stays hidden: {r}");
 	assert_eq!(r["back"], 0.35, "back in the house style, the disabled arrow's glyph shows at 35 %: {r}");
+}
+
+// A layout reads the banner's notice once: GF.Layout's own read decides whether the banner shows and lays it out
+// (GF.LayoutBanner), where it was read a second time right after. Each read asks the Engine and the route plan
+// (the log's room: Engine.GetStepView, every quest's hand-in) again. The banner reads as before.
+#[test]
+fn a_layout_reads_the_banner_notice_once_and_the_banner_reads_as_before() {
+	let out = run(r#"
+		uistub.groupQuestion = { quest = 6284, title = "Arachnophobia" }
+		uistub.openTabs(TABS, 1)
+		local E = Polestar.Engine
+		local asked, ask = 0, E.GroupQuestion
+		E.GroupQuestion = function(...) asked = asked + 1; return ask(...) end
+		GF.Layout()
+		local B = GF.parts.banner
+		local r = { asks = asked, shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.psKind } }
+		uistub.groupQuestion = nil
+		asked = 0
+		GF.Layout()
+		r.none = { asked, B:IsShown() }
+		emit(r)
+	"#)
+	.remove(0);
+	assert_eq!(out["asks"], 1, "one read of the notice per layout: {out}");
+	assert_eq!(out["shown"], json!([true, "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "group"]));
+	assert_eq!(out["none"], json!([1, false]), "no notice: one read, no banner");
+}
+
+// The progress bar's count from Engine.ProgressSoon: while the Engine counts it over the next frames, the bar keeps its
+// last count (and a layout lays it out at that count); the count lands through one call, for every ask since.
+#[test]
+fn the_progress_bar_keeps_its_count_while_the_engine_counts_and_paints_the_new_one_when_it_lands() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local E = Polestar.Engine
+		local answer, asked = { 3, 10 }, {}
+		E.ProgressSoon = function(fn)
+			if answer then return answer[1], answer[2] end
+			asked[#asked + 1] = fn
+			return nil
+		end
+		local P = GF.parts
+		GF.PaintProgress(false)
+		local first = P.foot.Pct:GetText()
+		answer = nil
+		GF.PaintProgress(true)
+		GF.Layout()
+		local counting = P.foot.Pct:GetText()
+		answer = { 7, 10 }
+		asked[1]()
+		emit({ first = first, counting = counting, same = asked[1] == asked[2], landed = P.foot.Pct:GetText(), done = P.foot.psDone })
+	"#)
+	.remove(0);
+	assert_eq!(out["first"], "30%");
+	assert_eq!(out["counting"], "30%", "the last count while the Engine counts: {out}");
+	assert_eq!(out["same"], true, "one painter for every ask: {out}");
+	assert_eq!(out["landed"], "70%");
+	assert_eq!(out["done"], 7);
 }
