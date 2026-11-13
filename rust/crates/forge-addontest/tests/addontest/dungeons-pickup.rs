@@ -1389,6 +1389,51 @@ emit({ waiting = waiting, lines = lines, take = #plan.take, label = D.PickupLabe
 	assert_eq!(out["still"], GID, "the guide is not changed");
 }
 
+// #1993 (Uldaman's pick-up guide): the "Comes back at level N" lines showed as "|cffff7c0aComes back at level
+// 39: ...|r". They carried the accent as a colour code in their text, and guide text prints literally (every `|`
+// doubled at registration, Guides.lua). With the whole addon (the look's accent known) the line is plain text,
+// marked `accent` for the window to paint, and the engine's goal view says so.
+#[test]
+fn a_waiting_quest_s_line_is_plain_text_marked_accent_never_a_colour_code_the_window_prints_1993() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90610"] = json!({
+		"id": 90610, "name": "Motley Garmason", "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	c["quests"]["90680"] = json!({
+		"id": 90680, "title": "Quest 90680", "level": 28, "minLevel": 25, "faction": "H", "races": null, "classes": null,
+		"start": { "npc": [90610], "object": [], "item": [] }, "end": { "npc": [90610], "object": [] },
+		"objectives": [{ "type": "kill", "id": 90611, "count": 1, "text": "Dark Iron Dwarf" }],
+		"pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+	});
+	i["forever"]["quests"]["90680"] = json!({ "area": 209 });
+	let pack = pack_of(&c, &i);
+	let out = run(
+		&pack,
+		&k(r#"
+D.PickUp("{KEY}")
+local E = Polestar.Engine
+local g = E.GetGuide()
+local n = #g.steps
+local raw, viewed = {}, {}
+for _, goal in ipairs(g.steps[n].goals) do
+	if goal.t == "note" and goal.text:find("Comes back", 1, true) then raw[#raw + 1] = { goal.text, goal.accent == true } end
+end
+local view = E.GetStepView(n)
+for _, goal in ipairs(view and view.goals or {}) do
+	if goal.t == "note" and tostring(goal.text):find("Comes back", 1, true) then viewed[#viewed + 1] = goal.accent == true end
+end
+emit({ raw = raw, viewed = viewed, hex = Polestar.Theme and Polestar.Theme.Hex and Polestar.Theme.Hex("accent") or false })"#),
+		Opts { whole: true, ..Default::default() },
+	)
+	.remove(0);
+	assert!(out["hex"].is_string(), "the whole addon knows the look's accent: {out}");
+	assert_eq!(out["raw"], json!([["Comes back at level 25: \u{201c}Quest 90680\u{201d}", true]]), "plain text, marked accent: {out}");
+	assert_eq!(out["viewed"], json!([true]), "the goal view carries the mark to the window: {out}");
+}
+
 // The dungeon sweep (2026-11-08): the Stockade pick-up guide of an Alliance character who had not run the
 // Deadmines sent them to "accept" The Unsent Letter (373), which only Edwin VanCleef's drop starts, before Bazil
 // Thredd (389); Scholomance's and Stratholme's left bare "First do the quest Finkle Einhorn, At Your Service!"
