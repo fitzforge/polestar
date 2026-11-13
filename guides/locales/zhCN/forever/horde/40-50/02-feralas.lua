@@ -18,7 +18,7 @@ return {
 
 	-- Step 4: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454}中央",
 
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "40级学骑术",
@@ -33,7 +33,7 @@ return {
 
 	-- Step 8: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "骑术需要40级，花费100金币；学会后会获得一只坐骑。各个种族都要找本族训练师学习。你的训练师是{area:367}的{npc:7953}，从{zone:1454}沿{zone:1411}的道路向南骑行不远就到，旁边是Zjolnir出售的迅猛龙（每只20金币）。之后骑回{zone:1454}的飞行管理员处。",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "骑术需要40级，花费100金币；学会后会获得一只坐骑。各个种族都要找本族训练师学习。你的训练师是{area:367}的{npc:7953}，从{zone:1454}沿{zone:1411}的道路向南骑行不远就到，旁边是祖尼尔出售的迅猛龙（每只20金币）。之后骑回{zone:1454}的飞行管理员处。",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "{npc:7953}，骑术训练师",
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
@@ -75,7 +75,7 @@ return {
 
 	-- Step 20: Mirage Raceway
 	-- {area:484} Freewind Post · {zone:1446} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "从{area:484}通往{zone:1446}的道路经过{area:439}的{area:2240}：{npc:4454}在赛道旁的侏儒营地，{npc:4630}和{npc:4709}在地精营地旁。先找{npc:4630}，再找{npc:4709}；后者会跑去分散瑞兹尔·铜栓的注意力。趁机从侏儒营地拿走瑞兹尔·铜栓的计划，带回给{npc:4630}。",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，来自 {zone:1418} 的马特克",
 	-- {npc:4630} Pozzik · {item:5852} Fuel Regulator Blueprints · {npc:2496} Baron Revilgaz

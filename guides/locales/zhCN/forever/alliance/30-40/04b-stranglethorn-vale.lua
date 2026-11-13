@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
-	["In the {object:2164}, if you still carry it"] = "",
+	["In the {object:2164}, if you still carry it"] = "在{object:2164}里，如果还带着它",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
@@ -45,7 +45,7 @@ return {
 	-- Step 7: Kurzen's Compound
 	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
-	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "库尔森精神医师在营地深处；库尔森特种兵潜行在营地周围及洞内，赫罗德的保险箱在洞口旁。掉落Green Hills书页时记得拾取。\n小心：库尔森特种兵为34-35级，非精英，出现时经常处于潜行状态；濒死时会使用{spell:7964}。",
+	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "库尔森精神医师在营地深处；库尔森特种兵潜行在营地周围及洞内，赫罗德的保险箱在洞口旁。掉落《荆棘谷的青山》书页时记得拾取。\n小心：库尔森特种兵为34-35级，非精英，出现时经常处于潜行状态；濒死时会使用{spell:7964}。",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "{npc:941}：在地下",
 	-- {object:288} Bookie Herod's Strongbox
@@ -69,7 +69,7 @@ return {
 	-- Step 11: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "{area:102}",
-	["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "沿海岸向北前往山丘上的废墟：最后两块石板就在那里。掉落Green Hills书页时记得拾取。",
+	["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "沿海岸向北前往山丘上的废墟：最后两块石板就在那里。掉落《荆棘谷的青山》书页时记得拾取。",
 
 	-- Step 12: Rebel Camp
 	-- {area:99} Rebel Camp

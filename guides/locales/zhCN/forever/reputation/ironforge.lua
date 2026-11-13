@@ -15,7 +15,7 @@ return {
 	-- {faction:47} Ironforge · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {zone:1459} Alterac Valley
 	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "{zone:1428}和{zone:1452}的52-59级任务约提供600点{faction:47}声望；{zone:1459}的任务也会提升{faction:47}声望",
 	-- {faction:47} Ironforge · {zone:1426} Dun Morogh · {area:133} Gnomeregan
-	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "",
+	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "{zone:1426}的低等级任务约提供2,900点{faction:47}声望，大部分同时提升{area:133}声望",
 
 	-- Step 1: Mistina Steelshield, the cloth quartermaster
 	-- {npc:14723} Mistina Steelshield
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:131}西南方的矮人和侏儒起始山谷，60级时约30分钟可获得1,100点声望。{npc:658}和{npc:713}站在{area:77}。在无限版本中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -60,7 +60,7 @@ return {
 
 	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
-	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:131}及周围通往烈酒村和{area:133}的道路，60级时花约50分钟可获得约1,300点声望。大多数任务给予者在{area:2102}内外，以及其东侧的{area:189}。无限版本中，这些旧任务在任何等级都奖励全额声望。跳过本步骤即可略过这处任务点。",
 
 	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
@@ -87,7 +87,7 @@ return {
 	-- {area:803} Amberstill Ranch
 	["The quarry and {area:803}"] = "采石场和 {area:803}。",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
-	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1426}东部，从{npc:264936}的营地前往{area:134}和{area:803}，60级时用30分钟可获得约500点声望。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
@@ -113,7 +113,7 @@ return {
 
 	-- Step 19: Ironforge: Royal Historian Archesonus
 	-- {faction:47} Ironforge · {npc:8879} Royal Historian Archesonus · {object:171709} High Seat · {zone:1428} Burning Steppes
-	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "",
+	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "这些任务为52到59级，因此60级时仍提供全额奖励，约600点{faction:47}声望。{npc:8879}在{object:171709}的国王麦格尼·铜须旁，他会派人前往{zone:1428}的索瑞森废墟。",
 	-- {npc:8879} Royal Historian Archesonus
 	["Hear {npc:8879} out"] = "听完{npc:8879}的话",
 
@@ -148,7 +148,7 @@ return {
 	-- {quest:7806} Additional Runecloth
 	["{quest:7806} to Honored"] = "{quest:7806}刷到尊敬",
 	-- {quest:7806} Additional Runecloth · {item:14047} Runecloth · {zone:1426} Dun Morogh · {faction:47} Ironforge · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:150} Menethil Harbor · {zone:1437} Wetlands · {zone:1459} Alterac Valley
-	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7806}：用20块{item:14047}换取50点声望，可无限次交还。完成最初四次捐赠后，人类、暗夜精灵或侏儒的声望为友善700/6,000，距离尊敬还差5,300点，需交还106次，共2,120块{item:14047}（矮人的起点高900点，需交还88次；天裔起始为中立2,000点，还差6,400点，需交还128次，完成“联盟之旅”后可再少两次）。上面的52-59级任务可减少12次交还；每个已完成的{zone:1426}任务区还能再减少10到26次。还有更多任务区奖励{faction:47}声望，只要任务等级比角色低不超过5级，就有全额奖励：{zone:1432}的{area:144}（总计约3,500点）及{zone:1437}的{area:150}（约2,500点）。51级起，{zone:1459}的一次性任务还能提供约1,900点。每次主城声望提升，还会为其余三座联盟主城各提供四分之一的声望（此处未计入）。把所有{item:14047}一次交完。",
 
 	-- Step 26: Additional Runecloth to Revered
 	-- {quest:7806} Additional Runecloth

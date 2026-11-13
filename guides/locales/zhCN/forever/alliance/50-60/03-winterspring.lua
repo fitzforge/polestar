@@ -52,7 +52,7 @@ return {
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246}：沿途击杀以下目标",
 	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring · {area:1584} Blackrock Depths
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "西侧的冬泉熊怪营地位于{npc:11556}与{npc:9298}之间的丘陵。这里的熊怪都可能掉落{item:12771}（约每十只掉一个，完成这些任务所需的击杀过程中就能拿到）和{quest:8471}（约每三十只掉一个，补经验时就能拿到）：掉了哪个就右键点击哪个。熊怪掉落的{item:14047}留给梅罗什。\n{zone:1452}余下的任务为55-58级：先在这处营地刷到54级，让前面的击杀也计入{npc:9298}和{npc:11556}的任务进度。也可组队挑战{area:1584}副本。",
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "刷{npc:7442}升级",
 
@@ -63,10 +63,10 @@ return {
 	-- Step 12: Level 55.05
 	["Level 55.05"] = "等级 55.05",
 	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {quest:8471} Winterfall Ritual Totem · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "先在这里补到55.05级，再去{area:2255}交还任务，交完会升到56级。击杀{area:2246}附近营地的冬泉熊怪（冬泉探路者、冬泉图腾师、冬泉巢穴守卫）：既能提升木喉声望，满足这里的任务和穿越{area:1769}的要求，又能拿到它们掉落的{quest:8471}，并攒够梅罗什需要的三十块符文布。也可组队挑战{area:1584}副本或{area:1583}副本（下层）。",
 
 	-- Step 13: Winterfall Ritual Totem
-	["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "",
+	["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "任何冬泉熊怪都有几率掉落图腾，平均每击杀三十只掉落一个。若补经验时没有获得，就在这里继续击杀，直到掉落，再右键点击。",
 	-- {area:1769} Timbermaw Hold
 	["For Kernda in {area:1769}: keep it"] = "交给{area:1769}的克尔达：保留它",
 
@@ -157,7 +157,7 @@ return {
 	-- Step 31: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
+	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "礼拜堂西侧、{area:2264}周围的天灾怪物会掉落两种天灾石，击杀后会出现达隆郡居民的灵魂：逐一交谈，解放它们。\n注意：{npc:10411}在非战斗状态下会隐身，进入战斗后会召唤石翼石像鬼。这种眼球只有3只，每15分钟刷新一次。",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "解放{npc:11064}：与它们交谈",
 

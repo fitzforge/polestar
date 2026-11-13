@@ -85,7 +85,7 @@ return {
 	["Follow the road east to the outpost above the {area:814}."] = "沿道路向东前往{area:814}上方的哨站。",
 
 	-- Step 24: Durotar
-	["The thunder lizards across the river"] = "",
+	["The thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
 
 	-- Step 25: Thunder lizards across the river
 	["Thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
@@ -128,7 +128,7 @@ return {
 	-- {zone:1413} The Barrens
 	["{zone:1413}: kill these as you meet them"] = "{zone:1413}：沿途遇到就击杀",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
-	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "",
+	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "海盗在{area:392}南方海滩扎营：复杂零件堆散落在营地间的沙地上，{npc:3467}站在营地最南端。",
 
 	-- Step 35: Ratchet
 	-- {npc:3391} Gazlowe · {area:385} Northwatch Hold
@@ -203,7 +203,7 @@ return {
 	["Finish the Raptor Heads"] = "收集完迅猛龙头",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "",
+	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "还没凑够十二个？从{quest:881}巢穴向南返回途中，十字路口东北边的平原上有赤鳞鞭尾龙和赤鳞尖啸龙。",
 
 	-- Step 54: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -242,7 +242,7 @@ return {
 	-- {npc:11799} Tajarri · {area:2362} Shrine of Remulos
 	["{npc:11799}, at the {area:2362}"] = "{npc:11799}，在{area:2362}",
 	-- {quest:30} Trial of the Sea Lion · {area:382} Sludge Fen · {area:287} Hillsbrad
-	["{quest:30}, carried: one half pendant in the {area:382} in this guide, the other underwater off Silverpine on the way to {area:287} at 21; the pendant is handed in after {area:287}"] = "",
+	["{quest:30}, carried: one half pendant in the {area:382} in this guide, the other underwater off Silverpine on the way to {area:287} at 21; the pendant is handed in after {area:287}"] = "保留{quest:30}：一半坠饰在本指南的{area:382}，另一半在21级前往{area:287}途中、银松森林近海的水下；完成{area:287}的路线后再交还坠饰",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}的{npc:11798}载德鲁伊飞往那里",
 
@@ -384,7 +384,7 @@ return {
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}：对它们使用{item:15826}；它们在十字路口四周的平原上游荡",
 	-- {npc:12296} Sickly Gazelle
-	["Cure {npc:12296}"] = "",
+	["Cure {npc:12296}"] = "治愈{npc:12296}",
 
 	-- Step 95: Bristleback camps
 	["Bristleback camps"] = "刺背野猪人营地",
@@ -487,7 +487,7 @@ return {
 
 	-- Step 118: To Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
-	["To {npc:3389}"] = "",
+	["To {npc:3389}"] = "前往{npc:3389}处",
 
 	-- Step 120: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
@@ -596,7 +596,7 @@ return {
 
 	-- Step 148: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
-	["{npc:4049}'s camp"] = "",
+	["{npc:4049}'s camp"] = "{npc:4049}的营地",
 
 	-- Step 149: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
@@ -617,7 +617,7 @@ return {
 
 	-- Step 152: To Malaka'jin
 	-- {area:2539} Malaka'jin
-	["To {area:2539}"] = "",
+	["To {area:2539}"] = "前往{area:2539}",
 
 	-- Step 153: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
@@ -640,13 +640,13 @@ return {
 
 	-- Step 156: Windshear Crag
 	-- {area:461} Windshear Crag
-	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "",
+	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "风险投资公司正在 菲兹克斯东面的 {area:461} 大肆伐木；其中一名操作员携带蓝图。",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
 	["Venture Co. Loggers, all over the clear-cut"] = "风险投资公司樵夫，遍布砍伐过的林地",
 
 	-- Step 157: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
-	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
+	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "在这个等级，{npc:4276} 的防守任务很难独自完成：建议找人组队。独自一人就跳过。\n{npc:4276} 在山崖东侧的 {area:2160} 底部采矿，需要穿过其中的狗头人（19-23级）。与他交谈，然后在他采矿期间保护他存活五分钟：至少十二只狗头人会分批来袭，先是近战敌人，随后是施法者，矿洞原有的狗头人也会刷新并加入战斗。如果他死亡，任务就会失败。",
 	-- {npc:4276} Piznik
 	["{npc:4276}, below ground"] = "{npc:4276}：在地下",
 
@@ -680,6 +680,8 @@ return {
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。",
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end.\nSunscale raptors here count toward the heads."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。\n这里的赤鳞迅猛龙也算在头的数量里。",
 	-- ["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "沿{area:1076}返回下方：{npc:12816}就在{area:2539}外、进村之前。",
+	-- ["Back north into {area:378} before the antennae fade: {npc:6394} is inside."] = "趁触角还没消失，向北返回{area:378}：{npc:6394}在里面。",
+	-- ["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings."] = "返回十字路口途中向北进{area:378}：把雷鹰的翅膀交给{npc:3387}。",
 	-- ["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "返回十字路口途中向北进{area:378}：把雷鹰的翅膀交给{npc:3387}。战士：趁触角还没消失，先找{npc:6394}。",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "回到钢鬃营地。钢鬃地卜师和钢鬃防御者占据营地东半部；{npc:3438}在他们中间走动。",
 	-- ["Back west along the road."] = "沿道路向西返回。",
@@ -717,6 +719,7 @@ return {
 	-- ["The Razormane camp lies east of the {area:380}. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "钢鬃营地位于{area:380}东边。战士：{object:58369}在营地里。萨满祭司：野猪人掉落{item:5026}。\n注意：箱子在一辆破马车旁，由两个钢鬃野猪人看守，其中包括会把更多野猪人拉进战斗的猎手。",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "草原徘徊者在镇子和东边钢鬃营地之间的平原上狩猎。营地里，钢鬃寻水者和钢鬃织棘者占据西半部，钢鬃猎手在中部；补给箱在营地东端。",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "巫翼杀戮者占据{area:383}西部；戒指在它们身上。",
+	-- ["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to {npc:6394} in {area:378}, before the thunderhawks.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "触角掉落后十五分钟就会消失：在同一批土丘处击杀异种群居蝎和异种爬行者，收集五根后，在打雷鹰之前立刻交给{area:378}的{npc:6394}。\n小心：异种群居蝎（21-22级）无论是否在战斗中都会施放{npc:4196}，召来数只小怪。异种爬行者（20-21级）会在战斗中定期施放{npc:5781}，生成额外小怪。",
 	-- ["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of {npc:3387}'s thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "触角掉落后十五分钟就会消失：在{area:390}的土丘处击杀异种群居蝎和异种爬行者，就在{npc:3387}要你猎杀的雷鹰南边，收集五根后立刻交给{area:378}的{npc:6394}。\n小心：异种群居蝎（21-22级）无论是否在战斗中都会施放{npc:4196}，召来数只小怪。异种爬行者（20-21级）会在战斗中定期施放{npc:5781}，生成额外小怪。",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them."] = "海盗在{area:392}南边的海滩上扎营。一堆错综复杂的零件散落在他们之间的沙子里。",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盗在{area:392}南方海滩扎营。复杂零件堆就在营地间的沙地上。\n海盗在{area:392}南方海滩扎营；{npc:3467}站在营地最南端。",
@@ -727,9 +730,11 @@ return {
 	-- ["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it."] = "{object:4141}位于{area:382}西边的风险投资公司研究站。关闭钻机周围的三个阀门，再次使用控制台，然后从旁边的{npc:3471}身上拿到{item:5089}。",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "索恩格瑞姆在从{area:380}到{area:392}的路旁扎营。{object:58369}在他北边不远的钢鬃营地南部。",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}."] = "雷霆蜥蜴和闪电蜥蜴就在{area:379}下方桥对面吃草。",
+	-- ["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "雷鹰破云者在营地南边的平原上空盘旋。",
 	-- ["Verog walks with the Kolkar at the {area:388}: later, in the 19-23 {area:17} guide"] = "维罗格和科卡尔半人马一起在{area:388}走动：稍后，在19-23级{area:17}指南中",
 	-- ["Walk back south to the {area:380}. The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "向南走回{area:380}。下一份指南从这里开始，带你前往{zone:1454}并乘飞艇前往{zone:1420}。",
 	-- ["Walk back west along the road to the {area:380}."] = "沿道路向西走回{area:380}。",
+	-- ["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to {npc:6394}; the thunderhawks after."] = "战士：现在就从{npc:6394}处接受{quest:1824}：从接受起限时30分钟。先在同一批土丘处收集卵和触角，然后直接回去找{npc:6394}；雷鹰之后再打。",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "向西前往{area:383}。巫翼鹰身人在那里到处筑巢；任何一只都可能掉落爪子。{quest:819}就在它们的山丘中。",
 	-- ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end."] = "既然在营地里：{npc:3429}要的钢鬃寻水者和钢鬃织棘者在西半部，钢鬃猎手在中部，补给箱在营地东端。",
 	-- ["Zhevra"] = "斑马",

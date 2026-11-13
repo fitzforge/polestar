@@ -18,9 +18,9 @@ return {
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
-	["Into {zone:1440}"] = "",
+	["Into {zone:1440}"] = "进入{zone:1440}",
 	-- {area:431} Splintertree Post
-	["The road north to {area:431}"] = "",
+	["The road north to {area:431}"] = "向北通往{area:431}的道路",
 
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {zone:1440} Ashenvale
@@ -115,7 +115,7 @@ return {
 
 	-- Step 22: Strange Lockbox
 	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
-	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
+	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "从飞艇塔出发，向南进入银松森林，再向西经过 {area:240} 到达海岸：{object:177790} 位于那里的深水海底，旁边有可以呼吸的空气裂隙。下潜时注意剩余呼吸时间。里面有海狮试炼所需的 {item:15882}。然后前往 {area:228}。",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}, from the {object:177790}"] = "{item:15882}，来自{object:177790}",
 
@@ -140,7 +140,7 @@ return {
 
 	-- Step 26: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
-	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
+	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "鸦爪亡灵在森林东南部、道路东边的 {quest:516} 废墟中游荡；{npc:1973} 掉落 {item:271343}，指引你找到 {object:645153}。\n{object:645153} 旁常有一个20级精英灵魂：先把鸦爪亡灵引离石头，再与它们战斗。",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{item:271343}，来自{npc:1973}",
 	-- {object:645153} Offering Stone · {quest:95883} The Tortured Soul · {item:271343} Note Scrap
@@ -151,15 +151,15 @@ return {
 
 	-- Step 27: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
-	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
+	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "任务会给你一个 {item:210713}：在 {object:645153} 旁使用它献出你的血，然后击杀回应的精英灵魂。\n{quest:95883} 是精英任务：建议组队。",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
-	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
+	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "{item:210713}，在{object:645153}旁使用：召唤精英灵魂",
 
 	-- Step 28: Into Hillsbrad
 	-- {area:287} Hillsbrad
-	["Into {area:287}"] = "",
+	["Into {area:287}"] = "进入{area:287}",
 	-- {area:285} Southpoint Tower
-	["The road east to {area:285}"] = "",
+	["The road east to {area:285}"] = "向东通往{area:285}的道路",
 
 	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
