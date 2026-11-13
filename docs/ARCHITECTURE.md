@@ -5642,6 +5642,8 @@ Gear's part in quest reward choices: QoL, "Quest reward marks".
 ```lua
 Polestar.Gear.GetSpec() -> key, label, source        -- "setting" | "talents" | "default" | "custom"
 Polestar.Gear.DetectSpec(class, classID, all) -> key, source, report   -- Automatic's pick and what each reader said
+Polestar.Gear.ScoredFor(short) -> text | nil          -- "Scored for Arcane, from your talents" (#2035)
+Polestar.Gear.ShowWeightsSetting()                   -- Settings > Questing > Rewards & gear, Gear advice lit
 ```
 
 - **Which config.** Forever's talent frame (Blizzard_PlayerSpells Camelot)
@@ -5670,10 +5672,13 @@ Polestar.Gear.DetectSpec(class, classID, all) -> key, source, report   -- Automa
   `TRAIT_TREE_CURRENCY_INFO_UPDATED`, `TRAIT_NODE_CHANGED`, `SPELLS_CHANGED`,
   `PLAYER_ENTERING_WORLD`, and 3 s and 15 s after login, read the talents again
   (once a frame) and redo the advice only when the pick, or `pending`, changed.
-- **Said.** `/polestar gear` prints the weights and their source, and where
-  to choose them; `/polestar gear spec` prints every reader's answer (the spec
-  group and configs, each config's ranks and column points, the tabs, the
-  primary tree) and why Automatic picks what it picks.
+- **Said.** Under the tooltip's upgrade line (and the reward pick line) Gear
+  says what it scored with (`Gear.ScoredFor`); the guide window's reward pick
+  and the reward panel's line open Stat weights on a click.
+  `/polestar gear` prints the weights and their source, and where to choose
+  them; `/polestar gear spec` prints every reader's answer (the spec group and
+  configs, each config's ranks and column points, the tabs, the primary tree)
+  and why Automatic picks what it picks.
 
 ### Bag upgrade arrows — Gear/Bags.lua
 
@@ -5893,6 +5898,14 @@ Polestar.QoL.Rewards.best, .reason                -- auto-pick's settled answer 
   hovered choice through `Polestar.Hooks`. Gear's "Best pick" line
   (`gear.pickTooltip`) appears only when its pick is an upgrade, so it never
   contradicts the coin. `gear.rewards` is the guide window's pick line only.
+- **What the arrows were scored for** (#2035): with an upgrade arrow drawn, a
+  line at the right of the panel's Rewards heading (`rewardsFrame.Header`):
+  the arrow (success) and `Gear.ScoredFor(true)` ("Scored for Arcane") in the
+  look's small font and the panel's own text colour (its `ItemChooseText`'s,
+  the quest material's), cut to the room the heading leaves. Its tooltip is
+  the full `Gear.ScoredFor()` and what a click does; a click runs
+  `Gear.ShowWeightsSetting`. A panel without the heading (the map's quest
+  details) has none.
 
 ### Gossip the step asks for — QoL/Gossip
 

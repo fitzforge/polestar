@@ -29,6 +29,9 @@
 --   Gear.DetectSpec(class, classID, all) -> key, source, report: the spec with
 --       the most talent points, by every way the client can say (report: what
 --       each said; `/polestar gear spec` prints it)
+--   Gear.ScoredFor(short) -> "Scored for Arcane, from your talents" | nil: the
+--       weights the advice scored with, said under it (#2035)
+--   Gear.ShowWeightsSetting(): Settings > Questing > Rewards & gear, Gear advice
 --   Gear.GetWeights() -> weights (read-only): the spec's band for this level
 --       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table;
 --       a small melee weapon DPS weight is added where the spec has none
@@ -507,7 +510,7 @@ Gear.GetItemInfo = itemInfo
 ---------------------------------------------------------------------------
 
 local player = { class = nil, classID = nil, level = 1, race = nil, raceID = nil, faction = nil }
-local specKey, specSource, specReport, weights, weightsInfo, customLabel
+local specKey, specSource, specReport, weights, weightsInfo, customLabel, customName
 local racial
 
 local function refreshPlayer()
@@ -678,7 +681,7 @@ end
 local function resolveSpec()
 	if not player.class then refreshPlayer() end
 	local class = player.class
-	specReport, customLabel = nil, nil
+	specReport, customLabel, customName = nil, nil, nil
 	if not (class and WEIGHTS[class]) then
 		specKey, specSource, weights, weightsInfo = nil, "default", nil, nil
 		return
@@ -688,7 +691,7 @@ local function resolveSpec()
 	if scale then
 		specKey, specSource, weights = "custom:" .. scale.id, "custom", scale.weights
 		weightsInfo = { source = "custom", note = scale.name }
-		customLabel = (L["Custom: %s"]):format(scale.name)
+		customLabel, customName = (L["Custom: %s"]):format(scale.name), scale.name
 		return
 	end
 	if chosen and chosen ~= "auto" and WEIGHTS[class][chosen] then
@@ -714,6 +717,32 @@ end
 function Gear.GetWeightsInfo()
 	if not specSource then resolveSpec() end
 	return weightsInfo
+end
+
+-- The weights the advice scored with and where they came from, said under
+-- it (Tooltip.lua; the guide window's reward pick; the reward panel's line):
+-- "Scored for Arcane, from your talents". short: the spec alone ("Scored for
+-- Arcane"). -> text | nil (no weights for this class)
+function Gear.ScoredFor(short)
+	local key, label, source = Gear.GetSpec()
+	if not key then return nil end
+	if source == "custom" then return (L["Scored with your custom weights: %s"]):format(customName or "") end
+	local name = label and L[label] or key
+	if short then return (L["Scored for %s"]):format(name) end
+	if source == "setting" then return (L["Scored for %s, as chosen in Settings"]):format(name) end
+	if source == "talents" then return (L["Scored for %s, from your talents"]):format(name) end
+	if specReport and specReport.pending then return (L["Scored for %s until your talents load"]):format(name) end
+	return (L["Scored for %s until you spend talent points"]):format(name)
+end
+
+-- Settings > Questing > Rewards & gear, its Gear advice section (Stat weights
+-- first) brought into view and lit: where the weights are chosen.
+function Gear.ShowWeightsSetting()
+	local UI = ns.UI
+	if not (UI and UI.ShowOptions) then return end
+	UI.ShowOptions("gear")
+	local O = UI.Options
+	if O and O.ShowSection then O.ShowSection("questing", L["Rewards & gear"], L["Gear advice"]) end
 end
 
 function Gear.PlayerLevel()

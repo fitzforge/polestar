@@ -160,5 +160,7 @@ module.exports = {
 	art: [7963776, 7963779, 131839, 131848],
 	capture: ['PolestarGuideFrame'],
 	SKINS,
+	// The Lua that puts a look on (other scenarios draw their surface in every look with it).
+	pick,
 	shots,
 };

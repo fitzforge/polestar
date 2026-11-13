@@ -7,7 +7,9 @@
 --                                 on an accept goal, when the pick is an upgrade: muted
 --
 -- The item name is in its quality colour. Hover shows the item's tooltip
--- (with Gear's comparison lines); a modified click links it (the client's
+-- (with Gear's upgrade lines and the weights they were scored with) and
+-- what a click does; a click opens Stat weights (Settings > Questing >
+-- Rewards & gear, #2035), a modified click links the item (the client's
 -- HandleModifiedItemClick: chat link, dressing room).
 --
 -- GuideFrame calls the two hooks for every goal row (agreed with the UI owner):
@@ -66,10 +68,16 @@ local function itemQuality(id)
 	return rec and rec.quality or nil
 end
 
+-- Under the item's lines: what a click does.
+local function clickHint(tip)
+	local r, g, b = Theme.Color("textMuted")
+	tip:AddLine(L["Click: choose the stat weights"], r, g, b)
+end
+
 local function onEnter(self)
 	local e = self.psEntry
 	if not e then return end
-	W.ItemTip(self, e.id)
+	W.ItemTip(self, e.id, clickHint)
 	if UI.GuideFrame and UI.GuideFrame.HoverIn then UI.GuideFrame.HoverIn() end
 end
 
@@ -79,7 +87,9 @@ end
 
 local function onClick(self)
 	local e = self.psEntry
-	if e then W.ItemClick(e.id) end
+	if not e or W.ItemClick(e.id) then return end
+	local Gear = ns.Gear
+	if Gear and Gear.ShowWeightsSetting then Gear.ShowWeightsSetting() end
 end
 
 local function frameOf(row)

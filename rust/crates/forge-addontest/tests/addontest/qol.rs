@@ -4076,6 +4076,60 @@ fn rewards_marking_off_clears_an_open_panel_both_settings_off_do_nothing() {
 	assert_eq!(*msgs, 0);
 }
 
+// #2035: with an upgrade arrow on the panel, a line at the right of its Rewards heading says what the arrows were
+// scored for, in the panel's own text colour (the choose line's: the quest material's), clear of the heading's text;
+// hovering says where the weights came from and what a click does; a click opens Stat weights. No upgrade among the
+// choices, the marks off, or a panel without the heading (the map's quest details): no line.
+#[test]
+fn rewards_a_line_beside_the_heading_says_what_the_upgrade_arrows_were_scored_for_and_opens_stat_weights() {
+	let out = run(r#"
+		local opened = 0
+		Polestar.Gear = { IsEnabled = function() return true end, CompareToEquipped = function() return { usable = true } end,
+			IsUpgrade = function(link) return link:find("item:11") ~= nil, 4 end,
+			ScoredFor = function(short) return short and "Scored for Arcane" or "Scored for Arcane, from your talents" end,
+			ShowWeightsSetting = function() opened = opened + 1 end }
+		local F = QuestInfoRewardsFrame
+		q.items[11] = { name = "Cloak", price = 120 }
+		q.items[12] = { name = "Ring", price = 400 }
+		q.choices = { { id = 11 }, { id = 12 } }
+		q.questComplete(); stub.runTimers()
+		local line = QoL.Rewards.ScoredLine()
+		local r, g, b = line.Text:GetTextColor()
+		local point, rel, relPoint = line:GetPoint(1)
+		local textRight = line:GetRight()
+		emit({ shown = line:IsShown(), text = line.Text:GetText(), color = { r, g, b }, point = point, onHeading = rel == F.Header,
+			relPoint = relPoint, clear = line:GetLeft() >= F.Header:GetLeft() + F.Header:GetStringWidth(), inside = textRight <= F:GetRight() + 0.5 })
+		stub.RunScript(line, "OnEnter")
+		emit(GameTooltip.lines)
+		line:Click()
+		emit(opened)
+		q.choices = { { id = 12 }, { id = 13 } }
+		q.items[13] = { name = "Belt", price = 50 }
+		q.questComplete(); stub.runTimers()
+		emit(line:IsShown())
+		q.choices = { { id = 11 }, { id = 12 } }
+		q.questComplete(); stub.runTimers()
+		set("rewardHighlight", false)
+		emit(line:IsShown())
+		set("rewardHighlight", true)
+		F.Header:Hide()
+		q.questComplete(); stub.runTimers()
+		emit(line:IsShown())
+	"#);
+	let first = &out[0];
+	assert_eq!(first["shown"], true, "{first}");
+	assert_eq!(first["text"], "Scored for Arcane");
+	assert_eq!(first["color"], json!([0.18, 0.1, 0.03]), "the panel's own text colour");
+	assert_eq!((first["point"].clone(), first["onHeading"].clone(), first["relPoint"].clone()), (json!("RIGHT"), json!(true), json!("RIGHT")));
+	assert_eq!(first["clear"], true, "clear of the heading's text: {first}");
+	assert_eq!(first["inside"], true, "inside the panel: {first}");
+	assert_eq!(out[1], json!(["Scored for Arcane, from your talents", "Click: choose the stat weights"]));
+	assert_eq!(out[2], 1, "a click opens Stat weights");
+	assert_eq!(out[3], false, "no upgrade arrow: no line");
+	assert_eq!(out[4], false, "the marks off: no line");
+	assert_eq!(out[5], false, "no heading: no line");
+}
+
 // ---------------------------------------------------------------------------
 // Flight masters
 // ---------------------------------------------------------------------------

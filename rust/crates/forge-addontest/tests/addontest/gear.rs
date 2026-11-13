@@ -538,9 +538,9 @@ fn a_chosen_spec_holds_over_reload_level_up_talent_points_and_cat_form_on_every_
 		local function surfaces(when)
 			local key, label, source = G.GetSpec()
 			local _, pick = G.RankChoices({ "item:8001", "item:8002" })
-			local line = g.showTooltip(GameTooltip, "item:8002")[1]
+			local lines = g.showTooltip(GameTooltip, "item:8002")
 			emit({ when = when, key = key, label = label, source = source, heal = G.GetWeights().heal or false,
-				pick = pick, line = line, saved = PolestarDB.settings.gear.spec.DRUID })
+				pick = pick, line = lines[1], scored = lines[2] or false, saved = PolestarDB.settings.gear.spec.DRUID })
 		end
 		surfaces("login")
 		w.setLevel(21)
@@ -564,7 +564,8 @@ fn a_chosen_spec_holds_over_reload_level_up_talent_points_and_cat_form_on_every_
 		assert_eq!(o["saved"], "restoration", "{when}: the setting is still saved");
 		assert!(o["heal"].as_f64().unwrap() > 0.0, "{when}: Restoration weights");
 		assert_eq!(o["pick"], 2, "{when}: the Intellect/Spirit chest over the Agility one");
-		assert!(is_match(text(&o["line"]), r"^Polestar · Restoration \(healer\) \| "), "{when}: {}", o["line"]);
+		assert!(is_match(text(&o["line"]), r"^Polestar \| "), "{when}: {}", o["line"]);
+		assert_eq!(o["scored"], "Scored for Restoration (healer), as chosen in Settings", "{when}");
 	}
 	assert_eq!(out[4]["key"], "feral", "Automatic follows the Feral points again");
 	assert_eq!(out[4]["pick"], 1);
@@ -593,11 +594,12 @@ fn tooltip_line_upgrade_and_downgrade_percentages_empty_slot_later_level_skipped
 	"#,
 		Opts::default(),
 	);
-	// The slot it replaces follows the gain; an empty slot needs no name.
-	assert_eq!(out[0], json!(["Polestar · Arms | +62% upgrade · Head"]));
-	assert_eq!(out[1], json!(["Polestar · Arms | -88% downgrade · Head"]));
-	assert_eq!(out[2], json!(["Polestar · Arms | upgrade (empty slot)"]));
-	assert_eq!(out[3], json!(["Polestar · Arms | +89% upgrade at level 40 · Head"]));
+	// The slot it replaces follows the gain; an empty slot needs no name. Under it, the weights it was scored with.
+	let scored = "Scored for Arms until you spend talent points";
+	assert_eq!(out[0], json!(["Polestar | +62% upgrade · Head", scored]));
+	assert_eq!(out[1], json!(["Polestar | -88% downgrade · Head", scored]));
+	assert_eq!(out[2], json!(["Polestar | upgrade (empty slot)", scored]));
+	assert_eq!(out[3], json!(["Polestar | +89% upgrade at level 40 · Head", scored]));
 	assert_eq!(out[4], json!({}));
 	assert_eq!(out[5], json!({}));
 	assert_eq!(out[6], json!({}));
@@ -619,8 +621,8 @@ fn tooltip_line_the_slot_is_the_client_s_own_word_backslot_chestslot_apart_from_
 	"#,
 		Opts { before: format!("{}\nBACKSLOT, CHESTSLOT = \"Espalda\", \"Pecho\"", fake_locale("itIT", &[("Back", "Atrás"), ("Chest", "Cofre"), ("boss: Chest", "Arca")])), ..Default::default() },
 	);
-	assert!(is_match(text(&out[0][0]), r"^Polestar · Arms \| .*upgrade · Espalda$"));
-	assert!(is_match(text(&out[1][0]), r"^Polestar · Arms \| .*upgrade · Pecho$"));
+	assert!(is_match(text(&out[0][0]), r"^Polestar \| .*upgrade · Espalda$"));
+	assert!(is_match(text(&out[1][0]), r"^Polestar \| .*upgrade · Pecho$"));
 }
 
 #[test]
@@ -638,10 +640,125 @@ fn quest_reward_tooltips_hovering_a_choice_setquestitem_setquestlogitem_shows_th
 	"#,
 		Opts::default(),
 	);
-	assert_eq!(out[0], json!([["Polestar · Arms | -88% downgrade · Head"], ["Polestar · Arms | +62% upgrade · Head"]]));
-	assert_eq!(out[1], json!(["Polestar · Arms | +62% upgrade · Head"]));
-	assert_eq!(out[2], json!(["Polestar · Arms | +62% upgrade · Head"]));
+	let scored = "Scored for Arms until you spend talent points";
+	assert_eq!(out[0], json!([["Polestar | -88% downgrade · Head", scored], ["Polestar | +62% upgrade · Head", scored]]));
+	assert_eq!(out[1], json!(["Polestar | +62% upgrade · Head", scored]));
+	assert_eq!(out[2], json!(["Polestar | +62% upgrade · Head", scored]));
 	assert_eq!(out[3], json!({}));
+}
+
+// #2035: under the upgrade line (and the reward pick) the tooltip says which weights scored it and where they came from:
+// the talents, a choice in Settings, a custom scale, or the class default (until a point is spent, or until the talents
+// load). An unusable item's line rests on no weights: nothing under it.
+#[test]
+fn gear_advice_says_which_weights_it_scored_with_and_where_they_came_from() {
+	let out = run(
+		r#"
+		g.equip(1, "item:9001")
+		local function last(link) local lines = g.showTooltip(GameTooltip, link); return lines[#lines] end
+		g.setColumns({ { "Arms", 0 }, { "Fury", 0 }, { "Protection", 0 } })
+		emit(last("item:9002"))
+		g.setColumns({ { "Arms", 0 }, { "Fury", 12 }, { "Protection", 0 } })
+		emit(last("item:9002"))
+		Polestar.Set("gear.spec.WARRIOR", "protection")
+		emit(last("item:9002"))
+		local _, r = G.Scales.Import('( Pawn: v1: "Mine": Strength=10, Stamina=1 )', "WARRIOR")
+		Polestar.Set("gear.spec.WARRIOR", "custom:" .. r.scale.id)
+		emit(last("item:9002"))
+		Polestar.Set("gear.spec.WARRIOR", "auto")
+		g.talentsReady = false
+		stub.fire("PLAYER_TALENT_UPDATE")
+		emit(last("item:9002"))
+		emit(g.showTooltip(GameTooltip, "item:9050"))
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], "Scored for Arms until you spend talent points");
+	assert_eq!(out[1], "Scored for Fury, from your talents");
+	assert_eq!(out[2], "Scored for Protection (tank), as chosen in Settings");
+	assert_eq!(out[3], "Scored with your custom weights: Mine");
+	assert_eq!(out[4], "Scored for Arms until your talents load");
+	assert_eq!(out[5], json!(["Polestar | not for your class"]));
+}
+
+// #2035: the guide window's reward pick under a turn-in names the item; hovering it says what a click does, and a click
+// opens Settings at Questing > Rewards & gear with the Gear advice section (its Stat weights first) in view. A modified
+// click still links the item.
+#[test]
+fn the_guide_window_s_reward_pick_opens_stat_weights_on_a_click() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_gear.lua"],
+		addons: vec![Addon::name("Polestar")],
+		login: true,
+		script: r#"
+		stub.advance(1)
+		assert(Polestar.UI.LoadOptions())
+		local w, g, G = stub.world, stub.gear, Polestar.Gear
+		w.race, w.raceName, w.raceID, w.faction = "Troll", "Troll", 8, "Horde"
+		w.setLevel(22)
+		Polestar.ItemDB.Register({ schema = 1, build = "test" }, {
+			[9001] = "1 20 15 2 4 3 str5 sta3 armor150",
+			[9101] = "1 25 20 2 4 3 str10 sta6 armor180",
+			[9102] = "1 25 20 2 4 1 int10 spi6 armor40",
+			[9103] = "1 25 20 2 4 3 str10 sta6 armor180",
+		})
+		Polestar.ItemDB.RegisterLeveling({ source = "test" }, {
+			names = { [9101] = "Militia Helm", [9102] = "Scholar Cap", [9103] = "Twin Helm" },
+			src = { [9101] = "q5001", [9102] = "q5001", [9103] = "q5001" },
+			quests = { [5001] = "20 15 1 12 0 0 0|9101,9102,9103||Alliance Choice" },
+			npcs = {}, zones = { [12] = "Elwynn Forest" },
+		})
+		G.RefreshPlayer()
+		g.equip(1, "item:9001"); G.Invalidate("equipment")
+		w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+		w.moveTo(1429, 48, 42)
+		Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+		Polestar.RegisterGuide({ id = "test/gear", pack = "test", title = "Gear", minLevel = 1, maxLevel = 30, steps = {
+			{ goals = { { t = "turnin", quest = 5001, title = "Alliance Choice", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 } } },
+		} })
+		w.onQuest(5001, { { required = 1, fulfilled = 1 } })
+		Polestar.Engine.SetGuide("test/gear")
+		stub.advance(0.5)
+		Polestar.Fire("STEP_UPDATED")
+		stub.advance(0.3)
+		local pick
+		for _, r in ipairs(Polestar.UI.GuideFrame.rows) do
+			if r:IsShown() and r.psGearPick and r.psGearPick:IsShown() then pick = r.psGearPick end
+		end
+		stub.RunScript(pick, "OnEnter")
+		local lines = GameTooltip.lines
+		local hint = lines[#lines]
+		local before = PolestarOptions ~= nil and PolestarOptions:IsShown()
+		pick:Click()
+		local O = Polestar.UI.Options
+		local sections = {}
+		for _, c in ipairs(O.view and O.view.cards or {}) do
+			if c:IsShown() and c.psName then sections[#sections + 1] = c.psName end
+		end
+		emit({ text = pick.Text:GetText(), hint = hint, before = before, shown = PolestarOptions:IsShown(), page = O.page and O.page.key,
+			gearAdvice = table.concat(sections, ","):find("Gear advice", 1, true) ~= nil })
+		PolestarOptions:Hide()
+		-- A modified click is the item's (a link, the dressing room): with no cached link, Polestar's item click.
+		local linked, H = 0, Polestar.Hooks
+		local realHandle, realHook, realModified = HandleModifiedItemClick, H.OnItemClick, IsModifiedClick
+		HandleModifiedItemClick = function() linked = linked + 1 end
+		H.OnItemClick = function() linked = linked + 1 end
+		IsModifiedClick = function() return true end
+		pick:Click()
+		HandleModifiedItemClick, H.OnItemClick, IsModifiedClick = realHandle, realHook, realModified
+		emit({ linked = linked, shown = PolestarOptions:IsShown() })
+	"#
+		.into(),
+		..Default::default()
+	});
+	let first = &out[0];
+	assert!(is_match(text(&first["text"]), "Militia Helm"), "{first}");
+	assert_eq!(first["hint"], "Click: choose the stat weights");
+	assert_eq!(first["before"], false);
+	assert_eq!(first["shown"], true, "a click opens Settings: {first}");
+	assert_eq!(first["page"], "questing");
+	assert_eq!(first["gearAdvice"], true, "on Rewards & gear, the Gear advice section: {first}");
+	assert_eq!(out[1], json!({ "linked": 1, "shown": false }), "a modified click is the item's");
 }
 
 #[test]
@@ -839,7 +956,7 @@ fn an_orc_hunters_axe_specialization_counts_by_how_much_a_hunter_fights_in_melee
 	let hunter = run(AXE_AND_DAGGER, orc("HUNTER", "Hunter", 3));
 	// 2.9 x 0.5 + 10 x 1% x (0.5 / 6.5); 6.0 x 0.5 + 0.1.
 	assert_eq!(hunter[0], json!({ "axe": 2.22, "dagger": 3.1 }));
-	assert_eq!(hunter[1], json!(["Polestar · Beast Mastery | +40% upgrade · Main Hand"]));
+	assert_eq!(hunter[1], json!(["Polestar | +40% upgrade · Main Hand", "Scored for Beast Mastery until you spend talent points"]));
 	// A Warrior fights with the axe: Axe Specialization counts whole (the dagger's double DPS still wins).
 	let warrior = run(AXE_AND_DAGGER, orc("WARRIOR", "Warrior", 1));
 	let (axe, dagger) = (warrior[0]["axe"].as_f64().unwrap(), warrior[0]["dagger"].as_f64().unwrap());

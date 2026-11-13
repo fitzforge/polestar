@@ -579,8 +579,21 @@ end
 -- Quest rewards: q.choices = { { id, count }, ... }; reward buttons like QuestInfo's
 ---------------------------------------------------------------------------
 
+-- QuestInfoRewardsFrame (Mainline QuestInfo.xml): 285 wide, its Rewards heading (QuestTitleFont) and the choose
+-- line (QuestFont, in the quest material's text colour) above the choices.
 QuestInfoRewardsFrame = CreateFrame("Frame", "QuestInfoRewardsFrame", UIParent)
+QuestInfoRewardsFrame:SetSize(285, 10)
+QuestInfoRewardsFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 300, -200)
 QuestInfoRewardsFrame.RewardButtons = {}
+QuestInfoRewardsFrame.Header = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
+QuestInfoRewardsFrame.Header:SetFont(STANDARD_TEXT_FONT, 18, "")
+QuestInfoRewardsFrame.Header:SetText("Rewards")
+QuestInfoRewardsFrame.Header:SetPoint("TOPLEFT", QuestInfoRewardsFrame, "TOPLEFT", 0, 0)
+QuestInfoRewardsFrame.Header:SetSize(285, 0)
+QuestInfoRewardsFrame.ItemChooseText = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
+QuestInfoRewardsFrame.ItemChooseText:SetFont(STANDARD_TEXT_FONT, 13, "")
+QuestInfoRewardsFrame.ItemChooseText:SetText("You will be able to choose one of these rewards:")
+QuestInfoRewardsFrame.ItemChooseText:SetTextColor(0.18, 0.1, 0.03)
 QuestInfoFrame = CreateFrame("Frame", "QuestInfoFrame", UIParent)
 QuestInfoFrame.rewardsFrame = QuestInfoRewardsFrame
 

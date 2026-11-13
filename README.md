@@ -782,7 +782,12 @@ runs solo or in a raid.
 
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
   for your spec at your level, from stat weights per spec (detected from your
-  talent points) and level band.
+  talent points) and level band. The line under it says which weights it
+  scored with and where they came from ("Scored for Arcane, from your
+  talents"). Click a turn-in step's reward pick, or the line beside the game's
+  reward panel heading, to choose other weights (Settings > Questing > Rewards
+  & gear > Stat weights); `/polestar gear spec` shows how Automatic read your
+  talents.
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
   most. Turn-in goals name the best reward, and a quest you are about to accept
