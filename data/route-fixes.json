@@ -3750,6 +3750,30 @@
 			{
 				"a": [
 					"turnin",
+					849
+				],
+				"b": [
+					"accept",
+					1058
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10, #2025): forever/horde/04-the-barrens works the southern Barrens (Gann Stonespire's Bael Modan, Blackthorn Ridge) and the Ratchet coast before Stonetalon. The old order walked Sun Rock -> Malaka'jin -> Seereth -> Camp Taurajo (about 4.7 km) between the halves and back up from the Great Lift; the flow audit ranked 04 the worst Horde guide (12.7 wasted walking minutes). Calibrated level model: 0.10-0.15 h sooner to 60 on all 28 Horde branches; travel sweep no worse (Warriors -2.7 min, Druid 0.0, Mages +0.3)."
+			},
+			{
+				"a": [
+					"turnin",
+					873
+				],
+				"b": [
+					"accept",
+					1058
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10): Ratchet (Further Instructions 1094 -> 1095, Mahren Skyseer and Isha Awak) before the walk west into Stonetalon, so Sputtervalve's orders (1095) and Gerenzo Wrenchwhistle (1096) are on the way up the Webwinder Path."
+			},
+			{
+				"a": [
+					"turnin",
 					98095
 				],
 				"b": [
@@ -8146,6 +8170,24 @@
 				"after": [
 					"turnin",
 					1093
+				]
+			},
+			{
+				"q": 1095,
+				"reason": "Horde 21-30 audit (phase 2, R10): Further Instructions (level 27, from 16, 1100 XP), Sputtervalve's new orders when Further Instructions (1094) is handed in at Ratchet, go back to Ziz Fizziks (4201, Stonetalon 59.0,62.6). forever/horde/04-the-barrens now visits Ratchet before Stonetalon (the southern Barrens first), so the hand-in is on its way up the Webwinder Path instead of never being offered. Players' recordings: 2 people took and handed it in.",
+				"issue": "2025",
+				"after": [
+					"turnin",
+					1094
+				]
+			},
+			{
+				"q": 1096,
+				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks on 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068), on the same walk. Calibrated level model (R10, all 28 Horde branches): 0.10-0.15 h sooner to 60 with the swap it belongs to.",
+				"issue": "2025",
+				"after": [
+					"turnin",
+					1095
 				]
 			},
 			{
@@ -12706,6 +12748,18 @@
 				],
 				"faction": "Horde",
 				"why": "#1333 (2026-11-08): The Tear of the Moons is done in Bael Modan on the way from Camp Taurajo to the Great Lift, before the descent to Freewind Post (Message to Freewind Post's hand-in), as the pair above places it."
+			},
+			{
+				"a": [
+					"turnin",
+					857
+				],
+				"b": [
+					"turnin",
+					5881
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10): Calling in the Reserves (5881, Maggran at Sun Rock) is taken at the end of forever/horde/04-the-barrens' Stonetalon half and handed to Grish Longrunner at the top of the Great Lift on forever/horde/07-ashenvale's way down into Thousand Needles, after The Tear of the Moons on the same road; Message to Freewind Post (4542) is taken there from Brave Moonhorn beside him."
 			},
 			{
 				"a": [

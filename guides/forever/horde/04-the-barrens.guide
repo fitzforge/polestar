@@ -2,7 +2,7 @@
 guide forever/horde/04-the-barrens
 title The Barrens & Stonetalon Mountains
 faction Horde
-levels 24-26
+levels 24-27
 zone The Barrens
 next forever/horde/07-ashenvale
 
@@ -11,6 +11,9 @@ next forever/horde/07-ashenvale
 # into this file.
 # Added here: Wrongly Blamed, Justly Corrected (97250, Grunt Logmar in Camp Taurajo; its camp is a
 # few steps east of Gann Stonespire; `when group 97250`: its Outraged Pillager is a level 23 elite).
+# Further Instructions (1095) and Gerenzo Wrenchwhistle (1096): Sputtervalve's new orders go back to Ziz
+# Fizziks, and Gerenzo (27) stands at the top of the Venture Co. tower on Windshear Crag, a short walk north
+# of XT:4; both are on this guide's way up the Webwinder Path now that Ratchet comes first.
 # Left out: The Harvester (897).
 # Kaya's Alive (6401) comes from Makaba with Protect Kaya at the end of forever/horde/02-the-barrens and
 # is handed to Tammra Windfield on the first Sun Rock stop, for players who carry it.
@@ -22,26 +25,35 @@ next forever/horde/07-ashenvale
 # Needles) are worked on forever/horde/07-ashenvale's walks and handed in on its Thunder Bluff and
 # Freewind stops. The trip from Orgrimmar is a flight for Tauren and Paladins; the others fly to Camp
 # Taurajo and walk up through Mulgore, and learn Thunder Bluff's flight path, which saves them the
-# Mulgore walk on 07's Thunder Bluff stop. Druids take both quests at the end of
-# forever/horde/06-hillsbrad-foothills, where they already train in Thunder Bluff.
+# Mulgore walk on 07's Thunder Bluff stop. Everyone then flies to Camp Taurajo, where the southern
+# Barrens begin. Druids take both quests at the end of forever/horde/06-hillsbrad-foothills, where they
+# already train in Thunder Bluff.
 #
 # Shredding Machines (1068, Seereth Stonebreak, 1850 XP, needs Goblin Invaders from
 # forever/horde/02-the-barrens): taken on the road west past Seereth, XT:9 and XT:4 east of Ziz
-# Fizziks on the way up the Webwinder Path, handed in on the walk back east from Malaka'jin.
+# Fizziks on the way up the Webwinder Path, handed in by players who come back past Seereth; its
+# hand-in step shows only while it is ready.
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): back from Hillsbrad at 24 for the
-# Barrens' and Stonetalon's level 23-28 quests: Sun Rock Retreat and Stonetalon Peak, then the
-# southern Barrens (Gann Stonespire, Blackthorn Ridge, Bael Modan, the Great Lift) and the coast
-# by Ratchet. Their lower quests were done at 15-21 in forever/horde/02-the-barrens.
+# Barrens' and Stonetalon's level 23-28 quests: the southern Barrens (Gann Stonespire, Blackthorn
+# Ridge, Bael Modan) and the coast by Ratchet first, then Stonetalon: the Webwinder Path, Sun Rock
+# Retreat and Stonetalon Peak. Their lower quests were done at 15-21 in forever/horde/02-the-barrens.
 #
-# Flow: Orgrimmar -> Thunder Bluff (Tah, Zangen) -> fly to the Crossroads -> Seereth -> west into
-# Stonetalon: Malaka'jin (Jin'Zil)
-# -> up the Webwinder Path (XT:9, XT:4) to Sun Rock Retreat (flight path, bind) -> Mirkfallon Lake and
-# Stonetalon Peak -> Sun Rock -> the Charred Vale -> Sun Rock -> down to Malaka'jin -> Seereth -> Camp
-# Taurajo (bind) -> the Field of Giants -> Gann Stonespire, Bael Modan and Blackthorn Ridge ->
-# the Great Lift -> Camp Taurajo -> fly to the Crossroads -> fly to Ratchet (Sputtervalve, for
-# Further Instructions 1094 from Ziz) -> the Merchant Coast (Mahren, Isha Awak). The next guide flies
-# from Ratchet to Zoram'gar Outpost.
+# Flow: Orgrimmar -> Thunder Bluff (Tah, Zangen) -> fly to Camp Taurajo (bind) -> Gann Stonespire,
+# Bael Modan and Blackthorn Ridge -> Camp Taurajo (the hearth) -> fly to the Crossroads (Thork) -> fly to
+# Ratchet (Sputtervalve: Further Instructions 1094 -> 1095; the Merchant Coast: Mahren, Isha Awak) ->
+# back to the Crossroads (the flight the arrow picks) -> Seereth -> west into Stonetalon: Malaka'jin (Jin'Zil) -> up the Webwinder Path
+# to Ziz Fizziks (1095, Gerenzo 1096), XT:9, XT:4 and Gerenzo's tower -> Ziz -> Sun Rock Retreat (flight
+# path) -> Mirkfallon Lake and Stonetalon Peak -> Sun Rock -> the Charred Vale -> Sun Rock -> down to
+# Malaka'jin (Jin'Zil). The next guide flies to Zoram'gar Outpost from the nearest flight master the
+# player knows (the hearth to Camp Taurajo, or the walk to the Crossroads).
+# Calling in the Reserves (5881, Maggran at Sun Rock, for Grish Longrunner at the Great Lift) and Message
+# to Freewind Post (4542, Brave Moonhorn beside Grish) are done on forever/horde/07-ashenvale's way down
+# the Great Lift into Thousand Needles.
+#
+# Hearth: bound at Camp Taurajo on the first stop there and used twice: from Gann back to Camp Taurajo, and at
+# the end from Seereth's camp to Camp Taurajo for the next guide's flight. Sun Rock is not bound: its only
+# use was the short way back from the Charred Vale.
 #
 # Rare-spawn quests (optional): Owatanka (884) and Washte Pawne (885) start from the drops of rare
 # spawns: take them if you meet one.
@@ -50,8 +62,8 @@ next forever/horde/07-ashenvale
 # by the strongbox. It is taken at 28 in forever/horde/07-ashenvale, on the road from Camp
 # Taurajo to the Great Lift (#1333).
 #
-# Carried on, finished: Trouble in the Deeps (6562, Je'neu at Zoram'gar, next guide) and Message to
-# Freewind Post (4542, Freewind Post, next guide).
+# Carried on, finished: Trouble in the Deeps (6562, Je'neu at Zoram'gar, next guide) and Calling in the
+# Reserves (5881, Grish at the Great Lift, next guide).
 #
 # Left out: Bloodfury Bloodline (6283, an elite harpy matriarch), Ordanus (1088, Alliance side of
 # Ashenvale), Arachnophobia (6284, Besseleth is elite).
@@ -59,7 +71,7 @@ next forever/horde/07-ashenvale
 # Class quests: Shamans hand the red waterskin to Brine south of Camp Taurajo (Call of Water 1536)
 # and take the blue one for Ashenvale (1534).
 
-# ---------------------------------------------------------------- The Crossroads and Stonetalon
+# ---------------------------------------------------------------- Thunder Bluff
 
 step Fly to Thunder Bluff
   only Tauren,Skyborne
@@ -81,7 +93,7 @@ step Fly to Camp Taurajo
   only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
   zone Orgrimmar
   when !onquest 97538
-  tip Thunder Bluff first: two of its elders give quests worked on this guide's and the next guide's walks. Fly to Camp Taurajo; from there it is a walk west into Mulgore and north to the bluffs.
+  tip Thunder Bluff first: two of its elders give quests worked on this guide's and the next guide's walks. Fly to Camp Taurajo; from there it is a walk west into Mulgore and north to the bluffs, and Thunder Bluff's flight path brings you straight back to Camp Taurajo, where the southern Barrens begin.
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Camp Taurajo"
 
@@ -100,114 +112,16 @@ step Thunder Bluff
   accept 97538                        -- Tah Winterhoof: the Mirkweed grows in Mirkfallon Lake, by Sun Rock
   accept 1195 optional                -- Zangen Stonehoof: the phial comes from Ashenvale, next guide
 
-step Fly to Crossroads
-  tip Fly to the Crossroads from the wind rider master: Tal on Thunder Bluff's central rise.
-  fly "Crossroads"
+step Fly to Camp Taurajo
+  tip Fly to Camp Taurajo: Tal on Thunder Bluff's central rise, or the Crossroads' wind rider master if you start this guide there.
+  fly "Camp Taurajo"
   zone The Barrens
-
-step Seereth Stonebreak
-  zone The Barrens
-  when turnedin 1062
-  tip Follow the road west past Regthar's bunkers: Seereth Stonebreak camps beside it at the edge of Stonetalon.
-  accept 1068                         -- Seereth Stonebreak: XT:9 and XT:4 roam east of Ziz Fizziks, on the way up
-
-step The road west
-  zone The Barrens
-  goto 35.3,27.9 "The road west past Seereth's camp"
-
-step Malaka'jin
-  zone Stonetalon Mountains
-  tip Follow the road west past Regthar's bunkers and Seereth's camp into Stonetalon: Witch Doctor Jin'Zil waits below ground in Malaka'jin, at the foot of the Webwinder Path.
-  accept 1058                         -- Witch Doctor Jin'Zil, below ground
-
-step Shredding Machines
-  zone Stonetalon Mountains
-  when onquest 1068
-  tip Up the Webwinder Path to Ziz Fizziks' hut, then east along the road toward Windshear Crag: XT:9 patrols the road just east of the fork, XT:4 the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them.
-  kill 4074 quest 1068.2              -- XT:9
-  kill 4073 quest 1068.1              -- XT:4
-
-step Sun Rock Retreat
-  tip Up the Webwinder Path past Ziz Fizziks and west to Sun Rock Retreat; coming from XT:4, back west past Ziz's hut.
-  accept 6562                         -- Tsunaman: Je'neu Sancrea at Zoram'gar, next guide
-  accept 6393
-  accept 5881                         -- Maggran Earthbinder: Grish is at the Great Lift, later in this guide
-  accept 86576                        -- Maggran Earthbinder: Glittering Sunstones from the Bloodfury harpies
-  accept 6282
-  sethome "Sun Rock Retreat"
-  accept 6301                         -- Tammra Windfield
-  accept 1087                         -- Braelyn Firehand, outside the gate
-  getfp "Sun Rock Retreat"
-  vendor nearest
-
-step Tammra Windfield
-  when onquest 6401
-  tip Tammra Windfield stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her.
-  turnin 6401                         -- Tammra Windfield
-
-step Gaea Seeds
-  tip The Gaea Seeds lie in the grass around the southern shore of Mirkfallon Lake, north of Sun Rock.
-  tip Careful: Pridewings around the lake can aggro as a linked group.
-  collect 16205 quest 6301
-
-step Mirkweed
-  when onquest 97538
-  tip The Mirkweed grows on the bottom of Mirkfallon Lake, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath.
-  collect 278201 x30 quest 97538 @48.5,40.2
-
-step Stonetalon Mountains: kill these as you meet them
-  zone Stonetalon Mountains
-  tip Follow the road north toward Stonetalon Peak. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there.
-  collect 5585 quest 1058
-  collect 5582 quest 1058
-  collect 5584 quest 1058
-  collect 5583 quest 1058
-  kill 4053 quest 1087.2
-  kill 4057 quest 1087.1
-  kill 4051 quest 1087.3
-
-step Sun Rock Retreat
-  turnin 6301                         -- Tammra Windfield
-  accept 6381
-  turnin 1087                         -- Braelyn Firehand
-  note Braelyn's next quest, Ordanus, is on the Alliance side of Ashenvale. Skip it.
-
-step The Charred Vale: kill these as you meet them
-  zone Stonetalon Mountains
-  tip South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south.
-  collect 16312 quest 6393
-  collect 277936 quest 86576.1        -- Glittering Sunstone, from any Bloodfury harpy
-  kill 4022 quest 6282.1
-  interact 177929 quest 6381          -- Gaea Dirt Mounds
-  kill 4023 quest 6282.4
-  kill 4024 quest 6282.3
-  kill 4025 quest 6282.2
-
-step Sun Rock Retreat
-  turnin 6381                         -- Tammra Windfield
-  turnin 6282                         -- Maggran Earthbinder
-  turnin 86576 npc 11861              -- Mor'rogal, beside Tsunaman
-  turnin 6393                         -- Tsunaman, up on the ledge
-
-step Malaka'jin
-  tip Head back down the Webwinder Path to Malaka'jin.
-  turnin 1058                         -- Witch Doctor Jin'Zil, below ground
-
-step Seereth Stonebreak
-  zone The Barrens
-  when complete 1068
-  tip East along the road from Malaka'jin to Seereth's camp, on the way to Camp Taurajo.
-  turnin 1068                         -- Seereth Stonebreak
 
 # ---------------------------------------------------------------- The southern Barrens
 
-step To Camp Taurajo
-  zone The Barrens
-  goto 45.6,59.0 "Camp Taurajo"
-
 step Camp Taurajo
   zone The Barrens
-  tip From Malaka'jin follow the road east to Seereth's camp, then south-east across the plains to Camp Taurajo.
+  tip The flight lands at Camp Taurajo's wind rider master. Tatternack Steelforge stands at the north edge of the camp, Jorn Skyseer and Mangletooth (in the cage) in the middle.
   accept 893                          -- Tatternack Steelforge, at the north edge of the camp
   accept 874                          -- Jorn Skyseer
   accept 879                          -- Mangletooth, in the cage
@@ -290,24 +204,10 @@ step The flying machine
 step Gann Stonespire
   turnin 849                          -- Gann Stonespire walks around Blackthorn Ridge: look inside the circle on the map
 
-step The Great Lift
-  zone Thousand Needles
-  goto 31.9,23.9 "The top of the Great Lift"
-
-step Great Lift
-  zone Thousand Needles
-  tip South-west of Bael Modan, Grish Longrunner waits at the top of the Great Lift.
-  turnin 5881                         -- Grish Longrunner
-
-step The Great Lift
-  zone Thousand Needles
-  tip Brave Moonhorn stands at the top of the Great Lift, beside Grish Longrunner.
-  goto 44.2,92.2 map 1413 "The Great Lift"
-  accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift
-
-# ---------------------------------------------------------------- Back north
+# ---------------------------------------------------------------- Back north: Camp Taurajo, the Crossroads, Ratchet
 step To Camp Taurajo
   zone The Barrens
+  tip North up the road to Camp Taurajo: your hearthstone takes you there if it is ready.
   goto 45.6,59.0 "Camp Taurajo"
 
 step Camp Taurajo
@@ -338,8 +238,9 @@ step Fly to Ratchet
 
 step Sputtervalve
   when onquest 1094
-  tip Sputtervalve stands beside the flight master you land at.
+  tip Sputtervalve stands beside the flight master you land at. His new orders go back to Ziz Fizziks on the Webwinder Path, later in this guide.
   turnin 1094                         -- Sputtervalve: Further Instructions, from Ziz Fizziks
+  accept 1095                         -- Sputtervalve: for Ziz Fizziks, on the way up the Webwinder Path
 
 step Mebok Mizzyrix
   when dungeon "Wailing Caverns"
@@ -366,3 +267,118 @@ step Isha Awak
 
 step The Tidus Stair
   turnin 873                          -- Mahren Skyseer
+
+# ---------------------------------------------------------------- West: Seereth and Stonetalon
+
+step Seereth Stonebreak
+  zone The Barrens
+  when turnedin 1062
+  tip Follow the road west past Regthar's bunkers: Seereth Stonebreak camps beside it at the edge of Stonetalon.
+  accept 1068                         -- Seereth Stonebreak: XT:9 and XT:4 roam east of Ziz Fizziks, on the way up
+
+step The road west
+  zone The Barrens
+  goto 35.3,27.9 "The road west past Seereth's camp"
+
+step Malaka'jin
+  zone Stonetalon Mountains
+  tip Follow the road on west past Seereth's camp into Stonetalon: Witch Doctor Jin'Zil waits below ground in Malaka'jin, at the foot of the Webwinder Path.
+  accept 1058                         -- Witch Doctor Jin'Zil, below ground
+
+step Ziz Fizziks
+  zone Stonetalon Mountains
+  when onquest 1095
+  tip Up the Webwinder Path to Ziz Fizziks' hut, where the road forks east to Windshear Crag: Sputtervalve's orders are for him.
+  turnin 1095                         -- Ziz Fizziks, inside
+  accept 1096                         -- Ziz Fizziks: Gerenzo, at the top of the Venture Co. tower on Windshear Crag
+
+step Shredding Machines
+  zone Stonetalon Mountains
+  when onquest 1068
+  tip From Ziz Fizziks' hut east along the road toward Windshear Crag: XT:9 patrols the road just east of the fork, XT:4 the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them.
+  kill 4074 quest 1068.2              -- XT:9
+  kill 4073 quest 1068.1              -- XT:4
+
+step Gerenzo Wrenchwhistle
+  zone Stonetalon Mountains
+  when onquest 1096
+  tip A short walk north of XT:4, Gerenzo Wrenchwhistle (27) stands at the top of the Venture Co. tower on Windshear Crag: clear the Venture Co. on the way up. His Mechanical Arm is for Ziz.
+  collect 5736 quest 1096 @64.5,40.3  -- Gerenzo's Mechanical Arm, from Gerenzo Wrenchwhistle
+
+step Ziz Fizziks
+  zone Stonetalon Mountains
+  when complete 1096
+  tip Back west to Ziz Fizziks' hut, on the way to Sun Rock.
+  turnin 1096                         -- Ziz Fizziks, inside
+
+step Sun Rock Retreat
+  tip West from Ziz Fizziks' hut to Sun Rock Retreat.
+  accept 6562                         -- Tsunaman: Je'neu Sancrea at Zoram'gar, next guide
+  accept 6393
+  accept 5881                         -- Maggran Earthbinder: Grish is at the Great Lift, on the next guide's way into Thousand Needles
+  accept 86576                        -- Maggran Earthbinder: Glittering Sunstones from the Bloodfury harpies
+  accept 6282
+  accept 6301                         -- Tammra Windfield
+  accept 1087                         -- Braelyn Firehand, outside the gate
+  getfp "Sun Rock Retreat"
+  vendor nearest
+
+step Tammra Windfield
+  when onquest 6401
+  tip Tammra Windfield stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her.
+  turnin 6401                         -- Tammra Windfield
+
+step Gaea Seeds
+  tip The Gaea Seeds lie in the grass around the southern shore of Mirkfallon Lake, north of Sun Rock.
+  tip Careful: Pridewings around the lake can aggro as a linked group.
+  collect 16205 quest 6301
+
+step Mirkweed
+  when onquest 97538
+  tip The Mirkweed grows on the bottom of Mirkfallon Lake, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath.
+  collect 278201 x30 quest 97538 @48.5,40.2
+
+step Stonetalon Mountains: kill these as you meet them
+  zone Stonetalon Mountains
+  tip Follow the road north toward Stonetalon Peak. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there.
+  collect 5585 quest 1058
+  collect 5582 quest 1058
+  collect 5584 quest 1058
+  collect 5583 quest 1058
+  kill 4053 quest 1087.2
+  kill 4057 quest 1087.1
+  kill 4051 quest 1087.3
+
+step Sun Rock Retreat
+  turnin 6301                         -- Tammra Windfield
+  accept 6381
+  turnin 1087                         -- Braelyn Firehand
+  note Braelyn's next quest, Ordanus, is on the Alliance side of Ashenvale. Skip it.
+
+step The Charred Vale: kill these as you meet them
+  zone Stonetalon Mountains
+  tip South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south.
+  collect 16312 quest 6393
+  collect 277936 quest 86576.1        -- Glittering Sunstone, from any Bloodfury harpy
+  kill 4022 quest 6282.1
+  interact 177929 quest 6381          -- Gaea Dirt Mounds
+  kill 4023 quest 6282.4
+  kill 4024 quest 6282.3
+  kill 4025 quest 6282.2
+
+step Sun Rock Retreat
+  turnin 6381                         -- Tammra Windfield
+  turnin 6282                         -- Maggran Earthbinder
+  turnin 86576 npc 11861              -- Mor'rogal, beside Tsunaman
+  turnin 6393                         -- Tsunaman, up on the ledge
+
+step Malaka'jin
+  tip Head back down the Webwinder Path to Malaka'jin.
+  turnin 1058                         -- Witch Doctor Jin'Zil, below ground
+
+step Seereth Stonebreak
+  zone The Barrens
+  when complete 1068
+  tip East along the road from Malaka'jin to Seereth's camp.
+  turnin 1068                         -- Seereth Stonebreak
+  note The next guide flies to Zoram'gar Outpost: hearth to Camp Taurajo if your hearthstone is ready, or walk on east to the Crossroads' flight master.

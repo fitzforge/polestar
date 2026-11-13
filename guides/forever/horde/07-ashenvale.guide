@@ -9,6 +9,10 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# forever/horde/04-the-barrens ends at Seereth's camp after Stonetalon: this guide opens with the walk east to the
+# Crossroads' flight master (the hearth is kept for Splintertree Post's bind), and its Great Lift step takes
+# Calling in the Reserves (5881, from Maggran at Sun Rock) to Grish Longrunner and Message to Freewind Post (4542)
+# from Brave Moonhorn, both at the top of the lift.
 # Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151), The Tear of the Moons (857, a
 # level 30 quest, at 28 on the road from Camp Taurajo to the Great Lift, #1333).
 # Carried in from forever/horde/04-the-barrens' Thunder Bluff stop (or 06's for Druids), for players
@@ -39,7 +43,8 @@ next forever/horde/30-40/01-hillsbrad-foothills
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
-  goto 63.1,37.1 "Ratchet flight master"
+  tip East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to Zoram'gar Outpost. Keep your hearthstone: Splintertree Post's bind later in this guide saves more.
+  goto 51.5,30.4 "Crossroads flight master"
   fly "Zoram'gar Outpost"
   zone Ashenvale
 
@@ -365,7 +370,10 @@ step Tear of the Moons
 
 step The Great Lift
   zone Thousand Needles
+  tip Grish Longrunner and Brave Moonhorn wait at the top of the Great Lift: Maggran's letter is for Grish, and Moonhorn's message goes down to Freewind Post with you.
   goto 31.9,23.9 "The Great Lift, down into Thousand Needles"
+  turnin 5881                         -- Grish Longrunner
+  accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift: Cliffwatcher Longhorn at Freewind Post
 
 step Freewind Post's lift
   zone Thousand Needles

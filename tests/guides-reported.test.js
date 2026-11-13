@@ -5120,7 +5120,7 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['alliance/02-westfall', 'train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid', /Fly or walk/],
 		['horde/05-stonetalon-mountains', 'accept 6462', /Fly from Ratchet/],
 		['horde/05-stonetalon-mountains', 'accept 95883', /Tarren Mill flight path|fly from the Undercity/],
-		['horde/04-the-barrens', 'accept 4542', /Fly from Thunder Bluff/],
+		['horde/07-ashenvale', 'accept 4542', /Fly from Thunder Bluff/],
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
 		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins).', /from Gadgetzan/],
@@ -5313,7 +5313,7 @@ test("Bill's report (#1004): a town's bind never sends you back to the giver you
 	for (const [guide, place, before] of [
 		['forever/horde/02-the-barrens.guide', 'Ratchet', [865]],
 		['forever/horde/02-the-barrens.guide', 'The Crossroads', [903, 881]],
-		['forever/horde/04-the-barrens.guide', 'Sun Rock Retreat', [86576, 5881]],
+		// (Sun Rock Retreat's bind left the Barrens & Stonetalon guide with the Horde 21-30 audit: Stonetalon is its last half.)
 		['forever/horde/06-hillsbrad-foothills.guide', 'Tarren Mill', [496, 493]],
 	]) {
 		const list = goals(guide);
@@ -11792,4 +11792,33 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 		}
 	}
 	assert.deepEqual([...new Set(bad)], []);
+});
+
+// Horde 21-30 audit (0.4.0, #2025): the Barrens & Stonetalon guide worked Stonetalon first, then walked Sun Rock ->
+// Malaka'jin -> Seereth -> Camp Taurajo (about 4.7 km) for the southern Barrens and back up from the Great Lift, and
+// flew to Ratchet only at the end, so Sputtervalve's new orders (1095) and Gerenzo Wrenchwhistle (1096), both for Ziz
+// Fizziks on the Webwinder Path, were never offered. The southern Barrens and Ratchet now come first, Stonetalon last;
+// Grish Longrunner's letter (5881) and Brave Moonhorn's message (4542) are done on the Ashenvale & Thousand Needles
+// guide's own Great Lift step. Calibrated level model: 0.10-0.15 h sooner to 60 on every Horde branch.
+test('forever/horde/04-the-barrens.guide: Horde 21-30 audit: the southern Barrens and Ratchet before Stonetalon, Gerenzo on the way up (#2025)', { skip }, () => {
+	const list = goals('forever/horde/04-the-barrens.guide');
+	const gann = at(list, 'turnin 849', is('turnin', 849));
+	const ratchet = at(list, 'turnin 1094', is('turnin', 1094));
+	const jinzil = at(list, 'accept 1058', is('accept', 1058));
+	assert.ok(gann < ratchet && ratchet < jinzil, 'Gann, then Ratchet, then Malaka\'jin');
+	assert.ok(at(list, 'turnin 873', is('turnin', 873)) < jinzil, 'Isha Awak before the walk west');
+	const orders = at(list, 'accept 1095', is('accept', 1095));
+	const ziz = at(list, 'turnin 1095', is('turnin', 1095));
+	const arm = at(list, 'collect 5736', (g) => g.t === 'collect' && g.item === 5736);
+	const back = at(list, 'turnin 1096', is('turnin', 1096));
+	assert.ok(ratchet <= orders && orders < ziz && ziz < arm && arm < back, 'Sputtervalve, Ziz, Gerenzo, Ziz');
+	assert.ok(back < at(list, 'accept 6393', is('accept', 6393)), 'Gerenzo before Sun Rock');
+	assert.ok(!list.some(({ goal }) => goal.quest === 4542 || (goal.t === 'turnin' && goal.quest === 5881)), 'the Great Lift errands are the next guide\'s');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), ['Camp Taurajo'], 'one bind, Camp Taurajo (no Sun Rock bind: the hearth ends the guide)');
+	const next = goals(ASHENVALE_HORDE);
+	const lift = at(next, 'turnin 5881', is('turnin', 5881));
+	assert.equal(next[at(next, 'accept 4542', is('accept', 4542))].s, next[lift].s, 'Grish and Moonhorn on one Great Lift step');
+	assert.ok(at(next, 'turnin 857', is('turnin', 857)) < lift && lift < at(next, 'turnin 4542', is('turnin', 4542)), 'after the Tear of the Moons, before Freewind');
+	const first = next[0];
+	assert.ok(first.goal.t === 'goto' && Math.abs(first.goal.x - 51.5) < 0.5 && Math.abs(first.goal.y - 30.4) < 0.5, 'Ashenvale opens at the Crossroads\' flight master, the walk east from Seereth');
 });
