@@ -81,7 +81,7 @@ return {
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "El caldero está en {area:202}, junto a la granja de {npc:10739}.",
 
 	-- Step 17: Mulgris Deepriver
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 18: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Osos pardos malsanos",
@@ -208,7 +208,7 @@ return {
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 55: Rut'theran Village
 	-- {zone:1452} Winterspring
@@ -343,7 +343,7 @@ return {
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
 	-- Step 91: Linken
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo

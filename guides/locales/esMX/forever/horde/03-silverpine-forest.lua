@@ -211,7 +211,7 @@ return {
 	-- Step 44: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Toma el camino al norte hacia {zone:1420}: la casa de los Yorick en {area:238} está de camino. {quest:425} acecha a poca distancia al oeste.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 46: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren

@@ -130,7 +130,7 @@ return {
 
 	-- Step 30: Fly to Freewind Post
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
 	-- Step 32: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache

@@ -23,7 +23,7 @@ return {
 
 	-- Step 4: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 5: Shaman training
 	["Shaman training"] = "Entrenamiento de chamán",
@@ -32,9 +32,9 @@ return {
 
 	-- Step 6: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Fly to {area:108}"] = "",
+	["Fly to {area:108}"] = "Vuela a {area:108}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 7: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
@@ -53,7 +53,7 @@ return {
 	["The {area:91}"] = "{area:91}",
 
 	-- Step 10: Theocritus
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 
 	-- Step 11: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script

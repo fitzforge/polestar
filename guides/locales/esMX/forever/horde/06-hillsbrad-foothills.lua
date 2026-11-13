@@ -94,7 +94,7 @@ return {
 	["The smithy"] = "La herrería",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes
 	["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "La herrería está en el centro del pueblo de {area:287}. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado al lado. {npc:2449} camina por la calle al norte.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 15: The western peak
 	["The western peak"] = "",
