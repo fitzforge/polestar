@@ -2181,6 +2181,40 @@ fn t_234_floor_alliance_in_stormwinds_trade_district_outdoors_the_walk_out_start
 	stormwind_street("Alliance");
 }
 
+// #1970 (GabZ, 0.3.7.2): a level 16 mage in Elwynn (38.79,55.71 on the live map), bound in Stormwind, guided to Jennea
+// Cannon (Stormwind 49.56,85.80 live, her spawn height 29.7) for a turn-in: "Hearthstone to Stormwind: saves 62 min",
+// a few minutes' walk away. Jennea and the other mage trainers stand in the Wizard's Sanctum's chamber, 76 yd under
+// its ground floor, reached only by the tower's portals (classic-db areatrigger_teleport 704 from the top room down,
+// 702 back up), and the walking maps did not join the top room to the street: the walk into her was unreachable and
+// the Hearthstone won. With the tower's stairs joined (pack/joins.json) and the two portals in the travel data, the
+// plan walks: up the tower, through the portal down, to her.
+#[test]
+fn issue_1970_a_mage_in_elwynn_bound_in_stormwind_walks_to_jennea_cannon_in_the_wizards_sanctum_no_hearthstone() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(16)
+		w.faction = "Alliance"
+		w.bind("Stormwind City")
+		w.addItem(6948, 1)
+		IsIndoors = function() return nil end
+		local _, sx, sy = C.MapToWorld(1429, 38.79, 55.71)
+		place(1429, sx, sy, nil)
+		for _ = 1, 30 do aim(); stub.advance(0.05) end
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 1453, x = 49.56, y = 85.80, z = 29.7, label = "Jennea Cannon", kind = "turnin", r = 5 })
+		for _ = 1, 600 do aim(); stub.advance(0.05) end
+		local legs, ci = N.GetRoute()
+		local route = {}
+		for i = ci or 1, legs and #legs or 0 do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit({ route = route })"#,
+		true,
+	);
+	let route = strs(&out["route"]);
+	assert!(!route.iter().any(|l| l.starts_with("hearth|")), "no Hearthstone for a walk of minutes: {}", route.join(", "));
+	assert!(route.iter().any(|l| l == "portal|Take the portal to Wizard's Sanctum"), "through the tower's portal down: {}", route.join(", "));
+	assert_eq!(route.last().map(String::as_str), Some("walk|Jennea Cannon"), "and the walk to her: {}", route.join(", "));
+}
+
 // Stormwind as Horde (Fitz's trail round the city, 2026-10-23): from the Deeprun Tram's entrance (his mark, Stormwind
 // 68.73,31.27 on the live map) the walk out to the gate took over 6,000 yd over the walls and round the mountains,
 // because every step on the city's guarded ground costs a Horde walk twenty times over, and the shortest way off it is

@@ -5,7 +5,9 @@
 //!
 //! His cell fields (grid, height, floor, class, zone) already are the in-game encodings and pass through, except the
 //! few steps his flags leave open past the walkable slope (his reader closes them; ours reads only the flags), which
-//! are closed here, and the floors no walk can use, which are dropped (`isolated`). What changes:
+//! are closed here, the floors no walk can use, which are dropped (`isolated`), and, given the fixed places, the
+//! ground no walk from one reaches (pack/reach.rs: its floors dropped, its base cells without a surface, the entrances
+//! on it gone). What changes:
 //! - **floor**: his records as format 5's columns (`floor_columns`): half the bytes after zlib.
 //! - **arc**: at the in-game cell size every arc of his motion stream is a step inside one surface, a step his cells
 //!   already make, a jump (kind 1), or a drop or climb (kind 0 rising or falling past the walkable slope), each to the
@@ -17,7 +19,10 @@
 //!   nearest in height (within MATCH_YD): the Undercity's floors keep their names.
 
 use super::cells::{CellGrid, ZQ};
-use super::encode::{encode_areas, run_length, Maps, COST_MAX, YARDS_MAX};
+use super::encode::{encode_areas, encode_heights, run_length, Maps, COST_MAX, YARDS_MAX};
+use super::drops;
+use super::reach::{self, Place};
+use super::spawns;
 use super::{b32, enc, js_round, zigzag, B64, NONE};
 use crate::f4::pack::{self, Assembly, Cluster, Graph, Meta, Span, TILE, WALK_TAN};
 use crate::f4::{NavDir, PackSource};
@@ -50,6 +55,31 @@ pub struct LeffeStats {
 	pub closed: usize,
 	/// Surfaces given an area of ours.
 	pub areas: usize,
+	/// Ground no walk from a fixed place reaches (pack/reach.rs): floors dropped, base cells left without a surface,
+	/// entrances gone.
+	pub unreached_floors: usize,
+	pub unreached_bases: usize,
+	pub unreached_entrances: usize,
+	/// Fixed places on this map, and those with no surface within reach of their height.
+	pub places: usize,
+	pub unplaced: usize,
+	/// Our grid's ledge drops added as arcs (pack/drops.rs).
+	pub ledge_drops: usize,
+	/// Spawns given a height in the spawn field (pack/spawns.rs).
+	pub spawn_heights: usize,
+}
+
+/// What the walking maps take from the fixed places and from our grid besides his maps.
+#[derive(Clone, Copy, Default)]
+pub struct Extras<'a> {
+	/// The fixed places (pack/reach.rs fixed_places, every map's): only the ground a walk from one of this map's
+	/// reaches is kept. None: all of it.
+	pub places: Option<&'a [Place]>,
+	/// Our grid's ledge drops of this map, by cluster (pack/drops.rs): one-way arcs. None: his drops only.
+	pub drops: Option<&'a FxHashMap<u32, Vec<drops::GridDrop>>>,
+	/// The NPC and quest object spawns (pack/spawns.rs spawn_points, every map's): the spawn field holds the heights of
+	/// those where floors overlap. None: no spawn field.
+	pub spawns: Option<&'a [Place]>,
 }
 
 fn read_field(src: &NavDir, meta: &Meta, field: &str, k: u32) -> Result<Option<Vec<u8>>, String> {
@@ -111,14 +141,17 @@ struct Out {
 	area: Option<String>,
 	arc: Option<String>,
 	graph: Option<String>,
+	spawn: Option<String>,
 	areas: BTreeSet<u32>,
 	stats: LeffeStats,
 	max_degree: usize,
 	clamped: usize,
 }
 
-/// His grid field with the steps past the walkable slope closed (flag 1: +x, 2: +y), and how many.
-fn close_steep(meta: &Meta, c: &Cluster, s: &str) -> Result<(String, usize), String> {
+/// His grid field with the steps past the walkable slope closed (flag 1: +x, 2: +y), and how many; a base cell in
+/// `gone` (ground no walk from a fixed place reaches, pack/reach.rs) loses its surface. -> the field and, when any
+/// base cell went, the cells' value codes (for the height field, which holds a height per base surface).
+fn close_steep(meta: &Meta, c: &Cluster, s: &str, gone: &[bool]) -> Result<(String, usize, Option<Vec<u8>>), String> {
 	let cc = meta.c as usize;
 	let n = cc * cc;
 	let mut vals: Vec<u8> = Vec::with_capacity(n);
@@ -155,7 +188,15 @@ fn close_steep(meta: &Meta, c: &Cluster, s: &str) -> Result<(String, usize), Str
 			closed += 1;
 		}
 	}
-	Ok((if closed == 0 { s.to_string() } else { run_length(&vals) }, closed))
+	let mut went = false;
+	for (a, v) in vals.iter_mut().enumerate() {
+		if gone[a] && *v / 16 != 0 {
+			*v = 0;
+			went = true;
+		}
+	}
+	let codes = went.then(|| vals.iter().map(|v| v / 16).collect());
+	Ok((if closed == 0 && !went { s.to_string() } else { run_length(&vals) }, closed, codes))
 }
 
 /// Floors no walk can use: no step or link out of them, none into them from the cluster's surfaces, no jump, drop or
@@ -227,8 +268,9 @@ fn isolated(meta: &Meta, c: &Cluster, g: &Graph) -> Vec<bool> {
 /// numbers or fixed symbols: n | n cell gaps (cell - previous cell - 1, from -1) | n counts (1) | the floors' values
 /// (1) | their heights (zigzag: against the floor below in the cell, a cell's first against the previous cell's
 /// first, from 0) | their steps (2) | m | m link nodes (zigzag against the previous link's, from 0) | m directions
-/// (1) | m layers (1). Half the bytes of the rows after zlib: like values sit together.
-fn floor_columns(s: &str, cc: usize, dead: &[bool]) -> Result<String, String> {
+/// (1) | m layers (1). Half the bytes of the rows after zlib: like values sit together. The explicit links of a dead
+/// floor or of a base cell in `gone` (it lost its surface) go with them.
+fn floor_columns(s: &str, cc: usize, dead: &[bool], gone: &[bool]) -> Result<String, String> {
 	let b = s.as_bytes();
 	let num = |i: usize, w: usize| -> usize { (0..w).fold(0, |v, j| v * 64 + pack::B64[b[i + j] as usize] as usize) };
 	let n2 = cc * cc;
@@ -298,6 +340,9 @@ fn floor_columns(s: &str, cc: usize, dead: &[bool]) -> Result<String, String> {
 	for _ in 0..m {
 		let (u, d, layer) = (num(p, 3), num(p + 3, 1), num(p + 4, 1));
 		p += 5;
+		if if u < n2 { gone[u] } else { dead(u) } {
+			continue;
+		}
 		let lc = if u < n2 { u } else { cell_of[u - n2] };
 		let (tx, ty) = ((lc / cc) as i64 + pack::DX[d], (lc % cc) as i64 + pack::DY[d]);
 		let mut layer2 = layer;
@@ -325,8 +370,9 @@ fn floor_columns(s: &str, cc: usize, dead: &[bool]) -> Result<String, String> {
 	Ok(out)
 }
 
-/// His class field (per node, run-length; missing tail 0) without the `dead` nodes.
-fn drop_classes(s: &str, n0: usize, dead: &[bool]) -> String {
+/// His class field (per node, run-length; missing tail 0) without the `dead` nodes, a base cell in `gone` (it lost
+/// its surface) as class 0.
+fn drop_classes(s: &str, n0: usize, dead: &[bool], gone: &[bool]) -> String {
 	let mut v: Vec<u8> = Vec::with_capacity(n0);
 	let mut last = 0u8;
 	for &ch in s.as_bytes() {
@@ -339,22 +385,177 @@ fn drop_classes(s: &str, n0: usize, dead: &[bool]) -> String {
 		}
 	}
 	v.resize(n0, 0);
+	for (a, x) in v.iter_mut().enumerate().take(gone.len()) {
+		if gone[a] {
+			*x = 0;
+		}
+	}
 	let kept: Vec<u8> = v.iter().zip(dead).filter(|(_, &d)| !d).map(|(&x, _)| x).collect();
 	run_length(&kept)
 }
 
+/// What pack/reach.rs found, for one cluster: per surface whether a walk from a fixed place reaches it, and every
+/// cluster's entrances as they stay (old -> new, u32::MAX for one on ground no walk reaches).
+pub struct Reached<'a> {
+	pub seen: &'a [bool],
+	pub rows: &'a FxHashMap<u32, Vec<u32>>,
+}
+
+/// The edges entrance r of cluster k keeps (indices into his edge list): those into a populated cluster with an
+/// entrance of that number, at most DEGREE: the cheapest (no profile) when more, in his order. -> them and how many
+/// past DEGREE were left out.
+fn kept_edges(meta: &Meta, k: u32, g: &Graph, r: usize, has: &dyn Fn(u32) -> bool, layers: &FxHashMap<u32, Vec<u8>>) -> (Vec<usize>, usize) {
+	let (kx, ky) = (k as i64 / meta.ny, k as i64 % meta.ny);
+	let mut list: Vec<usize> = (g.row_out[r] as usize..g.row_out[r + 1] as usize)
+		.filter(|&e| {
+			let q = (kx + g.e_dx[e] as i64) * meta.ny + ky + g.e_dy[e] as i64;
+			has(q as u32) && (g.e_ent[e] as usize) < layers.get(&(q as u32)).map_or(0, |v| v.len())
+		})
+		.collect();
+	let mut past = 0;
+	if list.len() > DEGREE {
+		list.sort_by(|&p, &q| g.e_cost[3 * p + NONE].total_cmp(&g.e_cost[3 * q + NONE]).then(p.cmp(&q)));
+		past = list.len() - DEGREE;
+		list.truncate(DEGREE);
+		list.sort_unstable();
+	}
+	(list, past)
+}
+
+/// His links inside cluster c as (from surface, to surface): a base's, a floor's or the surface nearest the link's
+/// own height in the cell it points to (PathGrid.lua surface: the base first on a tie); links across the border are
+/// his graph's.
+fn link_pairs(meta: &Meta, c: &Cluster) -> Vec<(u32, u32)> {
+	let n2 = (meta.c * meta.c) as usize;
+	let n0 = c.n0;
+	let mut pairs: Vec<(u32, u32)> = Vec::new();
+	for u in 0..n0 {
+		let lc = if u < n2 { u as i64 } else { c.at_cell[u] as i64 };
+		for e in c.link_off[u] as usize..c.link_off[u + 1] as usize {
+			let l = c.link_val[e] as usize;
+			let (tx, ty) = (lc / meta.c + pack::DX[l % 8], lc % meta.c + pack::DY[l % 8]);
+			if tx < 0 || ty < 0 || tx >= meta.c || ty >= meta.c {
+				continue;
+			}
+			let t = (tx * meta.c + ty) as usize;
+			let layer = (l / 8) as i64 - 1;
+			let first = c.first_floor[t] as i64;
+			let floor_ok = |f: i64| f >= n2 as i64 && (f as usize) < n0 && c.at_cell[f as usize] as usize == t;
+			let target = if layer == 0 {
+				(c.val[t] != 0).then_some(t)
+			} else if layer > 0 {
+				(first >= 0 && floor_ok(first + layer - 1)).then(|| (first + layer - 1) as usize)
+			} else {
+				let h = c.z[u];
+				let mut best = (if c.val[t] != 0 { Some(t) } else { None }, if c.val[t] != 0 { (c.z[t] - h).abs() } else { f32::INFINITY });
+				let mut f = first;
+				while f >= 0 && floor_ok(f) {
+					let d = (c.z[f as usize] - h).abs();
+					if d < best.1 {
+						best = (Some(f as usize), d);
+					}
+					f += 1;
+				}
+				best.0
+			};
+			if let Some(t) = target {
+				pairs.push((u as u32, t as u32));
+			}
+		}
+	}
+	pairs
+}
+
+/// Cluster c's ledge drops (pack/drops.rs, our grid's `drops` of this cluster) as arcs between his surfaces.
+fn ledge_arcs(meta: &Meta, c: &Cluster, drops: Option<&Vec<drops::GridDrop>>) -> Vec<(usize, usize, f64)> {
+	match drops {
+		Some(d) if !d.is_empty() => {
+			let links: rustc_hash::FxHashSet<(u32, u32)> = link_pairs(meta, c).into_iter().collect();
+			drops::drop_arcs(c, meta.c as usize, d, &links)
+		}
+		_ => Vec::new(),
+	}
+}
+
+/// Cluster k as pack/reach.rs walks it: its surfaces, their open steps, links, arcs and ledge drops inside the
+/// cluster, and its entrances with the edges they keep (`index`: a cluster's place in the map's populated clusters).
 #[allow(clippy::too_many_arguments)]
-fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str, String>, cg: &CellGrid, has: &dyn Fn(u32) -> bool, layers: &FxHashMap<u32, Vec<u8>>) -> Result<Out, String> {
+pub fn walks(meta: &Meta, k: u32, c: &Cluster, g: &Graph, has: &dyn Fn(u32) -> bool, layers: &FxHashMap<u32, Vec<u8>>, index: &FxHashMap<u32, usize>, ledges: &[(usize, usize, f64)]) -> reach::Local {
+	let cc = meta.c as usize;
+	let n2 = cc * cc;
+	let n0 = c.n0;
+	let mut pairs = link_pairs(meta, c);
+	for a in 0..c.a_from.len() {
+		if c.a_dx[a] != 0 || c.a_dy[a] != 0 {
+			continue;
+		}
+		let (fa, fb) = (owner(c, c.a_from[a] as usize), owner(c, c.a_to[a] as usize));
+		if fa != fb && fa < n0 && fb < n0 {
+			pairs.push((fa as u32, fb as u32));
+		}
+	}
+	pairs.extend(ledges.iter().map(|&(a, b, _)| (a as u32, b as u32)));
+	pairs.sort_unstable();
+	pairs.dedup();
+	let mut out_off = vec![0u32; n0 + 1];
+	for &(u, _) in &pairs {
+		out_off[u as usize + 1] += 1;
+	}
+	for u in 0..n0 {
+		out_off[u + 1] += out_off[u];
+	}
+	let (kx, ky) = (k as i64 / meta.ny, k as i64 % meta.ny);
+	let mut edge_off = vec![0u32];
+	let mut edges = Vec::new();
+	for r in 0..g.rows {
+		for e in kept_edges(meta, k, g, r, has, layers).0 {
+			let q = ((kx + g.e_dx[e] as i64) * meta.ny + ky + g.e_dy[e] as i64) as u32;
+			edges.push((index[&q] as u32, g.e_ent[e]));
+		}
+		edge_off.push(edges.len() as u32);
+	}
+	reach::Local {
+		c: cc,
+		val: c.val[..n0].to_vec(),
+		z: c.z[..n0].to_vec(),
+		moves: c.moves[..n2].iter().map(|m| m & 15).collect(),
+		first: c.first_floor[..n2].to_vec(),
+		at: c.at_cell[n2..n0].iter().map(|&a| a as u32).collect(),
+		out_off,
+		out: pairs.into_iter().map(|p| p.1).collect(),
+		rows: (0..g.rows).map(|r| owner(c, g.row_node[r] as usize) as u32).collect(),
+		edge_off,
+		edges,
+	}
+}
+
+#[allow(clippy::too_many_arguments)]
+fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str, String>, cg: &CellGrid, has: &dyn Fn(u32) -> bool, layers: &FxHashMap<u32, Vec<u8>>, reach: Option<&Reached>, ledges: &[(usize, usize, f64)], spawned: Option<(&reach::Frame, &[Place])>) -> Result<Out, String> {
 	let cc = meta.c as usize;
 	let n2 = cc * cc;
 	let mut o = Out::default();
-	let (grid, closed) = close_steep(meta, c, &fields["grid"])?;
+	// Ground no walk from a fixed place reaches (pack/reach.rs): a base cell loses its surface, a floor goes.
+	let unreached = |n: usize| reach.is_some_and(|r| !r.seen[n]);
+	let gone: Vec<bool> = (0..n2).map(|a| c.val[a] != 0 && unreached(a)).collect();
+	let (grid, closed, codes) = close_steep(meta, c, &fields["grid"], &gone)?;
 	o.stats.closed = closed;
 	o.grid = Some(grid);
-	o.height = fields.get("height").cloned();
-	// The floors no walk can use are dropped; every node after one moves down.
-	let dead = isolated(meta, c, g);
+	o.height = match codes {
+		// The height field holds a height per base surface, each against its neighbour's: written again.
+		Some(codes) => Some(encode_heights(&codes, &c.z[..n2].iter().map(|&z| (z as f64 / meta.zstep).round() as i32).collect::<Vec<_>>(), cc)?),
+		None => fields.get("height").cloned(),
+	};
+	o.stats.unreached_bases = gone.iter().filter(|&&g| g).count();
+	// The floors no walk can use are dropped, and those no walk from a fixed place reaches; every node after one
+	// moves down.
+	let mut dead = isolated(meta, c, g);
 	o.stats.dropped_floors = dead.iter().filter(|&&d| d).count();
+	for (f, d) in dead.iter_mut().enumerate().skip(n2) {
+		if !*d && unreached(f) {
+			*d = true;
+			o.stats.unreached_floors += 1;
+		}
+	}
 	let mut renum = vec![u32::MAX; c.n0];
 	let mut layer_of = vec![0usize; c.n0];
 	let mut next = 0u32;
@@ -371,10 +572,19 @@ fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str,
 			layer_of[node] = run.1;
 		}
 	}
-	o.floor = fields.get("floor").map(|f| floor_columns(f, cc, &dead)).transpose()?;
-	o.class = fields.get("class").map(|s| if o.stats.dropped_floors > 0 { drop_classes(s, c.n0, &dead) } else { s.clone() });
+	o.floor = fields.get("floor").map(|f| floor_columns(f, cc, &dead, &gone)).transpose()?;
+	let thinned = o.stats.dropped_floors + o.stats.unreached_floors + o.stats.unreached_bases > 0;
+	o.class = fields.get("class").map(|s| if thinned { drop_classes(s, c.n0, &dead, &gone) } else { s.clone() });
 	o.stats.clusters = 1;
-	o.stats.floors = c.n0 - n2 - o.stats.dropped_floors;
+	o.stats.floors = c.n0 - n2 - o.stats.dropped_floors - o.stats.unreached_floors;
+	// The spawn field (pack/spawns.rs): the spawns standing where floors overlap, on surfaces that stay.
+	if let Some((f, list)) = spawned {
+		let kept = |s: usize| if s < n2 { c.val[s] != 0 && !gone[s] } else { !dead[s] };
+		if let Some((field, n)) = spawns::spawn_field(c, k, f, list, &kept) {
+			o.spawn = Some(field);
+			o.stats.spawn_heights = n;
+		}
+	}
 	// area: per surface, ours in the same cell nearest in height
 	let (kx, ky) = (k as i64 / meta.ny, k as i64 % meta.ny);
 	let mut av = Vec::with_capacity(c.n0);
@@ -383,7 +593,7 @@ fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str,
 			continue;
 		}
 		let lc = if node < n2 { node } else { c.at_cell[node] as usize };
-		let a = if node < n2 && c.val[node] == 0 { 0 } else { our_area(cg, kx * cc as i64 + (lc / cc) as i64, ky * cc as i64 + (lc % cc) as i64, c.z[node] as f64) };
+		let a = if node < n2 && (c.val[node] == 0 || gone[node]) { 0 } else { our_area(cg, kx * cc as i64 + (lc / cc) as i64, ky * cc as i64 + (lc % cc) as i64, c.z[node] as f64) };
 		if a != 0 {
 			o.areas.insert(a);
 			o.stats.areas += 1;
@@ -416,12 +626,26 @@ fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str,
 			}
 		}
 		let (fa, fb) = (owner(c, from), owner(c, to));
-		if fa == fb || fa >= c.n0 || fb >= c.n0 {
+		if fa == fb || fa >= c.n0 || fb >= c.n0 || dead[fa] || dead[fb] || (fa < n2 && gone[fa]) || (fb < n2 && gone[fb]) {
 			continue;
 		}
 		let (fa, fb) = (renum[fa] as usize, renum[fb] as usize);
 		let y = c.a_yards[a] as f64;
 		let e = arcs.entry((fa, fb)).or_insert(y);
+		if y < *e {
+			*e = y;
+		}
+	}
+	// Our grid's ledge drops (pack/drops.rs), one way, where his maps lack the walk.
+	for &(fa, fb, y) in ledges {
+		if dead[fa] || dead[fb] || (fa < n2 && gone[fa]) || (fb < n2 && gone[fb]) {
+			continue;
+		}
+		let key = (renum[fa] as usize, renum[fb] as usize);
+		if !arcs.contains_key(&key) {
+			o.stats.ledge_drops += 1;
+		}
+		let e = arcs.entry(key).or_insert(y);
 		if y < *e {
 			*e = y;
 		}
@@ -445,56 +669,63 @@ fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str,
 		o.stats.arcs = arcs.len();
 		o.arc = Some(s);
 	}
-	// graph: his entrances and edges in the in-game encoding
+	// graph: his entrances and edges in the in-game encoding, without the entrances on ground no walk from a fixed
+	// place reaches (an edge from one kept leads only to kept ones: the walk followed it)
 	if g.rows > 0 {
 		if g.rows >= 4096 {
 			return Err(format!("leffe: cluster {k} has {} entrances (at most 4095)", g.rows));
 		}
-		let mut rec = enc(g.rows as f64, 2)?;
+		let kept_row = |q: u32, r: usize| -> Option<u32> {
+			match reach {
+				Some(re) => re.rows.get(&q).and_then(|m| m.get(r).copied()).filter(|&n| n != u32::MAX),
+				None => Some(r as u32),
+			}
+		};
+		let rows: Vec<usize> = (0..g.rows).filter(|&r| kept_row(k, r).is_some()).collect();
+		o.stats.unreached_entrances = g.rows - rows.len();
+		let mut rec = enc(rows.len() as f64, 2)?;
 		let mut erec = String::new();
-		for r in 0..g.rows {
+		for r in rows {
 			let o0 = owner(c, g.row_node[r] as usize);
 			let (lc, layer) = if o0 < n2 { (o0, 0) } else { (c.at_cell[o0] as usize, layer_of[o0]) };
 			if layer >= 64 {
 				return Err(format!("leffe: cluster {k} entrance {r} on floor {layer} (at most 63)"));
 			}
-			let mut list: Vec<usize> = (g.row_out[r] as usize..g.row_out[r + 1] as usize)
-				.filter(|&e| {
-					let q = (kx + g.e_dx[e] as i64) * meta.ny + ky + g.e_dy[e] as i64;
-					has(q as u32) && (g.e_ent[e] as usize) < layers.get(&(q as u32)).map_or(0, |v| v.len())
+			let (list, past) = kept_edges(meta, k, g, r, has, layers);
+			o.stats.edges += list.len() + past;
+			o.stats.dropped += past;
+			let list: Vec<(usize, u32)> = list
+				.into_iter()
+				.filter_map(|e| {
+					let q = ((kx + g.e_dx[e] as i64) * meta.ny + ky + g.e_dy[e] as i64) as u32;
+					kept_row(q, g.e_ent[e] as usize).map(|ent| (e, ent))
 				})
 				.collect();
-			o.stats.edges += list.len();
-			if list.len() > DEGREE {
-				list.sort_by(|&p, &q| g.e_cost[3 * p + NONE].total_cmp(&g.e_cost[3 * q + NONE]).then(p.cmp(&q)));
-				o.stats.dropped += list.len() - DEGREE;
-				list.truncate(DEGREE);
-				list.sort_unstable();
-			}
 			o.max_degree = o.max_degree.max(list.len());
 			rec.push_str(&enc(lc as f64, 3)?);
 			rec.push_str(&enc(layer as f64, 1)?);
 			rec.push_str(&enc((g.row_comp[r] as f64).min(4095.0), 2)?);
 			rec.push_str(&enc(list.len() as f64, 1)?);
-			for e in list {
-				edge_record(g, e, &mut o.clamped, &mut erec)?;
+			for (e, ent) in list {
+				edge_record(g, e, ent, &mut o.clamped, &mut erec)?;
 			}
 		}
 		rec.push_str(&erec);
-		o.stats.entrances = g.rows;
+		o.stats.entrances = g.rows - o.stats.unreached_entrances;
 		o.graph = Some(rec);
 	}
 	Ok(o)
 }
 
 /// Edge `e` of his graph as the in-game graph field's record (PathGrid.lua's edgeValue, format 2): the cluster offset,
-/// the entrance, the three profiles' costs, then the yards. His PMG4 keeps a cost and a yards for each profile
+/// the entrance (`ent`: its number once entrances on unreached ground are gone), the three profiles' costs, then the
+/// yards. His PMG4 keeps a cost and a yards for each profile
 /// (`3 * e + profile`); the record has one yards, the profile-free way's, as our grid's maps take theirs (hpa.rs: the
 /// none profile's search). The engine's walk search stops a way past 8 times the straight line plus 2,000 yd of these
 /// yards. A value past its field is clamped and counted.
-fn edge_record(g: &Graph, e: usize, clamped: &mut usize, out: &mut String) -> Result<(), String> {
+fn edge_record(g: &Graph, e: usize, ent: u32, clamped: &mut usize, out: &mut String) -> Result<(), String> {
 	out.push_str(&enc(((g.e_dx[e] + 1) * 3 + g.e_dy[e] + 1) as f64, 1)?);
-	out.push_str(&enc(g.e_ent[e] as f64, 2)?);
+	out.push_str(&enc(ent as f64, 2)?);
 	for s in 0..3 {
 		let w = js_round(g.e_cost[3 * e + s] as f64);
 		if w > COST_MAX {
@@ -524,8 +755,9 @@ fn geometry(meta: &Meta, k: u32, c: &Cluster, node: usize) -> [f64; 3] {
 }
 
 /// Map `map` of Leffe's Nav folder `dir` as the in-game fields (maps format 5), with `cg` (our grid's cells, the same
-/// frame and cells) for the areas. -> the fields, the area rows they use, and the counts.
-pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet<u32>, LeffeStats), String> {
+/// frame and cells) for the areas, and `extras`: our grid's ledge drops as one-way arcs, and, given the fixed places,
+/// only the ground a walk from one of this map's reaches. -> the fields, the area rows they use, and the counts.
+pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras) -> Result<(Maps, BTreeSet<u32>, LeffeStats), String> {
 	let src = NavDir::open(dir)?;
 	let text_meta = src.meta(map)?.ok_or_else(|| format!("leffe: {} has no map {map}", dir.display()))?;
 	let mut meta = pack::parse_meta(&text_meta, map)?;
@@ -560,6 +792,38 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet
 			Ok((k, vec![0; n]))
 		})
 		.collect::<Result<_, String>>()?;
+	// Where a world point lies in this map's cells (pack/reach.rs, pack/spawns.rs).
+	let frame = reach::Frame { x0: meta.x0, y0: meta.y0, cs: meta.cs, ny: meta.ny, c: meta.c, gx: meta.nx * meta.c, gy: meta.ny * meta.c };
+	// The ground a walk from a fixed place reaches: every cluster's walks, the places on their surfaces, the walk.
+	let mut placed = (0, 0);
+	let reached: Option<(FxHashMap<u32, Vec<bool>>, FxHashMap<u32, Vec<u32>>)> = match extras.places {
+		None => None,
+		Some(all) => {
+			let index: FxHashMap<u32, usize> = keys.iter().enumerate().map(|(i, &k)| (k, i)).collect();
+			let locals: Vec<reach::Local> = keys
+				.par_iter()
+				.map(|&k| -> Result<reach::Local, String> {
+					let mut read = |f: &str, k: u32| read_field(src, meta, f, k);
+					let c = pack::decode_cluster(meta, k, &mut read)?.ok_or_else(|| format!("leffe: map {map} cluster {k} does not decode"))?;
+					let g = pack::decode_graph(k, &mut read, Some(&c))?;
+					let ledges = ledge_arcs(meta, &c, extras.drops.and_then(|d| d.get(&k)));
+					Ok(walks(meta, k, &c, &g, &has, &rows, &index, &ledges))
+				})
+				.collect::<Result<_, String>>()?;
+			let mine: Vec<&Place> = all.iter().filter(|p| p.map == map).collect();
+			let starts: Vec<(usize, usize)> = mine.iter().filter_map(|p| reach::stand(&locals, &index, &frame, p)).collect();
+			placed = (mine.len(), mine.len() - starts.len());
+			if starts.is_empty() && !mine.is_empty() {
+				return Err(format!("leffe: map {map}: none of its {} fixed places stands on a surface (is the grid the same client build?)", mine.len()));
+			}
+			let seen = reach::reached(&locals, &starts);
+			let rows_map: FxHashMap<u32, Vec<u32>> = keys.iter().zip(&locals).zip(&seen).map(|((&k, l), s)| (k, reach::row_map(l, s))).collect();
+			let seen: FxHashMap<u32, Vec<bool>> = keys.iter().copied().zip(seen).collect();
+			// A map with no fixed place keeps all its ground (a crop, a map Polestar has no places on yet).
+			(!mine.is_empty()).then_some((seen, rows_map))
+		}
+	};
+	let spawned: Option<FxHashMap<u32, Vec<Place>>> = extras.spawns.map(|s| spawns::by_cluster(s, map, &frame));
 	let outs: Vec<(u32, Out)> = keys
 		.par_iter()
 		.map(|&k| -> Result<(u32, Out), String> {
@@ -575,10 +839,20 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet
 			if g.rows != rows[&k].len() {
 				return Err(format!("leffe: map {map} cluster {k}: {} entrance rows, the header says {}", g.rows, rows[&k].len()));
 			}
-			Ok((k, cluster(meta, k, &c, &g, &fields, cg, &has, &rows)?))
+			let re = reached.as_ref().map(|(seen, rows_map)| Reached { seen: &seen[&k], rows: rows_map });
+			let ledges = ledge_arcs(meta, &c, extras.drops.and_then(|d| d.get(&k)));
+			let sp = spawned.as_ref().map(|b| (&frame, b.get(&k).map_or(&[][..], Vec::as_slice)));
+			Ok((k, cluster(meta, k, &c, &g, &fields, cg, &has, &rows, re.as_ref(), &ledges, sp)?))
 		})
 		.collect::<Result<_, String>>()?;
-	let mut maps = Maps { class: Some(BTreeMap::new()), zone: Some(BTreeMap::new()), area: Some(BTreeMap::new()), arc: Some(BTreeMap::new()), ..Default::default() };
+	let mut maps = Maps {
+		class: Some(BTreeMap::new()),
+		zone: Some(BTreeMap::new()),
+		area: Some(BTreeMap::new()),
+		arc: Some(BTreeMap::new()),
+		spawn: extras.spawns.map(|_| BTreeMap::new()),
+		..Default::default()
+	};
 	let mut used = BTreeSet::new();
 	let mut st = LeffeStats::default();
 	let mut comps = BTreeSet::new();
@@ -595,6 +869,9 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet
 		put(maps.area.as_mut().unwrap(), o.area);
 		put(maps.arc.as_mut().unwrap(), o.arc);
 		put(&mut maps.graph, o.graph);
+		if let Some(m) = maps.spawn.as_mut() {
+			put(m, o.spawn);
+		}
 		used.extend(o.areas);
 		maps.max_degree = maps.max_degree.max(o.max_degree);
 		maps.clamped += o.clamped;
@@ -611,7 +888,13 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet
 		st.arcs += s.arcs;
 		st.closed += s.closed;
 		st.areas += s.areas;
+		st.unreached_floors += s.unreached_floors;
+		st.unreached_bases += s.unreached_bases;
+		st.unreached_entrances += s.unreached_entrances;
+		st.ledge_drops += s.ledge_drops;
+		st.spawn_heights += s.spawn_heights;
 	}
+	(st.places, st.unplaced) = placed;
 	// zone: his, as stored
 	if let Some(z) = &meta.zone {
 		for (k, s) in z.iter().enumerate() {
@@ -659,7 +942,7 @@ mod tests {
 		let mut clamped = 0;
 		for (e, want) in [(0, [5, 7, 10, 11, 12, 15]), (1, [7, 9, 40, 41, 42, 45])] {
 			let mut rec = String::new();
-			edge_record(&g, e, &mut clamped, &mut rec).unwrap();
+			edge_record(&g, e, g.e_ent[e], &mut clamped, &mut rec).unwrap();
 			assert_eq!(rec.len(), 14, "a format 2 record");
 			assert_eq!(values(&rec), want, "edge {e}: offset, entrance, the three costs, the none profile's yards");
 		}

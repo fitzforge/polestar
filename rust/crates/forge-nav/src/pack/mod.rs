@@ -20,6 +20,9 @@ pub mod fixture;
 pub mod hpa;
 pub mod layers;
 pub mod leffe;
+pub mod reach;
+pub mod drops;
+pub mod spawns;
 
 use crate::grid::{flag, Grid, Tile};
 use crate::legs::Nav;
@@ -218,6 +221,14 @@ pub struct PackIn<'a> {
 	/// Leffe's maps carry their blocks as zlib bytes in the string literals (metadata `blocks = "zlib"`) instead of
 	/// base64: a quarter less on disk and in memory. Only Leffe's maps; ours stay base64.
 	pub zlib_literals: bool,
+	/// The fixed places (pack/reach.rs fixed_places): Leffe's maps keep only the ground a walk from one reaches.
+	/// None: all of it.
+	pub places: Option<&'a [reach::Place]>,
+	/// Leffe's maps take our grid's ledge drops (pack/drops.rs) as one-way arcs.
+	pub ledges: bool,
+	/// The NPC and quest object spawns (pack/spawns.rs spawn_points): Leffe's maps carry the heights of those that
+	/// stand where floors overlap (the spawn field). None: no spawn field.
+	pub spawns: Option<&'a [reach::Place]>,
 	pub log: &'a (dyn Fn(&str) + Sync),
 }
 
@@ -366,16 +377,53 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 		let leffe = i.leffe.filter(|l| l.1.contains(&c)).map(|l| l.0);
 		let (maps, entrances, edges) = match leffe {
 			Some(dir) => {
-				let (maps, used, s) = leffe::leffe_maps(dir, c, &cg)?;
+				// Our grid's ledge drops, by cluster (a tile is a cluster: kx = max_row - row, ky = max_col - col).
+				let drops: Option<rustc_hash::FxHashMap<u32, Vec<drops::GridDrop>>> = if i.ledges {
+					use rayon::prelude::*;
+					let (max_row, max_col) = ((31 - cg.cx0) as u32, (31 - cg.cy0) as u32);
+					let ny = cg.ny as u32;
+					Some(
+						tiles
+							.par_iter()
+							.map(|&(col, row)| -> Result<(u32, Vec<drops::GridDrop>), String> {
+								let (t, _) = load(col, row)?;
+								Ok(((max_row - row) * ny + (max_col - col), drops::tile_drops(&t, i.cells)))
+							})
+							.collect::<Result<_, String>>()?,
+					)
+				} else {
+					None
+				};
+				let extras = leffe::Extras { places: i.places, drops: drops.as_ref(), spawns: i.spawns };
+				let (maps, used, s) = leffe::leffe_maps(dir, c, &cg, &extras)?;
 				log(&format!(
 					"Leffe's maps {c}: {} clusters, floors {} ({} no walk can use dropped), entrances {}, edges {} ({} past 63 dropped), jumps {}, drops {}, climbs {} -> {} arcs, {} steep steps closed, {} surfaces with an area of ours",
 					s.clusters, s.floors, s.dropped_floors, s.entrances, s.edges, s.dropped, s.jumps, s.drops, s.climbs, s.arcs, s.closed, s.areas
 				));
 				cg.areas = used;
-				m.insert(
-					"leffe".into(),
-					json!({ "floors": s.floors, "droppedFloors": s.dropped_floors, "jumps": s.jumps, "drops": s.drops, "climbs": s.climbs, "arcs": s.arcs, "droppedEdges": s.dropped, "closedSteps": s.closed, "areaSurfaces": s.areas }),
-				);
+				let mut lj = json!({ "floors": s.floors, "droppedFloors": s.dropped_floors, "jumps": s.jumps, "drops": s.drops, "climbs": s.climbs, "arcs": s.arcs, "droppedEdges": s.dropped, "closedSteps": s.closed, "areaSurfaces": s.areas });
+				if i.places.is_some() {
+					log(&format!(
+						"Leffe's maps {c}: {} fixed places ({} on no surface), ground no walk from one reaches: {} floors dropped, {} base cells left without a surface, {} entrances gone",
+						s.places, s.unplaced, s.unreached_floors, s.unreached_bases, s.unreached_entrances
+					));
+					let o = lj.as_object_mut().unwrap();
+					o.insert("places".into(), json!(s.places));
+					o.insert("unplaced".into(), json!(s.unplaced));
+					o.insert("unreachedFloors".into(), json!(s.unreached_floors));
+					o.insert("unreachedBases".into(), json!(s.unreached_bases));
+					o.insert("unreachedEntrances".into(), json!(s.unreached_entrances));
+				}
+				if i.ledges {
+					let grid_drops: usize = drops.as_ref().map_or(0, |d| d.values().map(Vec::len).sum());
+					log(&format!("Leffe's maps {c}: our grid's ledge drops {grid_drops}, {} added as arcs (his maps lacked the walk)", s.ledge_drops));
+					lj.as_object_mut().unwrap().insert("ledgeDrops".into(), json!(s.ledge_drops));
+				}
+				if i.spawns.is_some() {
+					log(&format!("Leffe's maps {c}: {} spawns where floors overlap given their height (the spawn field)", s.spawn_heights));
+					lj.as_object_mut().unwrap().insert("spawnHeights".into(), json!(s.spawn_heights));
+				}
+				m.insert("leffe".into(), lj);
 				(maps, s.entrances, s.edges - s.dropped)
 			}
 			None => {
