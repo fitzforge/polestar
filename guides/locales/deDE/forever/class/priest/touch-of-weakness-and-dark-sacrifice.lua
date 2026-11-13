@@ -75,8 +75,8 @@ return {
 	["{npc:3044}: take his {quest:5644} letter"] = "{npc:3044}: Nimm seinen Brief {quest:5644} an",
 
 	-- Step 12: Dark Sacrifice: Aelthalyste
-	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5644} Dark Sacrifice · {spell:2944} Devouring Plague
-	["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "Mit 20 bringt dir {npc:4606} im {object:36070} {quest:5644} mit einer Quest bei, die sie dir gibt und sofort zurücknimmt (ihr Text spricht noch von {spell:2944}, das jetzt jeder Priester beim Lehrer lernt).",
+	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5644} Dark Sacrifice
+	["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of Devouring Plague, which every priest now learns from the trainer)."] = "Mit Stufe 20 bringt dir {npc:4606} im {object:36070} {quest:5644} mit einer Quest bei, die sie gibt und sofort wieder zurücknimmt (ihr Text spricht noch vom Zauber Verschlingende Seuche, den jeder Priester jetzt beim Lehrer lernt).",
 
 	-- Step 13: Dark Sacrifice: Ur'kyo's letter
 	-- {quest:5646} Dark Sacrifice · {npc:6018} Ur'kyo
@@ -88,6 +88,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:4606} in the {zone:1458}'s {object:36070}. Priest trainers elsewhere ({npc:6018} in {zone:1454}, {npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to her with a quest of the same name."] = "Geh mit Stufe 10 zu {npc:4606} im {object:36070} von {zone:1458}. Priesterlehrer anderswo ({npc:6018} in {zone:1454}, {npc:3706} am {area:362}, {npc:3044} in {zone:1456}) schicken dich mit einer gleichnamigen Quest zu ihr.",
+	-- ["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "Mit 20 bringt dir {npc:4606} im {object:36070} {quest:5644} mit einer Quest bei, die sie dir gibt und sofort zurücknimmt (ihr Text spricht noch von {spell:2944}, das jetzt jeder Priester beim Lehrer lernt).",
 	-- ["At 20, {npc:4606} teaches {quest:5644}. {npc:6018} in {zone:1454} and {npc:3044} in {zone:1456} send you to her with a quest of the same name."] = "Mit Stufe 20 lehrt {npc:4606} {quest:5644}. {npc:6018} in {zone:1454} und {npc:3044} in {zone:1456} schicken dich mit einer gleichnamigen Quest zu ihr.",
 	-- ["The Undead priest spells: {spell:2652} at 10, {quest:5644} at 20."] = "Die Priesterzauber der Untoten: {spell:2652} mit Stufe 10, {quest:5644} mit Stufe 20.",
 }

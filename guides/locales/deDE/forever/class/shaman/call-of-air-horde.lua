@@ -13,16 +13,16 @@ return {
 	["The {item:5178} that lets you place air totems, then a weapon of your choice at 40."] = "{item:5178}, mit dem du Lufttotems aufstellen kannst, dann mit 40 eine Waffe deiner Wahl.",
 
 	-- Step 1: Searn Firewarder
-	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {item:5178} Air Totem
-	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "Mit 30 schickt dich {npc:5892} im {object:172957} zu {npc:5905} in {zone:1441}. Deine Lufttotems der Stufe 30 (Erdungstotem, {spell:10596}) brauchen {item:5178}, das sie dir gibt.",
+	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {item:5178} Air Totem
+	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, Nature Resistance) need the {item:5178} she gives."] = "Mit Stufe 30 schickt dich {npc:5892} im {object:172957} zu {npc:5905} in {zone:1441}. Deine Lufttotems der Stufe 30 (Erdung, Naturwiderstand) brauchen {item:5178}, den sie dir gibt.",
 
 	-- Step 2: Alaana Stormwalker
 	-- {quest:96136} Call of Air · {npc:259119} Alaana Stormwalker · {zone:1412} Mulgore · {zone:1456} Thunder Bluff · {npc:5906} Xanis Flameweaver
 	["At 30 Skyborne shamans get their own {quest:96136}. {npc:259119} waits where the airship from Zephras Isle lands, in northern {zone:1412} beside {zone:1456}. Your level 30 air totems need the Air Totem Prate Cloudseer gives. If she has nothing for you, head up to {npc:5906} in {zone:1456} (next step): the trainers' {quest:96136} is open to Skyborne and gives the same totem."] = "Mit 30 bekommen Himmelsgeborene-Schamanen ihre eigene {quest:96136}. {npc:259119} wartet dort, wo das Luftschiff von Zephras Isle landet, im Norden von {zone:1412} bei {zone:1456}. Deine Lufttotems der Stufe 30 brauchen das Lufttotem, das Prate Cloudseer gibt. Wenn sie nichts für dich hat, geh hinauf zu {npc:5906} in {zone:1456} (nächster Schritt): Die {quest:96136} der Lehrer steht Himmelsgeborenen offen und gibt dasselbe Totem.",
 
 	-- Step 3: Xanis Flameweaver
-	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {npc:5892} Searn Firewarder · {quest:1531} Call of Air · {zone:1454} Orgrimmar
-	["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1531} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "Mit 30 schickt dich {npc:5906}, ein Schamanenlehrer auf {area:1640} in {zone:1456}, zu {npc:5905} in {zone:1441}. Deine Lufttotems der Stufe 30 (Erdungstotem, {spell:10596}) brauchen das Lufttotem, das Prate gibt. Trägst du schon {quest:1531} von {npc:5892} aus {zone:1454} bei dir? Sie geht auch an {npc:5905}: Überspringe {npc:5906}.",
+	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {npc:5892} Searn Firewarder · {quest:1531} Call of Air · {zone:1454} Orgrimmar
+	["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, Nature Resistance) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1531} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "Mit Stufe 30 schickt dich {npc:5906}, eine Schamanenlehrerin auf {area:1640} in {zone:1456}, zu {npc:5905} in {zone:1441}. Deine Lufttotems der Stufe 30 (Erdung, Naturwiderstand) brauchen das Air Totem, das Prate dir gibt. Trägst du schon {quest:1531} von {npc:5892} aus {zone:1454} bei dir? Sie geht ebenfalls an {npc:5905}: Überspring {npc:5906}.",
 
 	-- Step 4: Prate Cloudseer
 	-- {area:484} Freewind Post · {npc:5905} Prate Cloudseer
@@ -33,8 +33,8 @@ return {
 	["{npc:5905}: your {item:5178}"] = "{npc:5905}: dein {item:5178}",
 
 	-- Step 9: Charlga Razorflank
-	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {spell:8292} Chain Bolt · {spell:139} Renew · {item:274463} Tattered Note
-	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717} ist ein Dungeon für fünf Spieler am südlichen Rand von {zone:1413} (der Pfeil zeigt auf seinen Eingang); {npc:4421} (Elite der Stufe 33) ist sein letzter Boss. Sie wirkt {spell:8292}, {spell:139} auf ihre Verbündeten und Purity; {item:274463} fällt nur bei ihr.",
+	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {item:274463} Tattered Note
+	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts Chain Bolt, Renew on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717} ist ein Dungeon für fünf Spieler am Südrand von {zone:1413} (der Pfeil zeigt auf den Eingang); {npc:4421} (Elite der Stufe 33) ist sein letzter Boss. Sie wirkt Kettenblitzschlag, Erneuerung auf ihre Verbündeten und Purity; {item:274463} fällt nur von ihr.",
 	-- {item:274463} Tattered Note · {npc:4421} Charlga Razorflank
 	["{item:274463}, from {npc:4421}"] = "{item:274463}, von {npc:4421}",
 
@@ -45,9 +45,9 @@ return {
 	-- Step 12: Twisted Air Totems
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
 	["Twisted Air Totems"] = "Verdrehte Lufttotems",
-	-- {area:2408} Shadowprey Village · {zone:1443} Desolace · {spell:9654} Jumping Lightning
+	-- {area:2408} Shadowprey Village · {zone:1443} Desolace
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
-	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "Fünf Twisted Air Totems. Die Maraudine-Zentauren (Stufe 36-40) nördlich und nordöstlich von {area:2408} im Westen von {zone:1443} tragen sie; die Scouts lassen bei fast jedem zweiten Kill eines fallen. Wranglers werfen Netz und Entwaffnen, Windchasers heilen, Stormers werfen {spell:9654}: Zieh einen nach dem anderen. Respawn etwa fünf Minuten.",
+	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw Jumping Lightning: pull one at a time. Respawn about five minutes."] = "{item:274047} ×5. Die Maraudine-Zentauren (Stufe 36-40) nördlich und nordöstlich von {area:2408} im Westen von {zone:1443} tragen sie; die Scouts lassen fast bei jedem zweiten Kill eines fallen. Wranglers werfen Netz und Disarm, Windchasers heilen, Stormers werfen Springblitzschlag: Zieh einzeln. Respawn etwa fünf Minuten.",
 
 	-- Step 13: Twisted Water Totems
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
@@ -85,13 +85,17 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}."] = "Mit 30 schickt dich {npc:5892} im {object:172957} zu {npc:5905} in {zone:1441}.",
+	-- ["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "Mit 30 schickt dich {npc:5892} im {object:172957} zu {npc:5905} in {zone:1441}. Deine Lufttotems der Stufe 30 (Erdungstotem, {spell:10596}) brauchen {item:5178}, das sie dir gibt.",
 	-- ["At 30 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5905} in {zone:1441}."] = "Mit 30 schickt dich {npc:5906}, ein Schamanenlehrer in {zone:1456}, zu {npc:5905} in {zone:1441}.",
+	-- ["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1531} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "Mit 30 schickt dich {npc:5906}, ein Schamanenlehrer auf {area:1640} in {zone:1456}, zu {npc:5905} in {zone:1441}. Deine Lufttotems der Stufe 30 (Erdungstotem, {spell:10596}) brauchen das Lufttotem, das Prate gibt. Trägst du schon {quest:1531} von {npc:5892} aus {zone:1454} bei dir? Sie geht auch an {npc:5905}: Überspringe {npc:5906}.",
+	-- ["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "Fünf Twisted Air Totems. Die Maraudine-Zentauren (Stufe 36-40) nördlich und nordöstlich von {area:2408} im Westen von {zone:1443} tragen sie; die Scouts lassen bei fast jedem zweiten Kill eines fallen. Wranglers werfen Netz und Entwaffnen, Windchasers heilen, Stormers werfen {spell:9654}: Zieh einen nach dem anderen. Respawn etwa fünf Minuten.",
 	-- ["Fly to {area:484}. {npc:5905} hides in a small cave in the canyon wall north-east of the post. Skyborne: your own {quest:1531} (96136) ends with her too."] = "Flieg nach {area:484}. {npc:5905} versteckt sich in einer kleinen Höhle in der Schluchtwand nordöstlich des Postens. Himmelsgeborene: Deine eigene {quest:1531} (96136) endet ebenfalls bei ihr.",
 	-- ["The Lost Ones in the north of the {zone:1435} carry the Twisted Earth Totems."] = "Die Verlorenen im Norden der {zone:1435} tragen die Verdrehten Erdtotems.",
 	-- ["The Maraudine centaurs of western {zone:1443} carry the Twisted Air Totems."] = "Die Zentauren der Maraudine im Westen von {zone:1443} tragen die Verdrehten Lufttotems.",
 	-- ["The Mirefin murlocs of northern {zone:1445} carry the Twisted Water Totems."] = "Die Murlocs der Schlammflossen im Norden der {zone:1445} tragen die Verdrehten Wassertotems.",
 	-- ["The Stonevault troggs in the south of the {zone:1418} carry the Twisted Fire Totems."] = "Die Steingrufttroggs im Süden des {zone:1418} tragen die Verdrehten Feuertotems.",
 	-- ["{area:1717} is a dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} is its last boss. Bring a group."] = "{area:1717} ist ein Dungeon am Südrand des {zone:1413} (der Pfeil zeigt auf den Eingang); {npc:4421} ist sein letzter Boss. Bring eine Gruppe mit.",
+	-- ["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717} ist ein Dungeon für fünf Spieler am südlichen Rand von {zone:1413} (der Pfeil zeigt auf seinen Eingang); {npc:4421} (Elite der Stufe 33) ist sein letzter Boss. Sie wirkt {spell:8292}, {spell:139} auf ihre Verbündeten und Purity; {item:274463} fällt nur bei ihr.",
 	-- ["{npc:5905} hands you the {item:268582}: place them at the steam pools west of {area:484} and defeat the {npc:216474} they call. {quest:79366} is an elite quest: grouping up is advised."] = "{npc:5905} Cloudseer gibt dir {item:268582}: Stell sie an den Dampfbecken westlich von {area:484} auf und besiege {npc:216474}, den sie rufen. {quest:79366} ist eine Elite-Quest: Eine Gruppe wird empfohlen.",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176} lagert im Osten des {zone:1416}, nordöstlich von {area:272}.",
 	-- ["{npc:6176}: the {item:213086} and your weapon"] = "{npc:6176}: {item:213086} und deine Waffe",

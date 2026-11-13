@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {quest:5634} Desperate Prayer · {quest:5641} Chastise
-	["{quest:5634} and {quest:5641}"] = "{quest:5634} und {quest:5641}",
-	-- {quest:5634} Desperate Prayer · {quest:5641} Chastise
-	["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "Die Priesterzauber der Zwerge: {quest:5634} mit 10, {quest:5641} (neu in Forever) mit 20. Kostenlos, keine Ziele.",
+	-- {quest:5634} Desperate Prayer
+	["{quest:5634} and Chastise"] = "{quest:5634} und Züchtigen",
+	-- {quest:5634} Desperate Prayer
+	["The Dwarf priest spells: {quest:5634} at 10, Chastise (new in Forever) at 20. Free, no objectives."] = "Die Zauber der Zwergen-Priester: {quest:5634} mit Stufe 10, Züchtigen (neu in Forever) mit Stufe 20. Kostenlos, keine Ziele.",
 
 	-- Step 1: Desperate Prayer: Maxan Anvol
 	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -81,36 +81,52 @@ return {
 	["This letter also goes to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}."] = "Auch dieser Brief geht an {npc:11406} im {object:32386}, in {object:32362} von {zone:1455}.",
 
 	-- Step 13: Chastise: High Priestess Laurena
-	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:5641} Chastise · {npc:11406} High Priest Rohan · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:28027} Dwarven District
-	["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:5641} letter for {npc:11406} in {zone:1455} (the {area:2257} from the {object:28027})."] = "Mit 20 gibt dir in {zone:1453} {npc:376} am Altar der Kathedrale des Lichts einen Brief {quest:5641} für {npc:11406} in {zone:1455} ({area:2257} vom {object:28027} aus).",
-	-- {npc:376} High Priestess Laurena · {quest:5641} Chastise
-	["{npc:376}: take her {quest:5641} letter"] = "{npc:376}: Nimm ihren Brief {quest:5641} an",
+	-- {npc:376} High Priestess Laurena
+	["Chastise: {npc:376}"] = "Züchtigen: {npc:376}",
+	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:28027} Dwarven District
+	["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a Chastise letter for {npc:11406} in {zone:1455} (the {area:2257} from the {object:28027})."] = "Mit Stufe 20 in {zone:1453} gibt dir {npc:376} am Altar der Kathedrale des Lichts einen Züchtigen-Brief für {npc:11406} in {zone:1455} (die {area:2257} vom {object:28027} aus).",
+	-- {npc:376} High Priestess Laurena
+	["{npc:376}: take her Chastise letter"] = "{npc:376}: Ihren Züchtigen-Brief annehmen",
 
 	-- Step 14: Chastise: Priestess Alathea
-	-- {zone:1457} Darnassus · {npc:11401} Priestess Alathea · {npc:7999} Tyrande Whisperwind · {quest:5641} Chastise · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
-	["At 20 in {zone:1457}, {npc:11401}, on the upper balcony of the Temple of the Moon beside {npc:7999}, hands you a {quest:5641} letter for {npc:11406} in {zone:1455}."] = "Mit 20 gibt dir in {zone:1457} {npc:11401}, auf dem oberen Balkon des Tempels des Mondes neben {npc:7999}, einen Brief {quest:5641} für {npc:11406} in {zone:1455}.",
-	-- {npc:11401} Priestess Alathea · {quest:5641} Chastise
-	["{npc:11401}: take her {quest:5641} letter"] = "{npc:11401}: Nimm ihren Brief {quest:5641} an",
+	-- {npc:11401} Priestess Alathea
+	["Chastise: {npc:11401}"] = "Züchtigen: {npc:11401}",
+	-- {zone:1457} Darnassus · {npc:11401} Priestess Alathea · {npc:7999} Tyrande Whisperwind · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
+	["At 20 in {zone:1457}, {npc:11401}, on the upper balcony of the Temple of the Moon beside {npc:7999}, hands you a Chastise letter for {npc:11406} in {zone:1455}."] = "Mit Stufe 20 in {zone:1457} gibt dir {npc:11401} auf dem oberen Balkon des Mondtempels neben {npc:7999} einen Züchtigen-Brief für {npc:11406} in {zone:1455}.",
+	-- {npc:11401} Priestess Alathea
+	["{npc:11401}: take her Chastise letter"] = "{npc:11401}: Ihren Züchtigen-Brief annehmen",
 
 	-- Step 15: Chastise: High Priest Rohan
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:5641} Chastise · {spell:6346} Fear Ward
-	["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains {spell:6346}."] = "Mit 20 bringt dir {npc:11406} im {object:32386} {quest:5641} mit einer Quest bei, die er dir gibt und sofort zurücknimmt. Forever hat sie von A Lack of Fear umbenannt: {quest:5641} fügt einem Humanoiden Schaden zu und bannt ihn 2 Sekunden lang (sofort, 2 Minuten Abklingzeit), und jeder Priester lernt jetzt {spell:6346}.",
+	-- {npc:11406} High Priest Rohan
+	["Chastise: {npc:11406}"] = "Züchtigen: {npc:11406}",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:5641} A Lack of Fear
+	["At 20, {npc:11406} in the {object:32386} teaches Chastise with a quest he gives and takes back at once. Forever renamed it from {quest:5641}: Chastise damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains Fear Ward."] = "Mit Stufe 20 bringt dir {npc:11406} in der {object:32386} Züchtigen mit einer Quest bei, die er gibt und sofort wieder zurücknimmt. Forever hat es von {quest:5641} umbenannt: Züchtigen schadet einem Humanoiden und schlägt ihn 2 Sekunden lang fest (sofort, 2 Minuten Cooldown), und jeder Priester lernt jetzt Furchtzauberschutz.",
+	-- {npc:11406} High Priest Rohan
+	["{npc:11406}: Chastise"] = "{npc:11406}: Züchtigen",
 
 	-- Step 16: Chastise: Laurena's letter
-	-- {quest:5645} Chastise
-	["{quest:5645}: Laurena's letter"] = "{quest:5645}: Laurenas Brief",
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:5645} Chastise
-	["Hand Laurena's letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: he teaches {quest:5645}."] = "Gib Laurenas Brief bei {npc:11406} im {object:32386}, in {object:32362} von {zone:1455}, ab: Er bringt dir {quest:5645} bei.",
+	["Chastise: Laurena's letter"] = "Züchtigen: Laurenas Brief",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words)
+	["Hand Laurena's letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: he teaches Chastise."] = "Gib Laurenas Brief an {npc:11406} in der {object:32386} ab, der {object:32362} von {zone:1455}: Er bringt dir Züchtigen bei.",
 
 	-- Step 17: Chastise: Alathea's letter
-	-- {quest:5647} Chastise
-	["{quest:5647}: Alathea's letter"] = "{quest:5647}: Alatheas Brief",
+	["Chastise: Alathea's letter"] = "Züchtigen: Alatheas Brief",
 	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1457} Darnassus · {area:702} Rut'theran Village · {area:442} Auberdine · {area:150} Menethil Harbor · {zone:1437} Wetlands · {zone:1432} Loch Modan · {area:17203} Stormwind Harbor · {area:2257} Deeprun Tram
 	["Hand Alathea's letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: from {zone:1457}, the boats via {area:702} and {area:442} to {area:150}, then the road north through the {zone:1437} and {zone:1432} (or the boat to {area:17203} and the {area:2257})."] = "Gib Alatheas Brief bei {npc:11406} im {object:32386}, in {object:32362} von {zone:1455}, ab: von {zone:1457} die Boote über {area:702} und {area:442} nach {area:150}, dann die Straße nach Norden durch {zone:1437} und {zone:1432} (oder das Boot nach {area:17203} und {area:2257}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362}. Forever's quest text names Rohan, but the quest data has {npc:376} in {zone:1453}'s Cathedral of Light take it: try Rohan first, then Laurena (the {area:2257} links the cities)."] = "Geh mit Stufe 10 zu {npc:11406} in der {object:32386} im {object:32362} in {zone:1455}. Der Questtext von Forever nennt Rohan, laut Questdaten nimmt sie aber {npc:376} in der Kathedrale des Lichts in {zone:1453} an: Versuch es zuerst bei Rohan, dann bei Laurena ({area:2257} verbindet die Städte).",
+	-- ["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:5641} letter for {npc:11406} in {zone:1455} (the {area:2257} from the {object:28027})."] = "Mit 20 gibt dir in {zone:1453} {npc:376} am Altar der Kathedrale des Lichts einen Brief {quest:5641} für {npc:11406} in {zone:1455} ({area:2257} vom {object:28027} aus).",
+	-- ["At 20 in {zone:1457}, {npc:11401}, on the upper balcony of the Temple of the Moon beside {npc:7999}, hands you a {quest:5641} letter for {npc:11406} in {zone:1455}."] = "Mit 20 gibt dir in {zone:1457} {npc:11401}, auf dem oberen Balkon des Tempels des Mondes neben {npc:7999}, einen Brief {quest:5641} für {npc:11406} in {zone:1455}.",
+	-- ["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains {spell:6346}."] = "Mit 20 bringt dir {npc:11406} im {object:32386} {quest:5641} mit einer Quest bei, die er dir gibt und sofort zurücknimmt. Forever hat sie von A Lack of Fear umbenannt: {quest:5641} fügt einem Humanoiden Schaden zu und bannt ihn 2 Sekunden lang (sofort, 2 Minuten Abklingzeit), und jeder Priester lernt jetzt {spell:6346}.",
 	-- ["At 20, {npc:11406} teaches {quest:5641}. {npc:376} in {zone:1453} and {npc:11401} in {zone:1457} send you to him with a quest of the same name."] = "Mit Stufe 20 lehrt {npc:11406} {quest:5641}. {npc:376} in {zone:1453} und {npc:11401} in {zone:1457} schicken dich mit einer gleichnamigen Quest zu ihm.",
+	-- ["Hand Laurena's letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: he teaches {quest:5645}."] = "Gib Laurenas Brief bei {npc:11406} im {object:32386}, in {object:32362} von {zone:1455}, ab: Er bringt dir {quest:5645} bei.",
 	-- ["If Rohan did not take it: {npc:376} is in the Cathedral of Light. Take the {area:2257} from {object:171524}."] = "Falls Rohan sie nicht angenommen hat: {npc:376} ist in der Kathedrale des Lichts. Nimm in {object:171524} die Bahn {area:2257}.",
+	-- ["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "Die Priesterzauber der Zwerge: {quest:5634} mit 10, {quest:5641} (neu in Forever) mit 20. Kostenlos, keine Ziele.",
 	-- ["The Human and Dwarf priest spells: {quest:5634} at 10, {quest:5641} for Dwarves at 20."] = "Die Priesterzauber der Menschen und Zwerge: {quest:5634} mit Stufe 10, {quest:5641} für Zwerge mit Stufe 20.",
+	-- ["{npc:11401}: take her {quest:5641} letter"] = "{npc:11401}: Nimm ihren Brief {quest:5641} an",
+	-- ["{npc:376}: take her {quest:5641} letter"] = "{npc:376}: Nimm ihren Brief {quest:5641} an",
+	-- ["{quest:5634} and {quest:5641}"] = "{quest:5634} und {quest:5641}",
+	-- ["{quest:5645}: Laurena's letter"] = "{quest:5645}: Laurenas Brief",
+	-- ["{quest:5647}: Alathea's letter"] = "{quest:5647}: Alatheas Brief",
 }
