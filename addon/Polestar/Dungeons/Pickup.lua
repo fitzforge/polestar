@@ -643,6 +643,22 @@ function Dungeons.OfferLevel(pq, rec)
 	return max(qlvl - Dungeons.OFFER_MARGIN, (rec and rec.minLevel) or pq.minLevel or 1)
 end
 
+-- A page quest whose only reward is money, with no experience and no item:
+-- a repeatable hand-in such as Indurium Ore's six silver, which the Uldaman
+-- pick-up guide reached through seven quests before it (#2092). The page's
+-- rewards (Dungeons.Quest: rewards = { items, xp, money }) and the Codex
+-- record's say so; a quest whose rewards the data does not know (no money
+-- either: a Forever quest without a reward row) is not one.
+local function moneyOnly(pq, rec)
+	local r = type(pq.rewards) == "table" and pq.rewards or nil
+	local money = r and tonumber(r.money)
+	if not (money and money > 0) then return false end
+	if tonumber(r.xp) or (rec and tonumber(rec.xp)) then return false end
+	if type(r.items) == "table" and #r.items > 0 then return false end
+	if rec and ((type(rec.rewards) == "table" and #rec.rewards > 0) or (type(rec.choices) == "table" and #rec.choices > 0)) then return false end
+	return true
+end
+
 function Dungeons.PickupPlan(key, offer)
 	local d = Dungeons.Get(key)
 	if not d then return nil, "unknown" end
@@ -693,6 +709,9 @@ function Dungeons.PickupPlan(key, offer)
 				plan.carried[#plan.carried + 1] = pq
 			elseif closed(pq) then
 				plan.done = plan.done + 1
+			elseif moneyOnly(pq, rec) then
+				-- Nothing to gain but a few silver: never a pick-up of its
+				-- own, nor a trip through its prerequisites (#2092).
 			elseif ((rec and rec.minLevel) or pq.minLevel or 1) > reach then
 				-- One that starts inside (no giver out here, no drop outside)
 				-- never comes to the pick-up guide: it does not wait for it.

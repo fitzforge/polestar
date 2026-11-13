@@ -554,6 +554,32 @@ emit({ ups = ups, accepts = accepts, why = why or false, text = text or false })
 	assert_eq!(alchemist["why"], json!(false));
 }
 
+// #2092 (Fyurie, Uldaman's pick-up guide): Indurium Ore pays six silver, no experience and no item, and the guide
+// reached it through the chain before it (Keeping Pace and Rizzle's Schematics at the Mirage Raceway, the step of
+// #2091). A page quest whose only reward is money is never picked up, nor the quests before it; one that pays
+// experience is.
+#[test]
+fn a_page_quest_that_pays_only_money_is_not_picked_up_nor_the_chain_before_it_2092_indurium_ore() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9050"] = sideless_npc(9050, "Pozzik", 1421, 60, 40);
+	c["quests"]["90800"] = page_quest(90800, "Ore for Silver", Value::Null, 9050, 9050);
+	c["quests"]["90800"]["pre"] = json!([90802]);
+	c["quests"]["90802"] = page_quest(90802, "Keeping Up", Value::Null, 9050, 9050);
+	c["quests"]["90802"]["xp"] = json!(1650);
+	c["quests"]["90801"] = page_quest(90801, "Ore for Experience", Value::Null, 9050, 9050);
+	c["quests"]["90801"]["xp"] = json!(2500);
+	i["forever"]["quests"]["90800"] = json!({ "area": 209, "pre": [90802], "rewards": { "money": 600 } });
+	i["forever"]["quests"]["90801"] = json!({ "area": 209, "xp": 2500, "rewards": { "money": 600 } });
+	let own = pack_of(&c, &i);
+	let warlock = run(&own, &k(TAKE), Opts::default()).remove(0);
+	assert!(!takes(&warlock, 90800), "money only: not picked up: {}", warlock["take"]);
+	let accepts = warlock["accepts"].as_array().unwrap();
+	assert!(!accepts.iter().any(|q| *q == 90800 || *q == 90802), "nor the quest before it: {accepts:?}");
+	assert!(takes(&warlock, 90801), "experience: picked up: {}", warlock["take"]);
+}
+
 #[test]
 fn pickup_opens_the_guide_in_a_new_tab_and_it_plays_to_the_end_the_giver_link_points_at_the_first_prerequisite_still_to_do() {
 	let pack = default_pack();
