@@ -5428,6 +5428,23 @@ test('The Barrens (Horde): the goto back to Kranal Fiss points at Kranal, not at
 	assert.ok(Math.hypot(walk.goal.x - list[hand].goal.x, walk.goal.y - list[hand].goal.y) < 1, `the goto at ${walk.goal.x},${walk.goal.y} is at Kranal (${list[hand].goal.x},${list[hand].goal.y})`);
 });
 
+// 0.4.0 route audit, Horde 12-21: Chol'aruk the Ravener (Forever, 4,100 XP) comes from Gur'ak at the Crossroads, and its
+// boar (level 20, elite) sits in the cave of the Razormane camp the route clears for The Disruption Ends. A group choice
+// like WANTED: Bruuz: taken at the Crossroads before the camp, done there, handed in on the next Crossroads stop.
+test("The Barrens (Horde): Chol'aruk the Ravener is a group choice on the Razormane camp's second visit (0.4.0 audit)", { skip }, () => {
+	const list = goals(BARRENS);
+	const mine = list.filter(({ goal }) => goal.quest === 97003);
+	assert.ok(mine.length >= 3, 'accept, objective and hand-in');
+	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg), `${goal.t} 97003: only for a group`);
+	const take = at(list, 'accept 97003', is('accept', 97003));
+	const kreenig = at(list, 'collect 872', (g) => g.t === 'collect' && g.quest === 872);
+	const boar = at(list, 'collect 97003', (g) => g.t === 'collect' && g.quest === 97003);
+	const give = at(list, 'turnin 97003', is('turnin', 97003));
+	assert.ok(take < kreenig && kreenig < boar && boar < give, 'Crossroads, the camp, Crossroads');
+	const group = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
+	assert.ok(group.some((g) => g.q === 97003 && g.size >= 2), 'a group record the build keeps');
+});
+
 // 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar
 // for Rilli Greasygob, then on to Thunder Bluff): Druids and Paladins have no trainer in Orgrimmar. They take Thunder
 // Bluff in the Orgrimmar trip's place (Paladins learn its flight path by Camp Taurajo), Druids with Cat Form and Cure

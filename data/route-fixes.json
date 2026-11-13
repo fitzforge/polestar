@@ -7381,6 +7381,11 @@
 				"why": "#1370: Gerenzo's Orders is Piznik's five-minute defence at the bottom of the Windshear Mine (quest level 22): past the mine's kobolds (19-23), then 11-18 more in waves while he mines, and the quest fails if he dies. Both routes reach it at 20-23 (Alliance 06-ashenvale, Horde 02-the-barrens). Players' recordings: 15 people; the two who lost it were alone (23 and 25: died, failed, abandoned); grouped players finished it 4 of 4, from level 23. A group quest of 2, with the solo skip."
 			},
 			{
+				"q": 97003,
+				"size": 3,
+				"why": "Chol'aruk the Ravener (Forever, level 21): Chol'aruk is a level 20 elite in the Thorn Hill cave, past the Razormane Flesheaters and Berserkers (18-19, elite) of the camp 02-the-barrens clears for The Disruption Ends. Players' recordings: 15 people killed it, 12 of 18 kills in a group (median level 19.7); 2 people died to it (22-23). Offered as a group choice (`when group 97003`), accepted at the Crossroads before the camp, handed back on the Crossroads stop after it."
+			},
+			{
 				"q": 517,
 				"size": 3,
 				"why": "Horde 30-40 audit (2026-11-09): Elixir of Agony part 2 wants a Keg of Shindigger Stout (object 1727), which stands only in Dun Garok's cellar beside Captain Ironhill (2304, elite 32) and the elite dwarves (2344-2346); 2 recorded players looted it at Hillsbrad 71.6,80.7. A group quest the route offers with Battle of Hillsbrad's, not an optional solo accept."
@@ -9208,6 +9213,15 @@
 				"after": [
 					"turnin",
 					829
+				]
+			},
+			{
+				"q": 97003,
+				"reason": "Horde 12-21 audit (0.4.0, 2026-11-13): Chol'aruk the Ravener (Forever, level 21, from 15, 4,100 XP, no prerequisite) is offered by Gur'ak (267310) on the north-east side of the Crossroads, and Chol'aruk (267307, level 20, elite) sits in the Thorn Hill cave of the Razormane camp the route already clears for The Disruption Ends. A group quest (deliberate group, size 3), like WANTED: Bruuz: players' recordings show Gur'ak offering it to 27 people and 15 people killing Chol'aruk (18 kills, 12 of them grouped, median level 19.7); 2 died to it, at 22 and 23.",
+				"issue": "-",
+				"after": [
+					"accept",
+					903
 				]
 			},
 			{

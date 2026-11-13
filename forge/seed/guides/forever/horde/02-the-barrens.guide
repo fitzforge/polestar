@@ -300,6 +300,11 @@ step The Crossroads
   turnin 845                          -- Sergra Darkthorn
   accept 903
 
+step Gur'ak
+  when group 97003
+  tip Gur'ak stands on the north-east side of the Crossroads. Chol'aruk the Ravener is a group quest: Chol'aruk is a level 20 elite boar in the Razormane's Thorn Hill cave, east of the town, where the route goes back for Kreenig Snarlsnout later.
+  accept 97003                        -- Gur'ak
+
 step Regthar Deathgate
   tip West to Regthar's watch post on the Kolkar border.
   accept 855
@@ -347,6 +352,11 @@ step The Disruption Ends
   kill 3269 quest 872.1
   collect 5063 quest 872.3 @58.5,27.0
 
+step Chol'aruk
+  when group 97003
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Chol'aruk (level 20 elite) needs a group of 3 and sits deep in the cave under Thorn Hill, past the Razormane Flesheaters and Berserkers (18-19, elite). Skip it if you are alone.
+  collect 276070 quest 97003.1 @57.7,27.4 group 3
+
 step The Crossroads
   zone The Barrens
   tip Sergra by the inn first, then Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate last. His seed test waits for the Verog pass at the Stagnant Oasis: go straight on north-west to the Dry Hills. After the spores Helbrim offers Apothecary Zamah, a delivery to Thunder Bluff within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to Thunder Bluff).
@@ -360,6 +370,10 @@ step The Crossroads
   accept 899                          -- Mankrik
   turnin 870                          -- Tonga Runetotem
   accept 877                          -- Tonga Runetotem: the bubbling fissure at the Stagnant Oasis, on the Verog pass
+
+step Gur'ak
+  when group 97003
+  turnin 97003                        -- Gur'ak
 
 # ---------------------------------------------------------------- One loop: north-west, the Dry Hills, east, back south
 
