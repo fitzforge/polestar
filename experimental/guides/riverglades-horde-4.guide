@@ -25,10 +25,16 @@ next forever/horde/40-50/01-stranglethorn-vale
 # - Spread the Word (95418) and Land of Giants (95420) after Chogg'Zac: back across the zone to Rog'mar and
 #   Bolder'ok.
 # - Death to the Executioner (95433): Executioner Morg is an elite (46), and the mace goes to Clugfist in Bolder'ok.
-# - A Token of Vengeance (94975), Tome of Twilight (94972), Eye of Mugg (94968) and Krol'dok Moulding (94973): their
-#   items come from the Krol'dok Stronghold dungeon.
 # - It Is Time, Brother... (95278): Da'grosh's message goes back to Krom'rosh in Rog'mar, and this route leaves the
-#   zone through Twilight's Shroud instead.
+#   zone through Twilight's Shroud instead (a Krol'dok Stronghold runner takes it: below).
+# - Key Ingredients (94974): Kreza Darkthorn wants crafted materials.
+# Krol'dok Stronghold (`when dungeon "Krol'dok Stronghold"`, dungeons in the route), for a group of five: a character
+# who runs it takes Tran'gul's Tome of Twilight (94972) and Krom'rosh's Eye of Mugg (94968) on the Rog'mar stop at the
+# start and Da'grosh's A Token of Vengeance (94975) at his camp; the run comes after Bring Me His Head, at 43 (the
+# dungeon's floor; players' recordings put the Horde part 4's end at a median of 43), from the door north of
+# Sunnyglade, about 256 yd from Da'grosh's camp, where 16 people went in. Da'grosh takes the ears and gives It Is
+# Time, Brother... for Krom'rosh; the hearth back to Rog'mar brings the other hand-ins (Tunk the blacksmith's Krol'dok
+# Moulding, 94973, for Kreza Darkthorn), and the route goes on from there to Twilight's Shroud.
 
 step Hearth to Rog'mar
   hearth "Rog'mar"
@@ -38,6 +44,13 @@ step Rog'mar
   tip Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
   turnin 95428                          -- Krom'rosh: Clugfist's Decree
   accept 94744                          -- The Wayward Warrior: for Da'grosh, west of Sunnyglade
+
+step Tran'gul and Krom'rosh
+  when dungeon "Krol'dok Stronghold"
+  when level>=42.5
+  tip For your Krol'dok Stronghold run, at the end of this guide: Tran'gul and Krom'rosh stand side by side in the fort.
+  accept 94972                          -- Tran'gul: the Tome of Twilight, from Nar'gurk inside
+  accept 94968                          -- Krom'rosh: the Eye of Mugg, from Overlord Mugg inside
 
 step Neza Bloodsnout
   when onquest 95882
@@ -77,6 +90,11 @@ step Da'grosh
   accept 94745                          -- Carving a Path
   accept 94748                          -- Break Their Chains
 
+step Da'grosh
+  when dungeon "Krol'dok Stronghold"
+  when level>=42.8
+  accept 94975                          -- Da'grosh: A Token of Vengeance, the cultists' ears inside the stronghold
+
 step Crag'rog
   tip Crag'rog, a Bolder'ok ogre, hides in the cave west of Da'grosh's camp.
   turnin 95431                          -- Crag'rog
@@ -106,6 +124,50 @@ step Bring Me His Head
   accept 94768                          -- Da'grosh
   collect 265837 quest 94768.1 @26.1,43.9  -- Kilgar's Head
   turnin 94768
+
+step Krol'dok Stronghold
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94972,94968,94975
+  when level>=43
+  tip Krol'dok Stronghold is a dungeon for a group of five, levels 40 to 47. Its door is north of Sunnyglade at the foot of the Twilight valley, a short walk from Da'grosh's camp.
+  tip Inside: the cultists' ears for Da'grosh (Commander Zarmok's too), the Tome of Twilight from Nar'gurk for Tran'gul and the Eye of Mugg from Overlord Mugg for Krom'rosh. Tunk the blacksmith drops the Krol'dok Moulding, which starts a quest for Kreza Darkthorn in Rog'mar.
+  enter "Krol'dok Stronghold" @37.2,43.9
+  complete 94975 @37.2,43.9             -- A Token of Vengeance: fifteen Cultist Ears, inside
+  complete 94972 @37.2,43.9             -- Tome of Twilight: Nar'gurk, inside
+  complete 94968 @37.2,43.9             -- Eye of Mugg: Overlord Mugg, inside
+
+step Da'grosh
+  when dungeon "Krol'dok Stronghold"
+  when complete 94975
+  tip Back to Da'grosh's camp, a short walk from the door.
+  turnin 94975                          -- Da'grosh
+  accept 95278                          -- Da'grosh: It Is Time, Brother..., for Krom'rosh in Rog'mar
+
+step Hearth to Rog'mar
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94972,94968,95278,94973
+  when level>=43
+  hearth "Rog'mar"
+
+step Tran'gul
+  when dungeon "Krol'dok Stronghold"
+  when complete 94972
+  turnin 94972                          -- Tran'gul
+
+step Krom'rosh
+  when dungeon "Krol'dok Stronghold"
+  when complete 94968
+  turnin 94968                          -- Krom'rosh
+
+step Krom'rosh
+  when dungeon "Krol'dok Stronghold"
+  when onquest 95278
+  turnin 95278                          -- Krom'rosh
+
+step Kreza Darkthorn
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94973
+  turnin 94973                          -- Kreza Darkthorn
 
 step Twilight's Shroud
   tip The next guide flies from Kargath in the Badlands: north out of Da'grosh's valley and up through Twilight's Shroud, the way through to the Badlands.
