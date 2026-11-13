@@ -17,7 +17,7 @@ return {
 	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "",
 
 	-- Step 3: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
@@ -34,13 +34,13 @@ return {
 
 	-- Step 6: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 8: Fly to Lakeshire
 	-- {area:69} Lakeshire
 	["Fly to {area:69}"] = "",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 9: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
@@ -56,7 +56,7 @@ return {
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
@@ -90,7 +90,7 @@ return {
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
