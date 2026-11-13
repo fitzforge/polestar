@@ -4812,8 +4812,18 @@ Hearthstone coming off cooldown, binding, the flight map opening, a flight
 path learned (`UI_INFO_MESSAGE` `ERR_NEWTAXIPATH`: the flight master within
 60 yd is marked known), and, with crossing data, on arriving at a crossing or
 chain waypoint and on moving more than 50 yd from where a plan at least 30 s
-old was made (checked at most once a second). `ROUTE_CHANGED` (legs) fires on
-every plan, `ROUTE_ADVANCED` (legs, ci) when the current leg moves on.
+old was made (checked at most once a second). A plan made again for a zone or
+subzone change or for walking on keeps the live route while its current leg is
+a walk the player follows (not a crossing's own walk; within 25 yd of the
+arrow's path to it and 50 yd or more from its end) unless the fresh plan goes
+another way that saves 20 s or more (`keepLive`). A way the live route left like that is remembered with what
+its walk had left along its path, and within 100 yd a fresh plan going that way
+again costs at least that, not its straight-line estimate (0.4.0, the border
+sweep: planned from each side of a zone border the player's walk crosses, two
+ways that differed only in the zone the plan started in, each priced by its
+straight line against the other's path, turned the arrow back at every step
+across it, up to 118 times in 4 minutes). `ROUTE_CHANGED` (legs) fires on every
+plan, `ROUTE_ADVANCED` (legs, ci) when the current leg moves on.
 
 **Data.** `node tools/polestar.js travel build` writes TravelData.lua
 (committed: flight masters and flight times, boats, zeppelins, the tram and

@@ -2145,12 +2145,17 @@ local function plan(target, held)
 	return route, pc, px, py, landing and pending
 end
 
+local keepLive -- (old, i, progress, fresh, target, pc, px, py) -> keep the live route against the fresh plan (below sameWay)
 function Travel.Replan()
 	if onTaxi() then
 		dirty = true
 		return
 	end
-	local old, was = legs, legs and legs[ci]
+	-- Planned again for a zone change or for walking on (dirty "zone", not for anything that changed the way):
+	-- the live route stays unless the fresh plan goes another way and saves keep.SAVES seconds (keepLive).
+	local soft = dirty == "zone"
+	local old, was, oldCi, oldBoarded, oldProgress, oldSince, oldOwed = legs, legs and legs[ci], ci, boarded, progressYards, legSince, remeasureOwed
+	local oldFloorless = floorless
 	legs, ci, boarded, dirty, progressYards, legSince, remeasureOwed = nil, 1, false, false, nil, GetTime(), false
 	local target = Nav.GetTarget()
 	if skipFor ~= target then
@@ -2161,6 +2166,13 @@ function Travel.Replan()
 	local held = was and (was.kind == "hearth" or was.bind) and legsFor == target
 	local pc, px, py
 	legs, pc, px, py = plan(target, held)
+	if soft and keepLive(old, oldCi, oldProgress, legs, target, pc, px, py) then
+		-- (floorless too: the fresh plan made without the player's floor is not the one kept, and planning once more
+		-- with the floor would take it after all.)
+		legs, ci, boarded, progressYards, legSince, remeasureOwed, floorless = old, oldCi, oldBoarded, oldProgress, oldSince, oldOwed, oldFloorless
+		if pc then planAt, planC, planX, planY = GetTime(), pc, px, py end
+		return
+	end
 	legsFor = target
 	if pc then planAt, planC, planX, planY = GetTime(), pc, px, py end
 	pricePaths()
@@ -3079,6 +3091,48 @@ local function sameWay(a, i, b, j)
 	end
 end
 
+-- A zone change or walking on plans again (Travel.Replan's soft replan). The live route is kept while its current
+-- leg is a walk the player follows (not a crossing's own walk, which zone changes are part of: there the fresh plan
+-- as before; within keep.OFF yards of the arrow's path to it, and keep.AHEAD yards or more from its end along it) and
+-- the fresh plan goes another way that saves less than keep.SAVES seconds
+-- against what the live route has left (the walk's yards along its path, then its later legs); one that fails keeps
+-- it too. A fresh plan prices a walk it has not searched by the straight line, and the live one by its path: a way
+-- the live route left this way is remembered with what it had left then (keep.ways, the last keep.MAX for the
+-- target), and within keep.NEAR yards of where it was left a fresh plan going that way again costs at least that.
+-- Planned from each side of a zone border the player's walk crosses, the two ways differed only in the zone the plan
+-- started in, each priced by its straight line against the other's path, and the arrow turned back at every step
+-- across the border, round and round (0.4.0's border sweep: 15 starts that had stopped went back and forth up to
+-- 118 times in 4 minutes; from Stonetalon Mountains into the Barrens, the walk to the crossing at its 274 s estimate
+-- against the Barrens' own walk through a pass, 351 s along its path but 60 s by its straight line). The same way is
+-- taken fresh as before, and near the walk's end (a crossing just walked through) the fresh plan as before.
+local keep = { SAVES = 20, OFF = 25, AHEAD = 50, NEAR = 100, MAX = 4, ways = {} }
+keepLive = function(old, i, progress, fresh, target, pc, px, py)
+	local cur = old and old[i]
+	if not (cur and cur.kind == "walk" and not cur.crossing and legsFor == target) then return false end
+	if not (fresh and fresh[1]) then return true end
+	if sameWay(fresh, 1, old, i) then return false end
+	local W, P = Nav.walk, cur.parent
+	local g = P or cur.to
+	local gc, gx, gy = P and P.c or g.c, P and P.wx or g.wx, P and P.wy or g.wy
+	local _, off
+	if W and W.Progress then _, off = W.Progress(gc, gx, gy) end
+	if not (off and off <= keep.OFF) then return false end
+	local along = W and W.Left and W.Left(gc, gx, gy)
+	if along then along = along - (cur.tail or 0) else along = progress end
+	if not (along and along >= keep.AHEAD) then return false end
+	local left = along / RUN_SPEED + (cur.rest or 0)
+	local cost = fresh[1].seconds + (fresh[1].rest or 0)
+	if keep.target ~= target then keep.target, keep.ways = target, {} end
+	local ways = keep.ways
+	for _, w in ipairs(ways) do
+		if w.seconds > cost and w.c == pc and yards(pc, px, py, w.c, w.x, w.y) <= keep.NEAR and sameWay(fresh, 1, w.legs, w.i) then cost = w.seconds end
+	end
+	if cost > left - keep.SAVES then return true end
+	if #ways >= keep.MAX then table.remove(ways, 1) end
+	ways[#ways + 1] = { legs = old, i = i, seconds = left, c = pc, x = px, y = py }
+	return false
+end
+
 -- The same way, freshly priced: each later walk of the route takes the fresh
 -- plan's yards, seconds and pricing for the same ends (one priced by its own
 -- path keeps that). -> true when a leg changed.
@@ -3198,7 +3252,7 @@ function Travel:Refresh()
 		lastGhost = ghost
 		dirty = true
 	end
-	if not dirty and not riding() and movedAway() then dirty = true end
+	if not dirty and not riding() and movedAway() then dirty = "zone" end
 	-- A shared time held back by the NAV_TRANSIT limit (below).
 	if not dirty and not riding() and Travel.TransitOwed and Travel.TransitOwed() then dirty = true end
 	-- The player's floor (or the floors they may be on) known after a plan made without it: once more with it (a start
@@ -3240,7 +3294,7 @@ end
 
 local function onZone()
 	if riding() then return end
-	dirty = true
+	if not dirty then dirty = "zone" end
 	Travel:Refresh()
 end
 

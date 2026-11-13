@@ -554,6 +554,77 @@ fn a_pass_the_walk_has_passed_stays_passed_when_the_walk_is_searched_again_besid
 	assert_eq!(out["again"], json!({ "n": 0, "pass": false }), "the new path goes back past the pass: no step to it again");
 }
 
+// The two zones and the gate the zone replan cases walk through: West Vale and East Vale, joined by a gate at
+// (600, +-20); from (-500, 500) in West Vale to Kobolds at (-500, -500) in East Vale. walk(gate, direct): the walk to
+// the gate is answered with the path `gate` (from the start), which dips into East Vale at (0, -10); there a zone
+// change plans again (the target walked to straight: it saves minutes), the walk to the target is answered with
+// `direct` (from (0, -10)), and a step back into West Vale at (-3, 4), beside that walk, plans again. -> the route's
+// labels before, in East Vale and back in West Vale.
+const ZONE_REPLAN: &str = r#"
+N.RegisterCrossings({ complete = true,
+	zones = {
+		[9002] = { name = "West Vale", c = 0, top = 1000, bottom = -1000, left = 1000, right = 0 },
+		[9003] = { name = "East Vale", c = 0, top = 1000, bottom = -1000, left = 0, right = -1000 },
+	},
+	crossings = { { id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 20, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 },
+		ab = "Through the gate to East Vale" } } })
+local function route()
+	local legs, ci = N.GetRoute()
+	local out = {}
+	for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].label end
+	return out
+end
+local function walk(gate, direct)
+	local r = {}
+	nav.place(-500, 500)
+	target(-500, -500, "Kobolds")
+	aim()
+	fake.resolve(unpack(gate))
+	r.west = route()
+	nav.place(-250, 245)
+	aim()
+	nav.place(0, -10)                              -- in East Vale, on the walk
+	aim()
+	stub.fire("ZONE_CHANGED")
+	r.east = route()
+	aim()
+	fake.resolve(unpack(direct))
+	aim()
+	nav.place(-3, 4)                               -- a step back into West Vale, beside that walk
+	aim()
+	stub.fire("ZONE_CHANGED")
+	r.back = route()
+	return r
+end
+"#;
+
+// Planned again for a zone change, the route goes another way only when that saves time (Travel.Replan's soft
+// replan, keepLive): planned from each side of a zone border the player's walk crosses, the two ways differed only
+// in the zone the plan started in, and the arrow turned back at every step across it (0.4.0's border sweep: from
+// Stonetalon Mountains into the Barrens, up to 118 times in 4 minutes). With straight walks: in East Vale the target
+// is walked to straight (it saves minutes: taken); a step back over the border, the way through the gate is planned
+// again from West Vale, and the walk the player is on stays.
+#[test]
+fn a_zone_change_on_the_walk_keeps_the_route_unless_the_fresh_plan_saves_time() {
+	let out = run(&[ZONE_REPLAN, r#"emit(walk({ -500, 500, 0, -10, 600, 20 }, { 0, -10, -500, -500 }))"#].concat());
+	assert_eq!(out["west"], json!(["Through the gate to East Vale", "Through the gate to East Vale", "Kobolds"]), "{out}");
+	assert_eq!(out["east"], json!(["Kobolds"]), "in East Vale the target is walked to straight: it saves minutes");
+	assert_eq!(out["back"], json!(["Kobolds"]), "a step back over the border keeps the walk the player is on");
+}
+
+// A fresh plan prices a walk it has not searched by its straight line, the live one by its path. With winding walks
+// (the walk to the gate 1,410 yd on from (0, -10), the walk to the target 2,526 yd): the way through the gate, left
+// for the straight walk in East Vale, is planned again from West Vale at its straight-line 329 s, against the 363 s
+// along the path the player is on, and would be taken back; it costs what its walk had left when it was left (421 s),
+// so the walk the player is on stays (0.4.0's border sweep: from Stonetalon Mountains into the Barrens, a walk through
+// a pass 351 s along its path but 60 s by its straight line, against the walk to the crossing).
+#[test]
+fn a_way_the_route_left_costs_what_its_walk_had_left_when_a_zone_change_plans_it_again() {
+	let out = run(&[ZONE_REPLAN, r#"emit(walk({ -500, 500, 0, -10, 0, -400, 600, -400, 600, 20 }, { 0, -10, 0, -950, -950, -950, -500, -500 }))"#].concat());
+	assert_eq!(out["east"], json!(["Kobolds"]), "in East Vale the target is walked to straight: {out}");
+	assert_eq!(out["back"], json!(["Kobolds"]), "the way through the gate costs what its walk had left: the walk the player is on stays");
+}
+
 // The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
 const HILLSIDE: &str = r#"
 local pts = { { 0, 0, 0 }, { 0, -100, -10 }, { 60, -180, -20 }, { 60, -400, -30 } }
