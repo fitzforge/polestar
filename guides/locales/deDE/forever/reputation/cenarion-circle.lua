@@ -83,7 +83,7 @@ return {
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "Zurück in der Feste",
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} steht oben in seinem Gebäude: Geh drinnen hinauf, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -99,7 +99,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} and Proudhorn"] = "{npc:15190} und Proudhorn",
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
-	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} und {npc:15190} stehen oben in ihrem Gebäude: Geht drinnen hinauf, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
@@ -124,8 +124,8 @@ return {
 
 	-- Step 18: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "Bronzebeards Lager",
-	-- {zone:1451} Silithus · {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {quest:8304} Dearest Natalia · {item:20379} Noggle's Satchel · {npc:15196} Deathclasp · {spell:10101} Knock Away
-	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "Das Lager der Zwerge im Süden von {zone:1451}. Sprich mit {npc:15171} und {npc:15170} durch ihre ganzen Geschichten für {quest:8304}. {item:20379} liegt auf dem Berg südöstlich des Lagers. {npc:15196} lebt den Pfad östlich des Lagers hinauf: eine Elite, und sein {spell:10101} kann dich von der Klippe werfen.",
+	-- {zone:1451} Silithus · {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {quest:8304} Dearest Natalia · {item:20379} Noggle's Satchel · {npc:15196} Deathclasp
+	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his Knock Away can throw you off the cliff."] = "Das Lager der Zwerge im Süden von {zone:1451}. Sprich mit {npc:15171} und {npc:15170} durch ihre ganzen Geschichten für {quest:8304}. {item:20379} liegt auf dem Berg südöstlich des Lagers. {npc:15196} wohnt den Pfad östlich des Lagers hinauf: eine Elite, und sein Wegschlagen kann dich von der Klippe werfen.",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
 	["{npc:15171} and {npc:15170}"] = "{npc:15171} und {npc:15170}",
 	-- {item:20385} Deathclasp's Pincer
@@ -135,7 +135,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "Zurück nach {area:3425} mit Neuigkeiten",
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} steht oben in seinem Gebäude: Geh drinnen hinauf, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	["Natalia, elite: group up"] = "Natalia, Elite: such dir eine Gruppe",
 
 	-- Step 20: Rubbings and brains
@@ -261,6 +261,7 @@ return {
 	-- ["From here on, the {area:3454} raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation."] = "Ab hier bringen der Schlachtzug {area:3454} und die Abgaben für den Abyssischen Rat (Wappen, Siegel, Szepter) den meisten Ruf.",
 	-- ["Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from {npc:15282}'s Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to {npc:15306}."] = "Farm weiter in den Twilight-Lagern. Mit der Twilight-Kultistenausrüstung (das Twilightkultisten-Set plus ein Standesmedaillon aus der Quest Das Standesmedallion von {npc:15282}) kannst du an den Windsteinen Abyssische Templer beschwören; ihre Abyssischen Wappen gehen an {npc:15306}.",
 	-- ["Keep running the {area:3454} and turning in Abyssal Council insignia until Exalted."] = "Lauf weiter {area:3454} und gib Insignien für den Abyssischen Rat ab, bis du Ehrfürchtig bist.",
+	-- ["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "Das Lager der Zwerge im Süden von {zone:1451}. Sprich mit {npc:15171} und {npc:15170} durch ihre ganzen Geschichten für {quest:8304}. {item:20379} liegt auf dem Berg südöstlich des Lagers. {npc:15196} lebt den Pfad östlich des Lagers hinauf: eine Elite, und sein {spell:10101} kann dich von der Klippe werfen.",
 	-- ["Twilight's Hammer cultists hold the camps in western {zone:1451}. {quest:8320} and Stonecallers mix here; any cultist can drop an {item:20404}. Every cultist kill also counts toward the {faction:609}. The Geolords count for {quest:8320} only if you are 60 and took it."] = "Kultisten des Twilight-Hammers halten die Lager im Westen von {zone:1451}. {quest:8320} und Steinrufer sind hier gemischt; jeder Kultist kann {item:20404} fallen lassen. Jeder getötete Kultist zählt auch für den {faction:609}. Die Geolords zählen nur für {quest:8320}, wenn du 60 bist und die Quest angenommen hast.",
 	-- ["{area:3425} is the walled town in north-central {zone:1451}. Bor and {npc:15270} stand together inside. The {faction:609} starts out Neutral. Forever's Legacy Diplomat perk increases reputation gains."] = "{area:3425} ist die ummauerte Stadt im nördlichen Zentrum von {zone:1451}. Bor und {npc:15270} stehen zusammen drinnen. Beim {faction:609} beginnst du mit Neutral. Forevers Vermächtnis-Vorteil „Diplomat“ erhöht den Rufgewinn.",
 	-- ["{faction:609} to Exalted"] = "{faction:609} bis Ehrfürchtig",

@@ -123,7 +123,7 @@ return {
 	-- Step 20: The Skywatcher camp: hand in
 	["The Skywatcher camp: hand in"] = "Das Skywatcher-Lager: abgeben",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
-	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "",
+	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118} bietet {quest:96261} erst an, wenn {quest:96259} abgegeben ist.",
 
 	-- Step 21: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise

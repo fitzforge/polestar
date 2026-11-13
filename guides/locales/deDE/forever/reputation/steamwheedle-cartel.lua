@@ -134,8 +134,8 @@ return {
 	["{item:274021}, Revered"] = "{item:274021}, Respektvoll",
 
 	-- Step 14: Booty Bay: Gezzy Gunkgear
-	-- {npc:265575} Gezzy Gunkgear · {faction:21} Booty Bay · {item:274745} Deckswabber's Mitts · {item:274746} Sea Giant's Toe Ring · {item:274747} Soggy Boots · {item:274748} Booty Bay Bruiser's Buckshot · {item:274749} Souvenir Sea Shell · {item:274022} Tough Guy's Eyepatch
-	["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); {item:274749}, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "{npc:265575}, der Rüstmeister von {faction:21}. Freundlich, Ausrüstung für Stufe 30: {item:274745} 1g 10s (Stärke, Beweglichkeit), {item:274746} 1g 48s (Heilung und Zauberschaden), {item:274747} 1g 3s (Intelligenz, Willenskraft). Wohlwollend: {item:274748}, eine Schusswaffe, 3g 11s (Angriffskraft, Ausdauer); {item:274749}, eine Halskette, 1g 66s (Gesundheitsregeneration, Ausdauer). Respektvoll: {item:274022}, 5g.",
+	-- {npc:265575} Gezzy Gunkgear · {faction:21} Booty Bay · {item:274745} Deckswabber's Mitts · {item:274746} Sea Giant's Toe Ring · {item:274747} Soggy Boots · {item:274748} Booty Bay Bruiser's Buckshot · {item:274022} Tough Guy's Eyepatch
+	["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); Souvenir Sea Shell, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "{npc:265575}, der Rüstmeister von {faction:21}. Freundlich, Ausrüstung für Stufe 30: {item:274745} 1g 10s (Stärke, Beweglichkeit), {item:274746} 1g 48s (Heilung und Zauberschaden), {item:274747} 1g 3s (Intelligenz, Willenskraft). Wohlwollend: {item:274748}, eine Schusswaffe, 3g 11s (Angriffskraft, Ausdauer); Souvenir Sea Shell, eine Halskette, 1g 66s (Gesundheitsregeneration, Ausdauer). Respektvoll: {item:274022}, 5g.",
 	-- {item:274745} Deckswabber's Mitts
 	["{item:274745}, Friendly"] = "{item:274745}, Freundlich",
 	-- {item:274746} Sea Giant's Toe Ring
@@ -144,8 +144,7 @@ return {
 	["{item:274747}, Friendly"] = "{item:274747}, Freundlich",
 	-- {item:274748} Booty Bay Bruiser's Buckshot
 	["{item:274748}, Honored"] = "{item:274748}, Wohlwollend",
-	-- {item:274749} Souvenir Sea Shell
-	["{item:274749}, Honored"] = "{item:274749}, Wohlwollend",
+	["Souvenir Sea Shell, Honored"] = "Souvenir Sea Shell, Wohlwollend",
 	-- {item:274022} Tough Guy's Eyepatch
 	["{item:274022}, Revered"] = "{item:274022}, Respektvoll",
 
@@ -207,5 +206,7 @@ return {
 	["Revered to Exalted is 21,000 more with each town: 840 of {npc:14637}'s turn-ins or 140 Free Knot runs. No quartermaster sells anything for Exalted: this is for the title bar only."] = "Von Respektvoll bis Ehrfürchtig sind es weitere 21.000 bei jeder Stadt: 840 Abgaben bei {npc:14637} oder 140 Free-Knot-Durchläufe. Kein Rüstmeister verkauft etwas für Ehrfürchtig: Das ist nur für die Titelleiste.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:274749}, Honored"] = "{item:274749}, Wohlwollend",
+	-- ["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); {item:274749}, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "{npc:265575}, der Rüstmeister von {faction:21}. Freundlich, Ausrüstung für Stufe 30: {item:274745} 1g 10s (Stärke, Beweglichkeit), {item:274746} 1g 48s (Heilung und Zauberschaden), {item:274747} 1g 3s (Intelligenz, Willenskraft). Wohlwollend: {item:274748}, eine Schusswaffe, 3g 11s (Angriffskraft, Ausdauer); {item:274749}, eine Halskette, 1g 66s (Gesundheitsregeneration, Ausdauer). Respektvoll: {item:274022}, 5g.",
 	-- ["{quest:5525}: 150 to every town"] = "{quest:5525}: 150 für jede Stadt",
 }

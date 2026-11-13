@@ -18,10 +18,12 @@ return {
 	["{npc:7953}, riding trainer"] = "{npc:7953}, Reitlehrer",
 
 	-- Step 2: Raptor Riding for other races
-	-- {spell:10861} Raptor Riding
-	["{spell:10861} for other races"] = "{spell:10861} für andere Rassen",
-	-- {spell:10861} Raptor Riding · {skill:762} Riding · {npc:7953} Xar'Ti · {faction:530} Darkspear Trolls
-	["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "Jede Hordenrasse kann diese Raptoren kaufen, aber um einen zu reiten, braucht man auch {spell:10861}, das nur Trolle mit {skill:762} bekommen. {npc:7953} lehrt es andere Rassen, sobald sie bei {faction:530} Ehrfürchtig sind (der Ruf-Guide für die Dunkelspeertrolle zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Raptor.",
+	-- {skill:762} Riding
+	["Raptor {skill:762} for other races"] = "Raptor-{skill:762} für andere Rassen",
+	-- {skill:762} Riding · {npc:7953} Xar'Ti · {faction:530} Darkspear Trolls
+	["Any Horde race can buy these raptors, but riding one also takes Raptor Riding, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "Jede Hordenrasse kann diese Raptoren kaufen, aber um einen zu reiten, braucht man auch Raptorreiten, das nur Trolle mit {skill:762} bekommen. {npc:7953} lehrt es andere Rassen, sobald sie bei {faction:530} Ehrfürchtig sind (der Ruf-Guide für die Darkspear-Trolle zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Raptor.",
+	-- {npc:7953} Xar'Ti
+	["{npc:7953}, Raptor Riding"] = "{npc:7953}, Raptorreiten",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",
@@ -37,5 +39,7 @@ return {
 	["{item:46102} (level 60) is in the Forever client, but its source is not known yet."] = "{item:46102} (Stufe 60) gibt es im Forever-Client, aber die Quelle ist noch unbekannt.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "Jede Hordenrasse kann diese Raptoren kaufen, aber um einen zu reiten, braucht man auch {spell:10861}, das nur Trolle mit {skill:762} bekommen. {npc:7953} lehrt es andere Rassen, sobald sie bei {faction:530} Ehrfürchtig sind (der Ruf-Guide für die Dunkelspeertrolle zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Raptor.",
 	-- ["{npc:7953} and {npc:7952}'s raptors are in {area:367} on the {zone:1411} coast. At 60 {npc:7953} teaches Journeyman {skill:762} (1,000g per Blizzard's designers); Blizzard says learning riding grants a mount. The Forever client sells each swift raptor for 200g at level 60."] = "{npc:7953} und die Raptoren von {npc:7952} sind in {area:367} an der Küste von {zone:1411}. Ab Stufe 60 lehrt {npc:7953} {skill:762} (Geselle) (laut Blizzards Designern 1.000g); laut Blizzard bekommst du beim Erlernen ein Reittier. Der Forever-Client verkauft jeden schnellen Raptor für 200g ab Stufe 60.",
+	-- ["{spell:10861} for other races"] = "{spell:10861} für andere Rassen",
 }

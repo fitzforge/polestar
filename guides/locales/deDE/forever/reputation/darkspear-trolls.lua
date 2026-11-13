@@ -27,6 +27,8 @@ return {
 	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Forever zahlt diese alten Quests auf jeder Stufe voll aus. Das {area:363} ist das Beste davon: etwa 1.400 {zone:1454} und 1.400 Darkspear-Ruf in 25 Minuten. {npc:3143} wartet in der Höhle, der großen Hütte; {npc:10176} steht davor.",
 	-- {npc:3144} Eitrigg · {zone:1454} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {zone:1454}: {quest:787}, +50"] = "{npc:3144} in {zone:1454}: {quest:787}, +50",
+	-- {npc:10176} Kaltunk
+	["{npc:10176}: Your Place in the World, +50"] = "{npc:10176}: Your Place in the World, +50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
 	["{npc:5765}: {quest:792}, warlocks only"] = "{npc:5765}: {quest:792}, nur Hexenmeister",
 

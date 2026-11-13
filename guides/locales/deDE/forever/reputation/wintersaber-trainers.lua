@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Wintersaber Trainers Reputation"] = "Ruf: Wintersäblerausbilder",
-	-- {spell:17229} Winterspring Frostsaber · {zone:1452} Winterspring
-	["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "Der {spell:17229}: 840 Quest-Abgaben in {zone:1452}, nebenbei Ruf bei den Holzschlunds.",
+	-- {zone:1452} Winterspring
+	["The Winterspring Frostsaber: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "Der Winterquell-Frostsäbler: 840 Questabgaben in {zone:1452}, nebenbei Ruf bei der Holzschlundfeste.",
 	-- {area:1769} Timbermaw Hold · {item:21383} Winterfall Spirit Beads · {quest:5201} Winterfall Intrusion
 	["{area:1769} reputation on the side: 50 and about 4 {item:21383} per {quest:5201}"] = "Ruf bei {area:1769} nebenbei: 50 und etwa 4 {item:21383} pro {quest:5201}",
 
@@ -53,4 +53,7 @@ return {
 	["{npc:7428}, elite"] = "{npc:7428}, Elite",
 	-- {npc:7429} Frostmaul Preserver
 	["{npc:7429}, elite"] = "{npc:7429}, Elite",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "Der {spell:17229}: 840 Quest-Abgaben in {zone:1452}, nebenbei Ruf bei den Holzschlunds.",
 }
