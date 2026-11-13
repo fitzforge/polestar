@@ -209,9 +209,158 @@ fn the_step_number_opens_every_step_in_place_of_the_card_marks_the_live_one_and_
 	let (copen, cclicked) = (&compact["open"], &compact["clicked"]);
 	assert_eq!((copen["list"].clone(), copen["card"].clone()), (json!(true), json!(false)), "{copen}");
 	assert_eq!((copen["n"].clone(), copen["first"].clone()), (json!(4), json!("1 \u{b7} Deputy Willem")), "{copen}");
-	assert!(copen["h"].as_f64().unwrap() >= 120.0, "{copen}");
+	assert!(copen["h"].as_f64().unwrap() > 0.0, "{copen}");
 	assert_eq!(compact["step"], 1);
 	assert_eq!((cclicked["list"].clone(), cclicked["card"].clone()), (json!(false), json!(true)), "{cclicked}");
+}
+
+// Browsing swaps the content of the existing window: a long list scrolls inside it, and a short list leaves
+// spare space. Neither case changes the height the player was already using (#1835).
+fn browser_heights(guide: &str) -> Vec<serde_json::Value> {
+	run_guide(
+		compile_guide(guide),
+		r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF, SL = Polestar.UI.GuideFrame, Polestar.UI.StepList
+				for _, compact in ipairs({ false, true }) do
+					for _, growUp in ipairs({ false, true }) do
+						Polestar.Set("ui.compact", compact)
+						Polestar.Set("ui.growUp", growUp)
+						stub.advance(0.5)
+						local before = GF.frame:GetHeight()
+						SL.Toggle(true)
+						stub.advance(0.3)
+						local opened = GF.frame:GetHeight()
+						local sc = SL.scroll
+						local content, view, bar = sc.psContent, sc.psView, sc.Bar:IsShown()
+						Polestar.Widgets.ScrollTo(sc, content)
+						local scrolled = sc:GetVerticalScroll()
+						GF.Render()
+						stub.advance(0.3)
+						local refreshed = GF.frame:GetHeight()
+						SL.Toggle(false)
+						stub.advance(0.3)
+						local closed = GF.frame:GetHeight()
+						SL.Toggle(true)
+						stub.advance(0.3)
+						local reopened = GF.frame:GetHeight()
+						SL.Toggle(false)
+						stub.advance(0.3)
+						emit({ compact = compact, growUp = growUp, before = before, opened = opened, refreshed = refreshed,
+							closed = closed, reopened = reopened, content = content, view = view, bar = bar, scrolled = scrolled })
+					end
+				end"#,
+	)
+}
+
+#[test]
+fn a_long_step_browser_keeps_the_window_height_and_scrolls_in_normal_and_compact_modes() {
+	let out = browser_heights(GUIDE);
+	assert_eq!(out.len(), 4);
+	for state in &out {
+		for stage in ["opened", "refreshed", "closed", "reopened"] {
+			assert_eq!(state[stage], state["before"], "{stage}: {state}");
+		}
+		assert!(state["content"].as_f64().unwrap() > state["view"].as_f64().unwrap(), "{state}");
+		assert_eq!(state["bar"], true, "{state}");
+		assert!(state["scrolled"].as_f64().unwrap() > 0.0, "{state}");
+	}
+}
+
+#[test]
+fn a_short_step_browser_keeps_the_window_height_instead_of_shrinking_to_its_cards() {
+	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();
+	guide.push_str("step A long step\n");
+	for i in 1..=18 {
+		guide.push_str(&format!("  goto 47.6,35.1 \"Destination {i}\"\n"));
+	}
+	let out = browser_heights(&guide);
+	assert_eq!(out.len(), 4);
+	for state in &out {
+		for stage in ["opened", "refreshed", "closed", "reopened"] {
+			assert_eq!(state[stage], state["before"], "{stage}: {state}");
+		}
+		assert!(state["content"].as_f64().unwrap() < state["view"].as_f64().unwrap(), "{state}");
+		assert_eq!(state["bar"], false, "{state}");
+		assert_eq!(state["scrolled"], 0, "{state}");
+	}
+}
+
+#[test]
+fn a_browser_near_the_top_of_the_screen_keeps_the_grow_upward_window_s_minimum_body_height() {
+	let out = run_script(
+		r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF, SL = Polestar.UI.GuideFrame, Polestar.UI.StepList
+				Polestar.Set("ui.growUp", true)
+				Polestar.Set("ui.barsBottom", true)
+				local top = UIParent:GetTop()
+				Polestar.Set("ui.pos", { 1500, top - 120 })
+				stub.advance(0.3)
+				local before = GF.frame:GetHeight()
+				SL.Toggle(true)
+				stub.advance(0.3)
+				local opened = GF.frame:GetHeight()
+				Polestar.Set("ui.pos", { 1500, top - 100 })
+				stub.advance(0.3)
+				local tighter = GF.frame:GetHeight()
+				Polestar.Set("ui.pos", { 1500, top - 120 })
+				stub.advance(0.3)
+				local back = GF.frame:GetHeight()
+				local point, _, _, _, bottom = GF.frame:GetPoint(1)
+				SL.Toggle(false)
+				stub.advance(0.3)
+				emit({ before = before, opened = opened, tighter = tighter, back = back, closed = GF.frame:GetHeight(),
+					point = point, bottom = bottom, pinned = top - 120 })"#,
+	);
+	let state = &out[0];
+	assert!(state["before"].as_f64().unwrap() > 120.0, "the window retains its minimum body even with less room: {state}");
+	for stage in ["opened", "tighter", "back", "closed"] {
+		assert_eq!(state[stage], state["before"], "{stage}: {state}");
+	}
+	assert_eq!(state["point"], "BOTTOMLEFT", "{state}");
+	assert_eq!(state["bottom"], state["pinned"], "the browser keeps the pinned bottom edge: {state}");
+}
+
+#[test]
+fn opening_the_browser_during_a_goal_fold_keeps_its_height_and_closing_resumes_normal_sizing() {
+	let out = run_script(
+		r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF, SL = Polestar.UI.GuideFrame, Polestar.UI.StepList
+				stub.world.accept(783)
+				stub.advance(0.5)
+				stub.world.turnIn(783)
+				stub.advance(0.8)
+				local folding, before = GF.Folding(), GF.frame:GetHeight()
+				SL.Toggle(true)
+				local heights = { GF.frame:GetHeight() }
+				for i = 1, 12 do
+					stub.advance(0.05)
+					heights[#heights + 1] = GF.frame:GetHeight()
+				end
+				-- Choosing a different step closes the browser and lets the card fit its new contents.
+				local r = SL.rows[3]
+				r:GetScript("OnClick")(r)
+				stub.advance(0.5)
+				local closed, card, step = GF.frame:GetHeight(), GF.parts.card:IsShown(), Polestar.Engine.GetStepIndex()
+				SL.Toggle(true)
+				stub.advance(0.3)
+				emit({ folding = folding, before = before, heights = heights, closed = closed, card = card, step = step,
+					reopened = GF.frame:GetHeight() })"#,
+	);
+	let state = &out[0];
+	assert_eq!(state["folding"], true, "the browser opens during an active goal fold: {state}");
+	for height in state["heights"].as_array().unwrap() {
+		assert_eq!(height, &state["before"], "the hidden card's fold must not resize the browser: {state}");
+	}
+	assert_eq!(state["card"], true, "{state}");
+	assert_eq!(state["step"], 4, "{state}");
+	assert_ne!(state["closed"], state["before"], "the selected card resumes fitting its contents: {state}");
+	assert_eq!(state["reopened"], state["closed"], "reopening captures the new card's height: {state}");
 }
 
 /// Only the player's own close closes the list. When the window hides (Alt-Z, combat, the setting), the client runs

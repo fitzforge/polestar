@@ -7121,8 +7121,9 @@ on it, and comes back with the window. Under the gamepad UI Escape does not
 reach it (`ns.CloseOnEscape` adds nothing there); the step number closes it.
 The guide finishing or another guide opening closes it, so the next guide
 opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepList.Place(body, steps)` for its frame
-and stacks it at `StepList.Layout(width, room)`, as tall as its cards up to
-the window's cap (`ui.maxHeight`, the screen's top with Grow upward).
+and stacks it at `StepList.Layout(width, room)`, filling the space within
+the window's height captured on opening (still limited by the screen's top
+with Grow upward). Overflow scrolls; a short list leaves the spare space.
 `StepList.Fill` reads `Engine.GetStepView` for each step not hidden for this
 character (`UI.StepHidden`) and not `na`: all of them when the guide, the
 step on screen, the live step or the progress moved, else only the live and
