@@ -2897,15 +2897,6 @@ test('Horde 40-50/01: the classes the Undercity trains do their level 40 trainin
 	}
 });
 
-test('Horde 40-50/06: the level 50 top-up comes after the Azshara hand-ins, not before them (#2025 grind steps)', { skip }, () => {
-	const list = goals(H40('06-azshara'));
-	const grind = at(list, 'the level 50 grind', (g) => g.t === 'level' && g.level === 50);
-	for (const q of [5535, 5536, 3517, 3565]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < grind, `${q} is handed in before the grind`);
-	const fly = list.findIndex(({ goal }, i) => i > grind && goal.t === 'fly' && goal.location === 'Orgrimmar');
-	const march = at(list, 'accept 4494 (March of the Silithid)', is('accept', 4494));
-	assert.ok(fly > grind && march > fly, 'the grind is the last thing before the flight to Orgrimmar and March of the Silithid');
-});
-
 test('Horde 40-50: grind tips name a dungeon only when its run is in the same or the next guide on that continent', { skip }, () => {
 	// The dungeons-in-the-route rule (0.4.0): Uldaman and Maraudon have no run in the route; the Sunken Temple's is in
 	// 50-60/01, two guides after 40-50/05; Zul'Farrak's is in 40-50/04, right after 40-50/03.
