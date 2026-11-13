@@ -191,6 +191,157 @@ fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_n
 	assert_eq!(out[2], json!({ "fangs": 1, "shell": 0, "cloth": 13, "ring": 0 }), "junk-marked cloth sells; the kept shell and the ring stay");
 }
 
+// Typed tooltips the way Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua runs them, for the mark keys:
+// hover(kind, link) shows GameTooltip as an Item (0), Spell (1) or Unit (2) tooltip and runs the post-calls;
+// GetItem answers with the link even for a spell or a unit (a stale item, as the client can); RefreshData
+// rebuilds the lines and runs the post-calls again. Loaded before the addon so Hooks takes the post-call path.
+const TYPED_TOOLTIP: &str = r#"
+	Enum.TooltipDataType = { Item = 0, Spell = 1, Unit = 2 }
+	local posts = {}
+	TooltipDataProcessor = { AllTypes = "ALL" }
+	function TooltipDataProcessor.AddTooltipPostCall(kind, fn) posts[#posts + 1] = { kind = kind, fn = fn } end
+	TooltipUtil = {}
+	function TooltipUtil.GetDisplayedItem(tooltip)
+		if tooltip:IsTooltipType(Enum.TooltipDataType.Item) and tooltip.link then return "Item", tooltip.link, tooltip.id end
+	end
+	function GameTooltip:IsTooltipType(kind) return self.kind == kind end
+	function GameTooltip:GetItem() return "Item", self.link end
+	local function build(self)
+		self.lines = {}
+		for _, p in ipairs(posts) do
+			if p.kind == self.kind or p.kind == "ALL" then p.fn(self, { type = self.kind, id = self.kind == 0 and self.id or nil }) end
+		end
+	end
+	function GameTooltip:RefreshData() self.refreshes = (self.refreshes or 0) + 1; build(self) end
+	function hover(kind, link)
+		GameTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+		GameTooltip.kind, GameTooltip.link = kind, link
+		GameTooltip.id = link and tonumber(link:match("item:(%d+)"))
+		build(GameTooltip)
+		GameTooltip:Show()
+	end
+"#;
+
+const FILES_KEYS: [&str; 6] = ["Core/Init.lua", "Core/Compat.lua", "Core/Hooks.lua", "Theme/Theme.xml", "QoL/QoL.xml", "Core/Commands.lua"];
+
+fn run_keys(script: &str) -> Vec<Value> {
+	emitted(&RunAddon {
+		stubs: vec!["stub_qol.lua"],
+		addons: vec![Addon::files("Polestar", &FILES_KEYS)],
+		before: TYPED_TOOLTIP.into(),
+		saved: vec![],
+		login: true,
+		script: format!("{PRELUDE}{script}"),
+	})
+}
+
+// Ramirez's two keys (Key Bindings > Polestar: Mark as junk, Mark to keep), pressed through their bindings
+// (Polestar.Bindings.MarkJunk / MarkKeep) over an item: each gives it that mark, or takes it off when the item has
+// it already, and the tooltip under the cursor shows the new mark at once. Over no item, a spell or a unit (whose
+// GetItem still names the cloth) they say to point at an item; nothing while marks are off or Polestar is hidden.
+// The Ctrl+Alt-click cycle is unchanged (the test above).
+#[test]
+fn mark_keys_set_or_clear_their_own_mark_on_the_hovered_item_and_its_tooltip_shows_it_at_once() {
+	let out = run_keys(
+		r#"
+		local B, M = Polestar.Bindings, QoL.Marks
+		local cloth = "|Hitem:3|h[Linen Cloth]|h"
+		local function mark() return M.Get(3) or "none" end
+		local function line()
+			for _, l in ipairs(GameTooltip.lines) do if l:find("^Polestar | Marked") then return l end end
+			return "none"
+		end
+
+		GameTooltip:Hide()
+		stub.messages = {}
+		B.MarkJunk()
+		local asked = { hidden = printed("Point at an item to mark it") }
+		for name, kind in pairs({ spell = 1, unit = 2 }) do
+			hover(kind, cloth)
+			stub.messages = {}
+			B.MarkJunk()
+			asked[name] = printed("Point at an item to mark it")
+		end
+		emit({ mark = mark(), asked = asked })
+
+		hover(0, cloth)
+		local seq = {}
+		for _, press in ipairs({ "MarkJunk", "MarkJunk", "MarkKeep", "MarkJunk", "MarkKeep", "MarkKeep" }) do
+			B[press]()
+			seq[#seq + 1] = mark() .. " / " .. line()
+		end
+		emit({ seq = seq, said = printed("Linen Cloth%]|h is junk now"), kept = printed("Linen Cloth%]|h is kept now"),
+			cleared = printed("Linen Cloth%]|h: mark cleared") })
+
+		q.bindings.POLESTAR_MARK_JUNK = { "CTRL-J" }
+		q.bindings.POLESTAR_MARK_KEEP = { "CTRL-K" }
+		B.MarkJunk()
+		local junk = line()
+		B.MarkKeep()
+		emit({ junk = junk, keep = line() })
+		B.MarkKeep()
+
+		set("itemMarks", false)
+		stub.messages = {}
+		B.MarkJunk()
+		emit({ off = mark(), quiet = #stub.messages })
+		set("itemMarks", true)
+
+		Polestar.SetHidden(true)
+		stub.messages = {}
+		local refreshes = GameTooltip.refreshes or 0
+		B.MarkJunk()
+		emit({ hidden = mark(), quiet = #stub.messages, refreshed = (GameTooltip.refreshes or 0) - refreshes })
+		Polestar.SetHidden(false)
+		"#,
+	);
+	assert_eq!(out[0], json!({ "mark": "none", "asked": { "hidden": true, "spell": true, "unit": true } }), "over no item, a spell or a unit: nothing marked, and it says to point at an item");
+	assert_eq!(
+		out[1],
+		json!({
+			"seq": [
+				"junk / Polestar | Marked as junk",
+				"none / none",
+				"keep / Polestar | Marked to keep",
+				"junk / Polestar | Marked as junk",
+				"keep / Polestar | Marked to keep",
+				"none / none",
+			],
+			"said": true, "kept": true, "cleared": true,
+		}),
+		"each key sets or clears its own mark, and the tooltip under the cursor follows without a re-hover"
+	);
+	assert_eq!(
+		out[2],
+		json!({ "junk": "Polestar | Marked as junk (CTRL-J clears it)", "keep": "Polestar | Marked to keep (CTRL-K clears it)" }),
+		"the tooltip names the bound key that clears the mark"
+	);
+	assert_eq!(out[3], json!({ "off": "none", "quiet": 0 }), "nothing, and nothing said, while marks are off");
+	assert_eq!(out[4], json!({ "hidden": "none", "quiet": 0, "refreshed": 0 }), "nothing while Polestar is hidden");
+}
+
+// The Ctrl+Alt click refreshes the hovered item's tooltip too, and a mark set on another item (a chat link) leaves
+// the shown tooltip alone.
+#[test]
+fn mark_click_refreshes_the_tooltip_only_when_it_shows_that_item() {
+	let out = run_keys(
+		r#"
+		local M = QoL.Marks
+		local cloth, ring = "|Hitem:3|h[Linen Cloth]|h", "|Hitem:5|h[Jade Ring]|h"
+		IsControlKeyDown = function() return true end
+		IsAltKeyDown = function() return true end
+		IsShiftKeyDown = function() return false end
+		hover(0, cloth)
+		local before = GameTooltip.refreshes or 0
+		M.OnItemClick(ring, 5)
+		local other = (GameTooltip.refreshes or 0) - before
+		M.OnItemClick(cloth, 3)
+		emit({ other = other, same = (GameTooltip.refreshes or 0) - before - other, ring = M.Get(5) or "none", line = GameTooltip.lines[#GameTooltip.lines] })
+		"#,
+	);
+	assert_eq!(out[0], json!({ "other": 0, "same": 1, "ring": "junk", "line": "Polestar | Marked as junk" }));
+}
+
 // #946: junk marked in the reagent bag (bag 5, past NUM_BAG_SLOTS) is the bag button's cheapest junk and sells at a
 // merchant, while the reagent bag's free slots stay out of the free count (it takes only reagents).
 #[test]
