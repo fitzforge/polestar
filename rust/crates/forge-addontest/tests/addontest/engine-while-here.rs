@@ -1232,7 +1232,8 @@ emit({ cross = cross[1], rows = rows() })
 // #1705: the Tattered Spellbook offers Old Habits only while Nek'rosh's Gambit (465) or Defeat Nek'rosh (474) is in
 // the log, and the guide's step for it says so (`when onquest 465,474`, before the catapult that takes 465). While
 // you're here and auto-accept read that step: with 465 in the log the book is a pick-up on the way; with 465 handed
-// in and 474 never taken (a solo player), it is neither offered nor taken.
+// in and 474 never taken (a solo player), it is neither offered nor taken. Only the book's row is read: the catapult
+// stands in reach of the book too, and what its own steps offer there is theirs.
 #[test]
 fn old_habits_is_offered_only_while_its_steps_gate_holds() {
 	let guide = r#"
@@ -1259,13 +1260,15 @@ flush()
 		r#"
 at(53.48, 54.53)
 w.units.npc = "GameObject-0-1-0-1-671518-000001"
-emit({ step = E.GetLiveStep(), rows = cands(), wants = E.WantsQuest("accept", 98223) })
+local function book() return (" " .. cands() .. " "):find(" 2:1:take:", 1, true) ~= nil end
+emit({ step = E.GetLiveStep(), book = book(), wants = E.WantsQuest("accept", 98223) })
 w.turnIn(465); flush()
-emit({ step = E.GetLiveStep(), rows = cands(), wants = E.WantsQuest("accept", 98223) })
+emit({ step = E.GetLiveStep(), book = book(), wants = E.WantsQuest("accept", 98223) })
 "#,
 	);
-	assert_eq!(out[0], json!({ "step": 1, "rows": "2:1:take:0", "wants": true }), "465 in the log: the book is a pick-up on the way");
-	assert_eq!(out[1], json!({ "step": 1, "rows": "", "wants": false }), "465 handed in, 474 never taken: nothing to take");
+	assert_eq!(out[0], json!({ "step": 1, "book": true, "wants": true }), "465 in the log: the book is a pick-up on the way");
+	// Handed in at the catapult, 465's step is done and the guide follows on to Defeat Nek'rosh (step 4).
+	assert_eq!(out[1], json!({ "step": 4, "book": false, "wants": false }), "465 handed in, 474 never taken: the book is neither offered nor taken");
 }
 
 #[test]
