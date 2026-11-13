@@ -4268,14 +4268,14 @@
 			{
 				"a": [
 					"turnin",
-					92
+					127
 				],
 				"b": [
 					"accept",
 					150
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): Murloc Poachers (150, from level 20) is taken from Dockmaster Baren on Redridge's first visit, on the pass through town after the gnoll hills when the player is 20 by then, otherwise on the last Lakeshire stop with The Everstill Bridge's hand-in; its murlocs are done on the 24 visit."
+				"why": "Flow (2026-11-07, Alliance 12-20): Murloc Poachers (150, from level 20) is taken from Dockmaster Baren on Redridge's first visit, after Selling Fish's hand-in on the docks when the player is 20 by then (0.4.0: the pass through town comes before the gnoll hills), otherwise on the last Lakeshire stop with The Everstill Bridge's hand-in; its murlocs are done on the 24 visit."
 			},
 			{
 				"a": [
@@ -4304,26 +4304,62 @@
 			{
 				"a": [
 					"turnin",
-					246
+					3741
 				],
 				"b": [
 					"task",
-					3741
+					246
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Redridge at 20): Hilary's necklace is fished from the lake with the Sunken Chest on the walk back from Deputy Feldon and handed to Hilary at the bridge on the pass through town, not on a stop of its own right after the first Lakeshire stop."
+				"why": "0.4.0 route audit (Alliance 12-21, F4): Redridge's first visit crossed between Lakeshire and Three Corners twice (Lakeshire -> Guard Parker at Three Corners -> back east through the gnoll hills to Deputy Feldon -> the lake -> Lakeshire -> west again through Three Corners to Goldshire). Now Lakeshire's accepts, the lake (the Sunken Chest, Hilary's necklace), the hand-ins at the bridge, then west through the gnoll hills to Guard Parker on the way out to Goldshire; Feldon, Martie, Darcy and Chef Breanna take theirs on the stop the gryphon brings back to Lakeshire, which lands beside Feldon (about 900 yd less, map distances). Hilary's necklace before the gnoll hills."
+			},
+			{
+				"a": [
+					"task",
+					246
+				],
+				"b": [
+					"turnin",
+					129
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (Alliance 12-21, F4): Redridge's first visit crossed between Lakeshire and Three Corners twice (Lakeshire -> Guard Parker at Three Corners -> back east through the gnoll hills to Deputy Feldon -> the lake -> Lakeshire -> west again through Three Corners to Goldshire). Now Lakeshire's accepts, the lake (the Sunken Chest, Hilary's necklace), the hand-ins at the bridge, then west through the gnoll hills to Guard Parker on the way out to Goldshire; Feldon, Martie, Darcy and Chef Breanna take theirs on the stop the gryphon brings back to Lakeshire, which lands beside Feldon (about 900 yd less, map distances). The gnoll hills, then Guard Parker at their west end on the way out."
 			},
 			{
 				"a": [
 					"turnin",
-					129
+					118
 				],
 				"b": [
-					"task",
+					"turnin",
 					246
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Redridge at 20): Guard Parker at Three Corners, the far west end of the gnoll hills, first; the gnolls on the way back east to Deputy Feldon, so the walk doesn't pass Parker with his lunch and come back."
+				"why": "0.4.0 route audit (Alliance 12-21, F4): Redridge's first visit crossed between Lakeshire and Three Corners twice (Lakeshire -> Guard Parker at Three Corners -> back east through the gnoll hills to Deputy Feldon -> the lake -> Lakeshire -> west again through Three Corners to Goldshire). Now Lakeshire's accepts, the lake (the Sunken Chest, Hilary's necklace), the hand-ins at the bridge, then west through the gnoll hills to Guard Parker on the way out to Goldshire; Feldon, Martie, Darcy and Chef Breanna take theirs on the stop the gryphon brings back to Lakeshire, which lands beside Feldon (about 900 yd less, map distances). Feldon on the return."
+			},
+			{
+				"a": [
+					"turnin",
+					118
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (Alliance 12-21, F4): Redridge's first visit crossed between Lakeshire and Three Corners twice (Lakeshire -> Guard Parker at Three Corners -> back east through the gnoll hills to Deputy Feldon -> the lake -> Lakeshire -> west again through Three Corners to Goldshire). Now Lakeshire's accepts, the lake (the Sunken Chest, Hilary's necklace), the hand-ins at the bridge, then west through the gnoll hills to Guard Parker on the way out to Goldshire; Feldon, Martie, Darcy and Chef Breanna take theirs on the stop the gryphon brings back to Lakeshire, which lands beside Feldon (about 900 yd less, map distances). Martie on the return."
+			},
+			{
+				"a": [
+					"turnin",
+					118
+				],
+				"b": [
+					"turnin",
+					92
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (Alliance 12-21, F4): Redridge's first visit crossed between Lakeshire and Three Corners twice (Lakeshire -> Guard Parker at Three Corners -> back east through the gnoll hills to Deputy Feldon -> the lake -> Lakeshire -> west again through Three Corners to Goldshire). Now Lakeshire's accepts, the lake (the Sunken Chest, Hilary's necklace), the hand-ins at the bridge, then west through the gnoll hills to Guard Parker on the way out to Goldshire; Feldon, Martie, Darcy and Chef Breanna take theirs on the stop the gryphon brings back to Lakeshire, which lands beside Feldon (about 900 yd less, map distances). Chef Breanna on the return."
 			},
 			{
 				"a": [

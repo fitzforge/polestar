@@ -6139,16 +6139,21 @@ test('Redridge level gap (PR #1052): Redridge\'s Gath\'Ilzogg, Gar\'im and Fango
 // just north of her garden; no along list for the Spotted Sunfish.
 // Since the Alliance 12-20 re-order (2026-11-07) the gnoll hills, Feldon, the chest, Oslow and Martie are Redridge's
 // first visit at 19-20 (03-loch-modan); the murlocs, Baren, Bellygrub and Martie's second errand stay at 24.
-test(`${LOCH_MODAN}: flow audit: the Sunken Chest on the way from Feldon, Lakeshire crossed east to west once, no along lists`, { skip }, () => {
+// 0.4.0 route audit (Alliance 12-21, F4): that loop still went Lakeshire -> Guard Parker at Three Corners -> east
+// through the gnoll hills to Feldon -> the lake -> Lakeshire -> west through Three Corners again. Now: Lakeshire's
+// accepts, the lake, the bridge hand-ins, west through the gnoll hills to Parker on the way out; Feldon, Martie,
+// Darcy and Breanna on the stop the gryphon brings back (it lands beside Feldon).
+test(`${LOCH_MODAN}: flow audit: Redridge's first visit crosses to Three Corners once, Feldon and Martie on the gryphon's return, no along lists`, { skip }, () => {
 	const list = goals(LOCH_MODAN);
 	const idx = (what, pred) => at(list, what, pred);
-	const feldon = idx('turnin 246', is('turnin', 246));
 	const chest = idx('the Sunken Chest', (g) => g.t === 'collect' && g.item === 1309);
 	const oslow = idx('turnin 125', is('turnin', 125));
-	const martie = idx('turnin 130', is('turnin', 130));
-	assert.ok(feldon < chest && chest < oslow && oslow < martie, 'Feldon, the chest, Oslow, then Martie');
-	assert.equal(list[oslow].s, list[martie].s, 'Oslow and Martie on one pass through town');
-	assert.ok(idx('the gnolls', is('kill', 246)) < feldon, 'the gnoll hills before Feldon');
+	const gnolls = idx('the gnolls', is('kill', 246));
+	const parker = idx('turnin 129', is('turnin', 129));
+	const argus = idx('turnin 118 (Smith Argus)', is('turnin', 118));
+	assert.ok(chest < oslow && oslow < gnolls && gnolls < parker && parker < argus, 'the lake, the bridge hand-ins, the gnoll hills, Parker, then Goldshire');
+	for (const q of [246, 130, 92]) assert.ok(idx(`turnin ${q}`, is('turnin', q)) > argus, `${q} handed in on the return to Lakeshire`);
+	assert.equal(list[idx('turnin 130', is('turnin', 130))].s, list[idx('turnin 121', is('turnin', 121))].s, 'Martie on the return stop through town');
 	const red = goals(REDRIDGE);
 	const fins = red.find(({ goal }) => goal.t === 'collect' && goal.item === 1468);
 	const baren = at(red, 'turnin 150', is('turnin', 150));
