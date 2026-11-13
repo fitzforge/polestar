@@ -128,7 +128,7 @@ function Upcoming.Build()
 	local count, pins, n = E.GetStepCount(), {}, 0
 	for s = live + 1, count do
 		if n >= want then break end
-		local v = E.GetStepView(s)
+		local v = E.GetStepView(s, true)
 		-- Numbered as the player counts the steps; one not theirs never shows (#942).
 		local no, hidden = s, false
 		if E.StepNumber then no, hidden = E.StepNumber(s) end

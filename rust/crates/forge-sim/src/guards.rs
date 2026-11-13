@@ -340,6 +340,10 @@ impl Walk<'_> {
 		if r.q_excl[qi].iter().any(|&e| self.accepted_by(e, t)) || r.q_all[qi].iter().any(|&a| !self.done_by(a, t)) {
 			return false;
 		}
+		// Held back while one of its breadcrumbs is in the log.
+		if r.crumbs(qi).iter().any(|&c| self.in_log_at(c, t)) {
+			return false;
+		}
 		r.q_pre[qi].is_empty() || r.q_pre[qi].iter().any(|&p| self.done_by(p, t))
 	}
 	fn in_window(&self, q: u32, t: usize) -> bool {

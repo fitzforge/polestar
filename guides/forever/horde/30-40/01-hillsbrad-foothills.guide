@@ -52,6 +52,16 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # levels before the Dabyrie family (33-35) fit, and the route does not come back to the
 # Undercity after the 38-39 Arathi visit.
 #
+# City of Dalaran (`when dungeon "City of Dalaran"`, dungeons in the route): for a character who runs it,
+# Melisara's The Grave Knight (96986) is taken with Voidglare's quests on the Tarren Mill stop at about 30.5,
+# the run follows the Dalaran crater stop at about 31, through the sewer pipe north-west of the crater
+# (Alterac 12.8,62.2, where players' recordings go in, Horde characters without the Dalaran Sewer Key
+# among them: the key comes only with Heart of Disruption, 96984, after Dalaran Patrols on the 38-39
+# visit), and Melisara takes it back on the next Tarren Mill stop (`when dungeon`, `when complete`). Rexxie Copperclutch's
+# Opportunistic Education (96987) starts and ends inside (the run tip names it). Left out: Source of Power
+# (96988: Doctor Martin Felben in the Undercity, level 33, 3.5 levels over on the Undercity stop at 29.5)
+# and Heart of Disruption (96984: after Blood in the Streets, 92434, on the 38-39 visit).
+#
 # Optional extras:
 # - Elixir of Agony (515, 517, 524): needs a Lesser Troll's Blood Elixir (item 3388; the quest
 #   text says Strong, the objective takes the Lesser one), an Alchemy item no vendor sells.
@@ -305,6 +315,12 @@ step Tarren Mill
   accept 556                          -- Keeper Bel'varil, inside: offered from level 30
   accept 676                          -- Tallow: for Drum Fel in Hammerfall, later in this guide (from level 30)
 
+step Melisara
+  when dungeon "City of Dalaran"
+  zone Hillsbrad Foothills
+  tip For your City of Dalaran run, later in this guide: Melisara stands in Tarren Mill, a short walk east of Magus Wordeen Voidglare.
+  accept 96986                        -- Melisara
+
 # ---------------------------------------------------------------- The flames, Dalaran, the mine
 
 step Foothill Caverns
@@ -332,6 +348,15 @@ step The Dalaran crater
   collect 3688 quest 544.4            -- Kegan Darkmar
   collect 279469 quest 93680.1 @16.4,89.3 map 1416 -- Grimy Key: an object to loot, by the traitors
   collect 3714 quest 556
+
+step City of Dalaran
+  when dungeon "City of Dalaran"
+  when onquest 96986
+  zone Alterac Mountains
+  tip The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the Dalaran Sewer Key, go in through the sewer pipe north-west of the crater: the arrow leads there.
+  tip Inside: Atrexis the Grave Knight is Melisara's. Rexxie Copperclutch, in the sewer, gives Opportunistic Education and takes it back there.
+  enter "City of Dalaran" @12.8,62.2 live
+  complete 96986 @12.8,62.2 live      -- The Grave Knight: Atrexis, inside
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills
@@ -392,6 +417,13 @@ step Tarren Mill
   accept 545                          -- Magus Wordeen Voidglare: for the 38-39 visit to Alterac
   note Krusk now offers Gol'dir (level 36): leave it for the 38-39 visit.
   turnin 515 optional                 -- Apothecary Lydon, inside
+
+step Melisara
+  when dungeon "City of Dalaran"
+  when complete 96986
+  zone Hillsbrad Foothills
+  tip The Grave Knight from your City of Dalaran run: Melisara, a short walk east of Magus Wordeen Voidglare.
+  turnin 96986                        -- Melisara
 
 step Elixir of Agony with a group
   when group 517

@@ -123,14 +123,18 @@ function GF.ApplyCompact()
 end
 
 -- Scale about the pinned corner, so the window stays where the user put
--- it, then repaint so 1px lines land on the new pixel grid.
+-- it, then repaint so 1px lines land on the new pixel grid. From the scale
+-- Polestar set last (GF.scale), not the window's own: another addon may hold
+-- the window out of sight at a scale far below a pixel (ns.OutOfSight), and a
+-- place worked out from that would land in the corner of the screen.
 function GF.ApplyScale()
 	local new = ns.Get("ui.scale") or 1
-	local old = F:GetScale()
+	local old = GF.scale or F:GetScale()
 	if old == new then return end
 	local l = F:GetLeft()
 	local corner, y = pinCorner()
 	F:SetScale(new)
+	GF.scale = new
 	if l and y and type(ns.Get("ui.pos")) == "table" then
 		F:ClearAllPoints()
 		F:SetPoint(corner, UIParent, "BOTTOMLEFT", l * old / new, y * old / new)
@@ -179,7 +183,8 @@ local APPLY = {
 
 local function applyAll()
 	GF.ApplySkin()
-	F:SetScale(ns.Get("ui.scale") or 1)
+	GF.scale = ns.Get("ui.scale") or 1
+	F:SetScale(GF.scale)
 	GF.ApplyPosition()
 	GF.ApplyLock()
 	GF.ApplyWidth()

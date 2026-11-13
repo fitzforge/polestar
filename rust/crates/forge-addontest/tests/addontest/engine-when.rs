@@ -263,6 +263,32 @@ fn zone_subzone_and_bound_read_the_area_name_in_the_client_s_language_else_the_n
 }
 
 #[test]
+fn taxi_holds_for_a_flight_path_the_character_knows_by_its_node_else_by_its_name() {
+	let out = run(
+		"WHEN",
+		&format!("{TAKEN}{WHEN_BEFORE}"),
+		None,
+		"",
+		r#"
+			local G = Polestar.Guides.Get("test/when")
+			local flags = Polestar.CharState().flags
+			local out = {}
+			local function check(label, pred) PolestarCharDB.when["test/when"] = nil; G.steps[2].when = { pred }; flush(); out[#out + 1] = label .. "=" .. E.GetStepView(2).status end
+			check("node not known", { k = "taxi", name = "Ironforge", node = 6 })
+			check("!node not known", { k = "taxi", name = "Ironforge", node = 6, neg = true })
+			flags.taxi = { [6] = true }
+			check("node known", { k = "taxi", name = "Ironforge", node = 6 })
+			check("!node known", { k = "taxi", name = "Ironforge", node = 6, neg = true })
+			check("name not known", { k = "taxi", name = "Thelsamar" })
+			flags.fp = { ["Thelsamar, Loch Modan"] = true }
+			check("name known", { k = "taxi", name = "Thelsamar" })
+			emit(out)
+		"#,
+	);
+	assert_eq!(out[0], json!(["node not known=na", "!node not known=current", "node known=current", "!node known=na", "name not known=na", "name known=current"]));
+}
+
+#[test]
 fn a_turn_in_whose_only_accept_sits_in_a_step_passed_by_its_when_goes_with_it() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
@@ -307,7 +333,7 @@ fn a_guide_with_a_malformed_when_is_refused() {
 local V = Polestar.Guides.Validate
 local function step(when) return { id = "test/x", title = "X", steps = { { when = when, goals = { { t = "level", level = 2 } } } } } end
 emit({
-	ok = V(step({ { k = "level", op = "<", n = 3 }, { k = "onquest", q = { 7 } }, { k = "has", item = 159 }, { k = "zone", name = "Elwynn Forest" }, { k = "dungeon", name = "Ragefire Chasm", map = 389 }, { k = "dungeon", name = "Ragefire Chasmm" } })) or false,
+	ok = V(step({ { k = "level", op = "<", n = 3 }, { k = "onquest", q = { 7 } }, { k = "has", item = 159 }, { k = "zone", name = "Elwynn Forest" }, { k = "dungeon", name = "Ragefire Chasm", map = 389 }, { k = "dungeon", name = "Ragefire Chasmm" }, { k = "taxi", name = "Ironforge", node = 6 }, { k = "taxi", name = "Thelsamar" } })) or false,
 	empty = V(step({})),
 	op = V(step({ { k = "level", op = "=", n = 3 } })),
 	kind = V(step({ { k = "weather", n = 3 } })),
@@ -316,6 +342,8 @@ emit({
 	place = V(step({ { k = "bound" } })),
 	dungeon = V(step({ { k = "dungeon", map = 389 } })),
 	dungeonMap = V(step({ { k = "dungeon", name = "Ragefire Chasm", map = "389" } })),
+	taxi = V(step({ { k = "taxi", node = 6 } })),
+	taxiNode = V(step({ { k = "taxi", name = "Ironforge", node = "6" } })),
 })
 "#
 		.into(),
@@ -333,6 +361,8 @@ emit({
 			"place": "step 1: bad when",
 			"dungeon": "step 1: bad when",
 			"dungeonMap": "step 1: bad when",
+			"taxi": "step 1: bad when",
+			"taxiNode": "step 1: bad when",
 		})
 	);
 }

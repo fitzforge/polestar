@@ -133,7 +133,7 @@ async function playGuideIn(pool, pack, g, opts) {
 }
 
 // runAddon's options for a play (playGuide).
-function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip' }) {
+function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip', dungeonMaps = [] }) {
 	const raceName = race === 'Scourge' ? 'Undead' : race;
 	const first = g.steps.flatMap((s) => s.goals).find((x) => x.map && x.x != null);
 	const home = g.category && g.category !== 'Leveling' ? HOME[race] : null;
@@ -156,6 +156,8 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			stub.fire("QUEST_LOG_UPDATE") -- the client fills the quest log right after login
 			Polestar.Set("behavior.guideEnd", ${handOver ? '"continue"' : '"ask"'})
 			Polestar.Set("behavior.groupQuests", ${luaValue(groups)})
+			Polestar.Set("behavior.dungeons", "skip") -- the solo route, whatever "Dungeons in my route" defaults to; --dungeon chooses below
+			${dungeonMaps.map((m) => `Polestar.Engine.ChooseDungeon(${Number(m)}, true)`).join('\n')}
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
 			Polestar.Engine.SetGuide(${luaValue(g.id)})
 			SIM_GUIDE = Polestar.Engine.GetGuide() -- a hand-over may replace it before SIMULATE starts
@@ -410,6 +412,29 @@ function groupsFit(when, groups) {
 	return !(when || []).some((p) => p.k === 'group' && (groups === 'do') === !!p.neg);
 }
 
+// The dungeons a playtest player chose (`--dungeon`, as Options' "Dungeons in
+// leveling guides" sets them): null or [] none (the solo route), "all", or a
+// list of map ids and names ("36", "Wailing Caverns", "The Deadmines").
+// -> chosen(p) for a compiled `when dungeon` predicate.
+function dungeonPicker(dungeons) {
+	if (dungeons === 'all') return () => true;
+	const norm = (s) => String(s).trim().toLowerCase().replace(/^the\s+/, '');
+	const set = new Set([].concat(dungeons || []).map(norm));
+	return (p) => (p.map != null && set.has(String(p.map))) || (p.name != null && set.has(norm(p.name)));
+}
+
+// A step's `when dungeon` predicates with the dungeons `chosen` picks.
+function dungeonsFit(when, chosen) {
+	return !(when || []).some((p) => p.k === 'dungeon' && chosen(p) === !!p.neg);
+}
+
+// The map ids of every dungeon `chosen` picks among the guides' `when dungeon` predicates.
+function dungeonMapsOf(guides, chosen) {
+	const maps = new Set();
+	for (const g of guides) for (const s of g.steps || []) for (const p of s.when || []) if (p.k === 'dungeon' && p.map != null && chosen(p)) maps.add(Number(p.map));
+	return [...maps].sort((a, b) => a - b);
+}
+
 // The prerequisites (`pre`, `preAll`) of g's accepts that a player arriving
 // on the route brings, as { done, carried, open }: `done`, those the guides
 // chaining into g (through `next`, any route option, any number of guides
@@ -418,7 +443,7 @@ function groupsFit(when, groups) {
 // arrival; `open`, those they accept and leave for g to work and hand in (an
 // objective goal of it in g, no accept): in the log with its objectives to do.
 // The engine passes by an accept whose prerequisite is missing (issue #70).
-function chainDone(guides, g, persona, groups = 'skip') {
+function chainDone(guides, g, persona, groups = 'skip', chosen = dungeonPicker(null)) {
 	const into = new Map();
 	for (const from of guides) {
 		for (const to of from.nextChoices || (from.next ? [from.next] : [])) into.set(to, [...(into.get(to) || []), from]);
@@ -432,7 +457,7 @@ function chainDone(guides, g, persona, groups = 'skip') {
 		if (seen.has(from.id)) continue;
 		seen.add(from.id);
 		for (const s of from.steps) {
-			if (!onlyFits(s.only, persona) || !groupsFit(s.when, groups)) continue;
+			if (!onlyFits(s.only, persona) || !groupsFit(s.when, groups) || !dungeonsFit(s.when, chosen)) continue;
 			for (const x of s.goals) {
 				if (!x.quest || !onlyFits(x.only, persona)) continue;
 				if (x.t === 'turnin') turned.add(x.quest);
@@ -504,7 +529,7 @@ function playData(dir, diag) {
 // simulator takes the guide's optional `train` of each like any goal and then
 // plays the steps behind `when skill` they open (on its own it takes no
 // optional goal, so it never learns a profession).
-async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null }) {
+async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null }) {
 	const dataDiag = new Diagnostics();
 	data = data || playData(dataDir, dataDiag);
 	const contextData = official ? null : contextDataDir && path.resolve(contextDataDir) !== path.resolve(dataDir) ? playData(contextDataDir, dataDiag) : data;
@@ -543,10 +568,12 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 	}
 	const results = [];
 	if (diag.hasErrors()) return { results, diag, played: 0 };
-	if (honest) return honestRun({ guides, packs, play, data, classes, groups, kb, diag });
+	const chosen = dungeonPicker(dungeons);
+	if (honest) return honestRun({ guides, packs, play, data, classes, groups, chosen, kb, diag });
 	const packIds = new Set(guides.map((g) => g.id));
 	// Every compiled guide, for the chains into each one (chainDone).
 	const chained = packs.flatMap((p) => p.guides);
+	const dungeonMaps = dungeonMapsOf(chained, chosen);
 	const sim = simPacks(packs, data);
 	const pool = new LuaPool({ size: workers || Number(process.env.POLESTAR_PLAY_WORKERS) || undefined });
 	const pending = [];
@@ -574,7 +601,7 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 			personas = [...personas, ...classPersonas(data, g, personas)];
 			for (const { race, faction } of personas) {
 				for (const cls of classesFor(data, g, race, faction, classes)) {
-					const pre = chainDone(chained, g, { race, faction, cls }, groups);
+					const pre = chainDone(chained, g, { race, faction, cls }, groups, chosen);
 					const before = [
 						pre.done.length ? `w.complete(${luaValue(pre.done)})` : '',
 						...pre.carried.map((q) => `w.onQuest(${q}, {})`),
@@ -583,7 +610,7 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 					].join('\n');
 					const k = results.length;
 					results.push(null);
-					pending.push(playGuideIn(pool, sim, g, { race, faction, cls, handOver, before, groups }).then(([out, hand]) => {
+					pending.push(playGuideIn(pool, sim, g, { race, faction, cls, handOver, before, groups, dungeonMaps }).then(([out, hand]) => {
 						const { stuck, problems } = outcome(out, handOver, hand, { race, faction, cls });
 						results[k] = { guide: g.id, race, faction, cls, ok: !stuck && !problems.length, stuck, problems, landed: hand ? hand.guide || null : null };
 						flush();
@@ -605,7 +632,7 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 // findings for the guides of `play` (sources). No Lua. `kb`: the knowledge
 // base file (default data/local/kb/forever-kb.sqlite when present; null: none).
 // -> { results: [], findings, diag, played, honest: true }
-function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
+function honestRun({ guides, packs, play, data, classes, groups, chosen, kb, diag }) {
 	const all = packs.flatMap((p) => p.guides);
 	const wanted = guides.filter((g) => play.has(g._ast && g._ast.source));
 	const arriving = new Map();
@@ -617,7 +644,7 @@ function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
 		list = [...list, ...classPersonas(data, root, list)];
 		return list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes).map((cls) => ({ race, faction, cls })));
 	};
-	const findings = honestPlay(all, data, personas, { kb: kb === undefined ? loadKb() : kb ? loadKb(kb) : null, play: wanted.map((g) => g.id), groups });
+	const findings = honestPlay(all, data, personas, { kb: kb === undefined ? loadKb() : kb ? loadKb(kb) : null, play: wanted.map((g) => g.id), groups, chosen });
 	return { results: [], findings, diag, played: wanted.length, honest: true };
 }
 
@@ -865,4 +892,4 @@ for _ in pairs(visited) do count = count + 1 end
 emit({ done = E.GetStepIndex() == nil or E.GetGuide() ~= G, stuck = stuck, visited = count, steps = #G.steps, missing = missing, wrongPick = wrongPick, level = w.level })
 `;
 
-module.exports = { playtest, withChain, resultLines, buildSimPack, playGuide, playGuideIn, playOptions, writePackInto, chainDone, SIMULATE, HOME, CLASSES, luaValue };
+module.exports = { playtest, withChain, resultLines, buildSimPack, playGuide, playGuideIn, playOptions, writePackInto, chainDone, dungeonPicker, SIMULATE, HOME, CLASSES, luaValue };

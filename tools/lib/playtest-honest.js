@@ -290,7 +290,13 @@ function whenHolds(w, when) {
 				break;
 			}
 			case 'group': ok = w.groups === 'do'; break; // playtest's answer at group quests (skip: the solo route)
+			case 'dungeon': ok = !!(w.chosen && w.chosen(p)); break; // the dungeons the player chose (none: the solo route)
 			case 'bound': ok = !p.location || w.bound == null || String(w.bound).toLowerCase() === String(p.location).toLowerCase(); break;
+			case 'taxi': { // a flight path learnt on the way (a getfp), by its node, else its name
+				const n = w.node({ node: p.node, location: p.name });
+				ok = w.known.has(n ? n.id : p.name);
+				break;
+			}
 			default: ok = true;
 		}
 		if (p.neg && p.k !== 'level') ok = !ok;
@@ -301,9 +307,10 @@ function whenHolds(w, when) {
 
 // Play `guides` (compiled, in chain order) as persona -> findings. `known`:
 // taxi nodes the character has at the chain's start besides its race's own.
-function playChain(chain, data, persona, { kb = null, report = null, groups = 'skip', known = null } = {}) {
+function playChain(chain, data, persona, { kb = null, report = null, groups = 'skip', chosen = null, known = null } = {}) {
 	const w = new World(data, persona, kb, known);
 	w.groups = groups;
+	w.chosen = chosen;
 	for (const g of chain) playGuide(w, g, !report || report.has(g.id));
 	return w.findings;
 }
@@ -483,6 +490,11 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			return turnin(w, g, x, gi, find);
 		case 'kill':
 			return kill(w, x);
+		case 'talk':
+			// `talk <npc> quest Q.O`: speaking to the NPC is the objective ("Speak with ..."), as `kill` credits its own.
+			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
+			w.worked.push(x);
+			return;
 		case 'collect':
 			return collect(w, x, gi, find, p);
 		case 'use':
@@ -741,7 +753,7 @@ const minLevel = (g) => Number(g.minLevel) || 0;
 // routes (chains whose first guide is a race's, at level 1): those every start
 // route of persona's race learns in its guides below root's level. Null for a
 // chain opening at level 1 and for a race no start route is for.
-function startRouteNodes(starts, data, persona, root, groups, memo) {
+function startRouteNodes(starts, data, persona, root, groups, chosen, memo) {
 	const level = minLevel(root);
 	if (level <= 1 || starts.some((c) => c[0] === root)) return null;
 	const mine = starts.filter((c) => c[0].races.some((r) => raceOf(r) === persona.race));
@@ -752,6 +764,7 @@ function startRouteNodes(starts, data, persona, root, groups, memo) {
 		for (const chain of mine) {
 			const w = new World(data, persona, null);
 			w.groups = groups;
+			w.chosen = chosen;
 			for (const g of chain) {
 				if (minLevel(g) >= level) break;
 				playGuide(w, g, false);
@@ -765,7 +778,7 @@ function startRouteNodes(starts, data, persona, root, groups, memo) {
 
 // Play every chain holding a guide of `play` (ids) as each of its personas
 // -> findings of those guides, by file and line.
-function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip' } = {}) {
+function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip', chosen = null } = {}) {
 	const report = play ? new Set(play) : null;
 	const out = [];
 	const all = chains(guides);
@@ -774,8 +787,8 @@ function honestPlay(guides, data, personas, { kb = null, play = null, groups = '
 	for (const chain of all) {
 		if (report && !chain.some((g) => report.has(g.id))) continue;
 		for (const persona of personas(chain[0])) {
-			const known = startRouteNodes(starts, data, persona, chain[0], groups, memo);
-			for (const f of playChain(chain, data, persona, { kb, report, groups, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
+			const known = startRouteNodes(starts, data, persona, chain[0], groups, chosen, memo);
+			for (const f of playChain(chain, data, persona, { kb, report, groups, chosen, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
 		}
 	}
 	return out.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));

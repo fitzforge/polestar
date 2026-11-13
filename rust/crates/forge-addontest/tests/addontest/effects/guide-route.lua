@@ -1,8 +1,9 @@
 -- env: world
 -- The Guide page's route rows (Polestar_Options/UI/Options.lua; Core/Engine.lua) on the whole addon, each on a
 -- guide shaped like its engine test's: a quest the route passed abandoned (engine-lost-quest.rs), a group quest
--- (engine-group-default.rs), a grey quest at level 20 (engine-smart.rs), a deathskip (engine-die.rs), and a guide
--- with a step skipped by hand for Reset guide progress. A level 1 Human Warrior in Elwynn Forest.
+-- (engine-group-default.rs), a dungeon's pick-up in the route (engine-dungeon-route.rs), a grey quest at level 20
+-- (engine-smart.rs), a deathskip (engine-die.rs), and a guide with a step skipped by hand for Reset guide progress.
+-- A level 1 Human Warrior in Elwynn Forest.
 local w, E
 local function flush() stub.advance(0.6) end
 local function open(id)
@@ -47,6 +48,14 @@ return {
 			{ goals = { { t = "accept", quest = 202, title = "Second" } } },
 			{ goals = { { t = "accept", quest = 203, title = "Third" } } },
 		} })
+		-- A dungeon in the route (engine-dungeon-route.rs): its pick-up ahead of the live step, behind `when dungeon`.
+		Polestar.RegisterGuide({ id = "test/dungeon", pack = "test", title = "Dungeon", minLevel = 1, maxLevel = 30, steps = {
+			{ title = "Marshal McBride", goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 } } },
+			{ title = "Scout Riell", when = { { k = "dungeon", name = "The Deadmines", map = 36 } }, goals = {
+				{ t = "accept", quest = 214, title = "Red Silk Bandanas", npc = 6087, npcName = "Scout Riell", map = 1429, x = 49.5, y = 41.0 },
+			} },
+			{ title = "Deputy Willem", goals = { { t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 } } },
+		} })
 		open("test/reset")
 	end,
 	probes = {
@@ -70,6 +79,11 @@ return {
 			w.onQuest(783, {})
 			open("test/group")
 		end, probe = function() return { at = E.GetLiveStep(), asks = E.GroupQuestion() or false } end },
+		-- The Deadmines' pick-up ahead: no number for a character who skips it (the solo route's numbers), its own
+		-- number when asked about or run.
+		["behavior.dungeons"] = { prepare = function() open("test/dungeon") end, probe = function()
+			return { total = E.StepTotal(), third = (E.StepNumber(3)), pickup = select(2, E.StepNumber(2)) }
+		end },
 		-- At level 20, a level 2 quest: left out (the route on the next), or the guide's first step.
 		["behavior.skipGrey"] = { prepare = function()
 			level = w.level

@@ -4,10 +4,11 @@
 //! control is reachable when its page and tab are listed, its section shows (in one of its page's modes when it is
 //! a mode's own: a choice of a control on the same page), and opening its page puts its widget on screen: its row,
 //! its section's header switch, its inline extra, or its row in its cog's popup. The test client has every addon
-//! Polestar works with installed, a skin with variants and a layout, a guide with group quests, and Shortest Path
-//! Forever, so no control waits on something missing. A few live in the window's own chrome (the Menu scale in its
-//! header): those are checked there. A later release's control whose setting this build does not register yet (its
-//! row placed ahead of it on purpose) is pending, not lost, until this build is that release (pending_lua).
+//! Polestar works with installed, a skin with variants and a layout, a guide with group quests, guides with steps for
+//! every dungeon in the route, and Shortest Path Forever, so no control waits on something missing. A few live in the
+//! window's own chrome (the Menu scale in its header): those are checked there. A later release's control whose
+//! setting this build does not register yet (its row placed ahead of it on purpose) is pending, not lost, until this
+//! build is that release (pending_lua).
 
 use forge_addontest::run::{addons_dir, lua_value};
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -29,6 +30,14 @@ if T.RegisterSkin then
 end
 local E = Polestar.Engine
 if E then E.GroupQuests = function() return { { id = 1, title = "Coverage" } } end end
+-- Guides with steps for every dungeon a leveling guide can run (Dungeons.ROUTE).
+if E then
+	E.GuideDungeons = function()
+		local t = {}
+		for _, d in ipairs(Polestar.Dungeons and Polestar.Dungeons.ROUTE or {}) do t[d[1]] = true end
+		return t
+	end
+end
 UI.ShowOptions("guide")
 local function labelOf(c) if type(c.label) == "function" then return c.label() end return c.label end
 local function idOf(c)

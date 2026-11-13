@@ -415,6 +415,11 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rec.get("skill").num() > 0.0 {
 		parts.push(format!("l{},{}", num(&rec.get("skill"))?, num(&rec.get("skillLevel"))?));
 	}
+	// A child quest's parent, which must be in the log for its giver to offer it (Valik 535 under Infiltration 533):
+	// u<quest>. An older reader skips it (no objective kind is u).
+	if rec.get("parent").num() > 0.0 {
+		parts.push(format!("u{}", num(&rec.get("parent"))?));
+	}
 	Ok(parts.join(";"))
 }
 

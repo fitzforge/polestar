@@ -1338,7 +1338,7 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 	assert_eq!(not_taken, vec![json!(v)]);
 }
 
-// T1327: Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
+// Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
 // running timer (Compat.QuestTimerRunning) offers no detour to another quest's work; one whose time ran out
 // (failed), or none timed, changes nothing.
 #[test]

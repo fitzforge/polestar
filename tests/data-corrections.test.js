@@ -81,6 +81,12 @@ test('Grace of An\'she and Mu\'sha allows ten minutes; a time limit is a whole n
 	assert.deepEqual(bad.map(([id]) => id), []);
 });
 
+test('A Void Path allows four minutes from the accept: the game times it (players\' recordings), its text says how long', () => {
+	const entry = corrections.quests[98252];
+	assert.equal(entry.set.limit, 240);
+	assert.ok([].concat(entry.source).some((s) => s.kind === 'recording' && /timer/.test(s.ref)), 'a recording source for the timer');
+});
+
 test('the release data carries time limits: 95805 600 s, Scalding Mornbrew Delivery the TDB\'s 300 s, none on an untimed quest', (t) => {
 	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
 	if (!fs.existsSync(file)) return t.skip('no data/forever');
@@ -210,6 +216,19 @@ test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gon
 test('Archmage Tervosh and Lady Jaina stand in Theramore\'s tower; the Missing Diplomat spots are no spawns of theirs (#1992)', () => {
 	assert.deepEqual(corrections.npcs[4967].set.spawns, { 1445: { f: 'e', pts: [[66.42, 49.26]] } }, 'Archmage Tervosh');
 	assert.deepEqual(corrections.npcs[4968].set.spawns, { 1445: { f: 'e', pts: [[66.27, 49.04]] } }, 'Lady Jaina Proudmoore');
+});
+
+// The 0.4.0 moved-object sweep (players' recorded loot spots against the data's spawns, in world yards through each
+// map's own frame): quest objects every player loots where the data had no place, or only one place of several.
+test('quest objects stand where players loot them: Krom\'zar\'s Banner, the coffers, the Magenta Caps, the Box of Assorted Parts', () => {
+	const at = (id, map) => corrections.objects[id].addSpawns[map];
+	assert.deepEqual(at(164690, 1413), { f: 'e', pts: [[44.44, 28.15]] }, "Krom'zar's Banner, which had no place (12 people loot it there)");
+	assert.equal(at(103574, 1458).pts.length, 7, 'the Undercity coffers, which had no place');
+	const caps = at(128293, 1418).pts;
+	for (const p of [[37.57, 15.25], [38.22, 17.03], [41.01, 15.01], [34.04, 24.42]]) assert.ok(caps.some((q) => q[0] === p[0] && q[1] === p[1]), `Magenta Cap Clusters at ${p}`);
+	const box = at(19019, 1436).pts;
+	for (const p of [[43.98, 67.79], [44.9, 71.1], [26.46, 72.78]]) assert.ok(box.some((q) => q[0] === p[0] && q[1] === p[1]), `Box of Assorted Parts at ${p}`);
+	assert.ok(at(19019, 1413).pts.some((q) => q[0] === 61.92 && q[1] === 3.62), 'and in the Barrens where players loot it');
 });
 
 test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {

@@ -110,6 +110,16 @@ test('R1: a chain opening above level 1 starts with the flight paths every start
 	matches(run(head('start-a', '1-10', 'late') + wait, head('late', '38-45') + menethil, pack), unknown);
 });
 
+test('a `when taxi` step plays only while its flight path was learnt on the way, `!taxi` the other way round', { skip }, () => {
+	const fly = '  zone Orgrimmar\n  goto 45.3,63.8\n  fly "Crossroads"\n';
+	const flights = (text) => of(play(text), 'R1').filter((f) => /^fly /.test(f.reason));
+	assert.ok(flights(`step Fly\n${fly}`).length > 0);
+	assert.deepEqual(flights(`step Fly\n  when taxi "Crossroads"\n${fly}`), []);
+	assert.ok(flights(`step Walk\n  when !taxi "Crossroads"\n${fly}`).length > 0);
+	const learnt = 'step Crossroads\n  zone The Barrens\n  goto 51.5,30.4\n  getfp "Crossroads"\n\n';
+	assert.deepEqual(flights(`${learnt}step Walk\n  when !taxi "Crossroads"\n${fly}`), []);
+});
+
 test('R3: a collect needs a source in the data (An Apple Treat\'s applejack)', { skip }, () => {
 	const bad = play('step An Apple Treat\n  accept 91738\n  collect 247824 quest 91738.1\n', { persona: HUMAN });
 	assert.match(of(bad, 'R3')[0].reason, /Thunder Applejack: the data has no mob, object or vendor/);
@@ -176,6 +186,13 @@ test('R5: a talk tied to an objective credits it (Kodo Roundup)', { skip }, () =
 	assert.deepEqual(of(play(`${head}step Kodos\n  zone Desolace\n  talk 4700 quest 5561.1 @60.6,61.6\n\n${turnin}`, { persona: HUMAN }), 'R5'), []);
 });
 
+test('R5: a `talk <npc> quest Q.O` line credits that objective (Lost in Battle: the Beaten Corpse)', { skip }, () => {
+	const bad = play('step Mankrik\n  zone The Barrens\n  accept 4921\n  turnin 4921\n');
+	assert.match(of(bad, 'R5')[0].reason, /objective 1 \(talk Beaten Corpse x1\) has 0\/1/);
+	const good = play('step Mankrik\n  zone The Barrens\n  accept 4921\n\nstep The Beaten Corpse\n  zone The Barrens\n  talk 10668 quest 4921.1 @49.3,50.3\n\nstep Mankrik\n  zone The Barrens\n  turnin 4921\n');
+	assert.deepEqual(of(good, 'R5'), []);
+});
+
 test('R5: a turn-in needs a line for each of the knowledge base\'s required steps', { skip }, () => {
 	const kb = new Map([[5441, [{ n: 1, action: 'use-item', kind: 'npc', target: 10556, item: 16114, fact: 'Use the blackjack on a sleeping peon.' }]]]);
 	const bad = play('step Foreman Thazz\'ril\n  accept 5441\n\nstep Lazy Peons\n  kill 10556 x5 quest 5441.1\n\nstep Foreman Thazz\'ril\n  turnin 5441\n', { kb });
@@ -189,6 +206,19 @@ test('chains follow the main route; a catch-up guide behind `when` is its own ch
 	const g = (id, next, nextChoices, nextWhen) => ({ id, next, nextChoices, nextWhen, steps: [] });
 	const out = chains([g('a-catchup', 'b'), g('a', 'a-catchup', ['a-catchup', 'b'], { 'a-catchup': [{ k: 'level', op: '<', n: 9 }] }), g('b', null)]);
 	assert.deepEqual(out.map((c) => c.map((x) => x.id)), [['a', 'b'], ['a-catchup']]);
+});
+
+test('`when dungeon` holds only for a dungeon the honest player chose; `when !dungeon` for the solo route', () => {
+	const { whenHolds } = require('../tools/lib/playtest-honest');
+	const { dungeonPicker } = require('../tools/lib/playtest');
+	const run = [{ k: 'dungeon', name: 'The Deadmines', map: 36 }];
+	const solo = [{ k: 'dungeon', name: 'The Deadmines', map: 36, neg: true }];
+	for (const chosen of [null, dungeonPicker(null), dungeonPicker(['Wailing Caverns'])]) {
+		assert.equal(whenHolds({ chosen }, run), false);
+		assert.equal(whenHolds({ chosen }, solo), true);
+	}
+	assert.equal(whenHolds({ chosen: dungeonPicker(['Deadmines']) }, run), true);
+	assert.equal(whenHolds({ chosen: dungeonPicker('all') }, solo), false);
 });
 
 // A `when` line with a single-quest predicate (`complete`, `turnedin`, `available`, `group`: dsl/when.js QUEST_ONE)

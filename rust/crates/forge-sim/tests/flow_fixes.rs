@@ -1,7 +1,7 @@
 //! The written guides' check fed back to the route (forge_sim::flow, FlowDiag fixes 4 and 10): a
 //! finding the planner's straight-line counts cannot see becomes a move on the order, and a hub
 //! batch the check finds walked past is undone; and a whole hub visit within a level of the next one
-//! is folded into it (RevA2-3: Stormwind at 58.6 and again at 59.4).
+//! is folded into it (review: Stormwind at 58.6 and again at 59.4).
 
 mod common;
 use forge_sim::flow::Finding;

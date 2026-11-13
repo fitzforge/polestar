@@ -271,7 +271,7 @@ step Rezlak and Misha
   kill 3118 x8 quest 835.2            -- Dustwind Storm Witch
   accept 97281 item 277661 optional   -- Dull Storm Orb: A Simmering Storm, +100
   turnin 835
-  turnin 97281 optional
+  turnin 97281
   accept 97282 optional               -- Stormy Potential, +100
   turnin 816
 
@@ -477,7 +477,7 @@ step Winterspring: Berserk Owlbeasts
 step Bloodvenom Post: last hand-in
   zone Felwood
   turnin 4721
-  turnin 4882 optional
+  turnin 4882
   accept 4883 optional                -- Guarding Secrets, +100 Thunder Bluff: to Nara Wildmane on Elder Rise in Thunder Bluff
   note "Wild Guardians: 300 Orgrimmar reputation."
 

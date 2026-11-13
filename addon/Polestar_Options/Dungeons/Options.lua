@@ -22,40 +22,54 @@ local ok, err = ns.RegisterOptions({
 })
 if not ok and geterrorhandler then geterrorhandler()(err) end
 
--- The dungeons a leveling guide's `when dungeon` steps can be for, one
--- toggle each, all off: the solo route is the default. The Classic
--- dungeons of the Codex's instances (data/codex/entrances.json), by
--- level, as Map id and English name; the name shows in the client's
--- language when it has one (Names.Instance). The choice is per character
--- (Engine.ChooseDungeon). Only the ones this character's guides have
--- steps for are offered (Engine.GuideDungeons, read once logged in; none:
--- no section); a choice saved for one not offered is kept.
+-- The dungeons a leveling guide's `when dungeon` steps can be for, an
+-- answer each: Run it, Skip it, or As for all dungeons (none: "Dungeons in
+-- my route", behavior.dungeons, answers; Skip by default, the solo route).
+-- The Classic dungeons of the Codex's instances (data/codex/entrances.json)
+-- and Forever's new ones, by level, as Map id and English name; the name
+-- shows in the client's language when it has one (Names.Instance). The
+-- answer is per character (Engine.ChooseDungeon), the one the guide
+-- window's question gives. Only the dungeons this character's guides have
+-- steps for get a row (Engine.GuideDungeons, read once logged in and again
+-- when more guides load; none: no section); an answer saved for one without
+-- a row is kept.
 local ROUTE = {
-	{ 389, "Ragefire Chasm" }, { 43, "Wailing Caverns" }, { 36, "The Deadmines" }, { 33, "Shadowfang Keep" },
-	{ 48, "Blackfathom Deeps" }, { 34, "The Stockade" }, { 90, "Gnomeregan" }, { 47, "Razorfen Kraul" },
-	{ 189, "Scarlet Monastery" }, { 129, "Razorfen Downs" }, { 70, "Uldaman" }, { 209, "Zul'Farrak" },
-	{ 349, "Maraudon" }, { 109, "Sunken Temple" }, { 230, "Blackrock Depths" }, { 229, "Blackrock Spire" },
-	{ 429, "Dire Maul" }, { 289, "Scholomance" }, { 329, "Stratholme" },
+	{ 389, "Ragefire Chasm" }, { 3065, "The Hall of Thanes" }, { 2999, "Ruins of Lordaeron" }, { 36, "The Deadmines" },
+	{ 43, "Wailing Caverns" }, { 33, "Shadowfang Keep" }, { 48, "Blackfathom Deeps" }, { 34, "The Stockade" },
+	{ 90, "Gnomeregan" }, { 47, "Razorfen Kraul" }, { 2998, "Excavation Site: Wetlands" }, { 2959, "City of Dalaran" },
+	{ 189, "Scarlet Monastery" }, { 2970, "The Drowned City" }, { 129, "Razorfen Downs" }, { 70, "Uldaman" },
+	{ 3039, "Krol'dok Stronghold" }, { 209, "Zul'Farrak" }, { 349, "Maraudon" }, { 109, "Sunken Temple" },
+	{ 2994, "Alcaz Prison" }, { 230, "Blackrock Depths" }, { 229, "Blackrock Spire" }, { 429, "Dire Maul" },
+	{ 2974, "Blackmaw Hold" }, { 329, "Stratholme" }, { 289, "Scholomance" }, { 3001, "The Shaper's Terrace" },
 }
 Dungeons.ROUTE = ROUTE
-ns.OnLogin(function()
+local ANSWER = { run = true, skip = false }
+local CHOICES = { { value = "all", label = L["As for all dungeons"] }, { value = "run", label = L["Run it"] }, { value = "skip", label = L["Skip it"] } }
+local HELP = L["Run it: the leveling guide picks up its quests on the way and takes you to the door. Skip it: the guide keeps to the solo route. As for all dungeons: Guide, Automation, Dungeons in my route answers."]
+local rowFor = {} -- map -> true once its row is registered
+local function routeRows()
 	local E = ns.Engine
 	local have = E and E.GuideDungeons and E.GuideDungeons() or {}
 	local controls = {}
 	for _, d in ipairs(ROUTE) do
 		local map, name = d[1], d[2]
-		if have[map] then
-			controls[#controls + 1] = { kind = "toggle",
+		if have[map] and not rowFor[map] then
+			rowFor[map] = true
+			controls[#controls + 1] = { kind = "dropdown", help = HELP, choices = CHOICES,
 				label = function() return ns.Names and ns.Names.Instance and ns.Names.Instance(map) or name end,
-				help = L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."],
-				get = function() return E.DungeonChosen(map) end,
-				set = function(on) E.ChooseDungeon(map, on) end }
+				get = function()
+					local a = ns.CharState().dungeons[map]
+					return a == true and "run" or (a == false and "skip") or "all"
+				end,
+				set = function(v) E.ChooseDungeon(map, ANSWER[v]) end }
 		end
 	end
 	if #controls == 0 then return end
 	local done, why = ns.RegisterOptions({ page = L["Discovery"], tab = L["Dungeons"], section = L["Dungeons in leveling guides"], controls = controls })
 	if not done and geterrorhandler then geterrorhandler()(why) end
-end)
+end
+ns.OnLogin(routeRows)
+ns.On("GUIDES_REGISTERED", function() if ns.IsLoggedIn() then routeRows() end end)
 
 -- The group quests of this character's guides (`when group`), one toggle
 -- each: on, do it with a group; off, skip it (or not answered yet: the

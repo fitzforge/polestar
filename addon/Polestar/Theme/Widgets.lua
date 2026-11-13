@@ -1710,7 +1710,13 @@ local function openChoices(self)
 	for i = 1, #list do
 		local c = list[i]
 		items[i] = { text = c.text, checked = c.value == cur, font = row.psFaces and c.font or nil, onClick = function()
-			if row.psSet then row.psSet(c.value) else ns.Set(row.psPath, c.value) end
+			-- State that is no setting (get/set) fires no SETTING_CHANGED: the row redraws itself.
+			if row.psSet then
+				row.psSet(c.value)
+				row:Refresh()
+			else
+				ns.Set(row.psPath, c.value)
+			end
 		end }
 	end
 	W.ShowMenu(self, items, { minWidth = self:GetWidth() })
@@ -1747,8 +1753,11 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	row.psChoices = choices
 	row.psGet, row.psSet = opts and opts.get, opts and opts.set
 	-- opts.faces: a font list, each choice ({ value, text, font = path })
-	-- drawn in its own face, in the box and in the list.
+	-- drawn in its own face, in the box and in the list. opts.reset: state
+	-- that is no setting (get/set) whose set(nil) puts back its default, as
+	-- a right-click does.
 	row.psFaces = opts and opts.faces or nil
+	row.psReset = opts and opts.reset or nil
 	local b = CreateFrame("Button", nil, row)
 	b:SetSize(DROPDOWN_W, 28)
 	b:SetPoint("RIGHT", row, "RIGHT", -12, 0)
@@ -1770,11 +1779,21 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	b:SetScript("OnClick", openChoices)
 	row.Button = b
 	fitLabel(row, b, dropdownSpan)
-	-- Right-click on the row puts the setting back to its default.
+	-- Right-click on the row puts the setting back to its default (state
+	-- that is no setting: its set(nil), with opts.reset).
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(_, button)
 		if button == "RightButton" then
-			if W.Enabled(row) then W.HideMenu(); ns.Set(path, nil) end
+			if not W.Enabled(row) then return end
+			W.HideMenu()
+			if row.psSet then
+				if row.psReset then
+					row.psSet(nil)
+					row:Refresh()
+				end
+			elseif path then
+				ns.Set(path, nil)
+			end
 			return
 		end
 		openChoices(b)
@@ -3673,8 +3692,8 @@ local function checkControl(page, i, c, what)
 	if type(c) ~= "table" or not CONTROL_KINDS[c.kind] then
 		return ("RegisterOptions(%s): %s %d has unknown kind %s"):format(page, what, i, tostring(c and c.kind))
 	end
-	-- A toggle, slider or cards may hold state that is no setting: get/set and no key.
-	local state = (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and c.key == nil and type(c.get) == "function" and type(c.set) == "function"
+	-- A toggle, slider, dropdown or cards may hold state that is no setting: get/set and no key.
+	local state = (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and c.key == nil and type(c.get) == "function" and type(c.set) == "function"
 	if c.kind ~= "button" and c.kind ~= "binding" and not state and type(c.key) ~= "string" then
 		return ("RegisterOptions(%s): %s %d needs a settings key"):format(page, what, i)
 	end
