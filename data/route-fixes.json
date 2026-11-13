@@ -4149,6 +4149,30 @@
 			{
 				"a": [
 					"accept",
+					1146
+				],
+				"b": [
+					"accept",
+					515
+				],
+				"faction": "Horde",
+				"why": "Horde 21-40 audit (0.4.0): Elixir of Agony (515) is offered on 30-40/01-hillsbrad-foothills' Undercity stop, after Orgrimmar (Belgrom's 1146), for a character carrying the Lesser Troll's Blood Elixir it needs (guide-fixes horde-3040-elixir-of-agony-undercity-with-the-elixir)."
+			},
+			{
+				"a": [
+					"accept",
+					515
+				],
+				"b": [
+					"accept",
+					552
+				],
+				"faction": "Horde",
+				"why": "Horde 21-40 audit (0.4.0): Elixir of Agony (515) is taken in the Undercity before Tarren Mill (Novice Thaivand's 552), where Apothecary Lydon takes the elixir."
+			},
+			{
+				"a": [
+					"accept",
 					5581
 				],
 				"b": [
