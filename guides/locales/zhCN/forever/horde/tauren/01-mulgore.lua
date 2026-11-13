@@ -202,7 +202,7 @@ return {
 
 	-- Step 44: Galak centaurs
 	["Galak centaurs"] = "加拉克半人马",
-	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "加拉克半人马在水井东边的平原上扎营，掠夺者赫拉克是他们的首领。",
 
 	-- Step 45: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -257,7 +257,7 @@ return {
 
 	-- Step 55: Thunder Bluff
 	-- {npc:3057} Cairne Bloodhoof
-	["{npc:3057}'s tent"] = "",
+	["{npc:3057}'s tent"] = "{npc:3057}的帐篷",
 
 	-- Step 56: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3057} Cairne Bloodhoof
@@ -380,7 +380,7 @@ return {
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
 	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "从十字路口沿道路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{zone:1454}正门。下一份指南从{zone:1454}开始，乘飞艇前往{zone:1420}和{zone:1421}。",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Bloodhoof"] = "返回血蹄村",

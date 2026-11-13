@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Tirisfal Glades
-	["The zeppelin towers"] = "",
+	["The zeppelin towers"] = "飞艇塔",
 
 	-- Step 2: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -21,7 +21,7 @@ return {
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}."] = "在{object:172961}。",
 	-- {item:14047} Runecloth
-	["sixty {item:14047}"] = "",
+	["sixty {item:14047}"] = "六十块{item:14047}",
 
 	-- Step 6: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
@@ -69,7 +69,7 @@ return {
 
 	-- Step 15: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
-	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "",
+	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "沿{zone:1448}的道路向北骑往{area:1767}；{quest:5086}在树木之间蠕动，大多数都会掉落一份液滴。",
 
 	-- Step 17: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
@@ -91,7 +91,7 @@ return {
 
 	-- Step 24: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
-	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
+	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "信使以小队形式沿路从{area:1769}前往{area:2244}；在{npc:9298}附近的路边等候，经过时击杀。每名都携带一个箱子。\n小心：交还任务后会出现三四名56-57级冬泉伏兵攻击你；可以骑乘、潜行或使用{spell:5384}逃脱。之后它们会聚集在湖边，就能接下一个任务。",
 
 	-- Step 26: Beads for Salfa
 	-- {npc:11556} Salfa
@@ -100,11 +100,11 @@ return {
 
 	-- Step 28: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
-	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "",
+	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "背包里带着30块{quest:6031}：沿道路向北前往{area:1769}；{npc:11557}就在入口内侧交易。",
 
 	-- Step 29: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
+	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "{area:1762}取得的死木仪祭图腾，如果当时{npc:11558}没有收下，就在这里交给她。她在{area:1769}隧道口等候，木喉要塞声望达到中立即可与她交谈；此前击杀{zone:1448}的死木熊怪已将声望提升到中立。",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 
@@ -116,9 +116,9 @@ return {
 	["Level 59.9"] = "等级 59.9",
 	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "先在这里练到59.9级，再去{zone:1452}交任务，交完即可升到60级。{area:2249}的疯狂的碎齿熊（59级）就在奇怪的源头以北，提供的经验远多于{area:1769}旁的熊怪。也可组队挑战{area:2057}或{area:2279}副本。",
 	-- {npc:7446} Rabid Shardtooth
-	["grind on {npc:7446}"] = "",
+	["grind on {npc:7446}"] = "击杀{npc:7446}刷经验",
 
 	-- Step 33: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
@@ -128,7 +128,7 @@ return {
 
 	-- Step 34: Are We There, Yeti?
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "",
+	["Scare {npc:10978} with {npc:10980}"] = "用{npc:10980}吓唬{npc:10978}",
 
 	-- Step 35: Everlook
 	-- {area:2255} Everlook

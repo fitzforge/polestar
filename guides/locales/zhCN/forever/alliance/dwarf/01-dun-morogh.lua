@@ -309,7 +309,7 @@ return {
 	-- {npc:258113} Ingrid Dunwald · {npc:257597} Bruegs Kindleborn
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113}：交给南门旁的{npc:257597}",
 	-- {npc:1226} Maxan Anvol · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
-	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "",
+	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "{npc:1226}：交给{zone:1455}的{npc:11406}",
 
 	-- Step 51: Steelgrill's Depot
 	-- {area:131} Kharanos · {zone:1426} Dun Morogh
@@ -476,7 +476,7 @@ return {
 	["{npc:5413} in {zone:1453} takes it"] = "交给 {zone:1453} 的 {npc:5413}",
 
 	-- Step 91: Silver Stream Mine
-	["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "沿山地向东，前往湖泊北端的矿洞：Miners' League 的箱子在洞内隧道中，周围还有更多坑道鼠。",
+	["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "沿山地向东，前往湖泊北端的矿洞：矿工联盟的储物箱在洞内隧道中，周围还有更多坑道鼠。",
 	-- {item:2640} Miners' Gear
 	["{item:2640}, from the crates"] = "{item:2640}，从箱子中拾取",
 
@@ -574,7 +574,7 @@ return {
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
 	["{npc:13016}: use the {item:17117}"] = "{npc:13016}：使用 {item:17117}",
 	-- {npc:13016} Deeprun Rat
-	["Catch {npc:13016}"] = "",
+	["Catch {npc:13016}"] = "捕捉{npc:13016}",
 
 	-- Step 110: Nipsy
 	-- {zone:1453} Stormwind · {npc:13018} Nipsy · {npc:5413} Furen Longbeard · {object:28027} Dwarven District
