@@ -11889,3 +11889,25 @@ test('Alliance 50-60/01: the Darnassus trip only with the Un\'Goro Soil, or for 
 	const down = steps.find((st) => st.title === 'Portal to Teldrassil');
 	assert.ok(down && cond(down, 'zone', false), 'down only from Darnassus');
 });
+
+// Danger at the spot (#1575, 0.4.0 audit), Alliance 50-60: level 60 Escaped Core Hounds and Firesworn roam the Burning
+// Steppes, Vek'zol (55, elite) stands by Kum'isha's hill, and Ancient Irontree Walkers (59, elite) stand among Felwood's
+// Irontree Stompers and Toxic Horrors: each step warns, and the arrows point where the targets are clear of them (the
+// broodlings east of Flame Crest; the Toxic Horror at the camp's north-east tip).
+test('Alliance 50-60: danger warnings at Dreadmaul Rock, the Blackrock camps, Kum\'isha, Irontree Woods and the Toxic Horrors', { skip }, () => {
+	const stepOf = (file, pred) => { const l = goals(file); return l[at(l, 'goal', pred)].step; };
+	const BS = 'forever/alliance/50-60/01-burning-steppes.guide';
+	const L6 = 'forever/alliance/50-60/06-silithus.guide';
+	const tipped = (st, re) => assert.ok([st.note, ...(st.notes || []), ...(st.tips || [])].concat(JSON.stringify(st)).some((t) => re.test(t || '')), `${st.title}: ${re}`);
+	tipped(stepOf(BS, (g) => g.quest === 3823 && g.t === 'kill' && g.oi === 2), /Escaped Core Hounds/);
+	tipped(stepOf(BS, (g) => g.quest === 3824 && g.t === 'collect'), /Firesworn/);
+	tipped(stepOf(BS, (g) => g.quest === 3501 && g.t === 'collect'), /Vek'zol/);
+	tipped(stepOf(L6, (g) => g.quest === 4084 && g.t === 'collect' && g.oi === 2), /Ancient Irontree Walkers/);
+	tipped(stepOf(L6, (g) => g.quest === 5086 && g.t === 'collect'), /Ancient Irontree Walkers/);
+	const bs = goals(BS);
+	const use = bs[at(bs, 'use 4726', (g) => g.t === 'use' && g.quest === 4726)].goal;
+	assert.ok(use.x >= 80 && use.y < 40, 'the Draco-Incarcinatrix where the broodlings are');
+	const six = goals(L6);
+	const th = six[at(six, 'collect 5086', (g) => g.t === 'collect' && g.quest === 5086)].goal;
+	assert.deepEqual([th.x, th.y], [50.6, 22.4], 'the Toxic Horror clear of the walkers');
+});

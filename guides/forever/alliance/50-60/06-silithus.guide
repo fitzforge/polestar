@@ -69,6 +69,7 @@ step The Emerald Sanctuary
 
 step Irontree Woods
   tip Follow the road north to Irontree Woods. The Irontree Stompers carry the heart; finish the claws on the Angerclaw Grizzlies and Felpaw Ravagers of the north.
+  tip Careful: Ancient Irontree Walkers, level 59 elites, stand among the treants in the middle of Irontree Woods: take the Stompers on the north side (about 48,21).
   collect 11172 quest 4084.1
   collect 11173 quest 4084.2          -- Irontree Stompers
 
@@ -340,10 +341,11 @@ step Donova Snowden
 
 step Felwood
   zone Felwood
-  goto 50.0,26.9 "The Toxic Horrors"
+  goto 50.6,22.4 "The Toxic Horrors"
 
 step Toxic Horrors
-  collect 12822 quest 5086.1 @49.8,27.4 map 1448
+  tip Careful: Ancient Irontree Walkers, level 59 elites, stand among the Toxic Horrors: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull.
+  collect 12822 quest 5086.1 @50.6,22.4 map 1448
 
 step Kernda
   when onquest 8471

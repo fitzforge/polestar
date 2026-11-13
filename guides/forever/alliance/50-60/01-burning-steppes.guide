@@ -275,6 +275,7 @@ step Morgan's Vigil
 
 step Dreadmaul Rock
   tip The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.
+  tip Careful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of Dreadmaul Rock: pull the ogres on the rock itself and look around before each pull.
   kill 7034 quest 3823.1              -- Firegut Ogre Mage, below ground
   kill 7033 quest 3823.2              -- Firegut Ogre
   kill 7035 quest 3823.3              -- Firegut Brute
@@ -309,7 +310,7 @@ step Ruins of Thaurissan: kill these as you meet them
   interact 153556 quest 3701.1        -- Thaurissan Relic
   collect 12283 quest 4726.1
   collect 11467 quest 4283.1
-  use 12284 quest 4726.1 @72.4,28.2 map 1428
+  use 12284 quest 4726.1 @81.0,28.0 map 1428
   collect 11470 quest 4296.1
 
 step Flame Crest
@@ -353,6 +354,7 @@ step Level 52.08
 step Blackrock Stronghold
   tip Gor'tesh and the Blackrock orcs hold the camps and the stronghold at the foot of Blackrock Mountain, west of Flame Crest. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.
   tip Careful: Gor'tesh has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.
+  tip Careful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass.
   collect 11467 quest 4283.1          -- Blackrock Medallion; inside
   collect 11080 quest 3824.1          -- Gor'tesh
 
@@ -403,6 +405,7 @@ step Blasted Lands
 step Kum'isha the Collector
   tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.
   tip Careful: Felcular, Razelikh the Defiler and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds Razelikh's Tear, Flames of Chaos and then Enrage at 15%.
+  tip Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him.
   accept 3501                         -- Kum'isha the Collector walks around here: look inside the circle on the map
   collect 10593 quest 3501.1
   turnin 3501
