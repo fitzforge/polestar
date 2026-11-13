@@ -388,6 +388,61 @@ fn a_page_s_veiled_hub_title_stays_veiled_through_a_theme_repaint() {
 	assert_eq!(out[0]["back"], json!([1, true]));
 }
 
+// The chip's one number, broken down in its panel by what the character can do about each quest: take and
+// hand in now, reach its level first, or do the chain before it; the rows add up to the headline. Left out and
+// named: another class's, the other faction's, one closed by a quest taken, the lesser of an exclusive pair.
+#[test]
+fn the_levels_panel_breaks_the_number_down_ready_level_chain_and_names_what_was_left_out() {
+	let out = run(r#"
+		uistub.player.level, uistub.player.xp, uistub.player.xpMax = 20, 0, 23200
+		local D, C = Polestar.Dungeons, Polestar.Compat
+		local function q(id, xp, t)
+			t = t or {}
+			t.id, t.level, t.rewards = id, 22, { xp = xp }
+			t.minLevel = t.minLevel or 18
+			return t
+		end
+		local quests = {
+			q(1, 2000),                                  -- ready
+			q(2, 1000, { minLevel = 23 }),              -- level
+			q(3, 1000, { chain = { 90 } }),             -- chain: 90 not done
+			q(4, 5000, { classes = { "WARLOCK" } }),    -- another class
+			q(5, 5000, { faction = "A" }),              -- the other faction
+			q(6, 5000, { closedBy = { 91 } }),          -- closed: 91 taken
+			q(7, 1500, { closedBy = { 8 } }),           -- an exclusive pair: 7 counts (worth more)
+			q(8, 500, { closedBy = { 7 } }),
+		}
+		D.Quests = function(_, side)
+			local out = {}
+			for _, x in ipairs(quests) do if not side or not x.faction or x.faction == side then out[#out + 1] = x end end
+			return out
+		end
+		D.QuestFor = function(x) if x.classes then return { classes = x.classes }, "class" end end
+		C.IsQuestCompleted = function() return false end
+		C.IsOnQuest = function(id) return id == 91 end
+		local s = D.QuestXP("wailing-caverns", { level = 20, xp = 0, xpMax = 23200, class = "DRUID", faction = "Horde" })
+		local rows = {}
+		for _, r in ipairs(Polestar.UI.LevelTip.Shares(s)) do rows[#rows + 1] = { r.group, r.n, r.need, r.text } end
+		-- The panel: beside other rows, the ready row says where those quests alone leave you.
+		Polestar.Dungeons.Open("wailing-caverns")
+		local _, _, pg = DS.Frames()
+		Polestar.UI.LevelTip.Set(pg.XP, s, {})
+		pg.XP:GetScript("OnEnter")(pg.XP)
+		local t = Polestar.UI.LevelTip.Frame()
+		local sub = t.ReadyNow:IsShown() and { t.ReadyNow:GetText(), t.ReadyThen:GetText() } or false
+		emit({ xp = s.xp, groups = { s.groups.ready.xp, s.groups.level.xp, s.groups.chain.xp }, left = s.left,
+			head = Polestar.UI.LevelTip.Text(s.levels), rows = rows,
+			ready = { s.ready.from.level, s.ready.from.xp, s.ready.to.level, s.ready.to.xp }, sub = sub })"#);
+	let out = &out[0];
+	assert_eq!(out["xp"], 5500);
+	assert_eq!(out["groups"], json!([3500, 1000, 1000]));
+	assert_eq!(out["left"], json!({ "class": 1, "race": 0, "faction": 1, "closed": 1, "alt": 1 }));
+	assert_eq!(out["head"], "+24% of a level");
+	assert_eq!(out["rows"], json!([["ready", 2, 18, "+15%"], ["level", 1, 23, "+5%"], ["chain", 1, 18, "+4%"]]), "the rows add up to the headline");
+	assert_eq!(out["ready"], json!([20, 0, 20, 3500]), "the ready quests alone, from now: 2,000 + 1,500");
+	assert_eq!(out["sub"], json!(["Now: 0% into level 20", "After: 15% into level 20"]));
+}
+
 #[test]
 fn the_levels_chip_what_the_quests_still_to_do_are_worth_hovering_it_shows_the_xp_a_bar_of_the_levels_it_spans_and_what_was_counted_none_at_60() {
 	let out = run(r#"
@@ -401,8 +456,10 @@ fn the_levels_chip_what_the_quests_still_to_do_are_worth_hovering_it_shows_the_x
 		local cells, marks = 0, {}
 		for _, c in ipairs(t.Cells) do if c:IsShown() then cells = cells + 1 end end
 		for _, m in ipairs(t.Marks) do if m:IsShown() then marks[#marks + 1] = m:GetText() end end
+		local rows = {}
+		for i, l in ipairs(t.RowL) do if l:IsShown() then rows[#rows + 1] = { l:GetText(), t.RowR[i]:GetText() } end end
 		local tip = { t:IsShown(), t.Head:GetText(), t.Levels:GetText(), t.XP:GetText(), t.Now:GetText(), t.Then:GetText(), t.Notes:GetText(),
-			cells, marks, t.Cells[1].Gain:IsShown(), t.Cells[2].Gain:IsShown() }
+			cells, marks, t.Cells[1].Gain:IsShown(), t.Cells[2].Gain:IsShown(), rows, t.ReadyNow:IsShown() and { t.ReadyNow:GetText(), t.ReadyThen:GetText() } or false }
 		pg.XP:GetScript("OnLeave")(pg.XP)
 		local left = t:IsShown()
 		uistub.player.level = 60
@@ -419,11 +476,13 @@ fn the_levels_chip_what_the_quests_still_to_do_are_worth_hovering_it_shows_the_x
 			"5,850 XP",
 			"Now: 85% into level 20",
 			"After: 9% into level 21",
-			"3 quests for you, not done yet.\n1 more has no XP known and is not counted.",
+			"Not counted: 1 with no XP known",
 			2,
 			["20", "21", "22"],
 			true,
 			true,
+			[["Ready to take and hand in · 3 quests", "+24%"]],
+			false,
 		])
 	);
 	assert_eq!(out["left"], false, "leaving the chip hides the panel");
