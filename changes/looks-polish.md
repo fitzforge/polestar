@@ -15,3 +15,5 @@ section: players
 - Easier to read: the selected guide's level range and tab in the guide
   list, Vellum's muted text, accent and warning text, the class quest
   card's note in Halo and its badge in Hearth.
+- The skin cards of WoW Forever, Blizzard and Classic keep the look's own
+  ground and a gold edge under the game's frame art.

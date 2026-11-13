@@ -1249,6 +1249,31 @@ fn the_picker_s_cards_draw_each_skin_s_guide_window_and_arrow_as_it_draws_them_w
 	assert_eq!(out["live"], json!(["polestar", "polestar", "FRIZQT__.TTF", true]), "the live skin, guide window, font and arrow untouched");
 }
 
+// A game look's card lays the look's ground and gold edge on the card, under the window: the client's frame art covers
+// them, and where that art is not drawn the card still reads as the game's frame, not a plain black box. The house
+// looks draw neither.
+#[test]
+fn a_game_look_s_card_keeps_its_ground_and_gold_edge_under_the_window_s_art() {
+	let out = run_cards(
+		r##"
+		showTheme()
+		local out = {}
+		for _, id in ipairs({ "polestar", "halo", "hearth", "forever", "blizzard", "classic" }) do
+			local p = cards("ui.skin")[id].Art.psSkinCard
+			local edge = p.hintEdge[1]
+			out[id] = { p.hint:IsShown(), p.hint:IsShown() and hexOf({ p.hint:GetVertexColor() }) or false,
+				edge:IsShown() and hexOf({ edge:GetVertexColor() }) or false }
+		end
+		emit(out)"##,
+	);
+	for id in ["polestar", "halo", "hearth"] {
+		assert_eq!(out[id], json!([false, false, false]), "{id}: no game frame to hint at");
+	}
+	for (id, ground) in [("forever", "000000"), ("blizzard", "000000"), ("classic", "171730")] {
+		assert_eq!(out[id], json!([true, ground, "9a7a34"]), "{id}: its panel's ground under a gold edge");
+	}
+}
+
 // A variant's card draws its skin in that variant, from the look the variant is drawn from (WoW Forever's paint and
 // status bar); the skin's own card shows the variant in use and follows a new pick, the variant cards staying as
 // they are.
