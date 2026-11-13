@@ -64,7 +64,7 @@ const BADLANDS = {
 		{ id: 'polestar-experimental/riverglades-horde-1', title: "Riverglades 1: Powderfuse Port, Rog'mar and the western farms (experimental)", zoneName: 'Riverglades',
 			minLevel: 37, maxLevel: 43, seconds: 1500, quests: 70, zone: 2548, focusX: 77.1, focusY: 52.9, experimental: true, newInForever: true,
 			pitch: "Forever's new zone south of the Badlands: the Horde fort of Rog'mar and about 70 quests from level 40, then back to Kargath for Feralas.",
-			pros: ['Reaches level 60 about an hour sooner than the Stranglethorn Vale route',
+			pros: ['Reaches level 60 about 40 minutes sooner than the Stranglethorn Vale route',
 				'Replaces Stranglethorn Vale and the Swamp of Sorrows with one zone and one hub',
 				"You ride in from Kargath through the Badlands' southern edge, and come back out at Kargath for Feralas & Tanaris"],
 			cons: ["Experimental: written from players' recordings and not yet checked end to end in the game",
