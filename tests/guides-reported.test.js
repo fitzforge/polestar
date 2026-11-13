@@ -11847,3 +11847,14 @@ test('Stranglethorn Vale (Alliance 40): every race takes the Booty Bay boat from
 	}
 });
 
+// 0.4.0 route audit (redo of a 0.3.7 grind fix), Alliance 49-50: Un'Goro's written grind ("Level 49.51" and the in-step
+// top-ups to 49.6 and 49.79) sat before Marshal's Refuge, whose hand-ins cover it (up to 26.8k XP to go, 32.4k ready).
+// One "Level 49.79" now follows the refuge's hand-ins, for whoever is still short.
+test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's Refuge's hand-ins (0.4.0 audit)", { skip }, () => {
+	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	const grind = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.t === 'level' && goal.level === 49);
+	const refuge = at(list, 'turnin 4321', is('turnin', 4321));
+	assert.ok(grind.length >= 1, 'a level 49 top-up');
+	for (const [, i] of grind) assert.ok(i > refuge, 'every Un\'Goro top-up to 49.x comes after the refuge\'s hand-ins');
+});
+
