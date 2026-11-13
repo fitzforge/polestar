@@ -9982,8 +9982,6 @@ end
 -- from this NPC to its hand-in fits LIMIT_SHARE of its time
 -- (Own.aheadLimitOk). An escort (`escort`) is never one: it starts walking
 -- when taken, so only its own step takes it, with its warning (#1618).
--- Some pickups also belong on their own step because the approach is part
--- of the route (Own.STEP_PICKUPS).
 -- Only the loaded guide's steps, never another tab's or the next guide's.
 --
 -- A While-you're-here hand-in whose NPC the route comes back to after
@@ -9999,12 +9997,6 @@ Own.AHEAD = 5 -- the route's next steps: their lines rank first ("near"), a time
 Own.LOG_SPARE = 2 -- quest log slots an accept ahead leaves free
 Own.LIMIT_SHARE = 0.6 -- a timed quest taken ahead: the walk on to its hand-in within this share of its time
 Own.GOAL_SECONDS = 10 -- seconds each open goal on that walk costs besides the walking (a talk, a click)
-
-Own.STEP_PICKUPS = {
-	[78307] = true, -- The Horn of Xelthos payment: check C's follow-up letter before returning to the Dead Drop.
-	[78699] = true, -- The Eye of Bhossca payment: same Dead Drop and follow-up letter.
-	[98223] = true, -- Old Habits: the book is at Nek'rosh, beyond the catapult that starts his kill quest.
-}
 
 -- Quests the log may still take, keeping LOG_SPARE free.
 function Own.logRoom()
@@ -10074,7 +10066,6 @@ function Own.aheadOk(i, j, a, ready, near)
 	-- An escort (compiled `escort`) starts walking the moment it is taken:
 	-- never ahead of its own step, which carries the warning (#1618).
 	if a.escort then return false, "escort" end
-	if Own.STEP_PICKUPS[q] then return false, "pickup belongs on its own step" end
 	local u = unavailableFor(a)
 	if u then return false, "unavailable (" .. tostring(u.reason) .. ")" end
 	if ready then

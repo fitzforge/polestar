@@ -1774,14 +1774,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   since Disrupt the Attacks went in earlier): with
   `behavior.whileHereTurnins`, whatever the auto-accept setting, such an
   accept whose prerequisites are done (`Own.READY_NONE`) and whose
-  quest-log parent is active, if it has one. Without those links in the
-  data, an earlier required hand-in at the same object in that step goes
-  first. Timed pickups and pickups reserved for their own step
-  (`Own.STEP_PICKUPS`, such as Old Habits) stay with the guide. An eligible
-  pickup is a line of its own, kind "take": "Take X from Y: saves a trip back",
-  weighed as a hand-in (the same seconds, town, `HERE_FAR`, `Own.hereSoon` and
-  walk rules), one per quest and none an NPC's whole visit names, at most
-  `HERE_TAKES` (2) of the `HERE_SHOW` lines. Clicked, the arrow points at
+  quest-log parent, if it has one, is in the log (and not handed in on the
+  same visit) is a line of its own, kind "take": "Take X from Y: saves a trip
+  back", weighed as a hand-in (the same seconds, town, `HERE_FAR`,
+  `Own.hereSoon` and walk rules), one per quest and none an NPC's whole visit
+  names, at most `HERE_TAKES` (2) of the `HERE_SHOW` lines. Where the data
+  has no such link, an earlier required hand-in at the same object in that
+  step goes first (A Way In before Master of Disguise at the Syndicate
+  Footlocker, the Pyrewood Dead Drop's payments after their letters). Timed
+  pickups stay with the guide, and so does an accept whose own step's `when`
+  does not hold (Old Habits' Tattered Spellbook, `when onquest 465,474`,
+  #1705). Clicked, the arrow points at
   the NPC; with auto-accept on, talking to them takes it (`Own.hereWants`
   "take"); taken, the line goes. A turn-in (`QUEST_TURNED_IN`) builds the
   candidates again, so the follow-up comes up where the player stands.

@@ -1229,15 +1229,20 @@ emit({ cross = cross[1], rows = rows() })
 	}
 }
 
+// #1705: the Tattered Spellbook offers Old Habits only while Nek'rosh's Gambit (465) or Defeat Nek'rosh (474) is in
+// the log, and the guide's step for it says so (`when onquest 465,474`, before the catapult that takes 465). While
+// you're here and auto-accept read that step: with 465 in the log the book is a pick-up on the way; with 465 handed
+// in and 474 never taken (a solo player), it is neither offered nor taken.
 #[test]
-fn old_habits_stays_at_its_guide_step_even_when_the_spellbook_is_nearby() {
+fn old_habits_is_offered_only_while_its_steps_gate_holds() {
 	let guide = r#"
 Polestar.RegisterGuide({
 	id = "test/here", pack = "test", title = "Angerfang Encampment", minLevel = 1, maxLevel = 40,
 	steps = {
+		{ title = "To Deepwater Tavern", goals = { { t = "goto", map = 1429, x = 10.7, y = 61 } } },
+		{ title = "Tattered Spellbook", when = { { k = "onquest", q = { 465, 474 } } }, goals = { { t = "accept", quest = 98223, object = 671518, title = "Old Habits", map = 1429, x = 53.48, y = 54.53 } } },
 		{ title = "Catapult", goals = { { t = "turnin", quest = 465, title = "Nek'rosh's Gambit", object = 630696, map = 1429, x = 47.5, y = 47 } } },
 		{ title = "Defeat Nek'rosh", goals = { { t = "accept", quest = 474, title = "Defeat Nek'rosh", object = 630696, pre = { 465 }, map = 1429, x = 47.5, y = 47 } } },
-		{ title = "Tattered Spellbook", goals = { { t = "accept", quest = 98223, object = 671518, title = "Old Habits", map = 1429, x = 53.48, y = 54.53 } } },
 		{ title = "Chieftain Nek'rosh", goals = { { t = "collect", quest = 474, oi = 1, item = 3625, itemName = "Nek'rosh's Head", count = 1, map = 1429, x = 53.5, y = 54.7 } } },
 	},
 })
@@ -1257,16 +1262,10 @@ w.units.npc = "GameObject-0-1-0-1-671518-000001"
 emit({ step = E.GetLiveStep(), rows = cands(), wants = E.WantsQuest("accept", 98223) })
 w.turnIn(465); flush()
 emit({ step = E.GetLiveStep(), rows = cands(), wants = E.WantsQuest("accept", 98223) })
-w.accept(474, { 1 }); flush()
-emit({ step = E.GetLiveStep(), wants = E.WantsQuest("accept", 98223) })
-w.accept(98223, {}); flush()
-emit(E.GetLiveStep())
 "#,
 	);
-	assert_eq!(out[0], json!({ "step": 1, "rows": "", "wants": false }));
-	assert_eq!(out[1], json!({ "step": 2, "rows": "", "wants": false }));
-	assert_eq!(out[2], json!({ "step": 3, "wants": true }));
-	assert_eq!(out[3], 4);
+	assert_eq!(out[0], json!({ "step": 1, "rows": "2:1:take:0", "wants": true }), "465 in the log: the book is a pick-up on the way");
+	assert_eq!(out[1], json!({ "step": 1, "rows": "", "wants": false }), "465 handed in, 474 never taken: nothing to take");
 }
 
 #[test]
