@@ -12656,3 +12656,159 @@ test('forever/horde/06-hillsbrad-foothills.guide: Horde 21-30 audit: the fields 
 	const step = compiled('forever/horde/06-hillsbrad-foothills.guide').steps.find((s) => s.title === 'Hillsbrad Fields');
 	assert.match([step.tip, step.note].flat().filter(Boolean).join(' '), /Kirin Tor Guards \(55\)/);
 });
+
+// No step every player sees names a dungeon without a goal (0.4.0 dungeon audit: 50-60/06's "Dire Maul (optional)"
+// and "Scholomance (optional)", 50-60/07's "Dungeon instead of grinding"): a step with nothing to do that only says
+// "run a dungeon" stops the guide for every player, dungeons on or off, who has to skip it (its `note` lines are no
+// goal). A dungeon in the route is a `when dungeon` run; a grind names one in its tip.
+const DUNGEON_WORDS = /\b(dungeon|Dungeon|Ragefire|Wailing Caverns|Deadmines|Shadowfang|Blackfathom|Stockade|Gnomeregan|Razorfen|Scarlet Monastery|Uldaman|Zul'Farrak|Maraudon|Sunken Temple|Blackrock|Dire Maul|Scholomance|Stratholme|Hall of Thanes|Ruins of Lordaeron|Excavation Site|City of Dalaran|Drowned City|Krol'dok|Alcaz|Blackmaw|Shaper's Terrace)\b/;
+test('dungeons in the route: no step without a goal names a dungeon in a leveling guide', { skip }, () => {
+	const bad = [];
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		for (const [i, step] of compiled(guide).steps.entries()) {
+			if (step.goals.some((g) => g.t !== 'note')) continue;
+			const text = [step.title, step.note || '', ...step.goals.map((g) => g.text || '')].join('\n');
+			if (DUNGEON_WORDS.test(text)) bad.push(`${guide} step ${i + 1} "${step.title}"`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
+// The grind-tip rule (Fitz, 2026-11-13; Forge's guide writer, apply.rs grind_dungeon_tip and dungeons_near): a grind
+// tip names a dungeon only when its run is in the route (a `when dungeon` step with an `enter`) in the same guide or
+// the one it leads to, with the way in on the grind's continent and the grind's level in the dungeon's range (the
+// Codex's: the client's Group Finder), at most two, nearest range middle first. A run at the grind's stop or behind
+// it: "Or, with a group, run the X dungeon instead."; one still to come is named as coming up, never as a detour:
+// "With a group, the X run later in this guide, in <zone>, makes up the difference." (or "in the next guide"). The
+// writer's own grind tips ("Top up here ...", "If you skipped ...") carry it; a hand-written one keeps only a clause
+// it has, by the same rule.
+const GRIND_RANGES = [
+	['Ragefire Chasm', 13, 18, 'H'], ['Wailing Caverns', 17, 24, ''], ['Deadmines', 17, 26, 'A'], ['Shadowfang Keep', 20, 30, ''],
+	['Blackfathom Deeps', 24, 32, ''], ['Stockade', 24, 32, 'A'], ['Razorfen Kraul', 29, 38, ''], ['Gnomeregan', 29, 38, 'A'],
+	['Scarlet Monastery', 30, 38, ''], ['Scarlet Monastery', 33, 41, ''], ['Scarlet Monastery', 36, 44, ''], ['Scarlet Monastery', 38, 46, ''],
+	['Razorfen Downs', 37, 46, ''], ['Uldaman', 41, 51, ''], ["Zul'Farrak", 44, 54, ''], ['Maraudon', 46, 55, ''], ['Sunken Temple', 50, 60, ''],
+	['Blackrock Depths', 52, 60, ''], ['Blackrock Spire', 55, 60, ''], ['Scholomance', 58, 60, ''], ['Stratholme', 58, 60, ''],
+	['Hall of Thanes', 13, 18, ''], ['Ruins of Lordaeron', 15, 22, ''], ['Excavation Site', 26, 33, ''], ['City of Dalaran', 28, 35, ''],
+	['Drowned City', 35, 42, ''], ["Krol'dok Stronghold", 40, 47, ''], ['Alcaz Prison', 48, 55, ''], ['Blackmaw Hold', 55, 60, ''],
+	["Shaper's Terrace", 60, 60, ''],
+];
+const GRIND_CLAUSE = /(?:^| )((?:Or, with a group, run .+? instead\.|With a group, the .+? makes up the difference\.)(?: (?:Or, with a group, run .+? instead\.|With a group, the .+? makes up the difference\.))*)$/;
+test('dungeons in the route: grind tips name only the runs near them, as coming up when they are still to come', { skip }, () => {
+	data = data || loadData(DATA);
+	const zone = (id) => data.zones[id];
+	const continent = (id) => {
+		for (let z = zone(id); z; z = zone(z.parent)) if (z.type === 2) return z.id;
+		return null;
+	};
+	const key = (name) => String(name).split(':')[0].trim().replace(/^The /i, '').toLowerCase();
+	const runsOf = (guide) => (fs.existsSync(path.join(OFFICIAL_DIR, guide)) ? compiled(guide).steps : []).flatMap((s, i) => {
+		const d = (s.when || []).find((p) => p.k === 'dungeon' && !p.neg);
+		const enter = s.goals.find((g) => g.t === 'enter');
+		return d && enter ? [{ key: key(d.name), at: i, zone: zone(enter.map) ? zone(enter.map).name : '', cont: continent(enter.map) }] : [];
+	});
+	const bad = [];
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		const g = compiled(guide);
+		const fac = guide.startsWith('forever/horde/') ? 'H' : 'A';
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		const nexts = [...text.matchAll(/^next\s+(\S+)/gm)].map((m) => `${m[1]}.guide`);
+		const all = [...runsOf(guide).map((r) => ({ ...r, next: false })), ...nexts.flatMap((n) => runsOf(n).map((r) => ({ ...r, next: true })))];
+		for (const [i, step] of g.steps.entries()) {
+			const lv = step.goals.find((x) => x.t === 'level' && x.grind);
+			if (!lv) continue;
+			const tips = (step.note || '').split('\n');
+			const withClause = tips.find((t) => GRIND_CLAUSE.test(t));
+			if (!withClause && !tips.some((t) => /^(Top up here|If you skipped)/.test(t))) continue;
+			const have = withClause ? withClause.match(GRIND_CLAUSE)[1] : '';
+			const level = lv.level + (lv.frac || 0);
+			const spot = lv.map || (step.goals.find((x) => x.map) || {}).map;
+			const cont = spot ? continent(spot) : continent(g.zone);
+			const near = all.filter((r) => cont == null || r.cont == null || r.cont === cont);
+			const n = Math.floor(level);
+			const fit = GRIND_RANGES.map(([name, lo, hi, f], ix) => ({ name, lo, hi, f, ix }))
+				.filter((d) => (!d.f || d.f === fac) && d.lo <= n && n <= d.hi && near.some((r) => r.key === key(d.name)))
+				.sort((a, b) => Math.abs(a.lo + a.hi - 2 * n) - Math.abs(b.lo + b.hi - 2 * n) || a.ix - b.ix)
+				.slice(0, 2);
+			const where = (d) => {
+				const own = near.filter((r) => r.key === key(d.name));
+				const mine = own.find((r) => !r.next);
+				if (mine) return mine.at > i ? ['later in this guide', mine.zone] : ['here'];
+				return ['in the next guide', own[0].zone];
+			};
+			const heres = fit.filter((d) => where(d)[0] === 'here').map((d) => `the ${d.name} dungeon`);
+			const out = heres.length ? [`Or, with a group, run ${heres.join(' or ')} instead.`] : [];
+			for (const d of fit) {
+				const [when, z] = where(d);
+				if (when !== 'here') out.push(`With a group, the ${d.name} run ${when}${z ? `, in ${z},` : ''} makes up the difference.`);
+			}
+			const want = out.join(' ');
+			if (want !== have) bad.push(`${guide} step ${i + 1} "${step.title}" (level ${level}): ${JSON.stringify(have)}, the rule gives ${JSON.stringify(want)}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
+// Wailing Caverns (Horde, 0.4.0): Mebok's and Bigglefuzz's hand-ins go on a Crossroads-Ratchet hop from 02's Crossroads
+// stop at ~22.6 (full XP, against half on 04-the-barrens' Ratchet stop at ~26.6), for the dungeon's runners only: every
+// 02-the-barrens step of the hop (the flights and the two hand-ins) is behind `when dungeon "Wailing Caverns"`, so the
+// solo route has no Ratchet step there.
+test('Wailing Caverns (Horde): the Crossroads-Ratchet hop of 02-the-barrens is the runners\' alone', { skip }, () => {
+	data = data || loadData(DATA);
+	const node = (short) => (data.travel?.taxi?.nodes || []).find((n) => n.short === short)?.id;
+	const steps = compiled('forever/horde/02-the-barrens.guide').steps;
+	const at = steps.findIndex((s) => s.goals.some(is('turnin', 868)));
+	assert.ok(at >= 0, "Korran's hand-in of 868 on the Crossroads stop");
+	const flies = (s, id) => !!s && s.goals.some((g) => g.t === 'fly' && g.node === id);
+	const hop = steps.slice(at + 1, at + 5);
+	assert.ok(flies(hop[0], node('Ratchet')) && hop[1].goals.some(is('turnin', 1491)) && hop[2].goals.some(is('turnin', 959)) && flies(hop[3], node('Crossroads')), `the hop follows the Crossroads stop: ${hop.map((s) => s.title).join(', ')}`);
+	for (const s of hop) assert.ok(whenDungeonOf(s, 'Wailing Caverns'), `"${s.title}" is behind \`when dungeon "Wailing Caverns"\``);
+	for (const s of steps.filter((x) => x.goals.some((g) => g.t === 'turnin' && [1491, 959].includes(g.quest)))) assert.ok(whenDungeonOf(s, 'Wailing Caverns'), `"${s.title}": 02-the-barrens hands Mebok's and Bigglefuzz's quests in on the runners' hop alone`);
+});
+
+// The Horde's two dungeon branches that leave the solo route's way (Razorfen Kraul from Freewind Post: a flight to
+// Camp Taurajo, the kraul, the Great Lift and back; the Sunken Temple from Kargath: a flight to Stonard, the temple,
+// a flight on to the Undercity): every travel step of the branch carries the run's gate, so a character under the
+// dungeon's floor never sets off for a run the route then passes.
+test('dungeons in the route: the Horde branches to Razorfen Kraul and the Sunken Temple travel only from the run\'s gate', { skip }, () => {
+	for (const [guide, dungeon, legs] of [['forever/horde/30-40/02-thousand-needles', 'Razorfen Kraul', 3], ['forever/horde/50-60/01-un-goro-crater', 'Sunken Temple', 2]]) {
+		const run = DUNGEON_RUNS().find((r) => r.faction === 'Horde' && dungeonKey(r.dungeon) === dungeonKey(dungeon));
+		assert.ok(run && run.run.gate != null, `${dungeon}: a gated run record`);
+		const travel = compiled(`${guide}.guide`).steps.filter((s) => whenDungeonOf(s, dungeon) && s.goals.length && s.goals.every((g) => g.t === 'goto' || g.t === 'fly'));
+		assert.equal(travel.length, legs, `${guide}: the branch's travel steps`);
+		for (const s of travel) assert.equal(lowestLevel(s), run.run.gate, `${guide}: "${s.title}" is gated \`when level>=${run.run.gate}\``);
+	}
+});
+
+// Krol'dok Stronghold for the Horde (Fitz, 2026-11-13): the Riverglades guides' dungeon, for a group of five, run at the
+// end of part 4 from its door north of Sunnyglade (37.2,43.9, where players' recordings go in), behind `when dungeon`
+// and its floor of 43 (the named exception in data/codex/levels.json). Each pick-up is gated at the floor less the
+// levels the guide plans before the run (players' recordings: no level model plays the option), the hearth back to
+// Rog'mar with the run, and each hand-in waits for its quest (`when complete`/`when onquest`), so a character who
+// skips the dungeon keeps the solo steps.
+test("Riverglades (experimental): the Horde Krol'dok Stronghold run is the dungeon's alone, at its door and its floor", () => {
+	const file = 'riverglades-horde-4.guide';
+	const dungeon = (lines) => anyLine(lines, /^\s+when dungeon "Krol'dok Stronghold"$/);
+	const gate = (lines) => (lines.find((l) => /^\s+when level>=/.test(l)) || '').replace(/^\s+when level>=/, '');
+	const steps = rivergladesSteps(file);
+	const runs = steps.filter((l) => dungeon(l) && anyLine(l, /^\s+enter "Krol'dok Stronghold" @37\.2,43\.9\b/));
+	assert.equal(runs.length, 1, `${file}: one run step at the door`);
+	assert.equal(gate(runs[0]), '43', 'the run is gated at the floor, 43');
+	const held = (runs[0].find((l) => /^\s+when onquest /.test(l)) || '').replace(/^\s+when onquest /, '').split(',').map(Number);
+	for (const q of [94975, 94972, 94968]) assert.ok(held.includes(q), `the run waits for a quest of it held (${q})`);
+	for (const [q, g] of [[94972, 42.5], [94968, 42.5], [94975, 42.8]]) {
+		const at = steps.filter((l) => anyLine(l, new RegExp(`^\\s+accept ${q}\\b`)));
+		assert.ok(at.length >= 1, `${file}: ${q} is picked up`);
+		for (const l of at) {
+			assert.ok(dungeon(l), `${file}: ${q} is picked up only by a character who runs the dungeon`);
+			assert.equal(gate(l), String(g), `${file}: the pick-up of ${q} is gated at ${g}`);
+		}
+	}
+	const hearth = steps.filter((l) => dungeon(l) && anyLine(l, /^\s+hearth /));
+	assert.equal(hearth.length, 1, `${file}: the runner's hearth back to Rog'mar`);
+	assert.equal(gate(hearth[0]), '43', 'the hearth goes with the run, at 43');
+	for (const q of [94975, 94972, 94968, 95278, 94973]) {
+		const at = steps.filter((l) => anyLine(l, new RegExp(`^\\s+turnin ${q}\\b`)));
+		assert.ok(at.length >= 1, `${file}: ${q} is handed in`);
+		for (const l of at) assert.ok(dungeon(l) && anyLine(l, new RegExp(`^\\s+when (complete|onquest) ${q}\\b`)), `${file}: the hand-in of ${q} waits for it, behind \`when dungeon\``);
+	}
+});
