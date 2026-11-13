@@ -373,3 +373,48 @@ fn the_guide_asks_until_answered_or_told_later_and_never_a_self_found_character(
 	assert_eq!(out["default"], json!(false), "an Options default other than Ask answers every new guide");
 	assert_eq!(out["selfFound"], json!(false));
 }
+
+#[test]
+fn search_opens_the_game_s_buy_view_fills_in_the_count_once_the_listings_come_and_keeps_their_prices() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		local selected, quantities, known, open = {}, {}, {}, true
+		AuctionHouseFrameMixin = { Event = { CommoditiesQuantitySelectionChanged = 7 } }
+		AuctionHouseFrame = {
+			IsShown = function() return open end,
+			SelectBrowseResult = function(self, result) selected[#selected + 1] = result.itemKey.itemID end,
+			TriggerEvent = function(self, event, n) quantities[#quantities + 1] = { event, n } end,
+		}
+		C_AuctionHouse = {
+			MakeItemKey = function(id) return { itemID = id } end,
+			GetItemKeyInfo = function(key) return known[key.itemID] end,
+			GetNumCommoditySearchResults = function() return 2 end,
+			GetCommoditySearchResultInfo = function(_, i) return ({ { unitPrice = 100, quantity = 3 }, { unitPrice = 150, quantity = 100 } })[i] end,
+		}
+		-- The item's auction key not loaded yet: asked, opened when it comes.
+		r.searched = M.Search(2318, 10)
+		r.before = #selected
+		known[2318] = { isCommodity = true }
+		stub.fire("ITEM_KEY_ITEM_INFO_RECEIVED", 2318)
+		r.selected = selected
+		stub.fire("COMMODITY_SEARCH_RESULTS_UPDATED", 2318)
+		r.price = { M.Price(2318, 10) }
+		flush()
+		r.quantities = quantities
+		-- The player's own search for another tracked material is priced too, and fills in nothing.
+		stub.fire("COMMODITY_SEARCH_RESULTS_UPDATED", 2589); flush()
+		r.own = { #quantities, (M.Price(2589, 1)) }
+		open = false
+		r.closed = M.Search(2318, 10)
+		"#,
+	);
+	assert_eq!(out["searched"], json!(true));
+	assert_eq!(out["before"], json!(0), "nothing opened while the client loads the item");
+	assert_eq!(out["selected"], json!([2318]), "the game's own buy view of the item");
+	assert_eq!(out["quantities"], json!([[7, 10]]), "the count to buy filled in once its listings came");
+	assert_eq!(out["price"], json!([1350, { "each": 100, "age": 0, "source": "search" }]));
+	assert_eq!(out["own"], json!([1, 100]));
+	assert_eq!(out["closed"], json!(false), "only at an open Auction House");
+}

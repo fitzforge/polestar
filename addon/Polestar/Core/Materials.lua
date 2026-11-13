@@ -12,6 +12,8 @@
 --   Materials.Choosable(guide) -> true when some material of it is both gathered and bought
 --   Materials.SetMode(guideId, mode), Materials.SetWay(guideId, item, way | nil) -> true | false
 --     (MATERIALS_CHANGED, guideId; Gather all and Buy all clear the picks, Mix keeps them)
+--   Materials.BuyRows() -> the running guide's materials to buy, for the shopping list at the Auction House
+--   Materials.Search(item, count) -> true: the game's buy view of item at the open Auction House, count filled in
 --   Materials.ToAuctionator(title, list) -> true: Auctionator's shopping list of { { item, name, count } }
 --   Materials.Have(item) -> total, parts { bags, bank, mail, coming, alts = { { name, count } }, altsCounted }
 --   Materials.Stored(item) -> bank, mail, coming: this character's, out of the bags
@@ -508,3 +510,103 @@ function Materials.AuctionatorLoaded()
 	local api = Auctionator and Auctionator.API and Auctionator.API.v1
 	return api and api.CreateShoppingList and true or false
 end
+
+---------------------------------------------------------------------------
+-- The shopping list at the Auction House (UI/AuctionBuys.lua shows these under the quest items)
+---------------------------------------------------------------------------
+
+-- The running guide's materials to buy, the earliest section first: { { guide, guideTitle, section, item, name,
+-- toBuy, need, have, price, info } }, from Engine.MaterialRows: each still to get whose way is Buy.
+function Materials.BuyRows()
+	local out = {}
+	local E = ns.Engine
+	local g = E and E.GetGuide and E.GetGuide()
+	if not (g and E.MaterialRows) or Materials.SelfFound() then return out end
+	for _, sec in ipairs(E.MaterialRows("rest")) do
+		for _, row in ipairs(sec.items) do
+			if row.way == "buy" and row.toGet > 0 then
+				out[#out + 1] = { guide = g.id, guideTitle = g.title, section = sec.title, item = row.item, name = row.name, toBuy = row.toGet,
+					need = row.need, have = row.held, price = row.price, info = row.info }
+			end
+		end
+	end
+	return out
+end
+
+-- Searching. Materials.Search opens the game's own buy view of an item at the open Auction House (as a click on it
+-- in the game's browse list does) and fills in the count to buy once its listings are there; buying stays the
+-- game's Buy Now, the player's own click. What a search shows is kept as the item's prices (Materials.NoteSearch):
+-- the searches Polestar opened and those the player makes for a tracked material.
+local searching = {} -- item -> the count to fill in when its listings come
+local keyWait -- an item whose auction key the client is still loading
+
+function Materials.AuctionOpen()
+	local F = AuctionHouseFrame
+	return F and F.IsShown and F:IsShown() and C_AuctionHouse and C_AuctionHouse.MakeItemKey and true or false
+end
+
+local function openItem(item)
+	local AH = C_AuctionHouse
+	local key = AH.MakeItemKey(item)
+	if not AH.GetItemKeyInfo(key) then
+		keyWait = item
+		return
+	end
+	keyWait = nil
+	AuctionHouseFrame:SelectBrowseResult({ itemKey = key, minPrice = 0, totalQuantity = 0 })
+end
+
+function Materials.Search(item, count)
+	if type(item) ~= "number" or not (Materials.AuctionOpen() and AuctionHouseFrame.SelectBrowseResult) then return false end
+	searching[item] = max(1, count or 1)
+	openItem(item)
+	return true
+end
+
+-- A stackable's listings (COMMODITY_SEARCH_RESULTS_UPDATED): priced per unit, cheapest first; then the count to buy
+-- of a search Polestar opened, through the window's own quantity event (its buy panel and its list both take it).
+ns.RegisterEvent("COMMODITY_SEARCH_RESULTS_UPDATED", function(_, item)
+	item = Compat.Readable(item)
+	local AH = C_AuctionHouse
+	if type(item) ~= "number" or not AH or not (searching[item] or Materials.Tracked()[item]) then return end
+	local rows = {}
+	for i = 1, Compat.Readable(AH.GetNumCommoditySearchResults(item)) or 0 do
+		local r = AH.GetCommoditySearchResultInfo(item, i)
+		if type(r) == "table" then rows[#rows + 1] = { price = r.unitPrice, quantity = r.quantity } end
+	end
+	Materials.NoteSearch(item, rows)
+	local want = searching[item]
+	if not want then return end
+	searching[item] = nil
+	local F, M = AuctionHouseFrame, AuctionHouseFrameMixin
+	local event = M and M.Event and M.Event.CommoditiesQuantitySelectionChanged
+	if event and F and F.TriggerEvent then
+		ns.After(0, function()
+			if Materials.AuctionOpen() then F:TriggerEvent(event, want) end
+		end)
+	end
+end)
+
+-- Another item's listings (ITEM_SEARCH_RESULTS_UPDATED: a pattern, gear): each listing's buyout over its count.
+ns.RegisterEvent("ITEM_SEARCH_RESULTS_UPDATED", function(_, key)
+	local item = type(key) == "table" and Compat.Readable(key.itemID) or nil
+	local AH = C_AuctionHouse
+	if type(item) ~= "number" or not AH or not (searching[item] or Materials.Tracked()[item]) then return end
+	searching[item] = nil
+	local rows = {}
+	for i = 1, Compat.Readable(AH.GetNumItemSearchResults(key)) or 0 do
+		local r = AH.GetItemSearchResultInfo(key, i)
+		local q = type(r) == "table" and max(1, Compat.Readable(r.quantity) or 1)
+		local buyout = q and Compat.Readable(r.buyoutAmount)
+		if buyout then rows[#rows + 1] = { price = math.floor(buyout / q), quantity = q } end
+	end
+	Materials.NoteSearch(item, rows)
+end)
+
+ns.RegisterEvent("ITEM_KEY_ITEM_INFO_RECEIVED", function(_, item)
+	if keyWait and Compat.Readable(item) == keyWait and Materials.AuctionOpen() then openItem(keyWait) end
+end)
+
+ns.RegisterEvent("AUCTION_HOUSE_CLOSED", function()
+	searching, keyWait = {}, nil
+end)

@@ -3396,6 +3396,8 @@ Polestar.Materials.Have(item) -> total, { bags, bank, mail, coming, alts = { { n
 Polestar.Materials.Stored(item) -> bank, mail, coming
 Polestar.Materials.Price(item, count) -> copper | nil, { each, age, source = "search" | "auctionator", short }
 Polestar.Materials.NoteSearch(item, rows)                        -- a search's listings: { { price, quantity } }
+Polestar.Materials.BuyRows() -> { { guide, guideTitle, section, item, name, toBuy, need, have, price, info } }  -- the running guide's materials whose way is Buy, still to buy, the earliest section first (the shopping list at the Auction House)
+Polestar.Materials.Search(item, count) -> bool                   -- at the open Auction House: the game's own buy view of the item, the count filled in once its listings come
 Polestar.Materials.ToAuctionator(title, { { item, name, count } }) -> bool  -- Auctionator's shopping list, while it is installed
 Polestar.Engine.MaterialRows(scope) -> { { n, title, from, to, rank, items = { { item, name, need, held, toGet, way, reason, pick, buy, gatherGoal, canGather, gatherWhy, price, info } } } }  -- the sections the skill has not passed ("section": the first only); what the character holds counts toward the earliest section first
 Polestar.Engine.RefreshMaterials()                               -- the ways changed: forget them, evaluate
@@ -3434,13 +3436,22 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   "Gathering this yourself", "Buying it at the Auction House", "Bought at the
   Auction House: needs Skinning 200" (or the levels), "No Auction House for
   self-found characters".
-- **Prices.** From the searches the shopping list makes
-  (`Materials.NoteSearch`): the cheapest listings, up to 40, so a count is
-  priced for that many ("only N listed" past them), kept per auction house
-  (realm and faction) for 14 days and dropped at login after; else
-  Auctionator's (`Auctionator.API.v1.GetAuctionPriceByItemID` and
-  `GetAuctionAgeByItemID`, caller "Polestar") when it is installed. Shown with
-  their age, never a gate.
+- **Prices.** From the searches the shopping list opens and those the player
+  makes for a tracked material (`COMMODITY_SEARCH_RESULTS_UPDATED`,
+  `ITEM_SEARCH_RESULTS_UPDATED` into `Materials.NoteSearch`): the cheapest
+  listings, up to 40, so a count is priced for that many ("only N listed" past
+  them), kept per auction house (realm and faction) for 14 days and dropped at
+  login after; else Auctionator's (`Auctionator.API.v1.GetAuctionPriceByItemID`
+  and `GetAuctionAgeByItemID`, caller "Polestar") when it is installed. Shown
+  with their age, never a gate.
+- **Searching.** `Materials.Search` does at the open Auction House what a click
+  on the item in the game's browse list does
+  (`AuctionHouseFrame:SelectBrowseResult` with `C_AuctionHouse.MakeItemKey`,
+  once `GetItemKeyInfo` has the item: `ITEM_KEY_ITEM_INFO_RECEIVED`), then
+  fills in the count to buy through the window's own quantity event
+  (`CommoditiesQuantitySelectionChanged`) once the listings are there.
+  Buying stays the game's Buy Now, the player's own click; nothing else of the
+  Auction House is touched (no scans, no favourites).
 - **On screen** (`UI/Materials.lua`). The card: the first time a guide with a
   material to choose for is the running guide of a character that never
   answered for it (`Materials.Asks`), with something still to get, the
