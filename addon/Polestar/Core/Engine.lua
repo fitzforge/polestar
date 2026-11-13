@@ -4921,6 +4921,21 @@ function Own.failedAim(s)
 	return nil
 end
 
+-- A timed quest's hand-in pulled forward (Quests/Timed.lua, Timed.Pulling:
+-- the route's way there gets in after its timer runs out, going now still
+-- makes it): the arrow leads to that hand-in, a later step's goal, ahead of
+-- the live step's other errands; the window's While-here panel says why.
+-- Nil when no hand-in is pulled.
+function Own.timedAim()
+	local T = ns.Timed
+	local q = T and T.Pulling and T.Pulling()
+	if not q then return nil end
+	local s, g = T.Pulled(q)
+	local goal = s and guide.steps[s] and guide.steps[s].goals[g]
+	if not (goal and goal.t == "turnin" and goal.quest == q) then return nil end
+	return waypointOf(g, goal, nil, s)
+end
+
 -- The arrow's goal: the one the player chose in the current step (a row
 -- click, the next spot), while it is open and its quest is not waiting for
 -- its accept in the step (Own.acceptFirst); else the current goal's own place;
@@ -4937,8 +4952,10 @@ end
 -- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
 -- while it shows. On the live step, a quest that left the log and waits for
 -- the player's answer leads back to its giver (Own.lostAim), whose accept the
--- window's notice names. A flight step leads to the flight's end while the
--- travel planner flies there (Own.flyAim), past the flight master it names.
+-- window's notice names; a timed quest's hand-in the route would reach too
+-- late leads ahead of the step's errands (Own.timedAim). A flight step leads
+-- to the flight's end while the travel planner flies there (Own.flyAim), past
+-- the flight master it names.
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
@@ -4957,7 +4974,7 @@ local function findWaypoint()
 		if wp then return wp end
 	end
 	if current == computed then
-		local wp = Own.lostAim() or Own.partyAim(current)
+		local wp = Own.lostAim() or Own.partyAim(current) or Own.timedAim()
 		if wp then return wp end
 	end
 	local fly = Own.flyAim(current) or Own.flyFromAim(current)
@@ -10050,6 +10067,49 @@ function Own.aheadLimitOk(a, npc, c, x, y)
 	return false
 end
 
+-- Seconds the route's way from where the player stands to quest q's hand-in
+-- takes, for the timed hand-in's pull (Quests/Timed.lua): the open goals
+-- from the live step on, in order, those with a place by straight lines
+-- HERE_WINDING longer at HERE_SPEED, GOAL_SECONDS each, as Own.aheadLimitOk
+-- weighs a timed accept. A goal on the way on another continent, or one that
+-- leads away (HERE_SOON_AWAY: a level, a flight, a hearth, a wait), counts as
+-- forever; none before the hand-in, 0 (the route goes there next). ->
+-- seconds, the hand-in's step and goal index; nil when the route hands q in
+-- nowhere from the live step on, or the hand-in has no place.
+function Engine.RouteSeconds(q)
+	if not (guide and computed and q) then return nil end
+	local c, x, y = Compat().GetPlayerWorldPosition()
+	if not c then return nil end
+	local steps, yards, secs, errands, far = guide.steps, 0, 0, 0, false
+	for i = computed, #steps do
+		local step = steps[i]
+		if stepApplies(step) and not isSkipped(i) then
+			for j, goal in ipairs(step.goals) do
+				local t = goal.t
+				if t ~= "note" and goalApplies(goal) and not Own.goalSkipped(i, j) and not goalDone(i, j, goal) then
+					local oc, ox, oy
+					if goal.map and goal.x and goal.y then oc, ox, oy = goalWorld(goal) end
+					if t == "turnin" and goal.quest == q then
+						if not oc then return nil end
+						if errands == 0 then return 0, i, j end
+						if far or oc ~= c then return math.huge, i, j end
+						yards = yards + ((ox - x) ^ 2 + (oy - y) ^ 2) ^ 0.5
+						return secs + yards * Own.HERE_WINDING / Own.HERE_SPEED, i, j
+					end
+					errands = errands + 1
+					secs = secs + Own.GOAL_SECONDS
+					if Own.HERE_SOON_AWAY[t] or (oc and oc ~= c) then
+						far = true
+					elseif oc then
+						yards, x, y = yards + ((ox - x) ^ 2 + (oy - y) ^ 2) ^ 0.5, ox, oy
+					end
+				end
+			end
+		end
+	end
+	return nil
+end
+
 -- Whether accept a, goal j of step i, may be taken now at its NPC (see
 -- above), and when not, why (the debug log's words, Engine.AcceptRefusal).
 -- `ready`: for a visit planned before its hand-ins, the quests it hands in
@@ -12591,6 +12651,7 @@ end
 ns.On("QUESTDB_LOADED", onUpdateEvent)
 -- The Hearthstone's cooldown started, ended or the bind moved (QoL/Hearth.lua).
 ns.On("QOL_HEARTH_CHANGED", onUpdateEvent)
+ns.On("TIMED_PULL", onUpdateEvent) -- a timed hand-in pulled forward or let go (Own.timedAim)
 
 -- New gear verdicts (equipment, spec, level, item data): `when upgrade`.
 ns.On("GEAR_UPDATED", onUpdateEvent)

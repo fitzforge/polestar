@@ -1923,7 +1923,21 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   row shows. A click points the arrow there (`Timed.AimOff`: `Nav.SetTarget`
   with the spawn's `z`), a right-click hides it until the timer ends
   (`Timed.MuteOff`). In combat such rows never come or go (`GF.offs` is
-  kept; `PLAYER_REGEN_ENABLED` catches up).
+  kept; `PLAYER_REGEN_ENABLED` catches up). The hand-in pulled forward
+  (0.3.8, plan 3F-C7): each reading also takes the way straight to every
+  running timer's hand-in on the route (`Timed.Way`), whichever step is
+  shown, and with the quest ready to hand in, when the route's own way there
+  (`Engine.RouteSeconds`: the open goals from the live step on, in order,
+  straight lines `HERE_WINDING` longer at `HERE_SPEED`, `GOAL_SECONDS` each;
+  one on another continent or leading away counts as forever) gets in after
+  the timer and the way straight there still makes it, the hand-in is pulled
+  (`Timed.Pulling`, `Timed.Pulled`: its step and goal): the Engine's arrow
+  leads to it ahead of the live step's errands (`Own.timedAim`, after a
+  lost quest's and the party's, before the step's goals; the player's own
+  choice wins), the live step stays, and the panel opens with the quest's
+  row, "<NPC> ~N min · go now, the route gets there too late". A right-click
+  lets the route be (`Timed.MuteOff`: no pull, the arrow back to the step);
+  `TIMED_PULL` when a pull starts or ends (the Engine evaluates again).
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
