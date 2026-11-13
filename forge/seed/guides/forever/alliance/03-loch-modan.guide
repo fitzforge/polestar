@@ -462,6 +462,14 @@ step The Defias Messenger
   tip South along the road to Moonbrook. The Defias Messenger starts in front of the Moonbrook smithy and walks north to the Gold Coast Quarry and the back of the Jangolode Mine, then back: look along his road. Slow him when he runs at 30% health.
   collect 1381 quest 142                      -- A Mysterious Message: the Defias Messenger
 
+step Half Pendant of Aquatic Endurance
+  only NightElf,Skyborne,Druid
+  when turnedin 65
+  when onquest 272
+  zone Westfall
+  tip Druids on Trial of the Sea Lion: from the Gold Coast Quarry, west to the shore and north along it. The Strange Lockbox lies on the sea floor off the coast (about 18,33); then back south along the coast to the lighthouse.
+  collect 15882 x1                            -- Half Pendant of Aquatic Endurance: the Strange Lockbox
+
 step Westfall Lighthouse
   when turnedin 65
   tip South-west from Moonbrook to the lighthouse on the point: Captain Grayson waits on its steps. Old Murk-Eye walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles.

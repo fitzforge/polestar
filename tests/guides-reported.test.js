@@ -11832,3 +11832,17 @@ test(`${LOCH_MODAN}: #2082: no gryphon to Stormwind or boat to Auberdine at the 
 		assert.ok(list.some((e) => is('turnin', 97914)(e.goal) && on(e)), `${path ? 'Westfall' : 'gate'} path: Baros takes Expanding Horizons`);
 	}
 });
+
+// 0.4.0 route audit, Alliance 12-21 (F2, with 03-darkshore-return's Cat Form trip): Night Elf and Skyborne Druids
+// took Trial of the Sea Lion (272) at about 17 and fetched the Westfall half on a gryphon of its own to Sentinel Hill
+// in 04-redridge-mountains (about 25), then joined the halves on a Moonglade trip of its own in 06-wetlands (about
+// 28). The Westfall stretch of 03-loch-modan passes the Gold Coast Quarry, close to the Strange Lockbox (Westfall
+// 17.9,33.2): the half is collected there, so the Cat Form trip can finish 272 and Aquatic Form at about 22.
+test(`${LOCH_MODAN}: Druids collect the Westfall half pendant on the Westfall stretch`, { skip }, () => {
+	const list = goals(LOCH_MODAN);
+	const half = at(list, 'collect 15882', (g) => g.t === 'collect' && g.item === 15882);
+	const { step } = list[half];
+	assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(272)), 'only with Trial of the Sea Lion in the log');
+	assert.ok(forClass('DRUID')(list[half]) && !forClass('WARRIOR')(list[half]), 'Druids only');
+	assert.ok(half > at(list, 'the Defias Messenger', (g) => g.t === 'collect' && g.quest === 142) && half < at(list, 'accept 104', is('accept', 104)), 'between the messenger\'s road and the lighthouse');
+});
