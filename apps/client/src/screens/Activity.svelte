@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { app } from '../lib/app.svelte';
 	import { api } from '../lib/backend';
+	import { sentAgainAt } from '../lib/activity';
 	import { bytes, count, plural, when } from '../lib/format';
 	import { rise } from '../lib/motion';
 	import type { ActivityEntry, Snapshot } from '../lib/types';
@@ -31,13 +32,6 @@
 	};
 	const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' });
 
-	/** When a batch that failed went through after all (the next upload after it). */
-	function sentAgain(i: number): string | null {
-		if (!entries) return null;
-		for (let j = i - 1; j >= 0; j--) if (entries[j].kind === 'upload') return clock.format(entries[j].at);
-		return null;
-	}
-
 	/** The community site turned a guide off or removed it; `message` is its reason, not a failure. */
 	const revoked = (e: ActivityEntry) => e.kind === 'disabled' || e.kind === 'removed';
 	const glyph = (e: ActivityEntry) => (e.product ? 'layers' : e.kind === 'deleted' ? 'close' : e.kind === 'failed' ? 'plug' : 'qol-upgrade');
@@ -59,7 +53,7 @@
 			<div class="list" role="list">
 				{#each entries as entry, i (entry.at + ':' + i)}
 					{@const expandable = expand(entry)}
-					{@const again = entry.kind === 'failed' ? sentAgain(i) : null}
+					{@const again = entry.kind === 'failed' ? sentAgainAt(entries, i) : null}
 					<div class="entry" class:open={open === i} role="listitem" style:--i={i}>
 						<button class="line" class:expandable disabled={!expandable} onclick={() => (open = open === i ? null : i)} aria-expanded={expandable ? open === i : undefined}>
 							<span class="kind"><Glyph name={glyph(entry)} size={14} color={entry.kind === 'failed' || entry.message || revoked(entry) ? 'var(--warning)' : entry.product ? 'var(--textDim)' : 'var(--accent)'} /></span>
@@ -88,7 +82,7 @@
 								{:else if entry.product}
 									{#if entry.message}<span class="chip warning">Failed</span>{:else}<span class="chip">{entry.kind === 'restored' ? 'Guide' : 'Addon'}</span>{/if}
 								{:else if entry.kind === 'failed'}
-									<span class="chip warning">{again ? `Not delivered · sent again ${again}` : 'Not delivered yet'}</span>
+									<span class="chip warning">{again !== null ? `Not delivered · sent again ${clock.format(again)}` : 'Not delivered yet'}</span>
 								{:else}
 									{#if entry.rejected.length}
 										<span class="chip warning">{count(entry.rejected.length)} skipped</span>
