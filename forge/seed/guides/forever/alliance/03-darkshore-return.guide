@@ -124,7 +124,7 @@ step On the way
 
 step The naga
   label q98013
-  tip Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore.
+  tip Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore. Careful: Baron Marinous, an elite naga (21), walks the ruins among them: pull the naga away from him, or fight him at full health.
   collect 5273 quest 951                      -- Mathystra Relics
   kill 2181 quest 98013
   kill 2182 quest 98013

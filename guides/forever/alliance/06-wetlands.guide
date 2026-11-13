@@ -187,7 +187,7 @@ step The Lost Fleet: kill these as you meet them
   zone Wetlands
   tip Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; First Mate Snellig stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.
   tip Careful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight.
-  kill 1158 quest 289                     -- Cursed Marine
+  kill 1158 quest 289                     -- Cursed Marine; careful: Nightveiled Rotheap, a level 31 elite, roams this coast
   kill 1157 quest 289                     -- Cursed Sailor
   collect 3619 quest 289                  -- Snellig's Snuffbox: First Mate Snellig
   collect 3348 quest 471                  -- Giant Crocolisk Skin

@@ -8036,6 +8036,86 @@
 				}
 			],
 			"issue": 2025
+		},
+		{
+			"id": "a2130-wetlands-rotheap-spoils",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98197,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Timber and iron piles lie around the keep and along the harbor's walls. Careful: Nightveiled Rotheap, a level 31 elite, roams the Wetlands' shores and roads: if it comes by, give it room.",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Nightveiled Rotheap (npc 270589, level 31, elite) roams the whole Wetlands (its spawn points run from Menethil's walls to the Green Belt); 06-ashenvale's Menethil and east-Wetlands steps are done at about 24-27. Nobody died to it in players' recordings (13 people killed it), so the steps warn of it instead of moving. The tip keeps the step's old tip, the sentence added.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Nightveiled Rotheap (npc 270589, level 31, elite) killed by 13 people across the Wetlands, none killed by it; npcs.json 270589 spawns over the whole zone"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "a2130-thelgen-rock-highland-elites",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98282,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites.",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Thelgen Rock holds Forever's Highland Lurkers and Horrors (npcs 260804, 260808, level 28, elite) among the Cave and Leech Stalkers that drop the glands; 06-ashenvale does Alchemical Hazards there at about 25-27. The tip keeps the step's old tip, the sentence added.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Alchemical Hazards (98282) done by 32 people (median 26.8), 2 died in the cave, 10 abandoned it; Highland Lurkers killed by 31 people and Highland Horrors by 21 at Thelgen Rock (51,61); npcs.json 260804 and 260808 (level 28, elite): 22 and 8 of their 24 spawn points in the cave"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "a2130-mathystra-baron-marinous",
+			"faction": "Alliance",
+			"at": {
+				"quest": 951,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore. Careful: Baron Marinous, an elite naga (21), walks the ruins among them: pull the naga away from him, or fight him at full health.",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Baron Marinous (npc 270294, level 21, elite) walks the Ruins of Mathystra among the Stormscale naga that 03-darkshore-return's naga leg works at about 22-23. The tip keeps the step's old tip, the sentence added.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Mathystra Relics and Swelling Forces done by 27-28 people (median 21.4-21.9), none died there; Baron Marinous (npc 270294, level 21, elite) killed by 10 people at Darkshore 59,23"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "a2130-wetlands-rotheap-raptors",
+			"faction": "Alliance",
+			"at": {
+				"quest": 294,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Mottled Screecher; careful: Nightveiled Rotheap, a level 31 elite, roams these hills",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Nightveiled Rotheap (npc 270589, level 31, elite) roams the whole Wetlands; this step has its own two tips, so the warning is the goal's inline note.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Nightveiled Rotheap (npc 270589, level 31, elite) killed by 13 people across the Wetlands, none killed by it; npcs.json 270589 spawns over the whole zone"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "a2130-wetlands-rotheap-lost-fleet",
+			"faction": "Alliance",
+			"at": {
+				"quest": 289,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Cursed Marine; careful: Nightveiled Rotheap, a level 31 elite, roams this coast",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Nightveiled Rotheap (npc 270589, level 31, elite) roams the whole Wetlands; this step has its own two tips, so the warning is the goal's inline note.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Nightveiled Rotheap (npc 270589, level 31, elite) killed by 13 people across the Wetlands, none killed by it; npcs.json 270589 spawns over the whole zone"
+			},
+			"issue": 2025
 		}
 	]
 }
