@@ -201,7 +201,7 @@ step Telf Joolam
 step The Barrens
   only Orc,Troll,Tauren,Shaman
   zone The Barrens
-  goto 61.4,21.1 "Kranal Fiss"
+  goto 56.0,19.9 "Kranal Fiss"
 
 step Kranal Fiss
   only Orc,Troll,Tauren,Shaman

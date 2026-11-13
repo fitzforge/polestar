@@ -5418,6 +5418,16 @@ test('The Barrens (Horde): Tauren Warriors and Shamans finish Path of Defense an
 	}
 });
 
+// 0.4.0 route audit, Horde 1-21: the walk back from Telf Joolam to Kranal Fiss for Call of Fire's last part was a goto
+// named "Kranal Fiss" at 61.4,21.1, Uzzek's spot at Far Watch Post; Kranal stands alone on the ridge at 56.0,19.9.
+test('The Barrens (Horde): the goto back to Kranal Fiss points at Kranal, not at Uzzek (0.4.0 audit)', { skip }, () => {
+	const list = goals(BARRENS);
+	const hand = at(list, 'turnin 1527', is('turnin', 1527));
+	const walk = list.slice(0, hand).reverse().find(({ goal }) => goal.t === 'goto');
+	assert.equal(list[hand].goal.npc, 5907, 'Kranal Fiss takes it');
+	assert.ok(Math.hypot(walk.goal.x - list[hand].goal.x, walk.goal.y - list[hand].goal.y) < 1, `the goto at ${walk.goal.x},${walk.goal.y} is at Kranal (${list[hand].goal.x},${list[hand].goal.y})`);
+});
+
 // 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar
 // for Rilli Greasygob, then on to Thunder Bluff): Druids and Paladins have no trainer in Orgrimmar. They take Thunder
 // Bluff in the Orgrimmar trip's place (Paladins learn its flight path by Camp Taurajo), Druids with Cat Form and Cure
