@@ -5735,6 +5735,71 @@
 			"evidence": "route level 13.1; Wood Lurker 17-18; recordings (2026-11-11): done by 17 people at 11-16 (median 13), 2 people died within 60 yd (median level 13), 1 abandoned"
 		},
 		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|kill 99160.1|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "kill 99160.1",
+			"kind": "over",
+			"title": "Minor Ice Elemental on the way",
+			"level": 10,
+			"mobs": [
+				"Father Gavin 15-15 x2"
+			],
+			"reason": "Father Gavin, the level 15 mob counted here, is the quest's own friendly priest at the Misty Pine Refuge (he gives 99158 and 99160)",
+			"evidence": "route level 10; Father Gavin 15-15 x2; recordings (2026-11-13): done by 21 people (median 10.31), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|collect 267.1|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "collect 267.1",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 12.3,
+			"mobs": [
+				"Headsplitter 15-17 x6"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 12.3; Headsplitter 15-17 x6; recordings (2026-11-13): done by 23 people (median 13.32), 1 person died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|collect 267.1|pack",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "collect 267.1",
+			"kind": "pack",
+			"title": "Stonesplinter troggs",
+			"level": 12.3,
+			"mobs": [
+				"7 spawns 14+"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 12.3; 7 spawns 14+; recordings (2026-11-13): done by 23 people (median 13.32), 1 person died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|kill 224.1|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "kill 224.1",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 12.3,
+			"mobs": [
+				"Headsplitter 15-17 x2"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 12.3; Headsplitter 15-17 x2; recordings (2026-11-13): done by 21 people (median 13.35), 1 person died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|kill 224.2|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "kill 224.2",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 12.3,
+			"mobs": [
+				"Headsplitter 15-17 x3"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 12.3; Headsplitter 15-17 x3; recordings (2026-11-13): done by 24 people (median 13.35), 1 person died within 60 yd, 1 abandoned"
+		},
+		{
 			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 98321.1|rare",
 			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
 			"goal": "collect 98321.1",
@@ -6010,6 +6075,58 @@
 			],
 			"reason": "players do it (29 people, median 15); the 1 who died there fought other mobs (Tunnel Rat Geomancer), not Grizlak",
 			"evidence": "route level 12.9; Grizlak 15-15; recordings (2026-11-11): done by 29 people at 11-21 (median 15), 1 people died within 60 yd (median level 12), 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 99160.1|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "kill 99160.1",
+			"kind": "over",
+			"title": "Minor Ice Elemental on the way",
+			"level": 10,
+			"mobs": [
+				"Father Gavin 15-15 x2"
+			],
+			"reason": "Father Gavin, the level 15 mob counted here, is the quest's own friendly priest at the Misty Pine Refuge (he gives 99158 and 99160)",
+			"evidence": "route level 10; Father Gavin 15-15 x2; recordings (2026-11-13): done by 21 people (median 10.31), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 267.1|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "collect 267.1",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 11.6,
+			"mobs": [
+				"Headsplitter 15-17 x6"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 11.6; Headsplitter 15-17 x6; recordings (2026-11-13): done by 23 people (median 13.32), 1 person died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 224.1|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "kill 224.1",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 11.6,
+			"mobs": [
+				"Headsplitter 15-17 x2"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 11.6; Headsplitter 15-17 x2; recordings (2026-11-13): done by 21 people (median 13.35), 1 person died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 224.2|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "kill 224.2",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 11.6,
+			"mobs": [
+				"Headsplitter 15-17 x3"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 11.6; Headsplitter 15-17 x3; recordings (2026-11-13): done by 24 people (median 13.35), 1 person died within 60 yd, 1 abandoned"
 		},
 		{
 			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91743.1|elite",
@@ -6299,6 +6416,84 @@
 			"evidence": "route level 9.4; Mine Spider 7-9 x2; recordings (2026-11-11): no objective ticks, 9 people died within 60 yd (median level 10), 1 abandoned"
 		},
 		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|kill 5624.1|rare",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "kill 5624.1",
+			"kind": "rare",
+			"title": "Guard Roberts",
+			"level": 5.9,
+			"mobs": [
+				"Matriarch Bristlefur 10-10"
+			],
+			"reason": "a rare (Matriarch Bristlefur, 10) roams near the goal; no recorded death there",
+			"evidence": "route level 5.9; Matriarch Bristlefur 10-10; recordings (2026-11-13): done by 6 people (median 6.28), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91751.1|rare",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 91751.1",
+			"kind": "rare",
+			"title": "Crystal Lake: kill these as you meet them",
+			"level": 8.3,
+			"mobs": [
+				"Elder Finseer 11-11"
+			],
+			"reason": "warned at the step: its tip names Elder Finseer (a level 11 rare murloc) and says to leave him be",
+			"evidence": "route level 8.3; Elder Finseer 11-11; recordings (2026-11-13): done by 15 people (median 8.81), 2 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 5545.1|elite",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 5545.1",
+			"kind": "elite",
+			"title": "The Eastvale Logging Camp",
+			"level": 9,
+			"mobs": [
+				"Elmpaw 12-12"
+			],
+			"reason": "Elmpaw, a level 12 elite, roams the woods near the goal; recordings show at most 1 death within 60 yd",
+			"evidence": "route level 9; Elmpaw 12-12; recordings (2026-11-13): done by 42 people (median 9.47), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 83.1|elite",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 83.1",
+			"kind": "elite",
+			"title": "Stone Cairn Lake",
+			"level": 9.3,
+			"mobs": [
+				"Croaky 11-11"
+			],
+			"reason": "Croaky (level 11 elite) has its own step with a group warning and a skip; players do Stone Cairn Lake's goal without dying there",
+			"evidence": "route level 9.3; Croaky 11-11; recordings (2026-11-13): done by 43 people (median 9.82), 0 people died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91725.1|pack",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 91725.1",
+			"kind": "pack",
+			"title": "The gnoll camps",
+			"level": 9.3,
+			"mobs": [
+				"7 spawns 11+"
+			],
+			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
+			"evidence": "route level 9.3; 7 spawns 11+; recordings (2026-11-13): done by 39 people (median 10.44), 0 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|kill 91724.1|elite",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "kill 91724.1",
+			"kind": "elite",
+			"title": "Stone Cairn Lake",
+			"level": 9.8,
+			"mobs": [
+				"Elmpaw 12-12"
+			],
+			"reason": "Elmpaw, a level 12 elite, roams the woods near the goal; recordings show at most 1 death within 60 yd",
+			"evidence": "route level 9.8; Elmpaw 12-12; recordings (2026-11-13): done by 30 people (median 10.95), 1 person died within 60 yd, 1 abandoned"
+		},
+		{
 			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 459.1|pack",
 			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
 			"goal": "collect 459.1",
@@ -6455,6 +6650,19 @@
 			],
 			"reason": "players do it at the route's level: 14 people at median 12, 0 died there",
 			"evidence": "route level 12.4; Large Spotlight 60-60 x2; recordings (2026-11-11): done by 14 people at 9-14 (median 12), 0 people died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 488.1|elite",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 488.1",
+			"kind": "elite",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.1,
+			"mobs": [
+				"Xethorr the Wicked 12-12"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; Xethorr the Wicked has its own optional group step with an elite warning",
+			"evidence": "route level 6.1; Xethorr the Wicked 12-12; recordings (2026-11-13): done by 32 people (median 6.64), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/alliance/nightelf/02-darkshore.guide|complete 984|rare",
@@ -6624,6 +6832,19 @@
 			],
 			"reason": "players do it at the route's level: 11 people at median 9, 0 died there",
 			"evidence": "route level 9.9; 6 spawns 11+; recordings (2026-11-11): done by 11 people at 9-11 (median 9), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/skyborne/01-zephras-isle.guide|collect 92515.1|rare",
+			"guide": "forever/alliance/skyborne/01-zephras-isle.guide",
+			"goal": "collect 92515.1",
+			"kind": "rare",
+			"title": "Prideclaws and Galestriders",
+			"level": 6.2,
+			"mobs": [
+				"Snapbeak the Quick 9-9 x3"
+			],
+			"reason": "a rare (Snapbeak the Quick, 9) roams among the step's Prideclaws and Galestriders; no recorded death there",
+			"evidence": "route level 6.2; Snapbeak the Quick 9-9 x3; recordings (2026-11-13): done by 23 people (median 6.51), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/02-the-barrens.guide|kill 871.3|elite",
