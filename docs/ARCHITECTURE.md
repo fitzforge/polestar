@@ -4495,6 +4495,24 @@ once, even though the loaded engine stays; likewise without `Path.ZoneAt` (no
 maps), its zone field or a dangerous zone. A measured walk (`p.walkCost`)
 already carries the router's pricing.
 
+A zone's road through (0.4.0, #1972): a straight walk from one of a zone's
+crossings to another, or over one (both ends crossing ends of the crossing
+data, in the same zone or the two ends of one crossing), is the zone's road
+through, and there a zone far above by at most 20 levels counts as
+dangerous, x3, never x20 (`Nav.danger.Along`'s `road`; the Table's zones
+within the gap, `roadOf`). A zone's lowest level comes from all its
+creatures, and the road through can run well clear of them: Deadwind Pass
+(55) lies between Duskwood and the Swamp of Sorrows, players' recordings show
+12 people walking or riding its pass at levels 36 to 46 with no death and no
+fight on it, and its level-55 creatures live 64 yd and more off the pass. At
+x20 a level 37 bound for Watcher Biggs was sent by flight to Lakeshire and
+round the Riverglades coast, three times as far; at x3 the plan walks the
+pass, and a way about as short elsewhere still wins. More than 20 levels
+above (no recording shows such a road walked), off the road (a walk that
+cuts across the zone elsewhere) and in the engine's own walks, x20 as
+before: the arrow's legs along the road start or end in the zone, so its
+walks there never count it.
+
 **Walks priced by the engine.** A straight line x1.25 cannot tell a walk
 round a ridge from one over it, so the planner would land at a flight master
 whose straight walk crosses a mountain. On a continent the engine covers

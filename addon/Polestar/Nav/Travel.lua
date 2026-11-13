@@ -430,10 +430,11 @@ end
 --         walk = { from = { c, wx, wy }, to = { c, wx, wy }, seconds } (one
 --         table, reused: read it, never keep it); a number >= 0 back replaces
 --         the cost, anything else (or an error) keeps it; times stay,
---       walkDanger = function(c, x1, y1, x2, y2) -> factor >= 1 or nil: what
+--       walkDanger = function(c, x1, y1, x2, y2, road) -> factor >= 1 or nil: what
 --         a straight walk's cost (never its time) is multiplied by for the
 --         zones far above the player it crosses (Nav/Danger.lua Danger.Along;
---         a measured walk carries the engine's own pricing),
+--         road = true: a zone's road through, from one of its crossings to
+--         another or over one, #1972; a measured walk carries the engine's own pricing),
 --       places = {}: filled with the places a walk to the target can start
 --         from on its continent { wx, wy, z (a dock's board point), start }, for Walk.Measure }
 -- -> legs or nil, reason
@@ -1078,14 +1079,18 @@ local function planRoute(p)
 	-- its cost takes the share of its length in zones far above the player,
 	-- x3 dangerous, x20 far above (p.walkDanger, Nav/Danger.lua Danger.Along:
 	-- the zone every 100 yd; the player's and the target's zones never count); its time
-	-- stays. The zone danger idea and its 4-level threshold come from Ding! by
+	-- stays. A walk from one of a zone's crossings to another, or over a
+	-- crossing, is the zone's road through: there a zone far above counts as
+	-- dangerous (Danger.Along's `road`, #1972: Deadwind Pass's road between
+	-- Duskwood and the Swamp of Sorrows). The zone danger idea and its 4-level threshold come from Ding! by
 	-- Yendi (ding-travel 2bccf01). The factor is at least 1, so a walk that
 	-- cannot beat v's cost unscaled is not looked at (unless a hook may lower it).
 	local walkDanger = p.walkDanger
 	local function straight(u, v, s, du, tu)
 		local cost = s
 		if walkDanger and s < huge and (hooks or du + s < dist[v]) then
-			local f = walkDanger(vc[u], vx[u], vy[u], vx[v], vy[v])
+			local road = vkind[u] == CROSS and vkind[v] == CROSS and (vzone[u] ~= nil and vzone[u] == vzone[v] or vref[u].partner == vref[v])
+			local f = walkDanger(vc[u], vx[u], vy[u], vx[v], vy[v], road)
 			if type(f) == "number" and f > 1 and f < huge then cost = s * f end
 		end
 		walk(u, v, cost, s, du, tu)
@@ -1971,7 +1976,7 @@ local function walkDanger(pc, px, py, tc, tx, ty)
 	local level = D and D.Level()
 	local danger = level and D.Table(level, D.ZoneAt(pc, px, py), D.ZoneAt(tc, tx, ty))
 	if not danger then return nil end
-	return function(c, x1, y1, x2, y2) return D.Along(danger, c, x1, y1, x2, y2) end
+	return function(c, x1, y1, x2, y2, road) return D.Along(danger, c, x1, y1, x2, y2, road) end
 end
 
 -- A field goal's spawn areas (the Engine's waypoint `spots`, in the goal's map and frame, r in yards): while the

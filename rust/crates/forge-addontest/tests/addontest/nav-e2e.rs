@@ -2605,6 +2605,62 @@ fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to
 	assert!(alterac(&now) < alterac(&before), "fewer yards of Alterac Mountains: {} with the floor, {} without", alterac(&now), alterac(&before));
 }
 
+/// #1972 (Rexen, Dwarf Shaman 37, 0.3.7.2): on "Go to Watcher Biggs" (Swamp of Sorrows 26.7,59.8 on the game's map), at
+/// Stormwind the arrow said to fly to Darkshire, and at Darkshire to fly on to Lakeshire and walk through the
+/// Riverglades round the coast, past Farholde Keep's flight master. From Darkshire the way is the walk east along the
+/// road through Deadwind Pass; from Stormwind, the flight to Darkshire and that walk. Flight paths known: Stormwind,
+/// Sentinel Hill, Lakeshire, Ironforge and Darkshire (flight maps opened on both continents).
+#[test]
+fn t_1972_from_darkshire_watcher_biggs_is_the_walk_through_deadwind_pass_not_a_flight_to_lakeshire_and_the_coast() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(37)
+		w.faction = "Alliance"
+		w.race, w.raceName = "Dwarf", "Dwarf"
+		local flags = Polestar.CharState().flags
+		flags.taxi = { [2] = true, [4] = true, [5] = true, [6] = true, [12] = true }
+		flags.taxiSeen = { [0] = true, [1] = true }
+		local function route()
+			local legs, ci = N.GetRoute()
+			local out = {}
+			for i = ci or 1, legs and #legs or 0 do
+				local l = legs[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. "|" .. tostring(l.seconds) .. "|" .. tostring(l.engine)
+			end
+			return out
+		end
+		local function from(map, x, y)
+			N.ClearTarget()
+			local _, px, py = C.MapToWorld(map, x, y, "e")
+			place(map, px, py, nil)
+			for _ = 1, 10 do aim(); stub.advance(0.05) end
+			N.SetTarget(1435, 26.7, 59.8, "Watcher Biggs", "e")
+			for _ = 1, 400 do aim(); stub.advance(0.05) end
+			local r = { route = route() }
+			-- The walks the engine measured into the target, from the flight masters of the way.
+			local tc, tx, ty = N.GetTargetWorld()
+			local measured = N.walk.Measured and N.walk.Measured(tc, tx, ty)
+			if measured then
+				r.measured = {}
+				for name, p in pairs({ darkshire = { 1431, 77.59, 44.38 }, lakeshire = { 1433, 30.43, 58.99 }, farholde = { 2548, 60.59, 81.57 } }) do
+					local c, wx, wy = C.MapToWorld(p[1], p[2], p[3], "e")
+					local cost, yd = measured(c, wx, wy)
+					r.measured[name] = { cost = cost or false, yards = yd or false }
+				end
+			end
+			return r
+		end
+		emit({ darkshire = from(1431, 77.6, 44.4), stormwind = from(1453, 66.3, 62.7) })"#,
+		true,
+	);
+	let darkshire = strs(&out["darkshire"]["route"]);
+	assert!(!darkshire.is_empty() && darkshire.iter().all(|l| l.starts_with("walk|")), "from Darkshire: on foot ({darkshire:?}, measured {})", out["darkshire"]["measured"]);
+	let stormwind = strs(&out["stormwind"]["route"]);
+	assert!(stormwind.iter().any(|l| l.starts_with("fly|Fly to Darkshire")), "from Stormwind: the flight to Darkshire ({stormwind:?})");
+	assert!(!stormwind.iter().any(|l| l.contains("Lakeshire")), "never Lakeshire ({stormwind:?})");
+}
+
 /// #1834 (Konky88, Troll Shaman 35, 0.3.6): in Booty Bay (Stranglethorn 27.11,76.93) on the Stranglethorn Vale step
 /// "Grom'gol", bound for Commander Aggro'gosh (32.17,28.90) with Grom'gol's flight path known and "Use TomTom's arrow"
 /// on, he walked up the coast: Polestar's plan flew from Booty Bay's flight master, but TomTom's arrow, which guides
