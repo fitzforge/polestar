@@ -3,8 +3,9 @@
 	"fixes": [
 		{
 			"id": "2107-xabraxxis-demon-bag",
+			"faction": "Alliance",
 			"at": { "quest": 4763, "goal": "collect", "item": 12355 },
-			"goalNote": "After using the Filled Cleansing Bowl, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman.",
+			"goalNote": "After using the Filled Cleansing Bowl, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl.",
 			"note": "The live report confirms the sequence. The quest log only counts the talisman, so explain the fight and the object to click on its collection goal.",
 			"source": { "kind": "in-game-check", "ref": "#2107: UnknownBaronX summoned Xabraxxis, killed him and clicked the bag to obtain the talisman." },
 			"issue": 2107
