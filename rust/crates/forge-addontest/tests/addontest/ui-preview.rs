@@ -473,6 +473,22 @@ fn the_trackers_essentials_band_picks_each_tracker_the_journey_and_the_level_mar
 	assert_eq!(out["mark"], json!({ "pick": "xp", "on": "xp", "slot": true }), "{out}");
 }
 
+// A band takes clicks on a part only while that part shows: on the Action buttons tab the travel button's hotspot is
+// off while the button sets show, and the sets' hotspots are off while its dropdown shows the travel button.
+#[test]
+fn a_band_s_hotspots_take_clicks_only_while_their_parts_show() {
+	let out = run(r#"
+		local f = shown("buttons", "Action buttons")
+		local function on(key) return f.psHotspots[key] ~= nil and f.psHotspots[key]:IsShown() end
+		local sets = { travel = on("nav.castPrompt"), hearth = on("buttons.hearthSize") }
+		f.Pick("travel")
+		P.Again(f)
+		local travel = { travel = on("nav.castPrompt"), hearth = on("buttons.hearthSize") }
+		emit({ sets = sets, travel = travel })"#);
+	assert_eq!(out["sets"], json!({ "travel": false, "hearth": true }), "{out}");
+	assert_eq!(out["travel"], json!({ "travel": true, "hearth": false }), "{out}");
+}
+
 // A band lays itself out again on its own settings at once while it shows, on its next show when it was hidden, and
 // not on other settings.
 #[test]

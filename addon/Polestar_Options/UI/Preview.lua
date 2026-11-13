@@ -177,7 +177,14 @@ function P.Hotspot(frame, region, key)
 	local b = CreateFrame("Button", nil, frame)
 	b:SetAllPoints(region)
 	b:SetFrameLevel(frame:GetFrameLevel() + 20)
-	b.psKey, b.psPadSkip = key, true
+	b.psKey, b.psPadSkip, b.psSpot = key, true, region
+	-- A band shows each of its hotspots only while its part shows (f.psSpots).
+	local spots = rawget(frame, "psSpots")
+	if not spots then
+		spots = {}
+		frame.psSpots = spots
+	end
+	spots[#spots + 1] = b
 	hotspotEdge(b, false)
 	b:SetScript("OnEnter", function(self)
 		hotspotEdge(self, true)
@@ -364,6 +371,19 @@ P.BAND_PAD, P.PICKER_H, P.PICKER_GAP, P.LINE_GAP, P.LINE_H, P.STATE_GAP = BAND_P
 P.PLAY_UNDER, P.PLAY_H = PLAY_UNDER, PLAY_H
 
 local bands = setmetatable({}, { __mode = "k" })
+
+-- Whether region shows within band f: it and every frame up to f shown,
+-- and the part itself not faded out (a part a crop leaves out has its alpha
+-- at 0; a card fading in on Play is still there).
+local function shownIn(region, f)
+	if region.GetAlpha and region:GetAlpha() <= 0.001 then return false end
+	local r = region
+	while r and r ~= f do
+		if r.IsShown and not r:IsShown() then return false end
+		r = r.GetParent and r:GetParent()
+	end
+	return true
+end
 
 -- The band laid out again where it is, the settings window's slot taking
 -- its new height while it holds it; while hidden, on its next show (P.Again:
@@ -553,6 +573,9 @@ function P.Band(parent, opts)
 		y = y + BAND_PAD
 		self.psHeight = y
 		self:SetHeight(y)
+		-- A part the band does not show now (another pick of its dropdown,
+		-- a part a crop left out) takes no clicks and lights no outline.
+		for _, b in ipairs(rawget(self, "psSpots") or {}) do b:SetShown(shownIn(b.psSpot, self)) end
 		return y
 	end
 	return f

@@ -6907,7 +6907,7 @@ their line while alerts line up). Trackers, Essentials' dropdown of the
 trackers, the journey and the level mark (a hovered row picks the one its
 setting draws); Travel, the flight timer and the journey; Instances & XP,
 the instance tracker and the level mark on an XP bar; Party panel, the
-panel alone.
+panel alone. A band shows a part's hotspot only while the part shows.
 
 A registered page's own frame (`f:Layout(width) -> height`) keeps that
 contract: laid out across the column, shown whole at the scale that fits past
