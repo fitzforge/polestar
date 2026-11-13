@@ -2052,7 +2052,7 @@ pub fn flight_hops(text: &str, faction: Option<&str>, lands: &Lands) -> (String,
 						mine.push(lines[z].clone());
 						z += 1;
 					}
-				} else if k > k1 && zone_line(k) && (k1 + 1..k).all(|x| zone_line(x)) {
+				} else if k > k1 && zone_line(k) && (k1 + 1..k).all(zone_line) {
 					// (The first flight's landing zone: the second's now.)
 				} else {
 					mine.push(lines[k].clone());
@@ -2078,12 +2078,13 @@ pub fn flight_hops(text: &str, faction: Option<&str>, lands: &Lands) -> (String,
 			}
 		}
 		let mut out: Vec<String> = lines[..si.s].to_vec();
+		// (A step written for two sets of characters keeps its `label` on the first copy: labels name one step.)
 		let put = |out: &mut Vec<String>, blocks: Vec<Vec<String>>| {
 			for (b, block) in blocks.into_iter().enumerate() {
 				if b > 0 {
 					out.push(String::new());
 				}
-				out.extend(block);
+				out.extend(block.into_iter().filter(|l| b == 0 || head_ws(l) != Some("label")));
 			}
 		};
 		put(&mut out, first);
@@ -4797,6 +4798,14 @@ mod tests {
 		let t = "guide a\nfaction Alliance\nzone Loch Modan\n\nstep Fly to Ironforge\n  only Dwarf,Gnome\n  zone Loch Modan\n  goto 33.9,50.8 \"Thelsamar flight master\"\n  fly \"Ironforge\"\n\nstep Fly to Stormwind\n  only Dwarf,Gnome\n  zone Ironforge\n  fly \"Stormwind\"\n\nstep Boat to Auberdine\n  only Dwarf,Gnome\n  zone Stormwind City\n  goto 21.8,56.9 \"Boat to Auberdine\"";
 		let (out, _) = test_lands(|l| flight_hops(t, Some("Alliance"), l));
 		assert_eq!(out, "guide a\nfaction Alliance\nzone Loch Modan\n\nstep Fly to Stormwind\n  only Dwarf,Gnome\n  zone Loch Modan\n  goto 33.9,50.8 \"Thelsamar flight master\"\n  fly \"Stormwind\"\n\nstep Boat to Auberdine\n  only Dwarf,Gnome\n  zone Stormwind City\n  goto 21.8,56.9 \"Boat to Auberdine\"");
+	}
+
+	#[test]
+	fn a_flight_step_written_for_two_sets_of_characters_keeps_its_label_once() {
+		let t = "guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Stormwind\n  label fly\n  goto 42.0,65.0 \"Goldshire flight master\"\n  fly \"Stormwind\"\n\nstep Mage training\n  only Mage\n  zone Stormwind City\n  train class\n\nstep Fly to Sentinel Hill\n  zone Stormwind City\n  goto 66.3,62.7 \"Stormwind flight master\"\n  fly \"Sentinel Hill\"";
+		let (out, _) = test_lands(|l| flight_hops(t, Some("Alliance"), l));
+		assert_eq!(out.matches("  label fly").count(), 1, "{out}");
+		assert!(out.starts_with("guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Stormwind\n  only Mage\n  label fly\n"), "{out}");
 	}
 
 	#[test]

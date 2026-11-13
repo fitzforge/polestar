@@ -372,7 +372,12 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	};
 	let zone_land = |z: &str| gdata.zone_by_name.get(&z.to_lowercase()).and_then(|v| v.first()).and_then(|r| r.get("id").as_num()).and_then(|m| map_land(m as u32));
 	let node_land = |name: &str| {
-		gdata.flight_nodes().items().into_iter().find(|x| x.get("short").to_js_string().eq_ignore_ascii_case(name) || x.get("name").to_js_string().eq_ignore_ascii_case(name)).map(|x| x.get("c").num() as i64)
+		gdata
+			.flight_nodes()
+			.items()
+			.into_iter()
+			.find(|x| x.get("short").to_js_string().eq_ignore_ascii_case(name) || x.get("name").to_js_string().eq_ignore_ascii_case(name))
+			.map(|x| x.get("c").num() as i64)
 	};
 	let lands = crate::post::Lands { zone: &zone_land, map: &map_land, node: &node_land };
 	for rel in &written {
