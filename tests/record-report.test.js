@@ -150,6 +150,86 @@ test('per-guide totals and the ranked lists', () => {
 	assert.deepEqual(r.detours.map((x) => [x.guide, x.step, x.medianYards, x.medianXp]), [[G, 5, 1040, 0]]);
 });
 
+// A synthetic 1000-yard map makes each percentage point ten yards.
+function movementReport(events, schema = 2) {
+	return buildReport([{ ...session('Movement', 1791300000, events), schema, maps: { 1429: { left: 0, right: 1000, top: 0, bottom: 1000 } } }]);
+}
+
+const remotePoints = [
+	{ e: 'poi', q: 7, done: false },
+	{ e: 'treasure', object: 10 },
+	{ e: 'rare', npc: 6, src: 'v' },
+];
+
+for (const point of remotePoints) {
+	test(`${point.e} map points do not invent travel or detours for a stationary player`, () => {
+		const r = movementReport([
+			step(0, 'step', G, 1, 1, 0),
+			{ ...point, t: 200, ...at, x: 90 },
+			{ e: 'pos', t: 400, ...at },
+			step(600, 'step', G, 2, 1, 100),
+		]);
+		const row = stepRow(r, G, 1);
+		assert.equal(row.medianYards, 0);
+		assert.deepEqual(r.detours, []);
+		// The sighting still supplies an event timestamp: skipping it entirely
+		// would join two gaps and discard 100 seconds through the idle cap.
+		assert.equal(row.medianTime, 600);
+		assert.equal(row.xp, 100);
+	});
+}
+
+test('schema-1 rare vignettes are remote points too', () => {
+	const r = movementReport([
+		step(0, 'step', G, 1, 1, 0),
+		{ e: 'rare', src: 'vignette', npc: 6, t: 200, ...at, x: 90 },
+		{ e: 'pos', t: 400, ...at },
+		step(600, 'step', G, 2, 1, 100),
+	], 1);
+	assert.equal(stepRow(r, G, 1).medianYards, 0);
+	assert.deepEqual(r.detours, []);
+});
+
+test('travel continues from the last player position through remote sightings', () => {
+	const r = movementReport([
+		step(0, 'step', G, 1, 1, 0),
+		{ e: 'pos', t: 100, ...at, x: 60 },
+		...remotePoints.map((point, i) => ({ ...point, t: 150 + 50 * i, ...at, x: [90, 5, 10][i] })),
+		{ e: 'pos', t: 300, ...at, x: 70 },
+		step(400, 'step', G, 2, 1, 100, { x: 70 }),
+	]);
+	assert.equal(stepRow(r, G, 1).medianYards, 200);
+	assert.deepEqual(r.detours, []);
+});
+
+test('a quest point on another map does not break the player position trail', () => {
+	const r = movementReport([
+		step(0, 'step', G, 1, 1, 0),
+		{ e: 'poi', t: 100, map: 1430, x: 90, y: 50, q: 7 },
+		{ e: 'pos', t: 200, ...at, x: 70 },
+		step(300, 'step', G, 2, 1, 100, { x: 70 }),
+	]);
+	assert.equal(stepRow(r, G, 1).medianYards, 200);
+});
+
+test('creature sightings made at the player position still measure travel', () => {
+	const sightings = [
+		{ schema: 2, e: 'unit', src: 'target' },
+		{ schema: 2, e: 'unitx' },
+		...['p', 't', 'm'].map((src) => ({ schema: 2, e: 'rare', src })),
+		...['nameplate', 'target', 'mouseover'].map((src) => ({ schema: 1, e: 'rare', src })),
+	];
+	for (const { schema, ...point } of sightings) {
+		const r = movementReport([
+			step(0, 'step', G, 1, 1, 0),
+			{ ...point, t: 100, ...at, x: 60, npc: 6 },
+			{ e: 'pos', t: 200, ...at },
+			step(300, 'step', G, 2, 1, 100),
+		], schema);
+		assert.equal(stepRow(r, G, 1).medianYards, 200, JSON.stringify(point));
+	}
+});
+
 test('--guide narrows the report; the text report names steps, revisits and open passes', () => {
 	const r = buildReport(SESSIONS(), { guide: 'MINING' });
 	assert.deepEqual(r.guides.map((g) => g.id), [G2]);
