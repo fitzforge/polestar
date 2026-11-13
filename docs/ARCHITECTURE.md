@@ -6710,7 +6710,10 @@ fixed columns (right to left: swatch, switch, cog, left of a control zone as
 wide as the widest control, an empty column keeping its place), each its
 own setting with its own tooltip and right-click; `more` sits behind a cog
 (`O.ShowMore`) that opens a popup of single-column 30px rows by it, with a
-dot while one of them is off its default. While a section's toggle is off
+dot while one of them is off its default. The first change ever of a
+setting whose row has a cog pulses that cog's dot and says in a callout by it
+(`W.Callout`) that more of its settings are behind it, once on the account
+(`PolestarDB.optionsCogHint`, also set by the first cog opened). While a section's toggle is off
 every setting in it is stopped (its marks at 40%, its label and value in
 textMuted, legible) and its tooltip says so; a section's `shown()` hides
 its card, worked out again on every setting change; a `child`

@@ -1487,7 +1487,8 @@ local function markSections(view)
 		end
 	end
 	for c, cog in pairs(view.cogs or {}) do
-		if cog:IsVisible() then
+		-- A cog pointed out (its first-use cue) keeps its dot while it pulses.
+		if cog:IsVisible() and not rawget(cog, "psPulsing") then
 			local list = {}
 			for _, m in ipairs(c.more) do eachSetting(m, function(x) list[#list + 1] = x end) end
 			W.SetCogDot(cog, modifiedCount(list) > 0)
@@ -1624,6 +1625,10 @@ end
 -- Open (or, from its own cog, close) the popup of control c's `more`.
 function O.ShowMore(cog, c)
 	if not more then buildMore() end
+	-- A cog opened: its first-use cue has nothing left to say.
+	ns.DB().optionsCogHint = true
+	local cue = win and rawget(win, "psCallout")
+	if cue and cue.psCog then cue:Hide() end
 	if more:IsShown() and more.psFor == c then
 		more:Hide()
 		return
@@ -2735,6 +2740,50 @@ local function markLead(list, active)
 end
 
 ---------------------------------------------------------------------------
+-- The first-use cue of a row's cog: the first change ever (on the account,
+-- PolestarDB.optionsCogHint) of a setting whose row has a cog pulses the
+-- cog's dot and says in a callout by it that more of that setting's
+-- settings are behind it; once, and never after a cog has been opened.
+---------------------------------------------------------------------------
+
+local function pulseDot(cog)
+	local dot = cog.Dot
+	local n = 3
+	cog.psPulsing = true
+	local function beat()
+		if n <= 0 or not cog:IsVisible() then
+			dot:SetSize(6, 6)
+			cog.psPulsing = nil
+			markSections(O.view)
+			return
+		end
+		n = n - 1
+		dot:Show()
+		Anim.To(dot, "size", 6, 10, Anim.BASE, "out", function()
+			Anim.To(dot, "size", 10, 6, Anim.SLOW, "inout", beat)
+		end)
+	end
+	beat()
+end
+
+local function cogCue(path)
+	local db = ns.DB()
+	if db.optionsCogHint or query ~= "" or not (win and win:IsShown() and O.view) then return end
+	for c, cog in pairs(O.view.cogs or {}) do
+		if c.key == path and cog:IsVisible() then
+			db.optionsCogHint = true
+			pulseDot(cog)
+			local cue = W.Callout(win, { title = L["More settings here"], width = 260,
+				text = string.format(L["%s has more settings behind its gear."], labelOf(c) or ""),
+				anchor = cog, point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 8, y = -6 })
+			cue.psCog = cog
+			return
+		end
+	end
+end
+O.CogCue = cogCue
+
+---------------------------------------------------------------------------
 -- Out of the way without closing: Peek (held down, its eye in the header)
 -- fades the whole window so what it covers shows through; Fold leaves only
 -- its header, the page kept, and Unfold (or going to another page, or a
@@ -2824,6 +2873,8 @@ O.WheelScales = wheelScales
 function O.Select(key, tabName)
 	if not win then return end
 	if folded then O.Fold(false) end
+	local cue = rawget(win, "psCallout")
+	if cue and cue.psCog then cue:Hide() end
 	local p, aliasTab = pageByKey(key)
 	p = p or pageList[1]
 	tabName = tabName or aliasTab or tabMemory()[p.key]
@@ -3177,6 +3228,7 @@ local function build()
 			if applySize() then relayout() end
 		end
 		if win:IsShown() then
+			if type(path) == "string" and path ~= "" then cogCue(path) end
 			-- A section's shown() turned: the page lays out again.
 			local v = O.view
 			if query == "" and v and v:IsShown() and rawget(v, "psShownSig") and v.psShownSig ~= shownSig(v.psTab) then

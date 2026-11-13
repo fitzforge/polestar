@@ -40,3 +40,5 @@ section: players
 - Colour rows keep favourites: right-click one of the recent colours to
   keep it, and after a change the colour you had before waits by the
   swatch, one click away.
+- The first time you change a setting that has more options behind a gear,
+  the gear points itself out once.

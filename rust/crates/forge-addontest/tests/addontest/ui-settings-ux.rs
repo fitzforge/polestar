@@ -436,3 +436,34 @@ fn a_colour_row_keeps_favourites_and_offers_the_colour_it_held_before() {
 	assert_eq!(out["picked"], json!([true, true]), "a change: the colour before it nearest the chip");
 	assert_eq!(out["back"], json!([false, true]), "a click on it goes back (its default), and offers the other");
 }
+
+// The first change ever of a setting whose row has a cog pulses the cog's dot and says in a callout by it that more
+// of that setting's settings are behind it; once on the account, and never after a cog has been opened.
+#[test]
+fn the_first_change_of_a_setting_with_a_cog_points_out_the_cog_once() {
+	let out = run(r#"
+		UI.ShowOptions("arrow")
+		PolestarDB.optionsCogHint = nil
+		local row = ctl("nav.arrowNearColor")
+		local cog = row.Cog
+		Polestar.Set("nav.arrowNearColor", { 1, 0, 0 })
+		local cue = rawget(PolestarOptions, "psCallout")
+		local first = { cue ~= nil and cue:IsShown(), cue and cue.Title:GetText() or false, cue and cue.Text:GetText() or false,
+			PolestarDB.optionsCogHint or false, cue and select(2, cue:GetPoint(1)) == cog, cog.Dot:IsShown() }
+		stub.advance(3)
+		local settled = { cog.Dot:IsShown(), math.floor(cog.Dot:GetWidth() + 0.5) }
+		cue.Close:Click()
+		Polestar.Set("nav.arrowNearColor", { 0, 1, 0 })
+		local again = cue:IsShown()
+		-- An account that opened a cog first is never told.
+		PolestarDB.optionsCogHint = nil
+		cog:Click()
+		local opened = PolestarDB.optionsCogHint or false
+		Polestar.Widgets.HideMenu()
+		O.HideMore()
+		emit({ first = first, settled = settled, again = again, opened = opened })"#);
+	assert_eq!(out["first"], json!([true, "More settings here", "Near colour has more settings behind its gear.", true, true, true]));
+	assert_eq!(out["settled"], json!([false, 6]), "the pulse ends; the dot back to what it says");
+	assert_eq!(out["again"], false, "once");
+	assert_eq!(out["opened"], true, "a cog opened: no cue left to give");
+}
