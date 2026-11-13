@@ -88,6 +88,82 @@ fn rules_of(fs: &[Finding], rule: &str) -> Vec<Finding> {
 	fs.iter().filter(|f| f.rule == rule).cloned().collect()
 }
 
+/// Raw guides keep this fixture independent of compiler inference and external game data.
+fn play_drop_requires(verb: &str, before: &[(&str, u32)], gated: bool, other: bool, optional: bool, objective: bool) -> Vec<Finding> {
+	use serde_json::json;
+	let source = json!({ "id": 11, "name": "Source", "spawns": { "99101": { "f": "e", "pts": [[50, 50]] } } });
+	let quest = |id| json!({ "id": id, "title": format!("Quest {id}"), "start": { "npc": [1] }, "end": { "npc": [1] }, "objectives": [] });
+	let mut quests = json!({ "510": quest(510), "511": quest(511), "540": quest(540) });
+	quests["540"]["start"] = json!({ "item": [101] });
+	if objective {
+		quests["502"] = quest(502);
+		quests["502"]["objectives"] = json!([{ "type": "item", "id": 101, "count": 1 }]);
+	}
+	let mut item = json!({ "id": 101, "name": "Starter", "drops": { "npc": { "11": 100 }, "object": { "21": 100 } } });
+	if gated {
+		item["dropRequires"] = json!({ "npc": { "11": [510, 511] }, "object": { "21": [510, 511] } });
+	}
+	if other {
+		item["drops"]["npc"]["12"] = json!(100);
+		item["drops"]["object"]["22"] = json!(100);
+	}
+	let mut texts = data_texts();
+	texts.insert("quests".into(), quests.to_string());
+	texts.insert("items".into(), json!({ "101": item }).to_string());
+	texts.insert("npcs".into(), json!({ "1": { "id": 1, "name": "Giver", "spawns": source["spawns"] }, "11": source, "12": { "id": 12, "name": "Other", "spawns": source["spawns"] } }).to_string());
+	texts.insert("objects".into(), json!({ "21": { "id": 21, "name": "Object", "spawns": source["spawns"] }, "22": { "id": 22, "name": "Other object", "spawns": source["spawns"] } }).to_string());
+	let data = Data::from_texts(&texts, V::obj(), V::obj(), None).expect("data");
+	let goal = |t: &str, extra: serde_json::Value| {
+		let mut g = json!({ "t": t, "map": 99101, "x": 50, "y": 50, "f": "e" });
+		g.as_object_mut().unwrap().extend(extra.as_object().unwrap().clone());
+		g
+	};
+	let mut goals: Vec<_> = before.iter().map(|(t, q)| goal(t, json!({ "quest": q, "npc": 1 }))).collect();
+	if objective {
+		goals.push(goal("accept", json!({ "quest": 502, "npc": 1 })));
+	}
+	goals.push(goal(verb, json!({ "npc": if other { 12 } else { 11 }, "object": if other { 22 } else { 21 }, "item": 101, "optional": optional })));
+	goals.push(if objective { goal("turnin", json!({ "quest": 502, "npc": 1 })) } else { goal("accept", json!({ "quest": 540, "item": 101 })) });
+	let guide = forge_guide::js::parse_json(&json!({ "id": "test/gates", "steps": [{ "title": "Drops", "goals": goals }] }).to_string()).unwrap();
+	play_chain(&[&guide], &data, &persona("Orc", "WARRIOR"), None, None, &HonestOpts { legacy: true, groups: Groups::Skip, walk_far: false })
+}
+
+#[test]
+fn drop_requires_all_prerequisites_must_be_held_or_completed() {
+	for verb in ["kill", "interact", "collect"] {
+		let rule = if verb == "collect" { "R3" } else { "R2" };
+		for before in [vec![], vec![("accept", 510)]] {
+			let fs = play_drop_requires(verb, &before, true, false, false, false);
+			assert!(fs.iter().any(|f| f.rule == rule && f.severity == Severity::Fail), "{verb}: missing prerequisite: {fs:#?}");
+		}
+		for before in [vec![("accept", 510), ("accept", 511)], vec![("accept", 510), ("turnin", 510), ("accept", 511)], vec![("accept", 510), ("turnin", 510), ("accept", 511), ("turnin", 511)]] {
+			let fs = play_drop_requires(verb, &before, true, false, false, false);
+			assert!(fs.is_empty(), "{verb}: eligible: {fs:#?}");
+		}
+		assert!(play_drop_requires(verb, &[], false, false, false, false).is_empty(), "{verb}: absent metadata");
+	}
+}
+
+#[test]
+fn drop_requires_allows_other_sources_and_reports_without_optional_grants() {
+	for verb in ["kill", "interact", "collect"] {
+		assert!(play_drop_requires(verb, &[], true, true, false, false).is_empty(), "{verb}: other eligible source");
+	}
+	let optional = play_drop_requires("collect", &[], true, false, true, false);
+	assert!(optional.iter().any(|f| f.rule == "R3" && f.severity == Severity::Warn), "{optional:#?}");
+	assert!(optional.iter().any(|f| f.rule == "R2" && f.severity == Severity::Fail), "{optional:#?}");
+	let required = play_drop_requires("collect", &[], true, false, false, false);
+	assert!(required.iter().any(|f| f.rule == "R3" && f.severity == Severity::Fail), "{required:#?}");
+	assert!(!required.iter().any(|f| f.rule == "R2"), "mandatory work plays on: {required:#?}");
+}
+
+#[test]
+fn drop_requires_blocks_item_objectives_until_eligible() {
+	let fs = play_drop_requires("kill", &[], true, false, false, true);
+	assert!(fs.iter().any(|f| f.rule == "R5" && f.severity == Severity::Fail), "{fs:#?}");
+	assert!(play_drop_requires("kill", &[("accept", 510), ("accept", 511)], true, false, false, true).is_empty());
+}
+
 #[test]
 fn r1_a_druids_own_flight_master_flies_druids_alone_with_no_path_learnt() {
 	// Rev14H1 (12b): Bunthen Plainswind flies Horde Druids from Nighthaven to Thunder Bluff; the seed's

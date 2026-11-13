@@ -496,6 +496,10 @@ impl<'c, 'd> World<'c, 'd> {
 	pub fn held(&self, q: Id) -> bool {
 		self.log.iter().any(|(k, _)| *k == q)
 	}
+	/// Drop prerequisites belong to a source, not to every way of getting the item.
+	pub fn drop_allowed(&self, item: Id, kind: &str, source: Id) -> bool {
+		self.ctx.item(item).get("dropRequires").get(kind).get(&source.to_string()).items().iter().all(|q| self.held(id_of(q)) || self.done.contains(&id_of(q)))
+	}
 	pub fn entry(&mut self, q: Id) -> Option<&mut Entry> {
 		self.log.iter_mut().find(|(k, _)| *k == q).map(|(_, e)| e)
 	}
