@@ -621,6 +621,14 @@ local function buildRecorder(view)
 	end
 end
 
+-- Install (UI/Welcome.lua) as a control, so the search finds it ("install",
+-- "setup", "wizard", "first run"): at home on About, whose Install tile is its
+-- widget there (view.cache), the one a search result's jump lights.
+local INSTALL = { kind = "button", icon = "palette", button = L["Install"], label = L["Set Polestar up again"],
+	help = L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."],
+	search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
+	onClick = function() ns.Fire("SHOW_WELCOME") end }
+
 -- The About hero: the sidebar's lockup at full size. The emblem (64, its ink
 -- on the 32 edge, in its glow), then the wordmark (Media/UI/wordmark.tga,
 -- 1:1, its ink 3px into the box and on rows 4-27), the tagline under it, and
@@ -709,6 +717,7 @@ local function buildAbout(view)
 		L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."],
 		function() ns.Fire("SHOW_WELCOME") end)
 	view.Install = install
+	view.cache = { [INSTALL] = install }
 	local whatsNew = W.ActionTile(view, "star", L["What's new"], L["What this version of Polestar changed for you."],
 		function() ns.Fire("SHOW_WHATSNEW") end)
 	view.WhatsNew = whatsNew
@@ -785,14 +794,7 @@ add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subt
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
--- Install for the search ("install", "setup", "wizard", "first run"): a
--- button that opens it, at home on About, which shows its own tile for it.
-add({ page = ABOUT, section = L["Install"], controls = {
-	{ kind = "button", icon = "palette", button = L["Install"], label = L["Set Polestar up again"],
-		help = L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."],
-		search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
-		onClick = function() ns.Fire("SHOW_WELCOME") end },
-} }, true)
+add({ page = ABOUT, section = L["Install"], controls = { INSTALL } }, true)
 
 -- Page keys from before the pages were regrouped (and older section names)
 -- reach the page, and the tab, that holds those settings now. A page's own

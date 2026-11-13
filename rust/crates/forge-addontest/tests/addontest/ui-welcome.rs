@@ -454,7 +454,7 @@ fn every_choice_page_says_skip_install_keeps_its_settings_and_skipping_keeps_the
 		end
 		local get = Polestar.Get
 		local function now() return { get("behavior.autoAccept"), get("behavior.autoTurnin"), get("behavior.skipGrey"),
-			get("behavior.autoSelectGuide"), get("ui.scheme") or "default", get("nav.routeStyle") } end
+			get("behavior.autoSelectGuide"), get("ui.scheme"), get("nav.routeStyle") } end
 		local before = now()
 		F.Skip:Click()
 		local skipped = { now = now(), closed = not shown(), stored = next(PolestarDB.settings) == nil }
@@ -465,7 +465,7 @@ fn every_choice_page_says_skip_install_keeps_its_settings_and_skipping_keeps_the
 		emit({ keep = keep, before = before, skipped = skipped, kept = get("behavior.skipGrey") })"#);
 	let line = json!("Skip install keeps these as they are.");
 	assert_eq!(out["keep"], json!([line, line, line]), "Questing, Your route, Your look");
-	assert_eq!(out["before"], json!([true, true, false, true, "default", "balanced"]), "the defaults, picked on a fresh account");
+	assert_eq!(out["before"], json!([true, true, false, true, "dusk", "balanced"]), "the defaults, picked on a fresh account");
 	assert_eq!(out["skipped"], json!({ "now": out["before"].clone(), "closed": true, "stored": true }), "nothing written");
 	assert_eq!(out["kept"], true);
 }
@@ -554,6 +554,7 @@ fn the_groups_page_shows_once_the_guides_have_dungeons_or_group_quests_and_write
 		local run = { get("behavior.dungeons"), cards(F.Dungeons).picked }
 		card(F.Dungeons, "Ask me"):Click()
 		local ask = get("behavior.dungeons")
+		Wel.Show()
 		emit({ without = without, quests = quests, doThem = doThem, skipThem = skipThem, reset = reset, dungeons = dungeons,
 			run = run, ask = ask, pages = titles() })"#);
 	assert!(!out["without"].as_array().unwrap().contains(&json!("Groups and dungeons")), "nothing to ask, no page: {}", out["without"]);

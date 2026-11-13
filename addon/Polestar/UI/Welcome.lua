@@ -121,7 +121,7 @@ local EDGE = PAD - 1 -- the 32 edge, in hero coordinates
 local HELLO_H = 208 -- the first page's hero
 local START_H = 184 -- the last page's hero
 local BAND_H = 128 -- the band at 1:1
-local BAND_SHIFT = 180 / 1024 -- the stretch of the band the welcome shows
+local BAND_SHIFT = 180 / 1024 -- the stretch of the band the heroes show
 local BOTTOM = 24 -- under a page's last line
 local FOOT_H = 56
 local FOOT_PAD = 24
@@ -514,7 +514,7 @@ end
 local PAGES = {}
 local pageList -- forward: the pages shown now (the welcome page counts what follows it)
 
--- The compact hero (setup, route): the night, the emblem on the right, the
+-- The compact hero (the choice pages): the night, the emblem on the right, the
 -- title and its line on the 32 edge.
 local SIDE_X, SIDE_Y = INNER - 64 - 20, 64
 local CHERO_TEXT_W = 440
@@ -2375,6 +2375,12 @@ end
 
 local DOT, DOT_ON, DOT_GAP = 4, 16, 6
 
+-- A key's name in the client's language (the game's own), for the footer's tooltips.
+local function keyName(key)
+	local text = GetBindingText and GetBindingText(key)
+	return type(text) == "string" and text ~= "" and text or key
+end
+
 -- The footer's main button: Next, or Finish on the last page.
 local function primary()
 	local _, at, count = WEL.Page()
@@ -2444,20 +2450,20 @@ local function build()
 	F.Skip = W.Button(foot, L["Skip install"], close, { ghost = true })
 	F.Skip:SetPoint("LEFT", foot, "LEFT", FOOT_PAD, 0)
 	F.Skip.psTip = L["Skip install"]
-	F.Skip.psTipLines = { L["Keeps every setting as it is. Install opens again from Settings, or with /polestar install."], L["Escape"] }
+	F.Skip.psTipLines = { L["Keeps every setting as it is. Install opens again from Settings, or with /polestar install."], keyName("ESCAPE") }
 	F.Next = W.Button(foot, L["Next"], function() go(1) end, { primary = true })
 	chevron(F.Next)
 	setChevronText(F.Next, L["Next"])
 	F.Next:SetPoint("RIGHT", foot, "RIGHT", -FOOT_PAD, 0)
 	F.Next.psTip = L["Next"]
-	F.Next.psTipLines = { L["Enter"] }
+	F.Next.psTipLines = { keyName("ENTER") }
 	F.Back = W.Button(foot, L["Back"], function() go(-1) end)
 	F.Back.psTip = L["Back"]
-	F.Back.psTipLines = { L["Backspace"] }
+	F.Back.psTipLines = { keyName("BACKSPACE") }
 	F.Finish = W.Button(foot, L["Finish"], close, { primary = true })
 	F.Finish:SetPoint("RIGHT", foot, "RIGHT", -FOOT_PAD, 0)
 	F.Finish.psTip = L["Finish"]
-	F.Finish.psTipLines = { L["Everything you chose works already, with no reload."], L["Enter"] }
+	F.Finish.psTipLines = { L["Everything you chose works already, with no reload."], keyName("ENTER") }
 	F.Start = W.Button(foot, L["Start guide"], startSuggested)
 	chevron(F.Start)
 	F.Start:SetPoint("RIGHT", F.Finish, "LEFT", -8, 0)
@@ -2758,7 +2764,7 @@ function WEL.Busy()
 	return WEL.IsShown() or pending ~= nil
 end
 
--- The welcome's building blocks, for the windows in its look
+-- Install's building blocks, for the windows in its look
 -- (UI/WhatsNew.lua): the night, the emblem, the Dipper, wrapped text,
 -- placing, the note rows, and its measures.
 WEL.Kit = {
@@ -2819,7 +2825,7 @@ end)
 
 ns.OnLogin(function()
 	local db = ns.DB()
-	db.betaNoticeSeen = nil -- the beta notice's flag; the welcome has its own
+	db.betaNoticeSeen = nil -- the beta notice's flag; Install has its own
 	if seen() then return end
 	pending = "login"
 	if C_Timer and C_Timer.After then ns.After(DELAY, try) else try() end
