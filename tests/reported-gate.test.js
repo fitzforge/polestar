@@ -25,6 +25,10 @@ test('every report in the map has its tests, a reason nothing can be checked, or
 		else if (v.uncheckable !== undefined && !(typeof v.uncheckable === 'string' && v.uncheckable.length > 20)) bad.push(`#${issue}: say why nothing can be checked`);
 		else if (v.same !== undefined && !(gate.issues[v.same] && gate.issues[v.same].tests)) bad.push(`#${issue}: same as #${v.same}, which has no tests`);
 	}
+	// A seed the gate lets fail says why: the guides-reported case it ports has changed since.
+	for (const [name, why] of Object.entries(gate.seedDrift || {})) {
+		if (!(typeof why === 'string' && /guides-reported case/.test(why))) bad.push(`seedDrift ${name}: say which case it is behind`);
+	}
 	assert.deepEqual(bad, []);
 });
 
@@ -67,11 +71,12 @@ test('a failing test is traced to its report through the parts a name fills in',
 	assert.ok(!matches("${DUROTAR}: tor's report: Securing", 'forever/horde/orc/01-durotar.guide: Securing the Lines'));
 	assert.deepEqual(issuesFor(gate, 'node', 'Every Horde route: The Adventurer is never accepted before The Red Messenger is handed in (#792)'), [792]);
 	assert.ok(issuesFor(gate, 'cargo', 'trainer_never_spends_gold_even_with_saved_bulk_training_settings').includes(1831));
+	assert.ok(issuesFor(gate, 'seed', "forever/alliance/02-westfall.guide: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)").includes(144));
 });
 
 test("the runner reads node's TAP, cargo's lines and a seed that names a guide the tree doesn't have", () => {
-	const tap = ['TAP version 13', '# Subtest: a', 'ok 1 - a', '    not ok 1 - inner one', 'not ok 2 - b', 'ok 3 - c # SKIP no data', 'not ok 4 - d # TODO #123'].join('\n');
-	assert.deepEqual(readTap(tap), { failed: ['inner one', 'b'], skipped: ['c'] });
+	const tap = ['TAP version 13', '# Subtest: a', 'ok 1 - a', '    not ok 1 - inner one', 'not ok 2 - b (\\#421)', 'ok 3 - c # SKIP no data', 'not ok 4 - d # TODO #123'].join('\n');
+	assert.deepEqual(readTap(tap), { failed: ['inner one', 'b (#421)'], skipped: ['c'], todo: ['d'] });
 	const cargo = ['running 3 tests', 'test qol::a_test ... ok', 'test engine_reset::b_test ... FAILED', 'test x::tests::c_test ... ignored'].join('\n');
 	assert.deepEqual([...readCargo(cargo)], [['a_test', 'ok'], ['b_test', 'FAILED'], ['c_test', 'ignored']]);
 	const guides = path.join(ROOT, 'guides');

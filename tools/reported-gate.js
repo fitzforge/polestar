@@ -13,8 +13,10 @@
 //     --threads N      test threads for each cargo run (default 4)
 //     --list           print what each part would run, and run nothing
 // The data tests need data/forever (forge data build): without it they would skip and pass, so the gate stops.
-// A seed whose only failure is a guide file the shipped tree doesn't have (the route builder's folder layout, such
-// as horde/orc-troll) is listed as not applicable, not as a failure.
+// A seed that fails only on a guide file the shipped tree doesn't have (the route builder's folder layout, such as
+// horde/orc-troll) is listed as not applicable. A seed in the map's seedDrift (the guides-reported case it ports has
+// changed since and passes; the seed still asserts the earlier form) is listed as behind, not failed, and one that no
+// longer fails is named so its entry can go.
 // Exit 0: every part ran and passed; 1: a test failed (the reports it pins are listed); 2: a part could not run.
 
 const fs = require('node:fs');
@@ -71,9 +73,10 @@ function matches(pattern, name) {
 	return true;
 }
 
-// The issues whose map entries of a part match a failing test name.
+// The issues whose map entries of a part match a failing test name (a seed's entry is its name).
 function issuesFor(gate, kind, name) {
-	return [...new Set(pins(gate).filter((p) => p.test[kind] !== undefined && (kind === 'cargo' ? p.test.test === name : matches(p.test.test, name))).map((p) => p.issue))].sort((a, b) => a - b);
+	const hit = (t) => (kind === 'cargo' ? t.test === name : matches(kind === 'seed' ? t.seed : t.test, name));
+	return [...new Set(pins(gate).filter((p) => p.test[kind] !== undefined && hit(p.test)).map((p) => p.issue))].sort((a, b) => a - b);
 }
 
 // Runs a command with its output shown as it comes and kept. -> { code, out }
@@ -95,17 +98,21 @@ function run(cmd, args, env = {}) {
 	});
 }
 
-// node --test's TAP: the names of failing, skipped and todo tests (subtests too).
+// node --test's TAP: the names of failing, skipped and todo tests (subtests too). TAP escapes `#` and `\` in a
+// name; a ` # ` that is not escaped starts a SKIP or TODO directive.
 function readTap(out) {
 	const failed = [];
 	const skipped = [];
+	const todo = [];
 	for (const line of out.split('\n')) {
 		const m = /^\s*(not ok|ok) \d+ - (.*?)(?: # (SKIP|TODO)\b.*)?$/.exec(line);
 		if (!m) continue;
-		if (m[3] === 'SKIP') skipped.push(m[2]);
-		else if (m[1] === 'not ok' && m[3] !== 'TODO') failed.push(m[2]);
+		const name = m[2].replace(/\\([\\#])/g, '$1');
+		if (m[3] === 'SKIP') skipped.push(name);
+		else if (m[3] === 'TODO') todo.push(name);
+		else if (m[1] === 'not ok') failed.push(name);
 	}
-	return { failed, skipped };
+	return { failed, skipped, todo };
 }
 
 // cargo test's lines: `test <path> ... ok|FAILED|ignored`.
@@ -118,12 +125,13 @@ function readCargo(out) {
 	return ran;
 }
 
-// A seed that fails only because a guide it names is not in the shipped tree: the route builder's layout.
+// A seed that fails only because a guide it names is not in the shipped tree (the route builder's layout, such as
+// horde/orc-troll): its name opens with that guide, or every failure names one.
 function notApplicable(t, guidesDir) {
-	return t.failures.length > 0 && t.failures.every((f) => {
-		const m = /^(forever\/\S+\.guide) compiles$/.exec(f);
-		return m && !fs.existsSync(path.join(guidesDir, m[1]));
-	});
+	const gone = (p) => !fs.existsSync(path.join(guidesDir, p));
+	const own = /^(forever\/\S+?\.guide):/.exec(t.name);
+	if (own && gone(own[1])) return true;
+	return t.failures.length > 0 && t.failures.every((f) => (f.match(/forever\/[\w/.-]+?\.guide/g) || []).some(gone));
 }
 
 async function main(argv) {
@@ -172,15 +180,17 @@ async function main(argv) {
 
 	if (only.includes('node')) {
 		const { code, out } = await run(process.execPath, ['--test', '--test-concurrency=1', '--test-timeout=900000', '--test-reporter=tap', ...files]);
-		const { failed, skipped } = readTap(out);
+		const { failed, skipped, todo } = readTap(out);
 		const unmapped = [];
 		for (const name of failed) {
 			const issues = issuesFor(gate, 'node', name);
 			if (issues.length) blame(issues, `node: ${name}`);
 			else unmapped.push(name);
 		}
+		// A case marked todo is a known failure waiting for its fix; a release ships with none.
+		for (const name of todo) blame(issuesFor(gate, 'node', name), `node (todo): ${name}`);
 		const pinnedSkips = skipped.filter((name) => issuesFor(gate, 'node', name).length);
-		report.push({ part: 'node', ok: code === 0 && !failed.length, lines: [`${files.length} files, ${failed.length} failing, ${skipped.length} skipped (${pinnedSkips.length} of them pinning a report)`, ...unmapped.map((n) => `failing, no report in the map: ${n}`), ...pinnedSkips.map((n) => `skipped, pins a report: ${n}`)] });
+		report.push({ part: 'node', ok: code === 0 && !failed.length && !todo.length, lines: [`${files.length} files, ${failed.length} failing, ${todo.length} todo, ${skipped.length} skipped (${pinnedSkips.length} of them pinning a report)`, ...unmapped.map((n) => `failing, no report in the map: ${n}`), ...todo.map((n) => `todo (a release ships with none): ${n}`), ...pinnedSkips.map((n) => `skipped, pins a report: ${n}`)] });
 	}
 
 	if (only.includes('seeds')) {
@@ -196,16 +206,26 @@ async function main(argv) {
 			}
 			if (tests) {
 				const guidesDir = path.join(ROOT, 'guides');
+				const drift = gate.seedDrift || {};
 				const na = tests.filter((t) => !t.passed && notApplicable(t, guidesDir));
-				const failed = tests.filter((t) => !t.passed && !notApplicable(t, guidesDir));
+				const behind = tests.filter((t) => !t.passed && !notApplicable(t, guidesDir) && drift[t.name]);
+				const failed = tests.filter((t) => !t.passed && !notApplicable(t, guidesDir) && !drift[t.name]);
 				for (const t of failed) {
 					const issues = issuesFor(gate, 'seed', t.name);
 					if (issues.length) blame(issues, `seed: ${t.name}`);
 				}
+				// A drift entry whose seed passes now (or is gone) can be dropped.
+				const caughtUp = Object.keys(drift).filter((name) => !behind.some((t) => t.name === name));
 				report.push({
 					part: 'seeds',
 					ok: !failed.length,
-					lines: [`${tests.length} seeds: ${tests.filter((t) => t.passed && !t.skipped).length} pass, ${failed.length} fail, ${tests.filter((t) => t.skipped).length} skip, ${na.length} name a guide the shipped tree doesn't have`, ...failed.map((t) => `failing: ${t.name}: ${t.failures.slice(0, 3).join('; ')}`), ...na.map((t) => `not applicable: ${t.name} (${t.failures[0]})`)],
+					lines: [
+						`${tests.length} seeds: ${tests.filter((t) => t.passed && !t.skipped).length} pass, ${failed.length} fail, ${behind.length} behind their guides-reported case (seedDrift), ${tests.filter((t) => t.skipped).length} skip, ${na.length} name a guide the shipped tree doesn't have`,
+						...failed.map((t) => `failing: ${t.name}: ${t.failures.slice(0, 3).join('; ')}`),
+						...behind.map((t) => `behind its guides-reported case: ${t.name}`),
+						...caughtUp.map((name) => `in seedDrift but not failing (drop it from tests/reported-gate.json): ${name}`),
+						...na.map((t) => `not applicable: ${t.name} (${t.failures[0]})`),
+					],
 				});
 			}
 		}

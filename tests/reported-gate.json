@@ -1,5 +1,5 @@
 {
-	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists.",
+	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
 	"issues": {
 		"108": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/automation.rs", "test": "t_108_a_direct_turn_in_is_taken_from_the_quests_the_giver_offers_and_finished_in_the_progress_window" },
@@ -41,7 +41,7 @@
 		] },
 		"144": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "${WESTFALL}: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)" },
-			{ "seed": "{WESTFALL}: Alba Fairmoon's chain is not given to Humans (#144)" }
+			{ "seed": "{WESTFALL}: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)" }
 		] },
 		"148": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Forever follow-ups are taken only once the quests before them are handed in" },
@@ -84,8 +84,7 @@
 			{ "seed": "#213: quests whose giver the route already stands at are taken there, not on a walk back" }
 		] },
 		"221": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head" },
-			{ "seed": "{ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head" }
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head" }
 		] },
 		"223": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "an_objective_goal_reads_the_quest_log_line_named_after_its_target_not_the_position_it_was_compiled_with_223_279_335" }
@@ -140,8 +139,7 @@
 			{ "seed": "forever/horde/04-the-barrens.guide: Fitz's report (#273): the Savannah Lion Hide arrow stays in the Dry Hills with the traps, never by Ratchet" }
 		] },
 		"278": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/05-stonetalon-mountains.guide: Hotline's report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout" },
-			{ "seed": "forever/horde/05-stonetalon-mountains.guide: Hotline's report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout" }
+			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/05-stonetalon-mountains.guide: Hotline's report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout" }
 		] },
 		"279": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Bashidian Twotao's report (#279): the bait ingredients count their own objectives" },
@@ -213,7 +211,6 @@
 			{ "seed": "#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides" }
 		] },
 		"328": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${c.guide}: Tom's report: the arrow reaches ${c.cave} through its mouth" },
 			{ "node": "tests/guides-reported.test.js", "test": "Pynte (#328): both mouths where the walk in reaches the cave's floor" }
 		] },
 		"334": { "tests": [
@@ -224,8 +221,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-reported.rs", "test": "stormwind_the_walk_to_the_deeprun_tram_ends_at_its_entrance_not_on_the_roof_above_it_338" }
 		] },
 		"340": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill" },
-			{ "seed": "{REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill" }
+			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill" }
 		] },
 		"341": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/route-plan.rs", "test": "a_questie_update_dropped_by_its_0_1_s_throttle_is_retried_once_not_polled_and_waits_out_combat_341" }
@@ -306,8 +302,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/codex.rs", "test": "mergecodex_a_guard_recorded_on_a_city_map_and_on_the_zone_that_holds_it_is_placed_in_the_city_382" }
 		] },
 		"385": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" },
-			{ "seed": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" }
+			{ "node": "tests/guides-reported.test.js", "test": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" }
 		] },
 		"390": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "death_resurrection_sickness_is_forever_s_ten_minutes_from_level_11_or_what_the_game_last_gave_at_that_level_390" }
@@ -335,8 +330,7 @@
 			{ "seed": "{TELDRASSIL}: Pynte's report: Flight to Auberdine is flown with Vesprystus, not the boat, and Return to Nessa is handed in (#402, #403)" }
 		] },
 		"404": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Pynte's report (#404): guides played below riding level never tell you to ride somewhere" },
-			{ "seed": "Pynte's report (#404): guides played below riding level never tell you to ride somewhere" }
+			{ "node": "tests/guides-reported.test.js", "test": "Pynte's report (#404): guides played below riding level never tell you to ride somewhere" }
 		] },
 		"406": { "tests": [
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_place_ids.rs", "test": "a_getfp_naming_no_npc_gets_its_taxi_nodes_flight_master_and_position_for_the_factions_its_races_can_be_an_explicit_npc_wins" }
@@ -350,8 +344,7 @@
 			{ "seed": "forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers" }
 		] },
 		"416": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${WESTFALL}: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill" },
-			{ "seed": "{WESTFALL}: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill" }
+			{ "node": "tests/guides-reported.test.js", "test": "${WESTFALL}: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill" }
 		] },
 		"420": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-reported.rs", "test": "undercity_the_walk_from_the_apothecarium_to_varimathras_stays_in_the_city_420" }
@@ -360,8 +353,7 @@
 			{ "node": "tests/travel-crossings.test.js", "test": "shipped crossings: Elwynn Forest to Duskwood walks over their border, not through Redridge (#421)" }
 		] },
 		"453": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in" },
-			{ "seed": "Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in" }
+			{ "node": "tests/guides-reported.test.js", "test": "Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in" }
 		] },
 		"504": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Trouble in the Valley (#504): the step at Corporal Adamore's camp says his marines come together" }
@@ -376,8 +368,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/theme.rs", "test": "ellesmereui_font_with_an_outline_a_primary_button_s_dark_label_on_the_accent_drops_it_other_text_keeps_it_521" }
 		] },
 		"524": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat" },
-			{ "seed": "{ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat" }
+			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat" }
 		] },
 		"532": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\": the Skyborne visits to the Horde leaders" },
@@ -394,8 +385,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-reported.rs", "test": "stormwind_the_walk_from_the_trade_district_to_jennea_cannon_keeps_to_the_streets_not_the_terrain_under_them_541" }
 		] },
 		"553": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt are left out" },
-			{ "seed": "{ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt follow only the Schedule" }
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt are left out" }
 		] },
 		"566": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands" }
@@ -547,7 +537,6 @@
 			{ "node": "tests/guides-reported.test.js", "test": "Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides" },
 			{ "node": "tests/guides-reported.test.js", "test": "Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "t_859_a_quest_talk_goal_ticks_from_its_quest_log_line_and_a_talk_counts_only_on_a_line_the_client_does_not_list_yet" },
-			{ "seed": "Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides" },
 			{ "seed": "Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to" }
 		] },
 		"867": { "tests": [
@@ -655,8 +644,7 @@
 		] },
 		"1004": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Bill's report (#1004): a town's bind never sends you back to the giver you just left" },
-			{ "node": "tests/guides-reported.test.js", "test": "Every Horde route (Bill, #1004): the Ratchet bind never sends you back to where you stood before it" },
-			{ "seed": "Bill's report (#1004): a town's bind never sends you back to the giver you just left" }
+			{ "node": "tests/guides-reported.test.js", "test": "Every Horde route (Bill, #1004): the Ratchet bind never sends you back to where you stood before it" }
 		] },
 		"1018": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/alts.rs", "test": "on_forever_whose_names_carry_a_surname_the_entry_is_filed_under_the_full_name_and_a_0_3_3_entry_moves_to_it_1018" },
@@ -1212,5 +1200,30 @@
 		"2046": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Gnogaine waits for The Day After, whatever breadcrumb links the data has (Gnomeregan pick-up)" }
 		] }
+	},
+	"seedDrift": {
+		"Horde poisons: the mainline contact instructions use the supplied flare gun before saluting Fizzule": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (contact Fizzule is in the guide)",
+		"forever/horde/05-stonetalon-mountains.guide: the Warsong update goals name the scouts who hand them over, from the data": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (collect 16764 (Warsong Scout) is in the guide)",
+		"forever/alliance/40-50/01-stranglethorn-vale.guide: the same pattern as #365, the Soothing Spices for \"Swamp Eye\" Jarl, from Theramore: asked for again on the step that hands in 1218": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (the turn-in step buys item 3713 before handing in 1218)",
+		"forever/alliance/nightelf/01-teldrassil.guide: the same pattern as #365, the Empty Vial for Byancie: asked for again on the step that hands in 99050": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (the turn-in step buys item 3371 before handing in 99050)",
+		"forever/alliance/nightelf/01-teldrassil.guide: the same pattern as #365, the Refreshing Spring Water for Byancie: asked for again on the step that hands in 99050": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (the turn-in step buys item 159 before handing in 99050)",
+		"forever/horde/undead/01-tirisfal-glades.guide: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (a Mage meets neither giver: [\"accept 99152 (Hilda the Breaker)\", \"accept 99153 (Ephram Barbaro)\", \"turnin 99153 (Ephram Barbaro)\", \"turnin 99152 (Hilda the B...)",
+		"Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (forever/alliance/skyborne/01-zephras-isle.guide: Valennia, then Ayessa, then Elaadrin)",
+		"Forever follow-ups are taken only once the quests before them are handed in": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (forever/alliance/02-westfall.guide: accept 92747 is in the guide)",
+		"Bill's report (#1004): a town's bind never sends you back to the giver you just left": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (forever/horde/02-the-barrens.guide: quest 4921 at The Crossroads comes before the bind there)",
+		"Sato's report: the Scrawny Ursera step leads to the slope west of Thendal Village": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (the corrections add Scrawny Ursera spawns)",
+		"the cloth the guides tell you to buy leads to the Auction House: the capitals' cloth donations and Grimand's Runecloth": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (forever/alliance/50-60/06-silithus.guide: the cloth of 7793)",
+		"forever/horde/05-stonetalon-mountains.guide: #246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (Kadrak goal 2 is in the guide)",
+		"forever/horde/04-the-barrens.guide: Fitz's report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (the Dry Hills step is in the guide)",
+		"forever/horde/05-stonetalon-mountains.guide: Hotline's report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (the Warsong Reports is in the guide)",
+		"Pynte's report (#404): guides played below riding level never tell you to ride somewhere": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (travel by riding in a guide played before level 40: [\"forever/horde/40-50/01-stranglethorn-vale.guide (from level 39), step Ironjaw Basilisks: Ride north out...)",
+		"Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (forever/alliance/02-westfall.guide collect 254548 (quest 92744, level 12) has a point and is no zone-wide search)",
+		"forever/alliance/02-westfall.guide: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (Report to Gryan Stoutmantle is handed in on the first Sentinel Hill stop)",
+		"forever/alliance/04-redridge-mountains.guide: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (after the Galardell gnolls)",
+		"Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (turnin 97926 is optional)",
+		"forever/alliance/06-ashenvale.guide: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (accept 98461 is in the guide)",
+		"forever/horde/skyborne/01-zephras-isle.guide: Sato's report: Welcome to Shen'dar Village follows its objectives, and is taken before Illaya's talk": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (complete 92595 (talk to Illaya) is in the guide)",
+		"forever/alliance/human/01-elwynn-forest.guide: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (without the head: the head and its accept are optional goals of the murloc step: None != Some([\"collect true\", \"accept true\"]))",
+		"forever/alliance/human/01-elwynn-forest.guide: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt follow only the Schedule": "the guides-reported case it ports passes on the shipped guides; the seed still asserts an earlier form of it (the Schedule and The Collector's accept are optional: [] != [(\"collect\", true), (\"accept\", true)])"
 	}
 }
