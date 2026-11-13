@@ -12,5 +12,6 @@ section: forge
   an entrance's edges across a cluster border always stay), and one
   component for the places it joins. A way with a climb his maps lack,
   or off his maps, is refused; one his maps already make adds nothing.
-  The log and PACK.json count what went in
-  (docs/forge/nav.md, "Grid joins").
+  With `--ground reached`, the two ends of each join's ways count as
+  fixed places, so the ground a join leads into is kept. The log and
+  PACK.json count what went in (docs/forge/nav.md, "Grid joins").

@@ -356,7 +356,8 @@ fn floor_columns(s: &str, cc: usize, dead: &[bool], gone: &[bool]) -> Result<Str
 	if p != b.len() {
 		return Err(format!("leffe: floor field has {} symbols past its records", b.len() - p));
 	}
-	b32(m as u64, &mut out);
+	// the links kept (a link out of ground no walk reaches went with it)
+	b32(links.len() as u64, &mut out);
 	let mut prev = 0i64;
 	for &(u, _, _) in &links {
 		b32(zigzag(u as i64 - prev), &mut out);
@@ -967,5 +968,32 @@ mod tests {
 			assert_eq!(values(&rec), want, "edge {e}: offset, entrance, the three costs, the none profile's yards");
 		}
 		assert_eq!(clamped, 0);
+	}
+
+	/// With --ground reached, a floor no walk reaches goes, and so do the explicit links out of it: the floor field
+	/// counts the links it keeps. It wrote the count it read, so a reader took the next symbols for more links (the
+	/// router's floorColumns reads the field the same way as pack/ingame.rs).
+	#[test]
+	fn a_dropped_floors_link_goes_and_the_floor_field_counts_the_links_kept() {
+		const CC: usize = 8;
+		let e = |v: usize, w: u32| enc(v as f64, w).unwrap();
+		// his rows: one cell (local cell 9) with two floors (nodes 64 and 65, heights 10 and 20), a link +x from each
+		let mut his = e(1, 3) + &e(9, 3) + &e(2, 1);
+		for z in [10, 20] {
+			his += &(e(1, 1) + &e(z + 2048, 2) + &e(0, 2));
+		}
+		his += &e(2, 3);
+		for u in [64, 65] {
+			his += &(e(u, 3) + &e(0, 1) + &e(0, 1));
+		}
+		let mut dead = vec![false; CC * CC + 2];
+		dead[CC * CC + 1] = true;
+		let field = floor_columns(&his, CC, &dead, &[false; CC * CC]).unwrap();
+		let val = vec![1u8; CC * CC];
+		let grid = run_length(&val.iter().map(|v| v * 16).collect::<Vec<u8>>());
+		let height = encode_heights(&val, &[0; CC * CC], CC).unwrap();
+		let c = crate::pack::ingame::Cluster::decode(CC, TILE / 128.0, 2.0, &grid, &height, Some(&field), None, None, None).unwrap();
+		assert_eq!(c.t(), CC * CC + 1, "the floor at height 10 stays");
+		assert_eq!(c.links, vec![(64, 0, 0)], "its link stays, the dropped floor's goes");
 	}
 }
