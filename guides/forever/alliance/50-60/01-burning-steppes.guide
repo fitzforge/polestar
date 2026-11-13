@@ -157,15 +157,10 @@ step Ravencrest Monument
   turnin 3449
   accept 3461
 
-step To Stoutlager Inn
-  zone Loch Modan
-  goto 35.5,48.4 "Stoutlager Inn"
-
-step Fly to Ironforge
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar flight master"
-  fly "Ironforge"
+step To Ironforge
   zone Ironforge
+  tip Your Hearthstone is set at Ironforge (the Hinterlands guide binds it there): hearth back to the inn.
+  goto 18.15,51.45 "Ironforge inn"
 
 # ---------------------------------------------------------------- Ironforge
 
@@ -182,17 +177,20 @@ step Royal Historian Archesonus
   accept 3701                         -- The relics are in the Burning Steppes: keep it
 
 step Fly to Aerie Peak
+  when group 2944
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Aerie Peak"
   zone The Hinterlands
 
-# ---------------------------------------------------------------- The Hinterlands and the Western Plaguelands
+step Fly to Southshore
+  when !group 2944
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Southshore"
+  zone Hillsbrad Foothills
 
-step Wildkin feathers
-  zone The Hinterlands
-  tip The Wildkin Feathers lie on the ground across the Hinterlands, south and east of Aerie Peak, where the owlbeasts roam; the mobs here are well below you now.
-  collect 10819 quest 3661                    -- Wildkin Feather
+# ---------------------------------------------------------------- The Hinterlands and the Western Plaguelands
 
 step The Super Snapper FX
   when group 2944
@@ -201,11 +199,8 @@ step The Super Snapper FX
   collect 9330 quest 2944.1 @80.4,58.2 map 1425 group 2
   use 9328 quest 2944.1 @80.4,58.2 map 1425
 
-step The Hinterlands
-  zone The Hinterlands
-  goto 11.1,46.1 "Aerie Peak"
-
 step Fly to Southshore
+  when group 2944
   zone The Hinterlands
   goto 11.1,46.1 "Aerie Peak flight master"
   fly "Southshore"
@@ -253,10 +248,25 @@ step Chillwind Camp
   turnin 5217                         -- High Priestess MacDonnell
 
 step Fly to Morgan's Vigil
+  when taxi "Morgan's Vigil"
   zone Western Plaguelands
   goto 43.0,85.1 "Chillwind Camp flight master"
   fly "Morgan's Vigil"
   zone Burning Steppes
+
+step Fly to Lakeshire
+  when !taxi "Morgan's Vigil"
+  zone Western Plaguelands
+  goto 43.0,85.1 "Chillwind Camp flight master"
+  fly "Lakeshire"
+  zone Redridge Mountains
+
+step Morgan's Vigil flight master
+  when !taxi "Morgan's Vigil"
+  zone Burning Steppes
+  tip Ride east out of Lakeshire and up the pass into the Burning Steppes: Morgan's Vigil stands at the top.
+  goto 84.4,68.3 "Morgan's Vigil flight master"
+  getfp "Morgan's Vigil"
 
 step Morgan's Vigil
   zone Burning Steppes
@@ -397,9 +407,18 @@ step Kum'isha the Collector
   collect 10593 quest 3501.1
   turnin 3501
 
-step To Stoutlager Inn
+step To Ironforge
+  zone Ironforge
+  tip Hearth back to Ironforge's inn.
+  goto 18.15,51.45 "Ironforge inn"
+
+step Fly to Thelsamar
+  when group 3181
+  when onquest 3181
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Thelsamar"
   zone Loch Modan
-  goto 35.5,48.4 "Stoutlager Inn"
 
 step Loch Modan
   when group 3181
@@ -412,11 +431,8 @@ step Mountaineer Pebblebitty
   turnin 3181
   accept 3182
 
-step Loch Modan
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar"
-
 step Fly to Ironforge
+  when group 3181
   zone Loch Modan
   goto 33.9,50.8 "Thelsamar flight master"
   fly "Ironforge"

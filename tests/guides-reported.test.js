@@ -7968,7 +7968,9 @@ test('Alliance 40-60 order: the first Western Plaguelands stop before the Burnin
 	const bs = goals(A('50-60/01-burning-steppes'));
 	const pos = (list, t, q) => at(list, `${t} ${q}`, is(t, q));
 	assert.ok(pos(bs, 'turnin', 5217) < pos(bs, 'accept', 3823), 'the cauldron at Felstone Field before Morgan\'s Vigil');
-	assert.ok(at(bs, 'the Wildkin Feathers (3661)', (g) => g.t === 'collect' && g.quest === 3661) < pos(bs, 'accept', 5092), 'the Hinterlands feathers on the way to Southshore, then Chillwind Camp');
+	// The Wildkin Feathers (3661) are collected in 40-50/05's Hinterlands loop since the 0.4.0 audit (B26): 01 flies
+	// Ironforge -> Southshore straight to Chillwind Camp.
+	assert.ok(!bs.some(({ goal }) => goal.t === 'collect' && goal.quest === 3661), 'no feather stop in the Burning Steppes guide');
 	assert.ok(pos(bs, 'accept', 3702) < pos(bs, 'accept', 3823), 'Archesonus on the Ironforge stop before the Steppes');
 	assert.ok(!goals(A('40-50/07-un-goro-crater')).some(({ goal }) => goal.quest === 3702 || goal.quest === 3701 || goal.quest === 4504), 'no 54s taken at 49 in Un\'Goro\'s guide');
 	const wpl = goals(A('50-60/04-western-plaguelands'));
@@ -10258,7 +10260,7 @@ test('Walking elites: Gammerita\'s and Grel\'borg\'s steps say where they walk',
 // hearth saves 5 minutes, so keeping Thelsamar nets about 5 minutes. A player bound at Thelsamar keeps that bind and
 // leaves through it; anyone else binds at Everlook and leaves by Theramore and the boat, as before. Both fly to
 // Chillwind Camp (flight path from 50-60/01), not Southshore and a ride north.
-test('forever/alliance/50-60/03-winterspring.guide: the Thelsamar bind is kept and used, Everlook binds only without it', { skip }, () => {
+test('forever/alliance/50-60/03-winterspring.guide: the Ironforge bind is kept and used, Everlook binds only without it', { skip }, () => {
 	const list = goals('forever/alliance/50-60/03-winterspring.guide');
 	const has = (step, neg) => (step.when || []).some((p) => p.k === 'bound' && !!p.neg === neg);
 	const bind = list.find(({ goal }) => goal.t === 'sethome' && goal.location === 'Everlook');
@@ -11818,4 +11820,25 @@ test('Alliance Winterspring: To Winterspring! (5249) from Felwood is handed in r
 	const a = at(ws, 'accept 5244', is('accept', 5244));
 	assert.ok(t < a, '5249 handed in before 5244 is taken');
 	assert.equal(ws[t].s, ws[a].s, 'on the same Wynd Nightchaser step');
+});
+
+// 0.4.0 audit (B26, with 40-50's Ironforge bind): 50-60/01 hearths to Ironforge's inn, where 40-50/05 binds, instead of
+// Thelsamar and a flight; the Hinterlands stop is only for The Super Snapper FX's group (the feathers are collected in
+// 40-50/05), everyone else flies Ironforge -> Southshore; Morgan's Vigil by its flight path when known, else Lakeshire and
+// the pass; The Horn of the Beast's group flies Ironforge -> Thelsamar -> Ironforge for Pebblebitty.
+test('Alliance 50-60/01: hearths to Ironforge, Aerie Peak only for Gammerita\'s group, Morgan\'s Vigil by known flight path', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const has = (e, k, neg) => (e.step.when || []).some((p) => p.k === k && !!p.neg === neg);
+	assert.ok(!bs.some(({ goal }) => goal.t === 'goto' && /Stoutlager/.test(goal.text || goal.label || '')), 'no hearth to Thelsamar');
+	assert.equal(bs.filter(({ goal }) => goal.t === 'goto' && goal.map === 1455 && goal.x === 18.15).length, 2, 'two hearths to Ironforge\'s inn');
+	const aerie = bs.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Aerie Peak');
+	assert.ok(aerie.length === 1 && has(aerie[0], 'group', false), 'Aerie Peak only for the group');
+	const ss = bs.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Southshore');
+	assert.ok(ss.some((e) => has(e, 'group', true)) && ss.some((e) => has(e, 'group', false)), 'Southshore straight from Ironforge, or from Aerie Peak for the group');
+	const mv = bs.find(({ goal }) => goal.t === 'fly' && goal.location === "Morgan's Vigil");
+	assert.ok(mv && has(mv, 'taxi', false), "the flight to Morgan's Vigil when its flight path is known");
+	const fp = bs.find(({ goal }) => goal.t === 'getfp' && /Morgan/.test(goal.location || ''));
+	assert.ok(fp && has(fp, 'taxi', true), 'else Lakeshire, the pass and its flight path');
+	const thel = bs.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thelsamar');
+	assert.ok(thel && has(thel, 'group', false), 'Thelsamar only for The Horn of the Beast\'s group');
 });

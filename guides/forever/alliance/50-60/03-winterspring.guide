@@ -26,8 +26,8 @@ step Winterspring
 # ---------------------------------------------------------------- Everlook
 
 step Everlook's inn
-  when !bound "Stoutlager Inn"
-  tip Your Hearthstone is not set at Thelsamar (the Hinterlands guide binds there at 47, and this guide leaves Winterspring through it): bind at Everlook instead, for the trips back to town.
+  when !bound "Ironforge"
+  tip Your Hearthstone is not set at Ironforge (the Hinterlands guide binds there at 47, and this guide leaves Winterspring through it): bind at Everlook instead, for the trips back to town.
   sethome "Everlook" npc 11118        -- Innkeeper Vizzie
 
 step Everlook
@@ -122,33 +122,33 @@ step Everlook
   use 12928 @61.5,38.6 "Umi's Mechanical Yeti" -- On Legacki, by the inn
   kill 10978 quest 5163.1 "Scare Legacki with Umi's Mechanical Yeti" -- Legacki: Sprinkle and Quixxil come later
 
-step To Stoutlager Inn
-  when bound "Stoutlager Inn"
-  zone Loch Modan
-  tip Your Hearthstone is still set at Thelsamar: from there the gryphon to Chillwind Camp is about ten minutes quicker than Everlook's flight to Theramore and the boat.
-  goto 35.5,48.4 "Stoutlager Inn"
+step To Ironforge
+  when bound "Ironforge"
+  zone Ironforge
+  tip Your Hearthstone is still set at Ironforge: from there the gryphon to Chillwind Camp is about ten minutes quicker than Everlook's flight to Theramore and the boat.
+  goto 18.15,51.45 "Ironforge inn"
 
 step Fly to Chillwind Camp
-  when bound "Stoutlager Inn"
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar flight master"
+  when bound "Ironforge"
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
   fly "Chillwind Camp"
   zone Western Plaguelands
 
 step Fly to Theramore
-  when !bound "Stoutlager Inn"
+  when !bound "Ironforge"
   zone Winterspring
   goto 62.3,36.6 "Everlook flight master"
   fly "Theramore"
   zone Dustwallow Marsh
 
 step Boat to Menethil Harbor
-  when !bound "Stoutlager Inn"
+  when !bound "Ironforge"
   zone Dustwallow Marsh
   goto 71.6,56.4 "Boat to Menethil Harbor"
 
 step Fly to Chillwind Camp
-  when !bound "Stoutlager Inn"
+  when !bound "Ironforge"
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
   fly "Chillwind Camp"
