@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Deadwood Village
 	-- {zone:1448} Felwood · {item:21377} Deadwood Headdress Feather · {npc:9464} Overlord Ror · {npc:14342} Ragepaw
-	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can."] = "",
+	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can."] = "死木熊怪（48-50级）占据着{zone:1448}最南端的村庄。保留所有{item:21377}，以后每个可换10点声望，且始终有效。{npc:9464}（15点声望）和稀有怪{npc:14342}（25点）也在这里，击杀声望一直持续到崇拜。无限版本中，任务在任何等级都奖励全额声望；经典旧世的灰名怪只给约五分之一，这些熊怪在60级时每只约1点。尽可能在练级时完成。",
 	-- {npc:14342} Ragepaw
 	["{npc:14342}, rare"] = "{npc:14342}，稀有",
 

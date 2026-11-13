@@ -1,7 +1,7 @@
 //! `forge record learn`: what players' recordings teach about the quests Forever added, as a
 //! committed snapshot (docs/forge/learn.md).
 //!
-//! Reads the re-sessioned recordings archive one session at a time, IngestAudit's verdicts and the
+//! Reads the re-sessioned recordings archive one session at a time, the recordings audit's verdicts and the
 //! current data (data/forever, forever-db/corrections), and learns per Forever-new quest:
 //! - where each objective line is done ([`spots`]), from the spots its ticks were recorded at;
 //! - its prerequisites (all-of, any-of, exclusive groups) and minimum level from givers' windows,
@@ -62,7 +62,7 @@ pub struct Options {
 	pub sources: PathBuf,
 	/// forever-db/corrections.
 	pub corrections: PathBuf,
-	/// IngestAudit's verdict.json (None: no merging of people, only config.json's `exclude`).
+	/// the recordings audit's verdict.json (None: no merging of people, only config.json's `exclude`).
 	pub verdicts: Option<PathBuf>,
 	/// The snapshot's last quests.json (what changed since).
 	pub previous: Option<PathBuf>,
@@ -83,7 +83,7 @@ pub struct Output {
 
 // ---------------------------------------------------------------- inputs
 
-/// IngestAudit's verdict.json, as far as learning goes.
+/// the recordings audit's verdict.json, as far as learning goes.
 #[derive(Default)]
 pub struct Verdicts {
 	/// Contributors marked `exclude` or `suspect`: never counted.

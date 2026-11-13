@@ -6,7 +6,8 @@
 --
 --   ns.Movers.Register(spec)    a frame's mover (the mode's file says what a
 --                               spec holds), kept here until the mode loads
---   ns.Movers.IsUnlocked(), Lock()   false and nothing until it has loaded
+--   ns.Movers.IsUnlocked(), IsSuspended(), Lock(), Save(), Exit(), Revert(),
+--   Changed()                   false, 0 and nothing until it has loaded
 --   ns.Movers.Unlock([key]), Toggle(), Rect(key), MoveTo(key, left, bottom),
 --   Reset(key), ResetAll(), Keys(), Box(key), ... load the mode, then run as
 --   it has them (in a fight Unlock and Toggle say no, as the mode does)
@@ -25,7 +26,11 @@ function M.Register(spec)
 end
 
 function M.IsUnlocked() return false end
+function M.IsSuspended() return false end
 function M.Lock() end
+M.Save, M.Exit = M.Lock, M.Lock
+function M.Revert() return 0 end
+function M.Changed() return 0 end
 
 local function combat() return InCombatLockdown and InCombatLockdown() and true or false end
 

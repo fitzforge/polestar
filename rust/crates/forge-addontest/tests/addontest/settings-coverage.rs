@@ -307,3 +307,41 @@ fn every_control_registered_now_is_reachable_on_its_page() {
 	assert!(lost.is_empty(), "{} controls cannot be reached:\n{}\n(a later release's, pending until this build is that release:\n{})", lost.len(), lost.join("\n"), pending.join("\n"));
 	eprintln!("a later release's controls, pending until this build is that release:\n{}", pending.join("\n"));
 }
+
+// A setting's label never shares its English text with a talent tree's name: Polestar translates those names as the
+// game names the trees (the Rogue's Subtlety, the Priest's Shadow), so a row labelled with one read as that spec on a
+// translated client (the sparkle trail's Subtlety slider read Sutileza, Subterfúgio, Скрытность; the text shadow and
+// the window shadow's strength read the Shadow spec). Such a row takes a key of its own. The trees: every class's
+// (Talents/Builds.lua's specs lists; the game keeps only the player's class at runtime).
+#[test]
+fn no_setting_s_label_is_a_talent_tree_s_name() {
+	let builds = std::fs::read_to_string(addons_dir().join("Polestar/Talents/Builds.lua")).expect("Talents/Builds.lua");
+	let mut trees: Vec<String> = vec![];
+	for line in builds.lines().filter(|l| l.trim_start().starts_with("specs = {")) {
+		for name in line.split('"').skip(1).step_by(2) {
+			if !trees.iter().any(|t| t == name) {
+				trees.push(name.to_string());
+			}
+		}
+	}
+	assert!(trees.len() >= 20, "the talent trees: {trees:?}");
+	let set = trees.iter().map(|t| format!("[{}] = true", lua_value(&Value::String(t.clone())))).collect::<Vec<_>>().join(", ");
+	let out = run(&format!(
+		r#"
+		local trees = {{ {set} }}
+		local n, clash = 0, {{}}
+		local function check(c)
+			local label = c.label
+			if type(label) == "function" then label = label() end
+			n = n + 1
+			if type(label) == "string" and trees[label] then clash[#clash + 1] = tostring(c.key) .. ": " .. label end
+			for _, x in ipairs(c.extras or {{}}) do check(x) end
+			for _, x in ipairs(c.more or {{}}) do check(x) end
+		end
+		for _, c in ipairs(O.AllControls()) do check(c) end
+		table.sort(clash)
+		emit({{ controls = n, clash = table.concat(clash, ", ") }})"#
+	));
+	assert!(out["controls"].as_i64().unwrap() > 300, "every control: {out}");
+	assert_eq!(out["clash"], "", "a setting labelled with a talent tree's name: {out}");
+}

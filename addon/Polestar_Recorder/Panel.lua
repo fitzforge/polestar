@@ -284,6 +284,7 @@ local function build()
 		band:SetTexCoord(P.Theme.BandCoords(WIDTH - 2, HEAD_H))
 		F.Close = P.Widgets.IconButton(head, "close", 28, L["Close"], function() F:Hide() end, 14)
 		F.Close:SetPoint("RIGHT", head, "RIGHT", -8, 0)
+		P.Widgets.FrameClose(F, F.Close)
 	else
 		F:SetBackdrop({
 			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",

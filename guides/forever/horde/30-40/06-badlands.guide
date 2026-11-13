@@ -5,6 +5,7 @@ faction Horde
 levels 39-40
 zone Badlands
 next forever/horde/40-50/01-stranglethorn-vale
+next polestar-experimental/riverglades-horde-1
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

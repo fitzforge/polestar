@@ -971,6 +971,43 @@ emit({ diffs = diffs, full = full, bounded = bounded, both = both })"#,
 	assert!(b <= f, "no more work than the full search: {b} against {f}");
 }
 
+// A walk searched from a start without a height (the walking floor not known yet) starts from every surface at its
+// spot. Its first point carries the height of the start node the search kept, as every other point carries its own,
+// so the arrow's smoothing (Nav/Follow.lua) can straighten from it: 0.3.7 left it out, and 58% of the paths whose
+// first corner turned more than 45° kept it for that alone. A height given is kept as given.
+#[test]
+fn a_walk_from_a_start_without_a_height_starts_at_the_height_of_the_surface_it_was_searched_from() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local got = {}
+-- the Barrens by the Crossroads: two places players stood, 113 yd apart
+local from, to = { x = -390, y = -2421 }, { x = -395.5, y = -2533.9 }
+Path.Find(1, from, to, function(points) got.n, got.first = points and #points or 0, points and points[1].z end, { profile = "Horde" })
+drain()
+-- the surfaces at the start (its cluster decoded by the search)
+local heights = {}
+local n = Path.SurfacesAt(1, from.x, from.y, heights) or 0
+got.surfaces, got.near = n, false
+for i = 1, n do
+	if type(got.first) == "number" and math.abs(heights[i] - got.first) <= 10 then got.near = true end
+end
+got.wanted = heights[1]
+Path.Find(1, { x = from.x, y = from.y, z = heights[1] }, to, function(points) got.given = points and points[1].z end, { profile = "Horde" })
+drain()
+emit(got)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert!(got["n"].as_i64().unwrap() >= 2, "a walk is found: {got}");
+	assert!(got["first"].is_number(), "the first point has a height: {got}");
+	assert!(got["surfaces"].as_i64().unwrap() >= 1 && got["near"] == true, "within the grid's ZTOL of a surface at the start: {got}");
+	assert_eq!(got["given"], got["wanted"], "a height given is kept: {got}");
+}
+
 // A walk that goes round a town of the other faction says so (job.avoided, display only): across Hillsbrad west to
 // east the straight line meets Southshore; the Horde's path keeps out of it, the Alliance's own town is no detour, and
 // a walk that does enter it lists it as entered (job.hubs), not as avoided.

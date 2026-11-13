@@ -3,7 +3,8 @@
 -- quest chains it slides up from behind the window's top edge and sits on
 -- it, as wide as the window, in the window's own panel, fonts and buttons;
 -- the class colour marks only its stripe, its icon ring and its small header
--- ("LEVEL 10 · WARLOCK"). It says what is ready ("Voidwalker ready", the
+-- ("LEVEL 10 · WARLOCK"); in the house look, no stripe, and the facts
+-- ("Level 10 · Warlock") under the title instead. It says what is ready ("Voidwalker ready", the
 -- name in the NPC colour), who gives it for the character's
 -- race ("Get it from Ophek, Durotar.") and, when the loaded guide has a step
 -- for the chain ahead, "Your route takes you there at <step>.". It always
@@ -51,6 +52,9 @@ local RING = 40
 -- In the ring: a picture (another heads-up's art) fills it inside a 2px rim,
 -- an icon sits on the disc, a glyph sits small in its middle.
 local ART, ICON, GLYPH = RING - 4, RING - 8, 20
+-- The class colour's stripe down the card's edge. The house look draws none
+-- (Theme.House "cardFacts"): its title leads, the facts under it in sentence
+-- case (m.facts) carry the colour with the ring.
 local STRIPE = 4
 local SLIDE = 0.25
 -- Another heads-up's row of spell icons (UI/SpellCards.lua): this many at most, then "+N more".
@@ -306,6 +310,7 @@ function CT.Model(q)
 	local name = C.RewardName(reward)
 	local m = { quest = q, reward = reward, class = p.class, level = s[1] }
 	m.head = format(L["LEVEL %d · %s"], s[1], UI.ClassName(p.class):upper())
+	m.facts = format(L["Level %d · %s"], s[1], UI.ClassName(p.class))
 	m.title = name and format(L["%s ready"], CT.ShortName(name)) or UI.ClassName(p.class)
 	local where, who = giver[2] and UI.MapName(giver[2]), giverName(q, giver)
 	m.giver = where and format(L["Get it from %s, %s."], who, where) or format(L["Get it from %s."], who)
@@ -414,7 +419,8 @@ local function newCard(parent, name, sandbox)
 		f.Lift:AddMaskTexture(f.Mask)
 	end
 
-	-- The window's type: the small header, the name in the NPC colour, muted lines.
+	-- The window's type: the small header (the house look's facts line), the
+	-- name in the NPC colour, muted lines.
 	f.Head = text(f, "small", "text")
 	f.Title = text(f, "name", "personName")
 	f.Giver = text(f, "small", "textDim")
@@ -482,7 +488,7 @@ local function build()
 	end
 end
 
--- class: the class colour's stripe, ring and header; nil (another heads-up)
+-- class: the class colour's stripe, ring and header (or facts); nil (another heads-up)
 -- the accent's.
 local function paint(f, class)
 	local r, g, b = Theme.ClassColor(class)
@@ -538,6 +544,12 @@ local function compactOn()
 end
 CT.Compact = compactOn
 
+-- The facts line the card shows for model m: the house look's sentence-case
+-- facts under the title (m.facts, when the model has them), else the header.
+local function factsOf(m)
+	return Theme.House("cardFacts") and m.facts or m.head
+end
+
 -- The compact card: the ring, the title on one line and the action, then
 -- the card's menu when it has more to offer (its second button, its "stop
 -- these") and the close button; its other lines are the tooltip's
@@ -545,8 +557,10 @@ CT.Compact = compactOn
 local CPAD, CRING = 8, 24
 local function compactLayout(f, width)
 	local m = f.psModel or {}
+	local stripe = Theme.House("cardFacts") and 0 or STRIPE
 	f:SetWidth(width)
 	sizeRing(f, CRING / RING)
+	f.Stripe:SetShown(stripe > 0)
 	for _, p in ipairs({ f.Head, f.Giver, f.Route, f.Badge, f.Rule, f.Later, f.More, f.Off }) do p:Hide() end
 	local act = (m.act and f.Act) or (m.guideId and f.Open) or f.ShowMe
 	for _, b in ipairs({ f.Act, f.Open, f.ShowMe }) do b:SetShown(b == act) end
@@ -554,7 +568,7 @@ local function compactLayout(f, width)
 	local h = max(CRING, act:GetHeight(), f.Close:GetHeight())
 	local mid = -(CPAD + h / 2)
 	f.Ring:ClearAllPoints()
-	f.Ring:SetPoint("LEFT", f, "TOPLEFT", CPAD + STRIPE, mid)
+	f.Ring:SetPoint("LEFT", f, "TOPLEFT", CPAD + stripe, mid)
 	f.Close:ClearAllPoints()
 	f.Close:SetPoint("RIGHT", f, "TOPRIGHT", -6, mid)
 	local right = f.Close
@@ -568,7 +582,7 @@ local function compactLayout(f, width)
 	act:SetPoint("RIGHT", right, "LEFT", -6, 0)
 	f.Title:SetWordWrap(false)
 	f.Title:ClearAllPoints()
-	f.Title:SetPoint("LEFT", f, "TOPLEFT", CPAD + STRIPE + CRING + 8, mid)
+	f.Title:SetPoint("LEFT", f, "TOPLEFT", CPAD + stripe + CRING + 8, mid)
 	f.Title:SetPoint("RIGHT", act, "LEFT", -8, 0)
 	f:SetHeight(floor(CPAD * 2 + h + 0.5))
 end
@@ -578,25 +592,36 @@ function layout(f, width)
 	if f.psModel then showParts(f, f.psModel) end
 	sizeRing(f, 1)
 	f:SetWidth(width)
-	local x = PAD + STRIPE + RING + 12
+	-- The house look: the title first, then the facts with the chip, no stripe.
+	local under = Theme.House("cardFacts")
+	local stripe = under and 0 or STRIPE
+	f.Stripe:SetShown(stripe > 0)
+	local x = PAD + stripe + RING + 12
 	-- The close button inside the frame: the game looks' frames are thicker
 	-- than the house edge, so their close box sits further in.
 	local inset = Theme.Kit() and 10 or 6
 	local closeW = f.Close:GetWidth() + inset
 	f.Ring:ClearAllPoints()
-	f.Ring:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -PAD)
+	f.Ring:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + stripe, -PAD)
 	f.Close:ClearAllPoints()
 	f.Close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -inset, -inset)
 	-- The chip sits beside the header; on a window too narrow for both on
-	-- one line ("LEVEL 19 · DUNGEON" and "+1.1 LEVELS"), under it.
+	-- one line ("LEVEL 19 · DUNGEON" and "+1.1 LEVELS"), under it. In the
+	-- house look it rides the facts line under the title, or takes a line of
+	-- its own under it when the two don't fit side by side.
 	local headW = width - x - closeW - 4
+	local tw = max(60, width - x - PAD)
 	local badgeW, beside = 0, true
 	if f.Badge:IsShown() then
 		badgeW = floor(W.TextWidth(f.Badge.Text) + 14 + 0.5)
 		f.Badge:SetSize(badgeW, 18)
 		f.Badge:ClearAllPoints()
-		beside = W.TextWidth(f.Head) <= headW - badgeW - 8
-		if beside then
+		if under then
+			beside = W.TextWidth(f.Head) + 8 + badgeW <= tw
+		else
+			beside = W.TextWidth(f.Head) <= headW - badgeW - 8
+		end
+		if beside and not under then
 			-- A look that draws its own close box (the game's looks, Hearth):
 			-- level with it, its middle on the box's. Polestar's own look keeps
 			-- 0.3.7's place.
@@ -606,22 +631,39 @@ function layout(f, width)
 			headW = headW - badgeW - 8
 		end
 	end
-	local tw = max(60, width - x - PAD)
-	f.Head:SetWidth(max(40, headW))
+	f.Head:SetWidth(max(40, under and tw or headW))
 	f.Title:SetWidth(max(60, width - x - closeW))
 	f.Giver:SetWidth(tw)
 	f.Route:SetWidth(tw)
 	local y = PAD
 	f.Head:ClearAllPoints()
-	f.Head:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
-	y = y + f.Head:GetStringHeight() + 4
-	if not beside then
-		f.Badge:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
-		y = y + f.Badge:GetHeight() + 4
-	end
 	f.Title:ClearAllPoints()
-	f.Title:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
-	y = y + f.Title:GetStringHeight() + 4
+	if under then
+		f.Title:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+		y = y + f.Title:GetStringHeight() + 3
+		if f.Badge:IsShown() and beside then
+			-- The facts on the chip's middle, the chip after them.
+			f.Badge:SetPoint("TOPLEFT", f, "TOPLEFT", x + floor(W.TextWidth(f.Head) + 8 + 0.5), -y)
+			f.Head:SetPoint("LEFT", f, "TOPLEFT", x, -(y + f.Badge:GetHeight() / 2))
+			y = y + max(f.Head:GetStringHeight(), f.Badge:GetHeight()) + 4
+		else
+			f.Head:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+			y = y + f.Head:GetStringHeight() + 4
+			if f.Badge:IsShown() then
+				f.Badge:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+				y = y + f.Badge:GetHeight() + 4
+			end
+		end
+	else
+		f.Head:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+		y = y + f.Head:GetStringHeight() + 4
+		if not beside then
+			f.Badge:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+			y = y + f.Badge:GetHeight() + 4
+		end
+		f.Title:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+		y = y + f.Title:GetStringHeight() + 4
+	end
 	for _, fs in ipairs({ f.Giver, f.Route }) do
 		if fs:IsShown() then
 			fs:ClearAllPoints()
@@ -647,7 +689,7 @@ function layout(f, width)
 	end
 	y = max(y, PAD + RING) + 10
 	f.Rule:ClearAllPoints()
-	f.Rule:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -y)
+	f.Rule:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + stripe, -y)
 	f.Rule:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -y)
 	y = y + 10
 	-- The buttons in one row: the action, another heads-up's second button
@@ -657,7 +699,7 @@ function layout(f, width)
 	-- with nothing to do (m.noAct) starts with Later.
 	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or (f.ShowMe:IsShown() and f.ShowMe) or nil
 	local row = { act }
-	local avail, total = width - 2 * PAD - STRIPE, act and act:GetWidth() or 0
+	local avail, total = width - 2 * PAD - stripe, act and act:GetWidth() or 0
 	for _, b in ipairs({ f.More, f.Later, f.Off }) do
 		if b:IsShown() then
 			if #row > 0 then total = total + (row[#row] == act and 8 or 4) end
@@ -665,7 +707,7 @@ function layout(f, width)
 			row[#row + 1] = b
 		end
 	end
-	local left, used, prev = PAD + STRIPE, 0, nil
+	local left, used, prev = PAD + stripe, 0, nil
 	for _, b in ipairs(row) do
 		b:ClearAllPoints()
 		local gap = prev == act and 8 or 4
@@ -769,7 +811,8 @@ function CT.CompactTip(c)
 	local m = c.psModel
 	if not (m and compactOn()) then return end
 	local lines = {}
-	if m.head then lines[#lines + 1] = m.head end
+	local facts = factsOf(m)
+	if facts then lines[#lines + 1] = facts end
 	if m.badge then lines[#lines + 1] = { m.badge, Theme.Accent() } end
 	if m.giver then lines[#lines + 1] = m.giver end
 	if m.route then lines[#lines + 1] = m.route end
@@ -840,7 +883,7 @@ local function fillCard(c, m)
 		W.Uncolor(c.Icon)
 		c.Icon:SetVertexColor(1, 1, 1, 1)
 	end
-	c.Head:SetText(m.head)
+	c.Head:SetText(factsOf(m))
 	W.Color(c.Title, m.titleColor or "personName")
 	c.Title:SetText(m.title)
 	c.Giver:SetText(m.giver or "")
@@ -870,7 +913,8 @@ end
 
 -- Paint and place the card for model m: a class quest's (CT.Model) or
 -- another heads-up's, which carries its own action instead of a quest:
--- { head, title, giver, route, badge, icon, class (nil: the accent),
+-- { head, facts (the house look's line under the title, sentence case),
+-- title, giver, route, badge, icon, class (nil: the accent),
 -- titleColor, iconColor, art, act = { label, run }, more = { label, run },
 -- off = { label, run }, later = { label, run }, spells, spellTip, spellRight,
 -- hideAfter, quiet }. later: the Later button's own words and what it does

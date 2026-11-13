@@ -128,6 +128,8 @@ never in saved variables.
 | `ItemDB.lua` | `ItemDB` | Reads `Polestar_ItemDB`; entries are parsed on first lookup |
 | `Weights.lua` | `Gear` | Leveling stat weights per class and spec, and what each class can wear |
 | `SpecData.lua` | `Gear` | Generated: stat weight bands per spec and level, racial gear traits |
+| `PawnStats.lua`, `Pawn.lua` | `Gear.Pawn`, `Gear.Scales` | Custom stat weights from Pawn scale strings |
+| `Adjust.lua` | `Gear.Adjust` | The player's own changes to the built-in weights, with Revert to default (#1529) |
 | `Gear.lua` | `Gear` | Upgrade advice: an item's score and whether it is an upgrade |
 | `Tooltip.lua` | `Gear` | Upgrade lines on item tooltips |
 | `Bags.lua` | `Gear.Bags` | The upgrade arrow on bag items, in the game's bags and Baganator |
@@ -196,6 +198,8 @@ never in saved variables.
 | `GuideFrame.lua` | `UI.GuideFrame` | The guide window |
 | `Launcher.lua` | `UI.Launcher` | The optional floating Polestar button: show or hide the window, menu, drag |
 | `GearPick.lua` | `UI.GearPick` | The reward pick under a turn-in goal |
+| `GearScales.lua` | `UI.ShowScales` | The custom stat weights window |
+| `GearAdjust.lua` | `UI.ShowAdjust` | The Adjust weights window |
 | `Picker.lua` | `UI.Picker` | The hub: its section rail, sidebar and search, and its built-in Guides section (the guide menu); defines `UI.RegisterSection` |
 | `QuestLinks.lua` | (local) | Quest log and objective tracker menu entries: open the guide search at that quest, with its matching steps |
 | `Lookup.lua` | `UI.Lookup` | The hub's Lookup section |

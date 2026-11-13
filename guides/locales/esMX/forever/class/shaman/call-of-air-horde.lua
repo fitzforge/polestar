@@ -14,19 +14,19 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {item:5178} Air Totem
-	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "",
+	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "A nivel 30, {npc:5892}, en {object:172957}, te manda con {npc:5905} en {zone:1441}. Tus tótems de aire de nivel 30 (Derribo, {spell:10596}) necesitan {item:5178}, que te da ella.",
 
 	-- Step 2: Alaana Stormwalker
 	-- {quest:96136} Call of Air · {npc:259119} Alaana Stormwalker · {zone:1412} Mulgore · {zone:1456} Thunder Bluff · {npc:5906} Xanis Flameweaver
-	["At 30 Skyborne shamans get their own {quest:96136}. {npc:259119} waits where the airship from Zephras Isle lands, in northern {zone:1412} beside {zone:1456}. Your level 30 air totems need the Air Totem Prate Cloudseer gives. If she has nothing for you, head up to {npc:5906} in {zone:1456} (next step): the trainers' {quest:96136} is open to Skyborne and gives the same totem."] = "",
+	["At 30 Skyborne shamans get their own {quest:96136}. {npc:259119} waits where the airship from Zephras Isle lands, in northern {zone:1412} beside {zone:1456}. Your level 30 air totems need the Air Totem Prate Cloudseer gives. If she has nothing for you, head up to {npc:5906} in {zone:1456} (next step): the trainers' {quest:96136} is open to Skyborne and gives the same totem."] = "A nivel 30, los chamanes Skyborne tienen su propia {quest:96136}. {npc:259119} espera donde aterriza el barco aéreo desde la isla Zephras, en el norte de {zone:1412}, junto a {zone:1456}. Tus tótems de aire de nivel 30 necesitan el Tótem de aire que da Prate Cloudseer. Si no tiene nada para ti, sube con {npc:5906} en {zone:1456} (siguiente paso): la {quest:96136} de los instructores está abierta para los Skyborne y da el mismo tótem.",
 
 	-- Step 3: Xanis Flameweaver
 	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {npc:5892} Searn Firewarder · {quest:1531} Call of Air · {zone:1454} Orgrimmar
-	["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1531} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "",
+	["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1531} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "A nivel 30, {npc:5906}, un instructor de chamanes en {area:1640} en {zone:1456}, te manda con {npc:5905} en {zone:1441}. Tus tótems de aire de nivel 30 (Derribo, {spell:10596}) necesitan el Tótem de aire que da Prate. ¿Ya llevas {quest:1531} de {npc:5892} desde {zone:1454}? También va para {npc:5905}: omite a {npc:5906}.",
 
 	-- Step 4: Prate Cloudseer
 	-- {area:484} Freewind Post · {npc:5905} Prate Cloudseer
-	["Fly to {area:484}. {npc:5905} stands on a ledge above a cave mouth in the canyon wall north-east of the post, not inside the cave: climb the slope beside it. She also gives you an hour of faster attacks and running."] = "",
+	["Fly to {area:484}. {npc:5905} stands on a ledge above a cave mouth in the canyon wall north-east of the post, not inside the cave: climb the slope beside it. She also gives you an hour of faster attacks and running."] = "Vuela a {area:484}. {npc:5905} está en una cornisa sobre la entrada de una cueva en la pared del cañón al noreste del puesto, no dentro de la cueva: sube por la pendiente de al lado. También te da una hora de ataques y carrera más rápidos.",
 
 	-- Step 5
 	-- {npc:5905} Prate Cloudseer · {item:5178} Air Totem
@@ -34,7 +34,7 @@ return {
 
 	-- Step 9: Charlga Razorflank
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {spell:8292} Chain Bolt · {spell:139} Renew · {item:274463} Tattered Note
-	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "",
+	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717} es una mazmorra de cinco jugadores en el borde sur de {zone:1413} (la flecha señala su entrada); {npc:4421} (élite de nivel 33) es su último jefe. Lanza {spell:8292}, {spell:139} sobre sus aliados y Pureza; {item:274463} solo lo suelta ella.",
 	-- {item:274463} Tattered Note · {npc:4421} Charlga Razorflank
 	["{item:274463}, from {npc:4421}"] = "{item:274463}, de {npc:4421}",
 
@@ -47,39 +47,39 @@ return {
 	["Twisted Air Totems"] = "Tótems de aire retorcidos",
 	-- {area:2408} Shadowprey Village · {zone:1443} Desolace · {spell:9654} Jumping Lightning
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
-	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "",
+	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "Cinco Tótems de aire retorcidos. Los centauros Maraudine (nivel 36-40) al norte y noreste de {area:2408}, en el oeste de {zone:1443}, los llevan; los exploradores sueltan uno casi en una de cada dos muertes. Los domadores lanzan red y desarman, los cazavientos curan y los tormenteros lanzan {spell:9654}: atráelos de a uno. Reaparecen en unos cinco minutos.",
 
 	-- Step 13: Twisted Water Totems
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
 	["Twisted Water Totems"] = "Tótems de agua retorcidos",
 	-- {area:496} Brackenwall Village · {zone:1445} Dustwallow Marsh
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
-	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "",
+	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "Cinco Tótems de agua retorcidos. Los múrlocs Aleta Fango (nivel 35-38) al noreste de {area:496}, en el norte de {zone:1445}, los llevan.",
 
 	-- Step 14: Twisted Fire Totems
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem
 	["Twisted Fire Totems"] = "Tótems de fuego retorcidos",
 	-- {area:338} Angor Fortress · {zone:1418} Badlands · {npc:3560} Healing Ward
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem · Fire Nova Totems = {npc:5879} Fire Nova Totem
-	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "",
+	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "Cinco Tótems de fuego retorcidos. Los troggs Cámara de Piedra (machacacráneos, rompehuesos y chamanes, nivel 37-41) al sur de {area:338}, en {zone:1418}, los llevan; los chamanes ponen Tótems de nova de fuego y un {npc:3560}, y los rompehuesos huyen a pedir ayuda cuando están heridos. Reaparecen en unos cinco minutos.",
 
 	-- Step 15: Twisted Earth Totems
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem
 	["Twisted Earth Totems"] = "Tótems de tierra retorcidos",
 	-- {area:75} Stonard · {zone:1435} Swamp of Sorrows
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem · The Lost Ones = {npc:256028} The Lost One
-	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "",
+	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "Cinco Tótems de tierra retorcidos. Los Perdidos (múrlocs, nivel 34-39) al norte y noreste de {area:75}, en {zone:1435}, los llevan; la mayoría huye a pedir ayuda cuando está herida.",
 
 	-- Step 17: The steam pools
 	["The steam pools"] = "Las pozas de vapor",
 	-- {npc:5905} Prate Cloudseer · {item:268582} Corrupted Totems · {area:484} Freewind Post · {npc:216474} Ravaging Tempest · {item:212792} Eye of the Tempest
-	["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "",
+	["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "{npc:5905} te da {item:268582}. Coloca {item:268582} en las pozas de vapor al noroeste de {area:484} para llamar a los elementales corrompidos y luego a la {npc:216474}; los jabaespines Crines de Acero se unen a la pelea mientras dura el ritual. Es una misión de grupo: lleva al menos uno o dos amigos. {item:212792} cae más o menos en una de cada dos muertes, y todos los del grupo pueden saquearlo.",
 	-- {item:212792} Eye of the Tempest · {npc:216474} Ravaging Tempest
 	["{item:212792}, from the {npc:216474}"] = "{item:212792}, de la {npc:216474}",
 
 	-- Step 19: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill · {item:280607} Lightning's Grasp · {item:280605} Tidebringer's Claw · {item:280604} Rage of the Storm · {item:280696} Elementalist's Guard
-	["{npc:6176} camps in the ruins in the east of {zone:1416}: from {area:272} follow the river east of town north into the hills. Pick your weapon: {item:280607}, {item:280605} or {item:280604}; the {item:280696} shield comes with it."] = "",
+	["{npc:6176} camps in the ruins in the east of {zone:1416}: from {area:272} follow the river east of town north into the hills. Pick your weapon: {item:280607}, {item:280605} or {item:280604}; the {item:280696} shield comes with it."] = "{npc:6176} acampa en las ruinas del este de {zone:1416}: desde {area:272} sigue el río al este del pueblo hacia el norte, hasta las colinas. Elige tu arma: {item:280607}, {item:280605} o {item:280604}; el escudo {item:280696} viene con ella.",
 	-- {npc:6176} Bath'rah the Windwatcher · {item:280696} Elementalist's Guard
 	["{npc:6176}: the {item:280696} and your weapon"] = "{npc:6176}: {item:280696} y tu arma",
 

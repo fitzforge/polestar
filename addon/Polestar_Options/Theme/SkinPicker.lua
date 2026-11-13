@@ -110,7 +110,8 @@ end
 -- window builds its own (UI/GuideFrame*.lua) and painted by that skin's own
 -- painters, sizes, palette, fonts and media while the Theme answers for it
 -- (I.drawing), whatever skin is in use; the game's looks draw the client's
--- own art there as on the window. Under the arrow the skin's accent, with
+-- own art there as on the window, over the look's ground and gold edge.
+-- Under the arrow the skin's accent, with
 -- its own second accent and glow (what tells its variants apart). The live
 -- skin is left alone; a skin's hooks are for its live surfaces and stay off
 -- the cards. Nothing on a card is kept for the live repaint: the cards
@@ -168,6 +169,19 @@ local function build(art)
 	local win = CreateFrame("Frame", nil, art)
 	win.psGuide = true
 	p.win = win
+	-- Under a game look's window, on the card itself (so under all of the
+	-- window's art): its ground and its gold edge, which the client's frame
+	-- art covers and which still say the look where that art is not drawn.
+	p.hint = tex(art, "BACKGROUND", -7)
+	p.hint:SetAllPoints(win)
+	p.hintEdge = {}
+	for i, at in ipairs({ { "TOPLEFT", "TOPRIGHT" }, { "BOTTOMLEFT", "BOTTOMRIGHT" }, { "TOPLEFT", "BOTTOMLEFT" }, { "TOPRIGHT", "BOTTOMRIGHT" } }) do
+		local t = tex(art, "BACKGROUND", -6)
+		t:SetPoint(at[1], win, at[1], 0, 0)
+		t:SetPoint(at[2], win, at[2], 0, 0)
+		if i <= 2 then t:SetHeight(1) else t:SetWidth(1) end
+		p.hintEdge[i] = t
+	end
 	-- The band behind the tabs and the step bar.
 	p.sky = tex(win, "BACKGROUND", -5, "band")
 	p.sky:SetPoint("TOPLEFT", win, "TOPLEFT", 1, -1)
@@ -336,6 +350,14 @@ local function paintWindow(p, w, h, alone)
 	win:ClearAllPoints()
 	win:SetPoint("TOPLEFT", win:GetParent(), "TOPLEFT", inset / k, -inset / k)
 	paint(win, "window")
+	local game = Theme.GameSkin() and true or false
+	p.hint:SetShown(game)
+	for _, t in ipairs(p.hintEdge) do t:SetShown(game) end
+	if game then
+		p.hint:SetVertexColor(Theme.Color("panel"))
+		local er, eg, eb = Theme.Color("frameEdge")
+		for _, t in ipairs(p.hintEdge) do t:SetVertexColor(er, eg, eb, 1) end
+	end
 	-- The band: Polestar's own look's, its media the skin's.
 	local head = tabH + navH
 	local band = look == "polestar" and Theme.ShowsBand()
@@ -439,7 +461,6 @@ local function paintWindow(p, w, h, alone)
 	-- else the house's line.
 	local foot, bar = p.foot, p.foot.Status
 	foot:SetHeight(footH)
-	local game = Theme.GameSkin()
 	foot.Track:SetShown(not game)
 	foot.Fill:SetShown(not game)
 	foot.Pct:SetShown(not game)

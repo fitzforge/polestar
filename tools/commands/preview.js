@@ -720,7 +720,7 @@ end
 	return uiArtLua;
 }
 function routeScene(from, fromTitle, options, joinsAt) {
-	const choice = { from, fromTitle, recommended: options.find((o) => o.recommended).id, joinsAt, options };
+	const choice = { from, fromTitle, recommended: (options.find((o) => o.recommended) || {}).id, joinsAt, options };
 	return `${clientArtLua()}local E = Polestar.Engine
 E.GetRouteChoice = function() return ${luaOf(choice)} end
 E.PendingRouteChoice = function() return ${JSON.stringify(from)} end
@@ -731,6 +731,30 @@ const UNDEAD_CHOICE = routeScene('forever/horde/undead/01-tirisfal-glades', 'Tir
 	routeOption('horde/02-barrens.guide', { recommended: true, seconds: 610, quests: 43, zone: 1413, focusX: 51.5, focusY: 30.3 }),
 	routeOption('horde/02-silverpine.guide', { seconds: 140, quests: 40, zone: 1421, focusX: 42.8, focusY: 40.9 }),
 ], 'Hillsbrad Foothills');
+// The route choice's files: the window over the map pins (Nav), which draw
+// each route's start on its painting.
+const CHOICE_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', ...FILES.slice(2)];
+// A zone choice at the end of Feralas for a level 46 Horde character, as the
+// guides and the experimental guides' index write it: Tanaris, recommended,
+// or the detour through Desolace into Shen'dralas, one of Polestar's
+// experimental guides in a zone whose quests are mostly Forever's own (the
+// character has outlevelled it). The routes go on to different guides (no
+// joinsAt), so each card says which.
+const ZONE_OPTIONS = [
+	{ id: 'forever/horde/40-50/04-tanaris', title: 'Tanaris & Searing Gorge', zoneName: 'Tanaris', minLevel: 46, maxLevel: 48, recommended: true,
+		seconds: 300, quests: 28, zone: 1446, focusX: 52.0, focusY: 28.4,
+		pitch: "Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.",
+		thenId: 'forever/horde/40-50/05-the-hinterlands', thenGuideTitle: 'The Hinterlands & Blasted Lands', thenLevel: 48 },
+	{ id: 'polestar-experimental/shendralas', title: "Shen'dralas (experimental)", zoneName: "Shen'dralas", minLevel: 42, maxLevel: 44, seconds: 780, quests: 11,
+		zone: 2652, focusX: 21.2, focusY: 22.4, experimental: true, newInForever: true, outleveled: true, detour: 'Desolace',
+		pitch: "A detour south of Desolace into Shen'dralas: 11 quests around a fallen Highborne temple, for levels 41-45.",
+		pros: ['About 27,500 quest experience plus the kills', 'Brings you back to the main route where you left it',
+			'Its experience comes off the grinding the route asks for before level 50: about an hour sooner to 60'],
+		cons: ['Its quests are about on level at 43 and a few levels under you at 46', 'Elites walk the Valley of Bones: Corpsefeeders and Magram Necrokhans, level 45',
+			"Experimental: written from a handful of players' recordings"],
+		thenId: 'forever/horde/40-50/04-tanaris', thenGuideTitle: 'Tanaris & Searing Gorge', thenLevel: 44 },
+];
+const ZONE_CHOICE = routeScene('forever/horde/40-50/03-feralas', 'Feralas', ZONE_OPTIONS, null);
 
 // Quest markers: the real Core, Theme, Nav (Pins) and Quests modules over
 // the fixture quest database of tests/fixtures/questdb (`forge data questdb` of it, kept in
@@ -1125,7 +1149,52 @@ DT.Show(DT.Candidates(20, "any")[1])`;
 const NARROW = 'Polestar.UI.GuideFrame.frame:SetWidth(Polestar.UI.MIN_WIDTH); Polestar.UI.ClassToast.Place(false)';
 const DRUID_CARD = `${CLASS_CARD}; uistub.player.class = "DRUID"; uistub.openTabs({ { "preview/darkshore-druid", 1 } }, 1)`;
 const WARRIOR_CARD = `${CLASS_CARD}; uistub.player.class, uistub.player.race, uistub.player.level = "WARRIOR", "Human", 30; uistub.openTabs({ { "preview/whirlwind", 1 } }, 1)`;
+// Hillsbrad Foothills (Horde 29-33) for a character who did the 22-25 guide: steps 10-20 are the
+// Battle of Hillsbrad and The Rescue catch-up (`when !turnedin 529` / `!turnedin 498`), which no longer
+// apply; the step browser opened at step 21.
+const SKIPPED_RUN = `local HB = 1424
+local function S(title, status, goals, why) return { title = title, why = why, goals = goals } end
+local function g(t, verb, subject, kind, status, extra)
+	local x = { t = t, verb = verb, subject = subject, subjectKind = kind, map = HB, x = 61.0, y = 20.0, status = status }
+	for k, v in pairs(extra or {}) do x[k] = v end
+	return x
+end
+local function done(title, verb, subject, kind) return { title = title, goals = { g(verb == "Fly to" and "fly" or "goto", verb, subject, kind, "done") } } end
+local WHY_B = "Only before “The Battle of Hillsbrad” is handed in"
+local WHY_R = "Only before “The Rescue” is handed in"
+local function na(title, why) return { title = title, why = why, goals = { g("talk", "Talk to", title, "npc", "na") } } end
+local steps = {
+	done("Freewind Post flight master", "Go to", "Freewind Post", "place"),
+	done("Fly to the Crossroads", "Fly to", "the Crossroads", "place"),
+	done("Korran", "Go to", "Korran", "place"),
+	done("Fly to Orgrimmar", "Fly to", "Orgrimmar", "place"),
+	done("Train", "Go to", "your trainer", "place"),
+	done("Belgrom Rockmaul", "Go to", "Belgrom Rockmaul", "place"),
+	done("Zeppelin to Undercity", "Go to", "the zeppelin tower", "place"),
+	done("The Undercity", "Go to", "the Undercity", "place"),
+	done("Fly to Tarren Mill", "Fly to", "Tarren Mill", "place"),
+	na("High Executor Darthalia", WHY_B), na("Krusk", WHY_R), na("Hillsbrad Fields", WHY_B), na("Tarren Mill", WHY_B),
+	na("Hillsbrad Peasants", WHY_B), na("Tarren Mill", WHY_B), na("Durnholde Keep", WHY_R), na("The smithy", WHY_B),
+	na("Krusk", WHY_R), na("High Executor Darthalia", WHY_B), na("Tarren Mill", WHY_B),
+	{ title = "Helcular's Rod", goals = { g("collect", "Collect", "Helcular's Rod", "item", "active", { item = 3708, quest = 552, detail = "for Helcular's Rod", progress = { cur = 0, max = 1 } }) } },
+	{ title = "Level 30", goals = { g("level", "Reach", "level 30", "text", "pending") } },
+	{ title = "Town hall", goals = { g("kill", "Kill", "Magistrate Burnside", "npc", "pending", { detail = "for Battle of Hillsbrad" }), g("interact", "Use", "Hillsbrad Proclamation", "object", "pending") } },
+	{ title = "Tarren Mill", goals = { g("turnin", "Turn in", "Battle of Hillsbrad", "quest", "pending", { npcName = "High Executor Darthalia" }) } },
+}
+local G = uistub.guides[uistub.elwynn]
+G.title, G.faction, G.zoneName, G.minLevel, G.maxLevel, G.steps = "Hillsbrad Foothills & Arathi Highlands", "Horde", "Hillsbrad Foothills", 29, 33, steps
+uistub.player.faction, uistub.player.race, uistub.player.class, uistub.player.level = "Horde", "Orc", "WARRIOR", 30
+uistub.openTabs({ { uistub.elwynn, 21 } }, 1)
+uistub.setStep(21)
+Polestar.UI.StepList.Toggle(true)`;
 const SCENES = [
+	{
+		file: 'guide-skipped-steps.svg',
+		title: 'Step browser: steps that keep their number but do not apply now (a catch-up for quests already handed in) share one card that says why',
+		panels: [
+			{ roots: GUIDE, script: SKIPPED_RUN },
+		],
+	},
 	{
 		file: 'guide.svg',
 		title: 'Guide window: a field step; a hub, one person at a time (first, then the second); the tip opened',
@@ -1199,9 +1268,10 @@ const SCENES = [
 	},
 	{
 		file: 'route-choice.svg',
-		title: 'Choose your path: an Undead after Tirisfal Glades; the guide window while the choice waits',
+		title: "Choose your path: a zone choice after Feralas (Tanaris, or the detour into Shen'dralas, an experimental guide in a zone Forever added; each card says where its route goes on); an Undead after Tirisfal Glades, both routes meeting again in Hillsbrad Foothills; the guide window while the choice waits",
 		panels: [
-			{ roots: ROUTE, script: UNDEAD_CHOICE },
+			{ roots: ROUTE, files: CHOICE_FILES, script: ZONE_CHOICE },
+			{ roots: ROUTE, files: CHOICE_FILES, script: UNDEAD_CHOICE },
 			{ roots: GUIDE, script: `${TABS}; uistub.complete(); Polestar.Engine.PendingRouteChoice = function() return "forever/horde/undead/01-tirisfal-glades" end; Polestar.UI.GuideFrame.Render()` },
 		],
 	},
@@ -1993,10 +2063,10 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 ];
 
-// panel.stubs / panel.files: other client stubs and manifests than the UI's
-// (stub_ui.lua's fake Engine and guides, installed after load); panel.addons:
-// addons loaded after Polestar (the Recorder).
-function dumpPanel(panel, prelude) {
+// The Lua a panel runs before its addons load: the measuring prelude, the
+// preview stub, the client art, then the panel's own `before` and the
+// stand-in packs it asks for (tools/preview/audit.js builds its runs on it).
+function panelBefore(panel, prelude) {
 	const before = [prelude, `dofile(${JSON.stringify(path.join(ROOT, 'tools', 'preview', 'stub.lua'))})`];
 	before.push(clientUiArtLua());
 	if (panel.eui) before.push('stub.withEllesmere()');
@@ -2005,9 +2075,16 @@ function dumpPanel(panel, prelude) {
 	if (panel.levels) before.push(levelsStub());
 	if (panel.dungeons) before.push(dungeonsStub());
 	if (panel.rares) before.push(raresStub());
+	return before.join('\n');
+}
+
+// panel.stubs / panel.files: other client stubs and manifests than the UI's
+// (stub_ui.lua's fake Engine and guides, installed after load); panel.addons:
+// addons loaded after Polestar (the Recorder).
+function dumpPanel(panel, prelude) {
 	const { emitted } = runAddon({
 		stubs: panel.stubs || ['stub_ui.lua'],
-		before: before.join('\n'),
+		before: panelBefore(panel, prelude),
 		addons: [{ name: 'Polestar', files: panel.files || FILES }, ...(panel.addons || [])],
 		script: `${panel.stubs ? '' : 'uistub.install()\n'}stub.login()\n${panel.script}\nstub.advance(1)\npreview.emit()`,
 	});
@@ -2094,5 +2171,6 @@ module.exports = {
 	loadFonts,
 	metricsLua,
 	dumpPanel,
+	panelBefore,
 	cleanupPacks,
 };

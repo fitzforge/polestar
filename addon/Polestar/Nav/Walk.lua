@@ -380,7 +380,8 @@ function Walk.Clear()
 	end
 end
 
-local function took(points)
+-- see: the line check (sight, below) to smooth the path with once (Nav/Follow.lua Follow.Smooth), or nil.
+local function took(points, see)
 	local n = 0
 	for i = 1, #points do
 		local p = points[i]
@@ -389,6 +390,7 @@ local function took(points)
 			ptsX[n], ptsY[n], ptsZ[n] = p.x, p.y, type(p.z) == "number" and p.z or false
 		end
 	end
+	if see then n = Nav.follow.Smooth(ptsX, ptsY, ptsZ, n, see, not (IsIndoors and IsIndoors())) end
 	for i = n + 1, count do ptsX[i], ptsY[i], ptsZ[i] = nil, nil, nil end
 	count = n
 	left[n + 1] = nil
@@ -798,14 +800,16 @@ end
 -- height and on the continent Walk.Aim set (sightC, sightZ)? Path.Sight on
 -- the walking grid, for the player's faction; false on an error, and while the
 -- line crosses a cluster the router has not decoded (nil: it decodes nothing).
--- One function for every Aim, so passing it allocates nothing.
+-- One function for every Aim, so passing it allocates nothing. With z1, from
+-- that height instead: a path point's, when the path is smoothed as it is
+-- taken (Follow.Smooth; sightC set to the path's continent first).
 local sightC, sightZ
 local sightAimC, sightAimX, sightAimY -- the arrow's last aim when it was by sight (Walk.SightAim)
-local function sight(x1, y1, x2, y2, z2)
+local function sight(x1, y1, x2, y2, z2, z1)
 	local P = Nav.Path
 	local C = ns.Compat
 	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
-	local ok, clear = pcall(P.Sight, sightC, x1, y1, sightZ, x2, y2, z2 or nil, profile)
+	local ok, clear = pcall(P.Sight, sightC, x1, y1, z1 or sightZ, x2, y2, z2 or nil, profile)
 	return ok and clear == true
 end
 
@@ -900,7 +904,8 @@ local function ask(P, pc, px, py, flat)
 		end
 		if got then
 			failed = false
-			took(points)
+			sightC = gc
+			took(points, P.Sight and sight or nil)
 			landX, landY = px, py -- searched from here: the player may be well on by now (Walk.Aim catches up)
 			hubs = hubsOf(answer)
 			if Walk.Split then Walk.Split() end
@@ -979,6 +984,13 @@ local function takeBaked(pc, px, py)
 	for k = bk + 1, n do
 		m = m + 1
 		ptsX[m], ptsY[m], ptsZ[m] = xs[k], ys[k], zs[k]
+	end
+	-- Smoothed as a searched path is (Follow.Smooth), its jumps, drops, climbs and lifts kept: point j >= 2 is the
+	-- leg's bk + j - 1, its way in the leg's segment bk + j - 2.
+	local P = Nav.Path
+	if P and P.Sight then
+		sightC = pc
+		m = Nav.follow.Smooth(ptsX, ptsY, ptsZ, m, sight, not (IsIndoors and IsIndoors()), leg.cls, bk)
 	end
 	for i = m + 1, count do ptsX[i], ptsY[i], ptsZ[i] = nil, nil, nil end
 	count = m

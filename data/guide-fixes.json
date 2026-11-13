@@ -1,6 +1,15 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest, objective?, guide? } (guide: that guide only). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
+		{
+			"id": "2107-xabraxxis-demon-bag",
+			"faction": "Alliance",
+			"at": { "quest": 4763, "goal": "collect", "item": 12355 },
+			"goalNote": "After using the Filled Cleansing Bowl, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl.",
+			"note": "The live report confirms the sequence. The quest log only counts the talisman, so explain the fight and the object to click on its collection goal.",
+			"source": { "kind": "in-game-check", "ref": "#2107: UnknownBaronX summoned Xabraxxis, killed him and clicked the bag to obtain the talisman." },
+			"issue": 2107
+		},
 		{
 			"id": "1550-krazek-pickup-mining-advice",
 			"faction": "Alliance",
@@ -5726,11 +5735,11 @@
 				"goal": "turnin"
 			},
 			"tip": "Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.",
-			"note": "Review (0.3.6): the tip said Xiggs 'waits by the monument'. Quest text 3449 ('signaling Pilot Xiggs Fuselighter to pick them up'; completion: 'toss the flare gun') and the knowledge base (step 5: fire the Standard Issue Flare Gun 10444 on the island, wait for the pilot) say he comes on the flare; no recording has met him. Worded so it holds either way: verify in game whether he stands there.",
+			"note": "Review (0.3.6): the tip said Xiggs 'waits by the monument'. Quest text 3449 ('signaling Pilot Xiggs Fuselighter to pick them up'; completion: 'toss the flare gun') says he comes on the flare (fire the Standard Issue Flare Gun 10444 on the island, then wait for the pilot); no recording has met him. Worded so it holds either way: verify in game whether he stands there.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quests.json 3449 objectiveText; page snapshot 3449; quest-steps.json 3449"
+					"ref": "quests.json 3449 objectiveText"
 				}
 			]
 		},
@@ -9357,6 +9366,48 @@
 				"ref": "objects.json 177241; npcs.json 1852, 1788 (map 1422)"
 			},
 			"issue": 1791
+		},
+		{
+			"id": "1893-cozzle-step-waits-for-goblin-sponsorship",
+			"faction": "Horde",
+			"at": {
+				"quest": 1182,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "onquest 1182",
+			"note": "#1893 (mylons): Stranglethorn Vale (horde/30-40/03) sent a player without Goblin Sponsorship's footlocker part (1182) to Foreman Cozzle (4723) for Cozzle's Key (5851): the step's key line is not tied to the quest, so it showed even when 1182's accept on the Booty Bay stop was hidden because the chain (1178, 1180, 1181) was not done. The key drops only while 1182 is in the log, so that player farmed Cozzle for half an hour for nothing. The step (the key and the Fuel Regulator Blueprints, 5852, from Cozzle's Footlocker) now shows only while 1182 is in the log; the hand-in at Baron Revilgaz goes with the accept as before.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "#1893, maintainer's reply: in players' recordings every Cozzle's Key drop came with 1182 in the log, and the one player who killed Foreman Cozzle without it got no key, twice"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature_loot_template entry 4723 (Foreman Cozzle), item 5851 (Cozzle's Key): ChanceOrQuestChance -100, a quest-only drop"
+				}
+			],
+			"issue": 1893
+		},
+		{
+			"id": "1705-old-habits",
+			"at": {
+				"quest": 98223,
+				"goal": "accept"
+			},
+			"when": "onquest 465,474",
+			"note": "Old Habits (Wetlands) starts at the Tattered Spellbook in the Angerfang Encampment. Players' recordings show it offered with Nek'rosh's Gambit (465) or Defeat Nek'rosh (474) in the log, and once after 474 was handed in; the reporter, with neither in the log, was offered nothing. The route takes it on the Angerfang stop before the catapult is lit (data/route-fixes.json), while 465 is still in the log, so solo players who skip Defeat Nek'rosh get it too; the step shows only while 465 or 474 is in the log, so a player who never took the chain is not sent to the book. `onquest 465,474` is the route's gate, not the game's whole rule: the one take after 474's hand-in is left out, since a `when` cannot say \"taken or done\" and the route never reaches the book that late (#1705).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1705 (julesbruu): the Tattered Spellbook offered nothing with neither Nek'rosh's Gambit (465) nor Defeat Nek'rosh (474) in the log, after 465 was handed in and 474 skipped"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (fitzforge on #1714): 21 accepts of Old Habits from the Tattered Spellbook by 20 players: 14 with 465 handed in and 474 in the log, 2 with both in the log, 3 with 474 in the log (465 not recorded), 1 with only 465 in the log and 474 never taken, 1 after both were handed in"
+				}
+			],
+			"issue": 1705
 		},
 		{
 			"id": "1985-dustwallow-venom-sacs-every-darkfang",

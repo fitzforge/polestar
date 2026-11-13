@@ -7,7 +7,8 @@
 //! vignette alone on the game looks its variants draw on) and its dim over those looks' art, the guide window's
 //! lit goal and progress bar included; Waymark's chart paper, compass rose and the
 //! continent's picture, its colour following the continent, a heads-up card's rose at its foot; Lanterns'
-//! rounded window and its two lights in each mood but Plain; Sheen's bevelled, glossed glass pane and its pins
+//! rounded window and its two lights in each mood but Plain, the window opacity on its windows alone; Sheen's
+//! bevelled, glossed glass pane and its pins
 //! in the class colour.
 
 use forge_addontest::run::root;
@@ -353,6 +354,41 @@ end)
 	assert_eq!((forge["ground"].as_i64(), forge["rim"].as_i64()), (Some(9), Some(8)), "the rounded window: a nine-slice ground and its eight-piece rim: {forge}");
 	assert_eq!((forge["glow:near"].as_i64(), forge["glow:far"].as_i64()), (Some(1), Some(1)), "Forge's two lights");
 	assert_eq!((plain["glow:near"].as_i64(), plain["glow:far"].as_i64()), (Some(0), Some(0)), "Plain has no lights");
+}
+
+// Lanterns paints a window at the window opacity, as the house does, and any other panel (a card, a popup that is
+// no menu) in its own colour and opacity: lowering the window opacity used to fade every panel with the windows.
+#[test]
+fn lanterns_takes_the_window_opacity_on_windows_alone() {
+	let addon = "Polestar_Skin_Lanterns";
+	let out = run(
+		addon,
+		"lanterns",
+		&[],
+		"",
+		r#"
+Polestar.Set("ui.bgOpacity", 0.5)
+-- The guide window (a window, its own opacity unset: the window opacity) and a panel of Polestar's.
+local win, panel = PolestarGuideFrame, Polestar.Widgets.RowPanel(UIParent)
+panel:SetSize(200, 80)
+panel:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+T.Repaint(win)
+T.Repaint(panel)
+stub.advance(1)
+local function groundAlpha(f)
+	local set = T.SkinKit.store(f).ground
+	local _, _, _, a = set[1]:GetVertexColor()
+	return math.floor(a * 100 + 0.5) / 100
+end
+local _, _, _, own = T.Color("panel")
+out.opacity = { window = groundAlpha(win), panel = groundAlpha(panel), own = math.floor(own * 100 + 0.5) / 100 }
+"#,
+	);
+	loads_and_paints(&out, addon, &[]);
+	let o = &out["opacity"];
+	assert_eq!(o["window"], 0.5, "a window at the window opacity: {o}");
+	assert!(o["own"].as_f64().unwrap() > 0.5, "the panel token's own opacity: {o}");
+	assert_eq!(o["panel"], o["own"], "a panel in its own opacity, not the window's: {o}");
 }
 
 #[test]

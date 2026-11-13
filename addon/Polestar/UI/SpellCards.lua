@@ -69,7 +69,10 @@ function SC.LevelModel(n)
 	local p = ns.Compat.GetPlayerInfo() or {}
 	local count = #n.spells
 	local m = { kind = "levelUp", class = p.class, quiet = true, hideAfter = SC.HIDE_AFTER, icon = Theme.Media("icon-train") }
-	m.head = format(L["LEVEL %d · %s"], n.level, (UI.ClassName and p.class and UI.ClassName(p.class) or ""):upper())
+	local class = UI.ClassName and p.class and UI.ClassName(p.class) or ""
+	m.head = format(L["LEVEL %d · %s"], n.level, class:upper())
+	-- The house look's facts line under the title (UI/ClassToast.lua).
+	m.facts = format(L["Level %d · %s"], n.level, class)
 	m.title = count == 1 and L["1 new spell to train"] or format(L["%d new spells to train"], count)
 	m.titleColor = "text"
 	local spells = {}
@@ -119,6 +122,7 @@ function SC.RanksModel(n)
 	local count = #n.spells
 	local m = { kind = "oldRanks", quiet = true, icon = Theme.Media("icon-train") }
 	m.head = L["ACTION BARS"]
+	m.facts = L["Action bars"]
 	m.title = count == 1 and L["1 spell on your bars is an old rank"] or format(L["%d spells on your bars are an old rank"], count)
 	m.titleColor = "text"
 	local spells, lines = {}, {}

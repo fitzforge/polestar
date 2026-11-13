@@ -43,7 +43,7 @@ return {
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "{area:93}：沿途击杀以下目标",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "从{area:42}向西南前往食人魔山。{object:119}在入口处的营地里，有Splinter Fist食人魔看守。",
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "从{area:42}向西南前往食人魔山。{object:119}在入口处的营地里，有裂拳食人魔看守。",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "仅当{npc:272273}掉落了{quest:96138}时：右键点击它",
 	["Below ground"] = "在地下",

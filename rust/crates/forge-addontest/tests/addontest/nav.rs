@@ -195,6 +195,235 @@ fn turning_is_damped_a_new_bearing_eases_in_the_short_way_round_at_most_max_turn
 	}
 }
 
+// The 3D arrow is a sheet of 100 frames 3.6 degrees apart. It is drawn between two of them: the nearest whole and,
+// over it, the one on the heading's other side at the share of the way the heading lies toward it (half at most), so
+// where both are solid the arrow is their blend and never shows through; the highlight sheets (added light) blend
+// exactly, 1 - share and share. Nav.ArrowBlend gives the pair and the share, frame 99 next to frame 0. A still arrow
+// re-points nothing.
+#[test]
+fn the_3d_arrow_cross_fades_the_two_frames_either_side_of_its_heading_by_where_the_heading_lies_between_them() {
+	let out = run(r#"
+		local step = 2 * math.pi / 100
+		local function r3(x) return math.floor(x * 1000 + 0.5) / 1000 end
+		local function blend(k) local f, g, w = N.ArrowBlend(k * step); return { f, g, r3(w) } end
+		local r = { on = blend(10), quarter = blend(10.25), back = blend(9.75), nearHalf = blend(10.499), right = blend(-0.25),
+			top = blend(99.75), last = blend(99.3), turn = blend(110.25) }
+		-- The live arrow, settled a quarter of the way from frame 10 to frame 11.
+		local a = 10.25 * step
+		target(100 * math.cos(a), 100 * math.sin(a))
+		stub.advance(1.5)
+		local function coords(t) return t.texCoord end -- the stub keeps SetTexCoord's left, right, top, bottom
+		local function rgba(t) local cr, cg, cb, ca = t:GetVertexColor(); return { cr, cg, cb, ca } end
+		local _, _, share = N.ArrowBlend(A.GetAngle())
+		local l, rr, tt, b = N.ArrowFrameCoords(11)
+		r.live = { frame = A.GetFrame(), at = A.GetAngle() / step, share = share, other = coords(A.sheet2), want = { l, rr, tt, b },
+			body = rgba(A.sheet), over = rgba(A.sheet2), spec = rgba(A.sheetSpec), spec2 = rgba(A.sheetSpec2),
+			shown = { A.sheet:IsShown(), A.sheet2:IsShown(), A.sheetSpec:IsShown(), A.sheetSpec2:IsShown() } }
+		-- Still: nothing is re-pointed.
+		local calls = 0
+		for _, t in ipairs({ A.sheet, A.sheet2, A.sheetSpec, A.sheetSpec2 }) do
+			t.SetTexCoord = function(self, ...) calls = calls + 1; return stub.Methods.SetTexCoord(self, ...) end
+		end
+		stub.advance(1)
+		r.stillCalls = calls
+		Polestar.Set("nav.arrowStyle", "flat")
+		r.flat = { A.sheet:IsShown(), A.sheet2:IsShown(), A.sheetSpec:IsShown(), A.sheetSpec2:IsShown() }
+		emit(r)"#);
+	assert_eq!(out["on"], json!([10, 11, 0]), "on a frame: that frame alone");
+	assert_eq!(out["quarter"], json!([10, 11, 0.25]));
+	assert_eq!(out["back"], json!([10, 9, 0.25]));
+	assert_eq!(out["nearHalf"], json!([10, 11, 0.499]));
+	assert_eq!(out["right"], json!([0, 99, 0.25]), "frame 99 lies next to frame 0");
+	assert_eq!(out["top"], json!([0, 99, 0.25]));
+	assert_eq!(out["last"], json!([99, 0, 0.3]));
+	assert_eq!(out["turn"], json!([10, 11, 0.25]), "a heading a whole turn on is the same");
+	let live = &out["live"];
+	assert_eq!(live["frame"], 10);
+	near(num(&live["at"]), 10.25, 0.01, "settled a quarter of the way to frame 11");
+	assert_eq!(live["other"], live["want"], "the second sheet shows frame 11");
+	let share = num(&live["share"]);
+	near(share, 0.25, 0.01, "its share");
+	near(num(&live["over"][3]), share, 1.0 / 512.0, "frame 11 over frame 10 at its share");
+	assert_eq!(live["body"][3], json!(1), "frame 10 whole");
+	for i in 0..3 {
+		assert_eq!(live["body"][i], live["over"][i], "both tinted alike");
+	}
+	near(num(&live["spec"][3]), 1.0 - share, 1.0 / 512.0, "the nearest frame's highlight");
+	near(num(&live["spec2"][3]), share, 1.0 / 512.0, "the other frame's highlight: the two add up to one");
+	assert_eq!(live["shown"], json!([true, true, true, true]));
+	assert_eq!(out["stillCalls"], 0, "a still arrow re-points nothing");
+	assert_eq!(out["flat"], json!([false, false, false, false]), "the flat dart hides both sheets");
+}
+
+// Turning, the 3D arrow is drawn at the heading it has reached, between frames, never snapped to the nearest frame
+// (up to 1.8 degrees off): every frame of a turn the two frames on screen (the nearest whole, the other at its share)
+// stand at the arrow's heading to a hundredth of a degree.
+#[test]
+fn turning_the_3d_arrow_draws_each_heading_between_its_frames_not_the_nearest_frame() {
+	let out = run(r#"
+		local step = 2 * math.pi / 100
+		target(100, 0)
+		stub.advance(1)
+		local function frameOf(t)
+			local l, top = t.texCoord[1], t.texCoord[3] -- the stub keeps SetTexCoord's left, right, top, bottom
+			return math.floor(top * 1024 / 102 + 0.5) * 10 + math.floor(l * 1024 / 102 + 0.5)
+		end
+		nav.place(0, 30) -- the target 16.7 degrees to the right
+		local worst, between, moved = 0, 0, 0
+		local was = A.GetAngle()
+		for _ = 1, 30 do
+			stub.advance(0.05)
+			local f, g = A.GetFrame(), frameOf(A.sheet2)
+			local w = select(4, A.sheet2:GetVertexColor())
+			local dir = (g - f) % 100 == 1 and 1 or -1
+			local drawn = (f + dir * w) % 100
+			local want = (A.GetAngle() % (2 * math.pi)) / step
+			local off = math.abs((drawn - want + 50) % 100 - 50) * 3.6
+			if off > worst then worst = off end
+			if A.GetAngle() ~= was and w > 0.02 and w < 0.48 then between = between + 1 end
+			if A.GetAngle() ~= was then moved = moved + 1 end
+			was = A.GetAngle()
+		end
+		emit({ worst = worst, between = between, moved = moved, final = A.GetAngle() })"#);
+	assert!(num(&out["worst"]) < 0.01, "the drawn heading is the arrow's to {:.4} degrees", num(&out["worst"]));
+	assert!(num(&out["between"]) >= 2.0, "turning, {} of {} frames are drawn between two sheet frames", out["between"], out["moved"]);
+	near(num(&out["final"]), -(30.0f64).atan2(100.0), 1e-3, "settled on the target");
+}
+
+// The turn (Arrow.TurnStep at nav.arrowTurn's rate, Arrow.Turns): a critically damped spring solved exactly over each
+// frame. From rest toward a new bearing it gathers speed and slows into it, never past it and never back; it moves the
+// same at 30, 60 and 144 frames a second (at every common instant: to rounding while it swings under MAX_TURN, until
+// it comes to rest within 0.0001 rad; within a degree while the cap holds it, which a low frame rate reaches a few
+// milliseconds sooner). Against 0.3.x's first-order ease at half its rate (cur += angle left x (1 - e^(-12 dt)), at
+// most MAX_TURN): it starts slowly where that started at its fastest, takes a new bearing sooner, and trails a turning
+// aim by the same lag.
+#[test]
+fn the_turn_eases_in_and_out_never_passes_the_new_bearing_keeps_up_with_a_turning_aim_and_moves_the_same_at_any_frame_rate() {
+	let out = run(r#"
+		local S = A.Turns.smooth
+		-- 0.3.x's ease, to measure the turn against.
+		local function old(cur, vel, goal, dt)
+			local diff = goal - cur
+			local step = diff * (1 - math.exp(-12 * dt))
+			local cap = 3.5 * dt
+			if step > cap then step = cap elseif step < -cap then step = -cap end
+			return cur + step, 0
+		end
+		local function new(cur, vel, goal, dt) return A.TurnStep(cur, vel, goal, dt, S) end
+		local function swing(fps, goal, step)
+			local dt, cur, vel = 1 / fps, 0, 0
+			local at, over, back, first, peak, settled = {}, 0, 0, nil, 0, nil
+			for i = 1, math.floor(fps * 1.5 + 0.5) do
+				local was = cur
+				cur, vel = step(cur, vel, goal, dt)
+				local speed = (cur - was) / dt
+				first = first or speed
+				if speed > peak then peak = speed end
+				if cur > goal + 1e-12 then over = over + 1 end
+				if cur < was - 1e-12 then back = back + 1 end
+				if not settled and goal - cur < 0.1 * goal then settled = i * dt end
+				if i % (fps / 6) == 0 then at[#at + 1] = cur end -- every sixth of a second: 5, 10, 24 frames
+			end
+			return { at = at, over = over, back = back, first = first, peak = peak, final = cur, settled = settled }
+		end
+		-- An aim turning at 1 rad/s, followed for 2 s at 60 fps: how far behind it the arrow runs.
+		local function lag(step)
+			local cur, vel, goal = 0, 0, 0
+			for _ = 1, 120 do
+				goal = goal + 1 / 60
+				cur, vel = step(cur, vel, goal, 1 / 60)
+			end
+			return goal - cur
+		end
+		local r = {}
+		for _, deg in ipairs({ 20, 90 }) do
+			local goal = math.rad(deg)
+			r["d" .. deg] = { swing(30, goal, new), swing(60, goal, new), swing(144, goal, new) }
+		end
+		r.old = swing(60, math.rad(20), old)
+		r.lag, r.oldLag = lag(new), lag(old)
+		r.allocated = (function()
+			collectgarbage("collect"); collectgarbage("stop")
+			local before = collectgarbage("count")
+			local cur, vel = 0, 0
+			for i = 1, 5000 do
+				cur, vel = A.TurnStep(cur, vel, (i % 40 < 20) and 1 or -1, 1 / 60, S)
+				N.ArrowBlend(cur)
+			end
+			local grew = collectgarbage("count") - before
+			collectgarbage("restart")
+			return grew
+		end)()
+		emit(r)"#);
+	for deg in [20.0f64, 90.0] {
+		let runs = out[format!("d{deg}")].as_array().unwrap();
+		let goal = deg.to_radians();
+		for r in runs {
+			assert_eq!(r["over"], 0, "{deg} degrees: never past the new bearing");
+			assert_eq!(r["back"], 0, "{deg} degrees: never swings back");
+			near(num(&r["final"]), goal, 1e-4, &format!("{deg} degrees: settled"));
+		}
+		let (a30, a60, a144) = (runs[0]["at"].as_array().unwrap(), runs[1]["at"].as_array().unwrap(), runs[2]["at"].as_array().unwrap());
+		assert_eq!(a30.len(), a144.len());
+		for (k, ((x, y), z)) in a30.iter().zip(a60).zip(a144).enumerate() {
+			// Below the cap the motion is exact until the turn comes to rest within 0.0001 rad (after 0.45 s).
+			let tol = if deg >= 30.0 {
+				1f64.to_radians()
+			} else if k < 2 {
+				1e-9
+			} else {
+				2e-4
+			};
+			assert!((num(x) - num(z)).abs() <= tol && (num(y) - num(z)).abs() <= tol, "{deg} degrees: 30, 60 and 144 fps agree ({x}, {y}, {z})");
+		}
+	}
+	let (g, o) = (&out["d20"][1], &out["old"]);
+	assert!(num(&g["first"]) < num(&g["peak"]) / 2.0, "it starts slowly: {} rad/s in its first frame, {} at its fastest", g["first"], g["peak"]);
+	assert!(num(&o["first"]) >= num(&o["peak"]) - 1e-9, "0.3.x's ease was at its fastest in its first frame");
+	assert!(num(&g["settled"]) < num(&o["settled"]), "90% of the way in {} s, sooner than 0.3.x's {} s", g["settled"], o["settled"]);
+	let (lag, old_lag) = (num(&out["lag"]), num(&out["oldLag"]));
+	assert!((lag / old_lag - 1.0).abs() < 0.05, "it trails a turning aim as closely: {lag:.4} rad against {old_lag:.4}");
+	assert!(num(&out["allocated"]) < 1.0, "the turn and the cross-fade allocate nothing ({} KiB)", out["allocated"]);
+}
+
+// The turn on the live arrow, at 60 frames a second: a new bearing 20 degrees to the right is taken without a jolt
+// (it gathers speed over its first frames, then slows into the bearing), never past it, settled within half a second;
+// turning the camera still moves the arrow at once.
+#[test]
+fn turning_gathers_speed_into_a_new_bearing_and_slows_into_it_never_past_it_the_camera_still_turns_it_at_once() {
+	let out = run(r#"
+		local function frame(dt)
+			stub.now = stub.now + dt
+			for _, fr in ipairs(stub.frames) do
+				if fr.scripts.OnUpdate and stub.Methods.IsVisible(fr) then stub.RunScript(fr, "OnUpdate", dt) end
+			end
+			stub.frameTimers()
+		end
+		target(100, 0)
+		stub.advance(1)
+		local goal = -math.atan2(100 * math.tan(math.rad(20)), 100)
+		nav.place(0, 100 * math.tan(math.rad(20))) -- the target now 20 degrees to the right
+		local speeds, past, was = {}, 0, A.GetAngle()
+		for i = 1, 30 do
+			frame(1 / 60)
+			local a = A.GetAngle()
+			speeds[i] = (was - a) * 60
+			if a < goal - 1e-9 then past = past + 1 end
+			was = a
+		end
+		local settled = A.GetAngle()
+		nav.facing = goal
+		frame(1 / 60)
+		emit({ speeds = speeds, past = past, settled = settled, goal = goal, faced = A.GetAngle() })"#);
+	let speeds: Vec<f64> = out["speeds"].as_array().unwrap().iter().map(num).collect();
+	let peak = speeds.iter().cloned().fold(0.0, f64::max);
+	let first = speeds.iter().position(|&s| s > 1e-9).unwrap();
+	assert!(speeds[first] < peak / 2.0, "it starts slowly ({:.3} rad/s, then up to {peak:.3}): {speeds:?}", speeds[first]);
+	assert_eq!(out["past"], 0, "never past the new bearing: {speeds:?}");
+	near(num(&out["settled"]), num(&out["goal"]), 1e-3, "settled within half a second");
+	near(num(&out["faced"]), 0.0, 1e-3, "turning the camera: straight ahead within one frame");
+}
+
 #[test]
 fn switching_nav_arrowstyle_live_keeps_heading_colour_and_the_arrived_state() {
 	let out = run(r#"

@@ -96,7 +96,8 @@ fn every_colour_scheme_keeps_the_text_ladder_legible_on_every_ground_7_1_primary
 
 // Colours from outside the palette go through Theme.Legible: the client's item qualities (Poor..Artifact) and
 // quest difficulty colours. A dimmed name keeps that colour (its chip says why), so each must read at 4.5:1 on
-// the lightest place a name sits, a selected row on the panel.
+// the lightest place a name sits, a selected row on the panel, and on the darker of the window and panel grounds
+// (where a light scheme's dark text reads worst).
 #[test]
 fn item_quality_and_quest_difficulty_colours_lifted_read_at_4_5_1_on_a_selected_row_in_every_scheme() {
 	let out = run(r#"
@@ -107,16 +108,19 @@ fn item_quality_and_quest_difficulty_colours_lifted_read_at_4_5_1_on_a_selected_
 		local out = {}
 		for _, key in ipairs(T.SCHEME_ORDER) do
 			Polestar.Set("ui.scheme", key)
-			local o = { ground = T.LightestGround(), panel = T.Palette().panel, lifted = {}, epic = { Polestar.UI.Lookup.QualityColor(4) } }
+			local o = { ground = T.LightestGround(), panel = T.Palette().panel, bg = T.Palette().bg, lifted = {}, epic = { Polestar.UI.Lookup.QualityColor(4) } }
 			for i, c in ipairs(OUTSIDE) do o.lifted[i] = { T.Legible(c[1], c[2], c[3]) } end
 			out[key] = o
 		end
 		emit(out)"#);
 	for (key, o) in out.as_object().unwrap() {
 		assert!(lum(&o["ground"]) > lum(&o["panel"]), "{key}: a selected row is lighter than the panel");
+		let darker = if lum(&o["bg"]) <= lum(&o["panel"]) { &o["bg"] } else { &o["panel"] };
 		for (i, c) in o["lifted"].as_array().unwrap().iter().enumerate() {
 			let r = contrast(c, &o["ground"]);
 			assert!(r >= 4.5, "{key}: outside colour {} reads {r:.2}:1 on a selected row", i + 1);
+			let d = contrast(c, darker);
+			assert!(d >= 4.5, "{key}: outside colour {} reads {d:.2}:1 on the darker ground", i + 1);
 		}
 		let epic = contrast(&o["epic"], &o["ground"]);
 		assert!(epic >= 4.5, "{key}: an epic name (the retired Reins of the Frostsaber) reads {epic:.2}:1");
@@ -401,6 +405,75 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 	assert_eq!(out["inter"]["font"], json!(["Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-Medium.ttf", 13, ""]));
 	assert_eq!(out["inter"]["label"], "Inter");
 	assert_eq!(out["refollow"], json!(["Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.ttf", 13, ""]));
+}
+
+// ErgoBars (a whole UI for Forever) offers the skinning contract EllesmereUI does, as ErgoBarsLooks: the same
+// RegisterSkin(name, fn), fn(S) at PLAYER_LOGIN with S.GetAccentColor, S.GetPanelColor, S.GetFont and S.OnLooksChanged.
+const ERGOBARS: &str = r#"
+stub.ergo = { accent = { 0.96, 0.55, 0.73 }, handlers = {}, waiting = {} }
+local S = {
+	GetAccentColor = function() return stub.ergo.accent[1], stub.ergo.accent[2], stub.ergo.accent[3] end,
+	GetPanelColor = function() return 0.06, 0.06, 0.07, 0.9 end,
+	GetFont = function() return "Interface\\AddOns\\ErgoBars\\media\\fonts\\NotoSans-Regular.ttf", "OUTLINE" end,
+	OnLooksChanged = function(fn) table.insert(stub.ergo.handlers, fn) end,
+}
+ErgoBarsLooks = { version = 1, RegisterSkin = function(name, fn)
+	stub.ergo.registered = name
+	if stub.loggedIn then fn(S) else table.insert(stub.ergo.waiting, fn) end
+	return true
+end }
+local drain = CreateFrame("Frame")
+drain:RegisterEvent("PLAYER_LOGIN")
+drain:SetScript("OnEvent", function() for _, fn in ipairs(stub.ergo.waiting) do fn(S) end end)
+stub.addonsLoaded.ErgoBars = true
+"#;
+
+#[test]
+fn ergobars_follows_its_accent_panel_and_font_through_the_same_contract_as_ellesmereui_named_ergobars() {
+	let out = run_with(
+		r#"
+		local fs = UIParent:CreateFontString()
+		T.Font(fs, "body")
+		local before = { T.Accent() }
+		stub.ergo.accent = { 0.2, 0.6, 1 }
+		for _, fn in ipairs(stub.ergo.handlers) do fn() end
+		local after = { T.Accent() }
+		local schemes = T.SchemeChoices()
+		local label
+		for _, c in ipairs(schemes) do if c.value == "ellesmere" then label = c.text end end
+		Polestar.Set("ui.scheme", "ellesmere")
+		local ground = { T.Color("bg") }
+		Polestar.Set("ui.matchFont", true)
+		local font = { fs:GetFont() }
+		Polestar.UI.ShowOptions("appearance")
+		local note = Polestar.UI.Options.Controls("appearance")["ui.accent"].Note:GetText()
+		emit({ registered = stub.ergo.registered, provider = T.SkinProvider(), follows = T.IsEllesmere(), before = before,
+			after = after, schemes = schemes, label = label, ground = ground, font = font, note = note })"#,
+		ERGOBARS,
+	);
+	assert_eq!(out["registered"], "Polestar");
+	assert_eq!(out["provider"], "ErgoBars");
+	assert_eq!(out["follows"], true);
+	assert_eq!(round(&out["before"]), vec![0.96, 0.55, 0.73], "its accent by default, as EllesmereUI's");
+	assert_eq!(round(&out["after"]), vec![0.2, 0.6, 1.0], "S.OnLooksChanged repaints it");
+	assert_eq!(values(&out["schemes"]), json!(["dusk", "night", "graphite", "ellesmere"]));
+	assert_eq!(out["label"], "ErgoBars", "the scheme is named for the UI it follows");
+	assert_eq!(out["ground"][3], 0.9, "the scheme takes its panel's opacity");
+	assert_eq!(out["font"], json!(["Interface\\AddOns\\ErgoBars\\media\\fonts\\NotoSans-Regular.ttf", 13, "OUTLINE"]));
+	assert_eq!(out["note"], "ErgoBars", "the swatch says where the accent comes from");
+}
+
+#[test]
+fn with_ellesmereui_and_ergobars_both_on_ellesmereui_is_followed_and_ergobars_never_asked() {
+	let out = run_with(
+		r#"emit({ provider = T.SkinProvider(), eui = stub.skinRegistered or false, ergo = stub.ergo.registered or false,
+			accent = { T.Accent() } })"#,
+		&format!("stub.withEllesmere()\n{ERGOBARS}"),
+	);
+	assert_eq!(out["provider"], "EllesmereUI");
+	assert_eq!(out["eui"], "Polestar");
+	assert_eq!(out["ergo"], false);
+	assert_eq!(round(&out["accent"]), vec![0.05, 0.82, 0.62]);
 }
 
 #[test]
@@ -712,7 +785,7 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 	assert_eq!(round(&h["quest"]), vec![1.0, 0.878, 0.478, 1.0], "#FFE07A");
 	assert_eq!(round(&h["veil"]), vec![0.031, 0.024, 0.016, 0.6], "#080604 at 60 %");
 	assert_eq!(round(&h["veilWindow"])[3], 0.84);
-	assert_eq!(round(&h["menuBg"])[3], 0.97);
+	assert_eq!(round(&h["menuBg"])[3], 1.0, "menus solid");
 	assert_eq!(round(&h["accentLine"]), vec![1.0, 0.82, 0.0, 0.35]);
 	assert_eq!(round(&h["manual"]), vec![0.706, 0.612, 1.0, 1.0], "#B49CFF");
 	assert_eq!(round(&h["skipped"]), vec![0.361, 0.784, 0.839, 1.0], "#5CC8D6");

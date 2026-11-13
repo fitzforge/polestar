@@ -10,22 +10,22 @@ return {
 	-- {quest:8412} Spirit Totem · {quest:8413} Da Voodoo
 	["{quest:8412} and {quest:8413}"] = "{quest:8412} y {quest:8413}",
 	-- {area:1417} Sunken Temple
-	["Experience and gold at 50, ending in the {area:1417}; the Classic item choice may be gone in Forever."] = "",
+	["Experience and gold at 50, ending in the {area:1417}; the Classic item choice may be gone in Forever."] = "Experiencia y oro a nivel 50, terminando en {area:1417}; puede que en Forever ya no esté la elección de objeto de Classic.",
 	["Experience and gold"] = "Experiencia y oro",
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom · {npc:6176} Bath'rah the Windwatcher
-	["At 50 {npc:13417}, the shaman trainer in the {object:172957}, asks for the four elements for {npc:6176}."] = "",
+	["At 50 {npc:13417}, the shaman trainer in the {object:172957}, asks for the four elements for {npc:6176}."] = "A nivel 50, {npc:13417}, el instructor de chamanes en {object:172957}, te pide los cuatro elementos para {npc:6176}.",
 
 	-- Step 2: Beram Skychaser
 	-- {npc:3032} Beram Skychaser · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:6176} Bath'rah the Windwatcher · {quest:8410} Elemental Mastery · {quest:8412} Spirit Totem · {quest:8411} Mastering the Elements
-	["At 50 {npc:3032}, a shaman trainer on {area:1640} in {zone:1456}, asks for the four elements for {npc:6176}. Skyborne: Forever's quest page lists {quest:8410} and {quest:8412} for Orcs, Tauren and Trolls only; if {npc:3032} has nothing for you, {npc:6176}'s own {quest:8411} is open to every Horde race, but {quest:8412} after it may still turn you away."] = "",
+	["At 50 {npc:3032}, a shaman trainer on {area:1640} in {zone:1456}, asks for the four elements for {npc:6176}. Skyborne: Forever's quest page lists {quest:8410} and {quest:8412} for Orcs, Tauren and Trolls only; if {npc:3032} has nothing for you, {npc:6176}'s own {quest:8411} is open to every Horde race, but {quest:8412} after it may still turn you away."] = "A nivel 50, {npc:3032}, un instructor de chamanes en {area:1640} en {zone:1456}, te pide los cuatro elementos para {npc:6176}. Skyborne: la página de la misión en Forever lista {quest:8410} y {quest:8412} solo para orcos, taurens y trols; si {npc:3032} no tiene nada para ti, {quest:8411} del propio {npc:6176} está abierta para todas las razas de la Horda, pero {quest:8412}, después, puede que igual te rechace.",
 
 	-- Step 3: The four elements
 	["The four elements"] = "Los cuatro elementos",
 	-- {item:7069} Elemental Air · {zone:1417} Arathi Highlands · {area:320} Refuge Pointe · {npc:2794} Summoned Guardian · {zone:1447} Azshara · {npc:14269} Seeker Aqualon · {area:69} Lakeshire
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile · Rumbling Exiles = {npc:2592} Rumbling Exile · Burning Exiles = {npc:2760} Burning Exile
-	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles near {area:320} (level 38-39, about one kill in eight to ten, respawn under seven minutes): Thundering Exiles south-east of it (air), Rumbling Exiles south-west (earth), Burning Exiles far to the north-west (fire), and the {npc:2794} far to the south-west (water, about one in seven). Water comes easier from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "",
+	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles near {area:320} (level 38-39, about one kill in eight to ten, respawn under seven minutes): Thundering Exiles south-east of it (air), Rumbling Exiles south-west (earth), Burning Exiles far to the north-west (fire), and the {npc:2794} far to the south-west (water, about one in seven). Water comes easier from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "Uno de cada uno: {item:7069}, fuego, tierra y agua; los cuatro se pueden comerciar, así que la casa de subastas es lo más rápido. Para conseguirlos, {zone:1417} tiene los exiliados cerca de {area:320} (nivel 38-39, más o menos una muerte de cada ocho a diez, reaparecen en menos de siete minutos): exiliados atronadores al sureste (aire), exiliados retumbantes al suroeste (tierra), exiliados ardientes lejos al noroeste (fuego), y el {npc:2794} lejos al suroeste (agua, más o menos uno de cada siete). El agua sale más fácil de los parches de agua elemental en {zone:1447} (dos de cada cinco) o de {npc:14269}, junto a {area:69} en Montañas Crestagrana.",
 	-- {item:7069} Elemental Air
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile
 	["{item:7069}: Thundering Exiles"] = "{item:7069}: Exiliados tronadores",
@@ -36,34 +36,34 @@ return {
 	-- plural, as words: Rumbling Exiles = {npc:2592} Rumbling Exile
 	["{item:7067}: Rumbling Exiles"] = "{item:7067}: Exiliados resonadores",
 	-- {item:7070} Elemental Water · {npc:2794} Summoned Guardian · {zone:1447} Azshara
-	["{item:7070}: the {npc:2794}, or {zone:1447}'s water patches"] = "",
+	["{item:7070}: the {npc:2794}, or {zone:1447}'s water patches"] = "{item:7070}: el {npc:2794}, o los parches de agua de {zone:1447}",
 
 	-- Step 4: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill
-	["{npc:6176} camps in the ruins of the east of {zone:1416}: from {area:272} follow the river east of town north into the hills."] = "",
+	["{npc:6176} camps in the ruins of the east of {zone:1416}: from {area:272} follow the river east of town north into the hills."] = "{npc:6176} acampa en las ruinas del este de {zone:1416}: desde {area:272} sigue el río al este del pueblo hacia el norte, hasta las colinas.",
 
 	-- Step 5: Spider eye and bear claw
 	["Spider eye and bear claw"] = "Ojo de araña y garra de oso",
 	-- {area:813} Bulwark · {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {item:20610} Bloodshot Spider Eye · {spell:3427} Infected Wound · {item:20611} Thick Black Claw · {area:159} Brill
 	-- plural, as words: Venom Mist Lurkers = {npc:1822} Venom Mist Lurker · Diseased Black Bears = {npc:1815} Diseased Black Bear · Carrion Vultures = {npc:1809} Carrion Vulture · Plague Lurkers = {npc:1824} Plague Lurker
-	["Eight of each. Fly or ride to the {area:813} and on to the west edge of the {zone:1422}, north-west of {area:3197}: the Venom Mist Lurkers (level 50-51, they poison) give the {item:20610} and the Diseased Black Bears (level 51-52, {spell:3427}) the {item:20611}, one kill in five each; the two Carrion Vultures there drop either. The bigger Diseased Grizzlies and Plague Lurkers further east almost never drop them. A few bears and lurkers also roam south-east of {area:159} in Tirisfal."] = "",
+	["Eight of each. Fly or ride to the {area:813} and on to the west edge of the {zone:1422}, north-west of {area:3197}: the Venom Mist Lurkers (level 50-51, they poison) give the {item:20610} and the Diseased Black Bears (level 51-52, {spell:3427}) the {item:20611}, one kill in five each; the two Carrion Vultures there drop either. The bigger Diseased Grizzlies and Plague Lurkers further east almost never drop them. A few bears and lurkers also roam south-east of {area:159} in Tirisfal."] = "Ocho de cada uno. Vuela o ve a {area:813} y sigue hasta el borde oeste de {zone:1422}, al noroeste de {area:3197}: los acechadores Bruma Venenosa (nivel 50-51, envenenan) dan {item:20610} y los osos negros enfermos (nivel 51-52, {spell:3427}) {item:20611}, una muerte de cada cinco cada uno; los dos buitres carroñeros de ahí sueltan cualquiera. Los osos pardos enfermos y los acechadores de la peste, más grandes, más al este, casi nunca los sueltan. Algunos osos y acechadores también rondan al sureste de {area:159}, en Tirisfal.",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple
 	["The {area:1417}"] = "{area:1417}",
 	-- {area:75} Stonard · {area:1417} Sunken Temple · {area:1477} Temple of Atal'Hakkar · {area:74} Pool of Tears · {npc:5716} Zul'Lor · {spell:139} Renew · {npc:3560} Healing Ward
 	-- plural, as words: Shadow Bolt Volleys = {spell:9081} Shadow Bolt Volley
-	["A five-player dungeon: needs a group of five, about level 50-55. Fly to {area:75} and ride east. The {area:1417} ({area:1477}) stands in the middle of the {area:74}: climb the stairs on the ruin's south side, dive into the flooded hall, swim down through it and follow the stairs and passages down to the portal. Two feathers of each colour, one from each of six elite troll mini-bosses (level 51-52) on the balconies around the temple's great round room, every kill, and each player on the quest loots their own: Gasher and {npc:5716} the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Mijan heals the others ({spell:139}, a {npc:3560}): kill him first; Hukku summons guardians and throws Shadow Bolt Volleys."] = "",
+	["A five-player dungeon: needs a group of five, about level 50-55. Fly to {area:75} and ride east. The {area:1417} ({area:1477}) stands in the middle of the {area:74}: climb the stairs on the ruin's south side, dive into the flooded hall, swim down through it and follow the stairs and passages down to the portal. Two feathers of each colour, one from each of six elite troll mini-bosses (level 51-52) on the balconies around the temple's great round room, every kill, and each player on the quest loots their own: Gasher and {npc:5716} the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Mijan heals the others ({spell:139}, a {npc:3560}): kill him first; Hukku summons guardians and throws Shadow Bolt Volleys."] = "Una mazmorra de cinco jugadores: necesita un grupo de cinco, de nivel 50-55 más o menos. Vuela a {area:75} y ve al este. {area:1417} ({area:1477}) está en el centro de {area:74}: sube la escalera del lado sur de la ruina, zambúllete en la sala inundada, nada hacia abajo por dentro y sigue las escaleras y pasajes hasta el portal. Dos plumas de cada color, una de cada uno de seis minijefes trol élite (nivel 51-52) de los balcones alrededor de la gran sala redonda del templo, en cada muerte, y cada jugador con la misión saquea las suyas: Gasher y {npc:5716} la ámbar, Hukku y Mijan la azul, Zolo y Loro la verde. Mijan cura a los demás ({spell:139}, un {npc:3560}): mátalo primero; Hukku invoca guardianes y lanza salvas de descargas de las Sombras.",
 	-- {item:20606} Amber Voodoo Feather · {npc:5716} Zul'Lor
-	["{item:20606}: Gasher, {npc:5716}"] = "",
+	["{item:20606}: Gasher, {npc:5716}"] = "{item:20606}: Gasher, {npc:5716}",
 	-- {item:20607} Blue Voodoo Feather
-	["{item:20607}: Hukku, Mijan"] = "",
+	["{item:20607}: Hukku, Mijan"] = "{item:20607}: Hukku, Mijan",
 	-- {item:20608} Green Voodoo Feather
-	["{item:20608}: Zolo, Loro"] = "",
+	["{item:20608}: Zolo, Loro"] = "{item:20608}: Zolo, Loro",
 
 	-- Step 8: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher
-	["{npc:6176}: the old item choice may be gone, count on the experience"] = "",
+	["{npc:6176}: the old item choice may be gone, count on the experience"] = "{npc:6176}: puede que la vieja elección de objeto ya no esté, cuenta con la experiencia",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 50 {npc:13417}, the shaman trainer in the {object:172957}, sends you to {npc:6176}."] = "A nivel 50, {npc:13417}, el instructor de chamanes de {object:172957}, te envía con {npc:6176}.",
