@@ -8011,6 +8011,29 @@
 				}
 			],
 			"issue": 2025
+		},
+		{
+			"id": "2025-kurzen-compound-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 203,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"tip": "The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. Bookie Herod's records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side.",
+			"note": "0.4.0 route audit (Refs #2025): the step's quest mobs (Kurzen Jungle Fighters and Medicine Men, 32) stand on the compound's west side, the Elites and Witch Doctors (36) on its east side, and the step gave no warning. The step's earlier tip is kept in this one.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json spawns: Kurzen Jungle Fighter (937) and Medicine Man (940), level 32, at 43.6-47.1,7.1-12.6; Kurzen Elite (939) and Witch Doctor (942), level 36, at 46.7-49.7,5.7-8.7"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, to 2026-11-13): on this step, 3 people killed 5 times by Kurzen Elites (36-37) and a Kurzen Witch Doctor (37) at 48.5-49.6,7.9-9.0, at about level 33.4"
+				}
+			],
+			"issue": 2025
 		}
 	]
 }

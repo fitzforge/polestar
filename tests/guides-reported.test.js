@@ -11864,3 +11864,15 @@ test(`${ASHENVALE_30}: the Great Lift step says to wait for the lift`, { skip },
 	assert.ok(rec, 'a record the build keeps');
 	assert.equal(rec.tip, tip, 'the guide carries the record\'s tip');
 });
+
+// 0.4.0 route audit (Refs #2025): 30-40/04's Kurzen's Compound step sends players to the compound's outer edge for its
+// level 32 Jungle Fighters, while Kurzen Elites and Witch Doctors (36) hold its eastern half; players' recordings: 3
+// people killed 5 times by them at about 33. The step warns.
+test("forever/alliance/30-40/04-stranglethorn-vale.guide: the Kurzen's Compound step warns of the Elites in its east", { skip }, () => {
+	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	const fight = list[at(list, 'kill 937', (g) => g.t === 'kill' && g.quest === 203)];
+	const tip = [].concat(fight.step.note || []).join(' ');
+	assert.match(tip, /Careful: Kurzen Elites and Witch Doctors \(36\)/, tip);
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.id === '2025-kurzen-compound-careful');
+	assert.ok(rec, 'a record the build keeps');
+});
