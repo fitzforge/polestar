@@ -11932,3 +11932,15 @@ test('Alliance 50-60/06: Ancient Spirit handed in at Forest Song on the way out 
 	assert.ok(t < at(g, 'turnin 4496', is('turnin', 4496)), 'before Gadgetzan');
 	assert.ok(g.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Talrendis Point').length <= 1, 'no second flight to Talrendis Point for it');
 });
+
+// 0.4.0 audit: with the Ratchet flight path known (the 40-50 Stranglethorn guide teaches it at the Booty Bay dock),
+// the late Feralas stop flies Thalanaar -> Ratchet instead of Theramore and a ride up the Barrens coast; without it
+// the old way stays.
+test('Alliance 50-60/04: Thalanaar to Ratchet by flight path when known, else Theramore and the coast', { skip }, () => {
+	const g = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const has = (e, neg) => (e.step.when || []).some((p) => p.k === 'taxi' && !!p.neg === neg);
+	const direct = g.find(({ goal }) => goal.t === 'fly' && goal.location === 'Ratchet');
+	assert.ok(direct && has(direct, false), 'fly to Ratchet when known');
+	const thera = g.find(({ goal }) => goal.t === 'fly' && goal.location === 'Theramore');
+	assert.ok(thera && has(thera, true), 'Theramore otherwise');
+});

@@ -424,21 +424,30 @@ step Feralas
   zone Feralas
   goto 89.5,45.9 "Thalanaar"
 
+step Fly to Ratchet
+  when taxi "Ratchet"
+  zone Feralas
+  goto 89.5,45.9 "Thalanaar flight master"
+  fly "Ratchet"
+  zone The Barrens
+
 step Fly to Theramore
+  when !taxi "Ratchet"
   zone Feralas
   goto 89.5,45.9 "Thalanaar flight master"
   fly "Theramore"
   zone Dustwallow Marsh
 
 step The Barrens
+  when !taxi "Ratchet"
   zone The Barrens
+  tip From Theramore, ride west into the Barrens and north up the coast to Ratchet.
   goto 65.8,43.8 "Ratchet"
 
 # ---------------------------------------------------------------- Ratchet and Azshara
 
 step Ratchet
   zone The Barrens
-  tip From Theramore, ride west into the Barrens and north up the coast to Ratchet.
   turnin 5158                         -- Islen Waterseer, on the coast north of town
   accept 5159                         -- For Felwood: keep it
   getfp "Ratchet"
