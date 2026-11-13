@@ -30,7 +30,8 @@ use serde_json::Value;
 /// The 0.3.7 base's core at login: next at c0c99712a (0.3.7 final), this test's script, 2026-11-11: 11,003 KiB.
 const LOGIN_BASE: f64 = 11003.0;
 /// At most 50 KiB over the base, plus what 0.3.7.1, 0.3.7.2 and the 0.3.8 work so far add at login (measured
-/// 11060 KiB after the merge, 57 over the base). Raised rather than re-measured per release: Fitz, 2026-11-12,
+/// 11060 KiB after the merge, 57 over the base; 11115 with 0.4.0's looks carried and polished, #2049 and #2084, 112
+/// over it). Raised rather than re-measured per release: Fitz, 2026-11-12,
 /// "if you hit memory budgets again, just raise them"; the login cost gets its review once 0.3.8's content is final.
 /// Install (0.4.0: UI/Welcome.lua's Questing, Targeting, Groups and dungeons and Your look pages, the option cards
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
@@ -58,7 +59,8 @@ const LOGIN: f64 = LOGIN_BASE + 772.0;
 /// nameplate on the stage, and Theme > Accent lighting every part drawn in the accent. Then the search's dropdown
 /// (+41: 1,833 to 1,874 on 2026-11-13): UI/SearchDropdown.lua, and the places, page scope and lit words of the
 /// search in UI/Options.lua. Raised by that, as Fitz asked on 2026-11-12 ("if you hit memory budgets again, just
-/// raise them").
+/// raise them"). The bands (#2084: every Look tab's preview its element alone, the stage, its backdrops and the
+/// scenes' mobs gone) measured 1,798 on their own base.
 const LOADED: f64 = 1907.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert

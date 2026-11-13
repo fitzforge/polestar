@@ -2097,8 +2097,9 @@ fn new_settings_put_a_pill_on_their_section_and_a_count_on_their_page_until_open
 }
 
 // A tab's preview is built when the tab first shows, laid out across the main column and pinned between the tab
-// band and the rows, which scroll under it; the slot's chrome says what it shows. Another tab's taller preview
-// is capped; a tab without one gives the room back; nothing is built twice.
+// band and the rows, which scroll under it; its caption is the one line under it (10 over it, 15, 10 under), no
+// chrome over it. Another tab's taller preview is capped; a tab without one gives the room back; nothing is built
+// twice.
 #[test]
 fn a_tab_s_preview_is_built_on_first_show_pinned_over_the_scrolling_rows_capped_and_given_back() {
 	let out = run_opts(
@@ -2110,7 +2111,8 @@ fn a_tab_s_preview_is_built_on_first_show_pinned_over_the_scrolling_rows_capped_
 		local _, _, _, _, scrollY = f.Scroll:GetPoint(1)
 		local host = O.view.PreviewHost
 		local first = { built = uifake.built(), laid = uifake.laid(), main = f.psMainW, slot = slot:IsShown(), h = f.psPreviewH,
-			scrollY = scrollY, viewH = f.psViewH, room = f:GetHeight() - 112 - 40 - 56, caption = host.Caption:GetText(), label = host.Label:GetText() }
+			scrollY = scrollY, viewH = f.psViewH, room = f:GetHeight() - 112 - 40 - 56, caption = host.Line:GetText(),
+			chrome = rawget(host, "Chrome") == nil and rawget(host, "Label") == nil }
 		O.Select("fakepins", "Minimap")
 		local capped = { h = f.psPreviewH, room = f:GetHeight() - 112 - 40 - 56 }
 		O.Select("guide")
@@ -2126,11 +2128,11 @@ fn a_tab_s_preview_is_built_on_first_show_pinned_over_the_scrolling_rows_capped_
 	assert_eq!(first["built"], 1);
 	assert_eq!(first["laid"], first["main"], "laid out across the main column");
 	assert_eq!(first["slot"], true);
-	assert_eq!(first["h"], 200);
-	assert_eq!(first["scrollY"], -204, "the rows start under it");
-	assert_eq!(n(&first["viewH"]), n(&first["room"]) - 200.0, "and scroll in the room left");
+	assert_eq!(first["h"], 235, "the preview and its caption's line");
+	assert_eq!(first["scrollY"], -239, "the rows start under it");
+	assert_eq!(n(&first["viewH"]), n(&first["room"]) - 235.0, "and scroll in the room left");
 	assert_eq!(first["caption"], "Elwynn Forest, zoomed out");
-	assert_eq!(first["label"], "Preview");
+	assert_eq!(first["chrome"], true, "no chrome: no \"Preview\" label");
 	assert_eq!(n(&out["capped"]["h"]), (n(&out["capped"]["room"]) * 0.55).floor(), "a taller preview is capped at 55% of the body");
 	assert_eq!(out["gone"], json!({ "h": 0, "slot": false }), "a page without one gives the room back");
 	assert_eq!(out["built"], 2, "each tab's preview built once");
@@ -2465,7 +2467,7 @@ fn a_preview_hotspot_opens_its_setting_s_row_and_the_one_time_hint_goes_on_the_f
 		UI.ShowOptions("fakepins")
 		O.Select("fakepins", "Medallions")
 		local host = O.view.PreviewHost
-		local hint = host.Hint:IsShown() and host.Hint:GetText() or false
+		local hint = host.Line:IsShown() and host.Line:GetText() or false
 		local spot = uifake.spot
 		stub.RunScript(spot, "OnEnter")
 		local tip = GameTooltip:IsShown() and GameTooltip:GetOwner() == spot
@@ -2476,7 +2478,7 @@ fn a_preview_hotspot_opens_its_setting_s_row_and_the_one_time_hint_goes_on_the_f
 		local row = O.Controls("fakepins", "World map")["fake.goalSize"]
 		local lit = rawget(row, "psFlash") ~= nil and row.psFlash:IsShown()
 		O.Select("fakepins", "Medallions")
-		emit({ hint = hint, tip = tip, tab = tab, lit = lit, after = host.Hint:IsShown(), stored = PolestarDB.optionsPreviewHint == true })"#;
+		emit({ hint = hint, tip = tip, tab = tab, lit = lit, after = host.Line:IsShown(), stored = PolestarDB.optionsPreviewHint == true })"#;
 	let out = run_opts(script, "", "", LOOK_PAGE);
 	assert_eq!(out["hint"], "Click a part of the preview to find its settings.");
 	assert_eq!(out["tip"], true, "the setting's name under the cursor");

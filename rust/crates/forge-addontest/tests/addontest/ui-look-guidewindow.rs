@@ -234,19 +234,22 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 		local live = snapshot()
 		local rows = #GF.rows
 		local f = Polestar.UI.GuideWindowPreview(UIParent)
-		local h = f:Layout(900)
-		local r = f.Rows[2]
+		f:Show()
+		-- A band with the room for 220 of the window: the window, taller, is cut there.
+		local h = f:Layout(900, 305)
+		local g = f.Scene
+		local r = g.Rows[2]
 		local function card()
 			local _, _, _, x = r.Text:GetPoint(1)
-			return { text = size(r.Text), name = size(f.Person.Name), x = x, rowH = r:GetHeight(), mark = r.Mark:GetWidth(),
-				strip = f.Strip:IsShown(), foot = f.Foot:IsShown(), w = f.Window:GetWidth(), line = r.Text:GetText() }
+			return { text = size(r.Text), name = size(g.Person.Name), x = x, rowH = r:GetHeight(), mark = r.Mark:GetWidth(),
+				strip = g.Strip:IsShown(), foot = g.Foot:IsShown(), w = g.Window:GetWidth(), line = r.Text:GetText() }
 		end
 		local before = card()
 		-- At its own size the window is taller than the band: a change scrolls to its part.
 		Polestar.Set("guideWindow.progressHeight", 6)
-		local footScroll = f.psScroll
+		local footScroll = g.psScroll
 		Polestar.Set("guideWindow.tabHeight", 1.1)
-		local topScroll = f.psScroll
+		local topScroll = g.psScroll
 		Polestar.Set("guideWindow.progressHeight", nil)
 		Polestar.Set("guideWindow.tabHeight", nil)
 		Polestar.Set("guideWindow.goalSize", 1.5)
@@ -259,8 +262,8 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 		local after = card()
 		local liveRow = firstRow()
 		emit({ h = h, before = before, after = after, rows = #GF.rows == rows, liveText = size(liveRow.Text),
-			window = f.Window ~= F, scale = f.psScale, footScroll = footScroll, topScroll = topScroll, hot = f.psHot or false })"#);
-	assert_eq!(out["h"], 250);
+			window = g.Window ~= F, scale = g.psScale, footScroll = footScroll, topScroll = topScroll, hot = g.psHot or false })"#);
+	assert_eq!(out["h"], 280, "the band: 20 over, the window cut at its room (305 less the pads and the hint line's room), 20 under");
 	let b = &out["before"];
 	let a = &out["after"];
 	assert_eq!(b["text"], 14, "the preview's goals at the goal role's size");
@@ -284,6 +287,24 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 	assert!(out["footScroll"].as_f64().unwrap() > 0.0, "scrolled down to the progress bar it edits");
 	assert_eq!(out["topScroll"], 0, "back up to the bars");
 	assert_eq!(out["hot"], true, "the parts are hotspots that jump to their rows");
+}
+
+// The drawing shows Up next only while it is on (ui.upcoming: how many steps; 0, the default, off), as the window
+// does; compact never shows it.
+#[test]
+fn the_preview_shows_up_next_only_while_it_is_on() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local f = Polestar.UI.GuideWindowPreview(UIParent)
+		f:Layout(900)
+		local up = f.Scene.Up
+		local off = up:IsShown()
+		Polestar.Set("ui.upcoming", 3)
+		local on = up:IsShown()
+		Polestar.Set("ui.compact", true)
+		local compact = up:IsShown()
+		emit({ default = Polestar.Get("ui.upcoming") == 3 and "set" or "?", off = off, on = on, compact = compact })"#);
+	assert_eq!(out, json!({ "default": "set", "off": false, "on": true, "compact": false }));
 }
 
 #[test]
@@ -363,9 +384,9 @@ fn a_registered_skin_s_guide_title_hook_dresses_the_navigator() {
 		P.nav.Close:Click()
 		titled.closed = { was = wasShown, shown = Polestar.Get("ui.shown"), printed = table.concat(stub.messages, "\n", before + 1) }
 		Polestar.Set("ui.shown", true)
-		local f =Polestar.UI.GuideWindowPreview(UIParent)
+		local f = Polestar.UI.GuideWindowPreview(UIParent)
 		f:Layout(900)
-		titled.previewBar, titled.previewClose = f.Nav.TitleBar:IsShown(), f.Nav.Close:IsShown()
+		titled.previewBar, titled.previewClose = f.Scene.Nav.TitleBar:IsShown(), f.Scene.Nav.Close:IsShown()
 		Polestar.Set("ui.style", "transparent")
 		local clear = title()
 		Polestar.Set("ui.style", "standard")

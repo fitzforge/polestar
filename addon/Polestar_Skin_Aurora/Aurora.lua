@@ -206,11 +206,12 @@ local PAINT = {
 		if frame == guideWindow() and own.curtain and own.curtain:IsShown() then hide(own, { "veil" }) else veil(frame, kit) end
 		if Theme.WindowBorder() and not frame.psNoBorder then glowEdge(frame, kit) else hide(own, EDGES) end
 	end,
-	-- Menus and popups: the night's depth and a line of light on top.
+	-- Menus and popups: the night's depth and a line of light on top (a menu
+	-- or popup over other frames, psMenu, on menuBg: never see-through).
 	panel = function(frame, base, kit)
 		base(frame)
 		if frame.psBare then return kit.bare(frame) end
-		local r, g, b, a = Theme.Color("panel")
+		local r, g, b, a = Theme.Color(frame.psMenu and "menuBg" or "panel")
 		kit.gradient(frame, { clamp(r * 1.3 + 0.01), clamp(g * 1.25 + 0.01), clamp(b * 1.2 + 0.02), a }, { r * 0.7, g * 0.7, b * 0.78, a })
 		local own = kit.store(frame)
 		local top = white(frame, own, "edgeTop")

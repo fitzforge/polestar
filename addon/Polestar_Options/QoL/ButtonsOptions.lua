@@ -6,11 +6,12 @@
 -- buttons, size, spacing and layout are protected and wait out combat
 -- (QoL.Secure); the rest is plain regions and changes at once.
 --
--- Each tab pins a live preview over its rows, drawn by the modules' own face
--- code on plain frames (Buttons.NewFace, Launcher.Face,
--- Maps.MinimapButtonFace): never a secure template, never the live buttons,
--- no click, step or binding hook. Nothing is built until the page first
--- shows; it repaints on its settings only while shown.
+-- Each tab pins a band over its rows (UI.Preview.Band): the element it sets,
+-- alone at its real size, drawn by the modules' own face code on plain frames
+-- (Buttons.NewFace, Launcher.Face, Maps.MinimapButtonFace): never a secure
+-- template, never the live buttons, no click, step or binding hook. Nothing
+-- is built until the page first shows; it repaints on its settings only
+-- while shown.
 
 local ns = Polestar
 local QoL = ns.QoL
@@ -27,87 +28,9 @@ local NEW = "0.3.8"
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 
--- The settings a preview repaints for: its own keys, and their sections
--- set at once (a profile, a reset).
-local OWN = {
-	[""] = true, buttons = true, qol = true, ui = true, maps = true, nav = true,
-	["qol.buttonScale"] = true, ["qol.buttonTextSide"] = true, ["qol.targetPlate"] = true, ["ui.reduceMotion"] = true,
-	["qol.itemButton"] = true, ["qol.hearthButton"] = true, ["qol.targetButton"] = true, ["qol.rareButton"] = true,
-	["nav.castPrompt"] = true,
-}
-local function owned(path)
-	if type(path) ~= "string" then return true end
-	return OWN[path] or path:sub(1, 8) == "buttons." or path:sub(1, 11) == "ui.launcher" or path:sub(1, 18) == "maps.minimapButton"
-		or path:sub(1, 9) == "nav.arrow"
-end
-
--- The stage's height when the window gives it none (a preview laid out on
--- its own); the room between two surfaces.
-local STAGE_H, APART = 216, 56
-
--- A preview frame: the settings window's stage over the world the buttons
--- sit on (the zone you stand in), and repaint(f) on its settings and theme
--- changes, only while shown (else on the next show). f:Layout(width,
--- height) lays it out for the hero's height.
-local function stage(view, repaint)
-	local f = ns.UI.Preview.Stage(view, { height = STAGE_H, backdrop = "world" })
-	local ground = f.Back
-	local dirty = true
-	local function paint()
-		dirty = false
-		repaint(f)
-	end
-	f.Paint = paint
-	ns.On("SETTING_CHANGED", function(path)
-		if not owned(path) then return end
-		if f:IsVisible() then paint() else dirty = true end
-	end)
-	W.Painter(ground, function()
-		if f:IsVisible() then paint() else dirty = true end
-	end)
-	f:SetScript("OnShow", function() if dirty then paint() end end)
-	-- -> the hero's height (the window's; STAGE_H laid out alone)
-	function f:Layout(w, h)
-		h = h or STAGE_H
-		self:SetWidth(w)
-		if dirty or w ~= self.psWidth or h ~= self.psHeight then
-			self.psWidth, self.psHeight = w, h
-			paint()
-		end
-		return h
-	end
-	return f
-end
-
-local function caption(f, text)
-	local c = W.Text(f, "small", "textMuted")
-	c:SetJustifyH("CENTER")
-	c:SetText(text)
-	return c
-end
-
--- A part of a preview the player can click to reach its row (the window's
--- preview hotspots, FIXES-V2 E5); f.psHotspots[key] keeps each (tests).
-local function hotspot(f, region, key)
-	f.psHotspots = f.psHotspots or {}
-	f.psHotspots[key] = f:Hot(region, key)
-end
-
--- Columns across stage f (s:SideBySide): side by side at their own size,
--- smaller only where they would not fit, each on a soft shadow with its
--- caption under it. A column: { w, h (at k = 1), place = fn(k, left, top),
--- foot = the frame its shadow stands under, caption = a font string }.
-local function lineUp(f, cols)
-	if #cols > 0 then f:SideBySide(cols, { gap = APART }) end
-end
-
 ---------------------------------------------------------------------------
--- Action buttons: the whole set as it lines up when every button shows
--- (bag, Hearthstone, quest item, target, rare), out of combat, over the
--- world it acts on: the mob the target button names (your target, its raid
--- mark when Mark target is on) and the rare the rare button names, further
--- off; and the quest item button in combat. A button turned off is drawn
--- faint.
+-- The bands (UI.Preview.Band): each element alone at its real size, on the
+-- window's ground, a label under each when there are several.
 ---------------------------------------------------------------------------
 
 local DEMO_ITEM_ICON = "Interface\\Icons\\INV_Misc_Note_01"
@@ -115,8 +38,9 @@ local DEMO_HEARTH_ICON = "Interface\\Icons\\INV_Misc_Rune_01"
 local DEMO_BAG_ICON = "Interface\\Icons\\INV_Misc_Bag_08"
 local SHOWN = { "bag", "hearth", "item", "target", "rare" }
 local SWITCH = { item = "itemButton", hearth = "hearthButton", target = "targetButton", rare = "rareButton", bag = "bagSpace" }
--- The room a name beside the set takes, in button pixels.
-local NAME_W, NAME_H = 120, 18
+-- The room between two elements side by side; the travel button (Nav/Prompts.lua's SIZE);
+-- a name's line over or under a button (the preset cards).
+local APART, TRAVEL, NAME_H = 56, 36, 18
 
 -- The player's own binding for a button, else a stand-in so the key text
 -- setting shows.
@@ -130,10 +54,18 @@ local function itemIcon(id, demo)
 	return id and C and C.ItemIcon and C.ItemIcon(id) or demo
 end
 
--- The set's parts on stage f: the faces in a group (the idle opacity), a
--- box over the buttons for their shadow and lights, the combat face.
-local function buildSet(f)
-	local set = { faces = {}, list = {} }
+-- A part of a band the player can click to reach its row (the window's
+-- preview hotspots); f.psHotspots[key] keeps each (tests).
+local function hotspot(f, region, key)
+	f.psHotspots = f.psHotspots or {}
+	f.psHotspots[key] = f:Hot(region, key)
+end
+
+-- The action button set on band f: the faces (Buttons.NewFace) in a group,
+-- out of combat or in it (`combat`: its opacity), and a box over the
+-- buttons alone for what lights the set as a whole.
+local function newSet(f, combat)
+	local set = { faces = {}, list = {}, combat = combat }
 	set.group = CreateFrame("Frame", nil, f)
 	set.group:SetSize(1, 1)
 	for i, kind in ipairs(SHOWN) do
@@ -142,10 +74,6 @@ local function buildSet(f)
 		b.psStack = set.list
 	end
 	set.box = CreateFrame("Frame", nil, f)
-	set.single = CreateFrame("Frame", nil, f)
-	set.single:SetSize(1, 1)
-	set.combat = Buttons.NewFace(set.single, "item")
-	set.idle, set.fight = caption(f, L["Out of combat"]), caption(f, L["In combat"])
 	local faces = set.faces
 	faces.hearth.Cooldown:SetCooldown(GetTime and GetTime() - 600 or 0, 3600)
 	faces.bag.Icon:SetTexture(DEMO_BAG_ICON)
@@ -154,326 +82,315 @@ local function buildSet(f)
 	target.aList = { L["Rot Hide Mongrel"], L["Scarlet Warrior"], L["Executor Zygand"] }
 	target.aVerbs = { "kill", "collect", "turnin" }
 	target.aIds, target.aMarks, target.aCycle = {}, { false, false, false }, 1
-	hotspot(f, faces.hearth, "buttons.hearthSize")
-	hotspot(f, faces.item, "buttons.itemSize")
-	hotspot(f, target, "buttons.targetSize")
-	hotspot(f, target.Label, "qol.buttonTextSide")
-	hotspot(f, set.combat, "buttons.alpha")
-	-- The world: the target's mob near the set, the rare further off and
-	-- smaller (UI.Preview.Mob: a nameplate and its spot on the ground).
-	local P, lv = ns.UI.Preview, ns.Levels and ns.Levels.Player and ns.Levels.Player() or {}
-	lv = max(1, lv.level or 18)
-	set.mob = P.Mob(f, { name = target.aList[1], level = lv, health = 0.64, target = true, mark = 8 })
-	set.far = P.Mob(f, { name = faces.rare.Label:GetText(), level = lv, ring = { Theme.Color("rare") } })
-	f:Light("qol.targetButton", set.mob)
-	f:Light("qol.rareButton", set.far)
-	-- The pointer on a setting's row lights the parts it changes.
-	local all = { faces.bag, faces.hearth, faces.item, target, faces.rare, set.combat }
-	local names = { target.Label, faces.rare.Label }
-	local keys = { faces.hearth.Hotkey, faces.item.Hotkey, target.Hotkey }
-	for key, parts in pairs({
-		["qol.buttonScale"] = { set.box, set.combat }, ["buttons.layout"] = { set.box }, ["buttons.spacing"] = { set.box },
-		["buttons.idleAlpha"] = { set.box }, ["buttons.alpha"] = { set.combat },
-		["buttons.itemSize"] = { faces.item, set.combat }, ["buttons.hearthSize"] = { faces.hearth }, ["buttons.targetSize"] = { target },
-		["buttons.rareSize"] = { faces.rare }, ["buttons.bagSize"] = { faces.bag },
-		["qol.itemButton"] = { faces.item, set.combat }, ["qol.hearthButton"] = { faces.hearth }, ["qol.targetButton"] = { target },
-		["qol.rareButton"] = { faces.rare },
-		["buttons.padding"] = all, ["buttons.backing"] = all, ["buttons.backingColor"] = all, ["buttons.border"] = all,
-		["buttons.borderColor"] = all, ["buttons.borderSize"] = all, ["buttons.hoverColor"] = all,
-		["buttons.glow"] = { faces.item, faces.hearth, faces.rare }, ["buttons.glowColor"] = { faces.item, faces.hearth, faces.rare },
-		["qol.buttonTextSide"] = names, ["buttons.labelScale"] = names, ["buttons.labelOutline"] = names,
-		["qol.targetPlate"] = { target, target.Label }, ["buttons.miniSize"] = { target },
-		["buttons.hotkey"] = keys, ["buttons.hotkeyScale"] = keys,
-		["buttons.count"] = { faces.item.Count, set.combat.Count }, ["buttons.cooldownText"] = { faces.hearth },
-	}) do
-		f:Light(key, unpack(parts))
-	end
 	return set
 end
 
--- The set's faces with the current values (their size, paint, a faint face
--- for a button turned off), and its columns for lineUp: the set out of
--- combat and, with `combat`, the quest item button in it.
-local function setColumns(f, set, combat)
-	local faces = set.faces
-	local live = Buttons.item
-	for _, b in ipairs({ faces.item, set.combat }) do
-		b.Icon:SetTexture(itemIcon(live and live.itemID, DEMO_ITEM_ICON))
-		b.Count:SetText("3")
-		b.Hotkey:SetText(keyFor("PolestarQuestItemButton", "E"))
-		-- Shown ready, so the glow setting shows.
-		b.psReady = true
-	end
+-- The set with the current values, as the player laid it out (buttons.layout,
+-- the names' side, the sizes and the scale; a button turned off is not
+-- drawn), at its opacity. -> its natural size (band units, k = 1) and what
+-- places it at (left, top, k), centred on its buttons with the names hanging
+-- to their side; nil with no button on.
+local function setContent(self, set)
+	local faces, snap = set.faces, ns.UI.Preview.Snap
+	local item, live, target = faces.item, Buttons.item, faces.target
+	item.Icon:SetTexture(itemIcon(live and live.itemID, DEMO_ITEM_ICON))
+	item.Count:SetText("3")
+	item.Hotkey:SetText(keyFor("PolestarQuestItemButton", "E"))
+	-- Shown ready, so the glow setting shows.
+	item.psReady = true
 	faces.hearth.Icon:SetTexture(itemIcon(QoL.Client and QoL.Client.HEARTHSTONE, DEMO_HEARTH_ICON))
 	faces.hearth.Hotkey:SetText(keyFor("PolestarHearthButton", "H"))
-	faces.target.Hotkey:SetText(keyFor("PolestarTargetButton", "T"))
+	target.Hotkey:SetText(keyFor("PolestarTargetButton", "T"))
 	for _, b in ipairs(set.list) do
 		local size = Buttons.Size(b.psKind)
 		b:SetSize(size, size)
 		Buttons.Paint(b)
-		b:SetAlpha(QoL.On(SWITCH[b.psKind]) and 1 or 0.3)
+		-- A button turned off is not on screen: not in the band either.
+		b:SetShown(QoL.On(SWITCH[b.psKind]) and true or false)
 	end
-	set.combat:SetSize(Buttons.Size("item"), Buttons.Size("item"))
-	Buttons.Paint(set.combat)
-	set.combat:SetAlpha(QoL.On("itemButton") and 1 or 0.3)
-	set.group:SetAlpha(Buttons.Alpha(false))
-	set.single:SetAlpha(Buttons.Alpha(true))
-
-	-- The set's box from its offsets, the names' room on their side.
+	set.group:SetAlpha(Buttons.Alpha(set.combat))
 	local at = Buttons.Offsets()
 	local x0, x1, y0, y1 = math.huge, -math.huge, math.huge, -math.huge
+	local bx0, bx1, by0, by1 = math.huge, -math.huge, math.huge, -math.huge
+	local function grow(l, r, b, t) x0, x1, y0, y1 = min(x0, l), max(x1, r), min(y0, b), max(y1, t) end
+	local side = ns.Get("qol.buttonTextSide") or "right"
 	for _, b in ipairs(set.list) do
 		local o, h = at[b.psKind], Buttons.Size(b.psKind) / 2
 		b:ClearAllPoints()
 		b:SetPoint("CENTER", set.group, "CENTER", o[1], o[2])
-		x0, x1, y0, y1 = min(x0, o[1] - h), max(x1, o[1] + h), min(y0, o[2] - h), max(y1, o[2] + h)
-	end
-	local side = ns.Get("qol.buttonTextSide")
-	local left = side == "left" and NAME_W or 0
-	local right = (side == "right" or side == nil) and NAME_W or 0
-	local up = side == "above" and NAME_H or 0
-	local down = side == "below" and NAME_H or 0
-	local t = f:TrueScale()
-	local s = (tonumber(ns.Get("qol.buttonScale")) or 1) * t
-	-- The world it acts on: the target's raid mark while Mark target is on,
-	-- the rare's ring in the rares' colour.
-	local mob, far = set.mob, set.far
-	local mark = tonumber(ns.Get("qol.markMob"))
-	mob.Mark:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_" .. ((mark and mark >= 1 and mark <= 8) and floor(mark) or 8))
-	mob.Mark:SetShown(QoL.On("markTarget") and true or false)
-	far:Tint(Theme.Color("rare"))
-	-- In stage units at k = 1 from the quest item button's centre (y up):
-	-- the set with its names; the target a little left of it, its plate
-	-- level with the set's top; the rare further left, further off (smaller
-	-- and higher up), as they stand around you when the buttons name them.
-	local FAR = 0.8
-	local sx0, sx1, sy0, sy1 = (x0 - left) * s, (x1 + right) * s, (y0 - down) * s, (y1 + up) * s
-	local mx, my = sx0 - (mob.HALF + 64) * t, sy1 - (mob.UP + 8) * t
-	local fx, fy = mx - (mob.HALF + far.HALF * FAR + 36) * t, my + 34 * t
-	local L, R = min(sx0, fx - far.HALF * FAR * t), sx1
-	local T = max(sy1, my + mob.UP * t, fy + far.UP * FAR * t)
-	local B = min(sy0, my - 18 * t, fy - 18 * FAR * t)
-	local cols = {}
-	cols[1] = { w = R - L, h = T - B, foot = set.box, caption = set.idle,
-		place = function(k, l, top)
-			-- The quest item button's centre on the stage.
-			local cx, cy, g = l - L * k, top + T * k, s * k
-			set.group:SetScale(g)
-			set.group:ClearAllPoints()
-			set.group:SetPoint("CENTER", f, "TOPLEFT", cx / g, -cy / g)
-			set.box:ClearAllPoints()
-			set.box:SetPoint("TOPLEFT", f, "TOPLEFT", cx + x0 * g, -(cy - y1 * g))
-			set.box:SetSize((x1 - x0) * g, (y1 - y0) * g)
-			mob:Stand(cx + mx * k, cy - my * k, t * k)
-			far:Stand(cx + fx * k, cy - fy * k, t * k * FAR)
-		end }
-	set.fight:SetShown(combat and true or false)
-	set.single:SetShown(combat and true or false)
-	if combat then
-		local size = Buttons.Size("item") * s
-		cols[2] = { w = size, h = size, foot = set.combat, caption = set.fight,
-			place = function(k, l, t)
-				local g = s * k
-				set.single:SetScale(g)
-				set.single:ClearAllPoints()
-				set.single:SetPoint("CENTER", f, "TOPLEFT", (l + size * k / 2) / g, -(t + size * k / 2) / g)
-				set.combat:ClearAllPoints()
-				set.combat:SetPoint("CENTER", set.single, "CENTER", 0, 0)
-			end }
-	end
-	return cols
-end
-
----------------------------------------------------------------------------
--- The floating button and the minimap button, on the edge of a minimap.
----------------------------------------------------------------------------
-
-local MINIMAP_D = 140 -- the game's minimap, across
-
-local function buildOthers(f)
-	local UI, Maps = ns.UI, ns.Maps
-	local o = {}
-	if UI and UI.Launcher and UI.Launcher.Face then
-		o.launcher = UI.Launcher.Face(CreateFrame("Button", nil, f))
-		o.lCap = caption(f, L["Floating button"])
-		hotspot(f, o.launcher, "ui.launcherSize")
-		for _, key in ipairs({ "ui.launcherSize", "ui.launcher", "ui.launcherAlpha", "ui.launcherIcon", "ui.launcherBack" }) do
-			f:Light(key, o.launcher)
+		if b:IsShown() then
+			grow(o[1] - h, o[1] + h, o[2] - h, o[2] + h)
+			bx0, bx1, by0, by1 = min(bx0, o[1] - h), max(bx1, o[1] + h), min(by0, o[2] - h), max(by1, o[2] + h)
+			-- The names beside the target and rare buttons, as drawn.
+			local lab = rawget(b, "Label")
+			if lab and lab:IsShown() and (lab:GetText() or "") ~= "" then
+				local lw, lh = lab:GetStringWidth() or 0, lab:GetStringHeight() or 12
+				if side == "left" then grow(o[1] - h - 6 - lw, o[1], o[2] - lh / 2, o[2] + lh / 2)
+				elseif side == "above" then grow(o[1] - lw / 2, o[1] + lw / 2, o[2], o[2] + h + 4 + lh)
+				elseif side == "below" then grow(o[1] - lw / 2, o[1] + lw / 2, o[2] - h - 4 - lh, o[2])
+				else grow(o[1], o[1] + h + 6 + lw, o[2] - lh / 2, o[2] + lh / 2) end
+			end
 		end
 	end
-	if Maps and Maps.MinimapButtonFace then
-		-- A minimap as the Map pins page draws one: its ground, its rim and
-		-- the player's arrow in the middle.
-		o.mm = CreateFrame("Frame", nil, f)
-		o.disc = o.mm:CreateTexture(nil, "BACKGROUND")
-		o.disc:SetTexture("Interface\\AddOns\\Polestar\\Media\\Nav\\pin-fill")
-		o.disc:SetPoint("CENTER")
-		o.disc:SetSize(MINIMAP_D * 64 / 42, MINIMAP_D * 64 / 42) -- pin-fill's disc covers 42 of its 64 pixels
-		o.disc:SetVertexColor(0.16, 0.2, 0.13, 1)
-		local rim = o.mm:CreateTexture(nil, "BORDER")
-		rim:SetTexture("Interface\\AddOns\\Polestar\\Media\\Map\\ring")
-		rim:SetAllPoints(o.mm)
-		W.Painter(rim, function(t)
-			local r, g, b = Theme.Color("textDim")
-			t:SetVertexColor(r, g, b, 0.6)
-		end)
-		local me = o.mm:CreateTexture(nil, "OVERLAY")
-		me:SetTexture("Interface\\Minimap\\MinimapArrow")
-		me:SetSize(26, 26)
-		me:SetPoint("CENTER")
-		o.minimap = Maps.MinimapButtonFace(CreateFrame("Button", nil, f))
-		o.mCap = caption(f, L["Minimap button"])
-		hotspot(f, o.minimap, "maps.minimapButtonSize")
-		for _, key in ipairs({ "maps.minimapButtonSize", "maps.minimapButton", "maps.minimapButtonIcon" }) do
-			f:Light(key, o.minimap)
+	set.box:SetShown(bx0 <= bx1)
+	if bx0 > bx1 then return nil end
+	local g0 = (tonumber(ns.Get("qol.buttonScale")) or 1) * self:TrueScale()
+	-- Centred on the buttons, the names hanging to their side: a box as wide
+	-- either side of the buttons' middle as the farther edge.
+	local bcx = (bx0 + bx1) / 2
+	local half = max(bcx - x0, x1 - bcx)
+	return 2 * half * g0, (y1 - y0) * g0, function(left, top, k)
+		local g = g0 * k
+		set.group:SetScale(g)
+		set.group:ClearAllPoints()
+		local cx, cy = left + (half - bcx) * g, top + y1 * g
+		set.group:SetPoint("CENTER", self, "TOPLEFT", snap(self, cx) / g, -snap(self, cy) / g)
+		set.box:ClearAllPoints()
+		set.box:SetPoint("TOPLEFT", self, "TOPLEFT", cx + bx0 * g, -(cy - by1 * g))
+		set.box:SetSize((bx1 - bx0) * g, (by1 - by0) * g)
+	end
+end
+
+-- One frame alone (the floating button, the minimap button, the travel
+-- button) at its real size, painted first. -> its size and place
+local function oneContent(self, b, paint)
+	if paint then paint(b) end
+	local t, snap = self:TrueScale(), ns.UI.Preview.Snap
+	local bw, bh = b:GetWidth() * t, b:GetHeight() * t
+	return bw, bh, function(left, top, k)
+		local g = t * k
+		b:SetScale(g)
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", self, "TOPLEFT", snap(b, left / g), snap(b, -top / g))
+	end
+end
+
+-- Elements side by side, APART between them, their feet on one line, a
+-- label under each. items: { { w, h, place, label }, ... } -> the band's Content values
+local function lineUp(items)
+	local total, tall, labels = 0, 0, {}
+	for i, it in ipairs(items) do
+		if it.label then labels[#labels + 1] = { it.label, total + it.w / 2 } end
+		total = total + it.w + (i < #items and APART or 0)
+		tall = max(tall, it.h)
+	end
+	return total, tall, function(left, top, k)
+		local x = left
+		for _, it in ipairs(items) do
+			it.place(x, top + (tall - it.h) * k, k)
+			x = x + (it.w + APART) * k
 		end
-	end
-	return o
+	end, #labels > 0 and labels or nil
 end
 
--- Drawn even while turned off: how each would look. -> lineUp's columns
-local function otherColumns(f, o)
-	local UI, Maps = ns.UI, ns.Maps
-	local t = f:TrueScale()
-	local cols = {}
-	if o.launcher then
-		UI.Launcher.Paint(o.launcher)
-		local lw, lh = o.launcher:GetWidth() * t, o.launcher:GetHeight() * t
-		cols[#cols + 1] = { w = lw, h = lh, foot = o.launcher, caption = o.lCap,
-			place = function(k, l, top)
-				local g = t * k
-				o.launcher:SetScale(g)
-				o.launcher:ClearAllPoints()
-				o.launcher:SetPoint("CENTER", f, "TOPLEFT", (l + lw * k / 2) / g, -(top + lh * k / 2) / g)
-			end }
-	end
-	if o.minimap then
-		Maps.PaintMinimapButton(o.minimap)
-		local bw = o.minimap:GetWidth()
-		-- The disc and the button on its edge where the live one sits by
-		-- default: 225 degrees, its centre just past the rim.
-		local a, r = math.rad(225), MINIMAP_D / 2 + 5
-		local over = max(0, r + bw / 2 - MINIMAP_D / 2)
-		local d = (MINIMAP_D + over) * t
-		cols[#cols + 1] = { w = d, h = d, foot = o.mm, caption = o.mCap,
-			place = function(k, l, top)
-				local g = t * k
-				o.mm:SetScale(g)
-				o.mm:SetSize(MINIMAP_D, MINIMAP_D)
-				o.mm:ClearAllPoints()
-				-- The disc in the column's top right, the button over its lower left edge.
-				o.mm:SetPoint("TOPLEFT", f, "TOPLEFT", (l + over * g) / g, -top / g)
-				o.minimap:SetScale(g)
-				o.minimap:ClearAllPoints()
-				o.minimap:SetPoint("CENTER", o.mm, "CENTER", math.cos(a) * r, math.sin(a) * r)
-			end }
-	end
-	return cols
-end
-
----------------------------------------------------------------------------
--- The travel button under the arrow (Nav/Prompts.lua's PolestarTravelButton,
--- the Hearthstone's other button): the arrow (Nav's own dial) and under it a
--- plain frame in the travel button's look (the panel, the icon, the
--- hairline; never the secure button), holding your Hearthstone.
----------------------------------------------------------------------------
-
-local TRAVEL, TRAVEL_GAP = 36, 6 -- Prompts.lua's SIZE and GAP
-
-local function buildTravel(f)
-	local A = ns.Nav and ns.Nav.arrow
-	if not (ns.Nav and ns.Nav.prompts and A and A.BuildDial) then return nil end
-	local tr = { A = A, look = {}, holder = CreateFrame("Frame", nil, f) }
-	tr.holder:SetSize(A.WIDTH, A.HEIGHT + TRAVEL_GAP + TRAVEL)
-	local dial = CreateFrame("Frame", nil, tr.holder)
-	dial:SetSize(A.WIDTH, A.HEIGHT)
-	dial:SetPoint("TOP", tr.holder, "TOP", 0, 0)
-	tr.dial = A.BuildDial(dial)
-	local b = CreateFrame("Frame", nil, tr.holder)
+-- The travel button (Nav/Prompts.lua's PolestarTravelButton, the
+-- Hearthstone's other button), alone: a plain frame in its look (the panel,
+-- the icon, the hairline; never the secure button), holding your
+-- Hearthstone, faint while it is turned off. nil without the prompts.
+local function newTravel(f)
+	if not (ns.Nav and ns.Nav.prompts) then return nil end
+	local b = CreateFrame("Frame", nil, f)
 	b:SetSize(TRAVEL, TRAVEL)
-	b:SetPoint("TOP", dial, "BOTTOM", 0, -TRAVEL_GAP)
 	W.Fill(b, "panel", "BACKGROUND")
 	b.Icon = b:CreateTexture(nil, "ARTWORK")
 	b.Icon:SetPoint("TOPLEFT", b, "TOPLEFT", 2, -2)
 	b.Icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 2)
 	b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	tr.button = b
-	tr.cap = caption(f, L["Travel button"])
 	hotspot(f, b, "nav.castPrompt")
 	f:Light("nav.castPrompt", b)
-	return tr
+	return b
 end
 
--- Its column for lineUp: the arrow toward the leg's end, the button under it
--- (faint while turned off, as a button of the set is).
-local function travelColumn(f, tr)
-	local A, t = tr.A, f:TrueScale()
-	A.ReadLook(tr.look)
-	A.PaintDial(tr.dial, tr.look, A.StyleFor(ns.Get("nav.arrowStyle")), "travel", 0.4, 1240, L["Goldshire"])
-	local b = tr.button
+local function paintTravel(b)
 	b.Icon:SetTexture(itemIcon(QoL.Client and QoL.Client.HEARTHSTONE, DEMO_HEARTH_ICON))
 	local r, g, bl, a = Theme.Color("border")
 	Theme.Border(b, r, g, bl, (a or 0.08) * 2.5)
 	b:SetAlpha(ns.Get("nav.castPrompt") and 1 or 0.3)
-	local w, h = tr.holder:GetWidth() * t, tr.holder:GetHeight() * t
-	return { w = w, h = h, foot = b, caption = tr.cap,
-		place = function(k, l, top)
-			local g = t * k
-			tr.holder:SetScale(g)
-			tr.holder:ClearAllPoints()
-			tr.holder:SetPoint("TOPLEFT", f, "TOPLEFT", l / g, -top / g)
-		end }
 end
 
--- The Action buttons tab: the set over its world, the combat button, and the
--- travel button under the arrow. f.Faces, f.Mobs, f.Travel: its parts, for
--- the tests.
-local function buildActionPreview(view)
-	local set, tr
-	local f = stage(view, function(f)
-		set = set or buildSet(f)
-		if tr == nil then tr = buildTravel(f) or false end
-		local cols = setColumns(f, set, true)
-		if tr then cols[#cols + 1] = travelColumn(f, tr) end
-		lineUp(f, cols)
-	end)
-	f.Faces = function() return set and set.faces, set and set.combat end
-	f.Mobs = function() return set and set.mob, set and set.far end
-	f.Travel = function() return tr and tr.button end
+-- Action buttons: the set out of combat and in it (the tab sets the combat
+-- opacity), side by side, labelled; its dropdown picks the travel button
+-- instead, alone, and hovering its row picks it (f:Focus). f.Faces, f.Travel,
+-- f.Pick: its parts and its pick, for the tests.
+local function buildActionBand(view)
+	local pick = "action"
+	local picker = ns.Nav and ns.Nav.prompts and { choices = { { value = "action", label = L["Action buttons"] }, { value = "travel", label = L["Travel button"] } },
+		get = function() return pick end, set = function(v) pick = v end } or nil
+	local f = ns.UI.Preview.Band(view, { watch = { "buttons.", "qol.", "nav.castPrompt" }, picker = picker })
+	local travel = newTravel(f)
+	local idle, fight = newSet(f, false), newSet(f, true)
+	idle.label, fight.label = f:Label(L["Out of combat"]), f:Label(L["In combat"])
+	local fo, ff = idle.faces, fight.faces
+	hotspot(f, fo.hearth, "buttons.hearthSize")
+	hotspot(f, fo.item, "buttons.itemSize")
+	hotspot(f, fo.target, "buttons.targetSize")
+	hotspot(f, fo.target.Label, "qol.buttonTextSide")
+	hotspot(f, ff.item, "buttons.alpha")
+	-- The pointer on a setting's row lights the parts it changes, in both sets.
+	local function both(...)
+		local out = {}
+		for i = 1, select("#", ...) do
+			local kind = select(i, ...)
+			out[#out + 1], out[#out + 2] = fo[kind], ff[kind]
+		end
+		return out
+	end
+	local names = { fo.target.Label, fo.rare.Label, ff.target.Label, ff.rare.Label }
+	local keys = { fo.hearth.Hotkey, fo.item.Hotkey, fo.target.Hotkey, ff.hearth.Hotkey, ff.item.Hotkey, ff.target.Hotkey }
+	local all = both("bag", "hearth", "item", "target", "rare")
+	local boxes = { idle.box, fight.box }
+	for key, parts in pairs({
+		["qol.buttonScale"] = boxes, ["buttons.layout"] = boxes, ["buttons.spacing"] = boxes,
+		["buttons.idleAlpha"] = { idle.box }, ["buttons.alpha"] = { fight.box },
+		["buttons.itemSize"] = both("item"), ["buttons.hearthSize"] = both("hearth"), ["buttons.targetSize"] = both("target"),
+		["buttons.rareSize"] = both("rare"), ["buttons.bagSize"] = both("bag"),
+		["qol.itemButton"] = both("item"), ["qol.hearthButton"] = both("hearth"), ["qol.targetButton"] = both("target"),
+		["qol.rareButton"] = both("rare"),
+		["buttons.padding"] = all, ["buttons.backing"] = all, ["buttons.backingColor"] = all, ["buttons.border"] = all,
+		["buttons.borderColor"] = all, ["buttons.borderSize"] = all, ["buttons.hoverColor"] = all,
+		["buttons.glow"] = both("item", "hearth", "rare"), ["buttons.glowColor"] = both("item", "hearth", "rare"),
+		["qol.buttonTextSide"] = names, ["buttons.labelScale"] = names, ["buttons.labelOutline"] = names,
+		["qol.targetPlate"] = { fo.target, fo.target.Label, ff.target, ff.target.Label }, ["buttons.miniSize"] = both("target"),
+		["buttons.hotkey"] = keys, ["buttons.hotkeyScale"] = keys,
+		["buttons.count"] = { fo.item.Count, ff.item.Count }, ["buttons.cooldownText"] = both("hearth"),
+	}) do
+		f:Light(key, unpack(parts))
+	end
+	f.Faces = function() return fo, ff.item end
+	f.Travel = function() return travel end
+	f.Pick = function(v)
+		if v ~= nil then pick = v end
+		return pick
+	end
+	function f:Focus(key)
+		local want = key == "nav.castPrompt" and "travel" or key and "action" or pick
+		if travel and want ~= pick then
+			pick = want
+			ns.UI.Preview.Again(self)
+		end
+	end
+	function f:Content()
+		local onTravel = travel and pick == "travel"
+		for _, set in ipairs({ idle, fight }) do
+			set.group:SetShown(not onTravel)
+			set.box:SetShown(not onTravel)
+			set.label:SetShown(not onTravel)
+		end
+		if travel then travel:SetShown(onTravel and true or false) end
+		if onTravel then return oneContent(self, travel, paintTravel) end
+		local items = {}
+		for _, set in ipairs({ idle, fight }) do
+			local w, h, place = setContent(self, set)
+			if w then items[#items + 1] = { w = w, h = h, place = place, label = set.label } end
+		end
+		if #items == 0 then return nil end
+		return lineUp(items)
+	end
 	return f
 end
 
--- The Launcher & minimap tab.
-local function buildLauncherPreview(view)
-	local o
-	local f = stage(view, function(f)
-		o = o or buildOthers(f)
-		lineUp(f, otherColumns(f, o))
-	end)
-	f.Faces = function() return o and o.launcher, o and o.minimap end
+-- Launcher & minimap: the floating button and the minimap button side by
+-- side, each alone, labelled; one turned off drawn faint, as it would look.
+-- f.Faces: its parts, for the tests.
+local function buildLauncherBand(view)
+	local UI, Maps = ns.UI, ns.Maps
+	local f = ns.UI.Preview.Band(view, { watch = { "ui.launcher", "maps.minimapButton" } })
+	local parts = {}
+	if UI and UI.Launcher and UI.Launcher.Face then
+		local b = UI.Launcher.Face(CreateFrame("Button", nil, f))
+		parts[#parts + 1] = { b = b, paint = UI.Launcher.Paint, on = function() return ns.Get("ui.launcher") end, label = f:Label(L["Floating button"]) }
+		hotspot(f, b, "ui.launcherSize")
+		for _, key in ipairs({ "ui.launcherSize", "ui.launcher", "ui.launcherAlpha", "ui.launcherIcon", "ui.launcherBack" }) do f:Light(key, b) end
+		f.psLauncher = b
+	end
+	if Maps and Maps.MinimapButtonFace then
+		local b = Maps.MinimapButtonFace(CreateFrame("Button", nil, f))
+		parts[#parts + 1] = { b = b, paint = Maps.PaintMinimapButton, on = function() return ns.Get("maps.minimapButton") ~= false end, label = f:Label(L["Minimap button"]) }
+		hotspot(f, b, "maps.minimapButtonSize")
+		for _, key in ipairs({ "maps.minimapButtonSize", "maps.minimapButton", "maps.minimapButtonIcon" }) do f:Light(key, b) end
+		f.psMinimap = b
+	end
+	f.Faces = function() return rawget(f, "psLauncher"), rawget(f, "psMinimap") end
+	function f:Content()
+		if #parts == 0 then return nil end
+		local items = {}
+		for i, p in ipairs(parts) do
+			local w, h, place = oneContent(self, p.b, p.paint)
+			p.b:SetAlpha(p.on() and 1 or 0.35)
+			items[i] = { w = w, h = h, place = place, label = p.label }
+		end
+		return lineUp(items)
+	end
 	return f
 end
 
--- Essentials: the set over its world, the floating button and the minimap
--- button, side by side.
-local function buildEssentialsPreview(view)
-	local set, o
-	local f = stage(view, function(f)
-		set = set or buildSet(f)
-		o = o or buildOthers(f)
-		local cols = setColumns(f, set, false)
-		for _, c in ipairs(otherColumns(f, o)) do cols[#cols + 1] = c end
-		lineUp(f, cols)
-	end)
-	f.Faces = function() return set and set.faces, set and set.combat end
-	f.Mobs = function() return set and set.mob, set and set.far end
+-- Essentials, a band: its dropdown picks the action button set, the floating
+-- button or the minimap button, shown alone at its real size; the set out of
+-- combat, as the player laid it out. f.Faces, f.Pick: its parts and its pick,
+-- for the tests.
+local function buildEssentialsBand(view)
+	local UI, Maps = ns.UI, ns.Maps
+	local pick = "action"
+	local choices = { { value = "action", label = L["Action buttons"] } }
+	local launcher = UI and UI.Launcher and UI.Launcher.Face
+	local minimap = Maps and Maps.MinimapButtonFace
+	if launcher then choices[#choices + 1] = { value = "launcher", label = L["Floating button"] } end
+	if minimap then choices[#choices + 1] = { value = "minimap", label = L["Minimap button"] } end
+	local f = ns.UI.Preview.Band(view, { watch = { "buttons.", "qol.", "ui.launcher", "maps.minimapButton" },
+		picker = { choices = choices, get = function() return pick end, set = function(v) pick = v end } })
+	local set = newSet(f, false)
+	local faces = set.faces
+	local target = faces.target
+	local hots = { set = {}, launcher = {}, minimap = {} }
+	hots.set = { f:Hot(faces.hearth, "buttons.hearthSize"), f:Hot(faces.item, "buttons.itemSize"), f:Hot(target, "buttons.targetSize"),
+		f:Hot(faces.rare, "buttons.rareSize") }
+	local names = { target.Label, faces.rare.Label }
+	for key, parts in pairs({
+		["qol.buttonScale"] = { set.box }, ["buttons.layout"] = { set.box }, ["buttons.idleAlpha"] = { set.box },
+		["buttons.itemSize"] = { faces.item }, ["buttons.hearthSize"] = { faces.hearth }, ["buttons.targetSize"] = { target },
+		["buttons.rareSize"] = { faces.rare }, ["buttons.bagSize"] = { faces.bag },
+		["qol.itemButton"] = { faces.item }, ["qol.hearthButton"] = { faces.hearth }, ["qol.targetButton"] = { target },
+		["qol.rareButton"] = { faces.rare }, ["qol.buttonTextSide"] = names,
+	}) do
+		f:Light(key, unpack(parts))
+	end
+	local lb, mb
+	if launcher then
+		lb = launcher(CreateFrame("Button", nil, f))
+		hots.launcher = { f:Hot(lb, "ui.launcherSize") }
+		for _, key in ipairs({ "ui.launcherSize", "ui.launcher", "ui.launcherAlpha", "ui.launcherIcon", "ui.launcherBack" }) do f:Light(key, lb) end
+	end
+	if minimap then
+		mb = minimap(CreateFrame("Button", nil, f))
+		hots.minimap = { f:Hot(mb, "maps.minimapButtonSize") }
+		for _, key in ipairs({ "maps.minimapButtonSize", "maps.minimapButton", "maps.minimapButtonIcon" }) do f:Light(key, mb) end
+	end
+	f.Faces = function() return faces, lb, mb end
+	f.Pick = function(v)
+		if v ~= nil then pick = v end
+		return pick
+	end
+	function f:Content()
+		local onSet = pick == "action"
+		set.group:SetShown(onSet)
+		set.box:SetShown(onSet)
+		if lb then lb:SetShown(pick == "launcher") end
+		if mb then mb:SetShown(pick == "minimap") end
+		for which, list in pairs(hots) do
+			local on = (which == "set" and onSet) or which == pick
+			for _, h in pairs(list) do h:SetShown(on) end
+		end
+		if pick == "launcher" and lb then return oneContent(self, lb, UI.Launcher.Paint) end
+		if pick == "minimap" and mb then return oneContent(self, mb, Maps.PaintMinimapButton) end
+		return setContent(self, set)
+	end
 	return f
 end
 
 -- The previews, for the tests: (parent) -> f.
-Buttons.ActionPreview = buildActionPreview
-Buttons.LauncherPreview = buildLauncherPreview
-Buttons.EssentialsPreview = buildEssentialsPreview
+Buttons.ActionPreview = buildActionBand
+Buttons.LauncherPreview = buildLauncherBand
+Buttons.EssentialsPreview = buildEssentialsBand
 
 ---------------------------------------------------------------------------
 -- The controls (CONTRACT-V2 layout): one section per element in the order
@@ -526,7 +443,7 @@ local ICON_CHOICES = {
 local SPECS = {
 	-- The set as a whole: its scale, the way it lines up, the gaps, how solid it is.
 	{ page = PAGE, key = "buttons", icon = "icon-use", order = 25, group = "look", tab = ACTION, section = L["Button set"],
-		preview = buildActionPreview,
+		preview = buildActionBand,
 		subtitle = L["The quest item, Hearthstone, target and rare buttons, the travel button under the arrow, the floating button and the minimap button."],
 		controls = {
 		{ kind = "slider", key = "qol.buttonScale", label = L["Scale"], min = 0.6, max = 1.6, step = 0.05, format = percent,
@@ -634,7 +551,7 @@ local SPECS = {
 	} },
 
 	-- The floating button and the minimap button: each on/off beside its size.
-	{ page = PAGE, tab = OTHER, section = L["Floating & minimap"], preview = buildLauncherPreview, controls = {
+	{ page = PAGE, tab = OTHER, section = L["Floating & minimap"], preview = buildLauncherBand, controls = {
 		{ kind = "slider", key = "ui.launcherSize", label = L["Floating button"], min = 16, max = 96, step = 1, format = px, new = NEW,
 			help = L["The floating button's size. The switch beside it shows it: a small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it."],
 			search = "launcher size, floating button size, bigger, smaller, huge, tiny",
@@ -745,7 +662,7 @@ if O and O.PresetCards and O.Ref then
 	}
 	local ESSENTIALS = L["Essentials"]
 	local list = {
-		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildEssentialsPreview,
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildEssentialsBand,
 			controls = { O.PresetCards({ presets = PRESETS }) } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Buttons"], jump = { tab = ACTION, section = L["Buttons"] },
 			controls = { R("slider", "buttons.itemSize"), R("slider", "buttons.hearthSize"), R("slider", "buttons.targetSize"), R("slider", "buttons.rareSize") } },

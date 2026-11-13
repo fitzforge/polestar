@@ -813,6 +813,10 @@ local function paintRow(r, g, note, width, title)
 	r.Title:SetWidth(0) -- measured below from scratch, as the note
 	r.Title:SetText(title or g.title or g.id)
 	W.Color(r.Title, sel and "text" or ((done or gate) and "textDim" or "text"))
+	-- On the selected row's wash the muted range and tab note go a step up,
+	-- so they keep 4.5:1 there as on the plain ground.
+	W.Color(r.Range, sel and "textDim" or "textMuted")
+	W.Color(r.Note, sel and "textDim" or "textMuted")
 	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
@@ -1185,13 +1189,18 @@ local function buildDetails()
 		P.ToggleFavorite(P.Selected())
 	end, 14)
 	d.Star:SetPoint("RIGHT", win.Close, "LEFT", -4, 0)
-	-- On a bright painting the two glyphs need a dark ground of their own:
-	-- 4 past the pair at either end, 2 above and below.
+	-- On a bright painting the glyphs need a dark ground of their own: 4 past
+	-- them at either end, 2 above and below. In the game's looks the close is
+	-- the frame's own, on its corner (W.FrameClose), and the ground holds the
+	-- star alone, still clear of that corner.
 	d.Scrim = W.Pill(d.Art.Over, 68, 32)
-	d.Scrim:SetPoint("TOPRIGHT", win.Close, "TOPRIGHT", 4, 2)
 	W.Painter(d.Scrim, function(p)
 		local r, g, b = Theme.Color("scrim")
 		p:SetColor(r, g, b, 0.6)
+		local alone = Theme.Kit() ~= nil
+		p:SetWidth(alone and 36 or 68)
+		p:ClearAllPoints()
+		p:SetPoint("TOPRIGHT", alone and d.Star or win.Close, "TOPRIGHT", 4, 2)
 	end)
 	d.Scrim:SetFrameLevel(d.Art.Over:GetFrameLevel())
 	win.Close:SetFrameLevel(d.Scrim:GetFrameLevel() + 2)
@@ -2198,6 +2207,13 @@ local function build()
 		segButtons[i] = b
 	end
 	win.factionButtons = segButtons
+	-- The tabs end 8 short of it (W.ShellTabs: the game looks' wider tabs give
+	-- up their padding before they would run under it).
+	win.psTabRoom = function()
+		local filter = -2
+		for _, b in ipairs(segButtons) do filter = filter + b:GetWidth() + 2 end
+		return MID_W - 2 * (SH.pad - 12) - filter - 8
+	end
 
 	buildDetails()
 	win:HookScript("OnShow", function() P.Render() end)

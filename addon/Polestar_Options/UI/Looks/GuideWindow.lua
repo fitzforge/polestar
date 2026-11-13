@@ -8,14 +8,15 @@
 -- (UI/GuideFrame.lua: readMetrics, GF.LOOK, GF.ApplyLook) and shows on it at
 -- once.
 --
--- Each tab pins the same live preview over its rows: a step card laid out by
--- the window's own sizes (GF.Metrics), its own text roles, size groups
--- (GF.SIZE_KEYS), outline, target bar and progress paint, over the zone you
--- stand in, at its true size on a soft shadow, cropped at the hero's foot
--- and scrolled to the part the last changed setting edits; a click on a part
--- jumps to its row, and the pointer on a row lights the parts it changes. It
--- is fed a fixed demo step, never the live window or the Engine, is built the
--- first time a tab shows, and repaints only while shown.
+-- Each tab pins the same live preview over its rows, a band: the window
+-- alone, laid out by the window's own sizes (GF.Metrics), its own text roles,
+-- size groups (GF.SIZE_KEYS), outline, target bar and progress paint, at its
+-- real size on the settings window's plain ground; taller than the band's
+-- room, cut there, faded into the ground and scrolled to the part the last
+-- changed setting edits. A click on a part jumps to its row, and the pointer
+-- on a row lights the parts it changes. It is fed a fixed demo step, never
+-- the live window or the Engine, is built the first time a tab shows, and
+-- repaints only while shown.
 
 local ns = Polestar
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -42,8 +43,7 @@ local function look(key) return ns.Get("guideWindow." .. key) end
 -- The preview
 ---------------------------------------------------------------------------
 
-local PREVIEW_H = 250 -- laid out alone; the settings window gives its hero's height
-local TOP = 36 -- under the "Preview" caption
+local PREVIEW_H = 250 -- the drawing's height until its band lays it out
 
 -- The settings that change what the preview draws (besides guideWindow.*
 -- and the theme, which W.Painter follows).
@@ -78,19 +78,11 @@ local function demoGoals()
 	}
 end
 
--- The window's parts drawn into f: a stage (the page's own preview), or a
--- frame in another page's scene (UI.GuideWindowScene) that answers the
--- stage's Hot, Light, LightEdge, Floor, TrueScale and SetCut. `top`: the
--- room kept over it (the window's chrome over a stage of its own). -> f
+-- The window's parts drawn into f, a frame on a band (UI.GuideWindowScene)
+-- that answers the band's Hot, Light, LightEdge and TrueScale, and its own
+-- SetCut. `top`: the room kept over it. -> f
 local function buildWindow(f, top)
 	f.texts = {}
-	-- The settings window draws "Preview" and "Live" over it; the caption
-	-- says how large the window is drawn when the stage makes it smaller.
-	f.caption = function()
-		local k, s = f.psScale or 1, tonumber(ns.Get("ui.scale")) or 1
-		if k >= s - 0.001 then return nil end
-		return string.format(L["Drawn at %s of its size"], percent(k / s))
-	end
 
 	-- A string of the window: its role and colour as the window's, `group`
 	-- its size setting (GF.SIZE_KEYS), `spacing` its own line spacing.
@@ -400,6 +392,8 @@ local function buildWindow(f, top)
 			span(r, y, y + h)
 			y = y + h
 		end
+		-- The goals' foot (window units): where a scene cut under them ends.
+		self.psRowsFoot = y
 
 		-- The tip, one line.
 		at.tip = y
@@ -420,9 +414,10 @@ local function buildWindow(f, top)
 		end
 		y = y + 6
 
-		-- Up next.
-		up:SetShown(not isCompact)
-		if not isCompact then
+		-- Up next, while it is on (ui.upcoming: how many steps; 0, the default, off).
+		local showUp = not isCompact and (tonumber(ns.Get("ui.upcoming")) or 0) > 0
+		up:SetShown(showUp)
+		if showUp then
 			local h = M.upToggle + M.upRow + 6
 			up:ClearAllPoints()
 			up:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, -y)
@@ -484,15 +479,15 @@ local function buildWindow(f, top)
 		gw:SetAlpha((ns.Get("ui.opacity") or 1) * (self.psHover and 1 or G.Num("idleAlpha")))
 
 		-- The window at its true size (its Scale on the game's UI scale;
-		-- smaller only when the page is too narrow for its width), on a soft
-		-- shadow in the middle of the hero when it fits; taller, cropped at
-		-- the hero's foot and scrolled to the part the last setting changed edits.
+		-- smaller only when the band is too narrow for its width), in the
+		-- middle of its box when it fits; taller, cropped at the box's foot
+		-- and scrolled to the part the last setting changed edits.
 		local s = (tonumber(ns.Get("ui.scale")) or 1) * self:TrueScale()
 		local k = s * min(1, (width - 32) / (w * s))
 		local room = (self.psHeight - top - 8) / k
 		local scroll, drop = 0, 0
 		if y > room then
-			local part = at[self.psFocus or "bars"] or 0
+			local part = rawget(self, "psNoScroll") and 0 or at[self.psFocus or "bars"] or 0
 			scroll = max(0, min(y - room, part - 12))
 		else
 			drop = rawget(self, "psTopAligned") and 0 or (room - y) / 2
@@ -503,17 +498,14 @@ local function buildWindow(f, top)
 		gw:SetPoint("TOPLEFT", self, "TOPLEFT", snap(gw, (width / k - w) / 2), snap(gw, -top / k + scroll - drop))
 		self.psScale, self.psScroll = k, scroll
 		-- A part the crop would cut through is left out: no text cut in two
-		-- at the hero's foot (or its top, scrolled), the window's ground
+		-- at the box's foot (or its top, scrolled), the window's ground
 		-- running on under the fade.
 		local seen = scroll + (self.psHeight - top) / k
 		for _, sp in ipairs(spans) do
 			sp[1]:SetAlpha((sp[2] >= scroll - 0.5 and sp[3] <= seen + 0.5) and 1 or 0)
 		end
-		-- A window running past the stage's foot fades out there, no shadow
-		-- under it; one that fits stands on its shadow.
-		local cut = y - scroll > room + 0.5
-		if cut then self:NoFloor(gw) else self:Floor(gw) end
-		self:SetCut(cut)
+		-- A window running past its box's foot fades out there.
+		self:SetCut(y - scroll > room + 0.5)
 		self:Hotspots()
 	end
 
@@ -579,8 +571,7 @@ local function buildWindow(f, top)
 		self.psFocus = part
 		if self:IsVisible() then self:Paint() else self.psDirty = true end
 	end
-	-- The theme (skin, scheme, accent, font): the window again (the stage
-	-- paints its own backdrop).
+	-- The theme (skin, scheme, accent, font): the window again.
 	W.Painter(f.Back, function() f:Refresh() end)
 	ns.On("SETTING_CHANGED", function(path)
 		if not (WATCH[path] or (type(path) == "string" and path:sub(1, 12) == "guideWindow.")) then return end
@@ -588,7 +579,7 @@ local function buildWindow(f, top)
 		f:Refresh()
 	end)
 
-	-- -> the hero's height (PREVIEW_H laid out alone), the window centred
+	-- -> the box's height (PREVIEW_H laid out alone), the window centred
 	-- across `width`.
 	function f:Layout(width, height)
 		self:SetWidth(width)
@@ -599,30 +590,57 @@ local function buildWindow(f, top)
 	return f
 end
 
+-- The page's preview, a band (UI.Preview.Band): the window alone at its real
+-- size, centred; taller than the band's room, cut there and faded into the
+-- band's ground, scrolled to the part the last setting changed or the
+-- hovered row edits (f:Focus). The window's own room a side; the band keeps
+-- its pads and its hint line out of the element's room.
+local SIDE = 16
 local function buildPreview(view)
-	-- The settings window's preview stage: the window over the world it
-	-- floats over, the zone you stand in (its opacity shows on it).
-	return buildWindow(ns.UI.Preview.Stage(view, { height = PREVIEW_H, backdrop = "world" }), TOP)
+	local P = ns.UI.Preview
+	local f = P.Band(view, { watch = { "ui.", "guideWindow.", "nav.nearbyButton" } })
+	local G = UI.GuideWindowScene(f)
+	-- Its own page: the window's parts click and light, the crop scrolls.
+	G.psNoHot, G.psNoScroll = nil, nil
+	f.Scene, f.Guide = G, G.Window
+	function f:Focus(key) G:Focus(key) end
+	function f:Content()
+		local s = (tonumber(ns.Get("ui.scale")) or 1) * self:TrueScale()
+		-- Laid out whole at its own scale first: its natural size.
+		G:Layout(1e5, 1e5)
+		local winW, winH = G.Window:GetWidth() * s, G.Window:GetHeight() * s
+		local room = self.psRoom and max(60, self.psRoom - 2 * P.BAND_PAD - P.LINE_GAP - P.LINE_H) or winH + 8
+		-- Whole: its height and the 8 its crop keeps under it; else the room, cut.
+		local h = min(winH + 8, room)
+		return winW, h, function(left, top, k)
+			G:ClearAllPoints()
+			G:SetPoint("TOPLEFT", self, "TOPLEFT", P.Snap(self, left - SIDE), -P.Snap(self, top))
+			G:SetSize(winW * k + 2 * SIDE, h * k)
+			G:Layout(winW * k + 2 * SIDE, h * k)
+		end
+	end
+	return f
 end
 -- For the tests: buildPreview(parent) -> f.
 UI.GuideWindowPreview = buildPreview
 
--- The guide window as a part of another page's scene (the Theme page's):
--- the same window, drawn into a frame on `stage` (its parts click and light
--- through that stage), at the top of its box; c:Layout(width, height) lays
--- it out for that box, cropped and faded out at its foot when taller. -> c
+-- The guide window as a part of a band: the same window, drawn into a frame
+-- on `band` (its parts click and light through that band), at the top of its
+-- box; c:Layout(width, height) lays it out for that box, cropped at its foot
+-- when taller and faded over CUT_FADE px into the band's ground, never
+-- scrolled (the Guide window page's own preview scrolls it: psNoScroll off).
+-- c.psRowsFoot: its goals' foot, in window units, once laid out. -> c
 -- (c.Window: the window)
-function UI.GuideWindowScene(stage)
-	local c = CreateFrame("Frame", nil, stage)
+local CUT_FADE = 28
+function UI.GuideWindowScene(band)
+	local c = CreateFrame("Frame", nil, band)
 	if c.SetClipsChildren then c:SetClipsChildren(true) end
-	c.Back, c.psHeight, c.psTopAligned, c.psNoHot = c, PREVIEW_H, true, true
-	function c:Hot(region, key) return stage:Hot(region, key) end
-	function c:Light(key, ...) return stage:Light(key, ...) end
-	function c:LightEdge(key, ...) return stage:LightEdge(key, ...) end
-	function c:Floor(frame, pad) return stage:Floor(frame, pad) end
-	function c:NoFloor(frame) return stage:NoFloor(frame) end
-	function c:TrueScale() return stage:TrueScale() end
-	-- The crop's fade, as a stage's (over the window, the scrim's colour).
+	c.Back, c.psHeight, c.psTopAligned, c.psNoHot, c.psNoScroll = c, PREVIEW_H, true, true, true
+	function c:Hot(region, key) return band:Hot(region, key) end
+	function c:Light(key, ...) return band:Light(key, ...) end
+	function c:LightEdge(key, ...) return band:LightEdge(key, ...) end
+	function c:TrueScale() return band:TrueScale() end
+	-- The crop's fade, over the window, into the band's ground.
 	local over = CreateFrame("Frame", nil, c)
 	over:SetAllPoints(c)
 	over:SetFrameLevel(c:GetFrameLevel() + 12)
@@ -630,12 +648,12 @@ function UI.GuideWindowScene(stage)
 	c.Fade:SetTexture(Theme.Media("white"))
 	c.Fade:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
 	c.Fade:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", 0, 0)
-	c.Fade:SetHeight(28)
+	c.Fade:SetHeight(CUT_FADE)
 	c.Fade:Hide()
 	W.Painter(c.Fade, function(t)
-		local r, g, b = Theme.Color("scrim")
+		local r, g, b = Theme.Color("bg")
 		if t.SetGradient and CreateColor then
-			t:SetGradient("VERTICAL", CreateColor(r, g, b, 0.92), CreateColor(r, g, b, 0))
+			t:SetGradient("VERTICAL", CreateColor(r, g, b, 1), CreateColor(r, g, b, 0))
 		else
 			t:SetVertexColor(r, g, b, 0.6)
 		end
@@ -891,6 +909,9 @@ if O and O.PresetCards and O.Ref then
 			m = CreateFrame("Frame", nil, art)
 			m.Ground = CreateFrame("Frame", nil, m)
 			m.Ground:SetAllPoints(m)
+			-- The guide window's paint, not a big window's (title bar, drag
+			-- strip and metal over the card, #1802).
+			m.Ground.psGuide = true
 			Theme.Skin(m.Ground, "window")
 			-- The text, ticks and bar over the window's ground (a child frame
 			-- draws over its parent's own regions).

@@ -6,7 +6,7 @@
 -- in its glow. Each card is a panel with its hairline and reads top-down on
 -- one grid shared by every card: the zone painting inset 6px (a dark hairline
 -- round it) with its name on it; the stat row that decides it for a leveller
--- ("10–14 · ~2 min away · 28 quests", the levels in text, the rest dim) at
+-- ("10–14 · ≈2 min away · 28 quests", the levels in text, the rest dim) at
 -- the same y on every card; the state chip; the author's pitch; then at most
 -- 3 pros and 2 cons, one line each. The full pitch, pros and cons are in the
 -- card's tooltip. The recommended zone (one the character has not
@@ -54,13 +54,14 @@ local function inCombat()
 	return InCombatLockdown and InCombatLockdown() or false
 end
 
--- "~3 min away" from travel seconds; nil when unknown.
+-- "≈3 min away" from travel seconds ("~" in a face without "≈": Theme.Approx);
+-- nil when unknown.
 local function awayText(seconds)
 	if type(seconds) ~= "number" then return nil end
 	if seconds < 60 then return L["Right here"] end
 	local m = floor(seconds / 60 + 0.5)
 	if m >= 90 then return L["A long trip from here"] end
-	return string.format(L["~%d min away"], m)
+	return string.format(L["%s min away"], Theme.Approx() .. m)
 end
 
 local function levelsText(o)
@@ -205,7 +206,7 @@ local function fillCard(c, o, grid)
 	c.psArt = ZoneArt.Paint(c.Art, o.zone, o.focusX, o.focusY, c.psIndex)
 	c.Name:SetText(o.zoneName or o.title or o.id)
 	c.Name:SetWidth(inner)
-	-- "10–14 · ~2 min away · 28 quests"
+	-- "10–14 · ≈2 min away · 28 quests"
 	local facts = {}
 	local away = awayText(o.seconds)
 	if away then facts[#facts + 1] = away end
@@ -307,23 +308,7 @@ local function build()
 	head:SetScript("OnDragStart", function() F:StartMoving() end)
 	head:SetScript("OnDragStop", function() F:StopMovingOrSizing() end)
 	F.Header = head
-	F.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
-	F.Night:SetTexture(Theme.Media("white"))
-	F.Night:SetAllPoints(head)
-	W.Painter(F.Night, function(t)
-		t:SetShown(Theme.SkinKey() == "polestar")
-		local tr, tg, tb = Theme.Color("scrim")
-		local br, bg, bb = Theme.Color("bg")
-		if t.SetGradient and CreateColor then
-			t:SetVertexColor(1, 1, 1, 1)
-			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
-		else
-			t:SetVertexColor(br, bg, bb, 1)
-		end
-	end)
-	if W.Haze then F.Haze = W.Haze(head, { height = HEAD_H, sub = -6 }) end
-	F.Band = Theme.Band(head, "BACKGROUND", -5)
-	F.Band:SetAllPoints(head)
+	F.Night, F.Haze, F.Band = W.Night(head, { height = HEAD_H, sub = -6 })
 	F.HeadRule = W.Divider(head)
 	F.HeadRule:SetPoint("BOTTOMLEFT", head, "BOTTOMLEFT", 0, 0)
 	F.HeadRule:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT", 0, 0)
@@ -347,6 +332,7 @@ local function build()
 	F.Subtitle:SetJustifyV("TOP")
 	F.Close = W.IconButton(head, "close", 28, L["Close"], function() RC.Hide() end, 14)
 	F.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
+	W.FrameClose(F, F.Close)
 
 	-- Footer: always take the recommendation; decide later.
 	local foot = CreateFrame("Frame", nil, F)

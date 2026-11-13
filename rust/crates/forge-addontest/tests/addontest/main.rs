@@ -372,6 +372,8 @@ mod skins_bundled;
 mod skins_concepts;
 #[path = "skins-hearth.rs"]
 mod skins_hearth;
+#[path = "skins-login.rs"]
+mod skins_login;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
 mod stranded;
@@ -404,6 +406,8 @@ mod ui_import;
 mod ui_journey;
 #[path = "ui-look-buttons.rs"]
 mod ui_look_buttons;
+#[path = "ui-look-glow.rs"]
+mod ui_look_glow;
 #[path = "ui-look-guidewindow.rs"]
 mod ui_look_guidewindow;
 #[path = "ui-look-theme.rs"]

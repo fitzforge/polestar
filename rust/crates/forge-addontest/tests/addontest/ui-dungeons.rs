@@ -1213,7 +1213,7 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 		json!({
 			"shown": true,
 			"dungeon": "wailing-caverns",
-			"head": "LEVEL 20 · DUNGEON",
+			"head": "Level 20 · Dungeon",
 			"title": "Wailing Caverns is open to you",
 			"line": "2 quests to pick up  ·  Levels 17–24  ·  The Barrens",
 			"badge": "+25% OF A LEVEL",
@@ -1343,7 +1343,7 @@ fn the_dungeon_card_waits_for_the_dungeons_best_at_level_not_the_start_of_its_ra
 		end
 		emit({{ best = Polestar.Dungeons.BestAt("wailing-caverns"), seen = seen }})"#
 	));
-	assert_eq!(out[0], json!({ "best": 19, "seen": [false, false, "LEVEL 19 · DUNGEON"] }));
+	assert_eq!(out[0], json!({ "best": 19, "seen": [false, false, "Level 19 · Dungeon"] }));
 }
 
 // No card when the quests to take now are worth under a tenth of a level (MIN_WORTH): with Trouble at the Docks
@@ -1395,9 +1395,9 @@ fn a_dungeon_card_put_off_with_later_below_best_at_comes_back_once_at_best_at_th
 		end
 		emit({{ after = card().shown }})"#
 	));
-	assert_eq!(out[0], json!({ "early": "LEVEL 18 · DUNGEON", "told": "later" }));
+	assert_eq!(out[0], json!({ "early": "Level 18 · Dungeon", "told": "later" }));
 	assert_eq!(out[1], json!({ "again18": false }), "not before best-at");
-	assert_eq!(out[2], json!({ "back": "LEVEL 19 · DUNGEON", "told": true }));
+	assert_eq!(out[2], json!({ "back": "Level 19 · Dungeon", "told": true }));
 	assert_eq!(out[3], json!({ "after": false }), "once only");
 }
 
@@ -1487,10 +1487,11 @@ fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_with
 	assert_eq!(out[1], json!({ "shown": false, "printed": ["No dungeon has opened up for this character."] }));
 }
 
-// #869's screenshot: on the guide window at its narrowest the header ("LEVEL 19 · DUNGEON") wrapped and was cut
+// #869's screenshot: on the guide window at its narrowest the header ("Level 19 · Dungeon") wrapped and was cut
 // beside the chip, and "Turn these off" ran to the card's edge. Where they don't fit on one line, the chip goes
-// under the header; where the buttons don't fit in one row, Later and Turn these off take a row of their own
-// under the actions, and no row runs past the card's edge.
+// under the header (in the house look, where the facts line sits under the title, under the facts); where the
+// buttons don't fit in one row, Later and Turn these off take a row of their own under the actions, and no row runs
+// past the card's edge.
 #[test]
 fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside_the_card() {
 	let out = run(&format!(
@@ -1511,13 +1512,15 @@ fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside
 				sums[#rows] = (sums[#rows] or 0) + gap + b:GetWidth()
 				r[#r + 1] = names[b]
 			end
-			for _, s in ipairs(sums) do if s > width - 32 then fits = false end end
-			emit({{ chip = f.Badge:GetPoint(1), oneLine = f.Head:GetUnboundedStringWidth() <= f.Head:GetWidth(), badge = f.Badge.Text:GetText(),
+			-- Inside the card: from the first button's left edge to the card's right padding (14).
+			local left = select(4, f.Act:GetPoint(1))
+			for _, s in ipairs(sums) do if s > width - left - 14 then fits = false end end
+			emit({{ under = select(4, f.Badge:GetPoint(1)) == select(4, f.Giver:GetPoint(1)), oneLine = f.Head:GetUnboundedStringWidth() <= f.Head:GetWidth(), badge = f.Badge.Text:GetText(),
 				rows = rows, fits = fits }})
 		end"#
 	));
-	assert_eq!(out[0], json!({ "chip": "TOPRIGHT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act", "more", "later", "off"]], "fits": true }), "beside them on a wide window");
-	assert_eq!(out[1], json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
+	assert_eq!(out[0], json!({ "under": false, "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act", "more", "later", "off"]], "fits": true }), "beside them on a wide window");
+	assert_eq!(out[1], json!({ "under": true, "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
 }
 
 // Fitz's design for #836, offered from one level below the quests' level (Fitz, 2026-11-10: the game gives many
@@ -1658,7 +1661,7 @@ fn the_login_and_hand_in_checks_never_load_the_codex_the_login_one_runs_once_it_
 		emit({{ loaded = X.IsLoaded(), shown = card().dungeon or false, head = card().head or false }})"#
 	));
 	assert_eq!(out[0], json!({ "start": false, "loaded": false, "shown": false }));
-	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "LEVEL 19 · DUNGEON" }));
+	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "Level 19 · Dungeon" }));
 }
 
 // Fitz (2026-11-07): The Hall of Thanes is in Ironforge; Horde can do it, but only through Ironforge. The level 20

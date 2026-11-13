@@ -170,7 +170,9 @@ function TS.ApplyLook(frame, relayout)
 		Theme.Repaint(frame)
 		if frame:IsShown() and not Anim.IsRunning(frame, "alpha") then frame:SetAlpha(1) end
 	elseif not t.inline then
-		if not t.noScale or t.sandbox then frame:SetScale(TS.Scale(kind) * (frame.psFit or 1)) end
+		-- A sandbox copy a settings preview places keeps the scale it gave it
+		-- (psBandScale): a repaint (a new UI scale) leaves it where it stands.
+		if not t.noScale or t.sandbox then frame:SetScale(frame.psBandScale or TS.Scale(kind) * (frame.psFit or 1)) end
 		paintGround(frame, kind)
 		paintAccents(frame, kind, t.accents)
 		if frame:IsShown() and not Anim.IsRunning(frame, "alpha") then frame:SetAlpha(TS.Alpha(kind)) end

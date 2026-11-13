@@ -56,6 +56,7 @@ function W.Color(region, name, alpha)
 	if region:GetObjectType() == "Texture" then
 		region:SetVertexColor(r, g, b, a)
 	else
+		Theme.OwnFont(region)
 		region:SetTextColor(r, g, b, a)
 	end
 	return region
@@ -174,9 +175,10 @@ end
 
 ---------------------------------------------------------------------------
 -- W.Tip: the settings window's own tooltip (DESIGN.md "Tooltip"): one
--- shared frame on the panel ground at 92% with a hairline at 15%, padded 8,
--- at most 250 wide; the title in Label, the lines in Small at 80% (a line
--- given as { text, r, g, b } keeps its colour), 3 apart. Centred 4 over the
+-- shared frame on the menus' ground (menuBg: never see-through) with a
+-- hairline at 15%, padded 8, at most 250 wide; the title in Label, the
+-- lines in Small at 80% (a line given as { text, r, g, b } keeps its
+-- colour), 3 apart. Centred 4 over the
 -- anchor (the row's label), under it where the screen ends; no delay, a
 -- 0.2s fade in and out. Its owner's scale is its own (the Menu scale).
 ---------------------------------------------------------------------------
@@ -194,10 +196,8 @@ local function tipFrame()
 	tip.Ground = tip:CreateTexture(nil, "BACKGROUND")
 	tip.Ground:SetTexture(WHITE)
 	tip.Ground:SetAllPoints(tip)
-	W.Painter(tip.Ground, function(t)
-		local r, g, b = Theme.Color("panel")
-		t:SetVertexColor(r, g, b, 0.92)
-	end)
+	-- Over other frames, as a menu: never see-through (Theme's menuBg).
+	W.Painter(tip.Ground, function(t) t:SetVertexColor(Theme.Color("menuBg")) end)
 	W.Painter(tip, function(f)
 		local r, g, b = Theme.Color("text")
 		Theme.Border(f, r, g, b, 0.15)
@@ -499,6 +499,18 @@ function W.SetIconState(b, active, enabled)
 	b.psActive = active and true or false
 	if enabled == false then b:Disable() else b:Enable() end
 	W.Color(b.Icon, b.psActive and "accent" or "icon", b:IsEnabled() and 1 or 0.35)
+end
+
+-- A big window's own close button. The game's looks draw a close of their
+-- own on the window frame's corner (Polestar_Looks/GameSkins.lua), which
+-- stands for it, so it shows in the other looks only. The window is painted
+-- again now that its close exists: the corner close is then there from the
+-- first paint, where only a repaint drew it, beside or over this one.
+function W.FrameClose(f, close)
+	close:SetShown(not Theme.Kit())
+	Theme.OnChanged(function() close:SetShown(not Theme.Kit()) end)
+	Theme.Repaint(f)
+	return close
 end
 
 -- A text button. opts: { primary = true, ghost = true, danger = true,
@@ -1205,20 +1217,37 @@ local function sliderRefresh(self)
 	sliderPaint(self)
 end
 
+-- A slider row's track: its value box 8 to its right. The game's looks stand
+-- a stepper either side of it (Theme.KitSlider): the track gives them its
+-- room (row.psStepBack, row.psStepForward), so the control keeps its span
+-- and the value box, and a swatch left of a compact half's control, stay
+-- clear of them; they covered part of the box and the swatch. A full row's
+-- label makes room for the back stepper itself (W.SkinSlider).
+local function placeTrack(row)
+	local s = row.Slider
+	local back, forward = row.psCompact and row.psStepBack or 0, row.psStepForward or 0
+	s:ClearAllPoints()
+	s:SetPoint("RIGHT", row.Value, "LEFT", -(VALUE_PAD + 8 + forward), 0)
+	s:SetWidth(max(1, (row.psTrackW or Theme.Metric("sliderW", SLIDER_W)) - back - forward))
+end
+
 -- A slider's parts in the skin in use (rows and the guide window's own).
 function W.SkinSlider(self)
 	local hearth = Theme.SkinKey() == "hearth"
 	local s = self.Slider
 	if self.psRow then
 		self:SetHeight(keptHeight(self))
-		s:SetWidth(self.psTrackW or Theme.Metric("sliderW", SLIDER_W))
 		self.Value:SetWidth(self.psValueW or Theme.Metric("valueW", VALUE_W))
 	end
 	self.Thumb:SetTexCoord(0, 1, 0, 1)
 	-- A row's label ends short of the slider: further in the game's looks,
 	-- where the back stepper stands left of the track.
-	local kitDrawn = Theme.KitSlider(self, s, self.Thumb)
+	local kitDrawn, back, forward = Theme.KitSlider(self, s, self.Thumb)
 	self.psKitGap = kitDrawn and 10 or 0
+	if self.psRow then
+		self.psStepBack, self.psStepForward = kitDrawn and back or 0, kitDrawn and forward or 0
+		placeTrack(self)
+	end
 	if self.psRow and self.Label and not self.psDetails then self.Label:SetPoint("RIGHT", s, "LEFT", kitDrawn and -20 or -10, 0) end
 	if kitDrawn then
 		-- The game's looks: their own track and thumb, the value in gold.
@@ -1279,8 +1308,8 @@ local function sliderSpan(row, width)
 	local valueW = valueWidth(row)
 	local fixed = 12 + VALUE_PAD + valueW + VALUE_PAD + 8 + 10
 	local trackW = max(SLIDER_MIN, min(SLIDER_W, width - 12 - fixed - math.ceil(textWidth(row.Label))))
-	row.Slider:SetWidth(trackW)
 	row.psTrackW = trackW
+	placeTrack(row)
 	sliderPaint(row)
 	return fixed + trackW
 end
@@ -1308,8 +1337,8 @@ local function sliderEntry(row)
 	e:SetAutoFocus(false)
 	e:SetHeight(24)
 	e:SetTextInsets(6, 6, 0, 0)
-	e:SetJustifyH("RIGHT")
 	Theme.Font(e, "number")
+	e:SetJustifyH("RIGHT")
 	W.Color(e, "text")
 	Theme.Skin(e, "editbox")
 	e:SetScript("OnEnterPressed", function(self)
@@ -1488,6 +1517,8 @@ local function buildMenu()
 	menu:SetFrameLevel(20)
 	menu:SetClampedToScreen(true)
 	menu:EnableMouse(true)
+	-- Over other frames: its ground never see-through (Theme's menuBg).
+	menu.psMenu = true
 	Theme.Skin(menu, "panel")
 	menu.rows = {}
 	menu.seps = {}
@@ -1840,9 +1871,7 @@ local function compactControl(row)
 		row.psTrackW = COMPACT_SLIDER
 		row.Value:ClearAllPoints()
 		row.Value:SetPoint("RIGHT", row, "RIGHT", -(right + VALUE_PAD), 0)
-		row.Slider:ClearAllPoints()
-		row.Slider:SetPoint("RIGHT", row.Value, "LEFT", -(VALUE_PAD + INLINE_GAP), 0)
-		row.Slider:SetWidth(COMPACT_SLIDER)
+		placeTrack(row)
 		return function(self)
 			return COMPACT_SLIDER + INLINE_GAP + 2 * VALUE_PAD + valueWidth(self)
 		end
@@ -2211,6 +2240,9 @@ local function scrollDrag(bar)
 	scrollUpdate(sf)
 end
 
+-- The bar stands this far in from the area's right edge.
+local BAR_IN = 2
+
 function W.Scroll(parent)
 	local sf = CreateFrame("ScrollFrame", nil, parent)
 	local child = CreateFrame("Frame", nil, sf)
@@ -2225,8 +2257,8 @@ function W.Scroll(parent)
 	sf:SetScript("OnSizeChanged", scrollUpdate)
 	local bar = CreateFrame("Button", nil, sf)
 	bar:SetWidth(6)
-	bar:SetPoint("TOPRIGHT", sf, "TOPRIGHT", -2, 0)
-	bar:SetPoint("BOTTOMRIGHT", sf, "BOTTOMRIGHT", -2, 0)
+	bar:SetPoint("TOPRIGHT", sf, "TOPRIGHT", -BAR_IN, 0)
+	bar:SetPoint("BOTTOMRIGHT", sf, "BOTTOMRIGHT", -BAR_IN, 0)
 	bar.Thumb = bar:CreateTexture(nil, "OVERLAY")
 	bar.Thumb:SetTexture(WHITE)
 	bar.Thumb:SetWidth(2)
@@ -2248,6 +2280,15 @@ function W.Scroll(parent)
 	sf.Bar = bar
 	Theme.Skin(bar, "scrollbar")
 	return sf
+end
+
+-- The strip a scroll area's bar takes at the area's right edge: its margin,
+-- its width and what a game look's arrow buttons reach past it on the left
+-- (bar.psReach, Polestar_Looks/GameSkins.lua). Rows that take the mouse end
+-- short of it while the bar shows (W.ShellNav).
+function W.ScrollBarRoom(sf)
+	local bar = sf.Bar
+	return BAR_IN + bar:GetWidth() + (bar.psReach or 0)
 end
 
 -- Scroll `child` itself (created with the scroll area as its parent) in
@@ -2412,6 +2453,32 @@ function W.Haze(parent, opts)
 	return t
 end
 
+-- The night header of an alert or a window in the house style, filling
+-- `head` (a frame over its top): the scheme's scrim fading down into the
+-- ground, the haze hung from its top (W.Haze, `haze` its opts) and the
+-- starlit band. The scrim shows in the house style (Theme.SkinKey()
+-- "polestar"); with `own` the caller shows and hides `head` instead.
+-- -> night, haze, band
+function W.Night(head, haze, own)
+	local night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
+	night:SetTexture(WHITE)
+	night:SetAllPoints(head)
+	W.Painter(night, function(t)
+		if not own then t:SetShown(Theme.SkinKey() == "polestar") end
+		local tr, tg, tb = Theme.Color("scrim")
+		local br, bg, bb = Theme.Color("bg")
+		if t.SetGradient and CreateColor then
+			t:SetVertexColor(1, 1, 1, 1)
+			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
+		else
+			t:SetVertexColor(br, bg, bb, 1)
+		end
+	end)
+	local band = Theme.Band(head, "BACKGROUND", -5)
+	band:SetAllPoints(head)
+	return night, W.Haze(head, haze), band
+end
+
 ---------------------------------------------------------------------------
 -- The shared confirm dialog: a scrim over the screen, a 400 wide box on the
 -- window ground with its hairline and the rim, a title (an optional glyph
@@ -2524,7 +2591,10 @@ function W.Modal(spec)
 	box.Text:SetText(spec.text or "")
 	box.Text:SetShown((spec.text or "") ~= "")
 	local body = box.Text:IsShown() and math.ceil(box.Text:GetStringHeight()) + 8 or 0
-	box:SetHeight(MODAL_PAD + th + body + 20 + MODAL_FOOT)
+	-- The footer: the house look's (Theme.House "dialogFoot"), else MODAL_FOOT.
+	local foot = Theme.House("dialogFoot") or MODAL_FOOT
+	box.Foot:SetHeight(foot)
+	box:SetHeight(MODAL_PAD + th + body + 20 + foot)
 	local a = box.Action
 	a.psDanger, a.psPrimary = spec.danger and true or false, not spec.danger
 	W.SetButtonText(a, spec.action or L["OK"])
@@ -2548,9 +2618,11 @@ local HOUSE_SHELL = {
 	foot = 23, -- the version line's bottom, level with the rail's foot label
 }
 -- The shell's sizes follow the skin (Theme.Metric; DIRECTION_B_HALO.md §3:
--- 930 x 690, a 200 sidebar, 32 tabs, the body 28 from the edge, a 56 foot).
--- A window takes them as it is built: one built before a skin change keeps
--- its sizes until the interface reloads.
+-- 930 x 690, 32 tabs, the body 28 from the edge, a 56 foot). The sidebar is
+-- the house's 240 in every look: the direction's 200 put the settings tree's
+-- labels on two lines beside their counts. A window takes them as it is
+-- built: one built before a skin change keeps its sizes until the interface
+-- reloads.
 local SHELL_METRIC = { width = "shellW", height = "shellH", sidebar = "shellSidebar", header = "shellHeader",
 	tabs = "shellTabs", footer = "shellFooter", pad = "shellPad" }
 local SHELL = setmetatable({}, {
@@ -2612,19 +2684,20 @@ local function navButton(f, i)
 	b:SetHeight(NAV_ROW)
 	hoverTexture(b)
 	-- The selected row: in the house style an accent wash fading out to the
-	-- right (12 % to clear at 85 % of the row), elsewhere the selected wash.
+	-- right (12 % to clear at 85 % of the row), elsewhere the selected wash
+	-- across the row (which ends at the scroll bar while the list scrolls).
 	b.Selected = b:CreateTexture(nil, "BACKGROUND")
 	b.Selected:SetTexture(WHITE)
-	b.Selected:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
-	b.Selected:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
 	W.Painter(b.Selected, function(t)
-		local w = (f.psSidebar or SHELL.sidebar) - 1
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
+		t:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
 		if Theme.SkinKey() == "polestar" then
 			local r, g, bb = Theme.Accent()
-			t:SetWidth(w * 0.85)
+			t:SetWidth(((f.psSidebar or SHELL.sidebar) - 1) * 0.85)
 			gradient(t, r, g, bb, 0.12, r, g, bb, 0)
 		else
-			t:SetWidth(w)
+			t:SetPoint("TOPRIGHT", b, "TOPRIGHT", 0, 0)
 			if t.SetGradient and CreateColor then
 				local r, g, bb, a = Theme.Wash("selected")
 				t:SetGradient("HORIZONTAL", CreateColor(r, g, bb, a), CreateColor(r, g, bb, a))
@@ -2649,36 +2722,35 @@ local function navButton(f, i)
 	b.Label:SetWordWrap(true)
 	b.Label:SetMaxLines(2)
 	b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
+	-- The parts at the right edge (count, warning dot, chevron, New chip) are
+	-- placed by navRow.
 	b.Count = W.Text(b, "number", "textMuted")
 	b.Count:SetJustifyH("RIGHT")
-	b.Count:SetPoint("RIGHT", b, "RIGHT", -SHELL.side, 0)
 	-- A warning dot: something on that page needs the player's attention.
 	b.Dot = b:CreateTexture(nil, "ARTWORK")
 	b.Dot:SetTexture(Theme.Media("circle"))
 	b.Dot:SetSize(6, 6)
-	b.Dot:SetPoint("RIGHT", b, "RIGHT", -SHELL.side, 0)
 	W.Color(b.Dot, "warning")
 	b.Dot:Hide()
 	-- A group's fold chevron (down open, right folded).
 	b.Chevron = b:CreateTexture(nil, "ARTWORK")
 	b.Chevron:SetSize(12, 12)
-	b.Chevron:SetPoint("RIGHT", b, "RIGHT", -SHELL.side, 0)
 	b.Chevron:Hide()
 	-- New settings not seen yet: their count in an accent chip.
 	b.New = W.Chip(b)
-	b.New:SetPoint("RIGHT", b, "RIGHT", -SHELL.side + 4, 0)
 	b.New:Hide()
 	-- Settings off their default on that page: a small accent dot.
 	b.Changed = W.Tex(b, "ARTWORK", "circle", "accent")
 	b.Changed:SetSize(6, 6)
 	b.Changed:Hide()
 	b:SetScript("OnClick", function(self) if f.psOnNav and not self.psHeading then f.psOnNav(self.psKey) end end)
+	b.psShell = f
 	f.navButtons[i] = b
 	return b
 end
 
 -- items: { { key, label, icon, count, dot }, ... }; the active one is marked.
--- A row whose count is 0 recedes (no number, faded) but stays reachable; a
+-- A row whose count is 0 recedes (no number, muted) but stays reachable; a
 -- row with `dot` carries a warning dot at its right edge (no count then).
 -- { heading = true, label } is a muted heading over the rows after it, at
 -- the text edge, not a choice.
@@ -2700,7 +2772,11 @@ end
 local NAV_SEP, NAV_GROUP, NAV_INDENT = 17, 32, 12
 
 local function navRow(b, item, on)
-	b.psKey = item.key
+	b.psKey, b.psItem, b.psOn = item.key, item, on
+	-- The right edge's parts keep their place on the sidebar when the rows
+	-- end at the scroll bar (W.ShellNav): their margin gives up that strip,
+	-- down to 12 clear of the bar (a game look's bar is wide).
+	local pad = max(12, SHELL.side - (b.psShell.psNavRoom or 0))
 	local empty = item.count == 0
 	b.Icon:SetTexture(Theme.Media(item.icon or "compact"))
 	b.Icon:ClearAllPoints()
@@ -2717,10 +2793,18 @@ local function navRow(b, item, on)
 	else
 		b.New:Hide()
 	end
+	b.Count:ClearAllPoints()
+	b.Count:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.Dot:ClearAllPoints()
+	b.Dot:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.Chevron:ClearAllPoints()
+	b.Chevron:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.New:ClearAllPoints()
+	b.New:SetPoint("RIGHT", b, "RIGHT", -pad + 4, 0)
 	-- The changed dot, left of whatever stands at the right edge.
 	local edge = b.Dot:IsShown() and 6 or new and b.New:GetWidth() - 4 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) or 0
 	b.Changed:ClearAllPoints()
-	b.Changed:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + (edge > 0 and edge + 8 or 0)), 0)
+	b.Changed:SetPoint("RIGHT", b, "RIGHT", -(pad + (edge > 0 and edge + 8 or 0)), 0)
 	b.Changed:SetShown(item.changed and not item.group and true or false)
 	b.Chevron:SetShown(item.group and true or false)
 	b.Selected:SetShown(on)
@@ -2730,9 +2814,12 @@ local function navRow(b, item, on)
 		b.Selected:Hide()
 		b.Bar:Hide()
 	end
+	-- An empty row recedes in the muted text colour alone: a fade on top of
+	-- it drew its label under 3:1 in some looks (the colour is held to read).
+	-- Its glyph goes a step further, to the faintest text colour, so the row
+	-- reads as empty where muted text stands close to the rows' own (Hearth).
 	W.Color(b.Label, on and "text" or (empty and "textMuted" or "navRest"))
-	W.Color(b.Icon, on and "accent" or (empty and "textMuted" or "textDim"))
-	b:SetAlpha((empty and not on) and 0.55 or 1)
+	W.Color(b.Icon, on and "accent" or (empty and "textOff" or "textDim"))
 	b.psEmpty = empty
 	b.psHeading = item.heading and true or false
 	b.psGroup = item.group and true or false
@@ -2742,9 +2829,8 @@ local function navRow(b, item, on)
 	b.Label:ClearAllPoints()
 	if item.heading or item.group then
 		b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
-		b.Label:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + (item.group and 20 or 0)), 0)
+		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + (item.group and 20 or 0)), 0)
 		W.Color(b.Label, "textMuted")
-		b:SetAlpha(1)
 		if item.group then
 			b.Chevron:SetTexture(Theme.Media(item.folded and "chevron-right" or "chevron-down"))
 			W.Color(b.Chevron, "textMuted")
@@ -2756,7 +2842,7 @@ local function navRow(b, item, on)
 		local reserve = edge > 0 and edge + 8 or 0
 		if b.Changed:IsShown() then reserve = reserve + 6 + 8 end
 		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-		b.Label:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + reserve), 0)
+		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
 		b:Enable()
 	end
 end
@@ -2764,6 +2850,23 @@ end
 -- The tree's group headers are shorter than the rows.
 local function navRowH(item)
 	return item.group and NAV_GROUP or NAV_ROW
+end
+
+-- The rows' width: the sidebar's, less the scroll bar's strip while the list
+-- scrolls (its content past its view), so the bar and a game look's arrow
+-- buttons take the mouse over their whole strip: the rows covered them.
+-- Again after a repaint (content, view nil: as last laid out), as another
+-- look's bar takes another strip.
+local function navWidth(f, content, view)
+	local sf = f.NavScroll
+	content, view = content or sf.psContent or 0, view or sf.psView or 0
+	local room = content > view and view > 0 and W.ScrollBarRoom(sf) or 0
+	sf.Child:SetWidth((f.psSidebar or SHELL.sidebar) - 1 - room)
+	if room == (f.psNavRoom or 0) then return end
+	f.psNavRoom = room
+	for _, b in ipairs(f.navButtons) do
+		if b:IsShown() and b.psItem then navRow(b, b.psItem, b.psOn) end
+	end
 end
 
 function W.ShellNav(f, items, active, onSelect)
@@ -2803,7 +2906,7 @@ function W.ShellNav(f, items, active, onSelect)
 	for i = bi + 1, #f.navButtons do f.navButtons[i]:Hide() end
 	for i = ri + 1, #rules do rules[i]:Hide() end
 	local view = W.ShellNavHeight(f)
-	sf.Child:SetWidth((f.psSidebar or SHELL.sidebar) - 1)
+	navWidth(f, y, view)
 	W.SetScrollContent(sf, y, view)
 	-- A new selection is scrolled into view; a redraw with the same one (a
 	-- refresh, a guide picked in the list) keeps the place the player
@@ -2907,28 +3010,42 @@ function W.ShellPreview(f, host, height)
 end
 
 -- tabs: { { key, label }, ... } or nil (no tab row; the body moves up). A
--- single tab is no choice: its row is left out too.
+-- single tab is no choice: its row is left out too. f.psTabRoom (a function,
+-- optional): the width the tabs may take from the first one's left edge,
+-- when something stands at the row's right end (the hub's faction filter).
 function W.ShellTabs(f, tabs, active, onSelect)
 	f.psOnTab = onSelect
 	local n = tabs and #tabs or 0
 	if n == 1 and not f.psKeepOneTab then n = 0 end
-	local x = SHELL.pad - 12
+	local kit, labels = false, 0
 	for i = 1, n do
 		local t = shellTab(f, i)
 		t.psKey = tabs[i].key
 		t.Label:SetText(tabs[i].label)
 		local on = tabs[i].key == active
 		Theme.SetTabSelected(t, on)
-		-- The game's looks: MinimalTabTemplate, its small label on the art,
-		-- the tab 40 wider than it; the house tab 24 wider, its label centred.
-		local kit = Theme.KitTab(t, on, t.Label)
+		kit = Theme.KitTab(t, on, t.Label)
 		if not kit then
 			t.Label:ClearAllPoints()
 			t.Label:SetPoint("CENTER", t, "CENTER", 0, 0)
 		end
 		Theme.Font(t.Label, kit and "small" or "label")
-		t:SetWidth(floor(t.Label:GetStringWidth() + (kit and 40 or 24) + 0.5))
 		W.Color(t.Label, on and "text" or (kit and "tabRest" or "textDim"))
+		labels = labels + t.Label:GetStringWidth()
+	end
+	-- The game's looks: MinimalTabTemplate, its small label on the art, the
+	-- tab 40 wider than it; the house tab 24 wider, its label centred. Where
+	-- the row's room can't take that, the tabs give it up rather than run
+	-- under what stands at its end: the game's looks down to the house's 24
+	-- (their art's ends inside it), the others down to 16 (a skin with a
+	-- wider face fills the row sooner).
+	local pad = kit and 40 or 24
+	local room = n > 0 and f.psTabRoom and f.psTabRoom()
+	if room then pad = max(kit and 24 or 16, min(pad, floor((room - labels - 4 * (n - 1)) / n))) end
+	local x = SHELL.pad - 12
+	for i = 1, n do
+		local t = f.tabButtons[i]
+		t:SetWidth(floor(t.Label:GetStringWidth() + pad + 0.5))
 		t:ClearAllPoints()
 		t:SetPoint("BOTTOMLEFT", f.TabRow, "BOTTOMLEFT", x, 0)
 		t:Show()
@@ -3327,15 +3444,11 @@ function W.Shell(name, opts)
 	f.Subtitle:SetSpacing(2)
 	f.Close = W.IconButton(head, "close", 28, L["Close"], function() f:Hide() end, 14)
 	f.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
-	-- The game's looks put the close button on the window frame's corner.
-	f.Close:SetShown(not Theme.Kit())
+	W.FrameClose(f, f.Close)
 	Theme.OnChanged(function()
-		f.Close:SetShown(not Theme.Kit())
+		navWidth(f)
 		if rawget(f, "HeaderTools") then f.HeaderTools:Place() end
 	end)
-	-- The window frame's own close button (the game's looks) stands for this
-	-- one: paint again now that it exists.
-	Theme.Repaint(f)
 	if opts.scalePath then
 		f.HeaderTools = W.HeaderScale(f, opts.scalePath)
 		f.Title:SetPoint("TOPRIGHT", f.HeaderTools, "TOPLEFT", -16, -16)

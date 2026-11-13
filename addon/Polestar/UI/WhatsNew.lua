@@ -199,6 +199,7 @@ local function build()
 	F.Close = W.IconButton(F, "close", 28, L["Close"], close, 12)
 	F.Close:SetPoint("TOPRIGHT", F, "TOPRIGHT", -12, -12)
 	F.Close:SetFrameLevel(F:GetFrameLevel() + 40)
+	W.FrameClose(F, F.Close)
 
 	-- The footer: the notes' site on the left, the buttons on the right.
 	local foot = CreateFrame("Frame", nil, F)
