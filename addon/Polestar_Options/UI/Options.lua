@@ -319,8 +319,21 @@ local BUILTIN = {
 			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."],
 			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
-		-- Pause (Core/Init.lua, Core/Pause.lua): per character, like hiding; its two extras are
-		-- account settings.
+		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
+			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
+			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
+		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
+			help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."],
+			search = "minimap icon, minimap button, hide button, launcher" },
+		{ kind = "toggle", label = L["Keep the arrow when hidden"],
+			help = L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."],
+			search = "hide polestar, hidden, arrow only, keep arrow, minimap button, hide all",
+			needs = function() return ns.SetHideKeepsArrow ~= nil end,
+			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
+	} },
+	-- Pause (Core/Init.lua, Core/Pause.lua): per character, like hiding; its two extras are
+	-- account settings. A section of its own, so its rows stay together.
+	{ page = GUIDE, tab = L["Window"], section = L["Pause"], controls = {
 		{ kind = "toggle", label = L["Pause"],
 			help = L["The arrow, the guide window and its nudges step aside. Polestar resumes by itself when you leave a dungeon alive. Your quest progress keeps following your log. This character only."],
 			search = "pause, pause the guide, resume, dungeon, raid, instance, run, group, step aside, hide arrow",
@@ -333,17 +346,6 @@ local BUILTIN = {
 			search = "pause the guide, paused, automation", child = true },
 		{ kind = "binding", action = "POLESTAR_PAUSE", label = L["Pause the guide"],
 			help = L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] },
-		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
-			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
-			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
-		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
-			help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."],
-			search = "minimap icon, minimap button, hide button, launcher" },
-		{ kind = "toggle", label = L["Keep the arrow when hidden"],
-			help = L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."],
-			search = "hide polestar, hidden, arrow only, keep arrow, minimap button, hide all",
-			needs = function() return ns.SetHideKeepsArrow ~= nil end,
-			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
 		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock" },
