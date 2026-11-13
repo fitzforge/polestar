@@ -140,6 +140,8 @@ const GLYPHS = {
 		subtract(dot(9, 14.6, 6.6), ring(9, 14.6, 4.1, 1.3)),
 	),
 	'icon-level': union(polyline([[6, 12.5], [12, 6.5], [18, 12.5]], 2.6), polyline([[6, 18.5], [12, 12.5], [18, 18.5]], 2.6)),
+	// The trip to a zone on the route choice's cards: a clock face, its hands at ten past.
+	'icon-clock': union(ring(12, 12.4, 8.4), line(12, 12.4, 12, 7.6, 2.4), line(12, 12.4, 15.6, 14.4, 2.4)),
 	'icon-note': subtract(dot(12, 12, 9.5), union(line(12, 10.6, 12, 17, 2.5), dot(12, 7.1, 1.6))),
 	// Professions: rising bars for a skill rank, a scroll for a recipe to
 	// learn, an anvil for crafting.
@@ -665,6 +667,31 @@ function forever() {
 	return c;
 }
 
+// The route choice's ∞ pennant (UI/RouteChoice.lua), hanging from the top
+// edge of a zone's painting: a banner with a notch cut from its foot, as two
+// white masks the card tints from the look's tokens. `pennant` is the cloth
+// (its top runs off the texture: it hangs from the painting's edge),
+// `pennant-edge` the line down its sides and round the notch. 64x128, the
+// banner in the top 96 rows (shown with texcoords 0..0.75 down, at 26x39).
+const PENNANT = { W: 64, FOOT: 96, NOTCH: 76, EDGE: 2.2 };
+function pennantShape() {
+	const { W, FOOT, NOTCH } = PENNANT;
+	return sdf.polygon([[0, -4], [W, -4], [W, FOOT], [W / 2, NOTCH], [0, FOOT]]);
+}
+function pennant() {
+	return new Canvas(64, 128).fill(pennantShape(), [1, 1, 1, 1]);
+}
+function pennantEdge() {
+	const { W, FOOT, NOTCH, EDGE: e } = PENNANT;
+	const rim = sdf.union(
+		sdf.segment(e, -4, e, FOOT - 2, 0),
+		sdf.segment(e, FOOT - 2, W / 2, NOTCH + 1.5, 0),
+		sdf.segment(W / 2, NOTCH + 1.5, W - e, FOOT - 2, 0),
+		sdf.segment(W - e, FOOT - 2, W - e, -4, 0),
+	);
+	return new Canvas(64, 128).fill(sdf.intersect(sdf.offset(rim, 1.7), sdf.offset(pennantShape(), 0.5)), [1, 1, 1, 1]);
+}
+
 function generate(addonRoot) {
 	const dir = path.join(addonRoot, 'Media', 'UI');
 	const written = [];
@@ -679,6 +706,8 @@ function generate(addonRoot) {
 	written.push(emblem().write(path.join(dir, 'emblem.tga')));
 	written.push(emblemHot().write(path.join(dir, 'emblem-hot.tga')));
 	written.push(forever().write(path.join(dir, 'icon-forever.tga')));
+	written.push(pennant().write(path.join(dir, 'pennant.tga')));
+	written.push(pennantEdge().write(path.join(dir, 'pennant-edge.tga')));
 	written.push(watermark().write(path.join(dir, 'watermark.tga')));
 	written.push(band().write(path.join(dir, 'band.tga')));
 	written.push(bandStars().write(path.join(dir, 'band-stars.tga')));

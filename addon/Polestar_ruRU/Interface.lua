@@ -1836,6 +1836,11 @@ L["Both routes meet again in %s."] = "Оба маршрута снова схо�
 L["Every route meets again in %s."] = "Все маршруты снова сходятся в зоне %s."
 L["Pick where you want to level next."] = "Выберите, где качаться дальше."
 L["The experimental guides could not load (%s)."] = "Не удалось загрузить экспериментальные гайды (%s)."
+-- L["~%d min"] = ""
+-- L["A detour through %s"] = ""
+-- L["Experimental"] = ""
+-- L["Try %s"] = ""
+-- L["Most of its quests are new in Forever."] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "%2$s %1$d-го уровня"
