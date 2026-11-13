@@ -35,7 +35,9 @@ stub.advance(0.5)
 Polestar.UI.GuideFrame.Layout()
 stub.advance(0.5)`;
 
-const scaled = (s) => `Polestar.Set("ui.scale", ${s})
+// The window keeps its top-left corner on screen when the scale changes: at
+// 1.5 it starts further left, so all of it stays on the 1920-wide screen.
+const scaled = (s) => `${s > 1 ? 'Polestar.Set("ui.pos", { 1100, 690 })\nstub.advance(0.5)\n' : ''}Polestar.Set("ui.scale", ${s})
 stub.advance(0.5)`;
 
 const shots = {};
