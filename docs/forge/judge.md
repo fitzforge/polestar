@@ -74,8 +74,25 @@ finding, not a cascade.
 A chain starts at each guide that no `next` leads into and follows each guide's
 first `next` option without a `when`. Each chain is played by a set of
 *personas* (one race, faction and class): every race the first guide is for,
-each class an `only` in the guide names, and one class no `only` names. With
-`--class` you pick the classes instead.
+each playable class named by a `class` header or an `only` anywhere in the
+chain, and one class the chain never names. Races named by guide headers
+throughout the chain are sampled too, on each eligible faction for races
+that can play both sides. The first guide's faction, race and class
+restrictions still apply. With `--class` you pick from its eligible
+classes instead. This includes class-specific work introduced by a later
+guide, even when `--filter` reports only that later guide. A named or explicitly
+requested class is sampled with a race and faction compatible with each guide
+that admits it, within the first guide's restrictions.
+
+Each guide's faction, race and class headers also apply when it is reached.
+A character skips an incompatible guide completely: its lines supply no
+quest state, travel or findings. This applies to fixed-persona playback too.
+
+A run that dispatches no eligible character to any selected guide fails with
+`nothing played`; playing only a compatible context guide does not count.
+An empty pack or an unmatched guide filter reports that
+no guides were selected. These errors apply in default and legacy mode;
+valid runs keep reporting the number of selected guides and their findings.
 
 ### The rules
 
@@ -97,9 +114,10 @@ plays each start's chain through the shared guides, and lets `buy` lines cover
 buy steps. It also adds a far-walk check to R1: a plain `goto` into another zone
 more than 4,000 yd away is a walk across zones, not a way in.
 
-`--legacy` gives R1-R5 exactly as the Node playtest (`polestar playtest --honest`) printed them:
-one row per persona, with the old quirks. The report uses legacy mode so its
-numbers stay comparable with earlier runs.
+`--legacy` uses the Node playtest's R1-R5 rules (`polestar playtest --honest`):
+one row per persona, with the old rule quirks. The report uses legacy mode.
+Both modes sample classes and header races from the whole chain and respect
+each guide's headers, so finding counts can differ from earlier runs.
 
 R5's extra steps come from a quest knowledge base when the checkout has one
 (`data/local/kb/forever-kb.sqlite`). Without it, R5 checks objectives only.
@@ -248,7 +266,7 @@ The first argument is a guides folder (holding `forever/`). `--faction` and
 
 | Flag | Meaning |
 |---|---|
-| `--class C` | Play only this class (`Warrior`); default: each guide's own choice of classes |
+| `--class C` | Play only this class (`Warrior`); default: classes sampled across each chain |
 | `--to N` | Cut the walk at level N (default 61, i.e. all of 1-60) |
 | `--sim DIR` | Folder with `world-<faction>.json` and `params.json` (default `<root>/data/sim`) |
 | `--levels FILE` | Levels from a saved judge dump instead of the simulator |

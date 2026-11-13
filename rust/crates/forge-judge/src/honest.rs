@@ -410,7 +410,7 @@ fn personas_for(guide: &V, arriving: &[String]) -> Vec<(String, String)> {
 }
 
 /// playtest.js classPersonas: a persona for each named class none of `personas` can be.
-fn class_personas(data: &Data, guide: &V, personas: &[(String, String)]) -> Vec<(String, String)> {
+fn class_personas(data: &Data, guide: &V, personas: &[(String, String)], named: &[String], admits: &dyn Fn(&Persona) -> bool) -> Vec<(String, String)> {
 	if !data.races.is_obj() || data.races.is_empty() {
 		return Vec::new();
 	}
@@ -421,8 +421,8 @@ fn class_personas(data: &Data, guide: &V, personas: &[(String, String)]) -> Vec<
 		None => vec!["Alliance".into(), "Horde".into()],
 	};
 	let mut added: Vec<(String, String)> = Vec::new();
-	for cls in named_classes(guide) {
-		if personas.iter().chain(added.iter()).any(|(r, f)| playable_classes(data, r, f).contains(&cls)) {
+	for cls in named {
+		if personas.iter().chain(added.iter()).any(|(r, f)| playable_classes(data, r, f).contains(cls) && admits(&Persona { race: r.clone(), faction: f.clone(), cls: cls.clone() })) {
 			continue;
 		}
 		for (race, by_side) in data.races.entries() {
@@ -431,7 +431,7 @@ fn class_personas(data: &Data, guide: &V, personas: &[(String, String)]) -> Vec<
 			}
 			let f = sides.iter().find(|s| {
 				let side = by_side.get(s);
-				side.truthy() && strs(&side.get("classes")).contains(&cls)
+				side.truthy() && strs(&side.get("classes")).contains(cls) && admits(&Persona { race: race.to_string(), faction: (*s).clone(), cls: cls.clone() })
 			});
 			if let Some(f) = f {
 				added.push((race.to_string(), f.clone()));
@@ -443,7 +443,7 @@ fn class_personas(data: &Data, guide: &V, personas: &[(String, String)]) -> Vec<
 }
 
 /// playtest.js classesFor (no class filter given: `only` None).
-fn classes_for(data: &Data, guide: &V, race: &str, faction: &str, only: Option<&[String]>) -> Vec<String> {
+fn classes_for(data: &Data, guide: &V, race: &str, faction: &str, only: Option<&[String]>, named: &[String]) -> Vec<String> {
 	let mut can = playable_classes(data, race, faction);
 	let header: Vec<String> = strs(&guide.get("classes")).iter().map(|c| c.to_uppercase()).collect();
 	if !header.is_empty() {
@@ -452,9 +452,8 @@ fn classes_for(data: &Data, guide: &V, race: &str, faction: &str, only: Option<&
 	if let Some(only) = only {
 		return can.into_iter().filter(|c| only.contains(c)).collect();
 	}
-	let named = named_classes(guide);
 	let plain = can.iter().find(|c| !named.contains(c)).cloned();
-	let mut out: Vec<String> = named.into_iter().filter(|c| can.contains(c)).collect();
+	let mut out: Vec<String> = named.iter().filter(|c| can.contains(c)).cloned().collect();
 	out.extend(plain);
 	out
 }
@@ -470,16 +469,51 @@ pub fn arriving(guides: &[V]) -> FxHashMap<String, Vec<String>> {
 	out
 }
 
-/// honestRun's personas for a chain's first guide: its races (personasFor), the class personas, each with
-/// its classes (classesFor; `classes` replaces the guide's choice like `playtest --class`).
+/// Personas sampled from one guide: its races (personasFor), the class personas, each with its classes
+/// (classesFor; `classes` replaces the guide's choice like `playtest --class`). Native pack runs sample
+/// the whole chain with `chain_personas`.
 pub fn personas(data: &Data, root: &V, arriving: &FxHashMap<String, Vec<String>>, classes: Option<&[String]>) -> Vec<Persona> {
+	chain_personas(data, &[root], arriving, classes)
+}
+
+/// Sample every named class in the actual chain, with the first guide's eligibility.
+fn chain_personas(data: &Data, chain: &[&V], arriving: &FxHashMap<String, Vec<String>>, classes: Option<&[String]>) -> Vec<Persona> {
+	let root = chain[0];
+	let mut named = Vec::new();
+	for guide in chain {
+		for cls in named_classes(guide) {
+			if !named.contains(&cls) {
+				named.push(cls);
+			}
+		}
+	}
 	let arr = arriving.get(&guide_id(root)).map(Vec::as_slice).unwrap_or(&[]);
 	let mut list = personas_for(root, arr);
-	let extra = class_personas(data, root, &list);
-	list.extend(extra);
+	// Later race headers need their own candidates, including both sides of a
+	// dual-faction race. Keep the root's race/faction eligibility authoritative.
+	let root_faction = root.get("faction");
+	let root_faction = root_faction.as_str().filter(|f| !f.is_empty());
+	let sides = root_faction.map_or_else(|| vec!["Alliance", "Horde"], |f| vec![f]);
+	for race in chain.iter().flat_map(|g| strs(&g.get("races"))).map(|r| undead_file(&r)) {
+		for &faction in &sides {
+			if side_of(&race).is_some_and(|side| side != faction) {
+				continue;
+			}
+			let pair = (race.clone(), faction.to_string());
+			if !list.contains(&pair) {
+				list.push(pair);
+			}
+		}
+	}
+	let root_audience = forge_guide::conditions::Audience::of_compiled(root);
+	list.retain(|(race, faction)| root_audience.race_in(race) && root_faction.is_none_or(|f| f.eq_ignore_ascii_case(faction)));
+	for guide in chain {
+		let extra = class_personas(data, root, &list, classes.unwrap_or(&named), &|p| play::guide_fits(root, p) && play::guide_fits(guide, p));
+		list.extend(extra);
+	}
 	let mut out = Vec::new();
 	for (race, faction) in list {
-		for cls in classes_for(data, root, &race, &faction, classes) {
+		for cls in classes_for(data, root, &race, &faction, classes, &named) {
 			out.push(Persona { race: race.clone(), faction: faction.clone(), cls });
 		}
 	}
@@ -521,6 +555,7 @@ fn play_chain_in(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option<&
 }
 
 fn play_chain_with(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option<&Kb>, report: Option<&FxHashSet<String>>, opts: &HonestOpts, trace: &mut Option<Vec<TraceRow>>) -> Vec<Finding> {
+	let chain: Vec<_> = chain.iter().copied().filter(|g| play::guide_fits(g, persona)).collect();
 	let mut w = world::World::new(ctx, persona.clone(), kb, opts);
 	w.trace = trace.take();
 	for g in chain {
@@ -544,6 +579,11 @@ fn play_chain_with(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option
 /// its first guide -> findings of those guides sorted by file, then line (stable). Non-legacy: chains run
 /// through shared guides and equal findings (rule, severity, guide, line, reason) are merged across personas.
 pub fn honest_play(guides: &[V], data: &Data, personas_of: &dyn Fn(&V) -> Vec<Persona>, kb: Option<&Kb>, play: Option<&[String]>, opts: &HonestOpts) -> Vec<Finding> {
+	honest_play_chains(guides, data, &|chain| personas_of(chain[0]), kb, play, opts)
+}
+
+/// Chain-aware automatic sampling; `honest_play` keeps its root-only callback contract.
+fn honest_play_chains(guides: &[V], data: &Data, personas_of: &dyn Fn(&[&V]) -> Vec<Persona>, kb: Option<&Kb>, play: Option<&[String]>, opts: &HonestOpts) -> Vec<Finding> {
 	let ctx = world::Ctx::new(data);
 	let report: Option<FxHashSet<String>> = play.map(|p| p.iter().cloned().collect());
 	let mut out: Vec<Finding> = Vec::new();
@@ -554,7 +594,7 @@ pub fn honest_play(guides: &[V], data: &Data, personas_of: &dyn Fn(&V) -> Vec<Pe
 			}
 		}
 		let refs: Vec<&V> = chain.iter().map(|&i| &guides[i]).collect();
-		for persona in personas_of(refs[0]) {
+		for persona in personas_of(&refs) {
 			out.extend(play_chain_in(&ctx, &refs, &persona, kb, report.as_ref(), opts));
 		}
 	}

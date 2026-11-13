@@ -108,6 +108,11 @@ function fits(only, { race, faction, cls }) {
 	return group(only.classes, cls) && group(only.races, race) && group(only.factions, faction);
 }
 
+// Guide headers use a singular faction; their race/class lists match `only`.
+function guideFits(guide, persona) {
+	return fits(guide, persona) && (!guide.faction || guide.faction.toUpperCase() === persona.faction.toUpperCase());
+}
+
 class World {
 	constructor(data, persona, kb) {
 		this.data = data;
@@ -301,6 +306,7 @@ function playChain(chain, data, persona, { kb = null, report = null, groups = 's
 }
 
 function playGuide(w, g, reporting) {
+	if (!guideFits(g, w.persona)) return;
 	const { data } = w;
 	const file = (g._ast && g._ast.file) || g.id;
 	const astSteps = (g._ast && g._ast.steps) || [];
@@ -725,14 +731,15 @@ function chains(guides) {
 	return out;
 }
 
-// Play every chain holding a guide of `play` (ids) as each of its personas
+// Play every chain holding a guide of `play` (ids) as each of its personas.
+// The callback receives the root guide and, for automatic sampling, the chain.
 // -> findings of those guides, by file and line.
 function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip' } = {}) {
 	const report = play ? new Set(play) : null;
 	const out = [];
 	for (const chain of chains(guides)) {
 		if (report && !chain.some((g) => report.has(g.id))) continue;
-		for (const persona of personas(chain[0])) {
+		for (const persona of personas(chain[0], chain)) {
 			for (const f of playChain(chain, data, persona, { kb, report, groups })) out.push({ ...f, race: persona.race, cls: persona.cls });
 		}
 	}
@@ -744,4 +751,4 @@ function findingLines(f) {
 	return [`${f.rule} ${f.severity} ${f.file}:${f.line} (${f.race} ${f.cls ? f.cls[0] + f.cls.slice(1).toLowerCase() : ''}) step ${f.step}${f.title ? ` "${f.title}"` : ''}: ${f.reason}`, `  repair: ${f.repair}`];
 }
 
-module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE };
+module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, guideFits, loadKb, findingLines, KB_FILE };

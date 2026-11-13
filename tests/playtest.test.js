@@ -6,10 +6,12 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
 const path = require('node:path');
 const { quiet, polestar } = require('./helpers/cli');
 const { tmpdir } = require('./helpers/tmp');
 const { needs } = require('./helpers/data');
+const { DATA_DIR } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
 const { playtest, chainDone } = require('../tools/lib/playtest');
@@ -164,6 +166,66 @@ test('--class plays only that class; a filter matching nothing exits 1; a class 
 	assert.match(shaman.out, /playtest failed: nothing played: 1 guide, but no race can play a Shaman/);
 	const bad = await quiet(() => cmd.run(['--class', 'Monk']));
 	assert.equal(bad.result, 2);
+});
+
+// Honest mode needs no Lua or private reference data. Leave out the kill to
+// prove that a matching character really plays the guide and finds its error.
+function honestMageArgs(broken = false, otherClassGuide = false) {
+	const dir = tmpdir('polestar-honest-class-');
+	fs.writeFileSync(path.join(dir, 'mage.guide'), [
+		'guide test/mage', 'title Mage fixture', 'faction Alliance', 'class Mage',
+		'race Human', 'levels 1-10', 'zone Elwynn Forest', 'step Kobolds',
+		'  accept 7', ...(broken ? [] : ['  kill 6 x10 quest 7.1']), '  turnin 7', '',
+	].join('\n'));
+	if (otherClassGuide) fs.writeFileSync(path.join(dir, 'warrior.guide'), [
+		'guide test/warrior', 'title Warrior fixture', 'faction Alliance', 'class Warrior',
+		'race Human', 'levels 1-10', 'zone Elwynn Forest', 'step Here', '  goto 48,42', '',
+	].join('\n'));
+	return ['--honest', '--guides', dir, '--data', DATA_DIR];
+}
+
+for (const format of ['text', 'json']) {
+	test(`--honest --class refuses a guide no character can play (${format})`, async () => {
+		const r = await quiet(() => cmd.run([...honestMageArgs(true), '--class', 'Warrior', '--format', format]));
+		assert.equal(r.result, 1, r.out);
+		assert.match(r.out, /playtest(?: --honest)? failed: nothing played/);
+		assert.doesNotMatch(r.out, /playtest --honest ok|"ok":\s*true/);
+	});
+}
+
+test('--honest does not count a compatible class from outside the selected guide chain', async () => {
+	const r = await quiet(() => cmd.run([...honestMageArgs(true, true), '--filter', 'test/mage', '--class', 'Warrior']));
+	assert.equal(r.result, 1, r.out);
+	assert.match(r.out, /nothing played/);
+});
+
+test('--honest keeps an unmatched guide filter distinct from an unplayable class', async () => {
+	const r = await quiet(() => cmd.run([...honestMageArgs(), '--class', 'Mage', '--filter', 'nothing-here', '--format', 'json']));
+	assert.equal(r.result, 1, r.out);
+	assert.match(r.out, /no guide matches "nothing-here"/);
+	assert.doesNotMatch(r.out, /nothing played/);
+});
+
+test('--honest succeeds when a matching class plays a guide with no findings', async () => {
+	const args = [...honestMageArgs(), '--class', 'Mage'];
+	const text = await quiet(() => cmd.run(args));
+	assert.equal(text.result, 0, text.out);
+	assert.match(text.out, /playtest --honest ok: 1 guide: 0 fails/);
+	const json = await quiet(() => cmd.run([...args, '--format', 'json']));
+	assert.equal(json.result, 0, json.out);
+	const report = JSON.parse(json.out);
+	assert.equal(report.ok, true);
+	assert.equal(report.played, 1);
+	assert.deepEqual(report.findings, []);
+});
+
+test('--honest reports the unfinished quest when a matching class plays it', async () => {
+	const r = await quiet(() => cmd.run([...honestMageArgs(true), '--class', 'Mage', '--format', 'json']));
+	assert.equal(r.result, 1, r.out);
+	const report = JSON.parse(r.out);
+	assert.equal(report.ok, false);
+	assert.equal(report.played, 1);
+	assert.ok(report.findings.some((f) => f.rule === 'R5' && f.severity === 'fail' && f.cls === 'MAGE' && /0\/10/.test(f.reason)), r.out);
 });
 
 test('context folders go through the same checks as compile: a typo is a usage error', async () => {

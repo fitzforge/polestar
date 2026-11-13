@@ -12,6 +12,11 @@ pub fn fits(only: &V, p: &Persona) -> bool {
 	!only.truthy() || forge_guide::conditions::Audience::of_compiled(only).admits(&p.race, &p.cls, &p.faction)
 }
 
+/// Guide headers use a singular faction; their race/class lists match `only`.
+pub(super) fn guide_fits(guide: &V, p: &Persona) -> bool {
+	fits(guide, p) && guide.get("faction").as_str().filter(|f| !f.is_empty()).is_none_or(|f| f.eq_ignore_ascii_case(&p.faction))
+}
+
 fn nn(a: V, b: impl FnOnce() -> V) -> V {
 	if a.is_nullish() {
 		b()

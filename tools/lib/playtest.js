@@ -42,7 +42,7 @@ const { buildPack } = require('./pack/build');
 const { readManifest } = require('./pack/manifest');
 const { loadData } = require('./dsl/data');
 const { Diagnostics } = require('./dsl/diag');
-const { honestPlay, loadKb } = require('./playtest-honest');
+const { honestPlay, guideFits, loadKb } = require('./playtest-honest');
 
 const CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
 
@@ -208,18 +208,7 @@ function playableClasses(data, race, faction) {
 	return side ? side.classes : [];
 }
 
-// Classes named by the `class` header or any `only` in the guide that the
-// race can be, plus one playable class the guide never names. A guide
-// limited by its `class` header is played only as those classes, each of
-// them. `only` (class files) replaces that choice with the given classes the
-// race can be.
-function classesFor(data, guide, race, faction, only = null) {
-	let can = playableClasses(data, race, faction);
-	if (guide.classes && guide.classes.length) {
-		const allowed = guide.classes.map((c) => String(c).toUpperCase());
-		can = can.filter((c) => allowed.includes(c));
-	}
-	if (only) return can.filter((c) => only.includes(c));
+function namedClasses(guide) {
 	const named = new Set((guide.classes || []).map((c) => String(c).toUpperCase()));
 	const visit = (cond) => {
 		for (const c of (cond && cond.classes) || []) named.add(String(c).toUpperCase());
@@ -228,6 +217,21 @@ function classesFor(data, guide, race, faction, only = null) {
 		visit(s.only);
 		for (const g of s.goals) visit(g.only);
 	}
+	return named;
+}
+
+// Classes named by the `class` header or any `only` in the guide (or chain) that the
+// race can be, plus one playable class it never names. A guide
+// limited by its `class` header is played only as those classes, each of
+// them. `only` (class files) replaces that choice with the given classes the
+// race can be.
+function classesFor(data, guide, race, faction, only = null, named = namedClasses(guide)) {
+	let can = playableClasses(data, race, faction);
+	if (guide.classes && guide.classes.length) {
+		const allowed = guide.classes.map((c) => String(c).toUpperCase());
+		can = can.filter((c) => allowed.includes(c));
+	}
+	if (only) return can.filter((c) => only.includes(c));
 	const plain = can.find((c) => !named.has(c));
 	return [...[...named].filter((c) => can.includes(c)), ...(plain ? [plain] : [])];
 }
@@ -268,29 +272,21 @@ function personasFor(guide, arriving = []) {
 	return races.map((race) => ({ race, faction: sideOf(race) || guide.faction || 'Alliance' }));
 }
 
-// A persona for each class the guide names (its `class` header or any `only`)
+// A persona for each class the guide (or chain) names (its `class` header or any `only`)
 // that none of `personas` can be: the first race in races.json on the guide's
 // side (its race list, if it has one) that can be it, so an `only Druid` step
 // in a Horde guide is played as a Tauren rather than skipped.
-function classPersonas(data, guide, personas) {
+function classPersonas(data, guide, personas, named = namedClasses(guide), admits = () => true) {
 	if (!data.races || !Object.keys(data.races).length) return [];
-	const named = new Set((guide.classes || []).map((c) => String(c).toUpperCase()));
-	const visit = (cond) => {
-		for (const c of (cond && cond.classes) || []) named.add(String(c).toUpperCase());
-	};
-	for (const s of guide.steps) {
-		visit(s.only);
-		for (const g of s.goals) visit(g.only);
-	}
 	const allowed = guide.races && guide.races.length ? guide.races.map((x) => (x === 'Undead' ? 'Scourge' : x)) : null;
 	const sides = guide.faction ? [guide.faction] : ['Alliance', 'Horde'];
 	const added = [];
 	for (const cls of named) {
 		const all = [...personas, ...added];
-		if (all.some(({ race, faction }) => playableClasses(data, race, faction).includes(cls))) continue;
+		if (all.some(({ race, faction }) => playableClasses(data, race, faction).includes(cls) && admits({ race, faction, cls }))) continue;
 		for (const [race, bySide] of Object.entries(data.races)) {
 			if (allowed && !allowed.includes(race)) continue;
-			const faction = sides.find((s) => bySide[s] && bySide[s].classes.includes(cls));
+			const faction = sides.find((s) => bySide[s] && bySide[s].classes.includes(cls) && admits({ race, faction: s, cls }));
 			if (faction) {
 				added.push({ race, faction });
 				break;
@@ -601,24 +597,44 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 
 // playtest --honest (tools/lib/playtest-honest.js): the compiled guides
 // played from their lines and the data only, each `next` chain whole from
-// its first guide, as each persona and class its first guide is played as;
+// its first guide, sampling classes named throughout the chain while keeping
+// that first guide's race, faction and class eligibility;
 // findings for the guides of `play` (sources). No Lua. `kb`: the knowledge
 // base file (default data/local/kb/forever-kb.sqlite when present; null: none).
-// -> { results: [], findings, diag, played, honest: true }
+// -> { results: [], findings, diag, played, plays, honest: true }
 function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
 	const all = packs.flatMap((p) => p.guides);
 	const wanted = guides.filter((g) => play.has(g._ast && g._ast.source));
+	const selected = new Set(wanted.map((g) => g.id));
 	const arriving = new Map();
 	for (const g of all) {
 		for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
 	}
-	const personas = (root) => {
+	let plays = 0;
+	const personas = (root, chain) => {
+		const named = new Set(chain.flatMap((g) => [...namedClasses(g)]));
 		let list = personasFor(root, arriving.get(root.id));
-		list = [...list, ...classPersonas(data, root, list)];
-		return list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes).map((cls) => ({ race, faction, cls })));
+		// Later race headers need their own candidates. A dual-faction race can
+		// play either side, but every candidate must still fit the chain root.
+		for (const name of new Set(chain.flatMap((g) => g.races || []))) {
+			const race = name === 'Undead' ? 'Scourge' : name;
+			for (const faction of root.faction ? [root.faction] : ['Alliance', 'Horde']) {
+				if (sideOf(race) && sideOf(race) !== faction) continue;
+				if (!list.some((p) => p.race === race && p.faction === faction)) list.push({ race, faction });
+			}
+		}
+		list = list.filter((p) => guideFits({ races: root.races, faction: root.faction }, p));
+		for (const guide of chain) {
+			list = [...list, ...classPersonas(data, root, list, classes || named, (p) => guideFits(root, p) && guideFits(guide, p))];
+		}
+		const characters = list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes, named).map((cls) => ({ race, faction, cls })))
+			.filter((p) => chain.some((g) => selected.has(g.id) && guideFits(g, p)));
+		// A compatible context guide does not count as playing the selection.
+		plays += characters.length;
+		return characters;
 	};
 	const findings = honestPlay(all, data, personas, { kb: kb === undefined ? loadKb() : kb ? loadKb(kb) : null, play: wanted.map((g) => g.id), groups });
-	return { results: [], findings, diag, played: wanted.length, honest: true };
+	return { results: [], findings, diag, played: wanted.length, plays, honest: true };
 }
 
 const titleCase = (s) => s.charAt(0) + s.slice(1).toLowerCase();
