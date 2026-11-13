@@ -6686,7 +6686,12 @@ Polestar.RegisterOptions({
 a 36px header with its title (heading) and, at the right, its `toggle` (a switch), a
 Reset link while one of its settings is off its default (more than three ask
 first, `O.ResetSection`) and a New pill while it holds settings new to the
-player. Its controls run as halves of 36px rows, two to a row with a hairline
+player. A reset can be taken back once: a row's right-click (every kit row
+resets through `W.ResetSetting(path, get?, set?)`, which hands what it held to
+the listener `W.OnReset` installs), a section's Reset and Reset page keep what
+the settings held as stored, and a chip in the footer (in the thanks line's
+place) says what was reset with an Undo (`O.Undo`) for 10 s; a new reset takes
+its place. Its controls run as halves of 36px rows, two to a row with a hairline
 between (one a row below a 760px body); `wide = true`, picture cards and the
 search results take a whole row. A half is the label and the control, no
 description: `help` is the tooltip (`O.TipOf`: the help, where its colour

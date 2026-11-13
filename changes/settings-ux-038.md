@@ -14,3 +14,6 @@ section: players
   back to its default place on a second click, hide the box) instead of
   resetting it at once; Shift-right-click hides a box until you exit, so it
   can't be moved by mistake.
+- Resetting a setting can be undone: after a right-click reset, a
+  section's Reset or Reset page, the settings window's footer offers Undo
+  for ten seconds and puts everything back as it was.

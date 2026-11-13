@@ -935,6 +935,26 @@ function W.Modified(path)
 	return not sameValue(ns.Get(path), d)
 end
 
+-- A row's right-click: its setting back to its default, or state that is no
+-- setting through set(nil) (get() reads it). The listener W.OnReset installs
+-- (the settings window's Undo) hears what it held, as { { path, value } }
+-- (value as stored: nil is the default) or { { get, set, value } }; nothing
+-- when it was at its default already.
+local onReset
+function W.OnReset(fn) onReset = fn end
+
+function W.ResetSetting(path, get, set)
+	if set then
+		local was = get and get()
+		set(nil)
+		if onReset and get and not sameValue(get(), was) then onReset({ { get = get, set = set, value = was } }) end
+		return
+	end
+	local was = ns.GetStored and ns.GetStored(path)
+	ns.Set(path, nil)
+	if onReset and was ~= nil then onReset({ { path = path, value = was } }) end
+end
+
 local function markRow(row)
 	if not row.psCompact then return end
 	-- A compact half: the label in text and the gold dot while off its
@@ -1102,10 +1122,10 @@ function W.Toggle(parent, label, path, desc, depends, opts)
 	row:SetScript("OnClick", function(self, button)
 		if not W.Enabled(self) then return end
 		if self.psSet then
-			if button == "RightButton" then self.psSet(nil) else self.psSet(not toggleValue(self)) end
+			if button == "RightButton" then W.ResetSetting(nil, function() return toggleValue(self) end, self.psSet) else self.psSet(not toggleValue(self)) end
 			self:Refresh()
 		elseif button == "RightButton" then
-			ns.Set(self.psPath, nil)
+			W.ResetSetting(self.psPath)
 		else
 			ns.Set(self.psPath, not ns.Get(self.psPath))
 		end
@@ -1399,7 +1419,13 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 	-- Right-click puts the setting back to its default.
 	row:RegisterForClicks("RightButtonUp")
 	row:SetScript("OnClick", function(self, button)
-		if button == "RightButton" and W.Enabled(self) then sliderWrite(self, nil) end
+		if button == "RightButton" and W.Enabled(self) then
+			if self.psSet then
+				W.ResetSetting(nil, function() return sliderValue(self) end, function(v) sliderWrite(self, v) end)
+			else
+				W.ResetSetting(self.psPath)
+			end
+		end
 	end)
 	row:SetScript("OnEnter", rowEnter)
 	row:SetScript("OnLeave", hideTip)
@@ -1772,7 +1798,10 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(_, button)
 		if button == "RightButton" then
-			if W.Enabled(row) then W.HideMenu(); ns.Set(path, nil) end
+			if W.Enabled(row) then
+				W.HideMenu()
+				if path then W.ResetSetting(path) elseif row.psSet then W.ResetSetting(nil, function() return valueOf(row) end, row.psSet) end
+			end
 			return
 		end
 		openChoices(b)

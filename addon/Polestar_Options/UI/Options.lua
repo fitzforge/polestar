@@ -1062,9 +1062,31 @@ local function modifiedCount(controls)
 end
 O.ModifiedCount = modifiedCount
 
+-- What a list of controls holds off its default, for Undo: { path, value }
+-- per setting (as stored), { get, set, value } per state that is no
+-- setting; each setting once.
+local function holdings(controls)
+	local out, seen = {}, {}
+	for _, c in ipairs(controls) do
+		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
+			if not seen[c.key] then
+				seen[c.key] = true
+				local was = ns.GetStored(c.key)
+				if was ~= nil then out[#out + 1] = { path = c.key, value = was } end
+			end
+		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set and c.get then
+			out[#out + 1] = { get = c.get, set = c.set, value = c.get() }
+		end
+	end
+	return out
+end
+
+local offerUndo -- (list): the footer's Undo for what a reset changed (below)
+
 -- Every setting of a list back to its default (state that is no setting
--- too, through its set(nil)).
+-- too, through its set(nil)); the footer offers to undo it.
 function O.ResetSection(controls)
+	local held = holdings(controls)
 	for _, c in ipairs(controls) do
 		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
 			ns.Set(c.key, nil)
@@ -1079,6 +1101,7 @@ function O.ResetSection(controls)
 			if w and not c.key and w.Refresh then w:Refresh() end
 		end
 	end
+	offerUndo(held)
 end
 
 -- Is a section's on/off (its header's toggle) off?
@@ -2470,6 +2493,126 @@ local function profileMenu(button)
 	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4 })
 end
 
+---------------------------------------------------------------------------
+-- One step of undo for resets (a row's right-click, a section's Reset, the
+-- page's): what the settings held before is kept, and a chip in the footer
+-- says what was reset with an Undo for UNDO_S seconds. A new reset takes
+-- its place; Undo puts every one back at once.
+---------------------------------------------------------------------------
+
+local UNDO_S = 10
+local undoList, undoSeq = nil, 0
+
+local function sameValue(a, b)
+	if type(a) == "table" and type(b) == "table" then
+		for k, v in pairs(a) do if not sameValue(v, b[k]) then return false end end
+		for k in pairs(b) do if a[k] == nil then return false end end
+		return true
+	end
+	if type(a) == "number" and type(b) == "number" then return math.abs(a - b) < 1e-6 end
+	return a == b
+end
+
+-- The chip, left of the footer's right-hand buttons in place of the thanks
+-- line while it shows.
+local function placeUndo()
+	local chip = rawget(win, "UndoChip")
+	if not (chip and chip:IsShown()) then return end
+	local anchor
+	for _, fb in ipairs(win.footerButtons.right) do if fb:IsShown() then anchor = fb end end
+	chip:ClearAllPoints()
+	if anchor then chip:SetPoint("RIGHT", anchor, "LEFT", -16, 0) else chip:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0) end
+	chip:SetWidth(12 + 6 + math.ceil(chip.Text:GetStringWidth()) + 4 + chip.Undo:GetWidth())
+	local thanks = rawget(win, "ThanksLink")
+	if thanks then thanks:Hide() end
+end
+
+local function hideUndo()
+	local chip = rawget(win, "UndoChip")
+	if not (chip and chip:IsShown()) then return end
+	chip:Hide()
+	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+end
+
+local function undoChip()
+	local chip = rawget(win, "UndoChip")
+	if chip then return chip end
+	chip = CreateFrame("Frame", nil, win.Footer)
+	chip:SetHeight(28)
+	chip:SetFrameLevel(win.Footer:GetFrameLevel() + 5)
+	chip.Icon = W.Tex(chip, "ARTWORK", "reset", "textDim")
+	chip.Icon:SetSize(12, 12)
+	chip.Icon:SetPoint("LEFT", chip, "LEFT", 0, 0)
+	chip.Text = W.Text(chip, "label", "textDim")
+	chip.Text:SetPoint("LEFT", chip.Icon, "RIGHT", 6, 0)
+	chip.Undo = W.Button(chip, L["Undo"], function() O.Undo() end, { ghost = true, height = 22 })
+	chip.Undo.psTight = true
+	W.SetButtonText(chip.Undo, L["Undo"])
+	W.Color(chip.Undo.Label, "accent")
+	chip.Undo.psTip, chip.Undo.psTipLines = L["Undo"], { L["Puts back what that reset changed."] }
+	chip.Undo:SetPoint("LEFT", chip.Text, "RIGHT", 4, 0)
+	chip:Hide()
+	win.UndoChip = chip
+	return chip
+end
+
+-- list: what a reset changed (holdings, W.OnReset's records). Offered only
+-- while the window is up, and only what the reset did change.
+function offerUndo(list)
+	if not (win and win:IsShown()) then return end
+	local kept = {}
+	for _, u in ipairs(list or {}) do
+		if u.path or not sameValue(u.get(), u.value) then kept[#kept + 1] = u end
+	end
+	if #kept == 0 then return end
+	undoList = kept
+	undoSeq = undoSeq + 1
+	local seq = undoSeq
+	local chip = undoChip()
+	local c = #kept == 1 and kept[1].path and O.ControlByKey(kept[1].path)
+	if c then
+		chip.Text:SetText(string.format(L["%s reset."], labelOf(c) or ""))
+	elseif #kept == 1 then
+		chip.Text:SetText(L["One setting reset."])
+	else
+		chip.Text:SetText(string.format(L["%d settings reset."], #kept))
+	end
+	chip:Show()
+	placeUndo()
+	Anim.To(chip, "alpha", 0, 1, Anim.FAST, "out")
+	ns.After(UNDO_S, function()
+		if undoSeq ~= seq or not chip:IsShown() then return end
+		Anim.To(chip, "alpha", 1, 0, Anim.SLOW, "out", function()
+			if undoSeq == seq then
+				undoList = nil
+				hideUndo()
+			end
+		end)
+	end)
+end
+
+-- Put back what the last reset changed. -> true when there was one
+function O.Undo()
+	local list = undoList
+	if not list then return false end
+	undoList = nil
+	undoSeq = undoSeq + 1
+	hideUndo()
+	local function put()
+		for _, u in ipairs(list) do
+			if u.set then u.set(u.value) else ns.Set(u.path, u.value) end
+		end
+	end
+	local I = ns.ThemeInternal
+	if I and I.batch then I.batch(put) else put() end
+	-- State that is no setting repaints itself.
+	local view = O.view
+	for _, w in pairs(view and view.cache or {}) do
+		if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
+	end
+	return true
+end
+
 local footerProfile
 local function renderFooter(p)
 	local left = {}
@@ -2496,15 +2639,24 @@ local function renderFooter(p)
 	end
 	W.ShellFooter(win, left, right)
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+	placeUndo()
 end
 
 function O.ResetPage(p)
-	for _, key in ipairs(pageKeys(p)) do ns.Set(key, nil) end
+	local held = {}
+	for _, key in ipairs(pageKeys(p)) do
+		local was = ns.GetStored(key)
+		if was ~= nil then held[#held + 1] = { path = key, value = was } end
+		ns.Set(key, nil)
+	end
 	-- Toggles, sliders and cards of state that is no setting go back to their default too.
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
 			for _, c in ipairs(allSettings(s)) do
-				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set and available(c) then c.set(nil) end
+				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set and available(c) then
+					if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
+					c.set(nil)
+				end
 			end
 		end
 	end
@@ -2513,6 +2665,7 @@ function O.ResetPage(p)
 			if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
 		end
 	end
+	offerUndo(held)
 end
 
 -- The tab last opened on each page (PolestarDB.optionsTab, account-wide,
@@ -2884,9 +3037,13 @@ local function build()
 		-- The footer runs the main column's width (the shell's own number: the
 		-- footer's anchored rect may not be laid out yet as the window opens).
 		local room = tonumber(rawget(win, "psMainW")) or win.Footer:GetWidth()
-		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room)
+		-- The reset's Undo stands there while it shows.
+		local chip = rawget(win, "UndoChip")
+		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room and not (chip and chip:IsShown()))
 	end
 	UI.Thanks.HeaderLink(win)
+	-- A row's right-click reset (W.ResetSetting) offers its Undo too.
+	W.OnReset(offerUndo)
 	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)

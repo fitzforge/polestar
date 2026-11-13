@@ -314,7 +314,7 @@ function W.Swatch(parent, label, path, desc, opts)
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(self, button)
 		if not W.Enabled(self) then return end
-		if button == "RightButton" then ns.Set(self.psPath, nil) else openPicker(self) end
+		if button == "RightButton" then W.ResetSetting(self.psPath) else openPicker(self) end
 	end)
 	row:SetScript("OnEnter", function(self)
 		rowEnter(self)
@@ -377,10 +377,19 @@ local function pickCard(row, value)
 	end
 end
 
+-- Right-click: the default card (through the undo-aware reset).
+local function resetCards(row)
+	if row.psSet then
+		W.ResetSetting(nil, function() return valueOf(row) end, function(v) pickCard(row, v) end)
+	else
+		W.ResetSetting(row.psPath)
+	end
+end
+
 local function cardClick(card, button)
 	local row = card.psRow
 	if not W.Enabled(row) then return end
-	if button == "RightButton" then return pickCard(row, nil) end
+	if button == "RightButton" then return resetCards(row) end
 	if card.psOff then return end
 	pickCard(row, card.psValue)
 end
@@ -489,7 +498,7 @@ function W.Cards(parent, label, path, choices, desc, opts)
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(self, button)
 		if not W.Enabled(self) then return end
-		if button == "RightButton" then return pickCard(self, nil) end
+		if button == "RightButton" then return resetCards(self) end
 		-- The next card that may be picked, round to the first.
 		local list, cur, at = choicesOf(self), valueOf(self), 0
 		for i, ch in ipairs(list) do if ch.value == cur then at = i end end
@@ -536,7 +545,7 @@ function W.InlineSwatch(parent, path, label, tip, opts)
 	inlineCommon(b, path, label, tip)
 	b:SetScript("OnClick", function(self, button)
 		if not W.Enabled(self) then return end
-		if button == "RightButton" then ns.Set(self.psPath, nil) else openPicker(self) end
+		if button == "RightButton" then W.ResetSetting(self.psPath) else openPicker(self) end
 	end)
 	b.Refresh = function(self)
 		local r, g, bb, _, a = swatchColor(self)
@@ -552,7 +561,7 @@ function W.InlineToggle(parent, path, label, tip)
 	inlineCommon(b, path, label, tip)
 	b:SetScript("OnClick", function(self, button)
 		if not W.Enabled(self) then return end
-		if button == "RightButton" then ns.Set(path, nil) else ns.Set(path, not ns.Get(path)) end
+		if button == "RightButton" then W.ResetSetting(path) else ns.Set(path, not ns.Get(path)) end
 	end)
 	b.psPath = path
 	return W.Bind(b, path)

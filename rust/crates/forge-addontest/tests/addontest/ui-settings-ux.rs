@@ -33,6 +33,12 @@ end
 local function cardOf(name)
 	for _, card in ipairs(O.view.cards) do if card:IsShown() and card.Title:GetText() == name then return card end end
 end
+-- A shown footer button by its label.
+local function footerButton(text)
+	for _, side in ipairs({ "left", "right" }) do
+		for _, b in ipairs(PolestarOptions.footerButtons[side]) do if b:IsShown() and b.Label:GetText() == text then return b end end
+	end
+end
 "#;
 
 // The real addon's modules; the settings window's addon loads before the stub's fake Nav stands in, as in the game.
@@ -98,4 +104,47 @@ fn a_settings_move_opens_move_frames_with_its_frame_picked_and_pulsing_and_bring
 	assert_eq!(out["section"], json!({ "settings": false, "selected": "flightTimer" }));
 	assert_eq!(out["line"], "toastLine", "an alert in the line: the line's box");
 	assert_eq!(out["fought"], json!([false, true, false]), "in a fight: refused, the window stays");
+}
+
+// A reset can be taken back once: after a row's right-click, a section's Reset or the page's, a chip in the footer
+// says what was reset (in place of the thanks line) with an Undo that puts every setting back as it was; a new
+// reset takes its place, it goes by itself after ten seconds, and a row already at its default offers nothing.
+#[test]
+fn a_reset_offers_one_undo_in_the_footer_for_a_while() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		UI.ShowOptions("guide")
+		local w = ctl("ui.launcher")
+		w:Click("RightButton")
+		local chip = PolestarOptions.UndoChip
+		local row = { value = Polestar.Get("ui.launcher"), shown = chip:IsShown(), text = chip.Text:GetText(),
+			thanks = PolestarOptions.ThanksLink:IsShown() }
+		chip.Undo:Click()
+		local undone = { Polestar.Get("ui.launcher"), chip:IsShown() }
+		-- Already at its default: nothing to undo.
+		ctl("ui.combat"):Click("RightButton")
+		local idle = chip:IsShown()
+		-- A section's Reset (three settings or fewer: at once).
+		Polestar.Set("ui.launcher", false)
+		Polestar.Set("ui.combat", "hide")
+		Polestar.Set("ui.instance", "show")
+		ctl("ui.combat")
+		cardOf("Show and hide").Reset:Click()
+		local section = { Polestar.Get("ui.combat"), Polestar.Get("ui.instance"), chip.Text:GetText() }
+		stub.advance(11)
+		local gone = { chip:IsShown(), O.Undo(), Polestar.Get("ui.combat") }
+		-- The page's Reset, through its question.
+		Polestar.Set("ui.combat", "fade")
+		footerButton("Reset page"):Click()
+		PolestarModal.Box.Action:Click()
+		local page = { Polestar.Get("ui.combat"), chip:IsShown() }
+		O.Undo()
+		emit({ row = row, undone = undone, idle = idle, section = section, gone = gone, page = page, back = Polestar.Get("ui.combat") })"#);
+	assert_eq!(out["row"], json!({ "value": false, "shown": true, "text": "Floating button reset.", "thanks": false }));
+	assert_eq!(out["undone"], json!([true, false]), "Undo puts it back and the chip goes");
+	assert_eq!(out["idle"], false, "a row at its default: no Undo");
+	assert_eq!(out["section"], json!(["show", "hide", "2 settings reset."]), "both back to their defaults");
+	assert_eq!(out["gone"], json!([false, false, "show"]), "gone after ten seconds, nothing left to undo");
+	assert_eq!(out["page"], json!(["show", true]));
+	assert_eq!(out["back"], "fade", "the page's settings back");
 }
