@@ -257,7 +257,7 @@ local OFFHAND_DPS = 0.5 -- off-hand weapons hit for half damage
 local DUAL_WIELD_SPELL = 674
 
 -- C_Item.GetItemStats keys -> canonical stat keys. Unknown keys are ignored.
--- Combined spell power is expanded into damage and healing in clientStats.
+-- Combined spell power adds to both damage and healing in clientStats.
 local CLIENT_STATS = {
 	ITEM_MOD_STRENGTH_SHORT = "str", ITEM_MOD_AGILITY_SHORT = "agi", ITEM_MOD_STAMINA_SHORT = "sta",
 	ITEM_MOD_INTELLECT_SHORT = "int", ITEM_MOD_SPIRIT_SHORT = "spi", RESISTANCE0_NAME = "armor",
@@ -312,13 +312,15 @@ local function clientStats(link)
 			out[key] = (out[key] or 0) + v
 		end
 	end
-	-- Treat explicit damage/healing values as channel totals. Combined power
-	-- fills only missing channels, so overlapping client keys are not added.
+	-- Combined spell power (damage and healing alike) adds to both. An item
+	-- lists it apart from a damage-only or healing-only bonus, each a stat of
+	-- its own: the client's item table gives Earthen Silk Slippers 18 combined
+	-- and 6 damage, which is the 24 damage and 18 healing of its item data.
 	local combined = t.ITEM_MOD_SPELL_POWER_SHORT
 	if type(combined) == "number" and readable(combined) then
 		out = out or {}
-		out.sp = out.sp or combined
-		out.heal = out.heal or combined
+		out.sp = (out.sp or 0) + combined
+		out.heal = (out.heal or 0) + combined
 	end
 	return out
 end

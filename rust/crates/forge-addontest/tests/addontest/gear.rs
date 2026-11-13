@@ -156,15 +156,18 @@ fn combined_client_spell_power_supplies_healing_before_itemdb_fills_missing_equi
 	assert_eq!(out, vec![json!({ "sp": 13, "heal": 13 }), json!({ "sp": 13, "heal": 36 }), json!({ "sp": 13, "heal": 21 }), json!({ "sp": 36, "heal": 36 })]);
 }
 
+// A damage-only or healing-only bonus is a stat of its own next to combined spell power, so the two add up. The
+// client's item table gives Earthen Silk Slippers (254013) 18 combined and 6 damage, and Atiesh (22631) 120
+// combined and 180 healing: 24 damage and 18 healing, and 120 damage and 300 healing, as their item data says.
 #[test]
-fn explicit_client_damage_and_healing_totals_take_precedence_over_combined_spell_power() {
+fn combined_spell_power_adds_to_a_damage_only_or_healing_only_bonus() {
 	let out = run(
 		r#"
 		local cases = {
-			{ ITEM_MOD_SPELL_POWER_SHORT = 13, ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 13 },
-			{ ITEM_MOD_SPELL_POWER_SHORT = 13, ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 16, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 48 },
-			{ ITEM_MOD_SPELL_POWER_SHORT = 13, ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 16 },
-			{ ITEM_MOD_SPELL_POWER_SHORT = 13, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 48 },
+			{ ITEM_MOD_SPELL_POWER_SHORT = 18, ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 6 },
+			{ ITEM_MOD_SPELL_POWER_SHORT = 120, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 180 },
+			{ ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 16, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 48 },
+			{ ITEM_MOD_SPELL_POWER_SHORT = 13 },
 		}
 		for i, stats in ipairs(cases) do
 			local link = "item:" .. (7800 + i)
@@ -174,7 +177,7 @@ fn explicit_client_damage_and_healing_totals_take_precedence_over_combined_spell
 	"#,
 		Opts::default(),
 	);
-	assert_eq!(out, vec![json!({ "sp": 13, "heal": 13 }), json!({ "sp": 16, "heal": 48 }), json!({ "sp": 16, "heal": 13 }), json!({ "sp": 13, "heal": 48 })]);
+	assert_eq!(out, vec![json!({ "sp": 24, "heal": 18 }), json!({ "sp": 120, "heal": 300 }), json!({ "sp": 16, "heal": 48 }), json!({ "sp": 13, "heal": 13 })]);
 }
 
 #[test]
