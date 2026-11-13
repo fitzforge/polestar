@@ -57,6 +57,12 @@ step Back through the port
   turnin 95260                          -- Argo Brinewhistle
   accept 95261                          -- It Takes Guts: the beasts' entrails come as you go; the mushrooms grow on the ridge west of the pirates
 
+step Beast Entrails as you go
+  along until argo
+  background
+  tip Most beasts in the Riverglades drop Beast Entrails for Argo: the shore crawlers on this coast and the boars on the ridge west of the pirates.
+  collect 268632 x15 quest 95261.1      -- Beast Entrails
+
 step The crawlers and Trapclaw
   tip North along the beach from the docks: the crawlers drop the meat for Fimbo, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks.
   collect 268345 x6 quest 95121.2       -- Sand Crawler Meat
@@ -81,12 +87,6 @@ step Powderfuse Port
 step Wharfmaster Whizzbuzz
   when onquest 95120
   turnin 95120
-
-step Beast Entrails as you go
-  along until argo
-  background
-  tip Most beasts in the Riverglades drop Beast Entrails for Argo: the shore crawlers on this coast and the boars on the ridge west of the pirates.
-  collect 268632 x15 quest 95261.1      -- Beast Entrails
 
 step The pirates' second wave
   tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are a couple of levels above you: pull them one at a time.
