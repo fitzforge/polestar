@@ -68,9 +68,9 @@ next forever/alliance/03-darkshore-return
 # The Deadmines (`when dungeon "The Deadmines"`, dungeons in the route): for a character who
 # chose it, Gryan's and Scout Riell's quests are picked up when the Defias chain ends at Sentinel Hill
 # (about level 20; that stop's own step, the hand-in and the flight, is the solo way, behind `when
-# !dungeon`), the run follows, and the hand-ins are Sentinel Hill's tower and, for the Unsent Letter,
-# Baros Alexston on 06-ashenvale's Stormwind stop (`when dungeon` and `when complete`/`when onquest`, so a
-# run left unfinished passes them). Left out on the route's travel budget (the flow audit
+# !dungeon`), the run follows, and the hand-ins are Sentinel Hill's tower and, for the Unsent Letter, Baros
+# Alexston on a gryphon to Stormwind at the end of the guide, for runners only (`when dungeon` and `when
+# complete`/`when onquest`, so a run left unfinished passes them). Left out on the route's travel budget (the flow audit
 # measured +2.0 km and +5 hub visits with them, +0 without): Underground Assault (2040,
 # Gnoarn in Ironforge, Shoni in Stormwind's Dwarven District) and Oh Brother... (167, Wilder
 # Thistlenettle there); also Collecting Memories (168: slow drops), Destruction in Deadmines (92753:
@@ -588,3 +588,28 @@ step Lakeshire
   turnin 89                                   -- Foreman Oslow
   accept 98386                                -- Foreman Oslow: Alther's Mill, for your next Redridge visit
   accept 150                                  -- Dockmaster Baren, on the docks: the murlocs are for your next Redridge visit
+
+# ---------------------------------------------------------------- Dungeons in the route: the Unsent Letter
+
+step Fly to Stormwind
+  when dungeon "The Deadmines"
+  when onquest 373
+  zone Redridge Mountains
+  tip For your Deadmines run's Unsent Letter: the gryphon to Stormwind, where Baros Alexston takes it; then on to Auberdine.
+  goto 25.5,59.4 "Lakeshire flight master" live
+  fly "Stormwind"
+
+step Baros Alexston
+  when dungeon "The Deadmines"
+  when onquest 373
+  zone Stormwind City
+  tip Baros Alexston, the city architect, stands at the east side of Cathedral Square. His next errand, Bazil Thredd, leads into the Stockade: it is for a Stockade run at about 29, so leave it unless you chose that dungeon.
+  turnin 373                                  -- Baros Alexston
+
+step Baros Alexston
+  when dungeon "The Stockade"
+  when turnedin 373
+  when !turnedin 389
+  zone Stormwind City
+  tip For your Stockade run, later in Stormwind: keep it until then.
+  accept 389                                  -- Baros Alexston: for Warden Thelwater, at the Stockade's gate

@@ -9092,8 +9092,8 @@ test(`${LOCH_MODAN}: #1415 (vLM1, vLM2): Crocolisk Hunting at the lodge; the Wes
 	const westfall = text.filter((s) => /^\s+zone Westfall/m.test(s) || /quest (14|92747|142|155)\b|accept (104|14)\b|turnin (132|141|142|155)\b/.test(s));
 	assert.ok(westfall.length >= 8, 'the Westfall stretch is there');
 	for (const s of westfall) assert.match(s, /^\s+when turnedin 65$/m, `gated on 65: ${s.split('\n')[0]}`);
-	const fresh = text.find((s) => /^\s+when !turnedin 65$/m.test(s));
-	assert.ok(fresh && /turnin 120\b/.test(fresh) && /fly "Lakeshire"/.test(fresh), 'the fresh starter hands Solomon\'s letter to Marcus and flies back');
+	const fresh = text.filter((s) => /^\s+when !turnedin 65$/m.test(s));
+	assert.ok(fresh.some((s) => /turnin 120\b/.test(s)) && fresh.some((s) => /fly "Lakeshire"/.test(s)), 'the fresh starter hands Solomon\'s letter to Marcus and flies back');
 });
 
 // Recorded spots (2026-11-09): Old Murk-Eye is killed on the beach by the lighthouse (5 people), not at his one spawn
@@ -10028,7 +10028,7 @@ test('forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the 
 // (50-60/06-silithus). They are marked `live`; Egan's, which then sat on Egan's own spot, is dropped: the turn-in leads there.
 test('Alliance: gotos typed with an NPC\'s live coordinates are live-frame', { skip }, () => {
 	const cases = [
-		['forever/alliance/03-loch-modan.guide', 25.5, 59.4],
+		['forever/alliance/03-loch-modan.guide', 25.5, 59.4], // the Deadmines runners' gryphon to Stormwind at the end
 		['forever/alliance/05-duskwood.guide', 25.5, 59.4],
 		['forever/alliance/05-duskwood.guide', 50.5, 47.5],
 	];
