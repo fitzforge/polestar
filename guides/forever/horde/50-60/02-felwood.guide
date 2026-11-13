@@ -89,10 +89,6 @@ step Scarlet Crusade
   kill 10605 quest 6004.1
   level 53.24 grind 10605              -- grind on Scarlet Medic
 
-step Kirsta Deepshadow
-  tip Back up the hill north-east of the lumber camp to Kirsta. Her next errand is for later, at a higher level.
-  turnin 6004
-
 step Tirisfal Glades
   zone Tirisfal Glades
   goto 83.2,68.5 "The Bulwark"
@@ -110,6 +106,13 @@ step The Bulwark
   turnin 5901                         -- Mickey Levine
   accept 5902
   note Derrington's watchtowers, Vandis' cauldron and Mickey's barrel are done on a later visit: keep them.
+
+step Level 53.34
+  zone Western Plaguelands
+  when level<53.34
+  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  goto 40.5,51.8 map 1422 "Scarlet Medic"
+  level 53.34 grind 10605              -- grind on Scarlet Medic
 
 step Tirisfal Glades
   zone Tirisfal Glades

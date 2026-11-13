@@ -4916,18 +4916,6 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 50-60 audit (0.4.0): Winterfall Activity (8464) is complete at the end of the Winterspring guide (Winterfall Village, about 55.4) and was handed in to Salfa only in the Felwood guide at about 59.7. Salfa stands where Timbermaw Hold's tunnel comes out into Winterspring (27.7,34.5), which the Eastern Plaguelands guide rides out of on its way from Moonglade to Donova Snowden (564 yd on): the hand-in goes there, three levels earlier, with no detour. The Felwood guide keeps a hand-in only while it is still carried."
-			},
-			{
-				"a": [
-					"turnin",
-					6004
-				],
-				"b": [
-					"turnin",
-					5096
-				],
-				"faction": "Horde",
-				"why": "Horde 50-60 audit (0.4.0): the Felwood & Western Plaguelands guide kills all of Unfinished Business (6004) at the Northridge Lumber Camp (about 53.2), and Kirsta Deepshadow stands 270 yd from the Scarlet camp, but the hand-in waited for the Silithus guide's Kirsta stop (about 58.5). Handed in right after the Scarlets, before the Bulwark: 5,800 XP five levels earlier, which also brings the Bulwark's hand-ins to the 53.34 the route wants for Jaedenar without the old top-up back at the Scarlet camp (a 1,180 yd round trip from the Bulwark). Her next errand (6023, level 57) stays on the Silithus guide's visit."
 			}
 		],
 		"notes": [

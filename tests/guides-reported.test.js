@@ -7162,21 +7162,6 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: Winterfall Activity hand
 	assert.ok((late.step.when || []).some((p) => p.k === 'complete' && !p.neg), 'the Felwood guide hands it in only while it is still carried');
 });
 
-// Horde 50-60 audit (0.4.0): Unfinished Business (6004) is done at the Northridge Lumber Camp in the Felwood & Western
-// Plaguelands guide (about 53.2) and Kirsta stands 270 yd away; the hand-in waited five levels for the Silithus guide.
-// Handed in right after the Scarlets, before the Bulwark, which also makes the top-up walk back to the Scarlet camp
-// after the Bulwark unnecessary.
-test('forever/horde/50-60/02-felwood.guide: Unfinished Business handed to Kirsta before the Bulwark, no walk back for a top-up', { skip }, () => {
-	const list = goals('forever/horde/50-60/02-felwood.guide');
-	const kirsta = at(list, 'turnin 6004', is('turnin', 6004));
-	const lastKill = list.reduce((m, e, i) => (e.goal.t === 'kill' && e.goal.quest === 6004 ? i : m), -1);
-	assert.ok(lastKill >= 0 && lastKill < kirsta, 'after the Scarlets');
-	const bulwark = at(list, 'turnin 5096', is('turnin', 5096));
-	assert.ok(kirsta < bulwark, 'before the Bulwark');
-	const brill = list.findIndex((e, i) => i > bulwark && e.goal.t === 'goto' && e.goal.text === 'Brill');
-	assert.ok(brill > bulwark, 'the walk to Brill follows the Bulwark');
-	assert.ok(!list.slice(bulwark, brill).some(({ goal }) => goal.t === 'level'), 'no top-up between the Bulwark and Brill');
-});
 
 // Danger at the spot (#1575), Horde 50-60 (0.4.0 base): three goals sent the arrow among elites well above the route.
 // Each arrow now points where the objective's mobs stand clear of them, and the step names them.
@@ -8903,9 +8888,8 @@ test('Horde 40-60: every grind step offers the dungeons at its level', { skip },
 			if (Math.floor(+m[1]) >= 58) assert.match(tips, /Scholomance/, `${file}:${i + 1}: a 58-60 dungeon`);
 		});
 	}
-	// 0.3.7 folded six stand-alone top-ups into the quest steps beside them (the test below checks those tips); the 0.4.0
-	// audit dropped Felwood's "Level 53.34" (Unfinished Business is handed in before the Bulwark instead)
-	assert.ok(n >= 12, `the grind steps are found (${n})`);
+	// 0.3.7 folded six stand-alone top-ups into the quest steps beside them (the test below checks those tips)
+	assert.ok(n >= 13, `the grind steps are found (${n})`);
 });
 
 test('Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)', { skip }, () => {
