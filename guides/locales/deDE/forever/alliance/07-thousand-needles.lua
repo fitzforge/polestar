@@ -10,7 +10,7 @@ return {
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, Taverne Zum Scharlachroten Raben",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "{npc:840}, am Nordeingang der Stadt; läuft um {area:42} herum: Schau in den Kreis auf der Karte",
 
 	-- Step 3: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
@@ -28,22 +28,22 @@ return {
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "Faulreißer der Nachtheuler und der {npc:511}",
-	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul · {spell:8282} Curse of Blood
-	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "",
+	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul
+	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: Curse of Blood lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "Die stärksten Worgen streifen durch die Wälder südlich von {area:42}, westlich und südlich des {area:121}. Der {npc:511} versteckt sich in der kleinen Gruft am Friedhof.\nVorsicht: Fluch des Blutes hält 10 Minuten an und erhöht jeden physischen Schaden, den du erleidest, um 13.\nVorsicht: Einige Worgen vor der Höhle stehen in Gruppen, darunter ein Lager mit vier. Um zusätzliche Mobs zu vermeiden, zieh sie einzeln von der erhöhten Stelle neben dem Höhleneingang.",
 	-- {item:1946} Mary's Looking Glass
-	["{item:1946}; inside"] = "",
+	["{item:1946}; inside"] = "{item:1946}; drinnen",
 
 	-- Step 8: Darkshire
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, drinnen",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "",
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, beim Haus von {npc:633}; drinnen",
 
 	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
-	["{area:93}: kill these as you meet them"] = "",
+	["{area:93}: kill these as you meet them"] = "{area:93}: Töte diese, sobald sie dir begegnen",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Geh von {area:42} nach Südwesten zum Ogerhügel. {object:119} steht im Lager an dessen Eingang; Splinter-Fist-Oger bewachen es.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Nur falls ein {npc:272273} {quest:96138} fallen ließ: Rechtsklick darauf",
 	["Below ground"] = "Unter der Erde",
@@ -52,18 +52,18 @@ return {
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Das Lager der Defias liegt im Südwesten des {zone:1431}, südlich von {area:94} nahe der Grenze zu {zone:1436}. Die Geldkassette steht zwischen den Zelten.",
 	-- {item:5947} Defias Docket
-	["{item:5947}; inside"] = "",
+	["{item:5947}; inside"] = "{item:5947}; drinnen",
 
 	-- Step 12: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: Töte diese, wenn sie dir begegnen",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
-	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
+	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "Die Plague Spreaders laufen in der nördlichen Hälfte des {area:492} umher. {npc:522}, ein Elite, wandert zwischen den Gräbern: Halte Abstand zu ihm.\nSkeletal Raiders, Healers und Warders halten den westlichen Teil des Friedhofs, direkt östlich des Lagers von {npc:311}.\nVorsicht: Die Skelette in den Katakomben stehen dicht beieinander, sodass du leicht zusätzliche Mobs ziehst.",
 
 	-- Step 13: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
-	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
+	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "Das Grab steht zwischen den Skeletten an der Nordwestecke des Friedhofs, auf dem Weg zu {npc:311}. Diese Quest und die nächste sind reine Gespräche mit {npc:268} und Commander Althea in {area:42}: Stufe 35 ab Stufe 28, aber ohne Kampf.",
 
 	-- Step 14: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
@@ -80,20 +80,20 @@ return {
 	["{npc:268}, in the house behind the town hall"] = "{npc:268}, im Haus hinter dem Rathaus",
 	["Wait a moment, then speak with her again"] = "Warte einen Moment und sprich sie dann erneut an",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "{npc:840} läuft um {area:42} herum: Schau in den Kreis auf der Karte",
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "Für {npc:482} in {zone:1453}, im nächsten Guide",
 
 	-- Step 16: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "",
-	["Inside"] = "",
+	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "Das Haus von {npc:276} steht am Ostende der Stadt, auf dem Weg zum Flugmeister.",
+	["Inside"] = "Drinnen",
 
 	-- Step 17: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Flieg nach {area:150}",
 	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	["{area:42} flight master"] = "Flugmeister von {area:42}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Menethil"] = "Zurück nach Menethil",
