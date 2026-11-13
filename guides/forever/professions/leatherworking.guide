@@ -83,47 +83,51 @@ step Leatherworking 1-75: vendor goods
   tip Buy the whole bracket's share in one go: 50 Coarse Thread (5s); about 5s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
   buy 2320 x50 nearest
 
+step Leatherworking 1-75: Auction House
+  tip What 1-75 takes that the Auction House sells: 349 Light Leather. The counts drop by what your bags, bank and mail hold.
+  auction 2318 x349
+
 step Light Leather (Elwynn Forest)
   only Human
   zone Elwynn Forest
-  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20; or the Auction House. Skin Gray Forest Wolf, Mangy Wolf, Prowler, Rockhide Boar, Stonetusk Boar and Young Forest Bear here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @55.5,76.6 era
+  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Gray Forest Wolf, Mangy Wolf, Prowler, Rockhide Boar, Stonetusk Boar and Young Forest Bear here (level 5-20); the Skinning guide routes this.
+  collect 2318 x349 @55.5,76.6 era gather Skinning 1
 
 step Light Leather (Dun Morogh)
   only Dwarf,Gnome
   zone Dun Morogh
-  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20; or the Auction House. Skin Crag Boar, Elder Crag Boar, Ice Claw Bear, Juvenile Snow Leopard, Large Crag Boar, Scarred Crag Boar, Snow Leopard, Snow Tracker Wolf, Winter Wolf and Young Black Bear here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @32.7,57.1 era
+  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Crag Boar, Elder Crag Boar, Ice Claw Bear, Juvenile Snow Leopard, Large Crag Boar, Scarred Crag Boar, Snow Leopard, Snow Tracker Wolf, Winter Wolf and Young Black Bear here (level 5-20); the Skinning guide routes this.
+  collect 2318 x349 @32.7,57.1 era gather Skinning 1
 
 step Light Leather (Teldrassil)
   only NightElf
   zone Teldrassil
-  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20; or the Auction House. Skin Elder Nightsaber, Nightsaber and Nightsaber Stalker here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @49.7,77.1 era
+  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Elder Nightsaber, Nightsaber and Nightsaber Stalker here (level 5-20); the Skinning guide routes this.
+  collect 2318 x349 @49.7,77.1 era gather Skinning 1
 
 step Light Leather (Zephras Isle)
   only Skyborne
   zone Zephras Isle
-  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20; or the Auction House. Skin Cloudrunner, Galestrider, Highlands Ursera, Hippogryph Protector, Hippogryph Youth, Ornery Galestrider, Prideclaw, Shadowgale Shriekling, Shriekling Fledgling, Vuldren, Vuldren Alpha and Windsong Crawler here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @49.2,63.8 live
+  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Cloudrunner, Galestrider, Highlands Ursera, Hippogryph Protector, Hippogryph Youth, Ornery Galestrider, Prideclaw, Shadowgale Shriekling, Shriekling Fledgling, Vuldren, Vuldren Alpha and Windsong Crawler here (level 5-20); the Skinning guide routes this.
+  collect 2318 x349 @51.3,63.7 live gather Skinning 1
 
 step Light Leather (Durotar)
   only Orc,Troll
   zone Durotar
-  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20; or the Auction House. Skin Armored Scorpid, Bloodtalon Scythemaw, Bloodtalon Taillasher, Clattering Scorpid, Dire Mottled Boar, Dreadmaw Crocolisk, Durotar Tiger, Elder Mottled Boar, Thunder Lizard and Venomtail Scorpid here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @37,31.7 era
+  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Armored Scorpid, Bloodtalon Scythemaw, Bloodtalon Taillasher, Clattering Scorpid, Dire Mottled Boar, Dreadmaw Crocolisk, Durotar Tiger, Elder Mottled Boar, Thunder Lizard and Venomtail Scorpid here (level 5-20); the Skinning guide routes this.
+  collect 2318 x349 @37,31.7 era gather Skinning 1
 
 step Light Leather (Mulgore)
   only Tauren
   zone Mulgore
-  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20; or the Auction House. Skin Adult Plainstrider, Elder Plainstrider, Flatland Cougar, Flatland Prowler, Kodo Calf, Prairie Stalker, Prairie Wolf and Prairie Wolf Alpha here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @51.5,34.4 live
+  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Adult Plainstrider, Elder Plainstrider, Flatland Cougar, Flatland Prowler, Kodo Calf, Prairie Stalker, Prairie Wolf and Prairie Wolf Alpha here (level 5-20); the Skinning guide routes this.
+  collect 2318 x349 @51.5,34.4 live gather Skinning 1
 
 step Light Leather (Tirisfal Glades)
   only Undead
   zone Tirisfal Glades
-  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20; or the Auction House. Skin Cursed Darkhound, Decrepit Darkhound, Greater Duskbat, Ravenous Darkhound and Vampiric Duskbat here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @83.9,44.2 era
+  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Cursed Darkhound, Decrepit Darkhound, Greater Duskbat, Ravenous Darkhound and Vampiric Duskbat here (level 5-20); the Skinning guide routes this.
+  collect 2318 x349 @83.9,44.2 era gather Skinning 1
 
 step Light Armor Kit to 51
   zone Azeroth
@@ -154,53 +158,64 @@ step Leatherworking 75-150: vendor goods
   buy 2320 x70 nearest
   buy 2321 x50 nearest
 
+step Leatherworking 75-150: Auction House
+  tip What 75-150 takes that the Auction House sells: 144 Medium Leather, 24 Elixir of Minor Agility and 321 Heavy Leather. The counts drop by what your bags, bank and mail hold.
+  auction 2319 x144
+  auction 2457 x24
+  auction 4234 x321
+
 step Medium Leather (Hillsbrad Foothills)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Hillsbrad Foothills
-  tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30; or the Auction House. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this.
-  collect 2319 x144 @45.4,34.9 era
+  tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this.
+  collect 2319 x144 @45.4,34.9 era gather Skinning 80
 
 step Medium Leather (Darkshore)
   only NightElf
   zone Darkshore
-  tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30; or the Auction House. Skin Ghostpaw Runner and Moonstalker Matriarch here (level 18-30); the Skinning guide routes this.
-  collect 2319 x144 @39.4,91.8 era
+  tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30. Skin Ghostpaw Runner and Moonstalker Matriarch here (level 18-30); the Skinning guide routes this.
+  collect 2319 x144 @39.4,91.8 era gather Skinning 80
 
 step Medium Leather (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30; or the Auction House. Skin Barrens Kodo and Thunderhead here (level 18-30); the Skinning guide routes this.
-  collect 2319 x144 @45.7,68.1 era
+  tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30. Skin Barrens Kodo and Thunderhead here (level 18-30); the Skinning guide routes this.
+  collect 2319 x144 @45.7,68.1 era gather Skinning 80
 
 step Medium Leather (Hillsbrad Foothills)
   only Undead
   zone Hillsbrad Foothills
-  tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30; or the Auction House. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this.
-  collect 2319 x144 @45.4,34.9 era
+  tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this.
+  collect 2319 x144 @45.4,34.9 era gather Skinning 80
+
+step Elixir of Minor Agility
+  zone Azeroth
+  tip 24 Elixir of Minor Agility for Nimble Leather Gloves: Alchemy: Elixir of Minor Agility.
+  collect 2457 x24 anywhere gather Alchemy 50
 
 step Heavy Leather (Alterac Mountains)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Alterac Mountains
-  tip 321 Heavy Leather for Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (191 of them for 150-225: pick them all now): Skinning: beasts of level 28-40; or the Auction House. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this.
-  collect 4234 x321 @38.2,91.9 era
+  tip 321 Heavy Leather for Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (191 of them for 150-225: pick them all now): Skinning: beasts of level 28-40. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this.
+  collect 4234 x321 @38.2,91.9 era gather Skinning 140
 
 step Heavy Leather (Thousand Needles)
   only NightElf
   zone Thousand Needles
-  tip 321 Heavy Leather for Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (191 of them for 150-225: pick them all now): Skinning: beasts of level 28-40; or the Auction House. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this.
-  collect 4234 x321 @78.5,59 era
+  tip 321 Heavy Leather for Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (191 of them for 150-225: pick them all now): Skinning: beasts of level 28-40. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this.
+  collect 4234 x321 @78.5,59 era gather Skinning 140
 
 step Heavy Leather (Thousand Needles)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone Thousand Needles
-  tip 321 Heavy Leather for Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (191 of them for 150-225: pick them all now): Skinning: beasts of level 28-40; or the Auction House. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this.
-  collect 4234 x321 @78.5,59 era
+  tip 321 Heavy Leather for Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (191 of them for 150-225: pick them all now): Skinning: beasts of level 28-40. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this.
+  collect 4234 x321 @78.5,59 era gather Skinning 140
 
 step Heavy Leather (Alterac Mountains)
   only Undead
   zone Alterac Mountains
-  tip 321 Heavy Leather for Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (191 of them for 150-225: pick them all now): Skinning: beasts of level 28-40; or the Auction House. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this.
-  collect 4234 x321 @38.2,91.9 era
+  tip 321 Heavy Leather for Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (191 of them for 150-225: pick them all now): Skinning: beasts of level 28-40. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this.
+  collect 4234 x321 @38.2,91.9 era gather Skinning 140
 
 step Fine Leather Belt to 102
   zone Azeroth
@@ -212,7 +227,7 @@ step Leatherworking recipes at 102
   learn 9074
 
 step Nimble Leather Gloves to 125
-  tip Nimble Leather Gloves is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 Elixir of Minor Agility, 6 Medium Leather and 1 Fine Thread. Each takes an Elixir of Minor Agility: an alchemist makes it from a Swiftthistle and a Silverleaf, and the Auction House has it cheap. With no elixirs, take Fine Leather Belt on to 105 and Dark Leather Cloak (from 85: 8 Medium Leather, a Gray Dye and a Fine Thread) to 125: about 28 cloaks, 224 Medium Leather in all. Elixir of Minor Agility (24 for 75-150): Alchemy: Elixir of Minor Agility; or the Auction House.
+  tip Nimble Leather Gloves is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 Elixir of Minor Agility, 6 Medium Leather and 1 Fine Thread. Each takes an Elixir of Minor Agility: an alchemist makes it from a Swiftthistle and a Silverleaf, and the Auction House has it cheap. With no elixirs, take Fine Leather Belt on to 105 and Dark Leather Cloak (from 85: 8 Medium Leather, a Gray Dye and a Fine Thread) to 125: about 28 cloaks, 224 Medium Leather in all.
   craft 9074 until 125
 
 step Leatherworking recipes at 125
@@ -233,29 +248,34 @@ step Leatherworking 150-225: vendor goods
   buy 4289 x66 nearest
   buy 4291 x145 nearest
 
+step Leatherworking 150-225: Auction House
+  tip What 150-225 takes that the Auction House sells: 22 Heavy Hide and 373 Thick Leather. The counts drop by what your bags, bank and mail hold.
+  auction 4235 x22
+  auction 4304 x373
+
 step Heavy Hide (Alliance)
   only Alliance
   zone Alterac Mountains
-  tip 22 Heavy Hide for Barbaric Shoulders and Guardian Gloves: Skinning: beasts of level 28-40; or the Auction House. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this.
-  collect 4235 x22 @38.2,91.9 era
+  tip 22 Heavy Hide for Barbaric Shoulders and Guardian Gloves: Skinning: beasts of level 28-40. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this.
+  collect 4235 x22 @38.2,91.9 era gather Skinning 140
 
 step Heavy Hide (Horde)
   only Horde
   zone Thousand Needles
-  tip 22 Heavy Hide for Barbaric Shoulders and Guardian Gloves: Skinning: beasts of level 28-40; or the Auction House. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this.
-  collect 4235 x22 @78.5,59 era
+  tip 22 Heavy Hide for Barbaric Shoulders and Guardian Gloves: Skinning: beasts of level 28-40. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this.
+  collect 4235 x22 @78.5,59 era gather Skinning 140
 
 step Thick Leather (Alliance)
   only Alliance
   zone Badlands
-  tip 373 Thick Leather for Nightscape Headband and Nightscape Pants: Skinning: beasts of level 38-50; or the Auction House. Skin Elder Crag Coyote, Rabid Crag Coyote, Ridge Huntress and Ridge Stalker Patriarch here (level 38-50); the Skinning guide routes this.
-  collect 4304 x373 @35,64.3 era
+  tip 373 Thick Leather for Nightscape Headband and Nightscape Pants: Skinning: beasts of level 38-50. Skin Elder Crag Coyote, Rabid Crag Coyote, Ridge Huntress and Ridge Stalker Patriarch here (level 38-50); the Skinning guide routes this.
+  collect 4304 x373 @35,64.3 era gather Skinning 190
 
 step Thick Leather (Horde)
   only Horde
   zone Feralas
-  tip 373 Thick Leather for Nightscape Headband and Nightscape Pants: Skinning: beasts of level 38-50; or the Auction House. Skin Feral Scar Yeti, Frayfeather Hippogryph, Frayfeather Stagwing, Grizzled Ironfur Bear, Groddoc Ape, Groddoc Thunderer, Ironfur Bear, Ironfur Patriarch, Longtooth Howler, Longtooth Runner and Rage Scar Yeti here (level 38-50); the Skinning guide routes this.
-  collect 4304 x373 @54.9,60.8 era
+  tip 373 Thick Leather for Nightscape Headband and Nightscape Pants: Skinning: beasts of level 38-50. Skin Feral Scar Yeti, Frayfeather Hippogryph, Frayfeather Stagwing, Grizzled Ironfur Bear, Groddoc Ape, Groddoc Thunderer, Ironfur Bear, Ironfur Patriarch, Longtooth Howler, Longtooth Runner and Rage Scar Yeti here (level 38-50); the Skinning guide routes this.
+  collect 4304 x373 @54.9,60.8 era gather Skinning 190
 
 step Expert Leatherworking
   zone Azeroth
@@ -322,22 +342,27 @@ step Pattern: Runic Leather Headband
   tip Pattern: Runic Leather Headband teaches Runic Leather Headband (Leatherworking 265) for 2g 20s. Sold by Jase Farlane (Eastern Plaguelands), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it.
   buy 15756 nearest
 
+step Leatherworking 225-300: Auction House
+  tip What 225-300 takes that the Auction House sells: 1029 Rugged Leather and 430 Runecloth. The counts drop by what your bags, bank and mail hold.
+  auction 8170 x1029
+  auction 14047 x430
+
 step Rugged Leather (Alliance)
   only Alliance
   zone Eastern Plaguelands
-  tip 1029 Rugged Leather for Rugged Armor Kit, Wicked Leather Gauntlets and Runic Leather Headband: Skinning: beasts of level 48-60; or the Auction House. Skin Frenzied Plaguehound, Plaguehound and Plaguehound Runt here (level 48-60); the Skinning guide routes this.
-  collect 8170 x1029 @56,46.8 live
+  tip 1029 Rugged Leather for Rugged Armor Kit, Wicked Leather Gauntlets and Runic Leather Headband: Skinning: beasts of level 48-60. Skin Frenzied Plaguehound, Plaguehound and Plaguehound Runt here (level 48-60); the Skinning guide routes this.
+  collect 8170 x1029 @56,46.8 live gather Skinning 240
 
 step Rugged Leather (Horde)
   only Horde
   zone Azshara
-  tip 1029 Rugged Leather for Rugged Armor Kit, Wicked Leather Gauntlets and Runic Leather Headband: Skinning: beasts of level 48-60; or the Auction House. Skin Coralshell Tortoise, Mosshoof Stag, Thunderhead Consort, Thunderhead Patriarch, Thunderhead Skystormer and Thunderhead Stagwing here (level 48-60); the Skinning guide routes this.
-  collect 8170 x1029 @58.8,21.5 era
+  tip 1029 Rugged Leather for Rugged Armor Kit, Wicked Leather Gauntlets and Runic Leather Headband: Skinning: beasts of level 48-60. Skin Coralshell Tortoise, Mosshoof Stag, Thunderhead Consort, Thunderhead Patriarch, Thunderhead Skystormer and Thunderhead Stagwing here (level 48-60); the Skinning guide routes this.
+  collect 8170 x1029 @58.8,21.5 era gather Skinning 240
 
 step Runecloth
   zone Azeroth
-  tip 430 Runecloth for Runic Leather Headband: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
-  collect 14047 x430 anywhere
+  tip 430 Runecloth for Runic Leather Headband: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank.
+  collect 14047 x430 anywhere gather levels 45-60
 
 step Rugged Armor Kit to 239
   tip Rugged Armor Kit is yellow at 225 (yellow 225, green 235, grey 245): about 23 crafts to 239. Each takes 5 Rugged Leather. Five Rugged Leather a craft. Specialisation (optional): at 225 and character level 40. Dragonscale: Peter Galen (Azshara) or Thorkaf Dragoneye (Badlands) wants 2 Tough Scorpid Breastplates, 2 Tough Scorpid Gloves (patterns drop from the Wastewander bandits in Tanaris) and 10 Worn Dragonscale. Elemental: Sarah Tanner (Searing Gorge) or Brumn Winterhoof (Arathi Highlands) wants 2 each of Heart of Fire, Globe of Water, Core of Earth and Breath of Wind. Tribal (from 235): Caryssia Moonhunter (Feralas) or Se'Jib (Stranglethorn Vale) wants a Wild Leather Vest and Helmet, after the Wild Leather quests from Pratt McGrubben or Jangdor Swiftstrider in Feralas. On Forever the specialisation patterns need a Tanning Rack. You can take only one; none is needed for 300, and the beta never tested them (it stopped at level 30).

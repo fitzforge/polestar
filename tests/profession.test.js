@@ -280,6 +280,9 @@ test('planner: a world-drop pattern that does not bind is bought at the Auction 
 	assert.match(text, /^# {4}50-75 {2}R2, about \d+ \(pattern from the Auction House\)/m);
 	assert.match(text, /Its pattern \(Pattern: Traded\) drops from mobs all over the world and does not bind: buy it at the Auction House\./);
 	assert.match(text, /\n {2}learn 2 -- from the pattern bought at the Auction House\n {2}craft 2 until 75\n/);
+	// The pattern is the bracket's Auction House buy (no gather way: always bought).
+	assert.match(text, /\nstep Tailoring 1-75: Auction House\n {2}tip What 1-75 takes that the Auction House sells: a Pattern: Traded\. [^\n]+\n {2}auction 60 x1\n/);
+	assert.doesNotMatch(text, /auction 61 /);
 });
 
 test('planner: what an earlier segment crafts counts against a later one\'s needs', () => {
@@ -401,7 +404,7 @@ test('planner: a recipe held back to a skill neither levels nor makes an interme
 	assert.equal(plan.segments[0].spell, 1);
 });
 
-test('draft: specs add the camp recipe per faction, notes at a skill, a stop and its last step, and name spotless materials in the craft step', () => {
+test('draft: specs add the camp recipe per faction, notes at a skill, a stop and its last step, and a disenchanted material is a bag count', () => {
 	const dust = { name: 'Strange Dust', sell: 0, buy: 0, quality: 1 };
 	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 20, 70, 90, 70)]);
 	prof.materials[70] = dust;
@@ -417,10 +420,12 @@ test('draft: specs add the camp recipe per faction, notes at a skill, a stop and
 	assert.match(text, /^# What it makes\.$/m);
 	assert.match(text, /\n {2}learn 2\n {2}learn 900 only Alliance\n {2}learn 901 only Horde\n/);
 	assert.match(text, /A note at 30\./);
-	assert.match(text, /Strange Dust \(\d+ for \d+-75\): Enchanting: disenchant green items of item level 5-20; or the Auction House\./);
+	// Strange Dust: bought at the Auction House or disenchanted (Enchanting), one way at a time.
+	assert.match(text, /\nstep Tailoring 1-75: Auction House\n {2}tip What 1-75 takes that the Auction House sells: 10 Strange Dust\. The counts drop by what your bags, bank and mail hold\.\n {2}auction 70 x10\n/);
+	assert.match(text, /\nstep Strange Dust\n {2}tip 10 Strange Dust for R2: Enchanting: disenchant green items of item level 5-20\.\n {2}collect 70 x10 anywhere gather Enchanting 1\n/);
 	assert.match(text, /^# {4}70-75 nothing cheap \(see the last step\)$/m);
 	assert.match(text, /\nstep Tailoring 70-75\n {2}tip The last points come from elsewhere\.\n {2}skill Tailoring 75\n$/);
-	assert.doesNotMatch(text, /collect 70 /);
+	assert.doesNotMatch(text, /Strange Dust \(\d+ for/);
 });
 
 test('draft: a limited-stock vendor recipe that binds when picked up is not sent to the Auction House (#315)', () => {
@@ -483,8 +488,11 @@ test('draft: a deterministic guide with smart trainers and vendors, per-faction 
 	has(/^ {2}learn 3913$/);
 	// Linen Cloth: the hostile mob on each faction's continent, not the friendly NPC.
 	has(/^ {2}only Alliance$/);
-	has(/^ {2}collect 2589 x\d+ @50,40 era$/);
-	has(/^ {2}collect 2589 x\d+ @40,40 era$/);
+	has(/^ {2}collect 2589 x\d+ @50,40 era gather levels \d+-\d+$/);
+	has(/^ {2}collect 2589 x\d+ @40,40 era gather levels \d+-\d+$/);
+	// The bracket's Auction House step buys the cloth the steps above gather.
+	has(/^step Tailoring 1-75: Auction House$/);
+	has(/^ {2}auction 2589 x\d+$/);
 	// No faction branches for trainers or vendors, and no race branches at all.
 	assert.ok(!/^ {2}(train|buy|learn) .* only (Alliance|Horde)/m.test(a.text));
 	assert.ok(!/only (Human|Dwarf|Gnome|NightElf|Orc|Troll|Tauren|Undead)/.test(a.text));
@@ -581,7 +589,8 @@ test('draft: cloth is counted in the bags, from humanoids as you level or the Au
 	data.mapFrames = { era: { 1429: { c: 0 } } };
 	data.items = {};
 	const { text } = draftGuide('Tailoring', { ...data, farmable: () => ({ Alliance: 9, Horde: 9 }) }, { to: 75, spec: {} });
-	assert.match(text, /\n {2}tip \d+ Linen Cloth for [^\n]*: humanoids of level 5-20 drop it\. Keep what you loot as you level, take it from your bank, or buy it at the Auction House\.\n {2}collect 2589 x\d+ anywhere\n/);
+	assert.match(text, /\n {2}tip \d+ Linen Cloth for [^\n]*: humanoids of level 5-20 drop it\. Keep what you loot as you level, or take it from your bank\.\n {2}collect 2589 x\d+ anywhere gather levels 5-20\n/);
+	assert.match(text, /\n {2}auction 2589 x\d+\n/);
 	assert.doesNotMatch(text, /collect 2589 x\d+ (nearest|@)/);
 });
 
@@ -595,7 +604,7 @@ test('draft: mob drops the compiler can place become one `collect … nearest` s
 		mapFrames: readJson('map-frames'),
 	};
 	const both = draftGuide('Tailoring', { ...base, farmable: () => ({ Alliance: 3, Horde: 5 }) }, { to: 75, spec: {} }).text;
-	assert.match(both, /^step Linen Cloth\n {2}tip [^\n]+\n {2}collect 2589 x\d+ nearest$/m);
+	assert.match(both, /^step Linen Cloth\n {2}tip [^\n]+\n {2}collect 2589 x\d+ nearest gather levels 3-5$/m);
 	assert.ok(!/^ {2}only (Alliance|Horde)$/m.test(both));
 	assert.ok(!/@\d/.test(both));
 	// A side without a farm spot, or whose lowest spot is 3+ levels above the
@@ -606,6 +615,32 @@ test('draft: mob drops the compiler can place become one `collect … nearest` s
 		assert.match(one, /collect 2589 x\d+ @40,40 era/);
 	}
 	assert.match(draftGuide('Tailoring', { ...base, farmable: () => ({ Alliance: 7, Horde: 7 }) }, { to: 75, spec: {} }).text, /collect 2589 x\d+ nearest/);
+});
+
+test('draft: each bracket buys at the Auction House what it sells, after the vendor goods, and each gather collect says what gathering takes', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 70, 90, 2589, { reagents: [{ item: 2589, count: 1 }, { item: 10, count: 1 }, { item: 72, count: 1 }, { item: 4234, count: 1 }] })]);
+	prof.materials[2589] = { name: 'Linen Cloth', buy: 55, buyCount: 1, sell: 13, quality: 1, dropCount: 40, drops: [{ npc: 3, chance: 30 }] };
+	prof.materials[72] = { name: 'Bound Gizmo', sell: 1, quality: 1, bop: true };
+	prof.materials[4234] = { name: 'Medium Leather', sell: 25, quality: 1 };
+	const pts = (n, x) => Array.from({ length: n }, (_, i) => [x + (i % 5), 40 + Math.floor(i / 5)]);
+	// The Barrens is in the curated beast lists; its level 20 beasts yield Medium Leather (band 18-30).
+	data.npcs = { 5: { id: 5, name: 'Savannah Patriarch', level: 20, faction: null, spawns: { 1413: { f: 'e', pts: pts(20, 40) } } } };
+	data.zones = { 1413: { name: 'The Barrens', type: 3 } };
+	data.mapFrames = { era: { 1413: { c: 1 } } };
+	data.items = {};
+	const { text } = draftGuide('Tailoring', data, { to: 75, spec: {} });
+	const lines = text.split('\n');
+	const at = (re) => lines.findIndex((l) => re.test(l));
+	const order = [at(/^step Tailoring 1-75: vendor goods$/), at(/^step Tailoring 1-75: Auction House$/), at(/^step Linen Cloth$/), at(/^step R1 to 75$/)];
+	assert.ok(order[0] >= 0 && order.every((v, i) => i === 0 || v > order[i - 1]), `vendor goods, Auction House, cloth, crafts: ${order}`);
+	// Every material it can sell, for the whole bracket; no vendor good, nothing that binds when picked up.
+	const ah = text.split('\n\n').find((b) => b.startsWith('step Tailoring 1-75: Auction House'));
+	assert.match(ah, /\n {2}tip What 1-75 takes that the Auction House sells: 75 Linen Cloth and 75 Medium Leather\. [^\n]+\n {2}auction 2589 x75\n {2}auction 4234 x75$/);
+	// Cloth: its humanoids' levels; leather: the skill its beasts' lowest level asks (18: 80).
+	assert.match(text, /\n {2}collect 2589 x75 anywhere gather levels 5-20\n/);
+	const skins = text.match(/^ {2}collect 4234 .*$/gm) || [];
+	assert.ok(skins.length > 0 && skins.every((l) => / gather Skinning 80$/.test(l)), skins.join('\n'));
+	assert.doesNotMatch(text, /^ {2}(collect|auction) 72 /m);
 });
 
 test('skinned materials go to beasts of their level band, or to the mobs the data says yield them', () => {
@@ -664,7 +699,7 @@ test('farm spots need real sources (2% or more), including clickable clams; rare
 	assert.equal(farmSpot(5500, 'drop', 'Alliance', 0, data).frame, 'live');
 });
 
-test('draft: starting-area herbs per race to Journeyman, rare node finds and rare drops get no spot, tool materials name the tool', () => {
+test('draft: starting-area herbs per race to Journeyman, rare node finds are a bag count, rare drops get no spot, tool materials name the tool', () => {
 	const pts = (n, x, y = 40) => Array.from({ length: n }, (_, i) => [x + (i % 5), y + Math.floor(i / 5)]);
 	const herb = (id, name, spawns) => ({ id, name, roles: ['herb'], spawns });
 	const mine = (id, name, spawns) => ({ id, name, roles: ['mine'], spawns });
@@ -717,16 +752,17 @@ test('draft: starting-area herbs per race to Journeyman, rare node finds and rar
 	assert.match(text, /^step Silverleaf \(Teldrassil\)\n {2}only NightElf\n/m);
 	assert.match(text, /^step Silverleaf \(Elwynn Forest\)\n {2}only Human\n/m);
 	// Zephras Isle is one step for the Skyborne of both sides, in the live frame.
-	assert.match(text, /^step Silverleaf \(Zephras Isle\)\n {2}only Skyborne\n(?: {2}[^\n]+\n)* {2}collect 765 x\d+ @[\d.]+,[\d.]+ live$/m);
+	assert.match(text, /^step Silverleaf \(Zephras Isle\)\n {2}only Skyborne\n(?: {2}[^\n]+\n)* {2}collect 765 x\d+ @[\d.]+,[\d.]+ live gather Herbalism 1$/m);
 	// Three Silverleaf in Durotar are no patch: Orcs and Trolls go on to The Barrens.
 	assert.match(text, /^step Silverleaf \(The Barrens\)\n {2}only Orc,Troll/m);
 	assert.doesNotMatch(text, /Silverleaf \(Durotar\)/);
 	// The starting-area step names no other zones.
-	assert.match(text, /Herbalism: Silverleaf \(skill 1\); or the Auction House\. The densest patch of Silverleaf in Teldrassil is marked\./);
-	// Shadowgem (one vein in a hundred) and Black Pearl (0.2%) get no spot, and the
-	// rod's gem is "for Tonic Rod".
-	assert.doesNotMatch(text, /^ {2}collect (1210|7971) /m);
-	assert.match(text, /Shadowgem turns up in about one Copper Vein in 100: buy it at the Auction House/);
+	assert.match(text, /Herbalism: Silverleaf \(skill 1\)\. The densest patch of Silverleaf in Teldrassil is marked\./);
+	// Black Pearl (0.2%) gets no spot and is bought; Shadowgem (one vein in a hundred) is kept
+	// while mining or bought, and the rod's gem is "for Tonic Rod".
+	assert.doesNotMatch(text, /^ {2}collect 7971 /m);
+	assert.match(text, /\nstep Shadowgem\n(?: {2}zone Azeroth\n)? {2}tip 1 Shadowgem for Tonic Rod: Shadowgem turns up in about one Copper Vein in 100: keep the ones you find while mining\.\n {2}collect 1210 x1 anywhere gather Mining 1\n/);
+	assert.match(text, /\n {2}auction 765 x\d+\n {2}auction 1210 x1\n {2}auction 7971 x\d+\n/);
 	assert.match(text, /Black Pearl is a rare drop \(no mob gives it one time in 50\)/);
 	assert.match(text, /Make the Tonic Rod first: the recipe needs it in your bags/);
 });

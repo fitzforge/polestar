@@ -45,10 +45,15 @@ step Learn Cooking
 
 # ---------------------------------------------------------------- Cooking 1-50
 
+step Charred Wolf Meat: Auction House
+  only Human
+  tip What Charred Wolf Meat takes that the Auction House sells: 50 Stringy Wolf Meat. The counts drop by what your bags, bank and mail hold.
+  auction 2672 x50
+
 step Charred Wolf Meat: ingredients
   only Human
   zone Elwynn Forest
-  collect 2672 x50 nearest     -- Prowler (86%) in Elwynn Forest, or wherever the arrow points
+  collect 2672 x50 nearest gather levels 5-10     -- Prowler (86%) in Elwynn Forest, or wherever the arrow points
 
 step Charred Wolf Meat (1-50)
   only Human
@@ -56,10 +61,15 @@ step Charred Wolf Meat (1-50)
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
   craft 2538 until 50
 
+step Roasted Boar Meat: Auction House
+  only Dwarf,Gnome
+  tip What Roasted Boar Meat takes that the Auction House sells: 50 Chunk of Boar Meat. The counts drop by what your bags, bank and mail hold.
+  auction 769 x50
+
 step Roasted Boar Meat: ingredients
   only Dwarf,Gnome
   zone Dun Morogh
-  collect 769 x50 nearest     -- Large Crag Boar (36%), Crag Boar (34%) in Dun Morogh, or wherever the arrow points
+  collect 769 x50 nearest gather levels 5-10     -- Large Crag Boar (36%), Crag Boar (34%) in Dun Morogh, or wherever the arrow points
 
 step Roasted Boar Meat (1-50)
   only Dwarf,Gnome
@@ -72,10 +82,15 @@ step Herb Baked Egg: shopping
   tip The arrow picks the nearest vendor of your faction for each item. You need 50 Mild Spices (1s).
   buy 2678 x50 nearest
 
+step Herb Baked Egg: Auction House
+  only NightElf
+  tip What Herb Baked Egg takes that the Auction House sells: 50 Small Egg. The counts drop by what your bags, bank and mail hold.
+  auction 6889 x50
+
 step Herb Baked Egg: ingredients
   only NightElf
   zone Teldrassil
-  collect 6889 x50 nearest     -- Strigid Owl (58%) in Teldrassil, or wherever the arrow points
+  collect 6889 x50 nearest gather levels 5-9     -- Strigid Owl (58%) in Teldrassil, or wherever the arrow points
 
 step Herb Baked Egg (1-50)
   only NightElf
@@ -83,10 +98,15 @@ step Herb Baked Egg (1-50)
   tip Herb Baked Egg is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire. Herb Baked Egg comes with Cooking (the client teaches it with the skill); Mild Spices are a cooking vendor's. The Strigid owls of Teldrassil drop a Small Egg more often than not, and Darkshore's moonkin drop them too. Fishers can cook Brilliant Smallfish (recipe 40c) from Rut'theran's waters instead, and Zarrin in Dolanaar gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for Kaldorei Spider Kabob, orange from 10 to 50.
   craft 8604 until 50
 
+step Charred Wolf Meat: Auction House
+  only Skyborne
+  tip What Charred Wolf Meat takes that the Auction House sells: 50 Stringy Wolf Meat. The counts drop by what your bags, bank and mail hold.
+  auction 2672 x50
+
 step Charred Wolf Meat: ingredients
   only Skyborne
   zone Zephras Isle
-  collect 2672 x50 nearest     -- Juvenile Vuldren in Zephras Isle, or wherever the arrow points
+  collect 2672 x50 nearest gather levels 1-10     -- Juvenile Vuldren in Zephras Isle, or wherever the arrow points
 
 step Charred Wolf Meat (1-50)
   only Skyborne
@@ -94,10 +114,15 @@ step Charred Wolf Meat (1-50)
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire. The Vuldren of Zephras Isle drop Stringy Wolf Meat.
   craft 2538 until 50
 
+step Roasted Boar Meat: Auction House
+  only Orc,Troll
+  tip What Roasted Boar Meat takes that the Auction House sells: 50 Chunk of Boar Meat. The counts drop by what your bags, bank and mail hold.
+  auction 769 x50
+
 step Roasted Boar Meat: ingredients
   only Orc,Troll
   zone Durotar
-  collect 769 x50 nearest     -- Dire Mottled Boar (99%) in Durotar, or wherever the arrow points
+  collect 769 x50 nearest gather levels 6-9     -- Dire Mottled Boar (99%) in Durotar, or wherever the arrow points
 
 step Roasted Boar Meat (1-50)
   only Orc,Troll
@@ -105,10 +130,15 @@ step Roasted Boar Meat (1-50)
   tip Roasted Boar Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
   craft 2540 until 50
 
+step Charred Wolf Meat: Auction House
+  only Tauren
+  tip What Charred Wolf Meat takes that the Auction House sells: 50 Stringy Wolf Meat. The counts drop by what your bags, bank and mail hold.
+  auction 2672 x50
+
 step Charred Wolf Meat: ingredients
   only Tauren
   zone Mulgore
-  collect 2672 x50 nearest     -- Prairie Wolf Alpha (82%), Prairie Stalker (77%) in Mulgore, or wherever the arrow points
+  collect 2672 x50 nearest gather levels 5-10     -- Prairie Wolf Alpha (82%), Prairie Stalker (77%) in Mulgore, or wherever the arrow points
 
 step Charred Wolf Meat (1-50)
   only Tauren
@@ -116,10 +146,15 @@ step Charred Wolf Meat (1-50)
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
   craft 2538 until 50
 
+step Charred Wolf Meat: Auction House
+  only Undead
+  tip What Charred Wolf Meat takes that the Auction House sells: 50 Stringy Wolf Meat. The counts drop by what your bags, bank and mail hold.
+  auction 2672 x50
+
 step Charred Wolf Meat: ingredients
   only Undead
   zone Tirisfal Glades
-  collect 2672 x50 nearest     -- Decrepit Darkhound (72%), Cursed Darkhound (33%) in Tirisfal Glades, or wherever the arrow points
+  collect 2672 x50 nearest gather levels 5-11     -- Decrepit Darkhound (72%), Cursed Darkhound (33%) in Tirisfal Glades, or wherever the arrow points
 
 step Charred Wolf Meat (1-50)
   only Undead
@@ -134,10 +169,15 @@ step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest Cooking trainer of your faction; training costs 5s.
   train Cooking Journeyman
 
+step Coyote Steak: Auction House
+  only Human,Skyborne,Alliance
+  tip What Coyote Steak takes that the Auction House sells: 40 Coyote Meat. The counts drop by what your bags, bank and mail hold.
+  auction 2673 x40
+
 step Coyote Steak: ingredients
   only Human,Skyborne,Alliance
   zone Westfall
-  collect 2673 x40 nearest     -- Coyote (54%), Coyote Packleader (51%) in Westfall, or wherever the arrow points
+  collect 2673 x40 nearest gather levels 10-12     -- Coyote (54%), Coyote Packleader (51%) in Westfall, or wherever the arrow points
 
 step Coyote Steak (50-90)
   only Human,Skyborne,Alliance
@@ -151,10 +191,15 @@ step Crab Cake: shopping
   tip The arrow picks the nearest vendor of your faction for each item. You need 44 Mild Spices (90c).
   buy 2678 x44 nearest
 
+step Crab Cake: Auction House
+  only Human,Skyborne,Alliance
+  tip What Crab Cake takes that the Auction House sells: 44 Crawler Meat. The counts drop by what your bags, bank and mail hold.
+  auction 2674 x44
+
 step Crab Cake: ingredients
   only Human,Skyborne,Alliance
   zone Westfall
-  collect 2674 x44 nearest     -- Sand Crawler (43%) in Westfall, or wherever the arrow points
+  collect 2674 x44 nearest gather levels 13-18     -- Sand Crawler (43%) in Westfall, or wherever the arrow points
 
 step Crab Cake (90-130)
   only Human,Skyborne,Alliance
@@ -168,10 +213,15 @@ step Smoked Bear Meat: shopping
   tip The arrow picks the nearest vendor of your faction for each item.
   buy 6892 x1 nearest
 
+step Smoked Bear Meat: Auction House
+  only Dwarf,Gnome
+  tip What Smoked Bear Meat takes that the Auction House sells: 30 Bear Meat. The counts drop by what your bags, bank and mail hold.
+  auction 3173 x30
+
 step Smoked Bear Meat: ingredients
   only Dwarf,Gnome
   zone Loch Modan
-  collect 3173 x30 nearest     -- Black Bear Patriarch (39%) in Loch Modan, or wherever the arrow points
+  collect 3173 x30 nearest gather levels 11-17     -- Black Bear Patriarch (39%) in Loch Modan, or wherever the arrow points
 
 step Smoked Bear Meat (50-80)
   only Dwarf,Gnome
@@ -185,10 +235,15 @@ step Dry Pork Ribs: shopping
   tip The arrow picks the nearest vendor of your faction for each item. You need 52 Mild Spices (1s 10c).
   buy 2678 x52 nearest
 
+step Dry Pork Ribs: Auction House
+  only Dwarf,Gnome
+  tip What Dry Pork Ribs takes that the Auction House sells: 52 Boar Ribs. The counts drop by what your bags, bank and mail hold.
+  auction 2677 x52
+
 step Dry Pork Ribs: ingredients
   only Dwarf,Gnome
   zone Loch Modan
-  collect 2677 x52 nearest     -- Mangy Mountain Boar (31%) in Loch Modan, or wherever the arrow points
+  collect 2677 x52 nearest gather levels 10-17     -- Mangy Mountain Boar (31%) in Loch Modan, or wherever the arrow points
 
 step Dry Pork Ribs (80-130)
   only Dwarf,Gnome
@@ -219,10 +274,15 @@ step Crab Cake: shopping
   tip The arrow picks the nearest vendor of your faction for each item. You need 44 Mild Spices (90c).
   buy 2678 x44 nearest
 
+step Crab Cake: Auction House
+  only NightElf
+  tip What Crab Cake takes that the Auction House sells: 44 Crawler Meat. The counts drop by what your bags, bank and mail hold.
+  auction 2674 x44
+
 step Crab Cake: ingredients
   only NightElf
   zone Darkshore
-  collect 2674 x44 nearest     -- Spined Crawler (42%), Clattering Crawler (40%) in Darkshore, or wherever the arrow points
+  collect 2674 x44 nearest gather levels 9-21     -- Spined Crawler (42%), Clattering Crawler (40%) in Darkshore, or wherever the arrow points
 
 step Crab Cake (90-130)
   only NightElf
@@ -237,10 +297,15 @@ step Strider Stew: shopping
   buy 5486 x1 nearest
   buy 4536 x52 nearest
 
+step Strider Stew: Auction House
+  only Horde
+  tip What Strider Stew takes that the Auction House sells: 52 Strider Meat. The counts drop by what your bags, bank and mail hold.
+  auction 5469 x52
+
 step Strider Stew: ingredients
   only Horde
   zone The Barrens
-  collect 5469 x52 nearest     -- Fleeting Plainstrider (32%) in The Barrens, or wherever the arrow points
+  collect 5469 x52 nearest gather levels 11-17     -- Fleeting Plainstrider (32%) in The Barrens, or wherever the arrow points
 
 step Strider Stew (50-100)
   only Horde
@@ -256,10 +321,15 @@ step Crispy Lizard Tail: shopping
   buy 3735 x1 nearest
   buy 2692 x30 nearest
 
+step Crispy Lizard Tail: Auction House
+  only Horde
+  tip What Crispy Lizard Tail takes that the Auction House sells: 30 Thunder Lizard Tail. The counts drop by what your bags, bank and mail hold.
+  auction 5470 x30
+
 step Crispy Lizard Tail: ingredients
   only Horde
   zone The Barrens
-  collect 5470 x30 nearest     -- Thunderhead (59%), Owatanka (35%) in The Barrens, or wherever the arrow points
+  collect 5470 x30 nearest gather levels 15-24     -- Thunderhead (59%), Owatanka (35%) in The Barrens, or wherever the arrow points
 
 step Crispy Lizard Tail (100-130)
   only Horde
@@ -284,10 +354,15 @@ step Curiously Tasty Omelet: shopping
   buy 3682 x1 nearest
   buy 2692 x46 nearest
 
+step Curiously Tasty Omelet: Auction House
+  only Alliance
+  tip What Curiously Tasty Omelet takes that the Auction House sells: 46 Raptor Egg. The counts drop by what your bags, bank and mail hold.
+  auction 3685 x46
+
 step Curiously Tasty Omelet: ingredients
   only Alliance
   zone Wetlands
-  collect 3685 x46 nearest     -- Highland Razormaw (72%), Elder Razormaw (67%) in Wetlands, or wherever the arrow points
+  collect 3685 x46 nearest gather levels 22-29     -- Highland Razormaw (72%), Elder Razormaw (67%) in Wetlands, or wherever the arrow points
 
 step Curiously Tasty Omelet (130-175)
   only Alliance
@@ -302,10 +377,15 @@ step Hot Lion Chops: shopping
   buy 3735 x1 nearest
   buy 2692 x45 nearest
 
+step Hot Lion Chops: Auction House
+  only Horde
+  tip What Hot Lion Chops takes that the Auction House sells: 45 Lion Meat. The counts drop by what your bags, bank and mail hold.
+  auction 3731 x45
+
 step Hot Lion Chops: ingredients
   only Horde
   zone Hillsbrad Foothills
-  collect 3731 x45 nearest     -- Starving Mountain Lion (42%) in Hillsbrad Foothills, or wherever the arrow points
+  collect 3731 x45 nearest gather levels 23-34     -- Starving Mountain Lion (42%) in Hillsbrad Foothills, or wherever the arrow points
 
 step Hot Lion Chops (130-175)
   only Horde
@@ -322,9 +402,13 @@ step Roast Raptor: shopping
   buy 12228 x1 nearest
   buy 2692 x52 nearest
 
+step Roast Raptor: Auction House
+  tip What Roast Raptor takes that the Auction House sells: 52 Raptor Flesh. The counts drop by what your bags, bank and mail hold.
+  auction 12184 x52
+
 step Roast Raptor: ingredients
   zone Arathi Highlands
-  collect 12184 x52 nearest     -- Highland Thrasher (38%) in Arathi Highlands, or wherever the arrow points
+  collect 12184 x52 nearest gather levels 30-37     -- Highland Thrasher (38%) in Arathi Highlands, or wherever the arrow points
 
 step Roast Raptor (175-225)
   zone Arathi Highlands
@@ -379,9 +463,13 @@ step Monster Omelet: shopping
   buy 16110 x1 nearest
   buy 3713 x240 nearest
 
+step Monster Omelet: Auction House
+  tip What Monster Omelet takes that the Auction House sells: 120 Giant Egg. The counts drop by what your bags, bank and mail hold.
+  auction 12207 x120
+
 step Monster Omelet: ingredients
   zone The Hinterlands
-  collect 12207 x120 nearest     -- Savage Owlbeast (54%) in The Hinterlands, or wherever the arrow points
+  collect 12207 x120 nearest gather levels 42-47     -- Savage Owlbeast (54%) in The Hinterlands, or wherever the arrow points
 
 step Monster Omelet (225-300)
   zone The Hinterlands
