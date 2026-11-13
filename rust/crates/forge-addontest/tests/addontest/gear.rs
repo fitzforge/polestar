@@ -110,6 +110,74 @@ fn client_stats_win_over_itemdb_for_base_stats_itemdb_fills_equip_bonuses_the_cl
 }
 
 #[test]
+fn combined_client_spell_power_scores_damage_and_healing_but_damage_only_does_not() {
+	let out = run(
+		r#"
+		local _, imported = G.Scales.Import('( Pawn: v1: "Spellcaster": SpellDamage=0.9, Healing=0.5, Armor=0.005 )', "WARRIOR")
+		Polestar.Set("gear.spec.WARRIOR", "custom:" .. imported.scale.id)
+		local cases = {
+			{ ITEM_MOD_SPELL_POWER_SHORT = 13, RESISTANCE0_NAME = 104 },
+			{ ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13, RESISTANCE0_NAME = 104 },
+			{ ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 21, RESISTANCE0_NAME = 104 },
+		}
+		for i, stats in ipairs(cases) do
+			local link = "item:" .. (7800 + i)
+			g.defineItem(link, { equipLoc = "INVTYPE_CLOAK", classID = 4, subclassID = 1, stats = stats })
+			emit({ stats = G.GetItemInfo(link).stats, score = G.ScoreItem(link) })
+		end
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0]["stats"], json!({ "sp": 13, "heal": 13, "armor": 104 }));
+	assert_eq!(out[1]["stats"], json!({ "sp": 13, "armor": 104 }));
+	assert_eq!(out[2]["stats"], json!({ "sp": 13, "heal": 21, "armor": 104 }));
+	for (item, expected) in out.iter().zip([18.72, 12.22, 22.72]) {
+		let score = item["score"].as_f64().unwrap();
+		assert!((score - expected).abs() < 1e-9, "expected {expected}, got {score}");
+	}
+}
+
+#[test]
+fn combined_client_spell_power_supplies_healing_before_itemdb_fills_missing_equip_bonuses() {
+	let out = run(
+		r#"
+		-- The ItemDB fixture has sp36 heal36. Live combined power supplies both
+		-- channels, while damage-only still lets ItemDB fill omitted healing.
+		g.defineItem("item:9061:1", { stats = { ITEM_MOD_SPELL_POWER_SHORT = 13 } })
+		g.defineItem("item:9061:2", { stats = { ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13 } })
+		g.defineItem("item:9061:3", { stats = { ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 21 } })
+		for _, link in ipairs({ "item:9061:1", "item:9061:2", "item:9061:3", "item:9061" }) do
+			local stats = G.GetItemInfo(link).stats
+			emit({ sp = stats.sp, heal = stats.heal })
+		end
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out, vec![json!({ "sp": 13, "heal": 13 }), json!({ "sp": 13, "heal": 36 }), json!({ "sp": 13, "heal": 21 }), json!({ "sp": 36, "heal": 36 })]);
+}
+
+#[test]
+fn explicit_client_damage_and_healing_totals_take_precedence_over_combined_spell_power() {
+	let out = run(
+		r#"
+		local cases = {
+			{ ITEM_MOD_SPELL_POWER_SHORT = 13, ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 13 },
+			{ ITEM_MOD_SPELL_POWER_SHORT = 13, ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 16, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 48 },
+			{ ITEM_MOD_SPELL_POWER_SHORT = 13, ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 16 },
+			{ ITEM_MOD_SPELL_POWER_SHORT = 13, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 48 },
+		}
+		for i, stats in ipairs(cases) do
+			local link = "item:" .. (7800 + i)
+			g.defineItem(link, { equipLoc = "INVTYPE_CLOAK", classID = 4, subclassID = 1, stats = stats })
+			emit(G.GetItemInfo(link).stats)
+		end
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out, vec![json!({ "sp": 13, "heal": 13 }), json!({ "sp": 16, "heal": 48 }), json!({ "sp": 16, "heal": 13 }), json!({ "sp": 13, "heal": 48 })]);
+}
+
+#[test]
 fn the_class_weight_table_nine_classes_three_specs_each_known_stat_keys_sane_priorities() {
 	let out = run(r#"emit({ classes = G.CLASSES, weights = G.WEIGHTS, keys = G.STAT_KEYS, prof = G.PROFICIENCY })"#, Opts::default());
 	let t = &out[0];
