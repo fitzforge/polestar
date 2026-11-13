@@ -28,6 +28,16 @@ next forever/alliance/03-darkshore
 # part (91724), a second trip to Stone Cairn Lake for one hand-in at the tower.
 # Alba Fairmoon's Toxic Soil chain (92742 to 92748) is for every Alliance race, Humans included: players'
 # recordings show Humans taking and handing it in (2026-11-08), so #144's Human exclusion is lifted.
+#
+# The Hall of Thanes (`when dungeon "The Hall of Thanes"`, dungeons in the route): for a character who chose
+# it, Thom Filch's Important Heirlooms (96403) and Afadra Dunwall's The Restless Dead (96394) are taken in
+# Ironforge, by the Deeprun Tram from the last Stormwind stop, at about 16 (level 15 quests; players' recordings:
+# 53 people entered the Hall of Thanes at a median of 15.9, most of them while on this guide), the run follows
+# from the hall's door on the city's west side, a short walk past them (Ironforge 28.2,47.7, where players'
+# recordings go in), and both take theirs back at once. King Magni takes Old Ironforge Incursion (96393,
+# Earthseer Farsen's, for a Dwarf or Gnome who carries it from Dun Morogh) and the Treaty of Understanding
+# (98423, an item inside). An Ancient Grudge (96395) starts and ends inside, with the Ghostly Attendant (the run
+# tip names it). Shamans run it from their Ironforge training; the others take the tram there and back.
 
 # ---------------------------------------------------------------- East Elwynn (Dwarves and Gnomes)
 
@@ -430,6 +440,63 @@ step Shaman training
   zone Ironforge
   tip Head to Stormwind. It has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back for the boat.
   train class
+
+step Tram to Ironforge
+  when dungeon "The Hall of Thanes"
+  only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  zone Stormwind City
+  tip For your Hall of Thanes run: the Deeprun Tram from the Dwarven District to Ironforge.
+  goto 64.5,7.5 "Tram to Ironforge"
+
+step Thom Filch and Afadra Dunwall
+  when dungeon "The Hall of Thanes"
+  zone Ironforge
+  tip For your Hall of Thanes run: Thom Filch and Afadra Dunwall stand a few steps apart on the city's west side, west of the High Seat. The hall's door is a short walk further west.
+  accept 96403                        -- Thom Filch
+  accept 96394                        -- Afadra Dunwall
+
+step The Hall of Thanes
+  when dungeon "The Hall of Thanes"
+  when onquest 96403,96394,96393
+  zone Ironforge
+  tip The Hall of Thanes is a dungeon for a group of five at about level 15 to 16, under Ironforge. Its door is on the west side of the city, a short walk west of Afadra Dunwall.
+  tip Inside: the Enraged Apparitions and Tormented Souls are Afadra's, the Dwarven Heirlooms Thom's, and Durgen Dirgehammer, the Dark Iron commander deep in the vaults, carries the head King Magni wants. A Ghostly Attendant inside gives An Ancient Grudge, for Faldrim Anvilmar, and takes it back there; a Treaty of Understanding found inside starts a quest for King Magni.
+  enter "The Hall of Thanes" @28.2,47.7 live
+  complete 96403 @28.2,47.7 live      -- Important Heirlooms: the heirlooms, inside
+  complete 96394 @28.2,47.7 live      -- The Restless Dead, inside
+  complete 96393 @28.2,47.7 live      -- Old Ironforge Incursion: Durgen Dirgehammer, inside
+
+step Thom Filch
+  when dungeon "The Hall of Thanes"
+  when complete 96403
+  zone Ironforge
+  turnin 96403                        -- Thom Filch
+
+step Afadra Dunwall
+  when dungeon "The Hall of Thanes"
+  when complete 96394
+  zone Ironforge
+  turnin 96394                        -- Afadra Dunwall
+
+step King Magni Bronzebeard
+  when dungeon "The Hall of Thanes"
+  when complete 96393
+  zone Ironforge
+  tip Old Ironforge Incursion: King Magni sits on the High Seat, east of the hall's door.
+  turnin 96393                        -- King Magni Bronzebeard
+
+step King Magni Bronzebeard
+  when dungeon "The Hall of Thanes"
+  when onquest 98423
+  zone Ironforge
+  turnin 98423                        -- King Magni Bronzebeard: The Treaty of Understanding
+
+step Back to Stormwind City
+  when dungeon "The Hall of Thanes"
+  only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  zone Ironforge
+  tip Ride the tram back from Tinker Town to Stormwind's Dwarven District.
+  goto 78.0,51.4 "Tram to Stormwind"
 
 step Stormwind
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
