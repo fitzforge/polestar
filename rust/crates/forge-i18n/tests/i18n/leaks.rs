@@ -98,6 +98,7 @@ leaks.try("a test window", function()
 	fs:SetText(Polestar.L["Open settings"])
 	fs:SetText(UnitName("player") .. " · " .. C_Map.GetMapInfo(1429).name .. " · Polestar · /polestar guides")
 	GameTooltip:SetOwner(UIParent)
+	GameTooltip:AddLine(GetBindingText("ESCAPE"))
 	GameTooltip:AddLine("Left-click to open")
 end)"#,
 		"",
