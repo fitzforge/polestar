@@ -36,8 +36,10 @@ const LOGIN_BASE: f64 = 11003.0;
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
 /// merged with it (dungeons in the route's notices, the stranded-quest row and banner, Show in quest log and the
 /// out-of-sight notice, the guide window's shared step view, the breadcrumb and parent-quest rules) adds about
-/// 60 KiB more: measured 11,198 KiB on 2026-11-13.
-const LOGIN: f64 = LOGIN_BASE + 200.0;
+/// 60 KiB more: measured 11,198 KiB on 2026-11-13. Theme.TipColor and the tooltip lines that take it (#2032) add
+/// 1 KiB: measured 11,200 KiB on 2026-11-13 (11,199 on the same tree without it). CI's runner measures this tree
+/// 4 KiB higher (11,204), which already left dev-040 at the edge of the budget there: 10 KiB more covers both.
+const LOGIN: f64 = LOGIN_BASE + 210.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
