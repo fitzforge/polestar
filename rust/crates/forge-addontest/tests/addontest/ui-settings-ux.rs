@@ -292,3 +292,53 @@ fn a_dragged_slider_lands_on_its_default_zero_or_100_percent_when_near_it() {
 	assert_eq!(out["hundred"], 1.0);
 	assert_eq!(out["coarse"], 1, "steps 30 px apart: no magnet");
 }
+
+// The settings body and sidebar glide where the wheel sends them, eased out and on whole pixels; notches in a row
+// add up; nothing runs once it lands; Reduce motion jumps; a scroll from code ends a glide. The sidebar shows a
+// chevron at its foot while more of it lies below, and a click on it glides to the bottom.
+#[test]
+fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bottom() {
+	let out = run(r#"
+		Polestar.RegisterDefaults("many", { on = true })
+		for i = 1, 20 do
+			Polestar.RegisterOptions({ page = "Module " .. i, order = 60 + i, controls = { { kind = "toggle", key = "many.on", label = "On" } } })
+		end
+		UI.ShowOptions("guide")
+		stub.advance(1)
+		local F = PolestarOptions
+		local sf = F.Scroll
+		stub.RunScript(sf, "OnMouseWheel", -1)
+		local start = { sf:GetVerticalScroll(), sf.psGlideTo }
+		stub.advance(0.05)
+		local partway = sf:GetVerticalScroll()
+		stub.RunScript(sf, "OnMouseWheel", -1)
+		local target = sf.psGlideTo
+		stub.advance(0.5)
+		local landed = { sf:GetVerticalScroll(), sf.psGlideTo or false, Polestar.Anim.Active() }
+		Polestar.Set("ui.reduceMotion", true)
+		stub.RunScript(sf, "OnMouseWheel", -1)
+		local jumped = sf:GetVerticalScroll() == math.min(180, sf.psContent - sf.psView)
+		Polestar.Set("ui.reduceMotion", false)
+		stub.RunScript(sf, "OnMouseWheel", 1)
+		W.ScrollTo(sf, 0)
+		stub.advance(0.5)
+		local code = sf:GetVerticalScroll()
+		local nav = F.NavScroll
+		local nudge = { shown = F.NavMore:IsShown(), parent = F.NavMore:GetParent() == nav }
+		F.NavMore:Click()
+		stub.advance(0.5)
+		local range = nav.psContent - nav.psView
+		emit({ start = start, partway = partway, whole = partway == math.floor(partway), target = target, landed = landed,
+			jumped = jumped, code = code, nudge = nudge, bottom = math.abs(nav:GetVerticalScroll() - range) < 1, gone = F.NavMore:IsShown() })"#);
+	assert_eq!(out["start"], json!([0, 60]), "the wheel sets where it goes; the glide starts from here");
+	let p = out["partway"].as_f64().unwrap();
+	assert!(p > 0.0 && p < 60.0, "partway there after 50 ms: {p}");
+	assert_eq!(out["whole"], true, "on a whole pixel");
+	assert_eq!(out["target"], 120, "a second notch adds to where the first was going");
+	assert_eq!(out["landed"], json!([120, false, 0]), "landed, nothing left running");
+	assert_eq!(out["jumped"], true, "Reduce motion: at once (a notch on, or the end)");
+	assert_eq!(out["code"], 0, "a scroll from code ends the glide");
+	assert_eq!(out["nudge"], json!({ "shown": true, "parent": true }), "more of the sidebar below: the chevron");
+	assert_eq!(out["bottom"], true, "its click glides to the bottom");
+	assert_eq!(out["gone"], false, "at the bottom it goes");
+}

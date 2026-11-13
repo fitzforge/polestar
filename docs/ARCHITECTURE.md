@@ -7042,7 +7042,12 @@ hidden and the page kept, until Unfold, another page or a search (or the
 window closing) brings it back. Shift and the wheel anywhere on the window
 (its body, sidebar, header and footer, a slider) step the Menu scale as its
 own control's wheel does and light that control (`O.WheelScales(frame)`);
-the plain wheel still scrolls and steps. Sections are cards across the body, one under
+the plain wheel still scrolls and steps. The body and the sidebar glide where
+the wheel sends them (`W.Scroll`'s `psGlide`: an eased `Anim` "value" tween
+on whole pixels, notches in a row adding up, a jump with Reduce motion, ended
+by `W.ScrollTo` or a grab of the thumb; `W.GlideTo(sf, offset)`), and while
+more of the sidebar lies below a chevron at its foot glides it to the bottom
+(`sf.psOnScroll` hears each change). Sections are cards across the body, one under
 another (above, "Layout"). The footer has
 Reset page, Reload UI and Move frames (with `ns.Movers`: unlock mode) on the
 left; Close, the profile in use (with `ns.Profiles`: a menu of the profiles

@@ -29,3 +29,6 @@ section: players
   from the screen's centre show under the bar, ready to change.
 - Dragging a slider near its default, zero or 100% lands on it, so the
   usual value is easy to get back to.
+- The settings window scrolls smoothly (no jumps; Reduce motion keeps it
+  instant), and a small arrow at the foot of its sidebar takes you to the
+  pages further down.

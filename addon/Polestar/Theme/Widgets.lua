@@ -2272,8 +2272,14 @@ end
 
 ---------------------------------------------------------------------------
 -- Scroll area: a ScrollFrame with a thin thumb strip. Wheel scrolls; the
--- thumb can be dragged.
+-- thumb can be dragged. sf.psGlide (the settings window's body and
+-- sidebar): the wheel glides to where it is going, eased out, on whole
+-- pixels so text never shimmers (Reduce motion: it jumps); a scroll from
+-- code (W.ScrollTo, the gamepad) or a grab of the thumb ends the glide.
+-- sf.psOnScroll(sf, offset, range) hears every change.
 ---------------------------------------------------------------------------
+
+local WHEEL_STEP, GLIDE = 60, 0.16
 
 local function scrollUpdate(sf)
 	local view = sf.psView or sf:GetHeight()
@@ -2281,6 +2287,8 @@ local function scrollUpdate(sf)
 	local range = max(0, content - view)
 	local cur = min(range, max(0, sf:GetVerticalScroll()))
 	if cur ~= sf:GetVerticalScroll() then sf:SetVerticalScroll(cur) end
+	local heard = rawget(sf, "psOnScroll")
+	if heard then heard(sf, cur, range) end
 	local bar = sf.Bar
 	if range <= 0 or view <= 0 then
 		bar:Hide()
@@ -2311,6 +2319,30 @@ local function scrollDrag(bar)
 	scrollUpdate(sf)
 end
 
+-- A glide's step: the offset on a whole pixel.
+local function glideStep(sf, v)
+	local px = Theme.Pixel(sf)
+	sf:SetVerticalScroll(floor(v / px + 0.5) * px)
+	scrollUpdate(sf)
+end
+
+local function endGlide(sf)
+	if rawget(sf, "psGlideTo") then
+		sf.psGlideTo = nil
+		Anim.Stop(sf, "value")
+	end
+end
+
+-- Glide to offset `to` (clamped), from where the area is now.
+function W.GlideTo(sf, to)
+	local view = sf.psView or sf:GetHeight()
+	local range = max(0, (sf.psContent or 0) - view)
+	to = min(range, max(0, to))
+	sf.psGlideTo = to
+	sf.psOnValue = glideStep
+	Anim.To(sf, "value", sf:GetVerticalScroll(), to, GLIDE, "out", function(self) self.psGlideTo = nil end)
+end
+
 function W.Scroll(parent)
 	local sf = CreateFrame("ScrollFrame", nil, parent)
 	local child = CreateFrame("Frame", nil, sf)
@@ -2319,7 +2351,11 @@ function W.Scroll(parent)
 	sf.Child = child
 	sf:EnableMouseWheel(true)
 	sf:SetScript("OnMouseWheel", function(self, delta)
-		self:SetVerticalScroll(self:GetVerticalScroll() - delta * 60)
+		if rawget(self, "psGlide") then
+			-- Notches in a row add up: each from where the last was going.
+			return W.GlideTo(self, (rawget(self, "psGlideTo") or self:GetVerticalScroll()) - delta * WHEEL_STEP)
+		end
+		self:SetVerticalScroll(self:GetVerticalScroll() - delta * WHEEL_STEP)
 		scrollUpdate(self)
 	end)
 	sf:SetScript("OnSizeChanged", scrollUpdate)
@@ -2333,6 +2369,7 @@ function W.Scroll(parent)
 	bar.psScroll = sf
 	bar.psThumb = bar.Thumb
 	bar:SetScript("OnMouseDown", function(self)
+		endGlide(sf)
 		local _, y = GetCursorPosition()
 		self.psStartY = y / self:GetEffectiveScale()
 		self.psStartScroll = sf:GetVerticalScroll()
@@ -2378,6 +2415,7 @@ function W.SetScrollContent(sf, contentHeight, viewHeight)
 end
 
 function W.ScrollTo(sf, offset)
+	endGlide(sf)
 	sf:SetVerticalScroll(max(0, offset or 0))
 	scrollUpdate(sf)
 end

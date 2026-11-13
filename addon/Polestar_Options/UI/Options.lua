@@ -3160,6 +3160,16 @@ local function build()
 	wheelScales(win)
 	wheelScales(win.Scroll)
 	wheelScales(win.NavScroll)
+	-- The body and the sidebar glide to where the wheel sends them (W.Scroll).
+	win.Scroll.psGlide, win.NavScroll.psGlide = true, true
+	-- The sidebar's nudge: a chevron at its foot while more of it lies below;
+	-- a click glides to the bottom.
+	local nudge = W.IconButton(win.NavScroll, "chevron-down", 20, L["More below"], function() W.GlideTo(win.NavScroll, math.huge) end, 11)
+	nudge:SetPoint("BOTTOMRIGHT", win.NavScroll, "BOTTOMRIGHT", -12, 4)
+	nudge:SetFrameLevel(win.NavScroll:GetFrameLevel() + 10)
+	nudge:Hide()
+	win.NavMore = nudge
+	win.NavScroll.psOnScroll = function(_, cur, range) nudge:SetShown(range > 0 and cur < range - 1) end
 	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
