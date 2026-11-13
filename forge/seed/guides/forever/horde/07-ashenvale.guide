@@ -399,7 +399,7 @@ step Darkcloud Pinnacle
 
 step Level 28.9
   when level<28.9
-  tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead.
+  tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
   goto 35.0,31.5 map 1441 "Grimtotem camps below Darkcloud Pinnacle"
   level 28.9 grind 10759              -- grind on Grimtotem Stomper
 
@@ -452,7 +452,7 @@ step Wizlo Bearingshiner
 step Level 29.49
   when !group 5151
   when level<29.49
-  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
+  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
   goto 27.0,51.9 map 1441 "Screeching Roguefeather"
   level 29.49 grind 4101               -- grind on Screeching Roguefeather
 

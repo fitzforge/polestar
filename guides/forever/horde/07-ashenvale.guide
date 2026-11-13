@@ -36,17 +36,6 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Villainy (6561: Argent Guard Thaelrid gives it inside, a giver our data has no place for, and Bashana
 # Runetotem takes it on the Elder Rise, off this guide's Thunder Bluff stop; the run tip names it),
 # Allegiance to the Old Gods part 2 (6565, a second run) and the Warlock's Orb of Soran'ruk (1740, class guide).
-#
-# Razorfen Kraul (`when dungeon "Razorfen Kraul"`, dungeons in the route): for a character who chose it
-# and took Mebok's Blueleaf Tubers (1221) on the Ratchet stop of forever/horde/04-the-barrens, the run
-# follows the Tear of the Moons, at about 28: the kraul's entrance is just west of the road to the
-# Great Lift. Mebok takes the tubers on the Ratchet stop of forever/horde/30-40/04-dustwallow-marsh
-# (`when complete`): a flight back to Ratchet from here is over the travel budget. Willix the
-# Importer's escort (1144) starts and ends inside (the run tip names it). Left out: Going, Going,
-# Guano! (1109, level 33, Faranell in the Undercity), Elemental Aid (79360, level 33, Rau
-# Cliffrunner here), A Vengeful Fate (1102, level 34, Auld Stonespire in Thunder Bluff): 3+ levels
-# over at 28; Brutal Armor (1838, Warrior class chain); An Unholy Alliance (6522: a Small Scroll from
-# inside, for Varimathras in the Undercity).
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
@@ -374,15 +363,6 @@ step Tear of the Moons
   collect 5038 quest 857 @49.1,84.3   -- General Twinbraid's Strongbox; below ground
   turnin 857
 
-step Razorfen Kraul
-  when dungeon "Razorfen Kraul"
-  when onquest 1221
-  zone The Barrens
-  tip Razorfen Kraul is a dungeon for a group of five, about levels 25 to 33, and a full run takes about an hour. Its entrance is in the thorny hills just west of the road south to the Great Lift.
-  tip Inside: the Blueleaf Tubers are under the vines on the ground: stand on a vine, use the Crate with Holes for a Snufflenose Gopher, then the Command Stick on the gopher, and it digs a tuber up. Willix the Importer, a prisoner inside, offers an escort out of the kraul: it starts and ends with him. The bosses: Roogug, Aggem Thorncurse, Death Speaker Jargba, Overlord Ramtusk, Agathelos the Raging and Charlga Razorflank.
-  enter "Razorfen Kraul" @42.9,90.2
-  complete 1221 @42.9,90.2            -- Blueleaf Tubers: under the vines, inside
-
 step The Great Lift
   zone Thousand Needles
   goto 31.9,23.9 "The Great Lift, down into Thousand Needles"
@@ -458,7 +438,7 @@ step Darkcloud Pinnacle
 
 step Level 28.9
   when level<28.9
-  tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead.
+  tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
   goto 35.0,31.5 map 1441 "Grimtotem camps below Darkcloud Pinnacle"
   level 28.9 grind 10759              -- grind on Grimtotem Stomper
 
@@ -511,7 +491,7 @@ step Wizlo Bearingshiner
 step Level 29.49
   when !group 5151
   when level<29.49
-  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
+  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
   goto 27.0,51.9 map 1441 "Screeching Roguefeather"
   level 29.49 grind 4101               -- grind on Screeching Roguefeather
 
