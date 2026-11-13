@@ -27,11 +27,14 @@
 --      the stat weights the gear advice scores rewards with
 --      (gear.spec.<CLASS>: Automatic or one of the class's specs) as option
 --      cards, while Gear knows the class;
---   3. targeting (with QoL loaded): the target button (qol.targetButton),
---      a preview of its face and name plate (Buttons.NewFace) over the
---      switches for it, who it targets (qol.targetPlate, its child), its
---      mark and its ping (qol.markTarget, qol.pingTarget), and a line that
---      the step key targets the same without it and Move frames moves it;
+--   3. targeting (with QoL loaded): the target button (qol.targetButton)
+--      and its target list, a preview of the list (Buttons.NewListFaces) or,
+--      with Simple target button, of the single button's face and name plate
+--      (Buttons.NewFace) over the switches for it, the single button
+--      (qol.targetSimple, its child) and who it targets (qol.targetPlate, the
+--      single button's), its mark and its ping (qol.markTarget,
+--      qol.pingTarget), and a line that the step key targets the same without
+--      it and Move frames moves it;
 --   4. groups: dungeons in the route (behavior.dungeons: Skip them, Ask me,
 --      Run them; once that setting exists and the character's guides have
 --      dungeons) and group quests (behavior.groupQuests: Ask me at each, Do
@@ -1432,18 +1435,36 @@ do
 	-- The preview's names: the settings' Buttons page's.
 	local DEMO = { L["Rot Hide Mongrel"], L["Scarlet Warrior"] }
 
-	-- The preview: the button's own face (Buttons.NewFace: a plain Button,
-	-- no secure template, no clicks) on a patch of the world, its plate as
-	-- qol.targetPlate has it, faint while the button is off.
-	-- (psFace: the face, made only with QoL loaded.)
+	-- The target list's rows in the preview: the first close (green).
+	local LIST = { { name = DEMO[1], verb = "kill", cur = 3, max = 8, near = true }, { name = DEMO[2], verb = "kill", cur = 0, max = 5 } }
+
+	-- The preview: the target list as it stands beside the button (the live
+	-- rows' own code on plain frames: Buttons.NewListFaces), or with Simple
+	-- target button the button's own face (Buttons.NewFace: a plain Button,
+	-- no secure template, no clicks) with its plate as qol.targetPlate has
+	-- it; on a patch of the world, faint while the button is off.
+	-- (psFace, psList: the faces, made only with QoL loaded.)
 	local function paintStage(stage)
 		paintOutline(stage, Theme.Wash("border"))
 		local r, g, b = Theme.Color("scrim")
 		stage.Ground:SetVertexColor(r, g, b, 1)
-		local face, B = stage.psFace, ns.QoL and ns.QoL.Buttons
+		local face, list, B = stage.psFace, stage.psList, ns.QoL and ns.QoL.Buttons
 		if face and B then
+			local alpha = ns.Get("qol.targetButton") and 1 or 0.35
+			local simple = ns.Get("qol.targetSimple") or not list
 			B.Paint(face)
-			face:SetAlpha(ns.Get("qol.targetButton") and 1 or 0.35)
+			face:SetAlpha(alpha)
+			face:SetShown(simple and true or false)
+			if list then
+				if simple then
+					for _, row in ipairs(list.rows) do row:Hide() end
+				else
+					B.PaintListFaces(list, face, LIST, "right")
+					for _, row in ipairs(list.rows) do row:SetAlpha(alpha) end
+				end
+				list.mark:SetShown(not simple)
+				list.mark:SetAlpha(alpha)
+			end
 		end
 	end
 
@@ -1452,7 +1473,7 @@ do
 		shown = function() return full and targetShown() end,
 		build = function(P)
 			compactHero(P.Hero, L["Targeting"],
-				L["One button finds the mobs and NPCs of your step: click it, or press its key, and you target the next name."])
+				L["A list beside the target button names the mobs and NPCs of your step: click a name to target it, or press the button's key for the first one close by."])
 			local p = P.Body
 			local stage = CreateFrame("Frame", nil, p)
 			stage:SetSize(CW, STAGE_H)
@@ -1466,16 +1487,27 @@ do
 				face:SetPoint("LEFT", stage, "LEFT", 20, 0)
 				face:EnableMouse(false)
 				stage.psFace = face
+				if B.NewListFaces then
+					stage.psList = B.NewListFaces(stage, #LIST)
+					stage.psList.mark:EnableMouse(false)
+					for _, row in ipairs(stage.psList.rows) do row:EnableMouse(false) end
+				end
 			end
 			stage.Refresh = paintStage
 			W.Painter(stage, paintStage)
 			W.Bind(stage, "qol.targetPlate", "qol.targetButton")
+			W.Bind(stage, "qol.targetSimple")
 			p.Stage = stage
 			F.TargetButton = toggleRow(p, L["Show a button that targets the step's mobs and NPCs"], "qol.targetButton",
-				L["The square button with a name beside it, on its own on your screen. Click it, or press its key, to target the next mob or NPC your step names."])
+				L["A row for each mob or NPC your step names, with its face and what it drops, beside a small Polestar mark. Click a row, or press the target button's key for the first one close by."])
+			-- The single button instead of the list; who it targets is its own.
+			F.TargetSimple = toggleRow(p, L["Simple target button"], "qol.targetSimple",
+				L["One square button instead of the list: each click, or a press of its key, targets the next name."],
+				{ depends = "qol.targetButton", child = true })
 			F.TargetPlate = toggleRow(p, L["Show who it targets"], "qol.targetPlate",
 				L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."],
 				{ depends = "qol.targetButton", child = true })
+			W.SetDisabledWhen(F.TargetPlate, function() return not ns.Get("qol.targetSimple") end)
 			F.MarkTarget = toggleRow(p, L["Mark what the target button finds"], "qol.markTarget",
 				L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."])
 			F.PingTarget = toggleRow(p, L["Ping it for my group"], "qol.pingTarget",
@@ -1489,7 +1521,7 @@ do
 			local p = P.Body
 			place(p.Stage, 0, 0)
 			paintStage(p.Stage)
-			local y = layRows({ F.TargetButton, F.TargetPlate, F.MarkTarget, F.PingTarget }, STAGE_H + 8) + 10
+			local y = layRows({ F.TargetButton, F.TargetSimple, F.TargetPlate, F.MarkTarget, F.PingTarget }, STAGE_H + 8) + 10
 			place(p.StepKey, 0, y)
 			y = y + p.StepKey:GetStringHeight() + 14
 			place(p.Keep, 0, y)

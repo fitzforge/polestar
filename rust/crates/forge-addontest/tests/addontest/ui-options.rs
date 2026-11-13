@@ -356,6 +356,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 				("Quests", "Aufträge"),
 				("Rewards & gear", "Belohnungen & Ausrüstung"),
 				("Lookup", "Nachschlagen"),
+				("Buttons", "Knöpfe"),
 			],
 		),
 		addons: vec![Addon::files("Polestar", &MODS)],
@@ -368,7 +369,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 			return O.page.key .. ": " .. PolestarOptions.Title:GetText() .. " > " .. tab
 		end
 		local out = {}
-		for _, cmd in ipairs({ "options quests", "options gear", "options lookup", "options appearance", "options qualityoflife", "options about", "packs" }) do out[cmd] = at(cmd) end
+		for _, cmd in ipairs({ "options quests", "options gear", "options lookup", "options appearance", "options qualityoflife", "options about", "options targeting", "packs" }) do out[cmd] = at(cmd) end
 		local keys = {}
 		for _, p in ipairs(O.Pages()) do keys[#keys + 1] = p.key end
 		out.keys = keys
@@ -392,6 +393,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 			"options lookup": "discovery: Entdecken > Nachschlagen",
 			"options qualityoflife": "qualityoflife: Komfort > Aufträge",
 			"options about": "about: Über > ",
+			"options targeting": "questing: Questen > Knöpfe",
 			"packs": "guidepacks: Community-Guides > ",
 		})
 	);
@@ -2610,4 +2612,22 @@ fn move_frames_leaves_the_settings_window_open() {
 		emit({ during = during, after = { unlocked = Polestar.Movers.IsUnlocked(), settings = PolestarOptions:IsShown() } })"#);
 	assert_eq!(out["during"], json!({ "unlocked": true, "settings": true }));
 	assert_eq!(out["after"], json!({ "unlocked": false, "settings": true }));
+}
+
+// The target button's plate draws on the single button only: beside the target list (the default) it has
+// nothing to paint, so its control is greyed out until Simple target button is on.
+#[test]
+fn show_who_it_targets_is_greyed_out_beside_the_target_list_and_follows_simple_target_button() {
+	let out = run_mods(
+		"",
+		r#"
+		UI.ShowOptions("questing")
+		O.Select("questing", "Buttons")
+		local c = O.Controls("questing", "Buttons")
+		local plate, rows = c["qol.targetPlate"], c["qol.targetRows"]
+		local before = { plate:IsEnabled(), rows:IsEnabled() }
+		c["qol.targetSimple"]:Click()
+		emit({ before, { plate:IsEnabled(), rows:IsEnabled() }, Polestar.Get("qol.targetSimple") })"#,
+	);
+	assert_eq!(out, json!([[false, true], [true, false], true]));
 }

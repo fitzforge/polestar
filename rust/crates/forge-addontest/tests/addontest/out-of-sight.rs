@@ -88,7 +88,8 @@ stub.world.accept(783, {}, "A Threat Within")
 stub.advance(0.5)
 local function look()
 	return { window = PolestarGuideFrame:IsShown(), windowSeen = seen(PolestarGuideFrame), arrowSeen = seen(PolestarNavArrow),
-		targetButton = seen(PolestarTargetButton), on = Polestar.Get("ui.shown") }
+		-- The target button, or beside its list the Polestar mark in its slot.
+		targetButton = seen(PolestarTargetButton) or seen(PolestarTargetAnchor), on = Polestar.Get("ui.shown") }
 end
 local before = look()
 for _, f in ipairs({ PolestarGuideFrame, PolestarNavArrow, PolestarQuestItemButton, PolestarHearthButton }) do veil(f) end

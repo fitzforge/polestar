@@ -5662,7 +5662,8 @@ Polestar.QuestDB.GetQuest(id)  -> { id, title, level, minLevel, races, classes, 
 Polestar.QuestDB.GetNpc(id) / GetObject(id) -> { id, name, spawns = { { map, x, y, r (yd), f } } } | nil
 Polestar.QuestDB.GetItem(id)   -> { id, name, droppers = { { id, name, chance } }, objects = { ... }, vendors = { { id, name } } } | nil
 Polestar.QuestDB.GetItemDroppers(itemID) -> { { id, name, chance }, ... } | nil   -- best chance first
-Polestar.QuestDB.GetObjectiveMobs(questID, oi) -> { name, ... } | nil            -- kill target or item droppers
+Polestar.QuestDB.GetObjectiveMobs(questID, oi) -> { name, ... }, { { id, chance }, ... } | nil  -- kill target or item droppers;
+                                    -- the second list runs beside the names (chance only for droppers)
 Polestar.QuestDB.CheckAvailable(id, ctx, isDone, isOn, opts) -> ok, reason      -- opts: lowLevel, levelAbove, skillRank
 Polestar.QuestDB.EachAvailabilityRef(id, fn) -> needsSkill                       -- fn(q) per quest whose done/in-log state CheckAvailable reads
 Polestar.QuestDB.GetAvailableQuests() -> { questID, ... } ; IsAvailable(q) ; WhyUnavailable(q) -> reason | nil
@@ -6274,6 +6275,98 @@ A left-click that finds no living target reports the NPC name through
 The overlay sets `type1`, so a Shift-, Ctrl- or Alt-click runs no macro: it
 is only the ordinary row click, with no report and no mark-cycle advance.
 
+### Target list
+
+The target button (`QoL/Buttons.lua`) shows its names (`Buttons.TargetNames`)
+as rows beside it: up to `TL.MAX` (8) secure buttons,
+`PolestarTargetRow1..8`, made in the button's secure apply as a list first
+needs them (out of combat, so a player in Simple mode or with short lists
+never carries the rest), of which `qol.targetRows` (default 5) show. The list
+has no on/off of its own: it goes with `qol.targetButton` (Fitz on #1704), so
+a player with the target button on gets it and one with it off has neither
+until turning it on (the Install's Targeting page or Settings > Questing >
+Buttons > Targeting). The list's sizes and state live on one table (`TL`) and
+its rows and mark in a `do` block of their own, as `Buttons.lua` is at Lua's
+limit of 200 locals.
+Where they stand follows the Buttons page (`TL.side`): in a column
+(`buttons.layout`) beside the target button on its name's side
+(`qol.buttonTextSide`, left or else right), the first row level with its top;
+in a row under it, reaching away from the quest item button; the gap is the
+set's spacing (`buttons.spacing`). `Buttons.ListRect(n)` gives the rows' box
+from the target button's centre, `Buttons.Offsets(n)` moves the rare button
+along the set to clear it, `place()` adds it to the holder's clamp and
+Unlock mode to the quest buttons' box (`Buttons.ListRows`), and
+`Buttons.PlaceList` anchors the mark and the rows to the target button.
+While they show, the button itself is hidden (its `CLICK PolestarTargetButton`
+binding still runs its macro, like the step key's) and `PolestarTargetAnchor`,
+a small insecure Polestar mark in its slot (at most the target button's size),
+is the set's drag handle and on a right-click opens Settings > Questing >
+Buttons, where Targeting is (`SHOW_OPTIONS "targeting"`, also `/polestar
+options targeting`). The rows are the button's names, so on a step
+with no mob they are its NPC goals' NPCs, and the While you're here rows' mobs
+follow the step's own (before a far NPC, after a near one, #1623). Each row's
+macro is `Buttons.TargetMacro({ name }, 1, Buttons.MarkLine(kind),
+Buttons.QuestPingLine())` with its own name's kind (`targetKind`), as the
+button's: a skull on a mob and a star on an NPC with `qol.markTarget` (on by
+default, #2036), the ping on both with `qol.pingTarget` (off by default); a
+release advances that kind's mark (`r.kind`).
+A row's name wears its kind's colour as the simple button's plate has it
+(`Buttons.TargetLook`: success for an NPC, quest for an elite, rare or boss,
+danger for a mob; `r.looks`, set with the macro and read at each paint, so a
+mob seen to be elite turns gold at once), and its count turns success once
+complete (`paintTones`). With the list on, `qol.targetPlate` has nothing to
+paint (the button is hidden), so Questing > Buttons > Targeting greys it out
+unless `qol.targetSimple`.
+The rows and the mark take the Buttons page's look as the buttons do
+(`paintLook`, on every `buttons.*` change and as a fight starts or ends): the
+ground (`buttons.backing`, `backingColor`), the edge through `paintBorder`
+(`buttons.border`, `borderColor`, `borderSize`, `hoverColor`), the hover
+wash, the opacity (`buttons.idleAlpha`, `alpha`), then the skin's
+`actionButton` hook with kinds `targetRow` (parts `ground`, `icon` the
+portrait, `highlight`, `label` the name, `count`, `note`, `crosshair`, `wash`,
+`flash`) and `targetMark` (`ground`, `icon`, `highlight`, `label`). A row
+with one close keeps a green edge (at least 2 px, the border's thickness when
+thicker) with the border off too. The settings' previews (the Buttons page's
+set, Install's Targeting page) draw the list with the same code on plain
+frames: `Buttons.NewListFaces(parent, n)` and
+`Buttons.PaintListFaces(faces, targetFace, entries[, side])`, never a secure
+template.
+Names, macros and visibility change only with the button's own secure apply,
+so in combat the rows keep the last list until `PLAYER_REGEN_ENABLED`.
+`Buttons.TargetInfo` gives each name's creature id, the collect item and its
+drop chance (`QuestDB.GetObjectiveMobs`'s second value, `GetItemDroppers`);
+the row shows the item, its tooltip the chance too. A row's count ("3/8") is
+its first goal's `progress` of kind `count`; it is plain text, repainted on
+every refresh outside the signature, so it follows kills and loot in combat.
+The face is plain textures and a `PlayerModel`, so it changes in combat: the
+creature's model by id (`SetCreature`, portrait zoom) over a crosshair, which
+stays visible while the client has not loaded the model; without an id, a
+close mob's own portrait (`SetPortraitTexture`). The crosshair is green, and
+the row gets a faint green wash, while a living mob of that name is close (the
+target or a nameplate unit; secret values are passed over; `UNIT_HEALTH`
+catches one dying), else danger for a mob and textDim for an NPC. A left-click
+on the mark folds the list
+(`QoL.State().targetFolded`, per character; applied with the rows, so in a
+fight it waits, and the mark's tooltip says so while `target.rowsFolded`
+differs): row 1 then runs the whole list's macro, like the button,
+keeps the names that macro holds (`r.names`) and shows the first of them that
+is close, else the first, repainting its text and face in combat. A macro
+holds only about four names, so the first of the whole list that comes close
+(`target.foldFirst`) is put first in a new macro: out of combat a frame later
+(`QoL.Coalesce`, never from inside a secure run), in a fight once it ends. The
+button itself keeps the list's order; `qol.targetSimple` (off by default)
+hides the rows and brings back the cycle on each click. In Quick Keybind Mode
+the mark stands in for the hidden button: it joins the mode (`QuickBind.Add`
+with `command = "CLICK PolestarTargetButton:LeftButton"`), so hovering it
+binds the button's key; with no names it shows dimmed with the binding's name
+on its `Label` until the window closes. Hiding Polestar hides the rows and the
+mark with the button (`ns.GuideShown`): the mark at once, the rows out of
+combat. A row's model takes the id the list holds for its name (the arrow's
+goal's, when two goals share the name). The button joins only with
+`qol.targetSimple`. The rows do not join: their clicks are not bindings. A
+drag on the mark or a row moves the set (`holder`), never the bag button's own
+spot.
+
 ### Quest reward marks — QoL, reads Gear
 
 One system marks the client's reward choices: `QoL/Rewards.lua`. Gear only
@@ -6419,7 +6512,7 @@ changes and `LOOT_CLOSED`.
 ### Quick Keybind Mode — QoL/QuickBind, QoL/Buttons, Nav/Prompts
 
 ```lua
-Polestar.QoL.QuickBind.Add(button, { force?, enabled?, wanted?, icon? })
+Polestar.QoL.QuickBind.Add(button, { force?, enabled?, wanted?, icon?, command? })
 Polestar.QoL.QuickBind.Hover(button) -> true when the mode took the hover
 Polestar.QoL.QuickBind.Active() -> bool
 ```
@@ -8355,9 +8448,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `behavior.autoSelectGuide`, each with its description inline; then the
   stat weights gear advice uses, `gear.spec.<CLASS>`, as option cards:
   Automatic, the class's specs, a custom scale while one is in use);
-  Targeting, with QoL (`qol.targetButton` under a preview of the button's
-  face and plate, `Buttons.NewFace`, faint while it is off; `qol.targetPlate`
-  as its child, greyed while the button is off; `qol.markTarget` and
+  Targeting, with QoL (`qol.targetButton`, which brings its target list,
+  under a preview of the list, `Buttons.NewListFaces`, or with
+  `qol.targetSimple` of the single button's face and plate,
+  `Buttons.NewFace`, faint while it is off; `qol.targetSimple` and
+  `qol.targetPlate` as its children, greyed while the button is off, who it
+  targets also while the single button is; `qol.markTarget` and
   `qol.pingTarget`; a line that the step key targets the same names without
   the button and that Move frames moves it); Groups and dungeons
   (`behavior.dungeons` as Skip them, Ask me and Run them once that setting

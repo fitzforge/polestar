@@ -74,6 +74,8 @@ fn buttons_look_settings_apply_to_the_live_action_buttons_out_of_combat() {
 		Polestar.Set("buttons.cooldownText", false)
 		r.texts = { item.Hotkey:IsShown(), item.Count:IsShown(), item.Cooldown.noCooldownCount or false }
 
+		-- The single button's name (beside the target list the rows show the names).
+		Polestar.Set("qol.targetSimple", true)
 		q.step({ { t = "kill", target = "Murloc" }, { t = "kill", target = "Gnoll" } })
 		local _, s0 = target.Label:GetFont()
 		Polestar.Set("buttons.labelScale", 1.5)
@@ -230,7 +232,8 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 	assert!(n(&out["info"]) <= 2.0, "at most two (i): {}", out["info"]);
 	assert!(empty(&out["thin"]), "no one-row section: {}", out["thin"]);
 	assert!(empty(&out["crowded"]), "at most one switch and one swatch beside a control: {}", out["crowded"]);
-	assert!(empty(&out["dim"]), "nothing dimmed at defaults: {}", out["dim"]);
+	// Who it targets draws on the single target button: dimmed beside the target list, the default (#1704).
+	assert_eq!(out["dim"], json!(["qol.targetPlate"]), "nothing else dimmed at defaults");
 	assert_eq!(out["sections"], json!(["Button set", "Buttons", "Plate", "Text", "Floating & minimap"]), "one section per element");
 	assert_eq!(out["toggles"], 0, "the on/off switches sit beside their sizes");
 	for (main, extra) in [
@@ -374,6 +377,8 @@ fn buttons_previews_draw_the_real_faces_on_plain_frames_and_make_no_secure_frame
 fn the_essentials_band_draws_the_button_set_as_laid_out_centred_on_its_buttons() {
 	let out = run_ui(
 		r#"
+		-- The single target button (beside the target list, #1704, its mark and rows stand in its place).
+		Polestar.Set("qol.targetSimple", true)
 		local f = B.EssentialsPreview(UIParent)
 		f:Show()
 		local faces = f.Faces()
@@ -412,4 +417,138 @@ fn the_essentials_band_draws_the_button_set_as_laid_out_centred_on_its_buttons()
 	assert_eq!(out["row"], json!({ "column": false, "row": true, "shown": "bag hearth item target rare", "centred": true }), "{out}");
 	assert_eq!(out["off"], "bag hearth item target", "a button turned off is not drawn");
 	assert_eq!(out["launcher"], json!([true, false, false]), "the floating button alone");
+}
+
+// The Action buttons preview draws the target list where the screen has it (#1704): beside the target face, the
+// Polestar mark in its place and the rows (Buttons.NewListFaces: plain frames, drawn by the live rows' code), the
+// first one close in green, the rare button moved clear of them; in a row (buttons.layout) under it. Simple target
+// button brings back the single face.
+#[test]
+fn buttons_preview_draws_the_target_list_beside_the_target_face_and_the_single_face_with_simple_target_button() {
+	let out = run_ui(
+		r#"
+		local f = B.ActionPreview(UIParent)
+		f:Show()
+		f:Layout(640)
+		local faces = f.Faces()
+		local list = f.List()
+		local r1 = list.rows[1]
+		local r = {}
+		r.list = { faces.target:IsShown(), list.mark:IsShown(), r1:IsShown(), r1.Name:GetText(), r1.Count:GetText(), r1.Near:IsShown(),
+			list.rows[3].Name:GetText(), select(2, r1:GetPoint(1)) == faces.target, r1:GetName() or "plain" }
+		r.rare = select(5, faces.rare:GetPoint(1))
+		Polestar.Set("buttons.layout", "row")
+		f:Layout(640)
+		r.row = { (r1:GetPoint(1)), (select(3, r1:GetPoint(1))), (select(4, faces.rare:GetPoint(1))) }
+		Polestar.Set("buttons.layout", "column")
+		Polestar.Set("qol.targetSimple", true)
+		f:Layout(640)
+		r.simple = { faces.target:IsShown(), list.mark:IsShown(), r1:IsShown(), faces.target.Label:GetText() }
+		emit(r)"#,
+	);
+	assert_eq!(out["list"], json!([false, true, true, "Rot Hide Mongrel", "3/8", true, "Executor Zygand", true, "plain"]), "the mark and the rows in the target face's place, the first one close");
+	assert_eq!(out["rare"], -146, "the rare button clear of three rows, as on the screen");
+	assert_eq!(out["row"], json!(["TOPLEFT", "BOTTOMLEFT", 232]), "in a row the rows hang under the target face, the rare button past them");
+	assert_eq!(out["simple"], json!([true, false, false, "Rot Hide Mongrel"]), "Simple target button: the single face again");
+}
+
+// Move frames' box for the quest buttons covers the target list's rows while they show (Buttons.ListRows,
+// Buttons.ListRect), as the set's screen clamp does: wider by the rows beside the target button, back once they go.
+#[test]
+fn move_frames_box_for_the_quest_buttons_covers_the_target_list_s_rows_while_they_show() {
+	let out = run_ui(
+		r#"
+		local M = Polestar.Movers
+		local function size() local _, _, w, h = M.Rect("buttons"); return { math.floor(w + 0.5), math.floor(h + 0.5) } end
+		local view, raw = nil, nil
+		Polestar.QoL.CurrentStep = function() return view, raw end
+		local before = size()
+		raw = { { t = "kill", target = "Kobold Vermin" }, { t = "kill", target = "Kobold Worker" } }
+		view = { index = 1, status = "current", goals = {} }
+		for i, g in ipairs(raw) do view.goals[i] = { index = i, t = g.t, status = "active", subject = g.target } end
+		B.Refresh()
+		stub.runTimers()
+		local rows = B.ListRows()
+		local with = size()
+		emit({ before = before, rows = rows, with = with })"#,
+	);
+	assert_eq!(out["rows"], 2);
+	let d = |i: usize| out["with"][i].as_f64().unwrap() - out["before"][i].as_f64().unwrap();
+	// Two rows (30 + 2 + 30) beside the target button add the 8 spacing and their 180 to the column's right; they
+	// end 62 under its top (-26), so the rare button goes to -88 - 8 - 18 = -114, its foot 26 under its slot's.
+	assert_eq!(d(0), 188.0, "{out}");
+	assert_eq!(d(1), 26.0, "{out}");
+}
+
+// The Essentials preset cards draw the set as the screen has it (#1704): beside the target list (Simple target
+// button off, the default) the Polestar mark and the rows stand in the target face's place, beside it in a column
+// and under it in the Row preset's row, and the card fits them in; Simple target button brings back the single face.
+#[test]
+fn buttons_preset_cards_draw_the_target_list_in_a_column_and_a_row_and_the_single_face_with_simple_target_button() {
+	let out = run_ui(
+		r#"
+		UI.ShowOptions("buttons")
+		O.Select("buttons", "Essentials")
+		local cards = O.Controls("buttons", "Essentials")["Presets"]
+		local function card(value)
+			local g = cards.psCardBy[value].Art.psGroup
+			local t, list = g.faces[3], g.rows
+			local r1 = list.rows[1]
+			local p, rel, rp = r1:GetPoint(1)
+			return { t:IsShown(), list.mark:IsShown(), r1:IsShown(), r1.Name:GetText(), list.rows[3]:IsShown(), rel == t, p, rp,
+				(select(4, g:GetPoint(1))), (select(5, g:GetPoint(1))), g:GetScale() }
+		end
+		local r = { column = card("polestar"), row = card("row") }
+		Polestar.Set("qol.targetSimple", true)
+		r.simple = card("polestar")
+		emit(r)"#,
+	);
+	let c = &out["column"];
+	assert_eq!(
+		c.as_array().unwrap()[..8],
+		json!([false, true, true, "Rot Hide Mongrel", true, true, "TOPLEFT", "TOPRIGHT"]).as_array().unwrap()[..],
+		"column: the mark and rows beside the target face: {c}"
+	);
+	let r = &out["row"];
+	assert_eq!(r.as_array().unwrap()[..8], json!([false, true, true, "Rot Hide Mongrel", true, true, "TOPLEFT", "BOTTOMLEFT"]).as_array().unwrap()[..], "row: the rows under the target face: {r}");
+	let s = &out["simple"];
+	assert_eq!(s.as_array().unwrap()[..5], json!([true, false, false, "Rot Hide Mongrel", false]).as_array().unwrap()[..], "Simple target button: the single face: {s}");
+	// The card's box holds the rows: centred further left (beside them in a column) or higher (under them in a
+	// row), and drawn smaller, than the single face's.
+	assert!(n(&c[8]) < n(&s[8]), "the column's box reaches right over the rows: {c} vs {s}");
+	assert!(n(&c[10]) < n(&s[10]), "a smaller set to fit the rows in: {c} vs {s}");
+	assert!(n(&r[9]) > 0.0, "the row's box reaches down under the rows: {r}");
+}
+
+// "Who it targets" and its next names' icons draw on the single target button only, so on the Buttons page as under
+// Questing > Buttons they are greyed out beside the target list (the default) and with the target button off.
+#[test]
+fn who_it_targets_on_the_buttons_page_follows_the_target_button_and_simple_target_button_as_questing_s_does() {
+	let out = run_ui(
+		r#"
+		-- The icons' size sits behind the row's cog, which opens only while the row is on: its own `disabled`.
+		local mini
+		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
+			for _, c in ipairs(spec.page == "Buttons" and spec.controls or {}) do
+				if c.key == "qol.targetPlate" then mini = c.more[1] end
+			end
+		end
+		local function look()
+			UI.ShowOptions("buttons")
+			O.Select("buttons", "Action buttons")
+			local s = { O.Controls("buttons", "Action buttons")["qol.targetPlate"]:IsEnabled(), not mini.disabled() }
+			O.Select("questing", "Buttons")
+			s[3] = O.Controls("questing", "Buttons")["qol.targetPlate"]:IsEnabled()
+			return s
+		end
+		local r = { list = look() }
+		Polestar.Set("qol.targetSimple", true)
+		r.simple = look()
+		Polestar.Set("qol.targetButton", false)
+		r.off = look()
+		emit(r)"#,
+	);
+	assert_eq!(out["list"], json!([false, false, false]), "beside the target list: {out}");
+	assert_eq!(out["simple"], json!([true, true, true]), "Simple target button: {out}");
+	assert_eq!(out["off"], json!([false, false, false]), "the target button off: {out}");
 }

@@ -190,8 +190,10 @@ up to date ([Community guides](#community-guides)). Each new character's
 first login opens **Install**, a short setup a page at a time: a hello and
 what Polestar does; on the account's first character, Questing (quest
 automation, grey quests, the guide at login, the stat weights gear advice
-uses), Targeting (the target button, the square button with a name beside it
-that targets your step's mobs and NPCs, who it targets, its mark and ping),
+uses), Targeting (the target button, which lists your step's mobs and NPCs
+so a click targets one, the list following the button with no switch of its
+own; Simple target button for the single square button and who it targets;
+its mark and ping),
 Groups and dungeons (dungeons in your route, group quests), Your route (Fastest, Balanced or Roads, and the
 route line) and Your look (Polestar's looks, the game's and the skins, with a
 preview, and the colour scheme); a later character gets only its own choice,
@@ -686,17 +688,29 @@ guides you there instead.
 - **The step's item glows in your bags** (and in Baganator): the carcass, the
   seeds or the horn the step uses or has you collect.
 - **Hide the game's quest tracker** (Options, Questing; off by default).
-- **The Target button** (Options, Questing, Buttons; bindable): targets the
-  step's mobs by name, or the NPCs it sends you to when it has no mob, the
-  arrow's goal first and the next name on each click. Its icon shows what
-  you do with the one it targets next (a speech bubble, ! or ? for an NPC, a
-  sword or a bag for a mob, a skull for an elite, rare or boss, or their face
-  once you have seen them), with the name beside it in green, red or gold
-  and small icons for the names after it.
-- **Mark what they target** (Options, Questing, Buttons; off by default): the
-  target button and the step key put a raid icon on the mob or NPC they
-  target — a skull and a star by default, configurable — and pressing again
-  never takes an icon off. Either can be set to "A new one each press", so the
+- **The target list** shows the step's mobs (or, with no mob, the NPCs it
+  sends you to) with their portraits, what they drop for the step and your
+  progress on its goal (3/8); click a name to target that one, or press the
+  target button's key binding for the first one close by. A row's click marks
+  and pings as the target button does. A row turns green while its mob is
+  close. The list goes with the target button: it shows while the target
+  button is on (Settings, Questing, Buttons, Targeting, or the Install's
+  Targeting page) and has no switch of its own. It stands beside the target
+  button, or under it when the buttons line up in a row, and takes the
+  Buttons page's look. The small Polestar mark in the button's place moves the
+  buttons; left-click it to fold the list to one row showing the mob that is
+  close, right-click it for its settings; in Quick Keybind Mode, hover it to
+  bind the target button's key. **Simple target button** (Settings, Questing,
+  Buttons, Targeting) keeps only the button, which moves to the next name on
+  each click. Its icon shows what you do with the one it targets next (a
+  speech bubble, ! or ? for an NPC, a sword or a bag for a mob, a skull for an
+  elite, rare or boss, or their face once you have seen them), with the name
+  beside it in green, red or gold and small icons for the names after it.
+- **Mark what they target** (Options, Questing, Buttons; on by default): the
+  target button, a target list row's click and the step key put a raid icon
+  on the mob or NPC they target — a skull on an enemy and a star on a friendly
+  NPC by default, configurable — and pressing again never takes an icon off.
+  Pinging it for your group is a separate switch, off by default. Either can be set to "A new one each press", so the
   last few targets keep theirs. Your party sees the icons. In a party you
   don't lead, only a mob or NPC with no icon yet gets one, so a mark someone
   else placed stays; in a raid it marks only when you lead or assist.

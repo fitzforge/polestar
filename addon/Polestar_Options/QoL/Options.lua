@@ -160,10 +160,16 @@ register(QUESTING, L["Buttons"], L["Action buttons"], actionRows)
 
 register(QUESTING, L["Buttons"], L["Targeting"], {
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
-		help = L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."], search = "target macro, find mob, keybind, hotkey" },
-	{ kind = "toggle", key = "qol.targetPlate", label = L["Show who it targets"], disabled = targetOff, child = true,
+		help = L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."], search = "target macro, target list, find mob, keybind, hotkey" },
+	{ kind = "toggle", key = "qol.targetSimple", label = L["Simple target button"], disabled = targetOff, child = true,
+		help = L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."], search = "target list, cycle, next name" },
+	{ kind = "toggle", key = "qol.targetPlate", label = L["Show who it targets"], disabled = function() return targetOff() or not QoL.On("targetSimple") end, child = true,
 		help = L["The target button's icon shows what you do next: talk, accept, turn in, kill or loot, a skull for an elite, rare or boss, or their face once you have seen them. Their name sits beside it, green for a friendly NPC, red for a mob, gold for an elite or rare, with small icons for the names after it."],
 		search = "target icon, target name, portrait, npc name, elite, boss" },
+	{ kind = "slider", key = "qol.targetRows", label = L["Names in the target list"], min = 1, max = 8, step = 1,
+		format = function(v) return tostring(math.floor(v + 0.5)) end,
+		disabled = function() return targetOff() or QoL.On("targetSimple") end, child = true,
+		help = L["How many of the step's mobs the target list shows, in guide order."], search = "target list, rows, names, count" },
 	{ kind = "toggle", key = "qol.targetAnnounce", label = L["Name new targets in chat"], disabled = targetOff, child = true,
 		help = L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."],
 		search = "target chat, announce target, targeting" },

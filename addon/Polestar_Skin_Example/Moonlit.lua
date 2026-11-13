@@ -241,8 +241,10 @@ check("skin moonlit", Theme.RegisterSkin("moonlit", {
 			moonline(toast, "moon")
 		end,
 		-- The buttons Polestar puts on the screen: "item", "hearth",
-		-- "target", "rare", "bag" (the action buttons), "travel" (the
-		-- arrow's travel button), "launcher" (the floating button); parts:
+		-- "target", "rare", "bag" (the action buttons), "targetRow" and
+		-- "targetMark" (the target list's rows and its Polestar mark),
+		-- "travel" (the arrow's travel button), "launcher" (the floating
+		-- button); parts:
 		-- ground, icon, highlight (and cooldown, count, hotkey, label,
 		-- badge, glow where it has them); hover: the mouse is on it.
 		actionButton = function(button, kind, parts, hover)

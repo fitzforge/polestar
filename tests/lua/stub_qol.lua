@@ -142,12 +142,13 @@ function UnitName(unit)
 	if t then return t.name end
 	return unitName(unit)
 end
--- Portraits: the texture keeps the name of the unit it was drawn from;
--- q.portraits lists every draw.
+-- Portraits: the texture keeps the name of the unit it was drawn from, and
+-- shows it as "portrait:<name>"; q.portraits lists every draw.
 q.portraits = {}
 function SetPortraitTexture(tex, unit)
 	local t = targetOf(unit)
 	tex.portraitOf = t and t.name
+	tex:SetTexture(t and ("portrait:" .. tostring(t.name)) or nil)
 	q.portraits[#q.portraits + 1] = { unit = unit, name = t and t.name }
 end
 C_NamePlate = C_NamePlate or {}
@@ -840,7 +841,7 @@ function q.step(goals, index)
 		views[g] = {
 			index = g, t = goal.t, status = goal.status or "active",
 			subject = goal.subject or goal.target or goal.itemName or goal.location,
-			quest = goal.quest, npc = goal.npc, item = goal.item,
+			quest = goal.quest, npc = goal.npc, item = goal.item, progress = goal.progress,
 		}
 	end
 	local steps = {}
