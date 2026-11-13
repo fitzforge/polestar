@@ -257,13 +257,14 @@ local OFFHAND_DPS = 0.5 -- off-hand weapons hit for half damage
 local DUAL_WIELD_SPELL = 674
 
 -- C_Item.GetItemStats keys -> canonical stat keys. Unknown keys are ignored.
+-- Combined spell power is expanded into damage and healing in clientStats.
 local CLIENT_STATS = {
 	ITEM_MOD_STRENGTH_SHORT = "str", ITEM_MOD_AGILITY_SHORT = "agi", ITEM_MOD_STAMINA_SHORT = "sta",
 	ITEM_MOD_INTELLECT_SHORT = "int", ITEM_MOD_SPIRIT_SHORT = "spi", RESISTANCE0_NAME = "armor",
 	ITEM_MOD_HEALTH_SHORT = "health", ITEM_MOD_MANA_SHORT = "mana",
 	ITEM_MOD_DAMAGE_PER_SECOND_SHORT = "dps",
 	ITEM_MOD_ATTACK_POWER_SHORT = "ap", ITEM_MOD_RANGED_ATTACK_POWER_SHORT = "rap",
-	ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = "sp", ITEM_MOD_SPELL_POWER_SHORT = "sp",
+	ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = "sp",
 	ITEM_MOD_SPELL_HEALING_DONE_SHORT = "heal",
 	ITEM_MOD_MANA_REGENERATION_SHORT = "mp5", ITEM_MOD_POWER_REGEN0_SHORT = "mp5",
 	ITEM_MOD_HEALTH_REGEN_SHORT = "hp5", ITEM_MOD_HEALTH_REGENERATION_SHORT = "hp5",
@@ -310,6 +311,14 @@ local function clientStats(link)
 			out = out or {}
 			out[key] = (out[key] or 0) + v
 		end
+	end
+	-- Treat explicit damage/healing values as channel totals. Combined power
+	-- fills only missing channels, so overlapping client keys are not added.
+	local combined = t.ITEM_MOD_SPELL_POWER_SHORT
+	if type(combined) == "number" and readable(combined) then
+		out = out or {}
+		out.sp = out.sp or combined
+		out.heal = out.heal or combined
 	end
 	return out
 end
