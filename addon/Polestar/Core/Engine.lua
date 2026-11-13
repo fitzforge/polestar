@@ -9343,13 +9343,15 @@ end
 -- the same ns.Moment() (no timer, script, game event or message since, no
 -- change asked of the Engine), the same evaluation and the same guide. Each
 -- message's listeners, and the Quality of Life refreshes of one frame, then
--- build a step's view once between them (Own.shared).
-Own.shared = { views = {} }
+-- build a step's view once between them (Own.shared). The views are held
+-- weakly: one no reader keeps goes with the next collection, never kept
+-- for memory's sake past its moment.
+Own.shared = { views = {}, weak = { __mode = "v" } }
 function Engine.GetStepView(i, shared)
 	if shared and not Own.doneMemo then
 		local c, now, moment = Own.shared, GetTime(), ns.Moment()
 		if c.at ~= now or c.moment ~= moment or c.gen ~= generation or c.guide ~= guide then
-			c.at, c.moment, c.gen, c.guide, c.views = now, moment, generation, guide, {}
+			c.at, c.moment, c.gen, c.guide, c.views = now, moment, generation, guide, setmetatable({}, c.weak)
 		end
 		local v = c.views[i]
 		if v == nil then
