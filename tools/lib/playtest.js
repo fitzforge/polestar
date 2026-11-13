@@ -208,18 +208,7 @@ function playableClasses(data, race, faction) {
 	return side ? side.classes : [];
 }
 
-// Classes named by the `class` header or any `only` in the guide that the
-// race can be, plus one playable class the guide never names. A guide
-// limited by its `class` header is played only as those classes, each of
-// them. `only` (class files) replaces that choice with the given classes the
-// race can be.
-function classesFor(data, guide, race, faction, only = null) {
-	let can = playableClasses(data, race, faction);
-	if (guide.classes && guide.classes.length) {
-		const allowed = guide.classes.map((c) => String(c).toUpperCase());
-		can = can.filter((c) => allowed.includes(c));
-	}
-	if (only) return can.filter((c) => only.includes(c));
+function namedClasses(guide) {
 	const named = new Set((guide.classes || []).map((c) => String(c).toUpperCase()));
 	const visit = (cond) => {
 		for (const c of (cond && cond.classes) || []) named.add(String(c).toUpperCase());
@@ -228,6 +217,21 @@ function classesFor(data, guide, race, faction, only = null) {
 		visit(s.only);
 		for (const g of s.goals) visit(g.only);
 	}
+	return named;
+}
+
+// Classes named by the `class` header or any `only` in the guide (or chain) that the
+// race can be, plus one playable class it never names. A guide
+// limited by its `class` header is played only as those classes, each of
+// them. `only` (class files) replaces that choice with the given classes the
+// race can be.
+function classesFor(data, guide, race, faction, only = null, named = namedClasses(guide)) {
+	let can = playableClasses(data, race, faction);
+	if (guide.classes && guide.classes.length) {
+		const allowed = guide.classes.map((c) => String(c).toUpperCase());
+		can = can.filter((c) => allowed.includes(c));
+	}
+	if (only) return can.filter((c) => only.includes(c));
 	const plain = can.find((c) => !named.has(c));
 	return [...[...named].filter((c) => can.includes(c)), ...(plain ? [plain] : [])];
 }
@@ -268,20 +272,12 @@ function personasFor(guide, arriving = []) {
 	return races.map((race) => ({ race, faction: sideOf(race) || guide.faction || 'Alliance' }));
 }
 
-// A persona for each class the guide names (its `class` header or any `only`)
+// A persona for each class the guide (or chain) names (its `class` header or any `only`)
 // that none of `personas` can be: the first race in races.json on the guide's
 // side (its race list, if it has one) that can be it, so an `only Druid` step
 // in a Horde guide is played as a Tauren rather than skipped.
-function classPersonas(data, guide, personas) {
+function classPersonas(data, guide, personas, named = namedClasses(guide)) {
 	if (!data.races || !Object.keys(data.races).length) return [];
-	const named = new Set((guide.classes || []).map((c) => String(c).toUpperCase()));
-	const visit = (cond) => {
-		for (const c of (cond && cond.classes) || []) named.add(String(c).toUpperCase());
-	};
-	for (const s of guide.steps) {
-		visit(s.only);
-		for (const g of s.goals) visit(g.only);
-	}
 	const allowed = guide.races && guide.races.length ? guide.races.map((x) => (x === 'Undead' ? 'Scourge' : x)) : null;
 	const sides = guide.faction ? [guide.faction] : ['Alliance', 'Horde'];
 	const added = [];
@@ -601,7 +597,8 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 
 // playtest --honest (tools/lib/playtest-honest.js): the compiled guides
 // played from their lines and the data only, each `next` chain whole from
-// its first guide, as each persona and class its first guide is played as;
+// its first guide, sampling classes named throughout the chain while keeping
+// that first guide's race, faction and class eligibility;
 // findings for the guides of `play` (sources). No Lua. `kb`: the knowledge
 // base file (default data/local/kb/forever-kb.sqlite when present; null: none).
 // -> { results: [], findings, diag, played, honest: true }
@@ -612,10 +609,11 @@ function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
 	for (const g of all) {
 		for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
 	}
-	const personas = (root) => {
+	const personas = (root, chain) => {
+		const named = new Set(chain.flatMap((g) => [...namedClasses(g)]));
 		let list = personasFor(root, arriving.get(root.id));
-		list = [...list, ...classPersonas(data, root, list)];
-		return list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes).map((cls) => ({ race, faction, cls })));
+		list = [...list, ...classPersonas(data, root, list, named)];
+		return list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes, named).map((cls) => ({ race, faction, cls })));
 	};
 	const findings = honestPlay(all, data, personas, { kb: kb === undefined ? loadKb() : kb ? loadKb(kb) : null, play: wanted.map((g) => g.id), groups });
 	return { results: [], findings, diag, played: wanted.length, honest: true };

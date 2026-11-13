@@ -725,14 +725,15 @@ function chains(guides) {
 	return out;
 }
 
-// Play every chain holding a guide of `play` (ids) as each of its personas
+// Play every chain holding a guide of `play` (ids) as each of its personas.
+// The callback receives the root guide and, for automatic sampling, the chain.
 // -> findings of those guides, by file and line.
 function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip' } = {}) {
 	const report = play ? new Set(play) : null;
 	const out = [];
 	for (const chain of chains(guides)) {
 		if (report && !chain.some((g) => report.has(g.id))) continue;
-		for (const persona of personas(chain[0])) {
+		for (const persona of personas(chain[0], chain)) {
 			for (const f of playChain(chain, data, persona, { kb, report, groups })) out.push({ ...f, race: persona.race, cls: persona.cls });
 		}
 	}

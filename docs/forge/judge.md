@@ -74,8 +74,11 @@ finding, not a cascade.
 A chain starts at each guide that no `next` leads into and follows each guide's
 first `next` option without a `when`. Each chain is played by a set of
 *personas* (one race, faction and class): every race the first guide is for,
-each class an `only` in the guide names, and one class no `only` names. With
-`--class` you pick the classes instead.
+each playable class named by a `class` header or an `only` anywhere in the
+chain, and one class the chain never names. The first guide's faction, race
+and class restrictions still apply. With `--class` you pick from its eligible
+classes instead. This includes class-specific work introduced by a later
+guide, even when `--filter` reports only that later guide.
 
 ### The rules
 
@@ -100,6 +103,7 @@ more than 4,000 yd away is a walk across zones, not a way in.
 `--legacy` gives R1-R5 exactly as the Node playtest (`polestar playtest --honest`) printed them:
 one row per persona, with the old quirks. The report uses legacy mode so its
 numbers stay comparable with earlier runs.
+Both modes sample classes from the whole chain.
 
 R5's extra steps come from a quest knowledge base when the checkout has one
 (`data/local/kb/forever-kb.sqlite`). Without it, R5 checks objectives only.
@@ -248,7 +252,7 @@ The first argument is a guides folder (holding `forever/`). `--faction` and
 
 | Flag | Meaning |
 |---|---|
-| `--class C` | Play only this class (`Warrior`); default: each guide's own choice of classes |
+| `--class C` | Play only this class (`Warrior`); default: classes sampled across each chain |
 | `--to N` | Cut the walk at level N (default 61, i.e. all of 1-60) |
 | `--sim DIR` | Folder with `world-<faction>.json` and `params.json` (default `<root>/data/sim`) |
 | `--levels FILE` | Levels from a saved judge dump instead of the simulator |

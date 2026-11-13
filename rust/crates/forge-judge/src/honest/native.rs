@@ -1,7 +1,7 @@
 //! Native entry points: the knowledge base from SQLite, and a pack folder played as `playtest --honest`
 //! plays our own pack (tools/lib/playtest.js playtest({ official: true, honest: true })).
 
-use super::{arriving, honest_play, kb_from_rows, personas, Finding, HonestOpts, Kb, KbStep, Persona};
+use super::{arriving, chain_personas, honest_play_chains, kb_from_rows, Finding, HonestOpts, Kb, KbStep, Persona};
 use forge_guide::data::Data;
 use forge_guide::project::{compile_checked, find_guide_files, CompileOpts, Source};
 use std::path::Path;
@@ -139,9 +139,9 @@ pub fn play_pack(pack_dir: &Path, data: &Data, kb: Option<&Kb>, run: &PackRun, o
 	let play: Vec<String> = guides.iter().filter(|g| wanted.iter().any(|w| g.hidden("_ast").get("source").as_str() == Some(w.as_str()))).map(|g| g.get("id").to_js_string()).collect();
 	let arr = arriving(&guides);
 	let race = run.race.as_deref().map(race_file);
-	let personas_of = |root: &forge_guide::js::V| -> Vec<Persona> {
-		personas(data, root, &arr, run.classes.as_deref()).into_iter().filter(|p| run.faction.as_ref().is_none_or(|f| *f == p.faction) && race.as_ref().is_none_or(|r| *r == p.race)).collect()
+	let personas_of = |chain: &[&forge_guide::js::V]| -> Vec<Persona> {
+		chain_personas(data, chain, &arr, run.classes.as_deref()).into_iter().filter(|p| run.faction.as_ref().is_none_or(|f| *f == p.faction) && race.as_ref().is_none_or(|r| *r == p.race)).collect()
 	};
-	let findings = honest_play(&guides, data, &personas_of, kb, Some(&play), opts);
+	let findings = honest_play_chains(&guides, data, &personas_of, kb, Some(&play), opts);
 	Ok(PackResult { findings, played: play.len() })
 }
