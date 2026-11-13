@@ -277,6 +277,8 @@ L["Selected: press Ctrl+C to copy."] = "선택됨: Ctrl+C를 눌러 복사하십
 -- L["Filter"] = ""
 -- L["Nothing matches."] = ""
 -- L["Type %s to go ahead."] = ""
+-- L["Reset to default"] = ""
+-- L["Reset to default (%s)"] = ""
 
 -- Nav/Nav.lua
 L["Waypoint"] = "경유지"

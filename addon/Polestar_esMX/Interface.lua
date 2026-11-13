@@ -1114,6 +1114,8 @@ L["Selected: press Ctrl+C to copy."] = "Seleccionado: presiona Ctrl+C para copia
 -- L["Filter"] = ""
 -- L["Nothing matches."] = ""
 -- L["Type %s to go ahead."] = ""
+-- L["Reset to default"] = ""
+-- L["Reset to default (%s)"] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Ya está seleccionado: cópialo con Ctrl+C (Cmd+C en Mac) y luego presiona Escape."

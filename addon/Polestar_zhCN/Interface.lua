@@ -277,6 +277,8 @@ L["Selected: press Ctrl+C to copy."] = "已选中：按 Ctrl+C 复制。"
 -- L["Filter"] = ""
 -- L["Nothing matches."] = ""
 -- L["Type %s to go ahead."] = ""
+-- L["Reset to default"] = ""
+-- L["Reset to default (%s)"] = ""
 
 -- Nav/Nav.lua
 L["Waypoint"] = "路径点"

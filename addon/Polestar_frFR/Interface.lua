@@ -278,6 +278,8 @@ L["Selected: press Ctrl+C to copy."] = "Sélectionné : appuyez sur Ctrl+C pour 
 -- L["Filter"] = ""
 -- L["Nothing matches."] = ""
 -- L["Type %s to go ahead."] = ""
+-- L["Reset to default"] = ""
+-- L["Reset to default (%s)"] = ""
 
 -- Nav/Nav.lua
 L["Waypoint"] = "Point de passage"
