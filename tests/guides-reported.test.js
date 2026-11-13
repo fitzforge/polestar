@@ -11830,3 +11830,15 @@ test(`${DARKSHORE_RETURN}: Druids train at Mathrengyl Bearwalker on the Cat Form
 	assert.ok(step.goals.some((g) => g.t === 'train' && g.class), 'the Mathrengyl step trains the class');
 	assert.ok(step.only && step.only.classes && step.only.classes.join() === 'DRUID', 'a Druid step');
 });
+
+// Alliance 20-30 audit (0.4.0, #2025): Escape Through Force (994) is finished at the end of 03-darkshore-return and
+// was handed in only on 06-wetlands' Auberdine stop, six levels on; 06-ashenvale lands at Auberdine's flight master,
+// beside Terenthis, on its way to the Menethil boat.
+test(`${ASHENVALE}: Escape Through Force goes to Terenthis on the Auberdine landing, before Menethil (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const fly = at(list, 'the flight to Auberdine', (g) => g.t === 'fly' && g.location === 'Auberdine');
+	const terenthis = at(list, 'Escape Through Force (994)', is('turnin', 994));
+	const menethil = at(list, "Karl Boran's Claws from the Deep (279)", is('accept', 279));
+	assert.ok(fly < terenthis && terenthis < menethil, 'flight, Terenthis, then Menethil');
+	assert.ok(goals(WETLANDS).some(({ goal }) => goal.t === 'turnin' && goal.quest === 994), "06-wetlands keeps a hand-in for carriers");
+});

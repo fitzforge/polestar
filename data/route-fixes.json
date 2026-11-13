@@ -4916,6 +4916,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 20-30 audit (0.4.0, #2025): Gathering the Cure's Lunar Fungal Blooms (object 177750) grow in the moonkin caves just east of Auberdine (Darkshore 42.4-46.7, 45.7-53.3), a short way off the road south. 03-darkshore-return took Onu at the Grove (43.6,76.3) first and then walked about 1,140 yards back north to the caves and 1,350 back south to Buzzbox 525; picked on the way south, the Night Elves', Skyborne's and Druids' walk is about 2,000 yards (some 5 minutes) shorter. The blooms are outside While-you're-here's reach from the road."
+			},
+			{
+				"a": [
+					"turnin",
+					994
+				],
+				"b": [
+					"accept",
+					279
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 stranded-quests plan): Escape Through Force (994, quest level 22) is finished at the end of 03-darkshore-return (about 23) and was handed in to Terenthis only on 06-wetlands' Auberdine stop (about 28.5, six over: 80% of its XP, less at +7). 06-ashenvale already flies Astranaar -> Auberdine for the boat to Menethil at about 25, and Terenthis stands by the flight master: it is handed in there, before Menethil's first accept (Karl Boran, 279). 06-wetlands keeps its Terenthis step for anyone still carrying it."
 			}
 		],
 		"notes": [
