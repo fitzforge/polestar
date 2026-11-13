@@ -100,6 +100,12 @@ step The Emerald Sanctuary
   turnin 5242                         -- Greta Mosshoof
   turnin 5385                         -- Jessir Moonbow
 
+step Forest Song
+  when onquest 4261
+  zone Ashenvale
+  tip Ride south out of Felwood toward Talrendis Point: Kayneth Stillwind's camp at Forest Song is just over the Ashenvale border, on the way.
+  turnin 4261                         -- Kayneth Stillwind
+
 step Azshara
   zone Azshara
   goto 11.9,77.5 "Azshara"
@@ -257,7 +263,7 @@ step Cenarion Hold
   turnin 8304                         -- Commander Mar'alith
   turnin 8287                         -- Commander Mar'alith
 
-# ---------------------------------------------------------------- Gadgetzan, Forest Song
+# ---------------------------------------------------------------- Gadgetzan
 
 step Gadgetzan
   zone Tanaris
@@ -266,18 +272,11 @@ step Gadgetzan
   turnin 4507                         -- Alchemist Pestlezugg, inside
   accept 4508                         -- Gracina Spiritmight in Darnassus: keep it
 
-step Forest Song
-  when onquest 4261
-  zone Ashenvale
-  tip Fly to Talrendis Point in Azshara and ride west along the road to Forest Song, just over the Ashenvale border.
-  fly "Talrendis Point"
-  turnin 4261                         -- Kayneth Stillwind
-
 # ---------------------------------------------------------------- Winterspring
 
 step Fly to Everlook
-  zone Azshara
-  goto 11.9,77.5 "Talrendis Point flight master"
+  zone Tanaris
+  goto 51.0,29.3 "Gadgetzan flight master"
   fly "Everlook"
 
 step Everlook

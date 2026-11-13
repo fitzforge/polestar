@@ -13244,6 +13244,19 @@
 				"faction": "Alliance",
 				"why": "To Winterspring! (5249) is handed in to Wynd Nightchaser before The Ruins of Kel'Theril (5244) is taken from him: see the include for 5249.",
 				"source": "0.4.0 audit (#2025)"
+			},
+			{
+				"a": [
+					"turnin",
+					4261
+				],
+				"b": [
+					"turnin",
+					4496
+				],
+				"faction": "Alliance",
+				"why": "Forest Song is on the road from the Emerald Sanctuary back to Talrendis Point, ridden right after Arei's escort (Ancient Spirit): the quest is handed in to Kayneth Stillwind there instead of on a later Gadgetzan -> Talrendis Point -> Forest Song -> Talrendis Point detour between flights (about 1,400 yd and a landing).",
+				"source": "0.4.0 audit (route audit A2)"
 			}
 		]
 	}
