@@ -1620,6 +1620,62 @@ fn a_hearth_step_while_the_hearthstone_waits_and_astral_recall_is_ready_names_th
 	assert_eq!(out["stoneReady"], json!({ "line": false, "arrow": false }), "the Hearthstone ready: the hearth step as before");
 }
 
+// Astral Recall is a Shaman's spell and never shows for another class: a hearth step reads it (Own.bindRecall) only from
+// Nav/Transit.lua's Teleports, which lists a spell only when the client's spell book has it (Core/Compat.lua's
+// IsSpellKnown), whatever the class. With the whole addon (the real Transit and the travel data's Astral Recall): a
+// Warrior whose spell book the stub says nothing about, and a Shaman who has not learned it yet, with the Hearthstone
+// waiting or not in the bags, get the Hearthstone's own line and the walk to the inn, never "Cast Astral Recall"; the
+// Shaman who has learned it gets the spell, so the spell book is what keeps it from the others.
+#[test]
+fn a_hearth_step_never_offers_astral_recall_to_another_class_or_a_shaman_who_has_not_learned_it_only_once_the_spell_book_has_it() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-class", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		full: true,
+		script: r#"
+			local w = stub.world
+			local hs = { have = true, remaining = 23 * 60 - 20 }
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				local listed = {}
+				for _, t in ipairs(Polestar.Transit.Teleports()) do listed[#listed + 1] = t.name end
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false, listed = table.concat(listed, ",") }
+			end
+			E.SetGuide("test/hearth-class"); flush()
+			local r = { warrior = state() }
+			hs.have = false; changed()
+			r.warriorNoStone = state()
+			w.class, w.className, w.classID = "SHAMAN", "Shaman", 7
+			hs.have = true; changed()
+			r.shaman = state()
+			hs.have = false; changed()
+			r.shamanNoStone = state()
+			w.learnSpell(556)
+			hs.have = true; changed()
+			r.learned = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	let wait = json!({ "line": "Hearthstone ready in 23 min, sooner than the 28 min trip: wait for it", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"], "listed": "" });
+	let no_stone = json!({ "line": "No Hearthstone in your bags: walk to the inn", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"], "listed": "" });
+	assert_eq!(out["warrior"], wait, "a Warrior, the stub saying nothing about the spell: the Hearthstone's wait");
+	assert_eq!(out["warriorNoStone"], no_stone, "a Warrior without a Hearthstone: the walk to the inn");
+	assert_eq!(out["shaman"], wait, "a Shaman who has not learned it: the Hearthstone's wait");
+	assert_eq!(out["shamanNoStone"], no_stone, "a Shaman who has not learned it, without a Hearthstone: the walk to the inn");
+	assert_eq!(out["learned"], json!({ "line": "Cast Astral Recall", "arrow": false, "listed": "Astral Recall" }), "learned: the spell");
+}
+
 #[test]
 fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_longer_wait_when_it_is_sooner_travel_when_the_inn_is_close() {
 	let out = run1(Run {

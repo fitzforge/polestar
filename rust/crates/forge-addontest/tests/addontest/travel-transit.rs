@@ -132,6 +132,50 @@ fn astral_recall_is_a_second_hearthstone_cast_while_the_stone_waits_and_the_shor
 	assert_eq!(out["noStone"], recall, "no Hearthstone in the bags: Astral Recall takes the player to the bind point all the same");
 }
 
+// Astral Recall is a Shaman's spell and never shows for another class: the planner takes it only from Nav/Transit.lua's
+// Teleports, which lists a spell only when the client's spell book has it (Compat.IsSpellKnown), never from the class.
+// With the real Transit and the travel data's Astral Recall, on the 12-minute haul to beside the inn with the Hearthstone
+// cooling down for an hour: a Warrior, the stub saying nothing about the spell (no spell book call at all), and a Shaman
+// who has not learned it yet (the spell book answers, not for Astral Recall), with the stone in the bags or not, take the
+// boat, never "Cast Astral Recall"; once the spell book has it, it is cast, so the spell book is what keeps it from the
+// others.
+#[test]
+fn astral_recall_is_never_planned_for_another_class_or_a_shaman_who_has_not_learned_it_only_once_the_spell_book_has_it() {
+	let out = run(r#"
+		local r = {}
+		local X = Polestar.Transit
+		local function state()
+			target(-520, -690, "Innkeeper quest")
+			local listed = {}
+			for _, t in ipairs(X.Teleports(X.Now())) do listed[#listed + 1] = t.name end
+			return { route(), table.concat(listed, ",") }
+		end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(0, 0, 1)
+		stub.advance(10)
+		nav.hearthCooldown = { GetTime(), 3600 }
+		Polestar.Compat.IsSpellKnown = nil
+		r.warrior = state()
+		nav.items[6948] = nil
+		r.warriorNoStone = state()
+		local book = {}
+		Polestar.Compat.IsSpellKnown = function(id) return book[id] == true end
+		r.shamanNoStone = state()
+		nav.items[6948] = 1
+		r.shaman = state()
+		book[556] = true
+		r.learned = state()
+		emit(r)"#);
+	let boat = json!([["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"], ""]);
+	assert_eq!(out["warrior"], boat, "a Warrior, the stub saying nothing about the spell: the boat, nothing listed");
+	assert_eq!(out["warriorNoStone"], boat, "no Hearthstone in the bags either: still the boat");
+	assert_eq!(out["shamanNoStone"], boat, "a Shaman who has not learned it, no Hearthstone in the bags: the boat");
+	assert_eq!(out["shaman"], boat, "a Shaman who has not learned it, the Hearthstone cooling down: the boat");
+	assert_eq!(out["learned"], json!([["teleport|Cast Astral Recall: saves 10 min", "walk|Innkeeper quest"], "Astral Recall"]), "learned: cast");
+}
+
 #[test]
 fn c11_a_class_teleport_is_a_leg_from_the_start_when_it_is_faster_a_ghost_only_walks_with_no_error() {
 	let out = run(r#"
