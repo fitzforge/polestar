@@ -248,8 +248,8 @@ version throughout.
    whose author pushed again after the batch doesn't count (and GitHub won't
    mark it merged) until the batch merges its new head. Issues that such an
    open pull request closes count for their reporters as fixed. Check the
-   printed line: "N by M merged pull requests alone" against the total
-   shows how many contributors the batches add.
+   printed line: "N by merged pull requests alone" against the total shows
+   how many contributors the batches add.
 
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
    (names only, highest total first; amounts are never stored), and anyone

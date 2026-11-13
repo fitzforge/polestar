@@ -164,7 +164,6 @@ fn credits(args: &[String]) -> Result<(), super::Fail> {
 	// push to next marks them merged). rank_contributors counts each pull request once.
 	let on_ref = ref_ids(&root, &release)?;
 	let mut prs = fetch_merged(REPO)?;
-	let n_merged = prs.len();
 	let folded_in = folded(&fetch_closed(REPO, &src.exclude)?, &ref_commits(&root, &release)?);
 	let open = fetch_open(REPO)?;
 	let open_in = folded_open(&open, &on_ref);
@@ -184,7 +183,7 @@ fn credits(args: &[String]) -> Result<(), super::Fail> {
 	let out = root.join(OUT);
 	std::fs::write(&out, render(&src.supporters, &contributors, &reporters, &translators, &ideas)).map_err(|e| format!("{}: {e}", out.display()))?;
 	println!(
-		"credits ({release}, {} commits): {} supporters, {} contributors ({merged_only} by {n_merged} merged pull requests alone; {n_folded} folded closed and {n_open} folded open pull requests counted), {} bug reporters ({} issues fixed on the ref), {} translators, {} ideas -> {}",
+		"credits ({release}, {} commits): {} supporters, {} contributors ({merged_only} by merged pull requests alone; {n_folded} closed and {n_open} open pull requests folded into the ref), {} bug reporters ({} issues fixed on the ref), {} translators, {} ideas -> {}",
 		on_ref.len(),
 		src.supporters.len(),
 		contributors.len(),
