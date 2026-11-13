@@ -337,6 +337,12 @@ test("The Drowned City's quests wait for their lead-ins, so the pick-up guide ta
 	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
 });
 
+test('Open the Maw waits for Dragonmaw Rumors, so the Excavation Site pick-up guide takes Zaruk\'s lead-in first (#1939)', () => {
+	const entry = corrections.quests[95682];
+	assert.ok(entry, 'a correction for 95682');
+	assert.deepEqual(blockingPrereqs({ id: 95682, start: { npc: [13155] }, ...entry.set }), { all: [], any: [95663] });
+});
+
 // The 0.3.8 XP review (players' recorded hand-ins at a full-XP level, builds 70790-70888): three quests whose
 // data value no recorded hand-in pays. The Grand Betrayal's earlier correction held the 70170 build's value.
 test('quest XP the recordings confirm is held by the corrections (0.3.8 XP review)', () => {

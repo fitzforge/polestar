@@ -4476,6 +4476,12 @@
 					"count": 1,
 					"text": "Dragonmaw Dispatch"
 				}
+			],
+			"pre": [
+				95663
+			],
+			"preAny": [
+				95663
 			]
 		},
 		"source": [
@@ -4486,9 +4492,17 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 7 people took Open the Maw from the Deathstalker Agent (13155); the log listed two kills (x2, x4) and one item (x1) at the accept, and their lines ticked to 2/2 and 4/4"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12 (excluded contributors left out): the Deathstalker Agent (13155) offered Open the Maw to 31 people (19 established); every one had Dragonmaw Rumors (95663) in the log at that window or had just handed it in to him, and none was offered it without it (#1939)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [95663]"
 			}
 		],
-		"note": "Open the Maw: kill two Dragonmaw Saboteurs and four Dragonmaw Warders and take the Dragonmaw Dispatch. The merged data had no objectives."
+		"note": "Open the Maw: kill two Dragonmaw Saboteurs and four Dragonmaw Warders and take the Dragonmaw Dispatch. The merged data had no objectives. The Deathstalker Agent outside the Excavation Site offers it once Dragonmaw Rumors (95663, from Zaruk in Hammerfall) is handed in to him; the merged data had no prerequisite, so the dungeon's pick-up guide left the lead-in out."
 	},
 	"95737": {
 		"set": {
