@@ -399,11 +399,12 @@ fn the_look_ahead_never_aims_onto_another_floor_path_heights_or_past_a_split_wal
 }
 
 // A split walk's chokepoint far along a piece of a sparse path (0.3.8's border sweep, an Ashenvale pass 40 yd past the
-// path's point before it): once past that point the piece aims on to the chokepoint's spot on the path, never beyond
-// it; held at the point, the piece's end was out of reach. A pass 5 yd off a path of three points (0, 0), (0, -100),
-// (0, -300): its spot (0, -160), 60 yd past the middle point.
+// path's point before it): once past that point, or standing on it, the piece aims on to the chokepoint's spot on the
+// path, never beyond it; held at the point, the piece's end was out of reach, and a player who walked to the point and
+// stood a hair short of it had the arrow at their feet (0.4.0's border sweep: starts that had arrived stopped there).
+// A pass 5 yd off a path of three points (0, 0), (0, -100), (0, -300): its spot (0, -160), 60 yd past the middle point.
 #[test]
-fn a_split_walk_s_piece_aims_on_to_its_chokepoint_far_along_a_piece_of_a_sparse_path_once_past_the_point_before_it() {
+fn a_split_walk_s_piece_aims_on_to_its_chokepoint_far_along_a_piece_of_a_sparse_path_once_on_or_past_the_point_before_it() {
 	let out = run(&[
 		LOOK,
 		r#"
@@ -415,22 +416,24 @@ fn a_split_walk_s_piece_aims_on_to_its_chokepoint_far_along_a_piece_of_a_sparse_
 		answerZ({ { 0, 0 }, { 0, -100 }, { 0, -300 } })
 		local legs, ci = N.GetRoute()
 		local first = legs[ci].choke and legs[ci].choke.kind
+		local hair = look(0, -100 + 1e-7, 0, -300)
 		local past = look(0, -100 - 1e-3, 0, -300)
 		local on = look(0, -140, 0, -300)
-		emit({ first = first, past = past, on = on })"#,
+		emit({ first = first, hair = hair, past = past, on = on })"#,
 	]
 	.concat());
 	assert_eq!(out["first"], "pass", "the walk is split at the pass");
+	assert!(num(&out["hair"]["dy"]) < -20.0, "a hair short of the middle point: on toward the pass, not at the player's feet ({} yd)", out["hair"]["dy"]);
 	assert!(num(&out["past"]["dy"]) < -20.0, "just past the middle point: on along the path toward the pass ({} yd)", out["past"]["dy"]);
 	assert!(-140.0 + num(&out["on"]["dy"]) >= -160.0 - 1e-6, "20 yd short of it: the aim stops at the pass's spot ({} yd on)", out["on"]["dy"]);
 	assert!(num(&out["on"]["dy"]) < -15.0, "and reaches it ({} yd on)", out["on"]["dy"]);
 }
 
-// Until the player is past the path's point before the chokepoint, the piece's aim stops at that point, as at any
-// stop, even within a few yards of it: let on sooner, it cut the corner there (0.4.0's border sweep: off the ramp down
-// into Un'Goro Crater, onto a ledge). A path (0, 0), (0, -100), (20, -140), (20, -300) with a corner at (0, -100): a
-// pass halfway along the next piece, at (10, -120), and one at the corner's far point (20, -140), where the chokepoint
-// lies at the end of the piece before it.
+// Until the player is past the path's point before the chokepoint (or on it), the piece's aim stops at that point, as
+// at any stop, even within a few yards of it: let on sooner, it cut the corner there (0.4.0's border sweep: off the
+// ramp down into Un'Goro Crater, onto a ledge). A path (0, 0), (0, -100), (20, -140), (20, -300) with a corner at
+// (0, -100): a pass halfway along the next piece, at (10, -120), and one at the corner's far point (20, -140), where
+// the chokepoint lies at the end of the piece before it.
 #[test]
 fn a_split_walk_s_piece_stops_at_the_point_before_its_chokepoint_until_the_player_is_past_it_never_cutting_the_corner() {
 	let out = run(&[
@@ -446,7 +449,7 @@ fn a_split_walk_s_piece_stops_at_the_point_before_its_chokepoint_until_the_playe
 			answerZ({ { 0, 0 }, { 0, -100 }, { 20, -140 }, { 20, -300 } })
 			local legs, ci = N.GetRoute()
 			return { first = legs[ci].choke and legs[ci].choke.kind or false, back = look(0, -90, 20, -300), near = look(0, -97, 20, -300),
-				past = look(1, -102, 20, -300) }
+				on = look(0, -100 + 1e-7, 20, -300), past = look(1, -102, 20, -300) }
 		end
 		emit({ mid = walk(10, -120), far = walk(20, -140) })"#,
 	]
@@ -455,6 +458,7 @@ fn a_split_walk_s_piece_stops_at_the_point_before_its_chokepoint_until_the_playe
 		assert_eq!(case["first"], "pass", "{name}: the walk is split at the pass");
 		assert!(num(&case["back"]["dx"]).abs() < 0.5, "{name}: 10 yd before the corner the aim holds at it (dx {})", case["back"]["dx"]);
 		assert!(num(&case["near"]["dx"]).abs() < 0.5, "{name}: 3 yd before it too (dx {})", case["near"]["dx"]);
+		assert!(num(&case["on"]["dx"]) > 1.0, "{name}: on the corner it goes on toward the pass, not at the player's feet (dx {})", case["on"]["dx"]);
 		assert!(num(&case["past"]["dx"]) > 1.0, "{name}: past the corner it goes on toward the pass (dx {})", case["past"]["dx"]);
 	}
 }

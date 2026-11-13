@@ -149,6 +149,7 @@ Nav.follow = Follow
 local REACH = 5        -- yards: a blocking point, or the last one, is reached
 local WINDOW = 60      -- yards along the path the projection may look ahead
 local HYST = 4         -- yards: a later segment must be this much nearer to take over
+local ON = 1           -- yards: a player this near the point before a stop's spot stands on it (past it, for the stop rule)
 local RADIUS = 35      -- yards from the player the aim may lie
 local AHEAD = 45       -- yards along the path the aim may lie past the projection
 local PAD = 20         -- yards: path points this close to the line to the aim lie on the way (a road's wiggles)
@@ -472,15 +473,20 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	local joined = false
 	-- A stop between two points (a split walk's chokepoint far along a piece of the path) is a spot the aim may
 	-- reach, `frac` of the way past point `limit`'s whole part, once the projection is on that point's segment
-	-- (the player past the point): the chokepoint 40 yd on along a sparse path in open ground is then in reach
-	-- (0.3.8, an Ashenvale pass). Until then the aim stops at the point, as at any stop, and the point is never
-	-- smoothed (`whole`): let on to the spot sooner, from the point's REACH or further back, the aim cut the corner
-	-- there, off the path's ramp down into Un'Goro Crater, and the starts that then walked on met zone borders
-	-- the route turned back at (0.4.0, the border sweep: 23 starts, #1543).
+	-- (the player past the point) or the player stands on the point (within ON yards): the chokepoint 40 yd on
+	-- along a sparse path in open ground is then in reach (0.3.8, an Ashenvale pass). Until then the aim stops at
+	-- the point, as at any stop, and the point is never smoothed (`whole`): let on to the spot sooner, from the
+	-- point's REACH or further back, the aim cut the corner there, off the path's ramp down into Un'Goro Crater,
+	-- and the starts that then walked on met zone borders the route turned back at (0.4.0, the border sweep: 23
+	-- starts, #1543). A player who walked to the point stands a hair short of it as often as past it, their place
+	-- still on the segment before: held there, the arrow pointed at their feet, and starts in the sweep that had
+	-- arrived stopped at the point before a pass (0.4.0, from Ashenvale into Darkshore, from the Barrens into
+	-- Stonetalon Mountains).
 	local last, frac = limit, limit % 1
 	if frac > 0 then
 		last = math.floor(limit)
-		if a == last and bestT < frac then last = last + 1 end
+		local ox, oy = xs[last] - px, ys[last] - py
+		if (a == last and bestT < frac) or (a == last - 1 and ox * ox + oy * oy <= ON * ON) then last = last + 1 end
 	end
 	local whole = limit - frac
 	for j = idx, last do
