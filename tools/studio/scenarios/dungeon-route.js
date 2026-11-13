@@ -16,11 +16,13 @@ const luaStr = (s) => JSON.stringify(String(s));
 const SCALES = { '064': 0.64, 100: 1, 150: 1.5 };
 
 // The skin set up as the skins scenario sets it (its pick: the skin addon loaded, the skin and variant chosen,
-// the settings window's addon loaded, the skin's layout preset applied).
+// the settings window's addon loaded, the skin's layout preset applied). Halo, a built-in look the skins
+// scenario has no shots of, is set up as its Forever shot with Halo's id.
 function pick(name) {
-	const shot = skins.shots[`${name}-guide`];
-	return shot.lua;
+	if (name === 'halo') return skins.shots['forever-guide'].lua.split('"forever"').join('"halo"');
+	return skins.shots[`${name}-guide`].lua;
 }
+const LOOKS = ['polestar', 'halo', ...Object.keys(SKINS).filter((n) => n !== 'polestar')];
 
 // What the engine says about the dungeon, for the guide window's banner (Engine.DungeonQuestion, DungeonSoon,
 // DungeonRun; the notice SkipDungeon leaves). Wailing Caverns' real quests on this guide.
@@ -56,7 +58,7 @@ const SURFACES = {
 };
 
 const shots = {};
-for (const name of Object.keys(SKINS)) {
+for (const name of LOOKS) {
 	const base = pick(name);
 	for (const [sk, scale] of Object.entries(SCALES)) {
 		for (const [surface, s] of Object.entries(SURFACES)) {
