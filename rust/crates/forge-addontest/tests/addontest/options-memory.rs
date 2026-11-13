@@ -46,7 +46,12 @@ const LOGIN_BASE: f64 = 11003.0;
 /// levels panel (UI/LevelTip.lua, #2008): 11,214 KiB at login on dev-040's 11,077 (a1643d59c, this test's
 /// script, 2026-11-13), +137. Raised to that figure and about 5 % (Fitz, 2026-11-12: a memory budget new content
 /// pushes over goes to the measured figure plus about 5 %; the login review comes once 0.4.0's content is final).
-const LOGIN: f64 = LOGIN_BASE + 772.0;
+/// All of 0.4.0's merges so far together (the contributor batches #2083 and #2141, the looks #2084 with #2049, the
+/// guide window's preview copy #2103, the settings polish #2063, the arrow #2098, the zone choice #2111 and its
+/// cards #2134, the report's settings #2096): 11,614 KiB on 2026-11-13. CI reads a little more than a local run of
+/// the same addon (dev-040 at 467cdd126: 11,198 here and a budget of 11,203; CI read 11,203 on a pull request that
+/// changes no addon code, and failed), so the budget is the measured figure and about 5 %: 12,195.
+const LOGIN: f64 = LOGIN_BASE + 1192.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
@@ -65,8 +70,9 @@ const LOGIN: f64 = LOGIN_BASE + 772.0;
 /// scenes' mobs gone) measured 1,798 on their own base. Then the settings polish (#2063: the Move frames session and
 /// box menu, the rows' and sections' Move, the reset's Undo, Peek and Fold, the glide and the sidebar's nudge, long
 /// lists' filter, the colour favourites, the callouts, the dialogs' typed word, the profile keys and the rows' reset
-/// arrow): 1,974 measured on its own base.
-const LOADED: f64 = 2020.0;
+/// arrow): 1,974 measured on its own base. All of 0.4.0's merges together: 1,950 on 2026-11-13; the budget is that
+/// and about 5 % (Fitz, 2026-11-12, as for the login).
+const LOADED: f64 = 2048.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
@@ -75,14 +81,16 @@ const LOADED: f64 = 2020.0;
 /// the base's rows, 4,435 KiB on dev-040's 4,280 (a1643d59c, this test's script, 2026-11-13), so about 4,477 with
 /// the search's dropdown (its 4,322 and the batch's 155). Raised with the base's rows to that figure and about 5 %
 /// (Fitz, 2026-11-12, as for the login). With the settings polish and the reset arrow (#2063), 4,500 measured on its
-/// own base.
-const OPENED: f64 = 4606.0;
+/// own base. All of 0.4.0's merges together: 4,670 with the base's rows on 2026-11-13; the budget with the base's
+/// rows is that and about 5 %.
+const OPENED: f64 = 4809.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
 /// (+68, the same, to 4,034), then the search's dropdown (+108, the same: 4,084 to 4,192 on 2026-11-13). With
-/// the settings polish, 4,446 measured on 2026-11-13 (budget raised to it).
-const PEAK: f64 = 4500.0;
+/// the settings polish, 4,446 measured on 2026-11-13 (budget raised to it). All of 0.4.0's merges together: 4,376 on
+/// 2026-11-13; the budget is that and about 5 %.
+const PEAK: f64 = 4595.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),
