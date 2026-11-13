@@ -4123,6 +4123,18 @@ fn rewards_a_line_beside_the_heading_says_what_the_upgrade_arrows_were_scored_fo
 		local ok = pcall(QoL.Rewards.Mark)
 		emit({ ok = ok, shown = line:IsShown() })
 		F.Header = heading
+		-- A panel with neither field (a stand-in, another addon's; the stub answers a function there): no line, no
+		-- error. With the heading but no choose line: the line, in the look's text colour.
+		F.Header = nil
+		ok = pcall(QoL.Rewards.Mark)
+		emit({ ok = ok, shown = line:IsShown() })
+		F.Header = heading
+		F.Header:Show()
+		local choose = F.ItemChooseText
+		F.ItemChooseText = nil
+		ok = pcall(QoL.Rewards.Mark)
+		emit({ ok = ok, shown = line:IsShown() })
+		F.ItemChooseText = choose
 	"#);
 	let first = &out[0];
 	assert_eq!(first["shown"], true, "{first}");
@@ -4137,6 +4149,8 @@ fn rewards_a_line_beside_the_heading_says_what_the_upgrade_arrows_were_scored_fo
 	assert_eq!(out[4], false, "the marks off: no line");
 	assert_eq!(out[5], false, "no heading: no line");
 	assert_eq!(out[6], json!({ "ok": true, "shown": false }), "the map's anchor-only Header: no line, no error");
+	assert_eq!(out[7], json!({ "ok": true, "shown": false }), "no Header at all: no line, no error");
+	assert_eq!(out[8], json!({ "ok": true, "shown": true }), "no choose line: the line, in the look's colour");
 }
 
 // ---------------------------------------------------------------------------

@@ -313,12 +313,13 @@ end
 -- and stone alike; the arrow in the look's success colour, as on the icons;
 -- the look's small font. It keeps clear of the heading's text. The map's
 -- quest details (MapQuestInfoRewardsFrame) have no heading: their Header is
--- an anchor-only frame, so they get no line.
+-- an anchor-only frame, so they get no line; nor does a panel without a
+-- Header (a stand-in, another addon's), whose fields may be anything.
 local function showScored(frame)
 	local head = frame.Header
 	local G = ns.Gear
 	local text = G and G.ScoredFor and G.ScoredFor(true)
-	if not (text and head and head.GetObjectType and head:GetObjectType() == "FontString" and head:IsShown()) then return end
+	if not (text and type(head) == "table" and head.GetObjectType and head:GetObjectType() == "FontString" and head:IsShown()) then return end
 	local b = scoredButton(frame)
 	if b:GetParent() ~= frame then b:SetParent(frame) end
 	b:SetFrameLevel((frame:GetFrameLevel() or 1) + 5)
@@ -327,7 +328,7 @@ local function showScored(frame)
 	local W = ns.Widgets
 	local choose = frame.ItemChooseText
 	local r, g, bl
-	if choose and choose.GetTextColor then r, g, bl = choose:GetTextColor() end
+	if type(choose) == "table" and choose.GetTextColor then r, g, bl = choose:GetTextColor() end
 	if type(r) == "number" then
 		W.Uncolor(b.Text)
 		b.Text:SetTextColor(r, g, bl, 1)
