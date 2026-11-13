@@ -9,7 +9,6 @@ next forever/alliance/04-redridge-mountains
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Retrieval for Mauren (1078).
 # Left out: Daily Delivery (469).
 # Givers passed at Menethil and left for the 27-29 Wetlands visit (06-wetlands), by design: Reclaiming
 # Goods and Apprentice's Duties (281, 471): their work is the hovels and north-coast loop that visit
@@ -391,7 +390,6 @@ step Master Mathias Shaw
   accept 2360                             -- Master Mathias Shaw: Agent Kearnen in Westfall takes it, at the end of Duskwood's second loop
 
 step Collin Mauren
-  accept 1078
   tip The Slaughtered Lamb is in the Mage Quarter. Warlocks: Gakin the Darkbinder is in its cellar.
   turnin 1075                             -- Collin Mauren
   level 20 only Warlock
