@@ -353,7 +353,7 @@ step The northern Blackwood camp
   collect 12341                               -- Blackwood Fruit Sample
   collect 12342                               -- Blackwood Grain Sample
   use 12347 quest 4763.1 @52.5,33.4           -- By the bonfire closest to the river: summons Xabraxxis
-  collect 12355 quest 4763                    -- Talisman of Corruption, in Xabraxxis' Demon Bag
+  collect 12355 quest 4763 -- After using the Filled Cleansing Bowl, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman.
 
 step The cave and the Den Mother
   tip Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time.
