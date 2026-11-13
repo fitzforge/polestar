@@ -7972,7 +7972,9 @@ test('Alliance 40-60 order: the first Western Plaguelands stop before the Burnin
 	assert.ok(!goals(A('40-50/07-un-goro-crater')).some(({ goal }) => goal.quest === 3702 || goal.quest === 3701 || goal.quest === 4504), 'no 54s taken at 49 in Un\'Goro\'s guide');
 	const wpl = goals(A('50-60/04-western-plaguelands'));
 	assert.ok(pos(wpl, 'turnin', 4493) <= pos(wpl, 'accept', 4504), 'Super Sticky from Tran\'rek on the 57 Gadgetzan stop');
-	assert.ok(!goals(A('50-60/03-winterspring')).some(({ goal }) => [6604, 4861, 4863, 4864, 5281, 5249].includes(goal.quest)), 'Jaron\'s chain, The Restless Souls and To Winterspring! are not in the 53-55 Winterspring guide');
+	// To Winterspring! (5249) is handed to Wynd Nightchaser in the 53-55 guide since the 0.4.0 audit, right before The
+	// Ruins of Kel'Theril (its own case below).
+	assert.ok(!goals(A('50-60/03-winterspring')).some(({ goal }) => [6604, 4861, 4863, 4864, 5281].includes(goal.quest)), 'Jaron\'s chain and The Restless Souls are not in the 53-55 Winterspring guide');
 	const last = goals(A('50-60/06-silithus'));
 	assert.ok(pos(last, 'turnin', 6604) < pos(last, 'turnin', 4864), 'Jaron\'s chain on the 58-59 Winterspring visit');
 	assert.ok(pos(last, 'turnin', 5181) <= pos(last, 'accept', 5281), 'The Restless Souls from Caretaker Alen on the Light\'s Hope stop');
@@ -11860,7 +11862,7 @@ test('Alliance 50-60: 05 folded into 06, the training stops at 55 and 57', { ski
 	const train = ws.find(({ goal }) => goal.t === 'train');
 	assert.ok(train && (train.step.when || []).some((w) => w.k === 'bound' && !w.neg), 'Ironforge training on the hearth out of Winterspring');
 	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
-	assert.ok(wpl.some(({ goal, step }) => goal.t === 'train' && /Darnassus/.test(step.zone || step.title || '') && JSON.stringify(goal).includes('Warrior')), 'Darnassus trains its classes');
+	assert.ok(wpl.some(({ goal, step }) => goal.t === 'train' && step.title === 'Darnassus' && [step.only, goal.only].some((o) => o && o.classes && o.classes.includes('WARRIOR'))), 'Darnassus trains its classes');
 });
 
 // 0.4.0 audit with the dungeons owner: Alliance 50-60's grind tips name a dungeon only where its run is in the same or
@@ -11885,7 +11887,7 @@ test('Alliance 50-60/01: the Darnassus trip only with the Un\'Goro Soil, or for 
 	const up = steps.filter((st) => st.title === 'Portal to Darnassus');
 	const cond = (st, k, neg) => (st.when || []).some((p) => p.k === k && !!p.neg === neg);
 	assert.ok(up.some((st) => cond(st, 'onquest', false) && !st.only), 'up with the soil, every class');
-	assert.ok(up.some((st) => cond(st, 'onquest', true) && st.only && st.only.classes && st.only.classes.join() === 'Druid'), 'up without it only for Druids');
+	assert.ok(up.some((st) => cond(st, 'onquest', true) && st.only && st.only.classes && st.only.classes.join() === 'DRUID'), 'up without it only for Druids');
 	const down = steps.find((st) => st.title === 'Portal to Teldrassil');
 	assert.ok(down && cond(down, 'zone', false), 'down only from Darnassus');
 });
