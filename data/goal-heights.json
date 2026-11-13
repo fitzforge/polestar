@@ -234,6 +234,45 @@
 				"ref": "5 sessions indoors at the goal, 0 outdoors"
 			},
 			"note": "07-ashenvale, step \"{area:483}: kill these as you meet them\""
+		},
+		{
+			"id": "rec-1450-72.4-66",
+			"map": 1450,
+			"x": 72.4,
+			"y": 66.0,
+			"frame": "era",
+			"z": 429,
+			"source": {
+				"kind": "recording",
+				"ref": "18 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "cat-form, step \"The Stormrage Barrow Dens\"; cat-form, step \"The relics of the Barrow Dens\"; 02-the-barrens, step \"The Stormrage Barrow Dens\"; 03-darkshore-return, step \"The relics of the Barrow Dens\""
+		},
+		{
+			"id": "rec-1450-74.4-65.4",
+			"map": 1450,
+			"x": 74.4,
+			"y": 65.4,
+			"frame": "era",
+			"z": 431,
+			"source": {
+				"kind": "recording",
+				"ref": "18 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "cat-form, step \"The Stormrage Barrow Dens\"; cat-form, step \"The relics of the Barrow Dens\"; 02-the-barrens, step \"The Stormrage Barrow Dens\"; 03-darkshore-return, step \"The relics of the Barrow Dens\""
+		},
+		{
+			"id": "rec-1450-75.2-67.2",
+			"map": 1450,
+			"x": 75.2,
+			"y": 67.2,
+			"frame": "era",
+			"z": 439,
+			"source": {
+				"kind": "recording",
+				"ref": "18 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "cat-form, step \"The Stormrage Barrow Dens\"; cat-form, step \"The relics of the Barrow Dens\"; 02-the-barrens, step \"The Stormrage Barrow Dens\"; 03-darkshore-return, step \"The relics of the Barrow Dens\""
 		}
 	]
 }

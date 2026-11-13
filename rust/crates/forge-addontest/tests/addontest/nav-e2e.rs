@@ -2755,3 +2755,34 @@ fn t_1341_from_oben_rageclaw_the_route_leaves_the_banethil_barrow_den_by_its_mou
 	assert_eq!(out["viaMouth"], true, "a leg ends at the den's mouth: {out}");
 	assert_eq!(out["firstChain"], true, "the first leg is the chain's, inside the den: {out}");
 }
+
+/// #2005 (ddos, Tauren Druid 21, 0.3.7.2, Cat Form): bound for the relics in the Stormrage Barrow Dens, the arrow led
+/// out of the valley and round over the mountains to the hilltop above them. The den's approach chain
+/// (`stormrage-barrow-dens`) takes the walk to the den's mouth first: from the lake shore west of the den the route's
+/// legs reach the mouth, then follow the chain in to the Relic of the Claw.
+#[test]
+fn t_2005_from_the_lake_shore_the_route_to_the_relic_of_the_claw_goes_in_by_the_stormrage_barrow_dens_mouth() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Tauren", "Tauren"
+		w.setLevel(21)
+		local MOUTH = { 7540.7, -3024.1 } -- Moonglade 71.17,61.77
+		place(1450, 7537.1, -2904.7, 462) -- the lake shore west of the den, Moonglade 66.0,62.0
+		N.SetTarget(1450, 75.2, 67.2, "Relic of the Claw")
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local legs, ci = N.GetRoute()
+		local r = { legs = {}, viaMouth = false, chainLegs = 0 }
+		for i = ci or 1, #(legs or {}) do
+			local l = legs[i]
+			r.legs[#r.legs + 1] = l.kind .. "|" .. (l.step or "") .. (l.handmade and "|hand" or "")
+			if l.to and dist(l.to.wx, l.to.wy, MOUTH[1], MOUTH[2]) < 13 then r.viaMouth = true end
+			if l.step == "chain" then r.chainLegs = r.chainLegs + 1 end
+		end
+		emit(r)"#,
+		true,
+	);
+	assert_eq!(out["viaMouth"], true, "a leg ends at the den's mouth: {out}");
+	assert!(f(&out["chainLegs"]) >= 2.0, "the walk in follows the chain's nodes: {out}");
+}
