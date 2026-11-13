@@ -147,7 +147,8 @@ step Greta Mosshoof
 
 step Toxic Horrors
   tip Ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees, and most of them drop a droplet.
-  collect 12822 quest 5086.1
+  tip Careful: Ancient Irontree Walkers, level 59 elites, walk among the Toxic Horrors, and Vartrus the Ancient (63, elite) roams the woods: work the Horrors at the north tip of Irontree Woods, one at a time.
+  collect 12822 quest 5086.1 @50.6,22.4
 
 step Moonglade
   zone Moonglade

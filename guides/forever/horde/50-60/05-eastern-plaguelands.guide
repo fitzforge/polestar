@@ -332,7 +332,8 @@ step Donova Snowden
 
 step Moontouched Owlbeasts
   tip Ride east to Everlook and north out of it; the Moontouched Owlbeasts roam the hills of Frostsaber Rock's southern slopes. Pull them one at a time.
-  kill 7453 quest 4741
+  tip Careful: Hailspite, level 60 elites, gather in the snowfields south-east of Everlook, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town.
+  kill 7453 quest 4741 @64.9,17.8
 
 step Winterspring
   zone Winterspring
