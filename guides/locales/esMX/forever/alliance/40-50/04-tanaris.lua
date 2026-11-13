@@ -58,7 +58,7 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, adentro",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "\"Lobo de Mar\" MacKinley en {area:35}: la ruta te lleva allí al final de la guía de {zone:1425}, guárdala",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "MacKinley «Lobo de Mar» en {area:35}: la ruta te lleva allí al final de la guía de {zone:1425}, guárdala",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Cuidado: Los ladrones lanzan Desarmar. Los pícaros se mantienen ocultos con Sigilo. Los asesinos usan Ejecutar cuando tu salud está al 20% o menos.",
