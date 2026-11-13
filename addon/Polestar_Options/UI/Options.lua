@@ -717,10 +717,27 @@ local function buildAbout(view)
 		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."])
 	local maintH = W.SectionHeader(view)
 	W.SetSection(maintH, L["Maintenance"])
+	-- The profile in use is what goes back: the dialog says whose it is, and
+	-- one the whole account or a class uses asks for a word first.
 	local resetAll = W.ActionTile(view, "reset", L["Reset all settings"], L["Every Polestar setting back to default. Progress is kept."],
 		function()
-			W.Modal({ title = L["Reset all settings?"], icon = "reset", danger = true, action = L["Reset all"],
-				text = L["Every Polestar setting goes back to its default. Your guides and progress are kept."],
+			local P = ns.Profiles
+			local name = P and P.Active and P.Active()
+			local label = name and P.Label and P.Label(name) or ""
+			local account = name ~= nil and P.AccountProfile and P.AccountProfile() == name
+			local classes = 0
+			local map = ns.DB().classProfiles
+			for _, n in pairs(type(map) == "table" and map or {}) do if n == name then classes = classes + 1 end end
+			local text
+			if account then
+				text = string.format(L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."], label)
+			elseif classes > 0 then
+				text = string.format(L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."], label)
+			else
+				text = string.format(L["Every setting of the profile %s, this character's, goes back to its default. Your guides and progress are kept."], label)
+			end
+			W.Modal({ title = L["Reset all settings?"], icon = "reset", danger = true, action = L["Reset all"], text = text,
+				typeToConfirm = (account or classes > 0) and L["RESET"] or nil,
 				onAccept = function() if ns.ResetSettings then ns.ResetSettings() end end })
 		end, { danger = true })
 	local resetPos = W.ActionTile(view, "window", L["Reset positions"], L["Guide window, arrow and these windows."], resetPositions)

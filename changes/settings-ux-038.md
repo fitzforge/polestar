@@ -42,3 +42,6 @@ section: players
   swatch, one click away.
 - The first time you change a setting that has more options behind a gear,
   the gear points itself out once.
+- Dialogs that change nothing for good take Enter. Reset all settings says
+  whose profile it resets, and when the whole account (or a class) uses that
+  profile it asks you to type RESET first.

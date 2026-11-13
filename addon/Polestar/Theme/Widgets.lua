@@ -2670,10 +2670,13 @@ end
 -- window ground with its hairline and the rim, a title (an optional glyph
 -- before it), the body text, and a footer band with Cancel and the action
 -- (and an optional third choice at its left). Escape, Cancel or a click on
--- the scrim close it.
+-- the scrim close it; Enter takes the action of a dialog that destroys
+-- nothing. typeToConfirm = word (a wipe of what more than this character
+-- uses): a field under the text, and the action (and Enter) wait until it
+-- holds that word, in any case.
 --   W.Modal({ title, text, icon = glyph, action = label, danger = true,
 --             onAccept = fn, cancel = label, onCancel = fn,
---             alt = label, onAlt = fn }) -> the dialog
+--             alt = label, onAlt = fn, typeToConfirm = word }) -> the dialog
 --   W.HideModal(), W.ModalShown()
 ---------------------------------------------------------------------------
 
@@ -2686,6 +2689,21 @@ end
 
 function W.ModalShown()
 	return modal ~= nil and modal:IsShown()
+end
+
+-- Does the typed word unlock the action (or is there none to type)?
+local function wordTyped()
+	local spec = modal.psSpec
+	local word = spec and spec.typeToConfirm
+	if not word then return true end
+	local typed = modal.Box.Word:GetText() or ""
+	return typed:gsub("^%s+", ""):gsub("%s+$", ""):upper() == tostring(word):upper()
+end
+
+local function paintAction()
+	local on = wordTyped()
+	modal.Box.Action:SetEnabled(on)
+	modal.Box.Action:SetAlpha(on and 1 or 0.45)
 end
 
 -- accept: true (the action), false (Cancel) or "alt" (the third choice).
@@ -2733,22 +2751,46 @@ local function buildModal()
 	rule:SetPoint("TOPLEFT", foot, "TOPLEFT", 0, 0)
 	rule:SetPoint("TOPRIGHT", foot, "TOPRIGHT", 0, 0)
 	box.Foot = foot
-	box.Action = W.Button(foot, "", function() closeModal(true) end)
+	box.Action = W.Button(foot, "", function() if wordTyped() then closeModal(true) end end)
 	box.Action:SetPoint("RIGHT", foot, "RIGHT", -16, 0)
 	box.Cancel = W.Button(foot, L["Cancel"], function() closeModal(false) end)
 	box.Cancel:SetPoint("RIGHT", box.Action, "LEFT", -8, 0)
 	box.Alt = W.Button(foot, "", function() closeModal("alt") end)
 	box.Alt:SetPoint("LEFT", foot, "LEFT", 16, 0)
 	box.Alt:Hide()
+	-- The word to type before a wide wipe (typeToConfirm).
+	local word = CreateFrame("EditBox", nil, box)
+	word:SetAutoFocus(false)
+	word:SetSize(MODAL_W - 2 * MODAL_PAD, 28)
+	word:SetTextInsets(10, 10, 0, 0)
+	Theme.Font(word, "label")
+	W.Color(word, "text")
+	Theme.Skin(word, "editbox")
+	word.Hint = W.Text(word, "label", "textMuted")
+	word.Hint:SetPoint("LEFT", word, "LEFT", 10, 0)
+	word:SetScript("OnTextChanged", function(self)
+		self.Hint:SetShown((self:GetText() or "") == "")
+		paintAction()
+	end)
+	word:SetScript("OnEnterPressed", function() if wordTyped() then closeModal(true) end end)
+	word:SetScript("OnEscapePressed", function() closeModal(false) end)
+	word:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
+	word:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
+	word:Hide()
+	box.Word = word
 	W.Rim(box, { width = MODAL_W * 0.7 })
-	-- Escape closes the dialog alone; every other key goes on to the game.
+	-- Escape closes the dialog alone; Enter takes the action of one that
+	-- destroys nothing (or whose word is typed); every other key goes on to
+	-- the game.
 	box:EnableKeyboard(true)
 	box:SetScript("OnKeyDown", function(self, key)
 		local esc = key == "ESCAPE"
+		local spec = modal.psSpec
+		local enter = (key == "ENTER" or key == "NUMPADENTER") and spec and (not spec.danger or spec.typeToConfirm ~= nil) and wordTyped()
 		if self.SetPropagateKeyboardInput and not (InCombatLockdown and InCombatLockdown()) then
-			self:SetPropagateKeyboardInput(not esc)
+			self:SetPropagateKeyboardInput(not (esc or enter))
 		end
-		if esc then closeModal(false) end
+		if esc then closeModal(false) elseif enter then closeModal(true) end
 	end)
 	s:HookScript("OnShow", function(self) Anim.To(self, "alpha", 0, 1, Anim.FAST, "out") end)
 	modal = s
@@ -2783,6 +2825,17 @@ function W.Modal(spec)
 	box.Text:SetText(spec.text or "")
 	box.Text:SetShown((spec.text or "") ~= "")
 	local body = box.Text:IsShown() and math.ceil(box.Text:GetStringHeight()) + 8 or 0
+	-- The word field under the text, its own text saying what to type.
+	local word = box.Word
+	word:SetShown(spec.typeToConfirm ~= nil)
+	word:SetText("")
+	word.Hint:Show()
+	if spec.typeToConfirm then
+		word.Hint:SetText(string.format(L["Type %s to go ahead."], spec.typeToConfirm))
+		word:ClearAllPoints()
+		word:SetPoint("TOPLEFT", box, "TOPLEFT", MODAL_PAD, -(MODAL_PAD + th + 8 + body + 4))
+		body = body + 4 + 28 + 4
+	end
 	box:SetHeight(MODAL_PAD + th + body + 20 + MODAL_FOOT)
 	local a = box.Action
 	a.psDanger, a.psPrimary = spec.danger and true or false, not spec.danger
@@ -2791,8 +2844,10 @@ function W.Modal(spec)
 	W.SetButtonText(box.Cancel, spec.cancel or L["Cancel"])
 	box.Alt:SetShown(spec.alt ~= nil)
 	if spec.alt then W.SetButtonText(box.Alt, spec.alt) end
+	paintAction()
 	modal:Show()
 	modal:Raise()
+	if spec.typeToConfirm then word:SetFocus() end
 	return modal
 end
 

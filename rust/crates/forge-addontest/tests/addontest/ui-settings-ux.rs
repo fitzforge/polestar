@@ -467,3 +467,54 @@ fn the_first_change_of_a_setting_with_a_cog_points_out_the_cog_once() {
 	assert_eq!(out["again"], false, "once");
 	assert_eq!(out["opened"], true, "a cog opened: no cue left to give");
 }
+
+// Enter takes the action of a dialog that destroys nothing (not of a danger one). Reset all settings says whose
+// profile goes back; the account's (or a class's) asks for a word first: the action waits until the field holds it
+// (any case), and Enter there takes it. A character's own profile needs no word.
+#[test]
+fn enter_takes_a_safe_dialog_and_a_wide_reset_asks_for_a_word_first() {
+	let out = run(r#"
+		local accepted
+		W.Modal({ title = "Apply?", action = "Apply", onAccept = function() accepted = true end })
+		stub.RunScript(PolestarModal.Box, "OnKeyDown", "ENTER")
+		local enter = { accepted == true, W.ModalShown() }
+		accepted = nil
+		W.Modal({ title = "Reset?", action = "Reset", danger = true, onAccept = function() accepted = true end })
+		stub.RunScript(PolestarModal.Box, "OnKeyDown", "ENTER")
+		local danger = { accepted or false, W.ModalShown() }
+		W.HideModal()
+		Polestar.Set("ui.scale", 1.4)
+		UI.ShowOptions("about")
+		O.view.ResetAll:Click()
+		local box = PolestarModal.Box
+		local gated = { box.Word:IsShown(), box.Word:HasFocus(), box.Action:IsEnabled(), box.Word.Hint:GetText(),
+			(box.Text:GetText():find("every character on the account", 1, true)) ~= nil }
+		box.Action:Click()
+		stub.RunScript(PolestarModal.Box, "OnKeyDown", "ENTER")
+		local held = { Polestar.Get("ui.scale"), W.ModalShown() }
+		box.Word:SetText("RES")
+		stub.RunScript(box.Word, "OnTextChanged", true)
+		local partial = box.Action:IsEnabled()
+		box.Word:SetText(" reset ")
+		stub.RunScript(box.Word, "OnTextChanged", true)
+		local typed = box.Action:IsEnabled()
+		stub.RunScript(box.Word, "OnEnterPressed")
+		local done = { Polestar.Get("ui.scale"), W.ModalShown() }
+		-- A character's own profile: no word.
+		local P = Polestar.Profiles
+		P.New("Mine")
+		P.UseForCharacter(true)
+		P.Switch("Mine")
+		O.view.ResetAll:Click()
+		local own = { box.Word:IsShown(), box.Action:IsEnabled(), (box.Text:GetText():find("this character's", 1, true)) ~= nil }
+		W.HideModal()
+		emit({ enter = enter, danger = danger, gated = gated, held = held, partial = partial, typed = typed, done = done, own = own })"#);
+	assert_eq!(out["enter"], json!([true, false]), "Enter takes a dialog that destroys nothing");
+	assert_eq!(out["danger"], json!([false, true]), "not a danger one");
+	assert_eq!(out["gated"], json!([true, true, false, "Type RESET to go ahead.", true]), "the account's profile: a word to type, the dialog says whose");
+	assert_eq!(out["held"], json!([1.4, true]), "neither the button nor Enter acts before it");
+	assert_eq!(out["partial"], false);
+	assert_eq!(out["typed"], true, "any case, spaces aside");
+	assert_eq!(out["done"], json!([1, false]), "Enter in the field takes it");
+	assert_eq!(out["own"], json!([false, true, true]), "a character's own profile: no word");
+}

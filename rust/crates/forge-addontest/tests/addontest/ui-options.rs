@@ -617,6 +617,9 @@ fn about_reset_all_settings_asks_in_the_confirm_dialog_reset_positions_clears_sa
 		PolestarModal.Box.Cancel:Click()
 		local cancelled = Polestar.Get("ui.scale")
 		reset:Click()
+		-- The profile in use is the whole account's: the word first.
+		PolestarModal.Box.Word:SetText("reset")
+		stub.RunScript(PolestarModal.Box.Word, "OnTextChanged", true)
 		PolestarModal.Box.Action:Click()
 		O.ResetPositions()
 		emit({ asked = asked, cancelled = cancelled, accepted = Polestar.Get("ui.scale"), pos = Polestar.Get("ui.pos") or false,
