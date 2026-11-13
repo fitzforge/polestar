@@ -122,6 +122,7 @@ step Auberdine
 
 step Gershala Nightwhisper
   when dungeon "Blackfathom Deeps"
+  when level>=22.7
   zone Darkshore
   tip For your Blackfathom Deeps run, on the Zoram Strand in the next guide: Gershala Nightwhisper stands a short walk west of Terenthis.
   accept 1275                         -- Gershala Nightwhisper

@@ -408,6 +408,7 @@ step Fallen Hero of the Horde
 step The Sunken Temple
   when dungeon "Sunken Temple"
   when onquest 1475
+  when level>=50
   zone Swamp of Sorrows
   tip The Sunken Temple is a dungeon for a group of five, levels 50 to 60. Its door is in the sunken temple in the eastern lake, the Pool of Tears, east of the Fallen Hero: keep clear of Stonard on the way.
   tip Inside: the Atal'ai Tablets for Brohann Caskbelly. The Essence of Eranikus, a drop inside, starts a quest of its own.

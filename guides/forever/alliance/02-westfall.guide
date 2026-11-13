@@ -446,6 +446,7 @@ step Shaman training
 
 step Tram to Ironforge
   when dungeon "The Hall of Thanes"
+  when level>=14.4
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   zone Stormwind City
   tip For your Hall of Thanes run: the Deeprun Tram from the Dwarven District to Ironforge.
@@ -453,6 +454,7 @@ step Tram to Ironforge
 
 step Thom Filch and Afadra Dunwall
   when dungeon "The Hall of Thanes"
+  when level>=14.4
   zone Ironforge
   tip For your Hall of Thanes run: Thom Filch and Afadra Dunwall stand a few steps apart on the city's west side, west of the High Seat. The hall's door is a short walk further west.
   accept 96403                        -- Thom Filch
@@ -461,6 +463,7 @@ step Thom Filch and Afadra Dunwall
 step The Hall of Thanes
   when dungeon "The Hall of Thanes"
   when onquest 96403,96394,96393
+  when level>=14.4
   zone Ironforge
   tip The Hall of Thanes is a dungeon for a group of five at about level 15 to 16, under Ironforge. Its door is on the west side of the city, a short walk west of Afadra Dunwall.
   tip Inside: the Enraged Apparitions and Tormented Souls are Afadra's, the Dwarven Heirlooms Thom's, and Durgen Dirgehammer, the Dark Iron commander deep in the vaults, carries the head King Magni wants. A Ghostly Attendant inside gives An Ancient Grudge, for Faldrim Anvilmar, and takes it back there; a Treaty of Understanding found inside starts a quest for King Magni.
@@ -496,6 +499,7 @@ step King Magni Bronzebeard
 
 step Back to Stormwind City
   when dungeon "The Hall of Thanes"
+  when level>=14.4
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   zone Ironforge
   tip Ride the tram back from Tinker Town to Stormwind's Dwarven District.

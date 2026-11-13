@@ -12,7 +12,8 @@
 						"quest": 155,
 						"goal": "turnin"
 					},
-					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)"
+					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)",
+					"gate": 19.4
 				},
 				{
 					"quest": 214,
@@ -21,7 +22,8 @@
 						"quest": 155,
 						"goal": "turnin"
 					},
-					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)"
+					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)",
+					"gate": 19.4
 				}
 			],
 			"run": {
@@ -45,7 +47,8 @@
 						"item": 2874
 					}
 				],
-				"guard": "turnedin 65; onquest 214,166"
+				"guard": "turnedin 65; onquest 214,166",
+				"gate": 19.4
 			},
 			"handins": [
 				{
@@ -103,7 +106,8 @@
 						"quest": 373,
 						"goal": "turnin"
 					},
-					"note": "needs the Deadmines' Unsent Letter"
+					"note": "needs the Deadmines' Unsent Letter",
+					"gate": 19.5
 				},
 				{
 					"quest": 377,
@@ -111,7 +115,8 @@
 						"guide": "forever/alliance/04-redridge-mountains",
 						"quest": 175,
 						"goal": "accept"
-					}
+					},
+					"gate": 23.5
 				},
 				{
 					"quest": 387,
@@ -120,7 +125,8 @@
 						"quest": 323,
 						"goal": "accept",
 						"note": "the closing Stormwind visit, after the training (players' recordings: 28.3 there)"
-					}
+					},
+					"gate": 25.9
 				},
 				{
 					"quest": 391,
@@ -129,7 +135,8 @@
 						"quest": 323,
 						"goal": "accept"
 					},
-					"when": "onquest 389"
+					"when": "onquest 389",
+					"gate": 25.9
 				}
 			],
 			"run": {
@@ -149,7 +156,8 @@
 					377,
 					391
 				],
-				"guard": "onquest 387,377,391"
+				"guard": "onquest 387,377,391",
+				"gate": 25.9
 			},
 			"handins": [
 				{
@@ -618,7 +626,8 @@
 						"quest": 986,
 						"goal": "turnin"
 					},
-					"note": "Auberdine after the Grove (~21.8); The Corruption Abroad (3765) is only a breadcrumb: players take 1275 without it (recordings: offered to characters with 3765 still in the log)"
+					"note": "Auberdine after the Grove (~21.8); The Corruption Abroad (3765) is only a breadcrumb: players take 1275 without it (recordings: offered to characters with 3765 still in the log)",
+					"gate": 22.7
 				},
 				{
 					"quest": 971,
@@ -627,7 +636,8 @@
 						"quest": 301,
 						"goal": "turnin"
 					},
-					"note": "Gerrig Bonegrip in the Forlorn Cavern, ~190 yd from Prospector Stormpike on the Ironforge stop (~21; level 23, minimum 18, no prerequisite)"
+					"note": "Gerrig Bonegrip in the Forlorn Cavern, ~190 yd from Prospector Stormpike on the Ironforge stop (~21; level 23, minimum 18, no prerequisite)",
+					"gate": 19.9
 				}
 			],
 			"run": {
@@ -646,7 +656,8 @@
 					1275,
 					971
 				],
-				"guard": "onquest 1275,971"
+				"guard": "onquest 1275,971",
+				"gate": 24.5
 			},
 			"handins": [
 				{
@@ -690,7 +701,8 @@
 						"goal": "accept"
 					},
 					"when": "turnedin 484",
-					"note": "the first Menethil stop (~27.5)"
+					"note": "the first Menethil stop (~27.5)",
+					"gate": 27.5
 				},
 				{
 					"quest": 95646,
@@ -699,7 +711,8 @@
 						"quest": 275,
 						"goal": "turnin"
 					},
-					"note": "Rethiel, when Blisters on the Land is handed in (~28.3); level 31, 2.7 over"
+					"note": "Rethiel, when Blisters on the Land is handed in (~28.3); level 31, 2.7 over",
+					"gate": 28.0
 				}
 			],
 			"run": {
@@ -726,7 +739,8 @@
 						"item": 270865
 					}
 				],
-				"guard": "onquest 98815,95646"
+				"guard": "onquest 98815,95646",
+				"gate": 28
 			},
 			"handins": [
 				{
@@ -835,7 +849,8 @@
 				"insideQuests": [
 					96395
 				],
-				"guard": "onquest 96403,96394,96393"
+				"guard": "onquest 96403,96394,96393",
+				"gate": 14.4
 			},
 			"handins": [
 				{
@@ -878,7 +893,8 @@
 						"quest": 98191,
 						"goal": "turnin"
 					},
-					"note": "Shylamiir, on the Stormwind stop after Lord Grayson Shadowbreaker (~30)"
+					"note": "Shylamiir, on the Stormwind stop after Lord Grayson Shadowbreaker (~30)",
+					"gate": 29.3
 				},
 				{
 					"quest": 92489,
@@ -887,7 +903,8 @@
 						"quest": 98191,
 						"goal": "turnin"
 					},
-					"note": "High Sorcerer Andromath, the same stop"
+					"note": "High Sorcerer Andromath, the same stop",
+					"gate": 29.3
 				}
 			],
 			"run": {
@@ -910,7 +927,8 @@
 					92456,
 					92489
 				],
-				"guard": "onquest 92457,92458,92456,92489"
+				"guard": "onquest 92457,92458,92456,92489",
+				"gate": 31
 			},
 			"handins": [
 				{
@@ -976,7 +994,8 @@
 						"quest": 1467,
 						"goal": "turnin"
 					},
-					"note": "Prospector Stormpike, the Hall of Explorers on the Ironforge stop (~42.6)"
+					"note": "Prospector Stormpike, the Hall of Explorers on the Ironforge stop (~42.6)",
+					"gate": 42.4
 				},
 				{
 					"quest": 1360,
@@ -985,7 +1004,8 @@
 						"quest": 1467,
 						"goal": "turnin"
 					},
-					"note": "Krom Stoutarm, the same hall"
+					"note": "Krom Stoutarm, the same hall",
+					"gate": 42.4
 				}
 			],
 			"run": {
@@ -1015,7 +1035,8 @@
 						"item": 7666
 					}
 				],
-				"guard": "onquest 2398,1360"
+				"guard": "onquest 2398,1360",
+				"gate": 42.5
 			},
 			"handins": [
 				{
@@ -1087,7 +1108,8 @@
 						"quest": 1469,
 						"goal": "turnin"
 					},
-					"note": "Brohann Caskbelly in the Dwarven District, where Rhapsody's Tale is handed in (~47.5; level 50, minimum 41)"
+					"note": "Brohann Caskbelly in the Dwarven District, where Rhapsody's Tale is handed in (~47.5; level 50, minimum 41)",
+					"gate": 45.0
 				}
 			],
 			"run": {
@@ -1108,7 +1130,8 @@
 				"insideQuests": [
 					3373
 				],
-				"guard": "onquest 1475"
+				"guard": "onquest 1475",
+				"gate": 50
 			},
 			"handins": [
 				{
@@ -1149,7 +1172,8 @@
 				"objectives": [
 					5282
 				],
-				"guard": "onquest 5282"
+				"guard": "onquest 5282",
+				"gate": 58
 			},
 			"handins": [
 				{
@@ -1192,7 +1216,8 @@
 				"objectives": [
 					5382
 				],
-				"guard": "onquest 5382"
+				"guard": "onquest 5382",
+				"gate": 58
 			},
 			"handins": [
 				{
@@ -1231,7 +1256,8 @@
 						"quest": 2864,
 						"goal": "turnin"
 					},
-					"note": "Tran'rek, Gadgetzan's first stop (~45), where Tran'rek (2864) is handed in"
+					"note": "Tran'rek, Gadgetzan's first stop (~45), where Tran'rek (2864) is handed in",
+					"gate": 45.3
 				},
 				{
 					"quest": 2768,
@@ -1240,7 +1266,8 @@
 						"quest": 2864,
 						"goal": "turnin"
 					},
-					"note": "Chief Engineer Bilgewhizzle, the same stop; level 47, 2 over"
+					"note": "Chief Engineer Bilgewhizzle, the same stop; level 47, 2 over",
+					"gate": 45.3
 				},
 				{
 					"quest": 3042,
@@ -1249,7 +1276,8 @@
 						"quest": 2864,
 						"goal": "turnin"
 					},
-					"note": "Trenton Lighthammer, the same stop, about 80 yd from Tran'rek"
+					"note": "Trenton Lighthammer, the same stop, about 80 yd from Tran'rek",
+					"gate": 45.3
 				}
 			],
 			"run": {
@@ -1269,7 +1297,8 @@
 					2768,
 					3042
 				],
-				"guard": "onquest 2865,2768,3042"
+				"guard": "onquest 2865,2768,3042",
+				"gate": 46.2
 			},
 			"handins": [
 				{

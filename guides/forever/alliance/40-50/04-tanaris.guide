@@ -59,6 +59,7 @@ step Gadgetzan
 
 step Gadgetzan
   when dungeon "Zul'Farrak"
+  when level>=45.3
   zone Tanaris
   tip For your Zul'Farrak run, later in this guide: Tran'rek wants scarab shells, Chief Engineer Bilgewhizzle, by the water tower, his Divino-matic Rod back, and Trenton Lighthammer Troll Temper from the Sandfury trolls.
   accept 2865                         -- Tran'rek
@@ -131,6 +132,7 @@ step The pool by Sandsorrow Watch
 step Zul'Farrak
   when dungeon "Zul'Farrak"
   when onquest 2865,2768,3042
+  when level>=46.2
   zone Tanaris
   tip Zul'Farrak is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the pool.
   tip Inside: the Scarabs drop the shells, every Sandfury troll can drop Troll Temper, and Sergeant Bly carries the Divino-matic Rod.

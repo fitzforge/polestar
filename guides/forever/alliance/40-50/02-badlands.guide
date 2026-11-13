@@ -88,6 +88,7 @@ step The Uldaman dig
 step Uldaman
   when dungeon "Uldaman"
   when onquest 2398,1360
+  when level>=42.5
   zone Badlands
   tip Uldaman is a dungeon for a group of five, levels 41 to 51. Its door is a short way east of the dig.
   tip Inside: Baelog, one of the lost dwarves, takes The Lost Dwarves and gives The Hidden Chamber, for Prospector Stormpike; a chest holds Krom Stoutarm's Reclaimed Treasures. Deeper in, the Discs of Norgannon start The Platinum Discs, which go to High Explorer Magellas, and a Shattered Necklace, a drop inside, starts a quest for Talvash del Kissel in Ironforge.

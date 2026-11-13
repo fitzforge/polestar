@@ -276,6 +276,7 @@ step Rogue training
 
 step Warden Thelwater
   when dungeon "The Stockade"
+  when level>=25.9
   zone Stormwind City
   tip For your Stockade run: Warden Thelwater keeps the Stockade's gate, south of the Cathedral Square.
   accept 387                              -- Warden Thelwater
@@ -289,12 +290,14 @@ step Warden Thelwater
 step Warden Thelwater
   when dungeon "The Stockade"
   when turnedin 389
+  when level>=25.9
   zone Stormwind City
   accept 391                              -- Warden Thelwater: The Stockade Riots
 
 step The Stockade
   when dungeon "The Stockade"
   when onquest 387,377,391
+  when level>=25.9
   zone Stormwind City
   tip The Stockade is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is Warden Thelwater's, south of the Cathedral Square.
   tip Inside: the Defias prisoners, convicts and insurgents for Thelwater, Dextren Ward's hand for Millstipe, and Bazil Thredd at the far end.

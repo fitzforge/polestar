@@ -105,6 +105,7 @@ step Brohann Caskbelly
 
 step Brohann Caskbelly
   when dungeon "Sunken Temple"
+  when level>=45
   zone Stormwind City
   tip For your Sunken Temple run, in the Swamp of Sorrows in the Burning Steppes guide: Brohann sends you on into the temple.
   accept 1475                         -- Brohann Caskbelly

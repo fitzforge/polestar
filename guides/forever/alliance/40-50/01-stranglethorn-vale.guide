@@ -584,6 +584,7 @@ step Ironforge
 
 step Prospector Stormpike and Krom Stoutarm
   when dungeon "Uldaman"
+  when level>=42.4
   zone Ironforge
   tip For your Uldaman run in the Badlands, in the next guide: Prospector Stormpike and Krom Stoutarm stand in the Hall of Explorers, beside the Reclaimers' hall.
   accept 2398                         -- Prospector Stormpike

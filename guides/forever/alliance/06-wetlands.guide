@@ -157,6 +157,7 @@ step Menethil Harbor
 step James Halloran
   when dungeon "Excavation Site: Wetlands"
   when turnedin 484
+  when level>=27.5
   zone Wetlands
   tip For your Excavation Site: Wetlands run, later in this guide: James Halloran, by the docks, wants hides from the raptors inside.
   accept 98815                        -- James Halloran
@@ -288,6 +289,7 @@ step Rethiel the Greenwarden
 
 step Rethiel the Greenwarden
   when dungeon "Excavation Site: Wetlands"
+  when level>=28
   zone Wetlands
   tip For your Excavation Site: Wetlands run, on the way back west: Rethiel wants the root core of a Highland Horror inside.
   accept 95646                        -- Rethiel the Greenwarden
@@ -295,6 +297,7 @@ step Rethiel the Greenwarden
 step Excavation Site: Wetlands
   when dungeon "Excavation Site: Wetlands"
   when onquest 98815,95646
+  when level>=28
   zone Wetlands
   tip Excavation Site: Wetlands is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.
   tip Inside: the Thicket raptors and Shadetooth drop the hides for Halloran, a Highland Horror the root core for Rethiel. Saltspine, Shadetooth and the Relic Guardian are the bosses; the Relic Guardian drops a Titan Relic, which starts a quest for Prospector Whelgar.
@@ -607,12 +610,14 @@ step Lord Grayson Shadowbreaker
 
 step Shylamiir
   when dungeon "City of Dalaran"
+  when level>=29.3
   zone Stormwind City
   tip For your City of Dalaran run in Alterac, in the next guide: Shylamiir wants a Fel Infused Blossom from inside.
   accept 92456 npc 5502                   -- Shylamiir
 
 step High Sorcerer Andromath
   when dungeon "City of Dalaran"
+  when level>=29.3
   zone Stormwind City
   tip For the same run: High Sorcerer Andromath waits on the spiral walkway of the Wizard's Sanctum, the violet tower of the Mage Quarter, just past the door of the portal room.
   accept 92489 npc 5694                   -- High Sorcerer Andromath

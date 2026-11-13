@@ -246,6 +246,7 @@ step Ironforge
 
 step Gerrig Bonegrip
   when dungeon "Blackfathom Deeps"
+  when level>=19.9
   zone Ironforge
   tip For your Blackfathom Deeps run in Ashenvale: Gerrig Bonegrip sits in the Forlorn Cavern, a short walk from the Hall of Explorers.
   accept 971                                  -- Gerrig Bonegrip
@@ -453,8 +454,14 @@ step The Defias Traitor
 step Gryan Stoutmantle
   when turnedin 65
   when dungeon "The Deadmines"
-  tip Back north to Gryan Stoutmantle. For your Deadmines run he then sends you after Edwin VanCleef, and Scout Riell, beside him at the top of the tower, wants Red Silk Bandanas. Look for a group now if you have none yet.
+  tip Back north to Gryan Stoutmantle.
   turnin 155                                  -- Gryan Stoutmantle
+
+step Gryan Stoutmantle
+  when turnedin 65
+  when dungeon "The Deadmines"
+  when level>=19.4
+  tip For your Deadmines run he then sends you after Edwin VanCleef, and Scout Riell, beside him at the top of the tower, wants Red Silk Bandanas. Look for a group now if you have none yet.
   accept 166                                  -- Gryan Stoutmantle
   accept 214                                  -- Scout Riell, at the top of the tower
 
@@ -462,6 +469,7 @@ step The Deadmines
   when turnedin 65
   when dungeon "The Deadmines"
   when onquest 214,166
+  when level>=19.4
   zone Westfall
   tip The Deadmines is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its door is the mine below Moonbrook, where the traitor led you: the portal is at the far end of the mine's tunnels.
   tip Inside: the Defias drop the Red Silk Bandanas, and Edwin VanCleef waits on the ship at the end. Open the Unsent Letter he drops: its quest goes to Stormwind, where this guide hands it in.
@@ -578,6 +586,7 @@ step Baros Alexston
   when turnedin 373
   when !turnedin 389
   when !zone "Darkshore"
+  when level>=19.5
   zone Stormwind City
   tip For your Stockade run, later in Stormwind: keep it until then.
   accept 389                                  -- Baros Alexston: for Warden Thelwater, at the Stockade's gate
