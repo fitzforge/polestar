@@ -11840,3 +11840,18 @@ test(`${MULGORE}: Tauren Warriors and Shamans do their level-10 class quests on 
 		assert.ok(fixes.deliberate.pairs.some((p) => `${p.a}` === a && `${p.b}` === 'accept,97246'), `${a}: a record the build keeps`);
 	}
 });
+
+// Horde start audit (0.4.0): Durotar's last walk went Razor Hill -> Far Watch Post -> Orgrimmar only to hand in
+// Conscript of the Horde (840); Kargal Battlescar stands at the Barrens guide's first stop anyway. The Far Watch step
+// is now only for Warriors (Veteran Uzzek, 1505), and everyone else carries 840 to that stop.
+test('Durotar (Orc, Troll): only Warriors walk to Far Watch Post at the end of the guide', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const guide of DUROTARS) {
+		const list = goals(guide);
+		const hands = list.filter(({ goal }) => is('turnin', 840)(goal));
+		const last = hands[hands.length - 1];
+		assert.ok((last.step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(1505)), `${guide}: the last Far Watch stop is for whoever carries Veteran Uzzek`);
+		assert.ok(list.some(({ step, goal }) => step === last.step && is('turnin', 1505)(goal)), `${guide}: Uzzek takes 1505 on that stop`);
+		assert.ok(fixes.some((f) => f.at && f.at.quest === 840 && f.at.guide === guide.slice(0, -6) && f.when === 'onquest 1505'), `${guide}: a record the build keeps`);
+	}
+});

@@ -590,6 +590,7 @@ step Armored Scorpid
 
 step Far Watch Post
   when onquest 840
+  when onquest 1505
   zone The Barrens
   tip West from Razor Hill over the Southfury River bridge: Kargal Battlescar and Uzzek stand together at Far Watch Post above it. From there the road north through Durotar leads to Orgrimmar.
   turnin 840                          -- Kargal Battlescar

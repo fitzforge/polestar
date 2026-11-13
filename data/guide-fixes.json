@@ -7814,6 +7814,50 @@
 			"issue": 1867
 		},
 		{
+			"id": "h01-840-far-watch-warriors-orc",
+			"faction": "Horde",
+			"at": {
+				"quest": 840,
+				"goal": "turnin",
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"when": "onquest 1505",
+			"note": "Horde start audit (0.4.0, agreed with the Silverpine/Barrens slice): the last walk of Durotar went Razor Hill -> Far Watch Post -> Orgrimmar (+1,160 yd) only to hand Conscript of the Horde (840) to Kargal Battlescar, who stands at the Barrens guide's first stop anyway, where Crossroads Conscription (842) follows from him. Only Warriors, who hand Veteran Uzzek (1505) to Uzzek beside him and gather the Singed Scales on the road north, make the walk now; everyone else hands 840 in on that first Barrens stop.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): 5 of 9 people who reached Margoz walked to Far Watch Post before Orgrimmar for 840; 4 handed it in later or never"
+				},
+				{
+					"kind": "client",
+					"ref": "Kargal Battlescar (3337) 62.26,19.38 and Uzzek (5810) 61.38,21.12, Barrens; Razor Hill -> Far Watch -> Orgrimmar gate 2,285 yd vs 1,129 yd straight (map frames)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "h01-840-far-watch-warriors-troll",
+			"faction": "Horde",
+			"at": {
+				"quest": 840,
+				"goal": "turnin",
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"when": "onquest 1505",
+			"note": "Horde start audit (0.4.0, agreed with the Silverpine/Barrens slice): the last walk of Durotar went Razor Hill -> Far Watch Post -> Orgrimmar (+1,160 yd) only to hand Conscript of the Horde (840) to Kargal Battlescar, who stands at the Barrens guide's first stop anyway, where Crossroads Conscription (842) follows from him. Only Warriors, who hand Veteran Uzzek (1505) to Uzzek beside him and gather the Singed Scales on the road north, make the walk now; everyone else hands 840 in on that first Barrens stop.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): 5 of 9 people who reached Margoz walked to Far Watch Post before Orgrimmar for 840; 4 handed it in later or never"
+				},
+				{
+					"kind": "client",
+					"ref": "Kargal Battlescar (3337) 62.26,19.38 and Uzzek (5810) 61.38,21.12, Barrens; Razor Hill -> Far Watch -> Orgrimmar gate 2,285 yd vs 1,129 yd straight (map frames)"
+				}
+			],
+			"issue": 2025
+		},
+		{
 			"id": "1952-camping-97902-turnin",
 			"faction": "Horde",
 			"at": {
