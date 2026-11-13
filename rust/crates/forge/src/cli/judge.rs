@@ -13,7 +13,7 @@ use std::time::Instant;
 
 use forge_judge::honest::{self, HonestOpts, PackRun};
 use forge_judge::levels::SimLevels;
-use forge_judge::walk::{judge_walk, DumpLevels, JudgeOpts, LevelModel};
+use forge_judge::walk::{judge_walk, Ctx, DumpLevels, JudgeOpts, LevelModel};
 use serde_json::{json, Value};
 
 pub(super) const USAGE: &str = "usage: forge judge <pack dir> --faction F --race R [--class C] [--to <level>] [--sim <dir>] [--levels <file>]
@@ -80,6 +80,11 @@ fn run() -> Result<(), Fail> {
 	let pack = pack.ok_or_else(|| usage("a pack folder is required"))?;
 	let faction = faction.ok_or_else(|| usage("--faction horde|alliance is required"))?;
 	let race = race.ok_or_else(|| usage("--race <race> is required"))?;
+	let fac = forge_core::Faction::parse(&faction).ok_or_else(|| usage(format!("--faction {faction}: horde or alliance")))?;
+	let faction = fac.name();
+	let ctx = Ctx::new(faction, &race, None).map_err(|_| usage(format!("--race {race}: unknown race")))?;
+	// The simulator uses start labels (Undead), while Ctx uses race files (Scourge).
+	let race = forge_core::race_label(&ctx.race);
 	let root = match root {
 		Some(r) => r,
 		None => find_root(&pack).or_else(|| find_root(&std::env::current_dir().ok()?)).ok_or("no data/forever above the pack or here; pass --root")?,
@@ -91,7 +96,7 @@ fn run() -> Result<(), Fail> {
 	let kb = honest::load_kb(&root.join("data/local/kb/forever-kb.sqlite"))?;
 	let opts = if legacy { HonestOpts::legacy() } else { HonestOpts::default() };
 	// Classes as the data files name them (WARRIOR, DEATHKNIGHT).
-	let run = PackRun { filter: None, faction: Some(faction.clone()), race: Some(race.clone()), classes: cls.clone().map(|c| vec![c.to_uppercase().replace([' ', '-'], "")]) };
+	let run = PackRun { filter: None, faction: Some(faction.to_string()), race: Some(race.to_string()), classes: cls.clone().map(|c| vec![c.to_uppercase().replace([' ', '-'], "")]) };
 	let played = honest::play_pack(&pack, &gdata, kb.as_ref(), &run, &opts)?;
 	let honest_ms = t0.elapsed().as_secs_f64() * 1e3;
 
@@ -105,13 +110,12 @@ fn run() -> Result<(), Fail> {
 		}
 		None => {
 			let dir = sim.clone().unwrap_or_else(|| root.join("data/sim"));
-			let fac = forge_core::Faction::parse(&faction).ok_or_else(|| usage(format!("--faction {faction}: horde or alliance")))?;
 			match forge_sim::load_world(&dir, fac) {
 				Err(e) if sim.is_some() => return Err(e.into()),
 				Err(_) => None,
 				Ok(world) => {
 					let params: Option<Value> = std::fs::read(dir.join("params.json")).ok().and_then(|b| serde_json::from_slice(&b).ok());
-					Some(Box::new(SimLevels::new(&world, &race, params.as_ref())?))
+					Some(Box::new(SimLevels::new(&world, race, params.as_ref())?))
 				}
 			}
 		}
@@ -119,7 +123,7 @@ fn run() -> Result<(), Fail> {
 	let walk = match &lv {
 		None => None,
 		Some(lv) => {
-			let mut o = JudgeOpts::new(&pack, &faction, &race, cls.as_deref(), &root);
+			let mut o = JudgeOpts::new(&pack, faction, race, cls.as_deref(), &root);
 			o.data_dir = data_dir.clone();
 			o.to = to;
 			Some(judge_walk(&o, lv.as_ref())?)

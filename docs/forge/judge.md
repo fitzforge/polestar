@@ -244,7 +244,13 @@ forge judge out/guides/Orc --faction Horde --race Orc --root out/.forge/root --s
 ```
 
 The first argument is a guides folder (holding `forever/`). `--faction` and
-`--race` are required. Other flags:
+`--race` are required. Names are case-insensitive: `--faction alliance --race
+human` selects the same character as `Alliance` and `Human`. Factions also
+accept `a` and `h`; races accept labels such as `Night Elf` and `Scourge`
+(an alias for `Undead`). JSON reports use the canonical names. Unknown
+factions and races are usage errors, even when the walk is skipped.
+
+Other flags:
 
 | Flag | Meaning |
 |---|---|
