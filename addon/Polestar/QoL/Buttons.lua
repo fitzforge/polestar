@@ -1124,27 +1124,41 @@ end
 -- later name is tried only while nothing is targeted ("[noexists]"): the
 -- first living match is kept. A name that is not MacroSafeName never becomes
 -- a line. ping: a /ping line (Buttons.PingLine) after the names; mark: a /tm
--- line (Buttons.MarkLine) for the end. Names past MACRO_LIMIT are dropped
--- from the end; the preferred name, the ping and the mark stay.
-function Buttons.TargetMacro(list, preferred, mark, ping)
+-- line (Buttons.MarkLine) for the end. Optional actionFor(originalIndex)
+-- returns mark, ping for each name instead: consecutive equal actions share
+-- a block, and /stopmacro keeps a match from taking a later block's actions.
+-- Names past MACRO_LIMIT are dropped from the end with their actions.
+function Buttons.TargetMacro(list, preferred, mark, ping, actionFor)
 	local n = #list
 	if n == 0 then return nil end
 	local order = {}
 	for k = 0, n - 1 do
-		local name = list[(preferred - 1 + k) % n + 1]
-		if Buttons.MacroSafeName(name) then order[#order + 1] = name end
+		local i = (preferred - 1 + k) % n + 1
+		local name = list[i]
+		if Buttons.MacroSafeName(name) then
+			local m, p = mark, ping
+			if actionFor then m, p = actionFor(i) end
+			order[#order + 1] = { name = name, mark = m, ping = p }
+		end
 	end
 	local count = #order
 	if count == 0 then return nil end
-	local tail = (ping and ("\n" .. ping) or "") .. (mark and ("\n" .. mark) or "")
 	local text
 	repeat
 		local lines = { "/cleartarget [nocombat]" }
+		local first = true
 		for k = 1, count do
-			lines[#lines + 1] = (k == 1 and "/targetexact " or "/targetexact [noexists] ") .. order[k]
+			local entry, after = order[k], k < count and order[k + 1]
+			lines[#lines + 1] = (first and "/targetexact " or "/targetexact [noexists] ") .. entry.name
 			lines[#lines + 1] = "/cleartarget [dead]"
+			first = not after or entry.mark ~= after.mark or entry.ping ~= after.ping
+			if first then
+				if entry.ping then lines[#lines + 1] = entry.ping end
+				if entry.mark then lines[#lines + 1] = entry.mark end
+				if after then lines[#lines + 1] = "/stopmacro [exists]" end
+			end
 		end
-		text = concat(lines, "\n") .. tail
+		text = concat(lines, "\n")
 		count = count - 1
 	until #text <= MACRO_LIMIT or count == 0
 	return text
@@ -1169,6 +1183,20 @@ local target = { list = {}, verbs = {}, ids = {}, marks = {}, sig = nil, namesSi
 -- click tries first) takes: "npc" for an NPC goal's name, else "mob".
 local function targetKind(i)
 	return NPC_VERBS[target.verbs[i or target.cycle]] and "npc" or "mob"
+end
+
+-- A fallback can acquire a different kind from the preferred name. Match
+-- against the macro's applied snapshot: desired names may change in combat
+-- before its secure attributes can. A secret or unknown name keeps the
+-- applied preferred kind's best-effort cycle behavior.
+local function acquiredIndex(b)
+	local name = ns.Compat.Readable(UnitName and UnitName("target"))
+	if name then
+		for i = 1, b.aList and #b.aList or 0 do
+			if b.aList[i] == name then return i end
+		end
+	end
+	return b.aCycle or 1
 end
 
 -- Names seen in the world (the target, the mouseover, a nameplate) as an
@@ -1285,8 +1313,10 @@ local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
 		-- A mob is pinged for the group; an NPC goal's NPC stays where it is.
-		local kind = targetKind()
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
+		local text = Buttons.TargetMacro(list, target.cycle, nil, nil, function(i)
+			local kind = targetKind(i)
+			return Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil
+		end)
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
@@ -1590,8 +1620,8 @@ local STEP_MARK = { target = "mob", npc = "npc" }
 
 -- The mark the step key's next press puts on: in a "target" list, the kind
 -- of the name it tries first.
-local function stepKind()
-	if step.kind == "target" then return step.list[step.cycle] == step.npc and "npc" or "mob" end
+local function stepKind(i)
+	if step.kind == "target" then return step.list[i or step.cycle] == step.npc and "npc" or "mob" end
 	return STEP_MARK[step.kind]
 end
 
@@ -1599,8 +1629,10 @@ local function applyStep(b)
 	QoL.Secure("step", function()
 		local text, item
 		if step.kind == "target" then
-			local kind = stepKind()
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
+			text = Buttons.TargetMacro(step.list, step.cycle, nil, nil, function(i)
+				local kind = stepKind(i)
+				return Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil
+			end)
 		elseif step.kind == "npc" then
 			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
 		elseif step.kind == "item" then
@@ -1609,6 +1641,7 @@ local function applyStep(b)
 		b:SetAttribute("type", item and "item" or text and "macro" or nil)
 		b:SetAttribute("item", item)
 		b:SetAttribute("macrotext", text)
+		b.aList, b.aNpc, b.aKind, b.aCycle = step.list, step.npc, step.kind, step.cycle
 	end)
 end
 
@@ -1748,7 +1781,8 @@ local function refresh()
 	-- And the ping (Buttons.QuestPingLine), on or off.
 	mark = mark .. (Buttons.QuestPingLine() or "") .. "\n"
 	local namesSig = concat(list, "\n")
-	local sig = mark .. namesSig
+	-- The same name can change from an NPC goal to a mob goal in a new step.
+	local sig = mark .. namesSig .. "\n" .. (verbs and concat(verbs, "\n") or "")
 	if sig ~= target.sig then
 		target.sig = sig
 		local copy, cv, ci, cm = {}, {}, {}, {}
@@ -1855,7 +1889,7 @@ local function create()
 	targetButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
 		local n = #target.list
-		local kind = targetKind()
+		local kind = NPC_VERBS[self.aVerbs and self.aVerbs[acquiredIndex(self)]] and "npc" or "mob"
 		if n > 1 then target.cycle = target.cycle % n + 1 end
 		local marked = Buttons.AdvanceMark(kind)
 		if n > 1 and not marked then applyTarget(targetButton) end
@@ -1901,7 +1935,8 @@ local function create()
 		end
 		local n = #step.list
 		local names = step.kind == "target" and n > 1
-		local kind = stepKind()
+		local kind = STEP_MARK[self.aKind]
+		if self.aKind == "target" then kind = self.aList[acquiredIndex(self)] == self.aNpc and "npc" or "mob" end
 		if names then step.cycle = step.cycle % n + 1 end
 		local marked = Buttons.AdvanceMark(kind)
 		if names and not marked then applyStep(self) end

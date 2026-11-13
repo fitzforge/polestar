@@ -5365,6 +5365,24 @@ flight timer and the instance tracker are set under Quality of Life.
 
 ## QoL — quality-of-life helpers
 
+### Targeting fallbacks
+
+The Target button and step key can try NPC goals and While you're here mobs
+in one press. `Buttons.TargetMacro` accepts an optional fifth argument,
+`actionFor(originalIndex)`, returning that name's marker and ping commands.
+Consecutive names with the same commands share a block; after its actions,
+`/stopmacro [exists]` keeps a living match from reaching another block.
+This gives a fallback mob its mob icon and optional ping, and a fallback
+NPC its NPC icon without a ping. Four-argument callers retain one shared
+action block. Trimming to 255 bytes removes trailing names and rebuilds
+the blocks, keeping complete actions and the existing corpse clearing.
+
+After a press, the shared icon cycle uses the acquired target's readable
+name against the button's applied metadata. Desired step changes may be
+queued in combat while the old secure macro still runs. Missing, secret,
+or unmatched names fall back to the applied preferred kind. Neutral-NPC
+marking, group permissions, and secure updates retain their existing rules.
+
 ### Clickable objectives
 
 `qol.guideNameTarget` is off by default. Enabling it extends objective-row
